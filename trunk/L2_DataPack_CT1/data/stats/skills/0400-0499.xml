@@ -2,6 +2,14 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="400" levels="10" name="Tribunal" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Description(s):
+  
+  Use your collected sacred energy to provoke your enemies to attack
+  and instantly decrease their critical power at the same time.
+  An equipped sword or blunt weapon is required in order to use this skill.
+  Over-hit is possible. Power 457. Effect 3.
+-->
   <table name="#ench1Power"> 1290 1302 1313 1325 1336 1348 1359 1371 1382 1394 1405 1417 1428 1440 1451 1463 1474 1486 1497 1509 1520 1532 1543 1555 1566 1578 1589 1601 1612 1624 </table>
   <table name="#ench2MpConsume"> 74 73 72 70 69 68 67 65 64 63 62 60 59 58 57 55 54 53 51 50 49 48 46 45 44 43 41 40 39 38 </table>
   <table name="#mpConsume"> 55 59 62 63 66 68 70 72 74 76 </table>
@@ -31,9 +39,17 @@
   </for>
 </skill>
 <skill id="401" levels="10" name="Judgment" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Description(s):
+  
+  Use your collected dark energy to provoke your enemies
+  to attack and instantly decrease their crit-rate at the same time.
+  An equipped sword or blunt weapon is required in order to use this skill.
+  Over-hit is possible. Power 609. Effect 3.
+-->
   <table name="#ench1Power"> 1474 1487 1500 1513 1526 1540 1553 1566 1579 1592 1605 1619 1632 1645 1658 1671 1684 1698 1711 1724 1737 1750 1763 1777 1790 1803 1816 1829 1842 1856 </table>
   <table name="#ench2MpConsume"> 74 73 72 70 69 68 67 65 64 63 62 60 59 58 57 55 54 53 51 50 49 48 46 45 44 43 41 40 39 38 </table>
-  <table name="#mpConsume"> 55 59 62 63 66 68 70 72 74 76</table>
+  <table name="#mpConsume"> 55 59 62 63 66 68 70 72 74 76 </table>
   <table name="#power"> 733.0 837.0 909.0 984.0 1062.0 1140.0 1220.0 1301.0 1382.0 1461.0 </table>
   <table name="#cAtk"> 0.75 0.75 0.75 0.75 0.75 0.7 0.7 0.7 0.7 0.65 </table>
   <set name="weaponsAllowed" val="18444"/>
@@ -60,6 +76,13 @@
   </for>
 </skill>
 <skill id="402" levels="10" name="Arrest">
+ <skill id="402" levels="10" name="Arrest">
+<!--
+  Description(s):
+  
+  Provokes an enemy to attack and then temporarily puts them into a held state.
+  The target cannot be affected by any additional hold attacks while the effect lasts. 
+-->
   <table name="#mpConsume"> 25 27 28 29 30 31 32 33 34 34 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="80"/>
@@ -76,7 +99,13 @@
   </for>
 </skill>
 <skill id="403" levels="10" name="Shackle">
-  <table name="#mpConsume"> 25 27 28 29 30 31 32 33 34 34</table>
+<!--
+  Description(s):
+  
+  Provokes an enemy to attack and then temporarily puts them into a held state.
+  The target cannot be affected by any additional hold attacks while the effect lasts.
+-->
+  <table name="#mpConsume"> 25 27 28 29 30 31 32 33 34 34 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="power" val="80"/>
@@ -91,7 +120,13 @@
   </for>
 </skill>
 <skill id="404" levels="5" name="Mass Shackling">
-  <table name="#mpConsume"> 40 43 46 59 51</table>
+<!--
+  Description(s):
+  
+  Provokes nearby enemies to attack and then temporarily puts them into a held state.
+  Targets cannot be affected by any additional hold attacks while the effect lasts.
+-->
+  <table name="#mpConsume"> 40 43 46 59 51 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="200"/>
@@ -107,9 +142,14 @@
   </for>
 </skill>
 <skill id="405" levels="10" name="Banish Undead">
-  <table name="#mpConsume"> 50 53 55 58 59 61 63 65 67 68</table>
-  <table name="#itemConsumeCount"> 5 6 7 7 8 8 9 9 10 10</table>
-  <table name="#lethal2"> 5 9 13 17 21 25 29 33 37 41</table>
+<!--
+  Description(s):
+      The undead cower and flee as you reveal your divine nature.
+      A Lethal Strike is possible. Consumes 5 Soul Ore.
+-->
+  <table name="#mpConsume"> 50 53 55 58 59 61 63 65 67 68 </table>
+  <table name="#itemConsumeCount"> 5 6 7 7 8 8 9 9 10 10 </table>
+  <table name="#lethal2"> 5 9 13 17 21 25 29 33 37 41 </table>
   <set name="itemConsumeId" val="1785"/>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="mpConsume" val="#mpConsume"/>
@@ -128,6 +168,13 @@
   </for>
 </skill>
 <skill id="406" levels="3" name="Angelic Icon">
+<!--
+  Description(s):
+  
+  By the will of your God, your fighting ability with one-handed swords significantly increases.
+  While in use, the effects of HP regeneration magic significantly decreases.
+  This skill is only available when your HP is at 30% or lower. Effect 1.
+-->
   <table name="#Tab-pAtkSpd"> 1.10 1.20 1.30 </table>
   <table name="#Tab-runSpd"> 10 20 30 </table>
   <table name="#cAtk"> 1.33 1.66 2.0 </table>
@@ -168,9 +215,14 @@
   </for>
 </skill>
 <skill id="407" levels="10" name="Psycho Symphony">
-  <table name="#mpConsume"> 83 88 92 95 98 101 105 108 111 113</table>
-  <table name="#power"> 229.0 262.0 284.0 308.0 332.0 357.0 382.0 407.0 432.0 457.0</table>
-  <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74</table>
+<!--
+  Description(s):
+  
+  Instantly reduces the Speed, Atk. Spd., and Casting Spd. of all nearby enemies. Power 229. Effect 1.
+-->
+  <table name="#mpConsume"> 83 88 92 95 98 101 105 108 111 113 </table>
+  <table name="#power"> 229.0 262.0 284.0 308.0 332.0 357.0 382.0 407.0 432.0 457.0 </table>
+  <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="magicLvl" val="#magicLvl"/>
@@ -193,9 +245,15 @@
   </for>
 </skill>
 <skill id="408" levels="10" name="Demonic Blade Dance">
-  <table name="#mpConsume"> 83 88 92 95 98 101 105 108 111 113</table>
-  <table name="#power"> 229.0 262.0 284.0 308.0 332.0 357.0 382.0 407.0 432.0 457.0</table>
-  <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74</table>
+<!--
+  Description(s):
+ 
+  Instantly reduces the P. Atk. and M. Atk. of all nearby enemies.
+  You must be wielding dual swords in order to use this skill. Power 229. Effect 1.
+-->
+  <table name="#mpConsume"> 83 88 92 95 98 101 105 108 111 113 </table>
+  <table name="#power"> 229.0 262.0 284.0 308.0 332.0 357.0 382.0 407.0 432.0 457.0 </table>
+  <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="magicLvl" val="#magicLvl"/>
@@ -218,6 +276,13 @@
   </for>
 </skill>
 <skill id="409" levels="10" name="Critical Blow" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Description(s):
+ 
+  With an increased chance of success, you attempt an  extremely deadly attack on your foes.
+  A Lethal Strike is possible. An equipped dagger weapon is required to use this skill.
+  Power 1832. Effect 1.
+ -->
   <table name="#ench1Power"> 3685 3718 3751 3784 3817 3850 3883 3916 3949 3982 4014 4047 4080 4113 4146 4179 4212 4245 4278 4311 4343 4376 4409 4442 4475 4508 4541 4574 4607 4640 </table>
   <table name="#ench2MpConsume"> 74 73 72 70 69 68 67 65 64 63 62 60 59 58 57 55 54 53 51 50 49 48 46 45 44 43 41 40 39 38 </table>
   <table name="#mpConsume"> 55 59 62 63 66 68 70 72 74 76 </table>
@@ -239,14 +304,20 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
     <effect self="1" count="1" name="Buff" time="15" val="0">
+	  <!-- Confirmed trough private sources for IT/CT1 -->
       <mul order="0x10" stat="blowRate" val="1.4"/>
-      <!-- Must be confirmed -->
-      <mul order="0x10" stat="lethalRate" val="1.5"/>
+      <!-- Confirmed trough private sources for IT/CT1-->
+      <mul order="0x10" stat="lethalRate" val="1.38"/>
     </effect>
   </for>
 </skill>
 <skill id="410" levels="3" name="Mortal Strike">
-  <!-- This skill UP chance to make Lethal -->
+<!--
+  Description(s):
+  
+  Temporarily increases your chances of making a critical strike.
+  An equipped dagger weapon is required to use this skill. Effect 1.
+-->
   <table name="#mpConsume"> 27 31 34 </table>
   <table name="#lethalRate"> 1.3 1.6 1.9 </table>
   <set name="mpConsume" val="#mpConsume"/>
@@ -265,6 +336,12 @@
   </for>
 </skill>
 <skill id="411" levels="3" name="Stealth">
+<!--
+  Description(s):
+ 
+  You use the shadows, coverings and or your keen senses to temporarily avoid monsters' initial strikes.
+  While in effect, your fighting ability significantly decreases.
+-->
   <table name="#mpConsume"> 27 31 34 </table>
   <table name="#pAtk"> 0.55 0.55 0.55 </table>
   <table name="#accCombat"> 12 12 12 </table>
@@ -290,7 +367,13 @@
   </for>
 </skill>
 <skill id="412" levels="10" name="Sand Bomb">
-  <table name="#mpConsume"> 25 27 28 29 30 31 32 33 34 34</table>
+<!--
+  Description(s):
+ 
+  Explodes a cloud of sand onto your enemies and instantly reduces their line of sight (Accuracy)
+  making them look like utter buffoons. Effect 1.
+-->
+  <table name="#mpConsume"> 25 27 28 29 30 31 32 33 34 34 </table>
   <table name="#accCombat"> 6 6 6 6 6 9 9 9 9 12 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="80"/>
@@ -309,6 +392,13 @@
   </for>
 </skill>
 <skill id="413" levels="8" name="Rapid Fire">
+<!--
+  Description(s):
+ 
+  Temporarily increases your P. Atk. and Atk. Spd. when using a bow.
+  While in effect, your firing range decreases.
+  Obviously, an equipped bow is required to use this skill. Effect 1.
+-->
   <table name="#mpConsume"> 28 29 30 31 32 33 34 34 </table>
   <table name="#atk"> 62 67 73 78 83 88 94 100 </table>
   <set name="mpConsume" val="#mpConsume"/>
@@ -338,6 +428,13 @@
   </for>
 </skill>
 <skill id="414" levels="8" name="Dead Eye">
+<!--
+  Description(s):
+ 
+  Temporarily increases your Accuracy, P. Atk., and Critical Attack Power when using a bow.
+  While in effect, your Atk. Spd. decreases.
+  Obviously, an equipped bow is required to use this skill. Effect 1.
+-->
   <table name="#mpConsume"> 28 29 30 31 32 33 34 35 </table>
   <table name="#pAtk"> 124 134 145 155 166 177 188 199 </table>
   <table name="#Tab-accCombat"> 1 1 2 2 2 3 3 3 </table>
@@ -370,6 +467,11 @@
   </for>
 </skill>
 <skill id="415" levels="3" name="Spirit of Sagittarius">
+<!--
+  Description(s):
+ 
+  Temporarily decreases the MP consumption of a physical skill. Effect 2.
+-->
   <!-- Hawkeye, Silver Ranger, Phantom Ranger -->
   <table name="#mpConsume"> 27 31 34 </table>
   <table name="#MpConsumeRate"> 0.9 0.8 0.7 </table>
@@ -389,6 +491,11 @@
   </for>
 </skill>
 <skill id="416" levels="3" name="Blessing of Sagittarius">
+<!--
+  Description(s):
+ 
+  Temporarily decreases a physical skill's recovery time. Effect 2.
+-->
   <table name="#mpConsume"> 27 31 34 </table>
   <table name="#pReuseRate"> 0.9 0.8 0.7 </table>
   <set name="mpConsume" val="#mpConsume"/>
@@ -407,7 +514,12 @@
   </for>
 </skill>
 <skill id="417" levels="5" name="Pain of Sagittarius">
-  <table name="#hpConsume"> 318 343 366 387 407</table>
+<!--
+  Description(s):
+ 
+  Regenerates your MP by sacrificing your HP.
+-->
+  <table name="#hpConsume"> 318 343 366 387 407 </table>
   <table name="#power"> 35.0 38.0 41.0 43.0 45.0 </table>
   <set name="hpConsume" val="#hpConsume"/>
   <set name="power" val="#power"/>
@@ -422,6 +534,11 @@
   </for>
 </skill>
 <skill id="418" levels="3" name="Quiver of Holding">
+<!--
+  Description(s):
+ 
+  Increases your weight capacity.
+-->
   <table name="#rate"> 1.3 1.4 1.5 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -434,6 +551,11 @@
   </for>
 </skill>
 <skill id="419" levels="4" name="Summon Treasure Key">
+<!--
+  Description(s):
+ 
+  Summons Treasure Chest Keys. Summons 2-3 keys between grades 3 and 5. Consumes 2 Thief Keys.
+-->
   <table name="#mpConsume"> 122 159 183 204 </table>
   <table name="#itemConsumeCount"> 2 3 4 6 </table>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
@@ -448,12 +570,19 @@
   <set name="effectRange" val="-1"/>
 </skill>
 <skill id="420" levels="3" name="Zealot">
+<!--
+  Description(s):
+ 
+  By the will of a Guardian God, you instantly and significantly increase your fighting ability.
+  While in use, the effects of HP regeneration magic significantly decreases.
+  This skill is only available when your HP is at 30% or lower. Effect 1.
+-->
   <table name="#hpConsume"> 159 183 204 </table>
   <table name="#mpConsume"> 106 122 136 </table>
   <table name="#runSpd"> 10 20 30 </table>
   <table name="#pAtkSpd"> 1.1 1.2 1.3 </table>
   <table name="#rCrit"> 33 66 100 </table>
-  <table name="#cAtk"> 1.3 1.6 2.0 </table>
+  <table name="#cAtk"> 1.38 1.54 1.91 </table> <!-- Confirmed trough private sources - CT1 -->
   <set name="hpConsume" val="#hpConsume"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
@@ -474,6 +603,7 @@
       <add order="0x40" stat="runSpd" val="#runSpd"/>
       <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
       <mul order="0x30" stat="gainHp" val="0.5"/>
+	  <mul order="0x30" stat="cAtk" val="#cAtk"/> <!-- This has to be here to enable cAtk wich is present on CT1 -->
       <add order="0x40" stat="rCrit" val="#rCrit">
         <and>
           <using kind="Sword,Big Sword,Pole"/>
@@ -488,26 +618,33 @@
   </for>
 </skill>
 <skill id="421" levels="5" name="Fell Swoop">
+<!--
+  Description(s):
+ 
+  Temporarily increases the number of enemies affected by your spear attack.
+  An equipped spear is required to use this skill. Effect 1.
+-->
+  <table name="#pAtkRange"> 1.03 1.07 1.09 1.11 1.16 </table>
   <table name="#mpConsume"> 27 29 31 33 34 </table>
-  <!-- probably these values're incorrect -->
-  <table name="#atkCountMax"> 1 2 3 4 5 </table>
-  <set name="mpConsume" val="#mpConsume"/>
-  <set name="weaponsAllowed" val="64"/>
-  <set name="power" val="0.0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
-  <set name="reuseDelay" val="300000"/>
-  <set name="hitTime" val="2000"/>
+  <set name="mpConsume" val="#mpConsume" />
+  <set name="weaponsAllowed" val="64" />
+  <set name="reuseDelay" val="30000" />
+  <set name="hitTime" val="2000" />
+  <set name="target" val="TARGET_SELF" />
+  <set name="skillType" val="BUFF" />
+  <set name="operateType" val="OP_ACTIVE" />
   <for>
-    <effect count="1" name="Buff" time="60" val="0">
-      <add order="0x40" stat="atkCountMax" val="#atkCountMax"/>
-    </effect>
+	<effect count="1" name="Buff" time="60" val="0">
+		<mul order="0x40" stat="pAtkRange" val="#pAtkRange" />
+	</effect>
   </for>
 </skill>
 <skill id="422" levels="3" name="Polearm Accuracy">
+<!--
+  Description(s):
+ 
+  Increases your Accuracy when using a spear. While in use, MP is continuously consumed.
+-->
   <table name="#mpConsume"> 11 13 14 </table>
   <table name="#Tab-accCombat"> 2 3 4 </table>
   <set name="weaponsAllowed" val="64"/>
@@ -525,9 +662,15 @@
   </for>
 </skill>
 <skill id="423" levels="3" name="Infernal Form">
+<!--
+  Description(s):
+ 
+  Temporarily bestows a fire enchantment for all physical attacks and increases your resistance to fire. Effect 1.
+-->
   <table name="#mpConsume"> 27 31 34 </table>
-  <table name="#vuln"> 0.85 0.77 0.7 </table>
+  <table name="#vuln"> 0.8 0.65 0.53 </table> <!-- Vuln values were updated on lattest Chr, now matched and confirmed trough private sources - CT1 -->
   <table name="#stack"> 15 23 30 </table>
+  <table name="#pAtk"> 1.03 1.05 1.09 </table> <!-- This was missing -->
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -540,10 +683,16 @@
   <for>
     <effect count="1" name="Buff" time="120" val="0" stackOrder="#stack" stackType="MagicDefUpAtr">
       <mul order="0x30" stat="fireVuln" val="#vuln"/>
+	  <mul order="0x30" stat="pAtk" val="#pAtk"/> <!-- Adding to enable pAtk missing effect -->
     </effect>
   </for>
 </skill>
 <skill id="424" levels="3" name="War Frenzy">
+<!--
+  Description(s):
+ 
+  Increases your resistance to stun and sleep. MP is continuously consumed while the effect lasts.
+-->
   <table name="#mpConsume"> 13 14 15 </table>
   <table name="#vuln"> 0.6 0.4 0.2 </table>
   <set name="power" val="0.0"/>
@@ -560,6 +709,13 @@
   </for>
 </skill>
 <skill id="425" levels="1" name="Hawk Spirit Totem">
+<!--
+  Description(s):
+ 
+  The spirit of the great hawk possesses you, temporarily increasing Accuracy,
+  critical attack rate and critical attack power when using hand-to-hand combat weapons.
+  An equipped hand-to-hand combat weapon is required to use this skill.
+-->
   <set name="mpConsume" val="34"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -603,7 +759,7 @@
 <skill id="427" levels="1" name="Spell Force">
 <!--
   Description(s):
-      Transfers your strength to a party member. The effect can be cancelled if you incur damage.
+      Transfers your magical powers to a party member. The effect can be cancelled if you incur damage.
 -->
   <set name="mpInitialConsume" val="12"/>
   <set name="magicLvl" val="77"/>
@@ -672,7 +828,9 @@
 <skill id="430" levels="1" name="Master of Combat">
 <!--
   Description(s):
-      Increases the attack strength of a sword, blunt weapon, spear, dual-bladed or hand-to-hand combat weapon. Also increases maximum CP.
+     
+  Increases the attack strength of a sword, blunt weapon, spear, dual-bladed or hand-to-hand combat weapon.
+  Also increases maximum CP.
 -->
   <set name="weaponsAllowed" val="20300"/>
   <set name="power" val="0.0"/>
@@ -697,7 +855,8 @@
 <skill id="431" levels="1" name="Archery">
 <!--
   Description(s):
-      Increases attack strength and maximum attack range while using a bow.
+  
+  Increases attack strength and maximum attack range while using a bow.
 -->
   <set name="weaponsAllowed" val="32"/>
   <set name="power" val="0.0"/>
@@ -710,7 +869,7 @@
     <add order="0x40" stat="pAtk" val="200">
       <using kind="Bow"/>
     </add>
-    <add order="0x40" stat="pAtkRange" val="300">
+    <add order="0x40" stat="pAtkRange" val="100"> <!-- Add 100, not 300. Verified on CT1, and confirmed trough private sources -->
       <using kind="Bow"/>
     </add>
   </for>
@@ -756,7 +915,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
-  <for>
+  <for> <!-- Offial sources says that its 25% of resistance on retail, needs reverify -->
     <mul order="0x30" stat="fireVuln" val="0.97"/>
     <mul order="0x30" stat="windVuln" val="0.97"/>
     <mul order="0x30" stat="waterVuln" val="0.97"/>
@@ -789,8 +948,9 @@
   Needs to be finished.
 
   Description(s):
-      Increases P. Def. when equipped with Robe/Light Armor and increases Casting Speed. Decreases MP consumption for magic skills.
--->
+  
+  Increases P. Def. when equipped with Robe/Light Armor and increases Casting Speed. Decreases MP consumption for magic skills.
+  -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -814,9 +974,8 @@
         </not>
       </and>
     </mul>
-<!-- need to add MP consumption decrease and check whether armor restriction applies to it as well
-    <mul order="0x30" stat="MagicalMpConsumeRate" val="?"/>
--->
+<!-- need to add MP consumption decrease and check whether armor restriction applies to it as well --> <!-- Confirmed consume rate is -5% -->
+    <mul order="0x30" stat="MagicalMpConsumeRate" val="0.95" />
   </for>
 </skill>
 <skill id="436" levels="1" name="Divine Lore">
@@ -847,7 +1006,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="hitTime" val="2500"/>
-  <set name="coolTime" val="167" />
+  <set name="coolTime" val="167"/>
   <set name="reuseDelay" val="480000"/>
   <set name="aggroPoints" val="523"/>
   <for>
@@ -856,6 +1015,10 @@
   </for>
 </skill>
 <skill id="438" levels="1" name="Soul of the Phoenix">
+<!--
+  Description(s):
+      Revives target from death and restores them to full health, retaining all buff/debuff effects except for Noblesse Blessing and Lucky Charm. Consumes 1 Blood of the Phoenix.
+-->
   <set name="magicLvl" val="79"/>
   <set name="mpConsume" val="250"/>
   <set name="itemConsumeId" val="8873"/>
@@ -987,6 +1150,10 @@
   </for>
 </skill>
 <skill id="444" levels="1" name="Festive Sweeper">
+<!--
+  Description(s):
+      When used on nearby corpses that are in a Spoil state, extra items may be obtained.
+-->
 <!-- by Sephiroth -->
   <set name="mpConsume" val="12"/>
   <set name="skillRadius" val="85"/>
@@ -1010,7 +1177,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="false"/>
   <set name="reuseDelay" val="300000"/>
-  <set name="hitTime" val="1000"/>
+  <set name="hitTime" val="2000"/> <!-- Corrected hit time to match with CT1.5 -->
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -1102,7 +1269,7 @@
 -->
   <table name="#mpConsume"> 58 62 65 69 </table>
   <table name="#itemConsumeCount"> 10 11 12 13 </table>
-  <table name="#magicLvl"> 62 66 70 74 </table> <!-- guessed -->
+  <table name="#magicLevel">56 60 64 68</table> <!-- Corrected matching with CT1 -->
   <set name="mpConsume" val="#mpConsume"/>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="itemConsumeId" val="1458"/>
@@ -1125,27 +1292,19 @@
 </skill>
 <skill id="450" levels="10" name="Banish Seraph">
 <!--
-
   Description(s):
-      Lvl 1 - Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 5 Soul Ores.
-      Lvl 2 - Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 6 Soul Ores.
-      Lvl 3 - Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 7 Soul Ores.
-      Lvl 4 - Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 7 Soul Ores.
-      Lvl 5 - Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 8 Soul Ores.
-      Lvl 6 - Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 8 Soul Ores.
-      Lvl 7 - Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 9 Soul Ores.
-      Lvl 8 - Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 9 Soul Ores.
-      Lvl 9 - Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 10 Soul Ores.
-      Lvl 10 - Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 10 Soul Ores.
--->
-  <table name="#mpConsume"> 50 53 55 58 59 61 63 65 67 68</table>
-  <table name="#itemConsumeCount"> 5 6 7 7 8 8 9 9 10 10</table>
-  <table name="#lethal2"> 5 9 13 17 21 25 29 33 37 41</table>
+      Lvl 1-10 Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 5-10 Soul Ores.
+  -->
+  <table name="#mpConsume"> 50 53 55 58 59 61 63 65 67 68 </table>
+  <table name="#itemConsumeCount"> 5 6 7 7 8 8 9 9 10 10 </table>
+  <table name="#lethal2"> 5 9 13 17 21 25 29 33 37 41 </table>
+  <table name="#magicLevel">55 58 60 62 64 66 68 70 72 74 </table> <!-- Added missing magiclvl, Confirmed trough private sources - CT1 -->
   <set name="itemConsumeId" val="1785"/>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="mpConsume" val="#mpConsume"/>
+  <set name="magicLevel" val="#magicLevel" />
   <set name="power" val="40"/>
-  <set name="reuseDelay" val="10000"/>
+  <set name="reuseDelay" val="20000"/>
   <set name="hitTime" val="2000"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="FEAR"/>
@@ -1154,7 +1313,7 @@
   <set name="castRange" val="150"/>
   <set name="effectRange" val="550"/>
   <cond msg="Banish Seraph cannot be used due to unsuitable terms.">
-  <target race_id="8"/>
+	<target race_id="8"/>
   </cond>
   <for>
     <effect count="5" name="Fear" time="3" val="0"/>
@@ -1191,15 +1350,12 @@
   </for>
 </skill>
 <skill id="452" levels="5" name="Shock Stomp">
-<!--
+ <!--
   Needs to be finished.
 
   Description(s):
-      Lvl 1 - Temporarily shocks nearby enemies, canceling their targets. Usable when equipped with a spear.
-      Lvl 2 - Temporarily shocks nearby enemies, canceling their targets. Usable when equipped with a spear.
-      Lvl 3 - Temporarily shocks nearby enemies, canceling their targets. Usable when equipped with a spear.
-      Lvl 4 - Temporarily shocks nearby enemies, canceling their targets. Usable when equipped with a spear.
-      Lvl 5 - Temporarily shocks nearby enemies, canceling their targets. Usable when equipped with a spear.
+  
+   Lvl 1 - 5 Temporarily shocks nearby enemies, canceling their targets. Usable when equipped with a spear.
 -->
   <table name="#magicLvl"> 55 60 64 68 72 </table>
   <table name="#mpConsume"> 55 55 55 55 55 </table>
@@ -1552,7 +1708,7 @@
   Description(s):
       Increases M. Def.
 -->
-  <table name="#Tab-mDef"> 19 20 22 23 24 26 27 28 30 31 32 35 36 37 40 42 43 44 46 47 49 51 52 54 56 57 59 61 63 64 66 68 70 72 74 76 78 80 82 84 86 88 91 93 95 97 99 102 104 106 108 110 112 115 117</table>
+  <table name="#Tab-mDef"> 19 20 22 23 24 26 27 28 30 31 32 35 36 37 40 42 43 44 46 47 49 51 52 54 56 57 59 61 63 64 66 68 70 72 74 76 78 80 82 84 86 88 91 93 95 97 99 102 104 106 108 110 112 115 117 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1568,9 +1724,9 @@
   Description(s):
       Absorbs a soul. x or more Exp is needed to absorb a soul. Maximum of x souls can be absorbed.
 -->
-  <table name="#Max-Souls"> 5 7 9 10 12 14 16 18 20 21 22 23 24 25 26 27 28 29 30 31 32 33 35</table>
-  <table name="#Exp"> 73 147 220 294 385 486 614 777 960 1109 1269 1440 1622 1815 2018 2160 2306 2457 2613 2774 2940 3110 3285</table>
-  <table name="#Critic-Chance"> 0 0 0 15 15 15 15 15 20 20 20 20 20 20 25 25 25 25 25 25 30 30 30</table>
+  <table name="#Max-Souls"> 5 7 9 10 12 14 16 18 20 21 22 23 24 25 26 27 28 29 30 31 32 33 35 </table>
+  <table name="#Exp"> 73 147 220 294 385 486 614 777 960 1109 1269 1440 1622 1815 2018 2160 2306 2457 2613 2774 2940 3110 3285 </table>
+  <table name="#Critic-Chance"> 0 0 0 15 15 15 15 15 20 20 20 20 20 20 25 25 25 25 25 25 30 30 30 </table>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -1597,12 +1753,16 @@
   <set name="overHit" val="true"/>
   <set name="SSBoost" val="2.0"/>
   <set name="reuseDelay" val="13000"/>
-  <set name="hitTime" val="1500"/>
+  <set name="hitTime" val="1200"/> <!-- Corrected hittime from 1500 to 1200, thats confirmed trough private sources, matched with CT1 -->
   <set name="coolTime" val="720" />
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
+  <!-- Added missing weapon condition -->
+  <cond msg="A sword or blunt weapon has to be equipped to use this skill">
+	<using kind="Sword,Blunt,Rapier" />
+  </cond>
   <for>
   </for>
 </skill>
@@ -1748,8 +1908,9 @@
 </skill>
 <skill id="476" levels="15" name="Dark Strike">
 <!--
-  Done by theREALizzy - need to check values:
-      Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 90-326.
+  Description(s):
+  Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill.
+  Over-hit is possible.
 -->
   <table name="#power">
   90 97 105 123 132
@@ -1759,10 +1920,7 @@
   17 18 18 19 20
   20 22 23 24 25
   25 26 28 29 30 </table>
-  <table name="#magicLvl">
-  20 21 22 24 25
-  26 28 29 30 32
-  33 34 36 37 38 </table>
+  <table name="#magicLvl"> 20 21 22 24 25 26 28 29 30 32 33 34 36 37 38 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="power" val="#power"/>
@@ -1774,41 +1932,24 @@
   <set name="hitTime" val="1500"/>
   <set name="coolTime" val="720" />
   <set name="castRange" val="40"/>
+  <set name="overHit" val="true" />
   <set name="effectRange" val="400"/>
   <set name="soulConsumeCount" val="1"/>
+  <cond msg="A sword, blunt, or ancient sword weapon has to be equipped to use this skill">
+	<using kind="Sword,Blunt,Ancient Sword" />
+  </cond>
   <for>
   </for>
 </skill>
 <skill id="477" levels="37" name="Dark Smash">
 <!-- Done by theREALizzy - Need retail accuracy check. -->
-  <table name="#power">
-  615 654 694 737 781
-  827 875 924 976 1030
-  1085 1143 1202 1264 1327
-  1392 1459 1527 1597 1669
-  1743 1817 1894 1971 2050
-  2130 2211 2293 2375 2459
-  2542 2626 2710 2794 2878
-  2961 3044
-  </table>
-  <table name="#mpConsume">
-  32 33 34 34 35
-  36 37 38 40 41
-  42 43 44 44 45
-  46 48 49 50 51
-  52 53 54 54 55
-  56 57 58 59 60
-  61 62 63 64 65
-  66 67</table>
-  <table name="#magicLvl">
-  20 21 22 24 25
-  26 28 29 30 32
-  33 34 36 37 38
-  39 40 41 42 43
-  44 45 46 47 48
-  49 50 51 52 53
-  54 55 56 57 58
-  59 60</table>
+    <table name="#power"> 615 654 694 737 781 827 875 924 976 1030 1085 1143 1202 1264 1327 1392 1459 1527 1597 1669 1743 1817 1894 1971 2050 2130 2211 2293 2375 2459 2542 2626 2710 2794 2878 2961 3044 </table>
+  <table name="#mpConsume"> 32 33 34 34 35 36 37 38 40 41 42 43 44 44 45 46 48 49 50 51 52 53 54 54 55 56 57 58 59 60 61 62 63 64 65 66 67 </table>
+  <table name="#magicLvl"> 20 21 22 24 25 26 28 29 30 32 33 34 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 </table>
+  <table name="#ench1Power">  3230 3252 3274 3296 3318 3340 3362 3384 3405 3427 3449 3471 3493 3515 3537 3559 3581 3603 3625 3647 3669 3691 3713 3735 3757 3779 3801 3823 3845 3867 </table>
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <table name="#ench2MpConsume"> 66 65 64 63 62 61 60 59 58 57 56 55 54 54 53 52 51 50 49 48 46 45 44 44 43 42 41 40 38 37 </table>
+  <set name="weaponsAllowed" val="32768"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="power" val="#power"/>
@@ -1823,6 +1964,9 @@
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
   <set name="soulConsumeCount" val="1"/>
+  <cond msg="An ancient sword weapon has to be equipped to use this skill">
+	<using kind="Ancient Sword" />
+  </cond>
   <for>
   </for>
 </skill>
@@ -1934,7 +2078,7 @@
 </skill>
 <skill id="483" levels="2" name="Sword Shield" enchantLevels1="30" enchantLevels2="30">
   <!-- Needs retail value checks for lvl2-->
-  <table name="#runSpd"> 0.7 0.7 </table>
+  <table name="#runSpd"> 0.6 0.6 </table>
   <table name="#pDef"> 1600 1800 </table>
   <table name="#mpConsume"> 16 24 </table>
   <set name="mpConsume" val="#mpConsume"/>
@@ -1974,6 +2118,9 @@
   <set name="soulConsumeCount" val="1"/>
   <set name="flyType" val="CHARGE"/>
   <set name="flyRadius" val="300"/>
+  <cond msg="An ancient sword or short sword must be equipped to use this skill">
+		<using kind="Ancient Sword,Sword" />			
+  </cond>
   <for>
     <effect count="1" name="EnemyCharge" time="1" val="0"/>
   </for>
@@ -2023,8 +2170,8 @@
   Description(s):
      Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 179-651.
 -->
-  <table name="#mpConsume"> 76 78 79 83 86 90 97 101 105 112 112 116 125 129 134</table>
-  <table name="#power"> 179 194 210 245 264 285 330 354 381 438 469 502 573 611 651</table>
+  <table name="#mpConsume"> 76 78 79 83 86 90 97 101 105 112 112 116 125 129 134 </table>
+  <table name="#power"> 179 194 210 245 264 285 330 354 381 438 469 502 573 611 651 </table>
   <table name="#magicLvl"> 20 21 22 24 25 26 28 29 30 32 33 34 36 37 38 </table>
   <set name="weaponsAllowed" val="65536"/>
   <set name="mpConsume" val="#mpConsume"/>
@@ -2053,9 +2200,8 @@
   <set name="target" val="TARGET_PARTY_MEMBER"/>
   <set name="skillType" val="SHIFT_TARGET"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="skillRadius" val="150"/>
   <set name="castRange" val="40"/>
-  <set name="effectRange" val="-1"/>
+  <set name="effectRange" val="400"/>
   <set name="soulConsumeCount" val="3"/>
   <cond msg="An equipped crossbow is required to use this skill.">
     <using kind="Crossbow"/>
@@ -2063,28 +2209,55 @@
   <for>
   </for>
 </skill>
-<skill id="490" levels="2" name="Fast Shot">
-<!-- Missing Enchant Values, and needs retail accuracy check -->
-  <table name="#atkspd"> 75 125 </table>
+ <skill id="490" levels="2" name="Fast Shot" enchantLevels1="30" enchantLevels2="30" >
+  <!--
+  Description(s): 
+  
+  Temporarily increases your crossbow attack speed.
+  Consumes 1 Soul.
+  -->
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720 1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
+  <table name="#ench2MpConsume"> 24 24 23 23 22 22 21 21 21 20 20 19 19 18 18 18 17 17 16 16 15 15 15 14 14 13 13 12 12 12 </table>
+  <table name="#ench2MpConsume_Init"> 5 5 5 5 5 5 5 5 5 5 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 </table>
   <table name="#mpConsume"> 14 25 </table>
-  <set name="weaponsAllowed" val="65536"/>
+  <table name="#mpConsume_Init"> 4 5 </table>
+  <table name="#patkspd"> 75 125 </table>
+  <table name="#aggro"> 303 549 </table>
   <set name="mpConsume" val="#mpConsume"/>
+  <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="power" val="0.0"/>
-  <set name="hitTime" val="2500"/>
   <set name="target" val="TARGET_SELF"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="hitTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/>
   <set name="soulConsumeCount" val="1"/>
+  <cond msg="Crossbow required.">
+    <using kind="Crossbow"/>
+  </cond>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+  <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
   <for>
-    <add order="0x40" stat="pAtkRange" val="#atkspd">
-      <and>
+    <effect count="1" name="Buff" time="1200" val="0">
+      <add order="0x40" stat="pAtkSpd" val="#patkspd">
         <using kind="Crossbow"/>
-      </and>
-    </add>
+      </add>
+    </effect>
   </for>
-</skill>
+  <enchant1for>
+    <effect count="1" name="Buff" time="#ench1time" val="0">
+      <mul order="0x30" stat="pAtkSpd" val="1.12">
+        <using kind="crossbow"/>
+      </mul>
+    </effect>
+  </enchant1for>
+ </skill>
 <skill id="491" levels="1" name="Not In Use">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -2093,29 +2266,22 @@
   <for>
   </for>
 </skill>
-<skill id="492" levels="25" name="Spread Wing" enchantLevels1="30" enchantLevels2="30">
-<!--
-  Description:
-  Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power
-  722.
--->
-  <table name="#mpConsume_Init">
-    17 17 17 17 18 18 19 19 20 20
-    20 20 21 21 22 22 22 23 23 23
-    24 24 24 25 25
-  </table>
-  <table name="#mpConsume">
-    38 38 39 41 41 43 43 44 45 46
-    48 48 48 49 50 51 52 52 54 55
-    55 56 57 57 58
-  </table>
+ <skill id="492" levels="25" name="Spread Wing" enchantLevels1="30" enchantLevels2="30" >
+  <!--
+  Description(s):
+  Use your wing to attack hostile enemies behind you. Consumes 1 Soul. 
+  Over-hit is possible. Power 722
+   -->
+  <table name="#mpConsume_Init"> 17 17 17 17 18 18 19 19 20 20 20 20 21 21 22 22 22 23 23 23 24 24 24 25 25 </table>
+  <table name="#mpConsume"> 38 38 39 41 41 43 43 44 45 46 48 48 48 49 50 51 52 52 54 55 55 56 57 57 58 </table>
+  <table name="#power"> 722 758 796 835 875 916 959 1002 1046 1091 1136 1183 1230 1278 1327 1376 1425 1475 1525 1576 1626 1677 1727 1777 1827 </table>
+  <table name="#magicLvl"> 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <table name="#ench1Power"> 1938 1951 1964 1978 1991 2004 2017 2030 2043 2057 2070 2083 2096 2109 2123 2136 2149 2162 2175 2189 2202 2215 2228 2241 2255 2268 2281 2294 2307 2320 </table>
+  <table name="#ench2MpConsume"> 82 81 80 79 79 78 77 76 75 75 74 73 72 71 71 70 69 68 67 67 66 65 64 63 63 62 61 60 59 59 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <table name="#power">
-    722 758 796 835 875 916 959 1002 1046 1091
-    1136 1183 1230 1278 1327 1376 1425 1475 1525 1576
-    1626 1677 1727 1777 1827
-  </table>
+  <set name="magicLvl" val="#magicLvl"/>
   <set name="power" val="#power"/>
   <set name="hitTime" val="1080"/>
   <set name="overHit" val="true"/>
@@ -2127,18 +2293,22 @@
   <set name="effectRange" val="-1"/>
   <set name="reuseDelay" val="36000"/>
   <set name="soulConsumeCount" val="1"/>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant1 name="power" val="#ench1Power"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
   </for>
-</skill>
+ </skill>
 <skill id="493" levels="28" name="Storm Assault">
 <!--
   Description(s):
      Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 618-1827.
 -->
-  <table name="#mpConsume"> 51 52 54 55 55 56 58 59 61 62 63 65 66 68 68 69 70 72 73 74 75 77 78 79 80 81 82 83</table>
-  <table name="#power"> 618 651 686 722 758 796 835 875 916 959 1002 1046 1091 1136 1183 1230 1278 1327 1376 1425 1475 1525 1576 1626 1677 1727 1777 1827</table>
-  <table name="#magicLvl"> 46 47 48 49 50 51 52 53 54 55 56 57 58 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75</table>
-  <table name="#castRange">400 400 400 400 400 400 400 400 400 400 400 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500</table>
+  <table name="#mpConsume"> 51 52 54 55 55 56 58 59 61 62 63 65 66 68 68 69 70 72 73 74 75 77 78 79 80 81 82 83 </table>
+  <table name="#power"> 618 651 686 722 758 796 835 875 916 959 1002 1046 1091 1136 1183 1230 1278 1327 1376 1425 1475 1525 1576 1626 1677 1727 1777 1827 </table>
+  <table name="#magicLvl"> 46 47 48 49 50 51 52 53 54 55 56 57 58 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 </table>
+  <table name="#castRange"> 400 400 400 400 400 400 400 400 400 400 400 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 </table>
   <set name="weaponsAllowed" val="32768"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
@@ -2155,6 +2325,9 @@
   <set name="effectRange" val="900"/>
   <set name="soulConsumeCount" val="3"/>
   <set name="flyType" val="CHARGE"/>
+  <cond msg="An equipped ancient sword weapon is required to use this skill">
+	<using kind="Ancient Sword" />
+  </cond>
   <for>
   </for>
 </skill>
@@ -2191,6 +2364,9 @@
   <set name="reuseDelay" val="36000"/>
   <set name="soulConsumeCount" val="1"/>
   <set name="flyType" val="CHARGE"/>
+  <cond msg="An equipped ancient sword weapon is required to use this skill">
+	<using kind="Ancient Sword" />
+  </cond>
   <for>
     <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
@@ -2223,6 +2399,9 @@
   <set name="soulConsumeCount" val="1"/>
   <set name="effectType" val="BLEED"/>
   <set name="effectLevel" val="#effectLevel"/>
+  <cond msg="An equipped ancient sword weapon is required to use this skill">
+			<using kind="Ancient Sword" />
+  </cond>
   <for>
     <!-- retail value: 13 17 22 27 31 34/sec; stat update every 5 units (3 1/3 sec) -->
     <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding"/>
@@ -2233,9 +2412,9 @@
   Description(s):
      Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 656-2283.
 -->
-  <table name="#mpConsume"> 47 48 49 51 52 54 55 55 56 58 59 61 62 63 65 66 68 68 69 70 72 73 74 75 77 78 79 80 81 82 83</table>
-  <table name="#power"> 656 693 732 773 814 857 902 948 995 1044 1094 1145 1198 1252 1307 1363 1420 1479 1538 1598 1658 1720 1782 1844 1907 1970 2033 2096 2158 2221 2283</table>
-  <table name="#magicLvl">46 47 48 49 50 51 52 53 54 55 56 57 58 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75</table>
+  <table name="#mpConsume"> 47 48 49 51 52 54 55 55 56 58 59 61 62 63 65 66 68 68 69 70 72 73 74 75 77 78 79 80 81 82 83 </table>
+  <table name="#power"> 656 693 732 773 814 857 902 948 995 1044 1094 1145 1198 1252 1307 1363 1420 1479 1538 1598 1658 1720 1782 1844 1907 1970 2033 2096 2158 2221 2283 </table>
+  <table name="#magicLvl">46 47 48 49 50 51 52 53 54 55 56 57 58 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 </table>
   <set name="weaponsAllowed" val="32768"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
@@ -2249,8 +2428,8 @@
   <set name="coolTime" val="720" />
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
+  <set name="castRange" val="40"/> <!-- Corrected to match with skills effect, verified -->
+  <set name="effectRange" val="400"/> <!-- Corrected to match with skills effect, verified -->
   <set name="soulConsumeCount" val="2"/>
   <for>
   </for>
@@ -2260,9 +2439,9 @@
   Description(s):
      Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 4558-7635.
 -->
-  <table name="#mpConsume"> 66 68 68 69 70 72 73 74 75 77 78 79 80 81 82 83</table>
-  <table name="#power"> 4558 4750 4944 5142 5342 5545 5751 5958 6166 6376 6586 6797 7008 7218 7427 7635</table>
-  <table name="#magicLvl"> 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75</table>
+  <table name="#mpConsume"> 66 68 68 69 70 72 73 74 75 77 78 79 80 81 82 83 </table>
+  <table name="#power"> 4558 4750 4944 5142 5342 5545 5751 5958 6166 6376 6586 6797 7008 7218 7427 7635 </table>
+  <table name="#magicLvl"> 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 </table>
   <set name="weaponsAllowed" val="32768"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
@@ -2315,8 +2494,8 @@
   Description(s):
      Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 1-3.
 -->
-  <table name="#mpConsume"> 16 22 29</table>
-  <table name="#vuln"> 0.5 0.4 0.3</table>
+  <table name="#mpConsume"> 16 22 29 </table>
+  <table name="#vuln"> 0.5 0.4 0.3 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>

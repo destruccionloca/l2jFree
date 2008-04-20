@@ -1356,3 +1356,61 @@ UPDATE `armor` SET `classes` = '17,51,52,98,115,116' WHERE `item_id` = 9406;
 UPDATE `armor` SET `classes` = '127,128,129,131,132,133' WHERE `item_id` = 9407;
 UPDATE `armor` SET `classes` = '130,134' WHERE `item_id` = 9408;
 UPDATE `armor` SET `classes` = '135,136' WHERE `item_id` = 10169;
+
+
+-- Agathion Corrections (made on separate batch due decimal mysql syntaxis diff)
+DELETE FROM armor WHERE item_id = 9589;
+DELETE FROM armor WHERE item_id = 9590;
+DELETE FROM armor WHERE item_id = 9591;
+DELETE FROM armor WHERE item_id = 9592;
+DELETE FROM armor WHERE item_id = 9605;
+DELETE FROM armor WHERE item_id = 9606;
+DELETE FROM armor WHERE item_id = 9607;
+DELETE FROM armor WHERE item_id = 9608;
+DELETE FROM armor WHERE item_id = 9609;
+DELETE FROM armor WHERE item_id = 9610;
+DELETE FROM armor WHERE item_id = 9611;
+DELETE FROM armor WHERE item_id = 9612;
+DELETE FROM armor WHERE item_id = 9613;
+DELETE FROM armor WHERE item_id = 9614;
+DELETE FROM armor WHERE item_id = 9615;
+DELETE FROM armor WHERE item_id = 9909;
+DELETE FROM armor WHERE item_id = 10018;
+DELETE FROM armor WHERE item_id = 10139;
+DELETE FROM armor WHERE item_id = 10209;
+DELETE FROM armor WHERE item_id = 10210;
+
+-- Iron Bronze Steel and Mithril Bracelets
+INSERT INTO `armor` VALUES 
+(9589, 'Iron Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'c', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0, -1, -1, -1),
+(9590, 'Bronze Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'b', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0, -1, -1, -1),
+(9591, 'Steel Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'a', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0, -1, -1, -1),
+(9592, 'Mithril Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 's', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0, -1, -1, -1);
+
+
+-- Agathion Seal Bracelet
+INSERT INTO `armor` VALUES 
+('9909', 'Agathion Seal Bracelet', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '500', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3361,3267', '1,1', '-1', '-1', '-1'),
+('9605', 'Agathion Seal Bracelet - Rainbow Clan Hall', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3269,3267', '1,1', '-1', '-1', '-1'),
+('9606', 'Agathion Seal Bracelet - Wild Beast Reserve', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3270,3267', '1,1', '-1', '-1', '-1'),
+('9607', 'Agathion Seal Bracelet - Gludio', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
+('9608', 'Agathion Seal Bracelet - Dion', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
+('9609', 'Agathion Seal Bracelet - Giran', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
+('9610', 'Agathion Seal Bracelet - Oren', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
+('9611', 'Agathion Seal Bracelet - Aden', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '0', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
+('9612', 'Agathion Seal Bracelet - Innadril', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
+('9613', 'Agathion Seal Bracelet - Goddard', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
+('9614', 'Agathion Seal Bracelet - Rune', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
+('9615', 'Agathion Seal Bracelet - Schuttgart', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1');
+-- Agathion Fortress
+INSERT INTO `armor` VALUES 
+('10018', 'Agathion Seal Bracelet - Fortress', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3361,3267', '1,1', '-1', '-1', '-1');
+
+-- Agathion Bracelet
+INSERT INTO `armor` VALUES 
+('10139', 'Agathion Bracelet', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '500', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3269,3267', '1,1', '-1', '-1', '-1');
+
+-- Enchanced Bracelets
+INSERT INTO `armor` VALUES
+(10209, 'Enhanced Steel Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'a', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0, -1, -1, -1),
+(10210, 'Enhanced Mithril Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 's', 0, -1, 0, 0, 120, 0, 0, 'true', 'true', 'true', 'true', 0, 0, -1, -1, -1);
