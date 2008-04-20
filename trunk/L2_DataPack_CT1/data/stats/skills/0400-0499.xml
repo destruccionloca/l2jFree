@@ -2199,6 +2199,7 @@
   <set name="target" val="TARGET_PARTY_MEMBER"/>
   <set name="skillType" val="SHIFT_TARGET"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="skillRadius" val="150"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
   <set name="soulConsumeCount" val="3"/>
