@@ -1359,7 +1359,7 @@
 <skill id="355" levels="1" name="Focus Death">
   <set name="mpConsume" val="36"/>
   <set name="effectPoint" val="669"/>
-  <set name="magicLevel" val="78"/>
+  <set name="magicLvl" val="78"/>
   <set name="weaponsAllowed" val="16"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="reuseDelay" val="120000"/>
@@ -1389,7 +1389,7 @@
 <skill id="356" levels="1" name="Focus Chance">
   <set name="mpConsume" val="36"/>
   <set name="effectPoint" val="669"/>
-  <set name="magicLevel" val="78"/>
+  <set name="magicLvl" val="78"/>
   <set name="weaponsAllowed" val="16"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="reuseDelay" val="120000"/>
@@ -1421,7 +1421,7 @@
 <skill id="357" levels="1" name="Focus Power">
   <set name="mpConsume" val="36"/>
   <set name="effectPoint" val="669"/>
-  <set name="magicLevel" val="78"/>
+  <set name="magicLvl" val="78"/>
   <set name="weaponsAllowed" val="16"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="reuseDelay" val="120000"/>

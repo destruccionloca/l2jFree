@@ -1268,9 +1268,9 @@
 -->
   <table name="#mpConsume"> 58 62 65 69 </table>
   <table name="#itemConsumeCount"> 10 11 12 13 </table>
-  <table name="#magicLevel">56 60 64 68</table> <!-- Corrected matching with CT1 -->
+  <table name="#magicLvl">56 60 64 68</table> <!-- Corrected matching with CT1 -->
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="magicLvl" val="#magicLevel"/>
+  <set name="magicLvl" val="#magicLvl"/>
   <set name="itemConsumeId" val="1458"/>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="power" val="0.0"/>
@@ -1297,11 +1297,11 @@
   <table name="#mpConsume"> 50 53 55 58 59 61 63 65 67 68 </table>
   <table name="#itemConsumeCount"> 5 6 7 7 8 8 9 9 10 10 </table>
   <table name="#lethal2"> 5 9 13 17 21 25 29 33 37 41 </table>
-  <table name="#magicLevel">55 58 60 62 64 66 68 70 72 74 </table> <!-- Added missing magiclvl, Confirmed trough private sources - CT1 -->
+  <table name="#magicLvl">55 58 60 62 64 66 68 70 72 74 </table> <!-- Added missing magiclvl, Confirmed trough private sources - CT1 -->
   <set name="itemConsumeId" val="1785"/>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="magicLevel" val="#magicLevel" />
+  <set name="magicLvl" val="#magicLvl" />
   <set name="power" val="40"/>
   <set name="reuseDelay" val="20000"/>
   <set name="hitTime" val="2000"/>
