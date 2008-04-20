@@ -8393,7 +8393,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             item = getInventory().getItemByItemId(itemId);
 
-            if (item != null && !isInOlympiadMode())
+            if (item != null)
             {
                 if (magic)
                 {
