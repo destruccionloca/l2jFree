@@ -28,14 +28,18 @@ class valakas(JQuest):
         st.exitQuest(1)
         return "Conditions are not right to enter to Lair of Valakas."
     elif npcId == 31540 :    # Klein
-      if st.getQuestItemsCount(7267) > 0 :    # Check Floating Stone
-        st.takeItems(7267,1)
-        player.teleToLocation(183831,-115457,-3296)
-        st.set("ok","1")
-      else :
+      if ValakasManager.getInstance().isEnableEnterToLair():
+        if st.getQuestItemsCount(7267) > 0 :    # Check Floating Stone
+          st.takeItems(7267,1)
+          player.teleToLocation(183831,-115457,-3296)
+          st.set("ok","1")
+        else :
+          st.exitQuest(1)
+          return "<html><body>Klein:<br>You do not have the Floating Stone. Go get one and then come back to me.</body></html>"
+      else:
         st.exitQuest(1)
-        return "<html><body>Klein:<br>You do not have the Floating Stone. Go get one and then come back to me.</body></html>"
-    return
+        return "<html><body>Heart of Volcano:<br><br>Valakas is already awake!<br>You may not enter the Lair of Valakas.<br></body></html>"
+      return
 
   def onKill (self,npc,player,isPet):
     st = player.getQuestState("valakas")
