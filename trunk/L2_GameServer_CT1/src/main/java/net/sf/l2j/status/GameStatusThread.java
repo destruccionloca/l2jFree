@@ -52,6 +52,8 @@ import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.Manager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
+import net.sf.l2j.gameserver.model.GMAudit;
+import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Multisell;
@@ -67,10 +69,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
 import net.sf.l2j.gameserver.util.Util;
@@ -89,7 +93,7 @@ import org.apache.commons.logging.LogFactory;
 public class GameStatusThread extends Thread
 {
 	private static final Log	_log	= LogFactory.getLog(GameStatusThread.class.getName());
-    	private static String gmname = null; 
+		private static String gmname = null; 
 
 	private Socket				_cSocket;
 
@@ -226,7 +230,7 @@ public class GameStatusThread extends Thread
 							int x = 0;
 							while(rs.next()) 
 							{
-									x++;
+								x++;
 							}
 							if(x != 1) 
 							{
@@ -238,7 +242,9 @@ public class GameStatusThread extends Thread
 							{
 								_print.println("Welcome, "+gmname);
 							}
-						} catch (Exception e) {
+						}
+						catch (Exception e)
+						{
 							_print.println("Error, disconnected...");
 							_print.flush();
 							_cSocket.close();
@@ -284,25 +290,28 @@ public class GameStatusThread extends Thread
 				if (_usrCommand.equals("help"))
 				{
 					_print.println("The following is a list of all available commands: ");
-					_print.println("help                - shows this help.");
-					_print.println("status              - displays basic server statistics.");
-					_print.println("printmemusage       - displays memory amounts in JVM.");
-					_print.println("performance         - shows server performance statistics.");
-					_print.println("purge               - removes finished threads from thread pools.");
-					_print.println("gc                  - forced garbage collection.");
-					_print.println("announce <text>     - announces <text> in game.");
+					_print.println("help				- shows this help.");
+					_print.println("status			  - displays basic server statistics.");
+					_print.println("printmemusage	   - displays memory amounts in JVM.");
+					_print.println("performance		 - shows server performance statistics.");
+					_print.println("purge			   - removes finished threads from thread pools.");
+					_print.println("gc				  - forced garbage collection.");
+					_print.println("announce <text>	 - announces <text> in game.");
 					_print.println("msg <nick> <text>   - Sends a whisper to char <nick> with <text>.");
-					_print.println("gmchat <text>       - Sends a message to all GMs with <text>.");
-					_print.println("gmlist              - lists all gms online.");
-					_print.println("kick                - kick player <name> from server.");
-					_print.println("shutdown <time>     - shuts down server in <time> seconds.");
-					_print.println("restart <time>      - restarts down server in <time> seconds.");
-					_print.println("abort               - aborts shutdown/restart.");
+					_print.println("gmchat <text>	   - Sends a message to all GMs with <text>.");
+					_print.println("gmlist			  - lists all gms online.");
+					_print.println("kick				- kick player <name> from server.");
+					_print.println("shutdown <time>	 - shuts down server in <time> seconds.");
+					_print.println("restart <time>	  - restarts down server in <time> seconds.");
+					_print.println("abort			   - aborts shutdown/restart.");
 					_print.println("give <player> <itemid> <amount>");
-					_print.println("extreload <name>    - reload and initializes the named extension or all if used without argument");
-					_print.println("extinit <name>      - initilizes the named extension or all if used without argument");
-					_print.println("extunload <name>    - unload the named extension or all if used without argument");
-					_print.println("debug <cmd>         - executes the debug command (see 'help debug').");
+					_print.println("enchant <player> <itemType> <enchant> (itemType: 1 - Helmet, 2 - Chest, 3 - Gloves, 4 - Feet, "+
+								"5 - Legs, 6 - Right Hand, 7 - Left Hand, 8 - Left Ear, 9 - Right Ear , 10 - Left Finger, 11 - Right Finger, "+
+								"12- Necklace, 13 - Underwear, 14 - Back, 0 - No Enchant)");
+					_print.println("extreload <name>	- reload and initializes the named extension or all if used without argument");
+					_print.println("extinit <name>	  - initilizes the named extension or all if used without argument");
+					_print.println("extunload <name>	- unload the named extension or all if used without argument");
+					_print.println("debug <cmd>		 - executes the debug command (see 'help debug').");
 					_print.println("jail <player> [time]");
 					_print.println("unjail <player>");
 					_print.println("reload <...>");
@@ -312,15 +321,15 @@ public class GameStatusThread extends Thread
 						_print.println("ircc <command>  	- sends a command to irc");
 						_print.println("ircm <target ><msg> - sends a message to irc");
 					}
-					_print.println("quit                - closes telnet session.");
+					_print.println("quit				- closes telnet session.");
 				}
 				else if (_usrCommand.equals("help debug"))
 				{
 					_print.println("The following is a list of all available debug commands: ");
-					_print.println("decay               - prints info about the DecayManager");
-					_print.println("PacketTP            - prints info about the General Packet ThreadPool");
-					_print.println("IOPacketTP          - prints info about the I/O Packet ThreadPool");
-					_print.println("GeneralTP           - prints info about the General ThreadPool");
+					_print.println("decay			   - prints info about the DecayManager");
+					_print.println("PacketTP			- prints info about the General Packet ThreadPool");
+					_print.println("IOPacketTP		  - prints info about the I/O Packet ThreadPool");
+					_print.println("GeneralTP		   - prints info about the General ThreadPool");
 				}
 				else if (_usrCommand.equals("status"))
 				{
@@ -372,7 +381,7 @@ public class GameStatusThread extends Thread
 					_print.println("Server Status: ");
 					_print.println("  --->  Player Count: " + playerCount + "/" + max);
 					_print.println("  +-->  Object Count: " + objectCount);
-					_print.println("  +-->      AI Count: " + AICount);
+					_print.println("  +-->	  AI Count: " + AICount);
 					_print.println("  +.... L2Item(Void): " + itemVoidCount);
 					_print.println("  +.......... L2Item: " + itemCount);
 					_print.println("  +....... L2Monster: " + monsterCount);
@@ -384,8 +393,8 @@ public class GameStatusThread extends Thread
 					_print.println("  +.......... L2Door: " + doorCount);
 					_print.println("  --->   Ingame Time: " + gameTime());
 					_print.println("  ---> Server Uptime: " + getUptime(_uptime));
-					_print.println("  --->      GM Count: " + getOnlineGMS());
-					_print.println("  --->       Threads: " + Thread.activeCount());
+					_print.println("  --->	  GM Count: " + getOnlineGMS());
+					_print.println("  --->	   Threads: " + Thread.activeCount());
 					_print.println("  RAM Used: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576)); // 1024
 																																			// *
 																																			// 1024
@@ -430,7 +439,7 @@ public class GameStatusThread extends Thread
 					_print.println("#########################");
 					_print.println("# Garbage collecting... #");
 					System.gc();
-					_print.println("# Ready...              #");
+					_print.println("# Ready...			  #");
 					_print.println("#########################");
 					_print.println("");
 					for (String line : Util.getMemUsage())
@@ -607,6 +616,85 @@ public class GameStatusThread extends Thread
 							player.sendPacket(sm);
 							_print.println("ok");
 						}
+					}
+					catch(Exception e)
+					{
+
+					}
+				}
+				else if (_usrCommand.startsWith("enchant"))
+				{
+					StringTokenizer st = new StringTokenizer(_usrCommand.substring(8), " ");
+					int enchant = 0, itemType = 0;
+
+					try
+					{
+						L2PcInstance player = L2World.getInstance().getPlayer(st.nextToken());
+						itemType = Integer.parseInt(st.nextToken());
+						enchant = Integer.parseInt(st.nextToken());
+						
+						switch(itemType)
+						{
+							case 1:
+								itemType = Inventory.PAPERDOLL_HEAD;
+								break;
+							case 2:	
+								itemType = Inventory.PAPERDOLL_CHEST;
+								break;
+							case 3:	
+								itemType = Inventory.PAPERDOLL_GLOVES;
+								break;
+							case 4:	
+								itemType = Inventory.PAPERDOLL_FEET;
+								break;
+							case 5:	
+								itemType = Inventory.PAPERDOLL_LEGS;
+								break;
+							case 6:	
+								itemType = Inventory.PAPERDOLL_RHAND;
+								break;
+							case 7:	
+								itemType = Inventory.PAPERDOLL_LHAND;
+								break;
+							case 8:	
+								itemType = Inventory.PAPERDOLL_LEAR;
+								break;
+							case 9:	
+								itemType = Inventory.PAPERDOLL_REAR;
+								break;
+							case 10: 	
+								itemType = Inventory.PAPERDOLL_LFINGER;
+								break;
+							case 11:	
+								itemType = Inventory.PAPERDOLL_RFINGER;
+								break;
+							case 12:	
+								itemType = Inventory.PAPERDOLL_NECK;
+								break;
+							case 13:	
+								itemType = Inventory.PAPERDOLL_UNDER;
+								break;
+							case 14: 	
+								itemType = Inventory.PAPERDOLL_BACK;
+								break;
+							default: 
+								itemType = 0;
+						}
+											 
+						if (enchant > 65535)
+							enchant = 65535;
+						else if (enchant < 0)
+							enchant = 0;
+						
+						boolean success = false;
+						
+						if(player != null && itemType > 0)
+						{
+							success = setEnchant(_cSocket, player, enchant, itemType);
+							if (success)_print.println("Item enchanted successfully.");
+						}
+						else if (!success)
+							_print.println("Item failed to enchant.");
 					}
 					catch (Exception e)
 					{
@@ -1146,6 +1234,69 @@ public class GameStatusThread extends Thread
 		{
 			_log.error(e.getMessage(), e);
 		}
+	}
+
+	private boolean setEnchant(Socket gm, L2PcInstance activeChar, int ench, int armorType)
+	{
+		// get the target
+		L2Object target = activeChar;
+		L2PcInstance player = null;
+		
+		if (target instanceof L2PcInstance)
+		{
+			player = (L2PcInstance) target;
+		}
+		else
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			return false;
+		}
+
+		// now we need to find the equipped weapon of the targeted character...
+		int curEnchant = 0; // display purposes only
+		L2ItemInstance itemInstance = null;
+
+		// only attempt to enchant if there is a weapon equipped
+		L2ItemInstance parmorInstance = player.getInventory().getPaperdollItem(armorType);
+		if (parmorInstance != null && parmorInstance.getLocationSlot() == armorType)
+		{
+			itemInstance = parmorInstance;
+		} else
+		{
+			// for bows/crossbows and double handed weapons
+			parmorInstance = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
+			if (parmorInstance != null && parmorInstance.getLocationSlot() == Inventory.PAPERDOLL_LRHAND)
+				itemInstance = parmorInstance;
+		}
+
+		if (itemInstance != null)
+		{
+			curEnchant = itemInstance.getEnchantLevel();
+
+			// set enchant value
+			player.getInventory().unEquipItemInSlotAndRecord(armorType);
+			itemInstance.setEnchantLevel(ench);
+			player.getInventory().equipItemAndRecord(itemInstance);
+
+			// send packets
+			InventoryUpdate iu = new InventoryUpdate();
+			iu.addModifiedItem(itemInstance);
+			player.sendPacket(iu);
+			player.broadcastPacket(new CharInfo(player));
+			player.sendPacket(new UserInfo(player));
+
+			// informations
+			activeChar.sendMessage("Changed enchantment of " + player.getName() + "'s "
+				+ itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench + ".");
+			player.sendMessage("Admin has changed the enchantment of your "
+				+ itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench + ".");
+
+			String IP = gm.getInetAddress().getHostAddress();
+			// log
+			GMAudit.auditGMAction(IP, "telnet-enchant", player.getName(), itemInstance.getItem().getName() + "(" + itemInstance.getObjectId() + ")" + " from " + curEnchant + " to " + ench);
+			return true;
+		}
+		return false;
 	}
 
 	private void jailOfflinePlayer(String name, int delay)

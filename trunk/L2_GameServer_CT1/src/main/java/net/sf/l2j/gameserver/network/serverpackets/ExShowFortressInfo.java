@@ -14,6 +14,16 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
+import java.util.List;
+
+import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.instancemanager.FortManager;
+import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.entity.Fort;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  *
  * @author  KenM
@@ -21,6 +31,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 public class ExShowFortressInfo extends L2GameServerPacket
 {
     private static final String S_FE_15_EX_SHOW_FORTRESS_INFO = "[S] FE:15 ExShowFortressInfo";
+    private static final Log _log = LogFactory.getLog(ExShowFortressInfo.class.getName());
 
     /**
      * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
@@ -39,6 +50,32 @@ public class ExShowFortressInfo extends L2GameServerPacket
     {
         writeC(0xfe);
         writeH(0x15);
-        writeD(0x00); // list size
+        List<Fort> forts = FortManager.getInstance().getForts();
+        writeD(forts.size());
+        for (Fort fort : forts)
+        {
+            writeD(fort.getFortId());
+            if (fort.getOwnerId() > 0)
+            {
+                L2Clan owner = ClanTable.getInstance().getClan(fort.getOwnerId());
+                if (owner != null)
+                    writeS(owner.getName());
+                else
+                {
+                    _log.warn("Fort owner with no name! Fort: " + fort.getName() + " has an OwnerId = " + fort.getOwnerId() + " who does not have a  name!");
+                    writeS("");
+               }
+            }
+            else
+                writeS("");
+            
+            if ((fort.getSiege().getIsScheduled()) || (fort.getSiege().getIsInProgress()))
+                writeD(1);
+            else
+                writeD(0);
+            
+            // Time of possession
+            writeD(fort.getOwnedTime());
+        }
     }
 }

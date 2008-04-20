@@ -18,7 +18,11 @@ import java.util.Map;
 
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.entity.Castle;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -26,7 +30,9 @@ import net.sf.l2j.gameserver.model.entity.Castle;
  */
 public class ExShowCastleInfo extends L2GameServerPacket
 {
-     private static final String S_FE_14_EX_SHOW_CASTLE_INFO = "[S] FE:14 ExShowFortressInfo";
+    private static final String S_FE_14_EX_SHOW_CASTLE_INFO = "[S] FE:14 ExShowFortressInfo";
+    private static final Log _log = LogFactory.getLog(ExShowCastleInfo.class.getName());
+
     /**
      * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
      */
@@ -49,9 +55,21 @@ public class ExShowCastleInfo extends L2GameServerPacket
         for (Castle castle : castles.values())
         {
             writeD(castle.getCastleId());
-            writeS(castle.getOwnerId() <= 0 ? "" : ClanTable.getInstance().getClan(castle.getOwnerId()).getName()); // owner clan name
+            if (castle.getOwnerId() > 0)
+            {
+                L2Clan owner = ClanTable.getInstance().getClan(castle.getOwnerId());
+                if (owner != null)
+                    writeS(owner.getName());
+                else
+                {
+                    _log.warn("Castle owner with no name! Castle: " + castle.getName() + " has an OwnerId = " + castle.getOwnerId() + " who does not have a  name!");
+                    writeS("");
+                }
+            }
+            else
+                writeS("");
             writeD(castle.getTaxPercent());
-            writeD((int) (castle.getSiege().getSiegeDate().getTimeInMillis()/1000));
+            writeD((int)(castle.getSiege().getSiegeDate().getTimeInMillis()/1000));
         }
     }
 }
