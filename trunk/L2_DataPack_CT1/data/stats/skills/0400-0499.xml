@@ -76,7 +76,6 @@
   </for>
 </skill>
 <skill id="402" levels="10" name="Arrest">
- <skill id="402" levels="10" name="Arrest">
 <!--
   Description(s):
   
@@ -1271,7 +1270,7 @@
   <table name="#itemConsumeCount"> 10 11 12 13 </table>
   <table name="#magicLevel">56 60 64 68</table> <!-- Corrected matching with CT1 -->
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="magicLvl" val="#magicLvl"/>
+  <set name="magicLvl" val="#magicLevel"/>
   <set name="itemConsumeId" val="1458"/>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="power" val="0.0"/>
