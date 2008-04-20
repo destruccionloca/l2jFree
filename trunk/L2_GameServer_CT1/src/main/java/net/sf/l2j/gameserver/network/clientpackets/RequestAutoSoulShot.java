@@ -98,16 +98,6 @@ public class RequestAutoSoulShot extends L2GameClientPacket
                                     && (shotType == activeChar.getActiveWeaponItem().getCrystalType()
                                     || (shotType == L2Item.CRYSTAL_S && activeChar.getActiveWeaponItem().getCrystalType() == L2Item.CRYSTAL_S80)))
                             {
-                                if(((_itemId >= 3947 && _itemId <= 3952) || (_itemId >= 2509 && _itemId <= 2514) || (_itemId >= 1463 && _itemId <= 1467)) && activeChar.isInOlympiadMode())
-                                {
-                                    SystemMessage sm = new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
-                                    sm.addString(item.getItemName());
-                                    activeChar.sendPacket(sm);
-                                    sm = null;
-                                    activeChar.sendMessage("During Olympiad you cant automate the Soulshots");
-                                }
-                                else
-                                {
                                     activeChar.addAutoSoulShot(_itemId);
                                     ExAutoSoulShot atk = new ExAutoSoulShot(_itemId, _type);
                                     activeChar.sendPacket(atk);
@@ -119,7 +109,6 @@ public class RequestAutoSoulShot extends L2GameClientPacket
                                     sm = null;
                                 
                                     activeChar.rechargeAutoSoulShot(true, true, false);
-                                }
                             }
                             else
                             {
