@@ -63,15 +63,16 @@ public class DimensionalRift
 		party.setDimensionalRift(this);
 		for(L2PcInstance p : party.getPartyMembers())
 		{
-			QuestState qs_old = p.getQuestState("RiftQuest");
-			if (qs_old != null)
-				qs_old.exitQuest(true);
 			Quest riftQuest = QuestManager.getInstance().getQuest(635);
 			if (riftQuest != null)
 			{
-				QuestState qs = riftQuest.newQuestState(p);
-				qs.set("cond", "1");
-				qs.playSound("ItemSound.quest_accept");
+				QuestState qs = p.getQuestState("RiftQuest");
+				if (qs == null)
+				{
+					qs = riftQuest.newQuestState(p);
+					qs.set("cond", "1");
+					qs.playSound("ItemSound.quest_accept");
+				}
 			}
 			p.teleToLocation(coords[0], coords[1], coords[2]);
 		}
