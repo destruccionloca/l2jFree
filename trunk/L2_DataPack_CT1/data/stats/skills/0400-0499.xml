@@ -1935,7 +1935,7 @@
   <set name="effectRange" val="400"/>
   <set name="soulConsumeCount" val="1"/>
   <cond msg="A sword, blunt, or ancient sword weapon has to be equipped to use this skill">
-	<using kind="Sword,Blunt,Ancient Sword" />
+    <using kind="Sword,Blunt,Ancient" />
   </cond>
   <for>
   </for>
@@ -1964,7 +1964,7 @@
   <set name="effectRange" val="400"/>
   <set name="soulConsumeCount" val="1"/>
   <cond msg="An ancient sword weapon has to be equipped to use this skill">
-	<using kind="Ancient Sword" />
+    <using kind="Ancient"/>
   </cond>
   <for>
   </for>
@@ -2326,7 +2326,7 @@
   <set name="soulConsumeCount" val="3"/>
   <set name="flyType" val="CHARGE"/>
   <cond msg="An equipped ancient sword weapon is required to use this skill">
-	<using kind="Ancient Sword" />
+    <using kind="Ancient"/>
   </cond>
   <for>
   </for>
@@ -2365,7 +2365,7 @@
   <set name="soulConsumeCount" val="1"/>
   <set name="flyType" val="CHARGE"/>
   <cond msg="An equipped ancient sword weapon is required to use this skill">
-	<using kind="Ancient Sword" />
+    <using kind="Ancient"/>
   </cond>
   <for>
     <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
@@ -2400,7 +2400,7 @@
   <set name="effectType" val="BLEED"/>
   <set name="effectLevel" val="#effectLevel"/>
   <cond msg="An equipped ancient sword weapon is required to use this skill">
-			<using kind="Ancient Sword" />
+    <using kind="Ancient"/>
   </cond>
   <for>
     <!-- retail value: 13 17 22 27 31 34/sec; stat update every 5 units (3 1/3 sec) -->
