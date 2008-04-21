@@ -358,6 +358,9 @@ public class UseItem extends L2GameClientPacket
 				return;
 			}
 
+			if(!activeChar.isHero() && !activeChar.isGM() && item.isHeroItem() && Config.ALT_STRICT_HERO_SYSTEM)
+				return;
+
 			// Equip or unEquip
 			boolean isEquiped = item.isEquipped();
 			SystemMessage sm = null;
