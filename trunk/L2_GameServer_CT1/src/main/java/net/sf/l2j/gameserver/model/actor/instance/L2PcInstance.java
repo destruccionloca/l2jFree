@@ -1187,7 +1187,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         
         // prevent player to disconnect when pet is in combat
-        if (getPet() != null && !isBetrayed() && (getPet() instanceof L2PetInstance))
+        if (getPet() != null && !getPet().isBetrayed() && (getPet() instanceof L2PetInstance))
         {
             L2PetInstance pet = (L2PetInstance)getPet();
 
@@ -6360,7 +6360,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (Config.ALT_RECOMMEND) restoreRecom();
 
         // Retrieve from the database the recipe book of this L2PcInstance.
-        if (!isSubClassActive()) restoreRecipeBook();
+        //if (!isSubClassActive())
+        restoreRecipeBook();
     }
 
 	/**
@@ -6381,7 +6382,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private void storeRecipeBook()
     {
         // If the player is on a sub-class don't even attempt to store a recipe book.
-        if (isSubClassActive()) return;
+        //if (isSubClassActive()) return;
         if (getCommonRecipeBook().length == 0 && getDwarvenRecipeBook().length == 0) return;
 
         Connection con = null;
@@ -9548,12 +9549,12 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (isSubClassActive())
         {
-            _dwarvenRecipeBook.clear();
-            _commonRecipeBook.clear();
+            //_dwarvenRecipeBook.clear();
+            //_commonRecipeBook.clear();
         }
         else
         {
-            restoreRecipeBook();
+            //restoreRecipeBook();
         }
         // Restore any Death Penalty Buff
         restoreDeathPenaltyBuffLevel();
@@ -9953,14 +9954,17 @@ public final class L2PcInstance extends L2PlayableInstance
         if((Pet && getPet() != null && getPet().isDead()) || (!Pet && isDead()))
         {
             _reviveRequested = 1;
+            int restoreExp = 0;
             if (isPhoenixBlessed())
                 _revivePower = 100;
             else
                 _revivePower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), Reviver.getStat().getWIT()); 
+
+            restoreExp = (int)Math.round((getExpBeforeDeath() - getExp()) * _revivePower / 100);
             _revivePet = Pet;
 
             ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST.getId());
-            sendPacket(dlg.addString(Reviver.getName()).addString(((int) _revivePower)+" %"));
+            sendPacket(dlg.addString(Reviver.getName()).addString(""+restoreExp));
         }
     }
    
@@ -11500,7 +11504,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		increaseSouls(1);
 
 		// Npc -> Player absorb animation
-		sendPacket(new ExSpawnEmitter(getObjectId(),target.getObjectId()));
+		if (target != null)
+			broadcastPacket(new ExSpawnEmitter(getObjectId(),target.getObjectId()), 500);
 	}
 
 	/**

@@ -41,14 +41,10 @@ final class EffectBetray extends L2Effect
 	@Override
 	public void onStart()
 	{
-		if (getEffected() != null && getEffector() instanceof L2PcInstance
-				&& getEffected() instanceof L2Summon)
+		if (getEffected() != null && getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
 		{
-			L2PcInstance targetOwner = null;
-			targetOwner = ((L2Summon) getEffected()).getOwner();
-			getEffected().getAI().setIntention(
-					CtrlIntention.AI_INTENTION_ATTACK, targetOwner);
-			targetOwner.setIsBetrayed(true);
+			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, ((L2Summon)getEffected()).getOwner());
+			getEffected().setIsBetrayed(true);
 			onActionTime();
 		}
 	}
@@ -57,12 +53,9 @@ final class EffectBetray extends L2Effect
 	@Override
 	public void onExit()
 	{
-		if (getEffected() != null && getEffector() instanceof L2PcInstance
-				&& getEffected() instanceof L2Summon)
+		if (getEffected() != null && getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
 		{
-			L2PcInstance targetOwner = null;
-			targetOwner = ((L2Summon) getEffected()).getOwner();
-			targetOwner.setIsBetrayed(false);
+			getEffected().setIsBetrayed(false);
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		}
 	}
@@ -70,9 +63,12 @@ final class EffectBetray extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		L2PcInstance targetOwner = null;
-		targetOwner = ((L2Summon) getEffected()).getOwner();
-		targetOwner.setIsBetrayed(true);
+		if (getEffected() != null && getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
+		{
+			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, ((L2Summon)getEffected()).getOwner());
+			getEffected().setIsBetrayed(true);
+			onActionTime();
+		}
 		return false;
 	}
 }

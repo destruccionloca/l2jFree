@@ -41,7 +41,7 @@ public class Mount implements IUserCommandHandler
 
 		L2Summon pet = activeChar.getPet();
 
-		if (pet != null && pet.isMountable() && !activeChar.isMounted() && !activeChar.isBetrayed())
+		if (pet != null && pet.isMountable() && !activeChar.isMounted() && !pet.isBetrayed())
 		{
 			if (pet.getNpcId()==16030 && pet.getLevel()<Config.GREAT_WOLF_MOUNT_LEVEL)
 			{

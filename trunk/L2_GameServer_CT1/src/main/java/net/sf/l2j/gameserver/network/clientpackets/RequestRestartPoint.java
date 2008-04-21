@@ -104,16 +104,30 @@ public class RequestRestartPoint extends L2GameClientPacket
 						{
 							//siege in progress
 							if (siege.checkIsDefender(activeChar.getClan()))
-								isInDefense = true;
+								loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Castle);
+							// Just in case you lost castle while beeing dead.. Port to nearest Town.
+							else if (siege.checkIsAttacker(activeChar.getClan()))
+								loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
+							else
+							{
+								//cheater
+								activeChar.sendMessage("You may not use this respawn point!");
+								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+								return;
+							}
 						}
-						if (activeChar.getClan() == null || (activeChar.getClan().getHasCastle() == 0 && !isInDefense))
+						else
 						{
-							//cheater
-							activeChar.sendMessage("You may not use this respawn point!");
-							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
-							return;
+							if (activeChar.getClan().getHasCastle() == 0)
+							{
+								//cheater
+								activeChar.sendMessage("You may not use this respawn point!");
+								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+								return;
+							}
+							else
+								loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Castle);
 						}
-						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Castle);
 						break;
 
 					case 3: // to Fortress
@@ -122,16 +136,30 @@ public class RequestRestartPoint extends L2GameClientPacket
 						{
 							//siege in progress
 							if (fsiege.checkIsDefender(activeChar.getClan()))
-								isInDefense = true;
+								loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Fortress);
+							// Just in case you lost fort while beeing dead.. Port to nearest Town.
+							else if (fsiege.checkIsAttacker(activeChar.getClan()))
+								loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
+							else
+							{
+								//cheater
+								activeChar.sendMessage("You may not use this respawn point!");
+								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+								return;
+							}
 						}
-						if (activeChar.getClan() == null || (activeChar.getClan().getHasFort() == 0 && !isInDefense))
+						else
 						{
-							//cheater
-							activeChar.sendMessage("You may not use this respawn point!");
-							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
-							return;
+							if (activeChar.getClan().getHasFort() == 0)
+							{
+								//cheater
+								activeChar.sendMessage("You may not use this respawn point!");
+								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+								return;
+							}
+							else
+								loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Fortress);
 						}
-						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Fortress);
 						break;
 
 					case 4: // to siege HQ

@@ -1193,6 +1193,7 @@ public abstract class L2Skill
 			case CANCEL_TARGET:
 			case BETRAY:
 			case DISARM:
+			case AGGDAMAGE:
 			case DELUXE_KEY_UNLOCK:
 			case FATALCOUNTER:
 				return true;

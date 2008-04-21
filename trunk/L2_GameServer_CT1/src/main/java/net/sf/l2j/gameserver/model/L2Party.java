@@ -756,10 +756,8 @@ public class L2Party
 							if (soulMasteryLevel > 0)
 							{
 								L2Skill skill = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, soulMasteryLevel);
-								if (skill.getExpNeeded() <= addexp && Rnd.get(100) < 20)
-								{
+								if (skill.getExpNeeded() <= addexp)
 									((L2PcInstance)member).absorbSoulFromNpc(skill,target);
-								}
 							}
 						}
 						member.addExpAndSp(addexp,addsp);

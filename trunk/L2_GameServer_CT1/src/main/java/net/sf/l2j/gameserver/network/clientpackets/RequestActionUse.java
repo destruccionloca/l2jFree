@@ -143,13 +143,13 @@ public class RequestActionUse extends L2GameClientPacket
                 break;
             case 15:
             case 21: // pet follow/stop
-                if (pet != null && !pet.isMovementDisabled() && !activeChar.isBetrayed())
+                if (pet != null && !pet.isMovementDisabled() && !pet.isBetrayed())
                     pet.setFollowStatus(!pet.getFollowStatus());
                 
                 break;
             case 16:
             case 22: // pet attack
-                if (target != null && pet != null && pet != target && !pet.isAttackingDisabled() && !activeChar.isBetrayed())
+                if (target != null && pet != null && pet != target && !pet.isAttackingDisabled() && !pet.isBetrayed())
                 {
                     if (activeChar.isInOlympiadMode() && !activeChar.isOlympiadStart())
                     {
@@ -182,12 +182,12 @@ public class RequestActionUse extends L2GameClientPacket
                 break;
             case 17:
             case 23: // pet - cancel action
-                if (pet != null && !pet.isMovementDisabled() && !activeChar.isBetrayed())
+                if (pet != null && !pet.isMovementDisabled() && !pet.isBetrayed())
                     pet.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
                 
                 break;
             case 19: // pet unsummon
-                if (pet != null && !activeChar.isBetrayed() )
+                if (pet != null && !pet.isBetrayed() )
                 {
                     //returns pet to control item
                     if (pet.isDead())
@@ -216,7 +216,7 @@ public class RequestActionUse extends L2GameClientPacket
                 break;
             case 38: // pet mount
                 // mount
-                if (pet != null && pet.isMountable() && !activeChar.isMounted() && !activeChar.isBetrayed()) 
+                if (pet != null && pet.isMountable() && !activeChar.isMounted() && !pet.isBetrayed()) 
                 {
         			if (pet.getNpcId()==16030 && pet.getLevel()<Config.GREAT_WOLF_MOUNT_LEVEL)
         			{
@@ -530,7 +530,7 @@ public class RequestActionUse extends L2GameClientPacket
             return;
         }
         
-        if (activeSummon != null && !activeChar.isBetrayed())
+        if (activeSummon != null && !activeSummon.isBetrayed())
         {
             Map<Integer, L2Skill> _skills = activeSummon.getTemplate().getSkills();
             

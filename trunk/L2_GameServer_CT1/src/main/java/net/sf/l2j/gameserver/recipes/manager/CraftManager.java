@@ -213,7 +213,7 @@ public class CraftManager
     {
         L2Recipe recipe =  l2RecipeService.getRecipeList(id - 1);
         
-        if ((recipe == null) || (recipe.getRecipeComponents().length == 0))
+        if (recipe == null || recipe.getRecipeComponents().length == 0 || (recipe.isDwarvenRecipe() && player.isSubClassActive()))
         {
             player.sendMessage("No recipe for: " + id);
             player.isInCraftMode(false);

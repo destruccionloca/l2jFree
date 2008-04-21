@@ -93,7 +93,7 @@ public class Logout extends L2GameClientPacket
             return;
         }
         
-        if (player.getPet() != null && !player.isBetrayed() && (player.getPet() instanceof L2PetInstance))
+        if (player.getPet() != null && !player.getPet().isBetrayed() && (player.getPet() instanceof L2PetInstance))
         {
             L2PetInstance pet = (L2PetInstance)player.getPet();
 
