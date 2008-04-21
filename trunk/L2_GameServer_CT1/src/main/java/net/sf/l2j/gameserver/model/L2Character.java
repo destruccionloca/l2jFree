@@ -5898,7 +5898,7 @@ public abstract class L2Character extends L2Object
 				else if (this instanceof L2Summon)
 					level = ((L2Summon)this).getOwner().getLevel();
 
-				if ((level > target.getLevel() + 8) && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
+				if (level > target.getLevel() + 8)
 				{
 					L2Skill skill = SkillTable.getInstance().getInfo(4515, 1);
 
@@ -7011,7 +7011,8 @@ public abstract class L2Character extends L2Object
 					// Check Raidboss attack and
 					// check buffing chars who attack raidboss. Results in mute.
 					L2Object target2 = target.getTarget();
-					if ((target.isRaid() && getLevel() > target.getLevel() + 8)
+					if (!Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION
+							&& (target.isRaid() && getLevel() > target.getLevel() + 8)
 							|| (target2 instanceof L2Character && (((L2Character)target2).isRaid() 
 							&& getLevel() > ((L2Character)target2).getLevel() + 8)))
 					{
