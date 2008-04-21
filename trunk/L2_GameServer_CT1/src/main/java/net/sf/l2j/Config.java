@@ -1132,6 +1132,8 @@ public final class Config
 	public static int		GRID_NEIGHBOR_TURNON_TIME;			// Grid Options
 	public static int		GRID_NEIGHBOR_TURNOFF_TIME;			// Grid Options
 	public static boolean	CHECK_SKILLS_ON_ENTER;				// Skill Tree check on EnterWorld
+	public static String	ALLOWED_SKILLS;						// List of Skills that are allowed for all Classes if CHECK_SKILLS_ON_ENTER = true
+	public static FastList<Integer>	ALLOWED_SKILLS_LIST	= new FastList<Integer>();
 	public static boolean	CHAR_VIP_SKIP_SKILLS_CHECK;			// VIP Characters configuration
 	public static boolean	CHAR_VIP_COLOR_ENABLED;				// VIP Characters configuration
 	public static int		CHAR_VIP_COLOR;						// VIP Characters configuration
@@ -1312,6 +1314,13 @@ public final class Config
 			// ---------------------------------------------------
 
 			CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(optionsSettings.getProperty("CheckSkillsOnEnter", "false"));
+			
+			ALLOWED_SKILLS = optionsSettings.getProperty("AllowedSkills", "541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,617,618,619");
+			ALLOWED_SKILLS_LIST = new FastList<Integer>();
+			for (String id : ALLOWED_SKILLS.trim().split(","))
+			{
+				ALLOWED_SKILLS_LIST.add(Integer.parseInt(id.trim()));
+			}
 
 			ALT_DEV_NO_QUESTS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoQuests", "False"));
 			ALT_DEV_NO_SPAWNS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoSpawns", "False"));
