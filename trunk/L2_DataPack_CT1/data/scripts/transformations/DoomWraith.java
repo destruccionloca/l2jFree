@@ -20,8 +20,7 @@ public class DoomWraith extends L2Transformation
 	public DoomWraith()
 	{
 		// id, duration (secs), colRadius, colHeight
-		// Retail Like 30 min - Skatershi
-		super(2, 1800, 13.0, 25.0);
+		super(2, 3600, 8.0, 22.0);
 	}
 
 	public void onTransform()
@@ -40,8 +39,6 @@ public class DoomWraith extends L2Transformation
 		}
 		// give transformation skills
 		transformedSkills();
-		// Update Transformation ID
-		this.getPlayer().transformInsertInfo();
 	}
 
 	public void transformedSkills()
@@ -52,7 +49,7 @@ public class DoomWraith extends L2Transformation
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(588, 2), false);
 		// Dig Attack
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(587, 2), false);
-		// Darkness Energy Drain
+		// Darkness Energy Drain"
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(589, 2), false);
 		// Transfrom Dispel
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
@@ -64,16 +61,8 @@ public class DoomWraith extends L2Transformation
 
 	public void onUntransform()
 	{
-		// Only remove transformation skills. Keeps transformation id for restoration after CW is no longer equipped.
-		if (this.getPlayer().isCursedWeaponEquipped())
-		{
-			removeSkills();
-			return;
-		}
-		// Remove transformation skills
+		// remove transformation skills
 		removeSkills();
-		// Update Transformation ID
-		this.getPlayer().transformUpdateInfo();
 	}
 
 	public void removeSkills()
@@ -84,7 +73,7 @@ public class DoomWraith extends L2Transformation
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(588, 2), false);
 		// Dig Attack
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(587, 2), false);
-		// Darkness Energy Drain
+		// Darkness Energy Drain"
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(589, 2), false);
 		// Transfrom Dispel
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);

@@ -20,8 +20,7 @@ public class Pig extends L2Transformation
 	public Pig()
 	{
 		// id, duration (secs), colRadius, colHeight
-		// Retail Like 30 min - Skatershi
-		super(104, 1800, 15.0, 18.0);
+		super(104, 3600, 15.0, 18.3);
 	}
 
 	public void onTransform()
@@ -40,8 +39,6 @@ public class Pig extends L2Transformation
 		}
 		// give transformation skills
 		transformedSkills();
-		// Update Transformation ID
-		this.getPlayer().transformInsertInfo();
 	}
 
 	public void transformedSkills()
@@ -56,16 +53,8 @@ public class Pig extends L2Transformation
 
 	public void onUntransform()
 	{
-		// Only remove transformation skills. Keeps transformation id for restoration after CW is no longer equipped.
-		if (this.getPlayer().isCursedWeaponEquipped())
-		{
-			removeSkills();
-			return;
-		}
-		// Remove transformation skills
+		// remove transformation skills
 		removeSkills();
-		// Update Transformation ID
-		this.getPlayer().transformUpdateInfo();
 	}
 
 	public void removeSkills()

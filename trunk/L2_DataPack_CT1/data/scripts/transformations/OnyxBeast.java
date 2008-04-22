@@ -20,8 +20,7 @@ public class OnyxBeast extends L2Transformation
 	public OnyxBeast()
 	{
 		// id, duration (secs), colRadius, colHeight
-		// Retail Like 30 min - Skatershi
-		super(1, 1800, 14.0, 15.0);
+		super(1, 3600, 14.0, 15.0);
 	}
 
 	public void onTransform()
@@ -40,8 +39,6 @@ public class OnyxBeast extends L2Transformation
 		}
 		// give transformation skills
 		transformedSkills();
-		// Update Transformation ID
-		this.getPlayer().transformInsertInfo();
 	}
 
 	public void transformedSkills()
@@ -60,16 +57,8 @@ public class OnyxBeast extends L2Transformation
 
 	public void onUntransform()
 	{
-		// Only remove transformation skills. Keeps transformation id for restoration after CW is no longer equipped.
-		if (this.getPlayer().isCursedWeaponEquipped())
-		{
-			removeSkills();
-			return;
-		}
-		// Remove transformation skills
+		// remove transformation skills
 		removeSkills();
-		// Update Transformation ID
-		this.getPlayer().transformUpdateInfo();
 	}
 
 	public void removeSkills()

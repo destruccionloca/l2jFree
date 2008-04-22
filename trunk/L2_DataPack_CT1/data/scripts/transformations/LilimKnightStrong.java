@@ -20,8 +20,7 @@ public class LilimKnightStrong extends L2Transformation
 	public LilimKnightStrong()
 	{
 		// id, duration (secs), colRadius, colHeight
-		// Retail Like 30 min - Skatershi
-		super(207, 1800, 12.0, 24.4);
+		super(207, 3600, 8.0, 24.4);
 	}
 
 	public void onTransform()
@@ -40,8 +39,6 @@ public class LilimKnightStrong extends L2Transformation
 		}
 		// give transformation skills
 		transformedSkills();
-		// Update Transformation ID
-		this.getPlayer().transformInsertInfo();
 	}
 
 	public void transformedSkills()
@@ -64,16 +61,8 @@ public class LilimKnightStrong extends L2Transformation
 
 	public void onUntransform()
 	{
-		// Only remove transformation skills. Keeps transformation id for restoration after CW is no longer equipped.
-		if (this.getPlayer().isCursedWeaponEquipped())
-		{
-			removeSkills();
-			return;
-		}
-		// Remove transformation skills
+		// remove transformation skills
 		removeSkills();
-		// Update Transformation ID
-		this.getPlayer().transformUpdateInfo();
 	}
 
 	public void removeSkills()

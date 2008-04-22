@@ -17,32 +17,29 @@ import net.sf.l2j.gameserver.model.L2Transformation;
  */
 public class Kamael extends L2Transformation
 {
-	public Kamael()
-	{
-		// id, duration (secs), colRadius, colHeight
-		// Retail Like 4 min - Skatershi
-		super(251, 240, 9.0, 32.5);
-	}
+    public Kamael()
+    {
+        // id, duration (secs), colRadius, colHeight
+        super(251, 3600, 9.0, 30.0);
+    }
 
     public void onTransform()
-    {
-    	// Disable all character skills.
-    	for (L2Skill sk : this.getPlayer().getAllSkills())
-    	{
-    		if (sk != null && !sk.isPassive())
-    			this.getPlayer().removeSkill(sk, false);
-    	}
-    	if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
-    	{
-    		// give transformation skills
-    		transformedSkills();
-    		return;
-    	}
-    	// give transformation skills
-    	transformedSkills();
-    	// Update Transformation ID
-    	this.getPlayer().transformInsertInfo();
-    }
+	{
+		// Disable all character skills.
+		for (L2Skill sk : this.getPlayer().getAllSkills())
+		{
+			if (sk != null && !sk.isPassive())
+				this.getPlayer().removeSkill(sk, false);
+		}
+		if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
+		{
+			// give transformation skills
+			transformedSkills();
+			return;
+		}
+		// give transformation skills
+		transformedSkills();
+	}
 
     public void transformedSkills()
     {
@@ -63,18 +60,10 @@ public class Kamael extends L2Transformation
     }
 
     public void onUntransform()
-    {
-    	// Only remove transformation skills. Keeps transformation id for restoration after CW is no longer equipped.
-    	if (this.getPlayer().isCursedWeaponEquipped())
-    	{
-    		removeSkills();
-    		return;
-    	}
-    	// Remove transformation skills
-    	removeSkills();
-    	// Update Transformation ID
-    	this.getPlayer().transformUpdateInfo();
-    }
+	{
+		// remove transformation skills
+		removeSkills();
+	}
 
     public void removeSkills()
     {
