@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -67,6 +68,20 @@ public class Pdam implements ISkillHandler
 		{
 			L2Character target = (L2Character) element;
 			
+			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance)
+			{
+				if(((L2PcInstance)activeChar).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL )
+				{
+					((L2PcInstance)activeChar).sendMessage("You are unable to attack players until level "+String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)+".");
+					continue;
+				}
+				else if(((L2PcInstance)target).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL )
+				{
+					((L2PcInstance)target).sendMessage("Player's level is below "+String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)+", so he cannot be attacked.");
+					continue;
+				}
+			}
+
 			Formulas f = Formulas.getInstance();
 			L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance
@@ -75,7 +90,24 @@ public class Pdam implements ISkillHandler
 				target.stopFakeDeath(null);
 			}
 			else if (target.isDead()) continue;
-			else if (f.canEvadeMeleeSkill(target, skill)) continue;
+			else if (f.canEvadeMeleeSkill(target, skill))
+			{
+				if (activeChar instanceof L2PcInstance)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
+					sm.addString(target.getName());
+					((L2PcInstance)activeChar).sendPacket(sm);
+					sm = null;
+				}
+				if (target instanceof L2PcInstance)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
+					sm.addString(activeChar.getName());
+					((L2PcInstance)target).sendPacket(sm);
+					sm = null;
+				}
+				continue;
+			}
 
 			boolean dual = activeChar.isUsingDualWeapon();
 			boolean shld = f.calcShldUse(activeChar, target);

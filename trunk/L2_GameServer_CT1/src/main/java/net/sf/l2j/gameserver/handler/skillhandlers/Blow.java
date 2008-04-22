@@ -53,8 +53,41 @@ public class Blow implements ISkillHandler
 		{
 			L2Character target = (L2Character)element;
 			
+			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance)
+			{
+				if(((L2PcInstance)activeChar).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL )
+				{
+					((L2PcInstance)activeChar).sendMessage("You are unable to attack players until level "+String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)+".");
+					continue;
+				}
+				else if(((L2PcInstance)target).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL )
+				{
+					((L2PcInstance)target).sendMessage("Player's level is below "+String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)+", so he cannot be attacked.");
+					continue;
+				}
+			}
+
 			if(target.isAlikeDead())
 				continue;
+			else if (Formulas.getInstance().canEvadeMeleeSkill(target, skill))
+			{
+				if (activeChar instanceof L2PcInstance)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
+					sm.addString(target.getName());
+					((L2PcInstance)activeChar).sendPacket(sm);
+					sm = null;
+				}
+				if (target instanceof L2PcInstance)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
+					sm.addString(activeChar.getName());
+					((L2PcInstance)target).sendPacket(sm);
+					sm = null;
+				}
+				continue;
+			}
+
 			if(activeChar.isBehindTarget())
 				_successChance = BEHIND;
 			else if(activeChar.isInFrontOfTarget())
