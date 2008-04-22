@@ -228,8 +228,8 @@ abstract class DocumentBase
             else if (abn.equals("bighead")) abnormal = L2Character.ABNORMAL_EFFECT_BIG_HEAD;
             else if (abn.equals("stealth")) abnormal = L2Character.ABNORMAL_EFFECT_STEALTH;
         }
-        float stackOrder = ((L2Skill) template).getLevel();
-        String stackType = ((L2Skill) template).getName();
+        float stackOrder = 0;
+        String stackType = "none";
         if (attrs.getNamedItem("stackType") != null)
         {
             stackType = attrs.getNamedItem("stackType").getNodeValue();
