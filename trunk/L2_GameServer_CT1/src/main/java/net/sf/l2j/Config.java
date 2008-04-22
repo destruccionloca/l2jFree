@@ -776,8 +776,6 @@ public final class Config
 	// *******************************************************************************************
 	public static boolean			JAIL_IS_PVP;												// Jail config
 	public static boolean			JAIL_DISABLE_CHAT;											// Jail config
-	public static String			ALLOWED_NPC_TYPES;
-	public static FastList<String>	LIST_ALLOWED_NPC_TYPES		= new FastList<String>();		// List of NPC types that won't allow casting
 	public static int				WYVERN_SPEED;
 	public static int				STRIDER_SPEED;
 	public static int				GREAT_WOLF_SPEED;
@@ -839,8 +837,6 @@ public final class Config
 	public static int				INVENTORY_MAXIMUM_NO_DWARF;									// Inventory slots limits
 	public static int				INVENTORY_MAXIMUM_DWARF;									// Inventory slots limits
 	public static int				INVENTORY_MAXIMUM_GM;										// Inventory slots limits
-	public static String			FORBIDDEN_RAID_SKILLS;
-	public static FastList<Integer>	FORBIDDEN_RAID_SKILLS_LIST	= new FastList<Integer>();
 	public static int				DEATH_PENALTY_CHANCE;										// Death Penalty chance
 	// Augmentation chances , chancestat=100 -chanceskill-chancebasestat 
 	public static int AUGMENT_BASESTAT;
@@ -959,23 +955,7 @@ public final class Config
 
 			JAIL_IS_PVP = Boolean.parseBoolean(otherSettings.getProperty("JailIsPvp", "True"));
 			JAIL_DISABLE_CHAT = Boolean.parseBoolean(otherSettings.getProperty("JailDisableChat", "True"));
-
-			ALLOWED_NPC_TYPES = otherSettings.getProperty("AllowedNPCTypes");
-			LIST_ALLOWED_NPC_TYPES = new FastList<String>();
-			for (String npc_type : ALLOWED_NPC_TYPES.trim().split(","))
-			{
-				LIST_ALLOWED_NPC_TYPES.add(npc_type.trim());
-			}
-
-			FORBIDDEN_RAID_SKILLS = otherSettings.getProperty("ForbiddenRaidSkills", "1064,100");
-			FORBIDDEN_RAID_SKILLS_LIST = new FastList<Integer>();
-			for (String id : FORBIDDEN_RAID_SKILLS.trim().split(","))
-			{
-				FORBIDDEN_RAID_SKILLS_LIST.add(Integer.parseInt(id.trim()));
-			}
-
 			DEATH_PENALTY_CHANCE = Integer.parseInt(otherSettings.getProperty("DeathPenaltyChance", "20"));
-
 		}
 		catch (Exception e)
 		{

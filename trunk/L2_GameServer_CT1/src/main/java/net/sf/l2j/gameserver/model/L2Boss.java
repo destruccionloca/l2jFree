@@ -71,7 +71,7 @@ public abstract class L2Boss extends L2MonsterInstance
     @Override
     public boolean checkSkillCanAffectMyself(L2Skill skill)
     {
-        return checkSkillCanAffectMyself(skill.getSkillType()) && !Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId());
+        return checkSkillCanAffectMyself(skill.getSkillType());
     }
 
     @Override

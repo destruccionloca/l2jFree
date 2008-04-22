@@ -6475,7 +6475,7 @@ public final class L2PcInstance extends L2PlayableInstance
     /**
      * Update L2PcInstance stats in the characters table of the database.<BR><BR>
      */
-    public void store()
+    public synchronized void store()
     {
         //update client coords, if these look like true
         if (isInsideRadius(getClientX(), getClientY(), 1000, true))
@@ -6485,6 +6485,7 @@ public final class L2PcInstance extends L2PlayableInstance
         storeCharSub();
         storeEffect();
         storeRecipeBook();
+        transformInsertInfo();
     }
 
     private void storeCharBase()
@@ -12045,6 +12046,9 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public int transformSelectInfo()
     {
+        if (isCursedWeaponEquipped())
+            return 0;
+
         Connection con = null;
         try
         {

@@ -1716,17 +1716,6 @@ public abstract class L2Character extends L2Object
 							default:
 							{
 								target = (L2Character) getTarget();
-
-								// Prevent usage of skills on NPCs that shouldn't allow this (teleporters, merchants, trainers, etc)
-								if ((target instanceof L2NpcInstance))
-								{
-									String mobtype = ((L2NpcInstance) target).getTemplate().getType();
-									if (!Config.LIST_ALLOWED_NPC_TYPES.contains(mobtype))
-									{
-										sendMessage("You cannot use skills on this npc!");
-										return;
-									}
-								}
 								break;
 							}
 						}
@@ -7763,17 +7752,6 @@ public abstract class L2Character extends L2Object
 		else
 		{
 			target = (L2Character) getTarget();
-
-			// Prevent usage of skills on NPCs that shouldn't allow this (teleporters, merchants, trainers, etc)
-			if ((target instanceof L2NpcInstance))
-			{
-				String mobtype = ((L2NpcInstance) target).getTemplate().getType();
-				if (!Config.LIST_ALLOWED_NPC_TYPES.contains(mobtype))
-				{
-					sendMessage("You cannot use skills on this npc!");
-					return null;
-				}
-			}
 		}
 
 		// AURA skills should always be using caster as target
