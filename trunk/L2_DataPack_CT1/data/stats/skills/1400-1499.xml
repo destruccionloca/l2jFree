@@ -98,7 +98,7 @@
   </for>
 </skill>
 <skill id="1405" levels="4" name="Divine Inspiration">
-  <!-- Increases the number of buffs you can receive. --> 
+  <!-- Increases the number of buffs you can receive. -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="COREDONE"/>
@@ -303,8 +303,7 @@
 </skill>
 <skill id="1413" levels="1" name="Magnus' Chant">
 <!--
-  Description(s):
-      Allows the Ancient Soul of Magnus to temporarily possess a party member. Consumes 40 Spirit Ores.
+  Allows the Ancient Soul of Magnus to temporarily possess a party member. Consumes 40 Spirit Ores.
 -->
   <set name="itemConsumeId" val="3031"/>
   <set name="itemConsumeCount" val="40"/>
@@ -313,8 +312,8 @@
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
-  <set name="hitTime" val="2500"/>
   <set name="reuseDelay" val="1200000"/> <!-- Guessing -->
+  <set name="hitTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -327,14 +326,14 @@
       <mul order="0x30" stat="mDef" val="1.20"/>
       <mul order="0x30" stat="mAtk" val="1.30"/>
       <mul order="0x30" stat="maxMp" val="1.20"/>
+      <mul order="0x30" stat="MpConsumeRate" val="0.80"/>
       <mul order="0x30" stat="mCritRate" val="1.2"/> <!-- Guessing -->
     </effect>
   </for>
 </skill>
 <skill id="1414" levels="1" name="Victories of Pa'agrio">
 <!--
-  Description(s):
-      Allows the Ancient Hero's Soul to temporarily possesses an alliance member. Consumes 40 Spirit Ores.
+  Allows the Ancient Hero's Soul to temporarily possesses an alliance member. Consumes 40 Spirit Ores.
 -->
   <set name="itemConsumeId" val="3031"/>
   <set name="itemConsumeCount" val="40"/>
@@ -343,8 +342,8 @@
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_CLAN"/>
   <set name="skillRadius" val="1000"/>
-  <set name="hitTime" val="2500"/>
   <set name="reuseDelay" val="1200000"/>
+  <set name="hitTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -352,7 +351,7 @@
   <set name="effectRange" val="-1"/>
   <for>
     <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
-    <!-- This skills seems to be exacly same as CoV but it applies on ally (ally ? target set to CLAN !!!) -->
+    <!-- This skills seems to be exacly same as CoV but it applies on ally -->
       <mul order="0x30" stat="pAtk" val="1.1"/>
       <mul order="0x30" stat="pDef" val="1.2"/>
       <mul order="0x30" stat="rCrit" val="1.2"/>
@@ -397,9 +396,7 @@
 </skill>
 <skill id="1416" levels="1" name="Pa'agrio's Fist">
 <!--
-  By Darki699
-  Description(s):
-      Increases an clan member's maximum CP and fully restores it. Consumes 20 Spirit Ores.
+  Increases an alliance member's maximum CP and fully restores it. Consumes 20 Spirit Ores.
 -->
   <set name="mpInitialConsume" val="57"/> <!-- Guessing -->
   <set name="mpConsume" val="284"/>
@@ -408,19 +405,17 @@
   <set name="power" val="800.0"/>
   <set name="target" val="TARGET_CLAN"/>
   <set name="skillRadius" val="1000"/>
-  <set name="hitTime" val="2500"/>
   <set name="reuseDelay" val="200000"/> <!-- Guessing -->
-  <set name="skillType" val="BUFF"/>
+  <set name="hitTime" val="2500"/>
+  <set name="skillType" val="BUFF"/> <!-- Needs core support for CP Heal & Buff at once, this should be COMBATPOINTHEAL -->
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
-  <!-- Core support added for CP Heal & Buff at once -->
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="pa_fist">
+    <effect count="1" name="Buff" time="1200" val="0">
       <add order="0x40" stat="maxCp" val="800"/>
     </effect>
-    <effect count="1" name="HealCp" val="0"/>
   </for>
 </skill>
 <skill id="1417" levels="5" name="Aura Flash">
@@ -466,8 +461,7 @@
 </skill>
 <skill id="1419" levels="1" name="Volcano">
 <!--
-  Description(s):
-      Consecutive strikes inflict a great amount of fire damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
+  Consecutive strikes inflict a great amount of fire damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
   <set name="target" val="TARGET_GROUND"/>
   <set name="skillType" val="SIGNET_CASTTIME"/>
@@ -496,8 +490,7 @@
 </skill>
 <skill id="1420" levels="1" name="Cyclone">
 <!--
-  Description(s):
-      Consecutive strikes inflict a great amount of wind damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
+  Consecutive strikes inflict a great amount of wind damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
   <set name="target" val="TARGET_GROUND"/>
   <set name="skillType" val="SIGNET_CASTTIME"/>
@@ -526,8 +519,7 @@
 </skill>
 <skill id="1421" levels="1" name="Raging Waves">
 <!--
-  Description(s):
-      Consecutive strikes inflict a great amount of water damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
+  Consecutive strikes inflict a great amount of water damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
   <set name="target" val="TARGET_GROUND"/>
   <set name="skillType" val="SIGNET_CASTTIME"/>
@@ -564,8 +556,7 @@
 </skill>
 <skill id="1423" levels="1" name="Gehenna">
 <!--
-  Description(s):
-      Consecutive strikes inflict a great amount of dark damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
+  Consecutive strikes inflict a great amount of dark damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
   <set name="target" val="TARGET_GROUND"/>
   <set name="skillType" val="SIGNET_CASTTIME"/>
@@ -594,8 +585,7 @@
 </skill>
 <skill id="1424" levels="1" name="Anti-Summoning Field">
 <!--
-  Description(s):
-      Generates a signet that sends a servitor to another dimension at regular intervals. Applies to all servitors in the affected area. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
+  enerates a signet that sends a servitor to another dimension at regular intervals. Applies to all servitors in the affected area. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
   <set name="target" val="TARGET_GROUND"/>
   <set name="skillType" val="SIGNET"/>
@@ -1489,17 +1479,26 @@
   </for>
 </skill>
 <skill id="1460" levels="1" name="Mana Gain">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Temporarily increases effectiveness of targeted recharges.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="mpInitialConsume" val="38"/>
+  <set name="mpConsume" val="142"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="reuseDelay" val="60000"/>
+  <set name="hitTime" val="3000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
+  <cond msg="Mana Gain cannot be used due to unsuitable terms.">
+    <not>
+      <target class_id_restriction="29, 30, 105, 42, 43, 112"/>
+    </not>
+  </cond>
   <for>
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="1.60" stackType="gainMp">
+      <mul order="0x30" stat="gainMp" val="1.60"/>
+    </effect>
   </for>
 </skill>
 <skill id="1461" levels="1" name="Chant of Protection">
@@ -1731,7 +1730,7 @@
 <skill id="1475" levels="3" name="Erase Mark">
   <table name="#mpConsume_Init"> 4 7 11 </table>
   <table name="#mpConsume"> 15 29 44 </table>
-  <table name="#magicLvl"> 24 46 66 </table> 
+  <table name="#magicLvl"> 24 46 66 </table>
   <table name="#power"> 3.0 7.0 10.0 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
