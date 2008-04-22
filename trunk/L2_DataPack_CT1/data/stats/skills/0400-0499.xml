@@ -2118,7 +2118,7 @@
   <set name="flyType" val="CHARGE"/>
   <set name="flyRadius" val="300"/>
   <cond msg="An ancient sword or short sword must be equipped to use this skill">
-		<using kind="Ancient Sword,Sword" />			
+    <using kind="Ancient,Sword" />
   </cond>
   <for>
     <effect count="1" name="EnemyCharge" time="1" val="0"/>
