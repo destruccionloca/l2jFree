@@ -7023,8 +7023,8 @@ public abstract class L2Character extends L2Object
 					// check buffing chars who attack raidboss. Results in mute.
 					L2Object target2 = target.getTarget();
 					if (!Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION
-							&& (target.isRaid() && getLevel() > target.getLevel() + 8)
-							|| (target2 instanceof L2Character && (((L2Character)target2).isRaid() 
+							&& ((target.isRaid() && getLevel() > target.getLevel() + 8)
+							|| (target2 instanceof L2Character && (((L2Character)target2).isRaid()) 
 							&& getLevel() > ((L2Character)target2).getLevel() + 8)))
 					{
 						if (skill.isMagic())
