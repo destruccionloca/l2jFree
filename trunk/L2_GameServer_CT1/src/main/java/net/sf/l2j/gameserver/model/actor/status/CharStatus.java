@@ -247,7 +247,7 @@ public class CharStatus
 			if (value <= 0)
 			{
 				// is the dieing one a duelist? if so change his duel state to dead
-				if (player != null && player.isInDuel())
+				if (player != null && player.isInDuel() && player == getActiveChar())
 				{
 					getActiveChar().disableAllSkills();
 					stopHpMpRegeneration();
