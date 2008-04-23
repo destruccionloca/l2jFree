@@ -19059,4 +19059,318 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="7" />
   </item>
+
+  <!-- CT1.5 Recipes by Skatershi -->
+
+  <item id="900" name="mk_icarus_sowsword_i">
+    <!-- Recipe - Icarus Sawsword (60%) -->
+    <recipe id="10373" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Icarus Sawsword -->
+    <production id="10215" count="1" />
+    <!-- Icarus Sawsword Piece -->
+    <ingredient id="10397" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="1696" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="1696" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="848" />
+    <!-- Enria -->
+    <ingredient id="4042" count="848" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="424" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="352" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="236" />
+  </item>
+  <item id="901" name="mk_icarus_disperser_i">
+    <!-- Recipe - Icarus Disperser (60%) -->
+    <recipe id="10374" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Icarus Disperser -->
+    <production id="10216" count="1" />
+    <!-- Icarus Disperser Piece -->
+    <ingredient id="10398" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="1696" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="1696" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="848" />
+    <!-- Enria -->
+    <ingredient id="4042" count="848" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="424" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="352" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="236" />
+  </item>
+   <item id="902" name="mk_icarus_spirits_i">
+    <!-- Recipe - Icarus Spirit (60%) -->
+    <recipe id="10375" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Icarus Spirit -->
+    <production id="10217" count="1" />
+    <!-- Icarus Spirit Piece -->
+    <ingredient id="10399" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="1696" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="1696" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="848" />
+    <!-- Enria -->
+    <ingredient id="4042" count="848" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="424" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="352" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="236" />
+  </item>
+   <item id="903" name="mk_icarus_heavy_arms_i">
+    <!-- Recipe - Icarus Heavy Arms (60%) -->
+    <recipe id="10376" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Icarus Heavy Arms -->
+    <production id="10218" count="1" />
+    <!-- Icarus Heavy Arms Piece -->
+    <ingredient id="10400" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="1832" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="916" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="916" />
+    <!-- Enria -->
+    <ingredient id="4042" count="916" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="458" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="352" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="236" />
+  </item>
+   <item id="904" name="mk_icarus_trident_i">
+    <!-- Recipe - Icarus Trident (60%) -->
+    <recipe id="10377" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Icarus Trident -->
+    <production id="10219" count="1" />
+    <!-- Icarus Trident Piece -->
+    <ingredient id="10401" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="1856" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="928" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="1856" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="464" />
+    <!-- Enria -->
+    <ingredient id="4042" count="464" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="232" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="356" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="236" />
+  </item>
+   <item id="905" name="mk_icarus_chopper_i">
+    <!-- Recipe - Icarus Hammer (60%) -->
+    <recipe id="10378" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Icarus Hammer -->
+    <production id="10220" count="1" />
+    <!-- Icarus Hammer Piece -->
+    <ingredient id="10402" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="1108" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="1108" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="2216" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="554" />
+    <!-- Enria -->
+    <ingredient id="4042" count="554" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="277" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="353" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="236" />
+  </item>
+  <item id="906" name="mk_icarus_knuckle_i">
+    <!-- Recipe - Icarus Hand (60%) -->
+    <recipe id="10379" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Icarus Hand -->
+    <production id="10221" count="1" />
+    <!-- Icarus Hand Piece -->
+    <ingredient id="10403" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="1108" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="1108" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="2216" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="554" />
+    <!-- Enria -->
+    <ingredient id="4042" count="554" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="277" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="353" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="236" />
+  </item>
+   <item id="907" name="mk_icarus_wand_i">
+    <!-- Recipe - Icarus Hall (60%) -->
+    <recipe id="10380" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Icarus Hall -->
+    <production id="10222" count="1" />
+    <!-- Icarus Hall Piece -->
+    <ingredient id="10404" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="1108" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="1108" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="2216" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="554" />
+    <!-- Enria -->
+    <ingredient id="4042" count="554" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="277" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="353" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="236" />
+  </item>
+   <item id="908" name="mk_icarus_accipiter_i">
+    <!-- Recipe - Icarus Spitter (60%) -->
+    <recipe id="10381" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Icarus Spitter -->
+    <production id="10223" count="1" />
+    <!-- Icarus Spitter Piece -->
+    <ingredient id="10405" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="2790" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="1116" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="558" />
+    <!-- Compound Braid -->
+    <ingredient id="1889" count="558" />
+    <!-- Enria -->
+    <ingredient id="4042" count="558" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="279" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="352" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="236" />
+  </item>
+   <item id="909" name="mk_dynasty_twohand_staff_i">
+    <!-- Recipe - Dynasty Staff(60%) -->
+    <recipe id="10544" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Dynasty Staff -->
+    <production id="10252" count="1" />
+    <!-- Recipe - Dynasty Staff Fragment -->
+    <ingredient id="10546" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="1232" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="616" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="1232" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="308" />
+    <!-- Enria -->
+    <ingredient id="4042" count="308" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="154" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="241" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="154" />
+  </item>
+   <item id="910" name="mk_dynasty_crusher_i">
+    <!-- Recipe - Dynasty Crusher(60%) -->
+    <recipe id="10545" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Dynasty Crusher -->
+    <production id="10253" count="1" />
+    <!-- Recipe - Dynasty Crusher Fragment -->
+    <ingredient id="10547" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="1232" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="616" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="1232" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="308" />
+    <!-- Enria -->
+    <ingredient id="4042" count="308" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="154" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="241" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="154" />
+  </item>
 </list>
