@@ -803,6 +803,10 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				case 0x36:
 					msg = new ExGetOnAirShip();
 					break;
+				case 0x38:
+					// This one is actually done in matters of client support, but I will only commit if after the formulas are done to
+					// msg = new RequestEnchantItemAttribute();
+					break;
 				case 0x3f:
 					msg = new RequestAllCastleInfo();
 					break;
@@ -835,6 +839,10 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					break;
 				case 0x49:
 					msg = new RequestExEnchantSkillInfoDetail();
+					break;
+				case 0x4b:
+					// This one is new since CT1.5 , I don't know the server->client opcode yet
+					// msg = new RequestFortressMapInfo();
 					break;
 				default:
 					this.printDebugDoubleOpcode(opcode, id2, buf, state, client);
