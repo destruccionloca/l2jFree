@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="L2JFree_Datapack_CT1" default="dist" basedir=".">
+<project name="L2JFree_Datapack_CT1.5" default="dist" basedir=".">
   <description>
         This script will build the l2jfree datapack.
         
@@ -79,8 +79,8 @@
           <include name="servername.xml"/>
         </fileset>
       </copy>
-      <delete file="${build}/l2jfree_datapack_ct1.zip"/>
-      <zip destfile="${build}/l2jfree_datapack_ct1.zip" basedir="${build.dist}"/>
+      <delete file="${build}/l2jfree_datapack_ct15.zip"/>
+      <zip destfile="${build}/l2jfree_datapack_ct15.zip" basedir="${build.dist}"/>
     </target>
 
     <target name="version"
