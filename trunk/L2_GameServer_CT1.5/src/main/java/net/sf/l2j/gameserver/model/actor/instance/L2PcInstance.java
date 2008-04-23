@@ -783,7 +783,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     // WorldPosition used by TARGET_SIGNET_GROUND
     private Point3D _currentSkillWorldPosition;
-
+    
     /** Skill casting information (used to queue when several skills are cast in a short time) **/
     public class SkillDat
     {
@@ -4528,7 +4528,7 @@ public final class L2PcInstance extends L2PlayableInstance
         CTF.removeFlagFromPlayer(this);
         broadcastUserInfo();
         _haveFlagCTF = false;
-        CTF.Announcements(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");    	
+        CTF.AnnounceToPlayers(false, CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");    	
     }
     
     /** UnEnquip on skills with disarm effect **/
