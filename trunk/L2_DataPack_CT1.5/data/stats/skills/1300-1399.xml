@@ -2160,7 +2160,7 @@
   <set name="isMagic" val="true"/>
   <for>
     <effect count="1" name="Buff" time="30" val="0">
-      <mul order="0x30" stat="MagicalMpConsumeRate" val="#MpConsumeRate"/>
+      <mul order="0x30" stat="MagicalMpConsumeRate" val="#mpConsumeRate"/>
     </effect>
   </for>
 </skill>
