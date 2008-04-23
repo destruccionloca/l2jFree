@@ -110,6 +110,7 @@ public final class Config
 	/** Property Keystore Password */
 	public static String		JMX_KEYSTORE_PASSWORD;
 
+	public static boolean		LEGACY_CT1_MODE;
 	// *******************************************************************************************
 	public static void loadConfiguration()
 	{
@@ -202,6 +203,8 @@ public final class Config
 			JMX_HTTP_PORT = Integer.parseInt(serverSettings.getProperty("admin_portHTTP", "-1"));
 			JMX_KEYSTORE = serverSettings.getProperty("keystore", "keystore.jks");
 			JMX_KEYSTORE_PASSWORD = serverSettings.getProperty("keystore_password", "");
+			
+			LEGACY_CT1_MODE = Boolean.parseBoolean(serverSettings.getProperty("LegacyCT1Mode", "False"));
 		}
 		catch (Exception e)
 		{
@@ -2808,6 +2811,34 @@ public final class Config
 
 	// *******************************************************************************************
 
+	// *******************************************************************************************
+	public static final String	INFRACTIONS_FILE	= "./config/infractions.properties";
+	// *******************************************************************************************
+	public static int		INFRACTION_BAN_MODE;
+	// *******************************************************************************************
+	// *******************************************************************************************
+	public static void loadInfractionsConfig()
+	{
+		_log.info("loading " + INFRACTIONS_FILE);
+		try
+		{
+			Properties infractionsSettings = new L2Properties();
+			InputStream is = new FileInputStream(new File(INFRACTIONS_FILE));
+			infractionsSettings.load(is);
+			is.close();
+			
+			INFRACTION_BAN_MODE = Integer.parseInt(infractionsSettings.getProperty("BanMode", "0"));
+			
+		}
+		catch (Exception e)
+		{
+			_log.error(e);
+			throw new Error("Failed to Load " + INFRACTIONS_FILE + " File.");
+		}
+	}
+
+	// *******************************************************************************************
+	
 	public static class ClassMasterSettings
 	{
 		private FastMap<Integer, FastMap<Integer, Integer>>	_claimItems;

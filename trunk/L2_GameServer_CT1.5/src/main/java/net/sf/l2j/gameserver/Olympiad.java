@@ -2374,6 +2374,7 @@ public class Olympiad
 				}
 				catch (Exception e)
 				{
+					_log.fatal("PlayerStatusBack:",e);
 				}
 			}
 		}
