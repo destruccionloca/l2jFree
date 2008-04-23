@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+		"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+    <bean id="AccountsDAO" class="net.sf.l2j.loginserver.dao.impl.AccountsDAOMock">
+	</bean> 
+    <bean id="GameserversDAO" class="net.sf.l2j.loginserver.dao.impl.GameserversDAOMock">
+	</bean>		
+    <bean id="GameserversDAOXml" class="net.sf.l2j.loginserver.dao.impl.GameserversDAOXml">
+	</bean>	
+    <bean id="AccountsServices" class="net.sf.l2j.loginserver.services.AccountsServices">
+		<property name="accountsDAO">
+			<ref bean="AccountsDAO" />
+		</property>
+	</bean>
+    <bean id="GameserversServices" class="net.sf.l2j.loginserver.services.GameserversServices">
+		<property name="gameserversDAO">
+			<ref bean="GameserversDAO" />
+		</property>
+	</bean>
+	
+    <bean id="GameserversServicesXml" class="net.sf.l2j.loginserver.services.GameserversServices">
+		<property name="gameserversDAO">
+			<ref bean="GameserversDAOXml" />
+		</property>
+	</bean>	
+	
+	
+</beans>
