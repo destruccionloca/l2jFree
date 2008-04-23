@@ -34,6 +34,7 @@ final class EffectParalyze extends L2Effect
 	{
 		getEffected().abortAttack();
 		getEffected().abortCast();
+		getEffected().stopMove(null);
 		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 		getEffected().setIsParalyzed(true);
 	}

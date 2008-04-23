@@ -330,29 +330,6 @@ public class L2Attackable extends L2NpcInstance
         }
         return _ai;
     }
-    
-    // get condition to hate, actually isAggressive() is checked
-    // by monster and karma by guards in motheds that overwrite this one.
-    /**
-     * Not used.<BR><BR>
-     * 
-     * @deprecated
-     * 
-     */
-    @Deprecated
-    public boolean getCondition2(L2Character target)
-    {
-        if (target instanceof L2FolkInstance || target instanceof L2DoorInstance)
-            return false;
-        
-        if (target.isAlikeDead() 
-                || !isInsideRadius(target, getAggroRange(), false, false)
-                || Math.abs(getZ()-target.getZ()) > 100
-           )
-            return false;
-        
-        return !target.isInvul();
-    }
 
 	/**
 	* Reduce the current HP of the L2Attackable.<BR><BR>

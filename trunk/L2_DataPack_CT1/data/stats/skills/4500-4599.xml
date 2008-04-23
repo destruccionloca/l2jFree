@@ -162,7 +162,7 @@ one's level by 9 or more. This curse cannot be undone. -->
   <set name="castRange" val="1500"/>
   <set name="effectRange" val="2000"/>
   <for>
-    <effect count="1" name="Petrification" time="120" val="0" stackOrder="120" stackType="turn_stone"/>
+    <effect count="1" name="Petrify" time="120" val="0" stackOrder="120" stackType="turn_stone"/>
   </for>
 </skill>
 <skill id="4516" levels="1" name="Orfen Heal">
@@ -1096,7 +1096,7 @@ chances and the success rate of dagger skills. -->
   <set name="skillType" val="PARALYZE"/>
   <set name="target" val="TARGET_ONE"/>
   <for>
-    <effect count="1" name="Petrification" time="20" val="0" stackOrder="20" stackType="turn_stone"/>
+    <effect count="1" name="Petrify" time="20" val="0" stackOrder="20" stackType="turn_stone"/>
   </for>
 </skill>
 <skill id="4579" levels="12" name="Bleed">

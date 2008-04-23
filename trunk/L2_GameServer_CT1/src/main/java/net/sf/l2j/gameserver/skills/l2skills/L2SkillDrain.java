@@ -56,7 +56,7 @@ public class L2SkillDrain extends L2Skill
 			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
 				continue;
 
-			if (activeChar != target && target.isInvul())
+			if (activeChar != target && (target.isInvul() || target.isPetrified()))
 				continue; // No effect on invulnerable chars unless they cast it themselves.
 
 			L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
@@ -97,10 +97,7 @@ public class L2SkillDrain extends L2Skill
 			}
 
 			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, this));
-			int damage = 0;
-			
-			if (!target.isPetrified())
-				damage = (int)Formulas.getInstance().calcMagicDam(activeChar, target, this, ss, bss, mcrit);
+			int damage = (int)Formulas.getInstance().calcMagicDam(activeChar, target, this, ss, bss, mcrit);
 
 			int _drain = 0;
 			int _cp = (int)target.getStatus().getCurrentCp();
@@ -132,8 +129,6 @@ public class L2SkillDrain extends L2Skill
 			// Check to see if we should damage the target
 			if (damage > 0 && (!target.isDead() || getTargetType() != SkillTargetType.TARGET_CORPSE_MOB))
 			{
-				if (target.isPetrified()) damage= 0;
-
 				if (activeChar instanceof L2PcInstance)
 				{
 					L2PcInstance activeCaster = (L2PcInstance)activeChar;

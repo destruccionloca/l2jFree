@@ -145,7 +145,7 @@ public class L2SkillElemental extends L2Skill
 			
 			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, this));
 			
-			int damage = target.isPetrified() ? 0 : (int)Formulas.getInstance().calcMagicDam(activeChar, target, this, ss, bss, mcrit);
+			int damage = (int)Formulas.getInstance().calcMagicDam(activeChar, target, this, ss, bss, mcrit);
 
 			if (damage > 0)
 			{

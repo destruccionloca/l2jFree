@@ -156,7 +156,8 @@ public abstract class L2Character extends L2Object
 	private boolean					_isDead								= false;
 	private boolean					_isImmobilized						= false;
 	private boolean					_isOverloaded						= false;											// the char is carrying too much
-	private boolean					_isParalyzed						= false;
+	private boolean					_isParalyzed						= false;											// cannot do anything
+	private boolean					_isPetrified						= false;											// cannot receive dmg from hits.
 	private boolean					_isRidingGreatWolf					= false;
 	private boolean					_isRidingStrider					= false;
 	private boolean					_isPendingRevive					= false;
@@ -168,7 +169,6 @@ public abstract class L2Character extends L2Object
 	private boolean					_isBlessedByNoblesse				= false;
 	private boolean					_isLuckByNoblesse					= false;
 	private boolean					_isBetrayed							= false;
-	private boolean					_isPetrified						= false;											// cannot receive dmg from hits.
 	private boolean					_isStunned							= false;											// Cannot move/attack until stun
 																															// timed out
 	protected boolean				_isTeleporting						= false;
@@ -2302,13 +2302,13 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character can't use its skills (ex : stun, sleep...). */
 	public boolean isAllSkillsDisabled()
 	{
-		return _allSkillsDisabled || isStunned() || isSleeping() || isImmobileUntilAttacked() || isParalyzed();
+		return _allSkillsDisabled || isStunned() || isSleeping() || isImmobileUntilAttacked() || isParalyzed() || isPetrified();
 	}
 
 	/** Return True if the L2Character can't attack (stun, sleep, attackEndTime, fakeDeath, paralyse). */
 	public boolean isAttackingDisabled()
 	{
-		return isStunned() || isSleeping() || isImmobileUntilAttacked() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed() || isFallsdown() || isPhysicalAttackMuted();
+		return isStunned() || isSleeping() || isImmobileUntilAttacked() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed() || isPetrified() || isFallsdown() || isPhysicalAttackMuted();
 	}
 
 	public final Calculator[] getCalculators()
@@ -2423,7 +2423,7 @@ public abstract class L2Character extends L2Object
 		// check for isTeleporting to prevent teleport cheating (if appear packet not received)
 		return isStunned() || isRooted() || isSleeping() || isTeleporting()
 				|| isImmobileUntilAttacked() || isOverloaded() || isParalyzed()
-				|| isImmobilized() || isFakeDeath() || isFallsdown();
+				|| isImmobilized() || isFakeDeath() || isFallsdown() || isPetrified();
 	}
 
 	/** Return True if the L2Character can be controlled by the player (confused, afraid). */
@@ -2588,17 +2588,12 @@ public abstract class L2Character extends L2Object
 
 	public final boolean isPetrified()
 	{
-		L2Effect[] effects = getAllEffects();
-		for (L2Effect e : effects)
-		{
-			if (e.getEffectType() == L2Effect.EffectType.PETRIFIED)
-			{
-				_isPetrified = true;
-				return true;
-			}
-		}
-		_isPetrified = false;
-		return false;
+		return _isPetrified;
+	}
+
+	public final void setIsPetrified(boolean value)
+	{
+		_isPetrified = value;
 	}
 
 	public final boolean isBetrayed()
@@ -5896,8 +5891,6 @@ public abstract class L2Character extends L2Object
 		// If attack isn't aborted, send a message system (critical hit, missed...) to attacker/target if they are L2PcInstance
 		if (!isAttackAborted())
 		{
-			if(target.isPetrified() || target.isInvul()) damage = 0;
-
 			// Check Raidboss attack
 			// Character will be petrified if attacking a raid that's more
 			// than 8 levels lower

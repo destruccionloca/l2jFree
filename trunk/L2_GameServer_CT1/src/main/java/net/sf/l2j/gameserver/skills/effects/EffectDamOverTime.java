@@ -44,17 +44,11 @@ class EffectDamOverTime extends L2Effect
 		{ // fix for players' poison and bleed weak effect
 			if (getSkill().getSkillType() == SkillType.POISON)
 			{
-				if (getEffected().isPetrified())
-					damage = 0;
-				else
-					damage = damage * 2;
+				damage = damage * 2;
 			}
 			else if (getSkill().getSkillType() == SkillType.BLEED)
 			{
-				if (getEffected().isPetrified())
-					damage = 0;
-				else
-					damage = damage * 2;
+				damage = damage * 2;
 			}
 			if (damage > 300)
 				damage = 300;

@@ -156,9 +156,7 @@ public class CharStatus
 	 */
 	public void reduceHp(double value, L2Character attacker, boolean awake)
 	{
-		if (getActiveChar().isInvul())
-			return;
-		if (getActiveChar().isDead())
+		if (getActiveChar().isInvul() || getActiveChar().isDead() || getActiveChar().isPetrified())
 			return;
 
 		L2PcInstance player = null;

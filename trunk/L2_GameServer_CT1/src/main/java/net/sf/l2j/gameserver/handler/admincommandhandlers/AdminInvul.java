@@ -62,15 +62,21 @@ public class AdminInvul implements IAdminCommandHandler {
 		String text;
 		if (activeChar.isInvul())
 		{
-        	activeChar.setIsInvul(false);
-        	text = activeChar.getName() + " is now mortal";
-        	if (_log.isDebugEnabled())
-        		_log.debug("GM: Gm removed invul mode from character "+activeChar.getName()+"("+activeChar.getObjectId()+")");
+			activeChar.setIsInvul(false);
+			if (activeChar.getPet() != null)
+				activeChar.getPet().setIsInvul(false);
+
+			text = activeChar.getName() + " is now mortal.";
+			if (_log.isDebugEnabled())
+				_log.debug("GM: Gm removed invul mode from character "+activeChar.getName()+"("+activeChar.getObjectId()+")");
 		}
 		else
 		{
 			activeChar.setIsInvul(true);
-			text = activeChar.getName() + " is now invulnerable";
+			if (activeChar.getPet() != null)
+				activeChar.getPet().setIsInvul(true);
+
+			text = activeChar.getName() + " is now invulnerable.";
 			if (_log.isDebugEnabled()) 
 				_log.debug("GM: Gm activated invul mode for character "+activeChar.getName()+"("+activeChar.getObjectId()+")");
 		}

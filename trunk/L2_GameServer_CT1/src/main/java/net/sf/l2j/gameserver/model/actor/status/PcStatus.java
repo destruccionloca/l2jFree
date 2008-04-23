@@ -47,8 +47,7 @@ public class PcStatus extends PlayableStatus
     {
         double realValue = value;
         
-        if (getActiveChar().isInvul()) return;
-        if (getActiveChar().isDead()) return;
+        if (getActiveChar().isInvul() || getActiveChar().isDead() || getActiveChar().isPetrified()) return;
 
         if ( attacker instanceof L2PcInstance)
         {

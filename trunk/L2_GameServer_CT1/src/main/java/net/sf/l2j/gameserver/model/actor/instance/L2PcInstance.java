@@ -8624,18 +8624,15 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		setTarget(null);
 		stopMove(null);
-		setIsParalyzed(true);
-		if(!isGM())setIsInvul(true);
+		setIsInvul(true);
 		setIsImmobilized(true);
 		sendPacket(new CameraMode(1));
 	}
 
 	public void leaveMovieMode()
 	{
-		setTarget(null);
-		stopMove(null);
-		setIsParalyzed(false);
-		if(!isGM())setIsInvul(false);
+		if(!isGM())
+			setIsInvul(false);
 		setIsImmobilized(false);
 		sendPacket(new CameraMode(0));
 	}
@@ -10156,9 +10153,6 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     public void reduceCurrentHp(double i, L2Character attacker)
     {
-        if (isPetrified())
-            i = 0;
-
         getStatus().reduceHp(i, attacker);
 
         // notify the tamed beast of attacks
@@ -10169,14 +10163,11 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     public void reduceCurrentHp(double value, L2Character attacker, boolean awake)
     {
-        if (isPetrified())
-            value = 0;
-
         getStatus().reduceHp(value, attacker, awake);
 
         // notify the tamed beast of attacks
         if (getTrainedBeast() != null )
-            getTrainedBeast().onOwnerGotAttacked(attacker);        
+            getTrainedBeast().onOwnerGotAttacked(attacker);
     }
 
     /**

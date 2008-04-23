@@ -309,7 +309,7 @@
   <set name="skillType" val="PARALYZE"/>
   <set name="target" val="TARGET_SELF"/>
   <for>
-    <effect count="1" name="Petrification" time="360" val="0" stackOrder="360" stackType="turn_stone"/>
+    <effect count="1" name="Petrify" time="360" val="0" stackOrder="360" stackType="turn_stone"/>
   </for>
 </skill>
 <skill id="4617" levels="1" name="Dispel Petrification">

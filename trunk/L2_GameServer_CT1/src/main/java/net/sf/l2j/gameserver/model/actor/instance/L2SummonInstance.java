@@ -188,8 +188,6 @@ public class L2SummonInstance extends L2Summon
     
     public void reduceCurrentHp(int damage, L2Character attacker)
     {
-        if (isPetrified())
-        {damage=0;}
         super.reduceCurrentHp(damage, attacker);
         SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_S1);
         if (attacker instanceof L2NpcInstance)

@@ -188,7 +188,7 @@ public class Pdam implements ISkillHandler
 					if(target instanceof L2PcInstance)
 					{
 						L2PcInstance player = (L2PcInstance)target;
-						if (!player.isInvul())
+						if (!player.isInvul() && !player.isPetrified())
 						{
 							if (damage >= player.getStatus().getCurrentHp())
 							{

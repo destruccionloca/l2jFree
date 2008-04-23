@@ -144,7 +144,7 @@ public class Blow implements ISkillHandler
 				if(skill.getDmgDirectlyToHP() && target instanceof L2PcInstance)
 				{
 					L2PcInstance player = (L2PcInstance)target;
-					if (!player.isInvul())
+					if (!player.isInvul() && !player.isPetrified())
 					{
 						if (damage >= player.getStatus().getCurrentHp()) 
 						{

@@ -1008,7 +1008,7 @@ public class FrintezzaManager extends Entity
 				for (L2PcInstance pc : _playersInLair)
 				{
 					
-					if (pc == null /* || pc.isInvul() || pc.getAppearance().getInvisible() */)
+					if (pc == null)
 						continue;
 					
 					else if (pc != null && !pc.isDead())
@@ -1175,24 +1175,19 @@ public class FrintezzaManager extends Entity
 			
 			for (L2Object target : _targets)
 			{
-				
-				if (target == null)
+				if (target == null || !(target instanceof L2Character))
 					continue;
 				
-				else if (!(target instanceof L2Character))
-					continue;
+				L2Character cha = (L2Character)target;
 				
-				else if (((L2Character) target).isDead())
+				if (cha.isDead() || cha.isInvul() || cha.isPetrified())
 					continue;
-				
-				else if (target instanceof L2PcInstance && ((L2PcInstance) target).isInvul())
-					continue;
-				
+
 				// show the magic effect on the target - visual effect
-				((L2Character) target).broadcastPacket(new MagicSkillUse(frintezza, ((L2Character) target), 5008, _song, 2000, 0), 10000);
+				cha.broadcastPacket(new MagicSkillUse(frintezza, cha, 5008, _song, 2000, 0), 10000);
 				
 				// calculate the song's damage
-				calculateSongEffects((L2Character) target);
+				calculateSongEffects(cha);
 			}
 			
 		}
@@ -2606,11 +2601,11 @@ public class FrintezzaManager extends Entity
 		boss.getKnownList().getKnownPlayers().clear();
 		for (L2PcInstance pc : L2World.getInstance().getAllPlayers())
 		{
-			if (pc == null /* || pc.isInvul() || pc.getAppearance().getInvisible() */)
+			if (pc == null)
 				continue;
 			
 			// If the player is in the Frintezza lair:
-			else if (checkIfInZone(pc))
+			if (checkIfInZone(pc))
 			{
 				// add the player to the list
 				if (!_playersInLair.contains(pc))

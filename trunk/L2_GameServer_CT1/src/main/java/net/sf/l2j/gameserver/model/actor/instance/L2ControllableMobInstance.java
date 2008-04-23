@@ -97,7 +97,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 	@Override
 	public void reduceCurrentHp(double i, L2Character attacker, boolean awake) 
     {
-		if (isInvul() || isDead())
+		if (isInvul() || isDead() || isPetrified())
 			return;
 		
 		if (awake)
@@ -108,9 +108,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 				stopImmobileUntilAttacked(null);
 		}
 
-		if (isPetrified())
-        {i= 0;}
-        i = getStatus().getCurrentHp() - i;
+		i = getStatus().getCurrentHp() - i;
 		
 		if (i < 0)
 			i = 0;
