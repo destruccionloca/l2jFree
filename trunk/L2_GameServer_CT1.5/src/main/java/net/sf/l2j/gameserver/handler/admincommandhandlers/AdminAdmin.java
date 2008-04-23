@@ -252,11 +252,6 @@ public class AdminAdmin implements IAdminCommandHandler
 					Config.loadWeddingConfig();
 					activeChar.sendMessage("Wedding config reloaded");
 				}
-				else if(type.equals("kamael"))
-				{
-					Config.loadKamaelConfig();
-					activeChar.sendMessage("Kamael config reloaded");
-				}
 				else if(type.equals("elayne"))
 				{
 					Config.loadElayneConfig();
@@ -264,22 +259,21 @@ public class AdminAdmin implements IAdminCommandHandler
 				}
 				else
 				{
-					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|kamael|elayne>");
+					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
 				}
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|kamael|elayne>");
+				activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
 			}
 		}
 
-		//[L2J_JP_ADD
+        //[L2J_JP_ADD
         else if(command.startsWith("admin_camera"))
         {
             if(activeChar.getTarget() == null)
             {
                 activeChar.sendMessage("Target incorrect.");
-                activeChar.sendMessage("Usage:  //camera dist yaw pitch time duration");
             }
             else
             {

@@ -37,7 +37,6 @@ import javolution.util.FastMap;
 
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.config.L2Properties;
-import net.sf.l2j.config.CreateKamaelChar;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -2677,48 +2676,6 @@ public final class Config
 	}
 
 	// *******************************************************************************************
-	public static final String	KAMAEL_FILE	= "./config/kamael.properties";
-	// *******************************************************************************************
-	public static boolean KAMAEL_CAN_USE_HEAVY;
-	public static boolean KAMAEL_CAN_USE_MAGIC;
-	public static boolean KAMAEL_CAN_USE_SHIELD;
-	public static boolean HUMAN_CAN_USE_RAPIER;
-	public static boolean HUMAN_CAN_USE_ANCIENT;
-	public static boolean HUMAN_CAN_USE_CROSSBOW;
-	public static CreateKamaelChar	CAN_CREATE_KAMAEL_RACE;										// Decides who can create a kamael char
-	// *******************************************************************************************
-	public static void loadKamaelConfig()
-	{
-		_log.info("loading " + KAMAEL_FILE);
-		try
-		{
-			Properties kamaelSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(KAMAEL_FILE));
-			kamaelSettings.load(is);
-			is.close();
-
-			KAMAEL_CAN_USE_HEAVY  = Boolean.parseBoolean(kamaelSettings.getProperty("KamaelCanUseHeavy", "False")); 
-			KAMAEL_CAN_USE_MAGIC  = Boolean.parseBoolean(kamaelSettings.getProperty("KamaelCanUseMagic", "False"));
-			KAMAEL_CAN_USE_SHIELD = Boolean.parseBoolean(kamaelSettings.getProperty("KamaelCanUseShield", "False"));
-			HUMAN_CAN_USE_ANCIENT  = Boolean.parseBoolean(kamaelSettings.getProperty("HumanCanUseAncient", "False")); 
-			HUMAN_CAN_USE_RAPIER  = Boolean.parseBoolean(kamaelSettings.getProperty("HumanCanUseRapier", "False"));
-			HUMAN_CAN_USE_CROSSBOW = Boolean.parseBoolean(kamaelSettings.getProperty("HumanCanUseCrossbow", "False"));
-
-			String temp = kamaelSettings.getProperty("CreateKamaelChar", "None");
-			CAN_CREATE_KAMAEL_RACE = CreateKamaelChar.NONE;
-			for (CreateKamaelChar ckc : CreateKamaelChar.values())
-				if (ckc.name().equalsIgnoreCase(temp))
-					CAN_CREATE_KAMAEL_RACE = ckc;
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + KAMAEL_FILE + " File.");
-		}
-	}
-
-
-	// *******************************************************************************************
 	public static final String	LOG_FILE		= "./config/logging.properties";
 	// *******************************************************************************************
 	final static String			LOG_FOLDER		= "log";							// Name of folder for log file
@@ -2975,7 +2932,6 @@ public final class Config
 		loadIrcConfig();
 		loadBossConfig();
 		loadSayFilter();
-		loadKamaelConfig();
 		loadElayneConfig();
 
 		initDBProperties();

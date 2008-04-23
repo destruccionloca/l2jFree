@@ -273,17 +273,17 @@ public class UseItem extends L2GameClientPacket
 
 			if (activeChar.isKamaelic())
 			{
-				if (item.getItemType() == L2ArmorType.HEAVY && !Config.KAMAEL_CAN_USE_HEAVY)
+				if (item.getItemType() == L2ArmorType.HEAVY)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 					return;
 				}
-				if (item.getItemType() == L2ArmorType.MAGIC && !Config.KAMAEL_CAN_USE_MAGIC)
+				if (item.getItemType() == L2ArmorType.MAGIC)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 					return;
 				}
-				if (item.getItemType() == L2WeaponType.NONE && !Config.KAMAEL_CAN_USE_SHIELD)
+				if (item.getItemType() == L2WeaponType.NONE)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 					return;
@@ -291,17 +291,17 @@ public class UseItem extends L2GameClientPacket
 			}
 			else
 			{
-				if (item.getItemType() == L2WeaponType.CROSSBOW && !Config.HUMAN_CAN_USE_CROSSBOW)
+				if (item.getItemType() == L2WeaponType.CROSSBOW)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 					return;
 				}
-				if (item.getItemType() == L2WeaponType.RAPIER && !Config.HUMAN_CAN_USE_RAPIER)
+				if (item.getItemType() == L2WeaponType.RAPIER)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 					return;
 				}
-				if (item.getItemType() == L2WeaponType.ANCIENT_SWORD && !Config.HUMAN_CAN_USE_ANCIENT)
+				if (item.getItemType() == L2WeaponType.ANCIENT_SWORD)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 					return;

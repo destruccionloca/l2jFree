@@ -1003,22 +1003,19 @@ public class GameStatusThread extends Thread
 							Config.loadWeddingConfig();
 							_print.println("Wedding config reloaded");
 						}
-						else if (type.equals("kamael"))
+						else if (type.equals("elayne"))
 						{
-							Config.loadKamaelConfig();
-							_print.println("Kamael config reloaded");
+							Config.loadElayneConfig();
+							_print.println("Elayne config reloaded");
 						}
-
 						else
 						{
-							_print
-									.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|kamael>");
+							_print.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
 						}
 					}
 					catch (Exception e)
 					{
-						_print
-								.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding>");
+						_print.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
 					}
 				}
 				else if (_usrCommand.startsWith("reload"))
