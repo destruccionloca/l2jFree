@@ -801,7 +801,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/>
   <set name="effectRange" val="1500"/>
-  <set name="absorbPart" val="0.2" />
+  <set name="absorbPart" val="0.2"/>
   <for>
   </for>
 </skill>
@@ -1023,7 +1023,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="#cast"/>
   <set name="effectRange" val="#effect"/>
-  <set name="absorbPart" val="0.2" /><!-- absorbs 20% of damage -->
+  <set name="absorbPart" val="0.2"/><!-- absorbs 20% of damage -->
   <for>
   </for>
 </skill>

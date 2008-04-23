@@ -757,7 +757,7 @@
  <set name="skillType" val="AGATHION"/>
  <set name="hitTime" val="3000"/>
  <set name="operateType" val="OP_ACTIVE"/>
- <set name="npcId" val="16029" />
+ <set name="npcId" val="16029"/>
  <set name="castRange" val="-1"/>
  <set name="effectRange" val="-1"/>
  <for>

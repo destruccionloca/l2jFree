@@ -558,9 +558,9 @@
   <set name="effectRange" val="-1"/>
   <!-- Summon-specific -->
   <table name="#npcIds"> 14163 14159 14164 14160 14165 14161 14166 14162 14167 14168 14169 14170 14171 14172 14173 14174 14175 14176 </table>
-  <set name="npcId" val="#npcIds" />
-  <set name="expPenalty" val="0.9" />
-  <set name="isCubic" val="false" />
+  <set name="npcId" val="#npcIds"/>
+  <set name="expPenalty" val="0.9"/>
+  <set name="isCubic" val="false"/>
   <for>
   </for>
 </skill>
@@ -592,9 +592,9 @@
   <!-- Summon-specific -->
   <table name="#npcIds"> 14295 14300 14296 14301 14297 14302 14298 14303 14299 14304 14305 14306 14307 14308 14309 14310 14311 14312 </table>
   <table name="#expPenalty"> 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.29 0.28 0.27 0.26 0.25 0.24 0.23 0.22 0.21 0.2 0.18 </table>
-  <set name="npcId" val="#npcIds" />
+  <set name="npcId" val="#npcIds"/>
   <set name="expPenalty" val="#expPenalty"/>
-  <set name="isCubic" val="false" />
+  <set name="isCubic" val="false"/>
   <for>
   </for>
 </skill>
@@ -621,9 +621,9 @@
   <set name="effectRange" val="-1"/>
   <!-- Summon-specific -->
   <table name="#npcIds"> 14347 14343 14348 14344 14349 14345 14350 14346 14351 14352 14353 14354 14355 14356 14357 14358 14359 14360 </table>
-  <set name="npcId" val="#npcIds" />
-  <set name="expPenalty" val="0.9" />
-  <set name="isCubic" val="false" />
+  <set name="npcId" val="#npcIds"/>
+  <set name="expPenalty" val="0.9"/>
+  <set name="isCubic" val="false"/>
   <for>
   </for>
 </skill>
@@ -650,9 +650,9 @@
   <set name="effectRange" val="-1"/>
   <!-- Summon-specific -->
   <table name="#npcIds"> 14531 14527 14532 14528 14533 14529 14534 14530 14535 14536 14537 14538 14539 14540 14541 14542 14543 14544 </table>
-  <set name="npcId" val="#npcIds" />
-  <set name="expPenalty" val="0.9" />
-  <set name="isCubic" val="false" />
+  <set name="npcId" val="#npcIds"/>
+  <set name="expPenalty" val="0.9"/>
+  <set name="isCubic" val="false"/>
   <for>
   </for>
 </skill>
@@ -888,7 +888,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
-  <set name="absorbPart" val="0.4" /><!-- absorbs 40% of damage -->
+  <set name="absorbPart" val="0.4"/><!-- absorbs 40% of damage -->
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
@@ -961,7 +961,7 @@
   <set name="element" val="3"/> <!-- Water -->
   <set name="reuseDelay" val="8000"/>
   <set name="hitTime" val="3100"/>
-  <set name="coolTime" val="200" />
+  <set name="coolTime" val="200"/>
   <set name="skillType" val="MDAM"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1310,7 +1310,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
-  <set name="absorbPart" val="0.8" /><!-- absorbs 80% of damage -->
+  <set name="absorbPart" val="0.8"/><!-- absorbs 80% of damage -->
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
@@ -2423,7 +2423,7 @@
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="itemConsumeId" val="1459"/>
-  <set name="itemConsumeCount" val="#itemConsumeCount" />
+  <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="itemConsumeIdOT" val="1459"/>
   <set name="itemConsumeCountOT" val="#itemConsumeCountOT"/>
   <set name="itemConsumeSteps" val="0"/>
@@ -2442,9 +2442,9 @@
   <!-- Summon-specific -->
   <table name="#npcIds"> 14207 14208 14209 14210 14211 14212 14213 14214 14215 14216 14217 14218 14219 14220 </table>
   <table name="#expPenalty"> 0.1 0.1 0.1 0.1 0.1 0.1 0.05 0.05 0.05 0.05 0.0 0.0 0.0 0.0 </table>
-  <set name="npcId" val="#npcIds" />
+  <set name="npcId" val="#npcIds"/>
   <set name="expPenalty" val="#expPenalty"/>
-  <set name="isCubic" val="false" />
+  <set name="isCubic" val="false"/>
 </skill>
 <skill id="1277" levels="14" name="Summon Merrow the Unicorn">
   <table name="#mpConsume_Init"> 14 16 18 19 21 22 22 23 24 25 26 26 27 28 </table>
@@ -2473,9 +2473,9 @@
   <set name="effectRange" val="-1"/>
   <!-- Summon-specific -->
   <table name="#npcIds"> 14391 14392 14393 14394 14395 14396 14397 14398 14399 14400 14401 14402 14403 14404 </table>
-  <set name="npcId" val="#npcIds" />
-  <set name="expPenalty" val="0.1" />
-  <set name="isCubic" val="false" />
+  <set name="npcId" val="#npcIds"/>
+  <set name="expPenalty" val="0.1"/>
+  <set name="isCubic" val="false"/>
   <for>
   </for>
 </skill>
@@ -2518,7 +2518,7 @@
   <table name="#itemConsumeCount"> 5 6 7 8 9 9 11 12 13 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="itemConsumeId" val="1458" />
+  <set name="itemConsumeId" val="1458"/>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -2530,9 +2530,9 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <!-- Summon-specific -->
-  <set name="npcId" val="6" />
-  <set name="expPenalty" val="0.0" />
-  <set name="isCubic" val="true" />
+  <set name="npcId" val="6"/>
+  <set name="expPenalty" val="0.0"/>
+  <set name="isCubic" val="true"/>
   <for>
   </for>
 </skill>
@@ -2543,7 +2543,7 @@
   <set name="element" val="3"/> <!-- Water -->
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="itemConsumeId" val="1458" />
+  <set name="itemConsumeId" val="1458"/>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -2555,9 +2555,9 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <!-- Summon-specific -->
-  <set name="npcId" val="7" />
-  <set name="expPenalty" val="0.0" />
-  <set name="isCubic" val="true" />
+  <set name="npcId" val="7"/>
+  <set name="expPenalty" val="0.0"/>
+  <set name="isCubic" val="true"/>
   <for>
   </for>
 </skill>
@@ -2567,7 +2567,7 @@
   <table name="#itemConsumeCount"> 5 6 7 8 9 9 11 12 13 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="itemConsumeId" val="1458" />
+  <set name="itemConsumeId" val="1458"/>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -2579,9 +2579,9 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <!-- Summon-specific -->
-  <set name="npcId" val="8" />
-  <set name="expPenalty" val="0.0" />
-  <set name="isCubic" val="true" />
+  <set name="npcId" val="8"/>
+  <set name="expPenalty" val="0.0"/>
+  <set name="isCubic" val="true"/>
   <for>
   </for>
 </skill>
@@ -2713,7 +2713,7 @@
   <set name="effectRange" val="1100"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Seed" time="5" val="0" />
+    <effect count="1" name="Seed" time="5" val="0"/>
   </for>
 </skill>
 <skill id="1286" levels="1" name="Seed of Water">

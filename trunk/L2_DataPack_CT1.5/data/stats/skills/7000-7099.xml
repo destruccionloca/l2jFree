@@ -702,7 +702,7 @@
 </skill>
 <skill id="7060" levels="1" name="Master's Blessing - Clarity">
   <!-- A GM is always by your side. Temporarily decreases the target's MP consumption for skills. Effect 3. -->
-  <table name="#MpConsumeRate"> 0.9 </table>
+  <table name="#mpConsumeRate"> 0.9 </table>
   <table name="#mpConsume"> 2 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
@@ -716,8 +716,8 @@
   <set name="effectRange" val="400"/>
   <for>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="#mpConsume" stackType="MPrate">
-      <mul order="0x30" stat="MagicalMpConsumeRate" val="#MpConsumeRate"/>
-      <mul order="0x30" stat="PhysicalMpConsumeRate" val="#MpConsumeRate"/>
+      <mul order="0x30" stat="MagicalMpConsumeRate" val="#mpConsumeRate"/>
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="#mpConsumeRate"/>
     </effect>
   </for>
 </skill>

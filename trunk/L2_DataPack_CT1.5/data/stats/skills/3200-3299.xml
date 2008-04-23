@@ -1031,7 +1031,7 @@
   <set name="skillType" val="AGATHION"/>
   <set name="hitTime" val="3000"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="npcId" val="0" />
+  <set name="npcId" val="0"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -1042,7 +1042,7 @@
   <set name="skillType" val="AGATHION"/>
   <set name="hitTime" val="3000"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="npcId" val="16028" />
+  <set name="npcId" val="16028"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -1053,7 +1053,7 @@
   <set name="skillType" val="AGATHION"/>
   <set name="hitTime" val="3000"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="npcId" val="16027" />
+  <set name="npcId" val="16027"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -1064,7 +1064,7 @@
   <set name="skillType" val="AGATHION"/>
   <set name="hitTime" val="3000"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="npcId" val="16026" />
+  <set name="npcId" val="16026"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>

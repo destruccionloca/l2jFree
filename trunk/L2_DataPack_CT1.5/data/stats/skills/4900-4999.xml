@@ -1001,6 +1001,6 @@
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
-  <set name="absorbPart" val="0.8" />
+  <set name="absorbPart" val="0.8"/>
 </skill>
 </list>
