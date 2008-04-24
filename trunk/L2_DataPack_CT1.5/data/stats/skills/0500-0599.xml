@@ -2,7 +2,7 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="500" levels="2" name="True Berserker">
-  <!-- Needs retail value checks -->
+ <!-- Needs retail value checks -->
   <table name="#pAtk"> 1.08 1.12 </table>
   <table name="#pAtkSpd"> 1.08 1.12 </table>
   <table name="#accCombat"> 1 3 </table>
@@ -26,7 +26,7 @@
   </for>
 </skill>
 <skill id="501" levels="12" name="Violent Temper">
-  <!-- Needs retail value checks -->
+ <!-- Needs retail value checks -->
   <table name="#mpConsume"> 22 24 25 27 28 29 30 31 32 33 34 34 </table>
   <table name="#mAtkSpd"> 0.98 0.96 0.94 0.92 0.90 0.88 0.86 0.84 0.82 0.80 0.78 0.76 </table>
   <table name="#pDef"> 0.98 0.96 0.94 0.92 0.90 0.88 0.86 0.84 0.82 0.80 0.78 0.76 </table>
@@ -39,10 +39,10 @@
   <set name="castRange" val="600"/>
   <set name="soulConsumeCount" val="1"/>
   <for>
-    <effect count="10" name="Buff" time="15" val="0">
-      <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
-      <mul order="0x30" stat="pDef" val="#pDef"/>
-    </effect>
+  	<effect count="10" name="Debuff" time="15" val="0">
+  		<mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
+  		<mul order="0x30" stat="pDef" val="#pDef"/>
+  	</effect>
   </for>
 </skill>
 <skill id="502" levels="5" name="Life to Soul">
@@ -182,7 +182,7 @@ description(s) :
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
-  <set name="effectRange" val="900"/>
+  <set name="effectRange" val="1400"/>
   <set name="soulConsumeCount" val="1"/>
   <set name="baseCritRate" val="15"/>
   <for>
@@ -512,7 +512,7 @@ description(s) :
   <set name="reuseDelay" val="8000"/>
   <set name="soulConsumeCount" val="1"/>
   <for>
-    <effect count="1" name="Buff" time="15" val="0">
+    <effect count="1" name="Debuff" time="15" val="0">
       <mul order="0x30" stat="bowWpnVuln" val="1.3"/> <!-- Needs to be checked -->
       <mul order="0x30" stat="crossbowWpnVuln" val="1.3"/> <!-- Needs to be checked -->
     </effect>
@@ -594,9 +594,10 @@ description(s) :
   <set name="target" val="TARGET_PARTY"/>
   <for>
     <effect count="1" name="Buff" time="15" val="0" stackOrder="1" stackType="pDefSpec">
-      <mul order="0x30" stat="pDef" val="2"/>
-      <mul order="0x30" stat="mDef" val="2"/>
+      <add order="0x40" stat="pDef" val="3600"/>
+      <add order="0x40" stat="mDef" val="2700"/>
     </effect>
+    <!-- Needs Core Support: absorbs most of the damage they (Party Members) will receive for the duration of the spell -->
   </for>
 </skill>
 <skill id="529" levels="1" name="Song of Elemental">
@@ -687,26 +688,28 @@ description(s) :
   <set name="weaponsAllowed" val="32"/>
   <set name="mpConsume" val="36"/>
   <set name="mpInitialConsume" val="7"/>
-  <set name="triggeredId" val="5427"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="reuseDelay" val="10000"/>
   <set name="hitTime" val="2000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="false"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="549"/>
   <for>
-    <effect count="1" name="ConditionHit" time="1200" val="0" stackOrder="1" stackType="conditionhit"/>
+    <effect count="1" name="Buff" time="1200" val="0">
+      <mul order="0x30" stat="pAtkSpd" val="1.12">
+        <using kind="Bow"/>
+      </mul>
+    </effect>
+   <!-- need core support for chance! -->
   </for>
 </skill>
 <skill id="534" levels="1" name="Counter Dash">
-  <!-- Done by Darki699 -->
+  <!-- Done by theREALizzy, check for retail values. -->
   <set name="mpConsume" val="43"/>
   <set name="weaponsAllowed" val="32"/>
-  <set name="triggeredId" val="5428"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="reuseDelay" val="10000"/>
   <set name="hitTime" val="2000"/>
@@ -715,7 +718,11 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="ConditionHit" time="1200" val="0" stackOrder="22" stackType="speed_up"/>
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="22" stackType="speed_up">
+      <add order="0x40" stat="runSpd" val="22"/>
+      <using kind="Bow"/>
+    </effect>
+  <!-- need core support for chance! -->
   </for>
 </skill>
 <skill id="535" levels="1" name="Counter Mind">
@@ -791,16 +798,16 @@ description(s) :
   <set name="effectRange" val="-1"/>
   <set name="soulConsumeCount" val="20"/>
   <for>
-    <effect count="1" name="Transformation" time="240" val="0"> <!-- Transformation lasts 4 minutes -->
-      <mul order="0x30" stat="maxHp" val="1.22"/> <!-- Max Hp +22% -->
-      <mul order="0x30" stat="maxCp" val="1.22"/> <!-- Max Cp +22% -->
-      <mul order="0x30" stat="maxMp" val="0.80"/> <!-- Max Mp -20% -->
-      <add order="0x40" stat="STR" val="2"/> <!-- STR +2 -->
-      <add order="0x40" stat="CON" val="1"/> <!-- CON +1 -->
-      <add order="0x40" stat="INT" val="1"/> <!-- INT +1 -->
-      <sub order="0x40" stat="DEX" val="2"/> <!-- DEX -2 -->
-      <sub order="0x40" stat="MEN" val="2"/> <!-- MEN -2 -->
-    </effect>
+  <effect count="1" name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+    <mul order="0x30" stat="maxHp" val="1.22"/> <!-- Max Hp +22% -->
+    <mul order="0x30" stat="maxCp" val="1.22"/> <!-- Max Cp +22% -->
+    <mul order="0x30" stat="maxMp" val="0.80"/> <!-- Max Mp -20% -->
+    <add order="0x40" stat="STR" val="2"/> <!-- STR +2 -->
+    <add order="0x40" stat="CON" val="1"/> <!-- CON +1 -->
+    <add order="0x40" stat="INT" val="1"/> <!-- INT +1 -->
+    <sub order="0x40" stat="DEX" val="2"/> <!-- DEX -2 -->
+    <sub order="0x40" stat="MEN" val="2"/> <!-- MEN -2 -->
+	</effect>
   </for>
 </skill>
 <skill id="539" levels="1" name="Nail Attack">
@@ -834,7 +841,7 @@ description(s) :
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="80"/>
   <for>
-    <effect count="1" name="EnemyCharge" time="1" val="0"/>
+   <effect count="1" name="EnemyCharge" time="1" val="0"/>
   </for>
 </skill>
 <skill id="541" levels="1" name="Transform Grail Apostle">
@@ -849,7 +856,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="542" levels="1" name="Transform Grail Apostle">
@@ -864,7 +871,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="543" levels="1" name="Transform Grail Apostle">
@@ -879,7 +886,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="544" levels="1" name="Transform Unicorn">
@@ -894,7 +901,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="545" levels="1" name="Transform Unicorn">
@@ -909,7 +916,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="546" levels="1" name="Transform Unicorn">
@@ -924,7 +931,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="547" levels="1" name="Transform Lilim Knight">
@@ -939,7 +946,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="548" levels="1" name="Transform Lilim Knight">
@@ -954,7 +961,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="549" levels="1" name="Transform Lilim Knight">
@@ -969,7 +976,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="550" levels="1" name="Transform Golem Guardian">
@@ -984,7 +991,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="551" levels="1" name="Transform Golem Guardian">
@@ -999,7 +1006,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="552" levels="1" name="Transform Golem Guardian">
@@ -1014,7 +1021,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="553" levels="1" name="Transform Inferno Drake">
@@ -1029,7 +1036,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="554" levels="1" name="Transform Inferno Drake">
@@ -1044,7 +1051,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="555" levels="1" name="Transform Inferno Drake">
@@ -1059,7 +1066,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="556" levels="1" name="Transform Dragon Bomber">
@@ -1074,7 +1081,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="557" levels="1" name="Transform Dragon Bomber">
@@ -1089,7 +1096,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="558" levels="1" name="Transform Dragon Bomber">
@@ -1104,7 +1111,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="559" levels="4" name="Spear">
@@ -1502,7 +1509,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="360"/>
   <for>
-    <effect name="Buff" time="15" count="1" val="0" stackOrder="#accCombat" stackType="accuracyDown">
+    <effect name="Debuff" time="15" count="1" val="0" stackOrder="#accCombat" stackType="accuracyDown">
       <sub order="0x40" stat="accCombat" val="#accCombat"/>
     </effect>
   </for>
@@ -1524,7 +1531,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="900"/>
   <for>
-  <effect count="#effect" name="DamOverTime" time="3" val="#bleeddmg" abnormal="bleeding"/>
+ 	<effect count="#effect" name="DamOverTime" time="3" val="#bleeddmg" abnormal="bleeding"/>
   </for>
 </skill>
 <skill id="583" levels="4" name="Assimilation">

@@ -271,7 +271,7 @@
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="70"/>
   <for>
-    <effect name="Buff" time="30" count="1" val="0" stackOrder="0.5" stackType="RunSpeedDown">
+    <effect name="Debuff" time="30" count="1" val="0" stackOrder="0.5" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.5"/>
     </effect>
   </for>
@@ -289,7 +289,7 @@
   <set name="castRange" val="800"/>
   <set name="effectRange" val="1300"/>
   <for>
-    <effect name="Buff" time="30" count="1" val="0" stackOrder="0.5" stackType="RunSpeedDown">
+    <effect name="Debuff" time="30" count="1" val="0" stackOrder="0.5" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.5"/>
     </effect>
   </for>
@@ -358,7 +358,7 @@
   </for>
 </skill>
 <skill id="4025" levels="12" name="Master Recharge">
-  <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
+  <table name="#mpConsume"> 24 39 53 70 90 110 130 128 145 150 153 155 </table>
   <table name="#power"> 23.0 38.0 52.0 70.0 90.0 110.0 129.0 138.0 144.0 149.0 153.0 155.0 </table>
   <table name="#aggro"> 138 204 285 379 477 566 635 659 676 689 700 709 </table>
   <set name="mpConsume" val="#mpConsume"/>
@@ -376,30 +376,40 @@
   </for>
 </skill>
 <skill id="4026" levels="1" name="Gludio Flame">
-  <set name="power" val="0.0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="hitTime" val="4000"/>
-  <set name="skillType" val="WEAKNESS"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <!-- Done by DJ MELERIX -->
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
+  <set name="element" val="2"/> <!-- Fire -->
+  <set name="hitTime" val="4000"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="60"/>
+  <set name="mpInitialConsume" val="17"/>
+  <set name="mpConsume" val="66"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="43"/>
+  <set name="reuseDelay" val="15000"/>
+  <set name="skillRadius" val="200"/>
+  <set name="skillType" val="MDAM"/>
+  <set name="target" val="TARGET_AREA"/>
   <for>
   </for>
 </skill>
 <skill id="4027" levels="1" name="Gludio Heal">
-  <set name="mpConsume" val="98"/>
-  <set name="power" val="627.0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="hitTime" val="5000"/>
-  <set name="reuseDelay" val="10000"/>
-  <set name="hitTime" val="5000"/>
-  <set name="skillType" val="HEAL"/>
-  <set name="isMagic" val="true"/>
-  <set name="operateType" val="OP_ACTIVE"/>
+  <!-- Done by DJ MELERIX -->
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
-  <set name="displayId" val="1011"/>
-  <set name="aggroPoints" val="100"/>
+  <set name="hitTime" val="5000"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="60"/>
+  <set name="mpInitialConsume" val="20"/>
+  <set name="mpConsume" val="78"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="627"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="skillType" val="HEAL"/>
+  <set name="target" val="TARGET_ONE"/>
+  <for>
+  </for>
 </skill>
 <skill id="4028" levels="3" name="NPC Might">
   <table name="#magicLvl"> 20 40 70 </table>
@@ -466,7 +476,6 @@
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtk" stackType="pa_up">
       <mul order="0x30" stat="pAtk" val="#pAtk"/>
     </effect>
-    <effect count="1" name="Grow" time="1200" val="0"/>
   </for>
 </skill>
 <skill id="4031" levels="3" name="NPC Clan Aegis">
@@ -508,7 +517,7 @@
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
+  <set name="effectRange" val="200"/>
   <for>
   </for>
 </skill>
@@ -527,8 +536,8 @@
   <set name="skillType" val="MDAM"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="200"/>
-  <set name="effectRange" val="600"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -551,7 +560,7 @@
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="60"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.7"/>
     </effect>
   </for>
@@ -620,7 +629,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="1" name="Buff" time="15" val="0" stackOrder="#Tab-pAtk" stackType="pAtkDown">
+    <effect count="1" name="Debuff" time="15" val="0" stackOrder="#Tab-pAtk" stackType="pAtkDown">
       <mul order="0x30" stat="pAtk" val="#Tab-pAtk"/>
     </effect>
   </for>
@@ -642,7 +651,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="1" name="Buff" time="15" val="0" stackOrder="#Tab-pAtkSpd" stackType="pAtkSpdDown">
+    <effect count="1" name="Debuff" time="15" val="0" stackOrder="#Tab-pAtkSpd" stackType="pAtkSpdDown">
       <mul order="0x30" stat="pAtkSpd" val="#Tab-pAtkSpd"/>
     </effect>
   </for>
@@ -714,6 +723,7 @@
   <set name="isMagic" val="true"/>
   <set name="magicLvl" val="45"/>
   <set name="mpInitialConsume" val="8"/>
+  <set name="mpConsume" val="32"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="power" val="60"/>
   <set name="skillType" val="MDAM"/>
@@ -728,17 +738,17 @@
   <set name="element" val="2"/> <!-- Fire -->
   <set name="hitTime" val="4000"/>
   <set name="isMagic" val="true"/>
-   <set name="magicLvl" val="45"/>
-   <set name="mpInitialConsume" val="12"/>
-   <set name="mpConsume" val="48"/>
-   <set name="operateType" val="OP_ACTIVE"/>
-   <set name="power" val="30"/>
-   <set name="reuseDelay" val="15000"/>
-   <set name="skillRadius" val="200"/>
-   <set name="skillType" val="MDAM"/>
-   <set name="target" val="TARGET_AREA"/>
-   <for>
-   </for>
+  <set name="magicLvl" val="45"/>
+  <set name="mpInitialConsume" val="12"/>
+  <set name="mpConsume" val="48"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="30"/>
+  <set name="reuseDelay" val="15000"/>
+  <set name="skillRadius" val="200"/>
+  <set name="skillType" val="MDAM"/>
+  <set name="target" val="TARGET_AREA"/>
+  <for>
+  </for>
 </skill>
 <skill id="4044" levels="1" name="Partisan Heal">
   <!-- Done by DJ MELERIX -->
@@ -838,6 +848,7 @@
   <set name="lvlDepend" val="1"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
+  <set name="element" val="6"/> <!-- Dark -->
   <set name="skillType" val="DRAIN"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
@@ -856,8 +867,8 @@
   <set name="element" val="6"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="900"/>
-  <set name="effectRange" val="1400"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <set name="absorbPart" val="0.4"/><!-- absorbs 40% of damage -->
   <for>
   </for>
@@ -872,8 +883,8 @@
   <set name="skillType" val="HEAL"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="400"/>
-  <set name="effectRange" val="900"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -905,10 +916,10 @@
   <set name="skillType" val="DEBUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="400"/>
-  <set name="effectRange" val="900"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0" stackOrder="0.77" stackType="pAtkDown">
+    <effect count="1" name="Debuff" time="120" val="0" stackOrder="0.77" stackType="pAtkDown">
      <mul order="0x30" stat="pAtk" val="0.77"/>
     </effect>
   </for>
@@ -922,10 +933,10 @@
   <set name="skillType" val="DEBUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="400"/>
-  <set name="effectRange" val="900"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0" stackOrder="0.77" stackType="pDefDown">
+    <effect count="1" name="Debuff" time="120" val="0" stackOrder="0.77" stackType="pDefDown">
       <mul order="0x30" stat="pDef" val="0.77"/>
     </effect>
   </for>
@@ -939,10 +950,10 @@
   <set name="skillType" val="DEBUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="400"/>
-  <set name="effectRange" val="900"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0" stackOrder="0.77" stackType="pAtkSpdDown">
+    <effect count="1" name="Debuff" time="120" val="0" stackOrder="0.77" stackType="pAtkSpdDown">
        <mul order="0x30" stat="pAtkSpd" val="0.77"/>
     </effect>
   </for>
@@ -1019,7 +1030,7 @@
 </skill>
 <skill id="4062" levels="1" name="Orfen">
   <!-- Orfen Skills -->
-  <set name="magicLvl" val="40"/>
+  <set name="magicLvl" val="50"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="WEAKNESS"/>
@@ -1167,7 +1178,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect name="Buff" time="120" count="1" val="0" stackOrder="0.77" stackType="pAtkSpdDown">
+    <effect name="Debuff" time="120" count="1" val="0" stackOrder="0.77" stackType="pAtkSpdDown">
       <mul order="0x30" stat="pAtkSpd" val="0.77"/>
     </effect>
   </for>
@@ -1181,7 +1192,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul order="0x30" stat="bowWpnVuln" val="#vuln"/>
+      <mul order="0x30" stat="bowWpnVuln" val="#vuln"/>
   </for>
 </skill>
 <skill id="4072" levels="12" name="Shock">
@@ -1290,7 +1301,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="#Tab-runSpd"/>
     </effect>
   </for>
@@ -1621,7 +1632,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="reuseDelay" val="6000"/>
   <set name="hitTime" val="1500"/>
-  <set name="skillType" val="DEBUFF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>

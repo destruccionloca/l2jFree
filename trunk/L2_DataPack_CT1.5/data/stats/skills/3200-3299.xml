@@ -923,7 +923,6 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="750"/>
   <for>
-   <effect count="15" name="HealOverTime" time="1" val="#hotValue" stackOrder="#hotValue" stackType="LifeForce"/>
   </for>
 </skill>
 <skill id="3261" levels="1" name="Heart Shot">

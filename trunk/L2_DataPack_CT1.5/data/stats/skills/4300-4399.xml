@@ -235,7 +235,6 @@
     <effect count="1" name="Buff" time="60" val="0" stackOrder="#Tab-pAtk" stackType="pa_up">
       <mul order="0x30" stat="pAtk" val="#Tab-pAtk"/>
     </effect>
-    <effect count="1" name="Grow" time="60" val="0"/>
   </for>
 </skill>
 <skill id="4318" levels="1" name="Ultimate Buff">
@@ -992,7 +991,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0">
+    <effect count="1" name="Debuff" time="1200" val="0">
       <sub order="0x40" stat="accCombat" val="10"/>
       <mul order="0x30" stat="sleepVuln" val="1.5"/>
       <mul order="0x30" stat="rootVuln" val="1.5"/>
@@ -1011,7 +1010,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0">
+    <effect count="1" name="Debuff" time="1200" val="0">
       <mul order="0x30" stat="mAtkSpd" val="0.70"/>
       <mul order="0x30" stat="sleepVuln" val="1.5"/>
       <mul order="0x30" stat="rootVuln" val="1.5"/>
@@ -1029,7 +1028,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="10" stackType="accuracyDown">
+    <effect count="1" name="Debuff" time="1200" val="0" stackOrder="10" stackType="accuracyDown">
       <sub order="0x40" stat="accCombat" val="10"/>
     </effect>
   </for>
@@ -1470,7 +1469,6 @@
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="#pAtk" stackType="pa_up">
       <mul order="0x30" stat="pAtk" val="#pAtk"/>
     </effect>
-    <effect count="1" name="Grow" time="3600" val="0"/>
   </for>
 </skill>
 <skill id="4394" levels="6" name="Blessed Body">
@@ -1576,7 +1574,6 @@
       <mul order="0x30" stat="mDef" val="#mDef"/>
       <mul order="0x30" stat="pDef" val="#pDef"/>
     </effect>
-    <effect count="1" name="Grow" time="1200" val="0"/>
   </for>
 </skill>
 <skill id="4398" levels="6" name="Bless Shield">

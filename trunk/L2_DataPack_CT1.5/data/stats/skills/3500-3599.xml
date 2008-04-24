@@ -293,10 +293,6 @@
   </for>
 </skill>
 <skill id="3523" levels="1" name="Avadon Robe Set">
-<!--
-  Description(s):
-      Increases P. Def. and Casting Spd.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -567,7 +563,7 @@
   <for>
     <mul order="0x30" stat="pAtk" val="1.08"> <!-- Archery P. Atk. +8% -->
       <and>
-        <using kind="Bow, Crossbow"/>
+        <using kind="Bow,Crossbow"/>
       </and>
     </mul>
     <add order="0x40" stat="maxMp" val="240"/> <!-- MP +240 -->
@@ -864,6 +860,7 @@
     <mul val='2.0' order='0x30' stat='mCritRate'/>
     <mul val='0.85' order='0x30' stat='fireVuln'/>
     <mul val='0.6' order='0x30' stat='sleepVuln'/>
+    <!-- Missing Sleep Attack Success Rate: +40% -->
     <mul val='0.90' order='0x30' stat='mReuse'/>
     <mul val='0.90' order='0x30' stat='pReuse'/>
     <add val='5' order='0x40' stat="reflectDam"/>
@@ -878,6 +875,8 @@
   <set name="effectRange" val="-1"/>
   <for>
     <mul val='0.6' order='0x30' stat='bleedVuln'/>
+    <!-- Missing Bleed Attack Success Rate: +40% -->
+    <!-- Missing Stun/Silence Attack Success Rate: +30% -->
     <mul val='1.10' order='0x30' stat='gainHp'/>
     <add val='4' order='0x40' stat='absorbDam'/>
     <mul val='0.7' order='0x30' stat='stunVuln'/>
@@ -896,10 +895,12 @@
   <set name="effectRange" val="-1"/>
   <for>
     <mul val='0.7' order='0x30' stat='bleedVuln'/>
+    <!-- Missing Bleed Attack Success Rate: +30% -->
     <mul val='1.10' order='0x30' stat='gainHp'/>
     <add val='4' order='0x40' stat='absorbDam'/>
     <mul val='0.8' order='0x30' stat='stunVuln'/>
-    <mul val='0.8' order='0x40' stat='derangementVuln'/>
+    <!-- Missing Shock/Abnormal Mental State Attack Success Rate: 20% -->
+    <mul val='0.8' order='0x30' stat='derangementVuln'/>
   </for>
 </skill>
 <skill id="3560" levels="1" name="Earring of Orfen">
@@ -910,7 +911,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='0.8' order='0x40' stat='bleedVuln'/>
+    <mul val='0.8' order='0x30' stat='bleedVuln'/>
+    <!-- Missing Bleed Attack Success Rate: 20% -->
     <mul val='1.06' order='0x30' stat='gainHp'/>
   </for>
 </skill>
@@ -923,9 +925,11 @@
   <set name="effectRange" val="-1"/>
   <for>
     <mul val='0.6' order='0x30' stat='poisonVuln'/>
+    <!-- Missing Poison Attack Success Rate: 40% -->
     <add val='2' order='0x40' stat='accCombat'/>
     <mul val='1.15' order='0x30' stat='cAtk'/>
     <mul val='0.7' order='0x30' stat='rootVuln'/>
+    <!-- Missing Hold Attack Success Rate: 30% -->
     <mul val='1.04' order='0x30' stat='pAtkSpd'/>
     <mul val='1.04' order='0x30' stat='mAtkSpd'/>
   </for>
@@ -939,9 +943,11 @@
   <set name="effectRange" val="-1"/>
   <for>
     <mul val='0.7' order='0x30' stat='poisonVuln'/>
+    <!-- Missing Poison Attack Success Rate: +30% -->
     <add val='2' order='0x10' stat='accCombat'/>
     <mul val='1.15' order='0x30' stat='cAtk'/>
     <mul val='0.8' order='0x30' stat='rootVuln'/>
+    <!-- Missing Hold Attack Success Rate: 20% -->
   </for>
 </skill>
 <skill id="3563" levels="1" name="Ring of Core">
@@ -953,6 +959,7 @@
   <set name="effectRange" val="-1"/>
   <for>
     <mul val='0.8' order='0x30' stat='poisonVuln'/>
+    <!-- Missing Poison Attack Success Rate: 20% -->
     <add val='1' order='0x40' stat='accCombat'/>
   </for>
 </skill>
@@ -1178,250 +1185,255 @@
   </for>
 </skill>
 <skill id="3578" levels="1" name="Special Ability: Infinity Blade">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Decreases enemy's P. Def. during critical attacks. Also increases MaxHP, MaxMP, MaxCP, shield defense capability and damage inflicted during PvP.  Reflects some of the damage received back to the enemy (does not include damage from skill or range attacks).
--->
+  <!-- Done by DJ MELERIX -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="skillType" val="WEAPON_SA"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x30' stat='maxHp'/>
-    <mul val='1.30' order='0x30' stat='maxMp'/>
-    <mul val='1.50' order='0x30' stat='maxCp'/>
-    <mul val='1.33' order='0x30' stat='sDef'/>
-    <mul val='1.09' order='0x30' stat='reflectDam'/>
+    <mul order="0x30" stat="maxHp" val="1.25"/> <!-- HP +25% -->
+    <mul order="0x30" stat="maxMp" val="1.30"/> <!-- MP +30% -->
+    <mul order="0x30" stat="maxCp" val="1.50"/> <!-- CP +50% -->
+    <mul order="0x30" stat="sDef" val="1.33"/> <!-- Shield P.Def. +33% -->
+    <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <add order="0x40" stat="reflectDam" val="9"/> <!-- Reflect Damage 9% -->
   </for>
 </skill>
 <skill id="3579" levels="1" name="Decrease P. Def.">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Infinity Blade Skill -->
   <set name="magicLvl" val="80"/>
-  <set name="save" val="4"/>
-  <set name="magicLvl" val="74"/>
-  <set name="lvlDepend" val="2"/>
-  <set name="power" val="80"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="DEBUFF"/>
-  <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0" stackOrder="0.77" stackType="pDefDown">
+    <effect count="1" name="Debuff" time="120" val="0" stackOrder="0.77" stackType="pDefDown">
       <mul order="0x30" stat="pDef" val="0.77"/>
     </effect>
   </for>
 </skill>
 <skill id="3580" levels="1" name="Special Ability: Infinity Axe">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Done by DJ MELERIX -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="skillType" val="WEAPON_SA"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x30' stat='maxHp'/>
-    <mul val='1.30' order='0x30' stat='maxMp'/>
-    <mul val='1.39' order='0x30' stat='rShld'/>
-    <mul val='1.09' order='0x30' stat='reflectDam'/>
+    <mul order="0x30" stat="maxHp" val="1.25"/> <!-- HP +25% -->
+    <mul order="0x30" stat="maxMp" val="1.30"/> <!-- MP +30% -->
+    <mul order="0x30" stat="rShld" val="1.39"/> <!-- Shield Block Rate +39% -->
+    <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <add order="0x40" stat="reflectDam" val="9"/> <!-- Reflect Damage 9% -->
   </for>
 </skill>
 <skill id="3581" levels="1" name="Discord">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Infinity Axe Skill -->
   <set name="magicLvl" val="80"/>
-  <set name="power" val="350.0"/>
-  <set name="save" val="6"/>
-  <set name="magicLvl" val="74"/>
-  <set name="lvlDepend" val="2"/>
-  <set name="target" val="TARGET_AREA_UNDEAD"/>
+  <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="CONFUSION"/>
-  <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Confusion" time="4" val="0"/>
+    <effect count="5" name="Confusion" time="4" val="0"/>
   </for>
 </skill>
 <skill id="3582" levels="1" name="Special Ability: Infinity Cleaver">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Done by DJ MELERIX -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="skillType" val="WEAPON_SA"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x30' stat='maxHp'/>
-    <mul val='1.50' order='0x30' stat='maxCp'/>
-    <add val='504' order='0x40' stat='cAtk'/>
-    <add val='78.7' order='0x40' stat='rCrit'/>
-    <add val="10" order="0x40" stat="reflectSkillPhysic"/>
-    <add val="10" order="0x40" stat="reflectSkillMagic"/>
+    <add order="0x40" stat="cAtk" val="504"/> <!-- P.Atk. +504 on a critical hit -->
+    <mul order="0x30" stat="maxHp" val="1.25"/> <!-- HP +25% -->
+    <mul order="0x30" stat="maxCp" val="1.50"/> <!-- CP +50% -->
+    <add order="0x40" stat="rCrit" val="78.7"/> <!-- Critical +78.7 -->
+    <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <add order="0x40" stat="reflectSkillPhysic" val="10"/> <!-- Reflect Skills 10% of the time -->
+    <add order="0x40" stat="reflectSkillMagic" val="10"/> <!-- Reflect Skills 10% of the time -->
   </for>
 </skill>
 <skill id="3583" levels="1" name="Special Ability: Infinity Crusher">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Done by DJ MELERIX -->
+  <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="skillType" val="WEAPON_SA"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x30' stat='maxHp'/>
-    <mul val='1.50' order='0x30' stat='maxCp'/>
-    <mul val='1.07' order='0x30' stat='pAtkSpd'/>
-    <add val="10" order="0x40" stat="reflectSkillPhysic"/>
-    <add val="10" order="0x40" stat="reflectSkillMagic"/>
+    <mul order="0x30" stat="maxHp" val="1.25"/> <!-- HP +25% -->
+    <mul order="0x30" stat="maxCp" val="1.50"/> <!-- CP +50% -->
+    <mul order="0x30" stat="pAtkSpd" val="1.07"/> <!-- Atk. Spd. +7% -->
+    <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <add order="0x40" stat="reflectSkillPhysic" val="10"/> <!-- Reflect Skills 10% of the time -->
+    <add order="0x40" stat="reflectSkillMagic" val="10"/> <!-- Reflect Skills 10% of the time -->
   </for>
 </skill>
 <skill id="3584" levels="1" name="Shock">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Infinity Crusher Skill -->
   <set name="magicLvl" val="80"/>
-  <set name="lvlDepend" val="1"/>
-  <set name="save" val="4"/>
-  <set name="power" val="800"/>
-  <set name="target" val="TARGET_ONE"/>
-  <set name="overHit" val="true"/>
-  <set name="skillType" val="PDAM"/>
+  <set name="power" val="0.0"/>
+  <set name="castRange" val="-1"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="STUN"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
-  <set name="effectType" val="STUN"/>
-  <set name="effectPower" val="30"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="2" stackType="Stun">
+    </effect>
   </for>
 </skill>
-<skill id="3585" levels="1" name="Infinity Wing">
-  <!-- Done by SarutrA - SqueezeD -->
+<skill id="3585" levels="1" name="Special Ability: Infinity Wing">
+  <!-- Done by DJ MELERIX -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="skillType" val="WEAPON_SA"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x30' stat='maxHp'/>
-    <mul val='1.30' order='0x30' stat='maxMp'/>
-    <mul val='1.50' order='0x30' stat='maxCp'/>
-    <add val='78.7' order='0x40' stat='rCrit'/>
-    <add val="10" order="0x40" stat="reflectSkillPhysic"/>
-    <add val="10" order="0x40" stat="reflectSkillMagic"/>
+    <mul order="0x30" stat="maxHp" val="1.25"/> <!-- HP +25% -->
+    <mul order="0x30" stat="maxMp" val="1.30"/> <!-- MP +30% -->
+    <mul order="0x30" stat="maxCp" val="1.50"/> <!-- CP +50% -->
+    <add order="0x40" stat="rCrit" val="78.7"/> <!-- Critical +78.7 -->
+    <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <add order="0x40" stat="reflectSkillPhysic" val="10"/> <!-- Reflect Skills 10% of the time -->
+    <add order="0x40" stat="reflectSkillMagic" val="10"/> <!-- Reflect Skills 10% of the time -->
   </for>
 </skill>
 <skill id="3586" levels="1" name="Physical Skill Restraint">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Infinity Wing Skill -->
   <set name="magicLvl" val="80"/>
-  <set name="power" val="80"/>
-  <set name="lvlDepend" val="2"/>
-  <set name="target" val="TARGET_ONE"/>
-  <set name="skillType" val="MUTE"/>
-  <set name="isMagic" val="true"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="DEBUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="SilenceMagicPhysical" time="30" val="0"/>
+    <effect count="1" name="PhysicalMute" time="60" val="0" stackOrder="1" stackType="silence"/>
   </for>
 </skill>
 <skill id="3587" levels="1" name="Special Ability: Infinity Fang">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Done by DJ MELERIX -->
+  <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="skillType" val="WEAPON_SA"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x30' stat='maxHp'/>
-    <mul val='1.30' order='0x30' stat='maxMp'/>
-    <mul val='1.50' order='0x30' stat='maxCp'/>
-    <add val='3.15' order='0x40' stat='rEvas'/>
+    <mul order="0x30" stat="maxHp" val="1.25"/> <!-- HP +25% -->
+    <mul order="0x30" stat="maxMp" val="1.30"/> <!-- MP +30% -->
+    <mul order="0x30" stat="maxCp" val="1.50"/> <!-- CP +50% -->
+    <add order="0x40" stat="rEvas" val="3.15"/> <!-- Evasion +3.15 -->
+    <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <add order="0x40" stat="reflectSkillPhysic" val="10"/> <!-- Reflect Skills 10% of the time -->
+    <add order="0x40" stat="reflectSkillMagic" val="10"/> <!-- Reflect Skills 10% of the time -->
   </for>
 </skill>
 <skill id="3588" levels="1" name="Shock">
-  <!-- Done by SarutrA - SqueezeD -->
-  <set name="magicLvl" val="90"/>
-  <set name="lvlDepend" val="1"/>
-  <set name="save" val="4"/>
-  <set name="power" val="800"/>
-  <set name="target" val="TARGET_ONE"/>
-  <set name="overHit" val="true"/>
-  <set name="skillType" val="PDAM"/>
+  <!-- Infinity Fang Skill -->
+  <set name="magicLvl" val="80"/>
+  <set name="power" val="0.0"/>
+  <set name="castRange" val="-1"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="STUN"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
-  <set name="effectType" val="STUN"/>
-  <set name="effectPower" val="30"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="2" stackType="Stun">
+    </effect>
   </for>
 </skill>
 <skill id="3589" levels="1" name="Special Ability: Infinity Stinger">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Done by DJ MELERIX -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="skillType" val="WEAPON_SA"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.30' order='0x30' stat='maxMp'/>
-    <mul val='1.50' order='0x30' stat='maxCp'/>
-    <mul val='1.03' order='0x30' stat='pAtkSpd'/>
-    <add val='0.51' order='0x40' stat='regMp'/>
-    <add order='0x40' stat='cAtk' val='220'>
+    <mul order="0x30" stat="maxMp" val="1.30"/> <!-- MP +30% -->
+    <mul order="0x30" stat="maxCp" val="1.50"/> <!-- CP +50% -->
+    <mul order="0x30" stat="pAtkSpd" val="1.03"/> <!-- Atk. Spd. +3% -->
+    <add order="0x40" stat="regMp" val="0.51"/> <!-- MP regen per tick +0.51 -->
+    <add order="0x40" stat="rCrit" val="220"> <!-- Critical +220 from behind target -->
       <and>
-        <player behind='True'/>
+        <player behind="True"/>
       </and>
     </add>
-    <mul val='1.02' order='0x30' stat='absorbDam'/>
+    <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="absorbDam" val="1.02"/> <!-- Vampiric Rage effect 2% -->
   </for>
 </skill>
 <skill id="3590" levels="1" name="Silence">
-  <!-- Done by SarutrA - SqueezeD -->
-  <set name="save" val="2"/>
+  <!-- Infinity Stinger Skill -->
   <set name="magicLvl" val="80"/>
-  <set name="power" val="80"/>
-  <set name="lvlDepend" val="2"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="MUTE"/>
-  <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Mute" time="30" val="0" stackOrder="1" stackType="silence"/>
+    <effect count="1" name="Mute" time="120" val="0" stackOrder="1" stackType="silence"/>
   </for>
 </skill>
 <skill id="3591" levels="1" name="Special Ability: Infinity Spear">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Done by DJ MELERIX -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="skillType" val="WEAPON_SA"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.25' order='0x30' stat='maxHp'/>
-    <mul val='1.50' order='0x30' stat='maxCp'/>
-    <mul val='1.07' order='0x30' stat='pAtkSpd'/>
-    <add val='4.89' order='0x40' stat='accCombat'/>
-    <add val="10" order="0x40" stat="reflectSkillPhysic"/>
-    <add val="10" order="0x40" stat="reflectSkillMagic"/>
+    <mul order="0x30" stat="maxHp" val="1.25"/> <!-- HP +25% -->
+    <mul order="0x30" stat="maxCp" val="1.50"/> <!-- CP +50% -->
+    <mul order="0x30" stat="pAtkSpd" val="1.07"/> <!-- Atk. Spd. +7% -->
+    <add order="0x40" stat="accCombat" val="4.89"/> <!-- Accuracy +4.89 -->
+    <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <add order="0x40" stat="reflectSkillPhysic" val="10"/> <!-- Reflect Skills 10% of the time -->
+    <add order="0x40" stat="reflectSkillMagic" val="10"/> <!-- Reflect Skills 10% of the time -->
+    <!-- Missing 10% chance to cancel each buff from target on a critical hit (for comparison, Cancel is 25% but Cancel also relies on M.Atk. vs. M.Def. while this weapon does not) -->
   </for>
 </skill>
 <skill id="3592" levels="1" name="Dispell">
@@ -1439,53 +1451,56 @@
   </for>
 </skill>
 <skill id="3593" levels="1" name="Special Ability: Infinity Bow">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Done by DJ MELERIX -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="skillType" val="WEAPON_SA"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.30' order='0x30' stat='maxMp'/>
-    <mul val='1.50' order='0x30' stat='maxCp'/>
+    <mul order="0x30" stat="maxMp" val="1.30"/> <!-- MP +30% -->
+    <mul order="0x30" stat="maxCp" val="1.50"/> <!-- CP +50% -->
+    <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
   </for>
 </skill>
 <skill id="3594" levels="1" name="Slow">
-  <!-- Done by SarutrA - SqueezeD -->
-  <set name="save" val="5"/>
+  <!-- Infinity Bow Skill -->
   <set name="magicLvl" val="80"/>
-  <set name="power" val="80"/>
-  <set name="lvlDepend" val="2"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="DEBUFF"/>
-  <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0" stackOrder="0.5" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="0.5" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.5"/>
     </effect>
   </for>
 </skill>
 <skill id="3595" levels="1" name="Special Ability: Infinity Scepter">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Done by DJ MELERIX -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="skillType" val="WEAPON_SA"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.30' order='0x30' stat='maxMp'/>
-    <mul val='1.50' order='0x30' stat='maxCp'/>
-    <add val='29.67' order='0x40' stat='mAtk'/>
-    <mul val='1.54' order='0x30' stat='mCritRate'/>
-    <mul val='0.96' order='0x30' stat='MagicalMpConsumeRate'/>
-    <sub val='106' order='0x40' stat='cancel'/>
+    <mul order="0x30" stat="maxMp" val="1.30"/> <!-- MP +30% -->
+    <mul order="0x30" stat="maxCp" val="1.50"/> <!-- CP +50% -->
+    <add order="0x40" stat="mAtk" val="29.67"/> <!-- M.Atk. +29.67 -->
+    <mul order="0x30" stat="mCritRate" val="1.54"/> <!-- Magic Critical Rate +54% -->
+    <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="MpConsumeRate" val="0.96"/> <!-- Magic MP Cost -4% -->
+    <sub order="0x40" stat="cancel" val="106"/> <!-- Chance of Magic Cancelation -106 -->
   </for>
 </skill>
 <skill id="3596" levels="1" name="Full Recover">
@@ -1502,19 +1517,22 @@
   </for>
 </skill>
 <skill id="3597" levels="1" name="Special Ability: Infinity Rod">
-  <!-- Done by SarutrA - SqueezeD -->
+  <!-- Done by DJ MELERIX -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="skillType" val="WEAPON_SA"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.30' order='0x30' stat='maxMp'/>
-    <mul val='1.50' order='0x30' stat='maxCp'/>
-    <mul val='1.15' order='0x30' stat='mAtkSpd'/>
-    <add val='0.51' order='0x40' stat='regMp'/>
+    <mul order="0x30" stat="maxMp" val="1.30"/> <!-- MP +30% -->
+    <mul order="0x30" stat="maxCp" val="1.50"/> <!-- CP +50% -->
+    <mul order="0x30" stat="mAtkSpd" val="1.15"/> <!-- Casting Spd. +15% -->
+    <add order="0x40" stat="regMp" val="0.51"/> <!-- MP regen per tick +0.51 -->
+    <mul order="0x30" stat="pvpPhysDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpMagicalDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
+    <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05"/> <!-- PVP Damage Bonus +5% -->
   </for>
 </skill>
 <skill id="3598" levels="1" name="Full Recover">

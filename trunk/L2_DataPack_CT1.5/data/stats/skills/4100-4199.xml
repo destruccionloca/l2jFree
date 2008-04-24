@@ -57,7 +57,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0" stackOrder="2" stackType="surrender">
+    <effect count="1" name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
       <mul order="0x30" stat="fireVuln" val="#Tab-fireVuln"/>
     </effect>
   </for>
@@ -190,7 +190,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect name="Buff" time="120" count="1" val="0">
+    <effect name="Debuff" time="120" count="1" val="0">
       <sub order="0x40" stat="accCombat" val="19"/>
       <sub order="0x40" stat="rEvas" val="19"/>
       <div order="0x30" stat="mAtk" val="1.15"/>
@@ -274,23 +274,38 @@
   </for>
 </skill>
 <skill id="4114" levels="1" name="Aden Flame">
-  <set name="power" val="0.0"/>
-  <set name="target" val="TARGET_SELF"/>
+  <!-- Done by DJ MELERIX -->
+  <set name="castRange" val="1100"/>
+  <set name="effectRange" val="1600"/>
+  <set name="element" val="2"/> <!-- Fire -->
   <set name="hitTime" val="4000"/>
-  <set name="skillType" val="WEAKNESS"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="65"/>
+  <set name="mpInitialConsume" val="18"/>
+  <set name="mpConsume" val="72"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="47"/>
+  <set name="reuseDelay" val="15000"/>
+  <set name="skillRadius" val="200"/>
+  <set name="skillType" val="MDAM"/>
+  <set name="target" val="TARGET_AREA"/>
   <for>
   </for>
 </skill>
 <skill id="4115" levels="1" name="Aden Heal">
-  <set name="power" val="0.0"/>
-  <set name="target" val="TARGET_SELF"/>
+  <!-- Done by DJ MELERIX -->
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
   <set name="hitTime" val="5000"/>
-  <set name="skillType" val="WEAKNESS"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <set name="aggroPoints" val="100"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="65"/>
+  <set name="mpInitialConsume" val="21"/>
+  <set name="mpConsume" val="84"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="689"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="skillType" val="HEAL"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
   </for>
 </skill>
@@ -363,7 +378,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect name="Buff" time="120" count="1" val="0" stackOrder="#Tab-accCombat" stackType="accuracyDown">
+    <effect name="Debuff" time="120" count="1" val="0" stackOrder="#Tab-accCombat" stackType="accuracyDown">
       <sub order="0x40" stat="accCombat" val="#Tab-accCombat"/>
     </effect>
   </for>
@@ -489,8 +504,8 @@
   <set name="power" val="500.0"/> <!-- Needs to be cheked -->
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="200"/>
-  <set name="hitTime" val="1500"/>
   <set name="coolTime" val="1000"/>
+  <set name="hitTime" val="1500"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="100"/>
@@ -617,16 +632,17 @@
   </for>
 </skill>
 <skill id="4136" levels="1" name="Baium's Gift">
-  <!-- Done by KID [C4sources] [C5] -->
-  <table name="#power"> 10000000.0 </table>
-  <set name="power" val="#power"/>
-  <set name="hitTime" val="2000"/>
+  <set name="power" val="1000000.0"/>
+  <set name="magicLvl" val="75"/>
+  <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="hitTime" val="2000"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/>
   <set name="effectRange" val="2000"/>
+  <for>
+  </for>
 </skill>
 <skill id="4137" levels="12" name="Hydro Screw">
   <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
@@ -893,7 +909,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.7"/>
     </effect>
   </for>
@@ -985,7 +1001,7 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="element" val="2"/>
+  <set name="element" val="2"/> <!-- Fire -->
   <set name="reuseDelay" val="3000"/>
   <set name="hitTime" val="4000"/>
   <set name="skillType" val="MDAM"/>
@@ -1141,7 +1157,7 @@
   <for>
     <effect count="1" name="Debuff" time="3600" val="0" stackOrder="99" stackType="attack_time_up">
       <mul order="0x30" stat="pAtkSpd" val="0.77"/>
-      <mul order ="0x30" stat="runSpd" val="0.70"/>
+      <mul order="0x30" stat="runSpd" val="0.70"/>
     </effect>
   </for>
 </skill>
@@ -1198,7 +1214,7 @@
   <set name="skillType" val="BLOW"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
+  <set name="effectRange" val="200"/>
 </skill>
 <skill id="4171" levels="12" name="BOSS Spinning Slash">
   <table name="#power"> 61.0 163.0 447.0 1169.0 2942.0 5686.0 8732.0 10131.0 11622.0 13182.0 14784.0 16398.0 </table>
@@ -1213,8 +1229,8 @@
   <set name="hitTime" val="830"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="830"/>
-  <set name="effectRange" val="1400"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -1230,8 +1246,8 @@
   <set name="hitTime" val="830"/>
   <set name="skillType" val="STUN"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="200"/>
-  <set name="effectRange" val="600"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
     <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
@@ -1254,7 +1270,6 @@
     <effect count="1" name="Buff" time="60" val="0" stackOrder="99" stackType="pa_up">
       <mul order="0x30" stat="pAtk" val="1.5"/>
     </effect>
-    <effect count="1" name="Grow" time="1200" val="0"/>
   </for>
 </skill>
 <skill id="4174" levels="12" name="BOSS Shield">
@@ -1348,7 +1363,6 @@
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="200"/>
   <set name="element" val="2"/> <!-- Fire -->
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="3300"/>
   <set name="skillType" val="MDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1389,7 +1403,7 @@
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
+  <set name="effectRange" val="200"/>
   <set name="effectType" val="STUN"/>
   <set name="effectPower" val="80"/>
   <for>
@@ -1533,7 +1547,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="#Tab-runSpd"/>
     </effect>
   </for>
@@ -1612,7 +1626,6 @@
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="hitTime" val="2500"/>
-  <set name="reuseDelay" val="0"/>
   <set name="skillType" val="MDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="750"/>
@@ -1649,7 +1662,6 @@
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="element" val="6"/> <!-- Dark -->
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="2500"/>
   <set name="skillType" val="DRAIN"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1686,7 +1698,6 @@
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="element" val="1"/> <!-- Wind -->
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="2500"/>
   <set name="skillType" val="MDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1705,7 +1716,6 @@
   <set name="save" val="2"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="2300"/>
   <set name="skillType" val="MDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1714,7 +1724,7 @@
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="60"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.7"/>
     </effect>
   </for>

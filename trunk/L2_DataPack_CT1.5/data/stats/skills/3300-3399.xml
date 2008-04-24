@@ -182,13 +182,13 @@
   </for>
 </skill>
 <skill id="3318" levels="1" name="Flag Display">
-  <set name="mpInitialConsume" val="50"/> 
-  <set name="mpConsume" val="0"/> 
-  <set name="power" val="0.0"/> 
-  <set name="target" val="TARGET_FLAGPOLE"/> 
-  <set name="hitTime" val="180000"/> 
+  <set name="mpInitialConsume" val="50"/>
+  <set name="mpConsume" val="0"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_FLAGPOLE"/>
+  <set name="hitTime" val="180000"/>
   <set name="skillType" val="TAKEFORT"/>
-  <set name="operateType" val="OP_ACTIVE"/> 
+  <set name="operateType" val="OP_ACTIVE"/>
 </skill>
 <skill id="3319" levels="1" name="Divine Protection of Ring">
   <set name="power" val="0.0"/>
@@ -502,76 +502,6 @@
   </for>
 </skill>
 <skill id="3348" levels="1" name="Dynasty Breast Plate - Shield Master">
-<!--
-  Description(s):      
-      Str-1, Con+1, P.Def +5.4%, MaxHP +492, Increase Darkness Resistance +8, M. Def, Sleep Resistance.
--->
-  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
-  <set name="power" val="0.0"/> 
-  <set name="target" val="TARGET_SELF"/> 
-  <set name="skillType" val="BUFF"/> 
-  <set name="operateType" val="OP_PASSIVE"/> 
-  <set name="castRange" val="-1"/> 
-  <set name="effectRange" val="-1"/> 
-  <for> 
-   <sub order="0x40" stat="STR" val="2"/>
-    <add order="0x40" stat="CON" val="2"/>
-    <mul order="0x30" stat="pDef" val="1.054"/> <!-- P.Def +5.4%-->
-    <add order="0x40" stat="maxHp" val="492"/> <!--MaxHP +492-->
-    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
-    <mul order="0x30" stat="mDef" val="1.054"/> <!-- M.Def +5.4%-->
-    <mul order="0x30" stat="sleepVuln" val="0.7"/> <!-- Sleep Vuln +30% -->
-  </for> 
-</skill> 
-<skill id="3349" levels="1" name="Dynasty Breast Plate - Weapon Master"> 
-<!--
-  Description(s):      
-      Con-2, Str+2, P.Atk +5.4%, MaxHP +492, Increase Darkness Resistance +8, Critical Damage Chance.
--->
-  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
-  <set name="power" val="0.0"/> 
-  <set name="target" val="TARGET_SELF"/> 
-  <set name="skillType" val="BUFF"/> 
-  <set name="operateType" val="OP_PASSIVE"/> 
-  <set name="castRange" val="-1"/> 
-  <set name="effectRange" val="-1"/> 
-  <for> 
-   <sub order="0x40" stat="CON" val="2"/>
-    <add order="0x40" stat="STR" val="2"/>
-    <mul order="0x30" stat="pAtk" val="1.054"/> <!-- P.Atk +5.4%-->
-    <add order="0x40" stat="maxHp" val="492"/> <!--MaxHP +492-->
-    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
-    <mul order="0x30" stat="cAtk" val="1.10"/> <!-- Critical Damage +10% -->
-    <add order="0x40" stat="rCrit" val="61"/> <!-- Critical Rate +61 -->
-  </for> 
-</skill> 
-<skill id="3350" levels="1" name="Dynasty Breast Plate - Force Master"> 
-<!--
-  Description(s):
-      Con-2, Str+2, P. Atk +5.4%, MaxHP +492. Increase Darkness Resistance +8, decrease active skill MP consumption.
--->
-<!-- Done by BoDiE --> <!-- Retail accuracy verified -->
-  <set name="power" val="0.0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/> 
-  <for> 
-   <sub order="0x40" stat="CON" val="2"/>
-    <add order="0x40" stat="STR" val="2"/>
-    <mul order="0x30" stat="pAtk" val="1.054"/> <!-- P.Atk +5.4%-->
-    <add order="0x40" stat="maxHp" val="492"/> <!--MaxHP +492-->
-    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
-    <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.9"/> <!-- Active MP Consumption -10% -->
-  </for>
-</skill> 
-<skill id="3351" levels="1" name="Dynasty Breast Plate - Bard"> 
-<!--
-  Description(s):
-      Con-2, Str+2, P. Def +5.4%, MaxHP +492. Increase Darkness Resistance +8, decrease MP consumption for song, dance skill, increase P. Atk.
--->
-  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -579,109 +509,97 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-   <sub order="0x40" stat="CON" val="2"/>
-    <add order="0x40" stat="STR" val="2"/>
-    <mul order="0x30" stat="pDef" val="1.054"/> <!-- P.Def +5.4%-->
-    <add order="0x40" stat="maxHp" val="492"/> <!--MaxHP +492-->
-    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
-    <mul order="0x30" stat="DanceMpConsumeRate" val="0.9"/> <!-- Dance/Song MP Consumption -10% -->
-    <mul order="0x30" stat="pAtk" val="1.025"/> <!-- P.Atk +2.5% -->
+       <sub val="2" order="0x10" stat="STR"/>
+       <add val="2" order="0x10" stat="CON"/>
+       <mul val="1.054" order="0x40" stat="pDef"/>
   </for>
-</skill> 
-<skill id="3352" levels="1" name="Dynasty Leather Armor - Dagger Master"> 
-<!--
-  Description(s):
-      Con-2, Dex+2, Accuracy +4.3, MaxHP +492. Increase Darkness Resistance +8, increase hold resistance, increase atk spd.
--->
-  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
+</skill>
+<skill id="3349" levels="1" name="Dynasty Breast Plate - Weapon Master">
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/> 
-  <for> 
-    <sub order="0x40" stat="CON" val="2"/>
-    <add order="0x40" stat="DEX" val="2"/>
-    <add order="0x40" stat="accCombat" val="4.3"/> <!-- Accuracy +4.3% -->
-    <add order="0x40" stat="maxHp" val="492"/> <!--MaxHP +492-->
-    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
-    <mul order="0x30" stat="rootVuln" val="0.93"/> <!-- Hold Vuln +17% -->
-    <mul order="0x30" stat="pAtkSpd" val="1.05"/> <!-- Atk. Spd. +5% -->
-  </for> 
-</skill> 
-<skill id="3353" levels="1" name="Dynasty Leather Armor - Bow Master"> 
-<!--
-  Description(s):
-      Con-2, Dex+2, Evasion +4.3, MaxHP +321. Increase Darkness Resistance +8, increase Atk Spd, increase MP recovery rate.
--->
-  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
+  <set name="effectRange" val="-1"/>
+  <for>
+       <sub val="2" order="0x10" stat="CON"/>
+       <add val="2" order="0x10" stat="STR"/>
+       <mul val="1.054" order="0x40" stat="pDef"/>
+       <mul val="1.054" order="0x40" stat="pAtk"/>
+       <add val="492" order="0x10" stat="maxHp"/>
+   </for>
+</skill>
+<skill id="3350" levels="1" name="Dynasty Breast Plate - Force Master">
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/> 
-  <for> 
-    <sub order="0x40" stat="CON" val="2"/>
-    <add order="0x40" stat="DEX" val="2"/>
-    <add order="0x40" stat="rEvas" val="4.3"/> <!-- Evasion +4.3% -->
-    <add order="0x40" stat="maxHp" val="321"/> <!--MaxHP +321-->
-    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
-    <mul order="0x30" stat="pAtkSpd" val="1.08"/> <!-- P. AtkSpd +8% -->
-    <add order="0x40" stat="regMp" val="3.09"/> <!-- Mana Regenation +3.09 -->
-  </for> 
-</skill> 
-<skill id="3354" levels="1" name="Dynasty Tunic - Healer"> 
-<!--
-  Description(s):
-      Int-2, Men+2, Casting Spd. +15%, Maximum MP +321. Increase Darkness Resistance +8, increase amount of heal, increase magic cancel rate.
--->
-  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
+  <set name="effectRange" val="-1"/>
+  <for>
+        <mul val="1.054" order="0x40" stat="pDef"/>
+        <mul val="1.054" order="0x40" stat="pAtk"/>
+        <add val="492" order="0x10" stat="maxHp"/>
+  </for>
+</skill>
+<skill id="3351" levels="1" name="Dynasty Breast Plate - Bard">
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/> 
-  <for> 
-   <sub order="0x40" stat="INT" val="2"/>
-    <add order="0x40" stat="MEN" val="2"/>
-    <mul order="0x30" stat="mAtkSpd" val="1.15"/> <!-- Casting Spd. +15% -->
-    <add order="0x40" stat="maxMp" val="321"/> <!--MaxMP +321-->
-    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
-    <mul order="0x30" stat="gainHp" val="1.13"/> <!-- Gain HP +13% -->
-    <mul order="0x30" stat="cancel" val="1.17"/> <!-- Cancel Rate +17% -->
-  </for> 
-</skill> 
+  <set name="effectRange" val="-1"/>
+  <for>
+       <mul val="1.054" order="0x40" stat="pDef"/>
+       <mul val="1.054" order="0x40" stat="pAtk"/>
+       <add val="492" order="0x10" stat="maxHp"/>
+  </for>
+</skill>
+<skill id="3352" levels="1" name="Dynasty Leather Armor - Dagger Master">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+       <sub val="2" order="0x10" stat="CON"/>
+        <add val="2" order="0x10" stat="DEX"/>
+       <add val="4.3" order="0x10" stat="accCombat"/>
+       <add val="492" order="0x10" stat="maxHp"/>
+       <mul val="1.08" order="0x40" stat="pAtkSpd"/>
+  </for>
+</skill>
+<skill id="3353" levels="1" name="Dynasty Leather Armor - Bow Master">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+        <sub val="2" order="0x10" stat="CON"/>
+        <add val="2" order="0x10" stat="DEX"/>
+        <add val="321" order="0x10" stat="maxHp"/>
+       <mul val="1.08" order="0x40" stat="pAtkSpd"/>
+       <mul val="1.08" order="0x40" stat="gainMp"/>
+  </for>
+</skill>
+<skill id="3354" levels="1" name="Dynasty Tunic - Healer">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+       <sub val="2" order="0x10" stat="INT"/>
+       <add val="2" order="0x10" stat="MEN"/>
+       <mul val="1.15" order="0x40" stat="mAtkSpd"/>
+       <add val="321" order="0x10" stat="maxMp"/>
+   </for>
+</skill>
 <skill id="3355" levels="1" name="Dynasty Tunic - Enchanter">
-<!--
-  Description(s):
-      Int-2, Men+2, Casting Spd. +15%, Maximum MP +321. Increase Darkness Resistance +8, decrease MP consumption, decrease magic cancel rate.
--->
-  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
-  <set name="power" val="0.0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/> 
-  <for> 
-   <sub order="0x40" stat="INT" val="2"/>
-    <add order="0x40" stat="MEN" val="2"/>
-    <mul order="0x30" stat="mAtkSpd" val="1.15"/> <!-- Casting Spd. +15% -->
-    <add order="0x40" stat="maxMp" val="321"/> <!--MaxMP +321-->
-    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
-    <mul order="0x30" stat="MagicalMpConsumeRate" val="0.9"/> <!-- MP Consumption -10% -->
-    <mul order="0x30" stat="cancelVuln" val="0.81"/> <!-- Cancel Rate +19% -->
-  </for>
-</skill> 
-<skill id="3356" levels="1" name="Dynasty Tunic - Summoner"> 
-<!--
-  Description(s):
-      Int-2, Men+2, Casting Spd. +15%, Maximum MP +321. Increase Darkness Resistance +8, increase P. Atk., P. Def.
--->
-  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -689,21 +607,29 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <sub order="0x40" stat="INT" val="2"/>
-    <add order="0x40" stat="MEN" val="2"/>
-    <mul order="0x30" stat="mAtkSpd" val="1.15"/> <!-- Casting Spd. +15% -->
-    <add order="0x40" stat="maxMp" val="321"/> <!--MaxMP +321-->
-    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
-    <mul order="0x30" stat="pAtk" val="1.054"/> <!-- P. Atk +5.4% -->
-    <mul order="0x30" stat="pDef" val="1.027"/> <!-- P. Def +2.7% -->
+        <sub val="2" order="0x10" stat="INT"/>
+       <add val="2" order="0x10" stat="MEN"/>
+       <mul val="1.15" order="0x40" stat="mAtkSpd"/>
+       <add val="321" order="0x10" stat="maxMp"/>
+  </for>
+</skill>
+<skill id="3356" levels="1" name="Dynasty Tunic - Summoner">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+       <sub val="2" order="0x10" stat="INT"/>
+       <add val="2" order="0x10" stat="MEN"/>
+       <mul val="1.15" order="0x40" stat="mAtkSpd"/>
+       <add val="321" order="0x10" stat="maxMp"/>
+       <mul val="1.08" order="0x40" stat="pAtk"/>
+       <mul val="1.08" order="0x40" stat="pDef"/>
   </for>
 </skill>
 <skill id="3357" levels="1" name="Dynasty Tunic - Human Wizard">
-<!--
-  Description(s):
-      Int+1, Wit+1, Men-2, Casting Spd. +15%, Maximum MP +321. Increase Darkness Resistance +8, increase stun resistance, increase M. Atk.
--->
-  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -711,26 +637,22 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add order="0x40" stat="INT" val="1"/>
-    <add order="0x40" stat="WIT" val="1"/>
-    <sub order="0x40" stat="MEN" val="2"/>
-    <mul order="0x30" stat="mAtkSpd" val="1.15"/> <!-- Casting Spd. +15% -->
-    <add order="0x40" stat="maxMp" val="321"/> <!--MaxMP +321-->
-    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
-    <mul order="0x30" stat="stunVuln" val="0.5"/> <!-- Stun Vuln +50% -->
-    <mul order="0x30" stat="mAtk" val="1.08"/> <!-- M. Atk +8% -->
+       <add val="2" order="0x10" stat="INT"/>
+       <add val="1" order="0x10" stat="WIT"/>
+       <sub val="1" order="0x10" stat="MEN"/>
+       <add val="321" order="0x10" stat="maxMp"/>
   </for>
 </skill>
 <skill id="3358" levels="1" name="Flag Equip">
-  <set name="power" val="0.0"/>  
-  <set name="target" val="TARGET_SELF"/>  
-  <set name="skillType" val="BUFF"/>  
-  <set name="operateType" val="OP_PASSIVE"/>  
-  <set name="castRange" val="-1"/>  
-  <set name="effectRange" val="-1"/>  
-  <for>  
-    <mul order="0x30" stat="runSpd" val="0.5"/> 
-  </for>  
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+       <mul order="0x30" stat="runSpd" val="0.5"/>
+  </for>
 </skill>
 <skill id="3359" levels="1" name="Transform Native">
   <set name="power" val="0.0"/>
@@ -761,7 +683,7 @@
  <set name="castRange" val="-1"/>
  <set name="effectRange" val="-1"/>
  <for>
- </for> 
+ </for>
 
 </skill>
 <skill id="3362" levels="1" name="Traits Strengthen Necklace">

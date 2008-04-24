@@ -70,7 +70,7 @@
   <set name="castRange" val="750"/>
   <set name="effectRange" val="1250"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="#Tab-runSpd"/>
     </effect>
   </for>
@@ -142,7 +142,6 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="4500"/>
   <set name="skillType" val="MDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -232,7 +231,6 @@
     <effect count="1" name="Buff" time="60" val="0" stackOrder="99" stackType="pa_up">
       <mul order="0x30" stat="pAtk" val="1.5"/>
     </effect>
-    <effect count="1" name="Grow" time="60" val="0"/>
   </for>
 </skill>
 <skill id="4212" levels="12" name="BOSS Shield">
@@ -320,6 +318,8 @@
   <set name="power" val="0.0"/>
   <set name="castRange" val="800"/>
   <set name="effectRange" val="1300"/>
+  <for>
+  </for>
 </skill>
 <skill id="4217" levels="1" name="Scatter Enemies">
   <!--  Zaken skills -->
@@ -333,6 +333,8 @@
   <set name="power" val="0.0"/>
   <set name="castRange" val="800"/>
   <set name="effectRange" val="1300"/>
+  <for>
+  </for>
 </skill>
 <skill id="4218" levels="1" name="Absorb HP MP">
   <!-- Zaken skills -->
@@ -619,7 +621,7 @@
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="90"/>
   <for>
-    <effect name="Buff" time="120" count="1" val="0">
+    <effect name="Debuff" time="120" count="1" val="0">
       <mul order="0x30" stat="regHp" val="0.5"/>
     </effect>
   </for>
@@ -639,7 +641,7 @@
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="0.5" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="0.5" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.5"/>
     </effect>
   </for>
@@ -821,7 +823,7 @@
   <set name="castRange" val="1000"/>
   <set name="effectRange" val="1500"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.7"/>
     </effect>
   </for>
@@ -888,6 +890,7 @@
   <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
   <set name="element" val="2"/> <!-- Fire -->
   <set name="magicLvl" val="#magicLvl"/>
+  <set name="lvlDepend" val="1"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
@@ -910,7 +913,6 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="2000"/>
   <set name="skillType" val="MDAM"/>
   <set name="isMagic" val="true"/>

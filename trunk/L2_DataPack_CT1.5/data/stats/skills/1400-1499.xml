@@ -2,17 +2,17 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="1400" levels="10" name="Turn Undead">
-  <!-- Done by KID -->
+<!-- Done by KID -->
   <table name="#mpConsume"> 52 54 55 58 60 62 64 65 67 69 </table>
   <table name="#power"> 230.0 250.0 270.0 290.0 310.0 330.0 350.0 370.0 390.0 411.0 </table>
   <table name="#itemConsumeCount"> 3 3 4 4 4 4 5 5 5 5 </table>
+  <table name="#lethal2"> 5 9 13 17 21 25 29 33 37 41</table>
   <set name="power" val="#power"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="itemConsumeId" val="3031"/>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
-  <table name="#lethal2"> 5 9 13 17 21 25 29 33 37 41</table>
-  <set name="hitTime" val="4000"/>
   <set name="reuseDelay" val="9000"/>
+  <set name="hitTime" val="4000"/>
   <set name="target" val="TARGET_AREA_UNDEAD"/>
   <set name="skillRadius" val="200"/>
   <set name="skillType" val="FEAR"/>
@@ -34,9 +34,9 @@
   <set name="itemConsumeId" val="3031"/>
   <set name="itemConsumeCount" val="1"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="5000"/>
   <!-- reuse is meant to be "almost instant" -->
   <set name="reuseDelay" val="6000"/>
+  <set name="hitTime" val="5000"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="HEAL"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -98,7 +98,7 @@
   </for>
 </skill>
 <skill id="1405" levels="4" name="Divine Inspiration">
-  <!-- Increases the number of buffs you can receive. -->
+<!-- Increases the number of buffs you can receive. -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="COREDONE"/>
@@ -130,8 +130,8 @@
   <set name="summonTimeLostActive" val="1000"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="hitTime" val="15000"/>
   <set name="reuseDelay" val="20000"/> <!-- Guessing -->
+  <set name="hitTime" val="15000"/>
   <set name="skillType" val="SUMMON"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -168,8 +168,8 @@
   <set name="summonTimeLostActive" val="1000"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="hitTime" val="15000"/>
   <set name="reuseDelay" val="20000"/> <!-- Guessing -->
+  <set name="hitTime" val="15000"/>
   <set name="skillType" val="SUMMON"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -206,8 +206,8 @@
   <set name="summonTimeLostActive" val="1000"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="hitTime" val="15000"/>
   <set name="reuseDelay" val="20000"/> <!-- Guessing -->
+  <set name="hitTime" val="15000"/>
   <set name="skillType" val="SUMMON"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -232,8 +232,8 @@
   <set name="mpConsume" val="58"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="4000"/>
   <set name="reuseDelay" val="15000"/> <!-- Guessing -->
+  <set name="hitTime" val="4000"/>
   <set name="skillType" val="NEGATE"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -371,7 +371,7 @@
 <!--
   By Darki699
   Description(s):
-      Temporarily increases an clan member's resistance to buff cancelling and de-buff attacks. Effect 3.
+      Temporarily increases an alliance member's resistance to buff cancelling and de-buff attacks. Effect 3.
 -->
   <!-- All the values here are guessed (taken from Chant of Spirit and other clan buffs) -->
   <set name="mpInitialConsume" val="56"/>
@@ -547,6 +547,12 @@
   </for>
 </skill>
 <skill id="1422" levels="1" name="Day of Doom">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Generates a signet that produces a strong curse that decreases all abilities. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
+-->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -639,7 +645,7 @@
 <skill id="1426" levels="1" name="Miracle">
 <!--
   Description(s):
-      Heartily regenerates the HP of all clan members in the applicable area. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
+      Heartily regenerates the HP of all alliance members in the applicable area. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
@@ -653,6 +659,7 @@
   <set name="hitTime" val="5000"/>
   <set name="reuseDelay" val="3600000"/>
   <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <cond msg="Proper force required.">
@@ -664,7 +671,7 @@
 <skill id="1427" levels="1" name="Flames of Invincibility">
 <!--
   Description(s):
-      Blesses nearby clan members with fire and makes them invincible. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
+      Blesses nearby allies with fire and makes them invincible. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
@@ -679,7 +686,6 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
-  <set name="aggroPoints" val="900"/>
   <set name="isMagic" val="true"/>
   <cond msg="Proper SpellForces required.">
     <player spell_force="2"/>
@@ -714,21 +720,18 @@
   </for>
 </skill>
 <skill id="1429" levels="1" name="Gate Chant">
-<!--
-  Description(s):
-      Summons a party member. Consumes 4 Summon Crystals.
--->
-  <set name="target" val="TARGET_PARTY"/>
-  <set name="skillRadius" val="-1"/>
-  <set name="skillType" val="SUMMON_FRIEND"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="itemConsumeId" val="8615"/>
-  <set name="itemConsumeCount" val="4"/>
-  <set name="mpConsume" val="284"/>
-  <set name="hitTime" val="15000"/>
-  <set name="reuseDelay" val="600000"/>
+  <!-- Done by DJ MELERIX -->
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="hitTime" val="15000"/>
+  <set name="isMagic" val="true"/>
+  <set name="itemConsumeCount" val="4"/>
+  <set name="itemConsumeId" val="8615"/>
+  <set name="mpConsume" val="284"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="0.0"/>
+  <set name="skillType" val="SUMMON_FRIEND"/> <!-- Only for pre-implementation, the skill don't consume crystal of the summoned player, needs core support -->
+  <set name="target" val="TARGET_PARTY_MEMBER"/>
   <for>
   </for>
 </skill>
@@ -917,53 +920,53 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
     <effect count="1" name="RemoveTarget" time="1" val="0"/>
-   </for>
- </skill>
-<skill id="1437" levels="26" name="Dark Flame" enchantLevels1="30" enchantLevels2="30">
+  </for>
+</skill>
+<skill id="1437" levels="26" name="Dark Flame">
 <!--
   Description:
-  Unleash a soul to frighten enemies in front of you. Consumes 3 Souls. Power 42.
+  Unleash a soul to frighten enemies in front of you. Consumes 3 Souls. Power 42.  
 -->
-  <table name="#mpConsume_Init">
-    16 16 17 17 18 19 19 20 20 21
-    22 22 22 23 23 23 24 24 25 25
-    25 26 26 26 26 27
-  </table>
-  <table name="#mpConsume">
-    36 38 40 41 42 43 45 45 48 48
-    50 51 52 52 54 55 55 56 57 58
-    59 59 59 61 62 62
-  </table>
-  <set name="mpInitialConsume" val="#mpConsume_Init"/>
-  <set name="mpConsume" val="#mpConsume"/>
-  <table name="#power">
-    42 43 45 47 49 50 53 54 56 57
-    59 60 61 62 63 65 66 67 68 69
-    70 72 73 74 75 76
-  </table>
-  <table name="#effectPower">
-    10 10 10 10 10 10 10 10 10 10
-    15 15 15 15 15 15 15 15 15 15
-    15 15 15 15 15 15
-  </table>
-  <set name="power" val="#power"/>
-  <set name="hitTime" val="1800"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="true"/>
-  <set name="target" val="TARGET_FRONT_AREA"/>
-  <set name="skillRadius" val="120"/>
-  <set name="skillType" val="MDAM"/>
-  <set name="castRange" val="40"/>
-  <set name="element" val="6"/> <!-- Dark -->
-  <set name="lvlDepend" val="1"/>
-  <set name="effectRange" val="56"/>
-  <set name="reuseDelay" val="18000"/>
-  <set name="soulConsumeCount" val="3"/>
-  <set name="effectType" val="FEAR"/>
-  <set name="effectPower" val="#effectPower"/>
-  <for>
-    <effect count="1" name="Fear" time="5" val="0"/>
-  </for>
+ <table name="#mpConsume_Init">
+   16 16 17 17 18 19 19 20 20 21
+   22 22 22 23 23 23 24 24 25 25
+   25 26 26 26 26 27
+ </table>
+ <table name="#mpConsume">
+   36 38 40 41 42 43 45 45 48 48
+   50 51 52 52 54 55 55 56 57 58
+   59 59 59 61 62 62
+ </table>
+ <set name="mpInitialConsume" val="#mpConsume_Init"/>
+ <set name="mpConsume" val="#mpConsume"/>
+ <table name="#power">
+   42 43 45 47 49 50 53 54 56 57
+   59 60 61 62 63 65 66 67 68 69
+   70 72 73 74 75 76
+ </table>
+ <table name="#effectPower">
+   10 10 10 10 10 10 10 10 10 10
+   15 15 15 15 15 15 15 15 15 15
+   15 15 15 15 15 15
+ </table>
+ <set name="power" val="#power"/>
+ <set name="hitTime" val="1800"/>
+ <set name="operateType" val="OP_ACTIVE"/>
+ <set name="isMagic" val="true"/>
+ <set name="target" val="TARGET_FRONT_AREA"/>
+ <set name="skillRadius" val="120"/>
+ <set name="skillType" val="MDAM"/>
+ <set name="castRange" val="40"/>
+ <set name="element" val="6"/> <!-- Dark -->
+ <set name="lvlDepend" val="1"/>
+ <set name="effectRange" val="56"/>
+ <set name="reuseDelay" val="18000"/>
+ <set name="soulConsumeCount" val="3"/>
+ <set name="effectType" val="FEAR"/>
+ <set name="effectPower" val="#effectPower"/>
+ <for>
+  <effect count="1" name="Fear" time="5" val="0"/>
+ </for>
 </skill>
 <skill id="1438" levels="9" name="Annihilation Circle">
 <!--
@@ -1083,73 +1086,10 @@
     </effect>
   </for>
 </skill>
-<skill id="1443" levels="1" name="Dark Weapon" enchantLevels1="30" enchantLevels2="30">
+<skill id="1443" levels="1" name="Dark Weapon">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member.
-      Lvl 101 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +1 Power  Maximizes the skill's effect. Strengthens the effect.
-      Lvl 102 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +2 Power  Strengthens the effect.
-      Lvl 103 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +3 Power  Strengthens the effect.
-      Lvl 104 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +4 Power  Strengthens the effect.
-      Lvl 105 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +5 Power  Strengthens the effect.
-      Lvl 106 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +6 Power  Strengthens the effect.
-      Lvl 107 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +7 Power  Strengthens the effect.
-      Lvl 108 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +8 Power  Strengthens the effect.
-      Lvl 109 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +9 Power  Strengthens the effect.
-      Lvl 110 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +10 Power Strengthens the effect.
-      Lvl 111 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +11 Power Strengthens the effect.
-      Lvl 112 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +12 Power Strengthens the effect.
-      Lvl 113 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +13 Power Strengthens the effect.
-      Lvl 114 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +14 Power Strengthens the effect.
-      Lvl 115 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +15 Power Strengthens the effect.
-      Lvl 116 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +16 Power Strengthens the effect.
-      Lvl 117 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +17 Power Strengthens the effect.
-      Lvl 118 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +18 Power Strengthens the effect.
-      Lvl 119 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +19 Power Strengthens the effect.
-      Lvl 120 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +20 Power Strengthens the effect.
-      Lvl 121 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +21 Power Strengthens the effect.
-      Lvl 122 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +22 Power Strengthens the effect.
-      Lvl 123 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +23 Power Strengthens the effect.
-      Lvl 124 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +24 Power Strengthens the effect.
-      Lvl 125 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +25 Power Strengthens the effect.
-      Lvl 126 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +26 Power Strengthens the effect.
-      Lvl 127 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +27 Power Strengthens the effect.
-      Lvl 128 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +28 Power Strengthens the effect.
-      Lvl 129 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +29 Power Strengthens the effect.
-      Lvl 130 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +30 Power Strengthens the effect.
-      Lvl 201 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +1 Time Maximizes the skill's duration. Increases the duration.
-      Lvl 202 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +2 Time Increases the duration.
-      Lvl 203 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +3 Time Increases the duration.
-      Lvl 204 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +4 Time Increases the duration.
-      Lvl 205 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +5 Time Increases the duration.
-      Lvl 206 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +6 Time Increases the duration.
-      Lvl 207 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +7 Time Increases the duration.
-      Lvl 208 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +8 Time Increases the duration.
-      Lvl 209 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +9 Time Increases the duration.
-      Lvl 210 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +10 Time  Increases the duration.
-      Lvl 211 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +11 Time  Increases the duration.
-      Lvl 212 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +12 Time  Increases the duration.
-      Lvl 213 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +13 Time  Increases the duration.
-      Lvl 214 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +14 Time  Increases the duration.
-      Lvl 215 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +15 Time  Increases the duration.
-      Lvl 216 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +16 Time  Increases the duration.
-      Lvl 217 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +17 Time  Increases the duration.
-      Lvl 218 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +18 Time  Increases the duration.
-      Lvl 219 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +19 Time  Increases the duration.
-      Lvl 220 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +20 Time  Increases the duration.
-      Lvl 221 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +21 Time  Increases the duration.
-      Lvl 222 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +22 Time  Increases the duration.
-      Lvl 223 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +23 Time  Increases the duration.
-      Lvl 224 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +24 Time  Increases the duration.
-      Lvl 225 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +25 Time  Increases the duration.
-      Lvl 226 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +26 Time  Increases the duration.
-      Lvl 227 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +27 Time  Increases the duration.
-      Lvl 228 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +28 Time  Increases the duration.
-      Lvl 229 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +29 Time  Increases the duration.
-      Lvl 230 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +30 Time  Increases the duration.
-
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1182,10 +1122,10 @@
     <effect count="1" name="Buff" time="180" val="0">
       <mul order="0x30" stat="mAtk" val="1.1"/><!-- Need retail values -->
       <mul order="0x30" stat="pAtk" val="1.1"><!-- Need retail values -->
-        <using kind="Ancient,Crossbow,Rapier"/>
+         <using kind="Ancient,Crossbow,Rapier"/>
       </mul>
       <add order="0x60" stat="blowRate" val="46"><!-- Need retail values -->
-        <using kind="Ancient,Crossbow,Rapier"/>
+         <using kind="Ancient,Crossbow,Rapier"/>
       </add>
     </effect>
   </for>
@@ -1215,7 +1155,7 @@
   <set name="effectRange" val="1400"/>
   <set name="soulConsumeCount" val="2"/>
   <for>
-    <effect count="1" name="Buff" time="15" val="0" stackOrder="2" stackType="surrender">
+    <effect count="1" name="Debuff" time="15" val="0" stackOrder="2" stackType="surrender">
       <mul order="0x30" stat="darkVuln" val="#Tab-darkVuln"/>
     </effect>
   </for>
@@ -1382,7 +1322,7 @@
   <set name="skillType" val="DEBUFF"/>
   <set name="target" val="TARGET_AURA"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.7"/>
     </effect>
   </for>
@@ -1396,8 +1336,8 @@
   <set name="target" val="TARGET_ONE"/>
   <set name="skillRadius" val="200"/>
   <set name="reuseDelay" val="8000"/>
-  <set name="isMagic" val="true"/>
   <set name="skillType" val="MDAM"/>
+  <set name="isMagic" val="true"/>
   <set name="hitTime" val="4000"/>
   <set name="element" val="3"/> <!-- Water -->
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1455,8 +1395,8 @@
   <set name="target" val="TARGET_ONE"/>
   <set name="skillRadius" val="200"/>
   <set name="reuseDelay" val="8000"/>
-  <set name="isMagic" val="true"/>
   <set name="skillType" val="MDAM"/>
+  <set name="isMagic" val="true"/>
   <set name="hitTime" val="4000"/>
   <set name="element" val="1"/> <!-- Wind -->
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1520,7 +1460,7 @@
   <set name="aggroPoints" val="624"/>
   <for>
     <effect count="1" name="Buff" time="600" val="0" stackOrder="1" stackType="critVuln">
-      <mul order="0x30" stat="critVuln" val="0.8"/>
+      <mul order="0x30" stat="critVuln" val="0.80"/>
     </effect>
   </for>
 </skill>
@@ -1627,7 +1567,7 @@
   </for>
 </skill>
 <skill id="1469" levels="1" name="Leopold">
-  <!-- Needs retail value checks -->
+<!-- Needs retail value checks -->
   <set name="mpConsume" val="105"/>
   <set name="power" val="224"/>
   <set name="magicLvl" val="78"/>
@@ -1645,7 +1585,7 @@
   </for>
 </skill>
 <skill id="1470" levels="1" name="Prahnah">
-  <!-- Needs retail value checks -->
+<!-- Needs retail value checks -->
   <set name="power" val="0.0"/>
   <set name="mpConsume" val="105"/>
   <set name="target" val="TARGET_PARTY"/>
@@ -1716,7 +1656,7 @@
   </for>
 </skill>
 <skill id="1474" levels="1" name="Abyssal Power">
-  <!-- Needs retail accuracy check -->
+<!-- Needs retail accuracy check -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1933,7 +1873,7 @@
 </skill>
 <skill id="1487" levels="8" name="Restoration">
 <!--
-  Description(s):
+  Description:
   Continually recover HP. Consumes 1 Soul.
 -->
   <table name="#mpConsume_Init"> 21 25 14 16 17 19 20 20 </table>
