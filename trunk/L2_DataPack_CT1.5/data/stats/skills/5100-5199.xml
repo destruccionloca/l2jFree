@@ -62,7 +62,7 @@
   <set name="castRange" val="1000"/> <!-- Must be validated -->
   <for>
     <effect count="0x7fffffff" name="Force" time="600" val="15" stackOrder="0" stackType="BattleForce">
-       <mul order="0x30" stat="pAtk" val="1.10"/>
+       <mul order="0x30" stat="pAtk" val="1.10"/> <!-- Guessed -->
     </effect>
   </for>
 </skill>
@@ -73,7 +73,7 @@
   <set name="castRange" val="1000"/> <!-- Must be validated -->
   <for>
     <effect count="0x7fffffff" name="Force" time="600" val="15" stackOrder="0" stackType="SpellForce">
-      <mul order="0x30" stat="mAtk" val="1.10"/>
+      <mul order="0x30" stat="mAtk" val="1.10"/><!-- Guessed -->
     </effect>
   </for>
 </skill>
@@ -159,12 +159,12 @@
   <for>
   </for>
 </skill>
-<skill id="5112" levels="12" name="Shock">
+<skill id="5112" levels="12" name="Stun">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl 1-12 - Temporarily immobilized and in a state of shock.
+      Lvl 1-12 - Temporarily Immobilized and in a state of shock.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -192,7 +192,7 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl 1-12 - Temporarily immobilized.
+      Lvl 1-12 - Temporarily Immobilized.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -201,10 +201,10 @@
   <for>
   </for>
 </skill>
-<skill id="5115" levels="4" name="Cubic Hate">
+<skill id="5115" levels="12" name="Cubic Hate">
   <!-- Cubic skill -->
-  <table name="#magicLvl"> 62 66 70 74 </table> <!-- guessed -->
-  <table name="#power"> 1700 1800 1900 2000 </table> <!-- guessed -->
+  <table name="#magicLvl"> 62 66 70 74 76 77 78 79 80 81 82 83</table> <!-- guessed -->
+  <table name="#power"> 1700 1800 1900 2000 2100 2200 2300 2400 2500 2600 2700 2800</table> <!-- guessed -->
   <set name="magicLvl" val="#magicLvl"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
@@ -215,9 +215,9 @@
   <for>
   </for>
 </skill>
-<skill id="5116" levels="4" name="Hold">
+<skill id="5116" levels="12" name="Hold">
   <!-- Cubic skill -->
-  <table name="#magicLvl"> 62 66 70 74 </table> <!-- guessed -->
+  <table name="#magicLvl"> 62 66 70 74 76 77 78 79 80 81 82 83</table> <!-- guessed -->
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="1"/>
   <set name="power" val="80"/>
@@ -236,7 +236,7 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Temporarily immobilized and in a state of shock.
+      Temporarily Immobilized and in a state of shock.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -273,12 +273,12 @@
   <for>
   </for>
 </skill>
-<skill id="5120" levels="1" name="Shock">
+<skill id="5120" levels="1" name="Stun">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Temporarily immobilized and in a state of shock.
+      Temporarily Immobilized and in a state of shock.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -358,7 +358,7 @@
       <mul order="0x30" stat="confusionVuln" val="0.8"/>
       <mul order="0x30" stat="stunVuln" val="0.8"/>
     </effect>
-  </for>  
+  </for>
 </skill>
 <skill id="5126" levels="1" name="Maximum Recovery">
 <!--
@@ -612,6 +612,12 @@
   </for>
 </skill>
 <skill id="5145" levels="1" name="Day of Doom">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Decreases P. Atk./P. Def./Speed/HP recovery rate/type M. Def., and increases skill/magic MP consumption. Prevents from receiving buff.
+-->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -1005,7 +1011,7 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl 1-10 - Active: Temporarily immobilizes the target.
+      Lvl 1-10 - Active: Temporarily Immobilizes the target.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1174,7 +1180,7 @@
   <for>
   </for>
 </skill>
-<skill id="5183" levels="1" name="Production: Dimensional Shock">
+<skill id="5183" levels="1" name="Production: Dimensional Stun">
   <!-- Needs more work -->
   <!-- Only pre-implementation -->
   <set name="target" val="TARGET_SELF"/>
@@ -1210,7 +1216,7 @@
   <for>
   </for>
 </skill>
-<skill id="5186" levels="1" name="Pet Haste">
+<skill id="5186" levels="2" name="Pet Haste">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -1224,7 +1230,7 @@
   <for>
   </for>
 </skill>
-<skill id="5187" levels="1" name="Pet Vampiric Rage">
+<skill id="5187" levels="4" name="Pet Vampiric Rage">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -1238,7 +1244,7 @@
   <for>
   </for>
 </skill>
-<skill id="5188" levels="1" name="Pet Regeneration">
+<skill id="5188" levels="3" name="Pet Regeneration">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -1252,7 +1258,7 @@
   <for>
   </for>
 </skill>
-<skill id="5189" levels="1" name="Pet Blessed Body">
+<skill id="5189" levels="6" name="Pet Blessed Body">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -1266,7 +1272,7 @@
   <for>
   </for>
 </skill>
-<skill id="5190" levels="1" name="Pet Blessed Soul">
+<skill id="5190" levels="6" name="Pet Blessed Soul">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -1280,7 +1286,7 @@
   <for>
   </for>
 </skill>
-<skill id="5191" levels="1" name="Pet Guidance">
+<skill id="5191" levels="3" name="Pet Guidance">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -1294,7 +1300,7 @@
   <for>
   </for>
 </skill>
-<skill id="5192" levels="1" name="Pet Wind Walk">
+<skill id="5192" levels="2" name="Pet Wind Walk">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -1308,7 +1314,7 @@
   <for>
   </for>
 </skill>
-<skill id="5193" levels="1" name="Pet Acumen">
+<skill id="5193" levels="3" name="Pet Acumen">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -1322,7 +1328,7 @@
   <for>
   </for>
 </skill>
-<skill id="5194" levels="1" name="Pet Empower">
+<skill id="5194" levels="3" name="Pet Empower">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -1336,7 +1342,7 @@
   <for>
   </for>
 </skill>
-<skill id="5195" levels="3" name="Pet Greater Heal">
+<skill id="5195" levels="5" name="Pet Greater Heal">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.

@@ -1,4 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="7000" levels="1" name="NPC Default">
   <set name="power" val="0.0"/>
@@ -15,6 +16,7 @@
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="POISON"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="60000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <set name="aggroPoints" val="100"/>
@@ -27,6 +29,7 @@
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="POISON"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="60000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <set name="aggroPoints" val="100"/>
@@ -99,6 +102,186 @@
   <set name="isMagic" val="true"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <for>
+  </for>
+</skill>
+<skill id="7008" levels="1" name="not_used">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7009" levels="1" name="not_used">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7010" levels="1" name="not_used">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7011" levels="1" name="not_used">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7012" levels="1" name="not_used">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7013" levels="1" name="not_used">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7014" levels="1" name="Test - Critical Damage Up">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7015" levels="1" name="Test - Critical Damage Down">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7016" levels="1" name="Test - Critical Damage Up">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7017" levels="1" name="Test - Critical Damage Down">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7018" levels="1" name="Test - Critical Rate Up">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7019" levels="1" name="Test - Critical Rate Down">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7020" levels="1" name="Test - Critical Rate Up">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7021" levels="1" name="Test - Critical Rate Down">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7022" levels="1" name="Test - Find Hidden Door">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7023" levels="1" name="not_used">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7024" levels="1" name="not_used">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7025" levels="1" name="not_used">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7026" levels="1" name="not_used">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
+  <for>
+  </for>
+</skill>
+<skill id="7027" levels="1" name="not_used">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="0"/>
   <for>
   </for>
 </skill>
@@ -208,7 +391,7 @@
   <for>
   </for>
 </skill>
-<skill id="7033" levels="1" name="Test Flame Strike">
+<skill id="7033" levels="1" name="not_used">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -222,7 +405,7 @@
   <for>
   </for>
 </skill>
-<skill id="7034" levels="1" name="Test Aqua Splash">
+<skill id="7034" levels="1" name="not_used">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -236,49 +419,7 @@
   <for>
   </for>
 </skill>
-<skill id="7035" levels="1" name="Display - Swoop Cannon">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      This aerial attack inflicts damage on a target inside the Outer Castle.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
-</skill>
-<skill id="7036" levels="1" name="Display - Valakas">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Valakas Use Skill
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
-</skill>
-<skill id="7037" levels="1" name="Display - Tyrannosaurus Capture">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Tyrannosaurus Use Skill
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
-</skill>
-<skill id="7038" levels="1" name="Channeling DD Test: Short">
+<skill id="7035" levels="1" name="not_used">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -292,7 +433,7 @@
   <for>
   </for>
 </skill>
-<skill id="7039" levels="1" name="Channeling DD Test: Middle">
+<skill id="7036" levels="1" name="not_used">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -306,7 +447,49 @@
   <for>
   </for>
 </skill>
-<skill id="7040" levels="1" name="Channeling DD Test: Long">
+<skill id="7037" levels="1" name="not_used">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      none
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="7038" levels="1" name="not_used">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      none
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="7039" levels="1" name="not_used">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      none
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="7040" levels="1" name="not_used">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
@@ -715,7 +898,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="400"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#mpConsume" stackType="MPrate">
+    <effect count="1" name="Buff" time="300" val="0" stackOrder="#mpConsume" stackType="MPrate">
       <mul order="0x30" stat="MagicalMpConsumeRate" val="#mpConsumeRate"/>
       <mul order="0x30" stat="PhysicalMpConsumeRate" val="#mpConsumeRate"/>
     </effect>

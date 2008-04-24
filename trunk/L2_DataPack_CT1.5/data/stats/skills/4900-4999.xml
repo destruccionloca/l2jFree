@@ -891,35 +891,48 @@
   <for>
   </for>
 </skill>
-<!-- C5E.b build -->
 <skill id="4989" levels="1" name="Npc - Hot Spring Nectar">
-  <set name="target" val="TARGET_ONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="200"/>
+<!-- TODO -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
 </skill>
-
 <skill id="4990" levels="1" name="Npc - Hot Spring Mineral">
-  <set name="target" val="TARGET_ONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="200"/>
-</skill>
-
-<skill id="4991" levels="1" name="unknown_c5">
+<!-- TODO -->
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <for>
+  </for>
 </skill>
-
-<skill id="4992" levels="1" name="unknown_c5">
+<skill id="4991" levels="1" name="Hot Spring Sulfur">
+<!-- TODO -->
+<!-- Decreases Atk. Spd. and Casting Spd. Effect 5. -->
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <for>
+  </for>
 </skill>
-
+<skill id="4992" levels="1" name="Stun">
+<!-- TODO -->
+<!-- Shocks and instantly Immobilizes. -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
 <skill id="4993" levels="1" name="Venom - Strike">
 <!-- Done by KID [C5] -->
   <set name="mpConsume" val="88"/>
@@ -929,8 +942,9 @@
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
+  <for>
+  </for>
 </skill>
-
 <skill id="4994" levels="1" name="Venom - Sonic Storm">
 <!-- Done by KID [C5] -->
   <set name="mpConsume" val="88"/>
@@ -942,24 +956,31 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="500"/>
   <set name="baseCritRate" val="15"/>
+  <for>
+  </for>
 </skill>
-
 <skill id="4995" levels="1" name="Venom - Teleport">
-  <set name="target" val="TARGET_ONE"/>
+  <!-- Benom Skills -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="hitTime" val="2900"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="800"/>
+  <for>
+  </for>
 </skill>
-
 <skill id="4996" levels="1" name="Venom - Range Teleport">
-  <set name="target" val="TARGET_ONE"/>
+  <!-- Benom Skills -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="hitTime" val="2900"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="800"/>
+  <for>
+  </for>
 </skill>
-
 <skill id="4997" levels="1" name="Lidia - Regen">
 <!-- Done by KID [C5] -->
   <set name="target" val="TARGET_SELF"/>
@@ -974,9 +995,9 @@
     </effect>
   </for>
 </skill>
-
 <skill id="4998" levels="1" name="Lidia - Twister">
 <!-- Done by KID [C5] -->
+  <set name="power" val="0.0"/>
   <set name="element" val="1"/> <!-- Wind -->
   <set name="mpConsume" val="116"/>
   <set name="power" val="287"/>
