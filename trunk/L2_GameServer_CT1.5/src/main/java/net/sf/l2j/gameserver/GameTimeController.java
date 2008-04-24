@@ -248,7 +248,11 @@ public class GameTimeController
 			try
 			{
 				if (_ended.hasAI()) // AI could be just disabled due to region turn off
+				{
+					if (Config.MOVE_BASED_KNOWNLIST)
+						_ended.getKnownList().findObjects();
 					_ended.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
+				}
 			}
 			catch (NullPointerException e)
 			{

@@ -1692,7 +1692,7 @@ public abstract class L2Character extends L2Object
 				switch (skill.getSkillType())
 				{
 					case BUFF: case HEAL: case COMBATPOINTHEAL: case MANAHEAL:
-					case REFLECT: case SEED:
+					case REFLECT:
 						target = (L2Character) targets[0];
 						break;
 					default:
@@ -3294,6 +3294,12 @@ public abstract class L2Character extends L2Object
 				if (_effects.get(i) == effect)
 				{
 					_effects.remove(i);
+					if (this instanceof L2PcInstance)
+					{
+						SystemMessage sm = new SystemMessage(SystemMessageId.EFFECT_S1_DISAPPEARED);
+						sm.addString(effect.getSkill().getName());
+						sendPacket(sm);
+					}
 					break;
 				}
 			}
@@ -5017,7 +5023,9 @@ public abstract class L2Character extends L2Object
 			setHeading(pos.heading);
 			revalidateZone(true);
 		}
-		sendPacket(new StopMove(this));
+		broadcastPacket(new StopMove(this));
+		if (Config.MOVE_BASED_KNOWNLIST)
+			getKnownList().findObjects();
 	}
 
 	/**
@@ -6721,7 +6729,7 @@ public abstract class L2Character extends L2Object
 				{
 					L2Character target = (L2Character) element;
 
-					if (skill.getSkillType() == L2Skill.SkillType.BUFF || skill.getSkillType() == L2Skill.SkillType.SEED)
+					if (skill.getSkillType() == L2Skill.SkillType.BUFF)
 					{
 						SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 						smsg.addString(skill.getName());
@@ -7712,60 +7720,6 @@ public abstract class L2Character extends L2Object
     public boolean mustFallDownOnDeath()
     {
         return isDead();
-    }
-
-    public L2Object[] getCastTargets(L2Skill skill)
-    {
-		// Get all possible targets of the skill in a table in function of the skill target type
-		L2Object[] targets = skill.getTargetList(this);
-
-		if (targets == null || targets.length == 0)
-		{
-			return null;
-		}
-
-		if (targets == null || (targets.length == 0))
-		{
-			return null;
-		}
-		// Set the target of the skill in function of Skill Type and Target Type
-		L2Character target = null;
-
-		if (skill.getSkillType() == SkillType.BUFF || skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.COMBATPOINTHEAL
-				|| skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.REFLECT || skill.getSkillType() == SkillType.SEED
-				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PET
-				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_CLAN
-				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ALLY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ENEMY_ALLY)
-		{
-			target = (L2Character) targets[0];
-		}
-		else if (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_OWNER_PET)
-		{
-			if (this instanceof L2PetInstance)
-			{
-				target = ((L2PetInstance) this).getOwner();
-			}
-		}
-		else
-		{
-			target = (L2Character) getTarget();
-		}
-
-		// AURA skills should always be using caster as target
-		switch(skill.getTargetType())
-		{
-			case TARGET_AURA:
-			case TARGET_FRONT_AURA:
-			case TARGET_BEHIND_AURA:
-				target = this;
-				break;
-		}
-
-		if (target == null)
-		{
-			return null;
-		}
-		return targets;
     }
 
     public void setPreventedFromReceivingBuffs(boolean value)

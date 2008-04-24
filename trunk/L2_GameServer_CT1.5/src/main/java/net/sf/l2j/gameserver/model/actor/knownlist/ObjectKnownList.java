@@ -15,11 +15,11 @@
 package net.sf.l2j.gameserver.model.actor.knownlist;
 
 import java.util.Map;
-
 import javolution.util.FastMap;
+
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
-import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.L2WorldRegion;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
@@ -123,6 +123,43 @@ public class ObjectKnownList
         if (object == null)
             return false;
         return (getKnownObjects().remove(object.getObjectId()) != null);
+    }
+
+    // used only in Config.MOVE_BASED_KNOWNLIST and does not support guards seeing
+    // moving monsters
+    public final void findObjects()
+    {
+        L2WorldRegion region = getActiveObject().getWorldRegion();
+        if (region == null) return;
+
+        if (getActiveObject() instanceof L2PlayableInstance)
+        {
+            for (L2WorldRegion regi : region.getSurroundingRegions()) // offer members of this and surrounding regions
+            {
+                for (L2Object _object : regi.getVisibleObjects()) 
+                {
+                    if (_object != getActiveObject())
+                    {
+                        addKnownObject(_object);
+                        if (_object instanceof L2Character)
+                            _object.getKnownList().addKnownObject(getActiveObject());
+                    }
+                }
+            }
+        }
+        else if (getActiveObject() instanceof L2Character)
+        {
+            for (L2WorldRegion regi : region.getSurroundingRegions()) // offer members of this and surrounding regions
+            {
+                if (regi.isActive()) for (L2Object _object : regi.getVisiblePlayable()) 
+                {
+                    if (_object != getActiveObject())
+                    {
+                        addKnownObject(_object);
+                    }
+                }
+            }
+        }
     }
 
     // Remove invisible and too far L2Object from _knowObject and if necessary from _knownPlayers of the L2Character

@@ -420,9 +420,6 @@ public class L2NpcInstance extends L2Character
     @Override
     public void updateAbnormalEffect()
     {
-        //NpcInfo info = new NpcInfo(this);
-        //broadcastPacket(info);
-
         // Send a Server->Client packet NpcInfo with state of abnormal effect to all L2PcInstance in the _knownPlayers of the L2NpcInstance
         for (L2PcInstance player : getKnownList().getKnownPlayers().values())
             if (player != null && this != null)
@@ -2714,11 +2711,20 @@ public class L2NpcInstance extends L2Character
     public void setLHandId(int newWeaponId)
     {
         _currentLHandId = newWeaponId;
+        updateAbnormalEffect();
     }
 
     public void setRHandId(int newWeaponId)
     {
         _currentRHandId = newWeaponId;
+        updateAbnormalEffect();
+    }
+
+    public void setLRHandId(int newLWeaponId,int newRWeaponId)
+    {
+        _currentRHandId = newRWeaponId;
+        _currentLHandId = newLWeaponId;
+        updateAbnormalEffect();
     }
 
     public void setCollisionHeight(int height)

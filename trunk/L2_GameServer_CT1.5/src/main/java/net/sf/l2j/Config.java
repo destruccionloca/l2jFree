@@ -269,7 +269,7 @@ public final class Config
 			MEMBER_FOR_LEVEL_SIX = Integer.parseInt(clansSettings.getProperty("MemberForLevel6", "30"));
 			MEMBER_FOR_LEVEL_SEVEN = Integer.parseInt(clansSettings.getProperty("MemberForLevel7", "80"));
 			MEMBER_FOR_LEVEL_EIGHT = Integer.parseInt(clansSettings.getProperty("MemberForLevel8", "120"));
-			MEMBER_FOR_LEVEL_NINE = Integer.parseInt(clansSettings.getProperty("MemberForLevel9", "140"));
+			MEMBER_FOR_LEVEL_NINE = Integer.parseInt(clansSettings.getProperty("MemberForLevel9", "120"));
 			MEMBER_FOR_LEVEL_TEN = Integer.parseInt(clansSettings.getProperty("MemberForLevel10", "140"));
 		}
 		catch (Exception e)
@@ -1018,6 +1018,7 @@ public final class Config
 	 * <li>-1 - Old system: will synchronize Z only</li>
 	 */
 	public static int				COORD_SYNCHRONIZE;
+	public static boolean			MOVE_BASED_KNOWNLIST;
 	public static int				DELETE_DAYS;
 	public static int				FLOODPROTECTOR_INITIALSIZE;									// FloodProtector initial capacity
 	public static int				MAX_DRIFT_RANGE;											// Maximum range mobs can randomly go from spawn point
@@ -1167,6 +1168,7 @@ public final class Config
 			MULTIPLE_ITEM_DROP = Boolean.parseBoolean(optionsSettings.getProperty("MultipleItemDrop", "True"));
 
 			COORD_SYNCHRONIZE = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
+			MOVE_BASED_KNOWNLIST = Boolean.parseBoolean(optionsSettings.getProperty("MoveBasedKnownlist", "False"));
 
 			ALLOW_WAREHOUSE = Boolean.parseBoolean(optionsSettings.getProperty("AllowWarehouse", "True"));
 			ENABLE_WAREHOUSESORTING_CLAN = Boolean.parseBoolean(optionsSettings.getProperty("EnableWarehouseSortingClan", "False"));
@@ -1391,7 +1393,6 @@ public final class Config
 	public static boolean				ES_SP_BOOK_NEEDED;											// Spell Book needet to enchant skill
 	public static int					ALT_BUFF_TIME;
 	public static int					ALT_DANCE_TIME;
-	public static int					ALT_SEED_TIME;
 	public static boolean				ALT_DANCE_MP_CONSUME;
 	public static int					MAX_PATK_SPEED;												// Config for limit physical attack speed
 	public static int					MAX_MATK_SPEED;												// Config for limit magical attack speed
@@ -1593,7 +1594,6 @@ public final class Config
 
 			ALT_BUFF_TIME = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
 			ALT_DANCE_TIME = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
-			ALT_SEED_TIME = Integer.parseInt(altSettings.getProperty("AltSeedTime", "1"));
 			ALT_DANCE_MP_CONSUME = Boolean.parseBoolean(altSettings.getProperty("AltDanceMpConsume", "false"));
 			SPAWN_SIEGE_GUARD = Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
 			AUTO_LEARN_SKILLS = Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "false"));

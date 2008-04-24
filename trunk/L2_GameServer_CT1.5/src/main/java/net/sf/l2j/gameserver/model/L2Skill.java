@@ -66,7 +66,6 @@ import net.sf.l2j.gameserver.skills.l2skills.L2SkillCreateItem;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDecoy;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDefault;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDrain;
-import net.sf.l2j.gameserver.skills.l2skills.L2SkillSeed;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignet;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignetCasttime;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSummon;
@@ -145,7 +144,6 @@ public abstract class L2Skill
 		DECOY(L2SkillDecoy.class),
 		DRAIN(L2SkillDrain.class),
 		LUCKNOBLESSE(L2SkillCreateItem.class),
-		SEED(L2SkillSeed.class),
 		SIGNET(L2SkillSignet.class),
 		SIGNET_CASTTIME(L2SkillSignetCasttime.class),
 		SUMMON(L2SkillSummon.class),
@@ -492,8 +490,6 @@ public abstract class L2Skill
 		_isSong = set.getBool("isSong", false);
 		if (_isDance || _isSong)
 			_timeMulti = Config.ALT_DANCE_TIME;
-		else if (_skillType == SkillType.SEED)
-			_timeMulti = Config.ALT_SEED_TIME;
 		else
 			_timeMulti = Config.ALT_BUFF_TIME;
 
@@ -1352,7 +1348,6 @@ public abstract class L2Skill
 			case REFLECT:
 			case UNBLEED:
 			case UNPOISON:
-			case SEED:
 			case SHIFT_TARGET:
 				return true;
 			default:
@@ -1501,7 +1496,6 @@ public abstract class L2Skill
 					case REFLECT:
 					case UNBLEED:
 					case UNPOISON:
-					case SEED:
 					case COMBATPOINTHEAL:
 					case MAGE_BANE:
 					case WARRIOR_BANE:

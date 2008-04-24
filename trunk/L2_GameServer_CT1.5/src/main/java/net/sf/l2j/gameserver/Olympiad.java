@@ -201,7 +201,7 @@ public class Olympiad
 						_log.info("Olympia Result: " + _game._playerOneName + " vs " + _game._playerTwoName + " ... " + _game._playerTwoName + " Win "
 								+ transferPoints + " points");
 
-						_sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_GAME);
+						_sm = new SystemMessage(SystemMessageId.C1_HAS_WON_THE_GAME);
 						_sm2 = new SystemMessage(SystemMessageId.S1_HAS_GAINED_S2_OLYMPIAD_POINTS);
 						_sm.addString(_game._playerTwoName);
 						broadcastMessage(_sm, true);
@@ -229,7 +229,7 @@ public class Olympiad
 						_log.info("Olympia Result: " + _game._playerTwoName + " vs " + _game._playerOneName + " ... " + _game._playerOneName + " Win "
 								+ transferPoints + " points");
 
-						_sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_GAME);
+						_sm = new SystemMessage(SystemMessageId.C1_HAS_WON_THE_GAME);
 						_sm2 = new SystemMessage(SystemMessageId.S1_HAS_GAINED_S2_OLYMPIAD_POINTS);
 						_sm.addString(_game._playerOneName);
 						broadcastMessage(_sm, true);
@@ -2478,7 +2478,7 @@ public class Olympiad
 				playerTwoHp = 0;
 			}
 
-			_sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_GAME);
+			_sm = new SystemMessage(SystemMessageId.C1_HAS_WON_THE_GAME);
 			_sm2 = new SystemMessage(SystemMessageId.S1_HAS_GAINED_S2_OLYMPIAD_POINTS);
 			_sm3 = new SystemMessage(SystemMessageId.S1_HAS_LOST_S2_OLYMPIAD_POINTS);
 

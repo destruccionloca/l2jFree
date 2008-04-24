@@ -424,27 +424,27 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 67<br>
-	 * Message: $s1 has invited you to the join the clan, $s2. Do you wish to join? 
+	 * Message: "$s1 has invited you to the join the clan, $s2. Do you wish to join?"
 	 */
 	S1_HAS_INVITED_YOU_TO_JOIN_THE_CLAN_S2(67),
 
 	/**
 	 * ID: 68<br>
-	 * Message: Would you like to withdraw from the $s1 clan? If you leave, you will have to wait at least a day before joining another clan.
+	 * Message: "Would you like to withdraw from the $s1 clan? If you leave, you will have to wait at least a day before joining another clan."
 	 */
-	WOULD_YOU_LIKE_TO_WITHDRAW_FROM_S1_CLAN(68),
+	WOULD_YOU_LIKE_TO_WITHDRAW_FROM_THE_S1_CLAN(68),
 
 	/**
 	 * ID: 69<br>
-	 * Message: Would you like to dismiss $s1 from the clan? If you do so, you will have to wait at least a day before accepting a new member.
+	 * Message: "Would you like to dismiss $s1 from the clan? If you do so, you will have to wait at least a day before accepting a new member."
 	 */
-	WOULD_YOU_LIKE_TO_DISMISS_S1_FROM_CLAN(69),
+	WOULD_YOU_LIKE_TO_DISMISS_S1_FROM_THE_CLAN(69),
 
 	/**
 	 * ID: 70<br>
-	 * Message: Do you wish to disperse the clan, $s1?
+	 * Message: "Do you wish to disperse the clan, $s1?"
 	 */
-	WISH_TO_DISPERSE_THE_CLAN_S1(70),
+	DO_YOU_WISH_TO_DISPERSE_THE_CLAN_S1(70),
 
 	/**
 	 * ID: 71<br>
@@ -862,9 +862,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 141<br>
-	 * Message: Once the trade is confirmed, the item cannot be moved again.
+	 * Message: "Once the trade is confirmed, the item cannot be moved again."
 	 */
-	CANNOT_MOVE_TRADE_ITEM(141),
+	ONCE_THE_TRADE_IS_CONFIRMED_THE_ITEM_CANNOT_BE_MOVED_AGAIN(141),
 
 	/**
 	 * ID: 142<br>
@@ -1030,9 +1030,9 @@ public enum SystemMessageId
 
 	/**
 	* ID: 169<br>
-	* Message: Accept friendship 0/1 (1 to accept, 0 to deny)
+	* Message: "Accept friendship 0/1 (1 to accept, 0 to deny)"
 	*/
-	ACCEPT_FRIENDSHIP_0_1(169),
+	ACCEPT_THE_FRIENDSHIP(169),
 
 	/**
 	* ID: 170<br>
@@ -1282,9 +1282,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 211<br>
-	 * Message: You may only register a 16 x 12 pixel, 256-color BMP.
+	 * Message: "You may only register a 16 x 12 pixel, 256-color BMP."
 	 */
-	ONLY_16_12_PIXEL_256_COLOR_BMP(211),
+	YOU_MAY_ONLY_REGISTER_A_16_BY_12_PIXEL_256_COLOR_BMP(211),
 
 	/**
 	* ID: 212<br>
@@ -1402,15 +1402,13 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 231<br>
-	 * Message: After a clan member is dismissed from a clan, the clan 
-	 * must wait at least a day before accepting a new member.
+	 * Message: "After a clan member is dismissed from a clan, the clan must wait at least a day before accepting a new member."
 	 */
 	YOU_MUST_WAIT_BEFORE_ACCEPTING_A_NEW_MEMBER(231),
 
 	/**
 	 * ID: 232<br>
-	 * Message: After leaving or having been dismissed from a clan, 
-	 * you must wait at least a day before joining another clan.
+	 * Message: "After leaving or having been dismissed from a clan, you must wait at least a day before joining another clan."
 	 */
 	YOU_MUST_WAIT_BEFORE_JOINING_ANOTHER_CLAN(232),
 
@@ -1783,9 +1781,9 @@ public enum SystemMessageId
 
 	/**
 	* ID: 294<br>
-	* Message: Because your clan is not currently on the offensive in a Clan Hall siege war, it cannot summon its base camp.
+	* Message: "Because your clan is not currently on the offensive in a Clan Hall siege war, it cannot summon its base camp."
 	*/
-	CLAN_NOT_OFFENSIVE_CANNOT_SUMMON_BASE_CAMP(294),
+	BECAUSE_YOUR_CLAN_IS_NOT_CURRENTLY_ON_THE_OFFENSIVE_IN_A_CLAN_HALL_SIEGE_WAR_IT_CANNOT_SUMMON_ITS_BASE_CAMP(294),
 
 	/**
 	* ID: 295<br>
@@ -2029,7 +2027,7 @@ public enum SystemMessageId
 
 	/**
 	* ID: 343<br>
-	* Message: Sweeper failed, target not spoiled.
+	* Message: "Sweeper failed, target not spoiled."
 	*/
 	SWEEPER_FAILED_TARGET_NOT_SPOILED(343),
 
@@ -3113,7 +3111,7 @@ public enum SystemMessageId
 
 	/**
 	* ID: 527<br>
-	* Message: $s1 leader, $s2, has requested an alliance.
+	* Message: "$s1 leader, $s2, has requested an alliance."
 	*/
 	S2_ALLIANCE_LEADER_OF_S1_REQUESTED_ALLIANCE(527),
 
@@ -3125,9 +3123,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 529<br>
-	 * Message: You may only register an 8 x 12 pixel, 256-color BMP.
+	 * Message: "You may only register an 8 x 12 pixel, 256-color BMP."
 	 */
-	ONLY_REGISTER_8_12_PIXEL_BMP(529),
+	YOU_MAY_ONLY_REGISTER_AN_8_BY_12_PIXEL_256_COLOR_BMP(529),
 
 	/**
 	 * ID: 530<br>
@@ -3245,7 +3243,7 @@ public enum SystemMessageId
 
 	/**
 	* ID: 549<br>
-	* Message: To create an alliance, your clan must be Level 5 or higher.
+	* Message: "To create an alliance, your clan must be Level 5 or higher."
 	*/
 	TO_CREATE_AN_ALLY_YOU_CLAN_MUST_BE_LEVEL_5_OR_HIGHER(549),
 
@@ -3263,8 +3261,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 552<br>
-	 * Message: During the grace period for dissolving a clan, the registration or 
-	 * deletion of a clan's crest is not allowed.
+	 * Message: "During the grace period for dissolving a clan, the registration or deletion of a clan's crest is not allowed."
 	 */
 	CANNOT_SET_CREST_WHILE_DISSOLUTION_IN_PROGRESS(552),
 
@@ -5392,103 +5389,103 @@ public enum SystemMessageId
 
 	/**
 	* ID: 910<br>
-	* Message: Current location : $s1, $s2, $s3 (Near Talking Island Village)
+	* Message: "Current location : $s1, $s2, $s3 (Near Talking Island Village)"
 	*/
 	LOC_TI_S1_S2_S3(910),
 
 	/**
 	* ID: 911<br>
-	* Message: Current location : $s1, $s2, $s3 (Near Gludin Village)
+	* Message: "Current location : $s1, $s2, $s3 (Near Gludin Village)"
 	*/
 	LOC_GLUDIN_S1_S2_S3(911),
 
 	/**
 	* ID: 912<br>
-	* Message: Current location : $s1, $s2, $s3 (Near the Town of Gludio)
+	* Message: "Current location : $s1, $s2, $s3 (Near the Town of Gludio)"
 	*/
 	LOC_GLUDIO_S1_S2_S3(912),
 
 	/**
 	* ID: 913<br>
-	* Message: Current location : $s1, $s2, $s3 (Near the Neutral Zone)
+	* Message: "Current location : $s1, $s2, $s3 (Near the Neutral Zone)"
 	*/
 	LOC_NETRAL_ZONE_S1_S2_S3(913),
 
 	/**
 	* ID: 914<br>
-	* Message: Current location : $s1, $s2, $s3 (Near the Elven Village)
+	* Message: "Current location : $s1, $s2, $s3 (Near the Elven Village)"
 	*/
 	LOC_ELVEN_S1_S2_S3(914),
 
 	/**
 	* ID: 915<br>
-	* Message: Current location : $s1, $s2, $s3 (Near the Dark Elf Village)
+	* Message: "Current location : $s1, $s2, $s3 (Near the Dark Elf Village)"
 	*/
 	LOC_DARK_ELVEN_S1_S2_S3(915),
 
 	/**
 	* ID: 916<br>
-	* Message: Current location : $s1, $s2, $s3 (Near the Town of Dion)
+	* Message: "Current location : $s1, $s2, $s3 (Near the Town of Dion)"
 	*/
 	LOC_DION_S1_S2_S3(916),
 
 	/**
 	* ID: 917<br>
-	* Message: Current location : $s1, $s2, $s3 (Near the Floran Village)
+	* Message: "Current location : $s1, $s2, $s3 (Near the Floran Village)"
 	*/
 	LOC_FLORAN_S1_S2_S3(917),
 
 	/**
 	* ID: 918<br>
-	* Message: Current location : $s1, $s2, $s3 (Near the Town of Giran)
+	* Message: "Current location : $s1, $s2, $s3 (Near the Town of Giran)"
 	*/
 	LOC_GIRAN_S1_S2_S3(918),
 
 	/**
 	* ID: 919<br>
-	* Message: Current location : $s1, $s2, $s3 (Near Giran Harbor)
+	* Message: "Current location : $s1, $s2, $s3 (Near Giran Harbor)"
 	*/
 	LOC_GIRAN_HARBOR_S1_S2_S3(919),
 
 	/**
 	* ID: 920<br>
-	* Message: Current location : $s1, $s2, $s3 (Near the Orc Village)
+	* Message: "Current location : $s1, $s2, $s3 (Near the Orc Village)"
 	*/
 	LOC_ORC_S1_S2_S3(920),
 
 	/**
 	* ID: 921<br>
-	* Message: Current location : $s1, $s2, $s3 (Near the Dwarven Village)
+	* Message: "Current location : $s1, $s2, $s3 (Near the Dwarven Village)"
 	*/
 	LOC_DWARVEN_S1_S2_S3(921),
 
 	/**
 	* ID: 922<br>
-	* Message: Current location : $s1, $s2, $s3 (Near the Town of Oren)
+	* Message: "Current location : $s1, $s2, $s3 (Near the Town of Oren)"
 	*/
 	LOC_OREN_S1_S2_S3(922),
 
 	/**
 	* ID: 923<br>
-	* Message: Current location : $s1, $s2, $s3 (Near Hunters Village)
+	* Message: "Current location : $s1, $s2, $s3 (Near Hunters Village)"
 	*/
 	LOC_HUNTER_S1_S2_S3(923),
 
 	/**
 	* ID: 924<br>
-	* Message: Current location : $s1, $s2, $s3 (Near Aden Castle Town)
+	* Message: "Current location : $s1, $s2, $s3 (Near Aden Castle Town)"
 	*/
 	LOC_ADEN_S1_S2_S3(924),
 
 	/**
 	* ID: 925<br>
-	* Message: Current location : $s1, $s2, $s3 (Near the Coliseum)
+	* Message: "Current location : $s1, $s2, $s3 (Near the Coliseum)"
 	*/
 	LOC_COLISEUM_S1_S2_S3(925),
 
 	/**
 	* ID: 926<br>
-	* Message: Current location : $s1, $s2, $s3 (Near Heine)
+	* Message: "Current location : $s1, $s2, $s3 (Near Heine)"
 	*/
 	LOC_HEINE_S1_S2_S3(926),
 
@@ -8942,15 +8939,15 @@ public enum SystemMessageId
 
 	/**
 	* ID: 1496<br>
-	* Message: The match has started, fight!
+	* Message: "The match has started, fight!"
 	*/
 	STARTS_THE_GAME(1496),
 
 	/**
 	* ID: 1497<br>
-	* Message: Congratulations $s1, you win the match!
+	* Message: Congratulations $C1, you win the match!
 	*/
-	S1_HAS_WON_THE_GAME(1497),
+	C1_HAS_WON_THE_GAME(1497),
 
 	/**
 	* ID: 1498<br>
@@ -9033,7 +9030,7 @@ public enum SystemMessageId
 
 	/**
 	* ID: 1511<br>
-	* Message: While a pet is attempting to resurrect, it cannot help in resurrecting its master.
+	* Message: "While a pet is attempting to resurrect, it cannot help in resurrecting its master."
 	*/
 	MASTER_CANNOT_RES(1511),
 
@@ -9190,13 +9187,13 @@ public enum SystemMessageId
 
 	/**
 	* ID: 1537<br>
-	* Message: Current Location: $s1, $s2, $s3 (near Rune Village)
+	* Message: "Current Location: $s1, $s2, $s3 (near Rune Village)"
 	*/
 	LOC_RUNE_S1_S2_S3(1537),
 
 	/**
 	* ID: 1538<br>
-	* Message: Current Location: $s1, $s2, $s3 (near the Town of Goddard)
+	* Message: "Current Location: $s1, $s2, $s3 (near the Town of Goddard)"
 	*/
 	LOC_GODDARD_S1_S2_S3(1538),
 
@@ -9602,7 +9599,7 @@ public enum SystemMessageId
 
 	/**
 	* ID: 1605<br>
-	* Message: * Here, you can buy only seeds of $s1 Manor.
+	* Message: "* Here, you can buy only seeds of $s1 Manor."
 	*/
 	HERE_YOU_CAN_BUY_ONLY_SEEDS_OF_S1_MANOR(1605),
 
@@ -9835,9 +9832,9 @@ public enum SystemMessageId
 
 	/**
 	* ID: 1643<br>
-	* Message: Current Location: $s1, $s2, $s3 (Dimensional Gap)
+	* Message: "Current Location: $s1, $s2, $s3 (Dimensional Gap)"
 	*/
-	LOC_DIMENSIONAL_GAP_S1_S2_S3(1643),
+	CURRENT_LOCATION_S1_S2_S3_DIMENSIONAL_GAP(1643),
 
 	// 1644 - 1648: none
 
@@ -9879,7 +9876,7 @@ public enum SystemMessageId
 
 	/**
 	* ID: 1655<br>
-	* Message: You caught something smelly and scary, maybe you should throw it back!?
+	* Message: "You caught something smelly and scary, maybe you should throw it back!?"
 	*/
 	YOU_CAUGHT_SOMETHING_SMELLY_THROW_IT_BACK(1655),
 
@@ -10245,7 +10242,7 @@ public enum SystemMessageId
 
 	/**
 	* ID: 1714<br>
-	* Message: Current Location: $s1, $s2, $s3 (Near the Town of Schuttgart)
+	* Message: "Current Location: $s1, $s2, $s3 (Near the Town of Schuttgart)"
 	*/
 	LOC_SCHUTTGART_S1_S2_S3(1714),
 
@@ -10457,9 +10454,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1749<br>
-	 * Message: Congratulations! You will now graduate from the Clan Academy and leave 
-	 * your current clan. As a graduate of the academy, you can immediately 
-	 * join a clan as a regular member without being subject to any penalties
+	 * Message: "Congratulations! You will now graduate from the Clan Academy and leave your current clan. As a graduate of the academy, you can immediately join a clan as a regular member without being subject to any penalties."
 	 */
 	ACADEMY_MEMBERSHIP_TERMINATED(1749),
 
@@ -10507,21 +10502,21 @@ public enum SystemMessageId
 
 	/**
 	* ID: 1757<br>
-	* Message: Your apprentice, $s1, has logged out.
+	* Message: Your apprentice, $C1, has logged out.
 	*/
-	YOUR_APPRENTICE_S1_HAS_LOGGED_OUT(1757),
+	YOUR_APPRENTICE_C1_HAS_LOGGED_OUT(1757),
 
 	/**
 	* ID: 1758<br>
-	* Message: Your sponsor, $s1, has logged in.
+	* Message: Your sponsor, $C1, has logged in.
 	*/
-	YOUR_SPONSOR_S1_HAS_LOGGED_IN(1758),
+	YOUR_SPONSOR_C1_HAS_LOGGED_IN(1758),
 
 	/**
 	* ID: 1759<br>
-	* Message: Your sponsor, $s1, has logged out.
+	* Message: Your sponsor, $C1, has logged out.
 	*/
-	YOUR_SPONSOR_S1_HAS_LOGGED_OUT(1759),
+	YOUR_SPONSOR_C1_HAS_LOGGED_OUT(1759),
 
 	/**
 	* ID: 1760<br>
@@ -13549,7 +13544,7 @@ public enum SystemMessageId
 
 	/**
 	* ID: 2259<br>
-	* Message: Current Location: $s1, $s2, $s3 (near Fantasy Island)
+	* Message: "Current Location: $s1, $s2, $s3 (near Fantasy Isle)"
 	*/
 	LOC_FANTASY_ISLAND_S1_S2_S3(2259),
 
