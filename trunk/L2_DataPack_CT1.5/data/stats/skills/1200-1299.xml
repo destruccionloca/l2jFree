@@ -2703,49 +2703,61 @@
 <skill id="1285" levels="1" name="Seed of Fire">
   <set name="mpInitialConsume" val="50"/>
   <set name="mpConsume" val="200"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="4000"/>
-  <set name="skillType" val="SEED"/>
+  <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
-  <set name="reuseDelay" val="3600000"/>
+  <set name="reuseDelay" val="5000"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Seed" time="5" val="0"/>
+    <effect count="1" name="Buff" time="600" val="0" stackOrder="2" stackType="ElmentPatk">
+      <!-- require core support
+      <mul order="0x30" stat="firePower" val="1.2"/>
+      -->
+    </effect>
   </for>
 </skill>
 <skill id="1286" levels="1" name="Seed of Water">
   <set name="mpInitialConsume" val="50"/>
   <set name="mpConsume" val="200"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="4000"/>
-  <set name="skillType" val="SEED"/>
+  <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
-  <set name="reuseDelay" val="3600000"/>
+  <set name="reuseDelay" val="5000"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Seed" time="5" val="0"/>
+    <effect count="1" name="Buff" time="600" val="0" stackOrder="2" stackType="ElmentPatk">
+      <!-- require core support
+      <mul order="0x30" stat="waterPower" val="1.2"/>
+      -->
+    </effect>
   </for>
 </skill>
 <skill id="1287" levels="1" name="Seed of Wind">
   <set name="mpInitialConsume" val="50"/>
   <set name="mpConsume" val="200"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="4000"/>
-  <set name="skillType" val="SEED"/>
+  <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
-  <set name="reuseDelay" val="3600000"/>
+  <set name="reuseDelay" val="5000"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Seed" time="5" val="0"/>
+    <effect count="1" name="Buff" time="600" val="0" stackOrder="2" stackType="ElmentPatk">
+      <!-- require core support
+      <mul order="0x30" stat="windPower" val="1.2"/>
+      -->
+    </effect>
   </for>
 </skill>
 <skill id="1288" levels="1" name="Aura Symphony">
@@ -2761,9 +2773,6 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
-  <cond msg="Proper elemental seeds required.">
-    <player seed_various="2"/>
-  </cond>
   <for>
   </for>
 </skill>
@@ -2781,9 +2790,6 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
-  <cond msg="Proper elemental seeds required.">
-    <player seed_fire="2"/>
-  </cond>
   <set name="effectType" val="DOT"/>
   <set name="effectPower" val="350"/>
   <for>
@@ -2805,9 +2811,6 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
-  <cond msg="Proper elemental seeds required.">
-    <player seed_water="2"/>
-  </cond>
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="350"/>
   <for>
@@ -2830,9 +2833,6 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
-  <cond msg="Proper elemental seeds required.">
-    <player seed_wind="2"/>
-  </cond>
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="350"/>
   <for>
@@ -2855,9 +2855,6 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
-  <cond msg="Proper elemental seeds required.">
-    <player seed_water="1" seed_wind="1"/>
-  </cond>
   <for>
   </for>
 </skill>
@@ -2875,9 +2872,6 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
-  <cond msg="Proper elemental seeds required.">
-    <player seed_fire="1" seed_wind="1"/>
-  </cond>
   <for>
   </for>
 </skill>
@@ -2895,9 +2889,6 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
-  <cond msg="Proper elemental seeds required.">
-    <player seed_fire="1" seed_water="1"/>
-  </cond>
   <for>
   </for>
 </skill>
