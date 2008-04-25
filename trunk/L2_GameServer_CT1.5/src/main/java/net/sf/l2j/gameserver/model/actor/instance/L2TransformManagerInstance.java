@@ -135,7 +135,7 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 	public void showHtmlFile(L2PcInstance player, String file)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile("data/html/trainer/"+file);
+		html.setFile("data/html/default/" + file);
 		player.sendPacket(html);
 	}
 
