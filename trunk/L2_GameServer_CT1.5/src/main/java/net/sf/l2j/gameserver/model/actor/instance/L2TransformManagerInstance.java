@@ -17,8 +17,11 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import javolution.text.TextBuilder;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
+import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2TransformSkillLearn;
+import net.sf.l2j.gameserver.model.quest.QuestState;
+import net.sf.l2j.gameserver.model.quest.State;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.AcquireSkillList;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
@@ -57,6 +60,16 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 		{
 			player.setSkillLearningClassId(player.getClassId());
 			showTransformSkillList(player);
+		}
+		else if (command.startsWith("BuyTransform"))
+		{
+			if (testQuestTransformation(player))
+				L2Multisell.getInstance().separateAndSend(getTemplate().getNpcId(), player, false, getCastle().getTaxRate());
+			else
+			{
+				showHtmlFile(player, getTemplate().getNpcId()+"-cantbuy.htm");
+				return;
+			}
 		}
 		else
 		{
@@ -118,4 +131,28 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 
         player.sendPacket(ActionFailed.STATIC_PACKET);
     }
+
+	public void showHtmlFile(L2PcInstance player, String file)
+	{
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		html.setFile("data/html/trainer/"+file);
+		player.sendPacket(html);
+	}
+
+	public boolean testQuestTransformation(L2PcInstance player)
+	{
+		// preventif NPE
+		if (player == null)
+			return false;
+		
+		String _questName = "136_MoreThanMeetsTheEye";
+    	QuestState qs = player.getQuestState(_questName);
+    	
+    	if (qs == null || State.getStateName(qs.getState()) != "Completed")
+    		return false;
+    	else if (qs != null || State.getStateName(qs.getState()) == "Completed")
+    		return true;
+    	else
+    		return false;
+	}
 }
