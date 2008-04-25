@@ -88,8 +88,8 @@ public final class SubClass
     
     public void setExp(long expValue)
     {
-        if (expValue > Experience.LEVEL[80])
-            expValue = Experience.LEVEL[80];
+        if (expValue > Experience.LEVEL[81])
+            expValue = Experience.LEVEL[81];
         
         _exp = expValue;
     }
