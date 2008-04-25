@@ -32,17 +32,14 @@ final class EffectParalyze extends L2Effect
 
 	public void onStart()
 	{
-		getEffected().abortAttack();
-		getEffected().abortCast();
-		getEffected().stopMove(null);
 		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
-		getEffected().setIsParalyzed(true);
+		getEffected().startParalyze();
 	}
 
 	public void onExit()
 	{
 		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
-		getEffected().setIsParalyzed(false);
+		getEffected().stopParalyze(this);
 	}
 
 	public boolean onActionTime()

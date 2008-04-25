@@ -6026,7 +6026,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1016<br>
-	 * Message: Your pet received $s2 damage caused by $s1.
+	 * Message: Pet received $s2 damage by $s1.
 	 */
 	PET_RECEIVED_S2_DAMAGE_BY_S1(1016),
 
@@ -6092,7 +6092,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1027<br>
-	 * Message: The summoned monster received damage of $s2 caused by $s1.
+	 * Message: Servitor received $s2 damage caused by $s1.
 	 */
 	SUMMON_RECEIVED_DAMAGE_S2_BY_S1(1027),
 

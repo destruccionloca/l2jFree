@@ -331,7 +331,7 @@ public abstract class L2Character extends L2Object
 			pet.setFollowStatus(false);
 			pet.teleToLocation(getPosition().getX() + Rnd.get(-100, 100), getPosition().getY() + Rnd.get(-100, 100), getPosition().getZ(), false);
 			pet.setFollowStatus(true);
-			pet.broadcastPacket(new PetInfo(pet));
+			sendPacket(new PetInfo(pet));
 			pet.updateEffectIcons(true);
 		}
 	}
@@ -3427,7 +3427,7 @@ public abstract class L2Character extends L2Object
 	public final void startFear()
 	{
 		setIsAfraid(true);
-		getAI().notifyEvent(CtrlEvent.EVT_AFFRAID);
+		getAI().notifyEvent(CtrlEvent.EVT_AFRAID);
 		updateAbnormalEffect();
 	}
 
@@ -3522,6 +3522,16 @@ public abstract class L2Character extends L2Object
 		updateAbnormalEffect();
 	}
 
+	public final void startParalyze()
+	{
+		setIsParalyzed(true);
+		/* Aborts any attacks/casts if paralyzed */
+		abortAttack();
+		abortCast();
+		getAI().notifyEvent(CtrlEvent.EVT_PARALYZED, null);
+		updateAbnormalEffect();
+	}
+
 	public final void startBetray()
 	{
 		setIsBetrayed(true);
@@ -3593,6 +3603,7 @@ public abstract class L2Character extends L2Object
 	public final void startPhysicalAttackMuted()
 	{
 		setIsPhysicalAttackMuted(true);
+		abortAttack();
 	}
 
 	public final void stopPhysicalAttackMuted(L2Effect effect)
@@ -3702,7 +3713,7 @@ public abstract class L2Character extends L2Object
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
 	 * <li>Delete a specified/all (if effect=null) Fear abnormal L2Effect from L2Character and update client magic icon </li>
-	 * <li>Set the abnormal effect flag _affraid to False </li>
+	 * <li>Set the abnormal effect flag _afraid to False </li>
 	 * <li>Notify the L2Character AI</li>
 	 * <li>Send Server->Client UserInfo/CharInfo packet</li>
 	 * <BR>
@@ -3845,6 +3856,18 @@ public abstract class L2Character extends L2Object
 			removeEffect(effect);
 
 		setIsStunned(false);
+		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
+		updateAbnormalEffect();
+	}
+
+	public final void stopParalyze(L2Effect effect)
+	{
+		if (effect == null)
+			stopEffects(L2Effect.EffectType.PARALYZE);
+		else
+			removeEffect(effect);
+
+		setIsParalyzed(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 		updateAbnormalEffect();
 	}
@@ -6732,7 +6755,7 @@ public abstract class L2Character extends L2Object
 					if (skill.getSkillType() == L2Skill.SkillType.BUFF)
 					{
 						SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
-						smsg.addString(skill.getName());
+						smsg.addSkillName(skill.getId());
 						target.sendPacket(smsg);
 					}
 

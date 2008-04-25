@@ -32,12 +32,14 @@ public enum CtrlEvent {
 	EVT_AGGRESSION,
 	/** Actor is in stun state */
 	EVT_STUNNED,
+	/** Actor is paralyzed or petrified */
+	EVT_PARALYZED,
 	/** Actor starts/stops sleeping */
 	EVT_SLEEPING,
-    /** Actor gets/looses Noblesse Luck effect */
-    EVT_LUCKNOBLESSE,   
-    /** Actor is betrayed by its pet */
-    EVT_BETRAYED,
+	/** Actor gets/looses Noblesse Luck effect */
+	EVT_LUCKNOBLESSE,   
+	/** Actor is betrayed by its pet */
+	EVT_BETRAYED,
 	/** Actor is in rooted state (cannot move) */
 	EVT_ROOTED,
 	/** An event that previous action was completed. The action may be an attempt
@@ -68,12 +70,12 @@ public enum CtrlEvent {
 	EVT_DEAD,
     /** The character looks like dead */
     EVT_FAKE_DEATH,
-	/** The character attack anyone randomly **/
+	/** The character attacks anyone randomly **/
 	EVT_CONFUSED,
 	/** The character cannot cast spells anymore **/
 	EVT_MUTED,
-	/** The character flee in randoms directions **/
-	EVT_AFFRAID,
-	/** The character finish casting **/
+	/** The character flees in randoms directions **/
+	EVT_AFRAID,
+	/** The character finishes casting **/
 	EVT_FINISH_CASTING
 }
