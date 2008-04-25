@@ -1,4 +1,4 @@
-package net.sf.l2j.gameserver.instancemanager;
+package transformations;
 
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.TransformationManager;
@@ -20,7 +20,7 @@ public class DivineHealer extends L2Transformation
 	public DivineHealer()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(255, 3600, 8.0, 22.0);
+		super(255, 3600, 8.0, 27.0);
 	}
 
 	public void onTransform()
