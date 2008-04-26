@@ -836,7 +836,8 @@ public class CTF
 		_joining = true;
 		spawnEventNpc();
 		AnnounceToPlayers(true, _eventName + " (CTF)!");
-		AnnounceToPlayers(true, "Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
+		if(Config.CTF_ANNOUNCE_REWARD)
+			AnnounceToPlayers(true, "Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
 		AnnounceToPlayers(true, "Recruiting levels " + _minlvl + " to " + _maxlvl);
 		AnnounceToPlayers(true, "Joinable in " + _joiningLocationName + "!");
 		return true;
