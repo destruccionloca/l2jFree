@@ -11,7 +11,6 @@
    <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-
 <item id='10004' name="Dynasty Dual Sword">
   <for>
    <set val='374' order='0x08' stat='pAtk'/>
@@ -22,7 +21,6 @@
    <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-
 <item id='10005' name="Shadow Item: Fleuret">
   <for>
    <set val='46' order='0x08' stat='pAtk'/>
@@ -33,7 +31,6 @@
    <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-
 <item id='10006' name="Shadow Item: Military Talwar">
   <for>
    <set val='55' order='0x08' stat='pAtk'/>
@@ -44,7 +41,6 @@
    <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-
 <item id='10007' name="Shadow Item: Hand Crossbow ">
   <for>
    <set val='64' order='0x08' stat='pAtk'/>
@@ -55,7 +51,6 @@
    <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-
 <item id='10008' name="Shadow Item: Blinzlasher">
   <for>
    <set val='126' order='0x08' stat='pAtk'/>
@@ -66,7 +61,6 @@
    <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-
 <item id='10009' name="Shadow Item: Immortal Edge">
   <for>
    <set val='151' order='0x08' stat='pAtk'/>
@@ -77,7 +71,6 @@
    <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-
 <item id='10010' name="Shadow Item: Tathlum">
   <for>
    <set val='176' order='0x08' stat='pAtk'/>
@@ -88,7 +81,6 @@
    <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-
 <item id='10011' name="Shadow Item - War Axe">
   <for>
    <set val='139' order='0x08' stat='pAtk'/>
