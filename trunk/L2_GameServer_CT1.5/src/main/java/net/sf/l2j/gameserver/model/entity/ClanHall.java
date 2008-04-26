@@ -84,7 +84,7 @@ public class ClanHall extends Entity
             _tempFee = tempLease;
             _rate = rate;
             _endDate = time;
-            initialyzeTask(cwh);
+            initializeFunctionTask(cwh);
         }
 
         public int getType(){ return _type;}
@@ -96,7 +96,7 @@ public class ClanHall extends Entity
         public void setLease(int lease){_fee = lease;}
         public void setEndTime(long time){_endDate = time;}
 
-        private void initializeTask(boolean cwh)
+        private void initializeFunctionTask(boolean cwh)
         {
             if(_isFree)
                 return;
@@ -205,7 +205,7 @@ public class ClanHall extends Entity
         if(ownerId != 0)
         {
             _isFree = false;
-            initialyzeTask(false);
+            initializeTask(false);
             loadFunctions();
         }
     }
@@ -315,7 +315,7 @@ public class ClanHall extends Entity
         _ownerClan = null;
         _isFree = false;
         _paidUntil = System.currentTimeMillis();
-        initialyzeTask(true);
+        initializeTask(true);
         // Annonce to Online member new ClanHall
         clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
         updateDb();
@@ -501,7 +501,7 @@ public class ClanHall extends Entity
     }
 
     /** Initialyze Fee Task */
-    private void initialyzeTask(boolean forced)
+    private void initializeTask(boolean forced)
     {
         long currentTime = System.currentTimeMillis();
         if(_paidUntil>currentTime)
