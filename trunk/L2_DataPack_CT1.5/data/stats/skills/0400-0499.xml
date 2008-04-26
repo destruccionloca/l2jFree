@@ -2092,16 +2092,16 @@
 </skill>
 <skill id="489" levels="1" name="Shift Target">
 <!-- by Sephiroth -->
-  <set name="power" val="0.0"/>
   <set name="mpConsume" val="53"/>
-  <set name="hitTime" val="2500"/>
-  <set name="reuseDelay" val="30000"/>
   <set name="target" val="TARGET_PARTY_MEMBER"/>
+  <set name="hitTime" val="3200"/>
+  <set name="reuseDelay" val="15000"/>
+  <set name="coolTime" val="720"/>
   <set name="skillType" val="SHIFT_TARGET"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="skillRadius" val="150"/>
+  <set name="skillRadius" val="205"/>
   <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
+  <set name="effectRange" val="200"/>
   <set name="soulConsumeCount" val="3"/>
   <cond msg="An equipped crossbow is required to use this skill.">
     <using kind="Crossbow"/>
