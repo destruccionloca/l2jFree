@@ -41462,3 +41462,6 @@ INSERT INTO `spawnlist` VALUES
 -- Baylor Npcs
 INSERT INTO `spawnlist` VALUES
 (NULL,'',1,32271,153570,142067,-9727,0,0,0,60,0,0);
+
+-- TEMP FIX UNTIL NPC'S ARE DONE! (22448,22451,18493)
+DELETE FROM `spawnlist` WHERE `npc_templateid` NOT IN (SELECT `id` FROM `npc`);
