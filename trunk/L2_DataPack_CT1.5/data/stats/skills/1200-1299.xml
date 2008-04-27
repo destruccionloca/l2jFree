@@ -2712,6 +2712,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="element" val="2"/> <!-- Fire -->
   <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="600" val="0" stackOrder="2" stackType="ElmentPatk">
@@ -2732,6 +2733,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="element" val="3"/> <!-- Water -->
   <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="600" val="0" stackOrder="2" stackType="ElmentPatk">
@@ -2752,6 +2754,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="element" val="1"/> <!-- Wind -->
   <set name="aggroPoints" val="100"/>
   <for>
     <effect count="1" name="Buff" time="600" val="0" stackOrder="2" stackType="ElmentPatk">

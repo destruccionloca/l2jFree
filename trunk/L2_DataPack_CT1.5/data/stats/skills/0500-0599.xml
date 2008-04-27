@@ -744,6 +744,7 @@ description(s) :
   </for>
 </skill>
 <skill id="536" levels="1" name="Over the Body">
+  <!-- Needs Core Support "In order to use the skill, your CP must be above 80%. When the skill is used, all of your CP are consumed." -->
   <!-- Done by Sephiroth for L2Umbrella -->
   <set name="mpConsume" val="143"/>
   <set name="hitTime" val="2000"/>
