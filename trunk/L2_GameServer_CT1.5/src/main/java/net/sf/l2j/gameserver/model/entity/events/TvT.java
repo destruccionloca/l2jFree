@@ -1157,7 +1157,8 @@ public class TvT
 			replyMSG.append("Current event...<br1>");
 			replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + _eventName + "</font><br1>");
 			replyMSG.append("    ... description:&nbsp;<font color=\"00FF00\">" + _eventDesc + "</font><br>");
-			replyMSG.append("    ... reward: (" + _rewardAmount + ") " + ItemTable.getInstance().getTemplate(_rewardId).getName() + "<br>");
+			if(Config.TVT_ANNOUNCE_REWARD)
+				replyMSG.append("    ... reward: (" + _rewardAmount + ") " + ItemTable.getInstance().getTemplate(_rewardId).getName() + "<br>");
 
 
 			if (!_started && !_joining)

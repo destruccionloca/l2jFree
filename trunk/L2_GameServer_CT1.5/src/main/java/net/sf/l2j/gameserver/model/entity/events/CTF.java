@@ -1722,7 +1722,8 @@ public class CTF
 			replyMSG.append("CTF Match<br><br><br>");
 			replyMSG.append("Current event...<br1>");
 			replyMSG.append("   ... description:&nbsp;<font color=\"00FF00\">" + _eventDesc + "</font><br>");
-			replyMSG.append("   ... reward: (" + _rewardAmount + ") " + ItemTable.getInstance().getTemplate(_rewardId).getName() + "<br>");
+			if(Config.CTF_ANNOUNCE_REWARD)
+				replyMSG.append("   ... reward: (" + _rewardAmount + ") " + ItemTable.getInstance().getTemplate(_rewardId).getName() + "<br>");
 
 			if (!_started && !_joining)
 				replyMSG.append("<center>Wait till the admin/gm start the participation.</center>");
