@@ -29,12 +29,14 @@ public class L2MothertreeZone extends L2DefaultZone
 		{
 			L2PcInstance player = (L2PcInstance)character;
 
-			if (player.getRace() != Race.Elf) return;
+			if (player.getRace() != Race.Elf)
+				return;
 
 			if (player.isInParty())
 			{
 				for (L2PcInstance member : player.getParty().getPartyMembers())
-					if (member.getRace() != Race.Elf) return;
+					if (member.getRace() != Race.Elf)
+						return;
 			}
 
 			player.setInsideZone(FLAG_MOTHERTREE, true);

@@ -272,19 +272,147 @@ public abstract class L2Character extends L2Object
 				setIsInvul(true);
 	}
 
-	private int _currentZones = 0;
+	private byte _currentPVPZones = 0;
+	private byte _currentPeaceZones = 0;
+	private byte _currentSiegeZones = 0;
+	private byte _currentMotherTreeZones = 0;
+	private byte _currentClanHallZones = 0;
+	private byte _currentNoEscapeZones = 0;
+	private byte _currentNoLandingZones = 0;
+	private byte _currentNoStoreZones = 0;
+	private byte _currentWaterZones = 0;
+	private byte _currentFishingZones = 0;
+	private byte _currentJailZones = 0;
+	private byte _currentStadiumZones = 0;
+	private byte _currentSunlightZones = 0;
+	private byte _currentDangerZones = 0;
 
 	public boolean isInsideZone(int zone)
 	{
-		return ((_currentZones & zone) != 0);
+		switch(zone)
+		{
+			case L2Zone.FLAG_PVP: // also overlap check for peace zones
+				return (_currentPVPZones > 0 && _currentPeaceZones == 0);
+			case L2Zone.FLAG_PEACE:
+				return (_currentPeaceZones > 0);
+			case L2Zone.FLAG_SIEGE:
+				return (_currentSiegeZones > 0);
+			case L2Zone.FLAG_MOTHERTREE:
+				return (_currentMotherTreeZones > 0);
+			case L2Zone.FLAG_CLANHALL:
+				return (_currentClanHallZones > 0);
+			case L2Zone.FLAG_NOESCAPE:
+				return (_currentNoEscapeZones > 0);
+			case L2Zone.FLAG_NOLANDING:
+				return (_currentNoLandingZones > 0);
+			case L2Zone.FLAG_NOSTORE:
+				return (_currentNoStoreZones > 0);
+			case L2Zone.FLAG_WATER:
+				return (_currentWaterZones > 0);
+			case L2Zone.FLAG_FISHING:
+				return (_currentFishingZones > 0);
+			case L2Zone.FLAG_JAIL:
+				return (_currentJailZones > 0);
+			case L2Zone.FLAG_STADIUM:
+				return (_currentStadiumZones > 0);
+			case L2Zone.FLAG_SUNLIGHTROOM:
+				return (_currentSunlightZones > 0);
+			case L2Zone.FLAG_DANGER:
+				return (_currentDangerZones > 0);
+			default:
+				return false;
+		}
 	}
 
 	public void setInsideZone(int zone, boolean state)
 	{
-		if (state)
-			_currentZones |= zone;
-		else if (isInsideZone(zone)) // zone overlap possible
-			_currentZones ^= zone;
+		switch(zone)
+		{
+			case L2Zone.FLAG_PVP:
+				if (state)
+					_currentPVPZones++;
+				else if (_currentPVPZones > 0)
+					_currentPVPZones--;
+				break;
+			case L2Zone.FLAG_PEACE:
+				if (state)
+					_currentPeaceZones++;
+				else if (_currentPeaceZones > 0)
+					_currentPeaceZones--;
+				break;
+			case L2Zone.FLAG_SIEGE:
+				if (state)
+					_currentSiegeZones++;
+				else if (_currentSiegeZones > 0)
+					_currentSiegeZones--;
+				break;
+			case L2Zone.FLAG_MOTHERTREE:
+				if (state)
+					_currentMotherTreeZones++;
+				else if (_currentMotherTreeZones > 0)
+					_currentMotherTreeZones--;
+				break;
+			case L2Zone.FLAG_CLANHALL:
+				if (state)
+					_currentClanHallZones++;
+				else if (_currentClanHallZones > 0)
+					_currentClanHallZones--;
+				break;
+			case L2Zone.FLAG_NOESCAPE:
+				if (state)
+					_currentNoEscapeZones++;
+				else if (_currentNoEscapeZones > 0)
+					_currentNoEscapeZones--;
+				break;
+			case L2Zone.FLAG_NOLANDING:
+				if (state)
+					_currentNoLandingZones++;
+				else if (_currentNoLandingZones > 0)
+					_currentNoLandingZones--;
+				break;
+			case L2Zone.FLAG_NOSTORE:
+				if (state)
+					_currentNoStoreZones++;
+				else if (_currentNoStoreZones > 0)
+					_currentNoStoreZones--;
+				break;
+			case L2Zone.FLAG_WATER:
+				if (state)
+					_currentWaterZones++;
+				else if (_currentWaterZones > 0)
+					_currentWaterZones--;
+				break;
+			case L2Zone.FLAG_FISHING:
+				if (state)
+					_currentFishingZones++;
+				else if (_currentFishingZones > 0)
+					_currentFishingZones--;
+				break;
+			case L2Zone.FLAG_JAIL:
+				if (state)
+					_currentJailZones++;
+				else if (_currentJailZones > 0)
+					_currentJailZones--;
+				break;
+			case L2Zone.FLAG_STADIUM:
+				if (state)
+					_currentStadiumZones++;
+				else if (_currentStadiumZones > 0)
+					_currentStadiumZones--;
+				break;
+			case L2Zone.FLAG_SUNLIGHTROOM:
+				if (state)
+					_currentSunlightZones++;
+				else if (_currentSunlightZones > 0)
+					_currentSunlightZones--;
+				break;
+			case L2Zone.FLAG_DANGER:
+				if (state)
+					_currentDangerZones++;
+				else if (_currentDangerZones > 0)
+					_currentDangerZones--;
+				break;
+		}
 	}
 
 	protected void initCharStatusUpdateValues()

@@ -1920,7 +1920,7 @@ public final class Config
 
 			SIEGE_CT_LOSS_PENALTY = Integer.parseInt(siegeSettings.getProperty("CTLossPenalty", "20000"));
 			SIEGE_FLAG_MAX_COUNT = Integer.parseInt(siegeSettings.getProperty("MaxFlags", "1"));
-			SIEGE_CLAN_MIN_LEVEL = Integer.parseInt(siegeSettings.getProperty("SiegeClanMinLevel", "4"));
+			SIEGE_CLAN_MIN_LEVEL = Integer.parseInt(siegeSettings.getProperty("SiegeClanMinLevel", "5"));
 			SIEGE_LENGTH_MINUTES = Integer.parseInt(siegeSettings.getProperty("SiegeLength", "120"));
 		}
 		catch (Exception e)
