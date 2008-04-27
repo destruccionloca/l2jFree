@@ -13,7 +13,7 @@ DROP_CHANCE=90
 #Npc
 FLAURON = 32010
 #Items
-VISITOR_MARK,FADEDMARK,NECROHEART,MARK = 8064,8065,8066,8067
+VISITOR_MARK,FADEDMARK,NECROHEART,MARK,ANTKEY = 8064,8065,8066,8067,8273
 
 class Quest (JQuest) :
 
@@ -27,7 +27,6 @@ class Quest (JQuest) :
     if htmltext == "32010-03.htm" :
        st.set("cond","1")
        st.setState(State.STARTED)
-       st.takeItems(FADEDMARK,1)
        st.playSound("ItemSound.quest_accept")
     return htmltext
 
@@ -38,20 +37,21 @@ class Quest (JQuest) :
      id = st.getState()
      cond = st.getInt("cond")
      if id == State.CREATED :
-        if player.getLevel()>72 and st.getQuestItemsCount(FADEDMARK) :
+        if player.getLevel() > 72 and st.getQuestItemsCount(FADEDMARK) :
            htmltext = "32010-02.htm"
-        elif player.getLevel()>72 and st.getQuestItemsCount(VISITOR_MARK) :
+        elif player.getLevel() > 72 and st.getQuestItemsCount(VISITOR_MARK) :
            htmltext = "32010-01a.htm"
            st.exitQuest(1)
         else:
            htmltext = "32010-01.htm"
            st.exitQuest(1)
      elif id == State.STARTED :
-       if cond == 2 and st.getQuestItemsCount(NECROHEART)==10:
+       if cond == 2 and st.getQuestItemsCount(NECROHEART) == 10:
           htmltext = "32010-05.htm"
           st.takeItems(NECROHEART,10)
+          st.takeItems(FADEDMARK,1)
           st.giveItems(MARK,1)
-          st.giveItems(8273,10)
+          st.giveItems(ANTKEY,10)
           st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
        else :
