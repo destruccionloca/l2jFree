@@ -6937,6 +6937,21 @@ public abstract class L2Character extends L2Object
 				isSendStatus = true;
 			}
 
+			// Consume CP if necessary and Send the Server->Client packet StatusUpdate with current CP/HP and MP to all other L2PcInstance to inform
+			if (skill.getCpConsume() > 0)
+			{
+				double consumeCp;
+
+				consumeCp = skill.getCpConsume();
+				if (consumeCp + 1 >= getStatus().getCurrentHp())
+					consumeCp = getStatus().getCurrentHp() - 1.0;
+				
+				getStatus().reduceCp((int)consumeCp);
+
+				su.addAttribute(StatusUpdate.CUR_CP, (int) getStatus().getCurrentCp());
+				isSendStatus = true;
+			}
+
 			// Send a Server->Client packet StatusUpdate with MP modification to the L2PcInstance
 			if (isSendStatus)
 				sendPacket(su);
