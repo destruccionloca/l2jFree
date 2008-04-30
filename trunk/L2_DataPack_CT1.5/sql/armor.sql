@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `armor` (
   `mp_bonus` int(3) NOT NULL default '0',
   `price` int(11) NOT NULL default '0',
   `crystal_count` int(4) default NULL,
-  `sellable` varchar(5) NOT NULL default NULL,
+  `sellable` varchar(5) NOT NULL default 'true',
   `dropable` varchar(5) NOT NULL default 'true',
   `destroyable` varchar(5) NOT NULL default 'true',
   `tradeable` varchar(5) NOT NULL default 'true',
@@ -1367,7 +1367,7 @@ DELETE FROM armor WHERE item_id = 10139;
 DELETE FROM armor WHERE item_id = 10209;
 DELETE FROM armor WHERE item_id = 10210;
 
-INSERT INTO `armor` VALUES 
+INSERT INTO `armor` VALUES
 (9589, 'Iron Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'c', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1),
 (9590, 'Bronze Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'b', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1),
 (9591, 'Steel Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'a', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1),
@@ -1375,14 +1375,14 @@ INSERT INTO `armor` VALUES
 
 
 -- Agathion Seal Bracelet
-INSERT INTO `armor` VALUES 
+INSERT INTO `armor` VALUES
 ('9909', 'Agathion Seal Bracelet', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '500', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3361-1;3267-1', '-1', '-1', '-1'),
 -- Agathion Fortress
-INSERT INTO `armor` VALUES 
+INSERT INTO `armor` VALUES
 ('10018', 'Agathion Seal Bracelet - Fortress', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3361-1;3267-1', '-1', '-1', '-1');
 
 -- Agathion Bracelet
-INSERT INTO `armor` VALUES 
+INSERT INTO `armor` VALUES
 ('10139', 'Agathion Bracelet', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '500', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3269-1;3267-1', '-1', '-1', '-1');
 
 -- Enchanced Bracelets
