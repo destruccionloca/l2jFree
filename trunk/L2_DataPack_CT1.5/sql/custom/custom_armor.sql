@@ -19,15 +19,10 @@ CREATE TABLE IF NOT EXISTS `custom_armor` (
   `dropable` varchar(5) NOT NULL default 'true',
   `destroyable` varchar(5) NOT NULL default 'true',
   `tradeable` varchar(5) NOT NULL default 'true',
-  `item_skill_id` decimal(11,0) NOT NULL default '0',
-  `item_skill_lvl` decimal(11,0) NOT NULL default '0',
+  `skills_item` varchar(70) NOT NULL default '',
   PRIMARY KEY (`item_id`)
 ) DEFAULT CHARSET=utf8;
 
 ALTER TABLE `custom_armor` ADD `races` VARCHAR(20) NOT NULL DEFAULT '-1';
 ALTER TABLE `custom_armor` ADD `classes` VARCHAR(255) NOT NULL DEFAULT '-1';
 ALTER TABLE `custom_armor` ADD `sex` INT (1) NOT NULL DEFAULT -1;
-
-ALTER TABLE `custom_armor`
-CHANGE `item_skill_id` `item_skill_id` VARCHAR(60) NOT NULL DEFAULT '0',
-CHANGE `item_skill_lvl` `item_skill_lvl` VARCHAR(30) NOT NULL DEFAULT '0';

@@ -27,16 +27,10 @@ CREATE TABLE IF NOT EXISTS `custom_weapon` (
   `dropable` varchar(5) NOT NULL default 'true',
   `destroyable` varchar(5) NOT NULL default 'true',
   `tradeable` varchar(5) NOT NULL default 'true',
-  `item_skill_id` decimal(11,0) NOT NULL default '0',
-  `item_skill_lvl` decimal(11,0) NOT NULL default '0',
-  `enchant4_skill_id` decimal(11,0) NOT NULL default '0',
-  `enchant4_skill_lvl` decimal(11,0) NOT NULL default '0',
-  `onCast_skill_id` decimal(11,0) NOT NULL default '0',
-  `onCast_skill_lvl` decimal(11,0) NOT NULL default '0',
-  `onCast_skill_chance` decimal(11,0) NOT NULL default '0',
-  `onCrit_skill_id` decimal(11,0) NOT NULL default '0',
-  `onCrit_skill_lvl` decimal(11,0) NOT NULL default '0',
-  `onCrit_skill_chance` decimal(11,0) NOT NULL default '0',
+  `skills_item` varchar(70) NOT NULL default '',
+  `skills_enchant4` varchar(70) NOT NULL default '',
+  `skills_onCast` varchar(70) NOT NULL default '',
+  `skills_onCrit` varchar(70) NOT NULL default '',
   `change_weaponId` decimal(11,0) NOT NULL default '0',
   PRIMARY KEY (`item_id`)
 ) DEFAULT CHARSET=utf8;
@@ -44,7 +38,3 @@ CREATE TABLE IF NOT EXISTS `custom_weapon` (
 ALTER TABLE `custom_weapon` ADD `races` VARCHAR(20) NOT NULL DEFAULT '-1';
 ALTER TABLE `custom_weapon` ADD `classes` VARCHAR(255) NOT NULL DEFAULT '-1';
 ALTER TABLE `custom_weapon` ADD `sex` INT (1) NOT NULL DEFAULT -1;
-
-ALTER TABLE `custom_weapon`
-CHANGE `item_skill_id` `item_skill_id` VARCHAR(60) NOT NULL DEFAULT '0',
-CHANGE `item_skill_lvl` `item_skill_lvl` VARCHAR(30) NOT NULL DEFAULT '0';
