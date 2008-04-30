@@ -1280,7 +1280,7 @@
     <player battle_force="2"/>
   </cond>
   <for>
-	<effect count="24" name="Signet" time="5" val="0">
+  <effect count="24" name="Signet" time="5" val="0">
     </effect>
   </for>
 </skill>
@@ -1311,7 +1311,7 @@
     <player battle_force="2"/>
   </cond>
   <for>
-	<effect count="6" name="SignetNoise" time="5" val="0">
+  <effect count="6" name="SignetNoise" time="5" val="0">
     </effect>
   </for>
 </skill>
@@ -1341,7 +1341,7 @@
     <player battle_force="2"/>
   </cond>
   <for>
-	<effect count="24" name="Signet" time="5" val="0">
+  <effect count="24" name="Signet" time="5" val="0">
     </effect>
   </for>
 </skill>
@@ -1371,7 +1371,7 @@
     <player battle_force="2"/>
   </cond>
   <for>
-	<effect count="24" name="Signet" time="5" val="0">
+  <effect count="24" name="Signet" time="5" val="0">
     </effect>
   </for>
 </skill>
@@ -1401,7 +1401,7 @@
     <player battle_force="2"/>
   </cond>
   <for>
-	<effect count="24" name="Signet" time="5" val="0">
+  <effect count="24" name="Signet" time="5" val="0">
     </effect>
   </for>
 </skill>
@@ -1431,7 +1431,7 @@
     <player battle_force="2"/>
   </cond>
   <for>
-	<effect count="24" name="Signet" time="5" val="0">
+  <effect count="24" name="Signet" time="5" val="0">
     </effect>
   </for>
 </skill>
@@ -1461,7 +1461,7 @@
     <player battle_force="2"/>
   </cond>
   <for>
-	<effect count="24" name="Signet" time="5" val="0">
+  <effect count="24" name="Signet" time="5" val="0">
     </effect>
   </for>
 </skill>
@@ -1635,7 +1635,7 @@
   <set name="effectRange" val="400"/>
   <!-- Added missing weapon condition -->
   <cond msg="A sword or blunt weapon has to be equipped to use this skill">
-	<using kind="Sword,Blunt,Rapier"/>
+  <using kind="Sword,Blunt,Rapier"/>
   </cond>
   <for>
   </for>
@@ -1947,12 +1947,12 @@
   <set name="castRange" val="-1"/>
   <set name="soulConsumeCount" val="2"/>
   <for>
-  	<effect count="1" name="Buff" time="120" val="0">
-  		<add order="0x40" stat="rCrit" val="#rCrit"/>
-  		<add order="0x40" stat="cAtk" val="#cAtk"/>
-  		<mul order="0x30" stat="pDef" val="#pDef"/>
-  		<sub order="0x40" stat="rEvas" val="#rEvas"/>
-  	</effect>
+    <effect count="1" name="Buff" time="120" val="0">
+      <add order="0x40" stat="rCrit" val="#rCrit"/>
+      <add order="0x40" stat="cAtk" val="#cAtk"/>
+      <mul order="0x30" stat="pDef" val="#pDef"/>
+      <sub order="0x40" stat="rEvas" val="#rEvas"/>
+    </effect>
   </for>
 </skill>
 <skill id="483" levels="1" name="Sword Shield">
@@ -2156,8 +2156,8 @@
 <skill id="492" levels="25" name="Spread Wing" enchantLevels1="30" enchantLevels2="30">
 <!--
   Description(s):
- 	  Use your wing to attack hostile enemies behind you. Consumes 1 Soul.
- 	  Over-hit is possible. Power 722
+    Use your wing to attack hostile enemies behind you. Consumes 1 Soul.
+    Over-hit is possible. Power 722
 -->
   <table name="#enchantMagicLvl">76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85</table>
   <table name="#ench1Power">1938 1951 1964 1978 1991 2004 2017 2030 2043 2057 2070 2083 2096 2109 2123 2136 2149 2162 2175 2189 2202 2215 2228 2241 2255 2268 2281 2294 2307 2320</table>
