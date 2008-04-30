@@ -64,7 +64,7 @@ import net.sf.l2j.gameserver.skills.funcs.LambdaCalc;
 import net.sf.l2j.gameserver.skills.funcs.LambdaConst;
 import net.sf.l2j.gameserver.skills.funcs.LambdaStats;
 import net.sf.l2j.gameserver.templates.L2ArmorType;
-import net.sf.l2j.gameserver.templates.L2Item;
+import net.sf.l2j.gameserver.templates.L2Equip;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
@@ -172,8 +172,9 @@ abstract class DocumentBase
         Lambda lambda = getLambda(n, template);
         int ord = Integer.decode(getValue(order, template));
         Condition applayCond = parseCondition(n.getFirstChild(), template);
+
         FuncTemplate ft = new FuncTemplate(attachCond, applayCond, name, stat, ord, lambda);
-        if (template instanceof L2Item) ((L2Item) template).attach(ft);
+        if (template instanceof L2Equip) ((L2Equip) template).attach(ft);
         else if (template instanceof L2Skill) ((L2Skill) template).attach(ft);
         else if (template instanceof EffectTemplate) ((EffectTemplate) template).attach(ft);
     }
@@ -185,6 +186,7 @@ abstract class DocumentBase
         sb.setCharAt(0, Character.toUpperCase(name.charAt(0)));
         name = sb.toString();
         Lambda lambda = getLambda(n, template);
+
         FuncTemplate ft = new FuncTemplate(null, null, name, null, calc.funcs.length, lambda);
         calc.addFunc(ft.getFunc(new Env(), calc));
     }
@@ -242,7 +244,7 @@ abstract class DocumentBase
         EffectTemplate lt = new EffectTemplate(attachCond, applayCond, name, lambda, count, time,
                                                abnormal, stackType, stackOrder, icon);
         parseTemplate(n, lt);
-        if (template instanceof L2Item) ((L2Item) template).attach(lt);
+        if (template instanceof L2Equip) ((L2Equip) template).attach(lt);
         else if (template instanceof L2Skill && !self) ((L2Skill) template).attach(lt);
         else if (template instanceof L2Skill && self) ((L2Skill) template).attachSelf(lt);
     }
@@ -260,29 +262,37 @@ abstract class DocumentBase
             lvl = Integer.decode(getValue(attrs.getNamedItem("lvl").getNodeValue(), template));
         }
         L2Skill skill = SkillTable.getInstance().getInfo(id, lvl);
-        if (attrs.getNamedItem("chance") != null) 
+        if (skill == null)
         {
-        	if (template instanceof L2Weapon || template instanceof L2Item)
-        	{
-        		skill.attach(new ConditionGameChance(Integer.decode(getValue(attrs.getNamedItem("chance").getNodeValue(), template))), true);
-        	}
-        	else 
-        	{
-        		skill.attach(new ConditionGameChance(Integer.decode(getValue(attrs.getNamedItem("chance").getNodeValue(), template))), false);
-        	}
+            _log.error("Skill not found: "+id+" "+lvl);
+            return;
         }
+        if (attrs.getNamedItem("chance") != null)
+        {
+            skill.attach(new ConditionGameChance(Integer.decode(getValue(attrs.getNamedItem("chance").getNodeValue(), template))), true);
+        }
+
+        // Could also use sql definitions ;)
+        // TODO: Move item XMLs to SQL or SQL to XMLs
         if (template instanceof L2Weapon)
         {
-            if (attrs.getNamedItem("onUse") != null
-                || (attrs.getNamedItem("onCrit") == null && attrs.getNamedItem("onCast") == null))
-                ((L2Weapon) template).attach(skill); // Attach as skill triggered on use
-            if (attrs.getNamedItem("onCrit") != null) ((L2Weapon) template).attachOnCrit(skill); // Attach as skill triggered on critical hit
-            if (attrs.getNamedItem("onCast") != null) ((L2Weapon) template).attachOnCast(skill); // Attach as skill triggered on cast
+            // Seems onUse handler was never used and is replaced by item handlers
+            // TODO: Remove this
+            //if ((attrs.getNamedItem("onCrit") == null && attrs.getNamedItem("onCast") == null))
+                //((L2Weapon) template).attach(skill); // Attach as skill triggered on use
+
+            if (attrs.getNamedItem("onCrit") != null)
+                ((L2Weapon) template).attachOnCrit(skill); // Attach as skill triggered on critical hit
+            if (attrs.getNamedItem("onCast") != null)
+                ((L2Weapon) template).attachOnCast(skill); // Attach as skill triggered on cast
         }
-        else if (template instanceof L2Item)
-        {
-            ((L2Item) template).attach(skill); // Attach as skill triggered on use
-        }
+
+        // Seems not used for etcitems
+        // TODO: Remove this
+        //else if (template instanceof L2Item)
+        //{
+            //((L2Item) template).attach(skill); // Attach as skill triggered on use
+        //}
     }
 
     protected Condition parseCondition(Node n, Object template)

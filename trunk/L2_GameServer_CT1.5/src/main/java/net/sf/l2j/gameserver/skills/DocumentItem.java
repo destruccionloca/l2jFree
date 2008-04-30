@@ -91,7 +91,7 @@ final class DocumentItem extends DocumentBase
                         setCurrentItem(new Item());
                         parseItem(d);
                         if (_currentItem.item!=null)
-                        	_itemsInFile.add(_currentItem.item);
+                            _itemsInFile.add(_currentItem.item);
                         resetTable();
                     }
                 }
@@ -113,9 +113,8 @@ final class DocumentItem extends DocumentBase
 
         if (!_itemData.containsKey(itemId)) 
         {
-        	_log.fatal("Stats for item id "+itemId+" ignored !");
-        	
-        	return;
+            _log.fatal("Stats for item id "+itemId+" ignored !");
+            return;
         }
         _currentItem.id = itemId;
         _currentItem.name = itemName;

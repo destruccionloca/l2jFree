@@ -222,8 +222,8 @@ public abstract class Inventory extends ItemContainer
 			else
 				return;
 			
-			FastList<L2Skill> passiveSkills = null;
-			L2Skill enchant4Skill = null;
+			L2Skill[] itemSkills = null;
+			L2Skill[] enchant4Skills = null;
 			
 			L2Item it = item.getItem();
 			
@@ -232,24 +232,27 @@ public abstract class Inventory extends ItemContainer
 				// Remove augmentation bonuses on unequip
 				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
 					item.getAugmentation().removeBonus((L2PcInstance)getOwner());
-
-				passiveSkills = ((L2Weapon) it).getSkills();
-				enchant4Skill = ((L2Weapon) it).getEnchant4Skill();
+				itemSkills = ((L2Weapon) it).getSkills();
+				enchant4Skills = ((L2Weapon) it).getEnchant4Skills();
 			}
 			else if (it instanceof L2Armor)
-				passiveSkills = ((L2Armor) it).getSkills();
-			
-			if (passiveSkills != null)
 			{
-				for (L2Skill itemSkill : passiveSkills)
+				itemSkills = ((L2Armor) it).getSkills();
+			}
+
+			if (itemSkills != null)
+			{
+				for (L2Skill itemSkill : itemSkills)
 					player.removeSkill(itemSkill, false);
-				player.sendSkillList();
 			}
-			if (enchant4Skill != null)
+			if (enchant4Skills != null)
 			{
-				player.removeSkill(enchant4Skill, false);
-				player.sendSkillList();
+				for (L2Skill itemSkill : enchant4Skills)
+					player.removeSkill(itemSkill, false);
 			}
+
+			if (itemSkills != null || enchant4Skills != null)
+				player.sendSkillList();
 		}
 		
 		public void notifyEquiped(int slot, L2ItemInstance item)
@@ -263,8 +266,8 @@ public abstract class Inventory extends ItemContainer
 			else
 				return;
 			
-			FastList<L2Skill> passiveSkills = null;
-			L2Skill enchant4Skill = null;
+			L2Skill[] itemSkills = null;
+			L2Skill[] enchant4Skills = null;
 			
 			L2Item it = item.getItem();
 
@@ -274,28 +277,32 @@ public abstract class Inventory extends ItemContainer
 				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
 					item.getAugmentation().applyBonus((L2PcInstance)getOwner());
 
-				passiveSkills = ((L2Weapon) it).getSkills();
+				itemSkills = ((L2Weapon) it).getSkills();
 				
 				if (item.getEnchantLevel() >= 4)
-					enchant4Skill = ((L2Weapon) it).getEnchant4Skill();
+					enchant4Skills = ((L2Weapon) it).getEnchant4Skills();
 			}
 			else if (it instanceof L2Armor)
-				passiveSkills = ((L2Armor) it).getSkills();
-			
-			if (passiveSkills != null)
 			{
-				for (L2Skill itemSkill : passiveSkills)
+				itemSkills = ((L2Armor) it).getSkills();
+			}
+
+			if (itemSkills != null)
+			{
+				for (L2Skill itemSkill : itemSkills)
 					player.addSkill(itemSkill, false);
-				player.sendSkillList();
 			}
-			if (enchant4Skill != null)
+			if (enchant4Skills != null)
 			{
-				player.addSkill(enchant4Skill, false);
-				player.sendSkillList();
+				for (L2Skill itemSkill : enchant4Skills)
+					player.addSkill(itemSkill, false);
 			}
+
+			if (itemSkills != null || enchant4Skills != null)
+				player.sendSkillList();
 		}
 	}
-	
+
 	final class ArmorSetListener implements PaperdollListener
 	{
 		public void notifyEquiped(int slot, L2ItemInstance item)

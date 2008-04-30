@@ -173,14 +173,13 @@ public class ItemTable implements ItemTableMBean
         "SELECT item_id, name, bodypart, crystallizable, armor_type, weight," +
         " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus," +
         " price, crystal_count, sellable, dropable, destroyable, tradeable," +
-        "item_skill_id, item_skill_lvl, races, classes, sex FROM armor",
+        " skills_item, races, classes, sex FROM armor",
         
         "SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," +
            " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," +
            " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count," +
-           " sellable,  dropable, destroyable, tradeable, item_skill_id, item_skill_lvl, races, classes," +
-           " sex, enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," +
-           " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance, change_weaponId FROM weapon"
+           " sellable,  dropable, destroyable, tradeable, skills_item, skills_enchant4," +
+           " skills_onCast, skills_onCrit, races, classes, sex, change_weaponId FROM weapon"
     };
     
     private static final String[] SQL_CUSTOM_ITEM_SELECTS  =
@@ -190,14 +189,13 @@ public class ItemTable implements ItemTableMBean
         "SELECT item_id, item_display_id, name, bodypart, crystallizable, armor_type, weight," +
         " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus," +
         " price, crystal_count, sellable, dropable, destroyable, tradeable," +
-        "item_skill_id, item_skill_lvl, races, classes, sex FROM custom_armor",
+        " skills_item, races, classes, sex FROM custom_armor",
         
         "SELECT item_id, item_display_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," +
            " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," +
            " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count," +
-           " sellable,  dropable, destroyable, tradeable, item_skill_id, item_skill_lvl, races, classes," +
-           " sex, enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," +
-           " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance, change_weaponId FROM custom_weapon"
+           " sellable,  dropable, destroyable, tradeable, skills_item, skills_enchant4," +
+           " skills_onCast, skills_onCrit, races, classes, sex, change_weaponId FROM custom_weapon"
     };
     
     /** List of etcItem */
@@ -395,19 +393,10 @@ public class ItemTable implements ItemTableMBean
         item.set.set("classes", rset.getString("classes"));
         item.set.set("sex", rset.getInt("sex"));
 
-        item.set.set("item_skill_id",  rset.getString("item_skill_id"));
-        item.set.set("item_skill_lvl", rset.getString("item_skill_lvl"));
-        
-        item.set.set("enchant4_skill_id", rset.getInt("enchant4_skill_id"));
-        item.set.set("enchant4_skill_lvl", rset.getInt("enchant4_skill_lvl"));
-        
-        item.set.set("onCast_skill_id", rset.getInt("onCast_skill_id"));
-        item.set.set("onCast_skill_lvl", rset.getInt("onCast_skill_lvl"));
-        item.set.set("onCast_skill_chance", rset.getInt("onCast_skill_chance"));
-        
-        item.set.set("onCrit_skill_id", rset.getInt("onCrit_skill_id"));
-        item.set.set("onCrit_skill_lvl", rset.getInt("onCrit_skill_lvl"));
-        item.set.set("onCrit_skill_chance", rset.getInt("onCrit_skill_chance"));
+        item.set.set("skills_item",  rset.getString("skills_item"));
+        item.set.set("skills_enchant4", rset.getString("skills_enchant4"));
+        item.set.set("skills_onCast", rset.getString("skills_onCast"));
+        item.set.set("skills_onCrit", rset.getString("skills_onCrit"));
         item.set.set("change_weaponId", rset.getInt("change_weaponId"));
 
         if (item.type == L2WeaponType.PET)
@@ -455,8 +444,7 @@ public class ItemTable implements ItemTableMBean
         item.set.set("destroyable",       Boolean.valueOf(rset.getString("destroyable")));
         item.set.set("tradeable",       Boolean.valueOf(rset.getString("tradeable")));
         
-        item.set.set("item_skill_id", rset.getString("item_skill_id"));
-        item.set.set("item_skill_lvl", rset.getString("item_skill_lvl"));
+        item.set.set("skills_item", rset.getString("skills_item"));
         
         item.set.set("races", rset.getString("races"));
         item.set.set("classes", rset.getString("classes"));
@@ -616,7 +604,7 @@ public class ItemTable implements ItemTableMBean
      */
     private void buildFastLookupTable()
     {
-        int highestId = 0;      
+        int highestId = 0;
         
         // Get highest ID of item in armor FastMap, then in weapon FastMap, and finally in etcitem FastMap
         for (L2Armor item : _armors.values())

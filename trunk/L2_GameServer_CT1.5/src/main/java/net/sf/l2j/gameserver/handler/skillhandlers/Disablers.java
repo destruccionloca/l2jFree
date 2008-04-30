@@ -237,7 +237,7 @@ public class Disablers implements ISkillHandler
                        target = activeChar;
                     
                     if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
-                    {   
+                    {
                         skill.getEffects(activeChar, target);
                     }
                     else

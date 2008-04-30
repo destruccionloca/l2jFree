@@ -24,19 +24,31 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2SkillLearn;
+import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
+import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.skills.funcs.Func;
+import net.sf.l2j.gameserver.templates.L2Armor;
+import net.sf.l2j.gameserver.templates.L2Equip;
+import net.sf.l2j.gameserver.templates.L2EtcItem;
+import net.sf.l2j.gameserver.templates.L2EtcItemType;
 import net.sf.l2j.gameserver.templates.L2Item;
+import net.sf.l2j.gameserver.templates.L2Weapon;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -1852,7 +1864,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			{
 				try
 				{
-					for (net.sf.l2j.gameserver.model.L2SkillLearn skill: SkillTreeTable.getInstance().getAllowedSkills(classId))
+					for (L2SkillLearn skill: SkillTreeTable.getInstance().getAllowedSkills(classId))
 					{
 						try
 						{
@@ -1897,64 +1909,53 @@ public class AdminSmartShop implements IAdminCommandHandler
 		try
 		{
 			L2Item item = ItemTable.getInstance().getTemplate(itemId);
-			net.sf.l2j.gameserver.model.L2Effect[] effect = item.getSkillEffects(activeChar, activeChar);
-			if (effect != null)
+			L2Skill[] itemSkills = null;
+			L2Skill[] enchantSkills = null;
+			if (item instanceof L2Weapon)
 			{
-				if (effect.length > 0)
-				{
-					message += "<br1><font color=\"00FF00\">Item Skills:</font>";
-				}
-				for (net.sf.l2j.gameserver.model.L2Effect e : effect)
-				{
-					message += "<br1>" + e.getSkill().getName() + "(" + e.getSkill().getId() + ") Level: " + e.getSkill().getLevel();
-				}
+				itemSkills = ((L2Weapon)item).getSkills();
+				enchantSkills = ((L2Weapon)item).getEnchant4Skills();
 			}
-			FastList<L2Skill> moreSkills = null;
-			L2Skill enchantSkill = null;
-			if (item instanceof net.sf.l2j.gameserver.templates.L2Weapon)
+			else if (item instanceof L2Armor)
 			{
-				moreSkills = ((net.sf.l2j.gameserver.templates.L2Weapon)item).getSkills();
-				enchantSkill = ((net.sf.l2j.gameserver.templates.L2Weapon)item).getEnchant4Skill();
-			}
-			else if (item instanceof net.sf.l2j.gameserver.templates.L2Armor)
-			{
-				moreSkills = ((net.sf.l2j.gameserver.templates.L2Armor)item).getSkills();
+				itemSkills = ((L2Armor)item).getSkills();
 			}
 			
-			if (moreSkills != null)
+			if (itemSkills != null)
 			{
 				message += "<br1><font color=\"00FF00\">Instance Skill(s):</font>";
-				for (L2Skill itemSkill : moreSkills)
+				for (L2Skill itemSkill : itemSkills)
 					message += "<br1>" + itemSkill.getName() + "(" + itemSkill.getId() + ") Level: " + itemSkill.getLevel();
 			}
-			if (enchantSkill != null)
+			if (enchantSkills != null)
 			{
-				message += "<br1><font color=\"00FF00\">Enchant (+4 or more) Skill:</font>";
-				message += "<br1>" + enchantSkill.getName() + "(" + enchantSkill.getId() + ") Level: " + enchantSkill.getLevel();
+				message += "<br1><font color=\"00FF00\">Enchant (+4 or more) Skill(s):</font>";
+				for (L2Skill itemSkill : enchantSkills)
+					message += "<br1>" + itemSkill.getName() + "(" + itemSkill.getId() + ") Level: " + itemSkill.getLevel();
 			}
 			
-			net.sf.l2j.gameserver.skills.funcs.Func funcs[] = item.getStatFuncs(ItemTable.getInstance().createDummyItem(itemId), activeChar);
-			if (funcs!=null)
+			if (item instanceof L2Equip)
 			{
-				if (funcs.length > 0)
+				Func[] funcs = ((L2Equip)item).getStatFuncs(ItemTable.getInstance().createDummyItem(itemId), activeChar);
+				if (funcs != null && funcs.length > 0)
 				{
 					message += "<br1><font color=\"00FF00\">Item Functions:</font>";
 					
-					for (net.sf.l2j.gameserver.skills.funcs.Func func : funcs)
+					for (Func func : funcs)
 					{
 						String param = func.getClass().toString().substring(5 + func.getClass().toString().lastIndexOf("."));
 						message += "<br1>" + param + " ";
 						if (func.stat != null)
 						{
 							message += func.stat.getValue()+" ";
-							
-					        Env env = new Env();
-					        env.player = activeChar;
-					        env.target = activeChar;
-					        env.skill = null;
-					        env.value = 1;
-					        func.calc(env);
-					        env.value = (param.equals("Add") || param.equals("Sub")) ? (env.value - 1) : env.value;
+
+							Env env = new Env();
+							env.player = activeChar;
+							env.target = activeChar;
+							env.skill = null;
+							env.value = 1;
+							func.calc(env);
+							env.value = (param.equals("Add") || param.equals("Sub")) ? (env.value - 1) : env.value;
 							message += (param.equals("Enchant") && env.value == 1) ? "" : env.value; 
 						}
 						
@@ -2068,10 +2069,10 @@ public class AdminSmartShop implements IAdminCommandHandler
     		message += (item.getDuration() > 0) ? "<br1>Duration: " + item.getDuration() : "";
     		message += "<br1>Stackable: " +	item.isStackable();
     		message += "<br1>Tradeable: " +	item.isTradeable();
-    		if (item instanceof net.sf.l2j.gameserver.templates.L2Weapon)
+    		if (item instanceof L2Weapon)
     		{
         		message += "<br1><font color=\"00FF00\">Weapon Details:</font>";
-    			net.sf.l2j.gameserver.templates.L2Weapon weapn = (net.sf.l2j.gameserver.templates.L2Weapon)item;
+    			L2Weapon weapn = (L2Weapon)item;
     			message += (weapn.getPDamage() > 0) ? "<br1>Physical Damage: " + weapn.getPDamage() : "";
     			message += (weapn.getMDamage() > 0) ? "<br1>Magic Damage: " + weapn.getMDamage() : "";
     			message += (weapn.getAttackReuseDelay() > 0) ? "<br1>Attack Reuse Delay: " + weapn.getAttackReuseDelay() : "";
@@ -2092,10 +2093,10 @@ public class AdminSmartShop implements IAdminCommandHandler
     			}
     			catch (Throwable t){}
     		}
-    		if (item instanceof net.sf.l2j.gameserver.templates.L2Armor)
+    		if (item instanceof L2Armor)
     		{
-        		message += "<br1><font color=\"00FF00\">Armor Details:</font>";        		
-    			net.sf.l2j.gameserver.templates.L2Armor armor = (net.sf.l2j.gameserver.templates.L2Armor)item;    		
+        		message += "<br1><font color=\"00FF00\">Armor Details:</font>";
+    			L2Armor armor = (L2Armor)item;
     			message += (armor.getPDef() > 0) ? "<br1>P.Def: " + armor.getPDef() : "<br1>No P.Def Defined";
     			message += (armor.getMDef() > 0) ? "<br1>M.Def: " + armor.getMDef() : "<br1>No M.Def Defined";
     			message += (armor.getHpBonus() > 0) ? "<br1>HP Bonus: " + armor.getHpBonus() : "";
@@ -2115,13 +2116,12 @@ public class AdminSmartShop implements IAdminCommandHandler
     	try
     	{
     		L2Item item = ItemTable.getInstance().getTemplate(itemId);
-    		boolean questItem = (item.getItemType() == net.sf.l2j.gameserver.templates.L2EtcItemType.QUEST) ? true : false;
+    		boolean questItem = (item.getItemType() == L2EtcItemType.QUEST) ? true : false;
     		
-    		message += (item.getItemType() == net.sf.l2j.gameserver.templates.L2EtcItemType.QUEST) ? "<br1>This is a QUEST item" : "";
+    		message += (item.getItemType() == L2EtcItemType.QUEST) ? "<br1>This is a QUEST item" : "";
     		
-    		for (net.sf.l2j.gameserver.model.quest.Quest quest : net.sf.l2j.gameserver.model.quest.Quest.findAllEvents())
+    		for (Quest quest : Quest.findAllEvents())
     		{
-
     			if (quest.getRegisteredItemIds()==null)
     				continue;
 
@@ -2137,7 +2137,7 @@ public class AdminSmartShop implements IAdminCommandHandler
     		}
     		
     		boolean add = true;
-    		for (net.sf.l2j.gameserver.model.quest.Quest quest : QuestManager.getInstance().getAllManagedScripts())
+    		for (Quest quest : QuestManager.getInstance().getAllManagedScripts())
     		{
 
     			if (quest.getRegisteredItemIds()==null)
@@ -2199,7 +2199,7 @@ public class AdminSmartShop implements IAdminCommandHandler
             	try
             	{
             		int x=0,y=0,z=0;
-            		for (net.sf.l2j.gameserver.model.L2Spawn spawn : net.sf.l2j.gameserver.datatables.SpawnTable.getInstance().getAllTemplates().values())
+            		for (L2Spawn spawn : SpawnTable.getInstance().getAllTemplates().values())
             		{
             			if (spawn.getLastSpawn() != null)
             			{
@@ -2213,7 +2213,7 @@ public class AdminSmartShop implements IAdminCommandHandler
             			}
             		}
             		String coord = (x==0 && y==0 && z==0) ? "Not Spawned" : ( "(" + x + " , " + y + " , " + z + ")" );
-            		message += "<tr><td>" + net.sf.l2j.gameserver.datatables.NpcTable.getInstance().getTemplate(npc.intValue()).getName()+"</td><td>" + npc.intValue()+"</td><td>" + coord + "</td></tr>";
+            		message += "<tr><td>" + NpcTable.getInstance().getTemplate(npc.intValue()).getName()+"</td><td>" + npc.intValue()+"</td><td>" + coord + "</td></tr>";
             	}
             	catch (Throwable t){}
             }
@@ -2325,17 +2325,17 @@ public class AdminSmartShop implements IAdminCommandHandler
         	
         	L2Item item = ItemTable.getInstance().getTemplate(itemId);
         	
-        	if (item instanceof net.sf.l2j.gameserver.templates.L2Armor)
+        	if (item instanceof L2Armor)
         	{
-        		return editArmor(makeQuery("armor ("+SQL_ITEM_SELECTS[1]+")") , (net.sf.l2j.gameserver.templates.L2Armor)item);
+        		return editArmor(makeQuery("armor ("+SQL_ITEM_SELECTS[1]+")") , (L2Armor)item);
         	}
-        	else if (item instanceof net.sf.l2j.gameserver.templates.L2Weapon)
+        	else if (item instanceof L2Weapon)
         	{
-        		return editWeapon(makeQuery("weapon ("+SQL_ITEM_SELECTS[2]+")") , (net.sf.l2j.gameserver.templates.L2Weapon)item);
+        		return editWeapon(makeQuery("weapon ("+SQL_ITEM_SELECTS[2]+")") , (L2Weapon)item);
         	}
         	else if (item instanceof net.sf.l2j.gameserver.templates.L2EtcItem)
         	{
-        		return editEtcItem(makeQuery("etcitem ("+SQL_ITEM_SELECTS[0]+")") , (net.sf.l2j.gameserver.templates.L2EtcItem)item);
+        		return editEtcItem(makeQuery("etcitem ("+SQL_ITEM_SELECTS[0]+")") , (L2EtcItem)item);
         	}
         	        	
         }
@@ -2355,17 +2355,17 @@ public class AdminSmartShop implements IAdminCommandHandler
     	return query;
     }
     
-    String editWeapon(String s , net.sf.l2j.gameserver.templates.L2Weapon item)
+    String editWeapon(String s , L2Weapon item)
     {
     	return s;
     }
     
-    String editArmor(String s , net.sf.l2j.gameserver.templates.L2Armor item)
+    String editArmor(String s , L2Armor item)
     {
     	return s;
     }
     
-    String editEtcItem(String s , net.sf.l2j.gameserver.templates.L2EtcItem item)
+    String editEtcItem(String s , L2EtcItem item)
     {
     	return s;
     }

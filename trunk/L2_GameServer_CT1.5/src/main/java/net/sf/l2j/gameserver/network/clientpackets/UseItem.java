@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ShowCalculator;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.templates.L2ArmorType;
+import net.sf.l2j.gameserver.templates.L2Equip;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -225,8 +226,7 @@ public class UseItem extends L2GameClientPacket
 		{
 			// You cannot do anything else while fishing
 			SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_DO_WHILE_FISHING_3);
-			getClient().getActiveChar().sendPacket(sm);
-			sm = null;
+			sendPacket(sm);
 			return;
 		}
 
@@ -235,8 +235,7 @@ public class UseItem extends L2GameClientPacket
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 			sm.addItemName(item);
-			getClient().getActiveChar().sendPacket(sm);
-			sm = null;
+			sendPacket(sm);
 			return;
 		}
 
@@ -258,14 +257,7 @@ public class UseItem extends L2GameClientPacket
 			if (activeChar.isDisarmed())
 				return;
 
-			if (item.isArmor()
-					&& !item.getArmorItem().allowEquip(activeChar.getRace().ordinal(), activeChar.getClassId().getId(), activeChar.getAppearance().getSex()))
-			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
-				return;
-			}
-			else if (item.isWeapon()
-					&& !item.getWeaponItem().allowEquip(activeChar.getRace().ordinal(), activeChar.getClassId().getId(), activeChar.getAppearance().getSex()))
+			if (!((L2Equip)item.getItem()).allowEquip(activeChar))
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 				return;

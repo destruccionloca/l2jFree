@@ -37,6 +37,7 @@ import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2Armor;
+import net.sf.l2j.gameserver.templates.L2Equip;
 import net.sf.l2j.gameserver.templates.L2EtcItem;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
@@ -1101,7 +1102,7 @@ public final class L2ItemInstance extends L2Object
 	}
 	
 	/**
-	 * This function basically returns a set of functions from L2Item/L2Armor/L2Weapon, but may add additional functions, if this particular item instance is
+	 * This function basically returns a set of functions from L2Armor/L2Weapon, but may add additional functions, if this particular item instance is
 	 * enhanched for a particular player.
 	 * 
 	 * @param player :
@@ -1110,7 +1111,9 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public Func[] getStatFuncs(L2Character player)
 	{
-		return getItem().getStatFuncs(this, player);
+		if (getItem() instanceof L2Equip)
+			return ((L2Equip)getItem()).getStatFuncs(this, player);
+		return L2Equip.EMPTY_FUNC_SET;
 	}
 	
 	/**
@@ -1118,7 +1121,7 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public void updateDatabase()
 	{
-		this.updateDatabase(false);
+		updateDatabase(false);
 	}
 
 	/**
