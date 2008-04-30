@@ -32,7 +32,7 @@
   <for>
   </for>
 </skill>
-<skill id="302" levels="9" name="Spoil Festival" enchantLevels1="30" enchantLevels2="30" >
+<skill id="302" levels="9" name="Spoil Festival" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -68,7 +68,7 @@
     <effect count="3" name="DamOverTime" time="3" val="354"/>
   </enchant2for>
 </skill>
-<skill id="303" levels="4" name="Soul of Sagittarius" enchantLevels1="30" >
+<skill id="303" levels="4" name="Soul of Sagittarius" enchantLevels1="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <table name="#mp"> 1.1 1.15 1.2 1.25 </table>
@@ -112,7 +112,7 @@
     </effect>
   </enchant1for>
 </skill>
-<skill id="304" levels="1" name="Song of Vitality" enchantLevels1="30" enchantLevels2="30" >
+<skill id="304" levels="1" name="Song of Vitality" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -153,7 +153,7 @@
     </effect>
   </enchant1for>
 </skill>
-<skill id="305" levels="1" name="Song of Vengeance" enchantLevels1="30" enchantLevels2="30" >
+<skill id="305" levels="1" name="Song of Vengeance" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -192,7 +192,7 @@
     </effect>
   </enchant1for>
 </skill>
-<skill id="306" levels="1" name="Song of Flame Guard" enchantLevels1="30" enchantLevels2="30" >
+<skill id="306" levels="1" name="Song of Flame Guard" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -233,7 +233,7 @@
     </effect>
   </enchant1for>
 </skill>
-<skill id="307" levels="1" name="Dance of Aqua Guard" enchantLevels1="30" enchantLevels2="30" >
+<skill id="307" levels="1" name="Dance of Aqua Guard" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -275,7 +275,7 @@
     </effect>
   </enchant1for>
 </skill>
-<skill id="308" levels="1" name="Song of Storm Guard" enchantLevels1="30" enchantLevels2="30" >
+<skill id="308" levels="1" name="Song of Storm Guard" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -316,7 +316,7 @@
     </effect>
   </enchant1for>
 </skill>
-<skill id="309" levels="1" name="Dance of Earth Guard" enchantLevels1="30" enchantLevels2="30" >
+<skill id="309" levels="1" name="Dance of Earth Guard" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -358,7 +358,7 @@
     </effect>
   </enchant1for>
 </skill>
-<skill id="310" levels="1" name="Dance of the Vampire" enchantLevels1="30" enchantLevels2="30" >
+<skill id="310" levels="1" name="Dance of the Vampire" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -398,7 +398,7 @@
     </effect>
   </enchant1for>
 </skill>
-<skill id="311" levels="1" name="Dance of Protection" enchantLevels1="30" enchantLevels2="30" >
+<skill id="311" levels="1" name="Dance of Protection" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -440,7 +440,7 @@
     </effect>
   </enchant1for>
 </skill>
-<skill id="312" levels="20" name="Vicious Stance" enchantLevels1="30" enchantLevels2="30" >
+<skill id="312" levels="20" name="Vicious Stance" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -478,7 +478,7 @@
     </effect>
   </enchant2for>
 </skill>
-<skill id="313" levels="8" name="Snipe" enchantLevels1="30" enchantLevels2="30" >
+<skill id="313" levels="8" name="Snipe" enchantLevels1="30" enchantLevels2="30">
 <!--
   Changed some values related to http://l2p.bravehost.com/buffs.html...
   Since the upgraded enchant patk values are unknown, i made it with an extra ADD.
@@ -556,7 +556,7 @@
     </effect>
   </enchant1for>
 </skill>
-<skill id="314" levels="16" name="Fatal Counter" enchantLevels1="30" enchantLevels2="30" >
+<skill id="314" levels="16" name="Fatal Counter" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -592,7 +592,7 @@
     <cond><using kind="Bow"/></cond>
   </for>
 </skill>
-<skill id="315" levels="16" name="Crush of Doom" enchantLevels1="30" enchantLevels2="30" >
+<skill id="315" levels="16" name="Crush of Doom" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -663,7 +663,7 @@
   </for>
 </skill>
 
-<skill id="318" levels="1" name="Aegis Stance" enchantLevels1="30" >
+<skill id="318" levels="1" name="Aegis Stance" enchantLevels1="30">
   <!-- done by NB4L1 -->
   <table name="#ench1sDef">
   0.61 0.62 0.62 0.63 0.64 0.64 0.65 0.66 0.66 0.67
@@ -716,7 +716,7 @@
     </add>
   </for>
 </skill>
-<skill id="320" levels="10" name="Wrath" enchantLevels1="30" enchantLevels2="30" >
+<skill id="320" levels="10" name="Wrath" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -770,7 +770,7 @@
     </effect>
   </for>
 </skill>
-<skill id="322" levels="6" name="Shield Fortress" enchantLevels1="30" enchantLevels2="30" >
+<skill id="322" levels="6" name="Shield Fortress" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1085,6 +1085,7 @@
   <set name="skillType" val="HEAL_PERCENT"/>
   <set name="magicLvl" val="78"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="120000"/> <!-- To Show The Countdown -->
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
   <set name="reuseDelay" val="1200000"/>

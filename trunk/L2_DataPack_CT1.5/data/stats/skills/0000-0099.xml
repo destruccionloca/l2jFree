@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-<skill id="1" levels="37" name="Triple Slash" enchantLevels1="30" enchantLevels2="30" >
+<skill id="1" levels="37" name="Triple Slash" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -112,7 +112,7 @@
     </effect>
   </for>
 </skill>
-<skill id="5" levels="31" name="Double Sonic Slash" enchantLevels1="30" enchantLevels2="30" >
+<skill id="5" levels="31" name="Double Sonic Slash" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -167,7 +167,7 @@
   <for>
   </for>
 </skill>
-<skill id="6" levels="37" name="Sonic Blaster" enchantLevels1="30" enchantLevels2="30" >
+<skill id="6" levels="37" name="Sonic Blaster" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -219,7 +219,7 @@
   <set name="num_charges" val="2"/>
   <set name="charge_skill_id" val="8"/> <!-- Focus Sonic is the charger -->
 </skill>
-<skill id="7" levels="28" name="Sonic Storm" enchantLevels1="30" enchantLevels2="30" >
+<skill id="7" levels="28" name="Sonic Storm" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -289,7 +289,7 @@
     <effect count="1" name="Charge" time="600" val="1"/>
   </for>
 </skill>
-<skill id="9" levels="34" name="Sonic Buster" enchantLevels1="30" enchantLevels2="30" >
+<skill id="9" levels="34" name="Sonic Buster" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -475,7 +475,7 @@
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
 </skill>
-<skill id="17" levels="34" name="Force Burst" enchantLevels1="30" enchantLevels2="30" >
+<skill id="17" levels="34" name="Force Burst" enchantLevels1="30" enchantLevels2="30">
   <table name="#magicLvl"> 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
   <table name="#mpConsume">
    59  61  63  65  67  69  71  73  75  77
@@ -526,7 +526,7 @@
   <for>
   </for>
 </skill>
-<skill id="18" levels="37" name="Aura of Hate" enchantLevels1="30" enchantLevels2="30" >
+<skill id="18" levels="37" name="Aura of Hate" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -552,7 +552,7 @@
     <effect count="1" name="TargetMe" time="3" val="0"/>
   </for>
 </skill>
-<skill id="19" levels="37" name="Double Shot" enchantLevels1="30" enchantLevels2="30" >
+<skill id="19" levels="37" name="Double Shot" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -650,7 +650,7 @@
   <for>
   </for>
 </skill>
-<skill id="24" levels="31" name="Burst Shot" enchantLevels1="30" enchantLevels2="30" >
+<skill id="24" levels="31" name="Burst Shot" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -752,7 +752,7 @@
   <for>
   </for>
 </skill>
-<skill id="28" levels="49" name="Aggression"  enchantLevels1="30" enchantLevels2="30" >
+<skill id="28" levels="49" name="Aggression"  enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -839,7 +839,7 @@
   <for>
   </for>
 </skill>
-<skill id="30" levels="37" name="Backstab" enchantLevels1="30" enchantLevels2="30" >
+<skill id="30" levels="37" name="Backstab" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -932,7 +932,7 @@
   <for>
   </for>
 </skill>
-<skill id="35" levels="28" name="Force Storm" enchantLevels1="30" enchantLevels2="30" >
+<skill id="35" levels="28" name="Force Storm" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -983,7 +983,7 @@
   <for>
   </for>
 </skill>
-<skill id="36" levels="37" name="Whirlwind" enchantLevels1="30" enchantLevels2="30" >
+<skill id="36" levels="37" name="Whirlwind" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1031,7 +1031,7 @@
   <for>
  </for>
 </skill>
-<skill id="42" levels="1" name="Sweeper" enchantLevels1="30" enchantLevels2="30" >
+<skill id="42" levels="1" name="Sweeper" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1104,7 +1104,7 @@
   <for>
   </for>
 </skill>
-<skill id="46" levels="15" name="Life Scavenge" enchantLevels1="30" enchantLevels2="30" >
+<skill id="46" levels="15" name="Life Scavenge" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1146,7 +1146,7 @@
   <for>
   </for>
 </skill>
-<skill id="48" levels="37" name="Thunder Storm" enchantLevels1="30" enchantLevels2="30" >
+<skill id="48" levels="37" name="Thunder Storm" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1193,7 +1193,7 @@
     <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
-<skill id="49" levels="26" name="Holy Strike" enchantLevels1="30" enchantLevels2="30" >
+<skill id="49" levels="26" name="Holy Strike" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1262,7 +1262,7 @@
     <effect count="1" name="Charge" time="0x7fffffff" val="1"/>
   </for>
 </skill>
-<skill id="51" levels="1" name="Lure" enchantLevels1="30" >
+<skill id="51" levels="1" name="Lure" enchantLevels1="30">
   <table name="#ench1mpConsume">
   43 43 43 42 42 42 41 41 41 40
   40 40 39 39 39 38 38 38 37 37
@@ -1282,7 +1282,7 @@
   <for>
   </for>
 </skill>
-<skill id="54" levels="49" name="Force Blaster" enchantLevels1="30" enchantLevels2="30" >
+<skill id="54" levels="49" name="Force Blaster" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1355,7 +1355,7 @@
   <for>
   </for>
 </skill>
-<skill id="58" levels="55" name="Elemental Heal" enchantLevels1="30" enchantLevels2="30" >
+<skill id="58" levels="55" name="Elemental Heal" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1484,7 +1484,7 @@
   <for>
   </for>
 </skill>
-<skill id="69" levels="25" name="Sacrifice" enchantLevels1="30" enchantLevels2="30" >
+<skill id="69" levels="25" name="Sacrifice" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1525,7 +1525,7 @@
   <for>
   </for>
 </skill>
-<skill id="70" levels="53" name="Drain Health" enchantLevels1="30" enchantLevels2="30" >
+<skill id="70" levels="53" name="Drain Health" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1570,7 +1570,7 @@
   <for>
   </for>
 </skill>
-<skill id="72" levels="3" name="Iron Will" enchantLevels1="30" enchantLevels2="30" >
+<skill id="72" levels="3" name="Iron Will" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1723,7 +1723,7 @@
    </effect>
   </for>
 </skill>
-<skill id="81" levels="3" name="Punch of Doom" enchantLevels1="30" enchantLevels2="30" >
+<skill id="81" levels="3" name="Punch of Doom" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1802,7 +1802,7 @@
     </effect>
   </for>
 </skill>
-<skill id="84" levels="3" name="Poison Blade Dance" enchantLevels1="30" enchantLevels2="30" >
+<skill id="84" levels="3" name="Poison Blade Dance" enchantLevels1="30" enchantLevels2="30">
   <table name="#ench1effectPower">
   35 35 35 36 36 36 37 37 37 37
   38 38 38 39 39 39 39 40 40 40
@@ -1843,7 +1843,7 @@
     <effect count="10" name="DamOverTime" time="3" val="#poison-dmg" abnormal="poison"/>
   </for>
 </skill>
-<skill id="86" levels="3" name="Reflect Damage" enchantLevels1="30" enchantLevels2="30" >
+<skill id="86" levels="3" name="Reflect Damage" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -2050,7 +2050,7 @@
     </effect>
   </for>
 </skill>
-<skill id="95" levels="20" name="Cripple" enchantLevels1="30" enchantLevels2="30" >
+<skill id="95" levels="20" name="Cripple" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -2121,7 +2121,7 @@
     <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding"/>
   </for>
 </skill>
-<skill id="97" levels="11" name="Sanctuary" enchantLevels1="30" enchantLevels2="30" >
+<skill id="97" levels="11" name="Sanctuary" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -2179,7 +2179,7 @@
     <effect count="5" name="Fear" time="3" val="0"/>
   </for>
 </skill>
-<skill id="99" levels="2" name="Rapid Shot" enchantLevels1="30" enchantLevels2="30" >
+<skill id="99" levels="2" name="Rapid Shot" enchantLevels1="30" enchantLevels2="30">
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>

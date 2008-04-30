@@ -925,7 +925,7 @@
 <skill id="1437" levels="26" name="Dark Flame">
 <!--
   Description:
-  Unleash a soul to frighten enemies in front of you. Consumes 3 Souls. Power 42.  
+  Unleash a soul to frighten enemies in front of you. Consumes 3 Souls. Power 42.
 -->
  <table name="#mpConsume_Init">
    16 16 17 17 18 19 19 20 20 21

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-<skill id="400" levels="10" name="Tribunal" enchantLevels1="30" enchantLevels2="30" >
+<skill id="400" levels="10" name="Tribunal" enchantLevels1="30" enchantLevels2="30">
   <table name="#ench1Power"> 1290 1302 1313 1325 1336 1348 1359 1371 1382 1394 1405 1417 1428 1440 1451 1463 1474 1486 1497 1509 1520 1532 1543 1555 1566 1578 1589 1601 1612 1624 </table>
   <table name="#ench2MpConsume"> 74 73 72 70 69 68 67 65 64 63 62 60 59 58 57 55 54 53 51 50 49 48 46 45 44 43 41 40 39 38 </table>
   <table name="#mpConsume"> 55 59 62 63 66 68 70 72 74 76 </table>
@@ -30,7 +30,7 @@
     </effect>
   </for>
 </skill>
-<skill id="401" levels="10" name="Judgment" enchantLevels1="30" enchantLevels2="30" >
+<skill id="401" levels="10" name="Judgment" enchantLevels1="30" enchantLevels2="30">
   <table name="#ench1Power"> 1474 1487 1500 1513 1526 1540 1553 1566 1579 1592 1605 1619 1632 1645 1658 1671 1684 1698 1711 1724 1737 1750 1763 1777 1790 1803 1816 1829 1842 1856 </table>
   <table name="#ench2MpConsume"> 74 73 72 70 69 68 67 65 64 63 62 60 59 58 57 55 54 53 51 50 49 48 46 45 44 43 41 40 39 38 </table>
   <table name="#mpConsume"> 55 59 62 63 66 68 70 72 74 76</table>
@@ -222,7 +222,7 @@
     </effect>
   </for>
 </skill>
-<skill id="409" levels="10" name="Critical Blow" enchantLevels1="30" enchantLevels2="30" >
+<skill id="409" levels="10" name="Critical Blow" enchantLevels1="30" enchantLevels2="30">
   <table name="#ench1Power"> 3685 3718 3751 3784 3817 3850 3883 3916 3949 3982 4014 4047 4080 4113 4146 4179 4212 4245 4278 4311 4343 4376 4409 4442 4475 4508 4541 4574 4607 4640 </table>
   <table name="#ench2MpConsume"> 74 73 72 70 69 68 67 65 64 63 62 60 59 58 57 55 54 53 51 50 49 48 46 45 44 43 41 40 39 38 </table>
   <table name="#mpConsume"> 55 59 62 63 66 68 70 72 74 76 </table>
@@ -484,7 +484,7 @@
       <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
       <mul order="0x30" stat="gainHp" val="0.5"/>
       <!-- L2JFree add -->
-      <mul order="0x30" stat="cAtk" val="#cAtk"/> <!-- This has to be here to enable cAtk wich is present on CT1 --> 
+      <mul order="0x30" stat="cAtk" val="#cAtk"/> <!-- This has to be here to enable cAtk wich is present on CT1 -->
       <!-- L2JFree add end -->
       <add order="0x40" stat="rCrit" val="#rCrit">
         <and>
@@ -539,7 +539,7 @@
 <skill id="423" levels="3" name="Infernal Form">
   <table name="#mpConsume"> 27 31 34 </table>
   <!-- L2JFree edit -->
-  <table name="#vuln"> 0.85 0.77 0.69 </table> <!-- Updated for Hellbound --> <!-- Initial -15% vuln, then -8% per level --> 
+  <table name="#vuln"> 0.85 0.77 0.69 </table> <!-- Updated for Hellbound --> <!-- Initial -15% vuln, then -8% per level -->
   <!-- L2JFree edit end -->
   <table name="#stack"> 15 23 30 </table>
   <!-- L2JFree add -->
@@ -558,7 +558,7 @@
     <effect count="1" name="Buff" time="120" val="0" stackOrder="#stack" stackType="MagicDefUpAtr">
       <mul order="0x30" stat="fireVuln" val="#vuln"/>
       <!-- L2JFree add -->
-      <mul order="0x30" stat="pAtk" val="#pAtk"/> <!-- Adding to enable pAtk missing effect --> 
+      <mul order="0x30" stat="pAtk" val="#pAtk"/> <!-- Adding to enable pAtk missing effect -->
       <!-- L2JFree add end -->
     </effect>
   </for>
@@ -1823,7 +1823,7 @@
   <table name="#ench1Power"> 3230 3252 3274 3296 3318 3340 3362 3384 3405 3427 3449 3471 3493 3515 3537 3559 3581 3603 3625 3647 3669 3691 3713 3735 3757 3779 3801 3823 3845 3867 </table>
   <table name="#ench2MpConsume"> 67 66 65 65 64 63 63 62 61 61 60 59 58 58 57 56 56 55 54 54 53 52 51 51 50 49 49 48 47 47</table>
   <table name="#power"> 615 654 694 737 781 827 875 924 976 1030 1085 1143 1202 1264 1327 1392 1459 1527 1597 1669 1743 1817 1894 1971 2050 2130 2211 2293 2375 2459 2542 2626 2710 2794 2878 2961 3044</table>
-  <table name="#mpConsume"> 32 33 34 34 35 36 37 38 40 41 42 43 44 44 45 46 48 49 50 51 52 53 54 54 55 56 57 58 59 60 61 62 63 64 65 66 67</table>  
+  <table name="#mpConsume"> 32 33 34 34 35 36 37 38 40 41 42 43 44 44 45 46 48 49 50 51 52 53 54 54 55 56 57 58 59 60 61 62 63 64 65 66 67</table>
   <table name="#magicLvl">  20 21 22 24 25  26 28 29 30 32  33 34 36 37 38  39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60</table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="target" val="TARGET_ONE"/>
@@ -2090,7 +2090,7 @@
   <for>
   </for>
 </skill>
- <skill id="490" levels="2" name="Fast Shot" enchantLevels1="30" enchantLevels2="30" >
+ <skill id="490" levels="2" name="Fast Shot" enchantLevels1="30" enchantLevels2="30">
   <!--
   Description(s):
 
@@ -2154,10 +2154,10 @@
   </for>
 </skill>
 <skill id="492" levels="25" name="Spread Wing" enchantLevels1="30" enchantLevels2="30">
-<!-- 
-  Description(s): 
- 	  Use your wing to attack hostile enemies behind you. Consumes 1 Soul. 
- 	  Over-hit is possible. Power 722 
+<!--
+  Description(s):
+ 	  Use your wing to attack hostile enemies behind you. Consumes 1 Soul.
+ 	  Over-hit is possible. Power 722
 -->
   <table name="#enchantMagicLvl">76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85</table>
   <table name="#ench1Power">1938 1951 1964 1978 1991 2004 2017 2030 2043 2057 2070 2083 2096 2109 2123 2136 2149 2162 2175 2189 2202 2215 2228 2241 2255 2268 2281 2294 2307 2320</table>

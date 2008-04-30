@@ -163,7 +163,7 @@ class Quest (JQuest) :
  def onAdvEvent (self,event,npc,player) :
    st = player.getQuestState(self.qn)
    if not st: return
-   htmltext = None  # simple initialization...if none of the events match, return nothing.  
+   htmltext = None  # simple initialization...if none of the events match, return nothing.
    cond = st.getInt("cond")
    id = st.getInt("id")
    player = st.getPlayer()
@@ -210,7 +210,7 @@ class Quest (JQuest) :
        if self.Items[11] != 0 :
            st.takeItems(self.Items[11],1)
        st.giveItems(self.Items[1],1)
-       htmltext = "1-06.htm" 
+       htmltext = "1-06.htm"
    elif event == "2-1" :
        st.set("cond","2")
        htmltext = "2-05.htm"
@@ -474,7 +474,7 @@ class Quest (JQuest) :
               if npcId == self.NPC[9] :
                   htmltext = "9-04.htm"
               elif npcId == self.NPC[10] :
-                  htmltext = "10-01.htm"   
+                  htmltext = "10-01.htm"
           elif cond == 18 :
               if npcId == self.NPC[10] :
                   htmltext = "10-05.htm"
@@ -504,7 +504,7 @@ class Quest (JQuest) :
     return htmltext
 
  def onFirstTalk (self,npc,player):
-    htmltext = ""
+    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     st = player.getQuestState(self.qn)
     npcId = npc.getNpcId()
     if st :

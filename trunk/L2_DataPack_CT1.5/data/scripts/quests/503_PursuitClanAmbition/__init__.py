@@ -45,7 +45,7 @@ EggList = [Mi_Drake_Eggs,Bl_Wyrm_Eggs,Drake_Eggs,Th_Wyrm_Eggs]
 NPC=[30645,30758,30759,30760,30761,30762,30763,30512,30764,30868,30765,30766]
 STATS=["cond","Fritz","Lutz","Kurtz","ImpGraveKeeper"]
 
-# DROPLIST = step,chance,maxcount,item 
+# DROPLIST = step,chance,maxcount,item
 # condition,maxcount,chance,itemList = DROPLIST[npcId]
 DROPLIST = {
 20282: [2,10,20,[Th_Wyrm_Eggs]],                     # Thunder Wyrm 1
@@ -101,7 +101,7 @@ def offlineMemberExit(st) :
 # returns leaders quest cond, if he is offline will read out of database :)
 def getLeaderVar(st, var) :
   try :
-    clan = st.getPlayer().getClan()  
+    clan = st.getPlayer().getClan()
     if clan == None:
       return -1
     leader=clan.getLeader().getPlayerInstance()
@@ -133,8 +133,8 @@ def getLeaderVar(st, var) :
 # for now, if the leader is not logged in, this assumes that the variable
 # has already been inserted once (initialized, in some sense).
 def setLeaderVar(st, var, value) :
-  clan = st.getPlayer().getClan()  
-  if clan == None: return   
+  clan = st.getPlayer().getClan()
+  if clan == None: return
   leader=clan.getLeader().getPlayerInstance()
   if leader != None :
     leader.getQuestState(qn).set(var,value)
@@ -152,7 +152,7 @@ def setLeaderVar(st, var, value) :
       con.close()
     except :
       try : con.close()
-      except : pass 
+      except : pass
   return
 
 def checkEggs(st):
@@ -181,12 +181,12 @@ def exit503(completed,st):
       st.addExpAndSp(0,250000)
       for var in STATS:
         st.unset(var)
-      st.exitQuest(False) 
+      st.exitQuest(False)
     else:
       st.exitQuest(1)
     st.takeItems(Scepter_Judgement,-1)
     try:
-      members = st.getPlayer().getClan().getOnlineMembers("")[0]
+      members = st.getPlayer().getClan().getOnlineMembers(0)[0]
       for i in members:
         st.getPlayer().getClan().getClanMember(i).getPlayerInstance().getQuestState(qn).exitQuest(1)
       offlineMemberExit(st)
@@ -225,9 +225,9 @@ class Quest (JQuest) :
     elif event == "30645-03.htm":
       st.takeItems(G_Let_Martien,-1)
       st.set("cond","2")
-      suscribe_members(st) 
+      suscribe_members(st)
       try:
-        members = st.getPlayer().getClan().getOnlineMembers("")[0]
+        members = st.getPlayer().getClan().getOnlineMembers(0)[0]
         for i in members:
           pst = QuestManager.getInstance().getQuest(qn).newQuestState(st.getPlayer().getClan().getClanMember(int(i)).getPlayerInstance())
           pst.setState(State.STARTED)
@@ -287,11 +287,11 @@ class Quest (JQuest) :
 # Events Cleo
     elif event == "30766-04.htm":
       st.set("cond","9")
-      spawnedNpc = st.addSpawn(30766,160622,21230,-3710,90000)
+      spawnedNpc=st.addSpawn(30766,160622,21230,-3710,90000)
       spawnedNpc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"Blood and Honour."))
-      spawnedNpc = st.addSpawn(30759,160665,21209,-3710,90000)
+      spawnedNpc=st.addSpawn(30759,160665,21209,-3710,90000)
       spawnedNpc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"Ambition and Power"))
-      spawnedNpc = st.addSpawn(30758,160665,21291,-3710,90000)
+      spawnedNpc=st.addSpawn(30758,160665,21291,-3710,90000)
       spawnedNpc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"War and Death"))
     elif event == "30766-08.htm":
       st.takeItems(Scepter_Judgement,-1)
@@ -344,7 +344,7 @@ class Quest (JQuest) :
         kurtz  = st.getInt("Kurtz")
         lutz  = st.getInt("Lutz")
         fritz  = st.getInt("Fritz")
-        
+
         if npcId == Gustaf :
           if cond == 1:
             htmltext = "30760-09.htm"
@@ -488,7 +488,7 @@ class Quest (JQuest) :
       if Rnd.get(100) < 4:
         if self.ImpGraveKepperStat == 1:
           for j in range(2):
-            for k in range(2): 
+            for k in range(2):
               self.addSpawn(27180,npc.getX()+70*pow(-1,j%2),npc.getY()+70*pow(-1,k%2),npc.getZ(),0,False,0)
           self.ImpGraveKepperStat = 2
         else:
