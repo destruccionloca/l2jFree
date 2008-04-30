@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS `armor` (
   `dropable` varchar(5) NOT NULL default 'true',
   `destroyable` varchar(5) NOT NULL default 'true',
   `tradeable` varchar(5) NOT NULL default 'true',
-  `item_skill_id` decimal(11,0) NOT NULL default '0',
-  `item_skill_lvl` decimal(11,0) NOT NULL default '0',
+  `item_skill_id` VARCHAR(60) NOT NULL DEFAULT '0',
+  `item_skill_lvl` VARCHAR(30) NOT NULL DEFAULT '0',
   PRIMARY KEY(`item_id`)
 ) DEFAULT CHARSET=utf8;
 
@@ -1157,17 +1157,17 @@ INSERT INTO `armor` VALUES
 (9590, 'Bronze Bracelet', 'lbracelet', 'true', 'none', 150, 'wood', 'b', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
 (9591, 'Steel Bracelet', 'lbracelet', 'true', 'none', 150, 'wood', 'a', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
 (9592, 'Mithril Bracelet', 'lbracelet', 'true', 'none', 150, 'wood', 's', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(9605, 'Agathion Seal Bracelet - Rainbow Clan Hall', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(9606, 'Agathion Seal Bracelet - Wild Beast Reserve', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(9607, 'Agathion Seal Bracelet - Gludio', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(9608, 'Agathion Seal Bracelet - Dion', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(9609, 'Agathion Seal Bracelet - Giran', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(9610, 'Agathion Seal Bracelet - Oren', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(9611, 'Agathion Seal Bracelet - Aden', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(9612, 'Agathion Seal Bracelet - Innadril', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(9613, 'Agathion Seal Bracelet - Goddard', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(9614, 'Agathion Seal Bracelet - Rune', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(9615, 'Agathion Seal Bracelet - Schuttgart', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
+(9605, 'Agathion Seal Bracelet - Rainbow Clan Hall', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3267,3269,5414', '1,1,1'),
+(9606, 'Agathion Seal Bracelet - Wild Beast Reserve', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3267,3270,5413', '1,1,1'),
+(9607, 'Agathion Seal Bracelet - Gludio', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3267,3268,5415', '1,1,1'),
+(9608, 'Agathion Seal Bracelet - Dion', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3267,3268,5415' '1,1,1'),
+(9609, 'Agathion Seal Bracelet - Giran', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3267,3268,5415', '1,1,1'),
+(9610, 'Agathion Seal Bracelet - Oren', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3267,3268,5415', '1,1,1'),
+(9611, 'Agathion Seal Bracelet - Aden', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3267,3268,5415', '1,1,1'),
+(9612, 'Agathion Seal Bracelet - Innadril', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3267,3268,5415', '1,1,1'),
+(9613, 'Agathion Seal Bracelet - Goddard', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3267,3268,5415', '1,1,1'),
+(9614, 'Agathion Seal Bracelet - Rune', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3267,3268,5415', '1,1,1'),
+(9615, 'Agathion Seal Bracelet - Schuttgart', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3267,3268,5415', '1,1,1'),
 (9662, 'Black Hair Wolf Scale Armor', 'wolf', 'true', 'pet', 160, 'wood', 'none', 0, -1, 112, 14, 0, 2100000, 0, 'true', 'true', 'true', 'true', 0, 0),
 (9663, 'Black Hair Wolf Bronze Armor', 'wolf', 'true', 'pet', 160, 'wood', 'none', 0, -1, 124, 14, 0, 4100000, 0, 'true', 'true', 'true', 'true', 0, 0),
 (9664, 'Black Hair Wolf Plate Armor', 'wolf', 'true', 'pet', 160, 'wood', 'none', 0, -1, 136, 14, 0, 8400000, 0, 'true', 'true', 'true', 'true', 0, 0),
@@ -1323,7 +1323,10 @@ INSERT INTO `armor` VALUES
 (10250, 'Explorer Hat', 'hairall', 'true', 'none', 10, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
 (10251, 'Medieval Party Mask', 'hairall', 'true', 'none', 10, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
 (10170, 'Baylor\'s Earring', 'rear,lear', 'true', 'none', 150, 'wood', 's80', 0, -1, 0, 71, 31, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(10273, 'Wolf Summoning Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, 120, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0);
+(10273, 'Wolf Summoning Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, 120, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
+(10320, 'Agathion Seal Bracelet - Little Angel', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'false', 'true', 'false', '3423,3267', '1,1'),
+(10326, 'Agathion Seal Bracelet - Little Devil', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, 0, 0, 0, 0, 0, 0, 'true', 'false', 'true', 'false', '3424,3267', '1,1'),
+(10606, 'Agathion Seal Bracelet - Rudolph', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, 0, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '3425,3267', '1,1');
 
 --
 -- L2J-Free Add-ons
@@ -1334,10 +1337,6 @@ INSERT INTO `armor` VALUES
 ALTER TABLE `armor` ADD `races` VARCHAR(20) NOT NULL DEFAULT '-1';
 ALTER TABLE `armor` ADD `classes` VARCHAR(255) NOT NULL DEFAULT '-1';
 ALTER TABLE `armor` ADD `sex` INT (1) NOT NULL DEFAULT -1;
-
-ALTER TABLE `armor`
-CHANGE `item_skill_id` `item_skill_id` VARCHAR(60) NOT NULL DEFAULT '0',
-CHANGE `item_skill_lvl` `item_skill_lvl` VARCHAR(30) NOT NULL DEFAULT '0';
 
 -- Armor dual-skill fix example
 UPDATE `armor` SET `item_skill_id` = '3632,3633', `item_skill_lvl` = '1,2' WHERE `item_id` = 6841;
@@ -1363,17 +1362,6 @@ DELETE FROM armor WHERE item_id = 9589;
 DELETE FROM armor WHERE item_id = 9590;
 DELETE FROM armor WHERE item_id = 9591;
 DELETE FROM armor WHERE item_id = 9592;
-DELETE FROM armor WHERE item_id = 9605;
-DELETE FROM armor WHERE item_id = 9606;
-DELETE FROM armor WHERE item_id = 9607;
-DELETE FROM armor WHERE item_id = 9608;
-DELETE FROM armor WHERE item_id = 9609;
-DELETE FROM armor WHERE item_id = 9610;
-DELETE FROM armor WHERE item_id = 9611;
-DELETE FROM armor WHERE item_id = 9612;
-DELETE FROM armor WHERE item_id = 9613;
-DELETE FROM armor WHERE item_id = 9614;
-DELETE FROM armor WHERE item_id = 9615;
 DELETE FROM armor WHERE item_id = 9909;
 DELETE FROM armor WHERE item_id = 10018;
 DELETE FROM armor WHERE item_id = 10139;
@@ -1387,21 +1375,6 @@ INSERT INTO `armor` VALUES
 (9591, 'Steel Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'a', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0, -1, -1, -1),
 (9592, 'Mithril Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 's', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0, -1, -1, -1);
 
-
--- Agathion Seal Bracelet
-INSERT INTO `armor` VALUES 
-('9909', 'Agathion Seal Bracelet', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '500', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3361,3267', '1,1', '-1', '-1', '-1'),
-('9605', 'Agathion Seal Bracelet - Rainbow Clan Hall', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3269,3267', '1,1', '-1', '-1', '-1'),
-('9606', 'Agathion Seal Bracelet - Wild Beast Reserve', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3270,3267', '1,1', '-1', '-1', '-1'),
-('9607', 'Agathion Seal Bracelet - Gludio', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
-('9608', 'Agathion Seal Bracelet - Dion', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
-('9609', 'Agathion Seal Bracelet - Giran', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
-('9610', 'Agathion Seal Bracelet - Oren', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
-('9611', 'Agathion Seal Bracelet - Aden', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '0', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
-('9612', 'Agathion Seal Bracelet - Innadril', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
-('9613', 'Agathion Seal Bracelet - Goddard', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
-('9614', 'Agathion Seal Bracelet - Rune', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1'),
-('9615', 'Agathion Seal Bracelet - Schuttgart', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3268,3267', '1,1', '-1', '-1', '-1');
 -- Agathion Fortress
 INSERT INTO `armor` VALUES 
 ('10018', 'Agathion Seal Bracelet - Fortress', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3361,3267', '1,1', '-1', '-1', '-1');
