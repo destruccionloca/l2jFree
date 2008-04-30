@@ -63,7 +63,7 @@ public class BitSetRebuildFactory extends IdFactory
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			int nextid;
 			int changedids = 0;
-			// now loop through all already used oid´s and assign a new clean one
+			// now loop through all already used oids and assign a new clean one
     		for(int i:extractUsedObjectIDTable())
     		{
     			for(;;) //danger ;)
@@ -82,7 +82,7 @@ public class BitSetRebuildFactory extends IdFactory
                     changedids++;
                 }
     		}
-            _log.info("database rebuild done, changed " + changedids + " id´s, set idfactory config to BitSet! ^o^/");
+            _log.info("database rebuild done, changed " + changedids + " ids, set idfactory config to BitSet! ^o^/");
             System.exit(0);
         }
         catch (Exception e)

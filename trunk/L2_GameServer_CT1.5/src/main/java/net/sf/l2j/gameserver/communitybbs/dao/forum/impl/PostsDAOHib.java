@@ -18,9 +18,6 @@ import net.sf.l2j.gameserver.communitybbs.dao.forum.PostsDAO;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Posts;
 import net.sf.l2j.tools.dao.impl.BaseRootDAOHib;
 
-// Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
-
-
 /**
  * Home object for domain model class Posts.
  * @see net.sf.l2j.gameserver.communitybbs.model.forum.Posts
@@ -51,7 +48,5 @@ public class PostsDAOHib extends BaseRootDAOHib implements PostsDAO
 	public Posts getPostById(Integer id)
 	{
 		return (Posts)get(Posts.class, id);
-	}
-
-  
+	} 
 }

@@ -14,8 +14,6 @@
  */
 package net.sf.l2j.gameserver.characters.model;
 
-// Generated 11 déc. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8
-
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +28,6 @@ import net.sf.l2j.gameserver.characters.model.recommendation.CharRecommendation;
 @Deprecated
 public class Characters implements java.io.Serializable
 {
-
     // Fields    
 
     private static final long serialVersionUID = -7162570712501836925L;

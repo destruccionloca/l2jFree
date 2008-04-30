@@ -14,8 +14,6 @@
  */
 package net.sf.l2j.gameserver.communitybbs.model.forum;
 
-// Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +26,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class Forums implements java.io.Serializable
 {
-
     // Fields    
 
     /**

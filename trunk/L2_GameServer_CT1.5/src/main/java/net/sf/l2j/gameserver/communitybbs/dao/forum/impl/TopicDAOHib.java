@@ -25,9 +25,6 @@ import net.sf.l2j.tools.dao.impl.BaseRootDAOHib;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 
-// Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
-
-
 /**
  * Home object for domain model class Topic.
  * @see net.sf.l2j.gameserver.communitybbs.model.forum.Topic

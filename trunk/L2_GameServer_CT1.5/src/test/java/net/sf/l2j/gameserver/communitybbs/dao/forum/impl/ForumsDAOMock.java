@@ -22,16 +22,12 @@ import net.sf.l2j.gameserver.communitybbs.dao.forum.ForumsDAO;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
 import net.sf.l2j.gameserver.communitybbs.model.forum.Topic;
 
-// Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
-
-
 /**
  * DAO object for domain model class Forums.
  * @see net.sf.l2j.gameserver.communitybbs.model.forum.Forums
  */
 public class ForumsDAOMock implements ForumsDAO
 {
-
     /**
      * @see net.sf.l2j.gameserver.communitybbs.dao.forum.ForumsDAO#getAllForums()
      */
@@ -175,6 +171,4 @@ public class ForumsDAOMock implements ForumsDAO
     {
         return obj.getTopics();
     }
-
-
 }

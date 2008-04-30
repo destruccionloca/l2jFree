@@ -25,16 +25,12 @@ import net.sf.l2j.tools.dao.impl.BaseRootDAOHib;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 
-// Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
-
-
 /**
  * DAO object for domain model class Forums.
  * @see net.sf.l2j.gameserver.communitybbs.model.forum.Forums
  */
 public class ForumsDAOHib extends BaseRootDAOHib implements ForumsDAO
 {
-
     /**
      * @see net.sf.l2j.gameserver.communitybbs.dao.forum.ForumsDAO#createForums(net.sf.l2j.gameserver.communitybbs.model.forum.Forums)
      */
@@ -112,6 +108,4 @@ public class ForumsDAOHib extends BaseRootDAOHib implements ForumsDAO
         }
         return obj.getTopics();
     }
-
-
 }
