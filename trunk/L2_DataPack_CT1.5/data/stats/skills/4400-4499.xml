@@ -1,4 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="4400" levels="3" name="Acumen">
   <!-- by DrLecter -->
@@ -1624,6 +1625,7 @@
   <set name="hitTime" val="4500"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isDebuff" val="true"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
   <set name="effectType" val="STUN"/>

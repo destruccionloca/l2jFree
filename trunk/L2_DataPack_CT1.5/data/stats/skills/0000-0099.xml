@@ -66,6 +66,7 @@
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="isDebuff" val="true"/>
   <set name="effectRange" val="1100"/>
   <for>
     <effect count="5" name="Confusion" time="6" val="0"/>
@@ -377,6 +378,7 @@
   <set name="reuseDelay" val="20000"/>
   <set name="hitTime" val="1200"/>
   <set name="skillType" val="AGGREDUCE_CHAR"/>
+  <set name="isDebuff" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
@@ -396,6 +398,7 @@
   <set name="hitTime" val="1200"/>
   <set name="skillType" val="CONFUSE_MOB_ONLY"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isDebuff" val="true"/>
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
@@ -446,6 +449,7 @@
   <set name="reuseDelay" val="60000"/>
   <set name="hitTime" val="1500"/>
   <set name="skillType" val="AGGREDUCE"/>
+  <set name="isDebuff" val="true"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
@@ -544,6 +548,7 @@
   <set name="hitTime" val="1200"/>
   <set name="skillType" val="AGGDAMAGE"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isDebuff" val="true"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <enchant1 name="power" val="#ench1Power"/>
@@ -810,6 +815,7 @@
   <set name="coolTime" val="200"/>
   <set name="skillType" val="AGGDAMAGE"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isDebuff" val="true"/>
   <set name="castRange" val="#castRange"/>
   <set name="effectRange" val="#effectRange"/>
   <enchant1 name="power" val="#ench1Power"/>
@@ -1187,6 +1193,7 @@
   <enchant2 name="power" val="#ench2Power"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
   <set name="effectType" val="STUN"/>
   <set name="effectPower" val="50"/>
   <for>
@@ -1452,6 +1459,7 @@
   <set name="skillType" val="FEAR"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isDebuff" val="true"/>
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
@@ -1831,6 +1839,7 @@
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
   <set name="effectRange" val="-1"/>
   <set name="effectType" val="POISON"/>
   <set name="effectPower" val="35"/>
@@ -1976,6 +1985,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
+  <set name="isDebuff" val="true"/>
   <enchant1 name="reuseDelay" val="#ench1Reuse"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
@@ -2078,6 +2088,7 @@
   <set name="skillType" val="DEBUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
+  <set name="isDebuff" val="true"/>
   <set name="effectRange" val="400"/>
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
@@ -2107,6 +2118,7 @@
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="13000"/>
   <set name="hitTime" val="1080"/>
+  <set name="isDebuff" val="true"/>
   <set name="coolTime" val="720"/>
   <set name="skillType" val="BLEED"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -2146,6 +2158,7 @@
   <set name="reuseDelay" val="8000"/>
   <set name="hitTime" val="1500"/>
   <set name="skillType" val="DEBUFF"/>
+  <set name="isDebuff" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
@@ -2171,6 +2184,7 @@
   <set name="hitTime" val="2000"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isDebuff" val="true"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="effectType" val="FEAR"/>
