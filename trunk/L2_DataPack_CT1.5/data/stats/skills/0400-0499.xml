@@ -1841,6 +1841,7 @@
   <set name="soulConsumeCount" val="1"/>
   <cond msg="An ancient sword weapon has to be equipped to use this skill">
     <using kind="Ancient"/>
+  </cond>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   <enchant1 name="power" val="#ench1Power"/>
