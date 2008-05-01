@@ -97,7 +97,7 @@ public class AllyDismiss extends L2GameClientPacket
 		try
 		{
 			player.getClan().setAllyCrestId(0);
-			for (L2PcInstance member : player.getClan().getOnlineMembers(""))
+			for (L2PcInstance member : player.getClan().getOnlineMembers(0))
 				member.broadcastUserInfo();
 		}
 		catch(Throwable t){}

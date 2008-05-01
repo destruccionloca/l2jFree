@@ -65,6 +65,7 @@ public class Disablers implements ISkillHandler
                                        SkillType.CONFUSE_MOB_ONLY,
                                        SkillType.NEGATE,
                                        SkillType.CANCEL, 
+                                       SkillType.CANCEL_DEBUFF,
                                        SkillType.PARALYZE,
                                        SkillType.UNSUMMON_ENEMY_PET,
                                        SkillType.BETRAY,
@@ -601,7 +602,21 @@ public class Disablers implements ISkillHandler
                     }
                     break;
                 }
+                case CANCEL_DEBUFF:
+                {
+                    L2Effect[] effects = target.getAllEffects();
 
+                    if (effects.length == 0 || effects == null) break;
+
+                    for (L2Effect e : effects)
+                    {
+                        if (e.getSkill().isDebuff())
+                            e.exit();
+                        break;
+                    }
+
+                    break;
+                }
                 case NEGATE:
                 case CANCEL:
                 {

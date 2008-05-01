@@ -38,24 +38,24 @@ public class ChannelLeave implements IUserCommandHandler
         
         if (activeChar.isInParty())
         {
-        	if (activeChar.getParty().isLeader(activeChar) 
-        			&& activeChar.getParty().isInCommandChannel())
-        	{
-        		L2CommandChannel channel = activeChar.getParty().getCommandChannel();
-        		L2Party party = activeChar.getParty();
-        		channel.removeParty(party);
-        		
-        		SystemMessage sm = SystemMessage.sendString("Your party has left the CommandChannel.");
-        		party.broadcastToPartyMembers(sm);
-        		//sm = SystemMessage.sendString(party.getPartyMembers().get(0).getName() +"'s party has left the CommandChannel.");
-        		sm = new SystemMessage(SystemMessageId.S1_PARTY_LEFT_COMMAND_CHANNEL);
-        		sm.addString(party.getLeader().getName());
-        		channel.broadcastToChannelMembers(sm);
-        		return true;
-        	}
+            if (activeChar.getParty().isLeader(activeChar) && activeChar.getParty().isInCommandChannel())
+            {
+                L2Party party = activeChar.getParty();
+                L2CommandChannel channel = party.getCommandChannel();
+                channel.removeParty(party);
+
+                SystemMessage sm = new SystemMessage(SystemMessageId.LEFT_COMMAND_CHANNEL);
+                party.broadcastToPartyMembers(sm);
+                sm = new SystemMessage(SystemMessageId.S1_PARTY_LEFT_COMMAND_CHANNEL);
+                sm.addString(activeChar.getName());
+                channel.broadcastToChannelMembers(sm);
+                return true;
+            }
+            else
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.ONLY_PARTY_LEADER_CAN_LEAVE_CHANNEL));
         }
         
-        return false;        
+        return false;
 
     }
     

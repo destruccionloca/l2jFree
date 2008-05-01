@@ -18,7 +18,9 @@ import java.util.List;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ExCloseMPCC;
+import net.sf.l2j.gameserver.network.serverpackets.ExMultiPartyCommandChannelInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ExOpenMPCC;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -46,7 +48,9 @@ public class L2CommandChannel
 		_partys.add(leader.getParty());
 		_channelLvl = leader.getParty().getLevel();
 		leader.getParty().setCommandChannel(this);
+		leader.getParty().broadcastToPartyMembers(new SystemMessage(SystemMessageId.COMMAND_CHANNEL_FORMED));
 		leader.getParty().broadcastToPartyMembers(ExOpenMPCC.STATIC_PACKET);
+		leader.getParty().broadcastToPartyMembers(new ExMultiPartyCommandChannelInfo(this));
 	}
 	
 	/**
@@ -55,11 +59,16 @@ public class L2CommandChannel
 	 */
 	public void addParty(L2Party party)
 	{
+		broadcastToChannelMembers(SystemMessage.sendString(party.getLeader().getName()+"'s party has joined the Command Channel."));
+
 		_partys.add(party);
 		if (party.getLevel() > _channelLvl)
 			_channelLvl = party.getLevel();
 		party.setCommandChannel(this);
+		party.broadcastToPartyMembers(new SystemMessage(SystemMessageId.JOINED_COMMAND_CHANNEL));
 		party.broadcastToPartyMembers(ExOpenMPCC.STATIC_PACKET);
+
+		broadcastToChannelMembers(new ExMultiPartyCommandChannelInfo(this));
 	}
 	
 	/**
@@ -79,9 +88,13 @@ public class L2CommandChannel
 		party.broadcastToPartyMembers(ExCloseMPCC.STATIC_PACKET);
 		if(_partys.size() < 2)
 		{
-			SystemMessage sm = SystemMessage.sendString("The Command Channel was disbanded.");
+			SystemMessage sm = new SystemMessage(SystemMessageId.COMMAND_CHANNEL_DISBANDED);
     		broadcastToChannelMembers(sm);
 			disbandChannel();
+		}
+		else
+		{
+			broadcastToChannelMembers(new ExMultiPartyCommandChannelInfo(this));
 		}
 	}
 	
@@ -90,6 +103,7 @@ public class L2CommandChannel
 	 */
 	public void disbandChannel()
 	{
+		if (_partys != null)
 		for (L2Party party : _partys)
 		{
 			if(party != null)
@@ -104,6 +118,7 @@ public class L2CommandChannel
 	public int getMemberCount()
 	{
 		int count = 0;
+		if (_partys != null)
 		for (L2Party party : _partys)
 		{
 			if(party != null)
@@ -118,17 +133,22 @@ public class L2CommandChannel
 	 */
 	public void broadcastToChannelMembers(L2GameServerPacket gsp) 
 	{
-		if (!_partys.isEmpty())
+		if (_partys != null)
+		for (L2Party party : _partys)
 		{
-			for (L2Party party : _partys)
-			{
-				if(party != null)
-					party.broadcastToPartyMembers(gsp);
-			}
+			party.broadcastToPartyMembers(gsp);
 		}
 	}
-	
-	
+
+	public void broadcastToChannelMembers(L2PcInstance exclude, L2GameServerPacket gsp) 
+	{
+		if (_partys != null)
+		for (L2Party party : _partys)
+		{
+			party.broadcastToPartyMembers(exclude, gsp);
+		}
+	}
+
 	/**
 	 * @return list of Parties in Command Channel  
 	 */
@@ -140,16 +160,24 @@ public class L2CommandChannel
 	/**
 	 * @return list of all Members in Command Channel  
 	 */
-	public List<L2PcInstance> getMembers()
+	public FastList<L2PcInstance> getMembers()
 	{
-		List<L2PcInstance> members = new FastList<L2PcInstance>();
+		FastList<L2PcInstance> members = new FastList<L2PcInstance>();
 		for (L2Party party : getPartys())
 		{
 			members.addAll(party.getPartyMembers());
 		}
 		return members;
 	}
-	
+
+	public boolean contains(L2Character target)
+	{
+		if (target.getParty() == null)
+			return false;
+
+		return _partys.contains(target.getParty());
+	}
+
 	/**
 	 * 
 	 * @return Level of CC

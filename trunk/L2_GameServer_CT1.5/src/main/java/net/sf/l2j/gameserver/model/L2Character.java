@@ -104,6 +104,7 @@ import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
 import net.sf.l2j.gameserver.skills.effects.EffectConditionHit;
 import net.sf.l2j.gameserver.skills.funcs.Func;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillAgathion;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
@@ -6561,6 +6562,12 @@ public abstract class L2Character extends L2Object
 				removeStatsOwner(oldSkill);
 				stopSkillEffects(oldSkill.getId());
 			}
+
+			if (oldSkill instanceof L2SkillAgathion && this instanceof L2PcInstance && ((L2PcInstance)this).getAgathionId() > 0)
+			{
+				((L2PcInstance)this).setAgathionId(0);
+				((L2PcInstance)this).broadcastUserInfo();
+			}
 		}
 
 		return oldSkill;
@@ -6633,12 +6640,13 @@ public abstract class L2Character extends L2Object
 			{
 				if (e != null)
 				{
-					if ((e.getSkill().getSkillType() == L2Skill.SkillType.BUFF || e.getSkill().getSkillType() == L2Skill.SkillType.DEBUFF
-							|| e.getSkill().getSkillType() == L2Skill.SkillType.REFLECT || e.getSkill().getSkillType() == L2Skill.SkillType.HEAL_PERCENT || e
-							.getSkill().getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT)
-							&& !(e.getSkill().getId() > 4360 && e.getSkill().getId() < 4367))
-					{ // 7s buffs
-						numBuffs++;
+					if (e.getShowIcon() && !(e.getSkill().getId() > 4360 && e.getSkill().getId() < 4367)) // 7s buffs
+					{
+						switch(e.getSkill().getSkillType())
+						{
+							case BUFF: case REFLECT: case HEAL_PERCENT: case MANAHEAL_PERCENT:
+								numBuffs++;
+						}
 					}
 				}
 			}

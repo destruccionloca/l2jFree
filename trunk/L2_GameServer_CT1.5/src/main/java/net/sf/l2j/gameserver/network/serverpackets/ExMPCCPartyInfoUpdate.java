@@ -14,53 +14,53 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-import net.sf.l2j.gameserver.model.L2CommandChannel;
 import net.sf.l2j.gameserver.model.L2Party;
 
 /**
- * Format:(ch) sdd d[sdd]
- * @author  Crion/kombat
+ *
+ * @author  chris_00
+ * 
+ * ch Sddd
  */
-
-public class ExMultiPartyCommandChannelInfo extends L2GameServerPacket
+public class ExMPCCPartyInfoUpdate extends L2GameServerPacket
 {
-	private L2CommandChannel _cc;
-	
-	public ExMultiPartyCommandChannelInfo(L2CommandChannel cc)
+
+	private static final String _S__FE_5B_EXMPCCPARTYINFOUPDATE = "[S] FE:5B ExMPCCPartyInfoUpdate";
+	private L2Party _party;
+	private int _mode;
+
+	/**
+	 * 
+	 * @param party
+	 * @param mode 0 = Remove, 1 = Add
+	 */
+	public ExMPCCPartyInfoUpdate(L2Party party, int mode)
 	{
-		_cc = cc;
-	}
-
-	
-	@Override
-	protected void writeImpl()
-	{
-		writeC(0xFE);
-		writeH(0x31);
-
-		writeS(_cc.getChannelLeader().getName());
-
-		// Looting rights
-		// possible values: 1 and 0
-		writeD(0x00);
-		
-
-		writeD(_cc.getMemberCount());
-		writeD(_cc.getPartys().size());
-		for(L2Party party : _cc.getPartys())
-		{
-			writeS(party.getLeader().getName());
-			writeD(party.getPartyLeaderOID());
-			writeD(party.getMemberCount());
-		}
+		_party = party;
+		_mode = mode;
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
-	 */
+	* @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#writeImpl()
+	*/
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x5b);
+
+		writeS(_party.getLeader().getName());
+		writeD(_party.getPartyLeaderOID());
+		writeD(_party.getMemberCount());
+		writeD(_mode); //mode 0 = Remove Party, 1 = AddParty, maybe more...
+	}
+
+	/**
+	* @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
+	*/
 	@Override
 	public String getType()
 	{
-		return "FE_31_ExMultiPartyCommandChannelInfo";
+		return _S__FE_5B_EXMPCCPARTYINFOUPDATE;
 	}
 }

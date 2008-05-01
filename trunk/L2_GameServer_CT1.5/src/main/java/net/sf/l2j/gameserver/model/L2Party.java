@@ -29,6 +29,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.entity.DimensionalRift;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ExCloseMPCC;
+import net.sf.l2j.gameserver.network.serverpackets.ExOpenMPCC;
+import net.sf.l2j.gameserver.network.serverpackets.ExMultiPartyCommandChannelInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ExPartyPetWindowAdd;
 import net.sf.l2j.gameserver.network.serverpackets.ExPartyPetWindowDelete;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
@@ -243,8 +246,8 @@ public class L2Party
 	 * @param player
 	 */
 	public boolean addPartyMember(L2PcInstance player) 
-    {		
-		if (Config.MAX_PARTY_LEVEL_DIFFERENCE>0)
+	{
+		if (Config.MAX_PARTY_LEVEL_DIFFERENCE > 0)
 		{
 			int _min = _partyLvl;
 			int _max = _partyLvl;
@@ -256,7 +259,7 @@ public class L2Party
 				int _lvl = getPartyMembers().get(i).getLevel();
 				if (_lvl<_min) _min = _lvl;
 				if (_lvl>_max) _max = _lvl;
-			} 
+			}
 			
 			if (player.getLevel()>_max)
 				invalidMember = (player.getLevel() - _min)>Config.MAX_PARTY_LEVEL_DIFFERENCE;
@@ -323,6 +326,14 @@ public class L2Party
 		{
 			_dr.partyMemberInvited();
 		}
+
+		// open the CCInformationwindow 
+		if (isInCommandChannel())
+		{
+			player.sendPacket(ExOpenMPCC.STATIC_PACKET);
+			getCommandChannel().broadcastToChannelMembers(new ExMultiPartyCommandChannelInfo(getCommandChannel()));
+		}
+
 		return true;
 	}
 	
@@ -374,9 +385,27 @@ public class L2Party
 
 			if (getPartyMembers().size() == 1)
 			{
+				if (isInCommandChannel())
+				{
+					L2CommandChannel cmd = getCommandChannel();
+					getCommandChannel().removeParty(this);
+					cmd.broadcastToChannelMembers(new SystemMessage(SystemMessageId.S1_PARTY_LEFT_COMMAND_CHANNEL)
+																		.addString(getLeader().getName()));
+				}
 				getLeader().setParty(null);
 				if (getLeader().isInDuel())
 					DuelManager.getInstance().onRemoveFromParty(getLeader());
+				if (player.isFestivalParticipant())
+					SevenSignsFestival.getInstance().updateParticipants(player, this);
+				getLeader().sendPacket(new PartySmallWindowDeleteAll());
+			}
+			else
+			{
+				if (isInCommandChannel())
+				{
+					player.sendPacket(ExCloseMPCC.STATIC_PACKET);
+					getCommandChannel().broadcastToChannelMembers(new ExMultiPartyCommandChannelInfo(getCommandChannel()));
+				}
 			}
 		}
 	}
@@ -389,7 +418,8 @@ public class L2Party
 	public void changePartyLeader(String name)
 	{
 		L2PcInstance player = getPlayerByName(name);
-		
+		L2PcInstance leader = getLeader();
+
 		if (player != null && !player.isInDuel())
 		{
 			if (getPartyMembers().contains(player))
@@ -403,18 +433,18 @@ public class L2Party
 					//Swap party members
 					L2PcInstance temp;
 					int p1 = getPartyMembers().indexOf(player);
-					temp = getLeader();
-					getPartyMembers().set(0,getPartyMembers().get(p1));
-					getPartyMembers().set(p1,temp);
+					getPartyMembers().set(0, getPartyMembers().get(p1));
+					getPartyMembers().set(p1, leader);
 
 					SystemMessage msg = new SystemMessage(SystemMessageId.S1_HAS_BECOME_A_PARTY_LEADER);
 					msg.addString(getLeader().getName());
 					broadcastToPartyMembers(msg);
 					broadcastToPartyMembers(new PartySmallWindowUpdate(getLeader()));
-					refreshPartyView();
-					if (isInCommandChannel())
+					if (isInCommandChannel() && getCommandChannel().getChannelLeader() == leader)
 					{
-						_commandChannel.setChannelLeader(getPartyMembers().get(0));
+						_commandChannel.setChannelLeader(getLeader());
+						_commandChannel.broadcastToChannelMembers(new SystemMessage(SystemMessageId.COMMAND_CHANNEL_LEADER_NOW_S1)
+							.addString(getLeader().getName()));
 					}
 				}
 			}
@@ -436,12 +466,15 @@ public class L2Party
 		for (L2PcInstance p : getPartyMembers())
 			broadcastToPartyMembers(new PartySmallWindowDelete(p));
 		//rebuild the view for all members:
-		for (L2PcInstance player : getPartyMembers()){
-			if (isLeader(player)){
+		for (L2PcInstance player : getPartyMembers())
+		{
+			if (isLeader(player))
+			{
 				for (L2PcInstance p : getPartyMembers(player,true))
 					player.sendPacket(new PartySmallWindowAdd(p));
 			}
-			else{
+			else
+			{
 				PartySmallWindowAll window = new PartySmallWindowAll();
 				window.setPartyList(getPartyMembers(player,false));
 				player.sendPacket(window);
@@ -460,7 +493,8 @@ public class L2Party
 	 */
 	public List<L2PcInstance> getPartyMembers(L2PcInstance player, boolean leader)
 	{
-		try{
+		try
+		{
 			if (_members == null) return getPartyMembers();
 			List<L2PcInstance> list = new FastList<L2PcInstance>();
 			for (L2PcInstance p : _members)
@@ -470,7 +504,8 @@ public class L2Party
 				list.add(player);
 			return list;
 		}
-		catch(Throwable t){
+		catch(Throwable t)
+		{
 			return getPartyMembers();
 		}
 	}
@@ -494,31 +529,31 @@ public class L2Party
 	 * @param player
 	 */
 	public void oustPartyMember(L2PcInstance player) 
-    {
+	{
 		if (getPartyMembers().contains(player)) 
-        {
-            if (isLeader(player)) 
-            {
-                removePartyMember(player);
-                if (getPartyMembers().size() > 1)
-                {
-    				SystemMessage msg = new SystemMessage(SystemMessageId.S1_HAS_BECOME_A_PARTY_LEADER);
-    				msg.addString(getLeader().getName());
-    				broadcastToPartyMembers(msg);
-    				broadcastToPartyMembers(new PartySmallWindowUpdate(getLeader()));
-    				refreshPartyView();
-                }
-			} 
-            else 
-            {
+		{
+			if (isLeader(player)) 
+			{
+				removePartyMember(player);
+				if (getPartyMembers().size() > 1)
+				{
+					SystemMessage msg = new SystemMessage(SystemMessageId.S1_HAS_BECOME_A_PARTY_LEADER);
+					msg.addString(getLeader().getName());
+					broadcastToPartyMembers(msg);
+					broadcastToPartyMembers(new PartySmallWindowUpdate(getLeader()));
+					refreshPartyView();
+				}
+			}
+			else 
+			{
 				removePartyMember(player);
 			}
-            if (getPartyMembers().size() == 1)
-            {
-                // No more party needed
-                _members = null;
-            }            
-        }
+			if (getPartyMembers().size() == 1)
+			{
+				// No more party needed
+				_members = null;
+			}
+		}
 	}
 
 	/**
@@ -527,35 +562,35 @@ public class L2Party
 	 * @param name
 	 */
 	public void oustPartyMember(String name) 
-    {
+	{
 		L2PcInstance player = getPlayerByName(name);
 		
 		if (player != null) 
-        {
+		{
 			if (isLeader(player)) 
-            {
+			{
 				removePartyMember(player);
-                if (getPartyMembers().size() > 1)
-                {
-                   SystemMessage msg = new SystemMessage(SystemMessageId.S1_HAS_BECOME_A_PARTY_LEADER);
-                   msg.addString(getLeader().getName());
-                   broadcastToPartyMembers(msg);
-                   broadcastToPartyMembers(new PartySmallWindowUpdate(getLeader()));
-                   refreshPartyView();
-                }
-			} 
-            else 
-            {
+				if (getPartyMembers().size() > 1)
+				{
+					SystemMessage msg = new SystemMessage(SystemMessageId.S1_HAS_BECOME_A_PARTY_LEADER);
+					msg.addString(getLeader().getName());
+					broadcastToPartyMembers(msg);
+					broadcastToPartyMembers(new PartySmallWindowUpdate(getLeader()));
+					refreshPartyView();
+				}
+			}
+			else
+			{
 				removePartyMember(player);
 			}
-            if (getPartyMembers().size() == 1)
-            {
-                // No more party needed
-                _members = null;
-            }
+			if (getPartyMembers().size() == 1)
+			{
+				// No more party needed
+				_members = null;
+			}
 		}
 	}
-	
+
 	/**
 	 * dissolves entire party
 	 *

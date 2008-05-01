@@ -55,12 +55,14 @@ public class AllyInfo extends L2GameServerPacket
 		int online = 0;
 		int count = 0;
 		int clancount = 0;
-		for (L2Clan clan : ClanTable.getInstance().getClans()){
-		    if (clan.getAllyId() == _cha.getAllyId()){
-			clancount++;
-			online+=clan.getOnlineMembers("").length;
-			count+=clan.getMembers().length;
-		    }
+		for (L2Clan clan : ClanTable.getInstance().getClans())
+		{
+			if (clan.getAllyId() == _cha.getAllyId())
+			{
+				clancount++;
+				online += clan.getOnlineMembers(0).length;
+				count += clan.getMembers().length;
+			}
 		}
 		//Connection 
 		sm = new SystemMessage(SystemMessageId.CONNECTION_S1_TOTAL_S2);

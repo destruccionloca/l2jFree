@@ -85,7 +85,7 @@ public class RequestAnswerJoinAlly extends L2GameClientPacket
 				try
 				{ 
 					activeChar.getClan().setAllyCrestId(requestor.getClan().getAllyCrestId());
-					for (L2PcInstance member : activeChar.getClan().getOnlineMembers(""))
+					for (L2PcInstance member : activeChar.getClan().getOnlineMembers(0))
 						member.broadcastUserInfo();
 				}
 				catch(Throwable t){}

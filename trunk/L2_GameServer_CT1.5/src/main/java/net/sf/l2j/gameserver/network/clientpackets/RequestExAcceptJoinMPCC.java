@@ -16,6 +16,8 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 import net.sf.l2j.gameserver.model.L2CommandChannel;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * @author -Wooden-
@@ -39,6 +41,7 @@ public class RequestExAcceptJoinMPCC extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
+		SystemMessage sm;
 		if(player != null)
 		{
 			L2PcInstance requestor = player.getActiveRequester();
@@ -47,11 +50,18 @@ public class RequestExAcceptJoinMPCC extends L2GameClientPacket
 
 			if (_response == 1) 
 			{
+				boolean newCc = false;
 				if(!requestor.getParty().isInCommandChannel())
 				{
 					new L2CommandChannel(requestor); // Create new CC
+					newCc = true;
 				}
 				requestor.getParty().getCommandChannel().addParty(player.getParty());
+				if (!newCc)
+				{
+					sm = new SystemMessage(SystemMessageId.JOINED_COMMAND_CHANNEL);
+					player.getParty().broadcastToPartyMembers(sm);
+				}
 			}
 			else
 			{

@@ -129,7 +129,7 @@ public abstract class L2Skill
 		PDAM, MDAM, CPDAM, AGGDAMAGE,
 		DOT, HOT, MHOT, BLEED, POISON, CPHOT, MPHOT, BUFF, DEBUFF, STUN, ROOT, CONT, CONFUSION, FORCE_BUFF, PARALYZE, FEAR, SLEEP, DEATH_MARK,
 		HEAL, COMBATPOINTHEAL, MANAHEAL, MANAHEAL_PERCENT, MANARECHARGE, RESURRECT, PASSIVE, UNLOCK,
-		NEGATE, CANCEL,  AGGREDUCE, AGGREMOVE, AGGREDUCE_CHAR, CONFUSE_MOB_ONLY, DEATHLINK, BLOW, FATALCOUNTER, DETECT_WEAKNESS, ENCHANT_ARMOR, ENCHANT_WEAPON, FEED_PET,
+		NEGATE, CANCEL, CANCEL_DEBUFF, AGGREDUCE, AGGREMOVE, AGGREDUCE_CHAR, CONFUSE_MOB_ONLY, DEATHLINK, BLOW, FATALCOUNTER, DETECT_WEAKNESS, ENCHANT_ARMOR, ENCHANT_WEAPON, FEED_PET,
 		HEAL_PERCENT, HEAL_STATIC, LUCK, MANADAM, MDOT, MUTE, RECALL, REFLECT, SUMMON_FRIEND, SOULSHOT, SPIRITSHOT, SPOIL, SWEEP, WEAKNESS, DISARM, DEATHLINK_PET, MANA_BY_LEVEL, FAKE_DEATH, UNBLEED, UNPOISON, SIEGEFLAG, TAKECASTLE, TAKEFORT, UNDEAD_DEFENSE,  BEAST_FEED, DRAIN_SOUL, COMMON_CRAFT, DWARVEN_CRAFT, WEAPON_SA, DELUXE_KEY_UNLOCK, SOW, HARVEST, CHARGESOUL, GET_PLAYER,
 		FISHING, PUMPING, REELING, CANCEL_TARGET,  AGGDEBUFF, COMBATPOINTPERHEAL, SUMMONCP, SUMMON_TREASURE_KEY, SUMMON_CURSED_BONES, ERASE, MAGE_BANE, WARRIOR_BANE, STRSIEGEASSAULT, RAID_DESCRIPTION, UNSUMMON_ENEMY_PET, BETRAY, BALANCE_LIFE, SERVER_SIDE, TRANSFORM, TRANSFORMDISPEL, DETECT_TRAP, REMOVE_TRAP,
 		SHIFT_TARGET,
@@ -447,6 +447,8 @@ public abstract class L2Skill
 	private final String _flyType;
 	private final int _flyRadius;
 
+	private final boolean _isDebuff;
+
 	protected L2Skill(StatsSet set)
 	{
 		_id = set.getInteger("skill_id");
@@ -508,6 +510,7 @@ public abstract class L2Skill
 		_stat = set.getEnum("stat", Stats.class, null);
 
 		_isAdvanced = set.getBool("isAdvanced", false); // Used by siege flag summon skills
+		_isDebuff = set.getBool("isDebuff", false);
 
 		_effectType = set.getEnum("effectType", SkillType.class, null);
 		_effectPower = set.getInteger("effectPower", 0);
@@ -1108,6 +1111,14 @@ public abstract class L2Skill
 	public final boolean isAdvanced()
 	{
 		return _isAdvanced;
+	}
+
+	/**
+	*@return Returns the boolean _isDebuff.
+	*/
+	public final boolean isDebuff()
+	{
+		return _isDebuff;
 	}
 
 	public final float getSSBoost()

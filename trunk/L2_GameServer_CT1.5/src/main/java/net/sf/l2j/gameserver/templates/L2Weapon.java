@@ -76,17 +76,17 @@ public final class L2Weapon extends L2Equip
 		super(type, set);
 		_soulShotCount   = set.getInteger("soulshots");
 		_spiritShotCount = set.getInteger("spiritshots");
-		_pDam			= set.getInteger("p_dam");
-		_rndDam		  = set.getInteger("rnd_dam");
-		_critical		= set.getInteger("critical");
-		_hitModifier	 = set.getDouble("hit_modify");
+		_pDam            = set.getInteger("p_dam");
+		_rndDam          = set.getInteger("rnd_dam");
+		_critical        = set.getInteger("critical");
+		_hitModifier     = set.getDouble("hit_modify");
 		_avoidModifier   = set.getInteger("avoid_modify");
-		_shieldDef	   = set.getInteger("shield_def");
+		_shieldDef       = set.getInteger("shield_def");
 		_shieldDefRate   = set.getDouble("shield_def_rate");
-		_atkSpeed		= set.getInteger("atk_speed");
-		_atkReuse		= set.getInteger("atk_reuse", initAtkReuse(type));
-		_mpConsume	   = set.getInteger("mp_consume");
-		_mDam			= set.getInteger("m_dam");
+		_atkSpeed        = set.getInteger("atk_speed");
+		_atkReuse        = set.getInteger("atk_reuse", initAtkReuse(type));
+		_mpConsume       = set.getInteger("mp_consume");
+		_mDam            = set.getInteger("m_dam");
 		_changeWeaponId  = set.getInteger("change_weaponId");
 
 		String[] enchant4SkillDefs = set.getString("skills_enchant4").split(";");

@@ -57,13 +57,14 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 		// invite yourself? ;)
 		if(activeChar.isInParty() && player.isInParty() && activeChar.getParty().equals(player.getParty()))
 			return;
-		
+
+		SystemMessage sm;
 		//activeChar is in a Party?
 		if (activeChar.isInParty())
-		{			
+		{
 			L2Party activeParty = activeChar.getParty();
 			//activeChar is PartyLeader? && activeChars Party is already in a CommandChannel?
-			if (activeParty.getPartyMembers().get(0).equals(activeChar))
+			if (activeParty.getLeader() == activeChar)
 			{
 				// if activeChars Party is in CC, is activeChar CCLeader?
 				if (activeParty.isInCommandChannel() && activeParty.getCommandChannel().getChannelLeader().equals(activeChar))
@@ -75,7 +76,9 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 						//targets party already in a CChannel?
 						if (player.getParty().isInCommandChannel())
 						{
-							activeChar.sendMessage("Your target is already in a CommandChannel");
+							sm = new SystemMessage(SystemMessageId.S1_ALREADY_MEMBER_OF_COMMAND_CHANNEL);
+							sm.addString(player.getName());
+							activeChar.sendPacket(sm);
 						}
 						else
 						{
@@ -86,13 +89,14 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 					}
 					else
 					{
-						activeChar.sendMessage("Your target has no Party.");
+						activeChar.sendMessage("Your target has no party.");
 					}
 				}
 				else if (activeParty.isInCommandChannel() && !activeParty.getCommandChannel().getChannelLeader().equals(activeChar))
 				{
 					//in CC, but not the CCLeader
-					activeChar.sendMessage("Only the CommandChannelLeader can give out an invite.");
+					sm = new SystemMessage(SystemMessageId.CANNOT_INVITE_TO_COMMAND_CHANNEL);
+					activeChar.sendPacket(sm);
 				}
 				else
 				{
@@ -102,7 +106,9 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 						//targets party already in a CChannel?
 						if (player.getParty().isInCommandChannel())
 						{
-							activeChar.sendMessage("Your target is already in a CommandChannel");
+							sm = new SystemMessage(SystemMessageId.S1_ALREADY_MEMBER_OF_COMMAND_CHANNEL);
+							sm.addString(player.getName());
+							activeChar.sendPacket(sm);
 						}
 						else
 						{
@@ -113,50 +119,75 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 					}
 					else
 					{
-						activeChar.sendMessage("Your target has no Party.");
+						activeChar.sendMessage("Your target has no party.");
 					}
 				}
 			}
 			else
 			{
-				activeChar.sendMessage("Only the Partyleader can give out an invite.");
+				sm = new SystemMessage(SystemMessageId.CANNOT_INVITE_TO_COMMAND_CHANNEL);
+				activeChar.sendPacket(sm);
 			}
 		}
 	}
 	
 	private void askJoinMPCC(L2PcInstance requestor, L2PcInstance target)
 	{
-		boolean hasRight = false;
-		if (requestor.getClan() != null && requestor.getClan().getLeaderId() == requestor.getObjectId()) // Clanleader
-			hasRight = true;
-		else if (requestor.getInventory().getItemByItemId(8871) != null) // 8871 Strategy Guide. Should destroyed after sucessfull invite?
-			hasRight = true;
-		else
+		if (!requestor.getParty().isInCommandChannel())
 		{
-			for (L2Skill skill : requestor.getAllSkills())
+			// Create a new channel
+			boolean hasRight = false;
+			if (requestor.getClan() != null && requestor.getClan().getLeaderId() == requestor.getObjectId() && requestor.getClan().getLevel() >= 5) // Clanleader
+				hasRight = true;
+
+			else
 			{
-				// Skill Clan Imperium
-				if (skill.getId() == 391)
+				for (L2Skill skill : requestor.getAllSkills())
 				{
-					hasRight = true;
-					break;
+					// Skill Clan Imperium
+					if (skill.getId() == 391)
+					{
+						hasRight = true;
+						break;
+					}
 				}
 			}
+			
+			if (!hasRight)
+			{
+				if (requestor.destroyItemByItemId("MPCC", 8871, 1, requestor, false)) // 8871 Strategy Guide. Should destroyed after sucessfull invite?
+				{
+					hasRight = true;
+					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+					sm.addItemNameById(8871);
+					sm.addNumber(1);
+					requestor.sendPacket(sm);
+				}
+			}
+
+
+			if (!hasRight)
+			{
+				requestor.sendPacket(new SystemMessage(SystemMessageId.COMMAND_CHANNEL_ONLY_BY_LEVEL_5_CLAN_LEADER_PARTY_LEADER));
+				return;
+			}
 		}
-		if (!hasRight && !requestor.getParty().isInCommandChannel())
-		{
-			requestor.sendMessage("You dont have the rights to open a Command Channel!");
-			return;
-		}
+
 		if (!target.isProcessingRequest())
 		{
 			requestor.onTransactionRequest(target);
-			target.getParty().getPartyMembers().get(0).sendPacket(new ExAskJoinMPCC(requestor.getName()));
+			SystemMessage sm = new SystemMessage(SystemMessageId.COMMAND_CHANNEL_CONFIRM);
+			sm.addString(requestor.getName());
+			target.getParty().getLeader().sendPacket(sm);
+			target.getParty().getLeader().sendPacket(new ExAskJoinMPCC(requestor.getName()));
+			
 		    requestor.sendMessage("You invited "+target.getName()+" to your Command Channel.");
 		}
 		else
 		{
-		    requestor.sendPacket(new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER));
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER);
+			sm.addString(target.getName());
+			requestor.sendPacket(sm);
 		}
 	}
 

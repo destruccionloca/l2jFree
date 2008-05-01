@@ -37,18 +37,20 @@ public class ChannelDelete implements IUserCommandHandler
         
         if (activeChar.isInParty())
         {
-        	if (activeChar.getParty().isLeader(activeChar) 
-        			&& activeChar.getParty().isInCommandChannel() 
-        			&& activeChar.getParty().getCommandChannel().getChannelLeader().equals(activeChar))
-        	{
-        		L2CommandChannel channel = activeChar.getParty().getCommandChannel();
-        		
-        		SystemMessage sm = new SystemMessage(SystemMessageId.COMMAND_CHANNEL_DISBANDED);
-        		channel.broadcastToChannelMembers(sm); 
-        		
-        		channel.disbandChannel();
-        		return true;
-        	}
+            if (activeChar.getParty().isLeader(activeChar) 
+                    && activeChar.getParty().isInCommandChannel() 
+                    && activeChar.getParty().getCommandChannel().getChannelLeader() == activeChar)
+            {
+                L2CommandChannel channel = activeChar.getParty().getCommandChannel();
+
+                SystemMessage sm = new SystemMessage(SystemMessageId.COMMAND_CHANNEL_DISBANDED);
+                channel.broadcastToChannelMembers(sm); 
+
+                channel.disbandChannel();
+                return true;
+            }
+            else
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.ONLY_PARTY_LEADER_CAN_LEAVE_CHANNEL));
         }
         
         return false;

@@ -1944,7 +1944,7 @@ public final class L2PcInstance extends L2PlayableInstance
             _clan.broadcastToOnlineMembers(msg);            
             _clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(getName()));
 
-            _clan.removeClanMember(getName(), 0);
+            _clan.removeClanMember(getObjectId(), 0);
             sendPacket(new SystemMessage(SystemMessageId.ACADEMY_MEMBERSHIP_TERMINATED));
             // receive graduation gift
             getInventory().addItem("Gift",8181,1,this,null); // give academy circlet
@@ -5383,7 +5383,7 @@ public final class L2PcInstance extends L2PlayableInstance
             return;
         }
         
-        if (!clan.isMember(getName()))
+        if (!clan.isMember(getObjectId()))
         {
             // char has been kicked from clan
             setClan(null);
@@ -7446,7 +7446,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		
         // Check if the attacker is not in the same clan
-        if (getClan() != null && attacker != null && getClan().isMember(attacker.getName()))
+        if (getClan() != null && attacker != null && getClan().isMember(attacker.getObjectId()))
             return false;
         
         if(attacker instanceof L2PlayableInstance && isInsideZone(L2Zone.FLAG_PEACE))

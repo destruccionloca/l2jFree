@@ -466,7 +466,7 @@ public class Siege
         for(L2SiegeClan siegeclan : getAttackerClans())
         {
             clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
-            for (L2PcInstance member : clan.getOnlineMembers(""))
+            for (L2PcInstance member : clan.getOnlineMembers(0))
             {
                 if (clear) member.setSiegeState((byte)0);
                 else member.setSiegeState((byte)1);
@@ -481,7 +481,7 @@ public class Siege
         for(L2SiegeClan siegeclan : getDefenderClans())
         {
             clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
-            for (L2PcInstance member : clan.getOnlineMembers(""))
+            for (L2PcInstance member : clan.getOnlineMembers(0))
             {
                 if (clear) member.setSiegeState((byte)0);
                 else member.setSiegeState((byte)2);
@@ -626,7 +626,7 @@ public class Siege
         for(L2SiegeClan siegeclan : getAttackerClans())
         {
             clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
-            for (L2PcInstance player : clan.getOnlineMembers(""))
+            for (L2PcInstance player : clan.getOnlineMembers(0))
             {
                 if (checkIfInZone(player.getX(), player.getY(), player.getZ())) players.add(player);
             }
@@ -643,7 +643,7 @@ public class Siege
         {
             clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
             if (clan.getClanId() == getCastle().getOwnerId()) continue;
-            for (L2PcInstance player : clan.getOnlineMembers(""))
+            for (L2PcInstance player : clan.getOnlineMembers(0))
             {
                 if (checkIfInZone(player.getX(), player.getY(), player.getZ())) players.add(player);
             }
@@ -675,7 +675,7 @@ public class Siege
         {
             clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
             if (clan.getClanId() != getCastle().getOwnerId()) continue;
-            for (L2PcInstance player : clan.getOnlineMembers(""))
+            for (L2PcInstance player : clan.getOnlineMembers(0))
             {
                 if (checkIfInZone(player.getX(), player.getY(), player.getZ())) players.add(player);
             }

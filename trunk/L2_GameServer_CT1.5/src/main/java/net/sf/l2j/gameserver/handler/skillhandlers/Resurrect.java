@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 
@@ -65,12 +64,6 @@ public class Resurrect implements ISkillHandler
 			if(target.isVisible()) targetToRes.add(target);
 		}
 
-		if (targetToRes.size() == 0)
-		{
-			activeChar.abortCast();
-			activeChar.sendPacket(SystemMessage.sendString("No valid target to resurrect"));
-		}
-		
 		for (L2Character cha: targetToRes)
 		{
 			if (activeChar instanceof L2PcInstance)
