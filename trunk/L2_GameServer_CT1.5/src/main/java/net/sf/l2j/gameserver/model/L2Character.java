@@ -2834,7 +2834,9 @@ public abstract class L2Character extends L2Object
 					((L2PcInstance) this).sendMessage("Title protected by Faction System");
 					return;
 				}
-		_title = value.length() > 16 ? value.substring(0,15) : value;
+		if ((this instanceof L2PcInstance) && value.length() > 16)
+			value = value.substring(0,15);
+		_title = value;
 	}
 
 	/** Set the L2Character movement type to walk and send Server->Client packet ChangeMoveType to all others L2PcInstance. */
