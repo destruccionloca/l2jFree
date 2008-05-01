@@ -1,3 +1,6 @@
+# Made by Kerberos
+# this script is part of the Official L2J Datapack Project.
+# Visit http://forum.l2jdp.com for more details.
 import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
@@ -42,6 +45,8 @@ class Quest (JQuest) :
        st.exitQuest(False)
        st.giveItems(57, 15100)
        st.giveItems(BADGE, 1)
+       if player.getLevel() >= 35 and player.getLevel() <= 43:
+          st.addExpAndSp(30000,2000)
     elif event == "31418-02.htm" :
        st.set("cond","3")
        st.playSound("ItemSound.quest_middle")
