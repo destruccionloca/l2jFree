@@ -26,8 +26,6 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public final class L2DecoInstance extends L2NpcInstance
 {
-    //private final static Log _log = LogFactory.getLog(L2GuardInstance.class.getName());
-    
     /**
      * Constructor of L2DecoInstance (use L2Character and L2NpcInstance constructor).<BR><BR>
      *  

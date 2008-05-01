@@ -29,7 +29,8 @@ import org.apache.commons.logging.LogFactory;
 
 public final class L2MercManagerInstance extends L2MerchantInstance
 {
-    private final static Log _log = LogFactory.getLog(L2MercManagerInstance.class.getName());
+    @SuppressWarnings("unused")
+	private final static Log _log = LogFactory.getLog(L2MercManagerInstance.class.getName());
 
     private static final int COND_ALL_FALSE = 0;
     private static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;

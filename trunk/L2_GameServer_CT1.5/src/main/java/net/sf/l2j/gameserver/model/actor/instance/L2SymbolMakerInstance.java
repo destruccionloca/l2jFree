@@ -21,9 +21,6 @@ import net.sf.l2j.gameserver.model.L2HennaInstance;
 import net.sf.l2j.gameserver.network.serverpackets.HennaEquipList;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * This class ...
  * 

@@ -19,7 +19,6 @@ import java.util.StringTokenizer;
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ItemTable;
-import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager.SeedProduction;
@@ -44,6 +43,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class L2ManorManagerInstance extends L2MerchantInstance
 {
+	@SuppressWarnings("unused")
 	private final static Log _log = LogFactory.getLog(L2ManorManagerInstance.class.getName());
 
 	public L2ManorManagerInstance(int objectId, L2NpcTemplate template)
