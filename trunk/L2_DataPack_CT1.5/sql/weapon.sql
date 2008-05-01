@@ -1709,3 +1709,7 @@ UPDATE `weapon` SET `skills_item` = '3260-1;3261-1;3262-1' WHERE `item_id` IN (9
 UPDATE `weapon` SET `skills_item` = '3031-6' WHERE `item_id` = '9878';
 
 INSERT INTO weapon VALUES ('10415','Dynasty Dual Sword','lrhand','true','1520','1','1','wood','s80','374','10','dual','8','0.00000','0','0','0','325','0','140','-1','0','0','true','true','true','true', '', '', '', '', '0','-1','-1','-1');
+
+-- Fix for SEVERE Cannot find onCast skill (0,0) for weapon item 8142, by droppo
+UPDATE `weapon` SET `skills_item` = '', `skills_onCast` = '1035-4-50' WHERE `item_id` = 8142;
+UPDATE `weapon` SET `skills_item` = '', `skills_onCast` = '3577-1-10' WHERE `item_id` = 8143;
