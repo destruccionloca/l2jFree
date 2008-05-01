@@ -1118,6 +1118,7 @@ UPDATE `pets_stats` SET `loadMax`='43000' WHERE `typeID`='12782'; -- baby cougar
 -- TEMP DUMMY for pets, just a copy from lvl 81
 -- and expMax is set to a high value for now
 -- --------------------------------------------
+ALTER TABLE `pets_stats` CHANGE `expMax` `expMax` BIGINT( 20 ) NOT NULL DEFAULT '0';
 INSERT INTO `pets_stats` (`type`, `typeID`, `level`, `expMax`, `hpMax`, `mpMax`, `patk`, `pdef`, `matk`, `mdef`, `acc`, `evasion`, `crit`, `speed`, `atk_speed`, `cast_speed`, `feedMax`, `feedbattle`, `feednormal`, `loadMax`, `hpregen`, `mpregen`, `owner_exp_taken`) VALUES
 -- Wolf
   ('wolf',12077,82,1639402879,2304,1073,228,95,153,63,118,113,40,137,278,333,9552,79,15,92287,9,4,0.1),
@@ -1197,6 +1198,3 @@ INSERT INTO `pets_stats` (`type`, `typeID`, `level`, `expMax`, `hpMax`, `mpMax`,
   ('sin eater',12564,84,344612271,2304,1073,59,95,93,63,118,113,40,137,282,333,4776,79,15,0,9,4,1.0),
   ('sin eater',12564,85,444612271,2304,1073,59,95,93,63,118,113,40,137,282,333,4776,79,15,0,9,4,1.0),
   ('sin eater',12564,86,544612271,2304,1073,59,95,93,63,118,113,40,137,282,333,4776,79,15,0,9,4,1.0);
-
--- Fix for pets not being able to get full xp by droppo
-ALTER TABLE `pets_stats` CHANGE `expMax` `expMax` BIGINT( 20 ) NOT NULL DEFAULT '0';
