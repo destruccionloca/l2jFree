@@ -7437,14 +7437,14 @@ INSERT INTO `etcitem` VALUES
 (10328, 'Stolen Cargo', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
 (10329, 'Hate Crystal', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
 (10330, 'Old Treasure Map', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
-(10331, 'Sonin's Credentials', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
-(10332, 'Pano's Credentials', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
-(10333, 'Alex's Credentials', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10331, 'Sonin\'s Credentials', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10332, 'Pano\'s Credentials', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10333, 'Alex\'s Credentials', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
 (10334, 'Badge - Temple Executor', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
-(10335, 'Giants' Experimental Tool Fragment', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
-(10336, 'Giants' Experimental Tool', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
-(10337, 'Giants' Technology Report', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
-(10338, 'Rouke's Report', 'false', 'quest', 0, 'stackable', 'paper', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10335, 'Giants\' Experimental Tool Fragment', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10336, 'Giants\' Experimental Tool', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10337, 'Giants\' Technology Report', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10338, 'Rouke\'s Report', 'false', 'quest', 0, 'stackable', 'paper', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
 (10339, 'Badge - Temple Missionary', 'quest', 'none', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', '');
 
 --
