@@ -1377,8 +1377,6 @@ INSERT INTO `armor` VALUES
 -- Agathion Seal Bracelet
 INSERT INTO `armor` VALUES
 ('9909', 'Agathion Seal Bracelet', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '500', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3361-1;3267-1', '-1', '-1', '-1'),
--- Agathion Fortress
-INSERT INTO `armor` VALUES
 ('10018', 'Agathion Seal Bracelet - Fortress', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3361-1;3267-1', '-1', '-1', '-1');
 
 -- Agathion Bracelet
