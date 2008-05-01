@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `armor` (
   PRIMARY KEY(`item_id`)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO `armor` VALUES 
+INSERT INTO `armor` VALUES
 (21,'Shirt','chest','false','light',4830,'cloth','none',0,-1,36,0,0,147,0,'true','true','true','true','0-0;'),
 (22,'Leather Shirt','chest','false','light',4830,'leather','none',0,-1,43,0,0,2430,0,'true','true','true','true','0-0;'),
 (23,'Wooden Breastplate','chest','false','light',4820,'wood','none',0,-1,47,0,0,7960,0,'true','true','true','true','0-0;'),
@@ -820,14 +820,14 @@ INSERT INTO `armor` VALUES
 (6724,'Sealed Tateossian Earring','rear,lear','true','none',150,'silver','s',0,-1,0,68,0,3700000,185,'true','true','true','true','0-0;'),
 (6725,'Sealed Tateossian Ring','rfinger,lfinger','true','none',150,'gold','s',0,-1,0,46,0,2470000,123,'true','true','true','true','0-0;'),
 (6726,'Sealed Tateossian Necklace','neck','true','none',150,'silver','s',0,-1,0,91,0,4940000,247,'true','true','true','true','0-0;'),
-(6834,'Circlet of Innadril','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3563,1;'),
-(6835,'Circlet of Dion','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3563,1;'),
+(6834,'Circlet of Innadril','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3563-1;'),
+(6835,'Circlet of Dion','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3563-1;'),
 (6836,'Circlet of Goddard','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3633-2;'),
-(6837,'Circlet of Oren','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3563,1;'),
-(6838,'Circlet of Gludio','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3563,1;'),
-(6839,'Circlet of Giran','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3563,1;'),
+(6837,'Circlet of Oren','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3563-1;'),
+(6838,'Circlet of Gludio','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3563-1;'),
+(6839,'Circlet of Giran','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3563-1;'),
 (6840,'Circlet of Aden','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3633-2;'),
-(6841,'The Lord\'s Crown','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3563,1;'),
+(6841,'The Lord\'s Crown','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','false','false','3563-1;'),
 (6842,'Wings of Destiny Circlet','face','false','none',10,'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','0-0;'),
 (6843,'Cat Ear','hair','false','none',10,'wood','none',0,-1,0,0,0,500000,0,'true','true','true','true','0-0;'),
 (6844,'Lady\'s Hair Pin','hair','false','none',10,'wood','none',0,-1,0,0,0,500000,0,'true','true','true','true','0-0;'),
@@ -1381,3 +1381,5 @@ INSERT INTO `armor` VALUES
 INSERT INTO `armor` VALUES
 (10209, 'Enhanced Steel Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'a', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1),
 (10210, 'Enhanced Mithril Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 's', 0, -1, 0, 0, 120, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1);
+
+UPDATE `armor` SET `skills_item` = '' WHERE `skills_item` like '0-0%';
