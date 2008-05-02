@@ -540,11 +540,11 @@
     <effect count="1" name="ImmobileBuff" time="120" val="0">
       <add order="0x40" stat="pAtk" val="#ench1pAtk">
         <using kind="Bow"/>
-      </add>
+      </add><!-- Double pAtk add? Should be only the #ench1pAtk table, disabling the "extra" one-->
       <!-- Temporary fix -->
-    <add order="0x40" stat="pAtk" val="20">
-        <using kind="Bow"/>
-      </add>
+      <!--<add order="0x40" stat="pAtk" val="20">
+       <using kind="Bow"/>
+      </add>-->
       <add order="0x40" stat="accCombat" val="6">
         <using kind="Bow"/>
       </add>
@@ -630,6 +630,9 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <cond>
+    <using kind="Shield"/> <!-- Cond was missing, no matter is Passive, the effect should only work when you are wearing one, am I wrong?-->
+  </cond>
   <for>
     <set order="0x30" stat="shldAngle" val="180"/>
   </for>

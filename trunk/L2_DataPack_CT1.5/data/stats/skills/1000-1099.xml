@@ -1284,6 +1284,7 @@
   <set name="skillType" val="CANCEL"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="skill_landing_percent" val="85"/> <!-- Adding correct landing %, but is correct to use skill_landing_percent?, Please correct in case I'm wrong -->
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <set name="negateStats" val="BUFF"/>

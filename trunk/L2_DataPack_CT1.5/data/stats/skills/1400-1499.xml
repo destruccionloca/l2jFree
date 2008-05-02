@@ -388,7 +388,7 @@
   <set name="aggroPoints" val="666"/>
   <for>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="cancelVuln">
-      <mul stat="cancelVuln" val="0.7" order="0x30"/>
+      <mul order="0x30" stat="cancelVuln" val="0.7"/>
       <mul order="0x30" stat="debuffVuln" val="0.8"/>
     </effect>
   </for>
@@ -721,17 +721,17 @@
 </skill>
 <skill id="1429" levels="1" name="Gate Chant">
   <!-- Done by DJ MELERIX -->
+  <set name="target" val="TARGET_PARTY_MEMBER"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="power" val="0.0"/>
+  <set name="skillType" val="SUMMON_FRIEND"/> <!-- Only for pre-implementation, the skill don't consume crystal of the summoned player, needs core support -->
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="mpConsume" val="284"/>
   <set name="hitTime" val="15000"/>
   <set name="isMagic" val="true"/>
   <set name="itemConsumeCount" val="4"/>
-  <set name="itemConsumeId" val="8615"/>
-  <set name="mpConsume" val="284"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="power" val="0.0"/>
-  <set name="skillType" val="SUMMON_FRIEND"/> <!-- Only for pre-implementation, the skill don't consume crystal of the summoned player, needs core support -->
-  <set name="target" val="TARGET_PARTY_MEMBER"/>
+  <set name="itemConsumeId" val="8615"/>  
   <for>
   </for>
 </skill>
@@ -999,8 +999,6 @@
 </skill>
 <skill id="1439" levels="5" name="Curse of Divinity">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Lvl   1 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 96
       Lvl 2 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 99
@@ -1008,10 +1006,22 @@
       Lvl 4 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 105
       Lvl 5 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 108
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#mpConsume"> 62 64 65 67 69 </table>
+  <table name="#power"> 96 99 102 105 108 </table>
+  <table name="#magicLvl"> 66 68 70 72 74 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="#power"/>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="target" val="TARGET_ONE"/>  
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="skillType" val="MDAM"/>
+  <set name="reuseDelay" val="12000"/>
+  <set name="hitTime" val="900"/>
+  <set name="coolTime" val="600"/>
+    <set name="isMagic" val="true"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="900"/>
+  <set name="soulConsumeCount" val="2"/>
   <for>
   </for>
 </skill>
@@ -1020,7 +1030,7 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl   1 Steals abnormal state of enemy. Consumes 4 soul.
+      Lvl 1 Steals abnormal state of enemy. Consumes 4 soul.
       Lvl 2 Steals abnormal state of enemy. Consumes 4 soul.
       Lvl 3 Steals abnormal state of enemy. Consumes 4 soul.
       Lvl 4 Steals abnormal state of enemy. Consumes 4 soul.
@@ -1416,14 +1426,25 @@
 </skill>
 <skill id="1459" levels="1" name="Divine Power">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Temporarily increases the effectiveness of recovery magics.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="mpInitialConsume" val="41"/>
+  <set name="mpConsume" val="109"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_ONE"/> <!-- Verified: Increases a Bishops ability to heal for a certain amount of time -->
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="20000"/>
+  <set name="hitTime" val="4000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="635"/>
   <for>
+   <effect count="1" name="Buff" time="1200" val="0">
+    <mul order="0x30" stat="gainHp" val="1.25"/> <!-- Retail - Verified on CT1 -->
+   </effect>
   </for>
 </skill>
 <skill id="1460" levels="1" name="Mana Gain">
@@ -1698,18 +1719,33 @@
 </skill>
 <skill id="1476" levels="3" name="Appetite for Destruction">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
   Lvl 1 Awakens the destructive instincts of a party member. Instantly increases P. Atk., Critical Rate, and Damage. Consumes 5 soul.
   Lvl 2 Awakens the destructive instincts of a party member. Instantly increases P. Atk., Critical Rate, and Damage. Consumes 5 soul.
   Lvl 3 Awakens the destructive instincts of a party member. Instantly increases P. Atk., Critical Rate, and Damage. Consumes 5 soul.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#mpConsume"> 70 88 107 </table>
+  <table name="#pAtk"> 96 147 209 </table>
+  <table name="#cAtk"> 302 399 473 </table>
+  <table name="#rCrit"> 52 93 123 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_PARTY_MEMBER"/>
+  <set name="skillRadius" val="1200"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="hitTime" val="2500"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="soulConsumeCount" val="5"/>
   <for>
+    <effect name="Buff" time="120" count="1" val="0">
+      <add order="0x40" stat="pAtk" val="#pAtk"/>
+      <add order="0x40" stat="rCrit" val="#rCrit"/>
+      <add order="0x40" stat="cAtk" val="#cAtk"/>
+    </effect>|
   </for>
 </skill>
 <skill id="1477" levels="3" name="Vampiric Impulse">
@@ -1743,34 +1779,66 @@
 </skill>
 <skill id="1478" levels="2" name="Protection Instinct">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
   Lvl 1 Awakens the defensive instincts of a party member. Instantly increases P. Def. and Magic Resistance by great amount. Consumes 5 soul.
   Lvl 2 Awakens the defensive instincts of a party member. Instantly increases P. Def. and Magic Resistance by great amount. Consumes 5 soul.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#mpConsume"> 82 110 </table>
+  <table name="#pDef"> 1.23 1.48 </table>
+  <table name="#mDef"> 1.27 1.49 </table>
+  <table name="#aggro"> 379 438 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="aggroPoints" val="#aggro"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_PARTY_MEMBER"/>
+  <set name="skillRadius" val="1200"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="hitTime" val="2500"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="soulConsumeCount" val="5"/>
   <for>
-  </for>
+    <effect name="Buff" time="120" count="1" val="0">
+      <mul order="0x30" stat="pDef" val="#pDef"/>
+      <mul order="0x30" stat="mDef" val="#mDef"/>
+    </effect>
+  </for> 
 </skill>
 <skill id="1479" levels="3" name="Magic Impulse">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
   Lvl 1 Draws a magic urge from a party member. Instantly increases M. Atk, Cast Speed, and Magic Critical Rate. Consumes 5 soul.
   Lvl 2 Draws a magic urge from a party member. Instantly increases M. Atk, Cast Speed, and Magic Critical Rate. Consumes 5 soul.
   Lvl 3 Draws a magic urge from a party member. Instantly increases M. Atk, Cast Speed, and Magic Critical Rate. Consumes 5 soul.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#mpConsume"> 100 115 127 </table>
+  <table name="#mAtk"> 1.3 1.6 1.9 </table>
+  <table name="#mAtkSpd"> 1.15 1.25 1.35 </table>
+  <table name="#mCrit"> 3 4 5 </table>
+  <table name="#aggro"> 379 438 650 </table>  
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="aggroPoints" val="#aggro"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_PARTY_MEMBER"/>
+  <set name="skillRadius" val="1200"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="hitTime" val="2500"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="soulConsumeCount" val="5"/>
   <for>
-  </for>
+    <effect name="Buff" time="120" count="1" val="0">
+      <mul order="0x30" stat="mAtk" val="#mAtk"/>
+      <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
+      <mul order="0x30" stat="mCritRate" val="#mCrit"/>
+    </effect>
+  </for>  
 </skill>
 <skill id="1480" levels="1" name="Soul Harmony">
 <!--
