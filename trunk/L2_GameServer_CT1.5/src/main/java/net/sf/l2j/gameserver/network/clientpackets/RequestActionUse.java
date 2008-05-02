@@ -400,7 +400,13 @@ public class RequestActionUse extends L2GameClientPacket
                 break;
             case 52: // unsummon
                 if (pet != null && pet instanceof L2SummonInstance) 
-                    pet.unSummon(activeChar);
+                {
+                 if (pet.isDead())
+                    {
+                        activeChar.sendPacket(new SystemMessage(SystemMessageId.DEAD_PET_CANNOT_BE_RETURNED));
+                    }
+                 else pet.unSummon(activeChar);
+                }
                 break;
             case 53: // move to target
                 if (target != null && pet != null && pet != target && !pet.isMovementDisabled())
