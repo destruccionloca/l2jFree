@@ -541,7 +541,7 @@
      <add order="0x40" stat="pAtk" val="#ench1pAtk">
        <using kind="Bow"/>
      </add> 
-     <!-- Double pAtk add? Should be only the #ench1pAtk table, disabling the "extra" one -->
+     <!-- Double pAtk add? Should be only the #ench1pAtk table, disabling the "extra" one
      <add order="0x40" stat="pAtk" val="20">
        <using kind="Bow"/>
      </add> 
