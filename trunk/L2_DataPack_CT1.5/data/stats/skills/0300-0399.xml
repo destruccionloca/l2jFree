@@ -534,15 +534,15 @@
     </effect>
   </for>
   <enchant1for>
-    <cond>
-      <player state="stand"/>
-    </cond>
-    <effect count="1" name="ImmobileBuff" time="120" val="0">
-      <add order="0x40" stat="pAtk" val="#ench1pAtk">
-        <using kind="Bow"/>
-      </add><!-- Double pAtk add? Should be only the #ench1pAtk table, disabling the "extra" one-->
-      <!-- Temporary fix -->
-      <!--<add order="0x40" stat="pAtk" val="20">
+   <cond>
+     <player state="stand"/>
+   </cond>
+   <effect count="1" name="ImmobileBuff" time="120" val="0">
+     <add order="0x40" stat="pAtk" val="#ench1pAtk">
+       <using kind="Bow"/>
+     </add>
+     <!-- Temporary fix -->
+     <add order="0x40" stat="pAtk" val="20">
        <using kind="Bow"/>
       </add>-->
       <add order="0x40" stat="accCombat" val="6">
@@ -641,7 +641,7 @@
   <!-- has estimations for values based on L2P - needs to be finished -->
   <set name="weaponsAllowed" val="64"/>
   <table name="#mpConsume"> 18 22 27 31 34 </table>
-  <table name="#crit"> 1.1 1.1 1.1 1.1 1.1 </table>
+  <table name="#crit"> 1.1 1.12 1.13 1.14 1.15 </table> <!-- These are proper - 02/May/2008-->
   <table name="#Accuracy"> 3 3 4 5 5 </table>
   <table name="#atkCountMax"> 1 1 1 1 1 </table>
   <set name="mpConsume" val="#mpConsume"/>
@@ -680,6 +680,7 @@
   <set name="operateType" val="OP_TOGGLE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="weaponsAllowed" val="2"/> <!-- Proper weapon restriction would be nice ;) -> Added wA=2 (Shield) -->
   <for>
     <effect count="0x7fffffff" name="ManaDamOverTime" time="9999" val="0">
       <mul order="0x30" stat="sDef" val="0.6"/>
@@ -896,7 +897,9 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="662"/>
-  <cond msg="You can only use Wyvern Aegis when flying"><player flying="true"/></cond>
+  <cond msg="You can only use Wyvern Aegis when flying">
+    <player flying="true"/>
+  </cond>
   <for>
     <effect count="1" name="Buff" time="9" val="0" stackOrder="3" stackType="pDefSpec">
       <add order="0x40" stat="pDef" val="7000">
@@ -1431,7 +1434,7 @@
         <and>
           <player behind="True"/>
         </and>
-       </mul>
+      </mul>
     </effect>
   </for>
 </skill>
@@ -1493,10 +1496,10 @@
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
   <for>
-   <effect count="1" name="Bluff" time="1" val="0" stackOrder="1" stackType="Stun">
-    <sub order="0x40" stat="aggression" val="40"/>
-   </effect>
-   <effect count="1" name="RemoveTarget" time="1" val="0" noicon ="1"/>
+    <effect count="1" name="Bluff" time="1" val="0" stackOrder="1" stackType="Stun">
+      <sub order="0x40" stat="aggression" val="40"/>
+    </effect>
+    <effect count="1" name="RemoveTarget" time="1" val="0" noicon ="1"/>
   </for>
 </skill>
 <skill id="359" levels="1" name="Eye of Hunter">
@@ -2084,7 +2087,7 @@
       <add order="0x40" stat="pDef" val="5400"/>
       <add order="0x40" stat="mDef" val="4050"/>
       <add order="0x40" stat="runSpd" val="5"/>
-      <!-- Missing resistance to buff canceling attacks -->
+      <add order="0x40" stat="cancel" val="30"/> <!-- Cancel resistance -->
     </effect>
   </for>
 </skill>
@@ -2111,9 +2114,9 @@
       <add order="0x40" stat="mAtkSpd" val="100"/>
       <add order="0x40" stat="runSpd" val="20"/>
       <mul order="0x30" stat="pDef" val="0.75"/>
-      <sub order="0x40" stat="mDef" val="25"/> <!-- possibly -25% mDef -->
+      <mul order="0x30" stat="mDef" val="0.75"/> <!-- IS -25% who the h... coded it as sub XD -->
       <mul order="0x30" stat="cancelVuln" val="0.7"/>
-      <!-- Missing Cancel/Debuff resistance +??, Heals are ??% more effective  (custom value) -->
+      <mul order="0x30" stat="gainHp" val="1.17"/> <!-- CT1.5 =) -->
     </effect>
   </for>
 </skill>

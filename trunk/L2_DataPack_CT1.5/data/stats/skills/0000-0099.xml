@@ -516,12 +516,12 @@
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <cond msg="An equipped hand-to-hand combat weapon is required to use this skill.">
-  <using kind="Fist, Dual Fist"/>
+    <using kind="Fist, Dual Fist"/>
   </cond>
   <!-- charge values -->
   <set name="itemConsumeId" val="5589"/>
   <set name="itemConsumeCount" val="2"/>
-   <set name="num_charges" val="2"/>
+  <set name="num_charges" val="2"/>
   <set name="charge_skill_id" val="50"/> <!-- Force Focus is the charger -->
   <for>
   </for>
@@ -975,7 +975,7 @@
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <cond msg="An equipped hand-to-hand combat weapon is required to use this skill.">
-  <using kind="Fist, Dual Fist"/>
+    <using kind="Fist, Dual Fist"/>
   </cond>
   <!-- charge values -->
   <set name="itemConsumeId" val="5589"/>
@@ -1058,7 +1058,7 @@
   <set name="castRange" val="20"/>
   <set name="effectRange" val="400"/>
   <enchant1 name="absorbPart" val="0"/> <!-- no damage, it's dead -->
-  <enchant1 name="absorbAbs"  val="#ench1drain"/> <!-- absorbs absolute value -->
+  <enchant1 name="absorbAbs" val="#ench1drain"/> <!-- absorbs absolute value -->
   <for>
   </for>
 </skill>
@@ -1259,7 +1259,7 @@
   <set name="num_charges" val="#charges"/>
   <set name="aggroPoints" val="150"/>
   <cond msg="An equipped hand-to-hand combat weapon is required to use this skill.">
-  <using kind="Fist, Dual Fist"/>
+    <using kind="Fist, Dual Fist"/>
   </cond>
   <for>
     <effect count="1" name="Charge" time="0x7fffffff" val="1"/>
@@ -1329,7 +1329,7 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <set name="baseCritRate" val="15"/>
   <cond msg="An equipped hand-to-hand combat weapon is required to use this skill.">
-  <using kind="Fist, Dual Fist"/>
+    <using kind="Fist, Dual Fist"/>
   </cond>
   <!-- charge values -->
   <set name="num_charges" val="1"/>
@@ -1755,7 +1755,7 @@
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="hpConsume" val="#ench2HpConsume"/>
   <cond msg="An equipped hand-to-hand combat weapon is required to use this skill.">
-  <using kind="Fist, Dual Fist"/>
+    <using kind="Fist, Dual Fist"/>
   </cond>
   <for>
     <effect count="1" name="StunSelf" time="9" val="0" stackOrder="1" stackType="Stun"/>
@@ -1797,7 +1797,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="204"/>
   <cond msg="An equipped hand-to-hand combat weapon is required to use this skill.">
-  <using kind="Fist, Dual Fist"/>
+    <using kind="Fist, Dual Fist"/>
   </cond>
   <for>
     <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="possession">
@@ -1972,6 +1972,7 @@
   <set name="magicLvl" val="#magicLvl"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="80"/>
+  <set name="skill_landing_percent" val="85"/> <!-- Correct if that is not used anymore -->
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="12000"/>
@@ -2089,7 +2090,7 @@
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <cond msg="An equipped hand-to-hand combat weapon is required to use this skill.">
-  <using kind="Fist, Dual Fist"/>
+    <using kind="Fist, Dual Fist"/>
   </cond>
   <for>
     <effect name="Debuff" time="30" count="1" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
