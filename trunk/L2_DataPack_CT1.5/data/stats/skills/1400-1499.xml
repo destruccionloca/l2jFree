@@ -998,30 +998,20 @@
   </for>
 </skill>
 <skill id="1439" levels="5" name="Curse of Divinity">
-<!--
-  Description(s):
-      Lvl   1 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 96
-      Lvl 2 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 99
-      Lvl 3 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 102
-      Lvl 4 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 105
-      Lvl 5 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 108
--->
-  <table name="#mpConsume"> 62 64 65 67 69 </table>
+<!-- Sephiroth -->
   <table name="#power"> 96 99 102 105 108 </table>
-  <table name="#magicLvl"> 66 68 70 72 74 </table>
+  <table name="#mpConsume"> 62 64 65 67 69 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="magicLvl" val="#magicLvl"/>
-  <set name="target" val="TARGET_ONE"/>  
+  <set name="isMagic" val="true"/>
+  <set name="element" val="6"/>
+  <set name="hitTime" val="3000"/>
+  <set name="reuseDelay" val="34000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CURSE_DIV"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="skillType" val="MDAM"/>
-  <set name="reuseDelay" val="12000"/>
-  <set name="hitTime" val="900"/>
-  <set name="coolTime" val="600"/>
-    <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="900"/>
-  <set name="soulConsumeCount" val="2"/>
+  <set name="soulConsumeCount" val="1"/>
   <for>
   </for>
 </skill>

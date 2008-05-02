@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.CombatPointHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Continuous;
 import net.sf.l2j.gameserver.handler.skillhandlers.CpDam;
 import net.sf.l2j.gameserver.handler.skillhandlers.Craft;
+import net.sf.l2j.gameserver.handler.skillhandlers.CurseDivinity;
 import net.sf.l2j.gameserver.handler.skillhandlers.DeluxeKey;
 import net.sf.l2j.gameserver.handler.skillhandlers.Disablers;
 import net.sf.l2j.gameserver.handler.skillhandlers.DrainSoul;
@@ -92,6 +93,7 @@ public class SkillHandler
         registerSkillHandler(new Craft());
         registerSkillHandler(new CpDam());
         registerSkillHandler(new CPperHeal());
+        registerSkillHandler(new CurseDivinity());
         registerSkillHandler(new DeluxeKey());
         registerSkillHandler(new Disablers());
         registerSkillHandler(new DrainSoul());
