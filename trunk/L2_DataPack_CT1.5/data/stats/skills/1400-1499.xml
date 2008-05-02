@@ -1745,7 +1745,7 @@
       <add order="0x40" stat="pAtk" val="#pAtk"/>
       <add order="0x40" stat="rCrit" val="#rCrit"/>
       <add order="0x40" stat="cAtk" val="#cAtk"/>
-    </effect>|
+    </effect>
   </for>
 </skill>
 <skill id="1477" levels="3" name="Vampiric Impulse">
