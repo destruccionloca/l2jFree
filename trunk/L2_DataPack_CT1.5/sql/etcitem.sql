@@ -7445,7 +7445,14 @@ INSERT INTO `etcitem` VALUES
 (10336, 'Giants\' Experimental Tool', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
 (10337, 'Giants\' Technology Report', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
 (10338, 'Rouke\'s Report', 'false', 'quest', 0, 'stackable', 'paper', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
-(10339, 'Badge - Temple Missionary', 'quest', 'none', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', '');
+(10339, 'Badge - Temple Missionary', 'quest', 'none', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10340, 'Report Fragment', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10341, 'Temple Manifesto', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10342, 'Relics of the Dark Elf Trainee', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10343, 'Angus\' Recommendation', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10344, 'Pupina\'s Recommendation', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10345, 'Records Chest Key Fragment', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
+(10346, 'Records Chest', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', '');
 
 --
 -- L2J-Free Add-ons allready implemented so there is no point run updates that is bellow
