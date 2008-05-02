@@ -523,19 +523,23 @@ INSERT INTO merchant_shopids VALUES (300410,'gm');
 INSERT INTO merchant_shopids VALUES (300542,'gm');
 INSERT INTO merchant_shopids VALUES (71031, 'gm');
 INSERT INTO merchant_shopids VALUES (71032, 'gm');
--- L2J-Free GMShop Add-ons (IL/CT1)
+-- L2J-Free GMShop Add-ons (IL/CT1/CT1.5)
 -- By Skatershi
 INSERT INTO merchant_shopids VALUES (71040, 'gm'); -- Interlude Spellbooks
 INSERT INTO merchant_shopids VALUES (71041, 'gm'); -- Interlude Recipes
-INSERT INTO merchant_shopids VALUES (71042, 'gm'); -- CT1 Battle Manuals
+INSERT INTO merchant_shopids VALUES (71042, 'gm'); -- CT1/CT1.5 Battle Manuals
 INSERT INTO merchant_shopids VALUES (71043, 'gm'); -- CT1 Spellbooks
-INSERT INTO merchant_shopids VALUES (71044, 'gm'); -- CT1 Recipes
-INSERT INTO merchant_shopids VALUES (71045, 'gm'); -- CT1 Transformation Scrolls
-INSERT INTO merchant_shopids VALUES (71046, 'gm'); -- CT1 Shadow Items
-INSERT INTO merchant_shopids VALUES (71047, 'gm'); -- CT1 Bracelet
-INSERT INTO merchant_shopids VALUES (71048, 'gm'); -- CT1 Special Jewels
-INSERT INTO merchant_shopids VALUES (71049, 'gm'); -- CT1 Talisman
-INSERT INTO merchant_shopids VALUES (71050, 'gm'); -- CT1 Hair Accessories
+INSERT INTO merchant_shopids VALUES (71044, 'gm'); -- CT1/CT1.5 Recipes
+INSERT INTO merchant_shopids VALUES (71045, 'gm'); -- CT1/CT1.5 Transformation Scrolls
+INSERT INTO merchant_shopids VALUES (71046, 'gm'); -- CT1/CT1.5 Shadow Items
+INSERT INTO merchant_shopids VALUES (71047, 'gm'); -- CT1/CT1.5 Bracelet
+INSERT INTO merchant_shopids VALUES (71048, 'gm'); -- CT1/CT1.5 Special Jewels
+INSERT INTO merchant_shopids VALUES (71049, 'gm'); -- CT1/CT1.5 Talisman
+INSERT INTO merchant_shopids VALUES (71050, 'gm'); -- CT1/CT1.5 Hair Accessories
+INSERT INTO merchant_shopids VALUES (71051, 'gm'); -- CT1.5 Weapons (Monster Only)
+INSERT INTO merchant_shopids VALUES (71052, 'gm'); -- CT1.5 Shirt
+INSERT INTO merchant_shopids VALUES (71053, 'gm'); -- CT1.5 Forgotten Scrolls
+INSERT INTO merchant_shopids VALUES (71054, 'gm'); -- CT1.5 Others
 --
 -- Castle 
 --
