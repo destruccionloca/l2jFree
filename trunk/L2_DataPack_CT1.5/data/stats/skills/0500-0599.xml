@@ -410,11 +410,13 @@ description(s) :
   <set name="triggerSkillId" val="5271"/>
   <set name="triggerSkillLvl" val="#triggerlvl"/>
   <set name="trapNpcId"  val="13037"/>
+  <set name="soulConsumeCount" val="2"/> <!-- Consumes 2 Souls - http://www.l2guru.com/forum/archive/index.php/t-92831.html -->
 </skill>
 <skill id="519" levels="1" name="Quiver of Bolts: A-Grade">
   <set name="mpConsume" val="366"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="3000"/>
+  <set name="reuseDelay" val="10000"/>
   <set name="skillType" val="CREATE_ITEM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
@@ -431,6 +433,7 @@ description(s) :
   <set name="mpConsume" val="366"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="3000"/>
+  <set name="reuseDelay" val="10000"/>
   <set name="skillType" val="CREATE_ITEM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
@@ -780,7 +783,7 @@ description(s) :
   <set name="reuseDelay" val="45000"/>
   <set name="power" val="3000"/>
   <for>
-  <effect count="1" name="DamOverTime" time="30" val="74"/>
+    <effect count="1" name="DamOverTime" time="30" val="74"/>
   </for>
 </skill>
 <skill id="538" levels="1" name="Final Form">
@@ -796,16 +799,16 @@ description(s) :
   <set name="effectRange" val="-1"/>
   <set name="soulConsumeCount" val="20"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
-    <mul order="0x30" stat="maxHp" val="1.22"/> <!-- Max Hp +22% -->
-    <mul order="0x30" stat="maxCp" val="1.22"/> <!-- Max Cp +22% -->
-    <mul order="0x30" stat="maxMp" val="0.80"/> <!-- Max Mp -20% -->
-    <add order="0x40" stat="STR" val="2"/> <!-- STR +2 -->
-    <add order="0x40" stat="CON" val="1"/> <!-- CON +1 -->
-    <add order="0x40" stat="INT" val="1"/> <!-- INT +1 -->
-    <sub order="0x40" stat="DEX" val="2"/> <!-- DEX -2 -->
-    <sub order="0x40" stat="MEN" val="2"/> <!-- MEN -2 -->
-	</effect>
+    <effect count="1" name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
+      <mul order="0x30" stat="maxHp" val="1.22"/> <!-- Max Hp +22% -->
+      <mul order="0x30" stat="maxCp" val="1.22"/> <!-- Max Cp +22% -->
+      <mul order="0x30" stat="maxMp" val="0.80"/> <!-- Max Mp -20% -->
+      <add order="0x40" stat="STR" val="2"/> <!-- STR +2 -->
+      <add order="0x40" stat="CON" val="1"/> <!-- CON +1 -->
+      <add order="0x40" stat="INT" val="1"/> <!-- INT +1 -->
+      <sub order="0x40" stat="DEX" val="2"/> <!-- DEX -2 -->
+      <sub order="0x40" stat="MEN" val="2"/> <!-- MEN -2 -->
+    </effect>
   </for>
 </skill>
 <skill id="539" levels="1" name="Nail Attack">
@@ -840,7 +843,7 @@ description(s) :
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="80"/>
   <for>
-   <effect count="1" name="EnemyCharge" time="1" val="0"/>
+    <effect count="1" name="EnemyCharge" time="1" val="0"/>
   </for>
 </skill>
 <skill id="541" levels="1" name="Transform Grail Apostle">
@@ -855,7 +858,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="542" levels="1" name="Transform Grail Apostle">
@@ -870,7 +873,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="543" levels="1" name="Transform Grail Apostle">
@@ -885,7 +888,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="544" levels="1" name="Transform Unicorn">
@@ -900,7 +903,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="545" levels="1" name="Transform Unicorn">
@@ -915,7 +918,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="546" levels="1" name="Transform Unicorn">
@@ -930,7 +933,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="547" levels="1" name="Transform Lilim Knight">
@@ -945,7 +948,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="548" levels="1" name="Transform Lilim Knight">
@@ -960,7 +963,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="549" levels="1" name="Transform Lilim Knight">
@@ -975,7 +978,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="550" levels="1" name="Transform Golem Guardian">
@@ -990,7 +993,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="551" levels="1" name="Transform Golem Guardian">
@@ -1005,7 +1008,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="552" levels="1" name="Transform Golem Guardian">
@@ -1020,7 +1023,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="553" levels="1" name="Transform Inferno Drake">
@@ -1035,7 +1038,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="554" levels="1" name="Transform Inferno Drake">
@@ -1050,7 +1053,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="555" levels="1" name="Transform Inferno Drake">
@@ -1065,7 +1068,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="556" levels="1" name="Transform Dragon Bomber">
@@ -1080,7 +1083,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="557" levels="1" name="Transform Dragon Bomber">
@@ -1095,7 +1098,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="558" levels="1" name="Transform Dragon Bomber">
@@ -1110,7 +1113,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="559" levels="4" name="Spear">
@@ -1154,6 +1157,7 @@ description(s) :
 </skill>
 <skill id="561" levels="4" name="Bless of Angel">
   <table name="#mpConsume"> 68 70 74 78 </table>
+  <table name="#aggro"> 223 301 379 454 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
@@ -1164,6 +1168,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/> <!-- Aggro is missed: http://lineage2.stratics.com/wiki/Transformations -->
   <for>
     <effect name="Buff" time="120" count="1" val="0">
       <mul order="0x30" stat="pAtk" val="1.12"/>
@@ -1172,6 +1177,7 @@ description(s) :
 </skill>
 <skill id="562" levels="4" name="Wind of Angel">
   <table name="#mpConsume"> 68 70 74 78 </table>
+  <table name="#aggro"> 549 655 655 655 </table> <!-- Most close to CT1.5 -->
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
@@ -1182,6 +1188,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="#aggro"/> <!-- Aggro is missed: http://lineage2.stratics.com/wiki/Transformations -->
   <for>
     <effect name="Buff" time="120" count="1" val="0">
       <add order="0x40" stat="rEvas" val="3"/>
@@ -1477,18 +1484,29 @@ description(s) :
   </for>
 </skill>
 <skill id="580" levels="4" name="Death Blow">
-  <!-- Needs retail accuracy check -->
+  <!-- Cleaning and building a better match with CT1.5 by BoDiE (Addind description to work on) -->
+<!--
+    Description: Inflicts deadly blow. Lethal Strike is possible.
+-->
   <table name="#mpConsume"> 68 70 74 78 </table>
   <table name="#accCombat"> 13 15 17 19 </table>
+  <table name="#power"> 1500 2000 2500 3000 </table>
+  <!-- I think that the aggro points are missed also... Need to check yet -->
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="target" val="TARGET_AREA"/>
+  <set name="power" val="#power"/>
+  <set name="magicLevel" val="50"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="onCrit" val="true"/>
   <set name="skillRadius" val="300"/>
-  <set name="reuseDelay" val="8000"/>
-  <set name="hitTime" val="3000"/>
-  <set name="skillType" val="DEBUFF"/>
+  <set name="reuseDelay" val="11250"/>
+  <set name="hitTime" val="1080"/>
+  <set name="skillType" val="BLOW"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="castRange" val="40"/>
+  <set name="lethal1" val="5" />
+  <set name="lethal2" val="2" />
   <set name="effectRange" val="360"/>
+  <set name="nextAction" val="attack"/> <!-- To prevent character stop from attacking -->
   <for>
     <effect name="Buff" time="15" count="1" val="0" stackOrder="#accCombat" stackType="accuracyDown">
       <sub order="0x40" stat="accCombat" val="#accCombat"/>
@@ -1501,8 +1519,8 @@ description(s) :
   <table name="#accCombat"> 13 15 17 19 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="target" val="TARGET_AREA"/>
-  <set name="skillRadius" val="300"/>
-  <set name="reuseDelay" val="8000"/>
+  <set name="skillRadius" val="250"/>
+  <set name="reuseDelay" val="13000"/>
   <set name="hitTime" val="3000"/>
   <set name="skillType" val="DEBUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1516,24 +1534,31 @@ description(s) :
   </for>
 </skill>
 <skill id="582" levels="4" name="Scope Bleed">
-<!-- Needs retail accuracy check -->
+<!-- Cleaning and building a better match with CT1.5 by BoDiE (Addind description to work on) -->
+<!--
+    Description: A deadly frontal attack puts enemies in a bleeding state.
+-->
   <table name="#mpConsume"> 68 70 74 78 </table>
   <table name="#power"> 875 984 1098 1213 </table>
   <table name="#effect"> 6 6 7 7 </table>
-  <table name="#bleeddmg"> 102 123 155 198 </table>
+  <table name="#bleeddmg"> 93 93 102 102 </table>
   <set name="power" val="#power"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="target" val="TARGET_FRONT_AREA"/>
-  <set name="skillRadius" val="240"/>
+  <set name="skillRadius" val="40"/>
+  <set name="activateRate" val="30"/>
   <set name="reuseDelay" val="8000"/>
   <set name="hitTime" val="1080"/>
-  <set name="skillType" val="DEBUFF"/>
+  <set name="coolTime" val="720"/>
+  <set name="overHit" val="true" /> <!-- If I'm not wrong, overhit is possible -->
+  <set name="skillType" val="BLEED"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isDebuff" val="true"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="900"/>
+ <set name="nextAction" val="attack"/> <!-- To prevent character stop from attacking -->
   <for>
- 	<effect count="#effect" name="DamOverTime" time="3" val="#bleeddmg" abnormal="bleeding"/>
+ 	<effect abnormal="bleeding" count="#effect" name="DamOverTime" time="3" val="#bleeddmg"/>
   </for>
 </skill>
 <skill id="583" levels="4" name="Assimilation">
@@ -1548,6 +1573,7 @@ description(s) :
   <set name="effectRange" val="-1"/>
   <for>
     <effect count="1" name="SilentMove" abnormal="stealth" time="120" val="0">
+      <mul order="0x30" stat="runSpd" val="0.82" /> <!-- runSpd is reduced about 17-18% (maybe 19%) when is used -->
     </effect>
   </for>
 </skill>
@@ -1567,8 +1593,7 @@ description(s) :
   <for>
   </for>
 </skill>
-<skill id="585" levels="1" name="Fast Moving">
-  <table name="#spd">66</table>
+<skill id="585" levels="1" name="Fast Moving"> <!-- What for was the table O.o? -->
   <set name="mpConsume" val="61"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1580,14 +1605,14 @@ description(s) :
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="438"/>
   <for>
-    <effect count="1" name="Buff" time="15" val="0" stackOrder="#spd" stackType="speed_up_special">
+    <effect count="1" name="Buff" time="15" val="0" stackOrder="66" stackType="speed_up_special">
       <add order="0x40" stat="runSpd" val="66"/>
     </effect>
   </for>
 </skill>
 <skill id="586" levels="2" name="Rolling Attack">
-  <table name="#mpConsume"> 54 58</table>
-  <table name="#power"> 864 984</table>
+  <table name="#mpConsume"> 54 58 </table>
+  <table name="#power"> 864 984 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_AURA"/>
@@ -1606,8 +1631,8 @@ description(s) :
  </for>
 </skill>
 <skill id="587" levels="2" name="Earth Storm">
-  <table name="#mpConsume"> 54 58</table>
-  <table name="#power"> 1200 1406</table>
+  <table name="#mpConsume"> 54 58 </table>
+  <table name="#power"> 1200 1406 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
