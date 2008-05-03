@@ -1235,7 +1235,7 @@
   <table name="#mpConsume"> 42 47 52 56 61 64 66 69 71 74 76 78 80 82 </table>
   <table name="#magicLvl"> 40 44 48 52 56 58 60 62 64 66 68 70 72 74 </table>
   <!-- Power val changes between levels: http://l2db.ru/skills.php?class=bishop&c=Kamael -->
-  <table name="#power"> 30.0 40.0 50.0 60.0 70.0 80.0 90.0 100.0 110.0 120.0 130.0 140.0 150.0 160.0 </table>
+  <table name="#power"> 30 40 50 60 70 80 90 100 110 120 130 140 150 160 </table>
   <table name="#aggr"> 1.15 1.23 1.27 1.31 1.39 1.47 1.51 1.55 1.63 1.7 1.77 1.8 1.84 1.9 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
