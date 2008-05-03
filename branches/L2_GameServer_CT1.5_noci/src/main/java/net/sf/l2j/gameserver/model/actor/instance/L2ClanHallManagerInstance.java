@@ -27,6 +27,8 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2TeleportLocation;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
+import net.sf.l2j.gameserver.model.restriction.AvailableRestriction;
+import net.sf.l2j.gameserver.model.restriction.ObjectRestrictions;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.AgitDecoInfo;
@@ -1330,6 +1332,12 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
             }
             else if (actualCommand.equalsIgnoreCase("goto"))
             {
+    			if (ObjectRestrictions.getInstance()
+    					.checkRestriction(player, AvailableRestriction.Teleport)) {
+    				player.sendMessage("You cannot teleport due to a restriction.");
+    				return;
+    			}
+    				
                 int whereTo = Integer.parseInt(val);
                 doTeleport(player, whereTo);
                 return;

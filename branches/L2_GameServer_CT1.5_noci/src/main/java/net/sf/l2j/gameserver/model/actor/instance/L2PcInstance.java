@@ -146,6 +146,7 @@ import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.model.quest.State;
+import net.sf.l2j.gameserver.model.restriction.ObjectRestrictions;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -259,9 +260,9 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
     // Character Character SQL String Definitions:
-    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=? WHERE obj_Id=?";
-    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level FROM characters WHERE obj_Id=?";
-
+    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,char_name=?,death_penalty_level=? WHERE obj_Id=?";
+    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level FROM characters WHERE obj_Id=?";
+    
     // Character Subclass SQL String Definitions:
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
     private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (char_obj_id,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
@@ -545,9 +546,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _isGm;
     private int _accessLevel;
 
-    private boolean _chatBanned = false; // Chat Banned
-    private long _banchat_timer = 0;
-    private ScheduledFuture<?>  _BanChatTask;
     private boolean _messageRefusal = false; // message refusal mode
     private boolean _dietMode = false; // ignore weight penalty
     private boolean _tradeRefusal = false; // Trade refusal
@@ -1156,6 +1154,9 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean logout()
     {
+    	// Pause restrictions
+        ObjectRestrictions.getInstance().pauseTasks(this);
+    	
         // [L2J_JP ADD START]
         if(isInsideZone(L2Zone.FLAG_NOESCAPE))
         {
@@ -6154,8 +6155,6 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.setIsIn7sDungeon(rset.getInt("isin7sdungeon") == 1);
                 player.setInJail(rset.getInt("in_jail") == 1);
                 player.setJailTimer(rset.getLong("jail_timer"));
-                player.setBanChatTimer(rset.getLong("banchat_timer"));
-                if(player.getBanChatTimer() > 0) player.setChatBanned(true);
                 if (player.isInJail()) player.setJailTimer(rset.getLong("jail_timer"));
                 else player.setJailTimer(0);
                 
@@ -6282,7 +6281,7 @@ public final class L2PcInstance extends L2PlayableInstance
             {
             }
         }
-
+        
         return player;
     }
 
@@ -6555,10 +6554,9 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(45, getAllianceWithVarkaKetra());
             statement.setLong(46, getClanJoinExpiryTime());
             statement.setLong(47, getClanCreateExpiryTime());
-            statement.setLong(48, getBanChatTimer());
-            statement.setString(49, getName());
-            statement.setLong(50, getDeathPenaltyBuffLevel());
-            statement.setInt(51, getObjectId());
+            statement.setString(48, getName());
+            statement.setLong(49, getDeathPenaltyBuffLevel());
+            statement.setInt(50, getObjectId());
             statement.execute();
             statement.close();
         }
@@ -8770,84 +8768,6 @@ public final class L2PcInstance extends L2PlayableInstance
     public int getRace(int i)
     {
         return _race[i];
-    }
-
-    public void setChatBanned(boolean isBanned)
-    {
-        _chatBanned = isBanned;
-
-        stopBanChatTask();
-        if (isChatBanned())
-        {
-            sendMessage("You have been chat banned by a server admin.");
-            if(_banchat_timer > 0) _BanChatTask = ThreadPoolManager.getInstance().scheduleGeneral(new SchedChatUnban(this), _banchat_timer);
-        }
-        else
-        {
-            sendMessage("Your chat ban has been lifted.");
-            setBanChatTimer(0);
-        }
-        sendPacket(new EtcStatusUpdate(this));
-    }
-
-    public void setChatBannedForAnnounce(boolean isBanned)
-    {
-        _chatBanned = isBanned;
-
-        stopBanChatTask();
-        if (isChatBanned())
-        {
-            sendMessage("Server admin making announce now, you can't chat.");
-            _BanChatTask = ThreadPoolManager.getInstance().scheduleGeneral(new SchedChatUnban(this), _banchat_timer);
-        }
-        else
-        {
-            sendMessage("Your chat ban has been lifted.");
-            setBanChatTimer(0);
-        }
-        sendPacket(new EtcStatusUpdate(this));
-    }
-    
-    public void setBanChatTimer(long timer)
-    {
-        _banchat_timer = timer;
-    }
-    
-    public long getBanChatTimer()
-    {
-        if(_BanChatTask != null) return _BanChatTask.getDelay(TimeUnit.MILLISECONDS);
-        return _banchat_timer;
-    }
-    
-    public void stopBanChatTask()
-    {
-        if (_BanChatTask != null)
-        {
-            _BanChatTask.cancel(false);
-            _BanChatTask = null;
-        }        
-    }
-    
-    private class SchedChatUnban implements Runnable
-    {
-        L2PcInstance _player;
-        protected long _startedAt;
-        
-        protected SchedChatUnban(L2PcInstance player)
-        {
-            _player = player;
-            _startedAt = System.currentTimeMillis();
-        }
-        
-        public void run()
-        {
-            _player.setChatBanned(false);
-        }
-    }
-
-    public boolean isChatBanned()
-    {
-        return _chatBanned;
     }
 
     public boolean getMessageRefusal()

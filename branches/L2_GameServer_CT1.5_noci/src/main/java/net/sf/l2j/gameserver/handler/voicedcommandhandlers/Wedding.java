@@ -33,6 +33,8 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
+import net.sf.l2j.gameserver.model.restriction.AvailableRestriction;
+import net.sf.l2j.gameserver.model.restriction.ObjectRestrictions;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
@@ -280,6 +282,13 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("You cannot escape from here.");
             return false;
         }
+        else if (ObjectRestrictions.getInstance()
+				.checkRestriction(activeChar, AvailableRestriction.GotoLove))
+        {
+			activeChar.sendMessage("You cannot find your love due to a restriction.");
+			return false;
+		}        
+        
 
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(activeChar.getPartnerId());

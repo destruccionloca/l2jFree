@@ -28,6 +28,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
+import net.sf.l2j.gameserver.model.restriction.AvailableRestriction;
+import net.sf.l2j.gameserver.model.restriction.ObjectRestrictions;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
@@ -64,6 +66,12 @@ public class ScrollOfEscape implements IItemHandler
 			return;
 		L2PcInstance activeChar = (L2PcInstance) playable;
 
+		if (activeChar == null || ObjectRestrictions.getInstance()
+				.checkRestriction(activeChar, AvailableRestriction.ScrollTeleport)) {
+			activeChar.sendMessage("You cannot use this scroll due to a restriction.");
+			return;
+		}
+        
 		if (activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead()
 				|| activeChar.isAllSkillsDisabled())
 			return;

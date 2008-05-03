@@ -24,6 +24,8 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
+import net.sf.l2j.gameserver.model.restriction.AvailableRestriction;
+import net.sf.l2j.gameserver.model.restriction.ObjectRestrictions;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
@@ -103,7 +105,14 @@ public class SummonFriend implements ISkillHandler
 					// if (!(targetChar.getParty() != null && targetChar.getParty().getPartyMembers().contains(activeChar)))
 					//	continue;
 					
-					if (targetChar.isAlikeDead())
+            		if (targetChar == null || ObjectRestrictions.getInstance()
+            				.checkRestriction(targetChar, AvailableRestriction.SummonFriend)) {
+            			activeChar.sendMessage("You cannot summon your friend due to his restrictions.");
+            			targetChar.sendMessage("You cannot be summoned due to a restriction.");
+            			
+            			return;
+            		}
+                    					if (targetChar.isAlikeDead())
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED);
 						sm.addString(targetChar.getName());

@@ -30,6 +30,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
+import net.sf.l2j.gameserver.model.restriction.AvailableRestriction;
+import net.sf.l2j.gameserver.model.restriction.ObjectRestrictions;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
@@ -317,7 +319,11 @@ public class RequestActionUse extends L2GameClientPacket
                 }
                 else if (activeChar.isMounted())
                 {
-                    activeChar.dismount();
+                	if (!ObjectRestrictions.getInstance()
+                			.checkRestriction(activeChar, AvailableRestriction.Unmount))
+                		activeChar.dismount();
+                	else
+                		activeChar.sendMessage("You cannot dismount due to a restriction.");
                 }
                 activeChar.sendPacket(ActionFailed.STATIC_PACKET);
                 break;

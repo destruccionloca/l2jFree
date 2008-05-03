@@ -29,11 +29,11 @@ import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.datatables.RecordTable;
 import net.sf.l2j.gameserver.model.BlockList;
-import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.model.restriction.AvailableRestriction;
+import net.sf.l2j.gameserver.model.restriction.ObjectRestrictions;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
@@ -230,7 +230,8 @@ public class RegionBBSManager extends BaseBBSManager
                     parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
                     return;
                 }
-                if (activeChar.isChatBanned())
+                if (ObjectRestrictions.getInstance()
+                		.checkRestriction(activeChar, AvailableRestriction.Chat))
                 {
                     activeChar.sendPacket(new SystemMessage(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED));
                     parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
@@ -246,7 +247,8 @@ public class RegionBBSManager extends BaseBBSManager
                         parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
                         return;
                     }
-                    if (receiver.isChatBanned())
+                    if (ObjectRestrictions.getInstance()
+                    		.checkRestriction(receiver, AvailableRestriction.Chat))
                     {
                         activeChar.sendMessage("Player is chat banned.");
                         parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);

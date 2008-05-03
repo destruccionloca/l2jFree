@@ -19,6 +19,8 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.restriction.AvailableRestriction;
+import net.sf.l2j.gameserver.model.restriction.ObjectRestrictions;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 
 import org.apache.commons.logging.Log;
@@ -57,8 +59,11 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 		//Get the current L2PcInstance of the player
 		L2PcInstance activeChar = getClient().getActiveChar();
 		
-		if (activeChar == null)
+		if (activeChar == null || ObjectRestrictions.getInstance()
+				.checkRestriction(activeChar, AvailableRestriction.Cast)) {
+			activeChar.sendMessage("You cannot cast a skill due to a restriction.");
 			return;
+		}
 
 		// Get the level of the used skill
 		int level = activeChar.getSkillLevel(_magicId);
