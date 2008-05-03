@@ -1011,7 +1011,7 @@
   <set name="skillType" val="CURSE_DIV"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
-  <set name="soulConsumeCount" val="1"/>
+  <set name="soulConsumeCount" val="2"/>
   <for>
   </for>
 </skill>
