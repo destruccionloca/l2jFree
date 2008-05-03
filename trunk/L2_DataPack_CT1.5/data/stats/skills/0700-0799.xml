@@ -580,7 +580,7 @@
   </for>
 </skill>
 <skill id="745" levels="3" name="Vale Master Dark Cure">
-  <table name="#mpConsume">27 28 29</table>
+  <table name="#mpConsume"> 27 28 29 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="100"/>
   <set name="target" val="TARGET_ONE"/>
