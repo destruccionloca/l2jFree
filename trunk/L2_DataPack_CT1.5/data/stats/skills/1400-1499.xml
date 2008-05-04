@@ -1155,8 +1155,22 @@
 </skill>
 <skill id="1443" levels="1" name="Dark Weapon" enchantLevels1="30" enchantLevels2="30">
 <!-- by Sephiroth -->
-  <table name="#ench1Power"> 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 </table>
-  <table name="#ench2Time"> 502 503 504 505 506 507 508 509 510 511 512 513 514 515 516 517 518 519 520 521 522 523 524 525 526 527 528 529 530 531 </table>
+  <table name="#ench1Power">
+  101 102 103 104 105
+  106 107 108 109 110
+  111 112 113 114 115
+  116 117 118 119 120
+  121 122 123 124 125
+  126 127 128 129 130
+  </table>
+  <table name="#ench2Time">
+  502 503 504 505 506
+  507 508 509 510 511
+  512 513 514 515 516
+  517 518 519 520 521
+  522 523 524 525 526
+  527 528 529 530 531
+  </table>
   <set name="hitTime" val="4000"/>
   <set name="reuseDelay" val="9000"/>
   <set name="mpConsume" val="42"/>
@@ -1249,7 +1263,7 @@
     </effect>
   </for>
 </skill>
-<skill id="1446" levels="11" name="Shadow Bind">
+<skill id="1446" levels="1" name="Shadow Bind">
 <!-- by Sephiroth -->
   <set name="hitTime" val="2600"/>
   <set name="reuseDelay" val="12000"/>
@@ -1266,7 +1280,7 @@
     </effect>
   </for>
 </skill>
-<skill id="1447" levels="11" name="Voice Bind">
+<skill id="1447" levels="1" name="Voice Bind">
 <!-- by Sephiroth -->
   <set name="mpConsume" val="40"/>
   <set name="hitTime" val="7500"/>
