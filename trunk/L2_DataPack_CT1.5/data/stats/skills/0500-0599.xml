@@ -622,7 +622,7 @@ description(s) :
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="523"/>
   <for>
-    <effect name="Buff" time="120" count="1" val="0" stackOrder="1" stackType="song_of_elemental">
+    <effect name="Buff" time="120" count="1" val="0">
       <mul stat="fireVuln" val="0.7" order="0x30"/>
       <mul stat="waterVuln" val="0.7" order="0x30"/>
       <mul stat="earthVuln" val="0.7" order="0x30"/>
@@ -647,7 +647,7 @@ description(s) :
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="523"/>
   <for>
-    <effect name="Buff" time="120" count="1" val="0" stackOrder="1" stackType="dance_of_alignment">
+    <effect name="Buff" time="120" count="1" val="0">
       <mul stat="darkVuln" val="0.7" order="0x30"/>
       <mul stat="holyVuln" val="0.7" order="0x30"/>
     </effect>
