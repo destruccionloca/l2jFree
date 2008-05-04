@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.util;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -360,4 +361,28 @@ public final class Util
     		s = "="+s;
     	System.out.println(s);
     }
+    
+    private static final char hex[] = {
+    	'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c','d', 'e', 'f' };
+
+    public static final String bytesToString(byte[] b)
+    {
+    	String ret = new String();
+    	for(byte element : b)
+    	{
+    		ret += String.valueOf(hex[(element & 0xF0) >> 4]);
+    		ret += String.valueOf(hex[element & 0x0F]);
+    	}
+    	return ret;
+    }
+    
+	public static final String replace(String str, String regex, int flags, String replace)
+	{
+		return Pattern.compile(regex, flags).matcher(str).replaceAll(replace);
+	}
+
+	public static final boolean matches(String str, String regex, int flags)
+	{
+		return Pattern.compile(regex, flags).matcher(str).matches();
+	}
 }

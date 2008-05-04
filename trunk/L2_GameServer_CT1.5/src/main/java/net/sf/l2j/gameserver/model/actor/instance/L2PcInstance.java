@@ -724,10 +724,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private L2BoatInstance _boat;
     private Point3D _inBoatPosition;
 
-    /** Bypass validations */
-    private List<String> _validBypass = new FastList<String>();
-    private List<String> _validBypass2 = new FastList<String>();
-    
     private L2Fishing _fishCombat;
 
     /** Stored from last ValidatePosition **/
@@ -10254,51 +10250,6 @@ public final class L2PcInstance extends L2PlayableInstance
         	//}
         }
     }
-    
-    public synchronized void addBypass(String bypass)
-    {
-        if (bypass == null) return;
-        _validBypass.add(bypass);
-        //_log.warn("[BypassAdd]"+getName()+" '"+bypass+"'");
-    }
-
-    public void addBypass2(String bypass)
-    {
-        if (bypass == null) return;
-        _validBypass2.add(bypass);
-        //_log.warn("[BypassAdd]"+getName()+" '"+bypass+"'");
-    }
-
-    public synchronized boolean validateBypass(String cmd)
-    {
-        if (!Config.BYPASS_VALIDATION) return true;
-
-        for (String bp : _validBypass)
-        {
-            if (bp == null) continue;
-
-            //_log.warn("[BypassValidation]"+getName()+" '"+bp+"'");
-            if (bp.equals(cmd)) return true;
-        }
-
-        for (String bp : _validBypass2)
-        {
-            if (bp == null) continue;
-
-            //_log.warn("[BypassValidation]"+getName()+" '"+bp+"'");
-            if (cmd.startsWith(bp)) return true;
-        }
-
-        _log.warn("[L2PcInstance] player [" + getName() + "] sent invalid bypass '" + cmd
-            + "', ban this player!");
-        return false;
-    }
-
-    public synchronized void clearBypass()
-    {
-        _validBypass.clear();
-        _validBypass2.clear();
-	}    
 
     public boolean validateItemManipulation(int objectId, String action)
     {

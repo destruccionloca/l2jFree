@@ -22,6 +22,7 @@ import net.sf.l2j.gameserver.communitybbs.CommunityBoard;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
+import net.sf.l2j.gameserver.model.BypassEngine;
 import net.sf.l2j.gameserver.model.GMAudit;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -58,6 +59,12 @@ public class RequestBypassToServer extends L2GameClientPacket
     protected void readImpl()
     {
         _command = readS();
+        
+        if (Config.BYPASS_VALIDATION)
+        	_command = BypassEngine.decode(getClient().getActiveChar(), _command);
+        
+		if(_command != null)
+			_command = _command.trim();
     }
 
 
@@ -115,9 +122,6 @@ public class RequestBypassToServer extends L2GameClientPacket
             }
             else if (_command.startsWith("npc_"))
             {
-                if(!activeChar.validateBypass(_command))
-                    return;
-
                 int endOfId = _command.indexOf('_', 5);
                 String id;
                 if (endOfId > 0)
@@ -201,9 +205,6 @@ public class RequestBypassToServer extends L2GameClientPacket
             //  Draw a Symbol
             else if (_command.equals("menu_select?ask=-16&reply=1"))
             {
-                if (!activeChar.validateBypass(_command))
-                    return;
-
                 L2Object object = activeChar.getTarget();
                 if (object instanceof L2NpcInstance)
                 {
@@ -237,9 +238,6 @@ public class RequestBypassToServer extends L2GameClientPacket
             }
             else if (_command.startsWith("Quest "))
             {
-                if(!activeChar.validateBypass(_command))
-                    return;
-
                 L2PcInstance player = getClient().getActiveChar();
                 if (player == null) return;
                 
