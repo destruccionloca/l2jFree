@@ -99,6 +99,7 @@ import net.sf.l2j.gameserver.model.AutoSpawnHandler;
 import net.sf.l2j.gameserver.model.L2Manor;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
+import net.sf.l2j.gameserver.model.restriction.ObjectRestrictions;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GamePacketHandler;
 import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
@@ -298,6 +299,7 @@ public class GameServer
 		ChatHandler.getInstance();
 		
 		Util.printSection("Misc");
+		ObjectRestrictions.getInstance();
 		TaskManager.getInstance();
 		GmListTable.getInstance();
 		RemoteAdministrationImpl.getInstance().startServer();

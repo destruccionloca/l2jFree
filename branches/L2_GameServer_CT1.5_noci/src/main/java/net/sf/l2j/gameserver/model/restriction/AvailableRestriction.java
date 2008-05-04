@@ -48,4 +48,22 @@ public enum AvailableRestriction
 	public Class getApplyableTo() {
 		return _applyTo;
 	}
+	
+	
+	public static final AvailableRestriction forName(String name) {
+		for (AvailableRestriction restriction : AvailableRestriction.values()) {
+			if (restriction.name().equals(name))
+				return restriction;
+		}
+		
+		return null;
+	}
+	public static final AvailableRestriction forId(int id) {
+		for (AvailableRestriction restriction : AvailableRestriction.values()) {
+			if (restriction.ordinal() == id)
+				return restriction;
+		}
+		
+		return null;
+	}
 }
