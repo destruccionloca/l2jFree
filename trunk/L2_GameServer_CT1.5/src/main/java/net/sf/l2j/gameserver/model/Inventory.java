@@ -681,58 +681,44 @@ public abstract class Inventory extends ItemContainer
 		{
 			case 0x01:
 				return _paperdoll[0];
-			case 0x02:
-				return _paperdoll[1];
 			case 0x04:
+				return _paperdoll[1];
+			case 0x02:
 				return _paperdoll[2];
-			case 0x06:
-				return _paperdoll[3];
 			case 0x08:
+				return _paperdoll[3];
+			case 0x20:
 				return _paperdoll[4];
 			case 0x10:
 				return _paperdoll[5];
-			case 0x20:
+			case 0x40:
 				return _paperdoll[6];
-			case 0x30:
+			case 0x80:
 				return _paperdoll[7];
-			case 0x040:
-				return _paperdoll[8];
-			case 0x080:
-				return _paperdoll[9];
 			case 0x0100:
-				return _paperdoll[10];
+				return _paperdoll[8];
 			case 0x0200:
-				return _paperdoll[11];
+				return _paperdoll[9];
 			case 0x0400:
-				return _paperdoll[12];
+				return _paperdoll[10];
 			case 0x0800:
-				return _paperdoll[13];
+				return _paperdoll[11];
 			case 0x1000:
-				return _paperdoll[14];
+				return _paperdoll[12];
 			case 0x2000:
-				return _paperdoll[15];
+				return _paperdoll[13];
 			case 0x4000:
-				return _paperdoll[16];
-			case 0x8000:
-				return _paperdoll[17];
-			case 0x010000:
-				return _paperdoll[18];
-			case 0x020000:
-				return _paperdoll[19];
+				return _paperdoll[14];
 			case 0x040000:
-				return _paperdoll[20];
+				return _paperdoll[15];
+			case 0x010000:
+				return _paperdoll[16];
 			case 0x080000:
-				return _paperdoll[21];
-			case 0x100000:
-				return _paperdoll[22];
-			case 0x200000:
-				return _paperdoll[23];
-			case 0x400000:
-				return _paperdoll[24];
+				return _paperdoll[17];
 		}
 		return null;
 	}
-
+	
 	/**
 	 * Returns the ID of the item in the paperdol slot
 	 * 
