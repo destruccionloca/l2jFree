@@ -540,11 +540,11 @@
    <effect count="1" name="ImmobileBuff" time="120" val="0">
      <add order="0x40" stat="pAtk" val="#ench1pAtk">
        <using kind="Bow"/>
-     </add> 
+     </add>
      <!-- Double pAtk add? Should be only the #ench1pAtk table, disabling the "extra" one
      <add order="0x40" stat="pAtk" val="20">
        <using kind="Bow"/>
-     </add> 
+     </add>
      -->
       <add order="0x40" stat="accCombat" val="6">
         <using kind="Bow"/>
