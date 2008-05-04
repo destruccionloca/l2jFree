@@ -18,11 +18,18 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import java.util.Map;
 import java.util.StringTokenizer;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.ai.L2CharacterAI;
+import net.sf.l2j.gameserver.ai.L2NpcWalkerAI;
 import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcWalkerInstance.L2NpcWalkerAIAccessor;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
@@ -36,8 +43,83 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
     public L2FortMerchantInstance(int objectID, L2NpcTemplate template)
     {
         super(objectID, template);
+		setAI(new L2NpcWalkerAI(new L2NpcWalkerAIAccessor()));
     }
 
+	/**
+	 * AI can't be deattached, npc must move always with the same AI instance.
+	 * @param newAI AI to set for this L2NpcWalkerInstance
+	 */
+	@Override
+	public void setAI(L2CharacterAI newAI)
+	{
+		if(_ai == null || !(_ai instanceof L2NpcWalkerAI))
+			_ai = newAI;
+	}
+	
+	@Override
+	public void onSpawn()
+	{
+		getAI().setHomeX(getX());
+		getAI().setHomeY(getY());
+		getAI().setHomeZ(getZ());
+	}
+
+	/**
+	 * Sends a chat to all _knowObjects
+	 * @param chat message to say
+	 */
+	public void broadcastChat(String chat)
+	{
+		Map<Integer, L2PcInstance> _knownPlayers = getKnownList().getKnownPlayers();
+
+		if(_knownPlayers == null)
+		{
+			if(Config.DEVELOPER)
+				_log.info("broadcastChat _players == null");
+			return;
+		}
+
+		//we send message to known players only!
+		if(_knownPlayers.size() > 0)
+		{
+			CreatureSay cs = new CreatureSay(getObjectId(), 0, getName(), chat);
+
+			//we interact and list players here
+			for(L2PcInstance players : _knownPlayers.values())
+
+				//finally send packet :D
+				players.sendPacket(cs);
+		}
+	}
+
+	/**
+	 * NPCs are immortal
+	 * @param i ignore it
+	 * @param attacker  ignore it
+	 * @param awake  ignore it
+	 */
+	@Override
+	public void reduceCurrentHp(double i, L2Character attacker, boolean awake)
+	{}
+
+	/**
+	 * NPCs are immortal
+	 * @param killer ignore it
+	 * @return false
+	 */
+	@Override
+	public boolean doDie(L2Character killer)
+	{
+		return false;
+	}
+
+	@Override
+	public L2NpcWalkerAI getAI()
+	{
+		return (L2NpcWalkerAI)_ai;
+	}
+	
     public void onAction(L2PcInstance player)
     {
         if (!canTarget(player)) return;
