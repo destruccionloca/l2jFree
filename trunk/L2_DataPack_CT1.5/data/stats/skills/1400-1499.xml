@@ -886,6 +886,8 @@
   <table name="#power"> 35 40 45 50 55 60 65 70 75 80  </table>
   <table name="#soulConsumeCount"> 1 1 2 2 2 2 2 2 2 2 </table>
   <table name="#EffectLvl"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <table name="#ench1EffectLevel">10.0 10.0 10.0 10.0 10.0 10.0 10.0 10.0 11.0 11.0 11.0 11.0 11.0 11.0 11.0 11.0 12.0 12.0 12.0 12.0 12.0 12.0 12.0 12.0 12.0 13.0 13.0 13.0 13.0 13.0</table> 
+  <table name="#ench2Chance">59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88</table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
@@ -899,7 +901,10 @@
   <set name="effectRange" val="1100"/>
   <set name="effectId" val="5264"/>
   <set name="effectLevel" val="#EffectLvl"/>
+  <set name="landingPercent" val="58"/>
   <set name="soulConsumeCount" val="#soulConsumeCount"/>
+  <enchant1 name="effectLevel" val="#ench1EffectLevel"/>
+  <enchant2 name="landingPercent" val="#ench2Chance"/>
   <for>
   </for>
 </skill>
@@ -1033,19 +1038,24 @@
 </skill>
 <skill id="1440" levels="5" name="Steal Divinity">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl 1 Steals abnormal state of enemy. Consumes 4 soul.
-      Lvl 2 Steals abnormal state of enemy. Consumes 4 soul.
-      Lvl 3 Steals abnormal state of enemy. Consumes 4 soul.
-      Lvl 4 Steals abnormal state of enemy. Consumes 4 soul.
-      Lvl 5 Steals abnormal state of enemy. Consumes 4 soul.
+      Lvls 1 - 5 Steals abnormal state of enemy. Consumes 4 soul.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+<!-- by Sephiroth -->
+  <table name="#mpConsume"> 50 55 60 64 67 </table>
+  <table name="#mpConsume_Init"> 8 9 10 11 12 </table>
+  <table name="#activateRate"> 50 52 54 56 58 </table>
+  <set name="hitTime" val="3000"/>
+  <set name="reuseDelay" val="55000"/>
+  <set name="activateRate" val="#activateRate"/>
+  <set name="mpInitialConsume" val="#mpConsume_Init"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="isMagic" val="true"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="STEAL_DIV"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <set name="soulConsumeCount" val="4"/>
   <for>
   </for>
 </skill>
