@@ -67,7 +67,6 @@ final class EffectBetray extends L2Effect
 		{
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, ((L2Summon)getEffected()).getOwner());
 			getEffected().setIsBetrayed(true);
-			onActionTime();
 		}
 		return false;
 	}
