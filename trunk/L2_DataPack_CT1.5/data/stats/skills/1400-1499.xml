@@ -547,17 +547,33 @@
   </for>
 </skill>
 <skill id="1422" levels="1" name="Day of Doom">
+<!-- Done by BoDiE (Should I add my credits?? =/ Just don't steal and say you did it, L2JFree did, ok?)-->
+<!-- Initial implementation, YET for testing proposes (seems most retail like, need further testing) -->
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Generates a signet that produces a strong curse that decreases all abilities. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
+  Description:  Generates a symbol that produces a strong curse that decreases all abilities. Applies to all targets within 
+			    the affected area. The effect disappears if you leave the area. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="mpConsume" val="89"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="5000"/>
+  <set name="reuseDelay" val="240000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isSkillTimePermanent" val="true"/>
+  <set name="symbolId" val="13028"/>
+  <set name="symbolSkill" val="5145"/>
+  <set name="skillRadius" val="200"/>
+  <set name="castRange" val="700"/> <!-- Maybe 720, need further check out -->
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="castRange" val="900"/>
+  <cond msg="3 Spell Forces required."> <!-- Please verify for correct cond message, I'm not sure if this is -->
+    <player spell_force="3"/>
+  </cond>
   <for>
+    <!-- Require Core support to generate a static effect bassed on skill effect range, further information on skill desc 
+    <effect count="1" name="Symbol" time="60" val="0" />
+    -->
   </for>
 </skill>
 <skill id="1423" levels="1" name="Gehenna">
