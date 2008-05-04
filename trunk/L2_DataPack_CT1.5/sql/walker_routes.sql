@@ -502,7 +502,7 @@ INSERT INTO `walker_routes` (`route_id`, `npc_id`, `move_point`, `chatText`, `mo
 (33, 35859, 18, NULL, 185916, 41869, -4512, 3, 0),
 (33, 35859, 19, NULL, 187058, 43551, -4808, 0, 0),
 (33, 35859, 20, NULL, 189579, 45949, -4240, 0, 0),
-(33, 35859, 21, NULL, 190423, 43540, -3656, 3, 0),
+(33, 35859, 21, NULL, 190423, 43540, -3656, 3, 0);
 
 INSERT INTO `walker_routes` (`route_id`, `npc_id`, `move_point`, `chatText`, `move_x`, `move_y`, `move_z`, `delay`, `running`) VALUES
 (34, 35797, 1, NULL, 74725, 1671, -3128, 3, 0),
