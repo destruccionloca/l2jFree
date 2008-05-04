@@ -14,17 +14,38 @@
  */
 package net.sf.l2j.gameserver.model.restriction;
 
+import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
 /**
  *
  * @author  Noctarius
  */
 public enum AvailableRestriction
 {
-	Unmount,
-	Cast,
-	Teleport,
-	ScrollTeleport,
-	GotoLove,
-	SummonFriend,
-	Chat
+	// Restrictions can be applied to players
+	PlayerUnmount(L2PcInstance.class),
+	PlayerCast(L2PcInstance.class),
+	PlayerTeleport(L2PcInstance.class),
+	PlayerScrollTeleport(L2PcInstance.class),
+	PlayerGotoLove(L2PcInstance.class),
+	PlayerSummonFriend(L2PcInstance.class),
+	PlayerChat(L2PcInstance.class),
+	
+	// Restrictions can be applied to monsters
+	MonsterCast(L2MonsterInstance.class)
+	
+	// More restrictions classes can be easily set
+	// by adding new lines and new classes
+	;
+	
+	private final Class _applyTo;
+	
+	private AvailableRestriction(Class applyTo) {
+		_applyTo = applyTo;
+	}
+	
+	public Class getApplyableTo() {
+		return _applyTo;
+	}
 }

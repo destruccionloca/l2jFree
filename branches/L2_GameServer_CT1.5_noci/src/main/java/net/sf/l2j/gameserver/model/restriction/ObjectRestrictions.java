@@ -61,7 +61,13 @@ public class ObjectRestrictions
 	 * @param owner
 	 * @param restriction
 	 */
-	public void addRestriction(Object owner, AvailableRestriction restriction) {
+	public void addRestriction(Object owner, AvailableRestriction restriction) throws RestrictionBindClassException {
+		if (owner != null)
+			return;
+
+		if (checkApplyable(owner, restriction))
+			throw new RestrictionBindClassException("Restriction "+restriction.name()+" cannot bound to Class "+owner.getClass());
+		
 		if (_restrictionList.get(owner) == null) {
 			_restrictionList.put(owner, new ArrayList<AvailableRestriction>());
 		}
@@ -109,10 +115,18 @@ public class ObjectRestrictions
 	 * @param owner
 	 * @param restrictions
 	 */
-	public void addRestrictionList(Object owner, List<AvailableRestriction> restrictions) {
+	public void addRestrictionList(Object owner, List<AvailableRestriction> restrictions) throws RestrictionBindClassException {
+		if (owner != null)
+			return;
+
 		if (_restrictionList.get(owner) == null) {
 			_restrictionList.put(owner, new ArrayList<AvailableRestriction>());
 		}
+
+		for (AvailableRestriction restriction : restrictions) {
+			if (checkApplyable(owner, restriction))
+				throw new RestrictionBindClassException("Restriction "+restriction.name()+" cannot bound to Class "+owner.getClass());
+			}
 		
 		_restrictionList.get(owner).addAll(restrictions);
 	}
@@ -124,6 +138,9 @@ public class ObjectRestrictions
 	 * @return
 	 */
 	public boolean checkRestriction(Object owner, AvailableRestriction restriction) {
+		if (owner == null)
+			return false;
+		
 		if (_restrictionList.get(owner) == null)
 			return false;
 		
@@ -168,7 +185,13 @@ public class ObjectRestrictions
 	 * @param restriction
 	 * @param delay
 	 */
-	public void timedAddRestriction(L2Object owner, AvailableRestriction restriction, long delay) {
+	public void timedAddRestriction(L2Object owner, AvailableRestriction restriction, long delay) throws RestrictionBindClassException {
+		if (owner == null)
+			return;
+		
+		if (checkApplyable(owner, restriction))
+			throw new RestrictionBindClassException("Restriction "+restriction.name()+" cannot bound to Class "+owner.getClass());
+		
 		TimedRestrictionEvent event = new TimedRestrictionEvent(owner, restriction, 
 				TimedRestrictionEventType.Add, delay);
 				
@@ -184,7 +207,13 @@ public class ObjectRestrictions
 	 * @param delay
 	 * @param message
 	 */
-	public void timedAddRestriction(L2Object owner, AvailableRestriction restriction, long delay, String message) {
+	public void timedAddRestriction(L2Object owner, AvailableRestriction restriction, long delay, String message) throws RestrictionBindClassException {
+		if (owner == null)
+			return;
+		
+		if (checkApplyable(owner, restriction))
+			throw new RestrictionBindClassException("Restriction "+restriction.name()+" cannot bound to Class "+owner.getClass());
+		
 		TimedRestrictionEvent event = new TimedRestrictionEvent(owner, restriction, 
 				TimedRestrictionEventType.Add, delay, message);
 
@@ -271,9 +300,11 @@ public class ObjectRestrictions
 		for (PausedTimedEvent paused : _pausedActions.get(owner.getObjectId())) {
 			switch (paused.getAction().getEventType()) {
 				case Add:
-					timedAddRestriction(owner, paused.getAction().getRestriction(),
-							paused.getBalancedTime(),
-							paused.getAction().getMessage());
+					try {
+						timedAddRestriction(owner, paused.getAction().getRestriction(),
+								paused.getBalancedTime(),
+								paused.getAction().getMessage());
+					} catch(RestrictionBindClassException e) { e.printStackTrace(); }
 					break;
 					
 				case Remove:
@@ -303,7 +334,9 @@ public class ObjectRestrictions
 		public void run() {
 			switch (_action.getEventType()) {
 				case Add:
-					ObjectRestrictions.getInstance().addRestriction(_action.getOwner(), _action.getRestriction());
+					try {
+						ObjectRestrictions.getInstance().addRestriction(_action.getOwner(), _action.getRestriction());
+					} catch (RestrictionBindClassException e) { e.printStackTrace(); }
 					break;
 					
 				case Remove:
@@ -389,5 +422,9 @@ public class ObjectRestrictions
 		public TimedRestrictionAction getAction() {
 			return _action;
 		}
+	}
+	
+	private boolean checkApplyable(Object owner, AvailableRestriction restriction) {
+		return (restriction.getApplyableTo().isInstance(owner));
 	}
 }

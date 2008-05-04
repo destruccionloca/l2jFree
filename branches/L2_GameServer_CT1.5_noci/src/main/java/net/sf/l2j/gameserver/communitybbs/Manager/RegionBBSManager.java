@@ -231,7 +231,7 @@ public class RegionBBSManager extends BaseBBSManager
                     return;
                 }
                 if (ObjectRestrictions.getInstance()
-                		.checkRestriction(activeChar, AvailableRestriction.Chat))
+                		.checkRestriction(activeChar, AvailableRestriction.PlayerChat))
                 {
                     activeChar.sendPacket(new SystemMessage(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED));
                     parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
@@ -248,7 +248,7 @@ public class RegionBBSManager extends BaseBBSManager
                         return;
                     }
                     if (ObjectRestrictions.getInstance()
-                    		.checkRestriction(receiver, AvailableRestriction.Chat))
+                    		.checkRestriction(receiver, AvailableRestriction.PlayerChat))
                     {
                         activeChar.sendMessage("Player is chat banned.");
                         parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
