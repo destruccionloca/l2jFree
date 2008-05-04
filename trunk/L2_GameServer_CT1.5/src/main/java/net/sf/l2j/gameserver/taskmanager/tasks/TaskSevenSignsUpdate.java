@@ -35,12 +35,14 @@ public class TaskSevenSignsUpdate extends Task
     private static final Log _log = LogFactory.getLog(TaskSevenSignsUpdate.class);
     
     public static final String NAME = "seven_signs_update";
-    
+
+    @Override
     public String getName()
     {
         return NAME;
     }
 
+    @Override
     public void onTimeElapsed(ExecutedTask task)
     {
         try {
@@ -55,7 +57,8 @@ public class TaskSevenSignsUpdate extends Task
             _log.error("SevenSigns: Failed to save Seven Signs configuration: " + e,e);
         }
     }
-    
+
+    @Override
     public void initializate()
     {
         super.initializate();

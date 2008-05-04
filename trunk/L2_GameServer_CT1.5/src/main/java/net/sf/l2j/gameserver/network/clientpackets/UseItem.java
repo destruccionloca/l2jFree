@@ -50,6 +50,7 @@ public class UseItem extends L2GameClientPacket
 	private static final String	_C__14_USEITEM	= "[C] 14 UseItem";
 
 	private int					_objectId;
+	@SuppressWarnings("unused")
 	private int					_unknown;
 
 	/**

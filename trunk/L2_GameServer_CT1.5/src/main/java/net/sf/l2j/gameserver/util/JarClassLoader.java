@@ -41,6 +41,7 @@ public class JarClassLoader extends ClassLoader
 		_jars.add(filename);
 	}
 
+	@Override
 	public Class<?> findClass(String name) throws ClassNotFoundException
 	{
 		try

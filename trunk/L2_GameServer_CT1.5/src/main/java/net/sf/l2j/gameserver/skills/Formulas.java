@@ -15,7 +15,6 @@
 package net.sf.l2j.gameserver.skills;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
@@ -42,7 +41,6 @@ import net.sf.l2j.gameserver.skills.conditions.ConditionUsingItemType;
 import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2Armor;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
