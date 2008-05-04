@@ -482,12 +482,10 @@ public class UseItem extends L2GameClientPacket
 			{
 				IItemHandler handler = ItemHandler.getInstance().getItemHandler(itemId);
 
-				if (handler == null)
-				{
-					if (_log.isDebugEnabled()) _log.debug("No item handler registered for item ID " + itemId + ".");
-				}
-				else
+				if (handler != null)
 					handler.useItem(activeChar, item);
+				else if (_log.isDebugEnabled())
+					_log.debug("No item handler registered for item ID " + itemId + ".");
 			}
 		}
 	}
