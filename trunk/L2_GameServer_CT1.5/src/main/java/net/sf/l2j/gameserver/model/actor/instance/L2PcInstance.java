@@ -12022,53 +12022,28 @@ public final class L2PcInstance extends L2PlayableInstance
         return _transformationId;
     }
 
-    public void transformUpdateInfo()
-    {
-        _transformationId = 0;
-        Connection con = null;
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement(UPDATE_CHAR_TRANSFORM);
-            statement.setInt(1, 0);
-            statement.setInt(2, getObjectId());
-
-            statement.execute();
-            statement.close();
-        }
-        catch (Exception e)
-        {
-            _log.fatal("Transformation update info error:" + e.toString());
-        }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
-        regiveTemporarySkills();
-    }
-
     @Override
     public boolean mustFallDownOnDeath()
     {
-    	return (super.mustFallDownOnDeath()) || (isInFunEvent() && Config.FALLDOWNONDEATH);
+        return (super.mustFallDownOnDeath()) || (isInFunEvent() && Config.FALLDOWNONDEATH);
     }
 
     public void setAgathionId(int npcId)
     {
-    	_agathionId = npcId;
+        _agathionId = npcId;
     }
     public int getAgathionId()
     {
-	    return _agathionId;
+        return _agathionId;
     }
 
     public L2StaticObjectInstance getObjectSittingOn()
     {
-    	return _objectSittingOn;
+        return _objectSittingOn;
     }
     public void setObjectSittingOn(L2StaticObjectInstance id)
     {
-    	_objectSittingOn=id;
+        _objectSittingOn=id;
     }
     
     public int getOlympiadOpponentId()

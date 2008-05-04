@@ -298,7 +298,8 @@ public class CastleManorManager
 
 	public void updateManorRefresh()
 	{
-		_log.info("ManorSystem: Manor refresh updated");
+		if (_log.isDebugEnabled())
+			_log.info("ManorSystem: Manor refresh updated");
 		_scheduledManorRefresh = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 		{
 			public void run()

@@ -844,6 +844,9 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					// This one is new since CT1.5 , I don't know the server->client opcode yet
 					// msg = new RequestFortressMapInfo();
 					break;
+				case 0x4d:
+					// msg = new SetPrivateStoreWholeMsg();
+					break;
 				default:
 					this.printDebugDoubleOpcode(opcode, id2, buf, state, client);
 					break;

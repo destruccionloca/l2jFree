@@ -176,8 +176,8 @@ public class Announcements implements AnnouncementsMBean
 					i++;
 				}
 			}
-			
-			_log.info("Announcements: Loaded " + i + " Announcements.");
+			if (_log.isDebugEnabled())
+				_log.info("Announcements: Loaded " + i + " Announcements.");
 		}
 		catch (IOException e1)
 		{

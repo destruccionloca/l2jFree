@@ -55,7 +55,7 @@ public class DayNightSpawnManager {
         _nightCreatures = new FastMap<L2Spawn, L2NpcInstance>();
         _bosses = new FastMap<L2Spawn, L2Boss>();
         
-        _log.info("DayNightSpawnManager: Day/Night handler initialised");
+        _log.info("DayNightSpawnManager: Day/Night handler initialized");
     }
     
     public void addDayCreature(L2Spawn spawnDat)
@@ -115,7 +115,8 @@ public class DayNightSpawnManager {
                     dayCreature.deleteMe();
                     i++;
                 }
-                _log.info("DayNightSpawnManager: Deleted " + i + " "+UnspawnLogInfo+" creatures");
+                if (_log.isDebugEnabled())
+                    _log.info("DayNightSpawnManager: Deleted " + i + " "+UnspawnLogInfo+" creatures");
             }
             
             int i = 0;
@@ -147,8 +148,8 @@ public class DayNightSpawnManager {
                 
                 i++;
             }
-            
-            _log.info("DayNightSpawnManager: Spawning " + i + " "+SpawnLogInfo+" creatures");
+            if (_log.isDebugEnabled())
+                _log.info("DayNightSpawnManager: Spawning " + i + " "+SpawnLogInfo+" creatures");
         }
         catch(Exception e)
         {
@@ -245,11 +246,13 @@ public class DayNightSpawnManager {
         {
             case 0:
                 boss.deleteMe();
-                _log.info("DayNightSpawnManager: Deleting Hellman raidboss");
+                if (_log.isDebugEnabled())
+                    _log.info("DayNightSpawnManager: Deleting Hellman raidboss");
                 break;
             case 1:
                 boss.spawnMe();
-                _log.info("DayNightSpawnManager: Spawning Hellman raidboss");
+                if (_log.isDebugEnabled())
+                    _log.info("DayNightSpawnManager: Spawning Hellman raidboss");
                 break;
         }
     }
