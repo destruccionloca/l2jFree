@@ -56,7 +56,7 @@ public abstract class L2Effect
 		MUTE, FEAR, SILENT_MOVE, SEED, PARALYZE, STUN_SELF, BLUFF, BETRAY, NOBLESSE_BLESSING, PHOENIX_BLESSING, PETRIFY,
 		CANCEL_TARGET, SILENCE_MAGIC_PHYSICAL, ERASE, LUCKNOBLESSE, PHYSICAL_MUTE, PHYSICAL_ATTACK_MUTE, TARGET_ME, REMOVE_TARGET,
 		CHARM_OF_LUCK, INVINCIBLE, BAND_OF_DARKNESS, DARK_SEED, TRANSFORM, DISARM, CHARMOFCOURAGE,
-		PREVENT_BUFF, CONDITION_HIT, TRANSFORMATION, SIGNET_EFFECT, SIGNET_GROUND
+		PREVENT_BUFF, CONDITION_HIT, TRANSFORMATION, SIGNET_EFFECT, SIGNET_GROUND,
 	}
 	
 	private static final Func[]		_emptyFunctionSet	= new Func[0];
@@ -70,6 +70,7 @@ public abstract class L2Effect
 	// by this effect. Do not confuse with the instance of L2Character that
 	// catsed/used this effect.
 	private final L2Character		_effected;
+	private L2Character		_stolenEffected;
 	
 	// the skill that was used.
 	private final L2Skill			_skill;
@@ -201,6 +202,11 @@ public abstract class L2Effect
 		return _icon;
 	}
 
+	public void setPeriod(int pPeriod)
+	{
+		_period = pPeriod;
+	}
+
 	public int getPeriod()
 	{
 		return _period;
@@ -264,6 +270,11 @@ public abstract class L2Effect
 	{
 		return _effector;
 	}
+
+	public final void setStolenEffected(L2Character newEffected)
+	{
+		_stolenEffected = newEffected;
+	}
 	
 	public final L2Character getEffected()
 	{
@@ -301,6 +312,15 @@ public abstract class L2Effect
 		
 		if (_state == EffectState.ACTING)
 			_effected.addEffect(this);
+	}
+
+	public synchronized void startStolenEffectTask(int duration)
+	{
+		stopEffectTask();
+		_currentTask = new EffectTask(duration, -1);
+		_currentFuture = ThreadPoolManager.getInstance().scheduleEffect(_currentTask, duration);
+		
+			_stolenEffected.addEffect(this);
 	}
 	
 	private synchronized void startEffectTaskAtFixedRate(int delay, int rate)

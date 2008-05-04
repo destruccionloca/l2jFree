@@ -45,6 +45,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.SiegeFlag;
 import net.sf.l2j.gameserver.handler.skillhandlers.Soul;
 import net.sf.l2j.gameserver.handler.skillhandlers.Sow;
 import net.sf.l2j.gameserver.handler.skillhandlers.Spoil;
+import net.sf.l2j.gameserver.handler.skillhandlers.StealDivinity;
 import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.ShiftTarget;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonFriend;
@@ -113,6 +114,7 @@ public class SkillHandler
         registerSkillHandler(new Soul());
         registerSkillHandler(new Sow());
         registerSkillHandler(new Spoil());
+        registerSkillHandler(new StealDivinity());
         registerSkillHandler(new StrSiegeAssault());
         registerSkillHandler(new SummonFriend());
         registerSkillHandler(new SummonTreasureKey());
