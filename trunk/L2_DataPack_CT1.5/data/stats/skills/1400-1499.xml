@@ -228,7 +228,7 @@
 -->
   <set name="itemConsumeId" val="8874"/>
   <set name="itemConsumeCount" val="1"/>
-  <set name="mpInitialConsume" val="21"/> <!-- Guessing -->
+  <set name="mpInitialConsume" val="15"/>
   <set name="mpConsume" val="58"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
@@ -674,7 +674,6 @@
   <set name="hitTime" val="5000"/>
   <set name="reuseDelay" val="3600000"/>
   <set name="isMagic" val="true"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <cond msg="Proper force required.">
@@ -701,6 +700,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="900"/>
   <set name="isMagic" val="true"/>
   <cond msg="Proper SpellForces required.">
     <player spell_force="2"/>
@@ -742,6 +742,7 @@
   <set name="power" val="0.0"/>
   <set name="skillType" val="SUMMON_FRIEND"/> <!-- Only for pre-implementation, the skill don't consume crystal of the summoned player, needs core support -->
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="600000"/>
   <set name="mpConsume" val="284"/>
   <set name="hitTime" val="15000"/>
   <set name="isMagic" val="true"/>
@@ -885,8 +886,19 @@
   <table name="#power"> 35 40 45 50 55 60 65 70 75 80 </table>
   <table name="#soulConsumeCount"> 1 1 2 2 2 2 2 2 2 2 </table>
   <table name="#EffectLvl"> 1 2 3 4 5 6 7 8 9 10 </table>
-  <table name="#ench1EffectLevel"> 10.0 10.0 10.0 10.0 10.0 10.0 10.0 10.0 11.0 11.0 11.0 11.0 11.0 11.0 11.0 11.0 12.0 12.0 12.0 12.0 12.0 12.0 12.0 12.0 12.0 13.0 13.0 13.0 13.0 13.0 </table>
-  <table name="#ench2Chance"> 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 </table>
+  <table name="#ench1EffectLevel">
+  10.0 10.0 10.0 10.0 10.0
+  10.0 10.0 10.0 11.0 11.0
+  11.0 11.0 11.0 11.0 11.0
+  11.0 12.0 12.0 12.0 12.0
+  12.0 12.0 12.0 12.0 12.0
+  13.0 13.0 13.0 13.0 13.0
+  </table>
+  <table name="#ench2Chance">
+  59 60 61 62 63 64 65 66 67 68
+  69 70 71 72 73 74 75 76 77 78
+  79 80 81 82 83 84 85 86 87 88
+  </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
@@ -913,12 +925,39 @@
       Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 50-108.
       Enchant1 + Power. Enchant2 +Cost.
 -->
-  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
-  <table name="#ench1Power"> 111 112 112 112 113 113 113 114 114 115 115 115 116 116 116 117 117 117 118 118 119 119 119 120 120 120 121 121 121 122 </table>
-  <table name="#ench2MpConsume"> 69 68 67 65 64 63 62 60 60 59 58 57 55 54 53 52 50 49 48 48 47 45 44 43 42 40 39 38 37 37 </table>
-  <table name="#mpConsume"> 28 29 30 30 33 33 35 35 38 38 40 40 43 43 44 45 45 47 48 48 49 49 50 52 52 53 53 54 54 55 </table>
-  <table name="#power"> 50 52 55 57 60 61 65 66 70 72 75 77 80 82 84 85 87 88 90 92 94 96 97 99 100 102 104 105 107 108 </table>
-  <table name="#magicLvl"> 38 40 42 43 45 46 48 49 51 52 54 55 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
+  <table name="#enchantMagicLvl">
+  76 76 76 77 77 77 78 78 78 79
+  79 79 80 80 80 81 81 81 82 82
+  82 82 83 83 83 84 84 85 85 85
+  </table>
+  <table name="#ench1Power">
+  111 112 112 112 113
+  113 113 114 114 115
+  115 115 116 116 116
+  117 117 117 118 118
+  119 119 119 120 120
+  120 121 121 121 122
+  </table>
+  <table name="#ench2MpConsume">
+  69 68 67 65 64 63 62 60 60 59
+  58 57 55 54 53 52 50 49 48 48
+  47 45 44 43 42 40 39 38 37 37
+  </table>
+  <table name="#mpConsume">
+  28 29 30 30 33 33 35 35 38 38
+  40 40 43 43 44 45 45 47 48 48
+  49 49 50 52 52 53 53 54 54 55
+  </table>
+  <table name="#power">
+  50 52 55 57 60 61 65 66 70 72 75
+  77 80 82 84 85 87 88 90 92 94 96
+  97 99 100 102 104 105 107 108
+  </table>
+  <table name="#magicLvl">
+  38 40 42 43 45 46 48 49 51 52
+  54 55 57 58 59 60 61 62 63 64
+  65 66 67 68 69 70 71 72 73 74
+  </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="magicLvl" val="#magicLvl"/>
@@ -1046,6 +1085,7 @@
   <table name="#activateRate"> 50 52 54 56 58 </table>
   <set name="hitTime" val="3000"/>
   <set name="reuseDelay" val="55000"/>
+  <set name="power" val="70"/>
   <set name="activateRate" val="#activateRate"/>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
@@ -1113,17 +1153,38 @@
     </effect>
   </for>
 </skill>
-<skill id="1443" levels="1" name="Dark Weapon">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+<skill id="1443" levels="1" name="Dark Weapon" enchantLevels1="30" enchantLevels2="30">
+<!-- by Sephiroth -->
+  <table name="#ench1Power"> 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 </table>
+  <table name="#ench2Time"> 502 503 504 505 506 507 508 509 510 511 512 513 514 515 516 517 518 519 520 521 522 523 524 525 526 527 528 529 530 531 </table>
+  <set name="hitTime" val="4000"/>
+  <set name="reuseDelay" val="9000"/>
+  <set name="mpConsume" val="42"/>
+  <set name="target" val="TARGET_PARTY_MEMBER"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="400"/>
+  <set name="soulConsumeCount" val="2"/>
+  <set name="effectType" val="BUFF"/>
+  <set name="effectRange" val="400"/>
+  <set name="buffDuration" val="500"/>
+  <enchant1 name="power" val="#ench1Power"/>
+  <enchant2 name="buffDuration" val="#ench2Time"/>
   <for>
+    <effect name="Buff" count="1" val="0" time="500">
+      <set order="0x30" stat="dark" val="100"/>
+    </effect>
   </for>
+  <enchant1for>
+    <effect name="Buff" count="1" val="0" time="500">
+      <set order="0x30" stat="dark" val="#ench1Power"/>
+    </effect>
+  </enchant1for>
+  <enchant2for>
+    <effect name="Buff" count="1" val="0" time="#ench2Time">
+      <set order="0x30" stat="dark" val="100"/>
+    </effect>
+  </enchant2for>
 </skill>
 <skill id="1444" levels="1" name="Pride of Kamael">
 <!--
@@ -1983,7 +2044,7 @@
 -->
   <table name="#mpConsume_Init"> 21 25 14 16 17 19 20 20 </table>
   <table name="#mpConsume"> 49 57 34 38 41 43 45 48 </table>
-  <table name="#Tab-Heal"> 12 15 18 23 27 31 35 390 </table> <!-- CT1 Retail -->
+  <table name="#Tab-Heal"> 12 15 18 23 27 31 35 39 </table> <!-- CT1 Retail -->
   <table name="#effectPoint"> 204 243 285 331 379 418 457 495 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
