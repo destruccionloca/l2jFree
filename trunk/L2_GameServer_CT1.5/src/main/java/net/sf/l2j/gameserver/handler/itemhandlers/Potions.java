@@ -23,6 +23,9 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.entity.events.CTF;
+import net.sf.l2j.gameserver.model.entity.events.TvT;
+import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
@@ -128,6 +131,12 @@ public class Potions implements IItemHandler
 			activeChar = ((L2PetInstance) playable).getOwner();
 		else
 			return;
+
+		if ((activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_POTIONS) || (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_POTIONS) || (activeChar._inEventDM && DM._started && !Config.DM_ALLOW_POTIONS))
+		{
+		    activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+		    return;
+		}
 
 		if (activeChar.isInOlympiadMode())
 		{

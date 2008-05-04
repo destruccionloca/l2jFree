@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
+import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillLaunched;
@@ -53,7 +54,7 @@ public class SummonItems implements IItemHandler
 
         if ( !FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_ITEMPETSUMMON) ) return;
 
-        if ((activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_SUMMON) || (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_SUMMON))
+        if ((activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_SUMMON) || (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_SUMMON) || (activeChar._inEventDM && DM._started && !Config.DM_ALLOW_SUMMON))
         {
             activeChar.sendPacket(ActionFailed.STATIC_PACKET);
             return;
