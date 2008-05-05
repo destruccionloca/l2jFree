@@ -1094,6 +1094,7 @@
   <set name="skillType" val="STEAL_DIV"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="landingPercent" val="35"/>
   <set name="soulConsumeCount" val="4"/>
   <for>
   </for>
