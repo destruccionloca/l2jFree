@@ -8143,7 +8143,7 @@ INSERT INTO `npc` VALUES
 --
 
 -- greater wolf start level 55 not 70, thx dorban for the hint
-UPDATE `npc` SET `level` = 50 WHERE `id` = 16030;
+UPDATE `npc` SET `level` = 55 WHERE `id` = 16030
 
 -- Fix for Triol's High Priest
 UPDATE `npc` SET `lhand` = 8206 WHERE `id` in (22163,22171);
