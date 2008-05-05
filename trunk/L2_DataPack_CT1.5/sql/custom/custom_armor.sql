@@ -30,65 +30,65 @@ ALTER TABLE `custom_armor` ADD `sex` INT (1) NOT NULL DEFAULT -1;
 -- Agathion Seal Bracelet - Little Angel
 
 INSERT INTO custom_armor
-   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `item_skill_id`, `item_skill_lvl`, `races`, `classes`, `sex`)
+   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`)
 VALUES
-   (10316, 'Agathion Seal Bracelet - Little Angel', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3423,3267', '1,1', '-1', '-1', -1);
+   (10316, 'Agathion Seal Bracelet - Little Angel', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3423-1;3267-1', '-1', '-1', -1);
 
 INSERT INTO custom_armor
-   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `item_skill_id`, `item_skill_lvl`, `races`, `classes`, `sex`)
+   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`)
 VALUES
-   (10317, 'Agathion Seal Bracelet - Little Angel', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3423,3267', '1,1', '-1', '-1', -1);
+   (10317, 'Agathion Seal Bracelet - Little Angel', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3423-1;3267-1', '-1', '-1', -1);
    
 INSERT INTO custom_armor
-   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `item_skill_id`, `item_skill_lvl`, `races`, `classes`, `sex`)
+   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`)
 VALUES
-   (10318, 'Agathion Seal Bracelet - Little Angel', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3423,3267', '1,1', '-1', '-1', -1);
+   (10318, 'Agathion Seal Bracelet - Little Angel', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3423-1;3267-1', '-1', '-1', -1);
    
 INSERT INTO custom_armor
-   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `item_skill_id`, `item_skill_lvl`, `races`, `classes`, `sex`)
+   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`)
 VALUES
-   (10319, 'Agathion Seal Bracelet - Little Angel', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3423,3267', '1,1', '-1', '-1', -1);
+   (10319, 'Agathion Seal Bracelet - Little Angel', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3423-1;3267-1', '-1', '-1', -1);
    
 INSERT INTO custom_armor
-   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `item_skill_id`, `item_skill_lvl`, `races`, `classes`, `sex`)
+   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`)
 VALUES
-   (10320, 'Agathion Seal Bracelet - Little Angel', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3423,3267', '1,1', '-1', '-1', -1);
+   (10320, 'Agathion Seal Bracelet - Little Angel', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3423-1;3267-1', '-1', '-1', -1);
 
 -- Agathion Seal Bracelet - Little Devil
 
 INSERT INTO custom_armor
-   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `item_skill_id`, `item_skill_lvl`, `races`, `classes`, `sex`)
+   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`)
 VALUES
-   (10322, 'Agathion Seal Bracelet - Little Devil', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3424,3267', '1,1', '-1', '-1', -1);
+   (10322, 'Agathion Seal Bracelet - Little Devil', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3424-1;3267-1', '-1', '-1', -1);
 
 INSERT INTO custom_armor
-   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `item_skill_id`, `item_skill_lvl`, `races`, `classes`, `sex`)
+   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`)
 VALUES
-   (10323, 'Agathion Seal Bracelet - Little Devil', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3424,3267', '1,1', '-1', '-1', -1);
+   (10323, 'Agathion Seal Bracelet - Little Devil', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3424-1;3267-1', '-1', '-1', -1);
    
 INSERT INTO custom_armor
-   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `item_skill_id`, `item_skill_lvl`, `races`, `classes`, `sex`)
+   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`)
 VALUES
-   (10324, 'Agathion Seal Bracelet - Little Devil', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3424,3267', '1,1', '-1', '-1', -1);
+   (10324, 'Agathion Seal Bracelet - Little Devil', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3424-1;3267-1', '-1', '-1', -1);
    
 INSERT INTO custom_armor
-   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `item_skill_id`, `item_skill_lvl`, `races`, `classes`, `sex`)
+   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`)
 VALUES
-   (10325, 'Agathion Seal Bracelet - Little Devil', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3424,3267', '1,1', '-1', '-1', -1);
+   (10325, 'Agathion Seal Bracelet - Little Devil', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3424-1;3267-1', '-1', '-1', -1);
    
 INSERT INTO custom_armor
-   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `item_skill_id`, `item_skill_lvl`, `races`, `classes`, `sex`)
+   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`)
 VALUES
-   (10326, 'Agathion Seal Bracelet - Little Devil', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3424,3267', '1,1', '-1', '-1', -1);
+   (10326, 'Agathion Seal Bracelet - Little Devil', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3424-1;3267-1', '-1', '-1', -1);
 
 -- Agathion Seal Bracelet - Rudolph
 
 INSERT INTO custom_armor
-   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `item_skill_id`, `item_skill_lvl`, `races`, `classes`, `sex`)
+   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`)
 VALUES
-   (10606, 'Agathion Seal Bracelet - Rudolph', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3425,3267', '1,1', '-1', '-1', -1);
+   (10606, 'Agathion Seal Bracelet - Rudolph', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3425-1;3267-1', '-1', '-1', -1);
    
 INSERT INTO custom_armor
-   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `item_skill_id`, `item_skill_lvl`, `races`, `classes`, `sex`)
+   (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`)
 VALUES
-   (10607, 'Agathion Seal Bracelet - Rudolph', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3425,3267', '1,1', '-1', '-1', -1);
+   (10607, 'Agathion Seal Bracelet - Rudolph', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '3425-1;3267-1', '-1', '-1', -1);
