@@ -64,7 +64,7 @@ public class DeluxeKey implements ISkillHandler
 		if (requiredItems == null || requiredItems.getCount() < 1)
 		{
                     // Send a System Message to the caster
-                    sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+                    ((L2PcInstance)activeChar).sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
                     return;
 		}
 
