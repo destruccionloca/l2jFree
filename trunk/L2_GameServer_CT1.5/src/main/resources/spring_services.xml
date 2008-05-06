@@ -43,7 +43,7 @@
 		<property name="l2RecipeDAO">
 			<ref bean="L2RecipeDAO" />
 		</property>
-	</bean> 	
+	</bean>
 	
 	<!-- 
 		Service to manage Items 
@@ -52,7 +52,7 @@
 		<property name="extractableItemsDAO">
 			<ref bean="ExtractableItemsDAO" />
 		</property>
-	</bean> 			
+	</bean>
 
 	<!-- 
 		Service to manage Boats 
@@ -64,6 +64,6 @@
 		<property name="boatTrajetDAO">
 			<ref bean="BoatTrajetDAO" />
 		</property>
-	</bean> 			
+	</bean>
 
 </beans>

@@ -28,7 +28,7 @@
 		<property name="breakAfterAcquireFailure"><value>false</value></property>
 		<property name="checkoutTimeout"><value>0</value></property>
 
-		<property name="initialPoolSize"><value>3</value></property>		
+		<property name="initialPoolSize"><value>3</value></property>
         <property name="minPoolSize"><value>1</value></property>
         <property name="maxPoolSize"><value>${net.sf.l2j.db.maximum.db.connection}</value></property>
 
@@ -36,7 +36,7 @@
         <property name="autoCommitOnClose"><value>true</value></property>
         <property name="automaticTestTable"><value>connection_test_table</value></property>
         <property name="testConnectionOnCheckin"><value>true</value></property>
-        <property name="numHelperThreads"><value>20</value></property>		
+        <property name="numHelperThreads"><value>20</value></property>
 	</bean>		  
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -60,11 +60,11 @@
 			<list>
 				<value>classpath:l2j-gameserver-1.0.0.jar</value>
 			</list>
-		</property>		
+		</property>
 	</bean>
 
 	<!--
-	Transaction manager				   
+	Transaction manager
 	Here you set the object and methods where transaction are used. 
     - PROPAGATION_REQUIRED is the transaction mode, 
     => it means :  Support a current transaction; create a new one if none exists.

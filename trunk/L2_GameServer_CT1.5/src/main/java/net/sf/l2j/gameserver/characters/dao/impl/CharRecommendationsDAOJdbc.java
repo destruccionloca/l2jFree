@@ -35,9 +35,9 @@ public class CharRecommendationsDAOJdbc extends BaseRootDAOJdbc implements IChar
 {
     private static final Log _log = LogFactory.getLog(CharRecommendationsDAOJdbc.class);
     
-    private static final String RESTORE_CHAR_RECOMS = "SELECT char_id,target_id FROM character_recommends WHERE char_id=?";
-    private static final String ADD_CHAR_RECOM = "INSERT INTO character_recommends (char_id,target_id) VALUES (?,?)";
-    private static final String DELETE_CHAR_RECOMS = "DELETE FROM character_recommends WHERE char_id=?";
+    private static final String RESTORE_CHAR_RECOMS = "SELECT charId,target_id FROM character_recommends WHERE charId=?";
+    private static final String ADD_CHAR_RECOM = "INSERT INTO character_recommends (charId,target_id) VALUES (?,?)";
+    private static final String DELETE_CHAR_RECOMS = "DELETE FROM character_recommends WHERE charId=?";
     
 
     /* (non-Javadoc)
@@ -122,7 +122,5 @@ public class CharRecommendationsDAOJdbc extends BaseRootDAOJdbc implements IChar
         {
             closeConnectionQuietly(con);
         }
-
     }
-
 }

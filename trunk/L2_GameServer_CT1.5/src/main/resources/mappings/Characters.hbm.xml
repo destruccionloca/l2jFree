@@ -4,8 +4,8 @@
 <!-- Generated 23 avr. 2007 20:32:38 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
     <class name="net.sf.l2j.gameserver.characters.model.Characters" table="characters" >
-        <id name="objId" type="long">
-            <column name="obj_Id" precision="11" scale="0" />
+        <id name="charId" type="long">
+            <column name="charId" precision="11" scale="0" />
             <generator class="assigned" />
         </id>
         <property name="accountName" type="string">
@@ -21,7 +21,7 @@
             </column>
         </property>
 		<set name="characterRecommendations" table="character_recommends" lazy="true">
-		    <key column="char_id" />
+		    <key column="charId" />
 		    <composite-element class="net.sf.l2j.gameserver.characters.model.recommendation.CharRecommendation">
 		        <property name="targetId" column="target_id"/>
 		    </composite-element>

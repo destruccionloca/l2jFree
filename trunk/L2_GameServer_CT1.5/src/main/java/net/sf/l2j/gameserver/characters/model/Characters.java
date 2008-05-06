@@ -32,7 +32,7 @@ public class Characters implements java.io.Serializable
 
     private static final long serialVersionUID = -7162570712501836925L;
     
-    private int objId;
+    private int charId;
     private String accountName;
     private String charName;
     private Long level;
@@ -120,12 +120,12 @@ public class Characters implements java.io.Serializable
     }
 
     /** minimal constructor */
-    public Characters(int objId, String charName, int baseClass, int recHave, int recLeft,
+    public Characters(int charId, String charName, int baseClass, int recHave, int recLeft,
                       boolean isin7sdungeon, int equipedWithZariche, long zarichePk,
                       BigDecimal zaricheTime, int pledgeClass, int pledgeType, int pledgeRank,
                       String apprentice, int accademyLvl)
     {
-        this.objId = objId;
+        this.charId = charId;
         this.charName = charName;
         this.baseClass = baseClass;
         this.recHave = recHave;
@@ -142,7 +142,7 @@ public class Characters implements java.io.Serializable
     }
 
     /** full constructor */
-    public Characters(int objId, String charName, Long level, Long maxHp, Long curHp,
+    public Characters(int charId, String charName, Long level, Long maxHp, Long curHp,
                       Long maxCp, Long curCp, Long maxMp, Long curMp, Long acc, Long crit, Long evasion,
                       Long matk, Long mdef, Long mspd, Long patk, Long pdef, Long pspd, Long runSpd,
                       Long walkSpd, Long str, Long con, Long dex, Long int_, Long men, Long wit,
@@ -159,7 +159,7 @@ public class Characters implements java.io.Serializable
                       int pledgeType, int pledgeRank, String apprentice, int accademyLvl,
                       Set<CharRecommendation> characterRecommendations)
     {
-        this.objId = objId;
+        this.charId = charId;
         this.charName = charName;
         this.level = level;
         this.maxHp = maxHp;
@@ -242,12 +242,12 @@ public class Characters implements java.io.Serializable
     // Property accessors
     public int getObjId()
     {
-        return this.objId;
+        return this.charId;
     }
 
     public void setObjId(int objId)
     {
-        this.objId = objId;
+        this.charId = objId;
     }
 
     public String getCharName()
