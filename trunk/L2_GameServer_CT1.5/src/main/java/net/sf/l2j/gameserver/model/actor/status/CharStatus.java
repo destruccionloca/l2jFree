@@ -245,7 +245,7 @@ public class CharStatus
 			if (value <= 0)
 			{
 				// is the dieing one a duelist? if so change his duel state to dead
-				if (player != null && player.isInDuel() && player instanceof L2PcInstance) // pets can die as usual
+				if (player != null && player.isInDuel() && getActiveChar() instanceof L2PcInstance) // pets can die as usual
 				{
 					getActiveChar().disableAllSkills();
 					stopHpMpRegeneration();
@@ -272,7 +272,7 @@ public class CharStatus
 
 		if (getActiveChar().getStatus().getCurrentHp() < 0.5) // Die
 		{
-			if (player != null && player.isInOlympiadMode() && player instanceof L2PcInstance) // pets can die as usual
+			if (player != null && player.isInOlympiadMode() && getActiveChar() instanceof L2PcInstance) // pets can die as usual
 			{
 				stopHpMpRegeneration();
 				player.setIsDead(true);
