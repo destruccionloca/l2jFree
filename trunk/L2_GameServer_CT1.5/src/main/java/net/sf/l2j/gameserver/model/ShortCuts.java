@@ -84,7 +84,7 @@ public class ShortCuts
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
         
-            PreparedStatement statement = con.prepareStatement("REPLACE INTO character_shortcuts (char_obj_id,slot,page,type,shortcut_id,level,class_index) values(?,?,?,?,?,?,?)");
+            PreparedStatement statement = con.prepareStatement("REPLACE INTO character_shortcuts (charId,slot,page,type,shortcut_id,level,class_index) values(?,?,?,?,?,?,?)");
             statement.setInt(1, _owner.getObjectId());
             statement.setInt(2, shortcut.getSlot());
             statement.setInt(3, shortcut.getPage());
@@ -122,7 +122,7 @@ public class ShortCuts
 	        if ((item != null) && (item.getItemType() == L2EtcItemType.SHOT))
 	        {
 	        	_owner.removeAutoSoulShot(item.getItemId());
-	            _owner.sendPacket(new ExAutoSoulShot(item.getItemId(), 0));        	
+	            _owner.sendPacket(new ExAutoSoulShot(item.getItemId(), 0)); 
 	        }
 		}
         _owner.sendPacket(new ShortCutInit(_owner));
@@ -159,7 +159,7 @@ public class ShortCuts
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
         
-            PreparedStatement statement = con.prepareStatement("DELETE FROM character_shortcuts WHERE char_obj_id=? AND slot=? AND page=? AND class_index=?");
+            PreparedStatement statement = con.prepareStatement("DELETE FROM character_shortcuts WHERE charId=? AND slot=? AND page=? AND class_index=?");
             statement.setInt(1, _owner.getObjectId());
             statement.setInt(2, shortcut.getSlot());
             statement.setInt(3, shortcut.getPage());
@@ -169,7 +169,7 @@ public class ShortCuts
         }
         catch (Exception e)
         {
-			_log.warn("Could not delete character shortcut: " + e);
+            _log.warn("Could not delete character shortcut: " + e);
         } 
         finally 
         {
@@ -185,7 +185,7 @@ public class ShortCuts
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("SELECT char_obj_id, slot, page, type, shortcut_id, level FROM character_shortcuts WHERE char_obj_id=? AND class_index=?");
+            PreparedStatement statement = con.prepareStatement("SELECT slot, page, type, shortcut_id, level FROM character_shortcuts WHERE charId=? AND class_index=?");
             statement.setInt(1, _owner.getObjectId());
             statement.setInt(2, _owner.getClassIndex());
             
@@ -208,21 +208,21 @@ public class ShortCuts
         }
         catch (Exception e)
         {
-			_log.warn("Could not restore character shortcuts: " + e);
+            _log.warn("Could not restore character shortcuts: " + e);
         } 
         finally 
         {
             try { con.close(); } catch (Exception e) {}
         }
-        
-		// verify shortcuts
-		for (L2ShortCut sc : getAllShortCuts()) 
+
+        // verify shortcuts
+        for (L2ShortCut sc : getAllShortCuts()) 
         {
-			if (sc.getType() == L2ShortCut.TYPE_ITEM)
+            if (sc.getType() == L2ShortCut.TYPE_ITEM)
             {
-				if (_owner.getInventory().getItemByObjectId(sc.getId()) == null)
-					deleteShortCut(sc.getSlot(), sc.getPage());
+                if (_owner.getInventory().getItemByObjectId(sc.getId()) == null)
+                    deleteShortCut(sc.getSlot(), sc.getPage());
             }
-		}
+        }
     }
 }

@@ -38,40 +38,40 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class FriendList extends L2GameServerPacket
 {
 	private static final String _S__FA_FRIENDLIST = "[S] FA FriendList";
-	
-    private L2PcInstance _activeChar;
-    
-    public FriendList(L2PcInstance cha)
-    {
-        _activeChar = cha;
-    }
-	
-    @Override
-    protected final void writeImpl()
+
+	private L2PcInstance _activeChar;
+
+	public FriendList(L2PcInstance cha)
+	{
+		_activeChar = cha;
+	}
+
+	@Override
+	protected final void writeImpl()
 	{
 		if (_activeChar == null)  
 			return;  
-		
+
 		if (L2FriendList.getFriendList(_activeChar).size() > 0)
 		{
 			writeC(0x75);
 			writeH(L2FriendList.getFriendListNames(_activeChar).length);
-            
+
 			for(Map.Entry<Integer, String> _friend : L2FriendList.getFriendList(_activeChar).entrySet())
-	        {
+			{
 				L2PcInstance friend = L2World.getInstance().getPlayer(_friend.getValue());
-	        	writeH(0); // ??
+				writeH(0); // ??
 				writeD(_friend.getKey());
 				writeS(_friend.getValue());
 				if (friend == null)
 					writeD(0); // offline
 				else
 					writeD(1); // online
-				writeH(0); // ??	
-	        }
+				writeH(0); // ??
+			}
 		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */

@@ -31,24 +31,24 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class IdFactory
 {
-	private final static Log _log = LogFactory.getLog(IdFactory.class.getName());
+    private final static Log _log = LogFactory.getLog(IdFactory.class.getName());
 
-	protected static final String[] ID_UPDATES = 
-	{
+    protected static final String[] ID_UPDATES = 
+    {
         "UPDATE items                 SET owner_id = ?    WHERE owner_id = ?",
         "UPDATE items                 SET object_id = ?   WHERE object_id = ?",
-        "UPDATE character_quests      SET char_id = ?     WHERE char_id = ?",
-        "UPDATE character_friends     SET char_id = ?     WHERE char_id = ?",
-        "UPDATE character_friends     SET friend_id = ?   WHERE friend_id = ?",
-        "UPDATE character_hennas      SET char_obj_id = ? WHERE char_obj_id = ?",
-        "UPDATE character_recipebook  SET char_id = ?     WHERE char_id = ?",
-        "UPDATE character_shortcuts   SET char_obj_id = ? WHERE char_obj_id = ?",
+        "UPDATE character_quests      SET charId = ?      WHERE charId = ?",
+        "UPDATE character_friends     SET charId = ?      WHERE charId = ?",
+        "UPDATE character_friends     SET friendId = ?    WHERE friendId = ?",
+        "UPDATE character_hennas      SET charId = ?      WHERE charId = ?",
+        "UPDATE character_recipebook  SET charId = ?      WHERE charId = ?",
+        "UPDATE character_shortcuts   SET charId = ?      WHERE charId = ?",
         "UPDATE character_shortcuts   SET shortcut_id = ? WHERE shortcut_id = ? AND type = 1", // items
-        "UPDATE character_macroses    SET char_obj_id = ? WHERE char_obj_id = ?",
-        "UPDATE character_skills      SET char_obj_id = ? WHERE char_obj_id = ?",
-        "UPDATE character_skills_save SET char_obj_id = ? WHERE char_obj_id = ?",
-        "UPDATE character_subclasses  SET char_obj_id = ? WHERE char_obj_id = ?",
-        "UPDATE characters            SET obj_Id = ?      WHERE obj_Id = ?",
+        "UPDATE character_macroses    SET charId = ?      WHERE charId = ?",
+        "UPDATE character_skills      SET charId = ?      WHERE charId = ?",
+        "UPDATE character_skills_save SET charId = ?      WHERE charId = ?",
+        "UPDATE character_subclasses  SET charId = ?      WHERE charId = ?",
+        "UPDATE characters            SET charId = ?      WHERE charId = ?",
         "UPDATE characters            SET clanid = ?      WHERE clanid = ?",
         "UPDATE clan_data             SET clan_id = ?     WHERE clan_id = ?",
         "UPDATE siege_clans           SET clan_id = ?     WHERE clan_id = ?",
@@ -57,22 +57,22 @@ public abstract class IdFactory
         "UPDATE pets                  SET item_obj_id = ? WHERE item_obj_id = ?",
         // added by DaDummy
         "UPDATE auction_bid          SET bidderId = ?      WHERE bidderId = ?",
-        "UPDATE auction_watch        SET charObjId = ?     WHERE charObjId = ?",
-        "UPDATE character_hennas     SET char_obj_id = ?   WHERE char_obj_id = ?",
+        "UPDATE auction_watch        SET charId = ?        WHERE charId = ?",
+        "UPDATE character_hennas     SET charId = ?        WHERE charId = ?",
         "UPDATE clan_wars            SET clan1 = ?         WHERE clan1 = ?",
         "UPDATE clan_wars            SET clan2 = ?         WHERE clan2 = ?",
         "UPDATE clanhall             SET ownerId = ?       WHERE ownerId = ?",
-        "UPDATE petitions            SET char_id = ?       WHERE char_id = ?",
+        "UPDATE petitions            SET charId = ?        WHERE charId = ?",
         "UPDATE posts                SET post_ownerid = ?  WHERE post_ownerid = ?",
-        "UPDATE seven_signs          SET char_obj_id = ?   WHERE char_obj_id = ?",
+        "UPDATE seven_signs          SET charId = ?        WHERE charId = ?",
         "UPDATE topic                SET topic_ownerid = ? WHERE topic_ownerid = ?",
-        "UPDATE itemsonground        SET object_id = ?   WHERE object_id = ?",
+        "UPDATE itemsonground        SET object_id = ?     WHERE object_id = ?",
         // added by GDL
-        "UPDATE olympiad_nobles          SET char_id = ?        WHERE char_id = ?",
+        "UPDATE olympiad_nobles          SET charId = ?         WHERE charId = ?",
         "UPDATE clan_privs               SET clan_id = ?        WHERE clan_id = ?",
         "UPDATE clan_skills              SET clan_id = ?        WHERE clan_id = ?",
         "UPDATE clan_subpledges          SET clan_id = ?        WHERE clan_id = ?",
-        "UPDATE character_recommends     SET char_id = ?        WHERE char_id = ?",
+        "UPDATE character_recommends     SET charId = ?         WHERE charId = ?",
         "UPDATE character_recommends     SET target_id = ?      WHERE target_id = ?",
         "UPDATE character_raidpoints     SET owner_id = ?       WHERE owner_id = ?",
         "UPDATE couples                  SET id = ?             WHERE id = ?",
@@ -80,24 +80,24 @@ public abstract class IdFactory
         "UPDATE couples                  SET player2Id = ?      WHERE player2Id = ?",
         "UPDATE cursed_weapons           SET playerId = ?       WHERE playerId = ?",
         "UPDATE forums                   SET forum_owner_id = ? WHERE forum_owner_id = ?",
-        "UPDATE heroes                   SET char_id = ?        WHERE char_id = ?"        
-	};
+        "UPDATE heroes                   SET charId = ?         WHERE charId = ?"
+    };
 
     protected static final String[] ID_CHECKS = 
-	{
+    {
         "SELECT owner_id    FROM items                 WHERE object_id >= ?   AND object_id < ?",
         "SELECT object_id   FROM items                 WHERE object_id >= ?   AND object_id < ?",
-        "SELECT char_id     FROM character_quests      WHERE char_id >= ?     AND char_id < ?",
-		"SELECT char_id     FROM character_friends     WHERE char_id >= ?     AND char_id < ?",
-        "SELECT char_id     FROM character_friends     WHERE friend_id >= ?   AND friend_id < ?",
-        "SELECT char_obj_id FROM character_hennas      WHERE char_obj_id >= ? AND char_obj_id < ?",
-        "SELECT char_id     FROM character_recipebook  WHERE char_id >= ?     AND char_id < ?",
-        "SELECT char_obj_id FROM character_shortcuts   WHERE char_obj_id >= ? AND char_obj_id < ?",
-        "SELECT char_obj_id FROM character_macroses    WHERE char_obj_id >= ? AND char_obj_id < ?",
-        "SELECT char_obj_id FROM character_skills      WHERE char_obj_id >= ? AND char_obj_id < ?",
-        "SELECT char_obj_id FROM character_skills_save WHERE char_obj_id >= ? AND char_obj_id < ?",
-        "SELECT char_obj_id FROM character_subclasses  WHERE char_obj_id >= ? AND char_obj_id < ?",
-        "SELECT obj_Id      FROM characters            WHERE obj_Id >= ?      AND obj_Id < ?",
+        "SELECT charId      FROM character_quests      WHERE charId >= ?      AND charId < ?",
+        "SELECT charId      FROM character_friends     WHERE charId >= ?      AND charId < ?",
+        "SELECT charId      FROM character_friends     WHERE friendId >= ?    AND friendId < ?",
+        "SELECT charId      FROM character_hennas      WHERE charId >= ?      AND charId < ?",
+        "SELECT charId      FROM character_recipebook  WHERE charId >= ?      AND charId < ?",
+        "SELECT charId      FROM character_shortcuts   WHERE charId >= ?      AND charId < ?",
+        "SELECT charId      FROM character_macroses    WHERE charId >= ?      AND charId < ?",
+        "SELECT charId      FROM character_skills      WHERE charId >= ?      AND charId < ?",
+        "SELECT charId      FROM character_skills_save WHERE charId >= ?      AND charId < ?",
+        "SELECT charId      FROM character_subclasses  WHERE charId >= ?      AND charId < ?",
+        "SELECT charId      FROM characters            WHERE charId >= ?      AND charId < ?",
         "SELECT clanid      FROM characters            WHERE clanid >= ?      AND clanid < ?",
         "SELECT clan_id     FROM clan_data             WHERE clan_id >= ?     AND clan_id < ?",
         "SELECT clan_id     FROM siege_clans           WHERE clan_id >= ?     AND clan_id < ?",
@@ -105,21 +105,21 @@ public abstract class IdFactory
         "SELECT leader_id   FROM clan_data             WHERE leader_id >= ?   AND leader_id < ?",
         "SELECT item_obj_id FROM pets                  WHERE item_obj_id >= ? AND item_obj_id < ?",
         // added by DaDummy
-        "SELECT friend_id   FROM character_friends    WHERE friend_id >= ?   AND friend_id < ?",
-        "SELECT char_obj_id FROM seven_signs          WHERE char_obj_id >= ? AND char_obj_id < ?",
-        "SELECT object_id   FROM itemsonground        WHERE object_id >= ?   AND object_id < ?"
-	};
-	
+        "SELECT friendId    FROM character_friends     WHERE friendId >= ?    AND friendId < ?",
+        "SELECT charId      FROM seven_signs           WHERE charId >= ?      AND charId < ?",
+        "SELECT object_id   FROM itemsonground         WHERE object_id >= ?   AND object_id < ?"
+    };
+
     protected boolean _initialized;
-	
+
     public static final int FIRST_OID            = 0x10000000;
     public static final int LAST_OID             = 0x7FFFFFFF;
     public static final int FREE_OBJECT_ID_SIZE  = LAST_OID - FIRST_OID;
     
     protected static IdFactory _instance = null;
 
-	protected IdFactory()
-	{
+    protected IdFactory()
+    {
         setAllCharacterOffline();
         cleanUpDB();
     }
@@ -156,7 +156,7 @@ public abstract class IdFactory
         {
             con2 = L2DatabaseFactory.getInstance().getConnection(con2);
             Statement s2 = con2.createStatement();
-            s2.executeUpdate("update characters set online=0");
+            s2.executeUpdate("UPDATE characters SET online = 0;");
             if (_log.isDebugEnabled())_log.debug("Updated characters online status.");
             s2.close();
         }
@@ -192,23 +192,23 @@ public abstract class IdFactory
             Statement stmt = conn.createStatement();
             
             // If a character not exists
-            cleanCount += stmt.executeUpdate("DELETE FROM character_friends WHERE character_friends.char_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM character_friends WHERE character_friends.friend_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM character_hennas WHERE character_hennas.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM character_macroses WHERE character_macroses.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM character_quests WHERE character_quests.char_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM character_recipebook WHERE character_recipebook.char_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM character_shortcuts WHERE character_shortcuts.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM character_skills WHERE character_skills.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM character_skills_save WHERE character_skills_save.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM character_subclasses WHERE character_subclasses.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM clan_data WHERE clan_data.leader_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM couples WHERE couples.player1Id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM couples WHERE couples.player2Id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM heroes WHERE heroes.char_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM items WHERE loc <> 'clanwh' and items.owner_id NOT IN (SELECT obj_Id FROM characters);");
-            cleanCount += stmt.executeUpdate("DELETE FROM pets WHERE pets.item_obj_id NOT IN (SELECT object_id FROM items);");
-            cleanCount += stmt.executeUpdate("DELETE FROM seven_signs WHERE seven_signs.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM character_friends WHERE character_friends.charId NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM character_friends WHERE character_friends.friend_id NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM character_hennas WHERE character_hennas.charId NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM character_macroses WHERE character_macroses.charId NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM character_quests WHERE character_quests.charId NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM character_recipebook WHERE character_recipebook.charId NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM character_shortcuts WHERE character_shortcuts.charId NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM character_skills WHERE character_skills.charId NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM character_skills_save WHERE character_skills_save.charId NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM character_subclasses WHERE character_subclasses.charId NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM clan_data WHERE clan_data.leader_id NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM couples WHERE couples.player1Id NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM couples WHERE couples.player2Id NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM heroes WHERE heroes.charId NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM items WHERE loc <> 'clanwh' and items.owner_id NOT IN (SELECT charId FROM characters);");
+            cleanCount += stmt.executeUpdate("DELETE FROM pets WHERE pets.item_obj_id NOT IN (SELECT charId FROM items);");
+            cleanCount += stmt.executeUpdate("DELETE FROM seven_signs WHERE seven_signs.charId NOT IN (SELECT charId FROM characters);");
             
             // If a clan not exists
             cleanCount += stmt.executeUpdate("DELETE FROM auction_bid WHERE auction_bid.bidderId NOT IN (SELECT clan_id FROM clan_data);");
@@ -269,20 +269,20 @@ public abstract class IdFactory
             Statement s = con.createStatement();
             try
             {
-                s.executeUpdate("drop table temporaryObjectTable");
+                s.executeUpdate("DROP TABLE temporaryObjectTable");
             }
             catch (SQLException e)
             {
             }
             
-            s.executeUpdate("create table temporaryObjectTable" + " (object_id int NOT NULL PRIMARY KEY)");
+            s.executeUpdate("CREATE TABLE temporaryObjectTable" + " (object_id int NOT NULL PRIMARY KEY)");
             
-            s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select obj_id from characters");
-            s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select object_id from items");
-            s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select clan_id from clan_data");
-            s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select object_id from itemsonground");
+            s.executeUpdate("INSERT INTO temporaryObjectTable (object_id)" + " SELECT charId FROM characters");
+            s.executeUpdate("INSERT INTO temporaryObjectTable (object_id)" + " SELECT object_id FROM items");
+            s.executeUpdate("INSERT INTO temporaryObjectTable (object_id)" + " SELECT clan_id FROM clan_data");
+            s.executeUpdate("INSERT INTO temporaryObjectTable (object_id)" + " SELECT object_id FROM itemsonground");
             
-            ResultSet result = s.executeQuery("select count(object_id) from temporaryObjectTable");
+            ResultSet result = s.executeQuery("SELECT COUNT(object_id) FROM temporaryObjectTable");
             
             result.next();
             int size = result.getInt(1);

@@ -247,39 +247,39 @@ public final class L2PcInstance extends L2PlayableInstance
     private final static Log _log = LogFactory.getLog(L2PcInstance.class.getName());
 
     // Character Skill SQL String Definitions:
-    private static final String RESTORE_SKILLS_FOR_CHAR = "SELECT skill_id,skill_level FROM character_skills WHERE char_obj_id=? AND class_index=?";
-    private static final String ADD_NEW_SKILL = "INSERT INTO character_skills (char_obj_id,skill_id,skill_level,skill_name,class_index) VALUES (?,?,?,?,?)";
-    private static final String UPDATE_CHARACTER_SKILL_LEVEL = "UPDATE character_skills SET skill_level=? WHERE skill_id=? AND char_obj_id=? AND class_index=?";
-    private static final String DELETE_SKILL_FROM_CHAR = "DELETE FROM character_skills WHERE skill_id=? AND char_obj_id=? AND class_index=?";
-    private static final String DELETE_CHAR_SKILLS = "DELETE FROM character_skills WHERE char_obj_id=? AND class_index=?";
+    private static final String RESTORE_SKILLS_FOR_CHAR = "SELECT skill_id,skill_level FROM character_skills WHERE charId=? AND class_index=?";
+    private static final String ADD_NEW_SKILL = "INSERT INTO character_skills (charId,skill_id,skill_level,skill_name,class_index) VALUES (?,?,?,?,?)";
+    private static final String UPDATE_CHARACTER_SKILL_LEVEL = "UPDATE character_skills SET skill_level=? WHERE skill_id=? AND charId=? AND class_index=?";
+    private static final String DELETE_SKILL_FROM_CHAR = "DELETE FROM character_skills WHERE skill_id=? AND charId=? AND class_index=?";
+    private static final String DELETE_CHAR_SKILLS = "DELETE FROM character_skills WHERE charId=? AND class_index=?";
 
     // Character Skill Save SQL String Definitions:
-    private static final String ADD_SKILL_SAVE = "REPLACE INTO character_skills_save (char_obj_id,skill_id,skill_level,effect_count,effect_cur_time,reuse_delay,restore_type,class_index,buff_index) VALUES (?,?,?,?,?,?,?,?,?)";
-    private static final String RESTORE_SKILL_SAVE = "SELECT skill_id,skill_level,effect_count,effect_cur_time, reuse_delay FROM character_skills_save WHERE char_obj_id=? AND class_index=? AND restore_type=? ORDER BY buff_index ASC";
-    private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
+    private static final String ADD_SKILL_SAVE = "REPLACE INTO character_skills_save (charId,skill_id,skill_level,effect_count,effect_cur_time,reuse_delay,restore_type,class_index,buff_index) VALUES (?,?,?,?,?,?,?,?,?)";
+    private static final String RESTORE_SKILL_SAVE = "SELECT skill_id,skill_level,effect_count,effect_cur_time, reuse_delay FROM character_skills_save WHERE charId=? AND class_index=? AND restore_type=? ORDER BY buff_index ASC";
+    private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE charId=? AND class_index=?";
 
     // Character Character SQL String Definitions:
-    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=? WHERE obj_Id=?";
-    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level FROM characters WHERE obj_Id=?";
+    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=? WHERE charId=?";
+    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level FROM characters WHERE charId=?";
 
     // Character Subclass SQL String Definitions:
-    private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
-    private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (char_obj_id,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
-    private static final String UPDATE_CHAR_SUBCLASS = "UPDATE character_subclasses SET exp=?,sp=?,level=?,class_id=? WHERE char_obj_id=? AND class_index =?";
-    private static final String DELETE_CHAR_SUBCLASS = "DELETE FROM character_subclasses WHERE char_obj_id=? AND class_index=?";
+    private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE charId=? ORDER BY class_index ASC";
+    private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (charId,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
+    private static final String UPDATE_CHAR_SUBCLASS = "UPDATE character_subclasses SET exp=?,sp=?,level=?,class_id=? WHERE charId=? AND class_index =?";
+    private static final String DELETE_CHAR_SUBCLASS = "DELETE FROM character_subclasses WHERE charId=? AND class_index=?";
 
     // Character Henna SQL String Definitions:
-    private static final String RESTORE_CHAR_HENNAS = "SELECT slot,symbol_id FROM character_hennas WHERE char_obj_id=? AND class_index=?";
-    private static final String ADD_CHAR_HENNA = "INSERT INTO character_hennas (char_obj_id,symbol_id,slot,class_index) VALUES (?,?,?,?)";
-    private static final String DELETE_CHAR_HENNA = "DELETE FROM character_hennas WHERE char_obj_id=? AND slot=? AND class_index=?";
-    private static final String DELETE_CHAR_HENNAS = "DELETE FROM character_hennas WHERE char_obj_id=? AND class_index=?";
+    private static final String RESTORE_CHAR_HENNAS = "SELECT slot,symbol_id FROM character_hennas WHERE charId=? AND class_index=?";
+    private static final String ADD_CHAR_HENNA = "INSERT INTO character_hennas (charId,symbol_id,slot,class_index) VALUES (?,?,?,?)";
+    private static final String DELETE_CHAR_HENNA = "DELETE FROM character_hennas WHERE charId=? AND slot=? AND class_index=?";
+    private static final String DELETE_CHAR_HENNAS = "DELETE FROM character_hennas WHERE charId=? AND class_index=?";
 
     // Character Shortcut SQL String Definitions:
-    private static final String DELETE_CHAR_SHORTCUTS = "DELETE FROM character_shortcuts WHERE char_obj_id=? AND class_index=?";
+    private static final String DELETE_CHAR_SHORTCUTS = "DELETE FROM character_shortcuts WHERE charId=? AND class_index=?";
 
     // Character Transformation SQL String Definitions:
-    private static final String SELECT_CHAR_TRANSFORM = "SELECT transform_id FROM characters WHERE obj_Id=?";
-    private static final String UPDATE_CHAR_TRANSFORM = "UPDATE characters SET transform_id=? WHERE obj_Id=?";
+    private static final String SELECT_CHAR_TRANSFORM = "SELECT transform_id FROM characters WHERE charId=?";
+    private static final String UPDATE_CHAR_TRANSFORM = "UPDATE characters SET transform_id=? WHERE charId=?";
 
     public static final int REQUEST_TIMEOUT = 15;
 
@@ -4946,16 +4946,16 @@ public final class L2PcInstance extends L2PlayableInstance
         final int lvl = getLevel();
 
         //The death steal you some Exp
-		double percentLost = 7.0;
-		if (getLevel() >= 76)
-			percentLost = 2.0;
-		else if (getLevel() >= 40)
-			percentLost = 4.0;
+        double percentLost = 5.0;
+        if (getLevel() >= 76)
+            percentLost = 1.0;
+        else if (getLevel() >= 40)
+            percentLost = 3.0;
 
         if (getKarma() > 0) percentLost *= Config.RATE_KARMA_EXP_LOST;
 
         if (isFestivalParticipant() || atwar || SiegeManager.getInstance().checkIfInZone(this))
-            percentLost /= 4.0;
+            percentLost /= 3.0;
 
         // Calculate the Experience loss
         long lostExp = 0;
@@ -5917,7 +5917,7 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("UPDATE characters SET online=?, lastAccess=? WHERE obj_Id=?");
+            PreparedStatement statement = con.prepareStatement("UPDATE characters SET online=?, lastAccess=? WHERE charId=?");
             statement.setInt(1, isOnline());
             statement.setLong(2, System.currentTimeMillis());
             statement.setInt(3, getObjectId());
@@ -5929,30 +5929,29 @@ public final class L2PcInstance extends L2PlayableInstance
                 int nbPlayerIG = 0;
                 int maxPlayer = 0;
 
-                statement = con.prepareStatement("SELECT count(*) as nb_player from characters WHERE online = '1'");
+                statement = con.prepareStatement("SELECT count(*) AS nb_player FROM characters WHERE online = '1'");
                 ResultSet rset = statement.executeQuery();
                 while (rset.next())
                 {
                     nbPlayerIG = rset.getInt("nb_player");
                 }
 
-                statement = con.prepareStatement("SELECT max(maxplayer) from record");
+                statement = con.prepareStatement("SELECT MAX(maxplayer) FROM record");
                 rset = statement.executeQuery();
                 while (rset.next())
                 {
-                    maxPlayer = rset.getInt("max(maxplayer)");
+                    maxPlayer = rset.getInt("MAX(maxplayer)");
                 }
 
                 if (nbPlayerIG > maxPlayer)
                 {
-                    statement = con.prepareStatement("insert into record(maxplayer,date) values(?,NOW())");
+                    statement = con.prepareStatement("INSERT INTO record(maxplayer,date) VALUES(?,NOW())");
                     statement.setInt(1, nbPlayerIG);
                     statement.execute();
                     statement.close();
                 }
             }
             // End Modification for Max Player record
-
         }
         catch (Exception e)
         {
@@ -6204,14 +6203,14 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.getPosition().setXYZInvisible(rset.getInt("x"), rset.getInt("y"), rset.getInt("z"));
 
                 // Retrieve the name and ID of the other characters assigned to this account.
-                PreparedStatement stmt = con.prepareStatement("SELECT obj_Id, char_name FROM characters WHERE account_name=? AND obj_Id<>?");
+                PreparedStatement stmt = con.prepareStatement("SELECT charId, char_name FROM characters WHERE account_name=? AND charId<>?");
                 stmt.setString(1, player._accountName);
                 stmt.setInt(2, objectId);
                 ResultSet chars = stmt.executeQuery();
 
                 while (chars.next())
                 {
-                    Integer charId = chars.getInt("obj_Id");
+                    Integer charId = chars.getInt("charId");
                     String charName = chars.getString("char_name");
                     player._chars.put(charId, charName);
                 }
@@ -6390,7 +6389,7 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("DELETE FROM character_recipebook WHERE char_id=?");
+            PreparedStatement statement = con.prepareStatement("DELETE FROM character_recipebook WHERE charId=?");
             statement.setInt(1, getObjectId());
             statement.execute();
             statement.close();
@@ -6398,7 +6397,7 @@ public final class L2PcInstance extends L2PlayableInstance
             L2Recipe[] recipes = getCommonRecipeBook();
 
             for (L2Recipe element : recipes) {
-                statement = con.prepareStatement("REPLACE INTO character_recipebook (char_id, id, type) values(?,?,0)");
+                statement = con.prepareStatement("REPLACE INTO character_recipebook (charId, id, type) values(?,?,0)");
                 statement.setInt(1, getObjectId());
                 statement.setInt(2, element.getId());
                 statement.execute();
@@ -6406,8 +6405,9 @@ public final class L2PcInstance extends L2PlayableInstance
             }
 
             recipes = getDwarvenRecipeBook();
-            for (L2Recipe element : recipes) {
-                statement = con.prepareStatement("REPLACE INTO character_recipebook (char_id, id, type) values(?,?,1)");
+            for (L2Recipe element : recipes)
+            {
+                statement = con.prepareStatement("REPLACE INTO character_recipebook (charId, id, type) values(?,?,1)");
                 statement.setInt(1, getObjectId());
                 statement.setInt(2, element.getId());
                 statement.execute();
@@ -6441,7 +6441,7 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("SELECT id, type FROM character_recipebook WHERE char_id=?");
+            PreparedStatement statement = con.prepareStatement("SELECT id, type FROM character_recipebook WHERE charId=?");
             statement.setInt(1, getObjectId());
             ResultSet rset = statement.executeQuery();
 

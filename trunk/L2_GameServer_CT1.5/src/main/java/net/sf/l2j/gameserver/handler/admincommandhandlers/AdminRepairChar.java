@@ -74,7 +74,7 @@ public class AdminRepairChar implements IAdminCommandHandler
         {
             connection = L2DatabaseFactory.getInstance().getConnection(connection);
             
-            PreparedStatement statement = connection.prepareStatement("SELECT obj_id FROM characters where char_name=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT charId FROM characters where char_name=?");
             statement.setString(1,parts[1]);
             ResultSet rset = statement.executeQuery();
             int objId = 0;
@@ -92,7 +92,7 @@ public class AdminRepairChar implements IAdminCommandHandler
             statement.execute();
             statement.close();
             
-            statement = connection.prepareStatement("DELETE FROM character_shortcuts WHERE char_obj_id=?");
+            statement = connection.prepareStatement("DELETE FROM character_shortcuts WHERE charId=?");
             statement.setInt(1, objId);
             statement.execute();
             statement.close();
@@ -106,7 +106,7 @@ public class AdminRepairChar implements IAdminCommandHandler
         }
         catch (Exception e)
         {
-			_log.warn( "could not repair char:", e);
+            _log.warn( "could not repair char:", e);
         } 
         finally 
         {

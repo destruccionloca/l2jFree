@@ -448,6 +448,7 @@ public abstract class L2Skill
 	// Flying support
 	private final String _flyType;
 	private final int _flyRadius;
+	private final float _flyCourse;
 
 	private final boolean _isDebuff;
 
@@ -577,6 +578,7 @@ public abstract class L2Skill
 
 		_flyType = set.getString("flyType", null); 
 		_flyRadius = set.getInteger("flyRadius", 200);
+		_flyCourse = set.getFloat("flyCourse", 0);
 
 		String canLearn = set.getString("canLearn", null);
 		if (canLearn == null)
@@ -1282,6 +1284,11 @@ public abstract class L2Skill
 	public final int getFlyRadius()
 	{
 		return _flyRadius;
+	}
+
+	public final float getFlyCourse()
+	{
+		return _flyCourse;
 	}
 
 	public final int getTransformId()

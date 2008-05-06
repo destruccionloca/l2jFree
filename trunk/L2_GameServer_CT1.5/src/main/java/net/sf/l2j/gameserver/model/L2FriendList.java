@@ -40,10 +40,10 @@ public class L2FriendList
 {
 	private final static Log _log = LogFactory.getLog(L2FriendList.class.getName());
 
-	private static final String RESTORE_FRIENDLIST="SELECT friend_id,friend_name FROM character_friends WHERE char_id=?";
-	private static final String RESTORE_FRIEND_ID="SELECT friend_id FROM character_friends WHERE char_id=? AND friend_name=?";
-	private static final String DELETE_FROM_FRIENDLIST="DELETE FROM character_friends WHERE (char_id=? AND friend_id=?) OR (char_id=? AND friend_id=?)";
-	private static final String ADD_TO_FRIENDLIST="INSERT INTO character_friends (char_id, friend_id, friend_name) VALUES (?, ?, ?),(?, ?, ?)";
+	private static final String RESTORE_FRIENDLIST = "SELECT friendId,friend_name FROM character_friends WHERE charId=?";
+	private static final String RESTORE_FRIEND_ID = "SELECT friendId FROM character_friends WHERE charId=? AND friend_name=?";
+	private static final String DELETE_FROM_FRIENDLIST = "DELETE FROM character_friends WHERE (charId=? AND friendId=?) OR (charId=? AND friendId=?)";
+	private static final String ADD_TO_FRIENDLIST = "INSERT INTO character_friends (charId, friendId, friend_name) VALUES (?, ?, ?),(?, ?, ?)";
 
 	private final Map<Integer,String> friendlist;
 	private final L2PcInstance listOwner;
@@ -73,7 +73,7 @@ public class L2FriendList
 				ResultSet rset = statement.executeQuery();
 
 				while (rset.next())
-					friendlist.put(rset.getInt("friend_id"),rset.getString("friend_name"));
+					friendlist.put(rset.getInt("friendId"),rset.getString("friend_name"));
 						
 			} 
 			catch (Exception e) {
@@ -208,7 +208,7 @@ public class L2FriendList
 			statement.setString(2, _character);
 			ResultSet rset = statement.executeQuery();
   			if (rset.next())
-  				_friendId = rset.getInt("friend_id");
+  				_friendId = rset.getInt("friendId");
 			statement.close();
 		} 
 		catch (Exception e) {
