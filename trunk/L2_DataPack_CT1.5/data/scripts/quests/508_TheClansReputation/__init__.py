@@ -12,11 +12,12 @@
 #                                                                   #
 #####################################################################
 import sys
-from net.sf.l2j.gameserver.model.quest           import State
-from net.sf.l2j.gameserver.model.quest           import QuestState
-from net.sf.l2j.gameserver.model.quest.jython    import QuestJython as JQuest
-from net.sf.l2j.gameserver.network.serverpackets import PledgeShowInfoUpdate
-from net.sf.l2j.gameserver.network.serverpackets import SystemMessage
+from net.sf.l2j.gameserver.model.quest        import State
+from net.sf.l2j.gameserver.model.quest        import QuestState
+from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
+from net.sf.l2j.gameserver.network.serverpackets      import PledgeShowInfoUpdate
+from net.sf.l2j.gameserver.network.serverpackets      import SystemMessage
+from net.sf.l2j.tools.random import Rnd
 
 qn="508_TheClansReputation"
 qd="The Clans Reputation"
@@ -40,17 +41,14 @@ GARGOYLE_LORD_TIPHON    = 25255
 LAST_LESSER_GIANT_GLAKI = 25245
 RAHHA                   = 25051
 
-# Reward
-CLAN_POINTS_REWARD = 1000 # 1000 Point Per Boss
-
-# id:[RaidBossNpcId,questItemId]
+# id:[RaidBossNpcId,questItemId,minClanPoints,maxClanPoints]
 REWARDS_LIST={
-    1:[PALIBATI_QUEEN_THEMIS,  THEMIS_SCALE],
-    2:[HEKATON_PRIME,          NUCLEUS_OF_HEKATON_PRIME],
-    3:[GARGOYLE_LORD_TIPHON,   TIPHON_SHARD],
-    4:[LAST_LESSER_GIANT_GLAKI,GLAKIS_NUCLEUS],
-    5:[RAHHA,                  RAHHAS_FANG],
-    6:[FLAMESTONE_GIANT,       NUCLEUS_OF_FLAMESTONE_GIANT]
+    1:[PALIBATI_QUEEN_THEMIS,  THEMIS_SCALE,65,100],
+    2:[HEKATON_PRIME,          NUCLEUS_OF_HEKATON_PRIME,40,75],
+    3:[GARGOYLE_LORD_TIPHON,   TIPHON_SHARD,30,65],
+    4:[LAST_LESSER_GIANT_GLAKI,GLAKIS_NUCLEUS,105,140],
+    5:[RAHHA,                  RAHHAS_FANG,40,75],
+    6:[FLAMESTONE_GIANT,       NUCLEUS_OF_FLAMESTONE_GIANT,60,95]
     }
 
 RADAR={
@@ -109,8 +107,9 @@ class Quest (JQuest) :
      if id == State.CREATED and cond == 0 :
         htmltext =  "30868-0c.htm"
      elif id == State.STARTED and cond == 1 and raid in REWARDS_LIST.keys() :
-        npc,item=REWARDS_LIST[raid]
+        npc,item,min,max=REWARDS_LIST[raid]
         count = st.getQuestItemsCount(item)
+        CLAN_POINTS_REWARD = Rnd.get(min, max)
         if not count :
            htmltext = "30868-"+str(raid)+"a.htm"
         elif count == 1 :
@@ -128,16 +127,16 @@ class Quest (JQuest) :
   else:
    clan = player.getClan()
    if clan:
-    leader = clan.getLeader()
+    leader=clan.getLeader()
     if leader :
-     pleader = leader.getPlayerInstance()
+     pleader= leader.getPlayerInstance()
      if pleader :
       if player.isInsideRadius(pleader, 1600, 1, 0) :
        st = pleader.getQuestState(qn)
   if not st : return
   option=st.getInt("raid")
   if st.getInt("cond") == 1 and st.getState() == State.STARTED and option in REWARDS_LIST.keys():
-   raid,item = REWARDS_LIST[option]
+   raid,item,min,max = REWARDS_LIST[option]
    npcId=npc.getNpcId()
    if npcId == raid and not st.getQuestItemsCount(item) :
       st.giveItems(item,1)
@@ -151,5 +150,5 @@ QUEST       = Quest(508,qn,qd)
 QUEST.addStartNpc(SIR_ERIC_RODEMAI)
 QUEST.addTalkId(SIR_ERIC_RODEMAI)
 
-for npc,item in REWARDS_LIST.values():
+for npc,item,min,max in REWARDS_LIST.values():
     QUEST.addKillId(npc)
