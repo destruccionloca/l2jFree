@@ -132,20 +132,6 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     player.setMaryAccepted(true);
                     Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
                     couple.marry();
-                    
-                    if(Config.WEDDING_HONEYMOON_PORT)
-                    {
-                    	//port both players to disneyland for happy time
-                    	player.teleToLocation(-56641, -56345, -2005);
-                    	ptarget.teleToLocation(-56641, -56345, -2005);
-                    	//wait 20 seconds after teleport before all wedding actions
-                    	try
-            			{
-            				wait(20000);
-            			}
-            			catch (InterruptedException e){}
-                    	
-                    }
 
                     //messages to the couple
                     player.sendMessage("Congratulations, you are married!");
@@ -195,6 +181,23 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     filename = "data/html/wedding/accepted.htm";
                     replace = ptarget.getName();
                     sendHtmlMessage(ptarget, filename, replace);
+
+                    // Why even go on honeymoon before you are married ? ;)
+                    try
+                    {
+			// Wait a little for all effects, and then go on honeymoon
+                    	wait(10000);
+                    }
+                    catch (InterruptedException e){}
+
+                    if(Config.WEDDING_HONEYMOON_PORT)
+                    {
+                    	//port both players to disneyland for happy time
+                    	player.teleToLocation(-56641, -56345, -2005);
+                    	ptarget.teleToLocation(-56641, -56345, -2005);
+                    	//wait 20 seconds after teleport before all wedding actions                    	
+                    }
+
                     return;
                 }                
                 else if (command.startsWith("DeclineWedding"))
