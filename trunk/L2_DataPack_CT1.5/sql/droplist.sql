@@ -25941,7 +25941,7 @@ INSERT INTO `droplist` VALUES
 -- Category Explanation (GrandBoss)
 --   0+ is defined catagories
 --
--- Any other mobs within this range (minions, etc) use the default drop categories (most often 2)
+-- Any other mobs within this range (minions, etc) use the DEFAULT drop categories (most often 2)
 --
 INSERT INTO `droplist` VALUES
 (29001,70,1,1,0,60000), -- Claymore

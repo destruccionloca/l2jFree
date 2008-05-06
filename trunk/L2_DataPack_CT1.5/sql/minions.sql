@@ -3,10 +3,10 @@
 -- ---------------------------
 DROP TABLE IF EXISTS `minions`;
 CREATE TABLE `minions` (
-  `boss_id` int(11) NOT NULL default '0',
-  `minion_id` int(11) NOT NULL default '0',
-  `amount_min` int(4) NOT NULL default '0',
-  `amount_max` int(4) NOT NULL default '0',
+  `boss_id` int(11) NOT NULL DEFAULT '0',
+  `minion_id` int(11) NOT NULL DEFAULT '0',
+  `amount_min` int(4) NOT NULL DEFAULT '0',
+  `amount_max` int(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`boss_id`,`minion_id`)
 ) DEFAULT CHARSET=utf8;
 

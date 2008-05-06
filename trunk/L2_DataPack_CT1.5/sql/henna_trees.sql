@@ -3,8 +3,8 @@
 -- ---------------------------
 DROP TABLE IF EXISTS `henna_trees`;
 CREATE TABLE `henna_trees` (
-  `class_id` decimal(10,0) NOT NULL default 0,
-  `symbol_id` decimal(10,0) NOT NULL default 0,
+  `class_id` decimal(10,0) NOT NULL DEFAULT 0,
+  `symbol_id` decimal(10,0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`class_id`,`symbol_id`)
 ) DEFAULT CHARSET=utf8;
 

@@ -1,4 +1,4 @@
-alter table items add attributes varchar(50) not null default '';
+alter table items add attributes varchar(50) not null DEFAULT '';
 
 // thx l2jdp
 update character_skills set skill_level=201 where skill_level=141;

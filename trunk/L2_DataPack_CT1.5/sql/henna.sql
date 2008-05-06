@@ -3,17 +3,17 @@
 --
 DROP TABLE IF EXISTS henna;
 CREATE TABLE henna (
-  symbol_id int(11) NOT NULL default '0',
-  symbol_name varchar(45) default NULL,
-  dye_id int(11) default NULL,
-  dye_amount int(11) default NULL,
-  price int(11) default NULL,
-  stat_INT decimal(11,0) default NULL,
-  stat_STR decimal(11,0) default NULL,
-  stat_CON decimal(11,0) default NULL,
-  stat_MEM decimal(11,0) default NULL,
-  stat_DEX decimal(11,0) default NULL,
-  stat_WIT decimal(11,0) default NULL,
+  symbol_id int(11) NOT NULL DEFAULT '0',
+  symbol_name varchar(45) DEFAULT NULL,
+  dye_id int(11) DEFAULT NULL,
+  dye_amount int(11) DEFAULT NULL,
+  price int(11) DEFAULT NULL,
+  stat_INT decimal(11,0) DEFAULT NULL,
+  stat_STR decimal(11,0) DEFAULT NULL,
+  stat_CON decimal(11,0) DEFAULT NULL,
+  stat_MEM decimal(11,0) DEFAULT NULL,
+  stat_DEX decimal(11,0) DEFAULT NULL,
+  stat_WIT decimal(11,0) DEFAULT NULL,
   PRIMARY KEY  (symbol_id)
 ) TYPE=MyISAM;
 

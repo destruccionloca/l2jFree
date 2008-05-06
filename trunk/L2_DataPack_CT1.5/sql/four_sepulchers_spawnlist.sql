@@ -4,18 +4,18 @@
 DROP TABLE IF EXISTS `four_sepulchers_spawnlist`;
 CREATE TABLE `four_sepulchers_spawnlist` (
   `id` int(11) NOT NULL auto_increment,
-  `location` varchar(19) NOT NULL default '',
-  `count` int(9) NOT NULL default '0',
-  `npc_templateid` int(11) NOT NULL default '0',
-  `locx` int(9) NOT NULL default '0',
-  `locy` int(9) NOT NULL default '0',
-  `locz` int(9) NOT NULL default '0',
-  `randomx` int(9) NOT NULL default '0',
-  `randomy` int(9) NOT NULL default '0',
-  `heading` int(9) NOT NULL default '0',
-  `respawn_delay` int(9) NOT NULL default '0',
-  `key_npc_id` int(9) NOT NULL default '0',
-  `spawntype` int(9) NOT NULL default '0',
+  `location` varchar(19) NOT NULL DEFAULT '',
+  `count` int(9) NOT NULL DEFAULT '0',
+  `npc_templateid` int(11) NOT NULL DEFAULT '0',
+  `locx` int(9) NOT NULL DEFAULT '0',
+  `locy` int(9) NOT NULL DEFAULT '0',
+  `locz` int(9) NOT NULL DEFAULT '0',
+  `randomx` int(9) NOT NULL DEFAULT '0',
+  `randomy` int(9) NOT NULL DEFAULT '0',
+  `heading` int(9) NOT NULL DEFAULT '0',
+  `respawn_delay` int(9) NOT NULL DEFAULT '0',
+  `key_npc_id` int(9) NOT NULL DEFAULT '0',
+  `spawntype` int(9) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 

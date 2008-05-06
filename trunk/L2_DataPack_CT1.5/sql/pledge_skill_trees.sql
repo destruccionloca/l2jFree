@@ -2,13 +2,13 @@
 -- Table structure for `pledge_skill_trees`
 -- ---------------------------
 CREATE TABLE IF NOT EXISTS `pledge_skill_trees` (
-  `skill_id` int(11) default NULL,
-  `level` int(11) default NULL,
-  `name` varchar(25) default NULL,
-  `clan_lvl` int(11) default NULL,
-  `Description` varchar(255) default NULL,
-  `repCost` int(11) default NULL,
-  `itemId` int(11) default NULL
+  `skill_id` int(11) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  `name` varchar(25) DEFAULT NULL,
+  `clan_lvl` int(11) DEFAULT NULL,
+  `Description` varchar(255) DEFAULT NULL,
+  `repCost` int(11) DEFAULT NULL,
+  `itemId` int(11) DEFAULT NULL
 ) DEFAULT CHARSET=utf8;
 
 INSERT INTO `pledge_skill_trees` VALUES ('370', '1', 'Clan Body', '5', 'Clan members Max HP is raised', '500', '8166');

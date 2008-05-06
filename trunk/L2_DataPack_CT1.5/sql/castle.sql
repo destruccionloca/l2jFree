@@ -2,13 +2,13 @@
 -- Table structure for `castle`
 -- ---------------------------
 CREATE TABLE IF NOT EXISTS `castle` (
-  `id` INT NOT NULL default 0,
+  `id` INT NOT NULL DEFAULT 0,
   `name` varchar(25) NOT NULL,
-  `taxPercent` INT NOT NULL default 15,
-  `treasury` INT NOT NULL default 0,
-  `siegeDate` DECIMAL(20,0) NOT NULL default 0,
-  `siegeDayOfWeek` INT NOT NULL default 7,
-  `siegeHourOfDay` INT NOT NULL default 20,
+  `taxPercent` INT NOT NULL DEFAULT 15,
+  `treasury` INT NOT NULL DEFAULT 0,
+  `siegeDate` DECIMAL(20,0) NOT NULL DEFAULT 0,
+  `siegeDayOfWeek` INT NOT NULL DEFAULT 7,
+  `siegeHourOfDay` INT NOT NULL DEFAULT 20,
   PRIMARY KEY (`name`),
   KEY `id` (`id`)
 ) DEFAULT CHARSET=utf8;

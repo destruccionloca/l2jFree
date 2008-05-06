@@ -3,15 +3,15 @@
 -- ---------------------------
 DROP TABLE IF EXISTS `castle_siege_guards`;
 CREATE TABLE IF NOT EXISTS `castle_siege_guards` (
-  `castleId` INT NOT NULL default 0,
+  `castleId` INT NOT NULL DEFAULT 0,
   `id` int(11) NOT NULL auto_increment,
-  `npcId` INT NOT NULL default 0,
-  `x` INT NOT NULL default 0,
-  `y` INT NOT NULL default 0,
-  `z` INT NOT NULL default 0,
-  `heading` INT NOT NULL default 0,
-  `respawnDelay` INT NOT NULL default 0,
-  `isHired` INT NOT NULL default 1,
+  `npcId` INT NOT NULL DEFAULT 0,
+  `x` INT NOT NULL DEFAULT 0,
+  `y` INT NOT NULL DEFAULT 0,
+  `z` INT NOT NULL DEFAULT 0,
+  `heading` INT NOT NULL DEFAULT 0,
+  `respawnDelay` INT NOT NULL DEFAULT 0,
+  `isHired` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   KEY `id` (`castleId`)
 ) DEFAULT CHARSET=utf8;

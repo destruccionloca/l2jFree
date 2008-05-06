@@ -3,16 +3,16 @@
 -- ---------------------------
 DROP TABLE IF EXISTS `grandboss_spawnlist`;
 CREATE TABLE `grandboss_spawnlist` (
-  `boss_id` INT NOT NULL default 0,
-  `loc_x` INT NOT NULL default 0,
-  `loc_y` INT NOT NULL default 0,
-  `loc_z` INT NOT NULL default 0,
-  `heading` INT NOT NULL default 0,
-  `respawn_min_delay` INT(11) NOT NULL default '86400',
-  `respawn_max_delay` INT(11) NOT NULL default '129600',
-  `respawn_time` BIGINT NOT NULL default 0,
-  `currentHp` decimal(8,0) default NULL,
-  `currentMp` decimal(8,0) default NULL,
+  `boss_id` INT NOT NULL DEFAULT 0,
+  `loc_x` INT NOT NULL DEFAULT 0,
+  `loc_y` INT NOT NULL DEFAULT 0,
+  `loc_z` INT NOT NULL DEFAULT 0,
+  `heading` INT NOT NULL DEFAULT 0,
+  `respawn_min_delay` INT(11) NOT NULL DEFAULT '86400',
+  `respawn_max_delay` INT(11) NOT NULL DEFAULT '129600',
+  `respawn_time` BIGINT NOT NULL DEFAULT 0,
+  `currentHp` decimal(8,0) DEFAULT NULL,
+  `currentMp` decimal(8,0) DEFAULT NULL,
   PRIMARY KEY (`boss_id`,`loc_x`,`loc_y`,`loc_z`)
 ) DEFAULT CHARSET=utf8;
 

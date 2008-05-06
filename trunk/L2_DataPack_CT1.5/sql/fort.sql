@@ -2,11 +2,11 @@
 -- Table structure for fort
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `fort` (
-  `id` int(11) NOT NULL default '0',
+  `id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(25) NOT NULL,
-  `siegeDate` decimal(20,0) NOT NULL default '0',
-  `lastOwnedTime` decimal(20,0) NOT NULL default '0',
-  `owner` int(11) NOT NULL default '0',
+  `siegeDate` decimal(20,0) NOT NULL DEFAULT '0',
+  `lastOwnedTime` decimal(20,0) NOT NULL DEFAULT '0',
+  `owner` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`id`)
 ) ;
 

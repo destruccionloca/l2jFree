@@ -3,13 +3,13 @@
 -- ----------------------------
 DROP TABLE IF EXISTS transform_skill_trees;
 CREATE TABLE `transform_skill_trees` (
-  `race_id` int(10) NOT NULL default '0',
-  `skill_id` int(10) NOT NULL default '0',
-  `item_id` int(10) NOT NULL default '0',
-  `level` int(10) NOT NULL default '0',
-  `name` varchar(40) NOT NULL default '',
-  `sp` int(10) NOT NULL default '0',
-  `min_level` int(10) NOT NULL default '0',
+  `race_id` int(10) NOT NULL DEFAULT '0',
+  `skill_id` int(10) NOT NULL DEFAULT '0',
+  `item_id` int(10) NOT NULL DEFAULT '0',
+  `level` int(10) NOT NULL DEFAULT '0',
+  `name` varchar(40) NOT NULL DEFAULT '',
+  `sp` int(10) NOT NULL DEFAULT '0',
+  `min_level` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`race_id`,`skill_id`,`level`)
 ) DEFAULT CHARSET=utf8;
 

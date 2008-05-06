@@ -3,8 +3,8 @@
 -- ---------------------------
 DROP TABLE IF EXISTS `auto_chat_text`;
 CREATE TABLE `auto_chat_text` (
-  `groupId` INT NOT NULL default '0',
-  `chatText` VARCHAR(255) NOT NULL default '',
+  `groupId` INT NOT NULL DEFAULT '0',
+  `chatText` VARCHAR(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`groupId`,`chatText`)
 ) DEFAULT CHARSET=utf8;
 
