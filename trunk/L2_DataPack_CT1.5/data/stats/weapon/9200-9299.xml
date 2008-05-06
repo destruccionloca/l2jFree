@@ -297,8 +297,6 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
-       <!-- SA: Focus -->
-   <add val='86' order='0x40' stat='rCrit'/>
   </for>
 </item>
 
@@ -957,8 +955,6 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
-       <!-- SA: Focus -->
-   <add val='77' order='0x40' stat='rCrit'/>
   </for>
 </item>
 
@@ -1115,8 +1111,6 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
-       <!-- SA: Focus -->
-   <add val='73' order='0x40' stat='rCrit'/>
   </for>
 </item>
 

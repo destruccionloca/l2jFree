@@ -1,6 +1,7 @@
 -- ---------------------------
 -- Table structure for table `custom_npcskills`
 -- ---------------------------
+DROP TABLE IF EXISTS `custom_npcskills`;
 CREATE TABLE IF NOT EXISTS `custom_npcskills` (
   `npcid` int(11) NOT NULL DEFAULT '0',
   `skillid` int(11) NOT NULL DEFAULT '0',

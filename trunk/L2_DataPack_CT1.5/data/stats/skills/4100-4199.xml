@@ -1599,7 +1599,7 @@
   <set name="effectType" val="BLEED"/>
   <set name="effectLevel" val="#effectLevel"/>
   <for>
-    <effect count="7" name="DamOverTime" time="3" val="#damage"/>
+    <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleeding"/>
   </for>
 </skill>
 <skill id="4189" levels="12" name="Paralysis">

@@ -1,6 +1,7 @@
 -- ---------------------------
 -- Table structure for table `custom_spawnlist`
 -- ---------------------------
+DROP TABLE IF EXISTS `custom_spawnlist`;
 CREATE TABLE IF NOT EXISTS `custom_spawnlist` (
   `id` int(11) NOT NULL auto_increment,
   `location` varchar(40) NOT NULL DEFAULT '',

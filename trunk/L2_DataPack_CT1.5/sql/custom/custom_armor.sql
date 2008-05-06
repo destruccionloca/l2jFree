@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `custom_armor`;
 CREATE TABLE IF NOT EXISTS `custom_armor` (
   `item_id` int(11) NOT NULL DEFAULT '0',
   `item_display_id` int(11) NOT NULL DEFAULT '0',

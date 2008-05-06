@@ -7456,7 +7456,15 @@ INSERT INTO `etcitem` VALUES
 (10347, 'Dark Crystal', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
 (10348, 'Dark Oxide', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
 (10349, 'Cryptogram of the Goddess Sword', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', ''),
-(10350, 'Predecessor\'s Report', 'false', 'quest', 0, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', '', '');
+(10350,"Predecessor\'s Report", "false", "quest", 0, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
+(10351,"Cryptogram of the Angel Search", "false", "quest", 0, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
+(10352,"Prophecy Fragment", "false", "quest", 0, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
+(10353,"Fallen Angel Blood", "false", "quest", 0, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
+(10354,"Sealed Prophecy - Path of the God", "false", "quest", 0, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
+(10355,"Prophecy - Path of the God", "false", "quest", 0, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
+(10356,"Empty Sound Crystal", "false", "quest", 0, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
+(10357,"Angel Medicine", "false", "quest", 0, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
+(10358,"Angel\'s Message", "false", "quest", 0, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", "");
 
 --
 -- L2J-Free Add-ons allready implemented so there is no point run updates that is bellow

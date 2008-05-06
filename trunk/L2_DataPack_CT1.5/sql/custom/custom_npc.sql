@@ -1,6 +1,7 @@
 -- ---------------------------
 -- Table structure for table `custom_npc`
 -- ---------------------------
+DROP TABLE IF EXISTS `custom_npc`;
 CREATE TABLE IF NOT EXISTS `custom_npc` (
   `id` decimal(11,0) NOT NULL DEFAULT '0',
   `idTemplate` int(11) NOT NULL DEFAULT '0',
