@@ -49,6 +49,11 @@ public class DeluxeKey implements ISkillHandler
 
 		// This is just a dummy skill handler for the golden food and crystal food skills,
 		// since the AI responce onSkillUse handles the rest.
+
+		//6665 6666 6667 6668 6669 6670 6671 6672 Chest KeyId
+		int skLevel = skill.getLevel();
+		int keyId = 6664 + skLevel;
+		((L2PcInstance)activeChar).destroyItemWithoutTrace("Consume", keyId, 1, null, false);
 	}
 
 	public SkillType[] getSkillIds()
