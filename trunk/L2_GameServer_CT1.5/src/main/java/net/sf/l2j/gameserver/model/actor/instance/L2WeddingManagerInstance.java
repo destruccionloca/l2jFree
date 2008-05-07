@@ -88,7 +88,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
     }
     
     @Override
-    public void onBypassFeedback(L2PcInstance player, String command)
+    public synchronized void onBypassFeedback(L2PcInstance player, String command)
     {
         // standard msg
         String filename = "data/html/wedding/start.htm";
@@ -182,20 +182,17 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     replace = ptarget.getName();
                     sendHtmlMessage(ptarget, filename, replace);
 
-                    // Why even go on honeymoon before you are married ? ;)
-                    try
-                    {
-			// Wait a little for all effects, and then go on honeymoon
-                    	wait(10000);
-                    }
-                    catch (InterruptedException e){}
-
                     if(Config.WEDDING_HONEYMOON_PORT)
                     {
+                    	try
+                    	{
+                    		// Wait a little for all effects, and then go on honeymoon
+                    		wait(10000);
+                    	}
+                    	catch (InterruptedException e){}
                     	//port both players to disneyland for happy time
                     	player.teleToLocation(-56641, -56345, -2005);
-                    	ptarget.teleToLocation(-56641, -56345, -2005);
-                    	//wait 20 seconds after teleport before all wedding actions                    	
+                    	ptarget.teleToLocation(-56641, -56345, -2005);                   	
                     }
 
                     return;
