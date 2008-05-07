@@ -2429,7 +2429,7 @@ public final class Config
 	public static boolean FWV_MOVEATRANDOM; 
 
 	/******************************************* 
-	 * baylor CONFIG                          * 
+	 * Baylor CONFIG                          * 
 	 *******************************************/
 	public static boolean FWBA_ENABLESINGLEPLAYER; 
 	public static int FWBA_FIXINTERVALOFBAYLORSPAWN; 
@@ -2438,7 +2438,7 @@ public final class Config
 	public static int FWBA_ACTIVITYTIMEOFMOBS;
 
 	/******************************************* 
-	 * sailren CONFIG                          * 
+	 * Sailren CONFIG                          * 
 	 *******************************************/
 	public static boolean FWS_ENABLESINGLEPLAYER; 
 	public static int FWS_FIXINTERVALOFSAILRENSPAWN; 
@@ -2458,6 +2458,17 @@ public final class Config
 	public static int HPH_CALLROYALGUARDHELPERINTERVAL; 
 	public static int HPH_INTERVALOFDOOROFALTER; 
 	public static int HPH_TIMEOFLOCKUPDOOROFALTAR;
+
+	/***************************************************************************
+	* JP Attack Last Imperial Tomb Custom CONFIG                              *
+	**************************************************************************/
+	public static int LIT_REGISTRATION_MODE;
+	public static int LIT_REGISTRATION_TIME;
+	public static int LIT_MIN_PARTY_CNT;
+	public static int LIT_MAX_PARTY_CNT;
+	public static int LIT_MIN_PLAYER_CNT;
+	public static int LIT_MAX_PLAYER_CNT;
+	public static int LIT_TIME_LIMIT;
 
 	// *******************************************************************************************
 	public static void loadBossConfig()
@@ -2667,6 +2678,15 @@ public final class Config
 			if (HPH_TIMEOFLOCKUPDOOROFALTAR < 60 || HPH_TIMEOFLOCKUPDOOROFALTAR > 600)
 				HPH_TIMEOFLOCKUPDOOROFALTAR = 180;
 			HPH_TIMEOFLOCKUPDOOROFALTAR *= 6000;
+
+			// Last imperial tomb
+			LIT_REGISTRATION_MODE = Integer.parseInt(bossSettings.getProperty("RegistrationMode", "0"));
+			LIT_REGISTRATION_TIME = Integer.parseInt(bossSettings.getProperty("RegistrationTime", "10"));
+			LIT_MIN_PARTY_CNT = Integer.parseInt(bossSettings.getProperty("MinPartyCount", "4"));
+			LIT_MAX_PARTY_CNT = Integer.parseInt(bossSettings.getProperty("MaxPartyCount", "5"));
+			LIT_MIN_PLAYER_CNT = Integer.parseInt(bossSettings.getProperty("MinPlayerCount", "7"));
+			LIT_MAX_PLAYER_CNT = Integer.parseInt(bossSettings.getProperty("MaxPlayerCount", "45"));
+			LIT_TIME_LIMIT = Integer.parseInt(bossSettings.getProperty("TimeLimit", "35"));
 		}
 		catch (Exception e)
 		{

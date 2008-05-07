@@ -54,7 +54,6 @@ class sailren (JQuest):
 
   def onKill (self,npc,player,isPet):
     st = player.getQuestState("sailren")
-    if not st: return
     npcId = npc.getNpcId()
     if npcId == VELOCIRAPTOR :
       SailrenManager.getInstance().setSailrenSpawnTask(PTEROSAUR)
@@ -64,6 +63,7 @@ class sailren (JQuest):
       SailrenManager.getInstance().setSailrenSpawnTask(SAILREN)
     elif npcId == SAILREN :
       SailrenManager.getInstance().setCubeSpawn()
+      if not st: return
       st.exitQuest(1)
     return
 

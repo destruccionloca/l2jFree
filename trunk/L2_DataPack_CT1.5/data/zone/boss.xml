@@ -53,7 +53,7 @@
   </zone>
 
   <zone id="6" name="Lair of Baium" type="Boss">
-    <settings boss="Baium"/>
+    <settings boss="Baium" noLanding="true"/>
     <shape type="Rect" zMin="10070" zMax="12480">
       <point x="109448" y="10233"/>
       <point x="118547" y="21446"/>
@@ -105,4 +105,12 @@
       <point x="153569" y="142075"/>
     </shape>
   </zone>
+
+  <zone id="13" name="Last Imperial Tomb" type="Boss">
+    <settings boss="LastImperialTomb" noLanding="true"/>
+    <shape type="Rect" zMin="-5300" zMax="-3600">
+      <point x="172176" y="-74106"/>
+      <point x="175984" y="-90033"/>
+    </shape>
+  </zone> 
 </list>

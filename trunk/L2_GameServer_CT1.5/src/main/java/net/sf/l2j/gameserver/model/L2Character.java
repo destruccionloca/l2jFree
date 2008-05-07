@@ -4127,23 +4127,11 @@ public abstract class L2Character extends L2Object
 	 */
 	public final L2Effect[] getAllEffects()
 	{
-		// Create a copy of the effects set
-		FastTable<L2Effect> effects = _effects;
-
 		// If no effect found, return EMPTY_EFFECTS
-		if (effects == null || effects.isEmpty())
+		if (_effects == null || _effects.isEmpty())
 			return EMPTY_EFFECTS;
 
-		// Return all effects in progress in a table
-		int ArraySize = effects.size();
-		L2Effect[] effectArray = new L2Effect[ArraySize];
-		for (int i = 0; i < ArraySize; i++)
-		{
-			if (i >= effects.size() || effects.get(i) == null)
-				break;
-			effectArray[i] = effects.get(i);
-		}
-		return effectArray;
+		return _effects.toArray(new L2Effect[_effects.size()]);
 	}
 
 	/**
@@ -4159,27 +4147,24 @@ public abstract class L2Character extends L2Object
 	 */
 	public final L2Effect getFirstEffect(int index)
 	{
-		FastTable<L2Effect> effects = _effects;
-		if (effects == null)
+		if (_effects == null)
 			return null;
 
-		L2Effect e;
 		L2Effect eventNotInUse = null;
-		for (int i = 0; i < effects.size(); i++)
+		synchronized(_effects)
 		{
-			e = effects.get(i);
+			for (L2Effect e: _effects)
+			{
+				if (e == null)
+					continue;
 
-			if (e == null)
-			{
-				effects.remove(e);
-				continue;
-			}
-			if (e.getSkill().getId() == index)
-			{
-				if (e.getInUse())
-					return e;
-				else
-					eventNotInUse = e;
+				if (e.getSkill().getId() == index)
+				{
+					if (e.getInUse())
+						return e;
+					else
+						eventNotInUse = e;
+				}
 			}
 		}
 		return eventNotInUse;
@@ -4198,21 +4183,21 @@ public abstract class L2Character extends L2Object
 	 */
 	public final L2Effect getFirstEffect(L2Skill skill)
 	{
-		FastTable<L2Effect> effects = _effects;
-		if (effects == null)
+		if (_effects == null)
 			return null;
 
-		L2Effect e;
 		L2Effect eventNotInUse = null;
-		for (int i = 0; i < effects.size(); i++)
+		synchronized(_effects)
 		{
-			e = effects.get(i);
-			if (e.getSkill() == skill)
+			for (L2Effect e : _effects)
 			{
-				if (e.getInUse())
-					return e;
-				else
-					eventNotInUse = e;
+				if (e.getSkill() == skill)
+				{
+					if (e.getInUse())
+						return e;
+					else
+						eventNotInUse = e;
+				}
 			}
 		}
 		return eventNotInUse;
@@ -4233,21 +4218,21 @@ public abstract class L2Character extends L2Object
 	 */
 	public final L2Effect getFirstEffect(L2Effect.EffectType tp)
 	{
-		FastTable<L2Effect> effects = _effects;
-		if (effects == null)
+		if (_effects == null)
 			return null;
 
-		L2Effect e;
 		L2Effect eventNotInUse = null;
-		for (int i = 0; i < effects.size(); i++)
+		synchronized(_effects)
 		{
-			e = effects.get(i);
-			if (e.getEffectType() == tp)
+			for (L2Effect e : _effects)
 			{
-				if (e.getInUse())
-					return e;
-				else
-					eventNotInUse = e;
+				if (e.getEffectType() == tp)
+				{
+					if (e.getInUse())
+						return e;
+					else
+						eventNotInUse = e;
+				}
 			}
 		}
 		return eventNotInUse;
@@ -4255,10 +4240,16 @@ public abstract class L2Character extends L2Object
 
 	public EffectCharge getChargeEffect()
 	{
-		L2Effect[] effects = getAllEffects();
-		for (L2Effect e : effects)
+		if (_effects != null)
 		{
-			if (e.getSkill().getSkillType() == L2Skill.SkillType.CHARGE) { return (EffectCharge) e; }
+			synchronized(_effects)
+			{
+				for (L2Effect e : _effects)
+				{
+					if (e.getSkill().getSkillType() == L2Skill.SkillType.CHARGE)
+						return (EffectCharge)e;
+				}
+			}
 		}
 		return null;
 	}

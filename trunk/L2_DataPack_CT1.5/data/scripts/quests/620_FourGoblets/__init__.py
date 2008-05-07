@@ -95,7 +95,7 @@ class Quest (JQuest) :
       return
 
   def onAdvEvent (self,event,npc,player) :
-    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+    htmltext = event
     st = player.getQuestState(qn)
 
     if event == "Enter" : 

@@ -23,7 +23,7 @@ class vanhalter(JQuest):
     npcId = npc.getNpcId()
     if npcId == 32058 or npcId == 32059 or npcId == 32060 or npcId == 32061 or npcId == 32062 or npcId == 32063 or npcId == 32064 or npcId == 32065 or npcId == 32066 :
       VanHalterManager.getInstance().removeBleeding(npcId)
-      VanHalterManager.getInstance().checkToriolRevelationDestroy()
+      VanHalterManager.getInstance().checkTriolRevelationDestroy()
     if npcId == 22188 :
       VanHalterManager.getInstance().checkRoyalGuardCaptainDestroy()
     if npcId == 29062 :

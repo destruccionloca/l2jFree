@@ -18,7 +18,6 @@ class valakas(JQuest):
       if st.getInt("ok"):
         if ValakasManager.getInstance().isEnableEnterToLair():
           ValakasManager.getInstance().setValakasSpawnTask()
-          ValakasManager.getInstance().addPlayerToLair(st.player)
           st.player.teleToLocation(203940,-111840,66)
           return
         else:
@@ -61,6 +60,7 @@ class valakas(JQuest):
     ValakasManager.getInstance().setCubeSpawn()
     if not st: return
     st.exitQuest(1)
+
 # Quest class and state definition
 QUEST = valakas(-1,"valakas","ai")
 

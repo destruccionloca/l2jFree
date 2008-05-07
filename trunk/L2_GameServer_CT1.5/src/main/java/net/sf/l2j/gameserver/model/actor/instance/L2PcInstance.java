@@ -83,6 +83,7 @@ import net.sf.l2j.gameserver.instancemanager.grandbosses.FrintezzaManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.ValakasManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
+import net.sf.l2j.gameserver.instancemanager.lastimperialtomb.LastImperialTombManager;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.CursedWeapon;
 import net.sf.l2j.gameserver.model.FishData;
@@ -4506,7 +4507,7 @@ public final class L2PcInstance extends L2PlayableInstance
             FourSepulchersManager.getInstance().checkAnnihilated(this);
         // When the player has been annihilated, the player is banished from the lair. 
         else if (SailrenManager.getInstance().checkIfInZone(this))
-            SailrenManager.getInstance().checkAnnihilated(this);
+            SailrenManager.getInstance().checkAnnihilated();
         else if (AntharasManager.getInstance().checkIfInZone(this))
             AntharasManager.getInstance().checkAnnihilated();
         else if (ValakasManager.getInstance().checkIfInZone(this))
@@ -4514,9 +4515,11 @@ public final class L2PcInstance extends L2PlayableInstance
         else if (BaiumManager.getInstance().checkIfInZone(this))
             BaiumManager.getInstance().checkAnnihilated();
         else if (BaylorManager.getInstance().checkIfInZone(this))
-            BaylorManager.getInstance().checkAnnihilated(this);         
+            BaylorManager.getInstance().checkAnnihilated();
         else if (FrintezzaManager.getInstance().checkIfInZone(this))
             FrintezzaManager.getInstance().checkAnnihilated();
+        else if (LastImperialTombManager.getInstance().checkIfInZone(this))
+            LastImperialTombManager.getInstance().checkAnnihilated();
 
         return true;
     }
@@ -9746,117 +9749,140 @@ public final class L2PcInstance extends L2PlayableInstance
 //      [L2J_JP ADD SANDMAN] Check of a restart prohibition area.
 		if(!isGM())
 		{
-	    	// Four-Sepulcher,It is less than 5 minutes.
-	    	if (FourSepulchersManager.getInstance().checkIfInZone(this) &&
-	   			(System.currentTimeMillis() - getLastAccess() >= 300000))
-	    	{
-	    		int driftX = Rnd.get(-80,80);
-	    		int driftY = Rnd.get(-80,80);
-	    		teleToLocation(178293 + driftX,-84607 + driftY,-7216);
-	    	}
-	    	
-	    	// It is less than a time limit from player restarting.
-    		// TODO write code for restart fight against bosses.
-	    	// Lair of bosses,It is less than 30 minutes from server starting.
-    		// It is only for Antharas and Valakas that I know it now.
-    		// Thanks a lot Serafiel of L2J_JP.
-	    	//
-	    	// 10 minutes
-    		// Antharas
-	    	else if (AntharasManager.getInstance().checkIfInZone(this))
-    		{
-    	    	// Lair of bosses,It is less than 30 minutes from server starting.
-	    		// Player can restart inside lair, but Antharas do not respawn.
-    	    	if(System.currentTimeMillis() - GameServer.dateTimeServerStarted.getTimeInMillis() <= Config.TIMELIMITOFINVADE)
-    	    	{
-	        		if (getQuestState("antharas") != null) getQuestState("antharas").exitQuest(true);
-    	    	}
-        		else if (System.currentTimeMillis() - getLastAccess() >= 600000)
+			// Four-Sepulcher,It is less than 5 minutes.
+			if (FourSepulchersManager.getInstance().checkIfInZone(this) &&
+				(System.currentTimeMillis() - getLastAccess() >= 300000))
+			{
+				int driftX = Rnd.get(-80,80);
+				int driftY = Rnd.get(-80,80);
+				teleToLocation(178293 + driftX,-84607 + driftY,-7216);
+			}
+
+			// It is less than a time limit from player restarting.
+			// TODO write code for restart fight against bosses.
+			// Lair of bosses,It is less than 30 minutes from server starting.
+			// It is only for Antharas and Valakas that I know it now.
+			// Thanks a lot Serafiel of L2J_JP.
+
+			// 10 minutes
+			// Antharas
+			else if (AntharasManager.getInstance().checkIfInZone(this))
+			{
+				// Lair of bosses,It is less than 30 minutes from server starting.
+				// Player can restart inside lair, but Antharas do not respawn.
+				if(System.currentTimeMillis() - GameServer.dateTimeServerStarted.getTimeInMillis() <= Config.TIMELIMITOFINVADE)
 				{
-	        		if (getQuestState("antharas") != null) getQuestState("antharas").exitQuest(true);
-	        		teleToLocation(TeleportWhereType.Town);
+					if (getQuestState("antharas") != null)
+						getQuestState("antharas").exitQuest(true);
 				}
-				else
-	        		AntharasManager.getInstance().addPlayerToLair(this);
-    		}
-    		
-    		// Baium
-	    	else if (BaiumManager.getInstance().checkIfInZone(this))
-    		{
+				else if (System.currentTimeMillis() - getLastAccess() >= 600000)
+				{
+					if (getQuestState("antharas") != null)
+						getQuestState("antharas").exitQuest(true);
+					teleToLocation(TeleportWhereType.Town);
+				}
+			}
+
+			// Baium
+			else if (BaiumManager.getInstance().checkIfInZone(this))
+			{
 				if (System.currentTimeMillis() - getLastAccess() >= 600000)
 				{
-	        		if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
-	        		teleToLocation(TeleportWhereType.Town);
+					if (getQuestState("baium") != null)
+						getQuestState("baium").exitQuest(true);
+					teleToLocation(TeleportWhereType.Town);
 				}
 				else
 				{
 					// Player can restart inside lair, but can not awake Baium.
-					if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
-					BaiumManager.getInstance().addPlayerToLair(this);
+					if (getQuestState("baium") != null)
+						getQuestState("baium").exitQuest(true);
 				}
-    		}
+			}
 
-    		// Lilith
-	    	/*else if (LilithManager.getInstance().checkIfInZone(this))
-    		{
-				if (System.currentTimeMillis() - getLastAccess() >= 600000)
+			// 10 minutes
+			// Last Imperial Tomb (includes Frintezza's room)
+			else if (LastImperialTombManager.getInstance().checkIfInZone(this))
+			{
+				// Lair of bosses,It is less than 30 minutes from server starting.
+				// Player can restart inside lair, but Antharas do not respawn.
+				if(System.currentTimeMillis() - GameServer.dateTimeServerStarted.getTimeInMillis() <= Config.TIMELIMITOFINVADE)
+				{
+					if (getQuestState("lastimperialtomb") != null)
+						getQuestState("lastimperialtomb").exitQuest(true);
+				}
+				else if (System.currentTimeMillis() - getLastAccess() >= 600000)
+				{
+					if (getQuestState("lastimperialtomb") != null)
+						getQuestState("lastimperialtomb").exitQuest(true);
 					teleToLocation(TeleportWhereType.Town);
-    		}
-    		
-    		// Anakim
-	    	else if (AnakimManager.getInstance().checkIfInZone(this))
-    		{
-				if (System.currentTimeMillis() - getLastAccess() >= 600000)
-					teleToLocation(TeleportWhereType.Town);
-    		}
-    		
-    		// Zaken
-	    	else if (ZakenManager.getInstance().checkIfInZone(this))
-    		{
-				if (System.currentTimeMillis() - getLastAccess() >= 600000)
-					teleToLocation(TeleportWhereType.Town);
-    		}*/
+				}
+			}
 
-    		// High Priestess van Halter
-	    	else if (VanHalterManager.getInstance().checkIfInZone(this))
+			// Lilith
+			/*else if (LilithManager.getInstance().checkIfInZone(this))
+			{
+				if (System.currentTimeMillis() - getLastAccess() >= 600000)
+					teleToLocation(TeleportWhereType.Town);
+			}
+
+			// Anakim
+			else if (AnakimManager.getInstance().checkIfInZone(this))
+			{
+				if (System.currentTimeMillis() - getLastAccess() >= 600000)
+					teleToLocation(TeleportWhereType.Town);
+			}
+
+			// Zaken
+			else if (ZakenManager.getInstance().checkIfInZone(this))
+			{
+				if (System.currentTimeMillis() - getLastAccess() >= 600000)
+					teleToLocation(TeleportWhereType.Town);
+			}*/
+
+			// High Priestess van Halter
+			else if (VanHalterManager.getInstance().checkIfInZone(this))
 			{
 				if(System.currentTimeMillis() - getLastAccess() >= 600000)
 					teleToLocation(TeleportWhereType.Town);
-	        	else
-	        		VanHalterManager.getInstance().intruderDetection(this);
+				else
+					VanHalterManager.getInstance().intruderDetection(this);
 			}
-    	
-    		// 30 minutes
-    		// Valakas
-	    	else if (ValakasManager.getInstance().checkIfInZone(this))
-    		{
-    	    	// Lair of bosses,It is less than 30 minutes from server starting.
-	    		// Player can restart inside lair, and begin fight against Valakas 30min later.
-    	    	if(System.currentTimeMillis() - GameServer.dateTimeServerStarted.getTimeInMillis() <= Config.TIMELIMITOFINVADE &&
-    	    			ValakasManager.getInstance().getState().equals(GrandBossState.StateEnum.ALIVE))
-    			{
-	    			ValakasManager.getInstance().addPlayerToLair(this);
-    			}
-    	    	else
-    	    	{
-    	    		if (getQuestState("valakas") != null) getQuestState("valakas").exitQuest(true);
-    	    		teleToLocation(TeleportWhereType.Town);
-    	    	}
-    		}
-    		// Baylor
-	    	else if (BaylorManager.getInstance().checkIfInZone(this))
-    		{
-        		if (getQuestState("baylor") != null) getQuestState("baylor").exitQuest(true);
-        		teleToLocation(TeleportWhereType.Town);
-    		}
-    		// Sailren
-	    	else if (SailrenManager.getInstance().checkIfInZone(this))
-    		{
-        		if (getQuestState("sailren") != null) getQuestState("sailren").exitQuest(true);
-        		teleToLocation(TeleportWhereType.Town);
-    		}
+
+			// 30 minutes
+			// Valakas
+			else if (ValakasManager.getInstance().checkIfInZone(this))
+			{
+				// Lair of bosses,It is less than 30 minutes from server starting.
+				// Player can restart inside lair, and begin fight against Valakas 30min later.
+				if(System.currentTimeMillis() - GameServer.dateTimeServerStarted.getTimeInMillis() <= Config.TIMELIMITOFINVADE &&
+					ValakasManager.getInstance().getState() == GrandBossState.StateEnum.ALIVE)
+				{
+					//
+				}
+				else
+				{
+					if (getQuestState("valakas") != null)
+						getQuestState("valakas").exitQuest(true);
+					teleToLocation(TeleportWhereType.Town);
+				}
+			}
+			// Baylor
+			else if (BaylorManager.getInstance().checkIfInZone(this))
+			{
+				if (getQuestState("baylor") != null)
+					getQuestState("baylor").exitQuest(true);
+				teleToLocation(TeleportWhereType.Town);
+			}
+			// Sailren
+			else if (SailrenManager.getInstance().checkIfInZone(this))
+			{
+				if (getQuestState("sailren") != null)
+					getQuestState("sailren").exitQuest(true);
+				teleToLocation(TeleportWhereType.Town);
+			}
 		}
-    }
+	}
 
     public void checkWaterState()
     {

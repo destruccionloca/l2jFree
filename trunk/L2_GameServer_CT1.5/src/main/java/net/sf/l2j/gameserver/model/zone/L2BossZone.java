@@ -22,7 +22,9 @@ import net.sf.l2j.gameserver.instancemanager.grandbosses.FrintezzaManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.ValakasManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
+import net.sf.l2j.gameserver.instancemanager.lastimperialtomb.LastImperialTombManager;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class L2BossZone extends L2DefaultZone
 {
@@ -46,6 +48,9 @@ public class L2BossZone extends L2DefaultZone
 		case FOURSEPULCHERS:
 			FourSepulchersManager.getInstance().registerZone(this);
 			break;
+		case LASTIMPERIALTOMB:
+			LastImperialTombManager.getInstance().registerZone(this);
+			break;
 		case SAILREN:
 			SailrenManager.getInstance().registerZone(this);
 			break;
@@ -55,7 +60,6 @@ public class L2BossZone extends L2DefaultZone
 		case VANHALTER:
 			VanHalterManager.getInstance().registerZone(this);
 			break;
-
 		}
 	}
 
@@ -63,8 +67,13 @@ public class L2BossZone extends L2DefaultZone
 	protected void onEnter(L2Character character)
 	{
 		if (_boss == Boss.SUNLIGHTROOM)
+		{
 			character.setInsideZone(FLAG_SUNLIGHTROOM, true);
-
+		}
+		else if (_boss == Boss.FRINTEZZA && character instanceof L2PcInstance)
+		{
+			FrintezzaManager.getInstance().setScarletSpawnTask();
+		}
 		super.onEnter(character);
 	}
 

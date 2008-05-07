@@ -39,9 +39,6 @@ import net.sf.l2j.gameserver.model.entity.GrandBossState;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * 
  * This class ...
@@ -49,22 +46,19 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: $ $Date: $
  * @author  L2J_JP SANDMAN
  */
-public class AntharasManager extends Entity
+public class AntharasManager extends BossLair
 {
-    private final static Log _log = LogFactory.getLog(AntharasManager.class.getName());
-    private static AntharasManager _instance = new AntharasManager();
+    private static AntharasManager _instance;
 
     // location of teleport cube.
     private final int _teleportCubeId = 31859;
     private final int _teleportCubeLocation[][] =
-    	{
-    		{177615, 114941, -7709,0}
-    	};
+    {
+    	{177615, 114941, -7709,0}
+    };
+
     protected List<L2Spawn> _teleportCubeSpawn = new FastList<L2Spawn>();
     protected List<L2NpcInstance> _teleportCube = new FastList<L2NpcInstance>();
-
-    // list of intruders.
-    protected List<L2PcInstance> _playersInLair = new FastList<L2PcInstance>();
 
     // spawn data of monsters.
     protected Map<Integer,L2Spawn> _monsterSpawn = new FastMap<Integer,L2Spawn>();
@@ -77,7 +71,6 @@ public class AntharasManager extends Entity
     protected ScheduledFuture<?> _monsterSpawnTask = null;
     protected ScheduledFuture<?> _intervalEndTask = null;
     protected ScheduledFuture<?> _activityTimeEndTask = null;
-    protected ScheduledFuture<?> _onPlayersAnnihilatedTask = null;
     protected ScheduledFuture<?> _socialTask = null;
     protected ScheduledFuture<?> _mobiliseTask = null;
     protected ScheduledFuture<?> _behemothSpawnTask = null;
@@ -85,38 +78,23 @@ public class AntharasManager extends Entity
     protected ScheduledFuture<?> _selfDestructionTask = null;
     protected ScheduledFuture<?> _moveAtRandomTask = null;
     protected ScheduledFuture<?> _movieTask = null;
-    
-    // status in lair.
-    protected GrandBossState _state = new GrandBossState(29019);
-    protected String _questName;
-    
-    // location of banishment
-    private final int _banishmentLocation[][] =
-    	{
-    		{79959, 151774, -3532},
-    		{81398, 148055, -3468},
-    		{82286, 149113, -3468},
-    		{84264, 147427, -3404}
-		};
-    
+
     public AntharasManager()
     {
+        _questName = "antharas";
+        _state = new GrandBossState(29019);
     }
 
     public static AntharasManager getInstance()
     {
-        if (_instance == null) _instance = new AntharasManager();
-
+        if (_instance == null)
+            _instance = new AntharasManager();
         return _instance;
     }
 
     // initialize
     public void init()
     {
-    	// initialize status in lair.
-    	_playersInLair.clear();
-    	_questName = "antharas";
-
         // setting spawn data of monsters.
         try
         {
@@ -199,75 +177,15 @@ public class AntharasManager extends Entity
             _log.warn(e.getMessage());
         }
         
-        _log.info("AntharasManager : State of Antharas is " + _state.getState() + ".");  
-        if (!_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN))  
-                setInetrvalEndTask();  
-          
-                Date dt = new Date(_state.getRespawnDate());  
-        _log.info("AntharasManager : Next spawn date of Antharas is " + dt + ".");  
-        _log.info("AntharasManager : Init AntharasManager.");  
-    }  
+        _log.info("AntharasManager : State of Antharas is " + _state.getState() + ".");
+        if (!_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN))
+            setIntervalEndTask();  
 
-    // return Antaras state.  
-    public GrandBossState.StateEnum getState()  
-    {  
-        return _state.getState();  
-    } 
-
-
-    // return list of intruders.
-    public List<L2PcInstance> getPlayersInLair()
-	{
-		return _playersInLair;
-	}
-    
-    // Whether it lairs is confirmed. 
-    public boolean isEnableEnterToLair()
-    {
-    	if(_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN)) 
-    		return true; 
-    	else 
-    		return false; 
+        Date dt = new Date(_state.getRespawnDate());  
+        _log.info("AntharasManager : Next spawn date of Antharas is " + dt + ".");
+        _log.info("AntharasManager : Init AntharasManager.");
     }
 
-    // update list of intruders.
-    public void addPlayerToLair(L2PcInstance pc)
-    {
-        if (!_playersInLair.contains(pc)) _playersInLair.add(pc);
-    }
-    
-    // Whether the players was annihilated is confirmed. 
-    public synchronized boolean isPlayersAnnihilated()
-    {
-    	for (L2PcInstance pc : _playersInLair)
-		{
-			// player is must be alive and stay inside of lair.
-			if (!pc.isDead()
-					&& checkIfInZone(pc))
-			{
-				return false;
-			}
-		}
-		return true;
-    }
-
-    // banishes players from lair.
-    public void banishesPlayers()
-    {
-    	for(L2PcInstance pc : _playersInLair)
-    	{
-    		if(pc.getQuestState(_questName) != null) pc.getQuestState(_questName).exitQuest(true);
-    		if(checkIfInZone(pc))
-    		{
-        		int driftX = Rnd.get(-80,80);
-        		int driftY = Rnd.get(-80,80);
-        		int loc = Rnd.get(4);
-        		pc.teleToLocation(_banishmentLocation[loc][0] + driftX,_banishmentLocation[loc][1] + driftY,_banishmentLocation[loc][2]);
-    		}
-    	}
-    	_playersInLair.clear();
-    }
-    
     // do spawn teleport cube.
     public void spawnCube()
     {
@@ -291,36 +209,12 @@ public class AntharasManager extends Entity
 			_teleportCube.add(spawnDat.doSpawn());
 		}
     }
-    
-	// When the party is annihilated, they are banished.
-    public void checkAnnihilated()
-    {
-    	if(isPlayersAnnihilated())
-    	{
-    		_onPlayersAnnihilatedTask =
-				ThreadPoolManager.getInstance().scheduleGeneral(new OnPlayersAnnihilatedTask(),5000);    			
-    	}
-    }
-
-	// When the party is annihilated, they are banished.
-	private class OnPlayersAnnihilatedTask implements Runnable
-	{
-		public OnPlayersAnnihilatedTask()
-		{
-		}
-		
-		public void run()
-		{
-		    // banishes players from lair.
-			banishesPlayers();
-		}
-	}
 
     // setting Antharas spawn task.
     public void setAntharasSpawnTask()
     {
     	// When someone has already invaded the lair, nothing is done.
-    	if (_playersInLair.size() >= 1) return;
+    	if (getPlayersInside().size() >= 1) return;
 
     	if (_monsterSpawnTask == null)
         {
@@ -331,9 +225,10 @@ public class AntharasManager extends Entity
     // do spawn Antharas.
     private class AntharasSpawn implements Runnable
     {
-    	int _distance = 6502500;
-    	int _taskId = 0;
-		L2GrandBossInstance _antharas = null;
+    	private int _distance = 6502500;
+    	private int _taskId = 0;
+		private L2GrandBossInstance _antharas = null;
+        private List<L2PcInstance> _players = getPlayersInside();
 
 		AntharasSpawn(int taskId, L2GrandBossInstance antharas)
 		{
@@ -354,9 +249,9 @@ public class AntharasManager extends Entity
 					// invaded the lair.
 					if (Config.FWA_OLDANTHARAS)
 						npcId = 29019; // old
-					else if (_playersInLair.size() <= Config.FWA_LIMITOFWEAK)
+					else if (_players.size() <= Config.FWA_LIMITOFWEAK)
 						npcId = 29066; // weak
-					else if (_playersInLair.size() >= Config.FWA_LIMITOFNORMAL)
+					else if (_players.size() >= Config.FWA_LIMITOFNORMAL)
 						npcId = 29068; // strong
 					else
 						npcId = 29067; // normal
@@ -372,10 +267,6 @@ public class AntharasManager extends Entity
 					_state.setState(GrandBossState.StateEnum.ALIVE);  
 					_state.update();  
 
-	
-					// set KnownList
-					updateKnownList(_antharas);
-	
 					// setting 1st time of minions spawn task.
 					if (!Config.FWA_OLDANTHARAS)
 					{
@@ -384,15 +275,17 @@ public class AntharasManager extends Entity
 	
 						// Interval of minions is decided by the number of players
 						// that invaded the lair.
-						if (_playersInLair.size() <= Config.FWA_LIMITOFWEAK) // weak
+						if (_players.size() <= Config.FWA_LIMITOFWEAK) // weak
 						{
 							intervalOfBehemoth = Config.FWA_INTERVALOFBEHEMOTHONWEAK;
 							intervalOfBomber = Config.FWA_INTERVALOFBOMBERONWEAK;
-						} else if (_playersInLair.size() >= Config.FWA_LIMITOFNORMAL) // strong
+						}
+                        else if (_players.size() >= Config.FWA_LIMITOFNORMAL) // strong
 						{
 							intervalOfBehemoth = Config.FWA_INTERVALOFBEHEMOTHONSTRONG;
 							intervalOfBomber = Config.FWA_INTERVALOFBOMBERONSTRONG;
-						} else
+						}
+                        else
 						// normal
 						{
 							intervalOfBehemoth = Config.FWA_INTERVALOFBEHEMOTHONNORMAL;
@@ -418,13 +311,14 @@ public class AntharasManager extends Entity
 	
 				case 2:
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_antharas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_antharas, 700, 13, -19, 0, 10000);
-						} else
+						}
+                        else
 						{
 							pc.leaveMovieMode();
 						}
@@ -446,13 +340,14 @@ public class AntharasManager extends Entity
 					_antharas.broadcastPacket(sa);
 	
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_antharas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_antharas, 700, 13, 0, 6000, 10000);
-						} else
+						}
+                        else
 						{
 							pc.leaveMovieMode();
 						}
@@ -470,13 +365,14 @@ public class AntharasManager extends Entity
 	
 				case 4:
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_antharas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_antharas, 3800, 0, -3, 0, 10000);
-						} else
+						}
+                        else
 						{
 							pc.leaveMovieMode();
 						}
@@ -498,13 +394,14 @@ public class AntharasManager extends Entity
 					_antharas.broadcastPacket(sa);
 	
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_antharas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_antharas, 1200, 0, -3, 22000, 11000);
-						} else
+						}
+                        else
 						{
 							pc.leaveMovieMode();
 						}
@@ -522,13 +419,14 @@ public class AntharasManager extends Entity
 	
 				case 6:
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_antharas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_antharas, 1200, 0, -3, 300, 2000);
-						} else
+						}
+                        else
 						{
 							pc.leaveMovieMode();
 						}
@@ -545,9 +443,9 @@ public class AntharasManager extends Entity
 					break;
 	
 				case 7:
-					_antharas.abortCast();		
+					_antharas.abortCast();
 					// reset camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						pc.leaveMovieMode();
 					}
@@ -558,8 +456,7 @@ public class AntharasManager extends Entity
 					if (Config.FWA_MOVEATRANDOM)
 					{
 						L2CharPosition pos = new L2CharPosition(Rnd.get(175000,	178500), Rnd.get(112400, 116000), -7707, 0);
-						_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleGeneral(new MoveAtRandom(_antharas, pos),
-										32);
+						_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleGeneral(new MoveAtRandom(_antharas, pos), 32);
 					}
 	
 					// set delete task.
@@ -606,7 +503,6 @@ public class AntharasManager extends Entity
                 
         		// do spawn.
             	_monsters.add(tempSpawn.doSpawn());
-
             }
             catch (Exception e)
             {
@@ -622,10 +518,9 @@ public class AntharasManager extends Entity
             // repeat.
         	_behemothSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(
             		new BehemothSpawn(_interval),_interval);
-
     	}
     }
-    
+
     // do spawn Bomber.
     private class BomberSpawn implements Runnable
     {
@@ -660,7 +555,6 @@ public class AntharasManager extends Entity
         		// do spawn.
                 bomber = tempSpawn.doSpawn();
             	_monsters.add(bomber);
-
             }
             catch (Exception e)
             {
@@ -683,19 +577,19 @@ public class AntharasManager extends Entity
             // repeat.
             _bomberSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(
             		new BomberSpawn(_interval),_interval);
-
     	}
     }
 
     // do self destruction.
     private class SelfDestructionOfBomber implements Runnable
     {
-    	L2NpcInstance _bomber;
+    	private L2NpcInstance _bomber;
+
     	public SelfDestructionOfBomber(L2NpcInstance bomber)
     	{
     		_bomber = bomber;
     	}
-    	
+
     	public void run()
     	{
     		L2Skill skill = null;
@@ -717,14 +611,10 @@ public class AntharasManager extends Entity
     		_bomber.doCast(skill);
     	}
     }
-    
+
     // at end of activitiy time.
     private class ActivityTimeEnd implements Runnable
     {
-    	public ActivityTimeEnd()
-    	{
-    	}
-    	
     	public void run()
     	{
     		setUnspawn();
@@ -735,7 +625,7 @@ public class AntharasManager extends Entity
     public void setUnspawn()
 	{
     	// eliminate players.
-    	banishesPlayers();
+    	banishForeigners();
 
     	// delete monsters.
     	for(L2NpcInstance mob : _monsters)
@@ -774,11 +664,6 @@ public class AntharasManager extends Entity
 			_activityTimeEndTask.cancel(true);
 			_activityTimeEndTask = null;
 		}
-		if(_onPlayersAnnihilatedTask != null)
-		{
-			_onPlayersAnnihilatedTask.cancel(true);
-			_onPlayersAnnihilatedTask = null;
-		}
 		if(_socialTask != null)
 		{
 			_socialTask.cancel(true);
@@ -809,40 +694,34 @@ public class AntharasManager extends Entity
 			_moveAtRandomTask.cancel(true);
 			_moveAtRandomTask = null;
 		}
-
 		// interval begin.
-		setInetrvalEndTask();
+		setIntervalEndTask();
 	}
 
     // start interval.
-    public void setInetrvalEndTask()
+    public void setIntervalEndTask()
     {
     	//init state of Antharas's lair.  
-    	if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))  
-    	{  
-    		_state.setRespawnDate(Rnd.get(Config.FWA_FIXINTERVALOFANTHARAS,Config.FWA_FIXINTERVALOFANTHARAS + Config.FWA_RANDOMINTERVALOFANTHARAS));  
-    		_state.setState(GrandBossState.StateEnum.INTERVAL);  
-    		_state.update();  
-    	} 
+    	if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
+    	{
+    		_state.setRespawnDate(Rnd.get(Config.FWA_FIXINTERVALOFANTHARAS,Config.FWA_FIXINTERVALOFANTHARAS + Config.FWA_RANDOMINTERVALOFANTHARAS));
+    		_state.setState(GrandBossState.StateEnum.INTERVAL);
+    		_state.update();
+    	}
 
-    	_intervalEndTask = ThreadPoolManager.getInstance().scheduleGeneral(
-            	new IntervalEnd(),_state.getInterval());
+    	_intervalEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new IntervalEnd(),_state.getInterval());
     }
 
     // at end of interval.
     private class IntervalEnd implements Runnable
     {
-    	public IntervalEnd()
-    	{}
-    	
     	public void run()
     	{
-    		_playersInLair.clear();
     		_state.setState(GrandBossState.StateEnum.NOTSPAWN);
     		_state.update();
     	}
     }
-    
+
     // setting teleport cube spawn task.
     public void setCubeSpawn()
     {
@@ -851,34 +730,21 @@ public class AntharasManager extends Entity
 
     	_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new CubeSpawn(),10000);
     }
-    
-    // update knownlist.
-    protected void updateKnownList(L2NpcInstance boss)
-    {
-    	boss.getKnownList().getKnownPlayers().clear();
-		for (L2PcInstance pc : _playersInLair)
-		{
-			boss.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
-		}
-    }
 
     // do spawn teleport cube.
     private class CubeSpawn implements Runnable
     {
-    	public CubeSpawn()
-    	{
-    	}
-    	
         public void run()
         {
         	spawnCube();
         }
     }
-    
+
     // action is enabled the boss.
     private class SetMobilised implements Runnable
     {
         private L2GrandBossInstance _boss;
+
         public SetMobilised(L2GrandBossInstance boss)
         {
         	_boss = boss;
@@ -888,7 +754,7 @@ public class AntharasManager extends Entity
         {
         	_boss.setIsImmobilized(false);
         	_boss.setIsInSocialAction(false);
-            
+
             // When it is possible to act, a social action is canceled.
             if (_socialTask != null)
             {
@@ -897,19 +763,19 @@ public class AntharasManager extends Entity
             }
         }
     }
-    
+
     // Move at random on after Antharas appears.
     private class MoveAtRandom implements Runnable
     {
     	private L2NpcInstance _npc;
-    	L2CharPosition _pos;
-    	
+    	private L2CharPosition _pos;
+
     	public MoveAtRandom(L2NpcInstance npc,L2CharPosition pos)
     	{
     		_npc = npc;
     		_pos = pos;
     	}
-    	
+
     	public void run()
     	{
     		_npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,_pos);

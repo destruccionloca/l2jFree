@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.instancemanager.grandbosses;
  * @author Darki699
  */
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -41,11 +42,11 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Entity;
+import net.sf.l2j.gameserver.model.entity.GrandBossState;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
-import net.sf.l2j.gameserver.network.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -53,9 +54,6 @@ import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.tools.geometry.Point3D;
 import net.sf.l2j.tools.random.Rnd;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /** *************************- main class + global class values -*********************************** */
 
@@ -66,31 +64,26 @@ import org.apache.commons.logging.LogFactory;
  * @author Darki699
  */
 
-public class FrintezzaManager extends Entity
+public class FrintezzaManager extends BossLair
 {
-	
-	private final static Log		_log		= LogFactory.getLog(FrintezzaManager.class.getName());
-	
-	private static FrintezzaManager	_instance	= new FrintezzaManager();
+	private static FrintezzaManager	_instance;
 	
 	// Must be done this way :( Each of the 11 mobs is an individual with different tasks and values
 	// So there is no point to place them in an array
-	private static L2Spawn			frintezzaSpawn, scarletSpawnWeak, scarletSpawnStrong,
-
+	private L2Spawn			frintezzaSpawn, scarletSpawnWeak, scarletSpawnStrong,
 									portraitSpawn1, portraitSpawn2, portraitSpawn3, portraitSpawn4,
-
 									demonSpawn1, demonSpawn2, demonSpawn3, demonSpawn4;
 	
-	private static L2GrandBossInstance	frintezza, weakScarlet, strongScarlet,
-
+	private L2GrandBossInstance	weakScarlet, strongScarlet,
 									portrait1, portrait2, portrait3, portrait4;
+	private L2NpcInstance		frintezza;
 	
 	// The minions be used as L2MonsterInstance, instead of L2MinionInstance, since they
 	// have 3 Bosses: weak scarlet, strong scarlet, and frintezza. All 3 bosses control
 	// the minions. Also we do not want the portraits to respawn next to the boss,
 	// and we need different respawn intervals for
 	// demons and portraits.
-	private static L2MonsterInstance	demon1, demon2, demon3, demon4;
+	private L2MonsterInstance	demon1, demon2, demon3, demon4;
 	
 	// Interval time of Monsters.
 	protected int						_intervalOfBoss, _intervalOfDemons, _intervalOfRetarget, _intervalOfFrintezzaSongs, _callForHelpInterval;
@@ -100,33 +93,19 @@ public class FrintezzaManager extends Entity
 	
 	// Activity time of Boss.
 	protected int						_activityTimeOfBoss;
-	
-	// list of intruders.
-	protected List<L2PcInstance>		_playersInLair	= new FastList<L2PcInstance>();
-	
+
 	// lists of last saved positions <objectId, location>
 	protected Map<Integer, Point3D>		_lastLocation	= new FastMap<Integer, Point3D>();
 	
 	// status in lair.
-	protected boolean					_isBossSpawned	= false, _isIntervalForNextSpawn = false,
-
-														_respawningDemon1 = false, _respawningDemon2 = false, _respawningDemon3 = false,
-			_respawningDemon4 = false,
-
-			_scarletIsWeakest = true;
+	protected boolean					_respawningDemon1 = false, _respawningDemon2 = false, _respawningDemon3 = false,
+										_respawningDemon4 = false, _scarletIsWeakest = true;
 	
 	protected Future<?>					_monsterSpawnTask	= null, _activityTimeEndTask = null;
-	
-	// Actually questname should be "Last Imperial Prince" or "Journey to a Settlement"
-	protected String					_questName			= "frintezza";
-	
-	// location of banishment
-	private final Point3D[]				_banishmentLocation	= { new Point3D(79959, 151774, -3532), new Point3D(81398, 148055, -3468),
-			new Point3D(82286, 149113, -3468), new Point3D(84264, 147427, -3404) };
-	
+
 	private Func						_DecreaseRegHp		= null;
 	private int							_debuffPeriod		= 0;
-	
+
 	/** ************************************ Initial Functions ************************************* */
 	
 	/**
@@ -134,7 +113,8 @@ public class FrintezzaManager extends Entity
 	 */
 	public FrintezzaManager()
 	{
-		// nothing.
+		_questName = "frintezza";
+		_state = new GrandBossState(29045);
 	}
 	
 	/**
@@ -168,27 +148,24 @@ public class FrintezzaManager extends Entity
 		
 		// initialize status in lair.
 		_scarletIsWeakest = true;
-		
-		_isBossSpawned = false;
-		
-		_isIntervalForNextSpawn = false;
-		
-		_playersInLair.clear();
-		
+
 		// setting spawn data of monsters.
 		try
 		{
-			
 			createMonsterSpawns();
-			
 		}
-		
 		catch (Throwable t)
 		{
 			_log.warn(t.getMessage());
 		}
-		
-		_log.info("FrintezzaManager:Init FrintezzaManager.");
+
+		_log.info("FrintezzaManager : State of Frintezza is " + _state.getState() + ".");
+		if (!_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN))
+			setIntervalEndTask();
+
+		Date dt = new Date(_state.getRespawnDate());
+		_log.info("FrintezzaManager : Next spawn date of Frintezza is " + dt + ".");
+		_log.info("FrintezzaManager : Init FrintezzaManager.");
 	}
 	
 	/** ***************************** Spawn Manager Creates all spawns ******************************** */
@@ -198,7 +175,6 @@ public class FrintezzaManager extends Entity
 	 */
 	private void createMonsterSpawns()
 	{
-		
 		// The boss of all bosses ofcourse
 		frintezzaSpawn = createNewSpawn(29045, 174240, -89805, -5022, 16048, _intervalOfBoss);
 		
@@ -226,9 +202,8 @@ public class FrintezzaManager extends Entity
 		demonSpawn3 = createNewSpawn(29051, 172608, -88702, -4972, 64817, _intervalOfDemons);
 		
 		demonSpawn4 = createNewSpawn(29050, 172634, -87165, -4972, 57730, _intervalOfDemons);
-		
 	}
-	
+
 	/**
 	 * Creates a single spawn from the parameter values and returns the L2Spawn created
 	 * 
@@ -248,7 +223,6 @@ public class FrintezzaManager extends Entity
 	 */
 	private L2Spawn createNewSpawn(int templateId, int x, int y, int z, int heading, int respawnDelay)
 	{
-		
 		L2Spawn tempSpawn = null;
 		
 		L2NpcTemplate template1;
@@ -269,148 +243,13 @@ public class FrintezzaManager extends Entity
 			SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
 			
 		}
-		
 		catch (Throwable t)
 		{
 			_log.warn(t.getMessage());
 		}
-		
 		return tempSpawn;
 	}
-	
-	/** ***************************** Player control functions ******************************** */
-	
-	/**
-	 * returns the list of intruders
-	 */
-	public List<L2PcInstance> getPlayersInLair()
-	{
-		
-		return _playersInLair;
-		
-	}
 
-	// Whether it lairs is confirmed.
-	public boolean isEnableEnterToLair()
-	{
-		
-		return (_isBossSpawned == false && _isIntervalForNextSpawn == false);
-		
-	}
-	
-	/**
-	 * Update the list of intruders.
-	 * 
-	 * @param pc
-	 *            L2PcInstance of the player
-	 */
-	public void addPlayerToLair(L2PcInstance pc)
-	{
-		
-		if (!_playersInLair.contains(pc))
-			_playersInLair.add(pc);
-		
-	}
-	
-	/**
-	 * Checks whether the players were annihilated. If all players in the lair are dead, return boolean <b>true</b> else returns boolean <b>false</b>
-	 */
-	
-	public synchronized boolean isPlayersAnnihilated()
-	{
-		
-		for (L2PcInstance pc : _playersInLair)
-		{
-			
-			// player is must be alive and stay inside of lair.
-			if (!pc.isDead() && checkIfInZone(pc))
-			{
-				// 1 alive is enough.
-				return false;
-			}
-		}
-		
-		return true;
-	}
-	
-	/**
-	 * Banishes all players from the lair
-	 */
-	
-	public void banishesPlayers()
-	{
-		if (_playersInLair == null || _playersInLair.isEmpty())
-			return;
-		
-		for (L2PcInstance pc : _playersInLair)
-		{
-			if (pc.getQuestState(_questName) != null)
-				pc.getQuestState(_questName).exitQuest(true);
-			
-			if (checkIfInZone(pc))
-			{
-				int driftX = Rnd.get(-80, 80);
-				int driftY = Rnd.get(-80, 80);
-				int loc = Rnd.get(4);
-				
-				pc.teleToLocation(_banishmentLocation[loc].getX() + driftX, _banishmentLocation[loc].getY() + driftY, _banishmentLocation[loc].getZ());
-			}
-		}
-		
-		_playersInLair.clear();
-	}
-	
-	/**
-	 * When the party is annihilated, they are banished.
-	 */
-	
-	public void checkAnnihilated()
-	{
-		if (isPlayersAnnihilated())
-		{
-			
-			OnPlayersAnnihilatedTask o = new OnPlayersAnnihilatedTask();
-			
-			Future _onPlayersAnnihilatedTask = ThreadPoolManager.getInstance().scheduleEffect(o, 5000);
-			
-			o.setTask(_onPlayersAnnihilatedTask);
-			
-		}
-	}
-	
-	/**
-	 * When the party is annihilated, they are banished.
-	 */
-	
-	private class OnPlayersAnnihilatedTask implements Runnable
-	{
-		private Future<?> _task;
-		
-		public OnPlayersAnnihilatedTask()
-		{ /* Nothing */
-		}
-		
-		public void setTask(Future<?> task)
-		{
-			_task = task;
-		}
-		
-		public void run()
-		{
-			
-			// banishes players from lair.
-			banishesPlayers();
-			
-			// clean up task.
-			_task = cancelTask(_task);
-			
-			// Note that in THIS case, there is NO setUnspawn, so theoretically
-			// The players can do the quest again and continue to fight Frintezza
-			// But also note there is a limited time to do this.
-			
-		}
-	}
-	
 	/** ************************ Starting the battle with Frintezza + co. ***************************** */
 	
 	/**
@@ -418,14 +257,9 @@ public class FrintezzaManager extends Entity
 	 */
 	public void setScarletSpawnTask()
 	{
-		// When someone has already invaded the lair, nothing is done.
-		if (_playersInLair.size() >= 1 || _isIntervalForNextSpawn)
-			return;
-		
 		if (_monsterSpawnTask == null)
 		{
-			_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new ScarletWeakSpawn(1), _appTimeOfBoss);
-			_isIntervalForNextSpawn = true;
+			_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(1), _appTimeOfBoss);
 		}
 	}
 	
@@ -450,17 +284,11 @@ public class FrintezzaManager extends Entity
 	
 	private void showSocialActionMovie(L2NpcInstance target, int dist, int yaw, int pitch, int time, int duration, int socialAction)
 	{
-		
 		if (target == null)
 			return;
-		
-		updateKnownList(target);
-		
-		if (_playersInLair == null || _playersInLair.isEmpty())
-			return;
-		
+
 		// set camera.
-		for (L2PcInstance pc : _playersInLair)
+		for (L2PcInstance pc : getPlayersInside())
 		{
 			
 			setIdle(pc);
@@ -472,7 +300,6 @@ public class FrintezzaManager extends Entity
 				pc.enterMovieMode();
 				pc.specialCamera(target, dist, yaw, pitch, time, duration);
 			}
-			
 			else
 			{
 				pc.leaveMovieMode();
@@ -482,30 +309,10 @@ public class FrintezzaManager extends Entity
 		// do social.
 		if (socialAction > 0 && socialAction < 5)
 		{
-			SocialAction sa = new SocialAction(target.getObjectId(), socialAction);
-			target.broadcastPacket(sa);
+			target.broadcastPacket(new SocialAction(target.getObjectId(), socialAction));
 		}
-		
 	}
-	
-	/**
-	 * Cancels a given task if it's still active and returns null.
-	 * 
-	 * @param task
-	 *            Future task that is still active
-	 * @return null Future value to reset that task
-	 */
-	
-	private Future cancelTask(Future<?> task)
-	{
-		
-		if (task != null)
-			task.cancel(true);
-		
-		return null;
-		
-	}
-	
+
 	/**
 	 * I noticed that if the players do not stand at a certain position, they can not watch the entire movie, so I set them to the center during the entire
 	 * movie.
@@ -513,22 +320,14 @@ public class FrintezzaManager extends Entity
 	
 	private void teleportToStart()
 	{
-		
 		if (_lastLocation == null)
 			_lastLocation = new FastMap<Integer, Point3D>();
 		
 		Point3D p = new Point3D(174233, -88212, -5116);
 		
-		for (L2PcInstance pc : _playersInLair)
+		for (L2PcInstance pc : getPlayersInside())
 		{
-			
-			if (pc == null)
-			{
-				_playersInLair.remove(pc);
-				continue;
-			}
-			
-			else if (pc.getX() != p.getX() && pc.getY() != p.getY() && pc.getZ() != p.getZ())
+			if (pc.getX() != p.getX() && pc.getY() != p.getY() && pc.getZ() != p.getZ())
 			{
 				if (!_lastLocation.containsKey(pc.getObjectId()))
 					_lastLocation.put(pc.getObjectId(), new Point3D(pc.getX(), pc.getY(), pc.getZ()));
@@ -546,35 +345,24 @@ public class FrintezzaManager extends Entity
 	
 	private void teleportToFinish()
 	{
-		
-		if (_lastLocation == null || _lastLocation.isEmpty() || _playersInLair == null)
+		if (_lastLocation == null || _lastLocation.isEmpty())
 			return;
 		
 		else
 		{
 			
-			for (L2PcInstance pc : _playersInLair)
+			for (L2PcInstance pc : getPlayersInside())
 			{
-				
-				if (pc == null)
-				{
-					_playersInLair.remove(pc);
-					continue;
-				}
-				
-				else if (_lastLocation.containsKey(pc.getObjectId()))
+				if (_lastLocation.containsKey(pc.getObjectId()))
 				{
 					Point3D loc = _lastLocation.get(pc.getObjectId());
 					pc.teleToLocation(loc.getX(), loc.getY(), loc.getZ());
 				}
-				
 			}
-			
 			_lastLocation.clear();
-			
 		}
 	}
-	
+
 	/** ************************** Initialize a movie and spawn the monsters *********************** */
 	
 	/**
@@ -583,58 +371,43 @@ public class FrintezzaManager extends Entity
 	
 	private class ScarletWeakSpawn implements Runnable
 	{
-		
 		private int			_taskId	= 0;
-		
-		private Future<?>	_task;
-		
+
 		public ScarletWeakSpawn(int taskId)
 		{
 			_taskId = taskId;
 		}
-		
-		public void setTask(Future<?> task)
-		{
-			_task = task;
-		}
-		
+
 		public void run()
 		{
-			
-			_task = cancelTask(_task);
 			ScarletWeakSpawn s = null;
 			SetMobilised mobilise;
-			Future<?> _mobiliseTask;
-			
+
 			switch (_taskId)
 			{
 				
 				case 1: // spawn.
-					frintezza = (L2GrandBossInstance) frintezzaSpawn.doSpawn();
+					frintezza = (L2NpcInstance) frintezzaSpawn.doSpawn();
 					frintezza.setIsImmobilized(true);
 					frintezza.disableAllSkills();
-					frintezza.setIsInSocialAction(true);
-					
-					updateKnownList(frintezza);
+
+					_state.setRespawnDate(_intervalOfBoss);
+					_state.setState(GrandBossState.StateEnum.ALIVE);
+					_state.update();
+
 					teleportToStart();
 					
 					// set next task.
-					s = new ScarletWeakSpawn(2);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 1000);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(2), 1000);
 					
 					break;
 				
 				case 2:
-					// Needed twice, once to know the players we teleport,
-					// and then once more to update the known list after they teleported
-					updateKnownList(frintezza);
-					
 					// show movie
 					showSocialActionMovie(frintezza, 1000, 90, 30, 0, 5000, 0);
 					
 					// set next task.
-					s = new ScarletWeakSpawn(200);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 3000);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(200), 3000);
 					
 					break;
 				
@@ -643,8 +416,7 @@ public class FrintezzaManager extends Entity
 					showSocialActionMovie(frintezza, 1000, 90, 30, 0, 5000, 0);
 					
 					// set next task.
-					s = new ScarletWeakSpawn(3);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 3000);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(3), 3000);
 					break;
 				
 				case 3:
@@ -652,8 +424,7 @@ public class FrintezzaManager extends Entity
 					showSocialActionMovie(frintezza, 140, 90, 0, 6000, 6000, 2);
 					
 					// set next task.
-					s = new ScarletWeakSpawn(5);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 5990);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(5), 5990);
 					
 					break;
 				
@@ -662,8 +433,7 @@ public class FrintezzaManager extends Entity
 					showSocialActionMovie(frintezza, 240, 90, 3, 22000, 6000, 3);
 					
 					// set next task.
-					s = new ScarletWeakSpawn(6);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 5800);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(6), 5800);
 					
 					break;
 				
@@ -674,7 +444,7 @@ public class FrintezzaManager extends Entity
 					
 					// set next task.
 					s = new ScarletWeakSpawn(7);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 5800);
+					ThreadPoolManager.getInstance().scheduleGeneral(s, 5800);
 					
 					weakScarlet = (L2GrandBossInstance) scarletSpawnWeak.doSpawn();
 					weakScarlet.setIsImmobilized(true);
@@ -706,7 +476,7 @@ public class FrintezzaManager extends Entity
 					
 					Earthquake eq = new Earthquake(weakScarlet.getX(), weakScarlet.getY(), weakScarlet.getZ(), 50, 6);
 					
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : getPlayersInside())
 						pc.broadcastPacket(eq);
 					
 					break;
@@ -714,38 +484,33 @@ public class FrintezzaManager extends Entity
 				case 7:
 
 					showSocialActionMovie(demon1, 140, 0, 3, 22000, 3000, 1);
-					s = new ScarletWeakSpawn(8);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 2800);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(8), 2800);
 					break;
 				
 				case 8:
 
 					showSocialActionMovie(demon2, 140, 0, 3, 22000, 3000, 1);
-					s = new ScarletWeakSpawn(9);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 2800);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(9), 2800);
 					break;
 				
 				case 9:
 
 					showSocialActionMovie(demon3, 140, 180, 3, 22000, 3000, 1);
-					s = new ScarletWeakSpawn(10);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 2800);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(10), 2800);
 					break;
 				
 				case 10:
 
 					showSocialActionMovie(demon4, 140, 180, 3, 22000, 3000, 1);
-					s = new ScarletWeakSpawn(17);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 2800);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(17), 2800);
 					
-					SocialAction sa = new SocialAction(weakScarlet.getObjectId(), 2);
-					weakScarlet.broadcastPacket(sa);
+					weakScarlet.broadcastPacket(new SocialAction(weakScarlet.getObjectId(), 2));
 					break;
 				
 				case 17:
 
 					// show movie
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : getPlayersInside())
 					{
 						pc.setTarget(null);
 						
@@ -756,7 +521,6 @@ public class FrintezzaManager extends Entity
 							pc.enterMovieMode();
 							pc.specialCamera(weakScarlet, 1700, 180, -90, 0, 4000);
 						}
-						
 						else
 						{
 							pc.leaveMovieMode();
@@ -764,8 +528,7 @@ public class FrintezzaManager extends Entity
 					}
 					
 					// set next task.
-					s = new ScarletWeakSpawn(18);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 3800);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(18), 3800);
 					
 					break;
 				
@@ -774,8 +537,7 @@ public class FrintezzaManager extends Entity
 					showSocialActionMovie(weakScarlet, 1500, 270, -70, 6000, 7000, 2);
 					
 					// set next task.
-					s = new ScarletWeakSpawn(19);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 6900);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(19), 6900);
 					
 					break;
 				
@@ -784,8 +546,7 @@ public class FrintezzaManager extends Entity
 					showSocialActionMovie(weakScarlet, 1500, 0, -60, 0, 5000, 2);
 					
 					// set next task.
-					s = new ScarletWeakSpawn(20);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 4900);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(20), 4900);
 					
 					break;
 				
@@ -794,8 +555,7 @@ public class FrintezzaManager extends Entity
 					showSocialActionMovie(weakScarlet, 1220, 90, -70, 300, 2000, 0);
 					
 					// set next task.
-					s = new ScarletWeakSpawn(21);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 1900);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(21), 1900);
 					
 					break;
 				
@@ -804,33 +564,27 @@ public class FrintezzaManager extends Entity
 					weakScarlet.abortCast();
 					weakScarlet.enableAllSkills();
 					
-					mobilise = new SetMobilised(weakScarlet);
-					_mobiliseTask = ThreadPoolManager.getInstance().scheduleEffect(mobilise, 16);
-					mobilise.setTask(_mobiliseTask);
+					ThreadPoolManager.getInstance().scheduleGeneral(new SetMobilised(weakScarlet), 16);
 					
 					// L2CharPosition pos = new L2CharPosition(174234, -88015, -5116, 48028);
-					// _moveAtRandomTask = ThreadPoolManager.getInstance().scheduleEffect(new MoveAtRandom(weakScarlet, pos) , 32);
+					// _moveAtRandomTask = ThreadPoolManager.getInstance().scheduleGeneral(new MoveAtRandom(weakScarlet, pos) , 32);
 					weakScarlet.teleToLocation(174234, -88015, -5116, false);
-					
-					updateKnownList(weakScarlet);
-					
+
 					showSocialActionMovie(weakScarlet, 1000, 270, 19, 300, 3000, 2);
 					
-					s = new ScarletWeakSpawn(32);
-					_task = ThreadPoolManager.getInstance().scheduleEffect(s, 3100);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(32), 3100);
 					
 					teleportToFinish();
 					
 					// set delete task.
-					ActivityTimeEnd ate = new ActivityTimeEnd();
-					_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(ate, _activityTimeOfBoss);
+					_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(), _activityTimeOfBoss);
 					
 					break;
 				
 				case 32:
 
 					// reset camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : getPlayersInside())
 					{
 						pc.leaveMovieMode();
 						pc.enableAllSkills();
@@ -842,57 +596,35 @@ public class FrintezzaManager extends Entity
 					L2Skill skill = SkillTable.getInstance().getInfo(1086, 1);
 					
 					demon1.setIsImmobilized(false);
-					doSkill ds = new doSkill(demon1, skill, _intervalOfFrintezzaSongs, 1000);
-					Future<?> _doSkillTask = ThreadPoolManager.getInstance().scheduleEffect(ds, 4000);
-					ds.setTask(_doSkillTask);
+					ThreadPoolManager.getInstance().scheduleGeneral(new doSkill(demon1, skill, _intervalOfFrintezzaSongs, 1000), 4000);
 					
 					demon2.setIsImmobilized(false);
-					ds = new doSkill(demon2, skill, _intervalOfFrintezzaSongs, 1000);
-					_doSkillTask = ThreadPoolManager.getInstance().scheduleEffect(ds, 4100);
-					ds.setTask(_doSkillTask);
+					ThreadPoolManager.getInstance().scheduleGeneral(new doSkill(demon2, skill, _intervalOfFrintezzaSongs, 1000), 4100);
 					
 					demon3.setIsImmobilized(false);
-					ds = new doSkill(demon3, skill, _intervalOfFrintezzaSongs, 1000);
-					_doSkillTask = ThreadPoolManager.getInstance().scheduleEffect(ds, 4200);
-					ds.setTask(_doSkillTask);
+					ThreadPoolManager.getInstance().scheduleGeneral(new doSkill(demon3, skill, _intervalOfFrintezzaSongs, 1000), 4200);
 					
 					demon4.setIsImmobilized(false);
-					ds = new doSkill(demon4, skill, _intervalOfFrintezzaSongs, 1000);
-					_doSkillTask = ThreadPoolManager.getInstance().scheduleEffect(ds, 4300);
-					ds.setTask(_doSkillTask);
+					ThreadPoolManager.getInstance().scheduleGeneral(new doSkill(demon4, skill, _intervalOfFrintezzaSongs, 1000), 4300);
 					
-					mobilise = new SetMobilised(frintezza);
-					_mobiliseTask = ThreadPoolManager.getInstance().scheduleEffect(mobilise, 16);
-					mobilise.setTask(_mobiliseTask);
+					ThreadPoolManager.getInstance().scheduleGeneral(new SetMobilised(frintezza), 16);
 					
 					// Start random attacks on players for Frintezza
-					ReTarget _retarget = new ReTarget(frintezza);
-					Future<?> _reTargetTask = ThreadPoolManager.getInstance().scheduleEffect(_retarget, _intervalOfRetarget);
-					_retarget.setTask(_reTargetTask);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ReTarget(frintezza), _intervalOfRetarget);
 					
 					// Start random attacks on players for Scarlet
-					_retarget = new ReTarget(weakScarlet);
-					_reTargetTask = ThreadPoolManager.getInstance().scheduleEffect(_retarget, _intervalOfRetarget + 16);
-					_retarget.setTask(_reTargetTask);
+					ThreadPoolManager.getInstance().scheduleGeneral(new ReTarget(weakScarlet), _intervalOfRetarget + 16);
 					
-					Music music = new Music();
-					Future<?> _MusicTask = ThreadPoolManager.getInstance().scheduleEffect(music, Rnd.get(_intervalOfFrintezzaSongs));
-					music.setTask(_MusicTask);
-					
+					ThreadPoolManager.getInstance().scheduleGeneral(new Music(), Rnd.get(_intervalOfFrintezzaSongs));
+
 					startAttackListeners();
 					
 					break;
 				
 			}
-			
-			// Setup the new task to be deleted after the thread runs again.
-			if (s != null)
-				s.setTask(_task);
-			
 		}
 		
 	}
-	
 	/** ******************************************************************************************** */
 	
 	/***********************************************************************************************************************************************************
@@ -912,25 +644,11 @@ public class FrintezzaManager extends Entity
 	
 	private class Music implements Runnable
 	{
-		
-		private Future<?>	_MusicTask;
-		
-		public Music()
-		{
-		}
-		
-		public void setTask(Future<?> task)
-		{
-			_MusicTask = task;
-		}
-		
 		public void run()
 		{
-			_MusicTask = cancelTask(_MusicTask);
-			
-			if (frintezza == null || frintezza.isAlikeDead())
+			if (frintezza == null)
 				return;
-			
+
 			int song = getSong();
 			if (song < 1)
 				song = 1;
@@ -939,20 +657,15 @@ public class FrintezzaManager extends Entity
 			
 			frintezza.broadcastPacket(new MagicSkillUse(frintezza, frintezza, 5007, song, _intervalOfFrintezzaSongs, 0), 10000);
 			
-			int currentHp = (int) (frintezza.getStatus().getCurrentHp());
+			int currentHp = (int)frintezza.getStatus().getCurrentHp();
 			
 			// Launch the song's effects (they start about 10 seconds after he starts to play)
-			SongEffectLaunched launchSong = new SongEffectLaunched(getSongTargets(song), song, currentHp, 10000);
-			Future<?> _songLaunchedTask = ThreadPoolManager.getInstance().scheduleGeneral(launchSong, 10000);
-			launchSong.setTask(_songLaunchedTask);
-			
+			ThreadPoolManager.getInstance().scheduleGeneral(new SongEffectLaunched(getSongTargets(song), song, currentHp, 10000), 10000);
+
 			// Schedule a new song to be played in 30-40 seconds...
-			Music music = new Music();
-			_MusicTask = ThreadPoolManager.getInstance().scheduleEffect(music, _intervalOfFrintezzaSongs + Rnd.get(10000));
-			music.setTask(_MusicTask);
-			
+			ThreadPoolManager.getInstance().scheduleGeneral(new Music(), _intervalOfFrintezzaSongs + Rnd.get(10000));
 		}
-		
+
 		/**
 		 * Depending on the song, returns the song's targets (either mobs or players)
 		 * 
@@ -1005,19 +718,13 @@ public class FrintezzaManager extends Entity
 			// Target is the players
 			{
 				
-				for (L2PcInstance pc : _playersInLair)
+				for (L2PcInstance pc : getPlayersInside())
 				{
-					
-					if (pc == null)
-						continue;
-					
-					else if (pc != null && !pc.isDead())
+					if (!pc.isDead())
 						targets.add(pc);
-					
 				}
-				
 			}
-			
+
 			return targets.toArray(new L2Object[targets.size()]);
 		}
 		
@@ -1030,15 +737,11 @@ public class FrintezzaManager extends Entity
 		
 		private int getSong()
 		{
-			
 			if (minionsNeedHeal())
 				return 1;
-			
 			else if (minionsAreDead())
 				return Rnd.get(4, 6);
-			
 			return Rnd.get(2, 6);
-			
 		}
 		
 		/**
@@ -1049,7 +752,6 @@ public class FrintezzaManager extends Entity
 		
 		private boolean minionsAreDead()
 		{
-			
 			if (weakScarlet != null && !weakScarlet.isDead())
 				return false;
 			
@@ -1069,7 +771,6 @@ public class FrintezzaManager extends Entity
 				return false;
 			
 			return true;
-			
 		}
 		
 		/**
@@ -1079,7 +780,6 @@ public class FrintezzaManager extends Entity
 		 */
 		private boolean minionsNeedHeal()
 		{
-			
 			boolean returnValue = false;
 			
 			if (weakScarlet != null && !weakScarlet.isAlikeDead() && weakScarlet.getStatus().getCurrentHp() < weakScarlet.getMaxHp() * 2 / 3)
@@ -1101,11 +801,9 @@ public class FrintezzaManager extends Entity
 				return false;
 			
 			return returnValue;
-			
 		}
-		
 	}
-	
+
 	/**
 	 * The song was played, this class checks it's affects (if any)
 	 * 
@@ -1113,13 +811,10 @@ public class FrintezzaManager extends Entity
 	 */
 	private class SongEffectLaunched implements Runnable
 	{
-		
 		private L2Object[]	_targets;
 		
 		private int			_song, _previousHp, _currentTime;
-		
-		private Future<?>	_songLaunchedTask;
-		
+
 		/**
 		 * Constructor
 		 * 
@@ -1139,28 +834,20 @@ public class FrintezzaManager extends Entity
 			_previousHp = previousHp;
 			_currentTime = currentTimeOfSong;
 		}
-		
-		public void setTask(Future<?> task)
-		{
-			_songLaunchedTask = task;
-		}
-		
+
 		public void run()
 		{
-			_songLaunchedTask = cancelTask(_songLaunchedTask);
-			
 			if (frintezza == null)
 				return;
 			
 			// If the song time is over stop this loop
-			else if (frintezza.isDead() || _currentTime > _intervalOfFrintezzaSongs)
+			else if (_currentTime > _intervalOfFrintezzaSongs)
 				return;
 			
 			// Skills are consecutive, so call them again
 			SongEffectLaunched songLaunched = new SongEffectLaunched(_targets, _song, (int) frintezza.getStatus().getCurrentHp(), _currentTime
 					+ _intervalOfFrintezzaSongs / 10);
-			_songLaunchedTask = ThreadPoolManager.getInstance().scheduleGeneral(songLaunched, _intervalOfFrintezzaSongs / 10);
-			songLaunched.setTask(_songLaunchedTask);
+			ThreadPoolManager.getInstance().scheduleGeneral(songLaunched, _intervalOfFrintezzaSongs / 10);
 			
 			// If Frintezza got injured harder than his regen rate, do not launch the song.
 			if (_previousHp > frintezza.getStatus().getCurrentHp())
@@ -1189,7 +876,6 @@ public class FrintezzaManager extends Entity
 				// calculate the song's damage
 				calculateSongEffects(cha);
 			}
-			
 		}
 		
 		/**
@@ -1200,18 +886,14 @@ public class FrintezzaManager extends Entity
 		 */
 		private void calculateSongEffects(L2Character target)
 		{
-			
 			if (target == null)
 				return;
-			
 			try
 			{
-				
 				L2Skill skill;
 				
 				switch (_song)
 				{
-					
 					case 1: // Consecutive Heal : Greater Heal - on the monsters
 						skill = SkillTable.getInstance().getInfo(1217, 33);
 						frintezza.callSkill(skill, new L2Object[] { target });
@@ -1243,22 +925,15 @@ public class FrintezzaManager extends Entity
 							new startStunDanceEffect(target, skill).run();
 						}
 						break;
-					
 				}
-				
 			}
-			
 			catch (Throwable t)
 			{
-				
 				t.printStackTrace();
-				
 			}
-			
 		}
-		
 	}
-	
+
 	/**
 	 * Decreases the HP Regeneration of the <b>target</b>
 	 * 
@@ -1267,10 +942,6 @@ public class FrintezzaManager extends Entity
 	 */
 	private void decreaseEffectOfHpReg(L2Character target)
 	{
-		
-		// if (target instanceof L2PcInstance && (((L2PcInstance)target).isInvul() || ((L2PcInstance)target).getAppearance().getInvisible()))
-		// return;
-		
 		L2Skill skill = SkillTable.getInstance().getInfo(5008, 4);
 		
 		frintezza.callSkill(skill, new L2Object[] { target });
@@ -1284,10 +955,7 @@ public class FrintezzaManager extends Entity
 		target.addStatFunc(getDecreaseRegHpFunc());
 		
 		// Set exit timer for these stats
-		exitDecreaseRegHp exit = new exitDecreaseRegHp(target, getDecreaseRegHpFunc());
-		Future<?> task = ThreadPoolManager.getInstance().scheduleEffect(exit, getDebuffPeriod(skill, target));
-		exit.setTask(task);
-		
+		ThreadPoolManager.getInstance().scheduleGeneral(new exitDecreaseRegHp(target, getDecreaseRegHpFunc()), getDebuffPeriod(skill, target));
 	}
 	
 	/**
@@ -1301,22 +969,18 @@ public class FrintezzaManager extends Entity
 	 */
 	private int getDebuffPeriod(L2Skill skill, L2Character target)
 	{
-		
 		// This is usually returned, unless _debuffPeriod needs initialization
 		if (_debuffPeriod != 0)
 			return _debuffPeriod;
-		
 		else
 		// Initialize _debuffPeriod
 		{
 			
 			if (skill == null || target == null)
 			{
-				
 				_debuffPeriod = 15000;
 				
 				return _debuffPeriod;
-				
 			}
 			
 			for (L2Effect effect : skill.getEffects(frintezza, target))
@@ -1331,7 +995,6 @@ public class FrintezzaManager extends Entity
 			if (_debuffPeriod == 0)
 				_debuffPeriod = 15000;
 		}
-		
 		// return _debuffPeriod which is now initialized
 		return _debuffPeriod;
 	}
@@ -1344,38 +1007,28 @@ public class FrintezzaManager extends Entity
 	 */
 	private Func getDecreaseRegHpFunc()
 	{
-		
 		// If the Func[] _DecreaseRegHp is null we initialize it.
 		if (_DecreaseRegHp == null)
 		{
-			
 			L2Skill skill = SkillTable.getInstance().getInfo(406, 3);
 			
 			for (L2Effect effect : skill.getEffects(frintezza, frintezza))
 			{
-				
 				if (effect == null)
 					continue;
-				
 				else
 				{
-					
 					Func[] func = effect.getStatFuncs();
 					
 					if (func.length > 5)
 						_DecreaseRegHp = func[5];
 					
 					effect.exit(); // We don't want to leave the effect on frintezza
-					
 				}
-				
 			}
-			
 		}
-		
 		// Func _DecreaseRegHp is not null, so just return it ;]
 		return _DecreaseRegHp;
-		
 	}
 	
 	/**
@@ -1386,9 +1039,6 @@ public class FrintezzaManager extends Entity
 	
 	private class exitDecreaseRegHp implements Runnable
 	{
-		
-		private Future<?>	_task;
-		
 		private Func		_func;
 		
 		private L2Character	_char;
@@ -1398,25 +1048,16 @@ public class FrintezzaManager extends Entity
 			_func = func;
 			_char = character;
 		}
-		
-		public void setTask(Future<?> task)
-		{
-			_task = task;
-		}
-		
+
 		public void run()
 		{
-			_task = cancelTask(_task);
-			
 			if (_func != null && _char != null)
 			{
 				_char.removeStatFunc(_func);
 			}
-			
 		}
-		
 	}
-	
+
 	/**
 	 * Further implementation into the core is needed. But this will do for now ;] Class needed to implement the start Frintezza dance+stun effect on a target.
 	 * 
@@ -1425,25 +1066,20 @@ public class FrintezzaManager extends Entity
 	
 	private class startStunDanceEffect implements Runnable
 	{
-		
 		private final L2Character	_effected;
 		
 		private final L2Skill		_skill;
-		
-		private Future<?>			_task;
-		
+
 		public startStunDanceEffect(L2Character target, L2Skill skill)
 		{
 			_effected = target;
 			_skill = skill;
 		}
-		
+
 		public void run()
 		{
-			
 			try
 			{
-				
 				if (_effected == null)
 					return;
 				
@@ -1470,16 +1106,10 @@ public class FrintezzaManager extends Entity
 				_effected.sendPacket(sm);
 				
 				// set the cancel task for this effect
-				exitStunDanceEffect exit = new exitStunDanceEffect(_effected);
-				
-				_task = ThreadPoolManager.getInstance().scheduleEffect(exit, getDebuffPeriod(_skill, _effected));
-				exit.setTask(_task); // We delete the _task task at run time on the exit effect.
-				
+				ThreadPoolManager.getInstance().scheduleGeneral(new exitStunDanceEffect(_effected), getDebuffPeriod(_skill, _effected));
 			}
-			
 			catch (Throwable t)
 			{
-				
 				if (_effected != null && !_effected.isAlikeDead())
 				{
 					_effected.enableAllSkills();
@@ -1487,11 +1117,8 @@ public class FrintezzaManager extends Entity
 				}
 				
 				_log.warn(t.getMessage());
-				
 			}
-			
 		}
-		
 	}
 	
 	/**
@@ -1499,29 +1126,17 @@ public class FrintezzaManager extends Entity
 	 * 
 	 * @author Darki699
 	 */
-	
 	private class exitStunDanceEffect implements Runnable
 	{
-		
 		private final L2Character	_effected;
-		
-		private Future<?>			_task;
-		
+
 		public exitStunDanceEffect(L2Character target)
 		{
 			_effected = target;
 		}
-		
-		public void setTask(Future<?> task)
-		{
-			_task = task;
-		}
-		
+
 		public void run()
 		{
-			
-			_task = cancelTask(_task);
-			
 			if (_effected == null)
 				return;
 			
@@ -1529,9 +1144,7 @@ public class FrintezzaManager extends Entity
 			_effected.setIsImmobilized(false);
 			
 			_effected.stopAbnormalEffect(_effected.ABNORMAL_EFFECT_DANCE_STUNNED);
-			
 		}
-		
 	}
 	
 	/** ************************** End of Frintezza's Musical effects ******************************** */
@@ -1548,50 +1161,29 @@ public class FrintezzaManager extends Entity
 	
 	private void startAttackListeners()
 	{
-		
 		// Set listeners for the Demons.
-		attackerListener al = new attackerListener(demon1, 1);
-		Future<?> task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(2000));
-		al.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(demon1, 1), Rnd.get(2000));
 		
-		al = new attackerListener(demon2, 1);
-		task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(2000));
-		al.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(demon2, 1), Rnd.get(2000));
 		
-		al = new attackerListener(demon3, 1);
-		task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(2000));
-		al.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(demon3, 1), Rnd.get(2000));
 		
-		al = new attackerListener(demon4, 1);
-		task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(2000));
-		al.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(demon4, 1), Rnd.get(2000));
 		
 		// Set listeners for the Portraits.
-		al = new attackerListener(portrait1, 50);
-		task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(2000));
-		al.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(portrait1, 50), Rnd.get(2000));
 		
-		al = new attackerListener(portrait2, 50);
-		task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(2000));
-		al.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(portrait2, 50), Rnd.get(2000));
 		
-		al = new attackerListener(portrait3, 50);
-		task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(2000));
-		al.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(portrait3, 50), Rnd.get(2000));
 		
-		al = new attackerListener(portrait4, 50);
-		task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(2000));
-		al.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(portrait4, 50), Rnd.get(2000));
 		
 		// Set a listener for Frintezza.
-		al = new attackerListener(frintezza, 200);
-		task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(2000));
-		al.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(frintezza, 200), Rnd.get(2000));
 		
 		// Set a listener for the weaker version of Scarlet Van Halisha.
-		al = new attackerListener(weakScarlet, 100);
-		task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(2000));
-		al.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(weakScarlet, 100), Rnd.get(2000));
 		
 		// Note that Scarlet's strong version isn't spawned yet. An attack listener for it will
 		// be added when and if he's spawned.
@@ -1604,81 +1196,52 @@ public class FrintezzaManager extends Entity
 	 * 
 	 * @author Darki699
 	 */
-	
 	private class attackerListener implements Runnable
 	{
-		
-		private Future<?>	_task;
-		
 		private L2Character	_mob;
 		
 		private int			_aggroDamage;
 		
 		public attackerListener(L2Character controller, int hate)
 		{
-			
 			_mob = controller;
-			
 			_aggroDamage = hate;
-			
 		}
-		
-		public void setTask(Future<?> task)
-		{
-			
-			_task = task;
-			
-		}
-		
+
 		public void run()
 		{
-			
-			// Delete the task that called for this thread.
-			_task = cancelTask(_task);
-			
 			// If the monster is deleted, return.
 			if (_mob == null)
 				return;
 			
 			// Set next listener.
-			attackerListener al = new attackerListener(_mob, _aggroDamage);
-			Future<?> task = ThreadPoolManager.getInstance().scheduleGeneral(al, _callForHelpInterval + Rnd.get(500));
-			al.setTask(task);
+			ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(_mob, _aggroDamage), _callForHelpInterval + Rnd.get(500));
 			
 			// If the mob is dead, we do nothing until next respawn
 			if (_mob.isDead())
 			{
-				
 				try
 				{
-					
 					// if this is a demon, decay it until next respawn.
 					if (!(_mob instanceof L2GrandBossInstance))
 						_mob.decayMe();
-					
 					else
 						// if this is a boss, we need to do a few checks:
 						// portraits - unspawn demons, set both to null
 						// Scarlet, Frintezza - check if all bosses are dead.
 						bossDeadCheck((L2GrandBossInstance) _mob);
-					
 				}
-				
 				catch (Throwable t)
 				{
 				}
-				
 				return;
-				
 			}
-			
 			// Added a check, since mobs sometimes move toward their targets (teleport)
 			// He shouldn't move from his place
 			else if (_mob == frintezza)
 			{
 				if (_mob.getX() != frintezzaSpawn.getLocx() || _mob.getY() != frintezzaSpawn.getLocy())
 				{
-					
 					boolean[] targeted = getTargeted(_mob);
 					L2Object target = _mob.getTarget();
 					
@@ -1689,9 +1252,7 @@ public class FrintezzaManager extends Entity
 					
 					_mob.setTarget(target);
 					setTargeted(_mob, targeted);
-					
 				}
-				
 			}
 			
 			// Tell the other mobs "I'm attacked"
@@ -1704,29 +1265,20 @@ public class FrintezzaManager extends Entity
 			 * if (target instanceof L2PcInstance && (((L2PcInstance)target).isInvul() || ((L2PcInstance)target).getAppearance().getInvisible())) {
 			 * _mob.abortAttack(); _mob.abortCast(); _mob.setTarget(null); _mob.getKnownList().getKnownPlayers().remove((L2PcInstance)target); return; }
 			 */
-
 			if (target != null && target instanceof L2Character)
 				callMinionsToAssist((L2Character) target, _aggroDamage);
 			
 			// Now set the mob's Target to the most hated:
 			if (_mob instanceof L2Attackable)
-
 			{
 				L2Character mostHated = ((L2Attackable) _mob).getMostHated();
 				
 				if (mostHated != null)
 				{
-					
 					_mob.setTarget(mostHated);
-					
-					if (mostHated instanceof L2PcInstance && !_playersInLair.contains((L2PcInstance) mostHated))
-						_playersInLair.add((L2PcInstance) mostHated);
-					
 				}
-				
 			}
 		}
-		
 	}
 	
 	/**
@@ -1737,15 +1289,14 @@ public class FrintezzaManager extends Entity
 	 *            L2BossInstance that is (or is set as) dead.
 	 */
 	
-	public void bossDeadCheck(L2GrandBossInstance mob)
+	public void bossDeadCheck(L2NpcInstance mob)
 	{
-		
 		if (mob == null)
 			return;
 		
 		// !!! Frintezza or Scarlet should NEVER be called from setUnspawn() to this function !!!
 		// It will cause a deadlock.
-		if (mob == frintezza || mob == weakScarlet || mob == strongScarlet)
+		if (mob == weakScarlet || mob == strongScarlet)
 		{
 			if (bossesAreDead())
 				doUnspawn();
@@ -1760,21 +1311,18 @@ public class FrintezzaManager extends Entity
 			demon = demon1;
 			demon1 = null;
 		}
-		
 		else if (mob == portrait2)
 		{
 			portrait2 = null;
 			demon = demon2;
 			demon2 = null;
 		}
-		
 		else if (mob == portrait3)
 		{
 			portrait3 = null;
 			demon = demon3;
 			demon3 = null;
 		}
-		
 		else if (mob == portrait4)
 		{
 			portrait4 = null;
@@ -1805,7 +1353,6 @@ public class FrintezzaManager extends Entity
 			catch (Throwable t)
 			{
 			}
-			
 		}
 	}
 	
@@ -1819,10 +1366,8 @@ public class FrintezzaManager extends Entity
 	 *            hate - Damage hate to add to the attacker 1. Frintezza adds 200 hate 2. Weak Scarlet adds 100 hate 3. Stronger Scarlet adds 125 hate 4.
 	 *            Strongest Scarlet adds 150 hate 5. Portraits adds 50 hate 6. Demons adds 1 hate
 	 */
-	
 	public void callMinionsToAssist(L2Character attacker, int hate)
 	{
-		
 		if (attacker == null)
 			return;
 		
@@ -1858,11 +1403,6 @@ public class FrintezzaManager extends Entity
 			strongScarlet.addDamage(attacker, hate);
 		else
 			bossesAreDead();
-		
-		if (frintezza != null && !frintezza.isDead())
-			frintezza.addDamage(attacker, hate);
-		else
-			bossesAreDead();
 	}
 	
 	/**
@@ -1872,7 +1412,6 @@ public class FrintezzaManager extends Entity
 	 *            L2MonsterInstance mob of the Demon that was killed
 	 * @return int value of the demon that should be respawned. -1 is returned if the demon should not respawn now.
 	 */
-	
 	public int checkRespawnTime(L2MonsterInstance mob)
 	{
 		if (mob == null)
@@ -1917,11 +1456,8 @@ public class FrintezzaManager extends Entity
 			
 			_respawningDemon4 = true;
 		}
-		
-		respawnDemon r = new respawnDemon(mob);
-		Future<?> task = ThreadPoolManager.getInstance().scheduleEffect(r, _intervalOfDemons);
-		r.setTask(task);
-		
+
+		ThreadPoolManager.getInstance().scheduleGeneral(new respawnDemon(mob), _intervalOfDemons);
 		return -1;
 	}
 	
@@ -1933,25 +1469,15 @@ public class FrintezzaManager extends Entity
 	
 	private class respawnDemon implements Runnable
 	{
-		
-		private Future<?>			_task;
-		
 		private L2MonsterInstance	_mob;
 		
 		public respawnDemon(L2MonsterInstance mob)
 		{
 			_mob = mob;
 		}
-		
-		public void setTask(Future<?> task)
-		{
-			_task = task;
-		}
-		
+
 		public void run()
 		{
-			_task = cancelTask(_task);
-			
 			int demonId = checkRespawnTime(_mob);
 			
 			switch (demonId)
@@ -1993,10 +1519,8 @@ public class FrintezzaManager extends Entity
 			_mob.getStatus().setCurrentHp(_mob.getMaxHp());
 			_mob.getStatus().setCurrentMp(_mob.getMaxMp());
 			_mob.spawnMe();
-			
-			updateKnownList(_mob);
-			
-			L2Character target = _playersInLair.get(Rnd.get(_playersInLair.size()));
+
+			L2Character target = getRandomPlayer();
 			_mob.setTarget(target);
 			
 			L2CharPosition pos = new L2CharPosition(target.getX(), target.getY(), target.getZ(), 0);
@@ -2010,7 +1534,6 @@ public class FrintezzaManager extends Entity
 	
 	public void weakScarletHpListener()
 	{
-		
 		if (weakScarlet == null)
 			return;
 		
@@ -2024,7 +1547,6 @@ public class FrintezzaManager extends Entity
 				doSecondMorph();
 			}
 		}
-		
 		else
 		{
 			if (curHp < maxHp * 1 / 3)
@@ -2038,20 +1560,16 @@ public class FrintezzaManager extends Entity
 	/**
 	 * Does the 3rd and last polymorph for Scarlet Van Halisha. Now he looks entirely different... (he is different)
 	 */
-	
 	private void doThirdMorph()
 	{
-		
 		setIdle(weakScarlet);
-		
+
 		weakScarlet.setIsInSocialAction(true);
-		
+
 		// animation
 		weakScarlet.getPoly().setPolyInfo("npc", "29047");
 		MagicSkillUse msk = new MagicSkillUse(weakScarlet, 1008, 1, 4000, 0);
 		weakScarlet.broadcastPacket(msk);
-		SetupGauge sg = new SetupGauge(0, 4000);
-		weakScarlet.sendPacket(sg);
 		
 		// set Strong Scarlet's position and heading
 		scarletSpawnStrong.setLocx(weakScarlet.getX());
@@ -2070,12 +1588,8 @@ public class FrintezzaManager extends Entity
 		strongScarlet.setIsInSocialAction(true);
 		
 		// do a social action "hello" ;]
-		SocialAction sa = new SocialAction(strongScarlet.getObjectId(), 2);
-		strongScarlet.broadcastPacket(sa);
-		
-		// update his knownlist
-		updateKnownList(strongScarlet);
-		
+		strongScarlet.broadcastPacket(new SocialAction(strongScarlet.getObjectId(), 2));
+
 		// update his target
 		strongScarlet.setTarget(weakScarlet.getTarget());
 		
@@ -2094,27 +1608,19 @@ public class FrintezzaManager extends Entity
 		weakScarlet = null;
 		
 		// add Attack Listener
-		attackerListener al = new attackerListener(strongScarlet, 150);
-		Future<?> task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(4000) + 1000);
-		al.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(strongScarlet, 150), Rnd.get(4000) + 1000);
 		
 		// add retarget Listener
-		ReTarget _retarget = new ReTarget(strongScarlet);
-		Future<?> _reTargetTask = ThreadPoolManager.getInstance().scheduleEffect(_retarget, _intervalOfRetarget);
-		_retarget.setTask(_reTargetTask);
+		ThreadPoolManager.getInstance().scheduleGeneral(new ReTarget(strongScarlet), _intervalOfRetarget);
 		
 		// mobilize Strong Scarlet
-		SetMobilised mobilise = new SetMobilised(strongScarlet);
-		Future<?> _mobiliseTask = ThreadPoolManager.getInstance().scheduleEffect(mobilise, 4000);
-		mobilise.setTask(_mobiliseTask);
+		ThreadPoolManager.getInstance().scheduleGeneral(new SetMobilised(strongScarlet), 4000);
 		
 		// set teleport speed
 		L2Skill skill = SkillTable.getInstance().getInfo(1086, 1);
-		doSkill ds = new doSkill(strongScarlet, skill, _intervalOfRetarget, 300);
-		Future<?> _doSkillTask = ThreadPoolManager.getInstance().scheduleEffect(ds, 4016);
-		ds.setTask(_doSkillTask);
+		ThreadPoolManager.getInstance().scheduleGeneral(new doSkill(strongScarlet, skill, _intervalOfRetarget, 300), 4016);
 	}
-	
+
 	/**
 	 * Receives a target and a list of players in _playersInLair that should target this target
 	 * 
@@ -2135,14 +1641,14 @@ public class FrintezzaManager extends Entity
 		su.addAttribute(StatusUpdate.MAX_HP, target.getMaxHp());
 		
 		// set the target again on the players that targeted this _caster
-		for (L2PcInstance pc : _playersInLair)
+		for (L2PcInstance pc : getPlayersInside())
 		{
 			if (pc != null && targeted[count])
 			{
 				pc.setTarget(target);
 				MyTargetSelected my = new MyTargetSelected(target.getObjectId(), pc.getLevel() - target.getLevel());
 				pc.sendPacket(my);
-				
+
 				// Send a Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
 				pc.sendPacket(su);
 			}
@@ -2160,11 +1666,11 @@ public class FrintezzaManager extends Entity
 	
 	private boolean[] getTargeted(L2Object target)
 	{
-		boolean[] targeted = new boolean[_playersInLair.size()];
+		boolean[] targeted = new boolean[getPlayersInside().size()];
 		int count = 0;
 		
 		// get the players that targeted this _caster
-		for (L2PcInstance pc : _playersInLair)
+		for (L2PcInstance pc : getPlayersInside())
 		{
 			if (pc == null || (pc != null && pc.getTarget() != target))
 				targeted[count] = false;
@@ -2183,7 +1689,6 @@ public class FrintezzaManager extends Entity
 	 */
 	public void setIdle(L2Character target)
 	{
-		
 		target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		target.abortAttack();
 		target.abortCast();
@@ -2217,38 +1722,28 @@ public class FrintezzaManager extends Entity
 		setIdle(weakScarlet);
 		
 		weakScarlet.setIsInSocialAction(true);
-		
-		SocialAction sa = new SocialAction(weakScarlet.getObjectId(), 2);
-		weakScarlet.broadcastPacket(sa);
+		weakScarlet.broadcastPacket(new SocialAction(weakScarlet.getObjectId(), 2));
 		
 		// showSocialActionMovie (weakScarlet , 140, 90, 3, 0, 1000, 1);
 		// showSocialActionMovie (weakScarlet , 120, 80, 3, 0, 1000, 2);
 		
 		// add a NEW Attack Listener
-		attackerListener al = new attackerListener(weakScarlet, 125);
-		Future task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(4000) + 1000);
-		al.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(weakScarlet, 125), Rnd.get(4000) + 1000);
 		
 		// add a NEW retarget Listener
-		ReTarget _retarget = new ReTarget(weakScarlet);
-		Future _reTargetTask = ThreadPoolManager.getInstance().scheduleEffect(_retarget, _intervalOfRetarget * 2 / 3);
-		_retarget.setTask(_reTargetTask);
+		ThreadPoolManager.getInstance().scheduleGeneral(new ReTarget(weakScarlet), _intervalOfRetarget * 2 / 3);
 		
 		// start teleporting fast
 		L2Skill skill = SkillTable.getInstance().getInfo(1086, 1);
-		doSkill ds = new doSkill(weakScarlet, skill, _intervalOfRetarget, 200);
-		Future _doSkillTask = ThreadPoolManager.getInstance().scheduleEffect(ds, 50);
-		ds.setTask(_doSkillTask);
+		ThreadPoolManager.getInstance().scheduleGeneral(new doSkill(weakScarlet, skill, _intervalOfRetarget, 200), 50);
 		
 		skill = SkillTable.getInstance().getInfo(1068, 3);
 		weakScarlet.callSkill(skill, new L2Object[] { weakScarlet });
 		
-		SetMobilised mobilise = new SetMobilised(weakScarlet);
-		Future _mobiliseTask = ThreadPoolManager.getInstance().scheduleEffect(mobilise, 1100);
-		mobilise.setTask(_mobiliseTask);
+		ThreadPoolManager.getInstance().scheduleGeneral(new SetMobilised(weakScarlet), 1100);
 		
 		// reset camera.
-		for (L2PcInstance pc : _playersInLair)
+		for (L2PcInstance pc : getPlayersInside())
 		{
 			pc.leaveMovieMode();
 			pc.enableAllSkills();
@@ -2264,7 +1759,6 @@ public class FrintezzaManager extends Entity
 	private class doSkill implements Runnable
 	{
 		private L2Character	_caster;
-		private Future		_task;
 		private L2Skill		_skill;
 		private int			_interval, _range;
 		
@@ -2288,17 +1782,9 @@ public class FrintezzaManager extends Entity
 			_interval = interval;
 			_range = range;
 		}
-		
-		public void setTask(Future task)
-		{
-			_task = task;
-		}
-		
+
 		public void run()
 		{
-			// removes the task that called this process
-			_task = cancelTask(_task);
-			
 			if (_caster == null || _caster.isDead())
 				return;
 			
@@ -2311,11 +1797,11 @@ public class FrintezzaManager extends Entity
 				if (tempTarget == null || !(tempTarget instanceof L2Character))
 					tempTarget = _caster;
 				
-				int x = ((L2Character) tempTarget).getX() + Rnd.get(_range) - _range / 2, y = ((L2Character) tempTarget).getY() + Rnd.get(_range) - _range / 2, z = ((L2Character) tempTarget)
-						.getZ();
+				int x = ((L2Character) tempTarget).getX() + Rnd.get(_range) - _range / 2,
+					y = ((L2Character) tempTarget).getY() + Rnd.get(_range) - _range / 2,
+					z = ((L2Character) tempTarget).getZ();
 				
 				if (!_caster.isInsideRadius(x, y, _range, false) && tempTarget instanceof L2PcInstance && checkIfInZone((L2PcInstance) tempTarget))
-
 				{
 					
 					// Returns a list of the players that targeted the _caster
@@ -2336,9 +1822,7 @@ public class FrintezzaManager extends Entity
 			{
 			}
 			
-			doSkill ds = new doSkill(_caster, _skill, _interval, _range);
-			_task = ThreadPoolManager.getInstance().scheduleEffect(ds, _interval + Rnd.get(500));
-			ds.setTask(_task);
+			ThreadPoolManager.getInstance().scheduleGeneral(new doSkill(_caster, _skill, _interval, _range), _interval + Rnd.get(500));
 		}
 	}
 	
@@ -2346,57 +1830,40 @@ public class FrintezzaManager extends Entity
 	
 	private class ReTarget implements Runnable
 	{
-		
 		private L2NpcInstance	_mob;
-		private Future			_task;
 		
 		public ReTarget(L2NpcInstance mob)
 		{
 			_mob = mob;
 		}
-		
-		public void setTask(Future task)
-		{
-			_task = task;
-		}
-		
+
 		public void run()
 		{
-			// removes the task that called this process
-			_task = cancelTask(_task);
-			
-			if (_mob == null || _mob.isDead() || _playersInLair == null || _playersInLair.isEmpty())
+			if (_mob == null || _mob.isDead() || getPlayersInside().isEmpty())
 			{
-				if (bossesAreDead() || _playersInLair == null || _playersInLair.isEmpty())
+				if (bossesAreDead() || getPlayersInside().isEmpty())
 				{
 					// Unspawn in 20 seconds...
 					doUnspawn();
-					
 				}
 				return;
 			}
 			_mob.setTarget(null);
 			
-			while (_mob.getTarget() != null)
+			while (_mob.getTarget() == null)
 			{
 				try
 				{
-					int index = Rnd.get(_playersInLair.size());
-					
-					if (_playersInLair.get(index) == null)
-						_playersInLair.remove(index);
-					
-					_mob.setTarget(_playersInLair.get(index));
+					Thread.sleep(1000);
+					_mob.setTarget(getRandomPlayer());
 				}
 				catch (Throwable t)
 				{
 					_mob.setTarget(null);
 				}
 			}
-			
-			ReTarget retarget = new ReTarget(_mob);
-			_task = ThreadPoolManager.getInstance().scheduleEffect(retarget, _intervalOfRetarget);
-			retarget.setTask(_task);
+
+			ThreadPoolManager.getInstance().scheduleGeneral(new ReTarget(_mob), _intervalOfRetarget);
 		}
 	}
 	
@@ -2407,9 +1874,7 @@ public class FrintezzaManager extends Entity
 	 */
 	private void doUnspawn()
 	{
-		Unspawn unspawn = new Unspawn();
-		Future unspawnTask = ThreadPoolManager.getInstance().scheduleGeneral(unspawn, 20000);
-		unspawn.setTask(unspawnTask);
+		ThreadPoolManager.getInstance().scheduleGeneral(new Unspawn(), 20000);
 	}
 	
 	/**
@@ -2419,22 +1884,8 @@ public class FrintezzaManager extends Entity
 	 */
 	private class Unspawn implements Runnable
 	{
-		
-		private Future	_task;
-		
-		public Unspawn()
-		{
-			// Nothing.
-		}
-		
-		public void setTask(Future task)
-		{
-			_task = task;
-		}
-		
 		public void run()
 		{
-			_task = cancelTask(_task);
 			setUnspawn();
 		}
 	}
@@ -2447,7 +1898,7 @@ public class FrintezzaManager extends Entity
 	
 	private boolean bossesAreDead()
 	{
-		if (weakScarlet == null && strongScarlet == null && frintezza == null)
+		if (weakScarlet == null && strongScarlet == null)
 			return true;
 		
 		int deadCount = 0;
@@ -2458,10 +1909,7 @@ public class FrintezzaManager extends Entity
 		if ((strongScarlet != null && strongScarlet.isDead()) || strongScarlet == null)
 			deadCount++;
 		
-		if ((frintezza != null && frintezza.isDead()) || frintezza == null)
-			deadCount++;
-		
-		if (deadCount == 3) { return true; }
+		if (deadCount == 2) { return true; }
 		
 		return false;
 	}
@@ -2473,10 +1921,6 @@ public class FrintezzaManager extends Entity
 	 */
 	private class ActivityTimeEnd implements Runnable
 	{
-		public ActivityTimeEnd()
-		{ /* Nothing */
-		}
-		
 		public void run()
 		{
 			setUnspawn();
@@ -2492,7 +1936,7 @@ public class FrintezzaManager extends Entity
 		NpcTable.getInstance().getTemplate(29046).setRhand(8204);
 		
 		// eliminate players.
-		banishesPlayers();
+		banishForeigners();
 		
 		// delete monsters.
 		bossDeadCheck(portrait1); // Deletes portrait and demon
@@ -2531,32 +1975,28 @@ public class FrintezzaManager extends Entity
 		frintezza = strongScarlet = weakScarlet = null;
 		
 		// delete spawns
-		frintezzaSpawn = scarletSpawnWeak = scarletSpawnStrong =
+		frintezzaSpawn = scarletSpawnWeak = scarletSpawnStrong = null;
 
-		portraitSpawn1 = portraitSpawn2 = portraitSpawn3 = portraitSpawn4 =
+		portraitSpawn1 = portraitSpawn2 = portraitSpawn3 = portraitSpawn4 = null;
 
 		demonSpawn1 = demonSpawn2 = demonSpawn3 = demonSpawn4 = null;
 		
-		// not executed tasks are canceled.
-		_monsterSpawnTask = cancelTask(_monsterSpawnTask);
-		_activityTimeEndTask = cancelTask(_activityTimeEndTask);
-		
-		// init state of Frintezza's lair.
-		_isBossSpawned = false;
-		_isIntervalForNextSpawn = true;
-		
 		// interval begin.... Count until Frintezza is ready to respawn again.
-		setInetrvalEndTask();
+		setIntervalEndTask();
 	}
 	
 	/**
 	 * Creates a thread to initialize Frintezza again... until this loops ends, no one can enter the lair.
 	 */
-	public void setInetrvalEndTask()
+	public void setIntervalEndTask()
 	{
-		IntervalEnd ie = new IntervalEnd();
-		Future _intervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(ie, _intervalOfBoss);
-		ie.setTask(_intervalEndTask);
+		if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
+		{
+			_state.setRespawnDate(17280000);
+			_state.setState(GrandBossState.StateEnum.INTERVAL);
+			_state.update();
+		}
+		ThreadPoolManager.getInstance().scheduleGeneral(new IntervalEnd(), _state.getInterval());
 	}
 	
 	/**
@@ -2567,93 +2007,32 @@ public class FrintezzaManager extends Entity
 	
 	private class IntervalEnd implements Runnable
 	{
-		private Future	_task;
-		
-		public IntervalEnd()
-		{ /* Nothing */
-		}
-		
-		public void setTask(Future task)
-		{
-			_task = task;
-		}
-		
 		public void run()
 		{
-			_isIntervalForNextSpawn = false;
-			_task = cancelTask(_task);
-			init();
+			_state.setState(GrandBossState.StateEnum.NOTSPAWN);
+			_state.update();
 		}
 	}
-	
-	/**
-	 * Updates knownlist for the monster. Updates players in the room list. Updates players in the room known list.
-	 * 
-	 * @param L2NpcInstance
-	 *            monster
-	 */
-	
-	protected void updateKnownList(L2NpcInstance boss)
-	{
-		if (boss == null)
-			return;
-		
-		boss.getKnownList().getKnownPlayers().clear();
-		for (L2PcInstance pc : L2World.getInstance().getAllPlayers())
-		{
-			if (pc == null)
-				continue;
-			
-			// If the player is in the Frintezza lair:
-			if (checkIfInZone(pc))
-			{
-				// add the player to the list
-				if (!_playersInLair.contains(pc))
-					_playersInLair.add(pc);
-				
-				// add the player to the mob known list
-				if (!boss.getKnownList().getKnownPlayers().containsValue(pc))
-					boss.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
-				
-				// add the mob to the player's known list
-				if (!pc.getKnownList().getKnownCharacters().contains(boss))
-					pc.getKnownList().getKnownCharacters().add(boss);
-			}
-		}
-		
-		for (L2PcInstance pc : _playersInLair)
-		{
-			if (!checkIfInZone(pc))
-				_playersInLair.remove(pc);
-		}
-	}
-	
+
 	/**
 	 * Class used to make the monster/boss mobile again.
 	 * 
 	 * @author Darki699
 	 */
-	
 	private class SetMobilised implements Runnable
 	{
-		private L2GrandBossInstance	_boss;
-		private Future			_task;
+		private L2NpcInstance _boss;
 		
-		public SetMobilised(L2GrandBossInstance boss)
+		public SetMobilised(L2NpcInstance boss)
 		{
 			_boss = boss;
 		}
 		
-		public void setTask(Future task)
-		{
-			_task = task;
-		}
-		
 		public void run()
 		{
-			_task = cancelTask(_task);
 			_boss.setIsImmobilized(false);
-			_boss.setIsInSocialAction(false);
+			if (_boss instanceof L2GrandBossInstance)
+				((L2GrandBossInstance)_boss).setIsInSocialAction(false);
 		}
 	}
 	
@@ -2662,11 +2041,10 @@ public class FrintezzaManager extends Entity
 	 * 
 	 * @author Darki699
 	 */
-	
 	private class MoveToPos implements Runnable
 	{
 		private L2NpcInstance	_npc;
-		L2CharPosition			_pos;
+		private L2CharPosition	_pos;
 		
 		public MoveToPos(L2NpcInstance npc, L2CharPosition pos)
 		{

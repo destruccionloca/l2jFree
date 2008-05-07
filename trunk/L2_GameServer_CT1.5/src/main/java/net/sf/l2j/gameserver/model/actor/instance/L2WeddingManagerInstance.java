@@ -192,7 +192,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     	catch (InterruptedException e){}
                     	//port both players to disneyland for happy time
                     	player.teleToLocation(-56641, -56345, -2005);
-                    	ptarget.teleToLocation(-56641, -56345, -2005);                   	
+                    	ptarget.teleToLocation(-56641, -56345, -2005);
                     }
 
                     return;

@@ -94,6 +94,7 @@ import net.sf.l2j.gameserver.instancemanager.grandbosses.FrintezzaManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.ValakasManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
+import net.sf.l2j.gameserver.instancemanager.lastimperialtomb.LastImperialTombManager;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
 import net.sf.l2j.gameserver.model.L2Manor;
@@ -251,6 +252,7 @@ public class GameServer
 		SailrenManager.getInstance().init();
 		ValakasManager.getInstance().init();
 		VanHalterManager.getInstance().init();
+		LastImperialTombManager.getInstance().init();
 		FrintezzaManager.getInstance().init();
 		Util.printSection("Quests");
 		QuestManager.getInstance();

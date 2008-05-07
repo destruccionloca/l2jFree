@@ -35,8 +35,6 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.tools.random.Rnd;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -45,18 +43,14 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: $ $Date: $
  * @author  L2J_JP SANDMAN
  */
-public class SailrenManager extends Entity
+public class SailrenManager extends BossLair
 {
-    private final static Log _log = LogFactory.getLog(SailrenManager.class.getName());
-    private static SailrenManager _instance = new SailrenManager();
+    private static SailrenManager _instance;
 
     // teleport cube location.
     private final int _sailrenCubeLocation[][] = { {27734,-6838,-1982,0} };
     protected List<L2Spawn> _sailrenCubeSpawn = new FastList<L2Spawn>();
     protected List<L2NpcInstance> _sailrenCube = new FastList<L2NpcInstance>();
-
-    // list of players in Sailren's lair.
-    protected List<L2PcInstance> _playersInSailrenLair = new FastList<L2PcInstance>();
 
     // spawn data of monsters
     protected L2Spawn _velociraptorSpawn;	// Velociraptor
@@ -79,26 +73,27 @@ public class SailrenManager extends Entity
     protected ScheduledFuture<?> _socialTask = null;
     
     // State of sailren's lair.
-    protected GrandBossState _state = new GrandBossState(29065);
     protected boolean _isAlreadyEnteredOtherParty = false;
-
-    protected String _questName;
 
     public static SailrenManager getInstance()
     {
-        if (_instance == null) _instance = new SailrenManager();
-
+        if (_instance == null)
+			_instance = new SailrenManager();
         return _instance;
     }
+
+	public SailrenManager()
+	{
+		_questName = "sailren";
+		_state = new GrandBossState(29065);
+	}
 
     // init.
     public void init()
     {
     	// init state.
-    	_playersInSailrenLair.clear();
     	_isAlreadyEnteredOtherParty = false;
-    	_questName = "sailren";
-    	
+
         // setting spawn data of monsters.
         try
         {
@@ -160,7 +155,8 @@ public class SailrenManager extends Entity
             L2NpcTemplate cube = NpcTable.getInstance().getTemplate(32107);
             L2Spawn spawnDat;
         	
-            for (int[] element : _sailrenCubeLocation) {
+            for (int[] element : _sailrenCubeLocation)
+			{
                 spawnDat = new L2Spawn(cube);
                 spawnDat.setAmount(1);
                 spawnDat.setLocx(element[0]);
@@ -178,26 +174,14 @@ public class SailrenManager extends Entity
             _log.warn(e.getMessage());
         }
         
-        _log.info("SailrenManager : State of Sailren is " + _state.getState() + ".");  
-        if (!_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN))  
+        _log.info("SailrenManager : State of Sailren is " + _state.getState() + ".");
+        if (!_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN))
         	setIntervalEndTask();
 
-        Date dt = new Date(_state.getRespawnDate());  
-        _log.info("SailrenManager : Next spawn date of Sailren is " + dt + ".");  
-        _log.info("SailrenManager : Init SailrenManager.");  
-    }  
-
-    // return Sailren state.  
-    public GrandBossState.StateEnum getState()  
-    {  
-    	return _state.getState();
+        Date dt = new Date(_state.getRespawnDate());
+        _log.info("SailrenManager : Next spawn date of Sailren is " + dt + ".");
+        _log.info("SailrenManager : Init SailrenManager.");
     }
-
-    // getting list of players in sailren's lair.
-    public List<L2PcInstance> getPlayersInLair()
-	{
-		return _playersInSailrenLair;
-	}
 
     // whether it is permitted to enter the sailren's lair is confirmed. 
     public int canIntoSailrenLair(L2PcInstance pc)
@@ -212,20 +196,14 @@ public class SailrenManager extends Entity
     }
     
     // set sailren spawn task.
-    public void setSailrenSpawnTask(int NpcId)
+    public void setSailrenSpawnTask(int npcId)
     {
-    	if ((NpcId == 22218) && (_playersInSailrenLair.size() >= 1)) return;
+    	if ((npcId == 22218) && (getPlayersInside().size() >= 1)) return;
 
     	if (_sailrenSpawnTask == null)
         {
-        	_sailrenSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new SailrenSpawn(NpcId),Config.FWS_INTERVALOFNEXTMONSTER);
+        	_sailrenSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new SailrenSpawn(npcId),Config.FWS_INTERVALOFNEXTMONSTER);
         }
-    }
-
-    // add player to list of players in sailren's lair.
-    public void addPlayerToSailrenLair(L2PcInstance pc)
-    {
-        if (!_playersInSailrenLair.contains(pc)) _playersInSailrenLair.add(pc);
     }
 
     // teleporting player to sailren's lair.
@@ -246,7 +224,6 @@ public class SailrenManager extends Entity
 			driftx = Rnd.get(-80, 80);
 			drifty = Rnd.get(-80, 80);
 			pc.teleToLocation(27734 + driftx,-6938 + drifty,-1982);
-			addPlayerToSailrenLair(pc);
 		}
 		else
 		{
@@ -264,63 +241,24 @@ public class SailrenManager extends Entity
 				driftx = Rnd.get(-80, 80);
 				drifty = Rnd.get(-80, 80);
 				mem.teleToLocation(27734 + driftx,-6938 + drifty,-1982);
-				addPlayerToSailrenLair(mem);
 			}
 		}
 		_isAlreadyEnteredOtherParty = true;
     }
-    
-    // whether the party was annihilated is confirmed. 
-    public void checkAnnihilated(L2PcInstance pc)
-    {
-    	// It is a teleport later 5 seconds to the port when annihilating.
-    	if(isPartyAnnihilated(pc))
-    	{
-    		_onPartyAnnihilatedTask =
-				ThreadPoolManager.getInstance().scheduleGeneral(new OnPartyAnnihilatedTask(pc),5000);
-    	}
-    }
-
-    // whether the party was annihilated is confirmed.
-    public synchronized boolean isPartyAnnihilated(L2PcInstance pc)
-    {
-		if(pc.getParty() != null)
-		{
-			for(L2PcInstance mem:pc.getParty().getPartyMembers())
-			{
-				if(!mem.isDead() && checkIfInZone(pc))
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-		return true;
-    }
 
     // when annihilating or limit of time coming, the compulsion movement players from the sailren's lair.
-    public void banishesPlayers()
-    {
-    	for(L2PcInstance pc : _playersInSailrenLair)
-    	{
-    		if(pc.getQuestState(_questName) != null) pc.getQuestState(_questName).exitQuest(true);
-    		if(checkIfInZone(pc))
-    		{
-        		int driftX = Rnd.get(-80,80);
-        		int driftY = Rnd.get(-80,80);
-        		pc.teleToLocation(10468 + driftX,-24569 + driftY,-3650);
-    		}
-    	}
-    	_playersInSailrenLair.clear();
-    	_isAlreadyEnteredOtherParty = false;
-    }
+	public void banishForeigners()
+	{
+		super.banishForeigners();
+		_isAlreadyEnteredOtherParty = false;
+	}
 
     // clean up sailren's lair.
     public void setUnspawn()
 	{
     	// eliminate players.
-    	banishesPlayers();
-    	
+    	banishForeigners();
+
     	// delete teleport cube.
 		for (L2NpcInstance cube : _sailrenCube)
 		{
@@ -328,7 +266,7 @@ public class SailrenManager extends Entity
 			cube.deleteMe();
 		}
 		_sailrenCube.clear();
-		
+
 		// not executed tasks is canceled.
 		if(_cubeSpawnTask != null)
 		{
@@ -379,43 +317,34 @@ public class SailrenManager extends Entity
     	_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new CubeSpawn(),10000); 
 
     }
-    
+
     // task of interval of sailren spawn.
     public void setIntervalEndTask()
     {
-    	if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))  
-    	{  
-    		_state.setRespawnDate(Rnd.get(Config.FWS_FIXINTERVALOFSAILRENSPAWN,Config.FWS_FIXINTERVALOFSAILRENSPAWN + Config.FWS_RANDOMINTERVALOFSAILRENSPAWN));  
-    		_state.setState(GrandBossState.StateEnum.INTERVAL);  
-    		_state.update();  
-    	}  
+    	if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
+    	{
+    		_state.setRespawnDate(Rnd.get(Config.FWS_FIXINTERVALOFSAILRENSPAWN,Config.FWS_FIXINTERVALOFSAILRENSPAWN + Config.FWS_RANDOMINTERVALOFSAILRENSPAWN));
+    		_state.setState(GrandBossState.StateEnum.INTERVAL);
+    		_state.update();
+    	}
 
     	_intervalEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new IntervalEnd(),_state.getInterval());
     }
 
-    // update knownlist.
-    protected void updateKnownList(L2NpcInstance boss)
-    {
-    	boss.getKnownList().getKnownPlayers().clear();
-		for (L2PcInstance pc : _playersInSailrenLair)
-		{
-			boss.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
-		}
-    }
-    
     // spawn monster.
     private class SailrenSpawn implements Runnable
     {
-    	int _NpcId;
-    	L2CharPosition _pos = new L2CharPosition(27628,-6109,-1982,44732);
-    	public SailrenSpawn(int NpcId)
+    	private int _npcId;
+    	private L2CharPosition _pos = new L2CharPosition(27628,-6109,-1982,44732);
+
+    	public SailrenSpawn(int npcId)
     	{
-    		_NpcId = NpcId;
+    		_npcId = npcId;
     	}
-    	
+
         public void run()
         {
-        	switch (_NpcId)
+        	switch (_npcId)
             {
             	case 22218:		// Velociraptor
             		_velociraptor = _velociraptorSpawn.doSpawn();
@@ -489,8 +418,6 @@ public class SailrenManager extends Entity
             		}
             		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_sailren),Config.FWS_ACTIVITYTIMEOFMOBS);
             		break;
-            	default:
-            		break;
             }
             
             if(_sailrenSpawnTask != null)
@@ -504,25 +431,22 @@ public class SailrenManager extends Entity
     // spawn teleport cube.
     private class CubeSpawn implements Runnable
     {
-    	public CubeSpawn()
-    	{
-    	}
-    	
         public void run()
         {
         	spawnCube();
         }
     }
-    
+
     // limit of time coming.
     private class ActivityTimeEnd implements Runnable
     {
-    	L2NpcInstance _mob;
+    	private L2NpcInstance _mob;
+
     	public ActivityTimeEnd(L2NpcInstance npc)
     	{
     		_mob = npc;
     	}
-    	
+
     	public void run()
     	{
     		if(!_mob.isDead())
@@ -535,32 +459,27 @@ public class SailrenManager extends Entity
     		setUnspawn();
     	}
     }
-    
+
     // interval end.
     private class IntervalEnd implements Runnable
     {
-    	public IntervalEnd()
-    	{
-    	}
-    	
     	public void run()
     	{
-    		_playersInSailrenLair.clear();
     		_state.setState(GrandBossState.StateEnum.NOTSPAWN);
     		_state.update();
     	}
     }
-    
+
     // when annihilating or limit of time coming, the compulsion movement players from the sailren's lair.
 	private class OnPartyAnnihilatedTask implements Runnable
 	{
-		L2PcInstance _player;
-		
+		private L2PcInstance _player;
+
 		public OnPartyAnnihilatedTask(L2PcInstance player)
 		{
 			_player = player;
 		}
-		
+
 		public void run()
 		{
 			setUnspawn();
@@ -581,8 +500,6 @@ public class SailrenManager extends Entity
 
         public void run()
         {
-        	updateKnownList(_npc);
-        	
         	SocialAction sa = new SocialAction(_npc.getObjectId(), _action);
         	_npc.broadcastPacket(sa);
         }

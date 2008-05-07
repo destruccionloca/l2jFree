@@ -29,7 +29,6 @@ class antharas(JQuest):
         if st.getQuestItemsCount(PORTAL_STONE) >= 1:
           st.takeItems(PORTAL_STONE,1)
           AntharasManager.getInstance().setAntharasSpawnTask()
-          AntharasManager.getInstance().addPlayerToLair(st.player)
           st.player.teleToLocation(173826,115333,-7708)
           return
         else:
@@ -56,8 +55,8 @@ class antharas(JQuest):
            if pst.getQuestItemsCount(8568) < 1 :
                pst.giveItems(8568,1)
                pst.exitQuest(1)
-    if not st: return
     AntharasManager.getInstance().setCubeSpawn()
+    if not st: return
     st.exitQuest(1)
     return
 # Quest class and state definition

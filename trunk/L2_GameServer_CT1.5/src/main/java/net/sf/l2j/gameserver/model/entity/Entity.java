@@ -14,6 +14,9 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
+import java.util.List;
+import javolution.util.FastList;
+
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -22,6 +25,7 @@ import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -98,43 +102,55 @@ public class Entity
 		return Double.MAX_VALUE;
 	}
 
-	protected boolean checkBanish(L2PcInstance cha)
+	protected List<L2PcInstance> getPlayersInside()
 	{
-		return false;
+		List<L2PcInstance> lst = new FastList<L2PcInstance>();
+		for(L2Character cha : getZone().getCharactersInside().values())
+		{
+			if (cha instanceof L2PcInstance)
+				lst.add((L2PcInstance)cha);
+		}
+		return lst;
 	}
 
-	public void banishForeigner(L2PcInstance activeChar)
+	protected L2PcInstance getRandomPlayer()
 	{
-		// Get players from this and nearest world regions
-		for (L2PlayableInstance player : L2World.getInstance().getVisiblePlayable(activeChar))
+		List<L2PcInstance> lst = getPlayersInside();
+		if (lst.size() > 0)
 		{
-			if(!(player instanceof L2PcInstance))
-				continue;
+			return lst.get(Rnd.get(lst.size()));
+		}
+		return null;
+	}
 
-			if (!checkBanish((L2PcInstance)player))
-				continue;
+	protected boolean checkBanish(L2PcInstance cha)
+	{
+		return true;
+	}
 
-			if (checkIfInZone(player))
-				player.teleToLocation(TeleportWhereType.Town); 
+	public void banishForeigners()
+	{
+		for (L2PcInstance player : getPlayersInside())
+		{
+			if (checkBanish(player))
+				player.teleToLocation(TeleportWhereType.Town);
 		}
 	}
 
 	public void broadcastToPlayers(String message)
 	{
 		SystemMessage msg = SystemMessage.sendString(message);
-		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+		for (L2PcInstance player : getPlayersInside())
 		{
-			if (checkIfInZone(player))
-				player.sendPacket(msg);
+			player.sendPacket(msg);
 		}
 	}
 
 	public void broadcastToPlayers(L2GameServerPacket gsp)
 	{
-		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+		for (L2PcInstance player : getPlayersInside())
 		{
-			if (checkIfInZone(player))
-				player.sendPacket(gsp); 
+			player.sendPacket(gsp); 
 		}
 	}
 

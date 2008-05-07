@@ -41,7 +41,7 @@ class Quest (JQuest) :
 
   def onTalk (Self,npc,player):
     st = player.getQuestState(qn)
-    htmltext = "<html><body>I have nothing to say you</body></html>"
+    htmltext = "<html><body>Quest <font color=\"LEVEL\">Last Imperial Prince</font> is not accomplished or the condition is not suitable.</body></html>"
     if not st: return htmltext
 
     id = st.getState()
@@ -58,7 +58,7 @@ class Quest (JQuest) :
       st.exitQuest(1)
       return htmltext
     elif preId != State.COMPLETED :
-      htmltext = "<html><body>Quest is not accomplished or the condition is not suitable.</body></html>"
+      htmltext = "<html><body>Quest <font color=\"LEVEL\">Last Imperial Prince</font> is not accomplished or the condition is not suitable.</body></html>"
       st.exitQuest(1)
       return htmltext
 
@@ -73,7 +73,7 @@ class Quest (JQuest) :
       elif cond == 3 :
         return "31453-4.htm"
       else :
-        htmltext = "<html><body>Quest is not accomplished or the condition is not suitable.</body></html>"
+        htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
         return htmltext
 
   def onKill (self,npc,player,isPet) :

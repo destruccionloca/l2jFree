@@ -33,7 +33,6 @@ class baium (JQuest):
         if st.getQuestItemsCount(4295) : # bloody fabric
           st.takeItems(4295,1)
           player.teleToLocation(113100,14500,10077)
-          BaiumManager.getInstance().addPlayerToLair(player)
           st.set("ok","1")
         else :
           return "<html><head><body>Angelic Vortex:<br>You do not have enough items</body></html>"
@@ -42,15 +41,10 @@ class baium (JQuest):
     return
 
   def onKill (self,npc,player,isPet):
-    st = player.getQuestState("baium")
-    if not st: return
     BaiumManager.getInstance().setCubeSpawn()
-    st.exitQuest(1)
-
-  def onAttack(self,npc,player,damage,isPet):
     st = player.getQuestState("baium")
     if not st: return
-    BaiumManager.getInstance().setLastAttackTime()
+    st.exitQuest(1)
 
 # Quest class and state definition
 QUEST = baium(-1, "baium", "ai")
@@ -60,4 +54,3 @@ QUEST.addStartNpc(31862)
 QUEST.addTalkId(29025)
 QUEST.addTalkId(31862)
 QUEST.addKillId(29020)
-QUEST.addAttackId(29020)

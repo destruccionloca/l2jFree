@@ -231,7 +231,7 @@ public class L2NpcInstance extends L2Character
      */
     public boolean hasRandomAnimation()
     {
-        return (Config.MAX_NPC_ANIMATION > 0);
+        return (Config.MAX_NPC_ANIMATION > 0 && getNpcId() != 29045);
     }
 
     public class destroyTemporalNPC implements Runnable

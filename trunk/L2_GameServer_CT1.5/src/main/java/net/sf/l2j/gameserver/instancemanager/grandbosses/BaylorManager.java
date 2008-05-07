@@ -36,8 +36,6 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.tools.random.Rnd;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -46,20 +44,14 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: $ $Date: $
  * @author  Umbrella Apocalipce + HanWik
  */
-public class BaylorManager extends Entity
+public class BaylorManager extends BossLair
 {
-	private final static Log		_log						= LogFactory.getLog(BaylorManager.class.getName());
-	private static BaylorManager	_instance					= new BaylorManager();
+	private static BaylorManager	_instance;
 
 	// teleport cube location.
-	private final int				_baylorCubeLocation[][]		=
-																{
-																{ 153569, 142075, -12732, 0 } };
+	private final int				_baylorCubeLocation[][]		= { { 153569, 142075, -12732, 0 } };
 	protected List<L2Spawn>			_baylorCubeSpawn			= new FastList<L2Spawn>();
 	protected List<L2NpcInstance>	_baylorCube					= new FastList<L2NpcInstance>();
-
-	// list of players in Baylor's lair.
-	protected List<L2PcInstance>	_playersInBaylorLair		= new FastList<L2PcInstance>();
 
 	// spawn data of monsters
 	protected L2Spawn				_crystalineSpawn1;																// Crystaline1
@@ -87,8 +79,7 @@ public class BaylorManager extends Entity
 	protected ScheduledFuture<?>	_cubeSpawnTask				= null;
 	protected ScheduledFuture<?>	_baylorSpawnTask			= null;
 	protected ScheduledFuture<?>	_intervalEndTask			= null;
-	protected ScheduledFuture<?>	_activityTimeEndTask0		= null;
-	protected ScheduledFuture<?>	_onPartyAnnihilatedTask		= null;
+	protected ScheduledFuture<?>	_activityTimeEndTask		= null;
 	protected ScheduledFuture<?>	_socialTask					= null;
 	protected ScheduledFuture<?>	_socialTask1				= null;
 	protected ScheduledFuture<?>	_socialTask2				= null;
@@ -100,26 +91,26 @@ public class BaylorManager extends Entity
 	protected ScheduledFuture<?>	_socialTask8				= null;
 
 	// State of baylor's lair.
-	protected GrandBossState		_state						= new GrandBossState(29099);
 	protected boolean				_isAlreadyEnteredOtherParty	= false;
-
-	protected String				_questName;
 
 	public static BaylorManager getInstance()
 	{
 		if (_instance == null)
 			_instance = new BaylorManager();
-
 		return _instance;
+	}
+
+	public BaylorManager()
+	{
+		_questName = "baylor";
+		_state = new GrandBossState(29099);
 	}
 
 	// init.
 	public void init()
 	{
 		// init state.
-		_playersInBaylorLair.clear();
 		_isAlreadyEnteredOtherParty = false;
-		_questName = "baylor";
 
 		// setting spawn data of monsters.
 		try
@@ -265,18 +256,6 @@ public class BaylorManager extends Entity
 		_log.info("BaylorManager : Init BaylorManager.");
 	}
 
-	// return Baylor state.  
-	public GrandBossState.StateEnum getState()
-	{
-		return _state.getState();
-	}
-
-	// getting list of players in baylor's lair.
-	public List<L2PcInstance> getPlayersInLair()
-	{
-		return _playersInBaylorLair;
-	}
-
 	// whether it is permitted to enter the baylor's lair is confirmed. 
 	public int canIntoBaylorLair(L2PcInstance pc)
 	{
@@ -292,7 +271,6 @@ public class BaylorManager extends Entity
 			return 3;
 		else
 			return 0;
-
 	}
 
 	// set baylor spawn task.
@@ -314,13 +292,6 @@ public class BaylorManager extends Entity
 		}
 	}
 
-	// add player to list of players in baylor's lair.
-	public void addPlayerToBaylorLair(L2PcInstance pc)
-	{
-		if (!_playersInBaylorLair.contains(pc))
-			_playersInBaylorLair.add(pc);
-	}
-
 	// teleporting player to baylor's lair.
 	public void entryToBaylorLair(L2PcInstance pc)
 	{
@@ -339,7 +310,6 @@ public class BaylorManager extends Entity
 			driftx = Rnd.get(-80, 80);
 			drifty = Rnd.get(-80, 80);
 			pc.teleToLocation(153569 + driftx, 142075 + drifty, -12732);
-			addPlayerToBaylorLair(pc);
 		}
 		else
 		{
@@ -357,54 +327,15 @@ public class BaylorManager extends Entity
 				driftx = Rnd.get(-80, 80);
 				drifty = Rnd.get(-80, 80);
 				mem.teleToLocation(153569 + driftx, 142075 + drifty, -12732);
-				addPlayerToBaylorLair(mem);
 			}
 		}
 		_isAlreadyEnteredOtherParty = true;
 	}
 
-	// whether the party was annihilated is confirmed. 
-	public void checkAnnihilated(L2PcInstance pc)
-	{
-		// It is a teleport later 5 seconds to the port when annihilating.
-		if (isPartyAnnihilated(pc))
-		{
-			_onPartyAnnihilatedTask = ThreadPoolManager.getInstance().scheduleGeneral(new OnPartyAnnihilatedTask(pc), 5000);
-		}
-	}
-
-	// whether the party was annihilated is confirmed.
-	public synchronized boolean isPartyAnnihilated(L2PcInstance pc)
-	{
-		if (pc.getParty() != null)
-		{
-			for (L2PcInstance mem : pc.getParty().getPartyMembers())
-			{
-				if (!mem.isDead() && checkIfInZone(pc))
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-		return true;
-	}
-
 	// when annihilating or limit of time coming, the compulsion movement players from the baylor's lair.
-	public void banishesPlayers()
+	public void banishForeigners()
 	{
-		for (L2PcInstance pc : _playersInBaylorLair)
-		{
-			if (pc.getQuestState(_questName) != null)
-				pc.getQuestState(_questName).exitQuest(true);
-			if (checkIfInZone(pc))
-			{
-				int driftX = Rnd.get(-80, 80);
-				int driftY = Rnd.get(-80, 80);
-				pc.teleToLocation(10468 + driftX, -24569 + driftY, -3650);
-			}
-		}
-		_playersInBaylorLair.clear();
+		super.banishForeigners();
 		_isAlreadyEnteredOtherParty = false;
 	}
 
@@ -412,7 +343,7 @@ public class BaylorManager extends Entity
 	public void setUnspawn()
 	{
 		// eliminate players.
-		banishesPlayers();
+		banishForeigners();
 
 		// delete teleport cube.
 		for (L2NpcInstance cube : _baylorCube)
@@ -438,10 +369,10 @@ public class BaylorManager extends Entity
 			_intervalEndTask.cancel(true);
 			_intervalEndTask = null;
 		}
-		if (_activityTimeEndTask0 != null)
+		if (_activityTimeEndTask != null)
 		{
-			_activityTimeEndTask0.cancel(true);
-			_activityTimeEndTask0 = null;
+			_activityTimeEndTask.cancel(true);
+			_activityTimeEndTask = null;
 		}
 
 		// init state of baylor's lair.
@@ -475,7 +406,6 @@ public class BaylorManager extends Entity
 		_state.update();
 
 		_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new CubeSpawn(), 10000);
-
 	}
 
 	// task of interval of baylor spawn.
@@ -483,9 +413,8 @@ public class BaylorManager extends Entity
 	{
 		if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
 		{
-			_state
-					.setRespawnDate(Rnd.get(Config.FWBA_FIXINTERVALOFBAYLORSPAWN, Config.FWBA_FIXINTERVALOFBAYLORSPAWN
-							+ Config.FWBA_RANDOMINTERVALOFBAYLORSPAWN));
+			_state.setRespawnDate(Rnd.get(Config.FWBA_FIXINTERVALOFBAYLORSPAWN, Config.FWBA_FIXINTERVALOFBAYLORSPAWN
+				+ Config.FWBA_RANDOMINTERVALOFBAYLORSPAWN));
 			_state.setState(GrandBossState.StateEnum.INTERVAL);
 			_state.update();
 		}
@@ -493,119 +422,107 @@ public class BaylorManager extends Entity
 		_intervalEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new IntervalEnd(), _state.getInterval());
 	}
 
-	// update knownlist.
-	protected void updateKnownList(L2NpcInstance boss)
-	{
-		boss.getKnownList().getKnownPlayers().clear();
-		for (L2PcInstance pc : _playersInBaylorLair)
-		{
-			boss.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
-		}
-	}
-
 	// spawn monster.
 	private class BaylorSpawn implements Runnable
 	{
-		int				_NpcId;
-		L2CharPosition	_pos	= new L2CharPosition(153569, 142075, -12711, 44732);
+		private int				_npcId;
+		private L2CharPosition	_pos	= new L2CharPosition(153569, 142075, -12711, 44732);
 
-		public BaylorSpawn(int NpcId)
+		public BaylorSpawn(int npcId)
 		{
-			_NpcId = NpcId;
+			_npcId = npcId;
 		}
 
 		public void run()
 		{
-			switch (_NpcId)
+			switch (_npcId)
 			{
-			case 29100:
-				_crystaline1 = _crystalineSpawn1.doSpawn();
-				_crystaline2 = _crystalineSpawn2.doSpawn();
-				_crystaline3 = _crystalineSpawn3.doSpawn();
-				_crystaline4 = _crystalineSpawn4.doSpawn();
-				_crystaline5 = _crystalineSpawn5.doSpawn();
-				_crystaline6 = _crystalineSpawn6.doSpawn();
-				_crystaline7 = _crystalineSpawn7.doSpawn();
-				_crystaline8 = _crystalineSpawn8.doSpawn();
+				case 29100:
+					_crystaline1 = _crystalineSpawn1.doSpawn();
+					_crystaline2 = _crystalineSpawn2.doSpawn();
+					_crystaline3 = _crystalineSpawn3.doSpawn();
+					_crystaline4 = _crystalineSpawn4.doSpawn();
+					_crystaline5 = _crystalineSpawn5.doSpawn();
+					_crystaline6 = _crystalineSpawn6.doSpawn();
+					_crystaline7 = _crystalineSpawn7.doSpawn();
+					_crystaline8 = _crystalineSpawn8.doSpawn();
 
-				DoorTable.getInstance().getDoor(24220001).openMe();
-				DoorTable.getInstance().getDoor(24220002).openMe();
-				DoorTable.getInstance().getDoor(24220003).openMe();
-				DoorTable.getInstance().getDoor(24220004).openMe();
-				DoorTable.getInstance().getDoor(24220005).openMe();
-				DoorTable.getInstance().getDoor(24220006).openMe();
-				DoorTable.getInstance().getDoor(24220007).openMe();
-				DoorTable.getInstance().getDoor(24220008).openMe();
-				DoorTable.getInstance().getDoor(24220009).openMe();
-				DoorTable.getInstance().getDoor(24220010).openMe();
-				DoorTable.getInstance().getDoor(24220011).openMe();
-				DoorTable.getInstance().getDoor(24220012).openMe();
-				DoorTable.getInstance().getDoor(24220013).openMe();
-				DoorTable.getInstance().getDoor(24220014).openMe();
-				DoorTable.getInstance().getDoor(24220015).openMe();
-				DoorTable.getInstance().getDoor(24220016).openMe();
-				DoorTable.getInstance().getDoor(24220017).openMe();
-				DoorTable.getInstance().getDoor(24220018).openMe();
-				DoorTable.getInstance().getDoor(24220019).openMe();
-				DoorTable.getInstance().getDoor(24220020).openMe();
-				DoorTable.getInstance().getDoor(24220021).openMe();
-				DoorTable.getInstance().getDoor(24220022).openMe();
-				DoorTable.getInstance().getDoor(24220024).openMe();
-				DoorTable.getInstance().getDoor(24220025).openMe();
-				DoorTable.getInstance().getDoor(24220026).openMe();
+					DoorTable.getInstance().getDoor(24220001).openMe();
+					DoorTable.getInstance().getDoor(24220002).openMe();
+					DoorTable.getInstance().getDoor(24220003).openMe();
+					DoorTable.getInstance().getDoor(24220004).openMe();
+					DoorTable.getInstance().getDoor(24220005).openMe();
+					DoorTable.getInstance().getDoor(24220006).openMe();
+					DoorTable.getInstance().getDoor(24220007).openMe();
+					DoorTable.getInstance().getDoor(24220008).openMe();
+					DoorTable.getInstance().getDoor(24220009).openMe();
+					DoorTable.getInstance().getDoor(24220010).openMe();
+					DoorTable.getInstance().getDoor(24220011).openMe();
+					DoorTable.getInstance().getDoor(24220012).openMe();
+					DoorTable.getInstance().getDoor(24220013).openMe();
+					DoorTable.getInstance().getDoor(24220014).openMe();
+					DoorTable.getInstance().getDoor(24220015).openMe();
+					DoorTable.getInstance().getDoor(24220016).openMe();
+					DoorTable.getInstance().getDoor(24220017).openMe();
+					DoorTable.getInstance().getDoor(24220018).openMe();
+					DoorTable.getInstance().getDoor(24220019).openMe();
+					DoorTable.getInstance().getDoor(24220020).openMe();
+					DoorTable.getInstance().getDoor(24220021).openMe();
+					DoorTable.getInstance().getDoor(24220022).openMe();
+					DoorTable.getInstance().getDoor(24220024).openMe();
+					DoorTable.getInstance().getDoor(24220025).openMe();
+					DoorTable.getInstance().getDoor(24220026).openMe();
 
-				_crystaline1.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-				_crystaline2.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-				_crystaline3.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-				_crystaline4.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-				_crystaline5.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-				_crystaline6.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-				_crystaline7.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-				_crystaline8.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+					_crystaline1.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+					_crystaline2.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+					_crystaline3.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+					_crystaline4.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+					_crystaline5.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+					_crystaline6.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+					_crystaline7.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+					_crystaline8.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
 
-				_socialTask1 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline1, 2), 10000);
-				_socialTask2 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline2, 2), 10000);
-				_socialTask3 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline3, 2), 10000);
-				_socialTask4 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline4, 2), 10000);
-				_socialTask5 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline5, 2), 10000);
-				_socialTask6 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline6, 2), 10000);
-				_socialTask7 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline7, 2), 10000);
-				_socialTask8 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline8, 2), 10000);
+					_socialTask1 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline1, 2), 10000);
+					_socialTask2 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline2, 2), 10000);
+					_socialTask3 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline3, 2), 10000);
+					_socialTask4 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline4, 2), 10000);
+					_socialTask5 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline5, 2), 10000);
+					_socialTask6 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline6, 2), 10000);
+					_socialTask7 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline7, 2), 10000);
+					_socialTask8 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline8, 2), 10000);
 
-			case 29099:
-				_baylor = _baylorSapwn.doSpawn();
+				case 29099:
+					_baylor = _baylorSapwn.doSpawn();
 
-				_state.setRespawnDate(Rnd.get(Config.FWBA_FIXINTERVALOFBAYLORSPAWN, Config.FWBA_FIXINTERVALOFBAYLORSPAWN
-						+ Config.FWBA_RANDOMINTERVALOFBAYLORSPAWN)
-						+ Config.FWBA_ACTIVITYTIMEOFMOBS);
-				_state.setState(GrandBossState.StateEnum.ALIVE);
-				_state.update();
+					_state.setRespawnDate(Rnd.get(Config.FWBA_FIXINTERVALOFBAYLORSPAWN, Config.FWBA_FIXINTERVALOFBAYLORSPAWN
+							+ Config.FWBA_RANDOMINTERVALOFBAYLORSPAWN)
+							+ Config.FWBA_ACTIVITYTIMEOFMOBS);
+					_state.setState(GrandBossState.StateEnum.ALIVE);
+					_state.update();
 
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_baylor, 1), 500);
-				if (_activityTimeEndTask0 != null)
-				{
-					_activityTimeEndTask0.cancel(true);
-					_activityTimeEndTask0 = null;
-				}
-				_activityTimeEndTask0 = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_baylor), Config.FWBA_ACTIVITYTIMEOFMOBS);
+					if (_socialTask != null)
+					{
+						_socialTask.cancel(true);
+						_socialTask = null;
+					}
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_baylor, 1), 500);
+					if (_activityTimeEndTask != null)
+					{
+						_activityTimeEndTask.cancel(true);
+						_activityTimeEndTask = null;
+					}
+					_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_baylor), Config.FWBA_ACTIVITYTIMEOFMOBS);
 
-				_crystalineSpawn1.stopRespawn();
-				_crystalineSpawn2.stopRespawn();
-				_crystalineSpawn3.stopRespawn();
-				_crystalineSpawn4.stopRespawn();
-				_crystalineSpawn5.stopRespawn();
-				_crystalineSpawn6.stopRespawn();
-				_crystalineSpawn7.stopRespawn();
-				_crystalineSpawn8.stopRespawn();
+					_crystalineSpawn1.stopRespawn();
+					_crystalineSpawn2.stopRespawn();
+					_crystalineSpawn3.stopRespawn();
+					_crystalineSpawn4.stopRespawn();
+					_crystalineSpawn5.stopRespawn();
+					_crystalineSpawn6.stopRespawn();
+					_crystalineSpawn7.stopRespawn();
+					_crystalineSpawn8.stopRespawn();
 
-				break;
-			default:
-				break;
+					break;
 			}
 
 			if (_baylorSpawnTask != null)
@@ -619,10 +536,6 @@ public class BaylorManager extends Entity
 	// spawn teleport cube.
 	private class CubeSpawn implements Runnable
 	{
-		public CubeSpawn()
-		{
-		}
-
 		public void run()
 		{
 			spawnCube();
@@ -632,7 +545,7 @@ public class BaylorManager extends Entity
 	// limit of time coming.
 	private class ActivityTimeEnd implements Runnable
 	{
-		L2NpcInstance	_mob;
+		private L2NpcInstance	_mob;
 
 		public ActivityTimeEnd(L2NpcInstance npc)
 		{
@@ -655,13 +568,8 @@ public class BaylorManager extends Entity
 	// interval end.
 	private class IntervalEnd implements Runnable
 	{
-		public IntervalEnd()
-		{
-		}
-
 		public void run()
 		{
-			_playersInBaylorLair.clear();
 			_state.setState(GrandBossState.StateEnum.NOTSPAWN);
 			_state.update();
 		}
@@ -670,7 +578,7 @@ public class BaylorManager extends Entity
 	// when annihilating or limit of time coming, the compulsion movement players from the baylor's lair.
 	private class OnPartyAnnihilatedTask implements Runnable
 	{
-		L2PcInstance	_player;
+		private L2PcInstance	_player;
 
 		public OnPartyAnnihilatedTask(L2PcInstance player)
 		{
@@ -697,8 +605,6 @@ public class BaylorManager extends Entity
 
 		public void run()
 		{
-			updateKnownList(_npc);
-
 			SocialAction sa = new SocialAction(_npc.getObjectId(), _action);
 			_npc.broadcastPacket(sa);
 		}

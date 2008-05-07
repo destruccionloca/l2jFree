@@ -31,7 +31,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GrandBossState
 {
-    public static enum StateEnum {
+    public static enum StateEnum
+    {
         NOTSPAWN,
         ALIVE,
         DEAD,
@@ -46,58 +47,56 @@ public class GrandBossState
 
     public int getBossId()
     {
-    	return _bossId;
+        return _bossId;
     }
     
     public void setBossId(int newId)
     {
-    	_bossId = newId;
+        _bossId = newId;
     }
 
     public StateEnum getState()
     {
-    	return _state;
+        return _state;
     }
 
     public void setState(StateEnum newState)
     {
-    	_state = newState;
+        _state = newState;
     }
     
     public long getRespawnDate()
     {
-    	return _respawnDate;
+        return _respawnDate;
     }
     
     public void setRespawnDate(long interval)
     {
-    	_respawnDate = interval + Calendar.getInstance().getTimeInMillis();
+        _respawnDate = interval + Calendar.getInstance().getTimeInMillis();
     }
 
     public GrandBossState()
     {
-    	
     }
 
     public GrandBossState(int bossId)
     {
-    	_bossId = bossId;
-    	load();
+        _bossId = bossId;
+        load();
     }
 
     public GrandBossState(int bossId, boolean isDoLoad)
     {
-    	_bossId = bossId;
-    	if (isDoLoad) load();
+        _bossId = bossId;
+        if (isDoLoad) load();
     }
 
     public void load()
     {
+        Connection con = null;
 
-    	Connection con = null;
-    	
-    	try
-    	{
+        try
+        {
             con = L2DatabaseFactory.getInstance().getConnection(con);
             
             PreparedStatement statement = con.prepareStatement("SELECT * FROM grandboss_intervallist WHERE bossId = ?");
@@ -106,32 +105,32 @@ public class GrandBossState
             
             while (rset.next())
             {
-            	_respawnDate = rset.getLong("respawnDate");
+                _respawnDate = rset.getLong("respawnDate");
 
-            	if(_respawnDate - Calendar.getInstance().getTimeInMillis() <= 0)
-            	{
-            		_state = StateEnum.NOTSPAWN;
-            	}
-            	else
-            	{
-                	int tempState = rset.getInt("state");
-                	if (tempState == StateEnum.NOTSPAWN.ordinal())
-                		_state = StateEnum.NOTSPAWN;
-                	else if (tempState == StateEnum.INTERVAL.ordinal())
-                		_state = StateEnum.INTERVAL;
-                	else if (tempState == StateEnum.ALIVE.ordinal())
-                		_state = StateEnum.ALIVE;
-                	else if (tempState == StateEnum.DEAD.ordinal())
-                		_state = StateEnum.DEAD;
-                	else _state = StateEnum.NOTSPAWN;
-            	}
+                if(_respawnDate - Calendar.getInstance().getTimeInMillis() <= 0)
+                {
+                    _state = StateEnum.NOTSPAWN;
+                }
+                else
+                {
+                    int tempState = rset.getInt("state");
+                    if (tempState == StateEnum.NOTSPAWN.ordinal())
+                        _state = StateEnum.NOTSPAWN;
+                    else if (tempState == StateEnum.INTERVAL.ordinal())
+                        _state = StateEnum.INTERVAL;
+                    else if (tempState == StateEnum.ALIVE.ordinal())
+                        _state = StateEnum.ALIVE;
+                    else if (tempState == StateEnum.DEAD.ordinal())
+                        _state = StateEnum.DEAD;
+                    else _state = StateEnum.NOTSPAWN;
+                }
             }
             rset.close();
             statement.close();
-    	}
+        }
         catch (Exception e)
         {
-        	e.printStackTrace();
+            e.printStackTrace();
         }
         finally
         {
@@ -155,7 +154,7 @@ public class GrandBossState
         }
         catch (Exception e)
         {
-        	e.printStackTrace();
+            e.printStackTrace();
         }
         finally
         {
@@ -180,8 +179,8 @@ public class GrandBossState
         }
         catch (Exception e)
         {
-        	_log.warn("Exeption on update GrandBossState : ID-" + _bossId + ",RespawnDate-" + _respawnDate + ",State-" + _state.toString());
-        	e.printStackTrace();
+            _log.warn("Exeption on update GrandBossState : ID-" + _bossId + ",RespawnDate-" + _respawnDate + ",State-" + _state.toString());
+            e.printStackTrace();
         }
         finally
         {
@@ -191,16 +190,16 @@ public class GrandBossState
     
     public void setNextRespawnDate(long newRespawnDate)
     {
-    	_respawnDate = newRespawnDate;
+        _respawnDate = newRespawnDate;
     }
 
     public long getInterval()
     {
-    	long interval = _respawnDate - Calendar.getInstance().getTimeInMillis();
-    	
-    	if (interval < 0)
-    		return 0;
-    	else
-    		return interval;
+        long interval = _respawnDate - Calendar.getInstance().getTimeInMillis();
+        
+        if (interval < 0)
+            return 0;
+        else
+            return interval;
     }
 }

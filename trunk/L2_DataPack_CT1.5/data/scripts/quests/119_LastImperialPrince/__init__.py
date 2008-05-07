@@ -29,7 +29,7 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_accept")
     elif event == "32009-2.htm" :
       if st.getQuestItemsCount(BROOCH) < 1 :
-        htmltext = "<html><body>Quest is not accomplished or the condition is not suitable.</body></html>"
+        htmltext = "<html><body>Quest <font color=\"LEVEL\">Four Goblets</font> is not accomplished or the condition is not suitable.</body></html>"
         st.exitQuest(1)
     elif event == "32009-3.htm" :
       st.set("cond","2")
@@ -43,7 +43,7 @@ class Quest (JQuest) :
 
   def onTalk (Self,npc,player):
     st = player.getQuestState(qn)
-    htmltext = "<html><body>I have nothing to say you</body></html>"
+    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     if not st: return htmltext
 
     id = st.getState()
@@ -60,7 +60,7 @@ class Quest (JQuest) :
       st.exitQuest(1)
       return htmltext
     elif st.getQuestItemsCount(BROOCH) < 1 :
-      htmltext = "<html><body>Quest is not accomplished or the condition is not suitable.</body></html>"
+      htmltext = "<html><body>Quest <font color=\"LEVEL\">Four Goblets</font> is not accomplished or the condition is not suitable.</body></html>"
       st.exitQuest(1)
       return htmltext
 
@@ -73,13 +73,13 @@ class Quest (JQuest) :
       elif cond == 2 :
         return "31453-5.htm"
       else :
-        htmltext = "<html><body>Quest is not accomplished or the condition is not suitable.</body></html>"
+        htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
         return htmltext
     elif npcId == DEVORIN :
       if cond == 1 :
         return "32009-1.htm"
       else :
-        htmltext = "<html><body>Quest is not accomplished or the condition is not suitable.</body></html>"
+        htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
         return htmltext
 
 QUEST = Quest(119,qn,"Last Imperial Prince")

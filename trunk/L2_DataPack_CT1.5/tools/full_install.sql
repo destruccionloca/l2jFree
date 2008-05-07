@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS account_data,armor,armorsets,auction,auction_bid,
                      merchant_shopids,merchants,minions,npc,npcskills,
                      olympiad_nobles,petitions,pets,pets_stats,pledge_skill_trees,posts,
                      quest_global_data,raidboss_spawnlist,random_spawn,random_spawn_loc,
-                     record,seven_signs,seven_signs_festival,seven_signs_status,siege_clans,
+                     `record`,seven_signs,seven_signs_festival,seven_signs_status,siege_clans,
                      skill_learn,skill_spellbooks,skill_trees,spawnlist,teleport,topic,
                      transform_skill_trees,walker_routes,weapon;
 
@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS buff_templates,character_raidpoints,couples,ctf,ctf_teams,
                      custom_npc,custom_spawnlist,custom_armor,custom_droplist,
                      custom_etcitem,custom_merchant_buylists,custom_merchant_shopids,
                      custom_npcskills,custom_weapon,fortress_siege,four_sepulchers_spawnlist,
-                     grandboss_intervallist,grandboss_spawnlist,
+                     grandboss_intervallist,grandboss_spawnlist,lastimperialtomb_spawnlist,
                      vanhalter_spawnlist,tvt,tvt_teams,version,VIPinfo;
 
 DROP TABLE IF EXISTS temporaryobjecttable,connection_test_table;

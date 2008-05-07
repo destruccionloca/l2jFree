@@ -45,10 +45,10 @@ class baylor (JQuest):
 
   def onKill (self,npc,player,isPet):
     st = player.getQuestState("baylor")
-    if not st: return
     npcId = npc.getNpcId()
     if npcId == BAYLOR :
       BaylorManager.getInstance().setCubeSpawn()
+      if not st: return
       st.exitQuest(1)
     return
 

@@ -638,7 +638,7 @@ DELETE FROM spawnlist WHERE npc_templateId IN
 -- Setting NPC
 DELETE FROM npc WHERE id IN ( 29045,29046,29047,29048,29049,29050,29051 );
 INSERT INTO npc (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
-(29045,29045,'Frintezza',0,'',0,'Monster3.frintessa',10,42,90,'male','L2GrandBoss',2000,790857,22197,830.62,3.09,40,43,30,21,20,10,1470000,13232048,9182,6214,7133,4191,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,13,'LAST_HIT'),
+(29045,29045,'Frintezza',0,'',0,'Monster3.frintessa',10,42,90,'male','L2Npc',2000,790857,22197,830.62,3.09,40,43,30,21,20,10,1470000,13232048,9182,6214,7133,4191,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,13,'LAST_HIT'),
 (29046,29046,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa',29,90,85,'male','L2GrandBoss',50,23480000,22393,823.48,265,60,57,73,76,70,80,496960259,40375148,10699,5036,12680,4191,278,6000,3819,8204,0,0,55,132,'frintezza_clan',6000,0,13,'FULL_PARTY'),
 (29047,29047,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa_tran',29,110,90,'male','L2GrandBoss',60,23480000,22393,830.62,3.09,40,43,30,21,20,10,496960259,40375148,23813,7000,12680,6238,409,6000,3819,8222,0,0,92,187,'frintezza_clan',6000,0,13,'FULL_PARTY'),
 (29048,29048,'Evil Spirit',0,'',0,'Monster3.Evilate',20,56,87,'male','L2GrandBoss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,0,'LAST_HIT'),

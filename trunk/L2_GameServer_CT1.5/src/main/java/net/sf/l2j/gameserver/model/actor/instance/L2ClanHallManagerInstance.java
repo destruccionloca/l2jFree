@@ -82,7 +82,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                 }
                 else if (val.equalsIgnoreCase("banish"))
                 {
-                    getClanHall().banishForeigner(player);
+                    getClanHall().banishForeigners();
                     html.setFile("data/html/clanHallManager/banish.htm");
                 }
                 sendHtmlMessage(player, html);

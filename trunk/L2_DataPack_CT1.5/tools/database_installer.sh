@@ -279,6 +279,8 @@ full_install()
 	$MYG < ../sql/dm.sql &> /dev/null
 	$MYG < ../sql/fortress_siege.sql &> /dev/null
 	$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null 
+	$MYG < ../sql/lastimperialtomb_spawnlist.sql &> /dev/null 
+	$MYG < ../sql/settings_lit.sql &> /dev/null 
 	$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
 	$MYG < ../sql/grandboss_spawnlist.sql &> /dev/null 
 	$MYG < ../sql/tvt.sql &> /dev/null
@@ -366,6 +368,8 @@ update_db()
 			$MYG < ../sql/dm.sql &> /dev/null
 			$MYG < ../sql/fortress_siege.sql &> /dev/null
 			$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null 
+			$MYG < ../sql/lastimperialtomb_spawnlist.sql &> /dev/null 
+			$MYG < ../sql/settings_lit.sql &> /dev/null 
 			$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
 			$MYG < ../sql/tvt.sql &> /dev/null
 			$MYG < ../sql/tvt_teams.sql &> /dev/null

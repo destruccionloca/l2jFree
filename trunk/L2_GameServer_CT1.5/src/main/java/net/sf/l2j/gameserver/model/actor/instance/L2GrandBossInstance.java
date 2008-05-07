@@ -22,6 +22,7 @@ import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.GrandBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2Boss;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -147,6 +148,11 @@ public final class L2GrandBossInstance extends L2Boss
                     getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
                     teleToLocation(43577,15985,-4396, false);
                 }
+                break;
+            }
+            case 29020:
+            {
+                BaiumManager.getInstance().setLastAttackTime();
                 break;
             }
             // [L2J_JP ADD SANDMAN]

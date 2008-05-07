@@ -37,9 +37,6 @@ import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.tools.random.Rnd;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * 
  * This class ...
@@ -47,36 +44,33 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: $ $Date: $
  * @author  L2J_JP SANDMAN
  */
-public class ValakasManager extends Entity
+public class ValakasManager extends BossLair
 {
-    private final static Log _log = LogFactory.getLog(ValakasManager.class.getName());
-    private static ValakasManager _instance = new ValakasManager();
+    private static ValakasManager _instance;
 
     // location of teleport cube.
     private final int _teleportCubeId = 31759;
     private final int _teleportCubeLocation[][] =
-    	{
-    		{214880, -116144, -1644, 0},
-    		{213696, -116592, -1644, 0},
-    		{212112, -116688, -1644, 0},
-    		{211184, -115472, -1664, 0},
-    		{210336, -114592, -1644, 0},
-    		{211360, -113904, -1644, 0},
-    		{213152, -112352, -1644, 0},
-    		{214032, -113232, -1644, 0},
-    		{214752, -114592, -1644, 0},
-    		{209824, -115568, -1421, 0},
-    		{210528, -112192, -1403, 0},
-    		{213120, -111136, -1408, 0},
-    		{215184, -111504, -1392, 0},
-    		{215456, -117328, -1392, 0},
-    		{213200, -118160, -1424, 0}
-    	};
+    {
+    	{214880, -116144, -1644, 0},
+    	{213696, -116592, -1644, 0},
+    	{212112, -116688, -1644, 0},
+    	{211184, -115472, -1664, 0},
+    	{210336, -114592, -1644, 0},
+    	{211360, -113904, -1644, 0},
+    	{213152, -112352, -1644, 0},
+    	{214032, -113232, -1644, 0},
+    	{214752, -114592, -1644, 0},
+    	{209824, -115568, -1421, 0},
+    	{210528, -112192, -1403, 0},
+    	{213120, -111136, -1408, 0},
+    	{215184, -111504, -1392, 0},
+    	{215456, -117328, -1392, 0},
+    	{213200, -118160, -1424, 0}
+    
+};
     protected List<L2Spawn> _teleportCubeSpawn = new FastList<L2Spawn>();
     protected List<L2NpcInstance> _teleportCube = new FastList<L2NpcInstance>();
-
-    // list of intruders.
-    protected List<L2PcInstance> _playersInLair = new FastList<L2PcInstance>();
 
     // spawn data of monsters.
     protected Map<Integer,L2Spawn> _monsterSpawn = new FastMap<Integer,L2Spawn>();
@@ -89,41 +83,27 @@ public class ValakasManager extends Entity
     protected ScheduledFuture<?> _monsterSpawnTask = null;
     protected ScheduledFuture<?> _intervalEndTask = null;
     protected ScheduledFuture<?> _activityTimeEndTask = null;
-    protected ScheduledFuture<?> _onPlayersAnnihilatedTask = null;
     protected ScheduledFuture<?> _socialTask = null;
     protected ScheduledFuture<?> _mobiliseTask = null;
     protected ScheduledFuture<?> _moveAtRandomTask = null;
     protected ScheduledFuture<?> _respawnValakasTask = null;
-    
-    // status in lair.
-    protected GrandBossState _state = new GrandBossState(29028);
-    protected String _questName;
-    
-    // location of banishment
-    private final int _banishmentLocation[][] =
-    	{
-    		{150604, -56283, -2980},
-    		{144857, -56386, -2980},
-    		{147696, -56845, -2780}
-    	};
-    
+
     public ValakasManager()
     {
+		_questName = "valakas";
+		_state = new GrandBossState(29028);
     }
 
     public static ValakasManager getInstance()
     {
-        if (_instance == null) _instance = new ValakasManager();
+        if (_instance == null)
+			_instance = new ValakasManager();
         return _instance;
     }
 
     // initialize
     public void init()
     {
-    	// initialize status in lair.
-    	_playersInLair.clear();
-        _questName = "valakas";
-
         // setting spawn data of monsters.
         try
         {
@@ -189,73 +169,19 @@ public class ValakasManager extends Entity
         if (_state.getState().equals(GrandBossState.StateEnum.ALIVE))
         	restartValakas();
         else if (!_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN))
-        	setInetrvalEndTask();
+        	setIntervalEndTask();
 
         Date dt = new Date(_state.getRespawnDate());
         _log.info("ValakasManager : Next spawn date of Valakas is " + dt + ".");
         _log.info("ValakasManager : Init ValakasManager.");
     }
 
-    // return Valakas state.
-    public GrandBossState.StateEnum getState()
-    {
-    	return _state.getState();
-    }
-
-    // return list of intruders.
-    public List<L2PcInstance> getPlayersInLair()
-	{
-		return _playersInLair;
-	}
-
-    // Whether it lairs is confirmed.
+	@Override
     public boolean isEnableEnterToLair()
     {
-    	if(_playersInLair.size() >= Config.FWV_CAPACITYOFLAIR) return false;
-
-    	if(_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN))
-    		return true;
-    	else
-    		return false;
+		return getPlayersInside().size() < Config.FWV_CAPACITYOFLAIR && super.isEnableEnterToLair();
     }
 
-    // update list of intruders.
-    public void addPlayerToLair(L2PcInstance pc)
-    {
-        if (!_playersInLair.contains(pc)) _playersInLair.add(pc);
-    }
-    
-    // Whether the players was annihilated is confirmed.
-    public synchronized boolean isPlayersAnnihilated()
-    {
-    	for (L2PcInstance pc : _playersInLair)
-		{
-			// player is must be alive and stay inside of lair.
-			if (!pc.isDead() && checkIfInZone(pc))
-			{
-				return false;
-			}
-		}
-		return true;
-    }
-
-    // banishes players from lair.
-    public void banishesPlayers()
-    {
-    	for(L2PcInstance pc : _playersInLair)
-    	{
-    		if(pc.getQuestState(_questName) != null) pc.getQuestState(_questName).exitQuest(true);
-    		if(checkIfInZone(pc))
-    		{
-        		int driftX = Rnd.get(-80,80);
-        		int driftY = Rnd.get(-80,80);
-        		int loc = Rnd.get(3);
-        		pc.teleToLocation(_banishmentLocation[loc][0] + driftX,_banishmentLocation[loc][1] + driftY,_banishmentLocation[loc][2]);
-    		}
-    	}
-    	_playersInLair.clear();
-    }
-    
     // do spawn teleport cube.
     public void spawnCube()
     {
@@ -264,43 +190,12 @@ public class ValakasManager extends Entity
 			_teleportCube.add(spawnDat.doSpawn());
 		}
     }
-    
-	// When the party is annihilated, they are banished.
-    public void checkAnnihilated()
-    {
-    	if(isPlayersAnnihilated())
-    	{
-    		_onPlayersAnnihilatedTask =
-				ThreadPoolManager.getInstance().scheduleGeneral(new OnPlayersAnnihilatedTask(),5000);
-    	}
-    }
-
-	// When the party is annihilated, they are banished.
-	private class OnPlayersAnnihilatedTask implements Runnable
-	{
-		public OnPlayersAnnihilatedTask()
-		{
-		}
-		
-		public void run()
-		{
-		    // banishes players from lair.
-			banishesPlayers();
-			
-            // clean up task.
-            if(_onPlayersAnnihilatedTask != null)
-            {
-            	_onPlayersAnnihilatedTask.cancel(true);
-            	_onPlayersAnnihilatedTask = null;
-            }
-		}
-	}
 
     // setting Valakas spawn task.
     public void setValakasSpawnTask()
     {
     	// When someone has already invaded the lair, nothing is done.
-    	if (_playersInLair.size() >= 1) return;
+    	if (getPlayersInside().size() >= 1) return;
 
     	if (_monsterSpawnTask == null)
         {
@@ -311,16 +206,17 @@ public class ValakasManager extends Entity
     // do spawn Valakas.
     private class ValakasSpawn implements Runnable
     {
-    	int _distance = 6502500;
-    	int _taskId;
-    	L2GrandBossInstance _valakas = null;
-    	
+    	private int _distance = 6502500;
+    	private int _taskId;
+    	private L2GrandBossInstance _valakas = null;
+		private List<L2PcInstance> _players = getPlayersInside();
+
     	ValakasSpawn(int taskId, L2GrandBossInstance valakas)
     	{
     		_taskId = taskId;
     		_valakas = valakas;
 		}
-    	
+
     	public void run()
     	{
     		SocialAction sa = null;
@@ -334,8 +230,6 @@ public class ValakasManager extends Entity
 	            	_monsters.add(_valakas);
 	            	_valakas.setIsImmobilized(true);
 	            	_valakas.setIsInSocialAction(true);
-	            	
-	            	updateKnownList(_valakas);
 
 	            	_state.setRespawnDate(Rnd.get(Config.FWV_FIXINTERVALOFVALAKAS,Config.FWV_FIXINTERVALOFVALAKAS + Config.FWV_RANDOMINTERVALOFVALAKAS) + Config.FWV_ACTIVITYTIMEOFVALAKAS); 
 	            	_state.setState(GrandBossState.StateEnum.ALIVE);
@@ -353,18 +247,18 @@ public class ValakasManager extends Entity
 	
 	    		case 2:
 	            	// do social.
-	    			updateKnownList(_valakas);
 	                sa = new SocialAction(_valakas.getObjectId(), 1);
 	                _valakas.broadcastPacket(sa);
 					
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_valakas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_valakas, 1800,180,-1,1500,15000);
-						} else
+						}
+						else
 						{
 							pc.leaveMovieMode();
 						}
@@ -382,13 +276,14 @@ public class ValakasManager extends Entity
 	
 	    		case 3:
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_valakas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_valakas, 1300,180,-5,3000,15000);
-						} else
+						}
+						else
 						{
 							pc.leaveMovieMode();
 						}
@@ -406,13 +301,14 @@ public class ValakasManager extends Entity
 	
 	    		case 4:
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_valakas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_valakas, 500,180,-8,600,15000);
-						} else
+						}
+						else
 						{
 							pc.leaveMovieMode();
 						}
@@ -430,13 +326,14 @@ public class ValakasManager extends Entity
 	
 	    		case 5:
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_valakas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_valakas, 1200,180,-5,300,15000);
-						} else
+						}
+						else
 						{
 							pc.leaveMovieMode();
 						}
@@ -454,13 +351,14 @@ public class ValakasManager extends Entity
 	
 	    		case 6:
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_valakas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_valakas, 2800,250,70,0,15000);
-						} else
+						}
+						else
 						{
 							pc.leaveMovieMode();
 						}
@@ -478,13 +376,14 @@ public class ValakasManager extends Entity
 	
 	    		case 7:
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_valakas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_valakas, 2600,30,60,3400,15000);
-						} else
+						}
+						else
 						{
 							pc.leaveMovieMode();
 						}
@@ -502,13 +401,14 @@ public class ValakasManager extends Entity
 	
 	    		case 8:
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_valakas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_valakas, 700,150,-65,0,15000);
-						} else
+						}
+						else
 						{
 							pc.leaveMovieMode();
 						}
@@ -526,13 +426,14 @@ public class ValakasManager extends Entity
 	
 	    		case 9:
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_valakas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_valakas, 1200,150,-55,2900,15000);
-						} else
+						}
+						else
 						{
 							pc.leaveMovieMode();
 						}
@@ -550,13 +451,14 @@ public class ValakasManager extends Entity
 	
 	    		case 10:
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_valakas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_valakas, 750,170,-10,1700,5700);
-						} else
+						}
+						else
 						{
 							pc.leaveMovieMode();
 						}
@@ -574,13 +476,14 @@ public class ValakasManager extends Entity
 	
 	    		case 11:
 					// set camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						if (pc.getPlanDistanceSq(_valakas) <= _distance)
 						{
 							pc.enterMovieMode();
 							pc.specialCamera(_valakas, 840,170,-5,1200,2000);
-						} else
+						}
+						else
 						{
 							pc.leaveMovieMode();
 						}
@@ -598,7 +501,7 @@ public class ValakasManager extends Entity
 	
 	    		case 12:
 					// reset camera.
-					for (L2PcInstance pc : _playersInLair)
+					for (L2PcInstance pc : _players)
 					{
 						pc.leaveMovieMode();
 					}
@@ -623,10 +526,6 @@ public class ValakasManager extends Entity
     // at end of activity time.
     private class ActivityTimeEnd implements Runnable
     {
-    	public ActivityTimeEnd()
-    	{
-    	}
-    	
     	public void run()
     	{
     		setUnspawn();
@@ -637,7 +536,7 @@ public class ValakasManager extends Entity
     public void setUnspawn()
 	{
     	// eliminate players.
-    	banishesPlayers();
+    	banishForeigners();
 
     	// delete monsters.
     	for(L2NpcInstance mob : _monsters)
@@ -646,7 +545,7 @@ public class ValakasManager extends Entity
     		mob.deleteMe();
     	}
     	_monsters.clear();
-    	
+
     	// delete teleport cube.
 		for (L2NpcInstance cube : _teleportCube)
 		{
@@ -654,7 +553,7 @@ public class ValakasManager extends Entity
 			cube.deleteMe();
 		}
 		_teleportCube.clear();
-		
+
 		// not executed tasks is canceled.
 		if(_cubeSpawnTask != null)
 		{
@@ -675,11 +574,6 @@ public class ValakasManager extends Entity
 		{
 			_activityTimeEndTask.cancel(true);
 			_activityTimeEndTask = null;
-		}
-		if(_onPlayersAnnihilatedTask != null)
-		{
-			_onPlayersAnnihilatedTask.cancel(true);
-			_onPlayersAnnihilatedTask = null;
 		}
 		if(_socialTask != null)
 		{
@@ -704,11 +598,11 @@ public class ValakasManager extends Entity
 		
 
 		// interval begin.
-		setInetrvalEndTask();
+		setIntervalEndTask();
 	}
 
     // start interval.
-    public void setInetrvalEndTask()
+    public void setIntervalEndTask()
     {
     	//init state of Valakas's lair.
     	if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
@@ -724,18 +618,13 @@ public class ValakasManager extends Entity
     // at end of interval.
     private class IntervalEnd implements Runnable
     {
-    	public IntervalEnd()
-    	{
-    	}
-    	
     	public void run()
     	{
-    		_playersInLair.clear();
     		_state.setState(GrandBossState.StateEnum.NOTSPAWN);
     		_state.update();
     	}
     }
-    
+
     // setting teleport cube spawn task.
     public void setCubeSpawn()
     {
@@ -744,17 +633,6 @@ public class ValakasManager extends Entity
     	_state.update();
 
     	_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new CubeSpawn(),10000);
-
-    }
-    
-    // update knownlist.
-    protected void updateKnownList(L2NpcInstance boss)
-    {
-    	boss.getKnownList().getKnownPlayers().clear();
-		for (L2PcInstance pc : _playersInLair)
-		{
-			boss.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
-		}
     }
 
     // do spawn teleport cube.
@@ -770,6 +648,7 @@ public class ValakasManager extends Entity
     private class SetMobilised implements Runnable
     {
         private L2GrandBossInstance _boss;
+
         public SetMobilised(L2GrandBossInstance boss)
         {
             _boss = boss;
@@ -793,20 +672,20 @@ public class ValakasManager extends Entity
     private class MoveAtRandom implements Runnable
     {
     	private L2NpcInstance _npc;
-    	L2CharPosition _pos;
-    	
+    	private L2CharPosition _pos;
+
     	public MoveAtRandom(L2NpcInstance npc,L2CharPosition pos)
     	{
     		_npc = npc;
     		_pos = pos;
     	}
-    	
+
     	public void run()
     	{
     		_npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,_pos);
     	}
     }
-    
+
     //when a server restart while fight against Valakas.
     protected void restartValakas()
     {
@@ -822,27 +701,28 @@ public class ValakasManager extends Entity
         }
         _respawnValakasTask = ThreadPoolManager.getInstance().scheduleGeneral(new RestartValakas(valakas), Config.TIMELIMITOFINVADE + 1000);
     }
-    
+
     private class RestartValakas implements Runnable
     {
-        private L2NpcInstance _Valakas;
+        private L2NpcInstance _valakas;
+
         public RestartValakas(L2NpcInstance valakas)
         {
-                _Valakas = valakas;
+            _valakas = valakas;
         }
-        
+
         public void run()
         {
-                _Valakas.getSpawn().stopRespawn();
-                _Valakas.deleteMe();
+            _valakas.getSpawn().stopRespawn();
+            _valakas.deleteMe();
 
-                        // set next task.
-                if (_monsterSpawnTask != null)
+            // set next task.
+            if (_monsterSpawnTask != null)
             {
-                	_monsterSpawnTask.cancel(true);
-                	_monsterSpawnTask = null;
+                _monsterSpawnTask.cancel(true);
+                _monsterSpawnTask = null;
             }
-                _monsterSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(     new ValakasSpawn(1,null),15000);
+            _monsterSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(1, null), 15000);
         }
     }
 }
