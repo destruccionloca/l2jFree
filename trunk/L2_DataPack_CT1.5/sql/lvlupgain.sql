@@ -4,15 +4,15 @@
 DROP TABLE IF EXISTS `lvlupgain`;
 CREATE TABLE `lvlupgain` (
   `classid` int(3) NOT NULL DEFAULT '0',
-  `DEFAULThpbase` decimal(5,1) NOT NULL DEFAULT '0.0',
-  `DEFAULThpadd` decimal(4,2) NOT NULL DEFAULT '0.00',
-  `DEFAULThpmod` decimal(4,2) NOT NULL DEFAULT '0.00',
-  `DEFAULTcpbase` decimal(5,1) NOT NULL DEFAULT '0.0',
-  `DEFAULTcpadd` decimal(4,2) NOT NULL DEFAULT '0.00',
-  `DEFAULTcpmod` decimal(4,2) NOT NULL DEFAULT '0.00',
-  `DEFAULTmpbase` decimal(5,1) NOT NULL DEFAULT '0.0',
-  `DEFAULTmpadd` decimal(4,2) NOT NULL DEFAULT '0.00',
-  `DEFAULTmpmod` decimal(4,2) NOT NULL DEFAULT '0.00',
+  `defaulthpbase` decimal(5,1) NOT NULL DEFAULT '0.0',
+  `defaulthpadd` decimal(4,2) NOT NULL DEFAULT '0.00',
+  `defaulthpmod` decimal(4,2) NOT NULL DEFAULT '0.00',
+  `defaultcpbase` decimal(5,1) NOT NULL DEFAULT '0.0',
+  `defaultcpadd` decimal(4,2) NOT NULL DEFAULT '0.00',
+  `defaultcpmod` decimal(4,2) NOT NULL DEFAULT '0.00',
+  `defaultmpbase` decimal(5,1) NOT NULL DEFAULT '0.0',
+  `defaultmpadd` decimal(4,2) NOT NULL DEFAULT '0.00',
+  `defaultmpmod` decimal(4,2) NOT NULL DEFAULT '0.00',
   `class_lvl` int(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`classid`)
 ) DEFAULT CHARSET=utf8;
