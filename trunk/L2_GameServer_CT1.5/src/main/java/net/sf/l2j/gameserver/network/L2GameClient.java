@@ -338,7 +338,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement;
 
-			statement = con.prepareStatement("DELETE FROM character_friends WHERE charId=? OR friend_id=?");
+			statement = con.prepareStatement("DELETE FROM character_friends WHERE charId=? OR friendId=?");
 			statement.setInt(1, objid);
 			statement.setInt(2, objid);
 			statement.execute();

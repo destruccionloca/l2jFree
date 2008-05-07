@@ -4,7 +4,7 @@
 <!-- Generated 23 avr. 2007 20:32:38 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
     <class name="net.sf.l2j.gameserver.characters.model.Characters" table="characters" >
-        <id name="charId" type="long">
+        <id name="objId" type="long">
             <column name="charId" precision="11" scale="0" />
             <generator class="assigned" />
         </id>
