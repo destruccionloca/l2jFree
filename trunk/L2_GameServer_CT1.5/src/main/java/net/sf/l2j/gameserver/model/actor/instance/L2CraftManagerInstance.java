@@ -34,6 +34,8 @@ import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.tools.random.Rnd;
 
+import net.sf.l2j.gameserver.RecipeController;
+
 /**
  * @author G1ta0
  * Made in USSR
@@ -360,7 +362,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 			{
 				if (_item.getItemType()==L2EtcItemType.RECEIPE)
 				{
-					L2Recipe _recipe = __l2RecipeService.getRecipeByItemId(_item.getItemId()); 
+					L2Recipe _recipe = RecipeController.getInstance().getRecipeByItemId(_item.getItemId()); 
 					
 					if (_recipe!=null)_recipes.add(_item.getObjectId());
 				}
@@ -516,7 +518,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 				replyMSG.append("<td width=220><font color=\"A2A0A2\">Ingredients</font></td>");
 				replyMSG.append("<td width=50><font color=\"A2A0A2\">Quantity</font></td></tr>");
 			
-				L2RecipeComponent[] _recipeItems = _recipeList.getRecipeComponents();
+				L2RecipeComponent[] _recipeItems = RecipeController.getInstance().getRecipeComponents();
 			
 				for (L2RecipeInstance _recipeItem : _recipeItems)
 				{

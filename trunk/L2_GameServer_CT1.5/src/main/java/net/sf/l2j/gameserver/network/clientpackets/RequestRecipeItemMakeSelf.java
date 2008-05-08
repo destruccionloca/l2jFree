@@ -15,12 +15,13 @@
 package net.sf.l2j.gameserver.network.clientpackets;
 
 import net.sf.l2j.Config;
+
+import net.sf.l2j.gameserver.RecipeController;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 
 /**
  * @author Administrator
