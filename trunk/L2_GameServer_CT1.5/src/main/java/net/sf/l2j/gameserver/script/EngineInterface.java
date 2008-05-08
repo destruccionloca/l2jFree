@@ -19,7 +19,6 @@ import java.util.Map;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-
 /**
  * @author Luis Arias
  *
@@ -28,10 +27,15 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public interface EngineInterface
 {
-    public void addQuestDrop(int npcID, int itemID, int min, int max, int chance, String questID, String[] states);
-    public void addDrop(L2NpcTemplate npc, L2DropData drop, boolean sweep);
-    public void addDrop(L2NpcTemplate npc, L2DropData drop, int category);
-    public void addEventDrop(int[] items, int[] count, double chance, DateRange range);
-    public void addPetData(int petID, int levelStart, int levelEnd, Map<String, String> stats) ;
-    public void onPlayerLogin(String[] message, DateRange range);
+	public void addQuestDrop(int npcID, int itemID, int min, int max, int chance, String questID, String[] states);
+
+	public void addDrop(L2NpcTemplate npc, L2DropData drop, boolean sweep);
+
+	public void addDrop(L2NpcTemplate npc, L2DropData drop, int category);
+
+	public void addEventDrop(int[] items, int[] count, double chance, DateRange range);
+
+	public void addPetData(int petID, int levelStart, int levelEnd, Map<String, String> stats);
+
+	public void onPlayerLogin(String[] message, DateRange range);
 }

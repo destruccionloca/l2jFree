@@ -17,10 +17,10 @@ package net.sf.l2j.gameserver.script;
 public class ParserNotCreatedException extends Exception
 {
 
-    private static final long serialVersionUID = 6517876994935741910L;
+	private static final long	serialVersionUID	= 6517876994935741910L;
 
-    public ParserNotCreatedException()
-    {
-        super("Parser could not be created!");
-    }
+	public ParserNotCreatedException()
+	{
+		super("Parser could not be created!");
+	}
 }

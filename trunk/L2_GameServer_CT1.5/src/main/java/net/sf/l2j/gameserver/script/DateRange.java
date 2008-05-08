@@ -30,82 +30,82 @@ import org.apache.commons.logging.LogFactory;
  */
 public class DateRange
 {
-    private final static Log _log = LogFactory.getLog(DateRange.class);
-	
-    private Date _startDate, _endDate;
-    
-    /**
-     * Constructor
-     * @param from
-     * @param to
-     */
-    public DateRange(Date from, Date to)
-    {
-        _startDate   = from;
-        _endDate     = to;
-    }
-    
-    /**
-     * Create a DateRange with a single String and a Date formatter
-     * The initial String is split on "-" 
-     * @param dateRange
-     * @param format
-     * @return DateRange
-     */
-    public static DateRange parse(String dateRange, DateFormat format)
-    {
-        String[] date = dateRange.split("-");
-        if (date.length == 2)
-        {
-            try
-            {
-                Date start  = format.parse(date[0]);
-                Date end    = format.parse(date[1]);
-                
-                return new DateRange(start, end);
-            } 
-            catch (ParseException e)
-            {
-                _log.warn("Invalid Date Format for a dateRange.");
-            }
-        }
-        return new DateRange(null, null);
-    }
-    
-    /**
-     * 
-     * @return true if date range are valid, false if the two bound interval are undefined (null)
-     */
-    public boolean isValid()
-    {
-        return _startDate != null || _endDate != null;
-    }
-    
-    /**
-     * 
-     * @param date
-     * @return true if date is after startDate and before endDate
-     */
-    public boolean isWithinRange(Date date)
-    {
-        return date.after(_startDate) && date.before(_endDate);
-    }
-    
-    /**
-     * 
-     * @return
-     */
-    public Date getEndDate()
-    {
-        return _endDate;
-    }
-    
-    /**
-     * 
-     * @return
-     */
-    public Date getStartDate()
-    {
-        return _startDate;
-    }
+	private final static Log	_log	= LogFactory.getLog(DateRange.class);
+
+	private Date				_startDate, _endDate;
+
+	/**
+	 * Constructor
+	 * @param from
+	 * @param to
+	 */
+	public DateRange(Date from, Date to)
+	{
+		_startDate = from;
+		_endDate = to;
+	}
+
+	/**
+	 * Create a DateRange with a single String and a Date formatter
+	 * The initial String is split on "-" 
+	 * @param dateRange
+	 * @param format
+	 * @return DateRange
+	 */
+	public static DateRange parse(String dateRange, DateFormat format)
+	{
+		String[] date = dateRange.split("-");
+		if (date.length == 2)
+		{
+			try
+			{
+				Date start = format.parse(date[0]);
+				Date end = format.parse(date[1]);
+
+				return new DateRange(start, end);
+			}
+			catch (ParseException e)
+			{
+				_log.warn("Invalid Date Format for a dateRange.");
+			}
+		}
+		return new DateRange(null, null);
+	}
+
+	/**
+	 * 
+	 * @return true if date range are valid, false if the two bound interval are undefined (null)
+	 */
+	public boolean isValid()
+	{
+		return _startDate != null || _endDate != null;
+	}
+
+	/**
+	 * 
+	 * @param date
+	 * @return true if date is after startDate and before endDate
+	 */
+	public boolean isWithinRange(Date date)
+	{
+		return date.after(_startDate) && date.before(_endDate);
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Date getEndDate()
+	{
+		return _endDate;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Date getStartDate()
+	{
+		return _startDate;
+	}
 }

@@ -37,76 +37,77 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ScriptPackage
 {
-    private final static Log _log = LogFactory.getLog(ScriptPackage.class);
-    
-    private List<ScriptDocument> _scriptFiles;
-    private String _name;
-    
-    public ScriptPackage(ZipFile pack)
-    {
-        _scriptFiles = new FastList<ScriptDocument>();
-        _name = pack.getName();
-        addFiles(pack);
-    }
-    
-    /**
-     * @return Returns the scriptFiles.
-     */
-    public List<ScriptDocument> getScriptFiles()
-    {
-        return _scriptFiles;
-    }
-    
-    /**
-     * @param scriptFiles The scriptFiles to set.
-     */
-    private void addFiles(ZipFile pack)
-    {
-        for (Enumeration<? extends ZipEntry> e = pack.entries(); e.hasMoreElements();)
-        {
-            ZipEntry entry = e.nextElement();
-            if (entry.getName().endsWith(".xml"))
-            {
-                try
-                {
-                    ScriptDocument newScript = new ScriptDocument(entry.getName(), pack.getInputStream(entry)); 
-                    _scriptFiles.add(newScript);
-                }
-                catch (IOException e1)
-                {
-                    _log.error(e1.getMessage(),e1);
-                }
-            }
-            else if (!entry.isDirectory())
-            {   
-                // ignore it
-            }
-        }
-    }
-    /**
-     * @return Returns the name.
-     */
-    public String getName()
-    {
-        return _name;
-    }
-    
-    @Override
-    public String toString()
-    {
-        if (getScriptFiles().isEmpty())
-            return "Empty script Package.";
-        
-        String out = "Package Name: "+getName()+"\n";
-        
-        if (!getScriptFiles().isEmpty())
-        {
-            out += "Xml Script Files...\n";
-            for (ScriptDocument script : getScriptFiles())
-            {
-                out += script.getName()+"\n";
-            }
-        }
-        return out;
-    }
+	private final static Log		_log	= LogFactory.getLog(ScriptPackage.class);
+
+	private List<ScriptDocument>	_scriptFiles;
+	private String					_name;
+
+	public ScriptPackage(ZipFile pack)
+	{
+		_scriptFiles = new FastList<ScriptDocument>();
+		_name = pack.getName();
+		addFiles(pack);
+	}
+
+	/**
+	 * @return Returns the scriptFiles.
+	 */
+	public List<ScriptDocument> getScriptFiles()
+	{
+		return _scriptFiles;
+	}
+
+	/**
+	 * @param scriptFiles The scriptFiles to set.
+	 */
+	private void addFiles(ZipFile pack)
+	{
+		for (Enumeration<? extends ZipEntry> e = pack.entries(); e.hasMoreElements();)
+		{
+			ZipEntry entry = e.nextElement();
+			if (entry.getName().endsWith(".xml"))
+			{
+				try
+				{
+					ScriptDocument newScript = new ScriptDocument(entry.getName(), pack.getInputStream(entry));
+					_scriptFiles.add(newScript);
+				}
+				catch (IOException e1)
+				{
+					_log.error(e1.getMessage(), e1);
+				}
+			}
+			else if (!entry.isDirectory())
+			{
+				// ignore it
+			}
+		}
+	}
+
+	/**
+	 * @return Returns the name.
+	 */
+	public String getName()
+	{
+		return _name;
+	}
+
+	@Override
+	public String toString()
+	{
+		if (getScriptFiles().isEmpty())
+			return "Empty script Package.";
+
+		String out = "Package Name: " + getName() + "\n";
+
+		if (!getScriptFiles().isEmpty())
+		{
+			out += "Xml Script Files...\n";
+			for (ScriptDocument script : getScriptFiles())
+			{
+				out += script.getName() + "\n";
+			}
+		}
+		return out;
+	}
 }

@@ -32,56 +32,56 @@ import org.xml.sax.SAXException;
  */
 public class ScriptDocument
 {
-    private final static Log _log = LogFactory.getLog(ScriptDocument.class);
-    private Document _document=null; 
-    private String _name=null;
-    
-    public ScriptDocument(String name, InputStream input)
-    {
-        if ( input == null )
-            return ;
-        _name = name;
-        
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        try
-        {
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            _document = builder.parse( input );
-        }
-        catch (SAXException sxe)
-        {
-            // Error generated during parsing)
-            _log.error("Invalid document "+name+". Error = "+sxe.getMessage());
-        }
-        catch (ParserConfigurationException pce)
-        {
-            // Parser with specified options can't be built
-            _log.error(pce.getMessage(),pce);
-        }
-        catch (IOException ioe)
-        {
-           // I/O error
-            _log.error(ioe.getMessage(),ioe);
-        }
-    }
-    
-    public Document getDocument()
-    {
-        return _document;
-    }
-    
-    /**
-     * @return Returns the _name.
-     */
-    public String getName()
-    {
-        return _name;
-    }
-    
-    @Override
-    public String toString()
-    {
-        return _name;
-    }
-    
+	private final static Log	_log		= LogFactory.getLog(ScriptDocument.class);
+	private Document			_document	= null;
+	private String				_name		= null;
+
+	public ScriptDocument(String name, InputStream input)
+	{
+		if (input == null)
+			return;
+		_name = name;
+
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		try
+		{
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			_document = builder.parse(input);
+		}
+		catch (SAXException sxe)
+		{
+			// Error generated during parsing)
+			_log.error("Invalid document " + name + ". Error = " + sxe.getMessage());
+		}
+		catch (ParserConfigurationException pce)
+		{
+			// Parser with specified options can't be built
+			_log.error(pce.getMessage(), pce);
+		}
+		catch (IOException ioe)
+		{
+			// I/O error
+			_log.error(ioe.getMessage(), ioe);
+		}
+	}
+
+	public Document getDocument()
+	{
+		return _document;
+	}
+
+	/**
+	 * @return Returns the _name.
+	 */
+	public String getName()
+	{
+		return _name;
+	}
+
+	@Override
+	public String toString()
+	{
+		return _name;
+	}
+
 }

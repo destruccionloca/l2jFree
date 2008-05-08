@@ -40,132 +40,138 @@ import org.w3c.dom.Node;
  */
 public class FaenorScriptEngine extends ScriptEngine
 {
-    private static Log _log = LogFactory.getLog(GameServer.class.getName());
-    public static String PACKAGE_DIRECTORY = "data/faenor/";
+	private static Log					_log				= LogFactory.getLog(GameServer.class.getName());
+	public static String				PACKAGE_DIRECTORY	= "data/faenor/";
 
-    private static FaenorScriptEngine _instance;
+	private static FaenorScriptEngine	_instance;
 
-    private LinkedList<ScriptDocument> _scripts;
+	private LinkedList<ScriptDocument>	_scripts;
 
-    public static FaenorScriptEngine getInstance()
-    {
-        if (_instance == null)
-        {
-        	_log.info("FaenorScriptEngine: initialized");
-            _instance = new FaenorScriptEngine();
-        }
-        return _instance;
-    }
+	public static FaenorScriptEngine getInstance()
+	{
+		if (_instance == null)
+		{
+			_log.info("FaenorScriptEngine: initialized");
+			_instance = new FaenorScriptEngine();
+		}
+		return _instance;
+	}
 
-    private FaenorScriptEngine()
-    {
-        _scripts = new LinkedList<ScriptDocument>();
-        loadPackages();
-        parsePackages();
-    }
+	private FaenorScriptEngine()
+	{
+		_scripts = new LinkedList<ScriptDocument>();
+		loadPackages();
+		parsePackages();
+	}
 
-    public void reloadPackages()
-    {
-        _scripts.clear();
-        _scripts = new LinkedList<ScriptDocument>();
-        parsePackages();
-    }
+	public void reloadPackages()
+	{
+		_scripts.clear();
+		_scripts = new LinkedList<ScriptDocument>();
+		parsePackages();
+	}
 
-    private void loadPackages()
-    {
-        File packDirectory = new File(Config.DATAPACK_ROOT, PACKAGE_DIRECTORY);
+	private void loadPackages()
+	{
+		File packDirectory = new File(Config.DATAPACK_ROOT, PACKAGE_DIRECTORY);
 
-        FileFilter fileFilter = new FileFilter() {
-            public boolean accept(File file)
-            {
-                return file.getName().endsWith(".zip");
-            }
-        };
+		FileFilter fileFilter = new FileFilter()
+		{
+			public boolean accept(File file)
+			{
+				return file.getName().endsWith(".zip");
+			}
+		};
 
-        File[] files = packDirectory.listFiles(fileFilter);
-        if (files == null) return;
-        ZipFile zipPack;
+		File[] files = packDirectory.listFiles(fileFilter);
+		if (files == null)
+			return;
+		ZipFile zipPack;
 
-        for (File element : files) {
-            try
-            {
-                zipPack = new ZipFile(element);
-            }
-            catch (ZipException e)
-            {
-                _log.error(e.getMessage(),e);
-                continue;
-            }
-            catch (IOException e)
-            {
-                _log.error(e.getMessage(),e);
-                continue;
-            }
+		for (File element : files)
+		{
+			try
+			{
+				zipPack = new ZipFile(element);
+			}
+			catch (ZipException e)
+			{
+				_log.error(e.getMessage(), e);
+				continue;
+			}
+			catch (IOException e)
+			{
+				_log.error(e.getMessage(), e);
+				continue;
+			}
 
-            ScriptPackage module = new ScriptPackage(zipPack);
+			ScriptPackage module = new ScriptPackage(zipPack);
 
-            List<ScriptDocument> scripts = module.getScriptFiles();
-            for (ScriptDocument script : scripts)
-            {
-                _scripts.add(script);
-            }
+			List<ScriptDocument> scripts = module.getScriptFiles();
+			for (ScriptDocument script : scripts)
+			{
+				_scripts.add(script);
+			}
 
-        }
-    }
+		}
+	}
 
-    public void parsePackages()
-    {
-        for (ScriptDocument script : _scripts)
-        {
-            parseScript(script);
-        }
-    }
+	public void parsePackages()
+	{
+		for (ScriptDocument script : _scripts)
+		{
+			parseScript(script);
+		}
+	}
 
-    public void parseScript(ScriptDocument script)
-    {
-        if (_log.isDebugEnabled()) _log.debug("Parsing Script: " + script.getName());
+	public void parseScript(ScriptDocument script)
+	{
+		if (_log.isDebugEnabled())
+			_log.debug("Parsing Script: " + script.getName());
 
-        Node node = script.getDocument().getFirstChild();
-        String parserClass = "faenor.Faenor" + node.getNodeName() + "Parser";
+		Node node = script.getDocument().getFirstChild();
+		String parserClass = "faenor.Faenor" + node.getNodeName() + "Parser";
 
-        Parser parser = null;
-        try
-        {
-            parser = createParser(parserClass);
-        }
-        catch (ParserNotCreatedException e)
-        {
-            _log.warn("ERROR: No parser registered for Script: " + parserClass,e);
-        }
+		Parser parser = null;
+		try
+		{
+			parser = createParser(parserClass);
+		}
+		catch (ParserNotCreatedException e)
+		{
+			_log.warn("ERROR: No parser registered for Script: " + parserClass, e);
+		}
 
-        if (parser == null)
-        {
-            _log.warn("Unknown Script Type: " + script.getName());
-            return;
-        }
+		if (parser == null)
+		{
+			_log.warn("Unknown Script Type: " + script.getName());
+			return;
+		}
 
-        try
-        {
-            parser.parseScript(node);
-            if (_log.isDebugEnabled())_log.debug(script.getName() + "Script Successfully Parsed.");
-        }
-        catch (Exception e)
-        {
-            _log.warn("Script Parsing Failed.",e);
-        }
-    }
+		try
+		{
+			parser.parseScript(node);
+			if (_log.isDebugEnabled())
+				_log.debug(script.getName() + "Script Successfully Parsed.");
+		}
+		catch (Exception e)
+		{
+			_log.warn("Script Parsing Failed.", e);
+		}
+	}
 
-    @Override
-    public String toString()
-    {
-        if (_scripts.isEmpty()) return "No Packages Loaded.";
+	@Override
+	public String toString()
+	{
+		if (_scripts.isEmpty())
+			return "No Packages Loaded.";
 
-        String out = "Script Packages currently loaded:\n";
+		String out = "Script Packages currently loaded:\n";
 
-        for (ScriptDocument script : _scripts)
-        {
-            out += script;
-        }
-        return out;
-    }
+		for (ScriptDocument script : _scripts)
+		{
+			out += script;
+		}
+		return out;
+	}
 }
