@@ -39,87 +39,86 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 public class Potions implements IItemHandler
 {
-	private static final int[] ITEM_IDS =
-	{
-		65,
-		725,
-		726,
-		727,
-		728,
-		733,
-		734,
-		735,
-		1060,
-		1061,
-		1073,
-		1374,
-		1375,
-		1539,
-		1540,
-		5283,
-		5591,
-		5592,
-		6035,
-		6036,
-		6652,
-		6553,
-		6554,
-		6555,
-		8193,
-		8194,
-		8195,
-		8196,
-		8197,
-		8198,
-		8199,
-		8200,
-		8201,
-		8202,
-		8600,
-		8601,
-		8602,
-		8603,
-		8604,
-		8605,
-		8606,
-		8607,
-		8608,
-		8609,
-		8610,
-		8611,
-		8612,
-		8613,
-		8614,
-		10157,
-		//Attribute Potion
-		9997,
-		9998,
-		9999,
-		10000,
-		10001,
-		10002,
-		//elixir of life
-		8622,
-		8623,
-		8624,
-		8625,
-		8626,
-		8627,
-		//elixir of Strength
-		8628,
-		8629,
-		8630,
-		8631,
-		8632,
-		8633,
-		//elixir of cp 
-		8634,
-		8635,
-		8636,
-		8637,
-		8638,
-		8639
-	};
+	private static final int[]	ITEM_IDS	=
+											{
+			65,
+			725,
+			726,
+			727,
+			728,
+			733,
+			734,
+			735,
+			1060,
+			1061,
+			1073,
+			1374,
+			1375,
+			1539,
+			1540,
+			5283,
+			5591,
+			5592,
+			6035,
+			6036,
+			6652,
+			6553,
+			6554,
+			6555,
+			8193,
+			8194,
+			8195,
+			8196,
+			8197,
+			8198,
+			8199,
+			8200,
+			8201,
+			8202,
+			8600,
+			8601,
+			8602,
+			8603,
+			8604,
+			8605,
+			8606,
+			8607,
+			8608,
+			8609,
+			8610,
+			8611,
+			8612,
+			8613,
+			8614,
+			10157,
+			//Attribute Potion
+			9997,
+			9998,
+			9999,
+			10000,
+			10001,
+			10002,
+			//elixir of life
+			8622,
+			8623,
+			8624,
+			8625,
+			8626,
+			8627,
+			//elixir of Strength
+			8628,
+			8629,
+			8630,
+			8631,
+			8632,
+			8633,
+			//elixir of cp 
+			8634,
+			8635,
+			8636,
+			8637,
+			8638,
+			8639							};
 
 	public synchronized void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
@@ -132,10 +131,11 @@ public class Potions implements IItemHandler
 		else
 			return;
 
-		if ((activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_POTIONS) || (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_POTIONS) || (activeChar._inEventDM && DM._started && !Config.DM_ALLOW_POTIONS))
+		if ((activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_POTIONS) || (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_POTIONS)
+				|| (activeChar._inEventDM && DM._started && !Config.DM_ALLOW_POTIONS))
 		{
-		    activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-		    return;
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
 		}
 
 		if (activeChar.isInOlympiadMode())

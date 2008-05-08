@@ -45,12 +45,48 @@ import org.apache.commons.logging.LogFactory;
 
 public class ScrollOfEscape implements IItemHandler
 {
-	protected static Log _log = LogFactory.getLog(ScrollOfEscape.class);
+	protected static Log		_log		= LogFactory.getLog(ScrollOfEscape.class);
 
 	// all the items ids that this handler knowns
-	private static final int[] ITEM_IDS =
-	{ 736, 1830, 1829, 1538, 3958, 5858, 5859, 7117, 7118, 7119, 7120, 7121, 7122, 7123, 7124, 7125, 7126, 7127, 7128, 7129,
-			7130, 7131, 7132, 7133, 7134, 7135, 7554, 7555, 7556, 7557, 7558, 7559, 7618, 7619, 9716, 10129, 10130 };
+	private static final int[]	ITEM_IDS	=
+											{
+			736,
+			1830,
+			1829,
+			1538,
+			3958,
+			5858,
+			5859,
+			7117,
+			7118,
+			7119,
+			7120,
+			7121,
+			7122,
+			7123,
+			7124,
+			7125,
+			7126,
+			7127,
+			7128,
+			7129,
+			7130,
+			7131,
+			7132,
+			7133,
+			7134,
+			7135,
+			7554,
+			7555,
+			7556,
+			7557,
+			7558,
+			7559,
+			7618,
+			7619,
+			9716,
+			10129,
+			10130							};
 
 	/*
 	 * (non-Javadoc)
@@ -64,8 +100,7 @@ public class ScrollOfEscape implements IItemHandler
 			return;
 		L2PcInstance activeChar = (L2PcInstance) playable;
 
-		if (activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead()
-				|| activeChar.isAllSkillsDisabled())
+		if (activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() || activeChar.isAllSkillsDisabled())
 			return;
 
 		// [L2J_JP ADD]
@@ -152,15 +187,14 @@ public class ScrollOfEscape implements IItemHandler
 		EscapeFinalizer ef = new EscapeFinalizer(activeChar, itemId);
 		// continue execution later
 		activeChar.setSkillCast(ThreadPoolManager.getInstance().scheduleEffect(ef, skill.getHitTime()));
-		activeChar.setSkillCastEndTime(10 + GameTimeController.getGameTicks() + skill.getHitTime()
-				/ GameTimeController.MILLIS_IN_TICK);
+		activeChar.setSkillCastEndTime(10 + GameTimeController.getGameTicks() + skill.getHitTime() / GameTimeController.MILLIS_IN_TICK);
 	}
 
 	static class EscapeFinalizer implements Runnable
 	{
-		private L2PcInstance _activeChar;
+		private L2PcInstance	_activeChar;
 
-		private int _itemId;
+		private int				_itemId;
 
 		EscapeFinalizer(L2PcInstance activeChar, int itemId)
 		{
@@ -179,15 +213,14 @@ public class ScrollOfEscape implements IItemHandler
 			try
 			{
 				// escape to castle own's one
-				if ((_itemId == 1830 || _itemId == 5859)
-						&& CastleManager.getInstance().getCastleByOwner(_activeChar.getClan()) != null)
+				if ((_itemId == 1830 || _itemId == 5859) && CastleManager.getInstance().getCastleByOwner(_activeChar.getClan()) != null)
 				{
 					_activeChar.teleToLocation(TeleportWhereType.Castle);
 				}
 				// escape to fortress if own's one
 				else if ((_itemId == 10129 || _itemId == 10130) && FortManager.getInstance().getFortByOwner(_activeChar.getClan()) != null)
-				{ 
-					_activeChar.teleToLocation(TeleportWhereType.Fortress); 
+				{
+					_activeChar.teleToLocation(TeleportWhereType.Fortress);
 				}
 				// escape to clan hall if own's one
 				else if ((_itemId == 1829 || _itemId == 5858) && _activeChar.getClan() != null
@@ -205,7 +238,7 @@ public class ScrollOfEscape implements IItemHandler
 					_activeChar.sendMessage("The clan does not own a castle.");
 					return;
 				}
-				else if(_itemId == 10130) // do nothing
+				else if (_itemId == 10130) // do nothing
 				{
 					_activeChar.sendMessage("The clan does not own a fortress.");
 					return;
@@ -224,7 +257,7 @@ public class ScrollOfEscape implements IItemHandler
 							break;
 						// Talking Island quest scroll
 						case 7554:
-							_activeChar.teleToLocation(-84318, 244579, -3730, true); 
+							_activeChar.teleToLocation(-84318, 244579, -3730, true);
 							break;
 						// Elven Village
 						case 7118:
@@ -232,7 +265,7 @@ public class ScrollOfEscape implements IItemHandler
 							break;
 						// Elven Village quest scroll
 						case 7555:
-							_activeChar.teleToLocation(46934, 51467, -2977, true); 
+							_activeChar.teleToLocation(46934, 51467, -2977, true);
 							break;
 						// Dark Elven Village
 						case 7119:
@@ -327,7 +360,7 @@ public class ScrollOfEscape implements IItemHandler
 							_activeChar.teleToLocation(108275, -53785, -2524, true);
 							break;
 						// Kamael Village
-						case 9716 :
+						case 9716:
 							_activeChar.teleToLocation(-117251, 46771, 360, true);
 							break;
 						// To nearest town

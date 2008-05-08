@@ -32,15 +32,16 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 public class MysteryPotion implements IItemHandler
 {
-    private static final int[] ITEM_IDS = { 5234 };
-    private static final int MYSTERY_POTION_SKILL = 2103;
-    private static final int EFFECT_DURATION = 1200000; // 20 mins
+	private static final int[]	ITEM_IDS				=
+														{ 5234 };
+	private static final int	MYSTERY_POTION_SKILL	= 2103;
+	private static final int	EFFECT_DURATION			= 1200000;	// 20 mins
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
 			return;
-		L2PcInstance activeChar = (L2PcInstance)playable;
+		L2PcInstance activeChar = (L2PcInstance) playable;
 		//item.getItem().getEffects(item, activeChar);
 
 		// Use a summon skill effect for fun ;)
@@ -57,31 +58,34 @@ public class MysteryPotion implements IItemHandler
 
 		MysteryPotionStop mp = new MysteryPotionStop(playable);
 		ThreadPoolManager.getInstance().scheduleEffect(mp, EFFECT_DURATION);
-    }
+	}
 
 	public class MysteryPotionStop implements Runnable
 	{
-		private L2PlayableInstance _playable;
+		private L2PlayableInstance	_playable;
 
-		public MysteryPotionStop (L2PlayableInstance playable)
+		public MysteryPotionStop(L2PlayableInstance playable)
 		{
 			_playable = playable;
 		}
 
 		public void run()
 		{
-			try	{
+			try
+			{
 				if (!(_playable instanceof L2PcInstance))
 					return;
 
-				((L2PcInstance)_playable).stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
+				((L2PcInstance) _playable).stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
 			}
-			catch (Throwable t) {}
+			catch (Throwable t)
+			{
+			}
 		}
 	}
 
-    public int[] getItemIds()
-    {
-        return ITEM_IDS;
-    }
+	public int[] getItemIds()
+	{
+		return ITEM_IDS;
+	}
 }

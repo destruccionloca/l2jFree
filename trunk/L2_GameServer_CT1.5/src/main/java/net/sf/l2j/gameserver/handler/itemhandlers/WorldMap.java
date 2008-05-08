@@ -22,29 +22,29 @@ import net.sf.l2j.gameserver.network.serverpackets.ShowMiniMap;
 
 public class WorldMap implements IItemHandler
 {
-    private static final int ITEM_IDS[] = {1665, 1863};
+	private static final int	ITEM_IDS[]	=
+											{ 1665, 1863 };
 
-    public WorldMap()
-    {
-    }
+	public WorldMap()
+	{
+	}
 
-    public void useItem(L2PlayableInstance playable, L2ItemInstance item)
-    {
-        if(!(playable instanceof L2PcInstance))
-        {
-            return;
-        } 
-        else
-        {
-            L2PcInstance activeChar = (L2PcInstance)playable;
-            activeChar.sendPacket(new ShowMiniMap(item.getItemId()));
-            return;
-        }
-    }
-    
-    public int[] getItemIds()
-    {
-        return ITEM_IDS;
-    }
+	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
+	{
+		if (!(playable instanceof L2PcInstance))
+		{
+			return;
+		}
+		else
+		{
+			L2PcInstance activeChar = (L2PcInstance) playable;
+			activeChar.sendPacket(new ShowMiniMap(item.getItemId()));
+			return;
+		}
+	}
+
+	public int[] getItemIds()
+	{
+		return ITEM_IDS;
+	}
 }
-
