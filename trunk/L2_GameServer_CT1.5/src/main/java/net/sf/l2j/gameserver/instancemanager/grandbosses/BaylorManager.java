@@ -29,13 +29,11 @@ import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.Entity;
 import net.sf.l2j.gameserver.model.entity.GrandBossState;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.tools.random.Rnd;
-
 
 /**
  * 
@@ -49,31 +47,33 @@ public class BaylorManager extends BossLair
 	private static BaylorManager	_instance;
 
 	// teleport cube location.
-	private final int				_baylorCubeLocation[][]		= { { 153569, 142075, -12732, 0 } };
+	private final int				_baylorCubeLocation[][]		=
+																{
+																{ 153569, 142075, -12732, 0 } };
 	protected List<L2Spawn>			_baylorCubeSpawn			= new FastList<L2Spawn>();
 	protected List<L2NpcInstance>	_baylorCube					= new FastList<L2NpcInstance>();
 
 	// spawn data of monsters
-	protected L2Spawn				_crystalineSpawn1;																// Crystaline1
-	protected L2Spawn				_crystalineSpawn2;																// Crystaline2
-	protected L2Spawn				_crystalineSpawn3;																// Crystaline3
-	protected L2Spawn				_crystalineSpawn4;																// Crystaline4
-	protected L2Spawn				_crystalineSpawn5;																// Crystaline5
-	protected L2Spawn				_crystalineSpawn6;																// Crystaline6
-	protected L2Spawn				_crystalineSpawn7;																// Crystaline7
-	protected L2Spawn				_crystalineSpawn8;																// Crystaline8
-	protected L2Spawn				_baylorSapwn;																	// Baylor
+	protected L2Spawn				_crystalineSpawn1;												// Crystaline1
+	protected L2Spawn				_crystalineSpawn2;												// Crystaline2
+	protected L2Spawn				_crystalineSpawn3;												// Crystaline3
+	protected L2Spawn				_crystalineSpawn4;												// Crystaline4
+	protected L2Spawn				_crystalineSpawn5;												// Crystaline5
+	protected L2Spawn				_crystalineSpawn6;												// Crystaline6
+	protected L2Spawn				_crystalineSpawn7;												// Crystaline7
+	protected L2Spawn				_crystalineSpawn8;												// Crystaline8
+	protected L2Spawn				_baylorSapwn;													// Baylor
 
 	// Instance of monsters
-	protected L2NpcInstance			_crystaline1;																	// Crystaline1
-	protected L2NpcInstance			_crystaline2;																	// Crystaline2
-	protected L2NpcInstance			_crystaline3;																	// Crystaline3
-	protected L2NpcInstance			_crystaline4;																	// Crystaline4
-	protected L2NpcInstance			_crystaline5;																	// Crystaline5
-	protected L2NpcInstance			_crystaline6;																	// Crystaline6
-	protected L2NpcInstance			_crystaline7;																	// Crystaline7
-	protected L2NpcInstance			_crystaline8;																	// Crystaline8
-	protected L2NpcInstance			_baylor;																		// Baylor
+	protected L2NpcInstance			_crystaline1;													// Crystaline1
+	protected L2NpcInstance			_crystaline2;													// Crystaline2
+	protected L2NpcInstance			_crystaline3;													// Crystaline3
+	protected L2NpcInstance			_crystaline4;													// Crystaline4
+	protected L2NpcInstance			_crystaline5;													// Crystaline5
+	protected L2NpcInstance			_crystaline6;													// Crystaline6
+	protected L2NpcInstance			_crystaline7;													// Crystaline7
+	protected L2NpcInstance			_crystaline8;													// Crystaline8
+	protected L2NpcInstance			_baylor;														// Baylor
 
 	// Tasks
 	protected ScheduledFuture<?>	_cubeSpawnTask				= null;
@@ -413,8 +413,9 @@ public class BaylorManager extends BossLair
 	{
 		if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
 		{
-			_state.setRespawnDate(Rnd.get(Config.FWBA_FIXINTERVALOFBAYLORSPAWN, Config.FWBA_FIXINTERVALOFBAYLORSPAWN
-				+ Config.FWBA_RANDOMINTERVALOFBAYLORSPAWN));
+			_state
+					.setRespawnDate(Rnd.get(Config.FWBA_FIXINTERVALOFBAYLORSPAWN, Config.FWBA_FIXINTERVALOFBAYLORSPAWN
+							+ Config.FWBA_RANDOMINTERVALOFBAYLORSPAWN));
 			_state.setState(GrandBossState.StateEnum.INTERVAL);
 			_state.update();
 		}
@@ -437,92 +438,92 @@ public class BaylorManager extends BossLair
 		{
 			switch (_npcId)
 			{
-				case 29100:
-					_crystaline1 = _crystalineSpawn1.doSpawn();
-					_crystaline2 = _crystalineSpawn2.doSpawn();
-					_crystaline3 = _crystalineSpawn3.doSpawn();
-					_crystaline4 = _crystalineSpawn4.doSpawn();
-					_crystaline5 = _crystalineSpawn5.doSpawn();
-					_crystaline6 = _crystalineSpawn6.doSpawn();
-					_crystaline7 = _crystalineSpawn7.doSpawn();
-					_crystaline8 = _crystalineSpawn8.doSpawn();
+			case 29100:
+				_crystaline1 = _crystalineSpawn1.doSpawn();
+				_crystaline2 = _crystalineSpawn2.doSpawn();
+				_crystaline3 = _crystalineSpawn3.doSpawn();
+				_crystaline4 = _crystalineSpawn4.doSpawn();
+				_crystaline5 = _crystalineSpawn5.doSpawn();
+				_crystaline6 = _crystalineSpawn6.doSpawn();
+				_crystaline7 = _crystalineSpawn7.doSpawn();
+				_crystaline8 = _crystalineSpawn8.doSpawn();
 
-					DoorTable.getInstance().getDoor(24220001).openMe();
-					DoorTable.getInstance().getDoor(24220002).openMe();
-					DoorTable.getInstance().getDoor(24220003).openMe();
-					DoorTable.getInstance().getDoor(24220004).openMe();
-					DoorTable.getInstance().getDoor(24220005).openMe();
-					DoorTable.getInstance().getDoor(24220006).openMe();
-					DoorTable.getInstance().getDoor(24220007).openMe();
-					DoorTable.getInstance().getDoor(24220008).openMe();
-					DoorTable.getInstance().getDoor(24220009).openMe();
-					DoorTable.getInstance().getDoor(24220010).openMe();
-					DoorTable.getInstance().getDoor(24220011).openMe();
-					DoorTable.getInstance().getDoor(24220012).openMe();
-					DoorTable.getInstance().getDoor(24220013).openMe();
-					DoorTable.getInstance().getDoor(24220014).openMe();
-					DoorTable.getInstance().getDoor(24220015).openMe();
-					DoorTable.getInstance().getDoor(24220016).openMe();
-					DoorTable.getInstance().getDoor(24220017).openMe();
-					DoorTable.getInstance().getDoor(24220018).openMe();
-					DoorTable.getInstance().getDoor(24220019).openMe();
-					DoorTable.getInstance().getDoor(24220020).openMe();
-					DoorTable.getInstance().getDoor(24220021).openMe();
-					DoorTable.getInstance().getDoor(24220022).openMe();
-					DoorTable.getInstance().getDoor(24220024).openMe();
-					DoorTable.getInstance().getDoor(24220025).openMe();
-					DoorTable.getInstance().getDoor(24220026).openMe();
+				DoorTable.getInstance().getDoor(24220001).openMe();
+				DoorTable.getInstance().getDoor(24220002).openMe();
+				DoorTable.getInstance().getDoor(24220003).openMe();
+				DoorTable.getInstance().getDoor(24220004).openMe();
+				DoorTable.getInstance().getDoor(24220005).openMe();
+				DoorTable.getInstance().getDoor(24220006).openMe();
+				DoorTable.getInstance().getDoor(24220007).openMe();
+				DoorTable.getInstance().getDoor(24220008).openMe();
+				DoorTable.getInstance().getDoor(24220009).openMe();
+				DoorTable.getInstance().getDoor(24220010).openMe();
+				DoorTable.getInstance().getDoor(24220011).openMe();
+				DoorTable.getInstance().getDoor(24220012).openMe();
+				DoorTable.getInstance().getDoor(24220013).openMe();
+				DoorTable.getInstance().getDoor(24220014).openMe();
+				DoorTable.getInstance().getDoor(24220015).openMe();
+				DoorTable.getInstance().getDoor(24220016).openMe();
+				DoorTable.getInstance().getDoor(24220017).openMe();
+				DoorTable.getInstance().getDoor(24220018).openMe();
+				DoorTable.getInstance().getDoor(24220019).openMe();
+				DoorTable.getInstance().getDoor(24220020).openMe();
+				DoorTable.getInstance().getDoor(24220021).openMe();
+				DoorTable.getInstance().getDoor(24220022).openMe();
+				DoorTable.getInstance().getDoor(24220024).openMe();
+				DoorTable.getInstance().getDoor(24220025).openMe();
+				DoorTable.getInstance().getDoor(24220026).openMe();
 
-					_crystaline1.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-					_crystaline2.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-					_crystaline3.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-					_crystaline4.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-					_crystaline5.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-					_crystaline6.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-					_crystaline7.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
-					_crystaline8.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+				_crystaline1.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+				_crystaline2.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+				_crystaline3.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+				_crystaline4.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+				_crystaline5.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+				_crystaline6.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+				_crystaline7.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
+				_crystaline8.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
 
-					_socialTask1 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline1, 2), 10000);
-					_socialTask2 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline2, 2), 10000);
-					_socialTask3 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline3, 2), 10000);
-					_socialTask4 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline4, 2), 10000);
-					_socialTask5 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline5, 2), 10000);
-					_socialTask6 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline6, 2), 10000);
-					_socialTask7 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline7, 2), 10000);
-					_socialTask8 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline8, 2), 10000);
+				_socialTask1 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline1, 2), 10000);
+				_socialTask2 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline2, 2), 10000);
+				_socialTask3 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline3, 2), 10000);
+				_socialTask4 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline4, 2), 10000);
+				_socialTask5 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline5, 2), 10000);
+				_socialTask6 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline6, 2), 10000);
+				_socialTask7 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline7, 2), 10000);
+				_socialTask8 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline8, 2), 10000);
 
-				case 29099:
-					_baylor = _baylorSapwn.doSpawn();
+			case 29099:
+				_baylor = _baylorSapwn.doSpawn();
 
-					_state.setRespawnDate(Rnd.get(Config.FWBA_FIXINTERVALOFBAYLORSPAWN, Config.FWBA_FIXINTERVALOFBAYLORSPAWN
-							+ Config.FWBA_RANDOMINTERVALOFBAYLORSPAWN)
-							+ Config.FWBA_ACTIVITYTIMEOFMOBS);
-					_state.setState(GrandBossState.StateEnum.ALIVE);
-					_state.update();
+				_state.setRespawnDate(Rnd.get(Config.FWBA_FIXINTERVALOFBAYLORSPAWN, Config.FWBA_FIXINTERVALOFBAYLORSPAWN
+						+ Config.FWBA_RANDOMINTERVALOFBAYLORSPAWN)
+						+ Config.FWBA_ACTIVITYTIMEOFMOBS);
+				_state.setState(GrandBossState.StateEnum.ALIVE);
+				_state.update();
 
-					if (_socialTask != null)
-					{
-						_socialTask.cancel(true);
-						_socialTask = null;
-					}
-					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_baylor, 1), 500);
-					if (_activityTimeEndTask != null)
-					{
-						_activityTimeEndTask.cancel(true);
-						_activityTimeEndTask = null;
-					}
-					_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_baylor), Config.FWBA_ACTIVITYTIMEOFMOBS);
+				if (_socialTask != null)
+				{
+					_socialTask.cancel(true);
+					_socialTask = null;
+				}
+				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_baylor, 1), 500);
+				if (_activityTimeEndTask != null)
+				{
+					_activityTimeEndTask.cancel(true);
+					_activityTimeEndTask = null;
+				}
+				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_baylor), Config.FWBA_ACTIVITYTIMEOFMOBS);
 
-					_crystalineSpawn1.stopRespawn();
-					_crystalineSpawn2.stopRespawn();
-					_crystalineSpawn3.stopRespawn();
-					_crystalineSpawn4.stopRespawn();
-					_crystalineSpawn5.stopRespawn();
-					_crystalineSpawn6.stopRespawn();
-					_crystalineSpawn7.stopRespawn();
-					_crystalineSpawn8.stopRespawn();
+				_crystalineSpawn1.stopRespawn();
+				_crystalineSpawn2.stopRespawn();
+				_crystalineSpawn3.stopRespawn();
+				_crystalineSpawn4.stopRespawn();
+				_crystalineSpawn5.stopRespawn();
+				_crystalineSpawn6.stopRespawn();
+				_crystalineSpawn7.stopRespawn();
+				_crystalineSpawn8.stopRespawn();
 
-					break;
+				break;
 			}
 
 			if (_baylorSpawnTask != null)

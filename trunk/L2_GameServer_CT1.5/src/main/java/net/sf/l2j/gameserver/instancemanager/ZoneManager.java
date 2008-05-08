@@ -15,24 +15,16 @@
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.io.File;
-import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2WorldRegion;
-import net.sf.l2j.gameserver.model.entity.Town;
-import net.sf.l2j.gameserver.model.zone.L2FishingZone;
-import net.sf.l2j.gameserver.model.zone.L2WaterZone;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.model.zone.L2Zone.ZoneType;
 import net.sf.l2j.gameserver.util.Util;
-import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

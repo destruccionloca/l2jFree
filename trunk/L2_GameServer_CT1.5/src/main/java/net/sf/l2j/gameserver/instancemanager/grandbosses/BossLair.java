@@ -33,13 +33,14 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class BossLair extends Entity
 {
-	protected final static Log _log = LogFactory.getLog(BossLair.class.getName());
+	protected final static Log	_log	= LogFactory.getLog(BossLair.class.getName());
 
 	public abstract void init();
+
 	public abstract void setUnspawn();
 
-	protected GrandBossState _state;
-	protected String _questName;
+	protected GrandBossState	_state;
+	protected String			_questName;
 
 	public GrandBossState.StateEnum getState()
 	{
@@ -63,7 +64,7 @@ public abstract class BossLair extends Entity
 
 	public void checkAnnihilated()
 	{
-		if(isPlayersAnnihilated())
+		if (isPlayersAnnihilated())
 		{
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 			{
@@ -84,7 +85,7 @@ public abstract class BossLair extends Entity
 			if (_questName != null)
 			{
 				QuestState qs = player.getQuestState(_questName);
-				if(qs != null)
+				if (qs != null)
 					qs.exitQuest(true);
 			}
 			player.teleToLocation(TeleportWhereType.Town);
