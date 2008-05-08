@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
@@ -67,7 +68,7 @@ public class SpawnTable implements SpawnTableMBean
 
 	private void fillSpawnTable()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -281,7 +282,7 @@ public class SpawnTable implements SpawnTableMBean
 
 		if (storeInDb)
 		{
-			java.sql.Connection con = null;
+			Connection con = null;
 
 			try
 			{
@@ -319,7 +320,7 @@ public class SpawnTable implements SpawnTableMBean
 
 	public void updateSpawn(L2Spawn spawn)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -361,7 +362,7 @@ public class SpawnTable implements SpawnTableMBean
 
 		if (updateDb)
 		{
-			java.sql.Connection con = null;
+			Connection con = null;
 
 			try
 			{

@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -551,7 +552,7 @@ public class Siege
     /** Clear all registered siege clans from database for castle */
     public void clearSiegeClan()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -591,7 +592,7 @@ public class Siege
     /** Clear all siege clans waiting for approval from database for castle */
     public void clearSiegeWaitingClan()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -781,7 +782,7 @@ public class Siege
     {
         if (clanId <= 0) return;
 
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1043,7 +1044,7 @@ public class Siege
     /** Load siege clans. */
     private void loadSiegeClan()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             getAttackerClans().clear();
@@ -1138,7 +1139,7 @@ public class Siege
     /** Save siege date to database. */
     private void saveSiegeDate()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1174,7 +1175,7 @@ public class Siege
     {
         if (clan.getHasCastle() > 0) return;
 
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);

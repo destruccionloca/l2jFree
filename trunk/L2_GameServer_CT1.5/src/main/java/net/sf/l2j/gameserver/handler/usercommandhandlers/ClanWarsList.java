@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.handler.usercommandhandlers;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -44,10 +45,10 @@ public class ClanWarsList implements IUserCommandHandler
 		if (clan == null)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER));
-			return false;	
+			return false;
 		}
 		
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);

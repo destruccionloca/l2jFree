@@ -56,7 +56,7 @@ public abstract class L2Effect
 		MUTE, FEAR, SILENT_MOVE, SEED, PARALYZE, STUN_SELF, BLUFF, BETRAY, NOBLESSE_BLESSING, PHOENIX_BLESSING, PETRIFY,
 		CANCEL_TARGET, SILENCE_MAGIC_PHYSICAL, ERASE, LUCKNOBLESSE, PHYSICAL_MUTE, PHYSICAL_ATTACK_MUTE, TARGET_ME, REMOVE_TARGET,
 		CHARM_OF_LUCK, INVINCIBLE, BAND_OF_DARKNESS, DARK_SEED, TRANSFORM, DISARM, CHARMOFCOURAGE,
-		PREVENT_BUFF, CONDITION_HIT, TRANSFORMATION, SIGNET_EFFECT, SIGNET_GROUND, WARP
+		PREVENT_BUFF, CONDITION_HIT, TRANSFORMATION, SIGNET_EFFECT, SIGNET_GROUND, WARP, SPOIL
 	}
 	
 	private static final Func[]		_emptyFunctionSet	= new Func[0];
@@ -68,7 +68,7 @@ public abstract class L2Effect
 	
 	// member _effected is the instance of L2Character that was affected
 	// by this effect. Do not confuse with the instance of L2Character that
-	// catsed/used this effect.
+	// casted/used this effect.
 	private final L2Character		_effected;
 	private L2Character		_stolenEffected;
 	

@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class AutoChatHandler implements SpawnListener
     private void restoreChatData()
     {
         int numLoaded = 0;
-        java.sql.Connection con = null;
+        Connection con = null;
         PreparedStatement statement = null;
         PreparedStatement statement2 = null;
         ResultSet rs = null;

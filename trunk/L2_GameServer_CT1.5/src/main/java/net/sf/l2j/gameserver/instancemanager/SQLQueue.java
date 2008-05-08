@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,8 +84,9 @@ public class SQLQueue
         			_queue1.clear();
     			}
         	}
+
     		if(_queue2.isEmpty()) return;
-    		java.sql.Connection con = null;
+    		Connection con = null;
     		PreparedStatement statement = null;
     		try {
     			con = L2DatabaseFactory.getInstance().getConnection(con);

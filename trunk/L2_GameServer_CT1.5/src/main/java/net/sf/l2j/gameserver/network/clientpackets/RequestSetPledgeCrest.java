@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -118,7 +119,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
                 return;
             }
 
-            java.sql.Connection con = null;
+            Connection con = null;
             
             try
             {

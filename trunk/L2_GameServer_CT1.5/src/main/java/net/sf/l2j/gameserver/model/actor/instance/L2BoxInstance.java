@@ -41,6 +41,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
   ) TYPE=MyISAM;
  */
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -156,7 +157,7 @@ public class L2BoxInstance extends L2NpcInstance {
 
 	public boolean hasAccess(String player)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		boolean result = false;
 		try
 		{
@@ -183,7 +184,7 @@ public class L2BoxInstance extends L2NpcInstance {
 
 	public List<String> getAccess()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		List<String> acl = new FastList<String>();
 		try
 		{
@@ -211,7 +212,7 @@ public class L2BoxInstance extends L2NpcInstance {
 
 	public boolean grantAccess(String player, boolean what)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		boolean result = false;
 		try
 		{
@@ -335,7 +336,7 @@ public class L2BoxInstance extends L2NpcInstance {
 	private Set<L2BoxItem> getItems(String drawer)
 	{
 		Set<L2BoxItem> it = new FastSet<L2BoxItem>();
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -401,7 +402,7 @@ public class L2BoxInstance extends L2NpcInstance {
 	private void putItemInBox(L2PcInstance player, String drawer, L2ItemInstance item)
 	{
 		String charname = player.getName();
-		java.sql.Connection con = null;
+		Connection con = null;
         int foundId = 0;
         int foundCount = 0;
 		try
@@ -493,7 +494,7 @@ public class L2BoxInstance extends L2NpcInstance {
 	private L2BoxItem takeItemOutBox(L2PcInstance player, String drawer, L2ItemInstance item)
 	{
 		String charname = player.getName();
-		java.sql.Connection con = null;
+		Connection con = null;
 		L2BoxItem bi = new L2BoxItem();
 		bi.count = 0;
 		try

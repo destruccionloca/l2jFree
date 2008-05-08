@@ -19,6 +19,7 @@ package net.sf.l2j.gameserver.model.entity.events;
  * 
  */
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
@@ -467,7 +468,7 @@ public class DM
 		_playerY = 0;
 		_playerZ = 0;
 		
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			PreparedStatement statement;
@@ -508,7 +509,7 @@ public class DM
 
 	public static void saveData()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);

@@ -14,8 +14,10 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -133,8 +135,8 @@ public class SkillTreeTable
 	{
 	    int classId = 0;
         int count   = 0;
-        
-		java.sql.Connection con = null;
+
+		Connection con = null;
         
 		try
 		{

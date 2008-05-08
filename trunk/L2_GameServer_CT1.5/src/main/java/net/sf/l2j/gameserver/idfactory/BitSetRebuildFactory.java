@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.idfactory;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.BitSet;
 import java.util.List;
@@ -59,7 +60,7 @@ public class BitSetRebuildFactory extends IdFactory
 
             _nextFreeId  = new AtomicInteger(_freeIds.nextClearBit(0));
 
-            java.sql.Connection con = null;
+            Connection con = null;
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			int nextid;
 			int changedids = 0;

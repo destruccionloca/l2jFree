@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -203,7 +204,7 @@ public class CastleManorManager
 
 	private void load()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		ResultSet rs;
 		PreparedStatement statement;
 		try

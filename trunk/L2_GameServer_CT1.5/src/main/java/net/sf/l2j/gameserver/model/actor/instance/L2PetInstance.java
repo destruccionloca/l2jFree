@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -699,7 +700,7 @@ public class L2PetInstance extends L2Summon
         }
         
         // pet control item no longer exists, delete the pet from the db
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -780,7 +781,7 @@ public class L2PetInstance extends L2Summon
 
     private static L2PetInstance restore(L2ItemInstance control, L2NpcTemplate template, L2PcInstance owner)
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
 			L2PetInstance pet;
@@ -876,7 +877,7 @@ public class L2PetInstance extends L2Summon
         else
             req = "UPDATE pets SET name=?,level=?,curHp=?,curMp=?,exp=?,sp=?,karma=?,pkkills=?,fed=? "+
                 "WHERE item_obj_id = ?";
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);

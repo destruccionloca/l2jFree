@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
@@ -63,7 +64,7 @@ public class ClanTable
     {
         _clans = new FastMap<Integer, L2Clan>();
         L2Clan clan;
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -235,7 +236,7 @@ public class ClanTable
 		_clans.remove(clanId);
 		IdFactory.getInstance().releaseId(clanId);
 
-	    java.sql.Connection con = null;
+	    Connection con = null;
 	    try
 	    {
 	        con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -325,7 +326,8 @@ public class ClanTable
         clan2.setAttackerClan(clan1);
         clan1.broadcastClanStatus();
         clan2.broadcastClanStatus();
-     	java.sql.Connection con = null;
+
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -363,7 +365,8 @@ public class ClanTable
         clan2.deleteEnemyClan(clan1);
         clan1.broadcastClanStatus();
         clan2.broadcastClanStatus();
-     	java.sql.Connection con = null;
+
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -408,7 +411,7 @@ public class ClanTable
     }
     private void restorewars()
     {
-     	java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);

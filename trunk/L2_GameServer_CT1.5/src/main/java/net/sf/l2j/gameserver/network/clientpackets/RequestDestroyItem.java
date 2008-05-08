@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import net.sf.l2j.Config;
@@ -146,17 +147,17 @@ public class RequestDestroyItem extends L2GameClientPacket
 
 		if (PetDataTable.isPetItem(itemId))
 		{
-			java.sql.Connection con = null;
+			Connection con = null;
 			try
 			{
-                if (activeChar.getPet() != null && activeChar.getPet().getControlItemId() == _objectId)
+				if (activeChar.getPet() != null && activeChar.getPet().getControlItemId() == _objectId)
 				{
 					activeChar.getPet().unSummon(activeChar);
 				}
-				
+
 				// if it's a pet control item, delete the pet
-                con = L2DatabaseFactory.getInstance().getConnection(con); 
-                PreparedStatement statement = con.prepareStatement("DELETE FROM pets WHERE item_obj_id=?");
+				con = L2DatabaseFactory.getInstance().getConnection(con); 
+				PreparedStatement statement = con.prepareStatement("DELETE FROM pets WHERE item_obj_id=?");
 				statement.setInt(1, _objectId);
 				statement.execute();
 				statement.close();

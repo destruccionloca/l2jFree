@@ -18,6 +18,7 @@ package net.sf.l2j.gameserver.model.entity.events;
  * @author  CubicVirtuoso - William McMahon
  */
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -119,7 +120,7 @@ public class VIP {
 	
 	public static void setLoc()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		
 		try
 		{

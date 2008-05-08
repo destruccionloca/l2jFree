@@ -19,6 +19,7 @@ import java.util.List;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javolution.util.FastList;
@@ -305,7 +306,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler {
 	{
     	String[] SQL_ITEM_SELECTS = { "SELECT item_id,price FROM etcitem", "SELECT item_id,price FROM armor", "SELECT item_id,price FROM weapon" };
     	
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -390,7 +391,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler {
 	private int getGMShopPrice(int itemId , int price)
 	{
 		int priceGm = price;
-		java.sql.Connection con = null;
+		Connection con = null;
 		PreparedStatement statement = null;
 		
         String SELECT_LIST[] = {

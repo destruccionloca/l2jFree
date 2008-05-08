@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -100,7 +101,7 @@ public class RequestSetAllyCrest extends L2GameClientPacket
                 crestCache.removeAllyCrest(leaderclan.getAllyCrestId());
             }
             
-            java.sql.Connection con = null;
+            Connection con = null;
             
             try
             {

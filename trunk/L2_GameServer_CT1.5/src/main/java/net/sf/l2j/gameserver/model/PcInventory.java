@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -529,7 +530,7 @@ public class PcInventory extends Inventory
     public static int[][] restoreVisibleInventory(int objectId)
     {
         int[][] paperdoll = new int[0x30][4];
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {

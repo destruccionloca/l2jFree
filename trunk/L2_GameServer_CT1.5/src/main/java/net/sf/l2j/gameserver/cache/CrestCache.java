@@ -19,6 +19,7 @@ import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -161,7 +162,7 @@ public class CrestCache
 				file.renameTo(new File(Config.DATAPACK_ROOT, "data/crests/Crest_" + newId + ".bmp"));
 				_log.info("Renamed Clan crest to new format: Crest_" + newId + ".bmp");
 
-				java.sql.Connection con = null;
+				Connection con = null;
 
 				try
 				{

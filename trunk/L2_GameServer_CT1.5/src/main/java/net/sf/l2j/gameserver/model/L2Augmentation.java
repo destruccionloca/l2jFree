@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -108,7 +109,7 @@ public final class L2Augmentation
 
 	private void saveAugmentationData()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -140,7 +141,7 @@ public final class L2Augmentation
 		if (!_item.isAugmented()) return;
 		
 		// delete the augmentation from the database
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);

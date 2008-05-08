@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.model.quest;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
@@ -437,7 +438,7 @@ public class Quest extends ManagedScript
 	 */
 	public final static void playerEnter(L2PcInstance player)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 		// Get list of quests owned by the player from database
@@ -536,7 +537,7 @@ public class Quest extends ManagedScript
 	 */
 	public final void saveGlobalQuestVar(String var, String value)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -566,7 +567,7 @@ public class Quest extends ManagedScript
 	public final String loadGlobalQuestVar(String var)
 	{
 		String result = "";
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -593,7 +594,7 @@ public class Quest extends ManagedScript
 	 */
 	public final void deleteGlobalQuestVar(String var)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -615,7 +616,7 @@ public class Quest extends ManagedScript
 	 */
 	public final void deleteAllGlobalQuestVars()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -637,7 +638,7 @@ public class Quest extends ManagedScript
 	 * @param value : String designating the value of the variable for the quest
 	 */
 	public static void createQuestVarInDb(QuestState qs, String var, String value) {
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -671,7 +672,7 @@ public class Quest extends ManagedScript
 	 * @param value : String designating the value of the variable for quest
 	 */
 	public static void updateQuestVarInDb(QuestState qs, String var, String value) {
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -696,7 +697,7 @@ public class Quest extends ManagedScript
 	 * @param var : String designating the variable characterizing the quest
 	 */
 	public static void deleteQuestVarInDb(QuestState qs, String var) {
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -719,7 +720,7 @@ public class Quest extends ManagedScript
 	 * @param qs : QuestState pointing out the player's quest
 	 */
 	public static void deleteQuestInDb(QuestState qs) {
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);

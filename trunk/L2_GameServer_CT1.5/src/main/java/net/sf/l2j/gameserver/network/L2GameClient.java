@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.network;
 
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
@@ -216,7 +217,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 		character.deleteMe();
 
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -301,7 +302,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		int objid = getObjectIdForSlot(charslot);
 		if (objid < 0)
 			return;
-		java.sql.Connection con = null;
+
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -331,7 +333,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		if (objid < 0)
 			return;
 
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{

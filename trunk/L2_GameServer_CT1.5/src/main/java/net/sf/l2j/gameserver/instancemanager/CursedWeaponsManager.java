@@ -90,7 +90,7 @@ public class CursedWeaponsManager
     }
     private final void load()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {

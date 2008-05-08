@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.idfactory;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -151,7 +152,7 @@ public abstract class IdFactory
      */
     protected void setAllCharacterOffline()
     {
-        java.sql.Connection con2 = null;
+        Connection con2 = null;
         try
         {
             con2 = L2DatabaseFactory.getInstance().getConnection(con2);
@@ -184,7 +185,7 @@ public abstract class IdFactory
         // Check for more cleanup query
         // Check order
         
-        java.sql.Connection conn = null;
+        Connection conn = null;
         try
         {
             int cleanCount = 0;
@@ -260,7 +261,7 @@ public abstract class IdFactory
      */
     protected int[] extractUsedObjectIDTable() throws SQLException
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);

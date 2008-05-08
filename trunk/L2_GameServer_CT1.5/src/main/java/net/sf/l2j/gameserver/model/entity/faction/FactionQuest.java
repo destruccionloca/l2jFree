@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.entity.faction;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import net.sf.l2j.Config;
@@ -63,7 +64,7 @@ public class FactionQuest
 
     public static void createFactionQuest(L2PcInstance player,int factionQuestId) 
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -89,7 +90,7 @@ public class FactionQuest
     
     public static void deleteFactionQuest(L2PcInstance player,int factionQuestId)
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);

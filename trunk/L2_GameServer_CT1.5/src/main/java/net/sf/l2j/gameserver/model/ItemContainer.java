@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -594,7 +595,7 @@ public abstract class ItemContainer
 	 */
     public void restore()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);

@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -352,8 +353,8 @@ public class AdminSmartShop implements IAdminCommandHandler
     private void getAllItems()
     {
     	String[] SQL_ITEM_SELECTS = { "SELECT item_id FROM etcitem", "SELECT item_id FROM armor", "SELECT item_id FROM weapon" };
-    	
-        java.sql.Connection con = null;
+
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -2229,7 +2230,8 @@ public class AdminSmartShop implements IAdminCommandHandler
     	
     	List<Integer> shopIds = new FastList<Integer>();
     	String[] SQL_ITEM_SELECTS = { "SELECT item_id,shop_id FROM custom_merchant_buylists" , "SELECT item_id,shop_id FROM merchant_buylists" };            
-    	java.sql.Connection con = null;
+
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -2267,7 +2269,8 @@ public class AdminSmartShop implements IAdminCommandHandler
     	
     	List<Integer> NpcIds = new FastList<Integer>();
     	String[] SQL_ITEM_SELECTS = { "SELECT shop_id,npc_id FROM custom_merchant_shopids" , "SELECT shop_id,npc_id FROM merchant_shopids" };            
-    	java.sql.Connection con = null;
+
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);

@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -64,7 +65,7 @@ public class CoupleManager
     // Method - Private
     private final void load()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             PreparedStatement statement;
@@ -148,7 +149,7 @@ public class CoupleManager
                 {
                     Integer PlayerId = player1.getObjectId();
                     Integer ItemId = 9140;
-                    java.sql.Connection con = null;
+                    Connection con = null;
                     try
                     {
                         con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -181,7 +182,7 @@ public class CoupleManager
                 {
                     Integer Player2Id = player2.getObjectId();
                     Integer Item2Id = 9140;
-                    java.sql.Connection con = null;
+                    Connection con = null;
                     try
                     {
                         con = L2DatabaseFactory.getInstance().getConnection(con);

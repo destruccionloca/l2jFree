@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -186,7 +187,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 		CharSelectInfoPackage charInfopackage;
 		List<CharSelectInfoPackage> characterList = new ArrayList<CharSelectInfoPackage>();
 
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -221,7 +222,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 
 	private void loadCharacterSubclassInfo(CharSelectInfoPackage charInfopackage, int ObjectId, int activeClassId)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -333,7 +334,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 		
 		if (weaponObjId > 0)
 		{
-			java.sql.Connection con = null;
+			Connection con = null;
 			try
 			{
 				con = L2DatabaseFactory.getInstance().getConnection(con);

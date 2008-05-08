@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -272,7 +273,7 @@ public class FourSepulchersManager extends BossLair
 
     private void loadMysteriousBox()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         
         _mysteriousBoxSpawns.clear();
 
@@ -362,7 +363,7 @@ public class FourSepulchersManager extends BossLair
         _physicalMonsters.clear();
 
         int loaded = 0;
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {
@@ -433,7 +434,7 @@ public class FourSepulchersManager extends BossLair
         _magicalMonsters.clear();
 
         int loaded = 0;
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {
@@ -504,7 +505,7 @@ public class FourSepulchersManager extends BossLair
         _archonSpawned.clear();
 
         int loaded = 0;
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {
@@ -576,7 +577,7 @@ public class FourSepulchersManager extends BossLair
         _emperorsGraveNpcs.clear();
 
         int loaded = 0;
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {

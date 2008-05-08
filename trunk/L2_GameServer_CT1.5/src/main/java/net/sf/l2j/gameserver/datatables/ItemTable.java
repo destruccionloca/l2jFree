@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -236,7 +237,7 @@ public class ItemTable implements ItemTableMBean
         _armors     = new FastMap<Integer, L2Armor>();
         _weapons    = new FastMap<Integer, L2Weapon>();
     
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -807,7 +808,7 @@ public class ItemTable implements ItemTableMBean
             // if it's a pet control item, delete the pet as well
             if (PetDataTable.isPetItem(item.getItemId()))
             {
-                java.sql.Connection con = null;
+                Connection con = null;
                 try
                 {
                     // Delete the pet in db

@@ -14,8 +14,10 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
@@ -280,9 +282,9 @@ public class AdminMenu implements IAdminCommandHandler
 
 	private void setAccountAccessLevel(String player, L2PcInstance activeChar, int banLevel)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
-		{		   
+		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			String stmt = "SELECT account_name FROM characters WHERE char_name = ?";
 			PreparedStatement statement = con.prepareStatement(stmt);

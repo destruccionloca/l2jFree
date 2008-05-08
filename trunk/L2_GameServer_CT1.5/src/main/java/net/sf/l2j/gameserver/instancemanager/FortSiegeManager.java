@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -125,7 +126,7 @@ public class FortSiegeManager
 
         if (clan.getHasFort() > 0) return true;
 
-        java.sql.Connection con = null;
+        Connection con = null;
         boolean register = false;
         try
         {

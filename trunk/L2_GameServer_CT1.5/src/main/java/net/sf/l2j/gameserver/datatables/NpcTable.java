@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
@@ -68,7 +69,7 @@ public class NpcTable implements NpcTableMBean
 
     private void restoreNpcData()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {
@@ -431,7 +432,7 @@ public class NpcTable implements NpcTableMBean
 
     public boolean reloadNpc(int id)
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         boolean loaded = false;
         try
         {
@@ -514,7 +515,7 @@ public class NpcTable implements NpcTableMBean
     
     public void saveNpc(StatsSet npc)
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         String query = "";
         String query_custom = "";
         

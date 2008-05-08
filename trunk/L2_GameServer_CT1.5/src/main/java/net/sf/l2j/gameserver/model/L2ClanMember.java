@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -223,10 +224,10 @@ public class L2ClanMember
 	
 	public void updateSubPledgeType()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		
-		try 
-        {
+		try
+		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("UPDATE characters SET subpledge=? WHERE charId=?");
 			statement.setLong(1, _subPledgeType);
@@ -273,7 +274,7 @@ public class L2ClanMember
      */
     public void updatePledgeRank()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try 
         {
@@ -509,7 +510,7 @@ public class L2ClanMember
 
     public void saveApprenticeAndSponsor(int apprentice, int sponsor)
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {

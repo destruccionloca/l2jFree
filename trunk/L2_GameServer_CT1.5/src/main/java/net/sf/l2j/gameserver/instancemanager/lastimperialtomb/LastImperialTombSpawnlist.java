@@ -17,6 +17,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager.lastimperialtomb;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -64,7 +65,7 @@ public class LastImperialTombSpawnlist
     
     public void fill()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {

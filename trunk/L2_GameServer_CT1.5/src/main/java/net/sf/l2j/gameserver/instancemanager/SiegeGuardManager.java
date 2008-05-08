@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -87,7 +88,7 @@ public class SiegeGuardManager {
      */
     public void removeMerc(int npcId, int x, int y, int z)
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -114,7 +115,7 @@ public class SiegeGuardManager {
      */
     public void removeMercs()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -194,7 +195,7 @@ public class SiegeGuardManager {
      */
     private void loadSiegeGuard()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -248,7 +249,7 @@ public class SiegeGuardManager {
      */
     private void saveSiegeGuard(int x, int y, int z, int heading, int npcId, int isHire)
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);

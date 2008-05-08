@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.entity.faction;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -49,7 +50,7 @@ public class Faction
         String _titlelist                   = null;
         int _tside  = 0;
         
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             PreparedStatement statement;
@@ -97,7 +98,7 @@ public class Faction
     
     private void updateDB()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             PreparedStatement statement;

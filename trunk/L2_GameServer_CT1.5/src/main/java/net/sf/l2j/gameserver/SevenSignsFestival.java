@@ -941,8 +941,8 @@ public class SevenSignsFestival implements SpawnListener
 		}
 		else
 		{
-			java.sql.Connection con = null;
-			
+			Connection con = null;
+
 			try
 			{
 				con = L2DatabaseFactory.getInstance().getConnection(con);

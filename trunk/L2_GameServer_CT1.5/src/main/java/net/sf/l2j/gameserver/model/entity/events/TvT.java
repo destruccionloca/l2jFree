@@ -1017,7 +1017,7 @@ public class TvT
 		_minPlayers = 0;
 		_maxPlayers = 0;
 		
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			PreparedStatement statement;
@@ -1087,7 +1087,7 @@ public class TvT
 
 	public static void saveData()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);

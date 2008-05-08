@@ -19,6 +19,7 @@ package net.sf.l2j.gameserver.idfactory;
   * 
   */
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,7 +48,7 @@ public class CompactionIDFactory extends IdFactory
         _curOID = FIRST_OID;
         _freeSize = 0;
         
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -74,8 +75,7 @@ public class CompactionIDFactory extends IdFactory
         }
     }
     
-    private int insertUntil(int[] tmp_obj_ids, int idx, int N,
-            java.sql.Connection con) throws SQLException
+    private int insertUntil(int[] tmp_obj_ids, int idx, int N, Connection con) throws SQLException
     {
         int id = tmp_obj_ids[idx];
         if (id == _curOID)

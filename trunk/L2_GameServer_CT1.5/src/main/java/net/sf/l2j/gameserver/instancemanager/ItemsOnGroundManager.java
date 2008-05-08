@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -76,7 +77,7 @@ public class ItemsOnGroundManager
         // if DestroyPlayerDroppedItem was previously  false, items curently protected will be added to ItemsAutoDestroy
         if (Config.DESTROY_DROPPED_PLAYER_ITEM)
         {
-            java.sql.Connection con = null;
+            Connection con = null;
             try 
             {
                 String str = null;
@@ -101,7 +102,7 @@ public class ItemsOnGroundManager
         }
 
         //Add items to world
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             try {
@@ -180,7 +181,7 @@ public class ItemsOnGroundManager
     
     public void emptyTable()
     {
-        java.sql.Connection conn = null;
+        Connection conn = null;
         try
         {
             conn = L2DatabaseFactory.getInstance().getConnection(conn);
@@ -214,7 +215,7 @@ public class ItemsOnGroundManager
             {
                 if (CursedWeaponsManager.getInstance().isCursed(item.getItemId())) continue; // Cursed Items not saved to ground, prevent double save
 
-                java.sql.Connection con = null;
+                Connection con = null;
                 try
                 {
                     con = L2DatabaseFactory.getInstance().getConnection(con);

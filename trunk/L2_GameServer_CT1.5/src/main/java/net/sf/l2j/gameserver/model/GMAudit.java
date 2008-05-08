@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import net.sf.l2j.Config;
@@ -39,7 +40,7 @@ public class GMAudit
             else
                 target = "null";
             
-            java.sql.Connection con = null;
+            Connection con = null;
             PreparedStatement statement = null;
             try
             {
@@ -76,7 +77,7 @@ public class GMAudit
     {
         if (Config.GM_AUDIT && Config.ALT_PRIVILEGES_ADMIN)
         {
-            java.sql.Connection con = null;
+            Connection con = null;
             PreparedStatement statement = null;
             try
             {

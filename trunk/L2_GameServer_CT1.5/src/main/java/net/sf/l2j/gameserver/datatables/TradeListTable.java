@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -77,7 +78,7 @@ public class TradeListTable
 	
 	private void load(boolean custom)
 	{
-        java.sql.Connection con = null;
+		Connection con = null;
 		/*
 		 * Initialize Shop buylist
 		 */
@@ -239,9 +240,10 @@ public class TradeListTable
 			list.restoreCount(time);
 		}
 	}
-	protected void dataTimerSave(int time){
-		java.sql.Connection con = null;
+	protected void dataTimerSave(int time)
+	{
 		long timerSave = System.currentTimeMillis()+(long)time*60*60*1000;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -256,9 +258,10 @@ public class TradeListTable
 			try { con.close(); } catch (Exception e) {}
 		}
 	}
+
 	public void dataCountStore()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		PreparedStatement statement;
 
 		int listId;

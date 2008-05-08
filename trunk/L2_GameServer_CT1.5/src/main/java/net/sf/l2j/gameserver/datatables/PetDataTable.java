@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -67,7 +68,7 @@ public class PetDataTable
     
     public void loadPetsData() 
     { 
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         { 

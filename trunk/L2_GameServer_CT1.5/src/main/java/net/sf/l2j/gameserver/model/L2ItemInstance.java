@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -843,7 +844,7 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public void restoreAugmentation()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1299,8 +1300,8 @@ public final class L2ItemInstance extends L2Object
 			return;
 		if (_storedInDb)
 			return;
-		
-		java.sql.Connection con = null;
+
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1347,7 +1348,7 @@ public final class L2ItemInstance extends L2Object
 			return;
 		if (Config.ASSERT)
 			assert !_existsInDb && getObjectId() != 0;
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1400,7 +1401,7 @@ public final class L2ItemInstance extends L2Object
 		
 		_augmentation = null;
 		
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);

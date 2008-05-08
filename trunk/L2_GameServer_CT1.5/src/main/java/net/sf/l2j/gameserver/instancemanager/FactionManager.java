@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -65,7 +66,7 @@ public class FactionManager
     // Method - Private
     private final void load()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             PreparedStatement statement;

@@ -14,9 +14,11 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -965,13 +967,13 @@ public class AdminEditNpc implements IAdminCommandHandler
 		replyMSG.append("<button value=\"Close\" action=\"bypass -h admin_close_window\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 		replyMSG.append("</center></body></html>");
 		
-		adminReply.setHtml(replyMSG.toString());		
+		adminReply.setHtml(replyMSG.toString());
 		activeChar.sendPacket(adminReply);
 	}
 	
 	private void storeTradeList(int itemID, int price, int tradeListID, int order)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -998,7 +1000,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	
 	private void updateTradeList(int itemID, int price, int tradeListID, int order)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1025,7 +1027,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	
 	private void deleteTradeList(int tradeListID, int order)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1052,7 +1054,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	
 	private int  findOrderTradeList(int itemID, int price, int tradeListID)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		int order = 0;
 		try
 		{
@@ -1086,7 +1088,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 
 	private void storeCustomTradeList(int itemID, int price, int tradeListID, int order)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1113,7 +1115,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	
 	private void updateCustomTradeList(int itemID, int price, int tradeListID, int order)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1140,7 +1142,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	
 	private void deleteCustomTradeList(int tradeListID, int order)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1167,7 +1169,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	
 	private int  findOrderCustomTradeList(int itemID, int price, int tradeListID)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		int order = 0;
 		try
 		{
@@ -1507,7 +1509,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 
 	private void showEditDropData(L2PcInstance activeChar, int npcId, int itemId, int category)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		
 		try
 		{
@@ -1578,7 +1580,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	
 	private void updateDropData(L2PcInstance activeChar, int npcId, int itemId, int min, int max, int category, int chance)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		
 		try
 		{
@@ -1630,7 +1632,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	
 	private void addDropData(L2PcInstance activeChar, int npcId, int itemId, int min, int max, int category, int chance)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1666,7 +1668,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	
 	private void deleteDropData(L2PcInstance activeChar, int npcId, int itemId, int category)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1711,7 +1713,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		npcData.clearAllDropData();
 		
 		// get the drops
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1832,7 +1834,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	// [L2J_JP ADD]
 	private void showNpcSkillEdit(L2PcInstance activeChar, int npcId, int skillId)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -1879,7 +1881,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	// [L2J_JP ADD]
 	private void updateNpcSkillData(L2PcInstance activeChar, int npcId, int skillId, int level)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -1958,7 +1960,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	// [L2J_JP ADD]
 	private void addNpcSkillData(L2PcInstance activeChar, int npcId, int skillId, int level)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 	
 		try
 		{
@@ -2008,7 +2010,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	// [L2J_JP ADD]
 	private void deleteNpcSkillData(L2PcInstance activeChar, int npcId, int skillId)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -2044,7 +2046,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	// [L2J_JP ADD]
 	private void reLoadNpcSkillList(int npcId)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{

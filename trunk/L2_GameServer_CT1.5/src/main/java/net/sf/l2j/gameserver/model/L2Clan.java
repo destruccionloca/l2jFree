@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -638,7 +639,7 @@ public class L2Clan
 
     public void updateClanInDB()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -669,7 +670,7 @@ public class L2Clan
 
     public void store()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -700,7 +701,7 @@ public class L2Clan
 
     private void removeMemberInDatabase(L2ClanMember member, long clanJoinExpiryTime, long clanCreateExpiryTime)
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -737,7 +738,7 @@ public class L2Clan
     @SuppressWarnings("unused")
     private void updateWarsInDB()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -765,7 +766,7 @@ public class L2Clan
     private void restore()
     {
         //restorewars();
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             L2ClanMember member;
@@ -851,7 +852,7 @@ public class L2Clan
     
     private void restoreSkills()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {
@@ -914,7 +915,7 @@ public class L2Clan
     public L2Skill addNewSkill(L2Skill newSkill)
     {
         L2Skill oldSkill    = null;
-        java.sql.Connection con = null;
+        Connection con = null;
         
         if (newSkill != null)
         {
@@ -1264,7 +1265,7 @@ public class L2Clan
     
     private void restoreSubPledges()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {
@@ -1368,7 +1369,7 @@ public class L2Clan
         }
         else
         {
-        	java.sql.Connection con = null;
+        	Connection con = null;
         	try
         	{
         		con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1439,7 +1440,7 @@ public class L2Clan
 
     public void updateSubPledgeInDB(int pledgeType)
     {
- 	   java.sql.Connection con = null;
+ 	   Connection con = null;
  	   try
  	   {
  		   con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -1469,7 +1470,7 @@ public class L2Clan
 
     private void restoreRankPrivs()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {
@@ -1529,7 +1530,7 @@ public class L2Clan
             _privs.get(rank).setPrivs(privs);
             
             
-            java.sql.Connection con = null;
+            Connection con = null;
             
             try
             {
@@ -1570,7 +1571,7 @@ public class L2Clan
         {
             _privs.put(rank, new RankPrivs(rank, 0, privs));
             
-            java.sql.Connection con = null;
+            Connection con = null;
             
             try
             {
@@ -1683,7 +1684,7 @@ public class L2Clan
         
         if(storeInDb)
         {
-            java.sql.Connection con = null;
+            Connection con = null;
             try
             {
                 con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -2259,7 +2260,7 @@ public class L2Clan
 
     public void changeLevel(int level)
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);

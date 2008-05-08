@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -93,7 +94,7 @@ public class AuctionManager
     }
     private final void load()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             PreparedStatement statement;
@@ -139,8 +140,9 @@ public class AuctionManager
         return _auctions;
     }
     /** Init Clan NPC aution */
-	public void initNPC(int id){
-        java.sql.Connection con = null;
+    public void initNPC(int id)
+    {
+        Connection con = null;
         int i = 0;
         for(i=0;i<ItemInitDataId.length;i++)
         	if(ItemInitDataId[i] == id)

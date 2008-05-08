@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.entity.faction;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -48,7 +49,7 @@ public class FactionMember
     {
         _playerId = playerId;
         
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             PreparedStatement statement;
@@ -91,7 +92,7 @@ public class FactionMember
         _contributions = 0;
         _joinDate = Calendar.getInstance();
         _joinDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -115,7 +116,7 @@ public class FactionMember
     
     public void quitFaction()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         _factionId = 0;
         _factionPoints = 0;
         _contributions = 0;
@@ -140,7 +141,7 @@ public class FactionMember
     
     private void updateDb()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);

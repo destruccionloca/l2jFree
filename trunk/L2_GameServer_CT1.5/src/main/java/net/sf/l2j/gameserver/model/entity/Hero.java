@@ -366,7 +366,7 @@ public class Hero
             }
             else
             {
-            	java.sql.Connection con = null;
+            	Connection con = null;
             	
             	try
             	{

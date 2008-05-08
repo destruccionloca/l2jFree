@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.concurrent.ScheduledFuture;
@@ -101,7 +102,7 @@ public class AutoSpawnHandler
     private void restoreSpawnData()
     {
         int numLoaded = 0;
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {

@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -238,7 +239,7 @@ public class Fort extends Siegeable
     // This method loads fort
     private void load()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             PreparedStatement statement;
@@ -283,7 +284,7 @@ public class Fort extends Siegeable
     // This method loads fort door data from database
     private void loadDoor()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -329,7 +330,7 @@ public class Fort extends Siegeable
     // This method loads fort door upgrade data from database
     private void loadDoorUpgrade()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -354,7 +355,7 @@ public class Fort extends Siegeable
 
     private void removeDoorUpgrade()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -373,7 +374,7 @@ public class Fort extends Siegeable
 
     private void saveDoorUpgrade(int doorId, int hp, int pDef, int mDef)
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -409,7 +410,7 @@ public class Fort extends Siegeable
             _lastOwnedTime.setTimeInMillis(0); 
 
 
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);

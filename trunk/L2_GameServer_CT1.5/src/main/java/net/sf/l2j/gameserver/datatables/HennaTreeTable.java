@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -48,8 +49,9 @@ public class HennaTreeTable
 	{
 		_hennaTrees = new FastMap<ClassId, FastList<L2HennaInstance>>();
 		int classId = 0;
-        int count   = 0;
-		java.sql.Connection con = null;
+		int count   = 0;
+
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);

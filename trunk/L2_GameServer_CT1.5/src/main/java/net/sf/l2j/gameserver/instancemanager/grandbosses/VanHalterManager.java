@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager.grandbosses;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
@@ -159,11 +160,10 @@ public class VanHalterManager extends BossLair
 		_cameraMarkerSpawn.clear();
 		try
 		{
-			L2NpcTemplate template1;
+			L2NpcTemplate template1 = NpcTable.getInstance().getTemplate(13014); // Dummy npc
 			L2Spawn tempSpawn;
 
 			// Dummy camera marker.
-			template1 = NpcTable.getInstance().getTemplate(13018);
 			tempSpawn = new L2Spawn(template1);
 			tempSpawn.setLocx(-16397);
 			tempSpawn.setLocy(-55200);
@@ -174,7 +174,6 @@ public class VanHalterManager extends BossLair
 			SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
 			_cameraMarkerSpawn.put(1, tempSpawn);
 
-			template1 = NpcTable.getInstance().getTemplate(13018);
 			tempSpawn = new L2Spawn(template1);
 			tempSpawn.setLocx(-16397);
 			tempSpawn.setLocy(-55200);
@@ -185,7 +184,6 @@ public class VanHalterManager extends BossLair
 			SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
 			_cameraMarkerSpawn.put(2, tempSpawn);
 
-			template1 = NpcTable.getInstance().getTemplate(13018);
 			tempSpawn = new L2Spawn(template1);
 			tempSpawn.setLocx(-16397);
 			tempSpawn.setLocy(-55200);
@@ -196,7 +194,6 @@ public class VanHalterManager extends BossLair
 			SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
 			_cameraMarkerSpawn.put(3, tempSpawn);
 
-			template1 = NpcTable.getInstance().getTemplate(13018);
 			tempSpawn = new L2Spawn(template1);
 			tempSpawn.setLocx(-16397);
 			tempSpawn.setLocy(-55200);
@@ -207,7 +204,6 @@ public class VanHalterManager extends BossLair
 			SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
 			_cameraMarkerSpawn.put(4, tempSpawn);
 
-			template1 = NpcTable.getInstance().getTemplate(13018);
 			tempSpawn = new L2Spawn(template1);
 			tempSpawn.setLocx(-16397);
 			tempSpawn.setLocy(-55197);
@@ -250,7 +246,7 @@ public class VanHalterManager extends BossLair
 	{
 		_royalGuardSpawn.clear();
 
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -326,7 +322,7 @@ public class VanHalterManager extends BossLair
 	{
 		_triolRevelationSpawn.clear();
 		
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -405,7 +401,7 @@ public class VanHalterManager extends BossLair
 	{
 		_royalGuardCaptainSpawn.clear();
 
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -482,7 +478,7 @@ public class VanHalterManager extends BossLair
 	{
 		_royalGuardHelperSpawn.clear();
 
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -553,7 +549,7 @@ public class VanHalterManager extends BossLair
 	{
 		_guardOfAltarSpawn.clear();
 
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -630,7 +626,7 @@ public class VanHalterManager extends BossLair
 	{
 		_vanHalterSpawn = null;
 
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -699,7 +695,7 @@ public class VanHalterManager extends BossLair
 	{
 		_ritualOfferingSpawn = null;
 
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
@@ -769,7 +765,7 @@ public class VanHalterManager extends BossLair
 	{
 		_ritualSacrificeSpawn = null;
 
-		java.sql.Connection con = null;
+		Connection con = null;
 
 		try
 		{
