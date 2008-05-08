@@ -222,7 +222,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				{
 					return false;
 				}
-				player.getCharRecommendationStatus().setRecomHave(recVal);
+				player.setRecomHave(recVal);
 				player.sendMessage("You have been recommended by a GM");
 				player.broadcastUserInfo();
 			}
