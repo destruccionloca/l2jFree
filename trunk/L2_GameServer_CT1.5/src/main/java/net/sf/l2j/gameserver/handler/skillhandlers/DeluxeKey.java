@@ -16,13 +16,10 @@ package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,23 +49,6 @@ public class DeluxeKey implements ISkillHandler
 
 		// This is just a dummy skill handler for the golden food and crystal food skills,
 		// since the AI responce onSkillUse handles the rest.
-
-		//6665 6666 6667 6668 6669 6670 6671 6672 Chest KeyId
-		int skLevel = skill.getLevel();
-		int keyId = 6664 + skLevel;
-
-		// Get the L2ItemInstance consummed by the spell
-		L2ItemInstance requiredItems = ((L2PcInstance)activeChar).getInventory().getItemByItemId(keyId);
-
-		// Check if the caster owns enought consummed Item to cast
-		if (requiredItems == null || requiredItems.getCount() < 1)
-		{
-                    // Send a System Message to the caster
-                    ((L2PcInstance)activeChar).sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
-                    return;
-		}
-
-		((L2PcInstance)activeChar).destroyItemWithoutTrace("Consume", keyId, 1, null, false);
 	}
 
 	public SkillType[] getSkillIds()
