@@ -17,7 +17,7 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-package net.sf.l2j.tools.versionning.service;
+package net.sf.l2j.versionning;
 
 import java.io.File;
 import java.io.FilenameFilter;
