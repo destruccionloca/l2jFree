@@ -32,12 +32,12 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GmListTable
 {
-	private final static Log _log = LogFactory.getLog(GmListTable.class.getName());
-	private static GmListTable _instance;
+	private final static Log				_log	= LogFactory.getLog(GmListTable.class.getName());
+	private static GmListTable				_instance;
 
 	/** Set(L2PcInstance>) containing all the GM in game */
-	private FastMap<L2PcInstance, Boolean> _gmList;
-	
+	private FastMap<L2PcInstance, Boolean>	_gmList;
+
 	public static GmListTable getInstance()
 	{
 		if (_instance == null)
@@ -48,7 +48,7 @@ public class GmListTable
 	public FastList<L2PcInstance> getAllGms(boolean includeHidden)
 	{
 		FastList<L2PcInstance> tmpGmList = new FastList<L2PcInstance>();
-		for (FastMap.Entry<L2PcInstance, Boolean> n = _gmList.head(), end = _gmList.tail(); (n = n.getNext())!=end;)
+		for (FastMap.Entry<L2PcInstance, Boolean> n = _gmList.head(), end = _gmList.tail(); (n = n.getNext()) != end;)
 		{
 			if (includeHidden || !n.getValue())
 				tmpGmList.add(n.getKey());
@@ -59,12 +59,12 @@ public class GmListTable
 	public FastList<String> getAllGmNames(boolean includeHidden)
 	{
 		FastList<String> tmpGmList = new FastList<String>();
-		for (FastMap.Entry<L2PcInstance, Boolean> n = _gmList.head(), end = _gmList.tail(); (n = n.getNext())!=end;)
+		for (FastMap.Entry<L2PcInstance, Boolean> n = _gmList.head(), end = _gmList.tail(); (n = n.getNext()) != end;)
 		{
 			if (!n.getValue())
 				tmpGmList.add(n.getKey().getName());
 			else if (includeHidden)
-				tmpGmList.add(n.getKey().getName()+" (invis)");
+				tmpGmList.add(n.getKey().getName() + " (invis)");
 		}
 		return tmpGmList;
 	}
@@ -72,28 +72,28 @@ public class GmListTable
 	private GmListTable()
 	{
 		_log.info("GmListTable: initalized.");
-		_gmList = new FastMap<L2PcInstance,Boolean>().setShared(true);
+		_gmList = new FastMap<L2PcInstance, Boolean>().setShared(true);
 	}
-	
+
 	/**
 	 * Add a L2PcInstance player to the Set _gmList
 	 */
 	public void addGm(L2PcInstance player, boolean hidden)
 	{
 		if (_log.isDebugEnabled())
-			_log.debug("added gm: "+player.getName());
-		
-		_gmList.put(player,hidden);
+			_log.debug("added gm: " + player.getName());
+
+		_gmList.put(player, hidden);
 	}
-	
+
 	public void deleteGm(L2PcInstance player)
 	{
 		if (_log.isDebugEnabled())
-			_log.debug("deleted gm: "+player.getName());
+			_log.debug("deleted gm: " + player.getName());
 
 		_gmList.remove(player);
 	}
-	
+
 	/**
 	 * GM will be displayed on clients gmlist
 	 * @param player
@@ -104,7 +104,7 @@ public class GmListTable
 		if (gm != null)
 			gm.setValue(false);
 	}
-	
+
 	/**
 	 * GM will no longer be displayed on clients gmlist
 	 * @param player
@@ -126,8 +126,8 @@ public class GmListTable
 
 		return false;
 	}
-	
-	public void sendListToPlayer (L2PcInstance player)
+
+	public void sendListToPlayer(L2PcInstance player)
 	{
 		if (!isGmOnline(player.isGM()))
 		{

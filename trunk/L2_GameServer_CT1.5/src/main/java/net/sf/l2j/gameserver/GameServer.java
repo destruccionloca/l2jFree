@@ -136,7 +136,7 @@ public class GameServer
 	{
 		Config.load();
 		Util.printSection("Database");
-		L2DatabaseFactory.initInstance();
+		L2DatabaseFactory.getInstance();
 		Util.printSection("Preparations");
 		new PathCreator();
 		Util.printSection("World");

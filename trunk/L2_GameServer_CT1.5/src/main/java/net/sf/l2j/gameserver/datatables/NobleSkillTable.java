@@ -23,26 +23,27 @@ import net.sf.l2j.gameserver.model.L2Skill;
  */
 public class NobleSkillTable
 {
-    private static NobleSkillTable _instance;
-    private static FastList<L2Skill> _nobleSkills;
-    private static final int[] _nobleSkillsIds = {325,326,327,1323,1324,1325,1326,1327};
-    
-    private NobleSkillTable()
-    {
-        _nobleSkills = new FastList<L2Skill>();
-        for(int _skillId : _nobleSkillsIds)
-            _nobleSkills.add(SkillTable.getInstance().getInfo(_skillId, 1));
-    }
-    
-    public static NobleSkillTable getInstance()
-    {
-        if (_instance == null)
-            _instance = new NobleSkillTable();
-        return _instance;
-    }
-    
-    public FastList<L2Skill> getNobleSkills()
-    {
-        return _nobleSkills;
-    }
+	private static NobleSkillTable		_instance;
+	private static FastList<L2Skill>	_nobleSkills;
+	private static final int[]			_nobleSkillsIds	=
+														{ 325, 326, 327, 1323, 1324, 1325, 1326, 1327 };
+
+	private NobleSkillTable()
+	{
+		_nobleSkills = new FastList<L2Skill>();
+		for (int _skillId : _nobleSkillsIds)
+			_nobleSkills.add(SkillTable.getInstance().getInfo(_skillId, 1));
+	}
+
+	public static NobleSkillTable getInstance()
+	{
+		if (_instance == null)
+			_instance = new NobleSkillTable();
+		return _instance;
+	}
+
+	public FastList<L2Skill> getNobleSkills()
+	{
+		return _nobleSkills;
+	}
 }

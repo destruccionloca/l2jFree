@@ -23,36 +23,37 @@ import net.sf.l2j.gameserver.model.L2Skill;
  */
 public class HeroSkillTable
 {
-    private static HeroSkillTable _instance;
-    private static FastList<L2Skill> _heroSkills;
-    private static final int[] _heroSkillsIds = {395,396,1374,1375,1376};
-    
-    private HeroSkillTable()
-    {
-        _heroSkills = new FastList<L2Skill>();
-        for(int _skillId : _heroSkillsIds)
-        	_heroSkills.add(SkillTable.getInstance().getInfo(_skillId, 1));
-    }
-    
-    public static HeroSkillTable getInstance()
-    {
-        if (_instance == null)
-            _instance = new HeroSkillTable();
-        return _instance;
-    }
-    
-    public static FastList<L2Skill> getHeroSkills()
-    {
-        return _heroSkills;
-    }
-    
+	private static HeroSkillTable		_instance;
+	private static FastList<L2Skill>	_heroSkills;
+	private static final int[]			_heroSkillsIds	=
+														{ 395, 396, 1374, 1375, 1376 };
+
+	private HeroSkillTable()
+	{
+		_heroSkills = new FastList<L2Skill>();
+		for (int _skillId : _heroSkillsIds)
+			_heroSkills.add(SkillTable.getInstance().getInfo(_skillId, 1));
+	}
+
+	public static HeroSkillTable getInstance()
+	{
+		if (_instance == null)
+			_instance = new HeroSkillTable();
+		return _instance;
+	}
+
+	public static FastList<L2Skill> getHeroSkills()
+	{
+		return _heroSkills;
+	}
+
 	public boolean isHeroSkill(int skillId)
-	{ 
-		for (L2Skill skill : getHeroSkills()) 
-		{ 
-			if (skill.getId() == skillId) 
-				return true; 
+	{
+		for (L2Skill skill : getHeroSkills())
+		{
+			if (skill.getId() == skillId)
+				return true;
 		}
-		return false; 
+		return false;
 	}
 }

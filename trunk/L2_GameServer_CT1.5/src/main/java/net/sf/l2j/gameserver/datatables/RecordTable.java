@@ -30,13 +30,13 @@ import org.apache.commons.logging.LogFactory;
  */
 public class RecordTable
 {
-	private final static Log _log = LogFactory.getLog(RecordTable.class.getName());
+	private final static Log	_log				= LogFactory.getLog(RecordTable.class.getName());
 
-	private static RecordTable _instance;
+	private static RecordTable	_instance;
 
-	private int _maxPlayer=0;
-	private String _strDateMaxPlayer=null;
-	
+	private int					_maxPlayer			= 0;
+	private String				_strDateMaxPlayer	= null;
+
 	/**
 	* Not really useful to make an instance of recordtable because data is reloaded each time. 
 	* But it's quite easy to use like this.
@@ -63,25 +63,35 @@ public class RecordTable
 		Connection con = null;
 		try
 		{
-			try {
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("SELECT maxplayer, date FROM record order by maxplayer desc limit 1");
-			ResultSet recorddata = statement.executeQuery();
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection(con);
+				PreparedStatement statement = con.prepareStatement("SELECT maxplayer, date FROM record order by maxplayer desc limit 1");
+				ResultSet recorddata = statement.executeQuery();
 
-			fillRecordTable(recorddata);
-			recorddata.close();
-			statement.close();
-			} catch (Exception e) {
-				_log.error("error while creating record table " + e,e);
+				fillRecordTable(recorddata);
+				recorddata.close();
+				statement.close();
 			}
-			 
-		} finally {
-			try { con.close(); } catch (Exception e) {}
+			catch (Exception e)
+			{
+				_log.error("error while creating record table " + e, e);
+			}
+
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
-	private void fillRecordTable(ResultSet Recorddata)
-			throws Exception
+	private void fillRecordTable(ResultSet Recorddata) throws Exception
 	{
 		// In fact, there is just one record
 		while (Recorddata.next())
@@ -90,7 +100,6 @@ public class RecordTable
 			_strDateMaxPlayer = Recorddata.getString("date");
 		}
 	}
-    
 
 	public int getMaxPlayer()
 	{
@@ -100,6 +109,6 @@ public class RecordTable
 	public String getDateMaxPlayer()
 	{
 		return _strDateMaxPlayer;
-	}    
-	
+	}
+
 }

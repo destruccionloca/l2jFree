@@ -26,43 +26,49 @@ import org.apache.commons.logging.LogFactory;
 
 public class PetNameTable
 {
-    private final static Log _log = LogFactory.getLog(PetNameTable.class.getName());
+	private final static Log	_log	= LogFactory.getLog(PetNameTable.class.getName());
 
-    private static PetNameTable _instance;
+	private static PetNameTable	_instance;
 
-    public static PetNameTable getInstance()
-    {
-        if (_instance == null)
-        {
-            _instance = new PetNameTable();
-        }
-        return _instance;
-    }
+	public static PetNameTable getInstance()
+	{
+		if (_instance == null)
+		{
+			_instance = new PetNameTable();
+		}
+		return _instance;
+	}
 
-    public boolean doesPetNameExist(String name, int petNpcId)
-    {
-        boolean result = true;
-        Connection con = null;
+	public boolean doesPetNameExist(String name, int petNpcId)
+	{
+		boolean result = true;
+		Connection con = null;
 
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("SELECT name FROM pets p, items i WHERE p.item_obj_id = i.object_id AND name=? AND i.item_id=?");
-            statement.setString(1, name);
-            statement.setString(2, Integer.toString(PetDataTable.getItemIdByPetId(petNpcId)));
-            ResultSet rset = statement.executeQuery();
-            result = rset.next();
-            rset.close();
-            statement.close();
-        }
-        catch (SQLException e)
-        {
-            _log.warn("could not check existing petname:"+e.getMessage());
-        }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
-        return result;
-    }
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("SELECT name FROM pets p, items i WHERE p.item_obj_id = i.object_id AND name=? AND i.item_id=?");
+			statement.setString(1, name);
+			statement.setString(2, Integer.toString(PetDataTable.getItemIdByPetId(petNpcId)));
+			ResultSet rset = statement.executeQuery();
+			result = rset.next();
+			rset.close();
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			_log.warn("could not check existing petname:" + e.getMessage());
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
+		return result;
+	}
 }

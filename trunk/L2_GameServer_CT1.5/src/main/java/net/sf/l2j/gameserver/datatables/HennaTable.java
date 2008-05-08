@@ -33,12 +33,12 @@ import org.apache.commons.logging.LogFactory;
  */
 public class HennaTable
 {
-	private final static Log _log = LogFactory.getLog(HennaTable.class.getName());
+	private final static Log			_log			= LogFactory.getLog(HennaTable.class.getName());
 
-	private static HennaTable _instance;
+	private static HennaTable			_instance;
 
-	private FastMap<Integer, L2Henna> _henna;
-	private boolean _initialized = true;
+	private FastMap<Integer, L2Henna>	_henna;
+	private boolean						_initialized	= true;
 
 	public static HennaTable getInstance()
 	{
@@ -63,24 +63,31 @@ public class HennaTable
 		Connection con = null;
 		try
 		{
-			try 
+			try
 			{
 				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement statement = con.prepareStatement("SELECT symbol_id, symbol_name, dye_id, dye_amount, price, stat_INT, stat_STR, stat_CON, stat_MEM, stat_DEX, stat_WIT FROM henna");
+				PreparedStatement statement = con
+						.prepareStatement("SELECT symbol_id, symbol_name, dye_id, dye_amount, price, stat_INT, stat_STR, stat_CON, stat_MEM, stat_DEX, stat_WIT FROM henna");
 				ResultSet hennadata = statement.executeQuery();
-	
+
 				fillHennaTable(hennadata);
 				hennadata.close();
 				statement.close();
-			} 
-			catch (Exception e) 
-			{
-				_log.error("error while creating henna table " + e,e);
 			}
-		} 
-		finally 
+			catch (Exception e)
+			{
+				_log.error("error while creating henna table " + e, e);
+			}
+		}
+		finally
 		{
-			try { con.close(); } catch (Exception e) {}
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -88,9 +95,9 @@ public class HennaTable
 	{
 		while (HennaData.next())
 		{
-			StatsSet hennaDat = new StatsSet(); 
+			StatsSet hennaDat = new StatsSet();
 			int id = HennaData.getInt("symbol_id");
-			
+
 			hennaDat.set("symbol_id", id);
 			//hennaDat.set("symbol_name", HennaData.getString("symbol_name"));
 			hennaDat.set("dye", HennaData.getInt("dye_id"));
@@ -103,14 +110,13 @@ public class HennaTable
 			hennaDat.set("stat_MEM", HennaData.getInt("stat_MEM"));
 			hennaDat.set("stat_DEX", HennaData.getInt("stat_DEX"));
 			hennaDat.set("stat_WIT", HennaData.getInt("stat_WIT"));
-			
-			
+
 			L2Henna template = new L2Henna(hennaDat);
 			_henna.put(id, template);
 		}
 		_log.info("HennaTable: Loaded " + _henna.size() + " Templates.");
 	}
-    
+
 	public boolean isInitialized()
 	{
 		return _initialized;

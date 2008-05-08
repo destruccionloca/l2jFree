@@ -31,10 +31,10 @@ import org.apache.commons.logging.LogFactory;
  */
 public class CharNameTable
 {
-	private final static Log _log = LogFactory.getLog(CharNameTable.class.getName());
-	
-	private static CharNameTable _instance;
-	
+	private final static Log		_log	= LogFactory.getLog(CharNameTable.class.getName());
+
+	private static CharNameTable	_instance;
+
 	public static CharNameTable getInstance()
 	{
 		if (_instance == null)
@@ -43,12 +43,12 @@ public class CharNameTable
 		}
 		return _instance;
 	}
-	
+
 	public boolean doesCharNameExist(String name)
 	{
 		boolean result = true;
 		Connection con = null;
-		
+
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -61,42 +61,54 @@ public class CharNameTable
 		}
 		catch (SQLException e)
 		{
-			_log.warn("could not check existing charname:"+e.getMessage());
+			_log.warn("could not check existing charname:" + e.getMessage());
 		}
 		finally
 		{
-			try { con.close(); } catch (Exception e) {}
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 		return result;
 	}
-    
-    public int accountCharNumber (String account)
-    {
-        Connection con = null;
-        int number = 0;
-        
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("SELECT COUNT(char_name) FROM characters WHERE account_name=?");
-            statement.setString(1, account);
-            ResultSet rset = statement.executeQuery();
-            while(rset.next())
-            {
-                number = rset.getInt(1);
-            }
-            rset.close();
-            statement.close();
-        }
-        catch (SQLException e)
-        {
-            _log.warn("could not check existing char number:"+e.getMessage());
-        }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
-        
-        return number;
-    }
+
+	public int accountCharNumber(String account)
+	{
+		Connection con = null;
+		int number = 0;
+
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("SELECT COUNT(char_name) FROM characters WHERE account_name=?");
+			statement.setString(1, account);
+			ResultSet rset = statement.executeQuery();
+			while (rset.next())
+			{
+				number = rset.getInt(1);
+			}
+			rset.close();
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			_log.warn("could not check existing char number:" + e.getMessage());
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
+
+		return number;
+	}
 }

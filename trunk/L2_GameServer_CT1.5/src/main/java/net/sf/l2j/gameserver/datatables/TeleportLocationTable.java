@@ -33,12 +33,12 @@ import org.apache.commons.logging.LogFactory;
  */
 public class TeleportLocationTable
 {
-	private final static Log _log = LogFactory.getLog(TeleportLocationTable.class.getName());
-	
-	private static TeleportLocationTable _instance;
-	
-	private FastMap<Integer, L2TeleportLocation> _teleports;
-	
+	private final static Log						_log	= LogFactory.getLog(TeleportLocationTable.class.getName());
+
+	private static TeleportLocationTable			_instance;
+
+	private FastMap<Integer, L2TeleportLocation>	_teleports;
+
 	public static TeleportLocationTable getInstance()
 	{
 		if (_instance == null)
@@ -48,11 +48,12 @@ public class TeleportLocationTable
 		}
 		return _instance;
 	}
-	
+
 	private TeleportLocationTable()
 	{
 
 	}
+
 	public void reloadAll()
 	{
 		_teleports = new FastMap<Integer, L2TeleportLocation>();
@@ -61,27 +62,27 @@ public class TeleportLocationTable
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("SELECT Description, id, loc_x, loc_y, loc_z, price, fornoble FROM teleport");
+			PreparedStatement statement = con.prepareStatement("SELECT Description, id, loc_x, loc_y, loc_z, price, fornoble FROM teleport");
 			ResultSet rset = statement.executeQuery();
 			L2TeleportLocation teleport;
-			
+
 			while (rset.next())
 			{
 				teleport = new L2TeleportLocation();
-				
+
 				teleport.setTeleId(rset.getInt("id"));
 				teleport.setLocX(rset.getInt("loc_x"));
 				teleport.setLocY(rset.getInt("loc_y"));
 				teleport.setLocZ(rset.getInt("loc_z"));
-				if(Config.ALT_GAME_FREE_TELEPORT)
+				if (Config.ALT_GAME_FREE_TELEPORT)
 					teleport.setPrice(0);
 				else
-				teleport.setPrice(rset.getInt("price"));
-                teleport.setIsForNoble(rset.getInt("fornoble")==1);
+					teleport.setPrice(rset.getInt("price"));
+				teleport.setIsForNoble(rset.getInt("fornoble") == 1);
 
 				_teleports.put(teleport.getTeleId(), teleport);
 			}
-			
+
 			rset.close();
 			statement.close();
 
@@ -89,14 +90,19 @@ public class TeleportLocationTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while creating teleport table "+e);
-		} 
-		finally 
+			_log.warn("error while creating teleport table " + e);
+		}
+		finally
 		{
-			try { con.close(); } catch (Exception e) {}
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
-	
 
 	/**
 	 * @param template id

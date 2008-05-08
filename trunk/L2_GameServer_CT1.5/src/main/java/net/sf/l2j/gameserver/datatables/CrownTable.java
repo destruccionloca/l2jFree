@@ -24,72 +24,72 @@ import javolution.util.FastList;
  */
 public class CrownTable
 {
-    private static FastList<Integer> _crownList = new FastList<Integer>();
-    
-    public static FastList<Integer> getCrownList()
-    {
-        if(_crownList.isEmpty())
-        {
-            _crownList.add(6841); // Crown of the lord
-            _crownList.add(6834); // Innadril
-            _crownList.add(6835); // Dion
-            _crownList.add(6836); // Goddard
-            _crownList.add(6837); // Oren
-            _crownList.add(6838); // Gludio
-            _crownList.add(6839); // Giran
-            _crownList.add(6840); // Aden
-            _crownList.add(8182); // Rune
-            _crownList.add(8183); // Schuttgart
-        }
-        return _crownList;
-     
-    }
-    
-    public static int getCrownId(int castleId)
-    {
-        int crownId=0;
-        switch(castleId)
-        {
-            // Gludio
-            case 1:
-                crownId = 6838;
-                break;
-            // Dion
-            case 2:
-                crownId = 6835;
-                break;
-            // Giran
-            case 3:
-                crownId = 6839;
-                break;
-            // Oren
-            case 4:
-                crownId = 6837;
-                break;
-            // Aden
-            case 5:
-                crownId = 6840;
-                break;
-            // Innadril
-            case 6:
-                crownId = 6834;
-                break;
-            // Goddard 
-            case 7:
-            	crownId = 6836;
-                break;
-            // Rune 
-            case 8:
-            	crownId = 8182;
-                break;
-            // Schuttgart
-            case 9:
-                crownId = 8183;
-                break;
-            default:
-                crownId = 0;
-                break;
-        }
-        return crownId;
-    }
+	private static FastList<Integer>	_crownList	= new FastList<Integer>();
+
+	public static FastList<Integer> getCrownList()
+	{
+		if (_crownList.isEmpty())
+		{
+			_crownList.add(6841); // Crown of the lord
+			_crownList.add(6834); // Innadril
+			_crownList.add(6835); // Dion
+			_crownList.add(6836); // Goddard
+			_crownList.add(6837); // Oren
+			_crownList.add(6838); // Gludio
+			_crownList.add(6839); // Giran
+			_crownList.add(6840); // Aden
+			_crownList.add(8182); // Rune
+			_crownList.add(8183); // Schuttgart
+		}
+		return _crownList;
+
+	}
+
+	public static int getCrownId(int castleId)
+	{
+		int crownId = 0;
+		switch (castleId)
+		{
+		// Gludio
+		case 1:
+			crownId = 6838;
+			break;
+		// Dion
+		case 2:
+			crownId = 6835;
+			break;
+		// Giran
+		case 3:
+			crownId = 6839;
+			break;
+		// Oren
+		case 4:
+			crownId = 6837;
+			break;
+		// Aden
+		case 5:
+			crownId = 6840;
+			break;
+		// Innadril
+		case 6:
+			crownId = 6834;
+			break;
+		// Goddard 
+		case 7:
+			crownId = 6836;
+			break;
+		// Rune 
+		case 8:
+			crownId = 8182;
+			break;
+		// Schuttgart
+		case 9:
+			crownId = 8183;
+			break;
+		default:
+			crownId = 0;
+			break;
+		}
+		return crownId;
+	}
 }
