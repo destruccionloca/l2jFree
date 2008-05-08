@@ -18,6 +18,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 
@@ -26,7 +27,7 @@ import net.sf.l2j.gameserver.recipes.manager.CraftManager;
  */
 public class RequestRecipeItemMakeSelf extends L2GameClientPacket 
 {
-    private static final String _C__AF_REQUESTRECIPEITEMMAKESELF = "[C] AF RequestRecipeItemMakeSelf";
+	private static final String _C__AF_REQUESTRECIPEITEMMAKESELF = "[C] AF RequestRecipeItemMakeSelf";
 
 	private int _id;
 	/**
@@ -34,48 +35,48 @@ public class RequestRecipeItemMakeSelf extends L2GameClientPacket
 	 * format:		cd
 	 * @param decrypt
 	 */
-    @Override
-    protected void readImpl()
-    {
-        _id = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_id = readD();
+	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
-		    return;
-        
+			return;
+
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_CREATEITEM && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
-        {
+				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		{
 			activeChar.sendMessage("Item creation is not allowed during restart/shutdown.");
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
-            return;
-        }
-		
-        if (activeChar.getPrivateStoreType() != 0)
-        {
-            activeChar.sendMessage("Cannot make items while trading");
-            return;
-        }
-        
-        if (activeChar.isInCraftMode())
-        {
-            activeChar.sendMessage("Currently in Craft Mode");
-            return;
-        }
-        
-		CraftManager.requestMakeItem(activeChar, _id);
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+
+		if (activeChar.getPrivateStoreType() != 0)
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.PRIVATE_STORE_UNDER_WAY));
+			return;
+		}
+
+		if (activeChar.isInCraftMode())
+		{
+			activeChar.sendMessage("Currently in Craft Mode");
+			return;
+		}
+
+		RecipeController.getInstance().requestMakeItem(activeChar, _id);
 	}
-	
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType() 
-    {
-        return _C__AF_REQUESTRECIPEITEMMAKESELF;
-    }
+
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType() 
+	{
+		return _C__AF_REQUESTRECIPEITEMMAKESELF;
+	}
 }

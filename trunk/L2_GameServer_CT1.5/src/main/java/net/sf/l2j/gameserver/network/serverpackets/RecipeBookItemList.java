@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 public class RecipeBookItemList extends L2GameServerPacket
 {
 	private static final String _S__D6_RECIPEBOOKITEMLIST = "[S] D6 RecipeBookItemList";
-	private L2Recipe[] _recipes;
+	private L2RecipeList[] _recipes;
 	private boolean _isDwarvenCraft; 
  	private int _maxMp;
 	
@@ -39,7 +39,7 @@ public class RecipeBookItemList extends L2GameServerPacket
 	 	_maxMp = maxMp;
 	}
 	
-	public void addRecipes(L2Recipe[] recipeBook)
+	public void addRecipes(L2RecipeList[] recipeBook)
 	{
 		_recipes = recipeBook;
 	}
@@ -62,7 +62,7 @@ public class RecipeBookItemList extends L2GameServerPacket
 			
 			for (int i = 0; i < _recipes.length; i++)
 			{
-                L2Recipe temp = _recipes[i];
+				L2RecipeList temp = _recipes[i];
 				writeD(temp.getId());
 				writeD(i+1);
 			}

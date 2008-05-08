@@ -20,14 +20,13 @@ import java.util.List;
 
 import javolution.util.FastList;
 
+import net.sf.l2j.gameserver.RecipeController;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.recipes.model.L2Recipe;
-import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2WarehouseItem;
-import net.sf.l2j.tools.L2Registry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -254,12 +253,12 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
     {
         private int order = 0;
         
-        private L2RecipeService  rc = null;
+        private RecipeController rc = null;
         
         protected WarehouseItemRecipeComparator(int sortOrder)
         {
             order = sortOrder;
-            rc = (L2RecipeService) L2Registry.getBean("L2RecipeService");
+            rc = RecipeController.getInstance();
         }
         
         public int compare(L2WarehouseItem o1, L2WarehouseItem o2)
@@ -272,8 +271,8 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
             {
                 try
                 {
-                    L2Recipe rp1 = rc.getRecipeByItemId(o1.getItem().getItemDisplayId());
-                    L2Recipe rp2 = rc.getRecipeByItemId(o2.getItem().getItemDisplayId());
+                    L2RecipeList rp1 = rc.getRecipeByItemId(o1.getItemId());
+                    L2RecipeList rp2 = rc.getRecipeByItemId(o2.getItemId());
                     
                     if (rp1 == null) return (order == A2Z ? A2Z : Z2A);
                     if (rp2 == null) return (order == A2Z ? Z2A : A2Z);

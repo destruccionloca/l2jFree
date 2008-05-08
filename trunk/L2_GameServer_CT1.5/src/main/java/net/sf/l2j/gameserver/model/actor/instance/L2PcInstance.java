@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.ItemsAutoDestroy;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.Olympiad;
+import net.sf.l2j.gameserver.RecipeController;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.Shutdown;
@@ -107,6 +108,7 @@ import net.sf.l2j.gameserver.model.L2ManufactureList;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Radar;
+import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.L2Request;
 import net.sf.l2j.gameserver.model.L2ShortCut;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -214,9 +216,6 @@ import net.sf.l2j.gameserver.network.serverpackets.TradeDone;
 import net.sf.l2j.gameserver.network.serverpackets.TradeStart;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
-import net.sf.l2j.gameserver.recipes.manager.CraftManager;
-import net.sf.l2j.gameserver.recipes.model.L2Recipe;
-import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.skills.effects.EffectForce;
@@ -575,8 +574,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private final Map<Integer, String> _chars = new FastMap<Integer, String>();
 
     /** The table containing all L2RecipeList of the L2PcInstance */
-    private Map<Integer, L2Recipe> _dwarvenRecipeBook = new FastMap<Integer, L2Recipe>();
-    private Map<Integer, L2Recipe> _commonRecipeBook = new FastMap<Integer, L2Recipe>();
+    private Map<Integer, L2RecipeList> _dwarvenRecipeBook = new FastMap<Integer, L2RecipeList>();
+    private Map<Integer, L2RecipeList> _commonRecipeBook = new FastMap<Integer, L2RecipeList>();
 
     private int _mountType;
     private int _mountNpcId;
@@ -1239,17 +1238,17 @@ public final class L2PcInstance extends L2PlayableInstance
     /**
      * Return a table containing all Common L2Recipe of the L2PcInstance.<BR><BR> 
      */
-    public L2Recipe[] getCommonRecipeBook()
+    public L2RecipeList[] getCommonRecipeBook()
     {
-        return _commonRecipeBook.values().toArray(new L2Recipe[_commonRecipeBook.values().size()]);
+        return _commonRecipeBook.values().toArray(new L2RecipeList[_commonRecipeBook.values().size()]);
     }
 
     /** 
      * Return a table containing all Dwarf L2Recipe of the L2PcInstance.<BR><BR> 
      */
-    public L2Recipe[] getDwarvenRecipeBook()
+    public L2RecipeList[] getDwarvenRecipeBook()
     {
-        return _dwarvenRecipeBook.values().toArray(new L2Recipe[_dwarvenRecipeBook.values().size()]);
+        return _dwarvenRecipeBook.values().toArray(new L2RecipeList[_dwarvenRecipeBook.values().size()]);
     }
 
     /** 
@@ -1258,7 +1257,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param recipe The L2RecipeList to add to the _recipebook 
      * 
      */
-    public void registerCommonRecipeList(L2Recipe recipe)
+    public void registerCommonRecipeList(L2RecipeList recipe)
     {
         _commonRecipeBook.put(recipe.getId(), recipe);
     }
@@ -1269,7 +1268,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param recipe The L2Recipe to add to the _recipebook
      *
      */
-    public void registerDwarvenRecipeList(L2Recipe recipe)
+    public void registerDwarvenRecipeList(L2RecipeList recipe)
     {
         _dwarvenRecipeBook.put(recipe.getId(), recipe);
     }
@@ -1298,13 +1297,13 @@ public final class L2PcInstance extends L2PlayableInstance
         if (_dwarvenRecipeBook.containsKey(recipeId)) _dwarvenRecipeBook.remove(recipeId);
         else if (_commonRecipeBook.containsKey(recipeId)) _commonRecipeBook.remove(recipeId);
         else _log.warn("Attempted to remove unknown RecipeList: " + recipeId);
-        
+
         L2ShortCut[] allShortCuts = getAllShortCuts();
         for (L2ShortCut sc : allShortCuts)  
-        {  
-        	if (sc != null && sc.getId() == recipeId && sc.getType() == L2ShortCut.TYPE_RECIPE) 
-				deleteShortCut(sc.getSlot(), sc.getPage());
-		}
+        {
+            if (sc != null && sc.getId() == recipeId && sc.getType() == L2ShortCut.TYPE_RECIPE) 
+                deleteShortCut(sc.getSlot(), sc.getPage());
+        }
     }
 
     /**
@@ -6451,9 +6450,10 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.execute();
             statement.close();
 
-            L2Recipe[] recipes = getCommonRecipeBook();
+            L2RecipeList[] recipes = getCommonRecipeBook();
 
-            for (L2Recipe element : recipes) {
+            for (L2RecipeList element : recipes)
+            {
                 statement = con.prepareStatement("REPLACE INTO character_recipebook (charId, id, type) values(?,?,0)");
                 statement.setInt(1, getObjectId());
                 statement.setInt(2, element.getId());
@@ -6492,7 +6492,6 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     private void restoreRecipeBook()
     {
-        L2RecipeService l2RecipeService = (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
         Connection con = null;
 
         try
@@ -6502,12 +6501,15 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(1, getObjectId());
             ResultSet rset = statement.executeQuery();
 
-            L2Recipe recipe;
+            L2RecipeList recipe;
             while (rset.next())
             {
-                recipe = l2RecipeService.getRecipeList(rset.getInt("id") - 1) ;
-                if (rset.getInt("type") == 1) registerDwarvenRecipeList(recipe);
-                else registerCommonRecipeList(recipe);
+                recipe = RecipeController.getInstance().getRecipeList(rset.getInt("id") - 1);
+
+                if (rset.getInt("type") == 1)
+                    registerDwarvenRecipeList(recipe);
+                else
+                    registerCommonRecipeList(recipe);
             }
 
             rset.close();
@@ -10560,7 +10562,7 @@ public final class L2PcInstance extends L2PlayableInstance
         // Stop crafting, if in progress
         try
         {
-            CraftManager.requestMakeItemAbort(this);
+            RecipeController.getInstance().requestMakeItemAbort(this);
         }
         catch (Throwable t)
         {

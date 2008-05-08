@@ -14,10 +14,9 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
+import net.sf.l2j.gameserver.RecipeController;
+import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.recipes.model.L2Recipe;
-import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
-import net.sf.l2j.tools.L2Registry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -38,7 +37,6 @@ public class RecipeItemMakeInfo extends L2GameServerPacket
     private int _id;
     private L2PcInstance _activeChar;
     private boolean _success;
-    private L2RecipeService __l2RecipeService=(L2RecipeService)L2Registry.getBean("L2RecipeService"); 
 
     public RecipeItemMakeInfo(int id, L2PcInstance player, boolean success)
     {
@@ -57,7 +55,7 @@ public class RecipeItemMakeInfo extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-        L2Recipe recipe = __l2RecipeService.getRecipeById(_id);
+        L2RecipeList recipe = RecipeController.getInstance().getRecipeById(_id);
 
         if (recipe != null)
         {

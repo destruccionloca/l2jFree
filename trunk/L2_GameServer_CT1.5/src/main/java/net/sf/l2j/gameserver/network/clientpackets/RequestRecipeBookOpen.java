@@ -14,53 +14,52 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import net.sf.l2j.gameserver.RecipeController;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class RequestRecipeBookOpen extends L2GameClientPacket 
 {
-    private static final String _C__AC_REQUESTRECIPEBOOKOPEN = "[C] AC RequestRecipeBookOpen";
+	private static final String _C__AC_REQUESTRECIPEBOOKOPEN = "[C] AC RequestRecipeBookOpen";
 	private final static Log _log = LogFactory.getLog(RequestRecipeBookOpen.class.getName());
-    
-    private boolean isDwarvenCraft;
+
+	private boolean _isDwarvenCraft;
 
 	/**
 	 * packet type id 0xac
 	 * packet format rev656  cd
 	 * @param decrypt
 	 */
-    @Override
-    protected void readImpl()
+	@Override
+	protected void readImpl()
 	{
-        isDwarvenCraft = (readD() == 0);
-        if (_log.isDebugEnabled()) _log.info("RequestRecipeBookOpen : " + (isDwarvenCraft ? "dwarvenCraft" : "commonCraft"));
+		_isDwarvenCraft = (readD() == 0);
 	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
-	    if (getClient().getActiveChar() == null)
-	        return;
-        
-        if (getClient().getActiveChar().getPrivateStoreType() != 0)
-        {
-        	getClient().getActiveChar().sendPacket(new SystemMessage(SystemMessageId.PRIVATE_STORE_UNDER_WAY));
-            return;
-        }
-        
-        CraftManager.requestBookOpen(getClient().getActiveChar(), isDwarvenCraft);
+		if (getClient().getActiveChar() == null)
+			return;
+
+		if (getClient().getActiveChar().getPrivateStoreType() != 0)
+		{
+			getClient().getActiveChar().sendPacket(new SystemMessage(SystemMessageId.PRIVATE_STORE_UNDER_WAY));
+			return;
+		}
+
+		RecipeController.getInstance().requestBookOpen(getClient().getActiveChar(), _isDwarvenCraft);
 	}
-	
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType() 
-    {
-        return _C__AC_REQUESTRECIPEBOOKOPEN;
-    }
+
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType() 
+	{
+		return _C__AC_REQUESTRECIPEBOOKOPEN;
+	}
 }

@@ -14,12 +14,10 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import net.sf.l2j.gameserver.RecipeController;
+import net.sf.l2j.gameserver.model.L2RecipeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.RecipeBookItemList;
-import net.sf.l2j.gameserver.recipes.model.L2Recipe;
-import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
-import net.sf.l2j.gameserver.registry.IServiceRegistry;
-import net.sf.l2j.tools.L2Registry;
 
 public class RequestRecipeBookDestroy extends L2GameClientPacket 
 {
@@ -43,18 +41,17 @@ public class RequestRecipeBookDestroy extends L2GameClientPacket
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar != null)
         {
-            L2RecipeService l2RecipeService = (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
-        	L2Recipe rp =l2RecipeService.getRecipeList(_recipeId-1) ;
-         	if (rp == null) 
-         		return;
+            L2RecipeList rp = RecipeController.getInstance().getRecipeList(_recipeId-1);
+            if (rp == null)
+                return;
             activeChar.unregisterRecipeList(_recipeId);
-            
-            RecipeBookItemList response = new RecipeBookItemList(rp.isDwarvenRecipe(),activeChar.getMaxMp()); 
-         	if (rp.isDwarvenRecipe()) 
-         		response.addRecipes(activeChar.getDwarvenRecipeBook()); 
-         	else 
-         		response.addRecipes(activeChar.getCommonRecipeBook()); 
-            
+
+            RecipeBookItemList response = new RecipeBookItemList(rp.isDwarvenRecipe(),activeChar.getMaxMp());
+            if (rp.isDwarvenRecipe())
+                response.addRecipes(activeChar.getDwarvenRecipeBook());
+            else
+                response.addRecipes(activeChar.getCommonRecipeBook());
+
             activeChar.sendPacket(response);
         }
     }
