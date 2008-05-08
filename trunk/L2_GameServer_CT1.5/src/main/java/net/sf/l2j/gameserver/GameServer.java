@@ -340,8 +340,6 @@ public class GameServer
 		
 		Util.printSection("l2jfree");
 		_log.info("Revision: " + getVersionNumber());
-		_log.info("Build date: " + getBuildDate());
-		_log.info("Compiler version: " + getBuildJdk());
 		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
 		printMemUsage();
 		
@@ -365,10 +363,11 @@ public class GameServer
 	 */
 	public static String getVersionNumber()
 	{
-		VersionningService versionningService = (VersionningService) L2Registry.getBean(IServiceRegistry.VERSIONNING);
+/*		VersionningService versionningService = (VersionningService) L2Registry.getBean(IServiceRegistry.VERSIONNING);
 		Version version = versionningService.getVersion();
 		if (version != null)
 			return version.getRevisionNumber();
+*/			
 		return "-1";
 	}
 	
