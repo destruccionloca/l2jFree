@@ -2,7 +2,7 @@
 -- Table structure for `seven_signs`
 -- ---------------------------
 CREATE TABLE IF NOT EXISTS `seven_signs` (
-  `char_obj_id` INT NOT NULL DEFAULT '0',
+  `charId` INT NOT NULL DEFAULT '0',
   `cabal` VARCHAR(4) NOT NULL DEFAULT '',
   `seal` INT(1) NOT NULL DEFAULT '0',
   `red_stones` INT NOT NULL DEFAULT '0',
@@ -10,5 +10,5 @@ CREATE TABLE IF NOT EXISTS `seven_signs` (
   `blue_stones` INT NOT NULL DEFAULT '0',
   `ancient_adena_amount` DECIMAL(20,0) NOT NULL DEFAULT '0',
   `contribution_score` DECIMAL(20,0) NOT NULL DEFAULT '0',
-  PRIMARY KEY  (`char_obj_id`)
+  PRIMARY KEY  (`charId`)
 ) DEFAULT CHARSET=utf8;
