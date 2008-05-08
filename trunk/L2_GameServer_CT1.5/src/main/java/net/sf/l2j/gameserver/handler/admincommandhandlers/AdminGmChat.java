@@ -32,20 +32,22 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  */
 public class AdminGmChat implements IAdminCommandHandler
 {
-	private static final String[] ADMIN_COMMANDS = {"admin_gmchat", "admin_snoop", "admin_gmchat_menu"};
-	private static final int REQUIRED_LEVEL = Config.GM_MIN;
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_gmchat", "admin_snoop", "admin_gmchat_menu" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
-        
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		if (command.startsWith("admin_gmchat"))
 			handleGmChat(command, activeChar);
-		else if(command.startsWith("admin_snoop"))
+		else if (command.startsWith("admin_snoop"))
 			snoop(command, activeChar);
-		if (command.startsWith("admin_gmchat_menu")) 
-			AdminHelpPage.showHelpPage(activeChar, "main_menu.htm"); 
+		if (command.startsWith("admin_gmchat_menu"))
+			AdminHelpPage.showHelpPage(activeChar, "main_menu.htm");
 		return true;
 	}
 
@@ -56,20 +58,21 @@ public class AdminGmChat implements IAdminCommandHandler
 	private void snoop(String command, L2PcInstance activeChar)
 	{
 		L2Object target = activeChar.getTarget();
-		if(target == null)
+		if (target == null)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_MUST_SELECT_A_TARGET));
 			return;
 		}
-		if(!(target instanceof L2PcInstance))
+		if (!(target instanceof L2PcInstance))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;
 		}
-		L2PcInstance player = (L2PcInstance)target;
-		if (player.getAccessLevel()>activeChar.getAccessLevel()){
+		L2PcInstance player = (L2PcInstance) target;
+		if (player.getAccessLevel() > activeChar.getAccessLevel())
+		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-			player.sendMessage(activeChar.getName()+" tried to snoop your conversations. Blocked.");
+			player.sendMessage(activeChar.getName() + " tried to snoop your conversations. Blocked.");
 			return;
 		}
 		player.addSnooper(activeChar); // GM added to player list
@@ -90,16 +93,16 @@ public class AdminGmChat implements IAdminCommandHandler
 	 * @param command
 	 * @param activeChar
 	 */
-	private void handleGmChat(String command, L2PcInstance activeChar) 
+	private void handleGmChat(String command, L2PcInstance activeChar)
 	{
 		try
 		{
-			int offset=0;
+			int offset = 0;
 			String text;
 			if (command.contains("menu"))
-				offset=17;
+				offset = 17;
 			else
-				offset=13;
+				offset = 13;
 			text = command.substring(offset);
 			CreatureSay cs = new CreatureSay(0, 9, activeChar.getName(), text);
 			GmListTable.broadcastToGMs(cs);

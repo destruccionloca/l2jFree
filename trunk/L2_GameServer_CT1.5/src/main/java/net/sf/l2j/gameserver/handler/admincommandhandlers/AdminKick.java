@@ -25,66 +25,70 @@ import net.sf.l2j.gameserver.network.serverpackets.LeaveWorld;
 
 public class AdminKick implements IAdminCommandHandler
 {
-    private static final String[] ADMIN_COMMANDS = {"admin_kick" ,"admin_kick_non_gm"};
-    private static final int REQUIRED_LEVEL = Config.GM_KICK;
-    
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
-    {
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_kick", "admin_kick_non_gm" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_KICK;
 
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-                return false;
-        
-        if (command.startsWith("admin_kick"))
-        {
-            StringTokenizer st = new StringTokenizer(command);
-            if (st.countTokens() > 1)
-            {
-                st.nextToken();
-                String plyr = st.nextToken();
-                L2PcInstance player = L2World.getInstance().getPlayer(plyr);
-                if (player != null)
-                {
-                    kickPlayer(player);
-                    activeChar.sendMessage("You kicked " + player.getName() + " from the game.");
-                }
-            }
-        }
-        if (command.startsWith("admin_kick_non_gm"))
-        {
-            int counter = 0;
-            for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-            {
-                if(!player.isGM())
-                {
-                    counter++;
-                    kickPlayer(player);
-                }
-            }
-            activeChar.sendMessage("Kicked "+counter+" players");
-        }
-        return true;
-    }
-        
-    private void kickPlayer (L2PcInstance player)
-    {
-        try
-        {
-            L2GameClient client = player.getClient();
-            L2GameClient.saveCharToDisk(player, true); // Store character
-            player.deleteMe();
-            // prevent deleteMe from being called a second time on disconnection
-            client.setActiveChar(null);
-        }
-        catch (Throwable t){}
-    }
-    public String[] getAdminCommandList()
-    {
-        return ADMIN_COMMANDS;
-    }
-    
-    private boolean checkLevel(int level)
-    {
-        return (level >= REQUIRED_LEVEL);
-    }
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
+		if (command.startsWith("admin_kick"))
+		{
+			StringTokenizer st = new StringTokenizer(command);
+			if (st.countTokens() > 1)
+			{
+				st.nextToken();
+				String plyr = st.nextToken();
+				L2PcInstance player = L2World.getInstance().getPlayer(plyr);
+				if (player != null)
+				{
+					kickPlayer(player);
+					activeChar.sendMessage("You kicked " + player.getName() + " from the game.");
+				}
+			}
+		}
+		if (command.startsWith("admin_kick_non_gm"))
+		{
+			int counter = 0;
+			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+			{
+				if (!player.isGM())
+				{
+					counter++;
+					kickPlayer(player);
+				}
+			}
+			activeChar.sendMessage("Kicked " + counter + " players");
+		}
+		return true;
+	}
+
+	private void kickPlayer(L2PcInstance player)
+	{
+		try
+		{
+			L2GameClient client = player.getClient();
+			L2GameClient.saveCharToDisk(player, true); // Store character
+			player.deleteMe();
+			// prevent deleteMe from being called a second time on disconnection
+			client.setActiveChar(null);
+		}
+		catch (Throwable t)
+		{
+		}
+	}
+
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
+	}
 }

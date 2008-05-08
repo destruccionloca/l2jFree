@@ -26,20 +26,15 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminGeoEditor implements IAdminCommandHandler
 {
-	private static final String[] ADMIN_COMMANDS = 
-		{
-			"admin_ge_status",
-			"admin_ge_mode",
-			"admin_ge_join",
-			"admin_ge_leave"
-		};
-	
-	private static final int REQUIRED_LEVEL = Config.GM_MIN;
-	
-	public boolean useAdminCommand(String command, L2PcInstance activeChar) 
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_ge_status", "admin_ge_mode", "admin_ge_join", "admin_ge_leave" };
+
+	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
+
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) 
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
 
 		if (!Config.ACCEPT_GEOEDITOR_CONN)
@@ -47,11 +42,11 @@ public class AdminGeoEditor implements IAdminCommandHandler
 			activeChar.sendMessage("Server do not accepts geoeditor connections now.");
 			return true;
 		}
-		if(command.startsWith("admin_ge_status"))
+		if (command.startsWith("admin_ge_status"))
 		{
 			activeChar.sendMessage(GeoEditorListener.getInstance().getStatus());
 		}
-		else if(command.startsWith("admin_ge_mode"))
+		else if (command.startsWith("admin_ge_mode"))
 		{
 			if (GeoEditorListener.getInstance().getThread() == null)
 			{
@@ -74,8 +69,9 @@ public class AdminGeoEditor implements IAdminCommandHandler
 				int m;
 				m = Integer.parseInt(st.nextToken());
 				GeoEditorListener.getInstance().getThread().setMode(m);
-				activeChar.sendMessage("Geoeditor connection mode set to "+m+".");
-			} catch (Exception e)
+				activeChar.sendMessage("Geoeditor connection mode set to " + m + ".");
+			}
+			catch (Exception e)
 			{
 				activeChar.sendMessage("Usage: //ge_mode X");
 				activeChar.sendMessage("Mode 0: Don't send coordinates to geoeditor.");
@@ -85,7 +81,7 @@ public class AdminGeoEditor implements IAdminCommandHandler
 			}
 			return true;
 		}
-		else if(command.equals("admin_ge_join"))
+		else if (command.equals("admin_ge_join"))
 		{
 			if (GeoEditorListener.getInstance().getThread() == null)
 			{
@@ -95,7 +91,7 @@ public class AdminGeoEditor implements IAdminCommandHandler
 			GeoEditorListener.getInstance().getThread().addGM(activeChar);
 			activeChar.sendMessage("You are added to list for geoeditor.");
 		}
-		else if(command.equals("admin_ge_leave"))
+		else if (command.equals("admin_ge_leave"))
 		{
 			if (GeoEditorListener.getInstance().getThread() == null)
 			{
@@ -107,12 +103,13 @@ public class AdminGeoEditor implements IAdminCommandHandler
 		}
 		return true;
 	}
-	public String[] getAdminCommandList() 
+
+	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
 	}
-	
-	private boolean checkLevel(int level) 
+
+	private boolean checkLevel(int level)
 	{
 		return (level >= REQUIRED_LEVEL);
 	}

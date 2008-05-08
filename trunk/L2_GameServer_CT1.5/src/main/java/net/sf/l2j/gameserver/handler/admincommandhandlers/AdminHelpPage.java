@@ -26,15 +26,19 @@ import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
  * 
  * @version $Revision: 1.2.4.3 $ $Date: 2005/04/11 10:06:02 $
  */
-public class AdminHelpPage implements IAdminCommandHandler {
+public class AdminHelpPage implements IAdminCommandHandler
+{
 
-	private static final String[] ADMIN_COMMANDS = { "admin_help" };
-	private static final int REQUIRED_LEVEL = Config.GM_MIN;
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_help" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 
-	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!checkLevel(activeChar.getAccessLevel())) return false;
-		
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!checkLevel(activeChar.getAccessLevel()))
+				return false;
+
 		if (command.startsWith("admin_help"))
 		{
 			try
@@ -45,9 +49,9 @@ public class AdminHelpPage implements IAdminCommandHandler {
 			catch (StringIndexOutOfBoundsException e)
 			{
 				//case of empty filename
-			}			
+			}
 		}
-		
+
 		return true;
 	}
 
@@ -64,9 +68,9 @@ public class AdminHelpPage implements IAdminCommandHandler {
 	//PUBLIC & STATIC so other classes from package can include it directly
 	public static void showHelpPage(L2PcInstance targetChar, String filename)
 	{
-        String content = HtmCache.getInstance().getHtmForce("data/html/admin/" + filename);
-        NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-        adminReply.setHtml(content);
-        targetChar.sendPacket(adminReply);
+		String content = HtmCache.getInstance().getHtmForce("data/html/admin/" + filename);
+		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+		adminReply.setHtml(content);
+		targetChar.sendPacket(adminReply);
 	}
 }

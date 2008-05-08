@@ -38,9 +38,9 @@ import net.sf.l2j.tools.random.Rnd;
  */
 public class AdminFightCalculator implements IAdminCommandHandler
 {
-	private static final String[] ADMIN_COMMANDS =
-	{ "admin_fight_calculator", "admin_fight_calculator_show", "admin_fcs", };
-	private static final int REQUIRED_LEVEL = Config.GM_MIN;
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_fight_calculator", "admin_fight_calculator_show", "admin_fcs", };
+	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{

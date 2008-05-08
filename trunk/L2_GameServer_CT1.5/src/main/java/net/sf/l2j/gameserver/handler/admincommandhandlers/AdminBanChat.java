@@ -36,47 +36,53 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.1.6.3 $ $Date: 2005/04/11 10:06:06 $
  */
-public class AdminBanChat implements IAdminCommandHandler {
-	private final static Log _log = LogFactory.getLog(AdminBan.class.getName());
-	private static final String[] ADMIN_COMMANDS = {"admin_banchat", "admin_unbanchat"};
-	private static final int REQUIRED_LEVEL = Config.GM_BAN_CHAT;
-	
+public class AdminBanChat implements IAdminCommandHandler
+{
+	private final static Log		_log			= LogFactory.getLog(AdminBan.class.getName());
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_banchat", "admin_unbanchat" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_BAN_CHAT;
+
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
 		{
 			if (!(checkLevel(activeChar.getAccessLevel())))
 			{
-                _log.info("Not required level for " + activeChar.getName());
+				_log.info("Not required level for " + activeChar.getName());
 				return false;
 			}
 		}
-		
+
 		String[] cmdParams = command.split(" ");
 		long banLength = -1;
-		
+
 		L2Object targetObject = null;
 		L2PcInstance targetPlayer = null;
-		
-		if (cmdParams.length > 1) 
-        {
+
+		if (cmdParams.length > 1)
+		{
 			targetPlayer = L2World.getInstance().getPlayer(cmdParams[1]);
-            
-            if (cmdParams.length > 2) 
-            {
-                try
-                {
-                    banLength = Integer.parseInt(cmdParams[2]);
-                } catch (NumberFormatException nfe) {}
-            }
-		} else 
+
+			if (cmdParams.length > 2)
+			{
+				try
+				{
+					banLength = Integer.parseInt(cmdParams[2]);
+				}
+				catch (NumberFormatException nfe)
+				{
+				}
+			}
+		}
+		else
 		{
 			if (activeChar.getTarget() != null)
 			{
 				targetObject = activeChar.getTarget();
-		
+
 				if (targetObject != null && targetObject instanceof L2PcInstance)
-					targetPlayer = (L2PcInstance)targetObject;
+					targetPlayer = (L2PcInstance) targetObject;
 			}
 		}
 
@@ -88,31 +94,33 @@ public class AdminBanChat implements IAdminCommandHandler {
 
 		if (command.startsWith("admin_banchat"))
 		{
-            String banLengthStr = "";
-            
+			String banLengthStr = "";
+
 			if (banLength > -1)
-            {
-                targetPlayer.setBanChatTimer(banLength * 60000L);
-                banLengthStr = " for " + banLength + " minutes.";
-            }
-			
-            activeChar.sendMessage(targetPlayer.getName() + " is now chat banned" + banLengthStr + ".");
-            targetPlayer.setChatBanned(true);
+			{
+				targetPlayer.setBanChatTimer(banLength * 60000L);
+				banLengthStr = " for " + banLength + " minutes.";
+			}
+
+			activeChar.sendMessage(targetPlayer.getName() + " is now chat banned" + banLengthStr + ".");
+			targetPlayer.setChatBanned(true);
 		}
 		else if (command.startsWith("admin_unbanchat"))
 		{
-            activeChar.sendMessage(targetPlayer.getName() + "'s chat ban has now been lifted.");
+			activeChar.sendMessage(targetPlayer.getName() + "'s chat ban has now been lifted.");
 			targetPlayer.setChatBanned(false);
 		}
-		
+
 		return true;
 	}
-	
-	public String[] getAdminCommandList() {
+
+	public String[] getAdminCommandList()
+	{
 		return ADMIN_COMMANDS;
 	}
-	
-	private boolean checkLevel(int level) {
+
+	private boolean checkLevel(int level)
+	{
 		return (level >= REQUIRED_LEVEL);
-	}	
+	}
 }

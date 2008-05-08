@@ -32,41 +32,39 @@ import net.sf.l2j.gameserver.templates.L2Item;
  */
 public class AdminCreateItem implements IAdminCommandHandler
 {
-	private static final String[] ADMIN_COMMANDS =
-	{
-		"admin_itemcreate",
-		"admin_create_item"
-	};
-	private static final int REQUIRED_LEVEL = Config.GM_CREATE_ITEM;
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_itemcreate", "admin_create_item" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_CREATE_ITEM;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
-		
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		if (command.equals("admin_itemcreate"))
 		{
 			AdminHelpPage.showHelpPage(activeChar, "itemcreation.htm");
-		}		
+		}
 		else if (command.startsWith("admin_create_item"))
 		{
 			try
 			{
 				String val = command.substring(17);
 				StringTokenizer st = new StringTokenizer(val);
-				if (st.countTokens()== 2)
+				if (st.countTokens() == 2)
 				{
 					String id = st.nextToken();
 					int idval = Integer.parseInt(id);
 					String num = st.nextToken();
 					int numval = Integer.parseInt(num);
-					createItem(activeChar,idval,numval);
+					createItem(activeChar, idval, numval);
 				}
-				else if (st.countTokens()== 1)
+				else if (st.countTokens() == 1)
 				{
 					String id = st.nextToken();
 					int idval = Integer.parseInt(id);
-					createItem(activeChar,idval,1);
+					createItem(activeChar, idval, 1);
 				}
 			}
 			catch (StringIndexOutOfBoundsException e)
@@ -79,20 +77,20 @@ public class AdminCreateItem implements IAdminCommandHandler
 			}
 			AdminHelpPage.showHelpPage(activeChar, "itemcreation.htm");
 		}
-		
+
 		return true;
 	}
-	
+
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
 	}
-	
+
 	private boolean checkLevel(int level)
 	{
 		return (level >= REQUIRED_LEVEL);
 	}
-	
+
 	private void createItem(L2PcInstance activeChar, int id, int num)
 	{
 		L2Item template = ItemTable.getInstance().getTemplate(id);
@@ -109,7 +107,7 @@ public class AdminCreateItem implements IAdminCommandHandler
 				return;
 			}
 		}
-		
+
 		activeChar.getInventory().addItem("Admin", id, num, activeChar, null);
 		activeChar.sendMessage("You have spawned " + num + " " + template.getName() + " (" + id + ") in your inventory.");
 		// Send whole item list and open inventory window

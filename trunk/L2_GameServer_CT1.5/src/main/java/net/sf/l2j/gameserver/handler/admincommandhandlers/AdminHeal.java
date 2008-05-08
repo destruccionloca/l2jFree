@@ -29,66 +29,67 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminHeal implements IAdminCommandHandler
 {
-    //private final static Log _log = LogFactory.getLog(AdminRes.class.getName());
-    private static final String[] ADMIN_COMMANDS = { "admin_heal" };
-    private static final int REQUIRED_LEVEL = Config.GM_HEAL;
+	//private final static Log _log = LogFactory.getLog(AdminRes.class.getName());
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_heal" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_HEAL;
 
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
 
-        if (command.equals("admin_heal"))
-        {
-            if (activeChar.getTarget() instanceof L2Character)
-            {
-                handleHeal((L2Character)activeChar.getTarget());
-            }
-        }
-        else if (command.startsWith("admin_heal"))
-        {
-            try
-            {
-                String val = command.substring(11);
-                
-                try
-                {
-                    int radius = Integer.parseInt(val);
-                    for (L2Character cha : activeChar.getKnownList().getKnownCharactersInRadius(radius))
-                    {
-                        handleHeal(cha);
-                    }
-                }
-                catch (NumberFormatException e)
-                {
-                    L2Object target = L2World.getInstance().getPlayer(val);
-                    if (target instanceof L2Character)
-                        handleHeal((L2Character)target);
-                }
-            }
-            catch (StringIndexOutOfBoundsException e)
-            {
-                activeChar.sendMessage("Incorrect target/radius specified.");
-            }
-        }
-        return true;
-    }
+		if (command.equals("admin_heal"))
+		{
+			if (activeChar.getTarget() instanceof L2Character)
+			{
+				handleHeal((L2Character) activeChar.getTarget());
+			}
+		}
+		else if (command.startsWith("admin_heal"))
+		{
+			try
+			{
+				String val = command.substring(11);
 
-    public String[] getAdminCommandList()
-    {
-        return ADMIN_COMMANDS;
-    }
+				try
+				{
+					int radius = Integer.parseInt(val);
+					for (L2Character cha : activeChar.getKnownList().getKnownCharactersInRadius(radius))
+					{
+						handleHeal(cha);
+					}
+				}
+				catch (NumberFormatException e)
+				{
+					L2Object target = L2World.getInstance().getPlayer(val);
+					if (target instanceof L2Character)
+						handleHeal((L2Character) target);
+				}
+			}
+			catch (StringIndexOutOfBoundsException e)
+			{
+				activeChar.sendMessage("Incorrect target/radius specified.");
+			}
+		}
+		return true;
+	}
 
-    private boolean checkLevel(int level)
-    {
-        return (level >= REQUIRED_LEVEL);
-    }
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
 
-    private void handleHeal(L2Character target)
-    {
-        target.getStatus().setCurrentHpMp(target.getMaxHp(), target.getMaxMp());
-        if (target instanceof L2PcInstance)
-            target.getStatus().setCurrentCp(target.getMaxCp());
-    }
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
+	}
+
+	private void handleHeal(L2Character target)
+	{
+		target.getStatus().setCurrentHpMp(target.getMaxHp(), target.getMaxMp());
+		if (target instanceof L2PcInstance)
+			target.getStatus().setCurrentCp(target.getMaxCp());
+	}
 }

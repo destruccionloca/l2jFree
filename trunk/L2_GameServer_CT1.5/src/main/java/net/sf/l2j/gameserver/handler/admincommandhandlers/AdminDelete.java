@@ -34,67 +34,64 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  */
 public class AdminDelete implements IAdminCommandHandler
 {
-    //private final static Log _log = LogFactory.getLog(AdminDelete.class.getName());
+	//private final static Log _log = LogFactory.getLog(AdminDelete.class.getName());
 
-    private static final String[] ADMIN_COMMANDS = {"admin_delete" , "admin_frintezza" };
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_delete" };
 
-    private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
+	private static final int		REQUIRED_LEVEL	= Config.GM_NPC_EDIT;
 
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
-    {
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-        {
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
-        }
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+		{
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+		}
 
-        if (command.equals("admin_delete")) handleDelete(activeChar);
+		if (command.equals("admin_delete"))
+			handleDelete(activeChar);
 
-        else if (command.equals("admin_frintezza"))
-        {
-			activeChar.sendMessage("Frintezza was Initialized.");
-        	FrintezzaManager.getInstance().setScarletSpawnTask();
-        }
-        
-        return true;
-        
-    }
+		return true;
 
-    public String[] getAdminCommandList()
-    {
-        return ADMIN_COMMANDS;
-    }
+	}
 
-    private boolean checkLevel(int level)
-    {
-        return (level >= REQUIRED_LEVEL);
-    }
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
 
-    private void handleDelete(L2PcInstance activeChar)
-    {
-        L2Object obj = activeChar.getTarget();
-        if ((obj != null) && (obj instanceof L2NpcInstance))
-        {
-            L2NpcInstance target = (L2NpcInstance) obj;
-            target.deleteMe();
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
+	}
 
-            L2Spawn spawn = target.getSpawn();
-            if (spawn != null)
-            {
-                spawn.stopRespawn();
+	private void handleDelete(L2PcInstance activeChar)
+	{
+		L2Object obj = activeChar.getTarget();
+		if ((obj != null) && (obj instanceof L2NpcInstance))
+		{
+			L2NpcInstance target = (L2NpcInstance) obj;
+			target.deleteMe();
 
-                if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcId()))
-                    RaidBossSpawnManager.getInstance().deleteSpawn(spawn, true);
-                else if (GrandBossSpawnManager.getInstance().isDefined(spawn.getNpcId()))
-                    GrandBossSpawnManager.getInstance().deleteSpawn(spawn, true);
-                else
-                    SpawnTable.getInstance().deleteSpawn(spawn, true);
-            }
+			L2Spawn spawn = target.getSpawn();
+			if (spawn != null)
+			{
+				spawn.stopRespawn();
 
-            activeChar.sendMessage("Deleted " + target.getName() + " from " + target.getObjectId() + ".");
-        }
-        else
-        {
-            activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-        }
-    }
+				if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcId()))
+					RaidBossSpawnManager.getInstance().deleteSpawn(spawn, true);
+				else if (GrandBossSpawnManager.getInstance().isDefined(spawn.getNpcId()))
+					GrandBossSpawnManager.getInstance().deleteSpawn(spawn, true);
+				else
+					SpawnTable.getInstance().deleteSpawn(spawn, true);
+			}
+
+			activeChar.sendMessage("Deleted " + target.getName() + " from " + target.getObjectId() + ".");
+		}
+		else
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+		}
+	}
 }

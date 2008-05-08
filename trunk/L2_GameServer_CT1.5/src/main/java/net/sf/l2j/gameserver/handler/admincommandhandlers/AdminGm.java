@@ -30,22 +30,23 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdminGm implements IAdminCommandHandler
 {
-	private final static Log _log = LogFactory.getLog(AdminGm.class.getName());
-	private static final String[] ADMIN_COMMANDS = { "admin_gm" };
-	private static final int REQUIRED_LEVEL = Config.GM_ACCESSLEVEL;
+	private final static Log		_log			= LogFactory.getLog(AdminGm.class.getName());
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_gm" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_ACCESSLEVEL;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		//don't check for gm status ;)
 		if (!Config.ALT_PRIVILEGES_ADMIN)
 		{
-			if (!checkLevel(activeChar.getAccessLevel())) 
+			if (!checkLevel(activeChar.getAccessLevel()))
 				return false;
 		}
-		
-		if (command.equals("admin_gm")) 
+
+		if (command.equals("admin_gm"))
 			handleGm(activeChar);
-		
+
 		return true;
 	}
 
@@ -59,25 +60,27 @@ public class AdminGm implements IAdminCommandHandler
 		return (level >= REQUIRED_LEVEL);
 	}
 
-	private void handleGm(L2PcInstance activeChar) 
+	private void handleGm(L2PcInstance activeChar)
 	{
 		if (activeChar.isGM())
 		{
 			GmListTable.getInstance().deleteGm(activeChar);
 			activeChar.setIsGM(false);
-			
+
 			activeChar.sendMessage("You no longer have GM status.");
-			
-			if (_log.isDebugEnabled()) _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") turned his GM status off");
-		} 
+
+			if (_log.isDebugEnabled())
+				_log.debug("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") turned his GM status off");
+		}
 		else
 		{
 			GmListTable.getInstance().addGm(activeChar, false);
 			activeChar.setIsGM(true);
-			
+
 			activeChar.sendMessage("You now have GM status.");
-			
-			if (_log.isDebugEnabled()) _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") turned his GM status on");
+
+			if (_log.isDebugEnabled())
+				_log.debug("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") turned his GM status on");
 		}
 	}
 }
