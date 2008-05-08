@@ -969,6 +969,7 @@ public final class Config
 	public static int				AI_MAX_THREAD;												// AI max thread
 	public static boolean			AUTODELETE_INVALID_QUEST_DATA;								// Auto-delete invalid quest data ?
 	public static boolean			FORCE_INVENTORY_UPDATE;
+	public static boolean			LAZY_CACHE;
 	public static boolean			SHOW_L2J_LICENSE;											// Show License at login
 	public static boolean			SHOW_HTML_WELCOME;											// Show html window at login
 	public static boolean			SHOW_HTML_NEWBIE;
@@ -1058,16 +1059,6 @@ public final class Config
 	public static boolean	LOG_ITEMS;
 	public static int		DEFAULT_PUNISH;					// Default punishment for illegal actions
 	public static int		DEFAULT_PUNISH_PARAM;			// Parameter for default punishment
-
-	public static enum CacheType
-	{
-		ehcache, mapcache, none
-	};
-
-	public static CacheType	TYPE_CACHE;
-	public static int		CACHE_TIMETOLIVESECONDS;
-	public static int		CACHE_TIMETOIDLESECONDS;
-	public static int		CACHE_MAX_ELEM_IN_MEMORY;
 	public static boolean	GM_AUDIT;
 	public static String	COMMUNITY_TYPE;						// Community Board
 	public static boolean	BBS_SHOW_PLAYERLIST;
@@ -1218,6 +1209,8 @@ public final class Config
 			SHOW_NPC_LVL = Boolean.parseBoolean(optionsSettings.getProperty("ShowNpcLevel", "False"));
 
 			FORCE_INVENTORY_UPDATE = Boolean.parseBoolean(optionsSettings.getProperty("ForceInventoryUpdate", "False"));
+			LAZY_CACHE = Boolean.parseBoolean(optionsSettings.getProperty("LazyCache", "False"));
+
 
 			AUTODELETE_INVALID_QUEST_DATA = Boolean.parseBoolean(optionsSettings.getProperty("AutoDeleteInvalidQuestData", "False"));
 
@@ -1234,11 +1227,6 @@ public final class Config
 
 			DEFAULT_PUNISH = Integer.parseInt(optionsSettings.getProperty("DefaultPunish", "2"));
 			DEFAULT_PUNISH_PARAM = Integer.parseInt(optionsSettings.getProperty("DefaultPunishParam", "0"));
-
-			TYPE_CACHE = CacheType.valueOf(optionsSettings.getProperty("CacheType", "ehcache").toLowerCase());
-			CACHE_MAX_ELEM_IN_MEMORY = Integer.parseInt(optionsSettings.getProperty("MaxElemInMemory", "9700"));
-			CACHE_TIMETOLIVESECONDS = Integer.parseInt(optionsSettings.getProperty("TimeToLiveSeconds", "7200"));
-			CACHE_TIMETOIDLESECONDS = Integer.parseInt(optionsSettings.getProperty("TimeToIdleSeconds", "3600"));
 
 			PACKET_LIFETIME = Integer.parseInt(optionsSettings.getProperty("PacketLifeTime", "0"));
 			PACKET_EXECUTIONTIME = Long.parseLong(optionsSettings.getProperty("PacketExecutionTime", "0"));

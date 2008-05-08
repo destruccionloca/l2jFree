@@ -47,7 +47,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.5.2.1.2.7 $ $Date: 2005/03/29 23:15:14 $
  */
-public class Announcements implements AnnouncementsMBean
+public class Announcements
 {
 	private final static Log		_log					= LogFactory.getLog(Announcements.class.getName());
 	

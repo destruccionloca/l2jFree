@@ -113,10 +113,7 @@ import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.gameserver.util.PathCreator;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.status.Status;
-import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.random.RandomIntGenerator;
-import net.sf.l2j.tools.versionning.model.Version;
-import net.sf.l2j.tools.versionning.service.VersionningService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -368,27 +365,6 @@ public class GameServer
 		Version version = versionningService.getVersion();
 		if (version != null)
 			return version.getRevisionNumber();
-		return "-1";
-	}
-	
-	public static String getBuildDate()
-	{
-		VersionningService versionningService = (VersionningService) L2Registry.getBean(IServiceRegistry.VERSIONNING);
-		Version version = versionningService.getVersion();
-		if (version != null)
-			return version.getBuildDate();
-		return "-1";
-	}
-	
-	/**
-	 * @return the build jdk
-	 */
-	public static String getBuildJdk()
-	{
-		VersionningService versionningService = (VersionningService) L2Registry.getBean(IServiceRegistry.VERSIONNING);
-		Version version = versionningService.getVersion();
-		if (version != null)
-			return version.getBuildJdk();
 		return "-1";
 	}
 	

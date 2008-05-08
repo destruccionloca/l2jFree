@@ -2,15 +2,8 @@ REM Hibernate and associated jars
 SET CLASSPATH=%CLASSPATH%;antlr-2.7.6.jar
 SET CLASSPATH=%CLASSPATH%;asm-1.5.3.jar
 SET CLASSPATH=%CLASSPATH%;cglib-2.1_3.jar
-SET CLASSPATH=%CLASSPATH%;hibernate-3.2.2.ga.jar
 SET CLASSPATH=%CLASSPATH%;jta-1.0.1B.jar
 SET CLASSPATH=%CLASSPATH%;commons-collections-2.1.1.jar
-
-
-SET CLASSPATH=%CLASSPATH%;jmxremote-1.0.1_03-b57.jar
-SET CLASSPATH=%CLASSPATH%;jmxremote_optional-1.0.1_03-b57.jar
-SET CLASSPATH=%CLASSPATH%;jmxri-1.2.1-b14.jar
-SET CLASSPATH=%CLASSPATH%;jmxtools-1.2.8.jar
 
 SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.0.8.jar
 
@@ -51,9 +44,6 @@ SET CLASSPATH=%CLASSPATH%;javolution-1.5.4.2.6.jar
 REM main jar
 SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.2.jar
 SET CLASSPATH=%CLASSPATH%;l2j-gameserver-1.0.0.jar
-
-REM spring 
-SET CLASSPATH=%CLASSPATH%;spring-2.0.2.jar
 
 REM For SQL use
 SET CLASSPATH=%CLASSPATH%;mysql-connector-java-5.1.5.jar
