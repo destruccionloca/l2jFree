@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.network.clientpackets.L2GameClientPacket;
  */
 public interface CustomPacketHandlerInterface
 {
-	
+
 	/**
 	 * interface for a custom packethandler to ckeck received packets PacketHandler will take care of the packet if this function returns null.
 	 * 

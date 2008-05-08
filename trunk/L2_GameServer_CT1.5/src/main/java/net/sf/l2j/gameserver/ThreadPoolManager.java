@@ -70,29 +70,29 @@ import org.mmocore.network.ReceivablePacket;
  * 
  * @author -Wooden-
  */
-public class ThreadPoolManager implements ThreadPoolManagerMBean
+public class ThreadPoolManager
 {
 	private static ThreadPoolManager	_instance;
-	
-	private final static Log			_log	= LogFactory.getLog(ThreadPoolManager.class);
-	
+
+	private final static Log			_log		= LogFactory.getLog(ThreadPoolManager.class);
+
 	private ScheduledThreadPoolExecutor	_effectsScheduledThreadPool;
 	private ScheduledThreadPoolExecutor	_generalScheduledThreadPool;
-	
+
 	private ThreadPoolExecutor			_generalPacketsThreadPool;
 	private ThreadPoolExecutor			_ioPacketsThreadPool;
 	// will be really used in the next AI implementation.
 	private ThreadPoolExecutor			_aiThreadPool;
 	private ThreadPoolExecutor			_generalThreadPool;
-	
+
 	// temp
 	private ScheduledThreadPoolExecutor	_aiScheduledThreadPool;
 
-    /** temp workaround for VM issue */
-    private static final long			MAX_DELAY	=	Long.MAX_VALUE/1000000/2;
+	/** temp workaround for VM issue */
+	private static final long			MAX_DELAY	= Long.MAX_VALUE / 1000000 / 2;
 
 	private boolean						_shutdown;
-	
+
 	public static ThreadPoolManager getInstance()
 	{
 		if (_instance == null)
@@ -101,27 +101,27 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		}
 		return _instance;
 	}
-	
+
 	private ThreadPoolManager()
 	{
 		_log.info("ThreadPoolManager: io:" + Config.IO_PACKET_THREAD_CORE_SIZE + " generalPackets:" + Config.GENERAL_PACKET_THREAD_CORE_SIZE + " general:"
 				+ Config.GENERAL_THREAD_CORE_SIZE + " ai:" + Config.AI_MAX_THREAD);
-		
+
 		_effectsScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.THREAD_P_EFFECTS, new PriorityThreadFactory("EffectsSTPool", Thread.NORM_PRIORITY));
 		_generalScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.THREAD_P_GENERAL, new PriorityThreadFactory("GerenalSTPool", Thread.NORM_PRIORITY));
-		
+
 		_ioPacketsThreadPool = new ThreadPoolExecutor(Config.IO_PACKET_THREAD_CORE_SIZE, Integer.MAX_VALUE, 5L, TimeUnit.SECONDS,
 				new LinkedBlockingQueue<Runnable>(), new PriorityThreadFactory("I/O Packet Pool", Thread.NORM_PRIORITY + 1));
-		
+
 		_generalPacketsThreadPool = new ThreadPoolExecutor(Config.GENERAL_PACKET_THREAD_CORE_SIZE, Config.GENERAL_PACKET_THREAD_CORE_SIZE + 2, 15L,
 				TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(), new PriorityThreadFactory("Normal Packet Pool", Thread.NORM_PRIORITY + 1));
-		
+
 		_generalThreadPool = new ThreadPoolExecutor(Config.GENERAL_THREAD_CORE_SIZE, Config.GENERAL_THREAD_CORE_SIZE + 2, 5L, TimeUnit.SECONDS,
 				new LinkedBlockingQueue<Runnable>(), new PriorityThreadFactory("General Pool", Thread.NORM_PRIORITY));
-		
+
 		// will be really used in the next AI implementation.
 		_aiThreadPool = new ThreadPoolExecutor(1, Config.AI_MAX_THREAD, 10L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
-		
+
 		_aiScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.AI_MAX_THREAD, new PriorityThreadFactory("AISTPool", Thread.NORM_PRIORITY));
 	}
 
@@ -150,7 +150,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 			return null; /* shutdown, ignore */
 		}
 	}
-	
+
 	public ScheduledFuture<?> scheduleEffectAtFixedRate(Runnable r, long initial, long delay)
 	{
 		try
@@ -164,7 +164,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 			return null; /* shutdown, ignore */
 		}
 	}
-	
+
 	public ScheduledFuture<?> scheduleGeneral(Runnable r, long delay)
 	{
 		try
@@ -177,7 +177,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 			return null; /* shutdown, ignore */
 		}
 	}
-	
+
 	public ScheduledFuture<?> scheduleGeneralAtFixedRate(Runnable r, long initial, long delay)
 	{
 		try
@@ -191,7 +191,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 			return null; /* shutdown, ignore */
 		}
 	}
-	
+
 	public ScheduledFuture<?> scheduleAi(Runnable r, long delay)
 	{
 		try
@@ -204,7 +204,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 			return null; /* shutdown, ignore */
 		}
 	}
-	
+
 	public ScheduledFuture<?> scheduleAiAtFixedRate(Runnable r, long initial, long delay)
 	{
 		try
@@ -218,73 +218,101 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 			return null; /* shutdown, ignore */
 		}
 	}
-	
+
 	public void executePacket(ReceivablePacket<L2GameClient> pkt)
 	{
 		_generalPacketsThreadPool.execute(pkt);
 	}
-	
+
 	public void executeIOPacket(ReceivablePacket<L2GameClient> pkt)
 	{
 		_ioPacketsThreadPool.execute(pkt);
 	}
-	
+
 	public void executeTask(Runnable r)
 	{
 		_generalThreadPool.execute(r);
 	}
-	
+
 	public void executeAi(Runnable r)
 	{
 		_aiThreadPool.execute(r);
 	}
-	
+
 	public String[] getStats()
 	{
-		return new String[] { "STP:", " + Effects:", " |- ActiveThreads:   " + _effectsScheduledThreadPool.getActiveCount(),
-				" |- getCorePoolSize: " + _effectsScheduledThreadPool.getCorePoolSize(), " |- PoolSize:        " + _effectsScheduledThreadPool.getPoolSize(),
+		return new String[]
+		{
+				"STP:",
+				" + Effects:",
+				" |- ActiveThreads:   " + _effectsScheduledThreadPool.getActiveCount(),
+				" |- getCorePoolSize: " + _effectsScheduledThreadPool.getCorePoolSize(),
+				" |- PoolSize:        " + _effectsScheduledThreadPool.getPoolSize(),
 				" |- MaximumPoolSize: " + _effectsScheduledThreadPool.getMaximumPoolSize(),
 				" |- CompletedTasks:  " + _effectsScheduledThreadPool.getCompletedTaskCount(),
-				" |- ScheduledTasks:  " + (_effectsScheduledThreadPool.getTaskCount() - _effectsScheduledThreadPool.getCompletedTaskCount()), " | -------",
-				" + General:", " |- ActiveThreads:   " + _generalScheduledThreadPool.getActiveCount(),
-				" |- getCorePoolSize: " + _generalScheduledThreadPool.getCorePoolSize(), " |- PoolSize:        " + _generalScheduledThreadPool.getPoolSize(),
+				" |- ScheduledTasks:  " + (_effectsScheduledThreadPool.getTaskCount() - _effectsScheduledThreadPool.getCompletedTaskCount()),
+				" | -------",
+				" + General:",
+				" |- ActiveThreads:   " + _generalScheduledThreadPool.getActiveCount(),
+				" |- getCorePoolSize: " + _generalScheduledThreadPool.getCorePoolSize(),
+				" |- PoolSize:        " + _generalScheduledThreadPool.getPoolSize(),
 				" |- MaximumPoolSize: " + _generalScheduledThreadPool.getMaximumPoolSize(),
 				" |- CompletedTasks:  " + _generalScheduledThreadPool.getCompletedTaskCount(),
-				" |- ScheduledTasks:  " + (_generalScheduledThreadPool.getTaskCount() - _generalScheduledThreadPool.getCompletedTaskCount()), " | -------",
-				" + AI:", " |- ActiveThreads:   " + _aiScheduledThreadPool.getActiveCount(),
-				" |- getCorePoolSize: " + _aiScheduledThreadPool.getCorePoolSize(), " |- PoolSize:        " + _aiScheduledThreadPool.getPoolSize(),
+				" |- ScheduledTasks:  " + (_generalScheduledThreadPool.getTaskCount() - _generalScheduledThreadPool.getCompletedTaskCount()),
+				" | -------",
+				" + AI:",
+				" |- ActiveThreads:   " + _aiScheduledThreadPool.getActiveCount(),
+				" |- getCorePoolSize: " + _aiScheduledThreadPool.getCorePoolSize(),
+				" |- PoolSize:        " + _aiScheduledThreadPool.getPoolSize(),
 				" |- MaximumPoolSize: " + _aiScheduledThreadPool.getMaximumPoolSize(),
 				" |- CompletedTasks:  " + _aiScheduledThreadPool.getCompletedTaskCount(),
-				" |- ScheduledTasks:  " + (_aiScheduledThreadPool.getTaskCount() - _aiScheduledThreadPool.getCompletedTaskCount()), "TP:", " + Packets:",
-				" |- ActiveThreads:   " + _generalPacketsThreadPool.getActiveCount(), " |- getCorePoolSize: " + _generalPacketsThreadPool.getCorePoolSize(),
+				" |- ScheduledTasks:  " + (_aiScheduledThreadPool.getTaskCount() - _aiScheduledThreadPool.getCompletedTaskCount()),
+				"TP:",
+				" + Packets:",
+				" |- ActiveThreads:   " + _generalPacketsThreadPool.getActiveCount(),
+				" |- getCorePoolSize: " + _generalPacketsThreadPool.getCorePoolSize(),
 				" |- MaximumPoolSize: " + _generalPacketsThreadPool.getMaximumPoolSize(),
-				" |- LargestPoolSize: " + _generalPacketsThreadPool.getLargestPoolSize(), " |- PoolSize:        " + _generalPacketsThreadPool.getPoolSize(),
+				" |- LargestPoolSize: " + _generalPacketsThreadPool.getLargestPoolSize(),
+				" |- PoolSize:        " + _generalPacketsThreadPool.getPoolSize(),
 				" |- CompletedTasks:  " + _generalPacketsThreadPool.getCompletedTaskCount(),
-				" |- QueuedTasks:     " + _generalPacketsThreadPool.getQueue().size(), " | -------", " + I/O Packets:",
-				" |- ActiveThreads:   " + _ioPacketsThreadPool.getActiveCount(), " |- getCorePoolSize: " + _ioPacketsThreadPool.getCorePoolSize(),
-				" |- MaximumPoolSize: " + _ioPacketsThreadPool.getMaximumPoolSize(), " |- LargestPoolSize: " + _ioPacketsThreadPool.getLargestPoolSize(),
-				" |- PoolSize:        " + _ioPacketsThreadPool.getPoolSize(), " |- CompletedTasks:  " + _ioPacketsThreadPool.getCompletedTaskCount(),
-				" |- QueuedTasks:     " + _ioPacketsThreadPool.getQueue().size(), " | -------", " + General Tasks:",
-				" |- ActiveThreads:   " + _generalThreadPool.getActiveCount(), " |- getCorePoolSize: " + _generalThreadPool.getCorePoolSize(),
-				" |- MaximumPoolSize: " + _generalThreadPool.getMaximumPoolSize(), " |- LargestPoolSize: " + _generalThreadPool.getLargestPoolSize(),
-				" |- PoolSize:        " + _generalThreadPool.getPoolSize(), " |- CompletedTasks:  " + _generalThreadPool.getCompletedTaskCount(),
-				" |- QueuedTasks:     " + _generalThreadPool.getQueue().size(), " | -------", " + AI:", " |- Not Done" };
+				" |- QueuedTasks:     " + _generalPacketsThreadPool.getQueue().size(),
+				" | -------",
+				" + I/O Packets:",
+				" |- ActiveThreads:   " + _ioPacketsThreadPool.getActiveCount(),
+				" |- getCorePoolSize: " + _ioPacketsThreadPool.getCorePoolSize(),
+				" |- MaximumPoolSize: " + _ioPacketsThreadPool.getMaximumPoolSize(),
+				" |- LargestPoolSize: " + _ioPacketsThreadPool.getLargestPoolSize(),
+				" |- PoolSize:        " + _ioPacketsThreadPool.getPoolSize(),
+				" |- CompletedTasks:  " + _ioPacketsThreadPool.getCompletedTaskCount(),
+				" |- QueuedTasks:     " + _ioPacketsThreadPool.getQueue().size(),
+				" | -------",
+				" + General Tasks:",
+				" |- ActiveThreads:   " + _generalThreadPool.getActiveCount(),
+				" |- getCorePoolSize: " + _generalThreadPool.getCorePoolSize(),
+				" |- MaximumPoolSize: " + _generalThreadPool.getMaximumPoolSize(),
+				" |- LargestPoolSize: " + _generalThreadPool.getLargestPoolSize(),
+				" |- PoolSize:        " + _generalThreadPool.getPoolSize(),
+				" |- CompletedTasks:  " + _generalThreadPool.getCompletedTaskCount(),
+				" |- QueuedTasks:     " + _generalThreadPool.getQueue().size(),
+				" | -------",
+				" + AI:",
+				" |- Not Done" };
 	}
-	
+
 	private class PriorityThreadFactory implements ThreadFactory
 	{
 		private int				_prio;
 		private String			_name;
 		private AtomicInteger	_threadNumber	= new AtomicInteger(1);
 		private ThreadGroup		_group;
-		
+
 		public PriorityThreadFactory(String name, int prio)
 		{
 			_prio = prio;
 			_name = name;
 			_group = new ThreadGroup(_name);
 		}
-		
+
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -297,13 +325,13 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 			t.setPriority(_prio);
 			return t;
 		}
-		
+
 		public ThreadGroup getGroup()
 		{
 			return _group;
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -325,19 +353,19 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 			_generalThreadPool.shutdown();
 			_aiThreadPool.shutdown();
 			System.out.println("All ThreadPools are now stopped");
-			
+
 		}
 		catch (InterruptedException e)
 		{
 			_log.error(e);
 		}
 	}
-	
+
 	public boolean isShutdown()
 	{
 		return _shutdown;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -351,7 +379,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		_generalThreadPool.purge();
 		_aiThreadPool.purge();
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -384,7 +412,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		tb.append("Packet Tp stack traces printed.\r\n");
 		return tb.toString();
 	}
-	
+
 	public String getIOPacketStats()
 	{
 		TextBuilder tb = new TextBuilder();
@@ -414,7 +442,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		tb.append("Packet Tp stack traces printed.\r\n");
 		return tb.toString();
 	}
-	
+
 	public String getGeneralStats()
 	{
 		TextBuilder tb = new TextBuilder();
@@ -444,7 +472,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		tb.append("Packet Tp stack traces printed.\r\n");
 		return tb.toString();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getEffectsNbActiveThreads()
 	 */
@@ -452,7 +480,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _effectsScheduledThreadPool.getActiveCount();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getEffectsCorePoolSize()
 	 */
@@ -460,7 +488,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _effectsScheduledThreadPool.getCorePoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getEffectsPoolSize()
 	 */
@@ -468,7 +496,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _effectsScheduledThreadPool.getPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getEffectsMaximumPoolSize()
 	 */
@@ -476,7 +504,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _effectsScheduledThreadPool.getMaximumPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getEffectsCompletedTasks()
 	 */
@@ -484,7 +512,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _effectsScheduledThreadPool.getCompletedTaskCount();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getEffectsScheduledTasks()
 	 */
@@ -492,7 +520,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return (_effectsScheduledThreadPool.getTaskCount() - _effectsScheduledThreadPool.getCompletedTaskCount());
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralScheduledActiveThreads()
 	 */
@@ -500,7 +528,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalScheduledThreadPool.getActiveCount();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralScheduledCorePoolSize()
 	 */
@@ -508,7 +536,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalScheduledThreadPool.getCorePoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralScheduledPoolSize()
 	 */
@@ -516,7 +544,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalScheduledThreadPool.getPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralScheduledMaximumPoolSize()
 	 */
@@ -524,7 +552,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalScheduledThreadPool.getMaximumPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralScheduledCompletedTasks()
 	 */
@@ -532,7 +560,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalScheduledThreadPool.getCompletedTaskCount();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralScheduledScheduledTasks()
 	 */
@@ -540,7 +568,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return (_generalScheduledThreadPool.getTaskCount() - _generalScheduledThreadPool.getCompletedTaskCount());
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getAIActiveThreads()
 	 */
@@ -548,7 +576,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _aiScheduledThreadPool.getActiveCount();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getAICorePoolSize()
 	 */
@@ -556,7 +584,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _aiScheduledThreadPool.getCorePoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getAIPoolSize()
 	 */
@@ -564,7 +592,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _aiScheduledThreadPool.getPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getAIMaximumPoolSize()
 	 */
@@ -572,7 +600,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _aiScheduledThreadPool.getMaximumPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getAICompletedTasks()
 	 */
@@ -580,7 +608,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _aiScheduledThreadPool.getCompletedTaskCount();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getAIScheduledTasks()
 	 */
@@ -588,7 +616,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return (_aiScheduledThreadPool.getTaskCount() - _aiScheduledThreadPool.getCompletedTaskCount());
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsActiveThreads()
 	 */
@@ -596,7 +624,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalPacketsThreadPool.getActiveCount();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsCorePoolSize()
 	 */
@@ -604,7 +632,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalPacketsThreadPool.getCorePoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsMaximumPoolSize()
 	 */
@@ -612,7 +640,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalPacketsThreadPool.getMaximumPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsLargestPoolSize()
 	 */
@@ -620,7 +648,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalPacketsThreadPool.getLargestPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsPoolSize()
 	 */
@@ -628,7 +656,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalPacketsThreadPool.getPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsCompletedTasks()
 	 */
@@ -636,7 +664,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalPacketsThreadPool.getCompletedTaskCount();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getPacketsQueuedTasks()
 	 */
@@ -644,7 +672,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalPacketsThreadPool.getQueue().size();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsActiveThreads()
 	 */
@@ -652,7 +680,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _ioPacketsThreadPool.getActiveCount();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsCorePoolSize()
 	 */
@@ -660,7 +688,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _ioPacketsThreadPool.getCorePoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsMaximumPoolSize()
 	 */
@@ -668,7 +696,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _ioPacketsThreadPool.getMaximumPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsLargestPoolSize()
 	 */
@@ -676,7 +704,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _ioPacketsThreadPool.getLargestPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsPoolSize()
 	 */
@@ -684,7 +712,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _ioPacketsThreadPool.getPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsCompletedTasks()
 	 */
@@ -692,7 +720,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _ioPacketsThreadPool.getCompletedTaskCount();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getIoPacketsQueuedTasks()
 	 */
@@ -700,7 +728,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _ioPacketsThreadPool.getQueue().size();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralActiveThreads()
 	 */
@@ -708,7 +736,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalThreadPool.getActiveCount();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralCorePoolSize()
 	 */
@@ -716,7 +744,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalThreadPool.getCorePoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralMaximumPoolSize()
 	 */
@@ -724,7 +752,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalThreadPool.getMaximumPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralLargestPoolSize()
 	 */
@@ -732,7 +760,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalThreadPool.getLargestPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralPoolSize()
 	 */
@@ -740,7 +768,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalThreadPool.getPoolSize();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralCompletedTasks()
 	 */
@@ -748,7 +776,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		return _generalThreadPool.getCompletedTaskCount();
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.ThreadPoolManagerMBean#getGeneralQueuedTasks()
 	 */

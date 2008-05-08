@@ -38,22 +38,22 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GameTimeController
 {
-	final static Log					_log				= LogFactory.getLog(GameTimeController.class.getName());
-	
-	public static final int				TICKS_PER_SECOND	= 10; // not able to change this without checking through code
-	public static final int				MILLIS_IN_TICK		= 1000 / TICKS_PER_SECOND;
-	
-	private static GameTimeController	_instance			= new GameTimeController();
-	
-	protected static int				_gameTicks;
-	protected static long				_gameStartTime;
-	protected static boolean			_isNight			= false;
-	
-	private static FastMap<Integer,L2Character> _movingObjects = new FastMap<Integer,L2Character>().setShared(true);
-	
-	protected static TimerThread		_timer;
-	private ScheduledFuture<?>			_timerWatcher;
-	
+	final static Log								_log				= LogFactory.getLog(GameTimeController.class.getName());
+
+	public static final int							TICKS_PER_SECOND	= 10;														// not able to change this without checking through code
+	public static final int							MILLIS_IN_TICK		= 1000 / TICKS_PER_SECOND;
+
+	private static GameTimeController				_instance			= new GameTimeController();
+
+	protected static int							_gameTicks;
+	protected static long							_gameStartTime;
+	protected static boolean						_isNight			= false;
+
+	private static FastMap<Integer, L2Character>	_movingObjects		= new FastMap<Integer, L2Character>().setShared(true);
+
+	protected static TimerThread					_timer;
+	private ScheduledFuture<?>						_timerWatcher;
+
 	/**
 	 * one ingame day is 240 real minutes
 	 */
@@ -61,38 +61,38 @@ public class GameTimeController
 	{
 		return _instance;
 	}
-	
+
 	private GameTimeController()
 	{
 		_gameStartTime = System.currentTimeMillis() - 3600000; // offset so that the server starts a day begin
 		_gameTicks = 3600000 / MILLIS_IN_TICK; // offset so that the server starts a day begin
-		
+
 		_timer = new TimerThread();
 		_timer.start();
-		
+
 		_timerWatcher = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new TimerWatcher(), 0, 1000);
 		// [L2J_JP ADD SANDMAN]
 		ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new OpenPiratesRoom(), 2000, 600000);
 		ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new BroadcastSunState(), 0, 600000);
 		_log.info("GameTimeController: timerthreads scheduled");
-		
+
 	}
-	
+
 	public boolean isNowNight()
 	{
 		return _isNight;
 	}
-	
+
 	public int getGameTime()
 	{
 		return (_gameTicks / (TICKS_PER_SECOND * 10));
 	}
-	
+
 	public static int getGameTicks()
 	{
 		return _gameTicks;
 	}
-	
+
 	/**
 	 * Add a L2Character to _movingObjects of GameTimeController.<BR>
 	 * <BR>
@@ -109,9 +109,9 @@ public class GameTimeController
 		if (cha == null)
 			return;
 		if (!_movingObjects.containsKey(cha.getObjectId()))
-			_movingObjects.put(cha.getObjectId(),cha);
+			_movingObjects.put(cha.getObjectId(), cha);
 	}
-	
+
 	/**
 	 * Move all L2Characters contained in _movingObjects of GameTimeController.<BR>
 	 * <BR>
@@ -158,17 +158,17 @@ public class GameTimeController
 			ended.clear();
 		}
 	}
-	
+
 	public void stopTimer()
 	{
 		_timerWatcher.cancel(true);
 		_timer.interrupt();
 	}
-	
+
 	class TimerThread extends Thread
 	{
-		protected Exception _error;
-		
+		protected Exception	_error;
+
 		public TimerThread()
 		{
 			super("GameTimeController");
@@ -176,7 +176,7 @@ public class GameTimeController
 			setPriority(MAX_PRIORITY);
 			_error = null;
 		}
-		
+
 		@Override
 		public void run()
 		{
@@ -186,32 +186,33 @@ public class GameTimeController
 				{
 					int _oldTicks = _gameTicks; // save old ticks value to avoid moving objects 2x in same tick
 					long runtime = System.currentTimeMillis() - _gameStartTime; // from server boot to now
-					
+
 					_gameTicks = (int) (runtime / MILLIS_IN_TICK); // new ticks value (ticks now)
-					
+
 					if (_oldTicks != _gameTicks)
 						moveObjects();
 					// but I think it can't make that effect. is it better to call moveObjects() twice in same
 					// tick to make-up for missed tick ? or is it better to ignore missed tick ?
 					// (will happen very rarely but it will happen ... on garbage collection definitely)
-					
+
 					runtime = (System.currentTimeMillis() - _gameStartTime) - runtime;
-					
+
 					// calculate sleep time... time needed to next tick minus time it takes to call moveObjects()
 					int sleepTime = 1 + MILLIS_IN_TICK - ((int) runtime) % MILLIS_IN_TICK;
-					
+
 					// _log.finest("TICK: "+_gameTicks);
-					
+
 					sleep(sleepTime); // hope other threads will have much more cpu time available now
 					// SelectorThread most of all
 				}
-			} catch (Exception e)
+			}
+			catch (Exception e)
 			{
 				_error = e;
 			}
 		}
 	}
-	
+
 	class TimerWatcher implements Runnable
 	{
 		public void run()
@@ -228,7 +229,7 @@ public class GameTimeController
 			}
 		}
 	}
-	
+
 	/**
 	 * Update the _knownObject and _knowPlayers of each L2Character that finished its movement and of their already known L2Object then notify AI with
 	 * EVT_ARRIVED.<BR>
@@ -236,7 +237,7 @@ public class GameTimeController
 	 */
 	class MovingObjectArrived implements Runnable
 	{
-		private final L2Character _ended;
+		private final L2Character	_ended;
 
 		MovingObjectArrived(L2Character ended)
 		{
@@ -270,11 +271,11 @@ public class GameTimeController
 		{
 			int h = (getGameTime() / 60) % 24; // Time in hour
 			boolean tempIsNight = (h < 6);
-			
+
 			if (tempIsNight != _isNight)
 			{ // If diff day/night state
 				_isNight = tempIsNight; // Set current day/night varible to value of temp varible
-				
+
 				// Zaken cannot be damaged during the night.
 				if (_isNight)
 				{
@@ -292,12 +293,12 @@ public class GameTimeController
 							spawn.getLastSpawn().setIsInvul(false);
 					}
 				}
-				
+
 				DayNightSpawnManager.getInstance().notifyChangeMode();
 			}
 		}
 	}
-	
+
 	// [L2J_JP ADD]
 	// Open door of pirate's room at AM0:00 every day in game.
 	class OpenPiratesRoom implements Runnable
@@ -307,11 +308,11 @@ public class GameTimeController
 			int _OpenTime = Config.TIME_IN_A_DAY_OF_OPEN_A_DOOR;
 			int _CloseTime = Config.TIME_OF_OPENING_A_DOOR;
 			int h = (getGameTime() / 60) % 24;
-			
+
 			if (h == _OpenTime)
 			{
 				// Avoid problems during server startup
-				if(!DoorTable.isInitialized())
+				if (!DoorTable.isInitialized())
 					return;
 
 				try
@@ -327,19 +328,20 @@ public class GameTimeController
 			}
 		}
 	}
-	
+
 	// [L2J_JP ADD]
 	// Close door of pirate's room.
 	class ClosePiratesRoom implements Runnable
 	{
 		final DoorTable	_doorTable	= DoorTable.getInstance();
-		
+
 		public void run()
 		{
 			try
 			{
 				_doorTable.getDoor(21240006).closeMe();
-			} catch (Exception e)
+			}
+			catch (Exception e)
 			{
 				_log.warn(e.getMessage());
 			}

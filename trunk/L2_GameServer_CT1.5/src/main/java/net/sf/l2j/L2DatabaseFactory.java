@@ -17,58 +17,106 @@ package net.sf.l2j;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.sql.DataSource;
-
-import net.sf.l2j.tools.L2Registry;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.BeansException;
 
-import com.mchange.v2.c3p0.PooledDataSource;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class L2DatabaseFactory
 {
-	private final static Log	_log	= LogFactory.getLog(L2DatabaseFactory.class.getName());
-	
+	protected static Log	_log	= LogFactory.getLog(L2DatabaseFactory.class.getName());
+
 	public static enum ProviderType
 	{
 		MySql, MsSql
 	}
-	
+
 	// =========================================================
 	// Data Field
 	private static L2DatabaseFactory	_instance;
 	private ProviderType				_providerType;
-	
-	/**
-	 * Private constructor to avoid direct initialization Load the registry if
-	 * it does not already exist Initialize the provider Type
-	 * 
-	 * @throws Throwable
-	 *             if the registry wasn't load
-	 */
-	private L2DatabaseFactory() throws Throwable
+	private ComboPooledDataSource		_source;
+
+	// =========================================================
+	// Constructor
+	public L2DatabaseFactory() throws SQLException
 	{
 		try
 		{
-			if (L2Registry.getApplicationContext() == null)
+			if (Config.DATABASE_MAX_CONNECTIONS < 2)
 			{
-				L2Registry.loadRegistry(new String[] { "spring_dao.xml", "spring_services.xml", "spring_tech.xml", "spring_manager.xml" });
+				Config.DATABASE_MAX_CONNECTIONS = 2;
+				_log.warn("at least " + Config.DATABASE_MAX_CONNECTIONS + " db connections are required.");
 			}
-			
+
+			_source = new ComboPooledDataSource();
+			_source.setAutoCommitOnClose(true);
+
+			_source.setInitialPoolSize(10);
+			_source.setMinPoolSize(10);
+			_source.setMaxPoolSize(Config.DATABASE_MAX_CONNECTIONS);
+
+			_source.setAcquireRetryAttempts(0); // try to obtain connections indefinitely (0 = never quit)
+			_source.setAcquireRetryDelay(500); // 500 miliseconds wait before try to acquire connection again
+			_source.setCheckoutTimeout(0); // 0 = wait indefinitely for new connection
+			// if pool is exhausted
+			_source.setAcquireIncrement(5); // if pool is exhausted, get 5 more connections at a time
+			// cause there is a "long" delay on acquire connection
+			// so taking more than one connection at once will make connection pooling
+			// more effective.
+
+			// this "connection_test_table" is automatically created if not already there
+			_source.setAutomaticTestTable("connection_test_table");
+			_source.setTestConnectionOnCheckin(false);
+
+			// testing OnCheckin used with IdleConnectionTestPeriod is faster than  testing on checkout
+
+			_source.setIdleConnectionTestPeriod(3600); // test idle connection every 60 sec
+			_source.setMaxIdleTime(0); // 0 = idle connections never expire
+			// *THANKS* to connection testing configured above
+			// but I prefer to disconnect all connections not used
+			// for more than 1 hour
+
+			// enables statement caching,  there is a "semi-bug" in c3p0 0.9.0 but in 0.9.0.2 and later it's fixed
+			_source.setMaxStatementsPerConnection(100);
+
+			_source.setBreakAfterAcquireFailure(false); // never fail if any way possible
+			// setting this to true will make
+			// c3p0 "crash" and refuse to work
+			// till restart thus making acquire
+			// errors "FATAL" ... we don't want that
+			// it should be possible to recover
+			_source.setDriverClass(Config.DATABASE_DRIVER);
+			_source.setJdbcUrl(Config.DATABASE_URL);
+			_source.setUser(Config.DATABASE_LOGIN);
+			_source.setPassword(Config.DATABASE_PASSWORD);
+
+			/* Test the connection */
+			_source.getConnection().close();
+
+			if (_log.isDebugEnabled())
+				_log.debug("Database Connection Working");
+
 			if (Config.DATABASE_DRIVER.toLowerCase().contains("microsoft"))
 				_providerType = ProviderType.MsSql;
 			else
 				_providerType = ProviderType.MySql;
-		} catch (Throwable e)
+		}
+		catch (SQLException x)
 		{
 			if (_log.isDebugEnabled())
 				_log.debug("Database Connection FAILED");
-			throw e;
+			// rethrow the exception
+			throw x;
+		}
+		catch (Exception e)
+		{
+			if (_log.isDebugEnabled())
+				_log.debug("Database Connection FAILED");
+			throw new SQLException("could not init DB connection:" + e);
 		}
 	}
-	
+
 	// =========================================================
 	// Method - Public
 	public final String prepQuerySelect(String[] fields, String tableName, String whereClause, boolean returnOnlyTopRecord)
@@ -85,20 +133,30 @@ public class L2DatabaseFactory
 		String query = "SELECT " + msSqlTop1 + safetyString(fields) + " FROM " + tableName + " WHERE " + whereClause + mySqlTop1;
 		return query;
 	}
-	
-	/**
-	 * Destroy the datasource
-	 * 
-	 * @deprecated don't use anymore, spring destroy the datasource for you
-	 */
+
 	public void shutdown()
 	{
+		try
+		{
+			_source.close();
+		}
+		catch (Exception e)
+		{
+			_log.info("", e);
+		}
+		try
+		{
+			_source = null;
+		}
+		catch (Exception e)
+		{
+			_log.info("", e);
+		}
 	}
-	
-	public final String safetyString(String[] whatToCheck)
+
+	public final String safetyString(String... whatToCheck)
 	{
-		// NOTE: Use brace as a safty percaution just incase name is a reserved
-		// word
+		// NOTE: Use brace as a safty percaution just incase name is a reserved word
 		String braceLeft = "`";
 		String braceRight = "`";
 		if (getProviderType() == ProviderType.MsSql)
@@ -106,7 +164,7 @@ public class L2DatabaseFactory
 			braceLeft = "[";
 			braceRight = "]";
 		}
-		
+
 		String result = "";
 		for (String word : whatToCheck)
 		{
@@ -116,32 +174,10 @@ public class L2DatabaseFactory
 		}
 		return result;
 	}
-	
-	/**
-	 * This method just return the singleton _instance Don't forget to call
-	 * initialize in the main of the program before using this method
-	 * 
-	 * @return L2DatabaseFactory
-	 * @see net.sf.l2j.L2DatabaseFactory.initInstance
-	 */
-	public static L2DatabaseFactory getInstance()
-	{
-		return _instance;
-	}
-	
-	/**
-	 * Temporarily create a initInstance that just create the _instance Later,
-	 * we will use L2Registry instead of L2DatabaseFactory but the first step
-	 * should keep compatibility with old jdbc connexion The goal of this method
-	 * is to separate the problematic of instanciation and the problem of the
-	 * use. During the instantiation of the Registry (first call), we may have
-	 * throwable but we don't want to catch Throwable every time we call
-	 * getInstance
-	 * 
-	 * @return L2DatabaseFactory
-	 * @throws Throwable
-	 */
-	public static L2DatabaseFactory initInstance() throws Throwable
+
+	// =========================================================
+	// Property - Public
+	public static L2DatabaseFactory getInstance() throws SQLException
 	{
 		if (_instance == null)
 		{
@@ -149,43 +185,33 @@ public class L2DatabaseFactory
 		}
 		return _instance;
 	}
-	
-	/**
-	 * if con is not null, return the same connection dev have to close it !
-	 * 
-	 * @param con
-	 * @return
-	 */
-	public Connection getConnection(Connection con)
+
+	public Connection getConnection(Connection con) //throws SQLException
 	{
-		if (con == null)
+		while (con == null)
 		{
 			try
 			{
-				con = ((DataSource) L2Registry.getBean("dataSource")).getConnection();
-			}
-			catch (BeansException e)
-			{
-				_log.fatal("Unable to retrieve connection : " + e.getMessage(), e);
+				con = _source.getConnection();
 			}
 			catch (SQLException e)
 			{
-				_log.fatal("Unable to retrieve connection : " + e.getMessage(), e);
+				_log.warn("L2DatabaseFactory: getConnection() failed, trying again " + e);
 			}
 		}
 		return con;
 	}
-	
+
 	public int getBusyConnectionCount() throws SQLException
 	{
-		return ((PooledDataSource) L2Registry.getBean("dataSource")).getNumBusyConnectionsDefaultUser();
+		return _source.getNumBusyConnectionsDefaultUser();
 	}
-	
+
 	public int getIdleConnectionCount() throws SQLException
 	{
-		return ((PooledDataSource) L2Registry.getBean("dataSource")).getNumIdleConnectionsDefaultUser();
+		return _source.getNumIdleConnectionsDefaultUser();
 	}
-	
+
 	public final ProviderType getProviderType()
 	{
 		return _providerType;

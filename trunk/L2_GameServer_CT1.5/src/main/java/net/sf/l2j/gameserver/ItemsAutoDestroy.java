@@ -30,7 +30,7 @@ public class ItemsAutoDestroy
 	private static ItemsAutoDestroy		_instance;
 	protected FastList<L2ItemInstance>	_items	= null;
 	protected static long				_sleep;
-	
+
 	private ItemsAutoDestroy()
 	{
 		_items = new FastList<L2ItemInstance>();
@@ -40,7 +40,7 @@ public class ItemsAutoDestroy
 		ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new CheckItemsForDestroy(), 5000, 5000);
 		_log.info("ItemsAutoDestroy: initialized");
 	}
-	
+
 	public static ItemsAutoDestroy getInstance()
 	{
 		if (_instance == null)
@@ -51,21 +51,21 @@ public class ItemsAutoDestroy
 		}
 		return _instance;
 	}
-	
+
 	public synchronized void addItem(L2ItemInstance item)
 	{
 		item.setDropTime(System.currentTimeMillis());
 		_items.add(item);
 	}
-	
+
 	public synchronized void removeItems()
 	{
 		if (_log.isDebugEnabled())
 			_log.info("[ItemsAutoDestroy] : " + _items.size() + " items to check.");
-		
+
 		if (_items.isEmpty())
 			return;
-		
+
 		long curtime = System.currentTimeMillis();
 		for (L2ItemInstance item : _items)
 		{
@@ -94,11 +94,11 @@ public class ItemsAutoDestroy
 				}
 			}
 		}
-		
+
 		if (_log.isDebugEnabled())
 			_log.info("[ItemsAutoDestroy] : " + _items.size() + " items remaining.");
 	}
-	
+
 	protected class CheckItemsForDestroy extends Thread
 	{
 		@Override

@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Calendar;
 
+import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.instancemanager.BoatManager;
@@ -102,7 +104,6 @@ import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GamePacketHandler;
 import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
-import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
 import net.sf.l2j.gameserver.scripting.L2ScriptEngineManager;
 import net.sf.l2j.gameserver.skills.SkillsEngine;
@@ -302,6 +303,7 @@ public class GameServer
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
 			OnlinePlayers.getInstance();
 		FloodProtector.getInstance();
+        ForumsBBSManager.getInstance();
 		KnownListUpdateTaskManager.getInstance();
 		
 		_shutdownHandler = Shutdown.getInstance();

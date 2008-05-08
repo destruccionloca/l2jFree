@@ -33,7 +33,7 @@ public class MonsterRace
 	private Constructor<?>		_constructor;
 	private int[][]				_speeds;
 	private int[]				_first, _second;
-	
+
 	private MonsterRace()
 	{
 		_monsters = new L2NpcInstance[8];
@@ -41,21 +41,21 @@ public class MonsterRace
 		_first = new int[2];
 		_second = new int[2];
 	}
-	
+
 	public static MonsterRace getInstance()
 	{
 		if (_instance == null)
 		{
 			_instance = new MonsterRace();
 		}
-		
+
 		return _instance;
 	}
-	
+
 	public void newRace()
 	{
 		int random = 0;
-		
+
 		for (int i = 0; i < 8; i++)
 		{
 			int id = 31003;
@@ -86,7 +86,7 @@ public class MonsterRace
 		}
 		newSpeeds();
 	}
-	
+
 	public void newSpeeds()
 	{
 		_speeds = new int[8][20];
@@ -118,7 +118,7 @@ public class MonsterRace
 			}
 		}
 	}
-	
+
 	/**
 	 * @return Returns the monsters.
 	 */
@@ -126,7 +126,7 @@ public class MonsterRace
 	{
 		return _monsters;
 	}
-	
+
 	/**
 	 * @return Returns the speeds.
 	 */
@@ -134,15 +134,15 @@ public class MonsterRace
 	{
 		return _speeds;
 	}
-	
+
 	public int getFirstPlace()
 	{
 		return _first[0];
 	}
-	
+
 	public int getSecondPlace()
 	{
 		return _second[0];
 	}
-	
+
 }

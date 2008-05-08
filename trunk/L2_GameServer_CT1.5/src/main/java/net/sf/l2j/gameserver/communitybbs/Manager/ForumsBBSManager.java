@@ -18,17 +18,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.bb.Forum;
-import net.sf.l2j.gameserver.communitybbs.bb.Topic;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class ForumsBBSManager extends BaseBBSManager
 {

@@ -26,33 +26,34 @@ public class Territory
 	private final static Log						_log		= LogFactory.getLog(Territory.class.getName());
 	private static final Territory					_instance	= new Territory();
 	private static FastMap<Integer, L2Territory>	_territory;
-	
+
 	public static Territory getInstance()
 	{
 		return _instance;
 	}
-	
+
 	private Territory()
 	{
 		// load all data at server start
 		reload_data();
 	}
-	
+
 	public int[] getRandomPoint(int terr)
 	{
 		return _territory.get(terr).getRandomPoint();
 	}
-	
+
 	public int getProcMax(int terr)
 	{
 		return _territory.get(terr).getProcMax();
 	}
-	
+
 	public void reload_data()
 	{
 		_territory = new FastMap<Integer, L2Territory>();
-		
-		Integer[][] point = SqlUtils.get2DIntArray(new String[] { "loc_id", "loc_x", "loc_y", "loc_zmin", "loc_zmax", "proc" }, "locations", "loc_id > 0");
+
+		Integer[][] point = SqlUtils.get2DIntArray(new String[]
+		{ "loc_id", "loc_x", "loc_y", "loc_zmin", "loc_zmax", "proc" }, "locations", "loc_id > 0");
 		for (Integer[] row : point)
 		{
 			// _log.info("row = "+row[0]);
@@ -62,7 +63,7 @@ public class Territory
 				_log.warn("Null territory!");
 				continue;
 			}
-			
+
 			if (_territory.get(terr) == null)
 			{
 				L2Territory t = new L2Territory(terr);

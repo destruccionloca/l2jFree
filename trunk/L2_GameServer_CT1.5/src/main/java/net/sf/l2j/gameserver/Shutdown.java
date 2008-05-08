@@ -40,33 +40,33 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.2.4.5 $ $Date: 2005/03/27 15:29:09 $
  */
-public class Shutdown extends Thread implements ShutdownMBean
+public class Shutdown extends Thread
 {
 	private final static Log	_log				= LogFactory.getLog(Shutdown.class.getName());
 	private static Shutdown		_instance;
 	private static Shutdown		_counterInstance	= null;
-	
+
 	private int					_secondsShut;
-	
+
 	private shutdownModeType	_shutdownMode;
-	
+
 	public enum shutdownModeType
 	{
 		SIGTERM("Terminating"), SHUTDOWN("Shutting down"), RESTART("Restarting"), ABORT("Aborting");
-		
+
 		private final String	_modeText;
-		
+
 		shutdownModeType(String modeText)
 		{
 			_modeText = modeText;
 		}
-		
+
 		public String getText()
 		{
 			return _modeText;
 		}
 	}
-	
+
 	/**
 	 * Default constuctor is only used internal to create the shutdown-hook instance
 	 */
@@ -75,7 +75,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 		_secondsShut = -1;
 		_shutdownMode = shutdownModeType.SIGTERM;
 	}
-	
+
 	/**
 	 * This creates a countdown instance of Shutdown.
 	 * 
@@ -93,7 +93,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 		_secondsShut = seconds;
 		_shutdownMode = mode;
 	}
-	
+
 	/**
 	 * get the shutdown-hook instance the shutdown-hook instance is created by the first call of this function, but it has to be registrered externaly.
 	 * 
@@ -107,12 +107,12 @@ public class Shutdown extends Thread implements ShutdownMBean
 		}
 		return _instance;
 	}
-	
+
 	public static Shutdown getCounterInstance()
 	{
 		return _counterInstance;
 	}
-	
+
 	/**
 	 * this function is called, when a new thread starts if this thread is the thread of getInstance, then this is the shutdown hook and we save all data and
 	 * disconnect all clients. after this thread ends, the server will completely exit if this is not the thread of getInstance, then this is a countdown
@@ -184,18 +184,18 @@ public class Shutdown extends Thread implements ShutdownMBean
 			System.out.println("Shutdown countdown is over. " + _instance._shutdownMode.getText() + " NOW!");
 			switch (_shutdownMode)
 			{
-				case SHUTDOWN:
-					_instance.setMode(shutdownModeType.SHUTDOWN);
-					System.exit(0);
-					break;
-				case RESTART:
-					_instance.setMode(shutdownModeType.RESTART);
-					System.exit(2);
-					break;
+			case SHUTDOWN:
+				_instance.setMode(shutdownModeType.SHUTDOWN);
+				System.exit(0);
+				break;
+			case RESTART:
+				_instance.setMode(shutdownModeType.RESTART);
+				System.exit(2);
+				break;
 			}
 		}
 	}
-	
+
 	/**
 	 * This functions starts a shutdown countdown
 	 * 
@@ -210,7 +210,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 	{
 		startShutdown(activeChar.getName() + "(" + activeChar.getObjectId() + ")", seconds, mode);
 	}
-	
+
 	/**
 	 * This functions starts a shutdown countdown
 	 * 
@@ -223,26 +223,26 @@ public class Shutdown extends Thread implements ShutdownMBean
 	 */
 	public void startShutdown(String _initiator, int seconds, shutdownModeType mode)
 	{
-		
+
 		_log.warn(_initiator + " issued shutdown command. " + mode.getText() + " in " + seconds + " seconds!");
-		
+
 		setMode(mode);
-		
+
 		Announcements.getInstance().announceToAll("Attention players!");
 		Announcements.getInstance().announceToAll("Server is " + _shutdownMode.getText().toLowerCase() + " in " + seconds + " seconds!");
 		if (Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
 			IrcManager.getInstance().getConnection().sendChan("Server is " + _shutdownMode.getText().toLowerCase() + " in " + seconds + " seconds!");
-		
+
 		if (_counterInstance != null)
 		{
 			_counterInstance._abort();
 		}
-		
+
 		// the main instance should only run for shutdown hook, so we start a new instance
 		_counterInstance = new Shutdown(seconds, mode);
 		_counterInstance.start();
 	}
-	
+
 	/**
 	 * This function aborts a running countdown
 	 * 
@@ -253,7 +253,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 	{
 		abort(activeChar.getName() + "(" + activeChar.getObjectId() + ")");
 	}
-	
+
 	/**
 	 * This function aborts a running countdown
 	 * 
@@ -264,17 +264,17 @@ public class Shutdown extends Thread implements ShutdownMBean
 	{
 		_log.warn(_initiator + " issued shutdown ABORT. " + _shutdownMode.getText() + " has been stopped!");
 		Announcements.getInstance().announceToAll("Server aborts " + _shutdownMode.getText().toLowerCase() + " and continues normal operation!");
-		
+
 		if (Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
 			IrcManager.getInstance().getConnection().sendChan("Server aborts " + _shutdownMode.getText().toLowerCase() + " and continues normal operation!");
-		
+
 		if (_counterInstance != null)
 		{
 			_counterInstance._abort();
 			_counterInstance = null;
 		}
 	}
-	
+
 	/**
 	 * get the current count down
 	 * 
@@ -285,7 +285,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 	{
 		return _secondsShut;
 	}
-	
+
 	/**
 	 * set the shutdown mode
 	 * 
@@ -296,7 +296,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 	{
 		_shutdownMode = mode;
 	}
-	
+
 	/**
 	 * set shutdown mode to ABORT
 	 */
@@ -304,26 +304,26 @@ public class Shutdown extends Thread implements ShutdownMBean
 	{
 		_shutdownMode = shutdownModeType.ABORT;
 	}
-	
+
 	/**
 	 * this counts the countdown and reports it to all players countdown is aborted if mode changes to ABORT
 	 */
 	private void countdown()
 	{
-		
+
 		try
 		{
 			while (_secondsShut > 0)
 			{
-				
+
 				int _seconds;
 				int _minutes;
 				int _hours;
-				
+
 				_seconds = _secondsShut;
 				_minutes = Math.round(_seconds / 60);
 				_hours = Math.round(_seconds / 3600);
-				
+
 				// announce only every minute after 10 minutes left and every second after 10 seconds
 				if ((_seconds <= 10 || _seconds == _minutes * 60) && (_seconds <= 600) && _hours <= 1)
 				{
@@ -331,7 +331,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 					sm.addString(Integer.toString(_seconds));
 					Announcements.getInstance().announceToAll(sm);
 				}
-				
+
 				try
 				{
 					if (_seconds <= 60)
@@ -343,12 +343,12 @@ public class Shutdown extends Thread implements ShutdownMBean
 				{
 					// do nothing, we maybe are not connected to LS anymore
 				}
-				
+
 				_secondsShut--;
-				
+
 				int delay = 1000; // milliseconds
 				Thread.sleep(delay);
-				
+
 				if (_shutdownMode == shutdownModeType.ABORT)
 					break;
 			}
@@ -358,7 +358,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 			// this will never happen
 		}
 	}
-	
+
 	/**
 	 * this sends a last byebye, disconnects all players and saves data
 	 */
@@ -374,14 +374,14 @@ public class Shutdown extends Thread implements ShutdownMBean
 
 		if (Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
 			IrcManager.getInstance().getConnection().sendChan("Server is " + _shutdownMode.getText().toLowerCase() + " NOW!");
-		
+
 		// we can't abort shutdown anymore, so i removed the "if"
 		disconnectAllCharacters();
-		
+
 		// Seven Signs data is now saved along with Festival data.
 		if (!SevenSigns.getInstance().isSealValidationPeriod())
 			SevenSignsFestival.getInstance().saveFestivalData(false);
-		
+
 		// Save Seven Signs data before closing. :)
 		SevenSigns.getInstance().saveSevenSignsData(null, true);
 		System.out.println("SevenSigns: Data saved.");
@@ -403,13 +403,13 @@ public class Shutdown extends Thread implements ShutdownMBean
 		{
 			System.err.println(e.getMessage());
 		}
-		
+
 		// Save all manor data
 		CastleManorManager.getInstance().save();
-		
+
 		// Save all global (non-player specific) Quest data that needs to persist after reboot
 		QuestManager.getInstance().save();
-		
+
 		// Save Cursed Weapons data before closing.
 		CursedWeaponsManager.getInstance().saveData();
 		System.out.println("CursedWeaponsManager: Data saved.");
@@ -421,7 +421,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 			System.err.println("ItemsOnGroundManager: All items on ground saved.");
 		}
 		System.out.println("Data saved. All players disconnected, " + _shutdownMode.getText().toLowerCase() + ".");
-		
+
 		try
 		{
 			int delay = 5000;
@@ -432,7 +432,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 			// never happens :p
 		}
 	}
-	
+
 	/**
 	 * this disconnects all clients from the server
 	 */
@@ -445,10 +445,10 @@ public class Shutdown extends Thread implements ShutdownMBean
 			{
 				// save player's stats and effects
 				L2GameClient.saveCharToDisk(player);
-				
+
 				// close server
 				player.sendPacket(ServerClose.STATIC_PACKET);
-				
+
 				// make sure to save ALL data
 				player.deleteMe();
 			}
@@ -461,8 +461,9 @@ public class Shutdown extends Thread implements ShutdownMBean
 			Thread.sleep(1000);
 		}
 		catch (Throwable t)
-		{}
-		
+		{
+		}
+
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
 			try
@@ -475,7 +476,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 			}
 		}
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -485,7 +486,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 	{
 		startShutdown("Mbean ask restart", seconds, shutdownModeType.RESTART);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 

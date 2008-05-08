@@ -14,10 +14,10 @@
 
 package net.sf.l2j.gameserver;
 
+import net.sf.l2j.gameserver.model.L2Clan;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import net.sf.l2j.gameserver.model.L2Clan;
 
 /**
  *
@@ -27,27 +27,27 @@ import net.sf.l2j.gameserver.model.L2Clan;
  */
 public class FortUpdater implements Runnable
 {
-    protected static Log _log = LogFactory.getLog(FortUpdater.class.getName());
+	protected static Log	_log		= LogFactory.getLog(FortUpdater.class.getName());
 
-    @SuppressWarnings("unused")
-    private L2Clan _clan;
-    @SuppressWarnings("unused")
-    private int _runCount = 0;
+	@SuppressWarnings("unused")
+	private L2Clan			_clan;
+	@SuppressWarnings("unused")
+	private int				_runCount	= 0;
 
-    public FortUpdater(L2Clan clan, int runCount)
-    {
-        _clan = clan;
-        _runCount = runCount;
-    }
+	public FortUpdater(L2Clan clan, int runCount)
+	{
+		_clan = clan;
+		_runCount = runCount;
+	}
 
-    public void run()
-    {
-        try
-        {
-        }
-        catch (Throwable e)
-        {
-            e.printStackTrace();
-        }
-    }
+	public void run()
+	{
+		try
+		{
+		}
+		catch (Throwable e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

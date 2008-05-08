@@ -61,10 +61,10 @@ import org.apache.commons.logging.LogFactory;
 public class LoginServerThread extends Thread
 {
 	protected static Log				_log		= LogFactory.getLog(LoginServerThread.class.getName());
-	
+
 	/** The LoginServerThread singleton */
 	private static LoginServerThread	_instance;
-	
+
 	/** {@see net.sf.l2j.loginserver.LoginServer#PROTOCOL_REV } */
 	private static final int			REVISION	= 0x0102;
 	private RSAPublicKey				_publicKey;
@@ -74,7 +74,7 @@ public class LoginServerThread extends Thread
 	private Socket						_loginSocket;
 	private InputStream					_in;
 	private OutputStream				_out;
-	
+
 	/**
 	 * The BlowFish engine used to encrypt packets<br>
 	 * It is first initialized with a unified key:<br>
@@ -98,7 +98,7 @@ public class LoginServerThread extends Thread
 	private String						_serverName;
 	private String						_gameExternalHost;													// External host for old login server
 	private String						_gameInternalHost;													// Internal host for old login server
-																											
+
 	public LoginServerThread()
 	{
 		super("LoginServerThread");
@@ -122,27 +122,27 @@ public class LoginServerThread extends Thread
 		_waitingClients = new FastList<WaitingClient>();
 		_accountsInGameServer = new FastMap<String, L2GameClient>();
 		_maxPlayer = Config.MAXIMUM_ONLINE_USERS;
-		
+
 		// if defined internal or optional networks, then form config string for new login server
 		// optional netwoks (router);internal networks(if defined);external public host(default for all connections)
 		if (Config.INTERNAL_NETWORKS.length() > 0 || Config.OPTIONAL_NETWORKS.length() > 0)
 		{
 			_gameExternalHost = "";
-			
+
 			if (Config.OPTIONAL_NETWORKS.length() > 0)
 				_gameExternalHost = Config.OPTIONAL_NETWORKS + ";";
-			
+
 			if (Config.INTERNAL_HOSTNAME.length() > 0 && Config.INTERNAL_NETWORKS.length() > 0)
 				_gameExternalHost += Config.INTERNAL_HOSTNAME + "," + Config.INTERNAL_NETWORKS + ";";
-			
+
 			if (Config.EXTERNAL_HOSTNAME.length() > 0)
 				_gameExternalHost += Config.EXTERNAL_HOSTNAME + "," + "0.0.0.0/0";
-			
+
 			_gameInternalHost = "";
 		}
-		
+
 	}
-	
+
 	public static LoginServerThread getInstance()
 	{
 		if (_instance == null)
@@ -151,7 +151,7 @@ public class LoginServerThread extends Thread
 		}
 		return _instance;
 	}
-	
+
 	@Override
 	public void run()
 	{
@@ -168,7 +168,7 @@ public class LoginServerThread extends Thread
 				_loginSocket = new Socket(_hostname, _port);
 				_in = _loginSocket.getInputStream();
 				_out = new BufferedOutputStream(_loginSocket.getOutputStream());
-				
+
 				// init Blowfish
 				_blowfishKey = generateHex(40);
 				_blowfish = new NewCrypt("_;v.]05-31!|+-%xT!^[$\00");
@@ -177,17 +177,17 @@ public class LoginServerThread extends Thread
 					lengthLo = _in.read();
 					lengthHi = _in.read();
 					length = lengthHi * 256 + lengthLo;
-					
+
 					if (lengthHi < 0)
 					{
 						_log.debug("LoginServerThread: Login terminated the connection.");
 						break;
 					}
-					
+
 					byte[] incoming = new byte[length];
 					incoming[0] = (byte) lengthLo;
 					incoming[1] = (byte) lengthHi;
-					
+
 					int receivedBytes = 0;
 					int newBytes = 0;
 					while (newBytes != -1 && receivedBytes < length - 2)
@@ -195,168 +195,168 @@ public class LoginServerThread extends Thread
 						newBytes = _in.read(incoming, 2, length - 2);
 						receivedBytes = receivedBytes + newBytes;
 					}
-					
+
 					if (receivedBytes != length - 2)
 					{
 						_log.warn("Incomplete Packet is sent to the server, closing connection.(LS)");
 						break;
 					}
-					
+
 					byte[] decrypt = new byte[length - 2];
 					System.arraycopy(incoming, 2, decrypt, 0, decrypt.length);
 					// decrypt if we have a key
 					decrypt = _blowfish.decrypt(decrypt);
 					checksumOk = NewCrypt.verifyChecksum(decrypt);
-					
+
 					if (!checksumOk)
 					{
 						_log.warn("Incorrect packet checksum, ignoring packet (LS)");
 						break;
 					}
-					
+
 					if (_log.isDebugEnabled())
 						_log.debug("[C]\n" + Util.printData(decrypt));
-					
+
 					int packetType = decrypt[0] & 0xff;
 					switch (packetType)
 					{
-						case 00:
-							InitLS init = new InitLS(decrypt);
+					case 00:
+						InitLS init = new InitLS(decrypt);
+						if (_log.isDebugEnabled())
+							_log.debug("Init received");
+						if (init.getRevision() != REVISION)
+						{
+							_log.warn("/!\\ Revision mismatch between LS and GS /!\\");
+							break;
+						}
+						try
+						{
+							KeyFactory kfac = KeyFactory.getInstance("RSA");
+							BigInteger modulus = new BigInteger(init.getRSAKey());
+							RSAPublicKeySpec kspec1 = new RSAPublicKeySpec(modulus, RSAKeyGenParameterSpec.F4);
+							_publicKey = (RSAPublicKey) kfac.generatePublic(kspec1);
 							if (_log.isDebugEnabled())
-								_log.debug("Init received");
-							if (init.getRevision() != REVISION)
+								_log.debug("RSA key set up");
+						}
+
+						catch (GeneralSecurityException e)
+						{
+							_log.warn("Troubles while init the public key send by login");
+							break;
+						}
+						// send the blowfish key through the rsa encryption
+						BlowFishKey bfk = new BlowFishKey(_blowfishKey, _publicKey);
+						sendPacket(bfk);
+						if (_log.isDebugEnabled())
+							_log.info("Sent new blowfish key");
+						// now, only accept paket with the new encryption
+						_blowfish = new NewCrypt(_blowfishKey);
+						if (_log.isDebugEnabled())
+							_log.info("Changed blowfish key");
+						AuthRequest ar = new AuthRequest(_requestID, _acceptAlternate, _hexID, _gameExternalHost, _gameInternalHost, _gamePort, _reserveHost,
+								_maxPlayer);
+						sendPacket(ar);
+						if (_log.isDebugEnabled())
+							_log.debug("Sent AuthRequest to login");
+						break;
+					case 01:
+						LoginServerFail lsf = new LoginServerFail(decrypt);
+						_log.info("Damn! Registeration Failed: " + lsf.getReasonString());
+						// login will close the connection here
+						break;
+					case 02:
+						AuthResponse aresp = new AuthResponse(decrypt);
+						_serverID = aresp.getServerId();
+						_serverName = aresp.getServerName();
+						Config.saveHexid(_serverID, hexToString(_hexID));
+						_log.info("Registered on login as Server " + _serverID + " : " + _serverName);
+						ServerStatus st = new ServerStatus();
+						if (Config.SERVER_LIST_BRACKET)
+						{
+							st.addAttribute(ServerStatus.SERVER_LIST_SQUARE_BRACKET, ServerStatus.ON);
+						}
+						else
+						{
+							st.addAttribute(ServerStatus.SERVER_LIST_SQUARE_BRACKET, ServerStatus.OFF);
+						}
+						if (Config.SERVER_LIST_CLOCK)
+						{
+							st.addAttribute(ServerStatus.SERVER_LIST_CLOCK, ServerStatus.ON);
+						}
+						else
+						{
+							st.addAttribute(ServerStatus.SERVER_LIST_CLOCK, ServerStatus.OFF);
+						}
+						if (Config.SERVER_LIST_TESTSERVER)
+						{
+							st.addAttribute(ServerStatus.TEST_SERVER, ServerStatus.ON);
+						}
+						else
+						{
+							st.addAttribute(ServerStatus.TEST_SERVER, ServerStatus.OFF);
+						}
+						if (Config.SERVER_GMONLY)
+						{
+							st.addAttribute(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_GM_ONLY);
+						}
+						else
+						{
+							st.addAttribute(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_AUTO);
+						}
+						sendPacket(st);
+						if (L2World.getInstance().getAllPlayersCount() > 0)
+						{
+							FastList<String> playerList = new FastList<String>();
+							for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 							{
-								_log.warn("/!\\ Revision mismatch between LS and GS /!\\");
-								break;
+								playerList.add(player.getAccountName());
 							}
-							try
+							PlayerInGame pig = new PlayerInGame(playerList);
+							sendPacket(pig);
+						}
+						break;
+					case 03:
+						PlayerAuthResponse par = new PlayerAuthResponse(decrypt);
+						String account = par.getAccount();
+						WaitingClient wcToRemove = null;
+						synchronized (_waitingClients)
+						{
+							for (WaitingClient wc : _waitingClients)
 							{
-								KeyFactory kfac = KeyFactory.getInstance("RSA");
-								BigInteger modulus = new BigInteger(init.getRSAKey());
-								RSAPublicKeySpec kspec1 = new RSAPublicKeySpec(modulus, RSAKeyGenParameterSpec.F4);
-								_publicKey = (RSAPublicKey) kfac.generatePublic(kspec1);
+								if (wc.account.equals(account))
+								{
+									wcToRemove = wc;
+								}
+							}
+						}
+						if (wcToRemove != null)
+						{
+							if (par.isAuthed())
+							{
 								if (_log.isDebugEnabled())
-									_log.debug("RSA key set up");
-							}
-							
-							catch (GeneralSecurityException e)
-							{
-								_log.warn("Troubles while init the public key send by login");
-								break;
-							}
-							// send the blowfish key through the rsa encryption
-							BlowFishKey bfk = new BlowFishKey(_blowfishKey, _publicKey);
-							sendPacket(bfk);
-							if (_log.isDebugEnabled())
-								_log.info("Sent new blowfish key");
-							// now, only accept paket with the new encryption
-							_blowfish = new NewCrypt(_blowfishKey);
-							if (_log.isDebugEnabled())
-								_log.info("Changed blowfish key");
-							AuthRequest ar = new AuthRequest(_requestID, _acceptAlternate, _hexID, _gameExternalHost, _gameInternalHost, _gamePort,
-									_reserveHost, _maxPlayer);
-							sendPacket(ar);
-							if (_log.isDebugEnabled())
-								_log.debug("Sent AuthRequest to login");
-							break;
-						case 01:
-							LoginServerFail lsf = new LoginServerFail(decrypt);
-							_log.info("Damn! Registeration Failed: " + lsf.getReasonString());
-							// login will close the connection here
-							break;
-						case 02:
-							AuthResponse aresp = new AuthResponse(decrypt);
-							_serverID = aresp.getServerId();
-							_serverName = aresp.getServerName();
-							Config.saveHexid(_serverID, hexToString(_hexID));
-							_log.info("Registered on login as Server " + _serverID + " : " + _serverName);
-							ServerStatus st = new ServerStatus();
-							if (Config.SERVER_LIST_BRACKET)
-							{
-								st.addAttribute(ServerStatus.SERVER_LIST_SQUARE_BRACKET, ServerStatus.ON);
-							}
-							else
-							{
-								st.addAttribute(ServerStatus.SERVER_LIST_SQUARE_BRACKET, ServerStatus.OFF);
-							}
-							if (Config.SERVER_LIST_CLOCK)
-							{
-								st.addAttribute(ServerStatus.SERVER_LIST_CLOCK, ServerStatus.ON);
-							}
-							else
-							{
-								st.addAttribute(ServerStatus.SERVER_LIST_CLOCK, ServerStatus.OFF);
-							}
-							if (Config.SERVER_LIST_TESTSERVER)
-							{
-								st.addAttribute(ServerStatus.TEST_SERVER, ServerStatus.ON);
-							}
-							else
-							{
-								st.addAttribute(ServerStatus.TEST_SERVER, ServerStatus.OFF);
-							}
-							if (Config.SERVER_GMONLY)
-							{
-								st.addAttribute(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_GM_ONLY);
-							}
-							else
-							{
-								st.addAttribute(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_AUTO);
-							}
-							sendPacket(st);
-							if (L2World.getInstance().getAllPlayersCount() > 0)
-							{
-								FastList<String> playerList = new FastList<String>();
-								for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-								{
-									playerList.add(player.getAccountName());
-								}
-								PlayerInGame pig = new PlayerInGame(playerList);
+									_log.debug("Login accepted player " + wcToRemove.account + " waited("
+											+ (GameTimeController.getGameTicks() - wcToRemove.timestamp) + "ms)");
+								PlayerInGame pig = new PlayerInGame(par.getAccount());
 								sendPacket(pig);
+								wcToRemove.gameClient.setState(GameClientState.AUTHED);
+								wcToRemove.gameClient.setSessionId(wcToRemove.session);
+								CharSelectionInfo cl = new CharSelectionInfo(wcToRemove.account, wcToRemove.gameClient.getSessionId().playOkID1);
+								wcToRemove.gameClient.getConnection().sendPacket(cl);
+								wcToRemove.gameClient.setCharSelection(cl.getCharInfo());
 							}
-							break;
-						case 03:
-							PlayerAuthResponse par = new PlayerAuthResponse(decrypt);
-							String account = par.getAccount();
-							WaitingClient wcToRemove = null;
-							synchronized (_waitingClients)
+							else
 							{
-								for (WaitingClient wc : _waitingClients)
-								{
-									if (wc.account.equals(account))
-									{
-										wcToRemove = wc;
-									}
-								}
+								_log.warn("session key is not correct. closing connection");
+								wcToRemove.gameClient.getConnection().sendPacket(new LoginFail(1));
+								wcToRemove.gameClient.closeNow();
 							}
-							if (wcToRemove != null)
-							{
-								if (par.isAuthed())
-								{
-									if (_log.isDebugEnabled())
-										_log.debug("Login accepted player " + wcToRemove.account + " waited("
-												+ (GameTimeController.getGameTicks() - wcToRemove.timestamp) + "ms)");
-									PlayerInGame pig = new PlayerInGame(par.getAccount());
-									sendPacket(pig);
-									wcToRemove.gameClient.setState(GameClientState.AUTHED);
-									wcToRemove.gameClient.setSessionId(wcToRemove.session);
-									CharSelectionInfo cl = new CharSelectionInfo(wcToRemove.account, wcToRemove.gameClient.getSessionId().playOkID1);
-									wcToRemove.gameClient.getConnection().sendPacket(cl);
-									wcToRemove.gameClient.setCharSelection(cl.getCharInfo());
-								}
-								else
-								{
-									_log.warn("session key is not correct. closing connection");
-									wcToRemove.gameClient.getConnection().sendPacket(new LoginFail(1));
-									wcToRemove.gameClient.closeNow();
-								}
-								_waitingClients.remove(wcToRemove);
-							}
-							break;
-						case 04:
-							KickPlayer kp = new KickPlayer(decrypt);
-							doKickPlayer(kp.getAccount());
-							break;
+							_waitingClients.remove(wcToRemove);
+						}
+						break;
+					case 04:
+						KickPlayer kp = new KickPlayer(decrypt);
+						doKickPlayer(kp.getAccount());
+						break;
 					}
 				}
 			}
@@ -379,7 +379,7 @@ public class LoginServerThread extends Thread
 				{
 				}
 			}
-			
+
 			try
 			{
 				Thread.sleep(5000); // 5 seconds tempo.
@@ -390,7 +390,7 @@ public class LoginServerThread extends Thread
 			}
 		}
 	}
-	
+
 	public void addWaitingClientAndSendRequest(String acc, L2GameClient client, SessionKey key)
 	{
 		if (_log.isDebugEnabled())
@@ -412,7 +412,7 @@ public class LoginServerThread extends Thread
 				_log.debug(e.getMessage(), e);
 		}
 	}
-	
+
 	public void removeWaitingClient(L2GameClient client)
 	{
 		WaitingClient toRemove = null;
@@ -429,7 +429,7 @@ public class LoginServerThread extends Thread
 				_waitingClients.remove(toRemove);
 		}
 	}
-	
+
 	public void sendLogout(String account)
 	{
 		PlayerLogout pl = new PlayerLogout(account);
@@ -446,12 +446,12 @@ public class LoginServerThread extends Thread
 				_log.debug(e.getMessage(), e);
 		}
 	}
-	
+
 	public void addGameServerLogin(String account, L2GameClient client)
 	{
 		_accountsInGameServer.put(account, client);
 	}
-	
+
 	public void sendAccessLevel(String account, int level)
 	{
 		ChangeAccessLevel cal = new ChangeAccessLevel(account, level);
@@ -465,12 +465,12 @@ public class LoginServerThread extends Thread
 				_log.debug(e.getMessage(), e);
 		}
 	}
-	
+
 	private String hexToString(byte[] hex)
 	{
 		return new BigInteger(hex).toString(16);
 	}
-	
+
 	public void doKickPlayer(String account)
 	{
 		if (_accountsInGameServer.get(account) != null)
@@ -479,7 +479,7 @@ public class LoginServerThread extends Thread
 			LoginServerThread.getInstance().sendLogout(account); // mieux vaux 2 fois q'une...
 		}
 	}
-	
+
 	public static byte[] generateHex(int size)
 	{
 		byte[] array = new byte[size];
@@ -488,7 +488,7 @@ public class LoginServerThread extends Thread
 			_log.debug("Generated random String:  \"" + array + "\"");
 		return array;
 	}
-	
+
 	/**
 	 * @param sl
 	 * @throws IOException
@@ -500,7 +500,7 @@ public class LoginServerThread extends Thread
 		if (_log.isDebugEnabled())
 			_log.debug("[S]\n" + Util.printData(data));
 		data = _blowfish.crypt(data);
-		
+
 		int len = data.length + 2;
 		synchronized (_out) // avoids tow threads writing in the mean time
 		{
@@ -510,7 +510,7 @@ public class LoginServerThread extends Thread
 			_out.flush();
 		}
 	}
-	
+
 	/**
 	 * @param maxPlayer
 	 *            The maxPlayer to set.
@@ -520,7 +520,7 @@ public class LoginServerThread extends Thread
 		sendServerStatus(ServerStatus.MAX_PLAYERS, maxPlayer);
 		_maxPlayer = maxPlayer;
 	}
-	
+
 	/**
 	 * @return Returns the maxPlayer.
 	 */
@@ -528,7 +528,7 @@ public class LoginServerThread extends Thread
 	{
 		return _maxPlayer;
 	}
-	
+
 	/**
 	 * @param server_gm_only
 	 */
@@ -546,7 +546,7 @@ public class LoginServerThread extends Thread
 				_log.debug(e.getMessage(), e);
 		}
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -554,7 +554,7 @@ public class LoginServerThread extends Thread
 	{
 		return ServerStatus.STATUS_STRING[_status];
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -562,7 +562,7 @@ public class LoginServerThread extends Thread
 	{
 		return Config.SERVER_LIST_CLOCK;
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -570,7 +570,7 @@ public class LoginServerThread extends Thread
 	{
 		return Config.SERVER_LIST_BRACKET;
 	}
-	
+
 	/**
 	 * @return Returns the serverName.
 	 */
@@ -578,47 +578,47 @@ public class LoginServerThread extends Thread
 	{
 		return _serverName;
 	}
-	
+
 	public void setServerStatus(int status)
 	{
 		switch (status)
 		{
-			case ServerStatus.STATUS_AUTO:
-				sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_AUTO);
-				_status = status;
-				break;
-			case ServerStatus.STATUS_DOWN:
-				sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_DOWN);
-				_status = status;
-				break;
-			case ServerStatus.STATUS_FULL:
-				sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_FULL);
-				_status = status;
-				break;
-			case ServerStatus.STATUS_GM_ONLY:
-				sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_GM_ONLY);
-				_status = status;
-				break;
-			case ServerStatus.STATUS_GOOD:
-				sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_GOOD);
-				_status = status;
-				break;
-			case ServerStatus.STATUS_NORMAL:
-				sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_NORMAL);
-				_status = status;
-				break;
-			default:
-				throw new IllegalArgumentException("Status does not exists:" + status);
+		case ServerStatus.STATUS_AUTO:
+			sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_AUTO);
+			_status = status;
+			break;
+		case ServerStatus.STATUS_DOWN:
+			sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_DOWN);
+			_status = status;
+			break;
+		case ServerStatus.STATUS_FULL:
+			sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_FULL);
+			_status = status;
+			break;
+		case ServerStatus.STATUS_GM_ONLY:
+			sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_GM_ONLY);
+			_status = status;
+			break;
+		case ServerStatus.STATUS_GOOD:
+			sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_GOOD);
+			_status = status;
+			break;
+		case ServerStatus.STATUS_NORMAL:
+			sendServerStatus(ServerStatus.SERVER_LIST_STATUS, ServerStatus.STATUS_NORMAL);
+			_status = status;
+			break;
+		default:
+			throw new IllegalArgumentException("Status does not exists:" + status);
 		}
 	}
-	
+
 	public static class SessionKey
 	{
 		public int	playOkID1;
 		public int	playOkID2;
 		public int	loginOkID1;
 		public int	loginOkID2;
-		
+
 		public SessionKey(int loginOK1, int loginOK2, int playOK1, int playOK2)
 		{
 			playOkID1 = playOK1;
@@ -626,21 +626,21 @@ public class LoginServerThread extends Thread
 			loginOkID1 = loginOK1;
 			loginOkID2 = loginOK2;
 		}
-		
+
 		@Override
 		public String toString()
 		{
 			return "PlayOk: " + playOkID1 + " " + playOkID2 + " LoginOk:" + loginOkID1 + " " + loginOkID2;
 		}
 	}
-	
+
 	private class WaitingClient
 	{
 		public int			timestamp;
 		public String		account;
 		public L2GameClient	gameClient;
 		public SessionKey	session;
-		
+
 		public WaitingClient(String acc, L2GameClient client, SessionKey key)
 		{
 			account = acc;

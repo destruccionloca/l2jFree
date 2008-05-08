@@ -50,25 +50,25 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 public class Announcements
 {
 	private final static Log		_log					= LogFactory.getLog(Announcements.class.getName());
-	
+
 	private static Announcements	_instance;
 	private List<String>			_announcements			= new FastList<String>();
 	private List<List<Object>>		_eventAnnouncements		= new FastList<List<Object>>();
 	private String					leaderboardAnnouncement	= null;
-	
+
 	public Announcements()
 	{
 		loadAnnouncements();
 	}
-	
+
 	public static Announcements getInstance()
 	{
 		if (_instance == null)
 			_instance = new Announcements();
-		
+
 		return _instance;
 	}
-	
+
 	public void loadAnnouncements()
 	{
 		_announcements.clear();
@@ -82,12 +82,13 @@ public class Announcements
 			_log.info("data/announcements.txt doesn't exist");
 		}
 	}
-	
+
 	public void showAnnouncements(L2PcInstance activeChar)
 	{
 		for (int i = 0; i < _announcements.size(); i++)
 		{
-			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), activeChar.getName(), _announcements.get(i).replace("%name%", activeChar.getName()).toString());
+			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), activeChar.getName(), _announcements.get(i).replace("%name%",
+					activeChar.getName()).toString());
 			activeChar.sendPacket(cs);
 		}
 		if (leaderboardAnnouncement != null)
@@ -95,15 +96,15 @@ public class Announcements
 			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), activeChar.getName(), leaderboardAnnouncement);
 			activeChar.sendPacket(cs);
 		}
-		
+
 		for (int i = 0; i < _eventAnnouncements.size(); i++)
 		{
 			List<Object> entry = _eventAnnouncements.get(i);
-			
+
 			DateRange validDateRange = (DateRange) entry.get(0);
 			String[] msg = (String[]) entry.get(1);
 			Date currentDate = new Date();
-			
+
 			if (validDateRange.isValid() && validDateRange.isWithinRange(currentDate))
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1);
@@ -115,7 +116,7 @@ public class Announcements
 			}
 		}
 	}
-	
+
 	public void addEventAnnouncement(DateRange validDateRange, String[] msg)
 	{
 		FastList<Object> entry = new FastList<Object>();
@@ -123,7 +124,7 @@ public class Announcements
 		entry.add(msg);
 		_eventAnnouncements.add(entry);
 	}
-	
+
 	public void listAnnouncements(L2PcInstance activeChar)
 	{
 		String content = HtmCache.getInstance().getHtmForce("data/html/admin/announce.htm");
@@ -139,24 +140,24 @@ public class Announcements
 		adminReply.replace("%announces%", replyMSG.toString());
 		activeChar.sendPacket(adminReply);
 	}
-	
+
 	public void addAnnouncement(String text)
 	{
 		_announcements.add(text);
 		saveToDisk();
 	}
-	
+
 	public void setLeaderboardAnnouncement(String announce)
 	{
 		leaderboardAnnouncement = announce;
 	}
-	
+
 	public void delAnnouncement(int line)
 	{
 		_announcements.remove(line);
 		saveToDisk();
 	}
-	
+
 	private void readFromDisk(File file)
 	{
 		LineNumberReader lnr = null;
@@ -172,7 +173,7 @@ public class Announcements
 				{
 					String announcement = st.nextToken();
 					_announcements.add(announcement);
-					
+
 					i++;
 				}
 			}
@@ -194,12 +195,12 @@ public class Announcements
 			}
 		}
 	}
-	
+
 	private void saveToDisk()
 	{
 		File file = new File("data/announcements.txt");
 		FileWriter save = null;
-		
+
 		try
 		{
 			save = new FileWriter(file);
@@ -217,20 +218,20 @@ public class Announcements
 			_log.warn("saving the announcements file has failed: " + e);
 		}
 	}
-	
+
 	public void announceToAll(String text)
 	{
 		CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), "", text);
-		
+
 		if (Config.IRC_ENABLED && Config.IRC_ANNOUNCE)
 			IrcManager.getInstance().getConnection().sendChan("10Announce: " + text);
-		
+
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
 			player.sendPacket(cs);
 		}
 	}
-	
+
 	public void announceToAll(SystemMessage sm)
 	{
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
@@ -238,7 +239,7 @@ public class Announcements
 			player.sendPacket(sm);
 		}
 	}
-	
+
 	// Method fo handling announcements from admin
 	public void handleAnnounce(String command, int lengthToTrim)
 	{
@@ -248,14 +249,14 @@ public class Announcements
 			String text = command.substring(lengthToTrim);
 			announceToAll(text);
 		}
-		
+
 		// No body cares!
 		catch (StringIndexOutOfBoundsException e)
 		{
 			// empty message.. ignore
 		}
 	}
-	
+
 	/**
 	 * Announce to players.<BR>
 	 * <BR>

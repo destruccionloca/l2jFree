@@ -29,7 +29,7 @@ public class GeoData
 {
 	protected static Logger	_log	= Logger.getLogger(GeoData.class.getName());
 	private static GeoData	_instance;
-	
+
 	public static GeoData getInstance()
 	{
 		if (_instance == null)
@@ -43,7 +43,7 @@ public class GeoData
 		}
 		return _instance;
 	}
-	
+
 	// Public Methods
 	/**
 	 * @param x
@@ -54,7 +54,7 @@ public class GeoData
 	{
 		return 0;
 	}
-	
+
 	/**
 	 * @param x
 	 * @param y
@@ -65,7 +65,7 @@ public class GeoData
 	{
 		return (short) z;
 	}
-	
+
 	/**
 	 * @param x
 	 * @param y
@@ -78,7 +78,7 @@ public class GeoData
 	{
 		return (short) zmin;
 	}
-	
+
 	/**
 	 * @param x
 	 * @param y
@@ -88,7 +88,7 @@ public class GeoData
 	{
 		return "";
 	}
-	
+
 	/**
 	 * @param cha
 	 * @param target
@@ -121,7 +121,7 @@ public class GeoData
 		// Don't allow casting on players on different dungeon lvls etc
 		return (Math.abs(z - tz) < 1000);
 	}
-	
+
 	/**
 	 * @param cha
 	 * @param target
@@ -132,7 +132,7 @@ public class GeoData
 	{
 		return true;
 	}
-	
+
 	/**
 	 * @param x
 	 * @param y
@@ -143,7 +143,7 @@ public class GeoData
 	{
 		return 15;
 	}
-	
+
 	/**
 	 * @param x
 	 * @param y
@@ -157,7 +157,7 @@ public class GeoData
 	{
 		return new Location(tx, ty, tz);
 	}
-	
+
 	/**
 	 * @param gm
 	 * @param comment
@@ -166,14 +166,14 @@ public class GeoData
 	{
 		// Do Nothing
 	}
-	
+
 	public static boolean unloadGeodata(@SuppressWarnings("unused")
 	byte rx, @SuppressWarnings("unused")
 	byte ry)
 	{
 		return GeoEngine.unloadGeodata(rx, ry);
 	}
-	
+
 	public static boolean loadGeodataFile(@SuppressWarnings("unused")
 	byte rx, @SuppressWarnings("unused")
 	byte ry)
