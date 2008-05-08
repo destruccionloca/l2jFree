@@ -99,16 +99,6 @@ public final class Config
 	public static int			SELECTED_NODE_ID;
 	public static int			LINKED_NODE_ID;
 	public static String		NEW_NODE_TYPE;
-	/** JMX Admin */
-	/** Properties administration port */
-	public static int			JMX_TCP_PORT;
-	/** Properties port adaptor Http */
-	public static int			JMX_HTTP_PORT;
-	/** Property Keystore */
-	public static String		JMX_KEYSTORE;
-	/** Property Keystore Password */
-	public static String		JMX_KEYSTORE_PASSWORD;
-
 	public static boolean		LEGACY_CT1_MODE;
 	// *******************************************************************************************
 	public static void loadConfiguration()
@@ -197,12 +187,6 @@ public final class Config
 			FLOOD_PROTECTION = Boolean.parseBoolean(serverSettings.getProperty("FloodProtection", "False"));
 			PACKET_LIMIT = Integer.parseInt(serverSettings.getProperty("PacketLimit", "500"));
 			PACKET_TIME_LIMIT = Integer.parseInt(serverSettings.getProperty("PacketTimeLimit", "1100"));
-
-			JMX_TCP_PORT = Integer.parseInt(serverSettings.getProperty("admin_portJMX", "-1"));
-			JMX_HTTP_PORT = Integer.parseInt(serverSettings.getProperty("admin_portHTTP", "-1"));
-			JMX_KEYSTORE = serverSettings.getProperty("keystore", "keystore.jks");
-			JMX_KEYSTORE_PASSWORD = serverSettings.getProperty("keystore_password", "");
-			
 			LEGACY_CT1_MODE = Boolean.parseBoolean(serverSettings.getProperty("LegacyCT1Mode", "False"));
 		}
 		catch (Exception e)

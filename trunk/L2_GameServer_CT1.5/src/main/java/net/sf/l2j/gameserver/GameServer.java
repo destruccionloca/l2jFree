@@ -21,8 +21,7 @@ import java.util.Calendar;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.admin.AdminSrv;
-import net.sf.l2j.gameserver.boat.service.BoatService;
+import net.sf.l2j.gameserver.instancemanager.BoatManager;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.ArmorSetsTable;
@@ -170,9 +169,8 @@ public class GameServer
 		}
 		StaticObjects.getInstance();
 		GameTimeController.getInstance();
-		BoatService boatService = (BoatService) L2Registry.getBean(IServiceRegistry.BOAT);
-		boatService.loadBoatDatas();
 		TeleportLocationTable.getInstance();
+		BoatManager.getInstance();
 		Util.printSection("Skills");
 		SkillTreeTable.getInstance();
 		SkillsEngine.getInstance();
@@ -335,8 +333,6 @@ public class GameServer
 		}
 		else
 			_log.info("Telnet server is currently disabled.");
-		if (Config.JMX_TCP_PORT != -1 || Config.JMX_HTTP_PORT != -1)
-			AdminSrv.getInstance().registerMbeans();
 		
 		if (Config.ACCEPT_GEOEDITOR_CONN)
 			GeoEditorListener.getInstance();

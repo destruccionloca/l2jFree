@@ -14,8 +14,8 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
-import net.sf.l2j.gameserver.boat.service.BoatService;
 
+import net.sf.l2j.gameserver.instancemanager.BoatManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.GetOffVehicle;
@@ -31,8 +31,6 @@ public class RequestGetOffVehicle extends L2GameClientPacket
 {
     private int _id, _x, _y, _z;
     
-    private static BoatService boatService = (BoatService)L2Registry.getBean(IServiceRegistry.BOAT);
-
     /**
      * @param buf
      * @param client
@@ -55,7 +53,7 @@ public class RequestGetOffVehicle extends L2GameClientPacket
         L2PcInstance activeChar = getClient().getActiveChar();
         if(activeChar == null)
             return;
-        L2BoatInstance boat = boatService.getBoat(_id);
+        L2BoatInstance boat = BoatManager.getInstance().getBoat(_id);
         GetOffVehicle Gon = new GetOffVehicle(activeChar,boat,_x,_y,_z);
         activeChar.broadcastPacket(Gon);
     }
