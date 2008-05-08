@@ -50,6 +50,8 @@ import net.sf.l2j.gameserver.cache.WarehouseCacheManager;
 import net.sf.l2j.gameserver.characters.model.recommendation.CharRecommendation;
 import net.sf.l2j.gameserver.characters.model.recommendation.CharRecommendationStatus;
 import net.sf.l2j.gameserver.characters.service.CharRecommendationService;
+import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
+import net.sf.l2j.gameserver.communitybbs.bb.Forum;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.FishTable;
@@ -215,7 +217,6 @@ import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
-import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.skills.effects.EffectForce;
@@ -230,7 +231,6 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Broadcast;
 import net.sf.l2j.gameserver.util.FloodProtector;
-import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.geometry.Point3D;
 import net.sf.l2j.tools.random.Rnd;
 
@@ -436,9 +436,6 @@ public final class L2PcInstance extends L2PlayableInstance
     /** Level at which the player joined the clan as an accedemy member*/
     private int _lvlJoinedAcademy = 0;
 
-    /** service for recommendations manipulation */
-    private CharRecommendationService charRecommendationService = (CharRecommendationService)L2Registry.getBean(IServiceRegistry.CHAR_RECOMMENDATIONS);
-    
     /** 
      * Char recommendation status (how many recom I have, how many I can give etc...
      * WARNING : Use the getter to retrieve it, if not you risk to have a null pointer exception 
@@ -728,6 +725,9 @@ public final class L2PcInstance extends L2PlayableInstance
     /** Bypass validations */
     private List<String> _validBypass = new FastList<String>();
     private List<String> _validBypass2 = new FastList<String>();
+
+    private Forum _forumMail;
+    private Forum _forumMemo;
     
     private L2Fishing _fishCombat;
 
@@ -6291,6 +6291,60 @@ public final class L2PcInstance extends L2PlayableInstance
 
         return player;
     }
+
+	/**
+	 * @return
+	 */
+	public Forum getMail()
+	{
+		if (_forumMail == null)
+		{
+			setMail(ForumsBBSManager.getInstance().getForumByName("MailRoot").getChildByName(getName()));
+	
+			if (_forumMail == null)
+			{
+				ForumsBBSManager.getInstance().createNewForum(getName(),ForumsBBSManager.getInstance().getForumByName("MailRoot"),Forum.MAIL,Forum.OWNERONLY,getObjectId());
+				setMail(ForumsBBSManager.getInstance().getForumByName("MailRoot").getChildByName(getName()));
+			}
+		}
+	
+		return _forumMail;
+	}
+	
+	/**
+	 * @param forum
+	 */
+	public void setMail(Forum forum)
+	{
+		_forumMail = forum;
+	}
+	
+	/**
+	 * @return
+	 */
+	public Forum getMemo()
+	{
+		if (_forumMemo == null)
+		{
+			setMemo(ForumsBBSManager.getInstance().getForumByName("MemoRoot").getChildByName(_accountName));
+	
+	    	if (_forumMemo == null)
+	    	{
+	    		ForumsBBSManager.getInstance().createNewForum(_accountName,ForumsBBSManager.getInstance().getForumByName("MemoRoot"),Forum.MEMO,Forum.OWNERONLY,getObjectId());
+	    		setMemo(ForumsBBSManager.getInstance().getForumByName("MemoRoot").getChildByName(_accountName));
+	    	}
+		}
+	
+		return _forumMemo;
+	}
+	
+	/**
+	 * @param forum
+	 */
+	public void setMemo(Forum forum)
+	{
+		_forumMemo = forum;
+	}
 
     /**
      * Restores sub-class data for the L2PcInstance, used to check the current

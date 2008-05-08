@@ -12,17 +12,18 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.communitybbs.BB;
-
+package net.sf.l2j.gameserver.communitybbs.bb;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.Manager.PostBBSManager;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Maktakien
@@ -30,45 +31,50 @@ import net.sf.l2j.gameserver.communitybbs.Manager.PostBBSManager;
  */
 public class Post
 {
-	private static Logger _log = Logger.getLogger(Post.class.getName());
+	private final static Log	_log	= LogFactory.getLog(Post.class);
+
 	public class CPost
 	{
-		public int postId;
-		public String postOwner;
-		public int postOwnerId;
-		public long postDate;
-		public int postTopicId;
-		public int postForumId;
-		public String postTxt;
+		public int		postId;
+		public String	postOwner;
+		public int		postOwnerId;
+		public long		postDate;
+		public int		postTopicId;
+		public int		postForumId;
+		public String	postTxt;
 	}
-	private List<CPost> _post;
+
+	private List<CPost>	_post;
+
 	/**
 	 * @param restore
 	 * @param t
 	 */
 	//public enum ConstructorType {REPLY, CREATE };
-	public Post(String _PostOwner,int _PostOwnerID,long date,int tid,int _PostForumID,String txt)
+	public Post(String _PostOwner, int _PostOwnerID, long date, int tid, int _PostForumID, String txt)
 	{
-			_post = new FastList<CPost>();
-			CPost cp = new CPost();
-			cp.postId = 0;
-			cp.postOwner = _PostOwner;
-			cp.postOwnerId = _PostOwnerID;
-			cp.postDate = date;
-			cp.postTopicId = tid;
-			cp.postForumId = _PostForumID;
-			cp.postTxt = txt;
-			_post.add(cp);
-			insertindb(cp);
+		_post = new FastList<CPost>();
+		CPost cp = new CPost();
+		cp.postId = 0;
+		cp.postOwner = _PostOwner;
+		cp.postOwnerId = _PostOwnerID;
+		cp.postDate = date;
+		cp.postTopicId = tid;
+		cp.postForumId = _PostForumID;
+		cp.postTxt = txt;
+		_post.add(cp);
+		insertindb(cp);
 
 	}
+
 	public void insertindb(CPost cp)
 	{
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement("INSERT INTO posts (post_id,post_owner_name,post_ownerid,post_date,post_topic_id,post_forum_id,post_txt) values (?,?,?,?,?,?,?)");
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con
+					.prepareStatement("INSERT INTO posts (post_id,post_owner_name,post_ownerid,post_date,post_topic_id,post_forum_id,post_txt) values (?,?,?,?,?,?,?)");
 			statement.setInt(1, cp.postId);
 			statement.setString(2, cp.postOwner);
 			statement.setInt(3, cp.postOwnerId);
@@ -81,7 +87,7 @@ public class Post
 		}
 		catch (Exception e)
 		{
-			_log.warning("error while saving new Post to db " + e);
+			_log.warn("error while saving new Post to db " + e);
 		}
 		finally
 		{
@@ -95,6 +101,7 @@ public class Post
 		}
 
 	}
+
 	public Post(Topic t)
 	{
 		_post = new FastList<CPost>();
@@ -104,9 +111,9 @@ public class Post
 	public CPost getCPost(int id)
 	{
 		int i = 0;
-		for(CPost cp : _post)
+		for (CPost cp : _post)
 		{
-			if(i == id)
+			if (i == id)
 			{
 				return cp;
 			}
@@ -114,13 +121,14 @@ public class Post
 		}
 		return null;
 	}
+
 	public void deleteme(Topic t)
 	{
 		PostBBSManager.getInstance().delPostByTopic(t);
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("DELETE FROM posts WHERE post_forum_id=? AND post_topic_id=?");
 			statement.setInt(1, t.getForumID());
 			statement.setInt(2, t.getID());
@@ -142,6 +150,7 @@ public class Post
 			}
 		}
 	}
+
 	/**
 	 * @param t
 	 */
@@ -150,12 +159,12 @@ public class Post
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM posts WHERE post_forum_id=? AND post_topic_id=? ORDER BY post_id ASC");
 			statement.setInt(1, t.getForumID());
 			statement.setInt(2, t.getID());
 			ResultSet result = statement.executeQuery();
-			while(result.next())
+			while (result.next())
 			{
 				CPost cp = new CPost();
 				cp.postId = Integer.parseInt(result.getString("post_id"));
@@ -172,7 +181,7 @@ public class Post
 		}
 		catch (Exception e)
 		{
-			_log.warning("data error on Post " + t.getForumID() + "/"+t.getID()+" : " + e);
+			_log.warn("data error on Post " + t.getForumID() + "/" + t.getID() + " : " + e);
 			e.printStackTrace();
 		}
 		finally
@@ -186,6 +195,7 @@ public class Post
 			}
 		}
 	}
+
 	/**
 	 * @param i
 	 */
@@ -195,7 +205,7 @@ public class Post
 		try
 		{
 			CPost cp = getCPost(i);
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("UPDATE posts SET post_txt=? WHERE post_id=? AND post_topic_id=? AND post_forum_id=?");
 			statement.setString(1, cp.postTxt);
 			statement.setInt(2, cp.postId);
@@ -206,7 +216,7 @@ public class Post
 		}
 		catch (Exception e)
 		{
-			_log.warning("error while saving new Post to db " + e);
+			_log.warn("error while saving new Post to db " + e);
 		}
 		finally
 		{
@@ -223,9 +233,5 @@ public class Post
 	/**
 	 *
 	 */
-
-
-
-
 
 }

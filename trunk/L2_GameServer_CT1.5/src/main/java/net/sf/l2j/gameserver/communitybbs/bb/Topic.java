@@ -12,29 +12,32 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.communitybbs.BB;
+package net.sf.l2j.gameserver.communitybbs.bb;
 
 import java.sql.PreparedStatement;
-import java.util.logging.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.Manager.TopicBBSManager;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class Topic
 {
 
-	private static Logger _log = Logger.getLogger(Topic.class.getName());
-	public static final int MORMAL = 0;
-	public static final int MEMO = 1;
+	private final static Log	_log	= LogFactory.getLog(Topic.class);
 
-	private int _id;
-	private int _forumId;
-	private String _topicName;
-	private long _date;
-	private String _ownerName;
-	private int _ownerId;
-	private int _type;
-	private int _cReply;
+	public static final int		MORMAL	= 0;
+	public static final int		MEMO	= 1;
+
+	private int					_id;
+	private int					_forumId;
+	private String				_topicName;
+	private long				_date;
+	private String				_ownerName;
+	private int					_ownerId;
+	private int					_type;
+	private int					_cReply;
 
 	/**
 	 * @param restaure
@@ -49,21 +52,20 @@ public class Topic
 	 */
 	public Topic(ConstructorType ct, int id, int fid, String name, long date, String oname, int oid, int type, int Creply)
 	{
-			_id = id;
-			_forumId = fid;
-			_topicName = name;
-			_date = date;
-			_ownerName = oname;
-			_ownerId = oid;
-			_type =  type;
-			_cReply = Creply;
-			TopicBBSManager.getInstance().addTopic(this);
+		_id = id;
+		_forumId = fid;
+		_topicName = name;
+		_date = date;
+		_ownerName = oname;
+		_ownerId = oid;
+		_type = type;
+		_cReply = Creply;
+		TopicBBSManager.getInstance().addTopic(this);
 
-
-		 if(ct == ConstructorType.CREATE)
+		if (ct == ConstructorType.CREATE)
 		{
 
-			 insertindb();
+			insertindb();
 		}
 	}
 
@@ -75,8 +77,9 @@ public class Topic
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement("INSERT INTO topic (topic_id,topic_forum_id,topic_name,topic_date,topic_ownername,topic_ownerid,topic_type,topic_reply) values (?,?,?,?,?,?,?,?)");
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con
+					.prepareStatement("INSERT INTO topic (topic_id,topic_forum_id,topic_name,topic_date,topic_ownername,topic_ownerid,topic_type,topic_reply) values (?,?,?,?,?,?,?,?)");
 			statement.setInt(1, _id);
 			statement.setInt(2, _forumId);
 			statement.setString(3, _topicName);
@@ -91,7 +94,7 @@ public class Topic
 		}
 		catch (Exception e)
 		{
-			_log.warning("error while saving new Topic to db " + e);
+			_log.warn("error while saving new Topic to db " + e);
 		}
 		finally
 		{
@@ -106,7 +109,10 @@ public class Topic
 
 	}
 
-	public enum ConstructorType { RESTORE , CREATE }
+	public enum ConstructorType
+	{
+		RESTORE, CREATE
+	}
 
 	/**
 	 * @return
@@ -115,10 +121,12 @@ public class Topic
 	{
 		return _id;
 	}
+
 	public int getForumID()
 	{
 		return _forumId;
 	}
+
 	/**
 	 * @return
 	 */
@@ -127,6 +135,7 @@ public class Topic
 		// TODO Auto-generated method stub
 		return _topicName;
 	}
+
 	public String getOwnerName()
 	{
 		// TODO Auto-generated method stub
@@ -143,7 +152,7 @@ public class Topic
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("DELETE FROM topic WHERE topic_id=? AND topic_forum_id=?");
 			statement.setInt(1, getID());
 			statement.setInt(2, f.getID());
