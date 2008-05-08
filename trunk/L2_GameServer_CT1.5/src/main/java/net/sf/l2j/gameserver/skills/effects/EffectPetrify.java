@@ -36,6 +36,7 @@ public class EffectPetrify extends L2Effect
 		getEffected().startParalyze();
 		getEffected().setIsPetrified(true);
 	}
+
 	public void onExit()
 
 	{

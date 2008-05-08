@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.skills.Env;
  */
 final class EffectFear extends L2Effect
 {
-	public static final int FEAR_RANGE = 500;
+	public static final int	FEAR_RANGE	= 500;
 
 	public EffectFear(Env env, EffectTemplate template)
 	{
@@ -67,19 +67,19 @@ final class EffectFear extends L2Effect
 		// Heroic Dread, Curse: Fear, Fear, Horror, Sword Symphony, Word of Fear and Mass Curse Fear are the exceptions.
 		if (getEffected() instanceof L2PcInstance && getEffector() instanceof L2PcInstance)
 		{
-			switch(getSkill().getId())
+			switch (getSkill().getId())
 			{
-				case 65:
-				case 98:
-				case 1092:
-				case 1169:
-				case 1272:
-				case 1376:
-				case 1381:
-					// all ok
-					break;
-				default:
-					return false;
+			case 65:
+			case 98:
+			case 1092:
+			case 1169:
+			case 1272:
+			case 1376:
+			case 1381:
+				// all ok
+				break;
+			default:
+				return false;
 			}
 		}
 

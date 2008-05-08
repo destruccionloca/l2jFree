@@ -27,19 +27,19 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 public class L2SkillElemental extends L2Skill
 {
-	private final int[] _seeds;
-	private final boolean _seedAny;
-	
+	private final int[]		_seeds;
+	private final boolean	_seedAny;
+
 	public L2SkillElemental(StatsSet set)
 	{
 		super(set);
-		
+
 		_seeds = new int[3];
-		_seeds[0] = set.getInteger("seed1",0);
-		_seeds[1] = set.getInteger("seed2",0);
-		_seeds[2] = set.getInteger("seed3",0);
-		
-		if (set.getInteger("seed_any",0)==1)
+		_seeds[0] = set.getInteger("seed1", 0);
+		_seeds[1] = set.getInteger("seed2", 0);
+		_seeds[2] = set.getInteger("seed3", 0);
+
+		if (set.getInteger("seed_any", 0) == 1)
 			_seedAny = true;
 		else
 			_seedAny = false;
@@ -52,26 +52,26 @@ public class L2SkillElemental extends L2Skill
 
 		boolean ss = false;
 		boolean bss = false;
-		
+
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 
-		if (activeChar instanceof L2PcInstance) 
+		if (activeChar instanceof L2PcInstance)
 		{
-			if (weaponInst == null) 
-			{ 
-				activeChar.sendMessage("You must equip one weapon before cast spell."); 
-				return; 
+			if (weaponInst == null)
+			{
+				activeChar.sendMessage("You must equip one weapon before cast spell.");
+				return;
 			}
 		}
 
-		if (weaponInst != null) 
+		if (weaponInst != null)
 		{
-			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT) 
+			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
 			{
 				bss = true;
 				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
 			}
-	        else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT) 
+			else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
 			{
 				ss = true;
 				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
@@ -80,7 +80,7 @@ public class L2SkillElemental extends L2Skill
 		// If there is no weapon equipped, check for an active summon.
 		else if (activeChar instanceof L2Summon)
 		{
-			L2Summon activeSummon = (L2Summon)activeChar;
+			L2Summon activeSummon = (L2Summon) activeChar;
 
 			if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
 			{
@@ -95,25 +95,25 @@ public class L2SkillElemental extends L2Skill
 		}
 		else if (activeChar instanceof L2NpcInstance)
 		{
-			bss = ((L2NpcInstance)activeChar).isUsingShot(false);
-			ss = ((L2NpcInstance)activeChar).isUsingShot(true);
+			bss = ((L2NpcInstance) activeChar).isUsingShot(false);
+			ss = ((L2NpcInstance) activeChar).isUsingShot(true);
 		}
 
 		for (L2Object element : targets)
 		{
-			L2Character target = (L2Character)element;
+			L2Character target = (L2Character) element;
 			if (target.isAlikeDead())
 				continue;
-			
+
 			boolean charged = true;
 			if (!_seedAny)
 			{
 				for (int element0 : _seeds)
 				{
-					if (element0!=0)
+					if (element0 != 0)
 					{
 						L2Effect e = target.getFirstEffect(element0);
-						if (e==null || !e.getInUse())
+						if (e == null || !e.getInUse())
 						{
 							charged = false;
 							break;
@@ -126,10 +126,10 @@ public class L2SkillElemental extends L2Skill
 				charged = false;
 				for (int element0 : _seeds)
 				{
-					if (element0!=0)
+					if (element0 != 0)
 					{
 						L2Effect e = target.getFirstEffect(element0);
-						if (e!=null && e.getInUse())
+						if (e != null && e.getInUse())
 						{
 							charged = true;
 							break;
@@ -142,10 +142,10 @@ public class L2SkillElemental extends L2Skill
 				activeChar.sendMessage("Target is not charged by elements.");
 				continue;
 			}
-			
+
 			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, this));
-			
-			int damage = (int)Formulas.getInstance().calcMagicDam(activeChar, target, this, ss, bss, mcrit);
+
+			int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, this, ss, bss, mcrit);
 
 			if (damage > 0)
 			{

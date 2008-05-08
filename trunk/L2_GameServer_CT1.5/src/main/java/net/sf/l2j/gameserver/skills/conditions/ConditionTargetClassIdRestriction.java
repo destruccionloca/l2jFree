@@ -20,18 +20,18 @@ import net.sf.l2j.gameserver.skills.Env;
 
 public class ConditionTargetClassIdRestriction extends Condition
 {
-	private final FastList<Integer> _classIds;
-	
+	private final FastList<Integer>	_classIds;
+
 	public ConditionTargetClassIdRestriction(FastList<Integer> classId)
 	{
 		_classIds = classId;
 	}
-	
+
 	@Override
 	public boolean testImpl(Env env)
 	{
 		if (!(env.target instanceof L2PcInstance))
 			return false;
-		return (_classIds.contains(((L2PcInstance)env.target).getClassId().getId()));
+		return (_classIds.contains(((L2PcInstance) env.target).getClassId().getId()));
 	}
 }

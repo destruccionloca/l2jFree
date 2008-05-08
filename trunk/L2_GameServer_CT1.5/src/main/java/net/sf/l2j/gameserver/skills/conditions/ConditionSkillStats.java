@@ -22,14 +22,14 @@ import net.sf.l2j.gameserver.skills.Stats;
  */
 public class ConditionSkillStats extends Condition
 {
-	private final Stats _stat;
-	
+	private final Stats	_stat;
+
 	public ConditionSkillStats(Stats stat)
 	{
 		super();
 		_stat = stat;
 	}
-	
+
 	@Override
 	public boolean testImpl(Env env)
 	{

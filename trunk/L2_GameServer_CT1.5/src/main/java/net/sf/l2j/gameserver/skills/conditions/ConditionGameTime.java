@@ -20,21 +20,26 @@ import net.sf.l2j.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-public class ConditionGameTime extends Condition {
+public class ConditionGameTime extends Condition
+{
 
-    public enum CheckGameTime { NIGHT }
-	
-	private final CheckGameTime _check; 
-	private final boolean _required;
-	
-    public ConditionGameTime(CheckGameTime check, boolean required)
+	public enum CheckGameTime
+	{
+		NIGHT
+	}
+
+	private final CheckGameTime	_check;
+	private final boolean		_required;
+
+	public ConditionGameTime(CheckGameTime check, boolean required)
 	{
 		_check = check;
 		_required = required;
 	}
-	
+
 	@Override
-	public boolean testImpl(@SuppressWarnings("unused") Env env)
+	public boolean testImpl(@SuppressWarnings("unused")
+	Env env)
 	{
 		switch (_check)
 		{
@@ -44,6 +49,3 @@ public class ConditionGameTime extends Condition {
 		return !_required;
 	}
 }
-
-
-

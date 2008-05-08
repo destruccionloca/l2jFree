@@ -31,23 +31,23 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class EffectTemplate
 {
-	private static Log _log = LogFactory.getLog(EffectTemplate.class.getName());
+	private static Log				_log	= LogFactory.getLog(EffectTemplate.class.getName());
 
-	private final Class<?> _func;
-	private final Constructor<?> _constructor;
+	private final Class<?>			_func;
+	private final Constructor<?>	_constructor;
 
-	public final Condition attachCond;
-	public final Condition applayCond;
-	public final Lambda lambda;
-	public final int counter;
-	public final int period; // in seconds
-	public final int abnormalEffect;
-	public FuncTemplate[] funcTemplates;
+	public final Condition			attachCond;
+	public final Condition			applayCond;
+	public final Lambda				lambda;
+	public final int				counter;
+	public final int				period;														// in seconds
+	public final int				abnormalEffect;
+	public FuncTemplate[]			funcTemplates;
 
-	public final String stackType;
-	public final float stackOrder;
+	public final String				stackType;
+	public final float				stackOrder;
 
-	public final boolean icon;
+	public final boolean			icon;
 
 	public EffectTemplate(Condition pAttachCond, Condition pApplayCond, String func, Lambda pLambda, int pCounter, int pPeriod, int pAbnormalEffect,
 			String pStackType, float pStackOrder, boolean showicon)

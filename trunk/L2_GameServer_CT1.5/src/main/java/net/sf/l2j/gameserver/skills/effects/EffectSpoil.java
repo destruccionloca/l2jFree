@@ -37,39 +37,39 @@ public class EffectSpoil extends L2Effect
 	{
 		super(env, template);
 	}
-	
+
 	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.SPOIL;
 	}
-	
+
 	@Override
 	public void onStart()
 	{
 		if (!(getEffector() instanceof L2PcInstance) || (getEffected() == null))
 			return;
-		
+
 		if (!(getEffected() instanceof L2MonsterInstance))
 			return;
-		
+
 		L2MonsterInstance target = (L2MonsterInstance) getEffected();
-		
+
 		if (target == null)
 			return;
-		
+
 		if (target.isSpoil())
 		{
 			getEffector().sendPacket(new SystemMessage(SystemMessageId.ALREADY_SPOILED));
 			return;
 		}
-		
+
 		// SPOIL SYSTEM by Lbaldi
 		boolean spoil = false;
 		if (target.isDead() == false)
 		{
 			spoil = Formulas.getInstance().calcMagicSuccess(getEffector(), target, getSkill());
-			
+
 			if (spoil)
 			{
 				target.setSpoil(true);
@@ -85,9 +85,9 @@ public class EffectSpoil extends L2Effect
 			}
 			target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, getEffector());
 		}
-		
+
 	}
-	
+
 	@Override
 	public boolean onActionTime()
 	{

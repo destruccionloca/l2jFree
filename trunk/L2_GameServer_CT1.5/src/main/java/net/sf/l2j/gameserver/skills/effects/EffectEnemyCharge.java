@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.skills.Env;
 public class EffectEnemyCharge extends L2Effect
 {
 
-	private int _x, _y, _z;
+	private int	_x, _y, _z;
 
 	public EffectEnemyCharge(Env env, EffectTemplate template)
 	{
@@ -46,34 +46,35 @@ public class EffectEnemyCharge extends L2Effect
 		final int curX = getEffector().getX();
 		final int curY = getEffector().getY();
 		final int curZ = getEffector().getZ();
-		
+
 		// Calculate distance (dx,dy) between current position and destination
 		double dx = getEffected().getX() - curX;
 		double dy = getEffected().getY() - curY;
 		double dz = getEffected().getZ() - curZ;
-		double distance = Math.sqrt(dx*dx + dy*dy);
-		
-		int offset = Math.max((int)distance-getSkill().getFlyRadius(), 30);
-		
+		double distance = Math.sqrt(dx * dx + dy * dy);
+
+		int offset = Math.max((int) distance - getSkill().getFlyRadius(), 30);
+
 		double cos;
 		double sin;
-		
+
 		// approximation for moving closer when z coordinates are different
 		// TODO: handle Z axis movement better
-		offset -= Math.abs(dz);  
-		if (offset < 5) offset = 5;
-			
+		offset -= Math.abs(dz);
+		if (offset < 5)
+			offset = 5;
+
 		// If no distance
-		if (distance < 1 || distance - offset  <= 0)
+		if (distance < 1 || distance - offset <= 0)
 			return;
-		
+
 		// Calculate movement angles needed
-		sin = dy/distance;
-		cos = dx/distance;
-		
+		sin = dy / distance;
+		cos = dx / distance;
+
 		// Calculate the new destination with offset included
-		_x = curX + (int)((distance-offset) * cos);
-		_y = curY + (int)((distance-offset) * sin);
+		_x = curX + (int) ((distance - offset) * cos);
+		_y = curY + (int) ((distance - offset) * sin);
 		_z = getEffected().getZ();
 
 		if (Config.GEODATA)

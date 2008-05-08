@@ -37,7 +37,7 @@ class EffectHealOverTime extends L2Effect
 	@Override
 	public void onStart()
 	{
-		if(getEffected() instanceof L2PcInstance)
+		if (getEffected() instanceof L2PcInstance)
 			getEffected().sendPacket(new ExRegMax(calc(), getTotalCount() * getPeriod(), getPeriod()));
 	}
 

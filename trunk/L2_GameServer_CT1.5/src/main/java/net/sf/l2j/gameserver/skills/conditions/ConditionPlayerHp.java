@@ -16,23 +16,21 @@ package net.sf.l2j.gameserver.skills.conditions;
 
 import net.sf.l2j.gameserver.skills.Env;
 
-
-
 /**
  * @author mr
  */
 public class ConditionPlayerHp extends Condition
 {
-	private final int _hp;
-	
-    public ConditionPlayerHp(int hp)
+	private final int	_hp;
+
+	public ConditionPlayerHp(int hp)
 	{
 		_hp = hp;
 	}
-	
+
 	@Override
 	public boolean testImpl(Env env)
 	{
-		return env.player.getStatus().getCurrentHp()*100/env.player.getMaxHp() <= _hp;
+		return env.player.getStatus().getCurrentHp() * 100 / env.player.getMaxHp() <= _hp;
 	}
 }

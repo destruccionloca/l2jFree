@@ -19,12 +19,14 @@ import net.sf.l2j.gameserver.skills.Stats;
 
 public class FuncDiv extends Func
 {
-	private final Lambda _lambda;
+	private final Lambda	_lambda;
+
 	public FuncDiv(Stats pStat, int pOrder, Object owner, Lambda lambda)
 	{
 		super(pStat, pOrder, owner);
 		_lambda = lambda;
 	}
+
 	public void calc(Env env)
 	{
 		if (cond == null || cond.test(env))

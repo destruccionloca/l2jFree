@@ -21,22 +21,25 @@ import net.sf.l2j.gameserver.skills.Env;
 
 public class ConditionTargetUndead extends Condition
 {
-    final boolean _isUndead;
-    
-    public ConditionTargetUndead(boolean isUndead)
-    {
-        _isUndead = isUndead;
-    }
+	final boolean	_isUndead;
 
-    @Override
-    public boolean testImpl(Env env)
-    {
-        L2Character target = (L2Character)env.player.getTarget();
+	public ConditionTargetUndead(boolean isUndead)
+	{
+		_isUndead = isUndead;
+	}
 
-        if(target == null) return false;
-        if (target instanceof L2MonsterInstance) return ((L2MonsterInstance)target).isUndead() == _isUndead;
-        if (target instanceof L2SummonInstance) return ((L2SummonInstance)target).isUndead() == _isUndead;
+	@Override
+	public boolean testImpl(Env env)
+	{
+		L2Character target = (L2Character) env.player.getTarget();
 
-        return false;
-    }
+		if (target == null)
+			return false;
+		if (target instanceof L2MonsterInstance)
+			return ((L2MonsterInstance) target).isUndead() == _isUndead;
+		if (target instanceof L2SummonInstance)
+			return ((L2SummonInstance) target).isUndead() == _isUndead;
+
+		return false;
+	}
 }

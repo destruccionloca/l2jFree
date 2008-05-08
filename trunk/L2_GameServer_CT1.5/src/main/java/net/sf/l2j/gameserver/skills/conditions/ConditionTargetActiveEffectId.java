@@ -19,25 +19,25 @@ import net.sf.l2j.gameserver.skills.Env;
 
 public class ConditionTargetActiveEffectId extends Condition
 {
-    
-    private final int _effectId;
-    
-    public ConditionTargetActiveEffectId(int effectId)
-    {
-        _effectId = effectId;
-    }
-    
-    @Override
-    public boolean testImpl(Env env)
-    {
-        for (L2Effect e : env.target.getAllEffects())
-        {
-            if (e != null)
-            {
-                if (e.getSkill().getId() == _effectId)
-                    return true;
-            }
-        }
-        return false;
-    }
+
+	private final int	_effectId;
+
+	public ConditionTargetActiveEffectId(int effectId)
+	{
+		_effectId = effectId;
+	}
+
+	@Override
+	public boolean testImpl(Env env)
+	{
+		for (L2Effect e : env.target.getAllEffects())
+		{
+			if (e != null)
+			{
+				if (e.getSkill().getId() == _effectId)
+					return true;
+			}
+		}
+		return false;
+	}
 }

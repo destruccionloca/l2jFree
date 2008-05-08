@@ -16,13 +16,12 @@ package net.sf.l2j.gameserver.skills.conditions;
 
 import net.sf.l2j.gameserver.skills.Env;
 
-
 /**
  * @author mkizub
  */
 public class ConditionLogicNot extends Condition
 {
-	private Condition _condition;
+	private Condition	_condition;
 
 	public ConditionLogicNot(Condition condition)
 	{
@@ -30,7 +29,7 @@ public class ConditionLogicNot extends Condition
 		if (getListener() != null)
 			_condition.setListener(this);
 	}
-	
+
 	@Override
 	void setListener(ConditionListener listener)
 	{
@@ -40,7 +39,7 @@ public class ConditionLogicNot extends Condition
 			_condition.setListener(null);
 		super.setListener(listener);
 	}
-	
+
 	@Override
 	public boolean testImpl(Env env)
 	{

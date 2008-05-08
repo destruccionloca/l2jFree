@@ -28,7 +28,6 @@ public class EffectPhysicalAttackMute extends L2Effect
 		super(env, template);
 	}
 
-
 	@Override
 	public EffectType getEffectType()
 	{

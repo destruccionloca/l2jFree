@@ -26,15 +26,16 @@ import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.skills.Stats;
+
 /**
  * Used for Break Duress skill mainly
  * uses number of charges to negate, negate number depends on charge consume  
  * @author Darki699
  */
-public class L2SkillChargeNegate extends L2Skill 
+public class L2SkillChargeNegate extends L2Skill
 {
-	final int chargeSkillId;
-	
+	final int	chargeSkillId;
+
 	public L2SkillChargeNegate(StatsSet set)
 	{
 		super(set);
@@ -45,9 +46,9 @@ public class L2SkillChargeNegate extends L2Skill
 	{
 		if (activeChar instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance)activeChar;
-			EffectCharge e = (EffectCharge)player.getFirstEffect(chargeSkillId);
-			if(e == null || e.numCharges < getNumCharges())
+			L2PcInstance player = (L2PcInstance) activeChar;
+			EffectCharge e = (EffectCharge) player.getFirstEffect(chargeSkillId);
+			if (e == null || e.numCharges < getNumCharges())
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 				sm.addSkillName(getId());
@@ -57,12 +58,12 @@ public class L2SkillChargeNegate extends L2Skill
 		}
 		return super.checkCondition(activeChar, target, itemOrWeapon);
 	}
-	
+
 	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
 		if (activeChar.isAlikeDead())
 			return;
-		
+
 		// get the effect
 		EffectCharge effect = (EffectCharge) activeChar.getFirstEffect(chargeSkillId);
 		if (effect == null || effect.numCharges < getNumCharges())
@@ -72,92 +73,93 @@ public class L2SkillChargeNegate extends L2Skill
 			activeChar.sendPacket(sm);
 			return;
 		}
-		
+
 		effect.numCharges -= getNumCharges();
-		
+
 		if (activeChar instanceof L2PcInstance)
 		{
-			activeChar.sendPacket(new EtcStatusUpdate((L2PcInstance)activeChar));
+			activeChar.sendPacket(new EtcStatusUpdate((L2PcInstance) activeChar));
 		}
-		
+
 		if (effect.numCharges == 0)
 			effect.exit();
-		
-		for (L2Object element : targets) {
-			L2Character target = (L2Character)element;
+
+		for (L2Object element : targets)
+		{
+			L2Character target = (L2Character) element;
 			if (target.isAlikeDead())
 				continue;
-            
-			String[] 	_negateStats 	= getNegateStats();
-            int 		count     		= 0;
-            for (String stat : _negateStats)
-            {
-                count++;
-            	if (count > getNumCharges())
-            	{
-            		// ROOT=1 PARALYZE=2 SLOW=3 
-            		return;
-            	}
-                
-            	stat = stat.toLowerCase().intern();
-                if (stat == "root")
-                {
-                	negateEffect(target,SkillType.ROOT);
-                }
-                if (stat == "slow") 
-                {
-                	negateEffect(target,SkillType.DEBUFF);
-                	negateEffect(target,SkillType.WEAKNESS);
-                }
-                if (stat == "paralyze")
-                {
-                	negateEffect(target,SkillType.PARALYZE);
-                }
-            }
+
+			String[] _negateStats = getNegateStats();
+			int count = 0;
+			for (String stat : _negateStats)
+			{
+				count++;
+				if (count > getNumCharges())
+				{
+					// ROOT=1 PARALYZE=2 SLOW=3 
+					return;
+				}
+
+				stat = stat.toLowerCase().intern();
+				if (stat == "root")
+				{
+					negateEffect(target, SkillType.ROOT);
+				}
+				if (stat == "slow")
+				{
+					negateEffect(target, SkillType.DEBUFF);
+					negateEffect(target, SkillType.WEAKNESS);
+				}
+				if (stat == "paralyze")
+				{
+					negateEffect(target, SkillType.PARALYZE);
+				}
+			}
 		}
 
 	}
-	
-    private void negateEffect(L2Character target, SkillType type)
-    {
-        L2Effect[] effects = target.getAllEffects();
-        for (L2Effect e : effects)
-        {
-        	if (type == SkillType.DEBUFF || type == SkillType.WEAKNESS)
-        	{
-        		if (e.getSkill().getSkillType() == type)
-        		{
-        			// Only exit debuffs and weaknesses affecting runSpd 
-        			for (Func f : e.getStatFuncs())
-        			{
-        				if (f.stat == Stats.RUN_SPEED)
-        				{
-        					if (target instanceof L2PcInstance)
-        					{
-        						SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
-        						sm.addSkillName(e.getSkill().getId());
-        						((L2PcInstance)target).sendPacket(sm);
-        					}
-        					
-        					e.exit();
-        					break;
-        				}
-        			}
 
-        		}
-        	}
-        	
-        	else if (e.getSkill().getSkillType() == type) 
-        	{
+	private void negateEffect(L2Character target, SkillType type)
+	{
+		L2Effect[] effects = target.getAllEffects();
+		for (L2Effect e : effects)
+		{
+			if (type == SkillType.DEBUFF || type == SkillType.WEAKNESS)
+			{
+				if (e.getSkill().getSkillType() == type)
+				{
+					// Only exit debuffs and weaknesses affecting runSpd 
+					for (Func f : e.getStatFuncs())
+					{
+						if (f.stat == Stats.RUN_SPEED)
+						{
+							if (target instanceof L2PcInstance)
+							{
+								SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
+								sm.addSkillName(e.getSkill().getId());
+								((L2PcInstance) target).sendPacket(sm);
+							}
+
+							e.exit();
+							break;
+						}
+					}
+
+				}
+			}
+
+			else if (e.getSkill().getSkillType() == type)
+			{
 				if (target instanceof L2PcInstance)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
 					sm.addSkillName(e.getSkill().getId());
-					((L2PcInstance)target).sendPacket(sm);
+					((L2PcInstance) target).sendPacket(sm);
 				}
-        		
+
 				e.exit();
-            }
-        }
-    }
+			}
+		}
+	}
 }

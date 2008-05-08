@@ -43,66 +43,68 @@ import net.sf.l2j.gameserver.util.Util;
  */
 public class EffectWarp extends L2Effect
 {
-    private int x, y, z;
+	private int			x, y, z;
 
-    private L2Character _actor;
+	private L2Character	_actor;
 
-    public EffectWarp(Env env, EffectTemplate template)
-    {
-        super(env, template);
-    }
+	public EffectWarp(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public EffectType getEffectType()
-    {
-        return EffectType.WARP;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.WARP;
+	}
 
-    @Override
-    public void onStart()
-    {
-        if (isSelfEffect()) _actor = getEffector();
-        else _actor = getEffected();
+	@Override
+	public void onStart()
+	{
+		if (isSelfEffect())
+			_actor = getEffector();
+		else
+			_actor = getEffected();
 
-        int _radius = getSkill().getFlyRadius();
+		int _radius = getSkill().getFlyRadius();
 
-        double angle = Util.convertHeadingToDegree(_actor.getClientHeading());   
-        double radian = Math.toRadians(angle);
-        double course = Math.toRadians(getSkill().getFlyCourse());        
+		double angle = Util.convertHeadingToDegree(_actor.getClientHeading());
+		double radian = Math.toRadians(angle);
+		double course = Math.toRadians(getSkill().getFlyCourse());
 
-        int x1 = (int) (Math.cos(Math.PI + radian + course) * _radius);
-        int y1 = (int) (Math.sin(Math.PI + radian  + course) * _radius);       
+		int x1 = (int) (Math.cos(Math.PI + radian + course) * _radius);
+		int y1 = (int) (Math.sin(Math.PI + radian + course) * _radius);
 
-        x = _actor.getX() + x1;
-        y = _actor.getY() + y1;
-        z = _actor.getZ();
+		x = _actor.getX() + x1;
+		y = _actor.getY() + y1;
+		z = _actor.getZ();
 
-        if (Config.GEODATA)
-        {
-            Location destiny = GeoData.getInstance().moveCheck(_actor.getX(), _actor.getY(), _actor.getZ(), x, y, z);
-            x = destiny.getX();
-            y = destiny.getY();
-            z = destiny.getZ();
-        }
+		if (Config.GEODATA)
+		{
+			Location destiny = GeoData.getInstance().moveCheck(_actor.getX(), _actor.getY(), _actor.getZ(), x, y, z);
+			x = destiny.getX();
+			y = destiny.getY();
+			z = destiny.getZ();
+		}
 
-        //TODO: check if this AI intention is retail-like. This stops player's previous movement
-        _actor.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		//TODO: check if this AI intention is retail-like. This stops player's previous movement
+		_actor.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 
-        _actor.broadcastPacket(new FlyToLocation(_actor, x, y, z, FlyType.DUMMY));
-        _actor.abortAttack();
-        _actor.abortCast();
-    }
+		_actor.broadcastPacket(new FlyToLocation(_actor, x, y, z, FlyType.DUMMY));
+		_actor.abortAttack();
+		_actor.abortCast();
+	}
 
-    @Override
-    public void onExit()
-    {
-        _actor.getPosition().setXYZ(x, y, z);
-        _actor.broadcastPacket(new ValidateLocation(_actor));
-    }
+	@Override
+	public void onExit()
+	{
+		_actor.getPosition().setXYZ(x, y, z);
+		_actor.broadcastPacket(new ValidateLocation(_actor));
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-        return false;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		return false;
+	}
 }

@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
 
-
 class EffectChameleonRest extends L2Effect
 {
 	public EffectChameleonRest(Env env, EffectTemplate template)
@@ -42,11 +41,11 @@ class EffectChameleonRest extends L2Effect
 	public void onStart()
 	{
 		L2Character effected = getEffected();
-		if(effected instanceof L2PcInstance)
+		if (effected instanceof L2PcInstance)
 		{
 			setChameleon(true);
-			((L2PcInstance)effected).setSilentMoving(true);
-			((L2PcInstance)effected).sitDown();
+			((L2PcInstance) effected).setSilentMoving(true);
+			((L2PcInstance) effected).sitDown();
 		}
 		else
 			effected.getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
@@ -63,7 +62,7 @@ class EffectChameleonRest extends L2Effect
 
 		L2Character effected = getEffected();
 		if (effected instanceof L2PcInstance)
-			((L2PcInstance)effected).setSilentMoving(false);
+			((L2PcInstance) effected).setSilentMoving(false);
 
 		super.onExit();
 	}
@@ -73,23 +72,23 @@ class EffectChameleonRest extends L2Effect
 	{
 		L2Character effected = getEffected();
 		boolean retval = true;
-		
-		if(effected.isDead())
+
+		if (effected.isDead())
 			retval = false;
 
-		 // Only cont skills shouldn't end
-		if(getSkill().getSkillType() != SkillType.CONT)
-			return false;        
+		// Only cont skills shouldn't end
+		if (getSkill().getSkillType() != SkillType.CONT)
+			return false;
 
-		if(effected instanceof L2PcInstance)
+		if (effected instanceof L2PcInstance)
 		{
-			if(!((L2PcInstance)effected).isSitting())
+			if (!((L2PcInstance) effected).isSitting())
 				retval = false;
 		}
 
 		double manaDam = calc();
 
-		if(manaDam > effected.getStatus().getCurrentMp())
+		if (manaDam > effected.getStatus().getCurrentMp())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
 			effected.sendPacket(sm);
@@ -107,7 +106,7 @@ class EffectChameleonRest extends L2Effect
 	private void setChameleon(boolean val)
 	{
 		L2Character effected = getEffected();
-		if(effected instanceof L2PcInstance)
-			((L2PcInstance)effected).setRelax(val);
+		if (effected instanceof L2PcInstance)
+			((L2PcInstance) effected).setRelax(val);
 	}
 }

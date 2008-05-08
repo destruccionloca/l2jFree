@@ -19,13 +19,16 @@ import net.sf.l2j.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-public final class LambdaCalc extends Lambda {
+public final class LambdaCalc extends Lambda
+{
 
-	public Func[] funcs;
+	public Func[]	funcs;
+
 	public LambdaCalc()
 	{
 		funcs = new Func[0];
 	}
+
 	public double calc(Env env)
 	{
 		double saveValue = env.value;
@@ -41,11 +44,12 @@ public final class LambdaCalc extends Lambda {
 			env.value = saveValue;
 		}
 	}
+
 	public void addFunc(Func f)
 	{
 		int len = funcs.length;
-		Func[] tmp = new Func[len+1];
-		for (int i=0; i < len; i++)
+		Func[] tmp = new Func[len + 1];
+		for (int i = 0; i < len; i++)
 			tmp[i] = funcs[i];
 		tmp[len] = f;
 		funcs = tmp;

@@ -14,12 +14,10 @@
  */
 package net.sf.l2j.gameserver.skills.effects;
 
-import net.sf.l2j.tools.random.Rnd;
-
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.tools.random.Rnd;
 
 /**
  * 
@@ -28,8 +26,8 @@ import net.sf.l2j.gameserver.skills.Env;
 public final class EffectConditionHit extends L2Effect
 {
 
-	private boolean wasHit = false;
-	
+	private boolean	wasHit	= false;
+
 	public EffectConditionHit(Env env, EffectTemplate template)
 	{
 		super(env, template);
@@ -51,7 +49,7 @@ public final class EffectConditionHit extends L2Effect
 	{
 		if (getEffected() == null)
 			return;
-		
+
 		else if (wasHit)
 		{
 			onHit();
@@ -63,10 +61,10 @@ public final class EffectConditionHit extends L2Effect
 	{
 		return false;
 	}
-	
+
 	public void onHit()
 	{
-		L2Skill ts = getSkill().getTriggeredSkill(); 
+		L2Skill ts = getSkill().getTriggeredSkill();
 		if (ts != null)
 		{
 			if (Rnd.get(100) < ts.getLandingPercent())
@@ -78,14 +76,14 @@ public final class EffectConditionHit extends L2Effect
 				{
 					for (L2Effect effect : effects)
 					{
-						if (effect.getTotalTaskTime()>0)
+						if (effect.getTotalTaskTime() > 0)
 							effect.setFirstTime(getElapsedTaskTime());
 					}
 				}
 			}
 		}
 	}
-	
+
 	public void setWasHit(boolean value)
 	{
 		wasHit = value;

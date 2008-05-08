@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
 final class EffectConfusion extends L2Effect
 {
 
-	private static final Log _log = LogFactory.getLog(EffectConfusion.class);
+	private static final Log	_log	= LogFactory.getLog(EffectConfusion.class);
 
 	public EffectConfusion(Env env, EffectTemplate template)
 	{

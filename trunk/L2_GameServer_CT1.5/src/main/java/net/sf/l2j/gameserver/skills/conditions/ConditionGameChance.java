@@ -23,7 +23,7 @@ import net.sf.l2j.tools.random.Rnd;
  */
 public class ConditionGameChance extends Condition
 {
-	private final int _chance;
+	private final int	_chance;
 
 	public ConditionGameChance(int chance)
 	{

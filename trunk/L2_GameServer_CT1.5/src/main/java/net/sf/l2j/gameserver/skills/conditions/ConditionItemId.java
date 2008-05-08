@@ -19,16 +19,16 @@ import net.sf.l2j.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-public final class ConditionItemId extends Condition 
+public final class ConditionItemId extends Condition
 {
 
-	private final int _itemId;
-	
+	private final int	_itemId;
+
 	public ConditionItemId(int itemId)
 	{
-		_itemId= itemId;
+		_itemId = itemId;
 	}
-	
+
 	@Override
 	public boolean testImpl(Env env)
 	{

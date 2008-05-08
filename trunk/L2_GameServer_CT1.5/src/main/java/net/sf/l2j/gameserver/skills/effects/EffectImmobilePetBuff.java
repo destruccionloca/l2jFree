@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.skills.Env;
  */
 final class EffectImmobilePetBuff extends L2Effect
 {
-	private L2Summon _pet;
+	private L2Summon	_pet;
 
 	public EffectImmobilePetBuff(Env env, EffectTemplate template)
 	{
@@ -43,11 +43,9 @@ final class EffectImmobilePetBuff extends L2Effect
 	{
 		_pet = null;
 
-		if (getEffected() instanceof L2Summon
-				&& getEffector() instanceof L2PcInstance
-				&& ((L2Summon)getEffected()).getOwner() == getEffector())
+		if (getEffected() instanceof L2Summon && getEffector() instanceof L2PcInstance && ((L2Summon) getEffected()).getOwner() == getEffector())
 		{
-			_pet = (L2Summon)getEffected();
+			_pet = (L2Summon) getEffected();
 			_pet.setIsImmobilized(true);
 		}
 	}

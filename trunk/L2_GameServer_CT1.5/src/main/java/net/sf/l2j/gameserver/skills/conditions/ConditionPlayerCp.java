@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.skills.Env;
 public class ConditionPlayerCp extends Condition
 {
 
-	private final int _cp;
+	private final int	_cp;
 
 	public ConditionPlayerCp(int cp)
 	{
@@ -29,6 +29,6 @@ public class ConditionPlayerCp extends Condition
 	@Override
 	public boolean testImpl(Env env)
 	{
-		return env.player.getStatus().getCurrentCp()*100 / env.player.getMaxCp() >= _cp;
+		return env.player.getStatus().getCurrentCp() * 100 / env.player.getMaxCp() >= _cp;
 	}
 }

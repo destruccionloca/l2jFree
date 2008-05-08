@@ -27,19 +27,20 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 public class L2SkillCharge extends L2Skill
 {
-	final int numCharges;
-	
+	final int	numCharges;
+
 	public L2SkillCharge(StatsSet set)
 	{
 		super(set);
 		numCharges = set.getInteger("num_charges", getLevel());
 	}
 
-	public void useSkill(L2Character caster, @SuppressWarnings("unused") L2Object[] targets)
+	public void useSkill(L2Character caster, @SuppressWarnings("unused")
+	L2Object[] targets)
 	{
 		if (caster.isAlikeDead())
 			return;
-		
+
 		// get the effect
 		EffectCharge effect = (EffectCharge) caster.getFirstEffect(L2Effect.EffectType.CHARGE);
 		if (effect != null)
@@ -49,7 +50,7 @@ public class L2SkillCharge extends L2Skill
 				effect.numCharges++;
 				if (caster instanceof L2PcInstance)
 				{
-					caster.sendPacket(new EtcStatusUpdate((L2PcInstance)caster));
+					caster.sendPacket(new EtcStatusUpdate((L2PcInstance) caster));
 					SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
 					sm.addNumber(effect.numCharges);
 					caster.sendPacket(sm);

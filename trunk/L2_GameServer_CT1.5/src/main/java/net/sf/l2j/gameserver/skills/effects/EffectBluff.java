@@ -70,7 +70,7 @@ final class EffectBluff extends L2Effect
 		// posY += signy*40;
 
 		getEffected().setRunning();
-		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,new L2CharPosition(posX + (signx * 40), posY + (signy * 40),posZ, 0));
+		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX + (signx * 40), posY + (signy * 40), posZ, 0));
 		getEffected().sendMessage("You can feel Bluff's effect"); //TODO: SysMsg ?
 		getEffected().setTarget(null);
 		onActionTime();

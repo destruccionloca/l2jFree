@@ -16,23 +16,22 @@ package net.sf.l2j.gameserver.skills.conditions;
 
 import net.sf.l2j.gameserver.skills.Env;
 
-
-
 /**
  * @author DiezelMax
  */
-public class ConditionPlayerMp extends Condition {
+public class ConditionPlayerMp extends Condition
+{
 
-	final int _mp;
-	
-    public ConditionPlayerMp(int mp)
+	final int	_mp;
+
+	public ConditionPlayerMp(int mp)
 	{
 		_mp = mp;
 	}
-	
+
 	@Override
 	public boolean testImpl(Env env)
 	{
-		return env.player.getStatus().getCurrentMp()*100/env.player.getMaxMp() <= _mp;
+		return env.player.getStatus().getCurrentMp() * 100 / env.player.getMaxMp() <= _mp;
 	}
 }

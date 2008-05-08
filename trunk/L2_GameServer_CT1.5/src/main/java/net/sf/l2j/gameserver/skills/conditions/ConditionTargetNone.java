@@ -16,7 +16,6 @@ package net.sf.l2j.gameserver.skills.conditions;
 
 import net.sf.l2j.gameserver.skills.Env;
 
-
 /**
  * @author mkizub
  */
@@ -25,7 +24,7 @@ public class ConditionTargetNone extends Condition
 	public ConditionTargetNone()
 	{
 	}
-	
+
 	@Override
 	public boolean testImpl(Env env)
 	{

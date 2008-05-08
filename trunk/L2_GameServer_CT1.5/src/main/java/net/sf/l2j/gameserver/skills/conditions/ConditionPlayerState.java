@@ -17,23 +17,25 @@ package net.sf.l2j.gameserver.skills.conditions;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.skills.Env;
 
-
 /**
  * @author mkizub
  */
 public class ConditionPlayerState extends Condition
 {
-    public enum CheckPlayerState { RESTING, MOVING, RUNNING, FLYING, BEHIND, FRONT}
-	
-	private final CheckPlayerState _check; 
-	private final boolean _required;
-	
-    public ConditionPlayerState(CheckPlayerState check, boolean required)
+	public enum CheckPlayerState
+	{
+		RESTING, MOVING, RUNNING, FLYING, BEHIND, FRONT
+	}
+
+	private final CheckPlayerState	_check;
+	private final boolean			_required;
+
+	public ConditionPlayerState(CheckPlayerState check, boolean required)
 	{
 		_check = check;
 		_required = required;
 	}
-	
+
 	@Override
 	public boolean testImpl(Env env)
 	{
@@ -42,7 +44,7 @@ public class ConditionPlayerState extends Condition
 		case RESTING:
 			if (env.player instanceof L2PcInstance)
 			{
-				return ((L2PcInstance)env.player).isSitting() == _required;
+				return ((L2PcInstance) env.player).isSitting() == _required;
 			}
 			return !_required;
 		case MOVING:

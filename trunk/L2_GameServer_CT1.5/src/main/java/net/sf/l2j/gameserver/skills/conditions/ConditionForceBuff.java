@@ -18,17 +18,16 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.effects.EffectForce;
 
-
 /**
  * @author kombat, Forsaiken
  *
  */
 public final class ConditionForceBuff extends Condition
 {
-	private static final short BATTLE_FORCE = 5104;
-	private static final short SPELL_FORCE = 5105;
+	private static final short	BATTLE_FORCE	= 5104;
+	private static final short	SPELL_FORCE		= 5105;
 
-	private final byte[] _forces;
+	private final byte[]		_forces;
 
 	public ConditionForceBuff(byte[] forces)
 	{
@@ -41,14 +40,14 @@ public final class ConditionForceBuff extends Condition
 		if (_forces[0] > 0)
 		{
 			L2Effect force = env.player.getFirstEffect(BATTLE_FORCE);
-			if (force == null || ((EffectForce)force).forces < _forces[0])
+			if (force == null || ((EffectForce) force).forces < _forces[0])
 				return false;
 		}
 
 		if (_forces[1] > 0)
 		{
 			L2Effect force = env.player.getFirstEffect(SPELL_FORCE);
-			if (force == null || ((EffectForce)force).forces < _forces[1])
+			if (force == null || ((EffectForce) force).forces < _forces[1])
 				return false;
 		}
 		return true;

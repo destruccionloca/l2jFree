@@ -32,37 +32,38 @@ import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignetCasttime;
 
 final class EffectSignet extends L2Effect
 {
-	private L2Skill _skill;
-	private L2EffectPointInstance _actor;
-	
+	private L2Skill					_skill;
+	private L2EffectPointInstance	_actor;
+
 	public EffectSignet(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-	
+
 	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.SIGNET_EFFECT;
 	}
-	
- 	@Override
- 	public void onStart()
- 	{
- 		if (getSkill() instanceof L2SkillSignet)
- 			_skill = SkillTable.getInstance().getInfo(((L2SkillSignet)getSkill()).effectId, getLevel());
- 		else if (getSkill() instanceof L2SkillSignetCasttime)
- 			_skill = SkillTable.getInstance().getInfo(((L2SkillSignetCasttime)getSkill()).effectId, getLevel());
- 		_actor = (L2EffectPointInstance)getEffected();
- 	}
-	
+
+	@Override
+	public void onStart()
+	{
+		if (getSkill() instanceof L2SkillSignet)
+			_skill = SkillTable.getInstance().getInfo(((L2SkillSignet) getSkill()).effectId, getLevel());
+		else if (getSkill() instanceof L2SkillSignetCasttime)
+			_skill = SkillTable.getInstance().getInfo(((L2SkillSignetCasttime) getSkill()).effectId, getLevel());
+		_actor = (L2EffectPointInstance) getEffected();
+	}
+
 	@Override
 	public boolean onActionTime()
 	{
 		//if (getCount() == getTotalCount() - 1) return true; // do nothing first time
-		if (_skill == null) return true;
+		if (_skill == null)
+			return true;
 		int mpConsume = _skill.getMpConsume();
-		
+
 		if (mpConsume > getEffector().getStatus().getCurrentMp())
 		{
 			getEffector().sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
@@ -77,7 +78,7 @@ final class EffectSignet extends L2Effect
 				continue;
 			_skill.getEffects(_actor, cha);
 			// there doesn't seem to be a visible effect with MagicSkillLaunched packet...
-			_actor.broadcastPacket(new MagicSkillUse(_actor,cha,_skill.getId(),_skill.getLevel(),0,0));
+			_actor.broadcastPacket(new MagicSkillUse(_actor, cha, _skill.getId(), _skill.getLevel(), 0, 0));
 		}
 		return true;
 	}

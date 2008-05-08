@@ -19,7 +19,6 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
 
-
 class EffectMpConsumePerLevel extends L2Effect
 {
 	public EffectMpConsumePerLevel(Env env, EffectTemplate template)
@@ -30,19 +29,19 @@ class EffectMpConsumePerLevel extends L2Effect
 	@Override
 	public EffectType getEffectType()
 	{
-		return EffectType.MP_CONSUME_PER_LEVEL ;
+		return EffectType.MP_CONSUME_PER_LEVEL;
 	}
 
 	@Override
 	public boolean onActionTime()
 	{
-		if(getEffected().isDead())
+		if (getEffected().isDead())
 			return false;
 
 		double base = calc();
-		double consume = (getEffected().getLevel() - 1)/7.5*base*getPeriod();
+		double consume = (getEffected().getLevel() - 1) / 7.5 * base * getPeriod();
 
-		if(consume > getEffected().getStatus().getCurrentMp())
+		if (consume > getEffected().getStatus().getCurrentMp())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
 			getEffected().sendPacket(sm);

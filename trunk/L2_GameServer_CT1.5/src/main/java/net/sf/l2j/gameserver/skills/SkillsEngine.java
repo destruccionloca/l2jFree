@@ -36,21 +36,22 @@ import org.apache.commons.logging.LogFactory;
 /**
  * @author mkizub
  */
-public class SkillsEngine {
+public class SkillsEngine
+{
 
-    protected static Log _log = LogFactory.getLog(SkillsEngine.class.getName());
-	private static final SkillsEngine _instance = new SkillsEngine();
-	
-	private FastList<File> _armorFiles     = new FastList<File>(); 
-	private FastList<File> _weaponFiles    = new FastList<File>(); 
-	private FastList<File> _etcitemFiles   = new FastList<File>(); 
-	private FastList<File> _skillFiles     = new FastList<File>(); 
-	
-    public static SkillsEngine getInstance()
+	protected static Log				_log			= LogFactory.getLog(SkillsEngine.class.getName());
+	private static final SkillsEngine	_instance		= new SkillsEngine();
+
+	private FastList<File>				_armorFiles		= new FastList<File>();
+	private FastList<File>				_weaponFiles	= new FastList<File>();
+	private FastList<File>				_etcitemFiles	= new FastList<File>();
+	private FastList<File>				_skillFiles		= new FastList<File>();
+
+	public static SkillsEngine getInstance()
 	{
 		return _instance;
 	}
-	
+
 	private SkillsEngine()
 	{
 		//hashFiles("data/stats/etcitem", _etcitemFiles);
@@ -58,27 +59,27 @@ public class SkillsEngine {
 		hashFiles("data/stats/weapon", _weaponFiles);
 		hashFiles("data/stats/skills", _skillFiles);
 	}
-	
+
 	private void hashFiles(String dirname, List<File> hash)
 	{
 		File dir = new File(Config.DATAPACK_ROOT, dirname);
 		if (!dir.exists())
 		{
-			_log.info("Dir "+dir.getAbsolutePath()+" not exists");
+			_log.info("Dir " + dir.getAbsolutePath() + " not exists");
 			return;
 		}
 		File[] files = dir.listFiles();
 		for (File f : files)
 		{
 			if (f.getName().endsWith(".xml"))
-			    if (!f.getName().startsWith("custom"))
-				hash.add(f);
+				if (!f.getName().startsWith("custom"))
+					hash.add(f);
 		}
-		File customfile = new File(Config.DATAPACK_ROOT, dirname+"/custom.xml");
+		File customfile = new File(Config.DATAPACK_ROOT, dirname + "/custom.xml");
 		if (customfile.exists())
-		    hash.add(customfile);
+			hash.add(customfile);
 	}
-	
+
 	public FastList<L2Skill> loadSkills(File file)
 	{
 		if (file == null)
@@ -90,70 +91,70 @@ public class SkillsEngine {
 		doc.parse();
 		return doc.getSkills();
 	}
-    
+
 	public void loadAllSkills(Map<Integer, L2Skill> allSkills)
 	{
 		int count = 0;
 		for (File file : _skillFiles)
 		{
-			List<L2Skill> s  = loadSkills(file);
+			List<L2Skill> s = loadSkills(file);
 			if (s == null)
 				continue;
 			for (L2Skill skill : s)
-            {
+			{
 				allSkills.put(SkillTable.getSkillHashCode(skill), skill);
 				count++;
-            }
+			}
 		}
-		_log.info("SkillsEngine: Loaded "+count+" Skill templates from XML files.");
+		_log.info("SkillsEngine: Loaded " + count + " Skill templates from XML files.");
 	}
 
-    public FastList<L2Armor> loadArmors(FastMap<Integer, Item> armorData)
-    {
-        FastList<L2Armor> list  = new FastList<L2Armor>();
-        for (L2Item item : loadData(armorData, _armorFiles))
-        {
-            list.add((L2Armor)item);
-        }
-        return list;
-    }
+	public FastList<L2Armor> loadArmors(FastMap<Integer, Item> armorData)
+	{
+		FastList<L2Armor> list = new FastList<L2Armor>();
+		for (L2Item item : loadData(armorData, _armorFiles))
+		{
+			list.add((L2Armor) item);
+		}
+		return list;
+	}
 
-    public List<L2Weapon> loadWeapons(FastMap<Integer, Item> weaponData)
-    {
-        FastList<L2Weapon> list  = new FastList<L2Weapon>();
-        for (L2Item item : loadData(weaponData, _weaponFiles))
-        {
-            list.add((L2Weapon)item);
-        }
-        return list;
-    }
+	public List<L2Weapon> loadWeapons(FastMap<Integer, Item> weaponData)
+	{
+		FastList<L2Weapon> list = new FastList<L2Weapon>();
+		for (L2Item item : loadData(weaponData, _weaponFiles))
+		{
+			list.add((L2Weapon) item);
+		}
+		return list;
+	}
 
-    public FastList<L2EtcItem> loadItems(FastMap<Integer, Item> itemData)
-    {
-        FastList<L2EtcItem> list  = new FastList<L2EtcItem>();
-        for (L2Item item : loadData(itemData, _etcitemFiles))
-        {
-            list.add((L2EtcItem)item);
-        }
-        if (list.size() == 0)
-        {
-            for (Item item : itemData.values())
-            {
-                list.add(new L2EtcItem((L2EtcItemType)item.type, item.set));
-            }
-        }
-        return list;
-    }
+	public FastList<L2EtcItem> loadItems(FastMap<Integer, Item> itemData)
+	{
+		FastList<L2EtcItem> list = new FastList<L2EtcItem>();
+		for (L2Item item : loadData(itemData, _etcitemFiles))
+		{
+			list.add((L2EtcItem) item);
+		}
+		if (list.size() == 0)
+		{
+			for (Item item : itemData.values())
+			{
+				list.add(new L2EtcItem((L2EtcItemType) item.type, item.set));
+			}
+		}
+		return list;
+	}
 
-    public FastList<L2Item> loadData(FastMap<Integer, Item> itemData, FastList<File> files)
-    {
-        FastList<L2Item> list  = new FastList<L2Item>();
-        for (File f : files)
-        {
-        	DocumentItem document   = new DocumentItem(itemData, f);
-            document.parse();
-            list.addAll(document.getItemList());
-        }
-        return list;
-    }
+	public FastList<L2Item> loadData(FastMap<Integer, Item> itemData, FastList<File> files)
+	{
+		FastList<L2Item> list = new FastList<L2Item>();
+		for (File f : files)
+		{
+			DocumentItem document = new DocumentItem(itemData, f);
+			document.parse();
+			list.addAll(document.getItemList());
+		}
+		return list;
+	}
 }

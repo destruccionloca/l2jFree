@@ -29,10 +29,10 @@ import net.sf.l2j.gameserver.skills.effects.EffectCharge;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-public class L2SkillChargeDmg extends L2Skill 
+public class L2SkillChargeDmg extends L2Skill
 {
-	final int chargeSkillId;
-	
+	final int	chargeSkillId;
+
 	public L2SkillChargeDmg(StatsSet set)
 	{
 		super(set);
@@ -43,9 +43,9 @@ public class L2SkillChargeDmg extends L2Skill
 	{
 		if (activeChar instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance)activeChar;
-			EffectCharge e = (EffectCharge)player.getFirstEffect(chargeSkillId);
-			if(e == null || e.numCharges < getNumCharges())
+			L2PcInstance player = (L2PcInstance) activeChar;
+			EffectCharge e = (EffectCharge) player.getFirstEffect(chargeSkillId);
+			if (e == null || e.numCharges < getNumCharges())
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 				sm.addSkillName(getId());
@@ -55,12 +55,12 @@ public class L2SkillChargeDmg extends L2Skill
 		}
 		return super.checkCondition(activeChar, target, itemOrWeapon);
 	}
-	
+
 	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
 		if (activeChar.isAlikeDead())
 			return;
-		
+
 		// get the effect
 		EffectCharge effect = (EffectCharge) activeChar.getFirstEffect(chargeSkillId);
 		if (effect == null || effect.numCharges < getNumCharges())
@@ -75,12 +75,13 @@ public class L2SkillChargeDmg extends L2Skill
 		if (getTargetType() != SkillTargetType.TARGET_AREA && getTargetType() != SkillTargetType.TARGET_MULTIFACE)
 			effect.numCharges -= getNumCharges();
 		if (activeChar instanceof L2PcInstance)
-			activeChar.sendPacket(new EtcStatusUpdate((L2PcInstance)activeChar));
+			activeChar.sendPacket(new EtcStatusUpdate((L2PcInstance) activeChar));
 		if (effect.numCharges == 0)
 			effect.exit();
-		for (L2Object element : targets) {
+		for (L2Object element : targets)
+		{
 			L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-			L2Character target = (L2Character)element;
+			L2Character target = (L2Character) element;
 			if (target.isAlikeDead())
 				continue;
 
@@ -89,18 +90,17 @@ public class L2SkillChargeDmg extends L2Skill
 			if (getBaseCritRate() > 0)
 				crit = Formulas.getInstance().calcCrit(getBaseCritRate() * 10 * Formulas.getInstance().getSTRBonus(activeChar));
 
-			boolean soul = (weapon != null 
-							&& weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT 
-							&& weapon.getItemType() != L2WeaponType.DAGGER );
-			
+			boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
+
 			// damage calculation, crit is static 2x
-			int damage = (int)Formulas.getInstance().calcPhysDam(activeChar, target, this, shld, false, false, soul);
-			if (crit) damage *= 2;
+			int damage = (int) Formulas.getInstance().calcPhysDam(activeChar, target, this, shld, false, false, soul);
+			if (crit)
+				damage *= 2;
 
 			if (activeChar instanceof L2PcInstance)
 			{
-				L2PcInstance activeCaster = (L2PcInstance)activeChar;
-				
+				L2PcInstance activeCaster = (L2PcInstance) activeChar;
+
 				if (activeCaster.isGM() && activeCaster.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
 					damage = 0;
 			}
@@ -109,17 +109,17 @@ public class L2SkillChargeDmg extends L2Skill
 			{
 				double finalDamage = damage * modifier;
 				target.reduceCurrentHp(finalDamage, activeChar);
-				
-				activeChar.sendDamageMessage(target, (int)finalDamage, false, crit, false);
-				
-				if (soul && weapon!= null)
+
+				activeChar.sendDamageMessage(target, (int) finalDamage, false, crit, false);
+
+				if (soul && weapon != null)
 					weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
 			}
 			else
 			{
 				activeChar.sendDamageMessage(target, 0, false, false, true);
 			}
-		}        // effect self :]
+		} // effect self :]
 		L2Effect seffect = activeChar.getFirstEffect(getId());
 		if (seffect != null && seffect.isSelfEffect())
 		{

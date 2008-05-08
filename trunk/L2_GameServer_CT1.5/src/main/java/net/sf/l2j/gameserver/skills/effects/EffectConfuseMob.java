@@ -80,8 +80,7 @@ final class EffectConfuseMob extends L2Effect
 		// Attacking the target
 		// getEffected().setTarget(target);
 		getEffected().setTarget(target);
-		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK,
-				target);
+		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
 
 		return true;
 	}

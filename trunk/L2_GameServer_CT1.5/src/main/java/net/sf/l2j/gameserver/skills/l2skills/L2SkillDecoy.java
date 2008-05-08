@@ -27,40 +27,40 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 public class L2SkillDecoy extends L2Skill
 {
-    
-    private int _npcId;
-    
-    public L2SkillDecoy(StatsSet set)
-    {
-        super(set);
-        _npcId = set.getInteger("npcId", 0);
-    }
-    
-    @Override
-    public void useSkill(L2Character caster, L2Object[] targets)
-    {
-        if (caster.isAlikeDead() || !(caster instanceof L2PcInstance))
-            return;
-        
-        if (_npcId == 0)
-            return;
-        
-        L2PcInstance activeChar = (L2PcInstance) caster;
-        
-        if (activeChar.inObserverMode())
-            return;
-        
-        if (activeChar.getPet() != null || activeChar.isMounted())
-            return;
-        
-        L2DecoyInstance Decoy;
-        L2NpcTemplate DecoyTemplate = NpcTable.getInstance().getTemplate(_npcId);
-        Decoy = new L2DecoyInstance(IdFactory.getInstance().getNextId(), DecoyTemplate, activeChar, this);
-        Decoy.getStatus().setCurrentHp(Decoy.getMaxHp());
-        Decoy.getStatus().setCurrentMp(Decoy.getMaxMp());
-        Decoy.setHeading(activeChar.getHeading());
-        activeChar.setDecoy(Decoy);
-        L2World.getInstance().storeObject(Decoy);
-        Decoy.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-    }
+
+	private int	_npcId;
+
+	public L2SkillDecoy(StatsSet set)
+	{
+		super(set);
+		_npcId = set.getInteger("npcId", 0);
+	}
+
+	@Override
+	public void useSkill(L2Character caster, L2Object[] targets)
+	{
+		if (caster.isAlikeDead() || !(caster instanceof L2PcInstance))
+			return;
+
+		if (_npcId == 0)
+			return;
+
+		L2PcInstance activeChar = (L2PcInstance) caster;
+
+		if (activeChar.inObserverMode())
+			return;
+
+		if (activeChar.getPet() != null || activeChar.isMounted())
+			return;
+
+		L2DecoyInstance Decoy;
+		L2NpcTemplate DecoyTemplate = NpcTable.getInstance().getTemplate(_npcId);
+		Decoy = new L2DecoyInstance(IdFactory.getInstance().getNextId(), DecoyTemplate, activeChar, this);
+		Decoy.getStatus().setCurrentHp(Decoy.getMaxHp());
+		Decoy.getStatus().setCurrentMp(Decoy.getMaxMp());
+		Decoy.setHeading(activeChar.getHeading());
+		activeChar.setDecoy(Decoy);
+		L2World.getInstance().storeObject(Decoy);
+		Decoy.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+	}
 }

@@ -25,19 +25,19 @@ import net.sf.l2j.gameserver.skills.Env;
 
 public class ConditionTargetRaceId extends Condition
 {
-	private final ArrayList<Integer> _raceIds;
-	
+	private final ArrayList<Integer>	_raceIds;
+
 	public ConditionTargetRaceId(ArrayList<Integer> raceId)
 	{
 		_raceIds = raceId;
 	}
-	
+
 	@Override
 	public boolean testImpl(Env env)
 	{
 		if (!(env.target instanceof L2NpcInstance) || _raceIds == null || _raceIds.isEmpty())
 			return false;
-		
-		return (_raceIds.contains(((L2NpcInstance)env.target).getTemplate().getRace().ordinal()));
+
+		return (_raceIds.contains(((L2NpcInstance) env.target).getTemplate().getRace().ordinal()));
 	}
 }

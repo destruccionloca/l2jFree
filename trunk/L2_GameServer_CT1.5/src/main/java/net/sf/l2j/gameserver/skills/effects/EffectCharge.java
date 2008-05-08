@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.skills.Env;
 
 public class EffectCharge extends L2Effect
 {
-	public int numCharges;
+	public int	numCharges;
 
 	public EffectCharge(Env env, EffectTemplate template)
 	{

@@ -16,26 +16,24 @@ package net.sf.l2j.gameserver.skills.funcs;
 
 import net.sf.l2j.gameserver.skills.Env;
 
-
 /**
  * @author mkizub
  */
-public final class LambdaStats extends Lambda {
+public final class LambdaStats extends Lambda
+{
 
 	public enum StatsType
 	{
-		PLAYER_LEVEL,
-		TARGET_LEVEL,
-		PLAYER_MAX_HP,
-		PLAYER_MAX_MP
+		PLAYER_LEVEL, TARGET_LEVEL, PLAYER_MAX_HP, PLAYER_MAX_MP
 	}
 
-	private final StatsType _stat;
-	
+	private final StatsType	_stat;
+
 	public LambdaStats(StatsType stat)
 	{
 		_stat = stat;
 	}
+
 	public double calc(Env env)
 	{
 		switch (_stat)
