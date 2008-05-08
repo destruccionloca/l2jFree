@@ -110,12 +110,6 @@
 			<artifactId>l2j-mmocore</artifactId>
 			<version>1.0.8</version>
 		</dependency>
-		<dependency>
-			<groupId>l2jfree</groupId>
-			<artifactId>l2j-test-tools</artifactId>
-			<version>1.0.2</version>
-			<scope>test</scope>
-		</dependency>
 		<!-- override version of log4j -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -167,6 +161,11 @@
 		  <artifactId>j2ssh-daemon</artifactId>
 		  <version>0.2.2</version>
 		</dependency>			
+	    <dependency>
+	        <groupId>junit</groupId>
+	        <artifactId>junit</artifactId>
+	        <version>3.8.1</version>
+	    </dependency>
 		
 	</dependencies>
 
