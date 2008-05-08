@@ -30,28 +30,30 @@ import org.apache.commons.logging.LogFactory;
  */
 public class TaskOlympiadSave extends Task
 {
-    private static final Log _log = LogFactory.getLog(TaskOlympiadSave.class.getName());
-    public static final String NAME = "olympiad_save";
-    
-    public String getName()
-    {
-        return NAME;
-    }
+	private static final Log	_log	= LogFactory.getLog(TaskOlympiadSave.class.getName());
+	public static final String	NAME	= "olympiad_save";
 
-    public void onTimeElapsed(ExecutedTask task)
-    {
-        try {
-            Olympiad.getInstance().save();
-            _log.info("Olympiad System: Data updated successfully.");
-        }
-        catch (Exception e) {
-            _log.warn("Olympiad System: Failed to save Olympiad configuration: " + e);
-        }
-    }
-    
-    public void initializate()
-    {
-        super.initializate();
-        TaskManager.addUniqueTask(NAME, TaskTypes.TYPE_FIXED_SHEDULED, "900000", "1800000", "");
-    }
+	public String getName()
+	{
+		return NAME;
+	}
+
+	public void onTimeElapsed(ExecutedTask task)
+	{
+		try
+		{
+			Olympiad.getInstance().save();
+			_log.info("Olympiad System: Data updated successfully.");
+		}
+		catch (Exception e)
+		{
+			_log.warn("Olympiad System: Failed to save Olympiad configuration: " + e);
+		}
+	}
+
+	public void initializate()
+	{
+		super.initializate();
+		TaskManager.addUniqueTask(NAME, TaskTypes.TYPE_FIXED_SHEDULED, "900000", "1800000", "");
+	}
 }

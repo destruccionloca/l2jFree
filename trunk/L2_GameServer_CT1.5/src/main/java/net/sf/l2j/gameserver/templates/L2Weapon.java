@@ -34,25 +34,25 @@ import net.sf.l2j.gameserver.model.quest.Quest;
  */
 public final class L2Weapon extends L2Equip
 {
-	private final int _soulShotCount;
-	private final int _spiritShotCount;
-	private final int _pDam;
-	private final int _rndDam;
-	private final int _critical;
-	private final double _hitModifier;
-	private final int _avoidModifier;
-	private final int _shieldDef;
-	private final double _shieldDefRate;
-	private final int _atkSpeed;
-	private final int _atkReuse;
-	private final int _mpConsume;
-	private final int _mDam;
-	private final int _changeWeaponId;
+	private final int		_soulShotCount;
+	private final int		_spiritShotCount;
+	private final int		_pDam;
+	private final int		_rndDam;
+	private final int		_critical;
+	private final double	_hitModifier;
+	private final int		_avoidModifier;
+	private final int		_shieldDef;
+	private final double	_shieldDefRate;
+	private final int		_atkSpeed;
+	private final int		_atkReuse;
+	private final int		_mpConsume;
+	private final int		_mDam;
+	private final int		_changeWeaponId;
 
 	// Attached skills (e.g. Special Abilities)
-	private L2Skill[] _onCastSkills = null;
-	private L2Skill[] _onCritSkills = null;
-	private L2Skill[] _enchant4Skills = null; // skill that activates when item is enchanted +4 (for duals)
+	private L2Skill[]		_onCastSkills	= null;
+	private L2Skill[]		_onCritSkills	= null;
+	private L2Skill[]		_enchant4Skills	= null; // skill that activates when item is enchanted +4 (for duals)
 
 	/**
 	 * Constructor for Weapon.<BR><BR>
@@ -74,24 +74,24 @@ public final class L2Weapon extends L2Equip
 	public L2Weapon(L2WeaponType type, StatsSet set)
 	{
 		super(type, set);
-		_soulShotCount   = set.getInteger("soulshots");
+		_soulShotCount = set.getInteger("soulshots");
 		_spiritShotCount = set.getInteger("spiritshots");
-		_pDam            = set.getInteger("p_dam");
-		_rndDam          = set.getInteger("rnd_dam");
-		_critical        = set.getInteger("critical");
-		_hitModifier     = set.getDouble("hit_modify");
-		_avoidModifier   = set.getInteger("avoid_modify");
-		_shieldDef       = set.getInteger("shield_def");
-		_shieldDefRate   = set.getDouble("shield_def_rate");
-		_atkSpeed        = set.getInteger("atk_speed");
-		_atkReuse        = set.getInteger("atk_reuse", initAtkReuse(type));
-		_mpConsume       = set.getInteger("mp_consume");
-		_mDam            = set.getInteger("m_dam");
-		_changeWeaponId  = set.getInteger("change_weaponId");
+		_pDam = set.getInteger("p_dam");
+		_rndDam = set.getInteger("rnd_dam");
+		_critical = set.getInteger("critical");
+		_hitModifier = set.getDouble("hit_modify");
+		_avoidModifier = set.getInteger("avoid_modify");
+		_shieldDef = set.getInteger("shield_def");
+		_shieldDefRate = set.getDouble("shield_def_rate");
+		_atkSpeed = set.getInteger("atk_speed");
+		_atkReuse = set.getInteger("atk_reuse", initAtkReuse(type));
+		_mpConsume = set.getInteger("mp_consume");
+		_mDam = set.getInteger("m_dam");
+		_changeWeaponId = set.getInteger("change_weaponId");
 
 		String[] enchant4SkillDefs = set.getString("skills_enchant4").split(";");
-		String[] onCastSkillDefs   = set.getString("skills_onCast").split(";");
-		String[] onCritSkillDefs   = set.getString("skills_onCrit").split(";");
+		String[] onCastSkillDefs = set.getString("skills_onCast").split(";");
+		String[] onCritSkillDefs = set.getString("skills_onCrit").split(";");
 
 		FastList<L2Skill> enchant4Skills = null;
 		FastList<L2Skill> onCastSkills = null;
@@ -108,7 +108,7 @@ public final class L2Weapon extends L2Equip
 		{
 			onCastSkills = parseChanceSkills(onCastSkillDefs, "onCast", "weapon");
 		}
-	
+
 		// OnCrit skills (chance)
 		if (onCritSkillDefs != null && onCritSkillDefs.length > 0)
 		{
@@ -128,7 +128,7 @@ public final class L2Weapon extends L2Equip
 		// http://www.l2p.bravehost.com/endL2P/misc.html
 		// Normal bows have a base Weapon Delay of 1500 - Like Draconic Bow (atkSpd == 293)
 		// Yumi bows have a base Weapon Delay of 820 - Like Soul Bow (atkSpd == 227)
-		
+
 		if (type == L2WeaponType.BOW)
 		{
 			if (_atkSpeed == 293)
@@ -150,7 +150,7 @@ public final class L2Weapon extends L2Equip
 	 */
 	public L2WeaponType getItemType()
 	{
-		return (L2WeaponType)super._type;
+		return (L2WeaponType) super._type;
 	}
 
 	/**
@@ -305,12 +305,13 @@ public final class L2Weapon extends L2Equip
 	{
 		if (_onCritSkills == null)
 		{
-			_onCritSkills = new L2Skill[]{skill};
+			_onCritSkills = new L2Skill[]
+			{ skill };
 		}
 		else
 		{
 			int len = _onCritSkills.length;
-			L2Skill[] tmp = new L2Skill[len+1];
+			L2Skill[] tmp = new L2Skill[len + 1];
 			// Definition : arraycopy(array source, begins copy at this position of source, array destination, begins copy at this position in dest,
 			//                                        number of components to be copied)
 			System.arraycopy(_onCritSkills, 0, tmp, 0, len);
@@ -327,12 +328,13 @@ public final class L2Weapon extends L2Equip
 	{
 		if (_onCastSkills == null)
 		{
-			_onCastSkills = new L2Skill[]{skill};
+			_onCastSkills = new L2Skill[]
+			{ skill };
 		}
 		else
 		{
 			int len = _onCastSkills.length;
-			L2Skill[] tmp = new L2Skill[len+1];
+			L2Skill[] tmp = new L2Skill[len + 1];
 			// Definition : arraycopy(array source, begins copy at this position of source, array destination, begins copy at this position in dest,
 			//                                    number of components to be copied)
 			System.arraycopy(_onCastSkills, 0, tmp, 0, len);
@@ -360,7 +362,7 @@ public final class L2Weapon extends L2Equip
 			if (!target.checkSkillCanAffectMyself(skill))
 				continue;
 
-			if (!skill.checkCondition(caster, target, true)) 
+			if (!skill.checkCondition(caster, target, true))
 				continue; // Skill condition not met
 
 			if (target.getFirstEffect(skill.getId()) != null)
@@ -388,7 +390,7 @@ public final class L2Weapon extends L2Equip
 
 		for (L2Skill skill : _onCastSkills)
 		{
-			if (trigger.isOffensive() != skill.isOffensive()) 
+			if (trigger.isOffensive() != skill.isOffensive())
 				continue; // Trigger only same type of skill
 
 			if (trigger.isToggle() || trigger.isPotion())
@@ -426,8 +428,8 @@ public final class L2Weapon extends L2Equip
 						{
 							L2NpcInstance npcMob = (L2NpcInstance) spMob;
 
-							if (npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE) !=null)
-								for (Quest quest: npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE))
+							if (npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE) != null)
+								for (Quest quest : npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE))
 									quest.notifySkillSee(npcMob, (L2PcInstance) caster, skill, targets, false);
 						}
 					}

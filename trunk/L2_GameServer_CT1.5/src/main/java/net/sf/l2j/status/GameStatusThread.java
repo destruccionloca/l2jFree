@@ -93,7 +93,7 @@ import org.apache.commons.logging.LogFactory;
 public class GameStatusThread extends Thread
 {
 	private static final Log	_log	= LogFactory.getLog(GameStatusThread.class.getName());
-		private static String gmname = null; 
+	private static String		gmname	= null;
 
 	private Socket				_cSocket;
 
@@ -220,27 +220,27 @@ public class GameStatusThread extends Thread
 						_print.print("GM name: ");
 						_print.flush();
 						gmname = _read.readLine();
-						String RESTORE_CHARACTER = "SELECT char_name, accesslevel FROM characters WHERE char_name = '"+gmname+"' AND accesslevel >= 100";
-						try 
+						String RESTORE_CHARACTER = "SELECT char_name, accesslevel FROM characters WHERE char_name = '" + gmname + "' AND accesslevel >= 100";
+						try
 						{
 							Class.forName("com.mysql.jdbc.Driver"); //select the MySQL driver
 							Connection con = DriverManager.getConnection(Config.DATABASE_URL, Config.DATABASE_LOGIN, Config.DATABASE_PASSWORD);
 							Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 							ResultSet rs = stmt.executeQuery(RESTORE_CHARACTER);
 							int x = 0;
-							while(rs.next()) 
+							while (rs.next())
 							{
 								x++;
 							}
-							if(x != 1) 
+							if (x != 1)
 							{
 								_print.println("No GMs of that name, disconnected...");
 								_print.flush();
 								_cSocket.close();
 							}
-							else 
+							else
 							{
-								_print.println("Welcome, "+gmname);
+								_print.println("Welcome, " + gmname);
 							}
 						}
 						catch (Exception e)
@@ -249,7 +249,7 @@ public class GameStatusThread extends Thread
 							_print.flush();
 							_cSocket.close();
 						}
-						telnetOutput(4, gmname+" successfully connected to Telnet.");
+						telnetOutput(4, gmname + " successfully connected to Telnet.");
 						_print.println("L2j-free...");
 						_print.print("");
 						_print.flush();
@@ -305,9 +305,9 @@ public class GameStatusThread extends Thread
 					_print.println("restart <time>	  - restarts down server in <time> seconds.");
 					_print.println("abort			   - aborts shutdown/restart.");
 					_print.println("give <player> <itemid> <amount>");
-					_print.println("enchant <player> <itemType> <enchant> (itemType: 1 - Helmet, 2 - Chest, 3 - Gloves, 4 - Feet, "+
-								"5 - Legs, 6 - Right Hand, 7 - Left Hand, 8 - Left Ear, 9 - Right Ear , 10 - Left Finger, 11 - Right Finger, "+
-								"12- Necklace, 13 - Underwear, 14 - Back, 0 - No Enchant)");
+					_print.println("enchant <player> <itemType> <enchant> (itemType: 1 - Helmet, 2 - Chest, 3 - Gloves, 4 - Feet, "
+							+ "5 - Legs, 6 - Right Hand, 7 - Left Hand, 8 - Left Ear, 9 - Right Ear , 10 - Left Finger, 11 - Right Finger, "
+							+ "12- Necklace, 13 - Underwear, 14 - Back, 0 - No Enchant)");
 					_print.println("extreload <name>	- reload and initializes the named extension or all if used without argument");
 					_print.println("extinit <name>	  - initilizes the named extension or all if used without argument");
 					_print.println("extunload <name>	- unload the named extension or all if used without argument");
@@ -396,9 +396,9 @@ public class GameStatusThread extends Thread
 					_print.println("  --->	  GM Count: " + getOnlineGMS());
 					_print.println("  --->	   Threads: " + Thread.activeCount());
 					_print.println("  RAM Used: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576)); // 1024
-																																			// *
-																																			// 1024
-																																			// =
+					// *
+					// 1024
+					// =
 					// 1048576
 					_print.flush();
 				}
@@ -454,7 +454,7 @@ public class GameStatusThread extends Thread
 					{
 						_usrCommand = _usrCommand.substring(9);
 						if (Config.ALT_TELNET && Config.ALT_TELNET_GM_ANNOUNCER_NAME)
-							_usrCommand += " ["+gmname+"(offline)]";
+							_usrCommand += " [" + gmname + "(offline)]";
 						Announcements.getInstance().announceToAll(_usrCommand);
 						_print.println("Announcement Sent!");
 					}
@@ -474,13 +474,13 @@ public class GameStatusThread extends Thread
 						L2PcInstance reciever = L2World.getInstance().getPlayer(name);
 						CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell.getId(), "Telnet Priv", message);
 						if (Config.ALT_TELNET)
-							cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell.getId(), gmname+"(offline)", message);
+							cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell.getId(), gmname + "(offline)", message);
 						if (reciever != null)
 						{
 							reciever.sendPacket(cs);
 							_print.println("Telnet Priv->" + name + ": " + message);
 							if (Config.ALT_TELNET)
-								_print.println(gmname+"(offline): " + name + ": " + message);
+								_print.println(gmname + "(offline): " + name + ": " + message);
 							_print.println("Message Sent!");
 						}
 						else
@@ -590,9 +590,9 @@ public class GameStatusThread extends Thread
 				}
 				else if (_usrCommand.equals("quit"))
 				{ /*
-					 * Do Nothing :p - Just here to save us from the "Command
-					 * Not Understood" Text
-					 */
+								 * Do Nothing :p - Just here to save us from the "Command
+								 * Not Understood" Text
+								 */
 				}
 				else if (_usrCommand.startsWith("give"))
 				{
@@ -617,7 +617,7 @@ public class GameStatusThread extends Thread
 							_print.println("ok");
 						}
 					}
-					catch(Exception e)
+					catch (Exception e)
 					{
 
 					}
@@ -632,66 +632,67 @@ public class GameStatusThread extends Thread
 						L2PcInstance player = L2World.getInstance().getPlayer(st.nextToken());
 						itemType = Integer.parseInt(st.nextToken());
 						enchant = Integer.parseInt(st.nextToken());
-						
-						switch(itemType)
+
+						switch (itemType)
 						{
-							case 1:
-								itemType = Inventory.PAPERDOLL_HEAD;
-								break;
-							case 2:	
-								itemType = Inventory.PAPERDOLL_CHEST;
-								break;
-							case 3:	
-								itemType = Inventory.PAPERDOLL_GLOVES;
-								break;
-							case 4:	
-								itemType = Inventory.PAPERDOLL_FEET;
-								break;
-							case 5:	
-								itemType = Inventory.PAPERDOLL_LEGS;
-								break;
-							case 6:	
-								itemType = Inventory.PAPERDOLL_RHAND;
-								break;
-							case 7:	
-								itemType = Inventory.PAPERDOLL_LHAND;
-								break;
-							case 8:	
-								itemType = Inventory.PAPERDOLL_LEAR;
-								break;
-							case 9:	
-								itemType = Inventory.PAPERDOLL_REAR;
-								break;
-							case 10: 	
-								itemType = Inventory.PAPERDOLL_LFINGER;
-								break;
-							case 11:	
-								itemType = Inventory.PAPERDOLL_RFINGER;
-								break;
-							case 12:	
-								itemType = Inventory.PAPERDOLL_NECK;
-								break;
-							case 13:	
-								itemType = Inventory.PAPERDOLL_UNDER;
-								break;
-							case 14: 	
-								itemType = Inventory.PAPERDOLL_BACK;
-								break;
-							default: 
-								itemType = 0;
+						case 1:
+							itemType = Inventory.PAPERDOLL_HEAD;
+							break;
+						case 2:
+							itemType = Inventory.PAPERDOLL_CHEST;
+							break;
+						case 3:
+							itemType = Inventory.PAPERDOLL_GLOVES;
+							break;
+						case 4:
+							itemType = Inventory.PAPERDOLL_FEET;
+							break;
+						case 5:
+							itemType = Inventory.PAPERDOLL_LEGS;
+							break;
+						case 6:
+							itemType = Inventory.PAPERDOLL_RHAND;
+							break;
+						case 7:
+							itemType = Inventory.PAPERDOLL_LHAND;
+							break;
+						case 8:
+							itemType = Inventory.PAPERDOLL_LEAR;
+							break;
+						case 9:
+							itemType = Inventory.PAPERDOLL_REAR;
+							break;
+						case 10:
+							itemType = Inventory.PAPERDOLL_LFINGER;
+							break;
+						case 11:
+							itemType = Inventory.PAPERDOLL_RFINGER;
+							break;
+						case 12:
+							itemType = Inventory.PAPERDOLL_NECK;
+							break;
+						case 13:
+							itemType = Inventory.PAPERDOLL_UNDER;
+							break;
+						case 14:
+							itemType = Inventory.PAPERDOLL_BACK;
+							break;
+						default:
+							itemType = 0;
 						}
-											 
+
 						if (enchant > 65535)
 							enchant = 65535;
 						else if (enchant < 0)
 							enchant = 0;
-						
+
 						boolean success = false;
-						
-						if(player != null && itemType > 0)
+
+						if (player != null && itemType > 0)
 						{
 							success = setEnchant(_cSocket, player, enchant, itemType);
-							if (success)_print.println("Item enchanted successfully.");
+							if (success)
+								_print.println("Item enchanted successfully.");
 						}
 						else if (!success)
 							_print.println("Item failed to enchant.");
@@ -1010,12 +1011,14 @@ public class GameStatusThread extends Thread
 						}
 						else
 						{
-							_print.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
+							_print
+									.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
 						}
 					}
 					catch (Exception e)
 					{
-						_print.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
+						_print
+								.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
 					}
 				}
 				else if (_usrCommand.startsWith("reload"))
@@ -1238,7 +1241,7 @@ public class GameStatusThread extends Thread
 		// get the target
 		L2Object target = activeChar;
 		L2PcInstance player = null;
-		
+
 		if (target instanceof L2PcInstance)
 		{
 			player = (L2PcInstance) target;
@@ -1258,7 +1261,8 @@ public class GameStatusThread extends Thread
 		if (parmorInstance != null && parmorInstance.getLocationSlot() == armorType)
 		{
 			itemInstance = parmorInstance;
-		} else
+		}
+		else
 		{
 			// for bows/crossbows and double handed weapons
 			parmorInstance = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
@@ -1283,14 +1287,14 @@ public class GameStatusThread extends Thread
 			player.sendPacket(new UserInfo(player));
 
 			// informations
-			activeChar.sendMessage("Changed enchantment of " + player.getName() + "'s "
-				+ itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench + ".");
-			player.sendMessage("Admin has changed the enchantment of your "
-				+ itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench + ".");
+			activeChar.sendMessage("Changed enchantment of " + player.getName() + "'s " + itemInstance.getItem().getName() + " from " + curEnchant + " to "
+					+ ench + ".");
+			player.sendMessage("Admin has changed the enchantment of your " + itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench + ".");
 
 			String IP = gm.getInetAddress().getHostAddress();
 			// log
-			GMAudit.auditGMAction(IP, "telnet-enchant", player.getName(), itemInstance.getItem().getName() + "(" + itemInstance.getObjectId() + ")" + " from " + curEnchant + " to " + ench);
+			GMAudit.auditGMAction(IP, "telnet-enchant", player.getName(), itemInstance.getItem().getName() + "(" + itemInstance.getObjectId() + ")" + " from "
+					+ curEnchant + " to " + ench);
 			return true;
 		}
 		return false;

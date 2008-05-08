@@ -26,29 +26,29 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
  */
 public class L2WarehouseItem
 {
-	
-	private L2Item _item;
-	private int _object;
-	private int _count;
-	private int _owner;
-	private int _enchant;
-	private int _grade;
-	private boolean _isAugmented;
-	private int _augmentationId;
-	private int _manaLeft;
 
-	private int ae_enchantLvl;
-	private int ae_enchantElement;
-	private int ae_enchantVal;
-	private int ad_fire;
-	private int ad_water;
-	private int ad_earth;
-	private int ad_wind;
-	private int ad_holy;
-	private int ad_unholy;
+	private L2Item	_item;
+	private int		_object;
+	private int		_count;
+	private int		_owner;
+	private int		_enchant;
+	private int		_grade;
+	private boolean	_isAugmented;
+	private int		_augmentationId;
+	private int		_manaLeft;
 
-	private int _type1;
-	private int _type2;
+	private int		ae_enchantLvl;
+	private int		ae_enchantElement;
+	private int		ae_enchantVal;
+	private int		ad_fire;
+	private int		ad_water;
+	private int		ad_earth;
+	private int		ad_wind;
+	private int		ad_holy;
+	private int		ad_unholy;
+
+	private int		_type1;
+	private int		_type2;
 
 	public L2WarehouseItem(L2ItemInstance item)
 	{
@@ -78,7 +78,7 @@ public class L2WarehouseItem
 		ad_holy = item.getDefAttrHoly();
 		ad_unholy = item.getDefAttrUnholy();
 	}
-	
+
 	/**
 	 * Returns the item.
 	 * @return L2Item
@@ -87,7 +87,7 @@ public class L2WarehouseItem
 	{
 		return _item;
 	}
-	
+
 	/**
 	 * Returns the unique objectId
 	 * @return int
@@ -96,7 +96,7 @@ public class L2WarehouseItem
 	{
 		return _object;
 	}
-	
+
 	/**
 	 * Returns the owner
 	 * @return int
@@ -105,7 +105,7 @@ public class L2WarehouseItem
 	{
 		return _owner;
 	}
-	
+
 	/**
 	 * Returns the count
 	 * @return int
@@ -114,7 +114,7 @@ public class L2WarehouseItem
 	{
 		return _count;
 	}
-	
+
 	/**
 	 * Returns the first type
 	 * @return int
@@ -123,7 +123,7 @@ public class L2WarehouseItem
 	{
 		return _item.getType1();
 	}
-	
+
 	/**
 	 * Returns the second type
 	 * @return int
@@ -132,7 +132,7 @@ public class L2WarehouseItem
 	{
 		return _item.getType2();
 	}
-	
+
 	/**
 	 * Returns the second type
 	 * @return int
@@ -141,7 +141,7 @@ public class L2WarehouseItem
 	{
 		return _item.getItemType();
 	}
-	
+
 	/**
 	 * Returns the ItemId
 	 * @return int
@@ -150,7 +150,7 @@ public class L2WarehouseItem
 	{
 		return _item.getItemId();
 	}
-	
+
 	/**
 	 * Returns the part of body used with this item
 	 * @return int
@@ -159,7 +159,7 @@ public class L2WarehouseItem
 	{
 		return _item.getBodyPart();
 	}
-	
+
 	/**
 	 * Returns the enchant level
 	 * @return int
@@ -168,7 +168,7 @@ public class L2WarehouseItem
 	{
 		return _enchant;
 	}
-	
+
 	/**
 	 * Returns the item grade
 	 * @return int
@@ -177,7 +177,7 @@ public class L2WarehouseItem
 	{
 		return _grade;
 	}
-	
+
 	/**
 	 * Returns true if it is a weapon
 	 * @return boolean
@@ -186,7 +186,7 @@ public class L2WarehouseItem
 	{
 		return (_item instanceof L2Weapon);
 	}
-	
+
 	/**
 	 * Returns true if it is an armor
 	 * @return boolean
@@ -195,7 +195,7 @@ public class L2WarehouseItem
 	{
 		return (_item instanceof L2Armor);
 	}
-	
+
 	/**
 	 * Returns true if it is an EtcItem
 	 * @return boolean
@@ -204,7 +204,7 @@ public class L2WarehouseItem
 	{
 		return (_item instanceof L2EtcItem);
 	}
-	
+
 	/**
 	 * Returns the name of the item
 	 * @return String
@@ -213,17 +213,17 @@ public class L2WarehouseItem
 	{
 		return _item.getName();
 	}
-	
+
 	public boolean isAugmented()
 	{
 		return _isAugmented;
 	}
-	
+
 	public int getAugmentationId()
 	{
 		return _augmentationId;
 	}
-	
+
 	/**
 	 * Returns the name of the item
 	 * @return String
@@ -233,7 +233,7 @@ public class L2WarehouseItem
 	{
 		return _item.getName();
 	}
-	
+
 	/**
 	 * Returns the name of the item
 	 * @return String

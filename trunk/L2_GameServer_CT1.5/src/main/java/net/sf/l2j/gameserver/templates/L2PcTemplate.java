@@ -34,49 +34,49 @@ import net.sf.l2j.gameserver.model.base.Race;
  * of characters !</b>
  * </font>
  */
-public class L2PcTemplate extends L2CharTemplate {
-	
+public class L2PcTemplate extends L2CharTemplate
+{
+
 	/** The Class object of the L2PcInstance */
-	private ClassId classId;
-	
-	private Race   race;
-	private String className;
-	
-	private int    spawnX;
-	private int    spawnY;
-	private int    spawnZ;
-	
-	private int     classBaseLevel;
-	private float   lvlHpAdd;
-	private float   lvlHpMod;
-	private float   lvlCpAdd;
-	private float   lvlCpMod;
-	private float   lvlMpAdd;
-	private float   lvlMpMod;
-	
-	private List<L2Item> _items = new FastList<L2Item>();
-	
-	
+	private ClassId			classId;
+
+	private Race			race;
+	private String			className;
+
+	private int				spawnX;
+	private int				spawnY;
+	private int				spawnZ;
+
+	private int				classBaseLevel;
+	private float			lvlHpAdd;
+	private float			lvlHpMod;
+	private float			lvlCpAdd;
+	private float			lvlCpMod;
+	private float			lvlMpAdd;
+	private float			lvlMpMod;
+
+	private List<L2Item>	_items	= new FastList<L2Item>();
+
 	public L2PcTemplate(StatsSet set)
 	{
 		super(set);
-		classId   = ClassId.values()[set.getInteger("classId")];
-		race      = Race.values()[set.getInteger("raceId")];
+		classId = ClassId.values()[set.getInteger("classId")];
+		race = Race.values()[set.getInteger("raceId")];
 		className = set.getString("className");
-		
-		spawnX    = set.getInteger("spawnX");
-		spawnY    = set.getInteger("spawnY");
-		spawnZ    = set.getInteger("spawnZ");
-		
+
+		spawnX = set.getInteger("spawnX");
+		spawnY = set.getInteger("spawnY");
+		spawnZ = set.getInteger("spawnZ");
+
 		classBaseLevel = set.getInteger("classBaseLevel");
-		lvlHpAdd  = set.getFloat("lvlHpAdd");
-		lvlHpMod  = set.getFloat("lvlHpMod");
-        lvlCpAdd  = set.getFloat("lvlCpAdd");
-        lvlCpMod  = set.getFloat("lvlCpMod");
-		lvlMpAdd  = set.getFloat("lvlMpAdd");
-		lvlMpMod  = set.getFloat("lvlMpMod");
+		lvlHpAdd = set.getFloat("lvlHpAdd");
+		lvlHpMod = set.getFloat("lvlHpMod");
+		lvlCpAdd = set.getFloat("lvlCpAdd");
+		lvlCpMod = set.getFloat("lvlCpMod");
+		lvlMpAdd = set.getFloat("lvlMpAdd");
+		lvlMpMod = set.getFloat("lvlMpMod");
 	}
-	
+
 	/**
 	 * add starter equipment
 	 * @param i
@@ -87,7 +87,7 @@ public class L2PcTemplate extends L2CharTemplate {
 		if (item != null)
 			_items.add(item);
 	}
-	
+
 	/**
 	 *
 	 * @return itemIds of all the starter equipment
@@ -97,240 +97,240 @@ public class L2PcTemplate extends L2CharTemplate {
 		return _items.toArray(new L2Item[_items.size()]);
 	}
 
-    /**
-     * @return the classBaseLevel
-     */
-    public int getClassBaseLevel()
-    {
-        return classBaseLevel;
-    }
+	/**
+	 * @return the classBaseLevel
+	 */
+	public int getClassBaseLevel()
+	{
+		return classBaseLevel;
+	}
 
-    /**
-     * @param classBaseLevel the classBaseLevel to set
-     */
-    public void setClassBaseLevel(int _classBaseLevel)
-    {
-        classBaseLevel = _classBaseLevel;
-    }
+	/**
+	 * @param classBaseLevel the classBaseLevel to set
+	 */
+	public void setClassBaseLevel(int _classBaseLevel)
+	{
+		classBaseLevel = _classBaseLevel;
+	}
 
-    /**
-     * @return the classId
-     */
-    public ClassId getClassId()
-    {
-        return classId;
-    }
+	/**
+	 * @return the classId
+	 */
+	public ClassId getClassId()
+	{
+		return classId;
+	}
 
-    /**
-     * @param classId the classId to set
-     */
-    public void setClassId(ClassId _classId)
-    {
-        classId = _classId;
-    }
+	/**
+	 * @param classId the classId to set
+	 */
+	public void setClassId(ClassId _classId)
+	{
+		classId = _classId;
+	}
 
-    /**
-     * @return the className
-     */
-    public String getClassName()
-    {
-        return className;
-    }
+	/**
+	 * @return the className
+	 */
+	public String getClassName()
+	{
+		return className;
+	}
 
-    /**
-     * @param className the className to set
-     */
-    public void setClassName(String _className)
-    {
-        className = _className;
-    }
+	/**
+	 * @param className the className to set
+	 */
+	public void setClassName(String _className)
+	{
+		className = _className;
+	}
 
-    /**
-     * @return the lvlCpAdd
-     */
-    public float getLvlCpAdd()
-    {
-        return lvlCpAdd;
-    }
+	/**
+	 * @return the lvlCpAdd
+	 */
+	public float getLvlCpAdd()
+	{
+		return lvlCpAdd;
+	}
 
-    /**
-     * @param lvlCpAdd the lvlCpAdd to set
-     */
-    public void setLvlCpAdd(float _lvlCpAdd)
-    {
-        lvlCpAdd = _lvlCpAdd;
-    }
+	/**
+	 * @param lvlCpAdd the lvlCpAdd to set
+	 */
+	public void setLvlCpAdd(float _lvlCpAdd)
+	{
+		lvlCpAdd = _lvlCpAdd;
+	}
 
-    /**
-     * @return the lvlCpMod
-     */
-    public float getLvlCpMod()
-    {
-        return lvlCpMod;
-    }
+	/**
+	 * @return the lvlCpMod
+	 */
+	public float getLvlCpMod()
+	{
+		return lvlCpMod;
+	}
 
-    /**
-     * @param lvlCpMod the lvlCpMod to set
-     */
-    public void setLvlCpMod(float _lvlCpMod)
-    {
-        lvlCpMod = _lvlCpMod;
-    }
+	/**
+	 * @param lvlCpMod the lvlCpMod to set
+	 */
+	public void setLvlCpMod(float _lvlCpMod)
+	{
+		lvlCpMod = _lvlCpMod;
+	}
 
-    /**
-     * @return the lvlHpAdd
-     */
-    public float getLvlHpAdd()
-    {
-        return lvlHpAdd;
-    }
+	/**
+	 * @return the lvlHpAdd
+	 */
+	public float getLvlHpAdd()
+	{
+		return lvlHpAdd;
+	}
 
-    /**
-     * @param lvlHpAdd the lvlHpAdd to set
-     */
-    public void setLvlHpAdd(float _lvlHpAdd)
-    {
-        lvlHpAdd = _lvlHpAdd;
-    }
+	/**
+	 * @param lvlHpAdd the lvlHpAdd to set
+	 */
+	public void setLvlHpAdd(float _lvlHpAdd)
+	{
+		lvlHpAdd = _lvlHpAdd;
+	}
 
-    /**
-     * @return the lvlHpMod
-     */
-    public float getLvlHpMod()
-    {
-        return lvlHpMod;
-    }
+	/**
+	 * @return the lvlHpMod
+	 */
+	public float getLvlHpMod()
+	{
+		return lvlHpMod;
+	}
 
-    /**
-     * @param lvlHpMod the lvlHpMod to set
-     */
-    public void setLvlHpMod(float _lvlHpMod)
-    {
-        lvlHpMod = _lvlHpMod;
-    }
+	/**
+	 * @param lvlHpMod the lvlHpMod to set
+	 */
+	public void setLvlHpMod(float _lvlHpMod)
+	{
+		lvlHpMod = _lvlHpMod;
+	}
 
-    /**
-     * @return the lvlMpAdd
-     */
-    public float getLvlMpAdd()
-    {
-        return lvlMpAdd;
-    }
+	/**
+	 * @return the lvlMpAdd
+	 */
+	public float getLvlMpAdd()
+	{
+		return lvlMpAdd;
+	}
 
-    /**
-     * @param lvlMpAdd the lvlMpAdd to set
-     */
-    public void setLvlMpAdd(float _lvlMpAdd)
-    {
-        lvlMpAdd = _lvlMpAdd;
-    }
+	/**
+	 * @param lvlMpAdd the lvlMpAdd to set
+	 */
+	public void setLvlMpAdd(float _lvlMpAdd)
+	{
+		lvlMpAdd = _lvlMpAdd;
+	}
 
-    /**
-     * @return the lvlMpMod
-     */
-    public float getLvlMpMod()
-    {
-        return lvlMpMod;
-    }
+	/**
+	 * @return the lvlMpMod
+	 */
+	public float getLvlMpMod()
+	{
+		return lvlMpMod;
+	}
 
-    /**
-     * @param lvlMpMod the lvlMpMod to set
-     */
-    public void setLvlMpMod(float _lvlMpMod)
-    {
-        lvlMpMod = _lvlMpMod;
-    }
+	/**
+	 * @param lvlMpMod the lvlMpMod to set
+	 */
+	public void setLvlMpMod(float _lvlMpMod)
+	{
+		lvlMpMod = _lvlMpMod;
+	}
 
-    /**
-     * @return the race
-     */
-    public Race getRace()
-    {
-        return race;
-    }
+	/**
+	 * @return the race
+	 */
+	public Race getRace()
+	{
+		return race;
+	}
 
-    /**
-     * @param race the race to set
-     */
-    public void setRace(Race _race)
-    {
-        race = _race;
-    }
+	/**
+	 * @param race the race to set
+	 */
+	public void setRace(Race _race)
+	{
+		race = _race;
+	}
 
-    /**
-     * @return the spawnX
-     */
-    public int getSpawnX()
-    {
-        return spawnX;
-    }
+	/**
+	 * @return the spawnX
+	 */
+	public int getSpawnX()
+	{
+		return spawnX;
+	}
 
-    /**
-     * @param spawnX the spawnX to set
-     */
-    public void setSpawnX(int _spawnX)
-    {
-        spawnX = _spawnX;
-    }
+	/**
+	 * @param spawnX the spawnX to set
+	 */
+	public void setSpawnX(int _spawnX)
+	{
+		spawnX = _spawnX;
+	}
 
-    /**
-     * @return the spawnY
-     */
-    public int getSpawnY()
-    {
-        return spawnY;
-    }
+	/**
+	 * @return the spawnY
+	 */
+	public int getSpawnY()
+	{
+		return spawnY;
+	}
 
-    /**
-     * @param spawnY the spawnY to set
-     */
-    public void setSpawnY(int _spawnY)
-    {
-        spawnY = _spawnY;
-    }
+	/**
+	 * @param spawnY the spawnY to set
+	 */
+	public void setSpawnY(int _spawnY)
+	{
+		spawnY = _spawnY;
+	}
 
-    /**
-     * @return the spawnZ
-     */
-    public int getSpawnZ()
-    {
-        return spawnZ;
-    }
+	/**
+	 * @return the spawnZ
+	 */
+	public int getSpawnZ()
+	{
+		return spawnZ;
+	}
 
-    /**
-     * @param spawnZ the spawnZ to set
-     */
-    public void setSpawnZ(int _spawnZ)
-    {
-        spawnZ = _spawnZ;
-    }
-    
-    public int getBaseFallSafeHeight(boolean female)
-    {
-    	if (classId.getRace() == Race.Darkelf || classId.getRace() == Race.Elf)
-    	{
-    		return (classId.isMage()) ? ((female) ? 330 : 300) : ((female) ? 380 : 350); 
-    	}
+	/**
+	 * @param spawnZ the spawnZ to set
+	 */
+	public void setSpawnZ(int _spawnZ)
+	{
+		spawnZ = _spawnZ;
+	}
 
-    	else if (classId.getRace() == Race.Dwarf)
-    	{
-    		return ((female) ? 200 : 180); 
-    	}
- 	
-    	else if (classId.getRace() == Race.Human)
-    	{
-    		return (classId.isMage()) ? ((female) ? 220 : 200) : ((female) ? 270 : 250);
-    	}
-    	
-    	else if (classId.getRace() == Race.Orc)
-    	{
-    		return (classId.isMage()) ? ((female) ? 280 : 250) : ((female) ? 220 : 200);
-    	}
-    		
-    	return Config.ALT_MINIMUM_FALL_HEIGHT;
-    	
-    	/**
-    	  	Dark Elf Fighter F 380 
+	public int getBaseFallSafeHeight(boolean female)
+	{
+		if (classId.getRace() == Race.Darkelf || classId.getRace() == Race.Elf)
+		{
+			return (classId.isMage()) ? ((female) ? 330 : 300) : ((female) ? 380 : 350);
+		}
+
+		else if (classId.getRace() == Race.Dwarf)
+		{
+			return ((female) ? 200 : 180);
+		}
+
+		else if (classId.getRace() == Race.Human)
+		{
+			return (classId.isMage()) ? ((female) ? 220 : 200) : ((female) ? 270 : 250);
+		}
+
+		else if (classId.getRace() == Race.Orc)
+		{
+			return (classId.isMage()) ? ((female) ? 280 : 250) : ((female) ? 220 : 200);
+		}
+
+		return Config.ALT_MINIMUM_FALL_HEIGHT;
+
+		/**
+		  	Dark Elf Fighter F 380 
 			Dark Elf Fighter M 350 
 			Dark Elf Mystic F 330 
 			Dark Elf Mystic M 300 
@@ -348,6 +348,6 @@ public class L2PcTemplate extends L2CharTemplate {
 			Orc Fighter M 200 
 			Orc Mystic F 280 
 			Orc Mystic M 250 
-    	 */
-    }
+		 */
+	}
 }

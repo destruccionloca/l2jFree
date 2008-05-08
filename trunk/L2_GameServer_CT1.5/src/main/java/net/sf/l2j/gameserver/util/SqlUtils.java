@@ -25,17 +25,18 @@ import org.apache.commons.logging.LogFactory;
 
 public class SqlUtils
 {
-	private final static Log _log = LogFactory.getLog(SqlUtils.class.getName());
-	
-    // =========================================================
-    // Data Field
-	private static SqlUtils _instance;
+	private final static Log	_log	= LogFactory.getLog(SqlUtils.class.getName());
 
-    // =========================================================
-    // Property - Public
+	// =========================================================
+	// Data Field
+	private static SqlUtils		_instance;
+
+	// =========================================================
+	// Property - Public
 	public static SqlUtils getInstance()
 	{
-        if (_instance == null) _instance = new SqlUtils();
+		if (_instance == null)
+			_instance = new SqlUtils();
 		return _instance;
 	}
 
@@ -43,48 +44,67 @@ public class SqlUtils
 	{
 		long start = System.currentTimeMillis();
 
-        String query = "";
+		String query = "";
 
 		PreparedStatement statement = null;
 		ResultSet rset = null;
-        Connection con = null;
+		Connection con = null;
 
 		Integer res[][] = null;
 
 		try
 		{
-            query = L2DatabaseFactory.getInstance().prepQuerySelect(resultFields, usedTables, whereClause, false);
-            statement = L2DatabaseFactory.getInstance().getConnection(con).prepareStatement(query);
+			query = L2DatabaseFactory.getInstance().prepQuerySelect(resultFields, usedTables, whereClause, false);
+			statement = L2DatabaseFactory.getInstance().getConnection(con).prepareStatement(query);
 			rset = statement.executeQuery();
 
 			int rows = 0;
-			while(rset.next())
+			while (rset.next())
 				rows++;
 
-			res = new Integer[rows-1][resultFields.length];
+			res = new Integer[rows - 1][resultFields.length];
 
 			rset.first();
 
 			int row = 0;
-			while(rset.next())
+			while (rset.next())
 			{
-				for(int i=0; i<resultFields.length; i++)
-			 		res[row][i] = rset.getInt(i+1);
+				for (int i = 0; i < resultFields.length; i++)
+					res[row][i] = rset.getInt(i + 1);
 				row++;
 			}
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
-			_log.warn("Error in query '" + query + "':"+e,e);
+			_log.warn("Error in query '" + query + "':" + e, e);
 		}
 		finally
 		{
-			try{ rset.close();  } catch(Exception e) {}
-			try{ statement.close(); } catch(Exception e) {}
-            try{ if ( con != null) con.close(); } catch(Exception e) {}
+			try
+			{
+				rset.close();
+			}
+			catch (Exception e)
+			{
+			}
+			try
+			{
+				statement.close();
+			}
+			catch (Exception e)
+			{
+			}
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 
-		_log.debug("Get all rows in query '" + query + "' in " + (System.currentTimeMillis()-start) + "ms");
+		_log.debug("Get all rows in query '" + query + "' in " + (System.currentTimeMillis() - start) + "ms");
 		return res;
 	}
 }

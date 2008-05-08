@@ -114,7 +114,8 @@ public class FloodProtector
 	public boolean tryPerformAction(int playerObjId, int action)
 	{
 		Entry<Integer, Integer[]> entry = _floodClient.getEntry(playerObjId);
-		if (entry == null) return false; // player just disconnected
+		if (entry == null)
+			return false; // player just disconnected
 		Integer[] value = entry.getValue();
 
 		if (value[action] < GameTimeController.getGameTicks())

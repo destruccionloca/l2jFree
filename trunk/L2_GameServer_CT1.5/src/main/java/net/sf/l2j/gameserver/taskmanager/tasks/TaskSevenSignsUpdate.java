@@ -32,36 +32,38 @@ import org.apache.commons.logging.LogFactory;
  */
 public class TaskSevenSignsUpdate extends Task
 {
-    private static final Log _log = LogFactory.getLog(TaskSevenSignsUpdate.class);
-    
-    public static final String NAME = "seven_signs_update";
+	private static final Log	_log	= LogFactory.getLog(TaskSevenSignsUpdate.class);
 
-    @Override
-    public String getName()
-    {
-        return NAME;
-    }
+	public static final String	NAME	= "seven_signs_update";
 
-    @Override
-    public void onTimeElapsed(ExecutedTask task)
-    {
-        try {
-            SevenSigns.getInstance().saveSevenSignsData(null, true);
+	@Override
+	public String getName()
+	{
+		return NAME;
+	}
 
-            if (!SevenSigns.getInstance().isSealValidationPeriod())
-                SevenSignsFestival.getInstance().saveFestivalData(false);
-            
-            _log.info("SevenSigns: Data updated successfully.");
-        }
-        catch (Exception e) {
-            _log.error("SevenSigns: Failed to save Seven Signs configuration: " + e,e);
-        }
-    }
+	@Override
+	public void onTimeElapsed(ExecutedTask task)
+	{
+		try
+		{
+			SevenSigns.getInstance().saveSevenSignsData(null, true);
 
-    @Override
-    public void initializate()
-    {
-        super.initializate();
-        TaskManager.addUniqueTask(NAME, TaskTypes.TYPE_FIXED_SHEDULED, "1800000", "1800000", "");
-    }
+			if (!SevenSigns.getInstance().isSealValidationPeriod())
+				SevenSignsFestival.getInstance().saveFestivalData(false);
+
+			_log.info("SevenSigns: Data updated successfully.");
+		}
+		catch (Exception e)
+		{
+			_log.error("SevenSigns: Failed to save Seven Signs configuration: " + e, e);
+		}
+	}
+
+	@Override
+	public void initializate()
+	{
+		super.initializate();
+		TaskManager.addUniqueTask(NAME, TaskTypes.TYPE_FIXED_SHEDULED, "1800000", "1800000", "");
+	}
 }

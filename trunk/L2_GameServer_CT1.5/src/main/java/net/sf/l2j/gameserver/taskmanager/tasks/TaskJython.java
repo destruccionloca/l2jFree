@@ -25,28 +25,28 @@ import org.python.util.PythonInterpreter;
  */
 public class TaskJython extends Task
 {
-    public static final String NAME = "jython";
-    
-    private final PythonInterpreter _python = new PythonInterpreter();
-    
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.taskmanager.Task#getName()
-     */
-    @Override
-    public String getName()
-    {
-        return NAME;
-    }
+	public static final String		NAME	= "jython";
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.taskmanager.Task#onTimeElapsed(net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask)
-     */
-    @Override
-    public void onTimeElapsed(ExecutedTask task)
-    {
-        _python.cleanup();
-        _python.exec("import sys");
-        _python.execfile("data/scripts/cron/" + task.getParams()[2]);
-    }
+	private final PythonInterpreter	_python	= new PythonInterpreter();
+
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.taskmanager.Task#getName()
+	 */
+	@Override
+	public String getName()
+	{
+		return NAME;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.taskmanager.Task#onTimeElapsed(net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask)
+	 */
+	@Override
+	public void onTimeElapsed(ExecutedTask task)
+	{
+		_python.cleanup();
+		_python.exec("import sys");
+		_python.execfile("data/scripts/cron/" + task.getParams()[2]);
+	}
 
 }

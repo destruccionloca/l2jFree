@@ -23,16 +23,16 @@ import net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask;
  */
 public final class TaskCleanUp extends Task
 {
-	public static final String NAME = "clean_up";
-    
-    public String getName()
-    {
-        return NAME;
-    }
+	public static final String	NAME	= "clean_up";
 
-    public void onTimeElapsed(ExecutedTask task)
-    {
-        System.runFinalization();
-        System.gc();
-    }
+	public String getName()
+	{
+		return NAME;
+	}
+
+	public void onTimeElapsed(ExecutedTask task)
+	{
+		System.runFinalization();
+		System.gc();
+	}
 }

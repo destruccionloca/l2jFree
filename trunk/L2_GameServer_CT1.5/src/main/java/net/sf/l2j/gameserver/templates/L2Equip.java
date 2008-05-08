@@ -30,23 +30,23 @@ import net.sf.l2j.gameserver.skills.funcs.FuncTemplate;
 
 public abstract class L2Equip extends L2Item
 {
-	private int _sex = -1;
-	private Integer[] _allowedRaces = null;
-	private Integer[] _allowedClasses = null;
-	private L2Skill[] _itemSkills = null;
+	private int						_sex				= -1;
+	private Integer[]				_allowedRaces		= null;
+	private Integer[]				_allowedClasses		= null;
+	private L2Skill[]				_itemSkills			= null;
 
-	protected FuncTemplate[] _funcTemplates = null;
-	protected EffectTemplate[] _effectTemplates = null;
-	
-	public static final Func[] EMPTY_FUNC_SET = new Func[0];
-	public static final L2Effect[] EMPTY_EFFECT_SET = new L2Effect[0];
+	protected FuncTemplate[]		_funcTemplates		= null;
+	protected EffectTemplate[]		_effectTemplates	= null;
+
+	public static final Func[]		EMPTY_FUNC_SET		= new Func[0];
+	public static final L2Effect[]	EMPTY_EFFECT_SET	= new L2Effect[0];
 
 	public L2Equip(Enum<?> type, StatsSet set)
 	{
 		super(type, set);
 		_sex = set.getInteger("sex");
 
-		String[] races   = set.getString("races").split(",");
+		String[] races = set.getString("races").split(",");
 		String[] classes = set.getString("classes").split(",");
 		String[] itemSkillDefs = set.getString("skills_item").split(";");
 
@@ -90,9 +90,9 @@ public abstract class L2Equip extends L2Item
 			{
 				intVal = Integer.parseInt(strVal);
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
-				_log.error("Cannot parse "+restrictType+" restriction \""+strVal+"\" for "+itemType+" "+getItemId());
+				_log.error("Cannot parse " + restrictType + " restriction \"" + strVal + "\" for " + itemType + " " + getItemId());
 				continue;
 			}
 
@@ -123,16 +123,16 @@ public abstract class L2Equip extends L2Item
 				skillId = Integer.parseInt(skillDef[0]);
 				skillLevel = Integer.parseInt(skillDef[1]);
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
-				_log.error("Cannot parse "+skillType+" skill \""+skillStr+"\" for "+itemType+" item "+getItemId());
+				_log.error("Cannot parse " + skillType + " skill \"" + skillStr + "\" for " + itemType + " item " + getItemId());
 				continue;
 			}
 
 			skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
 			if (skill == null)
 			{
-				_log.error("Cannot find "+skillType+" skill ("+skillId+","+skillLevel+") for "+itemType+" item "+getItemId());
+				_log.error("Cannot find " + skillType + " skill (" + skillId + "," + skillLevel + ") for " + itemType + " item " + getItemId());
 			}
 			else
 			{
@@ -163,20 +163,20 @@ public abstract class L2Equip extends L2Item
 				skillLevel = Integer.parseInt(skillDef[1]);
 				chance = Integer.parseInt(skillDef[2]);
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
-				_log.error("Cannot parse "+skillType+" skill \""+skillStr+"\" for "+itemType+" item "+getItemId());
+				_log.error("Cannot parse " + skillType + " skill \"" + skillStr + "\" for " + itemType + " item " + getItemId());
 				continue;
 			}
 
 			skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
 			if (skill == null)
 			{
-				_log.error("Cannot find "+skillType+" skill ("+skillId+","+skillLevel+") for "+itemType+" item "+getItemId());
+				_log.error("Cannot find " + skillType + " skill (" + skillId + "," + skillLevel + ") for " + itemType + " item " + getItemId());
 			}
 			else
 			{
-				skill.attach(new ConditionGameChance(chance),true);
+				skill.attach(new ConditionGameChance(chance), true);
 				if (itemSkills == null)
 					itemSkills = new FastList<L2Skill>();
 				itemSkills.add(skill);
@@ -259,12 +259,13 @@ public abstract class L2Equip extends L2Item
 		// If _functTemplates is empty, create it and add the FuncTemplate f in it
 		if (_funcTemplates == null)
 		{
-			_funcTemplates = new FuncTemplate[]{f};
+			_funcTemplates = new FuncTemplate[]
+			{ f };
 		}
 		else
 		{
 			int len = _funcTemplates.length;
-			FuncTemplate[] tmp = new FuncTemplate[len+1];
+			FuncTemplate[] tmp = new FuncTemplate[len + 1];
 			// Definition : arraycopy(array source, begins copy at this position of source, array destination, begins copy at this position in dest,
 			// number of components to be copied)
 			System.arraycopy(_funcTemplates, 0, tmp, 0, len);
@@ -281,12 +282,13 @@ public abstract class L2Equip extends L2Item
 	{
 		if (_effectTemplates == null)
 		{
-			_effectTemplates = new EffectTemplate[]{effect};
+			_effectTemplates = new EffectTemplate[]
+			{ effect };
 		}
 		else
 		{
 			int len = _effectTemplates.length;
-			EffectTemplate[] tmp = new EffectTemplate[len+1];
+			EffectTemplate[] tmp = new EffectTemplate[len + 1];
 			// Definition : arraycopy(array source, begins copy at this position of source, array destination, begins copy at this position in dest,
 			//                                      number of components to be copied)
 			System.arraycopy(_effectTemplates, 0, tmp, 0, len);
@@ -302,9 +304,8 @@ public abstract class L2Equip extends L2Item
 	 */
 	public boolean allowEquip(L2PcInstance player)
 	{
-		return allowEquipForRace(player.getRace().ordinal())
-			&& allowEquipForClass(player.getClassId().getId())
-			&& allowEquipForSex(player.getAppearance().getSex());
+		return allowEquipForRace(player.getRace().ordinal()) && allowEquipForClass(player.getClassId().getId())
+				&& allowEquipForSex(player.getAppearance().getSex());
 	}
 
 	public boolean allowEquipForRace(int raceId)
@@ -316,7 +317,7 @@ public abstract class L2Equip extends L2Item
 				return true;
 		return false;
 	}
-	
+
 	public boolean allowEquipForClass(int classId)
 	{
 		if (_allowedClasses == null)
