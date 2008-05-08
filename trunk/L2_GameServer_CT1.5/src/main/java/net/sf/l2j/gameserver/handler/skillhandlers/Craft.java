@@ -35,23 +35,26 @@ public class Craft implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
 	 */
-	private static final SkillType[] SKILL_IDS = {SkillType.COMMON_CRAFT, SkillType.DWARVEN_CRAFT};
-	
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.COMMON_CRAFT, SkillType.DWARVEN_CRAFT };
+
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
 	 */
-	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
+	L2Object[] targets)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance)) return;
-		
-		L2PcInstance player = (L2PcInstance)activeChar;
-		 
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+			return;
+
+		L2PcInstance player = (L2PcInstance) activeChar;
+
 		if (player.getPrivateStoreType() != 0)
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_CREATED_WHILE_ENGAGED_IN_TRADING));
 			return;
 		}
-		CraftManager.requestBookOpen(player,(skill.getSkillType() == SkillType.DWARVEN_CRAFT) ? true : false);
+		CraftManager.requestBookOpen(player, (skill.getSkillType() == SkillType.DWARVEN_CRAFT) ? true : false);
 	}
 
 	public SkillType[] getSkillIds()

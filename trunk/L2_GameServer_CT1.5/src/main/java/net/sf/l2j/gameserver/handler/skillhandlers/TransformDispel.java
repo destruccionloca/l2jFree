@@ -26,33 +26,33 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class TransformDispel implements ISkillHandler
 {
-    private static final SkillType[] SKILL_IDS = { SkillType.TRANSFORMDISPEL };
-    
-    public void useSkill(L2Character activeChar, L2Skill skill,
-            L2Object[] targets)
-    {
-        if (activeChar.isAlikeDead())
-            return;
-        
-        for (L2Object target : targets)
-        {
-            if (!(target instanceof L2PcInstance))
-                continue;
-            
-            L2PcInstance trg = (L2PcInstance) target;
-            
-            if (trg.isAlikeDead() || trg.isCursedWeaponEquipped())
-                continue;
-            
-            if (trg.isTransformed())
-            {
-                activeChar.stopTransformation(null);
-            }
-        }
-    }
-    
-    public SkillType[] getSkillIds()
-    {
-        return SKILL_IDS;
-    }
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.TRANSFORMDISPEL };
+
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	{
+		if (activeChar.isAlikeDead())
+			return;
+
+		for (L2Object target : targets)
+		{
+			if (!(target instanceof L2PcInstance))
+				continue;
+
+			L2PcInstance trg = (L2PcInstance) target;
+
+			if (trg.isAlikeDead() || trg.isCursedWeaponEquipped())
+				continue;
+
+			if (trg.isTransformed())
+			{
+				activeChar.stopTransformation(null);
+			}
+		}
+	}
+
+	public SkillType[] getSkillIds()
+	{
+		return SKILL_IDS;
+	}
 }

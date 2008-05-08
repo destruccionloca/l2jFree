@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.handler.skillhandlers; 
+package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
@@ -31,40 +31,42 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 public class Soul implements ISkillHandler
 {
-    private static final SkillType[] SKILL_IDS = { SkillType.CHARGESOUL };
-    
-    public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
-    {
-        if (activeChar == null || activeChar.isAlikeDead() || !(activeChar instanceof L2PcInstance))
-            return;
-        
-        L2PcInstance player = (L2PcInstance)activeChar;
-        
-        L2Skill soulmastery = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, player.getSkillLevel(L2Skill.SKILL_SOUL_MASTERY));
-        
-        if (soulmastery != null)
-        {
-            if (player.getSouls() < soulmastery.getNumSouls())
-            {
-                int count = 0;
-                
-                if (player.getSouls() + skill.getNumSouls() <= soulmastery.getNumSouls())
-                    count = skill.getNumSouls();
-                else
-                    count = soulmastery.getNumSouls() - player.getSouls();
-                
-                player.increaseSouls(count);
-            }
-            else
-            {
-                SystemMessage sm = new SystemMessage(SystemMessageId.SOUL_CANNOT_BE_INCREASED_ANYMORE);
-                player.sendPacket(sm);
-            }
-        }
-    }
-    
-    public SkillType[] getSkillIds() 
-    { 
-        return SKILL_IDS; 
-    }
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.CHARGESOUL };
+
+	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
+	L2Object[] targets)
+	{
+		if (activeChar == null || activeChar.isAlikeDead() || !(activeChar instanceof L2PcInstance))
+			return;
+
+		L2PcInstance player = (L2PcInstance) activeChar;
+
+		L2Skill soulmastery = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, player.getSkillLevel(L2Skill.SKILL_SOUL_MASTERY));
+
+		if (soulmastery != null)
+		{
+			if (player.getSouls() < soulmastery.getNumSouls())
+			{
+				int count = 0;
+
+				if (player.getSouls() + skill.getNumSouls() <= soulmastery.getNumSouls())
+					count = skill.getNumSouls();
+				else
+					count = soulmastery.getNumSouls() - player.getSouls();
+
+				player.increaseSouls(count);
+			}
+			else
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.SOUL_CANNOT_BE_INCREASED_ANYMORE);
+				player.sendPacket(sm);
+			}
+		}
+	}
+
+	public SkillType[] getSkillIds()
+	{
+		return SKILL_IDS;
+	}
 }

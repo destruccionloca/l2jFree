@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.handler.skillhandlers; 
+package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -23,13 +23,15 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /** 
  * @author _drunk_ 
- */ 
-public class BeastFeed implements ISkillHandler 
-{ 
-	private static final SkillType[] SKILL_IDS = {SkillType.BEAST_FEED};
+ */
+public class BeastFeed implements ISkillHandler
+{
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.BEAST_FEED };
 
-	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
-	{ 
+	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
+	L2Object[] targets)
+	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
@@ -44,8 +46,8 @@ public class BeastFeed implements ISkillHandler
 		// since the AI responce onSkillUse handles the rest.
 	}
 
-	public SkillType[] getSkillIds() 
+	public SkillType[] getSkillIds()
 	{
-		return SKILL_IDS; 
+		return SKILL_IDS;
 	}
 }

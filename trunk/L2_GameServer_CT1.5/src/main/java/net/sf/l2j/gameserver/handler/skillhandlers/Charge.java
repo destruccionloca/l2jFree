@@ -21,6 +21,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
 /**
  * This class ...
  * 
@@ -30,12 +31,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class Charge implements ISkillHandler
 {
 	//private static Log _log = LogFactory.getLog(Charge.class.getName());
-	
+
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
 	 */
-	private static final SkillType[] SKILL_IDS = {/*SkillType.CHARGE*/};
-	
+	private static final SkillType[]	SKILL_IDS	= {/*SkillType.CHARGE*/};
+
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
 		for (L2Object element : targets)
@@ -43,7 +44,7 @@ public class Charge implements ISkillHandler
 			if (!(element instanceof L2PcInstance))
 				continue;
 
-			L2PcInstance target = (L2PcInstance)element;
+			L2PcInstance target = (L2PcInstance) element;
 			skill.getEffects(activeChar, target);
 		}
 

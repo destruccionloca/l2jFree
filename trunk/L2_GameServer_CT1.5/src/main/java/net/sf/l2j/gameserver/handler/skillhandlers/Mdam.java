@@ -41,181 +41,183 @@ import org.apache.commons.logging.LogFactory;
 
 public class Mdam implements ISkillHandler
 {
-    private final static Log _log = LogFactory.getLog(Mdam.class);
+	private final static Log			_log		= LogFactory.getLog(Mdam.class);
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
-     */
-    private static final SkillType[] SKILL_IDS = {SkillType.MDAM, SkillType.DEATHLINK};
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
+	 */
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.MDAM, SkillType.DEATHLINK };
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
-     */
-    public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-    {
-        if (activeChar.isAlikeDead()) return;
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
+	 */
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	{
+		if (activeChar.isAlikeDead())
+			return;
 
-        boolean ss = false;
-        boolean bss = false;
+		boolean ss = false;
+		boolean bss = false;
 
-        L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
+		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 
-        /*if (activeChar instanceof L2PcInstance)
-        {
-            if (weaponInst == null)
-            {
-                SystemMessage sm2 = new SystemMessage(SystemMessageId.S1_S2);
-                sm2.addString("You must equip a weapon before casting a spell.");
-                activeChar.sendPacket(sm2);
-                return;
-            }
-        }*/
-        if (weaponInst != null)
-        {
-            if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-            {
-                bss = true;
-                weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-            }
-            else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-            {
-                ss = true;
-                weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-            }
-        }
+		/*if (activeChar instanceof L2PcInstance)
+		{
+		    if (weaponInst == null)
+		    {
+		        SystemMessage sm2 = new SystemMessage(SystemMessageId.S1_S2);
+		        sm2.addString("You must equip a weapon before casting a spell.");
+		        activeChar.sendPacket(sm2);
+		        return;
+		    }
+		}*/
+		if (weaponInst != null)
+		{
+			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
+			{
+				bss = true;
+				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+			}
+			else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
+			{
+				ss = true;
+				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+			}
+		}
 
-        // If there is no weapon equipped, check for an active summon.
-        else if (activeChar instanceof L2Summon)
-        {
-            L2Summon activeSummon = (L2Summon) activeChar;
+		// If there is no weapon equipped, check for an active summon.
+		else if (activeChar instanceof L2Summon)
+		{
+			L2Summon activeSummon = (L2Summon) activeChar;
 
-            if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-            {
-                bss = true;
-                activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-            }
-            else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-            {
-                ss = true;
-                activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-            }
-        }
-        else if (activeChar instanceof L2NpcInstance)
-        {
-            bss = ((L2NpcInstance)activeChar).isUsingShot(false);
-            ss = ((L2NpcInstance)activeChar).isUsingShot(true);
-        }
+			if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
+			{
+				bss = true;
+				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+			}
+			else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
+			{
+				ss = true;
+				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+			}
+		}
+		else if (activeChar instanceof L2NpcInstance)
+		{
+			bss = ((L2NpcInstance) activeChar).isUsingShot(false);
+			ss = ((L2NpcInstance) activeChar).isUsingShot(true);
+		}
 
-        for (L2Object element : targets)
-        {
-            L2Character target = (L2Character) element;
-            
-            if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance
-                && target.isFakeDeath())
-            {
-                target.stopFakeDeath(null);
-            }
-            else if (target.isDead())
-            {
-                continue;
-            }
+		for (L2Object element : targets)
+		{
+			L2Character target = (L2Character) element;
 
-            boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, skill));
-            int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, skill, ss, bss, mcrit);
-            
-            if (skill.isCritical() && !mcrit)
-                damage = 0;
-            else if(mcrit)
-                activeChar.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
-            
-            if (damage < 1) damage = 1;
+			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
+			{
+				target.stopFakeDeath(null);
+			}
+			else if (target.isDead())
+			{
+				continue;
+			}
 
-            if (damage > 5000 && activeChar instanceof L2PcInstance)
-            {
-                String name = "";
-                if (target instanceof L2RaidBossInstance) name = "RaidBoss ";
-                if (target instanceof L2NpcInstance)
-                    name += target.getName() + "(" + ((L2NpcInstance) target).getTemplate().getNpcId() + ")";
-                if (target instanceof L2PcInstance)
-                    name = target.getName() + "(" + target.getObjectId() + ") ";
-                name += target.getLevel() + " lvl";
-                if(_log.isDebugEnabled())
-                    _log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") "
-                             + activeChar.getLevel() + " lvl did damage " + damage + " with skill "
-                             + skill.getName() + "(" + skill.getId() + ") to " + name);
-            }
+			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, skill));
+			int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, skill, ss, bss, mcrit);
 
-            if (damage > 0)
-            {
-                // Manage attack or cast break of the target (calculating rate, sending message...)
-                if (Formulas.getInstance().calcAtkBreak(target, damage))
-                {
-                    target.breakAttack();
-                    target.breakCast();
-                }
+			if (skill.isCritical() && !mcrit)
+				damage = 0;
+			else if (mcrit)
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
 
-                activeChar.sendDamageMessage(target, damage, mcrit, false, false);
+			if (damage < 1)
+				damage = 1;
 
-                if (activeChar instanceof L2SummonInstance)
-                    ((L2SummonInstance) activeChar).getOwner().sendPacket(new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1).addNumber(damage));
-                //if (activeChar instanceof L2PetInstance)
-                //    ((L2PetInstance)activeChar).getOwner().sendPacket(new SystemMessage(SystemMessageId.PET_GAVE_DAMAGE_OF_S1).addNumber(damage));
+			if (damage > 5000 && activeChar instanceof L2PcInstance)
+			{
+				String name = "";
+				if (target instanceof L2RaidBossInstance)
+					name = "RaidBoss ";
+				if (target instanceof L2NpcInstance)
+					name += target.getName() + "(" + ((L2NpcInstance) target).getTemplate().getNpcId() + ")";
+				if (target instanceof L2PcInstance)
+					name = target.getName() + "(" + target.getObjectId() + ") ";
+				name += target.getLevel() + " lvl";
+				if (_log.isDebugEnabled())
+					_log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") " + activeChar.getLevel() + " lvl did damage " + damage
+							+ " with skill " + skill.getName() + "(" + skill.getId() + ") to " + name);
+			}
 
-                // activate attacked effects, if any
-                if (skill.getId() == 4139 && activeChar instanceof L2Summon) //big boom unsummon-destroy
-                {
-                    L2PcInstance Owner = null;
-                    Owner = ((L2Summon)activeChar).getOwner();
-                    L2Summon Pet = null;
-                    Pet = Owner.getPet();
-                    if (Pet != null)
-                    Pet.unSummon(Owner);
-                }
-                if (skill.hasEffects())
-                {
-                    if (target.reflectSkill(skill))
-                    {
-                        activeChar.stopSkillEffects(skill.getId());
-                        skill.getEffects(null, activeChar);
-                        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
-                        sm.addSkillName(skill.getId());
-                        activeChar.sendPacket(sm);
-                    }
-                    else
-                    {
-                        // activate attacked effects, if any
-                        target.stopSkillEffects(skill.getId());
-                        if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, ss, bss)) 
-                            skill.getEffects(activeChar, target);
-                        else
-                        {
-                            SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-                            sm.addString(target.getName());
-                            sm.addSkillName(skill.getDisplayId());
-                            activeChar.sendPacket(sm);
-                        }
-                    }
-                }
-                target.reduceCurrentHp(damage, activeChar);
-            }
-            // Possibility of a lethal strike
-            Formulas.getInstance().calcLethalHit(activeChar, target, skill);
-        }
-        // self Effect :]
-        L2Effect effect = activeChar.getFirstEffect(skill.getId());
-        if (effect != null && effect.isSelfEffect())
-        {
-           //Replace old effect with new one.
-           effect.exit();
-        }
-        skill.getEffectsSelf(activeChar);
-        
-        if (skill.isSuicideAttack())
-           activeChar.doDie(null);
-    }
+			if (damage > 0)
+			{
+				// Manage attack or cast break of the target (calculating rate, sending message...)
+				if (Formulas.getInstance().calcAtkBreak(target, damage))
+				{
+					target.breakAttack();
+					target.breakCast();
+				}
 
-    public SkillType[] getSkillIds()
-    {
-        return SKILL_IDS;
-    }
+				activeChar.sendDamageMessage(target, damage, mcrit, false, false);
+
+				if (activeChar instanceof L2SummonInstance)
+					((L2SummonInstance) activeChar).getOwner().sendPacket(new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1).addNumber(damage));
+				//if (activeChar instanceof L2PetInstance)
+				//    ((L2PetInstance)activeChar).getOwner().sendPacket(new SystemMessage(SystemMessageId.PET_GAVE_DAMAGE_OF_S1).addNumber(damage));
+
+				// activate attacked effects, if any
+				if (skill.getId() == 4139 && activeChar instanceof L2Summon) //big boom unsummon-destroy
+				{
+					L2PcInstance Owner = null;
+					Owner = ((L2Summon) activeChar).getOwner();
+					L2Summon Pet = null;
+					Pet = Owner.getPet();
+					if (Pet != null)
+						Pet.unSummon(Owner);
+				}
+				if (skill.hasEffects())
+				{
+					if (target.reflectSkill(skill))
+					{
+						activeChar.stopSkillEffects(skill.getId());
+						skill.getEffects(null, activeChar);
+						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
+						sm.addSkillName(skill.getId());
+						activeChar.sendPacket(sm);
+					}
+					else
+					{
+						// activate attacked effects, if any
+						target.stopSkillEffects(skill.getId());
+						if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, ss, bss))
+							skill.getEffects(activeChar, target);
+						else
+						{
+							SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+							sm.addString(target.getName());
+							sm.addSkillName(skill.getDisplayId());
+							activeChar.sendPacket(sm);
+						}
+					}
+				}
+				target.reduceCurrentHp(damage, activeChar);
+			}
+			// Possibility of a lethal strike
+			Formulas.getInstance().calcLethalHit(activeChar, target, skill);
+		}
+		// self Effect :]
+		L2Effect effect = activeChar.getFirstEffect(skill.getId());
+		if (effect != null && effect.isSelfEffect())
+		{
+			//Replace old effect with new one.
+			effect.exit();
+		}
+		skill.getEffectsSelf(activeChar);
+
+		if (skill.isSuicideAttack())
+			activeChar.doDie(null);
+	}
+
+	public SkillType[] getSkillIds()
+	{
+		return SKILL_IDS;
+	}
 }

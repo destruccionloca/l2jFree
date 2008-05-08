@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
+
 /**
  * This class ...
  * 
@@ -38,12 +39,13 @@ import net.sf.l2j.gameserver.skills.Stats;
 public class Heal implements ISkillHandler
 {
 	// all the items ids that this handler knowns
-	
+
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
 	 */
-	private static final SkillType[] SKILL_IDS = {SkillType.HEAL, SkillType.HEAL_PERCENT, SkillType.HEAL_STATIC};
-	
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.HEAL, SkillType.HEAL_PERCENT, SkillType.HEAL_STATIC };
+
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
 	 */
@@ -56,29 +58,31 @@ public class Heal implements ISkillHandler
 			if (handler != null)
 				handler.useSkill(activeChar, skill, targets);
 		}
-		catch (Exception e) {}
+		catch (Exception e)
+		{
+		}
 
 		L2Character target = null;
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
-			player = (L2PcInstance)activeChar;
+			player = (L2PcInstance) activeChar;
 
 		for (L2Object element : targets)
 		{
-			target = (L2Character)element;
+			target = (L2Character) element;
 			//We should not heal if char is dead
 			if (target == null || target.isDead())
 				continue;
 
 			// We should not heal walls and door
-			if(target instanceof L2DoorInstance)
+			if (target instanceof L2DoorInstance)
 				continue;
 
 			// Player holding a cursed weapon can't be healed and can't heal
 			if (target != activeChar)
 			{
-				if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquipped())
+				if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquipped())
 					continue;
 				else if (player != null && player.isCursedWeaponEquipped())
 					continue;
@@ -106,11 +110,11 @@ public class Heal implements ISkillHandler
 						weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
 					}
 				}
-				
+
 				else if (activeChar instanceof L2Summon)
 				{
-					L2Summon activeSummon = (L2Summon)activeChar;
-					
+					L2Summon activeSummon = (L2Summon) activeChar;
+
 					if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
 					{
 						hp *= 1.5;
@@ -124,7 +128,7 @@ public class Heal implements ISkillHandler
 				}
 				else if (activeChar instanceof L2NpcInstance)
 				{
-					if(((L2NpcInstance)activeChar).isUsingShot(false))
+					if (((L2NpcInstance) activeChar).isUsingShot(false))
 						hp *= 1.5;
 				}
 			}
@@ -136,9 +140,9 @@ public class Heal implements ISkillHandler
 
 			//target.getStatus().setCurrentHp(hp + target.getStatus().getCurrentHp());
 			target.getStatus().increaseHp(hp);
-			target.setLastHealAmount((int)hp);
+			target.setLastHealAmount((int) hp);
 			StatusUpdate su = new StatusUpdate(target.getObjectId());
-			su.addAttribute(StatusUpdate.CUR_HP, (int)target.getStatus().getCurrentHp());
+			su.addAttribute(StatusUpdate.CUR_HP, (int) target.getStatus().getCurrentHp());
 			target.sendPacket(su);
 			if (target instanceof L2PcInstance)
 			{
@@ -153,19 +157,19 @@ public class Heal implements ISkillHandler
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.S2_HP_RESTORED_BY_S1);
 						sm.addString(activeChar.getName());
-						sm.addNumber((int)hp);
+						sm.addNumber((int) hp);
 						target.sendPacket(sm);
 					}
 					else
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.S1_HP_RESTORED);
-						sm.addNumber((int)hp);
+						sm.addNumber((int) hp);
 						target.sendPacket(sm);
 					}
 				}
 			}
 		}
-		
+
 	}
 
 	public SkillType[] getSkillIds()

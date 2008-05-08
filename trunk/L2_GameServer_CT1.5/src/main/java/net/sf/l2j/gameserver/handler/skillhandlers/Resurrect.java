@@ -35,49 +35,54 @@ import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 public class Resurrect implements ISkillHandler
 {
 	//private final static Log _log = LogFactory.getLog(Resurrect.class.getName());
-	
-	private static final SkillType[] SKILL_IDS = {SkillType.RESURRECT};
-	
+
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.RESURRECT };
+
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
 		L2PcInstance player = null;
-		if (activeChar instanceof L2PcInstance) player = (L2PcInstance)activeChar;
+		if (activeChar instanceof L2PcInstance)
+			player = (L2PcInstance) activeChar;
 
 		L2Character target = null;
 		L2PcInstance targetPlayer;
 		FastList<L2Character> targetToRes = new FastList<L2Character>();
-		
+
 		for (L2Object element : targets)
 		{
 			target = (L2Character) element;
 
 			if (target instanceof L2PcInstance)
 			{
-				targetPlayer = (L2PcInstance)target;
+				targetPlayer = (L2PcInstance) target;
 
 				// Check for same party or for same clan, if target is for clan.
 				if (skill.getTargetType() == SkillTargetType.TARGET_CORPSE_CLAN)
 				{
-					if (player.getClanId() != targetPlayer.getClanId()) continue;
+					if (player.getClanId() != targetPlayer.getClanId())
+						continue;
 				}
 			}
-			if(target.isVisible()) targetToRes.add(target);
+			if (target.isVisible())
+				targetToRes.add(target);
 		}
 
-		for (L2Character cha: targetToRes)
+		for (L2Character cha : targetToRes)
 		{
 			if (activeChar instanceof L2PcInstance)
 			{
 				if (cha instanceof L2PcInstance)
-					((L2PcInstance)cha).reviveRequest((L2PcInstance)activeChar,skill,false);
+					((L2PcInstance) cha).reviveRequest((L2PcInstance) activeChar, skill, false);
 				else if (cha instanceof L2PetInstance)
 				{
-					if (((L2PetInstance)cha).getOwner() == activeChar)
+					if (((L2PetInstance) cha).getOwner() == activeChar)
 						cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
 					else
-						((L2PetInstance)cha).getOwner().reviveRequest((L2PcInstance)activeChar,skill,true);
+						((L2PetInstance) cha).getOwner().reviveRequest((L2PcInstance) activeChar, skill, true);
 				}
-				else cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
+				else
+					cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
 			}
 			else
 			{

@@ -29,7 +29,8 @@ import net.sf.l2j.tools.random.Rnd;
 
 public class GetPlayer implements ISkillHandler
 {
-	private static final SkillType[]	SKILL_IDS	= { SkillType.GET_PLAYER };
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.GET_PLAYER };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{

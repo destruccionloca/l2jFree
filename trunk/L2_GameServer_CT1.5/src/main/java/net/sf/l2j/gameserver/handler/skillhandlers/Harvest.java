@@ -38,12 +38,12 @@ import org.apache.commons.logging.LogFactory;
  */
 public class Harvest implements ISkillHandler
 {
-	private static Log _log = LogFactory.getLog(Harvest.class.getName());
-	private static final SkillType[] SKILL_IDS =
-	{ SkillType.HARVEST };
+	private static Log					_log		= LogFactory.getLog(Harvest.class.getName());
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.HARVEST };
 
-	private L2PcInstance _activeChar;
-	private L2MonsterInstance _target;
+	private L2PcInstance				_activeChar;
+	private L2MonsterInstance			_target;
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object[] targets)
@@ -93,7 +93,7 @@ public class Harvest implements ISkillHandler
 						for (L2Attackable.RewardItem ritem : items)
 						{
 							cropId = ritem.getItemId(); // always got 1 type of
-														// crop as reward
+							// crop as reward
 							if (_activeChar.isInParty())
 								_activeChar.getParty().distributeItem(_activeChar, ritem, true, _target);
 							else

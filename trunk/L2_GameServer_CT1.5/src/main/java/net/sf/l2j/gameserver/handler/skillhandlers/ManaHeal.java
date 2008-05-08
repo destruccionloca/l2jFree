@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
+
 /**
  * This class ...
  * 
@@ -35,19 +36,21 @@ public class ManaHeal implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
 	 */
-	private static final SkillType[] SKILL_IDS = {SkillType.MANAHEAL, SkillType.MANARECHARGE, SkillType.MANAHEAL_PERCENT};
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.MANAHEAL, SkillType.MANARECHARGE, SkillType.MANAHEAL_PERCENT };
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
 	 */
-	public void useSkill(@SuppressWarnings("unused") L2Character actChar, L2Skill skill, L2Object[] targets)
+	public void useSkill(@SuppressWarnings("unused")
+	L2Character actChar, L2Skill skill, L2Object[] targets)
 	{
 		L2Character target = null;
-		
+
 		for (L2Object element : targets)
 		{
-			target = (L2Character)element;
-			
+			target = (L2Character) element;
+
 			double mp = skill.getPower();
 			if (skill.getSkillType() == SkillType.MANAHEAL_PERCENT)
 			{
@@ -56,41 +59,41 @@ public class ManaHeal implements ISkillHandler
 			}
 			else
 			{
-				mp = (skill.getSkillType() == SkillType.MANARECHARGE) ? target.calcStat(Stats.RECHARGE_MP_RATE,mp, null, null) : mp;
-			} 
+				mp = (skill.getSkillType() == SkillType.MANARECHARGE) ? target.calcStat(Stats.RECHARGE_MP_RATE, mp, null, null) : mp;
+			}
 			//int cLev = activeChar.getLevel();
 			//hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;
-			target.setLastHealAmount((int)mp);
+			target.setLastHealAmount((int) mp);
 			if (actChar.getLevel() != target.getLevel())
 			{
 				if (actChar.getLevel() + 3 >= target.getLevel())
-					mp = mp*1;
+					mp = mp * 1;
 				else if (actChar.getLevel() + 5 <= target.getLevel())
-					mp = mp*0.6;
+					mp = mp * 0.6;
 				else if (actChar.getLevel() + 7 <= target.getLevel())
-					mp = mp*0.4;
+					mp = mp * 0.4;
 				else if (actChar.getLevel() + 9 <= target.getLevel())
-					mp = mp*0.3;
+					mp = mp * 0.3;
 				else if (actChar.getLevel() + 10 <= target.getLevel())
-					mp = mp*0.1;
+					mp = mp * 0.1;
 			}
-			target.getStatus().setCurrentMp(mp+target.getStatus().getCurrentMp()); 
-			StatusUpdate sump = new StatusUpdate(target.getObjectId()); 
-			sump.addAttribute(StatusUpdate.CUR_MP, (int)target.getStatus().getCurrentMp()); 
-			target.sendPacket(sump); 
-			
+			target.getStatus().setCurrentMp(mp + target.getStatus().getCurrentMp());
+			StatusUpdate sump = new StatusUpdate(target.getObjectId());
+			sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
+			target.sendPacket(sump);
+
 			if (actChar instanceof L2PcInstance && actChar != target)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S2_MP_RESTORED_BY_S1);
 				sm.addString(actChar.getName());
-				sm.addNumber((int)mp);
+				sm.addNumber((int) mp);
 				target.sendPacket(sm);
 			}
 			else
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_MP_RESTORED);
-				sm.addNumber((int)mp); 
-				target.sendPacket(sm); 
+				sm.addNumber((int) mp);
+				target.sendPacket(sm);
 			}
 		}
 	}

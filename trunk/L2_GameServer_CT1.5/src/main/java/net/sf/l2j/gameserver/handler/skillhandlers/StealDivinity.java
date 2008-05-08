@@ -30,12 +30,13 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  */
 public class StealDivinity implements ISkillHandler
 {
-	private static final SkillType[] SKILL_IDS = { SkillType.STEAL_DIV };
-    
-    	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-    	{
-      		if (activeChar.isAlikeDead())
-            		return;
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.STEAL_DIV };
+
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	{
+		if (activeChar.isAlikeDead())
+			return;
 
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		if (weaponInst != null)
@@ -44,20 +45,23 @@ public class StealDivinity implements ISkillHandler
 
 			for (L2Object element : targets)
 			{
-				_Effected = (L2Character) element;	
+				_Effected = (L2Character) element;
 				int iStealedCount = 0;
 				int iMaxStealCount = 0;
 				int iTargetRemainingTime = 0;
 
 				iMaxStealCount = activeChar.getSkillLevel(L2Skill.SKILL_STEAL_DIVINITY);
 				iMaxStealCount *= iMaxStealCount;
-				
+
 				L2Effect[] effects = _Effected.getAllEffects();
 				for (L2Effect e : effects)
 				{
 					if (e.getSkill().getSkillType() == SkillType.BUFF)
 					{
-						if (e.getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_ONE || e.getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY || e.getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY_MEMBER || e.getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_ALLY)
+						if (e.getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_ONE
+								|| e.getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY
+								|| e.getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY_MEMBER
+								|| e.getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_ALLY)
 						{
 							if (iStealedCount < iMaxStealCount)
 							{
@@ -86,12 +90,11 @@ public class StealDivinity implements ISkillHandler
 				}
 
 			}
-	      }
+		}
 	}
-    
+
 	public SkillType[] getSkillIds()
 	{
-      	return SKILL_IDS;
-    	}
+		return SKILL_IDS;
+	}
 }
-

@@ -45,19 +45,21 @@ import org.apache.commons.logging.LogFactory;
 public class Pdam implements ISkillHandler
 {
 	// all the items ids that this handler knowns
-	private final static Log _log = LogFactory.getLog(Pdam.class.getName());
+	private final static Log			_log		= LogFactory.getLog(Pdam.class.getName());
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
 	 */
-	private static final SkillType[] SKILL_IDS = {SkillType.PDAM, SkillType.FATALCOUNTER};
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.PDAM, SkillType.FATALCOUNTER };
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
 	 */
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (activeChar.isAlikeDead()) return;
+		if (activeChar.isAlikeDead())
+			return;
 
 		int damage = 0;
 
@@ -67,43 +69,45 @@ public class Pdam implements ISkillHandler
 		for (L2Object element : targets)
 		{
 			L2Character target = (L2Character) element;
-			
+
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance)
 			{
-				if(((L2PcInstance)activeChar).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL )
+				if (((L2PcInstance) activeChar).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
 				{
-					((L2PcInstance)activeChar).sendMessage("You are unable to attack players until level "+String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)+".");
+					((L2PcInstance) activeChar).sendMessage("You are unable to attack players until level "
+							+ String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL) + ".");
 					continue;
 				}
-				else if(((L2PcInstance)target).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL )
+				else if (((L2PcInstance) target).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
 				{
-					((L2PcInstance)target).sendMessage("Player's level is below "+String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)+", so he cannot be attacked.");
+					((L2PcInstance) target).sendMessage("Player's level is below " + String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)
+							+ ", so he cannot be attacked.");
 					continue;
 				}
 			}
 
 			Formulas f = Formulas.getInstance();
 			L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance
-				&& target.isFakeDeath())
+			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
 			{
 				target.stopFakeDeath(null);
 			}
-			else if (target.isDead()) continue;
+			else if (target.isDead())
+				continue;
 			else if (f.canEvadeMeleeSkill(target, skill))
 			{
 				if (activeChar instanceof L2PcInstance)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
 					sm.addString(target.getName());
-					((L2PcInstance)activeChar).sendPacket(sm);
+					((L2PcInstance) activeChar).sendPacket(sm);
 					sm = null;
 				}
 				if (target instanceof L2PcInstance)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
 					sm.addString(activeChar.getName());
-					((L2PcInstance)target).sendPacket(sm);
+					((L2PcInstance) target).sendPacket(sm);
 					sm = null;
 				}
 				continue;
@@ -113,36 +117,39 @@ public class Pdam implements ISkillHandler
 			boolean shld = f.calcShldUse(activeChar, target);
 			// PDAM critical chance not affected by buffs, only by STR. Only some skills are meant to crit.
 			boolean crit = false;
-			if (skill.getBaseCritRate() > 0) 
-				crit = f.calcCrit(skill.getBaseCritRate() * 10 * f.getSTRBonus(activeChar)); 
-			
+			if (skill.getBaseCritRate() > 0)
+				crit = f.calcCrit(skill.getBaseCritRate() * 10 * f.getSTRBonus(activeChar));
+
 			boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
-			
-			if (skill.ignoreShld()) shld = false;
 
-			if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0) damage = 0;
-			else damage = (int) f.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
-			if (crit) damage *= 2; // PDAM Critical damage always 2x and not affected by buffs
+			if (skill.ignoreShld())
+				shld = false;
 
+			if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
+				damage = 0;
+			else
+				damage = (int) f.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
+			if (crit)
+				damage *= 2; // PDAM Critical damage always 2x and not affected by buffs
 
 			if (damage > 5000 && activeChar instanceof L2PcInstance)
 			{
 				String name = "";
-				if (target instanceof L2RaidBossInstance) name = "RaidBoss ";
+				if (target instanceof L2RaidBossInstance)
+					name = "RaidBoss ";
 				if (target instanceof L2NpcInstance)
-					name += target.getName() + "(" + ((L2NpcInstance) target).getTemplate().getNpcId()
-						+ ")";
+					name += target.getName() + "(" + ((L2NpcInstance) target).getTemplate().getNpcId() + ")";
 				if (target instanceof L2PcInstance)
 					name = target.getName() + "(" + target.getObjectId() + ") ";
 				name += target.getLevel() + " lvl";
-				if(_log.isDebugEnabled())
-					_log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") "
-						+ activeChar.getLevel() + " lvl did damage " + damage + " with skill "
-						+ skill.getName() + "(" + skill.getId() + ") to " + name);
+				if (_log.isDebugEnabled())
+					_log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") " + activeChar.getLevel() + " lvl did damage " + damage
+							+ " with skill " + skill.getName() + "(" + skill.getId() + ") to " + name);
 			}
 
-			if (soul && weapon != null) weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
-			
+			if (soul && weapon != null)
+				weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
+
 			if (damage > 0)
 			{
 				activeChar.sendDamageMessage(target, damage, false, crit, false);
@@ -164,7 +171,7 @@ public class Pdam implements ISkillHandler
 						if (f.calcSkillSuccess(activeChar, target, skill, false, false, false))
 						{
 							skill.getEffects(activeChar, target);
-							
+
 							SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 							sm.addSkillName(skill.getId());
 							target.sendPacket(sm);
@@ -178,16 +185,16 @@ public class Pdam implements ISkillHandler
 						}
 					}
 				}
-				
+
 				// Possibility of a lethal strike
 				boolean lethal = Formulas.getInstance().calcLethalHit(activeChar, target, skill);
-				
+
 				// Make damage directly to HP
-				if(!lethal && skill.getDmgDirectlyToHP())
+				if (!lethal && skill.getDmgDirectlyToHP())
 				{
-					if(target instanceof L2PcInstance)
+					if (target instanceof L2PcInstance)
 					{
-						L2PcInstance player = (L2PcInstance)target;
+						L2PcInstance player = (L2PcInstance) target;
 						if (!player.isInvul() && !player.isPetrified())
 						{
 							if (damage >= player.getStatus().getCurrentHp())
@@ -227,14 +234,15 @@ public class Pdam implements ISkillHandler
 					target.reduceCurrentHp(damage, activeChar);
 				}
 			}
-			else // No - damage
+			else
+			// No - damage
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
 			}
 			if (skill.getId() == 345 || skill.getId() == 346) // Sonic Rage or Raging Force
 			{
-				EffectCharge effect = (EffectCharge)activeChar.getFirstEffect(L2Effect.EffectType.CHARGE);
-				if (effect != null) 
+				EffectCharge effect = (EffectCharge) activeChar.getFirstEffect(L2Effect.EffectType.CHARGE);
+				if (effect != null)
 				{
 					int effectcharge = effect.getLevel();
 					if (effectcharge < 8)
@@ -243,7 +251,7 @@ public class Pdam implements ISkillHandler
 						effect.addNumCharges(1);
 						if (activeChar instanceof L2PcInstance)
 						{
-							activeChar.sendPacket(new EtcStatusUpdate((L2PcInstance)activeChar));
+							activeChar.sendPacket(new EtcStatusUpdate((L2PcInstance) activeChar));
 							SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
 							sm.addNumber(effectcharge);
 							activeChar.sendPacket(sm);
@@ -268,7 +276,7 @@ public class Pdam implements ISkillHandler
 						dummy.getEffects(activeChar, activeChar);
 					}
 				}
-			}  
+			}
 			//self Effect :]
 			L2Effect effect = activeChar.getFirstEffect(skill.getId());
 			if (effect != null && effect.isSelfEffect())

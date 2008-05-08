@@ -33,20 +33,21 @@ import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 
 public class BalanceLife implements ISkillHandler
 {
-	private static final SkillType[] SKILL_IDS = { SkillType.BALANCE_LIFE };
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.BALANCE_LIFE };
 
-	public void useSkill(L2Character activeChar, L2Skill skill,	L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
 		// L2Character activeChar = activeChar;
 		// check for other effects
 		try
 		{
-			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(
-					SkillType.BUFF);
+			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(SkillType.BUFF);
 
 			if (handler != null)
 				handler.useSkill(activeChar, skill, targets);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 		}
 
@@ -62,7 +63,7 @@ public class BalanceLife implements ISkillHandler
 		for (L2Object element : targets)
 		{
 			target = (L2Character) element;
-			
+
 			// We should not heal if char is dead
 			if (target == null || target.isDead())
 				continue;
@@ -70,8 +71,7 @@ public class BalanceLife implements ISkillHandler
 			// Player holding a cursed weapon can't be healed and can't heal
 			if (target != activeChar)
 			{
-				if (target instanceof L2PcInstance
-						&& ((L2PcInstance) target).isCursedWeaponEquipped())
+				if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquipped())
 					continue;
 				else if (player != null && player.isCursedWeaponEquipped())
 					continue;

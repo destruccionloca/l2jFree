@@ -37,37 +37,40 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
  */
 public class Blow implements ISkillHandler
 {
-	private static final SkillType[] SKILL_IDS = {SkillType.BLOW};
-	
-	private int _successChance;
-	public final static int FRONT = 50;
-	public final static int SIDE = 60;
-	public final static int BEHIND = 70;
-	
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.BLOW };
+
+	private int							_successChance;
+	public final static int				FRONT		= 50;
+	public final static int				SIDE		= 60;
+	public final static int				BEHIND		= 70;
+
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if(activeChar.isAlikeDead())
+		if (activeChar.isAlikeDead())
 			return;
 
 		for (L2Object element : targets)
 		{
-			L2Character target = (L2Character)element;
-			
+			L2Character target = (L2Character) element;
+
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance)
 			{
-				if(((L2PcInstance)activeChar).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL )
+				if (((L2PcInstance) activeChar).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
 				{
-					((L2PcInstance)activeChar).sendMessage("You are unable to attack players until level "+String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)+".");
+					((L2PcInstance) activeChar).sendMessage("You are unable to attack players until level "
+							+ String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL) + ".");
 					continue;
 				}
-				else if(((L2PcInstance)target).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL )
+				else if (((L2PcInstance) target).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
 				{
-					((L2PcInstance)target).sendMessage("Player's level is below "+String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)+", so he cannot be attacked.");
+					((L2PcInstance) target).sendMessage("Player's level is below " + String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)
+							+ ", so he cannot be attacked.");
 					continue;
 				}
 			}
 
-			if(target.isAlikeDead())
+			if (target.isAlikeDead())
 				continue;
 			else if (Formulas.getInstance().canEvadeMeleeSkill(target, skill))
 			{
@@ -75,28 +78,29 @@ public class Blow implements ISkillHandler
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
 					sm.addString(target.getName());
-					((L2PcInstance)activeChar).sendPacket(sm);
+					((L2PcInstance) activeChar).sendPacket(sm);
 					sm = null;
 				}
 				if (target instanceof L2PcInstance)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
 					sm.addString(activeChar.getName());
-					((L2PcInstance)target).sendPacket(sm);
+					((L2PcInstance) target).sendPacket(sm);
 					sm = null;
 				}
 				continue;
 			}
 
-			if(activeChar.isBehindTarget())
+			if (activeChar.isBehindTarget())
 				_successChance = BEHIND;
-			else if(activeChar.isInFrontOfTarget())
+			else if (activeChar.isInFrontOfTarget())
 				_successChance = FRONT;
 			else
 				_successChance = SIDE;
 			//If skill requires Crit or skill requires behind, 
 			//calculate chance based on DEX, Position and on self BUFF
-			if(((skill.getCondition() & L2Skill.COND_BEHIND) != 0) && _successChance == BEHIND || ((skill.getCondition() & L2Skill.COND_CRIT) != 0) && Formulas.getInstance().calcBlow(activeChar, target, _successChance))
+			if (((skill.getCondition() & L2Skill.COND_BEHIND) != 0) && _successChance == BEHIND || ((skill.getCondition() & L2Skill.COND_CRIT) != 0)
+					&& Formulas.getInstance().calcBlow(activeChar, target, _successChance))
 			{
 				if (skill.hasEffects())
 				{
@@ -115,18 +119,18 @@ public class Blow implements ISkillHandler
 
 				// Crit rate base crit rate for skill, modified with STR bonus
 				boolean crit = false;
-				if(Formulas.getInstance().calcCrit(skill.getBaseCritRate()*10*Formulas.getInstance().getSTRBonus(activeChar)))
+				if (Formulas.getInstance().calcCrit(skill.getBaseCritRate() * 10 * Formulas.getInstance().getSTRBonus(activeChar)))
 					crit = true;
-				double damage = (int)Formulas.getInstance().calcBlowDamage(activeChar, target, skill, shld, soul);
+				double damage = (int) Formulas.getInstance().calcBlowDamage(activeChar, target, skill, shld, soul);
 				if (crit)
 				{
 					damage *= 2;
 					// Vicious Stance is special after C5, and only for BLOW skills
 					// Adds directly to damage
 					L2Effect vicious = activeChar.getFirstEffect(312);
-					if(vicious != null && damage > 1)
+					if (vicious != null && damage > 1)
 					{
-						for(Func func: vicious.getStatFuncs())
+						for (Func func : vicious.getStatFuncs())
 						{
 							Env env = new Env();
 							env.player = activeChar;
@@ -134,21 +138,22 @@ public class Blow implements ISkillHandler
 							env.skill = skill;
 							env.value = damage;
 							func.calc(env);
-							damage = (int)env.value;
+							damage = (int) env.value;
 						}
 					}
 				}
- 
-				if (soul && weapon != null) 
+
+				if (soul && weapon != null)
 					weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
-				if(skill.getDmgDirectlyToHP() && target instanceof L2PcInstance)
+				if (skill.getDmgDirectlyToHP() && target instanceof L2PcInstance)
 				{
-					L2PcInstance player = (L2PcInstance)target;
+					L2PcInstance player = (L2PcInstance) target;
 					if (!player.isInvul() && !player.isPetrified())
 					{
-						if (damage >= player.getStatus().getCurrentHp()) 
+						if (damage >= player.getStatus().getCurrentHp())
 						{
-							if(player.isInDuel()) player.getStatus().setCurrentHp(1);
+							if (player.isInDuel())
+								player.getStatus().setCurrentHp(1);
 							else
 							{
 								player.getStatus().setCurrentHp(0);
@@ -168,24 +173,24 @@ public class Blow implements ISkillHandler
 						{
 							player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);
 							// add olympiad damage
-							if(activeChar instanceof L2PcInstance && ((L2PcInstance)activeChar).isInOlympiadMode())
-								((L2PcInstance)activeChar).addOlyDamage((int)damage);
-							else if(activeChar instanceof L2Summon && ((L2Summon)activeChar).getOwner().isInOlympiadMode()
-										&& Config.ALT_OLY_SUMMON_DAMAGE_COUNTS)
-								((L2Summon)activeChar).getOwner().addOlyDamage((int)damage);
+							if (activeChar instanceof L2PcInstance && ((L2PcInstance) activeChar).isInOlympiadMode())
+								((L2PcInstance) activeChar).addOlyDamage((int) damage);
+							else if (activeChar instanceof L2Summon && ((L2Summon) activeChar).getOwner().isInOlympiadMode()
+									&& Config.ALT_OLY_SUMMON_DAMAGE_COUNTS)
+								((L2Summon) activeChar).getOwner().addOlyDamage((int) damage);
 						}
 					}
 					SystemMessage smsg = new SystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG);
 					smsg.addString(activeChar.getName());
-					smsg.addNumber((int)damage);
+					smsg.addNumber((int) damage);
 					player.sendPacket(smsg);
 				}
 				else
 					target.reduceCurrentHp(damage, activeChar);
-				if(activeChar instanceof L2PcInstance)
+				if (activeChar instanceof L2PcInstance)
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
-				sm.addNumber((int)damage);
+				sm.addNumber((int) damage);
 				activeChar.sendPacket(sm);
 			}
 			//Possibility of a lethal strike

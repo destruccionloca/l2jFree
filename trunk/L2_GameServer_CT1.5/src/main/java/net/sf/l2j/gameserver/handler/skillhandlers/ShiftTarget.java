@@ -31,25 +31,26 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
  */
 public class ShiftTarget implements ISkillHandler
 {
-	private static final SkillType[] SKILL_IDS = { SkillType.SHIFT_TARGET};
-    
-    	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.SHIFT_TARGET };
+
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
 		L2Attackable _attacker = null;
 		L2NpcInstance attacker = null;
 		L2Character _target = null;
-		
+
 		boolean targetShifted = false;
-			
+
 		for (L2Object target : targets)
 		{
 			if (target instanceof L2PcInstance)
 			{
-				_target = (L2Character)target;
+				_target = (L2Character) target;
 				break;
 			}
 		}
-		
+
 		for (L2Object nearby : activeChar.getKnownList().getKnownCharactersInRadius(skill.getSkillRadius()))
 		{
 			if (!targetShifted)
@@ -65,14 +66,15 @@ public class ShiftTarget implements ISkillHandler
 
 		if (targetShifted)
 		{
-			attacker = (L2NpcInstance)_attacker;
+			attacker = (L2NpcInstance) _attacker;
 			int aggro = _attacker.getHating(activeChar);
-			
+
 			if (aggro == 0)
 			{
-				if (_target.isRunning()) attacker.setRunning();
+				if (_target.isRunning())
+					attacker.setRunning();
 				{
-					_attacker.addDamageHate(_target,0,1);
+					_attacker.addDamageHate(_target, 0, 1);
 					attacker.setTarget(_target);
 					_attacker.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, _target);
 				}
@@ -80,9 +82,10 @@ public class ShiftTarget implements ISkillHandler
 			else
 			{
 				_attacker.stopHating(activeChar);
-				if (_target.isRunning()) attacker.setRunning();
+				if (_target.isRunning())
+					attacker.setRunning();
 				{
-					_attacker.addDamageHate(_target,0,aggro);
+					_attacker.addDamageHate(_target, 0, aggro);
 					attacker.setTarget(_target);
 					_attacker.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, _target);
 				}

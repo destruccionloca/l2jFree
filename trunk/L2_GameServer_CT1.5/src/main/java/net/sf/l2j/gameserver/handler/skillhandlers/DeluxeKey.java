@@ -23,16 +23,19 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 /**
  *
  * @author  Julian
  */
 public class DeluxeKey implements ISkillHandler
 {
-	private final static Log _log = LogFactory.getLog(BeastFeed.class.getName());
-	private static final SkillType[] SKILL_IDS = {SkillType.DELUXE_KEY_UNLOCK};
+	private final static Log			_log		= LogFactory.getLog(BeastFeed.class.getName());
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.DELUXE_KEY_UNLOCK };
 
-	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
+	L2Object[] targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
@@ -44,7 +47,7 @@ public class DeluxeKey implements ISkillHandler
 			return;
 		}
 
-		if(_log.isDebugEnabled())
+		if (_log.isDebugEnabled())
 			_log.info("Delux key casting succeded.");
 
 		// This is just a dummy skill handler for the golden food and crystal food skills,

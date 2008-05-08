@@ -31,11 +31,13 @@ import net.sf.l2j.gameserver.skills.Formulas;
 
 public class CpDam implements ISkillHandler
 {
-	private static final SkillType[] SKILL_IDS = {SkillType.CPDAM};
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.CPDAM };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (activeChar.isAlikeDead()) return;
+		if (activeChar.isAlikeDead())
+			return;
 
 		boolean ss = false;
 		boolean sps = false;
@@ -79,16 +81,15 @@ public class CpDam implements ISkillHandler
 		}
 		else if (activeChar instanceof L2NpcInstance)
 		{
-			bss = ((L2NpcInstance)activeChar).isUsingShot(false);
-			ss = ((L2NpcInstance)activeChar).isUsingShot(true);
+			bss = ((L2NpcInstance) activeChar).isUsingShot(false);
+			ss = ((L2NpcInstance) activeChar).isUsingShot(true);
 		}
 
 		for (int index = 0; index < targets.length; index++)
 		{
 			L2Character target = (L2Character) targets[index];
-			
-			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance
-				&& target.isFakeDeath())
+
+			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
 			{
 				target.stopFakeDeath(null);
 			}
@@ -96,18 +97,18 @@ public class CpDam implements ISkillHandler
 			{
 				continue;
 			}
-	  
+
 			if (!Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
 				return;
-			int damage = (int)(target.getStatus().getCurrentCp() * (1-skill.getPower()));
-			
+			int damage = (int) (target.getStatus().getCurrentCp() * (1 - skill.getPower()));
+
 			// Manage attack or cast break of the target (calculating rate, sending message...)
 			if (Formulas.getInstance().calcAtkBreak(target, damage))
 			{
 				target.breakAttack();
 				target.breakCast();
 			}
-			skill.getEffects(activeChar, target); 
+			skill.getEffects(activeChar, target);
 			activeChar.sendDamageMessage(target, damage, false, false, false);
 			target.getStatus().setCurrentCp(target.getStatus().getCurrentCp() - damage);
 		}

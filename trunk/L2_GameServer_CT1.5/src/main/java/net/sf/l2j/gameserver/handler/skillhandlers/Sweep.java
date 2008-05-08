@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.handler.skillhandlers; 
+package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
@@ -30,26 +30,29 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /** 
  * @author _drunk_ 
- */ 
-public class Sweep implements ISkillHandler 
-{ 
-	private static final SkillType[] SKILL_IDS = {SkillType.SWEEP}; 
+ */
+public class Sweep implements ISkillHandler
+{
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.SWEEP };
 
-	public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, L2Object[] targets) 
-	{ 
+	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
+	L2Skill skill, L2Object[] targets)
+	{
 		if (!(activeChar instanceof L2PcInstance))
 		{
 			return;
 		}
 
-		L2PcInstance player = (L2PcInstance)activeChar;
+		L2PcInstance player = (L2PcInstance) activeChar;
 		InventoryUpdate iu = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 		boolean send = false;
 
 		for (L2Object element : targets)
 		{
-			if (!(element instanceof L2Attackable)) continue;
-			L2Attackable target = (L2Attackable)element;
+			if (!(element instanceof L2Attackable))
+				continue;
+			L2Attackable target = (L2Attackable) element;
 
 			L2Attackable.RewardItem[] items = null;
 			boolean isSweeping = false;
@@ -63,7 +66,8 @@ public class Sweep implements ISkillHandler
 			}
 			if (isSweeping)
 			{
-				if (items == null || items.length == 0) continue;
+				if (items == null || items.length == 0)
+					continue;
 				for (L2Attackable.RewardItem ritem : items)
 				{
 					if (player.isInParty())
@@ -71,7 +75,8 @@ public class Sweep implements ISkillHandler
 					else
 					{
 						L2ItemInstance item = player.getInventory().addItem("Sweep", ritem.getItemId(), ritem.getCount(), player, target);
-						if (iu != null) iu.addItem(item);
+						if (iu != null)
+							iu.addItem(item);
 						send = true;
 
 						SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2); // you picked up $s1$s2
@@ -84,9 +89,9 @@ public class Sweep implements ISkillHandler
 			target.endDecayTask();
 			if (send)
 			{
-				if (iu != null) 
+				if (iu != null)
 					player.sendPacket(iu);
-				else 
+				else
 					player.sendPacket(new ItemList(player, false));
 			}
 		}

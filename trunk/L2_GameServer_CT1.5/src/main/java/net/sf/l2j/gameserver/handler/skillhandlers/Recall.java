@@ -34,10 +34,10 @@ import org.apache.commons.logging.LogFactory;
 
 public class Recall implements ISkillHandler
 {
-	private final static Log _log = LogFactory.getLog(Recall.class.getName());
+	private final static Log			_log		= LogFactory.getLog(Recall.class.getName());
 
-	private static final SkillType[] SKILL_IDS =
-	{ SkillType.RECALL };
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.RECALL };
 
 	public void useSkill(@SuppressWarnings("unused")
 	L2Character activeChar, @SuppressWarnings("unused")
@@ -59,20 +59,20 @@ public class Recall implements ISkillHandler
 		{
 			if (((L2PcInstance) activeChar).isInOlympiadMode())
 			{
-				((L2PcInstance) activeChar).sendPacket(new SystemMessage(
-						SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
+				((L2PcInstance) activeChar).sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
 				return;
 			}
 		}
 
 		try
 		{
-			for (L2Object element : targets) {
+			for (L2Object element : targets)
+			{
 				if (!(element instanceof L2Character))
 					continue;
 
 				L2Character target = (L2Character) element;
-				
+
 				if (target instanceof L2PcInstance)
 				{
 					L2PcInstance targetChar = (L2PcInstance) target;
@@ -118,7 +118,8 @@ public class Recall implements ISkillHandler
 
 				target.teleToLocation(TeleportWhereType.Town);
 			}
-		} catch (Throwable e)
+		}
+		catch (Throwable e)
 		{
 			_log.error(e.getMessage(), e);
 		}

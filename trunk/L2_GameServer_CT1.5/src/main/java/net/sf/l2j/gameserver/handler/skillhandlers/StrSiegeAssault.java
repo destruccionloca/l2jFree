@@ -35,9 +35,10 @@ import org.apache.commons.logging.LogFactory;
  */
 public class StrSiegeAssault implements ISkillHandler
 {
-	private final static Log _log = LogFactory.getLog(StrSiegeAssault.class);
+	private final static Log			_log		= LogFactory.getLog(StrSiegeAssault.class);
 
-	private static final SkillType[] SKILL_IDS = { SkillType.STRSIEGEASSAULT };
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.STRSIEGEASSAULT };
 
 	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
 	L2Skill skill, @SuppressWarnings("unused")
@@ -48,8 +49,7 @@ public class StrSiegeAssault implements ISkillHandler
 
 		L2PcInstance player = (L2PcInstance) activeChar;
 
-		if (SiegeManager.checkIfOkToUseStriderSiegeAssault(player, false)
-			|| FortSiegeManager.checkIfOkToUseStriderSiegeAssault(player, false))
+		if (SiegeManager.checkIfOkToUseStriderSiegeAssault(player, false) || FortSiegeManager.checkIfOkToUseStriderSiegeAssault(player, false))
 		{
 			try
 			{
@@ -66,8 +66,7 @@ public class StrSiegeAssault implements ISkillHandler
 				{
 					L2Character target = (L2Character) element;
 					L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-					if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance
-							&& target.isFakeDeath())
+					if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
 					{
 						target.stopFakeDeath(null);
 					}
@@ -76,10 +75,8 @@ public class StrSiegeAssault implements ISkillHandler
 
 					boolean dual = activeChar.isUsingDualWeapon();
 					boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
-					boolean crit = Formulas.getInstance()
-							.calcCrit(activeChar, target, activeChar.getCriticalHit(target, skill));
-					boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon
-							.getItemType() != L2WeaponType.DAGGER);
+					boolean crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getCriticalHit(target, skill));
+					boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
 
 					if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
 						damage = 0;

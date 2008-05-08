@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.handler.skillhandlers; 
+package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
@@ -28,12 +28,13 @@ import net.sf.l2j.gameserver.skills.Formulas;
 
 /** 
  * @author _drunk_ 
- */ 
-public class Spoil implements ISkillHandler 
-{ 
+ */
+public class Spoil implements ISkillHandler
+{
 	//private static Logger _log = Logger.getLogger(Spoil.class.getName()); 
-	private static final SkillType[] SKILL_IDS = {SkillType.SPOIL};
-	
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.SPOIL };
+
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
@@ -48,18 +49,19 @@ public class Spoil implements ISkillHandler
 				continue;
 
 			L2MonsterInstance target = (L2MonsterInstance) element;
-			
-			if (target.isSpoil()) {
+
+			if (target.isSpoil())
+			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.ALREADY_SPOILED));
 				continue;
 			}
 
 			// SPOIL SYSTEM by Lbaldi
 			boolean spoil = false;
-			if ( target.isDead() == false ) 
+			if (target.isDead() == false)
 			{
-				spoil = Formulas.getInstance().calcMagicSuccess(activeChar, (L2Character)element, skill);
-				
+				spoil = Formulas.getInstance().calcMagicSuccess(activeChar, (L2Character) element, skill);
+
 				if (spoil)
 				{
 					target.setSpoil(true);
@@ -77,9 +79,9 @@ public class Spoil implements ISkillHandler
 			}
 		}
 	}
-	
+
 	public SkillType[] getSkillIds()
-	{ 
-		return SKILL_IDS; 
-	} 
+	{
+		return SKILL_IDS;
+	}
 }

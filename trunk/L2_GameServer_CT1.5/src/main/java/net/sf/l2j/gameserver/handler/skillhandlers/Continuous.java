@@ -45,28 +45,27 @@ import net.sf.l2j.gameserver.skills.Formulas;
 public class Continuous implements ISkillHandler
 {
 	//private static Logger _log = Logger.getLogger(Continuous.class.getName());
-	
-	private static final SkillType[] SKILL_IDS =
-	{
-		L2Skill.SkillType.BUFF,
-		L2Skill.SkillType.DEBUFF,
-		L2Skill.SkillType.DOT,
-		L2Skill.SkillType.MDOT,
-		L2Skill.SkillType.POISON,
-		L2Skill.SkillType.BLEED,
-		L2Skill.SkillType.HOT,
-		L2Skill.SkillType.CPHOT,
-		L2Skill.SkillType.MPHOT,
-		L2Skill.SkillType.FEAR,
-		L2Skill.SkillType.CONT,
-		L2Skill.SkillType.WEAKNESS,
-		L2Skill.SkillType.REFLECT,
-		L2Skill.SkillType.UNDEAD_DEFENSE,
-		L2Skill.SkillType.AGGDEBUFF,
-		L2Skill.SkillType.FORCE_BUFF
-	};
-	private L2Skill _skill;
-	
+
+	private static final SkillType[]	SKILL_IDS	=
+													{
+			L2Skill.SkillType.BUFF,
+			L2Skill.SkillType.DEBUFF,
+			L2Skill.SkillType.DOT,
+			L2Skill.SkillType.MDOT,
+			L2Skill.SkillType.POISON,
+			L2Skill.SkillType.BLEED,
+			L2Skill.SkillType.HOT,
+			L2Skill.SkillType.CPHOT,
+			L2Skill.SkillType.MPHOT,
+			L2Skill.SkillType.FEAR,
+			L2Skill.SkillType.CONT,
+			L2Skill.SkillType.WEAKNESS,
+			L2Skill.SkillType.REFLECT,
+			L2Skill.SkillType.UNDEAD_DEFENSE,
+			L2Skill.SkillType.AGGDEBUFF,
+			L2Skill.SkillType.FORCE_BUFF			};
+	private L2Skill						_skill;
+
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
 	 */
@@ -74,14 +73,14 @@ public class Continuous implements ISkillHandler
 	{
 		L2Character target = null;
 		boolean acted = true;
-		
+
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
-			player = (L2PcInstance)activeChar;
+			player = (L2PcInstance) activeChar;
 
 		if (skill.getEffectId() != 0)
 		{
-			int skillLevel = (int)skill.getEffectLvl();
+			int skillLevel = (int) skill.getEffectLvl();
 			int skillEffectId = skill.getEffectId();
 
 			if (skillLevel == 0)
@@ -99,25 +98,30 @@ public class Continuous implements ISkillHandler
 
 		for (L2Object element : targets)
 		{
-			target = (L2Character)element;
+			target = (L2Character) element;
 			//check if skill is allowed on other.properties for raidbosses
-			if(!target.checkSkillCanAffectMyself(skill))
+			if (!target.checkSkillCanAffectMyself(skill))
 				continue;
 
-			switch(skill.getSkillType())
+			switch (skill.getSkillType())
 			{
-				case BUFF: case HOT: case CPHOT: case MPHOT:
-				case AGGDEBUFF: case CONT: case UNDEAD_DEFENSE:
-					// No reflect possible
-					break;
-				default:
-					if(target.reflectSkill(skill))
-						target = activeChar;
-					break;
+			case BUFF:
+			case HOT:
+			case CPHOT:
+			case MPHOT:
+			case AGGDEBUFF:
+			case CONT:
+			case UNDEAD_DEFENSE:
+				// No reflect possible
+				break;
+			default:
+				if (target.reflectSkill(skill))
+					target = activeChar;
+				break;
 			}
 
 			// Walls and Door should not be buffed
-			if(target instanceof L2DoorInstance && (skill.getSkillType() == L2Skill.SkillType.BUFF || skill.getSkillType() == L2Skill.SkillType.HOT))
+			if (target instanceof L2DoorInstance && (skill.getSkillType() == L2Skill.SkillType.BUFF || skill.getSkillType() == L2Skill.SkillType.HOT))
 				continue;
 
 			// With Mystic Immunity you can't be buffed/debuffed
@@ -129,7 +133,7 @@ public class Continuous implements ISkillHandler
 			{
 				if (target != activeChar)
 				{
-					if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquipped())
+					if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquipped())
 						continue;
 					else if (player != null && player.isCursedWeaponEquipped())
 						continue;
@@ -194,8 +198,8 @@ public class Continuous implements ISkillHandler
 				}
 				else if (activeChar instanceof L2NpcInstance)
 				{
-					bss = ((L2NpcInstance)activeChar).isUsingShot(false);
-					ss = ((L2NpcInstance)activeChar).isUsingShot(true);
+					bss = ((L2NpcInstance) activeChar).isUsingShot(false);
+					ss = ((L2NpcInstance) activeChar).isUsingShot(true);
 				}
 
 				acted = Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss);
@@ -225,14 +229,14 @@ public class Continuous implements ISkillHandler
 				// if this is a debuff let the duel manager know about it
 				// so the debuff can be removed after the duel
 				// (player & target must be in the same duel)
-				if (target instanceof L2PcInstance && ((L2PcInstance)target).isInDuel()
-						&& (skill.getSkillType() == L2Skill.SkillType.DEBUFF ||
-						skill.getSkillType() == L2Skill.SkillType.BUFF) && player != null
-						&& player.getDuelId() == ((L2PcInstance)target).getDuelId())
+				if (target instanceof L2PcInstance && ((L2PcInstance) target).isInDuel()
+						&& (skill.getSkillType() == L2Skill.SkillType.DEBUFF || skill.getSkillType() == L2Skill.SkillType.BUFF) && player != null
+						&& player.getDuelId() == ((L2PcInstance) target).getDuelId())
 				{
 					DuelManager dm = DuelManager.getInstance();
 					for (L2Effect buff : skill.getEffects(activeChar, target))
-						if (buff != null) dm.onBuff(((L2PcInstance)target), buff);
+						if (buff != null)
+							dm.onBuff(((L2PcInstance) target), buff);
 				}
 				else
 					skill.getEffects(activeChar, target);
@@ -240,17 +244,17 @@ public class Continuous implements ISkillHandler
 				if (skill.getSkillType() == L2Skill.SkillType.AGGDEBUFF)
 				{
 					if (target instanceof L2Attackable)
-						target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int)skill.getPower());
+						target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) skill.getPower());
 					else if (target instanceof L2PlayableInstance)
 					{
 						if (target.getTarget() == activeChar)
-							target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK,activeChar);
+							target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, activeChar);
 						else
 							target.setTarget(activeChar);
 					}
 				}
 			}
-			else if(activeChar instanceof L2PcInstance)
+			else if (activeChar instanceof L2PcInstance)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
 				sm.addString(target.getName());
@@ -269,7 +273,7 @@ public class Continuous implements ISkillHandler
 		}
 		skill.getEffectsSelf(activeChar);
 	}
-	
+
 	public SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

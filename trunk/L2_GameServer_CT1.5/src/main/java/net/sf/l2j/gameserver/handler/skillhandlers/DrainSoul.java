@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.handler.skillhandlers; 
+package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -26,14 +26,16 @@ import org.apache.commons.logging.LogFactory;
 
 /** 
  * @author _drunk_ 
- */ 
-public class DrainSoul implements ISkillHandler 
-{ 
-	private static final Log _log = LogFactory.getLog(DrainSoul.class.getName()); 
-	private static final SkillType[] SKILL_IDS = {SkillType.DRAIN_SOUL};
+ */
+public class DrainSoul implements ISkillHandler
+{
+	private static final Log			_log		= LogFactory.getLog(DrainSoul.class.getName());
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.DRAIN_SOUL };
 
-	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
-	{ 
+	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
+	L2Object[] targets)
+	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
@@ -44,15 +46,15 @@ public class DrainSoul implements ISkillHandler
 			return;
 		}
 
-		if(_log.isDebugEnabled())
+		if (_log.isDebugEnabled())
 			_log.debug("Soul Crystal casting succeded.");
 
 		// This is just a dummy skill handler for the soul crystal skill,
 		// since the Soul Crystal item handler already does everything.
 	}
 
-	public SkillType[] getSkillIds() 
+	public SkillType[] getSkillIds()
 	{
-		return SKILL_IDS; 
+		return SKILL_IDS;
 	}
 }
