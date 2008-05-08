@@ -29,70 +29,70 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class TransformationManager
 {
-    private static final Logger _log = Logger.getLogger(TransformationManager.class.getName());
-    
-    private static final TransformationManager _instance = new TransformationManager();
-    
-    public static TransformationManager getInstance()
-    {
-        return _instance;
-    }
-    
-    private Map<Integer, L2Transformation> _transformations;
-    
-    private TransformationManager()
-    {
-        _transformations = new FastMap<Integer, L2Transformation>();
-    }
-    
-    public void report()
-    {
-        _log.info("Loaded: "+this.getAllTransformations().size()+" transformations.");
-    }
-    
-    public boolean transformPlayer(int id, L2PcInstance player)
-    {
-        L2Transformation template = this.getTransformationById(id);
-        if (template != null)
-        {
-            L2Transformation trans = template.createTransformationForPlayer(player);
-            trans.start();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    
-    public boolean transformPlayer(int id, L2PcInstance player, long forceDuration)
-    {
-        L2Transformation template = this.getTransformationById(id);
-        if (template != null)
-        {
-            L2Transformation trans = template.createTransformationForPlayer(player);
-            trans.setDuration(forceDuration);
-            trans.start();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    
-    public L2Transformation getTransformationById(int id)
-    {
-        return _transformations.get(id);
-    }
-    
-    public L2Transformation registerTransformation(L2Transformation transformation)
-    {
-        return _transformations.put(transformation.getId() , transformation);
-    }
-    
-    public Collection<L2Transformation> getAllTransformations()
-    {
-        return _transformations.values();
-    }
+	private static final Logger					_log		= Logger.getLogger(TransformationManager.class.getName());
+
+	private static final TransformationManager	_instance	= new TransformationManager();
+
+	public static TransformationManager getInstance()
+	{
+		return _instance;
+	}
+
+	private Map<Integer, L2Transformation>	_transformations;
+
+	private TransformationManager()
+	{
+		_transformations = new FastMap<Integer, L2Transformation>();
+	}
+
+	public void report()
+	{
+		_log.info("Loaded: " + this.getAllTransformations().size() + " transformations.");
+	}
+
+	public boolean transformPlayer(int id, L2PcInstance player)
+	{
+		L2Transformation template = this.getTransformationById(id);
+		if (template != null)
+		{
+			L2Transformation trans = template.createTransformationForPlayer(player);
+			trans.start();
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public boolean transformPlayer(int id, L2PcInstance player, long forceDuration)
+	{
+		L2Transformation template = this.getTransformationById(id);
+		if (template != null)
+		{
+			L2Transformation trans = template.createTransformationForPlayer(player);
+			trans.setDuration(forceDuration);
+			trans.start();
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public L2Transformation getTransformationById(int id)
+	{
+		return _transformations.get(id);
+	}
+
+	public L2Transformation registerTransformation(L2Transformation transformation)
+	{
+		return _transformations.put(transformation.getId(), transformation);
+	}
+
+	public Collection<L2Transformation> getAllTransformations()
+	{
+		return _transformations.values();
+	}
 }

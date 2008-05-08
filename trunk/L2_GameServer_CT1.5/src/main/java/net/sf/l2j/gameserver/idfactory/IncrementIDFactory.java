@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.idfactory;
 
-
 /**
  * This class is used to implement a basic Id factory based on increment
  * Don't use it in a real environnement !!!
@@ -22,67 +21,64 @@ package net.sf.l2j.gameserver.idfactory;
  */
 public class IncrementIDFactory extends IdFactory
 {
-	private int _curId;
-	
+	private int	_curId;
+
 	protected IncrementIDFactory()
 	{
-        super();
-        _curId = FIRST_OID;
+		super();
+		_curId = FIRST_OID;
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.idfactory.IdFactory#getNextId()
 	 */
-    @Override
+	@Override
 	public synchronized int getNextId()
-    {
-        return _curId++;
-    }
-	
+	{
+		return _curId++;
+	}
+
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.idfactory.IdFactory#releaseId(int)
 	 */
-    @Override
+	@Override
 	public synchronized void releaseId(int id)
-    {
+	{
 		// do nothing
-    }
-    
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.idfactory.IdFactory#size()
-     */
-    @Override
-    public int size()
-    {
-        return LAST_OID - _curId;
-    }
-    
-    
-    
-    /**
-     * This class is for test purpose, we don't need to clean up the db
-     * @see net.sf.l2j.gameserver.idfactory.IdFactory#cleanUpDB()
-     */
-    @Override
-    protected void cleanUpDB()
-    {
-        // Do nothing
-    }
-    
-    
-    /**
-     * This class is for test purpose, we don't need to set all character offline
-     * @see net.sf.l2j.gameserver.idfactory.IdFactory#setAllCharacterOffline()
-     */
-    @Override
-    protected void setAllCharacterOffline()
-    {
-        // Do nothing
-    }
+	}
 
-    @Override
-    public int getCurrentId()
-    {
-        return _curId;
-    }
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.idfactory.IdFactory#size()
+	 */
+	@Override
+	public int size()
+	{
+		return LAST_OID - _curId;
+	}
+
+	/**
+	 * This class is for test purpose, we don't need to clean up the db
+	 * @see net.sf.l2j.gameserver.idfactory.IdFactory#cleanUpDB()
+	 */
+	@Override
+	protected void cleanUpDB()
+	{
+		// Do nothing
+	}
+
+	/**
+	 * This class is for test purpose, we don't need to set all character offline
+	 * @see net.sf.l2j.gameserver.idfactory.IdFactory#setAllCharacterOffline()
+	 */
+	@Override
+	protected void setAllCharacterOffline()
+	{
+		// Do nothing
+	}
+
+	@Override
+	public int getCurrentId()
+	{
+		return _curId;
+	}
 }

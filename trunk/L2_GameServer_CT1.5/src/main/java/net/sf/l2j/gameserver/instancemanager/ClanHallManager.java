@@ -31,14 +31,14 @@ import org.apache.commons.logging.LogFactory;
 
 public class ClanHallManager
 {
-	protected static Log _log = LogFactory.getLog(ClanHallManager.class.getName());
-	
-	private static ClanHallManager _instance;
-	
-	private Map<Integer, ClanHall> _clanHall;
-	private Map<Integer, ClanHall> _freeClanHall;
-	private Map<Integer, ClanHall> _allClanHalls;
-	private boolean _loaded = false;
+	protected static Log			_log	= LogFactory.getLog(ClanHallManager.class.getName());
+
+	private static ClanHallManager	_instance;
+
+	private Map<Integer, ClanHall>	_clanHall;
+	private Map<Integer, ClanHall>	_freeClanHall;
+	private Map<Integer, ClanHall>	_allClanHalls;
+	private boolean					_loaded	= false;
 
 	public static ClanHallManager getInstance()
 	{
@@ -100,13 +100,13 @@ public class ClanHallManager
 				paid = rs.getBoolean("paid");
 
 				ClanHall ch = new ClanHall(id, Name, ownerId, lease, Desc, Location, paidUntil, grade, paid);
-				if(ownerId == 0)
+				if (ownerId == 0)
 				{
 					_freeClanHall.put(id, ch);
 				}
 				else
 				{
-					if(ClanTable.getInstance().getClan(rs.getInt("ownerId")) != null)
+					if (ClanTable.getInstance().getClan(rs.getInt("ownerId")) != null)
 					{
 						_clanHall.put(id, ch);
 						ClanTable.getInstance().getClan(rs.getInt("ownerId")).setHasHideout(id);
@@ -121,8 +121,8 @@ public class ClanHallManager
 				_allClanHalls.put(id, ch);
 			}
 			statement.close();
-			_log.info("ClanHallManager: loaded "+getClanHalls().size() +" clan halls");
-			_log.info("ClanHallManager: loaded "+getFreeClanHalls().size() +" free clan halls");
+			_log.info("ClanHallManager: loaded " + getClanHalls().size() + " clan halls");
+			_log.info("ClanHallManager: loaded " + getFreeClanHalls().size() + " free clan halls");
 			_loaded = true;
 		}
 		catch (Exception e)
@@ -136,7 +136,9 @@ public class ClanHallManager
 			{
 				con.close();
 			}
-			catch (Exception e) {}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -161,7 +163,7 @@ public class ClanHallManager
 	/** Check is free ClanHall */
 	public final boolean isFree(int chId)
 	{
-		if(_freeClanHall.containsKey(chId))
+		if (_freeClanHall.containsKey(chId))
 			return true;
 		return false;
 	}
@@ -169,7 +171,7 @@ public class ClanHallManager
 	/** Free a ClanHall */
 	public final synchronized void setFree(int chId)
 	{
-		_freeClanHall.put(chId,_clanHall.get(chId));
+		_freeClanHall.put(chId, _clanHall.get(chId));
 		ClanTable.getInstance().getClan(_freeClanHall.get(chId).getOwnerId()).setHasHideout(0);
 		_freeClanHall.get(chId).free();
 		_clanHall.remove(chId);
@@ -178,9 +180,9 @@ public class ClanHallManager
 	/** Set ClanHallOwner */
 	public final synchronized void setOwner(int chId, L2Clan clan)
 	{
-		if(!_clanHall.containsKey(chId))
+		if (!_clanHall.containsKey(chId))
 		{
-			_clanHall.put(chId,_freeClanHall.get(chId));
+			_clanHall.put(chId, _freeClanHall.get(chId));
 			_freeClanHall.remove(chId);
 		}
 		else
@@ -208,16 +210,17 @@ public class ClanHallManager
 	}
 
 	/** Get Clan Hall by Object */
-	public final ClanHall getClanHall(L2Object activeObject) 
-	{ 
-		return getClanHall(activeObject.getPosition().getX(), activeObject.getPosition().getY()); 
+	public final ClanHall getClanHall(L2Object activeObject)
+	{
+		return getClanHall(activeObject.getPosition().getX(), activeObject.getPosition().getY());
 	}
 
 	/** Get Clan Hall by region x,y,offset */
 	public final ClanHall getClanHall(int x, int y)
 	{
 		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
-			if (ch.getValue().checkIfInZone(x, y)) return ch.getValue();
+			if (ch.getValue().checkIfInZone(x, y))
+				return ch.getValue();
 
 		return null;
 	}
@@ -226,7 +229,8 @@ public class ClanHallManager
 	public final ClanHall getClanHall(String name)
 	{
 		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
-			if (ch.getValue().getName().equals(name)) return ch.getValue();
+			if (ch.getValue().getName().equals(name))
+				return ch.getValue();
 
 		return null;
 	}
@@ -243,7 +247,8 @@ public class ClanHallManager
 	public final ClanHall getNearbyClanHall(int x, int y, int maxDist)
 	{
 		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
-			if (ch.getValue().getDistanceToZone(x, y) < maxDist) return ch.getValue();
+			if (ch.getValue().getDistanceToZone(x, y) < maxDist)
+				return ch.getValue();
 
 		return null;
 	}

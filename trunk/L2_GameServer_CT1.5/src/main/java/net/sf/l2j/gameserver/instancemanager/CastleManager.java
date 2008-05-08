@@ -34,11 +34,11 @@ import org.apache.commons.logging.LogFactory;
 
 public class CastleManager
 {
-	protected static Log _log = LogFactory.getLog(CastleManager.class.getName());
+	protected static Log				_log	= LogFactory.getLog(CastleManager.class.getName());
 
-	private static CastleManager _instance;
-	private FastMap<Integer, Castle> _castles;
-	
+	private static CastleManager		_instance;
+	private FastMap<Integer, Castle>	_castles;
+
 	public static final CastleManager getInstance()
 	{
 		if (_instance == null)
@@ -49,8 +49,12 @@ public class CastleManager
 		return _instance;
 	}
 
-	private static final int _castleCirclets[] = { 0, 6838, 6835, 6839, 6837, 6840, 6834, 6836, 8182, 8183 };
-	public CastleManager() {}
+	private static final int	_castleCirclets[]	=
+													{ 0, 6838, 6835, 6839, 6837, 6840, 6834, 6836, 8182, 8183 };
+
+	public CastleManager()
+	{
+	}
 
 	public final Castle getClosestCastle(L2Object activeObject)
 	{
@@ -59,10 +63,10 @@ public class CastleManager
 		{
 			double closestDistance = Double.MAX_VALUE;
 			double distance;
-			
+
 			for (Castle castleToCheck : getCastles().values())
 			{
-				if (castleToCheck  == null)
+				if (castleToCheck == null)
 					continue;
 				distance = castleToCheck.getDistanceToZone(activeObject.getX(), activeObject.getY());
 				if (closestDistance > distance)
@@ -112,12 +116,14 @@ public class CastleManager
 		finally
 		{
 			try
-			{ 
-				con.close(); 
+			{
+				con.close();
 			}
-			catch (Exception e){}
+			catch (Exception e)
+			{
+			}
 		}
-    }
+	}
 
 	public final Castle getCastleById(int castleId)
 	{
@@ -196,7 +202,8 @@ public class CastleManager
 				castle.setTaxPercent(maxTax);
 	}
 
-	int _castleId = 1; // from this castle
+	int	_castleId	= 1;	// from this castle
+
 	public int getCirclet()
 	{
 		return getCircletByCastleId(_castleId);
@@ -206,7 +213,7 @@ public class CastleManager
 	{
 		if (castleId > 0 && castleId < 10)
 			return _castleCirclets[castleId];
-		
+
 		return 0;
 	}
 
@@ -219,16 +226,17 @@ public class CastleManager
 
 	public void removeCirclet(L2ClanMember member, int castleId)
 	{
-		if (member == null) return;
+		if (member == null)
+			return;
 		L2PcInstance player = member.getPlayerInstance();
 		int circletId = getCircletByCastleId(castleId);
-		
+
 		if (circletId != 0)
 		{
 			// online-player circlet removal
 			if (player != null)
 			{
-				try 
+				try
 				{
 					L2ItemInstance circlet = player.getInventory().getItemByItemId(circletId);
 					if (circlet != null)
@@ -257,12 +265,18 @@ public class CastleManager
 			}
 			catch (Exception e)
 			{
-				_log.error("Failed to remove castle circlets offline for player "+member.getName());
+				_log.error("Failed to remove castle circlets offline for player " + member.getName());
 				e.printStackTrace();
 			}
 			finally
 			{
-				try { con.close(); } catch (Exception e) {}
+				try
+				{
+					con.close();
+				}
+				catch (Exception e)
+				{
+				}
 			}
 		}
 	}

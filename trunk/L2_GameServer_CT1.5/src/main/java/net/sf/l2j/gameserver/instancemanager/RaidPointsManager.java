@@ -38,9 +38,9 @@ import org.apache.commons.logging.LogFactory;
 
 public class RaidPointsManager
 {
-	private static final Log _log = LogFactory.getLog(RaidPointsManager.class.getName());    
-    private static RaidPointsManager _instance;
-	protected static Map<Integer, Map<Integer, Integer>> _points;
+	private static final Log								_log	= LogFactory.getLog(RaidPointsManager.class.getName());
+	private static RaidPointsManager						_instance;
+	protected static Map<Integer, Map<Integer, Integer>>	_points;
 
 	private RaidPointsManager()
 	{
@@ -55,7 +55,7 @@ public class RaidPointsManager
 			//read raidboss points
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM `character_raidpoints`");
 			ResultSet rset = statement.executeQuery();
-			while(rset.next())
+			while (rset.next())
 			{
 				_owners.add(rset.getInt("owner_id"));
 			}
@@ -63,7 +63,7 @@ public class RaidPointsManager
 			rset.close();
 			statement.close();
 
-			for(FastList.Node<Integer> n = _owners.head(), end = _owners.tail(); (n = n.getNext()) != end;)
+			for (FastList.Node<Integer> n = _owners.head(), end = _owners.tail(); (n = n.getNext()) != end;)
 			{
 				int ownerId = n.getValue();
 				FastMap<Integer, Integer> tmpScore = new FastMap<Integer, Integer>();
@@ -71,8 +71,8 @@ public class RaidPointsManager
 				statement = con.prepareStatement("SELECT * FROM `character_raidpoints` WHERE `owner_id`=?");
 				statement.setInt(1, ownerId);
 				rset = statement.executeQuery();
-				while(rset.next())
-					if(rset.getInt("boss_id") != -1 || rset.getInt("boss_id") != 0)
+				while (rset.next())
+					if (rset.getInt("boss_id") != -1 || rset.getInt("boss_id") != 0)
 						tmpScore.put(rset.getInt("boss_id"), rset.getInt("points"));
 
 				rset.close();
@@ -85,19 +85,29 @@ public class RaidPointsManager
 		{
 			_log.warn("RaidPointsManager: Couldnt load raid points");
 		}
-		catch (Exception e) {_log.error(e.getMessage(),e);}
-        finally
-        {
-            try {con.close();} catch(Exception e) {_log.error(e.getMessage(),e);}
-        }
+		catch (Exception e)
+		{
+			_log.error(e.getMessage(), e);
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+				_log.error(e.getMessage(), e);
+			}
+		}
 	}
 
 	public static RaidPointsManager getInstance()
 	{
 		if (_instance == null)
-            _instance = new RaidPointsManager();
-        
-        return _instance;
+			_instance = new RaidPointsManager();
+
+		return _instance;
 	}
 
 	public void calculateRanking()
@@ -105,18 +115,18 @@ public class RaidPointsManager
 		Map<Integer, Integer> tmpRanking = new FastMap<Integer, Integer>();
 		Map<Integer, Map<Integer, Integer>> tmpPoints = new FastMap<Integer, Map<Integer, Integer>>();
 
-		for(int ownerId : _points.keySet())
+		for (int ownerId : _points.keySet())
 		{
 			Map<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
 			tmpPoint = _points.get(ownerId);
 			int totalPoints = 0;
 
-			for(int bossId : tmpPoint.keySet())
-				if(bossId != -1 && bossId != 0)
+			for (int bossId : tmpPoint.keySet())
+				if (bossId != -1 && bossId != 0)
 					totalPoints += tmpPoint.get(bossId);
 
 			// no need to store players w/o points
-			if(totalPoints != 0)
+			if (totalPoints != 0)
 			{
 				tmpPoint.remove(0);
 				tmpPoint.put(0, totalPoints);
@@ -129,7 +139,8 @@ public class RaidPointsManager
 		Vector<Entry<Integer, Integer>> list = new Vector<Map.Entry<Integer, Integer>>(tmpRanking.entrySet());
 
 		// descending
-		Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>(){
+		Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>()
+		{
 			public int compare(Map.Entry<Integer, Integer> entry, Map.Entry<Integer, Integer> entry1)
 			{
 				return entry.getValue().equals(entry1.getValue()) ? 0 : entry.getValue() < entry1.getValue() ? 1 : -1;
@@ -137,7 +148,7 @@ public class RaidPointsManager
 		});
 
 		int ranking = 1;
-		for(Map.Entry<Integer, Integer> entry : list)
+		for (Map.Entry<Integer, Integer> entry : list)
 		{
 			Map<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
 			tmpPoint = tmpPoints.get(entry.getKey());
@@ -161,7 +172,7 @@ public class RaidPointsManager
 		tmpPoint = _points.get(ownerId);
 		_points.remove(ownerId);
 
-		if(tmpPoint == null || tmpPoint.isEmpty())
+		if (tmpPoint == null || tmpPoint.isEmpty())
 		{
 			tmpPoint = new FastMap<Integer, Integer>();
 			tmpPoint.put(bossId, points);
@@ -180,25 +191,25 @@ public class RaidPointsManager
 	{
 		Connection con = null;
 
-		for(int ownerId : _points.keySet())
+		for (int ownerId : _points.keySet())
 			try
 			{
-                con = null;
+				con = null;
 				con = L2DatabaseFactory.getInstance().getConnection(con);
 
 				Map<Integer, Integer> tmpPoint = _points.get(ownerId);
-				if(tmpPoint == null || tmpPoint.isEmpty())
+				if (tmpPoint == null || tmpPoint.isEmpty())
 					continue;
 
-				for(int bossId : tmpPoint.keySet())
+				for (int bossId : tmpPoint.keySet())
 				{
-					if(bossId == -1 || bossId == 0)
+					if (bossId == -1 || bossId == 0)
 						continue;
 
 					int points = tmpPoint.get(bossId);
-					if(points == 0)
+					if (points == 0)
 						continue;
-					
+
 					PreparedStatement statement = con.prepareStatement("INSERT INTO `character_raidpoints` VALUES(?,?,?) ON DUPLICATE KEY UPDATE points = ?");
 					statement.setInt(1, ownerId);
 					statement.setInt(2, bossId);
@@ -210,12 +221,19 @@ public class RaidPointsManager
 			}
 			catch (SQLException e)
 			{
-				_log.warn("RaidBossPointsManager: Couldnt update character_raidpoints table",e);
+				_log.warn("RaidBossPointsManager: Couldnt update character_raidpoints table", e);
 			}
-	        finally
-	        {
-	            try {con.close();} catch(Exception e) {_log.error(e.getMessage(),e);}
-	        }
+			finally
+			{
+				try
+				{
+					con.close();
+				}
+				catch (Exception e)
+				{
+					_log.error(e.getMessage(), e);
+				}
+			}
 	}
 
 	public Map<Integer, Map<Integer, Integer>> getPoints()

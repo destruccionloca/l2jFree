@@ -33,81 +33,97 @@ import org.apache.commons.logging.LogFactory;
  */
 public class SQLQueue
 {
-    protected static Log _log = LogFactory.getLog(SQLQueue.class.getName());
-    
-    private static SQLQueue _instance;
-    protected List<String> _queue1 = null;
-    protected List<String> _queue2 = null;
+	protected static Log	_log	= LogFactory.getLog(SQLQueue.class.getName());
 
-    private SQLQueue()
-    {
-    	_queue1 = new ArrayList<String>();
-    	_queue2 = new ArrayList<String>();
-    	ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new doQueue(), 60000, 60000);
-    }
+	private static SQLQueue	_instance;
+	protected List<String>	_queue1	= null;
+	protected List<String>	_queue2	= null;
 
-    public static final SQLQueue getInstance()
-    {
-        if (_instance == null)
-        {
-            _instance = new SQLQueue();
-        }
-        return _instance;
-    }
-    
-    public void add(String sql)
-    {
-    	synchronized(_queue1)
-    	{
-    		_queue1.add(sql);
-    	}
-    }
+	private SQLQueue()
+	{
+		_queue1 = new ArrayList<String>();
+		_queue2 = new ArrayList<String>();
+		ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new doQueue(), 60000, 60000);
+	}
 
-    protected class doQueue extends Thread
-    {
-        @Override
-        public void run()
-        {
-        	flush();
-        }
-    }
-    
-    public void flush()
-    {
-    	synchronized(_queue2)
-    	{
-    		synchronized(_queue1)
-        	{
-    			if (!_queue1.isEmpty())
-    			{
-    				_queue2.addAll(_queue1);
-        			_queue1.clear();
-    			}
-        	}
+	public static final SQLQueue getInstance()
+	{
+		if (_instance == null)
+		{
+			_instance = new SQLQueue();
+		}
+		return _instance;
+	}
 
-    		if(_queue2.isEmpty()) return;
-    		Connection con = null;
-    		PreparedStatement statement = null;
-    		try {
-    			con = L2DatabaseFactory.getInstance().getConnection(con);
-    			for (String sql: _queue2)
-    			{
-    				try {
-    					statement = con.prepareStatement(sql);
-    					statement.executeUpdate();
-    					statement.close();
-    					sql = null;
-    				} catch (Exception e) {
-    					_log.fatal("error while porcessing sql queue " + e);
-    				}
-    			}
-    			_queue2.clear();
-    		} catch (Exception e) {
-    			_log.fatal("error while porcessing sql queue " + e);
-    		}
-    		finally { try { con.close(); } catch (Exception e) {} }
-    		if (_log.isDebugEnabled())
-    			_log.warn("SQLQueue: "+ _queue2.size() + " sql's processed");
-    	}
-    }
- }
+	public void add(String sql)
+	{
+		synchronized (_queue1)
+		{
+			_queue1.add(sql);
+		}
+	}
+
+	protected class doQueue extends Thread
+	{
+		@Override
+		public void run()
+		{
+			flush();
+		}
+	}
+
+	public void flush()
+	{
+		synchronized (_queue2)
+		{
+			synchronized (_queue1)
+			{
+				if (!_queue1.isEmpty())
+				{
+					_queue2.addAll(_queue1);
+					_queue1.clear();
+				}
+			}
+
+			if (_queue2.isEmpty())
+				return;
+			Connection con = null;
+			PreparedStatement statement = null;
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection(con);
+				for (String sql : _queue2)
+				{
+					try
+					{
+						statement = con.prepareStatement(sql);
+						statement.executeUpdate();
+						statement.close();
+						sql = null;
+					}
+					catch (Exception e)
+					{
+						_log.fatal("error while porcessing sql queue " + e);
+					}
+				}
+				_queue2.clear();
+			}
+			catch (Exception e)
+			{
+				_log.fatal("error while porcessing sql queue " + e);
+			}
+			finally
+			{
+				try
+				{
+					con.close();
+				}
+				catch (Exception e)
+				{
+				}
+			}
+			if (_log.isDebugEnabled())
+				_log.warn("SQLQueue: " + _queue2.size() + " sql's processed");
+		}
+	}
+}

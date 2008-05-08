@@ -26,36 +26,48 @@ import net.sf.l2j.gameserver.model.entity.Castle;
  */
 public class CastleDoors implements IVoicedCommandHandler
 {
-    private static final String[] VOICED_COMMANDS = { "open", "close"}; 
+	private static final String[]	VOICED_COMMANDS	=
+													{ "open", "close" };
 
-    public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
-    {
-        if(command.startsWith("open")&&target.equals("doors")&&(activeChar.isClanLeader())){
-            if (activeChar.getTarget() instanceof L2DoorInstance){
-            L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
-            Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
-            if (door == null || castle == null) return false;
-            if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
-            {
-                door.openMe();
-            }}else return false;
-        }
-        else if(command.startsWith("close")&&target.equals("doors")&&(activeChar.isClanLeader())){
-            if (activeChar.getTarget() instanceof L2DoorInstance){
-            L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
-            Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
-            if (door == null || castle == null) return false;
-            if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
-            {
-                door.closeMe();
-            }} else return false;
-        }
-        return true;
-    }
+	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
+	{
+		if (command.startsWith("open") && target.equals("doors") && (activeChar.isClanLeader()))
+		{
+			if (activeChar.getTarget() instanceof L2DoorInstance)
+			{
+				L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
+				Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
+				if (door == null || castle == null)
+					return false;
+				if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
+				{
+					door.openMe();
+				}
+			}
+			else
+				return false;
+		}
+		else if (command.startsWith("close") && target.equals("doors") && (activeChar.isClanLeader()))
+		{
+			if (activeChar.getTarget() instanceof L2DoorInstance)
+			{
+				L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
+				Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
+				if (door == null || castle == null)
+					return false;
+				if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
+				{
+					door.closeMe();
+				}
+			}
+			else
+				return false;
+		}
+		return true;
+	}
 
- 
-    public String[] getVoicedCommandList()
-    {
-        return VOICED_COMMANDS;
-    }
+	public String[] getVoicedCommandList()
+	{
+		return VOICED_COMMANDS;
+	}
 }

@@ -27,43 +27,45 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
  */
 public class ChannelLeave implements IUserCommandHandler
 {
-	private static final int[] COMMAND_IDS = { 96 };
-	
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
-     */
-    public boolean useUserCommand(int id, L2PcInstance activeChar)
-    {
-        if (id != COMMAND_IDS[0]) return false;
-        
-        if (activeChar.isInParty())
-        {
-            if (activeChar.getParty().isLeader(activeChar) && activeChar.getParty().isInCommandChannel())
-            {
-                L2Party party = activeChar.getParty();
-                L2CommandChannel channel = party.getCommandChannel();
-                channel.removeParty(party);
+	private static final int[]	COMMAND_IDS	=
+											{ 96 };
 
-                SystemMessage sm = new SystemMessage(SystemMessageId.LEFT_COMMAND_CHANNEL);
-                party.broadcastToPartyMembers(sm);
-                sm = new SystemMessage(SystemMessageId.S1_PARTY_LEFT_COMMAND_CHANNEL);
-                sm.addString(activeChar.getName());
-                channel.broadcastToChannelMembers(sm);
-                return true;
-            }
-            else
-                activeChar.sendPacket(new SystemMessage(SystemMessageId.ONLY_PARTY_LEADER_CAN_LEAVE_CHANNEL));
-        }
-        
-        return false;
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
+	 */
+	public boolean useUserCommand(int id, L2PcInstance activeChar)
+	{
+		if (id != COMMAND_IDS[0])
+			return false;
 
-    }
-    
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#getUserCommandList()
-     */
-    public int[] getUserCommandList()
-    {
-        return COMMAND_IDS;
-    }
+		if (activeChar.isInParty())
+		{
+			if (activeChar.getParty().isLeader(activeChar) && activeChar.getParty().isInCommandChannel())
+			{
+				L2Party party = activeChar.getParty();
+				L2CommandChannel channel = party.getCommandChannel();
+				channel.removeParty(party);
+
+				SystemMessage sm = new SystemMessage(SystemMessageId.LEFT_COMMAND_CHANNEL);
+				party.broadcastToPartyMembers(sm);
+				sm = new SystemMessage(SystemMessageId.S1_PARTY_LEFT_COMMAND_CHANNEL);
+				sm.addString(activeChar.getName());
+				channel.broadcastToChannelMembers(sm);
+				return true;
+			}
+			else
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.ONLY_PARTY_LEADER_CAN_LEAVE_CHANNEL));
+		}
+
+		return false;
+
+	}
+
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#getUserCommandList()
+	 */
+	public int[] getUserCommandList()
+	{
+		return COMMAND_IDS;
+	}
 }

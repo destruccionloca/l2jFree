@@ -63,7 +63,7 @@ public class CastleManorManager
 	private static final int			MANOR_REFRESH					= Config.ALT_MANOR_REFRESH_TIME;								// 20:00
 	private static final int			MANOR_REFRESH_MIN				= Config.ALT_MANOR_REFRESH_MIN;								//
 	protected static final long			MAINTENANCE_PERIOD				= Config.ALT_MANOR_MAINTENANCE_PERIOD;							// 6
-																																		// mins
+	// mins
 
 	private Calendar					_manorRefresh;
 	private Calendar					_periodApprove;

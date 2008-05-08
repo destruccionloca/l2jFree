@@ -43,7 +43,7 @@ public class Mount implements IUserCommandHandler
 
 		if (pet != null && pet.isMountable() && !activeChar.isMounted() && !pet.isBetrayed())
 		{
-			if (pet.getNpcId()==16030 && pet.getLevel()<Config.GREAT_WOLF_MOUNT_LEVEL)
+			if (pet.getNpcId() == 16030 && pet.getLevel() < Config.GREAT_WOLF_MOUNT_LEVEL)
 			{
 				activeChar.sendMessage("Your Wolf needs minimum level " + Config.GREAT_WOLF_MOUNT_LEVEL);
 				return false;

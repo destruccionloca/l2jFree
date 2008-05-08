@@ -26,174 +26,183 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.Fort;
 
-
 public class FortManager
 {
-    protected static final Logger _log = Logger.getLogger(FortManager.class.getName());
-    // =========================================================
-    private static FortManager _instance;
-    public static final FortManager getInstance()
-    {
-        if (_instance == null)
-        {
-            _log.info("Initializing FortManager");
-            _instance = new FortManager();
-            _instance.load();
-        }
-        return _instance;
-    }
-    
-    // =========================================================
-    // Data Field
-    private List<Fort> _forts;
-    
-    // =========================================================
-    // Constructor
-    public FortManager() {}
-    
-    // =========================================================
-    // Method - Public
+	protected static final Logger	_log	= Logger.getLogger(FortManager.class.getName());
+	// =========================================================
+	private static FortManager		_instance;
 
-    public final int findNearestFortIndex(L2Object obj)
-    {
-        int index = getFortIndex(obj);
-        if (index < 0)
-        {
-            double closestDistance = Double.MAX_VALUE;
-            double distance;
+	public static final FortManager getInstance()
+	{
+		if (_instance == null)
+		{
+			_log.info("Initializing FortManager");
+			_instance = new FortManager();
+			_instance.load();
+		}
+		return _instance;
+	}
 
-            for (Fort fort : getForts())
-            {
-                if (fort  == null)
-                    continue;
-                distance = fort.getDistanceToZone(obj.getX(), obj.getY());
-                if (closestDistance > distance)
-                {
-                    closestDistance = distance;
-                    index = getFortIndex(fort.getFortId());
-                }
-            }
-        }
-        return index;
-    }
-    
-    // =========================================================
-    // Method - Private
-    private final void load()
-    {
-        Connection con = null;
-        try
-        {
-            PreparedStatement statement;
-            ResultSet rs;
+	// =========================================================
+	// Data Field
+	private List<Fort>	_forts;
 
-            con = L2DatabaseFactory.getInstance().getConnection(con);
+	// =========================================================
+	// Constructor
+	public FortManager()
+	{
+	}
 
-            statement = con.prepareStatement("SELECT id FROM fort ORDER BY id");
-            rs = statement.executeQuery();
+	// =========================================================
+	// Method - Public
 
-            while (rs.next())
-            {
-                getForts().add(new Fort(rs.getInt("id")));
-            }
+	public final int findNearestFortIndex(L2Object obj)
+	{
+		int index = getFortIndex(obj);
+		if (index < 0)
+		{
+			double closestDistance = Double.MAX_VALUE;
+			double distance;
 
-            rs.close();
-            statement.close();
+			for (Fort fort : getForts())
+			{
+				if (fort == null)
+					continue;
+				distance = fort.getDistanceToZone(obj.getX(), obj.getY());
+				if (closestDistance > distance)
+				{
+					closestDistance = distance;
+					index = getFortIndex(fort.getFortId());
+				}
+			}
+		}
+		return index;
+	}
 
-            _log.info("Loaded: " + getForts().size() + " fortress");
-        }
-        catch (Exception e)
-        {
-            _log.warning("Exception: loadFortData(): " + e.getMessage());
-            e.printStackTrace();
-        }
+	// =========================================================
+	// Method - Private
+	private final void load()
+	{
+		Connection con = null;
+		try
+		{
+			PreparedStatement statement;
+			ResultSet rs;
 
-        finally 
-        {
-            try 
-            { 
-                con.close(); 
-            } 
-            catch (Exception e) 
-            {}
-        }
-    }
-    
-    // =========================================================
-    // Property - Public
-    public final Fort getFortById(int fortId)
-    {
-        for (Fort f : getForts())
-        {
-            if (f.getFortId() == fortId)
-                return f;
-        }
-        return null;
-    }
-    
-    public final Fort getFortByOwner(L2Clan clan)
-    {
-        for (Fort f : getForts())
-        {
-            if (f.getOwnerId() == clan.getClanId())
-                return f;
-        }
-        return null;
-    }
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 
-    public final Fort getFort(String name)
-    {
-        for (Fort f : getForts())
-        {
-            if (f.getName().equalsIgnoreCase(name.trim()))
-                return f;
-        }
-        return null;
-    }
-    
-    public final Fort getFort(int x, int y, int z)
-    {
-        for (Fort f : getForts())
-        {
-            if (f.checkIfInZone(x, y, z))
-                return f;
-        }
-        return null;
-    }
-    
-    public final Fort getFort(L2Object activeObject) { return getFort(activeObject.getX(), activeObject.getY(), activeObject.getZ()); }
-    
-    public final int getFortIndex(int fortId)
-    {
-        Fort fort;
-        for (int i = 0; i < getForts().size(); i++)
-        {
-            fort = getForts().get(i);
-            if (fort != null && fort.getFortId() == fortId) return i;
-        }
-        return -1;
-    }
+			statement = con.prepareStatement("SELECT id FROM fort ORDER BY id");
+			rs = statement.executeQuery();
 
-    public final int getFortIndex(L2Object activeObject)
-    {
-        return getFortIndex(activeObject.getX(), activeObject.getY(), activeObject.getZ());
-    }
-    
-    public final int getFortIndex(int x, int y, int z)
-    {
-        Fort fort;
-        for (int i = 0; i < getForts().size(); i++)
-        {
-            fort = getForts().get(i);
-            if (fort != null && fort.checkIfInZone(x, y, z)) return i;
-        }
-        return -1;
-    }
-    
-    public final List<Fort> getForts()
-    {
-        if (_forts == null) _forts = new FastList<Fort>();
-        return _forts;
-    }
-    
+			while (rs.next())
+			{
+				getForts().add(new Fort(rs.getInt("id")));
+			}
+
+			rs.close();
+			statement.close();
+
+			_log.info("Loaded: " + getForts().size() + " fortress");
+		}
+		catch (Exception e)
+		{
+			_log.warning("Exception: loadFortData(): " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
+	}
+
+	// =========================================================
+	// Property - Public
+	public final Fort getFortById(int fortId)
+	{
+		for (Fort f : getForts())
+		{
+			if (f.getFortId() == fortId)
+				return f;
+		}
+		return null;
+	}
+
+	public final Fort getFortByOwner(L2Clan clan)
+	{
+		for (Fort f : getForts())
+		{
+			if (f.getOwnerId() == clan.getClanId())
+				return f;
+		}
+		return null;
+	}
+
+	public final Fort getFort(String name)
+	{
+		for (Fort f : getForts())
+		{
+			if (f.getName().equalsIgnoreCase(name.trim()))
+				return f;
+		}
+		return null;
+	}
+
+	public final Fort getFort(int x, int y, int z)
+	{
+		for (Fort f : getForts())
+		{
+			if (f.checkIfInZone(x, y, z))
+				return f;
+		}
+		return null;
+	}
+
+	public final Fort getFort(L2Object activeObject)
+	{
+		return getFort(activeObject.getX(), activeObject.getY(), activeObject.getZ());
+	}
+
+	public final int getFortIndex(int fortId)
+	{
+		Fort fort;
+		for (int i = 0; i < getForts().size(); i++)
+		{
+			fort = getForts().get(i);
+			if (fort != null && fort.getFortId() == fortId)
+				return i;
+		}
+		return -1;
+	}
+
+	public final int getFortIndex(L2Object activeObject)
+	{
+		return getFortIndex(activeObject.getX(), activeObject.getY(), activeObject.getZ());
+	}
+
+	public final int getFortIndex(int x, int y, int z)
+	{
+		Fort fort;
+		for (int i = 0; i < getForts().size(); i++)
+		{
+			fort = getForts().get(i);
+			if (fort != null && fort.checkIfInZone(x, y, z))
+				return i;
+		}
+		return -1;
+	}
+
+	public final List<Fort> getForts()
+	{
+		if (_forts == null)
+			_forts = new FastList<Fort>();
+		return _forts;
+	}
+
 }

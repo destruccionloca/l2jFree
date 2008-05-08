@@ -32,101 +32,116 @@ import org.apache.commons.logging.LogFactory;
  */
 public class FactionManager
 {
-    private static final Log _log = LogFactory.getLog(FactionManager.class.getName());
+	private static final Log		_log	= LogFactory.getLog(FactionManager.class.getName());
 
-    // =========================================================
-    private static FactionManager _instance;
-    public static final FactionManager getInstance()
-    {
-        if (_instance == null)
-        {
-            _log.info("Initializing FactionManager");
-            _instance = new FactionManager();
-            _instance.load();
-        }
-        return _instance;
-    }
-    // =========================================================
-    
-    // =========================================================
-    // Data Field
-    private FastList<Faction> _factions;
-    private FastList<String> _listTitles       = new FastList<String>();
-    
-    // =========================================================
-    // Method - Public
-    public void reload()
-    {
-        getFactions().clear();
-        getFactionTitles().clear();
-        load();
-    }
+	// =========================================================
+	private static FactionManager	_instance;
 
-    // =========================================================
-    // Method - Private
-    private final void load()
-    {
-        Connection con = null;
-        try
-        {
-            PreparedStatement statement;
-            ResultSet rs;
+	public static final FactionManager getInstance()
+	{
+		if (_instance == null)
+		{
+			_log.info("Initializing FactionManager");
+			_instance = new FactionManager();
+			_instance.load();
+		}
+		return _instance;
+	}
 
-            con = L2DatabaseFactory.getInstance().getConnection(con);
+	// =========================================================
 
-            statement = con.prepareStatement("Select id from factions order by id");
-            rs = statement.executeQuery();
+	// =========================================================
+	// Data Field
+	private FastList<Faction>	_factions;
+	private FastList<String>	_listTitles	= new FastList<String>();
 
-            while (rs.next())
-            {
-                Faction faction = new Faction(rs.getInt("id"));
-                getFactions().add(faction);
-                for(FastMap.Entry<Integer, String> e = faction.getTitle().head(), end = faction.getTitle().tail(); (e = e.getNext()) != end;)
-                    _listTitles.add(e.getValue().toLowerCase());
-                faction = null;
-            }
+	// =========================================================
+	// Method - Public
+	public void reload()
+	{
+		getFactions().clear();
+		getFactionTitles().clear();
+		load();
+	}
 
-            statement.close();
+	// =========================================================
+	// Method - Private
+	private final void load()
+	{
+		Connection con = null;
+		try
+		{
+			PreparedStatement statement;
+			ResultSet rs;
 
-            _log.info("Loaded: " + getFactions().size() + " faction(s)");
-        }
-        catch (Exception e)
-        {
-            _log.warn("Exception: FactionsManager.load(): " + e.getMessage(),e);
-        }
-        
-        finally {try { con.close(); } catch (Exception e) {}}
-    }
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 
-    // =========================================================
-    // Property - Public
-    public final Faction getFactions(int FactionId)
-    {
-        int index = getFactionIndex(FactionId);
-        if (index >= 0) return getFactions().get(index);
-        return null;
-    }
+			statement = con.prepareStatement("Select id from factions order by id");
+			rs = statement.executeQuery();
 
-    public final int getFactionIndex(int FactionId)
-    {
-        Faction faction;
-        for (int i = 0; i < getFactions().size(); i++)
-        {
-            faction = getFactions().get(i);
-            if (faction != null && faction.getId() == FactionId) return i;
-        }
-        return -1;
-    }
+			while (rs.next())
+			{
+				Faction faction = new Faction(rs.getInt("id"));
+				getFactions().add(faction);
+				for (FastMap.Entry<Integer, String> e = faction.getTitle().head(), end = faction.getTitle().tail(); (e = e.getNext()) != end;)
+					_listTitles.add(e.getValue().toLowerCase());
+				faction = null;
+			}
 
-    public final FastList<Faction> getFactions()
-    {
-        if (_factions == null) _factions = new FastList<Faction>();
-        return _factions;
-    }
-    
-    public final FastList<String> getFactionTitles()
-    {
-        if (_listTitles == null) _listTitles = new FastList<String>();
-        return _listTitles;
-    }
+			statement.close();
+
+			_log.info("Loaded: " + getFactions().size() + " faction(s)");
+		}
+		catch (Exception e)
+		{
+			_log.warn("Exception: FactionsManager.load(): " + e.getMessage(), e);
+		}
+
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
+	}
+
+	// =========================================================
+	// Property - Public
+	public final Faction getFactions(int FactionId)
+	{
+		int index = getFactionIndex(FactionId);
+		if (index >= 0)
+			return getFactions().get(index);
+		return null;
+	}
+
+	public final int getFactionIndex(int FactionId)
+	{
+		Faction faction;
+		for (int i = 0; i < getFactions().size(); i++)
+		{
+			faction = getFactions().get(i);
+			if (faction != null && faction.getId() == FactionId)
+				return i;
+		}
+		return -1;
+	}
+
+	public final FastList<Faction> getFactions()
+	{
+		if (_factions == null)
+			_factions = new FastList<Faction>();
+		return _factions;
+	}
+
+	public final FastList<String> getFactionTitles()
+	{
+		if (_listTitles == null)
+			_listTitles = new FastList<String>();
+		return _listTitles;
+	}
 }

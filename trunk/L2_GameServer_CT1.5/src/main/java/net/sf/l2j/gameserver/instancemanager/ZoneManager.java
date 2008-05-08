@@ -41,11 +41,11 @@ import org.w3c.dom.Node;
 
 public class ZoneManager
 {
-	protected static Log _log = LogFactory.getLog(ZoneManager.class.getName());
+	protected static Log						_log	= LogFactory.getLog(ZoneManager.class.getName());
 
-	private static ZoneManager _instance;
+	private static ZoneManager					_instance;
 
-	private FastMap<ZoneType, FastList<L2Zone>> _zones;
+	private FastMap<ZoneType, FastList<L2Zone>>	_zones;
 
 	public static final ZoneManager getInstance()
 	{
@@ -60,12 +60,12 @@ public class ZoneManager
 	public void reload()
 	{
 		int zoneCount = 0;
-		
+
 		// Get the world regions
 		L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
-		for (int x=0; x < worldRegions.length; x++)
+		for (int x = 0; x < worldRegions.length; x++)
 		{
-			for (int y=0; y < worldRegions[x].length; y++)
+			for (int y = 0; y < worldRegions[x].length; y++)
 			{
 				worldRegions[x][y].getZones().clear();
 			}
@@ -104,14 +104,14 @@ public class ZoneManager
 				e.printStackTrace();
 				continue;
 			}
-			_log.info("ZoneManager: "+f.getName()+" loaded with "+count+" zones");
+			_log.info("ZoneManager: " + f.getName() + " loaded with " + count + " zones");
 		}
 	}
 
 	protected int parseDocument(Document doc)
 	{
 		int zoneCount = 0;
-		
+
 		// Get the world regions
 		L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
 		for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
@@ -123,19 +123,20 @@ public class ZoneManager
 					if ("zone".equalsIgnoreCase(d.getNodeName()))
 					{
 						L2Zone zone = L2Zone.parseZone(d);
-						if(zone == null)continue;
-						
+						if (zone == null)
+							continue;
+
 						// Register the zone to any intersecting world region
-						int ax,ay,bx,by;
-						for (int x=0; x < worldRegions.length; x++)
+						int ax, ay, bx, by;
+						for (int x = 0; x < worldRegions.length; x++)
 						{
-							for (int y=0; y < worldRegions[x].length; y++)
+							for (int y = 0; y < worldRegions[x].length; y++)
 							{
-								ax = (x-L2World.OFFSET_X) << L2World.SHIFT_BY;
-								bx = ((x+1)-L2World.OFFSET_X) << L2World.SHIFT_BY;
-								ay = (y-L2World.OFFSET_Y) << L2World.SHIFT_BY;
-								by = ((y+1)-L2World.OFFSET_Y) << L2World.SHIFT_BY;
-								
+								ax = (x - L2World.OFFSET_X) << L2World.SHIFT_BY;
+								bx = ((x + 1) - L2World.OFFSET_X) << L2World.SHIFT_BY;
+								ay = (y - L2World.OFFSET_Y) << L2World.SHIFT_BY;
+								by = ((y + 1) - L2World.OFFSET_Y) << L2World.SHIFT_BY;
+
 								if (zone.intersectsRectangle(ax, bx, ay, by))
 								{
 									worldRegions[x][y].addZone(zone);

@@ -19,62 +19,65 @@ import net.sf.l2j.gameserver.network.L2IrcClient;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 /** 
  * @author evill33t
  * 
  */
 public class IrcManager
 {
-    private static final Log _log = LogFactory.getLog(IrcManager.class.getName());
+	private static final Log	_log	= LogFactory.getLog(IrcManager.class.getName());
 
-    // =========================================================
-    private static IrcManager _instance;
-    private static L2IrcClient _ircConnection;
-    
-    public static final IrcManager getInstance()
-    {
-        if (_instance == null)
-        {
-            _log.info("Initializing IrcManager");
-            _instance = new IrcManager();
-            _instance.load();
-        }
-        return _instance;
-    }
-    // =========================================================
-    
-    // =========================================================
-    // Method - Public
-    public void reload()
-    {
-    	_ircConnection.disconnect();
-    	try
-    	{
-    		_ircConnection.connect();
-		} 
-    	catch (Exception e) 
-    	{ 
+	// =========================================================
+	private static IrcManager	_instance;
+	private static L2IrcClient	_ircConnection;
+
+	public static final IrcManager getInstance()
+	{
+		if (_instance == null)
+		{
+			_log.info("Initializing IrcManager");
+			_instance = new IrcManager();
+			_instance.load();
+		}
+		return _instance;
+	}
+
+	// =========================================================
+
+	// =========================================================
+	// Method - Public
+	public void reload()
+	{
+		_ircConnection.disconnect();
+		try
+		{
+			_ircConnection.connect();
+		}
+		catch (Exception e)
+		{
 			_log.fatal(e);
 		}
-    }
+	}
 
-    public L2IrcClient getConnection()
-    {
-    	return _ircConnection;
-    }
+	public L2IrcClient getConnection()
+	{
+		return _ircConnection;
+	}
 
-    // =========================================================
-    // Method - Private
-    private final void load()
-    {
-		_ircConnection = new L2IrcClient(Config.IRC_SERVER, Config.IRC_PORT, Config.IRC_PASS, Config.IRC_NICK, Config.IRC_USER, Config.IRC_NAME, Config.IRC_SSL, Config.IRC_CHANNEL);    	
-    	try
-    	{
-    		_ircConnection.connect();
-		} 
-    	catch (Exception e) 
-    	{ 
+	// =========================================================
+	// Method - Private
+	private final void load()
+	{
+		_ircConnection = new L2IrcClient(Config.IRC_SERVER, Config.IRC_PORT, Config.IRC_PASS, Config.IRC_NICK, Config.IRC_USER, Config.IRC_NAME,
+				Config.IRC_SSL, Config.IRC_CHANNEL);
+		try
+		{
+			_ircConnection.connect();
+		}
+		catch (Exception e)
+		{
 			_log.fatal(e);
 		}
-    }
+	}
 }
