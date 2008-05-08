@@ -12,43 +12,33 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
+import java.util.logging.Logger;
+
+import net.sf.l2j.gameserver.datatables.ExtractableItemsData;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.items.model.L2ExtractableItem;
 import net.sf.l2j.gameserver.items.model.L2ExtractableProductItem;
-import net.sf.l2j.gameserver.items.service.ExtractableItemsService;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.registry.IServiceRegistry;
-import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.random.Rnd;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
- * 
+ *
  * @author FBIagent 11/12/2006
- * 
+ *
  */
 
 public class ExtractableItems implements IItemHandler
 {
-	protected static Log			_log					= LogFactory.getLog(ExtractableItems.class);
+	private static Logger	_log	= Logger.getLogger(ItemTable.class.getName());
 
-	private ExtractableItemsService	extractableItemsService	= (ExtractableItemsService) L2Registry.getBean(IServiceRegistry.EXTRACTABLE_ITEM);
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance,
-	 *      net.sf.l2j.gameserver.model.L2ItemInstance)
-	 */
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
@@ -57,7 +47,7 @@ public class ExtractableItems implements IItemHandler
 		L2PcInstance activeChar = (L2PcInstance) playable;
 
 		int itemID = item.getItemId();
-		L2ExtractableItem exitem = extractableItemsService.getExtractableItem(itemID);
+		L2ExtractableItem exitem = ExtractableItemsData.getInstance().getExtractableItem(itemID);
 
 		if (exitem == null)
 			return;
@@ -82,13 +72,14 @@ public class ExtractableItems implements IItemHandler
 		if (createItemID == 0)
 		{
 			activeChar.sendMessage("Nothing happened.");
+			return;
 		}
 
 		if (createItemID > 0)
 		{
 			if (ItemTable.getInstance().createDummyItem(createItemID) == null)
 			{
-				_log.warn("createItemID " + createItemID + " doesn't have template!");
+				_log.warning("createItemID " + createItemID + " doesn't have template!");
 				activeChar.sendMessage("Nothing happened.");
 				return;
 			}
@@ -116,21 +107,14 @@ public class ExtractableItems implements IItemHandler
 		}
 		else
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_FAILED);
-			sm.addString("Extraction");
-			activeChar.sendPacket(sm);
+			activeChar.sendMessage("Item failed to open"); // TODO: Put a more proper message here.
 		}
 
 		activeChar.destroyItemByItemId("Extract", itemID, 1, activeChar.getTarget(), true);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.sf.l2j.gameserver.handler.IItemHandler#getItemIds()
-	 */
 	public int[] getItemIds()
 	{
-		return extractableItemsService.itemIDs();
+		return ExtractableItemsData.getInstance().itemIDs();
 	}
 }

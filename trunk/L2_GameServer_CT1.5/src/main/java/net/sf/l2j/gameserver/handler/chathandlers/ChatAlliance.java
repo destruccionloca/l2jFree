@@ -25,7 +25,8 @@ import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
  */
 public class ChatAlliance implements IChatHandler
 {
-	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Alliance };
+	private SystemChatChannelId[]	_chatTypes	=
+												{ SystemChatChannelId.Chat_Alliance };
 
 	/**
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatType()
@@ -42,7 +43,7 @@ public class ChatAlliance implements IChatHandler
 	{
 		if (activeChar.getClan() == null)
 			return;
-		
+
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 		activeChar.getClan().broadcastToOnlineAllyMembers(cs);
 		activeChar.getClan().broadcastSnoopToOnlineAllyMembers(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);

@@ -28,19 +28,20 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 public class ChestKey implements IItemHandler
 {
-	public static final int INTERACTION_DISTANCE = 100;
+	public static final int		INTERACTION_DISTANCE	= 100;
 
-	private static final int[] ITEM_IDS = {
-											6665, 6666, 6667, 6668, 6669, 6670, 6671, 6672  //deluxe key
-										  };
+	private static final int[]	ITEM_IDS				=
+														{ 6665, 6666, 6667, 6668, 6669, 6670, 6671, 6672 //deluxe key
+														};
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance)) return;
+		if (!(playable instanceof L2PcInstance))
+			return;
 
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		int itemId = item.getItemId();
-		L2Skill skill = SkillTable.getInstance().getInfo(2229, itemId-6664);//box key skill
+		L2Skill skill = SkillTable.getInstance().getInfo(2229, itemId - 6664);//box key skill
 		L2Object target = activeChar.getTarget();
 
 		if (target == null || !(target instanceof L2ChestInstance))
@@ -57,7 +58,7 @@ public class ChestKey implements IItemHandler
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-			activeChar.useMagic(skill,false,false);
+			activeChar.useMagic(skill, false, false);
 		}
 	}
 

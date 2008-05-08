@@ -33,7 +33,8 @@ import net.sf.l2j.gameserver.util.FloodProtector;
  */
 public class ChatShout implements IChatHandler
 {
-	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Shout };
+	private SystemChatChannelId[]	_chatTypes	=
+												{ SystemChatChannelId.Chat_Shout };
 
 	/**
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatType()
@@ -49,36 +50,38 @@ public class ChatShout implements IChatHandler
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
 		if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_GLOBAL_CHAT) && !activeChar.isGM())
-		{ 
+		{
 			activeChar.sendMessage("Flood protection: Using global chat failed.");
 			return;
 		}
 
-		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("shout") || Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("all"))
+		if (Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("shout") || Config.IRC_ENABLED
+				&& Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("all"))
 		{
-			IrcManager.getInstance().getConnection().sendChan("07!"+ activeChar.getName() +": " + text);
+			IrcManager.getInstance().getConnection().sendChan("07!" + activeChar.getName() + ": " + text);
 		}
 
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
-		
+
 		if (Config.DEFAULT_GLOBAL_CHAT == ChatMode.REGION)
 		{
 			L2MapRegion region = MapRegionManager.getInstance().getRegion(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				if (region == MapRegionManager.getInstance().getRegion(player.getX(),player.getY(), activeChar.getZ())
-					&& !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar))){
+				if (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY(), activeChar.getZ())
+						&& !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)))
+				{
 					player.sendPacket(cs);
 					player.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 				}
 			}
 		}
-		else if (Config.DEFAULT_GLOBAL_CHAT == ChatMode.GLOBAL ||
-			Config.DEFAULT_GLOBAL_CHAT == ChatMode.GM && activeChar.isGM())
+		else if (Config.DEFAULT_GLOBAL_CHAT == ChatMode.GLOBAL || Config.DEFAULT_GLOBAL_CHAT == ChatMode.GM && activeChar.isGM())
 		{
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				if(!(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar))){
+				if (!(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)))
+				{
 					player.sendPacket(cs);
 					player.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 				}

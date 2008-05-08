@@ -25,7 +25,8 @@ import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
  */
 public class ChatParty implements IChatHandler
 {
-	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Party };
+	private SystemChatChannelId[]	_chatTypes	=
+												{ SystemChatChannelId.Chat_Party };
 
 	/**
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatType()
@@ -42,7 +43,8 @@ public class ChatParty implements IChatHandler
 	{
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 
-		if (activeChar.isInParty()){
+		if (activeChar.isInParty())
+		{
 			activeChar.getParty().broadcastToPartyMembers(cs);
 			activeChar.getParty().broadcastSnoopToPartyMembers(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 		}

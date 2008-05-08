@@ -27,7 +27,8 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  */
 public class ChatPetition implements IChatHandler
 {
-	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_GM_Pet, SystemChatChannelId.Chat_User_Pet };
+	private SystemChatChannelId[]	_chatTypes	=
+												{ SystemChatChannelId.Chat_GM_Pet, SystemChatChannelId.Chat_User_Pet };
 
 	/**
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypes()
@@ -48,8 +49,8 @@ public class ChatPetition implements IChatHandler
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_IN_PETITION_CHAT));
 			return;
 		}
-		
+
 		PetitionManager.getInstance().sendActivePetitionMessage(activeChar, text);
-		activeChar.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), "*Petition:"+text);
+		activeChar.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), "*Petition:" + text);
 	}
 }

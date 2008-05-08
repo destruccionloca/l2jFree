@@ -26,22 +26,44 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 public class EnchantScrolls implements IItemHandler
 {
-	private static final int[] ITEM_IDS = {
-		729, 730, 731, 732, 6569, 6570, // a grade
-		947, 948, 949, 950, 6571, 6572, // b grade
-		951, 952, 953, 954, 6573, 6574, // c grade
-		955, 956, 957, 958, 6575, 6576, // d grade
-		959, 960, 961, 962, 6577, 6578  // s grade
-	};
+	private static final int[]	ITEM_IDS	=
+											{ 729, 730, 731, 732, 6569, 6570, // a grade
+			947,
+			948,
+			949,
+			950,
+			6571,
+			6572, // b grade
+			951,
+			952,
+			953,
+			954,
+			6573,
+			6574, // c grade
+			955,
+			956,
+			957,
+			958,
+			6575,
+			6576, // d grade
+			959,
+			960,
+			961,
+			962,
+			6577,
+			6578							// s grade
+											};
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance)) return;
-		L2PcInstance activeChar = (L2PcInstance)playable;
-		if(activeChar.isCastingNow()) return;
+		if (!(playable instanceof L2PcInstance))
+			return;
+		L2PcInstance activeChar = (L2PcInstance) playable;
+		if (activeChar.isCastingNow())
+			return;
 
 		// Restrict enchant during restart/shutdown (because of an existing exploit)
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_ENCHANT && Shutdown.getCounterInstance() != null 
+		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_ENCHANT && Shutdown.getCounterInstance() != null
 				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
 		{
 			activeChar.sendMessage("Enchanting items is not allowed during restart/shutdown.");
@@ -53,10 +75,9 @@ public class EnchantScrolls implements IItemHandler
 
 		int itemId = item.getItemId();
 
-		if (Config.ALLOW_CRYSTAL_SCROLL &&
-				(itemId == 957 || itemId == 958 || itemId == 953 || itemId == 954 ||	// Crystal scrolls D and C Grades
-				 itemId == 949 || itemId == 950 || itemId == 731 || itemId == 732 ||	// Crystal scrolls B and A Grades
-				 itemId == 961 || itemId == 962))										// Crystal scrolls S Grade
+		if (Config.ALLOW_CRYSTAL_SCROLL && (itemId == 957 || itemId == 958 || itemId == 953 || itemId == 954 || // Crystal scrolls D and C Grades
+				itemId == 949 || itemId == 950 || itemId == 731 || itemId == 732 || // Crystal scrolls B and A Grades
+				itemId == 961 || itemId == 962)) // Crystal scrolls S Grade
 			activeChar.sendPacket(new ChooseInventoryItem(itemId - 2));
 		else
 			activeChar.sendPacket(new ChooseInventoryItem(itemId));

@@ -25,7 +25,8 @@ import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
  */
 public class ChatSystem implements IChatHandler
 {
-	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_System };
+	private SystemChatChannelId[]	_chatTypes	=
+												{ SystemChatChannelId.Chat_System };
 
 	/**
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypes()
@@ -43,15 +44,16 @@ public class ChatSystem implements IChatHandler
 		//TODO: Find out what this channel is original intended for
 		//      For me it is my emotechannel, because normal all-chan is affected
 		//      by a language skill system. This one is readable by everyone.
-    	CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName() + "'s Emote", text);         
+		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName() + "'s Emote", text);
 
-    	for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
-	        if (player != null && activeChar.isInsideRadius(player, 1250, false, true)){
-	            player.sendPacket(cs);
-	            player.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
-	        }
-    	
-    	activeChar.sendPacket(cs);
-    	activeChar.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
+		for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
+			if (player != null && activeChar.isInsideRadius(player, 1250, false, true))
+			{
+				player.sendPacket(cs);
+				player.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
+			}
+
+		activeChar.sendPacket(cs);
+		activeChar.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 	}
 }

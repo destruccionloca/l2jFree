@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver;
 
+import net.sf.l2j.gameserver.datatables.ExtractableItemsData;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -184,6 +185,7 @@ public class GameServer
 		if (Config.SP_BOOK_NEEDED)
 			SkillSpellbookTable.getInstance();
 		SummonItemsData.getInstance();
+		ExtractableItemsData.getInstance();
 		if (Config.ALLOW_FISHING)
 			FishTable.getInstance();
 		ItemsOnGroundManager.getInstance();

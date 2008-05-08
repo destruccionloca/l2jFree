@@ -22,36 +22,57 @@ import net.sf.l2j.gameserver.network.serverpackets.ExChooseInventoryAttributeIte
 
 public class EnchantAttr implements IItemHandler
 {
-    private static final int ITEM_IDS[] = {
-        9546, 9547, 9548, 9549, 9550, 9551, 9552, 9553, 9554, 9555, 
-        9556, 9557, 9558, 9559, 9560, 9561, 9562, 9563, 9564, 9565, 
-        9566, 9567, 9568, 9569
-    };
+	private static final int	ITEM_IDS[]	=
+											{
+			9546,
+			9547,
+			9548,
+			9549,
+			9550,
+			9551,
+			9552,
+			9553,
+			9554,
+			9555,
+			9556,
+			9557,
+			9558,
+			9559,
+			9560,
+			9561,
+			9562,
+			9563,
+			9564,
+			9565,
+			9566,
+			9567,
+			9568,
+			9569							};
 
-    public EnchantAttr()
-    {
-    }
+	public EnchantAttr()
+	{
+	}
 
-    public void useItem(L2PlayableInstance playable, L2ItemInstance item)
-    {
-        if(!(playable instanceof L2PcInstance))
-            return;
-        
-        L2PcInstance activeChar = (L2PcInstance)playable;
-        if(activeChar.isCastingNow())
-        {
-            return;
-        } 
-        else
-        {
-            //activeChar.setActiveEnchantAttrItem(item);
-            activeChar.sendPacket(new ExChooseInventoryAttributeItem(item.getItemId()));
-            return;
-        }
-    }
+	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
+	{
+		if (!(playable instanceof L2PcInstance))
+			return;
 
-    public int[] getItemIds()
-    {
-        return ITEM_IDS;
-    }
+		L2PcInstance activeChar = (L2PcInstance) playable;
+		if (activeChar.isCastingNow())
+		{
+			return;
+		}
+		else
+		{
+			//activeChar.setActiveEnchantAttrItem(item);
+			activeChar.sendPacket(new ExChooseInventoryAttributeItem(item.getItemId()));
+			return;
+		}
+	}
+
+	public int[] getItemIds()
+	{
+		return ITEM_IDS;
+	}
 }

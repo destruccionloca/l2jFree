@@ -29,7 +29,8 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  */
 public class ChatWhisper implements IChatHandler
 {
-	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Tell };
+	private SystemChatChannelId[]	_chatTypes	=
+												{ SystemChatChannelId.Chat_Tell };
 
 	/**
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatType()
@@ -45,15 +46,15 @@ public class ChatWhisper implements IChatHandler
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
 		L2PcInstance receiver = L2World.getInstance().getPlayer(target);
-		
+
 		if (receiver != null && !BlockList.isBlocked(receiver, activeChar))
 		{
 			if (!receiver.getMessageRefusal() || activeChar.isGM())
 			{
 				receiver.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text));
 				receiver.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
-				activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(),  chatType.getId(), "->" + receiver.getName(), text));
-				activeChar.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), "->"+receiver.getName(), text);
+				activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType.getId(), "->" + receiver.getName(), text));
+				activeChar.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), "->" + receiver.getName(), text);
 			}
 			else
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE));

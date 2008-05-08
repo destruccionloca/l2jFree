@@ -30,7 +30,8 @@ import net.sf.l2j.gameserver.util.FloodProtector;
  */
 public class ChatHero implements IChatHandler
 {
-	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Hero };
+	private SystemChatChannelId[]	_chatTypes	=
+												{ SystemChatChannelId.Chat_Hero };
 
 	/**
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypes()
@@ -45,20 +46,21 @@ public class ChatHero implements IChatHandler
 	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
-		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("hero") && activeChar.isHero() || Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("all")) // added hero voice to IRC like said in the properties files
+		if (Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("hero") && activeChar.isHero() || Config.IRC_ENABLED
+				&& Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("all")) // added hero voice to IRC like said in the properties files
 		{
-			IrcManager.getInstance().getConnection().sendChan("12%"+ activeChar.getName() +": " + text);
+			IrcManager.getInstance().getConnection().sendChan("12%" + activeChar.getName() + ": " + text);
 		}
 
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 
 		boolean canSpeak = activeChar.isGM();
-		
-		if(!canSpeak)
+
+		if (!canSpeak)
 		{
 			if (activeChar.isHero())
 			{
-				if(FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_HEROVOICE))
+				if (FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_HEROVOICE))
 				{
 					canSpeak = true;
 				}
@@ -68,7 +70,7 @@ public class ChatHero implements IChatHandler
 				}
 			}
 		}
-		
+
 		if (canSpeak)
 		{
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())

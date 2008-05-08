@@ -26,7 +26,8 @@ import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 
 public class ChatPartyRoom implements IChatHandler
 {
-	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Party_Room };
+	private SystemChatChannelId[]	_chatTypes	=
+												{ SystemChatChannelId.Chat_Party_Room };
 
 	/**
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypes()
@@ -43,7 +44,7 @@ public class ChatPartyRoom implements IChatHandler
 	{
 		String charName = "";
 		int charObjId = 0;
-		
+
 		if (activeChar != null)
 		{
 			charName = activeChar.getName();

@@ -25,7 +25,8 @@ import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
  */
 public class ChatClan implements IChatHandler
 {
-	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Clan };
+	private SystemChatChannelId[]	_chatTypes	=
+												{ SystemChatChannelId.Chat_Clan };
 
 	/**
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatType()

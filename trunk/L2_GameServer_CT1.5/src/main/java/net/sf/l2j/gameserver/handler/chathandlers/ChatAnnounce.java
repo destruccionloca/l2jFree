@@ -26,7 +26,8 @@ import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
  */
 public class ChatAnnounce implements IChatHandler
 {
-	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Announce, SystemChatChannelId.Chat_Critical_Announce };
+	private SystemChatChannelId[]	_chatTypes	=
+												{ SystemChatChannelId.Chat_Announce, SystemChatChannelId.Chat_Critical_Announce };
 
 	/**
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatType()
@@ -43,20 +44,21 @@ public class ChatAnnounce implements IChatHandler
 	{
 		String charName = "";
 		int charObjId = 0;
-		
+
 		if (activeChar != null)
 		{
 			charName = activeChar.getName();
 			charObjId = activeChar.getObjectId();
 		}
-		
+
 		if (chatType == SystemChatChannelId.Chat_Critical_Announce)
 			text = "** " + text;
-		
+
 		CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
-		
+
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			if (player != null){
+			if (player != null)
+			{
 				player.sendPacket(cs);
 				player.broadcastSnoop(charObjId, chatType.getId(), charName, text);
 			}
