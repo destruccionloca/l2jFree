@@ -31,21 +31,20 @@ import org.apache.commons.logging.LogFactory;
  * - buy id = shows shop with respective id
  * @version $Revision: 1.2.4.4 $ $Date: 2005/04/11 10:06:06 $
  */
-public class AdminShop implements IAdminCommandHandler {
-	private final static Log _log = LogFactory.getLog(AdminShop.class.getName());
-	
-	private static final String[] ADMIN_COMMANDS = {
-		"admin_buy",
-		"admin_gmshop"
-	};
-	private static final int REQUIRED_LEVEL = Config.GM_CREATE_ITEM;
+public class AdminShop implements IAdminCommandHandler
+{
+	private final static Log		_log			= LogFactory.getLog(AdminShop.class.getName());
+
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_buy", "admin_gmshop" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_CREATE_ITEM;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-                return false;
-		
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		if (command.startsWith("admin_buy"))
 		{
 			try
@@ -75,7 +74,7 @@ public class AdminShop implements IAdminCommandHandler {
 	}
 
 	private void handleBuyRequest(L2PcInstance activeChar, String command)
-	{	
+	{
 		int val = -1;
 		try
 		{
@@ -83,20 +82,20 @@ public class AdminShop implements IAdminCommandHandler {
 		}
 		catch (Exception e)
 		{
-			_log.warn("admin buylist failed:"+command);
+			_log.warn("admin buylist failed:" + command);
 		}
 
 		L2TradeList list = TradeListTable.getInstance().getBuyList(val);
 
 		if (list != null)
-		{	
+		{
 			activeChar.sendPacket(new BuyList(list, activeChar.getAdena()));
 			if (_log.isDebugEnabled())
-			       _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") opened GM shop id"+val);
+				_log.debug("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") opened GM shop id" + val);
 		}
 		else
 		{
-			_log.warn("no buylist with id:" +val);
+			_log.warn("no buylist with id:" + val);
 		}
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	}

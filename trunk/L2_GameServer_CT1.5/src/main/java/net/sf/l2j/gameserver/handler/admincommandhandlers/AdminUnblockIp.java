@@ -32,57 +32,57 @@ import org.apache.commons.logging.LogFactory;
 public class AdminUnblockIp implements IAdminCommandHandler
 {
 
-    private static final Log _log = LogFactory.getLog(AdminTeleport.class.getName());
+	private static final Log		_log			= LogFactory.getLog(AdminTeleport.class.getName());
 
-    private static final int REQUIRED_LEVEL = Config.GM_UNBLOCK;
-    private static final String[] ADMIN_COMMANDS = {
-        "admin_unblockip"
-    };
+	private static final int		REQUIRED_LEVEL	= Config.GM_UNBLOCK;
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_unblockip" };
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.handler.IAdminCommandHandler#useAdminCommand(java.lang.String, net.sf.l2j.gameserver.model.L2PcInstance)
-     */
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
-    {
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.handler.IAdminCommandHandler#useAdminCommand(java.lang.String, net.sf.l2j.gameserver.model.L2PcInstance)
+	 */
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
 
-        if (command.startsWith("admin_unblockip "))
-        {
-            try
-            {
-                String ipAddress = command.substring(16);
-                if (unblockIp(ipAddress, activeChar))
-                {
-                    activeChar.sendMessage("Removed IP " + ipAddress + " from blocklist!");
-                }
-            }
-            catch (StringIndexOutOfBoundsException e)
-            {
-                // Send syntax to the user
-                activeChar.sendMessage("Usage mode: //unblockip <ip>");
-            }
-        }
+		if (command.startsWith("admin_unblockip "))
+		{
+			try
+			{
+				String ipAddress = command.substring(16);
+				if (unblockIp(ipAddress, activeChar))
+				{
+					activeChar.sendMessage("Removed IP " + ipAddress + " from blocklist!");
+				}
+			}
+			catch (StringIndexOutOfBoundsException e)
+			{
+				// Send syntax to the user
+				activeChar.sendMessage("Usage mode: //unblockip <ip>");
+			}
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    public String[] getAdminCommandList()
-    {
-        return ADMIN_COMMANDS;
-    }
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
 
-    private boolean checkLevel(int level)
-    {
-        return (level >= REQUIRED_LEVEL);
-    }
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
+	}
 
-    private boolean unblockIp(@SuppressWarnings("unused")
-    String ipAddress, L2PcInstance activeChar)
-    {
-    	//LoginServerThread.getInstance().unBlockip(ipAddress);
-        _log.warn("IP removed by GM " + activeChar.getName());
-        return true;
-    }
+	private boolean unblockIp(@SuppressWarnings("unused")
+	String ipAddress, L2PcInstance activeChar)
+	{
+		//LoginServerThread.getInstance().unBlockip(ipAddress);
+		_log.warn("IP removed by GM " + activeChar.getName());
+		return true;
+	}
 
 }

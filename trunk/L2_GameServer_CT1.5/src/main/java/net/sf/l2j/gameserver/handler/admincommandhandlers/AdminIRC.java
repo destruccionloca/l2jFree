@@ -18,8 +18,8 @@ import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * This class handles following admin commands:

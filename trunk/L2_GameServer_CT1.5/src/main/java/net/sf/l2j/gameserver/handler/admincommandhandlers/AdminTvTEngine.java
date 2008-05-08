@@ -267,52 +267,80 @@ public class AdminTvTEngine implements IAdminCommandHandler
 		replyMSG.append("<center><font color=\"LEVEL\">[TvT Engine]</font></center><br><br><br>");
 		replyMSG.append("<table><tr><td><edit var=\"input1\" width=\"125\"></td><td><edit var=\"input2\" width=\"125\"></td></tr></table>");
 		replyMSG.append("<table border=\"0\"><tr>");
-		replyMSG.append("<td width=\"100\"><button value=\"Name\" action=\"bypass -h admin_tvt_name $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Description\" action=\"bypass -h admin_tvt_desc $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Join Location\" action=\"bypass -h admin_tvt_join_loc $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Name\" action=\"bypass -h admin_tvt_name $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Description\" action=\"bypass -h admin_tvt_desc $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Join Location\" action=\"bypass -h admin_tvt_join_loc $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("</tr></table><br><table><tr>");
 		replyMSG.append("</tr></table><br><table><tr>");
-		replyMSG.append("<td width=\"100\"><button value=\"Max lvl\" action=\"bypass -h admin_tvt_maxlvl $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Min lvl\" action=\"bypass -h admin_tvt_minlvl $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Max lvl\" action=\"bypass -h admin_tvt_maxlvl $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Min lvl\" action=\"bypass -h admin_tvt_minlvl $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("</tr></table><br><table><tr>");
 		replyMSG.append("</tr></table><br><table><tr>");
-		replyMSG.append("<td width=\"100\"><button value=\"Max players\" action=\"bypass -h admin_tvt_maxplayers $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Min players\" action=\"bypass -h admin_tvt_minplayers $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Max players\" action=\"bypass -h admin_tvt_maxplayers $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Min players\" action=\"bypass -h admin_tvt_minplayers $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("</tr></table><br><table><tr>");
-		replyMSG.append("<td width=\"100\"><button value=\"NPC\" action=\"bypass -h admin_tvt_npc $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"NPC Pos\" action=\"bypass -h admin_tvt_npc_pos\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"NPC\" action=\"bypass -h admin_tvt_npc $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"NPC Pos\" action=\"bypass -h admin_tvt_npc_pos\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("</tr></table><br><table><tr>");
-		replyMSG.append("<td width=\"100\"><button value=\"Reward\" action=\"bypass -h admin_tvt_reward $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Reward Amount\" action=\"bypass -h admin_tvt_reward_amount $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Reward\" action=\"bypass -h admin_tvt_reward $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Reward Amount\" action=\"bypass -h admin_tvt_reward_amount $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("</tr></table><br><table><tr>");
-		replyMSG.append("<td width=\"100\"><button value=\"Join Time\" action=\"bypass -h admin_tvt_jointime $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Event Time\" action=\"bypass -h admin_tvt_eventtime $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Join Time\" action=\"bypass -h admin_tvt_jointime $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Event Time\" action=\"bypass -h admin_tvt_eventtime $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("</tr></table><br><table><tr>");
-		replyMSG.append("<td width=\"100\"><button value=\"Team Add\" action=\"bypass -h admin_tvt_team_add $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Team Color\" action=\"bypass -h admin_tvt_team_color $input1 $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Team Pos\" action=\"bypass -h admin_tvt_team_pos $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Team Add\" action=\"bypass -h admin_tvt_team_add $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Team Color\" action=\"bypass -h admin_tvt_team_color $input1 $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Team Pos\" action=\"bypass -h admin_tvt_team_pos $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("</tr></table><table><tr>");
-		replyMSG.append("<td width=\"100\"><button value=\"Team Remove\" action=\"bypass -h admin_tvt_team_remove $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Team Remove\" action=\"bypass -h admin_tvt_team_remove $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("</tr></table><br><table><tr>");
-		replyMSG.append("<td width=\"100\"><button value=\"Join\" action=\"bypass -h admin_tvt_join\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Teleport\" action=\"bypass -h admin_tvt_teleport\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Start\" action=\"bypass -h admin_tvt_start\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Join\" action=\"bypass -h admin_tvt_join\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Teleport\" action=\"bypass -h admin_tvt_teleport\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Start\" action=\"bypass -h admin_tvt_start\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("</tr></table><table><tr>");
-		replyMSG.append("<td width=\"100\"><button value=\"Abort\" action=\"bypass -h admin_tvt_abort\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Finish\" action=\"bypass -h admin_tvt_finish\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Abort\" action=\"bypass -h admin_tvt_abort\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Finish\" action=\"bypass -h admin_tvt_finish\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("</tr></table><br><table><tr>");
-		replyMSG.append("<td width=\"100\"><button value=\"Sit Force\" action=\"bypass -h admin_tvt_sit\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Dump\" action=\"bypass -h admin_tvt_dump\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Sit Force\" action=\"bypass -h admin_tvt_sit\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Dump\" action=\"bypass -h admin_tvt_dump\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("</tr></table><br><br><table><tr>");
-		replyMSG.append("<td width=\"100\"><button value=\"Save\" action=\"bypass -h admin_tvt_save\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Load\" action=\"bypass -h admin_tvt_load\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		replyMSG.append("<td width=\"100\"><button value=\"Auto Event\" action=\"bypass -h admin_tvt_autoevent\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Save\" action=\"bypass -h admin_tvt_save\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Load\" action=\"bypass -h admin_tvt_load\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		replyMSG
+				.append("<td width=\"100\"><button value=\"Auto Event\" action=\"bypass -h admin_tvt_autoevent\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("</tr></table><br><br>");
 		replyMSG.append("Current event...<br1>");
 		replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + TvT._eventName + "</font><br1>");
 		replyMSG.append("    ... description:&nbsp;<font color=\"00FF00\">" + TvT._eventDesc + "</font><br1>");
 		replyMSG.append("    ... joining location name:&nbsp;<font color=\"00FF00\">" + TvT._joiningLocationName + "</font><br1>");
-		replyMSG.append("    ... joining NPC ID:&nbsp;<font color=\"00FF00\">" + TvT._npcId + " on pos " + TvT._npcX + "," + TvT._npcY + "," + TvT._npcZ + "</font><br1>");
+		replyMSG.append("    ... joining NPC ID:&nbsp;<font color=\"00FF00\">" + TvT._npcId + " on pos " + TvT._npcX + "," + TvT._npcY + "," + TvT._npcZ
+				+ "</font><br1>");
 		replyMSG.append("    ... reward ID:&nbsp;<font color=\"00FF00\">" + TvT._rewardId + "</font><br1>");
 		replyMSG.append("    ... reward Amount:&nbsp;<font color=\"00FF00\">" + TvT._rewardAmount + "</font><br><br>");
 		replyMSG.append("    ... Min lvl:&nbsp;<font color=\"00FF00\">" + TvT._minlvl + "</font><br>");
@@ -339,8 +367,10 @@ public class AdminTvTEngine implements IAdminCommandHandler
 			replyMSG.append("</td></tr><tr><td>");
 			replyMSG.append(TvT._teamColors.get(TvT._teams.indexOf(team)));
 			replyMSG.append("</td></tr><tr><td>");
-			replyMSG.append(TvT._teamsX.get(TvT._teams.indexOf(team)) + ", " + TvT._teamsY.get(TvT._teams.indexOf(team)) + ", " + TvT._teamsZ.get(TvT._teams.indexOf(team)));
-			replyMSG.append("</td></tr><tr><td width=\"60\"><button value=\"Remove\" action=\"bypass -h admin_tvt_team_remove " + team + "\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
+			replyMSG.append(TvT._teamsX.get(TvT._teams.indexOf(team)) + ", " + TvT._teamsY.get(TvT._teams.indexOf(team)) + ", "
+					+ TvT._teamsZ.get(TvT._teams.indexOf(team)));
+			replyMSG.append("</td></tr><tr><td width=\"60\"><button value=\"Remove\" action=\"bypass -h admin_tvt_team_remove " + team
+					+ "\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 		}
 
 		replyMSG.append("</table></center>");

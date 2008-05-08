@@ -58,37 +58,37 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.3.2.6.2.4 $ $Date: 2005/04/11 10:06:06 $
  */
-public class AdminTeleport implements IAdminCommandHandler 
+public class AdminTeleport implements IAdminCommandHandler
 {
-	private static final Log _log = LogFactory.getLog(AdminTeleport.class.getName());
-	
-	private static final String[] ADMIN_COMMANDS = {
-		"admin_bookmark", // L2JP_JP ADD
-		"admin_show_moves",
-		"admin_show_moves_other",
-		"admin_show_teleport",
-		"admin_teleport_to_character",
-		"admin_teleportto",
-		"admin_move_to",
-		"admin_teleport_character",
-		"admin_recall",
-		"admin_recall_gm", //[L2J_JP ADD - TSL]
-		"admin_recall_party", //[L2J_JP ADD - TSL]
-		"admin_recall_all", //[L2J_JP ADD - TSL]
-		"admin_recall_offline",
-		"admin_walk",
-		"admin_recall_npc",
-		"admin_go",
-		"admin_tele",
-		"admin_teleto"
-		};
-	private static final int REQUIRED_LEVEL = Config.GM_TELEPORT;
-	private static final int REQUIRED_LEVEL2 = Config.GM_TELEPORT_OTHER;
-	
+	private static final Log		_log			= LogFactory.getLog(AdminTeleport.class.getName());
+
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_bookmark", // L2JP_JP ADD
+			"admin_show_moves",
+			"admin_show_moves_other",
+			"admin_show_teleport",
+			"admin_teleport_to_character",
+			"admin_teleportto",
+			"admin_move_to",
+			"admin_teleport_character",
+			"admin_recall",
+			"admin_recall_gm", //[L2J_JP ADD - TSL]
+			"admin_recall_party", //[L2J_JP ADD - TSL]
+			"admin_recall_all", //[L2J_JP ADD - TSL]
+			"admin_recall_offline",
+			"admin_walk",
+			"admin_recall_npc",
+			"admin_go",
+			"admin_tele",
+			"admin_teleto"							};
+	private static final int		REQUIRED_LEVEL	= Config.GM_TELEPORT;
+	private static final int		REQUIRED_LEVEL2	= Config.GM_TELEPORT_OTHER;
+
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
 		if (command.startsWith("admin_bookmark"))// L2J_JP ADD
 		{
 			bookmark(activeChar, command.substring(15));
@@ -99,15 +99,18 @@ public class AdminTeleport implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_recall_offline "))
 		{
-			try{
+			try
+			{
 				String[] param = command.split(" ");
-				if (param.length<2){
+				if (param.length < 2)
+				{
 					activeChar.sendMessage("Wrong usage: //recall_offline <player name>");
 					return false;
 				}
 				changeCharacterPosition(activeChar, param[1]);
 			}
-			catch(Throwable t){			
+			catch (Throwable t)
+			{
 			}
 		}
 		else if (command.equals("admin_teleto r"))
@@ -150,12 +153,13 @@ public class AdminTeleport implements IAdminCommandHandler
 				int y = Integer.parseInt(y1);
 				String z1 = st.nextToken();
 				int z = Integer.parseInt(z1);
-				L2CharPosition pos = new L2CharPosition(x,y,z,0);
-				activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,pos);
+				L2CharPosition pos = new L2CharPosition(x, y, z, 0);
+				activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, pos);
 			}
 			catch (Exception e)
 			{
-				if (_log.isDebugEnabled()) _log.info("admin_walk: "+e);
+				if (_log.isDebugEnabled())
+					_log.info("admin_walk: " + e);
 			}
 		}
 		else if (command.startsWith("admin_move_to"))
@@ -169,15 +173,15 @@ public class AdminTeleport implements IAdminCommandHandler
 			{
 				//Case of empty or missing coordinates
 				AdminHelpPage.showHelpPage(activeChar, "teleports.htm");
-			}		
+			}
 		}
 		else if (command.startsWith("admin_teleport_character"))
 		{
 			try
 			{
-				String val = command.substring(25); 
-				
-				if (activeChar.getAccessLevel()>=REQUIRED_LEVEL2)
+				String val = command.substring(25);
+
+				if (activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
 					teleportCharacter(activeChar, val);
 			}
 			catch (StringIndexOutOfBoundsException e)
@@ -196,7 +200,8 @@ public class AdminTeleport implements IAdminCommandHandler
 				teleportToCharacter(activeChar, player);
 			}
 			catch (StringIndexOutOfBoundsException e)
-			{ }
+			{
+			}
 		}
 		else if (command.startsWith("admin_recall "))
 		{
@@ -204,11 +209,12 @@ public class AdminTeleport implements IAdminCommandHandler
 			{
 				String targetName = command.substring(13);
 				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
-				if (activeChar.getAccessLevel()>=REQUIRED_LEVEL2)
+				if (activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
 					teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ());
 			}
 			catch (StringIndexOutOfBoundsException e)
-			{ }
+			{
+			}
 		}
 		// [L2J_JP ADD START - TSL]
 		else if (command.startsWith("admin_recall_party "))
@@ -217,13 +223,14 @@ public class AdminTeleport implements IAdminCommandHandler
 			{
 				String targetName = command.substring(16);
 				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
-				if (activeChar.getAccessLevel()>=REQUIRED_LEVEL2)
+				if (activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
 				{
 					if (player.getParty() != null)
 					{
 						for (L2PcInstance character : player.getParty().getPartyMembers())
 						{
-							if (character == activeChar) continue;
+							if (character == activeChar)
+								continue;
 							teleportCharacter(character, activeChar.getX(), activeChar.getY(), activeChar.getZ());
 						}
 					}
@@ -232,24 +239,29 @@ public class AdminTeleport implements IAdminCommandHandler
 				}
 			}
 			catch (StringIndexOutOfBoundsException e)
-			{ }
+			{
+			}
 		}
-		else if (command.startsWith("admin_recall_gm ")){
-			try{
+		else if (command.startsWith("admin_recall_gm "))
+		{
+			try
+			{
 				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-					if (player.getAccessLevel()>0)
+					if (player.getAccessLevel() > 0)
 						teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ());
 			}
 			catch (StringIndexOutOfBoundsException e)
-			{ }
+			{
+			}
 		}
 		else if (command.equals("admin_recall_all"))
 		{
-			if (activeChar.getAccessLevel()>=REQUIRED_LEVEL2)
+			if (activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
 			{
 				for (L2PcInstance character : L2World.getInstance().getAllPlayers())
 				{
-					if (character == activeChar) continue;
+					if (character == activeChar)
+						continue;
 					teleportCharacter(character, activeChar.getX(), activeChar.getY(), activeChar.getZ());
 				}
 			}
@@ -261,44 +273,44 @@ public class AdminTeleport implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_go"))
 		{
-			int intVal=150;
-			int x = activeChar.getX(),y = activeChar.getY(),z = activeChar.getZ();
+			int intVal = 150;
+			int x = activeChar.getX(), y = activeChar.getY(), z = activeChar.getZ();
 			try
 			{
 				String val = command.substring(8);
 				StringTokenizer st = new StringTokenizer(val);
-				String dir=st.nextToken();
+				String dir = st.nextToken();
 				if (st.hasMoreTokens())
 					intVal = Integer.parseInt(st.nextToken());
 				if (dir.equals("east"))
-					x+=intVal;
+					x += intVal;
 				else if (dir.equals("west"))
-					x-=intVal;
+					x -= intVal;
 				else if (dir.equals("north"))
-					y-=intVal;
+					y -= intVal;
 				else if (dir.equals("south"))
-					y+=intVal;
+					y += intVal;
 				else if (dir.equals("up"))
-					z+=intVal;
+					z += intVal;
 				else if (dir.equals("down"))
-					z-=intVal;
+					z -= intVal;
 				activeChar.teleToLocation(x, y, z, false);
 				showTeleportWindow(activeChar);
 			}
-			catch (Exception e) 
+			catch (Exception e)
 			{
 				activeChar.sendMessage("Usage: //go<north|south|east|west|up|down> [offset] (default 150)");
 			}
 		}
 		return true;
 	}
-	
-	public String[] getAdminCommandList() 
+
+	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
 	}
-	
-	private boolean checkLevel(int level) 
+
+	private boolean checkLevel(int level)
 	{
 		return (level >= REQUIRED_LEVEL);
 	}
@@ -306,27 +318,27 @@ public class AdminTeleport implements IAdminCommandHandler
 	// L2J_JP ADD
 	private void bookmark(L2PcInstance activeChar, String Name)
 	{
-		File file = new File(Config.DATAPACK_ROOT+"/"+"data/html/admin/tele/bookmark.txt");
+		File file = new File(Config.DATAPACK_ROOT + "/" + "data/html/admin/tele/bookmark.txt");
 		LineNumberReader lnr = null;
 		String bookmarks = "";
 		try
 		{
-			int i=0;
+			int i = 0;
 			String line = null;
 			lnr = new LineNumberReader(new FileReader(file));
-			while ( (line = lnr.readLine()) != null)
+			while ((line = lnr.readLine()) != null)
 			{
-				StringTokenizer st = new StringTokenizer(line,"\r\n");
+				StringTokenizer st = new StringTokenizer(line, "\r\n");
 				if (st.hasMoreTokens())
-				{   
+				{
 					bookmarks += st.nextToken();
 					i++;
 				}
 			}
-			if(Name.equals("show"))
+			if (Name.equals("show"))
 			{
 				FileInputStream fis = null;
-				fis = new FileInputStream(new File(Config.DATAPACK_ROOT+"/"+"data/html/admin/tele/bookmarks.htm"));
+				fis = new FileInputStream(new File(Config.DATAPACK_ROOT + "/" + "data/html/admin/tele/bookmarks.htm"));
 				byte[] raw = new byte[fis.available()];
 				fis.read(raw);
 				String content = new String(raw, "UTF-8");
@@ -339,7 +351,8 @@ public class AdminTeleport implements IAdminCommandHandler
 			else
 			{
 				FileWriter save = new FileWriter(file);
-				bookmarks += "<tr><td width=\"270\"><a action=\"bypass -h admin_move_to "+activeChar.getX()+" "+activeChar.getY()+" "+activeChar.getZ()+"\">"+Name+"</a></td></tr>\r\n";
+				bookmarks += "<tr><td width=\"270\"><a action=\"bypass -h admin_move_to " + activeChar.getX() + " " + activeChar.getY() + " "
+						+ activeChar.getZ() + "\">" + Name + "</a></td></tr>\r\n";
 				save.write(bookmarks);
 				save.close();
 				bookmark(activeChar, "show");
@@ -360,10 +373,11 @@ public class AdminTeleport implements IAdminCommandHandler
 				lnr.close();
 			}
 			catch (Exception e2)
-			{}
+			{
+			}
 		}
 	}
-	
+
 	private void teleportTo(L2PcInstance activeChar, String Cords)
 	{
 		try
@@ -375,7 +389,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			int y = Integer.parseInt(y1);
 			String z1 = st.nextToken();
 			int z = Integer.parseInt(z1);
-			
+
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			activeChar.teleToLocation(x, y, z, false);
 
@@ -386,62 +400,64 @@ public class AdminTeleport implements IAdminCommandHandler
 			activeChar.sendMessage("Wrong or no Coordinates given.");
 		}
 	}
-	
+
 	private void showTeleportWindow(L2PcInstance activeChar)
 	{
 		AdminHelpPage.showHelpPage(activeChar, "move.htm");
 	}
-	
-	
+
 	private void showTeleportCharWindow(L2PcInstance activeChar)
 	{
 		L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
-		if (target instanceof L2PcInstance) 
+		if (target instanceof L2PcInstance)
 		{
-			player = (L2PcInstance)target;
-		} 
-		else 
+			player = (L2PcInstance) target;
+		}
+		else
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;
 		}
-		NpcHtmlMessage adminReply = new NpcHtmlMessage(5); 
-		
+		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+
 		TextBuilder replyMSG = new TextBuilder("<html><title>Teleport Character</title>");
 		replyMSG.append("<body>");
 		replyMSG.append("The character you will teleport is " + player.getName() + ".");
 		replyMSG.append("<br>");
-		
+
 		replyMSG.append("Coordinate x");
 		replyMSG.append("<edit var=\"char_cord_x\" width=110>");
 		replyMSG.append("Coordinate y");
 		replyMSG.append("<edit var=\"char_cord_y\" width=110>");
 		replyMSG.append("Coordinate z");
 		replyMSG.append("<edit var=\"char_cord_z\" width=110>");
-		replyMSG.append("<button value=\"Teleport\" action=\"bypass -h admin_teleport_character $char_cord_x $char_cord_y $char_cord_z\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");	
-		replyMSG.append("<button value=\"Teleport near you\" action=\"bypass -h admin_teleport_character " + activeChar.getX() + " " + activeChar.getY() + " " + activeChar.getZ() + "\" width=115 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
-		replyMSG.append("<center><button value=\"Back\" action=\"bypass -h admin_current_player\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center>");
+		replyMSG
+				.append("<button value=\"Teleport\" action=\"bypass -h admin_teleport_character $char_cord_x $char_cord_y $char_cord_z\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("<button value=\"Teleport near you\" action=\"bypass -h admin_teleport_character " + activeChar.getX() + " " + activeChar.getY() + " "
+				+ activeChar.getZ() + "\" width=115 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG
+				.append("<center><button value=\"Back\" action=\"bypass -h admin_current_player\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center>");
 		replyMSG.append("</body></html>");
-		
+
 		adminReply.setHtml(replyMSG.toString());
-		activeChar.sendPacket(adminReply);			
+		activeChar.sendPacket(adminReply);
 	}
-	
-	private void teleportCharacter(L2PcInstance activeChar , String Cords)
+
+	private void teleportCharacter(L2PcInstance activeChar, String Cords)
 	{
 		L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
-		if (target instanceof L2PcInstance) 
+		if (target instanceof L2PcInstance)
 		{
-			player = (L2PcInstance)target;
-		} 
-		else 
+			player = (L2PcInstance) target;
+		}
+		else
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;
 		}
-		
+
 		if (player.getObjectId() == activeChar.getObjectId())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ON_YOURSELF));
@@ -457,12 +473,14 @@ public class AdminTeleport implements IAdminCommandHandler
 				int y = Integer.parseInt(y1);
 				String z1 = st.nextToken();
 				int z = Integer.parseInt(z1);
-				teleportCharacter(player, x,y,z);
+				teleportCharacter(player, x, y, z);
 			}
-			catch (NoSuchElementException nsee){}
+			catch (NoSuchElementException nsee)
+			{
+			}
 		}
 	}
-	
+
 	/**
 	 * @param player
 	 * @param x
@@ -478,22 +496,22 @@ public class AdminTeleport implements IAdminCommandHandler
 			player.teleToLocation(x, y, z);
 		}
 	}
-	
+
 	private void teleportToCharacter(L2PcInstance activeChar, L2Object target)
 	{
 		L2PcInstance player = null;
-		if (target != null && target instanceof L2PcInstance) 
+		if (target != null && target instanceof L2PcInstance)
 		{
-			player = (L2PcInstance)target;
-		} 
-		else 
+			player = (L2PcInstance) target;
+		}
+		else
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;
 		}
-		
+
 		if (player.getObjectId() == activeChar.getObjectId())
-		{	
+		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ON_YOURSELF));
 		}
 		else
@@ -501,13 +519,14 @@ public class AdminTeleport implements IAdminCommandHandler
 			int x = player.getX();
 			int y = player.getY();
 			int z = player.getZ();
-			
+
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			activeChar.teleToLocation(x, y, z);
-			
+
 			activeChar.sendMessage("You have teleported to character " + player.getName() + ".");
 		}
 	}
+
 	private void recallNPC(L2PcInstance activeChar)
 	{
 		L2Object obj = activeChar.getTarget();
@@ -525,14 +544,14 @@ public class AdminTeleport implements IAdminCommandHandler
 			}
 
 			L2Spawn spawn = target.getSpawn();
-			
+
 			if (spawn == null)
 			{
 				activeChar.sendMessage("Incorrect monster spawn.");
 				_log.warn("ERROR: NPC " + target.getObjectId() + " has a 'null' spawn.");
-				 return;
+				return;
 			}
-			
+
 			target.decayMe();
 			spawn.setLocx(activeChar.getX());
 			spawn.setLocy(activeChar.getY());
@@ -546,8 +565,9 @@ public class AdminTeleport implements IAdminCommandHandler
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 		}
 	}
-	
-	private void changeCharacterPosition(L2PcInstance activeChar, String name){
+
+	private void changeCharacterPosition(L2PcInstance activeChar, String name)
+	{
 		Connection con = null;
 		try
 		{
@@ -568,8 +588,9 @@ public class AdminTeleport implements IAdminCommandHandler
 			statement.close();
 			if (count == 0)
 				activeChar.sendMessage("Character not found or position unaltered.");
-			else{
-				activeChar.sendMessage("Character's position is now set to ("+activeChar.getX()+","+activeChar.getY()+","+activeChar.getZ()+")");
+			else
+			{
+				activeChar.sendMessage("Character's position is now set to (" + activeChar.getX() + "," + activeChar.getY() + "," + activeChar.getZ() + ")");
 			}
 		}
 		catch (SQLException se)
@@ -578,11 +599,13 @@ public class AdminTeleport implements IAdminCommandHandler
 		}
 		finally
 		{
-			try 
+			try
 			{
 				con.close();
 			}
-			catch (Exception e) {}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 }

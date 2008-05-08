@@ -33,84 +33,95 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdminRepairChar implements IAdminCommandHandler
 {
-    private final static Log _log = LogFactory.getLog(AdminRepairChar.class.getName());
+	private final static Log		_log			= LogFactory.getLog(AdminRepairChar.class.getName());
 
-    private static final String[] ADMIN_COMMANDS = { "admin_restore", "admin_repair" };
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_restore", "admin_repair" };
 
-    private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
+	private static final int		REQUIRED_LEVEL	= Config.GM_CHAR_EDIT;
 
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
-    {
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-        {
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-                return false;
-        }
-        
-        handleRepair(command);
-        return true;
-    }
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+		{
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+		}
 
-    public String[] getAdminCommandList()
-    {
-        return ADMIN_COMMANDS;
-    }
+		handleRepair(command);
+		return true;
+	}
 
-    private boolean checkLevel(int level)
-    {
-        return (level >= REQUIRED_LEVEL);
-    }
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
 
-    private void handleRepair(String command)
-    {
-        String[] parts = command.split(" ");
-        if (parts.length != 2)
-        {
-            return;
-        }
-        
-        Connection connection = null;
-        try
-        {
-            connection = L2DatabaseFactory.getInstance().getConnection(connection);
-            
-            PreparedStatement statement = connection.prepareStatement("SELECT charId FROM characters where char_name=?");
-            statement.setString(1,parts[1]);
-            ResultSet rset = statement.executeQuery();
-            int objId = 0;
-            if (rset.next())
-            {
-                objId = rset.getInt(1);
-            }
-            rset.close();
-            statement.close();
-            
-            if (objId == 0) {connection.close(); return;}
-            
-            statement = connection.prepareStatement("UPDATE characters SET x=17867, y=170259, z=-3503 WHERE obj_id=?");
-            statement.setInt(1, objId);
-            statement.execute();
-            statement.close();
-            
-            statement = connection.prepareStatement("DELETE FROM character_shortcuts WHERE charId=?");
-            statement.setInt(1, objId);
-            statement.execute();
-            statement.close();
-            
-            statement = connection.prepareStatement("UPDATE items SET loc=\"INVENTORY\" WHERE owner_id=? AND loc=\"PAPERDOLL\"");
-            statement.setInt(1, objId);
-            statement.execute();
-            statement.close();
-            
-            connection.close();
-        }
-        catch (Exception e)
-        {
-            _log.warn( "could not repair char:", e);
-        } 
-        finally 
-        {
-            try { connection.close(); } catch (Exception e) {}
-        }
-    }
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
+	}
+
+	private void handleRepair(String command)
+	{
+		String[] parts = command.split(" ");
+		if (parts.length != 2)
+		{
+			return;
+		}
+
+		Connection connection = null;
+		try
+		{
+			connection = L2DatabaseFactory.getInstance().getConnection(connection);
+
+			PreparedStatement statement = connection.prepareStatement("SELECT charId FROM characters where char_name=?");
+			statement.setString(1, parts[1]);
+			ResultSet rset = statement.executeQuery();
+			int objId = 0;
+			if (rset.next())
+			{
+				objId = rset.getInt(1);
+			}
+			rset.close();
+			statement.close();
+
+			if (objId == 0)
+			{
+				connection.close();
+				return;
+			}
+
+			statement = connection.prepareStatement("UPDATE characters SET x=17867, y=170259, z=-3503 WHERE obj_id=?");
+			statement.setInt(1, objId);
+			statement.execute();
+			statement.close();
+
+			statement = connection.prepareStatement("DELETE FROM character_shortcuts WHERE charId=?");
+			statement.setInt(1, objId);
+			statement.execute();
+			statement.close();
+
+			statement = connection.prepareStatement("UPDATE items SET loc=\"INVENTORY\" WHERE owner_id=? AND loc=\"PAPERDOLL\"");
+			statement.setInt(1, objId);
+			statement.execute();
+			statement.close();
+
+			connection.close();
+		}
+		catch (Exception e)
+		{
+			_log.warn("could not repair char:", e);
+		}
+		finally
+		{
+			try
+			{
+				connection.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
+	}
 }

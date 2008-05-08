@@ -39,117 +39,122 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  */
 public class AdminPledge implements IAdminCommandHandler
 {
-    private static final String[] ADMIN_COMMANDS = {"admin_pledge"};
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_pledge" };
 
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
-    {
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!activeChar.isGM() || activeChar.getAccessLevel() < Config.GM_ACCESSLEVEL || activeChar.getTarget() == null || !(activeChar.getTarget() instanceof L2PcInstance))
-                return false;
-        
-        L2Object target = activeChar.getTarget();
-        L2PcInstance player = null;
-        if (target instanceof L2PcInstance)
-            player = (L2PcInstance)target;
-        else
-        {
-            activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-            return false;
-        }
-        String name = player.getName();
-        if(command.startsWith("admin_pledge"))
-        {
-            String action = "";
-            String parameter = null;
-            StringTokenizer st = new StringTokenizer(command);
-            try
-            {
-                st.nextToken();
-                action = st.nextToken(); // create|info|dismiss|setlevel|rep
-                parameter = st.nextToken(); // clanname|nothing|nothing|level|rep_points
-            }
-            catch (NoSuchElementException nse)
-            {
-            }
-            if (action.equals("create"))
-            {
-                long cet = player.getClanCreateExpiryTime();
-                player.setClanCreateExpiryTime(0);
-                L2Clan clan = ClanTable.getInstance().createClan(player, parameter);
-                if (clan != null)
-                    activeChar.sendMessage("Clan " + parameter + " created. Leader: " + name);
-                else
-                {
-                    player.setClanCreateExpiryTime(cet);
-                    activeChar.sendMessage("There was a problem while creating the clan.");
-                }
-            }
-            else if (!player.isClanLeader())
-            {
-                activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_IS_NOT_A_CLAN_LEADER).addString(name));
-                return false;
-            }
-            else if(action.equals("dismiss"))
-            {
-                ClanTable.getInstance().destroyClan(player.getClanId());
-                L2Clan clan = player.getClan();
-                if (clan==null)
-                    activeChar.sendMessage("Clan disbanded.");
-                else
-                    activeChar.sendMessage("There was a problem while destroying the clan.");
-            }
-            else if (parameter == null)
-            {
-                activeChar.sendMessage("Usage: //pledge <setlevel|rep> <number>");
-            }
-            else if (action.equals("info"))
-            {
-                activeChar.sendPacket(new GMViewPledgeInfo(player.getClan(),player));
-            }
-            else if(action.equals("setlevel"))
-            {
-                int level = 0;
-                try
-                {
-                    level = Integer.parseInt(parameter);
-                }
-                catch(NumberFormatException nfe){}
-                
-                if (level>=0 && level <11)
-                {
-                    player.getClan().changeLevel(level);
-                    activeChar.sendMessage("You set level " + level + " for clan " + player.getClan().getName());
-                }
-                else
-                    activeChar.sendMessage("Level incorrect.");
-            }
-            else if (action.startsWith("rep"))
-            {
-                int points = 0;
-                try
-                {
-                    points = Integer.parseInt(parameter);
-                }
-                catch(NumberFormatException nfe)
-                {
-                    activeChar.sendMessage("Usage: //pledge <rep> <number>");
-                }
-                
-                L2Clan clan = player.getClan();
-                if (clan.getLevel() < 5)
-                {
-                    activeChar.sendMessage("Only clans of level 5 or above may receive reputation points.");
-                    return false;
-                }
-                clan.setReputationScore(clan.getReputationScore()+points, true);
-                activeChar.sendMessage("You "+(points>0?"add ":"remove ")+Math.abs(points)+" points "+(points>0?"to ":"from ")+clan.getName()+"'s reputation. Their current score is "+clan.getReputationScore());
-            }
-        }
-        return true;
-    }
-    
-    public String[] getAdminCommandList()
-    {
-        return ADMIN_COMMANDS;
-    }
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!activeChar.isGM() || activeChar.getAccessLevel() < Config.GM_ACCESSLEVEL || activeChar.getTarget() == null
+					|| !(activeChar.getTarget() instanceof L2PcInstance))
+				return false;
+
+		L2Object target = activeChar.getTarget();
+		L2PcInstance player = null;
+		if (target instanceof L2PcInstance)
+			player = (L2PcInstance) target;
+		else
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			return false;
+		}
+		String name = player.getName();
+		if (command.startsWith("admin_pledge"))
+		{
+			String action = "";
+			String parameter = null;
+			StringTokenizer st = new StringTokenizer(command);
+			try
+			{
+				st.nextToken();
+				action = st.nextToken(); // create|info|dismiss|setlevel|rep
+				parameter = st.nextToken(); // clanname|nothing|nothing|level|rep_points
+			}
+			catch (NoSuchElementException nse)
+			{
+			}
+			if (action.equals("create"))
+			{
+				long cet = player.getClanCreateExpiryTime();
+				player.setClanCreateExpiryTime(0);
+				L2Clan clan = ClanTable.getInstance().createClan(player, parameter);
+				if (clan != null)
+					activeChar.sendMessage("Clan " + parameter + " created. Leader: " + name);
+				else
+				{
+					player.setClanCreateExpiryTime(cet);
+					activeChar.sendMessage("There was a problem while creating the clan.");
+				}
+			}
+			else if (!player.isClanLeader())
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_IS_NOT_A_CLAN_LEADER).addString(name));
+				return false;
+			}
+			else if (action.equals("dismiss"))
+			{
+				ClanTable.getInstance().destroyClan(player.getClanId());
+				L2Clan clan = player.getClan();
+				if (clan == null)
+					activeChar.sendMessage("Clan disbanded.");
+				else
+					activeChar.sendMessage("There was a problem while destroying the clan.");
+			}
+			else if (parameter == null)
+			{
+				activeChar.sendMessage("Usage: //pledge <setlevel|rep> <number>");
+			}
+			else if (action.equals("info"))
+			{
+				activeChar.sendPacket(new GMViewPledgeInfo(player.getClan(), player));
+			}
+			else if (action.equals("setlevel"))
+			{
+				int level = 0;
+				try
+				{
+					level = Integer.parseInt(parameter);
+				}
+				catch (NumberFormatException nfe)
+				{
+				}
+
+				if (level >= 0 && level < 11)
+				{
+					player.getClan().changeLevel(level);
+					activeChar.sendMessage("You set level " + level + " for clan " + player.getClan().getName());
+				}
+				else
+					activeChar.sendMessage("Level incorrect.");
+			}
+			else if (action.startsWith("rep"))
+			{
+				int points = 0;
+				try
+				{
+					points = Integer.parseInt(parameter);
+				}
+				catch (NumberFormatException nfe)
+				{
+					activeChar.sendMessage("Usage: //pledge <rep> <number>");
+				}
+
+				L2Clan clan = player.getClan();
+				if (clan.getLevel() < 5)
+				{
+					activeChar.sendMessage("Only clans of level 5 or above may receive reputation points.");
+					return false;
+				}
+				clan.setReputationScore(clan.getReputationScore() + points, true);
+				activeChar.sendMessage("You " + (points > 0 ? "add " : "remove ") + Math.abs(points) + " points " + (points > 0 ? "to " : "from ")
+						+ clan.getName() + "'s reputation. Their current score is " + clan.getReputationScore());
+			}
+		}
+		return true;
+	}
+
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
 }
