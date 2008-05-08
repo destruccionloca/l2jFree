@@ -69,11 +69,11 @@ import org.apache.commons.logging.LogFactory;
  */
 public class SkillHandler
 {
-	private final static Log _log = LogFactory.getLog(SkillHandler.class.getName());
+	private final static Log						_log	= LogFactory.getLog(SkillHandler.class.getName());
 
-	private static SkillHandler _instance;
+	private static SkillHandler						_instance;
 
-	private Map<L2Skill.SkillType, ISkillHandler> _datatable;
+	private Map<L2Skill.SkillType, ISkillHandler>	_datatable;
 
 	public static SkillHandler getInstance()
 	{
@@ -82,50 +82,50 @@ public class SkillHandler
 		return _instance;
 	}
 
-    private SkillHandler()
-    {
-        _datatable = new TreeMap<SkillType, ISkillHandler>();
-        registerSkillHandler(new BalanceLife());
-        registerSkillHandler(new BeastFeed());
-        registerSkillHandler(new Blow());
-        registerSkillHandler(new Charge());
-        registerSkillHandler(new CombatPointHeal());
-        registerSkillHandler(new Continuous());
-        registerSkillHandler(new Craft());
-        registerSkillHandler(new CpDam());
-        registerSkillHandler(new CPperHeal());
-        registerSkillHandler(new CurseDivinity());
-        registerSkillHandler(new DeluxeKey());
-        registerSkillHandler(new Disablers());
-        registerSkillHandler(new DrainSoul());
-        registerSkillHandler(new Fishing());
-        registerSkillHandler(new FishingSkill());
-        registerSkillHandler(new GetPlayer());
-        registerSkillHandler(new Harvest());
-        registerSkillHandler(new Heal());
-        registerSkillHandler(new Manadam());
-        registerSkillHandler(new ManaHeal());
-        registerSkillHandler(new Mdam());
-        registerSkillHandler(new Pdam());
-        registerSkillHandler(new Recall());
-        registerSkillHandler(new Resurrect());
-        registerSkillHandler(new ShiftTarget());
-        registerSkillHandler(new SiegeFlag());
-        registerSkillHandler(new Soul());
-        registerSkillHandler(new Sow());
-        registerSkillHandler(new Spoil());
-        registerSkillHandler(new StealDivinity());
-        registerSkillHandler(new StrSiegeAssault());
-        registerSkillHandler(new SummonFriend());
-        registerSkillHandler(new SummonTreasureKey());
-        registerSkillHandler(new Sweep());
-        registerSkillHandler(new TakeCastle());
-        registerSkillHandler(new TakeFort());
-        registerSkillHandler(new TransformDispel());
-        registerSkillHandler(new Trap());
-        registerSkillHandler(new Unlock());
-        _log.info("SkillHandler: Loaded " + _datatable.size() + " handlers.");
-    }
+	private SkillHandler()
+	{
+		_datatable = new TreeMap<SkillType, ISkillHandler>();
+		registerSkillHandler(new BalanceLife());
+		registerSkillHandler(new BeastFeed());
+		registerSkillHandler(new Blow());
+		registerSkillHandler(new Charge());
+		registerSkillHandler(new CombatPointHeal());
+		registerSkillHandler(new Continuous());
+		registerSkillHandler(new Craft());
+		registerSkillHandler(new CpDam());
+		registerSkillHandler(new CPperHeal());
+		registerSkillHandler(new CurseDivinity());
+		registerSkillHandler(new DeluxeKey());
+		registerSkillHandler(new Disablers());
+		registerSkillHandler(new DrainSoul());
+		registerSkillHandler(new Fishing());
+		registerSkillHandler(new FishingSkill());
+		registerSkillHandler(new GetPlayer());
+		registerSkillHandler(new Harvest());
+		registerSkillHandler(new Heal());
+		registerSkillHandler(new Manadam());
+		registerSkillHandler(new ManaHeal());
+		registerSkillHandler(new Mdam());
+		registerSkillHandler(new Pdam());
+		registerSkillHandler(new Recall());
+		registerSkillHandler(new Resurrect());
+		registerSkillHandler(new ShiftTarget());
+		registerSkillHandler(new SiegeFlag());
+		registerSkillHandler(new Soul());
+		registerSkillHandler(new Sow());
+		registerSkillHandler(new Spoil());
+		registerSkillHandler(new StealDivinity());
+		registerSkillHandler(new StrSiegeAssault());
+		registerSkillHandler(new SummonFriend());
+		registerSkillHandler(new SummonTreasureKey());
+		registerSkillHandler(new Sweep());
+		registerSkillHandler(new TakeCastle());
+		registerSkillHandler(new TakeFort());
+		registerSkillHandler(new TransformDispel());
+		registerSkillHandler(new Trap());
+		registerSkillHandler(new Unlock());
+		_log.info("SkillHandler: Loaded " + _datatable.size() + " handlers.");
+	}
 
 	public void registerSkillHandler(ISkillHandler handler)
 	{
@@ -141,11 +141,11 @@ public class SkillHandler
 		return _datatable.get(skillType);
 	}
 
-    /**
-     * @return
-     */
-    public int size()
-    {
-        return _datatable.size();
-    }
+	/**
+	 * @return
+	 */
+	public int size()
+	{
+		return _datatable.size();
+	}
 }

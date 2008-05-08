@@ -24,6 +24,6 @@ import net.sf.l2j.gameserver.network.SystemChatChannelId;
 public interface IChatHandler
 {
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text);
-	
+
 	public SystemChatChannelId[] getChatTypes();
 }

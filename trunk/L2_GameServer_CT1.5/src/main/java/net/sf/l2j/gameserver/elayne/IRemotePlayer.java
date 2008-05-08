@@ -12,23 +12,23 @@ import java.rmi.RemoteException;
  */
 public interface IRemotePlayer extends Remote
 {
-    /**
-     * This method returns the name of a certain player.
-     * 
-     * @return
-     * @throws RemoteException
-     */
-    public String getName() throws RemoteException;
+	/**
+	 * This method returns the name of a certain player.
+	 * 
+	 * @return
+	 * @throws RemoteException
+	 */
+	public String getName() throws RemoteException;
 
-    public String getAccount() throws RemoteException;
+	public String getAccount() throws RemoteException;
 
-    public int getObjectId() throws RemoteException;
+	public int getObjectId() throws RemoteException;
 
-    public int getLevel() throws RemoteException;
+	public int getLevel() throws RemoteException;
 
-    public int online() throws RemoteException;
+	public int online() throws RemoteException;
 
-    public int getAccessLevel() throws RemoteException;
+	public int getAccessLevel() throws RemoteException;
 
-    public int getSex() throws RemoteException;
+	public int getSex() throws RemoteException;
 }

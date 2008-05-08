@@ -66,9 +66,9 @@ public class ItemHandler
 {
 	private final static Log			_log	= LogFactory.getLog(ItemHandler.class.getName());
 	private static ItemHandler			_instance;
-	
+
 	private Map<Integer, IItemHandler>	_datatable;
-	
+
 	/**
 	 * Create ItemHandler if doesn't exist and returns ItemHandler
 	 * 
@@ -80,7 +80,7 @@ public class ItemHandler
 			_instance = new ItemHandler();
 		return _instance;
 	}
-	
+
 	/**
 	 * Returns the number of elements contained in datatable
 	 * 
@@ -90,7 +90,7 @@ public class ItemHandler
 	{
 		return _datatable.size();
 	}
-	
+
 	/**
 	 * Constructor of ItemHandler
 	 */
@@ -135,7 +135,7 @@ public class ItemHandler
 		registerItemHandler(new WorldMap());
 		_log.info("ItemHandler: Loaded " + _datatable.size() + " handlers.");
 	}
-	
+
 	/**
 	 * Adds handler of item type in <I>datatable</I>.<BR>
 	 * <BR>
@@ -155,7 +155,7 @@ public class ItemHandler
 			_datatable.put(new Integer(element), handler);
 		}
 	}
-	
+
 	/**
 	 * Returns the handler of the item
 	 * 

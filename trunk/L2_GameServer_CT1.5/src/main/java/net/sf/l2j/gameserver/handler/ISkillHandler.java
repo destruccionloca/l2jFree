@@ -38,7 +38,7 @@ public interface ISkillHandler
 	 * @throws IOException
 	 */
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets) throws IOException;
-	
+
 	/**
 	 * this method is called at initialization to register all the item ids automatically 
 	 * @return all known itemIds

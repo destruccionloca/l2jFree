@@ -31,21 +31,21 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class GeoEditorThread extends Thread
 {
-	private static Log _log = LogFactory.getLog(GeoEditorThread.class.getName());
+	private static Log				_log		= LogFactory.getLog(GeoEditorThread.class.getName());
 
-	private boolean _working = false;
+	private boolean					_working	= false;
 
-	private int _mode = 0; // 0 - don't send coords, 1 - send each
+	private int						_mode		= 0;													// 0 - don't send coords, 1 - send each
 
 	// validateposition from client, 2 - send in
 	// intervals of _sendDelay ms.
-	private int _sendDelay = 1000; // default - once in second
+	private int						_sendDelay	= 1000;												// default - once in second
 
-	private Socket _geSocket;
+	private Socket					_geSocket;
 
-	private OutputStream _out;
+	private OutputStream			_out;
 
-	private FastList<L2PcInstance> _gms;
+	private FastList<L2PcInstance>	_gms;
 
 	public GeoEditorThread(Socket ge)
 	{
@@ -60,7 +60,9 @@ public class GeoEditorThread extends Thread
 		{
 			_geSocket.close();
 		}
-		catch (Exception e){}
+		catch (Exception e)
+		{
+		}
 		super.interrupt();
 	}
 
@@ -93,7 +95,9 @@ public class GeoEditorThread extends Thread
 					if (_mode == 2)
 						timer += 100;
 				}
-				catch (Exception e){}
+				catch (Exception e)
+				{
+				}
 			}
 		}
 		catch (SocketException e)
@@ -110,7 +114,9 @@ public class GeoEditorThread extends Thread
 			{
 				_geSocket.close();
 			}
-			catch (Exception e){}
+			catch (Exception e)
+			{
+			}
 			_working = false;
 		}
 	}
@@ -143,7 +149,9 @@ public class GeoEditorThread extends Thread
 			{
 				_geSocket.close();
 			}
-			catch (Exception ex){}
+			catch (Exception ex)
+			{
+			}
 			_working = false;
 		}
 	}
@@ -178,7 +186,9 @@ public class GeoEditorThread extends Thread
 			{
 				_geSocket.close();
 			}
-			catch (Exception ex){}
+			catch (Exception ex)
+			{
+			}
 			_working = false;
 		}
 	}

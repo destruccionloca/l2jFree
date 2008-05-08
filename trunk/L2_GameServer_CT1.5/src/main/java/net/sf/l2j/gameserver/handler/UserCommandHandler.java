@@ -39,19 +39,19 @@ import org.apache.commons.logging.LogFactory;
  */
 public class UserCommandHandler
 {
-	private final static Log _log = LogFactory.getLog(UserCommandHandler.class.getName());
-	
-	private static UserCommandHandler _instance;
-	
-	private FastMap<Integer, IUserCommandHandler> _datatable;
-	
+	private final static Log						_log	= LogFactory.getLog(UserCommandHandler.class.getName());
+
+	private static UserCommandHandler				_instance;
+
+	private FastMap<Integer, IUserCommandHandler>	_datatable;
+
 	public static UserCommandHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new UserCommandHandler();
 		return _instance;
 	}
-	
+
 	private UserCommandHandler()
 	{
 		_datatable = new FastMap<Integer, IUserCommandHandler>();
@@ -71,27 +71,30 @@ public class UserCommandHandler
 
 		_log.info("UserCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}
-	
+
 	public void registerUserCommandHandler(IUserCommandHandler handler)
 	{
 		int[] ids = handler.getUserCommandList();
-		for (int element : ids) {
-			if (_log.isDebugEnabled()) _log.debug("Adding handler for user command "+element);
+		for (int element : ids)
+		{
+			if (_log.isDebugEnabled())
+				_log.debug("Adding handler for user command " + element);
 			_datatable.put(new Integer(element), handler);
 		}
 	}
-	
+
 	public IUserCommandHandler getUserCommandHandler(int userCommand)
 	{
-		if (_log.isDebugEnabled()) _log.debug("getting handler for user command: "+userCommand);
+		if (_log.isDebugEnabled())
+			_log.debug("getting handler for user command: " + userCommand);
 		return _datatable.get(new Integer(userCommand));
 	}
 
-    /**
-     * @return
-     */
-    public int size()
-    {
-        return _datatable.size();
-    }
+	/**
+	 * @return
+	 */
+	public int size()
+	{
+		return _datatable.size();
+	}
 }

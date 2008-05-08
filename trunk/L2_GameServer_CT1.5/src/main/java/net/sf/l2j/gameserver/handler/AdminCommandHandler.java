@@ -93,108 +93,109 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdminCommandHandler
 {
-	private final static Log _log = LogFactory.getLog(AdminCommandHandler.class.getName());
-	
-	private static AdminCommandHandler _instance;
-	
-	private FastMap<String, IAdminCommandHandler> _datatable;
-    
+	private final static Log						_log	= LogFactory.getLog(AdminCommandHandler.class.getName());
+
+	private static AdminCommandHandler				_instance;
+
+	private FastMap<String, IAdminCommandHandler>	_datatable;
+
 	public static AdminCommandHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new AdminCommandHandler();
 		return _instance;
 	}
-	
+
 	private AdminCommandHandler()
 	{
 		_datatable = new FastMap<String, IAdminCommandHandler>();
-        registerAdminCommandHandler(new AdminAdmin());
-        registerAdminCommandHandler(new AdminAnnouncements());
-        registerAdminCommandHandler(new AdminBan());
-        registerAdminCommandHandler(new AdminBanChat());
-        registerAdminCommandHandler(new AdminBBS());
-        registerAdminCommandHandler(new AdminCache());
-        registerAdminCommandHandler(new AdminChangeAccessLevel());
-        registerAdminCommandHandler(new AdminCreateItem());
-        registerAdminCommandHandler(new AdminCTFEngine());
-        registerAdminCommandHandler(new AdminCursedWeapons());
-        registerAdminCommandHandler(new AdminDelete());
-        registerAdminCommandHandler(new AdminDMEngine());
-        registerAdminCommandHandler(new AdminDoorControl());
-        registerAdminCommandHandler(new AdminEditChar());
-        registerAdminCommandHandler(new AdminEditNpc());
-        registerAdminCommandHandler(new AdminEffects());
-        registerAdminCommandHandler(new AdminEnchant());
-        registerAdminCommandHandler(new AdminEventEngine());
-        registerAdminCommandHandler(new AdminExpSp());
-        registerAdminCommandHandler(new AdminFightCalculator());
-        registerAdminCommandHandler(new AdminFortSiege());
-        registerAdminCommandHandler(new AdminGeodata());
-        registerAdminCommandHandler(new AdminGeoEditor()); 
-        registerAdminCommandHandler(new AdminGm());
-        registerAdminCommandHandler(new AdminGmChat());
-        registerAdminCommandHandler(new AdminHeal());
-        registerAdminCommandHandler(new AdminHelpPage());
-        registerAdminCommandHandler(new AdminInvul());
-        registerAdminCommandHandler(new AdminKick());
-        registerAdminCommandHandler(new AdminKill());
-        registerAdminCommandHandler(new AdminLevel());
-        registerAdminCommandHandler(new AdminLogin());
-        registerAdminCommandHandler(new AdminMammon());
-        registerAdminCommandHandler(new AdminManor());
-        registerAdminCommandHandler(new AdminMenu());
-        registerAdminCommandHandler(new AdminMobGroup());
-        registerAdminCommandHandler(new AdminMonsterRace());
-        registerAdminCommandHandler(new AdminPetition());
-        registerAdminCommandHandler(new AdminPForge());
-        registerAdminCommandHandler(new AdminPathNode());
-        registerAdminCommandHandler(new AdminPledge());
-        registerAdminCommandHandler(new AdminPolymorph());
-        registerAdminCommandHandler(new AdminQuest());
-        registerAdminCommandHandler(new AdminRegion());
-        registerAdminCommandHandler(new AdminRepairChar());
-        registerAdminCommandHandler(new AdminRes());
-        registerAdminCommandHandler(new AdminRide());
-        registerAdminCommandHandler(new AdminSendHome());
-        registerAdminCommandHandler(new AdminShop());
-        registerAdminCommandHandler(new AdminSortMultisellItems());
-        registerAdminCommandHandler(new AdminShutdown());
-        registerAdminCommandHandler(new AdminSiege());
-        registerAdminCommandHandler(new AdminSkill());
-        registerAdminCommandHandler(new AdminSmartShop());
-        registerAdminCommandHandler(new AdminSpawn());
-        registerAdminCommandHandler(new AdminTarget());
-        registerAdminCommandHandler(new AdminTeleport());
-        registerAdminCommandHandler(new AdminTvTEngine());
-        registerAdminCommandHandler(new AdminTest());
-        registerAdminCommandHandler(new AdminUnblockIp());
-        registerAdminCommandHandler(new AdminVIPEngine());
-        registerAdminCommandHandler(new AdminZone());
-        if(Config.IRC_ENABLED)
-            registerAdminCommandHandler(new AdminIRC());
-        _log.info("AdminCommandHandler: Loaded " + _datatable.size() + " handlers.");
-    }
+		registerAdminCommandHandler(new AdminAdmin());
+		registerAdminCommandHandler(new AdminAnnouncements());
+		registerAdminCommandHandler(new AdminBan());
+		registerAdminCommandHandler(new AdminBanChat());
+		registerAdminCommandHandler(new AdminBBS());
+		registerAdminCommandHandler(new AdminCache());
+		registerAdminCommandHandler(new AdminChangeAccessLevel());
+		registerAdminCommandHandler(new AdminCreateItem());
+		registerAdminCommandHandler(new AdminCTFEngine());
+		registerAdminCommandHandler(new AdminCursedWeapons());
+		registerAdminCommandHandler(new AdminDelete());
+		registerAdminCommandHandler(new AdminDMEngine());
+		registerAdminCommandHandler(new AdminDoorControl());
+		registerAdminCommandHandler(new AdminEditChar());
+		registerAdminCommandHandler(new AdminEditNpc());
+		registerAdminCommandHandler(new AdminEffects());
+		registerAdminCommandHandler(new AdminEnchant());
+		registerAdminCommandHandler(new AdminEventEngine());
+		registerAdminCommandHandler(new AdminExpSp());
+		registerAdminCommandHandler(new AdminFightCalculator());
+		registerAdminCommandHandler(new AdminFortSiege());
+		registerAdminCommandHandler(new AdminGeodata());
+		registerAdminCommandHandler(new AdminGeoEditor());
+		registerAdminCommandHandler(new AdminGm());
+		registerAdminCommandHandler(new AdminGmChat());
+		registerAdminCommandHandler(new AdminHeal());
+		registerAdminCommandHandler(new AdminHelpPage());
+		registerAdminCommandHandler(new AdminInvul());
+		registerAdminCommandHandler(new AdminKick());
+		registerAdminCommandHandler(new AdminKill());
+		registerAdminCommandHandler(new AdminLevel());
+		registerAdminCommandHandler(new AdminLogin());
+		registerAdminCommandHandler(new AdminMammon());
+		registerAdminCommandHandler(new AdminManor());
+		registerAdminCommandHandler(new AdminMenu());
+		registerAdminCommandHandler(new AdminMobGroup());
+		registerAdminCommandHandler(new AdminMonsterRace());
+		registerAdminCommandHandler(new AdminPetition());
+		registerAdminCommandHandler(new AdminPForge());
+		registerAdminCommandHandler(new AdminPathNode());
+		registerAdminCommandHandler(new AdminPledge());
+		registerAdminCommandHandler(new AdminPolymorph());
+		registerAdminCommandHandler(new AdminQuest());
+		registerAdminCommandHandler(new AdminRegion());
+		registerAdminCommandHandler(new AdminRepairChar());
+		registerAdminCommandHandler(new AdminRes());
+		registerAdminCommandHandler(new AdminRide());
+		registerAdminCommandHandler(new AdminSendHome());
+		registerAdminCommandHandler(new AdminShop());
+		registerAdminCommandHandler(new AdminSortMultisellItems());
+		registerAdminCommandHandler(new AdminShutdown());
+		registerAdminCommandHandler(new AdminSiege());
+		registerAdminCommandHandler(new AdminSkill());
+		registerAdminCommandHandler(new AdminSmartShop());
+		registerAdminCommandHandler(new AdminSpawn());
+		registerAdminCommandHandler(new AdminTarget());
+		registerAdminCommandHandler(new AdminTeleport());
+		registerAdminCommandHandler(new AdminTvTEngine());
+		registerAdminCommandHandler(new AdminTest());
+		registerAdminCommandHandler(new AdminUnblockIp());
+		registerAdminCommandHandler(new AdminVIPEngine());
+		registerAdminCommandHandler(new AdminZone());
+		if (Config.IRC_ENABLED)
+			registerAdminCommandHandler(new AdminIRC());
+		_log.info("AdminCommandHandler: Loaded " + _datatable.size() + " handlers.");
+	}
 
 	public void registerAdminCommandHandler(IAdminCommandHandler handler)
 	{
 		String[] ids = handler.getAdminCommandList();
 		for (String element : ids)
 		{
-			if (_log.isDebugEnabled()) _log.debug("Adding handler for command "+element);
-			
+			if (_log.isDebugEnabled())
+				_log.debug("Adding handler for command " + element);
+
 			if (_datatable.keySet().contains(new String(element)))
 			{
-				_log.warn("Duplicated command \""+element+"\" definition in "+ handler.getClass().getName()+".");
+				_log.warn("Duplicated command \"" + element + "\" definition in " + handler.getClass().getName() + ".");
 			}
 			else
 				_datatable.put(element, handler);
-			
+
 			if (Config.ALT_PRIVILEGES_ADMIN && !Config.GM_COMMAND_PRIVILEGES.containsKey(element))
-				_log.warn("Command \""+element+"\" have no access level definition. Can't be used.");
+				_log.warn("Command \"" + element + "\" have no access level definition. Can't be used.");
 		}
 	}
-	
+
 	public IAdminCommandHandler getAdminCommandHandler(String adminCommand)
 	{
 		String command = adminCommand;
@@ -203,66 +204,65 @@ public class AdminCommandHandler
 			command = adminCommand.substring(0, adminCommand.indexOf(" "));
 		}
 		if (_log.isDebugEnabled())
-			_log.debug("getting handler for command: "+command+
-					" -> "+(_datatable.get(command) != null));
+			_log.debug("getting handler for command: " + command + " -> " + (_datatable.get(command) != null));
 		return _datatable.get(command);
 	}
 
-    /**
-     * @return
-     */
-    public int size()
-    {
-    	return _datatable.size();
-    }
-    
-    public void checkDeprecated()
-    {
-    	if (Config.ALT_PRIVILEGES_ADMIN)
-    		for (Object cmd : Config.GM_COMMAND_PRIVILEGES.keySet())
-    		{
-    			String _cmd = String.valueOf(cmd);
-    			if (!_datatable.containsKey(_cmd))
-    				_log.warn("Command \""+_cmd+"\" is no used anymore.");
-    		}
+	/**
+	 * @return
+	 */
+	public int size()
+	{
+		return _datatable.size();
 	}
-    
-    public final boolean checkPrivileges(L2PcInstance player, String command)
-    {
-        // Can execute a admin command if everybody has admin rights
-    	if (Config.EVERYBODY_HAS_ADMIN_RIGHTS)
-    		return true;
-    	
-        //Only a GM can execute a admin command
-        if (!player.isGM())
-            return false;
-        
-        StringTokenizer st = new StringTokenizer(command, " ");
-        
-        String cmd = st.nextToken();  // get command
-        
+
+	public void checkDeprecated()
+	{
+		if (Config.ALT_PRIVILEGES_ADMIN)
+			for (Object cmd : Config.GM_COMMAND_PRIVILEGES.keySet())
+			{
+				String _cmd = String.valueOf(cmd);
+				if (!_datatable.containsKey(_cmd))
+					_log.warn("Command \"" + _cmd + "\" is no used anymore.");
+			}
+	}
+
+	public final boolean checkPrivileges(L2PcInstance player, String command)
+	{
+		// Can execute a admin command if everybody has admin rights
+		if (Config.EVERYBODY_HAS_ADMIN_RIGHTS)
+			return true;
+
+		//Only a GM can execute a admin command
+		if (!player.isGM())
+			return false;
+
+		StringTokenizer st = new StringTokenizer(command, " ");
+
+		String cmd = st.nextToken(); // get command
+
 		//Check command existance
-        if (!_datatable.containsKey(cmd))
-            return false;
-        	
-        //Check command privileges
-        if (Config.ALT_PRIVILEGES_ADMIN)
-        {
-        	if (Config.GM_COMMAND_PRIVILEGES.containsKey(cmd))
-        	{
-        		return (player.getAccessLevel() >= Config.GM_COMMAND_PRIVILEGES.get(cmd));
-        	}
-       		_log.warn("Command \""+cmd+"\" have no access level definition. Can't be used.");
-       		return false;
-        }
-        /*
-        else
-        	if (!_datatable.get(cmd).checkLevel(player.getAccessLevel()))
-        		return false;	
-        */
-        if (player.getAccessLevel()>0)
-        	return true;
-           _log.warn("GM "+player.getName()+"("+player.getObjectId()+") have no access level.");
-           return false;
-    }
+		if (!_datatable.containsKey(cmd))
+			return false;
+
+		//Check command privileges
+		if (Config.ALT_PRIVILEGES_ADMIN)
+		{
+			if (Config.GM_COMMAND_PRIVILEGES.containsKey(cmd))
+			{
+				return (player.getAccessLevel() >= Config.GM_COMMAND_PRIVILEGES.get(cmd));
+			}
+			_log.warn("Command \"" + cmd + "\" have no access level definition. Can't be used.");
+			return false;
+		}
+		/*
+		else
+			if (!_datatable.get(cmd).checkLevel(player.getAccessLevel()))
+				return false;	
+		*/
+		if (player.getAccessLevel() > 0)
+			return true;
+		_log.warn("GM " + player.getName() + "(" + player.getObjectId() + ") have no access level.");
+		return false;
+	}
 }

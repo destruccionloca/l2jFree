@@ -26,11 +26,11 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GeoEditorListener extends Thread
 {
-	private static GeoEditorListener _instance;
-	private static final int PORT = 9011;
-	private static Log _log = LogFactory.getLog(GeoEditorListener.class.getName());
-	private ServerSocket _serverSocket;
-	private static GeoEditorThread _geoEditor;
+	private static GeoEditorListener	_instance;
+	private static final int			PORT	= 9011;
+	private static Log					_log	= LogFactory.getLog(GeoEditorListener.class.getName());
+	private ServerSocket				_serverSocket;
+	private static GeoEditorThread		_geoEditor;
 
 	public static GeoEditorListener getInstance()
 	{
@@ -44,8 +44,7 @@ public class GeoEditorListener extends Thread
 			}
 			catch (IOException e)
 			{
-				_log.fatal("Error creating geoeditor listener! "
-						+ e.getMessage());
+				_log.fatal("Error creating geoeditor listener! " + e.getMessage());
 				System.exit(1);
 			}
 		}
@@ -85,8 +84,7 @@ public class GeoEditorListener extends Thread
 					connection.close();
 					continue;
 				}
-				_log.info("Received geoeditor connection from: "
-						+ connection.getInetAddress().getHostAddress());
+				_log.info("Received geoeditor connection from: " + connection.getInetAddress().getHostAddress());
 				_geoEditor = new GeoEditorThread(connection);
 				_geoEditor.start();
 			}
@@ -98,7 +96,9 @@ public class GeoEditorListener extends Thread
 			{
 				connection.close();
 			}
-			catch (Exception e2){}
+			catch (Exception e2)
+			{
+			}
 		}
 		finally
 		{

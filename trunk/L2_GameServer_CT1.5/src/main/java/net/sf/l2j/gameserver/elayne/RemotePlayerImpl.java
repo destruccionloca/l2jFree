@@ -27,69 +27,69 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class RemotePlayerImpl implements IRemotePlayer
 {
 
-    private L2PcInstance player;
+	private L2PcInstance	player;
 
-    public RemotePlayerImpl(L2PcInstance character)
-    {
-	this.player = character;
-    }
+	public RemotePlayerImpl(L2PcInstance character)
+	{
+		this.player = character;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#getAccessLevel()
-     */
-    public int getAccessLevel() throws RemoteException
-    {
-	return player.getAccessLevel();
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#getAccessLevel()
+	 */
+	public int getAccessLevel() throws RemoteException
+	{
+		return player.getAccessLevel();
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#getAccount()
-     */
-    public String getAccount() throws RemoteException
-    {
-	return player.getAccountName();
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#getAccount()
+	 */
+	public String getAccount() throws RemoteException
+	{
+		return player.getAccountName();
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#getLevel()
-     */
-    public int getLevel() throws RemoteException
-    {
-	return player.getLevel();
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#getLevel()
+	 */
+	public int getLevel() throws RemoteException
+	{
+		return player.getLevel();
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#getName()
-     */
-    public String getName() throws RemoteException
-    {
-	return player.getName();
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#getName()
+	 */
+	public String getName() throws RemoteException
+	{
+		return player.getName();
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#getObjectId()
-     */
-    public int getObjectId() throws RemoteException
-    {
-	return player.getObjectId();
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#getObjectId()
+	 */
+	public int getObjectId() throws RemoteException
+	{
+		return player.getObjectId();
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#getSex()
-     */
-    public int getSex() throws RemoteException
-    {
-	if (player.getAppearance().getSex())
-	    return 1;
-	return 0;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#getSex()
+	 */
+	public int getSex() throws RemoteException
+	{
+		if (player.getAppearance().getSex())
+			return 1;
+		return 0;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#online()
-     */
-    public int online() throws RemoteException
-    {
-	return player.isOnline();
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.elayne.IRemotePlayer#online()
+	 */
+	public int online() throws RemoteException
+	{
+		return player.isOnline();
+	}
 
 }

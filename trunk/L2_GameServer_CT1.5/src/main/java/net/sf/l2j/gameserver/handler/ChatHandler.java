@@ -43,19 +43,19 @@ import net.sf.l2j.gameserver.network.SystemChatChannelId;
  */
 public class ChatHandler
 {
-	private final static Log _log = LogFactory.getLog(ChatHandler.class.getName());
-	private static ChatHandler _instance = null;
-	
-	private Map<SystemChatChannelId, IChatHandler> _datatable;
-	
+	private final static Log						_log		= LogFactory.getLog(ChatHandler.class.getName());
+	private static ChatHandler						_instance	= null;
+
+	private Map<SystemChatChannelId, IChatHandler>	_datatable;
+
 	public static ChatHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new ChatHandler();
-		
+
 		return _instance;
 	}
-	
+
 	public ChatHandler()
 	{
 		_datatable = new FastMap<SystemChatChannelId, IChatHandler>();
@@ -74,23 +74,23 @@ public class ChatHandler
 		registerChatHandler(new ChatWhisper());
 		_log.info("ChatHandler: Loaded " + _datatable.size() + " handlers.");
 	}
-	
+
 	public void registerChatHandler(IChatHandler handler)
 	{
 		SystemChatChannelId chatId[] = handler.getChatTypes();
-		
+
 		for (SystemChatChannelId chat : chatId)
 		{
 			// Adding handler for each ChatChannelId
 			_datatable.put(chat, handler);
 		}
 	}
-	
+
 	public IChatHandler getChatHandler(SystemChatChannelId chatId)
 	{
 		return _datatable.get(chatId);
 	}
-	
+
 	public int size()
 	{
 		return _datatable.size();

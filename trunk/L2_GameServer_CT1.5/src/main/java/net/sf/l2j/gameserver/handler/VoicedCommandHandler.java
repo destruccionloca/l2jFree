@@ -29,56 +29,58 @@ import org.apache.commons.logging.LogFactory;
  */
 public class VoicedCommandHandler
 {
-	private final static Log _log = LogFactory.getLog(ItemHandler.class.getName());
-	
-	private static VoicedCommandHandler _instance;
-	
-	private FastMap<String, IVoicedCommandHandler> _datatable;
-	
+	private final static Log						_log	= LogFactory.getLog(ItemHandler.class.getName());
+
+	private static VoicedCommandHandler				_instance;
+
+	private FastMap<String, IVoicedCommandHandler>	_datatable;
+
 	public static VoicedCommandHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new VoicedCommandHandler();
 		return _instance;
 	}
-	
+
 	private VoicedCommandHandler()
 	{
 		_datatable = new FastMap<String, IVoicedCommandHandler>();
-        registerVoicedCommandHandler(new CastleDoors());
-        if(Config.ALLOW_WEDDING)
-        {
-            registerVoicedCommandHandler(new Wedding());
-        }
-        _log.info("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");        
+		registerVoicedCommandHandler(new CastleDoors());
+		if (Config.ALLOW_WEDDING)
+		{
+			registerVoicedCommandHandler(new Wedding());
+		}
+		_log.info("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}
-	
+
 	public void registerVoicedCommandHandler(IVoicedCommandHandler handler)
 	{
 		String[] ids = handler.getVoicedCommandList();
-		for (String element : ids) {
-			if (_log.isDebugEnabled()) _log.debug("Adding handler for command "+element);
+		for (String element : ids)
+		{
+			if (_log.isDebugEnabled())
+				_log.debug("Adding handler for command " + element);
 			_datatable.put(element, handler);
 		}
 	}
-	
+
 	public IVoicedCommandHandler getVoicedCommandHandler(String voicedCommand)
 	{
 		String command = voicedCommand;
-		if (voicedCommand.indexOf(" ") != -1) {
+		if (voicedCommand.indexOf(" ") != -1)
+		{
 			command = voicedCommand.substring(0, voicedCommand.indexOf(" "));
 		}
 		if (_log.isDebugEnabled())
-			_log.debug("getting handler for command: "+command+
-					" -> "+(_datatable.get(command) != null));
+			_log.debug("getting handler for command: " + command + " -> " + (_datatable.get(command) != null));
 		return _datatable.get(command);
 	}
 
-    /**
-     * @return
-     */
-    public int size()
-    {
-        return _datatable.size();
-    }
+	/**
+	 * @return
+	 */
+	public int size()
+	{
+		return _datatable.size();
+	}
 }
