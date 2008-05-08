@@ -21,9 +21,7 @@ import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
-import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.geometry.Point3D;
 
 

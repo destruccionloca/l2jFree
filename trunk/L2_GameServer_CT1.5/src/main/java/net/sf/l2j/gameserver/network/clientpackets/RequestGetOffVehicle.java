@@ -19,8 +19,6 @@ import net.sf.l2j.gameserver.instancemanager.BoatManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.GetOffVehicle;
-import net.sf.l2j.gameserver.registry.IServiceRegistry;
-import net.sf.l2j.tools.L2Registry;
 
 
 /**
