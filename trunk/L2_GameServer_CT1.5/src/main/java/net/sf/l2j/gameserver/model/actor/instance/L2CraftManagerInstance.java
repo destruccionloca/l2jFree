@@ -34,8 +34,6 @@ import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.tools.random.Rnd;
 
-import net.sf.l2j.gameserver.RecipeController;
-
 /**
  * @author G1ta0
  * Made in USSR
@@ -46,12 +44,9 @@ public class L2CraftManagerInstance extends L2FolkInstance
 	public static final int ADENA_ID = 57;
 	public static final int ITEMS_PER_PAGE = 5;	// items list size in craft and crystallize pages
 
-	private RecipeController _rc;
-
 	public L2CraftManagerInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
-		_rc = RecipeController.getInstance();
 	}
 
 	@Override
@@ -362,7 +357,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 			{
 				if (_item.getItemType()==L2EtcItemType.RECEIPE)
 				{
-					L2Recipe _recipe = RecipeController.getInstance().getRecipeByItemId(_item.getItemId()); 
+					L2RecipeList _recipe = RecipeController.getInstance().getRecipeByItemId(_item.getItemId()); 
 					
 					if (_recipe!=null)_recipes.add(_item.getObjectId());
 				}
@@ -518,9 +513,9 @@ public class L2CraftManagerInstance extends L2FolkInstance
 				replyMSG.append("<td width=220><font color=\"A2A0A2\">Ingredients</font></td>");
 				replyMSG.append("<td width=50><font color=\"A2A0A2\">Quantity</font></td></tr>");
 			
-				L2RecipeComponent[] _recipeItems = RecipeController.getInstance().getRecipeComponents();
-			
-				for (L2RecipeInstance _recipeItem : _recipeItems)
+                L2RecipeInstance[] _recipeItems = _recipeList.getRecipes();
+                
+                for (L2RecipeInstance _recipeItem:_recipeItems)
 				{
 					L2ItemInstance _item = _inventory.getItemByItemId(_recipeItem.getItemId());
 					
@@ -571,11 +566,11 @@ public class L2CraftManagerInstance extends L2FolkInstance
 				_recipeList!=null &&
 				((_recipeList.isDwarvenRecipe()&&Config.ALT_CRAFT_ALLOW_CRAFT)||(!_recipeList.isDwarvenRecipe()&&Config.ALT_CRAFT_ALLOW_COMMON)))
 			{
-				L2RecipeInstance[] _recipeItems = _recipeList.getRecipeComponents();
-
-				boolean _enoughtMaterials=true;
-				
-				for (L2RecipeInstance _recipeItem : _recipeItems)
+                L2RecipeInstance[] _recipeItems = _recipeList.getRecipes();
+                
+                boolean _enoughtMaterials=true;
+                
+                for (L2RecipeInstance _recipeItem:_recipeItems)
 				{
 					L2ItemInstance _item = _inventory.getItemByItemId(_recipeItem.getItemId());
 					if ((_item==null)||(_item.getCount()<(int)(_quantity*_recipeItem.getQuantity()*Config.RATE_CRAFT_COST)))
@@ -604,7 +599,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 					
 				InventoryUpdate iu = new InventoryUpdate();
 					
-				for (L2RecipeComponent _recipeItem:_recipeItems)
+                for (L2RecipeInstance _recipeItem:_recipeItems)
 				{
 					player.destroyItemByItemId("CraftManager", _recipeItem.getItemId(), (int)(_quantity*_recipeItem.getQuantity()*Config.RATE_CRAFT_COST), player, true);
 					iu.addModifiedItem(player.getInventory().getItemByItemId(_recipeItem.getItemId()));

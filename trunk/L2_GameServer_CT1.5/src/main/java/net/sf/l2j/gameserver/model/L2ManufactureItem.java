@@ -14,30 +14,20 @@
  */
 package net.sf.l2j.gameserver.model;
 
-import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
-import net.sf.l2j.gameserver.registry.IServiceRegistry;
-import net.sf.l2j.tools.L2Registry;
+import net.sf.l2j.gameserver.RecipeController;
 
-
-/**
- * This class ...
- * 
- * @version $Revision: 1.1.2.2.2.1 $ $Date: 2005/03/27 15:29:32 $
- */
 public class L2ManufactureItem 
 {
     private int _recipeId;
     private int _cost;
     private boolean _isDwarven;
-    private L2RecipeService __l2RecipeService ;
     
     public L2ManufactureItem(int recipeId, int cost)
     {
-        __l2RecipeService = (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
         _recipeId = recipeId;
         _cost = cost;
         
-        _isDwarven = __l2RecipeService.getRecipeById(_recipeId).isDwarvenRecipe();
+        _isDwarven = RecipeController.getInstance().getRecipeById(_recipeId).isDwarvenRecipe();
     }
     
     public int getRecipeId()
