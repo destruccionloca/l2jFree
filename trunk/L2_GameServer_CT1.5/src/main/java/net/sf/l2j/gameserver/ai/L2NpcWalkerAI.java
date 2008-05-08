@@ -25,27 +25,26 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcWalkerInstance;
 
 public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 {
-	private static final int DEFAULT_MOVE_DELAY = 0;
+	private static final int			DEFAULT_MOVE_DELAY	= 0;
 
-	private long _nextMoveTime;
+	private long						_nextMoveTime;
 
-	private boolean _walkingToNextPoint = false;
+	private boolean						_walkingToNextPoint	= false;
 
 	/**
 	 * home points for xyz
 	 */
-	int _homeX, _homeY, _homeZ;
+	int									_homeX, _homeY, _homeZ;
 
 	/**
 	 * route of the current npc
 	 */
-	private FastList<L2NpcWalkerNode> _route;
+	private FastList<L2NpcWalkerNode>	_route;
 
 	/**
 	 * current node
 	 */
-	private int _currentPos;
-
+	private int							_currentPos;
 
 	/**
 	 * Constructor of L2CharacterAI.<BR><BR>
@@ -56,10 +55,10 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 	{
 		super(accessor);
 
-		if(!Config.ALLOW_NPC_WALKERS)
+		if (!Config.ALLOW_NPC_WALKERS)
 			return;
 
-		 _route = NpcWalkerRoutesTable.getInstance().getRouteForNpc(getActor().getNpcId());
+		_route = NpcWalkerRoutesTable.getInstance().getRouteForNpc(getActor().getNpcId());
 
 		// Here we need 1 second initial delay cause getActor().hasAI() will return null...
 		// Constructor of L2NpcWalkerAI is called faster then ai object is attached in L2NpcWalkerInstance
@@ -74,16 +73,16 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 	@Override
 	protected void onEvtThink()
 	{
-		if(!Config.ALLOW_NPC_WALKERS)
+		if (!Config.ALLOW_NPC_WALKERS)
 			return;
 
-		if(isWalkingToNextPoint())
+		if (isWalkingToNextPoint())
 		{
 			checkArrived();
 			return;
 		}
 
-		if(_nextMoveTime < System.currentTimeMillis())
+		if (_nextMoveTime < System.currentTimeMillis())
 			walkToLocation();
 	}
 
@@ -94,7 +93,8 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 	@Override
 	protected void onEvtArrivedBlocked(L2CharPosition blocked_at_pos)
 	{
-		_log.warn("NpcWalker ID: " + getActor().getNpcId() + ": Blocked at rote position [" + _currentPos + "], coords: " + blocked_at_pos.x + ", " + blocked_at_pos.y + ", " + blocked_at_pos.z + ". Teleporting to next point");
+		_log.warn("NpcWalker ID: " + getActor().getNpcId() + ": Blocked at rote position [" + _currentPos + "], coords: " + blocked_at_pos.x + ", "
+				+ blocked_at_pos.y + ", " + blocked_at_pos.z + ". Teleporting to next point");
 
 		int destinationX = _route.get(_currentPos).getMoveX();
 		int destinationY = _route.get(_currentPos).getMoveY();
@@ -110,29 +110,29 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 		int destinationY = _route.get(_currentPos).getMoveY();
 		int destinationZ = _route.get(_currentPos).getMoveZ();
 
-		if(getActor().getX() == destinationX && getActor().getY() == destinationY && getActor().getZ() == destinationZ)
+		if (getActor().getX() == destinationX && getActor().getY() == destinationY && getActor().getZ() == destinationZ)
 		{
 			String chat = _route.get(_currentPos).getChatText();
-			if(chat != null && !chat.equals(""))
+			if (chat != null && !chat.equals(""))
 			{
 				try
 				{
 					getActor().broadcastChat(chat);
 				}
-				catch(ArrayIndexOutOfBoundsException e)
+				catch (ArrayIndexOutOfBoundsException e)
 				{
 					_log.info("L2NpcWalkerInstance: Error, " + e);
 				}
 			}
 
 			//time in millis
-			long delay = _route.get(_currentPos).getDelay()*1000;
+			long delay = _route.get(_currentPos).getDelay() * 1000;
 
 			//sleeps between each move
-			if(delay <= 0)
+			if (delay <= 0)
 			{
 				delay = DEFAULT_MOVE_DELAY;
-				if(Config.DEVELOPER)
+				if (Config.DEVELOPER)
 					_log.warn("Wrong Delay Set in Npc Walker Functions = " + delay + " secs, using default delay: " + DEFAULT_MOVE_DELAY + " secs instead.");
 			}
 
@@ -143,7 +143,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 
 	private void walkToLocation()
 	{
-		if(_currentPos < (_route.size() - 1))
+		if (_currentPos < (_route.size() - 1))
 			_currentPos++;
 		else
 			_currentPos = 0;
@@ -154,7 +154,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 		 * false - walking
 		 * true - Running
 		 */
-		if(moveType)
+		if (moveType)
 			getActor().setRunning();
 		else
 			getActor().setWalking();
@@ -166,7 +166,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 
 		//notify AI of MOVE_TO
 		setWalkingToNextPoint(true);
-	
+
 		setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(destinationX, destinationY, destinationZ, 0));
 	}
 

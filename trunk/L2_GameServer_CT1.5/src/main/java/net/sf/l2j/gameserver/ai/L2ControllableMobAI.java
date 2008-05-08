@@ -51,7 +51,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 	private int				_alternateAI;
 
 	private boolean			_isThinking;			// to prevent thinking
-													// recursively
+	// recursively
 	private boolean			_isNotMoving;
 
 	private L2Character		_forcedTarget;
@@ -248,7 +248,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 			skills = _actor.getAllSkills();
 			dist2 = _actor.getPlanDistanceSq(getForcedTarget().getX(), getForcedTarget().getY());
 			range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius();
-			if(getAttackTarget()!=null)
+			if (getAttackTarget() != null)
 				range = range + getAttackTarget().getTemplate().getCollisionRadius();
 			max_range = range;
 		}
