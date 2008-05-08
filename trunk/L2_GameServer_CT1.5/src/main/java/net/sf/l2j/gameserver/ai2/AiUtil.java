@@ -18,14 +18,16 @@ import net.sf.l2j.gameserver.model.L2Character;
 
 public class AiUtil
 {
-	
-	public static L2Character getMostHated(@SuppressWarnings("unused") AiParameters aiParams)
+
+	public static L2Character getMostHated(@SuppressWarnings("unused")
+	AiParameters aiParams)
 	{
 		//TODO: return most hated character
 		return null;
 	}
-	
-	public static L2Character getLikedNeedingHelp(@SuppressWarnings("unused") AiParameters aiParams)
+
+	public static L2Character getLikedNeedingHelp(@SuppressWarnings("unused")
+	AiParameters aiParams)
 	{
 		//TODO: return character needs help
 		return null;

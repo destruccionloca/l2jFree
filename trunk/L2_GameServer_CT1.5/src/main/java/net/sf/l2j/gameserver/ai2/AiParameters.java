@@ -30,43 +30,37 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
  */
 public class AiParameters
 {
-	private Queue<AiEvent> _eventQueue;
-	private EnumSet<AiEventType> _inhibitions;
-	private L2NpcInstance _actor;
-	private List<Hated> _hated;
-	private List<Liked> _liked;
-	
+	private Queue<AiEvent>			_eventQueue;
+	private EnumSet<AiEventType>	_inhibitions;
+	private L2NpcInstance			_actor;
+	private List<Hated>				_hated;
+	private List<Liked>				_liked;
+
 	public class Hated
 	{
-		public L2Character character;
-		public HateReason reason;
-		public int degree;
-		
+		public L2Character	character;
+		public HateReason	reason;
+		public int			degree;
+
 	}
-	
+
 	public class Liked
 	{
-		public L2Character character;
-		public LikeReason reason;
-		public int degree;
+		public L2Character	character;
+		public LikeReason	reason;
+		public int			degree;
 	}
-	
+
 	public enum HateReason
 	{
-		GAVE_DAMMAGE,
-		HEALS_ENNEMY,
-		GAVE_DAMMAGE_TO_FRIEND,
-		IS_ENNEMY
+		GAVE_DAMMAGE, HEALS_ENNEMY, GAVE_DAMMAGE_TO_FRIEND, IS_ENNEMY
 	}
-	
+
 	public enum LikeReason
 	{
-		FRIEND,
-		HEALED,
-		HEALED_FRIEND,
-		GAVE_DAMMAGE_TO_ENNEMY
+		FRIEND, HEALED, HEALED_FRIEND, GAVE_DAMMAGE_TO_ENNEMY
 	}
-	
+
 	public AiParameters(L2NpcInstance actor)
 	{
 		_eventQueue = new PriorityBlockingQueue<AiEvent>();
@@ -91,37 +85,37 @@ public class AiParameters
 	{
 		return _eventQueue.poll();
 	}
-	
+
 	public void queueEvents(AiEvent set)
 	{
 		_eventQueue.offer(set);
 	}
-	
+
 	public L2NpcInstance getActor()
 	{
 		return _actor;
 	}
-	
+
 	public List<Hated> getHated()
 	{
 		return _hated;
 	}
-	
+
 	public List<Liked> getLiked()
 	{
 		return _liked;
 	}
-	
+
 	public void addLiked(Liked cha)
 	{
 		_liked.add(cha);
 	}
-	
+
 	public void addHated(Hated cha)
 	{
 		_hated.add(cha);
 	}
-	
+
 	public void clear()
 	{
 		_hated.clear();
