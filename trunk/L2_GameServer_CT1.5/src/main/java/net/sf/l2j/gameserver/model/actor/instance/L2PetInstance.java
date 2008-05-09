@@ -48,8 +48,8 @@ import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.network.serverpackets.PetInventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.PetItemList;
-import net.sf.l2j.gameserver.network.serverpackets.PetLiveTime;
 import net.sf.l2j.gameserver.network.serverpackets.PetStatusShow;
+import net.sf.l2j.gameserver.network.serverpackets.SetSummonRemainTime;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.StopMove;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -61,12 +61,6 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * 
- * This class ...
- * 
- * @version $Revision: 1.15.2.10.2.16 $ $Date: 2005/04/06 16:13:40 $
- */
 public class L2PetInstance extends L2Summon
 {
     final static Log _log = LogFactory.getLog(L2PetInstance.class.getName());
@@ -191,7 +185,7 @@ public class L2PetInstance extends L2Summon
                 		}
                 	}
                 	// send pet food bar info
-                    getOwner().sendPacket(new PetLiveTime(getOwner().getPet()));
+                	getOwner().sendPacket(new SetSummonRemainTime(getMaxFed(),getCurrentFed()));
                 }
                 
                 broadcastStatusUpdate();

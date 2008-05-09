@@ -22,7 +22,6 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
-import net.sf.l2j.gameserver.network.serverpackets.PetLiveTime;
 import net.sf.l2j.gameserver.network.serverpackets.SetSummonRemainTime;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -46,10 +45,7 @@ public class L2SummonInstance extends L2Summon
 
     private static final int SUMMON_LIFETIME_INTERVAL = 1200000; // 20 minutes
     
-    private static Future<?> _summonLifeTask;
     private static Future<?> _summonConsumeTask;
-
-    private static final int SUMMON_LIFETIME_REFRESH_INTERVAL = 30000; // 30 seconds
     
     private static int _lifeTime = SUMMON_LIFETIME_INTERVAL; // summon life time for life scale bar
     
@@ -99,8 +95,7 @@ public class L2SummonInstance extends L2Summon
        		_log.debug("L2SummonInstance: Task Delay " + (delay / 1000) + " seconds.");
        	
         _summonConsumeTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new SummonConsume(getOwner(), this), delay, delay);
-        _summonLifeTask = ThreadPoolManager.getInstance().scheduleGeneral(new SummonLifetime(getOwner(), this), SUMMON_LIFETIME_REFRESH_INTERVAL);
-    }
+     }
     
 	@Override
 	public final int getLevel()
@@ -193,12 +188,6 @@ public class L2SummonInstance extends L2Summon
         if (_log.isDebugEnabled())
             _log.warn("L2SummonInstance: " + getTemplate().getName() + " (" + getOwner().getName() + ") has been killed.");
 
-        if (_summonLifeTask != null)
-        {
-           _summonLifeTask.cancel(true);
-           _summonLifeTask = null;
-        }
-
         if (_summonConsumeTask != null)
         {
             _summonConsumeTask.cancel(true);
@@ -277,34 +266,6 @@ public class L2SummonInstance extends L2Summon
         }
     }
 
-    static class SummonLifetime implements Runnable
-    {
-        private L2PcInstance _activeChar;
-        private L2SummonInstance _summon;
-        
-        SummonLifetime(L2PcInstance activeChar, L2SummonInstance newpet)
-        {
-            _activeChar = activeChar;
-            _summon = newpet;
-        }
-        
-        public void run()
-        {
-        	
-        	 if (!_summon.isDead())
-        	 {
-        		 _lifeTime -= SUMMON_LIFETIME_REFRESH_INTERVAL; 
-        		 _activeChar.sendPacket(new PetLiveTime(_summon));
-        		 _summonLifeTask = ThreadPoolManager.getInstance().scheduleGeneral(new SummonLifetime(_activeChar, _summon), SUMMON_LIFETIME_REFRESH_INTERVAL);
-        	 }
-        	 else
-        	 {
-        		 _lifeTime = 0;
-        		 _activeChar.sendPacket(new PetLiveTime(_summon));
-        	 }
-        }
-    }
-
     @Override
     public int getCurrentFed() { return _lifeTime; }
     
@@ -316,11 +277,6 @@ public class L2SummonInstance extends L2Summon
 	{
        	if (_log.isDebugEnabled())
        		_log.warn("L2SummonInstance: " + getTemplate().getName() + " (" + owner.getName() + ") unsummoned.");
-
-        if (_summonLifeTask != null) {
-        	_summonLifeTask.cancel(true);
-        	_summonLifeTask = null;
-        }
         
         if (_summonConsumeTask != null) {
             _summonConsumeTask.cancel(true);
