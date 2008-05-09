@@ -2,8 +2,8 @@
 -- Table structure for `cursed_weapons`
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `cursed_weapons` (
-  `charId` INT,
-  `playerId` INT DEFAULT 0,
+  `itemId` INT,
+  `charId` INT DEFAULT 0,
   `playerKarma` INT DEFAULT 0,
   `playerPkKills` INT DEFAULT 0,
   `nbKills` INT DEFAULT 0,
