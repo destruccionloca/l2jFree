@@ -135,6 +135,7 @@ public class Forum
 			{
 			}
 		}
+		con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
