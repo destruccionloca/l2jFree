@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS `custom_weapon`;
 CREATE TABLE IF NOT EXISTS `custom_weapon` (
   `item_id` decimal(11,0) NOT NULL DEFAULT '0',
   `item_display_id` decimal(11,0) NOT NULL DEFAULT '0',
@@ -33,9 +32,8 @@ CREATE TABLE IF NOT EXISTS `custom_weapon` (
   `skills_onCast` varchar(70) NOT NULL DEFAULT '',
   `skills_onCrit` varchar(70) NOT NULL DEFAULT '',
   `change_weaponId` decimal(11,0) NOT NULL DEFAULT '0',
+  `races` VARCHAR(20) NOT NULL DEFAULT '-1',
+  `classes` VARCHAR(255) NOT NULL DEFAULT '-1',
+  `sex` INT (1) NOT NULL DEFAULT -1,
   PRIMARY KEY (`item_id`)
-) DEFAULT CHARSET=utf8;
-
-ALTER TABLE `custom_weapon` ADD `races` VARCHAR(20) NOT NULL DEFAULT '-1';
-ALTER TABLE `custom_weapon` ADD `classes` VARCHAR(255) NOT NULL DEFAULT '-1';
-ALTER TABLE `custom_weapon` ADD `sex` INT (1) NOT NULL DEFAULT -1;
+) DEFAULT CHARSET=utf8; 
