@@ -36,7 +36,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import net.sf.l2j.gameserver.util.Util;
-import net.sf.l2j.config.L2Properties;
+import net.sf.l2j.Config.L2Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
