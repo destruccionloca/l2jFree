@@ -596,8 +596,6 @@ public final class L2PcInstance extends L2PlayableInstance
     /** The L2FolkInstance corresponding to the last Folk wich one the player talked. */
     private L2FolkInstance _lastFolkNpc = null;
 
-    private boolean _isSilentMoving = false;
-
     protected Map<Integer, Integer> _activeSoulShots = new FastMap<Integer, Integer>().setShared(true);
     private int _clanPrivileges = 0;
 
@@ -8516,22 +8514,6 @@ public final class L2PcInstance extends L2PlayableInstance
     public L2FolkInstance getLastFolkNPC()
     {
         return _lastFolkNpc;
-    }
-
-    /**
-     * Set the Silent Moving mode Flag.<BR><BR>
-     */
-    public void setSilentMoving(boolean flag)
-    {
-        _isSilentMoving = flag;
-    }
-
-    /**
-     * Return True if the Silent Moving mode is active.<BR><BR>
-     */
-    public boolean isSilentMoving()
-    {
-        return _isSilentMoving;
     }
 
     /**

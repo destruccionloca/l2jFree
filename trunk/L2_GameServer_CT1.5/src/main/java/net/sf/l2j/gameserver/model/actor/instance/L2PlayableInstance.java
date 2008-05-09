@@ -33,12 +33,13 @@ import net.sf.l2j.gameserver.templates.L2CharTemplate;
  * 
  */
 
-public abstract class L2PlayableInstance extends L2Character 
+public abstract class L2PlayableInstance extends L2Character
 {
 
-	private boolean _isNoblesseBlessed = false; // for Noblesse Blessing skill, restores buffs after death
-	private boolean _getCharmOfLuck = false; // Charm of Luck - During a Raid/Boss war, decreased chance for death penalty
-	private boolean _isPhoenixBlessed = false; // for Soul of The Phoenix or Salvation buffs
+	private boolean	_isNoblesseBlessed	= false;	// for Noblesse Blessing skill, restores buffs after death
+	private boolean	_getCharmOfLuck		= false;	// Charm of Luck - During a Raid/Boss war, decreased chance for death penalty
+	private boolean	_isPhoenixBlessed	= false;	// for Soul of The Phoenix or Salvation buffs
+	private boolean	_isSilentMoving		= false;	// Silent Move
 
 	/**
 	 * Constructor of L2PlayableInstance (use L2Character constructor).<BR><BR>
@@ -53,159 +54,206 @@ public abstract class L2PlayableInstance extends L2Character
 	public L2PlayableInstance(int objectId, L2CharTemplate template)
 	{
 		super(objectId, template);
-		getKnownList();	// init knownlist
-        getStat();			// init stats
-        getStatus();		// init status
+		getKnownList(); // init knownlist
+		getStat(); // init stats
+		getStatus(); // init status
 	}
-    
-    @Override
-    public PlayableKnownList getKnownList()
-    {
-    	if(super.getKnownList() == null || !(super.getKnownList() instanceof PlayableKnownList))
-    		setKnownList(new PlayableKnownList(this));
-    	return (PlayableKnownList)super.getKnownList();
-    }
-    
-    @Override
-    public PlayableStat getStat()
-    {
-    	if(super.getStat() == null || !(super.getStat() instanceof PlayableStat))
-    		setStat(new PlayableStat(this));
-    	return (PlayableStat)super.getStat();
-    }
-    
-    @Override
-    public PlayableStatus getStatus()
-    {
-    	if(super.getStatus() == null || !(super.getStatus() instanceof PlayableStatus))
-    		setStatus(new PlayableStatus(this));
-    	return (PlayableStatus)super.getStatus();
-    }
 
-    @Override
-    public boolean doDie(L2Character killer)
-    {
-        if (!super.doDie(killer))
-            return false;
+	@Override
+	public PlayableKnownList getKnownList()
+	{
+		if (super.getKnownList() == null || !(super.getKnownList() instanceof PlayableKnownList))
+			setKnownList(new PlayableKnownList(this));
+		return (PlayableKnownList) super.getKnownList();
+	}
 
-        if (killer != null)
-        {
-            L2PcInstance player = null;
-            if (killer instanceof L2PcInstance)
-                player = (L2PcInstance)killer;
-            else if (killer instanceof L2Summon)
-                player = ((L2Summon)killer).getOwner();
-            else if (killer instanceof L2Trap)
-                player = ((L2Trap)killer).getOwner();
+	@Override
+	public PlayableStat getStat()
+	{
+		if (super.getStat() == null || !(super.getStat() instanceof PlayableStat))
+			setStat(new PlayableStat(this));
+		return (PlayableStat) super.getStat();
+	}
 
-            if (player != null) player.onKillUpdatePvPKarma(this);
-        }
+	@Override
+	public PlayableStatus getStatus()
+	{
+		if (super.getStatus() == null || !(super.getStatus() instanceof PlayableStatus))
+			setStatus(new PlayableStatus(this));
+		return (PlayableStatus) super.getStatus();
+	}
 
-        return true;
-    }
+	@Override
+	public boolean doDie(L2Character killer)
+	{
+		if (!super.doDie(killer))
+			return false;
 
-    public boolean checkIfPvP(L2Character target)
-    {
-        if (target == null) return false;                                               // Target is null
-        if (target == this) return false;                                               // Target is self
-        if (!(target instanceof L2PlayableInstance)) return false;                      // Target is not a L2PlayableInstance
+		if (killer != null)
+		{
+			L2PcInstance player = null;
+			if (killer instanceof L2PcInstance)
+				player = (L2PcInstance) killer;
+			else if (killer instanceof L2Summon)
+				player = ((L2Summon) killer).getOwner();
+			else if (killer instanceof L2Trap)
+				player = ((L2Trap) killer).getOwner();
 
-        L2PcInstance player = null;
-        if (this instanceof L2PcInstance)
-            player = (L2PcInstance)this;
-        else if (this instanceof L2Summon)
-            player = ((L2Summon)this).getOwner();
+			if (player != null)
+				player.onKillUpdatePvPKarma(this);
+		}
 
-        if (player == null) return false;                                               // Active player is null
-        if (player.getKarma() != 0) return false;                                       // Active player has karma
+		return true;
+	}
 
-        L2PcInstance targetPlayer = null;
-        if (target instanceof L2PcInstance)
-            targetPlayer = (L2PcInstance)target;
-        else if (target instanceof L2Summon)
-            targetPlayer = ((L2Summon)target).getOwner();
+	public boolean checkIfPvP(L2Character target)
+	{
+		if (target == null)
+			return false; // Target is null
+		if (target == this)
+			return false; // Target is self
+		if (!(target instanceof L2PlayableInstance))
+			return false; // Target is not a L2PlayableInstance
 
-        if (targetPlayer == null) return false;                                         // Target player is null
-        if (targetPlayer == this) return false;                                         // Target player is self
-        if (targetPlayer.getKarma() != 0) return false;                                 // Target player has karma
+		L2PcInstance player = null;
+		if (this instanceof L2PcInstance)
+			player = (L2PcInstance) this;
+		else if (this instanceof L2Summon)
+			player = ((L2Summon) this).getOwner();
 
-        return true;
-        /*  Even at war, there should be PvP flag
-        if(
-                player.getClan() == null ||
-                targetPlayer.getClan() == null ||
-                (
-                        !targetPlayer.getClan().isAtWarWith(player.getClanId()) &&
-                        targetPlayer.getWantsPeace() == 0 &&
-                        player.getWantsPeace() == 0
-                )
-            )
-        {
-            return true;
-        }
+		if (player == null)
+			return false; // Active player is null
+		if (player.getKarma() != 0)
+			return false; // Active player has karma
 
-        return false;
-        */
-    }
-    
-    /**
+		L2PcInstance targetPlayer = null;
+		if (target instanceof L2PcInstance)
+			targetPlayer = (L2PcInstance) target;
+		else if (target instanceof L2Summon)
+			targetPlayer = ((L2Summon) target).getOwner();
+
+		if (targetPlayer == null)
+			return false; // Target player is null
+		if (targetPlayer == this)
+			return false; // Target player is self
+		if (targetPlayer.getKarma() != 0)
+			return false; // Target player has karma
+
+		return true;
+		/*  Even at war, there should be PvP flag
+		if(
+		        player.getClan() == null ||
+		        targetPlayer.getClan() == null ||
+		        (
+		                !targetPlayer.getClan().isAtWarWith(player.getClanId()) &&
+		                targetPlayer.getWantsPeace() == 0 &&
+		                player.getWantsPeace() == 0
+		        )
+		    )
+		{
+		    return true;
+		}
+
+		return false;
+		*/
+	}
+
+	/**
 	 * Return True.<BR><BR>
 	 */
-    @Override
-    public boolean isAttackable()
-    {
-        return true;
-    }
+	@Override
+	public boolean isAttackable()
+	{
+		return true;
+	}
 
-    // Support for Noblesse Blessing skill, where buffs are retained
-    // after resurrect
-    public final boolean isNoblesseBlessed() { return _isNoblesseBlessed; }
-    public final void setIsNoblesseBlessed(boolean value) { _isNoblesseBlessed = value; }
-     
-    public final void startNoblesseBlessing()
-    {
-    	setIsNoblesseBlessed(true);
-    	updateAbnormalEffect();
-    }
-    
-    public final void stopNoblesseBlessing(L2Effect effect)
-    {
-    	if (effect == null)
-    		stopEffects(L2Effect.EffectType.NOBLESSE_BLESSING);
-    	else
-    		removeEffect(effect);
-    			
-    	setIsNoblesseBlessed(false);
-    	updateAbnormalEffect();
-    }
+	// Support for Noblesse Blessing skill, where buffs are retained
+	// after resurrect
+	public final boolean isNoblesseBlessed()
+	{
+		return _isNoblesseBlessed;
+	}
 
-    // Support for Soul of the Phoenix and Salvation skills
-    public final boolean isPhoenixBlessed() { return _isPhoenixBlessed; }
-    public final void setIsPhoenixBlessed(boolean value) { _isPhoenixBlessed = value; }
+	public final void setIsNoblesseBlessed(boolean value)
+	{
+		_isNoblesseBlessed = value;
+	}
 
-    public final void startPhoenixBlessing()
-    {
-        setIsPhoenixBlessed(true);
-        updateAbnormalEffect();
-    }
+	public final void startNoblesseBlessing()
+	{
+		setIsNoblesseBlessed(true);
+		updateAbnormalEffect();
+	}
 
-    public final void stopPhoenixBlessing(L2Effect effect)
-    {
-        if (effect == null)
-            stopEffects(L2Effect.EffectType.PHOENIX_BLESSING);
-        else
-            removeEffect(effect);
+	public final void stopNoblesseBlessing(L2Effect effect)
+	{
+		if (effect == null)
+			stopEffects(L2Effect.EffectType.NOBLESSE_BLESSING);
+		else
+			removeEffect(effect);
 
-        setIsPhoenixBlessed(false);
-        updateAbnormalEffect();
-    }
+		setIsNoblesseBlessed(false);
+		updateAbnormalEffect();
+	}
+
+	// Support for Soul of the Phoenix and Salvation skills
+	public final boolean isPhoenixBlessed()
+	{
+		return _isPhoenixBlessed;
+	}
+
+	public final void setIsPhoenixBlessed(boolean value)
+	{
+		_isPhoenixBlessed = value;
+	}
+
+	public final void startPhoenixBlessing()
+	{
+		setIsPhoenixBlessed(true);
+		updateAbnormalEffect();
+	}
+
+	public final void stopPhoenixBlessing(L2Effect effect)
+	{
+		if (effect == null)
+			stopEffects(L2Effect.EffectType.PHOENIX_BLESSING);
+		else
+			removeEffect(effect);
+
+		setIsPhoenixBlessed(false);
+		updateAbnormalEffect();
+	}
+
+	/**
+	 * Set the Silent Moving mode Flag.<BR><BR>
+	 */
+	public void setSilentMoving(boolean flag)
+	{
+		_isSilentMoving = flag;
+	}
+
+	/**
+	 * Return True if the Silent Moving mode is active.<BR><BR>
+	 */
+	public boolean isSilentMoving()
+	{
+		return _isSilentMoving;
+	}
 
 	public abstract boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage);
+
 	public abstract boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage);
 
 	//Charm of Luck - During a Raid/Boss war, decreased chance for death penalty
-	public final boolean getCharmOfLuck() { return _getCharmOfLuck; }
-	public final void setCharmOfLuck(boolean value) { _getCharmOfLuck = value; }
+	public final boolean getCharmOfLuck()
+	{
+		return _getCharmOfLuck;
+	}
+
+	public final void setCharmOfLuck(boolean value)
+	{
+		_getCharmOfLuck = value;
+	}
 
 	public final void startCharmOfLuck()
 	{

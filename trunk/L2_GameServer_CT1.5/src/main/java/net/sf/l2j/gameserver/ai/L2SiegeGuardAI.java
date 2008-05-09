@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FortMerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.tools.random.Rnd;
@@ -149,11 +150,11 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				target = owner;
 		}
 
-		// Check if the target is a L2PcInstance
-		if (target instanceof L2PcInstance)
+		// Check if the target is a L2PlayableInstance
+		if (target instanceof L2PlayableInstance)
 		{
 			// Check if the target isn't in silent move mode AND too far (>100)
-			if (((L2PcInstance) target).isSilentMoving() && !_actor.isInsideRadius(target, 250, false, false))
+			if (((L2PlayableInstance) target).isSilentMoving() && !_actor.isInsideRadius(target, 250, false, false))
 				return false;
 		}
 		// Los Check Here

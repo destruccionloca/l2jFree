@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ControllableMobInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.tools.random.Rnd;
 
@@ -431,10 +431,10 @@ public class L2ControllableMobAI extends L2AttackableAI
 			return false;
 
 		// Check if the target is a L2PcInstance
-		if (target instanceof L2PcInstance)
+		if (target instanceof L2PlayableInstance)
 		{
 			// Check if the target isn't in silent move mode
-			if (((L2PcInstance) target).isSilentMoving())
+			if (((L2PlayableInstance) target).isSilentMoving())
 				return false;
 		}
 
