@@ -6253,7 +6253,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 if (player.isInJail()) player.setJailTimer(rset.getLong("jail_timer"));
                 else player.setJailTimer(0);
                 
-                CursedWeaponsManager.getInstance().checkPlayer(player);
+                CursedWeaponsManager.getInstance().onEnter(player);
 
                 player.setNoble(rset.getBoolean("nobless"));
                 player.setCharViP((rset.getInt("charViP")==1) ? true : false);
@@ -10732,6 +10732,9 @@ public final class L2PcInstance extends L2PlayableInstance
             _log.fatal( "deleteMe()", t);
         }
 
+        if (isCursedWeaponEquipped())
+        	CursedWeaponsManager.getInstance().onExit(this);
+        
         if (_objectSittingOn != null)
             _objectSittingOn.setBusyStatus(false);
         _objectSittingOn = null;
@@ -10873,7 +10876,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // remove from flood protector
         FloodProtector.getInstance().removePlayer(getObjectId());
-
+        
         if (getClanId() > 0)
             getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);
 

@@ -371,7 +371,7 @@ public class CursedWeaponsManager
 			_log.info("MessageID: " + sm.getMessageID());
 	}
 
-	public void checkPlayer(L2PcInstance player)
+	public void onEnter(L2PcInstance player)
 	{
 		if (player == null)
 			return;
@@ -394,6 +394,19 @@ public class CursedWeaponsManager
 		}
 	}
 
+	public void onExit(L2PcInstance player)
+	{
+		if(player == null)
+			return;
+
+		for(CursedWeapon cw : _cursedWeapons.values())
+			if(cw.isActivated() && player.getObjectId() == cw.getPlayerId())
+			{
+				cw.setPlayer(null);
+				cw.setItem(null);
+			}
+	}
+	
 	public static void removeFromDb(int itemId)
 	{
 		Connection con = null;
