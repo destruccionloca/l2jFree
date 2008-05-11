@@ -279,17 +279,17 @@ description(s) :
   </for>
 </skill>
 <skill id="511" levels="1" name="Temptation">
-  <set name="castRange" val="400"/>
-  <set name="effectRange" val="900"/>
-  <set name="hitTime" val="1500"/>
-  <set name="magicLvl" val="49"/> <!-- Guessing -->
+  <set name="magicLvl" val="52"/>
   <set name="mpConsume" val="44"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="power" val="500"/>
   <set name="reuseDelay" val="10000"/>
-  <set name="skillType" val="AGGDAMAGE"/>
-  <set name="soulConsumeCount" val="1"/>
   <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="AGGDAMAGE"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <set name="hitTime" val="1500"/>
+  <set name="soulConsumeCount" val="1"/>
   <for>
   </for>
 </skill>
@@ -637,6 +637,7 @@ Description(s):
 <skill id="529" levels="1" name="Song of Elemental">
   <!-- Done by theREALizzy, check for retail values. -->
   <set name="mpConsume" val="54"/>
+  <set name="nextDanceCost" val="30"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
@@ -680,17 +681,17 @@ Description(s):
   </for>
 </skill>
 <skill id="531" levels="1" name="Critical Wound">
-  <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
-  <set name="magicLvl" val="79"/> <!-- Guessing -->
+  <set name="magicLvl" val="77"/>
   <set name="mpConsume" val="43"/>
-  <set name="hitTime" val="1500"/>
+  <set name="hitTime" val="1200"/>
   <set name="isDebuff" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="power" val="0.0"/>
+  <set name="power" val="80"/>
   <set name="reuseDelay" val="30000"/>
   <set name="skillType" val="DEBUFF"/>
   <set name="target" val="TARGET_ONE"/>
+  <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
   <set name="weaponsAllowed" val="16"/>
   <for>
     <effect name="Debuff" count="1" time="30" val="0">
@@ -1341,11 +1342,22 @@ Description(s):
   </for>
 </skill>
 <skill id="570" levels="4" name="Attack Rage">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <set name="baseCritRate" val="15"/>
+<!-- by Sephiroth -->
+  <table name="#power">904 1108 1235 1404</table>>
+  <table name="#charges">1 2 3 4</table>
+  <set name="mpConsume" val="5"/>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="1500"/>
+  <set name="reuseDelay" val="5200"/>
+  <set name="hitTime" val="900"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
+  <set name="SSBoost" val="2.0"/>
+  <set name="baseCritRate" val="18"/>
+  <set name="num_charges" val="#charges"/>
   <for>
   </for>
 </skill>
