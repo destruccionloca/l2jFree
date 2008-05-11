@@ -450,7 +450,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="#pAtk" stat="pAtk"></mul>
+	<mul order="0x30" val="#pAtk" stat="pAtk"/>
   </for>
 </skill>
 <skill id="632" levels="6" name="Emergent Ability - Empower">
@@ -460,7 +460,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="#pDef" stat="pDef"></mul>
+	<mul order="0x30" val="#pDef" stat="pDef"/>
   </for>
 </skill>
 <skill id="633" levels="6" name="Emergent Ability - Empower">
@@ -470,7 +470,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="#mAtk" stat="mAtk"></mul>
+	<mul order="0x30" val="#mAtk" stat="mAtk"/>
   </for>
 </skill>
 <skill id="634" levels="6" name="Emergent Ability - Magic Defense">
@@ -480,7 +480,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="#mDef" stat="mDef"></mul>
+	<mul order="0x30" val="#mDef" stat="mDef"/>
   </for>
 </skill>
 <skill id="635" levels="3" name="Not In Use">
@@ -505,7 +505,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="1.25" stat="pAtk"></mul>
+	<mul order="0x30" val="1.25" stat="pAtk"/>
   </for>
 </skill>
 <skill id="638" levels="1" name="Master Ability - Empower">
@@ -514,7 +514,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="1.17" stat="pAtk"></mul>
+	<mul order="0x30" val="1.17" stat="pAtk"/>
   </for>
 </skill>
 <skill id="639" levels="1" name="Master Ability - Casting">
@@ -523,7 +523,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="1.13" stat="mAtkSpd"></mul>
+	<mul order="0x30" val="1.13" stat="mAtkSpd"/>
   </for>
 </skill>
 <skill id="640" levels="1" name="Master Ability - Focus">
@@ -532,7 +532,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<add order="0x40" val="100" stat="rCrit"></add>
+	<add order="0x40" val="100" stat="rCrit"/>
   </for>
 </skill>
 <skill id="641" levels="1" name="Knight Ability - Boost HP">
@@ -541,7 +541,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="1.17" stat="maxHp"></mul>
+	<mul order="0x30" val="1.17" stat="maxHp"/>
   </for>
 </skill>
 <skill id="642" levels="1" name="Enchanter Ability - Boost Mana">
@@ -550,7 +550,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="1.17" stat="maxMp"></mul>
+	<mul order="0x30" val="1.17" stat="maxMp"/>
   </for>
 </skill>
 <skill id="643" levels="1" name="Summoner Ability - Boost HP/MP">
@@ -559,8 +559,8 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="1.13" stat="maxHp"></mul>
-	<mul order="0x30" val="1.13" stat="maxMp"></mul>
+	<mul order="0x30" val="1.13" stat="maxHp"/>
+	<mul order="0x30" val="1.13" stat="maxMp"/>
   </for>
 </skill>
 <skill id="644" levels="1" name="Rogue Ability - Evasion">
@@ -569,7 +569,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<add order="0x40" val="4" stat="rEvas"></add>
+	<add order="0x40" val="4" stat="rEvas"/>
   </for>
 </skill>
 <skill id="645" levels="1" name="Rogue Ability - Long Shot">
@@ -579,7 +579,7 @@
   <set name="castRange" val="-1"/>
   <for>
    <add order="0x40" stat="pAtkRange" val="50">
-      <using kind="Bow"></using>
+      <using kind="Bow"/>
     </add>
  </for>
 </skill>
@@ -589,7 +589,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" stat="gainMp" val="1.47"></mul>
+	<mul order="0x30" stat="gainMp" val="1.47"/>
  </for>
 </skill>
 <skill id="647" levels="1" name="Enchanter Ability - Mana Recovery">
@@ -598,7 +598,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" stat="regMp" val="1.44"></mul>
+	<mul order="0x30" stat="regMp" val="1.44"/>
  </for>
 </skill>
 <skill id="648" levels="1" name="Healer Ability - Prayer">
@@ -607,7 +607,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" stat="gainHp" val="1.65"></mul>
+	<mul order="0x30" stat="gainHp" val="1.65"/>
  </for>
 </skill>
 <skill id="650" levels="1" name="Warrior Ability - Resist Trait">
@@ -616,21 +616,21 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" stat="paralyzeVuln" val="0.85"></mul>
-	<mul order="0x30" stat="stunVuln" val="0.85"></mul>
-	<mul order="0x30" stat="rootVuln" val="0.85"></mul>
-	<mul order="0x30" stat="sleepVuln" val="0.85"></mul>
-	<mul order="0x30" stat="cancelVuln" val="0.85"></mul>
+	<mul order="0x30" stat="paralyzeVuln" val="0.85"/>
+	<mul order="0x30" stat="stunVuln" val="0.85"/>
+	<mul order="0x30" stat="rootVuln" val="0.85"/>
+	<mul order="0x30" stat="sleepVuln" val="0.85"/>
+	<mul order="0x30" stat="cancelVuln" val="0.85"/>
   </for>
 </skill>
 <skill id="651" levels="1" name="Warrior Ability - Haste">
-	<set name="target" val="TARGET_SELF"/>
-	<set name="skillType" val="BUFF"/>
-	<set name="operateType" val="OP_PASSIVE"/>
-	<set name="castRange" val="-1"/>
-	<set name="warrior_haste" val="true"/>
-	<for>
-	</for>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+    <mul order="0x30" stat="pAtkSpd" val="1.07"/>
+  </for>
 </skill>
 <skill id="652" levels="1" name="Knight Ability - Defense">
   <set name="target" val="TARGET_NONE"/>
