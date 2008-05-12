@@ -178,7 +178,7 @@ public class RequestPlayerBan extends ElayneAction
 
 	private boolean banPlayer(int objectId)
 	{
-		String sql = "UPDATE `characters` SET `accesslevel`='-100' WHERE (`obj_Id`=?)";
+		String sql = "UPDATE `characters` SET `accesslevel`='-100' WHERE (`charId`=?)";
 		Connection con = null;
 		boolean executed = false;
 		try

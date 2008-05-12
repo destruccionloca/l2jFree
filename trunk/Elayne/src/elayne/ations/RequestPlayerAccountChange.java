@@ -186,7 +186,7 @@ public class RequestPlayerAccountChange extends ElayneAction
 	 */
 	private boolean updatePlayerAccount(String account, int objectId)
 	{
-		String sql = "UPDATE `characters` SET `account_name`=? WHERE (`obj_Id`=?)";
+		String sql = "UPDATE `characters` SET `account_name`=? WHERE (`charId`=?)";
 		Connection con;
 		try
 		{

@@ -104,7 +104,7 @@ public class RequestPlayerJail extends ElayneAction
 
 	private boolean updateJail(int jail, int objectId)
 	{
-		final String SQL = "UPDATE `characters` SET `in_jail`=? WHERE (`obj_Id`=?)";
+		final String SQL = "UPDATE `characters` SET `in_jail`=? WHERE (`charId`=?)";
 		java.sql.Connection con = null;
 		try
 		{

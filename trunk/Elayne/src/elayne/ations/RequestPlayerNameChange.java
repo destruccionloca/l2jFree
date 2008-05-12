@@ -212,7 +212,7 @@ public class RequestPlayerNameChange extends ElayneAction
 	 */
 	private boolean updatePlayerName(String name, int objectId)
 	{
-		String sql = "UPDATE `characters` SET `char_name`=? WHERE (`obj_Id`=?)";
+		String sql = "UPDATE `characters` SET `char_name`=? WHERE (`charId`=?)";
 		Connection con;
 		try
 		{

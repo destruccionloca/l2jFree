@@ -32,6 +32,11 @@ public class L2InventoryItem
 		return enchantLevel;
 	}
 
+	public int setEnchantLevel(int newEnchant)
+	{
+		return this.enchantLevel = newEnchant;
+	}
+
 	public String getLocation()
 	{
 		return location;

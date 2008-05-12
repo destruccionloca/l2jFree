@@ -34,7 +34,7 @@ public class RequestSkillDeletion extends ElayneAction
 
 	private void removeSkill(int charObjId, int skillId, int class_index)
 	{
-		final String SQL = "DELETE FROM `character_skills` WHERE (`char_obj_id`=?) AND (`skill_id`=?) AND (`class_index`=?)  ";
+		final String SQL = "DELETE FROM `character_skills` WHERE (`charId`=?) AND (`skill_id`=?) AND (`class_index`=?)  ";
 		java.sql.Connection con = null;
 		try
 		{

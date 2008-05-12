@@ -86,7 +86,7 @@ public class RequestSkillsWipe extends ElayneAction
 
 	private void wipeSkills(int charObjId, int class_index)
 	{
-		final String SQL = "DELETE FROM `character_skills` WHERE (`char_obj_id`=?) AND (`class_index`=?)  ";
+		final String SQL = "DELETE FROM `character_skills` WHERE (`charId`=?) AND (`class_index`=?)  ";
 		java.sql.Connection con = null;
 		try
 		{

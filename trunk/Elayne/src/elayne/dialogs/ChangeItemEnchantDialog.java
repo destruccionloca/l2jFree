@@ -13,44 +13,44 @@ import org.eclipse.swt.widgets.Spinner;
 
 /**
  * This class represents a new Dialog that is prompted by the
- * {@link RequestItemCountChange} action. It displays a dialog that asks for a
- * new amount that will be given to a certain item.
- * @author polbat02
+ * {@link RequestItemEnchantChange} action. It displays a dialog that asks for a
+ * new enchant that will be given to a certain item.
+ * @author SqueezeD
  */
-public class ChangeItemCountDialog extends Dialog
+public class ChangeItemEnchantDialog extends Dialog
 {
-	/** The old amount */
-	private int actualAmount;
-	/** The new amount */
+	/** The old enchant */
+	private int actualEnchant;
+	/** The new enchant */
 	private int changeLevel;
 	/**
-	 * The spinner that is used by the user to place in the new amount for a
+	 * The spinner that is used by the user to place in the new enchant for a
 	 * certain item
 	 */
 	private Spinner spinner;
 
 	/**
-	 * Defines a new instance of {@link ChangeItemCountDialog}.
+	 * Defines a new instance of {@link ChangeItemEnchantDialog}.
 	 * @param parentShell
-	 * @param actualAmount
+	 * @param actualEnchant
 	 */
-	public ChangeItemCountDialog(Shell parentShell, int actualAmount)
+	public ChangeItemEnchantDialog(Shell parentShell, int actualEnchant)
 	{
 		super(parentShell);
-		this.actualAmount = actualAmount;
+		this.actualEnchant = actualEnchant;
 	}
 
 	@Override
 	protected void configureShell(Shell newShell)
 	{
 		super.configureShell(newShell);
-		newShell.setText("Change Item count");
+		newShell.setText("Change Item enchant");
 	}
 
 	@Override
 	protected void createButtonsForButtonBar(Composite parent)
 	{
-		createButton(parent, IDialogConstants.OK_ID, "&Change Amount", true);
+		createButton(parent, IDialogConstants.OK_ID, "&Change Enchant", true);
 		createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
 	}
 
@@ -62,17 +62,17 @@ public class ChangeItemCountDialog extends Dialog
 		composite.setLayout(layout);
 
 		Label confirmText = new Label(composite, SWT.NONE);
-		confirmText.setText("Insert the new amount number:");
+		confirmText.setText("Insert the new enchant number:");
 		confirmText.setLayoutData(new GridData(GridData.BEGINNING, GridData.CENTER, false, false, 2, 1));
 
 		Label userIdLabel = new Label(composite, SWT.NONE);
-		userIdLabel.setText("Amount:");
+		userIdLabel.setText("Enchant:");
 		userIdLabel.setLayoutData(new GridData(GridData.END, GridData.CENTER, false, false));
 
 		spinner = new Spinner(composite, SWT.BORDER);
 		spinner.setMinimum(0);
 		spinner.setMaximum(Integer.MAX_VALUE);
-		spinner.setSelection(actualAmount);
+		spinner.setSelection(actualEnchant);
 		spinner.setIncrement(1);
 		spinner.setPageIncrement(100);
 		spinner.pack();

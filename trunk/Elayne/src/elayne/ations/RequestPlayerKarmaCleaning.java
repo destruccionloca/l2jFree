@@ -99,7 +99,7 @@ public class RequestPlayerKarmaCleaning extends ElayneAction
 	 */
 	private boolean setKarma(int newKarma, int objectId)
 	{
-		final String SQL = "UPDATE `characters` SET `karma`=? WHERE (`obj_Id`=?)";
+		final String SQL = "UPDATE `characters` SET `karma`=? WHERE (`charId`=?)";
 		java.sql.Connection con = null;
 		boolean executed = false;
 		try

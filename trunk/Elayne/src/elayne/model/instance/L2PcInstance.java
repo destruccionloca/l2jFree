@@ -25,8 +25,8 @@ import elayne.util.connector.ServerDB;
 
 public class L2PcInstance extends L2GroupEntry
 {
-	private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, newbie, nobless, power_grade, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally,clan_join_expiry_time,clan_create_expiry_time,death_penalty_level FROM characters WHERE char_name=?";
-	private static final String RESTORE_CHARACTER_HENNAS = "SELECT symbol_id, slot, class_index FROM `character_hennas` WHERE `char_obj_id` =?";
+	private static final String RESTORE_CHARACTER = "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, newbie, nobless, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally,clan_join_expiry_time,clan_create_expiry_time,death_penalty_level FROM characters WHERE char_name=?";
+	private static final String RESTORE_CHARACTER_HENNAS = "SELECT symbol_id, slot, class_index FROM `character_hennas` WHERE `charId` =?";
 
 	// =========================================================
 	// METHOD - STATIC
@@ -168,7 +168,6 @@ public class L2PcInstance extends L2GroupEntry
 	private L2CharacterEntry pkLabel;
 	private int pks = 0;
 	@SuppressWarnings("unused")
-	private int powerGrade = 0;
 	private L2CharacterPresence presence;
 	private L2CharacterEntry pvpLabel;
 	private int pvps = 0;
@@ -566,7 +565,7 @@ public class L2PcInstance extends L2GroupEntry
 			subs.clear();
 		if (!subs.isEmpty())
 			return;
-		String sql = "SELECT class_id, level, class_index FROM `character_subclasses` WHERE char_obj_id=?";
+		String sql = "SELECT class_id, level, class_index FROM `character_subclasses` WHERE charId=?";
 		java.sql.Connection con = null;
 		try
 		{
@@ -663,7 +662,7 @@ public class L2PcInstance extends L2GroupEntry
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
-				objectId = rset.getInt("obj_Id");
+				objectId = rset.getInt("charId");
 				activeClassId = rset.getInt("classid");
 				gender = rset.getInt("sex");
 				face = rset.getByte("face");
@@ -695,7 +694,6 @@ public class L2PcInstance extends L2GroupEntry
 					clanCreateExpTime = 0;
 				}
 				clanId = rset.getInt("clanid");
-				powerGrade = ((int) rset.getLong("power_grade"));
 				subPledge = (rset.getInt("subpledge"));
 				lastRecomDate = (rset.getLong("last_recom_date"));
 				race = rset.getInt("race");
@@ -858,7 +856,7 @@ public class L2PcInstance extends L2GroupEntry
 		if (getPlayerSkillsByClass(class_index) != null && !getPlayerSkillsByClass(class_index).isEmpty())
 			return;
 
-		final String SQL = "SELECT skill_id, skill_level, skill_name FROM character_skills WHERE char_obj_id=? AND class_index=?";
+		final String SQL = "SELECT skill_id, skill_level, skill_name FROM character_skills WHERE charId=? AND class_index=?";
 		java.sql.Connection con = null;
 		FastList<L2SkillEntry> skills = new FastList<L2SkillEntry>();
 		try

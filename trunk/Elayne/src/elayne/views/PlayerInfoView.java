@@ -25,6 +25,7 @@ import elayne.ations.RequestAccountPasswordChange;
 import elayne.ations.RequestClanPlayerKick;
 import elayne.ations.RequestItemAward;
 import elayne.ations.RequestItemCountChange;
+import elayne.ations.RequestItemEnchant;
 import elayne.ations.RequestItemDeletion;
 import elayne.ations.RequestItemInventoryWipe;
 import elayne.ations.RequestPlayerAccountChange;
@@ -53,6 +54,7 @@ public class PlayerInfoView extends ViewPart
 	// ACTIONS:
 	private Action actionShowInfo;
 	private Action requestItemDelete;
+	private Action requestItemEnchant;
 	private Action requestWipeInventory;
 	private Action requestTeleportToGiran;
 	private Action requestPlayerNameChange;
@@ -144,6 +146,7 @@ public class PlayerInfoView extends ViewPart
 		// ITEM RELATED MENU
 		MenuManager itemMenu = new MenuManager("&Item Related", "item related");
 		itemMenu.add(requestItemDelete);
+		itemMenu.add(requestItemEnchant);
 		itemMenu.add(requestWipeInventory);
 		itemMenu.add(requestChangeItemCount);
 		itemMenu.add(requestAwardItemToPlayer);
@@ -200,12 +203,14 @@ public class PlayerInfoView extends ViewPart
 		manager.add(requestTeleportToGiran);
 		manager.add(requestDeleteSkill);
 		manager.add(requestItemDelete);
+		manager.add(requestItemEnchant);
 	}
 
 	private void makeActions()
 	{
 		actionShowInfo = new RequestPlayerInformation(getSite().getWorkbenchWindow(), viewer);
 		requestItemDelete = new RequestItemDeletion(getSite().getWorkbenchWindow(), viewer);
+		requestItemEnchant = new RequestItemEnchant(getSite().getWorkbenchWindow(), viewer);
 		requestWipeInventory = new RequestItemInventoryWipe(getSite().getWorkbenchWindow(), viewer);
 		requestTeleportToGiran = new RequestPlayerTeleport(getSite().getWorkbenchWindow(), viewer);
 		requestPlayerNameChange = new RequestPlayerNameChange(getSite().getWorkbenchWindow(), viewer);

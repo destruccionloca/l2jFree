@@ -75,7 +75,7 @@ public class RequestPlayerTeleport extends ElayneAction
 
 	private boolean teleportToGiran(int objectId)
 	{
-		final String SQL = "UPDATE `characters` SET `x`='83400',`y`='147943',`z`='-3404' WHERE (`obj_Id`=?)";
+		final String SQL = "UPDATE `characters` SET `x`='83400',`y`='147943',`z`='-3404' WHERE (`charId`=?)";
 		java.sql.Connection con = null;
 		try
 		{

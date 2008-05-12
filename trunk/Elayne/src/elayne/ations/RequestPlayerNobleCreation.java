@@ -128,7 +128,7 @@ public class RequestPlayerNobleCreation extends ElayneAction
 
 	private boolean updateNoble(int noble, int objectId)
 	{
-		final String SQL = "UPDATE `characters` SET `nobless`=? WHERE (`obj_Id`=?)";
+		final String SQL = "UPDATE `characters` SET `nobless`=? WHERE (`charId`=?)";
 		java.sql.Connection con = null;
 		try
 		{

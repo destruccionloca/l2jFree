@@ -175,7 +175,7 @@ public class L2Clan extends L2GroupEntry
 
 		try
 		{
-			String sql = "SELECT obj_Id, account_name, char_name, online, level, accesslevel, sex, clanid FROM `characters` WHERE `clanid` =?";
+			String sql = "SELECT charId, account_name, char_name, online, level, accesslevel, sex, clanid FROM `characters` WHERE `clanid` =?";
 			java.sql.Connection con = null;
 			try
 			{
@@ -185,7 +185,7 @@ public class L2Clan extends L2GroupEntry
 				ResultSet rset = statement.executeQuery();
 				while (rset.next())
 				{
-					int objId = rset.getInt("obj_Id");
+					int objId = rset.getInt("charId");
 					int level = rset.getInt("level");
 					String name = rset.getString("char_name");
 					String account = rset.getString("account_name");

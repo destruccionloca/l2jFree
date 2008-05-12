@@ -54,6 +54,15 @@ public class L2InventoryEntry extends L2GroupEntry
 	{
 		this.amount = newAmount;
 	}
+	
+	/**
+	 * Set a new amount to this {@link L2InventoryEntry}.
+	 * @param Enchant Level
+	 */
+	public void setEnchantLevel(int newEnchantlevel)
+	{
+		this.enchantLevel = newEnchantlevel;
+	}
 
 	/**
 	 * @return The Enchant Level for this {@link L2InventoryEntry}.

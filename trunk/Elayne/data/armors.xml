@@ -1292,4 +1292,7 @@
 <item id="10250" name="Explorer Hat" weight="10" price="0" sellable="true" armor_type="none" />
 <item id="10251" name="Medieval Party Mask" weight="10" price="0" sellable="true" armor_type="none" />
 <item id="10273" name="Wolf Summoning Bracelet" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10320" name="Agathion Seal Bracelet - Little Angel" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10326" name="Agathion Seal Bracelet - Little Devil" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10606" name="Agathion Seal Bracelet - Rudolph" weight="150" price="0" sellable="false" armor_type="none" />
 </list>

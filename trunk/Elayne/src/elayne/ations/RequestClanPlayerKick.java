@@ -29,7 +29,7 @@ public class RequestClanPlayerKick extends ElayneAction
 	private static final String attClanLeader = "Attention!! This player is the leader of this Clan. Kicking him from the clan will make the clan disappear! Are you sure you want to continue?";
 	private static final String ID = "requestClanPalayerKick";
 	private static final String removeAprentice = "UPDATE characters SET apprentice=0 WHERE apprentice=?";
-	private static final String removePlayerFromClan = "UPDATE characters SET clanid=0, title=?, clan_join_expiry_time=?, clan_create_expiry_time=?, clan_privs=0, wantspeace=0, subpledge=0, lvl_joined_academy=0, apprentice=0, sponsor=0 WHERE obj_Id=?";
+	private static final String removePlayerFromClan = "UPDATE characters SET clanid=0, title=?, clan_join_expiry_time=?, clan_create_expiry_time=?, clan_privs=0, wantspeace=0, subpledge=0, lvl_joined_academy=0, apprentice=0, sponsor=0 WHERE charId=?";
 	private static final String removeSponsor = "UPDATE characters SET sponsor=0 WHERE sponsor=?";
 
 	/**

@@ -38,7 +38,7 @@ import elayne.util.connector.ServerDB;
 public class SearchView extends ViewPart
 {
 
-	private static final String SQL_HEROES = "SELECT c.account_name, c.char_name, c.level, h.class_id FROM heroes h, characters c WHERE played = 1 AND obj_Id=char_id LIMIT 0,1000";
+	private static final String SQL_HEROES = "SELECT c.account_name, c.char_name, c.level, h.class_id FROM heroes h, characters c WHERE played = 1 AND charId=char_id LIMIT 0,1000";
 	public static final String ID = "elayne.views.search";
 	public Composite parent = null;
 	private Table table;
@@ -203,12 +203,12 @@ public class SearchView extends ViewPart
 		try
 		{
 			con = ServerDB.getInstance().getConnection();
-			String previous = "SELECT obj_Id, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `char_name` LIKE '%" + nameToLookFor + "%' LIMIT 0,200";
+			String previous = "SELECT charId, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `char_name` LIKE '%" + nameToLookFor + "%' LIMIT 0,200";
 			PreparedStatement statement = con.prepareStatement(previous);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
-				int objId = rset.getInt("obj_Id");
+				int objId = rset.getInt("charId");
 				String account = rset.getString("account_name");
 				String name = rset.getString("char_name");
 				int level = rset.getInt("level");
@@ -234,12 +234,12 @@ public class SearchView extends ViewPart
 		try
 		{
 			con = ServerDB.getInstance().getConnection();
-			String previous = "SELECT obj_Id, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `title` LIKE '%" + titleToLookFor + "%' LIMIT 0,200";
+			String previous = "SELECT charId, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `title` LIKE '%" + titleToLookFor + "%' LIMIT 0,200";
 			PreparedStatement statement = con.prepareStatement(previous);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
-				int objId = rset.getInt("obj_Id");
+				int objId = rset.getInt("charId");
 				String account = rset.getString("account_name");
 				String name = rset.getString("char_name");
 				int level = rset.getInt("level");
@@ -265,12 +265,12 @@ public class SearchView extends ViewPart
 		try
 		{
 			con = ServerDB.getInstance().getConnection();
-			String previous = "SELECT obj_Id, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `account_name` LIKE '%" + accountToLookFor + "%' LIMIT 0,200";
+			String previous = "SELECT charId, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `account_name` LIKE '%" + accountToLookFor + "%' LIMIT 0,200";
 			PreparedStatement statement = con.prepareStatement(previous);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
-				int objId = rset.getInt("obj_Id");
+				int objId = rset.getInt("charId");
 				String account = rset.getString("account_name");
 				String name = rset.getString("char_name");
 				int level = rset.getInt("level");
@@ -296,12 +296,12 @@ public class SearchView extends ViewPart
 		try
 		{
 			con = ServerDB.getInstance().getConnection();
-			String previous = "SELECT obj_Id, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `obj_Id` LIKE '%" + objectId + "%' LIMIT 0,200";
+			String previous = "SELECT charId, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `obj_Id` LIKE '%" + objectId + "%' LIMIT 0,200";
 			PreparedStatement statement = con.prepareStatement(previous);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
-				int objId = rset.getInt("obj_Id");
+				int objId = rset.getInt("charId");
 				String account = rset.getString("account_name");
 				String name = rset.getString("char_name");
 				int level = rset.getInt("level");

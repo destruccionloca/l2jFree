@@ -1599,4 +1599,54 @@
 <item id="10253" name="Dynasty Crusher" weight="1740" price="0" sellable="true" weapon_type="blunt" />
 <item id="10277" name="Monster Only (Behamah Pole)" weight="2140" price="0" sellable="true" weapon_type="sword" />
 <item id="10278" name="Monster Only (Behamah Dual)" weight="2530" price="0" sellable="true" weapon_type="sword" />
+<item id="10415" name="Icarus Dual Sword" weight="1520" price="0" sellable="true" weapon_type="dual" />
+<item id="10434" name="Icarus Sawsword Focus" weight="1520" price="0" sellable="true" weapon_type="sword" />
+<item id="10435" name="Icarus Sawsword Health" weight="1520" price="0" sellable="true" weapon_type="sword" />
+<item id="10436" name="Icarus Sawsword Light" weight="1520" price="0" sellable="true" weapon_type="sword" />
+<item id="10437" name="Icarus Heavy Arms - Focus" weight="1740" price="0" sellable="true" weapon_type="bigsword" />
+<item id="10438" name="Icarus Heavy Arms - Health" weight="1740" price="0" sellable="true" weapon_type="bigsword" />
+<item id="10439" name="Icarus Heavy Arms - Light" weight="1740" price="0" sellable="true" weapon_type="bigsword" />
+<item id="10440" name="Icarus Spirit - Acumen" weight="1520" price="0" sellable="true" weapon_type="sword" />
+<item id="10441" name="Icarus Spirit - Mana Up" weight=" 1520" price="0" sellable="true" weapon_type="sword" />
+<item id="10442" name="Icarus Spirit - Conversion" weight="1520" price="0" sellable="true" weapon_type="sword" />
+<item id="10443" name="Icarus Spitter - Cheap Shot" weight="1520" price="0" sellable="true" weapon_type="bow" />
+<item id="10444" name="Icarus Spitter - Guidance" weight="1520" price="0" sellable="true" weapon_type="bow" />
+<item id="10445" name="Icarus Spitter - Focus" weight="1520" price="0" sellable="true" weapon_type="bow" />
+<item id="10446" name="Icarus Disperser - Focus" weight="1520" price="0" sellable="true" weapon_type="dagger" />
+<item id="10447" name="Icarus Disperser - Evasion" weight="1520" price="0" sellable="true" weapon_type="dagger" />
+<item id="10448" name="Icarus Disperser - Critical Damage" weight="1520" price="0" sellable="true" weapon_type="dagger" />
+<item id="10449" name="Icarus Trident - Anger" weight="2010" price="0" sellable="true" weapon_type="pole" />
+<item id="10450" name="Icarus Trident - Critical Stun" weight="2010" price="0" sellable="true" weapon_type="pole" />
+<item id="10451" name="Icarus Trident - Light" weight="2010" price="0" sellable="true" weapon_type="pole" />
+<item id="10452" name="Icarus Hammer - Anger" weight="1740" price="0" sellable="true" weapon_type="blunt" />
+<item id="10453" name="Icarus Hammer - Health" weight="1740" price="0" sellable="true" weapon_type="blunt" />
+<item id="10454" name="Icarus Hammer - Rsk. Focus" weight="1740" price="0" sellable="true" weapon_type="blunt" />
+<item id="10455" name="Icarus Hall - Mana Up" weight="1080" price="0" sellable="true" weapon_type="blunt" />
+<item id="10456" name="Icarus Hall - Conversion" weight="1080" price="0" sellable="true" weapon_type="blunt" />
+<item id="10457" name="Icarus Hall - Acumen" weight="1080" price="0" sellable="true" weapon_type="blunt" />
+<item id="10458" name="Icarus Hand - Rsk. Evasion" weight="1550" price="0" sellable="true" weapon_type="dualfist" />
+<item id="10459" name="Icarus Hand - Focus" weight="1550" price="0" sellable="true" weapon_type="dualfist" />
+<item id="10460" name="Icarus Hand - Haste" weight="1550" price="0" sellable="true" weapon_type="dualfist" />
+<item id="10461" name="'Icarus Stinger - Focus" weight="1280" price="0" sellable="true" weapon_type="dagger" />
+<item id="10462" name="Icarus Stinger - Health" weight=" 1280" price="0" sellable="true" weapon_type="dagger" />
+<item id="10463" name="Icarus Stinger - Light" weight="1280" price="0" sellable="true" weapon_type="dagger" />
+<item id="10464" name="Icarus Wingblade - Focus" weight="1800" price="0" sellable="true" weapon_type="bigsword" />
+<item id="10465" name="Icarus Wingblade - Health" weight="1800" price="0" sellable="true" weapon_type="bigsword" />
+<item id="10466" name="Icarus Wingblade - Light" weight="1800" price="0" sellable="true" weapon_type="bigsword" />
+<item id="10467" name="Icarus Shooter - Cheap Shot" weight="1580" price="0" sellable="true" weapon_type="crossbow" />
+<item id="10468" name="'Icarus Shooter - Guidance" weight="1580" price="0" sellable="true" weapon_type="crossbow" />
+<item id="10469" name="Icarus Shooter - Focus" weight="1580" price="0" sellable="true" weapon_type="crossbow" />
+<item id="10474" name="Shadow Item - Apprentice''s Staff" weight="1070" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="10475" name="Shadow Item - Bone Club" weight="1730" price="0" sellable="false" weapon_type="blunt" />
+<item id="10476" name="Shadow Item - Shining Knife" weight="1120" price="0" sellable="false" weapon_type="dagger" />
+<item id="10477" name="Shadow Item - Cestus" weight="1570" price="0" sellable="false" weapon_type="dualfist" />
+<item id="10478" name="Shadow Item - Forest Bow" weight="1900" price="0" sellable="false" weapon_type="bow" />
+<item id="10479" name="Shadow Item - Long Sword" weight="1560" price="0" sellable="false" weapon_type="sword" />
+<item id="10527" name="Dynasty Staff - Mana Up" weight="1080" price="0" sellable="true" weapon_type="blunt" />
+<item id="10528" name="Dynasty Staff - Conversion" weight="1080" price="0" sellable="true" weapon_type="blunt" />
+<item id="10529" name="Dynasty Staff - Acumen" weight="1080" price="0" sellable="true" weapon_type="blunt" />
+<item id="10530" name="Dynasty Crusher - Anger" weight="1740" price="0" sellable="true" weapon_type="blunt" />
+<item id="10531" name="Dynasty Crusher - Health" weight="1740" price="0" sellable="true" weapon_type="blunt" />
+<item id="10532" name="Dynasty Crusher - Rsk. Focus" weight="1740" price="0" sellable="true" weapon_type="blunt" />
+<item id="10548" name="Monster Only (Transparent Shield)" weight="1430" price="0" sellable="true" weapon_type="none" />
 </list>
