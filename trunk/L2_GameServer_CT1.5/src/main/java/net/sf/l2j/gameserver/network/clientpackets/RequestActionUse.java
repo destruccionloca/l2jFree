@@ -151,6 +151,11 @@ public class RequestActionUse extends L2GameClientPacket
             case 22: // pet attack
                 if (target != null && pet != null && pet != target && !pet.isAttackingDisabled() && !pet.isBetrayed())
                 {
+                    if (pet instanceof L2PetInstance && (pet.getLevel() - activeChar.getLevel() > 20))
+                    {
+                        activeChar.sendPacket(new SystemMessage(SystemMessageId.PET_TOO_HIGH_TO_CONTROL));
+                        return;
+                    }
                     if (activeChar.isInOlympiadMode() && !activeChar.isOlympiadStart())
                     {
                         // if L2PcInstance is in Olympia and the match isn't already start, send a Server->Client packet ActionFailed
@@ -538,6 +543,12 @@ public class RequestActionUse extends L2GameClientPacket
         
         if (activeSummon != null && !activeSummon.isBetrayed())
         {
+            if (activeSummon instanceof L2PetInstance && (activeSummon.getLevel() - activeChar.getLevel() > 20))
+            {
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.PET_TOO_HIGH_TO_CONTROL));
+                return;
+            }
+
             Map<Integer, L2Skill> _skills = activeSummon.getTemplate().getSkills();
             
             if (_skills == null) return;

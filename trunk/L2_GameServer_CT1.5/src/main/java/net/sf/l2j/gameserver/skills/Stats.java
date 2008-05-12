@@ -36,6 +36,8 @@ public enum Stats
 	REGENERATE_MP_RATE("regMp"),
 	RECHARGE_MP_RATE("gainMp"),
 	HEAL_EFFECTIVNESS("gainHp"),
+	HEAL_PROFICIENCY("giveHp"),
+
 	// Atk & Def
 	POWER_DEFENCE("pDef"),
 	MAGIC_DEFENCE("mDef"),
