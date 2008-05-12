@@ -1,0 +1,47 @@
+This folder contains files that information that is used by ELAYNE in different ways.
+
+The data extracted from this files is used (amongst other uses) to avoid the need to
+get extra information from the server. Some of the other data extracted from this files
+is used as a "guide" for ELAYNE to know where certain items are located inside ELAYNE
+itself (picture locations for example).
+
+The files are the following:
+1- armors.xml:
+	- Contains information about known armors by the L2J Server with the following information:
+		- Id of the item.
+		- Name of the item.
+		- Weight of the item.
+		- Price of the item.
+		- Boolean that tells us if the item can or can't be sold.
+		- A string defining the armor type (light, heavy, robe...).
+		
+2- char_templates.xml:
+	- Defines all the player classes known by the L2J Server containing basic and important information.
+	
+3- etcitem.xml:
+	- Contains information about known items (non armor or weapons) by the L2J Server with the following information:
+		- Id of the item.
+		- Name of the item.
+		- Weight of the item.
+		- Price of the item.
+		- Boolean that tells us if the item can or can't be sold.
+		- A string defining the item type (quest, none, arrow...).
+		
+4- henna.txt:
+	- Contains information about known hennas by the L2J Server.
+	- The contained information relates to id, the stats they modify, name, required dyes... etc...
+	
+5- items.xml:
+	- Basically contains the information that refers to the picture location of the item along with:
+		- Id.
+		- Name.
+		- Grade.
+	
+6- weapons.xml
+	- Contains information about known weapons by the L2J Server with the following information:
+		- Id of the item.
+		- Name of the item.
+		- Weight of the item.
+		- Price of the item.
+		- Boolean that tells us if the item can or can't be sold.
+		- A string defining the weapon type (sword, blunt, bow...).

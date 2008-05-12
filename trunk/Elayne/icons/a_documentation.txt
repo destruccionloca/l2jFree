@@ -1,0 +1,2 @@
+This folder contains all the pictures used by ELAYNE as far as: Item icons, Skill icons, Action icons,
+and any other icon or picture that needs to be used by ELAYNE.

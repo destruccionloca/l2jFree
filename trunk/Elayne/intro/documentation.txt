@@ -1,0 +1,5 @@
+This folder contains all the files used by ELAYNE to make up it's introduction window.
+This files have the normal structure of a Web Site. Some differences can be found in
+the sources of the files though. This differences are mainly link and Eclipse related
+differences.
+Take a look at the files themselves for more information.

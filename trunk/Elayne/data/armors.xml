@@ -1,0 +1,1295 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+<item id="21" name="Shirt" weight="4830" price="147" sellable="true" armor_type="light" />
+<item id="22" name="Leather Shirt" weight="4830" price="2430" sellable="true" armor_type="light" />
+<item id="23" name="Wooden Breastplate" weight="4820" price="7960" sellable="true" armor_type="light" />
+<item id="24" name="Bone Breastplate" weight="4770" price="20300" sellable="true" armor_type="light" />
+<item id="25" name="Piece Bone Breastplate" weight="8970" price="31800" sellable="true" armor_type="heavy" />
+<item id="26" name="Bronze Breastplate" weight="8920" price="49200" sellable="true" armor_type="heavy" />
+<item id="27" name="Hard Leather Shirt" weight="4720" price="36900" sellable="true" armor_type="light" />
+<item id="28" name="Pants" weight="1740" price="92" sellable="true" armor_type="light" />
+<item id="29" name="Leather Pants" weight="1730" price="1520" sellable="true" armor_type="light" />
+<item id="30" name="Hard Leather Pants" weight="1700" price="4970" sellable="true" armor_type="light" />
+<item id="31" name="Bone Gaiters" weight="1680" price="12700" sellable="true" armor_type="light" />
+<item id="32" name="Piece Bone Gaiters" weight="4020" price="19900" sellable="true" armor_type="heavy" />
+<item id="33" name="Hard Leather Gaiters" weight="1610" price="23000" sellable="true" armor_type="light" />
+<item id="34" name="Bronze Gaiters" weight="3960" price="30700" sellable="true" armor_type="heavy" />
+<item id="35" name="Cloth Shoes" weight="1320" price="37" sellable="true" armor_type="none" />
+<item id="36" name="Leather Sandals" weight="1320" price="37" sellable="true" armor_type="none" />
+<item id="37" name="Leather Shoes" weight="1320" price="2650" sellable="true" armor_type="none" />
+<item id="38" name="Low Boots" weight="1320" price="6770" sellable="true" armor_type="none" />
+<item id="39" name="Boots" weight="1310" price="12300" sellable="true" armor_type="none" />
+<item id="40" name="Leather Boots" weight="1300" price="20900" sellable="true" armor_type="none" />
+<item id="41" name="Cloth Cap" weight="660" price="55" sellable="true" armor_type="none" />
+<item id="42" name="Leather Cap" weight="660" price="911" sellable="true" armor_type="none" />
+<item id="43" name="Wooden Helmet" weight="660" price="3980" sellable="true" armor_type="none" />
+<item id="44" name="Leather Helmet" weight="650" price="10200" sellable="true" armor_type="none" />
+<item id="45" name="Bone Helmet" weight="640" price="31300" sellable="true" armor_type="none" />
+<item id="46" name="Bronze Helmet" weight="630" price="50000" sellable="true" armor_type="none" />
+<item id="47" name="Helmet" weight="640" price="76200" sellable="true" armor_type="none" />
+<item id="48" name="Short Gloves" weight="660" price="37" sellable="true" armor_type="none" />
+<item id="49" name="Gloves" weight="660" price="2650" sellable="true" armor_type="none" />
+<item id="50" name="Leather Gloves" weight="650" price="6770" sellable="true" armor_type="none" />
+<item id="51" name="Bracer" weight="650" price="12300" sellable="true" armor_type="none" />
+<item id="52" name="Hemp Cloak" weight="260" price="37" sellable="true" armor_type="none" />
+<item id="53" name="Cotton Cloak" weight="250" price="607" sellable="true" armor_type="none" />
+<item id="54" name="Silk Cloak" weight="250" price="2650" sellable="true" armor_type="none" />
+<item id="55" name="Cotton Undergarment" weight="170" price="18" sellable="true" armor_type="none" />
+<item id="56" name="Wool Undergarment" weight="170" price="304" sellable="true" armor_type="none" />
+<item id="58" name="Mithril Breastplate" weight="8670" price="183000" sellable="true" armor_type="heavy" />
+<item id="59" name="Mithril Gaiters" weight="3830" price="127000" sellable="true" armor_type="heavy" />
+<item id="60" name="Composite Armor" weight="10980" price="1440000" sellable="true" armor_type="heavy" />
+<item id="61" name="Mithril Gloves" weight="630" price="97800" sellable="true" armor_type="none" />
+<item id="62" name="Mithril Boots" weight="1230" price="126000" sellable="true" armor_type="none" />
+<item id="63" name="Gauntlets" weight="640" price="50800" sellable="true" armor_type="none" />
+<item id="64" name="Composite Boots" weight="1220" price="245000" sellable="true" armor_type="none" />
+<item id="112" name="Apprentice's Earring" weight="150" price="49" sellable="true" armor_type="none" />
+<item id="113" name="Mystic's Earring" weight="150" price="811" sellable="true" armor_type="none" />
+<item id="114" name="Earring of Strength" weight="150" price="3510" sellable="true" armor_type="none" />
+<item id="115" name="Earring of Wisdom" weight="150" price="3510" sellable="true" armor_type="none" />
+<item id="116" name="Magic Ring" weight="150" price="33" sellable="true" armor_type="none" />
+<item id="117" name="Ring of Mana" weight="150" price="404000" sellable="true" armor_type="none" />
+<item id="118" name="Necklace of Magic" weight="150" price="66" sellable="true" armor_type="none" />
+<item id="119" name="Necklace of Binding" weight="150" price="565000" sellable="true" armor_type="none" />
+<item id="347" name="Ring Mail Breastplate" weight="8820" price="83500" sellable="true" armor_type="heavy" />
+<item id="348" name="Scale Mail" weight="8720" price="133000" sellable="true" armor_type="heavy" />
+<item id="349" name="Compound Scale Mail" weight="8620" price="183000" sellable="true" armor_type="heavy" />
+<item id="350" name="Dwarven Scale Mail" weight="8540" price="183000" sellable="true" armor_type="heavy" />
+<item id="351" name="Blast Plate" weight="8420" price="203000" sellable="true" armor_type="heavy" />
+<item id="352" name="Brigandine Tunic" weight="8320" price="299000" sellable="true" armor_type="heavy" />
+<item id="353" name="Half Plate Armor" weight="8220" price="391000" sellable="true" armor_type="heavy" />
+<item id="354" name="Chain Mail Shirt" weight="8120" price="505000" sellable="true" armor_type="heavy" />
+<item id="355" name="Dwarven Chain Mail Shirt" weight="8070" price="644000" sellable="true" armor_type="heavy" />
+<item id="356" name="Full Plate Armor" weight="10480" price="2090000" sellable="true" armor_type="heavy" />
+<item id="357" name="Zubei's Breastplate" weight="7970" price="2080000" sellable="true" armor_type="heavy" />
+<item id="358" name="Blue Wolf Breastplate" weight="7820" price="3220000" sellable="true" armor_type="heavy" />
+<item id="359" name="Shining Dragon Armor" weight="6400" price="6770000" sellable="true" armor_type="heavy" />
+<item id="360" name="Armor of Victory" weight="3360" price="3220000" sellable="true" armor_type="heavy" />
+<item id="361" name="Breastplate of Valor" weight="3360" price="4630000" sellable="true" armor_type="heavy" />
+<item id="362" name="Glorious Armor" weight="6720" price="4710000" sellable="true" armor_type="heavy" />
+<item id="363" name="Red Flame Armor" weight="6400" price="6770000" sellable="true" armor_type="heavy" />
+<item id="364" name="Elven Crystal Breastplate" weight="2400" price="3220000" sellable="true" armor_type="heavy" />
+<item id="365" name="Dark Crystal Breastplate" weight="7700" price="4630000" sellable="true" armor_type="heavy" />
+<item id="366" name="Implosion Armor" weight="6080" price="4710000" sellable="true" armor_type="heavy" />
+<item id="367" name="Dark Dragon Armor" weight="5760" price="6770000" sellable="true" armor_type="heavy" />
+<item id="368" name="Elven Vagian Armor" weight="2400" price="4710000" sellable="true" armor_type="heavy" />
+<item id="369" name="Dark Vagian Armor" weight="2400" price="6770000" sellable="true" armor_type="heavy" />
+<item id="370" name="Complete Set of Plate Armor" weight="6400" price="4710000" sellable="true" armor_type="heavy" />
+<item id="371" name="Hell Plate" weight="6400" price="6770000" sellable="true" armor_type="heavy" />
+<item id="372" name="Art of Plate" weight="6720" price="4710000" sellable="true" armor_type="heavy" />
+<item id="373" name="Masterpiece Armor" weight="5600" price="6770000" sellable="true" armor_type="heavy" />
+<item id="374" name="Armor of Nightmare" weight="9580" price="10300000" sellable="true" armor_type="heavy" />
+<item id="375" name="Dragon Scale Mail" weight="7620" price="10500000" sellable="false" armor_type="heavy" />
+<item id="376" name="Iron Plate Gaiters" weight="3820" price="52200" sellable="true" armor_type="heavy" />
+<item id="377" name="Scale Gaiters" weight="3860" price="83300" sellable="true" armor_type="heavy" />
+<item id="378" name="Compound Scale Gaiters" weight="3770" price="127000" sellable="true" armor_type="heavy" />
+<item id="379" name="Dwarven Scale Gaiters" weight="3840" price="127000" sellable="true" armor_type="heavy" />
+<item id="380" name="Plate Gaiters" weight="3770" price="244000" sellable="true" armor_type="heavy" />
+<item id="381" name="Chain Gaiters" weight="3680" price="316000" sellable="true" armor_type="heavy" />
+<item id="382" name="Dwarven Chain Gaiters" weight="3620" price="403000" sellable="true" armor_type="heavy" />
+<item id="383" name="Zubei's Gaiters" weight="3570" price="1300000" sellable="true" armor_type="heavy" />
+<item id="384" name="Wolf Gaiters" weight="2560" price="2010000" sellable="true" armor_type="heavy" />
+<item id="385" name="Gaiters of Victory" weight="2240" price="2010000" sellable="true" armor_type="heavy" />
+<item id="386" name="Gaiters of Valor" weight="2240" price="2890000" sellable="true" armor_type="heavy" />
+<item id="387" name="Elven Crystal Gaiters" weight="2240" price="2010000" sellable="true" armor_type="heavy" />
+<item id="388" name="Dark Crystal Gaiters" weight="3320" price="2890000" sellable="true" armor_type="heavy" />
+<item id="389" name="Dragon Scale Gaiters" weight="3260" price="5980000" sellable="false" armor_type="heavy" />
+<item id="390" name="Cotton Shirt" weight="4770" price="20300" sellable="true" armor_type="light" />
+<item id="391" name="Puma Skin Shirt" weight="4700" price="62600" sellable="true" armor_type="light" />
+<item id="392" name="Lion Skin Shirt" weight="4580" price="99900" sellable="true" armor_type="light" />
+<item id="393" name="Mithril Banded Mail" weight="4570" price="152000" sellable="true" armor_type="light" />
+<item id="394" name="Reinforced Leather Shirt" weight="4570" price="152000" sellable="true" armor_type="light" />
+<item id="395" name="Manticore Skin Shirt" weight="4520" price="224000" sellable="true" armor_type="light" />
+<item id="396" name="Salamander Skin Mail" weight="6100" price="429000" sellable="true" armor_type="light" />
+<item id="397" name="Mithril Shirt" weight="4470" price="379000" sellable="true" armor_type="light" />
+<item id="398" name="Plated Leather" weight="4450" price="446000" sellable="true" armor_type="light" />
+<item id="399" name="Rind Leather Armor" weight="4420" price="483000" sellable="true" armor_type="light" />
+<item id="400" name="Theca Leather Armor" weight="4370" price="825000" sellable="true" armor_type="light" />
+<item id="401" name="Drake Leather Armor" weight="5800" price="1570000" sellable="true" armor_type="light" />
+<item id="402" name="Chain Mail of Silence" weight="3200" price="3530000" sellable="true" armor_type="light" />
+<item id="403" name="Gust Chain Mail" weight="2720" price="5080000" sellable="true" armor_type="light" />
+<item id="404" name="Prairie Leather Armor" weight="8000" price="2410000" sellable="true" armor_type="light" />
+<item id="405" name="Leather Armor of The Underworld" weight="8000" price="3470000" sellable="true" armor_type="light" />
+<item id="406" name="Leather Suit of Concentration" weight="2400" price="3530000" sellable="true" armor_type="light" />
+<item id="407" name="Ace's Leather Armor" weight="2400" price="5080000" sellable="true" armor_type="light" />
+<item id="408" name="Guardian's Leather Armor" weight="8000" price="2410000" sellable="true" armor_type="light" />
+<item id="409" name="Marksman's Leather Armor" weight="4300" price="3470000" sellable="true" armor_type="light" />
+<item id="410" name="Unicorn Leather Armor" weight="1280" price="7730000" sellable="true" armor_type="light" />
+<item id="411" name="Dragon Leather Armor" weight="4950" price="10500000" sellable="false" armor_type="light" />
+<item id="412" name="Cotton Pants" weight="1630" price="12700" sellable="true" armor_type="light" />
+<item id="413" name="Puma Skin Gaiters" weight="1600" price="39100" sellable="true" armor_type="light" />
+<item id="414" name="Lion Skin Gaiters" weight="1570" price="62500" sellable="true" armor_type="light" />
+<item id="415" name="Mithril Banded Gaiters" weight="1580" price="95200" sellable="true" armor_type="light" />
+<item id="416" name="Reinforced Leather Gaiters" weight="1570" price="95200" sellable="true" armor_type="light" />
+<item id="417" name="Manticore Skin Gaiters" weight="1550" price="140000" sellable="true" armor_type="light" />
+<item id="418" name="Plated Leather Gaiters" weight="1560" price="279000" sellable="true" armor_type="light" />
+<item id="419" name="Rind Leather Gaiters" weight="1550" price="302000" sellable="true" armor_type="light" />
+<item id="420" name="Theca Leather Gaiters" weight="1530" price="516000" sellable="true" armor_type="light" />
+<item id="421" name="Prairie Leather Gaiters" weight="4800" price="1510000" sellable="true" armor_type="light" />
+<item id="422" name="Gaiters of The Underworld" weight="4800" price="2170000" sellable="true" armor_type="light" />
+<item id="423" name="Guardian's Leather Gaiters" weight="4800" price="1510000" sellable="true" armor_type="light" />
+<item id="424" name="Marksman's Leather Gaiters" weight="1490" price="2170000" sellable="true" armor_type="light" />
+<item id="425" name="Apprentice's Tunic" weight="2150" price="26" sellable="false" armor_type="magic" />
+<item id="426" name="Tunic" weight="2150" price="147" sellable="true" armor_type="magic" />
+<item id="427" name="Cotton Robe" weight="2750" price="3550" sellable="true" armor_type="magic" />
+<item id="428" name="Feriotic Tunic" weight="2140" price="2430" sellable="true" armor_type="magic" />
+<item id="429" name="Leather Tunic" weight="2110" price="7960" sellable="true" armor_type="magic" />
+<item id="430" name="Robe of Devotion" weight="2650" price="29700" sellable="true" armor_type="magic" />
+<item id="431" name="Robe of Magic" weight="2600" price="53900" sellable="true" armor_type="magic" />
+<item id="432" name="Cursed Tunic" weight="2090" price="62600" sellable="true" armor_type="magic" />
+<item id="433" name="Elven Tunic" weight="2080" price="99900" sellable="true" armor_type="magic" />
+<item id="434" name="White Tunic" weight="2040" price="99900" sellable="true" armor_type="magic" />
+<item id="435" name="Mystic's Tunic" weight="2030" price="99900" sellable="true" armor_type="magic" />
+<item id="436" name="Tunic of Knowledge" weight="2020" price="152000" sellable="true" armor_type="magic" />
+<item id="437" name="Mithril Tunic" weight="2010" price="224000" sellable="true" armor_type="magic" />
+<item id="438" name="Sage's Rag" weight="2580" price="429000" sellable="true" armor_type="magic" />
+<item id="439" name="Karmian Tunic" weight="1980" price="379000" sellable="true" armor_type="magic" />
+<item id="440" name="Robe of Seal" weight="2500" price="707000" sellable="true" armor_type="magic" />
+<item id="441" name="Demon's Tunic" weight="1990" price="736000" sellable="true" armor_type="magic" />
+<item id="442" name="Divine Tunic" weight="1980" price="1070000" sellable="true" armor_type="magic" />
+<item id="443" name="Tunic of Mana" weight="2000" price="2410000" sellable="true" armor_type="magic" />
+<item id="444" name="Sage's Robe" weight="1600" price="5080000" sellable="true" armor_type="magic" />
+<item id="445" name="Paradia Tunic" weight="1990" price="2410000" sellable="true" armor_type="magic" />
+<item id="446" name="Inferno Tunic" weight="1880" price="3470000" sellable="true" armor_type="magic" />
+<item id="447" name="Tunic of Solar Eclipse" weight="1960" price="2410000" sellable="true" armor_type="magic" />
+<item id="448" name="Robe of Black Ore" weight="1600" price="5080000" sellable="true" armor_type="magic" />
+<item id="449" name="Tunic of Summoning" weight="1950" price="2410000" sellable="true" armor_type="magic" />
+<item id="450" name="Otherworldly Robe" weight="1600" price="5080000" sellable="true" armor_type="magic" />
+<item id="451" name="Elemental Tunic" weight="1970" price="2410000" sellable="true" armor_type="magic" />
+<item id="452" name="Tunic of Phantom" weight="1890" price="3470000" sellable="true" armor_type="magic" />
+<item id="453" name="Tunic of Grace" weight="1930" price="2410000" sellable="true" armor_type="magic" />
+<item id="454" name="Robe of Holy Spirit" weight="1600" price="5080000" sellable="true" armor_type="magic" />
+<item id="455" name="Phoenix Tunic" weight="1950" price="2410000" sellable="true" armor_type="magic" />
+<item id="456" name="Cerberus Tunic" weight="1870" price="3470000" sellable="true" armor_type="magic" />
+<item id="457" name="Tunic of Aid" weight="1910" price="2410000" sellable="true" armor_type="magic" />
+<item id="458" name="Robe of Blessing" weight="1600" price="5080000" sellable="true" armor_type="magic" />
+<item id="459" name="Dasparion's Robe" weight="1200" price="7730000" sellable="true" armor_type="magic" />
+<item id="460" name="The Robe" weight="2300" price="10500000" sellable="false" armor_type="magic" />
+<item id="461" name="Apprentice's Stockings" weight="1100" price="6" sellable="false" armor_type="magic" />
+<item id="462" name="Stockings" weight="1080" price="92" sellable="true" armor_type="magic" />
+<item id="463" name="Feriotic Stockings" weight="1070" price="1520" sellable="true" armor_type="magic" />
+<item id="464" name="Leather Stockings" weight="1020" price="4970" sellable="true" armor_type="magic" />
+<item id="465" name="Cursed Stockings" weight="1020" price="39100" sellable="true" armor_type="magic" />
+<item id="466" name="Elven Stockings" weight="1010" price="62500" sellable="true" armor_type="magic" />
+<item id="467" name="Dark Stockings" weight="1000" price="62500" sellable="true" armor_type="magic" />
+<item id="468" name="Mystic's Stockings" weight="990" price="62500" sellable="true" armor_type="magic" />
+<item id="469" name="Stockings of Knowledge" weight="1000" price="95200" sellable="true" armor_type="magic" />
+<item id="470" name="Mithril Stockings" weight="980" price="140000" sellable="true" armor_type="magic" />
+<item id="471" name="Karmian Stockings" weight="970" price="237000" sellable="true" armor_type="magic" />
+<item id="472" name="Demon's Stockings" weight="980" price="460000" sellable="true" armor_type="magic" />
+<item id="473" name="Divine Stockings" weight="960" price="671000" sellable="true" armor_type="magic" />
+<item id="474" name="Stockings of Mana" weight="2400" price="1510000" sellable="true" armor_type="magic" />
+<item id="475" name="Paradia Stockings" weight="1600" price="1510000" sellable="true" armor_type="magic" />
+<item id="476" name="Inferno Stockings" weight="1600" price="2170000" sellable="true" armor_type="magic" />
+<item id="477" name="Stockings of Solar Eclipse" weight="2400" price="1510000" sellable="true" armor_type="magic" />
+<item id="478" name="Stockings of Summoning" weight="2400" price="1510000" sellable="true" armor_type="magic" />
+<item id="479" name="Elemental Stockings" weight="1600" price="1510000" sellable="true" armor_type="magic" />
+<item id="480" name="Stockings of Phantom" weight="1600" price="2170000" sellable="true" armor_type="magic" />
+<item id="481" name="Stockings of Grace" weight="2400" price="1510000" sellable="true" armor_type="magic" />
+<item id="482" name="Phoenix Stockings" weight="2400" price="1510000" sellable="true" armor_type="magic" />
+<item id="483" name="Cerberus Stockings" weight="6400" price="2170000" sellable="true" armor_type="magic" />
+<item id="484" name="Stockings of Aid" weight="2400" price="1510000" sellable="true" armor_type="magic" />
+<item id="485" name="Tattoo of Power" weight="4200" price="36900" sellable="true" armor_type="none" />
+<item id="486" name="Tattoo of Fire" weight="4050" price="152000" sellable="true" armor_type="none" />
+<item id="487" name="Tattoo of Resolve" weight="4000" price="152000" sellable="true" armor_type="none" />
+<item id="488" name="Tattoo of Flame" weight="800" price="3470000" sellable="true" armor_type="none" />
+<item id="489" name="Tattoo of Bravery" weight="4100" price="1070000" sellable="true" armor_type="none" />
+<item id="490" name="Tattoo of Blood" weight="3800" price="3470000" sellable="true" armor_type="none" />
+<item id="491" name="Tattoo of Absolute" weight="800" price="5280000" sellable="true" armor_type="none" />
+<item id="492" name="Tattoo of Soul" weight="4150" price="99900" sellable="true" armor_type="none" />
+<item id="493" name="Tattoo of Avadon" weight="4000" price="1560000" sellable="true" armor_type="none" />
+<item id="494" name="Tattoo of Doom" weight="4100" price="2410000" sellable="true" armor_type="none" />
+<item id="495" name="Tattoo of Pledge" weight="4000" price="1560000" sellable="true" armor_type="none" />
+<item id="496" name="Tattoo of Divine" weight="4100" price="2410000" sellable="true" armor_type="none" />
+<item id="497" name="Chain Helmet" weight="620" price="147000" sellable="true" armor_type="none" />
+<item id="498" name="Steel Plate Helmet" weight="610" price="206000" sellable="true" armor_type="none" />
+<item id="499" name="Mithril Helmet" weight="240" price="536000" sellable="true" armor_type="none" />
+<item id="500" name="Great Helmet" weight="610" price="242000" sellable="true" armor_type="none" />
+<item id="501" name="Armet" weight="580" price="1030000" sellable="true" armor_type="none" />
+<item id="502" name="Close Helmet" weight="570" price="1560000" sellable="true" armor_type="none" />
+<item id="503" name="Zubei's Helmet" weight="590" price="778000" sellable="true" armor_type="none" />
+<item id="504" name="Dragon Helmet" weight="550" price="3590000" sellable="false" armor_type="none" />
+<item id="505" name="Wolf Helmet" weight="580" price="1210000" sellable="true" armor_type="none" />
+<item id="506" name="Shining Dragon Helmet" weight="880" price="1740000" sellable="true" armor_type="none" />
+<item id="507" name="Helmet of Victory" weight="640" price="1210000" sellable="true" armor_type="none" />
+<item id="508" name="Helmet of Valor" weight="720" price="1740000" sellable="true" armor_type="none" />
+<item id="509" name="Glorious Helmet" weight="800" price="2040000" sellable="true" armor_type="none" />
+<item id="510" name="Red Flame Helmet" weight="960" price="2640000" sellable="true" armor_type="none" />
+<item id="511" name="Elven Crystal Helmet" weight="580" price="1210000" sellable="true" armor_type="none" />
+<item id="512" name="Dark Crystal Helmet" weight="570" price="1740000" sellable="true" armor_type="none" />
+<item id="513" name="Implosion Helmet" weight="480" price="1210000" sellable="true" armor_type="none" />
+<item id="514" name="Dark Dragon Helmet" weight="400" price="1740000" sellable="true" armor_type="none" />
+<item id="515" name="Elven Vagian Helm" weight="560" price="2040000" sellable="true" armor_type="none" />
+<item id="516" name="Dark Vagian Helm" weight="560" price="2640000" sellable="true" armor_type="none" />
+<item id="517" name="Composite Helmet" weight="610" price="368000" sellable="true" armor_type="none" />
+<item id="518" name="Hell Helm" weight="320" price="2640000" sellable="true" armor_type="none" />
+<item id="519" name="Art of Helmet" weight="400" price="1210000" sellable="true" armor_type="none" />
+<item id="520" name="Masterpiece Helm" weight="400" price="2640000" sellable="true" armor_type="none" />
+<item id="521" name="Helmet of Silence" weight="320" price="1210000" sellable="true" armor_type="none" />
+<item id="522" name="Gust Helmet" weight="570" price="1740000" sellable="true" armor_type="none" />
+<item id="523" name="Prairie Helmet" weight="480" price="1210000" sellable="true" armor_type="none" />
+<item id="524" name="Helm of The Underworld" weight="320" price="1740000" sellable="true" armor_type="none" />
+<item id="525" name="Helmet of Concentration" weight="320" price="1210000" sellable="true" armor_type="none" />
+<item id="526" name="Ace's Helmet" weight="320" price="1740000" sellable="true" armor_type="none" />
+<item id="527" name="Guardian's Helmet" weight="240" price="1210000" sellable="true" armor_type="none" />
+<item id="528" name="Marksman Helmet" weight="240" price="1740000" sellable="true" armor_type="none" />
+<item id="529" name="Cap of Mana" weight="320" price="536000" sellable="true" armor_type="none" />
+<item id="530" name="Sage's Cap" weight="320" price="778000" sellable="true" armor_type="none" />
+<item id="531" name="Paradia Hood" weight="320" price="536000" sellable="true" armor_type="none" />
+<item id="532" name="Inferno Hood" weight="320" price="778000" sellable="true" armor_type="none" />
+<item id="533" name="Hood of Solar Eclipse" weight="320" price="536000" sellable="true" armor_type="none" />
+<item id="534" name="Hood of Black Ore" weight="320" price="778000" sellable="true" armor_type="none" />
+<item id="535" name="Hood of Summoning" weight="320" price="536000" sellable="true" armor_type="none" />
+<item id="536" name="Otherworldly Hood" weight="320" price="778000" sellable="true" armor_type="none" />
+<item id="537" name="Elemental Hood" weight="320" price="536000" sellable="true" armor_type="none" />
+<item id="538" name="Hood of Phantom" weight="320" price="778000" sellable="true" armor_type="none" />
+<item id="539" name="Hood of Grace" weight="320" price="536000" sellable="true" armor_type="none" />
+<item id="540" name="Hood of Holy Spirit" weight="320" price="778000" sellable="true" armor_type="none" />
+<item id="541" name="Phoenix Hood" weight="590" price="536000" sellable="true" armor_type="none" />
+<item id="542" name="Cerberus Hood" weight="320" price="778000" sellable="true" armor_type="none" />
+<item id="543" name="Hood of Aid" weight="320" price="536000" sellable="true" armor_type="none" />
+<item id="544" name="Hood of Blessing" weight="320" price="778000" sellable="true" armor_type="none" />
+<item id="545" name="Flame Helm" weight="400" price="536000" sellable="true" armor_type="none" />
+<item id="546" name="Helm of Bravery" weight="400" price="778000" sellable="true" armor_type="none" />
+<item id="547" name="Tallum Helm" weight="570" price="1740000" sellable="true" armor_type="none" />
+<item id="548" name="Absolute Helm" weight="400" price="778000" sellable="true" armor_type="none" />
+<item id="549" name="Helm of Avadon" weight="400" price="536000" sellable="true" armor_type="none" />
+<item id="550" name="Helm of Doom" weight="400" price="778000" sellable="true" armor_type="none" />
+<item id="551" name="Helmet of Pledge" weight="400" price="536000" sellable="true" armor_type="none" />
+<item id="552" name="Divine Helm" weight="400" price="778000" sellable="true" armor_type="none" />
+<item id="553" name="Iron Boots" weight="1280" price="50800" sellable="true" armor_type="none" />
+<item id="554" name="Zubei's Boots" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="555" name="Dragon Boots" weight="1110" price="1760000" sellable="false" armor_type="none" />
+<item id="556" name="Wolf Boots" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="557" name="Shining Dragon Boots" weight="1150" price="804000" sellable="true" armor_type="none" />
+<item id="558" name="Boots of Victory" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="559" name="Boots of Valor" weight="1150" price="804000" sellable="true" armor_type="none" />
+<item id="560" name="Glorious Boots" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="561" name="Red Flame Boots" weight="1120" price="1160000" sellable="true" armor_type="none" />
+<item id="562" name="Elven Crystal Boots" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="563" name="Dark Crystal Boots" weight="1110" price="1160000" sellable="true" armor_type="none" />
+<item id="564" name="Implosion Boots" weight="1150" price="804000" sellable="true" armor_type="none" />
+<item id="565" name="Dark Dragon Boots" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="566" name="Elven Vagian Boots" weight="1150" price="519000" sellable="true" armor_type="none" />
+<item id="567" name="Dark Vagian Boots" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="568" name="Composite Boots" weight="200" price="519000" sellable="true" armor_type="none" />
+<item id="569" name="Hell Boots" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="570" name="Art of Boots" weight="1150" price="519000" sellable="true" armor_type="none" />
+<item id="571" name="Masterpiece Boots" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="572" name="Boots of Silence" weight="1190" price="519000" sellable="true" armor_type="none" />
+<item id="573" name="Gust Boots" weight="1120" price="1160000" sellable="true" armor_type="none" />
+<item id="574" name="Prairie Boots" weight="1140" price="519000" sellable="true" armor_type="none" />
+<item id="575" name="Boots of The Underworld" weight="1110" price="1160000" sellable="true" armor_type="none" />
+<item id="576" name="Boots of Concentration" weight="1170" price="519000" sellable="true" armor_type="none" />
+<item id="577" name="Ace's Boots" weight="1150" price="804000" sellable="true" armor_type="none" />
+<item id="578" name="Guardian's Boots" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="579" name="Marksman Boots" weight="1150" price="804000" sellable="true" armor_type="none" />
+<item id="580" name="Boots of Mana" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="581" name="Sage's Boots" weight="1150" price="804000" sellable="true" armor_type="none" />
+<item id="582" name="Paradia Boots" weight="1140" price="804000" sellable="true" armor_type="none" />
+<item id="583" name="Majestic Boots" weight="1110" price="1760000" sellable="true" armor_type="none" />
+<item id="584" name="Boots of Solar Eclipse" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="585" name="Boots of Black Ore" weight="1200" price="804000" sellable="true" armor_type="none" />
+<item id="586" name="Boots of Summoning" weight="1170" price="519000" sellable="true" armor_type="none" />
+<item id="587" name="Otherworldly Boots" weight="1200" price="804000" sellable="true" armor_type="none" />
+<item id="588" name="Elemental Boots" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="589" name="Boots of Phantom" weight="1120" price="1760000" sellable="true" armor_type="none" />
+<item id="590" name="Boots of Grace" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="591" name="Boots of Holy Spirit" weight="1200" price="804000" sellable="true" armor_type="none" />
+<item id="592" name="Phoenix Boots" weight="1120" price="1160000" sellable="true" armor_type="none" />
+<item id="593" name="Cerberus Boots" weight="1120" price="1760000" sellable="true" armor_type="none" />
+<item id="594" name="Boots of Aid" weight="1200" price="519000" sellable="true" armor_type="none" />
+<item id="595" name="Boots of Blessing" weight="1160" price="519000" sellable="true" armor_type="none" />
+<item id="596" name="Flame Boots" weight="1020" price="1160000" sellable="true" armor_type="none" />
+<item id="597" name="Boots of Bravery" weight="1050" price="1160000" sellable="true" armor_type="none" />
+<item id="598" name="Blood Boots" weight="1130" price="1160000" sellable="true" armor_type="none" />
+<item id="599" name="Absolute Boots" weight="1130" price="1160000" sellable="true" armor_type="none" />
+<item id="600" name="Avadon Boots" weight="1170" price="519000" sellable="true" armor_type="none" />
+<item id="601" name="Boots of Doom" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="602" name="Boots of Pledge" weight="1130" price="1160000" sellable="true" armor_type="none" />
+<item id="603" name="Divine Boots" weight="1200" price="358000" sellable="true" armor_type="none" />
+<item id="604" name="Crafted Leather Gloves" weight="650" price="20900" sellable="true" armor_type="none" />
+<item id="605" name="Leather Gauntlets" weight="640" price="33300" sellable="true" armor_type="none" />
+<item id="606" name="Rip Gauntlets" weight="630" price="74700" sellable="true" armor_type="none" />
+<item id="607" name="Ogre Power Gauntlets" weight="620" price="97800" sellable="true" armor_type="none" />
+<item id="608" name="Mithril Gauntlets" weight="600" price="245000" sellable="true" armor_type="none" />
+<item id="609" name="Gauntlets of Ghost" weight="1920" price="358000" sellable="true" armor_type="none" />
+<item id="610" name="Saint Knight's Gauntlets" weight="6400" price="519000" sellable="true" armor_type="none" />
+<item id="611" name="Soul Leech Gauntlets" weight="4800" price="804000" sellable="true" armor_type="none" />
+<item id="612" name="Zubei's Gauntlets" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="613" name="Sand Dragon Gloves" weight="3200" price="1760000" sellable="true" armor_type="none" />
+<item id="614" name="Knight's Cloak" weight="240" price="20900" sellable="true" armor_type="none" />
+<item id="615" name="Cobweb Cloak" weight="240" price="33300" sellable="true" armor_type="none" />
+<item id="616" name="Cloak of Magic" weight="240" price="74700" sellable="true" armor_type="none" />
+<item id="617" name="Mithril Cloak" weight="240" price="97800" sellable="true" armor_type="none" />
+<item id="618" name="Cloak of Self Protection" weight="240" price="161000" sellable="true" armor_type="none" />
+<item id="619" name="Ancient Cloak" weight="230" price="245000" sellable="true" armor_type="none" />
+<item id="620" name="Cloak of Protection" weight="230" price="358000" sellable="true" armor_type="none" />
+<item id="621" name="Cloak of Hell" weight="220" price="804000" sellable="true" armor_type="none" />
+<item id="622" name="Holy Spirit's Cloak" weight="220" price="1160000" sellable="true" armor_type="none" />
+<item id="623" name="Divine Cloak" weight="220" price="1760000" sellable="true" armor_type="none" />
+<item id="624" name="Cloak of Invisibility" weight="260" price="37" sellable="true" armor_type="none" />
+<item id="675" name="Silk Yarn Undergarment Set" weight="170" price="1330" sellable="true" armor_type="none" />
+<item id="676" name="Pure White Undergarment Set" weight="160" price="6150" sellable="true" armor_type="none" />
+<item id="677" name="One-Piece Swimsuit" weight="150" price="10400" sellable="true" armor_type="none" />
+<item id="678" name="Bikini Set" weight="150" price="16700" sellable="true" armor_type="none" />
+<item id="679" name="Cursed Undergarment Set" weight="150" price="25400" sellable="true" armor_type="none" />
+<item id="680" name="Mithril Undergarment Set" weight="140" price="63100" sellable="true" armor_type="none" />
+<item id="681" name="Fascination Undergarment Set" weight="140" price="80500" sellable="true" armor_type="none" />
+<item id="682" name="Demon's Undergarment Set" weight="140" price="179000" sellable="true" armor_type="none" />
+<item id="683" name="Holy Undergarment Set" weight="140" price="402000" sellable="true" armor_type="none" />
+<item id="684" name="Underwear of Rule" weight="140" price="880000" sellable="true" armor_type="none" />
+<item id="685" name="Crystal Swimsuit Set" weight="130" price="1310000" sellable="true" armor_type="none" />
+<item id="845" name="Cat's Eye Earring" weight="150" price="8890" sellable="true" armor_type="none" />
+<item id="846" name="Coral Earring" weight="150" price="16000" sellable="true" armor_type="none" />
+<item id="847" name="Red Crescent Earring" weight="150" price="26900" sellable="true" armor_type="none" />
+<item id="848" name="Enchanted Earring" weight="150" price="42600" sellable="true" armor_type="none" />
+<item id="849" name="Tiger's Eye Earring" weight="150" price="64300" sellable="true" armor_type="none" />
+<item id="850" name="Elven Earring" weight="150" price="93400" sellable="true" armor_type="none" />
+<item id="851" name="Omen Beast's Eye Earring" weight="150" price="121000" sellable="true" armor_type="none" />
+<item id="852" name="Moonstone Earring" weight="150" price="155000" sellable="true" armor_type="none" />
+<item id="853" name="Earring of Protection" weight="150" price="196000" sellable="true" armor_type="none" />
+<item id="854" name="Earring of Binding" weight="150" price="295000" sellable="true" armor_type="none" />
+<item id="855" name="Nassen's Earring" weight="150" price="424000" sellable="true" armor_type="none" />
+<item id="856" name="Adamantite Earring" weight="150" price="606000" sellable="true" armor_type="none" />
+<item id="857" name="Blessed Earring" weight="150" price="424000" sellable="true" armor_type="none" />
+<item id="858" name="Tateossian Earring" weight="150" price="4440000" sellable="true" armor_type="none" />
+<item id="859" name="Earring of Mana" weight="150" price="606000" sellable="true" armor_type="none" />
+<item id="860" name="Sage's Earring" weight="150" price="924000" sellable="true" armor_type="none" />
+<item id="861" name="Paradia Earring" weight="150" price="924000" sellable="true" armor_type="none" />
+<item id="862" name="Majestic Earring" weight="150" price="2590000" sellable="true" armor_type="none" />
+<item id="863" name="Earring of Solar Eclipse" weight="150" price="606000" sellable="true" armor_type="none" />
+<item id="864" name="Earring of Black Ore" weight="150" price="924000" sellable="true" armor_type="none" />
+<item id="865" name="Earring of Summoning" weight="150" price="606000" sellable="true" armor_type="none" />
+<item id="866" name="Otherworldly Earring" weight="150" price="924000" sellable="true" armor_type="none" />
+<item id="867" name="Elemental Earring" weight="150" price="924000" sellable="true" armor_type="none" />
+<item id="868" name="Earring of Phantom" weight="150" price="1950000" sellable="true" armor_type="none" />
+<item id="869" name="Earring of Grace" weight="150" price="606000" sellable="true" armor_type="none" />
+<item id="870" name="Earring of Holy Spirit" weight="150" price="924000" sellable="true" armor_type="none" />
+<item id="871" name="Phoenix Earring" weight="150" price="1950000" sellable="true" armor_type="none" />
+<item id="872" name="Cerberus Earring" weight="150" price="1950000" sellable="true" armor_type="none" />
+<item id="873" name="Earring of Aid" weight="150" price="606000" sellable="true" armor_type="none" />
+<item id="874" name="Earring of Blessing" weight="150" price="606000" sellable="true" armor_type="none" />
+<item id="875" name="Ring of Knowledge" weight="150" price="540" sellable="true" armor_type="none" />
+<item id="876" name="Ring of Anguish" weight="150" price="2340" sellable="true" armor_type="none" />
+<item id="877" name="Ring of Wisdom" weight="150" price="5920" sellable="true" armor_type="none" />
+<item id="878" name="Blue Coral Ring" weight="150" price="10700" sellable="true" armor_type="none" />
+<item id="879" name="Enchanted Ring" weight="150" price="28400" sellable="true" armor_type="none" />
+<item id="880" name="Black Pearl Ring" weight="150" price="42800" sellable="true" armor_type="none" />
+<item id="881" name="Elven Ring" weight="150" price="62300" sellable="true" armor_type="none" />
+<item id="882" name="Mithril Ring" weight="150" price="80800" sellable="true" armor_type="none" />
+<item id="883" name="Aquastone Ring" weight="150" price="103000" sellable="true" armor_type="none" />
+<item id="884" name="Ring of Protection" weight="150" price="130000" sellable="true" armor_type="none" />
+<item id="885" name="Ring of Ages" weight="150" price="196000" sellable="true" armor_type="none" />
+<item id="886" name="Ring of Binding" weight="150" price="282000" sellable="true" armor_type="none" />
+<item id="887" name="Adamantite Ring" weight="150" price="404000" sellable="true" armor_type="none" />
+<item id="888" name="Blessed Ring" weight="150" price="282000" sellable="true" armor_type="none" />
+<item id="889" name="Tateossian Ring" weight="150" price="2960000" sellable="true" armor_type="none" />
+<item id="890" name="Ring of Devotion" weight="150" price="18000" sellable="true" armor_type="none" />
+<item id="891" name="Sage's Ring" weight="150" price="616000" sellable="true" armor_type="none" />
+<item id="892" name="Paradia Ring" weight="150" price="616000" sellable="true" armor_type="none" />
+<item id="893" name="Majestic Ring" weight="150" price="1730000" sellable="true" armor_type="none" />
+<item id="894" name="Ring of Solar Eclipse" weight="150" price="404000" sellable="true" armor_type="none" />
+<item id="895" name="Ring of Black Ore" weight="150" price="616000" sellable="true" armor_type="none" />
+<item id="896" name="Ring of Summoning" weight="150" price="404000" sellable="true" armor_type="none" />
+<item id="897" name="Otherworldly Ring" weight="150" price="616000" sellable="true" armor_type="none" />
+<item id="898" name="Elemental Ring" weight="150" price="616000" sellable="true" armor_type="none" />
+<item id="899" name="Ring of Phantom" weight="150" price="1300000" sellable="true" armor_type="none" />
+<item id="900" name="Ring of Grace" weight="150" price="404000" sellable="true" armor_type="none" />
+<item id="901" name="Ring of Holy Spirit" weight="150" price="616000" sellable="true" armor_type="none" />
+<item id="902" name="Phoenix Ring" weight="150" price="1300000" sellable="true" armor_type="none" />
+<item id="903" name="Cerberus Ring" weight="150" price="1300000" sellable="true" armor_type="none" />
+<item id="904" name="Ring of Aid" weight="150" price="404000" sellable="true" armor_type="none" />
+<item id="905" name="Ring of Blessing" weight="150" price="404000" sellable="true" armor_type="none" />
+<item id="906" name="Necklace of Knowledge" weight="150" price="1080" sellable="true" armor_type="none" />
+<item id="907" name="Necklace of Anguish" weight="150" price="4680" sellable="true" armor_type="none" />
+<item id="908" name="Necklace of Wisdom" weight="150" price="11900" sellable="true" armor_type="none" />
+<item id="909" name="Blue Diamond Necklace" weight="150" price="21300" sellable="true" armor_type="none" />
+<item id="910" name="Necklace of Devotion" weight="150" price="35900" sellable="true" armor_type="none" />
+<item id="911" name="Enchanted Necklace" weight="150" price="56800" sellable="true" armor_type="none" />
+<item id="912" name="Near Forest Necklace" weight="150" price="85700" sellable="true" armor_type="none" />
+<item id="913" name="Elven Necklace" weight="150" price="125000" sellable="true" armor_type="none" />
+<item id="914" name="Necklace of Darkness" weight="150" price="162000" sellable="true" armor_type="none" />
+<item id="915" name="Aquastone Necklace" weight="150" price="207000" sellable="true" armor_type="none" />
+<item id="916" name="Necklace of Protection" weight="150" price="261000" sellable="true" armor_type="none" />
+<item id="917" name="Necklace of Mermaid" weight="150" price="393000" sellable="true" armor_type="none" />
+<item id="918" name="Adamantite Necklace" weight="150" price="808000" sellable="true" armor_type="none" />
+<item id="919" name="Blessed Necklace" weight="150" price="565000" sellable="true" armor_type="none" />
+<item id="920" name="Tateossian Necklace" weight="150" price="5920000" sellable="true" armor_type="none" />
+<item id="921" name="Necklace of Mana" weight="150" price="808000" sellable="true" armor_type="none" />
+<item id="922" name="Sage's Necklace" weight="150" price="1230000" sellable="true" armor_type="none" />
+<item id="923" name="Paradia Necklace" weight="150" price="1230000" sellable="true" armor_type="none" />
+<item id="924" name="Majestic Necklace" weight="150" price="3450000" sellable="true" armor_type="none" />
+<item id="925" name="Necklace of Solar Eclipse" weight="150" price="808000" sellable="true" armor_type="none" />
+<item id="926" name="Necklace of Black Ore" weight="150" price="1230000" sellable="true" armor_type="none" />
+<item id="927" name="Necklace of Summoning" weight="150" price="808000" sellable="true" armor_type="none" />
+<item id="928" name="Otherworldly Necklace" weight="150" price="1230000" sellable="true" armor_type="none" />
+<item id="929" name="Elemental Necklace" weight="150" price="1230000" sellable="true" armor_type="none" />
+<item id="930" name="Necklace of Phantom" weight="150" price="2600000" sellable="true" armor_type="none" />
+<item id="931" name="Necklace of Grace" weight="150" price="808000" sellable="true" armor_type="none" />
+<item id="932" name="Necklace of Holy Spirit" weight="150" price="1230000" sellable="true" armor_type="none" />
+<item id="933" name="Phoenix Necklace" weight="150" price="2600000" sellable="true" armor_type="none" />
+<item id="934" name="Cerberus Necklace" weight="150" price="2600000" sellable="true" armor_type="none" />
+<item id="935" name="Necklace of Aid" weight="150" price="808000" sellable="true" armor_type="none" />
+<item id="936" name="Necklace of Blessing" weight="150" price="808000" sellable="true" armor_type="none" />
+<item id="990" name="Mandragora Essence" weight="60" price="37" sellable="true" armor_type="none" />
+<item id="991" name="Royen's Key" weight="60" price="37" sellable="true" armor_type="none" />
+<item id="992" name="Shilen's 1st Mark" weight="60" price="37" sellable="true" armor_type="none" />
+<item id="993" name="Shilen's 2nd Mark" weight="60" price="37" sellable="true" armor_type="none" />
+<item id="994" name="Eye of Abyss" weight="60" price="37" sellable="true" armor_type="none" />
+<item id="995" name="Wanted Poster" weight="60" price="37" sellable="true" armor_type="none" />
+<item id="996" name="Alex's Dagger" weight="60" price="37" sellable="true" armor_type="none" />
+<item id="997" name="Pinter's Bill" weight="60" price="37" sellable="true" armor_type="none" />
+<item id="998" name="Book of Aklantoth - Part 1" weight="60" price="37" sellable="true" armor_type="none" />
+<item id="999" name="Book of Aklantoth - Part 2" weight="60" price="37" sellable="true" armor_type="none" />
+<item id="1000" name="Book of Aklantoth - Part 3" weight="60" price="37" sellable="true" armor_type="none" />
+<item id="1100" name="Cotton Tunic" weight="2120" price="2430" sellable="true" armor_type="magic" />
+<item id="1101" name="Tunic of Devotion" weight="2090" price="20300" sellable="true" armor_type="magic" />
+<item id="1102" name="Tunic of Magic" weight="2080" price="36900" sellable="true" armor_type="magic" />
+<item id="1103" name="Cotton Stockings" weight="1060" price="1520" sellable="true" armor_type="magic" />
+<item id="1104" name="Stockings of Devotion" weight="1040" price="12700" sellable="true" armor_type="magic" />
+<item id="1105" name="Stockings of Magic" weight="1030" price="23000" sellable="true" armor_type="magic" />
+<item id="1119" name="Short Leather Gloves" weight="660" price="607" sellable="true" armor_type="none" />
+<item id="1120" name="Pa'agrian Hand" weight="1600" price="161000" sellable="true" armor_type="none" />
+<item id="1121" name="Apprentice's Shoes" weight="1320" price="7" sellable="true" armor_type="none" />
+<item id="1122" name="Cotton Shoes" weight="1320" price="607" sellable="true" armor_type="none" />
+<item id="1123" name="Blue Buckskin Boots" weight="1300" price="33300" sellable="true" armor_type="none" />
+<item id="1124" name="Boots of Power" weight="1250" price="74700" sellable="true" armor_type="none" />
+<item id="1125" name="Assault Boots" weight="1240" price="97800" sellable="true" armor_type="none" />
+<item id="1126" name="Crimson Boots" weight="1210" price="161000" sellable="true" armor_type="none" />
+<item id="1127" name="Forgotten Boots" weight="4000" price="245000" sellable="true" armor_type="none" />
+<item id="1128" name="Adamantite Boots" weight="4000" price="358000" sellable="true" armor_type="none" />
+<item id="1129" name="Crude Leather Shoes" weight="1320" price="607" sellable="true" armor_type="none" />
+<item id="1146" name="Squire's Shirt" weight="3301" price="26" sellable="false" armor_type="light" />
+<item id="1147" name="Squire's Pants" weight="1750" price="6" sellable="false" armor_type="light" />
+<item id="1148" name="Hard Leather Helmet" weight="640" price="18400" sellable="true" armor_type="none" />
+<item id="1149" name="Shining Circlet" weight="600" price="368000" sellable="true" armor_type="none" />
+<item id="1308" name="Compound Scale Mail" weight="1400" price="247000" sellable="false" armor_type="heavy" />
+<item id="1309" name="Mithril Breastplate" weight="1000" price="247000" sellable="false" armor_type="heavy" />
+<item id="1310" name="Tunic of Magic" weight="150" price="48500" sellable="false" armor_type="magic" />
+<item id="1311" name="Puma Skin Shirt" weight="300" price="99900" sellable="false" armor_type="light" />
+<item id="1312" name="White Tunic" weight="150" price="138000" sellable="false" armor_type="magic" />
+<item id="1313" name="Compound Scale Gaiters" weight="1000" price="170000" sellable="false" armor_type="heavy" />
+<item id="1314" name="Mithril Gaiters" weight="600" price="170000" sellable="false" armor_type="heavy" />
+<item id="1315" name="Stockings of Magic" weight="150" price="30300" sellable="false" armor_type="magic" />
+<item id="1316" name="Puma Skin Gaiters" weight="400" price="55800" sellable="false" armor_type="light" />
+<item id="1317" name="Dark Stockings" weight="150" price="62500" sellable="false" armor_type="magic" />
+<item id="1318" name="Gloves" weight="80" price="3270" sellable="false" armor_type="none" />
+<item id="1319" name="Leather Gloves" weight="100" price="7950" sellable="false" armor_type="none" />
+<item id="1320" name="Crafted Leather Gloves" weight="100" price="29800" sellable="false" armor_type="none" />
+<item id="1321" name="Rip Gauntlets" weight="150" price="97800" sellable="false" armor_type="none" />
+<item id="1322" name="Bracer" weight="80" price="16200" sellable="false" armor_type="none" />
+<item id="1323" name="Leather Shoes" weight="120" price="3270" sellable="false" armor_type="none" />
+<item id="1324" name="Low Boots" weight="150" price="7950" sellable="false" armor_type="none" />
+<item id="1325" name="Leather Boots" weight="250" price="29800" sellable="false" armor_type="none" />
+<item id="1326" name="Iron Boots" weight="300" price="74700" sellable="false" armor_type="none" />
+<item id="1327" name="Boots" weight="200" price="16200" sellable="false" armor_type="none" />
+<item id="1506" name="Necklace of Courage" weight="150" price="66" sellable="true" armor_type="none" />
+<item id="1507" name="Necklace of Valor" weight="150" price="4680" sellable="true" armor_type="none" />
+<item id="1508" name="Ring of Raccoon" weight="150" price="2340" sellable="true" armor_type="none" />
+<item id="1509" name="Ring of Firefly" weight="150" price="2340" sellable="true" armor_type="none" />
+<item id="2376" name="Avadon Breastplate" weight="7920" price="2080000" sellable="true" armor_type="heavy" />
+<item id="2377" name="Mithril Scale Gaiters" weight="3870" price="187000" sellable="true" armor_type="heavy" />
+<item id="2378" name="Brigandine Gaiters" weight="3820" price="187000" sellable="true" armor_type="heavy" />
+<item id="2379" name="Avadon Gaiters" weight="3520" price="1300000" sellable="true" armor_type="heavy" />
+<item id="2380" name="Blue Wolf Gaiters" weight="3370" price="2010000" sellable="true" armor_type="heavy" />
+<item id="2381" name="Doom Plate Armor" weight="9980" price="4710000" sellable="true" armor_type="heavy" />
+<item id="2382" name="Tallum Plate Armor" weight="9780" price="6770000" sellable="true" armor_type="heavy" />
+<item id="2383" name="Majestic Plate Armor" weight="9200" price="10300000" sellable="true" armor_type="heavy" />
+<item id="2384" name="Zubei's Leather Shirt" weight="4330" price="1560000" sellable="true" armor_type="light" />
+<item id="2385" name="Dark Crystal Leather Armor" weight="4300" price="3470000" sellable="true" armor_type="light" />
+<item id="2386" name="Wooden Gaiters" weight="1670" price="4970" sellable="true" armor_type="light" />
+<item id="2387" name="Tempered Mithril Gaiters" weight="1530" price="237000" sellable="true" armor_type="light" />
+<item id="2388" name="Zubei's Leather Gaiters" weight="1480" price="973000" sellable="true" armor_type="light" />
+<item id="2389" name="Dark Crystal Leggings" weight="1480" price="2170000" sellable="true" armor_type="light" />
+<item id="2390" name="Avadon Leather Armor" weight="5600" price="2280000" sellable="true" armor_type="light" />
+<item id="2391" name="Blue Wolf Leather Armor" weight="5500" price="3530000" sellable="true" armor_type="light" />
+<item id="2392" name="Leather Armor of Doom" weight="5500" price="3530000" sellable="true" armor_type="light" />
+<item id="2393" name="Tallum Leather Armor" weight="5400" price="5080000" sellable="true" armor_type="light" />
+<item id="2394" name="Nightmarish Leather Armor" weight="5300" price="7730000" sellable="true" armor_type="light" />
+<item id="2395" name="Majestic Leather Armor" weight="5350" price="7730000" sellable="true" armor_type="light" />
+<item id="2396" name="Elven Mithril Tunic" weight="720" price="224000" sellable="true" armor_type="magic" />
+<item id="2397" name="Tunic of Zubei" weight="1960" price="1560000" sellable="true" armor_type="magic" />
+<item id="2398" name="Blue Wolf Tunic" weight="1920" price="2410000" sellable="true" armor_type="magic" />
+<item id="2399" name="Tunic of Doom" weight="1900" price="2410000" sellable="true" armor_type="magic" />
+<item id="2400" name="Tallum Tunic" weight="1860" price="3470000" sellable="true" armor_type="magic" />
+<item id="2401" name="Elven Mithril Stockings" weight="2400" price="140000" sellable="true" armor_type="magic" />
+<item id="2402" name="Stockings of Zubei" weight="940" price="973000" sellable="true" armor_type="magic" />
+<item id="2403" name="Blue Wolf Stockings" weight="920" price="1510000" sellable="true" armor_type="magic" />
+<item id="2404" name="Stockings of Doom" weight="910" price="1510000" sellable="true" armor_type="magic" />
+<item id="2405" name="Tallum Stockings" weight="920" price="2170000" sellable="true" armor_type="magic" />
+<item id="2406" name="Avadon Robe" weight="2540" price="2280000" sellable="true" armor_type="magic" />
+<item id="2407" name="Dark Crystal Robe" weight="2450" price="5080000" sellable="true" armor_type="magic" />
+<item id="2408" name="Nightmare Robe" weight="2300" price="7730000" sellable="true" armor_type="magic" />
+<item id="2409" name="Majestic Robe" weight="2330" price="7730000" sellable="true" armor_type="magic" />
+<item id="2410" name="Nightmarish Tattoo" weight="3600" price="5280000" sellable="true" armor_type="none" />
+<item id="2411" name="Brigandine Helmet" weight="630" price="112000" sellable="true" armor_type="none" />
+<item id="2412" name="Plate Helmet" weight="630" price="147000" sellable="true" armor_type="none" />
+<item id="2413" name="Chain Hood" weight="620" price="189000" sellable="true" armor_type="none" />
+<item id="2414" name="Full Plate Helmet" weight="600" price="536000" sellable="true" armor_type="none" />
+<item id="2415" name="Avadon Circlet" weight="590" price="778000" sellable="true" armor_type="none" />
+<item id="2416" name="Blue Wolf Helmet" weight="580" price="1210000" sellable="true" armor_type="none" />
+<item id="2417" name="Doom Helmet" weight="580" price="1210000" sellable="true" armor_type="none" />
+<item id="2418" name="Helm of Nightmare" weight="560" price="2640000" sellable="true" armor_type="none" />
+<item id="2419" name="Majestic Circlet" weight="550" price="2640000" sellable="true" armor_type="none" />
+<item id="2420" name="Dragon Headgear" weight="540" price="3590000" sellable="true" armor_type="none" />
+<item id="2421" name="The Hood" weight="540" price="3590000" sellable="true" armor_type="none" />
+<item id="2422" name="Reinforced Leather Boots" weight="1280" price="50800" sellable="true" armor_type="none" />
+<item id="2423" name="Boots of Knowledge" weight="1270" price="50800" sellable="true" armor_type="none" />
+<item id="2424" name="Manticore Skin Boots" weight="1260" price="74700" sellable="true" armor_type="none" />
+<item id="2425" name="Brigandine Boots" weight="1250" price="74700" sellable="true" armor_type="none" />
+<item id="2426" name="Elven Mithril Boots" weight="1250" price="74700" sellable="true" armor_type="none" />
+<item id="2427" name="Salamander Skin Boots" weight="1230" price="97800" sellable="true" armor_type="none" />
+<item id="2428" name="Plate Boots" weight="1240" price="97800" sellable="true" armor_type="none" />
+<item id="2429" name="Chain Boots" weight="1220" price="126000" sellable="true" armor_type="none" />
+<item id="2430" name="Karmian Boots" weight="1230" price="126000" sellable="true" armor_type="none" />
+<item id="2431" name="Plated Leather Boots" weight="1220" price="126000" sellable="true" armor_type="none" />
+<item id="2432" name="Dwarven Chain Boots" weight="1210" price="126000" sellable="true" armor_type="none" />
+<item id="2433" name="Boots of Seal" weight="1220" price="126000" sellable="true" armor_type="none" />
+<item id="2434" name="Rind Leather Boots" weight="1220" price="161000" sellable="true" armor_type="none" />
+<item id="2435" name="Demon's Boots" weight="1220" price="245000" sellable="true" armor_type="none" />
+<item id="2436" name="Theca Leather Boots" weight="1210" price="275000" sellable="true" armor_type="none" />
+<item id="2437" name="Drake Leather Boots" weight="1210" price="358000" sellable="true" armor_type="none" />
+<item id="2438" name="Full Plate Boots" weight="1200" price="358000" sellable="true" armor_type="none" />
+<item id="2439" name="Blue Wolf Boots" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="2440" name="Boots of Nightmare" weight="1110" price="1760000" sellable="true" armor_type="none" />
+<item id="2441" name="Dark Legion Boots" weight="1120" price="1760000" sellable="true" armor_type="none" />
+<item id="2442" name="Dasparion's Boots" weight="1100" price="1760000" sellable="true" armor_type="none" />
+<item id="2443" name="Dragon Leather Boots" weight="1100" price="2390000" sellable="true" armor_type="none" />
+<item id="2444" name="The Boots" weight="1100" price="2390000" sellable="true" armor_type="none" />
+<item id="2445" name="Dragon Scale Boots" weight="1100" price="1760000" sellable="true" armor_type="none" />
+<item id="2446" name="Reinforced Leather Gloves" weight="640" price="50800" sellable="true" armor_type="none" />
+<item id="2447" name="Gloves of Knowledge" weight="640" price="50800" sellable="true" armor_type="none" />
+<item id="2448" name="Manticore Skin Gloves" weight="630" price="74700" sellable="true" armor_type="none" />
+<item id="2449" name="Brigandine Gauntlets" weight="630" price="74700" sellable="true" armor_type="none" />
+<item id="2450" name="Elven Mithril Gloves" weight="640" price="74700" sellable="true" armor_type="none" />
+<item id="2451" name="Sage's Worn Gloves" weight="630" price="97800" sellable="true" armor_type="none" />
+<item id="2452" name="Reinforced Mithril Gloves" weight="620" price="126000" sellable="true" armor_type="none" />
+<item id="2453" name="Chain Gloves" weight="620" price="126000" sellable="true" armor_type="none" />
+<item id="2454" name="Karmian Gloves" weight="620" price="126000" sellable="true" armor_type="none" />
+<item id="2455" name="Plated Leather Gloves" weight="610" price="149000" sellable="true" armor_type="none" />
+<item id="2456" name="Dwarven Chain Gloves" weight="600" price="161000" sellable="true" armor_type="none" />
+<item id="2457" name="Gloves of Seal" weight="620" price="161000" sellable="true" armor_type="none" />
+<item id="2458" name="Rind Leather Gloves" weight="600" price="161000" sellable="true" armor_type="none" />
+<item id="2459" name="Demon's Gloves" weight="610" price="245000" sellable="true" armor_type="none" />
+<item id="2460" name="Theca Leather Gloves" weight="600" price="275000" sellable="true" armor_type="none" />
+<item id="2461" name="Drake Leather Gloves" weight="600" price="358000" sellable="true" armor_type="none" />
+<item id="2462" name="Full Plate Gauntlets" weight="600" price="358000" sellable="true" armor_type="none" />
+<item id="2463" name="Divine Gloves" weight="610" price="358000" sellable="true" armor_type="none" />
+<item id="2464" name="Avadon Gloves" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="2465" name="Chain Gloves of Silence" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="2466" name="Guardian's Gloves" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="2467" name="Gloves of Blessing" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="2468" name="Blessed Gloves" weight="600" price="358000" sellable="true" armor_type="none" />
+<item id="2469" name="Gloves of The Underworld" weight="580" price="1160000" sellable="true" armor_type="none" />
+<item id="2470" name="Gloves of Phantom" weight="560" price="1760000" sellable="true" armor_type="none" />
+<item id="2471" name="Dark Legion Gloves" weight="560" price="1760000" sellable="true" armor_type="none" />
+<item id="2472" name="Dark Crystal Gloves" weight="580" price="1160000" sellable="true" armor_type="none" />
+<item id="2473" name="The Gloves" weight="540" price="2390000" sellable="true" armor_type="none" />
+<item id="2474" name="Dasparion's Gloves" weight="550" price="1760000" sellable="true" armor_type="none" />
+<item id="2475" name="Doom Gloves" weight="580" price="804000" sellable="true" armor_type="none" />
+<item id="2476" name="Dragon Gauntlets" weight="540" price="2610000" sellable="true" armor_type="none" />
+<item id="2477" name="Dragon Leather Gloves" weight="540" price="2390000" sellable="true" armor_type="none" />
+<item id="2478" name="Tallum Gloves" weight="580" price="1160000" sellable="true" armor_type="none" />
+<item id="2479" name="Gauntlets of Nightmare" weight="550" price="1760000" sellable="true" armor_type="none" />
+<item id="2480" name="Elemental Gloves" weight="580" price="804000" sellable="true" armor_type="none" />
+<item id="2481" name="Gloves of Grace" weight="580" price="804000" sellable="true" armor_type="none" />
+<item id="2482" name="Majestic Gauntlets" weight="540" price="1760000" sellable="true" armor_type="none" />
+<item id="2483" name="Gust Bracer" weight="580" price="1160000" sellable="true" armor_type="none" />
+<item id="2484" name="Cerberus Gloves" weight="540" price="1760000" sellable="true" armor_type="none" />
+<item id="2485" name="Implosion Gauntlets" weight="580" price="804000" sellable="true" armor_type="none" />
+<item id="2486" name="Paradia Gloves" weight="580" price="804000" sellable="true" armor_type="none" />
+<item id="2487" name="Blue Wolf Gloves" weight="590" price="804000" sellable="true" armor_type="none" />
+<item id="2488" name="Phoenix Gloves" weight="570" price="1160000" sellable="true" armor_type="none" />
+<item id="2489" name="Gloves of Black Ore" weight="570" price="1160000" sellable="true" armor_type="none" />
+<item id="2490" name="Cloak of Silence" weight="250" price="6770" sellable="true" armor_type="none" />
+<item id="2491" name="Golden Yarn Cloak" weight="250" price="12300" sellable="true" armor_type="none" />
+<item id="2492" name="Shadow Cloak" weight="240" price="126000" sellable="true" armor_type="none" />
+<item id="2506" name="Wolf's Leather Armor" weight="160" price="7000" sellable="true" armor_type="pet" />
+<item id="3891" name="Wolf's Hide Armor" weight="160" price="18000" sellable="true" armor_type="pet" />
+<item id="3892" name="Wolf's Hard Leather Mail" weight="160" price="32000" sellable="true" armor_type="pet" />
+<item id="3893" name="Wolf's Wooden Armor" weight="160" price="55000" sellable="true" armor_type="pet" />
+<item id="3894" name="Wolf's Ring Mail" weight="160" price="87000" sellable="true" armor_type="pet" />
+<item id="3895" name="Wolf's Bone Armor" weight="160" price="130000" sellable="true" armor_type="pet" />
+<item id="3896" name="Wolf's Scale Male" weight="160" price="200000" sellable="true" armor_type="pet" />
+<item id="3897" name="Wof's Bronze Armor" weight="160" price="260000" sellable="true" armor_type="pet" />
+<item id="3898" name="Wolf's Plate Mail" weight="160" price="330000" sellable="true" armor_type="pet" />
+<item id="3899" name="Wolf's Steel Armor" weight="160" price="420000" sellable="true" armor_type="pet" />
+<item id="3900" name="Wolf's Luxury Plate" weight="160" price="640000" sellable="true" armor_type="pet" />
+<item id="3901" name="Wolf's Mithril Armor" weight="160" price="940000" sellable="true" armor_type="pet" />
+<item id="3912" name="Hatchling's Soft Leather" weight="160" price="200000" sellable="true" armor_type="pet" />
+<item id="3913" name="Hatchling's Scale Mail" weight="160" price="310000" sellable="true" armor_type="pet" />
+<item id="3914" name="Hatchling's Brigandine" weight="160" price="420000" sellable="true" armor_type="pet" />
+<item id="3915" name="Hatchling's Bronze Coat" weight="160" price="570000" sellable="true" armor_type="pet" />
+<item id="3916" name="Hatchling's Steel Coat" weight="160" price="760000" sellable="true" armor_type="pet" />
+<item id="3917" name="Hatchling's Shadowplate" weight="160" price="1100000" sellable="true" armor_type="pet" />
+<item id="3918" name="Hatchling's Mithril Coat" weight="160" price="1600000" sellable="true" armor_type="pet" />
+<item id="4224" name="Dream Armor" weight="8920" price="49200" sellable="true" armor_type="heavy" />
+<item id="4225" name="Dream Stockings" weight="3960" price="30700" sellable="true" armor_type="heavy" />
+<item id="4226" name="Dream Gloves" weight="650" price="12300" sellable="true" armor_type="none" />
+<item id="4227" name="Dream Boots" weight="1310" price="12300" sellable="true" armor_type="none" />
+<item id="4228" name="Ubiquitous Armor" weight="8920" price="49200" sellable="true" armor_type="heavy" />
+<item id="4229" name="Ubiquitous Stockings" weight="3960" price="30700" sellable="true" armor_type="heavy" />
+<item id="4230" name="Ubiquitous Gloves" weight="650" price="12300" sellable="true" armor_type="none" />
+<item id="4231" name="Ubiquitous Boots" weight="1310" price="12300" sellable="true" armor_type="none" />
+<item id="4234" name="Hatchling's Level 65 Armor" weight="160" price="5628000" sellable="true" armor_type="pet" />
+<item id="4235" name="Hatchling's Level 75 Armor" weight="160" price="19073000" sellable="true" armor_type="pet" />
+<item id="4236" name="Gara Item" weight="160" price="19073000" sellable="true" armor_type="light" />
+<item id="5170" name="Mithril Panzer Coat" weight="160" price="1600000" sellable="true" armor_type="pet" />
+<item id="5171" name="Brigadine Panzer Coat" weight="160" price="2300000" sellable="true" armor_type="pet" />
+<item id="5172" name="Draconic Panzer Coat" weight="160" price="3400000" sellable="true" armor_type="pet" />
+<item id="5173" name="Blood Panzer Coat" weight="160" price="4900000" sellable="true" armor_type="pet" />
+<item id="5174" name="Ophidian Panzer Coat" weight="160" price="7300000" sellable="true" armor_type="pet" />
+<item id="5175" name="Inferno Panzer Coat" weight="160" price="10000000" sellable="true" armor_type="pet" />
+<item id="5182" name="Hatchling's Gorgon Coat" weight="160" price="2300000" sellable="true" armor_type="pet" />
+<item id="5183" name="Hatchling's Ophidian Plate" weight="160" price="3400000" sellable="true" armor_type="pet" />
+<item id="5184" name="Hatchling's Crimson Plate" weight="160" price="4900000" sellable="true" armor_type="pet" />
+<item id="5185" name="Hatchling's Draconic Plate" weight="160" price="7300000" sellable="true" armor_type="pet" />
+<item id="5186" name="Hatchling's Inferno Plate" weight="160" price="10000000" sellable="true" armor_type="pet" />
+<item id="5216" name="Wolf Level 75 Armor" weight="160" price="938705" sellable="true" armor_type="pet" />
+<item id="5287" name="Sealed Dark Crystal breastplate" weight="7700" price="4630000" sellable="true" armor_type="heavy" />
+<item id="5288" name="Sealed Dark Crystal Gaiters" weight="3320" price="2890000" sellable="true" armor_type="heavy" />
+<item id="5289" name="Sealed Dark Crystal Helmet" weight="570" price="1740000" sellable="true" armor_type="none" />
+<item id="5290" name="Sealed Dark Crystal Gloves" weight="580" price="1160000" sellable="true" armor_type="none" />
+<item id="5291" name="Sealed Dark Crystal Boots" weight="1110" price="1160000" sellable="true" armor_type="none" />
+<item id="5293" name="Sealed Tallum Plate Armor" weight="9780" price="6770000" sellable="true" armor_type="heavy" />
+<item id="5294" name="Sealed Tallum Helmet" weight="570" price="1740000" sellable="true" armor_type="none" />
+<item id="5295" name="Sealed Tallum Gloves" weight="580" price="1160000" sellable="true" armor_type="none" />
+<item id="5296" name="Sealed Tallum Boots" weight="1130" price="1160000" sellable="true" armor_type="none" />
+<item id="5297" name="Sealed Dark Crystal Leather Armor" weight="4300" price="3470000" sellable="true" armor_type="light" />
+<item id="5298" name="Sealed Dark Crystal Leggings" weight="1480" price="2170000" sellable="true" armor_type="light" />
+<item id="5299" name="Sealed Gloves of The Underworld" weight="580" price="1070000" sellable="true" armor_type="none" />
+<item id="5300" name="Sealed Boots of The Underworld" weight="1110" price="1070000" sellable="true" armor_type="none" />
+<item id="5301" name="Sealed Tallum Leather Armor" weight="5400" price="5080000" sellable="true" armor_type="light" />
+<item id="5302" name="Sealed Gust Bracer" weight="580" price="1070000" sellable="true" armor_type="none" />
+<item id="5303" name="Sealed Gust Boots" weight="1120" price="1070000" sellable="true" armor_type="none" />
+<item id="5304" name="Sealed Tallum Tunic" weight="1860" price="3470000" sellable="true" armor_type="magic" />
+<item id="5305" name="Sealed Tallum Stockings" weight="920" price="2170000" sellable="true" armor_type="magic" />
+<item id="5306" name="Sealed Gloves of Black Ore" weight="570" price="1070000" sellable="true" armor_type="none" />
+<item id="5307" name="Sealed Red Flame Boots" weight="1120" price="1070000" sellable="true" armor_type="none" />
+<item id="5308" name="Sealed Dark Crystal Robe" weight="2450" price="5080000" sellable="true" armor_type="magic" />
+<item id="5309" name="Sealed Phoenix Gloves" weight="570" price="1070000" sellable="true" armor_type="none" />
+<item id="5310" name="Sealed Phoenix Boots" weight="1120" price="1070000" sellable="true" armor_type="none" />
+<item id="5311" name="Sealed Armor of Nightmare" weight="9580" price="10300000" sellable="true" armor_type="heavy" />
+<item id="5312" name="Sealed Helm of Nightmare" weight="560" price="2640000" sellable="true" armor_type="none" />
+<item id="5313" name="Sealed Gauntlets of Nightmare" weight="550" price="1760000" sellable="true" armor_type="none" />
+<item id="5314" name="Sealed Boots of Nightmare" weight="1110" price="1760000" sellable="true" armor_type="none" />
+<item id="5316" name="Sealed Majestic Plate Armor" weight="9200" price="10300000" sellable="true" armor_type="heavy" />
+<item id="5317" name="Sealed Majestic Circlet" weight="550" price="2640000" sellable="true" armor_type="none" />
+<item id="5318" name="Sealed Majestic Gauntlets" weight="540" price="1760000" sellable="true" armor_type="none" />
+<item id="5319" name="Sealed Majestic Boots" weight="1110" price="1760000" sellable="true" armor_type="none" />
+<item id="5320" name="Sealed Leather Armor of Nightmare" weight="5300" price="7730000" sellable="true" armor_type="light" />
+<item id="5321" name="Sealed Dark Legion Gloves" weight="560" price="1630000" sellable="true" armor_type="none" />
+<item id="5322" name="Sealed Dark Legion Boots" weight="1120" price="1630000" sellable="true" armor_type="none" />
+<item id="5323" name="Sealed Majestic Leather Armor" weight="5350" price="7730000" sellable="true" armor_type="light" />
+<item id="5324" name="Sealed Gloves of Phantom" weight="560" price="1630000" sellable="true" armor_type="none" />
+<item id="5325" name="Sealed Boots of Phantom" weight="1120" price="1630000" sellable="true" armor_type="none" />
+<item id="5326" name="Sealed Nightmare Robe" weight="2300" price="7730000" sellable="true" armor_type="magic" />
+<item id="5327" name="Sealed Cerberus Gloves" weight="540" price="1630000" sellable="true" armor_type="none" />
+<item id="5328" name="Sealed Cerberus Boots" weight="1120" price="1630000" sellable="true" armor_type="none" />
+<item id="5329" name="Sealed Majestic Robe" weight="2330" price="7730000" sellable="true" armor_type="magic" />
+<item id="5330" name="Sealed Dasparion's Gloves" weight="550" price="1630000" sellable="true" armor_type="none" />
+<item id="5331" name="Sealed Dasparion's Boots" weight="1100" price="1630000" sellable="true" armor_type="none" />
+<item id="5576" name="Sound Test Boots" weight="50" price="0" sellable="true" armor_type="none" />
+<item id="5590" name="Squeaking Shoes" weight="50" price="350000" sellable="true" armor_type="none" />
+<item id="5709" name="Sealed Zubei's Gauntlets" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="5710" name="Zubei's Gauntlets - Heavy Armor" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="5711" name="Zubei's Gauntlets - Light Armor" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="5712" name="Zubei's Gauntlets - Robe" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="5713" name="Sealed Avadon Gloves" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="5714" name="Avadon Gloves - Heavy Armor" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="5715" name="Avadon Gloves - Light Armor" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="5716" name="Avadon Gloves - Robe" weight="590" price="519000" sellable="true" armor_type="none" />
+<item id="5717" name="Sealed Blue Wolf Gloves" weight="590" price="804000" sellable="true" armor_type="none" />
+<item id="5718" name="Blue Wolf Gloves - Heavy Armor" weight="590" price="804000" sellable="true" armor_type="none" />
+<item id="5719" name="Blue Wolf Gloves - Light Armor" weight="590" price="804000" sellable="true" armor_type="none" />
+<item id="5720" name="Blue Wolf Gloves - Robe" weight="590" price="804000" sellable="true" armor_type="none" />
+<item id="5721" name="Sealed Doom Gloves" weight="580" price="804000" sellable="true" armor_type="none" />
+<item id="5722" name="Doom Gloves - Heavy Armor" weight="580" price="804000" sellable="true" armor_type="none" />
+<item id="5723" name="Doom Gloves - Light Armor" weight="580" price="804000" sellable="true" armor_type="none" />
+<item id="5724" name="Doom Gloves - Robe" weight="580" price="804000" sellable="true" armor_type="none" />
+<item id="5725" name="Sealed Zubei's Boots" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="5726" name="Zubei's Boots - Heavy Armor" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="5727" name="Zubei's Boots - Light Armor" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="5728" name="Zubei's Boots - Robe" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="5729" name="Sealed Avadon Boots" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="5730" name="Avadon Boots - Heavy Armor" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="5731" name="Avadon Boots - Light Armor" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="5732" name="Avadon Boots - Robe" weight="1180" price="519000" sellable="true" armor_type="none" />
+<item id="5733" name="Sealed Blue Wolf Boots" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="5734" name="Blue Wolf Boots - Heavy Armor" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="5735" name="Blue Wolf Boots - Light Armor" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="5736" name="Blue Wolf Boots - Robe" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="5737" name="Sealed Boots of Doom" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="5738" name="Doom Boots - Heavy Armor" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="5739" name="Doom Boots - Light Armor" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="5740" name="Doom Boots - Robe" weight="1130" price="804000" sellable="true" armor_type="none" />
+<item id="5765" name="Dark Crystal Gloves - Heavy Armor" weight="580" price="1160000" sellable="true" armor_type="none" />
+<item id="5766" name="Dark Crystal Gloves - Light Armor" weight="580" price="1160000" sellable="true" armor_type="none" />
+<item id="5767" name="Dark Crystal Gloves - Robe" weight="580" price="1160000" sellable="true" armor_type="none" />
+<item id="5768" name="Tallum Gloves - Heavy Armor" weight="580" price="1160000" sellable="true" armor_type="none" />
+<item id="5769" name="Tallum Gloves - Light Armor" weight="580" price="1160000" sellable="true" armor_type="none" />
+<item id="5770" name="Tallum Gloves - Robe" weight="580" price="1160000" sellable="true" armor_type="none" />
+<item id="5771" name="Gauntlets of Nightmare - Heavy Armor" weight="550" price="1760000" sellable="true" armor_type="none" />
+<item id="5772" name="Gauntlets of Nightmare - Light Armor" weight="550" price="1760000" sellable="true" armor_type="none" />
+<item id="5773" name="Gauntlets of Nightmare - Robe" weight="550" price="1760000" sellable="true" armor_type="none" />
+<item id="5774" name="Majestic Gauntlets - Heavy Armor" weight="540" price="1760000" sellable="true" armor_type="none" />
+<item id="5775" name="Majestic Gauntlets - Light Armor" weight="540" price="1760000" sellable="true" armor_type="none" />
+<item id="5776" name="Majestic Gauntlets - Robe" weight="540" price="1760000" sellable="true" armor_type="none" />
+<item id="5777" name="Dark Crystal Boots - Heavy Armor" weight="1110" price="1160000" sellable="true" armor_type="none" />
+<item id="5778" name="Dark Crystal Boots - Light Armor" weight="1110" price="1160000" sellable="true" armor_type="none" />
+<item id="5779" name="Dark Crystal Boots - Robe" weight="1110" price="1160000" sellable="true" armor_type="none" />
+<item id="5780" name="Tallum Boots - Heavy Armor" weight="1130" price="1160000" sellable="true" armor_type="none" />
+<item id="5781" name="Tallum Boots - Light Armor" weight="1130" price="1160000" sellable="true" armor_type="none" />
+<item id="5782" name="Tallum Boots - Robe" weight="1130" price="1160000" sellable="true" armor_type="none" />
+<item id="5783" name="Boots of Nightmare - Heavy Armor" weight="1110" price="1760000" sellable="true" armor_type="none" />
+<item id="5784" name="Boots of Nightmare - Light Armor" weight="1110" price="1760000" sellable="true" armor_type="none" />
+<item id="5785" name="Boots of Nightmare - Robe" weight="1110" price="1760000" sellable="true" armor_type="none" />
+<item id="5786" name="Majestic Boots - Heavy Armor" weight="1110" price="1760000" sellable="true" armor_type="none" />
+<item id="5787" name="Majestic Boots - Light Armor" weight="1110" price="1760000" sellable="true" armor_type="none" />
+<item id="5788" name="Majestic Boots - Robe" weight="1110" price="1760000" sellable="true" armor_type="none" />
+<item id="5808" name="Party Mask" weight="10" price="500000" sellable="true" armor_type="none" />
+<item id="6323" name="Sealed Phoenix Necklace" weight="150" price="1740000" sellable="true" armor_type="none" />
+<item id="6324" name="Sealed Phoenix Earring" weight="150" price="1310000" sellable="true" armor_type="none" />
+<item id="6325" name="Sealed Phoenix Ring" weight="150" price="871000" sellable="true" armor_type="none" />
+<item id="6326" name="Sealed Majestic Necklace" weight="150" price="2600000" sellable="true" armor_type="none" />
+<item id="6327" name="Sealed Majestic Earring" weight="150" price="1950000" sellable="true" armor_type="none" />
+<item id="6328" name="Sealed Majestic Ring" weight="150" price="1300000" sellable="true" armor_type="none" />
+<item id="6373" name="Imperial Crusader Breastplate" weight="7620" price="14300000" sellable="true" armor_type="heavy" />
+<item id="6374" name="Imperial Crusader Gaiters" weight="3260" price="8960000" sellable="true" armor_type="heavy" />
+<item id="6375" name="Imperial Crusader Gauntlets" weight="540" price="3580000" sellable="true" armor_type="none" />
+<item id="6376" name="Imperial Crusader Boots" weight="1110" price="3580000" sellable="true" armor_type="none" />
+<item id="6378" name="Imperial Crusader Helmet" weight="550" price="5370000" sellable="true" armor_type="none" />
+<item id="6379" name="Draconic Leather Armor" weight="4950" price="17400000" sellable="true" armor_type="light" />
+<item id="6380" name="Draconic Leather Gloves" weight="540" price="3580000" sellable="true" armor_type="none" />
+<item id="6381" name="Draconic Leather Boots" weight="1110" price="3580000" sellable="true" armor_type="none" />
+<item id="6382" name="Draconic Leather Helmet" weight="550" price="5370000" sellable="true" armor_type="none" />
+<item id="6383" name="Major Arcana Robe" weight="2300" price="17400000" sellable="true" armor_type="magic" />
+<item id="6384" name="Major Arcana Gloves" weight="540" price="3580000" sellable="true" armor_type="none" />
+<item id="6385" name="Major Arcana Boots" weight="1110" price="3580000" sellable="true" armor_type="none" />
+<item id="6386" name="Major Arcana Circlet" weight="550" price="5370000" sellable="true" armor_type="none" />
+<item id="6394" name="Red Party Mask" weight="10" price="500000" sellable="true" armor_type="none" />
+<item id="6408" name="Formal Wear" weight="1000" price="5000000" sellable="true" armor_type="none" />
+<item id="6656" name="Earring of Antharas" weight="150" price="3700000" sellable="true" armor_type="none" />
+<item id="6657" name="Necklace of Valakas" weight="150" price="4940000" sellable="true" armor_type="none" />
+<item id="6658" name="Ring of Baium" weight="150" price="1730000" sellable="true" armor_type="none" />
+<item id="6659" name="Zaken's Earring" weight="150" price="2590000" sellable="true" armor_type="none" />
+<item id="6660" name="Ring of Queen Ant" weight="150" price="616000" sellable="true" armor_type="none" />
+<item id="6661" name="Earring of Orfen" weight="150" price="1300000" sellable="true" armor_type="none" />
+<item id="6662" name="Ring of Core" weight="150" price="870000" sellable="true" armor_type="none" />
+<item id="6674" name="Sealed Imperial Crusader Breastplate" weight="7620" price="14300000" sellable="true" armor_type="heavy" />
+<item id="6675" name="Sealed Imperial Crusader Gaiters" weight="3260" price="8960000" sellable="true" armor_type="heavy" />
+<item id="6676" name="Sealed Imperial Crusader Gauntlet" weight="540" price="3580000" sellable="true" armor_type="none" />
+<item id="6677" name="Sealed Imperial Crusader Boots" weight="1110" price="3580000" sellable="true" armor_type="none" />
+<item id="6679" name="Sealed Imperial Crusader Helmet" weight="550" price="5370000" sellable="true" armor_type="none" />
+<item id="6680" name="Sealed Draconic Leather Armor" weight="4950" price="17400000" sellable="true" armor_type="light" />
+<item id="6681" name="Sealed Draconic Leather Glove" weight="540" price="3580000" sellable="true" armor_type="none" />
+<item id="6682" name="Sealed Draconic Leather Boots" weight="1110" price="3580000" sellable="true" armor_type="none" />
+<item id="6683" name="Sealed Draconic Leather Helmet" weight="550" price="5370000" sellable="true" armor_type="none" />
+<item id="6684" name="Sealed Major Arcana Robe" weight="2300" price="17400000" sellable="true" armor_type="magic" />
+<item id="6685" name="Sealed Major Arcana Glove" weight="540" price="3580000" sellable="true" armor_type="none" />
+<item id="6686" name="Sealed Major Arcana Boots" weight="1110" price="3580000" sellable="true" armor_type="none" />
+<item id="6687" name="Sealed Major Arcana Circlet" weight="550" price="5370000" sellable="true" armor_type="none" />
+<item id="6724" name="Sealed Tateossian Earring" weight="150" price="3700000" sellable="true" armor_type="none" />
+<item id="6725" name="Sealed Tateossian Ring" weight="150" price="2470000" sellable="true" armor_type="none" />
+<item id="6726" name="Sealed Tateossian Necklace" weight="150" price="4940000" sellable="true" armor_type="none" />
+<item id="6834" name="Circlet of Innadril" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="6835" name="Circlet of Dion" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="6836" name="Circlet of Goddard" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="6837" name="Circlet of Oren" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="6838" name="Circlet of Gludio" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="6839" name="Circlet of Giran" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="6840" name="Circlet of Aden" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="6841" name="The Lord's Crown" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="6842" name="Wings of Destiny Circlet" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="6843" name="Cat Ear" weight="10" price="500000" sellable="true" armor_type="none" />
+<item id="6844" name="Lady's Hair Pin" weight="10" price="500000" sellable="true" armor_type="none" />
+<item id="6845" name="Pirate's Eye Patch" weight="10" price="500000" sellable="true" armor_type="none" />
+<item id="6846" name="Monocle" weight="10" price="500000" sellable="true" armor_type="none" />
+<item id="7059" name="Golden Festival Mask" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7060" name="Tateossian Hairband" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="7680" name="Raccoon Ears" weight="10" price="500000" sellable="true" armor_type="none" />
+<item id="7681" name="Outlaw's Eyepatch" weight="10" price="500000" sellable="true" armor_type="none" />
+<item id="7682" name="Maiden's Hairpin" weight="10" price="500000" sellable="true" armor_type="none" />
+<item id="7683" name="Rabbit Ears" weight="10" price="500000" sellable="true" armor_type="none" />
+<item id="7694" name="Noblesse Tiara" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7695" name="Forget-me-not Hairpin" weight="10" price="500000" sellable="true" armor_type="none" />
+<item id="7696" name="Daisy Hairpin" weight="10" price="500000" sellable="true" armor_type="none" />
+<item id="7836" name="Santa's Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="7837" name="Sayha's White Mask" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7839" name="Gran Kain's Black Mask" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7840" name="Rabbit Ears (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7841" name="Racoon Ears (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7842" name="Cat Ears -(Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7843" name="Pirate's Eyepatch (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7844" name="Monocle (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7845" name="Outlaw's Eyepatch (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7846" name="Lady's Hairpin (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7847" name="Noblewoman's Hairpin (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7848" name="Forget-me-not Hairpin (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7849" name="Daisy Hairpin (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="7850" name="Clan Oath Helm" weight="640" price="0" sellable="true" armor_type="none" />
+<item id="7851" name="Clan Oath Armor" weight="9870" price="0" sellable="true" armor_type="heavy" />
+<item id="7852" name="Clan Oath Gauntlets - Heavy Armor" weight="640" price="0" sellable="true" armor_type="none" />
+<item id="7853" name="Clan Oath Sabaton - Heavy Armor" weight="1280" price="0" sellable="true" armor_type="none" />
+<item id="7854" name="Clan Oath Brigandine" weight="5400" price="0" sellable="true" armor_type="light" />
+<item id="7855" name="Clan Oath Leather Gloves - Light Armor" weight="640" price="0" sellable="true" armor_type="none" />
+<item id="7856" name="Clan Oath Boots - Light Armor" weight="1280" price="0" sellable="true" armor_type="none" />
+<item id="7857" name="Clan Oath Aketon" weight="2450" price="0" sellable="true" armor_type="magic" />
+<item id="7858" name="Clan Oath Padded Gloves - Robe" weight="640" price="0" sellable="true" armor_type="none" />
+<item id="7859" name="Clan Oath Sandals - Robe" weight="1280" price="0" sellable="true" armor_type="none" />
+<item id="7860" name="Apella Helm" weight="570" price="0" sellable="true" armor_type="none" />
+<item id="7861" name="Apella Plate Armor" weight="9780" price="0" sellable="true" armor_type="heavy" />
+<item id="7862" name="Apella Gauntlet - Heavy Armor" weight="580" price="0" sellable="true" armor_type="none" />
+<item id="7863" name="Apella Solleret - Heavy Armor" weight="1130" price="0" sellable="true" armor_type="none" />
+<item id="7864" name="Apella Brigandine" weight="5400" price="0" sellable="true" armor_type="light" />
+<item id="7865" name="Apella Leather Gloves - Light Armor" weight="580" price="0" sellable="true" armor_type="none" />
+<item id="7866" name="Apella Boots - Light Armor" weight="1130" price="0" sellable="true" armor_type="none" />
+<item id="7867" name="Apella Doublet" weight="2450" price="0" sellable="true" armor_type="magic" />
+<item id="7868" name="Apella Silk Gloves - Robe" weight="580" price="0" sellable="true" armor_type="none" />
+<item id="7869" name="Apella Sandals - Robe" weight="1130" price="0" sellable="true" armor_type="none" />
+<item id="7870" name="Sealed Apella Helm" weight="570" price="0" sellable="true" armor_type="none" />
+<item id="7871" name="Sealed Apella Plate Armor" weight="9780" price="0" sellable="true" armor_type="heavy" />
+<item id="7872" name="Sealed Apella Gauntlet" weight="580" price="0" sellable="true" armor_type="none" />
+<item id="7873" name="Sealed Apella Solleret" weight="1130" price="0" sellable="true" armor_type="none" />
+<item id="7874" name="Sealed Apella Brigandine" weight="5400" price="0" sellable="true" armor_type="light" />
+<item id="7875" name="Sealed Apella Leather Gloves" weight="580" price="0" sellable="true" armor_type="none" />
+<item id="7876" name="Sealed Apella Boots" weight="1130" price="0" sellable="true" armor_type="none" />
+<item id="7877" name="Sealed Apella Doublet" weight="2450" price="0" sellable="true" armor_type="magic" />
+<item id="7878" name="Sealed Apella Silk Gloves" weight="580" price="0" sellable="true" armor_type="none" />
+<item id="7879" name="Sealed Apella Sandals" weight="1130" price="0" sellable="true" armor_type="none" />
+<item id="8177" name="Raid Challenger's Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8178" name="Raid Adventurer's Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8179" name="Raid Master's Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8180" name="Circlet of Ice Fairy Sirra" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8181" name="Academy Circlet" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="8182" name="Circlet of Rune" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="8183" name="Circlet of Schuttgart" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="8184" name="Party Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8185" name="Feathered Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8186" name="Artisan's Goggles" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8187" name="Demon Horns" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8188" name="Little Angel Wings" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8189" name="Fairy Antennae" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8191" name="Frintezza's Necklace" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="8541" name="Little Harness" weight="160" price="0" sellable="true" armor_type="pet" />
+<item id="8552" name="Mask of Spirits" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8557" name="Blue Party Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8558" name="Eva's Mark (Event)" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8559" name="Diadem" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8560" name="Teddy Bear Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8561" name="Piggy Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8562" name="Jester Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8563" name="Wizard Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8564" name="Dapper Cap" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8565" name="Romantic Chapeau" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8566" name="Iron Circlet" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="8567" name="Valakas Slayer Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8568" name="Antharas Slayer Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8569" name="Half Face Mask" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8660" name="Demon Horns" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8661" name="Mask of Spirits" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8662" name="Fairy Antennae (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="8910" name="Black Feather Mask (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="8911" name="Black Half-Mask (Event)" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8912" name="Single Stem Flower" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8913" name="Butterfly Hairpin" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8914" name="Luxurious Gold Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8915" name="Luxurious Silver Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8916" name="Eye Patch" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8917" name="Goddess Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8918" name="Leather Cap" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8919" name="First Mate's Hat - Event Use" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="8920" name="Angel Halo" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8921" name="Demon Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8922" name="Pirate Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8923" name="Scar" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8936" name="Santa's Antlers" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8947" name="L2 Day: Rabbit Ears" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8948" name="L2 Day: Little Angel Wings" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8949" name="L2 Day: Fairy Antennae" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8950" name="L2 Day: Feathered Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="8951" name="L2 Day: Artisan's Goggles" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9030" name="Shadow Item: Bronze Breastplate" weight="2973" price="0" sellable="false" armor_type="heavy" />
+<item id="9031" name="Shadow Item: Bronze Gaiters" weight="1320" price="0" sellable="false" armor_type="heavy" />
+<item id="9032" name="Shadow Item: Hard Leather Shirt" weight="1573" price="0" sellable="false" armor_type="light" />
+<item id="9033" name="Shadow Item: Hard Leather Gaiters" weight="537" price="0" sellable="false" armor_type="light" />
+<item id="9034" name="Shadow Item: Tunic of Magic" weight="693" price="0" sellable="false" armor_type="magic" />
+<item id="9035" name="Shadow Item: Stockings of Magic" weight="343" price="0" sellable="false" armor_type="magic" />
+<item id="9037" name="Shadow Item: Hard Leather Helmet" weight="213" price="0" sellable="false" armor_type="none" />
+<item id="9038" name="Shadow Item: Boots" weight="437" price="0" sellable="false" armor_type="none" />
+<item id="9039" name="Shadow Item: Bracer" weight="217" price="0" sellable="false" armor_type="none" />
+<item id="9040" name="Shadow Item: Mithril Breastplate" weight="2890" price="0" sellable="false" armor_type="heavy" />
+<item id="9041" name="Shadow Item: Mithril Gaiters" weight="1277" price="0" sellable="false" armor_type="heavy" />
+<item id="9042" name="Shadow Item: Gauntlet" weight="213" price="0" sellable="false" armor_type="none" />
+<item id="9043" name="Shadow Item: Iron Boots" weight="427" price="0" sellable="false" armor_type="none" />
+<item id="9045" name="Shadow Item: Reinforced Leather Shirt" weight="1523" price="0" sellable="false" armor_type="light" />
+<item id="9046" name="Shadow Item: Reinforced Leather Gaiters" weight="523" price="0" sellable="false" armor_type="light" />
+<item id="9047" name="Shadow Item: Reinforced Leather Gloves" weight="213" price="0" sellable="false" armor_type="none" />
+<item id="9048" name="Shadow Item: Reinforced Leather Boots" weight="427" price="0" sellable="false" armor_type="none" />
+<item id="9049" name="Shadow Item: Tunic of Knowledge" weight="673" price="0" sellable="false" armor_type="magic" />
+<item id="9050" name="Shadow Item: Stockings of Knowledge" weight="333" price="0" sellable="false" armor_type="magic" />
+<item id="9051" name="Shadow Item: Gloves of Knowledge" weight="213" price="0" sellable="false" armor_type="none" />
+<item id="9052" name="Shadow Item: Boots of Knowledge" weight="423" price="0" sellable="false" armor_type="none" />
+<item id="9053" name="Shadow Item: Helmet" weight="213" price="0" sellable="false" armor_type="none" />
+<item id="9054" name="Shadow Item: Composite Armor" weight="3660" price="0" sellable="false" armor_type="heavy" />
+<item id="9055" name="Shadow Item: Composite Boots" weight="407" price="0" sellable="false" armor_type="none" />
+<item id="9057" name="Shadow Item: Composite Helmet" weight="203" price="0" sellable="false" armor_type="none" />
+<item id="9058" name="Shadow Item: Theca Leather Armor" weight="1457" price="0" sellable="false" armor_type="light" />
+<item id="9059" name="Shadow Item: Theca Leather Gaiters" weight="510" price="0" sellable="false" armor_type="light" />
+<item id="9060" name="Shadow Item: Theca Leather Boots" weight="403" price="0" sellable="false" armor_type="none" />
+<item id="9061" name="Shadow Item: Theca Leather Gloves" weight="200" price="0" sellable="false" armor_type="none" />
+<item id="9062" name="Shadow Item: Demon's Tunic" weight="663" price="0" sellable="false" armor_type="magic" />
+<item id="9063" name="Shadow Item: Demon's Stockings" weight="327" price="0" sellable="false" armor_type="magic" />
+<item id="9064" name="Shadow Item: Demon's Boots" weight="407" price="0" sellable="false" armor_type="none" />
+<item id="9065" name="Shadow Item: Demon's Gloves" weight="203" price="0" sellable="false" armor_type="none" />
+<item id="9066" name="Shadow Item: Shining Circlet" weight="200" price="0" sellable="false" armor_type="none" />
+<item id="9067" name="Shadow Item: Zubei's Breastplate" weight="2657" price="0" sellable="false" armor_type="heavy" />
+<item id="9068" name="Shadow Item: Zubei's Gaiters" weight="1190" price="0" sellable="false" armor_type="heavy" />
+<item id="9069" name="Shadow Item: Zubei's Helmet" weight="197" price="0" sellable="false" armor_type="none" />
+<item id="9071" name="Shadow Item: Zubei's Gauntlet" weight="197" price="0" sellable="false" armor_type="none" />
+<item id="9072" name="Shadow Item: Zubei's Boots" weight="393" price="0" sellable="false" armor_type="none" />
+<item id="9073" name="Shadow Item: Zubei's Leather Shirt" weight="1443" price="0" sellable="false" armor_type="light" />
+<item id="9074" name="Shadow Item: Zubei's Leather Gaiters" weight="493" price="0" sellable="false" armor_type="light" />
+<item id="9075" name="Shadow Item: Zubei's Gauntlet" weight="197" price="0" sellable="false" armor_type="none" />
+<item id="9076" name="Shadow Item: Zubei's Boots" weight="393" price="0" sellable="false" armor_type="none" />
+<item id="9077" name="Shadow Item: Tunic of Zubei" weight="653" price="0" sellable="false" armor_type="magic" />
+<item id="9078" name="Shadow Item: Stockings of Zubei" weight="313" price="0" sellable="false" armor_type="magic" />
+<item id="9079" name="Shadow Item: Zubei's Gauntlet" weight="197" price="0" sellable="false" armor_type="none" />
+<item id="9080" name="Shadow Item: Zubei's Boots" weight="393" price="0" sellable="false" armor_type="none" />
+<item id="9081" name="Shadow Item: Dark Crystal Breastplate" weight="2567" price="0" sellable="false" armor_type="heavy" />
+<item id="9082" name="Shadow Item: Dark Crystal Gaiters" weight="1107" price="0" sellable="false" armor_type="heavy" />
+<item id="9083" name="Shadow Item: Dark Crystal Helmet" weight="190" price="0" sellable="false" armor_type="none" />
+<item id="9085" name="Shadow Item: Dark Crystal Gloves" weight="193" price="0" sellable="false" armor_type="none" />
+<item id="9086" name="Shadow Item: Dark Crystal Boots" weight="370" price="0" sellable="false" armor_type="none" />
+<item id="9087" name="Shadow Item: Dark Crystal Leather Armor" weight="1433" price="0" sellable="false" armor_type="light" />
+<item id="9088" name="Shadow Item: Dark Crystal Leggings" weight="493" price="0" sellable="false" armor_type="light" />
+<item id="9089" name="Shadow Item: Dark Crystal Gloves" weight="193" price="0" sellable="false" armor_type="none" />
+<item id="9090" name="Shadow Item: Dark Crystal Boots" weight="370" price="0" sellable="false" armor_type="none" />
+<item id="9091" name="Shadow Item: Dark Crystal Robe" weight="817" price="0" sellable="false" armor_type="magic" />
+<item id="9092" name="Shadow Item: Dark Crystal Gloves" weight="193" price="0" sellable="false" armor_type="none" />
+<item id="9093" name="Shadow Item: Dark Crystal Boots" weight="370" price="0" sellable="false" armor_type="none" />
+<item id="9094" name="Shadow Item: Majestic Plate Armor" weight="3067" price="0" sellable="false" armor_type="heavy" />
+<item id="9095" name="Shadow Item: Magestic Circlet" weight="183" price="0" sellable="false" armor_type="none" />
+<item id="9096" name="Shadow Item: Magestic Gauntlet" weight="180" price="0" sellable="false" armor_type="none" />
+<item id="9097" name="Shadow Item: Magestic Boots" weight="370" price="0" sellable="false" armor_type="none" />
+<item id="9098" name="Shadow Item: Majestic Leather Armor" weight="1783" price="0" sellable="false" armor_type="light" />
+<item id="9099" name="Shadow Item: Magestic Gauntlet" weight="180" price="0" sellable="false" armor_type="none" />
+<item id="9100" name="Shadow Item: Magestic Boots" weight="370" price="0" sellable="false" armor_type="none" />
+<item id="9101" name="Shadow Item: Magestic Robe" weight="777" price="0" sellable="false" armor_type="magic" />
+<item id="9102" name="Shadow Item: Magestic Gauntlet" weight="180" price="0" sellable="false" armor_type="none" />
+<item id="9103" name="Shadow Item: Magestic Boots" weight="370" price="0" sellable="false" armor_type="none" />
+<item id="9128" name="Shadow Item: Mithril Gauntlet" weight="200" price="0" sellable="false" armor_type="none" />
+<item id="9138" name="Santa's Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9145" name="Little Angel Wings (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9158" name="Golden Circlet of Redemption" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9159" name="Silver Circlet of Salvation" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9160" name="Pig Wrangler's Cap" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9177" name="Teddy Bear Hat - Blessed Resurrection Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9178" name="Piggy Hat - Blessed Resurrection Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9179" name="Jester Hat - Blessed Resurrection Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9180" name="Wizard Hat - Blessed Resurrection Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9181" name="Dapper Cap - Blessed Resurrection Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9182" name="Romantic Chapeau - Blessed Resurrection Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9183" name="Iron Circlet - Blessed Resurrection Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9184" name="Teddy Bear Hat - Blessed Escape Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9185" name="Piggy Hat - Blessed Escape Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9186" name="Jester Hat - Blessed Escape Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9187" name="Wizard Hat - Blessed Escape Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9188" name="Dapper Cap - Blessed Escape Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9189" name="Romantic Chapeau - Blessed Escape Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9190" name="Iron Circlet - Blessed Escape Effect" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9191" name="Teddy Bear Hat - Big Head" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9192" name="Piggy Hat - Big Head" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9193" name="Jester Hat - Big Head" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9194" name="Wizard Hat - Big Head" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9195" name="Dapper Hat - Big Head" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9196" name="Romantic Chapeau - Big Head" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9197" name="Iron Circlet - Big Head" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9198" name="Teddy Bear Hat - Firework" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9199" name="Piggy Hat - Firework" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9200" name="Jester Hat - Firework" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9201" name="Wizard Hat - Firework" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9202" name="Dapper Hat - Firework" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9203" name="Romantic Chapeau - Firework" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9204" name="Iron Circlet - Firework" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9208" name="Phantom Mask (Event)" weight="10" price="0" sellable="false" armor_type="none" />
+<item id="9391" name="Human Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9392" name="Elven Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9393" name="Dark Elven Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9394" name="Orcish Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9395" name="Dwarven Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9396" name="Kamaelic Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9397" name="Shield Master Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9398" name="Bard Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9399" name="Force Master Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9400" name="Weapon Master Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9401" name="Dagger Master Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9402" name="Bow Master Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9403" name="Wizard Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9404" name="Summoner Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9405" name="Healer Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9406" name="Enchanter Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9407" name="Weapon Master Circlet(Kamael only)" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9408" name="Bow Master Circlet(Kamael only)" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9409" name="Black Phantom Mask (Event)" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9410" name="Human Veteran's Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9411" name="Elven Veteran's Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9412" name="Dark Elven Veteran's Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9413" name="Orcish Veteran's Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9414" name="Dwarf Veteran's Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9415" name="Kamaelic Veteran's Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9416" name="Dynasty Breast Plate" weight="7570" price="0" sellable="true" armor_type="heavy" />
+<item id="9417" name="Dynasty Breast Plate - Shield Master" weight="7570" price="0" sellable="true" armor_type="heavy" />
+<item id="9418" name="Dynasty Breast Plate - Weapon Master" weight="7570" price="0" sellable="true" armor_type="heavy" />
+<item id="9419" name="Dynasty Breast Plate - Force Master" weight="7570" price="0" sellable="true" armor_type="heavy" />
+<item id="9420" name="Dynasty Breast Plate - Bard" weight="7570" price="0" sellable="true" armor_type="heavy" />
+<item id="9421" name="Dynasty Gaiter" weight="3210" price="0" sellable="true" armor_type="heavy" />
+<item id="9422" name="Dynasty Helmet" weight="530" price="0" sellable="true" armor_type="heavy" />
+<item id="9423" name="Dynasty Gauntlet" weight="520" price="0" sellable="true" armor_type="heavy" />
+<item id="9424" name="Dynasty Boots" weight="1090" price="0" sellable="true" armor_type="heavy" />
+<item id="9425" name="Dynasty Leather Armor" weight="4180" price="0" sellable="true" armor_type="light" />
+<item id="9426" name="Dynasty Leather Armor - Dagger Master" weight="4180" price="0" sellable="true" armor_type="light" />
+<item id="9427" name="Dynasty Leather Armor - Bow Master" weight="4180" price="0" sellable="true" armor_type="light" />
+<item id="9428" name="Dynasty Leather Leggings" weight="1370" price="0" sellable="true" armor_type="light" />
+<item id="9429" name="Dynasty Leather Helmet" weight="530" price="0" sellable="true" armor_type="light" />
+<item id="9430" name="Dynasty Leather Gloves" weight="520" price="0" sellable="true" armor_type="light" />
+<item id="9431" name="Dynasty Leather Boots" weight="1090" price="0" sellable="true" armor_type="light" />
+<item id="9432" name="Dynasty Tunic" weight="1780" price="0" sellable="true" armor_type="magic" />
+<item id="9433" name="Dynasty Tunic - Healer" weight="1780" price="0" sellable="true" armor_type="magic" />
+<item id="9434" name="Dynasty Tunic - Enchanter" weight="1780" price="0" sellable="true" armor_type="magic" />
+<item id="9435" name="Dynasty Tunic - Summoner" weight="1780" price="0" sellable="true" armor_type="magic" />
+<item id="9436" name="Dynasty Tunic - Human Wizard" weight="1780" price="0" sellable="true" armor_type="magic" />
+<item id="9437" name="Dynasty Stockings" weight="860" price="0" sellable="true" armor_type="magic" />
+<item id="9438" name="Dynasty Circlet" weight="530" price="0" sellable="true" armor_type="magic" />
+<item id="9439" name="Dynasty Gloves" weight="520" price="0" sellable="true" armor_type="magic" />
+<item id="9440" name="Dynasty Shoes" weight="1090" price="0" sellable="true" armor_type="magic" />
+<item id="9452" name="Sealed Dynasty Earring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9453" name="Sealed Dynasty Necklace" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9454" name="Sealed Dynasty Ring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9455" name="Dynasty Earrings" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9456" name="Dynasty Necklace" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9457" name="Dynasty Ring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9458" name="Dynasty Earrings" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9459" name="Dynasty Necklace" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9460" name="Dynasty Ring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9461" name="Dynasty Earrings" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9462" name="Dynasty Necklace" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9463" name="Dynasty Ring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9464" name="Dynasty Earrings" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9465" name="Dynasty Necklace" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9466" name="Dynasty Ring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9467" name="Dynasty Earrings" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9468" name="Dynasty Necklace" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9469" name="Dynasty Ring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9470" name="Dynasty Earrings" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9471" name="Dynasty Necklace" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9472" name="Dynasty Ring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9473" name="Dynasty Earrings" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9474" name="Dynasty Necklace" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9475" name="Dynasty Ring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9476" name="Dynasty Earrings" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9477" name="Dynasty Necklace" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9478" name="Dynasty Ring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9479" name="Dynasty Earrings" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9480" name="Dynasty Necklace" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9481" name="Dynasty Ring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9514" name="Sealed Dynasty Blast Plate" weight="7570" price="0" sellable="true" armor_type="heavy" />
+<item id="9515" name="Sealed Dynasty Gaiter" weight="3210" price="0" sellable="true" armor_type="heavy" />
+<item id="9516" name="Sealed Dynasty Helmet" weight="530" price="0" sellable="true" armor_type="heavy" />
+<item id="9517" name="Sealed Dynasty Gauntlets" weight="520" price="0" sellable="true" armor_type="heavy" />
+<item id="9518" name="Sealed Dynasty Boots" weight="1090" price="0" sellable="true" armor_type="heavy" />
+<item id="9519" name="Sealed Dynasty Leather Armor" weight="4180" price="0" sellable="true" armor_type="light" />
+<item id="9520" name="Sealed Dynasty Leather Leggings" weight="1370" price="0" sellable="true" armor_type="light" />
+<item id="9521" name="Sealed Dynasty Leather Helmet" weight="530" price="0" sellable="true" armor_type="light" />
+<item id="9522" name="Sealed Dynasty Leather Gloves" weight="520" price="0" sellable="true" armor_type="light" />
+<item id="9523" name="Sealed Dynasty Leather Boots" weight="1090" price="0" sellable="true" armor_type="light" />
+<item id="9524" name="Sealed Dynasty Tunic" weight="1780" price="0" sellable="true" armor_type="magic" />
+<item id="9525" name="Sealed Dynasty Stockings" weight="860" price="0" sellable="true" armor_type="magic" />
+<item id="9526" name="Sealed Dynasty Circlet" weight="530" price="0" sellable="true" armor_type="magic" />
+<item id="9527" name="Sealed Dynasty Gloves" weight="520" price="0" sellable="true" armor_type="magic" />
+<item id="9528" name="Sealed Dynasty Shoes" weight="1090" price="0" sellable="true" armor_type="magic" />
+<item id="9577" name="Cotton Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="9578" name="Cotton cloth Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="9579" name="Silk Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="9580" name="Leather Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="9581" name="Barbed Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="9582" name="Mithril Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="9583" name="Striped Cotton Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="9584" name="Striped Linen Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="9585" name="Striped Silk Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="9586" name="Striped Leather Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="9587" name="Striped Scale Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="9588" name="Striped Mithril Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="9589" name="Iron Bracelet" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9590" name="Bronze Bracelet" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9591" name="Steel Bracelet" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9592" name="Mithril Bracelet" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9605" name="Agathion Seal Bracelet - Rainbow Clan Hall" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9606" name="Agathion Seal Bracelet - Wild Beast Reserve" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9607" name="Agathion Seal Bracelet - Gludio" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9608" name="Agathion Seal Bracelet - Dion" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9609" name="Agathion Seal Bracelet - Giran" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9610" name="Agathion Seal Bracelet - Oren" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9611" name="Agathion Seal Bracelet - Aden" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9612" name="Agathion Seal Bracelet - Innadril" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9613" name="Agathion Seal Bracelet - Goddard" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9614" name="Agathion Seal Bracelet - Rune" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9615" name="Agathion Seal Bracelet - Schuttgart" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9662" name="Black Hair Wolf Scale Armor" weight="160" price="2100000" sellable="true" armor_type="none" />
+<item id="9663" name="Black Hair Wolf Bronze Armor" weight="160" price="4100000" sellable="true" armor_type="none" />
+<item id="9664" name="Black Hair Wolf Plate Armor" weight="160" price="8400000" sellable="true" armor_type="none" />
+<item id="9665" name="Black Hair Wolf Mithril Armor" weight="160" price="0" sellable="true" armor_type="none" />
+<item id="9666" name="Black Hair Wolf Oriharukon Armor" weight="160" price="0" sellable="true" armor_type="none" />
+<item id="9667" name="Black Hair Wolf Orichalcum Armor" weight="160" price="0" sellable="true" armor_type="none" />
+<item id="9669" name="Native Headdress" weight="70" price="0" sellable="true" armor_type="none" />
+<item id="9670" name="Native Chestcloth" weight="4720" price="0" sellable="true" armor_type="none" />
+<item id="9671" name="Native Loincloth" weight="1700" price="0" sellable="true" armor_type="none" />
+<item id="9677" name="Ring of Wind Mastery" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9820" name="Shadow Item: Clan Oath Helm" weight="210" price="0" sellable="false" armor_type="none" />
+<item id="9821" name="Shadow Item: Clan Oath Armor" weight="3290" price="0" sellable="false" armor_type="none" />
+<item id="9822" name="Shadow Item: Clan Oath Gauntlets" weight="210" price="0" sellable="false" armor_type="none" />
+<item id="9823" name="Shadow Item: Clan Oath Sabaton" weight="430" price="0" sellable="false" armor_type="none" />
+<item id="9824" name="Shadow Item: Clan Oath Brigandine" weight="1800" price="0" sellable="false" armor_type="none" />
+<item id="9825" name="Shadow Item: Clan Oath Leather Gloves" weight="210" price="0" sellable="false" armor_type="none" />
+<item id="9826" name="Shadow Item: Clan Oath Boots" weight="430" price="0" sellable="false" armor_type="none" />
+<item id="9827" name="Shadow Item: Clan Oath Aketon" weight="820" price="0" sellable="false" armor_type="none" />
+<item id="9828" name="Shadow Item: Clan Oath Padded Gloves" weight="210" price="0" sellable="false" armor_type="none" />
+<item id="9829" name="Shadow Item: Clan Oath Sandals" weight="430" price="0" sellable="false" armor_type="none" />
+<item id="9830" name="Improved Apella Helm" weight="570" price="0" sellable="true" armor_type="none" />
+<item id="9831" name="Improved Apella Plate Armor" weight="9780" price="0" sellable="true" armor_type="none" />
+<item id="9832" name="Improved Apella Gauntlet" weight="580" price="0" sellable="true" armor_type="none" />
+<item id="9833" name="Improved Apella Solleret" weight="1130" price="0" sellable="true" armor_type="none" />
+<item id="9834" name="Improved Apella Brigandine" weight="5400" price="0" sellable="true" armor_type="none" />
+<item id="9835" name="Improved Apella Leather Gloves" weight="580" price="0" sellable="true" armor_type="none" />
+<item id="9836" name="Improved Apella Boots" weight="1130" price="0" sellable="true" armor_type="none" />
+<item id="9837" name="Improved Apella Doublet" weight="2450" price="0" sellable="true" armor_type="none" />
+<item id="9838" name="Improved Apella Silk Gloves" weight="580" price="0" sellable="true" armor_type="none" />
+<item id="9839" name="Improved Apella Sandals" weight="1130" price="0" sellable="true" armor_type="none" />
+<item id="9883" name="Teddy Bear Hat - Big Head" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9884" name="Piggy Hat - Big Head" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9885" name="Jester Hat - Big Head" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9886" name="Wizard Hat - Big Head" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9887" name="Dapper Hat - Big Head" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9888" name="Romantic Chapeau - Big Head" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9889" name="Iron Circlet - Big Head" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9890" name="Teddy Bear Hat - Firework" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9891" name="Piggy Hat - Firework" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9892" name="Jester Hat - Firework" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9893" name="Wizard Hat - Firework" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9894" name="Dapper Hat - Firework" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9895" name="Romantic Chapeau - Firework" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9896" name="Iron Circlet - Firework" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="9899" name="Weight Loss Ring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9900" name="Quiet Footsteps Ring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9909" name="Agathion Seal Bracelet" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9913" name="Talisman_Test" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9914" name="Blue Talisman of Power" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9915" name="Blue Talisman of Wild Magic" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9916" name="Blue Talisman of Defense" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9917" name="Red Talisman of Minimum Clarity" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9918" name="Red Talisman of Maximum Clarity" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9919" name="Blue Talisman of Reflection" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9920" name="Blue Talisman of Invisibility" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9921" name="Blue Talisman of Protection" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9922" name="Black Talisman - Mending" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9923" name="Black Talisman - Escape" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9924" name="Blue Talisman of Healing" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9925" name="Red Talisman of Recovery" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9926" name="Blue Talisman of Defense" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9927" name="Blue Talisman of Magic Defense" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9928" name="Red Talisman of Mental Regeneration" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9929" name="Blue Talisman of Protection" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9930" name="Blue Talisman of Dodging" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9931" name="Red Talisman of Meditation" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9932" name="Blue Talisman of Invincibility" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9933" name="Yellow Talisman of Power" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9934" name="Yellow Talisman of Violent Haste" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9935" name="Yellow Talisman of Arcane Defense" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9936" name="Yellow Talisman of Arcane Power" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9937" name="Yellow Talisman of Arcane Haste" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9938" name="Yellow Talisman of Accuracy" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9939" name="Yellow Talisman of Defense" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9940" name="Yellow Talisman of Alacrity" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9941" name="Yellow Talisman of Speed" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9942" name="Yellow Talisman of Critical Reduction" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9943" name="Yellow Talisman of Critical Power" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9944" name="Yellow Talisman of Critical Dodging" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9945" name="Yellow Talisman of Dodging" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9946" name="Yellow Talisman of Healing" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9947" name="Yellow Talisman of CP Regeneration" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9948" name="Yellow Talisman of Physical Regeneration" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9949" name="Yellow Talisman of Mental Regeneration" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9950" name="Grey Talisman of Weight Training" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9951" name="Grey Talisman of Mid-Grade Fishing" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9952" name="Orange Talisman - Hot Springs Recovery" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9953" name="Orange Talisman - Elixir of Life" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9954" name="Orange Talisman - Elixir of Mental Strength" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9955" name="Black Talisman of Vocalization" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9956" name="Black Talisman of Arcane Freedom" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9957" name="Black Talisman of Physical Freedom" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9958" name="Black Talisman of Rescue" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9959" name="Black Talisman of Free Speech" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9960" name="White Talisman of Bravery" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9961" name="White Talisman of Motion" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9962" name="White Talisman of Grounding" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9963" name="White Talisman of Attention" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9964" name="White Talisman of Bandages" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9965" name="White Talisman of Protection" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="9966" name="White Talisman of Freedom" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10018" name="Agathion Seal Bracelet - Fortress" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10019" name="Ring Mail Breastplate" weight="8820" price="0" sellable="true" armor_type="none" />
+<item id="10020" name="Iron Plate Gaiters" weight="3820" price="0" sellable="true" armor_type="none" />
+<item id="10021" name="Puma Skin Shirt" weight="4700" price="0" sellable="true" armor_type="none" />
+<item id="10022" name="Puma Skin Gaiters" weight="1600" price="0" sellable="true" armor_type="none" />
+<item id="10023" name="Cursed Tunic" weight="2090" price="0" sellable="true" armor_type="none" />
+<item id="10024" name="Cursed Stockings" weight="1020" price="0" sellable="true" armor_type="none" />
+<item id="10122" name="Red Crescent Earring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10123" name="Necklace of Devotion" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10124" name="Ring of Devotion" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10126" name="Dynasty Leather Armor - Force Master" weight="4180" price="0" sellable="true" armor_type="light" />
+<item id="10127" name="Dynasty Leather Armor - Weapon Master" weight="4180" price="0" sellable="true" armor_type="light" />
+<item id="10139" name="Agathion Bracelet" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10140" name="Blessed Ring of Escape" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10141" name="White Talisman - Yeti Transform" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10142" name="White Talisman - Buffalo Transform" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10158" name="Grey Talisman of Upper Grade Fishing" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10168" name="Dynasty Leather Armor - Enchanter" weight="4180" price="0" sellable="true" armor_type="light" />
+<item id="10169" name="Enchanter Circlet (Kamael only)" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10170" name="Baylor's Earring" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10175" name="Gobblin Circlet (Event)" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10176" name="Half Face Mask (Event)" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10177" name="Black Half-Mask (Event)" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10207" name="Enhanced Striped Scale Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="10208" name="Enhanced Striped Mithril Shirt" weight="130" price="0" sellable="true" armor_type="none" />
+<item id="10209" name="Enhanced Steel Bracelet" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10210" name="Enhanced Mithril Bracelet" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10211" name="Blessed Ring of Resurrection" weight="150" price="0" sellable="true" armor_type="none" />
+<item id="10214" name="Dynasty Leather Armor - Summoner" weight="4180" price="0" sellable="true" armor_type="light" />
+<item id="10227" name="Dynasty Platinum Plate" weight="7570" price="0" sellable="true" armor_type="heavy" />
+<item id="10228" name="Dynasty Platinum Plate - Shield Master" weight="7570" price="0" sellable="true" armor_type="heavy" />
+<item id="10229" name="Dynasty Platinum Plate - Weapon Master" weight="7570" price="0" sellable="true" armor_type="heavy" />
+<item id="10230" name="Dynasty Platinum Plate - Force Master" weight="7570" price="0" sellable="true" armor_type="heavy" />
+<item id="10231" name="Dynasty Platinum Plate - Bard" weight="7570" price="0" sellable="true" armor_type="heavy" />
+<item id="10232" name="Dynasty Jewel Leather Mail" weight="4180" price="0" sellable="true" armor_type="light" />
+<item id="10233" name="Dynasty Jewel Leather Mail - Dagger Master" weight="4180" price="0" sellable="true" armor_type="light" />
+<item id="10234" name="Dynasty Jewel Leather Mail - Bow Master" weight="4180" price="0" sellable="true" armor_type="light" />
+<item id="10235" name="Dynasty Silver Satin Tunic" weight="1780" price="0" sellable="true" armor_type="magic" />
+<item id="10236" name="Dynasty Silver Satin Tunic - Healer" weight="1780" price="0" sellable="true" armor_type="magic" />
+<item id="10237" name="Dynasty Silver Satin Tunic - Enchanter" weight="1780" price="0" sellable="true" armor_type="magic" />
+<item id="10238" name="Dynasty Silver Satin Tunic - Summoner" weight="1780" price="0" sellable="true" armor_type="magic" />
+<item id="10239" name="Dynasty Silver Satin Tunic - Human Wizard" weight="1780" price="0" sellable="true" armor_type="magic" />
+<item id="10240" name="Bird Nest" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10241" name="Purple Viking Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10242" name="Golden Viking Circlet" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10243" name="Panda Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10244" name="White Sheep Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10245" name="Black Sheep Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10246" name="Frog Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10247" name="Fish Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10248" name="Straw Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10249" name="Chicken Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10250" name="Explorer Hat" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10251" name="Medieval Party Mask" weight="10" price="0" sellable="true" armor_type="none" />
+<item id="10273" name="Wolf Summoning Bracelet" weight="150" price="0" sellable="true" armor_type="none" />
+</list>

@@ -1,0 +1,1602 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+<item id="1" name="Short Sword" weight="1600" price="768" sellable="true" weapon_type="sword" />
+<item id="2" name="Long Sword" weight="1560" price="136000" sellable="true" weapon_type="sword" />
+<item id="3" name="Broadsword" weight="1590" price="12500" sellable="true" weapon_type="sword" />
+<item id="4" name="Club" weight="1870" price="768" sellable="true" weapon_type="blunt" />
+<item id="5" name="Mace" weight="1880" price="12500" sellable="true" weapon_type="blunt" />
+<item id="6" name="Apprentice's Wand" weight="1350" price="138" sellable="false" weapon_type="blunt" />
+<item id="7" name="Apprentice's Rod" weight="1330" price="768" sellable="true" weapon_type="blunt" />
+<item id="8" name="Willow Staff" weight="1080" price="12500" sellable="true" weapon_type="bigblunt" />
+<item id="9" name="Cedar Staff" weight="1090" price="54100" sellable="true" weapon_type="bigblunt" />
+<item id="10" name="Dagger" weight="1160" price="138" sellable="false" weapon_type="dagger" />
+<item id="11" name="Bone Dagger" weight="1150" price="768" sellable="true" weapon_type="dagger" />
+<item id="12" name="Knife" weight="1140" price="12500" sellable="true" weapon_type="dagger" />
+<item id="13" name="Short Bow" weight="1950" price="768" sellable="true" weapon_type="bow" />
+<item id="14" name="Bow" weight="1930" price="12500" sellable="true" weapon_type="bow" />
+<item id="15" name="Short Spear" weight="2140" price="136000" sellable="true" weapon_type="pole" />
+<item id="16" name="Great Spear" weight="2120" price="244000" sellable="true" weapon_type="pole" />
+<item id="18" name="Leather Shield" weight="1430" price="39" sellable="true" weapon_type="none" />
+<item id="19" name="Small Shield" weight="1420" price="638" sellable="true" weapon_type="none" />
+<item id="20" name="Buckler" weight="1410" price="2780" sellable="true" weapon_type="none" />
+<item id="66" name="Gladius" weight="1570" price="54100" sellable="true" weapon_type="sword" />
+<item id="67" name="Orcish Sword" weight="1570" price="54100" sellable="true" weapon_type="sword" />
+<item id="68" name="Falchion" weight="1530" price="244000" sellable="true" weapon_type="sword" />
+<item id="69" name="Bastard Sword" weight="1510" price="644000" sellable="true" weapon_type="sword" />
+<item id="70" name="Claymore" weight="2090" price="1800000" sellable="true" weapon_type="bigsword" />
+<item id="71" name="Flamberge" weight="2010" price="2290000" sellable="true" weapon_type="bigsword" />
+<item id="72" name="Stormbringer" weight="1430" price="2290000" sellable="true" weapon_type="sword" />
+<item id="73" name="Shamshir" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="74" name="Katana" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="75" name="Caliburs" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="76" name="Sword of Delusion" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="77" name="Tsurugi" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="78" name="Great Sword" weight="1930" price="8680000" sellable="true" weapon_type="bigsword" />
+<item id="79" name="Sword of Damascus" weight="1350" price="13100000" sellable="true" weapon_type="sword" />
+<item id="80" name="Tallum Blade" weight="1330" price="18300000" sellable="true" weapon_type="sword" />
+<item id="81" name="Dragon Slayer" weight="1840" price="27000000" sellable="true" weapon_type="bigsword" />
+<item id="82" name="God's Blade" weight="1300" price="38000000" sellable="false" weapon_type="sword" />
+<item id="83" name="Sword of Magic" weight="970" price="716000" sellable="true" weapon_type="sword" />
+<item id="84" name="Homunkulus's Sword" weight="950" price="4300000" sellable="true" weapon_type="sword" />
+<item id="85" name="Phantom Sword" weight="860" price="18300000" sellable="true" weapon_type="sword" />
+<item id="86" name="Tomahawk" weight="1780" price="644000" sellable="true" weapon_type="blunt" />
+<item id="87" name="Iron Hammer" weight="1850" price="244000" sellable="true" weapon_type="blunt" />
+<item id="88" name="Morning Star" weight="1720" price="1400000" sellable="true" weapon_type="blunt" />
+<item id="89" name="Big Hammer" weight="1710" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="90" name="Goat Head Staff" weight="1000" price="1400000" sellable="true" weapon_type="bigblunt" />
+<item id="91" name="Heavy War Axe" weight="1620" price="8680000" sellable="true" weapon_type="blunt" />
+<item id="92" name="Sprite's Staff" weight="960" price="8680000" sellable="true" weapon_type="bigblunt" />
+<item id="93" name="Winged Spear" weight="2060" price="1400000" sellable="true" weapon_type="pole" />
+<item id="94" name="Bec de Corbin" weight="2020" price="2870000" sellable="true" weapon_type="pole" />
+<item id="95" name="Poleaxe" weight="2010" price="4300000" sellable="true" weapon_type="pole" />
+<item id="96" name="Scythe" weight="2040" price="2290000" sellable="true" weapon_type="pole" />
+<item id="97" name="Lance" weight="1920" price="13100000" sellable="true" weapon_type="pole" />
+<item id="98" name="Halberd" weight="1900" price="18300000" sellable="true" weapon_type="pole" />
+<item id="99" name="Apprentice's Spellbook" weight="650" price="12500" sellable="true" weapon_type="etc" />
+<item id="100" name="Voodoo Doll" weight="630" price="244000" sellable="true" weapon_type="etc" />
+<item id="101" name="Scroll of Wisdom" weight="610" price="409000" sellable="true" weapon_type="etc" />
+<item id="102" name="Round Shield" weight="1390" price="7110" sellable="true" weapon_type="none" />
+<item id="103" name="Tower Shield" weight="1240" price="258000" sellable="true" weapon_type="none" />
+<item id="104" name="Shield of Victory" weight="6400" price="545000" sellable="true" weapon_type="none" />
+<item id="105" name="Implosion Shield" weight="4800" price="545000" sellable="true" weapon_type="none" />
+<item id="106" name="Dark Dragon Shield" weight="4800" price="845000" sellable="true" weapon_type="none" />
+<item id="107" name="Composite Shield" weight="1230" price="258000" sellable="true" weapon_type="none" />
+<item id="108" name="Masterpiece Shield" weight="5600" price="845000" sellable="true" weapon_type="none" />
+<item id="109" name="Shield of Solar Eclipse" weight="4800" price="545000" sellable="true" weapon_type="none" />
+<item id="110" name="Doom Shield" weight="1200" price="845000" sellable="true" weapon_type="none" />
+<item id="111" name="Shield of Pledge" weight="4800" price="545000" sellable="true" weapon_type="none" />
+<item id="120" name="Sword of Reflection" weight="1550" price="136000" sellable="true" weapon_type="sword" />
+<item id="121" name="Sword of Watershadow" weight="1540" price="136000" sellable="true" weapon_type="sword" />
+<item id="122" name="Handmade Sword" weight="1570" price="54100" sellable="true" weapon_type="sword" />
+<item id="123" name="Saber" weight="1520" price="409000" sellable="true" weapon_type="sword" />
+<item id="124" name="Two-Handed Sword" weight="2180" price="967000" sellable="true" weapon_type="bigsword" />
+<item id="125" name="Spinebone Sword" weight="1510" price="644000" sellable="true" weapon_type="sword" />
+<item id="126" name="Artisan's Sword" weight="1500" price="644000" sellable="true" weapon_type="sword" />
+<item id="127" name="Crimson Sword" weight="1490" price="967000" sellable="true" weapon_type="sword" />
+<item id="128" name="Knight's Sword" weight="1500" price="644000" sellable="true" weapon_type="sword" />
+<item id="129" name="Sword of Revolution" weight="1450" price="1400000" sellable="true" weapon_type="sword" />
+<item id="130" name="Elven Sword" weight="1470" price="967000" sellable="true" weapon_type="sword" />
+<item id="131" name="Spirit Sword" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="132" name="Sword of Limit" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="133" name="Raid Sword" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="134" name="Sword of Nightmare" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="135" name="Samurai Longsword" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="136" name="Blade of Serenity" weight="1370" price="8680000" sellable="true" weapon_type="sword" />
+<item id="137" name="Mist Sword" weight="1370" price="8680000" sellable="true" weapon_type="sword" />
+<item id="138" name="Sword of Desert" weight="1370" price="8680000" sellable="true" weapon_type="sword" />
+<item id="139" name="Dusk Sword" weight="1370" price="8680000" sellable="true" weapon_type="sword" />
+<item id="140" name="Eminence Sword" weight="1370" price="8680000" sellable="true" weapon_type="sword" />
+<item id="141" name="Hazard Sword" weight="1370" price="8680000" sellable="true" weapon_type="sword" />
+<item id="142" name="Keshanberk" weight="1370" price="8680000" sellable="true" weapon_type="sword" />
+<item id="143" name="Sword of Mystic" weight="980" price="716000" sellable="true" weapon_type="sword" />
+<item id="144" name="Sword of Occult" weight="970" price="716000" sellable="true" weapon_type="sword" />
+<item id="145" name="Sword of Whispering Death" weight="920" price="4300000" sellable="true" weapon_type="sword" />
+<item id="146" name="Ghoulbane" weight="910" price="8680000" sellable="true" weapon_type="sword" />
+<item id="147" name="Tear of Darkness" weight="830" price="18300000" sellable="true" weapon_type="sword" />
+<item id="148" name="Sword of Valhalla" weight="900" price="8680000" sellable="true" weapon_type="sword" />
+<item id="149" name="Sword of Life" weight="840" price="18300000" sellable="true" weapon_type="sword" />
+<item id="150" name="Elemental Sword" weight="830" price="18300000" sellable="true" weapon_type="sword" />
+<item id="151" name="Sword of Miracles" weight="840" price="27000000" sellable="true" weapon_type="sword" />
+<item id="152" name="Heavy Chisel" weight="1890" price="8070" sellable="true" weapon_type="blunt" />
+<item id="153" name="Sickle" weight="1850" price="18500" sellable="true" weapon_type="blunt" />
+<item id="154" name="Dwarven Mace" weight="1860" price="54100" sellable="true" weapon_type="blunt" />
+<item id="155" name="Flanged Mace" weight="1800" price="244000" sellable="true" weapon_type="blunt" />
+<item id="156" name="Hand Axe" weight="1820" price="409000" sellable="true" weapon_type="blunt" />
+<item id="157" name="Spiked Club" weight="1750" price="967000" sellable="true" weapon_type="blunt" />
+<item id="158" name="Tarbar" weight="1730" price="1400000" sellable="true" weapon_type="blunt" />
+<item id="159" name="Bonebreaker" weight="1720" price="1800000" sellable="true" weapon_type="blunt" />
+<item id="160" name="Battle Axe" weight="1720" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="161" name="Silver Axe" weight="1690" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="162" name="War Axe" weight="1660" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="163" name="NO ITEM NAME" weight="4000" price="8680000" sellable="true" weapon_type="blunt" />
+<item id="164" name="Elysian" weight="1580" price="27000000" sellable="true" weapon_type="blunt" />
+<item id="165" name="Yablonski's Hammer" weight="1570" price="35300000" sellable="true" weapon_type="blunt" />
+<item id="166" name="Heavy Mace" weight="1800" price="409000" sellable="true" weapon_type="blunt" />
+<item id="167" name="Scalpel" weight="1810" price="409000" sellable="true" weapon_type="blunt" />
+<item id="168" name="Work Hammer" weight="1790" price="409000" sellable="true" weapon_type="blunt" />
+<item id="169" name="Skull Breaker" weight="1740" price="1400000" sellable="true" weapon_type="blunt" />
+<item id="170" name="NO ITEM NAME" weight="6400" price="16600000" sellable="true" weapon_type="blunt" />
+<item id="171" name="Deadman's Glory" weight="1600" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="172" name="Heavy Bone Club" weight="1730" price="1400000" sellable="true" weapon_type="blunt" />
+<item id="173" name="Skull Graver" weight="1640" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="174" name="Nirvana Axe" weight="1150" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="175" name="Art of Battle Axe" weight="1570" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="176" name="Journeyman's Staff" weight="1070" price="136000" sellable="true" weapon_type="bigblunt" />
+<item id="177" name="Mage Staff" weight="1050" price="244000" sellable="true" weapon_type="bigblunt" />
+<item id="178" name="Bone Staff" weight="1060" price="409000" sellable="true" weapon_type="bigblunt" />
+<item id="179" name="Mace of Prayer" weight="1300" price="644000" sellable="true" weapon_type="blunt" />
+<item id="180" name="Mace of Judgment" weight="1280" price="644000" sellable="true" weapon_type="blunt" />
+<item id="181" name="Mace of Miracle" weight="1250" price="644000" sellable="true" weapon_type="blunt" />
+<item id="182" name="Doom Hammer" weight="1200" price="644000" sellable="true" weapon_type="blunt" />
+<item id="183" name="Mystic Staff" weight="1040" price="644000" sellable="true" weapon_type="bigblunt" />
+<item id="184" name="Conjuror's Staff" weight="1030" price="644000" sellable="true" weapon_type="bigblunt" />
+<item id="185" name="Staff of Mana" weight="1040" price="644000" sellable="true" weapon_type="bigblunt" />
+<item id="186" name="Staff of Magic" weight="1020" price="967000" sellable="true" weapon_type="bigblunt" />
+<item id="187" name="Atuba Hammer" weight="1010" price="1800000" sellable="true" weapon_type="bigblunt" />
+<item id="188" name="Ghost Staff" weight="1000" price="1800000" sellable="true" weapon_type="bigblunt" />
+<item id="189" name="Staff of Life" weight="1180" price="1800000" sellable="true" weapon_type="blunt" />
+<item id="190" name="Atuba Mace" weight="1010" price="1800000" sellable="true" weapon_type="bigblunt" />
+<item id="191" name="Heavy Doom Hammer" weight="1020" price="2290000" sellable="true" weapon_type="bigblunt" />
+<item id="192" name="Crystal Staff" weight="1020" price="2290000" sellable="true" weapon_type="bigblunt" />
+<item id="193" name="Stick of Faith" weight="1160" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="194" name="Heavy Doom Axe" weight="1010" price="2290000" sellable="true" weapon_type="bigblunt" />
+<item id="195" name="Cursed Staff" weight="1000" price="2870000" sellable="true" weapon_type="bigblunt" />
+<item id="196" name="Stick of Eternity" weight="1130" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="197" name="Paradia Staff" weight="1010" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="198" name="Inferno Staff" weight="1000" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="199" name="Pa'agrian Hammer" weight="1010" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="200" name="Sage's Staff" weight="1000" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="201" name="Club of Nature" weight="1100" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="202" name="Mace of The Underworld" weight="1090" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="203" name="Pa'agrian Axe" weight="990" price="4780000" sellable="true" weapon_type="bigblunt" />
+<item id="204" name="Deadman's Staff" weight="1010" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="205" name="Ghoul's Staff" weight="1000" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="206" name="Demon's Staff" weight="990" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="207" name="Staff of Phantom" weight="980" price="8680000" sellable="true" weapon_type="bigblunt" />
+<item id="208" name="Staff of Seal" weight="970" price="8680000" sellable="true" weapon_type="bigblunt" />
+<item id="209" name="Divine Staff" weight="960" price="13100000" sellable="true" weapon_type="bigblunt" />
+<item id="210" name="Staff of Evil Spirits" weight="930" price="13100000" sellable="true" weapon_type="bigblunt" />
+<item id="211" name="Staff of Nobility" weight="910" price="13100000" sellable="true" weapon_type="bigblunt" />
+<item id="212" name="Dasparion's Staff" weight="920" price="18300000" sellable="true" weapon_type="bigblunt" />
+<item id="213" name="Branch of The Mother Tree" weight="900" price="27000000" sellable="true" weapon_type="bigblunt" />
+<item id="214" name="The Staff" weight="910" price="35300000" sellable="true" weapon_type="bigblunt" />
+<item id="215" name="Doom Dagger" weight="1130" price="12500" sellable="true" weapon_type="dagger" />
+<item id="216" name="Dirk" weight="1130" price="54100" sellable="true" weapon_type="dagger" />
+<item id="217" name="Shining Knife" weight="1120" price="136000" sellable="true" weapon_type="dagger" />
+<item id="218" name="Throwing Knife" weight="1120" price="136000" sellable="true" weapon_type="dagger" />
+<item id="219" name="Sword Breaker" weight="1110" price="244000" sellable="true" weapon_type="dagger" />
+<item id="220" name="Crafted Dagger" weight="1100" price="409000" sellable="true" weapon_type="dagger" />
+<item id="221" name="Assassin Knife" weight="1100" price="409000" sellable="true" weapon_type="dagger" />
+<item id="222" name="Poniard Dagger" weight="1090" price="644000" sellable="true" weapon_type="dagger" />
+<item id="223" name="Kukuri" weight="1080" price="967000" sellable="true" weapon_type="dagger" />
+<item id="224" name="Maingauche" weight="1070" price="1400000" sellable="true" weapon_type="dagger" />
+<item id="225" name="Mithril Dagger" weight="1060" price="1800000" sellable="true" weapon_type="dagger" />
+<item id="226" name="Cursed Dagger" weight="1040" price="2290000" sellable="true" weapon_type="dagger" />
+<item id="227" name="Stiletto" weight="1030" price="2870000" sellable="true" weapon_type="dagger" />
+<item id="228" name="Crystal Dagger" weight="1000" price="6130000" sellable="true" weapon_type="dagger" />
+<item id="229" name="Kris" weight="980" price="8680000" sellable="true" weapon_type="dagger" />
+<item id="230" name="Wolverine Needle" weight="1040" price="2290000" sellable="true" weapon_type="dagger" />
+<item id="231" name="Grace Dagger" weight="1020" price="4300000" sellable="true" weapon_type="dagger" />
+<item id="232" name="Dark Elven Dagger" weight="1050" price="2290000" sellable="true" weapon_type="dagger" />
+<item id="233" name="Dark Screamer" weight="1010" price="4300000" sellable="true" weapon_type="dagger" />
+<item id="234" name="Demon Dagger" weight="970" price="13100000" sellable="true" weapon_type="dagger" />
+<item id="235" name="Bloody Orchid" weight="960" price="18300000" sellable="true" weapon_type="dagger" />
+<item id="236" name="Soul Separator" weight="950" price="27000000" sellable="true" weapon_type="dagger" />
+<item id="237" name="Dragon's Tooth" weight="950" price="35300000" sellable="true" weapon_type="dagger" />
+<item id="238" name="Dagger of Mana" weight="750" price="967000" sellable="true" weapon_type="dagger" />
+<item id="239" name="Mystic Knife" weight="760" price="967000" sellable="true" weapon_type="dagger" />
+<item id="240" name="Conjurer's Knife" weight="750" price="967000" sellable="true" weapon_type="dagger" />
+<item id="241" name="Shilen Knife" weight="750" price="967000" sellable="true" weapon_type="dagger" />
+<item id="242" name="Soulfire Dirk" weight="750" price="2870000" sellable="true" weapon_type="dagger" />
+<item id="243" name="Hell Knife" weight="740" price="8680000" sellable="true" weapon_type="dagger" />
+<item id="244" name="Elven Fighter Fist" weight="0" price="22" sellable="true" weapon_type="fist" />
+<item id="245" name="Dark Fighter Fist" weight="0" price="33" sellable="true" weapon_type="fist" />
+<item id="246" name="Human Fighter Fist" weight="0" price="44" sellable="true" weapon_type="fist" />
+<item id="247" name="Dwarven Fighter Fist" weight="0" price="56" sellable="true" weapon_type="fist" />
+<item id="248" name="Orc Fighter Fist" weight="0" price="67" sellable="true" weapon_type="fist" />
+<item id="249" name="Elven Mystic Fist" weight="0" price="11" sellable="true" weapon_type="fist" />
+<item id="250" name="Dark Mystic Fist" weight="0" price="22" sellable="true" weapon_type="fist" />
+<item id="251" name="Human Mystic Fist" weight="0" price="33" sellable="true" weapon_type="fist" />
+<item id="252" name="Orc Shaman Fist" weight="0" price="44" sellable="true" weapon_type="fist" />
+<item id="253" name="Spiked Gloves" weight="1590" price="768" sellable="true" weapon_type="dualfist" />
+<item id="254" name="Iron Gloves" weight="1580" price="12500" sellable="true" weapon_type="dualfist" />
+<item id="255" name="Fox Claw Gloves" weight="1560" price="54100" sellable="true" weapon_type="dualfist" />
+<item id="256" name="Cestus" weight="1570" price="136000" sellable="true" weapon_type="dualfist" />
+<item id="257" name="Viper Fang" weight="1560" price="244000" sellable="true" weapon_type="dualfist" />
+<item id="258" name="Bagh-Nakh" weight="1540" price="409000" sellable="true" weapon_type="dualfist" />
+<item id="259" name="Single-Edged Jamadhr" weight="1550" price="644000" sellable="true" weapon_type="dualfist" />
+<item id="260" name="Triple-Edged Jamadhr" weight="1540" price="967000" sellable="true" weapon_type="dualfist" />
+<item id="261" name="Bich'Hwa" weight="1510" price="1400000" sellable="true" weapon_type="dualfist" />
+<item id="262" name="Scallop Jamadhr" weight="1520" price="1800000" sellable="true" weapon_type="dualfist" />
+<item id="263" name="Chakram" weight="1490" price="2290000" sellable="true" weapon_type="dualfist" />
+<item id="264" name="Pata" weight="1440" price="7830000" sellable="true" weapon_type="dualfist" />
+<item id="265" name="Fisted Blade" weight="1480" price="4300000" sellable="true" weapon_type="dualfist" />
+<item id="266" name="Great Pata" weight="1460" price="6130000" sellable="true" weapon_type="dualfist" />
+<item id="267" name="Arthro Nail" weight="1420" price="8680000" sellable="true" weapon_type="dualfist" />
+<item id="268" name="Bellion Cestus" weight="1390" price="13100000" sellable="true" weapon_type="dualfist" />
+<item id="269" name="Blood Tornado" weight="1370" price="18300000" sellable="true" weapon_type="dualfist" />
+<item id="270" name="Dragon Grinder" weight="1350" price="27000000" sellable="true" weapon_type="dualfist" />
+<item id="271" name="Hunting Bow" weight="1910" price="54100" sellable="true" weapon_type="bow" />
+<item id="272" name="Forest Bow" weight="1900" price="136000" sellable="true" weapon_type="bow" />
+<item id="273" name="Composite Bow" weight="1880" price="244000" sellable="true" weapon_type="bow" />
+<item id="274" name="Strengthened Bow" weight="1870" price="409000" sellable="true" weapon_type="bow" />
+<item id="275" name="Long Bow" weight="1830" price="644000" sellable="true" weapon_type="bow" />
+<item id="276" name="Elven Bow" weight="1850" price="644000" sellable="true" weapon_type="bow" />
+<item id="277" name="Dark Elven Bow" weight="1830" price="644000" sellable="true" weapon_type="bow" />
+<item id="278" name="Gastraphetes" weight="1840" price="967000" sellable="true" weapon_type="bow" />
+<item id="279" name="Strengthened Long Bow" weight="1820" price="1400000" sellable="true" weapon_type="bow" />
+<item id="280" name="Light Crossbow" weight="1810" price="1800000" sellable="true" weapon_type="bow" />
+<item id="281" name="Crystallized Ice Bow" weight="1790" price="2290000" sellable="true" weapon_type="bow" />
+<item id="282" name="Elemental Bow" weight="1770" price="2870000" sellable="true" weapon_type="bow" />
+<item id="283" name="Akat Long Bow" weight="1740" price="4300000" sellable="true" weapon_type="bow" />
+<item id="284" name="Dark Elven Long Bow" weight="1720" price="8680000" sellable="true" weapon_type="bow" />
+<item id="285" name="Noble Elven Bow" weight="1760" price="2870000" sellable="true" weapon_type="bow" />
+<item id="286" name="Eminence Bow" weight="1720" price="6130000" sellable="true" weapon_type="bow" />
+<item id="287" name="Bow of Peril" weight="1700" price="13100000" sellable="true" weapon_type="bow" />
+<item id="288" name="Carnage Bow" weight="1670" price="18300000" sellable="true" weapon_type="bow" />
+<item id="289" name="Soul Bow" weight="1660" price="27000000" sellable="true" weapon_type="bow" />
+<item id="290" name="The Bow" weight="1650" price="35300000" sellable="true" weapon_type="bow" />
+<item id="291" name="Trident" weight="2100" price="409000" sellable="true" weapon_type="pole" />
+<item id="292" name="Pike" weight="2090" price="644000" sellable="true" weapon_type="pole" />
+<item id="293" name="War Hammer" weight="2080" price="967000" sellable="true" weapon_type="pole" />
+<item id="294" name="War Pick" weight="2050" price="1400000" sellable="true" weapon_type="pole" />
+<item id="295" name="Dwarven Trident" weight="2090" price="644000" sellable="true" weapon_type="pole" />
+<item id="296" name="Dwarven Pike" weight="2070" price="967000" sellable="true" weapon_type="pole" />
+<item id="297" name="Glaive" weight="2050" price="1800000" sellable="true" weapon_type="pole" />
+<item id="298" name="Orcish Glaive" weight="2030" price="2290000" sellable="true" weapon_type="pole" />
+<item id="299" name="Orcish Poleaxe" weight="1950" price="6130000" sellable="true" weapon_type="pole" />
+<item id="300" name="Great Axe" weight="1940" price="8680000" sellable="true" weapon_type="pole" />
+<item id="301" name="Scorpion" weight="1990" price="4780000" sellable="true" weapon_type="pole" />
+<item id="302" name="Body Slasher" weight="2030" price="2290000" sellable="true" weapon_type="pole" />
+<item id="303" name="Widow Maker" weight="1980" price="4780000" sellable="true" weapon_type="pole" />
+<item id="304" name="Orcish Halberd" weight="1880" price="21300000" sellable="true" weapon_type="pole" />
+<item id="305" name="Tallum Glaive" weight="1840" price="27000000" sellable="true" weapon_type="pole" />
+<item id="306" name="Dragon Claw Axe" weight="1820" price="35300000" sellable="true" weapon_type="pole" />
+<item id="307" name="Aurakyria Lance" weight="1800" price="0" sellable="false" weapon_type="pole" />
+<item id="308" name="Buffalo's Horn" weight="660" price="768" sellable="true" weapon_type="etc" />
+<item id="309" name="Tears of Eva" weight="630" price="136000" sellable="true" weapon_type="etc" />
+<item id="310" name="Relic of The Saints" weight="610" price="136000" sellable="true" weapon_type="etc" />
+<item id="311" name="Crucifix of Blessing" weight="620" price="244000" sellable="true" weapon_type="etc" />
+<item id="312" name="Branch of Life" weight="620" price="409000" sellable="true" weapon_type="etc" />
+<item id="313" name="Temptation of Abyss" weight="610" price="409000" sellable="true" weapon_type="etc" />
+<item id="314" name="Proof of Revenge" weight="600" price="409000" sellable="true" weapon_type="etc" />
+<item id="315" name="Divine Tome" weight="570" price="644000" sellable="true" weapon_type="etc" />
+<item id="316" name="Blood of Saints" weight="580" price="967000" sellable="true" weapon_type="etc" />
+<item id="317" name="Tome of Blood" weight="570" price="967000" sellable="true" weapon_type="etc" />
+<item id="318" name="Crucifix of Blood" weight="540" price="1400000" sellable="true" weapon_type="etc" />
+<item id="319" name="Eye of Infinity" weight="1600" price="1400000" sellable="true" weapon_type="etc" />
+<item id="320" name="Blue Crystal Skull" weight="1600" price="1520000" sellable="true" weapon_type="etc" />
+<item id="321" name="Demon Fangs" weight="1600" price="1520000" sellable="true" weapon_type="etc" />
+<item id="322" name="Vajra Wands" weight="1600" price="1800000" sellable="true" weapon_type="etc" />
+<item id="323" name="Ancient Reagent" weight="1600" price="1800000" sellable="true" weapon_type="etc" />
+<item id="324" name="Tears of Fairy" weight="1600" price="2870000" sellable="true" weapon_type="etc" />
+<item id="325" name="Horn of Glory" weight="540" price="2870000" sellable="true" weapon_type="etc" />
+<item id="326" name="Heathen's Book" weight="560" price="4300000" sellable="true" weapon_type="etc" />
+<item id="327" name="Hex Doll" weight="1600" price="4300000" sellable="true" weapon_type="etc" />
+<item id="328" name="Candle of Wisdom" weight="1600" price="6130000" sellable="true" weapon_type="etc" />
+<item id="329" name="Blessed Branch" weight="800" price="6130000" sellable="true" weapon_type="etc" />
+<item id="330" name="Phoenix Feather" weight="800" price="6130000" sellable="true" weapon_type="etc" />
+<item id="331" name="Cerberus Eye" weight="1600" price="6130000" sellable="true" weapon_type="etc" />
+<item id="332" name="Scroll of Destruction" weight="1600" price="6130000" sellable="true" weapon_type="etc" />
+<item id="333" name="Claws of Black Dragon" weight="1600" price="6130000" sellable="true" weapon_type="etc" />
+<item id="334" name="Three Eyed Crow's Feather" weight="1600" price="6130000" sellable="true" weapon_type="etc" />
+<item id="335" name="Soul Crystal" weight="1600" price="13100000" sellable="true" weapon_type="etc" />
+<item id="336" name="Scroll of Mana" weight="1600" price="18300000" sellable="true" weapon_type="etc" />
+<item id="337" name="Scroll of Massacre" weight="1600" price="18300000" sellable="true" weapon_type="etc" />
+<item id="338" name="Wyvern's Skull" weight="4800" price="18300000" sellable="true" weapon_type="etc" />
+<item id="339" name="Blood Crystal" weight="1600" price="18300000" sellable="true" weapon_type="etc" />
+<item id="340" name="Unicorn's Horn" weight="1600" price="18300000" sellable="true" weapon_type="etc" />
+<item id="341" name="Forgotten Tome" weight="1600" price="27000000" sellable="true" weapon_type="etc" />
+<item id="342" name="Enchanted Flute" weight="1600" price="27000000" sellable="true" weapon_type="etc" />
+<item id="343" name="Headless Arrow" weight="1600" price="27000000" sellable="true" weapon_type="etc" />
+<item id="344" name="Proof of Overlord" weight="1600" price="27000000" sellable="true" weapon_type="etc" />
+<item id="345" name="Deathbringer Sword" weight="4800" price="27000000" sellable="true" weapon_type="etc" />
+<item id="346" name="Tears of Fallen Angel" weight="1600" price="35300000" sellable="true" weapon_type="etc" />
+<item id="625" name="Bone Shield" weight="1380" price="12900" sellable="true" weapon_type="none" />
+<item id="626" name="Bronze Shield" weight="1370" price="21900" sellable="true" weapon_type="none" />
+<item id="627" name="Aspis" weight="1350" price="35000" sellable="true" weapon_type="none" />
+<item id="628" name="Hoplon" weight="1340" price="53300" sellable="true" weapon_type="none" />
+<item id="629" name="Kite Shield" weight="1320" price="78400" sellable="true" weapon_type="none" />
+<item id="630" name="Square Shield" weight="1310" price="103000" sellable="true" weapon_type="none" />
+<item id="631" name="Eldarake" weight="1290" price="133000" sellable="true" weapon_type="none" />
+<item id="632" name="Knight's Shield" weight="1260" price="169000" sellable="true" weapon_type="none" />
+<item id="633" name="Zubei's Shield" weight="1210" price="545000" sellable="true" weapon_type="none" />
+<item id="634" name="Dragon Shield" weight="1170" price="2510000" sellable="true" weapon_type="none" />
+<item id="635" name="Wolf Shield" weight="640" price="545000" sellable="true" weapon_type="none" />
+<item id="636" name="Shining Dragon Shield" weight="720" price="845000" sellable="true" weapon_type="none" />
+<item id="637" name="Shield of Valor" weight="720" price="845000" sellable="true" weapon_type="none" />
+<item id="638" name="Glorious Shield" weight="800" price="545000" sellable="true" weapon_type="none" />
+<item id="639" name="Red Flame Shield" weight="960" price="845000" sellable="true" weapon_type="none" />
+<item id="640" name="Elven Crystal Shield" weight="720" price="545000" sellable="true" weapon_type="none" />
+<item id="641" name="Dark Crystal Shield" weight="1190" price="1220000" sellable="true" weapon_type="none" />
+<item id="642" name="Elven Vagian Shield" weight="560" price="545000" sellable="true" weapon_type="none" />
+<item id="643" name="Dark Vagian Shield" weight="560" price="845000" sellable="true" weapon_type="none" />
+<item id="644" name="Hell Shield" weight="640" price="845000" sellable="true" weapon_type="none" />
+<item id="645" name="Art of Shield" weight="560" price="545000" sellable="true" weapon_type="none" />
+<item id="646" name="Shield of Silence" weight="640" price="545000" sellable="true" weapon_type="none" />
+<item id="647" name="Gust Shield" weight="720" price="845000" sellable="true" weapon_type="none" />
+<item id="648" name="Prairie Shield" weight="800" price="545000" sellable="true" weapon_type="none" />
+<item id="649" name="Shield of The Underworld" weight="880" price="845000" sellable="true" weapon_type="none" />
+<item id="650" name="Shield of Concentration" weight="960" price="545000" sellable="true" weapon_type="none" />
+<item id="651" name="Ace's Shield" weight="1040" price="845000" sellable="true" weapon_type="none" />
+<item id="652" name="Guardian's Shield" weight="1120" price="545000" sellable="true" weapon_type="none" />
+<item id="653" name="Marksman Shield" weight="1200" price="845000" sellable="true" weapon_type="none" />
+<item id="654" name="Shield of Mana" weight="480" price="545000" sellable="true" weapon_type="none" />
+<item id="655" name="Sage's Shield" weight="560" price="845000" sellable="true" weapon_type="none" />
+<item id="656" name="Paradia Shield" weight="480" price="545000" sellable="true" weapon_type="none" />
+<item id="657" name="Inferno Shield" weight="560" price="845000" sellable="true" weapon_type="none" />
+<item id="658" name="Shield of Black Ore" weight="560" price="845000" sellable="true" weapon_type="none" />
+<item id="659" name="Shield of Summoning" weight="480" price="545000" sellable="true" weapon_type="none" />
+<item id="660" name="Otherworldly Shield" weight="560" price="845000" sellable="true" weapon_type="none" />
+<item id="661" name="Elemental Shield" weight="480" price="545000" sellable="true" weapon_type="none" />
+<item id="662" name="Shield of Phantom" weight="560" price="845000" sellable="true" weapon_type="none" />
+<item id="663" name="Shield of Grace" weight="480" price="545000" sellable="true" weapon_type="none" />
+<item id="664" name="Shield of Holy Spirit" weight="560" price="845000" sellable="true" weapon_type="none" />
+<item id="665" name="Phoenix Shield" weight="480" price="545000" sellable="true" weapon_type="none" />
+<item id="666" name="Cerberus Shield" weight="560" price="845000" sellable="true" weapon_type="none" />
+<item id="667" name="Shield of Aid" weight="480" price="545000" sellable="true" weapon_type="none" />
+<item id="668" name="Shield of Blessing" weight="560" price="845000" sellable="true" weapon_type="none" />
+<item id="669" name="Flame Shield" weight="480" price="545000" sellable="true" weapon_type="none" />
+<item id="670" name="Shield of Bravery" weight="560" price="845000" sellable="true" weapon_type="none" />
+<item id="671" name="Blood Shield" weight="480" price="545000" sellable="true" weapon_type="none" />
+<item id="672" name="Absolute Shield" weight="560" price="845000" sellable="true" weapon_type="none" />
+<item id="673" name="Avadon Shield" weight="1210" price="545000" sellable="true" weapon_type="none" />
+<item id="674" name="Divine Shield" weight="560" price="845000" sellable="true" weapon_type="none" />
+<item id="738" name="Sword of Solidarity" weight="1300" price="18500" sellable="true" weapon_type="sword" />
+<item id="743" name="Sword of Sentinel" weight="1300" price="33600" sellable="true" weapon_type="sword" />
+<item id="744" name="Staff of Sentinel" weight="1800" price="33600" sellable="true" weapon_type="bigblunt" />
+<item id="747" name="Wand of Adept" weight="1300" price="25500" sellable="true" weapon_type="blunt" />
+<item id="748" name="Gallint's Oak Wand" weight="1350" price="0" sellable="false" weapon_type="blunt" />
+<item id="749" name="0" weight="100" price="35800" sellable="true" weapon_type="bigblunt" />
+<item id="754" name="Red Sunset Staff" weight="1700" price="25500" sellable="true" weapon_type="bigblunt" />
+<item id="945" name="Skeleton Buckler" weight="1400" price="3440" sellable="true" weapon_type="none" />
+<item id="946" name="Skeleton Dagger" weight="1100" price="66600" sellable="true" weapon_type="dagger" />
+<item id="975" name="Blood Saber" weight="1450" price="33600" sellable="true" weapon_type="sword" />
+<item id="981" name="Red Sunset Sword" weight="1300" price="25500" sellable="true" weapon_type="bigsword" />
+<item id="989" name="Eldritch Dagger" weight="1130" price="25500" sellable="true" weapon_type="dagger" />
+<item id="1142" name="Rusted Bronze Sword" weight="1400" price="0" sellable="false" weapon_type="sword" />
+<item id="1181" name="Neti's Bow" weight="1850" price="0" sellable="false" weapon_type="bow" />
+<item id="1182" name="Neti's Dagger" weight="1000" price="0" sellable="false" weapon_type="dagger" />
+<item id="1213" name="Guard's Bow" weight="1800" price="136000" sellable="false" weapon_type="bow" />
+<item id="1295" name="Long Sword" weight="200" price="66600" sellable="false" weapon_type="sword" />
+<item id="1296" name="Gladius" weight="300" price="66600" sellable="false" weapon_type="sword" />
+<item id="1297" name="Bastard Sword" weight="400" price="66600" sellable="false" weapon_type="sword" />
+<item id="1298" name="Caliburs" weight="500" price="66600" sellable="false" weapon_type="sword" />
+<item id="1299" name="Great Sword" weight="500" price="3340000" sellable="false" weapon_type="dual" />
+<item id="1300" name="Apprentice's Rod" weight="80" price="66600" sellable="false" weapon_type="blunt" />
+<item id="1301" name="Big Hammer" weight="300" price="66600" sellable="false" weapon_type="blunt" />
+<item id="1302" name="Bec de Corbin" weight="750" price="66600" sellable="false" weapon_type="pole" />
+<item id="1303" name="Lance" weight="750" price="66600" sellable="false" weapon_type="pole" />
+<item id="1304" name="Conjuror's Staff" weight="150" price="66600" sellable="false" weapon_type="bigblunt" />
+<item id="1305" name="Knife" weight="120" price="66600" sellable="false" weapon_type="dagger" />
+<item id="1306" name="Crafted Dagger" weight="100" price="66600" sellable="false" weapon_type="dagger" />
+<item id="1307" name="Bow" weight="150" price="3340000" sellable="false" weapon_type="bow" />
+<item id="1328" name="Shield of Grace" weight="300" price="1090000" sellable="false" weapon_type="none" />
+<item id="1329" name="Shield of Victory" weight="350" price="1430000" sellable="false" weapon_type="none" />
+<item id="1330" name="Zubei's Shield" weight="500" price="1850000" sellable="false" weapon_type="none" />
+<item id="1331" name="Otherworldly Shield" weight="350" price="1430000" sellable="false" weapon_type="none" />
+<item id="1332" name="Knight's Shield" weight="500" price="321000" sellable="false" weapon_type="none" />
+<item id="1333" name="Brandish" weight="2250" price="54100" sellable="true" weapon_type="bigsword" />
+<item id="1376" name="Guard Spear" weight="300" price="409000" sellable="true" weapon_type="pole" />
+<item id="1471" name="Silenos Blowgun" weight="300" price="409000" sellable="true" weapon_type="dagger" />
+<item id="1472" name="Dreadbane" weight="300" price="409000" sellable="true" weapon_type="pole" />
+<item id="1510" name="Butcher's Sword" weight="1450" price="25500" sellable="true" weapon_type="sword" />
+<item id="1511" name="Silversmith Hammer" weight="1860" price="25500" sellable="true" weapon_type="blunt" />
+<item id="1660" name="Cursed Maingauche" weight="1070" price="1400000" sellable="true" weapon_type="dagger" />
+<item id="2368" name="Training Gloves" weight="1580" price="138" sellable="false" weapon_type="dualfist" />
+<item id="2369" name="Squire's Sword" weight="1600" price="138" sellable="false" weapon_type="sword" />
+<item id="2370" name="Guild Member's Club" weight="1910" price="138" sellable="false" weapon_type="blunt" />
+<item id="2371" name="Fist of Butcher" weight="1400" price="25500" sellable="true" weapon_type="dualfist" />
+<item id="2372" name="Dagger of Adept" weight="1050" price="25500" sellable="true" weapon_type="dagger" />
+<item id="2373" name="Eldritch Staff" weight="1050" price="25500" sellable="true" weapon_type="bigblunt" />
+<item id="2374" name="Red Sunset Dagger" weight="1100" price="25500" sellable="true" weapon_type="dagger" />
+<item id="2493" name="Brigandine Shield" weight="1320" price="78400" sellable="true" weapon_type="none" />
+<item id="2494" name="Plate Shield" weight="1310" price="103000" sellable="true" weapon_type="none" />
+<item id="2495" name="Chain Shield" weight="1280" price="133000" sellable="true" weapon_type="none" />
+<item id="2496" name="Dwarven Chain Shield" weight="1280" price="156000" sellable="true" weapon_type="none" />
+<item id="2497" name="Full Plate Shield" weight="1220" price="375000" sellable="true" weapon_type="none" />
+<item id="2498" name="Shield of Nightmare" weight="1180" price="1850000" sellable="true" weapon_type="none" />
+<item id="2499" name="Elven Long Sword" weight="1440" price="1800000" sellable="true" weapon_type="sword" />
+<item id="2500" name="Dark Legion's Edge" weight="1320" price="27000000" sellable="true" weapon_type="sword" />
+<item id="2501" name="Bone Club" weight="1850" price="136000" sellable="true" weapon_type="blunt" />
+<item id="2502" name="Dwarven War Hammer" weight="1670" price="2870000" sellable="true" weapon_type="blunt" />
+<item id="2503" name="Yaksa Mace" weight="1640" price="6130000" sellable="true" weapon_type="blunt" />
+<item id="2504" name="Meteor Shower" weight="1600" price="18300000" sellable="true" weapon_type="blunt" />
+<item id="2505" name="Iron Canine" weight="100" price="14000" sellable="true" weapon_type="pet" />
+<item id="2507" name="Lizardspear" weight="300" price="409000" sellable="true" weapon_type="dagger" />
+<item id="2516" name="Saber*Saber" weight="2530" price="877000" sellable="true" weapon_type="dual" />
+<item id="2517" name="Saber*Bastard Sword" weight="2520" price="1060000" sellable="true" weapon_type="dual" />
+<item id="2518" name="Saber*Spinebone Sword" weight="2530" price="1060000" sellable="true" weapon_type="dual" />
+<item id="2519" name="Saber*Artisan's Sword" weight="2520" price="1060000" sellable="true" weapon_type="dual" />
+<item id="2520" name="Saber*Knight's Sword" weight="2510" price="1060000" sellable="true" weapon_type="dual" />
+<item id="2521" name="Saber*Crimson Sword" weight="2530" price="1400000" sellable="true" weapon_type="dual" />
+<item id="2522" name="Saber*Elven Sword" weight="2510" price="1400000" sellable="true" weapon_type="dual" />
+<item id="2523" name="Saber*Sword of Revolution" weight="2420" price="1960000" sellable="true" weapon_type="dual" />
+<item id="2524" name="Saber*Elven Long Sword" weight="2420" price="2290000" sellable="true" weapon_type="dual" />
+<item id="2525" name="Bastard Sword*Bastard Sword" weight="2470" price="1400000" sellable="true" weapon_type="dual" />
+<item id="2526" name="Bastard Sword*Spinebone Sword" weight="2470" price="1400000" sellable="true" weapon_type="dual" />
+<item id="2527" name="Bastard Sword*Artisan's Sword" weight="2480" price="1400000" sellable="true" weapon_type="dual" />
+<item id="2528" name="Bastard Sword*Knight's Sword" weight="2500" price="1400000" sellable="true" weapon_type="dual" />
+<item id="2529" name="Bastard Sword*Crimson Sword" weight="2470" price="1660000" sellable="true" weapon_type="dual" />
+<item id="2530" name="Bastard Sword*Elven Sword" weight="2460" price="1660000" sellable="true" weapon_type="dual" />
+<item id="2531" name="Bastard Sword*Sword of Revolution" weight="2450" price="2120000" sellable="true" weapon_type="dual" />
+<item id="2532" name="Bastard Sword*Elven Long Sword" weight="2430" price="2470000" sellable="true" weapon_type="dual" />
+<item id="2533" name="Spinebone Sword*Spinebone Sword" weight="2520" price="1400000" sellable="true" weapon_type="dual" />
+<item id="2534" name="Spinebone Sword*Artisan's Sword" weight="2460" price="1400000" sellable="true" weapon_type="dual" />
+<item id="2535" name="Spinebone Sword*Knight's Sword" weight="2470" price="1400000" sellable="true" weapon_type="dual" />
+<item id="2536" name="Spinebone Sword*Crimson Sword" weight="2520" price="1660000" sellable="true" weapon_type="dual" />
+<item id="2537" name="Spinebone Sword*Elven Sword" weight="2460" price="1660000" sellable="true" weapon_type="dual" />
+<item id="2538" name="Spinebone Sword*Sword of Revolution" weight="2460" price="2120000" sellable="true" weapon_type="dual" />
+<item id="2539" name="Spinebone Sword*Elven Long Sword" weight="2390" price="2470000" sellable="true" weapon_type="dual" />
+<item id="2540" name="Artisan's Sword*Artisan's Sword" weight="2480" price="1400000" sellable="true" weapon_type="dual" />
+<item id="2541" name="Artisan's Sword*Knight's Sword" weight="2470" price="1400000" sellable="true" weapon_type="dual" />
+<item id="2542" name="Artisan's Sword*Crimson Sword" weight="2450" price="1660000" sellable="true" weapon_type="dual" />
+<item id="2543" name="Artisan's Sword*Elven Sword" weight="2470" price="1660000" sellable="true" weapon_type="dual" />
+<item id="2544" name="Artisan's Sword*Sword of Revolution" weight="2420" price="2120000" sellable="true" weapon_type="dual" />
+<item id="2545" name="Artisan's Sword*Elven Long Sword" weight="2410" price="2470000" sellable="true" weapon_type="dual" />
+<item id="2546" name="Knight's Sword*Knight's Sword" weight="2460" price="1400000" sellable="true" weapon_type="dual" />
+<item id="2547" name="Knight's Sword*Crimson Sword" weight="2460" price="1660000" sellable="true" weapon_type="dual" />
+<item id="2548" name="Knight's Sword*Elven Sword" weight="2450" price="1660000" sellable="true" weapon_type="dual" />
+<item id="2549" name="Knight's Sword*Sword of Revolution" weight="2430" price="2120000" sellable="true" weapon_type="dual" />
+<item id="2550" name="Knight's Sword*Elven Long Sword" weight="2370" price="2470000" sellable="true" weapon_type="dual" />
+<item id="2551" name="Crimson Sword*Crimson Sword" weight="2440" price="1960000" sellable="true" weapon_type="dual" />
+<item id="2552" name="Crimson Sword*Elven Sword" weight="2450" price="1960000" sellable="true" weapon_type="dual" />
+<item id="2553" name="Crimson Sword*Sword of Revolution" weight="2390" price="2470000" sellable="true" weapon_type="dual" />
+<item id="2554" name="Crimson Sword*Elven Long Sword" weight="2360" price="2870000" sellable="true" weapon_type="dual" />
+<item id="2555" name="Elven Sword*Elven Sword" weight="2440" price="1960000" sellable="true" weapon_type="dual" />
+<item id="2556" name="Elven Sword*Sword of Revolution" weight="2410" price="2470000" sellable="true" weapon_type="dual" />
+<item id="2557" name="Elven Sword*Elven Long Sword" weight="2410" price="2870000" sellable="true" weapon_type="dual" />
+<item id="2558" name="Sword of Revolution*Sword of Revolution" weight="2360" price="2870000" sellable="true" weapon_type="dual" />
+<item id="2559" name="Sword of Revolution*Elven Long Sword" weight="2340" price="3340000" sellable="true" weapon_type="dual" />
+<item id="2560" name="Elven Long Sword*Elven Long Sword" weight="2340" price="3820000" sellable="true" weapon_type="dual" />
+<item id="2561" name="Stormbringer*Stormbringer" weight="2330" price="4780000" sellable="true" weapon_type="dual" />
+<item id="2562" name="Stormbringer*Shamshir" weight="2300" price="5280000" sellable="true" weapon_type="dual" />
+<item id="2563" name="Stormbringer*Katana" weight="2320" price="5280000" sellable="true" weapon_type="dual" />
+<item id="2564" name="Stormbringer*Spirit Sword" weight="2310" price="5280000" sellable="true" weapon_type="dual" />
+<item id="2565" name="Stormbringer*Raid Sword" weight="2340" price="5280000" sellable="true" weapon_type="dual" />
+<item id="2566" name="Stormbringer*Caliburs" weight="2260" price="6980000" sellable="true" weapon_type="dual" />
+<item id="2567" name="Stormbringer*Sword of Limit" weight="2240" price="6980000" sellable="true" weapon_type="dual" />
+<item id="2568" name="Stormbringer*Sword of Delusion" weight="2230" price="6980000" sellable="true" weapon_type="dual" />
+<item id="2569" name="Stormbringer*Sword of Nightmare" weight="2250" price="6980000" sellable="true" weapon_type="dual" />
+<item id="2570" name="Stormbringer*Tsurugi" weight="2220" price="6980000" sellable="true" weapon_type="dual" />
+<item id="2571" name="Stormbringer*Samurai Long sword" weight="2150" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2572" name="Shamshir*Shamshir" weight="2330" price="6130000" sellable="true" weapon_type="dual" />
+<item id="2573" name="Shamshir*Katana" weight="2310" price="6130000" sellable="true" weapon_type="dual" />
+<item id="2574" name="Shamshir*Spirit Sword" weight="2280" price="6130000" sellable="true" weapon_type="dual" />
+<item id="2575" name="Shamshir*Raid Sword" weight="2280" price="6130000" sellable="true" weapon_type="dual" />
+<item id="2576" name="Shamshir*Caliburs" weight="2230" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2577" name="Shamshir*Sword of Limit" weight="2240" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2578" name="Shamshir*Sword of Delusion" weight="2200" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2579" name="Shamshir*Sword of Nightmare" weight="2210" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2580" name="Shamshir*Tsurugi" weight="2220" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2581" name="Shamshir*Samurai Long Sword" weight="2110" price="9550000" sellable="true" weapon_type="dual" />
+<item id="2582" name="Katana*Katana" weight="2270" price="6130000" sellable="true" weapon_type="dual" />
+<item id="2583" name="Katana*Spirit Sword" weight="2250" price="6130000" sellable="true" weapon_type="dual" />
+<item id="2584" name="Katana*Raid Sword" weight="2270" price="6130000" sellable="true" weapon_type="dual" />
+<item id="2585" name="Katana*Caliburs" weight="2220" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2586" name="Katana*Sword of Limit" weight="2180" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2587" name="Katana*Sword of Delusion" weight="2190" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2588" name="Katana*Sword of Nightmare" weight="2170" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2589" name="Katana*Tsurugi" weight="2210" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2590" name="Katana*Samurai Long Sword" weight="2130" price="9550000" sellable="true" weapon_type="dual" />
+<item id="2591" name="Spirit Sword*Spirit Sword" weight="2240" price="6130000" sellable="true" weapon_type="dual" />
+<item id="2592" name="Spirit Sword*Raid Sword" weight="2260" price="6130000" sellable="true" weapon_type="dual" />
+<item id="2593" name="Spirit Sword*Caliburs" weight="2240" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2594" name="Spirit Sword*Sword of Limit" weight="2240" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2595" name="Spirit Sword*Sword of Delusion" weight="2250" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2596" name="Spirit Sword*Sword of Nightmare" weight="2250" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2597" name="Spirit Sword*Tsurugi" weight="2220" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2598" name="Spirit Sword*Samurai Long Sword" weight="2110" price="9550000" sellable="true" weapon_type="dual" />
+<item id="2599" name="Raid Sword*Raid Sword" weight="2250" price="6130000" sellable="true" weapon_type="dual" />
+<item id="2600" name="Raid Sword*Caliburs" weight="2190" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2601" name="Raid Sword*Sword of Limit" weight="2170" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2602" name="Raid Sword*Sword of Delusion" weight="2180" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2603" name="Raid Sword*Sword of Nightmare" weight="2170" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2604" name="Raid Sword*Tsurugi" weight="2170" price="7830000" sellable="true" weapon_type="dual" />
+<item id="2605" name="Raid Sword*Samurai Long Sword" weight="2130" price="9550000" sellable="true" weapon_type="dual" />
+<item id="2606" name="Caliburs*Caliburs" weight="2140" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2607" name="Caliburs*Sword of Limit" weight="2150" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2608" name="Caliburs*Sword of Delusion" weight="2140" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2609" name="Caliburs*Sword of Nightmare" weight="2170" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2610" name="Caliburs*Tsurugi" weight="2150" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2611" name="Caliburs*Samurai Long Sword" weight="2120" price="11300000" sellable="true" weapon_type="dual" />
+<item id="2612" name="Sword of Limit*Sword of Limit" weight="2140" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2613" name="Sword of Limit*Sword of Delusion" weight="2140" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2614" name="Sword of Limit*Sword of Nightmare" weight="2130" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2615" name="Sword of Limit*Tsurugi" weight="2120" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2616" name="Sword of Limit*Samurai Long Sword" weight="2100" price="11300000" sellable="true" weapon_type="dual" />
+<item id="2617" name="Sword of Delusion*Sword of Delusion" weight="2150" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2618" name="Sword of Delusion*Sword of Nightmare" weight="2130" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2619" name="Sword of Delusion*Tsurugi" weight="2140" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2620" name="Sword of Delusion*Samurai Long Sword" weight="2110" price="11300000" sellable="true" weapon_type="dual" />
+<item id="2621" name="Sword of Nightmare*Sword of Nightmare" weight="2130" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2622" name="Sword of Nightmare*Tsurugi" weight="2140" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2623" name="Sword of Nightmare*Samurai Long Sword" weight="2080" price="11300000" sellable="true" weapon_type="dual" />
+<item id="2624" name="Tsurugi*Tsurugi" weight="2120" price="8680000" sellable="true" weapon_type="dual" />
+<item id="2625" name="Tsurugi*Samurai Long Sword" weight="2090" price="11300000" sellable="true" weapon_type="dual" />
+<item id="2626" name="Samurai Long Sword*Samurai Long Sword" weight="2080" price="13100000" sellable="true" weapon_type="dual" />
+<item id="2915" name="Old Knight Sword" weight="3200" price="136000" sellable="false" weapon_type="sword" />
+<item id="3026" name="Talins Spear" weight="800" price="0" sellable="false" weapon_type="pole" />
+<item id="3027" name="Old Knight's Sword" weight="2100" price="0" sellable="false" weapon_type="bigsword" />
+<item id="3028" name="Crescent Moon Bow" weight="600" price="0" sellable="false" weapon_type="bow" />
+<item id="3029" name="Sword of Binding" weight="1200" price="0" sellable="false" weapon_type="sword" />
+<item id="3439" name="Shining Canine" weight="100" price="34000" sellable="true" weapon_type="pet" />
+<item id="3471" name="Cybellin's Dagger" weight="400" price="0" sellable="false" weapon_type="dagger" />
+<item id="3902" name="Ghost Canine" weight="100" price="61000" sellable="true" weapon_type="pet" />
+<item id="3903" name="Mithril Canine" weight="100" price="100000" sellable="true" weapon_type="pet" />
+<item id="3904" name="Sylvan Canine" weight="100" price="160000" sellable="true" weapon_type="pet" />
+<item id="3905" name="Orikarukon Canine" weight="100" price="240000" sellable="true" weapon_type="pet" />
+<item id="3906" name="Fang of Saltydog" weight="100" price="350000" sellable="true" weapon_type="pet" />
+<item id="3907" name="Fang of Cerberus" weight="100" price="450000" sellable="true" weapon_type="pet" />
+<item id="3908" name="Fang of Coyote" weight="100" price="570000" sellable="true" weapon_type="pet" />
+<item id="3909" name="Crystalized Ice Canine" weight="100" price="720000" sellable="true" weapon_type="pet" />
+<item id="3910" name="Fang of The Blue Wolf" weight="100" price="1100000" sellable="true" weapon_type="pet" />
+<item id="3911" name="Fang of Fenril" weight="100" price="1500000" sellable="true" weapon_type="pet" />
+<item id="3919" name="Serpent Fang" weight="100" price="200000" sellable="true" weapon_type="pet" />
+<item id="3920" name="Viperbite" weight="100" price="310000" sellable="true" weapon_type="pet" />
+<item id="3921" name="Shadow Fang" weight="100" price="420000" sellable="true" weapon_type="pet" />
+<item id="3922" name="Alya Fang" weight="100" price="570000" sellable="true" weapon_type="pet" />
+<item id="3923" name="Torturer" weight="100" price="760000" sellable="true" weapon_type="pet" />
+<item id="3924" name="Unuk Alhay Fang" weight="100" price="1100000" sellable="true" weapon_type="pet" />
+<item id="3925" name="Antiplague" weight="100" price="1600000" sellable="true" weapon_type="pet" />
+<item id="3937" name="Giant Bar" weight="300" price="409000" sellable="true" weapon_type="pole" />
+<item id="3938" name="Giant Rod" weight="300" price="409000" sellable="true" weapon_type="pole" />
+<item id="3939" name="Lady's Fan" weight="300" price="409000" sellable="true" weapon_type="pole" />
+<item id="4027" name="Bouquet" weight="0" price="0" sellable="true" weapon_type="sword" />
+<item id="4028" name="Giant Cannon" weight="300" price="409000" sellable="true" weapon_type="dagger" />
+<item id="4202" name="Chrono Cithara" weight="0" price="0" sellable="true" weapon_type="sword" />
+<item id="4219" name="Dream Sword" weight="1530" price="244000" sellable="false" weapon_type="sword" />
+<item id="4220" name="Dream Knife" weight="1110" price="244000" sellable="false" weapon_type="dagger" />
+<item id="4221" name="Ubiquitous Axe" weight="1850" price="244000" sellable="false" weapon_type="blunt" />
+<item id="4222" name="Dream Shield" weight="1380" price="12900" sellable="false" weapon_type="none" />
+<item id="4223" name="Ubiquitous Shield" weight="1380" price="12900" sellable="false" weapon_type="none" />
+<item id="4233" name="Knuckle Duster" weight="1490" price="2870000" sellable="true" weapon_type="dualfist" />
+<item id="4237" name="Hatchling's Level 65 Weapon" weight="100" price="0" sellable="true" weapon_type="pet" />
+<item id="4238" name="Hatchling's Level 75 Weapon" weight="100" price="0" sellable="true" weapon_type="pet" />
+<item id="4665" name="Pipette Knife" weight="1140" price="0" sellable="false" weapon_type="dagger" />
+<item id="4681" name="Stormbringer - Critical Anger" weight="1430" price="2290000" sellable="true" weapon_type="sword" />
+<item id="4682" name="Stormbringer - Focus" weight="1430" price="2290000" sellable="true" weapon_type="sword" />
+<item id="4683" name="Stormbringer - Light" weight="430" price="2290000" sellable="true" weapon_type="sword" />
+<item id="4684" name="Shamshir - Guidance" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="4685" name="Shamshir - Back Blow" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="4686" name="Shamshir - Rsk. Evasion" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="4687" name="Katana - Focus" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="4688" name="Katana - Critical Damage" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="4689" name="Katana - Haste" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="4690" name="Spirit Sword - Critical Damage" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="4691" name="Spirit Sword - Critical Poison" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="4692" name="Spirit Sword - Haste" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="4693" name="Raid Sword - Focus" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="4694" name="Raid Sword - Critical Drain" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="4695" name="Raid Sword - Critical Poison" weight="1420" price="2870000" sellable="true" weapon_type="sword" />
+<item id="4696" name="Caliburs - Guidance" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="4697" name="Caliburs - Focus" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="4698" name="Caliburs - Critical Damage" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="4699" name="Sword of Delusion - Focus" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="4700" name="Sword of Delusion - Health" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="4701" name="Sword of Delusion - Rsk. Haste" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="4702" name="Tsurugi - Focus" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="4703" name="Tsurugi - Critical Damage" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="4704" name="Tsurugi - Haste" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="4705" name="Sword of Nightmare - Health" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="4706" name="Sword of Nightmare - Focus" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="4707" name="Sword of Nightmare - Light" weight="420" price="4300000" sellable="true" weapon_type="sword" />
+<item id="4708" name="Samurai Longsword - Focus" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="4709" name="Samurai Longsword - Critical Damage" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="4710" name="Samurai Longsword - Haste" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="4711" name="Flamberge - Critical Damage" weight="2010" price="2290000" sellable="true" weapon_type="bigsword" />
+<item id="4712" name="Flamberge - Focus" weight="2010" price="2290000" sellable="true" weapon_type="bigsword" />
+<item id="4713" name="Flamberge - Light" weight="600" price="2290000" sellable="true" weapon_type="bigsword" />
+<item id="4714" name="Keshanberk - Guidance" weight="1370" price="8680000" sellable="true" weapon_type="sword" />
+<item id="4715" name="Keshanberk - Focus" weight="1370" price="8680000" sellable="true" weapon_type="sword" />
+<item id="4716" name="Keshanberk - Back Blow" weight="1370" price="8680000" sellable="true" weapon_type="sword" />
+<item id="4717" name="Sword of Damascus - Focus" weight="1350" price="13100000" sellable="true" weapon_type="sword" />
+<item id="4718" name="Sword of Damascus - Critical Damage" weight="1350" price="13100000" sellable="true" weapon_type="sword" />
+<item id="4719" name="Sword of Damascus - Haste" weight="1350" price="13100000" sellable="true" weapon_type="sword" />
+<item id="4720" name="Tallum Blade - Health" weight="1330" price="18300000" sellable="true" weapon_type="sword" />
+<item id="4721" name="Tallum Blade - Rsk. Evasion" weight="1330" price="18300000" sellable="true" weapon_type="sword" />
+<item id="4722" name="Tallum Blade - Rsk. Haste" weight="1330" price="18300000" sellable="true" weapon_type="sword" />
+<item id="4723" name="Great Sword - Health" weight="1930" price="8680000" sellable="true" weapon_type="bigsword" />
+<item id="4724" name="Great Sword - Critical Damage" weight="1930" price="8680000" sellable="true" weapon_type="bigsword" />
+<item id="4725" name="Great Sword - Focus" weight="1930" price="8680000" sellable="true" weapon_type="bigsword" />
+<item id="4726" name="Big Hammer - Health" weight="1710" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="4727" name="Big Hammer - Rsk.Focus" weight="1710" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="4728" name="Big Hammer - Haste" weight="1710" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="4729" name="Battle Axe - Anger" weight="1720" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="4730" name="Battle Axe - Rsk.Focus" weight="1720" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="4731" name="Battle Axe - Haste" weight="1720" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="4732" name="Silver Axe - Anger" weight="1690" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="4733" name="Silver Axe - Rsk.Focus" weight="1690" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="4734" name="Silver Axe - Haste" weight="1690" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="4735" name="Skull Graver - Anger" weight="1640" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="4736" name="Skull Graver - Health" weight="1640" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="4737" name="Skull Graver - Rsk.Focus" weight="1640" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="4738" name="Dwarven War Hammer - Anger" weight="1670" price="2870000" sellable="true" weapon_type="blunt" />
+<item id="4739" name="Dwarven War Hammer - Health" weight="1670" price="2870000" sellable="true" weapon_type="blunt" />
+<item id="4740" name="Dwarven War Hammer - Haste" weight="1670" price="2870000" sellable="true" weapon_type="blunt" />
+<item id="4741" name="War Axe - Anger" weight="1660" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="4742" name="War Axe - Health" weight="1660" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="4743" name="War Axe - Haste" weight="1660" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="4744" name="Yaksa Mace - Anger" weight="1640" price="6130000" sellable="true" weapon_type="blunt" />
+<item id="4745" name="Yaksa Mace - Health" weight="1640" price="6130000" sellable="true" weapon_type="blunt" />
+<item id="4746" name="Yaksa Mace - Rsk. Focus" weight="1640" price="6130000" sellable="true" weapon_type="blunt" />
+<item id="4747" name="Heavy War Axe - Anger" weight="1620" price="8680000" sellable="true" weapon_type="blunt" />
+<item id="4748" name="Heavy War Axe - Health" weight="1620" price="8680000" sellable="true" weapon_type="blunt" />
+<item id="4749" name="Heavy War Axe - Rsk. Focus" weight="1620" price="8680000" sellable="true" weapon_type="blunt" />
+<item id="4750" name="Deadman's Glory - Anger" weight="1600" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="4751" name="Deadman's Glory - Health" weight="1600" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="4752" name="Deadman's Glory - Haste" weight="1600" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="4753" name="Art of Battle Axe - Health" weight="1570" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="4754" name="Art of Battle Axe - Rsk. Focus" weight="1570" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="4755" name="Art of Battle Axe - Haste" weight="1570" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="4756" name="Meteor Shower - Health" weight="1600" price="18300000" sellable="true" weapon_type="blunt" />
+<item id="4757" name="Meteor Shower - Focus" weight="1600" price="18300000" sellable="true" weapon_type="blunt" />
+<item id="4758" name="Meteor Shower - P.Focus" weight="1600" price="18300000" sellable="true" weapon_type="blunt" />
+<item id="4759" name="Cursed Dagger - Critical Bleed" weight="1040" price="2290000" sellable="true" weapon_type="dagger" />
+<item id="4760" name="Cursed Dagger - Critical Poison" weight="1040" price="2290000" sellable="true" weapon_type="dagger" />
+<item id="4761" name="Cursed Dagger - Rsk. Haste" weight="1040" price="2290000" sellable="true" weapon_type="dagger" />
+<item id="4762" name="Dark Elven Dagger - Focus" weight="1050" price="2290000" sellable="true" weapon_type="dagger" />
+<item id="4763" name="Dark Elven Dagger - Back Blow" weight="1050" price="2290000" sellable="true" weapon_type="dagger" />
+<item id="4764" name="Dark Elven Dagger - Mortal Strike" weight="1050" price="2290000" sellable="true" weapon_type="dagger" />
+<item id="4765" name="Stiletto - Critical Bleed" weight="1030" price="2870000" sellable="true" weapon_type="dagger" />
+<item id="4766" name="Stiletto - Critical Poison" weight="1030" price="2870000" sellable="true" weapon_type="dagger" />
+<item id="4767" name="Stiletto - Mortal Strike" weight="1030" price="2870000" sellable="true" weapon_type="dagger" />
+<item id="4768" name="Grace Dagger - Evasion" weight="1020" price="4300000" sellable="true" weapon_type="dagger" />
+<item id="4769" name="Grace Dagger - Focus" weight="1020" price="4300000" sellable="true" weapon_type="dagger" />
+<item id="4770" name="Grace Dagger - Back Blow" weight="1020" price="4300000" sellable="true" weapon_type="dagger" />
+<item id="4771" name="Dark Screamer - Evasion" weight="1010" price="4300000" sellable="true" weapon_type="dagger" />
+<item id="4772" name="Dark Screamer - Focus" weight="1010" price="4300000" sellable="true" weapon_type="dagger" />
+<item id="4773" name="Dark Screamer - Critical Bleed" weight="1010" price="4300000" sellable="true" weapon_type="dagger" />
+<item id="4774" name="Crystal Dagger - Critical Bleed" weight="1000" price="6130000" sellable="true" weapon_type="dagger" />
+<item id="4775" name="Crystal Dagger - Critical Poison" weight="1000" price="6130000" sellable="true" weapon_type="dagger" />
+<item id="4776" name="Crystal Dagger - Mortal Strike" weight="1000" price="6130000" sellable="true" weapon_type="dagger" />
+<item id="4777" name="Kris - Evasion" weight="980" price="8680000" sellable="true" weapon_type="dagger" />
+<item id="4778" name="Kris - Focus" weight="980" price="8680000" sellable="true" weapon_type="dagger" />
+<item id="4779" name="Kris - Back Blow" weight="980" price="8680000" sellable="true" weapon_type="dagger" />
+<item id="4780" name="Demon Dagger - Critical Bleed" weight="970" price="13100000" sellable="true" weapon_type="dagger" />
+<item id="4781" name="Demon Dagger - Critical Poison" weight="970" price="13100000" sellable="true" weapon_type="dagger" />
+<item id="4782" name="Demon Dagger - Mortal Strike" weight="970" price="13100000" sellable="true" weapon_type="dagger" />
+<item id="4783" name="Bloody Orchid - Evasion" weight="960" price="18300000" sellable="true" weapon_type="dagger" />
+<item id="4784" name="Bloody Orchid - Focus" weight="960" price="18300000" sellable="true" weapon_type="dagger" />
+<item id="4785" name="Bloody Orchid - Back Blow" weight="960" price="18300000" sellable="true" weapon_type="dagger" />
+<item id="4786" name="Hell Knife - Focus" weight="740" price="8680000" sellable="true" weapon_type="dagger" />
+<item id="4787" name="Hell Knife - Back Blow" weight="740" price="8680000" sellable="true" weapon_type="dagger" />
+<item id="4788" name="Hell Knife - Mortal Strike" weight="740" price="8680000" sellable="true" weapon_type="dagger" />
+<item id="4789" name="Chakram - Critical Drain" weight="1490" price="2290000" sellable="true" weapon_type="dualfist" />
+<item id="4790" name="Chakram - Critical Poison" weight="1490" price="2290000" sellable="true" weapon_type="dualfist" />
+<item id="4791" name="Chakram - Rsk. Haste" weight="1490" price="2290000" sellable="true" weapon_type="dualfist" />
+<item id="4792" name="Fisted Blade - Rsk. Evasion" weight="1480" price="4300000" sellable="true" weapon_type="dualfist" />
+<item id="4793" name="Fisted Blade - Rsk. Haste" weight="1480" price="4300000" sellable="true" weapon_type="dualfist" />
+<item id="4794" name="Fisted Blade - Haste" weight="1480" price="4300000" sellable="true" weapon_type="dualfist" />
+<item id="4795" name="Great Pata - Critical Drain" weight="1460" price="6130000" sellable="true" weapon_type="dualfist" />
+<item id="4796" name="Great Pata - Critical Poison" weight="1460" price="6130000" sellable="true" weapon_type="dualfist" />
+<item id="4797" name="Great Pata - Rsk. Haste" weight="1460" price="6130000" sellable="true" weapon_type="dualfist" />
+<item id="4798" name="Knuckle Duster - Rsk. Evasion" weight="1490" price="2870000" sellable="true" weapon_type="dualfist" />
+<item id="4799" name="Knuckle Duster - Rsk. Haste" weight="1490" price="2870000" sellable="true" weapon_type="dualfist" />
+<item id="4800" name="Knuckle Duster - Haste" weight="1490" price="2870000" sellable="true" weapon_type="dualfist" />
+<item id="4801" name="Arthro Nail - Critical Poison" weight="1420" price="8680000" sellable="true" weapon_type="dualfist" />
+<item id="4802" name="Arthro Nail - Rsk. Evasion" weight="1420" price="8680000" sellable="true" weapon_type="dualfist" />
+<item id="4803" name="Arthro Nail - Rsk. Haste" weight="1420" price="8680000" sellable="true" weapon_type="dualfist" />
+<item id="4804" name="Bellion Cestus - Critical Drain" weight="1390" price="13100000" sellable="true" weapon_type="dualfist" />
+<item id="4805" name="Bellion Cestus - Critical Poison" weight="1390" price="13100000" sellable="true" weapon_type="dualfist" />
+<item id="4806" name="Bellion Cestus - Rsk. Haste" weight="1390" price="13100000" sellable="true" weapon_type="dualfist" />
+<item id="4807" name="Blood Tornado - Critical Drain" weight="1370" price="18300000" sellable="true" weapon_type="dualfist" />
+<item id="4808" name="Blood Tornado - Rsk. Evasion" weight="1370" price="18300000" sellable="true" weapon_type="dualfist" />
+<item id="4809" name="Blood Tornado - Haste" weight="1370" price="18300000" sellable="true" weapon_type="dualfist" />
+<item id="4810" name="Crystallized Ice Bow - Guidance" weight="1790" price="2290000" sellable="true" weapon_type="bow" />
+<item id="4811" name="Crystallized Ice Bow - Evasion" weight="1790" price="2290000" sellable="true" weapon_type="bow" />
+<item id="4812" name="Crystallized Ice Bow - Quick Recovery" weight="1790" price="2290000" sellable="true" weapon_type="bow" />
+<item id="4813" name="Elemental Bow - Guidance" weight="1770" price="2870000" sellable="true" weapon_type="bow" />
+<item id="4814" name="Elemental Bow - Miser" weight="1770" price="2870000" sellable="true" weapon_type="bow" />
+<item id="4815" name="Elemental Bow - Quick Recovery" weight="1770" price="2870000" sellable="true" weapon_type="bow" />
+<item id="4816" name="Elven Bow of Nobility - Evasion" weight="1760" price="2870000" sellable="true" weapon_type="bow" />
+<item id="4817" name="Elven Bow of Nobility - Miser" weight="1760" price="2870000" sellable="true" weapon_type="bow" />
+<item id="4818" name="Elven Bow of Nobility - Cheap Shot" weight="1760" price="2870000" sellable="true" weapon_type="bow" />
+<item id="4819" name="Akat Long Bow - Guidance" weight="1740" price="4300000" sellable="true" weapon_type="bow" />
+<item id="4820" name="Akat Long Bow - Evasion" weight="1740" price="4300000" sellable="true" weapon_type="bow" />
+<item id="4821" name="Akat Long Bow - Miser" weight="1740" price="4300000" sellable="true" weapon_type="bow" />
+<item id="4822" name="Eminence Bow - Guidance" weight="1720" price="6130000" sellable="true" weapon_type="bow" />
+<item id="4823" name="Eminence Bow - Miser" weight="1720" price="6130000" sellable="true" weapon_type="bow" />
+<item id="4824" name="Eminence Bow - Cheap Shot" weight="1720" price="6130000" sellable="true" weapon_type="bow" />
+<item id="4825" name="Dark Elven Long Bow - Evasion" weight="1720" price="8680000" sellable="true" weapon_type="bow" />
+<item id="4826" name="Dark Elven Long Bow - Critical Bleed" weight="1720" price="8680000" sellable="true" weapon_type="bow" />
+<item id="4827" name="Dark Elven Long Bow - Miser" weight="1720" price="8680000" sellable="true" weapon_type="bow" />
+<item id="4828" name="Bow of Peril - Guidance" weight="1700" price="13100000" sellable="true" weapon_type="bow" />
+<item id="4829" name="Bow of Peril - Quick Recovery" weight="1700" price="13100000" sellable="true" weapon_type="bow" />
+<item id="4830" name="Bow of Peril - Cheap Shot" weight="1700" price="13100000" sellable="true" weapon_type="bow" />
+<item id="4831" name="Carnage Bow - Critical Bleed" weight="1670" price="18300000" sellable="true" weapon_type="bow" />
+<item id="4832" name="Carnage Bow - Mana Up" weight="1670" price="18300000" sellable="true" weapon_type="bow" />
+<item id="4833" name="Carnage Bow - Quick Recovery" weight="1670" price="18300000" sellable="true" weapon_type="bow" />
+<item id="4834" name="Scythe - Anger" weight="2040" price="2290000" sellable="true" weapon_type="pole" />
+<item id="4835" name="Scythe - Critical Stun" weight="2040" price="2290000" sellable="true" weapon_type="pole" />
+<item id="4836" name="Scythe - Light" weight="610" price="2290000" sellable="true" weapon_type="pole" />
+<item id="4837" name="Orcish Glaive - Anger" weight="2030" price="2290000" sellable="true" weapon_type="pole" />
+<item id="4838" name="Orcish Glaive - Critical Stun" weight="2030" price="2290000" sellable="true" weapon_type="pole" />
+<item id="4839" name="Orcish Glaive - Towering Blow" weight="2030" price="2290000" sellable="true" weapon_type="pole" />
+<item id="4840" name="Body Slasher - Critical Stun" weight="2030" price="2290000" sellable="true" weapon_type="pole" />
+<item id="4841" name="Body Slasher - Towering Blow" weight="2030" price="2290000" sellable="true" weapon_type="pole" />
+<item id="4842" name="Body Slasher - Wide Blow" weight="2030" price="2290000" sellable="true" weapon_type="pole" />
+<item id="4843" name="Bec de Corbin - Critical Stun" weight="2020" price="2870000" sellable="true" weapon_type="pole" />
+<item id="4844" name="Bec de Corbin - Towering Blow" weight="2020" price="2870000" sellable="true" weapon_type="pole" />
+<item id="4845" name="Bec de Corbin - Light" weight="600" price="2870000" sellable="true" weapon_type="pole" />
+<item id="4846" name="Scorpion - Anger" weight="1990" price="4780000" sellable="true" weapon_type="pole" />
+<item id="4847" name="Scorpion - Critical Stun" weight="1990" price="4780000" sellable="true" weapon_type="pole" />
+<item id="4848" name="Scorpion - Towering Blow" weight="1990" price="4780000" sellable="true" weapon_type="pole" />
+<item id="4849" name="Widow Maker - Critical Stun" weight="1980" price="4780000" sellable="true" weapon_type="pole" />
+<item id="4850" name="Widow Maker - Towering Blow" weight="1980" price="4780000" sellable="true" weapon_type="pole" />
+<item id="4851" name="Widow Maker - Wide Blow" weight="1980" price="4780000" sellable="true" weapon_type="pole" />
+<item id="4852" name="Orcish Poleaxe - Critical Stun" weight="1950" price="6130000" sellable="true" weapon_type="pole" />
+<item id="4853" name="Orcish Poleaxe - Towering Blow" weight="1950" price="6130000" sellable="true" weapon_type="pole" />
+<item id="4854" name="Orcish Poleaxe - Wide Blow" weight="1950" price="6130000" sellable="true" weapon_type="pole" />
+<item id="4855" name="Great Axe - Anger" weight="1940" price="8680000" sellable="true" weapon_type="pole" />
+<item id="4856" name="Great Axe - Critical Stun" weight="1940" price="8680000" sellable="true" weapon_type="pole" />
+<item id="4857" name="Great Axe - Light" weight="580" price="8680000" sellable="true" weapon_type="pole" />
+<item id="4858" name="Lance - Anger" weight="1920" price="13100000" sellable="true" weapon_type="pole" />
+<item id="4859" name="Lance - Critical Stun" weight="1920" price="13100000" sellable="true" weapon_type="pole" />
+<item id="4860" name="Lance - Towering Blow" weight="1920" price="13100000" sellable="true" weapon_type="pole" />
+<item id="4861" name="Halberd - Critical Stun" weight="1900" price="18300000" sellable="true" weapon_type="pole" />
+<item id="4862" name="Halberd - Towering Blow" weight="1900" price="18300000" sellable="true" weapon_type="pole" />
+<item id="4863" name="Halberd - Wide Blow" weight="1900" price="18300000" sellable="true" weapon_type="pole" />
+<item id="4864" name="Heavy Doom Hammer - Magic Regeneration" weight="1020" price="2290000" sellable="true" weapon_type="bigblunt" />
+<item id="4865" name="Heavy Doom Hammer - Mental Shield" weight="1020" price="2290000" sellable="true" weapon_type="bigblunt" />
+<item id="4866" name="Heavy Doom Hammer - Magic Hold" weight="1020" price="2290000" sellable="true" weapon_type="bigblunt" />
+<item id="4867" name="Crystal Staff - Rsk. Evasion" weight="1020" price="2290000" sellable="true" weapon_type="bigblunt" />
+<item id="4868" name="Crystal Staff - Mana Up" weight="1020" price="2290000" sellable="true" weapon_type="bigblunt" />
+<item id="4869" name="Crystal Staff - Bodily Blessing" weight="1020" price="2290000" sellable="true" weapon_type="bigblunt" />
+<item id="4870" name="Heavy Doom Axe - Magic Poison" weight="1010" price="2290000" sellable="true" weapon_type="bigblunt" />
+<item id="4871" name="Heavy Doom Axe - Magic Weakness" weight="1010" price="2290000" sellable="true" weapon_type="bigblunt" />
+<item id="4872" name="Heavy Doom Axe - Magic Chaos" weight="1010" price="2290000" sellable="true" weapon_type="bigblunt" />
+<item id="4873" name="Cursed Staff - Magic Hold" weight="1000" price="2870000" sellable="true" weapon_type="bigblunt" />
+<item id="4874" name="Cursed Staff - Magic Poison" weight="1000" price="2870000" sellable="true" weapon_type="bigblunt" />
+<item id="4875" name="Cursed Staff - Magic Weakness" weight="1000" price="2870000" sellable="true" weapon_type="bigblunt" />
+<item id="4876" name="Paradia Staff - Magic Regeneration" weight="1010" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="4877" name="Paradia Staff - Mental Shield" weight="1010" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="4878" name="Paradia Staff - Magic Hold" weight="1010" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="4879" name="Pa'agrian Hammer - Rsk. Evasion" weight="1010" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="4880" name="Pa'agrian Hammer - Magic Poison" weight="1010" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="4881" name="Pa'agrian Hammer - Magic Weakness" weight="1010" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="4882" name="Sage's Staff - Magic Hold" weight="1000" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="4883" name="Sage's Staff - Magic Poison" weight="1000" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="4884" name="Sage's Staff - Magic Weakness" weight="1000" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="4885" name="Pa'agrian Axe - Mana Up" weight="990" price="4780000" sellable="true" weapon_type="bigblunt" />
+<item id="4886" name="Pa'agrian Axe - Magic Weakness" weight="990" price="4780000" sellable="true" weapon_type="bigblunt" />
+<item id="4887" name="Pa'agrian Axe - Magic Chaos" weight="990" price="4780000" sellable="true" weapon_type="bigblunt" />
+<item id="4888" name="Deadman's Staff - Magic Regeneration" weight="1010" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="4889" name="Deadman's Staff - Mental Shield" weight="1010" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="4890" name="Deadman's Staff - Magic Hold" weight="1010" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="4891" name="Ghoul's Staff - Rsk. Evasion" weight="1000" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="4892" name="Ghoul's Staff - Mana Up" weight="1000" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="4893" name="Ghoul's Staff - Bodily Blessing" weight="1000" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="4894" name="Demon's Staff - Magic Poison" weight="990" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="4895" name="Demon's Staff - Magic Weakness" weight="990" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="4896" name="Demon's Staff - Magic Chaos" weight="990" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="4897" name="Sprite's Staff - Magic Regeneration" weight="960" price="8680000" sellable="true" weapon_type="bigblunt" />
+<item id="4898" name="Sprite's Staff - Mental Shield" weight="960" price="8680000" sellable="true" weapon_type="bigblunt" />
+<item id="4899" name="Sprite's Staff - Magic Hold" weight="960" price="8680000" sellable="true" weapon_type="bigblunt" />
+<item id="4900" name="Staff of Evil Spirits - Magic Focus" weight="930" price="13100000" sellable="true" weapon_type="bigblunt" />
+<item id="4901" name="Staff of Evil Spirits - Bodily Blessing" weight="930" price="13100000" sellable="true" weapon_type="bigblunt" />
+<item id="4902" name="Staff of Evil Spirits - Magic Poison" weight="930" price="13100000" sellable="true" weapon_type="bigblunt" />
+<item id="4903" name="Dasparion's Staff" weight="920" price="18300000" sellable="true" weapon_type="bigblunt" />
+<item id="4904" name="Dasparion's Staff" weight="920" price="18300000" sellable="true" weapon_type="bigblunt" />
+<item id="4905" name="Dasparion's Staff" weight="920" price="18300000" sellable="true" weapon_type="bigblunt" />
+<item id="5127" name="Dailaon Knife" weight="300" price="409000" sellable="true" weapon_type="dagger" />
+<item id="5128" name="Crokian Blade" weight="300" price="409000" sellable="true" weapon_type="dagger" />
+<item id="5129" name="Doll Knife" weight="300" price="409000" sellable="true" weapon_type="dual" />
+<item id="5130" name="Nos Sword" weight="300" price="409000" sellable="true" weapon_type="dagger" />
+<item id="5131" name="Parhit Staff" weight="300" price="409000" sellable="true" weapon_type="dagger" />
+<item id="5132" name="Giant Trident" weight="300" price="409000" sellable="true" weapon_type="dagger" />
+<item id="5133" name="Chrono Unitus" weight="0" price="0" sellable="true" weapon_type="dualfist" />
+<item id="5176" name="Serpentine Spike" weight="100" price="1600000" sellable="true" weapon_type="pet" />
+<item id="5177" name="Drake Horn" weight="100" price="2300000" sellable="true" weapon_type="pet" />
+<item id="5178" name="Assult Alicorn" weight="100" price="3400000" sellable="true" weapon_type="pet" />
+<item id="5179" name="Draconic Slicer" weight="100" price="4900000" sellable="true" weapon_type="pet" />
+<item id="5180" name="Ohpdian Lance" weight="100" price="7300000" sellable="true" weapon_type="pet" />
+<item id="5181" name="Diamond Drill" weight="100" price="10000000" sellable="true" weapon_type="pet" />
+<item id="5187" name="Serpentine Grinder" weight="100" price="2300000" sellable="true" weapon_type="pet" />
+<item id="5188" name="Fang of Dahak" weight="100" price="3400000" sellable="true" weapon_type="pet" />
+<item id="5189" name="Crimson Blood Fang" weight="100" price="4900000" sellable="true" weapon_type="pet" />
+<item id="5190" name="Draconic Chopper" weight="100" price="7300000" sellable="true" weapon_type="pet" />
+<item id="5191" name="Diabolic Grinder" weight="100" price="10000000" sellable="true" weapon_type="pet" />
+<item id="5217" name="Wolf Level 75 Weapon" weight="100" price="61084" sellable="true" weapon_type="pet" />
+<item id="5233" name="Keshanberk*Keshanberk" weight="2080" price="18300000" sellable="true" weapon_type="dual" />
+<item id="5284" name="Zweihander" weight="1530" price="244000" sellable="true" weapon_type="bigsword" />
+<item id="5285" name="Heavy Sword" weight="1520" price="409000" sellable="true" weapon_type="bigsword" />
+<item id="5286" name="Berserker Blade" weight="1380" price="6130000" sellable="true" weapon_type="bigsword" />
+<item id="5292" name="Sealed Dark Crystal Shield" weight="1190" price="1220000" sellable="true" weapon_type="none" />
+<item id="5315" name="Sealed Shield of Nightmare" weight="1180" price="1850000" sellable="true" weapon_type="none" />
+<item id="5596" name="Dasparion's Staff - Mana Up" weight="920" price="18300000" sellable="true" weapon_type="bigblunt" />
+<item id="5597" name="Dasparion's Staff - Conversion" weight="920" price="18300000" sellable="true" weapon_type="bigblunt" />
+<item id="5598" name="Dasparion's Staff - Acumen" weight="920" price="18300000" sellable="true" weapon_type="bigblunt" />
+<item id="5599" name="Meteor Shower - Focus" weight="1600" price="18300000" sellable="true" weapon_type="blunt" />
+<item id="5600" name="Meteor Shower - Critical Bleed" weight="1600" price="18300000" sellable="true" weapon_type="blunt" />
+<item id="5601" name="Meteor Shower - Rsk. Haste" weight="1600" price="18300000" sellable="true" weapon_type="blunt" />
+<item id="5602" name="Elysian - Health" weight="1580" price="27000000" sellable="true" weapon_type="blunt" />
+<item id="5603" name="Elysian - Anger" weight="1580" price="27000000" sellable="true" weapon_type="blunt" />
+<item id="5604" name="Elysian - Critical Drain" weight="1580" price="27000000" sellable="true" weapon_type="blunt" />
+<item id="5605" name="Branch of The Mother Tree - Conversion" weight="900" price="27000000" sellable="true" weapon_type="bigblunt" />
+<item id="5606" name="Branch of The Mother Tree - Magic Damage" weight="900" price="27000000" sellable="true" weapon_type="bigblunt" />
+<item id="5607" name="Branch of The Mother Tree - Acumen" weight="900" price="27000000" sellable="true" weapon_type="bigblunt" />
+<item id="5608" name="Carnage Bow - Light" weight="500" price="18300000" sellable="true" weapon_type="bow" />
+<item id="5609" name="Carnage Bow - Critical Bleed" weight="1670" price="18300000" sellable="true" weapon_type="bow" />
+<item id="5610" name="Carnage Bow - Mana Up" weight="1670" price="18300000" sellable="true" weapon_type="bow" />
+<item id="5611" name="Soul Bow - Cheap Shot" weight="1660" price="27000000" sellable="true" weapon_type="bow" />
+<item id="5612" name="Soul Bow - Quick Recovery" weight="1660" price="27000000" sellable="true" weapon_type="bow" />
+<item id="5613" name="Soul Bow - Critical Poison" weight="1660" price="27000000" sellable="true" weapon_type="bow" />
+<item id="5614" name="Bloody Orchid - Focus" weight="960" price="18300000" sellable="true" weapon_type="dagger" />
+<item id="5615" name="Bloody Orchid - Back Blow" weight="960" price="18300000" sellable="true" weapon_type="dagger" />
+<item id="5616" name="Bloody Orchid - Critical Bleed" weight="960" price="18300000" sellable="true" weapon_type="dagger" />
+<item id="5617" name="Soul Separator - Guidance" weight="950" price="27000000" sellable="true" weapon_type="dagger" />
+<item id="5618" name="Soul Separator - Critical Damage" weight="950" price="27000000" sellable="true" weapon_type="dagger" />
+<item id="5619" name="Soul Separator - Rsk. Haste" weight="950" price="27000000" sellable="true" weapon_type="dagger" />
+<item id="5620" name="Blood Tornado - Haste" weight="1370" price="18300000" sellable="true" weapon_type="dualfist" />
+<item id="5621" name="Blood Tornado - Focus" weight="1370" price="18300000" sellable="true" weapon_type="dualfist" />
+<item id="5622" name="Blood Tornado - Anger" weight="1370" price="18300000" sellable="true" weapon_type="dualfist" />
+<item id="5623" name="Dragon Grinder - Rsk. Evasion" weight="1350" price="27000000" sellable="true" weapon_type="dualfist" />
+<item id="5624" name="Dragon Grinder - Guidance" weight="1350" price="27000000" sellable="true" weapon_type="dualfist" />
+<item id="5625" name="Dragon Grinder - Health" weight="1350" price="27000000" sellable="true" weapon_type="dualfist" />
+<item id="5626" name="Halberd - Haste" weight="1900" price="18300000" sellable="true" weapon_type="pole" />
+<item id="5627" name="Halberd - Critical Stun" weight="1900" price="18300000" sellable="true" weapon_type="pole" />
+<item id="5628" name="Halberd - Wide Blow" weight="1900" price="18300000" sellable="true" weapon_type="pole" />
+<item id="5629" name="Orcish Halberd" weight="1880" price="21300000" sellable="true" weapon_type="pole" />
+<item id="5630" name="Orcish Halberd" weight="1880" price="21300000" sellable="true" weapon_type="pole" />
+<item id="5631" name="Orcish Halberd" weight="1880" price="21300000" sellable="true" weapon_type="pole" />
+<item id="5632" name="Tallum Glaive - Guidance" weight="1840" price="27000000" sellable="true" weapon_type="pole" />
+<item id="5633" name="Tallum Glaive - Health" weight="1840" price="27000000" sellable="true" weapon_type="pole" />
+<item id="5634" name="Tallum Glaive - Wide Blow" weight="1840" price="27000000" sellable="true" weapon_type="pole" />
+<item id="5635" name="Tallum Blade - Critical Poison" weight="1330" price="18300000" sellable="true" weapon_type="sword" />
+<item id="5636" name="Tallum Blade - Haste" weight="1330" price="18300000" sellable="true" weapon_type="sword" />
+<item id="5637" name="Tallum Blade - Anger" weight="1330" price="18300000" sellable="true" weapon_type="sword" />
+<item id="5638" name="Elemental Sword - Magic Power" weight="830" price="18300000" sellable="true" weapon_type="sword" />
+<item id="5639" name="Elemental Sword - Magic Paralyze" weight="830" price="18300000" sellable="true" weapon_type="sword" />
+<item id="5640" name="Elemental Sword - Empower" weight="830" price="18300000" sellable="true" weapon_type="sword" />
+<item id="5641" name="Sword of Miracles - Magic Power" weight="840" price="27000000" sellable="true" weapon_type="sword" />
+<item id="5642" name="Sword of Miracles - Magic Silence" weight="840" price="27000000" sellable="true" weapon_type="sword" />
+<item id="5643" name="Sword of Miracles - Acumen" weight="840" price="27000000" sellable="true" weapon_type="sword" />
+<item id="5644" name="Dragon Slayer - Health" weight="1840" price="27000000" sellable="true" weapon_type="bigsword" />
+<item id="5645" name="Dragon Slayer - Critical Bleed" weight="1840" price="27000000" sellable="true" weapon_type="bigsword" />
+<item id="5646" name="Dragon Slayer - Critical Drain" weight="1840" price="27000000" sellable="true" weapon_type="bigsword" />
+<item id="5647" name="Dark Legion's Edge - Critical Damage" weight="1320" price="27000000" sellable="true" weapon_type="sword" />
+<item id="5648" name="Dark Legion's Edge - Health" weight="1320" price="27000000" sellable="true" weapon_type="sword" />
+<item id="5649" name="Dark Legion's Edge - Rsk. Focus" weight="1320" price="27000000" sellable="true" weapon_type="sword" />
+<item id="5704" name="Keshanberk*Keshanberk" weight="2080" price="18300000" sellable="true" weapon_type="dual" />
+<item id="5705" name="Keshanberk*Damascus" weight="2080" price="24100000" sellable="true" weapon_type="dual" />
+<item id="5706" name="Damascus*Damascus" weight="2080" price="27000000" sellable="true" weapon_type="dual" />
+<item id="5791" name="Tomb Guard A" weight="2180" price="967000" sellable="true" weapon_type="bigsword" />
+<item id="5792" name="Tomb Guard B" weight="2180" price="967000" sellable="true" weapon_type="bigsword" />
+<item id="5793" name="Tomb Savant A" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="5794" name="Tomb Savant B" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="5795" name="Tomb Guard A" weight="2180" price="967000" sellable="true" weapon_type="bigsword" />
+<item id="5796" name="Tomb Guard B" weight="2180" price="967000" sellable="true" weapon_type="bigsword" />
+<item id="5797" name="Tomb Savant A" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="5798" name="Tomb Savant B" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="5799" name="Nephilim Lord" weight="1320" price="78400" sellable="true" weapon_type="none" />
+<item id="5800" name="Nephilim Lord" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="5801" name="Dusk" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="5802" name="Dawn" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="5817" name="Chrono Campana" weight="0" price="0" sellable="true" weapon_type="pole" />
+<item id="6307" name="Sword of Limit - Guidance" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="6308" name="Sword of Limit - Critical Drain" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="6309" name="Sword of Limit - Health" weight="1400" price="4300000" sellable="true" weapon_type="sword" />
+<item id="6310" name="Sword of Whispering Death - Empower" weight="920" price="4300000" sellable="true" weapon_type="sword" />
+<item id="6311" name="Sword of Whispering Death - Magic Power" weight="920" price="4300000" sellable="true" weapon_type="sword" />
+<item id="6312" name="Sword of Whispering Death - Magic Silence" weight="920" price="4300000" sellable="true" weapon_type="sword" />
+<item id="6313" name="Homunkulus's Sword - Acumen" weight="950" price="4300000" sellable="true" weapon_type="sword" />
+<item id="6314" name="Homunkulus's Sword - Conversion" weight="950" price="4300000" sellable="true" weapon_type="sword" />
+<item id="6315" name="Homunkulus's Sword - Magic Paralyze" weight="950" price="4300000" sellable="true" weapon_type="sword" />
+<item id="6347" name="Berserker Blade - Focus" weight="1380" price="6130000" sellable="true" weapon_type="bigsword" />
+<item id="6348" name="Berserker Blade - Critical Damage" weight="1380" price="6130000" sellable="true" weapon_type="bigsword" />
+<item id="6349" name="Berserker Blade - Haste" weight="1380" price="6130000" sellable="true" weapon_type="bigsword" />
+<item id="6354" name="Falchion - for Beginners" weight="1530" price="0" sellable="false" weapon_type="sword" />
+<item id="6355" name="Mage Staff - for Beginners" weight="1050" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="6356" name="Dark Elven Dagger - Rsk. Haste" weight="1050" price="2290000" sellable="true" weapon_type="dagger" />
+<item id="6357" name="Stiletto - Rsk. Haste" weight="1030" price="2870000" sellable="true" weapon_type="dagger" />
+<item id="6358" name="Crystal Dagger - Critical Damage" weight="1000" price="6130000" sellable="true" weapon_type="dagger" />
+<item id="6359" name="Demon Dagger - Critical Damage" weight="970" price="13100000" sellable="true" weapon_type="dagger" />
+<item id="6364" name="Forgotten Blade" weight="1300" price="48800000" sellable="true" weapon_type="sword" />
+<item id="6365" name="Basalt Battlehammer" weight="1570" price="48800000" sellable="true" weapon_type="blunt" />
+<item id="6366" name="Imperial Staff" weight="910" price="48800000" sellable="true" weapon_type="bigblunt" />
+<item id="6367" name="Angel Slayer" weight="950" price="48800000" sellable="true" weapon_type="dagger" />
+<item id="6368" name="Shining Bow" weight="1650" price="48800000" sellable="true" weapon_type="bow" />
+<item id="6369" name="Dragon Hunter Axe" weight="1820" price="48800000" sellable="true" weapon_type="bigblunt" />
+<item id="6370" name="Saint Spear" weight="1800" price="48800000" sellable="true" weapon_type="pole" />
+<item id="6371" name="Demon Splinter" weight="1350" price="48800000" sellable="true" weapon_type="dualfist" />
+<item id="6372" name="Heaven's Divider" weight="1380" price="48800000" sellable="true" weapon_type="bigsword" />
+<item id="6377" name="Imperial Crusader Shield" weight="1170" price="3760000" sellable="true" weapon_type="none" />
+<item id="6529" name="Baby Duck Rod" weight="1000" price="30000" sellable="true" weapon_type="rod" />
+<item id="6530" name="Albatross Rod" weight="1000" price="100000" sellable="true" weapon_type="rod" />
+<item id="6531" name="Pelican Rod" weight="1000" price="400000" sellable="true" weapon_type="rod" />
+<item id="6532" name="KingFisher Rod" weight="1000" price="1200000" sellable="true" weapon_type="rod" />
+<item id="6533" name="Cygnus Pole" weight="1000" price="4000000" sellable="true" weapon_type="rod" />
+<item id="6534" name="Triton Pole" weight="1000" price="10000000" sellable="true" weapon_type="rod" />
+<item id="6579" name="Arcana Mace" weight="1300" price="48800000" sellable="true" weapon_type="blunt" />
+<item id="6580" name="Tallum Blade*Dark Legion's Edge" weight="2080" price="48800000" sellable="true" weapon_type="dual" />
+<item id="6581" name="Forgotten Blade - Haste" weight="1300" price="48800000" sellable="true" weapon_type="sword" />
+<item id="6582" name="Forgotten Blade - Health" weight="1300" price="48800000" sellable="true" weapon_type="sword" />
+<item id="6583" name="Forgotten Blade - Focus" weight="1300" price="48800000" sellable="true" weapon_type="sword" />
+<item id="6584" name="Basalt Battlehammer - HP Drain" weight="1570" price="48800000" sellable="true" weapon_type="blunt" />
+<item id="6585" name="Basalt Battlehammer - Health" weight="1570" price="48800000" sellable="true" weapon_type="blunt" />
+<item id="6586" name="Basalt Battlehammer - HP Regeneration" weight="1570" price="48800000" sellable="true" weapon_type="blunt" />
+<item id="6587" name="Imperial Staff - Empower" weight="910" price="48800000" sellable="true" weapon_type="bigblunt" />
+<item id="6588" name="Imperial Staff - MP Regeneration" weight="910" price="48800000" sellable="true" weapon_type="bigblunt" />
+<item id="6589" name="Imperial Staff - Magic Hold" weight="910" price="48800000" sellable="true" weapon_type="bigblunt" />
+<item id="6590" name="Angel Slayer - Crt. Damage" weight="950" price="48800000" sellable="true" weapon_type="dagger" />
+<item id="6591" name="Angel Slayer - HP Drain" weight="950" price="48800000" sellable="true" weapon_type="dagger" />
+<item id="6592" name="Angel Slayer - Haste" weight="950" price="48800000" sellable="true" weapon_type="dagger" />
+<item id="6593" name="Shining Bow - Cheap Shot" weight="1650" price="48800000" sellable="true" weapon_type="bow" />
+<item id="6594" name="Shining Bow - Focus" weight="1650" price="48800000" sellable="true" weapon_type="bow" />
+<item id="6595" name="Shining Bow - Crt. Slow" weight="1650" price="48800000" sellable="true" weapon_type="bow" />
+<item id="6596" name="Dragon Hunter Axe - HP Regeneration" weight="1820" price="48800000" sellable="true" weapon_type="bigblunt" />
+<item id="6597" name="Dragon Hunter Axe - Health" weight="1820" price="48800000" sellable="true" weapon_type="bigblunt" />
+<item id="6598" name="Dragon Hunter Axe - HP Drain" weight="1820" price="48800000" sellable="true" weapon_type="bigblunt" />
+<item id="6599" name="Saint Spear - Health" weight="1800" price="48800000" sellable="true" weapon_type="pole" />
+<item id="6600" name="Saint Spear - Guidance" weight="1800" price="48800000" sellable="true" weapon_type="pole" />
+<item id="6601" name="Saint Spear - Haste" weight="1800" price="48800000" sellable="true" weapon_type="pole" />
+<item id="6602" name="Demon Splinter - Focus" weight="1350" price="48800000" sellable="true" weapon_type="dualfist" />
+<item id="6603" name="Demon Splinter - Health" weight="1350" price="48800000" sellable="true" weapon_type="dualfist" />
+<item id="6604" name="Demon Splinter - Crt. Stun" weight="1350" price="48800000" sellable="true" weapon_type="dualfist" />
+<item id="6605" name="Heavens Divider - Haste" weight="1380" price="48800000" sellable="true" weapon_type="bigsword" />
+<item id="6606" name="Heavens Divider - Health" weight="1380" price="48800000" sellable="true" weapon_type="bigsword" />
+<item id="6607" name="Heavens Divider - Focus" weight="1380" price="48800000" sellable="true" weapon_type="bigsword" />
+<item id="6608" name="Arcana Mace - Acumen" weight="1300" price="48800000" sellable="true" weapon_type="blunt" />
+<item id="6609" name="Arcana Mace - MP Regeneration" weight="1300" price="48800000" sellable="true" weapon_type="blunt" />
+<item id="6610" name="Arcana Mace - Mana Up" weight="1300" price="48800000" sellable="true" weapon_type="blunt" />
+<item id="6611" name="Infinity Blade" weight="1300" price="57000000" sellable="true" weapon_type="sword" />
+<item id="6612" name="Infinity Cleaver" weight="1300" price="57000000" sellable="true" weapon_type="bigsword" />
+<item id="6613" name="Infinity Axe" weight="1300" price="57000000" sellable="true" weapon_type="blunt" />
+<item id="6614" name="Infinity Rod" weight="1300" price="57000000" sellable="true" weapon_type="blunt" />
+<item id="6615" name="Infinity Crusher" weight="1300" price="57000000" sellable="true" weapon_type="bigblunt" />
+<item id="6616" name="Infinity Scepter" weight="1300" price="57000000" sellable="true" weapon_type="bigblunt" />
+<item id="6617" name="Infinity Stinger" weight="1300" price="57000000" sellable="true" weapon_type="dagger" />
+<item id="6618" name="Infinity Fang" weight="1300" price="57000000" sellable="true" weapon_type="dualfist" />
+<item id="6619" name="Infinity Bow" weight="1300" price="57000000" sellable="true" weapon_type="bow" />
+<item id="6620" name="Infinity Wing" weight="1300" price="57000000" sellable="true" weapon_type="dual" />
+<item id="6621" name="Infinity Spear" weight="1300" price="57000000" sellable="true" weapon_type="pole" />
+<item id="6678" name="Sealed Imperial Crusader Shield" weight="1170" price="3760000" sellable="true" weapon_type="none" />
+<item id="6715" name="Monster Only(Silenos Archer)" weight="1950" price="768" sellable="true" weapon_type="bow" />
+<item id="6716" name="Monster Only(Silenos Shaman)" weight="1080" price="12500" sellable="true" weapon_type="bigblunt" />
+<item id="6717" name="Monster Only(Einhasad Warrior)" weight="1560" price="136000" sellable="true" weapon_type="sword" />
+<item id="6718" name="Monster Only(Einhasad Shaman)" weight="1560" price="136000" sellable="true" weapon_type="bigblunt" />
+<item id="6719" name="Monster Only(Ketra Orc Chieftain)" weight="990" price="4780000" sellable="true" weapon_type="bigblunt" />
+<item id="6720" name="Monster Only(Shadow of Halisha)" weight="1950" price="768" sellable="true" weapon_type="bow" />
+<item id="6721" name="Monster Only(Shield of Imperial Warlord Zombie)" weight="1430" price="39" sellable="true" weapon_type="none" />
+<item id="6722" name="Monster Only(Ahrimanes)" weight="2080" price="13100000" sellable="true" weapon_type="dual" />
+<item id="6723" name="Monster Only(Vampire Warrior)" weight="2090" price="1800000" sellable="true" weapon_type="bigsword" />
+<item id="6902" name="Pledge Shield" weight="1380" price="12900" sellable="true" weapon_type="none" />
+<item id="6917" name="Monster Only (Poison Sting)" weight="6" price="2" sellable="true" weapon_type="fist" />
+<item id="6918" name="Monster Only (Shield of Silenos)" weight="1380" price="12900" sellable="true" weapon_type="none" />
+<item id="6919" name="Monster Only (Shield of Ketra Orc)" weight="1320" price="78400" sellable="true" weapon_type="none" />
+<item id="7014" name="Monster Only (Shield of Dark Dragon)" weight="4800" price="845000" sellable="true" weapon_type="none" />
+<item id="7015" name="Shield of Castle Pledge" weight="1380" price="12900" sellable="true" weapon_type="none" />
+<item id="7058" name="Chrono Darbuka" weight="0" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="7560" name="Monster Only (Fishing Rod)" weight="1000" price="30000" sellable="false" weapon_type="rod" />
+<item id="7575" name="Draconic Bow" weight="1650" price="48800000" sellable="true" weapon_type="bow" />
+<item id="7576" name="Draconic Bow - Cheap Shot" weight="1650" price="48800000" sellable="true" weapon_type="bow" />
+<item id="7577" name="Draconic Bow - Focus" weight="1650" price="48800000" sellable="true" weapon_type="bow" />
+<item id="7578" name="Draconic Bow - Critical Slow" weight="1650" price="48800000" sellable="true" weapon_type="bow" />
+<item id="7701" name="Stick of Faith - Mana Up" weight="1160" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="7702" name="Stick of Faith - Magic Hold" weight="1160" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="7703" name="Stick of Faith - Magic Shield" weight="1160" price="2290000" sellable="true" weapon_type="blunt" />
+<item id="7704" name="Stick of Eternity - Empower" weight="1130" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="7705" name="Stick of Eternity - Rsk.,Evasion" weight="1130" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="7706" name="Stick of Eternity - Blessed Body" weight="1130" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="7707" name="Nirvana Axe - Magic Power" weight="1150" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="7708" name="Nirvana Axe - Magic Poison" weight="1150" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="7709" name="Nirvana Axe - Magic Weakness" weight="1150" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="7710" name="Club of Nature - Acumen" weight="1100" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="7711" name="Club of Nature - Magic Mental Shield" weight="1100" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="7712" name="Club of Nature - Magic Hold" weight="1100" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="7713" name="Mace of The Underworld - Mana Up" weight="1090" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="7714" name="Mace of The Underworld - Magic Silence" weight="1090" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="7715" name="Mace of The Underworld - Conversion" weight="1090" price="4300000" sellable="true" weapon_type="blunt" />
+<item id="7716" name="Inferno Staff - Acumen" weight="1000" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="7717" name="Inferno Staff - Magic Silence" weight="1000" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="7718" name="Inferno Staff - Magic Paralyze" weight="1000" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="7719" name="Poleaxe - Critical Stun" weight="2010" price="4300000" sellable="true" weapon_type="pole" />
+<item id="7720" name="Poleaxe - Towering Blow" weight="2010" price="4300000" sellable="true" weapon_type="pole" />
+<item id="7721" name="Poleaxe - Wide Blow" weight="2010" price="4300000" sellable="true" weapon_type="pole" />
+<item id="7722" name="Sword of Valhalla - Acumen" weight="900" price="8680000" sellable="true" weapon_type="sword" />
+<item id="7723" name="Sword of Valhalla - Magic Weakness" weight="900" price="8680000" sellable="true" weapon_type="sword" />
+<item id="7724" name="Sword of Valhalla - Magic Regeneration" weight="900" price="8680000" sellable="true" weapon_type="sword" />
+<item id="7810" name="Soulfire Dirk - Mana Up" weight="750" price="2870000" sellable="true" weapon_type="dagger" />
+<item id="7811" name="Soulfire Dirk - Magic Hold" weight="750" price="2870000" sellable="true" weapon_type="dagger" />
+<item id="7812" name="Soulfire Dirk - Magic Silence" weight="750" price="2870000" sellable="true" weapon_type="dagger" />
+<item id="7813" name="Hell Knife - Magic Regeneration" weight="740" price="8680000" sellable="true" weapon_type="dagger" />
+<item id="7814" name="Hell Knife - Mental Shield" weight="740" price="8680000" sellable="true" weapon_type="dagger" />
+<item id="7815" name="Hell Knife - Magic Weakness" weight="740" price="8680000" sellable="true" weapon_type="dagger" />
+<item id="7816" name="Apprentice Adventurer's Staff" weight="1070" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="7817" name="Apprentice Adventurer's Bone Club" weight="1850" price="0" sellable="false" weapon_type="blunt" />
+<item id="7818" name="Apprentice Adventurer's Knife" weight="1120" price="0" sellable="false" weapon_type="dagger" />
+<item id="7819" name="Apprentice Adventurer's Cestus" weight="1570" price="0" sellable="false" weapon_type="dualfist" />
+<item id="7820" name="Apprentice Adventurer's Bow" weight="1900" price="0" sellable="false" weapon_type="bow" />
+<item id="7821" name="Apprentice Adventurer's Long Sword" weight="1560" price="0" sellable="false" weapon_type="sword" />
+<item id="7822" name="Traveler's Mace" weight="1300" price="0" sellable="false" weapon_type="blunt" />
+<item id="7823" name="Traveler's Dark Elven Bow" weight="1830" price="0" sellable="false" weapon_type="bow" />
+<item id="7824" name="Traveler's Long Bow" weight="1830" price="0" sellable="false" weapon_type="bow" />
+<item id="7825" name="Traveler's Staff" weight="1040" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="7826" name="Traveler's Bastard Sword" weight="1510" price="0" sellable="false" weapon_type="sword" />
+<item id="7827" name="Traveler's Wand" weight="570" price="0" sellable="false" weapon_type="etc" />
+<item id="7828" name="Traveler's Jamadhr" weight="1550" price="0" sellable="false" weapon_type="dualfist" />
+<item id="7829" name="Traveler's Tomahawk" weight="1780" price="0" sellable="false" weapon_type="blunt" />
+<item id="7830" name="Traveler's Poniard Dagger" weight="1090" price="0" sellable="false" weapon_type="dagger" />
+<item id="7831" name="Traveler's Pike" weight="2090" price="0" sellable="false" weapon_type="pole" />
+<item id="7834" name="Art of Battle Axe" weight="1570" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="7880" name="Steel Sword" weight="2100" price="409000" sellable="true" weapon_type="bigsword" />
+<item id="7881" name="Titan Sword" weight="2020" price="1400000" sellable="true" weapon_type="bigsword" />
+<item id="7882" name="Pa'agrian Sword" weight="1980" price="4300000" sellable="true" weapon_type="bigsword" />
+<item id="7883" name="Guardian Sword" weight="1930" price="13100000" sellable="true" weapon_type="bigsword" />
+<item id="7884" name="Infernal Master" weight="1900" price="18300000" sellable="true" weapon_type="bigsword" />
+<item id="7885" name="Priest Sword" weight="1520" price="409000" sellable="true" weapon_type="sword" />
+<item id="7886" name="Sword of Magic Fog" weight="1450" price="1400000" sellable="true" weapon_type="sword" />
+<item id="7887" name="Mysterious Sword" weight="1430" price="2290000" sellable="true" weapon_type="sword" />
+<item id="7888" name="Ecliptic Sword" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="7889" name="Wizard's Tear" weight="1350" price="13100000" sellable="true" weapon_type="sword" />
+<item id="7890" name="Priest Mace" weight="1720" price="1400000" sellable="true" weapon_type="blunt" />
+<item id="7891" name="Ecliptic Axe" weight="1640" price="6130000" sellable="true" weapon_type="blunt" />
+<item id="7892" name="Spell Breaker" weight="1620" price="8680000" sellable="true" weapon_type="blunt" />
+<item id="7893" name="Kaim Vanul's Bones" weight="1570" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="7894" name="Spiritual Eye" weight="1550" price="18300000" sellable="true" weapon_type="blunt" />
+<item id="7895" name="Flaming Dragon Skull" weight="1530" price="27000000" sellable="true" weapon_type="blunt" />
+<item id="7896" name="Titan Hammer" weight="2100" price="1400000" sellable="true" weapon_type="bigblunt" />
+<item id="7897" name="Dwarven Hammer" weight="2010" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="7898" name="Karik Horn" weight="2020" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="7899" name="Destroyer Hammer" weight="1910" price="18300000" sellable="true" weapon_type="bigblunt" />
+<item id="7900" name="Ice Storm Hammer" weight="1950" price="8680000" sellable="true" weapon_type="bigblunt" />
+<item id="7901" name="Star Buster" weight="1930" price="13100000" sellable="true" weapon_type="bigblunt" />
+<item id="7902" name="Doom Crusher" weight="1900" price="27000000" sellable="true" weapon_type="bigblunt" />
+<item id="7903" name="Frintezza's Sword" weight="2180" price="0" sellable="true" weapon_type="bigsword" />
+<item id="8102" name="Pa'agrian Sword - Focus" weight="1980" price="4300000" sellable="true" weapon_type="bigsword" />
+<item id="8103" name="Pa'agrian Sword - Health" weight="1980" price="4300000" sellable="true" weapon_type="bigsword" />
+<item id="8104" name="Pa'agrian Sword - Critical Drain" weight="1980" price="4300000" sellable="true" weapon_type="bigsword" />
+<item id="8105" name="Guardian Sword - Critical Drain" weight="1930" price="13100000" sellable="true" weapon_type="bigsword" />
+<item id="8106" name="Guardian Sword - Health" weight="1930" price="13100000" sellable="true" weapon_type="bigsword" />
+<item id="8107" name="Guardian Sword - Critical Bleed" weight="1930" price="13100000" sellable="true" weapon_type="bigsword" />
+<item id="8108" name="Infernal Master - Haste" weight="1900" price="18300000" sellable="true" weapon_type="bigsword" />
+<item id="8109" name="Infernal Master - Critical Damage" weight="1900" price="18300000" sellable="true" weapon_type="bigsword" />
+<item id="8110" name="Infernal Master - Focus" weight="1900" price="18300000" sellable="true" weapon_type="bigsword" />
+<item id="8111" name="Mysterious Sword - Acumen" weight="1430" price="2290000" sellable="true" weapon_type="sword" />
+<item id="8112" name="Mysterious Sword - Magic Power" weight="1430" price="2290000" sellable="true" weapon_type="sword" />
+<item id="8113" name="Mysterious Sword - Magic Weakness" weight="1430" price="2290000" sellable="true" weapon_type="sword" />
+<item id="8114" name="Ecliptic Sword - Empower" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="8115" name="Ecliptic Sword - Magic Power" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="8116" name="Ecliptic Sword - Magic Silence" weight="1380" price="6130000" sellable="true" weapon_type="sword" />
+<item id="8117" name="Wizard's Tear - Acumen" weight="1350" price="13100000" sellable="true" weapon_type="sword" />
+<item id="8118" name="Wizard's Tear - Magic Power" weight="1350" price="13100000" sellable="true" weapon_type="sword" />
+<item id="8119" name="Wizard's Tear - Conversion" weight="1350" price="13100000" sellable="true" weapon_type="sword" />
+<item id="8120" name="Dwarven Hammer - Health" weight="2010" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="8121" name="Dwarven Hammer - Anger" weight="2010" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="8122" name="Dwarven Hammer - Critical Bleed" weight="2010" price="6130000" sellable="true" weapon_type="bigblunt" />
+<item id="8123" name="Karik Horn - Focus" weight="2020" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="8124" name="Karik Horn - Haste" weight="2020" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="8125" name="Karik Horn - Critical Drain" weight="2020" price="4300000" sellable="true" weapon_type="bigblunt" />
+<item id="8126" name="Destroyer Hammer - Health" weight="1910" price="18300000" sellable="true" weapon_type="bigblunt" />
+<item id="8127" name="Destroyer Hammer - Haste" weight="1910" price="18300000" sellable="true" weapon_type="bigblunt" />
+<item id="8128" name="Destroyer Hammer - Critical Drain" weight="1910" price="18300000" sellable="true" weapon_type="bigblunt" />
+<item id="8129" name="Ice Storm Hammer - Focus" weight="1950" price="8680000" sellable="true" weapon_type="bigblunt" />
+<item id="8130" name="Ice Storm Hammer - Anger" weight="1950" price="8680000" sellable="true" weapon_type="bigblunt" />
+<item id="8131" name="Ice Storm Hammer - Critical Bleed" weight="1950" price="8680000" sellable="true" weapon_type="bigblunt" />
+<item id="8132" name="Star Buster - Health" weight="1930" price="13100000" sellable="true" weapon_type="bigblunt" />
+<item id="8133" name="Star Buster - Haste" weight="1930" price="13100000" sellable="true" weapon_type="bigblunt" />
+<item id="8134" name="Star Buster - Rsk. Focus" weight="1930" price="13100000" sellable="true" weapon_type="bigblunt" />
+<item id="8135" name="Doom Crusher - Health" weight="1900" price="27000000" sellable="true" weapon_type="bigblunt" />
+<item id="8136" name="Doom Crusher - Anger" weight="1900" price="27000000" sellable="true" weapon_type="bigblunt" />
+<item id="8137" name="Doom Crusher - Rsk. Haste" weight="1900" price="27000000" sellable="true" weapon_type="bigblunt" />
+<item id="8138" name="Ecliptic Axe - Conversion" weight="1640" price="6130000" sellable="true" weapon_type="blunt" />
+<item id="8139" name="Ecliptic Axe - Magic Power" weight="1640" price="6130000" sellable="true" weapon_type="blunt" />
+<item id="8140" name="Ecliptic Axe - Magic Hold" weight="1640" price="6130000" sellable="true" weapon_type="blunt" />
+<item id="8141" name="Spell Breaker - Acumen" weight="1620" price="8680000" sellable="true" weapon_type="blunt" />
+<item id="8142" name="Spell Breaker - Magic Mental Shield" weight="1620" price="8680000" sellable="true" weapon_type="blunt" />
+<item id="8143" name="Spell Breaker - Magic Hold" weight="1620" price="8680000" sellable="true" weapon_type="blunt" />
+<item id="8144" name="Kaim Vanul's Bones - Mana Up" weight="1570" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="8145" name="Kaim Vanul's Bones - Magic Silence" weight="1570" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="8146" name="Kaim Vanul's Bones - Conversion" weight="1570" price="13100000" sellable="true" weapon_type="blunt" />
+<item id="8147" name="Spiritual Eye - Mana Up" weight="1550" price="18300000" sellable="true" weapon_type="blunt" />
+<item id="8148" name="Spiritual Eye - Magic Poison" weight="1550" price="18300000" sellable="true" weapon_type="blunt" />
+<item id="8149" name="Spiritual Eye - Acumen" weight="1550" price="18300000" sellable="true" weapon_type="blunt" />
+<item id="8150" name="Flaming Dragon Skull - Acumen" weight="1530" price="27000000" sellable="true" weapon_type="blunt" />
+<item id="8151" name="Flaming Dragon Skull - Magic Power" weight="1530" price="27000000" sellable="true" weapon_type="blunt" />
+<item id="8152" name="Flaming Dragon Skull - Magic Silence" weight="1530" price="27000000" sellable="true" weapon_type="blunt" />
+<item id="8190" name="Demonic Sword Zariche" weight="1840" price="0" sellable="false" weapon_type="bigsword" />
+<item id="8203" name="Monster Only (Venom Sword)" weight="1560" price="0" sellable="true" weapon_type="dual" />
+<item id="8204" name="Monster Only (Follower of Frintezza Calibur)" weight="1560" price="0" sellable="true" weapon_type="sword" />
+<item id="8205" name="Monster Only (Heretic Priest Sickle)" weight="1920" price="0" sellable="true" weapon_type="pole" />
+<item id="8206" name="Monster Only (Heretic Priest Sword)" weight="2080" price="0" sellable="true" weapon_type="dual" />
+<item id="8207" name="Monster Only (Heretic Private Axe)" weight="1560" price="0" sellable="true" weapon_type="dual" />
+<item id="8208" name="Monster Only (Heretic Private Staff)" weight="1560" price="0" sellable="true" weapon_type="pole" />
+<item id="8209" name="Monster Only (Lidia Von Helmann Sword)" weight="1560" price="0" sellable="true" weapon_type="sword" />
+<item id="8210" name="Monster Only (Monk Warrior Shield)" weight="4800" price="0" sellable="true" weapon_type="none" />
+<item id="8211" name="Monster Only (Monk Warrior Sword)" weight="1560" price="0" sellable="true" weapon_type="sword" />
+<item id="8212" name="Monster Only (Solina Brother Mace)" weight="1570" price="0" sellable="true" weapon_type="blunt" />
+<item id="8213" name="Monster Only (Solina Father Mace)" weight="1570" price="0" sellable="true" weapon_type="blunt" />
+<item id="8214" name="Monster Only (Solina Priest Pole)" weight="1920" price="0" sellable="true" weapon_type="pole" />
+<item id="8215" name="Monster Only (Zombie Enlisted Man Sword)" weight="2090" price="0" sellable="true" weapon_type="bigsword" />
+<item id="8216" name="Monster Only (Zombie Enlisted Man Claw)" weight="1350" price="0" sellable="true" weapon_type="dualfist" />
+<item id="8217" name="Monster Only (Zombie Gateguard Spear)" weight="1560" price="0" sellable="true" weapon_type="sword" />
+<item id="8218" name="Monster Only (Zombie Laborer Axe)" weight="1570" price="0" sellable="true" weapon_type="blunt" />
+<item id="8219" name="Monster Only (Zombie Laborer Sword)" weight="1560" price="0" sellable="true" weapon_type="sword" />
+<item id="8220" name="Monster Only (Grail Apostle Bow)" weight="1950" price="0" sellable="true" weapon_type="bow" />
+<item id="8221" name="Monster Only (Grail Apostle Spear)" weight="1920" price="0" sellable="true" weapon_type="pole" />
+<item id="8222" name="Monster Only (Follower of Frintezza Tran Calibur)" weight="1560" price="0" sellable="true" weapon_type="sword" />
+<item id="8350" name="Chrono Maracas" weight="0" price="0" sellable="true" weapon_type="dual" />
+<item id="8527" name="For Monsters Only (Strengthened Bow)" weight="1870" price="0" sellable="true" weapon_type="bow" />
+<item id="8528" name="For Monsters Only (Doom Hammer)" weight="1200" price="0" sellable="true" weapon_type="blunt" />
+<item id="8529" name="For Monsters Only (Knife)" weight="1140" price="0" sellable="true" weapon_type="dagger" />
+<item id="8530" name="For Monsters Only (Squire's Sword)" weight="1600" price="0" sellable="true" weapon_type="sword" />
+<item id="8531" name="For Monsters Only (Bone Staff)" weight="1060" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="8532" name="For Monsters Only (Spinebone Sword)" weight="1510" price="0" sellable="true" weapon_type="sword" />
+<item id="8533" name="For Monsters Only (Crimson Sword)" weight="1490" price="0" sellable="true" weapon_type="sword" />
+<item id="8576" name="Apprentice's Staff (Event)" weight="1070" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8577" name="Bone Club (Event)" weight="1850" price="0" sellable="false" weapon_type="blunt" />
+<item id="8578" name="Shining Knife (Event)" weight="1120" price="0" sellable="false" weapon_type="dagger" />
+<item id="8579" name="Cestus (Event)" weight="1570" price="0" sellable="false" weapon_type="dualfist" />
+<item id="8580" name="Forest Bow (Event)" weight="1900" price="0" sellable="false" weapon_type="bow" />
+<item id="8581" name="Long Sword (Event)" weight="1560" price="0" sellable="false" weapon_type="sword" />
+<item id="8582" name="Mace of Prayer (Event)" weight="1300" price="0" sellable="false" weapon_type="blunt" />
+<item id="8583" name="Dark Elven Bow (Event)" weight="1830" price="0" sellable="false" weapon_type="bow" />
+<item id="8584" name="Long Bow (Event)" weight="1830" price="0" sellable="false" weapon_type="bow" />
+<item id="8585" name="Staff of Mana (Event)" weight="1040" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8586" name="Bastard Sword (Event)" weight="1510" price="0" sellable="false" weapon_type="sword" />
+<item id="8587" name="Divine Tomb (Event)" weight="570" price="0" sellable="false" weapon_type="etc" />
+<item id="8588" name="Single-Edged Jamadhr (Event)" weight="1550" price="0" sellable="false" weapon_type="dualfist" />
+<item id="8589" name="Tomahawk (Event)" weight="1780" price="0" sellable="false" weapon_type="blunt" />
+<item id="8590" name="Poniard Daggar (Event)" weight="1090" price="0" sellable="false" weapon_type="dagger" />
+<item id="8591" name="Pike (Event)" weight="2090" price="0" sellable="false" weapon_type="pole" />
+<item id="8678" name="Sirra's Blade" weight="1300" price="0" sellable="true" weapon_type="sword" />
+<item id="8679" name="Sword of Ipos" weight="1820" price="0" sellable="true" weapon_type="bigsword" />
+<item id="8680" name="Barakiel's Axe" weight="1550" price="0" sellable="true" weapon_type="blunt" />
+<item id="8681" name="Behemoth's Tuning Fork" weight="1890" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="8682" name="Naga Storm" weight="930" price="0" sellable="true" weapon_type="dagger" />
+<item id="8683" name="Tiphon's Spear" weight="1820" price="0" sellable="true" weapon_type="pole" />
+<item id="8684" name="Shyeed's Bow" weight="1640" price="0" sellable="true" weapon_type="bow" />
+<item id="8685" name="Sobekk's Hurricane" weight="1330" price="0" sellable="true" weapon_type="dualfist" />
+<item id="8686" name="Themis' Tongue" weight="820" price="0" sellable="true" weapon_type="sword" />
+<item id="8687" name="Cabrio's Hand" weight="1510" price="0" sellable="true" weapon_type="blunt" />
+<item id="8688" name="Daimon Crystal" weight="880" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="8689" name="Blood Sword Akamanah" weight="1840" price="0" sellable="false" weapon_type="dual" />
+<item id="8763" name="Elrokian Trap" weight="500" price="0" sellable="true" weapon_type="blunt" />
+<item id="8788" name="Sirra's Blade - Haste" weight="1300" price="0" sellable="true" weapon_type="sword" />
+<item id="8789" name="Sirra's Blade - Health" weight="1300" price="0" sellable="true" weapon_type="sword" />
+<item id="8790" name="Sirra's Blade - Critical Poison" weight="1300" price="0" sellable="true" weapon_type="sword" />
+<item id="8791" name="Sword of Ipos - Focus" weight="1820" price="0" sellable="true" weapon_type="bigsword" />
+<item id="8792" name="Sword of Ipos - Haste" weight="1820" price="0" sellable="true" weapon_type="bigsword" />
+<item id="8793" name="Sword of Ipos - Health" weight="1820" price="0" sellable="true" weapon_type="bigsword" />
+<item id="8794" name="Barakiel's Axe - Health" weight="1550" price="0" sellable="true" weapon_type="blunt" />
+<item id="8795" name="Barakiel's Axe - Haste" weight="1550" price="0" sellable="true" weapon_type="blunt" />
+<item id="8796" name="Barakiel's Axe - Focus" weight="1550" price="0" sellable="true" weapon_type="blunt" />
+<item id="8797" name="Behemoth's Tuning Fork - Focus" weight="1890" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="8798" name="Behemoth's Tuning Fork - Health" weight="1890" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="8799" name="Behemoth's Tuning Fork - Anger" weight="1890" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="8800" name="Naga Storm - Focus" weight="930" price="0" sellable="true" weapon_type="dagger" />
+<item id="8801" name="Naga Storm - Critical Damage" weight="930" price="0" sellable="true" weapon_type="dagger" />
+<item id="8802" name="Naga Storm - Back Blow" weight="930" price="0" sellable="true" weapon_type="dagger" />
+<item id="8803" name="Tiphon's Spear - Critical Stun" weight="1820" price="0" sellable="true" weapon_type="pole" />
+<item id="8804" name="Tiphon's Spear - Towering Blow" weight="1820" price="0" sellable="true" weapon_type="pole" />
+<item id="8805" name="Tiphon's Spear - Wild Blow" weight="1820" price="0" sellable="true" weapon_type="pole" />
+<item id="8806" name="Shyeed's Bow - Cheap Shot" weight="1640" price="0" sellable="true" weapon_type="bow" />
+<item id="8807" name="Shyeed's Bow - Focus" weight="1640" price="0" sellable="true" weapon_type="bow" />
+<item id="8808" name="Shyeed's Bow - Quick Recovery" weight="1640" price="0" sellable="true" weapon_type="bow" />
+<item id="8809" name="Sobekk's Hurricane - Rsk. Haste" weight="1330" price="0" sellable="true" weapon_type="dualfist" />
+<item id="8810" name="Sobekk's Hurricane - Haste" weight="1330" price="0" sellable="true" weapon_type="dualfist" />
+<item id="8811" name="Sobekk's Hurricane - Critical Drain" weight="1330" price="0" sellable="true" weapon_type="dualfist" />
+<item id="8812" name="Themis' Tongue - Mana Up" weight="820" price="0" sellable="true" weapon_type="sword" />
+<item id="8813" name="Themis' Tongue - Magic Mental Shield" weight="820" price="0" sellable="true" weapon_type="sword" />
+<item id="8814" name="Themis' Tongue - Magic Focus" weight="820" price="0" sellable="true" weapon_type="sword" />
+<item id="8815" name="Cabrio's Hand - Conversion" weight="1510" price="0" sellable="true" weapon_type="blunt" />
+<item id="8816" name="Cabrio's Hand - Mana Up" weight="1510" price="0" sellable="true" weapon_type="blunt" />
+<item id="8817" name="Cabrio's Hand - Magic Silence" weight="1510" price="0" sellable="true" weapon_type="blunt" />
+<item id="8818" name="Daimon Crystal - Mana Up" weight="880" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="8819" name="Daimon Crystal - Acumen" weight="880" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="8820" name="Daimon Crystal - Magic Mental Shield" weight="880" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="8821" name="Shadow Item: Two Handed Sword" weight="730" price="0" sellable="false" weapon_type="bigsword" />
+<item id="8822" name="Shadow Item: Crimson Sword" weight="500" price="0" sellable="false" weapon_type="sword" />
+<item id="8823" name="Shadow Item: Spiked Club" weight="590" price="0" sellable="false" weapon_type="blunt" />
+<item id="8824" name="Shadow Item: Staff of Magic" weight="340" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8825" name="Shadow Item: Kukuri" weight="360" price="0" sellable="false" weapon_type="dagger" />
+<item id="8826" name="Shadow Item: Dagger of Mana" weight="250" price="0" sellable="false" weapon_type="dagger" />
+<item id="8827" name="Shadow Item: Triple-Edged Jamadhr" weight="520" price="0" sellable="false" weapon_type="dualfist" />
+<item id="8828" name="Shadow Item: Gastraphetes" weight="620" price="0" sellable="false" weapon_type="bow" />
+<item id="8829" name="Shadow Item: War Hammer" weight="700" price="0" sellable="false" weapon_type="pole" />
+<item id="8830" name="Shadow Item: Katana" weight="480" price="0" sellable="false" weapon_type="sword" />
+<item id="8831" name="Shadow Item: Bec de Corbin" weight="680" price="0" sellable="false" weapon_type="pole" />
+<item id="8832" name="Shadow Item: Cursed Staff" weight="340" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8833" name="Shadow Item: Stiletto" weight="350" price="0" sellable="false" weapon_type="dagger" />
+<item id="8834" name="Shadow Item: Soulfire Dirk" weight="250" price="0" sellable="false" weapon_type="dagger" />
+<item id="8835" name="Shadow Item: Elemental Bow" weight="590" price="0" sellable="false" weapon_type="bow" />
+<item id="8836" name="Shadow Item: Dwarven War Hammer" weight="560" price="0" sellable="false" weapon_type="blunt" />
+<item id="8837" name="Shadow Item: Sword of Revolution" weight="790" price="0" sellable="false" weapon_type="dual" />
+<item id="8838" name="Shadow Item: Knuckle Duster" weight="500" price="0" sellable="false" weapon_type="dualfist" />
+<item id="8839" name="Shadow Item: Sword of Delusion" weight="470" price="0" sellable="false" weapon_type="sword" />
+<item id="8840" name="Shadow Item: Poleaxe" weight="670" price="0" sellable="false" weapon_type="pole" />
+<item id="8841" name="Shadow Item: Stick of Eternity" weight="380" price="0" sellable="false" weapon_type="blunt" />
+<item id="8842" name="Shadow Item: Inferno Staff" weight="340" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8843" name="Shadow Item: Pa'agrian Hammer" weight="340" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8844" name="Shadow Item: Dark Screamer" weight="340" price="0" sellable="false" weapon_type="dagger" />
+<item id="8845" name="Shadow Item: Akat Long Bow" weight="580" price="0" sellable="false" weapon_type="bow" />
+<item id="8846" name="Shadow Item: Pa'agrian Sword" weight="660" price="0" sellable="false" weapon_type="bigsword" />
+<item id="8847" name="Shadow Item: Fisted Blade" weight="500" price="0" sellable="false" weapon_type="dualfist" />
+<item id="8848" name="Shadow Item: Stormbringer" weight="780" price="0" sellable="false" weapon_type="dual" />
+<item id="8849" name="Shadow Item: Great Sword" weight="650" price="0" sellable="false" weapon_type="bigsword" />
+<item id="8850" name="Shadow Item: Heavy War Axe" weight="540" price="0" sellable="false" weapon_type="blunt" />
+<item id="8851" name="Shadow Item: Sprite's Staff" weight="320" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8852" name="Shadow Item: Keshanberk" weight="460" price="0" sellable="false" weapon_type="sword" />
+<item id="8853" name="Shadow Item: Sword of Valhalla" weight="300" price="0" sellable="false" weapon_type="sword" />
+<item id="8854" name="Shadow Item: Kris" weight="330" price="0" sellable="false" weapon_type="dagger" />
+<item id="8855" name="Shadow Item: Arthro Nail" weight="480" price="0" sellable="false" weapon_type="dualfist" />
+<item id="8856" name="Shadow Item: Dark Elven Long Bow" weight="580" price="0" sellable="false" weapon_type="bow" />
+<item id="8857" name="Shadow Item: Swords of Delusion" weight="720" price="0" sellable="false" weapon_type="dual" />
+<item id="8858" name="Shadow Item: Great Axe" weight="650" price="0" sellable="false" weapon_type="pole" />
+<item id="8859" name="Shadow Item: Tallum Blade" weight="450" price="0" sellable="false" weapon_type="sword" />
+<item id="8860" name="Shadow Item: Halberd" weight="640" price="0" sellable="false" weapon_type="pole" />
+<item id="8861" name="Shadow Item: Dasparion's Staff" weight="310" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8862" name="Shadow Item: Bloody Orchid" weight="320" price="0" sellable="false" weapon_type="dagger" />
+<item id="8863" name="Shadow Item: Blood Tornado" weight="460" price="0" sellable="false" weapon_type="dualfist" />
+<item id="8864" name="Shadow Item: Carnage Bow" weight="560" price="0" sellable="false" weapon_type="bow" />
+<item id="8865" name="Shadow Item: Dual Keshanberk" weight="700" price="0" sellable="false" weapon_type="dual" />
+<item id="8866" name="Shadow Item: Meteor Shower" weight="540" price="0" sellable="false" weapon_type="blunt" />
+<item id="8867" name="Shadow Item: Inferno Master" weight="640" price="0" sellable="false" weapon_type="bigsword" />
+<item id="8926" name="Shadow Item: Sword of Delusion" weight="470" price="0" sellable="false" weapon_type="sword" />
+<item id="8927" name="Shadow Item: Poleaxe" weight="670" price="0" sellable="false" weapon_type="pole" />
+<item id="8928" name="Shadow Item: Stick of Eternity" weight="380" price="0" sellable="false" weapon_type="blunt" />
+<item id="8929" name="Shadow Item: Inferno Staff" weight="340" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8930" name="Shadow Item: Pa'agrian Hammer" weight="340" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8931" name="Shadow Item: Dark Screamer" weight="340" price="0" sellable="false" weapon_type="dagger" />
+<item id="8932" name="Shadow Item: Akat Long Bow" weight="580" price="0" sellable="false" weapon_type="bow" />
+<item id="8933" name="Shadow Item: Pa'agrian Sword" weight="660" price="0" sellable="false" weapon_type="bigsword" />
+<item id="8934" name="Shadow Item: Fisted Blade" weight="500" price="0" sellable="false" weapon_type="dualfist" />
+<item id="8935" name="Test Rapier" weight="1380" price="0" sellable="true" weapon_type="sword" />
+<item id="8937" name="Shadow Item: Stormbringer" weight="780" price="0" sellable="false" weapon_type="dual" />
+<item id="8938" name="Damascus * Tallum Blade" weight="1890" price="0" sellable="true" weapon_type="dual" />
+<item id="8972" name="Shadow Item: Great Spear" weight="707" price="0" sellable="false" weapon_type="pole" />
+<item id="8973" name="Shadow Item: Falchion" weight="510" price="0" sellable="false" weapon_type="sword" />
+<item id="8974" name="Shadow Item: Iron Hammer" weight="617" price="0" sellable="false" weapon_type="blunt" />
+<item id="8975" name="Shadow Item: Voodoo Doll" weight="210" price="0" sellable="false" weapon_type="etc" />
+<item id="8976" name="Shadow Item: Flanged Mace" weight="600" price="0" sellable="false" weapon_type="blunt" />
+<item id="8977" name="Shadow Item: Mage Staff" weight="350" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8978" name="Shadow Item: Sword Breaker" weight="370" price="0" sellable="false" weapon_type="dagger" />
+<item id="8979" name="Shadow Item: Viper Fang" weight="520" price="0" sellable="false" weapon_type="dualfist" />
+<item id="8980" name="Shadow Item: Composite Bow" weight="627" price="0" sellable="false" weapon_type="bow" />
+<item id="8981" name="Shadow Item: Crucifix of Blessing" weight="207" price="0" sellable="false" weapon_type="etc" />
+<item id="8982" name="Shadow Item: Two Handed Sword" weight="730" price="0" sellable="false" weapon_type="bigsword" />
+<item id="8983" name="Shadow Item: Crimson Sword" weight="500" price="0" sellable="false" weapon_type="sword" />
+<item id="8984" name="Shadow Item: Spiked Club" weight="590" price="0" sellable="false" weapon_type="blunt" />
+<item id="8985" name="Shadow Item: Staff of Magic" weight="340" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8986" name="Shadow Item: Kukuri" weight="360" price="0" sellable="false" weapon_type="dagger" />
+<item id="8987" name="Shadow Item: Dagger of Mana" weight="250" price="0" sellable="false" weapon_type="dagger" />
+<item id="8988" name="Shadow Item: Triple-Edged Jamadhr" weight="520" price="0" sellable="false" weapon_type="dualfist" />
+<item id="8989" name="Shadow Item: Gastraphetes" weight="620" price="0" sellable="false" weapon_type="bow" />
+<item id="8990" name="Shadow Item: War Hammer" weight="700" price="0" sellable="false" weapon_type="pole" />
+<item id="8991" name="Shadow Item: Sword of Delusion" weight="470" price="0" sellable="false" weapon_type="sword" />
+<item id="8992" name="Shadow Item: Poleaxe" weight="670" price="0" sellable="false" weapon_type="pole" />
+<item id="8993" name="Shadow Item: Stick of Eternity" weight="380" price="0" sellable="false" weapon_type="blunt" />
+<item id="8994" name="Shadow Item: Inferno Staff" weight="340" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8995" name="Shadow Item: Pa'agrian Hammer" weight="340" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="8996" name="Shadow Item: Dark Screamer" weight="340" price="0" sellable="false" weapon_type="dagger" />
+<item id="8997" name="Shadow Item: Akat Long Bow" weight="580" price="0" sellable="false" weapon_type="bow" />
+<item id="8998" name="Shadow Item: Pa'agrian Sword" weight="660" price="0" sellable="false" weapon_type="bigsword" />
+<item id="8999" name="Shadow Item: Fisted Blade" weight="500" price="0" sellable="false" weapon_type="dualfist" />
+<item id="9000" name="Shadow Item: Stormbringer*Stormbringer" weight="780" price="0" sellable="false" weapon_type="dual" />
+<item id="9001" name="Shadow Item: Great Sword" weight="650" price="0" sellable="false" weapon_type="bigsword" />
+<item id="9002" name="Shadow Item: Heavy War Axe" weight="540" price="0" sellable="false" weapon_type="blunt" />
+<item id="9003" name="Shadow Item: Sprite's Staff" weight="320" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="9004" name="Shadow Item: Keshanberk" weight="460" price="0" sellable="false" weapon_type="sword" />
+<item id="9005" name="Shadow Item: Sword of Valhalla" weight="300" price="0" sellable="false" weapon_type="sword" />
+<item id="9006" name="Shadow Item: Kris" weight="330" price="0" sellable="false" weapon_type="dagger" />
+<item id="9007" name="Shadow Item: Arthro Nail" weight="480" price="0" sellable="false" weapon_type="dualfist" />
+<item id="9008" name="Shadow Item: Dark Elven Long Bow" weight="580" price="0" sellable="false" weapon_type="bow" />
+<item id="9009" name="Shadow Item: Sword of Delusion*Sword of Delusion" weight="720" price="0" sellable="false" weapon_type="dual" />
+<item id="9010" name="Shadow Item: Great Axe" weight="650" price="0" sellable="false" weapon_type="pole" />
+<item id="9011" name="Shadow Item: Tallum Blade" weight="450" price="0" sellable="false" weapon_type="sword" />
+<item id="9012" name="Shadow Item: Halberd" weight="640" price="0" sellable="false" weapon_type="pole" />
+<item id="9013" name="Shadow Item: Dasparion's Staff" weight="310" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="9014" name="Shadow Item: Bloody Orchid" weight="320" price="0" sellable="false" weapon_type="dagger" />
+<item id="9015" name="Shadow Item: Blood Tornado" weight="460" price="0" sellable="false" weapon_type="dualfist" />
+<item id="9016" name="Shadow Item: Carnage Bow" weight="560" price="0" sellable="false" weapon_type="bow" />
+<item id="9017" name="Shadow Item: Keshanberk*Keshanberk" weight="700" price="0" sellable="false" weapon_type="dual" />
+<item id="9018" name="Shadow Item: Meteor Shower" weight="540" price="0" sellable="false" weapon_type="blunt" />
+<item id="9019" name="Shadow Item: Inferno Master" weight="640" price="0" sellable="false" weapon_type="bigsword" />
+<item id="9020" name="Shadow Item: Keshanberk*Damascus" weight="693" price="0" sellable="false" weapon_type="dual" />
+<item id="9021" name="Shadow Item: Dragon Slayer" weight="613" price="0" sellable="false" weapon_type="bigsword" />
+<item id="9022" name="Shadow Item: Sword of Miracles" weight="280" price="0" sellable="false" weapon_type="sword" />
+<item id="9023" name="Shadow Item: Elysian" weight="527" price="0" sellable="false" weapon_type="blunt" />
+<item id="9024" name="Shadow Item: Branch of the Mother Tree" weight="300" price="0" sellable="false" weapon_type="bigblunt" />
+<item id="9025" name="Shadow Item: Soul Separator" weight="317" price="0" sellable="false" weapon_type="dagger" />
+<item id="9026" name="Shadow Item: Dragon Grinder" weight="450" price="0" sellable="false" weapon_type="dualfist" />
+<item id="9027" name="Shadow Item: Soul Bow" weight="553" price="0" sellable="false" weapon_type="bow" />
+<item id="9028" name="Shadow Item: Tallum Glaive" weight="613" price="0" sellable="false" weapon_type="pole" />
+<item id="9029" name="Shadow Item: Dark Legion" weight="440" price="0" sellable="false" weapon_type="sword" />
+<item id="9036" name="Shadow Item: Bone Shield" weight="460" price="0" sellable="false" weapon_type="none" />
+<item id="9044" name="Shadow Item: Hoplon" weight="447" price="0" sellable="false" weapon_type="none" />
+<item id="9056" name="Shadow Item: Composite Shield" weight="410" price="0" sellable="false" weapon_type="none" />
+<item id="9070" name="Shadow Item: Zubei's Shield" weight="403" price="0" sellable="false" weapon_type="none" />
+<item id="9084" name="Shadow Item: Dark Crystal Shield" weight="397" price="0" sellable="false" weapon_type="none" />
+<item id="9129" name="Shadow Item: Shield of Nightmare" weight="400" price="0" sellable="false" weapon_type="none" />
+<item id="9136" name="Sword of Valakas (1-Handed)" weight="1380" price="0" sellable="true" weapon_type="sword" />
+<item id="9137" name="Sword of Valakas (2-Handed)" weight="2180" price="0" sellable="true" weapon_type="bigsword" />
+<item id="9140" name="Salvation Bow" weight="900" price="0" sellable="false" weapon_type="bow" />
+<item id="9141" name="Redemption Bow - Event Use" weight="300" price="0" sellable="false" weapon_type="bow" />
+<item id="9209" name="Rapier" weight="1520" price="0" sellable="true" weapon_type="rapier" />
+<item id="9210" name="Talwar" weight="2100" price="0" sellable="true" weapon_type="ancient" />
+<item id="9211" name="Talwar" weight="2100" price="0" sellable="true" weapon_type="ancient" />
+<item id="9212" name="Field Gun" weight="1870" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9213" name="Fleuret" weight="1500" price="0" sellable="true" weapon_type="rapier" />
+<item id="9214" name="Fleuret" weight="1500" price="0" sellable="true" weapon_type="rapier" />
+<item id="9215" name="Fleuret" weight="1500" price="0" sellable="true" weapon_type="rapier" />
+<item id="9216" name="Military Talwar" weight="2080" price="0" sellable="true" weapon_type="ancient" />
+<item id="9217" name="Hand Crossbow" weight="1850" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9218" name="Estoc" weight="1470" price="0" sellable="true" weapon_type="rapier" />
+<item id="9219" name="Estoc" weight="1470" price="0" sellable="true" weapon_type="rapier" />
+<item id="9220" name="Field Sword" weight="2060" price="0" sellable="true" weapon_type="ancient" />
+<item id="9221" name="Crossbow" weight="1840" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9222" name="wrong__" weight="1450" price="0" sellable="true" weapon_type="rapier" />
+<item id="9223" name="Katzbalger" weight="2020" price="0" sellable="true" weapon_type="ancient" />
+<item id="9224" name="Arm Breaker" weight="1820" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9225" name="Grand wrong__" weight="1440" price="0" sellable="true" weapon_type="rapier" />
+<item id="9226" name="General's Katzbalger" weight="2010" price="0" sellable="true" weapon_type="ancient" />
+<item id="9227" name="Cranequin" weight="1810" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9228" name="Soldat Estoc - Critical Anger" weight="1430" price="0" sellable="true" weapon_type="rapier" />
+<item id="9229" name="Soldat Estoc - Focus" weight="1430" price="0" sellable="true" weapon_type="rapier" />
+<item id="9230" name="Soldat Estoc - Light" weight="1430" price="0" sellable="true" weapon_type="rapier" />
+<item id="9231" name="Soldat Estoc" weight="429" price="0" sellable="true" weapon_type="rapier" />
+<item id="9232" name="Schlager" weight="1980" price="0" sellable="true" weapon_type="ancient" />
+<item id="9233" name="Schlager - Critical Damage" weight="1980" price="0" sellable="true" weapon_type="ancient" />
+<item id="9234" name="Schlager - Focus" weight="1980" price="0" sellable="true" weapon_type="ancient" />
+<item id="9235" name="Schlager - Light" weight="594" price="0" sellable="true" weapon_type="ancient" />
+<item id="9236" name="Arbalest" weight="1790" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9237" name="Arbalest - Guidance" weight="1790" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9238" name="Arbalest - Evasion" weight="1790" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9239" name="Arbalest - Quick Recovery" weight="1790" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9240" name="Chevalier Rapier" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9241" name="Chevalier Rapier - Guidance" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9242" name="Chevalier Rapier - Back Blow" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9243" name="Chevalier Rapier - Rsk. Evasion" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9244" name="Chevalier Rapier" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9245" name="Chevalier Rapier - Focus" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9246" name="Chevalier Rapier - Critical Damage" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9247" name="Chevalier Rapier - Haste" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9248" name="Chevalier Rapier" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9249" name="Chevalier Rapier - Critical Damage" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9250" name="Chevalier Rapier - Critical Poison" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9251" name="Chevalier Rapier - Haste" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9252" name="Chevalier Rapier" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9253" name="Chevalier Rapier - Focus" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9254" name="Chevalier Rapier - Critical Drain" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9255" name="Chevalier Rapier - Critical Poison" weight="1420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9256" name="Ballista" weight="1770" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9257" name="Ballista - Guidance" weight="1770" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9258" name="Ballista - Miser" weight="1770" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9259" name="Ballista - Quick Recovery" weight="1770" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9260" name="Ballista" weight="1770" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9261" name="Ballista - Evasion" weight="1770" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9262" name="Ballista - Miser" weight="1770" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9263" name="Ballista - Cheap Shot" weight="1770" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9264" name="Blinzlasher" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9265" name="Blinzlasher - Guidance" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9266" name="Blinzlasher - Focus" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9267" name="Blinzlasher - Critical Damage" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9268" name="Blinzlasher" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9269" name="Blinzlasher - Focus" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9270" name="Blinzlasher - Health" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9271" name="Blinzlasher - Rsk. Haste" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9272" name="Blinzlasher" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9273" name="Blinzlasher - Focus" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9274" name="Blinzlasher - Critical Damage" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9275" name="Blinzlasheri - Haste" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9276" name="Blinzlasher" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9277" name="Blinzlasher - Health" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9278" name="Blinzlasher - Focus" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9279" name="Blinzlasher - Light" weight="420" price="0" sellable="true" weapon_type="rapier" />
+<item id="9280" name="Blinzlasher" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9281" name="Blinzlasher - Guidance" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9282" name="Blinzlasher - Critical Drain" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9283" name="Blinzlasher - Health" weight="1400" price="0" sellable="true" weapon_type="rapier" />
+<item id="9284" name="Immortal Edge" weight="1980" price="0" sellable="true" weapon_type="ancient" />
+<item id="9285" name="Immortal Edge - Focus" weight="1980" price="0" sellable="true" weapon_type="ancient" />
+<item id="9286" name="Immortal Edge - Health" weight="1980" price="0" sellable="true" weapon_type="ancient" />
+<item id="9287" name="Immortal Edge - Critical Drain" weight="1980" price="0" sellable="true" weapon_type="ancient" />
+<item id="9288" name="Tathlum" weight="1760" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9289" name="Tathlum - Guidance" weight="1760" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9290" name="Tathlum - Evasion" weight="1760" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9291" name="Tathlum - Miser" weight="1760" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9292" name="Admiral's Estoc" weight="1380" price="0" sellable="true" weapon_type="rapier" />
+<item id="9293" name="Admiral's Estoc - Focus" weight="1380" price="0" sellable="true" weapon_type="rapier" />
+<item id="9294" name="Admiral's Estoc - Critical Damage" weight="1380" price="0" sellable="true" weapon_type="rapier" />
+<item id="9295" name="Admiral's Estoc - Haste" weight="1380" price="0" sellable="true" weapon_type="rapier" />
+<item id="9296" name="Saber Tooth" weight="1950" price="0" sellable="true" weapon_type="ancient" />
+<item id="9297" name="Saber Tooth - Focus" weight="1950" price="0" sellable="true" weapon_type="ancient" />
+<item id="9298" name="Saber Tooth - Critical Damage" weight="1950" price="0" sellable="true" weapon_type="ancient" />
+<item id="9299" name="Saber Tooth - Haste" weight="1950" price="0" sellable="true" weapon_type="ancient" />
+<item id="9300" name="Sharpshooter" weight="1740" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9301" name="Sharpshooter - Guidance" weight="1740" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9302" name="Sharpshooter - Miser" weight="1740" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9303" name="Sharpshooter - Cheap Shot" weight="1740" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9304" name="Military Fleuret" weight="1370" price="0" sellable="true" weapon_type="rapier" />
+<item id="9305" name="Military Fleuret - Guidance" weight="1370" price="0" sellable="true" weapon_type="rapier" />
+<item id="9306" name="Military Fleuret - Focus" weight="1370" price="0" sellable="true" weapon_type="rapier" />
+<item id="9307" name="Military Fleuret - Back Blow" weight="1370" price="0" sellable="true" weapon_type="rapier" />
+<item id="9308" name="Innominate Victory" weight="1930" price="0" sellable="true" weapon_type="ancient" />
+<item id="9309" name="Innominate Victory - Health" weight="1930" price="0" sellable="true" weapon_type="ancient" />
+<item id="9310" name="Innominate Victory - Critical Damage" weight="1930" price="0" sellable="true" weapon_type="ancient" />
+<item id="9311" name="Innominate Victory - Focus" weight="1930" price="0" sellable="true" weapon_type="ancient" />
+<item id="9312" name="Peacemaker" weight="1720" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9313" name="Peacemaker - Evasion" weight="1720" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9314" name="Peacemaker - Critical Bleed" weight="1720" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9315" name="Peacemaker - Miser" weight="1720" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9316" name="Colichemarde" weight="1350" price="0" sellable="true" weapon_type="rapier" />
+<item id="9317" name="Colichemarde - Focus" weight="1350" price="0" sellable="true" weapon_type="rapier" />
+<item id="9318" name="Colichemarde - Critical Damage" weight="1350" price="0" sellable="true" weapon_type="rapier" />
+<item id="9319" name="Colichemarde - Haste" weight="1350" price="0" sellable="true" weapon_type="rapier" />
+<item id="9320" name="Dismantler" weight="1930" price="0" sellable="true" weapon_type="ancient" />
+<item id="9321" name="Dismantler - Critical Drain" weight="1930" price="0" sellable="true" weapon_type="ancient" />
+<item id="9322" name="Dismantler - Health" weight="1930" price="0" sellable="true" weapon_type="ancient" />
+<item id="9323" name="Dismantler - Critical Bleed" weight="1930" price="0" sellable="true" weapon_type="ancient" />
+<item id="9324" name="Hell Hound" weight="1700" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9325" name="Hell Hound - Guidance" weight="1700" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9326" name="Hell Hound - Quick Recovery" weight="1700" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9327" name="Hell Hound - Cheap Shot" weight="1700" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9328" name="White Lightning" weight="1330" price="22000000" sellable="true" weapon_type="rapier" />
+<item id="9329" name="White Lightning - Critical Poison" weight="1330" price="0" sellable="true" weapon_type="rapier" />
+<item id="9330" name="White Lightning - Haste" weight="1330" price="0" sellable="true" weapon_type="rapier" />
+<item id="9331" name="White Lightning - Anger" weight="1330" price="0" sellable="true" weapon_type="rapier" />
+<item id="9332" name="Divine Pain" weight="1900" price="22000000" sellable="true" weapon_type="ancient" />
+<item id="9333" name="Divine Pain - Haste" weight="1900" price="0" sellable="true" weapon_type="ancient" />
+<item id="9334" name="Divine Pain - Critical Damage" weight="1900" price="0" sellable="true" weapon_type="ancient" />
+<item id="9335" name="Divine Pain - Focus" weight="1900" price="0" sellable="true" weapon_type="ancient" />
+<item id="9336" name="Doomchanter" weight="1670" price="22000000" sellable="true" weapon_type="crossbow" />
+<item id="9337" name="Doomchanter - Light" weight="501" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9338" name="Doomchanter - Critical Bleed" weight="1670" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9339" name="Doomchanter - Mana Up" weight="1670" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9340" name="Lacerator" weight="1320" price="27000000" sellable="true" weapon_type="rapier" />
+<item id="9341" name="Lacerator - Critical Damage" weight="1320" price="0" sellable="true" weapon_type="rapier" />
+<item id="9342" name="Lacerator - Health" weight="1320" price="0" sellable="true" weapon_type="rapier" />
+<item id="9343" name="Lacerator - Rsk. Focus" weight="1320" price="0" sellable="true" weapon_type="rapier" />
+<item id="9344" name="Undertaker" weight="1840" price="27000000" sellable="true" weapon_type="ancient" />
+<item id="9345" name="Undertaker - Health" weight="1840" price="0" sellable="true" weapon_type="ancient" />
+<item id="9346" name="Undertaker - Critical Bleed" weight="1840" price="0" sellable="true" weapon_type="ancient" />
+<item id="9347" name="Undertaker - Critical Drain" weight="1840" price="0" sellable="true" weapon_type="ancient" />
+<item id="9348" name="Reaper" weight="1660" price="27000000" sellable="true" weapon_type="crossbow" />
+<item id="9349" name="Reaper - Cheap Shot" weight="1660" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9350" name="Reaper - Quick Recovery" weight="1660" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9351" name="Reaper - Critical Poison" weight="1660" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9352" name="Eclair Bijou" weight="1300" price="32000000" sellable="true" weapon_type="rapier" />
+<item id="9353" name="Eclair Bijou - Haste" weight="1300" price="0" sellable="true" weapon_type="rapier" />
+<item id="9354" name="Eclair Bijou - Health" weight="1300" price="0" sellable="true" weapon_type="rapier" />
+<item id="9355" name="Eclair Bijou - Critical Poison" weight="1300" price="0" sellable="true" weapon_type="rapier" />
+<item id="9356" name="Durendal" weight="1820" price="32000000" sellable="true" weapon_type="ancient" />
+<item id="9357" name="Durendal - Focus" weight="1820" price="0" sellable="true" weapon_type="ancient" />
+<item id="9358" name="Durendal - Haste" weight="1820" price="0" sellable="true" weapon_type="ancient" />
+<item id="9359" name="Durendal - Health" weight="1820" price="0" sellable="true" weapon_type="ancient" />
+<item id="9360" name="Screaming Vengeance" weight="1640" price="32000000" sellable="true" weapon_type="crossbow" />
+<item id="9361" name="Screaming Vengeance - Cheap Shot" weight="1640" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9362" name="Screaming Vengeance - Focus" weight="1640" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9363" name="Screaming Vengeance - Quick Recovery" weight="1640" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9364" name="Laevateinn" weight="1300" price="0" sellable="true" weapon_type="rapier" />
+<item id="9365" name="Laevateinn - Haste" weight="1300" price="0" sellable="true" weapon_type="rapier" />
+<item id="9366" name="Laevateinn - Health" weight="1300" price="0" sellable="true" weapon_type="rapier" />
+<item id="9367" name="Laevateinn - Focus" weight="1300" price="0" sellable="true" weapon_type="rapier" />
+<item id="9368" name="Gram" weight="1800" price="0" sellable="true" weapon_type="ancient" />
+<item id="9369" name="Gram - Haste" weight="1800" price="0" sellable="true" weapon_type="ancient" />
+<item id="9370" name="Gram - Health" weight="1800" price="0" sellable="true" weapon_type="ancient" />
+<item id="9371" name="Gram - Focus" weight="1800" price="0" sellable="true" weapon_type="ancient" />
+<item id="9372" name="Sarnga" weight="1600" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9373" name="Sarnga - Cheap Shot" weight="1600" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9374" name="Sarnga - Focus" weight="1600" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9375" name="Sarnga - Critical Slow" weight="1600" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9376" name="Dynasty Rapier" weight="1280" price="0" sellable="true" weapon_type="rapier" />
+<item id="9377" name="Dynasty Rapier - Focus" weight="1280" price="0" sellable="true" weapon_type="rapier" />
+<item id="9378" name="Dynasty Rapier - Health" weight="1280" price="0" sellable="true" weapon_type="rapier" />
+<item id="9379" name="Dynasty Rapier - Light" weight="384" price="0" sellable="true" weapon_type="rapier" />
+<item id="9380" name="Dynasty Ancient Sword" weight="1800" price="0" sellable="true" weapon_type="ancient" />
+<item id="9381" name="Dynasty Ancient Sword - Focus" weight="1800" price="0" sellable="true" weapon_type="ancient" />
+<item id="9382" name="Dynasty Ancient Sword - Health" weight="1800" price="0" sellable="true" weapon_type="ancient" />
+<item id="9383" name="Dynasty Ancient Sword - Light" weight="540" price="0" sellable="true" weapon_type="ancient" />
+<item id="9384" name="Dynasty Crossbow" weight="1580" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9385" name="Dynasty Crossbow - Cheap Shot" weight="1580" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9386" name="Dynasty Crossbow - Guidance" weight="1580" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9387" name="Dynasty Crossbow - Focus" weight="1580" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9388" name="Infinity Rapier" weight="1280" price="0" sellable="true" weapon_type="rapier" />
+<item id="9389" name="Infinity Sword" weight="1800" price="0" sellable="true" weapon_type="ancient" />
+<item id="9390" name="Infinity Shooter" weight="1580" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9441" name="Dynasty Shield" weight="1390" price="0" sellable="true" weapon_type="none" />
+<item id="9442" name="Dynasty Sword" weight="1520" price="0" sellable="true" weapon_type="sword" />
+<item id="9443" name="Dynasty Blade" weight="1740" price="0" sellable="true" weapon_type="bigsword" />
+<item id="9444" name="Dynasty Phantom" weight="1520" price="0" sellable="true" weapon_type="sword" />
+<item id="9445" name="Dynasty Bow" weight="1520" price="0" sellable="true" weapon_type="bow" />
+<item id="9446" name="Dynasty Knife" weight="1520" price="0" sellable="true" weapon_type="dagger" />
+<item id="9447" name="Dynasty Halberd" weight="2010" price="0" sellable="true" weapon_type="pole" />
+<item id="9448" name="Dynasty Cudgel" weight="1740" price="0" sellable="true" weapon_type="blunt" />
+<item id="9449" name="Dynasty Mace" weight="1080" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="9450" name="Dynasty Bagh-Nakh" weight="1550" price="0" sellable="true" weapon_type="dualfist" />
+<item id="9529" name="Sealed Dynasty Shield" weight="1370" price="0" sellable="true" weapon_type="none" />
+<item id="9638" name="Tears r1" weight="300" price="0" sellable="true" weapon_type="none" />
+<item id="9639" name="Tears r2" weight="300" price="0" sellable="true" weapon_type="none" />
+<item id="9640" name="Tears r3" weight="300" price="0" sellable="true" weapon_type="none" />
+<item id="9641" name="Tears l1" weight="300" price="0" sellable="true" weapon_type="none" />
+<item id="9642" name="Tears l2" weight="300" price="0" sellable="true" weapon_type="none" />
+<item id="9643" name="Tears l3" weight="300" price="0" sellable="true" weapon_type="none" />
+<item id="9644" name="npc Only (Crossbow)" weight="1530" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9645" name="npc Only (Sword)" weight="1530" price="0" sellable="true" weapon_type="ancient" />
+<item id="9646" name="npc Only (Rapier)" weight="1530" price="0" sellable="true" weapon_type="rapier" />
+<item id="9656" name="Enchanted Wolf Fang" weight="100" price="4300000" sellable="true" weapon_type="dualfist" />
+<item id="9657" name="Enchanted Coyote Fang" weight="100" price="8100000" sellable="true" weapon_type="dualfist" />
+<item id="9658" name="Enchanted Saltydog Fang" weight="100" price="15000000" sellable="true" weapon_type="dualfist" />
+<item id="9659" name="Enchanted Cerberus Fang" weight="100" price="0" sellable="true" weapon_type="dualfist" />
+<item id="9660" name="Orichalcum Fang" weight="100" price="0" sellable="true" weapon_type="dualfist" />
+<item id="9661" name="Enchanted Fenril Fang" weight="100" price="0" sellable="true" weapon_type="dualfist" />
+<item id="9720" name="Warrior's Sword" weight="1300" price="0" sellable="true" weapon_type="sword" />
+<item id="9813" name="Orc Officer" weight="2150" price="0" sellable="true" weapon_type="dual" />
+<item id="9819" name="Combat flag" weight="500" price="0" sellable="true" weapon_type="none" />
+<item id="9840" name="Shadow Item: Chevalier Rapier" weight="473" price="0" sellable="false" weapon_type="rapier" />
+<item id="9841" name="Shadow Item: Riter Schlager" weight="667" price="0" sellable="false" weapon_type="ancient" />
+<item id="9842" name="Shadow Item: Ballista" weight="590" price="0" sellable="false" weapon_type="crossbow" />
+<item id="9843" name="Shadow Item: Blinzlasher" weight="467" price="0" sellable="false" weapon_type="rapier" />
+<item id="9844" name="Shadow Item: Immortal Edge" weight="660" price="0" sellable="false" weapon_type="ancient" />
+<item id="9845" name="Shadow Item: Tathlum" weight="587" price="0" sellable="false" weapon_type="crossbow" />
+<item id="9846" name="Shadow Item: Military Fleuret" weight="457" price="0" sellable="false" weapon_type="rapier" />
+<item id="9847" name="Shadow Item: Innominate Victory" weight="643" price="0" sellable="false" weapon_type="ancient" />
+<item id="9848" name="Shadow Item: Peacemaker" weight="573" price="0" sellable="false" weapon_type="crossbow" />
+<item id="9854" name="Dynasty Sword - Focus" weight="1520" price="0" sellable="true" weapon_type="sword" />
+<item id="9855" name="Dynasty Sword - Health" weight="1520" price="0" sellable="true" weapon_type="sword" />
+<item id="9856" name="Dynasty Sword - Light" weight="456" price="0" sellable="true" weapon_type="sword" />
+<item id="9857" name="Dynasty Blade - Focus" weight="1740" price="0" sellable="true" weapon_type="bigsword" />
+<item id="9858" name="Dynasty Blade - Health" weight="1740" price="0" sellable="true" weapon_type="bigsword" />
+<item id="9859" name="Dynasty Blade - Light" weight="522" price="0" sellable="true" weapon_type="bigsword" />
+<item id="9860" name="Dynasty Phantom - Acumen" weight="1520" price="0" sellable="true" weapon_type="sword" />
+<item id="9861" name="Dynasty Phantom - Mana Up" weight="1520" price="0" sellable="true" weapon_type="sword" />
+<item id="9862" name="Dynasty Phantom - Conversion" weight="1520" price="0" sellable="true" weapon_type="sword" />
+<item id="9863" name="Dynasty Bow - Cheap Shot" weight="1520" price="0" sellable="true" weapon_type="bow" />
+<item id="9864" name="Dynasty Bow - Guidance" weight="1520" price="0" sellable="true" weapon_type="bow" />
+<item id="9865" name="Dynasty Bow - Focus" weight="1520" price="0" sellable="true" weapon_type="bow" />
+<item id="9866" name="Dynasty Knife - Focus" weight="1520" price="0" sellable="true" weapon_type="dagger" />
+<item id="9867" name="Dynasty Knife - Evasion" weight="1520" price="0" sellable="true" weapon_type="dagger" />
+<item id="9868" name="Dynasty Knife - Critical Damage" weight="1520" price="0" sellable="true" weapon_type="dagger" />
+<item id="9869" name="Dynasty Halberd - Anger" weight="2010" price="0" sellable="true" weapon_type="pole" />
+<item id="9870" name="Dynasty Halberd - Critical Stun" weight="2010" price="0" sellable="true" weapon_type="pole" />
+<item id="9871" name="Dynasty Halberd - Light" weight="603" price="0" sellable="true" weapon_type="pole" />
+<item id="9872" name="Dynasty Cudgel - Anger" weight="1740" price="0" sellable="true" weapon_type="blunt" />
+<item id="9873" name="Dynasty Cudgel - Health" weight="1740" price="0" sellable="true" weapon_type="blunt" />
+<item id="9874" name="Dynasty Cudgel - Rsk. Focus" weight="1740" price="0" sellable="true" weapon_type="blunt" />
+<item id="9875" name="Dynasty Mace - Mana Up" weight="1080" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="9876" name="Dynasty Mace - Conversion" weight="1080" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="9877" name="Dynasty Mace - Acumen" weight="1080" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="9878" name="Dynasty Bagh-Nakh - Rsk. Evasion" weight="1550" price="0" sellable="true" weapon_type="dualfist" />
+<item id="9879" name="Dynasty Bagh-Nakh - Rsk. Haste" weight="1550" price="0" sellable="true" weapon_type="dualfist" />
+<item id="9880" name="Dynasty Bagh-Nakh - Haste" weight="1550" price="0" sellable="true" weapon_type="dualfist" />
+<item id="9901" name="Improved Falchion" weight="1530" price="0" sellable="true" weapon_type="sword" />
+<item id="9902" name="Improved Great Spear" weight="2120" price="0" sellable="true" weapon_type="pole" />
+<item id="9903" name="Improved Iron Hammer" weight="1850" price="0" sellable="true" weapon_type="blunt" />
+<item id="9904" name="Improved Sword Breaker" weight="1110" price="0" sellable="true" weapon_type="dagger" />
+<item id="9905" name="Improved Viper Fang" weight="1560" price="0" sellable="true" weapon_type="dualfist" />
+<item id="9906" name="Improved Composite Bow" weight="1880" price="0" sellable="true" weapon_type="bow" />
+<item id="9907" name="Improved Flanged Mace" weight="1800" price="0" sellable="true" weapon_type="blunt" />
+<item id="9908" name="Improved Mage Staff" weight="1050" price="0" sellable="true" weapon_type="bigblunt" />
+<item id="9995" name="Hand Crossbow" weight="1850" price="0" sellable="true" weapon_type="crossbow" />
+<item id="9996" name="Hand Crossbow" weight="1850" price="0" sellable="true" weapon_type="crossbow" />
+<item id="10003" name="Fleuret" weight="1500" price="0" sellable="true" weapon_type="rapier" />
+<item id="10004" name="Dynasty Dual Sword" weight="1520" price="0" sellable="true" weapon_type="dual" />
+<item id="10005" name="Shadow Item: Fleuret" weight="500" price="0" sellable="false" weapon_type="rapier" />
+<item id="10006" name="Shadow Item: Military Talwar" weight="693" price="0" sellable="false" weapon_type="ancient" />
+<item id="10007" name="Shadow Item: Hand Crossbow" weight="693" price="0" sellable="false" weapon_type="crossbow" />
+<item id="10008" name="Shadow Item: Blinzlasher" weight="467" price="0" sellable="false" weapon_type="rapier" />
+<item id="10009" name="Shadow Item: Immortal Edge" weight="660" price="0" sellable="false" weapon_type="ancient" />
+<item id="10010" name="Shadow Item: Tathlum" weight="587" price="0" sellable="false" weapon_type="crossbow" />
+<item id="10011" name="Shadow Item - War Axe" weight="533" price="0" sellable="false" weapon_type="blunt" />
+<item id="10125" name="Shadow Item - War Axe" weight="533" price="0" sellable="false" weapon_type="sword" />
+<item id="10128" name="For Monster only (Crossbow)" weight="1530" price="0" sellable="true" weapon_type="crossbow" />
+<item id="10167" name="Pig Lollipop" weight="0" price="0" sellable="true" weapon_type="sword" />
+<item id="10212" name="npc Only (Bow)" weight="0" price="0" sellable="true" weapon_type="bow" />
+<item id="10215" name="Icarus Sawsword" weight="0" price="0" sellable="true" weapon_type="sword" />
+<item id="10216" name="Icarus Disperser" weight="0" price="0" sellable="true" weapon_type="sword" />
+<item id="10217" name="Icarus Spirit" weight="0" price="0" sellable="true" weapon_type="sword" />
+<item id="10218" name="Icarus Two-Hand Sword" weight="0" price="0" sellable="true" weapon_type="sword" />
+<item id="10219" name="Icarus Trident" weight="0" price="0" sellable="true" weapon_type="pole" />
+<item id="10220" name="Icarus Hammer" weight="0" price="0" sellable="true" weapon_type="blunt" />
+<item id="10221" name="Icarus Hand" weight="0" price="0" sellable="true" weapon_type="blunt" />
+<item id="10222" name="Icarus Staff" weight="0" price="0" sellable="true" weapon_type="blunt" />
+<item id="10223" name="Icarus Spitter" weight="0" price="0" sellable="true" weapon_type="sword" />
+<item id="10224" name="Icarus Stinger" weight="0" price="0" sellable="true" weapon_type="dagger" />
+<item id="10225" name="Icarus Wingblade" weight="0" price="0" sellable="true" weapon_type="sword" />
+<item id="10226" name="Icarus Shooter" weight="0" price="0" sellable="true" weapon_type="crossbow" />
+<item id="10252" name="Dynasty Staff" weight="1740" price="0" sellable="true" weapon_type="blunt" />
+<item id="10253" name="Dynasty Crusher" weight="1740" price="0" sellable="true" weapon_type="blunt" />
+<item id="10277" name="Monster Only (Behamah Pole)" weight="2140" price="0" sellable="true" weapon_type="sword" />
+<item id="10278" name="Monster Only (Behamah Dual)" weight="2530" price="0" sellable="true" weapon_type="sword" />
+</list>
