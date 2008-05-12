@@ -41387,7 +41387,8 @@ INSERT INTO spawnlist VALUES
 (null,'Isle_of_Prayer',1,22265,153037,149796,-3368,0,0,36566,60,0,0),
 (null,'Isle_of_Prayer',1,22264,151763,149992,-3320,0,0,35759,60,0,0),
 (null,'Isle_of_Prayer',1,22263,152325,150566,-3448,0,0,0,60,0,0),
-(null,'Wastelands','1',32368,-21982,186630,-4312,0,0,0,60,0,0);
+(null,'Wastelands','1',32368,-21982,186630,-4312,0,0,0,60,0,0),
+(null,'Cruma2ndFloor','1',32366,16411,113498,-9064,0,0,0,60,0,0);
 
 -- Castle Artefacts 
 INSERT INTO spawnlist VALUES 
@@ -41420,7 +41421,7 @@ INSERT INTO spawnlist VALUES
 
 -- Fortress Suspicious Merchants
 INSERT INTO spawnlist VALUES
-(null,'Dragon_Spine_Fortress',1,36142,12196,93188,-3421,0,0,50504,60,0,'0');
+(null,'Dragon_Spine_Fortress',1,36142,12196,93188,-3421,0,0,50504,60,0,0);
 
 --
 -- L2J-Free Add-ons
