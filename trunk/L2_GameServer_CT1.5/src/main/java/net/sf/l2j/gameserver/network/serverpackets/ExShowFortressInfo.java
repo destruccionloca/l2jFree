@@ -62,7 +62,7 @@ public class ExShowFortressInfo extends L2GameServerPacket
                     writeS(owner.getName());
                 else
                 {
-                    _log.warn("Fort owner with no name! Fort: " + fort.getName() + " has an OwnerId = " + fort.getOwnerId() + " who does not have a  name!");
+                    _log.warn("No owner clan for fortress: "+fort.getName()+" - Owner Id: "+fort.getOwnerId());
                     writeS("");
                }
             }

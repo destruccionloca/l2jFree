@@ -22,34 +22,51 @@ public class ExBasicActionList extends L2GameServerPacket
 {
     private static final String _S__FE_5E_EXBASICACTIONLIST = "[S] FE:5F ExBasicActionList";
 
-    public ExBasicActionList()
+    private final int[] _actionIds;
+
+    public static final ExBasicActionList DEFAULT_ACTION_LIST = new ExBasicActionList();
+
+    private ExBasicActionList()
     {
-    	
+        this(ExBasicActionList.getDefaultActionList());
     }
-    
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#writeImpl()
-     */
-    @Override
-    protected final void writeImpl()
+
+    public ExBasicActionList(int... actionIds)
     {
-        writeC(0xfe);
-        writeH(0x5f);
-        int[] actionIds = new int[60 + 1 + 46];
+        _actionIds = actionIds;
+    }
+
+    public static int[] getDefaultActionList()
+    {
+        int count1 = 62; // 0 <-> (count1 - 1)
+        int count2 = 51; // 1000 <-> (1000 + count2 - 1)
+        int[] actionIds = new int[count1 + 1 + 51];
         for (int i = 0; i < actionIds.length; i++)
         {
             actionIds[i] = 0 + i;
         }
-        for (int i = 1000; i < 1046; i++)
+        for (int i = 1000; i < 1000+count2; i++)
         {
-            actionIds[i - 1000 + 60] = i;
+            actionIds[i - 1000 + count1] = i;
         }
-        writeD(actionIds.length);
-        for (int i = 0; i < actionIds.length; i++)
+        return actionIds;
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#writeImpl()
+     */
+    @Override
+    protected void writeImpl()
+    {
+        writeC(0xfe);
+        writeH(0x5f);
+        writeD(_actionIds.length);
+        for (int i = 0; i < _actionIds.length; i++)
         {
-            writeD(actionIds[i]);
+            writeD(_actionIds[i]);
         }
     }
+
     /**
      * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
      */
