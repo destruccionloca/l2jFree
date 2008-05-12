@@ -11,9 +11,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 
+import elayne.ations.RequestItemEnchant; 
+
 /**
  * This class represents a new Dialog that is prompted by the
- * {@link RequestItemEnchantChange} action. It displays a dialog that asks for a
+ * {@link RequestItemEnchant} action. It displays a dialog that asks for a
  * new enchant that will be given to a certain item.
  * @author SqueezeD
  */
