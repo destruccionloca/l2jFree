@@ -214,7 +214,7 @@ public class EnterWorld extends L2GameClientPacket
 		sendPacket(new ShortCutInit(activeChar));
 
 		// Send Action list
-		activeChar.sendPacket(new ExBasicActionList());
+		activeChar.sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
 
 		activeChar.sendSkillList();
 
