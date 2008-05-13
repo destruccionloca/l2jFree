@@ -462,6 +462,8 @@ public class CursedWeapon
         }
         else _player.sendPacket(new ItemList(_player, false));
 
+        // Save previous transformation
+        if (_player.transformId() > 0) _player.transformInsertInfo(); 
         // Refresh player stats
         transform();
         _player.broadcastUserInfo();

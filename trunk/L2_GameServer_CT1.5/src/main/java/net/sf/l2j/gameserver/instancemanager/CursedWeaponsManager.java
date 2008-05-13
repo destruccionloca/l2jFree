@@ -57,7 +57,6 @@ public class CursedWeaponsManager
 {
 	private static final Log			_log	= LogFactory.getLog(CursedWeaponsManager.class.getName());
 
-	// =========================================================
 	private static CursedWeaponsManager	_instance;
 
 	public static final CursedWeaponsManager getInstance()
@@ -70,19 +69,13 @@ public class CursedWeaponsManager
 		return _instance;
 	}
 
-	// =========================================================
-	// Data Field
 	private FastMap<Integer, CursedWeapon>	_cursedWeapons;
 
-	// =========================================================
-	// Constructor
 	public CursedWeaponsManager()
 	{
 		_cursedWeapons = new FastMap<Integer, CursedWeapon>();
 	}
 
-	// =========================================================
-	// Method - Private
 	public final void reload()
 	{
 		_cursedWeapons = new FastMap<Integer, CursedWeapon>();
@@ -294,8 +287,6 @@ public class CursedWeaponsManager
 		_log.info("CursedWeaponsManager: loaded " + _cursedWeapons.size() + " cursed weapon(s).");
 	}
 
-	// =========================================================
-	// Properties - Public
 	public synchronized void checkDrop(L2Attackable attackable, L2PcInstance player)
 	{
 		if (Config.ALLOW_CURSED_WEAPONS)
@@ -446,7 +437,6 @@ public class CursedWeaponsManager
 		}
 	}
 
-	// =========================================================
 	public boolean isCursed(int itemId)
 	{
 		return _cursedWeapons.containsKey(itemId);
