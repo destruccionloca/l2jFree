@@ -1320,7 +1320,7 @@ INSERT INTO `armor` VALUES
 (10170,'Baylor\'s Earring','rear,lear','true','none',150,'wood','none',0,-1,0,71,31,0,0,'true','true','true','true',''),
 (10273,'Wolf Summoning Bracelet','lbracelet','true','none',150,'wood','none',0,120,0,0,0,0,0,'true','true','true','true',''),
 (10320,'Agathion Seal Bracelet - Little Angel','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'true','false','true','false','3423-1;3267-1'),
-(10326,'Agathion Seal Bracelet - Little Devil','lbracelet','true','none',150,'wood','none',0,0,0,0,0,0,0,'true','false','true','false','3424-1;3267-1'),
+(10326,'Agathion Seal Bracelet - Little Devil','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'true','false','true','false','3424-1;3267-1'),
 (10533,'Blue Talisman - Attack Power','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
 (10534,'Blue Talisman - Shield Defense','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
 (10535,'Yellow Talisman - Defense Power','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
@@ -1332,7 +1332,7 @@ INSERT INTO `armor` VALUES
 (10541,'Yellow Talisman - MP Recovery Rate','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
 (10542,'Red Talisman - HP/CP Recovery','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
 (10543,'Yellow Talisman - Moving Speed','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
-(10606,'Agathion Seal Bracelet - Rudolph','lbracelet','true','none',150,'wood','none',0,0,0,0,0,0,0,'false','false','true','false','3425-1;3267-1');
+(10606,'Agathion Seal Bracelet - Rudolph','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3425-1;3267-1');
 
 --
 -- L2J-Free Add-ons
