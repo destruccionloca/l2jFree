@@ -1321,6 +1321,17 @@ INSERT INTO `armor` VALUES
 (10273,'Wolf Summoning Bracelet','lbracelet','true','none',150,'wood','none',0,120,0,0,0,0,0,'true','true','true','true',''),
 (10320,'Agathion Seal Bracelet - Little Angel','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'true','false','true','false','3423-1;3267-1'),
 (10326,'Agathion Seal Bracelet - Little Devil','lbracelet','true','none',150,'wood','none',0,0,0,0,0,0,0,'true','false','true','false','3424-1;3267-1'),
+(10533,'Blue Talisman - Attack Power','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
+(10534,'Blue Talisman - Shield Defense','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
+(10535,'Yellow Talisman - Defense Power','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
+(10536,'Yellow Talisman - Magic Power','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
+(10537,'Yellow Talisman - Evasion','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
+(10538,'Yellow Talisman - Healing Power','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
+(10539,'Yellow Talisman - CP Recovery Rate','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
+(10540,'Yellow Talisman - HP Recovery Rate','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
+(10541,'Yellow Talisman - MP Recovery Rate','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
+(10542,'Red Talisman - HP/CP Recovery','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
+(10543,'Yellow Talisman - Moving Speed','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
 (10606,'Agathion Seal Bracelet - Rudolph','lbracelet','true','none',150,'wood','none',0,0,0,0,0,0,0,'false','false','true','false','3425-1;3267-1');
 
 --
