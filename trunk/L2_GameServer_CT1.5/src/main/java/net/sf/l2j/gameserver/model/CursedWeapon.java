@@ -33,7 +33,6 @@ import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.network.serverpackets.ExRedSky;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
-import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.tools.geometry.Point3D;
@@ -75,8 +74,6 @@ public class CursedWeapon
     private int _playerKarma = 0;
     private int _playerPkKills = 0;
 
-    // =========================================================
-    // Constructor
     public CursedWeapon(int itemId, int skillId, String name)
     {
         _name = name;
@@ -85,8 +82,7 @@ public class CursedWeapon
         _skillMaxLevel = SkillTable.getInstance().getMaxLevel(_skillId, 0);
     }
 
-    // =========================================================
-    // Private
+
     public void endOfLife()
     {
         if (_isActivated)
@@ -342,10 +338,14 @@ public class CursedWeapon
     public void removeSkillAndAppearance()
     {
         _player.untransform();
+        
+        _player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
+        _player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
+        _player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);
+        
         if (_player.transformId() > 0)
         {
             TransformationManager.getInstance().transformPlayer(_player.transformId(), _player, Long.MAX_VALUE);
-            return;
         }
         else
         {
@@ -354,11 +354,10 @@ public class CursedWeapon
                 if (sk != null && !sk.isPassive())
                     _player.addSkill(sk, false);
             }
+            
+            _player.regiveTemporarySkills();
         }
-        _player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
-        _player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
-        _player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);
-        _player.regiveTemporarySkills();
+        
         _player.sendSkillList();
     }
 
@@ -372,8 +371,6 @@ public class CursedWeapon
         _player.sendSkillList();
     }
 
-    // =========================================================
-    // Public
     public void reActivate()
     {
         _isActivated = true;
@@ -585,8 +582,6 @@ public class CursedWeapon
     	saveData();
     }
 
-    // =========================================================
-    // Setter
     public void setDisapearChance(int disapearChance)
     {
         _disapearChance = disapearChance;
@@ -649,8 +644,6 @@ public class CursedWeapon
         _transformId = id;
     }
 
-    // =========================================================
-    // Getter
     public boolean isActivated()
     {
         return _isActivated;

@@ -12214,12 +12214,13 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void transformInsertInfo()
     {
-        _transformationId = getTranformationId();
-
-        if (_transformationId == L2Transformation.TRANSFORM_AKAMANAH
-                || _transformationId == L2Transformation.TRANSFORM_ZARICHE)
+ 
+    	if (getTranformationId() == L2Transformation.TRANSFORM_AKAMANAH
+                || getTranformationId() == L2Transformation.TRANSFORM_ZARICHE)
             return;
-
+        
+        _transformationId = getTranformationId();
+        
         Connection con = null;
         try
         {
