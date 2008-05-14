@@ -17847,7 +17847,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 
 -- Quest 381: Sandra's Album
 INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,time) VALUES
-(5900,10000,7,18,1,3);
+(5900,10000,7,21,1,3);
 
 --
 -- Clan Hall Item Creation
