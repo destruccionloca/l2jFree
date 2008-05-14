@@ -586,8 +586,6 @@ INSERT INTO droplist VALUES
 
 -- Update Teleport
 UPDATE npc SET `type` = 'L2Teleporter' WHERE idTemplate = 31859;
-DELETE FROM teleport WHERE id = 20000;
-INSERT INTO teleport VALUES ('Lair of Antharas -> Toen of Giran',20000,83400,147943,-3404,0,0);
 
 -- Sailren
 -- Update Velociraptor
