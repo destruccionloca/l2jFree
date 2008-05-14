@@ -514,7 +514,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="1.17" stat="pAtk"/>
+	<mul order="0x30" val="1.17" stat="mAtk"/>
   </for>
 </skill>
 <skill id="639" levels="1" name="Master Ability - Casting">
