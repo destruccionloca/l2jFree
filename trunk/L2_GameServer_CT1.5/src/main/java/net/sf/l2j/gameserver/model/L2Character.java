@@ -490,28 +490,10 @@ public abstract class L2Character extends L2Object
 	 * the L2Character, server just need to go through _knownPlayers to send Server->Client Packet<BR>
 	 * <BR>
 	 */
-	public final void broadcastPacket(L2GameServerPacket mov)
+	public void broadcastPacket(L2GameServerPacket mov)
 	{
-		if (!(mov instanceof CharInfo))
-			sendPacket(mov);
-
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-		{
-			try
-			{
-				player.sendPacket(mov);
-				if (mov instanceof CharInfo && this instanceof L2PcInstance)
-				{
-					int relation = ((L2PcInstance) this).getRelation(player);
-					if (getKnownList().getKnownRelations().get(player.getObjectId()) != null
-							&& getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
-						player.sendPacket(new RelationChanged((L2PcInstance) this, relation, player.isAutoAttackable(this)));
-				}
-			}
-			catch (NullPointerException e)
-			{
-			}
-		}
+			player.sendPacket(mov);
 	}
 
 	/**
@@ -523,29 +505,12 @@ public abstract class L2Character extends L2Object
 	 * the L2Character, server just need to go through _knownPlayers to send Server->Client Packet<BR>
 	 * <BR>
 	 */
-	public final void broadcastPacket(L2GameServerPacket mov, int radiusInKnownlist)
+	public void broadcastPacket(L2GameServerPacket mov, int radiusInKnownlist)
 	{
-		if (!(mov instanceof CharInfo))
-			sendPacket(mov);
-
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
-			try
-			{
-				if (!isInsideRadius(player, radiusInKnownlist, false, false))
-					continue;
+			if (isInsideRadius(player, radiusInKnownlist, false, false))
 				player.sendPacket(mov);
-				if (mov instanceof CharInfo && this instanceof L2PcInstance)
-				{
-					int relation = ((L2PcInstance) this).getRelation(player);
-					if (getKnownList().getKnownRelations().get(player.getObjectId()) != null
-							&& getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
-						player.sendPacket(new RelationChanged((L2PcInstance) this, relation, player.isAutoAttackable(this)));
-				}
-			}
-			catch (NullPointerException e)
-			{
-			}
 		}
 	}
 

@@ -194,11 +194,13 @@ public class Olympiad
 						int playerOnePoints = playerOneStat.getInteger(POINTS);
 						int transferPoints = playerOnePoints / 5;
 						playerOneStat.set(POINTS, playerOnePoints - transferPoints);
-						_log.info("Olympia Result: " + _game._playerOneName + " vs " + _game._playerTwoName + " ... " + _game._playerOneName + " lost "
+						if (_log.isDebugEnabled())
+							_log.info("Olympia Result: " + _game._playerOneName + " vs " + _game._playerTwoName + " ... " + _game._playerOneName + " lost "
 								+ transferPoints + " points for crash");
 						int playerTwoPoints = playerTwoStat.getInteger(POINTS);
 						playerTwoStat.set(POINTS, playerTwoPoints + transferPoints);
-						_log.info("Olympia Result: " + _game._playerOneName + " vs " + _game._playerTwoName + " ... " + _game._playerTwoName + " Win "
+						if (_log.isDebugEnabled())
+							_log.info("Olympia Result: " + _game._playerOneName + " vs " + _game._playerTwoName + " ... " + _game._playerTwoName + " Win "
 								+ transferPoints + " points");
 
 						_sm = new SystemMessage(SystemMessageId.C1_HAS_WON_THE_GAME);
@@ -222,11 +224,13 @@ public class Olympiad
 						int playerTwoPoints = playerTwoStat.getInteger(POINTS);
 						int transferPoints = playerTwoPoints / 5;
 						playerTwoStat.set(POINTS, playerTwoPoints - transferPoints);
-						_log.info("Olympia Result: " + _game._playerTwoName + " vs " + _game._playerOneName + " ... " + _game._playerTwoName + " lost "
+						if (_log.isDebugEnabled())
+							_log.info("Olympia Result: " + _game._playerTwoName + " vs " + _game._playerOneName + " ... " + _game._playerTwoName + " lost "
 								+ transferPoints + " points for crash");
 						int playerOnePoints = playerOneStat.getInteger(POINTS);
 						playerOneStat.set(POINTS, playerOnePoints + transferPoints);
-						_log.info("Olympia Result: " + _game._playerTwoName + " vs " + _game._playerOneName + " ... " + _game._playerOneName + " Win "
+						if (_log.isDebugEnabled())
+							_log.info("Olympia Result: " + _game._playerTwoName + " vs " + _game._playerOneName + " ... " + _game._playerOneName + " Win "
 								+ transferPoints + " points");
 
 						_sm = new SystemMessage(SystemMessageId.C1_HAS_WON_THE_GAME);
@@ -2035,7 +2039,8 @@ public class Olympiad
 					_aborted = true;
 					clearPlayers();
 				}
-				_log.info("Olympiad System: Game - " + id + ": " + _playerOne.getName() + " Vs " + _playerTwo.getName());
+				if (_log.isDebugEnabled())
+					_log.info("Olympiad System: Game - " + id + ": " + _playerOne.getName() + " Vs " + _playerTwo.getName());
 			}
 			else
 			{
@@ -2614,7 +2619,8 @@ public class Olympiad
 					_sm = new SystemMessage(SystemMessageId.THE_GAME_ENDED_IN_A_TIE);
 					broadcastMessage(_sm, true);
 				}
-				_log.info("Olympia Result: " + _playerOneName + " vs " + _playerTwoName + " ... " + result);
+				if (_log.isDebugEnabled())
+					_log.info("Olympia Result: " + _playerOneName + " vs " + _playerTwoName + " ... " + result);
 
 				playerOneStat.set(COMP_DONE, playerOnePlayed + 1);
 				playerTwoStat.set(COMP_DONE, playerTwoPlayed + 1);
