@@ -74,6 +74,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.tools.codec.Base64;
+import net.sf.l2j.versionning.Version;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -267,9 +268,7 @@ public class EnterWorld extends L2GameClientPacket
 			sm.addString(getText("dmlzaXQgbDJqc2VydmVyLmNvbQ=="));
 			sendPacket(sm);
 
-			/*
-			VersionningService versionningService = (VersionningService) L2Registry.getBean(IServiceRegistry.VERSIONNING);
-			Version version = versionningService.getVersion();
+			Version version = new Version();
 			if (version != null)
 			{
 				sm = new SystemMessage(SystemMessageId.S1);
@@ -279,7 +278,6 @@ public class EnterWorld extends L2GameClientPacket
 				sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==") + " " + version.getBuildDate());
 				sendPacket(sm);
 			}
-			*/
 		}
 
 		if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
