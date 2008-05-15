@@ -56,8 +56,8 @@ import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.tools.security.NewCrypt;
-import net.sf.l2j.tools.util.Util;
-import net.sf.l2j.util.GameServerNetConfig;
+import net.sf.l2j.tools.util.HexUtil;
+import net.sf.l2j.tools.network.SubNetHost;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,7 +81,7 @@ public class GameServerThread extends Thread
 	private String _connectionIp;
 
 	private GameServerInfo _gsi;
-	private List<GameServerNetConfig> _gsnc = new  FastList<GameServerNetConfig>();
+	private List<SubNetHost> _gameserverSubnets = new  FastList<SubNetHost>();
 
 	private long _lastIpUpdate;
 	
@@ -150,7 +150,7 @@ public class GameServerThread extends Thread
 
                 if (_log.isDebugEnabled())
                 {
-                    _log.debug("[C]\n"+Util.printData(data));
+                    _log.debug("[C]\n"+HexUtil.printData(data));
                 }
 
                 int packetType = data[0] & 0xff;
@@ -518,7 +518,7 @@ public class GameServerThread extends Thread
 		NewCrypt.appendChecksum(data);
 		if (_log.isDebugEnabled())
 		{
-			_log.debug("[S] "+sl.getClass().getSimpleName()+":\n"+Util.printData(data));
+			_log.debug("[S] "+sl.getClass().getSimpleName()+":\n"+HexUtil.printData(data));
 		}
 		data = _blowfish.crypt(data);
 
@@ -558,7 +558,7 @@ public class GameServerThread extends Thread
 	
 	public void setNetConfig(String netConfig) 
 	{
-		if (_gsnc.size() == 0) 
+		if (_gameserverSubnets.size() == 0) 
 		{
 			StringTokenizer hostNets = new StringTokenizer(netConfig.trim(), ";");
 
@@ -570,7 +570,7 @@ public class GameServerThread extends Thread
 
 				String _host = addresses.nextToken();
 
-				GameServerNetConfig _NetConfig = new GameServerNetConfig(_host);
+				SubNetHost _subNetHost = new SubNetHost(_host);
 
 				if (addresses.hasMoreTokens()) 
 				{
@@ -582,16 +582,16 @@ public class GameServerThread extends Thread
 							String _net = netmask.nextToken();
 							String _mask = netmask.nextToken();
 
-							_NetConfig.addNet(_net, _mask);
+							_subNetHost.addSubNet(_net, _mask);
 						} catch (NoSuchElementException c) 
 						{
 							// Silence of the Lambs =)
 						}
 					}
 				} else
-					_NetConfig.addNet("0.0.0.0", "0");
+					_subNetHost.addSubNet("0.0.0.0", "0");
 				
-				_gsnc.add(_NetConfig);
+				_gameserverSubnets.add(_subNetHost);
 			}
 		}
 		
@@ -603,14 +603,14 @@ public class GameServerThread extends Thread
 
 		_lastIpUpdate = System.currentTimeMillis();
 
-		if (_gsnc.size() > 0)
+		if (_gameserverSubnets.size() > 0)
 		{
 			_log.info("Updated Gameserver [" + getServerId() + "] "
 					+ GameServerManager.getInstance().getServerNameById(getServerId()) + " IP's:");
 
-			for (GameServerNetConfig _netConfig : _gsnc)
+			for (SubNetHost _netConfig : _gameserverSubnets)
 			{
-				String _hostName = _netConfig.getHost();
+				String _hostName = _netConfig.getHostname();
 				try
 				{
 					String _hostAddress = InetAddress.getByName(_hostName).getHostAddress();
@@ -633,9 +633,9 @@ public class GameServerThread extends Thread
 				&& (System.currentTimeMillis() > (_lastIpUpdate + Config.IP_UPDATE_TIME)))
 			updateIPs();
 
-		for (GameServerNetConfig _netConfig : _gsnc)
+		for (SubNetHost _netConfig : _gameserverSubnets)
 		{
-			if (_netConfig.checkHost(ip))
+			if (_netConfig.isInSubnet(ip))
 			{
 				_host = _netConfig.getIp();
 				break;

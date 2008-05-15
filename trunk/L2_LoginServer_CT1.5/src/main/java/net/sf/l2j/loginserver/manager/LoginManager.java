@@ -49,10 +49,10 @@ import net.sf.l2j.loginserver.services.exception.AccountModificationException;
 import net.sf.l2j.loginserver.services.exception.AccountWrongPasswordException;
 import net.sf.l2j.loginserver.services.exception.HackingException;
 import net.sf.l2j.loginserver.thread.GameServerThread;
-import net.sf.l2j.tools.L2Registry;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.tools.codec.Base64;
 import net.sf.l2j.tools.math.ScrambledKeyPair;
-import net.sf.l2j.util.Rnd;
+import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -219,7 +219,7 @@ public class LoginManager
 	{
 		SessionKey key;
 		
-		key = new SessionKey(Rnd.nextInt(), Rnd.nextInt(), Rnd.nextInt(), Rnd.nextInt());
+		key = new SessionKey(Rnd.nextInt(Integer.MAX_VALUE), Rnd.nextInt(Integer.MAX_VALUE), Rnd.nextInt(Integer.MAX_VALUE), Rnd.nextInt(Integer.MAX_VALUE));
 		_loginServerClients.put(account, client);
 		return key;
 	}
@@ -238,7 +238,7 @@ public class LoginManager
 	{
 		SessionKey key;
 
-		key = new SessionKey(Rnd.nextInt(), Rnd.nextInt(), Rnd.nextInt(), Rnd.nextInt());
+		key = new SessionKey(Rnd.nextInt(Integer.MAX_VALUE), Rnd.nextInt(Integer.MAX_VALUE), Rnd.nextInt(Integer.MAX_VALUE), Rnd.nextInt(Integer.MAX_VALUE));
 		_loginServerClients.put(account, client);
 		return key;
 	}	

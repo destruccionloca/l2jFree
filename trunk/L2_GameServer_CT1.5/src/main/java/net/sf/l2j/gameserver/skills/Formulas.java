@@ -1246,7 +1246,7 @@ public final class Formulas
 		// get the vulnerability for the instance due to skills (buffs, passives, toggles, etc)
 		damage = target.calcStat(Stats.DAGGER_WPN_VULN, damage, target, null);
 		damage *= 70. / defence;
-		damage += Rnd.get() * attacker.getRandomDamage(target);
+		damage += Rnd.nextDouble() * attacker.getRandomDamage(target);
 		if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
 			damage *= skill.getPvpMulti();
 		return damage < 1 ? 1. : damage;

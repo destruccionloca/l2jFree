@@ -115,6 +115,7 @@ import net.sf.l2j.gameserver.util.PathCreator;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.status.Status;
 import net.sf.l2j.tools.random.RandomIntGenerator;
+import net.sf.l2j.versionning.Version;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -131,6 +132,7 @@ public class GameServer
 	private static Status						_statusServer;
 	public static final Calendar				dateTimeServerStarted	= Calendar.getInstance();
 	private LoginServerThread					_loginThread;
+	private static final Version version = new Version();
 	
 	public GameServer() throws Throwable
 	{
@@ -338,9 +340,13 @@ public class GameServer
 			GeoEditorListener.getInstance();
 		
 		Util.printSection("l2jfree");
-		_log.info("Revision: " + getVersionNumber());
-		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
+		version.loadInformation(GameServer.class);
+        _log.info("Revision: "+version.getRevisionNumber());
+        //_log.info("Build date: "+version.getBuildDate());
+        _log.info("Compiler version: "+version.getBuildJdk());
+
 		printMemUsage();
+		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
 		
 		Util.printSection("GameServerLog");
 		if (Config.ENABLE_JYTHON_SHELL)
@@ -350,24 +356,16 @@ public class GameServer
 		}
 	}
 	
+	public static String getVersionNumber()
+	{
+		return version.getRevisionNumber();
+	}
+	
 	public static void printMemUsage()
 	{
 		Util.printSection("Memory");
 		for (String line : Util.getMemUsage())
 			_log.info(line);
-	}
-	
-	/**
-	 * @return the revision number
-	 */
-	public static String getVersionNumber()
-	{
-/*		VersionningService versionningService = (VersionningService) L2Registry.getBean(IServiceRegistry.VERSIONNING);
-		Version version = versionningService.getVersion();
-		if (version != null)
-			return version.getRevisionNumber();
-*/			
-		return "-1";
 	}
 	
 	public SelectorThread<L2GameClient> getSelectorThread()

@@ -22,7 +22,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.network.clientpackets.*;
-import net.sf.l2j.tools.util.Util;
+import net.sf.l2j.tools.util.HexUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -869,7 +869,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 		_log.warn("Unknown Packet: " + Integer.toHexString(opcode) + " on State: " + state.name() + " Client: " + client.toString());
 		byte[] array = new byte[size];
 		buf.get(array);
-		_log.warn(Util.printData(array, size));
+		_log.warn(HexUtil.printData(array, size));
 	}
 
 	private void printDebugDoubleOpcode(int opcode, int id2, ByteBuffer buf, GameClientState state, L2GameClient client)
@@ -879,7 +879,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				+ client.toString());
 		byte[] array = new byte[size];
 		buf.get(array);
-		_log.warn(Util.printData(array, size));
+		_log.warn(HexUtil.printData(array, size));
 	}
 
 	// impl

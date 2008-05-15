@@ -34,7 +34,7 @@ import java.util.Map;
 
 import javolution.util.FastMap;
 import net.sf.l2j.loginserver.beans.BanInfo;
-import net.sf.l2j.tools.network.Net;
+import net.sf.l2j.tools.network.SubNet;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
@@ -51,7 +51,7 @@ public class BanManager
     private static BanManager _instance = null;
     private static final Log _log = LogFactory.getLog(BanManager.class);
 	/** Banned ips */
-	private Map<Net, BanInfo> _bannedIps = new FastMap<Net, BanInfo>().setShared(true);
+	private Map<SubNet, BanInfo> _bannedIps = new FastMap<SubNet, BanInfo>().setShared(true);
 	
     public static String BAN_LIST = "config/banned_ip.cfg";
     private static final String ENCODING = "UTF-8";
@@ -163,7 +163,7 @@ public class BanManager
     public void addBanForAddress(String address, long expiration) throws UnknownHostException
     { 
         InetAddress netAddress = InetAddress.getByName(address);
-        Net _net = new Net(netAddress.getHostAddress());
+        SubNet _net = new SubNet(netAddress.getHostAddress());
         _bannedIps.put(_net, new BanInfo(_net,  expiration));
     }
 
@@ -175,7 +175,7 @@ public class BanManager
      */
     public void addBanForSubnet(String address, long expiration)
     {
-    	Net _net = new Net(address);
+    	SubNet _net = new SubNet(address);
     	_bannedIps.put(_net, new BanInfo(_net,  expiration));
     } 
     
@@ -187,7 +187,7 @@ public class BanManager
      */
     public void addBanForAddress(InetAddress address, long duration)
     {
-    	Net _net = new Net(address.getHostAddress());
+    	SubNet _net = new SubNet(address.getHostAddress());
     	_bannedIps.put(_net, new BanInfo(_net,  System.currentTimeMillis() + duration));
     }    
     
@@ -200,11 +200,11 @@ public class BanManager
     public boolean isBannedAddress(InetAddress address)
     {
       
-        for(Map.Entry<Net, BanInfo> _bannedIP : _bannedIps.entrySet())
+        for(Map.Entry<SubNet, BanInfo> _bannedIP : _bannedIps.entrySet())
         {
-        	Net net = _bannedIP.getKey();
+        	SubNet net = _bannedIP.getKey();
         	
-        	if (net.isInNet(address.getHostAddress()))
+        	if (net.isInSubnet(address.getHostAddress()))
         	{
         		BanInfo bi = _bannedIP.getValue();
         
@@ -229,7 +229,7 @@ public class BanManager
      * get all banned ips
      * @return a map of banned ip
      */
-    public Map<Net, BanInfo> getBannedIps()
+    public Map<SubNet, BanInfo> getBannedIps()
     {
         return _bannedIps;
     }
@@ -242,11 +242,11 @@ public class BanManager
      */
     public boolean removeBanForAddress(InetAddress address)
     {
-        for(Map.Entry<Net, BanInfo> _bannedIP : _bannedIps.entrySet())
+        for(Map.Entry<SubNet, BanInfo> _bannedIP : _bannedIps.entrySet())
         {
-        	Net net = _bannedIP.getKey();
+        	SubNet net = _bannedIP.getKey();
         	
-        	if (net.isInNet(address.getHostAddress()) && (net.getMask() == 0xffffffff))
+        	if (net.isInSubnet(address.getHostAddress()) && (net.getMask() == 0xffffffff))
         		return _bannedIps.remove(net) != null;
         }
         

@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.io.OutputStream;
 import java.math.BigInteger;
@@ -1968,7 +1969,54 @@ public final class Config
 			_log.warn("Could not load HexID file (" + HEXID_FILE + "). Hopefully login will give us one.");
 		}
 	}
+	
+    //  *******************************************************************************************
+    public static final String  SUBNETS_FILE				= "./config/subnets.properties";
+    //  *******************************************************************************************
+    public static String SUBNETWORKS;
+    
+    //  *******************************************************************************************
+    public static void loadSubnets()
+	{
+		_log.info("loading " + SUBNETS_FILE);
+		LineNumberReader lnr = null;
+		try
+		{
+			
+			String subnet = null;
+			String line = null;
+			SUBNETWORKS = "";
+			
+			lnr = new LineNumberReader(new InputStreamReader(new FileInputStream( new File(SUBNETS_FILE))));
 
+			while((line = lnr.readLine()) != null)
+			{
+				line = line.trim().toLowerCase().replace(" ", "");
+
+				if(line.startsWith("subnet"))
+				{
+					if (SUBNETWORKS.length() > 0 && !SUBNETWORKS.endsWith(";")) SUBNETWORKS += ";"; 
+					subnet = line.split("=")[1];
+					SUBNETWORKS += subnet;
+				}
+			}
+
+			SUBNETWORKS = SUBNETWORKS.toLowerCase().replaceAll("internal", Config.INTERNAL_HOSTNAME);
+			SUBNETWORKS = SUBNETWORKS.toLowerCase().replaceAll("external", Config.EXTERNAL_HOSTNAME);
+		}
+		catch (Exception e)
+		{}
+		finally
+		{
+			try
+			{
+				lnr.close();
+			}
+			catch (Exception e)
+			{}
+		}
+	}    
+    
 	// *******************************************************************************************
 	public static final String					COMMAND_PRIVILEGES_FILE	= "./config/command-privileges.properties";
 	// *******************************************************************************************
@@ -2901,6 +2949,7 @@ public final class Config
 		Util.printSection("Configuration");
 		loadConfiguration();
 		loadHexId();
+		loadSubnets();
 		loadRatesConfig();
 		loadEnchantConfig();
 		loadPvpConfig();

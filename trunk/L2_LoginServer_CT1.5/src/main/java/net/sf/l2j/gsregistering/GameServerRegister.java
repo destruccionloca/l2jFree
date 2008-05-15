@@ -26,7 +26,7 @@ import java.math.BigInteger;
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.beans.Gameservers;
 import net.sf.l2j.loginserver.manager.GameServerManager;
-import net.sf.l2j.tools.L2Registry;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.tools.util.HexUtil;
 
 public class GameServerRegister

@@ -27,7 +27,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.beans.Accounts;
 import net.sf.l2j.loginserver.services.AccountsServices;
 import net.sf.l2j.loginserver.services.exception.AccountModificationException;
-import net.sf.l2j.tools.L2Registry;
+import net.sf.l2j.L2Registry;
 
 import org.springframework.orm.ObjectRetrievalFailureException;
 

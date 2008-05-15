@@ -19,7 +19,7 @@ package net.sf.l2j.loginserver.crypt;
 
 import java.io.IOException;
 
-import net.sf.l2j.util.Rnd;
+import net.sf.l2j.tools.random.Rnd;
 import net.sf.l2j.tools.security.NewCrypt;
 /**
  *
@@ -63,7 +63,7 @@ public class LoginCrypt
     		
     		// padding
         	size += 8 - size%8;
-    		NewCrypt.encXORPass(raw, offset, size, Rnd.nextInt());
+    		NewCrypt.encXORPass(raw, offset, size, Rnd.nextInt(Integer.MAX_VALUE));
     		_staticCrypt.crypt(raw, offset, size);
     		
     		_static = false;

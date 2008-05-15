@@ -53,7 +53,7 @@ import net.sf.l2j.gameserver.network.serverpackets.CharSelectionInfo;
 import net.sf.l2j.gameserver.network.serverpackets.LoginFail;
 import net.sf.l2j.tools.random.Rnd;
 import net.sf.l2j.tools.security.NewCrypt;
-import net.sf.l2j.tools.util.Util;
+import net.sf.l2j.tools.util.HexUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -123,23 +123,12 @@ public class LoginServerThread extends Thread
 		_accountsInGameServer = new FastMap<String, L2GameClient>();
 		_maxPlayer = Config.MAXIMUM_ONLINE_USERS;
 
-		// if defined internal or optional networks, then form config string for new login server
-		// optional netwoks (router);internal networks(if defined);external public host(default for all connections)
-		if (Config.INTERNAL_NETWORKS.length() > 0 || Config.OPTIONAL_NETWORKS.length() > 0)
-		{
-			_gameExternalHost = "";
+        if (Config.SUBNETWORKS != null && Config.SUBNETWORKS.length() > 0)  
+        {
+            _gameExternalHost = Config.SUBNETWORKS;
+            _gameInternalHost = "";
+        }
 
-			if (Config.OPTIONAL_NETWORKS.length() > 0)
-				_gameExternalHost = Config.OPTIONAL_NETWORKS + ";";
-
-			if (Config.INTERNAL_HOSTNAME.length() > 0 && Config.INTERNAL_NETWORKS.length() > 0)
-				_gameExternalHost += Config.INTERNAL_HOSTNAME + "," + Config.INTERNAL_NETWORKS + ";";
-
-			if (Config.EXTERNAL_HOSTNAME.length() > 0)
-				_gameExternalHost += Config.EXTERNAL_HOSTNAME + "," + "0.0.0.0/0";
-
-			_gameInternalHost = "";
-		}
 
 	}
 
@@ -215,7 +204,7 @@ public class LoginServerThread extends Thread
 					}
 
 					if (_log.isDebugEnabled())
-						_log.debug("[C]\n" + Util.printData(decrypt));
+						_log.debug("[C]\n" + HexUtil.printData(decrypt));
 
 					int packetType = decrypt[0] & 0xff;
 					switch (packetType)
@@ -498,7 +487,7 @@ public class LoginServerThread extends Thread
 		byte[] data = sl.getContent();
 		NewCrypt.appendChecksum(data);
 		if (_log.isDebugEnabled())
-			_log.debug("[S]\n" + Util.printData(data));
+			_log.debug("[S]\n" + HexUtil.printData(data));
 		data = _blowfish.crypt(data);
 
 		int len = data.length + 2;

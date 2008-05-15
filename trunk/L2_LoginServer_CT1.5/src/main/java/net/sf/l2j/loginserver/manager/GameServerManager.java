@@ -40,9 +40,9 @@ import javolution.util.FastMap;
 import net.sf.l2j.loginserver.beans.GameServerInfo;
 import net.sf.l2j.loginserver.beans.Gameservers;
 import net.sf.l2j.loginserver.services.GameserversServices;
-import net.sf.l2j.tools.L2Registry;
+import net.sf.l2j.L2Registry;
 import net.sf.l2j.tools.util.HexUtil;
-import net.sf.l2j.util.Rnd;
+import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -16,42 +16,49 @@ package net.sf.l2j.tools.random;
 
 public class Rnd
 {
-	public static final double get() // get random number from 0 to 1
-	{
-		return RandomIntGenerator.getInstance().getSecureRandom().nextDouble();
-	}
-	
-	public static final int get(int n) // get random number from 0 to n-1
-	{
-		return (int) (RandomIntGenerator.getInstance().getSecureRandom().nextDouble() * n);
-	}
-	
-	public static final int get(int min, int max) // get random number from min to max (not max-1 !)
-	{
-		return min + (int) Math.floor(RandomIntGenerator.getInstance().getSecureRandom().nextDouble() * (max - min + 1));
-	}
-	
-	public static final int nextInt(int n)
-	{
-		return (int) Math.floor(RandomIntGenerator.getInstance().getSecureRandom().nextDouble() * n);
-	}
-	
+	/**
+	 * Get random number from 0.0 to 1.0
+	 */
 	public static final double nextDouble()
 	{
 		return RandomIntGenerator.getInstance().getSecureRandom().nextDouble();
 	}
+
+	/**
+	 * Get random number from 0 to n-1
+	 */
+	public static final int nextInt(int n)
+	{
+		return RandomIntGenerator.getInstance().getSecureRandom().nextInt(n);
+	}
+
+	/**
+	 * Get random number from 0 to n-1
+	 */
+	public static final int get(int n)
+	{
+		return nextInt(n);
+	}
 	
-	public static final double nextGaussian()
+	/**
+	 * Get random number from min to max <b>(not max-1)</b>
+	 */
+	public static final int get(int min, int max)
+	{
+		return min + RandomIntGenerator.getInstance().getSecureRandom().nextInt(max - min + 1);
+	}
+
+	public static final double nextGaussian()  
 	{
 		return RandomIntGenerator.getInstance().getSecureRandom().nextGaussian();
 	}
-	
-	public static final boolean nextBoolean()
+
+	public static final boolean nextBoolean()  
 	{
 		return RandomIntGenerator.getInstance().getSecureRandom().nextBoolean();
 	}
-	
-	public static final void nextBytes(byte[] array)
+
+	public static final void nextBytes(byte [] array)
 	{
 		RandomIntGenerator.getInstance().getSecureRandom().nextBytes(array);
 	}

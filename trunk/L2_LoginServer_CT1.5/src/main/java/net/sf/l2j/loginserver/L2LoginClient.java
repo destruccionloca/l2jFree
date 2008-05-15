@@ -31,7 +31,7 @@ import net.sf.l2j.loginserver.serverpackets.LoginFailReason;
 import net.sf.l2j.loginserver.serverpackets.PlayFail;
 import net.sf.l2j.loginserver.serverpackets.PlayFailReason;
 import net.sf.l2j.tools.math.ScrambledKeyPair;
-import net.sf.l2j.util.Rnd; 
+import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -76,7 +76,7 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		
 		_scrambledPair = LoginManager.getInstance().getScrambledRSAKeyPair();
 		_blowfishKey = LoginManager.getInstance().getBlowfishKey();
-		_sessionId = Rnd.nextInt();
+		_sessionId = Rnd.nextInt(Integer.MAX_VALUE);
 		_connectionStartTime = System.currentTimeMillis();
 		_loginCrypt = new LoginCrypt();
 		_loginCrypt.setKey(_blowfishKey);

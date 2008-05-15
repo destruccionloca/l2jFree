@@ -1,6 +1,6 @@
 package net.sf.l2j.loginserver.beans;
 
-import net.sf.l2j.tools.network.Net;
+import net.sf.l2j.tools.network.SubNet;
 
 /**
  * 
@@ -12,7 +12,7 @@ public class BanInfo
     /**
      * The ip adress banned
      */
-    private Net _net;
+    private SubNet _net;
 
     /**
      * expiration of the ban : represent the difference, measured in milliseconds, between the expiration time of the ban and midnight, January 1, 1970 UTC.
@@ -24,13 +24,13 @@ public class BanInfo
      * @param ipAddress
      * @param expiration
      */
-    public BanInfo(Net net, long expiration)
+    public BanInfo(SubNet net, long expiration)
     {
     	_net = net;
         _expiration = expiration;
     }
 
-    public Net getNet()
+    public SubNet getNet()
     {
         return _net;
     }

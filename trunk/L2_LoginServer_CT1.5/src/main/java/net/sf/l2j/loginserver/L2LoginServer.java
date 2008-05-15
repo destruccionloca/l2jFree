@@ -32,7 +32,7 @@ import net.sf.l2j.loginserver.manager.GameServerManager;
 import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.thread.GameServerListener;
 import net.sf.l2j.status.Status;
-import net.sf.l2j.tools.L2Registry;
+import net.sf.l2j.L2Registry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

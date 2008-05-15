@@ -10,21 +10,19 @@ import org.apache.commons.logging.LogFactory;
 
 public class Version
 {
-    private Class clazz;
-    
-    private String _revisionNumber="-1";
+    private String _revisionNumber="exported";
     private String _versionNumber="-1";
     private String _buildDate="";
     private String _buildJdk="";
     
     private static final Log _log = LogFactory.getLog(Version.class);
     
-	private void loadInformation()
+	public void loadInformation(Class<?> c)
 	{
 		File jarName = null;
 		try
 		{
-			jarName = Locator.getClassSource(clazz);
+			jarName = Locator.getClassSource(c);
 			JarFile jarFile = new JarFile(jarName);
 
 			Attributes attrs = jarFile.getManifest().getMainAttributes();
@@ -92,7 +90,7 @@ public class Version
             buildJdk = attrs.getValue("Created-By");
             if (buildJdk != null )
             {
-            	_buildJdk="buildJdk";
+            	_buildJdk=buildJdk;
             } 
             else
             {
