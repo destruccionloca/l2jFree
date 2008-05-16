@@ -1084,7 +1084,7 @@
   <table name="#mpConsume_Init"> 8 9 10 11 12 </table>
   <table name="#activateRate"> 50 52 54 56 58 </table>
   <set name="hitTime" val="3000"/>
-  <set name="reuseDelay" val="55000"/>
+  <set name="reuseDelay" val="120000"/>
   <set name="power" val="70"/>
   <set name="activateRate" val="#activateRate"/>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
