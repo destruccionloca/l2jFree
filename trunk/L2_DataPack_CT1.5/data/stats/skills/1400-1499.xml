@@ -1058,7 +1058,7 @@
 </skill>
 <skill id="1439" levels="5" name="Curse of Divinity">
 <!-- Moving back to NOTDONE since it was removed from retail, will research later -->
-<set name="target" val="TARGET_NONE"/>
+  <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
@@ -1071,7 +1071,7 @@
       Lvls 1 - 5 Steals abnormal state of enemy. Consumes 4 soul.
 -->
 <!-- Moving back to NOTDONE since it was removed from retail, will research later -->
-<set name="target" val="TARGET_NONE"/>
+  <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
