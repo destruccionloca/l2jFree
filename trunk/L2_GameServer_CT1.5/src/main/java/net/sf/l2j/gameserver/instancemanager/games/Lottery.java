@@ -241,7 +241,7 @@ public class Lottery
 			finishtime.setTimeInMillis(_enddate);
 			finishtime.set(Calendar.MINUTE, 0);
 			finishtime.set(Calendar.SECOND, 0);
-			finishtime.add(Calendar.WEEK, 1);
+			finishtime.add(Calendar.DAY_OF_MONTH, 7);
 			finishtime.set(Calendar.DAY_OF_WEEK, 6);
 			finishtime.set(Calendar.HOUR_OF_DAY, 7);
 			_enddate = finishtime.getTimeInMillis();
