@@ -15,7 +15,7 @@ REM for bean use
 SET CLASSPATH=%CLASSPATH%;commons-beanutils-1.7.0.jar
 
 REM For connection pool
-SET CLASSPATH=%CLASSPATH%;c3p0-0.9.1.1.jar
+SET CLASSPATH=%CLASSPATH%;c3p0-0.9.1.2.jar
 
 REM for logging usage
 SET CLASSPATH=%CLASSPATH%;commons-logging-1.1.jar
@@ -38,7 +38,7 @@ REM spring
 SET CLASSPATH=%CLASSPATH%;spring-2.0.2.jar
 
 REM For SQL use
-SET CLASSPATH=%CLASSPATH%;mysql-connector-java-3.1.11.jar
+SET CLASSPATH=%CLASSPATH%;mysql-connector-java-5.1.5.jar
 
 REM for configuration
 SET CLASSPATH=%CLASSPATH%;./config/

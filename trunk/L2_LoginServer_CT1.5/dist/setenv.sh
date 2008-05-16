@@ -15,7 +15,7 @@ CLASSPATH=${CLASSPATH}:l2j-mmocore-1.0.8.jar
 CLASSPATH=${CLASSPATH}:commons-beanutils-1.7.0.jar
 
 # For connection pool
-CLASSPATH=${CLASSPATH}:c3p0-0.9.1.1.jar
+CLASSPATH=${CLASSPATH}:c3p0-0.9.1.2.jar
 
 # for logging usage
 CLASSPATH=${CLASSPATH}:commons-logging-1.1.jar
@@ -38,7 +38,7 @@ CLASSPATH=${CLASSPATH}:l2j-loginserver-1.0.0.jar
 CLASSPATH=${CLASSPATH}:spring-2.0.2.jar
 
 # For SQL use
-CLASSPATH=${CLASSPATH}:mysql-connector-java-3.1.11.jar
+CLASSPATH=${CLASSPATH}:mysql-connector-java-5.1.5.jar
 
 # for configuration
 CLASSPATH=${CLASSPATH}:./config/
