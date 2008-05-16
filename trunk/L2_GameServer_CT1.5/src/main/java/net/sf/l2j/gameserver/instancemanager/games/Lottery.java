@@ -241,18 +241,10 @@ public class Lottery
 			finishtime.setTimeInMillis(_enddate);
 			finishtime.set(Calendar.MINUTE, 0);
 			finishtime.set(Calendar.SECOND, 0);
-
-			if (finishtime.get(Calendar.HOUR_OF_DAY) >= 18)
-			{
-				finishtime.set(Calendar.HOUR_OF_DAY, 19);
-				_enddate = finishtime.getTimeInMillis();
-				_enddate += 24 * 60 * 60 * 1000;
-			}
-			else
-			{
-				finishtime.set(Calendar.HOUR_OF_DAY, 19);
-				_enddate = finishtime.getTimeInMillis();
-			}
+			finishtime.add(Calendar.WEEK, 1);
+			finishtime.set(Calendar.DAY_OF_WEEK, 6);
+			finishtime.set(Calendar.HOUR_OF_DAY, 7);
+			_enddate = finishtime.getTimeInMillis();
 
 			ThreadPoolManager.getInstance().scheduleGeneral(new stopSellingTickets(), _enddate - System.currentTimeMillis() - 10 * MINUTE);
 			ThreadPoolManager.getInstance().scheduleGeneral(new finishLottery(), _enddate - System.currentTimeMillis());
