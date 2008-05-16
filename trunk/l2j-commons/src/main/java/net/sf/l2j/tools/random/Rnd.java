@@ -29,6 +29,9 @@ public class Rnd
 	 */
 	public static final int nextInt(int n)
 	{
+		if (n < 0) return RandomIntGenerator.getInstance().getSecureRandom().nextInt(Math.abs(n)) * (-1);
+		else if (n == 0) return n;
+		
 		return RandomIntGenerator.getInstance().getSecureRandom().nextInt(n);
 	}
 
@@ -45,7 +48,7 @@ public class Rnd
 	 */
 	public static final int get(int min, int max)
 	{
-		return min + RandomIntGenerator.getInstance().getSecureRandom().nextInt(max - min + 1);
+		return min + nextInt(max - min + 1);
 	}
 
 	public static final double nextGaussian()  

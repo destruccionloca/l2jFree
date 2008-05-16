@@ -19,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
+import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TaskPriority;
@@ -268,16 +269,12 @@ public class EnterWorld extends L2GameClientPacket
 			sm.addString(getText("dmlzaXQgbDJqc2VydmVyLmNvbQ=="));
 			sendPacket(sm);
 
-			Version version = new Version();
-			if (version != null)
-			{
-				sm = new SystemMessage(SystemMessageId.S1);
-				sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==") + "   " + version.getRevisionNumber());
-				sendPacket(sm);
-				sm = new SystemMessage(SystemMessageId.S1);
-				sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==") + " " + version.getBuildDate());
-				sendPacket(sm);
-			}
+			sm = new SystemMessage(SystemMessageId.S1);
+			sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==") + "   " + GameServer.getVersionNumber());
+			sendPacket(sm);
+			/* sm = new SystemMessage(SystemMessageId.S1);
+			sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==") + " " + GameServer.getBuildDate());
+			sendPacket(sm); */
 		}
 
 		if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
