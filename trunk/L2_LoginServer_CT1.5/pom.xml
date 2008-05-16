@@ -6,7 +6,7 @@
 		<groupId>l2jfree</groupId>
 		<version>1.0.1</version>
 	</parent>
-    
+
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>l2j-loginserver</artifactId>
 	<version>1.0.0</version>
@@ -53,7 +53,6 @@
 	</repositories>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>l2jfree</groupId>
 			<artifactId>l2j-commons</artifactId>
@@ -69,6 +68,16 @@
 			<artifactId>l2j-test-tools</artifactId>
 			<version>1.0.2</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-mock</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.2.2.ga</version>
 		</dependency>
 	</dependencies>
 </project>
