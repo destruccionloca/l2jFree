@@ -70,7 +70,6 @@ public abstract class L2Effect
 	// by this effect. Do not confuse with the instance of L2Character that
 	// casted/used this effect.
 	private final L2Character		_effected;
-	private L2Character		_stolenEffected;
 	
 	// the skill that was used.
 	private final L2Skill			_skill;
@@ -202,11 +201,6 @@ public abstract class L2Effect
 		return _icon;
 	}
 
-	public void setPeriod(int pPeriod)
-	{
-		_period = pPeriod;
-	}
-
 	public int getPeriod()
 	{
 		return _period;
@@ -271,11 +265,6 @@ public abstract class L2Effect
 		return _effector;
 	}
 
-	public final void setStolenEffected(L2Character newEffected)
-	{
-		_stolenEffected = newEffected;
-	}
-	
 	public final L2Character getEffected()
 	{
 		return _effected;
@@ -314,15 +303,6 @@ public abstract class L2Effect
 			_effected.addEffect(this);
 	}
 
-	public synchronized void startStolenEffectTask(int duration)
-	{
-		stopEffectTask();
-		_currentTask = new EffectTask(duration, -1);
-		_currentFuture = ThreadPoolManager.getInstance().scheduleEffect(_currentTask, duration);
-		
-			_stolenEffected.addEffect(this);
-	}
-	
 	private synchronized void startEffectTaskAtFixedRate(int delay, int rate)
 	{
 		stopEffectTask();
