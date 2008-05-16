@@ -1057,20 +1057,11 @@
   </for>
 </skill>
 <skill id="1439" levels="5" name="Curse of Divinity">
-<!-- Sephiroth -->
-  <table name="#power"> 96 99 102 105 108 </table>
-  <table name="#mpConsume"> 62 64 65 67 69 </table>
-  <set name="mpConsume" val="#mpConsume"/>
-  <set name="power" val="#power"/>
-  <set name="isMagic" val="true"/>
-  <set name="element" val="6"/>
-  <set name="hitTime" val="3000"/>
-  <set name="reuseDelay" val="34000"/>
-  <set name="target" val="TARGET_ONE"/>
-  <set name="skillType" val="CURSE_DIV"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="600"/>
-  <set name="soulConsumeCount" val="2"/>
+<!-- Moving back to NOTDONE since it was removed from retail, will research later -->
+<set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -1079,23 +1070,11 @@
   Description(s):
       Lvls 1 - 5 Steals abnormal state of enemy. Consumes 4 soul.
 -->
-<!-- by Sephiroth -->
-  <table name="#mpConsume"> 50 55 60 64 67 </table>
-  <table name="#mpConsume_Init"> 8 9 10 11 12 </table>
-  <table name="#activateRate"> 50 52 54 56 58 </table>
-  <set name="hitTime" val="3000"/>
-  <set name="reuseDelay" val="120000"/>
-  <set name="power" val="70"/>
-  <set name="activateRate" val="#activateRate"/>
-  <set name="mpInitialConsume" val="#mpConsume_Init"/>
-  <set name="mpConsume" val="#mpConsume"/>
-  <set name="isMagic" val="true"/>
-  <set name="target" val="TARGET_ONE"/>
-  <set name="skillType" val="STEAL_DIV"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="600"/>
-  <set name="landingPercent" val="35"/>
-  <set name="soulConsumeCount" val="4"/>
+<!-- Moving back to NOTDONE since it was removed from retail, will research later -->
+<set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
   <for>
   </for>
 </skill>
