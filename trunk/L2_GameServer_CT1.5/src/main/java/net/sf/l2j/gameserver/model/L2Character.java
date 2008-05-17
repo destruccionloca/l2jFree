@@ -416,6 +416,28 @@ public abstract class L2Character extends L2Object
 		}
 	}
 
+	/**
+	 * Returns character inventory, default null, overridden in L2Playable types and in L2NPcInstance
+	 */
+	public Inventory getInventory()
+	{
+		return null;
+	}
+
+	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
+	{
+		// Default: NPCs consume virtual items for their skills
+		// TODO: should be logged if even happens.. should be false
+		return true;
+	}
+
+	public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
+	{
+		// Default: NPCs consume virtual items for their skills
+		// TODO: should be logged if even happens.. should be false
+		return true;
+	}
+
 	protected void initCharStatusUpdateValues()
 	{
 		_hpUpdateInterval = getMaxHp() / 352.0; // MAX_HP div MAX_HP_BAR_PX
@@ -1681,6 +1703,34 @@ public abstract class L2Character extends L2Object
 			return;
 		}
 
+		// Check if the caster has enough MP
+		if (getStatus().getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
+		{
+			if (this instanceof L2PcInstance)
+			{
+				// Send a System Message to the caster
+				sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
+
+				// Send a Server->Client packet ActionFailed to the L2PcInstance
+				sendPacket(ActionFailed.STATIC_PACKET);
+			}
+			return;
+		}
+
+		// Check if the caster has enough HP
+		if (getStatus().getCurrentHp() <= skill.getHpConsume())
+		{
+			if (this instanceof L2PcInstance)
+			{
+				// Send a System Message to the caster
+				sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_HP));
+
+				// Send a Server->Client packet ActionFailed to the L2PcInstance
+				sendPacket(ActionFailed.STATIC_PACKET);
+			}
+			return;
+		}
+
 		switch (skill.getSkillType())
 		{
 			case SUMMON_TRAP:
@@ -1748,6 +1798,34 @@ public abstract class L2Character extends L2Object
 				sm.addSkillName(skill.getId());
 				sendPacket(sm);
 				return;
+			}
+		}
+
+		// Check if the spell consumes an Item
+		// TODO: combine check and consume
+		if (skill.getItemConsume() > 0 && getInventory() != null)
+		{
+			// Get the L2ItemInstance consumed by the spell
+			L2ItemInstance requiredItems = getInventory().getItemByItemId(skill.getItemConsumeId());
+
+			// Check if the caster owns enough consumed Item to cast
+			if (requiredItems == null || requiredItems.getCount() < skill.getItemConsume())
+			{
+				// Checked: when a summon skill failed, server show required consume item count
+				if (skill.getSkillType() == L2Skill.SkillType.SUMMON)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.SUMMONING_SERVITOR_COSTS_S2_S1);
+					sm.addItemNameById(skill.getItemConsumeId());
+					sm.addNumber(skill.getItemConsume());
+					sendPacket(sm);
+					return;
+				}
+				else
+				{
+					// Send a System Message to the caster
+					sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+					return;
+				}
 			}
 		}
 
@@ -1994,7 +2072,13 @@ public abstract class L2Character extends L2Object
 		{
 			// Consume Items if necessary and Send the Server->Client packet InventoryUpdate with Item modification to all the L2Character
 			if (skill.getItemConsume() > 0)
-				consumeItem(skill.getItemConsumeId(), skill.getItemConsume());
+			{
+				if (!destroyItemByItemId("Consume", skill.getItemConsumeId(), skill.getItemConsume(), null, false))
+				{
+					sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+					return;
+				}
+			}
 
 			// Consume Souls if necessary
 			if (skill.getSoulConsumeCount() > 0)
@@ -6930,7 +7014,13 @@ public abstract class L2Character extends L2Object
 
 			// Consume Items if necessary and Send the Server->Client packet InventoryUpdate with Item modification to all the L2Character
 			if (skill.getItemConsume() > 0)
-				consumeItem(skill.getItemConsumeId(), skill.getItemConsume());
+			{
+				if (!destroyItemByItemId("Consume", skill.getItemConsumeId(), skill.getItemConsume(), null, false))
+				{
+					sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+					return;
+				}
+			}
 
 			// Consume Souls if necessary
 			if (skill.getSoulConsumeCount() > 0)
@@ -6999,8 +7089,8 @@ public abstract class L2Character extends L2Object
 			SkillDat queuedSkill = currPlayer.getQueuedSkill();
 
 			// Rescuing old skill cast task if exist
-			if (skill.isPotion())
-				queuedSkill = currPlayer.getCurrentSkill();
+			//if (skill.isPotion())
+				//queuedSkill = currPlayer.getCurrentSkill();
 
 			currPlayer.setCurrentSkill(null, false, false);
 
@@ -7014,21 +7104,6 @@ public abstract class L2Character extends L2Object
 						new QueuedMagicUseTask(currPlayer, queuedSkill.getSkill(), queuedSkill.isCtrlPressed(), queuedSkill.isShiftPressed()));
 			}
 		}
-	}
-
-	/**
-	 * Reduce the item number of the L2Character.<BR>
-	 * <BR>
-	 * <B><U> Overriden in </U> :</B><BR>
-	 * <BR>
-	 * <li> L2PcInstance</li>
-	 * <BR>
-	 * <BR>
-	 */
-	public void consumeItem(@SuppressWarnings("unused")
-	int itemConsumeId, @SuppressWarnings("unused")
-	int itemCount)
-	{
 	}
 
 	/**
@@ -7229,7 +7304,13 @@ public abstract class L2Character extends L2Object
 								{
 									if (skill.getSkillType() != L2Skill.SkillType.SIGNET && skill.getSkillType() != L2Skill.SkillType.SIGNET_CASTTIME)
 									{
-										((L2Character)target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
+										if (skill.getSkillType() != L2Skill.SkillType.AGGREDUCE
+												&& skill.getSkillType() != L2Skill.SkillType.AGGREDUCE_CHAR
+												&& skill.getSkillType() != L2Skill.SkillType.AGGREMOVE)
+										{
+											// notify target AI about the attack
+											((L2Character)target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
+										}
 
 										if (target instanceof L2Summon)
 										{
@@ -7247,8 +7328,13 @@ public abstract class L2Character extends L2Object
 								}
 								else if (target instanceof L2Attackable)
 								{
-									// notify the AI that it is attacked
-									((L2Character)target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
+									if (skill.getSkillType() != L2Skill.SkillType.AGGREDUCE
+											&& skill.getSkillType() != L2Skill.SkillType.AGGREDUCE_CHAR
+											&& skill.getSkillType() != L2Skill.SkillType.AGGREMOVE)
+									{
+										// notify target AI about the attack
+										((L2Character)target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
+									}
 								}
 							}
 							else

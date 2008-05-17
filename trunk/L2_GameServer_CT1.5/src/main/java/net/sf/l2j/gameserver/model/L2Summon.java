@@ -478,7 +478,8 @@ public abstract class L2Summon extends L2PlayableInstance
     {
         return null;
     }
-    
+
+    @Override
     public PetInventory getInventory()
     {
         return null;

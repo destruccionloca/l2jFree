@@ -53,12 +53,6 @@ public class StrSiegeAssault implements ISkillHandler
 		{
 			try
 			{
-				L2ItemInstance itemToTake = player.getInventory().getItemByItemId(skill.getItemConsumeId());
-				if (itemToTake.getCount() - skill.getItemConsume() <= 0)
-					itemToTake.decayMe();
-				else
-					itemToTake.setCount(itemToTake.getCount() - skill.getItemConsume());
-
 				//TODO: damage calculation below is crap - needs rewrite
 				int damage = 0;
 

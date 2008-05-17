@@ -146,7 +146,6 @@ public class L2NpcInstance extends L2Character
 			_isCTF_throneSpawn = false, _isCTF_Flag = false, _isEventVIPNPC = false, _isEventVIPNPCEnd = false;
 
 	private boolean					_isInTown				= false;
-	private boolean					_unTargetable			= false;
 	private int						_isSpoiledBy			= 0;
 
 	protected RandomAnimationTask	_rAniTask				= null;
@@ -560,7 +559,7 @@ public class L2NpcInstance extends L2Character
 
 	protected boolean canTarget(L2PcInstance player)
 	{
-		if (player.isOutOfControl() || _unTargetable)
+		if (player.isOutOfControl())
 		{
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
@@ -2886,16 +2885,14 @@ public class L2NpcInstance extends L2Character
 		return false;
 	}
 
-	public void setUnTargetable(boolean value)
+	@Override
+	public NpcInventory getInventory()
 	{
-		_unTargetable = value;
+		return _inventory;
 	}
 
 	private boolean cwCheck(L2PcInstance player)
 	{
-		if (Config.CURSED_WEAPON_NPC_INTERACT || !player.isCursedWeaponEquipped())
-			return true;
-		else
-			return false;
+		return Config.CURSED_WEAPON_NPC_INTERACT || !player.isCursedWeaponEquipped();
 	}
 }
