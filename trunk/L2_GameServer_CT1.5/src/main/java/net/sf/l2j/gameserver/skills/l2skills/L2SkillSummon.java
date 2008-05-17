@@ -170,6 +170,11 @@ public class L2SkillSummon extends L2Skill
 
 		L2SummonInstance summon;
 		L2NpcTemplate summonTemplate = NpcTable.getInstance().getTemplate(_npcId);
+		if (summonTemplate == null) 
+		{
+			_log.warn("Summon attempt for nonexisting NPC ID:"+_npcId+", skill ID:"+getId());
+			return; // npcID doesn't exist
+		}
 		if (summonTemplate.getType().equalsIgnoreCase("L2SiegeSummon"))
 			summon = new L2SiegeSummonInstance(IdFactory.getInstance().getNextId(), summonTemplate, activeChar, this);
 		else

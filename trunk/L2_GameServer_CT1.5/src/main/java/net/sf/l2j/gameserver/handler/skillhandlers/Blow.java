@@ -187,8 +187,14 @@ public class Blow implements ISkillHandler
 				}
 				else
 					target.reduceCurrentHp(damage, activeChar);
+
 				if (activeChar instanceof L2PcInstance)
+				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
+					if (target instanceof L2PcInstance)
+						target.sendPacket(new SystemMessage(SystemMessageId.S1_HAD_CRITICAL_HIT).addString(((L2PcInstance)activeChar).getAppearance().getVisibleName()));
+				}
+
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
 				sm.addNumber((int) damage);
 				activeChar.sendPacket(sm);

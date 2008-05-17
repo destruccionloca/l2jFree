@@ -118,7 +118,9 @@ public class PcStatus extends PlayableStatus
             if (_log.isDebugEnabled())
                     _log.debug("Attacker:" + attacker.getName());
 
-            if (attacker instanceof L2NpcInstance)
+            if (attacker instanceof L2PcInstance)
+                smsg.addString(((L2PcInstance)attacker).getAppearance().getVisibleName());
+            else if (attacker instanceof L2NpcInstance)
             {
                 int mobId = ((L2NpcInstance)attacker).getTemplate().getIdTemplate();
                 

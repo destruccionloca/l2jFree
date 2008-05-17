@@ -591,7 +591,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     protected boolean _inventoryDisable = false;
 
-    protected Map<Integer, L2CubicInstance> _cubics = new FastMap<Integer, L2CubicInstance>();
+    protected Map<Integer, L2CubicInstance> _cubics = new FastMap<Integer, L2CubicInstance>().setShared(true);
 
     /** The L2FolkInstance corresponding to the last Folk wich one the player talked. */
     private L2FolkInstance _lastFolkNpc = null;
@@ -11995,11 +11995,14 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET));
 			return;
 		}
-		
+
 		// Check if hit is critical
 		if (pcrit)
 		{
 			sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
+
+			if (target instanceof L2PcInstance)
+				target.sendPacket(new SystemMessage(SystemMessageId.S1_HAD_CRITICAL_HIT).addString(getName()));
 
 			int soulMasteryLevel = getSkillLevel(L2Skill.SKILL_SOUL_MASTERY);
 			// Soul Mastery skill
@@ -12018,7 +12021,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
 		sm.addNumber(damage);
 		sendPacket(sm);
-		
 	}
 
 	public void saveEventStats()
