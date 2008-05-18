@@ -205,8 +205,7 @@ public class RaidBossSpawnManager extends BossSpawnManager
 			}
 			catch (SQLException e)
 			{
-				System.out.println("RaidBossSpawnManager: Couldnt update raidboss_spawnlist table");
-				e.printStackTrace();
+				_log.error("RaidBossSpawnManager: Couldnt update raidboss_spawnlist table", e);
 			}
 			finally
 			{

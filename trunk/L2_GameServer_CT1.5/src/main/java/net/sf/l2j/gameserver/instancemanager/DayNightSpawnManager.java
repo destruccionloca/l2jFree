@@ -159,7 +159,7 @@ public class DayNightSpawnManager
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 	}
 
@@ -195,7 +195,7 @@ public class DayNightSpawnManager
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 	}
 
@@ -245,7 +245,7 @@ public class DayNightSpawnManager
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 	}
 

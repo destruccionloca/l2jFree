@@ -930,7 +930,7 @@ public class FrintezzaManager extends BossLair
 			}
 			catch (Throwable t)
 			{
-				t.printStackTrace();
+				_log.error(t.getMessage(), t);
 			}
 		}
 	}

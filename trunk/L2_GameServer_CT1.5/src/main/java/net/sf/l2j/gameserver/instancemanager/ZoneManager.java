@@ -93,7 +93,6 @@ public class ZoneManager
 			catch (Exception e)
 			{
 				_log.fatal("ZoneManager: Error in file " + f.getAbsolutePath(), e);
-				e.printStackTrace();
 				continue;
 			}
 			_log.info("ZoneManager: " + f.getName() + " loaded with " + count + " zones");

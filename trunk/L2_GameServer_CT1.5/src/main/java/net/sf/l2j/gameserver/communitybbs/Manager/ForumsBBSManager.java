@@ -87,8 +87,7 @@ public class ForumsBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("data error on Forum (root): " + e);
-			e.printStackTrace();
+			_log.warn("data error on Forum (root): ", e);
 		}
 		finally
 		{

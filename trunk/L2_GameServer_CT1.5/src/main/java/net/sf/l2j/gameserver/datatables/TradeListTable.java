@@ -187,8 +187,7 @@ public class TradeListTable
 			}
 			catch (Exception e)
 			{
-				_log.warn("TradeController:" + (custom ? " custom " : " ") + "Could not restore Timer for Item count.");
-				e.printStackTrace();
+				_log.warn("TradeController:" + (custom ? " custom " : " ") + "Could not restore Timer for Item count.", e);
 			}
 		}
 		catch (Exception e)
@@ -327,7 +326,7 @@ public class TradeListTable
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}

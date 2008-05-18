@@ -28,13 +28,16 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @authors BiTi, Sami
  * 
  */
 public class SummonFriend implements ISkillHandler
 {
-	//private static final Log			_log		= LogFactory.getLog(SummonFriend.class.getName());
+	private static final Log			_log		= LogFactory.getLog(SummonFriend.class.getName());
 	private static final SkillType[]	SKILL_IDS	=
 													{ SkillType.SUMMON_FRIEND };
 
@@ -175,7 +178,7 @@ public class SummonFriend implements ISkillHandler
 		}
 		catch (Throwable e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 	}
 

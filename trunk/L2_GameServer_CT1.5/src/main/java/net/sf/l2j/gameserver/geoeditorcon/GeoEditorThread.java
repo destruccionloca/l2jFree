@@ -106,7 +106,7 @@ public class GeoEditorThread extends Thread
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 		finally
 		{
@@ -144,7 +144,7 @@ public class GeoEditorThread extends Thread
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 			try
 			{
 				_geSocket.close();
@@ -181,7 +181,7 @@ public class GeoEditorThread extends Thread
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 			try
 			{
 				_geSocket.close();

@@ -257,7 +257,7 @@ public class GameTimeController
 			}
 			catch (NullPointerException e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}

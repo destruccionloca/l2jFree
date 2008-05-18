@@ -19,13 +19,15 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai2.AiInstance.QueueEventRunner;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class will load all the AI's and retain all of them.
@@ -35,7 +37,7 @@ import net.sf.l2j.gameserver.ai2.AiInstance.QueueEventRunner;
  */
 public class AiManager
 {
-	protected static final Logger		_log	= Logger.getLogger(AiManager.class.getName());
+	protected final static Log			_log	= LogFactory.getLog(AiManager.class);
 	private static AiManager			_instance;
 	private List<AiInstance>			_aiList;
 	private Map<Integer, AiInstance>	_aiMap;
@@ -66,7 +68,7 @@ public class AiManager
 
 		if (url == null)
 		{
-			_log.severe("Could not open the ai managers folder. No ai will be loaded!");
+			_log.error("Could not open the ai managers folder. No ai will be loaded!");
 			return;
 		}
 		File directory = new File(url.getFile());
@@ -135,27 +137,27 @@ public class AiManager
 				}
 				catch (ClassCastException e)
 				{
-					e.printStackTrace();
+					_log.error(e.getMessage(), e);
 				}
 				catch (ClassNotFoundException e)
 				{
-					e.printStackTrace();
+					_log.error(e.getMessage(), e);
 				}
 				catch (IllegalArgumentException e)
 				{
-					e.printStackTrace();
+					_log.error(e.getMessage(), e);
 				}
 				catch (SecurityException e)
 				{
-					e.printStackTrace();
+					_log.error(e.getMessage(), e);
 				}
 				catch (InstantiationException e)
 				{
-					e.printStackTrace();
+					_log.error(e.getMessage(), e);
 				}
 				catch (IllegalAccessException e)
 				{
-					e.printStackTrace();
+					_log.error(e.getMessage(), e);
 				}
 			}
 		}

@@ -87,7 +87,7 @@ public class Post
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while saving new Post to db " + e);
+			_log.warn("error while saving new Post to db ", e);
 		}
 		finally
 		{
@@ -137,7 +137,7 @@ public class Post
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 		finally
 		{
@@ -181,8 +181,7 @@ public class Post
 		}
 		catch (Exception e)
 		{
-			_log.warn("data error on Post " + t.getForumID() + "/" + t.getID() + " : " + e);
-			e.printStackTrace();
+			_log.warn("data error on Post " + t.getForumID() + "/" + t.getID() + " : ", e);
 		}
 		finally
 		{
@@ -216,7 +215,7 @@ public class Post
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while saving new Post to db " + e);
+			_log.warn("error while saving new Post to db ", e);
 		}
 		finally
 		{

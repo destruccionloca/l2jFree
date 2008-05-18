@@ -128,7 +128,6 @@ public class ClanHallManager
 		catch (Exception e)
 		{
 			_log.fatal("Exception: ClanHallManager.load(): " + e.getMessage());
-			e.printStackTrace();
 		}
 		finally
 		{

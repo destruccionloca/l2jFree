@@ -175,7 +175,7 @@ public class Recall implements ISkillHandler
 		catch (Throwable e)
 		{
 			if (_log.isDebugEnabled())
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 		}
 	}
 }

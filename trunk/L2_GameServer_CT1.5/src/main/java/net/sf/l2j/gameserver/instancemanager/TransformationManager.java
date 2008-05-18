@@ -16,12 +16,13 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javolution.util.FastMap;
-
 import net.sf.l2j.gameserver.model.L2Transformation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -29,7 +30,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class TransformationManager
 {
-	private static final Logger					_log		= Logger.getLogger(TransformationManager.class.getName());
+	protected static final Log					_log		= LogFactory.getLog(TransformationManager.class.getName());
 
 	private static final TransformationManager	_instance	= new TransformationManager();
 

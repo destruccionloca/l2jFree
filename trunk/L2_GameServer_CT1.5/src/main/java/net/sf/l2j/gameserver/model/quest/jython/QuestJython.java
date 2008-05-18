@@ -22,8 +22,8 @@ import org.apache.bsf.BSFManager;
 
 public abstract class QuestJython extends Quest
 {
-	private static BSFManager _bsf;
-	
+	private static BSFManager	_bsf;
+
 	/**
 	 * Initialize the engine for scripts of quests, luxury shops and blacksmith
 	 */
@@ -36,31 +36,27 @@ public abstract class QuestJython extends Quest
 			// Execution of all the scripts placed in data/scripts
 			// inside the DataPack directory
 
-			String dataPackDirForwardSlashes = Config.DATAPACK_ROOT.getPath().replaceAll("\\\\","/");
-			String loadingScript = 
-			    "import sys;"
-			  + "sys.path.insert(0,'" + dataPackDirForwardSlashes + "');"
-			  + "import data";
+			String dataPackDirForwardSlashes = Config.DATAPACK_ROOT.getPath().replaceAll("\\\\", "/");
+			String loadingScript = "import sys;" + "sys.path.insert(0,'" + dataPackDirForwardSlashes + "');" + "import data";
 
 			_bsf.exec("jython", "quest", 0, 0, loadingScript);
 		}
 		catch (BSFException e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 	}
-	
+
 	public static boolean reloadQuest(String questFolder)
 	{
 		try
 		{
-			_bsf.exec("jython", "quest", 0, 0, "reload(data.scripts."+questFolder+");");
+			_bsf.exec("jython", "quest", 0, 0, "reload(data.scripts." + questFolder + ");");
 			return true;
 		}
 		catch (Exception e)
 		{
-			//System.out.println("Reload Failed");
-			//e.printStackTrace();
+			//_log.warn("Reload Failed", e);
 		}
 		return false;
 	}

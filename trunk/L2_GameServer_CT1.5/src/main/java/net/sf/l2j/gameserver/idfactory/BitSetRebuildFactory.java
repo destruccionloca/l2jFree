@@ -89,7 +89,6 @@ public class BitSetRebuildFactory extends IdFactory
 		catch (Exception e)
 		{
 			_log.fatal("could not rebuild database! :", e);
-			e.printStackTrace();
 			System.exit(0);
 		}
 	}

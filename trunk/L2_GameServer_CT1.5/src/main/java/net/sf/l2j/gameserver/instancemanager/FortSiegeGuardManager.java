@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -28,10 +27,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Fort;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class FortSiegeGuardManager
 {
-
-	private static final Logger	_log				= Logger.getLogger(SiegeGuardManager.class.getName());
+	protected static final Log	_log				= LogFactory.getLog(SiegeGuardManager.class.getName());
 
 	// =========================================================
 	// Data Field
@@ -103,7 +104,7 @@ public class FortSiegeGuardManager
 		}
 		catch (Exception e1)
 		{
-			_log.warning("Error deleting hired siege guard at " + x + ',' + y + ',' + z + ":" + e1);
+			_log.warn("Error deleting hired siege guard at " + x + ',' + y + ',' + z + ":" + e1);
 		}
 		finally
 		{
@@ -133,7 +134,7 @@ public class FortSiegeGuardManager
 		}
 		catch (Exception e1)
 		{
-			_log.warning("Error deleting hired siege guard for fort " + getFort().getName() + ":" + e1);
+			_log.warn("Error deleting hired siege guard for fort " + getFort().getName() + ":" + e1);
 		}
 		finally
 		{
@@ -174,7 +175,7 @@ public class FortSiegeGuardManager
 		}
 		catch (Throwable t)
 		{
-			_log.warning("Error spawning siege guards for fort " + getFort().getName() + ":" + t.toString());
+			_log.warn("Error spawning siege guards for fort " + getFort().getName() + ":" + t.toString());
 		}
 	}
 
@@ -232,7 +233,7 @@ public class FortSiegeGuardManager
 				}
 				else
 				{
-					_log.warning("Missing npc data in npc table for id: " + rs.getInt("npcId"));
+					_log.warn("Missing npc data in npc table for id: " + rs.getInt("npcId"));
 				}
 			}
 			rs.close();
@@ -240,7 +241,7 @@ public class FortSiegeGuardManager
 		}
 		catch (Exception e1)
 		{
-			_log.warning("Error loading siege guard for fort " + getFort().getName() + ":" + e1);
+			_log.warn("Error loading siege guard for fort " + getFort().getName() + ":" + e1);
 		}
 		finally
 		{
@@ -281,7 +282,7 @@ public class FortSiegeGuardManager
 		}
 		catch (Exception e1)
 		{
-			_log.warning("Error adding siege guard for fort " + getFort().getName() + ":" + e1);
+			_log.warn("Error adding siege guard for fort " + getFort().getName() + ":" + e1);
 		}
 		finally
 		{

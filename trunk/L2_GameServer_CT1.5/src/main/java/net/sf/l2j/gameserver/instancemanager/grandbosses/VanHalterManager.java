@@ -940,7 +940,7 @@ public class VanHalterManager extends BossLair
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 		}
 
@@ -1009,7 +1009,7 @@ public class VanHalterManager extends BossLair
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -1024,7 +1024,7 @@ public class VanHalterManager extends BossLair
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}

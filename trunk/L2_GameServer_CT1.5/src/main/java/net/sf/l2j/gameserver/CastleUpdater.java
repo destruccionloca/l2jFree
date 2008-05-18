@@ -29,16 +29,16 @@ import org.apache.commons.logging.LogFactory;
 public class CastleUpdater implements Runnable
 {
 	private final static Log	_log		= LogFactory.getLog(CastleUpdater.class);
-	
+
 	private L2Clan				_clan;
 	private int					_runCount	= 0;
-	
+
 	public CastleUpdater(L2Clan clan, int runCount)
 	{
 		_clan = clan;
 		_runCount = runCount;
 	}
-	
+
 	public void run()
 	{
 		try
@@ -65,7 +65,7 @@ public class CastleUpdater implements Runnable
 		}
 		catch (Throwable e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 	}
 }

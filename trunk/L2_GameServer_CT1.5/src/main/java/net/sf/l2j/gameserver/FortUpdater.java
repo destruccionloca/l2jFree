@@ -47,7 +47,7 @@ public class FortUpdater implements Runnable
 		}
 		catch (Throwable e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 	}
 }

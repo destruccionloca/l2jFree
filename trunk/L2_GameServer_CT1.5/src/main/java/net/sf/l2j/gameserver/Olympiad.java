@@ -196,12 +196,12 @@ public class Olympiad
 						playerOneStat.set(POINTS, playerOnePoints - transferPoints);
 						if (_log.isDebugEnabled())
 							_log.info("Olympia Result: " + _game._playerOneName + " vs " + _game._playerTwoName + " ... " + _game._playerOneName + " lost "
-								+ transferPoints + " points for crash");
+									+ transferPoints + " points for crash");
 						int playerTwoPoints = playerTwoStat.getInteger(POINTS);
 						playerTwoStat.set(POINTS, playerTwoPoints + transferPoints);
 						if (_log.isDebugEnabled())
 							_log.info("Olympia Result: " + _game._playerOneName + " vs " + _game._playerTwoName + " ... " + _game._playerTwoName + " Win "
-								+ transferPoints + " points");
+									+ transferPoints + " points");
 
 						_sm = new SystemMessage(SystemMessageId.C1_HAS_WON_THE_GAME);
 						_sm2 = new SystemMessage(SystemMessageId.S1_HAS_GAINED_S2_OLYMPIAD_POINTS);
@@ -213,7 +213,7 @@ public class Olympiad
 					}
 					catch (Exception e)
 					{
-						e.printStackTrace();
+						_log.error(e.getMessage(), e);
 					}
 
 				}
@@ -226,12 +226,12 @@ public class Olympiad
 						playerTwoStat.set(POINTS, playerTwoPoints - transferPoints);
 						if (_log.isDebugEnabled())
 							_log.info("Olympia Result: " + _game._playerTwoName + " vs " + _game._playerOneName + " ... " + _game._playerTwoName + " lost "
-								+ transferPoints + " points for crash");
+									+ transferPoints + " points for crash");
 						int playerOnePoints = playerOneStat.getInteger(POINTS);
 						playerOneStat.set(POINTS, playerOnePoints + transferPoints);
 						if (_log.isDebugEnabled())
 							_log.info("Olympia Result: " + _game._playerTwoName + " vs " + _game._playerOneName + " ... " + _game._playerOneName + " Win "
-								+ transferPoints + " points");
+									+ transferPoints + " points");
 
 						_sm = new SystemMessage(SystemMessageId.C1_HAS_WON_THE_GAME);
 						_sm2 = new SystemMessage(SystemMessageId.S1_HAS_GAINED_S2_OLYMPIAD_POINTS);
@@ -243,7 +243,7 @@ public class Olympiad
 					}
 					catch (Exception e)
 					{
-						e.printStackTrace();
+						_log.error(e.getMessage(), e);
 					}
 				}
 				playerOneStat.set(COMP_DONE, playerOnePlayed + 1);
@@ -259,7 +259,7 @@ public class Olympiad
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
+					_log.error(e.getMessage(), e);
 				}
 				_game = null;
 				return false;
@@ -416,7 +416,7 @@ public class Olympiad
 					}
 					catch (Exception e)
 					{
-						e.printStackTrace();
+						_log.error(e.getMessage(), e);
 					}
 					_game = null;
 				}
@@ -586,11 +586,11 @@ public class Olympiad
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 		catch (SQLException s)
 		{
-			s.printStackTrace();
+			_log.error(s.getMessage(), s);
 		}
 
 		if (_period == 0)
@@ -675,7 +675,7 @@ public class Olympiad
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 
 		synchronized (this)
@@ -771,7 +771,7 @@ public class Olympiad
 				}
 				catch (Exception e)
 				{
-					_log.warn("Olympiad System: Failed to save Olympiad configuration: " + e);
+					_log.warn("Olympiad System: Failed to save Olympiad configuration: ", e);
 				}
 
 				_scheduledValdationTask = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
@@ -1079,7 +1079,7 @@ public class Olympiad
 						}
 						catch (Exception e)
 						{
-							_log.warn("Olympiad System: Failed to save Olympiad configuration: " + e);
+							_log.warn("Olympiad System: Failed to save Olympiad configuration: ", e);
 						}
 
 						init();
@@ -1129,7 +1129,7 @@ public class Olympiad
 		}
 		catch (Exception e)
 		{
-			_log.warn("Olympiad System: Failed to save Olympiad configuration: " + e);
+			_log.warn("Olympiad System: Failed to save Olympiad configuration: ", e);
 		}
 
 		_scheduledValdationTask = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
@@ -1420,7 +1420,7 @@ public class Olympiad
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -1462,7 +1462,7 @@ public class Olympiad
 		}
 		catch (SQLException e)
 		{
-			_log.warn("Olympiad System: Couldnt heros from db");
+			_log.warn("Olympiad System: Couldnt heros from db", e);
 		}
 		finally
 		{
@@ -1472,7 +1472,7 @@ public class Olympiad
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 		}
 
@@ -1505,7 +1505,7 @@ public class Olympiad
 		}
 		catch (SQLException e)
 		{
-			_log.warn("Olympiad System: Couldnt heros from db");
+			_log.warn("Olympiad System: Couldnt heros from db", e);
 		}
 		finally
 		{
@@ -1515,7 +1515,7 @@ public class Olympiad
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 		}
 
@@ -1632,7 +1632,7 @@ public class Olympiad
 		}
 		catch (SQLException e)
 		{
-			_log.warn("Olympiad System: Couldnt delete nobles from db");
+			_log.warn("Olympiad System: Couldnt delete nobles from db", e);
 		}
 		finally
 		{
@@ -1642,7 +1642,7 @@ public class Olympiad
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 		}
 
@@ -1726,7 +1726,7 @@ public class Olympiad
 								}
 								catch (Exception e)
 								{
-									e.printStackTrace();
+									_log.error(e.getMessage(), e);
 								}
 							}
 							else
@@ -2379,7 +2379,7 @@ public class Olympiad
 				}
 				catch (Exception e)
 				{
-					_log.fatal("PlayerStatusBack:", e);
+					_log.error("PlayerStatusBack:", e);
 				}
 			}
 		}

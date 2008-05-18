@@ -23,7 +23,6 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -43,9 +42,12 @@ import net.sf.l2j.gameserver.model.entity.FortSiege;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class FortSiegeManager
 {
-	private static final Logger		_log	= Logger.getLogger(FortSiegeManager.class.getName());
+	protected static final Log		_log	= LogFactory.getLog(FortSiegeManager.class.getName());
 
 	// =========================================================
 	private static FortSiegeManager	_instance;
@@ -154,8 +156,7 @@ public class FortSiegeManager
 		}
 		catch (Exception e)
 		{
-			_log.warning("Exception: checkIsRegistered(): " + e.getMessage());
-			e.printStackTrace();
+			_log.warn("Exception: checkIsRegistered(): " + e.getMessage());
 		}
 		finally
 		{
@@ -217,7 +218,7 @@ public class FortSiegeManager
 					}
 					catch (Exception e)
 					{
-						_log.warning("Error while loading commander(s) for " + fort.getName() + " fort.");
+						_log.warn("Error while loading commander(s) for " + fort.getName() + " fort.");
 					}
 				}
 
@@ -243,7 +244,7 @@ public class FortSiegeManager
 					}
 					catch (Exception e)
 					{
-						_log.warning("Error while loading flag(s) for " + fort.getName() + " fort.");
+						_log.warn("Error while loading flag(s) for " + fort.getName() + " fort.");
 					}
 				}
 				_flagList.put(fort.getFortId(), _flagSpawns);
@@ -254,8 +255,7 @@ public class FortSiegeManager
 		catch (Exception e)
 		{
 			//_initialized = false;
-			System.err.println("Error while loading fortsiege data.");
-			e.printStackTrace();
+			_log.error("Error while loading fortsiege data.", e);
 		}
 	}
 
@@ -456,7 +456,7 @@ public class FortSiegeManager
 		{
 			if (cf.playerId == player.getObjectId())
 			{
-				System.out.println("found cf ");
+				_log.info("found cf ");
 				cf.dropIt();
 				cf.spawnMe();
 			}

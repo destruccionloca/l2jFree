@@ -205,8 +205,7 @@ public class DimensionalRiftManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("Error on loading dimensional rift spawns: " + e);
-			e.printStackTrace();
+			_log.warn("Error on loading dimensional rift spawns: ", e);
 		}
 		int typeSize = _rooms.keySet().size();
 		int roomSize = 0;

@@ -40,12 +40,12 @@ import org.schwering.irc.lib.ssl.SSLTrustManager;
 public class L2IrcClient extends Thread
 {
 
-	private final static Log _log = LogFactory.getLog(L2IrcClient.class.getName());
-	private static Log _logChat = LogFactory.getLog("irc");
+	private final static Log	_log		= LogFactory.getLog(L2IrcClient.class.getName());
+	private static Log			_logChat	= LogFactory.getLog("irc");
 
-	private IRCConnection conn;
-	private String channel;
-	private String nickname;
+	private IRCConnection		conn;
+	private String				channel;
+	private String				nickname;
 
 	public L2IrcClient(String host, int port, String pass, String nick, String user, String name, boolean ssl, String Chan)
 	{
@@ -122,7 +122,7 @@ public class L2IrcClient extends Thread
 			}
 			catch (Exception exc)
 			{
-				exc.printStackTrace();
+				_log.error(exc.getMessage(), exc);
 			}
 		}
 		return conn.isConnected();
@@ -130,7 +130,7 @@ public class L2IrcClient extends Thread
 
 	public class TrustManager implements SSLTrustManager
 	{
-		private X509Certificate[] chain;
+		private X509Certificate[]	chain;
 
 		public X509Certificate[] getAcceptedIssuers()
 		{
@@ -151,7 +151,7 @@ public class L2IrcClient extends Thread
 	public class Listener implements IRCEventListener
 	{
 
-		private boolean isconnected;
+		private boolean	isconnected;
 
 		public void onRegistered()
 		{

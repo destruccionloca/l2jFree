@@ -99,13 +99,12 @@ public class DoorTable
 		catch (FileNotFoundException e)
 		{
 			_initialized = false;
-			_log.warn("door.csv is missing in data folder");
+			_log.warn("door.csv is missing in data folder", e);
 		}
 		catch (Exception e)
 		{
 			_initialized = false;
-			_log.warn("error while creating door table " + e);
-			e.printStackTrace();
+			_log.warn("error while creating door table ", e);
 		}
 		finally
 		{

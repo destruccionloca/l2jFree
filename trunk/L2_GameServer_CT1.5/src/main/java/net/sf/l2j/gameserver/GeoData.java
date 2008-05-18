@@ -14,20 +14,21 @@
  */
 package net.sf.l2j.gameserver;
 
-import java.util.logging.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.tools.geometry.Point3D;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author -Nemesiss-
  */
 public class GeoData
 {
-	protected static Logger	_log	= Logger.getLogger(GeoData.class.getName());
+	protected static final Log	_log	= LogFactory.getLog(GeoData.class.getName());
 	private static GeoData	_instance;
 
 	public static GeoData getInstance()

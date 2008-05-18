@@ -31,175 +31,191 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GrandBossState
 {
-    public static enum StateEnum
-    {
-        NOTSPAWN,
-        ALIVE,
-        DEAD,
-        INTERVAL
-    }
+	public static enum StateEnum
+	{
+		NOTSPAWN, ALIVE, DEAD, INTERVAL
+	}
 
-    private int _bossId;
-    private long _respawnDate;
-    private StateEnum _state;
-    
-    private static final Log _log = LogFactory.getLog(GrandBossState.class.getName());
+	private int					_bossId;
+	private long				_respawnDate;
+	private StateEnum			_state;
 
-    public int getBossId()
-    {
-        return _bossId;
-    }
-    
-    public void setBossId(int newId)
-    {
-        _bossId = newId;
-    }
+	private static final Log	_log	= LogFactory.getLog(GrandBossState.class.getName());
 
-    public StateEnum getState()
-    {
-        return _state;
-    }
+	public int getBossId()
+	{
+		return _bossId;
+	}
 
-    public void setState(StateEnum newState)
-    {
-        _state = newState;
-    }
-    
-    public long getRespawnDate()
-    {
-        return _respawnDate;
-    }
-    
-    public void setRespawnDate(long interval)
-    {
-        _respawnDate = interval + Calendar.getInstance().getTimeInMillis();
-    }
+	public void setBossId(int newId)
+	{
+		_bossId = newId;
+	}
 
-    public GrandBossState()
-    {
-    }
+	public StateEnum getState()
+	{
+		return _state;
+	}
 
-    public GrandBossState(int bossId)
-    {
-        _bossId = bossId;
-        load();
-    }
+	public void setState(StateEnum newState)
+	{
+		_state = newState;
+	}
 
-    public GrandBossState(int bossId, boolean isDoLoad)
-    {
-        _bossId = bossId;
-        if (isDoLoad) load();
-    }
+	public long getRespawnDate()
+	{
+		return _respawnDate;
+	}
 
-    public void load()
-    {
-        Connection con = null;
+	public void setRespawnDate(long interval)
+	{
+		_respawnDate = interval + Calendar.getInstance().getTimeInMillis();
+	}
 
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            
-            PreparedStatement statement = con.prepareStatement("SELECT * FROM grandboss_intervallist WHERE bossId = ?");
-            statement.setInt(1, _bossId);
-            ResultSet rset = statement.executeQuery();
-            
-            while (rset.next())
-            {
-                _respawnDate = rset.getLong("respawnDate");
+	public GrandBossState()
+	{
+	}
 
-                if(_respawnDate - Calendar.getInstance().getTimeInMillis() <= 0)
-                {
-                    _state = StateEnum.NOTSPAWN;
-                }
-                else
-                {
-                    int tempState = rset.getInt("state");
-                    if (tempState == StateEnum.NOTSPAWN.ordinal())
-                        _state = StateEnum.NOTSPAWN;
-                    else if (tempState == StateEnum.INTERVAL.ordinal())
-                        _state = StateEnum.INTERVAL;
-                    else if (tempState == StateEnum.ALIVE.ordinal())
-                        _state = StateEnum.ALIVE;
-                    else if (tempState == StateEnum.DEAD.ordinal())
-                        _state = StateEnum.DEAD;
-                    else _state = StateEnum.NOTSPAWN;
-                }
-            }
-            rset.close();
-            statement.close();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            try {con.close();} catch(Exception e) {}
-        }
-    }
-    
-    public void save()
-    {
-        Connection con = null;
-        
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("INSERT INTO grandboss_intervallist (bossId,respawnDate,state) VALUES(?,?,?)");
-            statement.setInt(1, _bossId);
-            statement.setLong(2, _respawnDate);
-            statement.setInt(3, _state.ordinal());
-            statement.execute();
-            statement.close();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
-    }
+	public GrandBossState(int bossId)
+	{
+		_bossId = bossId;
+		load();
+	}
 
-    public void update()
-    {
-        Connection con = null;
-        
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("UPDATE grandboss_intervallist SET respawnDate = ?,state = ? WHERE bossId = ?");
-            statement.setLong(1, _respawnDate);
-            statement.setInt(2, _state.ordinal());
-            statement.setInt(3, _bossId);
-            statement.execute();
-            statement.close();
-            _log.info("update GrandBossState : ID-" + _bossId + ",RespawnDate-" + _respawnDate + ",State-" + _state.toString());
-        }
-        catch (Exception e)
-        {
-            _log.warn("Exeption on update GrandBossState : ID-" + _bossId + ",RespawnDate-" + _respawnDate + ",State-" + _state.toString());
-            e.printStackTrace();
-        }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
-    }
-    
-    public void setNextRespawnDate(long newRespawnDate)
-    {
-        _respawnDate = newRespawnDate;
-    }
+	public GrandBossState(int bossId, boolean isDoLoad)
+	{
+		_bossId = bossId;
+		if (isDoLoad)
+			load();
+	}
 
-    public long getInterval()
-    {
-        long interval = _respawnDate - Calendar.getInstance().getTimeInMillis();
-        
-        if (interval < 0)
-            return 0;
-        else
-            return interval;
-    }
+	public void load()
+	{
+		Connection con = null;
+
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+
+			PreparedStatement statement = con.prepareStatement("SELECT * FROM grandboss_intervallist WHERE bossId = ?");
+			statement.setInt(1, _bossId);
+			ResultSet rset = statement.executeQuery();
+
+			while (rset.next())
+			{
+				_respawnDate = rset.getLong("respawnDate");
+
+				if (_respawnDate - Calendar.getInstance().getTimeInMillis() <= 0)
+				{
+					_state = StateEnum.NOTSPAWN;
+				}
+				else
+				{
+					int tempState = rset.getInt("state");
+					if (tempState == StateEnum.NOTSPAWN.ordinal())
+						_state = StateEnum.NOTSPAWN;
+					else if (tempState == StateEnum.INTERVAL.ordinal())
+						_state = StateEnum.INTERVAL;
+					else if (tempState == StateEnum.ALIVE.ordinal())
+						_state = StateEnum.ALIVE;
+					else if (tempState == StateEnum.DEAD.ordinal())
+						_state = StateEnum.DEAD;
+					else
+						_state = StateEnum.NOTSPAWN;
+				}
+			}
+			rset.close();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error(e.getMessage(), e);
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
+	}
+
+	public void save()
+	{
+		Connection con = null;
+
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("INSERT INTO grandboss_intervallist (bossId,respawnDate,state) VALUES(?,?,?)");
+			statement.setInt(1, _bossId);
+			statement.setLong(2, _respawnDate);
+			statement.setInt(3, _state.ordinal());
+			statement.execute();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error(e.getMessage(), e);
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
+	}
+
+	public void update()
+	{
+		Connection con = null;
+
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("UPDATE grandboss_intervallist SET respawnDate = ?,state = ? WHERE bossId = ?");
+			statement.setLong(1, _respawnDate);
+			statement.setInt(2, _state.ordinal());
+			statement.setInt(3, _bossId);
+			statement.execute();
+			statement.close();
+			_log.info("update GrandBossState : ID-" + _bossId + ",RespawnDate-" + _respawnDate + ",State-" + _state.toString());
+		}
+		catch (Exception e)
+		{
+			_log.warn("Exeption on update GrandBossState : ID-" + _bossId + ",RespawnDate-" + _respawnDate + ",State-" + _state.toString(), e);
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
+	}
+
+	public void setNextRespawnDate(long newRespawnDate)
+	{
+		_respawnDate = newRespawnDate;
+	}
+
+	public long getInterval()
+	{
+		long interval = _respawnDate - Calendar.getInstance().getTimeInMillis();
+
+		if (interval < 0)
+			return 0;
+		else
+			return interval;
+	}
 }

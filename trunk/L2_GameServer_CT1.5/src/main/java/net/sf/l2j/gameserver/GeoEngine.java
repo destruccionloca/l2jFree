@@ -226,7 +226,7 @@ public class GeoEngine extends GeoData
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(),e);
 			gm.sendMessage("GeoData bug save Failed!");
 		}
 	}
@@ -616,7 +616,7 @@ public class GeoEngine extends GeoData
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(),e);
 			throw new Error("Failed to Load geo_index File.");
 		}
 		String line;
@@ -634,7 +634,7 @@ public class GeoEngine extends GeoData
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(),e);
 			throw new Error("Failed to Read geo_index File.");
 		}
 		try
@@ -645,7 +645,7 @@ public class GeoEngine extends GeoData
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(),e);
 			throw new Error("Failed to Load geo_bugs.txt File.");
 		}
 	}
@@ -666,7 +666,7 @@ public class GeoEngine extends GeoData
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(),e);
 			return false;
 		}
 		return true;
@@ -727,8 +727,7 @@ public class GeoEngine extends GeoData
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
-			_log.warn("Failed to Load GeoFile at block: " + block + "\n");
+			_log.warn("Failed to Load GeoFile at block: " + block + "\n",e);
 			return false;
 		}
 		return true;
@@ -1187,7 +1186,7 @@ public class GeoEngine extends GeoData
 			height = (short) (height >> 1); // height / 2
 			if (!checkNSWE(NSWE, x, y, x + inc_x, y + inc_y))
 			{
-				if (debug)
+				if (_log.isDebugEnabled())
 					_log.warn("height:" + height + " z" + z);
 				if (z < nGetUpperHeight(x + inc_x, y + inc_y, height))
 					return false; // an obstacle high enough
@@ -1244,14 +1243,14 @@ public class GeoEngine extends GeoData
 				temp_layers--;
 				index += 2;
 			}
-			if (debug)
+			if (_log.isDebugEnabled())
 				_log.warn("z:" + z + " x: " + cellX + " y:" + cellY + " la " + layers + " lo:" + lowerHeight + " up:" + upperHeight);
 			// Check if LOS goes under a layer/floor
 			// clearly under layer but not too much under 
 			// lowerheight here only for geodata bug checking, layers very close? maybe could be removed
 			if ((z - upperHeight) < -10 && (z - upperHeight) > inc_z - 10 && (z - lowerHeight) > 40)
 			{
-				if (debug)
+				if (_log.isDebugEnabled())
 					_log.warn("false, incz" + inc_z);
 				return false;
 			}
@@ -1262,7 +1261,7 @@ public class GeoEngine extends GeoData
 				// a probable wall, there's movement block and layers above you
 				if (!checkNSWE(NSWE, x, y, x + inc_x, y + inc_y)) // cannot move
 				{
-					if (debug)
+					if (_log.isDebugEnabled())
 						_log.warn("block and next in x" + inc_x + " y" + inc_y + " is:" + nGetUpperHeight(x + inc_x, y + inc_y, lowerHeight));
 					// check one inc_x inc_y further, for the height there
 					if (z < nGetUpperHeight(x + inc_x, y + inc_y, lowerHeight))

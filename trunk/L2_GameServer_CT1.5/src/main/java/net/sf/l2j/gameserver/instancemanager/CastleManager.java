@@ -111,7 +111,6 @@ public class CastleManager
 		catch (Exception e)
 		{
 			_log.warn("Exception: loadCastleData(): " + e.getMessage());
-			e.printStackTrace();
 		}
 		finally
 		{
@@ -265,8 +264,7 @@ public class CastleManager
 			}
 			catch (Exception e)
 			{
-				_log.error("Failed to remove castle circlets offline for player " + member.getName());
-				e.printStackTrace();
+				_log.error("Failed to remove castle circlets offline for player " + member.getName(), e);
 			}
 			finally
 			{

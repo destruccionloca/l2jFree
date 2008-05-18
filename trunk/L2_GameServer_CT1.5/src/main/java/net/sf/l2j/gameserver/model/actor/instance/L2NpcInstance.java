@@ -1057,7 +1057,7 @@ public class L2NpcInstance extends L2Character
 						}
 						catch (Exception e)
 						{
-							e.printStackTrace();
+							_log.error(e.getMessage(), e);
 						}
 					}
 					else
@@ -1148,7 +1148,7 @@ public class L2NpcInstance extends L2Character
 						}
 						catch (Exception e)
 						{
-							e.printStackTrace();
+							_log.error(e.getMessage(), e);
 						}
 					}
 					else

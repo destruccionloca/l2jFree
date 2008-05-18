@@ -6,6 +6,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
@@ -28,6 +31,8 @@ import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 
 public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRemoteAdministration
 {
+	private final static Log				_log				= LogFactory.getLog(RemoteAdministrationImpl.class.getName());
+
 	private static final long				serialVersionUID	= -8523099127883669758L;
 
 	private static RemoteAdministrationImpl	_instance;
@@ -50,8 +55,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 			}
 			catch (RemoteException e)
 			{
-				System.out.println("RemoteAdministrationImpl: Problems ocurred while starting RMI Server.");
-				e.printStackTrace();
+				_log.error("RemoteAdministrationImpl: Problems ocurred while starting RMI Server.", e);
 			}
 		return _instance;
 	}
@@ -73,16 +77,15 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 				obj = new RemoteAdministrationImpl();
 
 				Naming.rebind("//localhost:" + port + "/Elayne", obj);
-				System.out.println("RMI Server bound in registry: Port:" + port + ", Password: " + pass + ".");
+				_log.info("RMI Server bound in registry: Port:" + port + ", Password: " + pass + ".");
 			}
 			catch (Exception e)
 			{
-				System.out.println("RemoteAdministrationImpl error: " + e.getMessage());
-				e.printStackTrace();
+				_log.error("RemoteAdministrationImpl error: ", e);
 			}
 		}
 		else
-			System.out.println("RMI Server is currently disabled.");
+			_log.info("RMI Server is currently disabled.");
 	}
 
 	/**

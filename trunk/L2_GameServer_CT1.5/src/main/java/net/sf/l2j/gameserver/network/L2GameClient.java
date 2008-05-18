@@ -71,11 +71,11 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	private String						_accountName;
 	private SessionKey					_sessionId;
 	private L2PcInstance				_activeChar;
-	private ReentrantLock				_activeCharLock				= new ReentrantLock();
+	private ReentrantLock				_activeCharLock			= new ReentrantLock();
 
 	private boolean						_isAuthedGG;
 	private long						_connectionStartTime;
-	private List<Integer>				_charSlotMapping			= new FastList<Integer>();
+	private List<Integer>				_charSlotMapping		= new FastList<Integer>();
 
 	// Task
 	protected final ScheduledFuture<?>	_autoSaveInDB;
@@ -84,8 +84,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	private GameCrypt					_crypt;
 
 	// Flood protection
-	public byte							packetsSentInSec			= 0;
-	public int							packetsSentStartTick		= 0;
+	public byte							packetsSentInSec		= 0;
+	public int							packetsSentStartTick	= 0;
 
 	private boolean						_disconnected;
 
@@ -578,7 +578,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 						saveCharToDisk(player);
 						player.getInventory().updateDatabase(); // Force item update in db
 					}
-					catch (Exception e2){}
+					catch (Exception e2)
+					{
+					}
 
 					// notify the world about our disconnect
 					player.deleteMe();
@@ -601,7 +603,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}

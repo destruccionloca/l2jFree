@@ -13,6 +13,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sf.l2j.gameserver.model.entity.events;
+
 /**
  * 
  * @author FBIagent / fixed and moded for l2jfree by SqueezeD
@@ -51,61 +52,35 @@ import org.apache.commons.logging.LogFactory;
 
 public class TvT
 {
-	private final static Log _log = LogFactory.getLog(TvT.class.getName());	
-	public static String _eventName = new String(),
-						 _eventDesc = new String(),
-						 _topTeam = new String(),
-						 _joiningLocationName = new String();
-	public static Vector<String> _teams = new Vector<String>(),
-								 _savePlayers = new Vector<String>(),
-								 _savePlayerTeams = new Vector<String>();
-	public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>(),
-									   _playersShuffle = new Vector<L2PcInstance>();
-	public static Vector<Integer> _teamPlayersCount = new Vector<Integer>(),
-								  _teamKillsCount = new Vector<Integer>(),
-								  _teamColors = new Vector<Integer>(),
-								  _teamsX = new Vector<Integer>(),
-								  _teamsY = new Vector<Integer>(),
-								  _teamsZ = new Vector<Integer>();
-	public static boolean _joining = false,
-						  _teleport = false,
-						  _started = false,
-						  _sitForced = false;
-	public static L2Spawn _npcSpawn;
-	public static int _npcId = 0,
-					  _npcX = 0,
-					  _npcY = 0,
-					  _npcZ = 0,
-					  _npcHeading = 0,
-					  _rewardId = 0,
-					  _rewardAmount = 0,
-					  _topKills = 0,
-					  _minlvl = 0,
-					  _maxlvl = 0,
-					  _joinTime = 0,
-					  _eventTime = 0,
-					  _minPlayers = 0,
-					  _maxPlayers = 0,
-  					  _playerWon = 0;					  
+	private final static Log	_log	= LogFactory.getLog(TvT.class.getName());
+	public static String		_eventName	= new String(), _eventDesc = new String(), _topTeam = new String(), _joiningLocationName = new String();
+	public static Vector<String>	_teams	= new Vector<String>(), _savePlayers = new Vector<String>(), _savePlayerTeams = new Vector<String>();
+	public static Vector<L2PcInstance>	_players	= new Vector<L2PcInstance>(), _playersShuffle = new Vector<L2PcInstance>();
+	public static Vector<Integer>		_teamPlayersCount	= new Vector<Integer>(), _teamKillsCount = new Vector<Integer>(),
+			_teamColors = new Vector<Integer>(), _teamsX = new Vector<Integer>(), _teamsY = new Vector<Integer>(), _teamsZ = new Vector<Integer>();
+	public static boolean				_joining			= false, _teleport = false, _started = false, _sitForced = false;
+	public static L2Spawn				_npcSpawn;
+	public static int					_npcId				= 0, _npcX = 0, _npcY = 0, _npcZ = 0, _npcHeading = 0, _rewardId = 0, _rewardAmount = 0,
+			_topKills = 0, _minlvl = 0, _maxlvl = 0, _joinTime = 0, _eventTime = 0, _minPlayers = 0, _maxPlayers = 0, _playerWon = 0;
 
-	public static void AnnounceToPlayers(Boolean toall,String announce)
+	public static void AnnounceToPlayers(Boolean toall, String announce)
 	{
-		if(toall)
+		if (toall)
 			Announcements.getInstance().announceToAll(announce);
 		else
 		{
 			CreatureSay cs = new CreatureSay(0, 2, "", "Announcements : " + announce);
-			if (_players!=null && !_players.isEmpty())
+			if (_players != null && !_players.isEmpty())
 			{
-				for (L2PcInstance player: _players)
+				for (L2PcInstance player : _players)
 				{
-					if (player != null && player.isOnline()!=0)
+					if (player != null && player.isOnline() != 0)
 						player.sendPacket(cs);
 				}
 			}
 		}
 	}
-	
+
 	public static void kickPlayerFromTvt(L2PcInstance playerToKick)
 	{
 		if (_joining)
@@ -121,7 +96,7 @@ public class TvT
 			_playersShuffle.remove(playerToKick);
 			playerToKick._inEventTvT = false;
 			removePlayer(playerToKick);
-			if (playerToKick !=  null && playerToKick.isOnline()!=0)
+			if (playerToKick != null && playerToKick.isOnline() != 0)
 			{
 				playerToKick.getAppearance().setNameColor(playerToKick._originalNameColorTvT);
 				playerToKick.setKarma(playerToKick._originalKarmaTvT);
@@ -131,7 +106,7 @@ public class TvT
 				playerToKick.teleToLocation(_npcX, _npcY, _npcZ, false);
 			}
 		}
-	}	
+	}
 
 	public static void setNpcPos(L2PcInstance activeChar)
 	{
@@ -141,7 +116,7 @@ public class TvT
 		_npcHeading = activeChar.getHeading();
 	}
 
-	public static void setNpcPos(int x,int y,int z)
+	public static void setNpcPos(int x, int y, int z)
 	{
 		_npcX = x;
 		_npcY = y;
@@ -152,10 +127,11 @@ public class TvT
 	{
 		if (!checkTeamOk())
 		{
-			if (_log.isDebugEnabled())_log.debug("TvT Engine[addTeam(" + teamName + ")]: checkTeamOk() = false");
+			if (_log.isDebugEnabled())
+				_log.debug("TvT Engine[addTeam(" + teamName + ")]: checkTeamOk() = false");
 			return;
 		}
-		
+
 		if (teamName.equals(" "))
 			return;
 
@@ -172,7 +148,7 @@ public class TvT
 	{
 		if (_minlvl >= maxlvl)
 			return false;
-		
+
 		return true;
 	}
 
@@ -180,7 +156,7 @@ public class TvT
 	{
 		if (_maxlvl <= minlvl)
 			return false;
-		
+
 		return true;
 	}
 
@@ -189,7 +165,7 @@ public class TvT
 	{
 		if (_minPlayers <= players)
 			return true;
-		
+
 		return false;
 	}
 
@@ -198,7 +174,7 @@ public class TvT
 	{
 		if (_maxPlayers > players)
 			return true;
-		
+
 		return false;
 	}
 
@@ -206,18 +182,20 @@ public class TvT
 	{
 		if (!checkTeamOk() || _teams.isEmpty())
 		{
-			if (_log.isDebugEnabled())_log.debug("TvT Engine[removeTeam(" + teamName + ")]: checkTeamOk() = false");
+			if (_log.isDebugEnabled())
+				_log.debug("TvT Engine[removeTeam(" + teamName + ")]: checkTeamOk() = false");
 			return;
 		}
-		
+
 		if (teamPlayersCount(teamName) > 0)
 		{
-			if (_log.isDebugEnabled())_log.debug("TvT Engine[removeTeam(" + teamName + ")]: teamPlayersCount(teamName) > 0");
+			if (_log.isDebugEnabled())
+				_log.debug("TvT Engine[removeTeam(" + teamName + ")]: teamPlayersCount(teamName) > 0");
 			return;
 		}
-		
+
 		int index = _teams.indexOf(teamName);
-		
+
 		if (index == -1)
 			return;
 
@@ -233,22 +211,22 @@ public class TvT
 	public static void setTeamPos(String teamName, L2PcInstance activeChar)
 	{
 		int index = _teams.indexOf(teamName);
-		
+
 		if (index == -1)
 			return;
-		
+
 		_teamsX.set(index, activeChar.getX());
 		_teamsY.set(index, activeChar.getY());
 		_teamsZ.set(index, activeChar.getZ());
 	}
 
-	public static void setTeamPos(String teamName, int x,int y,int z)
+	public static void setTeamPos(String teamName, int x, int y, int z)
 	{
 		int index = _teams.indexOf(teamName);
-		
+
 		if (index == -1)
 			return;
-		
+
 		_teamsX.set(index, x);
 		_teamsY.set(index, y);
 		_teamsZ.set(index, z);
@@ -260,7 +238,7 @@ public class TvT
 			return;
 
 		int index = _teams.indexOf(teamName);
-		
+
 		if (index == -1)
 			return;
 
@@ -271,7 +249,7 @@ public class TvT
 	{
 		if (_started || _teleport || _joining)
 			return false;
-		
+
 		return true;
 	}
 
@@ -280,17 +258,18 @@ public class TvT
 		if (!startJoinOk())
 		{
 			activeChar.sendMessage("Event not setted propertly.");
-			if (_log.isDebugEnabled())_log.debug("TvT Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
-				return;
+			if (_log.isDebugEnabled())
+				_log.debug("TvT Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
+			return;
 		}
-		
+
 		_joining = true;
 		spawnEventNpc(activeChar);
-		AnnounceToPlayers(true,_eventName + " (TvT)!");
-		if(Config.TVT_ANNOUNCE_REWARD)
-			AnnounceToPlayers(true,"Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
-		AnnounceToPlayers(true,"Recruiting levels " + _minlvl + " to " + _maxlvl);
-		AnnounceToPlayers(true,"Joinable in " + _joiningLocationName + "!");
+		AnnounceToPlayers(true, _eventName + " (TvT)!");
+		if (Config.TVT_ANNOUNCE_REWARD)
+			AnnounceToPlayers(true, "Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
+		AnnounceToPlayers(true, "Recruiting levels " + _minlvl + " to " + _maxlvl);
+		AnnounceToPlayers(true, "Joinable in " + _joiningLocationName + "!");
 	}
 
 	public static void startJoin()
@@ -298,45 +277,46 @@ public class TvT
 		if (!startJoinOk())
 		{
 			_log.warn("Event not setted propertly.");
-			if (_log.isDebugEnabled())_log.debug("TvT Engine[startJoin(startJoinOk() = false");
-				return;
+			if (_log.isDebugEnabled())
+				_log.debug("TvT Engine[startJoin(startJoinOk() = false");
+			return;
 		}
-		
+
 		_joining = true;
 		spawnEventNpc();
-		AnnounceToPlayers(true,_eventName + " (TvT)!");
-		if(Config.TVT_ANNOUNCE_REWARD)
-			AnnounceToPlayers(true,"Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
-		AnnounceToPlayers(true,"Recruiting levels " + _minlvl + " to " + _maxlvl);
-		AnnounceToPlayers(true,"Joinable in " + _joiningLocationName + "!");
+		AnnounceToPlayers(true, _eventName + " (TvT)!");
+		if (Config.TVT_ANNOUNCE_REWARD)
+			AnnounceToPlayers(true, "Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
+		AnnounceToPlayers(true, "Recruiting levels " + _minlvl + " to " + _maxlvl);
+		AnnounceToPlayers(true, "Joinable in " + _joiningLocationName + "!");
 	}
 
 	public static boolean startAutoJoin()
 	{
 		if (!startJoinOk())
 		{
-			if (_log.isDebugEnabled())_log.debug("TvT Engine[startJoin]: startJoinOk() = false");
-				return false;
+			if (_log.isDebugEnabled())
+				_log.debug("TvT Engine[startJoin]: startJoinOk() = false");
+			return false;
 		}
-		
+
 		_joining = true;
 		spawnEventNpc();
-		AnnounceToPlayers(true,_eventName + " (TvT)!");
-		if(Config.TVT_ANNOUNCE_REWARD)
-			AnnounceToPlayers(true,"Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
-		AnnounceToPlayers(true,"Recruiting levels " + _minlvl + " to " + _maxlvl);
-		AnnounceToPlayers(true,"Joinable in " + _joiningLocationName + "!");
+		AnnounceToPlayers(true, _eventName + " (TvT)!");
+		if (Config.TVT_ANNOUNCE_REWARD)
+			AnnounceToPlayers(true, "Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
+		AnnounceToPlayers(true, "Recruiting levels " + _minlvl + " to " + _maxlvl);
+		AnnounceToPlayers(true, "Joinable in " + _joiningLocationName + "!");
 		return true;
 	}
 
 	public static boolean startJoinOk()
 	{
-		if (_started || _teleport || _joining || _teams.size() < 2 || _eventName.equals("") ||
-			_joiningLocationName.equals("") || _eventDesc.equals("") || _npcId == 0 ||
-			_npcX == 0 || _npcY == 0 || _npcZ == 0 || _rewardId == 0 || _rewardAmount == 0 ||
-			_teamsX.contains(0) || _teamsY.contains(0) || _teamsZ.contains(0))
+		if (_started || _teleport || _joining || _teams.size() < 2 || _eventName.equals("") || _joiningLocationName.equals("") || _eventDesc.equals("")
+				|| _npcId == 0 || _npcX == 0 || _npcY == 0 || _npcZ == 0 || _rewardId == 0 || _rewardAmount == 0 || _teamsX.contains(0) || _teamsY.contains(0)
+				|| _teamsZ.contains(0))
 			return false;
-		
+
 		return true;
 	}
 
@@ -410,7 +390,7 @@ public class TvT
 	{
 		if (!_joining || _started || _teleport)
 			return;
-		
+
 		if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && checkMinPlayers(_playersShuffle.size()))
 		{
 			removeOfflinePlayers();
@@ -418,12 +398,12 @@ public class TvT
 		}
 		else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && !checkMinPlayers(_playersShuffle.size()))
 		{
-			AnnounceToPlayers(true,"Not enough players for event. Min Requested : " + _minPlayers +", Participating : " + _playersShuffle.size());
+			AnnounceToPlayers(true, "Not enough players for event. Min Requested : " + _minPlayers + ", Participating : " + _playersShuffle.size());
 			return;
 		}
-		
+
 		_joining = false;
-		AnnounceToPlayers(false,_eventName + "(TvT): Teleport to team spot in 20 seconds!");
+		AnnounceToPlayers(false, _eventName + "(TvT): Teleport to team spot in 20 seconds!");
 
 		setUserData();
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
@@ -434,7 +414,7 @@ public class TvT
 
 				for (L2PcInstance player : _players)
 				{
-					if (player !=  null)
+					if (player != null)
 					{
 						if (Config.TVT_ON_START_UNSUMMON_PET)
 						{
@@ -443,7 +423,8 @@ public class TvT
 							{
 								L2Summon summon = player.getPet();
 								for (L2Effect e : summon.getAllEffects())
-									if (e != null) e.exit();
+									if (e != null)
+										e.exit();
 
 								if (summon instanceof L2PetInstance)
 									summon.unSummon(player);
@@ -454,7 +435,8 @@ public class TvT
 						{
 							for (L2Effect e : player.getAllEffects())
 							{
-								if (e != null) e.exit();
+								if (e != null)
+									e.exit();
 							}
 						}
 
@@ -466,7 +448,8 @@ public class TvT
 						}
 
 						player.setTitle("Kills: " + player._countTvTkills);
-						player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
+						player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ
+								.get(_teams.indexOf(player._teamNameTvT)));
 					}
 				}
 			}
@@ -478,7 +461,7 @@ public class TvT
 	{
 		if (!_joining || _started || _teleport)
 			return false;
-		
+
 		if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && checkMinPlayers(_playersShuffle.size()))
 		{
 			removeOfflinePlayers();
@@ -486,12 +469,12 @@ public class TvT
 		}
 		else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && !checkMinPlayers(_playersShuffle.size()))
 		{
-			AnnounceToPlayers(true,"Not enough players for event. Min Requested : " + _minPlayers +", Participating : " + _playersShuffle.size());
+			AnnounceToPlayers(true, "Not enough players for event. Min Requested : " + _minPlayers + ", Participating : " + _playersShuffle.size());
 			return false;
 		}
-		
+
 		_joining = false;
-		AnnounceToPlayers(false,_eventName + "(TvT): Teleport to team spot in 20 seconds!");
+		AnnounceToPlayers(false, _eventName + "(TvT): Teleport to team spot in 20 seconds!");
 
 		setUserData();
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
@@ -502,7 +485,7 @@ public class TvT
 
 				for (L2PcInstance player : _players)
 				{
-					if (player !=  null)
+					if (player != null)
 					{
 						if (Config.TVT_ON_START_UNSUMMON_PET)
 						{
@@ -511,7 +494,8 @@ public class TvT
 							{
 								L2Summon summon = player.getPet();
 								for (L2Effect e : summon.getAllEffects())
-									if (e != null) e.exit();
+									if (e != null)
+										e.exit();
 
 								if (summon instanceof L2PetInstance)
 									summon.unSummon(player);
@@ -522,7 +506,8 @@ public class TvT
 						{
 							for (L2Effect e : player.getAllEffects())
 							{
-								if (e != null) e.exit();
+								if (e != null)
+									e.exit();
 							}
 						}
 
@@ -533,7 +518,8 @@ public class TvT
 							party.removePartyMember(player);
 						}
 						player.setTitle("Kills: " + player._countTvTkills);
-						player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
+						player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ
+								.get(_teams.indexOf(player._teamNameTvT)));
 					}
 				}
 			}
@@ -546,13 +532,14 @@ public class TvT
 	{
 		if (!startEventOk())
 		{
-			if (_log.isDebugEnabled())_log.debug("TvT Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
+			if (_log.isDebugEnabled())
+				_log.debug("TvT Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
 			return;
 		}
-		
+
 		_teleport = false;
 		sit();
-		AnnounceToPlayers(false,_eventName + "(TvT): Started. Go to kill your enemies!");
+		AnnounceToPlayers(false, _eventName + "(TvT): Started. Go to kill your enemies!");
 		_started = true;
 	}
 
@@ -570,31 +557,33 @@ public class TvT
 	{
 		if (!startEventOk())
 		{
-			if (_log.isDebugEnabled())_log.debug("TvT Engine[startEvent]: startEventOk() = false");
+			if (_log.isDebugEnabled())
+				_log.debug("TvT Engine[startEvent]: startEventOk() = false");
 			return false;
 		}
-		
+
 		_teleport = false;
 		sit();
-		AnnounceToPlayers(false,_eventName + "(TvT): Started. Go to kill your enemies!");
+		AnnounceToPlayers(false, _eventName + "(TvT): Started. Go to kill your enemies!");
 		_started = true;
 		return true;
 	}
 
 	public static void autoEvent()
 	{
-		if(startAutoJoin())
+		if (startAutoJoin())
 		{
-			if(_joinTime > 0) waiter(_joinTime * 60 * 1000); // minutes for join event
-			else if(_joinTime <= 0)
+			if (_joinTime > 0)
+				waiter(_joinTime * 60 * 1000); // minutes for join event
+			else if (_joinTime <= 0)
 			{
 				abortEvent();
 				return;
 			}
-			if(teleportAutoStart())
+			if (teleportAutoStart())
 			{
 				waiter(1 * 30 * 1000); // 30 sec wait time untill start fight after teleported
-				if(startAutoEvent())
+				if (startAutoEvent())
 				{
 					waiter(_eventTime * 60 * 1000); // minutes for event time
 					finishEvent();
@@ -610,55 +599,55 @@ public class TvT
 	private static void waiter(long interval)
 	{
 		long startWaiterTime = System.currentTimeMillis();
-		int seconds = (int)(interval / 1000);
+		int seconds = (int) (interval / 1000);
 
 		while (startWaiterTime + interval > System.currentTimeMillis())
 		{
 			seconds--; // here because we don't want to see two time announce at the same time
-			
+
 			if (_joining || _started || _teleport)
 			{
 				switch (seconds)
 				{
-					case 3600: // 1 hour left
-						if (_joining)
-						{
-							AnnounceToPlayers(true,"(TvT): Joinable in " + _joiningLocationName + "!");
-							AnnounceToPlayers(true,"TvT Event: " + seconds / 60 / 60 + " hour(s) till registration ends!");
-							
-						}
-						else if (_started)
-							AnnounceToPlayers(false,"TvT Event: " + seconds / 60 / 60 + " hour(s) till event ends!");
+				case 3600: // 1 hour left
+					if (_joining)
+					{
+						AnnounceToPlayers(true, "(TvT): Joinable in " + _joiningLocationName + "!");
+						AnnounceToPlayers(true, "TvT Event: " + seconds / 60 / 60 + " hour(s) till registration ends!");
 
-						break;
-					case 1800: // 30 minutes left
-					case 900: // 15 minutes left
-					case 600: //  10 minutes left 
-					case 300: // 5 minutes left
-					case 60: // 1 minute left
-						if (_joining)
-						{
-							removeOfflinePlayers();
-							AnnounceToPlayers(true,"(TvT): Joinable in " + _joiningLocationName + "!");
-							AnnounceToPlayers(true,"TvT Event: " + seconds / 60 + " minute(s) till registration ends!");
-						}
-						else if (_started)
-							AnnounceToPlayers(false,"TvT Event: " + seconds / 60 + " minute(s) till event ends!");
-						
-						break;
-					case 30: // 30 seconds left
-					case 10: // 10 seconds left
-					case 3: // 3 seconds left
-					case 2: // 2 seconds left
-					case 1: // 1 seconds left
-						if (_joining)
-							AnnounceToPlayers(true,"TvT Event: " + seconds + " second(s) till registration ends!");
-						else if (_teleport)
-							AnnounceToPlayers(false,"TvT Event: " + seconds + " seconds(s) till fight starts!");
-						else if (_started)
-							AnnounceToPlayers(false,"TvT Event: " + seconds + " second(s) till event ends!");
-						
-						break;
+					}
+					else if (_started)
+						AnnounceToPlayers(false, "TvT Event: " + seconds / 60 / 60 + " hour(s) till event ends!");
+
+					break;
+				case 1800: // 30 minutes left
+				case 900: // 15 minutes left
+				case 600: //  10 minutes left 
+				case 300: // 5 minutes left
+				case 60: // 1 minute left
+					if (_joining)
+					{
+						removeOfflinePlayers();
+						AnnounceToPlayers(true, "(TvT): Joinable in " + _joiningLocationName + "!");
+						AnnounceToPlayers(true, "TvT Event: " + seconds / 60 + " minute(s) till registration ends!");
+					}
+					else if (_started)
+						AnnounceToPlayers(false, "TvT Event: " + seconds / 60 + " minute(s) till event ends!");
+
+					break;
+				case 30: // 30 seconds left
+				case 10: // 10 seconds left
+				case 3: // 3 seconds left
+				case 2: // 2 seconds left
+				case 1: // 1 seconds left
+					if (_joining)
+						AnnounceToPlayers(true, "TvT Event: " + seconds + " second(s) till registration ends!");
+					else if (_teleport)
+						AnnounceToPlayers(false, "TvT Event: " + seconds + " seconds(s) till fight starts!");
+					else if (_started)
+						AnnounceToPlayers(false, "TvT Event: " + seconds + " second(s) till event ends!");
+
+					break;
 				}
 			}
 
@@ -672,7 +661,8 @@ public class TvT
 					Thread.sleep(1);
 				}
 				catch (InterruptedException ie)
-				{}
+				{
+				}
 			}
 		}
 	}
@@ -681,7 +671,7 @@ public class TvT
 	{
 		if (_joining || !_teleport || _started)
 			return false;
-		
+
 		if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
 		{
 			if (_teamPlayersCount.contains(0))
@@ -691,30 +681,29 @@ public class TvT
 		{
 			Vector<L2PcInstance> playersShuffleTemp = new Vector<L2PcInstance>();
 			int loopCount = 0;
-			
+
 			loopCount = _playersShuffle.size();
 
-			for (int i=0;i<loopCount;i++)
+			for (int i = 0; i < loopCount; i++)
 			{
 				if (_playersShuffle != null)
 					playersShuffleTemp.add(_playersShuffle.get(i));
 			}
-			
-			_playersShuffle = playersShuffleTemp; 
+
+			_playersShuffle = playersShuffleTemp;
 			playersShuffleTemp.clear();
-			
-		  //  if (_playersShuffle.size() < (_teams.size()*2)){
-		  //	  return false;
-		  //  }
-		  }
-		
+
+			//  if (_playersShuffle.size() < (_teams.size()*2)){
+			//	  return false;
+			//  }
+		}
+
 		return true;
 	}
 
 	public static void shuffleTeams()
 	{
-		int teamCount = 0,
-			playersCount = 0;
+		int teamCount = 0, playersCount = 0;
 
 		for (;;)
 		{
@@ -722,23 +711,23 @@ public class TvT
 				break;
 
 			int playerToAddIndex = Rnd.nextInt(_playersShuffle.size());
-			L2PcInstance player=null;
+			L2PcInstance player = null;
 			player = _playersShuffle.get(playerToAddIndex);
 			player._originalNameColorTvT = player.getAppearance().getNameColor();
 			player._originalTitleTvT = player.getTitle();
 			player._originalKarmaTvT = player.getKarma();
-			
+
 			_players.add(player);
 			_players.get(playersCount)._teamNameTvT = _teams.get(teamCount);
 			_savePlayers.add(_players.get(playersCount).getName());
 			_savePlayerTeams.add(_teams.get(teamCount));
 			playersCount++;
 
-			if (teamCount == _teams.size()-1)
+			if (teamCount == _teams.size() - 1)
 				teamCount = 0;
 			else
 				teamCount++;
-			
+
 			_playersShuffle.remove(playerToAddIndex);
 		}
 	}
@@ -757,7 +746,8 @@ public class TvT
 	{
 		if (!finishEventOk())
 		{
-			if (_log.isDebugEnabled())_log.debug("TvT Engine[finishEvent]: finishEventOk() = false");
+			if (_log.isDebugEnabled())
+				_log.debug("TvT Engine[finishEvent]: finishEventOk() = false");
 			return;
 		}
 
@@ -766,21 +756,21 @@ public class TvT
 		processTopTeam();
 
 		if (_topKills == 0)
-			AnnounceToPlayers(true,_eventName + "(TvT): No team wins the match(nobody killed).");
+			AnnounceToPlayers(true, _eventName + "(TvT): No team wins the match(nobody killed).");
 		else
 		{
-			AnnounceToPlayers(true,_eventName + "(TvT): " + _topTeam + "'s win the match! " + _topKills + " kills.");
+			AnnounceToPlayers(true, _eventName + "(TvT): " + _topTeam + "'s win the match! " + _topKills + " kills.");
 			rewardTeam(_topTeam);
 			playKneelAnimation(_topTeam);
 		}
-		
-		if(Config.TVT_ANNOUNCE_TEAM_STATS)
+
+		if (Config.TVT_ANNOUNCE_TEAM_STATS)
 		{
-			AnnounceToPlayers(true,_eventName + " Team Statistics:");
+			AnnounceToPlayers(true, _eventName + " Team Statistics:");
 			for (String team : _teams)
 			{
 				int _kills = teamKillsCount(team);
-				AnnounceToPlayers(true,"Team: " + team + " - Kills: " + _kills);
+				AnnounceToPlayers(true, "Team: " + team + " - Kills: " + _kills);
 			}
 		}
 
@@ -810,7 +800,7 @@ public class TvT
 	{
 		if (!_started)
 			return false;
-		
+
 		return true;
 	}
 
@@ -830,12 +820,12 @@ public class TvT
 	{
 		for (L2PcInstance player : _players)
 		{
-			if (player != null && player.isOnline()!=0 && player._inEventTvT==true)
+			if (player != null && player.isOnline() != 0 && player._inEventTvT == true)
 			{
-				if (player._teamNameTvT.equals(teamName) && (player._countTvTkills>0 || Config.TVT_PRICE_NO_KILLS))
+				if (player._teamNameTvT.equals(teamName) && (player._countTvTkills > 0 || Config.TVT_PRICE_NO_KILLS))
 				{
 					player.addItem("TvT Event: " + _eventName, _rewardId, _rewardAmount, player, true, true);
-					
+
 					_playerWon = 1;
 
 					NpcHtmlMessage nhm = new NpcHtmlMessage(5);
@@ -845,7 +835,7 @@ public class TvT
 
 					nhm.setHtml(replyMSG.toString());
 					player.sendPacket(nhm);
-					
+
 					// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 					player.sendPacket(ActionFailed.STATIC_PACKET);
 				}
@@ -857,18 +847,19 @@ public class TvT
 	{
 		if (!_joining && !_teleport && !_started)
 			return;
-		if (_joining && !_teleport && !_started){
+		if (_joining && !_teleport && !_started)
+		{
 			unspawnEventNpc();
 			cleanTvT();
 			_joining = false;
-			AnnounceToPlayers(true,_eventName + "(TvT): Match aborted!");
+			AnnounceToPlayers(true, _eventName + "(TvT): Match aborted!");
 			return;
 		}
 		_joining = false;
 		_teleport = false;
 		_started = false;
 		unspawnEventNpc();
-		AnnounceToPlayers(true,_eventName + "(TvT): Match aborted!");
+		AnnounceToPlayers(true, _eventName + "(TvT): Match aborted!");
 		teleportFinish();
 	}
 
@@ -878,7 +869,7 @@ public class TvT
 			_sitForced = false;
 		else
 			_sitForced = true;
-		
+
 		for (L2PcInstance player : _players)
 		{
 			if (player != null)
@@ -888,7 +879,7 @@ public class TvT
 					player.stopMove(null, false);
 					player.abortAttack();
 					player.abortCast();
-					
+
 					if (!player.isSitting())
 						player.sitDown();
 				}
@@ -905,7 +896,7 @@ public class TvT
 	{
 		_log.info("");
 		_log.info("");
-		
+
 		if (!_joining && !_teleport && !_started)
 		{
 			_log.info("<<---------------------------------->>");
@@ -940,9 +931,9 @@ public class TvT
 		_log.info("##########################");
 		_log.info("# _teams(Vector<String>) #");
 		_log.info("##########################");
-		
+
 		for (String team : _teams)
-		   _log.info(team + " Kills Done :" + _teamKillsCount.get(_teams.indexOf(team)));
+			_log.info(team + " Kills Done :" + _teamKillsCount.get(_teams.indexOf(team)));
 
 		if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
 		{
@@ -950,33 +941,33 @@ public class TvT
 			_log.info("#########################################");
 			_log.info("# _playersShuffle(Vector<L2PcInstance>) #");
 			_log.info("#########################################");
-		
+
 			for (L2PcInstance player : _playersShuffle)
 			{
 				if (player != null)
 					_log.info("Name: " + player.getName());
 			}
 		}
-		
+
 		_log.info("");
 		_log.info("##################################");
 		_log.info("# _players(Vector<L2PcInstance>) #");
 		_log.info("##################################");
-		
+
 		for (L2PcInstance player : _players)
 		{
 			if (player != null)
 				_log.info("Name: " + player.getName() + "   Team: " + player._teamNameTvT + "  Kills Done:" + player._countTvTkills);
 		}
-		
+
 		_log.info("");
 		_log.info("#####################################################################");
 		_log.info("# _savePlayers(Vector<String>) and _savePlayerTeams(Vector<String>) #");
 		_log.info("#####################################################################");
-		
+
 		for (String player : _savePlayers)
 			_log.info("Name: " + player + "	Team: " + _savePlayerTeams.get(_savePlayers.indexOf(player)));
-		
+
 		_log.info("");
 		_log.info("");
 	}
@@ -1016,7 +1007,7 @@ public class TvT
 		_eventTime = 0;
 		_minPlayers = 0;
 		_maxPlayers = 0;
-		
+
 		Connection con = null;
 		try
 		{
@@ -1027,9 +1018,9 @@ public class TvT
 
 			statement = con.prepareStatement("Select * from tvt");
 			rs = statement.executeQuery();
-			
-			int teams =0;
-			
+
+			int teams = 0;
+
 			while (rs.next())
 			{
 				_eventName = rs.getString("eventName");
@@ -1043,7 +1034,7 @@ public class TvT
 				_npcZ = rs.getInt("npcZ");
 				_npcHeading = rs.getInt("npcHeading");
 				_rewardId = rs.getInt("rewardId");
-				_rewardAmount = rs.getInt("rewardAmount"); 
+				_rewardAmount = rs.getInt("rewardAmount");
 				teams = rs.getInt("teamsCount");
 				_joinTime = rs.getInt("joinTime");
 				_eventTime = rs.getInt("eventTime");
@@ -1051,20 +1042,20 @@ public class TvT
 				_maxPlayers = rs.getInt("maxPlayers");
 			}
 			statement.close();
-			
+
 			int index = -1;
 			if (teams > 0)
-				index = 0;	
+				index = 0;
 			while (index < teams && index > -1)
 			{
 				statement = con.prepareStatement("Select * from tvt_teams where teamId = ?");
 				statement.setInt(1, index);
-				rs = statement.executeQuery(); 
+				rs = statement.executeQuery();
 				while (rs.next())
 				{
 					_teams.add(rs.getString("teamName"));
 					_teamPlayersCount.add(0);
-					_teamKillsCount.add(0); 
+					_teamKillsCount.add(0);
 					_teamColors.add(0);
 					_teamsX.add(0);
 					_teamsY.add(0);
@@ -1074,7 +1065,7 @@ public class TvT
 					_teamsZ.set(index, rs.getInt("teamZ"));
 					_teamColors.set(index, rs.getInt("teamColor"));
 				}
-				index ++;
+				index++;
 				statement.close();
 			}
 		}
@@ -1082,7 +1073,16 @@ public class TvT
 		{
 			_log.error("Exception: TvT.loadData(): " + e.getMessage());
 		}
-		finally {try { con.close(); } catch (Exception e) {}}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
 	}
 
 	public static void saveData()
@@ -1092,12 +1092,13 @@ public class TvT
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement;
-			
+
 			statement = con.prepareStatement("Delete from tvt");
 			statement.execute();
 			statement.close();
 
-			statement = con.prepareStatement("INSERT INTO tvt (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, npcHeading, rewardId, rewardAmount, teamsCount, joinTime, eventTime, minPlayers, maxPlayers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+			statement = con
+					.prepareStatement("INSERT INTO tvt (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, npcHeading, rewardId, rewardAmount, teamsCount, joinTime, eventTime, minPlayers, maxPlayers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			statement.setString(1, _eventName);
 			statement.setString(2, _eventDesc);
 			statement.setString(3, _joiningLocationName);
@@ -1117,19 +1118,19 @@ public class TvT
 			statement.setInt(17, _maxPlayers);
 			statement.execute();
 			statement.close();
-			
+
 			statement = con.prepareStatement("Delete from tvt_teams");
 			statement.execute();
 			statement.close();
-			
+
 			for (String teamName : _teams)
-			{ 
+			{
 				int index = _teams.indexOf(teamName);
-				
+
 				if (index == -1)
 					return;
-				statement = con.prepareStatement("INSERT INTO tvt_teams (teamId ,teamName, teamX, teamY, teamZ, teamColor) VALUES (?, ?, ?, ?, ?, ?)");  
-				statement.setInt(1 , index);
+				statement = con.prepareStatement("INSERT INTO tvt_teams (teamId ,teamName, teamX, teamY, teamZ, teamColor) VALUES (?, ?, ?, ?, ?, ?)");
+				statement.setInt(1, index);
 				statement.setString(2, teamName);
 				statement.setInt(3, _teamsX.get(index));
 				statement.setInt(4, _teamsY.get(index));
@@ -1143,7 +1144,16 @@ public class TvT
 		{
 			_log.error("Exception: TvT.saveData(): " + e.getMessage());
 		}
-		finally {try { con.close(); } catch (Exception e) {}}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
 	}
 
 	public static void showEventHtml(L2PcInstance eventPlayer, String objectId)
@@ -1157,9 +1167,8 @@ public class TvT
 			replyMSG.append("Current event...<br1>");
 			replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + _eventName + "</font><br1>");
 			replyMSG.append("    ... description:&nbsp;<font color=\"00FF00\">" + _eventDesc + "</font><br>");
-			if(Config.TVT_ANNOUNCE_REWARD)
+			if (Config.TVT_ANNOUNCE_REWARD)
 				replyMSG.append("    ... reward: (" + _rewardAmount + ") " + ItemTable.getInstance().getTemplate(_rewardId).getName() + "<br>");
-
 
 			if (!_started && !_joining)
 				replyMSG.append("<center>Wait till the admin/gm start the participation.</center>");
@@ -1167,14 +1176,15 @@ public class TvT
 			{
 				if (!TvT._started)
 				{
-					replyMSG.append("<font color=\"FFFF00\">The event has reached its maximum capacity.</font><br>Keep checking, someone may crit and you can steal their spot.");
+					replyMSG
+							.append("<font color=\"FFFF00\">The event has reached its maximum capacity.</font><br>Keep checking, someone may crit and you can steal their spot.");
 				}
 			}
 			else if (eventPlayer.isCursedWeaponEquipped() && !Config.TVT_JOIN_CURSED)
 			{
 				replyMSG.append("<font color=\"FFFF00\">You can't participate in this event with a cursed Weapon.</font><br>");
 			}
-			else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl)
+			else if (!_started && _joining && eventPlayer.getLevel() >= _minlvl && eventPlayer.getLevel() < _maxlvl)
 			{
 				if (_players.contains(eventPlayer) || checkShufflePlayers(eventPlayer))
 				{
@@ -1185,48 +1195,52 @@ public class TvT
 
 					replyMSG.append("<table border=\"0\"><tr>");
 					replyMSG.append("<td width=\"200\">Wait till event start or</td>");
-					replyMSG.append("<td width=\"60\"><center><button value=\"remove\" action=\"bypass -h npc_" + objectId + "_tvt_player_leave\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center></td>");
+					replyMSG.append("<td width=\"60\"><center><button value=\"remove\" action=\"bypass -h npc_" + objectId
+							+ "_tvt_player_leave\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center></td>");
 					replyMSG.append("<td width=\"100\">your participation!</td>");
 					replyMSG.append("</tr></table>");
 				}
 				else
 				{
 					replyMSG.append("You want to participate in the event?<br><br>");
-					replyMSG.append("<td width=\"200\">Your level : <font color=\"00FF00\">" + eventPlayer.getLevel() +"</font></td><br>");
+					replyMSG.append("<td width=\"200\">Your level : <font color=\"00FF00\">" + eventPlayer.getLevel() + "</font></td><br>");
 					replyMSG.append("<td width=\"200\">Min level : <font color=\"00FF00\">" + _minlvl + "</font></td><br>");
 					replyMSG.append("<td width=\"200\">Max level : <font color=\"00FF00\">" + _maxlvl + "</font></td><br><br>");
-					
+
 					if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
 					{
 						replyMSG.append("<center><table border=\"0\">");
-					
+
 						for (String team : _teams)
 						{
-							replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font>&nbsp;(" + teamPlayersCount(team) + " joined)</td>");
-							replyMSG.append("<td width=\"60\"><button value=\"Join\" action=\"bypass -h npc_" + objectId + "_tvt_player_join " + team + "\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
+							replyMSG
+									.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font>&nbsp;(" + teamPlayersCount(team) + " joined)</td>");
+							replyMSG.append("<td width=\"60\"><button value=\"Join\" action=\"bypass -h npc_" + objectId + "_tvt_player_join " + team
+									+ "\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 						}
-					
+
 						replyMSG.append("</table></center>");
 					}
 					else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
 					{
 						replyMSG.append("<center><table border=\"0\">");
-						
+
 						for (String team : _teams)
 							replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font></td>");
-					
+
 						replyMSG.append("</table></center><br>");
-						
-						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_tvt_player_join eventShuffle\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+
+						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId
+								+ "_tvt_player_join eventShuffle\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 						replyMSG.append("Teams will be randomly generated!");
 					}
 				}
 			}
 			else if (_started && !_joining)
 				replyMSG.append("<center>TvT match is in progress.</center>");
-			else if (eventPlayer.getLevel()<_minlvl || eventPlayer.getLevel()>_maxlvl )
+			else if (eventPlayer.getLevel() < _minlvl || eventPlayer.getLevel() > _maxlvl)
 			{
-				replyMSG.append("Your level : <font color=\"00FF00\">" + eventPlayer.getLevel() +"</font><br>");
+				replyMSG.append("Your level : <font color=\"00FF00\">" + eventPlayer.getLevel() + "</font><br>");
 				replyMSG.append("Min level : <font color=\"00FF00\">" + _minlvl + "</font><br>");
 				replyMSG.append("Max level : <font color=\"00FF00\">" + _maxlvl + "</font><br><br>");
 				replyMSG.append("<font color=\"FFFF00\">You can't participate in this event.</font><br>");
@@ -1258,16 +1272,16 @@ public class TvT
 	{
 		if (!addPlayerOk(teamName, player))
 			return;
-		
+
 		if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
 		{
 			player._teamNameTvT = teamName;
 			_players.add(player);
-			setTeamPlayersCount(teamName, teamPlayersCount(teamName)+1);
+			setTeamPlayersCount(teamName, teamPlayersCount(teamName) + 1);
 		}
 		else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
 			_playersShuffle.add(player);
-		
+
 		player._inEventTvT = true;
 		player._countTvTkills = 0;
 	}
@@ -1276,13 +1290,15 @@ public class TvT
 	{
 		try
 		{
-			if(_playersShuffle == null)	return;
-			else if (_playersShuffle.isEmpty())	return;
+			if (_playersShuffle == null)
+				return;
+			else if (_playersShuffle.isEmpty())
+				return;
 			else if (_playersShuffle.size() > 0)
 			{
-				for(L2PcInstance player: _playersShuffle)
+				for (L2PcInstance player : _playersShuffle)
 				{
-					if(player==null || player.isOnline()==0 || player.isInJail())
+					if (player == null || player.isOnline() == 0 || player.isInJail())
 					{
 						_playersShuffle.remove(player);
 						player._inEventTvT = false;
@@ -1293,7 +1309,7 @@ public class TvT
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 			return;
 		}
 	}
@@ -1302,23 +1318,23 @@ public class TvT
 	{
 		try
 		{
-			for(L2PcInstance player: _playersShuffle)
+			for (L2PcInstance player : _playersShuffle)
 			{
-				if(player==null || player.isOnline()==0)
+				if (player == null || player.isOnline() == 0)
 				{
 					_playersShuffle.remove(player);
 					removePlayer(player);
 					eventPlayer._inEventTvT = false;
 					continue;
 				}
-				else if(player.getObjectId()==eventPlayer.getObjectId())
+				else if (player.getObjectId() == eventPlayer.getObjectId())
 				{
 					eventPlayer._inEventTvT = true;
 					eventPlayer._countTvTkills = 0;
 					return true;
 				}
 				//this 1 is incase player got new objectid after DC or reconnect
-				else if(player.getName().equals(eventPlayer.getName()))
+				else if (player.getName().equals(eventPlayer.getName()))
 				{
 					_playersShuffle.remove(player);
 					_playersShuffle.add(eventPlayer);
@@ -1328,7 +1344,9 @@ public class TvT
 				}
 			}
 		}
-		catch (Exception e){}
+		catch (Exception e)
+		{
+		}
 		return false;
 	}
 
@@ -1343,31 +1361,31 @@ public class TvT
 			}
 			if (eventPlayer._inEventCTF || eventPlayer._inEventDM || eventPlayer._inEventVIP)
 			{
-				eventPlayer.sendMessage("You are already participating in another event!"); 
+				eventPlayer.sendMessage("You are already participating in another event!");
 				return false;
 			}
-			
-			for(L2PcInstance player: _players)
+
+			for (L2PcInstance player : _players)
 			{
-				if(player.getObjectId()==eventPlayer.getObjectId())
+				if (player.getObjectId() == eventPlayer.getObjectId())
 				{
-					eventPlayer.sendMessage("You are already participating in the event!"); 
+					eventPlayer.sendMessage("You are already participating in the event!");
 					return false;
 				}
-				else if(player.getName()==eventPlayer.getName())
+				else if (player.getName() == eventPlayer.getName())
 				{
-					eventPlayer.sendMessage("You are already participating in the event!"); 
+					eventPlayer.sendMessage("You are already participating in the event!");
 					return false;
 				}
 			}
-			if(_players.contains(eventPlayer))
+			if (_players.contains(eventPlayer))
 			{
-				eventPlayer.sendMessage("You are already participating in the event!"); 
+				eventPlayer.sendMessage("You are already participating in the event!");
 				return false;
 			}
-			if (CTF._savePlayers.contains(eventPlayer.getName())) 
+			if (CTF._savePlayers.contains(eventPlayer.getName()))
 			{
-				eventPlayer.sendMessage("You are already participating in another event!"); 
+				eventPlayer.sendMessage("You are already participating in another event!");
 				return false;
 			}
 		}
@@ -1382,26 +1400,26 @@ public class TvT
 		{
 			boolean allTeamsEqual = true;
 			int countBefore = -1;
-		
+
 			for (int playersCount : _teamPlayersCount)
 			{
 				if (countBefore == -1)
 					countBefore = playersCount;
-			
+
 				if (countBefore != playersCount)
 				{
 					allTeamsEqual = false;
 					break;
 				}
-			
+
 				countBefore = playersCount;
 			}
-		
+
 			if (allTeamsEqual)
 				return true;
 
 			countBefore = Integer.MAX_VALUE;
-		
+
 			for (int teamPlayerCount : _teamPlayersCount)
 			{
 				if (teamPlayerCount < countBefore)
@@ -1409,13 +1427,13 @@ public class TvT
 			}
 
 			Vector<String> joinableTeams = new Vector<String>();
-		
+
 			for (String team : _teams)
 			{
 				if (teamPlayersCount(team) == countBefore)
 					joinableTeams.add(team);
 			}
-		
+
 			if (joinableTeams.contains(teamName))
 				return true;
 		}
@@ -1428,7 +1446,8 @@ public class TvT
 
 	public static synchronized void addDisconnectedPlayer(L2PcInstance player)
 	{
-		if ((Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started)) || (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE")  && (_teleport || _started)))
+		if ((Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started))
+				|| (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE") && (_teleport || _started)))
 		{
 			if (Config.TVT_ON_START_REMOVE_ALL_EFFECTS)
 			{
@@ -1442,7 +1461,7 @@ public class TvT
 			player._teamNameTvT = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
 			for (L2PcInstance p : _players)
 			{
-				if (p==null)
+				if (p == null)
 				{
 					_players.remove(p);
 					continue;
@@ -1454,7 +1473,7 @@ public class TvT
 					player._originalTitleTvT = player.getTitle();
 					player._originalKarmaTvT = player.getKarma();
 					player._inEventTvT = true;
-					player._countTvTkills=p._countTvTkills;
+					player._countTvTkills = p._countTvTkills;
 					_players.remove(p); //removing old object id from vector
 					_players.add(player); //adding new objectId to vector
 					break;
@@ -1464,15 +1483,16 @@ public class TvT
 			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
 			player.setKarma(0);
 			player.broadcastUserInfo();
-			player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
+			player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams
+					.indexOf(player._teamNameTvT)));
 		}
 	}
 
 	public static void removePlayer(L2PcInstance player)
 	{
-		if(player._inEventTvT)
+		if (player._inEventTvT)
 		{
-			if(!_joining)
+			if (!_joining)
 			{
 				player.getAppearance().setNameColor(player._originalNameColorTvT);
 				player.setTitle(player._originalTitleTvT);
@@ -1482,10 +1502,10 @@ public class TvT
 			player._teamNameTvT = new String();
 			player._countTvTkills = 0;
 			player._inEventTvT = false;
-			
+
 			if ((Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE")) && _players.contains(player))
 			{
-				setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT)-1);
+				setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT) - 1);
 				_players.remove(player);
 			}
 			else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && (!_playersShuffle.isEmpty() && _playersShuffle.contains(player)))
@@ -1498,10 +1518,10 @@ public class TvT
 		_log.info("TvT : Cleaning players.");
 		for (L2PcInstance player : _players)
 		{
-			if(player != null)
+			if (player != null)
 			{
 				removePlayer(player);
-				if(_savePlayers.contains(player.getName()))
+				if (_savePlayers.contains(player.getName()))
 					_savePlayers.remove(player.getName());
 				player._inEventTvT = false;
 			}
@@ -1510,7 +1530,7 @@ public class TvT
 		{
 			for (L2PcInstance player : _playersShuffle)
 			{
-				if(player != null)
+				if (player != null)
 					player._inEventTvT = false;
 			}
 		}
@@ -1522,7 +1542,7 @@ public class TvT
 			_teamPlayersCount.set(index, 0);
 			_teamKillsCount.set(index, 0);
 		}
-		
+
 		_topKills = 0;
 		_topTeam = new String();
 		_players = new Vector<L2PcInstance>();
@@ -1544,7 +1564,7 @@ public class TvT
 
 	public static void teleportFinish()
 	{
-		AnnounceToPlayers(false,_eventName + "(TvT): Teleport back to participation NPC in 20 seconds!");
+		AnnounceToPlayers(false, _eventName + "(TvT): Teleport back to participation NPC in 20 seconds!");
 
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 		{
@@ -1552,17 +1572,17 @@ public class TvT
 			{
 				for (L2PcInstance player : _players)
 				{
-					if (player !=  null)
+					if (player != null)
 					{
-						if(player.isOnline()!=0)
+						if (player.isOnline() != 0)
 							player.teleToLocation(_npcX, _npcY, _npcZ, false);
 						else
 						{
 							Connection con = null;
-							try 
+							try
 							{
 								con = L2DatabaseFactory.getInstance().getConnection(con);
-	
+
 								PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=? WHERE char_name=?");
 								statement.setInt(1, _npcX);
 								statement.setInt(2, _npcY);
@@ -1573,17 +1593,17 @@ public class TvT
 							}
 							catch (SQLException se)
 							{
-								se.printStackTrace();
+								_log.error(se.getMessage(), se);
 							}
 							finally
 							{
-								try 
+								try
 								{
 									con.close();
 								}
 								catch (Exception e)
 								{
-									e.printStackTrace();
+									_log.error(e.getMessage(), e);
 								}
 							}
 						}
@@ -1598,7 +1618,7 @@ public class TvT
 	public static int teamKillsCount(String teamName)
 	{
 		int index = _teams.indexOf(teamName);
-		
+
 		if (index == -1)
 			return -1;
 
@@ -1608,7 +1628,7 @@ public class TvT
 	public static void setTeamKillsCount(String teamName, int teamKillsCount)
 	{
 		int index = _teams.indexOf(teamName);
-		
+
 		if (index == -1)
 			return;
 
@@ -1618,7 +1638,7 @@ public class TvT
 	public static int teamPlayersCount(String teamName)
 	{
 		int index = _teams.indexOf(teamName);
-		
+
 		if (index == -1)
 			return -1;
 
@@ -1628,10 +1648,10 @@ public class TvT
 	public static void setTeamPlayersCount(String teamName, int teamPlayersCount)
 	{
 		int index = _teams.indexOf(teamName);
-		
+
 		if (index == -1)
 			return;
-		
+
 		_teamPlayersCount.set(index, teamPlayersCount);
 	}
 }

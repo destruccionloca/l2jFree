@@ -122,8 +122,7 @@ public class Forum
 		}
 		catch (Exception e)
 		{
-			_log.warn("data error on Forum " + _forumId + " : " + e);
-			e.printStackTrace();
+			_log.warn("data error on Forum " + _forumId + " : ", e);
 		}
 		finally
 		{
@@ -160,8 +159,7 @@ public class Forum
 		}
 		catch (Exception e)
 		{
-			_log.warn("data error on Forum " + _forumId + " : " + e);
-			e.printStackTrace();
+			_log.warn("data error on Forum " + _forumId + " : ", e);
 		}
 		finally
 		{
@@ -198,8 +196,7 @@ public class Forum
 		}
 		catch (Exception e)
 		{
-			_log.warn("data error on Forum (children): " + e);
-			e.printStackTrace();
+			_log.warn("data error on Forum (children): ", e);
 		}
 		finally
 		{
@@ -332,7 +329,7 @@ public class Forum
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while saving new Forum to db " + e);
+			_log.warn("error while saving new Forum to db ", e);
 		}
 		finally
 		{

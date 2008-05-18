@@ -94,7 +94,7 @@ public class Topic
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while saving new Topic to db " + e);
+			_log.warn("error while saving new Topic to db ", e);
 		}
 		finally
 		{
@@ -161,7 +161,7 @@ public class Topic
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 		finally
 		{

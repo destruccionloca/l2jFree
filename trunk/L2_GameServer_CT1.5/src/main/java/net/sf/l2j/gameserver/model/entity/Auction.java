@@ -165,8 +165,7 @@ public class Auction
         }
         catch (Exception e)
         {
-            _log.error("Exception: Auction.load(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: Auction.load(): ", e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
 	}
@@ -200,8 +199,7 @@ public class Auction
         }
         catch (Exception e)
         {
-            _log.error("Exception: Auction.loadBid(): " + e.getMessage());
-            e.printStackTrace();
+            _log.error("Exception: Auction.loadBid(): ", e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
 	}
@@ -327,8 +325,7 @@ public class Auction
         }
         catch (Exception e)
         {
-        	 _log.fatal("Exception: Auction.updateInDB(L2PcInstance bidder, int bid): " + e.getMessage());
-            e.printStackTrace();
+        	 _log.fatal("Exception: Auction.updateInDB(L2PcInstance bidder, int bid): ", e);
         }
         finally
         {

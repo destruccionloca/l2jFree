@@ -476,24 +476,4 @@ public class Shutdown extends Thread
 			}
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.sf.l2j.gameserver.ShutdownMBean#processRestart(int)
-	 */
-	public void processRestart(int seconds)
-	{
-		startShutdown("Mbean ask restart", seconds, shutdownModeType.RESTART);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.sf.l2j.gameserver.ShutdownMBean#processShutdown(int)
-	 */
-	public void processShutdown(int seconds)
-	{
-		startShutdown("Mbean ask shutdown", seconds, shutdownModeType.SHUTDOWN);
-	}
 }

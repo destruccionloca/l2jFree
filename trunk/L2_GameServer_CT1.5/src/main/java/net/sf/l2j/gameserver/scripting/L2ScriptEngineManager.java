@@ -25,7 +25,6 @@ import java.io.LineNumberReader;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.script.Compilable;
 import javax.script.CompiledScript;
@@ -36,8 +35,11 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.script.SimpleScriptContext;
 
-import net.sf.l2j.Config;
 import javolution.util.FastMap;
+import net.sf.l2j.Config;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Caches script engines and provides funcionality for executing and managing scripts.<BR>
@@ -46,7 +48,7 @@ import javolution.util.FastMap;
  */
 public final class L2ScriptEngineManager
 {
-	private static final Logger					_log;
+	private static final Log					_log;
 
 	private static final L2ScriptEngineManager	INSTANCE;
 
@@ -54,7 +56,7 @@ public final class L2ScriptEngineManager
 
 	static
 	{
-		_log = Logger.getLogger(L2ScriptEngineManager.class.getName());
+		_log = LogFactory.getLog(L2ScriptEngineManager.class.getName());
 		SCRIPT_FOLDER = new File(Config.DATAPACK_ROOT.getAbsolutePath(), "data/scripts");
 		INSTANCE = new L2ScriptEngineManager();
 	}
@@ -116,8 +118,7 @@ public final class L2ScriptEngineManager
 			}
 			catch (Exception e)
 			{
-				_log.warning("Failed initializing factory. ");
-				e.printStackTrace();
+				_log.warn("Failed initializing factory. ", e);
 			}
 		}
 
@@ -137,7 +138,7 @@ public final class L2ScriptEngineManager
 		}
 		catch (ScriptException e)
 		{
-			_log.severe("Failed preconfiguring jython: " + e.getMessage());
+			_log.error("Failed preconfiguring jython: " + e.getMessage());
 		}
 	}
 
@@ -199,7 +200,7 @@ public final class L2ScriptEngineManager
 					}
 					else
 					{
-						_log.warning("Failed loading: (" + file.getCanonicalPath() + ") @ " + list.getName() + ":" + lnr.getLineNumber()
+						_log.warn("Failed loading: (" + file.getCanonicalPath() + ") @ " + list.getName() + ":" + lnr.getLineNumber()
 								+ " - Reason: doesnt exists or is not a file.");
 					}
 				}
@@ -255,12 +256,12 @@ public final class L2ScriptEngineManager
 					catch (FileNotFoundException e)
 					{
 						// should never happen
-						e.printStackTrace();
+						_log.error(e.getMessage(), e);
 					}
 					catch (ScriptException e)
 					{
 						this.reportScriptFileError(file, e);
-						//e.printStackTrace();
+						//_log.error(e.getMessage(),e);
 					}
 				}
 			}
@@ -461,18 +462,17 @@ public final class L2ScriptEngineManager
 				fos.write(e.getMessage().getBytes());
 				fos.flush();
 				fos.close();
-				_log.warning("Failed executing script: " + script.getAbsolutePath() + ". See " + file.getName() + " for details.");
+				_log.warn("Failed executing script: " + script.getAbsolutePath() + ". See " + file.getName() + " for details.");
 			}
 			catch (IOException ioe)
 			{
-				_log.warning("Failed executing script: " + script.getAbsolutePath() + "\r\n" + e.getMessage()
-						+ "Additionally failed when trying to write an error report on script directory. Reason: " + ioe.getMessage());
-				ioe.printStackTrace();
+				_log.warn("Failed executing script: " + script.getAbsolutePath() + "\r\n" + e.getMessage()
+						+ "Additionally failed when trying to write an error report on script directory. Reason: " + ioe.getMessage(), ioe);
 			}
 		}
 		else
 		{
-			_log.warning("Failed executing script: " + script.getAbsolutePath() + "\r\n" + e.getMessage()
+			_log.warn("Failed executing script: " + script.getAbsolutePath() + "\r\n" + e.getMessage()
 					+ "Additionally failed when trying to write an error report on script directory.");
 		}
 	}

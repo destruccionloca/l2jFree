@@ -92,7 +92,7 @@ public class GrandBossSpawnManager extends BossSpawnManager
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 		finally
 		{
@@ -211,8 +211,7 @@ public class GrandBossSpawnManager extends BossSpawnManager
 			}
 			catch (SQLException e)
 			{
-				System.out.println("GrandBossSpawnManager: Couldnt update grandboss_spawnlist table");
-				e.printStackTrace();
+				_log.error("GrandBossSpawnManager: Couldnt update grandboss_spawnlist table", e);
 			}
 			finally
 			{

@@ -147,7 +147,6 @@ public class AuctionManager
 		catch (Exception e)
 		{
 			_log.fatal("Exception: AuctionManager.load(): " + e.getMessage());
-			e.printStackTrace();
 		}
 
 		finally

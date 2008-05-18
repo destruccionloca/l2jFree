@@ -29,6 +29,9 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.tools.random.Rnd;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  *
  * @author FBIagent 11/12/2006
@@ -37,7 +40,7 @@ import net.sf.l2j.tools.random.Rnd;
 
 public class ExtractableItems implements IItemHandler
 {
-	private static Logger	_log	= Logger.getLogger(ItemTable.class.getName());
+	protected static final Log	_log	= LogFactory.getLog(ExtractableItems.class.getName());;
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
@@ -79,7 +82,7 @@ public class ExtractableItems implements IItemHandler
 		{
 			if (ItemTable.getInstance().createDummyItem(createItemID) == null)
 			{
-				_log.warning("createItemID " + createItemID + " doesn't have template!");
+				_log.warn("createItemID " + createItemID + " doesn't have template!");
 				activeChar.sendMessage("Nothing happened.");
 				return;
 			}

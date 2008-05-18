@@ -136,8 +136,7 @@ public class NpcTable
 			}
 			catch (Exception e)
 			{
-				_log.fatal("NPCTable: Error creating NPC table: " + e);
-				e.printStackTrace();
+				_log.fatal("NPCTable: Error creating NPC table: ", e);
 			}
 
 			try
@@ -204,7 +203,7 @@ public class NpcTable
 			}
 			catch (Exception e)
 			{
-				_log.fatal("NPCTable: Error creating custom NPC table: " + e);
+				_log.fatal("NPCTable: Error creating custom NPC table: ", e);
 			}
 
 			try
@@ -245,7 +244,7 @@ public class NpcTable
 			}
 			catch (Exception e)
 			{
-				_log.fatal("NPCTable: Error reading NPC skills table: " + e);
+				_log.fatal("NPCTable: Error reading NPC skills table: ", e);
 			}
 
 			try
@@ -286,7 +285,7 @@ public class NpcTable
 			}
 			catch (Exception e)
 			{
-				_log.fatal("NPCTable: Error reading custom NPC skills table: " + e);
+				_log.fatal("NPCTable: Error reading custom NPC skills table: ", e);
 			}
 
 			try
@@ -323,7 +322,7 @@ public class NpcTable
 			}
 			catch (Exception e)
 			{
-				_log.fatal("NPCTable: Error reading NPC drop data: " + e);
+				_log.fatal("NPCTable: Error reading NPC drop data: ", e);
 			}
 
 			try
@@ -360,7 +359,7 @@ public class NpcTable
 			}
 			catch (Exception e)
 			{
-				_log.fatal("NPCTable: Error reading custom NPC drop data: " + e);
+				_log.fatal("NPCTable: Error reading custom NPC drop data: ", e);
 			}
 
 			try
@@ -389,7 +388,7 @@ public class NpcTable
 			}
 			catch (Exception e)
 			{
-				_log.fatal("NPCTable: Error reading NPC trainer data: " + e);
+				_log.fatal("NPCTable: Error reading NPC trainer data: ", e);
 			}
 
 			try
@@ -419,7 +418,7 @@ public class NpcTable
 			}
 			catch (Exception e)
 			{
-				_log.fatal("Error loading minion data: " + e);
+				_log.fatal("Error loading minion data: ", e);
 			}
 		}
 		finally
@@ -782,7 +781,7 @@ public class NpcTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("NPCTable: Could not store new NPC data in database: " + e);
+			_log.warn("NPCTable: Could not store new NPC data in database: ", e);
 		}
 		finally
 		{

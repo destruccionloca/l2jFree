@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -26,11 +25,14 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.Fort;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class FortManager
 {
-	protected static final Logger	_log	= Logger.getLogger(FortManager.class.getName());
+	protected static final Log	_log	= LogFactory.getLog(FortManager.class.getName());
 	// =========================================================
-	private static FortManager		_instance;
+	private static FortManager	_instance;
 
 	public static final FortManager getInstance()
 	{
@@ -106,8 +108,7 @@ public class FortManager
 		}
 		catch (Exception e)
 		{
-			_log.warning("Exception: loadFortData(): " + e.getMessage());
-			e.printStackTrace();
+			_log.warn("Exception: loadFortData(): " + e.getMessage());
 		}
 
 		finally

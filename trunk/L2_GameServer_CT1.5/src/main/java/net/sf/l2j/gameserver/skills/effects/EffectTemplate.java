@@ -92,12 +92,12 @@ public final class EffectTemplate
 		}
 		catch (IllegalAccessException e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 			return null;
 		}
 		catch (InstantiationException e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 			return null;
 		}
 		catch (InvocationTargetException e)

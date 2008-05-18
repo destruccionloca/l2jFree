@@ -101,8 +101,7 @@ public class BoatManager
 		catch (Exception e)
 		{
 			_initialized = false;
-			_log.warn("error while creating boat table " + e);
-			e.printStackTrace();
+			_log.warn("error while creating boat table ", e);
 		}
 		finally
 		{

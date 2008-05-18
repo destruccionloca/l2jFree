@@ -242,7 +242,7 @@ public abstract class IdFactory
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
 		finally
 		{

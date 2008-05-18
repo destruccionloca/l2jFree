@@ -437,7 +437,7 @@ public final class L2Weapon extends L2Equip
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 		}
 		if (effects.size() == 0)

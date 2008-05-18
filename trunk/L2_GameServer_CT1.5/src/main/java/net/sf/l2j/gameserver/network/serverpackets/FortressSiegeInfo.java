@@ -15,12 +15,14 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 import java.util.Calendar;
-import java.util.logging.Logger;
 
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Fort;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Shows the Siege Info<BR>
@@ -44,58 +46,59 @@ import net.sf.l2j.gameserver.model.entity.Fort;
  */
 public class FortressSiegeInfo extends L2GameServerPacket
 {
-    private static final String _S__C9_SIEGEINFO = "[S] c9 SiegeInfo";
-    private static Logger _log = Logger.getLogger(FortressSiegeInfo.class.getName());
-    private Fort _fort;
+	private static final String	_S__C9_SIEGEINFO	= "[S] c9 SiegeInfo";
+	protected static final Log	_log				= LogFactory.getLog(FortressSiegeInfo.class.getName());
+	private Fort				_fort;
 
-    public FortressSiegeInfo(Fort fort)
-    {
-        _fort = fort;
-    }
+	public FortressSiegeInfo(Fort fort)
+	{
+		_fort = fort;
+	}
 
-    @Override
-    protected final void writeImpl()
-    {
-        L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null) return;
+	@Override
+	protected final void writeImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
 
-        writeC(0xc9);
-        writeD(_fort.getFortId());
-        writeD(((_fort.getOwnerId() == activeChar.getClanId()) && (activeChar.isClanLeader())) ? 0x01 : 0x00);
-        writeD(_fort.getOwnerId());
-        if (_fort.getOwnerId() > 0)
-        {
-            L2Clan owner = ClanTable.getInstance().getClan(_fort.getOwnerId());
-            if (owner != null)
-            {
-                writeS(owner.getName());        // Clan Name
-                writeS(owner.getLeaderName());  // Clan Leader Name
-                writeD(owner.getAllyId());      // Ally ID
-                writeS(owner.getAllyName());    // Ally Name
-            }
-            else
-                _log.warning("Null owner for fort: " + _fort.getName());
-        }
-        else
-        {
-            writeS("NPC");  // Clan Name
-            writeS("");     // Clan Leader Name
-            writeD(0);      // Ally ID
-            writeS("");     // Ally Name
-        }
+		writeC(0xc9);
+		writeD(_fort.getFortId());
+		writeD(((_fort.getOwnerId() == activeChar.getClanId()) && (activeChar.isClanLeader())) ? 0x01 : 0x00);
+		writeD(_fort.getOwnerId());
+		if (_fort.getOwnerId() > 0)
+		{
+			L2Clan owner = ClanTable.getInstance().getClan(_fort.getOwnerId());
+			if (owner != null)
+			{
+				writeS(owner.getName()); // Clan Name
+				writeS(owner.getLeaderName()); // Clan Leader Name
+				writeD(owner.getAllyId()); // Ally ID
+				writeS(owner.getAllyName()); // Ally Name
+			}
+			else
+				_log.warn("Null owner for fort: " + _fort.getName());
+		}
+		else
+		{
+			writeS("NPC"); // Clan Name
+			writeS(""); // Clan Leader Name
+			writeD(0); // Ally ID
+			writeS(""); // Ally Name
+		}
 
-        writeD((int) (Calendar.getInstance().getTimeInMillis()/1000));
-        writeD((int) (_fort.getSiege().getSiegeDate().getTimeInMillis()/1000));
-        writeD(0x00); //number of choices?
-    }
+		writeD((int) (Calendar.getInstance().getTimeInMillis() / 1000));
+		writeD((int) (_fort.getSiege().getSiegeDate().getTimeInMillis() / 1000));
+		writeD(0x00); //number of choices?
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return _S__C9_SIEGEINFO;
-    }
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__C9_SIEGEINFO;
+	}
 
 }

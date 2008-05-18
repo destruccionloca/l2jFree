@@ -18,11 +18,13 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
-import java.util.logging.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.util.Util;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Layane
@@ -30,7 +32,7 @@ import net.sf.l2j.gameserver.util.Util;
  */
 public class HtmCache
 {
-	private static Logger				_log	= Logger.getLogger(HtmCache.class.getName());
+	protected static final Log			_log	= LogFactory.getLog(HtmCache.class.getName());
 	private static HtmCache				_instance;
 
 	private FastMap<Integer, String>	_cache;
@@ -157,7 +159,7 @@ public class HtmCache
 			}
 			catch (Exception e)
 			{
-				_log.warning("problem with htm file " + e);
+				_log.warn("problem with htm file " + e);
 			}
 			finally
 			{
@@ -181,7 +183,7 @@ public class HtmCache
 		if (content == null)
 		{
 			content = "<html><body>My text is missing:<br>" + path + "</body></html>";
-			_log.warning("Cache[HTML]: Missing HTML page: " + path);
+			_log.warn("Cache[HTML]: Missing HTML page: " + path);
 		}
 
 		return content;

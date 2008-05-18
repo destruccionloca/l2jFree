@@ -703,8 +703,7 @@ public class FourSepulchersManager extends BossLair
 				}
 				catch (Exception e)
 				{
-					_log.warn(e.getMessage());
-					e.printStackTrace();
+					_log.warn(e.getMessage(), e);
 				}
 			}
 			else

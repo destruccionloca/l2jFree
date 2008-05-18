@@ -47,6 +47,9 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class handles following admin commands:
  * - admin|admin1/admin2/admin3/admin4/admin5 = slots for the 5 starting admin menus 
@@ -61,7 +64,7 @@ import net.sf.l2j.gameserver.util.Util;
  */
 public class AdminAdmin implements IAdminCommandHandler
 {
-	//private final static Log _log = LogFactory.getLog(AdminAdmin.class);
+	private final static Log		_log			= LogFactory.getLog(AdminAdmin.class);
 
 	private static final String[]	ADMIN_COMMANDS	=
 													{
@@ -339,7 +342,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 			activeChar.sendMessage("Olympiad stuff saved!");
 		}
@@ -351,7 +354,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				_log.error(e.getMessage(), e);
 			}
 			activeChar.sendMessage("Heroes formed");
 		}

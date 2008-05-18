@@ -14,7 +14,9 @@
  */
 package net.sf.l2j.gameserver.ai2;
 
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 /**
  * 
@@ -23,7 +25,7 @@ import java.util.logging.Logger;
  */
 public abstract class EventHandler
 {
-	protected static final Logger	_log	= Logger.getLogger(EventHandler.class.getName());
+	protected static final Log	_log	= LogFactory.getLog(EventHandler.class.getName());
 
 	abstract AiEventType getEvenType();
 

@@ -14,17 +14,18 @@
  */
 package net.sf.l2j.gameserver.skills.effects;
 
-import java.util.logging.Logger;
-
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Ahmed
  */
 public class EffectImmobileUntilAttacked extends L2Effect
 {
-	static final Logger	_log	= Logger.getLogger(EffectImmobileUntilAttacked.class.getName());
+	static final Log	_log	= LogFactory.getLog(EffectImmobileUntilAttacked.class.getName());
 
 	public EffectImmobileUntilAttacked(Env env, EffectTemplate template)
 	{

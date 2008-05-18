@@ -1328,7 +1328,7 @@ public class GameStatusThread extends Thread
 		{
 			_print.println("SQLException while jailing player");
 			if (_log.isDebugEnabled())
-				se.printStackTrace();
+				_log.warn("SQLException while jailing player", se);
 		}
 		finally
 		{
@@ -1375,7 +1375,7 @@ public class GameStatusThread extends Thread
 		{
 			_print.println("SQLException while jailing player");
 			if (_log.isDebugEnabled())
-				se.printStackTrace();
+				_log.warn("SQLException while jailing player", se);
 		}
 		finally
 		{
