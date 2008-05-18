@@ -2,9 +2,11 @@
     account_data*,
     accounts*,
     armor*,
+    armorsets*,
     auction*,
     auction_bid*,
     auction_watch*,
+    augmentations*,
     auto_chat*,
     auto_chat_text*,
     boxaccess*,
@@ -12,9 +14,9 @@
     castle*,
     castle_door*,
     castle_doorupgrade*,
+    castle_siege_guards*,
     castle_manor_procure*,
     castle_manor_production*,
-    castle_siege_guards*,
     changelog*,
     changelog_seq*,
     char_templates*,
@@ -31,8 +33,8 @@
     characters*,
     clan_data*,
     clan_privs*,
-    clan_skills*,
     clan_subpledges*,
+    clan_skills*,
     clan_wars*,
     clanhall*,
     clanhall_functions*,
@@ -40,39 +42,42 @@
     connection_test_table*,
     cursed_weapons*,
     droplist*,
-    enchant_skill_trees*,
     etcitem*,
+    enchant_skill_trees*,
     fish*,
     fishing_skill_trees*,
-    fishreward*,
+    fort_door*,
+    fort_doorupgrade*,
+    fort_siege_guards*,
+    fort*,
+    fortsiege_clans*,
     forums*,
     games*,
     gameservers*,
+    grandboss_spawnlist*,
     global_tasks*,
     gm_audit*,
-    helper_buff_list*,
+    heroes*,
     henna*,
     henna_trees*,
-    heroes*,
     items*,
-    itemsonground*,
+    items_on_ground*,
     locations*,
     lvlupgain*,
-    mapregion*,
     merchant_areas_list*,
     merchant_buylists*,
-    merchant_lease*,
     merchant_shopids*,
     merchants*,
     minions*,
     npc*,
     npcskills*,
-    olympiad_nobles*,
+    olympiad_nobles *,
     petitions*,
     pets*,
     pets_stats*,
     pledge_skill_trees*,
     posts*,
+    quest_global_data*,
     raidboss_spawnlist*,
     random_spawn*,
     random_spawn_loc*,
@@ -86,11 +91,17 @@
     skill_trees*,
     spawnlist*,
     teleport*,
-    temporaryobjecttable*,
     topic*,
+    transform_skill_trees*,
+    walker_routes*,
     weapon*,
-    zariche*,
-    zone*)>
+    buff_templates*,
+    character_raidpoints*,
+    couples*,
+    four_sepulchers_spawnlist*,
+    grandboss_intervallist*,
+    lastimperialtomb_spawnlist*,
+    vanhalter_spawnlist*)>
 
 <!ELEMENT account_data EMPTY>
 <!ATTLIST account_data
@@ -104,7 +115,7 @@
     login CDATA #REQUIRED
     password CDATA #IMPLIED
     lastactive CDATA #IMPLIED
-    access_level CDATA #IMPLIED
+    accessLevel CDATA #IMPLIED
     lastIP CDATA #IMPLIED
     email CDATA #REQUIRED
 >
@@ -121,13 +132,31 @@
     material CDATA #REQUIRED
     crystal_type CDATA #REQUIRED
     avoid_modify CDATA #REQUIRED
-    durability CDATA #REQUIRED
+    duration CDATA #REQUIRED
     p_def CDATA #REQUIRED
     m_def CDATA #REQUIRED
     mp_bonus CDATA #REQUIRED
     price CDATA #REQUIRED
     crystal_count CDATA #IMPLIED
     sellable CDATA #IMPLIED
+    dropable CDATA #IMPLIED
+    destroyable CDATA #IMPLIED
+    tradeable CDATA #IMPLIED
+    skills_item CDATA #REQUIRED
+>
+
+<!ELEMENT armorsets EMPTY>
+<!ATTLIST armorsets
+    id CDATA #REQUIRED
+    chest CDATA #REQUIRED
+    legs CDATA #REQUIRED
+    head CDATA #REQUIRED
+    gloves CDATA #REQUIRED
+    feet CDATA #REQUIRED
+    skill_id CDATA #REQUIRED
+    shield CDATA #REQUIRED
+    shield_skill_id CDATA #REQUIRED
+    enchant6skill CDATA #REQUIRED
 >
 
 <!ELEMENT auction EMPTY>
@@ -152,8 +181,8 @@
     auctionId CDATA #REQUIRED
     bidderId CDATA #REQUIRED
     bidderName CDATA #REQUIRED
-    maxBid CDATA #REQUIRED
     clan_name CDATA #REQUIRED
+    maxBid CDATA #REQUIRED
     time_bid CDATA #REQUIRED
 >
 
@@ -163,11 +192,21 @@
     auctionId CDATA #REQUIRED
 >
 
+<!ELEMENT augmentations EMPTY>
+<!ATTLIST augmentations
+    item_id CDATA #REQUIRED
+    attributes CDATA #REQUIRED
+    skill CDATA #REQUIRED
+    level CDATA #REQUIRED
+>
+
 <!ELEMENT auto_chat EMPTY>
 <!ATTLIST auto_chat
     groupId CDATA #REQUIRED
     npcId CDATA #REQUIRED
     chatDelay CDATA #REQUIRED
+    chatRange CDATA #REQUIRED
+    chatRandom CDATA #REQUIRED
 >
 
 <!ELEMENT auto_chat_text EMPTY>
@@ -194,6 +233,24 @@
     enchant CDATA #IMPLIED
 >
 
+<!ELEMENT buff_templates EMPTY>
+<!ATTLIST buff_templates
+  id CDATA #REQUIRED
+  name CDATA #REQUIRED
+  skill_id CDATA #REQUIRED
+  skill_name CDATA #REQUIRED
+  skill_level CDATA #REQUIRED
+  skill_force CDATA #REQUIRED
+  skill_order CDATA #REQUIRED
+  char_min_level CDATA #REQUIRED
+  char_max_level CDATA #REQUIRED
+  char_race CDATA #REQUIRED
+  char_class CDATA #REQUIRED
+  char_faction CDATA #REQUIRED
+  price_adena CDATA #REQUIRED
+  price_points CDATA #REQUIRED
+>
+
 <!ELEMENT castle EMPTY>
 <!ATTLIST castle
     id CDATA #REQUIRED
@@ -213,6 +270,12 @@
     x CDATA #REQUIRED
     y CDATA #REQUIRED
     z CDATA #REQUIRED
+    range_xmin CDATA #REQUIRED
+    range_ymin CDATA #REQUIRED
+    range_zmin CDATA #REQUIRED
+    range_xmax CDATA #REQUIRED
+    range_ymax CDATA #REQUIRED
+    range_zmax CDATA #REQUIRED
     hp CDATA #REQUIRED
     pDef CDATA #REQUIRED
     mDef CDATA #REQUIRED
@@ -231,14 +294,18 @@
     castle_id CDATA #REQUIRED
     crop_id CDATA #REQUIRED
     can_buy CDATA #REQUIRED
+    start_buy CDATA #REQUIRED
+    price CDATA #REQUIRED
     reward_type CDATA #REQUIRED
+    period CDATA #REQUIRED
 >
 
 <!ELEMENT castle_manor_production EMPTY>
 <!ATTLIST castle_manor_production
     castle_id CDATA #REQUIRED
-    can_produce CDATA #REQUIRED
     seed_id CDATA #REQUIRED
+    can_produce CDATA #REQUIRED
+    start_produce CDATA #REQUIRED
     seed_price CDATA #REQUIRED
 >
 
@@ -313,14 +380,14 @@
 
 <!ELEMENT character_friends EMPTY>
 <!ATTLIST character_friends
-    char_id CDATA #REQUIRED
-    friend_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
+    friendId CDATA #REQUIRED
     friend_name CDATA #REQUIRED
 >
 
 <!ELEMENT character_hennas EMPTY>
 <!ATTLIST character_hennas
-    char_obj_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     symbol_id CDATA #IMPLIED
     slot CDATA #REQUIRED
     class_index CDATA #REQUIRED
@@ -328,7 +395,7 @@
 
 <!ELEMENT character_macroses EMPTY>
 <!ATTLIST character_macroses
-    char_obj_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     id CDATA #REQUIRED
     icon CDATA #IMPLIED
     name CDATA #IMPLIED
@@ -339,29 +406,36 @@
 
 <!ELEMENT character_quests EMPTY>
 <!ATTLIST character_quests
-    char_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     name CDATA #REQUIRED
     var CDATA #REQUIRED
     value CDATA #IMPLIED
     class_index CDATA #REQUIRED
 >
 
+<!ELEMENT character_raidpoints EMPTY>
+<!ATTLIST character_raidpoints
+    owner_id CDATA #REQUIRED
+    boss_id CDATA #REQUIRED
+    points CDATA #REQUIRED
+>
+
 <!ELEMENT character_recipebook EMPTY>
 <!ATTLIST character_recipebook
-    char_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     id CDATA #REQUIRED
     type CDATA #REQUIRED
 >
 
 <!ELEMENT character_recommends EMPTY>
 <!ATTLIST character_recommends
-    char_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     target_id CDATA #REQUIRED
 >
 
 <!ELEMENT character_shortcuts EMPTY>
 <!ATTLIST character_shortcuts
-    char_obj_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     slot CDATA #REQUIRED
     page CDATA #REQUIRED
     type CDATA #IMPLIED
@@ -372,7 +446,7 @@
 
 <!ELEMENT character_skills EMPTY>
 <!ATTLIST character_skills
-    char_obj_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     skill_id CDATA #REQUIRED
     skill_level CDATA #IMPLIED
     skill_name CDATA #IMPLIED
@@ -381,7 +455,7 @@
 
 <!ELEMENT character_skills_save EMPTY>
 <!ATTLIST character_skills_save
-    char_obj_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     skill_id CDATA #REQUIRED
     skill_level CDATA #REQUIRED
     effect_count CDATA #REQUIRED
@@ -389,11 +463,12 @@
     reuse_delay CDATA #REQUIRED
     restore_type CDATA #REQUIRED
     class_index CDATA #REQUIRED
+    buff_index CDATA #REQUIRED
 >
 
 <!ELEMENT character_subclasses EMPTY>
 <!ATTLIST character_subclasses
-    char_obj_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     class_id CDATA #REQUIRED
     exp CDATA #REQUIRED
     sp CDATA #REQUIRED
@@ -404,7 +479,7 @@
 <!ELEMENT characters EMPTY>
 <!ATTLIST characters
     account_name CDATA #IMPLIED
-    obj_Id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     char_name CDATA #REQUIRED
     level CDATA #IMPLIED
 >
@@ -415,7 +490,6 @@
     clan_name CDATA #IMPLIED
     clan_level CDATA #IMPLIED
     hasCastle CDATA #IMPLIED
-    hasHideout CDATA #IMPLIED
     ally_id CDATA #IMPLIED
     ally_name CDATA #IMPLIED
     leader_id CDATA #IMPLIED
@@ -425,6 +499,10 @@
     reputation_score CDATA #REQUIRED
     rank CDATA #REQUIRED
     auction_bid_at CDATA #REQUIRED
+    ally_penalty_expiry_time CDATA #REQUIRED
+    ally_penalty_type CDATA #REQUIRED
+    char_penalty_expiry_time CDATA #REQUIRED
+    dissolving_expiry_time CDATA #REQUIRED
 >
 
 <!ELEMENT clan_privs EMPTY>
@@ -448,7 +526,7 @@
     clan_id CDATA #REQUIRED
     sub_pledge_id CDATA #REQUIRED
     name CDATA #IMPLIED
-    leader_name CDATA #IMPLIED
+    leader_id CDATA #IMPLIED
 >
 
 <!ELEMENT clan_wars EMPTY>
@@ -469,6 +547,7 @@
     location CDATA #REQUIRED
     paidUntil CDATA #REQUIRED
     Grade CDATA #REQUIRED
+    paid CDATA #REQUIRED
 >
 
 <!ELEMENT clanhall_functions EMPTY>
@@ -479,7 +558,6 @@
     lease CDATA #REQUIRED
     rate CDATA #REQUIRED
     endTime CDATA #REQUIRED
-    inDebt CDATA #REQUIRED
 >
 
 <!ELEMENT class_list EMPTY>
@@ -494,10 +572,20 @@
     a CDATA #IMPLIED
 >
 
+<!ELEMENT couples EMPTY>
+<!ATTLIST couples
+    id CDATA #REQUIRED
+    player1Id CDATA #REQUIRED
+    player2Id CDATA #REQUIRED
+    maried CDATA #REQUIRED
+    affiancedDate CDATA #REQUIRED
+    weddingDate CDATA #REQUIRED
+>
+
 <!ELEMENT cursed_weapons EMPTY>
 <!ATTLIST cursed_weapons
     itemId CDATA #REQUIRED
-    playerId CDATA #IMPLIED
+    charId CDATA #IMPLIED
     playerKarma CDATA #IMPLIED
     playerPkKills CDATA #IMPLIED
     nbKills CDATA #IMPLIED
@@ -510,7 +598,7 @@
     itemId CDATA #REQUIRED
     min CDATA #REQUIRED
     max CDATA #REQUIRED
-    sweep CDATA #REQUIRED
+    category CDATA #REQUIRED
     chance CDATA #REQUIRED
 >
 
@@ -524,7 +612,9 @@
     sp CDATA #REQUIRED
     exp CDATA #IMPLIED
     min_skill_lvl CDATA #REQUIRED
-    success_rate CDATA #REQUIRED
+    success_rate76 CDATA #REQUIRED
+    success_rate77 CDATA #REQUIRED
+    success_rate78 CDATA #REQUIRED
 >
 
 <!ELEMENT etcitem EMPTY>
@@ -538,13 +628,14 @@
     consume_type CDATA #IMPLIED
     material CDATA #IMPLIED
     crystal_type CDATA #IMPLIED
-    durability CDATA #IMPLIED
+    duration CDATA #IMPLIED
     price CDATA #IMPLIED
     crystal_count CDATA #IMPLIED
     sellable CDATA #IMPLIED
+    dropable CDATA #IMPLIED
+    tradeable CDATA #IMPLIED
     oldname CDATA #REQUIRED
     oldtype CDATA #REQUIRED
-    drop_category CDATA #REQUIRED
 >
 
 <!ELEMENT fish EMPTY>
@@ -554,8 +645,12 @@
     name CDATA #REQUIRED
     hp CDATA #REQUIRED
     hpregen CDATA #REQUIRED
-    type CDATA #REQUIRED
-    speed CDATA #IMPLIED
+    fish_type CDATA #REQUIRED
+    fish_group CDATA #REQUIRED
+    fish_guts CDATA #REQUIRED
+    guts_check_time CDATA #REQUIRED
+    wait_time CDATA #REQUIRED
+    combat_time CDATA #REQUIRED
 >
 
 <!ELEMENT fishing_skill_trees EMPTY>
@@ -570,13 +665,62 @@
     isfordwarf CDATA #REQUIRED
 >
 
-<!ELEMENT fishreward EMPTY>
-<!ATTLIST fishreward
-    fishid CDATA #REQUIRED
-    rewardid CDATA #REQUIRED
-    count CDATA #REQUIRED
-    minchance CDATA #REQUIRED
-    maxchance CDATA #REQUIRED
+<!ELEMENT fort EMPTY>
+<!ATTLIST fort
+    id CDATA #REQUIRED
+    name CDATA #REQUIRED
+    siegeDate CDATA #REQUIRED
+    lastOwnedTime CDATA #REQUIRED
+    owner CDATA #REQUIRED
+>
+
+<!ELEMENT fort_door EMPTY>
+<!ATTLIST fort_door
+    fortId CDATA #REQUIRED
+    id CDATA #REQUIRED
+    name CDATA #REQUIRED
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    z CDATA #REQUIRED
+    range_xmin CDATA #REQUIRED
+    range_ymin CDATA #REQUIRED
+    range_zmin CDATA #REQUIRED
+    range_xmax CDATA #REQUIRED
+    range_ymax CDATA #REQUIRED
+    range_zmax CDATA #REQUIRED
+    hp CDATA #REQUIRED
+    pDef CDATA #REQUIRED
+    mDef CDATA #REQUIRED
+>
+
+<!ELEMENT fort_doorupgrade EMPTY>
+<!ATTLIST fort_doorupgrade
+    doorId CDATA #REQUIRED
+    fortId CDATA #REQUIRED
+    hp CDATA #REQUIRED
+    pDef CDATA #REQUIRED
+    mDef CDATA #REQUIRED
+>
+
+<!ELEMENT fort_siege_guards EMPTY>
+<!ATTLIST fort_siege_guards
+    fortId CDATA #REQUIRED
+    id CDATA #REQUIRED
+    npcId CDATA #REQUIRED
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    z CDATA #REQUIRED
+    heading CDATA #REQUIRED
+    respawnDelay CDATA #REQUIRED
+    isHired CDATA #REQUIRED
+>
+
+<!ELEMENT fortsiege_clans EMPTY>
+<!ATTLIST fortsiege_clans
+    fort_id CDATA #REQUIRED
+    clan_id CDATA #REQUIRED
+    type CDATA #IMPLIED
+    fort_owner CDATA #IMPLIED
 >
 
 <!ELEMENT forums EMPTY>
@@ -588,6 +732,23 @@
     forum_type CDATA #REQUIRED
     forum_perm CDATA #REQUIRED
     forum_owner_id CDATA #REQUIRED
+>
+
+<!ELEMENT four_sepulchers_spawnlist EMPTY>
+<!ATTLIST four_sepulchers_spawnlist
+    id CDATA #REQUIRED
+    location CDATA #REQUIRED
+    count CDATA #REQUIRED
+    npc_templateid CDATA #REQUIRED
+    locx CDATA #REQUIRED
+    locy CDATA #REQUIRED
+    locz CDATA #REQUIRED
+    randomx CDATA #REQUIRED
+    randomy CDATA #REQUIRED
+    heading CDATA #REQUIRED
+    respawn_delay CDATA #REQUIRED
+    key_npc_id CDATA #REQUIRED
+    spawntype CDATA #REQUIRED
 >
 
 <!ELEMENT games EMPTY>
@@ -625,23 +786,34 @@
 
 <!ELEMENT gm_audit EMPTY>
 <!ATTLIST gm_audit
-    ID_ACTION_AUDIT CDATA #REQUIRED
-    GM_NAME CDATA #IMPLIED
-    ACTION CDATA #IMPLIED
-    TARGET CDATA #IMPLIED
-    PARAM CDATA #IMPLIED
-    DATE CDATA #IMPLIED
+    id CDATA #REQUIRED
+    gm_name CDATA #IMPLIED
+    target CDATA #IMPLIED
+    type CDATA #IMPLIED
+    action CDATA #IMPLIED
+    param CDATA #IMPLIED
+    date CDATA #IMPLIED
 >
 
-<!ELEMENT helper_buff_list EMPTY>
-<!ATTLIST helper_buff_list
-    id CDATA #REQUIRED
-    skill_id CDATA #REQUIRED
-    name CDATA #REQUIRED
-    skill_level CDATA #REQUIRED
-    lower_level CDATA #REQUIRED
-    upper_level CDATA #REQUIRED
-    is_magic_class CDATA #IMPLIED
+<!ELEMENT grandboss_intervallist EMPTY>
+<!ATTLIST grandboss_intervallist
+    bossId CDATA #REQUIRED
+    respawnDate CDATA #REQUIRED
+    state CDATA #REQUIRED
+>
+
+<!ELEMENT grandboss_spawnlist EMPTY>
+<!ATTLIST grandboss_spawnlist
+    boss_id CDATA #REQUIRED
+    loc_x CDATA #REQUIRED
+    loc_y CDATA #REQUIRED
+    loc_z CDATA #REQUIRED
+    heading CDATA #REQUIRED
+    respawn_min_delay CDATA #REQUIRED
+    respawn_max_delay CDATA #REQUIRED
+    respawn_time CDATA #REQUIRED
+    currentHp CDATA #REQUIRED
+    currentMp CDATA #REQUIRED
 >
 
 <!ELEMENT henna EMPTY>
@@ -667,7 +839,7 @@
 
 <!ELEMENT heroes EMPTY>
 <!ATTLIST heroes
-    char_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     char_name CDATA #REQUIRED
     class_id CDATA #REQUIRED
     count CDATA #REQUIRED
@@ -688,10 +860,12 @@
     time_of_use CDATA #IMPLIED
     custom_type1 CDATA #IMPLIED
     custom_type2 CDATA #IMPLIED
+    mana_left CDATA #IMPLIED
+    attributes CDATA #IMPLIED
 >
 
-<!ELEMENT itemsonground EMPTY>
-<!ATTLIST itemsonground
+<!ELEMENT items_on_ground EMPTY>
+<!ATTLIST items_on_ground
     object_id CDATA #REQUIRED
     item_id CDATA #IMPLIED
     count CDATA #IMPLIED
@@ -700,6 +874,20 @@
     y CDATA #REQUIRED
     z CDATA #REQUIRED
     drop_time CDATA #REQUIRED
+    equipable CDATA #REQUIRED
+>
+
+<!ELEMENT lastimperialtomb_spawnlist EMPTY>
+<!ATTLIST lastimperialtomb_spawnlist
+    id CDATA #REQUIRED 
+    npc_templateid CDATA #REQUIRED
+    locx CDATA #REQUIRED
+    locy CDATA #REQUIRED
+    locz CDATA #REQUIRED
+    randomx CDATA #REQUIRED
+    randomy CDATA #REQUIRED
+    heading CDATA #REQUIRED
+    respawn_delay CDATA #REQUIRED
 >
 
 <!ELEMENT locations EMPTY>
@@ -727,21 +915,6 @@
     class_lvl CDATA #REQUIRED
 >
 
-<!ELEMENT mapregion EMPTY>
-<!ATTLIST mapregion
-    region CDATA #REQUIRED
-    sec0 CDATA #REQUIRED
-    sec1 CDATA #REQUIRED
-    sec2 CDATA #REQUIRED
-    sec3 CDATA #REQUIRED
-    sec4 CDATA #REQUIRED
-    sec5 CDATA #REQUIRED
-    sec6 CDATA #REQUIRED
-    sec7 CDATA #REQUIRED
-    sec8 CDATA #REQUIRED
-    sec9 CDATA #REQUIRED
->
-
 <!ELEMENT merchant_areas_list EMPTY>
 <!ATTLIST merchant_areas_list
     merchant_area_id CDATA #REQUIRED
@@ -756,15 +929,10 @@
     price CDATA #REQUIRED
     shop_id CDATA #REQUIRED
     order CDATA #REQUIRED
->
-
-<!ELEMENT merchant_lease EMPTY>
-<!ATTLIST merchant_lease
-    merchant_id CDATA #REQUIRED
-    player_id CDATA #REQUIRED
-    bid CDATA #IMPLIED
-    type CDATA #REQUIRED
-    player_name CDATA #IMPLIED
+    count CDATA #REQUIRED
+    currentCount CDATA #REQUIRED
+    time CDATA #REQUIRED
+    savetimer CDATA #REQUIRED
 >
 
 <!ELEMENT merchant_shopids EMPTY>
@@ -804,6 +972,8 @@
     attackrange CDATA #IMPLIED
     hp CDATA #IMPLIED
     mp CDATA #IMPLIED
+    hpreg CDATA #IMPLIED
+    mpreg CDATA #IMPLIED
     str CDATA #IMPLIED
     con CDATA #IMPLIED
     dex CDATA #IMPLIED
@@ -828,6 +998,11 @@
     faction_range CDATA #IMPLIED
     isUndead CDATA #IMPLIED
     absorb_level CDATA #IMPLIED
+    absorb_type CDATA #IMPLIED
+    ss CDATA #IMPLIED
+    bss CDATA #IMPLIED
+    ss_rate CDATA #IMPLIED
+    AI CDATA #IMPLIED
 >
 
 <!ELEMENT npcskills EMPTY>
@@ -839,7 +1014,7 @@
 
 <!ELEMENT olympiad_nobles EMPTY>
 <!ATTLIST olympiad_nobles
-    char_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     class_id CDATA #REQUIRED
     char_name CDATA #REQUIRED
     olympiad_points CDATA #REQUIRED
@@ -849,7 +1024,7 @@
 <!ELEMENT petitions EMPTY>
 <!ATTLIST petitions
     petition_id CDATA #REQUIRED
-    char_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     petition_txt CDATA #REQUIRED
     status CDATA #REQUIRED
 >
@@ -857,35 +1032,15 @@
 <!ELEMENT pets EMPTY>
 <!ATTLIST pets
     item_obj_id CDATA #REQUIRED
-    objId CDATA #IMPLIED
     name CDATA #IMPLIED
     level CDATA #IMPLIED
-    maxHp CDATA #IMPLIED
     curHp CDATA #IMPLIED
-    maxMp CDATA #IMPLIED
     curMp CDATA #IMPLIED
-    acc CDATA #IMPLIED
-    crit CDATA #IMPLIED
-    evasion CDATA #IMPLIED
-    mAtk CDATA #IMPLIED
-    mDef CDATA #IMPLIED
-    mSpd CDATA #IMPLIED
-    pAtk CDATA #IMPLIED
-    pDef CDATA #IMPLIED
-    pSpd CDATA #IMPLIED
-    str CDATA #IMPLIED
-    con CDATA #IMPLIED
-    dex CDATA #IMPLIED
-    _int CDATA #IMPLIED
-    men CDATA #IMPLIED
-    wit CDATA #IMPLIED
     exp CDATA #IMPLIED
     sp CDATA #IMPLIED
     karma CDATA #IMPLIED
     pkkills CDATA #IMPLIED
-    maxload CDATA #IMPLIED
     fed CDATA #IMPLIED
-    max_fed CDATA #IMPLIED
 >
 
 <!ELEMENT pets_stats EMPTY>
@@ -912,6 +1067,7 @@
     loadMax CDATA #REQUIRED
     hpregen CDATA #REQUIRED
     mpregen CDATA #REQUIRED
+    owner_exp_taken CDATA #REQUIRED
 >
 
 <!ELEMENT pledge_skill_trees EMPTY>
@@ -935,6 +1091,13 @@
     post_txt CDATA #REQUIRED
 >
 
+<!ELEMENT quest_global_data EMPTY>
+<!ATTLIST quest_global_data
+    quest_name CDATA #REQUIRED
+    var CDATA #REQUIRED
+    value CDATA #IMPLIED
+>
+
 <!ELEMENT raidboss_spawnlist EMPTY>
 <!ATTLIST raidboss_spawnlist
     boss_id CDATA #REQUIRED
@@ -943,7 +1106,8 @@
     loc_y CDATA #REQUIRED
     loc_z CDATA #REQUIRED
     heading CDATA #REQUIRED
-    respawn_delay CDATA #REQUIRED
+    respawn_min_delay CDATA #REQUIRED
+    respawn_max_delay CDATA #REQUIRED
     respawn_time CDATA #REQUIRED
     currentHp CDATA #IMPLIED
     currentMp CDATA #IMPLIED
@@ -978,7 +1142,7 @@
 
 <!ELEMENT seven_signs EMPTY>
 <!ATTLIST seven_signs
-    char_obj_id CDATA #REQUIRED
+    charId CDATA #REQUIRED
     cabal CDATA #REQUIRED
     seal CDATA #REQUIRED
     red_stones CDATA #REQUIRED
@@ -1081,6 +1245,7 @@
     loc_y CDATA #IMPLIED
     loc_z CDATA #IMPLIED
     price CDATA #IMPLIED
+    fornoble CDATA #REQUIRED
 >
 
 <!ELEMENT temporaryobjecttable EMPTY>
@@ -1098,6 +1263,47 @@
     topic_ownerid CDATA #REQUIRED
     topic_type CDATA #REQUIRED
     topic_reply CDATA #REQUIRED
+>
+
+<!ELEMENT transform_skill_trees EMPTY>
+<!ATTLIST transform_skill_trees
+    race_id CDATA #REQUIRED
+    skill_id CDATA #REQUIRED
+    item_id CDATA #REQUIRED
+    level CDATA #REQUIRED
+    name CDATA #REQUIRED
+    sp CDATA #REQUIRED
+    min_level CDATA #REQUIRED
+>
+
+<!ELEMENT walker_routes EMPTY>
+<!ATTLIST walker_routes
+    route_id CDATA #REQUIRED
+    npc_id CDATA #REQUIRED
+    move_point CDATA #REQUIRED
+    chatText CDATA #IMPLIED
+    move_x CDATA #REQUIRED
+    move_y CDATA #REQUIRED
+    move_z CDATA #REQUIRED
+    delay CDATA #REQUIRED
+    running CDATA #REQUIRED
+>
+
+<!ELEMENT vanhalter_spawnlist EMPTY>
+<!ATTLIST vanhalter_spawnlist
+    id CDATA #REQUIRED
+    location CDATA #REQUIRED
+    count CDATA #REQUIRED
+    npc_templateid CDATA #REQUIRED
+    locx CDATA #REQUIRED
+    locy CDATA #REQUIRED
+    locz CDATA #REQUIRED
+    randomx CDATA #REQUIRED
+    randomy CDATA #REQUIRED
+    heading CDATA #REQUIRED
+    respawn_delay CDATA #REQUIRED
+    loc_id CDATA #REQUIRED
+    periodOfDay CDATA #REQUIRED
 >
 
 <!ELEMENT weapon EMPTY>
@@ -1123,33 +1329,17 @@
     atk_speed CDATA #IMPLIED
     mp_consume CDATA #IMPLIED
     m_dam CDATA #IMPLIED
-    durability CDATA #IMPLIED
+    duration CDATA #IMPLIED
     price CDATA #IMPLIED
     crystal_count CDATA #IMPLIED
     sellable CDATA #IMPLIED
+    dropable CDATA #IMPLIED
+    destroyable CDATA #IMPLIED
+    tradeable CDATA #IMPLIED
+    skills_item CDATA #REQUIRED
+    skills_enchant4 CDATA #REQUIRED
+    skills_onCast CDATA #REQUIRED
+    skills_onCrit CDATA #REQUIRED
+    change_weaponId CDATA #REQUIRED
 >
-
-<!ELEMENT zariche EMPTY>
-<!ATTLIST zariche
-    playerId CDATA #REQUIRED
-    playerKarma CDATA #IMPLIED
-    playerPkKills CDATA #IMPLIED
-    nbKills CDATA #IMPLIED
-    endTime CDATA #IMPLIED
->
-
-<!ELEMENT zone EMPTY>
-<!ATTLIST zone
-    id CDATA #REQUIRED
-    type CDATA #REQUIRED
-    name CDATA #REQUIRED
-    x1 CDATA #REQUIRED
-    y1 CDATA #REQUIRED
-    x2 CDATA #REQUIRED
-    y2 CDATA #REQUIRED
-    z CDATA #REQUIRED
-    z2 CDATA #REQUIRED
-    taxById CDATA #REQUIRED
->
-
 
