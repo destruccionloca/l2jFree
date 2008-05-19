@@ -36,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.21.2.5.2.7 $ $Date: 2005/03/27 15:29:32 $
  */
-public final class L2World implements L2WorldMBean
+public final class L2World
 {
     private final static Log _log = LogFactory.getLog(L2World.class.getName());
     
