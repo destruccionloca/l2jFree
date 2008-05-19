@@ -885,30 +885,6 @@ public class ItemTable
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.datatables.ItemTableMBean#getNbArmors()
-	 */
-	public int getNbArmors()
-	{
-		return _armors.size();
-	}
-
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.datatables.ItemTableMBean#getNbEtcItems()
-	 */
-	public int getNbEtcItems()
-	{
-		return _etcItems.size();
-	}
-
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.datatables.ItemTableMBean#getNbWeapons()
-	 */
-	public int getNbWeapons()
-	{
-		return _weapons.size();
-	}
-
 	public Map<Integer, L2EtcItem> getEtcItems()
 	{
 		return _etcItems;

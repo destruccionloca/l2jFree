@@ -420,14 +420,6 @@ public class SpawnTable
 		return _spawntable.get(id);
 	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.datatables.SpawnTableMBean#getNpcSpawnCount()
-	 */
-	public int getNpcSpawnCount()
-	{
-		return _spawntable.size();
-	}
-
 	/**
 	 * Get all the spawn of a NPC<BR><BR>
 	 * 

@@ -15,13 +15,11 @@
 package net.sf.l2j.gameserver.datatables;
 
 import java.util.Map;
-import java.util.concurrent.Future;
 
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.skills.SkillsEngine;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
-import net.sf.l2j.gameserver.ThreadPoolManager;
 
 /**
  * This class ...
