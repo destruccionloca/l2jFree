@@ -71,8 +71,12 @@ echo Deleting all GameServer tables for new content.
 
 :upgradeinstall
 echo Installing new GameServer content.
+echo Access Levels
+%mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/access_levels.sql
 echo Account Data
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/account_data.sql
+echo Admin Command Access Rights
+%mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/admin_command_access_rights.sql
 echo Armor
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/armor.sql
 echo Armorsets

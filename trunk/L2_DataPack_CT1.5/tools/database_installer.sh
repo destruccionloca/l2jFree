@@ -171,7 +171,9 @@ full_install()
 	$MYL < ../sql/gameservers.sql &> /dev/null
 	echo "GameServer database"
 	$MYG < full_install.sql &> /dev/null
+	$MYG < ../sql/access_levels.sql &> /dev/null
 	$MYG < ../sql/account_data.sql &> /dev/null
+	$MYG < ../sql/admin_command_access_rights.sql &> /dev/null
 	$MYG < ../sql/armor.sql &> /dev/null
 	$MYG < ../sql/armorsets.sql &> /dev/null
 	$MYG < ../sql/auction.sql &> /dev/null
@@ -386,6 +388,12 @@ update_db()
 			$MYG < ../sql/updates/20080303update.sql
 			$MYG < ../sql/updates/20080404update.sql
 			$MYG < ../sql/updates/20080408update.sql
+			$MYG < ../sql/updates/20080408update.sql
+			$MYG < ../sql/updates/20080419update.sql
+			$MYG < ../sql/updates/20080506update.sql
+			$MYG < ../sql/updates/20080509update.sql
+			$MYG < ../sql/updates/20080510update.sql
+			$MYG < ../sql/updates/20080518update.sql
 			echo "Update completed"
 		# Bad argument O_o
 		else

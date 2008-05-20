@@ -727,32 +727,35 @@
   </for>
 </skill>
 <skill id="432" levels="1" name="Assassination">
-   <!-- Done by BoDiE --><!-- Credits to Sandro -->
-     <set name="power" val="0.0"/>
-     <set name="target" val="TARGET_SELF"/>
-     <set name="skillType" val="BUFF"/>
-     <set name="operateType" val="OP_PASSIVE"/>
-     <set name="castRange" val="-1"/>
-     <set name="effectRange" val="-1"/>
-     <set name="weaponsAllowed" val="16"/>
-     <for> <!-- Verified -->
-       <mul order="0x30" stat="blowRate" val="1.1"> <!-- Blow land rate +10% from front -->>
-        <and>
-         <player front="True"/>
-        </and>
-      </mul>
-      <mul order="0x30" stat="blowRate" val="1.1"> <!-- Blow land rate +10% from side -->>
-        <and>
-          <player front="False"/>
-          <player behind="False"/>
-        </and>
-      </mul>
-      <mul order="0x30" stat="blowRate" val="1.2"> <!-- Blow land rate +20% from back-->>
-       <and>
-         <player behind="True"/>
-       </and>
-      </mul>
-   </for>
+  <!-- Done by BoDiE --><!-- Credits to Sandro -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="weaponsAllowed" val="16"/>
+  <for>
+    <add order="0x40" stat="pAtk" val="70">
+      <using kind="Dagger"/>
+    </add>
+    <mul order="0x30" stat="blowRate" val="1.1"> <!-- Blow land rate +10% from front -->
+      <and>
+        <player front="True"/>
+      </and>
+    </mul>
+    <mul order="0x30" stat="blowRate" val="1.1"> <!-- Blow land rate +10% from side -->
+      <and>
+        <player front="False"/>
+        <player behind="False"/>
+      </and>
+    </mul>
+    <mul order="0x30" stat="blowRate" val="1.2"> <!-- Blow land rate +20% from back-->
+      <and>
+        <player behind="True"/>
+      </and>
+    </mul>
+  </for>
 </skill>
 <skill id="433" levels="1" name="Arcane Roar">
   <!-- Values By Darki699 -->
