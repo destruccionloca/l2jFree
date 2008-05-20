@@ -989,11 +989,6 @@ public class GameStatusThread extends Thread
 							Config.loadSayFilter();
 							_print.println("Sayfilter reloaded");
 						}
-						else if (type.equals("access"))
-						{
-							Config.loadPrivilegesConfig();
-							_print.println("Access config reloaded");
-						}
 						else if (type.equals("siege"))
 						{
 							SiegeManager.getInstance().reload();
@@ -1012,13 +1007,13 @@ public class GameStatusThread extends Thread
 						else
 						{
 							_print
-									.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
+									.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|irc|boss|sayfilter|siege|wedding|elayne>");
 						}
 					}
 					catch (Exception e)
 					{
 						_print
-								.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
+								.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|irc|boss|sayfilter|siege|wedding|elayne>");
 					}
 				}
 				else if (_usrCommand.startsWith("reload"))

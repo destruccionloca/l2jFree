@@ -43,10 +43,6 @@ public class AddTradeItem extends L2GameClientPacket
     private int _objectId;
     private int _count;
 
-    public AddTradeItem()
-    {
-    }    
-    
     @Override
     protected void readImpl()
     {
@@ -62,27 +58,27 @@ public class AddTradeItem extends L2GameClientPacket
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
 
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+            && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-			player.cancelActiveTrade();
+            player.sendMessage("Transactions are not allowed during restart/shutdown.");
+            player.sendPacket(ActionFailed.STATIC_PACKET);
+            player.cancelActiveTrade();
             return;
         }
-        
+
         TradeList trade = player.getActiveTradeList();
         if (trade == null)
-        	{
-        	_log.warn("Character: " + player.getName() + " requested item:" + _objectId + " add without active tradelist:" + _tradeId);
-        	return;
-        	}
+        {
+            _log.warn("Character: " + player.getName() + " requested item:" + _objectId + " add without active tradelist:" + _tradeId);
+            return;
+        }
 
         if (trade.getPartner() == null || L2World.getInstance().findObject(trade.getPartner().getObjectId()) == null)
         {
             // Trade partner not found, cancel trade
             if (trade.getPartner() != null)
-            	_log.warn("Character:" + player.getName() + " requested invalid trade object: " + _objectId); 
+                _log.warn("Character:" + player.getName() + " requested invalid trade object: " + _objectId); 
             SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
             player.sendPacket(msg);
             player.cancelActiveTrade();
@@ -90,10 +86,10 @@ public class AddTradeItem extends L2GameClientPacket
             return;
         }
 
-        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
-            && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+        if (!player.getAccessLevel().allowTransaction())
         {
-            player.sendMessage("Transactions are disable for your Access Level");
+            player.sendMessage("Transactions are disabled for your access level.");
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             player.cancelActiveTrade();
             return;
         }

@@ -16,9 +16,9 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 import java.util.StringTokenizer;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.communitybbs.CommunityBoard;
+import net.sf.l2j.gameserver.datatables.AdminCommandAccessRights;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -69,39 +69,47 @@ public class RequestBypassToServer extends L2GameClientPacket
         if (activeChar == null)
             return;
         
-        try {
+        try
+        {
             if (_command.startsWith("admin_"))
             {
-                if (Config.ALT_PRIVILEGES_ADMIN && !AdminCommandHandler.getInstance().checkPrivileges(activeChar, _command))
+                // DaDummy: this way we log _every_ admincommand with all related info
+                String command;
+                String params;
+
+                if (_command.indexOf(" ") != -1)
                 {
-                    _log.info("<GM>" + activeChar + " does not have sufficient privileges for command '" + _command + "'.");
-                    return;
-                }
-                
-                IAdminCommandHandler ach = AdminCommandHandler.getInstance().getAdminCommandHandler(_command);
-                
-                if (ach != null)
-                {
-                    // DaDummy: this way we log _every_ admincommand with all related info
-                    String command;
-                    String params;
-                    
-                    if (_command.indexOf(" ") != -1) {
-                        command = _command.substring(0, _command.indexOf(" "));
-                        params  = _command.substring(_command.indexOf(" "));
-                    } else {
-                        command = _command;
-                        params  = "";
-                    }
-                    
-                    GMAudit.auditGMAction(activeChar, "admincommand", command, params);
-                    
-                    ach.useAdminCommand(_command, activeChar);
+                    command = _command.substring(0, _command.indexOf(" "));
+                    params  = _command.substring(_command.indexOf(" "));
                 }
                 else
-                    _log.warn("No handler registered for bypass '"+_command+"'");
+                {
+                    command = _command;
+                    params  = "";
+                }
+
+                IAdminCommandHandler ach = AdminCommandHandler.getInstance().getAdminCommandHandler(command);
+
+                if (ach == null)
+                {
+                    if (activeChar.isGM())
+                        activeChar.sendMessage("The command " + command + " does not exists!");
+
+                    _log.warn("No handler registered for admin command '" + command + "'");
+                    return;
+                }
+
+                if (!AdminCommandAccessRights.getInstance().hasAccess(command, activeChar.getAccessLevel()))
+                {
+                    activeChar.sendMessage("You don't have the access right to use this command!");
+                    _log.warn("Character " + activeChar.getName() + " tried to use admin command " + command + ", but doesn't have access to it!");
+                    return;
+                }
+
+                GMAudit.auditGMAction(activeChar, "admincommand", command, params);
+                ach.useAdminCommand(_command, activeChar);
             }
-            else if (_command.equals("come_here") && activeChar.getAccessLevel() >= Config.GM_ACCESSLEVEL)
+            else if (_command.equals("come_here") && ( activeChar.isGM()))
             {
                 comeHere(activeChar);
             }

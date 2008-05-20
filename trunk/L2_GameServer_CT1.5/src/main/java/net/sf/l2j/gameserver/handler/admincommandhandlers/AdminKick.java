@@ -24,17 +24,10 @@ import net.sf.l2j.gameserver.network.L2GameClient;
 
 public class AdminKick implements IAdminCommandHandler
 {
-	private static final String[]	ADMIN_COMMANDS	=
-													{ "admin_kick", "admin_kick_non_gm" };
-	private static final int		REQUIRED_LEVEL	= Config.GM_KICK;
+	private static final String[]	ADMIN_COMMANDS	= { "admin_kick", "admin_kick_non_gm" };
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.startsWith("admin_kick"))
 		{
 			StringTokenizer st = new StringTokenizer(command);
@@ -84,10 +77,5 @@ public class AdminKick implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

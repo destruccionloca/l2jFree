@@ -32,14 +32,6 @@ import net.sf.l2j.gameserver.util.Util;
 
 public class AdminTest implements IAdminCommandHandler
 {
-	private static final int		REQUIRED_LEVEL	= Config.GM_TEST;
-	/*
-	private static final String[] ADMIN_TEST_COMMANDS =
-	{
-	    "admin_test", "admin_stats", "admin_skill_test", 
-	    "admin_st", "admin_mp", "admin_known"
-	};
-	*/
 	private static final String[][]	ADMIN_COMMANDS	=
 													{
 			{ "admin_stats",
@@ -86,10 +78,6 @@ public class AdminTest implements IAdminCommandHandler
 	 */
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
-				return false;
-
 		StringTokenizer st = new StringTokenizer(command, " ");
 
 		String cmd = st.nextToken(); // get command

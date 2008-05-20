@@ -293,18 +293,14 @@ public class L2PlayerAI extends L2CharacterAI
 			clientStopMoving(null);
 
 		L2Object oldTarget = _actor.getTarget();
-		if (oldTarget != null)
+		if (oldTarget != null && target != null && oldTarget != target)
 		{
 			// Replace the current target by the cast target
-			if (target != null && oldTarget != target)
-				_actor.setTarget(getCastTarget());
-
+			_actor.setTarget(getCastTarget());
 			// Launch the Cast of the skill
 			_accessor.doCast(_skill);
-
 			// Restore the initial target
-			if (target != null && oldTarget != target)
-				_actor.setTarget(oldTarget);
+			_actor.setTarget(oldTarget);
 		}
 		else
 			_accessor.doCast(_skill);

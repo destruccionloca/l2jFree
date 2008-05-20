@@ -96,7 +96,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new CharacterDelete();
 				break;
 			case 0x12:
-				msg = new CharacterSelected();
+				msg = new CharacterSelect();
 				break;
 			case 0x13:
 				msg = new NewCharacter();

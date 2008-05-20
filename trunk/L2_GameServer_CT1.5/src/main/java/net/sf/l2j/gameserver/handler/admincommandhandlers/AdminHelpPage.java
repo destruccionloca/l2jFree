@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -29,16 +28,10 @@ import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 public class AdminHelpPage implements IAdminCommandHandler
 {
 
-	private static final String[]	ADMIN_COMMANDS	=
-													{ "admin_help" };
-	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
+	private static final String[]	ADMIN_COMMANDS	= { "admin_help" };
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!checkLevel(activeChar.getAccessLevel()))
-				return false;
-
 		if (command.startsWith("admin_help"))
 		{
 			try
@@ -58,11 +51,6 @@ public class AdminHelpPage implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	//PUBLIC & STATIC so other classes from package can include it directly

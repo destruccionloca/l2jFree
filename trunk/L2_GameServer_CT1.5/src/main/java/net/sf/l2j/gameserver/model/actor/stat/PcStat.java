@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.stat;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
@@ -54,8 +53,8 @@ public class PcStat extends PlayableStat
     {
         L2PcInstance activeChar = getActiveChar();
 
-        //Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp
-        if (getActiveChar().isGM() && getActiveChar().getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && getActiveChar().isInParty())
+        // Allowed to gain exp?
+        if (!getActiveChar().getAccessLevel().canGainExp() && getActiveChar().isInParty())
               return false;
 
         if (!super.addExp(value)) return false;
@@ -93,9 +92,9 @@ public class PcStat extends PlayableStat
     public boolean addExpAndSp(long addToExp, int addToSp)
     {
         float ratioTakenByPet = 0;
-       //Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp/Sp
-    	L2PcInstance activeChar = getActiveChar();
-    	if (activeChar.isGM() && activeChar.getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && activeChar.isInParty())
+        // Allowed to gain exp/sp?
+        L2PcInstance activeChar = getActiveChar();
+        if (!activeChar.getAccessLevel().canGainExp() && activeChar.isInParty())
             return false;
 
     	// if this player has a pet that takes from the owner's Exp, give the pet Exp now

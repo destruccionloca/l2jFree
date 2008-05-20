@@ -62,16 +62,9 @@ public class AdminSiege implements IAdminCommandHandler
 			"admin_clanhallopendoors",
 			"admin_clanhallclosedoors",
 			"admin_clanhallteleportself"			};
-	private static final int		REQUIRED_LEVEL	= Config.GM_NPC_EDIT;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL || !activeChar.isGM())
-			{
-				return false;
-			}
-
 		StringTokenizer st = new StringTokenizer(command, " ");
 		command = st.nextToken(); // Get actual command
 

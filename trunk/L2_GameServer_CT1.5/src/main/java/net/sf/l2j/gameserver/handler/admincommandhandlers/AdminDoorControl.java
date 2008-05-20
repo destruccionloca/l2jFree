@@ -46,17 +46,11 @@ import org.apache.commons.logging.LogFactory;
 public class AdminDoorControl implements IAdminCommandHandler
 {
 	private static Log				_log			= LogFactory.getLog(AdminDoorControl.class.getName());
-	private static final int		REQUIRED_LEVEL	= Config.GM_DOOR;
 	private static DoorTable		_doorTable;
-	private static final String[]	ADMIN_COMMANDS	=
-													{ "admin_open", "admin_close", "admin_openall", "admin_closeall" };
+	private static final String[]	ADMIN_COMMANDS	= { "admin_open", "admin_close", "admin_openall", "admin_closeall" };
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		_doorTable = DoorTable.getInstance();
 
 		try
@@ -146,10 +140,5 @@ public class AdminDoorControl implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

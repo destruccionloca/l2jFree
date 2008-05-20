@@ -66,15 +66,10 @@ public class AdminCTFEngine implements IAdminCommandHandler
 			"admin_ctf_minplayers",
 			"admin_ctf_maxplayers"					};
 
-	private static final int		REQUIRED_LEVEL	= 100;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		try
 		{
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 			if (command.equals("admin_ctf"))
 				showMainPage(activeChar);
 			else if (command.startsWith("admin_ctf_name "))
@@ -294,11 +289,6 @@ public class AdminCTFEngine implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	public void showEditPage(L2PcInstance activeChar)

@@ -93,15 +93,8 @@ public class AdminAdmin implements IAdminCommandHandler
 			"admin_unsummon",
 			"admin_memusage"						};
 
-	private static final int		REQUIRED_LEVEL	= Config.GM_MENU;
-
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.startsWith("admin_admin"))
 		{
 			showMainPage(activeChar, command);
@@ -236,11 +229,6 @@ public class AdminAdmin implements IAdminCommandHandler
 					Config.loadSayFilter();
 					activeChar.sendMessage("Sayfilter reloaded");
 				}
-				else if (type.equals("access"))
-				{
-					Config.loadPrivilegesConfig();
-					activeChar.sendMessage("Access config reloaded");
-				}
 				else if (type.equals("fortsiege"))
 				{
 					Config.loadFortSiegeConfig();
@@ -263,14 +251,12 @@ public class AdminAdmin implements IAdminCommandHandler
 				}
 				else
 				{
-					activeChar
-							.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
+					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
 				}
 			}
 			catch (Exception e)
 			{
-				activeChar
-						.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
+				activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
 			}
 		}
 
@@ -548,11 +534,6 @@ public class AdminAdmin implements IAdminCommandHandler
 		return ADMIN_COMMANDS;
 	}
 
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
-	}
-
 	public void showMainPage(L2PcInstance activeChar, String command)
 	{
 		int mode = 0;
@@ -601,9 +582,6 @@ public class AdminAdmin implements IAdminCommandHandler
 		replyMSG.append("<center><table width=260>");
 		replyMSG.append("<tr><td><font color=\"LEVEL\">Show GM Login</font> = " + Config.SHOW_GM_LOGIN + "</td><td></td><td><button value=\""
 				+ !Config.SHOW_GM_LOGIN + "\" action=\"bypass -h admin_set ShowGMLogin " + !Config.SHOW_GM_LOGIN
-				+ "\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
-		replyMSG.append("<tr><td><font color=\"LEVEL\">Hide GM Status</font> = " + Config.HIDE_GM_STATUS + "</td><td></td><td><button value=\""
-				+ !Config.HIDE_GM_STATUS + "\" action=\"bypass -h admin_set HideGMStatus " + !Config.HIDE_GM_STATUS
 				+ "\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 		replyMSG.append("<tr><td><font color=\"LEVEL\">Spawn Siege Guard</font> = " + Config.SPAWN_SIEGE_GUARD + "</td><td></td><td><button value=\""
 				+ !Config.SPAWN_SIEGE_GUARD + "\" action=\"bypass -h admin_set SpawnSiegeGuard " + !Config.SPAWN_SIEGE_GUARD

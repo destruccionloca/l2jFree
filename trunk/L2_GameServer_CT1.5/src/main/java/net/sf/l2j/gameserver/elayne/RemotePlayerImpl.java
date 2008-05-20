@@ -39,7 +39,7 @@ public class RemotePlayerImpl implements IRemotePlayer
 	 */
 	public int getAccessLevel() throws RemoteException
 	{
-		return player.getAccessLevel();
+		return player.getAccessLevel().getLevel();
 	}
 
 	/**

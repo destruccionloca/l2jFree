@@ -178,7 +178,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		{
 			L2PcInstance player = (L2PcInstance) target;
 			// Don't take the aggro if the GM has the access level below or equal to GM_DONT_TAKE_AGGRO
-			if (player.isGM() && player.getAccessLevel() <= Config.GM_DONT_TAKE_AGGRO)
+			if (player.isGM() && !player.getAccessLevel().canTakeAggro())
 				return false;
 
 			// TODO: Ideally, autoattack condition should be called from the AI script.  In that case,
@@ -202,7 +202,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			if (owner != null)
 			{
 				// Don't take the aggro if the GM has the access level below or equal to GM_DONT_TAKE_AGGRO
-				if (owner.isGM() && (owner.isInvul() || owner.getAccessLevel() <= Config.GM_DONT_TAKE_AGGRO))
+				if (owner.isGM() && (owner.isInvul() || !owner.getAccessLevel().canTakeAggro()))
 					return false;
 				// Check if player is an ally (comparing mem addr)
 				if (me.getFactionId() == "varka" && owner.isAlliedWithVarka())

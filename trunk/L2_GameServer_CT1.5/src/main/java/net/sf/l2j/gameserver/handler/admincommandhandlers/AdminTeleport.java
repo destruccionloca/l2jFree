@@ -63,32 +63,29 @@ public class AdminTeleport implements IAdminCommandHandler
 	private static final Log		_log			= LogFactory.getLog(AdminTeleport.class.getName());
 
 	private static final String[]	ADMIN_COMMANDS	=
-													{ "admin_bookmark", // L2JP_JP ADD
-			"admin_show_moves",
-			"admin_show_moves_other",
-			"admin_show_teleport",
-			"admin_teleport_to_character",
-			"admin_teleportto",
-			"admin_move_to",
-			"admin_teleport_character",
-			"admin_recall",
-			"admin_recall_gm", //[L2J_JP ADD - TSL]
-			"admin_recall_party", //[L2J_JP ADD - TSL]
-			"admin_recall_all", //[L2J_JP ADD - TSL]
-			"admin_recall_offline",
-			"admin_walk",
-			"admin_recall_npc",
-			"admin_go",
-			"admin_tele",
-			"admin_teleto"							};
-	private static final int		REQUIRED_LEVEL	= Config.GM_TELEPORT;
-	private static final int		REQUIRED_LEVEL2	= Config.GM_TELEPORT_OTHER;
+	{
+		"admin_bookmark", // L2JP_JP ADD
+		"admin_show_moves",
+		"admin_show_moves_other",
+		"admin_show_teleport",
+		"admin_teleport_to_character",
+		"admin_teleportto",
+		"admin_move_to",
+		"admin_teleport_character",
+		"admin_recall",
+		"admin_recall_gm", //[L2J_JP ADD - TSL]
+		"admin_recall_party", //[L2J_JP ADD - TSL]
+		"admin_recall_all", //[L2J_JP ADD - TSL]
+		"admin_recall_offline",
+		"admin_walk",
+		"admin_recall_npc",
+		"admin_go",
+		"admin_tele",
+		"admin_teleto"
+	};
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
 		if (command.startsWith("admin_bookmark"))// L2J_JP ADD
 		{
 			bookmark(activeChar, command.substring(15));
@@ -181,8 +178,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			{
 				String val = command.substring(25);
 
-				if (activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
-					teleportCharacter(activeChar, val);
+				teleportCharacter(activeChar, val);
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
@@ -209,8 +205,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			{
 				String targetName = command.substring(13);
 				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
-				if (activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
-					teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ());
+				teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ());
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
@@ -223,20 +218,17 @@ public class AdminTeleport implements IAdminCommandHandler
 			{
 				String targetName = command.substring(16);
 				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
-				if (activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
+				if (player.getParty() != null)
 				{
-					if (player.getParty() != null)
+					for (L2PcInstance character : player.getParty().getPartyMembers())
 					{
-						for (L2PcInstance character : player.getParty().getPartyMembers())
-						{
-							if (character == activeChar)
-								continue;
-							teleportCharacter(character, activeChar.getX(), activeChar.getY(), activeChar.getZ());
-						}
+						if (character == activeChar)
+							continue;
+						teleportCharacter(character, activeChar.getX(), activeChar.getY(), activeChar.getZ());
 					}
-					else
-						activeChar.sendMessage("Wrong or Player is not in party.");
 				}
+				else
+					activeChar.sendMessage("Wrong or Player is not in party.");
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
@@ -247,8 +239,10 @@ public class AdminTeleport implements IAdminCommandHandler
 			try
 			{
 				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-					if (player.getAccessLevel() > 0)
+				{
+					if (player.isGM())
 						teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ());
+				}
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
@@ -256,14 +250,11 @@ public class AdminTeleport implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_recall_all"))
 		{
-			if (activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
+			for (L2PcInstance character : L2World.getInstance().getAllPlayers())
 			{
-				for (L2PcInstance character : L2World.getInstance().getAllPlayers())
-				{
-					if (character == activeChar)
-						continue;
-					teleportCharacter(character, activeChar.getX(), activeChar.getY(), activeChar.getZ());
-				}
+				if (character == activeChar)
+					continue;
+				teleportCharacter(character, activeChar.getX(), activeChar.getY(), activeChar.getZ());
 			}
 		}
 		// [L2J_JP ADD END - TSL]
@@ -308,11 +299,6 @@ public class AdminTeleport implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	// L2J_JP ADD

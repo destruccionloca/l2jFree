@@ -31,16 +31,10 @@ import org.apache.commons.logging.LogFactory;
 public class AdminInvul implements IAdminCommandHandler
 {
 	private final static Log		_log			= LogFactory.getLog(AdminInvul.class.getName());
-	private static final String[]	ADMIN_COMMANDS	=
-													{ "admin_invul", "admin_setinvul" };
-	private static final int		REQUIRED_LEVEL	= Config.GM_GODMODE;
+	private static final String[]	ADMIN_COMMANDS	= { "admin_invul", "admin_setinvul" };
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (command.equals("admin_invul"))
 			handleInvul(activeChar);
 		if (command.equals("admin_setinvul"))
@@ -57,11 +51,6 @@ public class AdminInvul implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void handleInvul(L2PcInstance activeChar)

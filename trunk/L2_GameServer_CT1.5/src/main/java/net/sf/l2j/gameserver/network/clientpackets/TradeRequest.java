@@ -49,21 +49,22 @@ public class TradeRequest extends L2GameClientPacket
 
     @Override
     protected void runImpl()
-	{
-		L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
-        
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+    {
+        L2PcInstance player = getClient().getActiveChar();
+        if (player == null)
+            return;
+
+        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+            && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
+            player.sendMessage("Transactions are not allowed during restart/shutdown.");
+            player.sendPacket(ActionFailed.STATIC_PACKET);
+            return;
         }
-		
-        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+
+        if (!player.getAccessLevel().allowTransaction())
         {
-        	player.sendMessage("Transactions are disabled for your Access Level");
+            player.sendMessage("Transactions are disabled for your access level.");
             player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }

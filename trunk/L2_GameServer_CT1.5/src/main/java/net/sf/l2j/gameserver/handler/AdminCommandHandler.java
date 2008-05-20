@@ -81,7 +81,6 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTvTEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminUnblockIp;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminVIPEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminZone;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -190,9 +189,6 @@ public class AdminCommandHandler
 			}
 			else
 				_datatable.put(element, handler);
-
-			if (Config.ALT_PRIVILEGES_ADMIN && !Config.GM_COMMAND_PRIVILEGES.containsKey(element))
-				_log.warn("Command \"" + element + "\" have no access level definition. Can't be used.");
 		}
 	}
 
@@ -214,55 +210,5 @@ public class AdminCommandHandler
 	public int size()
 	{
 		return _datatable.size();
-	}
-
-	public void checkDeprecated()
-	{
-		if (Config.ALT_PRIVILEGES_ADMIN)
-			for (Object cmd : Config.GM_COMMAND_PRIVILEGES.keySet())
-			{
-				String _cmd = String.valueOf(cmd);
-				if (!_datatable.containsKey(_cmd))
-					_log.warn("Command \"" + _cmd + "\" is no used anymore.");
-			}
-	}
-
-	public final boolean checkPrivileges(L2PcInstance player, String command)
-	{
-		// Can execute a admin command if everybody has admin rights
-		if (Config.EVERYBODY_HAS_ADMIN_RIGHTS)
-			return true;
-
-		//Only a GM can execute a admin command
-		if (!player.isGM())
-			return false;
-
-		StringTokenizer st = new StringTokenizer(command, " ");
-
-		String cmd = st.nextToken(); // get command
-
-		//Check command existance
-		if (!_datatable.containsKey(cmd))
-			return false;
-
-		//Check command privileges
-		if (Config.ALT_PRIVILEGES_ADMIN)
-		{
-			if (Config.GM_COMMAND_PRIVILEGES.containsKey(cmd))
-			{
-				return (player.getAccessLevel() >= Config.GM_COMMAND_PRIVILEGES.get(cmd));
-			}
-			_log.warn("Command \"" + cmd + "\" have no access level definition. Can't be used.");
-			return false;
-		}
-		/*
-		else
-			if (!_datatable.get(cmd).checkLevel(player.getAccessLevel()))
-				return false;	
-		*/
-		if (player.getAccessLevel() > 0)
-			return true;
-		_log.warn("GM " + player.getName() + "(" + player.getObjectId() + ") have no access level.");
-		return false;
 	}
 }

@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
@@ -89,10 +90,10 @@ public final class RequestPackageSend extends L2GameClientPacket
 			if ((manager == null || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM())
 				return;
 
-			if (warehouse instanceof PcFreight && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
-					&& player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+			if (warehouse instanceof PcFreight && !player.getAccessLevel().allowTransaction())
 			{
-				player.sendMessage("Transactions are disable for your Access Level");
+				player.sendMessage("Transactions are disabled for your access level.");
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 

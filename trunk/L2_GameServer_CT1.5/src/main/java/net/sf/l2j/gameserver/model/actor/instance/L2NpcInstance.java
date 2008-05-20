@@ -750,7 +750,7 @@ public class L2NpcInstance extends L2Character
 	public void onActionShift(L2PcInstance player)
 	{
 		// Check if the L2PcInstance is a GM
-		if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
+		if (player.getAccessLevel().isGm())
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);

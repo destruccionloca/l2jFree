@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2World;
@@ -35,17 +34,10 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  */
 public class AdminChangeAccessLevel implements IAdminCommandHandler
 {
-	private static final String[]	ADMIN_COMMANDS	=
-													{ "admin_changelvl" };
-
-	private static final int		REQUIRED_LEVEL	= Config.GM_ACCESSLEVEL;
+	private static final String[]	ADMIN_COMMANDS	= { "admin_changelvl" };
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		handleChangeLevel(command, activeChar);
 		return true;
 	}
@@ -53,11 +45,6 @@ public class AdminChangeAccessLevel implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 
 	/**

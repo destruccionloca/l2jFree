@@ -253,11 +253,11 @@ public class L2MerchantInstance extends L2FolkInstance
 	    player.mount(petId, 0);
 	    player.startRentPet(time);
 	}
-	
+
     @Override
     public final void onActionShift(L2PcInstance player)
     {
-        if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
+        if (player.isGM())
         {
             player.setTarget(this);
 
