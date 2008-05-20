@@ -1094,6 +1094,7 @@ INSERT INTO `pets_stats` (`type`, `typeID`, `level`, `expMax`, `hpMax`, `mpMax`,
 --
 -- L2J-Free Add-ons
 --
+
 -- --------------------------------------------
 -- TEMP DUMMY for pets, just a copy from lvl 81
 -- and expMax is set to a high value for now
