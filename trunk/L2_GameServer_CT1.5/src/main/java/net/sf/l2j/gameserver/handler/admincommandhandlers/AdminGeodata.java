@@ -35,10 +35,15 @@ public class AdminGeodata implements IAdminCommandHandler
 			"admin_geo_bug",
 			"admin_geo_load",
 			"admin_geo_unload"						};
+	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 
 	@SuppressWarnings("deprecation")
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		if (!Config.GEODATA)
 		{
 			activeChar.sendMessage("Geo Engine is turned off!");
@@ -156,4 +161,10 @@ public class AdminGeodata implements IAdminCommandHandler
 	{
 		return ADMIN_COMMANDS;
 	}
+
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
+	}
+
 }

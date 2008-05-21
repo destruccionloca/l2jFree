@@ -32,10 +32,16 @@ import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
  */
 public class AdminShutdown implements IAdminCommandHandler
 {
-	private static final String[]	ADMIN_COMMANDS	= { "admin_server_shutdown", "admin_server_restart", "admin_server_abort" };
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_server_shutdown", "admin_server_restart", "admin_server_abort" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_RESTART;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		if (command.startsWith("admin_server_shutdown"))
 		{
 			try
@@ -73,6 +79,11 @@ public class AdminShutdown implements IAdminCommandHandler
 		return ADMIN_COMMANDS;
 	}
 
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
+	}
+
 	private void sendHtmlForm(L2PcInstance activeChar)
 	{
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
@@ -105,4 +116,5 @@ public class AdminShutdown implements IAdminCommandHandler
 	{
 		Shutdown.getInstance().abort(activeChar);
 	}
+
 }

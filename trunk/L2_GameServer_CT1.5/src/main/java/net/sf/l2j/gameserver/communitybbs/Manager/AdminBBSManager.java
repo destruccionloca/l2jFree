@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.communitybbs.Manager;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.ShowBoard;
 
@@ -39,7 +40,7 @@ public class AdminBBSManager extends BaseBBSManager
 	@Override
 	public void parsecmd(String command, L2PcInstance activeChar)
 	{
-		if (!activeChar.isGM())
+		if (activeChar.getAccessLevel() < Config.GM_ACCESSLEVEL)
 		{
 			return;
 		}
@@ -70,7 +71,7 @@ public class AdminBBSManager extends BaseBBSManager
 	@Override
 	public void parsewrite(String ar1, String ar2, String ar3, String ar4, String ar5, L2PcInstance activeChar)
 	{
-		if (!activeChar.isGM())
+		if (activeChar.getAccessLevel() < Config.GM_ACCESSLEVEL)
 		{
 			return;
 		}

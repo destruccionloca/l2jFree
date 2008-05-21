@@ -24,8 +24,6 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
-import net.sf.l2j.gameserver.datatables.AccessLevels;
-import net.sf.l2j.gameserver.datatables.AdminCommandAccessRights;
 import net.sf.l2j.gameserver.datatables.ArmorSetsTable;
 import net.sf.l2j.gameserver.datatables.AugmentationData;
 import net.sf.l2j.gameserver.datatables.BuffTemplateTable;
@@ -195,8 +193,6 @@ public class GameServer
 		if (Config.AUTODESTROY_ITEM_AFTER > 0 || Config.HERB_AUTO_DESTROY_TIME > 0)
 			ItemsAutoDestroy.getInstance();
 		Util.printSection("Characters");
-		AccessLevels.getInstance();
-		AdminCommandAccessRights.getInstance();
 		CharTemplateTable.getInstance();
 		LevelUpData.getInstance();
 		HennaTable.getInstance();

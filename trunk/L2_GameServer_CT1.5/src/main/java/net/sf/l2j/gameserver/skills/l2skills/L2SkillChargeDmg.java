@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.skills.l2skills;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -100,7 +101,7 @@ public class L2SkillChargeDmg extends L2Skill
 			{
 				L2PcInstance activeCaster = (L2PcInstance) activeChar;
 
-				if (activeCaster.isGM() && !activeCaster.getAccessLevel().canGiveDamage())
+				if (activeCaster.isGM() && activeCaster.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
 					damage = 0;
 			}
 

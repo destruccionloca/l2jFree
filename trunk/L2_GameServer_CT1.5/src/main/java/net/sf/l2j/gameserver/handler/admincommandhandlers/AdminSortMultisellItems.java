@@ -25,13 +25,14 @@ import java.sql.ResultSet;
 import javolution.util.FastList;
 import javolution.text.TextBuilder;
 
+import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
+
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -41,6 +42,10 @@ import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+/*************************************/
+/* command.equals("admin_sortmulti") */
+/*************************************/
 
 /**
  * 
@@ -57,6 +62,8 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 																				{ "admin_sortmulti" };
 
 	private static final Log		_log										= LogFactory.getLog(AdminSortMultisellItems.class);
+
+	private static final int		REQUIRED_LEVEL								= Config.GM_GODMODE;
 
 	private static boolean			MULTISELL_GENERATE_OUTPUT_TEXT				= true;
 	private static boolean			MULTISELL_GENERATE_UNKNOWN					= true;
@@ -76,58 +83,56 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 
 	private static final String		path										= Config.DATAPACK_ROOT.getAbsolutePath() + "/data/multisell/items/";
 
-	private String _weapon[] =
-	{
-		"NO_GRADE",
-		"D_GRADE",
-		"C_GRADE",
-		"B_GRADE",
-		"A_GRADE",
-		"S_GRADE",
-		"S80_GRADE",
-		"Kamael",
-		"SS"
-	},
+	String
 
-	_armor[] =
-	{
-		"NO_GRADE",
-		"D_GRADE",
-		"C_GRADE",
-		"B_GRADE",
-		"A_GRADE",
-		"S_GRADE",
-		"S80_GRADE",
-		"Underwear"
-	},
+									_weapon[]									=
+																				{
+			"NO_GRADE",
+			"D_GRADE",
+			"C_GRADE",
+			"B_GRADE",
+			"A_GRADE",
+			"S_GRADE",
+			"S80_GRADE",
+			"Kamael",
+			"SS"																},
 
-	_jewelry[] =
-	{
-		"NO_GRADE",
-		"D_GRADE",
-		"C_GRADE",
-		"B_GRADE",
-		"A_GRADE",
-		"S_GRADE",
-		"S80_GRADE"
-	},
+																				_armor[] =
+																				{
+			"NO_GRADE",
+			"D_GRADE",
+			"C_GRADE",
+			"B_GRADE",
+			"A_GRADE",
+			"S_GRADE",
+			"S80_GRADE",
+			"Underwear"														},
 
-	_misc[] =
-	{
-		"Scroll",
-		"Enchant",
-		"L2Day",
-		"Potions",
-		"Hair",
-		"Pet",
-		"Quest",
-		"EchoCrystal",
-		"Recipe",
-		"SpellBook",
-		"Dyes"
-	};
+																				_jewelry[] =
+																				{
+			"NO_GRADE",
+			"D_GRADE",
+			"C_GRADE",
+			"B_GRADE",
+			"A_GRADE",
+			"S_GRADE",
+			"S80_GRADE"														},
 
-	private String splitting = " abbdhtiowe ";
+																				_misc[] =
+																				{
+			"Scroll",
+			"Enchant",
+			"L2Day",
+			"Potions",
+			"Hair",
+			"Pet",
+			"Quest",
+			"EchoCrystal",
+			"Recipe",
+			"SpellBook",
+			"Dyes"																};
+
+	String							splitting									= " abbdhtiowe ";
 
 	/**
 	 * Class holding the XML String for exach of the category items...
@@ -259,6 +264,10 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		if (command.startsWith("admin_sortmulti"))
 		{
 			String param[] = command.split(" ");
@@ -306,6 +315,11 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
+	}
+
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void init()

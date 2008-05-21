@@ -21,7 +21,6 @@ import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
@@ -137,10 +136,10 @@ public class RequestDropItem extends L2GameClientPacket
             return;
         }
         
-        if (!activeChar.getAccessLevel().allowTransaction())
+        if (Config.GM_DISABLE_TRANSACTION && activeChar.getAccessLevel() >= Config.GM_TRANSACTION_MIN && activeChar.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
-            activeChar.sendMessage("Transactions are disabled for your access level.");
-            activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+            activeChar.sendMessage("Transactions are disable for your Access Level");
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
             return;
         }
         

@@ -37,9 +37,6 @@ import net.sf.l2j.gameserver.network.serverpackets.ExRedSky;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.NpcInfo;
-import net.sf.l2j.gameserver.network.serverpackets.PartySmallWindowAll;
-import net.sf.l2j.gameserver.network.serverpackets.PartySmallWindowDeleteAll;
-import net.sf.l2j.gameserver.network.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.network.serverpackets.SSQInfo;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
@@ -112,8 +109,14 @@ public class AdminEffects implements IAdminCommandHandler
 			"admin_atmosphere_menu",
 			"admin_give_souls"						};
 
+	private static final int		REQUIRED_LEVEL	= Config.GM_GODMODE;
+
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		StringTokenizer st = new StringTokenizer(command);
 		st.nextToken();
 
@@ -381,49 +384,34 @@ public class AdminEffects implements IAdminCommandHandler
 				String oldName = "null";
 				try
 				{
-					L2Object obj = activeChar.getTarget();
-					L2Character target = null;
-					if (obj != null && obj instanceof L2Character)
+					L2Object target = activeChar.getTarget();
+					L2Character player = null;
+					if (target instanceof L2Character)
 					{
-						target = (L2Character) obj;
-						oldName = target.getName();
+						player = (L2Character) target;
+						oldName = player.getName();
 					}
-					else
-						return false;
-
-					if (target instanceof L2PcInstance)
+					else if (target == null)
 					{
-						L2PcInstance player = (L2PcInstance)target;
-						L2World.getInstance().removeFromAllPlayers(player);
-						player.setName(name);
-						player.store();
-						L2World.getInstance().addToAllPlayers(player);
-						player.sendMessage("Your name has been changed by a GM.");
-						player.broadcastUserInfo();
-						if (player.isInParty())
-						{
-							// Delete party window for other party members
-							player.getParty().broadcastToPartyMembers(player, new PartySmallWindowDeleteAll());
-							for (L2PcInstance member : player.getParty().getPartyMembers())
-							{
-								// And re-add
-								if (member != player)
-									member.sendPacket(new PartySmallWindowAll(member, player.getParty().getPartyMembers()));
-							}
-						}
-						if (player.getClan() != null)
-						{
-							player.getClan().broadcastClanStatus();
-						}
+						player = activeChar;
+						oldName = activeChar.getName();
 					}
-					else if (target instanceof L2NpcInstance || target instanceof L2Summon)
+					if (player instanceof L2PcInstance)
+						L2World.getInstance().removeFromAllPlayers((L2PcInstance) player);
+					player.setName(name);
+					if (player instanceof L2PcInstance)
+						L2World.getInstance().addVisibleObject(player, null, null);
+					if (player instanceof L2PcInstance)
 					{
-						target.setName(name);
-						target.updateAbnormalEffect();
+						CharInfo info1 = new CharInfo((L2PcInstance) player);
+						player.broadcastPacket(info1);
+						UserInfo info2 = new UserInfo((L2PcInstance) player);
+						player.sendPacket(info2);
 					}
-					if (target instanceof L2Summon && ((L2Summon)target).getOwner() != null)
+					else if (player instanceof L2NpcInstance)
 					{
-						((L2Summon)target).getOwner().sendPacket(new PetInfo((L2Summon)target));
+						NpcInfo info1 = new NpcInfo((L2NpcInstance) player, null);
+						player.broadcastPacket(info1);
 					}
 					activeChar.sendMessage("Changed name from " + oldName + " to " + name + ".");
 				}
@@ -761,6 +749,11 @@ public class AdminEffects implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
+	}
+
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void showMainPage(L2PcInstance activeChar, String command)

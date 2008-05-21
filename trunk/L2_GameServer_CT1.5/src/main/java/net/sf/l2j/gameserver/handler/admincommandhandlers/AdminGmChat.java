@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -31,10 +32,16 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  */
 public class AdminGmChat implements IAdminCommandHandler
 {
-	private static final String[]	ADMIN_COMMANDS	= { "admin_gmchat", "admin_snoop", "admin_gmchat_menu" };
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_gmchat", "admin_snoop", "admin_gmchat_menu" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		if (command.startsWith("admin_gmchat"))
 			handleGmChat(command, activeChar);
 		else if (command.startsWith("admin_snoop"))
@@ -62,7 +69,7 @@ public class AdminGmChat implements IAdminCommandHandler
 			return;
 		}
 		L2PcInstance player = (L2PcInstance) target;
-		if (player.getAccessLevel().getLevel() > activeChar.getAccessLevel().getLevel())
+		if (player.getAccessLevel() > activeChar.getAccessLevel())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			player.sendMessage(activeChar.getName() + " tried to snoop your conversations. Blocked.");
@@ -75,6 +82,11 @@ public class AdminGmChat implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
+	}
+
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
 	}
 
 	/**

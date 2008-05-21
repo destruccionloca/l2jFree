@@ -63,7 +63,10 @@ public class AdminSmartShop implements IAdminCommandHandler
 {
 	private final static Log		_log			= LogFactory.getLog(AdminSmartShop.class.getName());
 
-	private static final String[]	ADMIN_COMMANDS	= { "admin_smartshop" };
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_smartshop" };
+
+	private static final int		REQUIRED_LEVEL	= Config.GM_NPC_EDIT;
 
 	private static List<Integer>	smartList;
 	private static List<Boolean>	questList;
@@ -76,6 +79,12 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+		{
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+		}
+
 		if (!command.startsWith("admin_smartshop"))
 			return false;
 
@@ -137,6 +146,11 @@ public class AdminSmartShop implements IAdminCommandHandler
 		return ADMIN_COMMANDS;
 	}
 
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
+	}
+
 	/**
 	 * Init should be called only once, and loads the item data
 	 * to the queues.
@@ -145,6 +159,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 	{
 		if (smartList == null)
 		{
+
 			smartList = new FastList<Integer>();
 			questList = new FastList<Boolean>();
 			gradeList = new FastList<Integer>();
@@ -165,6 +180,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 			getAllItems();
 		}
+
 	}
 
 	/**
@@ -1470,7 +1486,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		return moveVal;
 	}
 
-	private String parseParam(String opCommand, String first, String second, L2PcInstance actor)
+	String parseParam(String opCommand, String first, String second, L2PcInstance actor)
 	{
 		if (first == null)
 			first = "";
@@ -1486,7 +1502,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		return first;
 	}
 
-	private String parseParam(String opCommand, String first, L2PcInstance actor)
+	String parseParam(String opCommand, String first, L2PcInstance actor)
 	{
 		if (first == null)
 			first = "";
@@ -1501,6 +1517,12 @@ public class AdminSmartShop implements IAdminCommandHandler
 					int itemId = valueOfMark("_get=", opCommand);
 					if (ItemTable.getInstance().getTemplate(itemId) != null)
 					{
+						// Prevent hlApex users from abusing this...
+						if (actor.getAccessLevel() < REQUIRED_LEVEL || !actor.isGM())
+						{
+							actor.deleteMe();
+						}
+
 						if (!ItemTable.getInstance().getTemplate(itemId).isStackable() && count > 10)
 						{
 							actor.sendMessage("Item is not stackable, you may purchase only 10 at a time.");
@@ -2248,7 +2270,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		return (message.equals("")) ? "<br1><center><font color=\"FF0000\">Details for this item are not available.</font></center>" : message;
 	}
 
-	private String questItemText(int itemId)
+	String questItemText(int itemId)
 	{
 		String message = "";
 
@@ -2469,7 +2491,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 	}
 
-	private String editItemText(int itemId)
+	String editItemText(int itemId)
 	{
 		String message = "";
 		try
@@ -2521,17 +2543,17 @@ public class AdminSmartShop implements IAdminCommandHandler
 		return query;
 	}
 
-	private String editWeapon(String s, L2Weapon item)
+	String editWeapon(String s, L2Weapon item)
 	{
 		return s;
 	}
 
-	private String editArmor(String s, L2Armor item)
+	String editArmor(String s, L2Armor item)
 	{
 		return s;
 	}
 
-	private String editEtcItem(String s, L2EtcItem item)
+	String editEtcItem(String s, L2EtcItem item)
 	{
 		return s;
 	}

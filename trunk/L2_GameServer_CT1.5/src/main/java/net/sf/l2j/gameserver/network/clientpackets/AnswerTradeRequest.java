@@ -28,10 +28,10 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.5.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class AnswerTradeRequest extends L2GameClientPacket
-{
-    private static final String _C__40_ANSWERTRADEREQUEST = "[C] 40 AnswerTradeRequest";
-
+public class AnswerTradeRequest extends L2GameClientPacket{
+	private static final String _C__40_ANSWERTRADEREQUEST = "[C] 40 AnswerTradeRequest";
+	//private final static Log _log = LogFactory.getLog(AnswerTradeRequest.class.getName());
+	
     private int _response;
     
     @Override
@@ -42,21 +42,21 @@ public class AnswerTradeRequest extends L2GameClientPacket
 
     @Override
     protected void runImpl()
-    {
-        L2PcInstance player = getClient().getActiveChar();
+	{
+		L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
 
-        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-            && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-            player.sendMessage("Transactions are not allowed during restart/shutdown.");
-            player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendMessage("Transactions are not allowed during restart/shutdown.");
+			player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
-
-        if (!player.getAccessLevel().allowTransaction())
+		
+        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
-            player.sendMessage("Transactions are disabled for your access level.");
+        	player.sendMessage("Transactions are disable for your Access Level");
             player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }

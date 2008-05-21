@@ -14,8 +14,7 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-import net.sf.l2j.gameserver.datatables.AccessLevel;
-import net.sf.l2j.gameserver.datatables.AccessLevels;
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -43,7 +42,7 @@ public class Die extends L2GameServerPacket
 	private int _charObjId;
 	private boolean _fallDown;
 	private boolean _sweepable;
-	private AccessLevel _access = AccessLevels._userAccessLevel;
+	private int _access;
 	private L2Character _activeChar;
 	private int _showVillage;
 	private int _showClanhall;
@@ -111,7 +110,7 @@ public class Die extends L2GameServerPacket
 		writeD(_showCastle);
 		writeD(_showFlag);
 		writeD(_sweepable ? 0x01 : 0x00);              // sweepable  (blue glow)
-		writeD(_access.allowFixedRes() ? 0x01: 0x00);
+		writeD(_access >= Config.GM_FIXED ? 0x01: 0x00); // 6d 04 00 00 00 - to FIXED
 		writeD(_showFortress);
 	}
 

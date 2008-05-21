@@ -37,7 +37,8 @@ import org.apache.commons.logging.LogFactory;
 public class Escape implements IUserCommandHandler
 {
 	static Log					_log		= LogFactory.getLog(Escape.class);
-	private static final int[]	COMMAND_IDS	= { 52 };
+	private static final int[]	COMMAND_IDS	=
+											{ 52 };
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
@@ -56,7 +57,7 @@ public class Escape implements IUserCommandHandler
 			return false;
 		}
 
-		int unstuckTimer = (activeChar.getAccessLevel().isGm() ? 5000 : Config.UNSTUCK_INTERVAL * 1000);
+		int unstuckTimer = (activeChar.getAccessLevel() >= Config.GM_ESCAPE ? 5000 : Config.UNSTUCK_INTERVAL * 1000);
 
 		// Check to see if the player is in a festival.
 		if (activeChar.isFestivalParticipant())
@@ -72,7 +73,7 @@ public class Escape implements IUserCommandHandler
 			return false;
 		}
 
-		if (activeChar.getAccessLevel().isGm())
+		if (activeChar.getAccessLevel() >= Config.GM_ESCAPE)
 		{
 			activeChar.sendMessage("You use Fast Escape: 5 seconds.");
 		}

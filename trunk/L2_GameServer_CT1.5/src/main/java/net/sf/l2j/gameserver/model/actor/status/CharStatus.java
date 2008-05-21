@@ -214,6 +214,14 @@ public class CharStatus
 		if (getActiveChar() instanceof L2NpcInstance)
 			getActiveChar().addAttackerToAttackByList(attacker);
 
+		// Additional prevention
+		// Check if player is GM and has sufficient rights to make damage
+		if (attackerPlayer != null)
+		{
+			if (attackerPlayer.isGM() && attackerPlayer.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+				return;
+		}
+
 		if (value > 0) // Reduce Hp if any
 		{
 			// add olympiad damage

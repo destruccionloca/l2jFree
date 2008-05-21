@@ -25,10 +25,15 @@ import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
 
 public class AdminPathNode implements IAdminCommandHandler
 {
-	private static final String[]	ADMIN_COMMANDS	= { "admin_pn_info", "admin_show_path", "admin_path_debug", "admin_show_pn", "admin_find_path", };
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_pn_info", "admin_show_path", "admin_path_debug", "admin_show_pn", "admin_find_path", };
+	private static final int		REQUIRED_LEVEL	= Config.GM_CREATE_NODES;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
 		//Config.NEW_NODE_ID
 		if (command.equals("admin_pn_info"))
 		{
@@ -80,5 +85,10 @@ public class AdminPathNode implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
+	}
+
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
 	}
 }

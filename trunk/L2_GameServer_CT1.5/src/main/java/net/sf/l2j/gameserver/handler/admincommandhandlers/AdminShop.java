@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2TradeList;
@@ -34,10 +35,16 @@ public class AdminShop implements IAdminCommandHandler
 {
 	private final static Log		_log			= LogFactory.getLog(AdminShop.class.getName());
 
-	private static final String[]	ADMIN_COMMANDS	= { "admin_buy", "admin_gmshop" };
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_buy", "admin_gmshop" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_CREATE_ITEM;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		if (command.startsWith("admin_buy"))
 		{
 			try
@@ -59,6 +66,11 @@ public class AdminShop implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
+	}
+
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
 	}
 
 	private void handleBuyRequest(L2PcInstance activeChar, String command)

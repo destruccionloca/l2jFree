@@ -24,6 +24,7 @@ import java.io.File;
 
 import javax.script.ScriptException;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -31,13 +32,22 @@ import net.sf.l2j.gameserver.scripting.L2ScriptEngineManager;
 
 public class AdminQuest implements IAdminCommandHandler
 {
-	private static final String[]	ADMIN_COMMANDS	= { "admin_quest_reload", "admin_script_load" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_TEST;
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_quest_reload", "admin_script_load" };
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IAdminCommandHandler#useAdminCommand(java.lang.String, net.sf.l2j.gameserver.model.L2PcInstance)
 	 */
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (activeChar == null)
+			return false;
+
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
+				return false;
+
 		if (command.startsWith("admin_quest_reload"))
 		{
 			String[] parts = command.split(" ");

@@ -85,12 +85,11 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         if (!(storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL || storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL)) return;
 
         TradeList storeList = storePlayer.getSellList();
-        if (storeList == null)
-            return;
-
-        if (!player.getAccessLevel().allowTransaction())
+        if (storeList == null) return;
+        
+        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
-            player.sendMessage("Transactions are disabled for your access level.");
+            player.sendMessage("Transactions are disable for your Access Level");
             player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }

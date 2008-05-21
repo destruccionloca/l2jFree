@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -52,11 +53,16 @@ public class AdminEnchant implements IAdminCommandHandler
 			"admin_setun",//0
 			"admin_setba",//13
 			"admin_enchant"						};
+	private static final int		REQUIRED_LEVEL	= Config.GM_ENCHANT;
 
 	private final static Log		_log			= LogFactory.getLog(AdminEnchant.class);
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		if (command.equals("admin_enchant"))
 		{
 			showMainPage(activeChar);
@@ -191,5 +197,10 @@ public class AdminEnchant implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
+	}
+
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
 	}
 }

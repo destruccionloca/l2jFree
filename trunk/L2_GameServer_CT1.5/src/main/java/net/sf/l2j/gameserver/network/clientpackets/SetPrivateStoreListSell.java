@@ -80,14 +80,14 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
         }
-
-        if (!player.getAccessLevel().allowTransaction())
+		
+        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
-            player.sendMessage("Transactions are disabled for your access level.");
+            player.sendMessage("Transactions are disable for your Access Level");
             player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
-
+        
         TradeList tradeList = player.getSellList();
         tradeList.clear();
         tradeList.setPackaged(_packageSale);

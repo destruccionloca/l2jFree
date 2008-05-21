@@ -26,10 +26,10 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.5.2.1.2.5 $ $Date: 2005/03/27 15:29:30 $
  */
-public class CharacterSelect extends L2GameClientPacket
+public class CharacterSelected extends L2GameClientPacket
 {
-	private static final String _C__0D_CHARACTERSELECT = "[C] 0D CharacterSelect";
-	private final static Log _log = LogFactory.getLog(CharacterSelect.class.getName());
+	private static final String _C__0D_CHARACTERSELECTED = "[C] 0D CharacterSelected";
+	private final static Log _log = LogFactory.getLog(CharacterSelected.class.getName());
 
 	// cd
 	private int _charSlot;
@@ -88,7 +88,7 @@ public class CharacterSelect extends L2GameClientPacket
 						_log.fatal("Character could not be loaded (slot:"+_charSlot+")");
 						return;
 					}
-					if (cha.getAccessLevel().getLevel() < 0)
+					if (cha.getAccessLevel() < 0)
 					{
 						cha.closeNetConnection();
 						return;
@@ -203,6 +203,6 @@ public class CharacterSelect extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__0D_CHARACTERSELECT;
+		return _C__0D_CHARACTERSELECTED;
 	}	
 }

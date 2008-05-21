@@ -451,7 +451,7 @@ public class L2DoorInstance extends L2Character
     @Override
     public void onActionShift(L2PcInstance player) 
     {
-        if (player.getAccessLevel().isGm())
+        if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
         {
             player.setTarget(this);
             MyTargetSelected my = new MyTargetSelected(getObjectId(), player

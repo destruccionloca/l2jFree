@@ -1044,97 +1044,97 @@ public abstract class L2Character extends L2Object
 			return;
 		}
 
-		// BOW and CROSSBOW checks
-		if (weaponItem != null && !transformed)
+		// Check for a bow
+		if (weaponItem != null && weaponItem.getItemType() == L2WeaponType.BOW && !transformed)
 		{
-			if (weaponItem.getItemType() == L2WeaponType.BOW)
+			// Check for arrows and MP
+			if (this instanceof L2PcInstance)
 			{
-				//Check for arrows and MP
-				if (this instanceof L2PcInstance)
+				// Verify if the bow can be use
+				if (_disableBowAttackEndTime <= GameTimeController.getGameTicks())
 				{
-					// Verify if the bow can be use
-					if (_disableBowAttackEndTime <= GameTimeController.getGameTicks())
-					{
-						// Verify if L2PcInstance owns enough MP
-						int saMpConsume = (int)getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
-						int mpConsume = saMpConsume == 0 ? weaponItem.getMpConsume() : saMpConsume;
+					// Verify if L2PcInstance owns enough MP
+					int saMpConsume = (int) getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
+					int mpConsume = saMpConsume == 0 ? weaponItem.getMpConsume() : saMpConsume;
 
-						if (getStatus().getCurrentMp() < mpConsume)
-						{
-							// If L2PcInstance doesn't have enough MP, stop the attack
-							ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), 1000);
-							sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
-							sendPacket(ActionFailed.STATIC_PACKET);
-							return;
-						}
-						// If L2PcInstance have enough MP, the bow consumes it
-						getStatus().reduceMp(mpConsume);
-
-						// Set the period of bow no re-use
-						_disableBowAttackEndTime = 5 * GameTimeController.TICKS_PER_SECOND + GameTimeController.getGameTicks();
-					}
-					else
+					if (getStatus().getCurrentMp() < mpConsume)
 					{
-						// Cancel the action because the bow can't be re-use at this moment
+						// If L2PcInstance doesn't have enough MP, stop the attack
+
 						ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), 1000);
 
+						sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
 						sendPacket(ActionFailed.STATIC_PACKET);
 						return;
 					}
-					// Equip arrows needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
-					if (!checkAndEquipArrows())
-					{
-						// Cancel the action because the L2PcInstance have no arrow
-						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-						sendPacket(ActionFailed.STATIC_PACKET);
-						sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ARROWS));
-						return;
-					}
+					// If L2PcInstance have enough MP, the bow consummes it
+					getStatus().reduceMp(mpConsume);
+
+					// Set the period of bow non re-use
+					_disableBowAttackEndTime = 5 * GameTimeController.TICKS_PER_SECOND + GameTimeController.getGameTicks();
+				}
+				else
+				{
+					// Cancel the action because the bow can't be re-use at this moment
+					ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), 1000);
+
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return;
+				}
+
+				// Equip arrows needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
+				if (!checkAndEquipArrows())
+				{
+					// Cancel the action because the L2PcInstance have no arrow
+					getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+
+					sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ARROWS));
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return;
 				}
 			}
-			if (weaponItem.getItemType() == L2WeaponType.CROSSBOW)
+			else if (this instanceof L2NpcInstance)
 			{
-				//Check for bolts
-				if (this instanceof L2PcInstance)
+				if (_disableBowAttackEndTime > GameTimeController.getGameTicks())
+					return;
+			}
+		}
+		// Check for a crossbow
+		if (weaponItem != null && weaponItem.getItemType() == L2WeaponType.CROSSBOW && !transformed)
+		{
+			//Check for bolts
+			if (this instanceof L2PcInstance)
+			{
+				// Verify if the crossbow can be use
+				if (_disableCrossBowAttackEndTime <= GameTimeController.getGameTicks())
 				{
-					// Checking if target has moved to peace zone - only for player-crossbow attacks at the moment
-					// Other melee is checked in movement code and for offensive spells a check is done every time
-					if (target.isInsidePeaceZone((L2PcInstance)this))
-					{
-						getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-						sendPacket(ActionFailed.STATIC_PACKET);
-						return;
-					}
-
-					// Verify if the crossbow can be use
-					if (_disableCrossBowAttackEndTime <= GameTimeController.getGameTicks())
-					{
-						// Set the period of crossbow no re-use
-						_disableCrossBowAttackEndTime = 5 * GameTimeController.TICKS_PER_SECOND + GameTimeController.getGameTicks();
-					}
-					else
-					{
-						// Cancel the action because the crossbow can't be re-use at this moment
-						ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), 1000);
-						sendPacket(ActionFailed.STATIC_PACKET);
-						return;
-					}
-
-					// Equip bolts needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
-					if (!checkAndEquipBolts())
-					{
-						// Cancel the action because the L2PcInstance have no arrow
-						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-						sendPacket(ActionFailed.STATIC_PACKET);
-						sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_BOLTS));
-						return;
-					}
+					// Set the period of bow non re-use
+					_disableCrossBowAttackEndTime = 5 * GameTimeController.TICKS_PER_SECOND + GameTimeController.getGameTicks();
 				}
-				else if (this instanceof L2NpcInstance)
+				else
 				{
-					if (_disableCrossBowAttackEndTime > GameTimeController.getGameTicks())
-						return;
+					// Cancel the action because the crossbow can't be re-use at this moment
+					ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), 1000);
+
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return;
 				}
+
+				// Equip bolts needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
+				if (!checkAndEquipBolts())
+				{
+					// Cancel the action because the L2PcInstance have no arrow
+					getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+
+					sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_BOLTS));
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return;
+				}
+			}
+			else if (this instanceof L2NpcInstance)
+			{
+				if (_disableCrossBowAttackEndTime > GameTimeController.getGameTicks())
+					return;
 			}
 		}
 
@@ -1183,13 +1183,13 @@ public abstract class L2Character extends L2Object
 		// Create a Server->Client packet Attack
 		Attack attack = new Attack(this, wasSSCharged, ssGrade);
 
+		boolean hitted;
+
 		// Set the Attacking Body part to CHEST
 		setAttackingBodypart();
 		// Make sure that char is facing selected target
 		// also works: setHeading(Util.convertDegreeToClientHeading(Util.calculateAngleFrom(this, target)));
 		setHeading(Util.calculateHeadingFrom(this, target));
-
-		boolean hitted;
 
 		// Select the type of attack to start
 		if (weaponItem == null || transformed)
@@ -1270,7 +1270,7 @@ public abstract class L2Character extends L2Object
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
 	 * <li>Calculate if hit is missed or not </li>
-	 * <li>Consume arrows </li>
+	 * <li>Consumme arrows </li>
 	 * <li>If hit isn't missed, calculate if shield defense is efficient </li>
 	 * <li>If hit isn't missed, calculate if hit is critical </li>
 	 * <li>If hit isn't missed, calculate physical damages </li>
@@ -1300,7 +1300,7 @@ public abstract class L2Character extends L2Object
 		if (miss1)
 			sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET)); // msg miss the target
 
-		// Consume arrows
+		// Consumme arrows
 		reduceArrowCount(false);
 
 		_move = null;
@@ -1347,7 +1347,7 @@ public abstract class L2Character extends L2Object
 	*
 	* <B><U> Actions</U> :</B><BR><BR>
 	* <li>Calculate if hit is missed or not </li>
-	* <li>Consume bolts </li>
+	* <li>Consumme bolts </li>
 	* <li>If hit isn't missed, calculate if shield defense is efficient </li>
 	* <li>If hit isn't missed, calculate if hit is critical </li>
 	* <li>If hit isn't missed, calculate physical damages </li>
@@ -1372,7 +1372,7 @@ public abstract class L2Character extends L2Object
 		// Calculate if hit is missed or not
 		boolean miss1 = Formulas.getInstance().calcHitMiss(this, target);
 
-		// Consume bows
+		// Consumme bows
 		reduceArrowCount(true);
 
 		_move = null;
@@ -1498,9 +1498,9 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Get all visible objects in a spherical area near the L2Character to obtain possible targets </li>
+	 * <li>Get all visible objects in a spheric area near the L2Character to obtain possible targets </li>
 	 * <li>If possible target is the L2Character targeted, launch a simple attack against it </li>
-	 * <li>If possible target isn't the L2Character targeted but is attackable, launch a simple attack against it </li>
+	 * <li>If possible target isn't the L2Character targeted but is attakable, launch a simple attack against it </li>
 	 * <BR>
 	 * <BR>
 	 *
@@ -1753,31 +1753,24 @@ public abstract class L2Character extends L2Object
 		}
 		}
 
-		if(!skill.isPotion())
+		// Check if the skill is a magic spell and if the L2Character is not muted
+		if (skill.isMagic() && isMuted() && !skill.isPotion())
 		{
-			// Check if the skill is a magic spell and if the L2Character is not muted
-			if (skill.isMagic())
-			{
-				if(isMuted())
-				{
-					getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
-					return;
-				}
-			}
-			else
-			{
-				// Check if the skill is physical and if the L2Character is not physical_muted
-				if (isPhysicalMuted())
-				{
-					getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
-					return;
-				} 
-				else if (isPhysicalAttackMuted()) // Prevent use attack
-				{
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return;
-				} 
-			}
+			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+			return;
+		}
+		// Check if the skill is physical and if the L2Character is not physicalMuted
+		if (!skill.isMagic() && isPhysicalMuted() && !skill.isPotion())
+		{
+			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+			return;
+		}
+
+		// Prevent use attack
+		if (isPhysicalAttackMuted() && !skill.isMagic() && !skill.isPotion())
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
 		}
 
 		// prevent casting signets to peace zone
@@ -6352,7 +6345,7 @@ public abstract class L2Character extends L2Object
 			}
 		}
 
-		if (!target.isAttackable() && !player.getAccessLevel().allowPeaceAttack())
+		if (!target.isAttackable() && (player.getAccessLevel() < Config.GM_PEACEATTACK))
 		{
 			// If target is not attackable, send a Server->Client packet ActionFailed
 			player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -6400,7 +6393,7 @@ public abstract class L2Character extends L2Object
 
 	public static boolean isInsidePeaceZone(L2PcInstance attacker, L2Object target)
 	{
-		return (!attacker.getAccessLevel().allowPeaceAttack() && isInsidePeaceZone((L2Object) attacker, target));
+		return ((attacker.getAccessLevel() < Config.GM_PEACEATTACK) && isInsidePeaceZone((L2Object) attacker, target));
 	}
 
 	public static boolean isInsidePeaceZone(L2Object attacker, L2Object target)

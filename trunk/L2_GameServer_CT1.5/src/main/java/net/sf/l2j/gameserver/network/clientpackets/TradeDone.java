@@ -83,7 +83,8 @@ public class TradeDone extends L2GameClientPacket
 			if (trade.getOwner().getActiveEnchantItem() != null || trade.getPartner().getActiveEnchantItem() != null)
 				return;
 
-			if (!player.getAccessLevel().allowTransaction())
+			if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
+				&& player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 			{
 				player.sendMessage("Transactions are disabled for your access level.");
 				player.cancelActiveTrade();

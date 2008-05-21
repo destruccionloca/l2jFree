@@ -30,7 +30,7 @@ public class GMAudit
 
     public static void auditGMAction(L2PcInstance gm, String type, String action, String param)
     {
-        if (Config.GM_AUDIT)
+        if (Config.GM_AUDIT && Config.ALT_PRIVILEGES_ADMIN)
         {
             String gm_name = gm.getAccountName() + " - " + gm.getName();
             String target;
@@ -75,7 +75,7 @@ public class GMAudit
 
     public static void auditGMAction(String gm_name, String target, String type, String action)
     {
-        if (Config.GM_AUDIT)
+        if (Config.GM_AUDIT && Config.ALT_PRIVILEGES_ADMIN)
         {
             Connection con = null;
             PreparedStatement statement = null;

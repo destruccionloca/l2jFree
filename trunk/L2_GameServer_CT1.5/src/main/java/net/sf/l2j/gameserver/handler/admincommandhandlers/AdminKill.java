@@ -42,10 +42,21 @@ import org.apache.commons.logging.LogFactory;
 public class AdminKill implements IAdminCommandHandler
 {
 	private final static Log		_log			= LogFactory.getLog(AdminKill.class);
-	private static final String[]	ADMIN_COMMANDS	= { "admin_kill", "admin_kill_monster" };
+	private static final String[]	ADMIN_COMMANDS	=
+													{ "admin_kill", "admin_kill_monster" };
+	private static final int		REQUIRED_LEVEL	= Config.GM_NPC_EDIT;
+
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
+	}
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		if (command.startsWith("admin_kill"))
 		{
 			StringTokenizer st = new StringTokenizer(command, " ");

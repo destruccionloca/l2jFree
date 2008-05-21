@@ -64,8 +64,13 @@ public class AdminTvTEngine implements IAdminCommandHandler
 			"admin_tvt_maxplayers",
 			"admin_tvtkick"						};
 
+	private static final int		REQUIRED_LEVEL	= 100;
+
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+			return false;
+
 		if (command.equals("admin_tvt"))
 			showMainPage(activeChar);
 		else if (command.startsWith("admin_tvt_name "))
@@ -247,6 +252,11 @@ public class AdminTvTEngine implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
+	}
+
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
 	}
 
 	public void showMainPage(L2PcInstance activeChar)

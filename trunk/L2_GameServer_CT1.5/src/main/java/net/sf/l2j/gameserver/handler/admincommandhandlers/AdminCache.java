@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminCache implements IAdminCommandHandler
 {
+	private static final int		REQUIRED_LEVEL	= Config.GM_CACHE;
 	private static final String[]	ADMIN_COMMANDS	=
 													{
 			"admin_cache_htm_rebuild",
@@ -44,6 +45,10 @@ public class AdminCache implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		if (command.startsWith("admin_cache_htm_rebuild") || command.equals("admin_cache_htm_reload"))
 		{
 			HtmCache.getInstance().reload(Config.DATAPACK_ROOT);
@@ -96,5 +101,10 @@ public class AdminCache implements IAdminCommandHandler
 		}
 
 		return true;
+	}
+
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
 	}
 }

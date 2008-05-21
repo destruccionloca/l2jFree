@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
  */
 
 import javolution.text.TextBuilder;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.events.VIP;
@@ -47,8 +46,13 @@ public class AdminVIPEngine implements IAdminCommandHandler
 			"admin_vip_notvipreward",
 			"admin_vip_notviprewardamount",		};
 
+	private static final int		REQUIRED_LEVEL	= 100;
+
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+			return false;
+
 		if (command.equals("admin_vip"))
 			showMainPage(activeChar);
 
@@ -366,6 +370,11 @@ public class AdminVIPEngine implements IAdminCommandHandler
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
+	}
+
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
 	}
 
 	public void showMainPage(L2PcInstance activeChar)

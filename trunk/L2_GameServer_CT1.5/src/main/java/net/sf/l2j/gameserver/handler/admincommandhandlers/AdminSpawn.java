@@ -132,8 +132,15 @@ public class AdminSpawn implements IAdminCommandHandler
 
 	public static Log				_log			= LogFactory.getLog(AdminSpawn.class.getName());
 
+	private static final int		REQUIRED_LEVEL	= Config.GM_NPC_EDIT;
+	private static final int		REQUIRED_LEVEL2	= Config.GM_NPC_VIEW;
+
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+
 		StringTokenizer st = new StringTokenizer(command, " ");
 
 		String cmd = st.nextToken(); // get command
@@ -377,6 +384,16 @@ public class AdminSpawn implements IAdminCommandHandler
 		return _adminCommandsOnly;
 	}
 
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
+	}
+
+	private boolean checkLevel2(int level)
+	{
+		return (level >= REQUIRED_LEVEL2);
+	}
+
 	/**
 	 * Spawn NPC. 
 	 * @param npcId id of NPC Template
@@ -390,6 +407,9 @@ public class AdminSpawn implements IAdminCommandHandler
 		L2Object target = activeChar.getTarget();
 		if (target == null)
 			target = activeChar;
+
+		if (!checkLevel(activeChar.getAccessLevel()))
+			return;
 
 		L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
 
@@ -493,6 +513,9 @@ public class AdminSpawn implements IAdminCommandHandler
 	 */
 	private void showNpcs(L2PcInstance activeChar, String mode, String string, int page)
 	{
+		if (!checkLevel2(activeChar.getAccessLevel()))
+			return;
+
 		int level = 0;
 
 		try
@@ -621,6 +644,9 @@ public class AdminSpawn implements IAdminCommandHandler
 	 */
 	private void showSpawns(L2PcInstance activeChar, int npcId, int page, boolean html)
 	{
+		if (!checkLevel2(activeChar.getAccessLevel()))
+			return;
+
 		FastList<L2Spawn> list = new FastList<L2Spawn>();
 
 		for (L2Spawn spawn : SpawnTable.getInstance().getAllTemplates().values())
