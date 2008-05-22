@@ -81,7 +81,8 @@
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
   <for>
     <effect name="Buff" time="1200" count="1" val="0" stackOrder="#mCrit" stackType="mCrit">
-      <mul order="0x30" stat="mCritRate" val="#mCrit"/>
+      <mul order="0x30" stat="mCritRate" val="#mCrit"/> 
+	  <!-- Magic critical rate has been reduced for 30% on CT2 - SAME FOR ITEM SKILL! IN fact, static values are around 1.7 and 2.5 (2.3 (?)) and 3 for enchanted-->
     </effect>
   </for>
   <enchant1for>

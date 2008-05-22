@@ -1657,7 +1657,7 @@
   <set name="aggroPoints" val="669"/>
   <for>
     <effect name="Buff" time="120" count="1" val="0">
-      <mul order="0x30" stat="mCritRate" val="3"/>
+      <mul order="0x30" stat="mCritRate" val="3"/> <!-- val="2" for CT2 - will be confirmed on LIVE release -->
     </effect>
   </for>
 </skill>
