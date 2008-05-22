@@ -21,6 +21,7 @@ import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
@@ -84,13 +85,16 @@ public class RequestDropItem extends L2GameClientPacket
             return;
         }
         
-        L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_objectId);
+        L2ItemInstance item = activeChar.checkItemManipulation(_objectId, _count, "Drop");
         
-        if (item == null 
-                || _count == 0 
-                || !activeChar.validateItemManipulation(_objectId, "drop") 
-                || (!Config.ALLOW_DISCARDITEM && !activeChar.isGM()) 
-                || (!item.isDropable() && !activeChar.isGM()))
+        if (item == null) 
+        {
+            _log.warn("Error while droping item for char "+activeChar.getName()+" (validity check).");
+            activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+           return;
+        }
+        
+        if ((!Config.ALLOW_DISCARDITEM && !activeChar.isGM()) || (!item.isDropable() && !activeChar.isGM()))
         {
             activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
             return;
