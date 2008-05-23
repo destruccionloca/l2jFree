@@ -14,6 +14,8 @@
  */
 package net.sf.l2j.gameserver.communitybbs.Manager;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,6 +29,8 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameServer;
+import net.sf.l2j.gameserver.GameTimeController;
+import net.sf.l2j.gameserver.datatables.RecordTable;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -361,6 +365,10 @@ public class RegionBBSManager extends BaseBBSManager
 		{
 			FastMap<String, String> communityPage = new FastMap<String, String>();
 			TextBuilder htmlCode = new TextBuilder("<html><body><br>");
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat format = new SimpleDateFormat("H:mm");
+			int t = GameTimeController.getInstance().getGameTime();
+
 			String tdClose = "</td>";
 			String tdOpen = "<td align=left valign=top>";
 			String trClose = "</tr>";
@@ -368,11 +376,11 @@ public class RegionBBSManager extends BaseBBSManager
 			String colSpacer = "<td FIXWIDTH=15></td>";
 
 			htmlCode.append("<table>");
-
-			htmlCode.append(trOpen);
+			htmlCode.append(trOpen + tdOpen + "Server Time: " + format.format(cal.getTime()) + tdClose + colSpacer);
+			cal.set(Calendar.HOUR_OF_DAY, t / 60);
+			cal.set(Calendar.MINUTE, t % 60);
+			htmlCode.append(tdOpen + "Game Time: " + format.format(cal.getTime()) + tdClose + colSpacer);
 			htmlCode.append(tdOpen + "Server Restarted: " + GameServer.dateTimeServerStarted.getTime() + tdClose + trClose);
-			htmlCode.append(trClose);
-
 			htmlCode.append("</table>");
 
 			htmlCode.append("<table>");
@@ -408,6 +416,9 @@ public class RegionBBSManager extends BaseBBSManager
 			htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
 			htmlCode.append(trClose);
 
+			htmlCode.append(trOpen + tdOpen + " Record of Player(s) Online:" + RecordTable.getInstance().getMaxPlayer() + tdClose + trClose);
+			htmlCode.append(trOpen + tdOpen + " On date : " + RecordTable.getInstance().getDateMaxPlayer() + tdClose + trClose);
+
 			htmlCode.append(trOpen);
 			htmlCode.append(tdOpen + L2World.getInstance().getAllVisibleObjectsCount() + " Object count</td>");
 			htmlCode.append(trClose);
@@ -415,9 +426,13 @@ public class RegionBBSManager extends BaseBBSManager
 			htmlCode.append(trOpen);
 			htmlCode.append(tdOpen + getOnlineCount("gm") + " Player(s) Online</td>");
 			htmlCode.append(trClose);
-            if (Config.SHOW_LEGEND)
-                htmlCode.append(trOpen + tdOpen + "<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>" + tdClose + trClose);
-			
+			if (Config.SHOW_LEGEND)
+				htmlCode
+						.append(trOpen
+								+ tdOpen
+								+ "<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>"
+								+ tdClose + trClose);
+
 			htmlCode.append("</table>");
 
 			int cell = 0;
@@ -437,9 +452,9 @@ public class RegionBBSManager extends BaseBBSManager
 
 					if (player.isGM())
 						htmlCode.append("<font color=\"LEVEL\">" + player.getName() + "</font>");
-                else if (player.getClan() != null && player.isClanLeader() && Config.SHOW_CLAN_LEADER
-                        && player.getClan().getLevel() >= Config.SHOW_CLAN_LEADER_CLAN_LEVEL)
-                    htmlCode.append("<font color=\"00FF00\">" + player.getName() + "</font>");					
+					else if (player.getClan() != null && player.isClanLeader() && Config.SHOW_CLAN_LEADER
+							&& player.getClan().getLevel() >= Config.SHOW_CLAN_LEADER_CLAN_LEVEL)
+						htmlCode.append("<font color=\"00FF00\">" + player.getName() + "</font>");
 					else if (player.isCursedWeaponEquipped() && Config.SHOW_CURSED_WEAPON_OWNER)
 						htmlCode.append("<font color=\"FF0000\">" + player.getName() + "</font>");
 					else if (player.getKarma() > 0 && Config.SHOW_KARMA_PLAYERS)
@@ -543,8 +558,12 @@ public class RegionBBSManager extends BaseBBSManager
 			htmlCode.append(trOpen);
 			htmlCode.append(tdOpen + getOnlineCount("pl") + " Player(s) Online</td>");
 			htmlCode.append(trClose);
-            if (Config.SHOW_LEGEND)
-                htmlCode.append(trOpen + tdOpen + "<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>" + tdClose + trClose);
+			if (Config.SHOW_LEGEND)
+				htmlCode
+						.append(trOpen
+								+ tdOpen
+								+ "<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>"
+								+ tdClose + trClose);
 
 			htmlCode.append("</table>");
 
