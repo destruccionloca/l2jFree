@@ -1875,6 +1875,8 @@ public final class Config
 	public static int			SIEGE_FLAG_MAX_COUNT;
 	public static int			SIEGE_CLAN_MIN_LEVEL;
 	public static int			SIEGE_LENGTH_MINUTES;
+	
+	public static boolean		SIEGE_ONLY_REGISTERED;
 
 	public static void loadSiegeConfig()
 	{
@@ -1895,6 +1897,8 @@ public final class Config
 			SIEGE_FLAG_MAX_COUNT = Integer.parseInt(siegeSettings.getProperty("MaxFlags", "1"));
 			SIEGE_CLAN_MIN_LEVEL = Integer.parseInt(siegeSettings.getProperty("SiegeClanMinLevel", "5"));
 			SIEGE_LENGTH_MINUTES = Integer.parseInt(siegeSettings.getProperty("SiegeLength", "120"));
+			
+			SIEGE_ONLY_REGISTERED = Boolean.parseBoolean(siegeSettings.getProperty("OnlyRegistered", "true"));
 		}
 		catch (Exception e)
 		{

@@ -86,6 +86,7 @@ import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
 import net.sf.l2j.gameserver.instancemanager.lastimperialtomb.LastImperialTombManager;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.CursedWeapon;
+import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.ForceBuff;
 import net.sf.l2j.gameserver.model.Inventory;
@@ -3408,6 +3409,70 @@ public final class L2PcInstance extends L2PlayableInstance
 		_currentSkillWorldPosition = worldPosition;
 	}
 
+	private boolean canBeTargetedByAtSiege(L2PcInstance player)
+	{
+		Siege siege = SiegeManager.getInstance().getSiege(this);
+		if (siege != null && siege.getIsInProgress())
+		{
+			L2Clan selfClan = getClan();
+			L2Clan oppClan = player.getClan();
+			if (selfClan != null && oppClan != null)
+			{
+				boolean self = false;
+				for (L2SiegeClan clan : siege.getAttackerClans())
+				{
+					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
+					
+					if (cl == selfClan || cl.getAllyId() == getAllyId())
+					{
+						self = true;
+						break;
+					}
+				}
+				
+				for (L2SiegeClan clan : siege.getDefenderClans())
+				{
+					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
+					
+					if (cl == selfClan || cl.getAllyId() == getAllyId())
+					{
+						self = true;
+						break;
+					}
+				}
+				
+				boolean opp = false;
+				for (L2SiegeClan clan : siege.getAttackerClans())
+				{
+					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
+					
+					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
+					{
+						opp = true;
+						break;
+					}
+				}
+				
+				for (L2SiegeClan clan : siege.getDefenderClans())
+				{
+					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
+					
+					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
+					{
+						opp = true;
+						break;
+					}
+				}
+				
+				return self && opp;
+			}
+			
+			return false;
+		}
+		
+		return true;
+	}
+	
 	/**
 	 * Manage actions when a player click on this L2PcInstance.<BR><BR>
 	 *
@@ -3440,6 +3505,16 @@ public final class L2PcInstance extends L2PlayableInstance
 			return;
 		}
 
+		if(Config.SIEGE_ONLY_REGISTERED)
+		{
+			if (!canBeTargetedByAtSiege(player))
+			{
+				player.sendMessage("Player interaction disabled during sieges.");
+				player.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+		}
+		
 		if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE))
 		{
 			if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
