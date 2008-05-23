@@ -132,8 +132,8 @@ public class GameServer
 	private static Status						_statusServer;
 	public static final Calendar				dateTimeServerStarted	= Calendar.getInstance();
 	private LoginServerThread					_loginThread;
-	private static final Version version = new Version();
-	
+	private static final Version				version					= new Version();
+
 	public GameServer() throws Throwable
 	{
 		Config.load();
@@ -159,7 +159,7 @@ public class GameServer
 			GeoData.getInstance();
 			if (_log.isDebugEnabled())
 				_log.debug("GeoData initialized");
-			
+
 			if (Config.GEO_PATH_FINDING)
 			{
 				GeoPathFinding.getInstance();
@@ -260,7 +260,7 @@ public class GameServer
 		try
 		{
 			_log.info("Loading Server Scripts");
-			File scripts = new File(Config.DATAPACK_ROOT.getAbsolutePath(),"data/scripts.cfg");
+			File scripts = new File(Config.DATAPACK_ROOT.getAbsolutePath(), "data/scripts.cfg");
 			L2ScriptEngineManager.getInstance().executeScriptList(scripts);
 		}
 		catch (IOException ioe)
@@ -273,7 +273,7 @@ public class GameServer
 
 		EventDroplist.getInstance();
 		FaenorScriptEngine.getInstance();
-		
+
 		Util.printSection("Extensions");
 		if (Config.FACTION_ENABLED)
 		{
@@ -289,7 +289,7 @@ public class GameServer
 		{
 			_log.warn("DynamicExtension could not be loaded and initialized", ex);
 		}
-		
+
 		Util.printSection("Handlers");
 		ItemHandler.getInstance();
 		SkillHandler.getInstance();
@@ -297,7 +297,7 @@ public class GameServer
 		UserCommandHandler.getInstance();
 		VoicedCommandHandler.getInstance();
 		ChatHandler.getInstance();
-		
+
 		Util.printSection("Misc");
 		TaskManager.getInstance();
 		GmListTable.getInstance();
@@ -306,26 +306,26 @@ public class GameServer
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
 			OnlinePlayers.getInstance();
 		FloodProtector.getInstance();
-        ForumsBBSManager.getInstance();
+		ForumsBBSManager.getInstance();
 		KnownListUpdateTaskManager.getInstance();
-		
+
 		_shutdownHandler = Shutdown.getInstance();
 		Runtime.getRuntime().addShutdownHook(_shutdownHandler);
-		
+
 		System.gc();
-		
+
 		Util.printSection("ServerThreads");
 		_loginThread = LoginServerThread.getInstance();
 		_loginThread.start();
-		
+
 		L2GamePacketHandler gph = new L2GamePacketHandler();
 		SelectorConfig<L2GameClient> sc = new SelectorConfig<L2GameClient>(null, null, gph, gph);
 		sc.setMaxSendPerPass(12);
 		sc.setSelectorSleepTime(20);
 		_selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, null);
 		_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
-		_selectorThread.start(); 
-		
+		_selectorThread.start();
+
 		if (Config.IRC_ENABLED)
 			IrcManager.getInstance().getConnection().sendChan("GameServer Started");
 		if (Config.IS_TELNET_ENABLED)
@@ -335,19 +335,19 @@ public class GameServer
 		}
 		else
 			_log.info("Telnet server is currently disabled.");
-		
+
 		if (Config.ACCEPT_GEOEDITOR_CONN)
 			GeoEditorListener.getInstance();
-		
+
 		Util.printSection("l2jfree");
 		version.loadInformation(GameServer.class);
-        _log.info("Revision: "+version.getRevisionNumber());
-        //_log.info("Build date: "+version.getBuildDate());
-        _log.info("Compiler version: "+version.getBuildJdk());
+		_log.info("Revision: " + version.getRevisionNumber());
+		//_log.info("Build date: "+version.getBuildDate());
+		_log.info("Compiler version: " + version.getBuildJdk());
 
 		printMemUsage();
 		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
-		
+
 		Util.printSection("GameServerLog");
 		if (Config.ENABLE_JYTHON_SHELL)
 		{
@@ -355,29 +355,29 @@ public class GameServer
 			Util.JythonShell();
 		}
 	}
-	
+
 	public static String getVersionNumber()
 	{
 		return version.getRevisionNumber();
 	}
-	
+
 	public static void printMemUsage()
 	{
 		Util.printSection("Memory");
 		for (String line : Util.getMemUsage())
 			_log.info(line);
 	}
-	
+
 	public SelectorThread<L2GameClient> getSelectorThread()
 	{
 		return _selectorThread;
 	}
-	
+
 	public long getUsedMemoryMB()
 	{
 		return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576; // 1024 * 1024 = 1048576
 	}
-	
+
 	public static void main(String[] args) throws Throwable
 	{
 		System.setProperty("python.home", ".");

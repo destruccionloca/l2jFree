@@ -1,5 +1,3 @@
-REM Hibernate and associated jars
-
 SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.0.8.jar
 
 REM jython
@@ -40,3 +38,6 @@ SET CLASSPATH=%CLASSPATH%;irclib-1.10.jar
 REM for configuration
 SET CLASSPATH=%CLASSPATH%;./config/
 SET CLASSPATH=%CLASSPATH%;.
+
+REM the core itself
+SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.0.1.jar

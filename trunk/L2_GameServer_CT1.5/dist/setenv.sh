@@ -42,4 +42,7 @@ CLASSPATH=${CLASSPATH}:irclib-1.10.jar
 CLASSPATH=${CLASSPATH}:./config/
 CLASSPATH=${CLASSPATH}:.
 
+# the core itself
+CLASSPATH=${CLASSPATH}:l2jfree-core-1.0.1.jar
+
 export CLASSPATH
