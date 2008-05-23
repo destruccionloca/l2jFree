@@ -131,6 +131,8 @@ import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.knownlist.PcKnownList;
+import com.l2jfree.gameserver.model.actor.reference.ClearableReference;
+import com.l2jfree.gameserver.model.actor.reference.ImmutableReference;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.status.PcStatus;
 import com.l2jfree.gameserver.model.base.ClassId;
@@ -223,6 +225,7 @@ import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.effects.EffectForce;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
+//import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.templates.L2Armor;
 import com.l2jfree.gameserver.templates.L2ArmorType;
 import com.l2jfree.gameserver.templates.L2EtcItemType;
@@ -11152,6 +11155,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		// Remove L2Object object from _allObjects of L2World
 		L2World.getInstance().removeObject(this);
+		
+		//getClearableReference().clear();
+		//LeakTaskManager.getInstance().add(getImmutableReference());
 	}
 
 	private FishData	_fish;
@@ -12603,5 +12609,24 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setOlympiadOpponentId(int value)
 	{
 		_olympiadOpponentId = value;
+	}
+	
+	private ImmutableReference<L2PcInstance> _immutableReference;
+	private ClearableReference<L2PcInstance> _clearableReference;
+	
+	public ImmutableReference<L2PcInstance> getImmutableReference()
+	{
+		if (_immutableReference == null)
+			_immutableReference = new ImmutableReference<L2PcInstance>(this); 
+		
+		return _immutableReference;
+	}
+	
+	public ClearableReference<L2PcInstance> getClearableReference()
+	{
+		if (_clearableReference == null)
+			_clearableReference = new ClearableReference<L2PcInstance>(this);
+		
+		return _clearableReference;
 	}
 }
