@@ -1,9 +1,9 @@
 # Lets Become A Royal Member ver. 0.1 by DrLecter
 import sys
-from com.l2jfree import Config
-from com.l2jfree.gameserver.model.quest import State
-from com.l2jfree.gameserver.model.quest import QuestState
-from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from net.sf.l2j import Config
+from net.sf.l2j.gameserver.model.quest import State
+from net.sf.l2j.gameserver.model.quest import QuestState
+from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
 QuestNumber      = 381
 QuestName        = "LetsBecomeARoyalMember"

@@ -24,9 +24,9 @@ Items       = [
 ### ---------------------------------------------------------------------------
 
 import sys
-from com.l2jfree.gameserver.model.quest import State
-from com.l2jfree.gameserver.model.quest import QuestState
-from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from net.sf.l2j.gameserver.model.quest import State
+from net.sf.l2j.gameserver.model.quest import QuestState
+from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
 ### doRequestedEvent
 def do_RequestedEvent(event, st, giveItem1Id, giveItem1Qty, giveItem2Id, giveItem2Qty, giveItem3Id, giveItem3Qty, giveItem4Id, giveItem4Qty, takeItem1Id, takeItem1Qty, takeItem2Id, takeItem2Qty, takeItem3Id, takeItem3Qty, takeItem4Id, takeItem4Qty, takeItem5Id, takeItem5Qty, takeItem6Id, takeItem6Qty, takeItem7Id, takeItem7Qty, takeItem8Id, takeItem8Qty, takeItem9Id, takeItem9Qty) :

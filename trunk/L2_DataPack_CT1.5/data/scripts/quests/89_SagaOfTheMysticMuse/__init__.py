@@ -1,7 +1,7 @@
 # Made by Emperorc
 import sys
-from com.l2jfree.gameserver.model.quest import State
-from com.l2jfree.gameserver.model.quest import QuestState
+from net.sf.l2j.gameserver.model.quest import State
+from net.sf.l2j.gameserver.model.quest import QuestState
 from quests.SagasSuperclass import Quest as JQuest
 
 qn = "89_SagaOfTheMysticMuse"
