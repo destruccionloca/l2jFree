@@ -6859,7 +6859,7 @@ public abstract class L2Character extends L2Object
 						}
 						else
 						{
-							if (((L2Character) element).isInsidePeaceZone(this, element))
+							if (L2Character.isInsidePeaceZone(this, element))
 								continue;
 						}
 					}

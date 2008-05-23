@@ -238,7 +238,7 @@ public class L2Clan
 		exLeader.broadcastUserInfo();
 		L2PcInstance newLeader = member.getPlayerInstance();
 		newLeader.setClan(this);
-		newLeader.setPledgeClass(member.getCurrentPledgeClass(newLeader));
+		newLeader.setPledgeClass(L2ClanMember.getCurrentPledgeClass(newLeader));
 		newLeader.setClanPrivileges(L2Clan.CP_ALL);
 		if (getLevel() >= Config.SIEGE_CLAN_MIN_LEVEL)
 		{

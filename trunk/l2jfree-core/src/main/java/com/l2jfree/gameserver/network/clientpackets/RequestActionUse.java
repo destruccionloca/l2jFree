@@ -24,6 +24,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
+import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ManufactureList;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -165,7 +166,7 @@ public class RequestActionUse extends L2GameClientPacket
                         return;
                     }
 
-                    if (activeChar.getAccessLevel() < Config.GM_PEACEATTACK && activeChar.isInsidePeaceZone(pet, target))
+                    if (activeChar.getAccessLevel() < Config.GM_PEACEATTACK && L2Character.isInsidePeaceZone(pet, target))
                     {
                         if(!activeChar.isInFunEvent() || !target.isInFunEvent())
                         {

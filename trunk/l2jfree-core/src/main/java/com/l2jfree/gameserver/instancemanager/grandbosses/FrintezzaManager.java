@@ -1098,7 +1098,7 @@ public class FrintezzaManager extends BossLair
 				_effected.setTarget(null);
 
 				// start the animation
-				_effected.startAbnormalEffect(_effected.ABNORMAL_EFFECT_DANCE_STUNNED);
+				_effected.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_DANCE_STUNNED);
 
 				// add the effect icon
 				_effected.callSkill(_skill, new L2Object[]
@@ -1147,7 +1147,7 @@ public class FrintezzaManager extends BossLair
 			_effected.enableAllSkills();
 			_effected.setIsImmobilized(false);
 
-			_effected.stopAbnormalEffect(_effected.ABNORMAL_EFFECT_DANCE_STUNNED);
+			_effected.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_DANCE_STUNNED);
 		}
 	}
 
