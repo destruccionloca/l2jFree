@@ -26,7 +26,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.util.Util;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 

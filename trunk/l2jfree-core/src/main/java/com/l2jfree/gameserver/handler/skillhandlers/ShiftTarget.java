@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Attackable;

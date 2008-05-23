@@ -17,11 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.L2GameClient;
-import com.l2jfree.gameserver.network.L2GamePacketHandler;
-import com.l2jfree.gameserver.network.SystemMessageId;
-
 
 
 public final class RequestAuthSequence extends L2GameClientPacket

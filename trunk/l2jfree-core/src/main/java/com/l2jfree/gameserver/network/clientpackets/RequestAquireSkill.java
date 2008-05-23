@@ -36,7 +36,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2TransformManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2VillageMasterInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
-import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PledgeSkillList;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;

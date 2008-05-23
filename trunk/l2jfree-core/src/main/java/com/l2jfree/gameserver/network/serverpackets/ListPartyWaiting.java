@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-
-import javolution.util.FastList;
-
 
 /**
  * Format:(c) d d[dsddddds]

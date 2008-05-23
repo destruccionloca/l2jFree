@@ -14,12 +14,9 @@
  */
 package com.l2jfree.gameserver.model;
 
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.concurrent.Future;
-
 import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
@@ -27,11 +24,8 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GeoData;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
-import com.l2jfree.gameserver.handler.ISkillHandler;
-import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -47,11 +41,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.entity.Couple;
 import com.l2jfree.gameserver.model.entity.Siege;
-import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
-import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;

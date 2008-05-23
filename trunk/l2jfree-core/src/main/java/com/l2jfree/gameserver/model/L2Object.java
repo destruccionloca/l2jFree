@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList;
 import com.l2jfree.gameserver.model.actor.poly.ObjectPoly;
 import com.l2jfree.gameserver.model.actor.position.ObjectPosition;
 import com.l2jfree.gameserver.model.quest.QuestState;
-import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.GetItem;
 

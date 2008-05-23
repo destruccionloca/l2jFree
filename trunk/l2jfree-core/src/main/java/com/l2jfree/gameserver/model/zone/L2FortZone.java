@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.entity.Fort;
 
 public class L2FortZone extends EntityZone
 {

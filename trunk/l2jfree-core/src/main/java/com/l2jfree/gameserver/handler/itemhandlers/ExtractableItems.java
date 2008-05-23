@@ -15,9 +15,6 @@
 
 package com.l2jfree.gameserver.handler.itemhandlers;
 
-import java.util.logging.Logger;
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

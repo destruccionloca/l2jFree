@@ -18,7 +18,6 @@ package com.l2jfree.gameserver.model;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.BossSpawnManager;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;

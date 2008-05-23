@@ -16,12 +16,8 @@ package com.l2jfree.gameserver.model.zone;
 
 import java.util.concurrent.ScheduledFuture;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 
 public class L2DamageZone extends L2DefaultZone

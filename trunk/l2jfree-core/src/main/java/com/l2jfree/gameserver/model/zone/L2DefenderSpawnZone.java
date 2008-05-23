@@ -15,9 +15,7 @@
 package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.gameserver.instancemanager.CastleManager;
-import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class L2DefenderSpawnZone extends EntityZone
 {

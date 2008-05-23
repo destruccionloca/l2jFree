@@ -35,7 +35,6 @@ import static com.l2jfree.gameserver.model.base.Race.Orc;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.Set;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;

@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-
 /**
  * Format:(ch) d d [dsdddd]
  * @author  Crion/kombat

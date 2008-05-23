@@ -28,8 +28,6 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.network.serverpackets.ExHeroList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
-
-import java.util.Map;
 /**
  * Olympiad Npc's Instance
  * 

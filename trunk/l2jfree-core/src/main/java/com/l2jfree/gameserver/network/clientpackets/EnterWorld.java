@@ -79,7 +79,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.tools.codec.Base64;
-import com.l2jfree.versionning.Version;
 
 /**
  * Enter World Packet Handler<p>

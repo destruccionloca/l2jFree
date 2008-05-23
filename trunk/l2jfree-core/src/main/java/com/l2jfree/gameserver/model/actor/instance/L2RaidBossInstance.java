@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import com.l2jfree.Config;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.model.L2Boss;
 import com.l2jfree.gameserver.model.L2Character;

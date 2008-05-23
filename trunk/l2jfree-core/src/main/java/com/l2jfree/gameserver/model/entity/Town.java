@@ -14,18 +14,11 @@
  */
 package com.l2jfree.gameserver.model.entity;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
-import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.Location;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.tools.geometry.Point3D;
-
-import javolution.util.FastList;
 
 public class Town extends Entity
 {

@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ShowMiniMap;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public final class RequestOpenMinimap extends L2GameClientPacket
 {

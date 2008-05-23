@@ -16,11 +16,6 @@ package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
-import com.l2jfree.gameserver.model.entity.Castle;
-import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class L2CastleZone extends EntityZone
 {
