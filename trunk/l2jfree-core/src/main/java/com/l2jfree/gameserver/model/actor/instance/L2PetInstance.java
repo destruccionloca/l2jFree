@@ -222,8 +222,8 @@ public class L2PetInstance extends L2Summon
     public L2PetInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2ItemInstance control)
     {
         super(objectId, template, owner);
-        super.setStat(new PetStat(this));
-
+        getStat();
+        
         _controlItemId = control.getObjectId();
         
         // Pet's initial level is supposed to be read from DB
@@ -245,9 +245,10 @@ public class L2PetInstance extends L2Summon
     @Override
     public PetStat getStat()
     {
-    	if(super.getStat() == null || !(super.getStat() instanceof PetStat))
-    		setStat(new PetStat(this));
-    	return (PetStat)super.getStat();
+        if (_stat == null)
+            _stat = new PetStat(this);
+        
+        return (PetStat)_stat;
     }
     
     @Override

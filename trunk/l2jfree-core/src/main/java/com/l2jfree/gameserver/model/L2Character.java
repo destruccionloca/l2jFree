@@ -173,8 +173,8 @@ public abstract class L2Character extends L2Object
 	private int						_lastHealAmount						= 0;
 	private int[]					lastPosition						=
 																		{ 0, 0, 0 };
-	private CharStat				_stat;
-	private CharStatus				_status;
+	protected CharStat				_stat;
+	protected CharStatus			_status;
 	private long					_timePreviousBroadcastStatusUpdate	= 0;
 	private L2CharTemplate			_template;																				// The link on the L2CharTemplate
 	// object containing generic and
@@ -2836,26 +2836,18 @@ public abstract class L2Character extends L2Object
 	{
 		if (_stat == null)
 			_stat = new CharStat(this);
+		
 		return _stat;
 	}
-
-	public final void setStat(CharStat value)
-	{
-		_stat = value;
-	}
-
+	
 	public CharStatus getStatus()
 	{
 		if (_status == null)
 			_status = new CharStatus(this);
+		
 		return _status;
 	}
-
-	public final void setStatus(CharStatus value)
-	{
-		_status = value;
-	}
-
+	
 	public L2CharTemplate getTemplate()
 	{
 		return _template;
@@ -7834,7 +7826,7 @@ public abstract class L2Character extends L2Object
 	protected void refreshSkills()
 	{
 		_calculators = NPC_STD_CALCULATOR;
-		setStat(new CharStat(this));
+		_stat = new CharStat(this);
 
 		_skills = ((L2NpcTemplate) _template).getSkills();
 		if (_skills != null)

@@ -19,7 +19,9 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2Trap;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
+import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
+import com.l2jfree.gameserver.model.actor.status.PcStatus;
 import com.l2jfree.gameserver.model.actor.status.PlayableStatus;
 import com.l2jfree.gameserver.templates.L2CharTemplate;
 
@@ -70,17 +72,19 @@ public abstract class L2PlayableInstance extends L2Character
 	@Override
 	public PlayableStat getStat()
 	{
-		if (super.getStat() == null || !(super.getStat() instanceof PlayableStat))
-			setStat(new PlayableStat(this));
-		return (PlayableStat) super.getStat();
+		if (_stat == null)
+			_stat = new PlayableStat(this);
+		
+		return (PcStat)_stat;
 	}
 
 	@Override
 	public PlayableStatus getStatus()
 	{
-		if (super.getStatus() == null || !(super.getStatus() instanceof PlayableStatus))
-			setStatus(new PlayableStatus(this));
-		return (PlayableStatus) super.getStatus();
+		if (_status == null)
+			_status = new PlayableStatus(this);
+		
+		return (PcStatus)_status;
 	}
 
 	@Override

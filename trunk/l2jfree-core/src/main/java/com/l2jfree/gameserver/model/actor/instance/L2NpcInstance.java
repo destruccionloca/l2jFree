@@ -318,21 +318,23 @@ public class L2NpcInstance extends L2Character
 		
 		return (NpcKnownList)_knownList;
 	}
-
+	
 	@Override
 	public NpcStat getStat()
 	{
-		if (super.getStat() == null || !(super.getStat() instanceof NpcStat))
-			setStat(new NpcStat(this));
-		return (NpcStat) super.getStat();
+		if (_stat == null)
+			_stat = new NpcStat(this);
+		
+		return (NpcStat)_stat;
 	}
-
+	
 	@Override
 	public NpcStatus getStatus()
 	{
-		if (super.getStatus() == null || !(super.getStatus() instanceof NpcStatus))
-			setStatus(new NpcStatus(this));
-		return (NpcStatus) super.getStatus();
+		if (_status == null)
+			_status = new NpcStatus(this);
+		
+		return (NpcStatus)_status;
 	}
 
 	/** Return the L2NpcTemplate of the L2NpcInstance. */

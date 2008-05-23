@@ -130,17 +130,19 @@ public abstract class L2Summon extends L2PlayableInstance
     @Override
     public SummonStat getStat()
     {
-    	if(super.getStat() == null || !(super.getStat() instanceof SummonStat))
-    		setStat(new SummonStat(this));
-    	return (SummonStat)super.getStat();
+        if (_stat == null)
+            _stat = new SummonStat(this);
+        
+        return (SummonStat)_stat;
     }
     
     @Override
     public SummonStatus getStatus()
     {
-    	if(super.getStatus() == null || !(super.getStatus() instanceof SummonStatus))
-    		setStatus(new SummonStatus(this));
-    	return (SummonStatus)super.getStatus();
+        if (_status == null)
+            _status = new SummonStatus(this);
+        
+        return (SummonStatus)_status;
     }
     
     @Override

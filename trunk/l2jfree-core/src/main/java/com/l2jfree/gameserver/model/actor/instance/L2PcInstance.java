@@ -1041,17 +1041,19 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public final PcStat getStat()
 	{
-		if (super.getStat() == null || !(super.getStat() instanceof PcStat))
-			setStat(new PcStat(this));
-		return (PcStat) super.getStat();
+		if (_stat == null)
+			_stat = new PcStat(this);
+		
+		return (PcStat)_stat;
 	}
 
 	@Override
 	public final PcStatus getStatus()
 	{
-		if (super.getStatus() == null || !(super.getStatus() instanceof PcStatus))
-			setStatus(new PcStatus(this));
-		return (PcStatus) super.getStatus();
+		if (_status == null)
+			_status = new PcStatus(this);
+		
+		return (PcStatus)_status;
 	}
 
 	public final PcAppearance getAppearance()

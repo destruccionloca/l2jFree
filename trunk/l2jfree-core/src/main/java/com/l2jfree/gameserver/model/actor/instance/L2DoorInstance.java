@@ -195,19 +195,21 @@ public class L2DoorInstance extends L2Character
     }
     
     @Override
-    public final DoorStat getStat()
+    public DoorStat getStat()
     {
-    	if(super.getStat() == null || !(super.getStat() instanceof DoorStat))
-    		setStat(new DoorStat(this));
-    	return (DoorStat)super.getStat();
+        if (_stat == null)
+            _stat = new DoorStat(this);
+        
+        return (DoorStat)_stat;
     }
     
     @Override
-    public final DoorStatus getStatus()
+    public DoorStatus getStatus()
     {
-    	if(super.getStatus() == null || !(super.getStatus() instanceof DoorStatus))
-    		setStatus(new DoorStatus(this));
-    	return (DoorStatus)super.getStatus();
+        if (_status == null)
+            _status = new DoorStatus(this);
+        
+        return (DoorStatus)_status;
     }
     
     public final boolean isUnlockable() 
