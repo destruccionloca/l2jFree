@@ -36,6 +36,8 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
+import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -281,6 +283,12 @@ public class Wedding implements IVoicedCommandHandler
 			activeChar.sendMessage("You cannot escape from here.");
 			return false;
 		}
+        else if (ObjectRestrictions.getInstance()
+				.checkRestriction(activeChar, AvailableRestriction.GotoLove))
+        {
+			activeChar.sendMessage("You cannot find your love due to a restriction.");
+			return false;
+		}        
 
 		L2PcInstance partner;
 		partner = (L2PcInstance) L2World.getInstance().findObject(activeChar.getPartnerId());

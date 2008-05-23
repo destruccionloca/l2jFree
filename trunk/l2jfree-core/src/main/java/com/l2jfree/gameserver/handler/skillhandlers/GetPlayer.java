@@ -20,6 +20,8 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
+import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.tools.random.Rnd;
 
@@ -42,6 +44,15 @@ public class GetPlayer implements ISkillHandler
 			if (target instanceof L2PcInstance)
 			{
 				L2PcInstance trg = (L2PcInstance) target;
+
+        		if (trg == null || ObjectRestrictions.getInstance()
+        				.checkRestriction(trg, AvailableRestriction.SummonFriend)) {
+        			activeChar.sendMessage("You cannot summon your friend due to his restrictions.");
+        			trg.sendMessage("You cannot be summoned due to a restriction.");
+        			
+        			return;
+        		}
+
 				if (trg.isAlikeDead())
 					continue;
 				trg.getPosition().setXYZ(activeChar.getX() + Rnd.get(-10, 10), activeChar.getY() + Rnd.get(-10, 10), activeChar.getZ());

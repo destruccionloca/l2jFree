@@ -57,6 +57,7 @@ import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
+import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ClientSetTime;
 import com.l2jfree.gameserver.network.serverpackets.Die;
@@ -314,6 +315,9 @@ public class EnterWorld extends L2GameClientPacket
 			}
 		}
 
+        // Resume paused restrictions
+        ObjectRestrictions.getInstance().resumeTasks(activeChar);
+		
 		// check player skills
 		if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
 			activeChar.checkAllowedSkills();

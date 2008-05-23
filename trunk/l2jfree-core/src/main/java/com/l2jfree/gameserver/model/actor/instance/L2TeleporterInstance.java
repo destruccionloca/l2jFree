@@ -34,6 +34,8 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
 import com.l2jfree.gameserver.model.L2TeleportLocation;
+import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
+import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -60,6 +62,12 @@ public final class L2TeleporterInstance extends L2FolkInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
+		if (ObjectRestrictions.getInstance()
+				.checkRestriction(player, AvailableRestriction.Teleport)) {
+			player.sendMessage("You cannot teleport due to a restriction.");
+			return;
+		}
+		
 		int condition = validateCondition(player);
 
 		StringTokenizer st = new StringTokenizer(command, " ");

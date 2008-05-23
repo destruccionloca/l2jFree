@@ -30,6 +30,8 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TeleportLocation;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.entity.ClanHall;
+import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
+import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AgitDecoInfo;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -1328,6 +1330,12 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
             }
             else if (actualCommand.equalsIgnoreCase("goto"))
             {
+     			if (ObjectRestrictions.getInstance()
+    					.checkRestriction(player, AvailableRestriction.Teleport)) {
+    				player.sendMessage("You cannot teleport due to a restriction.");
+    				return;
+    			}
+    				
                 int whereTo = Integer.parseInt(val);
                 doTeleport(player, whereTo);
                 return;

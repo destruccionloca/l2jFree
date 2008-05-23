@@ -23,6 +23,8 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
+import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
@@ -58,8 +60,11 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 		//Get the current L2PcInstance of the player
 		L2PcInstance activeChar = getClient().getActiveChar();
 		
-		if (activeChar == null)
+		if (activeChar == null || ObjectRestrictions.getInstance()
+				.checkRestriction(activeChar, AvailableRestriction.Cast)) {
+			activeChar.sendMessage("You cannot cast a skill due to a restriction.");
 			return;
+		}
 
 		// Get the level of the used skill
 		int level = activeChar.getSkillLevel(_magicId);

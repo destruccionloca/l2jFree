@@ -27,6 +27,8 @@ import com.l2jfree.gameserver.handler.IChatHandler;
 import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
 import com.l2jfree.gameserver.handler.VoicedCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
+import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -86,7 +88,8 @@ public class Say2 extends L2GameClientPacket
         }
  
         // If player is chat banned
-        if (activeChar.isChatBanned())
+        if (ObjectRestrictions.getInstance()
+        		.checkRestriction(activeChar, AvailableRestriction.Chat))
         {
             if (_type != SystemChatChannelId.Chat_User_Pet && _type !=SystemChatChannelId.Chat_Tell)
             {

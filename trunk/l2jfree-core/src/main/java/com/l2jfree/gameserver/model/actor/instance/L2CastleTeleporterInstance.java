@@ -29,6 +29,8 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.datatables.TeleportLocationTable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2TeleportLocation;
+import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
+import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
@@ -52,7 +54,7 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
-	{
+	{	
 		int condition = validateCondition(player);
 		if (condition <= COND_BUSY_BECAUSE_OF_SIEGE)
 			return;
@@ -131,6 +133,12 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
 		if (list != null)
 		{
+			if (ObjectRestrictions.getInstance()
+					.checkRestriction(player, AvailableRestriction.Teleport)) {
+				player.sendMessage("You cannot teleport due to a restriction.");
+				return;
+			}
+				
 			if(player.reduceAdena("Teleport", list.getPrice(), player.getLastFolkNPC(), true))
 			{
 				if (_log.isDebugEnabled())

@@ -23,6 +23,8 @@ import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
+import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 
 /**
  * This class handles following admin commands:
@@ -99,7 +101,10 @@ public class AdminBanChat implements IAdminCommandHandler
 
 			if (banLength > -1)
 			{
-				targetPlayer.setBanChatTimer(banLength * 60000L);
+				ObjectRestrictions.getInstance().addRestriction(activeChar, AvailableRestriction.Chat);
+				ObjectRestrictions.getInstance().timedRemoveRestriction(activeChar, AvailableRestriction.Chat,
+						banLength, targetPlayer.getName() + "'s chat ban has now been lifted.");
+				
 				banLengthStr = " for " + banLength + " minutes.";
 			}
 
@@ -108,8 +113,8 @@ public class AdminBanChat implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_unbanchat"))
 		{
+			ObjectRestrictions.getInstance().removeRestriction(activeChar, AvailableRestriction.Chat);
 			activeChar.sendMessage(targetPlayer.getName() + "'s chat ban has now been lifted.");
-			targetPlayer.setChatBanned(false);
 		}
 
 		return true;
