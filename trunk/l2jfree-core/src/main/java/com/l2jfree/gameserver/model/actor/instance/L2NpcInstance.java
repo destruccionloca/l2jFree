@@ -313,9 +313,10 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public NpcKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof NpcKnownList))
-			setKnownList(new NpcKnownList(this));
-		return (NpcKnownList) super.getKnownList();
+		if (_knownList == null)
+			_knownList = new NpcKnownList(this);
+		
+		return (NpcKnownList)_knownList;
 	}
 
 	@Override

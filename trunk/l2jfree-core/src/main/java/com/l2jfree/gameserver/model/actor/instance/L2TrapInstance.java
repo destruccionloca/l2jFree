@@ -83,9 +83,10 @@ public class L2TrapInstance extends L2Trap
 	@Override
 	public TrapKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof TrapKnownList))
-			setKnownList(new TrapKnownList(this));
-		return (TrapKnownList) super.getKnownList();
+		if (_knownList == null)
+			_knownList = new TrapKnownList(this);
+		
+		return (TrapKnownList)_knownList;
 	}
 
 	static class TrapTask implements Runnable

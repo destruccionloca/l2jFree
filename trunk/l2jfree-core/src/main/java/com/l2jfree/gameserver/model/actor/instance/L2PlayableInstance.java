@@ -61,9 +61,10 @@ public abstract class L2PlayableInstance extends L2Character
 	@Override
 	public PlayableKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof PlayableKnownList))
-			setKnownList(new PlayableKnownList(this));
-		return (PlayableKnownList) super.getKnownList();
+		if (_knownList == null)
+			_knownList = new PlayableKnownList(this);
+		
+		return (PlayableKnownList)_knownList;
 	}
 
 	@Override

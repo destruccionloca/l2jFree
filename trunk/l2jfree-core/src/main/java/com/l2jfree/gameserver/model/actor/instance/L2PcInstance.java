@@ -1032,9 +1032,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public final PcKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof PcKnownList))
-			setKnownList(new PcKnownList(this));
-		return (PcKnownList) super.getKnownList();
+		if (_knownList == null)
+			_knownList = new PcKnownList(this);
+		
+		return (PcKnownList)_knownList;
 	}
 
 	@Override

@@ -121,9 +121,10 @@ public abstract class L2Summon extends L2PlayableInstance
     @Override
     public final SummonKnownList getKnownList()
     {
-    	if(super.getKnownList() == null || !(super.getKnownList() instanceof SummonKnownList))
-    		setKnownList(new SummonKnownList(this));
-    	return (SummonKnownList)super.getKnownList();
+        if (_knownList == null)
+            _knownList = new SummonKnownList(this);
+        
+        return (SummonKnownList)_knownList;
     }
     
     @Override

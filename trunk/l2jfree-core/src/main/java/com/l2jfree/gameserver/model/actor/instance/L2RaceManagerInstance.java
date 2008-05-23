@@ -119,13 +119,14 @@ public class L2RaceManagerInstance extends L2NpcInstance
     }
 
     @Override
-    public final RaceManagerKnownList getKnownList()
+    public RaceManagerKnownList getKnownList()
     {
-    	if(super.getKnownList() == null || !(super.getKnownList() instanceof RaceManagerKnownList))
-    		setKnownList(new RaceManagerKnownList(this));
-        return (RaceManagerKnownList) super.getKnownList();
+        if (_knownList == null)
+            _knownList = new RaceManagerKnownList(this);
+        
+        return (RaceManagerKnownList)_knownList;
     }
-
+    
     class Announcement implements Runnable
     {
         private SystemMessageId _type;

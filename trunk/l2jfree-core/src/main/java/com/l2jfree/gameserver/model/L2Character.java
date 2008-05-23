@@ -2826,9 +2826,10 @@ public abstract class L2Character extends L2Object
 	@Override
 	public CharKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof CharKnownList))
-			setKnownList(new CharKnownList(this));
-		return ((CharKnownList) super.getKnownList());
+		if (_knownList == null)
+			_knownList = new CharKnownList(this);
+		
+		return (CharKnownList)_knownList;
 	}
 
 	public CharStat getStat()

@@ -50,7 +50,7 @@ public abstract class L2Object
     /**
      * Objects known by this object
      */
-    private ObjectKnownList _knownList;
+    protected ObjectKnownList _knownList;
     /**
      * Name of this object
      */
@@ -417,14 +417,11 @@ public abstract class L2Object
      */
     public ObjectKnownList getKnownList()
     {
-        if (_knownList == null) _knownList = new ObjectKnownList(this);
+        if (_knownList == null)
+            _knownList = new ObjectKnownList(this);
+        
         return _knownList;
     }
-    /**
-     * Set the known list 
-     * @param value the knownlist to set
-     */
-    public final void setKnownList(ObjectKnownList value) { _knownList = value; }
     
     /**
      * return the name

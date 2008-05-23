@@ -78,9 +78,10 @@ public final class L2GuardInstance extends L2Attackable
     @Override
     public final GuardKnownList getKnownList()
     {
-    	if(super.getKnownList() == null || !(super.getKnownList() instanceof GuardKnownList))
-    		setKnownList(new GuardKnownList(this));
-    	return (GuardKnownList)super.getKnownList();
+        if (_knownList == null)
+            _knownList = new GuardKnownList(this);
+        
+        return (GuardKnownList)_knownList;
     }
 
     /**

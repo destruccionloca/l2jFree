@@ -231,14 +231,23 @@ public class L2BoatInstance extends L2Character
 	public L2BoatInstance(int objectId, L2CharTemplate template, String name)
 	{
 		super(objectId, template);
-		super.setKnownList(new BoatKnownList(this));
+		getKnownList();
 		/*
 		 * super.setStat(new DoorStat(new L2DoorInstance[] {this}));
 		 * super.setStatus(new DoorStatus(new L2DoorInstance[] {this}));
 		 */
 		_name = name;
 	}
-
+	
+	@Override
+	public BoatKnownList getKnownList()
+	{
+		if (_knownList == null)
+			_knownList = new BoatKnownList(this);
+		
+		return (BoatKnownList)_knownList;
+	}
+	
 	/**
 	 * @param x
 	 * @param y

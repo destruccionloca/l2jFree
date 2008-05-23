@@ -76,9 +76,10 @@ public class L2MonsterInstance extends L2Attackable
     @Override
     public final MonsterKnownList getKnownList()
     {
-        if(super.getKnownList() == null || !(super.getKnownList() instanceof MonsterKnownList))
-            setKnownList(new MonsterKnownList(this));
-        return (MonsterKnownList)super.getKnownList();
+        if (_knownList == null)
+            _knownList = new MonsterKnownList(this);
+        
+        return (MonsterKnownList)_knownList;
     }
     /**
      * Return True if the attacker is not another L2MonsterInstance.<BR><BR>

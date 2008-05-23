@@ -188,9 +188,10 @@ public class L2DoorInstance extends L2Character
     @Override
     public final DoorKnownList getKnownList()
     {
-    	if(super.getKnownList() == null || !(super.getKnownList() instanceof DoorKnownList))
-    		setKnownList(new DoorKnownList(this));
-    	return (DoorKnownList)super.getKnownList();
+        if (_knownList == null)
+            _knownList = new DoorKnownList(this);
+        
+        return (DoorKnownList)_knownList;
     }
     
     @Override

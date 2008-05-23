@@ -163,7 +163,7 @@ public final class L2ItemInstance extends L2Object
 	public L2ItemInstance(int objectId, int itemId, int itemDisplayId)
 	{
 		super(objectId);
-		super.setKnownList(new NullKnownList(this));
+		getKnownList();
 		_itemId = itemId;
 		_itemDisplayId = itemDisplayId;
 		_item = ItemTable.getInstance().getTemplate(itemId);
@@ -189,7 +189,7 @@ public final class L2ItemInstance extends L2Object
 	public L2ItemInstance(int objectId, int itemId)
 	{
 		super(objectId);
-		super.setKnownList(new NullKnownList(this));
+		getKnownList();
 		_itemId = itemId;
 		_item = ItemTable.getInstance().getTemplate(itemId);
 		if (_itemId == 0 || _item == null)
@@ -215,7 +215,7 @@ public final class L2ItemInstance extends L2Object
 	public L2ItemInstance(int objectId, L2Item item)
 	{
 		super(objectId);
-		super.setKnownList(new NullKnownList(this));
+		getKnownList();
 		_itemId = item.getItemId();
 		_itemDisplayId = item.getItemDisplayId();
 		_item = item;
@@ -225,6 +225,14 @@ public final class L2ItemInstance extends L2Object
 		setCount(1);
 		_loc = ItemLocation.VOID;
 		_mana = _item.getDuration();
+	}
+	
+	public NullKnownList getKnownList()
+	{
+		if (_knownList == null)
+			_knownList = new NullKnownList(this);
+		
+		return (NullKnownList)_knownList;
 	}
 	
 	/**

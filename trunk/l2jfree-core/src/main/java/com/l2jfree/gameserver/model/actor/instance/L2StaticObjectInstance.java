@@ -64,8 +64,17 @@ public class L2StaticObjectInstance extends L2Object
     public L2StaticObjectInstance(int objectId)
     {
         super(objectId);
-        setKnownList(new NullKnownList(this));
+        getKnownList();
     }
+    
+    public NullKnownList getKnownList()
+    {
+        if (_knownList == null)
+            _knownList = new NullKnownList(this);
+        
+        return (NullKnownList)_knownList;
+    }
+    
     
     public boolean isBusy()
     {

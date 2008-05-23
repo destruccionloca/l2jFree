@@ -308,9 +308,10 @@ public class L2Attackable extends L2NpcInstance
     @Override
     public AttackableKnownList getKnownList()
     {
-        if(super.getKnownList() == null || !(super.getKnownList() instanceof AttackableKnownList))
-            setKnownList(new AttackableKnownList(this));
-        return (AttackableKnownList)super.getKnownList();
+        if (_knownList == null)
+            _knownList = new AttackableKnownList(this);
+        
+        return (AttackableKnownList)_knownList;
     }
     
     /**
