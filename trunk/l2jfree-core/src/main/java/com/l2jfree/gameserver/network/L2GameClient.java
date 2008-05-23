@@ -24,8 +24,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.security.BlowFishKeygen;
-import net.sf.l2j.tools.security.GameCrypt;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,6 +41,8 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
+import com.l2jfree.tools.security.BlowFishKeygen;
+import com.l2jfree.tools.security.GameCrypt;
 import com.l2jfree.util.EventData;
 
 /**

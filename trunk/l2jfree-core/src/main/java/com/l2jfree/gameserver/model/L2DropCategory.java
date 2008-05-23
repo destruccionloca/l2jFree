@@ -17,9 +17,9 @@ package com.l2jfree.gameserver.model;
 import java.util.List;
 
 import com.l2jfree.Config;
+import com.l2jfree.tools.random.Rnd;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.random.Rnd;
 
 /**
  *

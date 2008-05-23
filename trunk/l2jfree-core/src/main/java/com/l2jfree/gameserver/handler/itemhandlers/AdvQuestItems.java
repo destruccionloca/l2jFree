@@ -21,8 +21,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.tools.random.Rnd;
 
-import net.sf.l2j.tools.random.Rnd;
 
 public class AdvQuestItems implements IItemHandler
 {

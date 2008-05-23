@@ -23,9 +23,9 @@ import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.tools.geometry.Point3D;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.geometry.Point3D;
 
 public class Town extends Entity
 {

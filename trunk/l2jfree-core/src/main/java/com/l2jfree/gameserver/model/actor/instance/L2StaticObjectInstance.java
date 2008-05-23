@@ -157,7 +157,7 @@ public class L2StaticObjectInstance extends L2Object
     }
     
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.model.L2Object#isAttackable()
+     * @see com.l2jfree.gameserver.model.L2Object#isAttackable()
      */
     @Override
     @SuppressWarnings("unused")

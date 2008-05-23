@@ -19,12 +19,12 @@ import java.util.Random;
 
 import javolution.util.FastList;
 
-import net.sf.l2j.tools.geometry.Point3D;
 
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.base.Race;
+import com.l2jfree.tools.geometry.Point3D;
 
 /**
  * @author Noctarius

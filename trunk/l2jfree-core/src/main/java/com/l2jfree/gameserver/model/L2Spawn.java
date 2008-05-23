@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.model;
 import java.lang.reflect.Constructor;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,6 +31,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class manages the spawn and respawn of a group of L2NpcInstance that are in the same are and have the same type.
@@ -182,7 +182,7 @@ public class L2Spawn
 		try
         {
     		// Create the generic constructor of L2NpcInstance managed by this L2Spawn
-    		_constructor = Class.forName("net.sf.l2j.gameserver.model.actor.instance." + implementationName + "Instance").getConstructors()[0];
+    		_constructor = Class.forName("com.l2jfree.gameserver.model.actor.instance." + implementationName + "Instance").getConstructors()[0];
         }
         catch (ClassNotFoundException e)
         {

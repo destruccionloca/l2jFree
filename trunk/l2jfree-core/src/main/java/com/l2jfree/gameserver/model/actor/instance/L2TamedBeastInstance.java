@@ -28,10 +28,10 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.tools.geometry.Point3D;
+import com.l2jfree.tools.random.Rnd;
 
 import javolution.util.FastMap;
-import net.sf.l2j.tools.geometry.Point3D;
-import net.sf.l2j.tools.random.Rnd;
 
 // While a tamed beast behaves a lot like a pet (ingame) and does have
 // an owner, in all other aspects, it acts like a mob.  

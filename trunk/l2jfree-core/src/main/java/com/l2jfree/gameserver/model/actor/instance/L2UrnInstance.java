@@ -27,9 +27,9 @@ import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.tools.random.Rnd;
 
 import javolution.text.TextBuilder;
-import net.sf.l2j.tools.random.Rnd;
 
 public final class L2UrnInstance extends L2FolkInstance
 {

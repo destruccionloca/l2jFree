@@ -51,9 +51,9 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.tools.random.Rnd;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.random.Rnd;
 
 /**
  * This class manages AI of L2Attackable.<BR><BR>

@@ -41,9 +41,9 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.tools.geometry.Point3D;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.geometry.Point3D;
 
 final class EffectSignetMDam extends L2Effect
 {

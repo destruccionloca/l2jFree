@@ -20,8 +20,8 @@ import com.l2jfree.gameserver.Territory;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.tools.random.Rnd;
 
-import net.sf.l2j.tools.random.Rnd;
 
 /**
  * @author littlecrow A special spawn implementation to spawn controllable mob
@@ -34,7 +34,7 @@ public class L2GroupSpawn extends L2Spawn
 	public L2GroupSpawn(L2NpcTemplate mobTemplate) throws SecurityException, ClassNotFoundException, NoSuchMethodException
 	{
 		super(mobTemplate);
-		_constructor = Class.forName("net.sf.l2j.gameserver.model.actor.instance.L2ControllableMobInstance").getConstructors()[0];
+		_constructor = Class.forName("com.l2jfree.gameserver.model.actor.instance.L2ControllableMobInstance").getConstructors()[0];
 		_template = mobTemplate;
 
 		setAmount(1);

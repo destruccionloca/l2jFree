@@ -756,7 +756,7 @@ public class L2BoatInstance extends L2Character
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.L2Character#updateAbnormalEffect()
+	 * @see com.l2jfree.gameserver.model.L2Character#updateAbnormalEffect()
 	 */
 	@Override
 	public void updateAbnormalEffect()
@@ -768,7 +768,7 @@ public class L2BoatInstance extends L2Character
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.L2Character#getActiveWeaponInstance()
+	 * @see com.l2jfree.gameserver.model.L2Character#getActiveWeaponInstance()
 	 */
 	@Override
 	public L2ItemInstance getActiveWeaponInstance()
@@ -780,7 +780,7 @@ public class L2BoatInstance extends L2Character
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.L2Character#getActiveWeaponItem()
+	 * @see com.l2jfree.gameserver.model.L2Character#getActiveWeaponItem()
 	 */
 	@Override
 	public L2Weapon getActiveWeaponItem()
@@ -792,7 +792,7 @@ public class L2BoatInstance extends L2Character
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.L2Character#getSecondaryWeaponInstance()
+	 * @see com.l2jfree.gameserver.model.L2Character#getSecondaryWeaponInstance()
 	 */
 	@Override
 	public L2ItemInstance getSecondaryWeaponInstance()
@@ -804,7 +804,7 @@ public class L2BoatInstance extends L2Character
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.L2Character#getSecondaryWeaponItem()
+	 * @see com.l2jfree.gameserver.model.L2Character#getSecondaryWeaponItem()
 	 */
 	@Override
 	public L2Weapon getSecondaryWeaponItem()
@@ -816,7 +816,7 @@ public class L2BoatInstance extends L2Character
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.L2Character#getLevel()
+	 * @see com.l2jfree.gameserver.model.L2Character#getLevel()
 	 */
 	@Override
 	public int getLevel()
@@ -828,7 +828,7 @@ public class L2BoatInstance extends L2Character
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.L2Object#isAutoAttackable(net.sf.l2j.gameserver.model.L2Character)
+	 * @see com.l2jfree.gameserver.model.L2Object#isAutoAttackable(com.l2jfree.gameserver.model.L2Character)
 	 */
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)

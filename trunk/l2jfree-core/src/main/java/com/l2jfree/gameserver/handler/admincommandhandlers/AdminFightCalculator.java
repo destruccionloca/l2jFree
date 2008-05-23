@@ -28,9 +28,9 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.tools.random.Rnd;
 
 import javolution.text.TextBuilder;
-import net.sf.l2j.tools.random.Rnd;
 
 /**
  * This class handles following admin commands: - gm = turns gm mode on/off

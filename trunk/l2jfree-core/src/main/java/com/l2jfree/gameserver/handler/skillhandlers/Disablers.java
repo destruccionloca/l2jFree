@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 
 import java.io.IOException;
 
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,6 +43,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.tools.random.Rnd;
 
 /** 
  * This Handles Disabler skills

@@ -27,35 +27,35 @@
         overflowToDisk="false"/>           
               
         
-    <cache name="net.sf.l2j.gameserver.communitybbs.model.forum.Forums"
+    <cache name="com.l2jfree.gameserver.communitybbs.model.forum.Forums"
         maxElementsInMemory="50"
         timeToIdleSeconds="6000"
         timeToLiveSeconds="6000"
         overflowToDisk="false"
         />        
 
-    <cache name="net.sf.l2j.gameserver.communitybbs.model.forum.Forums.topics"
+    <cache name="com.l2jfree.gameserver.communitybbs.model.forum.Forums.topics"
         maxElementsInMemory="20"
         timeToIdleSeconds="500"
         timeToLiveSeconds="500"
         overflowToDisk="false"
         />        
         
-    <cache name="net.sf.l2j.gameserver.communitybbs.model.forum.Topic"
+    <cache name="com.l2jfree.gameserver.communitybbs.model.forum.Topic"
         maxElementsInMemory="300"
         timeToIdleSeconds="600"
         timeToLiveSeconds="600"
         overflowToDisk="false" 
         />        
 
-    <cache name="net.sf.l2j.gameserver.communitybbs.model.forum.Topic.postses"
+    <cache name="com.l2jfree.gameserver.communitybbs.model.forum.Topic.postses"
         maxElementsInMemory="50"
         timeToIdleSeconds="500"
         timeToLiveSeconds="500"
         overflowToDisk="false"
         />        
                 
-    <cache name="net.sf.l2j.gameserver.communitybbs.model.forum.Posts"
+    <cache name="com.l2jfree.gameserver.communitybbs.model.forum.Posts"
         maxElementsInMemory="300"
         timeToIdleSeconds="380"
         timeToLiveSeconds="380"

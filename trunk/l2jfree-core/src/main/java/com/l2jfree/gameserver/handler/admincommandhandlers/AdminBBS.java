@@ -27,7 +27,7 @@ public class AdminBBS implements IAdminCommandHandler
 	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.handler.IAdminCommandHandler#useAdminCommand(java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
+	 * @see com.l2jfree.gameserver.handler.IAdminCommandHandler#useAdminCommand(java.lang.String, com.l2jfree.gameserver.model.actor.instance.L2PcInstance)
 	 */
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
@@ -43,7 +43,7 @@ public class AdminBBS implements IAdminCommandHandler
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.handler.IAdminCommandHandler#getAdminCommandList()
+	 * @see com.l2jfree.gameserver.handler.IAdminCommandHandler#getAdminCommandList()
 	 */
 	public String[] getAdminCommandList()
 	{

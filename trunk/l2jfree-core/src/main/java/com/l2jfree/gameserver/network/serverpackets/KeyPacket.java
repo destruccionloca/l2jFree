@@ -59,7 +59,7 @@ public final class KeyPacket extends L2GameServerPacket
 	}
 	
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
+	 * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#getType()
 	 */
 	@Override
 	public String getType()

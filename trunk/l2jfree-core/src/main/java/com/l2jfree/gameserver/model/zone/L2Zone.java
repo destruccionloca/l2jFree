@@ -19,7 +19,6 @@ import java.util.StringTokenizer;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,6 +32,7 @@ import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.zone.form.Shape;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.tools.random.Rnd;
 
 public abstract class L2Zone
 {
@@ -444,7 +444,7 @@ public abstract class L2Zone
 
 			name = (nn != null) ? nn.getNodeValue() : new Integer(id).toString();
 
-			clazz = Class.forName("net.sf.l2j.gameserver.model.zone.L2"+type+"Zone");
+			clazz = Class.forName("com.l2jfree.gameserver.model.zone.L2"+type+"Zone");
 			constructor = clazz.getConstructor();
 			zone = (L2Zone)constructor.newInstance();
 		}

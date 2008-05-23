@@ -15,8 +15,8 @@
 package com.l2jfree.gameserver.model.zone.form;
 
 import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.tools.random.Rnd;
 
-import net.sf.l2j.tools.random.Rnd;
 
 /**
  * @author  Crion

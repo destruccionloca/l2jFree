@@ -18,7 +18,6 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.util.concurrent.RejectedExecutionException;
 
-import net.sf.l2j.tools.util.HexUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,6 +33,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.clientpackets.*;
+import com.l2jfree.tools.util.HexUtil;
 
 /**
  * Stateful Packet Handler<BR>

@@ -21,8 +21,8 @@ import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.tools.random.Rnd;
 
-import net.sf.l2j.tools.random.Rnd;
 
 public class L2PenaltyMonsterInstance extends L2MonsterInstance
 {

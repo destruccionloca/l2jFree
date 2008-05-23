@@ -32,9 +32,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.tools.random.Rnd;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.random.Rnd;
 
 /**
  * @author littlecrow AI for controllable mobs

@@ -23,12 +23,12 @@ import java.net.Socket;
 import java.util.Properties;
 
 import javolution.text.TextBuilder;
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.tools.random.Rnd;
 
 public class Status extends Thread
 {

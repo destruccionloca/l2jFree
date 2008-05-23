@@ -36,7 +36,7 @@ public class TaskRecom extends Task
 	private static final String	NAME	= "sp_recommendations";
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.taskmanager.Task#getName()
+	 * @see com.l2jfree.gameserver.taskmanager.Task#getName()
 	 */
 	@Override
 	public String getName()
@@ -45,7 +45,7 @@ public class TaskRecom extends Task
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.taskmanager.Task#onTimeElapsed(net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask)
+	 * @see com.l2jfree.gameserver.taskmanager.Task#onTimeElapsed(com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask)
 	 */
 	@Override
 	public void onTimeElapsed(ExecutedTask task)

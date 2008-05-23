@@ -150,7 +150,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#size()
+	 * @see com.l2jfree.util.L2ObjectSet#size()
 	 */
 	public int size()
 	{
@@ -160,7 +160,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#isEmpty()
+	 * @see com.l2jfree.util.L2ObjectSet#isEmpty()
 	 */
 	public boolean isEmpty()
 	{
@@ -170,7 +170,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#clear()
+	 * @see com.l2jfree.util.L2ObjectSet#clear()
 	 */
 	@SuppressWarnings("unchecked")
 	public synchronized void clear()
@@ -201,7 +201,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#put(T)
+	 * @see com.l2jfree.util.L2ObjectSet#put(T)
 	 */
 	public synchronized void put(T obj)
 	{
@@ -274,7 +274,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#remove(T)
+	 * @see com.l2jfree.util.L2ObjectSet#remove(T)
 	 */
 	public synchronized void remove(T obj)
 	{
@@ -321,7 +321,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#contains(T)
+	 * @see com.l2jfree.util.L2ObjectSet#contains(T)
 	 */
 	public boolean contains(T obj)
 	{
@@ -405,7 +405,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#iterator()
+	 * @see com.l2jfree.util.L2ObjectSet#iterator()
 	 */
 	public Iterator<T> iterator()
 	{

@@ -52,7 +52,7 @@ public class AuthRequest extends GameServerBasePacket
 	}
 	
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.gameserverpackets.GameServerBasePacket#getContent()
+	 * @see com.l2jfree.gameserver.gameserverpackets.GameServerBasePacket#getContent()
 	 */
 	@Override
 	public byte[] getContent() throws IOException

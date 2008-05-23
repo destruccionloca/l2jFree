@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver;
 
-import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,6 +22,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.tools.geometry.Point3D;
 
 /**
  * @author -Nemesiss-

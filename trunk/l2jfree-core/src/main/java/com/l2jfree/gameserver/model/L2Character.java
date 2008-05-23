@@ -26,8 +26,6 @@ import java.util.concurrent.Future;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastTable;
-import net.sf.l2j.tools.geometry.Point3D;
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -109,6 +107,8 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.L2Weapon;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.tools.geometry.Point3D;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * Mother class of all character objects of the world (PC, NPC...)<BR>
@@ -5849,7 +5849,7 @@ public abstract class L2Character extends L2Object
 	 * @param strictCheck
 	 *            true if (distance < radius), false if (distance <= radius)
 	 * @return true is the L2Character is inside the radius.
-	 * @see net.sf.l2j.gameserver.model.L2Character.isInsideRadius(int x, int y, int z, int radius, boolean checkZ, boolean strictCheck)
+	 * @see com.l2jfree.gameserver.model.L2Character.isInsideRadius(int x, int y, int z, int radius, boolean checkZ, boolean strictCheck)
 	 */
 	public final boolean isInsideRadius(L2Object object, int radius, boolean checkZ, boolean strictCheck)
 	{

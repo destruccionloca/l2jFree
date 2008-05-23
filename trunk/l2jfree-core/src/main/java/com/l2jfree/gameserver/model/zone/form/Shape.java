@@ -97,7 +97,7 @@ public abstract class Shape
 		try
 		{
 			type = sn.getAttributes().getNamedItem("type").getNodeValue();
-            clazz = Class.forName("net.sf.l2j.gameserver.model.zone.form.Shape"+type);
+            clazz = Class.forName("com.l2jfree.gameserver.model.zone.form.Shape"+type);
 			constructor = clazz.getConstructor();
 			shape = (Shape)constructor.newInstance();
 		}

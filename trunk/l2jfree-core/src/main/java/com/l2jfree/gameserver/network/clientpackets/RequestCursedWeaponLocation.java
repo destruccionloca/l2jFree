@@ -19,9 +19,9 @@ import com.l2jfree.gameserver.model.CursedWeapon;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.ExCursedWeaponLocation;
 import com.l2jfree.gameserver.network.serverpackets.ExCursedWeaponLocation.CursedWeaponInfo;
+import com.l2jfree.tools.geometry.Point3D;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.geometry.Point3D;
 
 /**
  * Format: (ch)

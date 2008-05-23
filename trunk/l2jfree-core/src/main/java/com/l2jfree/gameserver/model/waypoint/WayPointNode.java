@@ -29,9 +29,9 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
+import com.l2jfree.tools.geometry.Point3D;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.geometry.Point3D;
 
 /**
  * This class ...
@@ -58,7 +58,7 @@ public class WayPointNode extends L2Object
     }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.model.L2Object#isAutoAttackable(net.sf.l2j.gameserver.model.L2Character)
+     * @see com.l2jfree.gameserver.model.L2Object#isAutoAttackable(com.l2jfree.gameserver.model.L2Character)
      */
     @Override
     public boolean isAutoAttackable(@SuppressWarnings("unused") L2Character attacker)

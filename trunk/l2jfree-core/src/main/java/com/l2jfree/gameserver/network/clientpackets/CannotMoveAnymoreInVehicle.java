@@ -16,8 +16,8 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.StopMoveInVehicle;
+import com.l2jfree.tools.geometry.Point3D;
 
-import net.sf.l2j.tools.geometry.Point3D;
 
 /**
  * @author Maktakien
@@ -42,7 +42,7 @@ public class CannotMoveAnymoreInVehicle extends L2GameClientPacket
     }
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
     protected void runImpl()
@@ -65,7 +65,7 @@ public class CannotMoveAnymoreInVehicle extends L2GameClientPacket
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 * @see com.l2jfree.gameserver.BasePacket#getType()
 	 */
 	@Override
 	public String getType()

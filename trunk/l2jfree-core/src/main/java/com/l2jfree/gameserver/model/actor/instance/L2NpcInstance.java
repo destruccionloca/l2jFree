@@ -21,7 +21,6 @@ import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -100,6 +99,7 @@ import com.l2jfree.gameserver.templates.L2BuffTemplate;
 import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.L2Weapon;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class represents a Non-Player-Character in the world. It can be a monster or a friendly character.

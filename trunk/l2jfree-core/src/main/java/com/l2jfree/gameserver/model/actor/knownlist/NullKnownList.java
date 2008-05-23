@@ -29,7 +29,7 @@ public class NullKnownList extends ObjectKnownList
     }
     
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList#addKnownObject(net.sf.l2j.gameserver.model.L2Object, net.sf.l2j.gameserver.model.L2Character)
+     * @see com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList#addKnownObject(com.l2jfree.gameserver.model.L2Object, com.l2jfree.gameserver.model.L2Character)
      */
     @Override
     public boolean addKnownObject(L2Object object, L2Character dropper)
@@ -38,7 +38,7 @@ public class NullKnownList extends ObjectKnownList
     }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList#addKnownObject(net.sf.l2j.gameserver.model.L2Object)
+     * @see com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList#addKnownObject(com.l2jfree.gameserver.model.L2Object)
      */
     @Override
     public boolean addKnownObject(L2Object object)
@@ -47,7 +47,7 @@ public class NullKnownList extends ObjectKnownList
     }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList#getActiveObject()
+     * @see com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList#getActiveObject()
      */
     @Override
     public L2Object getActiveObject()
@@ -56,7 +56,7 @@ public class NullKnownList extends ObjectKnownList
     }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList#getDistanceToForgetObject(net.sf.l2j.gameserver.model.L2Object)
+     * @see com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList#getDistanceToForgetObject(com.l2jfree.gameserver.model.L2Object)
      */
     @Override
     public int getDistanceToForgetObject(L2Object object)
@@ -65,7 +65,7 @@ public class NullKnownList extends ObjectKnownList
     }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList#getDistanceToWatchObject(net.sf.l2j.gameserver.model.L2Object)
+     * @see com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList#getDistanceToWatchObject(com.l2jfree.gameserver.model.L2Object)
      */
     @Override
     public int getDistanceToWatchObject(L2Object object)
@@ -74,7 +74,7 @@ public class NullKnownList extends ObjectKnownList
     }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList#removeAllKnownObjects()
+     * @see com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList#removeAllKnownObjects()
      * 
      * no-op
      */
@@ -83,7 +83,7 @@ public class NullKnownList extends ObjectKnownList
     { }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList#removeKnownObject(net.sf.l2j.gameserver.model.L2Object)
+     * @see com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList#removeKnownObject(com.l2jfree.gameserver.model.L2Object)
      */
     @Override
     public boolean removeKnownObject(L2Object object)

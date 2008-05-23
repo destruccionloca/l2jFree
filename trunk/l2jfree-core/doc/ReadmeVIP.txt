@@ -34,8 +34,8 @@ When the event starts the Dark Elves are teleported to an area outside their sta
 --- INSTALLATION -
 ------------------
 
-- Place VIP.java in the net.sf.l2j.gameserver.model.entity package
-- Place the AdminVIPEngine.java in the net.sf.l2j.gameserver.handler.admincommandhandlers package
+- Place VIP.java in the com.l2jfree.gameserver.model.entity package
+- Place the AdminVIPEngine.java in the com.l2jfree.gameserver.handler.admincommandhandlers package
 - Run the patch on your entire L2J checkout
 - Run the SQL script on your SQL database to import the tables
 - IF you are using command privilages insert the following at the end of your command-privileges.properties file:

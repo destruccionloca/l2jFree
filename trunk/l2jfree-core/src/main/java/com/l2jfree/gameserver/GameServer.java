@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Calendar;
 
-import net.sf.l2j.tools.random.RandomIntGenerator;
-import net.sf.l2j.versionning.Version;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -122,6 +120,8 @@ import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.PathCreator;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.status.Status;
+import com.l2jfree.tools.random.RandomIntGenerator;
+import com.l2jfree.versionning.Version;
 
 public class GameServer
 {

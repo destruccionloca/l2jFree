@@ -27,7 +27,7 @@ public final class TaskRestart extends Task
 	public static final String	NAME	= "restart";
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.tasks.Task#getName()
+	 * @see com.l2jfree.gameserver.tasks.Task#getName()
 	 */
 	@Override
 	public String getName()
@@ -36,7 +36,7 @@ public final class TaskRestart extends Task
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.tasks.Task#onTimeElapsed(net.sf.l2j.gameserver.tasks.TaskManager.ExecutedTask)
+	 * @see com.l2jfree.gameserver.tasks.Task#onTimeElapsed(com.l2jfree.gameserver.tasks.TaskManager.ExecutedTask)
 	 */
 	@Override
 	public void onTimeElapsed(ExecutedTask task)

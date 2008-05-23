@@ -50,7 +50,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
     <appender name="CON" class="org.apache.log4j.ConsoleAppender">
         <param name="Threshold" value="INFO"/>
         <param name="Target" value="System.out"/>
-        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
+        <layout class="com.l2jfree.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%p : %m %s %n"/>
         </layout>
     </appender>    
@@ -63,7 +63,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
+        <layout class="com.l2jfree.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%d{yyyy.MM.dd HH:mm:ss,SSS} %p %t %c %m %s %n"/>
         </layout>
     </appender>
@@ -76,7 +76,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
+        <layout class="com.l2jfree.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%d{yyyy.MM.dd HH:mm:ss,SSS} %p %t %c %m %s %n"/>
         </layout>
     </appender>
@@ -89,7 +89,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
+        <layout class="com.l2jfree.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%d{yyyy.MM.dd HH:mm:ss,SSS} %p %t %c %m %s %n"/>
         </layout>
     </appender>
@@ -102,7 +102,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
+        <layout class="com.l2jfree.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%d{yyyy.MM.dd HH:mm:ss,SSS} %p %t %c %m %s %n"/>
         </layout>
     </appender>    
@@ -115,7 +115,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
+        <layout class="com.l2jfree.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%d{yyyy.MM.dd HH:mm:ss,SSS} %p %t %c %m %s %n"/>
         </layout>
     </appender>    
@@ -128,7 +128,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
+        <layout class="com.l2jfree.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="[%d{yy.MM.dd H:mm:ss}] '---': %m %n"/>
         </layout>
     </appender>    
@@ -141,7 +141,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
+        <layout class="com.l2jfree.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="[%d{yy.MM.dd H:mm:ss}] '---': %m %n"/>
         </layout>
     </appender>    
@@ -154,7 +154,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
         <param name="Append" value="true"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
-        <layout class="net.sf.l2j.tools.log4jextension.ExtendedPatternLayout">
+        <layout class="com.l2jfree.tools.log4jextension.ExtendedPatternLayout">
             <param name="ConversionPattern" value="%d{yyyy.MM.dd HH:mm:ss,SSS} %p %t %c %m %s %n"/>
         </layout>
     </appender>    
@@ -169,7 +169,7 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
     If an appender should not inherit for appender of his parents, set additivity = false
     
     If name of appender = name of package, inheritance applied :
-    the logger net.sf.l2j is the parent of net.sf.l2j.gameserver 
+    the logger com.l2jfree is the parent of com.l2jfree.gameserver 
     
     To debug a specific class, add a logger with the name of the class and use appender DBGLOG
     (and modify general threshold to debug)
@@ -193,16 +193,16 @@ To activate logs in debug, modify threshold to debug and don't forget to modify 
     Those loggers redirect logs from these classes to PDAMLOG and MDAMLOG appenders 
     -->
 
-    <logger name="net.sf.l2j.gameserver.handler.skillhandlers.Crits" additivity="false" >
+    <logger name="com.l2jfree.gameserver.handler.skillhandlers.Crits" additivity="false" >
         <appender-ref ref="PDAMLOG"/>
     </logger>
-    <logger name="net.sf.l2j.gameserver.handler.skillhandlers.Mdam" additivity="false" >
+    <logger name="com.l2jfree.gameserver.handler.skillhandlers.Mdam" additivity="false" >
         <appender-ref ref="MDAMLOG"/>
     </logger>
-    <logger name="net.sf.l2j.gameserver.handler.skillhandlers.Pdam" additivity="false" >
+    <logger name="com.l2jfree.gameserver.handler.skillhandlers.Pdam" additivity="false" >
         <appender-ref ref="PDAMLOG"/>
     </logger>
-    <logger name="net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault" additivity="false" >
+    <logger name="com.l2jfree.gameserver.handler.skillhandlers.StrSiegeAssault" additivity="false" >
         <appender-ref ref="PDAMLOG"/>
     </logger>
 

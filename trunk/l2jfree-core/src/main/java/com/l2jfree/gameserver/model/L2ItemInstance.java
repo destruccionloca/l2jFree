@@ -729,7 +729,7 @@ public final class L2ItemInstance extends L2Object
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.L2Object#onAction(net.sf.l2j.gameserver.model.L2PcInstance) also check constraints: only soloing castle owners may pick
+	 * @see com.l2jfree.gameserver.model.L2Object#onAction(com.l2jfree.gameserver.model.L2PcInstance) also check constraints: only soloing castle owners may pick
 	 *      up mercenary tickets of their castle
 	 */
 	@Override

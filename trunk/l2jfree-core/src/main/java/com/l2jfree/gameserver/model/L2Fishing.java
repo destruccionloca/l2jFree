@@ -25,8 +25,8 @@ import com.l2jfree.gameserver.network.serverpackets.ExFishingHpRegen;
 import com.l2jfree.gameserver.network.serverpackets.ExFishingStartCombat;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.tools.random.Rnd;
 
-import net.sf.l2j.tools.random.Rnd;
 
 public class L2Fishing implements Runnable
 {

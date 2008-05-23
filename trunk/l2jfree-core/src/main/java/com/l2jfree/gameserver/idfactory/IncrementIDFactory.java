@@ -30,7 +30,7 @@ public class IncrementIDFactory extends IdFactory
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.idfactory.IdFactory#getNextId()
+	 * @see com.l2jfree.gameserver.idfactory.IdFactory#getNextId()
 	 */
 	@Override
 	public synchronized int getNextId()
@@ -39,7 +39,7 @@ public class IncrementIDFactory extends IdFactory
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.idfactory.IdFactory#releaseId(int)
+	 * @see com.l2jfree.gameserver.idfactory.IdFactory#releaseId(int)
 	 */
 	@Override
 	public synchronized void releaseId(int id)
@@ -48,7 +48,7 @@ public class IncrementIDFactory extends IdFactory
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.idfactory.IdFactory#size()
+	 * @see com.l2jfree.gameserver.idfactory.IdFactory#size()
 	 */
 	@Override
 	public int size()

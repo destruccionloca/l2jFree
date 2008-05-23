@@ -38,7 +38,7 @@ public class L2DummyObject extends L2Object
 	}
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.model.L2Object#isAttackable()
+     * @see com.l2jfree.gameserver.model.L2Object#isAttackable()
      */
     public boolean isAutoAttackable(@SuppressWarnings("unused") L2Character attacker)
     {

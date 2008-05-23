@@ -22,9 +22,9 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.tools.random.Rnd;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.random.Rnd;
 
 /**
  * @author littlecrow

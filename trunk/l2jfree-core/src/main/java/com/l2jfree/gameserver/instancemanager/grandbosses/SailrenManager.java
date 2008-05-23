@@ -31,9 +31,9 @@ import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.tools.random.Rnd;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.random.Rnd;
 
 /**
  * 

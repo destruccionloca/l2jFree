@@ -31,9 +31,9 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.L2EtcItemType;
 import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.tools.random.Rnd;
 
 import javolution.text.TextBuilder;
-import net.sf.l2j.tools.random.Rnd;
 
 /**
  * @author G1ta0

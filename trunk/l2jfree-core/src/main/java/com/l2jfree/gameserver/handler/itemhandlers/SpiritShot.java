@@ -41,7 +41,7 @@ public class SpiritShot implements IItemHandler
 											{ 2061, 2155, 2156, 2157, 2158, 2159, 2159 };
 
 	/* (non-Javadoc) 
-	* @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance) 
+	* @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance) 
 	*/
 	public synchronized void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{

@@ -40,7 +40,7 @@ public class FishShots implements IItemHandler
 											{ 2181, 2182, 2183, 2184, 2185, 2186, 2186 };
 
 	/* (non-Javadoc) 
-	* @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance) 
+	* @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance) 
 	*/
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{

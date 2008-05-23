@@ -31,9 +31,6 @@ import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.tools.random.Rnd;
-import net.sf.l2j.tools.security.NewCrypt;
-import net.sf.l2j.tools.util.HexUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -58,6 +55,9 @@ import com.l2jfree.gameserver.network.loginserverpackets.LoginServerFail;
 import com.l2jfree.gameserver.network.loginserverpackets.PlayerAuthResponse;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 import com.l2jfree.gameserver.network.serverpackets.LoginFail;
+import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.tools.security.NewCrypt;
+import com.l2jfree.tools.util.HexUtil;
 
 public class LoginServerThread extends Thread
 {
@@ -66,7 +66,7 @@ public class LoginServerThread extends Thread
 	/** The LoginServerThread singleton */
 	private static LoginServerThread	_instance;
 
-	/** {@see net.sf.l2j.loginserver.LoginServer#PROTOCOL_REV } */
+	/** {@see com.l2jfree.loginserver.LoginServer#PROTOCOL_REV } */
 	private static final int			REVISION	= 0x0102;
 	private RSAPublicKey				_publicKey;
 	private String						_hostname;

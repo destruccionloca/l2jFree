@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,6 +36,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * Format (ch) dd
@@ -62,7 +62,7 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
 	protected void runImpl()
@@ -200,7 +200,7 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
     }
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 * @see com.l2jfree.gameserver.BasePacket#getType()
 	 */
 	@Override
 	public String getType()

@@ -64,7 +64,7 @@ public final class EffectTemplate
 		icon = showicon;
 		try
 		{
-			_func = Class.forName("net.sf.l2j.gameserver.skills.effects.Effect" + func);
+			_func = Class.forName("com.l2jfree.gameserver.skills.effects.Effect" + func);
 		}
 		catch (ClassNotFoundException e)
 		{

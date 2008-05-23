@@ -38,7 +38,7 @@ public class RequestOlympiadObserverEnd extends L2GameClientPacket
 
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
 	protected void runImpl()
@@ -50,7 +50,7 @@ public class RequestOlympiadObserverEnd extends L2GameClientPacket
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 * @see com.l2jfree.gameserver.BasePacket#getType()
 	 */
 	@Override
 

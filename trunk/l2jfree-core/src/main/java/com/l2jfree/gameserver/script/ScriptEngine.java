@@ -32,7 +32,7 @@ public class ScriptEngine
 		{
 			try
 			{
-				Class.forName("net.sf.l2j.gameserver.script." + name);
+				Class.forName("com.l2jfree.gameserver.script." + name);
 				// By now the static block with no function would
 				// have been executed if the shape was found.
 				// the shape is expected to have put its factory

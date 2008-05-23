@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network;
 import java.io.IOException;
 import java.security.cert.X509Certificate;
 
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,6 +33,7 @@ import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * @author evill33t

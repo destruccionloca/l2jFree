@@ -18,8 +18,8 @@ import com.l2jfree.gameserver.instancemanager.BoatManager;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.GetOnVehicle;
+import com.l2jfree.tools.geometry.Point3D;
 
-import net.sf.l2j.tools.geometry.Point3D;
 
 /**
  * This class ...
@@ -58,7 +58,7 @@ public class RequestGetOnVehicle extends L2GameClientPacket
     }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
      */
     @Override
     public String getType()

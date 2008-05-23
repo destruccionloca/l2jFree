@@ -30,7 +30,7 @@ public class ClanPenalty implements IUserCommandHandler
 											{ 100 };
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
+	 * @see com.l2jfree.gameserver.handler.IUserCommandHandler#useUserCommand(int, com.l2jfree.gameserver.model.L2PcInstance)
 	 */
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
@@ -56,7 +56,7 @@ public class ClanPenalty implements IUserCommandHandler
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#getUserCommandList()
+	 * @see com.l2jfree.gameserver.handler.IUserCommandHandler#getUserCommandList()
 	 */
 	public int[] getUserCommandList()
 	{

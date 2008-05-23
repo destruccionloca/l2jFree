@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,6 +32,7 @@ import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocationInVehicle;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class ...
@@ -237,7 +237,7 @@ public class ValidatePosition extends L2GameClientPacket
     }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
      */
     @Override
     public String getType()

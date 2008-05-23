@@ -21,12 +21,12 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.util.PrimeFinder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.tools.util.PrimeFinder;
 
 /*
  * author: evill33t

@@ -42,7 +42,7 @@ public class Escape implements IUserCommandHandler
 											{ 52 };
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
+	 * @see com.l2jfree.gameserver.handler.IUserCommandHandler#useUserCommand(int, com.l2jfree.gameserver.model.L2PcInstance)
 	 */
 	public boolean useUserCommand(@SuppressWarnings("unused")
 	int id, L2PcInstance activeChar)
@@ -134,7 +134,7 @@ public class Escape implements IUserCommandHandler
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#getUserCommandList()
+	 * @see com.l2jfree.gameserver.handler.IUserCommandHandler#getUserCommandList()
 	 */
 	public int[] getUserCommandList()
 	{

@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.idfactory;
+package com.l2jfree.gameserver.idfactory;
  /**
   * 
   * @author luisantonioa
@@ -25,8 +25,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import junit.framework.TestCase;
-import net.sf.l2j.Config;
-import net.sf.l2j.Config.IdFactoryType;
+import com.l2jfree.Config;
+import com.l2jfree.Config.IdFactoryType;
 
 /**
  * This class ...
@@ -82,7 +82,7 @@ public class IDFactoryTest extends TestCase
 	}
 
 	/*
-	 * Test method for 'net.sf.l2j.gameserver.idfactory.IdFactory.getNextId()'
+	 * Test method for 'com.l2jfree.gameserver.idfactory.IdFactory.getNextId()'
 	 */
 	public final void testFactory()
 	{

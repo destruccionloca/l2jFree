@@ -15,8 +15,8 @@
 package com.l2jfree.gameserver.skills.funcs;
 
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.tools.random.Rnd;
 
-import net.sf.l2j.tools.random.Rnd;
 
 /**
  * @author mkizub

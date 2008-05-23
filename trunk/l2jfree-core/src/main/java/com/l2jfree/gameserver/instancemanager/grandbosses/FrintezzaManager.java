@@ -49,11 +49,11 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.tools.geometry.Point3D;
+import com.l2jfree.tools.random.Rnd;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.tools.geometry.Point3D;
-import net.sf.l2j.tools.random.Rnd;
 
 /** *************************- main class + global class values -*********************************** */
 

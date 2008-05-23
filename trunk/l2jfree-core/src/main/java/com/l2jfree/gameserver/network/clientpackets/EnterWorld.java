@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 
-import net.sf.l2j.tools.codec.Base64;
-import net.sf.l2j.versionning.Version;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -80,6 +78,8 @@ import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.tools.codec.Base64;
+import com.l2jfree.versionning.Version;
 
 /**
  * Enter World Packet Handler<p>
@@ -619,7 +619,7 @@ public class EnterWorld extends L2GameClientPacket
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
 	@Override
 	public String getType()

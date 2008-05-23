@@ -44,7 +44,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#size()
+	 * @see com.l2jfree.util.L2ObjectSet#size()
 	 */
 	@Override
 	public int size()
@@ -55,7 +55,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#isEmpty()
+	 * @see com.l2jfree.util.L2ObjectSet#isEmpty()
 	 */
 	@Override
 	public boolean isEmpty()
@@ -66,7 +66,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#clear()
+	 * @see com.l2jfree.util.L2ObjectSet#clear()
 	 */
 	@Override
 	public void clear()
@@ -77,7 +77,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#put(T)
+	 * @see com.l2jfree.util.L2ObjectSet#put(T)
 	 */
 	@Override
 	public void put(T obj)
@@ -88,7 +88,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#remove(T)
+	 * @see com.l2jfree.util.L2ObjectSet#remove(T)
 	 */
 	@Override
 	public void remove(T obj)
@@ -99,7 +99,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#contains(T)
+	 * @see com.l2jfree.util.L2ObjectSet#contains(T)
 	 */
 	@Override
 	public boolean contains(T obj)
@@ -110,7 +110,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectSet#iterator()
+	 * @see com.l2jfree.util.L2ObjectSet#iterator()
 	 */
 	@Override
 	public Iterator<T> iterator()

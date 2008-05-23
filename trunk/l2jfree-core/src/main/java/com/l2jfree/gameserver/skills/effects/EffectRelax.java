@@ -49,7 +49,7 @@ class EffectRelax extends L2Effect
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.L2Effect#onExit()
+	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
 	public void onExit()

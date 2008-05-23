@@ -47,7 +47,7 @@ public class VehicleDeparture extends L2GameServerPacket
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
 	protected
@@ -63,7 +63,7 @@ public class VehicleDeparture extends L2GameServerPacket
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 * @see com.l2jfree.gameserver.BasePacket#getType()
 	 */
 	@Override
 	public String getType()

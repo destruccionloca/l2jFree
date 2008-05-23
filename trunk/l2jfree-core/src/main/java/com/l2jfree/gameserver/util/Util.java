@@ -23,7 +23,6 @@ package com.l2jfree.gameserver.util;
 import java.io.File;
 import java.util.Collection;
 
-import net.sf.l2j.tools.util.CustomFileNameFilter;
 
 import org.python.core.Py;
 import org.python.core.PyModule;
@@ -36,6 +35,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.tools.util.CustomFileNameFilter;
 
 /**
  * General Utility functions related to Gameserver

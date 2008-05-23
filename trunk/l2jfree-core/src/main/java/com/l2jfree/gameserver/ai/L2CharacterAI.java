@@ -40,10 +40,10 @@ import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.L2Weapon;
 import com.l2jfree.gameserver.templates.L2WeaponType;
+import com.l2jfree.tools.geometry.Point3D;
+import com.l2jfree.tools.random.Rnd;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.geometry.Point3D;
-import net.sf.l2j.tools.random.Rnd;
 
 /**
  * This class manages AI of L2Character.<BR><BR>
@@ -346,7 +346,7 @@ public class L2CharacterAI extends AbstractAI
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.ai.AbstractAI#onIntentionMoveToInABoat(net.sf.l2j.gameserver.model.L2CharPosition, net.sf.l2j.gameserver.model.L2CharPosition)
+	 * @see com.l2jfree.gameserver.ai.AbstractAI#onIntentionMoveToInABoat(com.l2jfree.gameserver.model.L2CharPosition, com.l2jfree.gameserver.model.L2CharPosition)
 	 */
 	@Override
 	protected void onIntentionMoveToInABoat(L2CharPosition destination, L2CharPosition origin)

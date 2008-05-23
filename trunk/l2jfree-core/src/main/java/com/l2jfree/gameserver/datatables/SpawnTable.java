@@ -396,7 +396,7 @@ public class SpawnTable
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.datatables.SpawnTableMBean#reloadAll()
+	 * @see com.l2jfree.gameserver.datatables.SpawnTableMBean#reloadAll()
 	 */
 	public void reloadAll()
 	{

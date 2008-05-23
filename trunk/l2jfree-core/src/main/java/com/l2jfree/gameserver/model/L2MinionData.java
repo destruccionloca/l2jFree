@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.model;
 
-import net.sf.l2j.tools.random.Rnd;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class defines the spawn data of a Minion type In a group mob, there are

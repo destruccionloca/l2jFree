@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.skills;
 
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,6 +49,7 @@ import com.l2jfree.gameserver.templates.L2PcTemplate;
 import com.l2jfree.gameserver.templates.L2Weapon;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * Global calculations, can be modified by server admins

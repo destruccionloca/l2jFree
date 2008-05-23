@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,6 +33,7 @@ import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.tools.random.Rnd;
 
 public class RequestEnchantItem extends L2GameClientPacket
 {
@@ -453,7 +453,7 @@ public class RequestEnchantItem extends L2GameClientPacket
     }
     
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
      */
     @Override
     public String getType()

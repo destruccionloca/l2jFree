@@ -1431,7 +1431,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			}
 			else if (statToSet.equals("type"))
 			{
-				Class.forName("net.sf.l2j.gameserver.model.actor.instance." + value + "Instance");
+				Class.forName("com.l2jfree.gameserver.model.actor.instance." + value + "Instance");
 				newNpcData.set("type", value);
 			}
 			else if (statToSet.equals("attackRange"))

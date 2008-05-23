@@ -55,7 +55,7 @@ public class Wedding implements IVoicedCommandHandler
 													{ "divorce", "engage", "gotolove" };
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.handler.IVoicedCommandHandler#useVoicedCommand(String, net.sf.l2j.gameserver.model.L2PcInstance), String)
+	 * @see com.l2jfree.gameserver.handler.IVoicedCommandHandler#useVoicedCommand(String, com.l2jfree.gameserver.model.L2PcInstance), String)
 	 */
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
@@ -432,7 +432,7 @@ public class Wedding implements IVoicedCommandHandler
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.handler.IVoicedCommandHandler#getVoicedCommandList()
+	 * @see com.l2jfree.gameserver.handler.IVoicedCommandHandler#getVoicedCommandList()
 	 */
 	public String[] getVoicedCommandList()
 	{

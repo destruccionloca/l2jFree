@@ -16,7 +16,8 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
-import net.sf.l2j.tools.geometry.Point3D;
+import com.l2jfree.tools.geometry.Point3D;
+
 
 /**
  * @author  -Wooden-

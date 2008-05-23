@@ -23,8 +23,8 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.tools.random.Rnd;
 
-import net.sf.l2j.tools.random.Rnd;
 
 /**
  * @author Drunkard Zabb0x Lets drink2code!
@@ -91,7 +91,7 @@ public class L2XmassTreeInstance extends L2NpcInstance
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.L2Object#isAttackable()
+	 * @see com.l2jfree.gameserver.model.L2Object#isAttackable()
 	 */
 	@Override
 	public boolean isAutoAttackable(@SuppressWarnings("unused")

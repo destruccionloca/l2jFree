@@ -90,7 +90,7 @@ public class L2SymbolMakerInstance extends L2FolkInstance
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.model.L2Object#isAttackable()
+	 * @see com.l2jfree.gameserver.model.L2Object#isAttackable()
 	 */
 	@Override
 	public boolean isAutoAttackable(@SuppressWarnings("unused") L2Character attacker)

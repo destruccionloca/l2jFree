@@ -203,7 +203,7 @@ public class L2TrapInstance extends L2Trap
 
 	/**
 	 *
-	 * @see com.l2jfree.gameserver.model.L2Trap#unSummon(net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
+	 * @see com.l2jfree.gameserver.model.L2Trap#unSummon(com.l2jfree.gameserver.model.actor.instance.L2PcInstance)
 	 */
 	@Override
 	public void unSummon(L2PcInstance owner)

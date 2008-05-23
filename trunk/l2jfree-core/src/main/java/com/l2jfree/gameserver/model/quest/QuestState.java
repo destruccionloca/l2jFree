@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.model.quest;
 import java.util.Map;
 
 import javolution.util.FastMap;
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,6 +41,7 @@ import com.l2jfree.gameserver.network.serverpackets.TutorialEnableClientEvent;
 import com.l2jfree.gameserver.network.serverpackets.TutorialShowHtml;
 import com.l2jfree.gameserver.network.serverpackets.TutorialShowQuestionMark;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * @author Luis Arias
@@ -246,7 +246,7 @@ public final class QuestState
 	 * @param old : int indicating the previously noted step 
 	 * 
 	 * For more info on the variable communicating the progress steps to the client, please see
-	 * @link net.sf.l2j.loginserver.serverpacket.QuestList
+	 * @link com.l2jfree.loginserver.serverpacket.QuestList
 	 */	
 	private void setCond(int cond, int old)
 	{

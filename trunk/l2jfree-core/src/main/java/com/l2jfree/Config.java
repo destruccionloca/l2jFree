@@ -36,11 +36,11 @@ import java.util.regex.PatternSyntaxException;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import net.sf.l2j.config.L2Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.config.L2Properties;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -3686,10 +3686,10 @@ public final class Config
 	 */
 	public static void initDBProperties()
 	{
-		System.setProperty("net.sf.l2j.db.driverclass", DATABASE_DRIVER);
-		System.setProperty("net.sf.l2j.db.urldb", DATABASE_URL);
-		System.setProperty("net.sf.l2j.db.user", DATABASE_LOGIN);
-		System.setProperty("net.sf.l2j.db.password", DATABASE_PASSWORD);
-		System.setProperty("net.sf.l2j.db.maximum.db.connection", Integer.toString(DATABASE_MAX_CONNECTIONS));
+		System.setProperty("com.l2jfree.db.driverclass", DATABASE_DRIVER);
+		System.setProperty("com.l2jfree.db.urldb", DATABASE_URL);
+		System.setProperty("com.l2jfree.db.user", DATABASE_LOGIN);
+		System.setProperty("com.l2jfree.db.password", DATABASE_PASSWORD);
+		System.setProperty("com.l2jfree.db.maximum.db.connection", Integer.toString(DATABASE_MAX_CONNECTIONS));
 	}
 }

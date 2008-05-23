@@ -150,7 +150,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectMap#size()
+	 * @see com.l2jfree.util.L2ObjectMap#size()
 	 */
 	public int size()
 	{
@@ -160,7 +160,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectMap#isEmpty()
+	 * @see com.l2jfree.util.L2ObjectMap#isEmpty()
 	 */
 	public boolean isEmpty()
 	{
@@ -170,7 +170,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectMap#clear()
+	 * @see com.l2jfree.util.L2ObjectMap#clear()
 	 */
 	@SuppressWarnings("unchecked")
 	public synchronized void clear()
@@ -208,7 +208,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectMap#put(T)
+	 * @see com.l2jfree.util.L2ObjectMap#put(T)
 	 */
 	public synchronized void put(T obj)
 	{
@@ -279,7 +279,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectMap#remove(T)
+	 * @see com.l2jfree.util.L2ObjectMap#remove(T)
 	 */
 	public synchronized void remove(T obj)
 	{
@@ -323,7 +323,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectMap#get(int)
+	 * @see com.l2jfree.util.L2ObjectMap#get(int)
 	 */
 	public T get(int id)
 	{
@@ -363,7 +363,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectMap#contains(T)
+	 * @see com.l2jfree.util.L2ObjectMap#contains(T)
 	 */
 	public boolean contains(T obj)
 	{
@@ -421,7 +421,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.util.L2ObjectMap#iterator()
+	 * @see com.l2jfree.util.L2ObjectMap#iterator()
 	 */
 	public Iterator<T> iterator()
 	{

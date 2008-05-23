@@ -138,7 +138,7 @@ public class RequestAutoSoulShot extends L2GameClientPacket
     }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
      */
     @Override
     public String getType()

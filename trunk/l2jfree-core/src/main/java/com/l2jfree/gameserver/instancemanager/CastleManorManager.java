@@ -21,7 +21,6 @@ import java.util.Calendar;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,6 +38,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * Class For Castle Manor Manager Load manor data from DB Update/Reload/Delete

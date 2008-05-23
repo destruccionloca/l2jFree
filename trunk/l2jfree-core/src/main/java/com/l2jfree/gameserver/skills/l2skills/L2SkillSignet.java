@@ -29,8 +29,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.tools.geometry.Point3D;
 
-import net.sf.l2j.tools.geometry.Point3D;
 
 public final class L2SkillSignet extends L2Skill
 {

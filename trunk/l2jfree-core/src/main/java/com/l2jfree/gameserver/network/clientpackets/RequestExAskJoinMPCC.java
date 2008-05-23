@@ -42,7 +42,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
     }
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
     protected void runImpl()
@@ -192,7 +192,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 * @see com.l2jfree.gameserver.BasePacket#getType()
 	 */
 	@Override
 	public String getType()

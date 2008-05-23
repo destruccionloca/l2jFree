@@ -21,7 +21,6 @@ import java.util.StringTokenizer;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import javolution.util.FastList;
-import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,6 +33,7 @@ import com.l2jfree.gameserver.model.L2Augmentation;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class manages the augmentation data and can also create new augmentations.

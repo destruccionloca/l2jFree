@@ -23,12 +23,12 @@ package com.l2jfree.gameserver.idfactory;
 import java.util.BitSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import net.sf.l2j.tools.util.PrimeFinder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.tools.util.PrimeFinder;
 
 /**
  * This class ...
