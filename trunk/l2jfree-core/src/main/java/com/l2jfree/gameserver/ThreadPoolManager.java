@@ -124,6 +124,13 @@ public class ThreadPoolManager
 		_aiThreadPool = new ThreadPoolExecutor(1, Config.AI_MAX_THREAD, 10L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
 		_aiScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.AI_MAX_THREAD, new PriorityThreadFactory("AISTPool", Thread.NORM_PRIORITY));
+		
+		scheduleGeneralAtFixedRate(new Runnable() {
+			public void run()
+			{
+				ThreadPoolManager.this.purge();
+			}
+		}, 3600000, 3600000);
 	}
 
 	public static long validateDelay(long delay)

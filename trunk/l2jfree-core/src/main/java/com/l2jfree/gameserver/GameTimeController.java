@@ -16,10 +16,12 @@ package com.l2jfree.gameserver;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,7 +52,7 @@ public class GameTimeController
 	protected static long							_gameStartTime;
 	protected static boolean						_isNight			= false;
 
-	private static FastMap<Integer, L2Character>	_movingObjects		= new FastMap<Integer, L2Character>().setShared(true);
+	private final Set<L2Character>					_movingObjects		= new FastSet<L2Character>();
 
 	protected static TimerThread					_timer;
 	private ScheduledFuture<?>						_timerWatcher;
@@ -105,14 +107,12 @@ public class GameTimeController
 	 * @param cha
 	 *            The L2Character to add to _movingObjects of GameTimeController
 	 */
-	public void registerMovingObject(L2Character cha)
+	public synchronized void registerMovingObject(L2Character cha)
 	{
-		if (cha == null)
-			return;
-		if (!_movingObjects.containsKey(cha.getObjectId()))
-			_movingObjects.put(cha.getObjectId(), cha);
+		if (cha != null)
+			_movingObjects.add(cha);
 	}
-
+	
 	/**
 	 * Move all L2Characters contained in _movingObjects of GameTimeController.<BR>
 	 * <BR>
@@ -129,37 +129,30 @@ public class GameTimeController
 	 * <BR>
 	 * <BR>
 	 */
-	protected void moveObjects()
+	protected synchronized void moveObjects()
 	{
-		// Create an FastList to contain all L2Character that are arrived to
-		// destination
-		FastList<L2Character> ended = null;
-
-		// Go throw the table containing L2Character in movement
-		for (L2Character ch : _movingObjects.values())
+		// Create a List to contain all L2Character that are arrived to destination
+		List<L2Character> ended = null;
+		
+		for (L2Character ch : _movingObjects)
 		{
 			// If movement is finished, the L2Character is removed from
-			// movingObjects and added to the ArrayList ended
-			if (ch != null)
+			// movingObjects and added to the list
+			if (ch.updatePosition(_gameTicks))
 			{
-				if (ch.updatePosition(_gameTicks))
-				{
-					if (ended == null)
-						ended = new FastList<L2Character>();
-					ended.add(ch);
-				}
+				if (ended == null)
+					ended = new FastList<L2Character>();
+				
+				ended.add(ch);
+				
+				_movingObjects.remove(ch);
 			}
 		}
+		
 		if (ended != null)
-		{
-			_movingObjects.values().removeAll(ended);
-			for (L2Character ch : ended)
-				if (ch != null) // Disconnected?
-					ThreadPoolManager.getInstance().executeTask(new MovingObjectArrived(ch));
-			ended.clear();
-		}
+			ThreadPoolManager.getInstance().executeTask(new MovingObjectArrived(ended));
 	}
-
+	
 	public void stopTimer()
 	{
 		_timerWatcher.cancel(true);
@@ -236,29 +229,33 @@ public class GameTimeController
 	 * EVT_ARRIVED.<BR>
 	 * <BR>
 	 */
-	class MovingObjectArrived implements Runnable
+	private class MovingObjectArrived implements Runnable
 	{
-		private final L2Character	_ended;
-
-		MovingObjectArrived(L2Character ended)
+		private final List<L2Character> _ended;
+		
+		MovingObjectArrived(List<L2Character> ended)
 		{
 			_ended = ended;
 		}
-
+		
 		public void run()
 		{
-			try
+			for (L2Character cha : _ended)
 			{
-				if (_ended.hasAI()) // AI could be just disabled due to region turn off
+				try
 				{
-					if (Config.MOVE_BASED_KNOWNLIST)
-						_ended.getKnownList().findObjects();
-					_ended.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
+					if (cha.hasAI()) // AI could be just disabled due to region turn off
+					{
+						if (Config.MOVE_BASED_KNOWNLIST)
+							cha.getKnownList().findObjects();
+						
+						cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
+					}
 				}
-			}
-			catch (NullPointerException e)
-			{
-				_log.error(e.getMessage(), e);
+				catch (Exception e)
+				{
+					_log.error(e.getMessage(), e);
+				}
 			}
 		}
 	}
