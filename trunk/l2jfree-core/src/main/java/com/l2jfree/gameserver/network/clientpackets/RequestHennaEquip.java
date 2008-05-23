@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.HennaTable;
 import com.l2jfree.gameserver.datatables.HennaTreeTable;
-import com.l2jfree.gameserver.model.L2HennaInstance;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -52,18 +51,13 @@ public class RequestHennaEquip extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		
 		if (activeChar == null)
-			return;
-		
-		L2Henna template = HennaTable.getInstance().getTemplate(_symbolId);
-		
-		if (template == null)
-			return;
-		
-		L2HennaInstance temp = new L2HennaInstance(template);
-		int _count = 0;
-
+		    return;
+        
+		L2Henna temp = HennaTable.getInstance().getTemplate(_symbolId);
+        if (temp == null)
+            return;
+        
 		/* Prevents henna drawing exploit: 
 		   1) talk to L2SymbolMakerInstance 
 		   2) RequestHennaList
@@ -72,7 +66,7 @@ public class RequestHennaEquip extends L2GameClientPacket
 		   You could draw any kind of henna just having the required subclass...
 		 */
 		boolean cheater = true;
-		for (L2HennaInstance h : HennaTreeTable.getInstance().getAvailableHenna(activeChar.getClassId()))
+		for (L2Henna h : HennaTreeTable.getInstance().getAvailableHenna(activeChar))
 		{
 			if (h.getSymbolId() == temp.getSymbolId()) 
 			{
@@ -80,27 +74,25 @@ public class RequestHennaEquip extends L2GameClientPacket
 				break;
 			}
 		}  
-
-		try{
-			_count = activeChar.getInventory().getItemByItemId(temp.getItemIdDye()).getCount();
-		}
-		catch(Exception e){}
 		
-		if (!cheater && (_count >= temp.getAmountDyeRequire())&& (activeChar.getAdena()>= temp.getPrice()) && activeChar.addHenna(temp))
+		L2ItemInstance item = activeChar.getInventory().getItemByItemId(temp.getItemId());
+		
+		int count = (item == null ? 0 : item.getCount());
+		
+		if (!cheater && count >= temp.getAmount()&& activeChar.getAdena() >= temp.getPrice() && activeChar.addHenna(temp))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-			sm.addItemNameById(temp.getItemIdDye());
+			sm.addItemNameById(temp.getItemId());
 			activeChar.sendPacket(sm);
-			sm = null;
 			activeChar.reduceAdena("Henna", temp.getPrice(), activeChar.getLastFolkNPC(), true);
-			L2ItemInstance dye = activeChar.getInventory().destroyItemByItemId("Henna", temp.getItemIdDye(),temp.getAmountDyeRequire(), activeChar, activeChar.getLastFolkNPC());			
+			L2ItemInstance dye = activeChar.getInventory().destroyItemByItemId("Henna", temp.getItemId(), temp.getAmount(), activeChar, activeChar.getLastFolkNPC());
 			// Send inventory update packet
 			activeChar.getInventory().updateInventory(dye);
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.SYMBOL_ADDED));
+			activeChar.sendPacket(SystemMessageId.SYMBOL_ADDED);
 		}
 		else
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_DRAW_SYMBOL));
+			activeChar.sendPacket(SystemMessageId.CANT_DRAW_SYMBOL);
 			if (!activeChar.isGM() && cheater)
 				Util.handleIllegalPlayerAction(activeChar,"Exploit attempt: Character "+activeChar.getName()+" of account "+activeChar.getAccountName()+" tryed to add a forbidden henna.",Config.DEFAULT_PUNISH);
 		}

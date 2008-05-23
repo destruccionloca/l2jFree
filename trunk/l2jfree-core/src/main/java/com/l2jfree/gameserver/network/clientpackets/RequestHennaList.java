@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.datatables.HennaTreeTable;
-import com.l2jfree.gameserver.model.L2HennaInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.HennaEquipList;
 
@@ -49,9 +47,7 @@ public class RequestHennaList extends L2GameClientPacket
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null) return;
 
-        L2HennaInstance[] henna = HennaTreeTable.getInstance().getAvailableHenna(activeChar.getClassId());
-        HennaEquipList he = new HennaEquipList(activeChar, henna);
-        activeChar.sendPacket(he);
+        activeChar.sendPacket(new HennaEquipList(activeChar));
     }
 
     /* (non-Javadoc)

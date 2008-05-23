@@ -14,8 +14,8 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.L2HennaInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.templates.L2Henna;
 
 /**
  *
@@ -25,23 +25,19 @@ public class GMHennaInfo extends L2GameServerPacket
 {
     private final static String S_F0_GMHENNAINFO = "[S] F0 GMHennaInfo";
     private final L2PcInstance _activeChar;
-    private final L2HennaInstance[] _hennas = new L2HennaInstance[3];
-    private int _count;
+    private final L2Henna[] _hennas = new L2Henna[3];
+    private int _count = 0;
     
     public GMHennaInfo(L2PcInstance activeChar)
     {
         _activeChar = activeChar;
         
-        int j = 0;
         for (int i = 0; i < 3; i++)
         {
-            L2HennaInstance h = _activeChar.getHenna(i+1);
+            L2Henna h = _activeChar.getHenna(i+1);
             if (h != null)
-            {
-                _hennas[j++] = h;
-            }
+                _hennas[_count++] = h;
         }
-        _count = j;
     }
     
     /**

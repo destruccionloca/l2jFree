@@ -59,6 +59,7 @@ import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.FishTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.HennaTable;
+import com.l2jfree.gameserver.datatables.HennaTreeTable;
 import com.l2jfree.gameserver.datatables.HeroSkillTable;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NobleSkillTable;
@@ -102,7 +103,6 @@ import com.l2jfree.gameserver.model.L2Decoy;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Fishing;
 import com.l2jfree.gameserver.model.L2FriendList;
-import com.l2jfree.gameserver.model.L2HennaInstance;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Macro;
 import com.l2jfree.gameserver.model.L2ManufactureList;
@@ -500,7 +500,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private ClassId							_skillLearningClassId;
 
 	// hennas
-	private final L2HennaInstance[]			_henna					= new L2HennaInstance[3];
+	private final L2Henna[]					_henna					= new L2Henna[3];
 	private int								_hennaSTR;
 	private int								_hennaINT;
 	private int								_hennaDEX;
@@ -7568,20 +7568,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				if (slot < 1 || slot > 3)
 					continue;
 
-				int symbol_id = rset.getInt("symbol_id");
-
-				L2HennaInstance sym = null;
-
-				if (symbol_id != 0)
-				{
-					L2Henna tpl = HennaTable.getInstance().getTemplate(symbol_id);
-
-					if (tpl != null)
-					{
-						sym = new L2HennaInstance(tpl);
-						_henna[slot - 1] = sym;
-					}
-				}
+				_henna[slot - 1] = HennaTable.getInstance().getTemplate(rset.getInt("symbol_id"));
 			}
 
 			rset.close();
@@ -7636,7 +7623,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (_henna[slot] == null)
 			return false;
 
-		L2HennaInstance henna = _henna[slot];
+		L2Henna henna = _henna[slot];
 		_henna[slot] = null;
 
 		Connection con = null;
@@ -7676,12 +7663,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		sendPacket(new UserInfo(this));
 
 		// Add the recovered dyes to the player's inventory and notify them.
-		L2ItemInstance dye = getInventory().addItem("Henna", henna.getItemIdDye(), henna.getAmountDyeRequire() / 2, this, null);
+		L2ItemInstance dye = getInventory().addItem("Henna", henna.getItemId(), henna.getAmount() / 2, this, null);
 		_inventory.updateInventory(dye);
-
+		
 		SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-		sm.addItemNameById(henna.getItemIdDye());
-		sm.addNumber(henna.getAmountDyeRequire() / 2);
+		sm.addItemNameById(henna.getItemId());
+		sm.addNumber(henna.getAmount() / 2);
 		sendPacket(sm);
 
 		return true;
@@ -7690,15 +7677,30 @@ public final class L2PcInstance extends L2PlayableInstance
 	/**
 	 * Add a Henna to the L2PcInstance, save update in the character_hennas table of the database and send Server->Client HennaInfo/UserInfo packet to this L2PcInstance.<BR><BR>
 	 */
-	public boolean addHenna(L2HennaInstance henna)
+	public boolean addHenna(L2Henna henna)
 	{
-		if (getHennaEmptySlots() == 0)
+		if (getHennaEmptySlots() <= 0)
 		{
 			sendMessage("You may not have more than three equipped symbols at a time.");
 			return false;
 		}
-
-		// int slot = 0;
+		
+		boolean allow = false;
+		for (L2Henna tmp : HennaTreeTable.getInstance().getAvailableHenna(this))
+		{
+			if (tmp == henna)
+			{
+				allow = true;
+				break;
+			}
+		}
+		
+		if (!allow)
+		{
+			sendMessage("Wrong class to add this henna!");
+			return false;
+		}
+		
 		for (int i = 0; i < 3; i++)
 		{
 			if (_henna[i] == null)
@@ -7792,13 +7794,12 @@ public final class L2PcInstance extends L2PlayableInstance
 	/**
 	 * Return the Henna of this L2PcInstance corresponding to the selected slot.<BR><BR>
 	 */
-	public L2HennaInstance getHenna(int slot)
-	{
-		if (slot < 1 || slot > 3)
-			return null;
+    public L2Henna getHenna(int slot)
+    {
+        if (slot < 1 || slot > 3) return null;
 
-		return _henna[slot - 1];
-	}
+        return _henna[slot - 1];
+    }
 
 	/**
 	 * Return the INT Henna modifier of this L2PcInstance.<BR><BR>

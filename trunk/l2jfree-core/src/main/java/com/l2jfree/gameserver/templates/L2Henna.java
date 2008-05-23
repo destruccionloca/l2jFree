@@ -14,115 +14,61 @@
  */
 package com.l2jfree.gameserver.templates;
 
-/**
- * This class ...
- * 
- * @version $Revision$ $Date$
- */
-public class L2Henna
+public final class L2Henna
 {
-
-	public final int	symbolId;
-	public final String	symbolName;
-	public final int	dye;
-	public final int	price;
-	public final int	amount;
-	public final int	statINT;
-	public final int	statSTR;
-	public final int	statCON;
-	public final int	statMEM;
-	public final int	statDEX;
-	public final int	statWIT;
-
+	private final int _symbolId;
+	private final int _itemId;
+	private final int _price;
+	private final int _amount;
+	private final int _statINT;
+	private final int _statSTR;
+	private final int _statCON;
+	private final int _statMEM;
+	private final int _statDEX;
+	private final int _statWIT;
+	private final String _name;
+	
 	public L2Henna(StatsSet set)
 	{
-		symbolId = set.getInteger("symbol_id");
-		symbolName = ""; // set.getString("symbol_name");
-		dye = set.getInteger("dye");
-		price = set.getInteger("price");
-		amount = set.getInteger("amount");
-		statINT = set.getInteger("stat_INT");
-		statSTR = set.getInteger("stat_STR");
-		statCON = set.getInteger("stat_CON");
-		statMEM = set.getInteger("stat_MEM");
-		statDEX = set.getInteger("stat_DEX");
-		statWIT = set.getInteger("stat_WIT");
+		_symbolId	= set.getInteger("symbol_id");
+		_itemId		= set.getInteger("dye_id");
+		_price		= set.getInteger("price");
+		_amount		= set.getInteger("dye_amount");
+		_statINT	= set.getInteger("stat_INT");
+		_statSTR	= set.getInteger("stat_STR");
+		_statCON	= set.getInteger("stat_CON");
+		_statMEM	= set.getInteger("stat_MEM");
+		_statDEX	= set.getInteger("stat_DEX");
+		_statWIT	= set.getInteger("stat_WIT");
+		
+		String name = new String();
+		
+		if (_statINT > 0) name += "INT +"+_statINT;
+		if (_statSTR > 0) name += "STR +"+_statSTR;
+		if (_statCON > 0) name += "CON +"+_statCON;
+		if (_statMEM > 0) name += "MEN +"+_statMEM;
+		if (_statDEX > 0) name += "DEX +"+_statDEX;
+		if (_statWIT > 0) name += "WIT +"+_statWIT;
+		
+		if (_statINT < 0) name += ", INT "+_statINT;
+		if (_statSTR < 0) name += ", STR "+_statSTR;
+		if (_statCON < 0) name += ", CON "+_statCON;
+		if (_statMEM < 0) name += ", MEN "+_statMEM;
+		if (_statDEX < 0) name += ", DEX "+_statDEX;
+		if (_statWIT < 0) name += ", WIT "+_statWIT;
+		
+		_name = name;
 	}
-
-	public int getSymbolId()
-	{
-		return symbolId;
-	}
-
-	/**
-	 * @return
-	 */
-	public int getDyeId()
-	{
-		return dye;
-	}
-
-	/**
-	 * @return
-	 */
-	public int getPrice()
-	{
-		return price;
-	}
-
-	/**
-	 * @return
-	 */
-	public int getAmountDyeRequire()
-	{
-		return amount;
-	}
-
-	/**
-	 * @return
-	 */
-	public int getStatINT()
-	{
-		return statINT;
-	}
-
-	/**
-	 * @return
-	 */
-	public int getStatSTR()
-	{
-		return statSTR;
-	}
-
-	/**
-	 * @return
-	 */
-	public int getStatCON()
-	{
-		return statCON;
-	}
-
-	/**
-	 * @return
-	 */
-	public int getStatMEM()
-	{
-		return statMEM;
-	}
-
-	/**
-	 * @return
-	 */
-	public int getStatDEX()
-	{
-		return statDEX;
-	}
-
-	/**
-	 * @return
-	 */
-	public int getStatWIT()
-	{
-		return statWIT;
-	}
+	
+	public int getSymbolId() { return _symbolId; }
+	public int getItemId()   { return _itemId; }
+	public int getPrice()    { return _price; }
+	public int getAmount()   { return _amount; }
+	public int getStatINT()  { return _statINT; }
+	public int getStatSTR()  { return _statSTR; }
+	public int getStatCON()  { return _statCON; }
+	public int getStatMEM()  { return _statMEM; }
+	public int getStatDEX()  { return _statDEX; }
+	public int getStatWIT()  { return _statWIT; }
+	public String getName()  { return _name; }
 }

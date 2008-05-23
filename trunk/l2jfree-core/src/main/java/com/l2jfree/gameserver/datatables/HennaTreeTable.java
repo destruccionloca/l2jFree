@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -26,54 +27,48 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
-import com.l2jfree.gameserver.model.L2HennaInstance;
-import com.l2jfree.gameserver.model.base.ClassId;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.L2Henna;
 
-/**
- * This class ...
- * 
- * @version $Revision$ $Date$
- */
 public class HennaTreeTable
 {
-	private final static Log							_log			= LogFactory.getLog(HennaTreeTable.class.getName());
-	private static final HennaTreeTable					_instance		= new HennaTreeTable();
-	private FastMap<ClassId, FastList<L2HennaInstance>>	_hennaTrees;
-	private boolean										_initialized	= true;
-
+	private static final Log _log = LogFactory.getLog(HennaTreeTable.class);
+	private static HennaTreeTable _instance;
+	
+	private final Map<Integer, List<L2Henna>> _hennaTrees = new FastMap<Integer, List<L2Henna>>();
+	
 	public static HennaTreeTable getInstance()
 	{
+		if (_instance == null)
+			_instance = new HennaTreeTable();
+		
 		return _instance;
 	}
-
+	
 	private HennaTreeTable()
 	{
-		_hennaTrees = new FastMap<ClassId, FastList<L2HennaInstance>>();
 		int classId = 0;
 		int count = 0;
-
 		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("SELECT class_name, id, parent_id FROM class_list ORDER BY id");
+			PreparedStatement statement = con.prepareStatement("SELECT id FROM class_list");
 			ResultSet classlist = statement.executeQuery();
-			FastList<L2HennaInstance> list;
-			//int parentClassId;
-			//L2Henna henna;
+			
 			while (classlist.next())
 			{
-				list = new FastList<L2HennaInstance>();
 				classId = classlist.getInt("id");
-				PreparedStatement statement2 = con.prepareStatement("SELECT class_id, symbol_id FROM henna_trees where class_id=? ORDER BY symbol_id");
+				FastList<L2Henna> list = new FastList<L2Henna>();
+				
+				PreparedStatement statement2 = con.prepareStatement("SELECT symbol_id FROM henna_trees where class_id=?");
 				statement2.setInt(1, classId);
 				ResultSet hennatree = statement2.executeQuery();
-
+				
 				while (hennatree.next())
 				{
 					int id = hennatree.getInt("symbol_id");
-					//String name = hennatree.getString("name");
+					
 					L2Henna template = HennaTable.getInstance().getTemplate(id);
 					if (template == null)
 					{
@@ -83,73 +78,30 @@ public class HennaTreeTable
 						statement.close();
 						return;
 					}
-					L2HennaInstance temp = new L2HennaInstance(template);
-					temp.setSymbolId(id);
-					temp.setItemIdDye(template.getDyeId());
-					temp.setAmountDyeRequire(template.getAmountDyeRequire());
-					temp.setPrice(template.getPrice());
-					temp.setStatINT(template.getStatINT());
-					temp.setStatSTR(template.getStatSTR());
-					temp.setStatCON(template.getStatCON());
-					temp.setStatMEM(template.getStatMEM());
-					temp.setStatDEX(template.getStatDEX());
-					temp.setStatWIT(template.getStatWIT());
-
-					list.add(temp);
+					
+					list.add(template);
 				}
-				_hennaTrees.put(ClassId.values()[classId], list);
 				hennatree.close();
 				statement2.close();
+				
 				count += list.size();
-				_log.debug("Henna Tree for Class: " + classId + " has " + list.size() + " Henna Templates.");
+				_hennaTrees.put(classId, list);
 			}
-
+			
 			classlist.close();
 			statement.close();
-
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while creating henna tree for classId " + classId + "  " + e, e);
+			_log.warn("Error while creating henna tree for classId "+classId+" "+e, e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-
-		_log.info("HennaTreeTable: Loaded " + count + " Henna Tree Templates.");
-
+		finally { try { con.close(); } catch (Exception e) { } }
+		
+		_log.info("HennaTreeTable: Loaded "+count+" Henna Tree Templates.");
 	}
-
-	public L2HennaInstance[] getAvailableHenna(ClassId classId)
+	
+	public List<L2Henna> getAvailableHenna(L2PcInstance player)
 	{
-		List<L2HennaInstance> result = new FastList<L2HennaInstance>();
-		List<L2HennaInstance> henna = _hennaTrees.get(classId);
-		if (henna == null)
-		{
-			// the hennatree for this class is undefined, so we give an empty list
-			_log.warn("Hennatree for class " + classId + " is not defined !");
-			return new L2HennaInstance[0];
-		}
-
-		for (int i = 0; i < henna.size(); i++)
-		{
-			L2HennaInstance temp = henna.get(i);
-			result.add(temp);
-		}
-
-		return result.toArray(new L2HennaInstance[result.size()]);
+		return _hennaTrees.get(player.getClassId().getId());
 	}
-
-	public boolean isInitialized()
-	{
-		return _initialized;
-	}
-
 }

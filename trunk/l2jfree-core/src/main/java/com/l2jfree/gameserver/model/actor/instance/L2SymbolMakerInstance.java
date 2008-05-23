@@ -14,10 +14,9 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import com.l2jfree.gameserver.datatables.HennaTreeTable;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2HennaInstance;
 import com.l2jfree.gameserver.network.serverpackets.HennaEquipList;
+import com.l2jfree.gameserver.templates.L2Henna;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
 import javolution.text.TextBuilder;
@@ -34,9 +33,7 @@ public class L2SymbolMakerInstance extends L2FolkInstance
 	{
 		if (command.equals("Draw"))
 		{
-			L2HennaInstance[] henna = HennaTreeTable.getInstance().getAvailableHenna(player.getClassId());
-			HennaEquipList hel = new HennaEquipList(player, henna);
-			player.sendPacket(hel);
+			player.sendPacket(new HennaEquipList(player));
 		}
 		else if (command.equals("RemoveList"))
 		{
@@ -59,9 +56,9 @@ public class L2SymbolMakerInstance extends L2FolkInstance
 		html1.append("Select symbol you would like to remove:<br><br>");
 		boolean hasHennas = false;
 		
-		for (int i=1;i<=3;i++)
+		for (int i = 1; i <= 3; i++)
 		{
-			L2HennaInstance henna = player.getHenna(i);
+			L2Henna henna = player.getHenna(i);
 			
 			if (henna != null)
 			{
