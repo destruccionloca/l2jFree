@@ -1,10 +1,10 @@
 # by disKret
 import sys
-from net.sf.l2j import Config
-from net.sf.l2j.tools.random import Rnd
-from net.sf.l2j.gameserver.model.quest import State
-from net.sf.l2j.gameserver.model.quest import QuestState
-from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree import Config
+from com.l2jfree.tools.random import Rnd
+from com.l2jfree.gameserver.model.quest import State
+from com.l2jfree.gameserver.model.quest import QuestState
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "624_TheFinestIngredientsPart1"
 

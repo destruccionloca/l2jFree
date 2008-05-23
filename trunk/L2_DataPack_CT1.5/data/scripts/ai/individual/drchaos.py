@@ -2,16 +2,16 @@
 # by Kerberos
 
 import sys
-from net.sf.l2j.gameserver.ai import CtrlIntention
-from net.sf.l2j.gameserver.datatables import SpawnTable
-from net.sf.l2j.gameserver.model import L2CharPosition
-from net.sf.l2j.gameserver.model.quest import QuestState
-from net.sf.l2j.gameserver.model.quest import State
-from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.network.serverpackets import ActionFailed
-from net.sf.l2j.gameserver.network.serverpackets import PlaySound
-from net.sf.l2j.gameserver.network.serverpackets import SocialAction
-from net.sf.l2j.gameserver.network.serverpackets import SpecialCamera
+from com.l2jfree.gameserver.ai import CtrlIntention
+from com.l2jfree.gameserver.datatables import SpawnTable
+from com.l2jfree.gameserver.model import L2CharPosition
+from com.l2jfree.gameserver.model.quest import QuestState
+from com.l2jfree.gameserver.model.quest import State
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets import ActionFailed
+from com.l2jfree.gameserver.network.serverpackets import PlaySound
+from com.l2jfree.gameserver.network.serverpackets import SocialAction
+from com.l2jfree.gameserver.network.serverpackets import SpecialCamera
 
 Doctor_Chaos = 32033
 Strange_Machine = 32032

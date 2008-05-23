@@ -2,13 +2,13 @@
 # this script is part of the Official L2J Datapack Project.
 # Visit http://forum.l2jdp.com for more details.
 import sys
-from net.sf.l2j.gameserver.ai import CtrlIntention
-from net.sf.l2j.gameserver.datatables import SpawnTable
-from net.sf.l2j.gameserver.model.quest import State
-from net.sf.l2j.gameserver.model.quest import QuestState
-from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.network.serverpackets import CreatureSay
-from net.sf.l2j.gameserver.network.serverpackets import ExShowScreenMessage
+from com.l2jfree.gameserver.ai import CtrlIntention
+from com.l2jfree.gameserver.datatables import SpawnTable
+from com.l2jfree.gameserver.model.quest import State
+from com.l2jfree.gameserver.model.quest import QuestState
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets import CreatureSay
+from com.l2jfree.gameserver.network.serverpackets import ExShowScreenMessage
 
 qn = "114_ResurrectionOfAnOldManager"
 

@@ -1,10 +1,10 @@
 # By L2J_JP SANDMAN
 import sys
-from net.sf.l2j.gameserver.instancemanager.grandbosses import SailrenManager
-from net.sf.l2j.gameserver.model.quest import State
-from net.sf.l2j.gameserver.model.quest import QuestState
-from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.network.serverpackets import SocialAction
+from com.l2jfree.gameserver.instancemanager.grandbosses import SailrenManager
+from com.l2jfree.gameserver.model.quest import State
+from com.l2jfree.gameserver.model.quest import QuestState
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets import SocialAction
 
 #ENTRY_SATAT 0 = Sailren is not spawned
 #ENTRY_SATAT 1 = Sailren is already dead

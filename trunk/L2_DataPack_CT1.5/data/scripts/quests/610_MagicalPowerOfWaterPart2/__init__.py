@@ -1,11 +1,11 @@
 #Made by Emperorc
 import sys
-from net.sf.l2j.gameserver.model.quest import State
-from net.sf.l2j.gameserver.model.quest import QuestState
-from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.datatables import SpawnTable
-from net.sf.l2j.gameserver.network.serverpackets import CreatureSay
-from net.sf.l2j.tools.random import Rnd
+from com.l2jfree.gameserver.model.quest import State
+from com.l2jfree.gameserver.model.quest import QuestState
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.datatables import SpawnTable
+from com.l2jfree.gameserver.network.serverpackets import CreatureSay
+from com.l2jfree.tools.random import Rnd
 
 qn = "610_MagicalPowerOfWaterPart2"
 

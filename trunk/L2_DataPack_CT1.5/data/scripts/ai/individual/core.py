@@ -1,8 +1,8 @@
 import sys
-from net.sf.l2j.tools.random import Rnd
-from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.network.serverpackets import CreatureSay
-from net.sf.l2j.gameserver.network.serverpackets import PlaySound
+from com.l2jfree.tools.random import Rnd
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets import CreatureSay
+from com.l2jfree.gameserver.network.serverpackets import PlaySound
 
 # Boss: Core
 class core(JQuest) :
