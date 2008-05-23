@@ -104,7 +104,7 @@ public class ScrollOfEscape implements IItemHandler
 		L2PcInstance activeChar = (L2PcInstance) playable;
 
 		if (activeChar == null || ObjectRestrictions.getInstance()
-				.checkRestriction(activeChar, AvailableRestriction.ScrollTeleport)) {
+				.checkRestriction(activeChar, AvailableRestriction.PlayerScrollTeleport)) {
 			activeChar.sendMessage("You cannot use this scroll due to a restriction.");
 			return;
 		}

@@ -1331,7 +1331,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
             else if (actualCommand.equalsIgnoreCase("goto"))
             {
      			if (ObjectRestrictions.getInstance()
-    					.checkRestriction(player, AvailableRestriction.Teleport)) {
+    					.checkRestriction(player, AvailableRestriction.PlayerTeleport)) {
     				player.sendMessage("You cannot teleport due to a restriction.");
     				return;
     			}

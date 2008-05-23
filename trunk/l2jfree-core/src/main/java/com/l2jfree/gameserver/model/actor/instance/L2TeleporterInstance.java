@@ -63,7 +63,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		if (ObjectRestrictions.getInstance()
-				.checkRestriction(player, AvailableRestriction.Teleport)) {
+				.checkRestriction(player, AvailableRestriction.PlayerTeleport)) {
 			player.sendMessage("You cannot teleport due to a restriction.");
 			return;
 		}

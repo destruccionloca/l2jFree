@@ -134,7 +134,7 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 		if (list != null)
 		{
 			if (ObjectRestrictions.getInstance()
-					.checkRestriction(player, AvailableRestriction.Teleport)) {
+					.checkRestriction(player, AvailableRestriction.PlayerTeleport)) {
 				player.sendMessage("You cannot teleport due to a restriction.");
 				return;
 			}

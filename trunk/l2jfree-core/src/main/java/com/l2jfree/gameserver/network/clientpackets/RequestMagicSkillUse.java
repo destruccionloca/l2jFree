@@ -60,8 +60,11 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 		//Get the current L2PcInstance of the player
 		L2PcInstance activeChar = getClient().getActiveChar();
 		
-		if (activeChar == null || ObjectRestrictions.getInstance()
-				.checkRestriction(activeChar, AvailableRestriction.Cast)) {
+		if (activeChar == null)
+			return;
+		
+		if (ObjectRestrictions.getInstance()
+        		.checkRestriction(activeChar, AvailableRestriction.PlayerChat)) {
 			activeChar.sendMessage("You cannot cast a skill due to a restriction.");
 			return;
 		}

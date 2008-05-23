@@ -46,7 +46,7 @@ public class GetPlayer implements ISkillHandler
 				L2PcInstance trg = (L2PcInstance) target;
 
         		if (trg == null || ObjectRestrictions.getInstance()
-        				.checkRestriction(trg, AvailableRestriction.SummonFriend)) {
+        				.checkRestriction(trg, AvailableRestriction.PlayerSummonFriend)) {
         			activeChar.sendMessage("You cannot summon your friend due to his restrictions.");
         			trg.sendMessage("You cannot be summoned due to a restriction.");
         			

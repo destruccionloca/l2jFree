@@ -1166,7 +1166,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public boolean logout()
 	{
     	// Pause restrictions
-        ObjectRestrictions.getInstance().pauseTasks(this);
+        ObjectRestrictions.getInstance().pauseTasks(getObjectId());
     	
 		// [L2J_JP ADD START]
 		if (isInsideZone(L2Zone.FLAG_NOESCAPE))

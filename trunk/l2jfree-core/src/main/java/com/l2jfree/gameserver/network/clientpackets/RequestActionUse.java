@@ -328,7 +328,7 @@ public class RequestActionUse extends L2GameClientPacket
                 else if (activeChar.isMounted())
                 {
                 	if (!ObjectRestrictions.getInstance()
-                			.checkRestriction(activeChar, AvailableRestriction.Unmount))
+                			.checkRestriction(activeChar, AvailableRestriction.PlayerUnmount))
                 		activeChar.dismount();
                 	else
                 		activeChar.sendMessage("You cannot dismount due to a restriction.");

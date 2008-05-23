@@ -112,7 +112,7 @@ public class SummonFriend implements ISkillHandler
 					//	continue;
 
             		if (targetChar == null || ObjectRestrictions.getInstance()
-            				.checkRestriction(targetChar, AvailableRestriction.SummonFriend)) {
+            				.checkRestriction(targetChar, AvailableRestriction.PlayerSummonFriend)) {
             			activeChar.sendMessage("You cannot summon your friend due to his restrictions.");
             			targetChar.sendMessage("You cannot be summoned due to a restriction.");
             			

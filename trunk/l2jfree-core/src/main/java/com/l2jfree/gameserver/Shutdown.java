@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.gameserverpackets.ServerStatus;
@@ -383,6 +384,8 @@ public class Shutdown extends Thread
 		if (!SevenSigns.getInstance().isSealValidationPeriod())
 			SevenSignsFestival.getInstance().saveFestivalData(false);
 
+		// Save restrictions that are apllied to L2Objects
+		ObjectRestrictions.getInstance().shutdown();
 		// Save Seven Signs data before closing. :)
 		SevenSigns.getInstance().saveSevenSignsData(null, true);
 		System.out.println("SevenSigns: Data saved.");

@@ -14,6 +14,10 @@
  */
 package com.l2jfree.gameserver.model.restriction;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -21,9 +25,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -33,15 +42,17 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class ObjectRestrictions
 {    
     // Restrictions SQL String Definitions:
-    private static final String RESTORE_RESTRICTIONS = "SELECT type, delay, message FROM obj_restrictions WHERE obj_Id=?";
-    private static final String UPDATE_RESTRICTIONS = "UPDATE obj_restrictions SET type=?, delay=?, message=? WHERE entryId=?";
+    private static final String RESTORE_RESTRICTIONS = "SELECT obj_Id, type, delay, message FROM obj_restrictions";
+    private static final String DELETE_RESTRICTIONS = "DELETE FROM obj_restrictions";
     private static final String INSERT_RESTRICTIONS = "INSERT INTO obj_restrictions ('obj_Id', 'type', 'delay', 'message' VALUES (?, ?, ?, ?)";
 
     private static final ObjectRestrictions _instance = new ObjectRestrictions();
+    private static final Log _log = LogFactory.getLog(ObjectRestrictions.class.getName());
 	
-	private Map<Object, List<AvailableRestriction>> _restrictionList = new HashMap<Object, List<AvailableRestriction>>();
+	private Map<Integer, List<AvailableRestriction>> _restrictionList = new HashMap<Integer, List<AvailableRestriction>>();
 	private Map<Integer, List<PausedTimedEvent>> _pausedActions = new HashMap<Integer, List<PausedTimedEvent>>();
 	private Map<Integer, List<TimedRestrictionAction>> _runningActions = new HashMap<Integer, List<TimedRestrictionAction>>();
+	private Map<Integer, Short> _idMap	= new HashMap<Integer, Short>();
 	
 	
 	public static final ObjectRestrictions getInstance() {
@@ -49,25 +60,147 @@ public class ObjectRestrictions
 	}
 	
 	private ObjectRestrictions() {
-		//TODO: Data loading
+		int i = 0;
+		
+		_log.info("ObjectRestrictions: loading...");
+		Connection con = null;
+		
+		try {
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(RESTORE_RESTRICTIONS);
+			ResultSet rset = statement.executeQuery();
+			
+			while (rset.next()) {
+				int objId = rset.getInt("obj_Id");
+				AvailableRestriction type = AvailableRestriction.forName(rset.getString("type"));
+				int delay = rset.getInt("delay");
+				String message = rset.getString("message");
+				
+				switch (delay) {
+					case -1:
+						addRestriction(objId, type);
+						break;
+						
+					default:
+						timedAddRestriction(objId, type, delay, message);
+				}
+				i++;
+			}
+			
+			rset.close();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return;
+		} finally {
+			 try { con.close(); } catch (SQLException e) { e.printStackTrace(); }
+		}
+		_log.info("ObjectRestrictions: loaded "+i+" restrictions.");
 	}
 	public void shutdown() {
-		//TODO: Data saving
+		_log.info("ObjectRestrictions: storing started:");
+		Connection con = null;
+		
+		try {
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			
+			// Clean up old table data
+			PreparedStatement statement = con.prepareStatement(DELETE_RESTRICTIONS);
+			statement.execute();
+			statement.close();
+			
+			_log.info("ObjectRestrictions: storing permanent restrictions.");
+			// Store permanent restrictions
+			for (Integer id : _restrictionList.keySet()) {
+				if (_idMap.get(id) == 1) {
+					for (AvailableRestriction restriction : _restrictionList.get(id)) {
+						statement = con.prepareStatement(INSERT_RESTRICTIONS);
+						
+						statement.setInt(1, id);
+						statement.setString(2, restriction.name());
+						statement.setLong(3, -1);
+						statement.setString(4, "");
+						
+						statement.execute();
+						statement.close();
+					}
+				}
+			}
+			
+			_log.info("ObjectRestrictions: storing paused events.");
+			// Store paused restriction events
+			for (Integer id : _pausedActions.keySet()) {
+				if (_idMap.get(id) == 1) {
+					for (PausedTimedEvent paused : _pausedActions.get(id)) {
+						statement = con.prepareStatement(INSERT_RESTRICTIONS);
+						
+						statement.setInt(1, id);
+						statement.setString(2, paused.getAction().getRestriction().name());
+						statement.setLong(3, paused.getBalancedTime());
+						statement.setString(4, paused.getAction().getMessage());
+						
+						statement.execute();
+						statement.close();
+					}
+				}
+			}
+			
+			_log.info("ObjectRestrictions: stopping and storing running events.");
+			// Store running restriction events
+			for (Integer id : _runningActions.keySet()) {
+				if (_idMap.get(id) == 1) {
+					for (TimedRestrictionAction action : _runningActions.get(id)) {
+						// Shutdown task
+						action.getTask().cancel(true);
+						
+						statement = con.prepareStatement(INSERT_RESTRICTIONS);
+						
+						statement.setInt(1, id);
+						statement.setString(2, action.getRestriction().name());
+						statement.setLong(3, action.getBalancedTime());
+						statement.setString(4, action.getMessage());
+						
+						statement.execute();
+						statement.close();
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			 try { con.close(); } catch (SQLException e) { e.printStackTrace(); }
+		}
+		_log.info("ObjectRestrictions: All data saved.");
 	}
 	
-	
+	/**
+	 * Adds a restriction on startup
+	 * @param objId
+	 * @param restriction
+	 * @throws RestrictionBindClassException
+	 */
+	private void addRestriction(int objId, AvailableRestriction restriction) {
+		if (_restrictionList.get(objId) == null) {
+			_restrictionList.put(objId, new ArrayList<AvailableRestriction>());
+		}
+		
+		if (!_restrictionList.get(objId).contains(restriction))
+			_restrictionList.get(objId).add(restriction);
+	}	
 	/**
 	 * Adds a restriction without timelimit
 	 * @param owner
 	 * @param restriction
 	 */
-	public void addRestriction(Object owner, AvailableRestriction restriction) {
-		if (_restrictionList.get(owner) == null) {
-			_restrictionList.put(owner, new ArrayList<AvailableRestriction>());
-		}
+	public void addRestriction(Object owner, AvailableRestriction restriction) throws RestrictionBindClassException {
+		if (owner != null)
+			return;
+
+		if (checkApplyable(owner, restriction))
+			throw new RestrictionBindClassException("Restriction "+restriction.name()+" cannot bound to Class "+owner.getClass());
 		
-		if (!_restrictionList.get(owner).contains(restriction))
-			_restrictionList.get(owner).add(restriction);
+		Integer id = getObjectId(owner);
+		addRestriction(id, restriction);
 	}
 	
 	/**
@@ -76,27 +209,34 @@ public class ObjectRestrictions
 	 * @param restriction
 	 */
 	public void removeRestriction(Object owner, AvailableRestriction restriction) {
-		if (_restrictionList.get(owner) != null &&
-			_restrictionList.get(owner).contains(restriction)) {
-			_restrictionList.get(owner).remove(restriction);
+		if (owner == null)
+			return;
+		
+		Integer id = -1;
+		if (owner instanceof L2Object)
+			id = ((L2Object)owner).getObjectId();
+		else
+			id = owner.hashCode();
+
+		if (_restrictionList.get(id) != null &&
+			_restrictionList.get(id).contains(restriction)) {
+			_restrictionList.get(id).remove(restriction);
 			
 			if (owner instanceof L2Object) {
-				L2Object o = (L2Object)owner;
-				
-				if (_runningActions.get(o.getObjectId()) != null) {
-					for (TimedRestrictionAction action : _runningActions.get(o.getObjectId())) {
+				if (_runningActions.get(id) != null) {
+					for (TimedRestrictionAction action : _runningActions.get(id)) {
 						if (action.getRestriction() == restriction) {
 							action.getTask().cancel(true);
-							_runningActions.get(o.getObjectId()).remove(action);
+							_runningActions.get(id).remove(action);
 							break;
 						}
 					}
 				}
 				
-				if (_pausedActions.get(o.getObjectId()) != null) {
-					for (PausedTimedEvent paused : _pausedActions.get(o.getObjectId())) {
+				if (_pausedActions.get(id) != null) {
+					for (PausedTimedEvent paused : _pausedActions.get(id)) {
 						if (paused.getAction().getRestriction() == restriction) {
-							_pausedActions.get(o.getObjectId()).remove(paused);
+							_pausedActions.get(id).remove(paused);
 						}
 					}
 				}
@@ -109,12 +249,22 @@ public class ObjectRestrictions
 	 * @param owner
 	 * @param restrictions
 	 */
-	public void addRestrictionList(Object owner, List<AvailableRestriction> restrictions) {
-		if (_restrictionList.get(owner) == null) {
-			_restrictionList.put(owner, new ArrayList<AvailableRestriction>());
-		}
+	public void addRestrictionList(Object owner, List<AvailableRestriction> restrictions) throws RestrictionBindClassException {
+		if (owner != null)
+			return;
 		
-		_restrictionList.get(owner).addAll(restrictions);
+		Integer id = getObjectId(owner);
+
+		if (_restrictionList.get(id) == null) {
+			_restrictionList.put(id, new ArrayList<AvailableRestriction>());
+		}
+
+		for (AvailableRestriction restriction : restrictions) {
+			if (checkApplyable(owner, restriction))
+				throw new RestrictionBindClassException("Restriction "+restriction.name()+" cannot bound to Class "+owner.getClass());
+			}
+		
+		_restrictionList.get(id).addAll(restrictions);
 	}
 	
 	/**
@@ -124,10 +274,15 @@ public class ObjectRestrictions
 	 * @return
 	 */
 	public boolean checkRestriction(Object owner, AvailableRestriction restriction) {
-		if (_restrictionList.get(owner) == null)
+		if (owner == null)
 			return false;
 		
-		return _restrictionList.get(owner).contains(restriction);
+		Integer id = getObjectId(owner);
+		
+		if (_restrictionList.get(id) == null)
+			return false;
+		
+		return _restrictionList.get(id).contains(restriction);
 	}
 	
 	/**
@@ -136,14 +291,14 @@ public class ObjectRestrictions
 	 * @param restriction
 	 * @param delay
 	 */
-	public void timedRemoveRestriction(L2Object owner, AvailableRestriction restriction, long delay) {
-		TimedRestrictionEvent event = new TimedRestrictionEvent(owner, restriction, 
+	public void timedRemoveRestriction(int objId, AvailableRestriction restriction, long delay) {
+		TimedRestrictionEvent event = new TimedRestrictionEvent(objId, restriction, 
 				TimedRestrictionEventType.Remove, delay);
 				
 		ScheduledFuture task = ThreadPoolManager.getInstance().scheduleGeneral(event, delay);
 	
 		event.getActionObject().setTask(task);
-		addTask(owner, event.getActionObject());
+		addTask(objId, event.getActionObject());
 	}
 	/**
 	 * Schedules a new RemoveRestriction event with info message
@@ -152,14 +307,14 @@ public class ObjectRestrictions
 	 * @param delay
 	 * @param message
 	 */
-	public void timedRemoveRestriction(L2Object owner, AvailableRestriction restriction, long delay, String message) {
-		TimedRestrictionEvent event = new TimedRestrictionEvent(owner, restriction, 
+	public void timedRemoveRestriction(int objId, AvailableRestriction restriction, long delay, String message) {
+		TimedRestrictionEvent event = new TimedRestrictionEvent(objId, restriction, 
 				TimedRestrictionEventType.Remove, delay, message);
 				
 		ScheduledFuture task = ThreadPoolManager.getInstance().scheduleGeneral(event, delay);
 		
 		event.getActionObject().setTask(task);
-		addTask(owner, event.getActionObject());
+		addTask(objId, event.getActionObject());
 	}
 
 	/**
@@ -168,14 +323,20 @@ public class ObjectRestrictions
 	 * @param restriction
 	 * @param delay
 	 */
-	public void timedAddRestriction(L2Object owner, AvailableRestriction restriction, long delay) {
-		TimedRestrictionEvent event = new TimedRestrictionEvent(owner, restriction, 
+	public void timedAddRestriction(L2Object owner, AvailableRestriction restriction, long delay) throws RestrictionBindClassException {
+		if (checkApplyable(owner.getObjectId(), restriction))
+			throw new RestrictionBindClassException();
+		
+		timedAddRestriction(owner.getObjectId(), restriction, delay);
+	}
+	private void timedAddRestriction(int objId, AvailableRestriction restriction, long delay) {
+		TimedRestrictionEvent event = new TimedRestrictionEvent(objId, restriction, 
 				TimedRestrictionEventType.Add, delay);
 				
 		ScheduledFuture task = ThreadPoolManager.getInstance().scheduleGeneral(event, delay);
 		
 		event.getActionObject().setTask(task);
-		addTask(owner, event.getActionObject());
+		addTask(objId, event.getActionObject());
 	}
 	/**
 	 * Schedules a new AddRestriction event with info message
@@ -184,14 +345,20 @@ public class ObjectRestrictions
 	 * @param delay
 	 * @param message
 	 */
-	public void timedAddRestriction(L2Object owner, AvailableRestriction restriction, long delay, String message) {
-		TimedRestrictionEvent event = new TimedRestrictionEvent(owner, restriction, 
+	public void timedAddRestriction(L2Object owner, AvailableRestriction restriction, long delay, String message) throws RestrictionBindClassException {
+		if (checkApplyable(owner, restriction))
+			throw new RestrictionBindClassException();
+
+		timedAddRestriction(owner.getObjectId(), restriction, delay, message);
+	}
+	private void timedAddRestriction(int objId, AvailableRestriction restriction, long delay, String message) {
+		TimedRestrictionEvent event = new TimedRestrictionEvent(objId, restriction, 
 				TimedRestrictionEventType.Add, delay, message);
 
 		ScheduledFuture task = ThreadPoolManager.getInstance().scheduleGeneral(event, delay);
 		
 		event.getActionObject().setTask(task);
-		addTask(owner, event.getActionObject());
+		addTask(objId, event.getActionObject());
 	}
 	
 	
@@ -200,24 +367,24 @@ public class ObjectRestrictions
 	 * @param owner
 	 * @param action
 	 */
-	private void addTask(L2Object owner, TimedRestrictionAction action) {
-		if (_runningActions.get(owner.getObjectId()) == null)
-			_runningActions.put(owner.getObjectId(), new ArrayList<TimedRestrictionAction>());
+	private void addTask(int objId, TimedRestrictionAction action) {
+		if (_runningActions.get(objId) == null)
+			_runningActions.put(objId, new ArrayList<TimedRestrictionAction>());
 		
-		if (!_runningActions.get(owner.getObjectId()).contains(action))
-			_runningActions.get(owner.getObjectId()).add(action);
+		if (!_runningActions.get(objId).contains(action))
+			_runningActions.get(objId).add(action);
 	}
 	/**
 	 * Adds a new paused scheduled task
 	 * @param owner
 	 * @param action
 	 */
-	private void addPausedTask(L2Object owner, PausedTimedEvent action) {
-		if (_pausedActions.get(owner.getObjectId()) == null)
-			_pausedActions.put(owner.getObjectId(), new ArrayList<PausedTimedEvent>());
+	private void addPausedTask(int objId, PausedTimedEvent action) {
+		if (_pausedActions.get(objId) == null)
+			_pausedActions.put(objId, new ArrayList<PausedTimedEvent>());
 		
-		if (!_pausedActions.get(owner.getObjectId()).contains(action))
-			_pausedActions.get(owner.getObjectId()).add(action);
+		if (!_pausedActions.get(objId).contains(action))
+			_pausedActions.get(objId).add(action);
 	}
 	
 	/**
@@ -225,67 +392,67 @@ public class ObjectRestrictions
 	 * @param owner
 	 * @return
 	 */
-	public boolean containsPausedTask(L2Object owner) {
-		return (_pausedActions.get(owner.getObjectId())!= null &&
-				_pausedActions.get(owner.getObjectId()).size() > 0);
+	public boolean containsPausedTask(int objId) {
+		return (_pausedActions.get(objId)!= null &&
+				_pausedActions.get(objId).size() > 0);
 	}
 	/**
 	 * Checks if there are running tasks
 	 * @param owner
 	 * @return
 	 */
-	public boolean containsRunningTask(L2Object owner) {
-		return (_runningActions.get(owner.getObjectId())!= null &&
-				_runningActions.get(owner.getObjectId()).size() > 0);
+	public boolean containsRunningTask(int objId) {
+		return (_runningActions.get(objId)!= null &&
+				_runningActions.get(objId).size() > 0);
 	}
 	
 	/**
 	 * Pauses tasks on player logout
 	 * @param owner
 	 */
-	public void pauseTasks(L2Object owner) {
-		if (!containsRunningTask(owner))
+	public void pauseTasks(int objId) {
+		if (!containsRunningTask(objId))
 			return;
 		
-		for (TimedRestrictionAction action : _runningActions.get(owner.getObjectId())) {
+		for (TimedRestrictionAction action : _runningActions.get(objId)) {
 			// Cancel active task
 			action.getTask().cancel(true);
 			
 			// Save PausedEventObject
 			PausedTimedEvent paused = new PausedTimedEvent(action, action.getBalancedTime());
-			addPausedTask(owner, paused);
+			addPausedTask(objId, paused);
 		}
 		
 		// Clear up running tasks 
-		_runningActions.get(owner.getObjectId()).clear();
-		_runningActions.put(owner.getObjectId(), null);
+		_runningActions.get(objId).clear();
+		_runningActions.put(objId, null);
 	}
 	/**
 	 * Resumes tasks on player login
 	 * @param owner
 	 */
-	public void resumeTasks(L2Object owner) {
-		if (!containsPausedTask(owner))
+	public void resumeTasks(int objId) {
+		if (!containsPausedTask(objId))
 			return;
 		
-		for (PausedTimedEvent paused : _pausedActions.get(owner.getObjectId())) {
+		for (PausedTimedEvent paused : _pausedActions.get(objId)) {
 			switch (paused.getAction().getEventType()) {
 				case Add:
-					timedAddRestriction(owner, paused.getAction().getRestriction(),
+					timedAddRestriction(objId, paused.getAction().getRestriction(),
 							paused.getBalancedTime(),
 							paused.getAction().getMessage());
 					break;
 					
 				case Remove:
-					timedRemoveRestriction(owner, paused.getAction().getRestriction(),
+					timedRemoveRestriction(objId, paused.getAction().getRestriction(),
 							paused.getBalancedTime(),
 							paused.getAction().getMessage());
 			}
 		}
 		
 		// Clear up running tasks 
-		_pausedActions.get(owner.getObjectId()).clear();
-		_pausedActions.put(owner.getObjectId(), null);
+		_pausedActions.get(objId).clear();
+		_pausedActions.put(objId, null);
 	}
 	
 	
@@ -293,28 +460,31 @@ public class ObjectRestrictions
 	private class TimedRestrictionEvent implements Runnable {
 		private final TimedRestrictionAction _action;
 		
-		public TimedRestrictionEvent(L2Object owner, AvailableRestriction restriction, TimedRestrictionEventType type, long delay) {
-			_action = new TimedRestrictionAction(owner, restriction, type, null, delay);
+		public TimedRestrictionEvent(int objId, AvailableRestriction restriction, TimedRestrictionEventType type, long delay) {
+			_action = new TimedRestrictionAction(objId, restriction, type, null, delay);
 		}
-		public TimedRestrictionEvent(L2Object owner, AvailableRestriction restriction, TimedRestrictionEventType type, long delay, String message) {
-			_action = new TimedRestrictionAction(owner, restriction, type, message, delay);
+		public TimedRestrictionEvent(int objId, AvailableRestriction restriction, TimedRestrictionEventType type, long delay, String message) {
+			_action = new TimedRestrictionAction(objId, restriction, type, message, delay);
 		}
 	
 		public void run() {
 			switch (_action.getEventType()) {
 				case Add:
-					ObjectRestrictions.getInstance().addRestriction(_action.getOwner(), _action.getRestriction());
+					ObjectRestrictions.getInstance().addRestriction(_action.getObjectId(), _action.getRestriction());
 					break;
 					
 				case Remove:
-					ObjectRestrictions.getInstance().removeRestriction(_action.getOwner(), _action.getRestriction());
+					ObjectRestrictions.getInstance().removeRestriction(_action.getObjectId(), _action.getRestriction());
 			}
 			
-			if (_action.getMessage() != null) {
-				if (_action.getOwner() instanceof L2PcInstance) {
-					((L2PcInstance)_action.getOwner()).sendMessage(_action.getMessage());
-				} else if (_action.getOwner() instanceof L2Summon) {
-					L2Summon summon = (L2Summon)_action.getOwner();
+			if (_action.getMessage() != null ||
+			   (_action.getMessage() != null && _action.getMessage().equals(""))) {
+				L2Object owner = L2World.getInstance().findObject(_action.getObjectId()); 
+				
+				if (owner instanceof L2PcInstance) {
+					((L2PcInstance)owner).sendMessage(_action.getMessage());
+				} else if (owner instanceof L2Summon) {
+					L2Summon summon = (L2Summon)owner;
 					
 					summon.getOwner().sendMessage(_action.getMessage());
 				}
@@ -330,7 +500,7 @@ public class ObjectRestrictions
 		Add
 	}
 	private class TimedRestrictionAction {
-		private final L2Object _owner;
+		private final int _objId;
 		private final AvailableRestriction _restriction;
 		private final TimedRestrictionEventType _type;
 		private final String _message;
@@ -338,8 +508,8 @@ public class ObjectRestrictions
 		private Long _starttime;
 		private ScheduledFuture _task;
 		
-		public TimedRestrictionAction (L2Object owner, AvailableRestriction restriction, TimedRestrictionEventType type, String message, long delay) {
-			_owner			= owner;
+		public TimedRestrictionAction (int objId, AvailableRestriction restriction, TimedRestrictionEventType type, String message, long delay) {
+			_objId			= objId;
 			_restriction	= restriction;
 			_type			= type;
 			_message		= message;
@@ -348,8 +518,8 @@ public class ObjectRestrictions
 			_starttime = Calendar.getInstance().getTimeInMillis();
 		}
 		
-		public L2Object getOwner() {
-			return _owner;
+		public int getObjectId() {
+			return _objId;
 		}
 		public AvailableRestriction getRestriction() {
 			return _restriction;
@@ -389,5 +559,15 @@ public class ObjectRestrictions
 		public TimedRestrictionAction getAction() {
 			return _action;
 		}
+	}
+	
+	private boolean checkApplyable(Object owner, AvailableRestriction restriction) {
+		return (restriction.getApplyableTo().isInstance(owner));
+	}
+	private Integer getObjectId(Object owner) {
+		if (owner instanceof L2Object)
+			return ((L2Object)owner).getObjectId();
+		else
+			return owner.hashCode();
 	}
 }

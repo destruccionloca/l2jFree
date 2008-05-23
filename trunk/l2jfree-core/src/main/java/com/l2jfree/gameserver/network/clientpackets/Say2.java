@@ -89,7 +89,7 @@ public class Say2 extends L2GameClientPacket
  
         // If player is chat banned
         if (ObjectRestrictions.getInstance()
-        		.checkRestriction(activeChar, AvailableRestriction.Chat))
+        		.checkRestriction(activeChar, AvailableRestriction.PlayerChat))
         {
             if (_type != SystemChatChannelId.Chat_User_Pet && _type !=SystemChatChannelId.Chat_Tell)
             {

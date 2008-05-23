@@ -284,8 +284,8 @@ public class Wedding implements IVoicedCommandHandler
 			return false;
 		}
         else if (ObjectRestrictions.getInstance()
-				.checkRestriction(activeChar, AvailableRestriction.GotoLove))
-        {
+				.checkRestriction(activeChar, AvailableRestriction.PlayerGotoLove))
+       {
 			activeChar.sendMessage("You cannot find your love due to a restriction.");
 			return false;
 		}        

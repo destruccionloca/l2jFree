@@ -14,17 +14,56 @@
  */
 package com.l2jfree.gameserver.model.restriction;
 
+import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+
 /**
  *
  * @author  Noctarius
  */
 public enum AvailableRestriction
 {
-	Unmount,
-	Cast,
-	Teleport,
-	ScrollTeleport,
-	GotoLove,
-	SummonFriend,
-	Chat
+	// Restrictions can be applied to players
+	PlayerUnmount(L2PcInstance.class),
+	PlayerCast(L2PcInstance.class),
+	PlayerTeleport(L2PcInstance.class),
+	PlayerScrollTeleport(L2PcInstance.class),
+	PlayerGotoLove(L2PcInstance.class),
+	PlayerSummonFriend(L2PcInstance.class),
+	PlayerChat(L2PcInstance.class),
+	
+	// Restrictions can be applied to monsters
+	MonsterCast(L2MonsterInstance.class)
+	
+	// More restrictions classes can be easily set
+	// by adding new lines and new classes
+	;
+	
+	private final Class _applyTo;
+	
+	private AvailableRestriction(Class applyTo) {
+		_applyTo = applyTo;
+	}
+	
+	public Class getApplyableTo() {
+		return _applyTo;
+	}
+	
+	
+	public static final AvailableRestriction forName(String name) {
+		for (AvailableRestriction restriction : AvailableRestriction.values()) {
+			if (restriction.name().equals(name))
+				return restriction;
+		}
+		
+		return null;
+	}
+	public static final AvailableRestriction forId(int id) {
+		for (AvailableRestriction restriction : AvailableRestriction.values()) {
+			if (restriction.ordinal() == id)
+				return restriction;
+		}
+		
+		return null;
+	}
 }
