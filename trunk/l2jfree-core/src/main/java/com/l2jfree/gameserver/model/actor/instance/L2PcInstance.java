@@ -4013,13 +4013,19 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public void sendPacket(L2GameServerPacket packet)
 	{
-
 		if (_client != null)
-		{
 			_client.sendPacket(packet);
-		}
 	}
-
+	
+	/**
+	 * Sends a SystemMessage without any parameter added. No instancing at all!
+	 */
+	@Override
+	public void sendPacket(SystemMessageId sm)
+	{
+		sendPacket(sm.getSystemMessage());
+	}
+	
 	/**
 	 * Manage Interact Task with another L2PcInstance.<BR><BR>
 	 *
@@ -4133,7 +4139,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			if (((isInParty() && getParty().getLootDistribution() == L2Party.ITEM_LOOTER) || !isInParty()) && !_inventory.validateCapacity(target))
 			{
-				sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
+				sendPacket(SystemMessageId.SLOTS_FULL);
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
@@ -5555,7 +5561,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		_activeTradeList = null;
 		sendPacket(new TradeDone(1));
 		if (successfull)
-			sendPacket(new SystemMessage(SystemMessageId.TRADE_SUCCESSFUL));
+			sendPacket(SystemMessageId.TRADE_SUCCESSFUL);
 	}
 
 	public void startTrade(L2PcInstance partner)
@@ -7963,7 +7969,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		if (inObserverMode())
 		{
-			sendPacket(new SystemMessage(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE));
+			sendPacket(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE);
 			abortCast();
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
@@ -8083,7 +8089,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Check the validity of the target
 		if (target == null)
 		{
-			sendPacket(new SystemMessage(SystemMessageId.TARGET_CANT_FOUND));
+			sendPacket(SystemMessageId.TARGET_CANT_FOUND);
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
@@ -8152,7 +8158,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (getSouls() < skill.getSoulConsumeCount())
 			{
-				sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL));
+				sendPacket(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL);
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
@@ -8191,7 +8197,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (isSitting() && !skill.isPotion())
 		{
 			// Send a System Message to the caster
-			sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
+			sendPacket(SystemMessageId.CANT_MOVE_SITTING);
 
 			// Send a Server->Client packet ActionFailed to the L2PcInstance
 			sendPacket(ActionFailed.STATIC_PACKET);

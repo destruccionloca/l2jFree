@@ -631,12 +631,9 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public void sendPacket(@SuppressWarnings("unused")
-	L2GameServerPacket mov)
-	{
-		// default implementation
-	}
-
+	public void sendPacket(L2GameServerPacket gsp) { }
+	public void sendPacket(SystemMessageId sm) { }
+	
 	/**
 	 * Teleport a L2Character and its pet if necessary.<BR>
 	 * <BR>

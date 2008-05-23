@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network;
 
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+
 /**
  *
  * @author  Noctarius & Nille02 & crion
@@ -13633,24 +13635,31 @@ public enum SystemMessageId
 	 */
 	SKILL_NOT_FOR_SUBCLASS(2273);
 
-	private int _id;
-
+	private final SystemMessage _systemMessage;
+	private final int _id;
+	
 	private SystemMessageId(int id)
 	{
 		_id = id;
+		_systemMessage = new SystemMessage(id);
 	}
-
-	public int getId()
+	
+	public final int getId()
 	{
 		return _id;
 	}
-
+	
+	public final SystemMessage getSystemMessage()
+	{
+		return _systemMessage;
+	}
+	
 	public static final SystemMessageId getSystemMessageId(int id)
 	{
 		for (SystemMessageId sysmsgid : SystemMessageId.values())
 			if (sysmsgid.getId() == id)
 				return sysmsgid;
-
+		
 		return SystemMessageId.S1;
 	}
 }

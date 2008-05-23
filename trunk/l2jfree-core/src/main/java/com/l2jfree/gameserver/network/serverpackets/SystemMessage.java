@@ -14,7 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.Vector;
+import java.util.List;
+
+import javolution.util.FastList;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -38,16 +40,15 @@ public class SystemMessage extends L2GameServerPacket
 	private static final int TYPE_TEXT = 0;
 	private static final String _S__7A_SYSTEMMESSAGE = "[S] 64 SystemMessage";
 	private int _messageId;
-	private Vector<Integer> _types = new Vector<Integer>();
-	private Vector<Object> _values = new Vector<Object>();
+	private List<Integer> _types = new FastList<Integer>();
+	private List<Object> _values = new FastList<Object>();
 	private int _skillLvL = 1;
 	
 	public SystemMessage(SystemMessageId messageId)
 	{
 		_messageId = messageId.getId();
 	}
-
-	@Deprecated
+	
 	public SystemMessage(int messageId)
 	{
 		_messageId = messageId;
