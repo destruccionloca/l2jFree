@@ -26,8 +26,8 @@ CLASSPATH=${CLASSPATH}:commons-io-1.2.jar
 CLASSPATH=${CLASSPATH}:javolution-1.5.4.2.6.jar
 
 # main jar
-CLASSPATH=${CLASSPATH}:l2j-commons-1.1.5.jar
-CLASSPATH=${CLASSPATH}:l2j-gameserver-1.0.0.jar
+CLASSPATH=${CLASSPATH}:l2j-commons-1.1.6.jar
+CLASSPATH=${CLASSPATH}:l2j-gameserver-1.0.2.jar
 
 CLASSPATH=${CLASSPATH}:core-3.3.0.jar
 CLASSPATH=${CLASSPATH}:java-engine-1.0.0.jar
