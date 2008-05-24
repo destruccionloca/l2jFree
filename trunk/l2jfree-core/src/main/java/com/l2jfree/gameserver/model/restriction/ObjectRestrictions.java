@@ -46,8 +46,8 @@ public class ObjectRestrictions
     private static final String DELETE_RESTRICTIONS = "DELETE FROM obj_restrictions";
     private static final String INSERT_RESTRICTIONS = "INSERT INTO obj_restrictions ('obj_Id', 'type', 'delay', 'message' VALUES (?, ?, ?, ?)";
 
-    private static final ObjectRestrictions _instance = new ObjectRestrictions();
     private static final Log _log = LogFactory.getLog(ObjectRestrictions.class.getName());
+    private static final ObjectRestrictions _instance = new ObjectRestrictions();
 	
 	private Map<Integer, List<AvailableRestriction>> _restrictionList = new HashMap<Integer, List<AvailableRestriction>>();
 	private Map<Integer, List<PausedTimedEvent>> _pausedActions = new HashMap<Integer, List<PausedTimedEvent>>();

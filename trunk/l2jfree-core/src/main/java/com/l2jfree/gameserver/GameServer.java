@@ -107,6 +107,7 @@ import com.l2jfree.gameserver.model.AutoSpawnHandler;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.entity.Hero;
+import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.L2GamePacketHandler;
 import com.l2jfree.gameserver.pathfinding.geonodes.GeoPathFinding;
@@ -300,6 +301,7 @@ public class GameServer
 		ChatHandler.getInstance();
 		
 		Util.printSection("Misc");
+		ObjectRestrictions.getInstance();
 		TaskManager.getInstance();
 		GmListTable.getInstance();
 		RemoteAdministrationImpl.getInstance().startServer();
