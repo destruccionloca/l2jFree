@@ -289,6 +289,7 @@ full_install()
 	$MYG < ../sql/version.sql &> /dev/null
 	$MYG < ../sql/vip.sql &> /dev/null
 	$MYG < ../sql/forced_updates.sql &> /dev/null
+	$MYG < ../sql/obj_restrictions.sql &> /dev/null
 }
 
 # Database update
