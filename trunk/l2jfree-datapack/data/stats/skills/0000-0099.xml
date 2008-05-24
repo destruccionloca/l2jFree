@@ -48,7 +48,7 @@
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <cond msg="Dual Sword required.">
-  <using kind="Dual Sword"/>
+    <using kind="Dual Sword"/>
   </cond>
 </skill>
 <skill id="2" levels="19" name="Confusion">
