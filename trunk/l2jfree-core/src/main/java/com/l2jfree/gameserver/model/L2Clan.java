@@ -1622,6 +1622,7 @@ public class L2Clan
 		catch (Exception e)
 		{
 			_log.warn("Could not restore clan privs by rank: " + e);
+			e.printStackTrace();
 		}
 		finally
 		{
