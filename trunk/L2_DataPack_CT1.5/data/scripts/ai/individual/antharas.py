@@ -1,9 +1,9 @@
 # L2J_JP EDIT SANDMAN
 import sys
-from net.sf.l2j.gameserver.model.quest import State
-from net.sf.l2j.gameserver.model.quest import QuestState
-from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.instancemanager.grandbosses import AntharasManager
+from com.l2jfree.gameserver.model.quest import State
+from com.l2jfree.gameserver.model.quest import QuestState
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.instancemanager.grandbosses import AntharasManager
 
 PORTAL_STONE    = 3865
 HEART           = 13001

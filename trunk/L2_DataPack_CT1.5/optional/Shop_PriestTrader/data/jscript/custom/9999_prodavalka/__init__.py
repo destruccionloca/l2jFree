@@ -1,8 +1,8 @@
 print "importing custom: 9999_prodavalka"
 import sys
-from net.sf.l2j.gameserver.model.quest import State
-from net.sf.l2j.gameserver.model.quest import QuestState
-from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.model.quest import State
+from com.l2jfree.gameserver.model.quest import QuestState
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 NPC=[8078,8079,8080,8081,8082,8083,8084,8085,8086,8087,8088,8089,8090,8091,8168,8169]
 

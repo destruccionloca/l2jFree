@@ -1,9 +1,9 @@
 package transformations;
 
-import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.instancemanager.TransformationManager;
-import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.instancemanager.TransformationManager;
+import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Transformation;
 
 /**
  * Description: <br>
