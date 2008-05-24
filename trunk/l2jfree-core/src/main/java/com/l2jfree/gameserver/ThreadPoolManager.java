@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver;
 
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledFuture;
@@ -74,56 +75,77 @@ import com.l2jfree.gameserver.network.L2GameClient;
 public class ThreadPoolManager
 {
 	private static ThreadPoolManager	_instance;
-
+	
 	private final static Log			_log		= LogFactory.getLog(ThreadPoolManager.class);
-
+	
 	private ScheduledThreadPoolExecutor	_effectsScheduledThreadPool;
 	private ScheduledThreadPoolExecutor	_generalScheduledThreadPool;
-
-	private ThreadPoolExecutor			_generalPacketsThreadPool;
-	private ThreadPoolExecutor			_ioPacketsThreadPool;
-	// will be really used in the next AI implementation.
-	private ThreadPoolExecutor			_aiThreadPool;
-	private ThreadPoolExecutor			_generalThreadPool;
-
 	// temp
 	private ScheduledThreadPoolExecutor	_aiScheduledThreadPool;
-
+	
+	private ThreadPoolExecutor			_generalPacketsThreadPool;
+	private ThreadPoolExecutor			_ioPacketsThreadPool;
+	
+	private ThreadPoolExecutor			_generalThreadPool;
+	// will be really used in the next AI implementation.
+	private ThreadPoolExecutor			_aiThreadPool;
+	
 	/** temp workaround for VM issue */
 	private static final long			MAX_DELAY	= Long.MAX_VALUE / 1000000 / 2;
-
+	
 	private boolean						_shutdown;
-
+	
 	public static ThreadPoolManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new ThreadPoolManager();
-		}
+		
 		return _instance;
 	}
-
+	
 	private ThreadPoolManager()
 	{
-		_log.info("ThreadPoolManager: io:" + Config.IO_PACKET_THREAD_CORE_SIZE + " generalPackets:" + Config.GENERAL_PACKET_THREAD_CORE_SIZE + " general:"
-				+ Config.GENERAL_THREAD_CORE_SIZE + " ai:" + Config.AI_MAX_THREAD);
-
-		_effectsScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.THREAD_P_EFFECTS, new PriorityThreadFactory("EffectsSTPool", Thread.NORM_PRIORITY));
-		_generalScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.THREAD_P_GENERAL, new PriorityThreadFactory("GerenalSTPool", Thread.NORM_PRIORITY));
-
-		_ioPacketsThreadPool = new ThreadPoolExecutor(Config.IO_PACKET_THREAD_CORE_SIZE, Integer.MAX_VALUE, 5L, TimeUnit.SECONDS,
-				new LinkedBlockingQueue<Runnable>(), new PriorityThreadFactory("I/O Packet Pool", Thread.NORM_PRIORITY + 1));
-
-		_generalPacketsThreadPool = new ThreadPoolExecutor(Config.GENERAL_PACKET_THREAD_CORE_SIZE, Config.GENERAL_PACKET_THREAD_CORE_SIZE + 2, 15L,
-				TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(), new PriorityThreadFactory("Normal Packet Pool", Thread.NORM_PRIORITY + 1));
-
-		_generalThreadPool = new ThreadPoolExecutor(Config.GENERAL_THREAD_CORE_SIZE, Config.GENERAL_THREAD_CORE_SIZE + 2, 5L, TimeUnit.SECONDS,
-				new LinkedBlockingQueue<Runnable>(), new PriorityThreadFactory("General Pool", Thread.NORM_PRIORITY));
-
+		_log.info("ThreadPoolManager: io:"+Config.IO_PACKET_THREAD_CORE_SIZE
+			+", generalPackets: "+Config.GENERAL_PACKET_THREAD_CORE_SIZE
+			+", general: "+Config.GENERAL_THREAD_CORE_SIZE
+			+", ai: "+Config.AI_MAX_THREAD
+		);
+		
+		_effectsScheduledThreadPool	= new ScheduledThreadPoolExecutor(Config.THREAD_P_EFFECTS,	new PriorityThreadFactory("EffectsSTPool",	Thread.NORM_PRIORITY));
+		_generalScheduledThreadPool	= new ScheduledThreadPoolExecutor(Config.THREAD_P_GENERAL,	new PriorityThreadFactory("GerenalSTPool",	Thread.NORM_PRIORITY));
+		_aiScheduledThreadPool		= new ScheduledThreadPoolExecutor(Config.AI_MAX_THREAD,		new PriorityThreadFactory("AISTPool",		Thread.NORM_PRIORITY));
+		
+		_generalPacketsThreadPool = new ThreadPoolExecutor(
+			Config.GENERAL_PACKET_THREAD_CORE_SIZE,
+			Config.GENERAL_PACKET_THREAD_CORE_SIZE + 2,
+			15L, TimeUnit.SECONDS,
+			new LinkedBlockingQueue<Runnable>(),
+			new PriorityThreadFactory("Normal Packet Pool", Thread.NORM_PRIORITY + 1)
+		);
+		
+		_ioPacketsThreadPool = new ThreadPoolExecutor(
+			Config.IO_PACKET_THREAD_CORE_SIZE,
+			Integer.MAX_VALUE,
+			5L, TimeUnit.SECONDS,
+			new LinkedBlockingQueue<Runnable>(),
+			new PriorityThreadFactory("I/O Packet Pool", Thread.NORM_PRIORITY + 1)
+		);
+		
+		_generalThreadPool = new ThreadPoolExecutor(
+			Config.GENERAL_THREAD_CORE_SIZE,
+			Config.GENERAL_THREAD_CORE_SIZE + 2,
+			5L, TimeUnit.SECONDS,
+			new LinkedBlockingQueue<Runnable>(),
+			new PriorityThreadFactory("General Pool", Thread.NORM_PRIORITY)
+		);
+		
 		// will be really used in the next AI implementation.
-		_aiThreadPool = new ThreadPoolExecutor(1, Config.AI_MAX_THREAD, 10L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
-
-		_aiScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.AI_MAX_THREAD, new PriorityThreadFactory("AISTPool", Thread.NORM_PRIORITY));
+		_aiThreadPool = new ThreadPoolExecutor(
+			1,
+			Config.AI_MAX_THREAD,
+			10L, TimeUnit.SECONDS,
+			new LinkedBlockingQueue<Runnable>()
+		);
 		
 		scheduleGeneralAtFixedRate(new Runnable() {
 			public void run()
@@ -132,121 +154,114 @@ public class ThreadPoolManager
 			}
 		}, 3600000, 3600000);
 	}
-
-	public static long validateDelay(long delay)
+	
+	private long validateDelay(long delay)
 	{
-		if (delay < 0)
-		{
-			delay = 0;
-		}
-		else if (delay > MAX_DELAY)
-		{
-			delay = MAX_DELAY;
-		}
-		return delay;
+		return Math.max(0, Math.min(MAX_DELAY, delay));
 	}
-
+	
 	public ScheduledFuture<?> scheduleEffect(Runnable r, long delay)
 	{
 		try
 		{
-			delay = validateDelay(delay);
-			return _effectsScheduledThreadPool.schedule(r, delay, TimeUnit.MILLISECONDS);
+			return _effectsScheduledThreadPool.schedule(new Runner(r),
+				validateDelay(delay), TimeUnit.MILLISECONDS);
 		}
-		catch (RejectedExecutionException e)
-		{
-			return null; /* shutdown, ignore */
-		}
+		catch (RejectedExecutionException e) { return null; }
 	}
-
-	public ScheduledFuture<?> scheduleEffectAtFixedRate(Runnable r, long initial, long delay)
+	
+	public ScheduledFuture<?> scheduleEffectAtFixedRate(Runnable r, long delay, long period)
 	{
 		try
 		{
-			delay = validateDelay(delay);
-			initial = validateDelay(initial);
-			return _effectsScheduledThreadPool.scheduleAtFixedRate(r, initial, delay, TimeUnit.MILLISECONDS);
+			return _effectsScheduledThreadPool.scheduleAtFixedRate(new Runner(r),
+				validateDelay(delay), validateDelay(period), TimeUnit.MILLISECONDS);
 		}
-		catch (RejectedExecutionException e)
-		{
-			return null; /* shutdown, ignore */
-		}
+		catch (RejectedExecutionException e) { return null; }
 	}
-
+	
 	public ScheduledFuture<?> scheduleGeneral(Runnable r, long delay)
 	{
 		try
 		{
-			delay = validateDelay(delay);
-			return _generalScheduledThreadPool.schedule(r, delay, TimeUnit.MILLISECONDS);
+			return _generalScheduledThreadPool.schedule(new Runner(r),
+				validateDelay(delay), TimeUnit.MILLISECONDS);
 		}
-		catch (RejectedExecutionException e)
-		{
-			return null; /* shutdown, ignore */
-		}
+		catch (RejectedExecutionException e) { return null; }
 	}
-
-	public ScheduledFuture<?> scheduleGeneralAtFixedRate(Runnable r, long initial, long delay)
+	
+	public ScheduledFuture<?> scheduleGeneralAtFixedRate(Runnable r, long delay, long period)
 	{
 		try
 		{
-			delay = validateDelay(delay);
-			initial = validateDelay(initial);
-			return _generalScheduledThreadPool.scheduleAtFixedRate(r, initial, delay, TimeUnit.MILLISECONDS);
+			return _generalScheduledThreadPool.scheduleAtFixedRate(new Runner(r),
+				validateDelay(delay), validateDelay(period), TimeUnit.MILLISECONDS);
 		}
-		catch (RejectedExecutionException e)
-		{
-			return null; /* shutdown, ignore */
-		}
+		catch (RejectedExecutionException e) { return null; }
 	}
-
+	
 	public ScheduledFuture<?> scheduleAi(Runnable r, long delay)
 	{
 		try
 		{
-			delay = validateDelay(delay);
-			return _aiScheduledThreadPool.schedule(r, delay, TimeUnit.MILLISECONDS);
+			return _aiScheduledThreadPool.schedule(new Runner(r),
+				validateDelay(delay), TimeUnit.MILLISECONDS);
 		}
-		catch (RejectedExecutionException e)
-		{
-			return null; /* shutdown, ignore */
-		}
+		catch (RejectedExecutionException e) { return null; }
 	}
-
-	public ScheduledFuture<?> scheduleAiAtFixedRate(Runnable r, long initial, long delay)
+	
+	public ScheduledFuture<?> scheduleAiAtFixedRate(Runnable r, long delay, long period)
 	{
 		try
 		{
-			delay = validateDelay(delay);
-			initial = validateDelay(initial);
-			return _aiScheduledThreadPool.scheduleAtFixedRate(r, initial, delay, TimeUnit.MILLISECONDS);
+			return _aiScheduledThreadPool.scheduleAtFixedRate(new Runner(r),
+				validateDelay(delay), validateDelay(period), TimeUnit.MILLISECONDS);
 		}
-		catch (RejectedExecutionException e)
-		{
-			return null; /* shutdown, ignore */
-		}
+		catch (RejectedExecutionException e) { return null; }
 	}
-
+	
 	public void executePacket(ReceivablePacket<L2GameClient> pkt)
 	{
-		_generalPacketsThreadPool.execute(pkt);
+		_generalPacketsThreadPool.execute(new Runner(pkt));
 	}
-
+	
 	public void executeIOPacket(ReceivablePacket<L2GameClient> pkt)
 	{
-		_ioPacketsThreadPool.execute(pkt);
+		_ioPacketsThreadPool.execute(new Runner(pkt));
 	}
-
+	
 	public void executeTask(Runnable r)
 	{
-		_generalThreadPool.execute(r);
+		_generalThreadPool.execute(new Runner(r));
 	}
-
+	
 	public void executeAi(Runnable r)
 	{
-		_aiThreadPool.execute(r);
+		_aiThreadPool.execute(new Runner(r));
 	}
-
+	
+	private class Runner implements Runnable
+	{
+		private final Runnable _r;
+		
+		private Runner(Runnable r)
+		{
+			_r = r;
+		}
+		
+		public void run()
+		{
+			try
+			{
+				_r.run();
+			}
+			catch (Exception e)
+			{
+				_log.warn("Exception at a Future<?> task:", e);
+			}
+		}
+	}
+	
 	public String[] getStats()
 	{
 		return new String[]
@@ -306,21 +321,21 @@ public class ThreadPoolManager
 				" + AI:",
 				" |- Not Done" };
 	}
-
+	
 	private class PriorityThreadFactory implements ThreadFactory
 	{
 		private int				_prio;
 		private String			_name;
 		private AtomicInteger	_threadNumber	= new AtomicInteger(1);
 		private ThreadGroup		_group;
-
+		
 		public PriorityThreadFactory(String name, int prio)
 		{
 			_prio = prio;
 			_name = name;
 			_group = new ThreadGroup(_name);
 		}
-
+		
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -333,64 +348,73 @@ public class ThreadPoolManager
 			t.setPriority(_prio);
 			return t;
 		}
-
+		
 		public ThreadGroup getGroup()
 		{
 			return _group;
 		}
 	}
-
-	/**
-	 * 
-	 */
+	
 	public void shutdown()
 	{
 		_shutdown = true;
 		try
 		{
+			System.out.println("ThreadPoolManager: Shutdown...");
+			
 			_effectsScheduledThreadPool.awaitTermination(1, TimeUnit.SECONDS);
 			_generalScheduledThreadPool.awaitTermination(1, TimeUnit.SECONDS);
+			_aiScheduledThreadPool.awaitTermination(1, TimeUnit.SECONDS);
+			
 			_generalPacketsThreadPool.awaitTermination(1, TimeUnit.SECONDS);
 			_ioPacketsThreadPool.awaitTermination(1, TimeUnit.SECONDS);
 			_generalThreadPool.awaitTermination(1, TimeUnit.SECONDS);
 			_aiThreadPool.awaitTermination(1, TimeUnit.SECONDS);
+			
 			_effectsScheduledThreadPool.shutdown();
 			_generalScheduledThreadPool.shutdown();
+			_aiScheduledThreadPool.shutdown();
+			
 			_generalPacketsThreadPool.shutdown();
 			_ioPacketsThreadPool.shutdown();
 			_generalThreadPool.shutdown();
 			_aiThreadPool.shutdown();
-			System.out.println("All ThreadPools are now stopped");
-
+			
+			System.out.println("ThreadPoolManager: ThreadPools stopped!");
 		}
 		catch (InterruptedException e)
 		{
-			_log.error(e);
+			_log.fatal("", e);
 		}
 	}
-
+	
 	public boolean isShutdown()
 	{
 		return _shutdown;
 	}
-
+	
 	/**
-	 * 
+	 * Tries to remove from the work queue all {@link Future}
+	 * tasks that have been cancelled. This method can be useful as a
+	 * storage reclamation operation, that has no other impact on
+	 * functionality. Cancelled tasks are never executed, but may
+	 * accumulate in work queues until worker threads can actively
+	 * remove them. Invoking this method instead tries to remove them now.
+	 * However, this method may fail to remove tasks in
+	 * the presence of interference by other threads.
 	 */
 	public void purge()
 	{
 		_effectsScheduledThreadPool.purge();
 		_generalScheduledThreadPool.purge();
 		_aiScheduledThreadPool.purge();
-		_ioPacketsThreadPool.purge();
+		
 		_generalPacketsThreadPool.purge();
+		_ioPacketsThreadPool.purge();
 		_generalThreadPool.purge();
 		_aiThreadPool.purge();
 	}
-
-	/**
-	 * 
-	 */
+	
 	public String getPacketStats()
 	{
 		TextBuilder tb = new TextBuilder();
@@ -420,7 +444,7 @@ public class ThreadPoolManager
 		tb.append("Packet Tp stack traces printed.\r\n");
 		return tb.toString();
 	}
-
+	
 	public String getIOPacketStats()
 	{
 		TextBuilder tb = new TextBuilder();
@@ -450,7 +474,7 @@ public class ThreadPoolManager
 		tb.append("Packet Tp stack traces printed.\r\n");
 		return tb.toString();
 	}
-
+	
 	public String getGeneralStats()
 	{
 		TextBuilder tb = new TextBuilder();
