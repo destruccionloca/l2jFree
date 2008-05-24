@@ -31,6 +31,35 @@
       <includes>
       	<include>*.*</include>
       </includes>
-    </fileSet>    
+    </fileSet>
+    <fileSet>
+      <directory>datapack/sql</directory>
+      <outputDirectory>sql/</outputDirectory>
+      <includes>
+      	<include>**</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>datapack/tools</directory>
+      <outputDirectory>tools/</outputDirectory>
+      <includes>
+      	<include>**</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>datapack/dist/gameserver/data</directory>
+      <outputDirectory>dist/data</outputDirectory>
+      <includes>
+      	<include>**</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>datapack/dist/gameserver/optional</directory>
+      <outputDirectory>dist/data/optional</outputDirectory>
+      <includes>
+      	<include>**</include>
+      </includes>
+    </fileSet>
+        
   </fileSets>
 </assembly>

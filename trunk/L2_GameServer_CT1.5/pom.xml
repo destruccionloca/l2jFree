@@ -2,7 +2,7 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>l2jfree</groupId>
-	<artifactId>l2j-gameserver</artifactId>
+	<artifactId>l2jfree-gameserver</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<url>http://www.l2jfree.com</url>
@@ -22,6 +22,17 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>Maven Snapshots</id>
+			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+
+		<pluginRepository>
+			<id>Maven Snapshots</id>
 			<url>http://snapshots.maven.codehaus.org/maven2/</url>
 			<snapshots>
 				<enabled>true</enabled>
@@ -30,7 +41,7 @@
 				<enabled>false</enabled>
 			</releases>
 		</pluginRepository>
-
+		
 		<pluginRepository>
 			<id>central l2j</id>
 			<name>Mirror Central L2j</name>
@@ -98,6 +109,11 @@
 			<id>ibiblio maven2</id>
 			<url>http://www.ibiblio.org/maven2/</url>
 		</repository>
+		<repository>
+			<id>ibiblio maven2</id>
+			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
+		</repository>
+		
 	</repositories>
 	<dependencies>
 		<dependency>
@@ -141,6 +157,31 @@
 		</testResources>
 
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>dependency-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpackconf</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>l2jfree</groupId>
+									<artifactId>datapack</artifactId>
+									<version>1.0.1</version>
+									<type>jar</type>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>/datapack</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>                
+		
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>maven-buildnumber-plugin</artifactId>
@@ -200,46 +241,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-    	<profiles>
-		<profile>
-			<id>datapack</id>
-			<activation>
-				<property>
-					<name>dp</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-        			<plugin>
-        				<groupId>org.codehaus.mojo</groupId>
-        				<artifactId>dependency-maven-plugin</artifactId>
-        				<executions>
-        					<execution>
-        						<id>unpackconf</id>
-        						<phase>process-resources</phase>
-        						<goals>
-        							<goal>unpack</goal>
-        						</goals>
-        						<configuration>
-        							<artifactItems>
-        								<artifactItem>
-        									<groupId>l2free</groupId>
-        									<artifactId>L2_DataPack_CT1.5</artifactId>
-        									<version>1.0.0</version>
-        									<type>jar</type>
-        								</artifactItem>
-        							</artifactItems>
-        							<outputDirectory>${project.build.directory}/datapack</outputDirectory>
-        						</configuration>
-        					</execution>
-        				</executions>
-        			</plugin>                
-				</plugins>
-			</build>
-		</profile>
-	</profiles>    
-    
 </project>
 
