@@ -44,7 +44,7 @@ public class ObjectRestrictions
     // Restrictions SQL String Definitions:
     private static final String RESTORE_RESTRICTIONS = "SELECT obj_Id, type, delay, message FROM obj_restrictions";
     private static final String DELETE_RESTRICTIONS = "DELETE FROM obj_restrictions";
-    private static final String INSERT_RESTRICTIONS = "INSERT INTO obj_restrictions ('obj_Id', 'type', 'delay', 'message' VALUES (?, ?, ?, ?)";
+    private static final String INSERT_RESTRICTIONS = "INSERT INTO obj_restrictions (`obj_Id`, `type`, `delay`, `message`) VALUES (?, ?, ?, ?)";
 
     private static final Log _log = LogFactory.getLog(ObjectRestrictions.class.getName());
     private static final ObjectRestrictions _instance = new ObjectRestrictions();
@@ -52,7 +52,6 @@ public class ObjectRestrictions
 	private Map<Integer, List<AvailableRestriction>> _restrictionList = new HashMap<Integer, List<AvailableRestriction>>();
 	private Map<Integer, List<PausedTimedEvent>> _pausedActions = new HashMap<Integer, List<PausedTimedEvent>>();
 	private Map<Integer, List<TimedRestrictionAction>> _runningActions = new HashMap<Integer, List<TimedRestrictionAction>>();
-	private Map<Integer, Short> _idMap	= new HashMap<Integer, Short>();
 	
 	
 	public static final ObjectRestrictions getInstance() {
@@ -98,7 +97,7 @@ public class ObjectRestrictions
 		_log.info("ObjectRestrictions: loaded "+i+" restrictions.");
 	}
 	public void shutdown() {
-		_log.info("ObjectRestrictions: storing started:");
+		System.out.println("ObjectRestrictions: storing started:");
 		Connection con = null;
 		
 		try {
@@ -109,60 +108,54 @@ public class ObjectRestrictions
 			statement.execute();
 			statement.close();
 			
-			_log.info("ObjectRestrictions: storing permanent restrictions.");
+			System.out.println("ObjectRestrictions: storing permanent restrictions.");
 			// Store permanent restrictions
-			for (Integer id : _restrictionList.keySet()) {
-				if (_idMap.get(id) == 1) {
-					for (AvailableRestriction restriction : _restrictionList.get(id)) {
-						statement = con.prepareStatement(INSERT_RESTRICTIONS);
-						
-						statement.setInt(1, id);
-						statement.setString(2, restriction.name());
-						statement.setLong(3, -1);
-						statement.setString(4, "");
-						
-						statement.execute();
-						statement.close();
-					}
+			for (int id : _restrictionList.keySet()) {
+				for (AvailableRestriction restriction : _restrictionList.get(id)) {
+					statement = con.prepareStatement(INSERT_RESTRICTIONS);
+					
+					statement.setInt(1, id);
+					statement.setString(2, restriction.name());
+					statement.setLong(3, -1);
+					statement.setString(4, "");
+					
+					statement.execute();
+					statement.close();
 				}
 			}
 			
-			_log.info("ObjectRestrictions: storing paused events.");
+			System.out.println("ObjectRestrictions: storing paused events.");
 			// Store paused restriction events
-			for (Integer id : _pausedActions.keySet()) {
-				if (_idMap.get(id) == 1) {
-					for (PausedTimedEvent paused : _pausedActions.get(id)) {
-						statement = con.prepareStatement(INSERT_RESTRICTIONS);
-						
-						statement.setInt(1, id);
-						statement.setString(2, paused.getAction().getRestriction().name());
-						statement.setLong(3, paused.getBalancedTime());
-						statement.setString(4, paused.getAction().getMessage());
-						
-						statement.execute();
-						statement.close();
-					}
+			for (int id : _pausedActions.keySet()) {
+				for (PausedTimedEvent paused : _pausedActions.get(id)) {
+					statement = con.prepareStatement(INSERT_RESTRICTIONS);
+					
+					statement.setInt(1, id);
+					statement.setString(2, paused.getAction().getRestriction().name());
+					statement.setLong(3, paused.getBalancedTime());
+					statement.setString(4, paused.getAction().getMessage());
+					
+					statement.execute();
+					statement.close();
 				}
 			}
 			
-			_log.info("ObjectRestrictions: stopping and storing running events.");
+			System.out.println("ObjectRestrictions: stopping and storing running events.");
 			// Store running restriction events
-			for (Integer id : _runningActions.keySet()) {
-				if (_idMap.get(id) == 1) {
-					for (TimedRestrictionAction action : _runningActions.get(id)) {
-						// Shutdown task
-						action.getTask().cancel(true);
-						
-						statement = con.prepareStatement(INSERT_RESTRICTIONS);
-						
-						statement.setInt(1, id);
-						statement.setString(2, action.getRestriction().name());
-						statement.setLong(3, action.getBalancedTime());
-						statement.setString(4, action.getMessage());
-						
-						statement.execute();
-						statement.close();
-					}
+			for (int id : _runningActions.keySet()) {
+				for (TimedRestrictionAction action : _runningActions.get(id)) {
+					// Shutdown task
+					action.getTask().cancel(true);
+					
+					statement = con.prepareStatement(INSERT_RESTRICTIONS);
+					
+					statement.setInt(1, id);
+					statement.setString(2, action.getRestriction().name());
+					statement.setLong(3, action.getBalancedTime());
+					statement.setString(4, action.getMessage());
+					
+					statement.execute();
+					statement.close();
 				}
 			}
 		} catch (SQLException e) {
@@ -170,7 +163,7 @@ public class ObjectRestrictions
 		} finally {
 			 try { con.close(); } catch (SQLException e) { e.printStackTrace(); }
 		}
-		_log.info("ObjectRestrictions: All data saved.");
+		System.out.println("ObjectRestrictions: All data saved.");
 	}
 	
 	/**
@@ -193,13 +186,13 @@ public class ObjectRestrictions
 	 * @param restriction
 	 */
 	public void addRestriction(Object owner, AvailableRestriction restriction) throws RestrictionBindClassException {
-		if (owner != null)
+		if (owner == null)
 			return;
 
-		if (checkApplyable(owner, restriction))
+		if (!checkApplyable(owner, restriction))
 			throw new RestrictionBindClassException("Restriction "+restriction.name()+" cannot bound to Class "+owner.getClass());
 		
-		Integer id = getObjectId(owner);
+		int id = getObjectId(owner);
 		addRestriction(id, restriction);
 	}
 	
@@ -212,7 +205,7 @@ public class ObjectRestrictions
 		if (owner == null)
 			return;
 		
-		Integer id = -1;
+		int id = -1;
 		if (owner instanceof L2Object)
 			id = ((L2Object)owner).getObjectId();
 		else
@@ -253,16 +246,16 @@ public class ObjectRestrictions
 		if (owner != null)
 			return;
 		
-		Integer id = getObjectId(owner);
+		int id = getObjectId(owner);
 
 		if (_restrictionList.get(id) == null) {
 			_restrictionList.put(id, new ArrayList<AvailableRestriction>());
 		}
 
 		for (AvailableRestriction restriction : restrictions) {
-			if (checkApplyable(owner, restriction))
+			if (!checkApplyable(owner, restriction))
 				throw new RestrictionBindClassException("Restriction "+restriction.name()+" cannot bound to Class "+owner.getClass());
-			}
+		}
 		
 		_restrictionList.get(id).addAll(restrictions);
 	}
@@ -277,7 +270,7 @@ public class ObjectRestrictions
 		if (owner == null)
 			return false;
 		
-		Integer id = getObjectId(owner);
+		int id = getObjectId(owner);
 		
 		if (_restrictionList.get(id) == null)
 			return false;
@@ -324,7 +317,7 @@ public class ObjectRestrictions
 	 * @param delay
 	 */
 	public void timedAddRestriction(L2Object owner, AvailableRestriction restriction, long delay) throws RestrictionBindClassException {
-		if (checkApplyable(owner.getObjectId(), restriction))
+		if (!checkApplyable(owner.getObjectId(), restriction))
 			throw new RestrictionBindClassException();
 		
 		timedAddRestriction(owner.getObjectId(), restriction, delay);
@@ -346,7 +339,7 @@ public class ObjectRestrictions
 	 * @param message
 	 */
 	public void timedAddRestriction(L2Object owner, AvailableRestriction restriction, long delay, String message) throws RestrictionBindClassException {
-		if (checkApplyable(owner, restriction))
+		if (!checkApplyable(owner, restriction))
 			throw new RestrictionBindClassException();
 
 		timedAddRestriction(owner.getObjectId(), restriction, delay, message);
@@ -564,7 +557,7 @@ public class ObjectRestrictions
 	private boolean checkApplyable(Object owner, AvailableRestriction restriction) {
 		return (restriction.getApplyableTo().isInstance(owner));
 	}
-	private Integer getObjectId(Object owner) {
+	private int getObjectId(Object owner) {
 		if (owner instanceof L2Object)
 			return ((L2Object)owner).getObjectId();
 		else

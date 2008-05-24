@@ -112,6 +112,12 @@ public class AdminBanChat implements IAdminCommandHandler
 				}
 					
 				banLengthStr = " for " + banLength + " minutes.";
+			} else {
+				try {
+					ObjectRestrictions.getInstance().addRestriction(activeChar, AvailableRestriction.PlayerChat);
+				} catch (RestrictionBindClassException e) {
+					e.printStackTrace();
+				}
 			}
 
 			activeChar.sendMessage(targetPlayer.getName() + " is now chat banned" + banLengthStr + ".");
