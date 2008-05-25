@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS access_levels, admin_command_access_rights,
-                     account_data,armor,armorsets,auction,auction_bid,
+DROP TABLE IF EXISTS account_data,armor,armorsets,auction,auction_bid,
                      auction_watch,augmentations,auto_chat,auto_chat_text,
                      boxaccess,boxes,castle,castle_door,castle_doorupgrade,
                      castle_manor_procure,castle_manor_production,
