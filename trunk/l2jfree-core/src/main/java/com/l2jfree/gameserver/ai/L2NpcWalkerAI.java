@@ -55,12 +55,18 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 	public L2NpcWalkerAI(L2Character.AIAccessor accessor)
 	{
 		super(accessor);
-
+		
 		if (!Config.ALLOW_NPC_WALKERS)
 			return;
-
+		
 		_route = NpcWalkerRoutesTable.getInstance().getRouteForNpc(getActor().getNpcId());
-
+		
+		if (_route.isEmpty())
+		{
+			_log.warn("L2NpcWalker(ID: "+getActor().getNpcId()+") without definied route!");
+			return;
+		}
+		
 		// Here we need 1 second initial delay cause getActor().hasAI() will return null...
 		// Constructor of L2NpcWalkerAI is called faster then ai object is attached in L2NpcWalkerInstance
 		ThreadPoolManager.getInstance().scheduleAiAtFixedRate(this, 1000, 1000);
@@ -74,7 +80,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 	@Override
 	protected void onEvtThink()
 	{
-		if (!Config.ALLOW_NPC_WALKERS)
+		if (!Config.ALLOW_NPC_WALKERS || _route.isEmpty())
 			return;
 
 		if (isWalkingToNextPoint())
@@ -144,9 +150,6 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 
 	private void walkToLocation()
 	{
-		if (_route.size() < 1)
-			return;
-		
 		if (_currentPos < (_route.size() - 1))
 			_currentPos++;
 		else
