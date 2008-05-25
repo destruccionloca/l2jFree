@@ -12630,4 +12630,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		
 		return _clearableReference;
 	}
+	
+	@Override
+	public final L2PcInstance getPcFromChar()
+	{
+		return this;
+	}
 }

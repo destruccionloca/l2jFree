@@ -499,4 +499,17 @@ public abstract class L2Object
     	}
     	return false;
     }
+	
+	public L2PcInstance getPcFromChar()
+	{
+		return null;
+	}
+	
+	public static final L2PcInstance getPcFromChar(L2Object obj)
+	{
+		if (obj == null)
+			return null;
+		else
+			return obj.getPcFromChar();
+	}
 }

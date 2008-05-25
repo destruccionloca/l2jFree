@@ -120,7 +120,7 @@ public class Potions implements IItemHandler
 			8638,
 			8639							};
 
-	public synchronized void useItem(L2PlayableInstance playable, L2ItemInstance item)
+	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		L2PcInstance activeChar;
 		boolean res = false;
@@ -149,7 +149,10 @@ public class Potions implements IItemHandler
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
+		
+		synchronized (playable.getPcFromChar().getItemHandlerLock())
+		{
+		
 		int itemId = item.getItemId();
 
 		switch (itemId)
@@ -506,6 +509,7 @@ public class Potions implements IItemHandler
 
 		if (res)
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
+		}
 	}
 
 	private boolean isEffectReplaceable(L2PcInstance activeChar, Enum effectType, L2ItemInstance item)

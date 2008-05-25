@@ -43,11 +43,14 @@ public class SpiritShot implements IItemHandler
 	/* (non-Javadoc) 
 	* @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance) 
 	*/
-	public synchronized void useItem(L2PlayableInstance playable, L2ItemInstance item)
+	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
 			return;
-
+		
+		synchronized (playable.getPcFromChar().getItemHandlerLock())
+		{
+		
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		L2Weapon weaponItem = activeChar.getActiveWeaponItem();
@@ -100,6 +103,7 @@ public class SpiritShot implements IItemHandler
 		// Send message to client
 		activeChar.sendPacket(new SystemMessage(SystemMessageId.ENABLED_SPIRITSHOT));
 		Broadcast.toSelfAndKnownPlayersInRadius(activeChar, new MagicSkillUse(activeChar, activeChar, SKILL_IDS[weaponGrade], 1, 0, 0), 360000/*600*/);
+		}
 	}
 
 	public int[] getItemIds()
