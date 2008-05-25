@@ -41,6 +41,11 @@ public class PetDataTable
 	public final static int											STRIDER_WIND_ID			= 12526;
 	public final static int											STRIDER_STAR_ID			= 12527;
 	public final static int											STRIDER_TWILIGHT_ID		= 12528;
+	
+	public final static int											RED_STRIDER_WIND_ID		= 16038;
+	public final static int											RED_STRIDER_STAR_ID		= 16039;
+	public final static int											RED_STRIDER_TWILIGHT_ID	= 16040;
+	
 
 	public final static int											WYVERN_ID				= 12621;
 
@@ -228,7 +233,7 @@ public class PetDataTable
 
 	public static boolean isStrider(int npcId)
 	{
-		return (STRIDER_WIND_ID == npcId || STRIDER_STAR_ID == npcId || STRIDER_TWILIGHT_ID == npcId);
+		return (STRIDER_WIND_ID == npcId || STRIDER_STAR_ID == npcId || STRIDER_TWILIGHT_ID == npcId || RED_STRIDER_WIND_ID == npcId || RED_STRIDER_STAR_ID == npcId || RED_STRIDER_TWILIGHT_ID == npcId);
 	}
 
 	public static boolean isWyvern(int npcId)
@@ -264,6 +269,9 @@ public class PetDataTable
 		STRIDER_WIND(STRIDER_WIND_ID, 4422, 5168, true),
 		STRIDER_STAR(STRIDER_STAR_ID, 4423, 5168, true),
 		STRIDER_TWILIGHT(STRIDER_TWILIGHT_ID, 4424, 5168, true),
+		RED_STRIDER_WIND(RED_STRIDER_WIND_ID, 10308, 5168, true),
+		RED_STRIDER_STAR(RED_STRIDER_STAR_ID, 10309, 5168, true),
+		RED_STRIDER_TWILIGHT(RED_STRIDER_TWILIGHT_ID, 10310, 5168, true),
 		WYVERN(WYVERN_ID, 5249, 6316, true),
 		GREAT_WOLF(GREAT_WOLF_ID, 9882, 9668, true),
 		BABY_BUFFALO(BABY_BUFFALO_ID, 6648, 7582, false),
