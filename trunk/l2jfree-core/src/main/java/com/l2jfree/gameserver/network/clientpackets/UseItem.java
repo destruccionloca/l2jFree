@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -242,7 +241,8 @@ public class UseItem extends L2GameClientPacket
 		}
 
 		// Char cannot use pet items
-		if (item.getItem().isForWolf() || item.getItem().isForHatchling() || item.getItem().isForStrider() || item.getItem().isForBabyPet())
+		if (item.getItem().isForWolf() || item.getItem().isForGreatWolf() || item.getItem().isForHatchling() || item.getItem().isForStrider()
+				|| item.getItem().isForBabyPet())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_EQUIP_PET_ITEM); // You cannot equip a pet item.
 			sm.addItemName(item);
@@ -259,7 +259,7 @@ public class UseItem extends L2GameClientPacket
 			if (activeChar.isDisarmed())
 				return;
 
-			if (!((L2Equip)item.getItem()).allowEquip(activeChar))
+			if (!((L2Equip) item.getItem()).allowEquip(activeChar))
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 				return;
@@ -352,7 +352,7 @@ public class UseItem extends L2GameClientPacket
 				return;
 			}
 
-			if(!activeChar.isHero() && !activeChar.isGM() && item.isHeroItem() && Config.ALT_STRICT_HERO_SYSTEM)
+			if (!activeChar.isHero() && !activeChar.isGM() && item.isHeroItem() && Config.ALT_STRICT_HERO_SYSTEM)
 				return;
 
 			// Equip or unEquip

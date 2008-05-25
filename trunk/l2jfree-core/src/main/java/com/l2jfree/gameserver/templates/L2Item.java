@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.templates;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -46,6 +45,7 @@ public abstract class L2Item
 	public static final int		TYPE2_PET_HATCHLING					= 7;
 	public static final int		TYPE2_PET_STRIDER					= 8;
 	public static final int		TYPE2_PET_BABY						= 9;
+	public static final int		TYPE2_PET_GREATWOLF					= 10;
 
 	public static final int		SLOT_NONE							= 0x00000;
 	public static final int		SLOT_UNDERWEAR						= 0x00001;
@@ -77,6 +77,7 @@ public abstract class L2Item
 	public static final int		SLOT_HATCHLING						= -101;
 	public static final int		SLOT_STRIDER						= -102;
 	public static final int		SLOT_BABYPET						= -103;
+	public static final int		SLOT_GREATWOLF						= -104;
 
 	public static final int		MATERIAL_STEEL						= 0x00;										// ??
 	public static final int		MATERIAL_FINE_STEEL					= 0x01;										// ??
@@ -452,6 +453,15 @@ public abstract class L2Item
 	public boolean isForWolf()
 	{
 		return (_type2 == TYPE2_PET_WOLF);
+	}
+
+	/**
+	 * Returns if item is for Great wolf
+	 * @return boolean
+	 */
+	public boolean isForGreatWolf()
+	{
+		return (_type2 == TYPE2_PET_GREATWOLF);
 	}
 
 	/**

@@ -84,12 +84,19 @@ public class RequestPetUseItem extends L2GameClientPacket
             feed(pet, item);
             return;
         }
+        
         //check if the item matches the pet
         if ((PetDataTable.isWolf(pet.getNpcId()) && item.getItem().isForWolf()) ||
             (PetDataTable.isHatchling(pet.getNpcId()) && item.getItem().isForHatchling()) ||
             (PetDataTable.isBaby(pet.getNpcId()) && item.getItem().isForBabyPet()) ||
             (PetDataTable.isStrider(pet.getNpcId()) && item.getItem().isForStrider()) ||
-            (PetDataTable.isGreatWolf(pet.getNpcId()) && item.getItem().isForWolf()))
+            (PetDataTable.isGreatWolf(pet.getNpcId()) && item.getItem().isForGreatWolf()) ||
+            (PetDataTable.isWGreatWolf(pet.getNpcId()) && item.getItem().isForGreatWolf()) ||
+            (PetDataTable.isBlackWolf(pet.getNpcId()) && item.getItem().isForGreatWolf()) ||
+            (PetDataTable.isFenrirWolf(pet.getNpcId()) && item.getItem().isForGreatWolf()) ||
+            (PetDataTable.isWFenrirWolf(pet.getNpcId()) && item.getItem().isForGreatWolf()) ||
+            (PetDataTable.isImprovedBaby(pet.getNpcId()) && item.getItem().isForBabyPet())
+        	)
         {
             useItem(pet, item, activeChar);
             return;

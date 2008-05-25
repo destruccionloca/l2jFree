@@ -36,7 +36,6 @@ import java.util.regex.PatternSyntaxException;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -61,19 +60,19 @@ public final class Config
 	public static String		INTERNAL_NETWORKS;
 	public static String		EXTERNAL_HOSTNAME;
 	public static String		OPTIONAL_NETWORKS;
-	public static int			REQUEST_ID;																			// ID for request to the server
+	public static int			REQUEST_ID;																		// ID for request to the server
 	public static boolean		RESERVE_HOST_ON_LOGIN				= false;
 	public static boolean		ACCEPT_ALTERNATE_ID;																// Accept alternate ID for server ?
 	public static Pattern		CNAME_PATTERN;																		// Character name template
 	public static Pattern		PET_NAME_PATTERN;																	// Pet name template
-	public static Pattern		CLAN_ALLY_NAME_PATTERN;																// Clan and ally name template
+	public static Pattern		CLAN_ALLY_NAME_PATTERN;															// Clan and ally name template
 	public static Pattern		TITLE_PATTERN;																		// Clan title template
 	public static int			MAX_CHARACTERS_NUMBER_PER_ACCOUNT;													// Maximum number of characters per account
 	public static int			PORT_GAME;																			// Game Server ports
 	public static String		GAMESERVER_HOSTNAME;																// Hostname of the Game Server
 	public static String		DATABASE_DRIVER;																	// Driver to access to database
 	public static String		DATABASE_URL;																		// Path to access to database
-	public static String		DATABASE_LOGIN;																		// Database login
+	public static String		DATABASE_LOGIN;																	// Database login
 	public static String		DATABASE_PASSWORD;																	// Database password
 	public static int			DATABASE_MAX_CONNECTIONS;															// Maximum number of connections to the
 	// database
@@ -102,6 +101,7 @@ public final class Config
 	public static int			LINKED_NODE_ID;
 	public static String		NEW_NODE_TYPE;
 	public static boolean		LEGACY_CT1_MODE;
+
 	// *******************************************************************************************
 	public static void loadConfiguration()
 	{
@@ -162,8 +162,10 @@ public final class Config
 			DATAPACK_ROOT = new File(serverSettings.getProperty("DatapackRoot", ".")).getCanonicalFile();
 			MIN_PROTOCOL_REVISION = Integer.parseInt(serverSettings.getProperty("MinProtocolRevision", "694"));
 			MAX_PROTOCOL_REVISION = Integer.parseInt(serverSettings.getProperty("MaxProtocolRevision", "709"));
-			if (MIN_PROTOCOL_REVISION > MAX_PROTOCOL_REVISION) { throw new Error(
-					"MinProtocolRevision is bigger than MaxProtocolRevision in server configuration file."); }
+			if (MIN_PROTOCOL_REVISION > MAX_PROTOCOL_REVISION)
+			{
+				throw new Error("MinProtocolRevision is bigger than MaxProtocolRevision in server configuration file.");
+			}
 			INTERNAL_HOSTNAME = serverSettings.getProperty("InternalHostname", "127.0.0.1");
 			INTERNAL_NETWORKS = serverSettings.getProperty("InternalNetworks", "");
 			EXTERNAL_HOSTNAME = serverSettings.getProperty("ExternalHostname", "127.0.0.1");
@@ -202,10 +204,10 @@ public final class Config
 	public static final String	CLANS_FILE	= "./config/clans.properties";
 	// *******************************************************************************************
 	public static int			ALT_CLAN_MEMBERS_FOR_WAR;					// Number of members needed to request a clan war
-	public static int			ALT_CLAN_JOIN_DAYS;							// Number of days before joining a new clan
+	public static int			ALT_CLAN_JOIN_DAYS;						// Number of days before joining a new clan
 	public static int			ALT_CLAN_CREATE_DAYS;						// Number of days before creating a new clan
-	public static int			ALT_CLAN_DISSOLVE_DAYS;						// Number of days it takes to dissolve a clan
-	public static int			ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;				// Number of days before joining a new alliance when clan voluntarily leave an alliance
+	public static int			ALT_CLAN_DISSOLVE_DAYS;					// Number of days it takes to dissolve a clan
+	public static int			ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;			// Number of days before joining a new alliance when clan voluntarily leave an alliance
 	public static int			ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;			// Number of days before joining a new alliance when clan was dismissed from an
 	// alliance
 	public static int			ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED;		// Number of days before accepting a new clan for alliance when clan was dismissed
@@ -223,8 +225,8 @@ public final class Config
 	public static int				CLAN_LEADER_COLOR;
 	public static int				CLAN_LEADER_COLOR_CLAN_LEVEL;
 	public static int				MEMBER_FOR_LEVEL_SIX;			// Number of members to level up a clan to lvl 6
-	public static int				MEMBER_FOR_LEVEL_SEVEN;			// Number of members to level up a clan to lvl 7
-	public static int				MEMBER_FOR_LEVEL_EIGHT;			// Number of members to level up a clan to lvl 8
+	public static int				MEMBER_FOR_LEVEL_SEVEN;		// Number of members to level up a clan to lvl 7
+	public static int				MEMBER_FOR_LEVEL_EIGHT;		// Number of members to level up a clan to lvl 8
 	public static int				MEMBER_FOR_LEVEL_NINE;			// Number of members to level up a clan to lvl 9
 	public static int				MEMBER_FOR_LEVEL_TEN;			// Number of members to level up a clan to lvl 10
 
@@ -268,24 +270,24 @@ public final class Config
 	// *******************************************************************************************
 	public static final String	CHAMPIONS_FILE	= "./config/champions.properties";
 	// *******************************************************************************************
-	public static int			CHAMPION_FREQUENCY;									// Frequency of spawn
+	public static int			CHAMPION_FREQUENCY;								// Frequency of spawn
 	public static boolean		CHAMPION_PASSIVE;
 	public static String		CHAMPION_TITLE;
 	public static int			CHAMPION_HP;										// Hp multiplier
 	public static float			CHAMPION_HP_REGEN;									// Hp.reg multiplier
 	public static float			CHAMPION_ATK;										// P.Atk & M.Atk multiplier
 	public static float			CHAMPION_SPD_ATK;									// Attack speed multiplier
-	public static int			CHAMPION_ADENA;										// Adena/Sealstone reward multiplier
+	public static int			CHAMPION_ADENA;									// Adena/Sealstone reward multiplier
 	public static int			CHAMPION_REWARDS;									// Drop/Spoil reward multiplier
 	public static int			CHAMPION_EXP_SP;									// Exp/Sp reward multiplier
 	public static boolean		CHAMPION_BOSS;										// Bosses can be champions
-	public static int			CHAMPION_MIN_LEVEL;									// Champion Minimum Level
-	public static int			CHAMPION_MAX_LEVEL;									// Champion Maximum Level
+	public static int			CHAMPION_MIN_LEVEL;								// Champion Minimum Level
+	public static int			CHAMPION_MAX_LEVEL;								// Champion Maximum Level
 	public static boolean		CHAMPION_MINIONS;									// set Minions to champions when leader champion
-	public static int			CHAMPION_SPCL_LVL_DIFF;								// level diff with mob level is more this value - don't drop an special reward
+	public static int			CHAMPION_SPCL_LVL_DIFF;							// level diff with mob level is more this value - don't drop an special reward
 	// item.
 	public static int			CHAMPION_SPCL_CHANCE;								// Chance in % to drop an special reward item.
-	public static int			CHAMPION_SPCL_ITEM;									// Item ID that drops from Champs.
+	public static int			CHAMPION_SPCL_ITEM;								// Item ID that drops from Champs.
 	public static int			CHAMPION_SPCL_QTY;									// Amount of special champ drop items.
 
 	// *******************************************************************************************
@@ -337,6 +339,7 @@ public final class Config
 	public static float			ALT_LOTTERY_3_NUMBER_RATE;							// What part of jackpot amount should receive characters who pick 3 wining
 	// numbers
 	public static int			ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;					// How much adena receive characters who pick two or less of the winning
+
 	// number
 
 	// *******************************************************************************************
@@ -408,7 +411,7 @@ public final class Config
 	}
 
 	// *******************************************************************************************
-	public static final String	FOUR_SEPULCHERS_FILE = "./config/foursepulchers.properties";
+	public static final String	FOUR_SEPULCHERS_FILE	= "./config/foursepulchers.properties";
 	// *******************************************************************************************
 	public static int			FS_TIME_ATTACK;
 	public static int			FS_TIME_COOLDOWN;
@@ -571,7 +574,7 @@ public final class Config
 	public static boolean		ENCHANT_BREAK_JEWELRY_BLESSED;
 	public static boolean		ENCHANT_HERO_WEAPONS;									// Enchant hero weapons?
 	public static boolean		ENCHANT_DWARF_SYSTEM;									// Dwarf enchant System?
-	public static int			ENCHANT_MAX_WEAPON;										// Maximum level of enchantment
+	public static int			ENCHANT_MAX_WEAPON;									// Maximum level of enchantment
 	public static int			ENCHANT_MAX_ARMOR;
 	public static int			ENCHANT_MAX_JEWELRY;
 	public static int			ENCHANT_SAFE_MAX;										// maximum level of safe enchantment
@@ -579,9 +582,9 @@ public final class Config
 	public static int			ENCHANT_DWARF_1_ENCHANTLEVEL;							// Dwarf enchant System Dwarf 1 Enchantlevel?
 	public static int			ENCHANT_DWARF_2_ENCHANTLEVEL;							// Dwarf enchant System Dwarf 2 Enchantlevel?
 	public static int			ENCHANT_DWARF_3_ENCHANTLEVEL;							// Dwarf enchant System Dwarf 3 Enchantlevel?
-	public static int			ENCHANT_DWARF_1_CHANCE;									// Dwarf enchant System Dwarf 1 chance?
-	public static int			ENCHANT_DWARF_2_CHANCE;									// Dwarf enchant System Dwarf 2 chance?
-	public static int			ENCHANT_DWARF_3_CHANCE;									// Dwarf enchant System Dwarf 3 chance?
+	public static int			ENCHANT_DWARF_1_CHANCE;								// Dwarf enchant System Dwarf 1 chance?
+	public static int			ENCHANT_DWARF_2_CHANCE;								// Dwarf enchant System Dwarf 2 chance?
+	public static int			ENCHANT_DWARF_3_CHANCE;								// Dwarf enchant System Dwarf 3 chance?
 
 	// *******************************************************************************************
 	public static void loadEnchantConfig()
@@ -760,52 +763,54 @@ public final class Config
 	}
 
 	// *******************************************************************************************
-	public static final String		OTHER_CONFIG_FILE			= "./config/other.properties";
+	public static final String		OTHER_CONFIG_FILE		= "./config/other.properties";
 	// *******************************************************************************************
-	public static boolean			JAIL_IS_PVP;												// Jail config
-	public static boolean			JAIL_DISABLE_CHAT;											// Jail config
+	public static boolean			JAIL_IS_PVP;											// Jail config
+	public static boolean			JAIL_DISABLE_CHAT;										// Jail config
 	public static int				WYVERN_SPEED;
 	public static int				STRIDER_SPEED;
-	public static int				GREAT_WOLF_SPEED;
+	public static int				FENRIR_SPEED;
+	public static int				GREAT_SNOW_WOLF_SPEED;
+	public static int				SNOW_FENRIR_SPEED;
 	public static int				GREAT_WOLF_MOUNT_LEVEL;
 	public static boolean			ALLOW_WYVERN_UPGRADER;
 	public static boolean			PETITIONING_ALLOWED;
 	public static int				MAX_PETITIONS_PER_PLAYER;
 	public static int				MAX_PETITIONS_PENDING;
-	public static boolean			STORE_SKILL_COOLTIME;										// Store skills cooltime on char exit/relogin
+	public static boolean			STORE_SKILL_COOLTIME;									// Store skills cooltime on char exit/relogin
 	public static int				SEND_NOTDONE_SKILLS;
 	public static boolean			ANNOUNCE_MAMMON_SPAWN;
-	public static double			RESPAWN_RESTORE_CP;											// Percent CP is restore on respawn
-	public static double			RESPAWN_RESTORE_HP;											// Percent HP is restore on respawn
-	public static double			RESPAWN_RESTORE_MP;											// Percent MP is restore on respawn
-	public static boolean			RESPAWN_RANDOM_ENABLED;										// Allow randomizing of the respawn point in towns.
-	public static int				RESPAWN_RANDOM_MAX_OFFSET;									// The maximum offset from the base respawn point to allow.
-	public static int				MAX_PVTSTORE_SLOTS_DWARF;									// Maximum number of available slots for pvt stores (sell/buy) -
+	public static double			RESPAWN_RESTORE_CP;									// Percent CP is restore on respawn
+	public static double			RESPAWN_RESTORE_HP;									// Percent HP is restore on respawn
+	public static double			RESPAWN_RESTORE_MP;									// Percent MP is restore on respawn
+	public static boolean			RESPAWN_RANDOM_ENABLED;								// Allow randomizing of the respawn point in towns.
+	public static int				RESPAWN_RANDOM_MAX_OFFSET;								// The maximum offset from the base respawn point to allow.
+	public static int				MAX_PVTSTORE_SLOTS_DWARF;								// Maximum number of available slots for pvt stores (sell/buy) -
 	// Dwarves
-	public static int				MAX_PVTSTORE_SLOTS_OTHER;									// Maximum number of available slots for pvt stores (sell/buy) -
+	public static int				MAX_PVTSTORE_SLOTS_OTHER;								// Maximum number of available slots for pvt stores (sell/buy) -
 	// Others
-	public static String			PARTY_XP_CUTOFF_METHOD;										// Define Party XP cutoff point method - Possible values: level and
+	public static String			PARTY_XP_CUTOFF_METHOD;								// Define Party XP cutoff point method - Possible values: level and
 	// percentage
-	public static int				PARTY_XP_CUTOFF_LEVEL;										// Define the cutoff point value for the "level" method
-	public static double			PARTY_XP_CUTOFF_PERCENT;									// Define the cutoff point value for the "percentage" method
-	public static int				MAX_PARTY_LEVEL_DIFFERENCE;									// Maximum level difference between party members in levels
-	public static double			RAID_HP_REGEN_MULTIPLIER;									// Multiplier for Raid boss HP regeneration
-	public static double			RAID_MP_REGEN_MULTIPLIER;									// Mulitplier for Raid boss MP regeneration
-	public static double			RAID_PDEFENCE_MULTIPLIER;									// Multiplier for Raid boss power defense multiplier
-	public static double			RAID_MDEFENCE_MULTIPLIER;									// Multiplier for Raid boss magic defense multiplier
-	public static double			RAID_MINION_RESPAWN_TIMER;									// Raid Boss Minin Spawn Timer
-	public static float				RAID_MIN_RESPAWN_MULTIPLIER;								// Mulitplier for Raid boss minimum time respawn
-	public static float				RAID_MAX_RESPAWN_MULTIPLIER;								// Mulitplier for Raid boss maximum time respawn
-	public static int				STARTING_ADENA;												// Amount of adenas when starting a new character
-	public static boolean			DEEPBLUE_DROP_RULES;										// Deep Blue Mobs' Drop Rules Enabled
+	public static int				PARTY_XP_CUTOFF_LEVEL;									// Define the cutoff point value for the "level" method
+	public static double			PARTY_XP_CUTOFF_PERCENT;								// Define the cutoff point value for the "percentage" method
+	public static int				MAX_PARTY_LEVEL_DIFFERENCE;							// Maximum level difference between party members in levels
+	public static double			RAID_HP_REGEN_MULTIPLIER;								// Multiplier for Raid boss HP regeneration
+	public static double			RAID_MP_REGEN_MULTIPLIER;								// Mulitplier for Raid boss MP regeneration
+	public static double			RAID_PDEFENCE_MULTIPLIER;								// Multiplier for Raid boss power defense multiplier
+	public static double			RAID_MDEFENCE_MULTIPLIER;								// Multiplier for Raid boss magic defense multiplier
+	public static double			RAID_MINION_RESPAWN_TIMER;								// Raid Boss Minin Spawn Timer
+	public static float				RAID_MIN_RESPAWN_MULTIPLIER;							// Mulitplier for Raid boss minimum time respawn
+	public static float				RAID_MAX_RESPAWN_MULTIPLIER;							// Mulitplier for Raid boss maximum time respawn
+	public static int				STARTING_ADENA;										// Amount of adenas when starting a new character
+	public static boolean			DEEPBLUE_DROP_RULES;									// Deep Blue Mobs' Drop Rules Enabled
 	public static int				UNSTUCK_INTERVAL;
-	public static int				PLAYER_SPAWN_PROTECTION;									// Player Protection control
+	public static int				PLAYER_SPAWN_PROTECTION;								// Player Protection control
 	public static int				PLAYER_FAKEDEATH_UP_PROTECTION;
-	public static double			NPC_HP_REGEN_MULTIPLIER;									// NPC regen multipliers
-	public static double			NPC_MP_REGEN_MULTIPLIER;									// NPC regen multipliers
-	public static double			PLAYER_HP_REGEN_MULTIPLIER;									// Player regen multipliers
-	public static double			PLAYER_MP_REGEN_MULTIPLIER;									// Player regen multipliers
-	public static double			PLAYER_CP_REGEN_MULTIPLIER;									// Player regen multipliers
+	public static double			NPC_HP_REGEN_MULTIPLIER;								// NPC regen multipliers
+	public static double			NPC_MP_REGEN_MULTIPLIER;								// NPC regen multipliers
+	public static double			PLAYER_HP_REGEN_MULTIPLIER;							// Player regen multipliers
+	public static double			PLAYER_MP_REGEN_MULTIPLIER;							// Player regen multipliers
+	public static double			PLAYER_CP_REGEN_MULTIPLIER;							// Player regen multipliers
 	public static int				MAX_ITEM_IN_PACKET;
 
 	/**
@@ -814,22 +819,22 @@ public final class Config
 	 */
 	public static boolean			EFFECT_CANCELING;
 	public static String			NONDROPPABLE_ITEMS;
-	public static FastList<Integer>	LIST_NONDROPPABLE_ITEMS		= new FastList<Integer>();
+	public static FastList<Integer>	LIST_NONDROPPABLE_ITEMS	= new FastList<Integer>();
 	public static String			PET_RENT_NPC;
-	public static FastList<Integer>	LIST_PET_RENT_NPC			= new FastList<Integer>();
+	public static FastList<Integer>	LIST_PET_RENT_NPC		= new FastList<Integer>();
 	public static boolean			LEVEL_ADD_LOAD;
-	public static int				WAREHOUSE_SLOTS_NO_DWARF;									// Warehouse slots limits
-	public static int				WAREHOUSE_SLOTS_DWARF;										// Warehouse slots limits
-	public static int				WAREHOUSE_SLOTS_CLAN;										// Warehouse slots limits
-	public static int				FREIGHT_SLOTS;												// Freight slots limits
-	public static int				INVENTORY_MAXIMUM_NO_DWARF;									// Inventory slots limits
-	public static int				INVENTORY_MAXIMUM_DWARF;									// Inventory slots limits
-	public static int				INVENTORY_MAXIMUM_GM;										// Inventory slots limits
-	public static int				DEATH_PENALTY_CHANCE;										// Death Penalty chance
+	public static int				WAREHOUSE_SLOTS_NO_DWARF;								// Warehouse slots limits
+	public static int				WAREHOUSE_SLOTS_DWARF;									// Warehouse slots limits
+	public static int				WAREHOUSE_SLOTS_CLAN;									// Warehouse slots limits
+	public static int				FREIGHT_SLOTS;											// Freight slots limits
+	public static int				INVENTORY_MAXIMUM_NO_DWARF;							// Inventory slots limits
+	public static int				INVENTORY_MAXIMUM_DWARF;								// Inventory slots limits
+	public static int				INVENTORY_MAXIMUM_GM;									// Inventory slots limits
+	public static int				DEATH_PENALTY_CHANCE;									// Death Penalty chance
 	// Augmentation chances , chancestat=100 -chanceskill-chancebasestat 
-	public static int AUGMENT_BASESTAT;
-	public static int AUGMENT_SKILL;
-	public static boolean AUGMENT_EXCLUDE_NOTDONE;
+	public static int				AUGMENT_BASESTAT;
+	public static int				AUGMENT_SKILL;
+	public static boolean			AUGMENT_EXCLUDE_NOTDONE;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -847,7 +852,10 @@ public final class Config
 			EFFECT_CANCELING = Boolean.parseBoolean(otherSettings.getProperty("CancelLesserEffect", "True"));
 			WYVERN_SPEED = Integer.parseInt(otherSettings.getProperty("WyvernSpeed", "100"));
 			STRIDER_SPEED = Integer.parseInt(otherSettings.getProperty("StriderSpeed", "80"));
-			GREAT_WOLF_SPEED = Integer.parseInt(otherSettings.getProperty("GreatWolfSpeed", "80"));
+			FENRIR_SPEED = Integer.parseInt(otherSettings.getProperty("FenrirSpeed", "80"));
+			SNOW_FENRIR_SPEED = Integer.parseInt(otherSettings.getProperty("SnowFenrirSpeed", "80"));
+			GREAT_SNOW_WOLF_SPEED = Integer.parseInt(otherSettings.getProperty("GreatSnowWolfSpeed", "80"));
+
 			GREAT_WOLF_MOUNT_LEVEL = Integer.parseInt(otherSettings.getProperty("GreatWolfMountLevel", "70"));
 
 			ALLOW_WYVERN_UPGRADER = Boolean.parseBoolean(otherSettings.getProperty("AllowWyvernUpgrader", "False"));
@@ -882,8 +890,8 @@ public final class Config
 
 			RAID_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("RaidHpRegenMultiplier", "100")) / 100;
 			RAID_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("RaidMpRegenMultiplier", "100")) / 100;
-			RAID_PDEFENCE_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidPDefenceMultiplier", "100")) /100;
-			RAID_MDEFENCE_MULTIPLIER  = Double.parseDouble(otherSettings.getProperty("RaidMDefenceMultiplier", "100")) /100;
+			RAID_PDEFENCE_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("RaidPDefenceMultiplier", "100")) / 100;
+			RAID_MDEFENCE_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("RaidMDefenceMultiplier", "100")) / 100;
 			RAID_MINION_RESPAWN_TIMER = Integer.parseInt(otherSettings.getProperty("RaidMinionRespawnTime", "300000"));
 
 			RAID_MIN_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMinRespawnMultiplier", "1.0"));
@@ -955,13 +963,13 @@ public final class Config
 	// *******************************************************************************************
 	public static final String		OPTIONS_FILE			= "./config/options.properties";
 	// *******************************************************************************************
-	public static boolean			ASSERT;														// Enable/disable assertions
+	public static boolean			ASSERT;													// Enable/disable assertions
 	public static boolean			DEVELOPER;													// Enable/disable DEVELOPER TREATMENT
 	public static boolean			TEST_KNOWNLIST			= false;							// Internal properties for developers tests only
 	public static boolean			ALLOW_WEDDING;
 	public static boolean			SERVER_LIST_BRACKET;										// Displays [] in front of server name ?
 	public static boolean			SERVER_LIST_CLOCK;											// Displays a clock next to the server name ?
-	public static boolean			SERVER_LIST_TESTSERVER;										// Display test server in the list of servers ?
+	public static boolean			SERVER_LIST_TESTSERVER;									// Display test server in the list of servers ?
 	public static boolean			SERVER_GMONLY;												// Set the server as gm only at startup ?
 	public static int				THREAD_P_EFFECTS;											// Thread pool size effect
 	public static int				THREAD_P_GENERAL;											// Thread pool size general
@@ -977,24 +985,24 @@ public final class Config
 	public static boolean			SHOW_HTML_NEWBIE;
 	public static boolean			SHOW_HTML_GM;
 	public static int				LEVEL_HTML_NEWBIE;											// Show newbie html when player's level is < to define level
-	public static boolean			USE_SAY_FILTER;												// Config for use chat filter
+	public static boolean			USE_SAY_FILTER;											// Config for use chat filter
 	public static ArrayList<String>	FILTER_LIST				= new ArrayList<String>();
-	public static int				AUTODESTROY_ITEM_AFTER;										// Time after which item will auto-destroy
-	public static int				HERB_AUTO_DESTROY_TIME;										// Auto destroy herb time
+	public static int				AUTODESTROY_ITEM_AFTER;									// Time after which item will auto-destroy
+	public static int				HERB_AUTO_DESTROY_TIME;									// Auto destroy herb time
 	public static String			PROTECTED_ITEMS;
 	public static FastList<Integer>	LIST_PROTECTED_ITEMS	= new FastList<Integer>();			// List of items that will not be destroyed
 	public static int				CHAR_STORE_INTERVAL;										// Interval that the gameserver will update and store character information
-	public static boolean			UPDATE_ITEMS_ON_CHAR_STORE;									// Update items owned by this char when storing the char on DB
+	public static boolean			UPDATE_ITEMS_ON_CHAR_STORE;								// Update items owned by this char when storing the char on DB
 	public static boolean			LAZY_ITEMS_UPDATE;											// Update items only when strictly necessary
 	public static boolean			DESTROY_DROPPED_PLAYER_ITEM;								// Auto destroy nonequipable items dropped by players
 	public static boolean			DESTROY_PLAYER_INVENTORY_DROP;								// Auto destroy items dropped by players from inventory
 	public static boolean			DESTROY_EQUIPABLE_PLAYER_ITEM;								// Auto destroy equipable items dropped by players
 	public static boolean			SAVE_DROPPED_ITEM;											// Save items on ground for restoration on server restart
 	public static boolean			EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD;						// Empty table ItemsOnGround after load all items
-	public static int				SAVE_DROPPED_ITEM_INTERVAL;									// Time interval to save into db items on ground
+	public static int				SAVE_DROPPED_ITEM_INTERVAL;								// Time interval to save into db items on ground
 	public static boolean			CLEAR_DROPPED_ITEM_TABLE;									// Clear all items stored in ItemsOnGround table
 	public static boolean			PRECISE_DROP_CALCULATION;									// Accept precise drop calculation ?
-	public static boolean			MULTIPLE_ITEM_DROP;											// Accept multi-items drop ?
+	public static boolean			MULTIPLE_ITEM_DROP;										// Accept multi-items drop ?
 	/**
 	 * This is setting of experimental Client <--> Server Player coordinates synchronization<br>
 	 * <b><u>Values :</u></b>
@@ -1007,7 +1015,7 @@ public final class Config
 	public static int				COORD_SYNCHRONIZE;
 	public static boolean			MOVE_BASED_KNOWNLIST;
 	public static int				DELETE_DAYS;
-	public static int				FLOODPROTECTOR_INITIALSIZE;									// FloodProtector initial capacity
+	public static int				FLOODPROTECTOR_INITIALSIZE;								// FloodProtector initial capacity
 	public static int				MAX_DRIFT_RANGE;											// Maximum range mobs can randomly go from spawn point
 	public static boolean			ALLOW_FISHING;
 	public static boolean			ALLOW_MANOR;												// Allow Manor system
@@ -1052,55 +1060,55 @@ public final class Config
 		GLOBAL, REGION, GM, OFF
 	}
 
-	public static ChatMode	DEFAULT_GLOBAL_CHAT;			// Global chat state
-	public static int		GLOBAL_CHAT_TIME;
-	public static ChatMode	DEFAULT_TRADE_CHAT;				// Trade chat state
-	public static int		TRADE_CHAT_TIME;
-	public static boolean	REGION_CHAT_ALSO_BLOCKED;
-	public static boolean	LOG_CHAT;						// Logging Chat Window
-	public static boolean	LOG_ITEMS;
-	public static int		DEFAULT_PUNISH;					// Default punishment for illegal actions
-	public static int		DEFAULT_PUNISH_PARAM;			// Parameter for default punishment
-	public static boolean	GM_AUDIT;
-	public static String	COMMUNITY_TYPE;						// Community Board
-	public static boolean	BBS_SHOW_PLAYERLIST;
-	public static String	BBS_DEFAULT;
-	public static boolean	SHOW_LEVEL_COMMUNITYBOARD;
-	public static boolean	SHOW_STATUS_COMMUNITYBOARD;
-	public static int		NAME_PAGE_SIZE_COMMUNITYBOARD;
-	public static int		NAME_PER_ROW_COMMUNITYBOARD;
-	public static boolean	SHOW_LEGEND;
-	public static boolean	SHOW_CLAN_LEADER;
-	public static int		SHOW_CLAN_LEADER_CLAN_LEVEL;
-	public static boolean	SHOW_CURSED_WEAPON_OWNER;			// Show Owner(s) of Cursed Weapons in CB ?
-	public static boolean	SHOW_KARMA_PLAYERS;				// Show Player(s) with karma in CB ?
-	public static boolean	SHOW_JAILED_PLAYERS;				// Show player(s) in jail in CB ?
-	public static int		ZONE_TOWN;							// Zone Setting
-	public static int		MIN_NPC_ANIMATION;					// random animation interval
-	public static int		MAX_NPC_ANIMATION;
-	public static int		MIN_MONSTER_ANIMATION;
-	public static int		MAX_MONSTER_ANIMATION;
-	public static boolean	SHOW_NPC_LVL;						// Show L2Monster level and aggro ?
-	public static int		PACKET_LIFETIME;
-	public static long		PACKET_EXECUTIONTIME;
-	public static boolean	BYPASS_VALIDATION;
-	public static boolean	GAMEGUARD_ENFORCE;
-	public static boolean	GAMEGUARD_PROHIBITACTION;
-	public static boolean	ONLINE_PLAYERS_AT_STARTUP;			// Show Online Players announce
-	public static int		ONLINE_PLAYERS_ANNOUNCE_INTERVAL;
-	public static boolean	GRIDS_ALWAYS_ON;					// Grid Options
-	public static int		GRID_NEIGHBOR_TURNON_TIME;			// Grid Options
-	public static int		GRID_NEIGHBOR_TURNOFF_TIME;			// Grid Options
-	public static boolean	CHECK_SKILLS_ON_ENTER;				// Skill Tree check on EnterWorld
-	public static String	ALLOWED_SKILLS;						// List of Skills that are allowed for all Classes if CHECK_SKILLS_ON_ENTER = true
+	public static ChatMode			DEFAULT_GLOBAL_CHAT;							// Global chat state
+	public static int				GLOBAL_CHAT_TIME;
+	public static ChatMode			DEFAULT_TRADE_CHAT;							// Trade chat state
+	public static int				TRADE_CHAT_TIME;
+	public static boolean			REGION_CHAT_ALSO_BLOCKED;
+	public static boolean			LOG_CHAT;										// Logging Chat Window
+	public static boolean			LOG_ITEMS;
+	public static int				DEFAULT_PUNISH;								// Default punishment for illegal actions
+	public static int				DEFAULT_PUNISH_PARAM;							// Parameter for default punishment
+	public static boolean			GM_AUDIT;
+	public static String			COMMUNITY_TYPE;								// Community Board
+	public static boolean			BBS_SHOW_PLAYERLIST;
+	public static String			BBS_DEFAULT;
+	public static boolean			SHOW_LEVEL_COMMUNITYBOARD;
+	public static boolean			SHOW_STATUS_COMMUNITYBOARD;
+	public static int				NAME_PAGE_SIZE_COMMUNITYBOARD;
+	public static int				NAME_PER_ROW_COMMUNITYBOARD;
+	public static boolean			SHOW_LEGEND;
+	public static boolean			SHOW_CLAN_LEADER;
+	public static int				SHOW_CLAN_LEADER_CLAN_LEVEL;
+	public static boolean			SHOW_CURSED_WEAPON_OWNER;						// Show Owner(s) of Cursed Weapons in CB ?
+	public static boolean			SHOW_KARMA_PLAYERS;							// Show Player(s) with karma in CB ?
+	public static boolean			SHOW_JAILED_PLAYERS;							// Show player(s) in jail in CB ?
+	public static int				ZONE_TOWN;										// Zone Setting
+	public static int				MIN_NPC_ANIMATION;								// random animation interval
+	public static int				MAX_NPC_ANIMATION;
+	public static int				MIN_MONSTER_ANIMATION;
+	public static int				MAX_MONSTER_ANIMATION;
+	public static boolean			SHOW_NPC_LVL;									// Show L2Monster level and aggro ?
+	public static int				PACKET_LIFETIME;
+	public static long				PACKET_EXECUTIONTIME;
+	public static boolean			BYPASS_VALIDATION;
+	public static boolean			GAMEGUARD_ENFORCE;
+	public static boolean			GAMEGUARD_PROHIBITACTION;
+	public static boolean			ONLINE_PLAYERS_AT_STARTUP;						// Show Online Players announce
+	public static int				ONLINE_PLAYERS_ANNOUNCE_INTERVAL;
+	public static boolean			GRIDS_ALWAYS_ON;								// Grid Options
+	public static int				GRID_NEIGHBOR_TURNON_TIME;						// Grid Options
+	public static int				GRID_NEIGHBOR_TURNOFF_TIME;					// Grid Options
+	public static boolean			CHECK_SKILLS_ON_ENTER;							// Skill Tree check on EnterWorld
+	public static String			ALLOWED_SKILLS;								// List of Skills that are allowed for all Classes if CHECK_SKILLS_ON_ENTER = true
 	public static FastList<Integer>	ALLOWED_SKILLS_LIST	= new FastList<Integer>();
-	public static boolean	CHAR_VIP_SKIP_SKILLS_CHECK;			// VIP Characters configuration
-	public static boolean	CHAR_VIP_COLOR_ENABLED;				// VIP Characters configuration
-	public static int		CHAR_VIP_COLOR;						// VIP Characters configuration
-	public static boolean	ALT_DEV_NO_QUESTS;					// Alt Settings for devs
-	public static boolean	ALT_DEV_NO_SPAWNS;					// Alt Settings for devs
-	public static boolean	ENABLE_JYTHON_SHELL;				// JythonShell
-	public static boolean	ONLY_GM_ITEMS_FREE;					// Only GM buy items for free
+	public static boolean			CHAR_VIP_SKIP_SKILLS_CHECK;					// VIP Characters configuration
+	public static boolean			CHAR_VIP_COLOR_ENABLED;						// VIP Characters configuration
+	public static int				CHAR_VIP_COLOR;								// VIP Characters configuration
+	public static boolean			ALT_DEV_NO_QUESTS;								// Alt Settings for devs
+	public static boolean			ALT_DEV_NO_SPAWNS;								// Alt Settings for devs
+	public static boolean			ENABLE_JYTHON_SHELL;							// JythonShell
+	public static boolean			ONLY_GM_ITEMS_FREE;							// Only GM buy items for free
 
 	// *******************************************************************************************
 	public static void loadOptionsConfig()
@@ -1213,7 +1221,6 @@ public final class Config
 			FORCE_INVENTORY_UPDATE = Boolean.parseBoolean(optionsSettings.getProperty("ForceInventoryUpdate", "False"));
 			LAZY_CACHE = Boolean.parseBoolean(optionsSettings.getProperty("LazyCache", "False"));
 
-
 			AUTODELETE_INVALID_QUEST_DATA = Boolean.parseBoolean(optionsSettings.getProperty("AutoDeleteInvalidQuestData", "False"));
 
 			THREAD_P_EFFECTS = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeEffects", "6"));
@@ -1272,8 +1279,9 @@ public final class Config
 			// ---------------------------------------------------
 
 			CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(optionsSettings.getProperty("CheckSkillsOnEnter", "false"));
-			
-			ALLOWED_SKILLS = optionsSettings.getProperty("AllowedSkills", "541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,617,618,619");
+
+			ALLOWED_SKILLS = optionsSettings
+					.getProperty("AllowedSkills", "541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,617,618,619");
 			ALLOWED_SKILLS_LIST = new FastList<Integer>();
 			for (String id : ALLOWED_SKILLS.trim().split(","))
 			{
@@ -1292,177 +1300,177 @@ public final class Config
 	}
 
 	// *******************************************************************************************
-	public static final String			ALT_SETTINGS_FILE	= "./config/altsettings.properties";
+	public static final String			ALT_SETTINGS_FILE					= "./config/altsettings.properties";
 	// *******************************************************************************************
-	public static int					ALT_DEFAULT_RESTARTTOWN;									// Set alternative default restarttown
-	public static boolean				ALT_GAME_CREATION;											// Alternative game crafting
-	public static double				ALT_GAME_CREATION_SPEED;									// Alternative game crafting speed mutiplier - default 0
+	public static int					ALT_DEFAULT_RESTARTTOWN;													// Set alternative default restarttown
+	public static boolean				ALT_GAME_CREATION;															// Alternative game crafting
+	public static double				ALT_GAME_CREATION_SPEED;													// Alternative game crafting speed mutiplier - default 0
 	// (fastest but still not instant)
-	public static double				ALT_GAME_CREATION_XP_RATE;									// Alternative game crafting XP rate multiplier - default 1
-	public static double				ALT_GAME_CREATION_SP_RATE;									// Alternative game crafting SP rate multiplier - default 1
-	public static boolean				ALT_BLACKSMITH_USE_RECIPES;									// Alternative setting to blacksmith use of recipes to craft -
+	public static double				ALT_GAME_CREATION_XP_RATE;													// Alternative game crafting XP rate multiplier - default 1
+	public static double				ALT_GAME_CREATION_SP_RATE;													// Alternative game crafting SP rate multiplier - default 1
+	public static boolean				ALT_BLACKSMITH_USE_RECIPES;												// Alternative setting to blacksmith use of recipes to craft -
 	// default true
-	public static boolean				REMOVE_CASTLE_CIRCLETS;										// Remove Castle circlets after clan lose his castle? - default
+	public static boolean				REMOVE_CASTLE_CIRCLETS;													// Remove Castle circlets after clan lose his castle? - default
 	// true
-	public static double				ALT_WEIGHT_LIMIT;											// Alternative game weight limit multiplier - default 1
-	public static int					BUFFS_MAX_AMOUNT;											// Alternative number of cumulated buff
-	public static int					ALT_MINIMUM_FALL_HEIGHT;									// Minimum Height(Z) that a character needs to fall, in
+	public static double				ALT_WEIGHT_LIMIT;															// Alternative game weight limit multiplier - default 1
+	public static int					BUFFS_MAX_AMOUNT;															// Alternative number of cumulated buff
+	public static int					ALT_MINIMUM_FALL_HEIGHT;													// Minimum Height(Z) that a character needs to fall, in
 	// order for it to be considered a fall.
-	public static boolean				ALT_DISABLE_RAIDBOSS_PETRIFICATION;							// Disable Raidboss Petrification
-	public static int					ALT_PCRITICAL_CAP;											// PCritical Cap
-	public static int					ALT_MCRITICAL_CAP;											// MCritical Cap
-	public static int					MAX_RUN_SPEED;												// Runspeed limit
+	public static boolean				ALT_DISABLE_RAIDBOSS_PETRIFICATION;										// Disable Raidboss Petrification
+	public static int					ALT_PCRITICAL_CAP;															// PCritical Cap
+	public static int					ALT_MCRITICAL_CAP;															// MCritical Cap
+	public static int					MAX_RUN_SPEED;																// Runspeed limit
 	public static float					ALT_MCRIT_RATE;
-	public static boolean				ALT_GAME_SKILL_LEARN;										// Alternative game skill learning
-	public static boolean				ALT_GAME_CANCEL_BOW;										// Cancel attack bow by hit
-	public static boolean				ALT_GAME_CANCEL_CAST;										// Cancel cast by hit
-	public static boolean				ALT_GAME_TIREDNESS;											// Alternative game - use tiredness, instead of CP
+	public static boolean				ALT_GAME_SKILL_LEARN;														// Alternative game skill learning
+	public static boolean				ALT_GAME_CANCEL_BOW;														// Cancel attack bow by hit
+	public static boolean				ALT_GAME_CANCEL_CAST;														// Cancel cast by hit
+	public static boolean				ALT_GAME_TIREDNESS;														// Alternative game - use tiredness, instead of CP
 	public static int					ALT_PARTY_RANGE;
 	public static int					ALT_PARTY_RANGE2;
-	public static boolean				ALT_GAME_SHIELD_BLOCKS;										// Alternative shield defence
-	public static int					ALT_PERFECT_SHLD_BLOCK;										// Alternative Perfect shield defence rate
-	public static boolean				ALT_MOB_AGRO_IN_PEACEZONE;									// -
-	public static float					ALT_INSTANT_KILL_EFFECT_2;									// Rate of Instant kill effect 2(CP no change ,HP =1,no kill
-	public static float					ALT_DAGGER_DMG_VS_HEAVY;									// Alternative damage for dagger skills VS heavy
-	public static float					ALT_DAGGER_DMG_VS_ROBE;										// Alternative damage for dagger skills VS robe
-	public static float					ALT_DAGGER_DMG_VS_LIGHT;									// Alternative damage for dagger skills VS light
-	public static boolean				ALT_DAGGER_FORMULA;											// Alternative success rate formulas for skills such
+	public static boolean				ALT_GAME_SHIELD_BLOCKS;													// Alternative shield defence
+	public static int					ALT_PERFECT_SHLD_BLOCK;													// Alternative Perfect shield defence rate
+	public static boolean				ALT_MOB_AGRO_IN_PEACEZONE;													// -
+	public static float					ALT_INSTANT_KILL_EFFECT_2;													// Rate of Instant kill effect 2(CP no change ,HP =1,no kill
+	public static float					ALT_DAGGER_DMG_VS_HEAVY;													// Alternative damage for dagger skills VS heavy
+	public static float					ALT_DAGGER_DMG_VS_ROBE;													// Alternative damage for dagger skills VS robe
+	public static float					ALT_DAGGER_DMG_VS_LIGHT;													// Alternative damage for dagger skills VS light
+	public static boolean				ALT_DAGGER_FORMULA;														// Alternative success rate formulas for skills such
 	// dagger/critical skills and blows
-	public static float					ALT_ATTACK_DELAY;											// Alternative config for next hit delay
-	public static int					ALT_DAGGER_RATE;											// Alternative success rate for dagger blow,MAX value 100
+	public static float					ALT_ATTACK_DELAY;															// Alternative config for next hit delay
+	public static int					ALT_DAGGER_RATE;															// Alternative success rate for dagger blow,MAX value 100
 	// (100% rate)
-	public static int					ALT_DAGGER_FAIL_RATE;										// Alternative fail rate for dagger blow,MAX value 100 (100%
+	public static int					ALT_DAGGER_FAIL_RATE;														// Alternative fail rate for dagger blow,MAX value 100 (100%
 	// rate)
-	public static int					ALT_DAGGER_RATE_BEHIND;										// Alternative increasement to success rate for dagger/critical
+	public static int					ALT_DAGGER_RATE_BEHIND;													// Alternative increasement to success rate for dagger/critical
 	// skills if activeChar is Behind the target
-	public static int					ALT_DAGGER_RATE_FRONT;										// Alternative increasement to success rate for
+	public static int					ALT_DAGGER_RATE_FRONT;														// Alternative increasement to success rate for
 	// dagger/critical skills if activeChar is in Front of
 	// target
-	public static boolean				ALT_GAME_FREIGHTS;											// Alternative freight modes - Freights can be withdrawed
+	public static boolean				ALT_GAME_FREIGHTS;															// Alternative freight modes - Freights can be withdrawed
 	// from any village
-	public static int					ALT_GAME_FREIGHT_PRICE;										// Alternative freight modes - Sets the price value for each
+	public static int					ALT_GAME_FREIGHT_PRICE;													// Alternative freight modes - Sets the price value for each
 	// freightened item
-	public static boolean				ALT_GAME_DELEVEL;											// Alternative gameing - loss of XP on death
-	public static boolean				ALT_GAME_MAGICFAILURES;										// Alternative gameing - magic dmg failures
-	public static boolean				ALT_GAME_FREE_TELEPORT;										// Alternative gaming - allow free teleporting around the world.
-	public static boolean				ALT_RECOMMEND;												// Disallow recommend character twice or more a day ?
-	public static boolean				ALT_GAME_SUBCLASS_WITHOUT_QUESTS;							// Alternative gaming - allow sub-class addition without
+	public static boolean				ALT_GAME_DELEVEL;															// Alternative gameing - loss of XP on death
+	public static boolean				ALT_GAME_MAGICFAILURES;													// Alternative gameing - magic dmg failures
+	public static boolean				ALT_GAME_FREE_TELEPORT;													// Alternative gaming - allow free teleporting around the world.
+	public static boolean				ALT_RECOMMEND;																// Disallow recommend character twice or more a day ?
+	public static boolean				ALT_GAME_SUBCLASS_WITHOUT_QUESTS;											// Alternative gaming - allow sub-class addition without
 	// quest completion.
-	public static int					MAX_SUBCLASS;												// Allow to change max number of subclasses
-	public static boolean				ALT_GAME_VIEWNPC;											// View npc stats/drop by shift-cliking it for nongm-players
-	public static boolean				ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = true;					// Alternative gaming - all new characters always are newbies.
-	public static boolean				ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;						// Alternative gaming - clan members with see privilege can
+	public static int					MAX_SUBCLASS;																// Allow to change max number of subclasses
+	public static boolean				ALT_GAME_VIEWNPC;															// View npc stats/drop by shift-cliking it for nongm-players
+	public static boolean				ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE	= true;								// Alternative gaming - all new characters always are newbies.
+	public static boolean				ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;										// Alternative gaming - clan members with see privilege can
 	// also withdraw from clan warehouse.
-	public static boolean				CASTLE_SHIELD; // Alternative gaming - Castle Shield can be equiped by all clan members if they own a castle. - default True
-	public static boolean				CLANHALL_SHIELD; // Alternative gaming - Clan Hall Shield can be equiped by all clan members if they own a clan hall. - default True
-	public static boolean				APELLA_ARMORS; // Alternative gaming - Apella armors can be equiped only by clan members if their class is Baron or higher - default True
-	public static boolean				OATH_ARMORS; // Alternative gaming - Clan Oath Armors can be equiped only by clan members - default True
-	public static boolean				CASTLE_CROWN; // Alternative gaming - Castle Crown can be equiped only by castle lord - default True
-	public static boolean				CASTLE_CIRCLETS; // Alternative gaming - Castle Circlets can be equiped only by clan members if they own a castle - default True
+	public static boolean				CASTLE_SHIELD;																// Alternative gaming - Castle Shield can be equiped by all clan members if they own a castle. - default True
+	public static boolean				CLANHALL_SHIELD;															// Alternative gaming - Clan Hall Shield can be equiped by all clan members if they own a clan hall. - default True
+	public static boolean				APELLA_ARMORS;																// Alternative gaming - Apella armors can be equiped only by clan members if their class is Baron or higher - default True
+	public static boolean				OATH_ARMORS;																// Alternative gaming - Clan Oath Armors can be equiped only by clan members - default True
+	public static boolean				CASTLE_CROWN;																// Alternative gaming - Castle Crown can be equiped only by castle lord - default True
+	public static boolean				CASTLE_CIRCLETS;															// Alternative gaming - Castle Circlets can be equiped only by clan members if they own a castle - default True
 
-	public static boolean				ALT_STRICT_HERO_SYSTEM;										// Strict Hero Mode
-	public static boolean				ALT_STRICT_SEVENSIGNS;										// Strict Seven Signs
-	public static boolean				SP_BOOK_NEEDED;												// Spell Book needed to learn skill
-	public static boolean				LIFE_CRYSTAL_NEEDED;										// Clan Item needed to learn clan skills
-	public static boolean				ES_SP_BOOK_NEEDED;											// Spell Book needet to enchant skill
+	public static boolean				ALT_STRICT_HERO_SYSTEM;													// Strict Hero Mode
+	public static boolean				ALT_STRICT_SEVENSIGNS;														// Strict Seven Signs
+	public static boolean				SP_BOOK_NEEDED;															// Spell Book needed to learn skill
+	public static boolean				LIFE_CRYSTAL_NEEDED;														// Clan Item needed to learn clan skills
+	public static boolean				ES_SP_BOOK_NEEDED;															// Spell Book needet to enchant skill
 	public static int					ALT_BUFF_TIME;
 	public static int					ALT_DANCE_TIME;
 	public static boolean				ALT_DANCE_MP_CONSUME;
-	public static int					MAX_PATK_SPEED;												// Config for limit physical attack speed
-	public static int					MAX_MATK_SPEED;												// Config for limit magical attack speed
-	public static float					ALT_MAGES_PHYSICAL_DAMAGE_MULTI;							// Config for damage multiplies
-	public static float					ALT_MAGES_MAGICAL_DAMAGE_MULTI;								// Config for damage multiplies
-	public static float					ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;							// Config for damage multiplies
-	public static float					ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI;							// Config for damage multiplies
-	public static float					ALT_PETS_PHYSICAL_DAMAGE_MULTI;								// Config for damage multiplies
-	public static float					ALT_PETS_MAGICAL_DAMAGE_MULTI;								// Config for damage multiplies
-	public static float					ALT_NPC_PHYSICAL_DAMAGE_MULTI;								// Config for damage multiplies
-	public static float					ALT_NPC_MAGICAL_DAMAGE_MULTI;								// Config for damage multiplies
-	public static int					ALT_URN_TEMP_FAIL;											// Config for URN temp fail
-	public static int					ALT_BUFFER_HATE;											// Buffer Hate
-	public static int					ALT_DIFF_CUTOFF;											// No exp cutoff
+	public static int					MAX_PATK_SPEED;															// Config for limit physical attack speed
+	public static int					MAX_MATK_SPEED;															// Config for limit magical attack speed
+	public static float					ALT_MAGES_PHYSICAL_DAMAGE_MULTI;											// Config for damage multiplies
+	public static float					ALT_MAGES_MAGICAL_DAMAGE_MULTI;											// Config for damage multiplies
+	public static float					ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;										// Config for damage multiplies
+	public static float					ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI;											// Config for damage multiplies
+	public static float					ALT_PETS_PHYSICAL_DAMAGE_MULTI;											// Config for damage multiplies
+	public static float					ALT_PETS_MAGICAL_DAMAGE_MULTI;												// Config for damage multiplies
+	public static float					ALT_NPC_PHYSICAL_DAMAGE_MULTI;												// Config for damage multiplies
+	public static float					ALT_NPC_MAGICAL_DAMAGE_MULTI;												// Config for damage multiplies
+	public static int					ALT_URN_TEMP_FAIL;															// Config for URN temp fail
+	public static int					ALT_BUFFER_HATE;															// Buffer Hate
+	public static int					ALT_DIFF_CUTOFF;															// No exp cutoff
 	public static boolean				SPAWN_WYVERN_MANAGER;
 	public static int					MANAGER_CRYSTAL_COUNT;
 	public static boolean				SPAWN_CLASS_MASTER;
 	public static boolean				CLASS_MASTER_STRIDER_UPDATE;
 	public static String				CLASS_MASTER_SETTINGS_LINE;
 	public static ClassMasterSettings	CLASS_MASTER_SETTINGS;
-	public static double				ALT_CRAFT_PRICE;											// reference price multiplier
-	public static int					ALT_CRAFT_DEFAULT_PRICE;									// default price, in case reference is 0
-	public static boolean				ALT_CRAFT_ALLOW_CRAFT;										// allow to craft dwarven recipes
-	public static boolean				ALT_CRAFT_ALLOW_CRYSTALLIZE;								// allow to break items
-	public static boolean				ALT_CRAFT_ALLOW_COMMON;										// allow to craft common craft recipes
-	public static boolean				AUTO_LOOT;													// Accept auto-loot ?
+	public static double				ALT_CRAFT_PRICE;															// reference price multiplier
+	public static int					ALT_CRAFT_DEFAULT_PRICE;													// default price, in case reference is 0
+	public static boolean				ALT_CRAFT_ALLOW_CRAFT;														// allow to craft dwarven recipes
+	public static boolean				ALT_CRAFT_ALLOW_CRYSTALLIZE;												// allow to break items
+	public static boolean				ALT_CRAFT_ALLOW_COMMON;													// allow to craft common craft recipes
+	public static boolean				AUTO_LOOT;																	// Accept auto-loot ?
 	public static boolean				AUTO_LOOT_ADENA;
 	public static boolean				AUTO_LOOT_HERBS;
-	public static boolean				SPAWN_SIEGE_GUARD;											// Config for spawn siege guards
+	public static boolean				SPAWN_SIEGE_GUARD;															// Config for spawn siege guards
 	public static int					TIME_IN_A_DAY_OF_OPEN_A_DOOR;
 	public static int					TIME_OF_OPENING_A_DOOR;
 	public static int					NURSEANT_RESPAWN_DELAY;
-	public static int 					TIMELIMITOFINVADE;											//Time limit of invade to lair of bosses after server restarted
-	public static int					DWARF_RECIPE_LIMIT;											// Recipebook limits
+	public static int					TIMELIMITOFINVADE;															//Time limit of invade to lair of bosses after server restarted
+	public static int					DWARF_RECIPE_LIMIT;														// Recipebook limits
 	public static int					COMMON_RECIPE_LIMIT;
-	public static int					CHANCE_BREAK;												// Chance For Soul Crystal to Break
-	public static int					CHANCE_LEVEL;												// Chance For Soul Crystal to Level
-	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;			// Karma Punishment
+	public static int					CHANCE_BREAK;																// Chance For Soul Crystal to Break
+	public static int					CHANCE_LEVEL;																// Chance For Soul Crystal to Level
+	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;							// Karma Punishment
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_SHOP;
-	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_USE_GK;							// Allow player with karma to use GK ?
+	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_USE_GK;											// Allow player with karma to use GK ?
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_TELEPORT;
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_TRADE;
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE;
-	public static int					ALT_PLAYER_PROTECTION_LEVEL;								// Player Protection Level
-	public static boolean				AUTO_LEARN_SKILLS;											// Config for Auto Learn Skills
-	public static boolean				AUTO_LEARN_DIVINE_INSPIRATION;								// Alternative auto skill learning for divine inspiration (+4 max buff count)
-	public static boolean				GRADE_PENALTY;												// Disable Grade penalty
-	public static boolean				IS_CRAFTING_ENABLED;										// Crafting Enabled?
-	public static boolean				FAIL_FAKEDEATH;												// Config for Fake Death Fail Feature
-	public static boolean				ALT_FLYING_WYVERN_IN_SIEGE;									// Config for Wyvern enable flying in siege **/
-	public static int					ALT_OLY_START_TIME;											// Olympiad Competition Starting time
-	public static int					ALT_OLY_MIN;												// Olympiad Minutes
-	public static int					ALT_OLY_CPERIOD;											// Olympaid Competition Period
-	public static int					ALT_OLY_BATTLE;												// Olympiad Battle Period
-	public static int					ALT_OLY_BWAIT;												// Olympiad Battle Wait
-	public static int					ALT_OLY_IWAIT;												// Olympiad Inital Wait
-	public static int					ALT_OLY_WPERIOD;											// Olympiad Weekly Period
-	public static int					ALT_OLY_VPERIOD;											// Olympiad Validation Period
-	public static boolean				ALT_OLY_SAME_IP;											// Olympiad allow Matches from same Ip
+	public static int					ALT_PLAYER_PROTECTION_LEVEL;												// Player Protection Level
+	public static boolean				AUTO_LEARN_SKILLS;															// Config for Auto Learn Skills
+	public static boolean				AUTO_LEARN_DIVINE_INSPIRATION;												// Alternative auto skill learning for divine inspiration (+4 max buff count)
+	public static boolean				GRADE_PENALTY;																// Disable Grade penalty
+	public static boolean				IS_CRAFTING_ENABLED;														// Crafting Enabled?
+	public static boolean				FAIL_FAKEDEATH;															// Config for Fake Death Fail Feature
+	public static boolean				ALT_FLYING_WYVERN_IN_SIEGE;												// Config for Wyvern enable flying in siege **/
+	public static int					ALT_OLY_START_TIME;														// Olympiad Competition Starting time
+	public static int					ALT_OLY_MIN;																// Olympiad Minutes
+	public static int					ALT_OLY_CPERIOD;															// Olympaid Competition Period
+	public static int					ALT_OLY_BATTLE;															// Olympiad Battle Period
+	public static int					ALT_OLY_BWAIT;																// Olympiad Battle Wait
+	public static int					ALT_OLY_IWAIT;																// Olympiad Inital Wait
+	public static int					ALT_OLY_WPERIOD;															// Olympiad Weekly Period
+	public static int					ALT_OLY_VPERIOD;															// Olympiad Validation Period
+	public static boolean				ALT_OLY_SAME_IP;															// Olympiad allow Matches from same Ip
 	public static int					ALT_OLY_CLASSED;
-    public static int					ALT_OLY_CLASSED_REWARD_ITEM;
-    public static int					ALT_OLY_CLASSED_RITEM_C;
-    public static int					ALT_OLY_NONCLASSED_REWARD_ITEM;
-    public static int					ALT_OLY_NONCLASSED_RITEM_C;
-    public static int					ALT_OLY_GP_PER_POINT;
-    public static int					ALT_OLY_MIN_POINT_FOR_EXCH;
-    public static int					ALT_OLY_HERO_POINTS;
-    public static String				ALT_OLY_RESTRICTED_ITEMS;
-    public static FastList<Integer> 	LIST_OLY_RESTRICTED_ITEMS = new FastList<Integer>();
+	public static int					ALT_OLY_CLASSED_REWARD_ITEM;
+	public static int					ALT_OLY_CLASSED_RITEM_C;
+	public static int					ALT_OLY_NONCLASSED_REWARD_ITEM;
+	public static int					ALT_OLY_NONCLASSED_RITEM_C;
+	public static int					ALT_OLY_GP_PER_POINT;
+	public static int					ALT_OLY_MIN_POINT_FOR_EXCH;
+	public static int					ALT_OLY_HERO_POINTS;
+	public static String				ALT_OLY_RESTRICTED_ITEMS;
+	public static FastList<Integer>		LIST_OLY_RESTRICTED_ITEMS			= new FastList<Integer>();
 	public static int					ALT_OLY_NONCLASSED;
 	public static boolean				ALT_OLY_MATCH_HEAL_COUNTS;
 	public static boolean				ALT_OLY_SUMMON_DAMAGE_COUNTS;
-	public static float					ALT_GAME_SUMMON_PENALTY_RATE;								// Alternative game summon penalty
-	public static int					ALT_MANOR_REFRESH_TIME;										// Manor Refresh Starting time
-	public static int					ALT_MANOR_REFRESH_MIN;										// Manor Refresh Min
-	public static int					ALT_MANOR_APPROVE_TIME;										// Manor Next Period Approve Starting time
-	public static int					ALT_MANOR_APPROVE_MIN;										// Manor Next Period Approve Min
-	public static int					ALT_MANOR_MAINTENANCE_PERIOD;								// Manor Maintenance Time
-	public static boolean				ALT_MANOR_SAVE_ALL_ACTIONS;									// Manor Save All Actions
-	public static int					ALT_MANOR_SAVE_PERIOD_RATE;									// Manor Save Period Rate
+	public static float					ALT_GAME_SUMMON_PENALTY_RATE;												// Alternative game summon penalty
+	public static int					ALT_MANOR_REFRESH_TIME;													// Manor Refresh Starting time
+	public static int					ALT_MANOR_REFRESH_MIN;														// Manor Refresh Min
+	public static int					ALT_MANOR_APPROVE_TIME;													// Manor Next Period Approve Starting time
+	public static int					ALT_MANOR_APPROVE_MIN;														// Manor Next Period Approve Min
+	public static int					ALT_MANOR_MAINTENANCE_PERIOD;												// Manor Maintenance Time
+	public static boolean				ALT_MANOR_SAVE_ALL_ACTIONS;												// Manor Save All Actions
+	public static int					ALT_MANOR_SAVE_PERIOD_RATE;												// Manor Save Period Rate
 
 	// Dimensional Rift
-	public static int					RIFT_MIN_PARTY_SIZE;										// Minimum siz e of a party that may enter dimensional rift
-	public static int					RIFT_SPAWN_DELAY;											// Time in ms the party has to wait until the mobs spawn
+	public static int					RIFT_MIN_PARTY_SIZE;														// Minimum siz e of a party that may enter dimensional rift
+	public static int					RIFT_SPAWN_DELAY;															// Time in ms the party has to wait until the mobs spawn
 	// when entering a room
-	public static int					RIFT_MAX_JUMPS;												// Amount of random rift jumps before party is ported back
-	public static int					RIFT_AUTO_JUMPS_TIME_MIN;									// Random time between two jumps in dimensional rift - in
+	public static int					RIFT_MAX_JUMPS;															// Amount of random rift jumps before party is ported back
+	public static int					RIFT_AUTO_JUMPS_TIME_MIN;													// Random time between two jumps in dimensional rift - in
 	// seconds
 	public static int					RIFT_AUTO_JUMPS_TIME_MAX;
-	public static int					RIFT_ENTER_COST_RECRUIT;									// Dimensional Fragment cost for entering rift
+	public static int					RIFT_ENTER_COST_RECRUIT;													// Dimensional Fragment cost for entering rift
 	public static int					RIFT_ENTER_COST_SOLDIER;
 	public static int					RIFT_ENTER_COST_OFFICER;
 	public static int					RIFT_ENTER_COST_CAPTAIN;
 	public static int					RIFT_ENTER_COST_COMMANDER;
 	public static int					RIFT_ENTER_COST_HERO;
-	public static float					RIFT_BOSS_ROOM_TIME_MUTIPLY;								// Time multiplier for boss room
+	public static float					RIFT_BOSS_ROOM_TIME_MUTIPLY;												// Time multiplier for boss room
 
 	public static boolean				ALT_ITEM_SKILLS_NOT_INFLUENCED;
 	public static boolean				ALT_MANA_POTIONS;
@@ -1492,9 +1500,9 @@ public final class Config
 			BUFFS_MAX_AMOUNT = Integer.parseInt(altSettings.getProperty("AltNbCumulatedBuff", "24"));
 			ALT_GAME_SKILL_LEARN = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "false"));
 			ALT_GAME_CANCEL_BOW = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("bow")
-				|| altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
+					|| altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
 			ALT_GAME_CANCEL_CAST = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("cast")
-				|| altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
+					|| altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
 			ALT_GAME_SHIELD_BLOCKS = Boolean.parseBoolean(altSettings.getProperty("AltShieldBlocks", "false"));
 			ALT_PERFECT_SHLD_BLOCK = Integer.parseInt(altSettings.getProperty("AltPerfectShieldBlockRate", "10"));
 			ALT_ITEM_SKILLS_NOT_INFLUENCED = Boolean.parseBoolean(altSettings.getProperty("AltItemSkillsNotInfluenced", "false"));
@@ -1553,7 +1561,7 @@ public final class Config
 			ALT_GAME_VIEWNPC = Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
 			//ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
 			ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(altSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
-			ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED  = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
+			ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
 			CASTLE_SHIELD = Boolean.parseBoolean(altSettings.getProperty("CastleShieldRestriction", "True"));
 			CLANHALL_SHIELD = Boolean.parseBoolean(altSettings.getProperty("ClanHallShieldRestriction", "True"));
 			APELLA_ARMORS = Boolean.parseBoolean(altSettings.getProperty("ApellaArmorsRestriction", "True"));
@@ -1589,7 +1597,7 @@ public final class Config
 			ALT_PCRITICAL_CAP = Integer.parseInt(altSettings.getProperty("AltPCriticalCap", "500"));
 			ALT_MCRITICAL_CAP = Integer.parseInt(altSettings.getProperty("AltMCriticalCap", "300"));
 			MAX_RUN_SPEED = Integer.parseInt(altSettings.getProperty("MaxRunSpeed", "250"));
-			ALT_MCRIT_RATE = Float.parseFloat(altSettings.getProperty("AltMCritRate","4.0"));
+			ALT_MCRIT_RATE = Float.parseFloat(altSettings.getProperty("AltMCritRate", "4.0"));
 
 			ALT_OLY_START_TIME = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "18"));
 			ALT_OLY_MIN = Integer.parseInt(altSettings.getProperty("AltOlyMin", "00"));
@@ -1600,23 +1608,23 @@ public final class Config
 			ALT_OLY_WPERIOD = Integer.parseInt(altSettings.getProperty("AltOlyWperiod", "604800000"));
 			ALT_OLY_VPERIOD = Integer.parseInt(altSettings.getProperty("AltOlyVperiod", "86400000"));
 			ALT_OLY_SAME_IP = Boolean.parseBoolean(altSettings.getProperty("AltOlySameIp", "true"));
-            ALT_OLY_CLASSED = Integer.parseInt(altSettings.getProperty("AltOlyClassedParticipants","5"));
-            ALT_OLY_NONCLASSED = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedParticipants","9"));
-            ALT_OLY_MATCH_HEAL_COUNTS = Boolean.parseBoolean(altSettings.getProperty("AltOlyMatchHealCounts", "false"));
-            ALT_OLY_SUMMON_DAMAGE_COUNTS = Boolean.parseBoolean(altSettings.getProperty("AltOlySummonDamageCounts", "false"));
-            ALT_OLY_CLASSED_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewardItem","6651"));
-            ALT_OLY_NONCLASSED_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedRewardItem","6651"));
-            ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewItemCount","50"));
-            ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedRewItemCount","30"));
-            ALT_OLY_GP_PER_POINT = Integer.parseInt(altSettings.getProperty("AltOlyGPPerPoint","1000"));
-            ALT_OLY_MIN_POINT_FOR_EXCH = Integer.parseInt(altSettings.getProperty("AltOlyMinPointForExchange","50"));
-            ALT_OLY_HERO_POINTS	= Integer.parseInt(altSettings.getProperty("AltOlyHeroPoints","300"));
-            ALT_OLY_RESTRICTED_ITEMS = altSettings.getProperty("AltOlyRestrictedItems", "0");
-            LIST_OLY_RESTRICTED_ITEMS = new FastList<Integer>();
+			ALT_OLY_CLASSED = Integer.parseInt(altSettings.getProperty("AltOlyClassedParticipants", "5"));
+			ALT_OLY_NONCLASSED = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedParticipants", "9"));
+			ALT_OLY_MATCH_HEAL_COUNTS = Boolean.parseBoolean(altSettings.getProperty("AltOlyMatchHealCounts", "false"));
+			ALT_OLY_SUMMON_DAMAGE_COUNTS = Boolean.parseBoolean(altSettings.getProperty("AltOlySummonDamageCounts", "false"));
+			ALT_OLY_CLASSED_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewardItem", "6651"));
+			ALT_OLY_NONCLASSED_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedRewardItem", "6651"));
+			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewItemCount", "50"));
+			ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedRewItemCount", "30"));
+			ALT_OLY_GP_PER_POINT = Integer.parseInt(altSettings.getProperty("AltOlyGPPerPoint", "1000"));
+			ALT_OLY_MIN_POINT_FOR_EXCH = Integer.parseInt(altSettings.getProperty("AltOlyMinPointForExchange", "50"));
+			ALT_OLY_HERO_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyHeroPoints", "300"));
+			ALT_OLY_RESTRICTED_ITEMS = altSettings.getProperty("AltOlyRestrictedItems", "0");
+			LIST_OLY_RESTRICTED_ITEMS = new FastList<Integer>();
 			for (String id : ALT_OLY_RESTRICTED_ITEMS.split(","))
 			{
 				LIST_OLY_RESTRICTED_ITEMS.add(Integer.parseInt(id));
-			}            
+			}
 
 			ALT_MANOR_REFRESH_TIME = Integer.parseInt(altSettings.getProperty("AltManorRefreshTime", "20"));
 			ALT_MANOR_REFRESH_MIN = Integer.parseInt(altSettings.getProperty("AltManorRefreshMin", "00"));
@@ -1672,54 +1680,54 @@ public final class Config
 	public static final String	GM_ACCESS_FILE	= "./config/GMAccess.properties";
 	// *******************************************************************************************
 	public static boolean		ALT_PRIVILEGES_ADMIN;
-	public static boolean		EVERYBODY_HAS_ADMIN_RIGHTS;							// For test servers - everybody has admin rights
+	public static boolean		EVERYBODY_HAS_ADMIN_RIGHTS;						// For test servers - everybody has admin rights
 	public static int			GM_ACCESSLEVEL;
-	public static int			GM_MIN;												// General GM Minimal AccessLevel
+	public static int			GM_MIN;											// General GM Minimal AccessLevel
 	public static int			GM_ALTG_MIN_LEVEL;									// Minimum privileges level for a GM to do Alt+G
 	public static int			GM_ANNOUNCE;										// General GM AccessLevel to change announcements
-	public static int			GM_BAN;												// General GM AccessLevel can /ban /unban
+	public static int			GM_BAN;											// General GM AccessLevel can /ban /unban
 	public static int			GM_BAN_CHAT;										// General GM AccessLevel can /ban /unban for chat
-	public static int			GM_CREATE_ITEM;										// General GM AccessLevel can /create_item and /gmshop
+	public static int			GM_CREATE_ITEM;									// General GM AccessLevel can /create_item and /gmshop
 	public static int			GM_FREE_SHOP;										// General GM AccessLevel can shop for free
-	public static int			GM_ENCHANT;											// General GM AccessLevel can enchant armor
+	public static int			GM_ENCHANT;										// General GM AccessLevel can enchant armor
 	public static int			GM_DELETE;											// General GM AccessLevel can /delete
 	public static int			GM_KICK;											// General GM AccessLevel can /kick /disconnect
 	public static int			GM_MENU;											// General GM AccessLevel for access to GMMenu
-	public static int			GM_GODMODE;											// General GM AccessLevel to use god mode command
+	public static int			GM_GODMODE;										// General GM AccessLevel to use god mode command
 	public static int			GM_CHAR_EDIT;										// General GM AccessLevel with character edit rights
-	public static int			GM_CHAR_EDIT_OTHER;									// General GM AccessLevel with edit rights for other characters
+	public static int			GM_CHAR_EDIT_OTHER;								// General GM AccessLevel with edit rights for other characters
 	public static int			GM_CHAR_VIEW;										// General GM AccessLevel with character view rights
 	public static int			GM_CHAR_VIEW_INFO;									// General GM AccessLevel with character view rights ALT+G
 	public static int			GM_CHAR_INVENTORY;									// General GM AccessLevel with character view inventory rights ALT+G
 	public static int			GM_CHAR_CLAN_VIEW;									// General GM AccessLevel with character view clan info rights ALT+G
-	public static int			GM_CHAR_VIEW_QUEST;									// General GM AccessLevel with character view quest rights ALT+G
-	public static int			GM_CHAR_VIEW_SKILL;									// General GM AccessLevel with character view skill rights ALT+G
-	public static int			GM_CHAR_VIEW_WAREHOUSE;								// General GM AccessLevel with character warehouse view rights ALT+G
+	public static int			GM_CHAR_VIEW_QUEST;								// General GM AccessLevel with character view quest rights ALT+G
+	public static int			GM_CHAR_VIEW_SKILL;								// General GM AccessLevel with character view skill rights ALT+G
+	public static int			GM_CHAR_VIEW_WAREHOUSE;							// General GM AccessLevel with character warehouse view rights ALT+G
 	public static int			GM_NPC_EDIT;										// General GM AccessLevel with NPC edit rights
 	public static int			GM_NPC_VIEW;
 	public static int			GM_TELEPORT;										// General GM AccessLevel to teleport to any location
 	public static int			GM_TELEPORT_OTHER;									// General GM AccessLevel to teleport character to any location
-	public static int			GM_RESTART;											// General GM AccessLevel to restart server
-	public static int			GM_MONSTERRACE;										// General GM AccessLevel for MonsterRace
+	public static int			GM_RESTART;										// General GM AccessLevel to restart server
+	public static int			GM_MONSTERRACE;									// General GM AccessLevel for MonsterRace
 	public static int			GM_RIDER;											// General GM AccessLevel to ride Wyvern
 	public static int			GM_ESCAPE;											// General GM AccessLevel to unstuck without 5min delay
 	public static int			GM_FIXED;											// General GM AccessLevel to resurect fixed after death
 	public static int			GM_CREATE_NODES;									// General GM AccessLevel to create Path Nodes
 	public static int			GM_DOOR;											// General GM AccessLevel to close/open Doors
-	public static int			GM_RES;												// General GM AccessLevel with Resurrection rights
-	public static int			GM_PEACEATTACK;										// General GM AccessLevel to attack in the peace zone
+	public static int			GM_RES;											// General GM AccessLevel with Resurrection rights
+	public static int			GM_PEACEATTACK;									// General GM AccessLevel to attack in the peace zone
 	public static int			GM_HEAL;											// General GM AccessLevel to heal
-	public static int			GM_IRC;												// General GM AccessLevel to IRC commands
-	public static int			GM_UNBLOCK;											// General GM AccessLevel to unblock IPs detected as hack IPs
+	public static int			GM_IRC;											// General GM AccessLevel to IRC commands
+	public static int			GM_UNBLOCK;										// General GM AccessLevel to unblock IPs detected as hack IPs
 	public static int			GM_CACHE;											// General GM AccessLevel to use Cache commands
 	public static int			GM_TALK_BLOCK;										// General GM AccessLevel to use test&st commands
 	public static int			GM_TEST;
-	public static boolean		GM_DISABLE_TRANSACTION;								// Disable transaction on AccessLevel
+	public static boolean		GM_DISABLE_TRANSACTION;							// Disable transaction on AccessLevel
 	public static int			GM_TRANSACTION_MIN;
 	public static int			GM_TRANSACTION_MAX;
-	public static int			GM_CAN_GIVE_DAMAGE;									// Minimum level to allow a GM giving damage
-	public static int			GM_DONT_TAKE_EXPSP;									// Minimum level to don't give Exp/Sp in party
-	public static int			GM_DONT_TAKE_AGGRO;									// Minimum level to don't take aggro
+	public static int			GM_CAN_GIVE_DAMAGE;								// Minimum level to allow a GM giving damage
+	public static int			GM_DONT_TAKE_EXPSP;								// Minimum level to don't give Exp/Sp in party
+	public static int			GM_DONT_TAKE_AGGRO;								// Minimum level to don't take aggro
 	public static boolean		GM_NAME_COLOR_ENABLED;								// GM name color
 	public static boolean		GM_TITLE_COLOR_ENABLED;
 	public static int			GM_NAME_COLOR;
@@ -1732,7 +1740,7 @@ public final class Config
 	public static boolean		GM_STARTUP_SILENCE;
 	public static boolean		GM_STARTUP_AUTO_LIST;
 	public static String		GM_ADMIN_MENU_STYLE;
-	public static int			STANDARD_RESPAWN_DELAY;								// Standard Respawn Delay
+	public static int			STANDARD_RESPAWN_DELAY;							// Standard Respawn Delay
 	public static boolean		GM_HERO_AURA;										// Place an aura around the GM ?
 	public static boolean		GM_STARTUP_INVULNERABLE;							// Set the GM invulnerable at startup ?
 	public static boolean		GM_ANNOUNCER_NAME;
@@ -1838,8 +1846,8 @@ public final class Config
 	public static final String	TELNET_FILE	= "./config/telnet.properties";
 	// *******************************************************************************************
 	public static boolean		IS_TELNET_ENABLED;							// Is telnet enabled ?
-	public static boolean		ALT_TELNET;							// Use alternative telnet ?
-	public static boolean		ALT_TELNET_GM_ANNOUNCER_NAME;							// Show GM's name behind his announcement ? (only works if AltTelnet = true)
+	public static boolean		ALT_TELNET;								// Use alternative telnet ?
+	public static boolean		ALT_TELNET_GM_ANNOUNCER_NAME;				// Show GM's name behind his announcement ? (only works if AltTelnet = true)
 
 	// *******************************************************************************************
 	public static void loadTelnetConfig()
@@ -1876,7 +1884,7 @@ public final class Config
 	public static int			SIEGE_FLAG_MAX_COUNT;
 	public static int			SIEGE_CLAN_MIN_LEVEL;
 	public static int			SIEGE_LENGTH_MINUTES;
-	
+
 	public static boolean		SIEGE_ONLY_REGISTERED;
 
 	public static void loadSiegeConfig()
@@ -1898,7 +1906,7 @@ public final class Config
 			SIEGE_FLAG_MAX_COUNT = Integer.parseInt(siegeSettings.getProperty("MaxFlags", "1"));
 			SIEGE_CLAN_MIN_LEVEL = Integer.parseInt(siegeSettings.getProperty("SiegeClanMinLevel", "5"));
 			SIEGE_LENGTH_MINUTES = Integer.parseInt(siegeSettings.getProperty("SiegeLength", "120"));
-			
+
 			SIEGE_ONLY_REGISTERED = Boolean.parseBoolean(siegeSettings.getProperty("OnlyRegistered", "true"));
 		}
 		catch (Exception e)
@@ -1974,33 +1982,34 @@ public final class Config
 			_log.warn("Could not load HexID file (" + HEXID_FILE + "). Hopefully login will give us one.");
 		}
 	}
-	
-    //  *******************************************************************************************
-    public static final String  SUBNETS_FILE				= "./config/subnets.properties";
-    //  *******************************************************************************************
-    public static String SUBNETWORKS;
-    
-    //  *******************************************************************************************
-    public static void loadSubnets()
+
+	//  *******************************************************************************************
+	public static final String	SUBNETS_FILE	= "./config/subnets.properties";
+	//  *******************************************************************************************
+	public static String		SUBNETWORKS;
+
+	//  *******************************************************************************************
+	public static void loadSubnets()
 	{
 		_log.info("loading " + SUBNETS_FILE);
 		LineNumberReader lnr = null;
 		try
 		{
-			
+
 			String subnet = null;
 			String line = null;
 			SUBNETWORKS = "";
-			
-			lnr = new LineNumberReader(new InputStreamReader(new FileInputStream( new File(SUBNETS_FILE))));
 
-			while((line = lnr.readLine()) != null)
+			lnr = new LineNumberReader(new InputStreamReader(new FileInputStream(new File(SUBNETS_FILE))));
+
+			while ((line = lnr.readLine()) != null)
 			{
 				line = line.trim().toLowerCase().replace(" ", "");
 
-				if(line.startsWith("subnet"))
+				if (line.startsWith("subnet"))
 				{
-					if (SUBNETWORKS.length() > 0 && !SUBNETWORKS.endsWith(";")) SUBNETWORKS += ";"; 
+					if (SUBNETWORKS.length() > 0 && !SUBNETWORKS.endsWith(";"))
+						SUBNETWORKS += ";";
 					subnet = line.split("=")[1];
 					SUBNETWORKS += subnet;
 				}
@@ -2010,7 +2019,8 @@ public final class Config
 			SUBNETWORKS = SUBNETWORKS.toLowerCase().replaceAll("external", Config.EXTERNAL_HOSTNAME);
 		}
 		catch (Exception e)
-		{}
+		{
+		}
 		finally
 		{
 			try
@@ -2018,10 +2028,11 @@ public final class Config
 				lnr.close();
 			}
 			catch (Exception e)
-			{}
+			{
+			}
 		}
-	}    
-    
+	}
+
 	// *******************************************************************************************
 	public static final String					COMMAND_PRIVILEGES_FILE	= "./config/command-privileges.properties";
 	// *******************************************************************************************
@@ -2072,8 +2083,8 @@ public final class Config
 	public static boolean		ALT_GAME_REQUIRE_CLAN_CASTLE;						// Alternative gaming - allow clan-based castle ownage check rather than
 	// ally-based.
 	public static int			ALT_FESTIVAL_MIN_PLAYER;							// Minimum number of player to participate in SevenSigns Festival
-	public static int			ALT_MAXIMUM_PLAYER_CONTRIB;							// Maximum of player contrib during Festival
-	public static long			ALT_FESTIVAL_MANAGER_START;							// Festival Manager start time.
+	public static int			ALT_MAXIMUM_PLAYER_CONTRIB;						// Maximum of player contrib during Festival
+	public static long			ALT_FESTIVAL_MANAGER_START;						// Festival Manager start time.
 	public static long			ALT_FESTIVAL_LENGTH;								// Festival Length
 	public static long			ALT_FESTIVAL_CYCLE_LENGTH;							// Festival Cycle Length
 	public static long			ALT_FESTIVAL_FIRST_SPAWN;							// Festival First Spawn
@@ -2083,7 +2094,7 @@ public final class Config
 	public static long			ALT_FESTIVAL_CHEST_SPAWN;							// Festival Chest Spawn
 	public static int			ALT_FESTIVAL_ARCHER_AGGRO;							// Aggro value of Archer in SevenSigns Festival
 	public static int			ALT_FESTIVAL_CHEST_AGGRO;							// Aggro value of Chest in SevenSigns Festival
-	public static int			ALT_FESTIVAL_MONSTER_AGGRO;							// Aggro value of Monster in SevenSigns Festival
+	public static int			ALT_FESTIVAL_MONSTER_AGGRO;						// Aggro value of Monster in SevenSigns Festival
 
 	// *******************************************************************************************
 	public static void loadSevenSignsConfig()
@@ -2419,81 +2430,81 @@ public final class Config
 	/***************************************** 
 	 * Antharas CONFIG                       * 
 	 *****************************************/
-	public static int FWA_FIXINTERVALOFANTHARAS; 
-	public static int FWA_RANDOMINTERVALOFANTHARAS; 
-	public static int FWA_APPTIMEOFANTHARAS; 
-	public static int FWA_ACTIVITYTIMEOFANTHARAS; 
-	public static boolean FWA_OLDANTHARAS; 
-	public static int FWA_LIMITOFWEAK; 
-	public static int FWA_LIMITOFNORMAL; 
-	public static int FWA_INTERVALOFBEHEMOTHONWEAK; 
-	public static int FWA_INTERVALOFBEHEMOTHONNORMAL; 
-	public static int FWA_INTERVALOFBEHEMOTHONSTRONG; 
-	public static int FWA_INTERVALOFBOMBERONWEAK; 
-	public static int FWA_INTERVALOFBOMBERONNORMAL; 
-	public static int FWA_INTERVALOFBOMBERONSTRONG; 
-	public static boolean FWA_MOVEATRANDOM;
+	public static int			FWA_FIXINTERVALOFANTHARAS;
+	public static int			FWA_RANDOMINTERVALOFANTHARAS;
+	public static int			FWA_APPTIMEOFANTHARAS;
+	public static int			FWA_ACTIVITYTIMEOFANTHARAS;
+	public static boolean		FWA_OLDANTHARAS;
+	public static int			FWA_LIMITOFWEAK;
+	public static int			FWA_LIMITOFNORMAL;
+	public static int			FWA_INTERVALOFBEHEMOTHONWEAK;
+	public static int			FWA_INTERVALOFBEHEMOTHONNORMAL;
+	public static int			FWA_INTERVALOFBEHEMOTHONSTRONG;
+	public static int			FWA_INTERVALOFBOMBERONWEAK;
+	public static int			FWA_INTERVALOFBOMBERONNORMAL;
+	public static int			FWA_INTERVALOFBOMBERONSTRONG;
+	public static boolean		FWA_MOVEATRANDOM;
 
 	/****************************************** 
 	 * Baium CONFIG                           * 
-	 ******************************************/ 
-	public static int FWB_FIXINTERVALOFBAIUM; 
-	public static int FWB_RANDOMINTERVALOFBAIUM; 
-	public static int FWB_ACTIVITYTIMEOFBAIUM; 
-	public static boolean FWB_MOVEATRANDOM;
-	public static int FWB_LIMITUNTILSLEEP;
+	 ******************************************/
+	public static int			FWB_FIXINTERVALOFBAIUM;
+	public static int			FWB_RANDOMINTERVALOFBAIUM;
+	public static int			FWB_ACTIVITYTIMEOFBAIUM;
+	public static boolean		FWB_MOVEATRANDOM;
+	public static int			FWB_LIMITUNTILSLEEP;
 
 	/****************************************** 
 	 * Valakas CONFIG                         * 
-	 ******************************************/ 
-	public static int FWV_FIXINTERVALOFVALAKAS; 
-	public static int FWV_RANDOMINTERVALOFVALAKAS; 
-	public static int FWV_APPTIMEOFVALAKAS; 
-	public static int FWV_ACTIVITYTIMEOFVALAKAS; 
-	public static int FWV_CAPACITYOFLAIR; 
-	public static boolean FWV_MOVEATRANDOM; 
+	 ******************************************/
+	public static int			FWV_FIXINTERVALOFVALAKAS;
+	public static int			FWV_RANDOMINTERVALOFVALAKAS;
+	public static int			FWV_APPTIMEOFVALAKAS;
+	public static int			FWV_ACTIVITYTIMEOFVALAKAS;
+	public static int			FWV_CAPACITYOFLAIR;
+	public static boolean		FWV_MOVEATRANDOM;
 
 	/******************************************* 
 	 * Baylor CONFIG                          * 
 	 *******************************************/
-	public static boolean FWBA_ENABLESINGLEPLAYER; 
-	public static int FWBA_FIXINTERVALOFBAYLORSPAWN; 
-	public static int FWBA_RANDOMINTERVALOFBAYLORSPAWN; 
-	public static int FWBA_INTERVALOFNEXTMONSTER; 
-	public static int FWBA_ACTIVITYTIMEOFMOBS;
+	public static boolean		FWBA_ENABLESINGLEPLAYER;
+	public static int			FWBA_FIXINTERVALOFBAYLORSPAWN;
+	public static int			FWBA_RANDOMINTERVALOFBAYLORSPAWN;
+	public static int			FWBA_INTERVALOFNEXTMONSTER;
+	public static int			FWBA_ACTIVITYTIMEOFMOBS;
 
 	/******************************************* 
 	 * Sailren CONFIG                          * 
 	 *******************************************/
-	public static boolean FWS_ENABLESINGLEPLAYER; 
-	public static int FWS_FIXINTERVALOFSAILRENSPAWN; 
-	public static int FWS_RANDOMINTERVALOFSAILRENSPAWN; 
-	public static int FWS_INTERVALOFNEXTMONSTER; 
-	public static int FWS_ACTIVITYTIMEOFMOBS;
+	public static boolean		FWS_ENABLESINGLEPLAYER;
+	public static int			FWS_FIXINTERVALOFSAILRENSPAWN;
+	public static int			FWS_RANDOMINTERVALOFSAILRENSPAWN;
+	public static int			FWS_INTERVALOFNEXTMONSTER;
+	public static int			FWS_ACTIVITYTIMEOFMOBS;
 
 	/******************************************* 
 	 * High Priestess van Halter CONFIG        * 
-	 *******************************************/ 
-	public static int HPH_FIXINTERVALOFHALTER; 
-	public static int HPH_RANDOMINTERVALOFHALTER; 
-	public static int HPH_APPTIMEOFHALTER; 
-	public static int HPH_ACTIVITYTIMEOFHALTER; 
-	public static int HPH_FIGHTTIMEOFHALTER; 
-	public static int HPH_CALLROYALGUARDHELPERCOUNT; 
-	public static int HPH_CALLROYALGUARDHELPERINTERVAL; 
-	public static int HPH_INTERVALOFDOOROFALTER; 
-	public static int HPH_TIMEOFLOCKUPDOOROFALTAR;
+	 *******************************************/
+	public static int			HPH_FIXINTERVALOFHALTER;
+	public static int			HPH_RANDOMINTERVALOFHALTER;
+	public static int			HPH_APPTIMEOFHALTER;
+	public static int			HPH_ACTIVITYTIMEOFHALTER;
+	public static int			HPH_FIGHTTIMEOFHALTER;
+	public static int			HPH_CALLROYALGUARDHELPERCOUNT;
+	public static int			HPH_CALLROYALGUARDHELPERINTERVAL;
+	public static int			HPH_INTERVALOFDOOROFALTER;
+	public static int			HPH_TIMEOFLOCKUPDOOROFALTAR;
 
 	/***************************************************************************
 	* JP Attack Last Imperial Tomb Custom CONFIG                              *
 	**************************************************************************/
-	public static int LIT_REGISTRATION_MODE;
-	public static int LIT_REGISTRATION_TIME;
-	public static int LIT_MIN_PARTY_CNT;
-	public static int LIT_MAX_PARTY_CNT;
-	public static int LIT_MIN_PLAYER_CNT;
-	public static int LIT_MAX_PLAYER_CNT;
-	public static int LIT_TIME_LIMIT;
+	public static int			LIT_REGISTRATION_MODE;
+	public static int			LIT_REGISTRATION_TIME;
+	public static int			LIT_MIN_PARTY_CNT;
+	public static int			LIT_MAX_PARTY_CNT;
+	public static int			LIT_MIN_PLAYER_CNT;
+	public static int			LIT_MAX_PLAYER_CNT;
+	public static int			LIT_TIME_LIMIT;
 
 	// *******************************************************************************************
 	public static void loadBossConfig()
@@ -2507,199 +2518,199 @@ public final class Config
 			is.close();
 
 			//antharas
-			FWA_FIXINTERVALOFANTHARAS = Integer.parseInt(bossSettings.getProperty("FixIntervalOfAntharas", "11520")); 
-			if(FWA_FIXINTERVALOFANTHARAS < 5 || FWA_FIXINTERVALOFANTHARAS > 20160)
-				FWA_FIXINTERVALOFANTHARAS = 11520; 
-			FWA_FIXINTERVALOFANTHARAS *= 60000; 
+			FWA_FIXINTERVALOFANTHARAS = Integer.parseInt(bossSettings.getProperty("FixIntervalOfAntharas", "11520"));
+			if (FWA_FIXINTERVALOFANTHARAS < 5 || FWA_FIXINTERVALOFANTHARAS > 20160)
+				FWA_FIXINTERVALOFANTHARAS = 11520;
+			FWA_FIXINTERVALOFANTHARAS *= 60000;
 
-			FWA_RANDOMINTERVALOFANTHARAS = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfAntharas", "8640")); 
-			if(FWA_RANDOMINTERVALOFANTHARAS < 5 || FWA_RANDOMINTERVALOFANTHARAS > 20160)
-				FWA_RANDOMINTERVALOFANTHARAS = 8640; 
-			FWA_RANDOMINTERVALOFANTHARAS *= 60000; 
+			FWA_RANDOMINTERVALOFANTHARAS = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfAntharas", "8640"));
+			if (FWA_RANDOMINTERVALOFANTHARAS < 5 || FWA_RANDOMINTERVALOFANTHARAS > 20160)
+				FWA_RANDOMINTERVALOFANTHARAS = 8640;
+			FWA_RANDOMINTERVALOFANTHARAS *= 60000;
 
-			FWA_APPTIMEOFANTHARAS = Integer.parseInt(bossSettings.getProperty("AppTimeOfAntharas", "10")); 
-			if(FWA_APPTIMEOFANTHARAS < 5 || FWA_APPTIMEOFANTHARAS > 60)
-				FWA_APPTIMEOFANTHARAS = 10; 
-			FWA_APPTIMEOFANTHARAS *= 60000; 
+			FWA_APPTIMEOFANTHARAS = Integer.parseInt(bossSettings.getProperty("AppTimeOfAntharas", "10"));
+			if (FWA_APPTIMEOFANTHARAS < 5 || FWA_APPTIMEOFANTHARAS > 60)
+				FWA_APPTIMEOFANTHARAS = 10;
+			FWA_APPTIMEOFANTHARAS *= 60000;
 
-			FWA_ACTIVITYTIMEOFANTHARAS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfAntharas", "120")); 
-			if(FWA_ACTIVITYTIMEOFANTHARAS < 120 || FWA_ACTIVITYTIMEOFANTHARAS > 720)
-				FWA_ACTIVITYTIMEOFANTHARAS = 120; 
-			FWA_ACTIVITYTIMEOFANTHARAS *= 60000; 
+			FWA_ACTIVITYTIMEOFANTHARAS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfAntharas", "120"));
+			if (FWA_ACTIVITYTIMEOFANTHARAS < 120 || FWA_ACTIVITYTIMEOFANTHARAS > 720)
+				FWA_ACTIVITYTIMEOFANTHARAS = 120;
+			FWA_ACTIVITYTIMEOFANTHARAS *= 60000;
 
-			FWA_OLDANTHARAS = Boolean.parseBoolean(bossSettings.getProperty("OldAntharas", "False")); 
-			FWA_LIMITOFWEAK = Integer.parseInt(bossSettings.getProperty("LimitOfWeak", "299")); 
+			FWA_OLDANTHARAS = Boolean.parseBoolean(bossSettings.getProperty("OldAntharas", "False"));
+			FWA_LIMITOFWEAK = Integer.parseInt(bossSettings.getProperty("LimitOfWeak", "299"));
 
-			FWA_LIMITOFNORMAL = Integer.parseInt(bossSettings.getProperty("LimitOfNormal", "399")); 
-			if(FWA_LIMITOFWEAK >= FWA_LIMITOFNORMAL)
-				FWA_LIMITOFNORMAL = FWA_LIMITOFWEAK + 1; 
+			FWA_LIMITOFNORMAL = Integer.parseInt(bossSettings.getProperty("LimitOfNormal", "399"));
+			if (FWA_LIMITOFWEAK >= FWA_LIMITOFNORMAL)
+				FWA_LIMITOFNORMAL = FWA_LIMITOFWEAK + 1;
 
-			FWA_INTERVALOFBEHEMOTHONWEAK = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnWeak", "8")); 
-			if(FWA_INTERVALOFBEHEMOTHONWEAK < 1 || FWA_INTERVALOFBEHEMOTHONWEAK > 10)
-				FWA_INTERVALOFBEHEMOTHONWEAK = 8; 
+			FWA_INTERVALOFBEHEMOTHONWEAK = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnWeak", "8"));
+			if (FWA_INTERVALOFBEHEMOTHONWEAK < 1 || FWA_INTERVALOFBEHEMOTHONWEAK > 10)
+				FWA_INTERVALOFBEHEMOTHONWEAK = 8;
 			FWA_INTERVALOFBEHEMOTHONWEAK *= 60000;
 
-			FWA_INTERVALOFBEHEMOTHONNORMAL = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnNormal", "5")); 
-			if(FWA_INTERVALOFBEHEMOTHONNORMAL < 1 || FWA_INTERVALOFBEHEMOTHONNORMAL > 10)
-				FWA_INTERVALOFBEHEMOTHONNORMAL = 5; 
+			FWA_INTERVALOFBEHEMOTHONNORMAL = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnNormal", "5"));
+			if (FWA_INTERVALOFBEHEMOTHONNORMAL < 1 || FWA_INTERVALOFBEHEMOTHONNORMAL > 10)
+				FWA_INTERVALOFBEHEMOTHONNORMAL = 5;
 			FWA_INTERVALOFBEHEMOTHONNORMAL *= 60000;
 
-			FWA_INTERVALOFBEHEMOTHONSTRONG = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnStrong", "3")); 
-			if(FWA_INTERVALOFBEHEMOTHONSTRONG < 1 || FWA_INTERVALOFBEHEMOTHONSTRONG > 10)
-				FWA_INTERVALOFBEHEMOTHONSTRONG = 3; 
-			FWA_INTERVALOFBEHEMOTHONSTRONG *= 60000; 
+			FWA_INTERVALOFBEHEMOTHONSTRONG = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnStrong", "3"));
+			if (FWA_INTERVALOFBEHEMOTHONSTRONG < 1 || FWA_INTERVALOFBEHEMOTHONSTRONG > 10)
+				FWA_INTERVALOFBEHEMOTHONSTRONG = 3;
+			FWA_INTERVALOFBEHEMOTHONSTRONG *= 60000;
 
-			FWA_INTERVALOFBOMBERONWEAK = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnWeak", "6")); 
-			if(FWA_INTERVALOFBOMBERONWEAK < 1 || FWA_INTERVALOFBOMBERONWEAK > 10)
-				FWA_INTERVALOFBOMBERONWEAK = 6; 
+			FWA_INTERVALOFBOMBERONWEAK = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnWeak", "6"));
+			if (FWA_INTERVALOFBOMBERONWEAK < 1 || FWA_INTERVALOFBOMBERONWEAK > 10)
+				FWA_INTERVALOFBOMBERONWEAK = 6;
 			FWA_INTERVALOFBOMBERONWEAK *= 60000;
 
-			FWA_INTERVALOFBOMBERONNORMAL = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnNormal", "4")); 
-			if(FWA_INTERVALOFBOMBERONNORMAL < 1 || FWA_INTERVALOFBOMBERONNORMAL > 10)
-				FWA_INTERVALOFBOMBERONNORMAL = 4; 
+			FWA_INTERVALOFBOMBERONNORMAL = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnNormal", "4"));
+			if (FWA_INTERVALOFBOMBERONNORMAL < 1 || FWA_INTERVALOFBOMBERONNORMAL > 10)
+				FWA_INTERVALOFBOMBERONNORMAL = 4;
 			FWA_INTERVALOFBOMBERONNORMAL *= 60000;
 
-			FWA_INTERVALOFBOMBERONSTRONG = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnStrong", "3")); 
-			if(FWA_INTERVALOFBOMBERONSTRONG < 1 || FWA_INTERVALOFBOMBERONSTRONG > 10)
-				FWA_INTERVALOFBOMBERONSTRONG = 3; 
-			FWA_INTERVALOFBOMBERONSTRONG *= 60000; 
+			FWA_INTERVALOFBOMBERONSTRONG = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnStrong", "3"));
+			if (FWA_INTERVALOFBOMBERONSTRONG < 1 || FWA_INTERVALOFBOMBERONSTRONG > 10)
+				FWA_INTERVALOFBOMBERONSTRONG = 3;
+			FWA_INTERVALOFBOMBERONSTRONG *= 60000;
 
-			FWA_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True")); 
+			FWA_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
 
 			//baium
-			FWB_FIXINTERVALOFBAIUM = Integer.parseInt(bossSettings.getProperty("FixIntervalOfBaium", "7200")); 
-			if(FWB_FIXINTERVALOFBAIUM < 5 || FWB_FIXINTERVALOFBAIUM > 12960)
-				FWB_FIXINTERVALOFBAIUM = 7200; 
+			FWB_FIXINTERVALOFBAIUM = Integer.parseInt(bossSettings.getProperty("FixIntervalOfBaium", "7200"));
+			if (FWB_FIXINTERVALOFBAIUM < 5 || FWB_FIXINTERVALOFBAIUM > 12960)
+				FWB_FIXINTERVALOFBAIUM = 7200;
 			FWB_FIXINTERVALOFBAIUM *= 60000;
 
-			FWB_RANDOMINTERVALOFBAIUM = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfBaium", "5760")); 
-			if(FWB_RANDOMINTERVALOFBAIUM < 5 || FWB_RANDOMINTERVALOFBAIUM > 12960)
-				FWB_RANDOMINTERVALOFBAIUM = 5760; 
+			FWB_RANDOMINTERVALOFBAIUM = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfBaium", "5760"));
+			if (FWB_RANDOMINTERVALOFBAIUM < 5 || FWB_RANDOMINTERVALOFBAIUM > 12960)
+				FWB_RANDOMINTERVALOFBAIUM = 5760;
 			FWB_RANDOMINTERVALOFBAIUM *= 60000;
 
-			FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfBaium", "120")); 
-			if(FWB_ACTIVITYTIMEOFBAIUM < 120 || FWB_ACTIVITYTIMEOFBAIUM > 720)
-				FWB_ACTIVITYTIMEOFBAIUM = 120; 
+			FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfBaium", "120"));
+			if (FWB_ACTIVITYTIMEOFBAIUM < 120 || FWB_ACTIVITYTIMEOFBAIUM > 720)
+				FWB_ACTIVITYTIMEOFBAIUM = 120;
 			FWB_ACTIVITYTIMEOFBAIUM *= 60000;
 
 			FWB_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
 			FWB_LIMITUNTILSLEEP = Integer.parseInt(bossSettings.getProperty("LimitUntilSleep", "30"));
-			if(FWB_LIMITUNTILSLEEP < 30 || FWB_LIMITUNTILSLEEP > 90)
+			if (FWB_LIMITUNTILSLEEP < 30 || FWB_LIMITUNTILSLEEP > 90)
 				FWB_LIMITUNTILSLEEP = 30;
 			FWB_LIMITUNTILSLEEP *= 60000;
 
 			//baylor
-			FWBA_ENABLESINGLEPLAYER = Boolean.parseBoolean(bossSettings.getProperty("EnableSinglePlayerBaylor", "False")); 
+			FWBA_ENABLESINGLEPLAYER = Boolean.parseBoolean(bossSettings.getProperty("EnableSinglePlayerBaylor", "False"));
 
-			FWBA_FIXINTERVALOFBAYLORSPAWN = Integer.parseInt(bossSettings.getProperty("FixIntervalOfBaylorSpawn", "1440")); 
-			if(FWBA_FIXINTERVALOFBAYLORSPAWN < 5 || FWBA_FIXINTERVALOFBAYLORSPAWN > 2880)
-				FWBA_FIXINTERVALOFBAYLORSPAWN = 1440; 
-			FWBA_FIXINTERVALOFBAYLORSPAWN *= 60000; 
+			FWBA_FIXINTERVALOFBAYLORSPAWN = Integer.parseInt(bossSettings.getProperty("FixIntervalOfBaylorSpawn", "1440"));
+			if (FWBA_FIXINTERVALOFBAYLORSPAWN < 5 || FWBA_FIXINTERVALOFBAYLORSPAWN > 2880)
+				FWBA_FIXINTERVALOFBAYLORSPAWN = 1440;
+			FWBA_FIXINTERVALOFBAYLORSPAWN *= 60000;
 
-			FWBA_RANDOMINTERVALOFBAYLORSPAWN = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfBaylorSpawn", "1440")); 
-			if(FWBA_RANDOMINTERVALOFBAYLORSPAWN < 5 || FWBA_RANDOMINTERVALOFBAYLORSPAWN > 2880)
-				FWBA_RANDOMINTERVALOFBAYLORSPAWN = 1440; 
+			FWBA_RANDOMINTERVALOFBAYLORSPAWN = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfBaylorSpawn", "1440"));
+			if (FWBA_RANDOMINTERVALOFBAYLORSPAWN < 5 || FWBA_RANDOMINTERVALOFBAYLORSPAWN > 2880)
+				FWBA_RANDOMINTERVALOFBAYLORSPAWN = 1440;
 			FWBA_RANDOMINTERVALOFBAYLORSPAWN *= 60000;
 
-			FWBA_INTERVALOFNEXTMONSTER = Integer.parseInt(bossSettings.getProperty("IntervalOfNextMonsterBaylor", "1")); 
-			if(FWBA_INTERVALOFNEXTMONSTER < 1 || FWBA_INTERVALOFNEXTMONSTER > 10)
-				FWBA_INTERVALOFNEXTMONSTER = 1; 
+			FWBA_INTERVALOFNEXTMONSTER = Integer.parseInt(bossSettings.getProperty("IntervalOfNextMonsterBaylor", "1"));
+			if (FWBA_INTERVALOFNEXTMONSTER < 1 || FWBA_INTERVALOFNEXTMONSTER > 10)
+				FWBA_INTERVALOFNEXTMONSTER = 1;
 			FWBA_INTERVALOFNEXTMONSTER *= 60000;
 
-			FWBA_ACTIVITYTIMEOFMOBS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfMobsBaylor", "120")); 
-			if(FWBA_ACTIVITYTIMEOFMOBS < 1 || FWBA_ACTIVITYTIMEOFMOBS > 120)
-				FWS_ACTIVITYTIMEOFMOBS = 120; 
-			FWBA_ACTIVITYTIMEOFMOBS *= 60000;            
+			FWBA_ACTIVITYTIMEOFMOBS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfMobsBaylor", "120"));
+			if (FWBA_ACTIVITYTIMEOFMOBS < 1 || FWBA_ACTIVITYTIMEOFMOBS > 120)
+				FWS_ACTIVITYTIMEOFMOBS = 120;
+			FWBA_ACTIVITYTIMEOFMOBS *= 60000;
 
 			//sailren
 			FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(bossSettings.getProperty("EnableSinglePlayer", "False"));
 
-			FWS_FIXINTERVALOFSAILRENSPAWN = Integer.parseInt(bossSettings.getProperty("FixIntervalOfSailrenSpawn", "1440")); 
-			if(FWS_FIXINTERVALOFSAILRENSPAWN < 5 || FWS_FIXINTERVALOFSAILRENSPAWN > 2880)
-				FWS_FIXINTERVALOFSAILRENSPAWN = 1440; 
+			FWS_FIXINTERVALOFSAILRENSPAWN = Integer.parseInt(bossSettings.getProperty("FixIntervalOfSailrenSpawn", "1440"));
+			if (FWS_FIXINTERVALOFSAILRENSPAWN < 5 || FWS_FIXINTERVALOFSAILRENSPAWN > 2880)
+				FWS_FIXINTERVALOFSAILRENSPAWN = 1440;
 			FWS_FIXINTERVALOFSAILRENSPAWN *= 60000;
 
-			FWS_RANDOMINTERVALOFSAILRENSPAWN = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfSailrenSpawn", "1440")); 
-			if(FWS_RANDOMINTERVALOFSAILRENSPAWN < 5 || FWS_RANDOMINTERVALOFSAILRENSPAWN > 2880)
-				FWS_RANDOMINTERVALOFSAILRENSPAWN = 1440; 
+			FWS_RANDOMINTERVALOFSAILRENSPAWN = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfSailrenSpawn", "1440"));
+			if (FWS_RANDOMINTERVALOFSAILRENSPAWN < 5 || FWS_RANDOMINTERVALOFSAILRENSPAWN > 2880)
+				FWS_RANDOMINTERVALOFSAILRENSPAWN = 1440;
 			FWS_RANDOMINTERVALOFSAILRENSPAWN *= 60000;
 
-			FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(bossSettings.getProperty("IntervalOfNextMonster", "1")); 
-			if(FWS_INTERVALOFNEXTMONSTER < 1 || FWS_INTERVALOFNEXTMONSTER > 10)
-				FWS_INTERVALOFNEXTMONSTER = 1; 
+			FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(bossSettings.getProperty("IntervalOfNextMonster", "1"));
+			if (FWS_INTERVALOFNEXTMONSTER < 1 || FWS_INTERVALOFNEXTMONSTER > 10)
+				FWS_INTERVALOFNEXTMONSTER = 1;
 			FWS_INTERVALOFNEXTMONSTER *= 60000;
 
-			FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfMobs", "120")); 
-			if(FWS_ACTIVITYTIMEOFMOBS < 1 || FWS_ACTIVITYTIMEOFMOBS > 120)
-				FWS_ACTIVITYTIMEOFMOBS = 120; 
+			FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfMobs", "120"));
+			if (FWS_ACTIVITYTIMEOFMOBS < 1 || FWS_ACTIVITYTIMEOFMOBS > 120)
+				FWS_ACTIVITYTIMEOFMOBS = 120;
 			FWS_ACTIVITYTIMEOFMOBS *= 60000;
 
 			//valakas
-			FWV_FIXINTERVALOFVALAKAS = Integer.parseInt(bossSettings.getProperty("FixIntervalOfValakas", "11520")); 
-			if(FWV_FIXINTERVALOFVALAKAS < 5 || FWV_FIXINTERVALOFVALAKAS > 20160)
-				FWV_FIXINTERVALOFVALAKAS = 11520; 
+			FWV_FIXINTERVALOFVALAKAS = Integer.parseInt(bossSettings.getProperty("FixIntervalOfValakas", "11520"));
+			if (FWV_FIXINTERVALOFVALAKAS < 5 || FWV_FIXINTERVALOFVALAKAS > 20160)
+				FWV_FIXINTERVALOFVALAKAS = 11520;
 			FWV_FIXINTERVALOFVALAKAS *= 60000;
 
-			FWV_RANDOMINTERVALOFVALAKAS = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfValakas", "8640")); 
-			if(FWV_RANDOMINTERVALOFVALAKAS < 5 || FWV_RANDOMINTERVALOFVALAKAS > 20160)
-				FWV_RANDOMINTERVALOFVALAKAS = 8640; 
+			FWV_RANDOMINTERVALOFVALAKAS = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfValakas", "8640"));
+			if (FWV_RANDOMINTERVALOFVALAKAS < 5 || FWV_RANDOMINTERVALOFVALAKAS > 20160)
+				FWV_RANDOMINTERVALOFVALAKAS = 8640;
 			FWV_RANDOMINTERVALOFVALAKAS *= 60000;
 
-			FWV_APPTIMEOFVALAKAS = Integer.parseInt(bossSettings.getProperty("AppTimeOfValakas", "20")); 
-			if(FWV_APPTIMEOFVALAKAS < 5 || FWV_APPTIMEOFVALAKAS > 60)
-				FWV_APPTIMEOFVALAKAS = 10; 
+			FWV_APPTIMEOFVALAKAS = Integer.parseInt(bossSettings.getProperty("AppTimeOfValakas", "20"));
+			if (FWV_APPTIMEOFVALAKAS < 5 || FWV_APPTIMEOFVALAKAS > 60)
+				FWV_APPTIMEOFVALAKAS = 10;
 			FWV_APPTIMEOFVALAKAS *= 60000;
 
-			FWV_ACTIVITYTIMEOFVALAKAS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfValakas", "120")); 
-			if(FWV_ACTIVITYTIMEOFVALAKAS < 120 || FWV_ACTIVITYTIMEOFVALAKAS > 720)
-				FWV_ACTIVITYTIMEOFVALAKAS = 120; 
+			FWV_ACTIVITYTIMEOFVALAKAS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfValakas", "120"));
+			if (FWV_ACTIVITYTIMEOFVALAKAS < 120 || FWV_ACTIVITYTIMEOFVALAKAS > 720)
+				FWV_ACTIVITYTIMEOFVALAKAS = 120;
 			FWV_ACTIVITYTIMEOFVALAKAS *= 60000;
 
-			FWV_CAPACITYOFLAIR = Integer.parseInt(bossSettings.getProperty("CapacityOfLairOfValakas", "200")); 
-			FWV_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True")); 
+			FWV_CAPACITYOFLAIR = Integer.parseInt(bossSettings.getProperty("CapacityOfLairOfValakas", "200"));
+			FWV_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
 
 			//High Priestess van Halter
-			HPH_FIXINTERVALOFHALTER = Integer.parseInt(bossSettings.getProperty("FixIntervalOfHalter", "172800")); 
+			HPH_FIXINTERVALOFHALTER = Integer.parseInt(bossSettings.getProperty("FixIntervalOfHalter", "172800"));
 
 			if (HPH_FIXINTERVALOFHALTER < 300 || HPH_FIXINTERVALOFHALTER > 864000)
 				HPH_FIXINTERVALOFHALTER = 172800;
-			HPH_FIXINTERVALOFHALTER *= 6000; 
+			HPH_FIXINTERVALOFHALTER *= 6000;
 
-			HPH_RANDOMINTERVALOFHALTER = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfHalter", "86400")); 
+			HPH_RANDOMINTERVALOFHALTER = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfHalter", "86400"));
 			if (HPH_RANDOMINTERVALOFHALTER < 300 || HPH_RANDOMINTERVALOFHALTER > 864000)
 				HPH_RANDOMINTERVALOFHALTER = 86400;
 			HPH_RANDOMINTERVALOFHALTER *= 6000;
 
-			HPH_APPTIMEOFHALTER = Integer.parseInt(bossSettings.getProperty("AppTimeOfHalter", "20")); 
+			HPH_APPTIMEOFHALTER = Integer.parseInt(bossSettings.getProperty("AppTimeOfHalter", "20"));
 			if (HPH_APPTIMEOFHALTER < 5 || HPH_APPTIMEOFHALTER > 60)
 				HPH_APPTIMEOFHALTER = 20;
 			HPH_APPTIMEOFHALTER *= 6000;
 
-			HPH_ACTIVITYTIMEOFHALTER = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfHalter", "21600")); 
+			HPH_ACTIVITYTIMEOFHALTER = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfHalter", "21600"));
 			if (HPH_ACTIVITYTIMEOFHALTER < 7200 || HPH_ACTIVITYTIMEOFHALTER > 86400)
 				HPH_ACTIVITYTIMEOFHALTER = 21600;
 			HPH_ACTIVITYTIMEOFHALTER *= 1000;
 
-			HPH_FIGHTTIMEOFHALTER = Integer.parseInt(bossSettings.getProperty("FightTimeOfHalter", "7200")); 
+			HPH_FIGHTTIMEOFHALTER = Integer.parseInt(bossSettings.getProperty("FightTimeOfHalter", "7200"));
 			if (HPH_FIGHTTIMEOFHALTER < 7200 || HPH_FIGHTTIMEOFHALTER > 21600)
 				HPH_FIGHTTIMEOFHALTER = 7200;
 			HPH_FIGHTTIMEOFHALTER *= 6000;
 
-			HPH_CALLROYALGUARDHELPERCOUNT = Integer.parseInt(bossSettings.getProperty("CallRoyalGuardHelperCount", "6")); 
+			HPH_CALLROYALGUARDHELPERCOUNT = Integer.parseInt(bossSettings.getProperty("CallRoyalGuardHelperCount", "6"));
 			if (HPH_CALLROYALGUARDHELPERCOUNT < 1 || HPH_CALLROYALGUARDHELPERCOUNT > 6)
-				HPH_CALLROYALGUARDHELPERCOUNT = 6; 
+				HPH_CALLROYALGUARDHELPERCOUNT = 6;
 
-			HPH_CALLROYALGUARDHELPERINTERVAL = Integer.parseInt(bossSettings.getProperty("CallRoyalGuardHelperInterval", "10")); 
+			HPH_CALLROYALGUARDHELPERINTERVAL = Integer.parseInt(bossSettings.getProperty("CallRoyalGuardHelperInterval", "10"));
 			if (HPH_CALLROYALGUARDHELPERINTERVAL < 1 || HPH_CALLROYALGUARDHELPERINTERVAL > 60)
 				HPH_CALLROYALGUARDHELPERINTERVAL = 10;
 			HPH_CALLROYALGUARDHELPERINTERVAL *= 6000;
 
-			HPH_INTERVALOFDOOROFALTER = Integer.parseInt(bossSettings.getProperty("IntervalOfDoorOfAlter", "5400")); 
+			HPH_INTERVALOFDOOROFALTER = Integer.parseInt(bossSettings.getProperty("IntervalOfDoorOfAlter", "5400"));
 			if (HPH_INTERVALOFDOOROFALTER < 60 || HPH_INTERVALOFDOOROFALTER > 5400)
-				HPH_INTERVALOFDOOROFALTER = 5400; 
+				HPH_INTERVALOFDOOROFALTER = 5400;
 			HPH_INTERVALOFDOOROFALTER *= 6000;
 
-			HPH_TIMEOFLOCKUPDOOROFALTAR = Integer.parseInt(bossSettings.getProperty("TimeOfLockUpDoorOfAltar", "180")); 
+			HPH_TIMEOFLOCKUPDOOROFALTAR = Integer.parseInt(bossSettings.getProperty("TimeOfLockUpDoorOfAltar", "180"));
 			if (HPH_TIMEOFLOCKUPDOOROFALTAR < 60 || HPH_TIMEOFLOCKUPDOOROFALTAR > 600)
 				HPH_TIMEOFLOCKUPDOOROFALTAR = 180;
 			HPH_TIMEOFLOCKUPDOOROFALTAR *= 6000;
@@ -2785,9 +2796,10 @@ public final class Config
 	// *******************************************************************************************
 	public static final String	ELAYNE_FILE	= "./config/elayne.properties";
 	// *******************************************************************************************
-	public static boolean	ALLOW_RMI_SERVER;
-	public static String	RMI_SERVER_PASSWORD;
-	public static int		RMI_SERVER_PORT;
+	public static boolean		ALLOW_RMI_SERVER;
+	public static String		RMI_SERVER_PASSWORD;
+	public static int			RMI_SERVER_PORT;
+
 	// *******************************************************************************************
 	// *******************************************************************************************
 	public static void loadElayneConfig()
@@ -2799,8 +2811,8 @@ public final class Config
 			InputStream is = new FileInputStream(new File(ELAYNE_FILE));
 			elayneSettings.load(is);
 			is.close();
-			
-			ALLOW_RMI_SERVER = Boolean.valueOf(elayneSettings.getProperty("AllowRMIServer","False"));
+
+			ALLOW_RMI_SERVER = Boolean.valueOf(elayneSettings.getProperty("AllowRMIServer", "False"));
 			RMI_SERVER_PASSWORD = elayneSettings.getProperty("RMIServerPassword", "******");
 			RMI_SERVER_PORT = Integer.parseInt(elayneSettings.getProperty("RMIServerPort", "1099"));
 		}
@@ -2816,7 +2828,8 @@ public final class Config
 	// *******************************************************************************************
 	public static final String	INFRACTIONS_FILE	= "./config/infractions.properties";
 	// *******************************************************************************************
-	public static int		INFRACTION_BAN_MODE;
+	public static int			INFRACTION_BAN_MODE;
+
 	// *******************************************************************************************
 	// *******************************************************************************************
 	public static void loadInfractionsConfig()
@@ -2828,9 +2841,9 @@ public final class Config
 			InputStream is = new FileInputStream(new File(INFRACTIONS_FILE));
 			infractionsSettings.load(is);
 			is.close();
-			
+
 			INFRACTION_BAN_MODE = Integer.parseInt(infractionsSettings.getProperty("BanMode", "0"));
-			
+
 		}
 		catch (Exception e)
 		{
@@ -2840,7 +2853,7 @@ public final class Config
 	}
 
 	// *******************************************************************************************
-	
+
 	public static class ClassMasterSettings
 	{
 		private FastMap<Integer, FastMap<Integer, Integer>>	_claimItems;
@@ -3162,8 +3175,12 @@ public final class Config
 			WYVERN_SPEED = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("StriderSpeed"))
 			STRIDER_SPEED = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("WolfSpeed"))
-			GREAT_WOLF_SPEED = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("FenrirSpeed"))
+			FENRIR_SPEED = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("SnowFenrirSpeed"))
+			SNOW_FENRIR_SPEED = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("GreatSnowWolfSpeed"))
+			GREAT_SNOW_WOLF_SPEED = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("MaximumSlotsForNoDwarf"))
 			INVENTORY_MAXIMUM_NO_DWARF = Integer.parseInt(pValue);
@@ -3244,9 +3261,9 @@ public final class Config
 		else if (pName.equalsIgnoreCase("RaidMpRegenMultiplier"))
 			RAID_MP_REGEN_MULTIPLIER = Double.parseDouble(pValue);
 		else if (pName.equalsIgnoreCase("RaidPDefenceMultiplier"))
-			RAID_PDEFENCE_MULTIPLIER = Double.parseDouble(pValue) /100;
+			RAID_PDEFENCE_MULTIPLIER = Double.parseDouble(pValue) / 100;
 		else if (pName.equalsIgnoreCase("RaidMDefenceMultiplier"))
-			RAID_MDEFENCE_MULTIPLIER = Double.parseDouble(pValue) /100;
+			RAID_MDEFENCE_MULTIPLIER = Double.parseDouble(pValue) / 100;
 		else if (pName.equalsIgnoreCase("RaidMinionRespawnTime"))
 			RAID_MINION_RESPAWN_TIMER = Integer.parseInt(pValue);
 
@@ -3506,46 +3523,46 @@ public final class Config
 
 		else if (pName.equalsIgnoreCase("FailFakeDeath"))
 			FAIL_FAKEDEATH = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("AltFlyingWyvernInSiege")) 
-			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.parseBoolean(pValue); 
-		else if (pName.equalsIgnoreCase("TimeInADayOfOpenADoor")) 
-			TIME_IN_A_DAY_OF_OPEN_A_DOOR = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("TimeOfOpeningADoor")) 
-			TIME_OF_OPENING_A_DOOR = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("NurseAntRespawnDelay")) 
-			NURSEANT_RESPAWN_DELAY = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("TimeLimitOfInvade")) 
+		else if (pName.equalsIgnoreCase("AltFlyingWyvernInSiege"))
+			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("TimeInADayOfOpenADoor"))
+			TIME_IN_A_DAY_OF_OPEN_A_DOOR = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("TimeOfOpeningADoor"))
+			TIME_OF_OPENING_A_DOOR = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("NurseAntRespawnDelay"))
+			NURSEANT_RESPAWN_DELAY = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("TimeLimitOfInvade"))
 			TIMELIMITOFINVADE = Integer.parseInt(pValue);
 
 		// JP fight with Antharas Custom Setting
-		else if (pName.equalsIgnoreCase("FixIntervalOfAntharas")) 
-			FWA_FIXINTERVALOFANTHARAS = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("RandomIntervalOfAntharas")) 
-			FWA_RANDOMINTERVALOFANTHARAS = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("AppTimeOfAntharas")) 
-			FWA_APPTIMEOFANTHARAS = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("ActivityTimeOfAntharas")) 
-			FWA_ACTIVITYTIMEOFANTHARAS = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("OldAntharas")) 
-			FWA_OLDANTHARAS = Boolean.parseBoolean(pValue); 
-		else if (pName.equalsIgnoreCase("LimitOfWeak")) 
-			FWA_LIMITOFWEAK = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("LimitOfNormal")) 
-			FWA_LIMITOFNORMAL = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("IntervalOfBehemothOnWeak")) 
-			FWA_INTERVALOFBEHEMOTHONWEAK = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("IntervalOfBehemothOnNormal")) 
-			FWA_INTERVALOFBEHEMOTHONNORMAL = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("IntervalOfBehemothOnStrong")) 
-			FWA_INTERVALOFBEHEMOTHONSTRONG = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("IntervalOfBomberOnWeak")) 
-			FWA_INTERVALOFBOMBERONWEAK = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("IntervalOfBomberOnNormal")) 
-			FWA_INTERVALOFBOMBERONNORMAL = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("IntervalOfBomberOnStrong")) 
-			FWA_INTERVALOFBOMBERONSTRONG = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("MoveAtRandom")) 
-			FWA_MOVEATRANDOM = Boolean.parseBoolean(pValue); 
+		else if (pName.equalsIgnoreCase("FixIntervalOfAntharas"))
+			FWA_FIXINTERVALOFANTHARAS = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("RandomIntervalOfAntharas"))
+			FWA_RANDOMINTERVALOFANTHARAS = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("AppTimeOfAntharas"))
+			FWA_APPTIMEOFANTHARAS = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("ActivityTimeOfAntharas"))
+			FWA_ACTIVITYTIMEOFANTHARAS = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("OldAntharas"))
+			FWA_OLDANTHARAS = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("LimitOfWeak"))
+			FWA_LIMITOFWEAK = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("LimitOfNormal"))
+			FWA_LIMITOFNORMAL = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("IntervalOfBehemothOnWeak"))
+			FWA_INTERVALOFBEHEMOTHONWEAK = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("IntervalOfBehemothOnNormal"))
+			FWA_INTERVALOFBEHEMOTHONNORMAL = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("IntervalOfBehemothOnStrong"))
+			FWA_INTERVALOFBEHEMOTHONSTRONG = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("IntervalOfBomberOnWeak"))
+			FWA_INTERVALOFBOMBERONWEAK = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("IntervalOfBomberOnNormal"))
+			FWA_INTERVALOFBOMBERONNORMAL = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("IntervalOfBomberOnStrong"))
+			FWA_INTERVALOFBOMBERONSTRONG = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("MoveAtRandom"))
+			FWA_MOVEATRANDOM = Boolean.parseBoolean(pValue);
 
 		// JP fight with Baium Custom Setting
 		else if (pName.equalsIgnoreCase("FixIntervalOfBaium"))
@@ -3560,30 +3577,30 @@ public final class Config
 			FWB_LIMITUNTILSLEEP = Integer.parseInt(pValue);
 
 		// JP fight with Valakas Custom Setting
-		else if (pName.equalsIgnoreCase("FixIntervalOfValakas")) 
-			FWV_FIXINTERVALOFVALAKAS = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("RandomIntervalOfValakas")) 
-			FWV_RANDOMINTERVALOFVALAKAS = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("AppTimeOfValakas")) 
-			FWV_APPTIMEOFVALAKAS = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("ActivityTimeOfValakas")) 
-			FWV_ACTIVITYTIMEOFVALAKAS = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("CapacityOfLairOfValakas")) 
-			FWV_CAPACITYOFLAIR = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("MoveAtRandom")) 
-			FWV_MOVEATRANDOM = Boolean.parseBoolean(pValue); 
+		else if (pName.equalsIgnoreCase("FixIntervalOfValakas"))
+			FWV_FIXINTERVALOFVALAKAS = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("RandomIntervalOfValakas"))
+			FWV_RANDOMINTERVALOFVALAKAS = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("AppTimeOfValakas"))
+			FWV_APPTIMEOFVALAKAS = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("ActivityTimeOfValakas"))
+			FWV_ACTIVITYTIMEOFVALAKAS = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("CapacityOfLairOfValakas"))
+			FWV_CAPACITYOFLAIR = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("MoveAtRandom"))
+			FWV_MOVEATRANDOM = Boolean.parseBoolean(pValue);
 
 		// JP fight with sailren Custom Setting
-		else if (pName.equalsIgnoreCase("EnableSinglePlayer")) 
-			FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(pValue); 
-		else if (pName.equalsIgnoreCase("FixIntervalOfSailrenSpawn")) 
-			FWS_FIXINTERVALOFSAILRENSPAWN = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("RandomIntervalOfSailrenSpawn")) 
-			FWS_RANDOMINTERVALOFSAILRENSPAWN = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("IntervalOfNextMonster")) 
-			FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(pValue); 
-		else if (pName.equalsIgnoreCase("ActivityTimeOfMobs")) 
-			FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(pValue); 
+		else if (pName.equalsIgnoreCase("EnableSinglePlayer"))
+			FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("FixIntervalOfSailrenSpawn"))
+			FWS_FIXINTERVALOFSAILRENSPAWN = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("RandomIntervalOfSailrenSpawn"))
+			FWS_RANDOMINTERVALOFSAILRENSPAWN = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("IntervalOfNextMonster"))
+			FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("ActivityTimeOfMobs"))
+			FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(pValue);
 
 		// Siege settings
 		else if (pName.equalsIgnoreCase("AttackerMaxClans"))
@@ -3604,28 +3621,28 @@ public final class Config
 			SIEGE_LENGTH_MINUTES = Integer.parseInt(pValue);
 
 		// Telnet settings
-		else if (pName.equalsIgnoreCase("AltTelnet")) 
-			ALT_TELNET = Boolean.parseBoolean(pValue); 
-		else if (pName.equalsIgnoreCase("AltTelnetGmAnnouncerName")) 
-			ALT_TELNET_GM_ANNOUNCER_NAME = Boolean.parseBoolean(pValue); 
+		else if (pName.equalsIgnoreCase("AltTelnet"))
+			ALT_TELNET = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AltTelnetGmAnnouncerName"))
+			ALT_TELNET_GM_ANNOUNCER_NAME = Boolean.parseBoolean(pValue);
 
 		// GM options
-		else if (pName.equalsIgnoreCase("GMShowAnnouncerName")) 
-			GM_ANNOUNCER_NAME = Boolean.parseBoolean(pValue); 
+		else if (pName.equalsIgnoreCase("GMShowAnnouncerName"))
+			GM_ANNOUNCER_NAME = Boolean.parseBoolean(pValue);
 
 		// Options
-		else if (pName.equalsIgnoreCase("ShowHTMLGm")) 
-			SHOW_HTML_GM = Boolean.parseBoolean(pValue); 
-		else if (pName.equalsIgnoreCase("ShowLegend")) 
-			SHOW_LEGEND = Boolean.parseBoolean(pValue); 
-		else if (pName.equalsIgnoreCase("ShowKarmaPlayers")) 
-			SHOW_KARMA_PLAYERS = Boolean.parseBoolean(pValue); 
-		else if (pName.equalsIgnoreCase("ShowJailedPlayers")) 
-			SHOW_JAILED_PLAYERS = Boolean.parseBoolean(pValue); 
+		else if (pName.equalsIgnoreCase("ShowHTMLGm"))
+			SHOW_HTML_GM = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("ShowLegend"))
+			SHOW_LEGEND = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("ShowKarmaPlayers"))
+			SHOW_KARMA_PLAYERS = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("ShowJailedPlayers"))
+			SHOW_JAILED_PLAYERS = Boolean.parseBoolean(pValue);
 
 		// IRC options
-		else if (pName.equalsIgnoreCase("IrcMeSupport")) 
-			IRC_ME_SUPPORT = Boolean.parseBoolean(pValue); 
+		else if (pName.equalsIgnoreCase("IrcMeSupport"))
+			IRC_ME_SUPPORT = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("IrcToGameMeDisplay"))
 			IRC_TO_GAME_ME_DISPLAY = pValue;
 

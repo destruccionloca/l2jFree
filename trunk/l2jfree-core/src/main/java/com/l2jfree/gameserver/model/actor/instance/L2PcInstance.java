@@ -8154,7 +8154,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					found = true;
 			}
 
-			if (found || getPet() != null || isRidingStrider() || isRidingGreatWolf() || isFlying())
+			if (found || getPet() != null || isRidingStrider() || isRidingFenrirWolf() || isRidingGreatSnowWolf() || isRidingWFenrirWolf() || isFlying())
 			{
 				sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill.getId()));
 				return;
@@ -8581,7 +8581,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		switch (mountType)
 		{
 		case 0:
-			setIsRidingGreatWolf(false);
+			setIsRidingFenrirWolf(false);
+			setIsRidingWFenrirWolf(false);
+			setIsRidingGreatSnowWolf(false);
 			setIsRidingStrider(false);
 			setIsFlying(false);
 			isFalling(false, 0); // Initialize the fall just incase dismount was made while in-air
@@ -8598,8 +8600,10 @@ public final class L2PcInstance extends L2PlayableInstance
 			setIsFlying(true);
 			break; //Flying Wyvern
 		case 3:
-			setIsRidingGreatWolf(true);
-			break; // Riding a Great Wolf
+			setIsRidingFenrirWolf(true);
+			setIsRidingWFenrirWolf(true);
+			setIsRidingGreatSnowWolf(true);
+			break;			
 		}
 
 		_mountType = mountType;

@@ -153,7 +153,9 @@ public abstract class L2Character extends L2Object
 	private boolean					_isOverloaded						= false;											// the char is carrying too much
 	private boolean					_isParalyzed						= false;											// cannot do anything
 	private boolean					_isPetrified						= false;											// cannot receive dmg from hits.
-	private boolean					_isRidingGreatWolf					= false;
+	private boolean					_isRidingFenrirWolf					= false;
+	private boolean					_isRidingWFenrirWolf				= false;
+	private boolean					_isRidingGreatSnowWolf				= false;
 	private boolean					_isRidingStrider					= false;
 	private boolean					_isPendingRevive					= false;
 	private boolean					_isRooted							= false;											// Cannot move until root timed out
@@ -631,9 +633,14 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public void sendPacket(L2GameServerPacket gsp) { }
-	public void sendPacket(SystemMessageId sm) { }
-	
+	public void sendPacket(L2GameServerPacket gsp)
+	{
+	}
+
+	public void sendPacket(SystemMessageId sm)
+	{
+	}
+
 	/**
 	 * Teleport a L2Character and its pet if necessary.<BR>
 	 * <BR>
@@ -2675,9 +2682,19 @@ public abstract class L2Character extends L2Object
 	}
 
 	/** Return True if the L2Character is riding. */
-	public final boolean isRidingGreatWolf()
+	public final boolean isRidingFenrirWolf()
 	{
-		return _isRidingGreatWolf;
+		return _isRidingFenrirWolf;
+	}
+
+	public final boolean isRidingWFenrirWolf()
+	{
+		return _isRidingWFenrirWolf;
+	}
+
+	public final boolean isRidingGreatSnowWolf()
+	{
+		return _isRidingGreatSnowWolf;
 	}
 
 	public final boolean isRidingStrider()
@@ -2686,9 +2703,19 @@ public abstract class L2Character extends L2Object
 	}
 
 	/** Set the L2Character riding mode to True. */
-	public final void setIsRidingGreatWolf(boolean mode)
+	public final void setIsRidingFenrirWolf(boolean mode)
 	{
-		_isRidingGreatWolf = mode;
+		_isRidingFenrirWolf = mode;
+	}
+
+	public final void setIsRidingWFenrirWolf(boolean mode)
+	{
+		_isRidingWFenrirWolf = mode;
+	}
+
+	public final void setIsRidingGreatSnowWolf(boolean mode)
+	{
+		_isRidingGreatSnowWolf = mode;
 	}
 
 	public final void setIsRidingStrider(boolean mode)
@@ -2825,26 +2852,26 @@ public abstract class L2Character extends L2Object
 	{
 		if (_knownList == null)
 			_knownList = new CharKnownList(this);
-		
-		return (CharKnownList)_knownList;
+
+		return (CharKnownList) _knownList;
 	}
 
 	public CharStat getStat()
 	{
 		if (_stat == null)
 			_stat = new CharStat(this);
-		
+
 		return _stat;
 	}
-	
+
 	public CharStatus getStatus()
 	{
 		if (_status == null)
 			_status = new CharStatus(this);
-		
+
 		return _status;
 	}
-	
+
 	public L2CharTemplate getTemplate()
 	{
 		return _template;

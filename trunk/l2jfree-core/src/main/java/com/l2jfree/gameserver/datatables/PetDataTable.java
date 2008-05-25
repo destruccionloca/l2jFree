@@ -29,33 +29,40 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 
 public class PetDataTable
 {
-	private final static Log										_log					= LogFactory.getLog(L2PetInstance.class.getName());
+	private final static Log										_log						= LogFactory.getLog(L2PetInstance.class.getName());
 	private static PetDataTable										_instance;
 
-	public final static int											PET_WOLF_ID				= 12077;
+	public final static int											PET_WOLF_ID					= 12077;
 
-	public final static int											HATCHLING_WIND_ID		= 12311;
-	public final static int											HATCHLING_STAR_ID		= 12312;
-	public final static int											HATCHLING_TWILIGHT_ID	= 12313;
+	public final static int											HATCHLING_WIND_ID			= 12311;
+	public final static int											HATCHLING_STAR_ID			= 12312;
+	public final static int											HATCHLING_TWILIGHT_ID		= 12313;
 
-	public final static int											STRIDER_WIND_ID			= 12526;
-	public final static int											STRIDER_STAR_ID			= 12527;
-	public final static int											STRIDER_TWILIGHT_ID		= 12528;
-	
-	public final static int											RED_STRIDER_WIND_ID		= 16038;
-	public final static int											RED_STRIDER_STAR_ID		= 16039;
-	public final static int											RED_STRIDER_TWILIGHT_ID	= 16040;
-	
+	public final static int											STRIDER_WIND_ID				= 12526;
+	public final static int											STRIDER_STAR_ID				= 12527;
+	public final static int											STRIDER_TWILIGHT_ID			= 12528;
 
-	public final static int											WYVERN_ID				= 12621;
+	public final static int											RED_STRIDER_WIND_ID			= 16038;
+	public final static int											RED_STRIDER_STAR_ID			= 16039;
+	public final static int											RED_STRIDER_TWILIGHT_ID		= 16040;
 
-	public final static int											BABY_BUFFALO_ID			= 12780;
-	public final static int											BABY_KOOKABURRA_ID		= 12781;
-	public final static int											BABY_COUGAR_ID			= 12782;
+	public final static int											WYVERN_ID					= 12621;
 
-	public final static int											SIN_EATER_ID			= 12564;
+	public final static int											BABY_BUFFALO_ID				= 12780;
+	public final static int											BABY_KOOKABURRA_ID			= 12781;
+	public final static int											BABY_COUGAR_ID				= 12782;
 
-	public final static int											GREAT_WOLF_ID			= 16030;
+	public final static int											IMPROVED_BABY_BUFFALO_ID	= 16034;
+	public final static int											IMPROVED_BABY_KOOKABURRA_ID	= 16035;
+	public final static int											IMPROVED_BABY_COUGAR_ID		= 16036;
+
+	public final static int											SIN_EATER_ID				= 12564;
+
+	public final static int											GREAT_WOLF_ID				= 16030;
+	public final static int											WGREAT_WOLF_ID				= 16037;
+	public final static int											BLACK_WOLF_ID				= 16025;
+	public final static int											FENRIR_WOLF_ID				= 16041;
+	public final static int											WFENRIR_WOLF_ID				= 16042;
 
 	private static FastMap<Integer, FastMap<Integer, L2PetData>>	petTable;
 
@@ -233,7 +240,8 @@ public class PetDataTable
 
 	public static boolean isStrider(int npcId)
 	{
-		return (STRIDER_WIND_ID == npcId || STRIDER_STAR_ID == npcId || STRIDER_TWILIGHT_ID == npcId || RED_STRIDER_WIND_ID == npcId || RED_STRIDER_STAR_ID == npcId || RED_STRIDER_TWILIGHT_ID == npcId);
+		return (STRIDER_WIND_ID == npcId || STRIDER_STAR_ID == npcId || STRIDER_TWILIGHT_ID == npcId || RED_STRIDER_WIND_ID == npcId
+				|| RED_STRIDER_STAR_ID == npcId || RED_STRIDER_TWILIGHT_ID == npcId);
 	}
 
 	public static boolean isWyvern(int npcId)
@@ -246,11 +254,36 @@ public class PetDataTable
 		return (GREAT_WOLF_ID == npcId);
 	}
 
+    public static boolean isWGreatWolf(int npcId)
+    {
+    	return (WGREAT_WOLF_ID == npcId);
+    }
+    
+    public static boolean isBlackWolf(int npcId)
+    {
+    	return (BLACK_WOLF_ID == npcId);
+    }
+    
+    public static boolean isFenrirWolf(int npcId)
+    {
+    	return (FENRIR_WOLF_ID == npcId);
+    }
+    
+    public static boolean isWFenrirWolf(int npcId)
+    {
+    	return (WFENRIR_WOLF_ID == npcId);
+    }
+	
 	public static boolean isBaby(int npcId)
 	{
 		return (BABY_BUFFALO_ID == npcId || BABY_KOOKABURRA_ID == npcId || BABY_COUGAR_ID == npcId);
 	}
 
+	public static boolean isImprovedBaby(int npcId)
+	{
+		return (IMPROVED_BABY_BUFFALO_ID == npcId || IMPROVED_BABY_KOOKABURRA_ID == npcId || IMPROVED_BABY_COUGAR_ID == npcId);
+	}
+	
 	public static boolean isSinEater(int npcId)
 	{
 		return npcId == SIN_EATER_ID;
@@ -263,20 +296,35 @@ public class PetDataTable
 	private static enum L2Pet
 	{
 		WOLF(PET_WOLF_ID, 2375, 2515, false),
+		
 		HATCHLING_WIND(HATCHLING_WIND_ID, 3500, 4038, false),
 		HATCHLING_STAR(HATCHLING_STAR_ID, 3501, 4038, false),
 		HATCHLING_TWILIGHT(HATCHLING_TWILIGHT_ID, 3502, 4038, false),
+		
 		STRIDER_WIND(STRIDER_WIND_ID, 4422, 5168, true),
 		STRIDER_STAR(STRIDER_STAR_ID, 4423, 5168, true),
 		STRIDER_TWILIGHT(STRIDER_TWILIGHT_ID, 4424, 5168, true),
+		
 		RED_STRIDER_WIND(RED_STRIDER_WIND_ID, 10308, 5168, true),
 		RED_STRIDER_STAR(RED_STRIDER_STAR_ID, 10309, 5168, true),
 		RED_STRIDER_TWILIGHT(RED_STRIDER_TWILIGHT_ID, 10310, 5168, true),
+		
 		WYVERN(WYVERN_ID, 5249, 6316, true),
-		GREAT_WOLF(GREAT_WOLF_ID, 9882, 9668, true),
+
+		GREAT_WOLF(GREAT_WOLF_ID, 10163, 9668, true),
+		WGREAT_WOLF(WGREAT_WOLF_ID, 10307, 9668, true),
+		BLACK_WOLF(BLACK_WOLF_ID, 9882, 9668, true),
+		FENRIR_WOLF(FENRIR_WOLF_ID, 10426, 9668, true),
+		WFENRIR_WOLF(WFENRIR_WOLF_ID, 10611, 9668, true),
+		
 		BABY_BUFFALO(BABY_BUFFALO_ID, 6648, 7582, false),
 		BABY_KOOKABURRA(BABY_KOOKABURRA_ID, 6649, 7582, false),
 		BABY_COUGAR(BABY_COUGAR_ID, 6650, 7582, false),
+		
+		IMPROVED_BABY_BUFFALO(IMPROVED_BABY_BUFFALO_ID, 10311, 10425, false),
+		IMPROVED_BABY_KOOKABURRA(IMPROVED_BABY_KOOKABURRA_ID, 10312, 10425, false),
+		IMPROVED_BABY_COUGAR(IMPROVED_BABY_COUGAR_ID, 10313, 10425, false),
+		
 		SIN_EATER(SIN_EATER_ID, 4425, 2515, false);
 
 		private final int		_npcId;
