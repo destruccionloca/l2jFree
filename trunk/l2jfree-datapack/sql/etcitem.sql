@@ -7676,3 +7676,7 @@ UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` IN ( 6353, 10164 ); -
 UPDATE `etcitem` SET `weight` = 10 WHERE `item_id` IN ( 2515, 4038, 5168, 5169, 6316, 7208, 7209, 9668 ); -- Update weight for pets' food for CT1
 UPDATE `etcitem` SET `consume_type` = 'normal' WHERE `item_id` IN (731,732,949,950,953,954,957,958,961,962); -- Crystal Enchant scrools are not stackable
 UPDATE `etcitem` SET `item_type`='none' WHERE (`item_id`='8056');
+
+REPLACE INTO `etcitem` VALUES ('10308', 'Red Dragon Bugle of Wind', 'false', 'pet_collar', '20', 'normal', 'steel', 'none', '-1', '0', '0', 'true', 'true', 'true', 'true', 'dragon_bugle_wind', 'pet_collar');
+REPLACE INTO `etcitem` VALUES ('10309', 'Red Dragon Bugle of Star', 'false', 'pet_collar', '20', 'normal', 'steel', 'none', '-1', '0', '0', 'true', 'true', 'true', 'true', 'dragon_bugle_star', 'pet_collar');
+REPLACE INTO `etcitem` VALUES ('10310', 'Red Dragon Bugle of Dusk', 'false', 'pet_collar', '20', 'normal', 'steel', 'none', '-1', '0', '0', 'true', 'true', 'true', 'true', 'dragon_bugle_dusk', 'pet_collar');

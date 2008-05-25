@@ -8417,3 +8417,32 @@ REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSid
 ('29103',29103,'Baylor',0,'Warden',0,'LineageMonster4.Barler','54.00','77.50','83','male','L2GrandBoss',40,'850000','2444.00',0.00,0.00,'10','10','30','30','10','10','0','0','500','500','500','500','540','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT'),
 ('29104',29104,'Crystal Prison Guard',0,'',0,'LineageMonster4.eyeless','36.00','43.50','78','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT'),
 ('29105',29105,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem','40.00','47.00','1','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT');
+
+-- Pet Managers
+
+UPDATE `npc` SET `type`='L2Pet' WHERE `id`=16025;
+UPDATE `npc` SET `type`='L2Pet' WHERE `id`=16030;
+UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=30731;
+UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=30827;
+UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=30828;
+UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=30829;
+UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=30830;
+UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=30831;
+UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=30869;
+UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=31067;
+UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=31265;
+UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=31309;
+UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=31954;
+
+REPLACE INTO `npc` VALUES
+(36478, 36478, 'Mickey', 0, 'Pet Trader', 0, 'NPC.e_collector_teacher_FDwarf', 8.00, 25.00, 70, 'female', 'L2PetManager', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 50, 120, 'NULL', 0, 1, 0, 'LAST_HIT', 0, 0, 0, 'fighter'),
+(16037, 16037, "Great Snow Wolf", 0, "", 0, "LineageMonster4.Pet_Wolf_Ba", 32, 23.56, 55, "male", "L2Pet", 40, 2444, 2444, 0, 0, 40, 43, 30, 21, 20, 25, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter"),
+(16041, 16041, "Fenrir", 0, "", 0, "LineageMonster4.Pet_Wolf_Ba", 32, 23.56, 70, "male", "L2Pet", 40, 2444, 2444, 0, 0, 40, 43, 30, 21, 20, 25, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter"),
+(16042, 16042, "Snow Fenrir", 0, "", 0, "LineageMonster4.Pet_Wolf_Ba", 32, 23.56, 70, "male", "L2Pet", 40, 2444, 2444, 0, 0, 40, 43, 30, 21, 20, 25, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter"),
+(16034, 16034, "Improved Baby Buffalo", 0, "", 0, "Monster2.baby_buffalo", 12, 15, 55, "male", "L2BabyPet", 40, 751, 331, 2.37, 1.53, 40, 43, 30, 21, 20, 25, 0, 0, 88, 119, 37, 112, 282, 0, 333, 0, 0, 0, 33, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter"),
+(16035, 16035, "Improved Baby Kookaburra", 0, "", 0, "Monster2.baby_ostrich", 7, 15, 55, "male", "L2BabyPet", 40, 751, 331, 2.37, 1.53, 40, 43, 30, 21, 20, 25, 0, 0, 88, 119, 37, 112, 282, 0, 333, 0, 0, 0, 14, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter"),
+(16036, 16036, "Improved Baby Cougar", 0, "", 0, "Monster2.baby_tiger", 11, 15.7, 55, "male", "L2BabyPet", 40, 751, 331, 2.37, 1.53, 40, 43, 30, 21, 20, 25, 0, 0, 88, 119, 37, 112, 278, 0, 333, 0, 0, 0, 28, 120, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter");
+
+REPLACE INTO `npc` VALUES ('16038', '16038', 'Red Wind Strider', '0', '', '0', 'Monster.strider', '23.00', '31.00', '70', 'male', 'L2Pet', '40', '2444', '2444', '0.00', '0.00', '10', '10', '10', '10', '10', '10', '0', '0', '500', '500', '500', '500', '253', '0', '253', '0', '0', '0', '80', '120', '', '0', '0', '0', 'LAST_HIT', '0', '0', '0', 'balanced');
+REPLACE INTO `npc` VALUES ('16039', '16039', 'Red Star Strider', '0', '', '0', 'Monster.strider', '23.00', '31.00', '70', 'male', 'L2Pet', '40', '2444', '2444', '0.00', '0.00', '10', '10', '10', '10', '10', '10', '0', '0', '500', '500', '500', '500', '253', '0', '253', '0', '0', '0', '80', '120', '', '0', '0', '0', 'LAST_HIT', '0', '0', '0', 'balanced');
+REPLACE INTO `npc` VALUES ('16040', '16040', 'Red Twilight Strider', '0', '', '0', 'Monster.strider', '23.00', '31.00', '70', 'male', 'L2Pet', '40', '2444', '2444', '0.00', '0.00', '10', '10', '10', '10', '10', '10', '0', '0', '500', '500', '500', '500', '253', '0', '253', '0', '0', '0', '80', '120', '', '0', '0', '0', 'LAST_HIT', '0', '0', '0', 'balanced');

@@ -11,17 +11,41 @@
     <npcid val="13007"/>
     <summonType val="0"/>
   </item>
+  
   <!-- Pets -->
   <!-- Wolf -->
   <item id="2375">
     <npcid val="12077"/>
     <summonType val="1"/>
   </item>
-  <!-- Great Wolf -->
+  
+  <!-- Black Wolf -->
   <item id="9882">
+    <npcid val="16025"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Great Wolf -->
+  <item id="10163">
     <npcid val="16030"/>
     <summonType val="1"/>
   </item>
+  <!-- White Great Wolf -->
+  <item id="10307">
+    <npcid val="16037"/>
+    <summonType val="1"/>
+  </item>
+
+  <!-- Fenrir -->
+  <item id="10426">
+    <npcid val="16041"/>
+    <summonType val="1"/>
+  </item>
+  <!-- White Fenrir -->
+  <item id="10611">
+    <npcid val="16042"/>
+    <summonType val="1"/>
+  </item>
+  
   <!-- Hatchling of Wind -->
   <item id="3500">
     <npcid val="12311"/>
@@ -37,6 +61,7 @@
     <npcid val="12313"/>
     <summonType val="1"/>
   </item>
+  
   <!-- Wind Strider -->
   <item id="4422">
     <npcid val="12526"/>
@@ -52,11 +77,29 @@
     <npcid val="12528"/>
     <summonType val="1"/>
   </item>
+
+  <!-- Red Wind Strider -->
+  <item id="10308">
+    <npcid val="16038"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Red Star Strider -->
+  <item id="10309">
+    <npcid val="16039"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Red Twilight Strider -->
+  <item id="10310">
+    <npcid val="16040"/>
+    <summonType val="1"/>
+  </item>
+    
   <!-- Sin Eater -->
   <item id="4425">
     <npcid val="12564"/>
     <summonType val="1"/>
   </item>
+  
   <!-- Baby Bufallo -->
   <item id="6648">
     <npcid val="12780"/>
@@ -72,6 +115,24 @@
     <npcid val="12781"/>
     <summonType val="1"/>
   </item>
+
+  <!-- Improved Baby Bufallo -->
+  <item id="10311">
+    <npcid val="16034"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Improved Baby Cougar -->
+  <item id="10312">
+    <npcid val="16036"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Improved Baby Kookaburra -->
+  <item id="10313">
+    <npcid val="16035"/>
+    <summonType val="1"/>
+  </item>
+  
+  <!-- Custom! -->
   <!-- Wyvern -->
   <item id="5249">
     <npcid val="12621"/>

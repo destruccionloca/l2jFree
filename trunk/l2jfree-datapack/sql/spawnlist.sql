@@ -41504,3 +41504,7 @@ INSERT INTO `spawnlist` (`location`, `count`, `npc_templateid`, `locx`, `locy`, 
 ('', 1, 36004, 105447, -139845, -3120, 0, 0, 64664, 10, 0, 0),
 ('', 1, 35966, 71436, -58182, -2904, 0, 0, 64664, 10, 0, 0),
 ('', 1, 35828, 159377, 52403, -3312, 0, 0, 64664, 10, 0, 0);
+
+INSERT INTO `spawnlist` (`location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`, `periodOfDay`) VALUES
+('',1,36478,145180,30482,-2460,0,0,55063,60,0,0),
+('',1,36478,43456,-49579,-796,0,0,3743,60,0,0);
