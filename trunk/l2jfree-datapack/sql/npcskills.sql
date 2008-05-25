@@ -22295,7 +22295,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (29103,5403,1),
 (29103,5404,1);
 
---pets
+-- pets
 INSERT INTO `npcskills` VALUES
 ('16034','5194','1'),
 ('16034','5190','1'),

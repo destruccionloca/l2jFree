@@ -1700,12 +1700,12 @@ INSERT INTO `weapon` VALUES
 --
 -- GreatWolf weapons
 REPLACE INTO `weapon` VALUES 
-(9656, 'Enchanted Wolf Fang', 'greatwolf', 'false', 100, 1, 1, 'steel', 'none', 233, 0, 'pet', 8, 0.00000, 0, 0, 0, 277, 0, 5, -1, 4300000, 0, 'true', 'true', 'true', 'true', 0, 0, 0, 0, 0),
-(9657, 'Enchanted Coyote Fang', 'greatwolf', 'false', 100, 1, 1, 'steel', 'none', 289, 0, 'pet', 8, 0.00000, 0, 0, 0, 277, 0, 5, -1, 8100000, 0, 'true', 'true', 'true', 'true', 0, 0, 0, 0, 0),
-(9658, 'Enchanted Saltydog Fang', 'greatwolf', 'false', 100, 1, 1, 'steel', 'none', 350, 0, 'pet', 8, 0.00000, 0, 0, 0, 277, 0, 5, -1, 15000000, 0, 'true', 'true', 'true', 'true', 0, 0, 0, 0, 0),
-(9659, 'Enchanted Cerberus Fang', 'greatwolf', 'false', 100, 1, 1, 'steel', 'none', 413, 0, 'pet', 8, 0.00000, 0, 0, 0, 277, 0, 5, -1, 0, 0, 'true', 'true', 'true', 'true', 0, 0, 0, 0, 0),
-(9660, 'Orichalcum Fang', 'greatwolf', 'false', 100, 1, 1, 'steel', 'none', 477, 0, 'pet', 8, 0.00000, 0, 0, 0, 277, 0, 5, -1, 0, 0, 'true', 'true', 'true', 'true', 0, 0, 0, 0, 0),
-(9661, 'Enchanted Fenril Fang', 'greatwolf', 'false', 100, 1, 1, 'steel', 'none', 537, 0, 'pet', 8, 0.00000, 0, 0, 0, 277, 0, 5, -1, 0, 0, 'true', 'true', 'true', 'true', 0, 0, 0, 0, 0);
+(9656, 'Enchanted Wolf Fang', 'greatwolf', 'false', 100, 1, 1, 'steel', 'none', 233, 0, 'pet', 8, 0.00000, 0, 0, 0, 277, 0, 5, -1, 4300000, 0, 'true', 'true', 'true', 'true', '', '', '', '', 0),
+(9657, 'Enchanted Coyote Fang', 'greatwolf', 'false', 100, 1, 1, 'steel', 'none', 289, 0, 'pet', 8, 0.00000, 0, 0, 0, 277, 0, 5, -1, 8100000, 0, 'true', 'true', 'true', 'true', '', '', '', '', 0),
+(9658, 'Enchanted Saltydog Fang', 'greatwolf', 'false', 100, 1, 1, 'steel', 'none', 350, 0, 'pet', 8, 0.00000, 0, 0, 0, 277, 0, 5, -1, 15000000, 0, 'true', 'true', 'true', 'true', '', '', '', '', 0),
+(9659, 'Enchanted Cerberus Fang', 'greatwolf', 'false', 100, 1, 1, 'steel', 'none', 413, 0, 'pet', 8, 0.00000, 0, 0, 0, 277, 0, 5, -1, 0, 0, 'true', 'true', 'true', 'true', '', '', '', '', 0),
+(9660, 'Orichalcum Fang', 'greatwolf', 'false', 100, 1, 1, 'steel', 'none', 477, 0, 'pet', 8, 0.00000, 0, 0, 0, 277, 0, 5, -1, 0, 0, 'true', 'true', 'true', 'true', '', '', '', '', 0),
+(9661, 'Enchanted Fenril Fang', 'greatwolf', 'false', 100, 1, 1, 'steel', 'none', 537, 0, 'pet', 8, 0.00000, 0, 0, 0, 277, 0, 5, -1, 0, 0, 'true', 'true', 'true', 'true', '', '', '', '', 0);
 
 -- Multiple skills and race/sex/class restriction
 ALTER TABLE `weapon` ADD `races` VARCHAR(20) NOT NULL DEFAULT '-1';

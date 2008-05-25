@@ -19858,7 +19858,7 @@ UPDATE `merchant_buylists` SET `price` = 1080 WHERE `item_id` = 906 AND `price` 
 UPDATE `merchant_buylists` SET `price` = 4680 WHERE `item_id` = 907 AND `price` < 4680 AND `price` != 0; -- Necklace of Anguish
 UPDATE `merchant_buylists` SET `price` = 11900 WHERE `item_id` = 908 AND `price` < 11900 AND `price` != 0; -- Necklace of Wisdom
 
---PetManager addons
+-- PetManager addons
 INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (9656,4411200,89,40),
 (9657,8170800,89,41),
