@@ -63,7 +63,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 		
 		if (_route.isEmpty())
 		{
-			_log.warn("L2NpcWalker(ID: "+getActor().getNpcId()+") without definied route!");
+			_log.warn("L2NpcWalker(ID: "+getActor().getNpcId()+") without defined route!");
 			return;
 		}
 		
