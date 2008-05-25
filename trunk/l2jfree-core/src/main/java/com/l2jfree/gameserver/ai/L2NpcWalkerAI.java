@@ -144,6 +144,9 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 
 	private void walkToLocation()
 	{
+		if (_route.size() < 1)
+			return;
+		
 		if (_currentPos < (_route.size() - 1))
 			_currentPos++;
 		else
