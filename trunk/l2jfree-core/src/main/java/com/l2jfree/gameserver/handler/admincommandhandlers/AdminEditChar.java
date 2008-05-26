@@ -398,10 +398,25 @@ public class AdminEditChar implements IAdminCommandHandler
 				player = (L2PcInstance) target;
 			else
 				return false;
-			player.setHero(player.isHero() ? false : true);
-			if (player.isHero() == true)
-				player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
-			player.sendMessage("Admin changed your hero status");
+			//Adding a more extended granting and revoking hero status strings and messages @ BoDiE
+			//Tell me if this is lame =/ - BoDiE
+			if (player.isHero()){
+				player.setHero(False);
+				announceMsg = " has lost the Hero status!";
+				targetPlayerMsg = "Your hero status have been revoked.";
+				gmNotifyMsg = player.getName()+" hero status was revoken my an Admin or GM.";
+				player.sendMessage(targetPlayerMsg);
+				Announcements.getInstance().announceToAll(player.getName() + announceMsg);
+				GmTableList.broadcastMessageToGMs(gmNotifyMsg);			
+			} else {
+				player.setHero(True);
+				announceMsg = " gain the Hero status!";
+				targetPlayerMsg = "You have been granted with the hero stats.";
+				gmNotifyMsg = player.getName()+" was granted with hero status by an Admin or GM.";
+				player.sendMessage(targetPlayerMsg);
+				Announcements.getInstance().announceToAll(player.getName() + announceMsg);
+				GmTableList.broadcastMessageToGMs(gmNotifyMsg);	
+			}
 			player.broadcastUserInfo();
 		}
 		// [L2J_JP ADD END]
