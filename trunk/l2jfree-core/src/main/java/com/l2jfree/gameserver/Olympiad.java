@@ -2249,7 +2249,7 @@ public class Olympiad
 			}
 		}
 		
-		protected void cleanEffects()
+		protected void cleanEffects() //Bassed on removals();
 		{
 			if (_playerOne == null || _playerTwo == null)
 				return;
@@ -2280,8 +2280,6 @@ public class Olympiad
 				{}				
 			}
 		}
-			
-		
 
 		protected boolean portPlayersToArena()
 		{
