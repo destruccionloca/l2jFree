@@ -24,8 +24,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -400,6 +402,12 @@ public class AdminEditChar implements IAdminCommandHandler
 				return false;
 			//Adding a more extended granting and revoking hero status strings and messages @ BoDiE
 			//Tell me if this is lame =/ - BoDiE
+			boolean heroPlayer = player.isHero();
+			
+			String announceMsg = "";
+			String targetPlayerMsg = "";
+			String gmNotifyMsg = "";			
+			
 			if (player.isHero()){
 				player.setHero(False);
 				announceMsg = " has lost the Hero status!";
@@ -407,7 +415,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				gmNotifyMsg = player.getName()+" hero status was revoken my an Admin or GM.";
 				player.sendMessage(targetPlayerMsg);
 				Announcements.getInstance().announceToAll(player.getName() + announceMsg);
-				GmTableList.broadcastMessageToGMs(gmNotifyMsg);			
+				GmListTable.broadcastMessageToGMs(gmNotifyMsg);			
 			} else {
 				player.setHero(True);
 				announceMsg = " gain the Hero status!";
@@ -415,7 +423,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				gmNotifyMsg = player.getName()+" was granted with hero status by an Admin or GM.";
 				player.sendMessage(targetPlayerMsg);
 				Announcements.getInstance().announceToAll(player.getName() + announceMsg);
-				GmTableList.broadcastMessageToGMs(gmNotifyMsg);	
+				GmListTable.broadcastMessageToGMs(gmNotifyMsg);	
 			}
 			player.broadcastUserInfo();
 		}
