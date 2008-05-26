@@ -1,8 +1,8 @@
 # Created by L2Emu Team
 import sys
-from com.l2emu.gameserver.model.quest        import State
-from com.l2emu.gameserver.model.quest        import QuestState
-from com.l2emu.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.model.quest        import State
+from com.l2jfree.gameserver.model.quest        import QuestState
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "8004_PurchaseBracelet"
 
