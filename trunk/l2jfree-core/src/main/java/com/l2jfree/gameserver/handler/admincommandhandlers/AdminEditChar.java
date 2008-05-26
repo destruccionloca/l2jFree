@@ -409,7 +409,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			String gmNotifyMsg = "";			
 			
 			if (player.isHero()){
-				player.setHero(False);
+				player.setHero(player.isHero() ? true : false);
 				announceMsg = " has lost the Hero status!";
 				targetPlayerMsg = "Your hero status have been revoked.";
 				gmNotifyMsg = player.getName()+" hero status was revoken my an Admin or GM.";
@@ -417,7 +417,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				Announcements.getInstance().announceToAll(player.getName() + announceMsg);
 				GmListTable.broadcastMessageToGMs(gmNotifyMsg);			
 			} else {
-				player.setHero(True);
+				player.setHero(player.isHero() ? false : true);
 				announceMsg = " gain the Hero status!";
 				targetPlayerMsg = "You have been granted with the hero stats.";
 				gmNotifyMsg = player.getName()+" was granted with hero status by an Admin or GM.";
