@@ -254,6 +254,7 @@ public class Olympiad
 				_game._gamestarted = false;
 				_game.closeDoors();
 				_game.PlayersStatusBack();
+				_game.cleanEffects();
 				try
 				{
 					_game.portPlayersBack();
@@ -412,6 +413,7 @@ public class Olympiad
 					{
 						_game.validateWinner();
 						_game.PlayersStatusBack();
+						_game.cleanEffects();
 						_game.portPlayersBack();
 						_game.clearSpectators();
 					}
@@ -2162,7 +2164,7 @@ public class Olympiad
 							player.removeSkill(skill, false);
 						}
 					}
-
+					
 					// Heal Player fully
 					player.getStatus().setCurrentCp(player.getMaxCp());
 					player.getStatus().setCurrentHp(player.getMaxHp());
@@ -2246,6 +2248,40 @@ public class Olympiad
 				}
 			}
 		}
+		
+		protected void cleanEffects()
+		{
+			if (_playerOne == null || _playerTwo == null)
+				return;
+			if (_playerOneDisconnected || _playerTwoDisconnected)
+				return;
+			for (L2PcInstance player : _players)
+			{
+				try
+				{
+					//Stopping all the effects
+					player.stopAllEffects();
+					if (player.getPet() != null)
+					{
+						L2Summon summon = player.getPet();
+						summon.stopAllEffects();
+					}
+
+					
+					//Full Player healing
+					player.getStatus().setCurrentCp(player.getMaxCp());
+					player.getStatus().setCurrentHp(player.getMaxHp());
+					player.getStatus().setCurrentMp(player.getMaxMp());
+					
+				}
+				
+				//Preventing Exceptions
+				catch (Exception e)
+				{}				
+			}
+		}
+			
+		
 
 		protected boolean portPlayersToArena()
 		{
