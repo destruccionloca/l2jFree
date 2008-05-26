@@ -410,18 +410,19 @@ public class AdminEditChar implements IAdminCommandHandler
 			
 			if (player.isHero()){
 				player.setHero(player.isHero() ? true : false);
+				targetPlayerMsg = "Your hero status has been revoked.";
 				announceMsg = " has lost the Hero status!";
-				targetPlayerMsg = "Your hero status have been revoked.";
 				gmNotifyMsg = player.getName()+" hero status was revoken my an Admin or GM.";
 				player.sendMessage(targetPlayerMsg);
 				Announcements.getInstance().announceToAll(player.getName() + announceMsg);
 				GmListTable.broadcastMessageToGMs(gmNotifyMsg);			
 			} else {
 				player.setHero(player.isHero() ? false : true);
-				announceMsg = " gain the Hero status!";
 				targetPlayerMsg = "You have been granted with the hero stats.";
+				announceMsg = " gain the Hero status!";
 				gmNotifyMsg = player.getName()+" was granted with hero status by an Admin or GM.";
 				player.sendMessage(targetPlayerMsg);
+				player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
 				Announcements.getInstance().announceToAll(player.getName() + announceMsg);
 				GmListTable.broadcastMessageToGMs(gmNotifyMsg);	
 			}
