@@ -12309,7 +12309,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Check if hit is missed
 		if (miss)
 		{
-			sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET));
+			sendPacket(new SystemMessage(SystemMessageId.S1_ATTACK_WENT_ASTRAY).addString(getName()));
 			return;
 		}
 
@@ -12335,7 +12335,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (mcrit)
 			sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_MAGIC));
 
-		SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
+		SystemMessage sm = new SystemMessage(SystemMessageId.S1_GAVE_S2_DAMAGE_OF_S3);
+		sm.addString(getName());
+		sm.addString((target instanceof L2PcInstance) ? ((L2PcInstance)target).getAppearance().getVisibleName() : target.getName());
 		sm.addNumber(damage);
 		sendPacket(sm);
 	}
