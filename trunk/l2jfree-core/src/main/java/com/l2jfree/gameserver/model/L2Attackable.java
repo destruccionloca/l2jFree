@@ -57,6 +57,7 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.L2EtcItemType;
+import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
@@ -1421,7 +1422,8 @@ public class L2Attackable extends L2NpcInstance
                         }
                         else
                         {
-                            if (Config.AUTO_LOOT)
+                            if (Config.AUTO_LOOT &&
+                            		ItemTable.getInstance().getTemplate(item.getItemId()).getItemType() != L2EtcItemType.HERB)
                                 player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
                             else
                                 dropItem(player, item); // drop the item on the ground
