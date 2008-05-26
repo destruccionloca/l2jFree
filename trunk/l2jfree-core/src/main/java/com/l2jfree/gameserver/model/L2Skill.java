@@ -460,7 +460,7 @@ public abstract class L2Skill {
 		else if (_skillType == SkillType.BUFF) //This should correct the time effect that was caused on debuffs on AltBuffTime config
 			_timeMulti = Config.ALT_BUFF_TIME;
 		else
-			_timeMulti = 0; //If the skills is not a DANCE type skill or BUFF type, the effect time is the normal, without any multiplier
+			_timeMulti = 1; //If the skills is not a DANCE type skill or BUFF type, the effect time is the normal, without any multiplier
 
 		_skillRadius = set.getInteger("skillRadius", 80);
 
