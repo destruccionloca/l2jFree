@@ -11,6 +11,7 @@ public class XQLException extends Exception {
 	private static final long serialVersionUID = 1119150299542112087L;
 
 	public enum XQLExceptionError {
+		XQL_NO_ERROR_OCCURED ("No error occured"),
 		XQL_TUPPLE_NOT_FOUND_EXCEPTION ("XQL statement tupple is invalid"),
 		XQL_NO_ACCESS_RIGHT_EXCEPTION ("No accessrights to datafile"),
 		XQL_NO_SUCH_DATAFILE_EXCEPTION ("Datafile was not found"),
@@ -37,7 +38,27 @@ public class XQLException extends Exception {
 		}
 	}
 	
+	
+	private XQLExceptionError _error = XQLExceptionError.XQL_NO_ERROR_OCCURED;
+	private String _info = "";
+	
 	public XQLException(XQLExceptionError error) {
-		
+		_error = error;
+	}
+
+	public XQLException(XQLExceptionError error, String info) {
+		_error = error;
+		_info = info;
+	}
+	
+	public String getMessage() {
+		return _error.getMessage().concat(" ").concat(_info);
+	}
+	public String getLocalizedMessage() {
+		return _error.getMessage().concat(" ").concat(_info);
+	}
+	
+	public String toString() {
+		return _error.getMessage().concat(" ").concat(_info);
 	}
 }

@@ -7,6 +7,6 @@ package com.l2jfree.util.xql;
  * @author noctarius
  *
  */
-public class XMLStatement {
+public class XQLResultSet {
 
 }
