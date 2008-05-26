@@ -401,30 +401,17 @@ public class AdminEditChar implements IAdminCommandHandler
 			else
 				return false;
 			//Adding a more extended granting and revoking hero status strings and messages @ BoDiE
-			//Tell me if this is lame =/ - BoDiE
-			boolean heroPlayer = player.isHero();
-			
-			String announceMsg = "";
-			String targetPlayerMsg = "";
-			String gmNotifyMsg = "";			
-			
 			if (player.isHero()){
 				player.setHero(player.isHero() ? true : false);
-				targetPlayerMsg = "Your hero status has been revoked.";
-				announceMsg = " has lost the Hero status!";
-				gmNotifyMsg = player.getName()+" hero status was revoken my an Admin or GM.";
-				player.sendMessage(targetPlayerMsg);
-				Announcements.getInstance().announceToAll(player.getName() + announceMsg);
-				GmListTable.broadcastMessageToGMs(gmNotifyMsg);			
+				player.sendMessage("Your hero status has been revoked.");
+				Announcements.getInstance().announceToAll(player.getName() + " has lost the Hero status!");
+				GmListTable.broadcastMessageToGMs(player.getName()+" hero status was revoken my an Admin or GM.");			
 			} else {
 				player.setHero(player.isHero() ? false : true);
-				targetPlayerMsg = "You have been granted with the hero stats.";
-				announceMsg = " gain the Hero status!";
-				gmNotifyMsg = player.getName()+" was granted with hero status by an Admin or GM.";
-				player.sendMessage(targetPlayerMsg);
+				player.sendMessage("You have been granted with the hero stats.");
 				player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
-				Announcements.getInstance().announceToAll(player.getName() + announceMsg);
-				GmListTable.broadcastMessageToGMs(gmNotifyMsg);	
+				Announcements.getInstance().announceToAll(player.getName() + " gain the Hero status!");
+				GmListTable.broadcastMessageToGMs(player.getName()+" was granted with hero status by an Admin or GM.");	
 			}
 			player.broadcastUserInfo();
 		}
