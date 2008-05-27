@@ -138,8 +138,11 @@ public class DayNightSpawnManager
 					SpawnCreatures.put(spawnDat, creature);
 					creature.getStatus().setCurrentHp(creature.getMaxHp());
 					creature.getStatus().setCurrentMp(creature.getMaxMp());
-					creature = SpawnCreatures.get(spawnDat);
 					creature.getSpawn().startRespawn();
+					if (creature.isDecayed())
+						creature.setDecayed(false);
+					if (creature.isDead())
+						creature.doRevive();
 				}
 				else
 				{
@@ -148,6 +151,10 @@ public class DayNightSpawnManager
 						continue;
 
 					creature.getSpawn().startRespawn();
+					if (creature.isDecayed())
+						creature.setDecayed(false);
+					if (creature.isDead())
+						creature.doRevive();
 					creature.getStatus().setCurrentHp(creature.getMaxHp());
 					creature.getStatus().setCurrentMp(creature.getMaxMp());
 					creature.spawnMe();

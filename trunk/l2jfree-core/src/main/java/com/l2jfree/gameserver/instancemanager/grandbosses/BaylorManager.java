@@ -301,7 +301,7 @@ public class BaylorManager extends BossLair
 
 		if (canIntoBaylorLair(pc) != 0)
 		{
-			pc.sendMessage("Entrance was refused because it did not satisfy it.");
+			pc.sendMessage("Entrance was refused.");
 			_isAlreadyEnteredOtherParty = false;
 			return;
 		}

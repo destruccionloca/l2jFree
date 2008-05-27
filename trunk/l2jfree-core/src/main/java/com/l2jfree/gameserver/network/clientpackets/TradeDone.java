@@ -87,7 +87,7 @@ public class TradeDone extends L2GameClientPacket
 			if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
 				&& player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 			{
-				player.sendMessage("Transactions are disabled for your access level.");
+				player.sendMessage("Unsufficient privileges.");
 				player.cancelActiveTrade();
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;

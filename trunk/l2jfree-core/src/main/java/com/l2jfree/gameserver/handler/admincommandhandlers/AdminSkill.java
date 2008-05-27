@@ -164,7 +164,8 @@ public class AdminSkill implements IAdminCommandHandler
 				for (L2Skill skill : player.getAllSkills())
 					player.removeSkill(skill);
 				activeChar.sendMessage("You removed all skills from " + player.getName());
-				player.sendMessage("Admin removed all skills from you.");
+				if (activeChar != player)
+					player.sendMessage("Admin removed all skills from you.");
 				player.sendSkillList();
 			}
 		}

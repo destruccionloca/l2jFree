@@ -107,15 +107,16 @@ public class ClanHallManager
 				}
 				else
 				{
-					if (ClanTable.getInstance().getClan(rs.getInt("ownerId")) != null)
+					L2Clan clan = ClanTable.getInstance().getClan(ownerId);
+					if (clan != null)
 					{
 						_clanHall.put(id, ch);
-						ClanTable.getInstance().getClan(rs.getInt("ownerId")).setHasHideout(id);
+						clan.setHasHideout(id);
 					}
 					else
 					{
 						_freeClanHall.put(id, ch);
-						_freeClanHall.get(id).free();
+						ch.free();
 						AuctionManager.getInstance().initNPC(id);
 					}
 				}

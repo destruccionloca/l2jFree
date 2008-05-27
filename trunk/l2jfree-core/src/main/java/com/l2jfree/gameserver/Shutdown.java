@@ -422,7 +422,7 @@ public class Shutdown extends Thread
 		{
 			ItemsOnGroundManager.getInstance().saveInDb();
 			ItemsOnGroundManager.getInstance().cleanUp();
-			System.err.println("ItemsOnGroundManager: All items on ground saved.");
+			System.out.println("ItemsOnGroundManager: All items on ground saved.");
 		}
 		System.out.println("Data saved. All players disconnected, " + _shutdownMode.getText().toLowerCase() + ".");
 

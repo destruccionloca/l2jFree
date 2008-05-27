@@ -25,15 +25,15 @@ public class RequestPrivateStoreQuitSell extends L2GameClientPacket
 {
 	private static final String _C__76_REQUESTPRIVATESTOREQUITSELL = "[C] 76 RequestPrivateStoreQuitSell";
 	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreQuitSell.class.getName());
-	
-    @Override
-    protected void readImpl()
-    {
-        // trigger
-    }
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void readImpl()
+	{
+		// trigger
+	}
+
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;

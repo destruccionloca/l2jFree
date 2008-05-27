@@ -26,7 +26,10 @@ import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Skill.SkillType;
+import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  *
@@ -41,7 +44,6 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 	protected Future<?>			_victimSpawnKeyBoxTask	= null;
 
 	protected Future<?>			_changeImmortalTask		= null;
-	protected Future<?>			_changeMortalTask		= null;
 
 	protected Future<?>			_onDeadEventTask		= null;
 
@@ -101,8 +103,6 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		case 18241:
 		case 18242:
 		case 18243:
-			setIsInvul(true);
-
 			if (_changeImmortalTask != null)
 				_changeImmortalTask.cancel(true);
 			_changeImmortalTask = ThreadPoolManager.getInstance().scheduleEffect(new ChangeImmortal(this), 1600);
@@ -232,6 +232,36 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 	}
 
 	@Override
+	public boolean checkSkillCanAffectMyself(L2Skill skill)
+	{
+		if (!isRaid())
+			return true;
+		if(skill.getEffectType() == null)
+		{
+			return checkSkillCanAffectMyself(skill.getSkillType());
+		}
+		else
+		{
+			return checkSkillCanAffectMyself(skill.getEffectType())
+				&& checkSkillCanAffectMyself(skill.getSkillType());
+		}
+	}
+
+	@Override
+	public boolean checkSkillCanAffectMyself(SkillType type)
+	{
+		if (!isRaid())
+			return true;
+		if (type == SkillType.CONFUSION	||	type == SkillType.MUTE		||	type == SkillType.PARALYZE	||
+			type == SkillType.ROOT		||	type == SkillType.FEAR		||	type == SkillType.SLEEP		||
+			type == SkillType.STUN		||	type == SkillType.DEBUFF	||	type == SkillType.AGGDEBUFF
+		)
+			return Rnd.get(1000) == 1;
+		
+		return true;
+	}
+
+	@Override
 	public void deleteMe()
 	{
 		if (_victimSpawnKeyBoxTask != null)
@@ -289,9 +319,9 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		{
 			for (L2PcInstance mem : player.getParty().getPartyMembers())
 			{
-				if (mem.getQuestState(questId).get("<state>") == null)
-					return;
-				if (mem.getInventory().getItemByItemId(oldBrooch) == null)
+				QuestState qs = mem.getQuestState(questId);
+				if(qs != null && (qs.isStarted() || qs.isCompleted()) 
+					&& mem.getInventory().getItemByItemId(oldBrooch) == null)
 				{
 					mem.addItem("Quest", cupId, 1, mem, true);
 				}
@@ -299,9 +329,9 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		}
 		else
 		{
-			if (player.getQuestState(questId).get("<state>") == null)
-				return;
-			if (player.getInventory().getItemByItemId(oldBrooch) == null)
+			QuestState qs = player.getQuestState(questId);
+			if(qs != null && (qs.isStarted() || qs.isCompleted())
+				&& player.getInventory().getItemByItemId(oldBrooch) == null)
 			{
 				player.addItem("Quest", cupId, 1, player, true);
 			}
@@ -310,7 +340,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 
 	private class VictimSpawnKeyBox implements Runnable
 	{
-		L2SepulcherMonsterInstance	_activeChar;
+		private L2SepulcherMonsterInstance _activeChar;
 
 		public VictimSpawnKeyBox(L2SepulcherMonsterInstance activeChar)
 		{
@@ -443,24 +473,8 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 
 		public void run()
 		{
-			L2Skill fp = SkillTable.getInstance().getInfo(4616, 1);
-			L2Effect[] eff = fp.getEffects(activeChar, activeChar);
-
-			int time = 1000; //to avoid accidental bad values
-			if (eff[0] != null)
-				time = eff[0].getTotalTaskTime();
-
-			if (_changeMortalTask != null)
-				_changeMortalTask.cancel(true);
-			_changeMortalTask = ThreadPoolManager.getInstance().scheduleEffect(new ChangeMortal(), time);
-		}
-	}
-
-	private class ChangeMortal implements Runnable
-	{
-		public void run()
-		{
-			setIsInvul(false);
+			L2Skill fp = SkillTable.getInstance().getInfo(4616, 1); // Invulnerable by petrification
+			fp.getEffects(activeChar, activeChar);
 		}
 	}
 }

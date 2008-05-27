@@ -259,11 +259,13 @@ public class AdminEditChar implements IAdminCommandHandler
 						player.setBaseClass(classidval);
 					String newclass = player.getTemplate().getClassName();
 					player.store();
-					player.sendMessage("A GM changed your class to " + newclass);
+					if (player != activeChar)
+						player.sendMessage("A GM changed your class to " + newclass);
 					player.broadcastUserInfo();
-					activeChar.sendMessage(player.getName() + " is a " + newclass);
+					activeChar.sendMessage(player.getName() + " changed to " + newclass);
 				}
-				activeChar.sendMessage("Usage: //setclass <valid_new_classid>");
+				else
+					activeChar.sendMessage("Usage: //setclass <valid_new_classid>");
 			}
 			catch (Exception e)
 			{
@@ -544,19 +546,14 @@ public class AdminEditChar implements IAdminCommandHandler
 	 * @param activeChar
 	 * @param player
 	 */
-	private void gatherCharacterInfo(L2PcInstance activeChar, L2PcInstance player, String filename)
+	public static void gatherCharacterInfo(L2PcInstance activeChar, L2PcInstance player, String filename)
 	{
 		String ip = "N/A";
 		String account = "N/A";
 		try
 		{
-			StringTokenizer clientinfo = new StringTokenizer(player.getClient().toString(), " ]:-[");
-			clientinfo.nextToken();
-			clientinfo.nextToken();
-			clientinfo.nextToken();
-			account = clientinfo.nextToken();
-			clientinfo.nextToken();
-			ip = clientinfo.nextToken();
+			account = player.getAccountName();
+			ip = player.getClient().getConnection().getSocket().getInetAddress().getHostAddress();
 		}
 		catch (Exception e)
 		{
@@ -622,18 +619,13 @@ public class AdminEditChar implements IAdminCommandHandler
 			//Common character information
 			player.sendPacket(new SystemMessage(SystemMessageId.YOUR_KARMA_HAS_BEEN_CHANGED_TO).addString(String.valueOf(newKarma)));
 			//Admin information
-			activeChar.sendMessage("Successfully Changed karma for " + player.getName() + " from (" + oldKarma + ") to (" + newKarma + ").");
-			if (_log.isDebugEnabled())
-				_log.debug("[SET KARMA] [GM]" + activeChar.getName() + " Changed karma for " + player.getName() + " from (" + oldKarma + ") to (" + newKarma
-						+ ").");
+			if (player != activeChar)
+				activeChar.sendMessage("Successfully Changed karma for " + player.getName() + " from (" + oldKarma + ") to (" + newKarma + ").");
 		}
 		else
 		{
 			// tell admin of mistake
 			activeChar.sendMessage("You must enter a value for karma greater than or equal to 0.");
-			if (_log.isDebugEnabled())
-				_log.debug("[SET KARMA] ERROR: [GM]" + activeChar.getName() + " entered an incorrect value for new karma: " + newKarma + " for "
-						+ player.getName() + ".");
 		}
 	}
 

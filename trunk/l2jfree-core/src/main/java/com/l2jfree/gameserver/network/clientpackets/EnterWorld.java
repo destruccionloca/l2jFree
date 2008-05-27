@@ -169,7 +169,7 @@ public class EnterWorld extends L2GameClientPacket
 			else
 				GmListTable.getInstance().addGm(activeChar, true);
 		}
-		if (!activeChar.isGM() && activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED
+		else if(activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED
 				&& activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
 		{
 			if (Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
@@ -397,7 +397,7 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.sendMessage("You have been teleported to the nearest town due to you being in an Olympiad Stadium.");
 		}
 
-		if (DimensionalRiftManager.getInstance().checkIfInRiftZone(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false))
+		if (DimensionalRiftManager.getInstance().checkIfInRiftZone(activeChar.getX(), activeChar.getY(), activeChar.getZ(), true)) // Exclude waiting room
 		{
 			DimensionalRiftManager.getInstance().teleportToWaitingRoom(activeChar);
 		}

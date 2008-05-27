@@ -36,31 +36,31 @@ public class RequestGetItemFromPet extends L2GameClientPacket
 	private int _objectId;
 	private int _amount;
 	@SuppressWarnings("unused")
-    private int _unknown;
-	
-    @Override
-    protected void readImpl()
-    {
-        _objectId = readD();
-        _amount   = readD();
-        _unknown  = readD();// = 0 for most trades
-    }
+	private int _unknown;
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void readImpl()
+	{
+		_objectId = readD();
+		_amount   = readD();
+		_unknown  = readD();// = 0 for most trades
+	}
+
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar(); 
-        if (player == null || !(player.getPet() instanceof L2PetInstance)) return;
-        L2PetInstance pet = (L2PetInstance)player.getPet(); 
+		if (player == null || !(player.getPet() instanceof L2PetInstance)) return;
+		L2PetInstance pet = (L2PetInstance)player.getPet(); 
 
-        if(_amount < 0)
-        {
-        	Util.handleIllegalPlayerAction(player,"[RequestGetItemFromPet] count < 0! ban! oid: "+_objectId+" owner: "+player.getName(),Config.DEFAULT_PUNISH);
-        	return;
-        }
-        else if(_amount == 0)
-        	return;
-        
+		if(_amount < 0)
+		{
+			Util.handleIllegalPlayerAction(player,"[RequestGetItemFromPet] count < 0! ban! oid: "+_objectId+" owner: "+player.getName(),Config.DEFAULT_PUNISH);
+			return;
+		}
+		else if(_amount == 0)
+			return;
+		
 		if (pet.transferItem("Transfer", _objectId, _amount, player.getInventory(), player, pet) == null)
 		{
 			_log.warn("Invalid item transfer request: " + pet.getName() + "(pet) --> " + player.getName());

@@ -57,11 +57,7 @@ public class ExShowSeedSetting extends L2GameServerPacket
 	private int _manorId;
 	private int _count;
 	private int[] _seedData; // data to send, size:_count*12
-	
-	@Override
-	public void runImpl() {
-	}
-	
+
 	public ExShowSeedSetting(int manorId)
 	{
 		_manorId = manorId;

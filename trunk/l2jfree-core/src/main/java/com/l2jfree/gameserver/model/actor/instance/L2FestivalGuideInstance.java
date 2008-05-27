@@ -146,7 +146,7 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
         }
         else if (command.startsWith("Festival"))
         {
-            L2Party playerParty = player.getParty();     
+            L2Party playerParty = player.getParty();
             int val = Integer.parseInt(command.substring(9, 10));
             
             switch (val)
@@ -382,11 +382,11 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
                     
                     if (playerParty.getMemberCount() > Config.ALT_FESTIVAL_MIN_PLAYER)
                     {
-                    	SevenSignsFestival.getInstance().updateParticipants(player, playerParty);
-                    	playerParty.removePartyMember(player);
+                        SevenSignsFestival.getInstance().updateParticipants(player, playerParty);
+                        playerParty.removePartyMember(player);
                     }
                     else
-                    player.sendMessage("Only partyleader can leave festival, if minmum party member is reached.");
+                        player.sendMessage("Only partyleader can leave festival if minimum party member count is reached.");
                     break;
                 case 0: // Distribute Accumulated Bonus
                     if (!SevenSigns.getInstance().isSealValidationPeriod())
@@ -429,14 +429,14 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
         
         // If the stats or bonus table is required, construct them.
         if (val == 5) html.replace("%statsTable%", getStatsTable());
-        if (val == 6) html.replace("%bonusTable%", getBonusTable());
-	
-	//festival's fee
-	if (val == 1)
+        else if (val == 6) html.replace("%bonusTable%", getBonusTable());
+
+        //festival's fee
+        else if (val == 1)
         {
-    		html.replace("%blueStoneNeeded%",String.valueOf(_blueStonesNeeded));
-    		html.replace("%greenStoneNeeded%",String.valueOf(_greenStonesNeeded));
-    		html.replace("%redStoneNeeded%",String.valueOf(_redStonesNeeded));
+            html.replace("%blueStoneNeeded%",String.valueOf(_blueStonesNeeded));
+            html.replace("%greenStoneNeeded%",String.valueOf(_greenStonesNeeded));
+            html.replace("%redStoneNeeded%",String.valueOf(_redStonesNeeded));
         }
         
         player.sendPacket(html);

@@ -95,6 +95,8 @@ public class Loc implements IUserCommandHandler
 					activeChar.sendMessage("Restart at the Town of Schuttgart.");
 				else if (SystemMessageId.LOC_PRIMEVAL_ISLE_S1_S2_S3.getId() == restart.getLocName())
 					activeChar.sendMessage("Restart at the Primeval Isle.");
+				else if (SystemMessageId.LOC_KAMAEL_VILLAGE_S1_S2_S3.getId() == restart.getLocName())
+					activeChar.sendMessage("Restart at Kamael Village.");
 			}
 		}
 

@@ -61,9 +61,6 @@ public class ExShowProcureCropDetail extends L2GameServerPacket
 	}
 
 	@Override
-	public void runImpl() {}
-
-	@Override
 	public void writeImpl()
 	{
 		writeC(0xFE);

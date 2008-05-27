@@ -70,6 +70,7 @@ import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
+import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
 import com.l2jfree.gameserver.handler.skillhandlers.TakeCastle;
 import com.l2jfree.gameserver.handler.skillhandlers.TakeFort;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
@@ -2109,11 +2110,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		broadcastPacket(msu);
 
 		// Update class icon in party and clan
-		if (isInParty())
-			getParty().broadcastToPartyMembers(new PartySmallWindowUpdate(this));
-
-		if (getClan() != null)
-			getClan().broadcastToOnlineMembers(new PledgeShowMemberListUpdate(this));
+		broadcastClassIcon();
 	}
 
 	public void checkIfWeaponIsAllowed()
@@ -3669,6 +3666,26 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	@Override
+	public void onActionShift(L2PcInstance gm)
+	{
+		gm.sendPacket(ActionFailed.STATIC_PACKET);
+		if (gm.isGM())
+		{
+			if (this != gm.getTarget())
+			{
+				gm.setTarget(this);
+				gm.sendPacket(new MyTargetSelected(getObjectId(), 0));
+				if (gm != this)
+					gm.sendPacket(new ValidateLocation(this));
+			}
+			else
+			{
+				AdminEditChar.gatherCharacterInfo(gm, this, "charinfo.htm");
+			}
+		}
+	}
+
+	@Override
 	public boolean isInFunEvent()
 	{
 		return (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP));
@@ -4787,7 +4804,9 @@ public final class L2PcInstance extends L2PlayableInstance
 				character.abortCast();
 
 		if (isInParty() && getParty().isInDimensionalRift())
-			getParty().getDimensionalRift().getDeadMemberList().add(this);
+		{
+			getParty().getDimensionalRift().memberDead(this);
+		}
 
 		// calculate death penalty buff
 		calculateDeathPenaltyBuffLevel(killer);
@@ -5103,9 +5122,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
 			return;
 
-		int baseKarma = Config.KARMA_MIN_KARMA;
+		int baseKarma = (int)(Config.KARMA_MIN_KARMA * Config.KARMA_RATE);
 		int newKarma = baseKarma;
-		int karmaLimit = Config.KARMA_MAX_KARMA;
+		int karmaLimit = (int)(Config.KARMA_MAX_KARMA * Config.KARMA_RATE);
 
 		int pkLVL = getLevel();
 		int pkPKCount = getPkKills();
@@ -5130,8 +5149,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			lvlDiffMulti = 1;
 
 		// Calculate the new Karma of the attacker : newKarma = baseKarma*pkCountMulti*lvlDiffMulti
-		newKarma *= pkCountMulti;
-		newKarma *= lvlDiffMulti;
+		newKarma = (int)(newKarma * pkCountMulti * lvlDiffMulti * Config.KARMA_RATE);
 
 		// Make sure newKarma is less than karmaLimit and higher than baseKarma
 		if (newKarma < baseKarma)
@@ -5295,12 +5313,12 @@ public final class L2PcInstance extends L2PlayableInstance
 				lostExp = Math.round((getStat().getExpForLevel(lvl + 1) - getStat().getExpForLevel(lvl)) * percentLost / 100);
 			else
 				lostExp = Math.round((getStat().getExpForLevel(Experience.MAX_LEVEL) - getStat().getExpForLevel(Experience.MAX_LEVEL - 1)) * percentLost / 100);
+			if (byPc)
+				lostExp = (long) calcStat(Stats.LOST_EXP_PVP, lostExp, null, null);
+			else
+				lostExp = (long) calcStat(Stats.LOST_EXP, lostExp, null, null);
 		}
 
-		if (byPc)
-			lostExp = (long) calcStat(Stats.LOST_EXP_PVP, lostExp, null, null);
-		else
-			lostExp = (long) calcStat(Stats.LOST_EXP, lostExp, null, null);
 
 		// Get the Experience before applying penalty
 		setExpBeforeDeath(getExp());
@@ -5368,25 +5386,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	public boolean isPartyMatchingShowLevel()
 	{
 		return _partyMatchingShowLevel;
-	}
-
-	/**
-	 * Manage the increase level task of a L2PcInstance (Max MP, Max MP, Recommandation, Expertise and beginner skills...).<BR><BR>
-	 *
-	 * <B><U> Actions</U> :</B><BR><BR>
-	 * <li>Send a Server->Client System Message to the L2PcInstance : YOU_INCREASED_YOUR_LEVEL </li>
-	 * <li>Send a Server->Client packet StatusUpdate to the L2PcInstance with new LEVEL, MAX_HP and MAX_MP </li>
-	 * <li>Set the current HP and MP of the L2PcInstance, Launch/Stop a HP/MP/CP Regeneration Task and send StatusUpdate packet to all other L2PcInstance to inform (exclusive broadcast)</li>
-	 * <li>Recalculate the party level</li>
-	 * <li>Recalculate the number of Recommandation that the L2PcInstance can give</li>
-	 * <li>Give Expertise skill of this level and remove beginner Lucky skill</li><BR><BR>
-	 *
-	 */
-	public void increaseLevel()
-	{
-		// Set the current HP and MP of the L2Character, Launch/Stop a HP/MP/CP Regeneration Task and send StatusUpdate packet to all other L2PcInstance to inform (exclusive broadcast)
-		getStatus().setCurrentHpMp(getMaxHp(), getMaxMp());
-		getStatus().setCurrentCp(getMaxCp());
 	}
 
 	/**
@@ -7910,6 +7909,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (getParty() != null && getParty().getPartyMembers().contains(attacker))
 			return false;
 
+		if (isCursedWeaponEquipped())
+			return true;
+
 		// Check if the attacker is in olympia and olympia start
 		if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).isInOlympiadMode())
 		{
@@ -7939,6 +7941,10 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			// Check if the L2PcInstance is in an arena or a siege area
 			if (isInsideZone(L2Zone.FLAG_PVP) && ((L2PcInstance) attacker).isInsideZone(L2Zone.FLAG_PVP))
+				return true;
+
+			// Check if the L2PcInstance holds a cursed weapon
+			if (((L2PcInstance)attacker).isCursedWeaponEquipped())
 				return true;
 
 			if (getClan() != null)
@@ -9063,6 +9069,49 @@ public final class L2PcInstance extends L2PlayableInstance
 		broadcastPacket(new CharInfo(this));
 	}
 
+	public void updateNameTitleColor()
+	{
+		if (isGM())
+		{
+			if (Config.GM_NAME_COLOR_ENABLED)
+			{
+				if (getAccessLevel() >= 100)
+					getAppearance().setNameColor(Config.ADMIN_NAME_COLOR);
+				else if (getAccessLevel() >= 75)
+					getAppearance().setNameColor(Config.GM_NAME_COLOR);
+			}
+			else
+			{
+				getAppearance().setNameColor(0xFFFFFF);
+			}
+			if (Config.GM_TITLE_COLOR_ENABLED)
+			{
+				if (getAccessLevel() >= 100)
+					getAppearance().setTitleColor(Config.ADMIN_TITLE_COLOR);
+				else if (getAccessLevel() >= 75)
+					getAppearance().setTitleColor(Config.GM_TITLE_COLOR);
+			}
+			else
+			{
+				getAppearance().setTitleColor(0xFFFF77);
+			}
+		}
+		else if (getClan() != null && isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED
+				&& getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
+		{
+			if (Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
+				getAppearance().setNameColor(Config.CLAN_LEADER_COLOR);
+			else
+				getAppearance().setTitleColor(Config.CLAN_LEADER_COLOR);
+		}
+		else
+		{
+			getAppearance().setNameColor(0xFFFFFF);
+			getAppearance().setTitleColor(0xFFFF77);
+		}
+		broadcastUserInfo();
+	}
+
 	public void setOlympiadSide(int i)
 	{
 		_olympiadSide = i;
@@ -10028,10 +10077,19 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		broadcastPacket(new SocialAction(getObjectId(), 15));
 
-		//decayMe();
-		//spawnMe(getX(), getY(), getZ());
+		broadcastClassIcon();
 
 		return true;
+	}
+
+	public void broadcastClassIcon()
+	{
+		// Update class icon in party and clan
+		if (isInParty())
+			getParty().broadcastToPartyMembers(new PartySmallWindowUpdate(this));
+
+		if (getClan() != null)
+			getClan().broadcastToOnlineMembers(new PledgeShowMemberListUpdate(this));
 	}
 
 	public void stopWarnUserTakeBreak()
@@ -10086,7 +10144,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			_taskWater.cancel(false);
 
 			_taskWater = null;
-			sendPacket(new SetupGauge(2, 0));
+			sendPacket(new SetupGauge(SetupGauge.CYAN, 0));
 			// Added to sync fall when swimming stops: 
 			// (e.g. catacombs players swim down and then they fell when they got out of the water).
 			isFalling(false, 0);
@@ -12037,7 +12095,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * @param skill
 	 * @param target
 	 */
-	public void absorbSoulFromNpc(L2Skill skill, L2NpcInstance target)
+	public void absorbSoulFromNpc(L2Skill skill, L2Character target)
 	{
 		if (_souls >= skill.getNumSouls())
 		{
@@ -12393,11 +12451,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setForceBuff(ForceBuff fb)
 	{
 		_forceBuff = fb;
-	}
-
-	public Map<Integer, L2Skill> returnSkills()
-	{
-		return _skills;
 	}
 
 	public boolean isKamaelic()

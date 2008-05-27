@@ -46,8 +46,7 @@ public class L2MonsterInstance extends L2Attackable
     protected ScheduledFuture<?> _minionMaintainTask = null;
     
     private static final int MONSTER_MAINTENANCE_INTERVAL = 1000;
-    // [L2J_JP ADD SANDMAN]
-    //private ScheduledFuture<?> _hideTask;
+
     
     /**
      * Constructor of L2MonsterInstance (use L2Character and L2NpcInstance constructor).<BR><BR>
@@ -107,18 +106,6 @@ public class L2MonsterInstance extends L2Attackable
     {
         super.onSpawn();
 
-        // [L2J_JP ADD SANDMAN]
-        // in Restless Forest
-        // They are repeat themselves it visible or invisible.
-        /*switch (getNpcId())
-        {
-            case 21548:
-            case 21551:
-            case 21552:
-                _hideTask = ThreadPoolManager.getInstance().scheduleEffect(new doHide(this), (getSpawn().getRespawnDelay()));
-                break;
-        }*/
-        
         if (getTemplate().getMinionData() != null)
         {
             try
@@ -267,10 +254,6 @@ public class L2MonsterInstance extends L2Attackable
     @Override
     public void deleteMe()
     {
-        // [L2J_JP ADD SANDMAN]
-        //if(_hideTask != null)
-           // _hideTask.cancel(true);
-    	
         if (hasMinions())
         {
             if (_minionMaintainTask != null)
@@ -293,54 +276,4 @@ public class L2MonsterInstance extends L2Attackable
         }
        _minionList.clearRespawnList();
     }
-    // [L2J_JP ADD SANDMAN START]
-    /*public void hideMe()
-    {
-        if(hasMinions())
-        {
-            if (_minionMaintainTask != null)
-                _minionMaintainTask.cancel(true);
-
-            deleteSpawnedMinions();
-        }
-        super.deleteMe();
-    }
-    
-    public void shownMe()
-    {
-        if(!isDead())
-            spawnMe();
-    }
-    
-    private class doHide implements Runnable
-    {
-        private L2MonsterInstance _me;
-        
-        public doHide(L2MonsterInstance actor)
-        {
-            _me = actor;
-        }
-        
-        public void run()
-        {
-            _me.hideMe();
-            ThreadPoolManager.getInstance().scheduleGeneral(new doShown(_me),_me.getSpawn().getRespawnDelay());
-        }
-    }
-    
-    private class doShown implements Runnable
-    {
-        private L2MonsterInstance _me;
-        
-        public doShown(L2MonsterInstance actor)
-        {
-            _me = actor;
-        }
-        
-        public void run()
-        {
-            if(_me.getSpawn().IsRespawnable())
-                _me.shownMe();
-        }
-    }*/
 }

@@ -91,6 +91,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
         L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);
         if (skill == null)
         {
+            player.sendMessage("This skill enchant is not available.");
             return;
         }
         
@@ -110,11 +111,13 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
         L2EnchantSkillLearn s = SkillTreeTable.getInstance().getSkillEnchantmentBySkillId(_skillId);
         if (s == null)
         {
+            player.sendMessage("This skill enchant is not available.");
             return;
         }
         EnchantSkillDetail esd = s.getEnchantSkillDetail(_skillLvl);
         if (player.getSkillLevel(_skillId) != esd.getMinSkillLevel())
         {
+            player.sendMessage("This skill enchant is not available.");
             return;
         }
         
@@ -173,7 +176,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
                 {
                     player.addSkill(SkillTable.getInstance().getInfo(_skillId, s.getBaseLevel()), true);
                     player.sendSkillList(); 
-                    player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_FAILED_TO_ENCHANT_THE_SKILL_S1));
+                    player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_FAILED_TO_ENCHANT_THE_SKILL_S1).addSkillName(_skillId));
                 }
                 trainer.showEnchantSkillList(player, false);
                 

@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 
@@ -141,8 +142,11 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 			L2PcInstance player = L2World.getInstance().getPlayer(playerName);
 			if (player != null)
 			{
-				player.sendMessage("You are getting kicked out by a GM.");
-				player.logout();
+				player.sendMessage("You are kicked out by a GM.");
+				L2GameClient client = player.getClient();
+				client.setActiveChar(null);
+				L2GameClient.saveCharToDisk(player, true); // Store character
+				player.deleteMe();
 				return 1;
 			}
 			return 2;

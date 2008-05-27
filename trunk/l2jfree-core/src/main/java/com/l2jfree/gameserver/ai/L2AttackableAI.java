@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.Territory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
+import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager.DimensionalRiftRoom;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Boss;
 import com.l2jfree.gameserver.model.L2CharPosition;
@@ -743,9 +744,12 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 								byte riftType = originalAttackTarget.getParty().getDimensionalRift().getType();
 								byte riftRoom = originalAttackTarget.getParty().getDimensionalRift().getCurrentRoom();
 
-								if (_actor instanceof L2RiftInvaderInstance
-										&& !DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(npc.getX(), npc.getY(), npc.getZ()))
-									continue;
+								if (_actor instanceof L2RiftInvaderInstance)
+								{
+									DimensionalRiftRoom room = DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom);
+									if (room != null && !room.checkIfInZone(npc.getX(), npc.getY(), npc.getZ()))
+										continue;
+								}
 							}
 
 							// TODO: notifyEvent ought to be removed from here and added in the AI script, when implemented (Fulminus)

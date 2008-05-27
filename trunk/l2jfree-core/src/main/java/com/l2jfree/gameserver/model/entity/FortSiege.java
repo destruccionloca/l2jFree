@@ -88,22 +88,22 @@ public class FortSiege
 				}
 				else if ((timeRemaining <= 3600000) && (timeRemaining > 600000))
 				{
-					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " siege conclusion.", true);
+					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " fortress siege conclusion.", true);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_fortInst), timeRemaining - 600000); // Prepare task for 10 minute left.
 				}
 				else if ((timeRemaining <= 600000) && (timeRemaining > 300000))
 				{
-					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " siege conclusion.", true);
+					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " fortress siege conclusion.", true);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_fortInst), timeRemaining - 300000); // Prepare task for 5 minute left.
 				}
 				else if ((timeRemaining <= 300000) && (timeRemaining > 10000))
 				{
-					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " siege conclusion.", true);
+					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " fortress siege conclusion.", true);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_fortInst), timeRemaining - 10000); // Prepare task for 10 seconds count down
 				}
 				else if ((timeRemaining <= 10000) && (timeRemaining > 0))
 				{
-					announceToPlayer(getFort().getName() + " siege " + Math.round(timeRemaining / 1000) + " second(s) left!", true);
+					announceToPlayer(getFort().getName() + " fortress siege " + Math.round(timeRemaining / 1000) + " second(s) left!", true);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_fortInst), timeRemaining); // Prepare task for second count down
 				}
 				else
@@ -145,24 +145,24 @@ public class FortSiege
 				}
 				else if ((timeRemaining <= 13600000) && (timeRemaining > 600000))
 				{
-					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " siege begin.", false);
+					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " fortress siege begin.", false);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_fortInst), timeRemaining - 600000); // Prepare task for 10 minute left.
 				}
 				else if ((timeRemaining <= 600000) && (timeRemaining > 300000))
 				{
-					announceToPlayer("The registration term for " + getFort().getName() + " has ended.", false);
+					announceToPlayer("The registration term for " + getFort().getName() + " fortress has ended.", false);
 					_isRegistrationOver = true;
 					clearSiegeWaitingClan();
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_fortInst), timeRemaining - 300000); // Prepare task for 5 minute left.
 				}
 				else if ((timeRemaining <= 300000) && (timeRemaining > 10000))
 				{
-					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " siege begin.", false);
+					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " fortress siege begin.", false);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_fortInst), timeRemaining - 10000); // Prepare task for 10 seconds count down
 				}
 				else if ((timeRemaining <= 10000) && (timeRemaining > 0))
 				{
-					announceToPlayer(getFort().getName() + " siege " + Math.round(timeRemaining / 1000) + " second(s) to start!", false);
+					announceToPlayer(getFort().getName() + " fortress siege " + Math.round(timeRemaining / 1000) + " second(s) to start!", false);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_fortInst), timeRemaining); // Prepare task for second count down
 				}
 				else
@@ -217,10 +217,10 @@ public class FortSiege
 	{
 		if (getIsInProgress())
 		{
-			announceToPlayer("The siege of " + getFort().getName() + " has finished!", false);
+			announceToPlayer("The siege of " + getFort().getName() + " fortress has finished!", false);
 
 			if (getFort().getOwnerId() <= 0)
-				announceToPlayer("The siege of " + getFort().getName() + " has ended in a draw.", false);
+				announceToPlayer("The siege of " + getFort().getName() + " fortress has ended in a draw.", false);
 
 			removeFlags(); // Removes all flags. Note: Remove flag before teleporting players
 			unSpawnFlags();
@@ -336,7 +336,7 @@ public class FortSiege
 			_siegeEndDate.add(Calendar.MINUTE, FortSiegeManager.getInstance().getSiegeLength());
 			ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(getFort()), 1000); // Prepare auto end task
 
-			announceToPlayer("The siege of " + getFort().getName() + " has started!", false);
+			announceToPlayer("The siege of " + getFort().getName() + " fortress has started!", false);
 			saveFortSiege();
 		}
 	}
@@ -500,7 +500,7 @@ public class FortSiege
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("DELETE FROM fortsiege_clans WHERE fort_id=? and type = 2");
+			PreparedStatement statement = con.prepareStatement("DELETE FROM fortsiege_clans WHERE fort_id=? AND type = 2");
 			statement.setInt(1, getFort().getFortId());
 			statement.execute();
 			statement.close();
@@ -713,7 +713,7 @@ public class FortSiege
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement;
 			if (clanId != 0)
-				statement = con.prepareStatement("DELETE FROM fortsiege_clans WHERE fort_id=? and clan_id=?");
+				statement = con.prepareStatement("DELETE FROM fortsiege_clans WHERE fort_id=? AND clan_id=?");
 			else
 				statement = con.prepareStatement("DELETE FROM fortsiege_clans WHERE fort_id=?");
 
@@ -784,7 +784,7 @@ public class FortSiege
 	{
 		if (setTime)
 			setSiegeDateTime();
-		_log.info("Siege of " + getFort().getName() + ": " + getFort().getSiegeDate().getTime());
+		_log.info("Siege of " + getFort().getName() + " fortress: " + getFort().getSiegeDate().getTime());
 		setIsScheduled(true);
 		loadSiegeClan();
 		// Schedule registration end
@@ -874,7 +874,7 @@ public class FortSiege
 	private boolean checkIfCanRegister(L2PcInstance player)
 	{
 		if (getIsRegistrationOver())
-			player.sendMessage("The deadline to register for the siege of " + getFort().getName() + " has passed.");
+			player.sendMessage("The deadline to register for the siege of " + getFort().getName() + " fortress has passed.");
 		else if (getIsInProgress())
 			player.sendMessage("This is not the time for siege registration and so registration and cancellation cannot be done.");
 		else if (player.getClan() == null || player.getClan().getLevel() < FortSiegeManager.getInstance().getSiegeClanMinLevel())
@@ -943,7 +943,7 @@ public class FortSiege
 
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 
-			statement = con.prepareStatement("SELECT clan_id,type FROM fortsiege_clans where fort_id=?");
+			statement = con.prepareStatement("SELECT clan_id,type FROM fortsiege_clans WHERE fort_id=?");
 			statement.setInt(1, getFort().getFortId());
 			rs = statement.executeQuery();
 
@@ -1023,7 +1023,7 @@ public class FortSiege
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("Update fort set siegeDate = ? where id = ?");
+			PreparedStatement statement = con.prepareStatement("UPDATE fort SET siegeDate = ? WHERE id = ?");
 			statement.setLong(1, getSiegeDate().getTimeInMillis());
 			statement.setInt(2, getFort().getFortId());
 			statement.execute();
@@ -1074,7 +1074,7 @@ public class FortSiege
 			PreparedStatement statement;
 			if (!isUpdateRegistration)
 			{
-				statement = con.prepareStatement("INSERT INTO fortsiege_clans (clan_id,fort_id,type,fort_owner) values (?,?,?,0)");
+				statement = con.prepareStatement("INSERT INTO fortsiege_clans (clan_id,fort_id,type,fort_owner) VALUES (?,?,?,0)");
 				statement.setInt(1, clan.getClanId());
 				statement.setInt(2, getFort().getFortId());
 				statement.setInt(3, typeId);
@@ -1083,7 +1083,7 @@ public class FortSiege
 			}
 			else
 			{
-				statement = con.prepareStatement("Update fortsiege_clans set type = ? where fort_id = ? and clan_id = ?");
+				statement = con.prepareStatement("UPDATE fortsiege_clans SET type = ? WHERE fort_id = ? AND clan_id = ?");
 				statement.setInt(1, typeId);
 				statement.setInt(2, getFort().getFortId());
 				statement.setInt(3, clan.getClanId());
@@ -1094,17 +1094,17 @@ public class FortSiege
 			if (typeId == 0 || typeId == -1)
 			{
 				addDefender(clan.getClanId());
-				announceToPlayer(clan.getName() + " has been registered to defend " + getFort().getName(), false);
+				announceToPlayer(clan.getName() + " has been registered to defend " + getFort().getName() + " fortress!", false);
 			}
 			else if (typeId == 1)
 			{
 				addAttacker(clan.getClanId());
-				announceToPlayer(clan.getName() + " has been registered to attack " + getFort().getName(), false);
+				announceToPlayer(clan.getName() + " has been registered to attack " + getFort().getName() + " fortress!", false);
 			}
 			else if (typeId == 2)
 			{
 				addDefenderWaiting(clan.getClanId());
-				announceToPlayer(clan.getName() + " has requested to defend " + getFort().getName(), false);
+				announceToPlayer(clan.getName() + " has requested to defend " + getFort().getName() + " fortress!", false);
 			}
 		}
 		catch (Exception e)

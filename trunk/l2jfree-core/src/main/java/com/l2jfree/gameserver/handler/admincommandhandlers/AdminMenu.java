@@ -50,8 +50,11 @@ public class AdminMenu implements IAdminCommandHandler
 													{
 			"admin_char_manage",
 			"admin_teleport_character_to_menu",
+			"admin_recall_char",
 			"admin_recall_char_menu",
+			"admin_recall_party",
 			"admin_recall_party_menu",
+			"admin_recall_clan",
 			"admin_recall_clan_menu",
 			"admin_goto_char_menu",
 			"admin_kick_menu",
@@ -65,6 +68,9 @@ public class AdminMenu implements IAdminCommandHandler
 		if (!Config.ALT_PRIVILEGES_ADMIN)
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
+
+		StringTokenizer st = new StringTokenizer(command);
+		st.nextToken();
 
 		if (command.equals("admin_char_manage"))
 			showMainPage(activeChar);
@@ -81,24 +87,24 @@ public class AdminMenu implements IAdminCommandHandler
 			}
 			showMainPage(activeChar);
 		}
-		else if (command.startsWith("admin_recall_char_menu"))
+		else if (command.startsWith("admin_recall_char"))
 		{
 			try
 			{
-				String targetName = command.substring(23);
+				String targetName = st.nextToken();
 				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
 				teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar, "Admin is teleporting you.");
 			}
-			catch (StringIndexOutOfBoundsException e)
+			catch (Exception e)
 			{
 			}
 		}
-		else if (command.startsWith("admin_recall_party_menu"))
+		else if (command.startsWith("admin_recall_party"))
 		{
 			int x = activeChar.getX(), y = activeChar.getY(), z = activeChar.getZ();
 			try
 			{
-				String targetName = command.substring(24);
+				String targetName = st.nextToken();
 				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
 				if (player == null)
 				{
@@ -118,12 +124,12 @@ public class AdminMenu implements IAdminCommandHandler
 			{
 			}
 		}
-		else if (command.startsWith("admin_recall_clan_menu"))
+		else if (command.startsWith("admin_recall_clan"))
 		{
 			int x = activeChar.getX(), y = activeChar.getY(), z = activeChar.getZ();
 			try
 			{
-				String targetName = command.substring(23);
+				String targetName = st.nextToken();
 				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
 				if (player == null)
 				{
@@ -149,11 +155,11 @@ public class AdminMenu implements IAdminCommandHandler
 		{
 			try
 			{
-				String targetName = command.substring(21);
+				String targetName = st.nextToken();
 				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
 				teleportToCharacter(activeChar, player);
 			}
-			catch (StringIndexOutOfBoundsException e)
+			catch (Exception e)
 			{
 				activeChar.sendMessage("Target not found.");
 				showMainPage(activeChar);
@@ -165,10 +171,8 @@ public class AdminMenu implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_kick_menu"))
 		{
-			StringTokenizer st = new StringTokenizer(command);
-			if (st.countTokens() > 1)
+			if (st.hasMoreTokens())
 			{
-				st.nextToken();
 				String player = st.nextToken();
 				L2PcInstance plyr = L2World.getInstance().getPlayer(player);
 				if (plyr != null)
@@ -183,10 +187,8 @@ public class AdminMenu implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_ban_menu"))
 		{
-			StringTokenizer st = new StringTokenizer(command);
-			if (st.countTokens() > 1)
+			if (st.hasMoreTokens())
 			{
-				st.nextToken();
 				String player = st.nextToken();
 				L2PcInstance plyr = L2World.getInstance().getPlayer(player);
 				if (plyr != null)
@@ -199,10 +201,8 @@ public class AdminMenu implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_unban_menu"))
 		{
-			StringTokenizer st = new StringTokenizer(command);
-			if (st.countTokens() > 1)
+			if (st.hasMoreTokens())
 			{
-				st.nextToken();
 				String player = st.nextToken();
 				setAccountAccessLevel(player, activeChar, 0);
 			}
@@ -279,7 +279,7 @@ public class AdminMenu implements IAdminCommandHandler
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;
 		}
-		if (player.getObjectId() == activeChar.getObjectId())
+		if (player == activeChar)
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ON_YOURSELF));
 		else
 		{

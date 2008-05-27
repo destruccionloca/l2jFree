@@ -19,12 +19,13 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
-public class RequestEvaluate extends L2GameClientPacket {
-	private static final String _C__B9_REQUESTEVALUATE = "[C] B9 RequestEvaluate";
+public class RequestEvaluate extends L2GameClientPacket
+{
+    private static final String _C__B9_REQUESTEVALUATE = "[C] B9 RequestEvaluate";
 
-	//private final static Log _log = LogFactory.getLog(RequestEvaluate.class.getName());
+    //private final static Log _log = LogFactory.getLog(RequestEvaluate.class.getName());
 
-	@SuppressWarnings("unused")
+    @SuppressWarnings("unused")
     private int _targetId;
 
     @Override
@@ -35,12 +36,12 @@ public class RequestEvaluate extends L2GameClientPacket {
 
     @Override
     protected void runImpl()
-	{
-		SystemMessage sm;
-		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-		    return;
-		
+    {
+        SystemMessage sm;
+        L2PcInstance activeChar = getClient().getActiveChar();
+        if (activeChar == null)
+            return;
+        
         
         if (!(activeChar.getTarget() instanceof L2PcInstance))
         {
@@ -89,25 +90,25 @@ public class RequestEvaluate extends L2GameClientPacket {
         
         activeChar.giveRecom(target);
 
-		sm = new SystemMessage(SystemMessageId.YOU_HAVE_RECOMMENDED);
-		sm.addString(target.getName());
+        sm = new SystemMessage(SystemMessageId.YOU_HAVE_RECOMMENDED);
+        sm.addString(target.getName());
         sm.addNumber(activeChar.getRecomLeft());
-		activeChar.sendPacket(sm);
+        activeChar.sendPacket(sm);
         
-		sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_RECOMMENDED);
-		sm.addString(activeChar.getName());
-		target.sendPacket(sm);
-		
+        sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_RECOMMENDED);
+        sm.addString(activeChar.getName());
+        target.sendPacket(sm);
+        
         activeChar.sendPacket(new UserInfo(activeChar));
-		target.broadcastUserInfo();
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
-	@Override
-	public String getType()
-	{
-		return _C__B9_REQUESTEVALUATE;
-	}
+        target.broadcastUserInfo();
+    }
+    
+    /* (non-Javadoc)
+     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
+     */
+    @Override
+    public String getType()
+    {
+        return _C__B9_REQUESTEVALUATE;
+    }
 }

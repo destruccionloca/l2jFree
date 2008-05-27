@@ -1059,13 +1059,10 @@ public class VanHalterManager extends BossLair
 		spawnGuardOfAltar();
 		openDoorOfSacrifice();
 
-		for (L2NpcInstance goa : _guardOfAltar)
+		CreatureSay cs = new CreatureSay(0, 1, "Altar's Gatekeeper", "The door of the 3rd floor in the altar was opened.");
+		for (L2PcInstance pc : getPlayersInside())
 		{
-			CreatureSay cs = new CreatureSay(goa.getObjectId(), 1, goa.getName(), "The door of the 3rd floor in the altar was opened.");
-			for (L2PcInstance pc : getPlayersInside())
-			{
-				pc.sendPacket(cs);
-			}
+			pc.sendPacket(cs);
 		}
 
 		_vanHalter.setIsImmobilized(true);

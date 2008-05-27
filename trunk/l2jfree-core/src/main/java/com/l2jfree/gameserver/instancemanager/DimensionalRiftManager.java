@@ -43,6 +43,7 @@ import com.l2jfree.gameserver.model.entity.DimensionalRift;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 
@@ -56,6 +57,7 @@ public class DimensionalRiftManager
 	private static DimensionalRiftManager						_instance;
 	private FastMap<Byte, FastMap<Byte, DimensionalRiftRoom>>	_rooms							= new FastMap<Byte, FastMap<Byte, DimensionalRiftRoom>>();
 	private final short											DIMENSIONAL_FRAGMENT_ITEM_ID	= 7079;
+	private final static int									MAX_PARTY_PER_AREA				= 3;
 
 	public static DimensionalRiftManager getInstance()
 	{
@@ -76,6 +78,26 @@ public class DimensionalRiftManager
 	public DimensionalRiftRoom getRoom(byte type, byte room)
 	{
 		return _rooms.get(type) == null ? null : _rooms.get(type).get(room);
+	}
+
+	public boolean isAreaAvailable(byte area)
+	{
+		FastMap<Byte, DimensionalRiftRoom> tmap = _rooms.get(area);
+		if (tmap == null) return false;
+		int used = 0;
+		for (DimensionalRiftRoom room : tmap.values())
+		{
+			if (room.isUsed())
+				used++;
+		}
+		return used <= MAX_PARTY_PER_AREA;
+	}
+
+	public boolean isRoomAvailable(byte area, byte room)
+	{
+		if (_rooms.get(area) == null || _rooms.get(area).get(room) == null)
+			return false;
+		return !_rooms.get(area).get(room).isUsed();
 	}
 
 	public void load()
@@ -232,12 +254,12 @@ public class DimensionalRiftManager
 		load();
 	}
 
-	public boolean checkIfInRiftZone(int x, int y, int z, boolean ignorePeaceZone)
+	public boolean checkIfInRiftZone(int x, int y, int z, boolean excludePeaceZone)
 	{
-		if (ignorePeaceZone)
-			return _rooms.get((byte) 0).get((byte) 1).checkIfInZone(x, y, z);
-		else
+		if (excludePeaceZone)
 			return _rooms.get((byte) 0).get((byte) 1).checkIfInZone(x, y, z) && !_rooms.get((byte) 0).get((byte) 0).checkIfInZone(x, y, z);
+		else
+			return _rooms.get((byte) 0).get((byte) 1).checkIfInZone(x, y, z);
 	}
 
 	public boolean checkIfInPeaceZone(int x, int y, int z)
@@ -367,6 +389,7 @@ public class DimensionalRiftManager
 		private final boolean					_isBossRoom;
 		private final FastList<L2Spawn>			_roomSpawns;
 		protected final FastList<L2NpcInstance>	_roomMobs;
+		private boolean							_isUsed = false;
 
 		public DimensionalRiftRoom(byte type, byte room, int xMin, int xMax, int yMin, int yMax, int zMin, int zMax, int xT, int yT, int zT, boolean isBossRoom)
 		{
@@ -435,6 +458,17 @@ public class DimensionalRiftManager
 				if (spawn.getLastSpawn() != null)
 					spawn.getLastSpawn().deleteMe();
 			}
+			_isUsed = false;
+		}
+
+		public void setUsed()
+		{
+			_isUsed = true;
+		}
+
+		public boolean isUsed()
+		{
+			return _isUsed;
 		}
 	}
 
@@ -473,7 +507,7 @@ public class DimensionalRiftManager
 		if (!player.isGM())
 		{
 			_log.warn("Player " + player.getName() + "(" + player.getObjectId() + ") was cheating in dimension rift area!");
-			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " tried to cheat in dimensional rift.", Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(player, "Warning! Character " + player.getName() + " tried to cheat in dimensional rift.", Config.DEFAULT_PUNISH);
 		}
 	}
 }

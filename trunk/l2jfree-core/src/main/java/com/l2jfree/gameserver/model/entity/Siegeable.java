@@ -75,7 +75,7 @@ public class Siegeable extends Entity
 	@Override
 	public boolean checkBanish(L2PcInstance cha)
 	{
-		return cha.getClanId() != getOwnerId();
+		return cha.getClanId() != getOwnerId() && !cha.isGM();
 	}
 
 	/**

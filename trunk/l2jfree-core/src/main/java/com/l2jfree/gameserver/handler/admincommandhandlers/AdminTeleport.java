@@ -74,7 +74,6 @@ public class AdminTeleport implements IAdminCommandHandler
 			"admin_teleport_character",
 			"admin_recall",
 			"admin_recall_gm", //[L2J_JP ADD - TSL]
-			"admin_recall_party", //[L2J_JP ADD - TSL]
 			"admin_recall_all", //[L2J_JP ADD - TSL]
 			"admin_recall_offline",
 			"admin_walk",
@@ -212,32 +211,6 @@ public class AdminTeleport implements IAdminCommandHandler
 				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
 				if (activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
 					teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ());
-			}
-			catch (StringIndexOutOfBoundsException e)
-			{
-			}
-		}
-		// [L2J_JP ADD START - TSL]
-		else if (command.startsWith("admin_recall_party "))
-		{
-			try
-			{
-				String targetName = command.substring(16);
-				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
-				if (activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
-				{
-					if (player.getParty() != null)
-					{
-						for (L2PcInstance character : player.getParty().getPartyMembers())
-						{
-							if (character == activeChar)
-								continue;
-							teleportCharacter(character, activeChar.getX(), activeChar.getY(), activeChar.getZ());
-						}
-					}
-					else
-						activeChar.sendMessage("Wrong or Player is not in party.");
-				}
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{

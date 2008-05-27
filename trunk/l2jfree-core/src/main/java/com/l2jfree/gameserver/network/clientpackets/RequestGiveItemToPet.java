@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -38,52 +39,52 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 
 	private int _objectId;
 	private int _amount;
-	
-    @Override
-    protected void readImpl()
-    {
-        _objectId = readD();
-        _amount   = readD();
-    }
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void readImpl()
+	{
+		_objectId = readD();
+		_amount   = readD();
+	}
+
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar(); 
-        if (player == null || !(player.getPet() instanceof L2PetInstance)) return;
+		if (player == null || !(player.getPet() instanceof L2PetInstance)) return;
 
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
-        {
+				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		{
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
 			player.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
-            return;
-        }
+			return;
+		}
 		
-        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
-        {
-            player.sendMessage("Transactions are disable for your Access Level");
-            player.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
-            return;
-        }
-        
-        // Alt game - Karma punishment
-        if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TRADE && player.getKarma() > 0) return;
+		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		{
+			player.sendMessage("Unsufficient privileges.");
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
+		// Alt game - Karma punishment
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TRADE && player.getKarma() > 0) return;
 
-        if (player.getPrivateStoreType() != 0)
-        {
-        	sendPacket(new SystemMessage(SystemMessageId.ITEMS_CANNOT_BE_DISCARDED_OR_DESTROYED_WHILE_OPERATING_PRIVATE_STORE_OR_WORKSHOP));
-            return;
-        }
-        
-        if (player.getRequest().getRequestPacket() instanceof TradeRequest
-         || player.getRequest().getRequestPacket() instanceof TradeDone)
-        {
-        	sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_OR_DESTROY_ITEM_WHILE_TRADING));
-            return;
-        }
-        
-        L2PetInstance pet = (L2PetInstance)player.getPet(); 
+		if (player.getPrivateStoreType() != 0)
+		{
+			sendPacket(new SystemMessage(SystemMessageId.ITEMS_CANNOT_BE_DISCARDED_OR_DESTROYED_WHILE_OPERATING_PRIVATE_STORE_OR_WORKSHOP));
+			return;
+		}
+		
+		if (player.getRequest().getRequestPacket() instanceof TradeRequest
+		 || player.getRequest().getRequestPacket() instanceof TradeDone)
+		{
+			sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_OR_DESTROY_ITEM_WHILE_TRADING));
+			return;
+		}
+		
+		L2PetInstance pet = (L2PetInstance)player.getPet(); 
 		if (pet.isDead())
 		{
 			sendPacket(new SystemMessage(SystemMessageId.CANNOT_GIVE_ITEMS_TO_DEAD_PET));
@@ -95,28 +96,28 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 			return;
 		}
 		
-        if(!player.getInventory().getItemByObjectId(_objectId).isAvailable(player, true))
-        {
-            sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_USE_ITEM));
-            return;
-        }
-        
-        if (Config.ALT_STRICT_HERO_SYSTEM && player.getInventory().getItemByObjectId(_objectId).isHeroItem())
-        {
-            sendPacket(new SystemMessage(SystemMessageId.ITEM_NOT_FOR_PETS));
-            return;
-        }
-       
-        int itemId = player.getInventory().getItemByObjectId(_objectId).getItemId();
-        	
-        int weight = ItemTable.getInstance().getTemplate(itemId).getWeight() * _amount;
-        
-        if (weight > Integer.MAX_VALUE || weight < 0 || !pet.getInventory().validateWeight(weight))
-        {
-            sendPacket(new SystemMessage(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS));
-            return;
-        }
-        
+		if(!player.getInventory().getItemByObjectId(_objectId).isAvailable(player, true))
+		{
+			sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_USE_ITEM));
+			return;
+		}
+		
+		if (Config.ALT_STRICT_HERO_SYSTEM && player.getInventory().getItemByObjectId(_objectId).isHeroItem())
+		{
+			sendPacket(new SystemMessage(SystemMessageId.ITEM_NOT_FOR_PETS));
+			return;
+		}
+	   
+		int itemId = player.getInventory().getItemByObjectId(_objectId).getItemId();
+			
+		int weight = ItemTable.getInstance().getTemplate(itemId).getWeight() * _amount;
+		
+		if (weight > Integer.MAX_VALUE || weight < 0 || !pet.getInventory().validateWeight(weight))
+		{
+			sendPacket(new SystemMessage(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS));
+			return;
+		}
+		
 		if (player.transferItem("Transfer", _objectId, _amount, pet.getInventory(), pet) == null)
 		{
 			_log.warn("Invalid item transfer request: " + pet.getName() + "(pet) --> " + player.getName());
@@ -124,7 +125,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 	}
 
 	@Override
-    public String getType()
+	public String getType()
 	{
 		return REQUESTCIVEITEMTOPET__C__8B;
 	}

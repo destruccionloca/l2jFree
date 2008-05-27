@@ -44,7 +44,7 @@ public class MagicSkillLaunched extends L2GameServerPacket
 		_charObjId = cha.getObjectId();
 		_skillId = skillId;
 		_skillLevel = skillLevel;
-		if(targets!=null)
+		if (targets != null)
 			_numberOfTargets = targets.length;
 		else
 			_numberOfTargets = 1;

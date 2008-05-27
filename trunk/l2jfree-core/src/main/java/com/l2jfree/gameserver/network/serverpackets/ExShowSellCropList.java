@@ -78,12 +78,6 @@ public class ExShowSellCropList extends L2GameServerPacket
 	}
 
 	@Override
-	public void runImpl()
-	{
-		//  no long running
-	}
-
-	@Override
 	public void writeImpl()
 	{
 		writeC(0xFE);

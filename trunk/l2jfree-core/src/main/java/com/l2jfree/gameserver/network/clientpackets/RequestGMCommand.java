@@ -41,23 +41,24 @@ public class RequestGMCommand extends L2GameClientPacket
 	
 	private String _targetName;
 	private int _command;
-    //private final int _unknown;
+	//private final int _unknown;
+
 	/**
 	 * packet type id 0x00
 	 * format:	cd
 	 *  
 	 * @param rawPacket
 	 */
-    @Override
-    protected void readImpl()
-    {
-        _targetName = readS();
-        _command    = readD();
-        //_unknown  = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_targetName = readS();
+		_command	= readD();
+		//_unknown  = readD();
+	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance player = L2World.getInstance().getPlayer(_targetName);
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -81,7 +82,7 @@ public class RequestGMCommand extends L2GameClientPacket
 				if (activeChar.getAccessLevel() >= Config.GM_CHAR_CLAN_VIEW && player.getClan() != null)
 					sendPacket(new GMViewPledgeInfo(player.getClan(),player));
 
-                break;
+				break;
 			}
 			case 3: // player skills
 			{
@@ -108,7 +109,7 @@ public class RequestGMCommand extends L2GameClientPacket
 			{
 				if (activeChar.getAccessLevel() >= Config.GM_CHAR_VIEW_WAREHOUSE)
 					sendPacket(new GMViewWarehouseWithdrawList(player));
-			    break;
+				break;
 			}
 		}
 	}

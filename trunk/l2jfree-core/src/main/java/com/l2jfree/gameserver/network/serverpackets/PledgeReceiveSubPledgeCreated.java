@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.L2Clan.SubPledge;
 
 /**
@@ -48,8 +49,11 @@ public class PledgeReceiveSubPledgeCreated extends L2GameServerPacket
 		writeD(0x01);
 		writeD(_subPledge.getId());
 		writeS(_subPledge.getName());
-		if (_subPledge.getLeaderId() != 0)
-			writeS(_subPledge.getId() != L2Clan.SUBUNIT_ACADEMY ? _clan.getClanMember(_subPledge.getLeaderId()).getName() : "");
+		if (_subPledge.getLeaderId() != 0 && _subPledge.getId() != L2Clan.SUBUNIT_ACADEMY)
+		{
+			L2ClanMember mem = _clan.getClanMember(_subPledge.getLeaderId());
+			writeS(mem != null ? mem.getName() : "");
+		}
 		else
 			writeS("");
 	}

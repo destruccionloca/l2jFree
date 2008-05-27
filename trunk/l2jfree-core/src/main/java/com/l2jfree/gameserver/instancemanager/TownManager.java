@@ -118,7 +118,7 @@ public class TownManager
 			nearestTown = "Town of Goddard";
 			break;
 		case 16:
-			nearestTown = "Town of Shuttgart";
+			nearestTown = "Town of Schuttgart";
 			break;
 		case 17:
 			nearestTown = "Dimensional Gap";
@@ -239,6 +239,8 @@ public class TownManager
 		{
 			restart = MapRegionManager.getInstance().getRestartLocation(region.getRestartId());
 		}
+		else
+			_log.info("No L2MapRegion defined at "+x+" "+y+" "+z);
 		return getTownByMaprestart(restart);
 	}
 
@@ -261,6 +263,16 @@ public class TownManager
 	public final Town getTown(L2Object activeObject)
 	{
 		return getTown(activeObject.getX(), activeObject.getY(), activeObject.getZ());
+	}
+
+	public final Town getTown(int x, int y)
+	{
+		for (Town town : getTowns().values())
+		{
+			if (town != null && town.checkIfInZone(x, y))
+				return town;
+		}
+		return null;
 	}
 
 	public final Town getTown(int x, int y, int z)

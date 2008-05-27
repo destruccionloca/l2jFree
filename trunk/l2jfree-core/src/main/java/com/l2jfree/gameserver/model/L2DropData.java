@@ -187,11 +187,11 @@ public class L2DropData
 
     public void setCategory(int category)
     {
-        _category = category;        
+        _category = category;
     }
     
     public int getCategory()
     {
-        return _category;        
+        return _category;
     }
 }

@@ -76,6 +76,7 @@ public class RequestBypassToServer extends L2GameClientPacket
                 if (Config.ALT_PRIVILEGES_ADMIN && !AdminCommandHandler.getInstance().checkPrivileges(activeChar, _command))
                 {
                     _log.info("<GM>" + activeChar + " does not have sufficient privileges for command '" + _command + "'.");
+                    activeChar.sendMessage("Unsufficient privileges.");
                     return;
                 }
                 
@@ -87,10 +88,13 @@ public class RequestBypassToServer extends L2GameClientPacket
                     String command;
                     String params;
                     
-                    if (_command.indexOf(" ") != -1) {
+                    if (_command.indexOf(" ") != -1)
+                    {
                         command = _command.substring(0, _command.indexOf(" "));
                         params  = _command.substring(_command.indexOf(" "));
-                    } else {
+                    }
+                    else
+                    {
                         command = _command;
                         params  = "";
                     }
@@ -241,25 +245,18 @@ public class RequestBypassToServer extends L2GameClientPacket
                 if(!activeChar.validateBypass(_command))
                     return;
 
-                L2PcInstance player = getClient().getActiveChar();
-                if (player == null) return;
-                
                 String p = _command.substring(6).trim();
                 int idx = p.indexOf(' ');
                 if (idx < 0)
-                    player.processQuestEvent(p, "");
+                    activeChar.processQuestEvent(p, "");
                 else
-                    player.processQuestEvent(p.substring(0, idx), p.substring(idx).trim());
+                    activeChar.processQuestEvent(p.substring(0, idx), p.substring(idx).trim());
             }
         }
         catch (Exception e)
         {
             _log.warn("Bad RequestBypassToServer: ", e);
         }
-//      finally
-//      {
-//          activeChar.clearBypass();
-//      }
     }
 
     /**
@@ -275,9 +272,7 @@ public class RequestBypassToServer extends L2GameClientPacket
             temp.setTarget(activeChar);
             temp.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
                     new L2CharPosition(activeChar.getX(),activeChar.getY(), activeChar.getZ(), 0 ));
-//          temp.moveTo(player.getX(),player.getY(), player.getZ(), 0 );
         }
-        
     }
 
     private void playerHelp(L2PcInstance activeChar, String path)

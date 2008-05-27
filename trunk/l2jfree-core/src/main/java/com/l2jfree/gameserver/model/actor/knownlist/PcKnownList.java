@@ -232,7 +232,7 @@ public class PcKnownList extends PlayableKnownList
                 }
             }
 
-            if (object instanceof L2Character || object instanceof L2DecoyInstance || object instanceof L2TrapInstance)
+            if (object instanceof L2Character)
             {
                 // Update the state of the L2Character object client side by sending Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance
                 L2Character obj = (L2Character) object;

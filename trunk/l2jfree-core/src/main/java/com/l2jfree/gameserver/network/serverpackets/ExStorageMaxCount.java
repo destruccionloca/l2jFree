@@ -42,9 +42,9 @@ public class ExStorageMaxCount extends L2GameServerPacket
 	
 	public ExStorageMaxCount(L2PcInstance character)
 	{
-		_activeChar = character;		
+		_activeChar = character;
 		_inventory = _activeChar.getInventoryLimit();
-        _warehouse = _activeChar.getWareHouseLimit();
+		_warehouse = _activeChar.getWareHouseLimit();
 		_privateSell = _activeChar.getPrivateSellStoreLimit();
 		_privateBuy = _activeChar.getPrivateBuyStoreLimit();
 		_freight = _activeChar.getFreightLimit();  

@@ -88,6 +88,8 @@ public final class L2ChestInstance extends L2MonsterInstance
 				id = 21763;
 			else if (id == 18297 || id == 18298)
 				id = 21786;
+			else
+				return;
 		}
 		super.doItemDrop(NpcTable.getInstance().getTemplate(id),lastAttacker);
 	}

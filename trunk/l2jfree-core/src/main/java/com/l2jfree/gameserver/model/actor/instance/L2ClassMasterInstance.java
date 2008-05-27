@@ -305,5 +305,6 @@ public final class L2ClassMasterInstance extends L2FolkInstance
         else player.setBaseClass(player.getActiveClass());
         
         player.broadcastUserInfo();
+        player.broadcastClassIcon();
     }
 }

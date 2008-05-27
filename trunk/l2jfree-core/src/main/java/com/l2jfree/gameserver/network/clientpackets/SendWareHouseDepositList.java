@@ -99,7 +99,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		
 		if ((warehouse instanceof ClanWarehouse) && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
-			player.sendMessage("Transactions are disabled for your access level.");
+			player.sendMessage("Unsufficient privileges.");
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}

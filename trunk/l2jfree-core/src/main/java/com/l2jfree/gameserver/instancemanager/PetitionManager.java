@@ -47,6 +47,8 @@ public final class PetitionManager
 	protected static Log				_log	= LogFactory.getLog(PetitionManager.class.getName());
 	private static PetitionManager		_instance;
 
+	private static int _lastUsedId;
+
 	private FastMap<Integer, Petition>	_pendingPetitions;
 	private FastMap<Integer, Petition>	_completedPetitions;
 
@@ -88,7 +90,9 @@ public final class PetitionManager
 		public Petition(L2PcInstance petitioner, String petitionText, int petitionType)
 		{
 			petitionType--;
-			_id = IdFactory.getInstance().getNextId();
+			//_id = IdFactory.getInstance().getNextId();
+			_lastUsedId++;
+			_id = _lastUsedId;
 			if (petitionType >= PetitionType.values().length)
 			{
 				_log.warn("PetitionManager:Petition : invalid petition type (received type was +1) : " + petitionType);

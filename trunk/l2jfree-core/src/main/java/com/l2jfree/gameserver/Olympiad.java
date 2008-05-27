@@ -341,7 +341,6 @@ public class Olympiad
 						}
 						if (i == 20)
 						{
-							_game.additions();
 							_game.openDoors();
 							_game.sendMessageToPlayers(true, 10);
 							try
@@ -2704,44 +2703,6 @@ public class Olympiad
 				{
 				}
 			}
-		}
-
-		protected void additions()
-		{
-			for (L2PcInstance player : _players)
-			{
-				try
-				{
-					// Set HP/CP/MP to Max
-					player.getStatus().setCurrentCp(player.getMaxCp());
-					player.getStatus().setCurrentHp(player.getMaxHp());
-					player.getStatus().setCurrentMp(player.getMaxMp());
-
-				}
-				catch (Exception e)
-				{
-				}
-			}
-		}
-
-		protected boolean makePlayersVisible()
-		{
-			try
-			{
-				for (L2PcInstance player : _players)
-				{
-					player.getAppearance().setVisible();
-					player.broadcastUserInfo();
-					if (player.getPet() != null)
-						player.getPet().updateAbnormalEffect();
-				}
-			}
-			catch (Exception e)
-			{
-				_aborted = true;
-				return false;
-			}
-			return true;
 		}
 
 		protected boolean makeCompetitionStart()

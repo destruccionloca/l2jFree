@@ -59,9 +59,6 @@ public class ExShowCropSetting extends L2GameServerPacket
 	private int _manorId;
 	private int _count;
 	private int[] _cropData; // data to send, size:_count*14
-	
-	@Override
-	public void runImpl(){}
 
 	public ExShowCropSetting(int manorId)
 	{

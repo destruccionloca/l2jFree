@@ -195,7 +195,7 @@ public class AdminBan implements IAdminCommandHandler
 			if (count == 0)
 				activeChar.sendMessage("Character not found!");
 			else
-				activeChar.sendMessage("Character " + name + " jailed for" + ((delay > 0) ? (" " + delay + " minutes.") : "ever!"));
+				activeChar.sendMessage("Character " + name + " jailed offline for" + ((delay > 0) ? (" " + delay + " minutes.") : "ever!"));
 		}
 		catch (SQLException se)
 		{
@@ -235,7 +235,7 @@ public class AdminBan implements IAdminCommandHandler
 			if (count == 0)
 				activeChar.sendMessage("Character not found!");
 			else
-				activeChar.sendMessage("Character " + name + " removed from jail");
+				activeChar.sendMessage("Character " + name + " removed from jail while offline.");
 		}
 		catch (SQLException se)
 		{

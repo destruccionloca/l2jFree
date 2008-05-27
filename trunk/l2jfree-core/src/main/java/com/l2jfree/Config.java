@@ -652,6 +652,7 @@ public final class Config
 	// *******************************************************************************************
 	public static int				KARMA_MIN_KARMA;
 	public static int				KARMA_MAX_KARMA;
+	public static float				KARMA_RATE;
 	public static int				KARMA_XP_DIVIDER;
 	public static int				KARMA_LOST_BASE;
 	public static boolean			KARMA_DROP_GM;
@@ -686,6 +687,7 @@ public final class Config
 			/* KARMA SYSTEM */
 			KARMA_MIN_KARMA = Integer.parseInt(pvpSettings.getProperty("MinKarma", "240"));
 			KARMA_MAX_KARMA = Integer.parseInt(pvpSettings.getProperty("MaxKarma", "10000"));
+			KARMA_RATE = Float.parseFloat(pvpSettings.getProperty("KarmaRate", "1."));
 			KARMA_XP_DIVIDER = Integer.parseInt(pvpSettings.getProperty("XPDivider", "260"));
 			KARMA_LOST_BASE = Integer.parseInt(pvpSettings.getProperty("BaseKarmaLost", "0"));
 
@@ -2099,7 +2101,8 @@ public final class Config
 	public static long			ALT_FESTIVAL_CHEST_SPAWN;							// Festival Chest Spawn
 	public static int			ALT_FESTIVAL_ARCHER_AGGRO;							// Aggro value of Archer in SevenSigns Festival
 	public static int			ALT_FESTIVAL_CHEST_AGGRO;							// Aggro value of Chest in SevenSigns Festival
-	public static int			ALT_FESTIVAL_MONSTER_AGGRO;						// Aggro value of Monster in SevenSigns Festival
+	public static int			ALT_FESTIVAL_MONSTER_AGGRO;							// Aggro value of Monster in SevenSigns Festival
+	public static int			ALT_DAWN_JOIN_COST;									// Amount of adena to pay to join Dawn Cabal
 
 	// *******************************************************************************************
 	public static void loadSevenSignsConfig()
@@ -2127,6 +2130,7 @@ public final class Config
 			ALT_FESTIVAL_ARCHER_AGGRO = Integer.parseInt(SevenSettings.getProperty("AltFestivalArcherAggro", "200"));
 			ALT_FESTIVAL_CHEST_AGGRO = Integer.parseInt(SevenSettings.getProperty("AltFestivalChestAggro", "0"));
 			ALT_FESTIVAL_MONSTER_AGGRO = Integer.parseInt(SevenSettings.getProperty("AltFestivalMonsterAggro", "200"));
+			ALT_DAWN_JOIN_COST = Integer.parseInt(SevenSettings.getProperty("AltJoinDawnCost", "50000"));
 		}
 		catch (Exception e)
 		{

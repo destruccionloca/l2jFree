@@ -53,7 +53,7 @@ public class TaskRecom extends Task
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
 			player.restartRecom();
-			player.sendPacket(new UserInfo(player));
+			player.broadcastUserInfo();
 		}
 		_log.info("Recommendation Global Task: launched.");
 	}

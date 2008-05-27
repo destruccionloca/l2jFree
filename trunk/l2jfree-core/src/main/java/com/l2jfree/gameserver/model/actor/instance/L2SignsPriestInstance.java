@@ -178,19 +178,17 @@ public class L2SignsPriestInstance extends L2FolkInstance
                                         player.sendPacket(sm);
                                         allowJoinDawn = true;
                                     }
-                                    else if (player.reduceAdena("SevenSigns",
-                                                                SevenSigns.ADENA_JOIN_DAWN_COST, this,
-                                                                false))
+                                    else if (player.reduceAdena("SevenSigns", Config.ALT_DAWN_JOIN_COST, this, false))
                                     {
                                         sm = new SystemMessage(SystemMessageId.DISAPPEARED_ADENA);
-                                        sm.addNumber(SevenSigns.ADENA_JOIN_DAWN_COST);
+                                        sm.addNumber(Config.ALT_DAWN_JOIN_COST);
                                         player.sendPacket(sm);
                                         allowJoinDawn = true;
                                     }
 
                                     if (!allowJoinDawn)
                                     {
-                                        player.sendMessage("You must be a member of a castle-owning clan, have a Certificate of Lord's Approval, or pay 50000 adena to join the Lords of Dawn.");
+                                        player.sendMessage("You must be a member of a castle-owning clan, have a Certificate of Lord's Approval, or pay "+Config.ALT_DAWN_JOIN_COST+" adena to join the Lords of Dawn.");
                                         return;
                                     }
                                 }

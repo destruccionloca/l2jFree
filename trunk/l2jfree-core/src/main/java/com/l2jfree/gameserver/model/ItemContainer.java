@@ -30,7 +30,6 @@ import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
-import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.templates.L2Item;
 
 /**
@@ -540,19 +539,6 @@ public abstract class ItemContainer
     {
         if(_items.remove(item))
         {
-            if (getOwner() instanceof L2PcInstance && this instanceof Inventory)
-            {
-                InventoryUpdate iu = new InventoryUpdate();
-                for (L2ItemInstance element : _items)
-                {
-                    if (element != null)
-                    {
-                        iu.addModifiedItem(element);
-                    }
-                }
-                getOwner().sendPacket(iu);
-                getOwner().sendPacket(new ItemList(((L2PcInstance)getOwner()), true));
-            }
             return true;
         }
         return false;

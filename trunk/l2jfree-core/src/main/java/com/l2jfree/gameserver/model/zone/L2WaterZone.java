@@ -32,6 +32,11 @@ public class L2WaterZone extends L2DefaultZone
 	@Override
 	protected void onEnter(L2Character character)
 	{
+		if (character instanceof L2PcInstance && ((L2PcInstance)character).isInBoat())
+		{
+			return;
+		}
+
 		character.setInsideZone(FLAG_WATER, true);
 
 		if (character instanceof L2PcInstance)

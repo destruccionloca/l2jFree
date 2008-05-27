@@ -611,8 +611,8 @@ public class L2Party
 	 * @param player
 	 * @param item
 	 */
-	public void distributeItem(L2PcInstance player, L2ItemInstance item) 
-    {
+	public void distributeItem(L2PcInstance player, L2ItemInstance item)
+	{
 		if (item.getItemId() == 57)
 		{
 			distributeAdena(player, item.getCount(), player);
@@ -646,13 +646,11 @@ public class L2Party
 	 * @param player
 	 * @param item
 	 */
-    public void distributeItem(L2PcInstance player, L2Attackable.RewardItem item, boolean spoil, L2Attackable target)  
-    {
-		if (item == null)
-				return;
-		if (player == null)
+	public void distributeItem(L2PcInstance player, L2Attackable.RewardItem item, boolean spoil, L2Attackable target)
+	{
+		if (item == null || player == null)
 			return;
-		
+
 		if (item.getItemId() == 57)
 		{
 			distributeAdena(player, item.getCount(), target);

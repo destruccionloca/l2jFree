@@ -81,7 +81,7 @@ public class RequestRestart extends L2GameClientPacket
             return;
         }
 
-        if (AttackStanceTaskManager.getInstance().getAttackStanceTask(player))
+        if (AttackStanceTaskManager.getInstance().getAttackStanceTask(player) && !player.isGM())
         {
             if (_log.isDebugEnabled())
                 _log.debug("Player " + player.getName() + " tried to logout while fighting.");

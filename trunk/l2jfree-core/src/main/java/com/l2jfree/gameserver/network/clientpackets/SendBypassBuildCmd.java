@@ -46,40 +46,46 @@ public class SendBypassBuildCmd extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-        if(activeChar == null)
-            return;
-		
-        if (Config.ALT_PRIVILEGES_ADMIN && !AdminCommandHandler.getInstance().checkPrivileges(activeChar,"admin_"+_command))
-            return;
-        
-        if(!activeChar.isGM() && !"gm".equalsIgnoreCase(_command))
-        {
-        	Util.handleIllegalPlayerAction(activeChar,"Warning!! Non-gm character "+activeChar.getName()+" requests gm bypass handler, hack?", Config.DEFAULT_PUNISH);
-        	return;
-        }
+		if(activeChar == null)
+			return;
+
+		if (Config.ALT_PRIVILEGES_ADMIN && !AdminCommandHandler.getInstance().checkPrivileges(activeChar,"admin_"+_command))
+		{
+			activeChar.sendMessage("Unsufficient privileges.");
+			return;
+		}
+
+		if(!activeChar.isGM() && !"gm".equalsIgnoreCase(_command))
+		{
+			Util.handleIllegalPlayerAction(activeChar,"Warning!! Non-gm character "+activeChar.getName()+" requests gm bypass handler, hack?", Config.DEFAULT_PUNISH);
+			return;
+		}
 
 		IAdminCommandHandler ach = AdminCommandHandler.getInstance().getAdminCommandHandler("admin_"+_command);
 
 		if (ach != null) 
 		{
-            // DaDummy: this way we log _every_ admincommand with all related info
-            String command;
-            String params;
-            
-            if (_command.indexOf(" ") != -1) {
-                command = _command.substring(0, _command.indexOf(" "));
-                params  = _command.substring(_command.indexOf(" "));
-            } else {
-                command = _command;
-                params  = "";
-            }
-            
-            GMAudit.auditGMAction(activeChar, "admincommand", command, params);
-            
+			// DaDummy: this way we log _every_ admincommand with all related info
+			String command;
+			String params;
+
+			if (_command.indexOf(" ") != -1)
+			{
+				command = _command.substring(0, _command.indexOf(" "));
+				params  = _command.substring(_command.indexOf(" "));
+			}
+			else
+			{
+				command = _command;
+				params  = "";
+			}
+			
+			GMAudit.auditGMAction(activeChar, "admincommand", command, params);
+
 			ach.useAdminCommand("admin_"+_command, activeChar);
-		} 
+		}
 	}
-		
+
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
 	 */

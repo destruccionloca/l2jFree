@@ -310,9 +310,10 @@ public class L2Clan
 
 	public L2ClanMember getClanMember(String name)
 	{
+		String tmp = name.toLowerCase();
 		for (L2ClanMember temp : _members.values())
 		{
-			if (temp.getName().equals(name))
+			if (temp.getName().toLowerCase().equals(tmp))
 				return temp;
 		}
 		return null;
@@ -391,7 +392,7 @@ public class L2Clan
 			player.setClan(null);
 			player.setClanJoinExpiryTime(clanJoinExpiryTime);
 			player.setPledgeClass(L2ClanMember.getCurrentPledgeClass(player));
-			player.broadcastUserInfo();
+			player.updateNameTitleColor();
 			// disable clan tab
 			player.sendPacket(new PledgeShowMemberListDeleteAll());
 		}
@@ -2409,6 +2410,8 @@ public class L2Clan
 		player.sendPacket(il);
 
 		changeLevel(getLevel() + 1);
+
+		player.updateNameTitleColor();
 	}
 
 	public void changeLevel(int level)

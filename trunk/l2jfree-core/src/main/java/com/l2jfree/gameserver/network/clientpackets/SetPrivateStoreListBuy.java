@@ -81,7 +81,7 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 		
         if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
-            player.sendMessage("Transactions are disable for your Access Level");
+            player.sendMessage("Unsufficient privileges.");
             player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }

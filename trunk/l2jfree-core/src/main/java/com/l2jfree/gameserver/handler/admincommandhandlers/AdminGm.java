@@ -69,6 +69,7 @@ public class AdminGm implements IAdminCommandHandler
 			activeChar.setIsGM(false);
 
 			activeChar.sendMessage("You no longer have GM status.");
+			activeChar.updateNameTitleColor();
 
 			if (_log.isDebugEnabled())
 				_log.debug("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") turned his GM status off");
@@ -79,6 +80,7 @@ public class AdminGm implements IAdminCommandHandler
 			activeChar.setIsGM(true);
 
 			activeChar.sendMessage("You now have GM status.");
+			activeChar.updateNameTitleColor();
 
 			if (_log.isDebugEnabled())
 				_log.debug("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") turned his GM status on");

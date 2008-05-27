@@ -2017,6 +2017,7 @@ public abstract class L2Character extends L2Object
 			int finalchance = Rnd.get(100);
 			if (finalchance < chance)
 			{
+				sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
 				reuseDelay = 0;
 			}
 			else
@@ -2030,6 +2031,7 @@ public abstract class L2Character extends L2Object
 			int finalchance = Rnd.get(100);
 			if (finalchance < chance)
 			{
+				sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
 				reuseDelay = 0;
 			}
 			else
@@ -2147,8 +2149,7 @@ public abstract class L2Character extends L2Object
 			// Send a Server->Client packet SetupGauge with the color of the gauge and the casting time
 			if (this instanceof L2PcInstance && !effectWhileCasting)
 			{
-				SetupGauge sg = new SetupGauge(SetupGauge.BLUE, hitTime);
-				sendPacket(sg);
+				sendPacket(new SetupGauge(SetupGauge.BLUE, hitTime));
 			}
 
 			// Disable all skills during the casting
@@ -3247,7 +3248,7 @@ public abstract class L2Character extends L2Object
 
 			// Remove first Buff if number of buffs > getMaxBuffCount()
 			L2Skill tempskill = newEffect.getSkill();
-			if (getBuffCount() > getMaxBuffCount()
+			if (getBuffCount() >= getMaxBuffCount()
 					&& !doesStack(tempskill)
 					&& ((tempskill.getSkillType() == L2Skill.SkillType.BUFF || tempskill.getSkillType() == L2Skill.SkillType.DEBUFF
 							|| tempskill.getSkillType() == L2Skill.SkillType.REFLECT || tempskill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT || tempskill
@@ -4815,15 +4816,11 @@ public abstract class L2Character extends L2Object
 		{
 			if (stat == Stats.POWER_ATTACK_SPEED)
 			{
-				if (su == null)
-					su = new StatusUpdate(getObjectId());
-				su.addAttribute(StatusUpdate.ATK_SPD, getPAtkSpd());
+				broadcastFull = true;
 			}
 			else if (stat == Stats.MAGIC_ATTACK_SPEED)
 			{
-				if (su == null)
-					su = new StatusUpdate(getObjectId());
-				su.addAttribute(StatusUpdate.CAST_SPD, getMAtkSpd());
+				broadcastFull = true;
 			}
 			// else if (stat==Stats.MAX_HP) // TODO: self only and add more stats...
 			// {
@@ -6118,6 +6115,10 @@ public abstract class L2Character extends L2Object
 					int mobId = ((L2Summon) this).getTemplate().getIdTemplate();
 					sm.addNpcName(mobId);
 				}
+				else if (this instanceof L2NpcInstance)
+				{
+					sm.addNpcName(((L2NpcInstance)this).getNpcId());
+				}
 				else
 				{
 					sm.addString(getName());
@@ -6166,15 +6167,6 @@ public abstract class L2Character extends L2Object
 					enemy.sendPacket(new SystemMessage(SystemMessageId.SHIELD_DEFENCE_SUCCESSFULL));
 				// else if (!miss && damage < 1)
 				// enemy.sendMessage("You hit the target's armor.");
-			}
-			else if (target instanceof L2Summon)
-			{
-				L2Summon activeSummon = (L2Summon) target;
-
-				SystemMessage sm = new SystemMessage(SystemMessageId.PET_RECEIVED_S2_DAMAGE_BY_S1);
-				sm.addString(getName());
-				sm.addNumber(damage);
-				activeSummon.getOwner().sendPacket(sm);
 			}
 
 			if (!miss && damage > 0)

@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.handler.chathandlers;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IChatHandler;
 import com.l2jfree.gameserver.model.BlockList;
 import com.l2jfree.gameserver.model.L2World;
@@ -47,10 +48,20 @@ public class ChatWhisper implements IChatHandler
 	{
 		L2PcInstance receiver = L2World.getInstance().getPlayer(target);
 
-		if (receiver != null && !BlockList.isBlocked(receiver, activeChar))
+		if (receiver != null)
 		{
-			if (!receiver.getMessageRefusal() || activeChar.isGM())
+			if ((!receiver.getMessageRefusal() && !BlockList.isBlocked(receiver, activeChar)) || activeChar.isGM())
 			{
+				if (Config.JAIL_DISABLE_CHAT && receiver.isInJail())
+				{
+					activeChar.sendMessage(receiver.getName()+" is currently in jail.");
+					return;
+				}
+				if (receiver.isChatBanned())
+				{
+					activeChar.sendMessage(receiver.getName()+" is currently muted.");
+					return;
+				}
 				receiver.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text));
 				receiver.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 				activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType.getId(), "->" + receiver.getName(), text));
@@ -64,7 +75,6 @@ public class ChatWhisper implements IChatHandler
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_NOT_ONLINE);
 			sm.addString(target);
 			activeChar.sendPacket(sm);
-			sm = null;
 		}
 	}
 }

@@ -1412,21 +1412,39 @@ public class L2Attackable extends L2NpcInstance
                     {
                         if (_log.isDebugEnabled()) _log.info("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
 
-                        // Check if the autoLoot mode for items/Adena is active
-                        if (item.getItemId() == 57 || item.getItemId() == 5575 || item.getItemId() == 6360 || item.getItemId() == 6361 || item.getItemId() == 6362)
+                        // Looting process
+                        switch(item.getItemId())
                         {
-                            if (Config.AUTO_LOOT_ADENA)
-                                player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-                            else
-                                dropItem(player, item); // drop the item on the ground
-                        }
-                        else
-                        {
-                            if (Config.AUTO_LOOT &&
-                            		ItemTable.getInstance().getTemplate(item.getItemId()).getItemType() != L2EtcItemType.HERB)
-                                player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-                            else
-                                dropItem(player, item); // drop the item on the ground
+                            // Adena / Seal stones
+                            case 57: case 5575:
+                            case 6360: case 6361: case 6362:
+                                if (Config.AUTO_LOOT_ADENA)
+                                    player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
+                                else
+                                    dropItem(player, item); // drop the item on the ground
+                                break;
+
+                            // Herbs
+                            case 8600: case 8608:
+                            case 8601: case 8609:
+                            case 8602: case 8610:
+                            case 8603: case 8611:
+                            case 8604: case 8612:
+                            case 8605: case 8613:
+                            case 8606: case 8614:
+                            case 8607:
+                                if (Config.AUTO_LOOT_HERBS)
+                                    player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
+                                else
+                                    dropItem(player, item); // drop the item on the ground
+                                break;
+
+                            default:
+                                if (Config.AUTO_LOOT)
+                                    player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
+                                else
+                                    dropItem(player, item); // drop the item on the ground
+                                break;
                         }
 
                         // Broadcast message if RaidBoss was defeated
@@ -1451,8 +1469,10 @@ public class L2Attackable extends L2NpcInstance
 
             // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
             RewardItem item = new RewardItem(Config.CHAMPION_SPCL_ITEM,champqty);
-            if (Config.AUTO_LOOT) player.addItem("ChampionLoot", item.getItemId(), item.getCount(), this, true);
-                else dropItem(player, item);
+            if (Config.AUTO_LOOT)
+                player.doAutoLoot(this, item);
+            else
+                dropItem(player, item);
         }
 
         //Instant Item Drop :>

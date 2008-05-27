@@ -294,7 +294,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                     
                     if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP)
                     {
-                        player.sendMessage("You can't add a subclass while in an event.");
+                        player.sendPacket(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT);
                         return;
                     }
                     
@@ -377,6 +377,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                         content.append("Add Subclass:<br>The sub class of <font color=\"LEVEL\">"
                             + className + "</font> has been added.");
                         player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER)); // Transfer to new class.
+                        player.sendPacket(ActionFailed.STATIC_PACKET);
                     }
                     else
                     {
@@ -392,8 +393,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                      */
                     if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP)
                     {
-                         player.sendMessage("You can't change subclass while in an event.");  
-                         return;  
+                        player.sendPacket(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT);
+                        return;
                     }
 
                     if (Olympiad.getInstance().isRegisteredInComp(player)
@@ -444,6 +445,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                             + CharTemplateTable.getClassNameById(paramTwo) + "</font>.");
 
                         player.sendPacket(new SystemMessage(SystemMessageId.ADD_NEW_SUBCLASS)); // Subclass added.
+                        player.sendPacket(ActionFailed.STATIC_PACKET);
 
                         // check player skills
                         if(Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
@@ -829,7 +831,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             return;
         }
 
-        String leaderName = oldLeader.getName();
+        String leaderName = oldLeader == null ? "" : oldLeader.getName();
         if(leaderName.equals(newLeaderName) || clan.getLeaderSubPledge(newLeaderMember.getObjectId()) != 0)
         {
             player.sendMessage(newLeaderName+" is already a sub unit leader.");
@@ -842,7 +844,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             player.sendMessage(newLeaderName+" is not in your clan!");
             return;
         }
-        int leadssubpledge = clan.getLeaderSubPledge(oldLeader.getObjectId());
+        int leadssubpledge = clan.getLeaderSubPledge(oldLeader == null ? 0 : oldLeader.getObjectId());
 
         if (leadssubpledge == 0) 
         {

@@ -89,6 +89,7 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
         L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);
         if (skill == null)
         {
+            player.sendMessage("This skill enchant is not available.");
             return;
         }
         
@@ -108,11 +109,13 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
         L2EnchantSkillLearn s = SkillTreeTable.getInstance().getSkillEnchantmentBySkillId(_skillId);
         if (s == null)
         {
+            player.sendMessage("This skill enchant is not available.");
             return;
         }
         EnchantSkillDetail esd = s.getEnchantSkillDetail(_skillLvl);
         if (player.getSkillLevel(_skillId) != esd.getMinSkillLevel())
         {
+            player.sendMessage("This skill enchant is not available.");
             return;
         }
         
@@ -159,6 +162,7 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
                     SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_SUCCEEDED_IN_ENCHANTING_THE_SKILL_S1);
                     sm.addSkillName(_skillId);
                     player.sendPacket(sm);
+                    updateSkillShortcuts(player);
                 }
                 else
                 {
@@ -168,7 +172,6 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
                 }
                 trainer.showEnchantSkillList(player, true); // list of safe enchants
                 
-                this.updateSkillShortcuts(player);
             }
             else
             {

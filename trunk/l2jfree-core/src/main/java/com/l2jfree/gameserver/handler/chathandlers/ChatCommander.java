@@ -15,8 +15,10 @@
 package com.l2jfree.gameserver.handler.chathandlers;
 
 import com.l2jfree.gameserver.handler.IChatHandler;
+import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 
 /**
@@ -27,7 +29,7 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 public class ChatCommander implements IChatHandler
 {
 	private SystemChatChannelId[]	_chatTypes	=
-												{ SystemChatChannelId.Chat_Commander };
+							{ SystemChatChannelId.Chat_Commander, SystemChatChannelId.Chat_Inner_Partymaster };
 
 	/**
 	 * @see com.l2jfree.gameserver.handler.IChatHandler#getChatTypes()
@@ -51,12 +53,28 @@ public class ChatCommander implements IChatHandler
 			charObjId = activeChar.getObjectId();
 		}
 
-		if (activeChar.isInParty())
+		L2Party party = activeChar.getParty();
+		if (party != null && party.isInCommandChannel())
 		{
-			if (activeChar.getParty().isInCommandChannel() && activeChar.getParty().getCommandChannel().getChannelLeader().equals(activeChar))
+			if (chatType == SystemChatChannelId.Chat_Commander)
 			{
-				CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
-				activeChar.getParty().getCommandChannel().broadcastToChannelMembers(cs);
+				if (party.getCommandChannel().getChannelLeader() == activeChar)
+				{
+					CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
+					party.getCommandChannel().broadcastToChannelMembers(cs);
+				}
+				else
+					activeChar.sendPacket(SystemMessageId.ONLY_CHANNEL_CREATOR_CAN_GLOBAL_COMMAND);
+			}
+			else if(chatType == SystemChatChannelId.Chat_Inner_Partymaster)
+			{
+				if (party.getLeader() == activeChar)
+				{
+					CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
+					party.getCommandChannel().broadcastToChannelMembers(cs);
+				}
+				else
+					activeChar.sendPacket(SystemMessageId.COMMAND_CHANNEL_ONLY_FOR_PARTY_LEADER);
 			}
 		}
 	}

@@ -551,22 +551,22 @@ public class NpcTable
 			L2NpcTemplate old = getTemplate(id);
 			FastMap<Integer, L2Skill> skills = new FastMap<Integer, L2Skill>();
 
-			if (old.getSkills() != null)
+			if (old != null && old.getSkills() != null)
 				skills.putAll(old.getSkills());
 
 			FastList<L2DropCategory> categories = new FastList<L2DropCategory>();
 
-			if (old.getDropData() != null)
+			if (old != null && old.getDropData() != null)
 				categories.addAll(old.getDropData());
 
 			FastList<ClassId> classIds = new FastList<ClassId>();
 
-			if (old.getTeachInfo() != null)
+			if (old != null && old.getTeachInfo() != null)
 				classIds.addAll(old.getTeachInfo());
 
 			FastList<L2MinionData> minions = new FastList<L2MinionData>();
 
-			if (old.getMinionData() != null)
+			if (old != null && old.getMinionData() != null)
 				minions.addAll(old.getMinionData());
 
 			// reload the NPC base data
@@ -700,7 +700,7 @@ public class NpcTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("NPCTable: Could not reload data for NPC " + id + ": " + e);
+			_log.warn("NPCTable: Could not reload data for NPC " + id + ": " + e, e);
 			return false;
 		}
 		finally

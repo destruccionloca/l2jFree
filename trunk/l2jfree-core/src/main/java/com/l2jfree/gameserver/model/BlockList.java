@@ -76,6 +76,8 @@ public class BlockList
     
     public static boolean isBlocked(L2PcInstance listOwner, L2PcInstance character)
     {
+        if (listOwner == null || character == null)
+            return false;
         BlockList blockList = listOwner.getBlockList();
         return blockList.isBlockAll() || blockList.isInBlockList(character);
     }

@@ -19,6 +19,7 @@ import java.util.StringTokenizer;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.templates.L2Item;
@@ -34,7 +35,7 @@ import com.l2jfree.gameserver.templates.L2Item;
 public class AdminCreateItem implements IAdminCommandHandler
 {
 	private static final String[]	ADMIN_COMMANDS	=
-													{ "admin_itemcreate", "admin_create_item" };
+													{ "admin_itemcreate", "admin_create_item", "admin_clear_inventory" };
 	private static final int		REQUIRED_LEVEL	= Config.GM_CREATE_ITEM;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
@@ -78,6 +79,10 @@ public class AdminCreateItem implements IAdminCommandHandler
 			}
 			AdminHelpPage.showHelpPage(activeChar, "itemcreation.htm");
 		}
+		else if (command.equals("admin_clear_inventory"))
+		{
+			removeAllItems(activeChar);
+		}
 
 		return true;
 	}
@@ -111,8 +116,17 @@ public class AdminCreateItem implements IAdminCommandHandler
 
 		activeChar.getInventory().addItem("Admin", id, num, activeChar, null);
 		activeChar.sendMessage("You have spawned " + num + " " + template.getName() + " (" + id + ") in your inventory.");
-		// Send whole item list and open inventory window
-		activeChar.sendPacket(new ItemList(activeChar, true));
-
+		// Send whole item list
+		activeChar.sendPacket(new ItemList(activeChar, false));
 	}
+
+	private void removeAllItems(L2PcInstance activeChar)
+	{
+		for (L2ItemInstance item : activeChar.getInventory().getItems())
+		{
+			if(item.getLocation() == L2ItemInstance.ItemLocation.INVENTORY)
+				activeChar.getInventory().destroyItem("Destroy", item.getObjectId(), item.getCount(), activeChar, null);
+		}
+		activeChar.sendPacket(new ItemList(activeChar, false));
+ 	}
 }

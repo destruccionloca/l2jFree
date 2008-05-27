@@ -34,18 +34,18 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 	//private final static Log _log = LogFactory.getLog(RequestExAskJoinMPCC.class.getName());
 	private static final String _C__D0_0D_REQUESTEXASKJOINMPCC = "[C] D0:0D RequestExAskJoinMPCC";
 	private String _name;
-	
-    @Override
-    protected void readImpl()
-    {
-        _name = readS();
-    }
+
+	@Override
+	protected void readImpl()
+	{
+		_name = readS();
+	}
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-    protected void runImpl()
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if(activeChar == null)
@@ -130,7 +130,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 			}
 		}
 	}
-	
+
 	private void askJoinMPCC(L2PcInstance requestor, L2PcInstance target)
 	{
 		if (!requestor.getParty().isInCommandChannel())
@@ -181,7 +181,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 			target.getParty().getLeader().sendPacket(sm);
 			target.getParty().getLeader().sendPacket(new ExAskJoinMPCC(requestor.getName()));
 			
-		    requestor.sendMessage("You invited "+target.getName()+" to your Command Channel.");
+			requestor.sendMessage("You invited "+target.getName()+" to your Command Channel.");
 		}
 		else
 		{

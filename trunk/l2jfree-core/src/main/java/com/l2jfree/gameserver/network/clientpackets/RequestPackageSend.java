@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
@@ -93,7 +94,8 @@ public final class RequestPackageSend extends L2GameClientPacket
 			if (warehouse instanceof PcFreight && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
 					&& player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 			{
-				player.sendMessage("Transactions are disable for your Access Level");
+				player.sendMessage("Unsufficient privileges.");
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 
@@ -136,7 +138,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 			// Item Max Limit Check
 			if (!warehouse.validateCapacity(slots))
 			{
-				sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
+				sendPacket(new SystemMessage(SystemMessageId.WAREHOUSE_FULL));
 				return;
 			}
 

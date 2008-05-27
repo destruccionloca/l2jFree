@@ -51,12 +51,12 @@ public class RequestListPartyMatchingWaitingRoom extends L2GameClientPacket
 
 		if (_minLevel < 1)
 			_minLevel = 1;
-		else if (_minLevel > 80)
-			_minLevel = 80;
+		else if (_minLevel > 85)
+			_minLevel = 85;
 		if (_maxLevel < _minLevel)
 			_maxLevel = _minLevel;
-		else if (_maxLevel > 80)
-			_maxLevel = 80;
+		else if (_maxLevel > 85)
+			_maxLevel = 85;
 
 		// Send waiting list packet here
 	}

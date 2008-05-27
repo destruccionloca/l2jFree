@@ -60,7 +60,7 @@ public class RequestJoinParty extends L2GameClientPacket
 		if (requestor == null)
 			return;
 
-		if (target == null || (target.isGM() && target.getAppearance().getInvisible()))
+		if (target == null || (target.isGM() && target.getAppearance().getInvisible() && !requestor.isGM()))
 		{
 			requestor.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return;
@@ -153,7 +153,7 @@ public class RequestJoinParty extends L2GameClientPacket
 		}
 		else
 		{
-			msg = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER);
+			msg = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER).addString(target.getName());
 			requestor.sendPacket(msg);
 
 			if (_log.isDebugEnabled())

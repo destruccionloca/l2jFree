@@ -202,7 +202,7 @@ public class AdminTest implements IAdminCommandHandler
 			else
 				showAdminCommandHelp(activeChar, cmd);
 		}
-		if (cmd.equals("admin_heading"))
+		else if (cmd.equals("admin_heading"))
 		{
 			L2Object objTarget = activeChar.getTarget();
 

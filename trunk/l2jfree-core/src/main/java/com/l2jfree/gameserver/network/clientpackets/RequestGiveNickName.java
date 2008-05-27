@@ -53,7 +53,7 @@ public class RequestGiveNickName extends L2GameClientPacket
 			return;
 		
 		//Can the player change/give a title?
-		if(activeChar.isNoble() && activeChar.getTarget() == activeChar)
+		if ((activeChar.isNoble() || activeChar.isGM()) && activeChar.getTarget() == activeChar)
 		{
 			if (!Config.TITLE_PATTERN.matcher(_title).matches())
 			{

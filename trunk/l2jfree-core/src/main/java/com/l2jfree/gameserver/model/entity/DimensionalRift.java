@@ -18,7 +18,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
+import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager.DimensionalRiftRoom;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -156,14 +158,17 @@ public class DimensionalRift
 			spawnTimer.cancel();
 			spawnTimer = null;
 		}
-	
+
+		final DimensionalRiftRoom riftRoom = DimensionalRiftManager.getInstance().getRoom(_roomType, room);
+		riftRoom.setUsed();
+
 		spawnTimer = new Timer();
 		spawnTimerTask = new TimerTask()
 		{
 			@Override
 			public void run()
 			{
-				DimensionalRiftManager.getInstance().getRoom(_roomType, room).spawn();
+				riftRoom.spawn();
 			}
 		};
 
@@ -326,6 +331,20 @@ public class DimensionalRift
 	{
 		if(!deadPlayers.contains(player))
 			deadPlayers.add(player);
+
+		if (_party.getMemberCount() == deadPlayers.size())
+		{
+			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+			{
+				public void run()
+				{
+					for(L2PcInstance p : _party.getPartyMembers())
+						if(!revivedInWaitingRoom.contains(p))
+							teleportToWaitingRoom(p);
+					killRift();
+				}
+			}, 5000);
+		}
 	}
 
 	public void memberRessurected(L2PcInstance player)
@@ -344,14 +363,16 @@ public class DimensionalRift
 
 		if(_party.getMemberCount() - revivedInWaitingRoom.size() < Config.RIFT_MIN_PARTY_SIZE)
 		{
-			//int pcm = _party.getMemberCount();
-			//int rev = revivedInWaitingRoom.size();
-			//int min = Config.RIFT_MIN_PARTY_SIZE;
-			
-			for(L2PcInstance p : _party.getPartyMembers())
-				if(!revivedInWaitingRoom.contains(p))
-					teleportToWaitingRoom(p);
-			killRift();
+			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+			{
+				public void run()
+				{
+					for(L2PcInstance p : _party.getPartyMembers())
+						if(!revivedInWaitingRoom.contains(p))
+							teleportToWaitingRoom(p);
+					killRift();
+				}
+			}, 5000);
 		}
 	}
 

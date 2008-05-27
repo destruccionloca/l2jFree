@@ -686,8 +686,7 @@ public class L2NpcInstance extends L2Character
 					{
 						// Send a Server->Client packet SocialAction to the all L2PcInstance on the _knownPlayer of the L2NpcInstance
 						// to display a social action of the L2NpcInstance on their client
-						SocialAction sa = new SocialAction(getObjectId(), Rnd.get(8));
-						broadcastPacket(sa);
+						onRandomAnimation();
 
 						// Open a chat window on client with the text of the L2NpcInstance
 						if (isEventMob)
@@ -2576,7 +2575,10 @@ public class L2NpcInstance extends L2Character
 				html.replace("_Quest", "_RentPet\">Rent Pet</a><br><a action=\"bypass -h npc_%objectId%_Quest");
 
 		html.replace("%objectId%", String.valueOf(getObjectId()));
-		html.replace("%festivalMins%", SevenSignsFestival.getInstance().getTimeToNextFestivalStr());
+		if (this instanceof L2FestivalGuideInstance)
+		{
+			html.replace("%festivalMins%", SevenSignsFestival.getInstance().getTimeToNextFestivalStr());
+		}
 		player.sendPacket(html);
 
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet

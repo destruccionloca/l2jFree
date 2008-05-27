@@ -172,7 +172,7 @@ public class CharTemplateTable
 			"Warder",
 			"Berserker",
 			"Male Soulbreaker",
-			"Female Souldbreaker",
+			"Female Soulbreaker",
 			"Arbalester",
 			"Doombringer",
 			"Male Soulhound",

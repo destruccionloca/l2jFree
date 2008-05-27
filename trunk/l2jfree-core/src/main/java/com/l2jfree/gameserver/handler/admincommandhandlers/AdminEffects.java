@@ -341,7 +341,7 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			catch (Exception e)
 			{
-				activeChar.sendMessage("Use //gmspeed value (0=off...4=max).");
+				activeChar.sendMessage("Use //gmspeed <value> (0=off...4=max).");
 			}
 			finally
 			{
@@ -691,7 +691,7 @@ public class AdminEffects implements IAdminCommandHandler
 
 	private void playAdminSound(L2PcInstance activeChar, String sound)
 	{
-		PlaySound _snd = new PlaySound(1, sound, 0, 0, 0, 0, 0);
+		PlaySound _snd = new PlaySound(0, sound, 0, 0, 0, 0, 0);
 		activeChar.sendPacket(_snd);
 		activeChar.broadcastPacket(_snd);
 		activeChar.sendMessage("Playing " + sound + ".");

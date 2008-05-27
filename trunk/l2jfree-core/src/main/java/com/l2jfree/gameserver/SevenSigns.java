@@ -83,7 +83,6 @@ public class SevenSigns
 	public static final int							RECORD_SEVEN_SIGNS_ID		= 5707;
 	public static final int							CERTIFICATE_OF_APPROVAL_ID	= 6388;
 	public static final int							RECORD_SEVEN_SIGNS_COST		= 500;
-	public static final int							ADENA_JOIN_DAWN_COST		= 50000;
 
 	// NPC Related Constants \\
 	public static final int							ORATOR_NPC_ID				= 31094;

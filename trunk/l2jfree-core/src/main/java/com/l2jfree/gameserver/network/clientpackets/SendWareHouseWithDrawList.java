@@ -78,8 +78,9 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
-		
+		if (player == null)
+			return;
+
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
 				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
 		{
@@ -89,13 +90,15 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		}
 		
 		ItemContainer warehouse = player.getActiveWarehouse();
-		if (warehouse == null) return;
+		if (warehouse == null)
+			return;
+
 		L2FolkInstance manager = player.getLastFolkNPC();
 		if ((manager == null || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM()) return;
 
 		if (warehouse instanceof ClanWarehouse && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
-			player.sendMessage("Transactions are disabled for your access level.");
+			player.sendMessage("Unsufficient privileges.");
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
