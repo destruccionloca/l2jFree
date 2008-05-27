@@ -24,10 +24,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.ClanTable;
-import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -400,19 +398,10 @@ public class AdminEditChar implements IAdminCommandHandler
 				player = (L2PcInstance) target;
 			else
 				return false;
-			//Adding a more extended granting and revoking hero status strings and messages @ BoDiE
-			if (player.isHero()){
-				player.setHero(player.isHero() ? true : false);
-				player.sendMessage("Your hero status has been revoked.");
-				Announcements.getInstance().announceToAll(player.getName() + " has lost the Hero status!");
-				GmListTable.broadcastMessageToGMs(player.getName()+" hero status was revoken my an Admin or GM.");			
-			} else {
-				player.setHero(player.isHero() ? false : true);
-				player.sendMessage("You have been granted with the hero stats.");
+			player.setHero(player.isHero() ? false : true);
+			if (player.isHero())
 				player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
-				Announcements.getInstance().announceToAll(player.getName() + " gain the Hero status!");
-				GmListTable.broadcastMessageToGMs(player.getName()+" was granted with hero status by an Admin or GM.");	
-			}
+			player.sendMessage("Admin changed your hero status");
 			player.broadcastUserInfo();
 		}
 		// [L2J_JP ADD END]
