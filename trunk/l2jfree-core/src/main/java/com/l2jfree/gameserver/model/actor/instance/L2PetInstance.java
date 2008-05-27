@@ -551,11 +551,8 @@ public class L2PetInstance extends L2Summon
     @Override
     public void doRevive()
     {
-        if (getCurrentFed() > (getMaxFed() / 10))
-            setCurrentFed(getMaxFed() / 10);
-
         getOwner().removeReviving();
-        
+
         super.doRevive();
         super.stopDecay();
         startFeed(false);

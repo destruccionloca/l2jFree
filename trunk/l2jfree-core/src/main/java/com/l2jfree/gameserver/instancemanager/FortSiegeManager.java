@@ -101,7 +101,7 @@ public class FortSiegeManager
 	 */
 	public final boolean checkIfOkToSummon(L2Character activeChar, boolean isCheckOnly)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+		if (!(activeChar instanceof L2PcInstance))
 			return false;
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1);

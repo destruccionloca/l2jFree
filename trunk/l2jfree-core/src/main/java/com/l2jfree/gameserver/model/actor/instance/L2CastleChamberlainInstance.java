@@ -126,10 +126,16 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 			if (st.countTokens() >= 1) {val = st.nextToken();}
 	 
 			if (actualCommand.equalsIgnoreCase("banish_foreigner"))
+			{
+				if ((player.getClanPrivileges() & L2Clan.CP_CS_DISMISS) == L2Clan.CP_CS_DISMISS)
 				{
-					getCastle().banishForeigners(); // Move non-clan members off castle area
+					getCastle().banishForeigners();                    // Move non-clan members off castle area
 					return;
 				}
+				else
+					player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+				return;
+			}
 			else if (actualCommand.equalsIgnoreCase("list_siege_clans"))
 				{
 					getCastle().getSiege().listRegisterClan(player);		// List current register clan

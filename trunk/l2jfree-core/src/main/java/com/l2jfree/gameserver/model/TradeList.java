@@ -351,7 +351,7 @@ public class TradeList
             return null;
         }
         L2Object o = L2World.getInstance().findObject(objectId);
-        if (o == null || !(o instanceof L2ItemInstance))
+        if (!(o instanceof L2ItemInstance))
         {
             _log.warn(_owner.getName() + ": Attempt to add invalid item to TradeList!");
             return null;

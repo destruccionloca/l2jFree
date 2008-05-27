@@ -68,7 +68,7 @@ public class ChatShout implements IChatHandler
 			L2MapRegion region = MapRegionManager.getInstance().getRegion(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				if (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY(), activeChar.getZ())
+				if (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY(), player.getZ())
 						&& !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)))
 				{
 					player.sendPacket(cs);

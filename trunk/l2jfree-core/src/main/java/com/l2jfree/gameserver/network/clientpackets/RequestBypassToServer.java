@@ -191,7 +191,7 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not leave now!");
                     }
 
-                    else if (object != null && object instanceof L2NpcInstance && endOfId > 0 && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
+                    else if (object instanceof L2NpcInstance && endOfId > 0 && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
                     {
                         ((L2NpcInstance)object).onBypassFeedback(activeChar, _command.substring(endOfId+1));
                     }

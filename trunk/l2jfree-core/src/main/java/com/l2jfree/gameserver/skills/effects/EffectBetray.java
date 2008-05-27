@@ -41,7 +41,7 @@ final class EffectBetray extends L2Effect
 	@Override
 	public void onStart()
 	{
-		if (getEffected() != null && getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
+		if (getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
 		{
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, ((L2Summon) getEffected()).getOwner());
 			getEffected().setIsBetrayed(true);
@@ -53,7 +53,7 @@ final class EffectBetray extends L2Effect
 	@Override
 	public void onExit()
 	{
-		if (getEffected() != null && getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
+		if (getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
 		{
 			getEffected().setIsBetrayed(false);
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
@@ -63,7 +63,7 @@ final class EffectBetray extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		if (getEffected() != null && getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
+		if (getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
 		{
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, ((L2Summon) getEffected()).getOwner());
 			getEffected().setIsBetrayed(true);

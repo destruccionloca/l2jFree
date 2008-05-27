@@ -145,7 +145,7 @@ public class RequestWearItem extends L2GameClientPacket
         L2TradeList list = null;
 
         // Get the current merchant targeted by the player
-		L2MerchantInstance merchant = (target != null && target instanceof L2MerchantInstance) ? (L2MerchantInstance)target : null;
+		L2MerchantInstance merchant = (target instanceof L2MerchantInstance) ? (L2MerchantInstance)target : null;
 		
 		List<L2TradeList> lists = TradeListTable.getInstance().getBuyListByNpcId(merchant.getNpcId());
     	

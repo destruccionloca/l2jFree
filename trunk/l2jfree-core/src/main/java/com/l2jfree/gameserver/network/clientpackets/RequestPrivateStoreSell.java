@@ -93,17 +93,17 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
-		
+
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+            && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
+            player.sendMessage("Transactions are not allowed during restart/shutdown.");
+            player.sendPacket(ActionFailed.STATIC_PACKET);
+            return;
         }
-		
+
         L2Object object = L2World.getInstance().findObject(_storePlayerId);
-        if (object == null || !(object instanceof L2PcInstance)) return;
+        if (!(object instanceof L2PcInstance)) return;
         L2PcInstance storePlayer = (L2PcInstance)object;
         if (storePlayer.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_BUY) return;
 

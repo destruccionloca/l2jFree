@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -48,7 +49,9 @@ public class RequestJoinPledge extends L2GameClientPacket
 		{
 			return;
 		}
-		if (!(L2World.getInstance().findObject(_target) instanceof L2PcInstance))
+
+		L2Object ob = L2World.getInstance().findObject(_target);
+		if (!(ob instanceof L2PcInstance))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET));
 			return;
@@ -61,7 +64,7 @@ public class RequestJoinPledge extends L2GameClientPacket
 			return;
 		}
 
-		L2PcInstance target = (L2PcInstance) L2World.getInstance().findObject(_target);
+		L2PcInstance target = (L2PcInstance) ob;
 		if (!clan.checkClanJoinCondition(activeChar, target, _pledgeType))
 		{
 			return;

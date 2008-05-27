@@ -41,7 +41,7 @@ public class SiegeFlag implements ISkillHandler
 	L2Skill skill, @SuppressWarnings("unused")
 	L2Object[] targets)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+		if (!(activeChar instanceof L2PcInstance))
 			return;
 
 		L2PcInstance player = (L2PcInstance) activeChar;

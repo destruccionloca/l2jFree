@@ -50,7 +50,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar(); 
-        if (player == null || player.getPet() == null || !(player.getPet() instanceof L2PetInstance)) return;
+        if (player == null || !(player.getPet() instanceof L2PetInstance)) return;
 
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)

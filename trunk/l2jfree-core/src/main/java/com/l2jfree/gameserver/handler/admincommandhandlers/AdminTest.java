@@ -106,7 +106,7 @@ public class AdminTest implements IAdminCommandHandler
 		{
 			L2Object obj = activeChar.getTarget();
 			L2Character caster = null;
-			if (obj == null || !(obj instanceof L2Character))
+			if (!(obj instanceof L2Character))
 			{
 				caster = activeChar;
 			}
@@ -128,7 +128,7 @@ public class AdminTest implements IAdminCommandHandler
 				return false;
 			}
 			L2Character target = null;
-			if (caster.getTarget() == null || !(caster.getTarget() instanceof L2Character) || cmd.equals("admin_docastself"))
+			if (!(caster.getTarget() instanceof L2Character) || cmd.equals("admin_docastself"))
 			{
 				target = caster;
 			}
@@ -245,7 +245,7 @@ public class AdminTest implements IAdminCommandHandler
 	{
 		L2Object target;
 
-		if (activeChar.getTarget() != null && (activeChar.getTarget() instanceof L2Character))
+		if (activeChar.getTarget() instanceof L2Character)
 			target = activeChar.getTarget();
 		else
 			target = activeChar;

@@ -82,7 +82,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)
 	{
-		if (attacker == null || !(attacker instanceof L2PcInstance))
+		if (!(attacker instanceof L2PcInstance))
 			return false;
 
 		boolean isCastle = ( getCastle() != null && getCastle().getCastleId() > 0 

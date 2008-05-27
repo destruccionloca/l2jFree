@@ -56,7 +56,7 @@ public class DoorKey implements IItemHandler
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		L2Object target = activeChar.getTarget();
 
-		if (target == null || !(target instanceof L2DoorInstance))
+		if (!(target instanceof L2DoorInstance))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);

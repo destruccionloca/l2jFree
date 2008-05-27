@@ -15,38 +15,34 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 /**
- * @author NightMarez
- * @version $Revision: 1.3.2.2.2.5 $ $Date: 2005/03/27 15:29:32 $
+ * @author Kerberos
  *
  */
 
 import java.util.StringTokenizer;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.datatables.TeleportLocationTable;
-import com.l2jfree.gameserver.model.L2CharPosition;
-import com.l2jfree.gameserver.model.L2TeleportLocation;
-import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
-import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.Config;
+import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.instancemanager.MapRegionManager;
+import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.NpcSay;
+import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
 public final class L2CastleTeleporterInstance extends L2FolkInstance
 {
-    private final static Log _log = LogFactory.getLog(L2CastleTeleporterInstance.class.getName());
+	private boolean _currentTask = false;
 
-    private static final int COND_ALL_FALSE = 0;
-	private static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
-	private static final int COND_OWNER = 2;
-	private static final int COND_REGULAR = 3;
-	
 	/**
-	 * @param template
-	 */
+	* @param template
+	*/
 	public L2CastleTeleporterInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
@@ -54,118 +50,119 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
-	{	
-		int condition = validateCondition(player);
-		if (condition <= COND_BUSY_BECAUSE_OF_SIEGE)
-			return;
-
+	{
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String actualCommand = st.nextToken(); // Get actual command
 
-		if (actualCommand.equalsIgnoreCase("goto"))
+		if (actualCommand.equalsIgnoreCase("tele"))
 		{
-			if (st.countTokens() <= 0) {return;}
-			int whereTo = Integer.parseInt(st.nextToken());
-			if (condition == COND_REGULAR)
-			{
-				doTeleport(player, whereTo);
-				return;
-			}
-			else if (condition == COND_OWNER)
-			{
-				int minPrivilegeLevel = 0; // NOTE: Replace 0 with highest level when privilege level is implemented
-				if (st.countTokens() >= 1) {minPrivilegeLevel = Integer.parseInt(st.nextToken());}
-				if (10 >= minPrivilegeLevel) // NOTE: Replace 10 with privilege level of player
-					doTeleport(player, whereTo);
-				else
-					player.sendMessage("You don't have the sufficient access level to teleport there.");
-				return;
-			}
+			doTeleport(player);
+			String filename = "data/html/castleteleporter/MassGK-1.htm";
+			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+			html.setFile(filename);
+			player.sendPacket(html);
+			return;
 		}
-		super.onBypassFeedback(player, command);
+		else
+			super.onBypassFeedback(player, command);
 	}
 
-	@Override
-	public String getHtmlPath(int npcId, int val)
-	{
-		String pom = "";
-		if (val == 0)
-		{
-			pom = "" + npcId;
-		} 
-		else 
-		{
-			pom = npcId + "-" + val;
-		}
-		
-		return "data/html/teleporter/" + pom + ".htm";
-	}
-
-	
 	@Override
 	public void showChatWindow(L2PcInstance player)
 	{
-		String filename = "data/html/teleporter/castleteleporter-no.htm";
-		
-		int condition = validateCondition(player);
-		if (condition == COND_REGULAR)
+		String filename = "data/html/castleteleporter/MassGK-1.htm";
+		if (!getTask())
 		{
-		    super.showChatWindow(player);
-		    return;
+			filename = "data/html/castleteleporter/MassGK.htm";
 		}
-		else if (condition > COND_ALL_FALSE)
-		{
-	        if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
-	            filename = "data/html/teleporter/castleteleporter-busy.htm";  // Busy because of siege
-	        else if (condition == COND_OWNER)                                 // Clan owns castle
-	            filename = "data/html/teleporter/" + getNpcId() + ".htm";     // Owner message window
-		}
-
-        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
-		html.replace("%npcname%", getName());
 		player.sendPacket(html);
 	}
 
-	private void doTeleport(L2PcInstance player, int val)
+	private void doTeleport(L2PcInstance player)
 	{
-		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
-		if (list != null)
+		Castle castle = CastleManager.getInstance().getCastle(player.getX(), player.getY(), player.getZ());
+		long delay = Config.SIEGE_RESPAWN_DELAY_DEFENDER;
+		if (castle != null && castle.getSiege().getIsInProgress())
+			delay = castle.getSiege().getDefenderRespawnDelay();
+		if (delay > 480000)
+			delay = 480000;
+		setTask(true);
+
+		ThreadPoolManager.getInstance().scheduleGeneral(new OustTask(), delay );
+	}
+
+	private void oustAllPlayers()
+	{
+		getCastle().oustAllPlayers();
+	}
+
+	private class OustTask implements Runnable
+	{
+		public void run()
 		{
-			if (ObjectRestrictions.getInstance()
-					.checkRestriction(player, AvailableRestriction.PlayerTeleport)) {
-				player.sendMessage("You cannot teleport due to a restriction.");
-				return;
-			}
-				
-			if(player.reduceAdena("Teleport", list.getPrice(), player.getLastFolkNPC(), true))
+			NpcSay cs = new NpcSay(getObjectId(), 1, getNpcId(), "The defenders of "+ getCastle().getName()+" castle will be teleported to the inner castle.");
+			L2MapRegion region = MapRegionManager.getInstance().getRegion(getX(), getY(), getZ());
+			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				if (_log.isDebugEnabled())
-					_log.debug("Teleporting player "+player.getName()+" to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
-                
-				// teleport
-				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
-				player.stopMove(new L2CharPosition(list.getLocX(), list.getLocY(), list.getLocZ(), player.getHeading()));
+				if (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY(), player.getZ()))
+				{
+					player.sendPacket(cs);
+				}
 			}
+			oustAllPlayers();
+			setTask(false);
+		}
+	}
+
+	/**
+	* this is called when a player interacts with this NPC
+	* @param player
+	*/
+	@Override
+	public void onAction(L2PcInstance player)
+	{
+		if (!canTarget(player)) return;
+
+		// Check if the L2PcInstance already target the L2NpcInstance
+		if (this != player.getTarget())
+		{
+			// Set the target of the L2PcInstance player
+			player.setTarget(this);
+
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
+			player.sendPacket(my);
+
+			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
+			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{
-			_log.warn("No teleport destination with id:" +val);
+			// Calculate the distance between the L2PcInstance and the L2NpcInstance
+			if (!canInteract(player))
+			{
+				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
+			}
+			else
+			{
+				showChatWindow(player);
+			}
 		}
+		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	private int validateCondition(L2PcInstance player)
+	public boolean getTask()
 	{
-		if (player.getClan() != null && getCastle() != null)
-		{
-			if (getCastle().getSiege().getIsInProgress())
-				return COND_BUSY_BECAUSE_OF_SIEGE;                   // Busy because of siege
-			else if (getCastle().getOwnerId() == player.getClanId()) // Clan owns castle
-				return COND_OWNER;                                   // Owner
-		}
-		
-		return COND_ALL_FALSE;
+		return _currentTask;
+	}
+
+	public void setTask(boolean state)
+	{
+		_currentTask = state;
 	}
 }

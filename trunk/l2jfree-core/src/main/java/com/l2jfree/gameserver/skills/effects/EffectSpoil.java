@@ -47,16 +47,13 @@ public class EffectSpoil extends L2Effect
 	@Override
 	public void onStart()
 	{
-		if (!(getEffector() instanceof L2PcInstance) || (getEffected() == null))
+		if (!(getEffector() instanceof L2PcInstance))
 			return;
 
 		if (!(getEffected() instanceof L2MonsterInstance))
 			return;
 
 		L2MonsterInstance target = (L2MonsterInstance) getEffected();
-
-		if (target == null)
-			return;
 
 		if (target.isSpoil())
 		{

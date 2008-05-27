@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
+import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -157,7 +158,7 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 				if (getCastle().getSiege().getIsInProgress())
 					return COND_BUSY_BECAUSE_OF_SIEGE;					// Busy because of siege
 				else if (getCastle().getOwnerId() == player.getClanId() // Clan owns castle
-						&& player.isClanLeader())						// Leader of clan
+						&& (player.getClanPrivileges() & L2Clan.CP_CS_MANOR_ADMIN) == L2Clan.CP_CS_MANOR_ADMIN)
 					return COND_OWNER;  // Owner
 			}
 		}

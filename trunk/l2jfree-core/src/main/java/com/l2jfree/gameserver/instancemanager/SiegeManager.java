@@ -97,7 +97,7 @@ public class SiegeManager
 	 */
 	public static boolean checkIfOkToPlaceFlag(L2Character activeChar, boolean isCheckOnly)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+		if (!(activeChar instanceof L2PcInstance))
 			return false;
 
 		L2PcInstance player = (L2PcInstance) activeChar;
@@ -135,7 +135,7 @@ public class SiegeManager
 	 */
 	public final boolean checkIfOkToSummon(L2Character activeChar, boolean isCheckOnly)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+		if (!(activeChar instanceof L2PcInstance))
 			return false;
 
 		L2PcInstance player = (L2PcInstance) activeChar;
@@ -170,7 +170,7 @@ public class SiegeManager
 	 */
 	public static boolean checkIfOkToUseStriderSiegeAssault(L2Character activeChar, boolean isCheckOnly)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+		if (!(activeChar instanceof L2PcInstance))
 			return false;
 
 		L2PcInstance player = (L2PcInstance) activeChar;

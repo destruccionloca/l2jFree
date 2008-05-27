@@ -47,7 +47,7 @@ public class L2SiegeClan
 	}
 
 	public void addFlag(L2NpcInstance flag) 
-	{	
+	{
 		_numFlagsAdded++;
 		getFlag().add(flag);
 	}
@@ -81,6 +81,7 @@ public class L2SiegeClan
 		}
 
 		flag.deleteMe();
+		_numFlagsAdded--;
 		return ret;
 	}
 

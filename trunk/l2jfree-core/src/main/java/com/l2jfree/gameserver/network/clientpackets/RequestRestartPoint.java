@@ -57,11 +57,11 @@ public class RequestRestartPoint extends L2GameClientPacket
 		_requestedPointType = readD();
 	}
 
-	class DeathTask implements Runnable
+	private class DeathTask implements Runnable
 	{
-		final L2PcInstance	activeChar;
+		private final L2PcInstance activeChar;
 
-		DeathTask(L2PcInstance _activeChar)
+		public DeathTask(L2PcInstance _activeChar)
 		{
 			activeChar = _activeChar;
 		}
@@ -253,23 +253,14 @@ public class RequestRestartPoint extends L2GameClientPacket
 		Castle castle = CastleManager.getInstance().getCastle(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 		if (castle != null && castle.getSiege().getIsInProgress())
 		{
-			//DeathFinalizer df = new DeathFinalizer(10000);
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1);
 			if (activeChar.getClan() != null && castle.getSiege().checkIsAttacker(activeChar.getClan()))
 			{
 				// Schedule respawn delay for attacker
 				ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), castle.getSiege().getAttackerRespawnDelay());
-				sm.addString("You will be re-spawned in " + castle.getSiege().getAttackerRespawnDelay() / 1000 + " seconds.");
-				activeChar.sendPacket(sm);
+				if (castle.getSiege().getAttackerRespawnDelay() > 0)
+					activeChar.sendMessage("You will be re-spawned in " + castle.getSiege().getAttackerRespawnDelay()/1000 + " seconds");
+				return;
 			}
-			else
-			{
-				// Schedule respawn delay for defender with penalty for CT lose
-				ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), castle.getSiege().getDefenderRespawnDelay());
-				sm.addString("You will be re-spawned in " + castle.getSiege().getDefenderRespawnDelay() / 1000 + " seconds.");
-				activeChar.sendPacket(sm);
-			}
-			return;
 		}
 
 		// run immediatelly (no need to schedule)

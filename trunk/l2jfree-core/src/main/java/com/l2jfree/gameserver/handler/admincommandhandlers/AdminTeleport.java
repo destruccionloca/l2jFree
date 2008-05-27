@@ -531,7 +531,7 @@ public class AdminTeleport implements IAdminCommandHandler
 	private void recallNPC(L2PcInstance activeChar)
 	{
 		L2Object obj = activeChar.getTarget();
-		if ((obj != null) && (obj instanceof L2NpcInstance))
+		if (obj instanceof L2NpcInstance)
 		{
 			L2NpcInstance target = (L2NpcInstance) obj;
 

@@ -238,7 +238,8 @@ public class L2Party
     {
 		for(L2PcInstance member : getPartyMembers())
 		{
-			if (member != null && !member.equals(player)) member.sendPacket(msg);
+			if (member != null && !member.equals(player))
+				member.sendPacket(msg);
 		}
 	}
 	
@@ -277,9 +278,7 @@ public class L2Party
 
 		//sends new member party window for all members
 		//we do all actions before adding member to a list, this speeds things up a little
-		PartySmallWindowAll window = new PartySmallWindowAll();
-		window.setPartyList(getPartyMembers());
-		player.sendPacket(window);
+		player.sendPacket(new PartySmallWindowAll(player, getPartyMembers()));
 
 		// sends pets/summons of party members
 		L2Summon summon;
@@ -464,8 +463,7 @@ public class L2Party
 	{
 		//delete view for all members:
 		broadcastToPartyMembers(new PartySmallWindowDeleteAll());
-		for (L2PcInstance p : getPartyMembers())
-			broadcastToPartyMembers(new PartySmallWindowDelete(p));
+
 		//rebuild the view for all members:
 		for (L2PcInstance player : getPartyMembers())
 		{
@@ -476,10 +474,7 @@ public class L2Party
 			}
 			else
 			{
-				PartySmallWindowAll window = new PartySmallWindowAll();
-				window.setPartyList(getPartyMembers(player,false));
-				player.sendPacket(window);
-				player.sendPacket(new PartySmallWindowUpdate(getPartyMembers().get(0)));
+				player.sendPacket(new PartySmallWindowAll(player, getPartyMembers()));
 			}
 		}
 		for (L2PcInstance player : getPartyMembers())

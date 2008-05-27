@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
@@ -34,13 +35,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.CharInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
+import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowAll;
+import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowDeleteAll;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -56,7 +56,8 @@ import com.l2jfree.gameserver.util.Util;
  * - nokarma 
  * - setkarma 
  * - settitle 
- * - setname 
+ * - changename
+ * - changename_menu
  * - setsex 
  * - setclass 
  * - fullfood 
@@ -80,7 +81,8 @@ public class AdminEditChar implements IAdminCommandHandler
 			"admin_save_modifications", //consider it deprecated...
 			"admin_rec", // gives recommendation points
 			"admin_settitle", // changes char title
-			"admin_setname", // changes char name
+			"admin_changename", // changes char name
+			"admin_changename_menu",
 			"admin_setsex", // changes characters' sex
 			"admin_setcolor", // change charnames' color display 
 			"admin_setclass", // changes chars' classId
@@ -304,35 +306,68 @@ public class AdminEditChar implements IAdminCommandHandler
 			else if (npc != null)
 			{
 				npc.setTitle(val);
-				npc.broadcastPacket(new NpcInfo(npc, null));
+				npc.updateAbnormalEffect();
 			}
 		}
-		else if (command.startsWith("admin_setname"))
+		else if (command.startsWith("admin_changename"))
 		{
-			activeChar.sendMessage("Deprecated. Use //changename instead.");
-			/*
 			try
 			{
-				String val = command.substring(14); 
+				StringTokenizer st = new StringTokenizer(command);
+				st.nextToken();
+				String val = st.nextToken();
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
-				if (activeChar != target && activeChar.getAccessLevel()<REQUIRED_LEVEL2)
-					return false;
-				if (target instanceof L2PcInstance) {
+
+				String oldName = null;
+
+				if (target instanceof L2PcInstance)
+				{
 					player = (L2PcInstance)target;
-				} else {
-					return false;
+					oldName = player.getName();
+
+					L2World.getInstance().removeFromAllPlayers(player);
+					player.setName(val);
+					player.store();
+					L2World.getInstance().addToAllPlayers(player);
+
+					player.sendMessage("Your name has been changed by a GM.");
+					player.broadcastUserInfo();
+
+					if (player.isInParty())
+					{
+						// Delete party window for other party members
+						player.getParty().broadcastToPartyMembers(player, new PartySmallWindowDeleteAll());
+						for (L2PcInstance member : player.getParty().getPartyMembers())
+						{
+							// And re-add
+							if (member != player)
+								member.sendPacket(new PartySmallWindowAll(member, player.getParty().getPartyMembers()));
+						}
+					}
+					if (player.getClan() != null)
+					{
+						player.getClan().broadcastClanStatus();
+					}
+
+					RegionBBSManager.getInstance().changeCommunityBoard();
 				}
-				player.setName(val);
-				player.sendMessage("Your name has been changed by a GM");
-				player.broadcastUserInfo();
-				player.store();
+				else if (target instanceof L2NpcInstance)
+				{
+					L2NpcInstance npc = (L2NpcInstance)target;
+					oldName = npc.getName();
+					npc.setName(val);
+					npc.updateAbnormalEffect();
+				}
+				if (oldName == null)
+					activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
+				else
+					activeChar.sendMessage("Name changed from "+oldName+" to "+val);
 			}
-			catch (StringIndexOutOfBoundsException e)
+			catch (Exception e)
 			{   //Case of empty character name
 				activeChar.sendMessage("Usage: //setname new_name_for_target");
 			}
-			*/
 		}
 		else if (command.startsWith("admin_setsex"))
 		{
@@ -664,8 +699,7 @@ public class AdminEditChar implements IAdminCommandHandler
 
 		showCharacterInfo(activeChar, null); //Back to start
 
-		player.broadcastPacket(new CharInfo(player));
-		player.sendPacket(new UserInfo(player));
+		player.broadcastUserInfo();
 		player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		player.decayMe();
 		player.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());

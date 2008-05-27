@@ -54,15 +54,23 @@
     </shape>
   </zone>
 
-  <zone id="3" name="Gludio Defender Spawn" type="DefenderSpawn">
+  <zone id="3" name="Gludio Teleport Zone" type="CastleTeleport"> <!-- mass GK -->
     <entity castleId="1"/>
-    <shape type="Rect" zMin="-2245" zMax="-2245">
-      <point x="-18183" y="110224"/>
-      <point x="-18043" y="110370"/>
+    <shape type="Rect" zMin="-1801" zMax="-1682">
+      <point x="-16287" y="109204"/>
+      <point x="-17178" y="109518"/>
     </shape>
   </zone>
 
-  <zone id="4" name="Gludio Siege" type="Siege">
+  <zone id="4" name="Gludio Defender Spawn" type="DefenderSpawn">
+    <entity castleId="1"/>
+    <shape type="Rect" zMin="-2496" zMax="-2496">
+      <point x="-18482" y="109041"/>
+      <point x="-17727" y="109383"/>
+    </shape>
+  </zone>
+
+  <zone id="5" name="Gludio Siege" type="Siege">
     <entity castleId="1"/>
     <shape type="Poly" zMin="-4448" zMax="3551">
       <point x="-22615" y="104510"/>
@@ -72,7 +80,7 @@
     </shape>
   </zone>
 
-  <zone id="5" name="Dion" type="Castle">
+  <zone id="6" name="Dion" type="Castle">
     <entity castleId="2"/>
     <restart_chaotic x="-81616" y="157104" z="-3150"/>
     <restart_chaotic x="-80688" y="157216" z="-3150"/>
@@ -108,7 +116,7 @@
     </shape>
   </zone>
 
-  <zone id="6" name="Dion HQ" type="HeadQuarters">
+  <zone id="7" name="Dion HQ" type="HeadQuarters">
     <entity castleId="2"/>
     <shape type="Poly" zMin="-4678" zMax="4000">
       <point x="26012" y="155725"/>
@@ -126,15 +134,23 @@
     </shape>
   </zone>
 
-  <zone id="7" name="Dion Defender Spawn" type="DefenderSpawn">
+  <zone id="8" name="Dion Teleport Zone" type="CastleTeleport"> <!-- mass GK -->
     <entity castleId="2"/>
-    <shape type="Rect" zMin="-2474" zMax="-2474">
-      <point x="20266" y="160533"/>
-      <point x="20215" y="160283"/>
+    <shape type="Rect" zMin="-1993" zMax="-1877">
+      <point x="20249" y="160547"/>
+      <point x="21132" y="160228"/>
     </shape>
   </zone>
 
-  <zone id="8" name="Dion Siege" type="Siege">
+  <zone id="9" name="Dion Defender Spawn" type="DefenderSpawn">
+    <entity castleId="2"/>
+    <shape type="Rect" zMin="-2690" zMax="-2690">
+      <point x="22456" y="160392"/>
+      <point x="21709" y="160706"/>
+    </shape>
+  </zone>
+
+  <zone id="10" name="Dion Siege" type="Siege">
     <entity castleId="2"/>
     <shape type="Poly" zMin="-4642" zMax="4000">
       <point x="26575" y="165240"/>
@@ -144,7 +160,7 @@
     </shape>
   </zone>
 
-  <zone id="9" name="Giran" type="Castle">
+  <zone id="11" name="Giran" type="Castle">
     <entity castleId="3"/>
     <restart_chaotic x="122098" y="70373" z="-2864"/>
     <restart_chaotic x="118674" y="71218" z="-2743"/>
@@ -171,7 +187,7 @@
     </shape>
   </zone>
 
-  <zone id="10" name="Giran HQ" type="HeadQuarters">
+  <zone id="12" name="Giran HQ" type="HeadQuarters">
     <entity castleId="3"/>
     <shape type="Poly" zMin="-4551" zMax="19995">
       <point x="111897" y="141157"/>
@@ -189,15 +205,23 @@
     </shape>
   </zone>
 
-  <zone id="11" name="Giran Defender Spawn" type="DefenderSpawn">
+  <zone id="13" name="Giran Teleport Zone" type="CastleTeleport"> <!-- mass GK -->
     <entity castleId="3"/>
-    <shape type="Rect" zMin="-2347" zMax="-2347">
-      <point x="116708" y="146911"/>
-      <point x="116414" y="146051"/>
+    <shape type="Rect" zMin="-1868" zMax="-1750">
+      <point x="116400" y="146924"/>
+      <point x="116718" y="146030"/>
     </shape>
   </zone>
 
-  <zone id="12" name="Giran Siege" type="Siege">
+  <zone id="14" name="Giran Defender Spawn" type="DefenderSpawn">
+    <entity castleId="3"/>
+    <shape type="Rect" zMin="-2566" zMax="-2566">
+      <point x="116894" y="144729"/>
+      <point x="116555" y="145470"/>
+    </shape>
+  </zone>
+
+  <zone id="15" name="Giran Siege" type="Siege">
     <entity castleId="3"/>
     <shape type="Poly" zMin="-4515" zMax="19935">
       <point x="121412" y="140594"/>
@@ -207,7 +231,7 @@
     </shape>
   </zone>
 
-  <zone id="13" name="Oren" type="Castle">
+  <zone id="16" name="Oren" type="Castle">
     <entity castleId="4"/>
     <restart_chaotic x="122098" y="70373" z="-2864"/>
     <restart_chaotic x="118674" y="71218" z="-2743"/>
@@ -234,7 +258,7 @@
     </shape>
   </zone>
 
-  <zone id="14" name="Oren HQ" type="HeadQuarters">
+  <zone id="17" name="Oren HQ" type="HeadQuarters">
     <entity castleId="4"/>
     <shape type="Poly" zMin="-4278" zMax="19995">
       <point x="77973" y="33252"/>
@@ -252,15 +276,23 @@
     </shape>
   </zone>
 
-  <zone id="15" name="Oren Defender Spawn" type="DefenderSpawn">
+  <zone id="18" name="Oren Teleport Zone" type="CastleTeleport"> <!-- mass GK -->
     <entity castleId="4"/>
-    <shape type="Rect" zMin="-2074" zMax="-2074">
-      <point x="82785" y="39001"/>
-      <point x="82489" y="38144"/>
+    <shape type="Rect" zMin="-1595" zMax="-1477">
+      <point x="82478" y="39020"/>
+      <point x="82794" y="38125"/>
     </shape>
   </zone>
 
-  <zone id="16" name="Oren Siege" type="Siege">
+  <zone id="19" name="Oren Defender Spawn" type="DefenderSpawn">
+    <entity castleId="4"/>
+    <shape type="Rect" zMin="-2288" zMax="-2288">
+      <point x="82633" y="37599"/>
+      <point x="82957" y="36787"/>
+    </shape>
+  </zone>
+
+  <zone id="20" name="Oren Siege" type="Siege">
     <entity castleId="4"/>
     <shape type="Poly" zMin="-4242" zMax="19935">
       <point x="87488" y="32689"/>
@@ -270,7 +302,7 @@
     </shape>
   </zone>
 
-  <zone id="17" name="Aden" type="Castle">
+  <zone id="21" name="Aden" type="Castle">
     <entity castleId="5"/>
     <restart_chaotic x="122098" y="70373" z="-2864"/>
     <restart_chaotic x="118674" y="71218" z="-2743"/>
@@ -298,7 +330,7 @@
     </shape>
   </zone>
 
-  <zone id="18" name="Aden HQ" type="HeadQuarters">
+  <zone id="22" name="Aden HQ" type="HeadQuarters">
     <entity castleId="5"/>
     <shape type="Poly" zMin="-1158" zMax="42">
       <point x="144365" y="9902"/>
@@ -320,15 +352,23 @@
     </shape>
   </zone>
 
-  <zone id="19" name="Aden Defender Spawn" type="DefenderSpawn">
+  <zone id="23" name="Aden Teleport Zone" type="CastleTeleport"> <!-- mass GK -->
     <entity castleId="5"/>
-    <shape type="Rect" zMin="155" zMax="155">
-      <point x="147456" y="6048"/>
-      <point x="147466" y="6058"/>
+    <shape type="Rect" zMin="-2791" zMax="-2641">
+      <point x="146944" y="5112"/>
+      <point x="147967" y="4097"/>
     </shape>
   </zone>
 
-  <zone id="20" name="Aden Siege" type="Siege">
+  <zone id="24" name="Aden Defender Spawn" type="DefenderSpawn">
+    <entity castleId="5"/>
+    <shape type="Rect" zMin="-343" zMax="-343">
+      <point x="147208" y="4806"/>
+      <point x="147718" y="4359"/>
+    </shape>
+  </zone>
+
+  <zone id="25" name="Aden Siege" type="Siege">
     <entity castleId="5"/>
     <shape type="Poly" zMin="-3184" zMax="6816">
       <point x="142431" y="362"/>
@@ -338,7 +378,7 @@
     </shape>
   </zone>
 
-  <zone id="21" name="Innadril" type="Castle">
+  <zone id="26" name="Innadril" type="Castle">
     <entity castleId="6"/>
     <restart_chaotic x="122098" y="70373" z="-2864"/>
     <restart_chaotic x="118674" y="71218" z="-2743"/>
@@ -365,7 +405,7 @@
     </shape>
   </zone>
 
-  <zone id="22" name="Innadril HQ" type="HeadQuarters">
+  <zone id="27" name="Innadril HQ" type="HeadQuarters">
     <entity castleId="6"/>
     <shape type="Poly" zMin="-2774" zMax="4000">
       <point x="119963" y="244504"/>
@@ -383,15 +423,23 @@
     </shape>
   </zone>
 
-  <zone id="23" name="Innadril Defender Spawn" type="DefenderSpawn">
+  <zone id="28" name="Innadril Teleport Zone" type="CastleTeleport"> <!-- mass GK -->
     <entity castleId="6"/>
-    <shape type="Rect" zMin="-570" zMax="-570">
-      <point x="114214" y="249316"/>
-      <point x="115078" y="249018"/>
+    <shape type="Rect" zMin="-89" zMax="26">
+      <point x="146944" y="5112"/>
+      <point x="147967" y="4097"/>
     </shape>
   </zone>
 
-  <zone id="24" name="Innadril Siege" type="Siege">
+  <zone id="29" name="Innadril Defender Spawn" type="DefenderSpawn">
+    <entity castleId="6"/>
+    <shape type="Rect" zMin="-786" zMax="-786">
+      <point x="114195" y="249326"/>
+      <point x="115081" y="249007"/>
+    </shape>
+  </zone>
+
+  <zone id="30" name="Innadril Siege" type="Siege">
     <entity castleId="6"/>
     <shape type="Poly" zMin="-2738" zMax="4000">
       <point x="120526" y="254019"/>
@@ -401,7 +449,7 @@
     </shape>
   </zone>
 
-  <zone id="25" name="Goddard" type="Castle">
+  <zone id="31" name="Goddard" type="Castle">
     <entity castleId="7"/>
     <restart_chaotic x="42640" y="-54496" z="-2310"/>
     <restart_chaotic x="38304" y="-55440" z="-1136"/>
@@ -441,7 +489,7 @@
     </shape>
   </zone>
 
-  <zone id="26" name="Goddard HQ" type="HeadQuarters">
+  <zone id="32" name="Goddard HQ" type="HeadQuarters">
     <entity castleId="7"/>
     <shape type="Poly" zMin="-2625" zMax="1875">
       <point x="144715" y="-43884"/>
@@ -456,15 +504,23 @@
     </shape>
   </zone>
 
-  <zone id="27" name="Goddard Defender Spawn" type="DefenderSpawn"> <!-- mass GK -->
+  <zone id="33" name="Goddard Teleport Zone" type="CastleTeleport"> <!-- mass GK -->
     <entity castleId="7"/>
-    <shape type="Rect" zMin="-961" zMax="-961">
-      <point x="147617" y="-46305"/>
-      <point x="147316" y="-47117"/>
+    <shape type="Rect" zMin="-964" zMax="-573">
+      <point x="147293" y="-47188"/>
+      <point x="147644" y="-46267"/>
     </shape>
   </zone>
 
-  <zone id="28" name="Goddard Siege" type="Siege">
+  <zone id="34" name="Goddard Defender Spawn" type="DefenderSpawn">
+    <entity castleId="7"/>
+    <shape type="Rect" zMin="-2276" zMax="-2276">
+      <point x="147061" y="-48779"/>
+      <point x="147809" y="-48198"/>
+    </shape>
+  </zone>
+
+  <zone id="35" name="Goddard Siege" type="Siege">
     <entity castleId="7"/>
     <shape type="Poly" zMin="-3397" zMax="2103">
       <point x="141457" y="-51510"/>
@@ -475,7 +531,7 @@
     </shape>
   </zone>
 
-  <zone id="29" name="Rune" type="Castle">
+  <zone id="36" name="Rune" type="Castle">
     <entity castleId="8"/>
     <restart_chaotic x="142656" y="-55008" z="-3024"/>
     <restart_chaotic x="142832" y="-55680" z="-3462"/>
@@ -501,7 +557,7 @@
     </shape>
   </zone>
 
-  <zone id="30" name="Rune HQ" type="HeadQuarters">
+  <zone id="37" name="Rune HQ" type="HeadQuarters">
     <entity castleId="8"/>
     <shape type="Poly" zMin="-2500" zMax="2000">
       <point x="27144" y="-47640"/>
@@ -512,7 +568,7 @@
     </shape>
   </zone>
 
-  <zone id="31" name="Rune Defender Spawn" type="DefenderSpawn">
+  <zone id="38" name="Rune Defender Spawn" type="DefenderSpawn">
     <entity castleId="8"/>
     <shape type="Rect" zMin="-537" zMax="-537">
       <point x="11128" y="-49550"/>
@@ -520,7 +576,7 @@
     </shape>
   </zone>
 
-  <zone id="32" name="Rune Siege" type="Siege">
+  <zone id="39" name="Rune Siege" type="Siege">
     <entity castleId="8"/>
     <shape type="Poly" zMin="-5000" zMax="6000">
       <point x="7176" y="-56808"/>
@@ -530,7 +586,7 @@
     </shape>
   </zone>
 
-  <zone id="33" name="Schuttgart" type="Castle">
+  <zone id="40" name="Schuttgart" type="Castle">
     <entity castleId="9"/>
     <restart_owner x="77536" y="-153295" z="-389"/>
     <!--<restart_owner x="77524" y="-152709" z="-545"/>-->
@@ -542,7 +598,7 @@
     </shape>
   </zone>
 
-  <zone id="34" name="Schuttgart HQ" type="HeadQuarters">
+  <zone id="41" name="Schuttgart HQ" type="HeadQuarters">
     <entity castleId="9"/>
     <shape type="Rect" zMin="-700" zMax="1750">
       <point x="73694" y="-156000"/>
@@ -550,15 +606,23 @@
     </shape>
   </zone>
 
-  <zone id="35" name="Schuttgart Defender Spawn" type="DefenderSpawn"> <!-- throne room -->
+  <zone id="42" name="Schuttgart Teleport Zone" type="CastleTeleport"> <!-- mass GK -->
     <entity castleId="9"/>
-    <shape type="Rect" zMin="-545" zMax="-545">
-      <point x="77168" y="-152883"/>
-      <point x="77809" y="-151952"/>
+    <shape type="Rect" zMin="769" zMax="1136">
+      <point x="147293" y="-47188"/>
+      <point x="147644" y="-46267"/>
     </shape>
   </zone>
 
-  <zone id="36" name="Schuttgart Siege" type="Siege">
+  <zone id="43" name="Schuttgart Defender Spawn" type="DefenderSpawn"> <!-- throne room -->
+    <entity castleId="9"/>
+    <shape type="Rect" zMin="-545" zMax="-545">
+      <point x="77144" y="-152272"/>
+      <point x="77927" y="-152843"/>
+    </shape>
+  </zone>
+
+  <zone id="44" name="Schuttgart Siege" type="Siege">
     <entity castleId="9"/>
     <shape type="Rect">
       <point x="73000" y="-156600"/>
@@ -567,7 +631,7 @@
   </zone>
 
 <!--
-  <zone id="37" name="Devastated Castle HQ" type="HeadQuarters">
+  <zone id="45" name="Devastated Castle HQ" type="HeadQuarters">
     <shape type="Poly" zMin="-2405" zMax="595">
       <point x="176740" y="-13838"/>
       <point x="180040" y="-13838"/>
@@ -576,7 +640,7 @@
     </shape>
   </zone>
 
-  <zone id="38" name="Partisan Hideout">
+  <zone id="46" name="Partisan Hideout">
     <shape type="Poly" zMin="-2344" zMax="-1544">
       <point x="42768" y="109156"/>
       <point x="44460" y="107584"/>
@@ -588,7 +652,7 @@
     </shape>
   </zone>
 
-  <zone id="39" name="Devastated Castle Siege">
+  <zone id="47" name="Devastated Castle Siege">
     <shape type="Poly" zMin="-2634" zMax="366">
       <point x="176367" y="-19559"/>
       <point x="180367" y="-19559"/>
@@ -597,7 +661,7 @@
     </shape>
   </zone>
 
-  <zone id="40" name="Bandits Stronghold Siege">
+  <zone id="48" name="Bandits Stronghold Siege">
     <shape type="Poly" zMin="-2920" zMax="80">
       <point x="79028" y="-17588"/>
       <point x="84640" y="-19528"/>

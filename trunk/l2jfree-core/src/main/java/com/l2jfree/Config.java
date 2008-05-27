@@ -785,10 +785,13 @@ public final class Config
 	public static double			RESPAWN_RESTORE_MP;									// Percent MP is restore on respawn
 	public static boolean			RESPAWN_RANDOM_ENABLED;								// Allow randomizing of the respawn point in towns.
 	public static int				RESPAWN_RANDOM_MAX_OFFSET;								// The maximum offset from the base respawn point to allow.
-	public static int				MAX_PVTSTORE_SLOTS_DWARF;								// Maximum number of available slots for pvt stores (sell/buy) -
-	// Dwarves
-	public static int				MAX_PVTSTORE_SLOTS_OTHER;								// Maximum number of available slots for pvt stores (sell/buy) -
-	// Others
+
+	// Slot limits for private store
+	public static int				MAX_PVTSTORESELL_SLOTS_DWARF;
+	public static int				MAX_PVTSTORESELL_SLOTS_OTHER;
+	public static int				MAX_PVTSTOREBUY_SLOTS_DWARF;
+	public static int				MAX_PVTSTOREBUY_SLOTS_OTHER;
+
 	public static String			PARTY_XP_CUTOFF_METHOD;								// Define Party XP cutoff point method - Possible values: level and
 	// percentage
 	public static int				PARTY_XP_CUTOFF_LEVEL;									// Define the cutoff point value for the "level" method
@@ -921,8 +924,10 @@ public final class Config
 			RESPAWN_RANDOM_MAX_OFFSET = Integer.parseInt(otherSettings.getProperty("RespawnRandomMaxOffset", "50"));
 
 			/* Maximum number of available slots for pvt stores */
-			MAX_PVTSTORE_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSlotsDwarf", "5"));
-			MAX_PVTSTORE_SLOTS_OTHER = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSlotsOther", "4"));
+			MAX_PVTSTORESELL_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSellSlotsDwarf", "4"));
+			MAX_PVTSTORESELL_SLOTS_OTHER = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSellSlotsOther", "3"));
+			MAX_PVTSTOREBUY_SLOTS_DWARF  = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreBuySlotsDwarf", "5"));
+			MAX_PVTSTOREBUY_SLOTS_OTHER  = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreBuySlotsOther", "4"));
 
 			STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("StoreSkillCooltime", "true"));
 
@@ -1899,10 +1904,10 @@ public final class Config
 
 			SIEGE_MAX_ATTACKER = Integer.parseInt(siegeSettings.getProperty("AttackerMaxClans", "500"));
 			SIEGE_MAX_DEFENDER = Integer.parseInt(siegeSettings.getProperty("DefenderMaxClans", "500"));
-			SIEGE_RESPAWN_DELAY_ATTACKER = Integer.parseInt(siegeSettings.getProperty("AttackerRespawn", "30000"));
+			SIEGE_RESPAWN_DELAY_ATTACKER = Integer.parseInt(siegeSettings.getProperty("AttackerRespawn", "0"));
 			SIEGE_RESPAWN_DELAY_DEFENDER = Integer.parseInt(siegeSettings.getProperty("DefenderRespawn", "30000"));
 
-			SIEGE_CT_LOSS_PENALTY = Integer.parseInt(siegeSettings.getProperty("CTLossPenalty", "20000"));
+			SIEGE_CT_LOSS_PENALTY = Integer.parseInt(siegeSettings.getProperty("CTLossPenalty", "60000"));
 			SIEGE_FLAG_MAX_COUNT = Integer.parseInt(siegeSettings.getProperty("MaxFlags", "1"));
 			SIEGE_CLAN_MIN_LEVEL = Integer.parseInt(siegeSettings.getProperty("SiegeClanMinLevel", "5"));
 			SIEGE_LENGTH_MINUTES = Integer.parseInt(siegeSettings.getProperty("SiegeLength", "120"));
@@ -3291,10 +3296,14 @@ public final class Config
 		else if (pName.equalsIgnoreCase("RespawnRestoreMP"))
 			RESPAWN_RESTORE_MP = Double.parseDouble(pValue) / 100;
 
-		else if (pName.equalsIgnoreCase("MaxPvtStoreSlotsDwarf"))
-			MAX_PVTSTORE_SLOTS_DWARF = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("MaxPvtStoreSlotsOther"))
-			MAX_PVTSTORE_SLOTS_OTHER = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("MaxPvtStoreSellSlotsDwarf"))
+			MAX_PVTSTORESELL_SLOTS_DWARF = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("MaxPvtStoreSellSlotsOther"))
+			MAX_PVTSTORESELL_SLOTS_OTHER = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("MaxPvtStoreBuySlotsDwarf"))
+			MAX_PVTSTOREBUY_SLOTS_DWARF = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("MaxPvtStoreBuySlotsOther"))
+			MAX_PVTSTOREBUY_SLOTS_OTHER = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("StoreSkillCooltime"))
 			STORE_SKILL_COOLTIME = Boolean.parseBoolean(pValue);

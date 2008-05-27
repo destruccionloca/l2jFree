@@ -14,9 +14,11 @@
  */
 package com.l2jfree.gameserver.model.entity;
 
+import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.zone.L2SiegeZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 
 public class Siegeable extends Entity
@@ -25,9 +27,10 @@ public class Siegeable extends Entity
 	protected int _ownerId = 0;
 	protected L2Clan _formerOwner = null;
 
-	private L2Zone _zoneHQ;
-	private L2Zone _zoneBF;
-	private L2Zone _zoneDS;
+	private L2Zone		_zoneHQ;
+	private L2SiegeZone	_zoneBF;
+	private L2Zone		_zoneDS;
+	private L2Zone		_zoneTP;
 
 	public final String getName()
 	{
@@ -44,7 +47,7 @@ public class Siegeable extends Entity
 		_zoneHQ = zone;
 	}
 
-	public void registerSiegeZone(L2Zone zone)
+	public void registerSiegeZone(L2SiegeZone zone)
 	{
 		_zoneBF = zone;
 	}
@@ -52,6 +55,21 @@ public class Siegeable extends Entity
 	public void registerDefenderSpawn(L2Zone zone)
 	{
 		_zoneDS = zone;
+	}
+
+	public void registerTeleportZone(L2Zone zone)
+	{
+		_zoneTP = zone;
+	}
+
+	public void oustAllPlayers()
+	{
+		for (L2Character player : _zoneTP.getCharactersInside().values())
+		{
+			// To random spot in defender spawn zone
+			if (player instanceof L2PcInstance)
+				player.teleToLocation(_zoneDS.getRandomLocation(), true);
+		}
 	}
 
 	@Override
@@ -97,7 +115,7 @@ public class Siegeable extends Entity
 		return _zoneHQ;
 	}
 	
-	public final L2Zone getBattlefield()
+	public final L2SiegeZone getBattlefield()
 	{
 		return _zoneBF;
 	}
@@ -105,5 +123,10 @@ public class Siegeable extends Entity
 	public final L2Zone getDefenderSpawn()
 	{
 		return _zoneDS;
+	}
+
+	public final L2Zone getTeleZone()
+	{
+		return _zoneTP;
 	}
 }

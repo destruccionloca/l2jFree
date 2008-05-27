@@ -1427,6 +1427,6 @@ public class Siege
 
     public final L2SiegeZone getZone()
     {
-        return (L2SiegeZone)getCastle().getBattlefield();
+        return getCastle().getBattlefield();
     }
 }

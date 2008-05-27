@@ -326,7 +326,7 @@ public class L2DoorInstance extends L2Character
             return true;
 
         // Doors can't be attacked by NPCs
-        if (attacker == null || !(attacker instanceof L2PcInstance)) return false;
+        if (!(attacker instanceof L2PcInstance)) return false;
 
         // Attackable during siege by attacker only
         boolean isCastle = (getCastle() != null

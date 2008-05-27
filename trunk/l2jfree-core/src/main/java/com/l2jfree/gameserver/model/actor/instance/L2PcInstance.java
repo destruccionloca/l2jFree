@@ -377,7 +377,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			default:
 			{
 				L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
-				if (mainTarget == null || !(mainTarget instanceof L2Character))
+				if (!(mainTarget instanceof L2Character))
 					return;
 				for (L2CubicInstance cubic : getCubics().values())
 					if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
@@ -2384,6 +2384,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			getClan().addSkillEffects(this, false);
 			PledgeSkillList psl = new PledgeSkillList(getClan());
 			sendPacket(psl);
+			if (getClan().getLevel() >= Config.SIEGE_CLAN_MIN_LEVEL && isClanLeader())
+				SiegeManager.getInstance().addSiegeSkills(this);
 		}
 
 		// Reload passive skills from armors / jewels / weapons
@@ -4331,7 +4333,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		// Add the L2PcInstance to the _statusListener of the new target if it's a L2Character
-		if (newTarget != null && newTarget instanceof L2Character)
+		if (newTarget instanceof L2Character)
 		{
 			((L2Character) newTarget).getStatus().addStatusListener(this);
 			TargetSelected my = new TargetSelected(getObjectId(), newTarget.getObjectId(), getX(), getY(), getZ());
@@ -4688,8 +4690,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			else if (killer instanceof L2PcInstance)
 			{
 				pk = (L2PcInstance) killer;
-				clanWarKill = (pk.getClan() != null && getClan() != null && !isAcademyMember() && !(pk.isAcademyMember()) && _clan.isAtWarWith(pk.getClanId()) && pk
-						.getClan().isAtWarWith(_clan.getClanId()));
+				clanWarKill = (pk.getClan() != null && getClan() != null && !isAcademyMember() && !(pk.isAcademyMember()) && _clan.isAtWarWith(pk.getClanId()));
 				playerKill = true;
 			}
 
@@ -4713,6 +4714,7 @@ public final class L2PcInstance extends L2PlayableInstance
 						{
 							// Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty
 							// NOTE: deathPenalty +- Exp will update karma
+							// Penalty is lower if the player is at war with the pk (war has to be declared)
 							if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 9)
 								deathPenalty(clanWarKill, playerKill);
 						}
@@ -5247,17 +5249,43 @@ public final class L2PcInstance extends L2PlayableInstance
 		final int lvl = getLevel();
 
 		//The death steal you some Exp
-		double percentLost = 5.0;
-		if (getLevel() >= 76)
-			percentLost = 1.0;
-		else if (getLevel() >= 40)
-			percentLost = 3.0;
+		double percentLost = 1.0;
+
+		byte level = (byte)getLevel();
+
+		switch (level)
+		{
+			case 81:
+				percentLost = 1.25;
+				break;
+			case 80:
+				percentLost = 1.5;
+				break;
+			case 79:
+				percentLost = 1.75;
+				break;
+			case 78:
+				percentLost = 2.0;
+				break;
+			case 77:
+				percentLost = 2.25;
+				break;
+			case 76:
+				percentLost = 2.5;
+				break;
+			default:
+				if (level < 40)
+					percentLost = 7.0;
+				else if (level >= 40 && level <= 75)
+					percentLost = 4.0;
+				break;
+		}
 
 		if (getKarma() > 0)
 			percentLost *= Config.RATE_KARMA_EXP_LOST;
 
 		if (isFestivalParticipant() || atwar || SiegeManager.getInstance().checkIfInZone(this))
-			percentLost /= 3.0;
+			percentLost /= 4.0;
 
 		// Calculate the Experience loss
 		long lostExp = 0;
@@ -9923,7 +9951,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		 * 10.Unsummon any active servitor from the player.
 		 */
 
-		if (getPet() != null && getPet() instanceof L2SummonInstance)
+		if (getPet() instanceof L2SummonInstance)
 			getPet().unSummon(this);
 
 		if (getCubics().size() > 0)
@@ -11528,11 +11556,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		int pslim;
 		if (getRace() == Race.Dwarf)
 		{
-			pslim = Config.MAX_PVTSTORE_SLOTS_DWARF;
+			pslim = Config.MAX_PVTSTORESELL_SLOTS_DWARF;
 		}
 		else
 		{
-			pslim = Config.MAX_PVTSTORE_SLOTS_OTHER;
+			pslim = Config.MAX_PVTSTORESELL_SLOTS_OTHER;
 		}
 		pslim += (int) getStat().calcStat(Stats.P_SELL_LIM, 0, null, null);
 
@@ -11544,11 +11572,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		int pblim;
 		if (getRace() == Race.Dwarf)
 		{
-			pblim = Config.MAX_PVTSTORE_SLOTS_DWARF;
+			pblim = Config.MAX_PVTSTOREBUY_SLOTS_DWARF;
 		}
 		else
 		{
-			pblim = Config.MAX_PVTSTORE_SLOTS_OTHER;
+			pblim = Config.MAX_PVTSTOREBUY_SLOTS_OTHER;
 		}
 		pblim += (int) getStat().calcStat(Stats.P_BUY_LIM, 0, null, null);
 

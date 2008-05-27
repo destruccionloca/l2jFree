@@ -56,7 +56,6 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
  *   <li> para/unpara = paralyze/remove paralysis from target 
  *   <li> para_all/unpara_all = same as para/unpara, affects the whole world. 
  *   <li> polyself/unpolyself = makes you look as a specified mob. 
- *   <li> changename = temporary change name 
  *   <li> clearteams/setteam_close/setteam = team related commands 
  *   <li> social = forces an L2Character instance to broadcast social action packets.
  *   <li> effect = forces an L2Character instance to broadcast MSU packets.
@@ -93,8 +92,6 @@ public class AdminEffects implements IAdminCommandHandler
 			"admin_unpolyself",
 			"admin_polyself_menu",
 			"admin_unpolyself_menu",
-			"admin_changename",
-			"admin_changename_menu",
 			"admin_clearteams",
 			"admin_setteam_close",
 			"admin_setteam",
@@ -376,53 +373,6 @@ public class AdminEffects implements IAdminCommandHandler
 			activeChar.broadcastPacket(info1);
 			UserInfo info2 = new UserInfo(activeChar);
 			activeChar.sendPacket(info2);
-		}
-		else if (command.startsWith("admin_changename"))
-		{
-			try
-			{
-				String name = st.nextToken();
-				String oldName = "null";
-				try
-				{
-					L2Object target = activeChar.getTarget();
-					L2Character player = null;
-					if (target instanceof L2Character)
-					{
-						player = (L2Character) target;
-						oldName = player.getName();
-					}
-					else if (target == null)
-					{
-						player = activeChar;
-						oldName = activeChar.getName();
-					}
-					if (player instanceof L2PcInstance)
-						L2World.getInstance().removeFromAllPlayers((L2PcInstance) player);
-					player.setName(name);
-					if (player instanceof L2PcInstance)
-						L2World.getInstance().addVisibleObject(player, null, null);
-					if (player instanceof L2PcInstance)
-					{
-						CharInfo info1 = new CharInfo((L2PcInstance) player);
-						player.broadcastPacket(info1);
-						UserInfo info2 = new UserInfo((L2PcInstance) player);
-						player.sendPacket(info2);
-					}
-					else if (player instanceof L2NpcInstance)
-					{
-						NpcInfo info1 = new NpcInfo((L2NpcInstance) player, null);
-						player.broadcastPacket(info1);
-					}
-					activeChar.sendMessage("Changed name from " + oldName + " to " + name + ".");
-				}
-				catch (Exception e)
-				{
-				}
-			}
-			catch (StringIndexOutOfBoundsException e)
-			{
-			}
 		}
 		else if (command.equals("admin_clear_teams"))
 		{

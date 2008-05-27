@@ -446,8 +446,13 @@ public abstract class ItemContainer
                 
                 item.changeCount(process, -count, actor, reference);
                 item.setLastChange(L2ItemInstance.MODIFIED);
-                
-                item.updateDatabase();
+
+                // don't update often for untraced items
+                if (process != null || GameTimeController.getGameTicks() % 10 == 0)
+                {
+                    item.updateDatabase();
+                }
+
                 refreshWeight();
                 
                 return item;
@@ -461,13 +466,7 @@ public abstract class ItemContainer
                 }
                 
                 ItemTable.getInstance().destroyItem(process, item, actor, reference);
-
-                // dont update often for untraced itens
-                if (process != null || GameTimeController.getGameTicks() % 10 == 0)
-                {
-                    item.updateDatabase();
-                }
-
+                item.updateDatabase();
                 refreshWeight();
             }
         }

@@ -14,22 +14,25 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
+import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.entity.Siegeable;
 
-public abstract class EntityZone extends L2DefaultZone
+public class L2CastleTeleportZone extends EntityZone
 {
-	protected Siegeable _entity;
-
 	@Override
-	protected void onEnter(L2Character character)
+	protected void register()
 	{
-		super.onEnter(character);
+		_entity = CastleManager.getInstance().getCastleById(_castleId);
+		if (_entity != null)
+			_entity.registerTeleportZone(this);
+		else
+			_log.warn("Invalid castleId: "+_castleId);
 	}
 
+	// They just define a teleport area
 	@Override
-	protected void onExit(L2Character character)
-	{
-		super.onExit(character);
-	}
+	protected void onEnter(L2Character character){}
+
+	@Override
+	protected void onExit(L2Character character){}
 }
