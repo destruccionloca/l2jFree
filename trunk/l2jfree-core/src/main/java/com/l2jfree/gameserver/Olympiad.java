@@ -2263,10 +2263,8 @@ public class Olympiad
 					player.stopAllEffects();
 					if (player.getPet() != null)
 					{
-						L2Summon summon = player.getPet();
-						summon.stopAllEffects();
+						player.getPet().stopAllEffects();
 					}
-
 					
 					//Full Player healing
 					player.getStatus().setCurrentCp(player.getMaxCp());
