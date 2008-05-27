@@ -61,4 +61,8 @@ public class XsQLException extends Exception {
 	public String toString() {
 		return _error.getMessage().concat(" ").concat(_info);
 	}
+	
+	public XsQLExceptionError getError() {
+		return _error;
+	}
 }
