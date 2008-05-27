@@ -79,7 +79,7 @@ class Quest (JQuest) :
           st.giveItems(MASK_OF_MEDIUM,1)
           st.addExpAndSp(3200,2600)
           st.set("cond","0")
-          st.exitQuest(False) 
+          st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
     elif event == "30593_1" :
           htmltext = "30593-02.htm"
@@ -161,15 +161,15 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
-   if st.getState() != State.STARTED : return 
-   
+   if not st : return
+   if st.getState() != State.STARTED : return
+
    npcId = npc.getNpcId()
    if npcId == 20479 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(FIRE_CHARM) == 1 and st.getQuestItemsCount(KASHA_BEAR_PELT)<1 :
           if st.getQuestItemsCount(KASHA_BEAR_PELT)+st.getQuestItemsCount(KASHA_BSPIDER_HUSK)+st.getQuestItemsCount(FIERY_EGG1) == 2 :
-            st.giveItems(KASHA_BEAR_PELT,1int(1*Config.RATE_DROP_QUEST))
+            st.giveItems(KASHA_BEAR_PELT,int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","2")
           else:
