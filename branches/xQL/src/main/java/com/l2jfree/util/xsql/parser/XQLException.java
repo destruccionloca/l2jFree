@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.l2jfree.util.xql.parser;
+package com.l2jfree.util.xsql.parser;
 
 /**
  * @author noctarius
