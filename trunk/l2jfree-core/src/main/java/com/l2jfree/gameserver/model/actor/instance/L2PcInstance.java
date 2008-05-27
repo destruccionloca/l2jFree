@@ -3575,7 +3575,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
-				|| (DM._started && !Config.DM_ALLOW_INTERFERENCE))
+				|| (DM._started && !Config.DM_ALLOW_INTERFERENCE) && !this.isGM())
 		{
 			if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
 			{
