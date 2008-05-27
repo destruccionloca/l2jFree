@@ -1,5 +1,6 @@
 # Made by disKret
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -27,7 +28,7 @@ class Quest (JQuest) :
        st.set("cond","2")
    if event == "31517-1.htm" :
      if cond == 2 :
-       st.addExpAndSp(60217,0)
+       st.addExpAndSp(int(60217*Config.RATE_QUESTS_REWARD),0)
        st.set("cond","0")
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False) 

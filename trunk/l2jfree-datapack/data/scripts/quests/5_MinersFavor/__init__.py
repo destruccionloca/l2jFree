@@ -1,5 +1,6 @@
 # Made by Mr. Have fun! Version 0.2
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -78,7 +79,7 @@ class Quest (JQuest) :
      st.takeItems(BOOMBOOM_POWDER,-1) 
      st.takeItems(REDSTONE_BEER,-1) 
      st.takeItems(BOLTERS_LIST,-1) 
-     st.giveItems(NECKLACE,1) 
+     st.giveItems(NECKLACE,int(1*Config.RATE_QUESTS_REWARD)) 
      st.set("cond","0") 
      st.set("onlyone","1") 
      st.exitQuest(False) 
