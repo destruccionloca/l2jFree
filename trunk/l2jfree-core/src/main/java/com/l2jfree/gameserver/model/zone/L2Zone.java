@@ -43,6 +43,7 @@ public abstract class L2Zone
 		Arena,
 		Boss,
 		Castle,
+		CastleTeleport,
 		Clanhall,
 		Damage,
 		Default,
