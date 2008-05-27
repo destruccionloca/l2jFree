@@ -2,6 +2,7 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -120,7 +121,7 @@ class Quest (JQuest) :
    if npcId == 20049 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(PALLUS_TALISMAN) == 1 and st.getQuestItemsCount(LYCANTHROPE_SKULL)<13 :
-          st.giveItems(LYCANTHROPE_SKULL,1)
+          st.giveItems(LYCANTHROPE_SKULL,int(1*Config.RATE_DROP_QUEST))
           if st.getQuestItemsCount(LYCANTHROPE_SKULL) == 13 :
             st.playSound("ItemSound.quest_middle")
             st.set("cond","2")
@@ -129,14 +130,14 @@ class Quest (JQuest) :
    elif npcId == 20038 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(MORTE_TALISMAN) == 1 and st.getQuestItemsCount(PREDATOR_CARAPACE)<1 :
-          st.giveItems(PREDATOR_CARAPACE,1)
+          st.giveItems(PREDATOR_CARAPACE,int(1*Config.RATE_DROP_QUEST))
           st.playSound("ItemSound.quest_middle")
           if st.getQuestItemsCount(TRIMDEN_SILK) >= 5 and st.getQuestItemsCount(PREDATOR_CARAPACE)>0 :
             st.set("cond","5")
    elif npcId == 20043 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(MORTE_TALISMAN) == 1 and st.getQuestItemsCount(TRIMDEN_SILK)<5 :
-          st.giveItems(TRIMDEN_SILK,1)
+          st.giveItems(TRIMDEN_SILK,int(1*Config.RATE_DROP_QUEST))
           if st.getQuestItemsCount(TRIMDEN_SILK) == 5 :
             st.playSound("ItemSound.quest_middle")
             if st.getQuestItemsCount(TRIMDEN_SILK) >= 5 and st.getQuestItemsCount(PREDATOR_CARAPACE)>0 :

@@ -2,6 +2,7 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -168,41 +169,41 @@ class Quest (JQuest) :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(FIRE_CHARM) == 1 and st.getQuestItemsCount(KASHA_BEAR_PELT)<1 :
           if st.getQuestItemsCount(KASHA_BEAR_PELT)+st.getQuestItemsCount(KASHA_BSPIDER_HUSK)+st.getQuestItemsCount(FIERY_EGG1) == 2 :
-            st.giveItems(KASHA_BEAR_PELT,1)
+            st.giveItems(KASHA_BEAR_PELT,1int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","2")
           else:
-            st.giveItems(KASHA_BEAR_PELT,1)
+            st.giveItems(KASHA_BEAR_PELT,int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_itemget")
    elif npcId == 20478 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(FIRE_CHARM) == 1 and st.getQuestItemsCount(KASHA_BSPIDER_HUSK)<1 :
           if st.getQuestItemsCount(KASHA_BEAR_PELT)+st.getQuestItemsCount(KASHA_BSPIDER_HUSK)+st.getQuestItemsCount(FIERY_EGG1) == 2 :
-            st.giveItems(KASHA_BSPIDER_HUSK,1)
+            st.giveItems(KASHA_BSPIDER_HUSK,int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","2")
           else:
-            st.giveItems(KASHA_BSPIDER_HUSK,1)
+            st.giveItems(KASHA_BSPIDER_HUSK,int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_itemget")
    elif npcId == 20415 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(FIRE_CHARM) == 1 and st.getQuestItemsCount(FIERY_EGG1)<1 :
           if st.getQuestItemsCount(KASHA_BEAR_PELT)+st.getQuestItemsCount(KASHA_BSPIDER_HUSK)+st.getQuestItemsCount(FIERY_EGG1) == 2 :
-            st.giveItems(FIERY_EGG1,1)
+            st.giveItems(FIERY_EGG1,int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","2")
           else:
-            st.giveItems(FIERY_EGG1,1)
+            st.giveItems(FIERY_EGG1,int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_itemget")
    elif npcId == 20335 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(FLAME_CHARM) == 1 and st.getQuestItemsCount(GRIZZLY_BLOOD)<3 :
           if st.getQuestItemsCount(GRIZZLY_BLOOD) == 2 :
-            st.giveItems(GRIZZLY_BLOOD,1)
+            st.giveItems(GRIZZLY_BLOOD,int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","7")
           else:
-            st.giveItems(GRIZZLY_BLOOD,1)
+            st.giveItems(GRIZZLY_BLOOD,int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_itemget")
    elif npcId == 20038 :
         st.set("id","0")
@@ -225,7 +226,7 @@ class Quest (JQuest) :
             st.playSound("ItemSound.quest_itemget")
             st.takeItems(DURKA_PARASITE,st.getQuestItemsCount(DURKA_PARASITE))
           else:
-            st.giveItems(DURKA_PARASITE,1)
+            st.giveItems(DURKA_PARASITE,int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_itemget")
    elif npcId == 20043 :
         st.set("id","0")
@@ -248,12 +249,12 @@ class Quest (JQuest) :
             st.playSound("ItemSound.quest_itemget")
             st.takeItems(DURKA_PARASITE,st.getQuestItemsCount(DURKA_PARASITE))
           else:
-            st.giveItems(DURKA_PARASITE,1)
+            st.giveItems(DURKA_PARASITE,int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_itemget")
    elif npcId == 27056 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(SPIRIT_NET) == 1 and st.getQuestItemsCount(BOUND_DURKA_SPIRIT) == 0 :
-          st.giveItems(BOUND_DURKA_SPIRIT,1)
+          st.giveItems(BOUND_DURKA_SPIRIT,int(1*Config.RATE_DROP_QUEST))
           st.takeItems(SPIRIT_NET,1)
           st.takeItems(DURKA_PARASITE,st.getQuestItemsCount(DURKA_PARASITE))
           st.playSound("ItemSound.quest_middle")
