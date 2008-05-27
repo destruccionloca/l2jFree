@@ -7,7 +7,7 @@ package com.l2jfree.util.xsql.parser;
  * @author noctarius
  *
  */
-public class XQLQueryParser {
+public class XsQLQueryParser {
 	private enum SqlTupple {
 		SELECT,
 		FROM,
@@ -17,12 +17,12 @@ public class XQLQueryParser {
 		ORDER_BY,
 		IN;
 		
-		public SqlTupple forName(String tupple) throws XQLException {
+		public SqlTupple forName(String tupple) throws XsQLException {
 			for (SqlTupple sql : SqlTupple.values())
 				if (sql.name().equalsIgnoreCase(tupple))
 					return sql;
 			
-			throw new XQLException(XQLException.XQLExceptionError.XQL_TUPPLE_NOT_FOUND_EXCEPTION);
+			throw new XsQLException(XsQLException.XsQLExceptionError.XSQL_TUPPLE_NOT_FOUND_EXCEPTION);
 		}
 	}
 }
