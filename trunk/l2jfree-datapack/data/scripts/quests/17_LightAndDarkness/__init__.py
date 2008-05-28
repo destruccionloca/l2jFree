@@ -4,7 +4,6 @@
 # Visit http://forum.l2jdp.com for more details.
 
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -86,7 +85,7 @@ class Quest (JQuest) :
            st.exitQuest(1)
            st.playSound("ItemSound.quest_giveup")
      else :
-        st.addExpAndSp(int(105527*Config.RATE_QUESTS_REWARD),0)
+        st.addExpAndSp(105527,0)
         st.unset("cond")
         st.exitQuest(False) 
         st.playSound("ItemSound.quest_finish")

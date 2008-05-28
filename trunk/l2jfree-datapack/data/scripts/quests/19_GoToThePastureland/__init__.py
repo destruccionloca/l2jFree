@@ -1,6 +1,5 @@
 # Made by disKret
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -29,7 +28,7 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_accept")
    if event == "31537-1.htm" :
      st.takeItems(BEAST_MEAT,1)
-     st.giveItems(57,int(30000*Config.RATE_QUESTS_REWARD))
+     st.giveItems(57,30000)
      st.unset("cond")
      st.exitQuest(False) 
      st.playSound("ItemSound.quest_finish")

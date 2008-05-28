@@ -1,6 +1,5 @@
 # Made by Mr. Have fun! - Version 0.3 by DrLecter
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -47,7 +46,7 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_middle") 
    elif event == "30223-10.htm" : 
      st.takeItems(ARUJIENS_LETTER3,-1) 
-     st.giveItems(113,int(1*Config.RATE_QUESTS_REWARD)) 
+     st.giveItems(113,1) 
      st.set("cond","0") 
      st.exitQuest(False)  
      st.playSound("ItemSound.quest_finish") 

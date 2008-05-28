@@ -2,7 +2,6 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -164,28 +163,28 @@ class Quest (JQuest) :
         if st.getInt("cond") and st.getQuestItemsCount(SILVERYS_RING) == 1 and st.getQuestItemsCount(RATMAN_TOOTH)<10 :
           if st.getRandom(10)<7 :
             if st.getQuestItemsCount(RATMAN_TOOTH) == 9 and st.getQuestItemsCount(BIG_RATMAN_TOOTH) == 2 :
-              st.giveItems(RATMAN_TOOTH,int(1*Config.RATE_DROP_QUEST))
+              st.giveItems(RATMAN_TOOTH,1)
               st.playSound("ItemSound.quest_middle")
               st.set("cond","2")
             else:
-              st.giveItems(RATMAN_TOOTH,int(1*Config.RATE_DROP_QUEST))
+              st.giveItems(RATMAN_TOOTH,1)
               st.playSound("ItemSound.quest_itemget")
    elif npcId == 20390 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(SILVERYS_RING) == 1 and st.getQuestItemsCount(BIG_RATMAN_TOOTH)<2 :
           if st.getRandom(10)<5 :
             if st.getQuestItemsCount(BIG_RATMAN_TOOTH) == 1 and st.getQuestItemsCount(RATMAN_TOOTH) == 10 :
-              st.giveItems(BIG_RATMAN_TOOTH,int(1*Config.RATE_DROP_QUEST))
+              st.giveItems(BIG_RATMAN_TOOTH,1)
               st.playSound("ItemSound.quest_middle")
               st.set("cond","2")
             else:
-              st.giveItems(BIG_RATMAN_TOOTH,int(1*Config.RATE_DROP_QUEST))
+              st.giveItems(BIG_RATMAN_TOOTH,1)
               st.playSound("ItemSound.quest_itemget")
    elif npcId == 20017 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(FOOTPRINT) == 1 and st.getQuestItemsCount(SECRET_BOX1)<1 :
           if st.getRandom(10)<2 :
-            st.giveItems(SECRET_BOX1,int(1*Config.RATE_DROP_QUEST))
+            st.giveItems(SECRET_BOX1,1)
             st.playSound("ItemSound.quest_middle")
             st.set("cond","6")
    return

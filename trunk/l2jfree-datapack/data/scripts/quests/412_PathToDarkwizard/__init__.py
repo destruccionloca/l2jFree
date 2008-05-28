@@ -2,7 +2,6 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -153,7 +152,7 @@ class Quest (JQuest) :
         st.set("id","0")
         if st.getInt("cond") == 1 and st.getQuestItemsCount(LUCKY_KEY) == 1 and st.getQuestItemsCount(FAMILYS_ASHES)<3 :
           if st.getRandom(2) == 0 :
-            st.giveItems(FAMILYS_ASHES,int(1*Config.RATE_DROP_QUEST))
+            st.giveItems(FAMILYS_ASHES,1)
             if st.getQuestItemsCount(FAMILYS_ASHES) == 3 :
               st.playSound("ItemSound.quest_middle")
             else:
@@ -162,7 +161,7 @@ class Quest (JQuest) :
         st.set("id","0")
         if st.getInt("cond") == 1 and st.getQuestItemsCount(CANDLE) == 1 and st.getQuestItemsCount(KNEE_BONE)<2 :
           if st.getRandom(2) == 0 :
-            st.giveItems(KNEE_BONE,int(1*Config.RATE_DROP_QUEST))
+            st.giveItems(KNEE_BONE,1)
             if st.getQuestItemsCount(KNEE_BONE) == 2 :
               st.playSound("ItemSound.quest_middle")
             else:
@@ -171,7 +170,7 @@ class Quest (JQuest) :
         st.set("id","0")
         if st.getInt("cond") == 1 and st.getQuestItemsCount(CANDLE) == 1 and st.getQuestItemsCount(KNEE_BONE)<2 :
           if st.getRandom(2) == 0 :
-            st.giveItems(KNEE_BONE,int(1*Config.RATE_DROP_QUEST))
+            st.giveItems(KNEE_BONE,1)
             if st.getQuestItemsCount(KNEE_BONE) == 2 :
               st.playSound("ItemSound.quest_middle")
             else:
@@ -180,7 +179,7 @@ class Quest (JQuest) :
         st.set("id","0")
         if st.getInt("cond") == 1 and st.getQuestItemsCount(CANDLE) == 1 and st.getQuestItemsCount(KNEE_BONE)<2 :
           if st.getRandom(2) == 0 :
-            st.giveItems(KNEE_BONE,int(1*Config.RATE_DROP_QUEST))
+            st.giveItems(KNEE_BONE,1)
             if st.getQuestItemsCount(KNEE_BONE) == 2 :
               st.playSound("ItemSound.quest_middle")
             else:
@@ -189,7 +188,7 @@ class Quest (JQuest) :
         st.set("id","0")
         if st.getInt("cond") == 1 and st.getQuestItemsCount(HUB_SCENT) == 1 and st.getQuestItemsCount(HEART_OF_LUNACY)<3 :
           if st.getRandom(2) == 0 :
-            st.giveItems(HEART_OF_LUNACY,int(1*Config.RATE_DROP_QUEST))
+            st.giveItems(HEART_OF_LUNACY,1)
             if st.getQuestItemsCount(HEART_OF_LUNACY) == 3 :
               st.playSound("ItemSound.quest_middle")
             else:

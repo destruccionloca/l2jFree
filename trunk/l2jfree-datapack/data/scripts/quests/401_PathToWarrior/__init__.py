@@ -3,7 +3,6 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -123,7 +122,7 @@ class Quest (JQuest) :
         st.set("id","0")
         if st.getInt("cond") == 2 and st.getQuestItemsCount(RUSTED_BRONZE_SWORD1)<10 :
           if st.getRandom(10)<4 :
-            st.giveItems(RUSTED_BRONZE_SWORD1,int(1*Config.RATE_DROP_QUEST))
+            st.giveItems(RUSTED_BRONZE_SWORD1,1)
             if st.getQuestItemsCount(RUSTED_BRONZE_SWORD1) == 10 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","3")
@@ -132,7 +131,7 @@ class Quest (JQuest) :
    elif npcId in [20043,20038] :
       st.set("id","0")
       if st.getInt("cond") and st.getQuestItemsCount(POISON_SPIDER_LEG2)<20 and st.getQuestItemsCount(RUSTED_BRONZE_SWORD3) == 1 and st.getItemEquipped(9) == RUSTED_BRONZE_SWORD3:
-        st.giveItems(POISON_SPIDER_LEG2,int(1*Config.RATE_DROP_QUEST))
+        st.giveItems(POISON_SPIDER_LEG2,1)
         if st.getQuestItemsCount(POISON_SPIDER_LEG2) == 20 :
           st.playSound("ItemSound.quest_middle")
           st.set("cond","6")

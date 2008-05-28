@@ -2,7 +2,6 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -250,7 +249,7 @@ class Quest (JQuest) :
    if st.getInt("cond") :
       item_required,item,max,chance=DROPLIST[npc.getNpcId()]
       if st.getQuestItemsCount(item_required) and st.getQuestItemsCount(item)<max and st.getRandom(100)<chance :
-        st.giveItems(item,int(1*Config.RATE_DROP_QUEST))
+        st.giveItems(item,1)
         if st.getQuestItemsCount(item) == max :
           st.playSound("ItemSound.quest_middle")
         else:

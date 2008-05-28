@@ -1,6 +1,5 @@
 # Made by Emperorc
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -27,7 +26,7 @@ class Quest (JQuest) :
      st.setState(State.STARTED) 
      st.playSound("ItemSound.quest_accept")
    elif event == "31537-12.htm" :
-       st.giveItems(57,int(68500*Config.RATE_QUESTS_REWARD))
+       st.giveItems(57,68500)
        st.takeItems(GEM,-1)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False) 
