@@ -221,12 +221,12 @@ public class VanHalterManager extends BossLair
 
 		// set time up.
 		if (_timeUpTask != null)
-			_timeUpTask.cancel(true);
+			_timeUpTask.cancel(false);
 		_timeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), Config.HPH_ACTIVITYTIMEOFHALTER);
 
 		// set bleeding to palyers.
 		if (_setBleedTask != null)
-			_setBleedTask.cancel(true);
+			_setBleedTask.cancel(false);
 		_setBleedTask = ThreadPoolManager.getInstance().scheduleGeneral(new Bleeding(), 2000);
 
 		// check state of High Priestess van Halter.
@@ -950,14 +950,14 @@ public class VanHalterManager extends BossLair
 			_isLocked = false;
 
 			if (_closeDoorOfAltarTask != null)
-				_closeDoorOfAltarTask.cancel(true);
+				_closeDoorOfAltarTask.cancel(false);
 			_closeDoorOfAltarTask = null;
 			_closeDoorOfAltarTask = ThreadPoolManager.getInstance().scheduleGeneral(new CloseDoorOfAltar(), Config.HPH_INTERVALOFDOOROFALTER);
 		}
 		else
 		{
 			if (_closeDoorOfAltarTask != null)
-				_closeDoorOfAltarTask.cancel(true);
+				_closeDoorOfAltarTask.cancel(false);
 			_closeDoorOfAltarTask = null;
 		}
 	}
@@ -980,14 +980,14 @@ public class VanHalterManager extends BossLair
 		if (loop)
 		{
 			if (_openDoorOfAltarTask != null)
-				_openDoorOfAltarTask.cancel(true);
+				_openDoorOfAltarTask.cancel(false);
 			_openDoorOfAltarTask = null;
 			_openDoorOfAltarTask = ThreadPoolManager.getInstance().scheduleGeneral(new OpenDoorOfAltar(), Config.HPH_INTERVALOFDOOROFALTER);
 		}
 		else
 		{
 			if (_openDoorOfAltarTask != null)
-				_openDoorOfAltarTask.cancel(true);
+				_openDoorOfAltarTask.cancel(false);
 			_openDoorOfAltarTask = null;
 		}
 	}
@@ -1070,7 +1070,7 @@ public class VanHalterManager extends BossLair
 		spawnCameraMarker();
 
 		if (_timeUpTask != null)
-			_timeUpTask.cancel(true);
+			_timeUpTask.cancel(false);
 		_timeUpTask = null;
 
 		_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(1), Config.HPH_APPTIMEOFHALTER);
@@ -1080,7 +1080,7 @@ public class VanHalterManager extends BossLair
 	protected void combatBeginning()
 	{
 		if (_timeUpTask != null)
-			_timeUpTask.cancel(true);
+			_timeUpTask.cancel(false);
 		_timeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), Config.HPH_FIGHTTIMEOFHALTER);
 
 		Map<Integer, L2PcInstance> _targets = new FastMap<Integer, L2PcInstance>();
@@ -1115,14 +1115,14 @@ public class VanHalterManager extends BossLair
 			if (_royalGuardHepler.size() <= Config.HPH_CALLROYALGUARDHELPERCOUNT && !_vanHalter.isDead())
 			{
 				if (_callRoyalGuardHelperTask != null)
-					_callRoyalGuardHelperTask.cancel(true);
+					_callRoyalGuardHelperTask.cancel(false);
 				_callRoyalGuardHelperTask = ThreadPoolManager.getInstance()
 						.scheduleGeneral(new CallRoyalGuardHelper(), Config.HPH_CALLROYALGUARDHELPERINTERVAL);
 			}
 			else
 			{
 				if (_callRoyalGuardHelperTask != null)
-					_callRoyalGuardHelperTask.cancel(true);
+					_callRoyalGuardHelperTask.cancel(false);
 				_callRoyalGuardHelperTask = null;
 			}
 		}
@@ -1165,14 +1165,14 @@ public class VanHalterManager extends BossLair
 					}
 				}
 				if (_halterEscapeTask != null)
-					_halterEscapeTask.cancel(true);
+					_halterEscapeTask.cancel(false);
 				_halterEscapeTask = ThreadPoolManager.getInstance().scheduleGeneral(new HalterEscape(), 5000);
 			}
 			else
 			{
 				_vanHalter.stopFear(null);
 				if (_halterEscapeTask != null)
-					_halterEscapeTask.cancel(true);
+					_halterEscapeTask.cancel(false);
 				_halterEscapeTask = null;
 			}
 		}
@@ -1224,7 +1224,7 @@ public class VanHalterManager extends BossLair
 			addBleeding();
 
 			if (_setBleedTask != null)
-				_setBleedTask.cancel(true);
+				_setBleedTask.cancel(false);
 			_setBleedTask = ThreadPoolManager.getInstance().scheduleGeneral(new Bleeding(), 2000);
 		}
 	}
@@ -1234,35 +1234,35 @@ public class VanHalterManager extends BossLair
 	{
 		// cancel all task
 		if (_callRoyalGuardHelperTask != null)
-			_callRoyalGuardHelperTask.cancel(true);
+			_callRoyalGuardHelperTask.cancel(false);
 		_callRoyalGuardHelperTask = null;
 
 		if (_closeDoorOfAltarTask != null)
-			_closeDoorOfAltarTask.cancel(true);
+			_closeDoorOfAltarTask.cancel(false);
 		_closeDoorOfAltarTask = null;
 
 		if (_halterEscapeTask != null)
-			_halterEscapeTask.cancel(true);
+			_halterEscapeTask.cancel(false);
 		_halterEscapeTask = null;
 
 		if (_intervalTask != null)
-			_intervalTask.cancel(true);
+			_intervalTask.cancel(false);
 		_intervalTask = null;
 
 		if (_lockUpDoorOfAltarTask != null)
-			_lockUpDoorOfAltarTask.cancel(true);
+			_lockUpDoorOfAltarTask.cancel(false);
 		_lockUpDoorOfAltarTask = null;
 
 		if (_movieTask != null)
-			_movieTask.cancel(true);
+			_movieTask.cancel(false);
 		_movieTask = null;
 
 		if (_openDoorOfAltarTask != null)
-			_openDoorOfAltarTask.cancel(true);
+			_openDoorOfAltarTask.cancel(false);
 		_openDoorOfAltarTask = null;
 
 		if (_timeUpTask != null)
-			_timeUpTask.cancel(true);
+			_timeUpTask.cancel(false);
 		_timeUpTask = null;
 
 		// delete monsters
@@ -1283,7 +1283,7 @@ public class VanHalterManager extends BossLair
 
 		// set interval end.
 		if (_intervalTask != null)
-			_intervalTask.cancel(true);
+			_intervalTask.cancel(false);
 
 		if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
 		{
@@ -1310,35 +1310,35 @@ public class VanHalterManager extends BossLair
 	{
 		// cancel all task
 		if (_callRoyalGuardHelperTask != null)
-			_callRoyalGuardHelperTask.cancel(true);
+			_callRoyalGuardHelperTask.cancel(false);
 		_callRoyalGuardHelperTask = null;
 
 		if (_closeDoorOfAltarTask != null)
-			_closeDoorOfAltarTask.cancel(true);
+			_closeDoorOfAltarTask.cancel(false);
 		_closeDoorOfAltarTask = null;
 
 		if (_halterEscapeTask != null)
-			_halterEscapeTask.cancel(true);
+			_halterEscapeTask.cancel(false);
 		_halterEscapeTask = null;
 
 		if (_intervalTask != null)
-			_intervalTask.cancel(true);
+			_intervalTask.cancel(false);
 		_intervalTask = null;
 
 		if (_lockUpDoorOfAltarTask != null)
-			_lockUpDoorOfAltarTask.cancel(true);
+			_lockUpDoorOfAltarTask.cancel(false);
 		_lockUpDoorOfAltarTask = null;
 
 		if (_movieTask != null)
-			_movieTask.cancel(true);
+			_movieTask.cancel(false);
 		_movieTask = null;
 
 		if (_openDoorOfAltarTask != null)
-			_openDoorOfAltarTask.cancel(true);
+			_openDoorOfAltarTask.cancel(false);
 		_openDoorOfAltarTask = null;
 
 		if (_timeUpTask != null)
-			_timeUpTask.cancel(true);
+			_timeUpTask.cancel(false);
 		_timeUpTask = null;
 
 		// delete all monsters
@@ -1373,7 +1373,7 @@ public class VanHalterManager extends BossLair
 
 		// set time up.
 		if (_timeUpTask != null)
-			_timeUpTask.cancel(true);
+			_timeUpTask.cancel(false);
 		_timeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), Config.HPH_ACTIVITYTIMEOFHALTER);
 	}
 
@@ -1425,7 +1425,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(2), 16);
 
@@ -1448,7 +1448,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(3), 1);
 
@@ -1471,7 +1471,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(4), 1500);
 
@@ -1494,7 +1494,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(5), 1);
 
@@ -1517,7 +1517,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(6), 1500);
 
@@ -1540,7 +1540,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(7), 1);
 
@@ -1563,7 +1563,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(8), 1500);
 
@@ -1586,7 +1586,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(9), 1);
 
@@ -1609,7 +1609,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(10), 1500);
 
@@ -1632,7 +1632,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(11), 1);
 
@@ -1655,7 +1655,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(12), 2000);
 
@@ -1678,7 +1678,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(13), 1000);
 
@@ -1695,7 +1695,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(14), 4700);
 
@@ -1707,7 +1707,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(15), 4300);
 
@@ -1733,7 +1733,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(16), 2000);
 
@@ -1756,7 +1756,7 @@ public class VanHalterManager extends BossLair
 
 				// set next task.
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(17), 6000);
 
@@ -1774,7 +1774,7 @@ public class VanHalterManager extends BossLair
 				_vanHalter.setIsInvul(false);
 
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 				_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(18), 1000);
 
@@ -1783,7 +1783,7 @@ public class VanHalterManager extends BossLair
 			case 18:
 				combatBeginning();
 				if (_movieTask != null)
-					_movieTask.cancel(true);
+					_movieTask.cancel(false);
 				_movieTask = null;
 			}
 		}
