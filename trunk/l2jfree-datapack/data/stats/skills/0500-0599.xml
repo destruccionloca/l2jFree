@@ -1336,7 +1336,7 @@ Description(s):
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillRadius" val="100"/>
-  <set name="skillType" val="MDAM"/>
+  <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="SSBoost" val="2.0"/>
   <set name="castRange" val="500"/>
