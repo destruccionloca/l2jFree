@@ -2,6 +2,7 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -139,7 +140,7 @@ class Quest (JQuest) :
      if npcId in (20035, 20042, 20045, 20051, 20054, 20060) :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(SPATOIS_BONES)<10 and st.getRandom(10)<DROP_CHANCE[npcId] :
-            st.giveItems(SPATOIS_BONES,1)
+            st.giveItems(SPATOIS_BONES,int(1*Config.RATE_DROP_QUEST))
             if st.getQuestItemsCount(SPATOIS_BONES) == 10 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","3")
@@ -150,7 +151,7 @@ class Quest (JQuest) :
         if st.getInt("cond") and st.getQuestItemsCount(WANTED_BILL)>0 :
             n = st.getRandom(4)
             if st.getQuestItemsCount(STOLEN_ITEM[n]) == 0 :
-                st.giveItems(STOLEN_ITEM[n],1)
+                st.giveItems(STOLEN_ITEM[n],int(1*Config.RATE_DROP_QUEST))
                 if not HaveAllStolenItems(st) :
                   st.playSound("ItemSound.quest_itemget")
                 else:

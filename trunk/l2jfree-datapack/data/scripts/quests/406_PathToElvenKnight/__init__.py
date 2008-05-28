@@ -2,6 +2,7 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -121,7 +122,7 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    if npcId != 20782 :
         if st.getInt("cond")==1 and st.getQuestItemsCount(TOPAZ_PIECE)<20 and st.getRandom(100)<70 :
-            st.giveItems(TOPAZ_PIECE,1)
+            st.giveItems(TOPAZ_PIECE,int(1*Config.RATE_DROP_QUEST))
             if st.getQuestItemsCount(TOPAZ_PIECE) == 20 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","2")
@@ -129,7 +130,7 @@ class Quest (JQuest) :
               st.playSound("ItemSound.quest_itemget")
    else :
         if st.getInt("cond")==4 and st.getQuestItemsCount(EMERALD_PIECE)<20 and st.getRandom(100)<50 :
-            st.giveItems(EMERALD_PIECE,1)
+            st.giveItems(EMERALD_PIECE,int(1*Config.RATE_DROP_QUEST))
             if st.getQuestItemsCount(EMERALD_PIECE) == 20 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","5")

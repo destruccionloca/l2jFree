@@ -2,6 +2,7 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -221,7 +222,7 @@ class Quest (JQuest) :
         st.set("id","0")
         #Only get a KEY_OF_FLAME if we are on the quest for the Fire Salamander
         if st.getInt("cond") == 2 :
-            st.giveItems(KEY_OF_FLAME,1)
+            st.giveItems(KEY_OF_FLAME,int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_middle")
             #Increase the Cond so we can only get one key
             st.set("cond","3")
@@ -229,7 +230,7 @@ class Quest (JQuest) :
         st.set("id","0")
         #Only get a SPARKLE_PEBBLE if we are on the quest for the Water Undine
         if st.getInt("cond") == 8 and st.getQuestItemsCount(SPARKLE_PEBBLE) < 2:
-            st.giveItems(SPARKLE_PEBBLE,1)
+            st.giveItems(SPARKLE_PEBBLE,int(1*Config.RATE_DROP_QUEST))
             if st.getQuestItemsCount(SPARKLE_PEBBLE) == 2 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","9")
@@ -239,7 +240,7 @@ class Quest (JQuest) :
         st.set("id","0")
         #Only get a RED_SOIL if we are on the quest for the Earth Snake
         if st.getInt("cond") == 11 :
-            st.giveItems(RED_SOIL,1)
+            st.giveItems(RED_SOIL,int(1*Config.RATE_DROP_QUEST))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","12")
    return

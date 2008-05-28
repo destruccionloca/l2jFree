@@ -1,5 +1,6 @@
 # Made by Mr - Version 0.3 by DrLecter
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -63,7 +64,7 @@ class Quest (JQuest) :
      st.takeItems(ONYX_BEAST_EYE,-1)
      st.takeItems(TAINT_STONE,-1)
      st.takeItems(SUCCUBUS_BLOOD,-1)
-     st.giveItems(956,1)
+     st.giveItems(956,int(1*Config.RATE_QUESTS_REWARD))
      st.unset("cond")
      st.exitQuest(False) 
      st.playSound("ItemSound.quest_finish")
@@ -77,11 +78,11 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    if st.getInt("cond") == 1 :
      if npcId == OMEN_BEAST and not st.getQuestItemsCount(ONYX_BEAST_EYE) :
-       st.giveItems(ONYX_BEAST_EYE,1)
+       st.giveItems(ONYX_BEAST_EYE,int(1*Config.RATE_DROP_QUEST))
      elif npcId in [TAINTED_ZOMBIE,STINK_ZOMBIE] and not st.getQuestItemsCount(TAINT_STONE) :
-       st.giveItems(TAINT_STONE,1)
+       st.giveItems(TAINT_STONE,int(1*Config.RATE_DROP_QUEST))
      elif npcId in [LESSER_SUCCUBUS,LESSER_SUCCUBUS_TUREN,LESSER_SUCCUBUS_TILFO] and not st.getQuestItemsCount(SUCCUBUS_BLOOD) :
-       st.giveItems(SUCCUBUS_BLOOD,1)
+       st.giveItems(SUCCUBUS_BLOOD,int(1*Config.RATE_DROP_QUEST))
      if st.getQuestItemsCount(ONYX_BEAST_EYE) and st.getQuestItemsCount(TAINT_STONE) and st.getQuestItemsCount(SUCCUBUS_BLOOD) :
        st.set("cond","2")
        st.playSound("ItemSound.quest_middle")

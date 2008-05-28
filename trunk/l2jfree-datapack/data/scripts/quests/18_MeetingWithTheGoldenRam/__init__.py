@@ -3,6 +3,7 @@
 # Visit http://forum.l2jdp.com for more details.
 
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -33,9 +34,9 @@ class Quest (JQuest) :
        htmltext = "31315-02.htm"
        st.giveItems(BOX,1)
      elif event == "31555-02.htm" :
-       st.giveItems(57,15000)
+       st.giveItems(57,int(15000*Config.RATE_QUESTS_REWARD))
        st.takeItems(BOX,-1)
-       st.addExpAndSp(50000,0)
+       st.addExpAndSp(int(50000*Config.RATE_QUESTS_REWARD),0)
        st.unset("cond")
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False) 

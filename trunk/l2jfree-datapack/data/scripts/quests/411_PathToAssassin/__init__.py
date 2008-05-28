@@ -2,6 +2,7 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -138,12 +139,12 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    if npcId == 27036 :
         if st.getInt("cond") >= 1 and st.getQuestItemsCount(SHILENS_TEARS) == 0 :
-          st.giveItems(SHILENS_TEARS,1)
+          st.giveItems(SHILENS_TEARS,int(1*Config.RATE_DROP_QUEST))
           st.playSound("ItemSound.quest_middle")
           st.set("cond","6")
    elif npcId == 20369 :
         if st.getInt("cond") >= 1 and st.getQuestItemsCount(LEIKANS_NOTE) == 1 and st.getQuestItemsCount(ONYX_BEASTS_MOLAR)<10 :
-          st.giveItems(ONYX_BEASTS_MOLAR,1)
+          st.giveItems(ONYX_BEASTS_MOLAR,int(1*Config.RATE_DROP_QUEST))
           if st.getQuestItemsCount(ONYX_BEASTS_MOLAR) == 10 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","4")              

@@ -2,6 +2,7 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -132,7 +133,7 @@ class Quest (JQuest) :
       if st.getInt("cond") :
         if st.getQuestItemsCount(PRIGUNS_TEAR_LETTER1)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER2)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER3)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER4) < 4 :
           if st.getQuestItemsCount(PRIGUNS_TEAR_LETTER1)<1 :
-            st.giveItems(PRIGUNS_TEAR_LETTER1,1)
+            st.giveItems(PRIGUNS_TEAR_LETTER1,int(1*Config.RATE_DROP_QUEST))
             if st.getQuestItemsCount(PRIGUNS_TEAR_LETTER1)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER2)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER3)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER4) == 4 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","3")
@@ -140,7 +141,7 @@ class Quest (JQuest) :
               st.playSound("ItemSound.quest_itemget")
           else:
             if st.getQuestItemsCount(PRIGUNS_TEAR_LETTER2)<1 :
-              st.giveItems(PRIGUNS_TEAR_LETTER2,1)
+              st.giveItems(PRIGUNS_TEAR_LETTER2,int(1*Config.RATE_DROP_QUEST))
               if st.getQuestItemsCount(PRIGUNS_TEAR_LETTER1)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER2)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER3)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER4) == 4 :
                 st.playSound("ItemSound.quest_middle")
                 st.set("cond","3")
@@ -148,7 +149,7 @@ class Quest (JQuest) :
                 st.playSound("ItemSound.quest_itemget")
             else:
               if st.getQuestItemsCount(PRIGUNS_TEAR_LETTER3)<1 :
-                st.giveItems(PRIGUNS_TEAR_LETTER3,1)
+                st.giveItems(PRIGUNS_TEAR_LETTER3,int(1*Config.RATE_DROP_QUEST))
                 if st.getQuestItemsCount(PRIGUNS_TEAR_LETTER1)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER2)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER3)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER4) == 4 :
                   st.playSound("ItemSound.quest_middle")
                   st.set("cond","3")
@@ -156,7 +157,7 @@ class Quest (JQuest) :
                   st.playSound("ItemSound.quest_itemget")
               else:
                 if st.getQuestItemsCount(PRIGUNS_TEAR_LETTER4)<1 :
-                  st.giveItems(PRIGUNS_TEAR_LETTER4,1)
+                  st.giveItems(PRIGUNS_TEAR_LETTER4,int(1*Config.RATE_DROP_QUEST))
                   if st.getQuestItemsCount(PRIGUNS_TEAR_LETTER1)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER2)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER3)+st.getQuestItemsCount(PRIGUNS_TEAR_LETTER4) == 4 :
                     st.playSound("ItemSound.quest_middle")
                     st.set("cond","3")
@@ -165,7 +166,7 @@ class Quest (JQuest) :
    elif npcId == 27031 :
       st.set("id","0")
       if st.getInt("cond") and st.getQuestItemsCount(MORETTIS_HERB) == 1 and st.getQuestItemsCount(MORETTIS_LETTER) == 1 and st.getQuestItemsCount(RUSTED_KEY) == 0 and st.getRandom(10)<6 :
-        st.giveItems(RUSTED_KEY,1)
+        st.giveItems(RUSTED_KEY,int(1*Config.RATE_DROP_QUEST))
         st.playSound("ItemSound.quest_middle")
         st.set("cond","6")
    return

@@ -2,6 +2,7 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -117,25 +118,25 @@ class Quest (JQuest) :
            st.takeItems(GREEN_BLOOD,-1) 
            st.addSpawn(KURUKA_RATMAN_LEADER,xx,yy,zz) 
          else: 
-           st.giveItems(GREEN_BLOOD,1) 
+           st.giveItems(GREEN_BLOOD,int(1*Config.RATE_DROP_QUEST)) 
            st.playSound("ItemSound.quest_itemget") 
        else: 
-         st.giveItems(GREEN_BLOOD,1) 
+         st.giveItems(GREEN_BLOOD,int(1*Config.RATE_DROP_QUEST)) 
          st.playSound("ItemSound.quest_itemget") 
    elif npcId == KURUKA_RATMAN_LEADER : 
      if cond and st.getQuestItemsCount(GOBLIN_DWELLING_MAP) == 1 and st.getQuestItemsCount(KURUKA_RATMAN_TOOTH) < 10 : 
        st.takeItems(GREEN_BLOOD,-1) 
        if st.getQuestItemsCount(KURUKA_RATMAN_TOOTH) == 9 : 
-         st.giveItems(KURUKA_RATMAN_TOOTH,1) 
+         st.giveItems(KURUKA_RATMAN_TOOTH,int(1*Config.RATE_DROP_QUEST)) 
          st.set("id","2") 
          st.set("cond","2") 
          st.playSound("ItemSound.quest_middle") 
        else: 
-         st.giveItems(KURUKA_RATMAN_TOOTH,1) 
+         st.giveItems(KURUKA_RATMAN_TOOTH,int(1*Config.RATE_DROP_QUEST)) 
          st.playSound("ItemSound.quest_itemget") 
    elif npcId == UMBAR_ORC : 
      if cond and st.getQuestItemsCount(BETRAYER_UMBAR_REPORT) > 0 and st.getQuestItemsCount(HEAD_OF_BETRAYER) < 2 : 
-       st.giveItems(HEAD_OF_BETRAYER,1) 
+       st.giveItems(HEAD_OF_BETRAYER,int(1*Config.RATE_DROP_QUEST)) 
        if st.getQuestItemsCount(HEAD_OF_BETRAYER) > 1 : 
          st.set("id","4") 
          st.set("cond","4") 

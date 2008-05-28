@@ -2,6 +2,7 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -286,7 +287,7 @@ class Quest (JQuest) :
    elif npcId == 27058 :
         if st.getInt("cond") and st.getQuestItemsCount(BEAR_PIC) == 1 and st.getQuestItemsCount(HONEY_JAR) < 5 :
           if npc.isSpoil() :
-            st.giveItems(HONEY_JAR,1)
+            st.giveItems(HONEY_JAR,int(1*Config.RATE_DROP_QUEST))
             if st.getQuestItemsCount(HONEY_JAR) == 5 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","6")
@@ -296,7 +297,7 @@ class Quest (JQuest) :
         if st.getInt("cond") and st.getQuestItemsCount(TARANTULA_PIC) == 1 and st.getQuestItemsCount(BEAD) < 20 :
           if npc.isSpoil() :
             if st.getRandom(2) == 0 :
-              st.giveItems(BEAD,1)
+              st.giveItems(BEAD,int(1*Config.RATE_DROP_QUEST))
               if st.getQuestItemsCount(BEAD) == 20 :
                 st.playSound("ItemSound.quest_middle")
                 st.set("cond","8")
@@ -306,7 +307,7 @@ class Quest (JQuest) :
         if st.getInt("cond") and st.getQuestItemsCount(TARANTULA_PIC) == 1 and st.getQuestItemsCount(BEAD) < 20 :
           if npc.isSpoil() :
             if st.getRandom(10) < 6 :
-              st.giveItems(BEAD,1)
+              st.giveItems(BEAD,int(1*Config.RATE_DROP_QUEST))
               if st.getQuestItemsCount(BEAD) == 20 :
                 st.playSound("ItemSound.quest_middle")
                 st.set("cond","8")

@@ -1,5 +1,6 @@
 #made by Emperorc
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -36,7 +37,7 @@ class Quest (JQuest) :
      elif event == "31371-02.htm" :
          htmltext = "31371-02.htm"
          st.takeItems(Box,-1)
-         st.addExpAndSp(22787,0) #Despite what stratics may say, this is the correct reward for this quest.
+         st.addExpAndSp(int(22787*Config.RATE_QUESTS_REWARD),0) #Despite what stratics may say, this is the correct reward for this quest.
          st.set("cond","0")
          st.set("onlyone","1")
          st.exitQuest(False) 

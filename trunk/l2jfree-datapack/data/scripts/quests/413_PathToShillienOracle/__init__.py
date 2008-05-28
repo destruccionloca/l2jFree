@@ -2,6 +2,7 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -134,7 +135,7 @@ class Quest (JQuest) :
    if npcId == 20776 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(BLANK_SHEET1)>0 :
-          st.giveItems(BLOODY_RUNE1,1)
+          st.giveItems(BLOODY_RUNE1,int(1*Config.RATE_DROP_QUEST))
           st.takeItems(BLANK_SHEET1,1)
           if st.getQuestItemsCount(BLANK_SHEET1) == 0 :
             st.playSound("ItemSound.quest_middle")
@@ -144,7 +145,7 @@ class Quest (JQuest) :
    elif npcId == 20514 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(PENITENTS_MARK) == 1 and st.getQuestItemsCount(ASHEN_BONES)<10 :
-          st.giveItems(ASHEN_BONES,1)
+          st.giveItems(ASHEN_BONES,int(1*Config.RATE_DROP_QUEST))
           if st.getQuestItemsCount(ASHEN_BONES) == 10 :
             st.playSound("ItemSound.quest_middle")
             st.set("cond","6")
@@ -153,7 +154,7 @@ class Quest (JQuest) :
    elif npcId == 20515 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(PENITENTS_MARK) == 1 and st.getQuestItemsCount(ASHEN_BONES)<10 :
-          st.giveItems(ASHEN_BONES,1)
+          st.giveItems(ASHEN_BONES,int(1*Config.RATE_DROP_QUEST))
           if st.getQuestItemsCount(ASHEN_BONES) == 10 :
             st.playSound("ItemSound.quest_middle")
             st.set("cond","6")
@@ -162,7 +163,7 @@ class Quest (JQuest) :
    elif npcId == 20457 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(PENITENTS_MARK) == 1 and st.getQuestItemsCount(ASHEN_BONES)<10 :
-          st.giveItems(ASHEN_BONES,1)
+          st.giveItems(ASHEN_BONES,int(1*Config.RATE_DROP_QUEST))
           if st.getQuestItemsCount(ASHEN_BONES) == 10 :
             st.playSound("ItemSound.quest_middle")
             st.set("cond","6")
@@ -171,7 +172,7 @@ class Quest (JQuest) :
    elif npcId == 20458 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(PENITENTS_MARK) == 1 and st.getQuestItemsCount(ASHEN_BONES)<10 :
-          st.giveItems(ASHEN_BONES,1)
+          st.giveItems(ASHEN_BONES,int(1*Config.RATE_DROP_QUEST))
           if st.getQuestItemsCount(ASHEN_BONES) == 10 :
             st.playSound("ItemSound.quest_middle")
             st.set("cond","6")
