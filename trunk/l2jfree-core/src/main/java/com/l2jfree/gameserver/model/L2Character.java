@@ -4219,7 +4219,12 @@ public abstract class L2Character extends L2Object
 		if (_effects == null || _effects.isEmpty())
 			return EMPTY_EFFECTS;
 
-		return _effects.toArray(new L2Effect[_effects.size()]);
+		L2Effect[] sharedEffects;
+		synchronized (_effects)
+		{
+			sharedEffects = _effects.toArray(new L2Effect[_effects.size()]);
+		}
+		return sharedEffects;
 	}
 
 	/**
