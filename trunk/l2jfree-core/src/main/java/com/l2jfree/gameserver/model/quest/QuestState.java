@@ -451,7 +451,7 @@ public final class QuestState
 			count=(int)(count*Config.RATE_QUESTS_REWARD_ADENA);
 		else
 			// only mulitply if the the item type2 is not QUEST
-			if(tempItem.getItem().getType2() == L2Item.TYPE2_QUEST)
+			if(tempItem.getItem().getType2() != L2Item.TYPE2_QUEST)
 				count=(int)(count*Config.RATE_QUESTS_REWARD_ITEMS);
 		
 		// Add items to player's inventory
