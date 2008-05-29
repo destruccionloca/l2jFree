@@ -165,10 +165,8 @@ public class L2MonsterInstance extends L2Attackable
                     }
                     
                     // Move the minion to the new coords
-                    if (!minion.isInCombat() && !minion.isDead() && !minion.isMovementDisabled())
-                    {
+                    if (minion != null && !minion.isInCombat() && !minion.isDead() && !minion.isMovementDisabled())
                         minion.moveToLocation(minionX, minionY, minionZ, 0);
-                    }
                 }
             }
         }

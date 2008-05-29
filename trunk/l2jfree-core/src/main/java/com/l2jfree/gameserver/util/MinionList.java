@@ -23,6 +23,7 @@ package com.l2jfree.gameserver.util;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -51,37 +52,32 @@ public class MinionList
 	private final static Log				_log			= LogFactory.getLog(L2MonsterInstance.class.getName());
 
 	/** List containing the current spawned minions for this L2MonsterInstance */
-	private final List<L2MinionInstance>	minionReferences;
+	private final List <L2MinionInstance>	minionReferences;
 	protected Map<Long, Integer>			_respawnTasks	= new FastMap<Long, Integer>().setShared(true);
 	private final L2MonsterInstance			master;
 
 	public MinionList(L2MonsterInstance pMaster)
 	{
-		minionReferences = new FastList<L2MinionInstance>();
+		minionReferences = new CopyOnWriteArrayList<L2MinionInstance>();
 		master = pMaster;
 	}
 
 	public int countSpawnedMinions()
 	{
-		synchronized (minionReferences)
-		{
-			return minionReferences.size();
-		}
+		return minionReferences.size();
 	}
 
 	private int countSpawnedMinionsById(int minionId)
 	{
 		int count = 0;
-		synchronized (minionReferences)
+		for (L2MinionInstance minion : getSpawnedMinions())
 		{
-			for (L2MinionInstance minion : getSpawnedMinions())
+			if (minion.getNpcId() == minionId)
 			{
-				if (minion.getNpcId() == minionId)
-				{
-					count++;
-				}
+				count++;
 			}
 		}
+
 		return count;
 	}
 
@@ -97,10 +93,7 @@ public class MinionList
 
 	public void addSpawnedMinion(L2MinionInstance minion)
 	{
-		synchronized (minionReferences)
-		{
-			minionReferences.add(minion);
-		}
+		minionReferences.add(minion);
 	}
 
 	public int lazyCountSpawnedMinionsGroups()
@@ -110,6 +103,7 @@ public class MinionList
 		{
 			seenGroups.add(minion.getNpcId());
 		}
+		
 		return seenGroups.size();
 	}
 

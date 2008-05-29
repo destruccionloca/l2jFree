@@ -5880,9 +5880,8 @@ public abstract class L2Character extends L2Object
 	public final boolean isInsideRadius(L2Object object, int radius, boolean checkZ, boolean strictCheck)
 	{
 		if (object == null)
-		{
 			return false;
-		}
+
 		return isInsideRadius(object.getX(), object.getY(), object.getZ(), radius, checkZ, strictCheck);
 	}
 
