@@ -17,10 +17,11 @@ import elayne.util.connector.LoginDB;
  */
 public class L2AccountInfoGroup extends L2GroupEntry
 {
-	private static final String RESTORE_ACCOUNT = "SELECT password, accessLevel, lastIP FROM `accounts` WHERE `login` =?";
+	private static final String RESTORE_ACCOUNT = "SELECT password, accessLevel, lastIP, lastServerId FROM `accounts` WHERE `login` =?";
 	private int accessLevel;
 	private String encryptedPass;
 	private String lastIp;
+	private int lastServerId;
 	private String login;
 	private L2PcInstance parent;
 	private L2CharacterEntry encryptedPasswordEntry;
@@ -74,11 +75,12 @@ public class L2AccountInfoGroup extends L2GroupEntry
 	 * {@link L2PcInstance}. Notice that the server number returned, is
 	 * relative to the one in the <code>GAMESERVERS</code> table in the login
 	 * server database.
+	 */
 	 
 	public int getLastServer()
 	{
-		return lastServer;
-	}*/
+		return lastServerId;
+	}
 
 	/**
 	 * @return the account of the parent {@link L2PcInstance}.
@@ -117,11 +119,13 @@ public class L2AccountInfoGroup extends L2GroupEntry
 				encryptedPass = rset.getString("password");
 				accessLevel = rset.getInt("accessLevel");
 				lastIp = rset.getString("lastIP");
+				lastServerId = rset.getInt("lastServerId");
 				addEntry(new L2CharacterEntry(this, "Account:", login));
 				encryptedPasswordEntry = new L2CharacterEntry(this, "Encrypted Password:", encryptedPass);
 				addEntry(encryptedPasswordEntry);
 				addEntry(new L2CharacterEntry(this, "Access Level:", accessLevel));
 				addEntry(new L2CharacterEntry(this, "Last Ip:", lastIp));
+				addEntry(new L2CharacterEntry(this, "Last Server:", lastServerId));
 			}
 			rset.close();
 			statement.close();
