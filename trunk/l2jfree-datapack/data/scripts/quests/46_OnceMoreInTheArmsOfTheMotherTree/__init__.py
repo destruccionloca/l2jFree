@@ -1,6 +1,8 @@
 # Created by CubicVirtuoso
 # Any problems feel free to drop by #l2j-datapack on irc.freenode.net
+#Corrected proper items order for take/give commands, to avoid any exploit - BoDiE
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -63,9 +65,9 @@ class Quest (JQuest) :
             st.giveItems(PURIFIED_MAGIC_NECKLACE_ID,1)
             htmltext = "30116-02.htm"
         elif event == "7" :
-            st.giveItems(SCROLL_OF_ESCAPE_SPECIAL,1)
             st.takeItems(PURIFIED_MAGIC_NECKLACE_ID,1)
-            st.takeItems(MARK_OF_TRAVELER_ID,-1)
+            st.takeItems(MARK_OF_TRAVELER_ID,-1)			
+            st.giveItems(SCROLL_OF_ESCAPE_SPECIAL,int(1*Config.RATE_QUESTS_REWARD))
             htmltext = "30097-12.htm"
             st.unset("cond")
             st.exitQuest(False) 

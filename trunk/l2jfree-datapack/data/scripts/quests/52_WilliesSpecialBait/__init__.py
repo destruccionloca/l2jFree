@@ -1,6 +1,7 @@
 # This is essentially a DrLecter's copy&paste from
 # a Kilkenny's contribution to the Official L2J Datapack Project.
 # Visit http://www.l2jdp.com/trac if you find a bug.
+#Corrected proper items order for take/give commands, to avoid any exploit - BoDiE
 import sys
 from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
@@ -32,8 +33,8 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_accept")
    elif event == "31574-07.htm" and st.getQuestItemsCount(TARLK_EYE) == 100 :
      htmltext = "31574-06.htm"
-     st.giveItems(EARTH_FISHING_LURE,4)
      st.takeItems(TARLK_EYE,-1)
+     st.giveItems(EARTH_FISHING_LURE,int(4*Config.RATE_QUESTS_REWARD))
      st.playSound("ItemSound.quest_finish")
      st.unset("cond")
      st.exitQuest(False) 
