@@ -3,6 +3,7 @@
 # Visit http://forum.l2jdp.com for more details.
 
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -61,8 +62,8 @@ class Quest (JQuest) :
        st.takeItems(TOOTH_OF_DRAGON,50)
        st.playSound("ItemSound.quest_finish")
        item,adena=REWARDS[st.getRandom(len(REWARDS))]
-       st.giveItems(item,1)
-       st.giveItems(57,adena)
+       st.giveItems(item,int(1*Config.RATE_QUESTS_REWARD))
+       st.giveItems(57,int(adena*Config.RATE_QUESTS_REWARD))
        st.exitQuest(False) 
     return htmltext
 
@@ -115,7 +116,7 @@ class Quest (JQuest) :
    cond,item,max,chance=DROPLIST[npc.getNpcId()]
    count=st.getQuestItemsCount(item)
    if st.getInt("cond") == cond and count < max and st.getRandom(100) < chance :
-      st.giveItems(item,1)
+      st.giveItems(item,int(1*Config.RATE_QUESTS_REWARD))
       if count == max-1 :
          st.playSound("ItemSound.quest_middle")
          st.set("cond",str(cond+1))

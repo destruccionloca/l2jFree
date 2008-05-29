@@ -80,9 +80,9 @@ class Quest (JQuest) :
      if st.getQuestItemsCount(INCENSE_POUCH) == st.getQuestItemsCount(GEM_OF_MAILLE) == 30 and cond == 5 :
        st.takeItems(INCENSE_POUCH,30)
        st.takeItems(GEM_OF_MAILLE,30)  
-       st.giveItems(GREEN_COLORED_LURE_HG,60)
-       st.giveItems(BABY_DUCK_RODE,1)
-       st.giveItems(FISHING_SHOT_NG,500)
+       st.giveItems(GREEN_COLORED_LURE_HG,int(60*Config.RATE_QUESTS_REWARD))
+       st.giveItems(BABY_DUCK_RODE,int(1*Config.RATE_QUESTS_REWARD))
+       st.giveItems(FISHING_SHOT_NG,int(500*Config.RATE_QUESTS_REWARD))
        st.unset("cond")
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False) 

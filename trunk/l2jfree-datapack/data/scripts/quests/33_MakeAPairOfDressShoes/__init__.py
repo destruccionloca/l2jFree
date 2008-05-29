@@ -1,5 +1,6 @@
 # Made by disKret
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -40,7 +41,7 @@ class Quest (JQuest) :
      else :
        htmltext = "You don't have enough materials"
    if event == "30838-7.htm" :
-     st.giveItems(DRESS_SHOES_BOX,1)
+     st.giveItems(DRESS_SHOES_BOX,int(1*Config.RATE_QUESTS_REWARD))
      st.playSound("ItemSound.quest_finish")
      st.exitQuest(1)
    return htmltext

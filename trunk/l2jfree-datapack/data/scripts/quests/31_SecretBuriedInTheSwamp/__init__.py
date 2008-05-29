@@ -1,5 +1,6 @@
 # by disKret
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -44,8 +45,8 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_middle")
    elif event == "31555-7.htm" and cond == 7:
      st.takeItems(KRORINS_JOURNAL,-1)
-     st.addExpAndSp(130000,0)
-     st.giveItems(57,40000)
+     st.addExpAndSp(int(130000*Config.RATE_QUESTS_REWARD),0)
+     st.giveItems(57,int(40000*Config.RATE_QUESTS_REWARD))
      st.playSound("ItemSound.quest_finish")
      st.exitQuest(False) 
    elif event != "31663-0a.htm":

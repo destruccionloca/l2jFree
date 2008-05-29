@@ -1,5 +1,6 @@
 # Made by disKret
 import sys
+from com.l2jfree import Config
 from com.l2jfree.tools.random import Rnd
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
@@ -36,7 +37,7 @@ class Quest (JQuest) :
        st.takeItems(ORIHARUKON,5)
        st.takeItems(SILVER_NUGGET,500)
        st.takeItems(THONS,150)
-       st.giveItems(JEWEL_BOX,1)
+       st.giveItems(JEWEL_BOX,int(1*Config.RATE_QUESTS_REWARD))
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
      else :
@@ -88,7 +89,7 @@ class Quest (JQuest) :
    if st.getState() != State.STARTED : return   
    count = st.getQuestItemsCount(ROUGH_JEWEL)
    if count<10 :
-     st.giveItems(ROUGH_JEWEL,1)
+     st.giveItems(ROUGH_JEWEL,int(1*Config.RATE_DROP_QUEST))
      if count == 9 :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","3")

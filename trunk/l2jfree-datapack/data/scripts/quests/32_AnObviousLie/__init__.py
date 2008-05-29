@@ -1,5 +1,6 @@
 # Made by disKret
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -78,7 +79,7 @@ class Quest (JQuest) :
          item=RACCOON_EAR
        elif event=="rabbit":
          item=RABBIT_EAR
-       st.giveItems(item,1)
+       st.giveItems(item,int(1*Config.RATE_QUESTS_REWARD))
        st.exitQuest(False) 
        st.unset("cond")
        st.playSound("ItemSound.quest_finish")
@@ -146,7 +147,7 @@ class Quest (JQuest) :
    count = st.getQuestItemsCount(MEDICINAL_HERB)
    if chance < CHANCE_FOR_DROP and st.getInt("cond")== 3 :
      if count < 20 :
-       st.giveItems(MEDICINAL_HERB,1)
+       st.giveItems(MEDICINAL_HERB,int(1*Config.RATE_DROP_QUEST))
        if count == 19 :
          st.playSound("ItemSound.quest_middle")
          st.set("cond","4")

@@ -1,5 +1,6 @@
 # Made by disKret
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -49,7 +50,7 @@ class Quest (JQuest) :
    elif cond == 3 and st.getQuestItemsCount(ORIHARUKON) >= 10 and st.getQuestItemsCount(ARTISANS_FRAME) >= 10 :
      st.takeItems(ORIHARUKON,10)
      st.takeItems(ARTISANS_FRAME,10)
-     st.giveItems(SEWING_KIT,1)
+     st.giveItems(SEWING_KIT,int(1*Config.RATE_QUESTS_REWARD))
      st.playSound("ItemSound.quest_finish")
      htmltext = "30847-4.htm"
      st.exitQuest(1)
@@ -62,7 +63,7 @@ class Quest (JQuest) :
    
    count = st.getQuestItemsCount(REINFORCED_STEEL)
    if count < 5 :
-     st.giveItems(REINFORCED_STEEL,1)
+     st.giveItems(REINFORCED_STEEL,int(1*Config.RATE_DROP_QUEST))
      if count == 4 :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","2")

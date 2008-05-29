@@ -1,5 +1,6 @@
 # Made by disKret
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -55,7 +56,7 @@ class Quest (JQuest) :
     elif event == "31520-7.htm" :
        if st.getQuestItemsCount(DRESS_SHOES_BOX) :
          st.takeItems(DRESS_SHOES_BOX,1)
-         st.giveItems(FORMAL_WEAR,1)
+         st.giveItems(FORMAL_WEAR,int(1*Config.RATE_QUESTS_REWARD))
          st.exitQuest(False) 
          st.unset("cond")
          st.playSound("ItemSound.quest_finish")

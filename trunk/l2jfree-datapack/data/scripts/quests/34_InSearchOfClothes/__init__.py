@@ -1,6 +1,7 @@
 # Made by disKret
 import sys
-from com.l2jfree.tools.random import Rnd
+from com.l2jfree import Config
+from com.l2jfree.tools.random import Rnd #Isn't this imported without reason? I don't see it in use =/
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -44,7 +45,7 @@ class Quest (JQuest) :
        st.takeItems(SUEDE,3000)
        st.takeItems(THREAD,5000)
        st.takeItems(SPIDERSILK,1)
-       st.giveItems(MYSTERIOUS_CLOTH,1)
+       st.giveItems(MYSTERIOUS_CLOTH,int(1*Config.RATE_QUESTS_REWARD))
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
      else :
@@ -90,7 +91,7 @@ class Quest (JQuest) :
 
    count = st.getQuestItemsCount(SPINNERET)
    if count < 10 :
-     st.giveItems(SPINNERET,1)
+     st.giveItems(SPINNERET,int(1*Config.RATE_DROP_QUEST))
      if count == 9 :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","5")
