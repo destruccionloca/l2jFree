@@ -19,6 +19,7 @@ public class Accounts implements java.io.Serializable
     private String password;
     private BigDecimal lastactive;
     private Integer accessLevel;
+    private Integer lastServerId;
     private String lastIp;
 
     // Constructors
@@ -35,13 +36,14 @@ public class Accounts implements java.io.Serializable
     }
 
     /** full constructor */
-    public Accounts(String _login, String _password, BigDecimal _lastactive, Integer _accessLevel,
+    public Accounts(String _login, String _password, BigDecimal _lastactive, Integer _accessLevel, Integer _lastServerId,
                     String _lastIp)
     {
         this.login = _login;
         this.password = _password;
         this.lastactive = _lastactive;
         this.accessLevel = _accessLevel;
+        this.lastServerId = _lastServerId;
         this.lastIp = _lastIp;
     }
 
@@ -86,6 +88,16 @@ public class Accounts implements java.io.Serializable
         this.accessLevel = _accessLevel;
     }
 
+    public Integer getLastServerId()
+    {
+        return this.lastServerId;
+    }
+
+    public void setLastServerId(Integer _lastServerId)
+    {
+        this.lastServerId = _lastServerId;
+    }
+    
     public String getLastIp()
     {
         return this.lastIp;

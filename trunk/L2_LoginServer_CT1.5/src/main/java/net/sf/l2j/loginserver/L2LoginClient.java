@@ -22,6 +22,9 @@ import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.security.interfaces.RSAPrivateKey;
 
+import org.mmocore.network.MMOClient;
+import org.mmocore.network.MMOConnection;
+
 import net.sf.l2j.loginserver.beans.SessionKey;
 import net.sf.l2j.loginserver.crypt.LoginCrypt;
 import net.sf.l2j.loginserver.manager.LoginManager;
@@ -30,14 +33,12 @@ import net.sf.l2j.loginserver.serverpackets.LoginFail;
 import net.sf.l2j.loginserver.serverpackets.LoginFailReason;
 import net.sf.l2j.loginserver.serverpackets.PlayFail;
 import net.sf.l2j.loginserver.serverpackets.PlayFailReason;
+
 import net.sf.l2j.tools.math.ScrambledKeyPair;
 import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.mmocore.network.MMOClient;
-import org.mmocore.network.MMOConnection;
 
 /**
  * Represents a client connected into the LoginServer
@@ -59,6 +60,7 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 	
 	private String _account;
 	private int _accessLevel;
+	private int _lastServerId;
 	private SessionKey _sessionKey;
 	private int _sessionId;
     private boolean _joinedGS;
@@ -182,6 +184,16 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		return _accessLevel;
 	}
 	
+    public void setLastServerId(int lastServerId)
+    {
+        _lastServerId = lastServerId;
+    }    
+	
+	public int getLastServerId()
+	{
+		return _lastServerId;
+	}
+	
 	public int getSessionId()
 	{
 		return _sessionId;
@@ -252,6 +264,7 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
         }
 	}
 	
+	@Override
 	public String toString()
 	{
 		InetAddress address = getConnection().getSocket().getInetAddress();

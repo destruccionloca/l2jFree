@@ -61,7 +61,8 @@ public class RequestServerLogin extends L2LoginClientPacket
         return _serverId;
     }
 
-    public boolean readImpl()
+    @Override
+	public boolean readImpl()
     {
         if (this.getAvaliableBytes() >= 9)
         {
@@ -91,6 +92,7 @@ public class RequestServerLogin extends L2LoginClientPacket
             {
                 this.getClient().setJoinedGS(true); 
                 this.getClient().sendPacket(new PlayOk(sk));
+                LoginManager.getInstance().setAccountLastServerId(this.getClient().getAccount(), _serverId);
             }
             else
             {

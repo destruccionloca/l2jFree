@@ -35,6 +35,7 @@ import javax.crypto.Cipher;
 
 import javolution.util.FastMap;
 import javolution.util.FastSet;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.L2LoginClient;
 import net.sf.l2j.loginserver.L2LoginServer;
@@ -49,7 +50,8 @@ import net.sf.l2j.loginserver.services.exception.AccountModificationException;
 import net.sf.l2j.loginserver.services.exception.AccountWrongPasswordException;
 import net.sf.l2j.loginserver.services.exception.HackingException;
 import net.sf.l2j.loginserver.thread.GameServerThread;
-import net.sf.l2j.L2Registry;
+
+import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.codec.Base64;
 import net.sf.l2j.tools.math.ScrambledKeyPair;
 import net.sf.l2j.tools.random.Rnd;
@@ -306,8 +308,11 @@ public class LoginManager
                             ret = AuthLoginResult.AUTH_SUCCESS;
                         }
                     }
+                    Accounts acc = _service.getAccountById(account);
                     // keep access level in the L2LoginClient
-                    client.setAccessLevel(_service.getAccountById(account).getAccessLevel());
+                    client.setAccessLevel(acc.getAccessLevel());
+                    // keep last server choice
+                    client.setLastServerId(acc.getLastServerId());
                 }
             }
         }
@@ -401,6 +406,25 @@ public class LoginManager
         try
         {
             _service.changeAccountLevel(account, banLevel);
+        }
+        catch (AccountModificationException e)
+        {
+            _log.error("Could not set accessLevl for user : " + account,e);
+        }
+	}
+	
+    /**
+     * 
+     * @param user
+     * @param lastServerId
+     */
+	public void setAccountLastServerId(String account, int lastServerId)
+	{
+        try
+        {
+            Accounts acc = _service.getAccountById(account);
+            acc.setLastServerId(lastServerId);
+            _service.addOrUpdateAccount(acc);    
         }
         catch (AccountModificationException e)
         {
@@ -623,7 +647,7 @@ public class LoginManager
         {
         	if ((user.length() >= 2) && (user.length() <= 14))
         	{
-                acc = new Accounts(user,Base64.encodeBytes(hash),new BigDecimal(System.currentTimeMillis()),0,(address == null ? "null" : address.getHostAddress()));
+                acc = new Accounts(user,Base64.encodeBytes(hash),new BigDecimal(System.currentTimeMillis()),0,0,(address == null ? "null" : address.getHostAddress()));
         		_service.addOrUpdateAccount(acc);
         		
                 _logLogin.info("created new account for "+ user);

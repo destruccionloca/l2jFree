@@ -25,6 +25,10 @@
             <column name="accessLevel">
             </column>
         </property>
+        <property name="lastServerId" type="java.lang.Integer">
+            <column name="lastServerId">
+            </column>
+        </property>
         <property name="lastIp" type="string">
             <column name="lastIP" length="20">
             </column>
