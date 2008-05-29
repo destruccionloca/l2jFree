@@ -2,6 +2,7 @@
 ###  Create by Skeleton!!!
 ### ---------------------------------------------------------------------------
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -35,7 +36,7 @@ class Quest (JQuest) :
             if st.getQuestItemsCount(KikisLetter)==1 :
                 htmltext="31442-02.htm"
                 st.takeItems(KikisLetter,-1)
-                st.giveItems(ElvenRing,1)
+                st.giveItems(ElvenRing,int(1*Config.RATE_QUESTS_REWARD))
                 st.set("cond","0")
                 st.exitQuest(False) 
                 st.playSound("ItemSound.quest_finish")

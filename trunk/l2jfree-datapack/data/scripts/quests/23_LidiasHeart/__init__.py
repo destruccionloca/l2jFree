@@ -1,5 +1,6 @@
 #  Created by Skeleton, Rewritten by Eyerobot
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -149,7 +150,7 @@ class Quest (JQuest) :
                 if st.getQuestItemsCount(SilverSpear) != 0:
                     htmltext = "31386-03.htm"
                     st.takeItems(SilverSpear,-1)
-                    st.giveItems(Adena,100000)
+                    st.giveItems(Adena,int(100000*Config.RATE_QUESTS_REWARD))
                     st.exitQuest(False)
                     st.playSound("ItemSound.quest_finish")
                 else:

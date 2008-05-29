@@ -2,6 +2,7 @@
 # this script is part of the Official L2J Datapack Project.
 # Visit http://forum.l2jdp.com for more details.
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.ai import CtrlIntention
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
@@ -42,7 +43,7 @@ class Quest (JQuest) :
             st.exitQuest(False) 
             st.takeItems(7140,-1)
             if st.getQuestItemsCount(7141) == 0 :
-                st.giveItems(7141,1)
+                st.giveItems(7141,int(1*Config.RATE_QUESTS_REWARD))
             st.playSound("ItemSound.quest_finish")
             htmltext = "31328-05.htm"
         elif event == "31523-03.htm" :

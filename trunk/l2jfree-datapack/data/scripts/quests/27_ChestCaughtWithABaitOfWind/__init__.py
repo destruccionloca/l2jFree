@@ -37,7 +37,7 @@ class Quest (JQuest) :
     elif event == "31434-02.htm" and st.getQuestItemsCount(BLACK_PEARL_RING) :
       htmltext = "31434-01.htm"
       st.playSound("ItemSound.quest_finish")
-      st.giveItems(BLACK_PEARL_RING, 1)
+      st.giveItems(BLACK_PEARL_RING,int(1*Config.RATE_QUESTS_REWARD))
       st.takeItems(STRANGE_BLUESPRINT,-1)
       st.unset("cond")
       st.exitQuest(False) 
