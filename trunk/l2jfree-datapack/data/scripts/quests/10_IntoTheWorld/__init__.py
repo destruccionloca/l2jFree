@@ -31,8 +31,8 @@ class Quest (JQuest) :
             st.set("cond","3")
             st.takeItems(VERY_EXPENSIVE_NECKLACE,1)
         elif event == "30533-06.htm" :
-            st.giveItems(SCROLL_OF_ESCAPE_GIRAN,int(1*Config.RATE_QUESTS_REWARD))
-            st.giveItems(MARK_OF_TRAVELER,int(1*Config.RATE_QUESTS_REWARD))
+            st.giveItems(SCROLL_OF_ESCAPE_GIRAN,int(1))
+            st.giveItems(MARK_OF_TRAVELER,int(1))
             st.unset("cond")
             st.exitQuest(False) 
             st.playSound("ItemSound.quest_finish")

@@ -79,7 +79,7 @@ class Quest (JQuest) :
          item=RACCOON_EAR
        elif event=="rabbit":
          item=RABBIT_EAR
-       st.giveItems(item,int(1*Config.RATE_QUESTS_REWARD))
+       st.giveItems(item,int(1))
        st.exitQuest(False) 
        st.unset("cond")
        st.playSound("ItemSound.quest_finish")

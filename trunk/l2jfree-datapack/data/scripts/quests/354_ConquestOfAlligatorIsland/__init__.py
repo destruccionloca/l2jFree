@@ -15,14 +15,14 @@ CHANCE = 45
 CHANCE2 = 10
 #These items are custom, since we don't have info about them. Feel free to change them as you see fit (DrLecter)
 #Syntax: [itemid,max qty],
-RANDOM_REWARDS=[[736,int(15*Config.RATE_QUESTS_REWARD)], #SoE
-                [1061,int(20*Config.RATE_QUESTS_REWARD)],#Healing Potion
-                [734,int(15*Config.RATE_QUESTS_REWARD)], #Haste Potion
-                [735,int(15*Config.RATE_QUESTS_REWARD)], #Alacrity Potion
-                [1878,int(35*Config.RATE_QUESTS_REWARD)],#Braided Hemp
-                [1875,int(15*Config.RATE_QUESTS_REWARD)],#Stone of Purity
-                [1879,int(15*Config.RATE_QUESTS_REWARD)],#Cokes
-                [1880,int(15*Config.RATE_QUESTS_REWARD)],#Steel
+RANDOM_REWARDS=[[736,int(15)], #SoE
+                [1061,int(20)],#Healing Potion
+                [734,int(15)], #Haste Potion
+                [735,int(15)], #Alacrity Potion
+                [1878,int(35)],#Braided Hemp
+                [1875,int(15)],#Stone of Purity
+                [1879,int(15)],#Cokes
+                [1880,int(15)],#Steel
                 [956,1],  #Enchant Armor D
                 [955,1],  #Enchant Weapon D
                ]

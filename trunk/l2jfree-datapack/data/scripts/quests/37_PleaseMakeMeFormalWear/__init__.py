@@ -56,7 +56,7 @@ class Quest (JQuest) :
     elif event == "31520-7.htm" :
        if st.getQuestItemsCount(DRESS_SHOES_BOX) :
          st.takeItems(DRESS_SHOES_BOX,1)
-         st.giveItems(FORMAL_WEAR,int(1*Config.RATE_QUESTS_REWARD))
+         st.giveItems(FORMAL_WEAR,int(1))
          st.exitQuest(False) 
          st.unset("cond")
          st.playSound("ItemSound.quest_finish")

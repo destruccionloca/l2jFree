@@ -133,9 +133,9 @@ class Quest (JQuest) :
                   st.playTutorialVoice("tutorial_voice_026")
                   st.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
                st.playSound("ItemSound.quest_tutorial")
-            st.giveItems(1060,int(100*Config.RATE_QUESTS_REWARD))     # Lesser Healing Potions 
+            st.giveItems(1060,int(100))     # Lesser Healing Potions 
             for item in range(4412,4417) : 
-                st.giveItems(item,int(10*Config.RATE_QUESTS_REWARD))   # Echo crystals 
+                st.giveItems(item,int(10))   # Echo crystals 
             st.exitQuest(False) 
             st.playSound("ItemSound.quest_finish") 
             st.set("onlyone","1") 

@@ -70,7 +70,7 @@ class Quest (JQuest) :
         elif event == "31522-07.htm":
             st.set("cond","11")
         elif event == "31522-19.htm":
-            st.giveItems(SuspiciousTotem,int(1*Config.RATE_QUESTS_REWARD))
+            st.giveItems(SuspiciousTotem,int(1))
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
         elif event == "31531-02.htm":

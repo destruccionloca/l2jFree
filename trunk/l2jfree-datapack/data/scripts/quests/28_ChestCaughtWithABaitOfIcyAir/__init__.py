@@ -36,7 +36,7 @@ class Quest (JQuest) :
             if st.getQuestItemsCount(KikisLetter)==1 :
                 htmltext="31442-02.htm"
                 st.takeItems(KikisLetter,-1)
-                st.giveItems(ElvenRing,int(1*Config.RATE_QUESTS_REWARD))
+                st.giveItems(ElvenRing,int(1))
                 st.set("cond","0")
                 st.exitQuest(False) 
                 st.playSound("ItemSound.quest_finish")

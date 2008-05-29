@@ -64,7 +64,7 @@ class Quest (JQuest) :
      st.takeItems(ONYX_BEAST_EYE,-1)
      st.takeItems(TAINT_STONE,-1)
      st.takeItems(SUCCUBUS_BLOOD,-1)
-     st.giveItems(956,int(1*Config.RATE_QUESTS_REWARD))
+     st.giveItems(956,int(1))
      st.unset("cond")
      st.exitQuest(False) 
      st.playSound("ItemSound.quest_finish")

@@ -38,7 +38,7 @@ class Quest (JQuest) :
      if st.getQuestItemsCount(TOP_QUALITY_MEAT) == 120 and st.getInt("cond") == 3:
        htmltext = "31537-06.htm"
        st.takeItems(TOP_QUALITY_MEAT,120)
-       st.giveItems(item,int(qty*Config.RATE_QUESTS_REWARD))
+       st.giveItems(item,int(qty))
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
    return htmltext

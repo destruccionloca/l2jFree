@@ -37,7 +37,7 @@ class Quest (JQuest) :
      elif event == "31378-02.htm" :
          htmltext = "31378-02.htm"
          st.takeItems(Box,-1)
-         st.addExpAndSp(int(79761*Config.RATE_QUESTS_REWARD),0)
+         st.addExpAndSp(int(79761),0)
          st.set("cond","0")
          st.set("onlyone","1")
          st.exitQuest(False) 

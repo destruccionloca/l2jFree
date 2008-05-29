@@ -45,7 +45,7 @@ class Quest (JQuest):
         cond = st.getInt("cond")
         if cond == 2 and st.getQuestItemsCount(CRIMSON_DRAKE_HEART) == 100:
            st.takeItems(CRIMSON_DRAKE_HEART, 100)
-           st.giveItems(FLAMING_FISHING_LURE,int(4*Config.RATE_QUESTS_REWARD))             
+           st.giveItems(FLAMING_FISHING_LURE,int(4))             
            st.exitQuest(False) 
            st.unset("cond") # we dont need it in db if quest is already State.COMPLETED
            st.playSound("ItemSound.quest_finish")

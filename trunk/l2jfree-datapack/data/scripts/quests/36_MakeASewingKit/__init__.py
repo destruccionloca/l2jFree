@@ -50,7 +50,7 @@ class Quest (JQuest) :
    elif cond == 3 and st.getQuestItemsCount(ORIHARUKON) >= 10 and st.getQuestItemsCount(ARTISANS_FRAME) >= 10 :
      st.takeItems(ORIHARUKON,10)
      st.takeItems(ARTISANS_FRAME,10)
-     st.giveItems(SEWING_KIT,int(1*Config.RATE_QUESTS_REWARD))
+     st.giveItems(SEWING_KIT,int(1))
      st.playSound("ItemSound.quest_finish")
      htmltext = "30847-4.htm"
      st.exitQuest(1)

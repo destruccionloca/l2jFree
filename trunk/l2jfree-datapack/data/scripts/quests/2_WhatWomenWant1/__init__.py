@@ -47,7 +47,7 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_middle") 
    elif event == "30223-10.htm" : 
      st.takeItems(ARUJIENS_LETTER3,-1) 
-     st.giveItems(113,int(1*Config.RATE_QUESTS_REWARD)) 
+     st.giveItems(113,int(1)) 
      st.set("cond","0") 
      st.exitQuest(False)  
      st.playSound("ItemSound.quest_finish") 

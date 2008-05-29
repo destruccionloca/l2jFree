@@ -34,7 +34,7 @@ class Quest (JQuest) :
    elif event == "31574-07.htm" and st.getQuestItemsCount(TARLK_EYE) == 100 :
      htmltext = "31574-06.htm"
      st.takeItems(TARLK_EYE,-1)
-     st.giveItems(EARTH_FISHING_LURE,int(4*Config.RATE_QUESTS_REWARD))
+     st.giveItems(EARTH_FISHING_LURE,int(4))
      st.playSound("ItemSound.quest_finish")
      st.unset("cond")
      st.exitQuest(False) 

@@ -40,7 +40,7 @@ def drop(partyMember,array) :
     item,max,item2,condition = array
     st = partyMember.getQuestState(qn)
     count = st.getQuestItemsCount(item)
-    numItems,chance = divmod(100*Config.RATE_QUESTS_REWARD,100)
+    numItems,chance = divmod(100,100)
     if st.getRandom(100) < chance :
         numItems = numItems + 1
     if count+numItems > max :
@@ -80,9 +80,9 @@ class Quest (JQuest) :
      if st.getQuestItemsCount(INCENSE_POUCH) == st.getQuestItemsCount(GEM_OF_MAILLE) == 30 and cond == 5 :
        st.takeItems(INCENSE_POUCH,30)
        st.takeItems(GEM_OF_MAILLE,30)  
-       st.giveItems(GREEN_COLORED_LURE_HG,int(60*Config.RATE_QUESTS_REWARD))
-       st.giveItems(BABY_DUCK_RODE,int(1*Config.RATE_QUESTS_REWARD))
-       st.giveItems(FISHING_SHOT_NG,int(500*Config.RATE_QUESTS_REWARD))
+       st.giveItems(GREEN_COLORED_LURE_HG,int(60))
+       st.giveItems(BABY_DUCK_RODE,int(1))
+       st.giveItems(FISHING_SHOT_NG,int(500))
        st.unset("cond")
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False) 

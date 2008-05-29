@@ -45,8 +45,8 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_middle")
    elif event == "31555-7.htm" and cond == 7:
      st.takeItems(KRORINS_JOURNAL,-1)
-     st.addExpAndSp(int(130000*Config.RATE_QUESTS_REWARD),0)
-     st.giveItems(57,int(40000*Config.RATE_QUESTS_REWARD))
+     st.addExpAndSp(int(130000),0)
+     st.giveItems(57,int(40000))
      st.playSound("ItemSound.quest_finish")
      st.exitQuest(False) 
    elif event != "31663-0a.htm":
