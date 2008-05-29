@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Future;
 
 import javolution.util.FastList;
@@ -3148,7 +3149,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * FastTable containing all active skills effects in progress of a L2Character.
 	 */
-	private FastTable<L2Effect>						_effects;
+	private CopyOnWriteArrayList<L2Effect>			_effects;
 
 	/** The table containing the List of all stacked effect in progress for each Stack group Identifier */
 	protected FastMap<String, FastList<L2Effect>>	_stackedEffects;
@@ -3216,7 +3217,7 @@ public abstract class L2Character extends L2Object
 		synchronized (this)
 		{
 			if (_effects == null)
-				_effects = new FastTable<L2Effect>();
+				_effects = new CopyOnWriteArrayList<L2Effect>();
 
 			if (_stackedEffects == null)
 				_stackedEffects = new FastMap<String, FastList<L2Effect>>();
@@ -3281,7 +3282,7 @@ public abstract class L2Character extends L2Object
 				_effects.add(pos, newEffect);
 			}
 			else
-				_effects.addLast(newEffect);
+				_effects.add(newEffect);
 
 			// Check if a stack group is defined for this effect
 			if (newEffect.getStackType().equals("none"))
@@ -4219,12 +4220,7 @@ public abstract class L2Character extends L2Object
 		if (_effects == null || _effects.isEmpty())
 			return EMPTY_EFFECTS;
 
-		L2Effect[] sharedEffects;
-		synchronized (_effects)
-		{
-			sharedEffects = _effects.toArray(new L2Effect[_effects.size()]);
-		}
-		return sharedEffects;
+		return _effects.toArray(new L2Effect[_effects.size()]);
 	}
 
 	/**
