@@ -22,14 +22,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.cache.HtmCache;
+import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2DropData;
-import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -44,6 +42,7 @@ import com.l2jfree.gameserver.network.serverpackets.TutorialEnableClientEvent;
 import com.l2jfree.gameserver.network.serverpackets.TutorialShowHtml;
 import com.l2jfree.gameserver.network.serverpackets.TutorialShowQuestionMark;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -445,8 +444,6 @@ public final class QuestState
 	{
 		if (count <= 0) 
 			return;
-
-		int questId = getQuest().getQuestIntId();
 
 		L2ItemInstance tempItem = ItemTable.getInstance().createDummyItem(itemId);
 		// If item for reward is gold (ID=57), modify count with rate for quest reward
