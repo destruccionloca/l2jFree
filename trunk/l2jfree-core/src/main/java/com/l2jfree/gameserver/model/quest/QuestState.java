@@ -22,11 +22,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2DropData;
+import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -445,11 +448,14 @@ public final class QuestState
 
 		int questId = getQuest().getQuestIntId();
 
+		L2ItemInstance tempItem = ItemTable.getInstance().createDummyItem(itemId);
 		// If item for reward is gold (ID=57), modify count with rate for quest reward
 		if (itemId == 57)
 			count=(int)(count*Config.RATE_QUESTS_REWARD_ADENA);
 		else
-			count=(int)(count*Config.RATE_QUESTS_REWARD_ITEMS);
+			// only mulitply if the the item type2 is not QUEST
+			if(tempItem.getItem().getType2() == L2Item.TYPE2_QUEST)
+				count=(int)(count*Config.RATE_QUESTS_REWARD_ITEMS);
 		
 		// Add items to player's inventory
 		L2ItemInstance item = getPlayer().getInventory().addItem("Quest", itemId, count, getPlayer(), getPlayer().getTarget());
