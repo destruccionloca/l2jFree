@@ -686,8 +686,16 @@ public class AdminAdmin implements IAdminCommandHandler
 						+ Config.RATE_DROP_SPOIL
 						+ "</td><td><edit var=\"menu_command5\" width=40 height=15></td><td><button value=\"Set\" action=\"bypass -h admin_set RateDropSpoil $menu_command5\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 		replyMSG
-				.append("<tr><td><font color=\"LEVEL\">Rate Quest Reward</font> = "
-						+ Config.RATE_QUESTS_REWARD
+				.append("<tr><td><font color=\"LEVEL\">Rate Quest Reward Exp/Sp</font> = "
+						+ Config.RATE_QUESTS_REWARD_EXPSP
+						+ "</td><td><edit var=\"menu_command6\" width=40 height=15></td><td><button value=\"Set\" action=\"bypass -h admin_set RateQuestsReward $menu_command6\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
+		replyMSG
+				.append("<tr><td><font color=\"LEVEL\">Rate Quest Reward Adena</font> = "
+						+ Config.RATE_QUESTS_REWARD_ADENA
+						+ "</td><td><edit var=\"menu_command6\" width=40 height=15></td><td><button value=\"Set\" action=\"bypass -h admin_set RateQuestsReward $menu_command6\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
+		replyMSG
+				.append("<tr><td><font color=\"LEVEL\">Rate Quest Reward Items</font> = "
+						+ Config.RATE_QUESTS_REWARD_ITEMS
 						+ "</td><td><edit var=\"menu_command6\" width=40 height=15></td><td><button value=\"Set\" action=\"bypass -h admin_set RateQuestsReward $menu_command6\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 		replyMSG
 				.append("<tr><td><font color=\"LEVEL\">Rate Raid Regen HP</font> = "

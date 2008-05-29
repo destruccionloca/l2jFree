@@ -461,7 +461,9 @@ public final class Config
 	public static float			RATE_SP;
 	public static float			RATE_PARTY_XP;
 	public static float			RATE_PARTY_SP;
-	public static float			RATE_QUESTS_REWARD;
+	public static float			RATE_QUESTS_REWARD_EXPSP;
+	public static float			RATE_QUESTS_REWARD_ADENA;
+	public static float			RATE_QUESTS_REWARD_ITEMS;
 	public static float			RATE_DROP_ADENA;
 	public static float			RATE_CONSUMABLE_COST;
 	public static float			RATE_CRAFT_COST;
@@ -509,7 +511,11 @@ public final class Config
 			RATE_SP = Float.parseFloat(ratesSettings.getProperty("RateSp", "1."));
 			RATE_PARTY_XP = Float.parseFloat(ratesSettings.getProperty("RatePartyXp", "1."));
 			RATE_PARTY_SP = Float.parseFloat(ratesSettings.getProperty("RatePartySp", "1."));
-			RATE_QUESTS_REWARD = Float.parseFloat(ratesSettings.getProperty("RateQuestsReward", "1."));
+			
+			RATE_QUESTS_REWARD_EXPSP = Float.parseFloat(ratesSettings.getProperty("RateQuestsRewardExpSp", "1."));
+			RATE_QUESTS_REWARD_ADENA = Float.parseFloat(ratesSettings.getProperty("RateQuestsRewardAdena", "1."));
+			RATE_QUESTS_REWARD_ITEMS = Float.parseFloat(ratesSettings.getProperty("RateQuestsRewardItems", "1."));
+			
 			RATE_DROP_ADENA = Float.parseFloat(ratesSettings.getProperty("RateDropAdena", "1."));
 			RATE_CONSUMABLE_COST = Float.parseFloat(ratesSettings.getProperty("RateConsumableCost", "1."));
 			RATE_CRAFT_COST = Float.parseFloat(ratesSettings.getProperty("RateCraftCost", "1."));
@@ -3026,8 +3032,12 @@ public final class Config
 			RATE_PARTY_XP = Float.parseFloat(pValue);
 		else if (pName.equalsIgnoreCase("RatePartySp"))
 			RATE_PARTY_SP = Float.parseFloat(pValue);
-		else if (pName.equalsIgnoreCase("RateQuestsReward"))
-			RATE_QUESTS_REWARD = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateQuestsRewardExpSp"))
+			RATE_QUESTS_REWARD_EXPSP = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateQuestsRewardAdena"))
+			RATE_QUESTS_REWARD_ADENA = Float.parseFloat(pValue);
+		else if (pName.equalsIgnoreCase("RateQuestsRewardItems"))
+			RATE_QUESTS_REWARD_ITEMS = Float.parseFloat(pValue);
 		else if (pName.equalsIgnoreCase("RateDropAdena"))
 			RATE_DROP_ADENA = Float.parseFloat(pValue);
 		else if (pName.equalsIgnoreCase("RateConsumableCost"))

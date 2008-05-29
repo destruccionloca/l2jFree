@@ -446,9 +446,11 @@ public final class QuestState
 		int questId = getQuest().getQuestIntId();
 
 		// If item for reward is gold (ID=57), modify count with rate for quest reward
-		if (itemId == 57 && !(questId>=217 && questId<=233) && !(questId>=401 && questId<=418) )
-			count=(int)(count*Config.RATE_QUESTS_REWARD);
-
+		if (itemId == 57)
+			count=(int)(count*Config.RATE_QUESTS_REWARD_ADENA);
+		else
+			count=(int)(count*Config.RATE_QUESTS_REWARD_ITEMS);
+		
 		// Add items to player's inventory
 		L2ItemInstance item = getPlayer().getInventory().addItem("Quest", itemId, count, getPlayer(), getPlayer().getTarget());
 
@@ -607,8 +609,8 @@ public final class QuestState
 	 */
 	public void addExpAndSp(int exp, int sp) 
     {
-	    getPlayer().addExpAndSp((int)getPlayer().calcStat(Stats.EXPSP_RATE, exp * Config.RATE_QUESTS_REWARD, null, null), 
-                           (int)getPlayer().calcStat(Stats.EXPSP_RATE, sp * Config.RATE_QUESTS_REWARD, null, null));
+	    getPlayer().addExpAndSp((int)getPlayer().calcStat(Stats.EXPSP_RATE, exp * Config.RATE_QUESTS_REWARD_EXPSP, null, null), 
+                           (int)getPlayer().calcStat(Stats.EXPSP_RATE, sp * Config.RATE_QUESTS_REWARD_EXPSP, null, null));
 	}
 	
 	/**
