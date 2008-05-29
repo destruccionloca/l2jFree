@@ -66,7 +66,7 @@ class Quest (JQuest) :
             htmltext = "30116-02.htm"
         elif event == "7" :
 			st.takeItems(PURIFIED_MAGIC_NECKLACE_ID,1)
-            st.takeItems(MARK_OF_TRAVELER_ID,-1)
+            st.takeItems(MARK_OF_TRAVELER_ID,1)
             st.giveItems(SCROLL_OF_ESCAPE_SPECIAL,int(1*Config.RATE_QUESTS_REWARD))            
             htmltext = "30097-12.htm"
             st.unset("cond")
