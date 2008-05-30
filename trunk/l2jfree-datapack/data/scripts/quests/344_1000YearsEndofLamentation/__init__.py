@@ -15,7 +15,7 @@ ARTICLES_DEAD_HEROES,OLD_KEY,OLD_HILT,OLD_TOTEM,CRUCIFIX = range(4269,4274)
 
 #Chances
 CHANCE = 36
-SPECIAL = int(1+(1000/Config.RATE_QUESTS_REWARD))
+SPECIAL = int(1+(1000/Config.RATE_QUESTS_REWARD_ITEMS))
 #NPCs
 GILMORE = 30754
 RODEMAI = 30756
@@ -91,7 +91,7 @@ class Quest (JQuest) :
         else :
           htmltext = default
           st.exitQuest(1)
-     elif event == "30754-08.htm" :     
+     elif event == "30754-08.htm" :
          st.exitQuest(1)
          st.playSound("ItemSound.quest_finish")
      elif event == "30754-06.htm" and cond == 1 :
@@ -133,11 +133,11 @@ class Quest (JQuest) :
      npcId = npc.getNpcId()
      id = st.getState()
      if npcId != GILMORE and id != State.STARTED : return htmltext
-     
+
      level = player.getLevel()
      cond = st.getInt("cond")
      amount = st.getQuestItemsCount(ARTICLES_DEAD_HEROES)
-     if id == State.CREATED : 
+     if id == State.CREATED :
         if level>=48 :
            htmltext = "30754-02.htm"
         else :
@@ -180,9 +180,9 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
      st = player.getQuestState(qn)
-     if not st : return 
-     if st.getState() != State.STARTED : return 
-   
+     if not st : return
+     if st.getState() != State.STARTED : return
+
      npcId = npc.getNpcId()
      chance = (CHANCE+(npcId-20234)*2)*Config.RATE_DROP_QUEST
      bonus = int(divmod(chance,100)[0])
