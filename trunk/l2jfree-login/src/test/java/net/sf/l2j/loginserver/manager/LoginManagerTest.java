@@ -165,6 +165,7 @@ public class LoginManagerTest extends TestCase
     public void testLoginWithNullAdress () throws Exception
     {
         InetAddress address = null;
+        Config.AUTO_CREATE_ACCOUNTS = false;
         assertFalse(loginManager.loginValid("unknownplayer", "pwdforplayer", address));
         Config.AUTO_CREATE_ACCOUNTS = true;
         assertTrue(loginManager.loginValid("unknownplayer", "pwdforplayer", address));
