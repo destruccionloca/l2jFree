@@ -478,6 +478,11 @@ INSERT INTO `minions` VALUES
 (20983,20985,1,1),
 (20983,21074,1,1);
 
+-- VoS - Judge of Splendor group
+INSERT INTO `minions` VALUES
+(21544,21545,1,1),
+(21544,21546,1,1);
+
 -- Update Velociraptor
 DELETE FROM minions WHERE boss_id IN ( 22196,22218 );
 INSERT INTO minions VALUES

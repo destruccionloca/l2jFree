@@ -1340,7 +1340,7 @@ INSERT INTO `armor` VALUES
 (10541,'Yellow Talisman - MP Recovery Rate','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
 (10542,'Red Talisman - HP/CP Recovery','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
 (10543,'Yellow Talisman - Moving Speed','talisman','true','none',150,'wood','none',0,60,0,0,0,0,0,'true','true','true','true',''),
-(10606,'Agathion Seal Bracelet - Rudolph','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3425-1;3267-1;');
+(10606,'Agathion Seal Bracelet - Rudolph','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3425-1;3267-1;'),
 (10607,'Agathion Seal Bracelet - Rudolph','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3425-1;3267-1');
 
 --
