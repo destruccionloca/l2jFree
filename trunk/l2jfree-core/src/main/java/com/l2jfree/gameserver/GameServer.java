@@ -344,7 +344,7 @@ public class GameServer
 		
 		Util.printSection("l2jfree");
 		version.loadInformation(GameServer.class);
-        _log.info("Revision: "+version.getRevisionNumber());
+        _log.info("Revision: "+version.getVersionNumber());
         //_log.info("Build date: "+version.getBuildDate());
         _log.info("Compiler version: "+version.getBuildJdk());
 
@@ -361,7 +361,7 @@ public class GameServer
 	
 	public static String getVersionNumber()
 	{
-		return version.getRevisionNumber();
+		return version.getVersionNumber();
 	}
 	
 	public static void printMemUsage()
