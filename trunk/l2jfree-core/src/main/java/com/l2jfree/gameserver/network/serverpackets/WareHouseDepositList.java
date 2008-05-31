@@ -43,6 +43,7 @@ public class WareHouseDepositList extends L2GameServerPacket
 
 	public WareHouseDepositList(L2PcInstance player, int type)
 	{
+		//TODO: make it one loop
         _activeChar = player;
 		_whType = type;
 		_activeCharAdena = _activeChar.getAdena();
