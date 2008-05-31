@@ -4,7 +4,7 @@ from com.l2jfree.gameserver.model.quest           import State
 from com.l2jfree.gameserver.model.quest           import QuestState
 from com.l2jfree.gameserver.model.quest.jython    import QuestJython as JQuest
 from com.l2jfree.tools.random                     import Rnd
-from com.l2jfree.gameserver.network.serverpackets import CreatureSay
+from com.l2jfree.gameserver.network.serverpackets import NpcSay
 
 qn = "335_TheSongOfTheHunter"
 
@@ -275,7 +275,7 @@ def AutoChat(npc,text) :
     chars = npc.getKnownList().getKnownPlayers().values().toArray()
     if chars != None:
        for pc in chars :
-          sm = CreatureSay(npc.getObjectId(), 0, npc.getName(), text)
+          sm = NpcSay(npc.getObjectId(), 0, npc.getNpcId(), text)
           pc.sendPacket(sm)
 
 def HasRequestCompleted(st,level) :

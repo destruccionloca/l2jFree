@@ -4,7 +4,7 @@
 # v1.1.r0 2008.03.27: Update/Rewrite by Emperorc
 import sys
 from com.l2jfree.gameserver.datatables            import SkillTable
-from com.l2jfree.gameserver.network.serverpackets import CreatureSay 
+from com.l2jfree.gameserver.network.serverpackets import NpcSay
 from com.l2jfree.gameserver.network.serverpackets import MagicSkillUse
 from com.l2jfree.gameserver.model.quest           import State
 from com.l2jfree.gameserver.model.quest           import QuestState
@@ -312,7 +312,7 @@ class Quest (JQuest) :
          if (self.chests - wins) == 12 or (wins < 4 and not leaderst.getRandom(4)) :
              wins += 1
              leaderst.set("chest_wins",str(wins))
-             npc.broadcastPacket(CreatureSay(npc.getObjectId(),0,npc.getName(),"###### BINGO! ######"))
+             npc.broadcastPacket(NpcSay(npc.getObjectId(),0,npc.getNpcId(),"###### BINGO! ######"))
          self.chests += 1
      elif npcId in MOBS.keys() :
          st = player.getQuestState(qn)

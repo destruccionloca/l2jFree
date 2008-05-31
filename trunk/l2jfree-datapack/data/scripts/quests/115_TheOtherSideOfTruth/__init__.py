@@ -5,7 +5,7 @@ import sys
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
-from com.l2jfree.gameserver.network.serverpackets import CreatureSay
+from com.l2jfree.gameserver.network.serverpackets import NpcSay
 
 qn = "115_TheOtherSideOfTruth"
 
@@ -76,7 +76,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","9")
        man = st.addSpawn(Suspicious,104562,-107598,-3688,0,False,4000)
-       man.broadcastPacket(CreatureSay(man.getObjectId(),0,"Suspicious Man","We meet again."))
+       man.broadcastPacket(NpcSay(man.getObjectId(),0,man.getNpcId(),"We meet again."))
        self.startQuestTimer("2",3700,man,player)
        st.giveItems(Report,1)
     elif event == "Sculpture-04.htm" :
@@ -87,7 +87,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","8")
        man = st.addSpawn(Suspicious,117890,-126478,-2584,0,False,4000)
-       man.broadcastPacket(CreatureSay(man.getObjectId(),0,"Suspicious Man","This looks like the right place..."))
+       man.broadcastPacket(NpcSay(man.getObjectId(),0,man.getNpcId(),"This looks like the right place..."))
        self.startQuestTimer("1",3700,man,player)
        htmltext = "Sculpture-04.htm"
        if st.getInt(str(Sculpture1)) == 0 and st.getInt(str(Sculpture2)) == 0:
@@ -95,9 +95,9 @@ class Quest (JQuest) :
     elif event == "Sculpture-05.htm" :
        st.set(str(npc.getNpcId()),"1")
     elif event == "1" :
-       npc.broadcastPacket(CreatureSay(npc.getObjectId(),0,"Suspicious Man","I see someone. Is this fate?"))
+       npc.broadcastPacket(NpcSay(npc.getObjectId(),0,npc.getNpcId(),"I see someone. Is this fate?"))
     elif event == "2" :
-       npc.broadcastPacket(CreatureSay(npc.getObjectId(),0,"Suspicious Man","Don't bother trying to find out more about me. Follow your own destiny."))
+       npc.broadcastPacket(NpcSay(npc.getObjectId(),0,npc.getNpcId(),"Don't bother trying to find out more about me. Follow your own destiny."))
     return htmltext
 
 
