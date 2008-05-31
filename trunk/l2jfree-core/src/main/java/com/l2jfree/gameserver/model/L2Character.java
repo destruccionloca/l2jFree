@@ -26,8 +26,6 @@ import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.util.FastTable;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

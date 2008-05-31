@@ -36,7 +36,6 @@ import com.l2jfree.gameserver.network.serverpackets.Earthquake;
 import com.l2jfree.gameserver.network.serverpackets.ExRedSky;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.SSQInfo;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;

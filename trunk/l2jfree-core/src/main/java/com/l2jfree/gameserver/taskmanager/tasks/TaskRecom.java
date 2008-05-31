@@ -20,7 +20,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.taskmanager.Task;
 import com.l2jfree.gameserver.taskmanager.TaskManager;
 import com.l2jfree.gameserver.taskmanager.TaskTypes;
