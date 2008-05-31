@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -228,10 +229,11 @@ public final class L2WorldRegion
                     mob.clearAggroList();
                     mob.getKnownList().removeAllKnownObjects();
                     
-                    mob.getAI().setIntention(com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE);
+                    mob.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 
-                    // stop the ai tasks
-                    ((L2AttackableAI) mob.getAI()).stopAITask();
+                    // stop the ai tasks if mob is no siege guard
+                    if (mob.getAI() instanceof L2AttackableAI)
+                        ((L2AttackableAI) mob.getAI()).stopAITask();
 
                     // Stop HP/MP/CP Regeneration task
                     // try this: allow regen, but only until mob is 100% full...then stop
