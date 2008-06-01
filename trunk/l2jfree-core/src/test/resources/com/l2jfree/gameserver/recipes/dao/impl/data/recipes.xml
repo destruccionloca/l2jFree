@@ -61,8 +61,7 @@
     <!-- Suede -->
     <ingredient id="1866" count="4" />
   </item>
-  <item id="5" name="mk_cedar_staff">
-  </item>
+  <item id="5" name="mk_cedar_staff"></item>
   <item id="6" name="mk_dirk">
     <!-- Recipe: Dirk -->
     <recipe id="1790" level="1" />

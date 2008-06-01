@@ -1,77 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-
-	<parent>
-		<artifactId>l2jfreeParent</artifactId>
-		<groupId>l2jfree</groupId>
-		<version>1.0.1</version>
-	</parent>  
-  
-
+  <parent>
+    <artifactId>l2jfreeParent</artifactId>
+    <groupId>l2jfree</groupId>
+    <version>1.0.1</version>
+  </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>l2j-commons</artifactId>
   <version>1.1.6</version>
   <packaging>jar</packaging>
   <url>http://www.l2jfree.com/</url>
-  
   <pluginRepositories>
-	  <pluginRepository>
-	    <id>Maven Snapshots</id>
-	    <url>http://snapshots.maven.codehaus.org/maven2/</url>
-	    <snapshots>
-	      <enabled>true</enabled>
-	    </snapshots>
-	    <releases>
-	      <enabled>false</enabled>
-	    </releases>
-	  </pluginRepository>
+    <pluginRepository>
+      <id>Maven Snapshots</id>
+      <url>http://snapshots.maven.codehaus.org/maven2/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </pluginRepository>
   </pluginRepositories>
-  
   <repositories>
-           
-      <repository>
-        <id>central l2j</id>
-        <name>Mirror Central L2j</name>
-        <url>http://www.l2jfree.com/maven/</url>
-        <releases>
-          <enabled>true</enabled>
-        </releases>
-        <snapshots>
-          <enabled>true</enabled>
-        </snapshots>
-      </repository>
-           
-	 <repository>
-	    <id>maven 2 (default)</id>
-	    <url>http://repo1.maven.org/maven2</url>
-	    <snapshots>
-	      <enabled>true</enabled>
-	    </snapshots>
-	    <releases>
-	      <enabled>true</enabled>
-	    </releases>
-	  </repository>	  
-  	  <repository>
-	    <id>Maven Snapshots</id>
-	    <url>http://snapshots.maven.codehaus.org/maven2/</url>
-	    <snapshots>
-	      <enabled>true</enabled>
-	    </snapshots>
-	    <releases>
-	      <enabled>true</enabled>
-	    </releases>
-	  </repository>	  
-   	<repository>
+    <repository>
+      <id>central l2j</id>
+      <name>Mirror Central L2j</name>
+      <url>http://www.l2jfree.com/maven/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>maven 2 (default)</id>
+      <url>http://repo1.maven.org/maven2</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+    <repository>
+      <id>Maven Snapshots</id>
+      <url>http://snapshots.maven.codehaus.org/maven2/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+    <repository>
       <id>apache.snapshots</id>
       <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+      <url>
+        http://people.apache.org/repo/m2-snapshot-repository
+      </url>
       <snapshots>
-	      <enabled>true</enabled>
-	    </snapshots>
-	    <releases>
-	      <enabled>true</enabled>
-	    </releases>
-    </repository>	  
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
     <repository>
       <id>mevenide repo</id>
       <url>http://mevenide.codehaus.org/repository</url>
@@ -80,48 +75,46 @@
       <id>ibiblio maven2</id>
       <url>http://www.ibiblio.org/maven2/</url>
     </repository>
-  </repositories>  
-	
+  </repositories>
   <!-- Dependencies here are provided for l2j-commons but also define what should be used by other L2J projects
-  We use transitive dependencies to factorize them and avoid to have different dependencies in all our projects
-  We should keep the same level of dependencies in LS and GS !
-   -->	  
+    We use transitive dependencies to factorize them and avoid to have different dependencies in all our projects
+    We should keep the same level of dependencies in LS and GS !
+  -->
   <dependencies>
-
-	<dependency>
-		<groupId>commons-logging</groupId>
-		<artifactId>commons-logging</artifactId>
-		<version>1.1</version>
-		<exclusions>
-			<exclusion>
-				<groupId>javax.servlet</groupId>
-				<artifactId>servlet-api</artifactId>
-			</exclusion>
-			<exclusion>
-				<groupId>avalon-framework</groupId>
-				<artifactId>avalon-framework</artifactId>
-			</exclusion>
-			<exclusion>
-				<groupId>logkit</groupId>
-				<artifactId>logkit</artifactId>
-			</exclusion>
-		</exclusions>
-	</dependency>	
-	<dependency>
-		<groupId>commons-lang</groupId>
-		<artifactId>commons-lang</artifactId>
-		<version>2.1</version>
-	</dependency>
-	<dependency>
-		<groupId>log4j</groupId>
-		<artifactId>log4j</artifactId>
-		<version>1.2.14</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.bsf</groupId>
-		<artifactId>bsf</artifactId>
-		<version>2.0</version>
-	</dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1</version>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>avalon-framework</groupId>
+          <artifactId>avalon-framework</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>logkit</groupId>
+          <artifactId>logkit</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.14</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.bsf</groupId>
+      <artifactId>bsf</artifactId>
+      <version>2.0</version>
+    </dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
@@ -132,7 +125,7 @@
       <artifactId>commons-io</artifactId>
       <version>1.2</version>
     </dependency>
-	<dependency>
+    <dependency>
       <groupId>c3p0</groupId>
       <artifactId>c3p0</artifactId>
       <version>0.9.1.2</version>
@@ -148,45 +141,37 @@
       <version>5.1.5</version>
     </dependency>
     <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>3.8.1</version>
-        <scope>test</scope>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
     </dependency>
-    
   </dependencies>
-
-	<issueManagement>
-		<system>Trac</system>
-		<url>http://www.l2jfree.com/trac/l2j-free/timeline</url>
-	</issueManagement>
-  
-  
-	<build>
-        <defaultGoal>install</defaultGoal>
-	    <resources>
-		  <resource>
-	        <directory>src/main/resources</directory>
-	      </resource>	      
-	    </resources>	
-		
-		<testResources>
-		  <testResource>
-	        <directory>src/test/resources</directory>
-	      </testResource>
-	    </testResources>	
-
-	  <plugins>
-	    <plugin>
-	      <groupId>org.apache.maven.plugins</groupId>
-	      <artifactId>maven-compiler-plugin</artifactId>
-	      <configuration>
-	        <source>1.5</source>
-	        <target>1.5</target>
-	      </configuration>
-	    </plugin>
-	  </plugins>
-	</build>  
-
+  <issueManagement>
+    <system>Trac</system>
+    <url>http://www.l2jfree.com/trac/l2j-free/timeline</url>
+  </issueManagement>
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
-
