@@ -1,46 +1,46 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!-- Trader Galladucci (Luxury Shop) Weapons -->
 <list>
-<!-- Sword of Delusion -->
+  <!-- Sword of Delusion -->
   <item id="1">
-    <ingredient id="1459" count="1075"/>
-    <ingredient id="1458" count="5375"/>
-    <production id="76" count="1"/>
+    <ingredient id="1459" count="1075" />
+    <ingredient id="1458" count="5375" />
+    <production id="76" count="1" />
   </item>
-<!-- War Axe -->
+  <!-- War Axe -->
   <item id="2">
-    <ingredient id="1459" count="1075"/>
-    <ingredient id="1458" count="5375"/>
-    <production id="162" count="1"/>
+    <ingredient id="1459" count="1075" />
+    <ingredient id="1458" count="5375" />
+    <production id="162" count="1" />
   </item>
-<!-- Sages Staff -->
+  <!-- Sages Staff -->
   <item id="3">
-    <ingredient id="1459" count="1075"/>
-    <ingredient id="1458" count="5375"/>
-    <production id="200" count="1"/>
+    <ingredient id="1459" count="1075" />
+    <ingredient id="1458" count="5375" />
+    <production id="200" count="1" />
   </item>
-<!-- Dark Screamer -->
+  <!-- Dark Screamer -->
   <item id="4">
-    <ingredient id="1459" count="1075"/>
-    <ingredient id="1458" count="5375"/>
-    <production id="233" count="1"/>
+    <ingredient id="1459" count="1075" />
+    <ingredient id="1458" count="5375" />
+    <production id="233" count="1" />
   </item>
-<!-- Fist Blade -->
+  <!-- Fist Blade -->
   <item id="5">
-    <ingredient id="1459" count="1075"/>
-    <ingredient id="1458" count="5375"/>
-    <production id="265" count="1"/>
+    <ingredient id="1459" count="1075" />
+    <ingredient id="1458" count="5375" />
+    <production id="265" count="1" />
   </item>
-<!-- Akat Long Bow -->
+  <!-- Akat Long Bow -->
   <item id="6">
-    <ingredient id="1459" count="1075"/>
-    <ingredient id="1458" count="5375"/>
-    <production id="283" count="1"/>
+    <ingredient id="1459" count="1075" />
+    <ingredient id="1458" count="5375" />
+    <production id="283" count="1" />
   </item>
-<!-- Poleaxe -->
+  <!-- Poleaxe -->
   <item id="7">
-    <ingredient id="1459" count="1075"/>
-    <ingredient id="1458" count="5375"/>
-    <production id="95" count="1"/>
+    <ingredient id="1459" count="1075" />
+    <ingredient id="1458" count="5375" />
+    <production id="95" count="1" />
   </item>
 </list>

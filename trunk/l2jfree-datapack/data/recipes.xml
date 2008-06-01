@@ -10477,7 +10477,8 @@
     <!-- Rope of Magic: S Grade -->
     <ingredient id="5196" count="46" />
   </item>
-  <item id="513" name="mk_sealed_dark_crystal_leather_mail_i">
+  <item id="513"
+    name="mk_sealed_dark_crystal_leather_mail_i">
     <!-- Recipe: Sealed Dark Crystal Leather Armor(60%) -->
     <recipe id="5332" level="7" />
     <dwarven />
@@ -10502,7 +10503,8 @@
     <!-- Gemstone B -->
     <ingredient id="2132" count="73" />
   </item>
-  <item id="514" name="mk_sealed_dark_crystal_leather_mail_ii">
+  <item id="514"
+    name="mk_sealed_dark_crystal_leather_mail_ii">
     <!-- Recipe: Sealed Dark Crystal Leather Armor(100%) -->
     <recipe id="5333" level="7" />
     <dwarven />
@@ -10581,7 +10583,8 @@
     <!-- Gemstone B -->
     <ingredient id="2132" count="103" />
   </item>
-  <item id="517" name="mk_sealed_leather_mail_of_nightmare_i">
+  <item id="517"
+    name="mk_sealed_leather_mail_of_nightmare_i">
     <!-- Recipe: Sealed Leather Armor of Nightmare(60%) -->
     <recipe id="5336" level="8" />
     <dwarven />
@@ -10608,7 +10611,8 @@
     <!-- Gemstone A -->
     <ingredient id="2133" count="17" />
   </item>
-  <item id="518" name="mk_sealed_leather_mail_of_nightmare_ii">
+  <item id="518"
+    name="mk_sealed_leather_mail_of_nightmare_ii">
     <!-- Recipe: Sealed Leather Armor of Nightmare(100%) -->
     <recipe id="5337" level="8" />
     <dwarven />
@@ -10662,7 +10666,8 @@
     <!-- Gemstone A -->
     <ingredient id="2133" count="17" />
   </item>
-  <item id="520" name="mk_sealed_majestic_leather_mail_ii">
+  <item id="520"
+    name="mk_sealed_majestic_leather_mail_ii">
     <!-- Recipe: Sealed Majestic Leather Armor(100%) -->
     <recipe id="5339" level="8" />
     <dwarven />
@@ -10689,7 +10694,8 @@
     <!-- Gemstone A -->
     <ingredient id="2133" count="17" />
   </item>
-  <item id="521" name="mk_sealed_legging_of_dark_crystal_i">
+  <item id="521"
+    name="mk_sealed_legging_of_dark_crystal_i">
     <!-- Recipe: Sealed Dark Crystal Leggings(60%) -->
     <recipe id="5340" level="7" />
     <dwarven />
@@ -10714,7 +10720,8 @@
     <!-- Gemstone B -->
     <ingredient id="2132" count="43" />
   </item>
-  <item id="522" name="mk_sealed_legging_of_dark_crystal_ii">
+  <item id="522"
+    name="mk_sealed_legging_of_dark_crystal_ii">
     <!-- Recipe: Sealed Dark Crystal Leggings(100%) -->
     <recipe id="5341" level="7" />
     <dwarven />
@@ -11509,7 +11516,8 @@
     <!-- Gemstone A -->
     <ingredient id="2133" count="3" />
   </item>
-  <item id="553" name="mk_sealed_dark_crystal_breastplate_i">
+  <item id="553"
+    name="mk_sealed_dark_crystal_breastplate_i">
     <!-- Recipe: Sealed Dark Crystal Breastplate(60%) -->
     <recipe id="5416" level="7" />
     <dwarven />
@@ -11532,7 +11540,8 @@
     <!-- Gemstone B -->
     <ingredient id="2132" count="101" />
   </item>
-  <item id="554" name="mk_sealed_dark_crystal_breastplate_ii">
+  <item id="554"
+    name="mk_sealed_dark_crystal_breastplate_ii">
     <!-- Recipe: Sealed Dark Crystal Breastplate(100%) -->
     <recipe id="5417" level="7" />
     <dwarven />
@@ -11680,7 +11689,8 @@
     <!-- Gemstone A -->
     <ingredient id="2133" count="23" />
   </item>
-  <item id="560" name="mk_sealed_majestic_platte_armor_ii">
+  <item id="560"
+    name="mk_sealed_majestic_platte_armor_ii">
     <!-- Recipe: Sealed Majestic Plate Armor(100%) -->
     <recipe id="5423" level="8" />
     <dwarven />
@@ -14030,7 +14040,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="4" />
   </item>
-  <item id="652" name="mk_sealed_imperial_crusader_armor_i">
+  <item id="652"
+    name="mk_sealed_imperial_crusader_armor_i">
     <!-- Recipe: Sealed Imperial Crusader Breastplate (60%) -->
     <recipe id="6853" level="9" />
     <dwarven />
@@ -14053,7 +14064,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="11" />
   </item>
-  <item id="653" name="mk_sealed_imperial_crusader_armor_ii">
+  <item id="653"
+    name="mk_sealed_imperial_crusader_armor_ii">
     <!-- Recipe: Sealed Imperial Crusader Breastplate (100%) -->
     <recipe id="6854" level="9" />
     <dwarven />
@@ -14076,7 +14088,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="11" />
   </item>
-  <item id="654" name="mk_sealed_imperial_crusader_gaiters_i">
+  <item id="654"
+    name="mk_sealed_imperial_crusader_gaiters_i">
     <!-- Recipe: Sealed Imperial Crusader Gaiters (60%) -->
     <recipe id="6855" level="9" />
     <dwarven />
@@ -14099,7 +14112,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="6" />
   </item>
-  <item id="655" name="mk_sealed_imperial_crusader_gaiters_ii">
+  <item id="655"
+    name="mk_sealed_imperial_crusader_gaiters_ii">
     <!-- Recipe: Sealed Imperial Crusader Gaiters (100%) -->
     <recipe id="6856" level="9" />
     <dwarven />
@@ -14122,7 +14136,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="6" />
   </item>
-  <item id="656" name="mk_sealed_imperial_crusader_gauntlet_i">
+  <item id="656"
+    name="mk_sealed_imperial_crusader_gauntlet_i">
     <!-- Recipe: Sealed Imperial Crusader Gauntlets (60%) -->
     <recipe id="6857" level="9" />
     <dwarven />
@@ -14143,7 +14158,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="2" />
   </item>
-  <item id="657" name="mk_sealed_imperial_crusader_gauntlet_ii">
+  <item id="657"
+    name="mk_sealed_imperial_crusader_gauntlet_ii">
     <!-- Recipe: Sealed Imperial Crusader Gauntlets (100%) -->
     <recipe id="6858" level="9" />
     <dwarven />
@@ -14164,7 +14180,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="2" />
   </item>
-  <item id="658" name="mk_sealed_imperial_crusader_boots_i">
+  <item id="658"
+    name="mk_sealed_imperial_crusader_boots_i">
     <!-- Recipe: Sealed Imperial Crusader Boots (60%) -->
     <recipe id="6859" level="9" />
     <dwarven />
@@ -14185,7 +14202,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="2" />
   </item>
-  <item id="659" name="mk_sealed_imperial_crusader_boots_ii">
+  <item id="659"
+    name="mk_sealed_imperial_crusader_boots_ii">
     <!-- Recipe: Sealed Imperial Crusader Boots (100%) -->
     <recipe id="6860" level="9" />
     <dwarven />
@@ -14206,7 +14224,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="2" />
   </item>
-  <item id="660" name="mk_sealed_imperial_crusader_shield_i">
+  <item id="660"
+    name="mk_sealed_imperial_crusader_shield_i">
     <!-- Recipe: Sealed Imperial Crusader Shield (60%) -->
     <recipe id="6861" level="9" />
     <dwarven />
@@ -14231,7 +14250,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="2" />
   </item>
-  <item id="661" name="mk_sealed_imperial_crusader_shield_ii">
+  <item id="661"
+    name="mk_sealed_imperial_crusader_shield_ii">
     <!-- Recipe: Sealed Imperial Crusader Shield (100%) -->
     <recipe id="6862" level="9" />
     <dwarven />
@@ -14256,7 +14276,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="2" />
   </item>
-  <item id="662" name="mk_sealed_imperial_crusader_helmet_i">
+  <item id="662"
+    name="mk_sealed_imperial_crusader_helmet_i">
     <!-- Recipe: Sealed Imperial Crusader Helmet (60%) -->
     <recipe id="6863" level="9" />
     <dwarven />
@@ -14275,7 +14296,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="4" />
   </item>
-  <item id="663" name="mk_sealed_imperial_crusader_helmet_ii">
+  <item id="663"
+    name="mk_sealed_imperial_crusader_helmet_ii">
     <!-- Recipe: Sealed Imperial Crusader Helmet (100%) -->
     <recipe id="6864" level="9" />
     <dwarven />
@@ -14296,7 +14318,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="4" />
   </item>
-  <item id="664" name="mk_sealed_draconic_leather_armor_i">
+  <item id="664"
+    name="mk_sealed_draconic_leather_armor_i">
     <!-- Recipe: Sealed Draconic Leather Armor (60%) -->
     <recipe id="6865" level="9" />
     <dwarven />
@@ -14321,7 +14344,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="14" />
   </item>
-  <item id="665" name="mk_sealed_draconic_leather_armor_ii">
+  <item id="665"
+    name="mk_sealed_draconic_leather_armor_ii">
     <!-- Recipe: Sealed Draconic Leather Armor (100%) -->
     <recipe id="6866" level="9" />
     <dwarven />
@@ -14346,7 +14370,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="14" />
   </item>
-  <item id="666" name="mk_sealed_draconic_leather_gloves_i">
+  <item id="666"
+    name="mk_sealed_draconic_leather_gloves_i">
     <!-- Recipe: Sealed Draconic Leather Gloves (60%) -->
     <recipe id="6867" level="9" />
     <dwarven />
@@ -14367,7 +14392,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="2" />
   </item>
-  <item id="667" name="mk_sealed_draconic_leather_gloves_ii">
+  <item id="667"
+    name="mk_sealed_draconic_leather_gloves_ii">
     <!-- Recipe: Sealed Draconic Leather Gloves (100%) -->
     <recipe id="6868" level="9" />
     <dwarven />
@@ -14388,7 +14414,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="2" />
   </item>
-  <item id="668" name="mk_sealed_draconic_leather_boots_i">
+  <item id="668"
+    name="mk_sealed_draconic_leather_boots_i">
     <!-- Recipe: Sealed Draconic Leather Boots (60%) -->
     <recipe id="6869" level="9" />
     <dwarven />
@@ -14409,7 +14436,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="2" />
   </item>
-  <item id="669" name="mk_sealed_draconic_leather_boots_ii">
+  <item id="669"
+    name="mk_sealed_draconic_leather_boots_ii">
     <!-- Recipe: Sealed Draconic Leather Boots (100%) -->
     <recipe id="6870" level="9" />
     <dwarven />
@@ -14430,7 +14458,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="2" />
   </item>
-  <item id="670" name="mk_sealed_draconic_leather_helmet_i">
+  <item id="670"
+    name="mk_sealed_draconic_leather_helmet_i">
     <!-- Recipe: Sealed Draconic Leather Helmet (60%) -->
     <recipe id="6871" level="9" />
     <dwarven />
@@ -14449,7 +14478,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="4" />
   </item>
-  <item id="671" name="mk_sealed_draconic_leather_helmet_ii">
+  <item id="671"
+    name="mk_sealed_draconic_leather_helmet_ii">
     <!-- Recipe: Sealed Draconic Leather Helmet (100%) -->
     <recipe id="6872" level="9" />
     <dwarven />
@@ -18338,9 +18368,7 @@
     <!-- Magic Reagents -->
     <ingredient id="9170" count="6" />
   </item>
-
   <!-- 1stThrone Recipes by Skatershi -->
-
   <item id="872" name="mk_dynasty_blade_i">
     <!-- Recipe - Dynasty Sword (60%) -->
     <recipe id="9967" level="9" />
@@ -18395,7 +18423,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="154" />
   </item>
-   <item id="874" name="mk_dynasty_magic_sword_i">
+  <item id="874" name="mk_dynasty_magic_sword_i">
     <!-- Recipe - Dynasty Phantom (60%) -->
     <recipe id="9969" level="9" />
     <common />
@@ -18422,7 +18450,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="154" />
   </item>
-   <item id="875" name="mk_dynasty_bow_i">
+  <item id="875" name="mk_dynasty_bow_i">
     <!-- Recipe - Dynasty Bow (60%) -->
     <recipe id="9970" level="9" />
     <common />
@@ -18451,7 +18479,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="154" />
   </item>
-   <item id="876" name="mk_dynasty_dagger_i">
+  <item id="876" name="mk_dynasty_dagger_i">
     <!-- Recipe - Dynasty Knife (60%) -->
     <recipe id="9971" level="9" />
     <common />
@@ -18478,7 +18506,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="154" />
   </item>
-   <item id="877" name="mk_dynasty_spear_i">
+  <item id="877" name="mk_dynasty_spear_i">
     <!-- Recipe - Dynasty Halberd (60%) -->
     <recipe id="9972" level="9" />
     <common />
@@ -18507,7 +18535,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="154" />
   </item>
-   <item id="878" name="mk_dynasty_hammer_i">
+  <item id="878" name="mk_dynasty_hammer_i">
     <!-- Recipe - Dynasty Cudgel (60%) -->
     <recipe id="9973" level="9" />
     <common />
@@ -18534,7 +18562,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="154" />
   </item>
-   <item id="879" name="mk_dynasty_staff_i">
+  <item id="879" name="mk_dynasty_staff_i">
     <!-- Recipe - Dynasty Mace (60%) -->
     <recipe id="9974" level="9" />
     <common />
@@ -18736,7 +18764,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="32" />
   </item>
-  <item id="887" name="mk_sealed_dynasty_leather_legging_i">
+  <item id="887"
+    name="mk_sealed_dynasty_leather_legging_i">
     <!-- Recipe - Sealed Dynasty Leather Armor (60%) -->
     <recipe id="9488" level="9" />
     <common />
@@ -18761,7 +18790,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="19" />
   </item>
-  <item id="888" name="mk_sealed_dynasty_leather_helmet_i">
+  <item id="888"
+    name="mk_sealed_dynasty_leather_helmet_i">
     <!-- Recipe - Sealed Dynasty Leather Helmet (60%) -->
     <recipe id="9489" level="9" />
     <common />
@@ -18784,7 +18814,8 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="15" />
   </item>
-  <item id="889" name="mk_sealed_dynasty_leather_gloves_i">
+  <item id="889"
+    name="mk_sealed_dynasty_leather_gloves_i">
     <!-- Recipe - Sealed Dynasty Leather Gloves (60%) -->
     <recipe id="9490" level="9" />
     <common />
@@ -19059,9 +19090,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="7" />
   </item>
-
   <!-- CT1.5 Recipes by Skatershi -->
-
   <item id="900" name="mk_icarus_sowsword_i">
     <!-- Recipe - Icarus Sawsword (60%) -->
     <recipe id="10373" level="9" />
@@ -19116,7 +19145,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="236" />
   </item>
-   <item id="902" name="mk_icarus_spirits_i">
+  <item id="902" name="mk_icarus_spirits_i">
     <!-- Recipe - Icarus Spirit (60%) -->
     <recipe id="10375" level="9" />
     <common />
@@ -19143,7 +19172,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="236" />
   </item>
-   <item id="903" name="mk_icarus_heavy_arms_i">
+  <item id="903" name="mk_icarus_heavy_arms_i">
     <!-- Recipe - Icarus Heavy Arms (60%) -->
     <recipe id="10376" level="9" />
     <common />
@@ -19170,7 +19199,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="236" />
   </item>
-   <item id="904" name="mk_icarus_trident_i">
+  <item id="904" name="mk_icarus_trident_i">
     <!-- Recipe - Icarus Trident (60%) -->
     <recipe id="10377" level="9" />
     <common />
@@ -19199,7 +19228,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="236" />
   </item>
-   <item id="905" name="mk_icarus_chopper_i">
+  <item id="905" name="mk_icarus_chopper_i">
     <!-- Recipe - Icarus Hammer (60%) -->
     <recipe id="10378" level="9" />
     <common />
@@ -19257,7 +19286,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="236" />
   </item>
-   <item id="907" name="mk_icarus_wand_i">
+  <item id="907" name="mk_icarus_wand_i">
     <!-- Recipe - Icarus Hall (60%) -->
     <recipe id="10380" level="9" />
     <common />
@@ -19286,7 +19315,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="236" />
   </item>
-   <item id="908" name="mk_icarus_accipiter_i">
+  <item id="908" name="mk_icarus_accipiter_i">
     <!-- Recipe - Icarus Spitter (60%) -->
     <recipe id="10381" level="9" />
     <common />
@@ -19315,7 +19344,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="236" />
   </item>
-   <item id="909" name="mk_dynasty_twohand_staff_i">
+  <item id="909" name="mk_dynasty_twohand_staff_i">
     <!-- Recipe - Dynasty Staff(60%) -->
     <recipe id="10544" level="9" />
     <common />
@@ -19344,7 +19373,7 @@
     <!-- Gemstone S -->
     <ingredient id="2134" count="154" />
   </item>
-   <item id="910" name="mk_dynasty_crusher_i">
+  <item id="910" name="mk_dynasty_crusher_i">
     <!-- Recipe - Dynasty Crusher(60%) -->
     <recipe id="10545" level="9" />
     <common />
