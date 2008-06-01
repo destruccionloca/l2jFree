@@ -200,7 +200,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				// Stop AI task and detach AI from NPC
 				if (_aiTask != null)
 				{
-					_aiTask.cancel(true);
+					_aiTask.cancel(false);
 					_aiTask = null;
 				}
 
@@ -431,7 +431,11 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 
 			if (npc.getAI() != null) // TODO: possibly check not needed
 			{
-				if (Math.abs(target.getZ() - npc.getZ()) < 600
+				if (target == null) {
+					_aiTask.cancel(false);
+					_aiTask = null;
+					return;
+				} else if (Math.abs(target.getZ() - npc.getZ()) < 600
 				//&& _actor.getAttackByList().contains(getAttackTarget())
 						&& (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)
 						//limiting aggro for siege guards

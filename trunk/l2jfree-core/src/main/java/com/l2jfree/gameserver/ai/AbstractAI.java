@@ -745,7 +745,7 @@ abstract class AbstractAI implements Ctrl
 		_intention = AI_INTENTION_IDLE;
 		_target = null;
 		_castTarget = null;
-		_attackTarget = null;
+		setAttackTarget(null);
 
 		// Cancel the follow task if necessary
 		stopFollow();
