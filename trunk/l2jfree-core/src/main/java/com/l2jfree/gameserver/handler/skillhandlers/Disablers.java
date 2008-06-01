@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 
 import java.io.IOException;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -467,7 +466,8 @@ public class Disablers implements ISkillHandler
 						targ.stopHating(activeChar);
 						if (targ.getMostHated() == null)
 						{
-							((L2AttackableAI) targ.getAI()).setGlobalAggro(-25);
+							if (targ.getAI() instanceof L2AttackableAI)
+								((L2AttackableAI)targ.getAI()).setGlobalAggro(-25);
 							targ.clearAggroList();
 							targ.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 							targ.setWalking();
