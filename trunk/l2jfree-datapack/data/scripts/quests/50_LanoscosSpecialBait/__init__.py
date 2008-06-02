@@ -34,7 +34,7 @@ class Quest (JQuest) :
    elif event == "31570-07.htm" and st.getQuestItemsCount(ESSENCE_OF_WIND) == 100 :
      htmltext = "31570-06.htm"
      st.takeItems(ESSENCE_OF_WIND,-1)
-     st.giveItems(WIND_FISHING_LURE,int(4))
+     st.rewardItems(WIND_FISHING_LURE,4)
      st.playSound("ItemSound.quest_finish")
      st.unset("cond")
      st.exitQuest(False) 

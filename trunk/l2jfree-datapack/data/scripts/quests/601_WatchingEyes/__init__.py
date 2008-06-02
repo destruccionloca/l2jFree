@@ -44,7 +44,7 @@ class Quest (JQuest) :
             if chance<=random<= chance2 :
               break
             i = i+1
-        st.giveItems(57,adena)
+        st.rewardItems(57,adena)
         if item :
            st.giveItems(item,5)
            st.addExpAndSp(120000,10000)

@@ -29,16 +29,16 @@ class Quest (JQuest) :
     elif event == "32105-08.htm" :
        if count > 0 :
           st.takeItems(DINOSAUR_FANG_NECKLACE,-1)
-          st.giveItems(57,count*3000)
+          st.rewardItems(57,count*3000)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
     elif event == "32105-06.htm" :
        st.takeItems(DINOSAUR_FANG_NECKLACE,-1)
-       st.giveItems(57,count*3000)
+       st.rewardItems(57,count*3000)
     elif event == "32105-07.htm" :
        if count >= 100 :
           st.takeItems(DINOSAUR_FANG_NECKLACE,100)
-          st.giveItems(57,450000)
+          st.rewardItems(57,450000)
        else :
           htmltext = "32105-04.htm"
     return htmltext

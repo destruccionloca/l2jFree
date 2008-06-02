@@ -34,7 +34,7 @@ class Quest (JQuest) :
    elif event == "31572-07.htm" and st.getQuestItemsCount(LOST_BAIT) == 100 :
      htmltext = "31572-06.htm"
      st.takeItems(LOST_BAIT,-1)
-     st.giveItems(ICY_AIR_LURE,int(4))
+     st.rewardItems(ICY_AIR_LURE,4)
      st.playSound("ItemSound.quest_finish")
      st.exitQuest(1)
    return htmltext

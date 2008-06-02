@@ -62,8 +62,8 @@ class Quest (JQuest) :
        st.takeItems(TOOTH_OF_DRAGON,50)
        st.playSound("ItemSound.quest_finish")
        item,adena=REWARDS[st.getRandom(len(REWARDS))]
-       st.giveItems(item,int(1))
-       st.giveItems(57,int(adena))
+       st.giveItems(item,1)
+       st.rewardItems(57,adena)
        st.exitQuest(False) 
     return htmltext
 
@@ -116,7 +116,7 @@ class Quest (JQuest) :
    cond,item,max,chance=DROPLIST[npc.getNpcId()]
    count=st.getQuestItemsCount(item)
    if st.getInt("cond") == cond and count < max and st.getRandom(100) < chance :
-      st.giveItems(item,int(1))
+      st.giveItems(item,1)
       if count == max-1 :
          st.playSound("ItemSound.quest_middle")
          st.set("cond",str(cond+1))

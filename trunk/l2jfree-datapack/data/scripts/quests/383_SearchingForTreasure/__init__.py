@@ -38,7 +38,7 @@ class Quest (JQuest) :
      elif event == "30890-02b.htm":
         if st.getQuestItemsCount(PIRATES_TREASURE_MAP) :
            st.takeItems(PIRATES_TREASURE_MAP,1)
-           st.giveItems(57,1000)
+           st.rewardItems(57,1000)
            st.playSound("ItemSound.quest_finish")
         else:
            htmltext="You don't have required items"
@@ -46,7 +46,7 @@ class Quest (JQuest) :
      elif event == "31148-02.htm":
         if st.getQuestItemsCount(1661):
            st.takeItems(1661,1)
-           st.giveItems(57,500+(st.getRandom(5)*300))
+           st.rewardItems(57,500+(st.getRandom(5)*300))
            count=0
            while count < 1 :
              for item in REWARDS.keys() :

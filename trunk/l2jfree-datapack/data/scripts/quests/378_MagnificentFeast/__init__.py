@@ -119,7 +119,7 @@ class Quest (JQuest) :
         item,qty,adena=REWARDS[score]
         st.giveItems(item,qty)
         if adena :
-           st.giveItems(57,adena)
+           st.rewardItems(57,adena)
         st.takeItems(RP_DESSERT,1)
         st.playSound("ItemSound.quest_finish")
         htmltext = "30594-10.htm"
