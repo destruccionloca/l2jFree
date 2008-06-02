@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 11 d?c. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8 -->
 <hibernate-mapping>
-  <class name="com.l2jfree.loginserver.beans.Accounts"
+  <class name="net.sf.l2j.loginserver.beans.Accounts"
     table="accounts" dynamic-update="true"
     dynamic-insert="true">
     <id name="login" type="string">
