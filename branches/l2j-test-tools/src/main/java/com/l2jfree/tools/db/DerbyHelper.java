@@ -11,8 +11,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Tools class to start/stop an embedded derby database (for test purpose)
  */
-public class DerbyHelper
-{
+public class DerbyHelper {
 
 	public static final String USER = "USER1";
 
@@ -28,27 +27,20 @@ public class DerbyHelper
 	 * start a derby database in target directory
 	 * 
 	 */
-	public static void startup()
-	{
+	public static void startup() {
 		System.getProperties().put("derby.system.home", "target/data");
 
 		s_log.debug("Starting database Derby in embedded mode.");
 
-		try
-		{
+		try {
 			Connection conn = getConnection();
 			conn.close();
-		}
-		catch (Throwable e)
-		{
+		} catch (Throwable e) {
 			s_log.error("exception thrown:");
 
-			if (e instanceof SQLException)
-			{
+			if (e instanceof SQLException) {
 				printSQLError((SQLException) e);
-			}
-			else
-			{
+			} else {
 				s_log.error(e);
 			}
 		}
@@ -64,8 +56,8 @@ public class DerbyHelper
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static Connection getConnection() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
-	{
+	public static Connection getConnection() throws InstantiationException,
+			IllegalAccessException, ClassNotFoundException, SQLException {
 		Class.forName(DRIVER).newInstance();
 
 		Connection conn = null;
@@ -87,39 +79,26 @@ public class DerbyHelper
 	/**
 	 * Stop database
 	 */
-	public static void shutdown()
-	{
-		try
-		{
+	public static void shutdown() {
+		try {
 			boolean gotSQLExc = false;
-			try
-			{
+			try {
 				DriverManager.getConnection("jdbc:derby:;shutdown=true");
-			}
-			catch (SQLException se)
-			{
+			} catch (SQLException se) {
 				gotSQLExc = true;
 			}
 
-			if (!gotSQLExc)
-			{
+			if (!gotSQLExc) {
 				s_log.error("Database did not shut down normally");
-			}
-			else
-			{
+			} else {
 				s_log.debug("Database shut down normally");
 			}
-		}
-		catch (Throwable e)
-		{
+		} catch (Throwable e) {
 			s_log.error("exception thrown:");
 
-			if (e instanceof SQLException)
-			{
+			if (e instanceof SQLException) {
 				printSQLError((SQLException) e);
-			}
-			else
-			{
+			} else {
 				s_log.error(e);
 			}
 		}
@@ -130,13 +109,10 @@ public class DerbyHelper
 	 * 
 	 * @param e
 	 */
-	public static void printSQLError(SQLException e)
-	{
-		while (e != null)
-		{
+	public static void printSQLError(SQLException e) {
+		while (e != null) {
 
-			if (!e.getSQLState().equals("01J01"))
-			{
+			if (!e.getSQLState().equals("01J01")) {
 				s_log.error(e.toString());
 				e = e.getNextException();
 			}

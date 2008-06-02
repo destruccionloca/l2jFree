@@ -24,14 +24,14 @@ import org.dbunit.operation.DatabaseOperation;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.AbstractSingleSpringContextTests;
 
-
 /**
  * Test class made to use DBUnit and spring.
  * 
  * 
  */
-public abstract class ADAOTestWithSpring extends AbstractSingleSpringContextTests {
-	
+public abstract class ADAOTestWithSpring extends
+		AbstractSingleSpringContextTests {
+
 	private static final String SPRING_DBEMPTY_XML = "springDBEmpty.xml";
 
 	/** Logger commons-logging for this class */
@@ -85,10 +85,10 @@ public abstract class ADAOTestWithSpring extends AbstractSingleSpringContextTest
 	}
 
 	/**
-	 * Return a dbunit connection. <b>Warning</b> This connection have 
-	 * to be close.
+	 * Return a dbunit connection. <b>Warning</b> This connection have to be
+	 * close.
 	 * 
-	 * @return a  DBUnit connection
+	 * @return a DBUnit connection
 	 * @throws SQLException
 	 */
 	public IDatabaseConnection getConnection() throws SQLException {
@@ -102,7 +102,6 @@ public abstract class ADAOTestWithSpring extends AbstractSingleSpringContextTest
 		return connection;
 	}
 
-
 	/** Return initial dataset to populate an empty database */
 	public IDataSet getInitialDataSet() {
 		return getDataSet(getInitialDataSetName());
@@ -115,8 +114,7 @@ public abstract class ADAOTestWithSpring extends AbstractSingleSpringContextTest
 	public abstract String getRootDirName();
 
 	/**
-	 * Return the dataset for a specific file
-	 * <code>_fileName</code>
+	 * Return the dataset for a specific file <code>_fileName</code>
 	 * 
 	 * @param _fileName
 	 *            filename that have to be in the classpath

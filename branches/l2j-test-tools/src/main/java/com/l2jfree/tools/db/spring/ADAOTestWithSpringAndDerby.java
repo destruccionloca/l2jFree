@@ -29,17 +29,16 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import com.l2jfree.tools.db.DerbyHelper;
 
-
 /**
  * Test class made to use DBUnit and spring.
  * 
  * 
  */
 public abstract class ADAOTestWithSpringAndDerby extends TestCase {
-	
+
 	private static final String SPRING_DBEMPTY_XML = "springDBEmpty.xml";
-    protected ApplicationContext __applicationContext=null;
-    
+	protected ApplicationContext __applicationContext = null;
+
 	/** Logger commons-logging for this class */
 	private static final Log s_log = LogFactory
 			.getLog(ADAOTestWithSpringAndDerby.class);
@@ -47,21 +46,21 @@ public abstract class ADAOTestWithSpringAndDerby extends TestCase {
 	protected String[] getConfigLocations() {
 		return new String[] { SPRING_DBEMPTY_XML };
 	}
-	
-    @Override
+
+	@Override
 	protected void setUp() throws Exception {
-        DerbyHelper.startup();
-        __applicationContext =new ClassPathXmlApplicationContext(getConfigLocations());         
-        setUpDBUnit();
-        super.setUp();
+		DerbyHelper.startup();
+		__applicationContext = new ClassPathXmlApplicationContext(
+				getConfigLocations());
+		setUpDBUnit();
+		super.setUp();
 	}
-    
-    @Override
-    protected void tearDown() throws Exception
-    {
-        super.tearDown();
-        DerbyHelper.shutdown();
-    }    
+
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		DerbyHelper.shutdown();
+	}
 
 	/** Return a bean for the default context */
 	public Object getBean(final String _beanName) {
@@ -97,10 +96,10 @@ public abstract class ADAOTestWithSpringAndDerby extends TestCase {
 	}
 
 	/**
-	 * Return a dbunit connection. <b>Warning</b> This connection have 
-	 * to be close.
+	 * Return a dbunit connection. <b>Warning</b> This connection have to be
+	 * close.
 	 * 
-	 * @return a  DBUnit connection
+	 * @return a DBUnit connection
 	 * @throws SQLException
 	 */
 	public IDatabaseConnection getConnection() throws SQLException {
@@ -114,7 +113,6 @@ public abstract class ADAOTestWithSpringAndDerby extends TestCase {
 		return connection;
 	}
 
-
 	/** Return initial dataset to populate an empty database */
 	public IDataSet getInitialDataSet() {
 		return getDataSet(getInitialDataSetName());
@@ -123,15 +121,14 @@ public abstract class ADAOTestWithSpringAndDerby extends TestCase {
 	/** Return the initial dataset name */
 	public abstract String getInitialDataSetName();
 
-    /** Return the initial dtd name */
-    public abstract String getDtdName();
+	/** Return the initial dtd name */
+	public abstract String getDtdName();
 
 	/** Return the folder that holds datasets */
 	public abstract String getRootDirName();
 
 	/**
-	 * Return the dataset for a specific file
-	 * <code>_fileName</code>
+	 * Return the dataset for a specific file <code>_fileName</code>
 	 * 
 	 * @param _fileName
 	 *            filename that have to be in the classpath
