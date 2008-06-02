@@ -404,16 +404,16 @@
     <!-- mass GK -->
     <entity castleId="6" />
     <shape type="Rect" zMin="-89" zMax="26">
-      <point x="146944" y="5112" />
-      <point x="147967" y="4097" />
+      <point x="114195" y="249326" />
+      <point x="115081" y="249007" />
     </shape>
   </zone>
   <zone id="29" name="Innadril Defender Spawn"
     type="DefenderSpawn">
     <entity castleId="6" />
     <shape type="Rect" zMin="-786" zMax="-786">
-      <point x="114195" y="249326" />
-      <point x="115081" y="249007" />
+      <point x="115666" y="249488" />
+      <point x="116390" y="249161" />
     </shape>
   </zone>
   <zone id="30" name="Innadril Siege" type="Siege">
