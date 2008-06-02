@@ -34,10 +34,10 @@ public class TestConfig extends TestCase
 		{
 			fail (e.getMessage());
 		}
-		assertNotNull (System.getProperty("net.sf.l2j.db.driverclass"));
-		assertNotNull (System.getProperty("net.sf.l2j.db.urldb"));
-		assertNotNull (System.getProperty("net.sf.l2j.db.user"));
-		assertNotNull (System.getProperty("net.sf.l2j.db.password"));
+		assertNotNull (System.getProperty("com.l2jfree.db.driverclass"));
+		assertNotNull (System.getProperty("com.l2jfree.db.urldb"));
+		assertNotNull (System.getProperty("com.l2jfree.db.user"));
+		assertNotNull (System.getProperty("com.l2jfree.db.password"));
 		
 	}	
 	

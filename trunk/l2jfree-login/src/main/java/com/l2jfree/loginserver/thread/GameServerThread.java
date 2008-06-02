@@ -36,9 +36,9 @@ import java.util.StringTokenizer;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
-import net.sf.l2j.tools.security.NewCrypt;
-import net.sf.l2j.tools.util.HexUtil;
-import net.sf.l2j.tools.network.SubNetHost;
+import com.l2jfree.tools.security.NewCrypt;
+import com.l2jfree.tools.util.HexUtil;
+import com.l2jfree.tools.network.SubNetHost;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

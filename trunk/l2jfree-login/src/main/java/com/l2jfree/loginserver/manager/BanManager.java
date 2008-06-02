@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastMap;
-import net.sf.l2j.tools.network.SubNet;
+import com.l2jfree.tools.network.SubNet;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;

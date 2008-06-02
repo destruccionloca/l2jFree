@@ -37,8 +37,8 @@ import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastMap;
-import net.sf.l2j.tools.util.HexUtil;
-import net.sf.l2j.tools.random.Rnd;
+import com.l2jfree.tools.util.HexUtil;
+import com.l2jfree.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

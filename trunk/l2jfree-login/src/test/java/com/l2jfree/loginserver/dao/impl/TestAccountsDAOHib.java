@@ -30,7 +30,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.l2j.tools.db.hibernate.ADAOTestCase;
+import com.l2jfree.tools.db.hibernate.ADAOTestCase;
 
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatDtdDataSet;

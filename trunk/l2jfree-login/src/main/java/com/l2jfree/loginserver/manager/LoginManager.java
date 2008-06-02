@@ -37,9 +37,9 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 
-import net.sf.l2j.tools.codec.Base64;
-import net.sf.l2j.tools.math.ScrambledKeyPair;
-import net.sf.l2j.tools.random.Rnd;
+import com.l2jfree.tools.codec.Base64;
+import com.l2jfree.tools.math.ScrambledKeyPair;
+import com.l2jfree.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

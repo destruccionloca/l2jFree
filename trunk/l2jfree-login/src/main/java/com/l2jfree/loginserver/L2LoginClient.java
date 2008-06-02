@@ -26,8 +26,8 @@ import org.mmocore.network.MMOClient;
 import org.mmocore.network.MMOConnection;
 
 
-import net.sf.l2j.tools.math.ScrambledKeyPair;
-import net.sf.l2j.tools.random.Rnd;
+import com.l2jfree.tools.math.ScrambledKeyPair;
+import com.l2jfree.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

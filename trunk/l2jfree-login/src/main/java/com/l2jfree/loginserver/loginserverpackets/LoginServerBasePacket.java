@@ -18,7 +18,7 @@
  */
 package com.l2jfree.loginserver.loginserverpackets;
 
-import net.sf.l2j.tools.task.TaskPriority;
+import com.l2jfree.tools.task.TaskPriority;
 
 
 /**

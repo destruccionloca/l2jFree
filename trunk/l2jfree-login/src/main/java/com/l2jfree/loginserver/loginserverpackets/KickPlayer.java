@@ -39,7 +39,7 @@ public class KickPlayer extends ServerBasePacket
 	}
 	
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.loginserver.serverpackets.ServerBasePacket#getContent()
+	 * @see com.l2jfree.loginserver.serverpackets.ServerBasePacket#getContent()
 	 */
 	@Override
 	public byte[] getContent() throws IOException

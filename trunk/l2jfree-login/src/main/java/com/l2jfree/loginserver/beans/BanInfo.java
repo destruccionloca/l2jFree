@@ -1,6 +1,6 @@
 package com.l2jfree.loginserver.beans;
 
-import net.sf.l2j.tools.network.SubNet;
+import com.l2jfree.tools.network.SubNet;
 
 /**
  * 

@@ -19,8 +19,8 @@ package com.l2jfree.loginserver.crypt;
 
 import java.io.IOException;
 
-import net.sf.l2j.tools.random.Rnd;
-import net.sf.l2j.tools.security.NewCrypt;
+import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.tools.security.NewCrypt;
 /**
  *
  * @author  KenM

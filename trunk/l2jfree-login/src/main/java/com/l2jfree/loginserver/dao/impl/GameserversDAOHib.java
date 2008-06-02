@@ -115,7 +115,7 @@ public class GameserversDAOHib extends BaseRootDAOHib implements GameserversDAO
     }
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.loginserver.dao.GameserversDAO#removeAll()
+     * @see com.l2jfree.loginserver.dao.GameserversDAO#removeAll()
      */
     public void removeAll()
     {

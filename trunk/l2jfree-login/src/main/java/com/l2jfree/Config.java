@@ -164,9 +164,9 @@ public final class Config {
 	 */
 	public static void initDBProperties() 
 	{
-		System.setProperty("net.sf.l2j.db.driverclass", DATABASE_DRIVER );
-		System.setProperty("net.sf.l2j.db.urldb", DATABASE_URL );
-		System.setProperty("net.sf.l2j.db.user", DATABASE_LOGIN );
-		System.setProperty("net.sf.l2j.db.password", DATABASE_PASSWORD );		
+		System.setProperty("com.l2jfree.db.driverclass", DATABASE_DRIVER );
+		System.setProperty("com.l2jfree.db.urldb", DATABASE_URL );
+		System.setProperty("com.l2jfree.db.user", DATABASE_LOGIN );
+		System.setProperty("com.l2jfree.db.password", DATABASE_PASSWORD );		
 	}
 }

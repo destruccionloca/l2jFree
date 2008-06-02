@@ -12,8 +12,8 @@
   <cache name="org.hibernate.cache.UpdateTimestampsCache"
     maxElementsInMemory="50" eternal="false"
     timeToLiveSeconds="120" overflowToDisk="false" />
-  <cache name="net.sf.l2j.loginserver.beans.Accounts"
+  <cache name="com.l2jfree.loginserver.beans.Accounts"
     maxElementsInMemory="300" overflowToDisk="false" />
-  <cache name="net.sf.l2j.loginserver.beans.Gameservers"
+  <cache name="com.l2jfree.loginserver.beans.Gameservers"
     maxElementsInMemory="200" overflowToDisk="false" />
 </ehcache>
