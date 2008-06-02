@@ -38,27 +38,27 @@ import com.l2jfree.loginserver.manager.GameServerManager;
  */
 public class GameServerManagerTest extends TestCase
 {
-    private ClassPathXmlApplicationContext context = null;
-    private GameServerManager gsManager;
-    
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception
-    {
-        super.setUp();
-        context = new ClassPathXmlApplicationContext("classpath*:/**/**/applicationContext-TestMock.xml");        
-        L2Registry.setApplicationContext(context);
-        gsManager = GameServerManager.getInstance();
-    }
-    
-    /**
-     * Check if 127 server from servernames.xml are loaded
-     *
-     */
-    public void testIsLoaded ()
-    {
-        assertEquals(127,gsManager.getServers().size());
-    }
+	private ClassPathXmlApplicationContext	context	= null;
+	private GameServerManager				gsManager;
+
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		context = new ClassPathXmlApplicationContext("classpath*:/**/**/applicationContext-TestMock.xml");
+		L2Registry.setApplicationContext(context);
+		gsManager = GameServerManager.getInstance();
+	}
+
+	/**
+	 * Check if 127 server from servernames.xml are loaded
+	 *
+	 */
+	public void testIsLoaded()
+	{
+		assertEquals(127, gsManager.getServers().size());
+	}
 }

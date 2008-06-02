@@ -27,8 +27,8 @@ import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
 public class ChangeAccessLevel extends ClientBasePacket
 {
 
-	private int _level;
-	private String _account;
+	private int		_level;
+	private String	_account;
 
 	/**
 	 * @param decrypt
@@ -55,5 +55,5 @@ public class ChangeAccessLevel extends ClientBasePacket
 	{
 		return _level;
 	}
-	
+
 }

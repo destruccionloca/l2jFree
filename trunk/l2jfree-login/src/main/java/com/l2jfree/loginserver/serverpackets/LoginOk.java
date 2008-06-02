@@ -33,9 +33,9 @@ import com.l2jfree.loginserver.beans.SessionKey;
  */
 public final class LoginOk extends L2LoginServerPacket
 {
-	private int _loginOk1, _loginOk2;
-	
-	public LoginOk(SessionKey sessionKey) 
+	private int	_loginOk1, _loginOk2;
+
+	public LoginOk(SessionKey sessionKey)
 	{
 		_loginOk1 = sessionKey.loginOkID1;
 		_loginOk2 = sessionKey.loginOkID2;

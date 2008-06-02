@@ -42,156 +42,162 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public abstract class BaseRootDAOHib extends HibernateDaoSupport
 {
-    
 
-    private Session __session = null;    
+	private Session	__session	= null;
 
-    
-    /**
-     * Load object matching the given key and return it.
-     */
-    public Object load(Class refClass, Serializable key) {
-       Object obj = getCurrentSession().load(refClass, key);
-       if (obj == null) {
-           throw new ObjectRetrievalFailureException(refClass, key);
-       }
-       return obj;
-    }
+	/**
+	 * Load object matching the given key and return it.
+	 */
+	public Object load(Class refClass, Serializable key)
+	{
+		Object obj = getCurrentSession().load(refClass, key);
+		if (obj == null)
+		{
+			throw new ObjectRetrievalFailureException(refClass, key);
+		}
+		return obj;
+	}
 
-    /**
-     * Return all objects related to the implementation of this DAO with no filter.
-     */
-    public List findAll (Class refClass) {
-        return getCurrentSession().createQuery("from " + refClass.getName()).list();
-    }
-    
-    
-    /**
-     * Persist the given transient instance, first assigning a generated identifier.
-     * (Or using the current value of the identifier property if the assigned generator is used.)
-     * @throws DataIntegrityViolationException - error in insertion
-     */
-    public Serializable save(Object obj) 
-    {
-        Serializable ser = getCurrentSession().save(obj);
-        return ser;
-    }
+	/**
+	 * Return all objects related to the implementation of this DAO with no filter.
+	 */
+	public List findAll(Class refClass)
+	{
+		return getCurrentSession().createQuery("from " + refClass.getName()).list();
+	}
 
-    /**
-     * Either save() or update() the given instance, depending upon the value of its
-     * identifier property.
-     */
-    public void saveOrUpdate(Object obj) {
-        getCurrentSession().saveOrUpdate(obj);
-    }
-    
-    /**
-     * Either save() or update() the given instances, depending upon the value of its
-     * identifier property.
-     */
-    public void saveOrUpdateAll(Collection entities) {
-        for (Iterator it = entities.iterator(); it.hasNext();) 
-        {
-            getCurrentSession().saveOrUpdate(it.next());
-        }        
-    }
-    
+	/**
+	 * Persist the given transient instance, first assigning a generated identifier.
+	 * (Or using the current value of the identifier property if the assigned generator is used.)
+	 * @throws DataIntegrityViolationException - error in insertion
+	 */
+	public Serializable save(Object obj)
+	{
+		Serializable ser = getCurrentSession().save(obj);
+		return ser;
+	}
 
-    /**
-     * Update the persistent state associated with the given identifier. An exception is thrown if there is a persistent
-     * instance with the same identifier in the current session.
-     * @param obj a transient instance containing updated state
-     */
-    public void update(Object obj) {
-        getCurrentSession().update(obj);
-    }
+	/**
+	 * Either save() or update() the given instance, depending upon the value of its
+	 * identifier property.
+	 */
+	public void saveOrUpdate(Object obj)
+	{
+		getCurrentSession().saveOrUpdate(obj);
+	}
 
-    /**
-     * Delete an object.
-     */
-    public void delete(Object obj) {
-        getCurrentSession().delete(obj);
-    }
-    
-    /**
-     * Delete a collection.
-     */
-    public void removeAll(Collection entities) {
-        for (Iterator it = entities.iterator(); it.hasNext();) 
-        {
-            getCurrentSession().delete(it.next());
-        }          
-    }
+	/**
+	 * Either save() or update() the given instances, depending upon the value of its
+	 * identifier property.
+	 */
+	public void saveOrUpdateAll(Collection entities)
+	{
+		for (Iterator it = entities.iterator(); it.hasNext();)
+		{
+			getCurrentSession().saveOrUpdate(it.next());
+		}
+	}
 
+	/**
+	 * Update the persistent state associated with the given identifier. An exception is thrown if there is a persistent
+	 * instance with the same identifier in the current session.
+	 * @param obj a transient instance containing updated state
+	 */
+	public void update(Object obj)
+	{
+		getCurrentSession().update(obj);
+	}
 
-    /**
-     * Re-read the state of the given instance from the underlying database. It is inadvisable to use this to implement
-     * long-running sessions that span many business tasks. This method is, however, useful in certain special circumstances.
-     */
-    public void refresh(Object obj) {
-        getCurrentSession().refresh(obj);
-    }
-    
-    /**
-     * Get an object
-     */
-    public Object get(Class clazz, Serializable id) {
-        Object  o = getCurrentSession().get(clazz, id);
-        if (o == null) {
-            throw new ObjectRetrievalFailureException(clazz, id);
-        }
+	/**
+	 * Delete an object.
+	 */
+	public void delete(Object obj)
+	{
+		getCurrentSession().delete(obj);
+	}
 
-        return o;
-    }
+	/**
+	 * Delete a collection.
+	 */
+	public void removeAll(Collection entities)
+	{
+		for (Iterator it = entities.iterator(); it.hasNext();)
+		{
+			getCurrentSession().delete(it.next());
+		}
+	}
 
+	/**
+	 * Re-read the state of the given instance from the underlying database. It is inadvisable to use this to implement
+	 * long-running sessions that span many business tasks. This method is, however, useful in certain special circumstances.
+	 */
+	public void refresh(Object obj)
+	{
+		getCurrentSession().refresh(obj);
+	}
 
-    /**
-     * Delete an object by id
-     */
-    public void removeObject(Class clazz, Serializable id) {
-        getCurrentSession().delete(get(clazz, id));
-    }    
+	/**
+	 * Get an object
+	 */
+	public Object get(Class clazz, Serializable id)
+	{
+		Object o = getCurrentSession().get(clazz, id);
+		if (o == null)
+		{
+			throw new ObjectRetrievalFailureException(clazz, id);
+		}
 
-    public Session getCurrentSession()
-    {
-        if (__session == null)
-        {
-            if (getSessionFactory() == null)
-                throw new HibernateException("Session Factory is null !");
-            return getSessionFactory().getCurrentSession();
-        }
-        else
-        {
-            if (__session.isOpen())
-            {
-                return __session;
-            }
-            else
-            {
-                throw new HibernateException("Session is closed " + __session);
-            }
-        }
-    }
+		return o;
+	}
 
-    /**
-     * @param _session
-     *            the session to set
-     * @deprecated only for test purpose
-     */
-    public void setCurrentSession(Session _session)
-    {
-        __session = _session;
-    }
+	/**
+	 * Delete an object by id
+	 */
+	public void removeObject(Class clazz, Serializable id)
+	{
+		getCurrentSession().delete(get(clazz, id));
+	}
 
-    /**
-     * @deprecated only for test purpose
-     */
-    public void closeCurrentSession()
-    {
-        if (__session != null && __session.isOpen())
-        {
-            __session.close();
-            __session = null;
-        }
-    }
+	public Session getCurrentSession()
+	{
+		if (__session == null)
+		{
+			if (getSessionFactory() == null)
+				throw new HibernateException("Session Factory is null !");
+			return getSessionFactory().getCurrentSession();
+		}
+		else
+		{
+			if (__session.isOpen())
+			{
+				return __session;
+			}
+			else
+			{
+				throw new HibernateException("Session is closed " + __session);
+			}
+		}
+	}
+
+	/**
+	 * @param _session
+	 *            the session to set
+	 * @deprecated only for test purpose
+	 */
+	public void setCurrentSession(Session _session)
+	{
+		__session = _session;
+	}
+
+	/**
+	 * @deprecated only for test purpose
+	 */
+	public void closeCurrentSession()
+	{
+		if (__session != null && __session.isOpen())
+		{
+			__session.close();
+			__session = null;
+		}
+	}
 }

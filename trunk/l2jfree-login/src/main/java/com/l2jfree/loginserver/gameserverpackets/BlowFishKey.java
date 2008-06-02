@@ -21,7 +21,6 @@ package com.l2jfree.loginserver.gameserverpackets;
 import java.security.GeneralSecurityException;
 import java.security.interfaces.RSAPrivateKey;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,15 +28,15 @@ import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
 
 import javax.crypto.Cipher;
 
-
 /**
  * @author -Wooden-
  *
  */
 public class BlowFishKey extends ClientBasePacket
 {
-	byte[] _key;
-	private static final Log	_log = LogFactory.getLog(BlowFishKey.class.getName());
+	byte[]						_key;
+	private static final Log	_log	= LogFactory.getLog(BlowFishKey.class.getName());
+
 	/**
 	 * @param decrypt
 	 */
@@ -48,32 +47,32 @@ public class BlowFishKey extends ClientBasePacket
 		byte[] tempKey = readB(size);
 		try
 		{
-			byte [] tempDecryptKey;
+			byte[] tempDecryptKey;
 			Cipher rsaCipher = Cipher.getInstance("RSA/ECB/nopadding");
-	        rsaCipher.init(Cipher.DECRYPT_MODE, privateKey);
-	        tempDecryptKey = rsaCipher.doFinal(tempKey);
-	        // there are nulls before the key we must remove them
-	        int i = 0;
-	        int len = tempDecryptKey.length;
-	        for(; i < len; i++)
-	        {
-	        	if(tempDecryptKey[i] != 0)
-	        		break;
-	        }
-	        _key = new byte[len-i];
-	        System.arraycopy(tempDecryptKey,i,_key,0,len-i);
+			rsaCipher.init(Cipher.DECRYPT_MODE, privateKey);
+			tempDecryptKey = rsaCipher.doFinal(tempKey);
+			// there are nulls before the key we must remove them
+			int i = 0;
+			int len = tempDecryptKey.length;
+			for (; i < len; i++)
+			{
+				if (tempDecryptKey[i] != 0)
+					break;
+			}
+			_key = new byte[len - i];
+			System.arraycopy(tempDecryptKey, i, _key, 0, len - i);
 		}
-		catch(GeneralSecurityException e)
+		catch (GeneralSecurityException e)
 		{
-			_log.fatal("Error While decrypting blowfish key (RSA)",e);
+			_log.fatal("Error While decrypting blowfish key (RSA)", e);
 		}
 		/*catch(IOException ioe)
 		{
 			//TODO: manage
 		}*/
-		
+
 	}
-	
+
 	public byte[] getKey()
 	{
 		return _key;

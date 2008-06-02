@@ -31,40 +31,41 @@ package com.l2jfree.loginserver.services.exception;
  */
 public class AccountWrongPasswordException extends Exception
 {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -9080179050086340310L;
+	/**
+	 * 
+	 */
+	private static final long	serialVersionUID	= -9080179050086340310L;
 
-    /**
-     * Default constructor
-     */
-    public AccountWrongPasswordException()
-    {
-        super();
-    }
-    /**
-     * constructor with reason
-     */
-    public AccountWrongPasswordException( String reason)
-    {
-        super("Wrong password for user "+reason);
-    }
+	/**
+	 * Default constructor
+	 */
+	public AccountWrongPasswordException()
+	{
+		super();
+	}
 
-    /**
-     * Copy constructor
-     */
-    public AccountWrongPasswordException( Throwable e)
-    {
-        super(e);
-    }
+	/**
+	 * constructor with reason
+	 */
+	public AccountWrongPasswordException(String reason)
+	{
+		super("Wrong password for user " + reason);
+	}
 
-    /**
-     * Copy constructor
-     */
-    public AccountWrongPasswordException(String reason, Throwable e)
-    {
-        super("Wrong password for user "+reason,e);
-    }
+	/**
+	 * Copy constructor
+	 */
+	public AccountWrongPasswordException(Throwable e)
+	{
+		super(e);
+	}
+
+	/**
+	 * Copy constructor
+	 */
+	public AccountWrongPasswordException(String reason, Throwable e)
+	{
+		super("Wrong password for user " + reason, e);
+	}
 
 }

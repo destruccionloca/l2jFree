@@ -29,61 +29,61 @@ import com.l2jfree.loginserver.serverpackets.ServerList;
  */
 public class RequestServerList extends L2LoginClientPacket
 {
-    private int _skey1;
-    private int _skey2;
-    private int _data3;
-    
-    /**
-     * @return
-     */
-    public int getSessionKey1()
-    {
-        return _skey1;
-    }
+	private int	_skey1;
+	private int	_skey2;
+	private int	_data3;
 
-    /**
-     * @return
-     */
-    public int getSessionKey2()
-    {
-        return _skey2;
-    }
+	/**
+	 * @return
+	 */
+	public int getSessionKey1()
+	{
+		return _skey1;
+	}
 
-    /**
-     * @return
-     */
-    public int getData3()
-    {
-        return _data3;
-    }
-    
-    public boolean readImpl()
-    {
-        if (this.getAvaliableBytes() >= 8)
-        {
-            _skey1  = readD(); // loginOk 1
-            _skey2  = readD(); // loginOk 2
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+	/**
+	 * @return
+	 */
+	public int getSessionKey2()
+	{
+		return _skey2;
+	}
 
-    /**
-     * @see com.l2jserver.mmocore.network.ReceivablePacket#run()
-     */
-    @Override
-    public void run()
-    {
-        if (this.getClient().getSessionKey().checkLoginPair(_skey1, _skey2))
-        {
-            this.getClient().sendPacket(new ServerList(this.getClient()));
-        }
-        else
-        {
-            this.getClient().close(LoginFailReason.REASON_ACCESS_FAILED);
-        }
-    }
+	/**
+	 * @return
+	 */
+	public int getData3()
+	{
+		return _data3;
+	}
+
+	public boolean readImpl()
+	{
+		if (this.getAvaliableBytes() >= 8)
+		{
+			_skey1 = readD(); // loginOk 1
+			_skey2 = readD(); // loginOk 2
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * @see com.l2jserver.mmocore.network.ReceivablePacket#run()
+	 */
+	@Override
+	public void run()
+	{
+		if (this.getClient().getSessionKey().checkLoginPair(_skey1, _skey2))
+		{
+			this.getClient().sendPacket(new ServerList(this.getClient()));
+		}
+		else
+		{
+			this.getClient().close(LoginFailReason.REASON_ACCESS_FAILED);
+		}
+	}
 }

@@ -8,72 +8,71 @@ package com.l2jfree.loginserver.beans;
 public class Gameservers implements java.io.Serializable
 {
 
-    // Fields    
+	// Fields    
 
-    /**
+	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2293307012167588040L;
-	private String serverName;
-    private int serverId;
-    private String hexid;
-    private String host;
+	private static final long	serialVersionUID	= 2293307012167588040L;
+	private String				serverName;
+	private int					serverId;
+	private String				hexid;
+	private String				host;
 
-    // Constructors
+	// Constructors
 
-    /** default constructor */
-    public Gameservers()
-    {
-    }
+	/** default constructor */
+	public Gameservers()
+	{
+	}
 
-    /** full constructor */
-    public Gameservers(int _serverId, String _hexid, String _host)
-    {
-        this.serverId = _serverId;
-        this.hexid = _hexid;
-        this.host = _host;
-    }
+	/** full constructor */
+	public Gameservers(int _serverId, String _hexid, String _host)
+	{
+		this.serverId = _serverId;
+		this.hexid = _hexid;
+		this.host = _host;
+	}
 
-    // Property accessors
-    public int getServerId()
-    {
-        return this.serverId;
-    }
+	// Property accessors
+	public int getServerId()
+	{
+		return this.serverId;
+	}
 
-    public void setServerId(int _serverId)
-    {
-        this.serverId = _serverId;
-    }
+	public void setServerId(int _serverId)
+	{
+		this.serverId = _serverId;
+	}
 
-    public String getHexid()
-    {
-        return this.hexid;
-    }
+	public String getHexid()
+	{
+		return this.hexid;
+	}
 
-    public void setHexid(String _hexid)
-    {
-        this.hexid = _hexid;
-    }
+	public void setHexid(String _hexid)
+	{
+		this.hexid = _hexid;
+	}
 
-    public String getHost()
-    {
-        return this.host;
-    }
+	public String getHost()
+	{
+		return this.host;
+	}
 
-    public void setHost(String _host)
-    {
-        this.host = _host;
-    }
-    
-    public String getServerName()
-    {
-        return this.serverName;
-    }
+	public void setHost(String _host)
+	{
+		this.host = _host;
+	}
 
-    public void setServerName(String _serverName)
-    {
-        this.serverName = _serverName;
-    }
-    
+	public String getServerName()
+	{
+		return this.serverName;
+	}
+
+	public void setServerName(String _serverName)
+	{
+		this.serverName = _serverName;
+	}
 
 }

@@ -17,7 +17,6 @@
  */
 package com.l2jfree.loginserver.serverpackets;
 
-
 import org.mmocore.network.SendablePacket;
 
 import com.l2jfree.loginserver.L2LoginClient;

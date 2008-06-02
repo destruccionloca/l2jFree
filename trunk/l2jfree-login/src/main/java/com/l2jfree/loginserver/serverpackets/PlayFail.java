@@ -25,21 +25,20 @@ package com.l2jfree.loginserver.serverpackets;
  */
 public final class PlayFail extends L2LoginServerPacket
 {
-    private final PlayFailReason _reason;
-    
-    
-    public PlayFail(PlayFailReason reason) 
-    {
-        _reason = reason;
-    }
-    
-    /**
-     * @see com.l2jserver.mmocore.network.SendablePacket#write()
-     */
-    @Override
-    protected void write()
-    {
-        writeC(0x06);
-        writeC(_reason.getCode());
-    }
+	private final PlayFailReason	_reason;
+
+	public PlayFail(PlayFailReason reason)
+	{
+		_reason = reason;
+	}
+
+	/**
+	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
+	 */
+	@Override
+	protected void write()
+	{
+		writeC(0x06);
+		writeC(_reason.getCode());
+	}
 }

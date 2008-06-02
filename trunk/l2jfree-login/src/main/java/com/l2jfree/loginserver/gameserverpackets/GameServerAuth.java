@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 
 import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
 
-
 /**
  * Format: cccddb
  * c desired ID
@@ -38,16 +37,16 @@ import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
  */
 public class GameServerAuth extends ClientBasePacket
 {
-	protected static Logger _log = Logger.getLogger(GameServerAuth.class.getName());
-	private byte[] _hexId;
-	private int _desiredId;
-	private boolean _hostReserved;
-	private boolean _acceptAlternativeId;
-	private int _maxPlayers;
-	private int _port;
-	private String _gsNetConfig1;
-	private String _gsNetConfig2;
-	
+	protected static Logger	_log	= Logger.getLogger(GameServerAuth.class.getName());
+	private byte[]			_hexId;
+	private int				_desiredId;
+	private boolean			_hostReserved;
+	private boolean			_acceptAlternativeId;
+	private int				_maxPlayers;
+	private int				_port;
+	private String			_gsNetConfig1;
+	private String			_gsNetConfig2;
+
 	/**
 	 * @param decrypt
 	 */
@@ -55,7 +54,7 @@ public class GameServerAuth extends ClientBasePacket
 	{
 		super(decrypt);
 		_desiredId = readC();
-		_acceptAlternativeId = (readC() == 0 ? false : true); 
+		_acceptAlternativeId = (readC() == 0 ? false : true);
 		_hostReserved = (readC() == 0 ? false : true);
 		_gsNetConfig1 = readS();
 		_gsNetConfig2 = readS();
@@ -72,17 +71,17 @@ public class GameServerAuth extends ClientBasePacket
 	{
 		return _hexId;
 	}
-	
+
 	public boolean getHostReserved()
 	{
 		return _hostReserved;
 	}
-	
+
 	public int getDesiredID()
 	{
 		return _desiredId;
 	}
-	
+
 	public boolean acceptAlternateID()
 	{
 		return _acceptAlternativeId;
@@ -102,26 +101,28 @@ public class GameServerAuth extends ClientBasePacket
 	public String getNetConfig()
 	{
 		String _netConfig = "";
-		
+
 		//	network configuration string formed on server
 		if (_gsNetConfig1.contains(";") || _gsNetConfig1.contains(","))
 		{
 			_netConfig = _gsNetConfig1;
 		}
-		else // make network config string
+		else
+		// make network config string
 		{
-			if (_gsNetConfig2.length()>0) // internal hostname and default internal networks
+			if (_gsNetConfig2.length() > 0) // internal hostname and default internal networks
 			{
 				_netConfig = _gsNetConfig2 + "," + "10.0.0.0/8,192.168.0.0/16" + ";";
 			}
-			if (_gsNetConfig1.length()>0) // external hostname and all avaible addresses by default
+			if (_gsNetConfig1.length() > 0) // external hostname and all avaible addresses by default
 			{
 				_netConfig += _gsNetConfig1 + "," + "0.0.0.0/0" + ";";
 			}
 		}
-		
+
 		return _netConfig;
 	}
+
 	/**
 	 * @return Returns the port.
 	 */

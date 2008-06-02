@@ -28,9 +28,8 @@ import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
 public class PlayerAuthRequest extends ClientBasePacket
 {
 
-	private String _account;
-	private SessionKey _sessionKey;
-
+	private String		_account;
+	private SessionKey	_sessionKey;
 
 	/**
 	 * @param decrypt
@@ -61,5 +60,5 @@ public class PlayerAuthRequest extends ClientBasePacket
 	{
 		return _sessionKey;
 	}
-	
+
 }

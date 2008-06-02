@@ -27,7 +27,7 @@ import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
 public class PlayerLogout extends ClientBasePacket
 {
 
-	private String _account;
+	private String	_account;
 
 	/**
 	 * @param decrypt
@@ -45,5 +45,5 @@ public class PlayerLogout extends ClientBasePacket
 	{
 		return _account;
 	}
-	
+
 }

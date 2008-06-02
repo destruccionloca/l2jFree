@@ -18,7 +18,6 @@
  */
 package com.l2jfree.loginserver.serverpackets;
 
-
 /**
  * Fromat: d
  * d: the failure reason
@@ -26,22 +25,20 @@ package com.l2jfree.loginserver.serverpackets;
 public final class LoginFail extends L2LoginServerPacket
 {
 
+	private LoginFailReason	_reason;
 
-    private LoginFailReason _reason;
-    
-    
-    public LoginFail(LoginFailReason reason) 
-    {
-        _reason = reason;
-    }
+	public LoginFail(LoginFailReason reason)
+	{
+		_reason = reason;
+	}
 
-    /**
-     * @see com.l2jserver.mmocore.network.SendablePacket#write()
-     */
-    @Override
-    protected void write()
-    {
-        writeC(0x01);
-        writeD(_reason.getCode());
-    }
+	/**
+	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
+	 */
+	@Override
+	protected void write()
+	{
+		writeC(0x01);
+		writeD(_reason.getCode());
+	}
 }

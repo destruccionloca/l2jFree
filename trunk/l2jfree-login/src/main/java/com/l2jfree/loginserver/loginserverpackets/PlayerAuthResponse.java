@@ -22,7 +22,6 @@ import java.io.IOException;
 
 import com.l2jfree.loginserver.serverpackets.ServerBasePacket;
 
-
 /**
  * @author -Wooden-
  *
@@ -35,7 +34,7 @@ public class PlayerAuthResponse extends ServerBasePacket
 		writeS(account);
 		writeC(response ? 1 : 0);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.l2jfree.loginserver.serverpackets.ServerBasePacket#getContent()
 	 */
@@ -44,5 +43,5 @@ public class PlayerAuthResponse extends ServerBasePacket
 	{
 		return getBytes();
 	}
-	
+
 }

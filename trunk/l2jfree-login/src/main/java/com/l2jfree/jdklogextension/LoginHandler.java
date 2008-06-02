@@ -21,9 +21,11 @@ package com.l2jfree.jdklogextension;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 
-public class LoginHandler extends FileHandler {
+public class LoginHandler extends FileHandler
+{
 
-	public LoginHandler() throws IOException, SecurityException {
+	public LoginHandler() throws IOException, SecurityException
+	{
 		super();
 	}
 }

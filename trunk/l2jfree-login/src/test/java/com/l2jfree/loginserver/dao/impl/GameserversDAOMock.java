@@ -32,7 +32,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 import com.l2jfree.loginserver.beans.Gameservers;
@@ -42,112 +41,109 @@ import com.l2jfree.loginserver.dao.GameserversDAO;
  * DAO object for domain model class Gameservers.
  * @see com.l2jfree.loginserver.beans.Gameservers
  */
-public class GameserversDAOMock  implements GameserversDAO
+public class GameserversDAOMock implements GameserversDAO
 {
-    private Map<Integer,Gameservers> referential = new HashMap<Integer,Gameservers>();
-    
-    public GameserversDAOMock()
-    {
-        referential.put(1, new Gameservers(1,"548545","*"));
-    }
-    
+	private Map<Integer, Gameservers>	referential	= new HashMap<Integer, Gameservers>();
 
-    /**
-     * Search by id
-     * @param id
-     * @return
-     */
-    public Gameservers getGameserverByServerId(int id)
-    {
-        if ( ! referential.containsKey(id))
-        {
-            throw new ObjectRetrievalFailureException ("Gameservers",id);
-        }
-        return referential.get(id);
-    }
+	public GameserversDAOMock()
+	{
+		referential.put(1, new Gameservers(1, "548545", "*"));
+	}
 
-    /**
-     * @see com.l2jfree.loginserver.dao.GameserversDAO#createGameserver(java.lang.Object)
-     */
-    public int createGameserver(Gameservers obj)
-    {
-        referential.put(obj.getServerId(),obj);
-        return obj.getServerId();
-    }
+	/**
+	 * Search by id
+	 * @param id
+	 * @return
+	 */
+	public Gameservers getGameserverByServerId(int id)
+	{
+		if (!referential.containsKey(id))
+		{
+			throw new ObjectRetrievalFailureException("Gameservers", id);
+		}
+		return referential.get(id);
+	}
 
-    /**
-     * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdate(java.lang.Object)
-     */
-    public void createOrUpdate(Gameservers obj)
-    {
-        createGameserver(obj);
-        
-    }
+	/**
+	 * @see com.l2jfree.loginserver.dao.GameserversDAO#createGameserver(java.lang.Object)
+	 */
+	public int createGameserver(Gameservers obj)
+	{
+		referential.put(obj.getServerId(), obj);
+		return obj.getServerId();
+	}
 
-    /**
-     * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdateAll(java.util.Collection)
-     */
-    public void createOrUpdateAll(Collection entities)
-    {
-        Iterator it = entities.iterator();
-        while (it.hasNext())
-        {
-            createGameserver((Gameservers)it.next());
-        }
-    }
+	/**
+	 * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdate(java.lang.Object)
+	 */
+	public void createOrUpdate(Gameservers obj)
+	{
+		createGameserver(obj);
 
-    /**
-     * @see com.l2jfree.loginserver.dao.GameserversDAO#getAlGameservers()
-     */
-    public List <Gameservers> getAllGameservers()
-    {
-        return new ArrayList<Gameservers> (referential.values());
-    }
+	}
 
-    /**
-     * @see com.l2jfree.loginserver.dao.GameserversDAO#removeGameserver(java.lang.Object)
-     */
-    public void removeGameserver(Gameservers obj)
-    {
-        referential.remove(obj.getServerId());
-        
-    }
+	/**
+	 * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdateAll(java.util.Collection)
+	 */
+	public void createOrUpdateAll(Collection entities)
+	{
+		Iterator it = entities.iterator();
+		while (it.hasNext())
+		{
+			createGameserver((Gameservers) it.next());
+		}
+	}
 
-    /**
-     * @see com.l2jfree.loginserver.dao.GameserversDAO#removeGameserverById(java.io.Serializable)
-     */
-    public void removeGameserverByServerId(int id)
-    {
-        referential.remove(id);
-    }
+	/**
+	 * @see com.l2jfree.loginserver.dao.GameserversDAO#getAlGameservers()
+	 */
+	public List<Gameservers> getAllGameservers()
+	{
+		return new ArrayList<Gameservers>(referential.values());
+	}
 
+	/**
+	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeGameserver(java.lang.Object)
+	 */
+	public void removeGameserver(Gameservers obj)
+	{
+		referential.remove(obj.getServerId());
 
-    /**
-     * @see com.l2jfree.loginserver.dao.GameserversDAO#removeAll(java.util.Collection)
-     */
-    public void removeAll(Collection entities)
-    {
-        Iterator it = entities.iterator();
-        while (it.hasNext())
-        {
-            removeGameserver((Gameservers)it.next());
-        }        
-    }
+	}
 
+	/**
+	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeGameserverById(java.io.Serializable)
+	 */
+	public void removeGameserverByServerId(int id)
+	{
+		referential.remove(id);
+	}
 
-    /**
-     * @see com.l2jfree.loginserver.dao.GameserversDAO#update(java.lang.Object)
-     */
-    public void update(Object obj)
-    {
-        Gameservers acc = (Gameservers)obj;
-        removeGameserverByServerId(acc.getServerId());
-        createGameserver(acc);
-        
-    }
+	/**
+	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeAll(java.util.Collection)
+	 */
+	public void removeAll(Collection entities)
+	{
+		Iterator it = entities.iterator();
+		while (it.hasNext())
+		{
+			removeGameserver((Gameservers) it.next());
+		}
+	}
 
+	/**
+	 * @see com.l2jfree.loginserver.dao.GameserversDAO#update(java.lang.Object)
+	 */
+	public void update(Object obj)
+	{
+		Gameservers acc = (Gameservers) obj;
+		removeGameserverByServerId(acc.getServerId());
+		createGameserver(acc);
 
-	public void removeAll() {
+	}
+
+	public void removeAll()
+	{
 		referential.clear();
 	}
 

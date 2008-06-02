@@ -28,7 +28,6 @@ package com.l2jfree.loginserver.services;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DataAccessException;
@@ -43,91 +42,91 @@ import com.l2jfree.loginserver.dao.GameserversDAO;
  */
 public class GameserversServices
 {
-    private static Log _log = LogFactory.getLog(GameserversServices.class);
-    
-    private GameserversDAO __dao = null;
-    
-    public void setGameserversDAO (GameserversDAO dao)
-    {
-        __dao =  dao;
-    }
-    
-    /**
-     * Return list of gameservers
-     * @return 
-     */
-    public List<Gameservers> getAllGameservers ()
-    {
-        try
-        {
-            List<Gameservers> servers = __dao.getAllGameservers();
-            return servers;
-        } 
-        catch (ObjectRetrievalFailureException e)
-        {
-            _log.warn("Unable to retrieve gameservers.",e);
-            return new ArrayList<Gameservers>();
-        }
-    }
-    
-    /**
-     * 
-     * @param id - the server id
-     * @return  the server name or null if no server was found
-     */ 
-    public String getGameserverName (int id)
-    {
-        try
-        {
-            return __dao.getGameserverByServerId(id).getServerName();
-        }
-        catch (Exception e)
-        {
-            _log.warn("Unable to retrieve gameserver : " + id,e);
-            return null;
-        }
-    }
-    
-    /**
-     * 
-     * @param gs
-     * @return id of created server or -1 if server was not created.
-     */
-    public int createGameserver (Gameservers gs)
-    {
-        try
-        {
-            return __dao.createGameserver(gs);
-        }
-        catch (DataAccessException e)
-        {
-            _log.warn("Unable to create gameserver.",e);
-            return -1;
-        }
-    }
-    
-    /**
-     * 
-     * @param id
-     */
-    public void deleteGameserver(int id)
-    {
-        try
-        {
-            __dao.removeGameserverByServerId(id);
-        }
-        catch (DataAccessException e)
-        {
-            _log.warn("Error while deleting gameserver :" + e, e);
-        }
-    }
+	private static Log		_log	= LogFactory.getLog(GameserversServices.class);
 
-    /**
-     * @param entities
-     * @see com.l2jfree.loginserver.dao.GameserversDAO#removeAll()
-     */
-    public void removeAll()
-    {
-        __dao.removeAll();
-    }    
+	private GameserversDAO	__dao	= null;
+
+	public void setGameserversDAO(GameserversDAO dao)
+	{
+		__dao = dao;
+	}
+
+	/**
+	 * Return list of gameservers
+	 * @return 
+	 */
+	public List<Gameservers> getAllGameservers()
+	{
+		try
+		{
+			List<Gameservers> servers = __dao.getAllGameservers();
+			return servers;
+		}
+		catch (ObjectRetrievalFailureException e)
+		{
+			_log.warn("Unable to retrieve gameservers.", e);
+			return new ArrayList<Gameservers>();
+		}
+	}
+
+	/**
+	 * 
+	 * @param id - the server id
+	 * @return  the server name or null if no server was found
+	 */
+	public String getGameserverName(int id)
+	{
+		try
+		{
+			return __dao.getGameserverByServerId(id).getServerName();
+		}
+		catch (Exception e)
+		{
+			_log.warn("Unable to retrieve gameserver : " + id, e);
+			return null;
+		}
+	}
+
+	/**
+	 * 
+	 * @param gs
+	 * @return id of created server or -1 if server was not created.
+	 */
+	public int createGameserver(Gameservers gs)
+	{
+		try
+		{
+			return __dao.createGameserver(gs);
+		}
+		catch (DataAccessException e)
+		{
+			_log.warn("Unable to create gameserver.", e);
+			return -1;
+		}
+	}
+
+	/**
+	 * 
+	 * @param id
+	 */
+	public void deleteGameserver(int id)
+	{
+		try
+		{
+			__dao.removeGameserverByServerId(id);
+		}
+		catch (DataAccessException e)
+		{
+			_log.warn("Error while deleting gameserver :" + e, e);
+		}
+	}
+
+	/**
+	 * @param entities
+	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeAll()
+	 */
+	public void removeAll()
+	{
+		__dao.removeAll();
+	}
 }

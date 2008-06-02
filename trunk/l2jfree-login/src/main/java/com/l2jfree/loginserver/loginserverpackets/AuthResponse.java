@@ -23,7 +23,6 @@ import java.io.IOException;
 import com.l2jfree.loginserver.manager.GameServerManager;
 import com.l2jfree.loginserver.serverpackets.ServerBasePacket;
 
-
 /**
  * @author -Wooden-
  *

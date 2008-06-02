@@ -28,28 +28,33 @@ import java.util.logging.LogRecord;
  */
 public class ConsoleLogFormatter extends Formatter
 {
-    /**
+	/**
 	 *
 	 * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
 	 */
-	private static final String CRLF = "\r\n";
+	private static final String	CRLF	= "\r\n";
+
 	public String format(LogRecord record)
 	{
 		StringBuffer output = new StringBuffer();
 		output.append(record.getLevel().getName());
-        output.append(" ");
+		output.append(" ");
 		output.append(record.getMessage());
 		output.append(CRLF);
-		if (record.getThrown() != null) {
-		    try {
-		        StringWriter sw = new StringWriter();
-		        PrintWriter pw = new PrintWriter(sw);
-		        record.getThrown().printStackTrace(pw);
-		        pw.close();
+		if (record.getThrown() != null)
+		{
+			try
+			{
+				StringWriter sw = new StringWriter();
+				PrintWriter pw = new PrintWriter(sw);
+				record.getThrown().printStackTrace(pw);
+				pw.close();
 				output.append(sw.toString());
 				output.append(CRLF);
-		    } catch (Exception ex) {
-		    }
+			}
+			catch (Exception ex)
+			{
+			}
 		}
 
 		return output.toString();

@@ -31,40 +31,41 @@ package com.l2jfree.loginserver.services.exception;
  */
 public class AccountModificationException extends Exception
 {
-    /**
-     * Default serialVersion UID
-     */
-    private static final long serialVersionUID = 1L;
+	/**
+	 * Default serialVersion UID
+	 */
+	private static final long	serialVersionUID	= 1L;
 
-    /**
-     * Default constructor
-     */
-    public AccountModificationException()
-    {
-        super();
-    }
-    /**
-     * constructor with reason
-     */
-    public AccountModificationException( String reason)
-    {
-        super(reason);
-    }
+	/**
+	 * Default constructor
+	 */
+	public AccountModificationException()
+	{
+		super();
+	}
 
-    /**
-     * Copy constructor
-     */
-    public AccountModificationException( Throwable e)
-    {
-        super(e);
-    }
+	/**
+	 * constructor with reason
+	 */
+	public AccountModificationException(String reason)
+	{
+		super(reason);
+	}
 
-    /**
-     * Copy constructor
-     */
-    public AccountModificationException(String reason, Throwable e)
-    {
-        super(reason,e);
-    }
+	/**
+	 * Copy constructor
+	 */
+	public AccountModificationException(Throwable e)
+	{
+		super(e);
+	}
+
+	/**
+	 * Copy constructor
+	 */
+	public AccountModificationException(String reason, Throwable e)
+	{
+		super(reason, e);
+	}
 
 }

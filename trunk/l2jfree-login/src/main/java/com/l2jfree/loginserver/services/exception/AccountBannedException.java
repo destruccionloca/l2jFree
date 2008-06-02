@@ -31,40 +31,41 @@ package com.l2jfree.loginserver.services.exception;
  */
 public class AccountBannedException extends Exception
 {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 2448159234999935143L;
+	/**
+	 * 
+	 */
+	private static final long	serialVersionUID	= 2448159234999935143L;
 
-    /**
-     * Default constructor
-     */
-    public AccountBannedException()
-    {
-        super();
-    }
-    /**
-     * constructor with reason
-     */
-    public AccountBannedException( String reason)
-    {
-        super("Account "+reason+" is banned");
-    }
+	/**
+	 * Default constructor
+	 */
+	public AccountBannedException()
+	{
+		super();
+	}
 
-    /**
-     * Copy constructor
-     */
-    public AccountBannedException( Throwable e)
-    {
-        super(e);
-    }
+	/**
+	 * constructor with reason
+	 */
+	public AccountBannedException(String reason)
+	{
+		super("Account " + reason + " is banned");
+	}
 
-    /**
-     * Copy constructor
-     */
-    public AccountBannedException(String reason, Throwable e)
-    {
-        super("Account "+reason+" is banned",e);
-    }
+	/**
+	 * Copy constructor
+	 */
+	public AccountBannedException(Throwable e)
+	{
+		super(e);
+	}
+
+	/**
+	 * Copy constructor
+	 */
+	public AccountBannedException(String reason, Throwable e)
+	{
+		super("Account " + reason + " is banned", e);
+	}
 
 }

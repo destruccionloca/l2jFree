@@ -34,30 +34,30 @@ import com.l2jfree.Config;
  */
 public class GameServerListener extends FloodProtectedListener
 {
-    private static Log _log = LogFactory.getLog(GameServerListener.class.getName());
-    private static List<GameServerThread> _gameServers = new FastList<GameServerThread>();
-    
-    public GameServerListener() throws IOException
-    {
-        super(Config.LOGIN_HOSTNAME, Config.LOGIN_PORT);
-    }
+	private static Log						_log			= LogFactory.getLog(GameServerListener.class.getName());
+	private static List<GameServerThread>	_gameServers	= new FastList<GameServerThread>();
 
-    /**
-     * @see com.l2jfree.loginserver.FloodProtectedListener#addClient(java.net.Socket)
-     */
-    @Override
-    public void addClient(Socket s)
-    {
-        if (_log.isDebugEnabled())
-        {
-            _log.info("Received gameserver connection from: "+s.getInetAddress().getHostAddress());
-        }
-        GameServerThread gst = new GameServerThread(s);
-        _gameServers.add(gst);
-    }
-    
-    public void removeGameServer(GameServerThread gst)
-    {
-        _gameServers.remove(gst);
-    }
+	public GameServerListener() throws IOException
+	{
+		super(Config.LOGIN_HOSTNAME, Config.LOGIN_PORT);
+	}
+
+	/**
+	 * @see com.l2jfree.loginserver.FloodProtectedListener#addClient(java.net.Socket)
+	 */
+	@Override
+	public void addClient(Socket s)
+	{
+		if (_log.isDebugEnabled())
+		{
+			_log.info("Received gameserver connection from: " + s.getInetAddress().getHostAddress());
+		}
+		GameServerThread gst = new GameServerThread(s);
+		_gameServers.add(gst);
+	}
+
+	public void removeGameServer(GameServerThread gst)
+	{
+		_gameServers.remove(gst);
+	}
 }

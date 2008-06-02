@@ -41,231 +41,230 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import com.l2jfree.loginserver.beans.Accounts;
 import com.l2jfree.loginserver.dao.impl.AccountsDAOHib;
 
-
-
 /**
  * Test account DAO
  * 
  */
 public class TestAccountsDAOHib extends ADAOTestCase
 {
-    private Accounts account = null;
-    private AccountsDAOHib dao = null;
+	private Accounts		account	= null;
+	private AccountsDAOHib	dao		= null;
 
-    public TestAccountsDAOHib(String name)
-    {
-        super(name);
-    }
-    
-    public String[] getMappings()
-    {
-        return new String [] {"Accounts.hbm.xml"};
-    }
-    
-    
-    public void setAccountDao(AccountsDAOHib _dao)
-    {
-        this.dao = _dao;
-    }
+	public TestAccountsDAOHib(String name)
+	{
+		super(name);
+	}
 
-    protected List<IDataSet> getDataSet() throws Exception
-    {
-        String [] dataSetNameList = {"accounts.xml"};
-        String dtdName = "database/l2jdb.dtd";
-        List<IDataSet> dataSetList = new ArrayList<IDataSet>();
-    
-        InputStream inDTD = this.getClass().getResourceAsStream(dtdName);
-        FlatDtdDataSet dtdDataSet = new FlatDtdDataSet(inDTD);
-        for(int indice=0; indice<dataSetNameList.length; indice++)
-        {
-            InputStream in = this.getClass().getResourceAsStream(dataSetNameList[indice]);
-            IDataSet dataSet = new FlatXmlDataSet(in, dtdDataSet);
-            dataSetList.add(dataSet);
-        }
-        return dataSetList;
-    }
+	public String[] getMappings()
+	{
+		return new String[]
+		{ "Accounts.hbm.xml" };
+	}
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    @SuppressWarnings("deprecation")
-    @Override
-    public void setUp() throws Exception
-    {
-        super.setUp();
-        // Set DAO to test
-        setAccountDao(new AccountsDAOHib());
-        dao.setCurrentSession(getSession());      
-    }
+	public void setAccountDao(AccountsDAOHib _dao)
+	{
+		this.dao = _dao;
+	}
 
-    public void testFindAccount() throws Exception
-    {
+	protected List<IDataSet> getDataSet() throws Exception
+	{
+		String[] dataSetNameList =
+		{ "accounts.xml" };
+		String dtdName = "database/l2jdb.dtd";
+		List<IDataSet> dataSetList = new ArrayList<IDataSet>();
 
-        account = dao.getAccountById("player1");
+		InputStream inDTD = this.getClass().getResourceAsStream(dtdName);
+		FlatDtdDataSet dtdDataSet = new FlatDtdDataSet(inDTD);
+		for (int indice = 0; indice < dataSetNameList.length; indice++)
+		{
+			InputStream in = this.getClass().getResourceAsStream(dataSetNameList[indice]);
+			IDataSet dataSet = new FlatXmlDataSet(in, dtdDataSet);
+			dataSetList.add(dataSet);
+		}
+		return dataSetList;
+	}
 
-        assertEquals("player1", account.getLogin());
-        assertEquals(4, account.getAccessLevel().intValue());
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@SuppressWarnings("deprecation")
+	@Override
+	public void setUp() throws Exception
+	{
+		super.setUp();
+		// Set DAO to test
+		setAccountDao(new AccountsDAOHib());
+		dao.setCurrentSession(getSession());
+	}
 
-    }
+	public void testFindAccount() throws Exception
+	{
 
-    public void testModifyAccount() throws Exception
-    {
-        // retrieve object
-        account = dao.getAccountById("player1");
+		account = dao.getAccountById("player1");
 
-        assertEquals("player1", account.getLogin());
-        assertEquals(4, account.getAccessLevel().intValue());
+		assertEquals("player1", account.getLogin());
+		assertEquals(4, account.getAccessLevel().intValue());
 
-        // modify object
-        account.setAccessLevel(7);
-        account.setLastactive(new BigDecimal(System.currentTimeMillis()));
-        account.setLastIp("127.0.0.1");
-        dao.createOrUpdate(account);
-        dao.getCurrentSession().flush();
+	}
 
-        // check modification
-        account = dao.getAccountById("player1");
-        assertEquals("player1", account.getLogin());
-        assertEquals(7, account.getAccessLevel().intValue());
+	public void testModifyAccount() throws Exception
+	{
+		// retrieve object
+		account = dao.getAccountById("player1");
 
-        // cancel modification
-        account.setAccessLevel(4);
-        account.setLastactive(new BigDecimal(System.currentTimeMillis()));
-        account.setLastIp("127.0.0.1");
-        dao.createOrUpdate(account);
-        dao.getCurrentSession().flush();
-    }
+		assertEquals("player1", account.getLogin());
+		assertEquals(4, account.getAccessLevel().intValue());
 
-    public void testAddAndRemoveAccounts() throws Exception
-    {
+		// modify object
+		account.setAccessLevel(7);
+		account.setLastactive(new BigDecimal(System.currentTimeMillis()));
+		account.setLastIp("127.0.0.1");
+		dao.createOrUpdate(account);
+		dao.getCurrentSession().flush();
 
-        // Add account
-        account = new Accounts();
-        account.setLogin("Bill");
-        account.setPassword("testPw");
-        account.setLastIp("127.0.0.1");
+		// check modification
+		account = dao.getAccountById("player1");
+		assertEquals("player1", account.getLogin());
+		assertEquals(7, account.getAccessLevel().intValue());
 
-        dao.createAccount(account);
+		// cancel modification
+		account.setAccessLevel(4);
+		account.setLastactive(new BigDecimal(System.currentTimeMillis()));
+		account.setLastIp("127.0.0.1");
+		dao.createOrUpdate(account);
+		dao.getCurrentSession().flush();
+	}
 
-        assertEquals(account.getLogin(), "Bill");
+	public void testAddAndRemoveAccounts() throws Exception
+	{
 
-        // delete account
-        dao.removeAccount(account);
+		// Add account
+		account = new Accounts();
+		account.setLogin("Bill");
+		account.setPassword("testPw");
+		account.setLastIp("127.0.0.1");
 
-        try
-        {
-            account = dao.getAccountById("Bill");
-            fail("Accounts found in database");
-        }
-        catch (ObjectRetrievalFailureException dae)
-        {
-            assertNotNull(dae);
-        }
-    }
+		dao.createAccount(account);
 
-    public void testFindNonExistentAccount() throws Exception
-    {
+		assertEquals(account.getLogin(), "Bill");
 
-        try
-        {
-            account = dao.getAccountById("Unknown");
-            fail("Accounts found in database");
-        }
-        catch (DataAccessException dae)
-        {
-            assertNotNull(dae);
-        }
-    }
+		// delete account
+		dao.removeAccount(account);
 
-    public void testFindAll() throws Exception
-    {
+		try
+		{
+			account = dao.getAccountById("Bill");
+			fail("Accounts found in database");
+		}
+		catch (ObjectRetrievalFailureException dae)
+		{
+			assertNotNull(dae);
+		}
+	}
 
-        List list = dao.getAllAccounts();
+	public void testFindNonExistentAccount() throws Exception
+	{
 
-        assertEquals(1, list.size());
+		try
+		{
+			account = dao.getAccountById("Unknown");
+			fail("Accounts found in database");
+		}
+		catch (DataAccessException dae)
+		{
+			assertNotNull(dae);
+		}
+	}
 
-        // Add account
-        account = new Accounts();
-        account.setLogin("Bill");
-        account.setPassword("testPw");
-        account.setLastIp("127.0.0.4");
+	public void testFindAll() throws Exception
+	{
 
-        dao.createAccount(account);
-        dao.getCurrentSession().flush();
-        
-        assertEquals(1, list.size());
+		List list = dao.getAllAccounts();
 
-        list = dao.getAllAccounts();
+		assertEquals(1, list.size());
 
-        assertEquals(2, list.size());
+		// Add account
+		account = new Accounts();
+		account.setLogin("Bill");
+		account.setPassword("testPw");
+		account.setLastIp("127.0.0.4");
 
-        dao.removeAccount(account);
-        dao.getCurrentSession().flush();
-        
-        list = dao.getAllAccounts();
+		dao.createAccount(account);
+		dao.getCurrentSession().flush();
 
-        assertEquals(1, list.size());
-    }
+		assertEquals(1, list.size());
 
-    public void testRemoveObject() throws Exception
-    {
+		list = dao.getAllAccounts();
 
-        // Add account
-        account = new Accounts();
-        account.setLogin("Bill");
-        account.setPassword("testPw");
-        account.setLastIp("127.0.0.1");
+		assertEquals(2, list.size());
 
-        dao.createAccount(account);
+		dao.removeAccount(account);
+		dao.getCurrentSession().flush();
 
-        dao.removeAccount(account);
+		list = dao.getAllAccounts();
 
-        List list = dao.getAllAccounts();
+		assertEquals(1, list.size());
+	}
 
-        assertEquals(1, list.size());
-    }
+	public void testRemoveObject() throws Exception
+	{
 
-    public void testAddAllAndRemove() throws Exception
-    {
+		// Add account
+		account = new Accounts();
+		account.setLogin("Bill");
+		account.setPassword("testPw");
+		account.setLastIp("127.0.0.1");
 
-        // Add multiple account
-        List<Accounts> listAccount = new ArrayList<Accounts>();
+		dao.createAccount(account);
 
-        Accounts acc = new Accounts();
-        acc.setLogin("Bill");
-        acc.setPassword("testPw");
-        acc.setLastIp("127.0.0.1");
+		dao.removeAccount(account);
 
-        listAccount.add(acc);
+		List list = dao.getAllAccounts();
 
-        acc = new Accounts();
-        acc.setLogin("BigBill");
-        acc.setPassword("anotherPw");
-        acc.setLastIp("127.0.0.2");
+		assertEquals(1, list.size());
+	}
 
-        listAccount.add(acc);
+	public void testAddAllAndRemove() throws Exception
+	{
 
-        acc = new Accounts();
-        acc.setLogin("Matt");
-        acc.setPassword("anotherPw2");
-        acc.setLastIp("127.0.0.3");
+		// Add multiple account
+		List<Accounts> listAccount = new ArrayList<Accounts>();
 
-        listAccount.add(acc);
+		Accounts acc = new Accounts();
+		acc.setLogin("Bill");
+		acc.setPassword("testPw");
+		acc.setLastIp("127.0.0.1");
 
-        dao.createOrUpdateAll(listAccount);
-        dao.getCurrentSession().flush();
-        
-        List list = dao.getAllAccounts();
+		listAccount.add(acc);
 
-        assertEquals(4, list.size());
+		acc = new Accounts();
+		acc.setLogin("BigBill");
+		acc.setPassword("anotherPw");
+		acc.setLastIp("127.0.0.2");
 
-        dao.removeAll(listAccount);
-        dao.getCurrentSession().flush();
-        
-        list = dao.getAllAccounts();
+		listAccount.add(acc);
 
-        assertEquals(1, list.size());
+		acc = new Accounts();
+		acc.setLogin("Matt");
+		acc.setPassword("anotherPw2");
+		acc.setLastIp("127.0.0.3");
 
-    }
+		listAccount.add(acc);
+
+		dao.createOrUpdateAll(listAccount);
+		dao.getCurrentSession().flush();
+
+		List list = dao.getAllAccounts();
+
+		assertEquals(4, list.size());
+
+		dao.removeAll(listAccount);
+		dao.getCurrentSession().flush();
+
+		list = dao.getAllAccounts();
+
+		assertEquals(1, list.size());
+
+	}
 
 }

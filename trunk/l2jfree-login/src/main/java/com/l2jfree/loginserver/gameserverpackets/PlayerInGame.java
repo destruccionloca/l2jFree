@@ -22,24 +22,23 @@ import java.util.Vector;
 
 import com.l2jfree.loginserver.clientpackets.ClientBasePacket;
 
-
 /**
  * @author -Wooden-
  *
  */
 public class PlayerInGame extends ClientBasePacket
 {
-	Vector<String> _accounts;
-	
+	Vector<String>	_accounts;
+
 	/**
 	 * @param decrypt
 	 */
 	public PlayerInGame(byte[] decrypt)
 	{
 		super(decrypt);
-		_accounts =  new Vector<String>();
+		_accounts = new Vector<String>();
 		int size = readH();
-		for(int i = 0; i < size; i++)
+		for (int i = 0; i < size; i++)
 		{
 			_accounts.add(readS());
 		}
@@ -52,5 +51,5 @@ public class PlayerInGame extends ClientBasePacket
 	{
 		return _accounts;
 	}
-	
+
 }

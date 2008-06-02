@@ -47,217 +47,231 @@ import com.l2jfree.loginserver.dao.impl.GameserversDAOHib;
  */
 public class TestGameserversDAOHib extends ADAOTestCase
 {
-    private Gameservers gameserver = null;
-    private GameserversDAOHib dao = null;
-    
-    public TestGameserversDAOHib(String name)
-    {
-        super(name);
-    }
-    
-    public void setGameserversDao(GameserversDAOHib _dao) {
-        this.dao = _dao;
-    }
-    
-    public String[] getMappings()
-    {
-        return new String [] {"Gameservers.hbm.xml"};
-    }
-    
-    
-    protected List<IDataSet> getDataSet() throws Exception
-    {
-        String [] dataSetNameList = {"gameservers.xml"};
-        String dtdName = "database/l2jdb.dtd";
-        List<IDataSet> dataSetList = new ArrayList<IDataSet>();
-    
-        InputStream inDTD = this.getClass().getResourceAsStream(dtdName);
-        FlatDtdDataSet dtdDataSet = new FlatDtdDataSet(inDTD);
-        for(int indice=0; indice<dataSetNameList.length; indice++)
-        {
-            InputStream in = this.getClass().getResourceAsStream(dataSetNameList[indice]);
-            IDataSet dataSet = new FlatXmlDataSet(in, dtdDataSet);
-            dataSetList.add(dataSet);
-        }
-        return dataSetList;
-    }
+	private Gameservers			gameserver	= null;
+	private GameserversDAOHib	dao			= null;
 
-    @SuppressWarnings("deprecation")
-    public void setUp() throws Exception {
+	public TestGameserversDAOHib(String name)
+	{
+		super(name);
+	}
 
-        super.setUp();
-        // Set DAO to test
-        setGameserversDao(new GameserversDAOHib());
-        dao.setCurrentSession(getSession());            
-    }    
-    
-    public void testFindGameserver() throws Exception {
-        gameserver = dao.getGameserverByServerId(0);
+	public void setGameserversDao(GameserversDAOHib _dao)
+	{
+		this.dao = _dao;
+	}
 
-        assertEquals("651de5d23464e255346a36d0bbb1966a", gameserver.getHexid());
-        assertEquals("*", gameserver.getHost());
-    }    
-    
-    public void testModifyGameserver() throws Exception {
-        // retrieve object
-        gameserver = dao.getGameserverByServerId(0);
+	public String[] getMappings()
+	{
+		return new String[]
+		{ "Gameservers.hbm.xml" };
+	}
 
-        assertEquals("651de5d23464e255346a36d0bbb1966a", gameserver.getHexid());
-        assertEquals("*", gameserver.getHost());
-        
-        // modify object
-        gameserver.setHost("localhost");
-        dao.update(gameserver);
-        
-        
-        // check modification
-        gameserver = dao.getGameserverByServerId(0);
-        assertEquals("651de5d23464e255346a36d0bbb1966a", gameserver.getHexid());
-        assertEquals("localhost", gameserver.getHost());
-        
-        // cancel modification
-        gameserver.setHost("");
-        dao.update(gameserver);
-    }    
+	protected List<IDataSet> getDataSet() throws Exception
+	{
+		String[] dataSetNameList =
+		{ "gameservers.xml" };
+		String dtdName = "database/l2jdb.dtd";
+		List<IDataSet> dataSetList = new ArrayList<IDataSet>();
 
+		InputStream inDTD = this.getClass().getResourceAsStream(dtdName);
+		FlatDtdDataSet dtdDataSet = new FlatDtdDataSet(inDTD);
+		for (int indice = 0; indice < dataSetNameList.length; indice++)
+		{
+			InputStream in = this.getClass().getResourceAsStream(dataSetNameList[indice]);
+			IDataSet dataSet = new FlatXmlDataSet(in, dtdDataSet);
+			dataSetList.add(dataSet);
+		}
+		return dataSetList;
+	}
 
-    public void testAddAndRemoveGameservers() throws Exception {
-        
-        // Add Gameserver
-        gameserver = new Gameservers();
-        gameserver.setHexid("hexid1");
-        gameserver.setHost("*");
-        
-        int id = dao.createGameserver(gameserver);
-        System.out.println("Gameserver created with id : " +id);
-        assertEquals(gameserver.getHexid(), "hexid1");
-        
-        // delete Gameserver
-        dao.removeGameserver(gameserver);
+	@SuppressWarnings("deprecation")
+	public void setUp() throws Exception
+	{
 
-        try {
-            gameserver = dao.getGameserverByServerId(id);
-            fail("Gameservers found in database");
-        } catch (ObjectRetrievalFailureException dae) {
-            assertNotNull(dae);
-        }
-    }
-    
-   public void testFindNonExistentGameserver() throws Exception {
+		super.setUp();
+		// Set DAO to test
+		setGameserversDao(new GameserversDAOHib());
+		dao.setCurrentSession(getSession());
+	}
 
-        try {
-            gameserver = dao.getGameserverByServerId(666);
-            fail("Gameservers found in database");
-        } catch (DataAccessException dae) {
-            assertNotNull(dae);
-        }
-    }
-    
-   public void testFindAll() throws Exception {
-       
-       List<Gameservers> list = dao.getAllGameservers();
-       
-       assertEquals(1,list.size());
-       
-       // Add Gameserver
-       gameserver = new Gameservers();
-       gameserver.setHexid("hexid2");
-       gameserver.setHost("*");
-       
-       dao.createGameserver(gameserver);
-       dao.getCurrentSession().flush();
-       
-       assertEquals(1,list.size());
+	public void testFindGameserver() throws Exception
+	{
+		gameserver = dao.getGameserverByServerId(0);
 
-       list = dao.getAllGameservers();
+		assertEquals("651de5d23464e255346a36d0bbb1966a", gameserver.getHexid());
+		assertEquals("*", gameserver.getHost());
+	}
 
-       assertEquals(2,list.size());
-       
-       dao.removeGameserver(gameserver);
-       dao.getCurrentSession().flush();
+	public void testModifyGameserver() throws Exception
+	{
+		// retrieve object
+		gameserver = dao.getGameserverByServerId(0);
 
-       list = dao.getAllGameservers();
+		assertEquals("651de5d23464e255346a36d0bbb1966a", gameserver.getHexid());
+		assertEquals("*", gameserver.getHost());
 
-       assertEquals(1,list.size());
-       
-       Iterator<Gameservers> it = list.iterator();
-       int idPrevious = -1;
-       // check that the list is ordered by serverId
-       while (it.hasNext())
-       {
-    	   Gameservers gs = it.next();
-    	   assertTrue(gs.getServerId()>idPrevious);
-    	   idPrevious = gs.getServerId();
-       }
-       
-   }   
-   
-  public void testRemoveObject() throws Exception {
-       
-       // Add Gameserver
-       gameserver = new Gameservers();
-       gameserver.setHexid("hexid2");
-       gameserver.setHost("hexid2");
-       
-       dao.createGameserver(gameserver);
-       
-       dao.removeGameserver(gameserver);
+		// modify object
+		gameserver.setHost("localhost");
+		dao.update(gameserver);
 
-       List list = dao.getAllGameservers();
+		// check modification
+		gameserver = dao.getGameserverByServerId(0);
+		assertEquals("651de5d23464e255346a36d0bbb1966a", gameserver.getHexid());
+		assertEquals("localhost", gameserver.getHost());
 
-       assertEquals(1,list.size());
-   } 
+		// cancel modification
+		gameserver.setHost("");
+		dao.update(gameserver);
+	}
 
-  public void testRemoveAll() throws Exception {
-      
-	  testAddAllAndRemove();
-	  
-	  dao.removeAll();
-	  
-	  dao.getCurrentSession().flush();
-	  List list ;
-	  list = dao.getAllGameservers();
-	  assertEquals(0,list.size());
-  } 
-  
-  public void testAddAllAndRemove() throws Exception {
-      
-      // Add multiple Gameserver
-      List<Gameservers> listGameserver = new ArrayList<Gameservers>();
-      
-      Gameservers acc = new Gameservers ();
-      acc.setHexid("hexid1");
-      acc.setHost("toto@test.com");
-      
-      listGameserver.add(acc);
-      
-      acc = new Gameservers ();
-      acc.setHexid("hexid2");
-      acc.setHost("toto2@test.com");      
+	public void testAddAndRemoveGameservers() throws Exception
+	{
 
-      listGameserver.add(acc);
+		// Add Gameserver
+		gameserver = new Gameservers();
+		gameserver.setHexid("hexid1");
+		gameserver.setHost("*");
 
-      acc = new Gameservers ();
-      acc.setHexid("hexid3");
-      acc.setHost("toto3@test.com");      
+		int id = dao.createGameserver(gameserver);
+		System.out.println("Gameserver created with id : " + id);
+		assertEquals(gameserver.getHexid(), "hexid1");
 
-      listGameserver.add(acc);
-      
-      dao.createOrUpdateAll(listGameserver);
-      dao.getCurrentSession().flush();
-      
-      List list = dao.getAllGameservers();
+		// delete Gameserver
+		dao.removeGameserver(gameserver);
 
-      assertEquals(4,list.size());
-      
-      dao.removeAll(listGameserver);
-      dao.getCurrentSession().flush();
-      
-      list = dao.getAllGameservers();
+		try
+		{
+			gameserver = dao.getGameserverByServerId(id);
+			fail("Gameservers found in database");
+		}
+		catch (ObjectRetrievalFailureException dae)
+		{
+			assertNotNull(dae);
+		}
+	}
 
-      assertEquals(1,list.size());
-      
-      
-  }     
-    
+	public void testFindNonExistentGameserver() throws Exception
+	{
+
+		try
+		{
+			gameserver = dao.getGameserverByServerId(666);
+			fail("Gameservers found in database");
+		}
+		catch (DataAccessException dae)
+		{
+			assertNotNull(dae);
+		}
+	}
+
+	public void testFindAll() throws Exception
+	{
+
+		List<Gameservers> list = dao.getAllGameservers();
+
+		assertEquals(1, list.size());
+
+		// Add Gameserver
+		gameserver = new Gameservers();
+		gameserver.setHexid("hexid2");
+		gameserver.setHost("*");
+
+		dao.createGameserver(gameserver);
+		dao.getCurrentSession().flush();
+
+		assertEquals(1, list.size());
+
+		list = dao.getAllGameservers();
+
+		assertEquals(2, list.size());
+
+		dao.removeGameserver(gameserver);
+		dao.getCurrentSession().flush();
+
+		list = dao.getAllGameservers();
+
+		assertEquals(1, list.size());
+
+		Iterator<Gameservers> it = list.iterator();
+		int idPrevious = -1;
+		// check that the list is ordered by serverId
+		while (it.hasNext())
+		{
+			Gameservers gs = it.next();
+			assertTrue(gs.getServerId() > idPrevious);
+			idPrevious = gs.getServerId();
+		}
+
+	}
+
+	public void testRemoveObject() throws Exception
+	{
+
+		// Add Gameserver
+		gameserver = new Gameservers();
+		gameserver.setHexid("hexid2");
+		gameserver.setHost("hexid2");
+
+		dao.createGameserver(gameserver);
+
+		dao.removeGameserver(gameserver);
+
+		List list = dao.getAllGameservers();
+
+		assertEquals(1, list.size());
+	}
+
+	public void testRemoveAll() throws Exception
+	{
+
+		testAddAllAndRemove();
+
+		dao.removeAll();
+
+		dao.getCurrentSession().flush();
+		List list;
+		list = dao.getAllGameservers();
+		assertEquals(0, list.size());
+	}
+
+	public void testAddAllAndRemove() throws Exception
+	{
+
+		// Add multiple Gameserver
+		List<Gameservers> listGameserver = new ArrayList<Gameservers>();
+
+		Gameservers acc = new Gameservers();
+		acc.setHexid("hexid1");
+		acc.setHost("toto@test.com");
+
+		listGameserver.add(acc);
+
+		acc = new Gameservers();
+		acc.setHexid("hexid2");
+		acc.setHost("toto2@test.com");
+
+		listGameserver.add(acc);
+
+		acc = new Gameservers();
+		acc.setHexid("hexid3");
+		acc.setHost("toto3@test.com");
+
+		listGameserver.add(acc);
+
+		dao.createOrUpdateAll(listGameserver);
+		dao.getCurrentSession().flush();
+
+		List list = dao.getAllGameservers();
+
+		assertEquals(4, list.size());
+
+		dao.removeAll(listGameserver);
+		dao.getCurrentSession().flush();
+
+		list = dao.getAllGameservers();
+
+		assertEquals(1, list.size());
+
+	}
+
 }
