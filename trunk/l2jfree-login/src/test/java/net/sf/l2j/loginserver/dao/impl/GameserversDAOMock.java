@@ -32,14 +32,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.l2j.loginserver.beans.Gameservers;
-import net.sf.l2j.loginserver.dao.GameserversDAO;
 
 import org.springframework.orm.ObjectRetrievalFailureException;
 
+import com.l2jfree.loginserver.beans.Gameservers;
+import com.l2jfree.loginserver.dao.GameserversDAO;
+
 /**
  * DAO object for domain model class Gameservers.
- * @see net.sf.l2j.loginserver.beans.Gameservers
+ * @see com.l2jfree.loginserver.beans.Gameservers
  */
 public class GameserversDAOMock  implements GameserversDAO
 {
@@ -66,7 +67,7 @@ public class GameserversDAOMock  implements GameserversDAO
     }
 
     /**
-     * @see net.sf.l2j.loginserver.dao.GameserversDAO#createGameserver(java.lang.Object)
+     * @see com.l2jfree.loginserver.dao.GameserversDAO#createGameserver(java.lang.Object)
      */
     public int createGameserver(Gameservers obj)
     {
@@ -75,7 +76,7 @@ public class GameserversDAOMock  implements GameserversDAO
     }
 
     /**
-     * @see net.sf.l2j.loginserver.dao.GameserversDAO#createOrUpdate(java.lang.Object)
+     * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdate(java.lang.Object)
      */
     public void createOrUpdate(Gameservers obj)
     {
@@ -84,7 +85,7 @@ public class GameserversDAOMock  implements GameserversDAO
     }
 
     /**
-     * @see net.sf.l2j.loginserver.dao.GameserversDAO#createOrUpdateAll(java.util.Collection)
+     * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdateAll(java.util.Collection)
      */
     public void createOrUpdateAll(Collection entities)
     {
@@ -96,7 +97,7 @@ public class GameserversDAOMock  implements GameserversDAO
     }
 
     /**
-     * @see net.sf.l2j.loginserver.dao.GameserversDAO#getAlGameservers()
+     * @see com.l2jfree.loginserver.dao.GameserversDAO#getAlGameservers()
      */
     public List <Gameservers> getAllGameservers()
     {
@@ -104,7 +105,7 @@ public class GameserversDAOMock  implements GameserversDAO
     }
 
     /**
-     * @see net.sf.l2j.loginserver.dao.GameserversDAO#removeGameserver(java.lang.Object)
+     * @see com.l2jfree.loginserver.dao.GameserversDAO#removeGameserver(java.lang.Object)
      */
     public void removeGameserver(Gameservers obj)
     {
@@ -113,7 +114,7 @@ public class GameserversDAOMock  implements GameserversDAO
     }
 
     /**
-     * @see net.sf.l2j.loginserver.dao.GameserversDAO#removeGameserverById(java.io.Serializable)
+     * @see com.l2jfree.loginserver.dao.GameserversDAO#removeGameserverById(java.io.Serializable)
      */
     public void removeGameserverByServerId(int id)
     {
@@ -122,7 +123,7 @@ public class GameserversDAOMock  implements GameserversDAO
 
 
     /**
-     * @see net.sf.l2j.loginserver.dao.GameserversDAO#removeAll(java.util.Collection)
+     * @see com.l2jfree.loginserver.dao.GameserversDAO#removeAll(java.util.Collection)
      */
     public void removeAll(Collection entities)
     {
@@ -135,7 +136,7 @@ public class GameserversDAOMock  implements GameserversDAO
 
 
     /**
-     * @see net.sf.l2j.loginserver.dao.GameserversDAO#update(java.lang.Object)
+     * @see com.l2jfree.loginserver.dao.GameserversDAO#update(java.lang.Object)
      */
     public void update(Object obj)
     {

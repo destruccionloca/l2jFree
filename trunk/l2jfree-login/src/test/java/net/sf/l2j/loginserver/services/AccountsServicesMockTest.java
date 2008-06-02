@@ -26,10 +26,12 @@
 package net.sf.l2j.loginserver.services;
 
 import junit.framework.TestCase;
-import net.sf.l2j.loginserver.beans.Accounts;
-import net.sf.l2j.loginserver.services.exception.AccountModificationException;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.l2jfree.loginserver.beans.Accounts;
+import com.l2jfree.loginserver.services.AccountsServices;
+import com.l2jfree.loginserver.services.exception.AccountModificationException;
 
 /**
  * Test class for AccountsServices 

@@ -29,13 +29,16 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 import junit.framework.TestCase;
-import net.sf.l2j.Config;
-import net.sf.l2j.loginserver.beans.SessionKey;
-import net.sf.l2j.loginserver.services.exception.AccountBannedException;
-import net.sf.l2j.loginserver.services.exception.AccountWrongPasswordException;
-import net.sf.l2j.L2Registry;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.l2jfree.Config;
+import com.l2jfree.L2Registry;
+import com.l2jfree.loginserver.beans.SessionKey;
+import com.l2jfree.loginserver.manager.BanManager;
+import com.l2jfree.loginserver.manager.LoginManager;
+import com.l2jfree.loginserver.services.exception.AccountBannedException;
+import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
 
 /**
  * This class test ban management

@@ -26,9 +26,11 @@
 package net.sf.l2j.loginserver.manager;
 
 import junit.framework.TestCase;
-import net.sf.l2j.L2Registry;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.l2jfree.L2Registry;
+import com.l2jfree.loginserver.manager.GameServerManager;
 
 /**
  * This class test ban management

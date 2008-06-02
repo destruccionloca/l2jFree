@@ -23,38 +23,24 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.loginserver.dao.impl;
+package com.l2jfree.loginserver.dao.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 import com.l2jfree.loginserver.beans.Accounts;
 import com.l2jfree.loginserver.dao.AccountsDAO;
 
-
 /**
  * DAO object for domain model class Accounts.
  * @see com.l2jfree.loginserver.beans.Accounts
  */
-public class AccountsDAOMock  implements AccountsDAO
+public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
 {
     //private static final Log _log = LogFactory.getLog(AccountsDAOHib.class);
-    
-    private Map<String,Accounts> referential = new HashMap<String,Accounts>();
-    
-    public AccountsDAOMock()
-    {
-        referential.put("player1", new Accounts("player1","UqW5IPUACYelC13kW52+69qJwxQ=",new BigDecimal(0),new Integer(100),0,"127.0.0.1"));
-        referential.put("player2", new Accounts("player2","UqW5IPUACYelC13kW52+69qJwxQ=",new BigDecimal(0),new Integer(-1),0,"127.0.0.2"));
-    }
-    
 
     /**
      * Search by id
@@ -63,11 +49,10 @@ public class AccountsDAOMock  implements AccountsDAO
      */
     public Accounts getAccountById(String id)
     {
-        if ( ! referential.containsKey(id))
-        {
-            throw new ObjectRetrievalFailureException ("Accounts",id);
-        }
-        return referential.get(id);
+        Accounts account = (Accounts) get(Accounts.class, id);
+        if ( account == null )
+            throw new ObjectRetrievalFailureException("Accounts",id);
+        return account;
     }
 
     /**
@@ -75,9 +60,7 @@ public class AccountsDAOMock  implements AccountsDAO
      */
     public String createAccount(Object obj)
     {
-        Accounts acc = (Accounts)obj;
-        referential.put(acc.getLogin(),acc);
-        return acc.getLogin();
+        return (String)save(obj);
     }
 
     /**
@@ -85,7 +68,7 @@ public class AccountsDAOMock  implements AccountsDAO
      */
     public void createOrUpdate(Object obj)
     {
-        createAccount(obj);
+        saveOrUpdate(obj);
         
     }
 
@@ -94,19 +77,17 @@ public class AccountsDAOMock  implements AccountsDAO
      */
     public void createOrUpdateAll(Collection entities)
     {
-        Iterator it = entities.iterator();
-        while (it.hasNext())
-        {
-            createAccount(it.next());
-        }
+        saveOrUpdateAll(entities);
+        
     }
 
     /**
      * @see com.l2jfree.loginserver.dao.AccountsDAO#getAllAccounts()
      */
+    @SuppressWarnings("unchecked")
     public List <Accounts> getAllAccounts()
     {
-        return new ArrayList<Accounts> (referential.values());
+        return findAll(Accounts.class);
     }
 
     /**
@@ -114,7 +95,7 @@ public class AccountsDAOMock  implements AccountsDAO
      */
     public void removeAccount(Object obj)
     {
-        referential.remove(((Accounts)obj).getLogin());
+        delete(obj);
         
     }
 
@@ -123,31 +104,6 @@ public class AccountsDAOMock  implements AccountsDAO
      */
     public void removeAccountById(String login)
     {
-        referential.remove(login);
-    }
-
-
-    /**
-     * @see com.l2jfree.loginserver.dao.AccountsDAO#removeAll(java.util.Collection)
-     */
-    public void removeAll(Collection entities)
-    {
-        Iterator it = entities.iterator();
-        while (it.hasNext())
-        {
-            removeAccount(it.next());
-        }        
-    }
-
-
-    /**
-     * @see com.l2jfree.loginserver.dao.AccountsDAO#update(java.lang.Object)
-     */
-    public void update(Object obj)
-    {
-        Accounts acc = (Accounts)obj;
-        removeAccountById(acc.getLogin());
-        createAccount(obj);
-        
+        removeObject(Accounts.class, login);        
     }
 }
