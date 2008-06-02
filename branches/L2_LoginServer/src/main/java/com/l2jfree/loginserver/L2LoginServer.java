@@ -16,7 +16,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.loginserver;
+package com.l2jfree.loginserver;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,13 +26,13 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.LogManager;
 
-import net.sf.l2j.Config;
-import net.sf.l2j.loginserver.manager.BanManager;
-import net.sf.l2j.loginserver.manager.GameServerManager;
-import net.sf.l2j.loginserver.manager.LoginManager;
-import net.sf.l2j.loginserver.thread.GameServerListener;
-import net.sf.l2j.status.Status;
-import net.sf.l2j.L2Registry;
+import com.l2jfree.Config;
+import com.l2jfree.loginserver.manager.BanManager;
+import com.l2jfree.loginserver.manager.GameServerManager;
+import com.l2jfree.loginserver.manager.LoginManager;
+import com.l2jfree.loginserver.thread.GameServerListener;
+import com.l2jfree.status.Status;
+import com.l2jfree.L2Registry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
