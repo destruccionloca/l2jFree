@@ -19,7 +19,7 @@ class Quest (JQuest) :
         st.setState(State.STARTED)
         st.playSound("ItemSound.quest_accept")
     elif event == "30957_5.htm" :
-        st.giveItems(57,10000)
+        st.rewardItems(57,10000)
         st.giveItems(4410,1)
         st.exitQuest(1)
         st.playSound("ItemSound.quest_finish")

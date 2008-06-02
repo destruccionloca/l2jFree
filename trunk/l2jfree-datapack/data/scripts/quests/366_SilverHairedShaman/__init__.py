@@ -51,7 +51,7 @@ class Quest (JQuest) :
      if not hair :
        htmltext = "30111-3.htm"
      else :
-       st.giveItems(ADENA,12070+500*hair)
+       st.rewardItems(ADENA,12070+500*hair)
        st.takeItems(HAIR,-1)
        htmltext = "30111-4.htm"
    return htmltext

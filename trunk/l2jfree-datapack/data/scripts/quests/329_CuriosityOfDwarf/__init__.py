@@ -46,7 +46,7 @@ class Quest (JQuest) :
       heart=st.getQuestItemsCount(GOLEM_HEARTSTONE)
       broken=st.getQuestItemsCount(BROKEN_HEARTSTONE)
       if broken+heart>0 :
-         st.giveItems(ADENA,50*broken+1000*heart)
+         st.rewardItems(ADENA,50*broken+1000*heart)
          st.takeItems(BROKEN_HEARTSTONE,-1)
          st.takeItems(GOLEM_HEARTSTONE,-1)
          htmltext = "30437-05.htm"

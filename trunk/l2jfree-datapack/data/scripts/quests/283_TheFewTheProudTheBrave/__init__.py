@@ -31,7 +31,7 @@ class Quest (JQuest) :
        st.setState(State.STARTED)
        st.playSound("ItemSound.quest_accept")
      elif event == "32133-06.htm" :
-       st.giveItems(57,claw*45) #Need add reward for 20+ items
+       st.rewardItems(57,claw*45) #Need add reward for 20+ items
        st.takeItems(CLAW,-1)
      elif event == "32133-08.htm" :
        st.takeItems(CLAW,-1)

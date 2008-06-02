@@ -48,7 +48,7 @@ class Quest (JQuest) :
           st.giveItems(RING_OF_FIREFLY,1)
        else :
           htmltext = "30536-06.htm"
-          st.giveItems(ADENA,2400)
+          st.rewardItems(ADENA,2400)
        st.addExpAndSp(0,60)
        st.playSound("ItemSound.quest_finish")
        st.takeItems(FLOATING_STONE,-1)

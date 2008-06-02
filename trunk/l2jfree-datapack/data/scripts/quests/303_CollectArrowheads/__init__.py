@@ -42,7 +42,7 @@ class Quest (JQuest) :
      if st.getQuestItemsCount(ORCISH_ARROWHEAD)<10 :
        htmltext = "30029-05.htm"
      else :
-       st.giveItems(ADENA,1000)
+       st.rewardItems(ADENA,1000)
        st.takeItems(ORCISH_ARROWHEAD,-1)
        st.playSound("ItemSound.quest_finish")
        st.addExpAndSp(2000,0)

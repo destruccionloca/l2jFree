@@ -36,7 +36,7 @@ class Quest (JQuest) :
        if count >= 100 :
          reward = reward + REWARD2
        st.takeItems(JADE_CRYSTAL,-1)
-       st.giveItems(57,reward)
+       st.rewardItems(57,reward)
      else:
        htmltext="30686-4.htm"
    if event == "30686-8.htm" :

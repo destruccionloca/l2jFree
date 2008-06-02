@@ -253,15 +253,15 @@ class Quest (JQuest) :
         while claw > 0:
           n = st.getRandom(5)
           if n < 1 :
-            st.giveItems(ALACRITY_POTION, int(ala_count))
+            st.rewardItems(ALACRITY_POTION, int(ala_count))
           elif n < 2 :
-            st.giveItems(SOULSHOT_D, int(soul_count))
+            st.rewardItems(SOULSHOT_D, int(soul_count))
           elif n < 3:
-            st.giveItems(SCROLL_ESCAPE, int(soe_count))
+            st.rewardItems(SCROLL_ESCAPE, int(soe_count))
           elif n < 4:
-            st.giveItems(SPIRITSHOT_D,int(spir_count))
+            st.rewardItems(SPIRITSHOT_D,int(spir_count))
           elif n == 4:
-            st.giveItems(HEALING_POTION,int(heal_count))
+            st.rewardItems(HEALING_POTION,int(heal_count))
           claw-=1
         if check_eye:
           return p_eye

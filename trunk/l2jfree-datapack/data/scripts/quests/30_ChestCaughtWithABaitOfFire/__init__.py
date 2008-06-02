@@ -37,7 +37,7 @@ class Quest (JQuest) :
     elif event == "30629-02.htm" and st.getQuestItemsCount(RUKAL_MUSICAL) :
       htmltext = "30629-03.htm"
       st.playSound("ItemSound.quest_finish")
-      st.giveItems(PROTECTION_NECKLACE,int(1))
+      st.giveItems(PROTECTION_NECKLACE,1)
       st.takeItems(RUKAL_MUSICAL,-1)
       st.unset("cond")
       st.exitQuest(False) 

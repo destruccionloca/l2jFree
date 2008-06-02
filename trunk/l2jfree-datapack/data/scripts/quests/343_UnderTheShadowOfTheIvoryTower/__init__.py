@@ -54,7 +54,7 @@ class Quest (JQuest) :
         st.playSound("ItemSound.quest_accept")
      elif event == "30834-05.htm" :
         if orbs :
-           st.giveItems(ADENA,orbs*125)
+           st.rewardItems(ADENA,orbs*125)
            st.takeItems(ORB,-1)
         else :
            htmltext = "30834-09.htm"

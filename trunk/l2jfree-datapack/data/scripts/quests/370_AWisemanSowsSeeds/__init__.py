@@ -37,7 +37,7 @@ class Quest (JQuest) :
        st.takeItems(CHAPTER_OF_WATER,1)
        st.takeItems(CHAPTER_OF_WIND,1)
        st.takeItems(CHAPTER_OF_EARTH,1)
-       st.giveItems(57,3600)
+       st.rewardItems(57,3600)
        htmltext = "30612-8.htm"
    elif event == "30612-9.htm" :
      st.playSound("ItemSound.quest_finish")

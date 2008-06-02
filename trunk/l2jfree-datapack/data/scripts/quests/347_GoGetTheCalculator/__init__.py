@@ -66,7 +66,7 @@ class Quest (JQuest) :
         st.exitQuest(1)
         htmltext = str(BRUNON)+"-05.htm"
     elif event == "30526_2" :
-        st.giveItems(ADENA,1000)
+        st.rewardItems(ADENA,1000)
         st.takeItems(CALCULATOR_Q,1)
         st.playSound("ItemSound.quest_middle")
         st.exitQuest(False) 

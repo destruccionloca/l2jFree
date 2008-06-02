@@ -76,13 +76,13 @@ class Quest (JQuest) :
         else :
            htmltext = "30532-10.htm"
            st.takeItems(SUSPICIOUS_CONTRACT,-1)
-        st.giveItems(ADENA,12*neckl+36*penda+33*lordp+100*scont*int(Config.RATE_DROP_ADENA))
+        st.rewardItems(ADENA,12*neckl+36*penda+33*lordp+100*scont)
    elif npcId == 30533 :
       if st.getQuestItemsCount(SUSPICIOUS_CONTRACT)==0 :
         htmltext = "30533-01.htm"
       else :
         htmltext = "30533-02.htm"
-        st.giveItems(ADENA,st.getQuestItemsCount(SUSPICIOUS_CONTRACT)*120*int(Config.RATE_DROP_ADENA))
+        st.rewardItems(ADENA,st.getQuestItemsCount(SUSPICIOUS_CONTRACT)*120)
         st.takeItems(SUSPICIOUS_CONTRACT,-1)
    return htmltext
 

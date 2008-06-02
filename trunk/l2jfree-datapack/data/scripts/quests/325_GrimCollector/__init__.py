@@ -38,7 +38,7 @@ def payback(st):
           amount += 1629
        if st.getQuestItemsCount(COMPLETE_SKELETON_ID):
           amount +=543
-       st.giveItems(ADENA_ID,amount)
+       st.rewardItems(ADENA_ID,amount)
        st.takeItems(ZOMBIE_HEAD1_ID,-1)
        st.takeItems(ZOMBIE_HEART1_ID,-1)
        st.takeItems(ZOMBIE_LIVER1_ID,-1)
@@ -73,7 +73,7 @@ class Quest (JQuest) :
       if not payback(st) :
          htmltext = "You don't have required items"
     elif event == "30434-09.htm" :
-      st.giveItems(ADENA_ID,543+(341*st.getQuestItemsCount(COMPLETE_SKELETON_ID)))
+      st.rewardItems(ADENA_ID,543+(341*st.getQuestItemsCount(COMPLETE_SKELETON_ID)))
       st.takeItems(COMPLETE_SKELETON_ID,-1)
     elif event == "30342-03.htm" :
       if st.getQuestItemsCount(SPINE1_ID) and st.getQuestItemsCount(ARM_BONE1_ID) and st.getQuestItemsCount(SKULL1_ID) and st.getQuestItemsCount(RIB_BONE1_ID) and st.getQuestItemsCount(THIGH_BONE1_ID) :

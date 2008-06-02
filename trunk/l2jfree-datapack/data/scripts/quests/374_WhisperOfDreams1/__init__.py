@@ -25,7 +25,6 @@ SHOP_LIST={
 5489:["etc_leather_gray_i00",  6,15550,"Sealed Tallum Stockings Fabrics"] 
 }
  
-ADENA_X=int(Config.RATE_DROP_ADENA)
  
 #Quest items
 CB_TOOTH, DW_LIGHT, SEALD_MSTONE, MSTONE = range(5884,5888)
@@ -43,7 +42,7 @@ def render_shop() :
     for i in SHOP_LIST.keys() :
        html += "<tr><td width=35 height=45><img src=icon."+SHOP_LIST[i][0]+" width=32 height=32 align=left></td><td width=365 valign=top><table border=0 width=100%>"
        html += "<tr><td><a action=\"bypass -h Quest 374_WhisperOfDreams1 "+str(i)+"\"><font color=\"FFFFFF\">"+SHOP_LIST[i][3]+" x"+str(SHOP_LIST[i][1])+"</font></a></td></tr>"
-       html += "<tr><td><a action=\"bypass -h Quest 374_WhisperOfDreams1 "+str(i)+"\"><font color=\"B09878\">"+str(SHOP_LIST[i][2]*ADENA_X)+" adena</font></a></td></tr></table></td></tr>"
+       html += "<tr><td><a action=\"bypass -h Quest 374_WhisperOfDreams1 "+str(i)+"\"><font color=\"B09878\">"+str(SHOP_LIST[i][2])+" adena</font></a></td></tr></table></td></tr>"
     html += "</table></body></html>"
     return html
  
@@ -89,7 +88,7 @@ class Quest (JQuest) :
        htmltext = render_shop()
     elif int(event) in SHOP_LIST.keys() :
        st.set("allow","0")
-       st.giveItems(57,SHOP_LIST[int(event)][2])
+       st.rewardItems(57,SHOP_LIST[int(event)][2])
        st.giveItems(int(event),SHOP_LIST[int(event)][1])
        st.playSound("ItemSound.quest_finish")
        htmltext = "30515-11.htm"

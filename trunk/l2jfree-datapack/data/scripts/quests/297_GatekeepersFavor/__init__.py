@@ -45,7 +45,7 @@ class Quest (JQuest) :
       elif st.getInt("cond")==2 and st.getQuestItemsCount(STARSTONE2_ID)==20 :
          htmltext = "30540-05.htm"
          st.takeItems(STARSTONE2_ID,-1)
-         st.giveItems(GATEKEEPER_TOKEN_ID,2)
+         st.rewardItems(GATEKEEPER_TOKEN_ID,2)
          st.exitQuest(1)
          st.playSound("ItemSound.quest_finish")
    return htmltext

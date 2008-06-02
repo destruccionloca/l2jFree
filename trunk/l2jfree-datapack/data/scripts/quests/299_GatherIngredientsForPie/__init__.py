@@ -51,7 +51,7 @@ class Quest (JQuest) :
      st.set("cond","6")
    elif event == "30620-7.htm" and st.getQuestItemsCount(FRUIT_BASKET):
      st.takeItems(FRUIT_BASKET,1)
-     st.giveItems(ADENA,25000)
+     st.rewardItems(ADENA,25000)
      st.giveItems(VARNISH,50)
      st.unset("cond")
      st.playSound("ItemSound.quest_finish")

@@ -37,7 +37,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_accept")
      elif event == "ADENA" :
        htmltext = "32175-06.htm"
-       st.giveItems(57,summ*2)
+       st.rewardItems(57,summ*2)
        st.takeItems(KELTIR_TOOTH,-1)
        st.takeItems(WOLF_TOOTH,-1)
      elif event == "ITEM" :

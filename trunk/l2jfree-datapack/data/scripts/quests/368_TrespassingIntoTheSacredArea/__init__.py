@@ -46,7 +46,7 @@ class Quest (JQuest) :
          htmltext = "30926-03.htm"
      elif amount :
          htmltext = "30926-04.htm"
-         st.giveItems(ADENA,amount*1250)
+         st.rewardItems(ADENA,amount*1250)
          st.takeItems(BLADE_STAKATO_FANG,-1)
          st.playSound("ItemSound.quest_middle")
      return htmltext

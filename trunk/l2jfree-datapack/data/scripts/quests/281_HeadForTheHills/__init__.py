@@ -38,25 +38,25 @@ class Quest (JQuest) :
      elif event == "32173-06.htm" :
        if player.getLevel() < 25 and player.isNewbie() and not onlyone :
          if hills > 20 : 
-           st.giveItems(57,hills*23+400)
+           st.rewardItems(57,hills*23+400)
          else :
-           st.giveItems(57,hills*23)
-         st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
+           st.rewardItems(57,hills*23)
+         st.rewardItems(SOULSHOT_FOR_BEGINNERS,6000)
          st.takeItems(HILLS,-1)
          st.set("onlyone","1")
        else:
          if hills > 20 : 
-           st.giveItems(57,hills*23+400)
+           st.rewardItems(57,hills*23+400)
          else :
-           st.giveItems(57,hills*23)
+           st.rewardItems(57,hills*23)
          st.takeItems(HILLS,-1)
      elif event == "32173-07.htm" :
        if hills < 50 :
          htmltext = "32173-07a.htm"
        else:
          if player.getLevel() < 25 and player.isNewbie() and not onlyone :
-           st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
-           st.giveItems(REWARD,1)
+           st.rewardItems(SOULSHOT_FOR_BEGINNERS,6000)
+           st.rewardItems(REWARD,1)
            st.takeItems(HILLS,50)
            st.set("onlyone","1")
          else :

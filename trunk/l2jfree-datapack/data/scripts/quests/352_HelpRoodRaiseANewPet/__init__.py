@@ -51,17 +51,17 @@ class Quest (JQuest) :
           htmltext = "31067-05.htm"
         elif eggs1 and not eggs2 :
           htmltext = "31067-06.htm"
-          st.giveItems(ADENA,eggs1*209)
+          st.rewardItems(ADENA,eggs1*209)
           st.takeItems(LIENRIK_EGG1,-1)
           st.playSound("ItemSound.quest_itemget")
         elif not eggs1 and eggs2 :
           htmltext = "31067-08.htm"
-          st.giveItems(ADENA,eggs2*2050)
+          st.rewardItems(ADENA,eggs2*2050)
           st.takeItems(LIENRIK_EGG2,-1)
           st.playSound("ItemSound.quest_itemget")
         elif eggs1 and eggs2 :
           htmltext = "31067-08.htm"
-          st.giveItems(ADENA,eggs1*209+eggs2*2050)
+          st.rewardItems(ADENA,eggs1*209+eggs2*2050)
           st.takeItems(LIENRIK_EGG1,-1)
           st.takeItems(LIENRIK_EGG2,-1)
           st.playSound("ItemSound.quest_itemget")

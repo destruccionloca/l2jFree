@@ -42,7 +42,7 @@ class Quest (JQuest) :
      elif cond==1 :
          if st.getQuestItemsCount(BEAR_SKIN)>=20 :
             htmltext = "30078-04.htm"
-            st.giveItems(ADENA,3710)
+            st.rewardItems(ADENA,3710)
             st.takeItems(BEAR_SKIN,-1)
             st.playSound("ItemSound.quest_finish")
             st.exitQuest(1)

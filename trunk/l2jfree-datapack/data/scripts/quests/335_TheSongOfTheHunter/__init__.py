@@ -308,7 +308,7 @@ class Quest (JQuest) :
             st.playSound("ItemSound.quest_finish")
             if st.getQuestItemsCount(Leaf_Pin) >= 20 :
                 htmltext = "30744-33.htm"
-                st.giveItems(57,20000)
+                st.rewardItems(57,20000)
             st.exitQuest(1)
         elif event == "30744-19.htm" :
             if not HasItems(st,1) :
@@ -382,7 +382,7 @@ class Quest (JQuest) :
             for item in Cyb_Rewards.keys() :
                 if st.getQuestItemsCount(item) :
                     st.takeItems(item,-1)
-                    st.giveItems(57,Cyb_Rewards[item])
+                    st.rewardItems(57,Cyb_Rewards[item])
                     break
         elif event == "30746-12.htm" :
             st.takeItems(3698,-1)

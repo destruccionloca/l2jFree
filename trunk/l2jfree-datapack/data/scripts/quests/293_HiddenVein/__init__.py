@@ -25,7 +25,7 @@ def newbie_rewards(st) :
   newbie = player.getNewbie()
   if newbie | NEWBIE_REWARD != newbie :
      player.setNewbie(newbie|NEWBIE_REWARD)
-     st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
+     st.rewardItems(SOULSHOT_FOR_BEGINNERS,6000)
      st.playTutorialVoice("tutorial_voice_026")
   
 
@@ -81,18 +81,18 @@ class Quest (JQuest) :
          else :
            newbie_rewards(st)
            htmltext = "30535-08.htm"
-           st.giveItems(ADENA,st.getQuestItemsCount(HIDDEN_VEIN_MAP)*1000)
+           st.rewardItems(ADENA,st.getQuestItemsCount(HIDDEN_VEIN_MAP)*1000)
            st.takeItems(HIDDEN_VEIN_MAP,-1)
        else :
          if st.getQuestItemsCount(HIDDEN_VEIN_MAP)==0 :
            newbie_rewards(st)
            htmltext = "30535-05.htm"
-           st.giveItems(ADENA,st.getQuestItemsCount(CHRYSOLITE_ORE)*10)
+           st.rewardItems(ADENA,st.getQuestItemsCount(CHRYSOLITE_ORE)*10)
            st.takeItems(CHRYSOLITE_ORE,-1)
          else :
            newbie_rewards(st)
            htmltext = "30535-09.htm"
-           st.giveItems(ADENA,st.getQuestItemsCount(CHRYSOLITE_ORE)*10+st.getQuestItemsCount(HIDDEN_VEIN_MAP)*1000)
+           st.rewardItems(ADENA,st.getQuestItemsCount(CHRYSOLITE_ORE)*10+st.getQuestItemsCount(HIDDEN_VEIN_MAP)*1000)
            st.takeItems(HIDDEN_VEIN_MAP,-1)
            st.takeItems(CHRYSOLITE_ORE,-1)
    elif npcId == 30539 :

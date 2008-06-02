@@ -51,7 +51,7 @@ class Quest (JQuest) :
      if not stone :
        htmltext = "31044-05.htm"
      else :
-       st.giveItems(ADENA,2500+230*stone)
+       st.rewardItems(ADENA,2500+230*stone)
        st.takeItems(STONE,-1)
        htmltext = "31044-06.htm"
    return htmltext

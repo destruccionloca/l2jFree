@@ -273,7 +273,7 @@ class Quest (JQuest) :
             htmltext = "30864-09a.htm" # 
         elif cond == 26 and st.getQuestItemsCount(BLOODED_FABRIC)<10 :
             htmltext = "30864-09b.htm" # Where are other pieces?
-            st.giveItems(ADENA,5000)
+            st.rewardItems(ADENA,5000)
             st.takeItems(BLOODED_FABRIC,-1)
             st.playSound("ItemSound.quest_finish")
             st.exitQuest(1)
@@ -293,7 +293,7 @@ class Quest (JQuest) :
             htmltext = "30864-09a.htm" #
         elif cond == 29 and st.getQuestItemsCount(BLOODED_FABRIC)<10 :
             htmltext = "30864-09b.htm" # Where are other pieces?
-            st.giveItems(ADENA,5000)
+            st.rewardItems(ADENA,5000)
             st.takeItems(BLOODED_FABRIC,-1)
             st.playSound("ItemSound.quest_finish")
             st.exitQuest(1)

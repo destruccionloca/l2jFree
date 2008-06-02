@@ -189,7 +189,7 @@ class Quest (JQuest) :
          autochat(st.addSpawn(GRIMA,200000),MESSAGES[GRIMA][st.getRandom(len(MESSAGES))])
          autochat(st.addSpawn(GRIMA,200000),MESSAGES[GRIMA][st.getRandom(len(MESSAGES))])
        else :
-         st.giveItems(ADENA,10000)
+         st.rewardItems(ADENA,10000)
      elif wish == 3 :
        if WISH_CHANCE <= 33 :
          st.giveItems(CERTIFICATE_OF_ROYALTY,1)
@@ -237,7 +237,7 @@ class Quest (JQuest) :
    if npcId != ALCHEMIST_MATILD and id == State.CREATED : return htmltext
    if npcId == TORAI and st.getQuestItemsCount(FORBIDDEN_LOVE_SCROLL) :
        st.takeItems(FORBIDDEN_LOVE_SCROLL,1)
-       st.giveItems(ADENA,500000)
+       st.rewardItems(ADENA,500000)
        htmltext = "30557-01.htm"
    elif npcId == WISDOM_CHEST :
      st.giveItems(R1[st.getRandom(len(R1))],1)

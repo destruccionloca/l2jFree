@@ -44,8 +44,8 @@ class Quest (JQuest) :
        htmltext = "30138-05.htm"
      else :
        htmltext = "30138-06.htm"
-       st.giveItems(ADENA,3350)
-       st.giveItems(HEALING_POTION,1)
+       st.rewardItems(ADENA,3350)
+       st.rewardItems(HEALING_POTION,1)
        st.takeItems(ZOMBIE_SKIN,-1)
        st.exitQuest(1)
        st.playSound("ItemSound.quest_finish")

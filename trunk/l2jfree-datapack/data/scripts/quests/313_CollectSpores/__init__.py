@@ -42,7 +42,7 @@ class Quest (JQuest) :
        htmltext = "30150-06.htm"
      else :
        st.playSound("ItemSound.quest_finish")
-       st.giveItems(ADENA,3500)
+       st.rewardItems(ADENA,3500)
        st.takeItems(FUNGUS_SAC,-1)
        htmltext = "30150-07.htm"
        st.exitQuest(1)

@@ -46,16 +46,16 @@ class Quest (JQuest) :
          htmltext = "30867-06.htm"
        elif urn <= 100 :
          st.takeItems(URN,-1)
-         st.giveItems(57,7000+urn*1000)
+         st.rewardItems(57,7000+urn*1000)
          htmltext = "30867-07.htm"
        elif urn > 100 :
          st.takeItems(URN,-1)
-         st.giveItems(57,13000+urn*1000)
+         st.rewardItems(57,13000+urn*1000)
          htmltext = "30867-08.htm"
      elif event == "30867-10.htm" :
        htmltext = "30867-10.htm"
        if urn > 0:
-           st.giveItems(57,urn*1000)
+           st.rewardItems(57,urn*1000)
        st.exitQuest(1)
      elif event == "APPR" :
        if not porcelain :

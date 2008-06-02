@@ -54,7 +54,7 @@ class Quest (JQuest) :
          st.giveItems(RING_OF_RACCOON,1)
        else :
          htmltext = "30534-06.htm"
-         st.giveItems(ADENA,2400)
+         st.rewardItems(ADENA,2400)
        st.addExpAndSp(0,600)
        st.takeItems(BAT_FANG,-1)
        st.exitQuest(1)

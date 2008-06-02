@@ -49,7 +49,7 @@ class Quest (JQuest) :
      elif cond==1 :
         if amount :
            htmltext = "30892-03.htm"
-           st.giveItems(ADENA,amount)
+           st.rewardItems(ADENA,amount)
            st.takeItems(ALLIGATOR_PELTS,-1)
         else :
            htmltext = "30892-04.htm"

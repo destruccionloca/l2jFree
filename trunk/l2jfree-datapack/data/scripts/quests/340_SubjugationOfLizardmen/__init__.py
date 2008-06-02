@@ -38,15 +38,15 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_accept")
      elif event == "30385-07.htm" :
        st.takeItems(CARGO,-1)
-       st.giveItems(57,4090)       
+       st.rewardItems(57,4090)       
        st.set("cond","2")
        st.playSound("ItemSound.quest_middle")
      elif event == "30385-09.htm" :
        st.takeItems(CARGO,-1)
-       st.giveItems(57,4090)
+       st.rewardItems(57,4090)
      elif event == "30385-10.htm" :
        st.takeItems(CARGO,-1)
-       st.giveItems(57,4090)
+       st.rewardItems(57,4090)
        st.exitQuest(1)
      elif event == "30375-02.htm" :
        st.set("cond","3")
@@ -90,7 +90,7 @@ class Quest (JQuest) :
          elif cond == 2 :
            htmltext = "30385-11.htm"
          elif cond == 7 :
-           st.giveItems(57,14700)
+           st.rewardItems(57,14700)
            htmltext = "30385-13.htm"
            st.set("cond","0")
            st.exitQuest(False) 

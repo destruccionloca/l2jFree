@@ -35,7 +35,7 @@ class Quest (JQuest) :
         elif event =="30909-02.htm" :
             if st.getQuestItemsCount(SmallGlassBox)==1 :
                 st.takeItems(SmallGlassBox,-1)
-                st.giveItems(PlatedLeatherGloves,int(1))
+                st.giveItems(PlatedLeatherGloves,1)
                 st.set("cond","0")
                 st.exitQuest(False) 
                 st.playSound("ItemSound.quest_finish")

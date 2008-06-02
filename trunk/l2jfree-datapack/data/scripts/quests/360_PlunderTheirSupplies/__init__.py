@@ -60,7 +60,7 @@ class Quest (JQuest) :
      REWARD = 6000+(supplies*100)+DOCS
      st.takeItems(SUPPLY_ITEM,-1)
      st.takeItems(RECIPE_OF_SUPPLY,-1)
-     st.giveItems(57,REWARD)
+     st.rewardItems(57,REWARD)
      htmltext = "30873-5.htm"
    return htmltext
 

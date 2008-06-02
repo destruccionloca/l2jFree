@@ -45,7 +45,7 @@ class Quest (JQuest) :
        st.takeItems(SUEDE,3000)
        st.takeItems(THREAD,5000)
        st.takeItems(SPIDERSILK,1)
-       st.giveItems(MYSTERIOUS_CLOTH,int(1))
+       st.giveItems(MYSTERIOUS_CLOTH,1)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
      else :

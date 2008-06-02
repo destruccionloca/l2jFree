@@ -44,9 +44,9 @@ class Quest (JQuest) :
      count = st.getQuestItemsCount(WIND_SHARD)
      if count :
        if count > 9 :
-          st.giveItems(ADENA,2988+40*count)
+          st.rewardItems(ADENA,2988+40*count)
        else :
-          st.giveItems(ADENA,40*count)
+          st.rewardItems(ADENA,40*count)
        st.takeItems(WIND_SHARD,-1)
        htmltext = "30361-07.htm"
      else :

@@ -172,29 +172,29 @@ class Quest (JQuest) :
         if st.getQuestItemsCount(MIRIENS_REVIEW1_ID) :
           htmltext = "30469-06t1.htm"
           st.takeItems(MIRIENS_REVIEW1_ID,1)
-          st.giveItems(ADENA_ID,7500)
+          st.rewardItems(ADENA_ID,7500)
           st.addExpAndSp(6000,0)
         elif st.getQuestItemsCount(MIRIENS_REVIEW2_ID) :
           htmltext = "30469-06t2.htm"
           st.takeItems(MIRIENS_REVIEW2_ID,1)
-          st.giveItems(ADENA_ID,9000)
+          st.rewardItems(ADENA_ID,9000)
           st.addExpAndSp(7000,0)
         elif st.getQuestItemsCount(MIRIENS_REVIEW3_ID) :
           htmltext = "30469-06t3.htm"
           st.takeItems(MIRIENS_REVIEW3_ID,1)
-          st.giveItems(ADENA_ID,5800)
+          st.rewardItems(ADENA_ID,5800)
           st.giveItems(JONAS_SALAD_RECIPE_ID,1)
           st.addExpAndSp(9000,0)
         elif st.getQuestItemsCount(MIRIENS_REVIEW4_ID) :
           htmltext = "30469-06t4.htm"
           st.takeItems(MIRIENS_REVIEW4_ID,1)
-          st.giveItems(ADENA_ID,6800)
+          st.rewardItems(ADENA_ID,6800)
           st.giveItems(JONAS_SAUCE_RECIPE_ID,1)
           st.addExpAndSp(10500,0)
         elif st.getQuestItemsCount(MIRIENS_REVIEW5_ID) :
           htmltext = "30469-06t5.htm"
           st.takeItems(MIRIENS_REVIEW5_ID,1)
-          st.giveItems(ADENA_ID,7800)
+          st.rewardItems(ADENA_ID,7800)
           st.giveItems(JONAS_STEAK_RECIPE_ID,1)
           st.addExpAndSp(12000,0)
         st.playSound("ItemSound.quest_finish")

@@ -37,7 +37,7 @@ class Quest (JQuest) :
        st.takeItems(ORIHARUKON,5)
        st.takeItems(SILVER_NUGGET,500)
        st.takeItems(THONS,150)
-       st.giveItems(JEWEL_BOX,int(1))
+       st.giveItems(JEWEL_BOX,1)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
      else :

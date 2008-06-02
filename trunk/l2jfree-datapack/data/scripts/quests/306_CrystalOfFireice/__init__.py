@@ -58,9 +58,9 @@ class Quest (JQuest) :
        htmltext = "30004-05.htm"
      else :
        if flame+ice > 9 :
-          st.giveItems(ADENA,5000+30*(flame+ice))
+          st.rewardItems(ADENA,5000+30*(flame+ice))
        else :
-          st.giveItems(ADENA,30*(flame+ice))
+          st.rewardItems(ADENA,30*(flame+ice))
        st.takeItems(FLAME_SHARD,-1)
        st.takeItems(ICE_SHARD,-1)
        htmltext = "30004-07.htm"

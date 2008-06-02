@@ -96,7 +96,7 @@ class Quest (JQuest) :
          if count >= 100 :
            reward = reward + 5000   # custom - need more info
          st.takeItems(GALFREDOS_BUST,count)
-         st.giveItems(57,reward)
+         st.rewardItems(57,reward)
          htmltext = "30181-3.htm"
        else :
          htmltext = "30181-2a.htm"

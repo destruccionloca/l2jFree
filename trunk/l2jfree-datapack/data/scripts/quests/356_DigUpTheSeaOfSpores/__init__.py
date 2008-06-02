@@ -37,7 +37,7 @@ class Quest (JQuest) :
        st.exitQuest(1)
    elif event in [ "30717-10.htm", "30717-9.htm" ] and (carn>=50 and herb>=50) :
      if event == "30717-9.htm" :
-        st.giveItems(57,44000)
+        st.rewardItems(57,44000)
      else :
         st.addExpAndSp(36000,2600)
      st.takeItems(CARNIVORE_SPORE,-1)

@@ -66,7 +66,7 @@ class Quest (JQuest) :
      st.set("cond","3")
      st.set("awaitsFreezing","1")
      st.set("awaitsFlare","1")
-     st.giveItems(ADENA,12500)
+     st.rewardItems(ADENA,12500)
      st.takeItems(FLARE_SHARD,-1)
      st.takeItems(FREEZING_SHARD,-1)
      htmltext = "30376-05.htm"
@@ -75,7 +75,7 @@ class Quest (JQuest) :
    elif cond == 4 and flare == freezing == 200 :
      htmltext = "30376-10.htm"
      st.playSound("ItemSound.quest_finish")
-     st.giveItems(ADENA,63500)
+     st.rewardItems(ADENA,63500)
      st.takeItems(FLARE_SHARD,-1)
      st.takeItems(FREEZING_SHARD,-1)
      st.exitQuest(1)

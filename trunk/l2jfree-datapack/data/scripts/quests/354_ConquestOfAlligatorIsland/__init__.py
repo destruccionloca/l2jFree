@@ -49,14 +49,14 @@ class Quest (JQuest) :
              htmltext = "30895-07.htm"
      elif event == "30895-05.htm" :
          if amount :
-             st.giveItems(ADENA,amount*300)
+             st.rewardItems(ADENA,amount*300)
              st.takeItems(ALLIGATOR_TOOTH,-1)
              st.playSound("ItemSound.quest_itemget")
              htmltext = "30895-05a.htm"
              if amount > 99 :
                 htmltext = "30895-05b.htm"
                 item=RANDOM_REWARDS[st.getRandom(len(RANDOM_REWARDS))]
-                st.giveItems(item[0],st.getRandom(item[1])+1)
+                st.rewardItems(item[0],st.getRandom(item[1])+1)
      elif event == "30895-08.htm" :
          st.giveItems(PIRATES_TREASURE_MAP,maps[0])
          st.takeItems(TORN_MAP_FRAGMENT,maps[0]*10)

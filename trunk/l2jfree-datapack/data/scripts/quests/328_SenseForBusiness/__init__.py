@@ -49,7 +49,7 @@ class Quest (JQuest) :
      lenses=st.getQuestItemsCount(MONSTER_EYE_LENS)
      gizzard=st.getQuestItemsCount(BASILISK_GIZZARD)
      if carcass+lenses+gizzard > 0 :
-        st.giveItems(ADENA,30*carcass+2000*lenses+75*gizzard)
+        st.rewardItems(ADENA,30*carcass+2000*lenses+75*gizzard)
         st.takeItems(MONSTER_EYE_CARCASS,-1)
         st.takeItems(MONSTER_EYE_LENS,-1)
         st.takeItems(BASILISK_GIZZARD,-1)

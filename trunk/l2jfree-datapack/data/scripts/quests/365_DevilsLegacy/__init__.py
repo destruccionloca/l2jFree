@@ -32,7 +32,7 @@ class Quest (JQuest) :
      if count :
         reward = (count*1600)
         st.takeItems(TREASURE_CHEST,-1)
-        st.giveItems(57,reward)
+        st.rewardItems(57,reward)
      else:
         htmltext="You don't have required items"
    elif event == "30095-6.htm" :
