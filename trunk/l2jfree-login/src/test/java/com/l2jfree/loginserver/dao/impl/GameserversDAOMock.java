@@ -23,7 +23,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.loginserver.dao.impl;
+package com.l2jfree.loginserver.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;

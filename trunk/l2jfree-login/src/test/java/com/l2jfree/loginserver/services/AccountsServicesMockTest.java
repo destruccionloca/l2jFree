@@ -23,7 +23,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.loginserver.services;
+package com.l2jfree.loginserver.services;
 
 import junit.framework.TestCase;
 

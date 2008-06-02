@@ -1,4 +1,4 @@
-package net.sf.l2j;
+package com.l2jfree;
 
 import com.l2jfree.Config;
 

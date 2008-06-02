@@ -23,7 +23,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.loginserver.manager;
+package com.l2jfree.loginserver.manager;
 
 import java.io.FileWriter;
 import java.net.InetAddress;
