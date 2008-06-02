@@ -89,7 +89,7 @@ class Quest (JQuest) :
           htmltext = "30147-03.htm"
         elif npcId == 30370 and st.getQuestItemsCount(NIGHTSHADE_LEAF) :
           st.takeItems(NIGHTSHADE_LEAF,1)
-          st.giveItems(LESSER_HEALING_POTION,int(Config.RATE_QUESTS_REWARD))
+          st.rewardItems(LESSER_HEALING_POTION,1)
           st.addExpAndSp(1000,0)
           st.unset("cond")
           st.exitQuest(False) 

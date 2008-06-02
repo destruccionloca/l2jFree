@@ -64,7 +64,7 @@ class Quest (JQuest) :
           st.exitQuest(False) 
           st.playSound("ItemSound.quest_finish")
           st.set("onlyone","1")
-          st.giveItems(ADENA_ID,820)
+          st.rewardItems(ADENA_ID,820)
    elif id == State.STARTED :       
        if npcId == 30360 and st.getInt("cond")==1 and st.getQuestItemsCount(JENNIES_LETTER_ID)==1 :
             htmltext = "30360-01.htm"

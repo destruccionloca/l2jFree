@@ -88,7 +88,7 @@ class Quest (JQuest) :
          elif cond == 6 :
             htmltext = "32115-05.htm"
             st.takeItems(M_EGG,1)
-            st.giveItems(57,71318)
+            st.rewardItems(57,71318)
             st.exitQuest(False) 
             st.set("cond","0")
             st.playSound("ItemSound.quest_finish")

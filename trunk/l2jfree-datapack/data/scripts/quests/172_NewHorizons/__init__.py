@@ -28,7 +28,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_accept")
      elif event == "32163-02.htm" :
        st.unset("cond")
-       st.giveItems(SCROLL_OF_ESCAPE_GIRAN,1)
+       st.rewardItems(SCROLL_OF_ESCAPE_GIRAN,1)
        st.giveItems(MARK_OF_TRAVELER,1)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False)

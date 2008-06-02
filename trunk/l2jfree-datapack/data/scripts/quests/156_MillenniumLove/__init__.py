@@ -64,7 +64,7 @@ class Quest (JQuest) :
            st.exitQuest(False) 
            st.playSound("ItemSound.quest_finish")
            st.addExpAndSp(3000,0)
-           st.giveItems(5250,1)
+           st.rewardItems(5250,1)
            htmltext = "30368-08.htm"
    elif npcId == 30369 and id == State.STARTED:
       if st.getQuestItemsCount(RYLITHS_LETTER_ID) :

@@ -58,7 +58,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_middle")
     elif event == "30832-14.htm" :
        st.takeItems(BOOK_OF_SEAL,1)
-       st.giveItems(ADENA,67550)
+       st.rewardItems(ADENA,67550)
        st.giveItems(TRANSFORM_BOOK,1)
        st.playSound("ItemSound.quest_finish")
        st.setState(State.COMPLETED)

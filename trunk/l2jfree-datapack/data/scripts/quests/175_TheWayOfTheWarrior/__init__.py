@@ -45,11 +45,11 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_accept")  
      elif event == "32138-12.htm" :
        st.takeItems(MUERTOS_CLAW,-1)
-       st.giveItems(LESSER_HEALING_POTIONS,100)
+       st.rewardItems(LESSER_HEALING_POTIONS,100)
        for item in ECHO :
-         st.giveItems(item,10)
+         st.rewardItems(item,10)
        if player.getLevel() < 20 and player.isNewbie() :
-         st.giveItems(SOULSHOT_FOR_BEGINNERS,7000)
+         st.rewardItems(SOULSHOT_FOR_BEGINNERS,7000)
        st.giveItems(WARRIORS_SWORD,1)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False)

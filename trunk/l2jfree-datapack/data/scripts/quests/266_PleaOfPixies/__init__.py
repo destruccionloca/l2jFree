@@ -57,11 +57,11 @@ class Quest (JQuest) :
        n = st.getRandom(100)
        if n<2 :
           st.giveItems(EMERALD,1)
-          st.giveItems(REC_SPIRITSHOT,1)
+          st.rewardItems(REC_SPIRITSHOT,1)
           st.playSound("ItemSound.quest_jackpot")
        elif n<20 :
           st.giveItems(BLUE_ONYX,1)
-          st.giveItems(REC_LEATHER_BOOT,1)
+          st.rewardItems(REC_LEATHER_BOOT,1)
        elif n<45 :
           st.giveItems(ONYX,1)
        else:

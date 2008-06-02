@@ -41,7 +41,7 @@ class Quest (JQuest) :
        st.exitQuest(1)
    else :
      if st.getQuestItemsCount(GIANT_SPIDER_LEG) >= 8 :
-       st.giveItems(ADENA,1000)
+       st.rewardItems(ADENA,1000)
        st.takeItems(GIANT_SPIDER_LEG,-1)
        st.addExpAndSp(2000,0)
        htmltext = "30222-05.htm"

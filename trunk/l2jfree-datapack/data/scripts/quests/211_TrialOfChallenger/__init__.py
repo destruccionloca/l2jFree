@@ -73,7 +73,7 @@ class Quest (JQuest) :
               htmltext = "30647-02.htm"
               n = st.getRandom(1000)+1
               st.takeItems(BROKEN_KEY,1)
-              st.giveItems(ADENA,n)
+              st.rewardItems(ADENA,n)
               st.playSound("Itemsound.quest_middle")
           else:
             htmltext = "30647-04.htm"

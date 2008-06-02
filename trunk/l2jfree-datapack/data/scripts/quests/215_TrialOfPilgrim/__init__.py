@@ -57,10 +57,10 @@ class Quest (JQuest) :
           st.set("cond","5")
           st.playSound("ItemSound.quest_middle")
     elif event == "30650_1" :
-          if st.getQuestItemsCount(ADENA) >= 100000*int(Config.RATE_DROP_ADENA) :
+          if st.getQuestItemsCount(ADENA) >= 100000) :
             htmltext = "30650-02.htm"
             st.giveItems(BOOK_OF_GERALD,1)
-            st.takeItems(ADENA,100000*int(Config.RATE_DROP_ADENA))
+            st.takeItems(ADENA,100000)
             st.set("cond","8")
             st.playSound("ItemSound.quest_middle")
           else:
@@ -147,9 +147,7 @@ class Quest (JQuest) :
       htmltext = st.showHtmlFile("30650-01.htm").replace("RequiredAdena", str(100000*int(Config.RATE_DROP_ADENA)))
    elif npcId == 30650 and cond>=9 and st.getQuestItemsCount(GREY_BADGE) and st.getQuestItemsCount(BOOK_OF_GERALD) :
       htmltext = "30650-04.htm"
-      rate=int(Config.RATE_QUESTS_REWARD)
-      if rate == 0 : rate = 1
-      st.giveItems(ADENA,int(100000*Config.RATE_DROP_ADENA/rate))
+      st.rewardItems(ADENA,100000)
       st.takeItems(BOOK_OF_GERALD,1)
    elif npcId == 30651 and cond==7 and st.getQuestItemsCount(TAG_OF_RUMOR) :
       htmltext = "30651-01.htm"

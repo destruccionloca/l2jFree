@@ -52,7 +52,7 @@ class Quest (JQuest) :
         if st.getInt("id") != 163 :
           st.set("id","163")
           htmltext = "30220-09.htm"
-          st.giveItems(ADENA_ID,13890)
+          st.rewardItems(ADENA_ID,13890)
           st.takeItems(RUMIELS_POEM_1_ID,1)
           st.takeItems(RUMIELS_POEM_3_ID,1)
           st.takeItems(RUMIELS_POEM_4_ID,1)

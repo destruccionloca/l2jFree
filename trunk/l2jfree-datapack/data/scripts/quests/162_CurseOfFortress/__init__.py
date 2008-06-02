@@ -49,7 +49,7 @@ class Quest (JQuest) :
          htmltext = "30147-05.htm"
       else  :
          htmltext = "30147-06.htm"
-         st.giveItems(57,24000)
+         st.rewardItems(57,24000)
          st.giveItems(BONE_SHIELD,1)
          st.takeItems(ELF_SKULL,-1)
          st.takeItems(BONE_FRAGMENT3,-1)

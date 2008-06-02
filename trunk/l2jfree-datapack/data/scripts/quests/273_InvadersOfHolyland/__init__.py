@@ -61,9 +61,9 @@ class Quest (JQuest) :
      elif red == 0 :
         htmltext = "30566-05.htm"
         if black > 9 :
-           st.giveItems(ADENA,black*3+1500)
+           st.rewardItems(ADENA,black*3+1500)
         else :
-           st.giveItems(ADENA,black*3)
+           st.rewardItems(ADENA,black*3)
         st.takeItems(BLACK_SOULSTONE,black)
         st.playSound("ItemSound.quest_finish")
      else:
@@ -76,7 +76,7 @@ class Quest (JQuest) :
         if black+red > 9:
            amount += 1800
         st.takeItems(RED_SOULSTONE,red)
-        st.giveItems(ADENA,amount)
+        st.rewardItems(ADENA,amount)
         st.playSound("ItemSound.quest_finish")
      if red+black != 0 :
         # check the player state against this quest newbie rewarding mark.
@@ -85,7 +85,7 @@ class Quest (JQuest) :
           player.setNewbie(newbie|NEWBIE_REWARD)
           st.showQuestionMark(26)
           st.playTutorialVoice("tutorial_voice_026")
-          st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
+          st.rewardItems(SOULSHOT_FOR_BEGINNERS,6000)
    return htmltext
 
  def onKill(self,npc,player,isPet):

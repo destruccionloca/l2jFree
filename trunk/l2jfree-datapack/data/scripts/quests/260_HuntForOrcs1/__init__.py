@@ -61,7 +61,7 @@ class Quest (JQuest) :
        htmltext = "30221-04.htm"
      else :
        htmltext = "30221-05.htm"
-       st.giveItems(ADENA,amulet*5+necklace*15)
+       st.rewardItems(ADENA,amulet*5+necklace*15)
        st.takeItems(ORC_AMULET,-1)
        st.takeItems(ORC_NECKLACE,-1)
        # check the player state against this quest newbie rewarding mark.
@@ -71,10 +71,10 @@ class Quest (JQuest) :
           st.showQuestionMark(26)
           if player.getClassId().isMage() :
              st.playTutorialVoice("tutorial_voice_027")
-             st.giveItems(SPIRITSHOT_FOR_BEGINNERS,3000)
+             st.rewardItems(SPIRITSHOT_FOR_BEGINNERS,3000)
           else :
              st.playTutorialVoice("tutorial_voice_026")
-             st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
+             st.rewardItems(SOULSHOT_FOR_BEGINNERS,6000)
    return htmltext
 
  def onKill(self,npc,player,isPet):

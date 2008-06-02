@@ -60,7 +60,7 @@ class Quest (JQuest) :
          amount += 600*totems
        htmltext = "30569-05.htm"
        st.playSound("ItemSound.quest_finish")
-       st.giveItems(ADENA,amount)
+       st.rewardItems(ADENA,amount)
        st.takeItems(MARAKU_WEREWOLF_HEAD,-1)
        st.takeItems(MARAKU_WOLFMEN_TOTEM,-1)
        st.exitQuest(1)

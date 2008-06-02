@@ -64,7 +64,7 @@ class Quest (JQuest) :
    elif cond == 4 and count >= 5 :
       st.takeItems(PLAGUE_DUST,-1)
       st.takeItems(HYACINTH_CHARM2,-1)
-      st.giveItems(ADENA,18250)
+      st.rewardItems(ADENA,18250)
       htmltext = "30154-08.htm"
       st.unset("cond")
       st.exitQuest(False) 

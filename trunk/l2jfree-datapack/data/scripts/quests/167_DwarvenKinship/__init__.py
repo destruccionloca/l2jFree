@@ -41,7 +41,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_finish")
      elif event == "30210-02.htm" and cond == 2 and st.getQuestItemsCount(NORMANS_LETTER) :
        st.takeItems(NORMANS_LETTER,1)
-       st.giveItems(ADENA,20000)
+       st.rewardItems(ADENA,20000)
        st.unset("cond")
        st.exitQuest(False) 
        st.playSound("ItemSound.quest_finish")

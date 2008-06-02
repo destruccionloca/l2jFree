@@ -58,9 +58,9 @@ class Quest (JQuest) :
      count=st.getQuestItemsCount(IMP_SHACKLES)
      if count :
        if count >= 10:
-          st.giveItems(ADENA,13*count+500)
+          st.rewardItems(ADENA,13*count+500)
        else :
-          st.giveItems(ADENA,13*count)
+          st.rewardItems(ADENA,13*count)
        st.takeItems(IMP_SHACKLES,-1)
        # check the player state against this quest newbie rewarding mark.
        newbie = player.getNewbie()
@@ -69,10 +69,10 @@ class Quest (JQuest) :
           st.showQuestionMark(26)
           if player.getClassId().isMage() :
              st.playTutorialVoice("tutorial_voice_027")
-             st.giveItems(SPIRITSHOT_FOR_BEGINNERS,3000)
+             st.rewardItems(SPIRITSHOT_FOR_BEGINNERS,3000)
           else :
              st.playTutorialVoice("tutorial_voice_026")
-             st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
+             st.rewardItems(SOULSHOT_FOR_BEGINNERS,6000)
        htmltext = "30357-05.htm"
      else:
        htmltext = "30357-04.htm"

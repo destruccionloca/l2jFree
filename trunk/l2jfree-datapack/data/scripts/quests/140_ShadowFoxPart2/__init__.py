@@ -40,7 +40,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_finish")
        st.unset("talk")
        st.exitQuest(False)
-       st.giveItems(57, 18775)
+       st.rewardItems(57, 18775)
        if st.getPlayer().getLevel() >= 37 and st.getPlayer().getLevel() <= 42:
           st.addExpAndSp(30000,2000)
     elif event == "30912-07.htm" :

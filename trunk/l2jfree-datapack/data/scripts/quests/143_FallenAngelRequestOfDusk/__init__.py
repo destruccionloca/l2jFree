@@ -97,7 +97,7 @@ class Quest (JQuest) :
           htmltext = "30297-06.htm"
           st.playSound("ItemSound.quest_finish")
           st.exitQuest(False)
-          st.giveItems(57, 89046)
+          st.rewardItems(57, 89046)
           st.takeItems(MESSAGE, -1)
           if st.getPlayer().getLevel() >= 38 and st.getPlayer().getLevel() <= 43:
              st.addExpAndSp(223036,13901)

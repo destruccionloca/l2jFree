@@ -25,8 +25,8 @@ class Quest (JQuest) :
     htmltext = event
     cond = st.getInt("cond")
     if event == "32017-02.htm" and cond == 1 :
-        st.giveItems(57,4665)
-        st.giveItems(EnchantD,1)
+        st.rewardItems(57,4665)
+        st.rewardItems(EnchantD,1)
         st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")
     elif event == "30572-02.htm" :

@@ -63,7 +63,7 @@ class Quest (JQuest) :
        numItems, chance = divmod(40*Config.RATE_DROP_QUEST,100)
        if st.getRandom(100) <= chance :
           numItems += 1
-       numItems = int(numItems)   
+       numItems = int(numItems)
        if numItems != 0 :
           if 20 <= (adamantite + numItems) :
              numItems = 20 - adamantite

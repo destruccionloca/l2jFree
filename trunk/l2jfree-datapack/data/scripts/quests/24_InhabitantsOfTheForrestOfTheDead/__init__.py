@@ -70,7 +70,7 @@ class Quest (JQuest) :
         elif event == "31522-07.htm":
             st.set("cond","11")
         elif event == "31522-19.htm":
-            st.giveItems(SuspiciousTotem,int(1))
+            st.giveItems(SuspiciousTotem,1)
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
         elif event == "31531-02.htm":
@@ -151,7 +151,7 @@ class Quest (JQuest) :
         npcId = npc.getNpcId()
         if not st.getQuestItemsCount(Totem) and st.getInt("cond") == 9:
             if npcId in [21557,21558,21560,21563,21564,21565,21566,21567] and st.getRandom(100) <=30:
-                st.giveItems(totem,int(1*Config.RATE_DROP_QUEST))
+                st.giveItems(totem,1)
                 st.set("cond","10")
                 st.playSound("ItemSound.quest_middle")
         return

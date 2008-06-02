@@ -68,7 +68,7 @@ class Quest (JQuest) :
        else:
           st.exitQuest(0)
           st.playSound("ItemSound.quest_finish")
-          st.giveItems(57,60044)
+          st.rewardItems(57,60044)
     elif event == "32020-19.htm" :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","11")
@@ -142,7 +142,7 @@ class Quest (JQuest) :
           htmltext = "32020-18.htm"
           st.exitQuest(0)
           st.playSound("ItemSound.quest_finish")
-          st.giveItems(57,60044)
+          st.rewardItems(57,60044)
     elif npcId == Misa :
        if cond == 1:
           htmltext = "32018-01.htm"

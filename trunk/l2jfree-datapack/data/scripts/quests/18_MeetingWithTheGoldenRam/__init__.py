@@ -34,9 +34,9 @@ class Quest (JQuest) :
        htmltext = "31315-02.htm"
        st.giveItems(BOX,1)
      elif event == "31555-02.htm" :
-       st.giveItems(57,int(15000))
+       st.rewardItems(57,15000)
        st.takeItems(BOX,-1)
-       st.addExpAndSp(int(50000),0)
+       st.addExpAndSp(50000,0)
        st.unset("cond")
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False) 

@@ -277,7 +277,7 @@ class Quest (JQuest) :
                st.set("id","11")
            elif id == 11 and st.getQuestItemsCount(JEWEL1) > 0 and st.getRandom(100) < 5:
                st.takeItems(JEWEL1,-1)
-               st.giveItems(JEWEL2,int(1*Config.RATE_DROP_QUEST))
+               st.giveItems(JEWEL2,1)
                st.playSound("ItemSound.quest_itemget")
                st.set("cond","11")
    return
@@ -290,7 +290,7 @@ class Quest (JQuest) :
            self.well = 0
        elif npcId in MOBS :
            if st.getRandom(10) < 1 and st.getQuestItemsCount(SKULL) < 1:
-               st.giveItems(SKULL,int(1*Config.RATE_DROP_QUEST))
+               st.giveItems(SKULL,1)
                st.playSound("ItemSound.quest_itemget")
                st.set("cond","5")
    return
