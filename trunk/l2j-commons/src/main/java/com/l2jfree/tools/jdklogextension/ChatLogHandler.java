@@ -24,12 +24,13 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 package com.l2jfree.tools.jdklogextension;
+
 import java.io.IOException;
 import java.util.logging.FileHandler;
 
 public class ChatLogHandler extends FileHandler {
 
-    public ChatLogHandler() throws IOException, SecurityException {
-        super();
-    }
+	public ChatLogHandler() throws IOException, SecurityException {
+		super();
+	}
 }

@@ -16,11 +16,11 @@ package com.l2jfree.tools.task;
 
 /**
  * @author mkizub
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ * 
+ * TODO To change the template for this generated type comment go to Window -
+ * Preferences - Java - Code Style - Code Templates
  */
 public enum TaskPriority {
 	PR_NORMAL, PR_HIGH, PR_URGENT;
-	
+
 }

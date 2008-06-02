@@ -25,53 +25,46 @@ import java.io.UnsupportedEncodingException;
 
 import com.l2jfree.tools.codec.Base64;
 
-
 import junit.framework.TestCase;
 
 /**
  * Class for Base64 testing
  * 
  */
-public class Base64Test extends TestCase
-{   
-    
+public class Base64Test extends TestCase {
+
 	/**
 	 * Test that decode an encoded string give the string in entry
 	 */
-	public final void testDecodeString()
-	{
-        String entrance = "This Server is running L2JFree";
-        
-        String entranceEncoded = Base64.encodeBytes(entrance.getBytes());
-        
-        String result = null;
-        
-        try
-        {
-            result = new String(Base64.decode(entranceEncoded), "UTF-8");
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            fail(e.getMessage());
-        }
-        
-        assertEquals(entrance,result);        
+	public final void testDecodeString() {
+		String entrance = "This Server is running L2JFree";
+
+		String entranceEncoded = Base64.encodeBytes(entrance.getBytes());
+
+		String result = null;
+
+		try {
+			result = new String(Base64.decode(entranceEncoded), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			fail(e.getMessage());
+		}
+
+		assertEquals(entrance, result);
 	}
 
-    /**
-     * Test that decode an encoded object give the same object
-     */
-    public final void testDecodeObject()
-    {
-        String entrance = "This Server is running L2JFree";
-        
-        String entranceEncoded = Base64.encodeObject(entrance);
-        
-        String result = null;
-        
-        result = (String)Base64.decodeToObject(entranceEncoded);
-        
-        assertEquals(entrance,result);        
-    }
+	/**
+	 * Test that decode an encoded object give the same object
+	 */
+	public final void testDecodeObject() {
+		String entrance = "This Server is running L2JFree";
+
+		String entranceEncoded = Base64.encodeObject(entrance);
+
+		String result = null;
+
+		result = (String) Base64.decodeToObject(entranceEncoded);
+
+		assertEquals(entrance, result);
+	}
 
 }

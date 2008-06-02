@@ -29,31 +29,25 @@ import java.util.logging.LogRecord;
  * @version $Revision: 1.1.4.1 $ $Date: 2005/03/27 15:30:08 $
  */
 
-public class FileLogFormatter extends Formatter
-{
+public class FileLogFormatter extends Formatter {
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
 	 */
 	private static final String CRLF = "\r\n";
 	private static final String _ = "\t";
-	private SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss,SSS");
-	
-	public String format(LogRecord record)
-	{
+	private SimpleDateFormat dateFmt = new SimpleDateFormat(
+			"yyyy.MM.dd HH:mm:ss,SSS");
+
+	public String format(LogRecord record) {
 		StringBuffer output = new StringBuffer();
-		
-		return output
-		.append(dateFmt.format(new Date(record.getMillis())))
-		.append(_)
-		.append(record.getLevel().getName())
-		.append(_)
-		.append(record.getThreadID())
-		.append(_)
-		.append(record.getLoggerName())
-		.append(_)
-		.append(record.getMessage())
-		.append(CRLF)
-		.toString();
+
+		return output.append(dateFmt.format(new Date(record.getMillis())))
+				.append(_).append(record.getLevel().getName()).append(_)
+				.append(record.getThreadID()).append(_).append(
+						record.getLoggerName()).append(_).append(
+						record.getMessage()).append(CRLF).toString();
 	}
 }

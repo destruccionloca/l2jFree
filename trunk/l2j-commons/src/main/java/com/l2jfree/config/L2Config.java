@@ -28,12 +28,9 @@ import org.apache.commons.logging.LogFactory;
  * @author evill33t
  * 
  */
-public class L2Config
-{
+public class L2Config {
 	private final static Log _log = LogFactory.getLog(L2Config.class.getName());
-	
-	
-	private L2Config()
-	{
+
+	private L2Config() {
 	}
 }

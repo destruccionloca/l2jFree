@@ -19,28 +19,24 @@ import org.apache.commons.logging.LogFactory;
 
 import java.security.SecureRandom;
 
-public class RandomIntGenerator
-{
-    private static final Log _log = LogFactory.getLog(RandomIntGenerator.class); 
+public class RandomIntGenerator {
+	private static final Log _log = LogFactory.getLog(RandomIntGenerator.class);
 
-    private SecureRandom _random = new SecureRandom();
-    
-    private static RandomIntGenerator _instance;
-    
-    public SecureRandom getSecureRandom()
-    {
-    	return _random;
-    }
-    
-    public static final RandomIntGenerator getInstance()
-    {
-        if (_instance == null)
-            _instance = new RandomIntGenerator();
-        return _instance;
-    }
-    
-    private RandomIntGenerator()
-    {
-        _log.info("RandomIntGenerator: initialized");
-    }
+	private SecureRandom _random = new SecureRandom();
+
+	private static RandomIntGenerator _instance;
+
+	public SecureRandom getSecureRandom() {
+		return _random;
+	}
+
+	public static final RandomIntGenerator getInstance() {
+		if (_instance == null)
+			_instance = new RandomIntGenerator();
+		return _instance;
+	}
+
+	private RandomIntGenerator() {
+		_log.info("RandomIntGenerator: initialized");
+	}
 }

@@ -29,53 +29,49 @@ import junit.framework.TestCase;
  * Class for Point3D testing
  * 
  */
-public class Point3DTest extends TestCase
-{   
-    
+public class Point3DTest extends TestCase {
+
 	/**
-	 * Test that two points is equal
-     * subtility : pointDefaultZ is construct without z, z is 0 by default
+	 * Test that two points is equal subtility : pointDefaultZ is construct
+	 * without z, z is 0 by default
 	 */
-	public final void testEquality()
-	{
-	    Point3D pointDefaultz = new Point3D(1,1);
-        
-        Point3D point = new Point3D(1,1,0);
-        
-        assertEquals(point,pointDefaultz);
-        
+	public final void testEquality() {
+		Point3D pointDefaultz = new Point3D(1, 1);
+
+		Point3D point = new Point3D(1, 1, 0);
+
+		assertEquals(point, pointDefaultz);
+
 	}
 
+	/**
+	 * Test squared functions
+	 * 
+	 */
+	public final void testSquaredFunctions() {
+		Point3D pointA = new Point3D(1, 1, 1);
+		Point3D pointB = new Point3D(2, 2, 1);
+		Point3D pointC = new Point3D(5, 10, 1);
 
-    /**
-     * Test squared functions
-     * 
-     */
-    public final void testSquaredFunctions()
-    {
-        Point3D pointA = new Point3D(1,1,1);
-        Point3D pointB = new Point3D(2,2,1);
-        Point3D pointC = new Point3D(5,10,1);
-        
-        assertEquals(Point3D.distanceSquared(pointA,pointB),2);
-        
-        // Static and non static function should return the same
-        assertEquals(Point3D.distanceSquared(pointA,pointC),97);
-        assertEquals(pointA.distanceSquaredTo(pointC),Point3D.distanceSquared(pointA,pointC));
-        
-    }
+		assertEquals(Point3D.distanceSquared(pointA, pointB), 2);
 
-    /**
-     * Test distance functions
-     * 
-     */
-    public final void testDistanceLess()
-    {
-        Point3D pointA = new Point3D(1,1,1);
-        Point3D pointB = new Point3D(6,6,1);
-        
-        assertEquals(Point3D.distanceSquared(pointA,pointB),50);
-        assertTrue(Point3D.distanceLessThan(pointA,pointB,60));
-    }
+		// Static and non static function should return the same
+		assertEquals(Point3D.distanceSquared(pointA, pointC), 97);
+		assertEquals(pointA.distanceSquaredTo(pointC), Point3D.distanceSquared(
+				pointA, pointC));
+
+	}
+
+	/**
+	 * Test distance functions
+	 * 
+	 */
+	public final void testDistanceLess() {
+		Point3D pointA = new Point3D(1, 1, 1);
+		Point3D pointB = new Point3D(6, 6, 1);
+
+		assertEquals(Point3D.distanceSquared(pointA, pointB), 50);
+		assertTrue(Point3D.distanceLessThan(pointA, pointB, 60));
+	}
 
 }

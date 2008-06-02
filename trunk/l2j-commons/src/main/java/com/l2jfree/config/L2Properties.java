@@ -19,15 +19,13 @@ import java.util.Properties;
 /**
  * @author Noctarius
  */
-public class L2Properties extends Properties
-{
-	private static final long	serialVersionUID	= -4599023842346938325L;
-	
+public class L2Properties extends Properties {
+	private static final long serialVersionUID = -4599023842346938325L;
+
 	@Override
-	public String getProperty(String key, String defaultValue)
-	{
+	public String getProperty(String key, String defaultValue) {
 		String value = super.getProperty(key, defaultValue);
-		
+
 		return value.trim();
 	}
 }

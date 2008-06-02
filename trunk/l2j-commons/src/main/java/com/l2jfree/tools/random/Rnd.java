@@ -14,55 +14,52 @@
  */
 package com.l2jfree.tools.random;
 
-public class Rnd
-{
+public class Rnd {
 	/**
 	 * Get random number from 0.0 to 1.0
 	 */
-	public static final double nextDouble()
-	{
+	public static final double nextDouble() {
 		return RandomIntGenerator.getInstance().getSecureRandom().nextDouble();
 	}
 
 	/**
 	 * Get random number from 0 to n-1
 	 */
-	public static final int nextInt(int n)
-	{
-		if (n < 0) return RandomIntGenerator.getInstance().getSecureRandom().nextInt(Math.abs(n)) * (-1);
-		else if (n == 0) return n;
-		
+	public static final int nextInt(int n) {
+		if (n < 0)
+			return RandomIntGenerator.getInstance().getSecureRandom().nextInt(
+					Math.abs(n))
+					* (-1);
+		else if (n == 0)
+			return n;
+
 		return RandomIntGenerator.getInstance().getSecureRandom().nextInt(n);
 	}
 
 	/**
 	 * Get random number from 0 to n-1
 	 */
-	public static final int get(int n)
-	{
+	public static final int get(int n) {
 		return nextInt(n);
 	}
-	
+
 	/**
 	 * Get random number from min to max <b>(not max-1)</b>
 	 */
-	public static final int get(int min, int max)
-	{
+	public static final int get(int min, int max) {
 		return min + nextInt(max - min + 1);
 	}
 
-	public static final double nextGaussian()  
-	{
-		return RandomIntGenerator.getInstance().getSecureRandom().nextGaussian();
+	public static final double nextGaussian() {
+		return RandomIntGenerator.getInstance().getSecureRandom()
+				.nextGaussian();
 	}
 
-	public static final boolean nextBoolean()  
-	{
+	public static final boolean nextBoolean() {
 		return RandomIntGenerator.getInstance().getSecureRandom().nextBoolean();
 	}
 
-	public static final void nextBytes(byte [] array)
-	{
+	public static final void nextBytes(byte[] array) {
 		RandomIntGenerator.getInstance().getSecureRandom().nextBytes(array);
 	}
 }

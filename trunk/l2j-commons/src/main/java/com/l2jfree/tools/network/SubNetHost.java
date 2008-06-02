@@ -20,60 +20,50 @@ import javolution.util.FastList;
 
 /**
  * @author G1ta0
- *
+ * 
  */
-public class SubNetHost
-{
+public class SubNetHost {
 	private String _hostname;
 
 	private String _hostip;
 
 	private List<SubNet> _subnets;
 
-	public SubNetHost(String hostName)
-	{
+	public SubNetHost(String hostName) {
 		_hostname = hostName;
 		_subnets = new FastList<SubNet>();
 	}
 
-	public String getHostname()
-	{
+	public String getHostname() {
 		return _hostname;
 	}
 
-	public void setHostname(String hostName)
-	{
+	public void setHostname(String hostName) {
 		_hostname = hostName;
 	}
 
-	public String getIp()
-	{
+	public String getIp() {
 		return _hostip;
 	}
 
-	public void setIp(String ip)
-	{
+	public void setIp(String ip) {
 		_hostip = ip;
 	}
-	
-	public void addSubNet(SubNet net)
-	{
-		if(net != null)
+
+	public void addSubNet(SubNet net) {
+		if (net != null)
 			_subnets.add(net);
 	}
-	
-	public void addSubNet(String net, String mask)
-	{
+
+	public void addSubNet(String net, String mask) {
 		SubNet _net = new SubNet(net, mask);
 		addSubNet(_net);
 	}
 
-	public boolean isInSubnet(String ip)
-	{
+	public boolean isInSubnet(String ip) {
 		boolean _rightHost = false;
-		for(SubNet net : _subnets)
-			if(net.isInSubnet(ip))
-			{
+		for (SubNet net : _subnets)
+			if (net.isInSubnet(ip)) {
 				_rightHost = true;
 				break;
 			}
