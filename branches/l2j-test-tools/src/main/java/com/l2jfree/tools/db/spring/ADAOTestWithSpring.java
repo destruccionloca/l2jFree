@@ -2,7 +2,7 @@
  *  
  */
 
-package net.sf.l2j.tools.db.spring;
+package com.l2jfree.tools.db.spring;
 
 import java.io.InputStream;
 import java.sql.SQLException;

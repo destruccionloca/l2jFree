@@ -1,7 +1,9 @@
-package net.sf.l2j.tools.db;
+package com.l2jfree.tools.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import com.l2jfree.tools.db.DerbyHelper;
 
 import junit.framework.TestCase;
 

@@ -2,7 +2,7 @@
  *  
  */
 
-package net.sf.l2j.tools.db.spring;
+package com.l2jfree.tools.db.spring;
 
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import junit.framework.TestCase;
-import net.sf.l2j.tools.db.DerbyHelper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,6 +26,8 @@ import org.dbunit.operation.DatabaseOperation;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+
+import com.l2jfree.tools.db.DerbyHelper;
 
 
 /**

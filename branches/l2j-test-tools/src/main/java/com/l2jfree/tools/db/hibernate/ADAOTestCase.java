@@ -1,9 +1,8 @@
-package net.sf.l2j.tools.db.hibernate;
+package com.l2jfree.tools.db.hibernate;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import net.sf.l2j.tools.db.DerbyHelper;
 
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
@@ -11,6 +10,8 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.dialect.DerbyDialect;
+
+import com.l2jfree.tools.db.DerbyHelper;
 
 /**
  * 

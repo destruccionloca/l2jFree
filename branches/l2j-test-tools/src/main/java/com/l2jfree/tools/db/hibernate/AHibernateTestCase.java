@@ -1,4 +1,4 @@
-package net.sf.l2j.tools.db.hibernate;
+package com.l2jfree.tools.db.hibernate;
 
 import java.sql.Blob;
 import java.sql.Clob;

@@ -1,4 +1,4 @@
-package net.sf.l2j.tools.db;
+package com.l2jfree.tools.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
