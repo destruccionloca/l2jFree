@@ -7640,7 +7640,7 @@ INSERT INTO `etcitem` VALUES
 (10598,"Battle Manual - Soul Vortex", "false", "spellbook", 120, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
 (10599,"Battle Manual - Soul Vortex Extinction", "false", "spellbook", 120, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
 (10600,"Battle Manual - Soul Barrier", "false", "spellbook", 120, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
-(10600,'Battle Manual - Soul Barrier','false','spellbook',120,'stackable','wood','none',-1,6750,NULL,'true','true','true','true','',''),
+(10601,'Battle Manual - Soul Barrier','false','spellbook',120,'stackable','wood','none',-1,6750,NULL,'true','true','true','true','',''),
 (10602,"Battle Manual - Soul Strike", "false", "spellbook", 120, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
 (10603,"Battle Manual - Betrayal Mark", "false", "spellbook", 120, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
 (10604,"Battle Manual - Rush Impact", "false", "spellbook", 120, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
