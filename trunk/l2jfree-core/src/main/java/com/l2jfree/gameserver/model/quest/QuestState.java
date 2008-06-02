@@ -445,8 +445,6 @@ public final class QuestState
 		if (count <= 0) 
 			return;
 
-		int questId = getQuest().getQuestIntId();
-
 		// Add items to player's inventory
 		L2ItemInstance item = getPlayer().getInventory().addItem("Quest", itemId, count, getPlayer(), getPlayer().getTarget());
 
@@ -497,16 +495,10 @@ public final class QuestState
 		if (count <= 0) 
 			return;
 
-		int questId = getQuest().getQuestIntId();
-		
-		L2ItemInstance tempItem = ItemTable.getInstance().createDummyItem(itemId);
-		// If item for reward is gold (ID=57), modify count with rate for quest reward
 		if (itemId == 57)
 			count=(int)(count*Config.RATE_QUESTS_REWARD_ADENA);
 		else
-			// only mulitply if the the item type2 is not QUEST and exclude custom scripts (>=1000)
-			if((tempItem.getItem().getType2() != L2Item.TYPE2_QUEST) && questId < 1000)
-				count=(int)(count*Config.RATE_QUESTS_REWARD_ITEMS);
+			count=(int)(count*Config.RATE_QUESTS_REWARD_ITEMS);
 		
 		// Add items to player's inventory
 		L2ItemInstance item = getPlayer().getInventory().addItem("Quest", itemId, count, getPlayer(), getPlayer().getTarget());
