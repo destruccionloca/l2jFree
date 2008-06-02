@@ -18372,7 +18372,7 @@
   <item id="872" name="mk_dynasty_blade_i">
     <!-- Recipe - Dynasty Sword (60%) -->
     <recipe id="9967" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Sword -->
@@ -18399,7 +18399,7 @@
   <item id="873" name="mk_dynasty_two_hand_sword_i">
     <!-- Recipe - Dynasty Blade (60%) -->
     <recipe id="9968" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Blade -->
@@ -18426,7 +18426,7 @@
   <item id="874" name="mk_dynasty_magic_sword_i">
     <!-- Recipe - Dynasty Phantom (60%) -->
     <recipe id="9969" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Phantom -->
@@ -18453,7 +18453,7 @@
   <item id="875" name="mk_dynasty_bow_i">
     <!-- Recipe - Dynasty Bow (60%) -->
     <recipe id="9970" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Bow -->
@@ -18482,7 +18482,7 @@
   <item id="876" name="mk_dynasty_dagger_i">
     <!-- Recipe - Dynasty Knife (60%) -->
     <recipe id="9971" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Knife -->
@@ -18509,7 +18509,7 @@
   <item id="877" name="mk_dynasty_spear_i">
     <!-- Recipe - Dynasty Halberd (60%) -->
     <recipe id="9972" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Halberd -->
@@ -18538,7 +18538,7 @@
   <item id="878" name="mk_dynasty_hammer_i">
     <!-- Recipe - Dynasty Cudgel (60%) -->
     <recipe id="9973" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Cudgel -->
@@ -18565,7 +18565,7 @@
   <item id="879" name="mk_dynasty_staff_i">
     <!-- Recipe - Dynasty Mace (60%) -->
     <recipe id="9974" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Mace -->
@@ -18594,7 +18594,7 @@
   <item id="880" name="mk_dynasty_jamadhr_i">
     <!-- Recipe - Dynasty Bagh-Nakh (60%) -->
     <recipe id="9975" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Bagh-Nakh -->
@@ -18623,7 +18623,7 @@
   <item id="881" name="mk_sealed_dynasty_blast_plate_i">
     <!-- Recipe - Sealed Dynasty Breast Plate (60%) -->
     <recipe id="9482" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Breast Plate -->
@@ -18646,7 +18646,7 @@
   <item id="882" name="mk_sealed_dynasty_gaiter_i">
     <!-- Recipe - Sealed Dynasty Gaiter (60%) -->
     <recipe id="9483" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Gaiter -->
@@ -18669,7 +18669,7 @@
   <item id="883" name="mk_sealed_dynasty_helmet_i">
     <!-- Recipe - Sealed Dynasty Helmet (60%) -->
     <recipe id="9484" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Helmet -->
@@ -18692,7 +18692,7 @@
   <item id="884" name="mk_sealed_dynasty_gauntlet_i">
     <!-- Recipe - Sealed Dynasty Gauntlet (60%) -->
     <recipe id="9485" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Gauntlets -->
@@ -18717,7 +18717,7 @@
   <item id="885" name="mk_sealed_dynasty_boots_i">
     <!-- Recipe - Sealed Dynasty Boots (60%) -->
     <recipe id="9486" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Boots -->
@@ -18742,7 +18742,7 @@
   <item id="886" name="mk_sealed_dynasty_leather_mail_i">
     <!-- Recipe - Sealed Dynasty Leather Armor (60%) -->
     <recipe id="9487" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Leather Armor -->
@@ -18768,7 +18768,7 @@
     name="mk_sealed_dynasty_leather_legging_i">
     <!-- Recipe - Sealed Dynasty Leather Armor (60%) -->
     <recipe id="9488" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Leather Leggings -->
@@ -18794,7 +18794,7 @@
     name="mk_sealed_dynasty_leather_helmet_i">
     <!-- Recipe - Sealed Dynasty Leather Helmet (60%) -->
     <recipe id="9489" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Leather Helmet -->
@@ -18818,7 +18818,7 @@
     name="mk_sealed_dynasty_leather_gloves_i">
     <!-- Recipe - Sealed Dynasty Leather Gloves (60%) -->
     <recipe id="9490" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Leather Gloves -->
@@ -18843,7 +18843,7 @@
   <item id="890" name="mk_sealed_dynasty_leather_boots_i">
     <!-- Recipe - Sealed Dynasty Leather Boots (60%) -->
     <recipe id="9491" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Leather Boots -->
@@ -18868,7 +18868,7 @@
   <item id="891" name="mk_sealed_dynasty_tunic_i">
     <!-- Recipe - Sealed Dynasty Tunic (60%) -->
     <recipe id="9492" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Tunic -->
@@ -18893,7 +18893,7 @@
   <item id="892" name="mk_sealed_dynasty_hose_i">
     <!-- Recipe - Sealed Dynasty Stockings (60%) -->
     <recipe id="9493" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Stockings -->
@@ -18918,7 +18918,7 @@
   <item id="893" name="mk_sealed_dynasty_circlet_i">
     <!-- Recipe - Sealed Dynasty Circlet (60%) -->
     <recipe id="9494" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Circlet -->
@@ -18941,7 +18941,7 @@
   <item id="894" name="mk_sealed_dynasty_gloves_i">
     <!-- Recipe - Sealed Dynasty Gloves (60%) -->
     <recipe id="9495" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Gloves -->
@@ -18966,7 +18966,7 @@
   <item id="895" name="mk_sealed_dynasty_shoes_i">
     <!-- Recipe - Sealed Dynasty Shoes (60%) -->
     <recipe id="9496" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Shoes -->
@@ -18991,7 +18991,7 @@
   <item id="896" name="mk_sealed_dynasty_shield_i">
     <!-- Recipe - Sealed Dynasty Shield (60%) -->
     <recipe id="9497" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Sealed Dynasty Shield -->
@@ -19018,7 +19018,7 @@
   <item id="897" name="mk_sealed_dynasty_earring_i">
     <!-- Recipe - Sealed Dynasty Earrings (70%) -->
     <recipe id="9985" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>70</successRate>
     <!-- Sealed Dynasty Earring -->
@@ -19043,7 +19043,7 @@
   <item id="898" name="mk_sealed_dynasty_neckalce_i">
     <!-- Recipe - Sealed Dynasty Necklace (70%) -->
     <recipe id="9986" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>70</successRate>
     <!-- Sealed Dynasty Necklace -->
@@ -19068,7 +19068,7 @@
   <item id="899" name="mk_sealed_dynasty_ring_i">
     <!-- Recipe - Sealed Dynasty Ring (70%) -->
     <recipe id="9987" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>70</successRate>
     <!-- Sealed Dynasty Ring -->
@@ -19094,7 +19094,7 @@
   <item id="900" name="mk_icarus_sowsword_i">
     <!-- Recipe - Icarus Sawsword (60%) -->
     <recipe id="10373" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Icarus Sawsword -->
@@ -19121,7 +19121,7 @@
   <item id="901" name="mk_icarus_disperser_i">
     <!-- Recipe - Icarus Disperser (60%) -->
     <recipe id="10374" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Icarus Disperser -->
@@ -19148,7 +19148,7 @@
   <item id="902" name="mk_icarus_spirits_i">
     <!-- Recipe - Icarus Spirit (60%) -->
     <recipe id="10375" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Icarus Spirit -->
@@ -19175,7 +19175,7 @@
   <item id="903" name="mk_icarus_heavy_arms_i">
     <!-- Recipe - Icarus Heavy Arms (60%) -->
     <recipe id="10376" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Icarus Heavy Arms -->
@@ -19202,7 +19202,7 @@
   <item id="904" name="mk_icarus_trident_i">
     <!-- Recipe - Icarus Trident (60%) -->
     <recipe id="10377" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Icarus Trident -->
@@ -19231,7 +19231,7 @@
   <item id="905" name="mk_icarus_chopper_i">
     <!-- Recipe - Icarus Hammer (60%) -->
     <recipe id="10378" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Icarus Hammer -->
@@ -19260,7 +19260,7 @@
   <item id="906" name="mk_icarus_knuckle_i">
     <!-- Recipe - Icarus Hand (60%) -->
     <recipe id="10379" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Icarus Hand -->
@@ -19289,7 +19289,7 @@
   <item id="907" name="mk_icarus_wand_i">
     <!-- Recipe - Icarus Hall (60%) -->
     <recipe id="10380" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Icarus Hall -->
@@ -19318,7 +19318,7 @@
   <item id="908" name="mk_icarus_accipiter_i">
     <!-- Recipe - Icarus Spitter (60%) -->
     <recipe id="10381" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Icarus Spitter -->
@@ -19347,7 +19347,7 @@
   <item id="909" name="mk_dynasty_twohand_staff_i">
     <!-- Recipe - Dynasty Staff(60%) -->
     <recipe id="10544" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Staff -->
@@ -19376,7 +19376,7 @@
   <item id="910" name="mk_dynasty_crusher_i">
     <!-- Recipe - Dynasty Crusher(60%) -->
     <recipe id="10545" level="9" />
-    <common />
+    <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Crusher -->
