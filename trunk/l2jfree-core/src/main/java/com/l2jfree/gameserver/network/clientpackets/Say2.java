@@ -73,8 +73,13 @@ public class Say2 extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 
-		// If no channel is choosen - return
-		if (_type == SystemChatChannelId.Chat_None)
+		// If no or wrong channel is used - return
+		if (_type == SystemChatChannelId.Chat_None ||
+				_type == SystemChatChannelId.Chat_Announce ||
+				_type == SystemChatChannelId.Chat_Critical_Announce ||
+				_type == SystemChatChannelId.Chat_System ||
+				_type == SystemChatChannelId.Chat_Custom ||
+					(_type == SystemChatChannelId.Chat_GM_Pet && !activeChar.isGM()))
 		{
 			_log.warn("[Say2.java] Illegal chat channel was used.");
 			return;
