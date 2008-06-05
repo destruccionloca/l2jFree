@@ -129,6 +129,9 @@ public class TradeListTable
 						_itemCount++;
 						if (count > -1)
 							buyItem.setCountDecrease(true);
+						if (_price <= -1)  
+							_price = ItemTable.getInstance().getTemplate(_itemId).getReferencePrice();
+
 						buyItem.setPriceToSell(_price);
 						buyItem.setTime(time);
 						buyItem.setInitCount(count);
