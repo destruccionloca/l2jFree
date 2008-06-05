@@ -57,7 +57,7 @@ class Quest (JQuest) :
           st.set("cond","5")
           st.playSound("ItemSound.quest_middle")
     elif event == "30650_1" :
-          if st.getQuestItemsCount(ADENA) >= 100000) :
+          if st.getQuestItemsCount(ADENA) >= 100000 :
             htmltext = "30650-02.htm"
             st.giveItems(BOOK_OF_GERALD,1)
             st.takeItems(ADENA,100000)
