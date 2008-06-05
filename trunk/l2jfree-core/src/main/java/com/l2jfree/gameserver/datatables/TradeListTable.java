@@ -191,7 +191,7 @@ public class TradeListTable
 			}
 			catch (Exception e)
 			{
-				_log.warn("TradeController:" + (custom ? " custom " : " ") + "Could not restore Timer for Item count.", e);
+				_log.warn("TradeListTable:" + (custom ? " custom " : " ") + "Could not restore Timer for Item count.", e);
 			}
 		}
 		catch (Exception e)

@@ -196,7 +196,7 @@ public class RequestBuyItem extends L2GameClientPacket
 
         if (_listId > 1000000) // lease
         {
-            if (merchant != null && merchant.getTemplate().getNpcId() != _listId-1000000)
+            if (merchant != null && merchant.getTemplate().getNpcId() != _listId/100)
             {
                 player.sendPacket(ActionFailed.STATIC_PACKET);
                 return;
@@ -243,17 +243,17 @@ public class RequestBuyItem extends L2GameClientPacket
                 return;
             }
 
+            price = list.getPriceForItemId(itemId);
+            
             if (_listId < 1000000)
             {
                 //list = TradeController.getInstance().getBuyList(_listId);
-                price = list.getPriceForItemId(itemId);
-                if (itemId >= 3960 && itemId <= 4026) price *= Config.RATE_SIEGE_GUARDS_PRICE;
-    
+                if (itemId >= 3960 && itemId <= 4026) price *= Config.RATE_SIEGE_GUARDS_PRICE;    
             }
 
             if (price < 0)
             {
-                _log.warn("ERROR, no price found .. wrong buylist ??");
+            	_log.warn("ERROR, no price found .. wrong buylist ??");
                 player.sendPacket(ActionFailed.STATIC_PACKET);
                 return;
 			}
