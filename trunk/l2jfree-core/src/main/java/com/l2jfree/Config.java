@@ -1699,6 +1699,7 @@ public final class Config
 	public static int			GM_ALTG_MIN_LEVEL;									// Minimum privileges level for a GM to do Alt+G
 	public static int			GM_ANNOUNCE;										// General GM AccessLevel to change announcements
 	public static int			GM_BAN;											// General GM AccessLevel can /ban /unban
+	public static int			GM_JAIL;											// General GM AccessLevel can /jail /unjail
 	public static int			GM_BAN_CHAT;										// General GM AccessLevel can /ban /unban for chat
 	public static int			GM_CREATE_ITEM;									// General GM AccessLevel can /create_item and /gmshop
 	public static int			GM_FREE_SHOP;										// General GM AccessLevel can shop for free
@@ -1776,6 +1777,7 @@ public final class Config
 			GM_ALTG_MIN_LEVEL = Integer.parseInt(gmSettings.getProperty("GMCanAltG", "100"));
 			GM_ANNOUNCE = Integer.parseInt(gmSettings.getProperty("GMCanAnnounce", "100"));
 			GM_BAN = Integer.parseInt(gmSettings.getProperty("GMCanBan", "100"));
+			GM_JAIL = Integer.parseInt(gmSettings.getProperty("GMCanJail", "100"));
 			GM_BAN_CHAT = Integer.parseInt(gmSettings.getProperty("GMCanBanChat", "100"));
 			GM_CREATE_ITEM = Integer.parseInt(gmSettings.getProperty("GMCanShop", "100"));
 			GM_FREE_SHOP = Integer.parseInt(gmSettings.getProperty("GMCanBuyFree", "100"));
