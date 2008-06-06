@@ -1,6 +1,6 @@
 package com.l2jfree.loginserver.beans;
 
-// Generated 11 déc. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8
+// Generated 11 dec. 2006 17:28:16 by Hibernate Tools 3.2.0.beta8
 
 import java.math.BigDecimal;
 
