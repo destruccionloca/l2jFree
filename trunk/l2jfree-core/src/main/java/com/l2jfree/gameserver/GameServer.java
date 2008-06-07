@@ -140,8 +140,11 @@ public class GameServer
 	{
 		Config.load();
 		
-		ThreadDeadlockDetector dead = new ThreadDeadlockDetector(Config.DEADLOCKCHECK_INTERVAL);
-		dead.addListener(new DefaultDeadlockListener());
+		if(Config.DEADLOCKCHECK_INTERVAL>0)
+		{
+			ThreadDeadlockDetector dead = new ThreadDeadlockDetector(Config.DEADLOCKCHECK_INTERVAL);
+			dead.addListener(new DefaultDeadlockListener());
+		}
 		
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
