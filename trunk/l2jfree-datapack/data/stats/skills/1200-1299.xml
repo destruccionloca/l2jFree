@@ -321,7 +321,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="10" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1217" levels="33" name="Greater Heal"
     enchantLevels1="30" enchantLevels2="30">
@@ -446,7 +446,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1219" levels="33" name="Greater Group Heal"
     enchantLevels1="30" enchantLevels2="30">
@@ -536,7 +536,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="750" />
     <set name="effectRange" val="1250" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1222" levels="15" name="Curse Chaos"
     enchantLevels1="30" enchantLevels2="30">
@@ -769,7 +769,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="0.9" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1226" levels="18"
     name="Summon Boxer the Unicorn" enchantLevels1="30">
@@ -830,7 +830,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1227" levels="18"
     name="Summon Mirage the Unicorn" enchantLevels1="30">
@@ -878,7 +878,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="0.9" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1228" levels="18" name="Summon Silhouette"
     enchantLevels1="30">
@@ -926,7 +926,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="0.9" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1229" levels="18" name="Chant of Life"
     enchantLevels1="30" enchantLevels2="30">
@@ -1051,7 +1051,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1231" levels="28" name="Aura Flare"
     enchantLevels1="30" enchantLevels2="30">
@@ -1250,7 +1250,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1235" levels="28" name="Hydro Blast"
     enchantLevels1="30" enchantLevels2="30">
@@ -1308,7 +1308,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1236" levels="19" name="Frost Bolt"
     enchantLevels1="30" enchantLevels2="30">
@@ -1552,7 +1552,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1240" levels="3" name="Guidance"
     enchantLevels1="30" enchantLevels2="30">
@@ -1792,7 +1792,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1246" levels="12" name="Seal of Silence"
     enchantLevels1="30" enchantLevels2="30">
@@ -2256,7 +2256,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1255" levels="2" name="Party Recall">
     <table name="#mpConsume_Init">52 61</table>
@@ -2274,7 +2274,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1256" levels="13" name="The Heart of Pa'agrio"
     enchantLevels1="30" enchantLevels2="30">
@@ -2408,7 +2408,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1259" levels="4" name="Resist Shock"
     enchantLevels1="30" enchantLevels2="30">
@@ -2679,7 +2679,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="750" />
     <set name="effectRange" val="1250" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1265" levels="14" name="Solar Flare"
     enchantLevels1="30" enchantLevels2="30">
@@ -2734,7 +2734,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1266" levels="3" name="Shadow Spark">
     <table name="#mpConsume_Init">6 7 8</table>
@@ -2755,7 +2755,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="750" />
     <set name="effectRange" val="1250" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1267" levels="14" name="Shadow Flare"
     enchantLevels1="30" enchantLevels2="30">
@@ -2810,7 +2810,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1268" levels="4" name="Vampiric Rage"
     enchantLevels1="30" enchantLevels2="30">
@@ -2936,7 +2936,7 @@
     <cond>
       <player mp="25" />
     </cond>
-    <for></for>
+    <for />
   </skill>
   <skill id="1272" levels="13" name="Word of Fear">
     <table name="#mpConsume_Init">
@@ -2993,7 +2993,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1274" levels="4" name="Energy Bolt">
     <table name="#mpConsume_Init">2 3 3 3</table>
@@ -3012,7 +3012,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1275" levels="14" name="Aura Bolt"
     enchantLevels1="30" enchantLevels2="30">
@@ -3063,7 +3063,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1276" levels="14" name="Summon Kai the Cat"
     enchantLevels1="30">
@@ -3174,7 +3174,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1278" levels="14" name="Summon Soulless"
     enchantLevels1="30">
@@ -3229,7 +3229,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1279" levels="9" name="Summon Binding Cubic">
     <table name="#mpConsume_Init">
@@ -3241,11 +3241,13 @@
     <table name="#itemConsumeCount">
       5 6 7 8 9 9 11 12 13
     </table>
+    <table name="#mAtk">
+      282 377 497 644 820 1026 1264 1530 1822
+    </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="itemConsumeId" val="1458" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
-    <set name="power" val="15" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="6000" />
@@ -3255,10 +3257,13 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <!-- Summon-specific -->
+    <set name="power" val="#mAtk" />
     <set name="npcId" val="6" />
+    <set name="activationtime" val="14" />
+    <set name="activationchance" val="55" />
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1280" levels="9" name="Summon Aqua Cubic">
     <table name="#mpConsume_Init">
@@ -3270,12 +3275,14 @@
     <table name="#itemConsumeCount">
       2 3 3 4 4 5 6 6 7
     </table>
+    <table name="#mAtk">
+      282 377 497 644 820 1141 1394 1673 1975
+    </table>
     <set name="element" val="3" /><!-- Water -->
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="itemConsumeId" val="1458" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
-    <set name="power" val="40" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="6000" />
@@ -3285,10 +3292,13 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <!-- Summon-specific -->
+    <set name="power" val="#mAtk" />
     <set name="npcId" val="7" />
+    <set name="activationtime" val="14" /><!-- guessed -->
+    <set name="activationchance" val="67" /><!-- guessed -->
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1281" levels="9" name="Summon Spark Cubic">
     <table name="#mpConsume_Init">
@@ -3300,11 +3310,13 @@
     <table name="#itemConsumeCount">
       5 6 7 8 9 9 11 12 13
     </table>
+    <table name="#mAtk">
+      282 377 497 644 820 1026 1264 1530 1822
+    </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="itemConsumeId" val="1458" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
-    <set name="power" val="80" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="6000" />
@@ -3314,10 +3326,13 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <!-- Summon-specific -->
+    <set name="power" val="#mAtk" />
     <set name="npcId" val="8" />
+    <set name="activationtime" val="14" /><!-- guessed -->
+    <set name="activationchance" val="55" /><!-- guessed -->
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1282" levels="2" name="Pa'agrian Haste"
     enchantLevels1="30" enchantLevels2="30">
@@ -3533,7 +3548,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1289" levels="1" name="Inferno">
     <set name="mpInitialConsume" val="50" />
@@ -3619,7 +3634,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1293" levels="1" name="Elemental Symphony">
     <set name="mpInitialConsume" val="50" />
@@ -3635,7 +3650,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1294" levels="1" name="Elemental Storm">
     <set name="mpInitialConsume" val="50" />
@@ -3651,7 +3666,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1295" levels="9" name="Aqua Splash"
     enchantLevels1="30" enchantLevels2="30">
@@ -3704,7 +3719,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1296" levels="9" name="Rain of Fire"
     enchantLevels1="30" enchantLevels2="30">
@@ -3757,7 +3772,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1297" levels="6" name="Clear Mind">
     <table name="#Tab-regMp-Walk">

@@ -107,7 +107,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4" levels="2" name="Dash">
     <table name="#spd">40 66</table>
@@ -181,7 +181,7 @@
     <set name="num_charges" val="3" />
     <set name="charge_skill_id" val="8" />
     <!-- Sonic Focus is the charger -->
-    <for></for>
+    <for />
   </skill>
   <skill id="6" levels="37" name="Sonic Blaster"
     enchantLevels1="30" enchantLevels2="30">
@@ -293,7 +293,7 @@
     <set name="num_charges" val="2" />
     <set name="charge_skill_id" val="8" />
     <!-- Sonic Focus is the charger -->
-    <for></for>
+    <for />
   </skill>
   <skill id="8" levels="8" name="Sonic Focus">
     <table name="#power">
@@ -373,7 +373,7 @@
     <set name="num_charges" val="2" />
     <set name="charge_skill_id" val="8" />
     <!-- Sonic Focus is the charger -->
-    <for></for>
+    <for />
   </skill>
   <skill id="10" levels="8" name="Summon Storm Cubic">
     <table name="#mpConsume_Init">
@@ -383,11 +383,13 @@
     <table name="#itemConsumeCount">
       5 6 8 9 11 12 13 14
     </table>
+    <table name="#mAtk">
+      282 434 644 919 1141 1394 1673 1975
+    </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="itemConsumeId" val="1458" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="6000" />
@@ -397,10 +399,13 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <!-- Summon-specific -->
+    <set name="power" val="#mAtk" />
     <set name="npcId" val="1" />
+    <set name="activationtime" val="14" />
+    <set name="activationchance" val="80" />
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="11" levels="12" name="Trick">
     <table name="#mpConsume">
@@ -480,7 +485,7 @@
     <set name="npcId" val="14737" />
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="15" levels="52" name="Charm">
     <table name="#mpConsume_Init">
@@ -608,7 +613,7 @@
     <set name="num_charges" val="2" />
     <set name="charge_skill_id" val="50" />
     <!-- Force Focus is the charger -->
-    <for></for>
+    <for />
   </skill>
   <skill id="18" levels="37" name="Aura of Hate"
     enchantLevels1="30" enchantLevels2="30">
@@ -734,19 +739,21 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="22" levels="7" name="Summon Vampiric Cubic">
     <table name="#mpConsume_Init">8 9 10 11 12 13 14</table>
     <table name="#mpConsume">30 35 40 44 48 51 53</table>
     <table name="#itemConsumeCount">6 7 8 9 11 12 13</table>
     <table name="#magicLvl">43 49 55 60 64 68 72</table>
+    <table name="#mAtk">
+      351 531 773 1026 1264 1530 1822
+    </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="itemConsumeId" val="1458" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="6000" />
@@ -756,10 +763,13 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <!-- Summon-specific -->
+    <set name="power" val="#mAtk" />
     <set name="npcId" val="2" />
+    <set name="activationtime" val="14" /><!-- guessed -->
+    <set name="activationchance" val="67" /><!-- guessed -->
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="24" levels="31" name="Burst Shot"
     enchantLevels1="30" enchantLevels2="30">
@@ -859,7 +869,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="0.15" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="27" levels="14" name="Unlock">
     <table name="#mpConsume">
@@ -883,7 +893,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="28" levels="49" name="Aggression"
     enchantLevels1="30" enchantLevels2="30">
@@ -980,7 +990,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="30" levels="37" name="Backstab"
     enchantLevels1="30" enchantLevels2="30">
@@ -1036,7 +1046,7 @@
     <set name="SSBoost" val="1.5" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
-    <for></for>
+    <for />
   </skill>
   <skill id="33" levels="8" name="Summon Phantom Cubic">
     <table name="#mpConsume_Init">
@@ -1045,12 +1055,14 @@
     <table name="#mpConsume">28 33 38 43 46 49 52 55</table>
     <table name="#itemConsumeCount">2 3 4 4 5 6 6 7</table>
     <table name="#magicLvl">40 46 52 58 62 66 70 74</table>
+    <table name="#mAtk">
+      282 434 644 919 1141 1394 1673 1975
+    </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="itemConsumeId" val="1458" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
-    <set name="power" val="40" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="6000" />
@@ -1060,10 +1072,13 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <!-- Summon-specific -->
+    <set name="power" val="#mAtk" />
     <set name="npcId" val="5" />
+    <set name="activationtime" val="14" /><!-- guessed -->
+    <set name="activationchance" val="55" /><!-- guessed -->
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="34" levels="3" name="Bandage">
     <table name="#mpConsume">19 41 55</table>
@@ -1081,7 +1096,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="35" levels="28" name="Force Storm"
     enchantLevels1="30" enchantLevels2="30">
@@ -1141,7 +1156,7 @@
     <set name="num_charges" val="2" />
     <set name="charge_skill_id" val="50" />
     <!-- Force Focus is the charger -->
-    <for></for>
+    <for />
   </skill>
   <skill id="36" levels="37" name="Whirlwind"
     enchantLevels1="30" enchantLevels2="30">
@@ -1195,7 +1210,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
-    <for></for>
+    <for />
   </skill>
   <skill id="42" levels="1" name="Sweeper"
     enchantLevels1="30" enchantLevels2="30">
@@ -1227,7 +1242,7 @@
     <!-- no damage, it's dead -->
     <enchant1 name="absorbAbs" val="#ench1drain" />
     <!-- absorbs absolute value -->
-    <for></for>
+    <for />
   </skill>
   <skill id="44" levels="3" name="Remedy">
     <table name="#mpConsume_Init">7 9 11</table>
@@ -1248,7 +1263,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="45" levels="9" name="Divine Heal">
     <table name="#mpConsume_Init">
@@ -1279,7 +1294,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="46" levels="15" name="Life Scavenge"
     enchantLevels1="30" enchantLevels2="30">
@@ -1332,7 +1347,7 @@
     <!-- absorbs absolute value -->
     <enchant1 name="absorbAbs" val="#enchHPget" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
-    <for></for>
+    <for />
   </skill>
   <skill id="48" levels="37" name="Thunder Storm"
     enchantLevels1="30" enchantLevels2="30">
@@ -1456,7 +1471,7 @@
     <cond msg="Your target is not undead">
       <target undead="true" />
     </cond>
-    <for></for>
+    <for />
   </skill>
   <skill id="50" levels="8" name="Focused Force">
     <table name="#power">
@@ -1501,7 +1516,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <enchant1 name="mpConsume" val="#ench1mpConsume" />
-    <for></for>
+    <for />
   </skill>
   <skill id="54" levels="49" name="Force Blaster"
     enchantLevels1="30" enchantLevels2="30">
@@ -1560,7 +1575,7 @@
     <set name="num_charges" val="1" />
     <set name="charge_skill_id" val="50" />
     <!-- Force Focus is the charger -->
-    <for></for>
+    <for />
   </skill>
   <skill id="56" levels="24" name="Power Shot">
     <table name="#mpConsume">
@@ -1590,7 +1605,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="700" />
     <set name="effectRange" val="1200" />
-    <for></for>
+    <for />
   </skill>
   <skill id="58" levels="55" name="Elemental Heal"
     enchantLevels1="30" enchantLevels2="30">
@@ -1664,7 +1679,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="60" levels="1" name="Fake Death">
     <set name="mpConsume" val="200" />
@@ -1697,7 +1712,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="65" levels="13" name="Horror">
     <table name="#mpConsume_Init">
@@ -1747,9 +1762,11 @@
     <set name="effectRange" val="-1" />
     <!-- Summon-specific -->
     <set name="npcId" val="3" />
+    <set name="activationtime" val="10" />
+    <set name="activationchance" val="0" /><!-- this is hard coded in core, because multiple chances -->
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="69" levels="25" name="Sacrifice"
     enchantLevels1="30" enchantLevels2="30">
@@ -1802,7 +1819,7 @@
     <set name="aggroPoints" val="#aggro" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="hpConsume" val="#ench2HpConsume" />
-    <for></for>
+    <for />
   </skill>
   <skill id="70" levels="53" name="Drain Health"
     enchantLevels1="30" enchantLevels2="30">
@@ -1870,7 +1887,7 @@
     <!-- absorbs 20% or damage -->
     <set name="absorbAbs" val="0" />
     <!-- Drain absorbs absolute values from corpses only -->
-    <for></for>
+    <for />
   </skill>
   <skill id="72" levels="3" name="Iron Will"
     enchantLevels1="30" enchantLevels2="30">

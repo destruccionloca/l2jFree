@@ -29,7 +29,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4002" levels="12" name="NPC HP Drain">
     <table name="#mpConsume">
@@ -56,7 +56,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="absorbPart" val="0.2" /><!-- absorbs 20% of damage -->
-    <for></for>
+    <for />
   </skill>
   <skill id="4003" levels="1" name="Golem Body">
     <!-- Done by DJ MELERIX -->
@@ -273,7 +273,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4018" levels="1" name="Decrease Speed">
     <!-- Queen Ant Skills -->
@@ -327,7 +327,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4021" levels="1" name="Queen Ant">
     <!-- Queen Ant Skills -->
@@ -351,7 +351,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4023" levels="1"
     name="Body Of Royal Guard Ant">
@@ -362,7 +362,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4024" levels="1" name="Heal Queen Ant2">
     <set name="power" val="10845" />
@@ -374,7 +374,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4025" levels="12" name="Master Recharge">
     <table name="#mpConsume">
@@ -398,7 +398,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4026" levels="1" name="Gludio Flame">
     <!-- Done by DJ MELERIX -->
@@ -416,7 +416,7 @@
     <set name="skillRadius" val="200" />
     <set name="skillType" val="MDAM" />
     <set name="target" val="TARGET_AREA" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4027" levels="1" name="Gludio Heal">
     <!-- Done by DJ MELERIX -->
@@ -432,7 +432,7 @@
     <set name="reuseDelay" val="10000" />
     <set name="skillType" val="HEAL" />
     <set name="target" val="TARGET_ONE" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4028" levels="3" name="NPC Might">
     <table name="#magicLvl">20 40 70</table>
@@ -552,7 +552,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4033" levels="12" name="NPC Burn">
     <table name="#mpConsume">
@@ -578,7 +578,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4034" levels="12" name="Decrease Speed">
     <table name="#mpConsume">
@@ -753,7 +753,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4040" levels="12" name="NPC Bow Attack">
     <table name="#mpConsume">
@@ -777,7 +777,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="700" />
     <set name="effectRange" val="1200" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4041" levels="2" name="Cruma Blaze">
     <!-- Done by DJ MELERIX -->
@@ -797,7 +797,7 @@
     <set name="power" val="#power" />
     <set name="skillType" val="MDAM" />
     <set name="target" val="TARGET_ONE" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4042" levels="1" name="Nurka Blaze">
     <!-- Done by DJ MELERIX -->
@@ -813,7 +813,7 @@
     <set name="power" val="60" />
     <set name="skillType" val="MDAM" />
     <set name="target" val="TARGET_ONE" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4043" levels="1" name="Partisan Flame">
     <!-- Done by DJ MELERIX -->
@@ -831,7 +831,7 @@
     <set name="skillRadius" val="200" />
     <set name="skillType" val="MDAM" />
     <set name="target" val="TARGET_AREA" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4044" levels="1" name="Partisan Heal">
     <!-- Done by DJ MELERIX -->
@@ -848,7 +848,7 @@
     <set name="reuseDelay" val="10000" />
     <set name="skillType" val="HEAL" />
     <set name="target" val="TARGET_ONE" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4045" levels="1"
     name="Resist Full Magic Attack">
@@ -948,12 +948,13 @@
     <set name="lvlDepend" val="1" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
-    <set name="element" val="6" /><!-- Dark -->
-    <set name="skillType" val="DRAIN" />
+    <set name="element" val="1" /><!-- Wind -->
+    <set name="skillType" val="MDAM" />
+    <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4050" levels="16" name="Cubic DD">
     <table name="#power">
@@ -967,14 +968,14 @@
     <set name="lvlDepend" val="1" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
-    <set name="skillType" val="MDAM" />
-    <set name="element" val="6" />
+    <set name="element" val="6" /><!-- Dark -->
+    <set name="skillType" val="DRAIN" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="absorbPart" val="0.4" /><!-- absorbs 40% of damage -->
-    <for></for>
+    <for />
   </skill>
   <skill id="4051" levels="16" name="Cubic Heal">
     <table name="#power">
@@ -993,7 +994,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4052" levels="15" name="Poison">
     <!-- Cubic skill -->
@@ -1036,9 +1037,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="0.77" stackType="pAtkDown">
-        <mul order="0x30" stat="pAtk" val="0.77" />
+      <effect count="1" name="Debuff" time="30" val="0"
+        stackOrder="0.77" stackType="pAtkDown"> <!-- time is guessed -->
       </effect>
     </for>
   </skill>
@@ -1057,9 +1057,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="0.77" stackType="pDefDown">
-        <mul order="0x30" stat="pDef" val="0.77" />
+      <effect count="1" name="Debuff" time="30" val="0"
+        stackOrder="0.77" stackType="pDefDown"> <!-- time is guessed -->
       </effect>
     </for>
   </skill>
@@ -1078,9 +1077,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Debuff" time="120" val="0"
-        stackOrder="0.77" stackType="pAtkSpdDown">
-        <mul order="0x30" stat="pAtkSpd" val="0.77" />
+      <effect count="1" name="Debuff" time="30" val="0"
+        stackOrder="0.77" stackType="pAtkSpdDown"> <!-- time is guessed -->
       </effect>
     </for>
   </skill>
@@ -1091,7 +1089,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4057" levels="1" name="Insect Weak Point">
     <set name="power" val="0.0" />
@@ -1221,7 +1219,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4066" levels="12" name="NPC Twister">
     <table name="#mpConsume">
@@ -1247,7 +1245,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4067" levels="12" name="NPC Mortal Blow">
     <table name="#mpConsume">
@@ -1272,7 +1270,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4068" levels="12" name="Mechanical Cannon">
     <table name="#mpConsume">
@@ -1296,7 +1294,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4069" levels="12"
     name="NPC Curve Beam Cannon">
@@ -1322,7 +1320,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4070" levels="1" name="Decrease Atk. Spd.">
     <!-- Done by dc -->
@@ -1516,7 +1514,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="150" />
     <set name="effectRange" val="650" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4078" levels="12" name="NPC Flamestrike">
     <table name="#mpConsume">
@@ -1543,7 +1541,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="900" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4079" levels="1" name="Siege Hammer">
     <set name="mpConsume" val="150" />
@@ -1558,7 +1556,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4080" levels="1" name="Dark Heal">
     <set name="mpConsume" val="98" />
@@ -1573,7 +1571,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4081" levels="1" name="Pretending to steal">
     <set name="power" val="0.0" />
@@ -1584,7 +1582,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4082" levels="1" name="Poison of Death">
     <set name="power" val="90000.0" />
@@ -1617,7 +1615,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4084" levels="10"
     name="Resist Physical Attack">
@@ -1682,7 +1680,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4088" levels="12" name="Bleed">
     <table name="#damage">
@@ -1836,7 +1834,7 @@
     <set name="effectRange" val="1100" />
     <set name="negateStats" val="BUFF" />
     <set name="negatePower" val="8.0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4095" levels="1" name="Damage Shield">
     <set name="power" val="20.0" />
@@ -1845,7 +1843,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4096" levels="3" name="NPC Hawkeye">
     <!-- Done by dc -->

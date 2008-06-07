@@ -1297,7 +1297,7 @@
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="1" />
     <set name="save" val="3" />
-    <set name="power" val="15" />
+    <set name="power" val="40" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PARALYZE" />
     <set name="isDebuff" val="true" />
@@ -1306,7 +1306,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Paralyze" time="120" val="0" />
+      <effect count="1" name="Paralyze" time="30" val="0" />
     </for>
   </skill>
   <skill id="4165" levels="17" name="Icy Air">

@@ -21,7 +21,7 @@
     <set name="negatePower" val="#negatePower" />
     <set name="aggroPoints" val="#aggro" />
     <set name="magicLvl" val="#magicLvl" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1301" levels="1" name="Servitor Blessing">
     <set name="magicLvl" val="62" />
@@ -38,7 +38,7 @@
     <set name="negateStats" val="ROOT PARALYZE DEBUFF" />
     <set name="negatePower" val="3.0" />
     <set name="aggroPoints" val="582" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1303" levels="2" name="Wild Magic"
     enchantLevels1="30" enchantLevels2="30">
@@ -190,7 +190,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1306" levels="6" name="Ritual of Life"
     enchantLevels1="30" enchantLevels2="30">
@@ -233,7 +233,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1307" levels="3" name="Prayer"
     enchantLevels1="30" enchantLevels2="30">
@@ -518,7 +518,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1313" levels="27" name="Pumping">
     <table name="#power">
@@ -535,7 +535,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1314" levels="27" name="Reeling">
     <table name="#power">
@@ -552,7 +552,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1315" levels="27" name="Fishing Expertise">
     <set name="power" val="0.0" />
@@ -560,7 +560,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1316" levels="1"
     name="Fishing Expertise -C-Grade">
@@ -569,7 +569,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1317" levels="1"
     name="Fishing Expertise -B-Grade">
@@ -578,7 +578,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1318" levels="1"
     name="Fishing Expertise -A-Grade">
@@ -587,7 +587,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1319" levels="1"
     name="Fishing Expertise -S-Grade">
@@ -596,7 +596,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1320" levels="9" name="Create Common Item">
     <set name="power" val="0.0" />
@@ -604,7 +604,7 @@
     <set name="skillType" val="COREDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1321" levels="1" name="Dwarven Craft">
     <set name="power" val="0.0" />
@@ -615,7 +615,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1322" levels="1" name="Common Craft">
     <set name="power" val="0.0" />
@@ -626,7 +626,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1323" levels="1" name="Noblesse Blessing">
     <set name="mpInitialConsume" val="14" />
@@ -699,7 +699,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1327" levels="1" name="Symphony of Noblesse">
     <!--
@@ -712,7 +712,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1328" levels="8"
     name="Mass Summon Storm Cubic">
@@ -725,11 +725,13 @@
     <table name="#itemConsumeCount">
       20 24 32 36 44 48 56 52
     </table>
+    <table name="#mAtk">
+      282 434 644 919 1141 1394 1673 1975
+    </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="itemConsumeId" val="1458" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PARTY" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="6000" />
@@ -739,10 +741,13 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <!-- Summon-specific -->
+    <set name="power" val="#mAtk" />
     <set name="npcId" val="1" />
+    <set name="activationtime" val="14" />
+    <set name="activationchance" val="80" />
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1329" levels="9"
     name="Mass Summon Aqua Cubic">
@@ -755,13 +760,15 @@
     <table name="#itemConsumeCount">
       8 12 12 16 16 20 24 24 28
     </table>
+    <table name="#mAtk">
+      282 377 497 644 820 1141 1394 1673 1975
+    </table>
     <set name="element" val="3" />
     <!-- Water -->
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="itemConsumeId" val="1458" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PARTY" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="6000" />
@@ -771,10 +778,15 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <!-- Summon-specific -->
+    <set name="power" val="#mAtk" />
     <set name="npcId" val="7" />
+    <set name="activationtime" val="14" />
+    <!-- guessed -->
+    <set name="activationchance" val="67" />
+    <!-- guessed -->
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1330" levels="8"
     name="Mass Summon Phantom Cubic">
@@ -787,11 +799,13 @@
     <table name="#itemConsumeCount">
       8 12 16 16 20 24 24 28
     </table>
+    <table name="#mAtk">
+      282 434 644 919 1141 1394 1673 1975
+    </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="itemConsumeId" val="1458" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PARTY" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="6000" />
@@ -801,10 +815,15 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <!-- Summon-specific -->
+    <set name="power" val="#mAtk" />
     <set name="npcId" val="5" />
+    <set name="activationtime" val="14" />
+    <!-- guessed -->
+    <set name="activationchance" val="55" />
+    <!-- guessed -->
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1331" levels="10" name="Summon Feline Queen"
     enchantLevels1="30">
@@ -860,7 +879,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1332" levels="10"
     name="Summon Unicorn Seraphim" enchantLevels1="30">
@@ -916,7 +935,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1333" levels="10" name="Summon Nightshade"
     enchantLevels1="30">
@@ -972,7 +991,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1334" levels="7" name="Summon Cursed Man"
     enchantLevels1="30">
@@ -1019,7 +1038,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="0.15" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1335" levels="1" name="Balance Life">
     <set name="mpInitialConsume" val="25" />
@@ -1035,7 +1054,7 @@
     <set name="effectRange" val="-1" />
     <set name="castRange" val="-1" />
     <set name="aggroPoints" val="398" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1336" levels="1" name="Curse of Doom">
     <set name="mpInitialConsume" val="14" />
@@ -1271,7 +1290,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1345" levels="1" name="Mass Mage Bane">
     <set name="mpInitialConsume" val="27" />
@@ -1287,7 +1306,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1346" levels="1" name="Warrior Servitor">
     <set name="mpInitialConsume" val="14" />
@@ -1422,7 +1441,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1351" levels="1" name="Mage Bane">
     <set name="mpInitialConsume" val="20" />
@@ -1437,7 +1456,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1352" levels="1" name="Elemental Protection">
     <set name="mpInitialConsume" val="14" />
@@ -2389,7 +2408,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="isMagic" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1396" levels="10" name="Magical Backfire">
     <table name="#mpConsume">
