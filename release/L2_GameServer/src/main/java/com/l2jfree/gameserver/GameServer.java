@@ -12,115 +12,117 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver;
+package com.l2jfree.gameserver;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Calendar;
 
-import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.cache.CrestCache;
-import net.sf.l2j.gameserver.cache.HtmCache;
-import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
-import net.sf.l2j.gameserver.datatables.ArmorSetsTable;
-import net.sf.l2j.gameserver.datatables.AugmentationData;
-import net.sf.l2j.gameserver.datatables.BuffTemplateTable;
-import net.sf.l2j.gameserver.datatables.CharTemplateTable;
-import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.DoorTable;
-import net.sf.l2j.gameserver.datatables.EventDroplist;
-import net.sf.l2j.gameserver.datatables.ExtractableItemsData;
-import net.sf.l2j.gameserver.datatables.FishTable;
-import net.sf.l2j.gameserver.datatables.GmListTable;
-import net.sf.l2j.gameserver.datatables.HennaTable;
-import net.sf.l2j.gameserver.datatables.HennaTreeTable;
-import net.sf.l2j.gameserver.datatables.HeroSkillTable;
-import net.sf.l2j.gameserver.datatables.ItemTable;
-import net.sf.l2j.gameserver.datatables.LevelUpData;
-import net.sf.l2j.gameserver.datatables.NobleSkillTable;
-import net.sf.l2j.gameserver.datatables.NpcTable;
-import net.sf.l2j.gameserver.datatables.NpcWalkerRoutesTable;
-import net.sf.l2j.gameserver.datatables.PetDataTable;
-import net.sf.l2j.gameserver.datatables.SkillSpellbookTable;
-import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.datatables.SkillTreeTable;
-import net.sf.l2j.gameserver.datatables.SpawnTable;
-import net.sf.l2j.gameserver.datatables.StaticObjects;
-import net.sf.l2j.gameserver.datatables.SummonItemsData;
-import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
-import net.sf.l2j.gameserver.datatables.TradeListTable;
-import net.sf.l2j.gameserver.elayne.RemoteAdministrationImpl;
-import net.sf.l2j.gameserver.geoeditorcon.GeoEditorListener;
-import net.sf.l2j.gameserver.handler.AdminCommandHandler;
-import net.sf.l2j.gameserver.handler.ChatHandler;
-import net.sf.l2j.gameserver.handler.ItemHandler;
-import net.sf.l2j.gameserver.handler.SkillHandler;
-import net.sf.l2j.gameserver.handler.UserCommandHandler;
-import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
-import net.sf.l2j.gameserver.idfactory.IdFactory;
-import net.sf.l2j.gameserver.instancemanager.AuctionManager;
-import net.sf.l2j.gameserver.instancemanager.BoatManager;
-import net.sf.l2j.gameserver.instancemanager.CastleManager;
-import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
-import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
-import net.sf.l2j.gameserver.instancemanager.CoupleManager;
-import net.sf.l2j.gameserver.instancemanager.CrownManager;
-import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
-import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
-import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
-import net.sf.l2j.gameserver.instancemanager.FactionManager;
-import net.sf.l2j.gameserver.instancemanager.FactionQuestManager;
-import net.sf.l2j.gameserver.instancemanager.FortManager;
-import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
-import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
-import net.sf.l2j.gameserver.instancemanager.GrandBossSpawnManager;
-import net.sf.l2j.gameserver.instancemanager.IrcManager;
-import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
-import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
-import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
-import net.sf.l2j.gameserver.instancemanager.PetitionManager;
-import net.sf.l2j.gameserver.instancemanager.QuestManager;
-import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
-import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
-import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.TownManager;
-import net.sf.l2j.gameserver.instancemanager.TransformationManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.AntharasManager;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.BaylorManager;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.FrintezzaManager;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.SailrenManager;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.ValakasManager;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
-import net.sf.l2j.gameserver.instancemanager.lastimperialtomb.LastImperialTombManager;
-import net.sf.l2j.gameserver.model.AutoChatHandler;
-import net.sf.l2j.gameserver.model.AutoSpawnHandler;
-import net.sf.l2j.gameserver.model.L2Manor;
-import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.model.entity.Hero;
-import net.sf.l2j.gameserver.network.L2GameClient;
-import net.sf.l2j.gameserver.network.L2GamePacketHandler;
-import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
-import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
-import net.sf.l2j.gameserver.scripting.L2ScriptEngineManager;
-import net.sf.l2j.gameserver.skills.SkillsEngine;
-import net.sf.l2j.gameserver.taskmanager.KnownListUpdateTaskManager;
-import net.sf.l2j.gameserver.taskmanager.TaskManager;
-import net.sf.l2j.gameserver.util.DynamicExtension;
-import net.sf.l2j.gameserver.util.FloodProtector;
-import net.sf.l2j.gameserver.util.PathCreator;
-import net.sf.l2j.gameserver.util.Util;
-import net.sf.l2j.status.Status;
-import net.sf.l2j.tools.random.RandomIntGenerator;
-import net.sf.l2j.versionning.Version;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.SelectorConfig;
 import org.mmocore.network.SelectorThread;
+
+import com.l2jfree.Config;
+import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.cache.CrestCache;
+import com.l2jfree.gameserver.cache.HtmCache;
+import com.l2jfree.gameserver.communitybbs.Manager.ForumsBBSManager;
+import com.l2jfree.gameserver.datatables.ArmorSetsTable;
+import com.l2jfree.gameserver.datatables.AugmentationData;
+import com.l2jfree.gameserver.datatables.BuffTemplateTable;
+import com.l2jfree.gameserver.datatables.CharTemplateTable;
+import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.datatables.DoorTable;
+import com.l2jfree.gameserver.datatables.EventDroplist;
+import com.l2jfree.gameserver.datatables.ExtractableItemsData;
+import com.l2jfree.gameserver.datatables.FishTable;
+import com.l2jfree.gameserver.datatables.GmListTable;
+import com.l2jfree.gameserver.datatables.HennaTable;
+import com.l2jfree.gameserver.datatables.HennaTreeTable;
+import com.l2jfree.gameserver.datatables.HeroSkillTable;
+import com.l2jfree.gameserver.datatables.ItemTable;
+import com.l2jfree.gameserver.datatables.LevelUpData;
+import com.l2jfree.gameserver.datatables.NobleSkillTable;
+import com.l2jfree.gameserver.datatables.NpcTable;
+import com.l2jfree.gameserver.datatables.NpcWalkerRoutesTable;
+import com.l2jfree.gameserver.datatables.PetDataTable;
+import com.l2jfree.gameserver.datatables.SkillSpellbookTable;
+import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.datatables.SkillTreeTable;
+import com.l2jfree.gameserver.datatables.SpawnTable;
+import com.l2jfree.gameserver.datatables.StaticObjects;
+import com.l2jfree.gameserver.datatables.SummonItemsData;
+import com.l2jfree.gameserver.datatables.TeleportLocationTable;
+import com.l2jfree.gameserver.datatables.TradeListTable;
+import com.l2jfree.gameserver.elayne.RemoteAdministrationImpl;
+import com.l2jfree.gameserver.geoeditorcon.GeoEditorListener;
+import com.l2jfree.gameserver.handler.AdminCommandHandler;
+import com.l2jfree.gameserver.handler.ChatHandler;
+import com.l2jfree.gameserver.handler.ItemHandler;
+import com.l2jfree.gameserver.handler.SkillHandler;
+import com.l2jfree.gameserver.handler.UserCommandHandler;
+import com.l2jfree.gameserver.handler.VoicedCommandHandler;
+import com.l2jfree.gameserver.idfactory.IdFactory;
+import com.l2jfree.gameserver.instancemanager.AuctionManager;
+import com.l2jfree.gameserver.instancemanager.BoatManager;
+import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.instancemanager.CastleManorManager;
+import com.l2jfree.gameserver.instancemanager.ClanHallManager;
+import com.l2jfree.gameserver.instancemanager.CoupleManager;
+import com.l2jfree.gameserver.instancemanager.CrownManager;
+import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
+import com.l2jfree.gameserver.instancemanager.DayNightSpawnManager;
+import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
+import com.l2jfree.gameserver.instancemanager.FactionManager;
+import com.l2jfree.gameserver.instancemanager.FactionQuestManager;
+import com.l2jfree.gameserver.instancemanager.FortManager;
+import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
+import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
+import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
+import com.l2jfree.gameserver.instancemanager.IrcManager;
+import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
+import com.l2jfree.gameserver.instancemanager.MapRegionManager;
+import com.l2jfree.gameserver.instancemanager.MercTicketManager;
+import com.l2jfree.gameserver.instancemanager.PetitionManager;
+import com.l2jfree.gameserver.instancemanager.QuestManager;
+import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
+import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
+import com.l2jfree.gameserver.instancemanager.SiegeManager;
+import com.l2jfree.gameserver.instancemanager.TownManager;
+import com.l2jfree.gameserver.instancemanager.TransformationManager;
+import com.l2jfree.gameserver.instancemanager.ZoneManager;
+import com.l2jfree.gameserver.instancemanager.grandbosses.AntharasManager;
+import com.l2jfree.gameserver.instancemanager.grandbosses.BaiumManager;
+import com.l2jfree.gameserver.instancemanager.grandbosses.BaylorManager;
+import com.l2jfree.gameserver.instancemanager.grandbosses.FrintezzaManager;
+import com.l2jfree.gameserver.instancemanager.grandbosses.SailrenManager;
+import com.l2jfree.gameserver.instancemanager.grandbosses.ValakasManager;
+import com.l2jfree.gameserver.instancemanager.grandbosses.VanHalterManager;
+import com.l2jfree.gameserver.instancemanager.lastimperialtomb.LastImperialTombManager;
+import com.l2jfree.gameserver.model.AutoChatHandler;
+import com.l2jfree.gameserver.model.AutoSpawnHandler;
+import com.l2jfree.gameserver.model.L2Manor;
+import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.entity.Hero;
+import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.L2GamePacketHandler;
+import com.l2jfree.gameserver.pathfinding.geonodes.GeoPathFinding;
+import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
+import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
+import com.l2jfree.gameserver.skills.SkillsEngine;
+import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
+import com.l2jfree.gameserver.taskmanager.TaskManager;
+import com.l2jfree.gameserver.util.DynamicExtension;
+import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.PathCreator;
+import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.status.Status;
+import com.l2jfree.tools.random.RandomIntGenerator;
+import com.l2jfree.versionning.Version;
 
 public class GameServer
 {
@@ -132,8 +134,8 @@ public class GameServer
 	private static Status						_statusServer;
 	public static final Calendar				dateTimeServerStarted	= Calendar.getInstance();
 	private LoginServerThread					_loginThread;
-	private static final Version				version					= new Version();
-
+	private static final Version version = new Version();
+	
 	public GameServer() throws Throwable
 	{
 		Config.load();
@@ -159,7 +161,7 @@ public class GameServer
 			GeoData.getInstance();
 			if (_log.isDebugEnabled())
 				_log.debug("GeoData initialized");
-
+			
 			if (Config.GEO_PATH_FINDING)
 			{
 				GeoPathFinding.getInstance();
@@ -260,7 +262,7 @@ public class GameServer
 		try
 		{
 			_log.info("Loading Server Scripts");
-			File scripts = new File(Config.DATAPACK_ROOT.getAbsolutePath(), "data/scripts.cfg");
+			File scripts = new File(Config.DATAPACK_ROOT.getAbsolutePath(),"data/scripts.cfg");
 			L2ScriptEngineManager.getInstance().executeScriptList(scripts);
 		}
 		catch (IOException ioe)
@@ -273,7 +275,7 @@ public class GameServer
 
 		EventDroplist.getInstance();
 		FaenorScriptEngine.getInstance();
-
+		
 		Util.printSection("Extensions");
 		if (Config.FACTION_ENABLED)
 		{
@@ -289,7 +291,7 @@ public class GameServer
 		{
 			_log.warn("DynamicExtension could not be loaded and initialized", ex);
 		}
-
+		
 		Util.printSection("Handlers");
 		ItemHandler.getInstance();
 		SkillHandler.getInstance();
@@ -297,8 +299,9 @@ public class GameServer
 		UserCommandHandler.getInstance();
 		VoicedCommandHandler.getInstance();
 		ChatHandler.getInstance();
-
+		
 		Util.printSection("Misc");
+		ObjectRestrictions.getInstance();
 		TaskManager.getInstance();
 		GmListTable.getInstance();
 		RemoteAdministrationImpl.getInstance().startServer();
@@ -306,26 +309,26 @@ public class GameServer
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
 			OnlinePlayers.getInstance();
 		FloodProtector.getInstance();
-		ForumsBBSManager.getInstance();
+        ForumsBBSManager.getInstance();
 		KnownListUpdateTaskManager.getInstance();
-
+		
 		_shutdownHandler = Shutdown.getInstance();
 		Runtime.getRuntime().addShutdownHook(_shutdownHandler);
-
+		
 		System.gc();
-
+		
 		Util.printSection("ServerThreads");
 		_loginThread = LoginServerThread.getInstance();
 		_loginThread.start();
-
+		
 		L2GamePacketHandler gph = new L2GamePacketHandler();
 		SelectorConfig<L2GameClient> sc = new SelectorConfig<L2GameClient>(null, null, gph, gph);
 		sc.setMaxSendPerPass(12);
 		sc.setSelectorSleepTime(20);
 		_selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, null);
 		_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
-		_selectorThread.start();
-
+		_selectorThread.start(); 
+		
 		if (Config.IRC_ENABLED)
 			IrcManager.getInstance().getConnection().sendChan("GameServer Started");
 		if (Config.IS_TELNET_ENABLED)
@@ -335,19 +338,19 @@ public class GameServer
 		}
 		else
 			_log.info("Telnet server is currently disabled.");
-
+		
 		if (Config.ACCEPT_GEOEDITOR_CONN)
 			GeoEditorListener.getInstance();
-
+		
 		Util.printSection("l2jfree");
 		version.loadInformation(GameServer.class);
-		_log.info("Revision: " + version.getRevisionNumber());
-		//_log.info("Build date: "+version.getBuildDate());
-		_log.info("Compiler version: " + version.getBuildJdk());
+        _log.info("Revision: "+version.getVersionNumber());
+        //_log.info("Build date: "+version.getBuildDate());
+        _log.info("Compiler version: "+version.getBuildJdk());
 
 		printMemUsage();
 		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
-
+		
 		Util.printSection("GameServerLog");
 		if (Config.ENABLE_JYTHON_SHELL)
 		{
@@ -355,29 +358,29 @@ public class GameServer
 			Util.JythonShell();
 		}
 	}
-
+	
 	public static String getVersionNumber()
 	{
-		return version.getRevisionNumber();
+		return version.getVersionNumber();
 	}
-
+	
 	public static void printMemUsage()
 	{
 		Util.printSection("Memory");
 		for (String line : Util.getMemUsage())
 			_log.info(line);
 	}
-
+	
 	public SelectorThread<L2GameClient> getSelectorThread()
 	{
 		return _selectorThread;
 	}
-
+	
 	public long getUsedMemoryMB()
 	{
 		return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576; // 1024 * 1024 = 1048576
 	}
-
+	
 	public static void main(String[] args) throws Throwable
 	{
 		System.setProperty("python.home", ".");

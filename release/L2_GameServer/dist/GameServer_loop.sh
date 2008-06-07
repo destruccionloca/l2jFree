@@ -12,7 +12,7 @@ do
 #	-verbose:gc -Xloggc:log/gc.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution
 # Alternative startup by NB4L1
 #	java -Dfile.encoding=UTF-8 -Xmn128m -Xms512m -Xmx1024m -server net.sf.l2j.gameserver.GameServer > log/stdout.log 2>&1
-	java -Dfile.encoding=UTF-8 -Xmx1024m net.sf.l2j.gameserver.GameServer > log/stdout.log 2>&1
+	java -Dfile.encoding=UTF-8 -Xmx1024m com.l2jfree.gameserver.GameServer > log/stdout.log 2>&1
 	err=$?
 #	/etc/init.d/mysql restart
 	sleep 10;

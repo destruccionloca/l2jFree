@@ -26,8 +26,8 @@ REM for performance usage
 SET CLASSPATH=%CLASSPATH%;javolution-1.5.4.2.6.jar
 
 REM main jar
-SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.5.jar
-SET CLASSPATH=%CLASSPATH%;l2j-gameserver-1.0.0.jar
+SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.6.jar
+SET CLASSPATH=%CLASSPATH%;l2jfree-gameserver-1.1.0.jar
 
 REM For SQL use
 SET CLASSPATH=%CLASSPATH%;mysql-connector-java-5.1.5.jar
@@ -40,4 +40,4 @@ SET CLASSPATH=%CLASSPATH%;./config/
 SET CLASSPATH=%CLASSPATH%;.
 
 REM the core itself
-SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.0.1.jar
+SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.1.0.jar
