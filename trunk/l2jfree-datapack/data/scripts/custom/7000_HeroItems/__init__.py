@@ -62,7 +62,13 @@ class Quest (JQuest) :
                st.giveItems(item,1)
                htmltext = "Enjoy your Wings of Destiny Circlet"
           else :
+             #old weapons
              for i in range(6611,6622):
+                if st.getQuestItemsCount(i):
+                   st.exitQuest(1)
+                   return "You already have an "+HERO_ITEMS[i][1]
+             #kamael weapons
+             for i in range(9388,9391):
                 if st.getQuestItemsCount(i):
                    st.exitQuest(1)
                    return "You already have an "+HERO_ITEMS[i][1]
