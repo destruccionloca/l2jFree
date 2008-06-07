@@ -18,27 +18,31 @@
       </releases>
     </pluginRepository>
     <pluginRepository>
-      <id>central l2j</id>
-      <name>Mirror Central L2j</name>
-      <url>http://www.l2jfree.com/maven/</url>
+      <id>l2jfree.internal</id>
+      <name>l2jfree maven repository</name>
+      <url>
+        http://www.l2jfree.com:8080/archiva/repository/internal/
+      </url>
       <releases>
         <enabled>true</enabled>
       </releases>
       <snapshots>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
   <repositories>
     <repository>
-      <id>central l2j</id>
-      <name>Central L2j</name>
-      <url>http://www.l2jfree.com/maven/</url>
+      <id>l2jfree.internal</id>
+      <name>l2jfree maven repository</name>
+      <url>
+        http://www.l2jfree.com:8080/archiva/repository/internal/
+      </url>
       <releases>
         <enabled>true</enabled>
       </releases>
       <snapshots>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
       </snapshots>
     </repository>
   </repositories>
@@ -76,6 +80,13 @@
     </dependency>
   </dependencies>
   <build>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-webdav</artifactId>
+        <version>1.0-beta-2</version>
+      </extension>
+    </extensions>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -87,4 +98,12 @@
       </plugin>
     </plugins>
   </build>
+  <distributionManagement>
+    <repository>
+      <id>l2jfree.internal</id>
+      <url>
+        dav:http://www.l2jfree.com:8080/archiva/repository/internal/
+      </url>
+    </repository>
+  </distributionManagement>
 </project>
