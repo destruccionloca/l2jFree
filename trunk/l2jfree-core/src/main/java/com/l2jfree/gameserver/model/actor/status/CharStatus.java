@@ -477,9 +477,10 @@ public class CharStatus
 	public final void setCurrentHp(double newHp, boolean broadcastPacket)
 	{
 		// Get the Max HP of the L2Character
-		double maxHp = getActiveChar().getStat().getMaxHp();
+		double maxHp;
 		synchronized (this)
 		{
+			maxHp = getActiveChar().getStat().getMaxHp();
 			if (getActiveChar().isDead())
 				return;
 			if (newHp >= maxHp)

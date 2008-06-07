@@ -409,8 +409,8 @@ public class AdminEditChar implements IAdminCommandHandler
 				player.broadcastUserInfo();
 			}
 			catch (Exception e)
-			{ //Case of empty color
-				activeChar.sendMessage("You need to specify the new color.");
+			{ //Case of empty color or invalid hex string
+				activeChar.sendMessage("You need to specify a valid new color.");
 			}
 		}
 		else if (command.startsWith("admin_fullfood"))

@@ -1067,6 +1067,7 @@ public final class Config
 	public static boolean			ALLOW_BOAT;
 	public static boolean			ALLOW_CURSED_WEAPONS;				// Allow cursed weapons ?
 	public static boolean			ALLOW_NPC_WALKERS;					// WALKER NPC
+	public static boolean			ALLOW_PET_WALKERS;
 
 	public static enum ChatMode
 	{
@@ -1187,7 +1188,8 @@ public final class Config
 			ALLOW_FISHING = Boolean.parseBoolean(optionsSettings.getProperty("AllowFishing", "True"));
 			ALLOW_MANOR = Boolean.parseBoolean(optionsSettings.getProperty("AllowManor", "False"));
 			ALLOW_BOAT = Boolean.parseBoolean(optionsSettings.getProperty("AllowBoat", "False"));
-			ALLOW_NPC_WALKERS = Boolean.parseBoolean(optionsSettings.getProperty("AllowNpcWalkers", "true"));
+			ALLOW_NPC_WALKERS = Boolean.parseBoolean(optionsSettings.getProperty("AllowNpcWalkers", "True"));
+			ALLOW_PET_WALKERS = Boolean.parseBoolean(optionsSettings.getProperty("AllowPetWalkers", "False"));
 			ALLOW_CURSED_WEAPONS = Boolean.parseBoolean(optionsSettings.getProperty("AllowCursedWeapons", "False"));
 			ALLOW_WEDDING = Boolean.parseBoolean(optionsSettings.getProperty("AllowWedding", "False"));
 			ALLOW_GUARDS = Boolean.parseBoolean(optionsSettings.getProperty("AllowGuards", "False"));
@@ -1538,7 +1540,7 @@ public final class Config
 			ALT_GAME_EXPONENT_SP = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
 
 			SPAWN_WYVERN_MANAGER = Boolean.parseBoolean(altSettings.getProperty("SpawnWyvernManager", "True"));
-			MANAGER_CRYSTAL_COUNT = Integer.parseInt(altSettings.getProperty("ManagerCrystalCount", "10"));
+			MANAGER_CRYSTAL_COUNT = Integer.parseInt(altSettings.getProperty("ManagerCrystalCount", "25"));
 			SPAWN_CLASS_MASTER = Boolean.parseBoolean(altSettings.getProperty("SpawnClassMaster", "False"));
 			CLASS_MASTER_STRIDER_UPDATE = Boolean.parseBoolean(altSettings.getProperty("ClassMasterUpdateStrider", "False"));
 			if (!altSettings.getProperty("ConfigClassMaster").trim().equalsIgnoreCase("False"))
@@ -3228,6 +3230,8 @@ public final class Config
 			ALLOW_CURSED_WEAPONS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AllowManor"))
 			ALLOW_MANOR = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AllowPetWalkers"))
+			ALLOW_PET_WALKERS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("BypassValidation"))
 			BYPASS_VALIDATION = Boolean.parseBoolean(pValue);
 

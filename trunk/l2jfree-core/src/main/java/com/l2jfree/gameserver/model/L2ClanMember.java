@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 
@@ -125,6 +126,8 @@ public class L2ClanMember
                         player.addSkill(sk, false);
                 }
             }
+            if (_clan.getLevel() > 3 && player.isClanLeader())
+                SiegeManager.getInstance().addSiegeSkills(player);
         }
         _player = player;
     }

@@ -63,7 +63,7 @@ public class ExtractableItemsData
 		}
 		catch (Exception e)
 		{
-			_log.warn("Extractable items data: Can not find './data/extractable_items.csv'");
+			_log.warn("Extractable items data: Can not find '" + Config.DATAPACK_ROOT + "/data/extractable_items.csv'");
 			return;
 		}
 

@@ -33,8 +33,6 @@ import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.gameserver.util.IllegalPlayerAction;
-import com.l2jfree.gameserver.util.Util;
 
 public class RequestRestartPoint extends L2GameClientPacket
 {
@@ -64,6 +62,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 			activeChar = _activeChar;
 		}
 
+		@SuppressWarnings("synthetic-access")
 		public void run()
 		{
 			try
@@ -83,9 +82,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 				case 1: // to clanhall
 					if (activeChar.getClan() == null || activeChar.getClan().getHasHideout() == 0)
 					{
-						//cheater
-						activeChar.sendMessage("You may not use this respawn point!");
-						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+						_log.warn("Player ["+activeChar.getName()+"] called RestartPointPacket - To Clanhall and he doesn't have Clanhall!");
 						return;
 					}
 					loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.ClanHall);
@@ -102,31 +99,22 @@ public class RequestRestartPoint extends L2GameClientPacket
 					siege = SiegeManager.getInstance().getSiege(activeChar);
 					if (siege != null && siege.getIsInProgress())
 					{
-						//siege in progress
+						// Siege in progress
 						if (siege.checkIsDefender(activeChar.getClan()))
 							loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Castle);
-						// Just in case you lost castle while beeing dead.. Port to nearest Town.
+						// Just in case you lost castle while being dead.. Port to nearest Town.
 						else if (siege.checkIsAttacker(activeChar.getClan()))
 							loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
 						else
 						{
-							//cheater
-							activeChar.sendMessage("You may not use this respawn point!");
-							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.",
-									IllegalPlayerAction.PUNISH_KICK);
+							_log.warn("Player ["+activeChar.getName()+"] called RestartPointPacket - To Castle and he doesn't have Castle!");
 							return;
 						}
 					}
 					else
 					{
 						if (activeChar.getClan() == null || activeChar.getClan().getHasCastle() == 0)
-						{
-							//cheater
-							activeChar.sendMessage("You may not use this respawn point!");
-							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.",
-									IllegalPlayerAction.PUNISH_KICK);
 							return;
-						}
 						else
 							loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Castle);
 					}
@@ -134,7 +122,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 							CastleManager.getInstance().getCastleByOwner(activeChar.getClan()).getFunction(Castle.FUNC_RESTORE_EXP) != null)
 					{
 						activeChar.restoreExp(CastleManager.getInstance().getCastleByOwner(activeChar.getClan()).getFunction(Castle.FUNC_RESTORE_EXP).getLvl());
-					}					
+					}
 					break;
 
 				case 3: // to Fortress
@@ -149,23 +137,14 @@ public class RequestRestartPoint extends L2GameClientPacket
 							loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
 						else
 						{
-							//cheater
-							activeChar.sendMessage("You may not use this respawn point!");
-							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.",
-									IllegalPlayerAction.PUNISH_KICK);
+							_log.warn("Player ["+activeChar.getName()+"] called RestartPointPacket - To Fortress and he doesn't have Fortress!");
 							return;
 						}
 					}
 					else
 					{
 						if (activeChar.getClan() == null || activeChar.getClan().getHasFort() == 0)
-						{
-							//cheater
-							activeChar.sendMessage("You may not use this respawn point!");
-							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.",
-									IllegalPlayerAction.PUNISH_KICK);
 							return;
-						}
 						else
 							loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Fortress);
 					}
@@ -186,9 +165,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 
 					if (siegeClan == null || siegeClan.getFlag().size() == 0)
 					{
-						//cheater
-						activeChar.sendMessage("You may not use this respawn point!");
-						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+						_log.warn("Player ["+activeChar.getName()+"] called RestartPointPacket - To Siege HQ and he doesn't have Siege HQ!");
 						return;
 					}
 					loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.SiegeFlag);
@@ -197,9 +174,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 				case 5: // Fixed or Player is a festival participant
 					if (!activeChar.isGM() && !activeChar.isFestivalParticipant())
 					{
-						//cheater
-						activeChar.sendMessage("You may not use this respawn point!");
-						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+						_log.warn("Player ["+activeChar.getName()+"] called RestartPointPacket - Fixed and he isn't GM/festival participant!");
 						return;
 					}
 					if (activeChar.isGM())
@@ -223,7 +198,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
 					break;
 				}
-				//Teleport and revive
+				// Teleport and revive
 				activeChar.setIsPendingRevive(true);
 				activeChar.teleToLocation(loc, true);
 			}
@@ -266,7 +241,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 			}
 		}
 
-		// run immediatelly (no need to schedule)
+		// run immediately (no need to schedule)
 		new DeathTask(activeChar).run();
 	}
 

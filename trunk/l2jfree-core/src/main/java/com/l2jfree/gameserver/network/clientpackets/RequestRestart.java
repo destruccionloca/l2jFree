@@ -151,6 +151,13 @@ public class RequestRestart extends L2GameClientPacket
             player.getActiveRequester().onTradeCancel(player);
             player.onTradeCancel(player.getActiveRequester());
         }
+
+        if (player.isTeleporting())
+        {
+            player.abortCast();
+            player.setIsTeleporting(false);
+        }
+
         player.getInventory().updateDatabase();
 
         L2GameClient client = getClient();

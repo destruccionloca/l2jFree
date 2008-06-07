@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
-import com.l2jfree.gameserver.model.actor.instance.L2ArtefactInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -57,7 +56,6 @@ public class TakeFort implements ISkillHandler
 
 		try
 		{
-			// if(targets[0] instanceof L2ArtefactInstance)
 			fort.EndOfSiege(player.getClan());
 		}
 		catch (Exception e)
@@ -91,8 +89,6 @@ public class TakeFort implements ISkillHandler
 
 		if (fort == null || fort.getFortId() <= 0)
 			sm.addString("You must be on fort ground to use this skill");
-		else if (player.getTarget() == null && !(player.getTarget() instanceof L2ArtefactInstance))
-			sm.addString("You can only use this skill on an flagpole");
 		else if (!fort.getSiege().getIsInProgress())
 			sm.addString("You can only use this skill during a siege.");
 		else if (!Util.checkIfInRange(200, player, player.getTarget(), true))
