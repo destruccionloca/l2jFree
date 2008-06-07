@@ -24,7 +24,6 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.cache.HtmCache;
-import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2DropData;
@@ -42,7 +41,6 @@ import com.l2jfree.gameserver.network.serverpackets.TutorialEnableClientEvent;
 import com.l2jfree.gameserver.network.serverpackets.TutorialShowHtml;
 import com.l2jfree.gameserver.network.serverpackets.TutorialShowQuestionMark;
 import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.tools.random.Rnd;
 
 /**
