@@ -22,7 +22,7 @@
     <set name="itemConsumeCount" val="#itemConsumeCount" />
     <set name="reuseDelay" val="9000" />
     <set name="hitTime" val="4000" />
-    <set name="target" val="TARGET_UNDEAD" />
+    <set name="target" val="TARGET_AREA_UNDEAD" />
     <set name="skillType" val="FEAR" />
     <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
