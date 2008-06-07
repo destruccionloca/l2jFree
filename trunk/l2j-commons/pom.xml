@@ -70,6 +70,19 @@
       </releases>
     </repository>
     <repository>
+      <id>old l2jfree</id>
+      <name>l2jfree central</name>
+      <url>
+        http://www.l2jfree.com/maven/
+      </url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
       <id>mevenide repo</id>
       <url>http://mevenide.codehaus.org/repository</url>
     </repository>
