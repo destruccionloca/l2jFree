@@ -13,10 +13,10 @@
 		class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		
 		<!-- Connexion information -->
-		<property name="driverClass"><value>${net.sf.l2j.db.driverclass}</value></property>
-		<property name="jdbcUrl"><value>${net.sf.l2j.db.urldb}</value></property>
-		<property name="user"><value>${net.sf.l2j.db.user}</value></property>
-		<property name="password"><value>${net.sf.l2j.db.password}</value></property>
+		<property name="driverClass"><value>${com.l2jfree.db.driverclass}</value></property>
+		<property name="jdbcUrl"><value>${com.l2jfree.db.urldb}</value></property>
+		<property name="user"><value>${com.l2jfree.db.user}</value></property>
+		<property name="password"><value>${com.l2jfree.db.password}</value></property>
 		
 		<!-- parameter for tuning -->
 		<property name="acquireIncrement"><value>5</value></property>
@@ -61,32 +61,32 @@
 			</list>
 		</property>		
 	</bean>
-    <bean id="AccountsDAO" class="net.sf.l2j.loginserver.dao.impl.AccountsDAOHib">
+    <bean id="AccountsDAO" class="com.l2jfree.loginserver.dao.impl.AccountsDAOHib">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean> 
-    <bean id="GameserversDAO" class="net.sf.l2j.loginserver.dao.impl.GameserversDAOHib">
+    <bean id="GameserversDAO" class="com.l2jfree.loginserver.dao.impl.GameserversDAOHib">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean> 
 
-    <bean id="AccountsServices" class="net.sf.l2j.loginserver.services.AccountsServices">
+    <bean id="AccountsServices" class="com.l2jfree.loginserver.services.AccountsServices">
 		<property name="accountsDAO">
 			<ref bean="AccountsDAO" />
 		</property>
 	</bean>
-    <bean id="GameserversDAOXml" class="net.sf.l2j.loginserver.dao.impl.GameserversDAOXml">
+    <bean id="GameserversDAOXml" class="com.l2jfree.loginserver.dao.impl.GameserversDAOXml">
 	</bean>		
 
-    <bean id="GameserversServices" class="net.sf.l2j.loginserver.services.GameserversServices">
+    <bean id="GameserversServices" class="com.l2jfree.loginserver.services.GameserversServices">
 		<property name="gameserversDAO">
 			<ref bean="GameserversDAO" />
 		</property>
 	</bean>		
 
-    <bean id="GameserversServicesXml" class="net.sf.l2j.loginserver.services.GameserversServices">
+    <bean id="GameserversServicesXml" class="com.l2jfree.loginserver.services.GameserversServices">
 		<property name="gameserversDAO">
 			<ref bean="GameserversDAOXml" />
 		</property>
