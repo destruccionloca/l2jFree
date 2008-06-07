@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.handler.itemhandlers;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
+import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -84,7 +85,7 @@ public class EnergyStone implements IItemHandler
 				L2Skill dummy = SkillTable.getInstance().getInfo(_skill.getId(), _skill.getLevel());
 				if (dummy != null)
 				{
-					dummy.getEffects(null, activeChar);
+					dummy.getEffects((L2Character) null, activeChar);
 					activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), 1, null, false);
 					return;
 				}

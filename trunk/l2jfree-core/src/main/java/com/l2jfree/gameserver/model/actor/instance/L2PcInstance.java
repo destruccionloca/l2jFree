@@ -345,11 +345,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			L2Effect silentMove = getPlayer().getFirstEffect(L2Effect.EffectType.SILENT_MOVE);
 			if (silentMove != null)
 				silentMove.exit();
-			for (L2CubicInstance cubic : getCubics().values())
-			{
-				if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
-					cubic.doAction(target);
-			}
 		}
 
 		@Override
@@ -382,7 +377,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					return;
 				for (L2CubicInstance cubic : getCubics().values())
 					if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
-						cubic.doAction((L2Character) mainTarget);
+						cubic.doAction();
 			}
 				break;
 			}
@@ -8713,9 +8708,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	/**
 	 * Add a L2CubicInstance to the L2PcInstance _cubics.<BR><BR>
 	 */
-	public void addCubic(int id, int level)
+	public void addCubic(int id, int level, double matk, int activationtime, int activationchance)
 	{
-		L2CubicInstance cubic = new L2CubicInstance(this, id, level);
+		if (_log.isDebugEnabled())
+			_log.info("L2PcInstance(" + getName() + "): addCubic(" + id + "|" + level + "|" + matk + ")");
+		L2CubicInstance cubic = new L2CubicInstance(this, id, level, (int) matk, activationtime, activationchance);
 		_cubics.put(id, cubic);
 	}
 

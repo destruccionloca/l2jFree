@@ -1260,6 +1260,15 @@ public class Olympiad
 		return (_manager == null) ? null : _manager.getAllTitles();
 	}
 
+	// returns the players for the given olympiad game Id
+	public L2PcInstance[] getPlayers(int id)
+	{
+		if (_manager == null || (_manager.getOlympiadInstance(id) == null))
+			return null;
+		L2PcInstance[] players = _manager.getOlympiadInstance(id).getPlayers();
+		return players;
+	}
+
 	public int getCurrentCycle()
 	{
 		return _currentCycle;

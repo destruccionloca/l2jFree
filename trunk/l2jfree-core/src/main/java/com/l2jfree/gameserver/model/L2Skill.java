@@ -31,6 +31,7 @@ import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.actor.instance.L2ArtefactInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -326,6 +327,10 @@ public abstract class L2Skill
 	private final int				_itemConsumeTime;
 	private final boolean			_isCubic;
 
+	// cubic AI
+	private final int				_activationtime;
+	private final int				_activationchance;
+
 	private final int				_castRange;
 	private final int				_effectRange;
 
@@ -472,6 +477,9 @@ public abstract class L2Skill
 		_summonTimeLostIdle = set.getInteger("summonTimeLostIdle", 0);
 		_summonTimeLostActive = set.getInteger("summonTimeLostActive", 0);
 		_isCubic = set.getBool("isCubic", false);
+
+		_activationtime= set.getInteger("activationtime", 8);
+		_activationchance= set.getInteger("activationchance", 30);
 
 		_iRate = set.getInteger("iRate", 0);
 		_iKill = set.getBool("iKill", false);
@@ -1006,6 +1014,22 @@ public abstract class L2Skill
 	public final int getItemConsumeTime()
 	{
 		return _itemConsumeTime;
+	}
+
+	/**
+	 * @return Returns the activation time for a cubic.
+	 */
+	public final int getActivationTime()
+	{
+		return _activationtime;
+	}
+
+	/**
+	 * @return Returns the activation chance for a cubic.
+	 */
+	public final int getActivationChance()
+	{
+		return _activationchance;
 	}
 
 	/**
@@ -3435,6 +3459,37 @@ public abstract class L2Skill
 
 		return effects.toArray(new L2Effect[effects.size()]);
 	}
+
+	public final L2Effect[] getEffects(L2CubicInstance effector, L2Character effected)
+	{
+		if (isPassive())
+			return _emptyEffectSet;
+
+		if (_effectTemplates == null)
+			return _emptyEffectSet;
+
+		if ((!effector.equals(effected)) && effected.isInvul())
+			return _emptyEffectSet;
+
+		List<L2Effect> effects = new FastList<L2Effect>();
+
+		for (EffectTemplate et : _effectTemplates)
+		{
+			Env env = new Env();
+			env.cubic = effector;
+			env.target = effected;
+			env.skill = this;
+			L2Effect e = et.getEffect(env);
+			if (e != null)
+				effects.add(e);
+		}
+
+		if (effects.size() == 0)
+			return _emptyEffectSet;
+
+		return effects.toArray(new L2Effect[effects.size()]);
+    }
+
 
 	public final L2Effect[] getEffectsSelf(L2Character effector)
 	{

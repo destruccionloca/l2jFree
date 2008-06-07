@@ -21,6 +21,9 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.AutoAttackStop;
 
 /**
@@ -53,6 +56,18 @@ public class AttackStanceTaskManager
 	public void addAttackStanceTask(L2Character actor)
 	{
 		_attackStanceTasks.put(actor, System.currentTimeMillis());
+		if (actor instanceof L2Summon)
+		{
+			L2Summon summon = (L2Summon) actor;
+			actor = summon.getOwner();
+		}
+		if (actor instanceof L2PcInstance)
+		{
+			L2PcInstance player = (L2PcInstance) actor;
+			for (L2CubicInstance cubic : player.getCubics().values())
+				if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+					cubic.doAction();
+		}
 	}
 
 	public void removeAttackStanceTask(L2Character actor)

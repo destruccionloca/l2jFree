@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
+import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
@@ -179,7 +180,7 @@ public class Mdam implements ISkillHandler
 					if (target.reflectSkill(skill))
 					{
 						activeChar.stopSkillEffects(skill.getId());
-						skill.getEffects(null, activeChar);
+						skill.getEffects((L2Character) null, activeChar);
 						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 						sm.addSkillName(skill.getId());
 						activeChar.sendPacket(sm);
@@ -215,6 +216,60 @@ public class Mdam implements ISkillHandler
 
 		if (skill.isSuicideAttack())
 			activeChar.doDie(null);
+	}
+
+	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Object[] targets)
+	{
+		for (int index = 0; index < targets.length; index++)
+		{
+			L2Character target = (L2Character) targets[index];
+
+			if (target instanceof L2PcInstance && target.isAlikeDead() && target.isFakeDeath())
+				target.stopFakeDeath(null);
+			else if (target.isAlikeDead())
+				continue;
+
+			boolean mcrit = Formulas.getInstance().calcMCrit(activeCubic.getMCriticalHit(target, skill));
+			int damage = (int) Formulas.getInstance().calcMagicDam(activeCubic, target, skill, mcrit);
+
+			// if target is reflecting the skill then no damage is done
+			if (target.reflectSkill(skill))
+				damage = 0;
+
+			if (_log.isDebugEnabled())
+				_log.info("L2SkillMdam: useCubicSkill() -> damage = " + damage);
+
+			if (damage > 0)
+			{
+				// Manage attack or cast break of the target (calculating rate, sending message...)
+				if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
+				{
+					target.breakAttack();
+					target.breakCast();
+				}
+
+				activeCubic.getOwner().sendDamageMessage(target, damage, mcrit, false, false);
+
+				if (skill.hasEffects())
+				{
+					// activate attacked effects, if any
+					target.stopSkillEffects(skill.getId());
+					if (target.getFirstEffect(skill) != null)
+						target.removeEffect(target.getFirstEffect(skill));
+					if (Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill))
+						skill.getEffects(activeCubic, target);
+					else
+					{
+						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+						sm.addString(target.getName());
+						sm.addSkillName(skill.getDisplayId());
+						activeCubic.getOwner().sendPacket(sm);
+					}
+				}
+
+				target.reduceCurrentHp(damage, activeCubic.getOwner());
+			}
+		}
 	}
 
 	public SkillType[] getSkillIds()

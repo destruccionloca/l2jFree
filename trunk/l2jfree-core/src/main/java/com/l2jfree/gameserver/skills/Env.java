@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.skills;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 
 /**
  * 
@@ -27,6 +28,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 public final class Env
 {
 	public L2Character		player;
+	public L2CubicInstance	cubic;
 	public L2Character		target;
 	public L2ItemInstance	item;
 	public L2Skill			skill;
