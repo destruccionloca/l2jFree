@@ -32,7 +32,7 @@ SET CLASSPATH=%CLASSPATH%;javolution-1.5.4.2.6.jar
 
 REM main jar
 SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.6.jar
-SET CLASSPATH=%CLASSPATH%;l2j-loginserver-1.0.0.jar
+SET CLASSPATH=%CLASSPATH%;l2jfree-login-1.1.0.jar
 
 REM spring 
 SET CLASSPATH=%CLASSPATH%;spring-2.0.2.jar
