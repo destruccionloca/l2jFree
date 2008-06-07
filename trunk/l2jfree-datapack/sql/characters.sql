@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `clan_create_expiry_time` BIGINT UNSIGNED NOT NULL DEFAULT 0,
   `charViP` TINYINT UNSIGNED NOT NULL DEFAULT 0,
   `death_penalty_level` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+  `trust_level` INT UNSIGNED NOT NULL DEFAULT 0,  
   PRIMARY KEY (`charId`),
   KEY `clanid` (`clanid`)
 ) DEFAULT CHARSET=utf8;

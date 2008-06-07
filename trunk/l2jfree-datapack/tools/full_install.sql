@@ -26,4 +26,4 @@ DROP TABLE IF EXISTS buff_templates,character_raidpoints,couples,ctf,ctf_teams,
                      grandboss_intervallist,grandboss_spawnlist,lastimperialtomb_spawnlist,
                      vanhalter_spawnlist,tvt,tvt_teams,version,VIPinfo;
 
-DROP TABLE IF EXISTS temporaryobjecttable,connection_test_table,obj_restrictions;
+DROP TABLE IF EXISTS temporaryobjecttable,connection_test_table,obj_restrictions,castle_functions;
