@@ -1789,26 +1789,26 @@
     <set name="mpConsume" val="73" />
     <set name="power" val="138" />
     <set name="hitTime" val="1500" />
+    <set name="reuseDelay" val="20000"/>
+    <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE" />
     <set name="target" val="TARGET_FRONT_AREA" />
     <set name="skillRadius" val="310" />
-    <set name="skillType" val="PDAM" />
+    <set name="skillType" val="MDAM"/>
     <set name="castRange" val="40" />
     <set name="effectRange" val="56" />
-    <set name="reuseDelay" val="10000" />
     <for></for>
   </skill>
   <skill id="1472" levels="1" name="Soul Sucking">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Absorbs your enemy's soul over time.
-    -->
+    <!-- Needs core support similar to signets -->
+    <set name="target" val="TARGET_ONE"/>
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isMagic" val="true"/>
+    <set name="hitTime" val="12000"/>
+    <set name="reuseDelay" val="80000"/>
+    <set name="castRange" val="900"/>
     <for></for>
   </skill>
   <skill id="1473" levels="1" name="Change Weapon">
