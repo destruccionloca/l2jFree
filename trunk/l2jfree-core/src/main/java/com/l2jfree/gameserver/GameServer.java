@@ -139,6 +139,10 @@ public class GameServer
 	public GameServer() throws Throwable
 	{
 		Config.load();
+		
+		ThreadDeadlockDetector dead = new ThreadDeadlockDetector(500000);
+		dead.addListener(new DefaultDeadlockListener());
+		
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
 		Util.printSection("Preparations");

@@ -193,6 +193,15 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				return false;
 			else if (me.getFactionId() == "ketra" && player.isAlliedWithKetra())
 				return false;
+			
+			//if player is disguised beleth faction ignores him
+			if (me.getFactionId() == "beleth" && player.isTransformed() && player.getTranformationId()==101)
+				return false;
+			
+			//event playere are also ignored
+			if(player.isInFunEvent())
+				return false;
+				
 			// check if the target is within the grace period for JUST getting up from fake death
 			if (player.isRecentFakeDeath())
 				return false;

@@ -105,6 +105,7 @@ public abstract class L2Zone
 	public static final int FLAG_STADIUM = 2048;
 	public static final int FLAG_SUNLIGHTROOM = 4096;
 	public static final int FLAG_DANGER = 8192;
+	public static final int FLAG_CASTLE = 16384;
 
 	protected int _id;
 	protected String _name;

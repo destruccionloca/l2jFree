@@ -150,7 +150,7 @@ public class ClanHall extends Entity
 				{
 					if (_isFree)
 						return;
-					if (getOwnerClan().getWarehouse().getAdena() >= _fee)
+					if (getOwnerClan().getWarehouse().getAdena() >= _fee || !_cwh)
 					{
 						int fee = _fee;
 						boolean newfc = true;
@@ -167,9 +167,11 @@ public class ClanHall extends Entity
 						setEndTime(System.currentTimeMillis() + getRate());
 						dbSave(newfc);
 						if (_cwh)
+						{
 							getOwnerClan().getWarehouse().destroyItemByItemId("CH_function_fee", 57, fee, null, null);
-						if (_log.isDebugEnabled())
-							_log.warn("deducted " + fee + " adena from " + getName() + " owner's cwh for function id : " + getType());
+							if (_log.isDebugEnabled())
+								_log.warn("deducted "+fee+" adena from "+getName()+" owner's cwh for function id : "+getType());
+						}
 						ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(true), getRate());
 					}
 					else

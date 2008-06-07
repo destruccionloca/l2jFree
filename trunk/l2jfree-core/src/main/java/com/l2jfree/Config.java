@@ -2272,6 +2272,78 @@ public final class Config
 	}
 
 	// *******************************************************************************************
+	public static final String	CASTLE_CONFIG_FILE	= "./config/castle.properties";
+	// *******************************************************************************************
+	/** Clan Hall function related configs */
+    public static long 			CS_TELE_FEE_RATIO;
+    public static int 			CS_TELE1_FEE;
+    public static int 			CS_TELE2_FEE;
+    public static long 			CS_MPREG_FEE_RATIO;
+    public static int 			CS_MPREG1_FEE;
+    public static int 			CS_MPREG2_FEE;
+    public static int 			CS_MPREG3_FEE;
+    public static int 			CS_MPREG4_FEE;
+    public static long 			CS_HPREG_FEE_RATIO;
+    public static int 			CS_HPREG1_FEE;
+    public static int 			CS_HPREG2_FEE;
+    public static int 			CS_HPREG3_FEE;
+    public static int 			CS_HPREG4_FEE;
+    public static int 			CS_HPREG5_FEE;
+    public static long 			CS_EXPREG_FEE_RATIO;
+    public static int 			CS_EXPREG1_FEE;
+    public static int 			CS_EXPREG2_FEE;
+    public static int 			CS_EXPREG3_FEE;
+    public static int 			CS_EXPREG4_FEE;
+    public static long 			CS_SUPPORT_FEE_RATIO;
+    public static int 			CS_SUPPORT1_FEE;
+    public static int 			CS_SUPPORT2_FEE;
+    public static int 			CS_SUPPORT3_FEE;
+    public static int 			CS_SUPPORT4_FEE;
+
+	// *******************************************************************************************
+	public static void loadCastleConfig()
+	{
+		_log.info("loading " + CASTLE_CONFIG_FILE);
+		try
+		{
+			Properties castleSettings = new L2Properties();
+			InputStream is = new FileInputStream(new File(CASTLE_CONFIG_FILE));
+			castleSettings.load(is);
+			is.close();
+
+			CS_TELE_FEE_RATIO      = Long.parseLong(castleSettings.getProperty("CastleTeleportFunctionFeeRatio", "604800000"));
+            CS_TELE1_FEE           = Integer.parseInt(castleSettings.getProperty("CastleTeleportFunctionFeeLvl1", "7000"));
+            CS_TELE2_FEE           = Integer.parseInt(castleSettings.getProperty("CastleTeleportFunctionFeeLvl2", "14000"));
+            CS_SUPPORT_FEE_RATIO   = Long.parseLong(castleSettings.getProperty("CastleSupportFunctionFeeRatio", "86400000"));
+            CS_SUPPORT1_FEE        = Integer.parseInt(castleSettings.getProperty("CastleSupportFeeLvl1", "7000"));
+            CS_SUPPORT2_FEE        = Integer.parseInt(castleSettings.getProperty("CastleSupportFeeLvl2", "21000"));
+            CS_SUPPORT3_FEE        = Integer.parseInt(castleSettings.getProperty("CastleSupportFeeLvl3", "37000"));
+            CS_SUPPORT4_FEE        = Integer.parseInt(castleSettings.getProperty("CastleSupportFeeLvl4", "52000"));
+            CS_MPREG_FEE_RATIO     = Long.parseLong(castleSettings.getProperty("CastleMpRegenerationFunctionFeeRatio", "86400000"));
+            CS_MPREG1_FEE          = Integer.parseInt(castleSettings.getProperty("CastleMpRegenerationFeeLvl1", "2000"));
+            CS_MPREG2_FEE          = Integer.parseInt(castleSettings.getProperty("CastleMpRegenerationFeeLvl2", "6500"));
+            CS_MPREG3_FEE          = Integer.parseInt(castleSettings.getProperty("CastleMpRegenerationFeeLvl3", "13750"));
+            CS_MPREG4_FEE          = Integer.parseInt(castleSettings.getProperty("CastleMpRegenerationFeeLvl4", "20000"));
+            CS_HPREG_FEE_RATIO     = Long.parseLong(castleSettings.getProperty("CastleHpRegenerationFunctionFeeRatio", "86400000"));
+            CS_HPREG1_FEE          = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl1", "1000"));
+            CS_HPREG2_FEE          = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl2", "1500"));
+            CS_HPREG3_FEE          = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl3", "2250"));
+            CS_HPREG4_FEE          = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl14", "3270"));
+            CS_HPREG5_FEE          = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl15", "5166"));
+            CS_EXPREG_FEE_RATIO    = Long.parseLong(castleSettings.getProperty("CastleExpRegenerationFunctionFeeRatio", "86400000"));
+            CS_EXPREG1_FEE         = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl1", "9000"));
+            CS_EXPREG2_FEE         = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl2", "15000"));
+            CS_EXPREG3_FEE         = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl3", "21000"));
+            CS_EXPREG4_FEE         = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl4", "30000"));
+ 		}
+		catch (Exception e)
+		{
+			_log.error(e.getMessage(), e);
+			throw new Error("Failed to Load " + CASTLE_CONFIG_FILE + " File.");
+		}
+	}
+
+	// *******************************************************************************************
 
 	// *******************************************************************************************
 	public static final String	FUN_ENGINES_FILE	= "./config/fun_engines.properties";

@@ -34,12 +34,14 @@ public class L2CastleZone extends EntityZone
 	@Override
 	protected void onEnter(L2Character character)
 	{
+		character.setInsideZone(FLAG_CASTLE, true);
 		super.onEnter(character);
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
+		character.setInsideZone(FLAG_CASTLE, false);
 		super.onExit(character);
 	}
 }

@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.CastleDoors;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Wedding;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.Hellbound;
 
 /**
  * This class ...
@@ -50,6 +51,7 @@ public class VoicedCommandHandler
 		if (Config.ALLOW_WEDDING)
 		{
 			registerVoicedCommandHandler(new Wedding());
+			registerVoicedCommandHandler(new Hellbound());
 		}
 		_log.info("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}

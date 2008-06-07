@@ -130,6 +130,11 @@ public class RequestRestartPoint extends L2GameClientPacket
 						else
 							loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Castle);
 					}
+					if (CastleManager.getInstance().getCastleByOwner(activeChar.getClan())!= null &&
+							CastleManager.getInstance().getCastleByOwner(activeChar.getClan()).getFunction(Castle.FUNC_RESTORE_EXP) != null)
+					{
+						activeChar.restoreExp(CastleManager.getInstance().getCastleByOwner(activeChar.getClan()).getFunction(Castle.FUNC_RESTORE_EXP).getLvl());
+					}					
 					break;
 
 				case 3: // to Fortress

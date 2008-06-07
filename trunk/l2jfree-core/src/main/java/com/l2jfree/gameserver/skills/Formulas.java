@@ -21,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
+import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.Inventory;
@@ -35,6 +36,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
+import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.zone.L2Zone;
@@ -1033,7 +1035,19 @@ public final class Formulas
 			// Mother Tree effect is calculated at last
 			if (player.isInsideZone(L2Zone.FLAG_MOTHERTREE))
 				hpRegenBonus += 2;
-
+            
+            if (player.isInsideZone(L2Zone.FLAG_CASTLE) && player.getClan() != null)
+            {
+            	int castleIndex = player.getClan().getHasCastle();
+            	if (castleIndex > 0)
+            	{
+            		Castle castle = CastleManager.getInstance().getCastleById(castleIndex);
+            		if(castle != null)
+            			if (castle.getFunction(Castle.FUNC_RESTORE_HP) != null)
+            				hpRegenMultiplier *= 1+ castle.getFunction(Castle.FUNC_RESTORE_HP).getLvl()/100;
+            	}
+            }
+			
 			// Calculate Movement bonus
 			if (player.isSitting() && player.getLevel() < 41) // Sitting below lvl 40
 			{
@@ -1104,7 +1118,19 @@ public final class Formulas
 			// Mother Tree effect is calculated at last
 			if (player.isInsideZone(L2Zone.FLAG_MOTHERTREE))
 				mpRegenBonus += 2;
-
+			
+			if (player.isInsideZone(L2Zone.FLAG_CASTLE) && player.getClan() != null)
+            {
+            	int castleIndex = player.getClan().getHasCastle();
+            	if (castleIndex > 0)
+            	{
+            		Castle castle = CastleManager.getInstance().getCastleById(castleIndex);
+            		if(castle != null)
+            			if (castle.getFunction(Castle.FUNC_RESTORE_MP) != null)
+            				mpRegenMultiplier *= 1+ castle.getFunction(Castle.FUNC_RESTORE_MP).getLvl()/100;
+            	}
+			}
+			
 			if (player.isInsideZone(L2Zone.FLAG_CLANHALL) && player.getClan() != null)
 			{
 				int clanHallIndex = player.getClan().getHasHideout();

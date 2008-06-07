@@ -281,6 +281,7 @@ public abstract class L2Character extends L2Object
 	private byte	_currentStadiumZones	= 0;
 	private byte	_currentSunlightZones	= 0;
 	private byte	_currentDangerZones		= 0;
+	private byte	_currentCastleZones		= 0;
 
 	public boolean isInsideZone(int zone)
 	{
@@ -314,6 +315,8 @@ public abstract class L2Character extends L2Object
 			return (_currentSunlightZones > 0);
 		case L2Zone.FLAG_DANGER:
 			return (_currentDangerZones > 0);
+		case L2Zone.FLAG_CASTLE:
+			return (_currentCastleZones > 0);
 		default:
 			return false;
 		}
@@ -406,6 +409,12 @@ public abstract class L2Character extends L2Object
 				_currentDangerZones++;
 			else if (_currentDangerZones > 0)
 				_currentDangerZones--;
+			break;
+		case L2Zone.FLAG_CASTLE:
+			if (state)
+				_currentCastleZones++;
+			else if (_currentCastleZones > 0)
+				_currentCastleZones--;
 			break;
 		}
 	}
