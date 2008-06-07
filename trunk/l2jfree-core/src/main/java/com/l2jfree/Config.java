@@ -1122,6 +1122,7 @@ public final class Config
 	public static boolean			ALT_DEV_NO_SPAWNS;								// Alt Settings for devs
 	public static boolean			ENABLE_JYTHON_SHELL;							// JythonShell
 	public static boolean			ONLY_GM_ITEMS_FREE;							// Only GM buy items for free
+	public static int				DEADLOCKCHECK_INTERVAL;
 
 	// *******************************************************************************************
 	public static void loadOptionsConfig()
@@ -1304,6 +1305,7 @@ public final class Config
 			ALT_DEV_NO_QUESTS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoQuests", "False"));
 			ALT_DEV_NO_SPAWNS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoSpawns", "False"));
 			ENABLE_JYTHON_SHELL = Boolean.parseBoolean(optionsSettings.getProperty("EnableJythonShell", "False"));
+			DEADLOCKCHECK_INTERVAL = Integer.parseInt(optionsSettings.getProperty("DeadLockCheck", "10000"));
 		}
 		catch (Exception e)
 		{

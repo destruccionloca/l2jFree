@@ -140,7 +140,7 @@ public class GameServer
 	{
 		Config.load();
 		
-		ThreadDeadlockDetector dead = new ThreadDeadlockDetector(500000);
+		ThreadDeadlockDetector dead = new ThreadDeadlockDetector(Config.DEADLOCKCHECK_INTERVAL);
 		dead.addListener(new DefaultDeadlockListener());
 		
 		Util.printSection("Database");
