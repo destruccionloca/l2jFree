@@ -3074,6 +3074,7 @@ public final class Config
 		loadFortSiegeConfig();
 		loadSepulchersConfig();
 		loadClanHallConfig();
+		loadCastleConfig();
 		loadIdFactoryConfig();
 		loadFunEnginesConfig();
 		loadSevenSignsConfig();
