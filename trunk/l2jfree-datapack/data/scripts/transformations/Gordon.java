@@ -43,6 +43,12 @@ public class Gordon extends L2Transformation
 
 	public void transformedSkills()
 	{
+		// Gordon Beast Attack
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(728, 1), false);
+		// Gordon Sword Stab
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(729, 1), false);
+		// Gordon Press
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(730, 1), false);
 		// Transfrom Dispel
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed
@@ -59,6 +65,12 @@ public class Gordon extends L2Transformation
 
 	public void removeSkills()
 	{
+		// Gordon Beast Attack
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(728, 1), false);
+		// Gordon Sword Stab
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(729, 1), false);
+		// Gordon Press
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(730, 1), false);
 		// Transfrom Dispel
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed

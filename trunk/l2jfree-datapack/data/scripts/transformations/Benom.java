@@ -43,6 +43,12 @@ public class Benom extends L2Transformation
 
 	public void transformedSkills()
 	{
+		// Venom Power Smash
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(725, 2), false);
+		// Venom Sonic Storm
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(726, 2), false);
+		// Venom Disillusion
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(727, 1), false);
 		// Transfrom Dispel
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed
@@ -59,6 +65,12 @@ public class Benom extends L2Transformation
 
 	public void removeSkills()
 	{
+		// Venom Power Smash
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(725, 2), false);
+		// Venom Sonic Storm
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(726, 2), false);
+		// Venom Disillusion
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(727, 1), false);
 		// Transfrom Dispel
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed

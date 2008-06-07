@@ -43,6 +43,16 @@ public class Zaken extends L2Transformation
 
 	public void transformedSkills()
 	{
+		// Zaken Energy Drain
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(715, 4), false);
+		// Zaken Hold
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(716, 4), false);
+		// Zaken Concentrated Attack
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(717, 4), false);
+		// Zaken Dancing Sword
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(718, 4), false);
+		// Zaken Vampiric Rage
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(719, 1), false);
 		// Transfrom Dispel
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed

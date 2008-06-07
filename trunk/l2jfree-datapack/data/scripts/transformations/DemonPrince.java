@@ -43,6 +43,12 @@ public class DemonPrince extends L2Transformation
 
 	public void transformedSkills()
 	{
+		// Devil Spinning Weapon
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(735, 1), false);
+		// Devil Seed
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(736, 1), false);
+		// Devil Ultimate Defense
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(737, 1), false);
 		// Transfrom Dispel
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed
@@ -59,6 +65,12 @@ public class DemonPrince extends L2Transformation
 
 	public void removeSkills()
 	{
+		// Devil Spinning Weapon
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(735, 1), false);
+		// Devil Seed
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(736, 1), false);
+		// Devil Ultimate Defense
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(737, 1), false);
 		// Transfrom Dispel
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed

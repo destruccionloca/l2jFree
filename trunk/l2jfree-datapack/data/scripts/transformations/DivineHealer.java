@@ -43,6 +43,8 @@ public class DivineHealer extends L2Transformation
 
 	public void transformedSkills()
 	{
+		// Divine Healer Clans
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(702, 1), false);	
 		// Transfrom Dispel
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed
@@ -59,6 +61,8 @@ public class DivineHealer extends L2Transformation
 
 	public void removeSkills()
 	{
+      	// Divine Healer Clans
+      	this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(702, 1), false);
 		// Transfrom Dispel
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed

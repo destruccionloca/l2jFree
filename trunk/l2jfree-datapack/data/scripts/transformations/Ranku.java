@@ -43,6 +43,10 @@ public class Ranku extends L2Transformation
 
 	public void transformedSkills()
 	{
+		// Ranku Dark Explosion
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(732, 1), false);
+		// Ranku Stun Attack
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(733, 1), false);
 		// Transfrom Dispel
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed
@@ -59,6 +63,10 @@ public class Ranku extends L2Transformation
 
 	public void removeSkills()
 	{
+		// Ranku Dark Explosion
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(732, 1), false);
+      	// Ranku Stun Attack
+      	this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(733, 1), false);
 		// Transfrom Dispel
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed

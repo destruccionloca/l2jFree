@@ -43,6 +43,8 @@ public class ValeMaster extends L2Transformation
 
 	public void transformedSkills()
 	{
+		// Vale Master Dark Curse
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(745, 3), false);
 		// Transfrom Dispel
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed
@@ -59,6 +61,8 @@ public class ValeMaster extends L2Transformation
 
 	public void removeSkills()
 	{
+		// Vale Master Dark Curse
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(745, 3), false);
 		// Transfrom Dispel
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed

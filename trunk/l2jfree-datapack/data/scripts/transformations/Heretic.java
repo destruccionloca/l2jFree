@@ -43,6 +43,12 @@ public class Heretic extends L2Transformation
 
 	public void transformedSkills()
 	{
+		// Heretic Heal
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(738, 3), false);
+		// Heretic Battle Heal
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(739, 3), false);
+		// Heretic Resurrection
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(740, 3), false);
 		// Transfrom Dispel
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed
@@ -59,7 +65,13 @@ public class Heretic extends L2Transformation
 
 	public void removeSkills()
 	{
-		// Transfrom Dispel
+		// Heretic Heal
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(738, 3), false);
+		// Heretic Battle Heal
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(739, 3), false);
+		// Heretic Resurrection
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(740, 3), false);
+ 		// Transfrom Dispel
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(5491, 1), false);

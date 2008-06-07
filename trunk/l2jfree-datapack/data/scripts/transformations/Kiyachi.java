@@ -43,6 +43,10 @@ public class Kiyachi extends L2Transformation
 
 	public void transformedSkills()
 	{
+		// Kechi Double Cutter
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(733, 1), false);
+		// Kechi Air Blade
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(734, 1), false);
 		// Transfrom Dispel
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed
@@ -59,6 +63,10 @@ public class Kiyachi extends L2Transformation
 
 	public void removeSkills()
 	{
+		// Kechi Double Cutter
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(733, 1), false);
+		// Kechi Air Blade
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(734, 1), false);
 		// Transfrom Dispel
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed
