@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Calendar;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.SelectorConfig;
@@ -140,11 +139,8 @@ public class GameServer
 	{
 		Config.load();
 		
-		if(Config.DEADLOCKCHECK_INTERVAL>0)
-		{
-			ThreadDeadlockDetector dead = new ThreadDeadlockDetector(Config.DEADLOCKCHECK_INTERVAL);
-			dead.addListener(new DefaultDeadlockListener());
-		}
+		if (Config.DEADLOCKCHECK_INTERVAL > 0)
+			DeadlockDetector.getInstance();
 		
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
