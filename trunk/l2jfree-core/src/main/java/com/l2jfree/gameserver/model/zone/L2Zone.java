@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.zone;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import javolution.util.FastList;
@@ -22,6 +23,7 @@ import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -32,6 +34,37 @@ import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.zone.form.Shape;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.model.base.Race;
+import com.l2jfree.gameserver.skills.conditions.Condition;
+import com.l2jfree.gameserver.skills.conditions.ConditionChangeWeapon;
+import com.l2jfree.gameserver.skills.conditions.ConditionGameChance;
+import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
+import com.l2jfree.gameserver.skills.conditions.ConditionLogicAnd;
+import com.l2jfree.gameserver.skills.conditions.ConditionLogicNot;
+import com.l2jfree.gameserver.skills.conditions.ConditionLogicOr;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerCp;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHpPercentage;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerLevel;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerMp;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerRace;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState;
+import com.l2jfree.gameserver.skills.conditions.ConditionSlotItemId;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetActiveEffectId;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetActiveSkillId;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetAggro;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetClassIdRestriction;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetLevel;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetRaceId;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetUndead;
+import com.l2jfree.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
+import com.l2jfree.gameserver.skills.conditions.ConditionUsingItemType;
+import com.l2jfree.gameserver.skills.conditions.ConditionGameTime.CheckGameTime;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
+import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.templates.L2ArmorType;
+import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.tools.random.Rnd;
 
 public abstract class L2Zone
@@ -136,6 +169,8 @@ public abstract class L2Zone
 
 	protected FastList<L2Skill> _applyEnter, _applyExit, _removeEnter, _removeExit;
 
+	protected Condition _cond;
+
 	public L2Zone()
 	{
 		// Constructor
@@ -212,9 +247,22 @@ public abstract class L2Zone
 		return null;
 	}
 
+	protected boolean checkCondition(L2Character character)
+	{
+		if (_cond == null)
+			return true;
+
+		// Works with ConditionPlayer* and ConditionTarget* and some other
+
+		Env env = new Env();
+		env.player = character;
+		env.target = character;
+		return _cond.test(env);
+	}
+
 	public void revalidateInZone(L2Character character)
 	{
-		if (isInsideZone(character))
+		if (checkCondition(character) && isInsideZone(character))
 		{
 			if (!_characterList.containsKey(character.getObjectId()))
 			{
@@ -525,6 +573,18 @@ public abstract class L2Zone
 					return null;
 				}
 			}
+			else if ("cond".equalsIgnoreCase(n.getNodeName()))
+			{
+				try
+				{
+					zone.parseCondition(n.getFirstChild());
+				}
+				catch(Exception e)
+				{
+					_log.error("Cannot parse skills for zone "+zone.getName()+" ("+zone.getId()+")");
+					return null;
+				}
+			}
 			else if ("restart_chaotic".equalsIgnoreCase(n.getNodeName()))
 			{
 				try
@@ -655,6 +715,11 @@ public abstract class L2Zone
 			_onExitMsg = null;
 	}
 
+	private void parseCondition(Node n) throws Exception
+	{
+		_cond = parseCondition(n, this);
+	}
+
 	private void parseSkills(Node n) throws Exception
 	{
 		Node aen = n.getAttributes().getNamedItem("applyEnter");
@@ -683,7 +748,7 @@ public abstract class L2Zone
 			parseRemoveSkill(_removeExit, rex.getNodeValue());
 		}
 	}
-	
+
 	private void parseApplySkill(FastList<L2Skill> list, String set)
 	{
 		StringTokenizer st = new StringTokenizer(set, ";");
@@ -710,5 +775,308 @@ public abstract class L2Zone
 			if(skill != null)
 				list.add(skill);
 		}
+	}
+
+	private Condition parseCondition(Node n, Object template)
+	{
+		while (n != null && n.getNodeType() != Node.ELEMENT_NODE)
+			n = n.getNextSibling();
+		if (n == null)
+			return null;
+		if ("and".equalsIgnoreCase(n.getNodeName()))
+			return parseLogicAnd(n, template);
+		if ("or".equalsIgnoreCase(n.getNodeName()))
+			return parseLogicOr(n, template);
+		if ("not".equalsIgnoreCase(n.getNodeName()))
+			return parseLogicNot(n, template);
+		if ("player".equalsIgnoreCase(n.getNodeName()))
+			return parsePlayerCondition(n);
+		if ("target".equalsIgnoreCase(n.getNodeName()))
+			return parseTargetCondition(n, template);
+		if ("game".equalsIgnoreCase(n.getNodeName()))
+			return parseGameCondition(n);
+		return null;
+	}
+
+	private Condition parseLogicAnd(Node n, Object template)
+	{
+		ConditionLogicAnd cond = new ConditionLogicAnd();
+		for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
+		{
+			if (n.getNodeType() == Node.ELEMENT_NODE)
+				cond.add(parseCondition(n, template));
+		}
+		if (cond.conditions == null || cond.conditions.length == 0)
+			_log.fatal("Empty <and> condition in zone " + _name);
+		return cond;
+	}
+
+	private Condition parseLogicOr(Node n, Object template)
+	{
+		ConditionLogicOr cond = new ConditionLogicOr();
+		for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
+		{
+			if (n.getNodeType() == Node.ELEMENT_NODE)
+				cond.add(parseCondition(n, template));
+		}
+		if (cond.conditions == null || cond.conditions.length == 0)
+			_log.fatal("Empty <or> condition in zone " + _name);
+		return cond;
+	}
+
+	private Condition parseLogicNot(Node n, Object template)
+	{
+		for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
+		{
+			if (n.getNodeType() == Node.ELEMENT_NODE)
+			{
+				return new ConditionLogicNot(parseCondition(n, template));
+			}
+		}
+		_log.fatal("Empty <not> condition in zone " + _name);
+		return null;
+	}
+
+	private Condition parsePlayerCondition(Node n)
+	{
+		Condition cond = null;
+		NamedNodeMap attrs = n.getAttributes();
+		for (int i = 0; i < attrs.getLength(); i++)
+		{
+			Node a = attrs.item(i);
+			if ("race".equalsIgnoreCase(a.getNodeName()))
+			{
+				Race race = Race.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerRace(race));
+			}
+			else if ("level".equalsIgnoreCase(a.getNodeName()))
+			{
+				int lvl = Integer.decode(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerLevel(lvl));
+			}
+			else if ("resting".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.RESTING, val));
+			}
+			else if ("moving".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.MOVING, val));
+			}
+			else if ("running".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.RUNNING, val));
+			}
+			else if ("flying".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerState(CheckPlayerState.FLYING, val));
+			}
+			else if ("hp".equalsIgnoreCase(a.getNodeName()))
+			{
+				int hp = Integer.decode(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerHp(hp));
+			}
+			else if ("hprate".equalsIgnoreCase(a.getNodeName()))
+			{
+				double rate = Double.parseDouble(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerHpPercentage(rate));
+			}
+			else if ("mp".equalsIgnoreCase(a.getNodeName()))
+			{
+				int mp = Integer.decode(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerMp(mp));
+			}
+			else if ("cp".equalsIgnoreCase(a.getNodeName()))
+			{
+				int cp = Integer.decode(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionPlayerCp(cp));
+			}
+		}
+
+		if (cond == null)
+			_log.fatal("Unrecognized <player> condition in zone " + _name);
+		return cond;
+	}
+
+	private Condition parseTargetCondition(Node n, Object template)
+	{
+		Condition cond = null;
+		NamedNodeMap attrs = n.getAttributes();
+		for (int i = 0; i < attrs.getLength(); i++)
+		{
+			Node a = attrs.item(i);
+			if ("aggro".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionTargetAggro(val));
+			}
+			else if ("level".equalsIgnoreCase(a.getNodeName()))
+			{
+				int lvl = Integer.decode(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionTargetLevel(lvl));
+			}
+			else if ("class_id_restriction".equalsIgnoreCase(a.getNodeName()))
+			{
+				FastList<Integer> array = new FastList<Integer>();
+				StringTokenizer st = new StringTokenizer(a.getNodeValue(), ",");
+				while (st.hasMoreTokens())
+				{
+					String item = st.nextToken().trim();
+					array.add(Integer.decode(item));
+				}
+				cond = joinAnd(cond, new ConditionTargetClassIdRestriction(array));
+			}
+			else if ("active_effect_id".equalsIgnoreCase(a.getNodeName()))
+			{
+				int effect_id = Integer.decode(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionTargetActiveEffectId(effect_id));
+			}
+			else if ("active_skill_id".equalsIgnoreCase(a.getNodeName()))
+			{
+				int skill_id = Integer.decode(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionTargetActiveSkillId(skill_id));
+			}
+			else if ("race_id".equalsIgnoreCase(a.getNodeName()))
+			{
+				ArrayList<Integer> array = new ArrayList<Integer>();
+				StringTokenizer st = new StringTokenizer(a.getNodeValue(), ",");
+				while (st.hasMoreTokens())
+				{
+					String item = st.nextToken().trim();
+					//-1 because we want to take effect for exactly race that is by -1 lower in FastList
+					array.add(Integer.decode(item) - 1);
+				}
+				cond = joinAnd(cond, new ConditionTargetRaceId(array));
+			}
+			else if ("undead".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionTargetUndead(val));
+			}
+			else if ("using".equalsIgnoreCase(a.getNodeName()))
+			{
+				int mask = 0;
+				StringTokenizer st = new StringTokenizer(a.getNodeValue(), ",");
+				while (st.hasMoreTokens())
+				{
+					String item = st.nextToken().trim();
+					for (L2WeaponType wt : L2WeaponType.values())
+					{
+						if (wt.toString().equals(item))
+						{
+							mask |= wt.mask();
+							break;
+						}
+					}
+					for (L2ArmorType at : L2ArmorType.values())
+					{
+						if (at.toString().equals(item))
+						{
+							mask |= at.mask();
+							break;
+						}
+					}
+				}
+				cond = joinAnd(cond, new ConditionTargetUsesWeaponKind(mask));
+			}
+		}
+		if (cond == null)
+			_log.fatal("Unrecognized <target> condition in zone " + _name);
+		return cond;
+	}
+
+	private Condition parseUsingCondition(Node n)
+	{
+		Condition cond = null;
+		NamedNodeMap attrs = n.getAttributes();
+		for (int i = 0; i < attrs.getLength(); i++)
+		{
+			Node a = attrs.item(i);
+			if ("kind".equalsIgnoreCase(a.getNodeName()))
+			{
+				int mask = 0;
+				StringTokenizer st = new StringTokenizer(a.getNodeValue(), ",");
+				while (st.hasMoreTokens())
+				{
+					String item = st.nextToken().trim();
+					for (L2WeaponType wt : L2WeaponType.values())
+					{
+						if (wt.toString().equals(item))
+						{
+							mask |= wt.mask();
+							break;
+						}
+					}
+					for (L2ArmorType at : L2ArmorType.values())
+					{
+						if (at.toString().equals(item))
+						{
+							mask |= at.mask();
+							break;
+						}
+					}
+				}
+				cond = joinAnd(cond, new ConditionUsingItemType(mask));
+			}
+			else if ("slotitem".equalsIgnoreCase(a.getNodeName()))
+			{
+				StringTokenizer st = new StringTokenizer(a.getNodeValue(), ";");
+				int id = Integer.parseInt(st.nextToken().trim());
+				int slot = Integer.parseInt(st.nextToken().trim());
+				int enchant = 0;
+				if (st.hasMoreTokens())
+					enchant = Integer.parseInt(st.nextToken().trim());
+				cond = joinAnd(cond, new ConditionSlotItemId(slot, id, enchant));
+			}
+			else if ("weaponChange".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionChangeWeapon(val));
+			}
+		}
+		if (cond == null)
+			_log.fatal("Unrecognized <using> condition in zone " + _name);
+		return cond;
+	}
+
+	private Condition parseGameCondition(Node n)
+	{
+		Condition cond = null;
+		NamedNodeMap attrs = n.getAttributes();
+		for (int i = 0; i < attrs.getLength(); i++)
+		{
+			Node a = attrs.item(i);
+			if ("night".equalsIgnoreCase(a.getNodeName()))
+			{
+				boolean val = Boolean.valueOf(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionGameTime(CheckGameTime.NIGHT, val));
+			}
+			if ("chance".equalsIgnoreCase(a.getNodeName()))
+			{
+				int val = Integer.decode(a.getNodeValue());
+				cond = joinAnd(cond, new ConditionGameChance(val));
+			}
+		}
+		if (cond == null)
+			_log.fatal("Unrecognized <game> condition in zone " + _name);
+		return cond;
+	}
+
+	private Condition joinAnd(Condition cond, Condition c)
+	{
+		if (cond == null)
+			return c;
+		if (cond instanceof ConditionLogicAnd)
+		{
+			((ConditionLogicAnd) cond).add(c);
+			return cond;
+		}
+		ConditionLogicAnd and = new ConditionLogicAnd();
+		and.add(cond);
+		and.add(c);
+		return and;
 	}
 }
