@@ -41,6 +41,17 @@
         <enabled>false</enabled>
       </snapshots>
     </pluginRepository>
+    <pluginRepository>
+      <id>old l2jfree</id>
+      <name>l2jfree central</name>
+      <url>http://www.l2jfree.com/maven/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
   </pluginRepositories>
   <repositories>
     <repository>
@@ -56,19 +67,17 @@
         <enabled>false</enabled>
       </snapshots>
     </repository>
-      <repository>
-        <id>old l2jfree</id>
-        <name>l2jfree central</name>
-        <url>
-          http://www.l2jfree.com/maven/
-        </url>
-        <releases>
-          <enabled>true</enabled>
-        </releases>
-        <snapshots>
-          <enabled>true</enabled>
-        </snapshots>
-      </repository>
+    <repository>
+      <id>old l2jfree</id>
+      <name>l2jfree central</name>
+      <url>http://www.l2jfree.com/maven/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
     <repository>
       <id>maven 2 (default)</id>
       <url>http://repo1.maven.org/maven2</url>
