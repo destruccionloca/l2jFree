@@ -31,33 +31,31 @@ public class L2DamageZone extends L2DefaultZone
 
 		super.onEnter(character);
 
-		if (_damage != 0 && getCharactersInside().size() > 0)
-			startDamageTask();
+		startDamageTask();
 	}
 
 	@Override
 	protected void onExit(L2Character character)
 	{
 		character.setInsideZone(FLAG_DANGER, false);
-
 		super.onExit(character);
-
 		if (getCharactersInside().size() == 0)
 			stopDamageTask();
 	}
 
 	private synchronized void startDamageTask()
 	{
-		if (task != null)
-			return;
-		task = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new DamageTask(), 1000, 1000);
+		if (task == null)
+			task = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new DamageTask(), 1000, 1000);
 	}
 
 	private synchronized void stopDamageTask()
 	{
 		if (task != null)
+		{
 			task.cancel(false);
-		task = null;
+			task = null;
+		}
 	}
 
 	private class DamageTask implements Runnable

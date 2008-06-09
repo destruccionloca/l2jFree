@@ -104,12 +104,14 @@
       <point x="155899" y="-105982" />
     </shape>
   </zone>
-  <zone id="10" name="Hellbound Desert Zone">
+  <zone id="10" name="Hellbound Desert Zone" type="Conditional">
     <skill applyEnter="5399,1" removeExit="5399" /><!-- 5399: Heat of Desert -->
     <shape type="Rect" zMin="0" zMax="-0">
       <point x="0" y="0" />
       <point x="0" y="0" />
     </shape>
+
+    <!-- Zone condition -->
     <cond>
       <not>
         <or>
