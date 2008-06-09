@@ -104,14 +104,14 @@ public class AdminBanChat implements IAdminCommandHandler
 			{
 				try
 				{
-					ObjectRestrictions.getInstance().addRestriction(activeChar, AvailableRestriction.PlayerChat);
-					ObjectRestrictions.getInstance().timedRemoveRestriction(activeChar.getObjectId(),
+					ObjectRestrictions.getInstance().addRestriction(targetPlayer, AvailableRestriction.PlayerChat);
+					ObjectRestrictions.getInstance().timedRemoveRestriction(targetPlayer.getObjectId(),
 							AvailableRestriction.PlayerChat, banLength * 60000,
 							targetPlayer.getName() + "'s chat ban has now been lifted.");
 				}
 				catch (RestrictionBindClassException e)
 				{
-					e.printStackTrace();
+					e.getMessage();
 				}
 					
 				banLengthStr = " for " + banLength + " minutes.";
@@ -120,11 +120,11 @@ public class AdminBanChat implements IAdminCommandHandler
 			{
 				try
 				{
-					ObjectRestrictions.getInstance().addRestriction(activeChar, AvailableRestriction.PlayerChat);
+					ObjectRestrictions.getInstance().addRestriction(targetPlayer, AvailableRestriction.PlayerChat);
 				}
 				catch (RestrictionBindClassException e)
 				{
-					e.printStackTrace();
+					e.getMessage();
 				}
 			}
 
@@ -133,7 +133,7 @@ public class AdminBanChat implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_unbanchat"))
 		{
-			ObjectRestrictions.getInstance().removeRestriction(activeChar, AvailableRestriction.PlayerChat);
+			ObjectRestrictions.getInstance().removeRestriction(targetPlayer, AvailableRestriction.PlayerChat);
 			activeChar.sendMessage(targetPlayer.getName() + "'s chat ban has now been lifted.");
 		}
 
