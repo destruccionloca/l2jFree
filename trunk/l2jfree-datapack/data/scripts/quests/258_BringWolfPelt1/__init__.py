@@ -74,7 +74,7 @@ class Quest (JQuest) :
        st.set("cond","2")
    else :
      st.playSound("ItemSound.quest_itemget")
-   st.giveItems(WOLF_PELT,numItems)
+   st.giveItems(WOLF_PELT,int(numItems))
    return
 
 QUEST       = Quest(258,qn,"Bring Wolf Pelt1")
