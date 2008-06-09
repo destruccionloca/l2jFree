@@ -14,8 +14,8 @@
  */
 package com.l2jfree.gameserver.model;
 
+import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-
 
 /**
  *
@@ -30,8 +30,6 @@ public abstract class L2Transformation
 
     public static final int TRANSFORM_ZARICHE = 301;
     public static final int TRANSFORM_AKAMANAH = 302;
-
-    private L2PcInstance _player;
 
     /**
      * 
@@ -94,7 +92,17 @@ public abstract class L2Transformation
     }
 
     // Scriptable Events
-    public abstract void onTransform();
+    public abstract void onTransform(L2PcInstance player);
     
-    public abstract void onUntransform();
+    public abstract void onUntransform(L2PcInstance player);
+
+    public void addSkill(L2PcInstance player, int skillId, int skillLevel)
+    {
+        player.addSkill(SkillTable.getInstance().getInfo(skillId, skillLevel), false);
+    }
+
+    public void removeSkill(L2PcInstance player, int skillId)
+    {
+        player.removeSkill(SkillTable.getInstance().getInfo(skillId, 1), false);
+    }
 }

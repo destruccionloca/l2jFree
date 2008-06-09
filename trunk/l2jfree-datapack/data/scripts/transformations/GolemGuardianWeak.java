@@ -1,9 +1,8 @@
 package transformations;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.L2DefaultTransformation;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Description: <br>
@@ -15,7 +14,7 @@ import com.l2jfree.gameserver.model.L2Transformation;
  * @author durgus
  *
  */
-public class GolemGuardianWeak extends L2Transformation
+public class GolemGuardianWeak extends L2DefaultTransformation
 {
 	public GolemGuardianWeak()
 	{
@@ -23,64 +22,28 @@ public class GolemGuardianWeak extends L2Transformation
 		super(212, 8.0, 23.5);
 	}
 
-	public void onTransform()
-	{
-		// Disable all character skills.
-		for (L2Skill sk : this.getPlayer().getAllSkills())
-		{
-			if (sk != null && !sk.isPassive())
-				this.getPlayer().removeSkill(sk, false);
-		}
-		if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
-		{
-			// give transformation skills
-			transformedSkills();
-			return;
-		}
-		// give transformation skills
-		transformedSkills();
-	}
-
-	public void transformedSkills()
+	public void transformedSkills(L2PcInstance player)
 	{
 		// Double Slasher
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(572, 2), false);
+		addSkill(player, 572, 2);
 		// Earthquake
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(573, 2), false);
+		addSkill(player, 573, 2);
 		// Bomb Installation
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(574, 2), false);
+		addSkill(player, 574, 2);
 		// Steel Cutter
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(575, 2), false);
-		// Transfrom Dispel
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		addSkill(player, 575, 2);
 	}
 
-	public void onUntransform()
-	{
-		// remove transformation skills
-		removeSkills();
-	}
-
-	public void removeSkills()
+	public void removeSkills(L2PcInstance player)
 	{
 		// Double Slasher
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(572, 2), false);
+		removeSkill(player, 572);
 		// Earthquake
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(573, 2), false);
+		removeSkill(player, 573);
 		// Bomb Installation
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(574, 2), false);
+		removeSkill(player, 574);
 		// Steel Cutter
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(575, 2), false);
-		// Transfrom Dispel
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		removeSkill(player, 575);
 	}
 
 	public static void main(String[] args)

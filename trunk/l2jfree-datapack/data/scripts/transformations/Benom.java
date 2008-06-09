@@ -1,9 +1,8 @@
 package transformations;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.L2DefaultTransformation;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Description: <br>
@@ -15,7 +14,7 @@ import com.l2jfree.gameserver.model.L2Transformation;
  * @author Ahmed
  *
  */
-public class Benom extends L2Transformation
+public class Benom extends L2DefaultTransformation
 {
 	public Benom()
 	{
@@ -23,60 +22,24 @@ public class Benom extends L2Transformation
 		super(307, 10.0, 57.5);
 	}
 
-	public void onTransform()
-	{
-		// Disable all character skills.
-		for (L2Skill sk : this.getPlayer().getAllSkills())
-		{
-			if (sk != null && !sk.isPassive())
-				this.getPlayer().removeSkill(sk, false);
-		}
-		if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
-		{
-			// give transformation skills
-			transformedSkills();
-			return;
-		}
-		// give transformation skills
-		transformedSkills();
-	}
-
-	public void transformedSkills()
+	public void transformedSkills(L2PcInstance player)
 	{
 		// Venom Power Smash
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(725, 2), false);
+		addSkill(player, 725, 2);
 		// Venom Sonic Storm
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(726, 2), false);
+		addSkill(player, 726, 2);
 		// Venom Disillusion
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(727, 1), false);
-		// Transfrom Dispel
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		addSkill(player, 727, 1);
 	}
 
-	public void onUntransform()
-	{
-		// remove transformation skills
-		removeSkills();
-	}
-
-	public void removeSkills()
+	public void removeSkills(L2PcInstance player)
 	{
 		// Venom Power Smash
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(725, 2), false);
+		removeSkill(player, 725);
 		// Venom Sonic Storm
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(726, 2), false);
+		removeSkill(player, 726);
 		// Venom Disillusion
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(727, 1), false);
-		// Transfrom Dispel
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		removeSkill(player, 727);
 	}
 
 	public static void main(String[] args)

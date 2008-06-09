@@ -1,9 +1,8 @@
 package transformations;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.L2DefaultTransformation;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Description: <br>
@@ -15,7 +14,7 @@ import com.l2jfree.gameserver.model.L2Transformation;
  * @author Ahmed
  *
  */
-public class Gordon extends L2Transformation
+public class Gordon extends L2DefaultTransformation
 {
 	public Gordon()
 	{
@@ -23,60 +22,24 @@ public class Gordon extends L2Transformation
 		super(308, 43.0, 46.6);
 	}
 
-	public void onTransform()
-	{
-		// Disable all character skills.
-		for (L2Skill sk : this.getPlayer().getAllSkills())
-		{
-			if (sk != null && !sk.isPassive())
-				this.getPlayer().removeSkill(sk, false);
-		}
-		if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
-		{
-			// give transformation skills
-			transformedSkills();
-			return;
-		}
-		// give transformation skills
-		transformedSkills();
-	}
-
-	public void transformedSkills()
+	public void transformedSkills(L2PcInstance player)
 	{
 		// Gordon Beast Attack
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(728, 1), false);
+		addSkill(player, 728, 1);
 		// Gordon Sword Stab
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(729, 1), false);
+		addSkill(player, 729, 1);
 		// Gordon Press
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(730, 1), false);
-		// Transfrom Dispel
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		addSkill(player, 730, 1);
 	}
 
-	public void onUntransform()
-	{
-		// remove transformation skills
-		removeSkills();
-	}
-
-	public void removeSkills()
+	public void removeSkills(L2PcInstance player)
 	{
 		// Gordon Beast Attack
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(728, 1), false);
+		removeSkill(player, 728);
 		// Gordon Sword Stab
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(729, 1), false);
+		removeSkill(player, 729);
 		// Gordon Press
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(730, 1), false);
-		// Transfrom Dispel
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		removeSkill(player, 730);
 	}
 
 	public static void main(String[] args)

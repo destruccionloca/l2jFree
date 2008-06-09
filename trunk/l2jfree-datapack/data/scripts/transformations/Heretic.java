@@ -1,9 +1,8 @@
 package transformations;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.L2DefaultTransformation;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Description: <br>
@@ -15,7 +14,7 @@ import com.l2jfree.gameserver.model.L2Transformation;
  * @author Ahmed
  *
  */
-public class Heretic extends L2Transformation
+public class Heretic extends L2DefaultTransformation
 {
 	public Heretic()
 	{
@@ -23,60 +22,24 @@ public class Heretic extends L2Transformation
 		super(3, 8.0, 20.0);
 	}
 
-	public void onTransform()
-	{
-		// Disable all character skills.
-		for (L2Skill sk : this.getPlayer().getAllSkills())
-		{
-			if (sk != null && !sk.isPassive())
-				this.getPlayer().removeSkill(sk, false);
-		}
-		if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
-		{
-			// give transformation skills
-			transformedSkills();
-			return;
-		}
-		// give transformation skills
-		transformedSkills();
-	}
-
-	public void transformedSkills()
+	public void transformedSkills(L2PcInstance player)
 	{
 		// Heretic Heal
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(738, 3), false);
+		addSkill(player, 738, 3);
 		// Heretic Battle Heal
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(739, 3), false);
+		addSkill(player, 739, 3);
 		// Heretic Resurrection
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(740, 3), false);
-		// Transfrom Dispel
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		addSkill(player, 740, 3);
 	}
 
-	public void onUntransform()
-	{
-		// remove transformation skills
-		removeSkills();
-	}
-
-	public void removeSkills()
+	public void removeSkills(L2PcInstance player)
 	{
 		// Heretic Heal
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(738, 3), false);
+		removeSkill(player, 738);
 		// Heretic Battle Heal
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(739, 3), false);
+		removeSkill(player, 739);
 		// Heretic Resurrection
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(740, 3), false);
- 		// Transfrom Dispel
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		removeSkill(player, 740);
 	}
 
 	public static void main(String[] args)

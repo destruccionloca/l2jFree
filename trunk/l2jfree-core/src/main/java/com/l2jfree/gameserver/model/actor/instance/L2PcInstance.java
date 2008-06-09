@@ -12542,7 +12542,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			return;
 		}
 		_transformation = transformation;
-		transformation.onTransform();
+		transformation.onTransform(this);
 		this.broadcastUserInfo();
 	}
 
@@ -12551,7 +12551,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (this.isTransformed())
 		{
 			restoreSkills();
-			_transformation.onUntransform();
+			_transformation.onUntransform(this);
 			_transformation = null;
 			regiveTemporarySkills();
 			broadcastUserInfo();
@@ -12750,5 +12750,4 @@ public final class L2PcInstance extends L2PlayableInstance
 		else
 			_trustlevel -= inc;
 	}
-	
 }

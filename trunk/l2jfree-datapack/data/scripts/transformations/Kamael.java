@@ -1,9 +1,8 @@
 package transformations;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.L2DefaultTransformation;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Description: <br>
@@ -15,76 +14,40 @@ import com.l2jfree.gameserver.model.L2Transformation;
  * @author KenM
  *
  */
-public class Kamael extends L2Transformation
+public class Kamael extends L2DefaultTransformation
 {
-    public Kamael()
-    {
-        // id, colRadius, colHeight
-        super(251, 9.0, 30.0);
-    }
-
-    public void onTransform()
+	public Kamael()
 	{
-		// Disable all character skills.
-		for (L2Skill sk : this.getPlayer().getAllSkills())
-		{
-			if (sk != null && !sk.isPassive())
-				this.getPlayer().removeSkill(sk, false);
-		}
-		if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
-		{
-			// give transformation skills
-			transformedSkills();
-			return;
-		}
-		// give transformation skills
-		transformedSkills();
+		// id, colRadius, colHeight
+		super(251, 9.0, 30.0);
 	}
 
-    public void transformedSkills()
-    {
-        // Nail Attack
-        this.getPlayer().addSkill(SkillTable.getInstance().getInfo(539, 1), false);
-        // Wing Assault
-        this.getPlayer().addSkill(SkillTable.getInstance().getInfo(540, 1), false);
-        // Soul Sucking
-        this.getPlayer().addSkill(SkillTable.getInstance().getInfo(1471, 1), false);
-        // Death Beam
-        this.getPlayer().addSkill(SkillTable.getInstance().getInfo(1472, 1), false);
-        // Transfrom Dispel
-        this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
-        // Decrease Bow/Crossbow Attack Speed
-        this.getPlayer().addSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-        // Send a Server->Client packet StatusUpdate to the L2PcInstance.
-        this.getPlayer().sendSkillList();
-    }
-
-    public void onUntransform()
+	public void transformedSkills(L2PcInstance player)
 	{
-		// remove transformation skills
-		removeSkills();
+		// Nail Attack
+		addSkill(player, 539, 1);
+		// Wing Assault
+		addSkill(player, 540, 1);
+		// Soul Sucking
+		addSkill(player, 1471, 1);
+		// Death Beam
+		addSkill(player, 1472, 1);
 	}
 
-    public void removeSkills()
-    {
-        // Nail Attack
-        this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(539, 1), false);
-        // Wing Assault
-        this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(540, 1), false);
-        // Soul Sucking
-        this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(1471, 1), false);
-        // Death Beam
-        this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(1472, 1), false);
-        // Transfrom Dispel
-        this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
-        // Decrease Bow/Crossbow Attack Speed
-        this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-        // Send a Server->Client packet StatusUpdate to the L2PcInstance.
-        this.getPlayer().sendSkillList();
-    }
+	public void removeSkills(L2PcInstance player)
+	{
+		// Nail Attack
+		removeSkill(player, 539);
+		// Wing Assault
+		removeSkill(player, 540);
+		// Soul Sucking
+		removeSkill(player, 1471);
+		// Death Beam
+		removeSkill(player, 1472);
+	}
 
-    public static void main(String[] args)
-    {
-        TransformationManager.getInstance().registerTransformation(new Kamael());
-    }
+	public static void main(String[] args)
+	{
+		TransformationManager.getInstance().registerTransformation(new Kamael());
+	}
 }

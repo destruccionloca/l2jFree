@@ -1,9 +1,8 @@
 package transformations;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.L2DefaultTransformation;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Description: <br>
@@ -15,7 +14,7 @@ import com.l2jfree.gameserver.model.L2Transformation;
  * @author Ahmed
  *
  */
-public class Zaken extends L2Transformation
+public class Zaken extends L2DefaultTransformation
 {
 	public Zaken()
 	{
@@ -23,58 +22,32 @@ public class Zaken extends L2Transformation
 		super(305, 16.0, 32.0);
 	}
 
-	public void onTransform()
-	{
-		// Disable all character skills.
-		for (L2Skill sk : this.getPlayer().getAllSkills())
-		{
-			if (sk != null && !sk.isPassive())
-				this.getPlayer().removeSkill(sk, false);
-		}
-		if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
-		{
-			// give transformation skills
-			transformedSkills();
-			return;
-		}
-		// give transformation skills
-		transformedSkills();
-	}
-
-	public void transformedSkills()
+	public void transformedSkills(L2PcInstance player)
 	{
 		// Zaken Energy Drain
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(715, 4), false);
+		addSkill(player, 715, 4);
 		// Zaken Hold
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(716, 4), false);
+		addSkill(player, 716, 4);
 		// Zaken Concentrated Attack
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(717, 4), false);
+		addSkill(player, 717, 4);
 		// Zaken Dancing Sword
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(718, 4), false);
+		addSkill(player, 718, 4);
 		// Zaken Vampiric Rage
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(719, 1), false);
-		// Transfrom Dispel
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		addSkill(player, 719, 1);
 	}
 
-	public void onUntransform()
+	public void removeSkills(L2PcInstance player)
 	{
-		// remove transformation skills
-		removeSkills();
-	}
-
-	public void removeSkills()
-	{
-		// Transfrom Dispel
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		// Zaken Energy Drain
+		removeSkill(player, 715);
+		// Zaken Hold
+		removeSkill(player, 716);
+		// Zaken Concentrated Attack
+		removeSkill(player, 717);
+		// Zaken Dancing Sword
+		removeSkill(player, 718);
+		// Zaken Vampiric Rage
+		removeSkill(player, 719);
 	}
 
 	public static void main(String[] args)

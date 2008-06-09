@@ -1,9 +1,8 @@
 package transformations;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.L2DefaultTransformation;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Description: <br>
@@ -15,7 +14,7 @@ import com.l2jfree.gameserver.model.L2Transformation;
  * @author Ahmed
  *
  */
-public class DemonPrince extends L2Transformation
+public class DemonPrince extends L2DefaultTransformation
 {
 	public DemonPrince()
 	{
@@ -23,60 +22,24 @@ public class DemonPrince extends L2Transformation
 		super(311, 33.0, 49.0);
 	}
 
-	public void onTransform()
-	{
-		// Disable all character skills.
-		for (L2Skill sk : this.getPlayer().getAllSkills())
-		{
-			if (sk != null && !sk.isPassive())
-				this.getPlayer().removeSkill(sk, false);
-		}
-		if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
-		{
-			// give transformation skills
-			transformedSkills();
-			return;
-		}
-		// give transformation skills
-		transformedSkills();
-	}
-
-	public void transformedSkills()
+	public void transformedSkills(L2PcInstance player)
 	{
 		// Devil Spinning Weapon
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(735, 1), false);
+		addSkill(player, 735, 1);
 		// Devil Seed
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(736, 1), false);
+		addSkill(player, 736, 1);
 		// Devil Ultimate Defense
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(737, 1), false);
-		// Transfrom Dispel
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		addSkill(player, 737, 1);
 	}
 
-	public void onUntransform()
-	{
-		// remove transformation skills
-		removeSkills();
-	}
-
-	public void removeSkills()
+	public void removeSkills(L2PcInstance player)
 	{
 		// Devil Spinning Weapon
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(735, 1), false);
+		removeSkill(player, 735);
 		// Devil Seed
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(736, 1), false);
+		removeSkill(player, 736);
 		// Devil Ultimate Defense
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(737, 1), false);
-		// Transfrom Dispel
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		removeSkill(player, 737);
 	}
 
 	public static void main(String[] args)

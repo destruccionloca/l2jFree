@@ -325,12 +325,6 @@ public class CursedWeapon
         // To properly support subclasses this skill can not be stored.
         _player.addSkill(skill, false);
 
-        // Void Burst, Void Flow
-        skill = SkillTable.getInstance().getInfo(3630, 1);
-        _player.addSkill(skill, false);
-        skill = SkillTable.getInstance().getInfo(3631, 1);
-        _player.addSkill(skill, false);
-
         if (_log.isDebugEnabled())
             _log.debug("Player "+_player.getName() +" has been awarded with skill "+skill);
         _player.sendSkillList();
@@ -341,8 +335,6 @@ public class CursedWeapon
         _player.untransform();
         
         _player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
-        _player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
-        _player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);
         
         if (_player.transformId() > 0)
         {

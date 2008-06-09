@@ -1,7 +1,9 @@
 package transformations;
 
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
+import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * This is currently only a test of the java script engine
@@ -17,18 +19,26 @@ public class Akamanah extends L2Transformation
 		super(302, 10.0, 32.73);
 	}
 
-	public void onTransform()
+	public void onTransform(L2PcInstance player)
 	{
 		// Set charachter name to transformed name
-		this.getPlayer().getAppearance().setVisibleName("Akamanah");
-		this.getPlayer().getAppearance().setVisibleTitle("");
+		player.getAppearance().setVisibleName("Akamanah");
+		player.getAppearance().setVisibleTitle("");
+
+		// Void Burst, Void Flow
+		player.addSkill(SkillTable.getInstance().getInfo(3630, 1), false);
+		player.addSkill(SkillTable.getInstance().getInfo(3631, 1), false);
 	}
 
-	public void onUntransform()
+	public void onUntransform(L2PcInstance player)
 	{
 		// set character back to true name.
-		this.getPlayer().getAppearance().setVisibleName(null);
-		this.getPlayer().getAppearance().setVisibleTitle(null);
+		player.getAppearance().setVisibleName(null);
+		player.getAppearance().setVisibleTitle(null);
+
+		// Void Burst, Void Flow
+		player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
+		player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);
 	}
 
 	public static void main(String[] args)

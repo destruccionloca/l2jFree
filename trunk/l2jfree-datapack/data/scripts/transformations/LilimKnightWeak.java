@@ -1,9 +1,8 @@
 package transformations;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.L2DefaultTransformation;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Description: <br>
@@ -15,7 +14,7 @@ import com.l2jfree.gameserver.model.L2Transformation;
  * @author durgus
  *
  */
-public class LilimKnightWeak extends L2Transformation
+public class LilimKnightWeak extends L2DefaultTransformation
 {
 	public LilimKnightWeak()
 	{
@@ -23,64 +22,28 @@ public class LilimKnightWeak extends L2Transformation
 		super(209, 8.0, 24.4);
 	}
 
-	public void onTransform()
-	{
-		// Disable all character skills.
-		for (L2Skill sk : this.getPlayer().getAllSkills())
-		{
-			if (sk != null && !sk.isPassive())
-				this.getPlayer().removeSkill(sk, false);
-		}
-		if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
-		{
-			// give transformation skills
-			transformedSkills();
-			return;
-		}
-		// give transformation skills
-		transformedSkills();
-	}
-
-	public void transformedSkills()
+	public void transformedSkills(L2PcInstance player)
 	{
 		// Attack Buster
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(568, 2), false);
+		addSkill(player, 568, 2);
 		// Attack Storm
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(569, 2), false);
+		addSkill(player, 569, 2);
 		// Attack Rage
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(570, 2), false);
+		addSkill(player, 570, 2);
 		// Poison Dust
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(571, 2), false);
-		// Transfrom Dispel
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		addSkill(player, 571, 2);
 	}
 
-	public void onUntransform()
-	{
-		// remove transformation skills
-		removeSkills();
-	}
-
-	public void removeSkills()
+	public void removeSkills(L2PcInstance player)
 	{
 		// Attack Buster
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(568, 2), false);
+		removeSkill(player, 568);
 		// Attack Storm
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(569, 2), false);
+		removeSkill(player, 569);
 		// Attack Rage
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(570, 2), false);
+		removeSkill(player, 570);
 		// Poison Dust
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(571, 2), false);
-		// Transfrom Dispel
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
-		// Decrease Bow/Crossbow Attack Speed
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(5491, 1), false);
-		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		removeSkill(player, 571);
 	}
 
 	public static void main(String[] args)
