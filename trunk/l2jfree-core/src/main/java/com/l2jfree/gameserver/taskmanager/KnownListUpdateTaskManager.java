@@ -90,7 +90,7 @@ public class KnownListUpdateTaskManager
 		}
 	}
 
-	public void updateRegion(L2WorldRegion region, boolean fullUpdate, boolean forgetObjects)
+	public synchronized void updateRegion(L2WorldRegion region, boolean fullUpdate, boolean forgetObjects)
 	{
 		for (L2Object object : region.getVisibleObjects()) // and for all members in region
 		{
