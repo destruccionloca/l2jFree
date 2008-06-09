@@ -282,31 +282,31 @@ public class CursedWeapon
             {
                 public void run()
                 {
-                    TransformationManager.getInstance().transformPlayer(_transformId, _player, Long.MAX_VALUE);
+                    TransformationManager.getInstance().transformPlayer(_transformId, _player);
                 }
             }, 500);
         }
         else
-            TransformationManager.getInstance().transformPlayer(_transformId, _player, Long.MAX_VALUE);
+            TransformationManager.getInstance().transformPlayer(_transformId, _player);
     }
 
     public void cursedOnLogin()
     {
-            disableAllSkills();
-            transform();
-            giveSkill();
+        disableAllSkills();
+        transform();
+        giveSkill();
 
-            SystemMessage msg = new SystemMessage(SystemMessageId.S2_OWNER_HAS_LOGGED_INTO_THE_S1_REGION);
-            msg.addZoneName(_player.getX(), _player.getY(), _player.getZ());
-            msg.addItemNameById(_player.getCursedWeaponEquippedId());
-            CursedWeaponsManager.announce(msg);
+        SystemMessage msg = new SystemMessage(SystemMessageId.S2_OWNER_HAS_LOGGED_INTO_THE_S1_REGION);
+        msg.addZoneName(_player.getX(), _player.getY(), _player.getZ());
+        msg.addItemNameById(_player.getCursedWeaponEquippedId());
+        CursedWeaponsManager.announce(msg);
 
-            CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(_player.getCursedWeaponEquippedId());
-            SystemMessage msg2 = new SystemMessage(SystemMessageId.S2_MINUTE_OF_USAGE_TIME_ARE_LEFT_FOR_S1);
-            int timeLeftInHours = (int)(((cw.getTimeLeft()/60000)/60));
-            msg2.addItemNameById(_player.getCursedWeaponEquippedId());
-            msg2.addNumber(timeLeftInHours*60);
-            _player.sendPacket(msg2);
+        CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(_player.getCursedWeaponEquippedId());
+        SystemMessage msg2 = new SystemMessage(SystemMessageId.S2_MINUTE_OF_USAGE_TIME_ARE_LEFT_FOR_S1);
+        int timeLeftInHours = (int)(((cw.getTimeLeft()/60000)/60));
+        msg2.addItemNameById(_player.getCursedWeaponEquippedId());
+        msg2.addNumber(timeLeftInHours*60);
+        _player.sendPacket(msg2);
     }
 
    /**
@@ -346,7 +346,7 @@ public class CursedWeapon
         
         if (_player.transformId() > 0)
         {
-            TransformationManager.getInstance().transformPlayer(_player.transformId(), _player, Long.MAX_VALUE);
+            TransformationManager.getInstance().transformPlayer(_player.transformId(), _player);
         }
         else
         {
@@ -461,10 +461,12 @@ public class CursedWeapon
             //iu.addItems(Arrays.asList(items));
             _player.sendPacket(iu);
         }
-        else _player.sendPacket(new ItemList(_player, false));
+        else
+            _player.sendPacket(new ItemList(_player, false));
 
         // Save previous transformation
-        if (_player.transformId() > 0) _player.transformInsertInfo(); 
+        if (_player.transformId() > 0)
+            _player.transformInsertInfo(); 
         // Refresh player stats
         transform();
         _player.broadcastUserInfo();

@@ -1,6 +1,5 @@
 # Made by disKret
 import sys
-from com.l2jfree import Config 
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -111,8 +110,8 @@ class Quest (JQuest) :
         st.takeItems(FEE_OF_DRINK,5)
         random = st.getRandom(1000)
         if random < 800 :
-          st.giveItems(ADENA,18800)
-          st.giveItems(HASTE_POTION,int(Config.RATE_QUESTS_REWARD_ITEM))
+          st.rewardItems(ADENA,18800)
+          st.rewardItems(HASTE_POTION,1)
         elif random < 880 :
           st.giveItems(6849+ALT_RP100,1)
         elif random < 960 :

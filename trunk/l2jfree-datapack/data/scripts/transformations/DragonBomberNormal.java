@@ -19,8 +19,8 @@ public class DragonBomberNormal extends L2Transformation
 {
 	public DragonBomberNormal()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(217, 3600, 8.0, 22.0);
+		// id, colRadius, colHeight
+		super(217, 8.0, 22.0);
 	}
 
 	public void onTransform()

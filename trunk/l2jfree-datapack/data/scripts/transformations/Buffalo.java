@@ -19,8 +19,8 @@ public class Buffalo extends L2Transformation
 {
 	public Buffalo()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(103, 3600, 22.0, 31.0);
+		// id, colRadius, colHeight
+		super(103, 22.0, 31.0);
 	}
 
 	public void onTransform()

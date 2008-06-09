@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.model;
 
-import java.util.concurrent.ScheduledFuture;
-
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 
@@ -24,21 +21,18 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  *
  * @author  KenM
  */
-public abstract class L2Transformation implements Cloneable, Runnable
+public abstract class L2Transformation
 {
     private final int _id;
     private final int _graphicalId;
     private final double _collisionRadius;
     private final double _collisionHeight;
-    private long _duration;
 
     public static final int TRANSFORM_ZARICHE = 301;
     public static final int TRANSFORM_AKAMANAH = 302;
 
     private L2PcInstance _player;
-    private long _startTime;
-    private ScheduledFuture<?> _future;
-    
+
     /**
      * 
      * @param id Internal id that server will use to associate this transformation 
@@ -47,13 +41,12 @@ public abstract class L2Transformation implements Cloneable, Runnable
      * @param collisionRadius Collision Radius of the player while transformed
      * @param collisionHeight  Collision Height of the player while transformed
      */
-    public L2Transformation(int id, int graphicalId, int duration, double collisionRadius, double collisionHeight)
+    public L2Transformation(int id, int graphicalId, double collisionRadius, double collisionHeight)
     {
         _id = id;
         _graphicalId = graphicalId;
         _collisionRadius = collisionRadius;
         _collisionHeight = collisionHeight;
-        this.setDuration(duration * 1000);
     }
     
     /**
@@ -63,9 +56,9 @@ public abstract class L2Transformation implements Cloneable, Runnable
      * @param collisionRadius Collision Radius of the player while transformed
      * @param collisionHeight  Collision Height of the player while transformed
      */
-    public L2Transformation(int id, int duration, double collisionRadius, double collisionHeight)
+    public L2Transformation(int id, double collisionRadius, double collisionHeight)
     {
-        this(id, id, duration, collisionRadius, collisionHeight);
+        this(id, id, collisionRadius, collisionHeight);
     }
     
     /**
@@ -100,117 +93,8 @@ public abstract class L2Transformation implements Cloneable, Runnable
         return _collisionHeight;
     }
 
-    /**
-     * @param duration The duration to set.
-     */
-    public void setDuration(long duration)
-    {
-        _duration = duration;
-    }
-    
-    /**
-     * @return Returns the total duration in miliseconds.
-     */
-    public long getDuration()
-    {
-        return _duration;
-    }
-    
-    /**
-     * @return The remaining transformed time in miliseconds. An zero or negative value if the transformation has already ended.
-     */
-    public long getRemainingTime()
-    {
-        return (getStartTime() + this.getDuration()) - System.currentTimeMillis();
-    }
-
     // Scriptable Events
     public abstract void onTransform();
     
     public abstract void onUntransform();
-
-    /**
-     * @param player The player to set.
-     */
-    private void setPlayer(L2PcInstance player)
-    {
-        _player = player;
-    }
-
-    /**
-     * @return Returns the player.
-     */
-    public L2PcInstance getPlayer()
-    {
-        return _player;
-    }
-    
-    /**
-     * @param startTime The startTime to set.
-     */
-    public void setStartTime(long startTime)
-    {
-        _startTime = startTime;
-    }
-
-    /**
-     * @return Returns the startTime.
-     */
-    private long getStartTime()
-    {
-        return _startTime;
-    }
-
-    /**
-     * @param future The future to set.
-     */
-    public void setFuture(ScheduledFuture<?> future)
-    {
-        _future = future;
-    }
-
-    /**
-     * @return Returns the future.
-     */
-    public ScheduledFuture<?> getFuture()
-    {
-        return _future;
-    }
-
-    public void start()
-    {
-        this.setStartTime(System.currentTimeMillis());
-        this.resume();
-    }
-    
-    public void resume()
-    {
-        this.setFuture(ThreadPoolManager.getInstance().scheduleGeneral(this, this.getRemainingTime()));
-        this.getPlayer().transform(this);
-    }
-    
-    public void run()
-    {
-        this.stop();
-    }
-    
-    public void stop()
-    {
-        this.getPlayer().untransform();
-    }
-    
-    public L2Transformation createTransformationForPlayer(L2PcInstance player)
-    {
-        try
-        {
-            L2Transformation transformation = (L2Transformation) this.clone();
-            transformation.setPlayer(player);
-            return transformation;
-        }
-        catch (CloneNotSupportedException e)
-        {
-            // should never happen
-            return null;
-        }
-    }
 }

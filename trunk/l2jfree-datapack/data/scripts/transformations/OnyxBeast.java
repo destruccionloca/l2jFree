@@ -19,8 +19,8 @@ public class OnyxBeast extends L2Transformation
 {
 	public OnyxBeast()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(1, 3600, 14.0, 15.0);
+		// id, colRadius, colHeight
+		super(1, 14.0, 15.0);
 	}
 
 	public void onTransform()

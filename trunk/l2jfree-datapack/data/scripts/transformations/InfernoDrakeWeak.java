@@ -19,8 +19,8 @@ public class InfernoDrakeWeak extends L2Transformation
 {
 	public InfernoDrakeWeak()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(215, 3600, 8.0, 22.0);
+		// id, colRadius, colHeight
+		super(215, 8.0, 22.0);
 	}
 
 	public void onTransform()

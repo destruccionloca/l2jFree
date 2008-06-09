@@ -19,8 +19,8 @@ public class UnicornNormal extends L2Transformation
 {
 	public UnicornNormal()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(205, 3600, 8.0, 25.5);
+		// id, colRadius, colHeight
+		super(205, 8.0, 25.5);
 	}
 
 	public void onTransform()

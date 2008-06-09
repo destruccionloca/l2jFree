@@ -37,7 +37,6 @@ import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.instancemanager.PetitionManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
-import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.L2FriendList;
@@ -454,10 +453,6 @@ public class EnterWorld extends L2GameClientPacket
 		if (activeChar.isCursedWeaponEquipped())
 		{
 			CursedWeaponsManager.getInstance().getCursedWeapon(activeChar.getCursedWeaponEquippedId()).cursedOnLogin();
-		}
-		else if (activeChar.transformSelectInfo() > 0)
-		{
-			TransformationManager.getInstance().transformPlayer(activeChar.transformId(), activeChar, Long.MAX_VALUE);
 		}
 	}
 

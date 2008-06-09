@@ -19,8 +19,8 @@ public class DivineHealer extends L2Transformation
 {
 	public DivineHealer()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(255, 3600, 8.0, 27.0);
+		// id, colRadius, colHeight
+		super(255, 8.0, 27.0);
 	}
 
 	public void onTransform()

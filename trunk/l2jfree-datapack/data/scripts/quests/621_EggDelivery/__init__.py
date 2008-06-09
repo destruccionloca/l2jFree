@@ -1,6 +1,5 @@
 # Made by disKret
 import sys
-from com.l2jfree import Config 
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -112,8 +111,8 @@ class Quest (JQuest) :
         if st.getRandom(100) < RPCHANCE :
           st.giveItems(range(6847+ALT_RP100,6853,2)[st.getRandom(3)],1)
         else:
-          st.giveItems(ADENA,int(18800))
-          st.giveItems(HASTE_POTION, int(Config.RATE_QUESTS_REWARD_ITEM))
+          st.rewardItems(ADENA,18800)
+          st.rewardItems(HASTE_POTION,1)
         st.playSound("ItemSound.quest_finish")
         st.exitQuest(1)
      else:

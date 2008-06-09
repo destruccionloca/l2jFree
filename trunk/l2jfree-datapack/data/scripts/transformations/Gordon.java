@@ -19,8 +19,8 @@ public class Gordon extends L2Transformation
 {
 	public Gordon()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(308, 3600, 43.0, 46.6);
+		// id, colRadius, colHeight
+		super(308, 43.0, 46.6);
 	}
 
 	public void onTransform()

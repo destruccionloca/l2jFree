@@ -19,8 +19,8 @@ public class Zombie extends L2Transformation
 {
 	public Zombie()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(303, 3600, 11.0, 25.0);
+		// id, colRadius, colHeight
+		super(303, 11.0, 25.0);
 	}
 
 	public void onTransform()

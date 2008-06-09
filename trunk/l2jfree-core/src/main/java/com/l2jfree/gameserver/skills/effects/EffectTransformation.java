@@ -50,6 +50,7 @@ public class EffectTransformation extends L2Effect
 		if (trg == null)
 			return;
 
+		// No transformation if dead or cursed by cursed weapon
 		if (trg.isAlikeDead() || trg.isCursedWeaponEquipped())
 			return;
 
@@ -64,6 +65,12 @@ public class EffectTransformation extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		return true;
+		return false;
+	}
+
+	@Override
+	public void onExit()
+	{
+		getEffected().stopTransformation(this);
 	}
 }

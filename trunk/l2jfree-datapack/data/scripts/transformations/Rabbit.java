@@ -19,8 +19,8 @@ public class Rabbit extends L2Transformation
 {
 	public Rabbit()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(105, 3600, 5.0, 4.5);
+		// id, colRadius, colHeight
+		super(105, 5.0, 4.5);
 	}
 
 	public void onTransform()

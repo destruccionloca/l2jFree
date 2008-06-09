@@ -19,8 +19,8 @@ public class Kiyachi extends L2Transformation
 {
 	public Kiyachi()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(310, 3600, 12.0, 29.8);
+		// id, colRadius, colHeight
+		super(310, 12.0, 29.8);
 	}
 
 	public void onTransform()
