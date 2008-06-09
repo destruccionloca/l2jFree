@@ -112,8 +112,8 @@ class Quest (JQuest) :
         if st.getRandom(100) < RPCHANCE :
           st.giveItems(range(6847+ALT_RP100,6853,2)[st.getRandom(3)],1)
         else:
-          st.giveItems(ADENA,int(18800 * Config.RATE_QUESTS_REWARD))
-          st.giveItems(HASTE_POTION, int(Config.RATE_QUESTS_REWARD))
+          st.giveItems(ADENA,int(18800))
+          st.giveItems(HASTE_POTION, int(Config.RATE_QUESTS_REWARD_ITEM))
         st.playSound("ItemSound.quest_finish")
         st.exitQuest(1)
      else:
