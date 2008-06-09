@@ -713,7 +713,7 @@ public class ItemTable
 		// Create and Init the L2ItemInstance corresponding to the Item Identifier
 		L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId, itemId);
 
-		if (process.equalsIgnoreCase("loot") && !Config.AUTO_LOOT && (itemId != 57 && itemId != 5575 && itemId < 6360 && itemId > 6362 && Config.AUTO_LOOT_ADENA))
+		if (process.equalsIgnoreCase("loot") && ((!Config.AUTO_LOOT && itemId != 57 && itemId != 5575 && itemId < 6360 && itemId > 6362) || (!Config.AUTO_LOOT_ADENA && (itemId == 57 || itemId == 5575 || itemId >= 6360 && itemId <= 6362))))
 		{
 			ScheduledFuture<?> itemLootShedule;
 			long delay = 0;
