@@ -72,7 +72,7 @@ class Quest (JQuest) :
             st.takeItems(CLOTH_BUNDLE_ID,st.getQuestItemsCount(CLOTH_BUNDLE_ID))
             if st.getQuestItemsCount(SILVIAS_RECEIPT_ID) == 0 :
               st.giveItems(SILVIAS_RECEIPT_ID,1)
-              st.giveItems(LESSER_HEALING_POTION_ID,int(Config.RATE_QUESTS_REWARD_ITEM))
+              st.giveItems(LESSER_HEALING_POTION_ID,int(Config.RATE_QUESTS_REWARD_ITEMS))
             htmltext = "30003-01.htm"
        elif npcId == 30003 and st.getInt("cond")!=0 and st.getQuestItemsCount(SILVIAS_RECEIPT_ID)!=0 :
             htmltext = "30003-02.htm"
