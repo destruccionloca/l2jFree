@@ -15,7 +15,7 @@ Torrant = 32016
 #Items
 Box = 8086
 
-class Quest (JQuest) : 
+class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
     JQuest.__init__(self,id,name,descr)
@@ -35,7 +35,7 @@ class Quest (JQuest) :
       st.exitQuest(False)
     return htmltext
 
- def onTalk (self,npc,player):        
+ def onTalk (self,npc,player):
     htmltext = "<html><head><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     st = player.getQuestState(qn)
     if not st : return htmltext

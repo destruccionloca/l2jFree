@@ -32,18 +32,18 @@ class Quest (JQuest) :
        st.set("cond","2")
        st.takeItems(COLLETTE_LETTER,1)
        st.giveItems(NORMANS_LETTER,1)
-       st.giveItems(ADENA,2000)
+       st.rewardItems(ADENA,2000)
      elif event == "30255-04.htm" and cond == 1 and collette :
        st.takeItems(COLLETTE_LETTER,1)
-       st.giveItems(ADENA,3000)
+       st.rewardItems(ADENA,3000)
        st.unset("cond")
-       st.exitQuest(False) 
+       st.exitQuest(False)
        st.playSound("ItemSound.quest_finish")
      elif event == "30210-02.htm" and cond == 2 and st.getQuestItemsCount(NORMANS_LETTER) :
        st.takeItems(NORMANS_LETTER,1)
        st.rewardItems(ADENA,20000)
        st.unset("cond")
-       st.exitQuest(False) 
+       st.exitQuest(False)
        st.playSound("ItemSound.quest_finish")
     return htmltext
 
@@ -69,7 +69,7 @@ class Quest (JQuest) :
          st.exitQuest(1)
      elif cond == 1 and collette :
        htmltext = "30350-05.htm"
-   elif id == State.STARTED :    
+   elif id == State.STARTED :
        if npcId == HAPROCK :
          if cond == 1 and collette :
            htmltext = "30255-01.htm"

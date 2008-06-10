@@ -64,25 +64,25 @@ class Quest (JQuest) :
      st.takeItems(ONYX_BEAST_EYE,-1)
      st.takeItems(TAINT_STONE,-1)
      st.takeItems(SUCCUBUS_BLOOD,-1)
-     st.giveItems(956,1)
+     st.rewardItems(956,1)
      st.unset("cond")
-     st.exitQuest(False) 
+     st.exitQuest(False)
      st.playSound("ItemSound.quest_finish")
    return htmltext
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
-   if st.getState() != State.STARTED : return 
+   if not st : return
+   if st.getState() != State.STARTED : return
 
    npcId = npc.getNpcId()
    if st.getInt("cond") == 1 :
      if npcId == OMEN_BEAST and not st.getQuestItemsCount(ONYX_BEAST_EYE) :
-       st.giveItems(ONYX_BEAST_EYE,int(1*Config.RATE_DROP_QUEST))
+       st.giveItems(ONYX_BEAST_EYE,int(1))
      elif npcId in [TAINTED_ZOMBIE,STINK_ZOMBIE] and not st.getQuestItemsCount(TAINT_STONE) :
-       st.giveItems(TAINT_STONE,int(1*Config.RATE_DROP_QUEST))
+       st.giveItems(TAINT_STONE,int(1))
      elif npcId in [LESSER_SUCCUBUS,LESSER_SUCCUBUS_TUREN,LESSER_SUCCUBUS_TILFO] and not st.getQuestItemsCount(SUCCUBUS_BLOOD) :
-       st.giveItems(SUCCUBUS_BLOOD,int(1*Config.RATE_DROP_QUEST))
+       st.giveItems(SUCCUBUS_BLOOD,int(1))
      if st.getQuestItemsCount(ONYX_BEAST_EYE) and st.getQuestItemsCount(TAINT_STONE) and st.getQuestItemsCount(SUCCUBUS_BLOOD) :
        st.set("cond","2")
        st.playSound("ItemSound.quest_middle")

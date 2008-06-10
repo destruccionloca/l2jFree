@@ -34,7 +34,7 @@ class Quest (JQuest) :
        htmltext = "30126-06.htm"
        st.takeItems(BRACELET,-1)
        item,qty = REWARDS[st.getRandom(len(REWARDS))]
-       st.giveItems(item,qty)
+       st.rewardItems(item,qty)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
    return htmltext

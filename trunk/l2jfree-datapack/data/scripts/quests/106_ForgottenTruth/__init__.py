@@ -94,15 +94,15 @@ class Quest (JQuest) :
                st.rewardItems(item,10)
          st.rewardItems(1060,100)
          if player.getClassId().isMage() :
-            st.giveItems(2509,500)
+            st.rewardItems(2509,500)
          else :
-            st.giveItems(1835,1000)
+            st.rewardItems(1835,1000)
          # check the player state against this quest newbie rewarding mark.
          newbie = player.getNewbie()
          if newbie | NEWBIE_REWARD != newbie :
             player.setNewbie(newbie|NEWBIE_REWARD)
             if player.getClassId().isMage() :
-               st.giveItems(SPIRITSHOT_FOR_BEGINNERS,3000)
+               st.rewardItems(SPIRITSHOT_FOR_BEGINNERS,3000)
                st.playTutorialVoice("tutorial_voice_027")
          st.unset("cond")
          st.exitQuest(False)

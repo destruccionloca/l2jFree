@@ -306,9 +306,9 @@ class Quest (JQuest) :
        if st.getRandom(100) < 4 :
           st.playSound("ItemSound.quest_itemget")
           if st.getRandom(1000) == 0 :
-             st.giveItems(ADENA,100000000)
+             st.rewardItems(ADENA,100000000)
           else:
-             st.giveItems(ADENA,900000)
+             st.rewardItems(ADENA,900000)
      elif npcId == SANCHES :
        try :
          if st.getQuestTimer("sanches_timer1") :
@@ -349,7 +349,7 @@ class Quest (JQuest) :
        try :
          if st.getQuestTimer("greatdemon_timer1") :
             st.getQuestTimer("greatdemon_timer1").cancel()
-         st.giveItems(ADENA,1412965)
+         st.rewardItems(ADENA,1412965)
          st.playSound("ItemSound.quest_itemget")
        except: pass
    return

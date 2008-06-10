@@ -34,7 +34,7 @@ class Quest (JQuest) :
             st.rewardItems(SCROLL_OF_ESCAPE_GIRAN,1)
             st.giveItems(MARK_OF_TRAVELER,1)
             st.unset("cond")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
         return htmltext
 
@@ -53,7 +53,7 @@ class Quest (JQuest) :
                 st.exitQuest(1)
         elif npcId == 30533 and id == State.COMPLETED :
             htmltext = "<html><body>I can't supply you with another Giran Scroll of Escape. Sorry traveller.</body></html>"
-        elif id == State.STARTED: 
+        elif id == State.STARTED:
             if npcId == 30533 and st.getInt("cond")==1 :
                 htmltext = "30533-04.htm"
             elif npcId == 30520 and st.getInt("cond") == 3 :

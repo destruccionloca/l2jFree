@@ -422,7 +422,7 @@ class Quest (JQuest) :
          htmltext = "30571-06.htm"
        elif npcId == 30565 and st.getQuestItemsCount(RITUAL_BOX) :
          st.addExpAndSp(91457,2500)
-         st.giveItems(7562,16)
+         st.rewardItems(7562,16)
          htmltext = "30565-02.htm"
          st.giveItems(MARK_OF_GLORY,1)
          st.takeItems(RITUAL_BOX,1)

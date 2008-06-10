@@ -219,7 +219,7 @@ class Quest (JQuest) :
       htmltext = "30358-03.htm"
    elif npcId == 30358 and st.getInt("cond")>=1 and st.getQuestItemsCount(PALUS_CHARM_ID) and st.getQuestItemsCount(ARKENIAS_LETTER_ID) :
       st.addExpAndSp(68183,1750)
-      st.giveItems(7562,16)
+      st.rewardItems(7562,16)
       htmltext = "30358-04.htm"
       st.giveItems(MARK_OF_FATE_ID,1)
       st.takeItems(ARKENIAS_LETTER_ID,1)

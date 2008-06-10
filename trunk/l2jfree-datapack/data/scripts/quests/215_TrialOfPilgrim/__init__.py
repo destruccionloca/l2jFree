@@ -110,7 +110,7 @@ class Quest (JQuest) :
       htmltext = "30648-09.htm"
    elif npcId == 30648 and cond==17 and st.getQuestItemsCount(BOOK_OF_SAGE) :
       st.addExpAndSp(77832,16000)
-      st.giveItems(7562,8)
+      st.rewardItems(7562,8)
       htmltext = "30648-10.htm"
       st.giveItems(MARK_OF_PILGRIM,1)
       st.takeItems(BOOK_OF_SAGE,1)

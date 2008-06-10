@@ -77,7 +77,7 @@ class Quest (JQuest) :
       htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif npcId == 30109 and cond == 18  and st.getQuestItemsCount(LETTER_OF_DUSTIN):
       st.addExpAndSp(79832,3750)
-      st.giveItems(7562,8)
+      st.rewardItems(7562,8)
       htmltext = "30109-05.htm"
       st.takeItems(LETTER_OF_DUSTIN,1)
       st.giveItems(MARK_OF_DUTY,1)

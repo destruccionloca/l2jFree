@@ -491,7 +491,7 @@ class Quest (JQuest) :
                           st.exitQuest(False)
                           st.set("cond","0")
                           st.addExpAndSp(2299404,0)
-                          st.giveItems(57,5000000)
+                          st.rewardItems(57,5000000)
                           st.giveItems(6622,1)
                           Class = self.getClassId(player)
                           player.setClassId(Class)

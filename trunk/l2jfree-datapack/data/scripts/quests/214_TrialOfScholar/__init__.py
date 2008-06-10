@@ -282,7 +282,7 @@ class Quest (JQuest) :
             st.takeItems(MIRIENS_SIGIL3_ID,1)
             st.takeItems(SYMBOL_OF_CRONOS_ID,1)
             st.addExpAndSp(80265,30000)
-            st.giveItems(7562,8)
+            st.rewardItems(7562,8)
             st.giveItems(MARK_OF_SCHOLAR_ID,1)
             st.set("cond","0")
             st.set("onlyone","1")

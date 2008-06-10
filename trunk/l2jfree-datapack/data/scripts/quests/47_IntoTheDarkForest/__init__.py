@@ -67,10 +67,10 @@ class Quest (JQuest) :
         elif event == "7" :
             st.takeItems(PURIFIED_MAGIC_NECKLACE_ID,1)
             st.takeItems(MARK_OF_TRAVELER_ID,-1)
-            st.giveItems(SCROLL_OF_ESCAPE_SPECIAL,1)
+            st.rewardItems(SCROLL_OF_ESCAPE_SPECIAL,1)
             htmltext = "30097-12.htm"
             st.unset("cond")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
         return htmltext
 
@@ -101,7 +101,7 @@ class Quest (JQuest) :
             htmltext = "30097-10.htm"
         elif npcId == 30097 and st.getInt("cond")==6 :
             htmltext = "30097-11.htm"
-        elif id == State.STARTED :    
+        elif id == State.STARTED :
             if npcId == 30094 and st.getInt("cond")==1 :
                 htmltext = "30094-01.htm"
             elif npcId == 30094 and st.getInt("cond")==2 :

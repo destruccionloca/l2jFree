@@ -120,26 +120,26 @@ class Quest (JQuest) :
       elif npcId == 30284 and st.getInt("cond")==6 and st.getQuestItemsCount(ALBERRYUS_LIST_ID)==1 :
            st.takeItems(ALBERRYUS_LIST_ID,1)
            st.set("cond","0")
-           st.exitQuest(False) 
+           st.exitQuest(False)
            st.playSound("ItemSound.quest_finish")
            htmltext = "30284-06.htm"
            st.set("onlyone","1")
            if player.getClassId().getId() in range(18,25) :
              st.giveItems(SWORD_OF_SENTINEL_ID,1)
-             st.giveItems(1835,int(1000))
+             st.rewardItems(1835,int(1000))
            else:
              st.giveItems(STAFF_OF_SENTINEL_ID,1)
-             st.giveItems(2509,int(1000))
+             st.rewardItems(2509,int(1000))
            for item in range(4412,4417) :
-             st.giveItems(item,int(10))
-           st.giveItems(1060,int(100))
+             st.rewardItems(item,int(10))
+           st.rewardItems(1060,int(100))
    return htmltext
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st: return 
+   if not st: return
 
-   if st.getState() == State.STARTED :       
+   if st.getState() == State.STARTED :
       npcId = npc.getNpcId()
       if npcId in [20013,20019] :
          if st.getQuestItemsCount(EVERGREEN_AMULET_ID)>0 and st.getQuestItemsCount(DRYAD_TEARS_ID)<10 :

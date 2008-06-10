@@ -91,7 +91,7 @@ class Quest (JQuest) :
 
    count = st.getQuestItemsCount(SPINNERET)
    if count < 10 :
-     st.giveItems(SPINNERET,int(1*Config.RATE_DROP_QUEST))
+     st.rewardItems(SPINNERET,int(1))
      if count == 9 :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","5")

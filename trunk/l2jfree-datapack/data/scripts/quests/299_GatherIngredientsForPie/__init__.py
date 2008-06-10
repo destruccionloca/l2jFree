@@ -52,7 +52,7 @@ class Quest (JQuest) :
    elif event == "30620-7.htm" and st.getQuestItemsCount(FRUIT_BASKET):
      st.takeItems(FRUIT_BASKET,1)
      st.rewardItems(ADENA,25000)
-     st.giveItems(VARNISH,50)
+     st.rewardItems(VARNISH,50)
      st.unset("cond")
      st.playSound("ItemSound.quest_finish")
      st.exitQuest(1)

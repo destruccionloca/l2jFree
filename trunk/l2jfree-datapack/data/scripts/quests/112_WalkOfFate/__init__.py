@@ -15,11 +15,11 @@ Karuda            = 32017
 EnchantD            = 956
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class Quest (JQuest) : 
+class Quest (JQuest) :
 
- def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr) 
+ def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onAdvEvent (self,event,npc,player) :        
+ def onAdvEvent (self,event,npc,player) :
     st = player.getQuestState(qn)
     if not st: return
     htmltext = event
@@ -35,7 +35,7 @@ class Quest (JQuest) :
         st.set("cond","1")
     return htmltext
 
- def onTalk (self,npc,player):        
+ def onTalk (self,npc,player):
     htmltext = "<html><head><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     st = player.getQuestState(qn)
     if not st : return htmltext

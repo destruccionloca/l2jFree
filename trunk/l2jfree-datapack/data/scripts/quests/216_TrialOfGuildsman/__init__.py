@@ -72,7 +72,7 @@ class Quest (JQuest) :
         st.giveItems(MARK_OF_GUILDSMAN_ID,1)
     elif event == "30103_4" :
         st.addExpAndSp(80933,12250)
-        st.giveItems(7562,8)
+        st.rewardItems(7562,8)
         htmltext = "30103-09b.htm"
         st.set("cond","0")
         st.set("onlyone","1")

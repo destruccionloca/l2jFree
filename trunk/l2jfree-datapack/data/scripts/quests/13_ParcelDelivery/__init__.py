@@ -33,7 +33,7 @@ class Quest (JQuest) :
      if cond == 1 and st.getQuestItemsCount(PACKAGE) == 1 :
        st.takeItems(PACKAGE,1)
        st.rewardItems(57,82000)
-       st.exitQuest(False) 
+       st.exitQuest(False)
        st.set("cond","0")
        st.playSound("ItemSound.quest_finish")
      else :
@@ -53,10 +53,10 @@ class Quest (JQuest) :
    if npcId == FUNDIN and cond == 0 :
      if id == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
-     elif player.getLevel() < 74 : 
+     elif player.getLevel() < 74 :
        htmltext = "31274-1.htm"
        st.exitQuest(1)
-     elif player.getLevel() >= 74 : 
+     elif player.getLevel() >= 74 :
        htmltext = "31274-0.htm"
    elif npcId == FUNDIN and cond == 1 :
      htmltext = "31274-2.htm"

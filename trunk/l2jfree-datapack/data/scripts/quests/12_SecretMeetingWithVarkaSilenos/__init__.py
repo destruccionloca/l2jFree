@@ -40,7 +40,7 @@ class Quest (JQuest) :
          st.addExpAndSp(79761,0)
          st.set("cond","0")
          st.set("onlyone","1")
-         st.exitQuest(False) 
+         st.exitQuest(False)
          st.playSound("ItemSound.quest_finish")
      return htmltext
 
@@ -61,7 +61,7 @@ class Quest (JQuest) :
                  htmltext = "31296-01.htm"
              elif cond == 1 :
                  htmltext = "31296-04.htm"
-         elif st.getState() == State.STARTED :   
+         elif st.getState() == State.STARTED :
              if npcId == Helmut :
                  if cond == 1 :
                      htmltext = "31258-01.htm"

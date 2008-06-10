@@ -99,7 +99,7 @@ class Quest (JQuest) :
              htmltext = "30381-08.htm"
              st.rewardItems(ADENA,90000)
              st.playSound("ItemSound.quest_finish")
-             st.exitQuest(False) 
+             st.exitQuest(False)
      elif id == State.STARTED :
          if npcId==ARODIN :
              if cond==1 :
@@ -145,7 +145,7 @@ class Quest (JQuest) :
              if cond==10 :
                  if st.getQuestItemsCount(OL_MAHUM_HEAD)>=30 :
                     htmltext = "30617-05.htm"
-                    st.giveItems(ADENA,8000)
+                    st.rewardItems(ADENA,8000)
                     st.takeItems(OL_MAHUM_HEAD,-1)
                     st.set("cond","11")
                     st.playSound("ItemSound.quest_itemget")

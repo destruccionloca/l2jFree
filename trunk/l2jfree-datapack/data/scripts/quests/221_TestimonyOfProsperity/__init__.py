@@ -195,7 +195,7 @@ class Quest (JQuest) :
         htmltext = "30104-12.htm"
    elif npcId == 30104 and st.getInt("cond")>=1 and st.getQuestItemsCount(RING_OF_TESTIMONY2_ID) and st.getQuestItemsCount(MAPHR_TABLET_FRAGMENT_ID) :
           st.addExpAndSp(12969,1000)
-          st.giveItems(7562,16)
+          st.rewardItems(7562,16)
           st.takeItems(RING_OF_TESTIMONY2_ID,1)
           st.giveItems(MARK_OF_PROSPERITY_ID,1)
           st.takeItems(MAPHR_TABLET_FRAGMENT_ID,1)

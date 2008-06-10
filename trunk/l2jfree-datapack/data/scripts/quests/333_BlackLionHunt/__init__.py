@@ -181,7 +181,7 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 MOBS=DROPLIST.keys()
 
 def giveRewards(st,item,count):
-  st.giveItems(ADENA_ID,35*count)
+  st.rewardItems(ADENA_ID,35*count)
   st.takeItems(item,count)
   if count < 20:
     return
@@ -405,14 +405,14 @@ class Quest (JQuest) :
     elif event == "l_give" :
       if st.getQuestItemsCount(COMPLETE_TABLET):
         st.takeItems(COMPLETE_TABLET,1)
-        st.giveItems(ADENA_ID,30000)
+        st.rewardItems(ADENA_ID,30000)
         return l_give
       else:
         return no_tablet
     elif event == "u_give" :
       if st.getQuestItemsCount(COMPLETE_STATUE) :
         st.takeItems(COMPLETE_STATUE,1)
-        st.giveItems(ADENA_ID,30000)
+        st.rewardItems(ADENA_ID,30000)
         return u_give
       else:
         return no_statue
@@ -422,7 +422,7 @@ class Quest (JQuest) :
         count = int(coins/40)
         if count > 2 : count = 2
         st.giveItems(GUILD_COIN,1)
-        st.giveItems(ADENA_ID,(1+count)*100)
+        st.rewardItems(ADENA_ID,(1+count)*100)
         st.takeItems(CARGO_BOX1,1)
         random = st.getRandom(3)
         if random == 0:

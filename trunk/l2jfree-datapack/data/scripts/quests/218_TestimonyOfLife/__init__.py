@@ -167,7 +167,7 @@ class Quest(JQuest):
         if st.getGameTicks() != st.getInt("id"):
           st.set("id",str(st.getGameTicks()))
           st.addExpAndSp(104591,11250)
-          st.giveItems(7562,16)
+          st.rewardItems(7562,16)
           st.giveItems(MARK_OF_LIFE_ID,1)
           st.takeItems(CAMOMILE_CHARM_ID,1)
           htmltext = "30460-07.htm"
