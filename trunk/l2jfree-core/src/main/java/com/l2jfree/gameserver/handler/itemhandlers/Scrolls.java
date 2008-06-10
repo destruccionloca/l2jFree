@@ -180,20 +180,10 @@ public class Scrolls implements IItemHandler
 				return;
 			switch (itemId)
 			{
-			case 8954: // Blue Primeval Crystal XML: 2306
-				activeChar.sendPacket(new MagicSkillUse(playable, playable, 2306, 1, 1, 0));
-				activeChar.broadcastPacket(new MagicSkillUse(playable, playable, 2306, 1, 1, 0));
-				activeChar.addExpAndSp(0, 50000);
-				break;
-			case 8955: // Green Primeval Crystal XML: 2306
-				activeChar.sendPacket(new MagicSkillUse(playable, playable, 2306, 2, 1, 0));
-				activeChar.broadcastPacket(new MagicSkillUse(playable, playable, 2306, 2, 1, 0));
-				activeChar.addExpAndSp(0, 100000);
-				break;
-			case 8956: // Red Primeval Crystal XML: 2306
-				activeChar.sendPacket(new MagicSkillUse(playable, playable, 2306, 3, 1, 0));
-				activeChar.broadcastPacket(new MagicSkillUse(playable, playable, 2306, 3, 1, 0));
-				activeChar.addExpAndSp(0, 200000);
+			case 8954: // Blue Primeval Crystal XML: 2306;1
+			case 8955: // Green Primeval Crystal XML: 2306;2
+			case 8956: // Red Primeval Crystal XML: 2306;3
+				useScroll(activeChar, 2306, itemId - 8953);
 				break;
 			default:
 				break;
@@ -251,20 +241,10 @@ public class Scrolls implements IItemHandler
 			activeChar.broadcastPacket(new MagicSkillUse(playable, activeChar, 2064, 1, 1, 0));
 			useScroll(activeChar, 2064, 1);
 			break;
-		case 5593: // SP Scroll Low Grade XML:2167
-			activeChar.sendPacket(new MagicSkillUse(playable, playable, 2167, 1, 1, 0));
-			activeChar.broadcastPacket(new MagicSkillUse(playable, playable, 2167, 1, 1, 0));
-			activeChar.addExpAndSp(0, 500);
-			break;
-		case 5594: // SP Scroll Medium Grade XML:2167
-			activeChar.sendPacket(new MagicSkillUse(playable, playable, 2167, 1, 1, 0));
-			activeChar.broadcastPacket(new MagicSkillUse(playable, playable, 2167, 1, 1, 0));
-			activeChar.addExpAndSp(0, 5000);
-			break;
-		case 5595: // SP Scroll High Grade XML:2167
-			activeChar.sendPacket(new MagicSkillUse(playable, playable, 2167, 1, 1, 0));
-			activeChar.broadcastPacket(new MagicSkillUse(playable, playable, 2167, 1, 1, 0));
-			activeChar.addExpAndSp(0, 100000);
+		case 5593: // SP Scroll Low Grade XML:2167;1
+		case 5594: // SP Scroll Medium Grade XML:2167;2
+		case 5595: // SP Scroll High Grade XML:2167;3
+			useScroll(activeChar, 2167, itemId - 5592);
 			break;
 		case 6037: // Scroll of Waking XML:2170
 			activeChar.broadcastPacket(new MagicSkillUse(playable, playable, 2170, 1, 1, 0));

@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -73,10 +74,6 @@ public class Heal implements ISkillHandler
 			target = (L2Character) element;
 			//We should not heal if char is dead
 			if (target == null || target.isDead())
-				continue;
-
-			// We should not heal walls and door
-			if (target instanceof L2DoorInstance)
 				continue;
 
 			// Player holding a cursed weapon can't be healed and can't heal
@@ -133,15 +130,22 @@ public class Heal implements ISkillHandler
 				}
 			}
 
-			if (skill.getSkillType() == SkillType.HEAL_STATIC)
+			if (target instanceof L2DoorInstance || target instanceof L2SiegeFlagInstance)
 			{
-				hp = skill.getPower();
+				hp = 0;
 			}
-			else if (skill.getSkillType() != SkillType.HEAL_PERCENT)
+			else
 			{
-				hp *= target.calcStat(Stats.HEAL_EFFECTIVNESS, 100, null, null) / 100;
-				// Healer proficiency (since CT1)
-				hp *= activeChar.calcStat(Stats.HEAL_PROFICIENCY, 100, null, null) / 100;
+				if (skill.getSkillType() == SkillType.HEAL_STATIC)
+				{
+					hp = skill.getPower();
+				}
+				else if (skill.getSkillType() != SkillType.HEAL_PERCENT)
+				{
+					hp *= target.calcStat(Stats.HEAL_EFFECTIVNESS, 100, null, null) / 100;
+					// Healer proficiency (since CT1)
+					hp *= activeChar.calcStat(Stats.HEAL_PROFICIENCY, 100, null, null) / 100;
+				}
 			}
 
 			//target.getStatus().setCurrentHp(hp + target.getStatus().getCurrentHp());

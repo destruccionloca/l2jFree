@@ -29,7 +29,6 @@ import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2ClanHallManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
@@ -120,10 +119,6 @@ public class Continuous implements ISkillHandler
 					target = activeChar;
 				break;
 			}
-
-			// Walls and Door should not be buffed
-			if (target instanceof L2DoorInstance && (skill.getSkillType() == L2Skill.SkillType.BUFF || skill.getSkillType() == L2Skill.SkillType.HOT))
-				continue;
 
 			// With Mystic Immunity you can't be buffed/debuffed
 			if (target.isPreventedFromReceivingBuffs())

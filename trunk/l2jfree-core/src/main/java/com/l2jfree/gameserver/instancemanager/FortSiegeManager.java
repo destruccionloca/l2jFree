@@ -133,9 +133,6 @@ public class FortSiegeManager
 		if (clan == null)
 			return false;
 
-		if (clan.getHasFort() > 0)
-			return true;
-
 		Connection con = null;
 		boolean register = false;
 		try

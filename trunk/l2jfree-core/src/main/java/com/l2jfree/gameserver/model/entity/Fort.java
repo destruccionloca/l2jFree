@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.DoorTable;
+import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -138,7 +139,20 @@ public class Fort extends Siegeable
 			}
 		}
 
-		updateOwnerInDB(clan); // Update in database
+		// if clan have already fortress, remove it
+		if (clan.getHasFort() > 0)
+			FortManager.getInstance().getFortByOwner(clan).removeOwner(clan);
+
+		//if clan already have castle, dont store the fortress owner
+		if (clan.getHasCastle() <= 0)
+		{
+			updateOwnerInDB(clan);     // Update in database
+		}
+		else
+		{
+			getSiege().setHasCastle();
+			updateOwnerInDB(null);
+		}
 
 		if (getSiege().getIsInProgress()) // If siege in progress
 			getSiege().midVictory(); // Mid victory phase of siege

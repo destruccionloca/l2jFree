@@ -82,14 +82,12 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.MoveToLocation;
 import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
-import com.l2jfree.gameserver.network.serverpackets.RelationChanged;
 import com.l2jfree.gameserver.network.serverpackets.Revive;
 import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.TeleportToLocation;
-import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.pathfinding.AbstractNodeLoc;
 import com.l2jfree.gameserver.pathfinding.geonodes.GeoPathFinding;
@@ -3605,6 +3603,9 @@ public abstract class L2Character extends L2Object
 		}
 		ChangeWaitType revive = new ChangeWaitType(this, ChangeWaitType.WT_STOP_FAKEDEATH);
 		broadcastPacket(revive);
+		//TODO: Temp hack: players see FD on ppl that are moving: Teleport to someone who uses FD - if he gets up he will fall down again for that client -
+		// even tho he is actually standing... Probably bad info in CharInfo packet?
+		broadcastPacket(new Revive(this));
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 	}
 
@@ -7109,18 +7110,7 @@ public abstract class L2Character extends L2Object
 
 	public void updatePvPFlag(int value)
 	{
-		if (!(this instanceof L2PcInstance))
-			return;
-		L2PcInstance player = (L2PcInstance) this;
-		if (player.getPvpFlag() == value)
-			return;
-		player.setPvpFlag(value);
-
-		player.sendPacket(new UserInfo(player));
-		for (L2PcInstance target : getKnownList().getKnownPlayers().values())
-		{
-			target.sendPacket(new RelationChanged(player, player.getRelation(player), player.isAutoAttackable(target)));
-		}
+		// Overridden in L2PcInstance
 	}
 
 	/**

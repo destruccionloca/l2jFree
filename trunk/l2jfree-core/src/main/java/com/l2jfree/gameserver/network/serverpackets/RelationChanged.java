@@ -14,7 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 
 /**
  *
@@ -36,13 +38,22 @@ public class RelationChanged extends L2GameServerPacket
 
 	private int _objId, _relation, _autoAttackable, _karma, _pvpFlag;
 	
-	public RelationChanged(L2PcInstance cha, int relation, boolean autoAttackable)
+	public RelationChanged(L2PlayableInstance activeChar, int relation, boolean autoAttackable)
 	{
-		_objId = cha.getObjectId();
+		_objId = activeChar.getObjectId();
 		_relation = relation;
 		_autoAttackable = autoAttackable ? 1 : 0;
-		_karma = cha.getKarma();
-		_pvpFlag = cha.getPvpFlag();
+
+		if (activeChar instanceof L2PcInstance)
+		{
+			_karma = ((L2PcInstance)activeChar).getKarma();
+			_pvpFlag = ((L2PcInstance)activeChar).getPvpFlag();
+		}
+		else if (activeChar instanceof L2Summon)
+		{
+			_karma = 0;
+			_pvpFlag = ((L2Summon)activeChar).getOwner().getPvpFlag();
+		}
 	}
 
 	/**

@@ -2312,7 +2312,7 @@ public class Olympiad
 						_playerOne.standUp();
 
 					_playerOne.setTarget(null);
-					_playerOne.teleToLocation(_stadiumPort[0] + 1200, _stadiumPort[1], _stadiumPort[2], true);
+					_playerOne.teleToLocation(_stadiumPort[0] + 1200, _stadiumPort[1], _stadiumPort[2], false);
 
 					_playerOne.sendPacket(new ExOlympiadMode(2));
 					_spawnOne = SpawnBuffer(_stadiumPort[0] + 1100, _stadiumPort[1], _stadiumPort[2], OLY_BUFFER);
@@ -2333,7 +2333,7 @@ public class Olympiad
 						_playerTwo.standUp();
 
 					_playerTwo.setTarget(null);
-					_playerTwo.teleToLocation(_stadiumPort[0] - 1200, _stadiumPort[1], _stadiumPort[2], true);
+					_playerTwo.teleToLocation(_stadiumPort[0] - 1200, _stadiumPort[1], _stadiumPort[2], false);
 
 					_playerTwo.sendPacket(new ExOlympiadMode(2));
 					_spawnTwo = SpawnBuffer(_stadiumPort[0] - 1100, _stadiumPort[1], _stadiumPort[2], OLY_BUFFER);

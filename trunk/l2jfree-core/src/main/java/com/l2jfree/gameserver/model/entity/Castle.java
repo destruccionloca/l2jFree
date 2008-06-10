@@ -31,6 +31,7 @@ import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
 import com.l2jfree.gameserver.instancemanager.CrownManager;
+import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.CropProcure;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.SeedProduction;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -414,6 +415,10 @@ public class Castle extends Siegeable
 		}
 
 		updateOwnerInDB(clan); // Update in database
+
+		// if clan have fortress, remove it
+		if (clan.getHasFort() > 0)
+			FortManager.getInstance().getFortByOwner(clan).removeOwner(clan);
 
 		if (getSiege().getIsInProgress()) // If siege in progress
 			getSiege().midVictory(); // Mid victory phase of siege

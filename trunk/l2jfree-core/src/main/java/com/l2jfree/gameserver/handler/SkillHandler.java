@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.handler.skillhandlers.DrainSoul;
 import com.l2jfree.gameserver.handler.skillhandlers.Fishing;
 import com.l2jfree.gameserver.handler.skillhandlers.FishingSkill;
 import com.l2jfree.gameserver.handler.skillhandlers.GetPlayer;
+import com.l2jfree.gameserver.handler.skillhandlers.GiveSp;
 import com.l2jfree.gameserver.handler.skillhandlers.Harvest;
 import com.l2jfree.gameserver.handler.skillhandlers.Heal;
 import com.l2jfree.gameserver.handler.skillhandlers.ManaHeal;
@@ -99,6 +100,7 @@ public class SkillHandler
 		registerSkillHandler(new Fishing());
 		registerSkillHandler(new FishingSkill());
 		registerSkillHandler(new GetPlayer());
+		registerSkillHandler(new GiveSp());
 		registerSkillHandler(new Harvest());
 		registerSkillHandler(new Heal());
 		registerSkillHandler(new Manadam());

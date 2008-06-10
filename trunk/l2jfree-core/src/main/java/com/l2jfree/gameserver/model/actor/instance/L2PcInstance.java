@@ -1661,6 +1661,27 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	@Override
+	public void updatePvPFlag(int value)
+	{
+		if (getPvpFlag() == value)
+			return;
+		setPvpFlag(value);
+
+		sendPacket(new UserInfo(this));
+
+		// If this player has a pet update the pets pvp flag as well
+		if (getPet() != null)
+			sendPacket(new RelationChanged(getPet(), getRelation(this), false));
+
+		for (L2PcInstance target : getKnownList().getKnownPlayers().values())
+		{
+			target.sendPacket(new RelationChanged(this, getRelation(this), isAutoAttackable(target)));
+			if (getPet() != null)
+				target.sendPacket(new RelationChanged(getPet(), getRelation(this), isAutoAttackable(target)));
+		}
+	}
+
+	@Override
 	public void revalidateZone(boolean force)
 	{
 		// This function is called very often from movement code
@@ -8134,6 +8155,18 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
+
+		// Skills can be used on walls and doors only during siege
+		if(target instanceof L2DoorInstance)
+		{
+			boolean isCastleDoor = (((L2DoorInstance) target).getCastle() != null
+					&& ((L2DoorInstance) target).getCastle().getSiege().getIsInProgress());
+			boolean isFortDoor = (((L2DoorInstance) target).getFort() != null
+					&& ((L2DoorInstance) target).getFort().getSiege().getIsInProgress());
+			if (!isCastleDoor && !isFortDoor)
+				return;
+		}
+
 		// Are the target and the player in the same duel?
 		if (isInDuel())
 		{
@@ -8998,7 +9031,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		setTarget(null);
 		setIsInvul(true);
 		getAppearance().setInvisible();
-		teleToLocation(x, y, z);
+		teleToLocation(x, y, z, false);
 		sendPacket(new ExOlympiadMode(3));
 		_observerMode = true;
 		broadcastUserInfo();
@@ -11885,7 +11918,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				htmlMsg.setHtml("<html><body>You have been put in jail by an admin.</body></html>");
 			sendPacket(htmlMsg);
 
-			teleToLocation(-114356, -249645, -2984); // Jail
+			teleToLocation(-114356, -249645, -2984, false); // Jail
 		}
 		else
 		{

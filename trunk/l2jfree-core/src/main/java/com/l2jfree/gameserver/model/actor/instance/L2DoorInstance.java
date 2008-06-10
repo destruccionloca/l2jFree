@@ -43,6 +43,7 @@ import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.DoorStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.StaticObject;
@@ -60,10 +61,12 @@ public class L2DoorInstance extends L2Character
  
     final static Log _log = LogFactory.getLog(L2DoorInstance.class.getName());
     
-    /** The castle index in the array of L2Castle this L2NpcInstance belongs to */
+    /** The castle index in the array of L2Castle this L2DoorInstance belongs to */
     private int _castleIndex = -2;
-    /** The fort index in the array of L2Fort this L2NpcInstance belongs to */
+    private Castle _castle;
+    /** The fort index in the array of L2Fort this L2DoorInstance belongs to */
     private int _fortIndex = -2;
+    private Fort _fort;
 
     private L2MapRegion _mapRegion = null;
     
@@ -283,25 +286,34 @@ public class L2DoorInstance extends L2Character
 
     public final Castle getCastle()
     {
-        Castle castle = null;
-
-        if (_castleIndex < 0) 
+        if (_castle == null)
         {
-            castle = CastleManager.getInstance().getCastle(this);
-            if (castle != null)
-                _castleIndex = castle.getCastleId();
-        }
-        if (_castleIndex > 0) 
-            castle = CastleManager.getInstance().getCastleById(_castleIndex);
+            Castle castle = null;
 
-        return castle;
+            if (_castleIndex < 0) 
+            {
+                castle = CastleManager.getInstance().getCastle(this);
+                if (castle != null)
+                    _castleIndex = castle.getCastleId();
+            }
+            if (_castleIndex > 0) 
+                castle = CastleManager.getInstance().getCastleById(_castleIndex);
+            _castle = castle;
+        }
+        return _castle;
     }
 
     public final Fort getFort()
     {
-        if (_fortIndex < 0) _fortIndex = FortManager.getInstance().getFortIndex(this);
-        if (_fortIndex < 0) return null;
-        return FortManager.getInstance().getForts().get(_fortIndex);
+        if (_fort == null)
+        {
+            if (_fortIndex < 0)
+                _fortIndex = FortManager.getInstance().getFortIndex(this);
+            if (_fortIndex < 0)
+                return null;
+            _fort = FortManager.getInstance().getForts().get(_fortIndex);
+        }
+        return _fort;
     }
 
     public void setClanHall(ClanHall clanHall)
@@ -314,11 +326,17 @@ public class L2DoorInstance extends L2Character
         return _clanHall;
     }
 
-    public boolean isEnemyOf(@SuppressWarnings("unused") L2Character cha) 
+    public boolean isEnemy()
     {
-        return true;
+        if (getCastle() != null
+                && getCastle().getSiege().getIsInProgress())
+            return true;
+        if (getFort() != null
+                && getFort().getSiege().getIsInProgress())
+            return true;
+        return false;
     }
-    
+
     @Override
     public boolean isAutoAttackable(L2Character attacker)
     {
@@ -328,16 +346,14 @@ public class L2DoorInstance extends L2Character
         // Doors can't be attacked by NPCs
         if (!(attacker instanceof L2PcInstance)) return false;
 
-        // Attackable during siege by attacker only
+        // Attackable only during siege by everyone
         boolean isCastle = (getCastle() != null
                            && getCastle().getCastleId() > 0
-                           && getCastle().getSiege().getIsInProgress()
-                           && getCastle().getSiege().checkIsAttacker(((L2PcInstance)attacker).getClan()));
+                           && getCastle().getSiege().getIsInProgress());
 
         boolean isFort = (getFort() != null
                 && getFort().getFortId() > 0
-                && getFort().getSiege().getIsInProgress()
-                && getFort().getSiege().checkIsAttacker(((L2PcInstance)attacker).getClan()));
+                && getFort().getSiege().getIsInProgress());
 
         return (isCastle || isFort);
     }
@@ -347,7 +363,6 @@ public class L2DoorInstance extends L2Character
         return isAutoAttackable(attacker);
     }
 
-    
     @Override
     public void updateAbnormalEffect() {}
     
@@ -417,11 +432,10 @@ public class L2DoorInstance extends L2Character
             MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
             player.sendPacket(my);
             
-            //if (isAutoAttackable(player))
-            //{
-            StaticObject su = new StaticObject(this);
+            // send HP amount if doors are inside castle/fortress zone
+            // TODO: needed to be added here doors from conquerable clanhalls
+            StaticObject su = new StaticObject(this, (getCastle() != null || getFort() != null));
             player.sendPacket(su);
-            //}
             
             // Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
             player.sendPacket(new ValidateLocation(this));
@@ -458,15 +472,13 @@ public class L2DoorInstance extends L2Character
         if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
         {
             player.setTarget(this);
-            MyTargetSelected my = new MyTargetSelected(getObjectId(), player
-                    .getLevel());
+            MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
             player.sendPacket(my);
 
-            if (isAutoAttackable(player))
-            {
-                StaticObject su = new StaticObject(this);
-                player.sendPacket(su);
-            }
+            // send HP amount if doors are inside castle/fortress zone
+            // TODO: needed to be added here doors from conquerable clanhalls
+            StaticObject su = new StaticObject(this, (getCastle() != null || getFort() != null));
+            player.sendPacket(su);
 
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder html1 = new TextBuilder("<html><body><table border=0>");
@@ -505,14 +517,19 @@ public class L2DoorInstance extends L2Character
         if (knownPlayers == null || knownPlayers.isEmpty())
             return;
 
-        StaticObject su = new StaticObject(this);
+        StaticObject su = new StaticObject(this, (getCastle() != null || getFort() != null));
+        DoorStatusUpdate dsu  = new DoorStatusUpdate(this);
+
         for (L2PcInstance player : knownPlayers)
+        {
             player.sendPacket(su);
+            player.sendPacket(dsu);
+        }
     }
     
     public void onOpen()
     {
-    	ThreadPoolManager.getInstance().scheduleGeneral(new CloseTask(), 60000);
+        ThreadPoolManager.getInstance().scheduleGeneral(new CloseTask(), 60000);
     }
 
     public void onClose()
