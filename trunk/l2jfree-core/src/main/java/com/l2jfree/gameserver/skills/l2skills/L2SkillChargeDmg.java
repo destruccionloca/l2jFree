@@ -48,7 +48,7 @@ public class L2SkillChargeDmg extends L2Skill
 			if (e == null || e.numCharges < getNumCharges())
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-				sm.addSkillName(getId());
+				sm.addSkillName(this);
 				activeChar.sendPacket(sm);
 				return false;
 			}
@@ -66,7 +66,7 @@ public class L2SkillChargeDmg extends L2Skill
 		if (effect == null || effect.numCharges < getNumCharges())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-			sm.addSkillName(getId());
+			sm.addSkillName(this);
 			activeChar.sendPacket(sm);
 			return;
 		}

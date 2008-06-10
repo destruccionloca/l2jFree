@@ -1573,8 +1573,8 @@ public final class Formulas
 			else
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-				sm.addString(target.getName());
-				sm.addSkillName(skill.getId());
+				sm.addCharName(target);
+				sm.addSkillName(skill);
 				owner.sendPacket(sm);
 				damage = 1;
 			}
@@ -1584,13 +1584,13 @@ public final class Formulas
 				if (skill.getSkillType() == SkillType.DRAIN)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.RESISTED_S1_DRAIN);
-					sm.addString(owner.getName());
+					sm.addPcName(owner);
 					target.sendPacket(sm);
 				}
 				else
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.RESISTED_S1_MAGIC);
-					sm.addString(owner.getName());
+					sm.addPcName(owner);
 					target.sendPacket(sm);
 				}
 			}
@@ -1642,8 +1642,8 @@ public final class Formulas
 				else
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-					sm.addString(target.getName());
-					sm.addSkillName(skill.getId());
+					sm.addCharName(target);
+					sm.addSkillName(skill);
 					attacker.sendPacket(sm);
 
 					damage = 1;
@@ -1655,13 +1655,13 @@ public final class Formulas
 				if (skill.getSkillType() == SkillType.DRAIN)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.RESISTED_S1_DRAIN);
-					sm.addString(attacker.getName());
+					sm.addCharName(attacker);
 					target.sendPacket(sm);
 				}
 				else
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.RESISTED_S1_MAGIC);
-					sm.addString(attacker.getName());
+					sm.addCharName(attacker);
 					target.sendPacket(sm);
 				}
 			}

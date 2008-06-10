@@ -120,7 +120,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     player.getInventory().updateInventory(recordSevenSigns);
 
                     sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-                    sm.addItemNameById(SevenSigns.RECORD_SEVEN_SIGNS_ID);
+                    sm.addItemName(SevenSigns.RECORD_SEVEN_SIGNS_ID);
                     player.sendPacket(sm);
                     break;
                 case 3: // Join Cabal Intro 1
@@ -174,7 +174,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                                                                    1, this, false))
                                     {
                                         sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-                                        sm.addItemNameById(SevenSigns.CERTIFICATE_OF_APPROVAL_ID);
+                                        sm.addItemName(SevenSigns.CERTIFICATE_OF_APPROVAL_ID);
                                         player.sendPacket(sm);
                                         allowJoinDawn = true;
                                     }
@@ -282,7 +282,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                             {
                                 stonesFound = true;
                                 SystemMessage msg = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-                                msg.addItemNameById(SevenSigns.SEAL_STONE_RED_ID);
+                                msg.addItemName(SevenSigns.SEAL_STONE_RED_ID);
                                 msg.addNumber(redContribCount);
                                 player.sendPacket(msg);
                             }
@@ -294,7 +294,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                             {
                                 stonesFound = true;
                                 SystemMessage msg = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-                                msg.addItemNameById(SevenSigns.SEAL_STONE_GREEN_ID);
+                                msg.addItemName(SevenSigns.SEAL_STONE_GREEN_ID);
                                 msg.addNumber(greenContribCount);
                                 player.sendPacket(msg);
                             }
@@ -306,7 +306,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                             {
                                 stonesFound = true;
                                 SystemMessage msg = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-                                msg.addItemNameById(SevenSigns.SEAL_STONE_BLUE_ID);
+                                msg.addItemName(SevenSigns.SEAL_STONE_BLUE_ID);
                                 msg.addNumber(blueContribCount);
                                 player.sendPacket(msg);
                             }

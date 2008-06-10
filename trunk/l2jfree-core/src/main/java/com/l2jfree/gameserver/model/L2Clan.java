@@ -2249,7 +2249,7 @@ public class L2Clan
 					player.sendPacket(sp);
 					sp = null;
 					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-					sm.addItemNameById(1419);
+					sm.addItemName(1419);
 					sm.addNumber(1);
 					player.sendPacket(sm);
 					sm = null;
@@ -2272,7 +2272,7 @@ public class L2Clan
 					player.sendPacket(sp);
 					sp = null;
 					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-					sm.addItemNameById(3874);
+					sm.addItemName(3874);
 					sm.addNumber(1);
 					player.sendPacket(sm);
 					sm = null;
@@ -2295,7 +2295,7 @@ public class L2Clan
 					player.sendPacket(sp);
 					sp = null;
 					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-					sm.addItemNameById(3870);
+					sm.addItemName(3870);
 					sm.addNumber(1);
 					player.sendPacket(sm);
 					sm = null;
@@ -2360,7 +2360,7 @@ public class L2Clan
 					player.sendPacket(cr);
 					cr = null;
 					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-					sm.addItemNameById(9910);
+					sm.addItemName(9910);
 					sm.addNumber(150);
 					player.sendPacket(sm);
 					increaseClanLevel = true;
@@ -2382,7 +2382,7 @@ public class L2Clan
 					player.sendPacket(cr);
 					cr = null;
 					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-					sm.addItemNameById(9911);
+					sm.addItemName(9911);
 					sm.addNumber(5);
 					player.sendPacket(sm);
 					increaseClanLevel = true;

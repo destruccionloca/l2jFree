@@ -2002,7 +2002,7 @@ public class L2NpcInstance extends L2Character
 
 			sm = new SystemMessage(SystemMessageId.ACQUIRED);
 			sm.addNumber(lotonumber);
-			sm.addItemNameById(4442);
+			sm.addItemName(4442);
 			player.sendPacket(sm);
 
 			L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), 4442);
@@ -2083,7 +2083,7 @@ public class L2NpcInstance extends L2Character
 			int[] check = Lottery.getInstance().checkTicket(item);
 
 			sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-			sm.addItemNameById(4442);
+			sm.addItemName(4442);
 			player.sendPacket(sm);
 
 			int adena = check[1];
@@ -2129,7 +2129,7 @@ public class L2NpcInstance extends L2Character
 		player.getStatus().setCurrentCp(player.getMaxCp());
 		//cp restored
 		sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
-		sm.addString(player.getName());
+		sm.addPcName(player);
 		player.sendPacket(sm);
 	}
 

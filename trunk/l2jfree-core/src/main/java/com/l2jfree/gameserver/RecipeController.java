@@ -214,8 +214,8 @@ public class RecipeController
 		if (Config.ALT_GAME_CREATION && ((maker = _activeMakers.get(player)) != null))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1);
-			sm.addItemNameById(recipeList.getItemId());
-			sm.addString("You are busy creating ");
+			sm.addItemName(recipeList.getItemId());
+			sm.addString("You are busy creating");
 			player.sendPacket(sm);
 			return;
 		}
@@ -706,7 +706,7 @@ public class RecipeController
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED); // you equipped ...
 					sm.addNumber(count);
-					sm.addItemNameById(item.getItemId());
+					sm.addItemName(item.getItemId());
 					_player.sendPacket(sm);
 				}
 				else

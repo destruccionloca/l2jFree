@@ -82,7 +82,7 @@ public class RequestHennaEquip extends L2GameClientPacket
 		if (!cheater && count >= temp.getAmount()&& activeChar.getAdena() >= temp.getPrice() && activeChar.addHenna(temp))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-			sm.addItemNameById(temp.getItemId());
+			sm.addItemName(temp.getItemId());
 			activeChar.sendPacket(sm);
 			activeChar.reduceAdena("Henna", temp.getPrice(), activeChar.getLastFolkNPC(), true);
 			L2ItemInstance dye = activeChar.getInventory().destroyItemByItemId("Henna", temp.getItemId(), temp.getAmount(), activeChar, activeChar.getLastFolkNPC());

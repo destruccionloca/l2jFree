@@ -112,34 +112,24 @@ public class Manadam implements ISkillHandler
 						target.stopImmobileUntilAttacked(null);
 				}
 
-				StatusUpdate sump = new StatusUpdate(target.getObjectId());
-				sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
-				// [L2J_JP EDIT START - TSL]
-				target.sendPacket(sump);
-				SystemMessage sm = new SystemMessage(SystemMessageId.S2_MP_HAS_BEEN_DRAINED_BY_S1);
-				if (activeChar instanceof L2NpcInstance)
+				if (target instanceof L2PcInstance)
 				{
-					int mobId = ((L2NpcInstance) activeChar).getNpcId();
-					sm.addNpcName(mobId);
+					StatusUpdate sump = new StatusUpdate(target.getObjectId());
+					sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
+					target.sendPacket(sump);
+
+					SystemMessage sm = new SystemMessage(SystemMessageId.S2_MP_HAS_BEEN_DRAINED_BY_S1);
+					sm.addCharName(activeChar);
+					sm.addNumber((int) mp);
+					target.sendPacket(sm);
 				}
-				else if (activeChar instanceof L2Summon)
-				{
-					int mobId = ((L2Summon) activeChar).getNpcId();
-					sm.addNpcName(mobId);
-				}
-				else
-				{
-					sm.addString(activeChar.getName());
-				}
-				sm.addNumber((int) mp);
-				target.sendPacket(sm);
+
 				if (activeChar instanceof L2PcInstance)
 				{
 					SystemMessage sm2 = new SystemMessage(SystemMessageId.YOUR_OPPONENTS_MP_WAS_REDUCED_BY_S1);
 					sm2.addNumber((int) mp);
 					activeChar.sendPacket(sm2);
 				}
-				// [L2J_JP EDIT END - TSL]
 			}
 		}
 	}

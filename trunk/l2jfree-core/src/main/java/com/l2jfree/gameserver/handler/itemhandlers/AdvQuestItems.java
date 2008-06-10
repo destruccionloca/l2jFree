@@ -124,7 +124,7 @@ public class AdvQuestItems implements IItemHandler
 		activeChar.getInventory().addItem("Extract", itemToCreateId, 1, activeChar, item);
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-		sm.addItemNameById(itemToCreateId);
+		sm.addItemName(itemToCreateId);
 		sm.addNumber(1);
 		activeChar.sendPacket(sm);
 

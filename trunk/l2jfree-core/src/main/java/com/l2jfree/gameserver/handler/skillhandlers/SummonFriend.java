@@ -111,13 +111,13 @@ public class SummonFriend implements ISkillHandler
 					// if (!(targetChar.getParty() != null && targetChar.getParty().getPartyMembers().contains(activeChar)))
 					//	continue;
 
-            		if (targetChar == null || ObjectRestrictions.getInstance()
-            				.checkRestriction(targetChar, AvailableRestriction.PlayerSummonFriend)) {
-            			activeChar.sendMessage("You cannot summon your friend due to his restrictions.");
-            			targetChar.sendMessage("You cannot be summoned due to a restriction.");
-            			
-            			return;
-            		}
+					if (targetChar == null || ObjectRestrictions.getInstance()
+							.checkRestriction(targetChar, AvailableRestriction.PlayerSummonFriend)) {
+						activeChar.sendMessage("You cannot summon your friend due to his restrictions.");
+						targetChar.sendMessage("You cannot be summoned due to a restriction.");
+						return;
+					}
+
 					if (targetChar.isAlikeDead())
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED);

@@ -322,7 +322,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 					int _crystalId = 1457 + i;
 
 					SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-					sm.addItemNameById(_crystalId);
+					sm.addItemName(_crystalId);
 					sm.addNumber(_crystals.get(i));
 					player.sendPacket(sm);
 
@@ -612,7 +612,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 				if (_quantitySuccess>0)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-					sm.addItemNameById(_recipeList.getItemId());
+					sm.addItemName(_recipeList.getItemId());
 					sm.addNumber(_quantitySuccess * _recipeList.getCount());
 					player.sendPacket(sm);
 					sm=null;

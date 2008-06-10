@@ -409,8 +409,8 @@ public class RequestEnchantItem extends L2GameClientPacket
 
                 if (item.isEquipped())
                 {
-					L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInSlotAndRecord(item.getLocationSlot());
-                	InventoryUpdate iu = new InventoryUpdate();
+                    L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInSlotAndRecord(item.getLocationSlot());
+                    InventoryUpdate iu = new InventoryUpdate();
                     for (L2ItemInstance element : unequiped) {
                         iu.addItem(element);
                     }
@@ -424,10 +424,10 @@ public class RequestEnchantItem extends L2GameClientPacket
                 L2ItemInstance forceDestroyItem;
                 if (destroyItem == null)
                 {
-			if (item.getLocation() != null)
-				forceDestroyItem = activeChar.getWarehouse().destroyItem("Enchant", item, activeChar, null);
-                	activeChar.setActiveEnchantItem(null);
-                	return;
+                    if (item.getLocation() != null)
+                        forceDestroyItem = activeChar.getWarehouse().destroyItem("Enchant", item, activeChar, null);
+                    activeChar.setActiveEnchantItem(null);
+                    return;
                 }
                 sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
                 sm.addItemName(destroyItem);

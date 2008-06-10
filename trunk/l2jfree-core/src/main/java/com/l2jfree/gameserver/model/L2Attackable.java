@@ -1450,8 +1450,8 @@ public class L2Attackable extends L2NpcInstance
                         if(this instanceof L2Boss)
                         {
                             SystemMessage sm = new SystemMessage(SystemMessageId.S1_DIED_DROPPED_S3_S2);
-                            sm.addString(getName());
-                            sm.addItemNameById(item.getItemId());
+                            sm.addCharName(this);
+                            sm.addItemName(item.getItemId());
                             sm.addNumber(item.getCount());
                             broadcastPacket(sm);
                         }
@@ -2161,7 +2161,7 @@ public class L2Attackable extends L2NpcInstance
             
             // Send system message
             SystemMessage sms = new SystemMessage(SystemMessageId.EARNED_ITEM);
-            sms.addItemNameById(giveid);
+            sms.addItemName(giveid);
             player.sendPacket(sms);
             
             // Send inventory update packet

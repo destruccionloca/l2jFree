@@ -563,7 +563,7 @@ public class Potions implements IItemHandler
 			if (activeChar.isSkillDisabled(skill.getId()))
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
-				sm.addSkillName(skill.getId(), skill.getLevel());
+				sm.addSkillName(skill);
 				activeChar.sendPacket(sm);
 
 				return false;

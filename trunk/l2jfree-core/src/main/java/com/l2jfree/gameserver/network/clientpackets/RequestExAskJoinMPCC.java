@@ -159,7 +159,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 				{
 					hasRight = true;
 					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-					sm.addItemNameById(8871);
+					sm.addItemName(8871);
 					sm.addNumber(1);
 					requestor.sendPacket(sm);
 				}

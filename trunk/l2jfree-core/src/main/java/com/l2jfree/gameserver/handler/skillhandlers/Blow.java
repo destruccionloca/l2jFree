@@ -109,7 +109,7 @@ public class Blow implements ISkillHandler
 						activeChar.stopSkillEffects(skill.getId());
 						skill.getEffects((L2Character) null, activeChar);
 						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
-						sm.addSkillName(skill.getId());
+						sm.addSkillName(skill);
 						activeChar.sendPacket(sm);
 					}
 				}
@@ -180,10 +180,9 @@ public class Blow implements ISkillHandler
 								((L2Summon) activeChar).getOwner().addOlyDamage((int) damage);
 						}
 					}
-	        		SystemMessage smsg = new SystemMessage(SystemMessageId.S1_RECEIVED_DAMAGE_OF_S3_FROM_S2);
-	        		String name = (activeChar instanceof L2PcInstance) ? ((L2PcInstance)activeChar).getAppearance().getVisibleName() : activeChar.getName();
-	        		smsg.addString(player.getName());
-	        		smsg.addString(name);
+					SystemMessage smsg = new SystemMessage(SystemMessageId.S1_RECEIVED_DAMAGE_OF_S3_FROM_S2);
+					smsg.addPcName(player);
+					smsg.addCharName(activeChar);
 					smsg.addNumber((int) damage);
 					player.sendPacket(smsg);
 				}
@@ -194,7 +193,7 @@ public class Blow implements ISkillHandler
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
 					if (target instanceof L2PcInstance)
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_HAD_CRITICAL_HIT).addString(((L2PcInstance)activeChar).getAppearance().getVisibleName()));
+						activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_HAD_CRITICAL_HIT).addPcName((L2PcInstance)activeChar));
 				}
 
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);

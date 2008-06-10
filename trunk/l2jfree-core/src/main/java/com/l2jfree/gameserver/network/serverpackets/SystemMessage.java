@@ -18,9 +18,16 @@ import java.util.List;
 
 import javolution.util.FastList;
 
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.templates.L2Item;
+import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
 
 /**
@@ -31,7 +38,7 @@ import com.l2jfree.gameserver.templates.L2Item;
 public class SystemMessage extends L2GameServerPacket
 {
 	// d d (d S/d d/d dd)
-	//      |--------------> 0 - String  1-number 2-textref npcname (1000000-1002655)  3-textref itemname 4-textref skills 5-??	
+	//      |--------------> 0 - String  1-number 2-textref npcname (1000000-1002655)  3-textref itemname 4-textref skills 5-??
 	private static final int TYPE_ZONE_NAME = 7;
 	private static final int TYPE_SKILL_NAME = 4;
 	private static final int TYPE_ITEM_NAME = 3;
@@ -40,8 +47,8 @@ public class SystemMessage extends L2GameServerPacket
 	private static final int TYPE_TEXT = 0;
 	private static final String _S__7A_SYSTEMMESSAGE = "[S] 64 SystemMessage";
 	private int _messageId;
-	private List<Integer> _types = new FastList<Integer>();
-	private List<Object> _values = new FastList<Object>();
+	private List<Integer> _types = new FastList<Integer>(2); // Average parameter size for most common messages
+	private List<Object> _values = new FastList<Object>(2); // Average parameter size for most common messages
 	private int _skillLvL = 1;
 	
 	public SystemMessage(SystemMessageId messageId)
@@ -76,6 +83,39 @@ public class SystemMessage extends L2GameServerPacket
 		_values.add(new Integer(number));
 		return this;
 	}
+
+	public SystemMessage addCharName(L2Character cha)
+	{
+		if (cha instanceof L2NpcInstance)
+			return addNpcName((L2NpcInstance)cha);
+		if (cha instanceof L2PcInstance)
+			return addPcName((L2PcInstance)cha);
+		if (cha instanceof L2Summon)
+			return addNpcName((L2Summon)cha);
+		return addString(cha.getName());
+	}
+
+	public SystemMessage addPcName(L2PcInstance pc)
+	{
+		return addString(pc.getAppearance().getVisibleName());
+	}
+
+	public SystemMessage addNpcName(L2NpcInstance npc)
+	{
+		return addNpcName(npc.getTemplate());
+	}
+
+	public SystemMessage addNpcName(L2Summon npc)
+	{
+		return addNpcName(npc.getTemplate());
+	}
+
+	public SystemMessage addNpcName(L2NpcTemplate tpl)
+	{
+		if (tpl.isCustom())
+			return addString(tpl.getName());
+		return addNpcName(tpl.getNpcId());
+	}
 	
 	public SystemMessage addNpcName(int id)
 	{
@@ -87,7 +127,7 @@ public class SystemMessage extends L2GameServerPacket
 
 	public SystemMessage addItemName(L2ItemInstance item)
 	{
-		return addItemName(item.getItem());
+		return addItemName(item.getItem().getItemId());
 	}
 
 	public SystemMessage addItemName(L2Item item)
@@ -103,11 +143,10 @@ public class SystemMessage extends L2GameServerPacket
 			_types.add(new Integer(TYPE_TEXT));
 			_values.add(item.getName());
 		}
-		
 		return this;
 	}
 
-	public SystemMessage addItemNameById(int id)
+	public SystemMessage addItemName(int id)
 	{
 		_types.add(new Integer(TYPE_ITEM_NAME));
 		_values.add(new Integer(id));
@@ -124,8 +163,23 @@ public class SystemMessage extends L2GameServerPacket
 		return this;
 	}
 
-	public SystemMessage addSkillName(int id){return addSkillName(id, 1);}
-	
+	public SystemMessage addSkillName(L2Effect effect)
+	{
+		return addSkillName(effect.getSkill());
+	}
+
+	public SystemMessage addSkillName(L2Skill skill)
+	{
+		if (skill.getId() != skill.getDisplayId()) //custom skill -  need nameId or smth like this.
+			return addString(skill.getName());
+		return addSkillName(skill.getId(), skill.getLevel());
+	}
+
+	public SystemMessage addSkillName(int id)
+	{
+		return addSkillName(id, 1);
+	}
+
 	public SystemMessage addSkillName(int id, int lvl)
 	{
 		_types.add(new Integer(TYPE_SKILL_NAME));
@@ -176,9 +230,9 @@ public class SystemMessage extends L2GameServerPacket
 					int t1 = ((int[])_values.get(i))[0];
 					int t2 = ((int[])_values.get(i))[1];
 					int t3 = ((int[])_values.get(i))[2];
-					writeD(t1);	
-					writeD(t2);	
-					writeD(t3);	
+					writeD(t1);
+					writeD(t2);
+					writeD(t3);
 					break;
 				}
 			}

@@ -910,4 +910,9 @@ public final class L2NpcTemplate extends L2CharTemplate
 	{
 		return _isQuestMonster;
 	}
+
+	public boolean isCustom()
+	{
+		return _npcId != _idTemplate;
+	}
 }

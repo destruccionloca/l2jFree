@@ -460,7 +460,7 @@ public class AdminSkill implements IAdminCommandHandler
 			String skillname = skill.getName();
 			player.sendMessage("Admin removed the skill " + skillname + " from your skills list.");
 			player.removeSkill(skill);
-			//Admin information	
+			//Admin information
 			activeChar.sendMessage("You removed the skill " + skillname + " from " + player.getName() + ".");
 			if (_log.isDebugEnabled())
 				_log.debug("[GM]" + activeChar.getName() + " removed skill " + skillname + " from " + player.getName() + ".");
@@ -501,7 +501,7 @@ public class AdminSkill implements IAdminCommandHandler
 			{
 				String skillname = skill.getName();
 				SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_SKILL_S1_ADDED);
-				sm.addSkillName(id);
+				sm.addSkillName(skill);
 				player.sendPacket(sm);
 				player.getClan().broadcastToOnlineMembers(sm);
 				player.getClan().addNewSkill(skill);

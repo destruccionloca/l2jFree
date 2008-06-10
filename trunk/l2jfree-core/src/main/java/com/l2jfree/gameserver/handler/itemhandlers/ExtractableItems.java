@@ -96,13 +96,13 @@ public class ExtractableItems implements IItemHandler
 			if (createAmount > 1)
 			{
 				sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-				sm.addItemNameById(createItemID);
+				sm.addItemName(createItemID);
 				sm.addNumber(createAmount);
 			}
 			else
 			{
 				sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-				sm.addItemNameById(createItemID);
+				sm.addItemName(createItemID);
 			}
 			activeChar.sendPacket(sm);
 		}

@@ -16,6 +16,16 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.Vector;
 
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.templates.L2Item;
+import com.l2jfree.gameserver.templates.L2NpcTemplate;
+
 /**
  * @author kombat
  * Format: cd d[d s/d/dd/ddd]
@@ -34,8 +44,8 @@ public class ConfirmDlg extends L2GameServerPacket
 	private static final int TYPE_NUMBER = 1;
 	private static final int TYPE_TEXT = 0;
 
-	private Vector<Integer> _types = new Vector<Integer>();
-	private Vector<Object> _values = new Vector<Object>();
+	private Vector<Integer> _types = new Vector<Integer>(2); // Average parameter size for most common messages
+	private Vector<Object> _values = new Vector<Object>(2); // Average parameter size for most common messages
 
 
 	public ConfirmDlg(int messageId)
@@ -57,10 +67,64 @@ public class ConfirmDlg extends L2GameServerPacket
 		return this;
 	}
 
+	public ConfirmDlg addCharName(L2Character cha)
+	{
+		if (cha instanceof L2NpcInstance)
+			return addNpcName((L2NpcInstance)cha);
+		if (cha instanceof L2PcInstance)
+			return addPcName((L2PcInstance)cha);
+		if (cha instanceof L2Summon)
+			return addNpcName((L2Summon)cha);
+		return addString(cha.getName());
+	}
+
+	public ConfirmDlg addPcName(L2PcInstance pc)
+	{
+		return addString(pc.getAppearance().getVisibleName());
+	}
+
+	public ConfirmDlg addNpcName(L2NpcInstance npc)
+	{
+		return addNpcName(npc.getTemplate());
+	}
+
+	public ConfirmDlg addNpcName(L2Summon npc)
+	{
+		return addNpcName(npc.getNpcId());
+	}
+
+	public ConfirmDlg addNpcName(L2NpcTemplate tpl)
+	{
+		if (tpl.isCustom())
+			return addString(tpl.getName());
+		return addNpcName(tpl.getNpcId());
+	}
+
 	public ConfirmDlg addNpcName(int id)
 	{
 		_types.add(new Integer(TYPE_NPC_NAME));
 		_values.add(new Integer(1000000 + id));
+		return this;
+	}
+
+	public ConfirmDlg addItemName(L2ItemInstance item)
+	{
+		return addItemName(item.getItem().getItemId());
+	}
+
+	public ConfirmDlg addItemName(L2Item item)
+	{
+		if(item.getItemDisplayId() == item.getItemId())
+		{
+			_types.add(new Integer(TYPE_ITEM_NAME));
+			_values.add(new Integer(item.getItemId()));
+		}
+		else
+		{
+			// Custom item - send custom name
+			_types.add(new Integer(TYPE_TEXT));
+			_values.add(item.getName());
+		}
 		return this;
 	}
 
@@ -77,6 +141,18 @@ public class ConfirmDlg extends L2GameServerPacket
 		int[] coord = {x, y, z};
 		_values.add(coord);
 		return this;
+	}
+
+	public ConfirmDlg addSkillName(L2Effect effect)
+	{
+		return addSkillName(effect.getSkill());
+	}
+
+	public ConfirmDlg addSkillName(L2Skill skill)
+	{
+		if (skill.getId() != skill.getDisplayId()) //custom skill -  need nameId or smth like this.
+			return addString(skill.getName());
+		return addSkillName(skill.getId(), skill.getLevel());
 	}
 
 	public ConfirmDlg addSkillName(int id)

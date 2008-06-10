@@ -667,7 +667,7 @@ public class L2Party
 	    	SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.S1_SWEEPED_UP_S2_S3) 
 	    	                          : new SystemMessage(SystemMessageId.S1_PICKED_UP_S2_S3);
 		    msg.addString(looter.getName());
-		    msg.addItemNameById(item.getItemId());
+		    msg.addItemName(item.getItemId());
 	    	msg.addNumber(item.getCount());
             broadcastToPartyMembers(looter, msg);
 	    }
@@ -676,7 +676,7 @@ public class L2Party
 	    	SystemMessage msg = spoil ?  new SystemMessage(SystemMessageId.S1_SWEEPED_UP_S2) 
 	    	                          : new SystemMessage(SystemMessageId.S1_PICKED_UP_S2);
 		    msg.addString(looter.getName());
-		    msg.addItemNameById(item.getItemId());
+		    msg.addItemName(item.getItemId());
             broadcastToPartyMembers(looter, msg);
 	    }
 	}

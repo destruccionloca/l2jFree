@@ -91,12 +91,12 @@ public class RequestEvaluate extends L2GameClientPacket
         activeChar.giveRecom(target);
 
         sm = new SystemMessage(SystemMessageId.YOU_HAVE_RECOMMENDED);
-        sm.addString(target.getName());
+        sm.addPcName(target);
         sm.addNumber(activeChar.getRecomLeft());
         activeChar.sendPacket(sm);
         
         sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_RECOMMENDED);
-        sm.addString(activeChar.getName());
+        sm.addPcName(activeChar);
         target.sendPacket(sm);
         
         activeChar.sendPacket(new UserInfo(activeChar));
