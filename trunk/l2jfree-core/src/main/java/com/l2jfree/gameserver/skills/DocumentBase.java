@@ -238,16 +238,32 @@ abstract class DocumentBase
 		if (attrs.getNamedItem("abnormal") != null)
 		{
 			String abn = attrs.getNamedItem("abnormal").getNodeValue();
-			if (abn.equals("poison"))
-				abnormal = L2Character.ABNORMAL_EFFECT_POISON;
-			else if (abn.equals("bleeding"))
+			if (abn.equals("bleeding"))
 				abnormal = L2Character.ABNORMAL_EFFECT_BLEEDING;
+			else if (abn.equals("poison"))
+				abnormal = L2Character.ABNORMAL_EFFECT_POISON;
+			else if (abn.equals("redcircle"))
+				abnormal = L2Character.ABNORMAL_EFFECT_REDCIRCLE;
+			else if (abn.equals("ice"))
+				abnormal = L2Character.ABNORMAL_EFFECT_ICE;
+			else if (abn.equals("wind"))
+				abnormal = L2Character.ABNORMAL_EFFECT_WIND;
 			else if (abn.equals("flame"))
 				abnormal = L2Character.ABNORMAL_EFFECT_FLAME;
+			else if (abn.equals("stun"))
+				abnormal = L2Character.ABNORMAL_EFFECT_STUN;
+			else if (abn.equals("mute"))
+				abnormal = L2Character.ABNORMAL_EFFECT_MUTED;
+			else if (abn.equals("root"))
+				abnormal = L2Character.ABNORMAL_EFFECT_ROOT;
 			else if (abn.equals("bighead"))
 				abnormal = L2Character.ABNORMAL_EFFECT_BIG_HEAD;
 			else if (abn.equals("stealth"))
 				abnormal = L2Character.ABNORMAL_EFFECT_STEALTH;
+			else if (abn.equals("earthquake"))
+				abnormal = L2Character.ABNORMAL_EFFECT_EARTHQUAKE;
+			else if (abn.equals("invul"))
+				abnormal = L2Character.ABNORMAL_EFFECT_INVULNERABLE;
 		}
 		float stackOrder = 0;
 		String stackType = "none";
