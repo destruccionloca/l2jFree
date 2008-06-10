@@ -25,8 +25,8 @@ public class Zariche extends L2Transformation
 		player.getAppearance().setVisibleTitle("");
 
 		// Void Burst, Void Flow
-		player.addSkill(SkillTable.getInstance().getInfo(3630, 1), false);
-		player.addSkill(SkillTable.getInstance().getInfo(3631, 1), false);
+		addSkill(player, 3630, 1);
+		addSkill(player, 3631, 1);
 	}
 
 	public void onUntransform(L2PcInstance player)
@@ -36,8 +36,8 @@ public class Zariche extends L2Transformation
 		player.getAppearance().setVisibleTitle(null);
 
 		// Void Burst, Void Flow
-		player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
-		player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);
+		removeSkill(player, 3630);
+		removeSkill(player, 3631);
 	}
 
 	public static void main(String[] args)
