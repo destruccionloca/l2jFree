@@ -49,7 +49,7 @@ class Quest (JQuest) :
           htmltext = "32105-08.htm"
           st.takeItems(DINOSAUR_TISSUE,150)
           st.takeItems(DINOSAUR_EGG,1)
-          st.giveItems(57,44000)
+          st.rewardItems(57,44000)
           if ALT_RP_100 != 0 :
              st.giveItems(int(event)+1,1)
           else :

@@ -174,7 +174,7 @@ class Quest (JQuest) :
           if st.getQuestItemsCount(KASHA_BEAR_CLAW) == 4 :
             st.takeItems(KASHA_BEAR_CLAW,st.getQuestItemsCount(KASHA_BEAR_CLAW))
             st.takeItems(LEATHER_POUCH1,st.getQuestItemsCount(LEATHER_POUCH1))
-            st.giveItems(LEATHER_POUCH1FULL,int(1*Config.RATE_DROP_QUEST))
+            st.rewardItems(LEATHER_POUCH1FULL,int(1))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","3")
           else:
@@ -186,7 +186,7 @@ class Quest (JQuest) :
           if st.getQuestItemsCount(S_SALAMANDER_SCALE) == 4 :
             st.takeItems(S_SALAMANDER_SCALE,st.getQuestItemsCount(S_SALAMANDER_SCALE))
             st.takeItems(LEATHER_POUCH3,st.getQuestItemsCount(LEATHER_POUCH3))
-            st.giveItems(LEATHER_POUCH3FULL,int(1*Config.RATE_DROP_QUEST))
+            st.rewardItems(LEATHER_POUCH3FULL,int(1))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","7")
           else:
@@ -198,7 +198,7 @@ class Quest (JQuest) :
           if st.getQuestItemsCount(KASHA_BSPIDER_TALON) == 4 :
             st.takeItems(KASHA_BSPIDER_TALON,st.getQuestItemsCount(KASHA_BSPIDER_TALON))
             st.takeItems(LEATHER_POUCH2,st.getQuestItemsCount(LEATHER_POUCH2))
-            st.giveItems(LEATHER_POUCH2FULL,int(1*Config.RATE_DROP_QUEST))
+            st.rewardItems(LEATHER_POUCH2FULL,int(1))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","5")
           else:
@@ -213,7 +213,7 @@ class Quest (JQuest) :
             st.takeItems(LANGK_TOOTH,st.getQuestItemsCount(LANGK_TOOTH))
             st.takeItems(FELIM_TOOTH,st.getQuestItemsCount(FELIM_TOOTH))
             st.takeItems(LEATHER_PURSE4,1)
-            st.giveItems(LEATHER_POUCH4FULL,int(1*Config.RATE_DROP_QUEST))
+            st.rewardItems(LEATHER_POUCH4FULL,int(1))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","12")
           else:
@@ -228,7 +228,7 @@ class Quest (JQuest) :
             st.takeItems(LANGK_TOOTH,st.getQuestItemsCount(LANGK_TOOTH))
             st.takeItems(FELIM_TOOTH,st.getQuestItemsCount(FELIM_TOOTH))
             st.takeItems(LEATHER_PURSE4,1)
-            st.giveItems(LEATHER_POUCH4FULL,int(1*Config.RATE_DROP_QUEST))
+            st.rewardItems(LEATHER_POUCH4FULL,int(1))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","12")
           else:
@@ -243,7 +243,7 @@ class Quest (JQuest) :
             st.takeItems(LANGK_TOOTH,st.getQuestItemsCount(LANGK_TOOTH))
             st.takeItems(FELIM_TOOTH,st.getQuestItemsCount(FELIM_TOOTH))
             st.takeItems(LEATHER_PURSE4,1)
-            st.giveItems(LEATHER_POUCH4FULL,int(1*Config.RATE_DROP_QUEST))
+            st.rewardItems(LEATHER_POUCH4FULL,int(1))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","12")
           else:
@@ -258,7 +258,7 @@ class Quest (JQuest) :
             st.takeItems(LANGK_TOOTH,st.getQuestItemsCount(LANGK_TOOTH))
             st.takeItems(FELIM_TOOTH,st.getQuestItemsCount(FELIM_TOOTH))
             st.takeItems(LEATHER_PURSE4,1)
-            st.giveItems(LEATHER_POUCH4FULL,int(1*Config.RATE_DROP_QUEST))
+            st.rewardItems(LEATHER_POUCH4FULL,int(1))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","12")
           else:

@@ -156,11 +156,11 @@ class Quest (JQuest) :
                       if ''.join(chosen[2:7:2]).isdigit() : diag += 1
                       if (col + row + diag) == 3 :
                           htmltext += winner
-                          st.giveItems(REWARDS[st.getRandom(len(REWARDS))],4)
+                          st.rewardItems(REWARDS[st.getRandom(len(REWARDS))],4)
                           st.playSound("ItemSound.quest_finish")
                       elif (diag + row + col) == 0 :
                           htmltext += loser
-                          st.giveItems(REWARDS[st.getRandom(len(REWARDS))],10)
+                          st.rewardItems(REWARDS[st.getRandom(len(REWARDS))],10)
                           st.playSound("ItemSound.quest_jackpot")
                       else :
                           htmltext += average
@@ -204,7 +204,7 @@ class Quest (JQuest) :
      if st.getRandom(MAX) < chance :
         numItems = numItems + 1
      if numItems != 0 :   
-        st.giveItems(SI_ORE,int(numItems))
+        st.rewardItems(SI_ORE,int(numItems))
         if int(prevItems+numItems)/REQUIRED_ORE > int(prevItems)/REQUIRED_ORE :
            st.playSound("ItemSound.quest_middle")
         else :

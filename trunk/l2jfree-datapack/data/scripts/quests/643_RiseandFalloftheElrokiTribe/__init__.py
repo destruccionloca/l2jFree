@@ -61,7 +61,7 @@ class Quest (JQuest) :
              else :
                 htmltext = "32106-06.htm"
                 st.takeItems(BONES_OF_A_PLAINS_DINOSAUR,-1)
-                st.giveItems(57,count*1374)
+                st.rewardItems(57,count*1374)
           elif npcId == 32117 :
              htmltext = "32117-01.htm"
     return htmltext

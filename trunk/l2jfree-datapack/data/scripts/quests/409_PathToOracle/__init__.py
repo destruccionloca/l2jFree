@@ -146,13 +146,13 @@ class Quest (JQuest) :
    if npcId == 27032 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(LIZARD_CAPTAIN_ORDER) == 0 :
-          st.giveItems(LIZARD_CAPTAIN_ORDER,int(1*Config.RATE_DROP_QUEST))
+          st.rewardItems(LIZARD_CAPTAIN_ORDER,int(1))
           st.playSound("ItemSound.quest_middle")
           st.set("cond","3")
    elif npcId == 27035 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(TAMATOS_NECKLACE) == 0 :
-          st.giveItems(TAMATOS_NECKLACE,int(1*Config.RATE_DROP_QUEST))
+          st.rewardItems(TAMATOS_NECKLACE,int(1))
           st.playSound("ItemSound.quest_middle")
           st.set("cond","5")
    return

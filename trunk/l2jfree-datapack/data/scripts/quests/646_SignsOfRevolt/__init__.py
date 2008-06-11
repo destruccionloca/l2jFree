@@ -37,7 +37,7 @@ class Quest (JQuest) :
    elif event in REWARDS.keys() :
        item, amount = REWARDS[event]
        st.takeItems(CURSED_DOLL,-1)
-       st.giveItems(item, amount)
+       st.rewardItems(item, amount)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
        htmltext = "32016-07.htm"
@@ -83,7 +83,7 @@ class Quest (JQuest) :
                   st.set("cond","2")
                else:
                   st.playSound("ItemSound.quest_itemget")
-               st.giveItems(CURSED_DOLL,int(numItems))
+               st.rewardItems(CURSED_DOLL,int(numItems))
    return
 
 QUEST       = Quest(646, qn, "Signs of Revolt")

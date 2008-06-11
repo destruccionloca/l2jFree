@@ -50,9 +50,9 @@ class Quest (JQuest) :
    elif npcId == SARA and st.getInt("cond")==1 :
        htmltext = "30180-01.htm"
        EAD_CHANCE = st.getRandom(100)
-       st.giveItems(57,5026)
+       st.rewardItems(57,5026)
        if EAD_CHANCE <= 50:
-          st.giveItems(956,int(1))
+          st.rewardItems(956,int(1))
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
    return htmltext

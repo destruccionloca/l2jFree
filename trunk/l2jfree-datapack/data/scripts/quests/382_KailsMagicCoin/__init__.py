@@ -63,7 +63,7 @@ class Quest (JQuest) :
             numItems = numItems + 1
          npcId = npc.getNpcId()
          if numItems != 0 :
-            st.giveItems(MOBS[npcId][st.getRandom(len(MOBS[npcId]))],int(numItems))
+            st.rewardItems(MOBS[npcId][st.getRandom(len(MOBS[npcId]))],int(numItems))
             st.playSound("ItemSound.quest_itemget")
       return
 

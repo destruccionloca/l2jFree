@@ -81,7 +81,7 @@ class Quest (JQuest) :
           st.takeItems(SECRET_BOX2,1)
           st.giveItems(PASS_FINAL,1)
           st.set("cond","0")
-          st.exitQuest(False) 
+          st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
         else :
           htmltext = "30317-08.htm"
@@ -95,7 +95,7 @@ class Quest (JQuest) :
           st.takeItems(SECRET_BOX2,1)
           st.giveItems(PASS_FINAL,1)
           st.set("cond","0")
-          st.exitQuest(False) 
+          st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
         else :
           htmltext = "30317-08.htm"
@@ -164,28 +164,28 @@ class Quest (JQuest) :
         if st.getInt("cond") and st.getQuestItemsCount(SILVERYS_RING) == 1 and st.getQuestItemsCount(RATMAN_TOOTH)<10 :
           if st.getRandom(10)<7 :
             if st.getQuestItemsCount(RATMAN_TOOTH) == 9 and st.getQuestItemsCount(BIG_RATMAN_TOOTH) == 2 :
-              st.giveItems(RATMAN_TOOTH,int(1*Config.RATE_DROP_QUEST))
+              st.rewardItems(RATMAN_TOOTH,int(1))
               st.playSound("ItemSound.quest_middle")
               st.set("cond","2")
             else:
-              st.giveItems(RATMAN_TOOTH,int(1*Config.RATE_DROP_QUEST))
+              st.rewardItems(RATMAN_TOOTH,int(1))
               st.playSound("ItemSound.quest_itemget")
    elif npcId == 20390 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(SILVERYS_RING) == 1 and st.getQuestItemsCount(BIG_RATMAN_TOOTH)<2 :
           if st.getRandom(10)<5 :
             if st.getQuestItemsCount(BIG_RATMAN_TOOTH) == 1 and st.getQuestItemsCount(RATMAN_TOOTH) == 10 :
-              st.giveItems(BIG_RATMAN_TOOTH,int(1*Config.RATE_DROP_QUEST))
+              st.rewardItems(BIG_RATMAN_TOOTH,int(1))
               st.playSound("ItemSound.quest_middle")
               st.set("cond","2")
             else:
-              st.giveItems(BIG_RATMAN_TOOTH,int(1*Config.RATE_DROP_QUEST))
+              st.rewardItems(BIG_RATMAN_TOOTH,int(1))
               st.playSound("ItemSound.quest_itemget")
    elif npcId == 20017 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(FOOTPRINT) == 1 and st.getQuestItemsCount(SECRET_BOX1)<1 :
           if st.getRandom(10)<2 :
-            st.giveItems(SECRET_BOX1,int(1*Config.RATE_DROP_QUEST))
+            st.rewardItems(SECRET_BOX1,int(1))
             st.playSound("ItemSound.quest_middle")
             st.set("cond","6")
    return

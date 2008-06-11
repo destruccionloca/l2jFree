@@ -85,7 +85,7 @@ class Quest (JQuest) :
                         st.set("cond","2")
                     else:
                         st.playSound("ItemSound.quest_itemget")
-                    st.giveItems(DESTROYED_GOLEM_SHARD,int(numItems))
+                    st.rewardItems(DESTROYED_GOLEM_SHARD,int(numItems))
     return
 
 QUEST       = Quest(647,qn,"Influx of Machines")

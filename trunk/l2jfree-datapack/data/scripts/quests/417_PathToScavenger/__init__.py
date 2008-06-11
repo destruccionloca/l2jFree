@@ -206,7 +206,7 @@ class Quest (JQuest) :
           st.takeItems(BRONKS_INGOT,1)
           st.giveItems(BRONKS_PAY,1)
           if st.getInt("id") >= 50 :
-            st.set("cond","3")          
+            st.set("cond","3")
           st.set("id",str(st.getInt("id")+10))
    elif npcId == 30525 and cond and st.getQuestItemsCount(BRONKS_PAY)==1 :
           htmltext = "30525-03.htm"
@@ -261,7 +261,7 @@ class Quest (JQuest) :
           st.takeItems(SUCCUBUS_UNDIES,1)
           st.giveItems(RING_OF_RAVEN,1)
           st.set("cond","0")
-          st.exitQuest(False) 
+          st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
    elif npcId == 30557 and cond and st.getQuestItemsCount(ROUTS_TP_SCROLL)==1 :
           htmltext = "30557-01.htm"
@@ -269,8 +269,8 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
-   if st.getState() != State.STARTED : return 
+   if not st : return
+   if st.getState() != State.STARTED : return
    
    npcId = npc.getNpcId()
    if npcId == 20777 :
@@ -287,7 +287,7 @@ class Quest (JQuest) :
    elif npcId == 27058 :
         if st.getInt("cond") and st.getQuestItemsCount(BEAR_PIC) == 1 and st.getQuestItemsCount(HONEY_JAR) < 5 :
           if npc.isSpoil() :
-            st.giveItems(HONEY_JAR,int(1*Config.RATE_DROP_QUEST))
+            st.rewardItems(HONEY_JAR,int(1))
             if st.getQuestItemsCount(HONEY_JAR) == 5 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","6")
@@ -297,7 +297,7 @@ class Quest (JQuest) :
         if st.getInt("cond") and st.getQuestItemsCount(TARANTULA_PIC) == 1 and st.getQuestItemsCount(BEAD) < 20 :
           if npc.isSpoil() :
             if st.getRandom(2) == 0 :
-              st.giveItems(BEAD,int(1*Config.RATE_DROP_QUEST))
+              st.rewardItems(BEAD,int(1))
               if st.getQuestItemsCount(BEAD) == 20 :
                 st.playSound("ItemSound.quest_middle")
                 st.set("cond","8")
@@ -307,7 +307,7 @@ class Quest (JQuest) :
         if st.getInt("cond") and st.getQuestItemsCount(TARANTULA_PIC) == 1 and st.getQuestItemsCount(BEAD) < 20 :
           if npc.isSpoil() :
             if st.getRandom(10) < 6 :
-              st.giveItems(BEAD,int(1*Config.RATE_DROP_QUEST))
+              st.rewardItems(BEAD,int(1))
               if st.getQuestItemsCount(BEAD) == 20 :
                 st.playSound("ItemSound.quest_middle")
                 st.set("cond","8")

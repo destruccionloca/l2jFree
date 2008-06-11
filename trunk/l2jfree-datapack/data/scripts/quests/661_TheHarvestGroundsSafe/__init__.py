@@ -49,7 +49,7 @@ class Quest (JQuest) :
       amount = 0
       if STING+GEM+TALON >= 10 :
           amount = 2800
-      st.giveItems(57,STING*50+GEM*60+TALON*70 + amount)
+      st.rewardItems(57,STING*50+GEM*60+TALON*70 + amount)
       st.takeItems(STING_OF_GIANT_POISON,-1)
       st.takeItems(TALON_OF_YOUNG_ARANEID,-1)
       st.takeItems(CLOUDY_GEM,-1)
@@ -91,7 +91,7 @@ class Quest (JQuest) :
         if npcId in DROPLIST.keys() :
             item,chance = DROPLIST[npcId]
             if rand < chance :
-                st.giveItems(item,1)
+                st.rewardItems(item,1)
                 st.playSound("ItemSound.quest_itemget")
     return
 

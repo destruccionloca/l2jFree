@@ -114,7 +114,7 @@ class Quest (JQuest) :
      if drop < chance :
         numItems = numItems +1
      if int(numItems) != 0 :
-        st.giveItems(ANC_BOOK,int(numItems))
+        st.rewardItems(ANC_BOOK,int(numItems))
         st.playSound("ItemSound.quest_itemget")
      return  
 

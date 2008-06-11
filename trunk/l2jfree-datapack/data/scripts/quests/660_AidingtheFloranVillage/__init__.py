@@ -48,12 +48,12 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_middle")
     if event == "30291-05.htm" :
       if EYES+SCALE+SHARD >= 45 :
-        st.giveItems(ADENA, EYES*100+SCALE*100+SHARD*100+9000)
+        st.rewardItems(ADENA, EYES*100+SCALE*100+SHARD*100+9000)
         st.takeItems(WATCHING_EYES,-1)
         st.takeItems(DELU_LIZARDMAN_SCALE,-1)
         st.takeItems(ROUGHLY_HEWN_ROCK_GOLEM_SHARD,-1)
       else :
-        st.giveItems(ADENA,EYES*100+SCALE*100+SHARD*100)
+        st.rewardItems(ADENA,EYES*100+SCALE*100+SHARD*100)
         st.takeItems(WATCHING_EYES,-1)
         st.takeItems(DELU_LIZARDMAN_SCALE,-1)
         st.takeItems(ROUGHLY_HEWN_ROCK_GOLEM_SHARD,-1)
@@ -72,10 +72,10 @@ class Quest (JQuest) :
             st.takeItems(DELU_LIZARDMAN_SCALE,-1)
             st.takeItems(ROUGHLY_HEWN_ROCK_GOLEM_SHARD,t)
         if st.getRandom(10)<8 :
-          st.giveItems(ADENA,13000)
-          st.giveItems(SCROLL_ENCANT_ARMOR,1)
+          st.rewardItems(ADENA,13000)
+          st.rewardItems(SCROLL_ENCANT_ARMOR,1)
         else :
-          st.giveItems(ADENA,1000)
+          st.rewardItems(ADENA,1000)
         st.playSound("ItemSound.quest_finish")
       else :
         htmltext="30291-14.htm"
@@ -94,12 +94,12 @@ class Quest (JQuest) :
             st.takeItems(DELU_LIZARDMAN_SCALE,-1)
             st.takeItems(ROUGHLY_HEWN_ROCK_GOLEM_SHARD,t)
         if luck in range (0,8) :
-          st.giveItems(ADENA,20000)
-          st.giveItems(SCROLL_ENCANT_ARMOR,1)
+          st.rewardItems(ADENA,20000)
+          st.rewardItems(SCROLL_ENCANT_ARMOR,1)
         if luck in range (8,12) :
-          st.giveItems(SCROLL_ENCHANT_WEAPON,1)
+          st.rewardItems(SCROLL_ENCHANT_WEAPON,1)
         if luck in range (12,15) :
-          st.giveItems(ADENA,2000)
+          st.rewardItems(ADENA,2000)
         st.playSound("ItemSound.quest_finish")
       else :
         htmltext="30291-14.htm"
@@ -117,10 +117,10 @@ class Quest (JQuest) :
             st.takeItems(DELU_LIZARDMAN_SCALE,-1)
             st.takeItems(ROUGHLY_HEWN_ROCK_GOLEM_SHARD,t)
         if st.getRandom(10)<8 :
-          st.giveItems(ADENA,45000)
-          st.giveItems(SCROLL_ENCHANT_WEAPON,1)
+          st.rewardItems(ADENA,45000)
+          st.rewardItems(SCROLL_ENCHANT_WEAPON,1)
         else :
-          st.giveItems(ADENA,5000)
+          st.rewardItems(ADENA,5000)
         st.playSound("ItemSound.quest_finish")
       else :
         htmltext="30291-14.htm"
@@ -168,13 +168,13 @@ class Quest (JQuest) :
    chance = st.getRandom(100)
    if st.getInt("cond") == 2 :
      if npcId in [21106,21102] and chance < 79 :
-       st.giveItems(WATCHING_EYES,1)
+       st.rewardItems(WATCHING_EYES,1)
        st.playSound("ItemSound.quest_itemget")
      elif npcId == ROUGH_HEWN_ROCK_GOLEM and chance < 75 :
-       st.giveItems(ROUGHLY_HEWN_ROCK_GOLEM_SHARD,1)
+       st.rewardItems(ROUGHLY_HEWN_ROCK_GOLEM_SHARD,1)
        st.playSound("ItemSound.quest_itemget")
      elif npcId in [20781,21104,21107,21105] and chance < 67 :
-       st.giveItems(DELU_LIZARDMAN_SCALE,1)
+       st.rewardItems(DELU_LIZARDMAN_SCALE,1)
        st.playSound("ItemSound.quest_itemget")
    return
 

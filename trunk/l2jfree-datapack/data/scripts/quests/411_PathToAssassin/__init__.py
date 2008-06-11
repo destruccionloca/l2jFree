@@ -83,7 +83,7 @@ class Quest (JQuest) :
           st.takeItems(ARKENIA_RECOMMEND,1)
           st.giveItems(IRON_HEART,1)
           st.set("cond","0")
-          st.exitQuest(False) 
+          st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
         elif st.getQuestItemsCount(ARKENIAS_LETTER) == 1 and st.getQuestItemsCount(LEIKANS_NOTE) == 0 and st.getQuestItemsCount(SHILENS_TEARS) == 0 and st.getQuestItemsCount(ARKENIA_RECOMMEND) == 0 and st.getQuestItemsCount(IRON_HEART) == 0 and st.getQuestItemsCount(SHILENS_CALL) == 0 :
             htmltext = "30416-07.htm"
@@ -139,15 +139,15 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    if npcId == 27036 :
         if st.getInt("cond") >= 1 and st.getQuestItemsCount(SHILENS_TEARS) == 0 :
-          st.giveItems(SHILENS_TEARS,int(1*Config.RATE_DROP_QUEST))
+          st.rewardItems(SHILENS_TEARS,int(1))
           st.playSound("ItemSound.quest_middle")
           st.set("cond","6")
    elif npcId == 20369 :
         if st.getInt("cond") >= 1 and st.getQuestItemsCount(LEIKANS_NOTE) == 1 and st.getQuestItemsCount(ONYX_BEASTS_MOLAR)<10 :
-          st.giveItems(ONYX_BEASTS_MOLAR,int(1*Config.RATE_DROP_QUEST))
+          st.rewardItems(ONYX_BEASTS_MOLAR,int(1))
           if st.getQuestItemsCount(ONYX_BEASTS_MOLAR) == 10 :
               st.playSound("ItemSound.quest_middle")
-              st.set("cond","4")              
+              st.set("cond","4")
           else:
               st.playSound("ItemSound.quest_itemget")
    return
