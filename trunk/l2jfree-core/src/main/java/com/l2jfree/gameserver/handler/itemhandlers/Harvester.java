@@ -17,53 +17,46 @@ package com.l2jfree.gameserver.handler.itemhandlers;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
+import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
- * @author  l3x
+ * @author l3x
  */
 public class Harvester implements IItemHandler
 {
-	private static final int[]	ITEM_IDS	=
-											{ /* Harvester */5125 };
-	L2PcInstance				_activeChar;
-	L2MonsterInstance			_target;
-
-	public void useItem(L2PlayableInstance playable, L2ItemInstance _item)
+	private static final int[] ITEM_IDS = { /* Harvester */5125 };
+	
+	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
 			return;
+		
 		if (CastleManorManager.getInstance().isDisabled())
 			return;
-
-		_activeChar = (L2PcInstance) playable;
-
-		if (!(_activeChar.getTarget() instanceof L2MonsterInstance))
+		
+		L2PcInstance activeChar = (L2PcInstance)playable;
+		L2Object target = activeChar.getTarget();
+		
+		if (target instanceof L2MonsterInstance
+			&& ((L2Character)target).isDead())
 		{
-			_activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
+			activeChar.useMagic(SkillTable.getInstance().getInfo(2098, 1),
+				false, false);
 		}
-
-		_target = (L2MonsterInstance) _activeChar.getTarget();
-
-		if (_target == null || !_target.isDead())
+		else
 		{
-			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
+			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		}
-
-		L2Skill skill = SkillTable.getInstance().getInfo(2098, 1); //harvesting skill
-		_activeChar.useMagic(skill, false, false);
 	}
-
+	
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

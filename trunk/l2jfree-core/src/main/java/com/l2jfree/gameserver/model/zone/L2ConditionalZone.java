@@ -55,7 +55,6 @@ import com.l2jfree.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
 import com.l2jfree.gameserver.skills.conditions.ConditionUsingItemType;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime.CheckGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
-import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.L2ArmorType;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 

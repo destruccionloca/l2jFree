@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.actor.status;
 
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
