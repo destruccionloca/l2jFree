@@ -395,9 +395,6 @@ public class SpawnTable
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.datatables.SpawnTableMBean#reloadAll()
-	 */
 	public void reloadAll()
 	{
 		cleanUp();
