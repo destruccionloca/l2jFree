@@ -7104,6 +7104,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			int buff_index = 0;
 
 			statement = con.prepareStatement(ADD_SKILL_SAVE);
+			
 			// Store all effect data along with calulated remaining
 			// reuse delays for matching skills. 'restore_type'= 0.
 			for (L2Effect effect : getAllEffects())
