@@ -1,6 +1,5 @@
 package transformations;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;

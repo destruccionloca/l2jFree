@@ -135,7 +135,7 @@ class Quest (JQuest) :
    if npcId == 20776 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(BLANK_SHEET1)>0 :
-          st.rewardItems(BLOODY_RUNE1,1))
+          st.rewardItems(BLOODY_RUNE1,1)
           st.takeItems(BLANK_SHEET1,1)
           if st.getQuestItemsCount(BLANK_SHEET1) == 0 :
             st.playSound("ItemSound.quest_middle")

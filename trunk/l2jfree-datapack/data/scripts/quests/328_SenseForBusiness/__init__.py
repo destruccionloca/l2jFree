@@ -78,7 +78,7 @@ class Quest (JQuest) :
       if n<54 :
          st.rewardItems(MONSTER_EYE_CARCASS,1)
       else :
-         st.rewardItemsMONSTER_EYE_LENS,1)
+         st.rewardItems(MONSTER_EYE_LENS,1)
    elif npcId == 20067 :
      if n<69 :
       st.playSound("ItemSound.quest_itemget")
