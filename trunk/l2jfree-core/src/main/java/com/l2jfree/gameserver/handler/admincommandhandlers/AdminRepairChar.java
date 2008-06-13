@@ -93,7 +93,7 @@ public class AdminRepairChar implements IAdminCommandHandler
 				return;
 			}
 
-			statement = connection.prepareStatement("UPDATE characters SET x=17867, y=170259, z=-3503 WHERE obj_id=?");
+			statement = connection.prepareStatement("UPDATE characters SET x=17867, y=170259, z=-3503 WHERE charId=?");
 			statement.setInt(1, objId);
 			statement.execute();
 			statement.close();
