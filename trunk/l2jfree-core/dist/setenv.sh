@@ -1,6 +1,6 @@
 # Hibernate and associated jars
 
-CLASSPATH=${CLASSPATH}:l2j-mmocore-1.0.8.jar
+CLASSPATH=${CLASSPATH}:l2j-mmocore-1.1.0.jar
 
 #jython
 CLASSPATH=${CLASSPATH}:jython-2.2.1.jar
@@ -23,10 +23,10 @@ CLASSPATH=${CLASSPATH}:log4j-1.2.14.jar
 CLASSPATH=${CLASSPATH}:commons-io-1.2.jar
 
 # for performance usage
-CLASSPATH=${CLASSPATH}:javolution-1.5.4.2.6.jar
+CLASSPATH=${CLASSPATH}:javolution-1.5.5.2.6.jar
 
 # main jar
-CLASSPATH=${CLASSPATH}:l2j-commons-1.1.6.jar
+CLASSPATH=${CLASSPATH}:l2j-commons-1.1.7.jar
 CLASSPATH=${CLASSPATH}:l2jfree-core-1.1.1.jar
 
 CLASSPATH=${CLASSPATH}:core-3.3.0.jar

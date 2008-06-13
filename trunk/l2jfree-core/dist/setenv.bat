@@ -1,6 +1,6 @@
 REM Hibernate and associated jars
 
-SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.0.8.jar
+SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.1.0.jar
 
 REM jython
 SET CLASSPATH=%CLASSPATH%;jython-2.2.1.jar
@@ -25,10 +25,10 @@ REM for common input output
 SET CLASSPATH=%CLASSPATH%;commons-io-1.2.jar
 
 REM for performance usage
-SET CLASSPATH=%CLASSPATH%;javolution-1.5.4.2.6.jar
+SET CLASSPATH=%CLASSPATH%;javolution-1.5.5.2.6.jar
 
 REM main jar
-SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.6.jar
+SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.7.jar
 SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.1.1.jar
 
 REM For SQL use
