@@ -14,13 +14,11 @@
  */
 package com.l2jfree.gameserver.datatables;
 
-import java.util.Map;
+import javolution.util.FastMap;
 
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.SkillsEngine;
 import com.l2jfree.gameserver.templates.L2WeaponType;
-
-import javolution.util.FastMap;
 
 /**
  * This class ...
@@ -30,7 +28,7 @@ import javolution.util.FastMap;
 public class SkillTable
 {
 	private static SkillTable		_instance;
-	private Map<Integer, L2Skill>	_skills;
+	private FastMap<Integer, L2Skill>	_skills;
 
 	public static SkillTable getInstance()
 	{
@@ -69,7 +67,7 @@ public class SkillTable
 	 */
 	public static int getSkillHashCode(int skillId, int skillLevel)
 	{
-		return skillId * 256 + skillLevel;
+		return skillId << 16 + skillLevel << 8;
 	}
 
 	public L2Skill getInfo(int skillId, int level)

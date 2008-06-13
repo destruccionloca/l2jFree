@@ -56,12 +56,12 @@ public class SkillTreeTable
 	private final static Log							_log							= LogFactory.getLog(SkillTreeTable.class.getName());
 	private static SkillTreeTable						_instance;
 
-	private Map<ClassId, Map<Integer, L2SkillLearn>>	_skillTrees;
-	private List<L2SkillLearn>							_fishingSkillTrees;																	//all common skills (teached by Fisherman)
-	private List<L2SkillLearn>							_expandDwarfCraftSkillTrees;															//list of special skill for dwarf (expand dwarf craft) learned by class teacher
-	private List<L2PledgeSkillLearn>					_pledgeSkillTrees;																		//pledge skill list
-	private Map<Integer, L2EnchantSkillLearn>			_enchantSkillTrees;																	//enchant skill list
-	private List<L2TransformSkillLearn>					_TransformSkillTrees;																	// Transform Skills (Test)
+	private FastMap<ClassId, Map<Integer, L2SkillLearn>>	_skillTrees;
+	private FastList<L2SkillLearn>							_fishingSkillTrees;																	//all common skills (teached by Fisherman)
+	private FastList<L2SkillLearn>							_expandDwarfCraftSkillTrees;															//list of special skill for dwarf (expand dwarf craft) learned by class teacher
+	private FastList<L2PledgeSkillLearn>					_pledgeSkillTrees;																		//pledge skill list
+	private FastMap<Integer, L2EnchantSkillLearn>			_enchantSkillTrees;																	//enchant skill list
+	private FastList<L2TransformSkillLearn>					_TransformSkillTrees;																	// Transform Skills (Test)
 
 	public static SkillTreeTable getInstance()
 	{

@@ -55,7 +55,6 @@ public class SkillsEngine
 
 	private SkillsEngine()
 	{
-		//hashFiles("data/stats/etcitem", _etcitemFiles);
 		hashFiles("data/stats/armor", _armorFiles);
 		hashFiles("data/stats/weapon", _weaponFiles);
 		hashFiles("data/stats/skills", _skillFiles);
