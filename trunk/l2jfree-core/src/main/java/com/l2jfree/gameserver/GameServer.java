@@ -139,6 +139,8 @@ public class GameServer
 	{
 		Config.load();
 		
+		L2JfreeInfo.showStartupInfo();
+		
 		if (Config.DEADLOCKCHECK_INTERVAL > 0)
 			DeadlockDetector.getInstance();
 		
