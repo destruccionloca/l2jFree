@@ -66,10 +66,10 @@ public class SkillTable
 	 * @param skillLevel The Skill Level
 	 * @return The Skill hash number
 	 */
-		public static int getSkillHashCode(int skillId, int skillLevel)
-		{
-			return Util.hash(skillId * 512 + skillLevel);
-		}
+	public static int getSkillHashCode(int skillId, int skillLevel)
+	{
+		return Util.hash(skillId * 512 + skillLevel);
+	}
 
 	public L2Skill getInfo(int skillId, int level)
 	{
