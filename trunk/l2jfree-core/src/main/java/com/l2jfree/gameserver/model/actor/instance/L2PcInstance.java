@@ -6647,6 +6647,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		catch (Exception e)
 		{
 			_log.warn("Could not restore char data: " + e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -6752,6 +6753,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		catch (Exception e)
 		{
 			_log.warn("Could not restore classes for " + player.getName() + ": " + e, e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -6817,6 +6819,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		catch (Exception e)
 		{
 			_log.warn("could not restore recommendations: " + e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -6918,6 +6921,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		catch (Exception e)
 		{
 			_log.warn("Could not restore recipe book data:" + e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -7463,6 +7467,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		catch (Exception e)
 		{
 			_log.warn("Could not restore character skills: " + e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -7579,6 +7584,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		catch (Exception e)
 		{
 			_log.warn("Could not restore active effect data: " + e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -7628,6 +7634,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		catch (Exception e)
 		{
 			_log.warn("could not restore henna: " + e);
+			e.printStackTrace();
 		}
 		finally
 		{

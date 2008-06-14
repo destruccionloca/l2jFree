@@ -190,6 +190,7 @@ public abstract class L2Character extends L2Object
 
 	/** FastMap(Integer, L2Skill) containing all skills of the L2Character */
 	protected Map<Integer, L2Skill>	_skills;
+	protected ChanceSkillList		_chanceSkills;
 
 	protected byte					_zoneValidateCounter				= 4;
 
@@ -2117,11 +2118,11 @@ public abstract class L2Character extends L2Object
 				callSkill(skill, targets);
 		}
 
+		// To prevent area skill animation/packet arrive too late 
+		broadcastPacket(new MagicSkillLaunched(this, magicId, level, targets));
 		// Send a Server->Client packet MagicSkillUse with target, displayId, level, skillTime, reuseDelay
 		// to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
 		broadcastPacket(new MagicSkillUse(this, target, displayId, level, hitTime, reuseDelay));
-		// To prevent area skill animation/packet arrive too late 
-		broadcastPacket(new MagicSkillLaunched(this, magicId, level, targets));
 
 		if (this instanceof L2PcInstance)
 		{
@@ -2396,7 +2397,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Ignore the passive skill request. why does the client send it anyway ??
-		if (skill.isPassive())
+		if (skill.isPassive() || skill.isChance())
 			return;
 
 		// Get the target for the skill
@@ -5847,6 +5848,14 @@ public abstract class L2Character extends L2Object
 					target.breakCast();
 				}
 
+				// Maybe launch chance skills on us
+				if (_chanceSkills != null)
+					_chanceSkills.onHit(target, false, crit);
+
+				// Maybe launch chance skills on target
+				if (target.getChanceSkills() != null)
+					target.getChanceSkills().onHit(this, true, crit);
+
 				// Launch weapon Special ability effect if available
 				L2Weapon activeWeapon = getActiveWeaponItem();
 
@@ -6175,6 +6184,17 @@ public abstract class L2Character extends L2Object
 			catch (Throwable t)
 			{
 			}
+
+			if (oldSkill != null && oldSkill.isChance() && _chanceSkills != null)
+			{
+				_chanceSkills.remove(oldSkill);
+			}
+			if (newSkill.isChance())
+			{
+				if (_chanceSkills == null)
+					_chanceSkills = new ChanceSkillList(this);
+				_chanceSkills.put(newSkill, newSkill.getChanceCondition());
+			}
 		}
 
 		return oldSkill;
@@ -6247,6 +6267,13 @@ public abstract class L2Character extends L2Object
 			{
 				((L2PcInstance) this).setAgathionId(0);
 				((L2PcInstance) this).broadcastUserInfo();
+			}
+
+			if (oldSkill.isChance() && _chanceSkills != null)
+			{
+				_chanceSkills.remove(oldSkill);
+				if (_chanceSkills.size() == 0)
+					_chanceSkills = null;
 			}
 		}
 
@@ -6814,6 +6841,13 @@ public abstract class L2Character extends L2Object
 							sendPacket(SystemMessage.sendString("Target affected by weapon special ability!"));
 						}
 					}
+
+					// Maybe launch chance skills on us
+					if (_chanceSkills != null)
+						_chanceSkills.onSkillHit(target, false, skill.isMagic(), skill.isOffensive());
+					// Maybe launch chance skills on target
+					if (target.getChanceSkills() != null)
+						target.getChanceSkills().onSkillHit(this, true, skill.isMagic(), skill.isOffensive());
 				}
 			}
 
@@ -7402,6 +7436,11 @@ public abstract class L2Character extends L2Object
 	public ForceBuff getForceBuff()
 	{
 		return null;
+	}
+
+	public ChanceSkillList getChanceSkills()
+	{
+		return _chanceSkills;
 	}
 
 	public void checkRemovalOnHit()
