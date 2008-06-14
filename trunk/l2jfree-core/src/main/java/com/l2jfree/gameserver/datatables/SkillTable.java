@@ -19,6 +19,7 @@ import javolution.util.FastMap;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.SkillsEngine;
 import com.l2jfree.gameserver.templates.L2WeaponType;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  * This class ...
@@ -65,10 +66,10 @@ public class SkillTable
 	 * @param skillLevel The Skill Level
 	 * @return The Skill hash number
 	 */
-	public static int getSkillHashCode(int skillId, int skillLevel)
-	{
-		return skillId << 16 + skillLevel << 8;
-	}
+		public static int getSkillHashCode(int skillId, int skillLevel)
+		{
+			return Util.hash(skillId * 512 + skillLevel);
+		}
 
 	public L2Skill getInfo(int skillId, int level)
 	{
