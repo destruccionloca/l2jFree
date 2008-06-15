@@ -832,3 +832,8 @@ INSERT INTO teleport VALUES
 -- Baylor Teleport
 INSERT INTO teleport VALUES 
 ('Baylors room',800001,153743,142103,-9775,0,0);
+
+-- Fantasy Island Teleport
+INSERT INTO `teleport` (`Description`, `id`, `loc_x`, `loc_y`, `loc_z`, `price`, `fornoble`) VALUES
+('Enter the Underground', 14714, -81886, -48784, -10352, 0, 0),
+('Leave the Underground', 14715, -59111, -56896, -2032, 0, 0);
