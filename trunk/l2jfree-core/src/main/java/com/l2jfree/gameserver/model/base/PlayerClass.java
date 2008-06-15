@@ -213,8 +213,15 @@ public enum PlayerClass {
         		subclasses.removeAll(EnumSet.of(maleSoulbreaker));
         	else
         		subclasses.removeAll(EnumSet.of(femaleSoulbreaker));
-        	if (player.getTotalSubClasses() < 2)
-        		subclasses.removeAll(EnumSet.of(inspector));
+
+            byte subOverLevel75 = 0;
+            for (SubClass sc : player.getSubClasses().values())
+            {
+                if (sc.getLevel() >= 75)
+                    subOverLevel75++;
+            }
+            if (subOverLevel75 < 2)
+                subclasses.removeAll(EnumSet.of(inspector));
         }
 
         return subclasses;
