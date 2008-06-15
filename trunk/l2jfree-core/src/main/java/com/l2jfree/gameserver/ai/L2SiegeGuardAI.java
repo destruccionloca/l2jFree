@@ -372,7 +372,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	{
 		L2Character target = getAttackTarget();
 		// Call all L2Object of its Faction inside the Faction Range
-		if (((L2NpcInstance) _actor).getFactionId() == null || target == null || _actor == null)
+		if (((L2NpcInstance) _actor).getFactionId() == null || target == null)
 			return;
 
 		if (target.isInvul())

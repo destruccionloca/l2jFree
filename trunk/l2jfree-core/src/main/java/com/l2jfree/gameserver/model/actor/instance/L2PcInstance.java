@@ -11285,6 +11285,13 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (friend != null) //friend online.
 				friend.sendPacket(new FriendList(friend));
 		}
+
+		if (_chanceSkills != null)
+		{
+			_chanceSkills.setOwner(null);
+			_chanceSkills = null;
+		}
+
 		// Remove L2Object object from _allObjects of L2World
 		L2World.getInstance().removeObject(this);
 		

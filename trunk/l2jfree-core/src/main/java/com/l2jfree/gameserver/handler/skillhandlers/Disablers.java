@@ -618,7 +618,7 @@ public class Disablers implements ISkillHandler
 			{
 				L2Effect[] effects = target.getAllEffects();
 
-				if (effects.length == 0 || effects == null)
+				if (effects.length == 0)
 					break;
 
 				for (L2Effect e : effects)
@@ -917,7 +917,7 @@ public class Disablers implements ISkillHandler
 				case CANCEL_DEBUFF:
 					L2Effect[] effects = target.getAllEffects();
 
-					if (effects.length == 0 || effects == null)
+					if (effects.length == 0)
 						break;
 
 					for (L2Effect e : effects)

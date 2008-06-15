@@ -190,10 +190,13 @@ public class AutoChatHandler implements SpawnListener
         if (chatDelay < 0) chatDelay = DEFAULT_CHAT_DELAY;
         if (chatRange < 0) chatRange = DEFAULT_CHAT_RANGE;
 
-        if (_registeredChats.containsKey(npcId)) chatInst = _registeredChats.get(npcId);
-        else chatInst = new AutoChatInstance(npcId, chatTexts, chatDelay, chatRange, chatRandom, (npcInst == null));
+        if (_registeredChats.containsKey(npcId))
+            chatInst = _registeredChats.get(npcId);
+        else
+            chatInst = new AutoChatInstance(npcId, chatTexts, chatDelay, chatRange, chatRandom, (npcInst == null));
 
-        if (npcInst != null) chatInst.addChatDefinition(npcInst);
+        if (npcInst != null)
+            chatInst.addChatDefinition(npcInst);
 
         _registeredChats.put(npcId, chatInst);
 

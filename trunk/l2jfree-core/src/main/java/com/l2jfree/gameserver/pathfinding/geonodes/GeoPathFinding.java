@@ -34,6 +34,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.GeoData;
+import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.pathfinding.AbstractNodeLoc;
 import com.l2jfree.gameserver.pathfinding.Node;
 import com.l2jfree.gameserver.pathfinding.PathFinding;
@@ -69,14 +72,32 @@ public class GeoPathFinding extends PathFinding
 	 * @see com.l2jfree.gameserver.pathfinding.PathFinding#FindPath(int, int, short, int, int, short)
 	 */
 	@Override
-	public List<AbstractNodeLoc> findPath(int gx, int gy, short z, int gtx, int gty, short tz)
+	public List<AbstractNodeLoc> findPath(int x, int y, int z, int tx, int ty, int tz)
 	{
-		Node start = readNode(gx, gy, z);
-		Node end = readNode(gtx, gty, tz);
+		int gx = (x - L2World.MAP_MIN_X) >> 4;
+		int gy = (y - L2World.MAP_MIN_Y) >> 4;
+		short gz = (short)z;
+		int gtx = (tx - L2World.MAP_MIN_X) >> 4;
+		int gty = (ty - L2World.MAP_MIN_Y) >> 4;
+		short gtz = (short)tz;
+
+		Node start = readNode(gx,gy,gz);
+		Node end = readNode(gtx,gty,gtz);
 		if (start == null || end == null)
 			return null;
 		if (start == end)
 			return null;
+
+		// TODO: Find closest path node we CAN access. Now only checks if we can not reach the closest
+		Location temp = GeoData.getInstance().moveCheck(x, y, z, start.getLoc().getX(), start.getLoc().getY(), start.getLoc().getZ());
+		if ((temp.getX() != start.getLoc().getX()) || (temp.getY() != start.getLoc().getY()))
+			return null; //   cannot reach closest...
+
+		// TODO: Find closest path node around target, now only checks if final location can be reached
+		temp = GeoData.getInstance().moveCheck(tx, ty, tz, end.getLoc().getX(), end.getLoc().getY(), end.getLoc().getZ());
+		if ((temp.getX() != end.getLoc().getX()) || (temp.getY() != end.getLoc().getY()))
+			return null; //   cannot reach closest...
+
 		if (Math.abs(start.getLoc().getZ() - z) > 55)
 			return null; // not correct layer
 		if (Math.abs(end.getLoc().getZ() - tz) > 55)

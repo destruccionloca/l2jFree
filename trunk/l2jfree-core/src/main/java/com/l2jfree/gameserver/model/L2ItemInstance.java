@@ -219,7 +219,7 @@ public final class L2ItemInstance extends L2Object
 		_itemId = item.getItemId();
 		_itemDisplayId = item.getItemDisplayId();
 		_item = item;
-		if (_itemId == 0 || _item == null)
+		if (_itemId == 0)
 			throw new IllegalArgumentException();
 		super.setName(_item.getName());
 		setCount(1);

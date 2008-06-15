@@ -29,13 +29,14 @@ public final class L2ArmorSet
     private final int _gloves;
     private final int _feet;
     private final int _skillId;
-    
+    private final int _skillLvl;
+
     private final int _shield;
     private final int _shieldSkillId;
     
     private final int _enchant6Skill;
     
-    public L2ArmorSet(int chest, int legs, int head, int gloves, int feet, int skillId, int shield, int shieldSkillId, int enchant6Skill)
+    public L2ArmorSet(int chest, int legs, int head, int gloves, int feet, int skillId, int skill_lvl, int shield, int shieldSkillId, int enchant6Skill)
     {
         _chest = chest;
         _legs  = legs;
@@ -43,7 +44,8 @@ public final class L2ArmorSet
         _gloves = gloves;
         _feet  = feet;
         _skillId = skillId;
-        
+        _skillLvl = skill_lvl;
+
         _shield = shield;
         _shieldSkillId = shieldSkillId;
         
@@ -76,6 +78,7 @@ public final class L2ArmorSet
         return containAll(_chest,legs,head,gloves,feet);
         
     }
+
     public boolean containAll(int chest, int legs, int head, int gloves, int feet)
     {
         if(_chest != 0 && _chest != chest)
@@ -91,6 +94,7 @@ public final class L2ArmorSet
     
         return true;
     }
+
     public boolean containItem(int slot, int itemId)
     {
         switch(slot)
@@ -109,10 +113,17 @@ public final class L2ArmorSet
             return false;
         }
     }
+
     public int getSkillId()
     {
         return _skillId;
     }
+
+    public int getSkillLvl()
+    {
+        return _skillLvl;
+    }
+
     public boolean containShield(L2PcInstance player)
     {
         Inventory inv = player.getInventory();
@@ -123,18 +134,22 @@ public final class L2ArmorSet
     
         return false;
     }
+
     public boolean containShield(int shield_id)
     {
-	    return _shield == 0 ? false : (_shield == shield_id);
+        return _shield == 0 ? false : (_shield == shield_id);
     }
+
     public int getShieldSkillId()
     {
         return _shieldSkillId;
     }
+
     public int getEnchant6skillId()
     {
         return _enchant6Skill;
     }
+
     /**
      * Checks if all parts of set are enchanted to +6 or more
      * @param player
