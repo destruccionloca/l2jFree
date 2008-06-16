@@ -243,7 +243,7 @@ public class ObjectRestrictions
 	 * @param restrictions
 	 */
 	public void addRestrictionList(Object owner, List<AvailableRestriction> restrictions) throws RestrictionBindClassException {
-		if (owner != null)
+		if (owner == null)
 			return;
 		
 		int id = getObjectId(owner);

@@ -139,14 +139,13 @@ public class GameServer
 	{
 		Config.load();
 		
-		L2JfreeInfo.showStartupInfo();
-		
 		if (Config.DEADLOCKCHECK_INTERVAL > 0)
 			DeadlockDetector.getInstance();
 		
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
 		Util.printSection("Preparations");
+		L2JfreeInfo.showStartupInfo();
 		new PathCreator();
 		Util.printSection("World");
 		RandomIntGenerator.getInstance();
