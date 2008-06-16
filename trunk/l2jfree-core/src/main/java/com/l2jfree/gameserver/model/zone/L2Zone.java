@@ -275,7 +275,7 @@ public abstract class L2Zone
 			}
 		}
 
-		if(_exShapes != null)
+		if(_exShapes != null && inside)
 		{
 			for(Shape sh : _exShapes)
 			{
@@ -307,7 +307,7 @@ public abstract class L2Zone
 			}
 		}
 
-		if(_exShapes != null)
+		if(_exShapes != null && inside)
 		{
 			for(Shape sh : _exShapes)
 			{

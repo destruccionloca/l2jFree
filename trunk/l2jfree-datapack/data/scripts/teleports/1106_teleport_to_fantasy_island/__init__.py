@@ -7,7 +7,7 @@ from com.l2jfree.gameserver.model.actor.instance import L2PcInstance
 from com.l2jfree.gameserver.model.quest          import State
 from com.l2jfree.gameserver.model.quest          import QuestState
 from com.l2jfree.gameserver.model.quest.jython   import QuestJython as JQuest
-qn = "1101_teleport_to_fantasy_island"
+qn = "1106_teleport_to_fantasy_island"
 
 FANTASY_ISLAND_GK = 32378
 
@@ -57,7 +57,7 @@ class Quest (JQuest) :
      st.exitQuest(1)
    return
 
-QUEST       = Quest(1101,qn,"Teleports")
+QUEST       = Quest(1106,qn,"Teleports")
 
 for npcId in TELEPORTERS.keys() :
     QUEST.addStartNpc(npcId)
