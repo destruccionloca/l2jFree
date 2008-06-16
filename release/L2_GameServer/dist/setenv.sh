@@ -43,6 +43,6 @@ CLASSPATH=${CLASSPATH}:./config/
 CLASSPATH=${CLASSPATH}:.
 
 # the core itself
-CLASSPATH=${CLASSPATH}:l2jfree-core-1.1.0.jar
+CLASSPATH=${CLASSPATH}:l2jfree-core-1.1.0A.jar
 
 export CLASSPATH

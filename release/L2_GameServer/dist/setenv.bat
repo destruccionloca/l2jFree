@@ -40,4 +40,4 @@ SET CLASSPATH=%CLASSPATH%;./config/
 SET CLASSPATH=%CLASSPATH%;.
 
 REM the core itself
-SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.1.0.jar
+SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.1.0A.jar
