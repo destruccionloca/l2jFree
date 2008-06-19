@@ -197,14 +197,25 @@ public final class RequestRefine extends L2GameClientPacket
 		// Prepare inventory update
 		InventoryUpdate iu = new InventoryUpdate();
 
-		if (gemstoneItem.getCount()-modifyGemstoneCount == 0)
+		if (refinerItem.getCount() == 1)
+		{
+			player.destroyItem("RequestRefine", refinerItem, null, false);
+			iu.addRemovedItem(refinerItem);
+		}
+		else
+		{
+			player.destroyItem("RequestRefine", refinerItem, 1, null, false);
+			iu.addModifiedItem(refinerItem);
+		}
+
+		if (gemstoneItem.getCount() == modifyGemstoneCount)
 		{
 			player.destroyItem("RequestRefine", gemstoneItem, null, false);
 			iu.addRemovedItem(gemstoneItem);
 		}
 		else
 		{
-			player.destroyItem("RequestRefine", _gemstoneItemObjId, modifyGemstoneCount, null, false);
+			player.destroyItem("RequestRefine", gemstoneItem, modifyGemstoneCount, null, false);
 			iu.addModifiedItem(gemstoneItem);
 		}
 
@@ -213,7 +224,6 @@ public final class RequestRefine extends L2GameClientPacket
 
 		// finish and send the inventory update packet
 		iu.addModifiedItem(targetItem);
-		iu.addRemovedItem(refinerItem);
 		player.sendPacket(iu);
 		
 		return true;

@@ -776,7 +776,7 @@ public class L2NpcInstance extends L2Character
 			// Send a Server->Client NpcHtmlMessage() containing the GM console about this L2NpcInstance
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder html1 = new TextBuilder("<html><body><center><font color=\"LEVEL\">NPC Information</font></center>");
-			String className = getClass().getName().substring(43);
+			String className = getClass().getName().substring(44);
 			html1.append("<br>");
 
 			html1.append("Instance Type: " + className + "<br1>Faction: " + getFactionId() + "<br1>Location ID: "

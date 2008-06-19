@@ -286,7 +286,8 @@ public class L2MerchantInstance extends L2FolkInstance
             html1.append("<tr><td>Level: " + getLevel() + "</td></tr>");
             html1.append("<tr><td><br></td></tr>");
 
-            html1.append("<tr><td>Class: " + getClass().getName() + "</td></tr>");
+            String className = getClass().getName().substring(44);
+            html1.append("<tr><td>Class: " + className + "</td></tr>");
             html1.append("<tr><td><br></td></tr>");
 
             //changed by terry 2005-02-22 21:45
