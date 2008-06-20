@@ -21,9 +21,7 @@ package com.l2jfree.gameserver.model.actor.instance;
  */
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -183,7 +181,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 	private void doTeleport(L2PcInstance player, int val)
 	{
 		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
-		Calendar cal = new GregorianCalendar();
+		Calendar cal = Calendar.getInstance();
 		if (list != null)
 		{
             //you cannot teleport to village that is in siege

@@ -14,9 +14,7 @@
  */
 package com.l2jfree.gameserver.model.entity;
 
-import java.util.Calendar;
 import javolution.util.FastList;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,7 +52,7 @@ public class Duel
 	private L2PcInstance _playerA;
 	private L2PcInstance _playerB;
 	private boolean _partyDuel;
-	private Calendar _duelEndTime;
+	private long _duelEndTime;
 	private int _surrenderRequest=0;
 	private int _countdown=4;
 	private boolean _finished=false;
@@ -81,9 +79,9 @@ public class Duel
 		_playerB = playerB;
 		_partyDuel = partyDuel == 1 ? true : false;
 		
-		_duelEndTime = Calendar.getInstance();
-		if (_partyDuel) _duelEndTime.add(Calendar.SECOND, 300);
-		else _duelEndTime.add(Calendar.SECOND, 120);
+		_duelEndTime = System.currentTimeMillis();
+		if (_partyDuel) _duelEndTime += 300*1000;
+		else _duelEndTime += 120*1000;
 		
 		_playerConditions = new FastList<PlayerCondition>();
 		
@@ -495,7 +493,7 @@ public class Duel
 	 */
 	public int getRemainingTime()
 	{
-		return (int)(_duelEndTime.getTimeInMillis() - System.currentTimeMillis());
+		return (int)(_duelEndTime - System.currentTimeMillis());
 	}
 
 	/**

@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.Calendar;
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -28,7 +28,6 @@ import javolution.text.TextBuilder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.mmocore.network.ReceivablePacket;
 
 import com.l2jfree.Config;

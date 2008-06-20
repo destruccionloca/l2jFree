@@ -50,7 +50,7 @@ public class Fort extends Siegeable
 	private List<String>			_doorDefault	= new FastList<String>();
 	private FortSiege				_siege			= null;
 	private Calendar				_siegeDate;
-	private Calendar				_lastOwnedTime;
+	private long					_lastOwnedTime;
 
 	// =========================================================
 	// Constructor
@@ -272,9 +272,8 @@ public class Fort extends Siegeable
 				//_OwnerId = rs.getInt("ownerId");
 
 				_siegeDate = Calendar.getInstance();
-				_lastOwnedTime = Calendar.getInstance();
 				_siegeDate.setTimeInMillis(rs.getLong("siegeDate"));
-				_lastOwnedTime.setTimeInMillis(rs.getLong("lastOwnedTime"));
+				_lastOwnedTime = rs.getLong("lastOwnedTime");
 				_ownerId = rs.getInt("owner");
 			}
 
@@ -446,9 +445,9 @@ public class Fort extends Siegeable
 			_ownerId = 0; // Remove owner
 
 		if (_ownerId != 0)
-			_lastOwnedTime.setTimeInMillis(System.currentTimeMillis());
+			_lastOwnedTime = System.currentTimeMillis();
 		else
-			_lastOwnedTime.setTimeInMillis(0);
+			_lastOwnedTime = 0;
 
 		Connection con = null;
 		try
@@ -458,7 +457,7 @@ public class Fort extends Siegeable
 
 			statement = con.prepareStatement("UPDATE fort SET owner=?,lastOwnedTime=? WHERE id = ?");
 			statement.setInt(1, getOwnerId());
-			statement.setLong(2, _lastOwnedTime.getTimeInMillis());
+			statement.setLong(2, _lastOwnedTime);
 			statement.setInt(3, getFortId());
 			statement.execute();
 			statement.close();
@@ -537,10 +536,10 @@ public class Fort extends Siegeable
 
 	public final int getOwnedTime()
 	{
-		if (_lastOwnedTime.getTimeInMillis() == 0)
+		if (_lastOwnedTime == 0)
 			return 0;
 
-		return (int) ((System.currentTimeMillis() - _lastOwnedTime.getTimeInMillis()) / 1000);
+		return (int) ((System.currentTimeMillis() - _lastOwnedTime) / 1000);
 	}
 
 	public void updateClansReputation()

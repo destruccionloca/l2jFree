@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.model.entity.faction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Calendar;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,7 +38,7 @@ public class FactionMember
     private int _factionId                     = 0;
     private int _factionPoints                 = 0;    
     private int _contributions                 = 0;
-    private Calendar _joinDate;
+    private long _joinDate;
     private int _side;
 
 
@@ -67,8 +65,7 @@ public class FactionMember
                 _factionId = rs.getInt("faction_id");
                 _factionPoints = rs.getInt("faction_points");
                 _contributions = rs.getInt("contributions");
-                _joinDate = Calendar.getInstance();
-                _joinDate.setTimeInMillis(rs.getLong("join_date"));
+                _joinDate = rs.getLong("join_date");
                 Faction faction = FactionManager.getInstance().getFactions(_factionId);
                 if(faction!=null)
                 {
@@ -91,8 +88,7 @@ public class FactionMember
         _factionId = factionId;
         _factionPoints = 0;
         _contributions = 0;
-        _joinDate = Calendar.getInstance();
-        _joinDate.setTimeInMillis(System.currentTimeMillis());
+        _joinDate = System.currentTimeMillis();
         Connection con = null;
         try
         {
@@ -101,7 +97,7 @@ public class FactionMember
             statement = con.prepareStatement("INSERT INTO faction_members (player_id, faction_id, faction_points, contributions, join_date) VALUES (?, ?, 0, 0, ?)");
             statement.setInt(1, _playerId);
             statement.setInt(2, _factionId);
-            statement.setLong(3, _joinDate.getTimeInMillis());
+            statement.setLong(3, _joinDate);
             statement.execute();
             statement.close();
         }
@@ -213,5 +209,5 @@ public class FactionMember
     public final int getSide() { return _side; }
     public final int getFactionPoints() { return _factionPoints; }
     public final int getContributions() { return _contributions; }
-    public final Calendar getJoinDate() { return _joinDate; }
+    public final long getJoinDate() { return _joinDate; }
 }

@@ -18,7 +18,6 @@ package com.l2jfree.gameserver.instancemanager;
 @author Crion/kombat
 **/
 
-import java.util.Calendar;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastMap;

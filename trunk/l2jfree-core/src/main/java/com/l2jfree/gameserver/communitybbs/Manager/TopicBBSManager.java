@@ -21,16 +21,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javolution.text.TextBuilder;
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import com.l2jfree.gameserver.communitybbs.bb.Forum;
 import com.l2jfree.gameserver.communitybbs.bb.Post;
 import com.l2jfree.gameserver.communitybbs.bb.Topic;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
-
-import javolution.text.TextBuilder;
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 public class TopicBBSManager extends BaseBBSManager
 {

@@ -27,6 +27,8 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
  */
 public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 {
+	private static final long serialVersionUID = -2542073222059976854L;
+	
 	private L2Character _owner;
 
 	public ChanceSkillList(L2Character owner)

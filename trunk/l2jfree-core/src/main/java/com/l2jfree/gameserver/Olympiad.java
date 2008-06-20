@@ -754,8 +754,7 @@ public class Olympiad
 				if (_scheduledWeeklyTask != null)
 					_scheduledWeeklyTask.cancel(true);
 
-				Calendar validationEnd = Calendar.getInstance();
-				_validationEnd = validationEnd.getTimeInMillis() + VALIDATION_PERIOD;
+				_validationEnd = System.currentTimeMillis() + VALIDATION_PERIOD;
 
 				saveNobleData();
 
@@ -1112,8 +1111,7 @@ public class Olympiad
 		if (_scheduledOlympiadEnd != null)
 			_scheduledOlympiadEnd.cancel(true);
 
-		Calendar validationEnd = Calendar.getInstance();
-		_validationEnd = validationEnd.getTimeInMillis() + VALIDATION_PERIOD;
+		_validationEnd = System.currentTimeMillis() + VALIDATION_PERIOD;
 
 		saveNobleData();
 
@@ -1176,8 +1174,7 @@ public class Olympiad
 		currentTime.set(Calendar.SECOND, 0);
 		_olympiadEnd = currentTime.getTimeInMillis();
 
-		Calendar nextChange = Calendar.getInstance();
-		_nextWeeklyChange = nextChange.getTimeInMillis() + WEEKLY_PERIOD;
+		_nextWeeklyChange = System.currentTimeMillis() + WEEKLY_PERIOD;
 
 		_isOlympiadEnd = false;
 	}
@@ -1232,8 +1229,7 @@ public class Olympiad
 				addWeeklyPoints();
 				_log.info("Olympiad System: Added weekly points to nobles");
 
-				Calendar nextChange = Calendar.getInstance();
-				_nextWeeklyChange = nextChange.getTimeInMillis() + WEEKLY_PERIOD;
+				_nextWeeklyChange = System.currentTimeMillis() + WEEKLY_PERIOD;
 			}
 		}, getMillisToWeekChange(), WEEKLY_PERIOD);
 	}

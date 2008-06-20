@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.model.entity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Calendar;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,8 +39,8 @@ public class Couple
     private int _player1Id                      = 0;
     private int _player2Id                      = 0;
     private boolean _maried                     = false;
-    private Calendar _affiancedDate;
-    private Calendar _weddingDate;
+    private long _affiancedDate;
+    private long _weddingDate;
 
     // =========================================================
     // Constructor
@@ -68,11 +66,8 @@ public class Couple
                 _player2Id = rs.getInt("player2Id");
                 _maried    = rs.getBoolean("maried");
 
-                _affiancedDate = Calendar.getInstance();
-                _affiancedDate.setTimeInMillis(rs.getLong("affiancedDate"));
-
-                _weddingDate = Calendar.getInstance();
-                _weddingDate.setTimeInMillis(rs.getLong("weddingDate"));
+                _affiancedDate = rs.getLong("affiancedDate");
+                _weddingDate = rs.getLong("weddingDate");
             }
             statement.close();
         }
@@ -91,11 +86,8 @@ public class Couple
         _player1Id = _tempPlayer1Id;
         _player2Id = _tempPlayer2Id;
 
-        _affiancedDate = Calendar.getInstance();
-        _affiancedDate.setTimeInMillis(System.currentTimeMillis());
-
-        _weddingDate = Calendar.getInstance();
-        _weddingDate.setTimeInMillis(System.currentTimeMillis());
+        _affiancedDate = System.currentTimeMillis();
+        _weddingDate =System.currentTimeMillis();
         
         Connection con = null;
         try
@@ -108,8 +100,8 @@ public class Couple
             statement.setInt(2, _player1Id);
             statement.setInt(3, _player2Id);
             statement.setBoolean(4, false);
-            statement.setLong(5, _affiancedDate.getTimeInMillis());
-            statement.setLong(6, _weddingDate.getTimeInMillis());            
+            statement.setLong(5, _affiancedDate);
+            statement.setLong(6, _weddingDate);            
             statement.execute();
             statement.close();
         }
@@ -133,8 +125,8 @@ public class Couple
 
             statement = con.prepareStatement("UPDATE couples set maried = ?, weddingDate = ? where id = ?");
             statement.setBoolean(1, true);
-            _weddingDate = Calendar.getInstance();
-            statement.setLong(2, _weddingDate.getTimeInMillis());
+            _weddingDate = System.currentTimeMillis();
+            statement.setLong(2, _weddingDate);
             statement.setInt(3, _id);
             statement.execute();
             statement.close();
@@ -180,6 +172,6 @@ public class Couple
 
     public final boolean getMaried() { return _maried; }    
 
-    public final Calendar getAffiancedDate() { return _affiancedDate; }
-    public final Calendar getWeddingDate() { return _weddingDate; }
+    public final long getAffiancedDate() { return _affiancedDate; }
+    public final long getWeddingDate() { return _weddingDate; }
 }
