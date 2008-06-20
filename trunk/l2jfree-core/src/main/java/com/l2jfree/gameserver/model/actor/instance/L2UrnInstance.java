@@ -323,11 +323,10 @@ public final class L2UrnInstance extends L2FolkInstance
         int mixFail = Config.ALT_URN_TEMP_FAIL;
         int mixTemperature = (urnTemperature - 1);
         if (mixFail < 10)
-        {
             mixFail = 10;
-        }
-        else if (mixFail > 40);
-            mixFail = 40;
+        else if (mixFail > 40)
+        	mixFail = 40;
+
         mixChance = (Rnd.get(100));
         tempChance = (100 - (mixTemperature * mixFail));
         

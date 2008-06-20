@@ -1324,7 +1324,6 @@ public class TvT
 				if (player == null || player.isOnline() == 0)
 				{
 					_playersShuffle.remove(player);
-					removePlayer(player);
 					eventPlayer._inEventTvT = false;
 					continue;
 				}
@@ -1464,7 +1463,6 @@ public class TvT
 			{
 				if (p == null)
 				{
-					_players.remove(p);
 					continue;
 				}
 				//check by name incase player got new objectId

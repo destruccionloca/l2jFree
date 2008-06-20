@@ -119,8 +119,7 @@ public class L2DoorInstance extends L2Character
         {
             synchronized(this)
             {
-                if (_ai == null)
-                    _ai = new L2DoorAI(new AIAccessor());
+            	_ai = new L2DoorAI(new AIAccessor());
             }
         }
         return _ai;

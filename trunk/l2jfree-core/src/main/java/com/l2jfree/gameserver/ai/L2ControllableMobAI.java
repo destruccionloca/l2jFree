@@ -311,7 +311,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 
 					L2NpcInstance npc = (L2NpcInstance) obj;
 
-					if (faction_id != npc.getFactionId())
+					if (!faction_id.equals(npc.getFactionId()))
 						continue;
 
 					if (_actor.isInsideRadius(npc, npc.getFactionRange(), false, true) && Math.abs(getAttackTarget().getZ() - npc.getZ()) < 200)

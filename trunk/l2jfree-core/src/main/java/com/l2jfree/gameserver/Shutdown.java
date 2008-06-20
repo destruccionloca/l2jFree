@@ -50,15 +50,15 @@ public class Shutdown extends Thread
 
 	private int					_secondsShut;
 
-	private shutdownModeType	_shutdownMode;
+	private ShutdownModeType	_shutdownMode;
 
-	public enum shutdownModeType
+	public enum ShutdownModeType
 	{
 		SIGTERM("Terminating"), SHUTDOWN("Shutting down"), RESTART("Restarting"), ABORT("Aborting");
 
 		private final String	_modeText;
 
-		shutdownModeType(String modeText)
+		ShutdownModeType(String modeText)
 		{
 			_modeText = modeText;
 		}
@@ -75,7 +75,7 @@ public class Shutdown extends Thread
 	public Shutdown()
 	{
 		_secondsShut = -1;
-		_shutdownMode = shutdownModeType.SIGTERM;
+		_shutdownMode = ShutdownModeType.SIGTERM;
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class Shutdown extends Thread
 	 * @param restart
 	 *            true is the server shall restart after shutdown
 	 */
-	public Shutdown(int seconds, shutdownModeType mode)
+	public Shutdown(int seconds, ShutdownModeType mode)
 	{
 		if (seconds < 0)
 		{
@@ -174,7 +174,7 @@ public class Shutdown extends Thread
 			}
 
 			// server will quit, when this function ends.
-			if (_instance._shutdownMode == shutdownModeType.RESTART)
+			if (_instance._shutdownMode == ShutdownModeType.RESTART)
 				Runtime.getRuntime().halt(2);
 			else
 				Runtime.getRuntime().halt(0);
@@ -187,11 +187,11 @@ public class Shutdown extends Thread
 			switch (_shutdownMode)
 			{
 			case SHUTDOWN:
-				_instance.setMode(shutdownModeType.SHUTDOWN);
+				_instance.setMode(ShutdownModeType.SHUTDOWN);
 				System.exit(0);
 				break;
 			case RESTART:
-				_instance.setMode(shutdownModeType.RESTART);
+				_instance.setMode(ShutdownModeType.RESTART);
 				System.exit(2);
 				break;
 			}
@@ -208,7 +208,7 @@ public class Shutdown extends Thread
 	 * @param restart
 	 *            true if the server will restart after shutdown
 	 */
-	public void startShutdown(L2PcInstance activeChar, int seconds, shutdownModeType mode)
+	public void startShutdown(L2PcInstance activeChar, int seconds, ShutdownModeType mode)
 	{
 		startShutdown(activeChar.getName() + "(" + activeChar.getObjectId() + ")", seconds, mode);
 	}
@@ -223,7 +223,7 @@ public class Shutdown extends Thread
 	 * @param restart
 	 *            true if the server will restart after shutdown
 	 */
-	public void startShutdown(String _initiator, int seconds, shutdownModeType mode)
+	public void startShutdown(String _initiator, int seconds, ShutdownModeType mode)
 	{
 
 		_log.warn(_initiator + " issued shutdown command. " + mode.getText() + " in " + seconds + " seconds!");
@@ -294,7 +294,7 @@ public class Shutdown extends Thread
 	 * @param mode
 	 *            what mode shall be set
 	 */
-	private void setMode(shutdownModeType mode)
+	private void setMode(ShutdownModeType mode)
 	{
 		_shutdownMode = mode;
 	}
@@ -304,7 +304,7 @@ public class Shutdown extends Thread
 	 */
 	private void _abort()
 	{
-		_shutdownMode = shutdownModeType.ABORT;
+		_shutdownMode = ShutdownModeType.ABORT;
 	}
 
 	/**
@@ -351,7 +351,7 @@ public class Shutdown extends Thread
 				int delay = 1000; // milliseconds
 				Thread.sleep(delay);
 
-				if (_shutdownMode == shutdownModeType.ABORT)
+				if (_shutdownMode == ShutdownModeType.ABORT)
 					break;
 			}
 		}

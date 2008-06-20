@@ -1491,13 +1491,15 @@ public class AdminSmartShop implements IAdminCommandHandler
 		if (first == null)
 			first = "";
 		if (second == null)
-			;
-		second = "";
+			second = "";
 
+		//FIXME: WTF?!?!?!? Oo
+		/*
 		if (opCommand.contains("_armor") || opCommand.contains("_weapn") || opCommand.contains("_items"))
 		{
-
+			
 		}
+		*/
 
 		return first;
 	}
@@ -2529,7 +2531,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		{
 		}
 
-		return (message.equals("")) ? "<center><font color=\"FF0000\">Invalid Edit Command</font></center>" : message;
+		return (message.equals("")) ? "<center><font color=\"FF0000\">Invalid Edit Command</font></center>" : "";
 	}
 
 	private String makeQuery(String query)

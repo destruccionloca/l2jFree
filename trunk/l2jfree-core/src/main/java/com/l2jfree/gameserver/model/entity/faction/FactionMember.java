@@ -125,6 +125,7 @@ public class FactionMember
             statement = con.prepareStatement("DELETE FROM faction_members WHERE player_id=?");
             statement.setInt(1, _playerId);
             statement.execute();
+            statement.close();
         }
         catch (Exception e)
         {
@@ -150,6 +151,7 @@ public class FactionMember
             statement.setInt(3, _factionId);
             statement.setInt(4, _playerId);
             statement.execute();
+            statement.close();
         }
         catch (Exception e)
         {

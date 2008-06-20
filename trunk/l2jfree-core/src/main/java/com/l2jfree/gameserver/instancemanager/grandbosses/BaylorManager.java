@@ -493,6 +493,7 @@ public class BaylorManager extends BossLair
 				_socialTask7 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline7, 2), 10000);
 				_socialTask8 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline8, 2), 10000);
 
+				break;
 			case 29099:
 				_baylor = _baylorSapwn.doSpawn();
 

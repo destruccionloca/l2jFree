@@ -118,6 +118,8 @@ public class RequestProcureCropList extends L2GameClientPacket
 				continue;
 			if (count < 1)
 				continue;
+			
+			//FIXME: count cannot be higher than MAX_VALUE
 			if (count > Integer.MAX_VALUE)
 			{
 				Util.handleIllegalPlayerAction(player, "Warning!! Character "

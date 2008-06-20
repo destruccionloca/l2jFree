@@ -70,7 +70,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 		{
 			synchronized(this)
 			{
-				if (_ai == null && _aiBackup == null)
+				if (_aiBackup == null)
                 {
 					_ai = new L2ControllableMobAI(new ControllableAIAcessor());
 					_aiBackup = (L2ControllableMobAI)_ai;

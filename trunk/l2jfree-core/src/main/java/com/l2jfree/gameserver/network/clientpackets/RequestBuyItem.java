@@ -233,7 +233,7 @@ public class RequestBuyItem extends L2GameClientPacket
             
             if (template == null) continue;
 
-            if (count > Integer.MAX_VALUE || (!template.isStackable() && count > 1))
+            if (!template.isStackable() && count > 1)
             {
                 Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase invalid quantity of items at the same time.",Config.DEFAULT_PUNISH);
                 SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);

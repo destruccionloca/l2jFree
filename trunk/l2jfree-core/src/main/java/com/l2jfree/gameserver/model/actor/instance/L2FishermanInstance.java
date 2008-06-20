@@ -89,7 +89,7 @@ public class L2FishermanInstance extends L2MerchantInstance
     public void showSkillList(L2PcInstance player)
     {       
         L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(player);
-        AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.skillType.Fishing);
+        AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.SkillType.Fishing);
         
         int counts = 0;
 

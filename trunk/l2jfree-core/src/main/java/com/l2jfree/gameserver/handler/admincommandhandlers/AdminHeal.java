@@ -63,9 +63,10 @@ public class AdminHeal implements IAdminCommandHandler
 				}
 				catch (NumberFormatException e)
 				{
-					L2Object target = L2World.getInstance().getPlayer(val);
-					if (target instanceof L2Character)
-						handleHeal((L2Character) target);
+					L2PcInstance target = L2World.getInstance().getPlayer(val);
+					
+					if (target != null)
+						handleHeal(target);
 				}
 			}
 			catch (StringIndexOutOfBoundsException e)

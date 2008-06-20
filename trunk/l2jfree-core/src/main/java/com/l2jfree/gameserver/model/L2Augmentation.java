@@ -41,14 +41,14 @@ public final class L2Augmentation
 
 	private L2ItemInstance			_item;
 	private int						_effectsId	= 0;
-	private augmentationStatBoni	_boni		= null;
+	private AugmentationStatBoni	_boni		= null;
 	private L2Skill					_skill		= null;
 
 	public L2Augmentation(L2ItemInstance item, int effects, L2Skill skill, boolean save)
 	{
 		_item = item;
 		_effectsId = effects;
-		_boni = new augmentationStatBoni(_effectsId);
+		_boni = new AugmentationStatBoni(_effectsId);
 		_skill = skill;
 
 		// write to DB if save is true
@@ -64,13 +64,13 @@ public final class L2Augmentation
 	// =========================================================
 	// Nested Class
 
-	public class augmentationStatBoni
+	public class AugmentationStatBoni
 	{
 		private Stats	_stats[];
 		private float	_values[];
 		private boolean	_active;
 
-		public augmentationStatBoni(int augmentationId)
+		public AugmentationStatBoni(int augmentationId)
 		{
 			_active = false;
 			FastList<AugmentationData.AugStat> as = AugmentationData.getInstance().getAugStatsById(augmentationId);

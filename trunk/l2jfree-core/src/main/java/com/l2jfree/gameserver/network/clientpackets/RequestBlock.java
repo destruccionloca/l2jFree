@@ -87,14 +87,12 @@ public class RequestBlock extends L2GameClientPacket
             }
             case UNBLOCK:
             {
-                if (BlockList.isInBlockList(activeChar, _target))
+                if (_target == null)
                 {
-                    if (_target == null)
-                    {
+	                if (BlockList.isInBlockList(activeChar, _target))
+	                {
                         BlockList.removeFromBlockList(activeChar, _target);
                     }
-                    else
-                        BlockList.removeFromBlockList(activeChar, _target);
                 }
                 break;
             }

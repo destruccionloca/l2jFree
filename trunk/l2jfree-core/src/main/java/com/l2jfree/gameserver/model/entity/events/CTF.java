@@ -1882,7 +1882,6 @@ public class CTF
 				if (player == null || player.isOnline() == 0)
 				{
 					_playersShuffle.remove(player);
-					removePlayer(player);
 					eventPlayer._inEventCTF = false;
 					continue;
 				}
@@ -2028,7 +2027,6 @@ public class CTF
 			{
 				if (p == null)
 				{
-					_players.remove(p);
 					continue;
 				}
 				//check by name incase player got new objectId

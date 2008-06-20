@@ -102,6 +102,8 @@ public class RequestBuyProcure extends L2GameClientPacket {
 			int itemId = _items[i * 2 + 0];
 			int count  = _items[i * 2 + 1];
 			int price = 0;
+			
+			//FIXME: count cannot be higher than MAX_VALUE
 			if (count > Integer.MAX_VALUE)
 			{
 				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+Integer.MAX_VALUE+" items at the same time.",  Config.DEFAULT_PUNISH);

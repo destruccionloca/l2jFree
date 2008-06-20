@@ -75,7 +75,8 @@ public class L2FriendList
 
 				while (rset.next())
 					friendlist.put(rset.getInt("friendId"),rset.getString("friend_name"));
-						
+					
+				statement.close();
 			} 
 			catch (Exception e) {
 				_log.warn("Could not restore friend data:"+e);

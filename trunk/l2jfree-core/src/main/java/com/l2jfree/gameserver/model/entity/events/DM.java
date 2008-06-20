@@ -660,7 +660,6 @@ public class DM
 			{
 				if (p==null)
 				{
-					_players.remove(p);
 					continue;
 				}
 				//check by name incase player got new objectId

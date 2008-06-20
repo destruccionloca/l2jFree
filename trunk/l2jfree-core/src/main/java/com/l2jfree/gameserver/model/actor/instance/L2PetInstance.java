@@ -459,9 +459,9 @@ public class L2PetInstance extends L2Summon
            return;
        }
 
-       int weight=ItemTable.getInstance().getTemplate(target.getItemId()).getWeight() * target.getCount();
+       long weight=ItemTable.getInstance().getTemplate(target.getItemId()).getWeight() * target.getCount();
        
-       if (weight > Integer.MAX_VALUE || weight < 0 || !getInventory().validateWeight(weight))
+       if (weight > Integer.MAX_VALUE || weight < 0 || !getInventory().validateWeight((int)weight))
        {
            sendPacket(new SystemMessage(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS));
            return;

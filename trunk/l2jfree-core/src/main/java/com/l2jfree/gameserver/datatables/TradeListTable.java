@@ -153,7 +153,7 @@ public class TradeListTable
 
 				if (_itemCount > 0)
 				{
-					_lists.put(new Integer(buylist.getListId()), buylist);
+					_lists.put(Integer.valueOf(buylist.getListId()), buylist);
 					_nextListId = Math.max(_nextListId, buylist.getListId() + 1);
 				}
 				else

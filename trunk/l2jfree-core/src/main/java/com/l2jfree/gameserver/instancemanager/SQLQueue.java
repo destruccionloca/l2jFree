@@ -44,7 +44,7 @@ public class SQLQueue
 	{
 		_queue1 = new ArrayList<String>();
 		_queue2 = new ArrayList<String>();
-		ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new doQueue(), 60000, 60000);
+		ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new DoQueue(), 60000, 60000);
 	}
 
 	public static final SQLQueue getInstance()
@@ -64,7 +64,7 @@ public class SQLQueue
 		}
 	}
 
-	protected class doQueue extends Thread
+	protected class DoQueue extends Thread
 	{
 		@Override
 		public void run()

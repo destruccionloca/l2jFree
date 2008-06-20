@@ -737,7 +737,7 @@ public class ItemTable
 				item.setOwnerId(actor.getObjectId());
 				delay = 15000;
 			}
-			itemLootShedule = ThreadPoolManager.getInstance().scheduleGeneral(new resetOwner(item), delay);
+			itemLootShedule = ThreadPoolManager.getInstance().scheduleGeneral(new ResetOwner(item), delay);
 			item.setItemLootShedule(itemLootShedule);
 		}
 
@@ -875,11 +875,11 @@ public class ItemTable
 		}
 	}
 
-	protected class resetOwner implements Runnable
+	protected class ResetOwner implements Runnable
 	{
 		L2ItemInstance	_item;
 
-		public resetOwner(L2ItemInstance item)
+		public ResetOwner(L2ItemInstance item)
 		{
 			_item = item;
 		}

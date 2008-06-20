@@ -71,7 +71,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 
 	public void startServer()
 	{
-		if (Config.ALLOW_RMI_SERVER && !pass.equals(null) && !pass.equals("") && port != 0)
+		if (Config.ALLOW_RMI_SERVER && pass != null && !pass.equals("") && port != 0)
 		{
 			try
 			{
@@ -95,7 +95,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	 */
 	public int getOnlineUsersCount(String password) throws RemoteException
 	{
-		if (password != pass)
+		if (!password.equals(pass))
 			return 0;
 		return L2World.getInstance().getAllPlayersCount();
 	}
@@ -105,7 +105,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	 */
 	public IRemotePlayer getPlayerInformation(String password, String playerName) throws RemoteException
 	{
-		if (password != pass)
+		if (!password.equals(pass))
 			return null;
 		L2PcInstance player = L2World.getInstance().getPlayer(playerName);
 		if (player != null)
@@ -205,7 +205,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	public void scheduleServerRestart(String password, int secondsUntilRestart) throws RemoteException
 	{
 		if (password.equals(pass))
-			Shutdown.getInstance().startShutdown("127.0.0.1", secondsUntilRestart, Shutdown.shutdownModeType.SHUTDOWN);
+			Shutdown.getInstance().startShutdown("127.0.0.1", secondsUntilRestart, Shutdown.ShutdownModeType.SHUTDOWN);
 	}
 
 	/**
@@ -214,7 +214,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	public void scheduleServerShutDown(String password, int secondsUntilShutDown) throws RemoteException
 	{
 		if (password.equals(pass))
-			Shutdown.getInstance().startShutdown("127.0.0.1", secondsUntilShutDown, Shutdown.shutdownModeType.RESTART);
+			Shutdown.getInstance().startShutdown("127.0.0.1", secondsUntilShutDown, Shutdown.ShutdownModeType.RESTART);
 
 	}
 

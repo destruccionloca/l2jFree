@@ -471,7 +471,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		for (CharSelectInfoPackage element : chars)
 		{
 			int objectId = element.getObjectId();
-			_charSlotMapping.add(new Integer(objectId));
+			_charSlotMapping.add(Integer.valueOf(objectId));
 		}
 	}
 

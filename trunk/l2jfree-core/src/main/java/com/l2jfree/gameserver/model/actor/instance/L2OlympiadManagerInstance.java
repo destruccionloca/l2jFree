@@ -168,14 +168,14 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
 
 			setTarget(player);
 
-			if (player.OlyBuff > 0)
+			if (player.olyBuff > 0)
 			{
 				skill.getEffects(player, player);
 				//this.doCast(skill);
-				player.OlyBuff--;
+				player.olyBuff--;
 			}
 
-			if (player.OlyBuff > 0)
+			if (player.olyBuff > 0)
 			{
 				html.setFile(Olympiad.OLYMPIAD_HTML_FILE + "olympiad_buffs.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));

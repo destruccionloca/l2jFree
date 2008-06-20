@@ -222,10 +222,11 @@ public class GameStatusThread extends Thread
 						_print.flush();
 						gmname = _read.readLine();
 						String RESTORE_CHARACTER = "SELECT char_name, accesslevel FROM characters WHERE char_name = '" + gmname + "' AND accesslevel >= 100";
+						Connection con = null;
 						try
 						{
 							Class.forName("com.mysql.jdbc.Driver"); //select the MySQL driver
-							Connection con = DriverManager.getConnection(Config.DATABASE_URL, Config.DATABASE_LOGIN, Config.DATABASE_PASSWORD);
+							con = DriverManager.getConnection(Config.DATABASE_URL, Config.DATABASE_LOGIN, Config.DATABASE_PASSWORD);
 							Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 							ResultSet rs = stmt.executeQuery(RESTORE_CHARACTER);
 							int x = 0;
@@ -243,12 +244,21 @@ public class GameStatusThread extends Thread
 							{
 								_print.println("Welcome, " + gmname);
 							}
+							stmt.close();
 						}
 						catch (Exception e)
 						{
 							_print.println("Error, disconnected...");
 							_print.flush();
 							_cSocket.close();
+						}
+						finally
+						{
+							try {
+								con.close();
+							} catch (SQLException e) {
+								e.printStackTrace();
+							}
 						}
 						telnetOutput(4, gmname + " successfully connected to Telnet.");
 						_print.println("L2j-free...");
@@ -553,7 +563,7 @@ public class GameStatusThread extends Thread
 					try
 					{
 						int val = Integer.parseInt(_usrCommand.substring(9));
-						Shutdown.getInstance().startShutdown(_cSocket.getInetAddress().getHostAddress(), val, Shutdown.shutdownModeType.SHUTDOWN);
+						Shutdown.getInstance().startShutdown(_cSocket.getInetAddress().getHostAddress(), val, Shutdown.ShutdownModeType.SHUTDOWN);
 						_print.println("Server Will Shutdown In " + val + " Seconds!");
 						_print.println("Type \"abort\" To Abort Shutdown!");
 					}
@@ -571,7 +581,7 @@ public class GameStatusThread extends Thread
 					try
 					{
 						int val = Integer.parseInt(_usrCommand.substring(8));
-						Shutdown.getInstance().startShutdown(_cSocket.getInetAddress().getHostAddress(), val, Shutdown.shutdownModeType.RESTART);
+						Shutdown.getInstance().startShutdown(_cSocket.getInetAddress().getHostAddress(), val, Shutdown.ShutdownModeType.RESTART);
 						_print.println("Server Will Restart In " + val + " Seconds!");
 						_print.println("Type \"abort\" To Abort Restart!");
 					}

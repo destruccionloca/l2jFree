@@ -80,7 +80,7 @@ public class UserCommandHandler
 		{
 			if (_log.isDebugEnabled())
 				_log.debug("Adding handler for user command " + element);
-			_datatable.put(new Integer(element), handler);
+			_datatable.put(Integer.valueOf(element), handler);
 		}
 	}
 
@@ -88,7 +88,7 @@ public class UserCommandHandler
 	{
 		if (_log.isDebugEnabled())
 			_log.debug("getting handler for user command: " + userCommand);
-		return _datatable.get(new Integer(userCommand));
+		return _datatable.get(Integer.valueOf(userCommand));
 	}
 
 	/**

@@ -426,7 +426,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 
 			L2NpcInstance npc = (L2NpcInstance) cha;
 
-			if (faction_id != npc.getFactionId())
+			if (!faction_id.equals(npc.getFactionId()))
 				continue;
 
 			if (npc.getAI() != null) // TODO: possibly check not needed

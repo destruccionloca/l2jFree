@@ -79,23 +79,23 @@ public class AugmentationData
 	private static final int			BASESTAT_MEN		= 16344;
 
 	private FastList					_augmentationStats[];
-	private FastList<augmentationSkill>	_activeSkills;
-	private FastList<augmentationSkill>	_passiveSkills;
-	private FastList<augmentationSkill>	_chanceSkills;
+	private FastList<AugmentationSkill>	_activeSkills;
+	private FastList<AugmentationSkill>	_passiveSkills;
+	private FastList<AugmentationSkill>	_chanceSkills;
 
 	// =========================================================
 	// Constructor
 	public AugmentationData()
 	{
 		_augmentationStats = new FastList[4];
-		_augmentationStats[0] = new FastList<augmentationStat>();
-		_augmentationStats[1] = new FastList<augmentationStat>();
-		_augmentationStats[2] = new FastList<augmentationStat>();
-		_augmentationStats[3] = new FastList<augmentationStat>();
+		_augmentationStats[0] = new FastList<AugmentationStat>();
+		_augmentationStats[1] = new FastList<AugmentationStat>();
+		_augmentationStats[2] = new FastList<AugmentationStat>();
+		_augmentationStats[3] = new FastList<AugmentationStat>();
 
-		_activeSkills = new FastList<augmentationSkill>();
-		_passiveSkills = new FastList<augmentationSkill>();
-		_chanceSkills = new FastList<augmentationSkill>();
+		_activeSkills = new FastList<AugmentationSkill>();
+		_passiveSkills = new FastList<AugmentationSkill>();
+		_chanceSkills = new FastList<AugmentationSkill>();
 
 		load();
 
@@ -108,13 +108,13 @@ public class AugmentationData
 	// =========================================================
 	// Nested Class
 
-	public class augmentationSkill
+	public class AugmentationSkill
 	{
 		private int	_skillId;
 		private int	_maxSkillLevel;
 		private int	_augmentationSkillId;
 
-		public augmentationSkill(int skillId, int maxSkillLevel, int augmentationSkillId)
+		public AugmentationSkill(int skillId, int maxSkillLevel, int augmentationSkillId)
 		{
 			_skillId = skillId;
 			_maxSkillLevel = maxSkillLevel;
@@ -134,7 +134,7 @@ public class AugmentationData
 		}
 	}
 
-	public class augmentationStat
+	public class AugmentationStat
 	{
 		private Stats	_stat;
 		private int		_singleSize;
@@ -142,7 +142,7 @@ public class AugmentationData
 		private float	_singleValues[];
 		private float	_combinedValues[];
 
-		public augmentationStat(Stats stat, float sValues[], float cValues[])
+		public AugmentationStat(Stats stat, float sValues[], float cValues[])
 		{
 			_stat = stat;
 			_singleSize = sValues.length;
@@ -242,7 +242,7 @@ public class AugmentationData
 								}
 							}
 
-							augmentationSkill temp = new augmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId);
+							AugmentationSkill temp = new AugmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId);
 
 							//added by Alex - check if NOTDONE and exclude from list
 							if (temp == null
@@ -327,7 +327,7 @@ public class AugmentationData
 									}
 								}
 								// store this stat
-								((FastList<augmentationStat>) _augmentationStats[(i - 1)]).add(new augmentationStat(Stats.valueOfXml(statName), soloValues,
+								((FastList<AugmentationStat>) _augmentationStats[(i - 1)]).add(new AugmentationStat(Stats.valueOfXml(statName), soloValues,
 										combinedValues));
 							}
 						}
@@ -407,7 +407,7 @@ public class AugmentationData
 		L2Skill skill = null;
 		if (generateSkill)
 		{
-			augmentationSkill temp = null;
+			AugmentationSkill temp = null;
 			switch (Rnd.get(1, 3))
 			{
 			case 1: // chance skill
@@ -506,7 +506,7 @@ public class AugmentationData
 
 				if (stats[i] < 14) // solo stat
 				{
-					augmentationStat as = ((augmentationStat) _augmentationStats[block].get((stats[i] - 1)));
+					AugmentationStat as = ((AugmentationStat) _augmentationStats[block].get((stats[i] - 1)));
 					temp.add(new AugStat(as.getStat(), as.getSingleStatValue(subblock)));
 				}
 				else
@@ -523,14 +523,14 @@ public class AugmentationData
 						rescales++;
 					}
 					// get first stat
-					augmentationStat as = ((augmentationStat) _augmentationStats[block].get(rescales));
+					AugmentationStat as = ((AugmentationStat) _augmentationStats[block].get(rescales));
 					if (rescales == 0)
 						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(subblock)));
 					else
 						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue((subblock * 2) + 1)));
 
 					// get 2nd stat
-					as = ((augmentationStat) _augmentationStats[block].get(rescales + stats[i]));
+					as = ((AugmentationStat) _augmentationStats[block].get(rescales + stats[i]));
 					if (as.getStat() == Stats.CRITICAL_DAMAGE)
 						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(subblock)));
 					else

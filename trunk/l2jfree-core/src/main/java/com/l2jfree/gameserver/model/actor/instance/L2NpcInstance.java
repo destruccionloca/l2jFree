@@ -227,11 +227,11 @@ public class L2NpcInstance extends L2Character
 		return (Config.MAX_NPC_ANIMATION > 0 && getNpcId() != 29045);
 	}
 
-	public class destroyTemporalNPC implements Runnable
+	public class DestroyTemporalNPC implements Runnable
 	{
 		private L2Spawn	_oldSpawn;
 
-		public destroyTemporalNPC(L2Spawn spawn)
+		public DestroyTemporalNPC(L2Spawn spawn)
 		{
 			_oldSpawn = spawn;
 		}
@@ -250,12 +250,12 @@ public class L2NpcInstance extends L2Character
 		}
 	}
 
-	public class destroyTemporalSummon implements Runnable
+	public class DestroyTemporalSummon implements Runnable
 	{
 		L2Summon		_summon;
 		L2PcInstance	_player;
 
-		public destroyTemporalSummon(L2Summon summon, L2PcInstance player)
+		public DestroyTemporalSummon(L2Summon summon, L2PcInstance player)
 		{
 			_summon = summon;
 			_player = player;
@@ -1039,7 +1039,7 @@ public class L2NpcInstance extends L2Character
 
 							if (Rnd.nextInt(100) < chance)
 							{
-								ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalSummon(summon, player), 6000);
+								ThreadPoolManager.getInstance().scheduleGeneral(new DestroyTemporalSummon(summon, player), 6000);
 								player.addItem("PetUpdate", exchangeItem, 1, player, true, true);
 
 								NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());
@@ -1053,7 +1053,7 @@ public class L2NpcInstance extends L2Character
 							{
 								summon.reduceCurrentHp(summon.getStatus().getCurrentHp(), player);
 							}
-							ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalNPC(spawn), 15000);
+							ThreadPoolManager.getInstance().scheduleGeneral(new DestroyTemporalNPC(spawn), 15000);
 
 							ItemList il = new ItemList(player, true);
 							player.sendPacket(il);
@@ -1129,7 +1129,7 @@ public class L2NpcInstance extends L2Character
 
 							if (Rnd.nextInt(100) < chance)
 							{
-								ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalSummon(summon, player), 6000);
+								ThreadPoolManager.getInstance().scheduleGeneral(new DestroyTemporalSummon(summon, player), 6000);
 								player.addItem("PetUpdate", exchangeItem, 1, player, true, true);
 								NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());
 								TextBuilder replyMSG = new TextBuilder("<html><body>");
@@ -1145,7 +1145,7 @@ public class L2NpcInstance extends L2Character
 								summon.reduceCurrentHp(summon.getStatus().getCurrentHp(), player);
 							}
 
-							ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalNPC(spawn), 15000);
+							ThreadPoolManager.getInstance().scheduleGeneral(new DestroyTemporalNPC(spawn), 15000);
 							ItemList il = new ItemList(player, true);
 							player.sendPacket(il);
 						}
@@ -2546,7 +2546,7 @@ public class L2NpcInstance extends L2Character
 				filename = (getHtmlPath(npcId, val));
 			break;
 		case 36402:
-			if (player.OlyBuff > 0)
+			if (player.olyBuff > 0)
 				filename = Olympiad.OLYMPIAD_HTML_FILE + "olympiad_buffs.htm";
 			else
 				filename = Olympiad.OLYMPIAD_HTML_FILE + "olympiad_nobuffs.htm";

@@ -151,8 +151,7 @@ public abstract class L2Summon extends L2PlayableInstance
         {
             synchronized(this)
             {
-                if (_ai == null)
-                    _ai = new L2SummonAI(new L2Summon.AIAccessor());
+            	_ai = new L2SummonAI(new L2Summon.AIAccessor());
             }
         }
         

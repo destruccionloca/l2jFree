@@ -101,7 +101,7 @@ public class RecipeController
 	{
 		for (int i = 0; i < _lists.size(); i++)
 		{
-			L2RecipeList find = _lists.get(new Integer(i));
+			L2RecipeList find = _lists.get(Integer.valueOf(i));
 			if (find.getRecipeId() == itemId)
 			{
 				return find;
@@ -114,7 +114,7 @@ public class RecipeController
 	{
 		for (int i = 0; i < _lists.size(); i++)
 		{
-			L2RecipeList find = _lists.get(new Integer(i));
+			L2RecipeList find = _lists.get(Integer.valueOf(i));
 			if (find.getId() == recId)
 			{
 				return find;

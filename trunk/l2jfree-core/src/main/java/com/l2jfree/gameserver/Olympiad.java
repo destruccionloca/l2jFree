@@ -2316,7 +2316,7 @@ public class Olympiad
 					_playerOne.setIsInOlympiadMode(true);
 					_playerOne.setIsOlympiadStart(false);
 					_playerOne.setOlympiadSide(1);
-					_playerOne.OlyBuff = 5;
+					_playerOne.olyBuff = 5;
 				}
 
 				if (_playerTwo != null)
@@ -2338,7 +2338,7 @@ public class Olympiad
 					_playerTwo.setIsOlympiadStart(false);
 
 					_playerTwo.setOlympiadSide(2);
-					_playerTwo.OlyBuff = 5;
+					_playerTwo.olyBuff = 5;
 				}
 				_gamestarted = true;
 			}

@@ -2444,8 +2444,7 @@ public abstract class L2Character extends L2Object
 		{
 			synchronized (this)
 			{
-				if (_ai == null)
-					_ai = new L2CharacterAI(new AIAccessor());
+				_ai = new L2CharacterAI(new AIAccessor());
 			}
 		}
 
@@ -2925,7 +2924,7 @@ public abstract class L2Character extends L2Object
 	{
 		if (Config.FACTION_ENABLED)
 			if (this instanceof L2PcInstance)
-				if (FactionManager.getInstance().getFactionTitles().contains(value.toLowerCase()) && value != "")
+				if (FactionManager.getInstance().getFactionTitles().contains(value.toLowerCase()) && !value.equals(""))
 				{
 					_title = getTitle();
 					((L2PcInstance) this).sendMessage("Title protected by Faction System");

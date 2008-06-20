@@ -41,7 +41,7 @@ public class TaskShutdown extends Task
 	@Override
 	public void onTimeElapsed(ExecutedTask task)
 	{
-		Shutdown handler = new Shutdown(Integer.valueOf(task.getParams()[2]), Shutdown.shutdownModeType.SHUTDOWN);
+		Shutdown handler = new Shutdown(Integer.valueOf(task.getParams()[2]), Shutdown.ShutdownModeType.SHUTDOWN);
 		handler.start();
 	}
 

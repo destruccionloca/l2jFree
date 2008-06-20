@@ -2236,7 +2236,7 @@ public final class Formulas
 
 			if (skill.getSkillType() == SkillType.PDAM)
 				type = SkillType.STUN;
-			else if (skill.getSkillType() == SkillType.MDAM || type == SkillType.DRAIN)
+			else if (skill.getSkillType() == SkillType.MDAM /*|| type == SkillType.DRAIN*/) //FIXME: ???
 				type = SkillType.PARALYZE;
 		}
 

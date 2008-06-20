@@ -684,7 +684,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private int								_olympiadGameId			= -1;
 	private int								_olympiadSide			= -1;
 	private int								_olympiadOpponentId		= 0;
-	public int								OlyBuff					= 0;
+	public int								olyBuff					= 0;
 
 	/** Duel */
 	private int								_duelState				= Duel.DUELSTATE_NODUEL;
@@ -1093,8 +1093,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			synchronized (this)
 			{
-				if (_ai == null)
-					_ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
+				_ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
 			}
 		}
 		return _ai;
@@ -6312,6 +6311,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					statement.execute();
 					statement.close();
 				}
+				statement.close();
 			}
 			// End Modification for Max Player record
 		}
@@ -7927,10 +7927,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		// Check if the attacker is a L2MonsterInstance
 		if (attacker instanceof L2MonsterInstance)
-			if (attacker instanceof L2FriendlyMobInstance)
-				return false;
-			else
-				return true;
+			return true;
 
 		// Check if the attacker is not in the same party
 		if (getParty() != null && getParty().getPartyMembers().contains(attacker))

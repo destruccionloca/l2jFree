@@ -573,7 +573,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 		{
 			try
 			{
-				tempName2 = it.next().toString();
+				tempName2 = it.next();
 				pc = L2World.getInstance().getPlayer(tempName2);
 				if (max < pc.getLevel())
 				{
@@ -631,7 +631,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 		{
 			try
 			{
-				L2PcInstance pc = L2World.getInstance().getPlayer(it.next().toString());
+				L2PcInstance pc = L2World.getInstance().getPlayer(it.next());
 				pc.setTitle(L2Event.names.get(team));
 				pc.teleToLocation(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 			}
@@ -650,7 +650,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 		{
 			try
 			{
-				L2PcInstance pc = L2World.getInstance().getPlayer(it.next().toString());
+				L2PcInstance pc = L2World.getInstance().getPlayer(it.next());
 				pc.eventSitForced = !pc.eventSitForced;
 				if (pc.eventSitForced)
 					pc.sitDown();
@@ -672,7 +672,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 		{
 			try
 			{
-				L2PcInstance target = L2World.getInstance().getPlayer(it.next().toString());
+				L2PcInstance target = L2World.getInstance().getPlayer(it.next());
 				target.reduceCurrentHp(target.getMaxHp() + target.getMaxCp() + 1, activeChar);
 			}
 			catch (Exception e)
@@ -690,7 +690,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 		{
 			try
 			{
-				L2PcInstance character = L2World.getInstance().getPlayer(it.next().toString());
+				L2PcInstance character = L2World.getInstance().getPlayer(it.next());
 				character.getStatus().setCurrentHpMp(character.getMaxHp(), character.getMaxMp());
 				character.getStatus().setCurrentCp(character.getMaxCp());
 				Revive revive = new Revive(character);
@@ -715,7 +715,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 		{
 			try
 			{
-				L2PcInstance target = L2World.getInstance().getPlayer(it.next().toString());
+				L2PcInstance target = L2World.getInstance().getPlayer(it.next());
 				target.getPoly().setPolyInfo("npc", id);
 				target.teleToLocation(target.getX(), target.getY(), target.getZ());
 				CharInfo info1 = new CharInfo(target);
@@ -737,7 +737,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 		{
 			try
 			{
-				L2PcInstance target = L2World.getInstance().getPlayer(it.next().toString());
+				L2PcInstance target = L2World.getInstance().getPlayer(it.next());
 				target.getPoly().setPolyInfo(null, "1");
 				target.decayMe();
 				target.spawnMe(target.getX(), target.getY(), target.getZ());
@@ -776,7 +776,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 		{
 			try
 			{
-				L2PcInstance target = L2World.getInstance().getPlayer(it.next().toString());
+				L2PcInstance target = L2World.getInstance().getPlayer(it.next());
 				if (type.equalsIgnoreCase("level"))
 					temp = n * target.getLevel();
 				else if (type.equalsIgnoreCase("kills"))
@@ -801,7 +801,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 		{
 			try
 			{
-				L2PcInstance target = L2World.getInstance().getPlayer(it.next().toString());
+				L2PcInstance target = L2World.getInstance().getPlayer(it.next());
 				target.setTitle(target.eventTitle);
 				target.setKarma(target.eventKarma);
 				target.setPvpKills(target.eventPvpKills);

@@ -110,6 +110,7 @@ public class Faction
             statement.setFloat(1, _points);
             statement.setInt(2, _Id);
             statement.execute();
+            statement.close();
         }
         catch (Exception e)
         {

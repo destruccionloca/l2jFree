@@ -97,7 +97,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         long priceTotal = 0;
         for(ItemRequest ir : _items)
         {
-			if (ir.getCount() > Integer.MAX_VALUE || ir.getCount() < 0)
+			if (ir.getCount() < 0)
 			{
 	            String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried an overflow exploit, ban this player!";
 	            Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);

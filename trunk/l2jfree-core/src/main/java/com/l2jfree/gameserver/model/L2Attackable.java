@@ -324,8 +324,7 @@ public class L2Attackable extends L2NpcInstance
         {
             synchronized(this)
             {
-                if (_ai == null)
-                    _ai = new L2AttackableAI(new AIAccessor());
+            	_ai = new L2AttackableAI(new AIAccessor());
             }
         }
         return _ai;

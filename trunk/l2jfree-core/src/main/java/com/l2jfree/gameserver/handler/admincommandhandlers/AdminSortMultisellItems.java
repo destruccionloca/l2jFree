@@ -1520,7 +1520,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 							L2Skill s = SkillTable.getInstance().getInfo(skill.getId(), skill.getLevel());
 							if (s.getItemConsumeId() == 0)
 								continue;
-							Integer spellItemId = new Integer(s.getItemConsumeId());
+							Integer spellItemId = Integer.valueOf(s.getItemConsumeId());
 							if (!spellItemList.contains(spellItemId))
 							{
 								spellItemList.add(spellItemId);

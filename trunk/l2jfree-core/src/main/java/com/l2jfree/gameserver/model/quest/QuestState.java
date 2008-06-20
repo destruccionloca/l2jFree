@@ -209,7 +209,7 @@ public final class QuestState
 		else
 			Quest.createQuestVarInDb(this, var, val);
 		
-		if (var == "cond")
+		if (var.equals("cond"))
 		{
 			try
 			{

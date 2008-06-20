@@ -793,6 +793,9 @@ public class L2Clan
 			statement = con.prepareStatement("UPDATE clan_wars SET wantspeace1=? WHERE clan1=?");
 			statement.setInt(1, 0);
 			statement.setInt(2, 0);
+			
+			statement.execute();
+			statement.close();
 		}
 		catch (Exception e)
 		{

@@ -445,7 +445,7 @@ public abstract class L2Zone
 			if(tn != null)
 				type = tn.getNodeValue();
 
-			name = (nn != null) ? nn.getNodeValue() : new Integer(id).toString();
+			name = (nn != null) ? nn.getNodeValue() : Integer.valueOf(id).toString();
 
 			clazz = Class.forName("com.l2jfree.gameserver.model.zone.L2"+type+"Zone");
 			constructor = clazz.getConstructor();
