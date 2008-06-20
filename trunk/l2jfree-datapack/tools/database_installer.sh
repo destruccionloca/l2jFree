@@ -229,9 +229,7 @@ full_install()
 	$MYG < ../sql/heroes.sql &> /dev/null
 	$MYG < ../sql/items.sql &> /dev/null
 	$MYG < ../sql/items_on_ground.sql &> /dev/null
-	$MYG < ../sql/locations.sql &> /dev/null
 	$MYG < ../sql/lvlupgain.sql &> /dev/null
-	$MYG < ../sql/merchant_areas_list.sql &> /dev/null
 	$MYG < ../sql/merchant_buylists.sql &> /dev/null
 	$MYG < ../sql/merchant_shopids.sql &> /dev/null
 	$MYG < ../sql/merchants.sql &> /dev/null
@@ -329,9 +327,7 @@ update_db()
 			$MYG < ../sql/fort_siege_guards.sql &> /dev/null
 			$MYG < ../sql/henna.sql &> /dev/null
 			$MYG < ../sql/henna_trees.sql &> /dev/null
-			$MYG < ../sql/locations.sql &> /dev/null
 			$MYG < ../sql/lvlupgain.sql &> /dev/null
-			$MYG < ../sql/merchant_areas_list.sql &> /dev/null
 			$MYG < ../sql/merchant_buylists.sql &> /dev/null
 			$MYG < ../sql/merchant_shopids.sql &> /dev/null
 			$MYG < ../sql/merchants.sql &> /dev/null
