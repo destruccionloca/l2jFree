@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS account_data,armor,armorsets,auction,auction_bid,
                      auction_watch,augmentations,auto_chat,auto_chat_text,
-                     boxaccess,boxes,castle,castle_door,castle_doorupgrade,
+                     castle,castle_door,castle_doorupgrade,
                      castle_manor_procure,castle_manor_production,
                      castle_siege_guards,char_templates,character_friends,character_hennas,
                      character_macroses,character_quests,character_recipebook,

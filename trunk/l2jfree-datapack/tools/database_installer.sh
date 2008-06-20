@@ -180,8 +180,6 @@ full_install()
 	$MYG < ../sql/augmentations.sql &> /dev/null
 	$MYG < ../sql/auto_chat.sql &> /dev/null
 	$MYG < ../sql/auto_chat_text.sql &> /dev/null
-	$MYG < ../sql/boxaccess.sql &> /dev/null
-	$MYG < ../sql/boxes.sql &> /dev/null
 	$MYG < ../sql/castle.sql &> /dev/null
 	$MYG < ../sql/castle_functions.sql &> /dev/null
 	$MYG < ../sql/castle_door.sql &> /dev/null
@@ -310,8 +308,6 @@ update_db()
 			$MYG < ../sql/armorsets.sql &> /dev/null
 			$MYG < ../sql/auto_chat.sql &> /dev/null
 			$MYG < ../sql/auto_chat_text.sql &> /dev/null
-			$MYG < ../sql/boxaccess.sql &> /dev/null
-			$MYG < ../sql/boxes.sql &> /dev/null
 			$MYG < ../sql/castle_door.sql &> /dev/null
 			$MYG < ../sql/castle_doorupgrade.sql &> /dev/null
 			$MYG < ../sql/castle_siege_guards.sql &> /dev/null
