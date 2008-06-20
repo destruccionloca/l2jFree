@@ -145,8 +145,8 @@ public class GameServer
 			for (int i = 0; i < 9; i++) {
 				System.out.print(".");
 				
-				long ticker = Calendar.getInstance().getTimeInMillis();
-				while (Calendar.getInstance().getTimeInMillis() - ticker < 1000) {
+				long ticker = System.currentTimeMillis();
+				while (System.currentTimeMillis() - ticker < 1000) {
 					//
 				}
 			}

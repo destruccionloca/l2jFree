@@ -117,7 +117,7 @@ public class TopicBBSManager extends BaseBBSManager
 						.getInstance().getTimeInMillis(), activeChar.getName(), activeChar.getObjectId(), Topic.MEMO, 0);
 				f.addtopic(t);
 				TopicBBSManager.getInstance().setMaxID(t.getID(), f);
-				Post p = new Post(activeChar.getName(), activeChar.getObjectId(), Calendar.getInstance().getTimeInMillis(), t.getID(), f.getID(), ar4);
+				Post p = new Post(activeChar.getName(), activeChar.getObjectId(), System.currentTimeMillis(), t.getID(), f.getID(), ar4);
 				PostBBSManager.getInstance().addPostByTopic(p, t);
 				parsecmd("_bbsmemo", activeChar);
 			}

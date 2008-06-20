@@ -114,7 +114,7 @@ public abstract class BossSpawnManager
 			int RespawnMaxDelay = boss.getSpawn().getRespawnMaxDelay();
 			long respawn_delay = Rnd.get((int) (RespawnMinDelay * 1000 * Config.RAID_MIN_RESPAWN_MULTIPLIER),
 					(int) (RespawnMaxDelay * 1000 * Config.RAID_MAX_RESPAWN_MULTIPLIER));
-			respawnTime = Calendar.getInstance().getTimeInMillis() + respawn_delay;
+			respawnTime = System.currentTimeMillis() + respawn_delay;
 
 			info.set("currentHp", boss.getMaxHp());
 			info.set("currentMp", boss.getMaxMp());
@@ -150,7 +150,7 @@ public abstract class BossSpawnManager
 			return;
 
 		int bossId = spawnDat.getNpcId();
-		long time = Calendar.getInstance().getTimeInMillis();
+		long time = System.currentTimeMillis();
 
 		SpawnTable.getInstance().addNewSpawn(spawnDat, false);
 
@@ -182,7 +182,7 @@ public abstract class BossSpawnManager
 		else
 		{
 			ScheduledFuture<?> futureSpawn;
-			long spawnTime = respawnTime - Calendar.getInstance().getTimeInMillis();
+			long spawnTime = respawnTime - System.currentTimeMillis();
 			futureSpawn = ThreadPoolManager.getInstance().scheduleGeneral(new SpawnTask(bossId), spawnTime);
 			_schedules.put(bossId, futureSpawn);
 		}

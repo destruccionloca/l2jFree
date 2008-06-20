@@ -92,10 +92,10 @@ public class Couple
         _player2Id = _tempPlayer2Id;
 
         _affiancedDate = Calendar.getInstance();
-        _affiancedDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
+        _affiancedDate.setTimeInMillis(System.currentTimeMillis());
 
         _weddingDate = Calendar.getInstance();
-        _weddingDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
+        _weddingDate.setTimeInMillis(System.currentTimeMillis());
         
         Connection con = null;
         try

@@ -70,7 +70,7 @@ public class GrandBossState
 
 	public void setRespawnDate(long interval)
 	{
-		_respawnDate = interval + Calendar.getInstance().getTimeInMillis();
+		_respawnDate = interval + System.currentTimeMillis();
 	}
 
 	public GrandBossState()
@@ -106,7 +106,7 @@ public class GrandBossState
 			{
 				_respawnDate = rset.getLong("respawnDate");
 
-				if (_respawnDate - Calendar.getInstance().getTimeInMillis() <= 0)
+				if (_respawnDate - System.currentTimeMillis() <= 0)
 				{
 					_state = StateEnum.NOTSPAWN;
 				}
@@ -212,7 +212,7 @@ public class GrandBossState
 
 	public long getInterval()
 	{
-		long interval = _respawnDate - Calendar.getInstance().getTimeInMillis();
+		long interval = _respawnDate - System.currentTimeMillis();
 
 		if (interval < 0)
 			return 0;

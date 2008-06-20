@@ -316,11 +316,11 @@ public class Auction
             _highestBidderMaxBid = bid;
             _highestBidderName = bidder.getClan().getLeaderName();
             if (_bidders.get(_highestBidderId) == null)
-                _bidders.put(_highestBidderId, new Bidder(_highestBidderName, bidder.getClan().getName(), bid, Calendar.getInstance().getTimeInMillis()));
+                _bidders.put(_highestBidderId, new Bidder(_highestBidderName, bidder.getClan().getName(), bid, System.currentTimeMillis()));
             else
             {
                 _bidders.get(_highestBidderId).setBid(bid);
-                _bidders.get(_highestBidderId).setTimeBid(Calendar.getInstance().getTimeInMillis());
+                _bidders.get(_highestBidderId).setTimeBid(System.currentTimeMillis());
             }
             bidder.sendMessage("You have bidded successfully");
         }

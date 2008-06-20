@@ -195,7 +195,7 @@ public class CastleManorManager
 		init(); // schedule all manor related events
 		_underMaintenance = false;
 		_disabled = !Config.ALLOW_MANOR;
-		boolean isApproved = (_periodApprove.getTimeInMillis() < Calendar.getInstance().getTimeInMillis() && _manorRefresh.getTimeInMillis() > Calendar
+		boolean isApproved = (_periodApprove.getTimeInMillis() < System.currentTimeMillis() && _manorRefresh.getTimeInMillis() > Calendar
 				.getInstance().getTimeInMillis());
 		for (Castle c : CastleManager.getInstance().getCastles().values())
 		{
@@ -353,8 +353,8 @@ public class CastleManorManager
 
 	public long getMillisToManorRefresh()
 	{
-		if (_manorRefresh.getTimeInMillis() > Calendar.getInstance().getTimeInMillis())
-			return (_manorRefresh.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+		if (_manorRefresh.getTimeInMillis() > System.currentTimeMillis())
+			return (_manorRefresh.getTimeInMillis() - System.currentTimeMillis());
 
 		return setNewManorRefresh();
 	}
@@ -368,13 +368,13 @@ public class CastleManorManager
 
 		_log.info("ManorSystem: Schedule for manor refresh @ " + _manorRefresh.getTime());
 
-		return (_manorRefresh.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+		return (_manorRefresh.getTimeInMillis() - System.currentTimeMillis());
 	}
 
 	public long getMillisToNextPeriodApprove()
 	{
-		if (_periodApprove.getTimeInMillis() > Calendar.getInstance().getTimeInMillis())
-			return (_periodApprove.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+		if (_periodApprove.getTimeInMillis() > System.currentTimeMillis())
+			return (_periodApprove.getTimeInMillis() - System.currentTimeMillis());
 
 		return setNewPeriodApprove();
 	}
@@ -388,7 +388,7 @@ public class CastleManorManager
 
 		_log.info("ManorSystem: Schedule for period approve @ " + _periodApprove.getTime());
 
-		return (_periodApprove.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+		return (_periodApprove.getTimeInMillis() - System.currentTimeMillis());
 	}
 
 	public void setNextPeriod()

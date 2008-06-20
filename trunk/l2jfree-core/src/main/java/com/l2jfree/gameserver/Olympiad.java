@@ -617,13 +617,13 @@ public class Olympiad
 		switch (_period)
 		{
 		case 0:
-			if (_olympiadEnd == 0 || _olympiadEnd < Calendar.getInstance().getTimeInMillis())
+			if (_olympiadEnd == 0 || _olympiadEnd < System.currentTimeMillis())
 				setNewOlympiadEnd();
 			else
 				_isOlympiadEnd = false;
 			break;
 		case 1:
-			if (_validationEnd > Calendar.getInstance().getTimeInMillis())
+			if (_validationEnd > System.currentTimeMillis())
 			{
 				_isOlympiadEnd = true;
 
@@ -1093,7 +1093,7 @@ public class Olympiad
 
 	private long getMillisToOlympiadEnd()
 	{
-		return (_olympiadEnd - Calendar.getInstance().getTimeInMillis());
+		return (_olympiadEnd - System.currentTimeMillis());
 	}
 
 	public void manualSelectHeroes()
@@ -1150,8 +1150,8 @@ public class Olympiad
 
 	protected long getMillisToValidationEnd()
 	{
-		if (_validationEnd > Calendar.getInstance().getTimeInMillis())
-			return (_validationEnd - Calendar.getInstance().getTimeInMillis());
+		if (_validationEnd > System.currentTimeMillis())
+			return (_validationEnd - System.currentTimeMillis());
 		return 10L;
 	}
 
@@ -1189,11 +1189,11 @@ public class Olympiad
 
 	private long getMillisToCompBegin()
 	{
-		if (_compStart.getTimeInMillis() < Calendar.getInstance().getTimeInMillis() && _compEnd > Calendar.getInstance().getTimeInMillis())
+		if (_compStart.getTimeInMillis() < System.currentTimeMillis() && _compEnd > System.currentTimeMillis())
 			return 10L;
 
-		if (_compStart.getTimeInMillis() > Calendar.getInstance().getTimeInMillis())
-			return (_compStart.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+		if (_compStart.getTimeInMillis() > System.currentTimeMillis())
+			return (_compStart.getTimeInMillis() - System.currentTimeMillis());
 
 		return setNewCompBegin();
 	}
@@ -1208,18 +1208,18 @@ public class Olympiad
 
 		_log.info("Olympiad System: New Schedule @ " + _compStart.getTime());
 
-		return (_compStart.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+		return (_compStart.getTimeInMillis() - System.currentTimeMillis());
 	}
 
 	protected long getMillisToCompEnd()
 	{
-		return (_compEnd - Calendar.getInstance().getTimeInMillis());
+		return (_compEnd - System.currentTimeMillis());
 	}
 
 	private long getMillisToWeekChange()
 	{
-		if (_nextWeeklyChange > Calendar.getInstance().getTimeInMillis())
-			return (_nextWeeklyChange - Calendar.getInstance().getTimeInMillis());
+		if (_nextWeeklyChange > System.currentTimeMillis())
+			return (_nextWeeklyChange - System.currentTimeMillis());
 		return 10L;
 	}
 

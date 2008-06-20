@@ -119,7 +119,7 @@ public class Siege
             try
             {
                 long timeRemaining = _siegeEndDate.getTimeInMillis()
-                    - Calendar.getInstance().getTimeInMillis();
+                    - System.currentTimeMillis();
                 if (timeRemaining > 3600000)
                 {
                     ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst),
@@ -178,7 +178,7 @@ public class Siege
             try
             {
                 long timeRemaining = getSiegeDate().getTimeInMillis()
-                    - Calendar.getInstance().getTimeInMillis();
+                    - System.currentTimeMillis();
                 if (timeRemaining > 86400000)
                 {
                     ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst),
@@ -1017,7 +1017,7 @@ public class Siege
     {
         boolean corrected = false;
 
-        if (getCastle().getSiegeDate().getTimeInMillis() < Calendar.getInstance().getTimeInMillis())
+        if (getCastle().getSiegeDate().getTimeInMillis() < System.currentTimeMillis())
         {
             // Since siege has past reschedule it to the next one (14 days)
             // This is usually caused by server being down
@@ -1236,7 +1236,7 @@ public class Siege
     /** Set the date for the next siege. */
     private void setNextSiegeDate()
     {
-        while (getCastle().getSiegeDate().getTimeInMillis() < Calendar.getInstance().getTimeInMillis())
+        while (getCastle().getSiegeDate().getTimeInMillis() < System.currentTimeMillis())
         {
             // Set next siege date if siege has passed
             getCastle().getSiegeDate().add(Calendar.DAY_OF_MONTH, 14); // Schedule to happen in 14 days

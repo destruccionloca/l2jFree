@@ -92,7 +92,7 @@ public class FactionMember
         _factionPoints = 0;
         _contributions = 0;
         _joinDate = Calendar.getInstance();
-        _joinDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
+        _joinDate.setTimeInMillis(System.currentTimeMillis());
         Connection con = null;
         try
         {

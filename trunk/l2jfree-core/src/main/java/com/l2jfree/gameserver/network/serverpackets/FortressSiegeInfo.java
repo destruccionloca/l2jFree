@@ -88,7 +88,7 @@ public class FortressSiegeInfo extends L2GameServerPacket
 			writeS(""); // Ally Name
 		}
 
-		writeD((int) (Calendar.getInstance().getTimeInMillis() / 1000));
+		writeD((int) (System.currentTimeMillis() / 1000));
 		writeD((int) (_fort.getSiege().getSiegeDate().getTimeInMillis() / 1000));
 		writeD(0x00); //number of choices?
 	}

@@ -508,7 +508,7 @@ public class ObjectRestrictions
 			_message		= message;
 			_delay			= delay;
 			
-			_starttime = Calendar.getInstance().getTimeInMillis();
+			_starttime = System.currentTimeMillis();
 		}
 		
 		public int getObjectId() {
@@ -527,7 +527,7 @@ public class ObjectRestrictions
 			return _delay;
 		}
 		public Long getBalancedTime() {
-			return (_delay * 1000) - (Calendar.getInstance().getTimeInMillis() - _starttime);
+			return (_delay * 1000) - (System.currentTimeMillis() - _starttime);
 		}
 		
 		public ScheduledFuture getTask() {

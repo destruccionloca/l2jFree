@@ -495,7 +495,7 @@ public class Duel
 	 */
 	public int getRemainingTime()
 	{
-		return (int)(_duelEndTime.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+		return (int)(_duelEndTime.getTimeInMillis() - System.currentTimeMillis());
 	}
 
 	/**
