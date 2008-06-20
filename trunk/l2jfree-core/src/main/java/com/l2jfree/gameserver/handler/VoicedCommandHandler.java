@@ -48,10 +48,11 @@ public class VoicedCommandHandler
 	{
 		_datatable = new FastMap<String, IVoicedCommandHandler>();
 		registerVoicedCommandHandler(new CastleDoors());
+		registerVoicedCommandHandler(new Hellbound());
 		if (Config.ALLOW_WEDDING)
 		{
 			registerVoicedCommandHandler(new Wedding());
-			registerVoicedCommandHandler(new Hellbound());
+			
 		}
 		_log.info("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}
