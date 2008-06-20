@@ -241,13 +241,16 @@
     <table name="#itemConsumeCountOT">
       0 0 1 1 1 2 2 3 3 3 4 4 5 5 5 5 6 6
     </table>
+    <table name="#itemConsumeSteps">
+      0 0 4 4 14 14 14 14 14 14 14 14 14 14 14 14 14 14
+    </table>
     <set name="itemConsumeId" val="1458" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
     <set name="itemConsumeIdOT" val="1458" />
     <set name="itemConsumeCountOT"
       val="#itemConsumeCountOT" />
-    <set name="itemConsumeSteps" val="4" />
-    <set name="summonTotalLifeTime" val="1200000" />
+    <set name="itemConsumeSteps" val="#itemConsumeSteps" />
+    <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
     <set name="mpInitialConsume" val="#mpConsume_Init" />
@@ -310,11 +313,11 @@
       146 146 147 148 148 149 150 150 151 152 152 153 154
       154 155 156 156
     </table>
-    <table name="#aggro">
+    <!-- <table name="#aggro">
       227 243 268 285 313 331 360 379 399 418 438 457 477
       495 514 532 541 549 558 566 574 582 590 597 604 611
       617 624 630 635 641 646 650 655
-    </table>
+    </table> -->
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -326,7 +329,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="aggroPoints" val="#aggro" />
+    <!-- <set name="aggroPoints" val="#aggro" /> -->
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
@@ -422,6 +425,9 @@
     <table name="#itemConsumeCountOT">
       0 0 1 1 1 2 2 3 3 3 4 4 5 5 5 5 6 6
     </table>
+    <table name="#itemConsumeSteps">
+      0 0 4 4 14 14 14 14 14 14 14 14 14 14 14 14 14 14
+    </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="itemConsumeId" val="1458" />
@@ -429,8 +435,8 @@
     <set name="itemConsumeIdOT" val="1458" />
     <set name="itemConsumeCountOT"
       val="#itemConsumeCountOT" />
-    <set name="itemConsumeSteps" val="4" />
-    <set name="summonTotalLifeTime" val="1200000" />
+    <set name="itemConsumeSteps" val="#itemConsumeSteps" />
+    <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
     <set name="power" val="0.0" />

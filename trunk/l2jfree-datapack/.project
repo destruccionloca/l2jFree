@@ -3,6 +3,13 @@
   <name>l2jfree-datapack</name>
   <comment></comment>
   <projects></projects>
-  <buildSpec></buildSpec>
-  <natures></natures>
+  <buildSpec>
+    <buildCommand>
+      <name>org.python.pydev.PyDevBuilder</name>
+      <arguments></arguments>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.python.pydev.pythonNature</nature>
+  </natures>
 </projectDescription>
