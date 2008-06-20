@@ -115,6 +115,8 @@ import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
 import com.l2jfree.gameserver.skills.SkillsEngine;
 import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
 import com.l2jfree.gameserver.taskmanager.TaskManager;
+import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
+import com.l2jfree.gameserver.threadmanager.RunnableStatsManager;
 import com.l2jfree.gameserver.util.DynamicExtension;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.PathCreator;
@@ -125,22 +127,19 @@ import com.l2jfree.versionning.Version;
 
 public class GameServer
 {
-	private static final Log					_log					= LogFactory.getLog(GameServer.class.getName());
-	public static GameServer					gameServer;
-	private final IdFactory						_idFactory;
-	private final Shutdown						_shutdownHandler;
-	private final SelectorThread<L2GameClient>	_selectorThread;
-	private static Status						_statusServer;
-	public static final Calendar				dateTimeServerStarted	= Calendar.getInstance();
-	private LoginServerThread					_loginThread;
+	private static final Log _log = LogFactory.getLog(GameServer.class.getName());
+	public static GameServer gameServer;
+	private final IdFactory _idFactory;
+	private final Shutdown _shutdownHandler;
+	private final SelectorThread<L2GameClient> _selectorThread;
+	private static Status _statusServer;
+	public static final Calendar dateTimeServerStarted = Calendar.getInstance();
+	private final LoginServerThread _loginThread;
 	private static final Version version = new Version();
 	
 	public GameServer() throws Throwable
 	{
 		Config.load();
-		
-		if (Config.DEADLOCKCHECK_INTERVAL > 0)
-			DeadlockDetector.getInstance();
 		
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
@@ -159,7 +158,9 @@ public class GameServer
 			throw new Exception("Could not initialize the ID factory");
 		}
 		_log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
+		RunnableStatsManager.getInstance();
 		ThreadPoolManager.getInstance();
+		DeadlockDetector.getInstance();
 		if (Config.GEODATA)
 		{
 			GeoData.getInstance();
@@ -266,17 +267,17 @@ public class GameServer
 		try
 		{
 			_log.info("Loading Server Scripts");
-			File scripts = new File(Config.DATAPACK_ROOT.getAbsolutePath(),"data/scripts.cfg");
+			File scripts = new File(Config.DATAPACK_ROOT.getAbsolutePath(), "data/scripts.cfg");
 			L2ScriptEngineManager.getInstance().executeScriptList(scripts);
 		}
 		catch (IOException ioe)
 		{
 			_log.fatal("Failed loading scripts.cfg, no script going to be loaded");
 		}
-
+		
 		QuestManager.getInstance().report();
 		TransformationManager.getInstance().report();
-
+		
 		EventDroplist.getInstance();
 		FaenorScriptEngine.getInstance();
 		
@@ -313,7 +314,7 @@ public class GameServer
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
 			OnlinePlayers.getInstance();
 		FloodProtector.getInstance();
-        ForumsBBSManager.getInstance();
+		ForumsBBSManager.getInstance();
 		KnownListUpdateTaskManager.getInstance();
 		
 		_shutdownHandler = Shutdown.getInstance();
@@ -330,8 +331,9 @@ public class GameServer
 		sc.setMaxSendPerPass(12);
 		sc.setSelectorSleepTime(20);
 		_selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, null);
-		_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
-		_selectorThread.start(); 
+		_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME),
+			Config.PORT_GAME);
+		_selectorThread.start();
 		
 		if (Config.IRC_ENABLED)
 			IrcManager.getInstance().getConnection().sendChan("GameServer Started");
@@ -348,10 +350,10 @@ public class GameServer
 		
 		Util.printSection("l2jfree");
 		version.loadInformation(GameServer.class);
-        _log.info("Revision: "+version.getVersionNumber());
-        //_log.info("Build date: "+version.getBuildDate());
-        _log.info("Compiler version: "+version.getBuildJdk());
-
+		_log.info("Revision: " + version.getVersionNumber());
+		// _log.info("Build date: "+version.getBuildDate());
+		_log.info("Compiler version: " + version.getBuildJdk());
+		
 		printMemUsage();
 		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
 		
@@ -382,7 +384,7 @@ public class GameServer
 	
 	public long getUsedMemoryMB()
 	{
-		return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576; // 1024 * 1024 = 1048576
+		return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576;
 	}
 	
 	public static void main(String[] args) throws Throwable

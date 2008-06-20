@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver;
+package com.l2jfree.gameserver.threadmanager;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
@@ -25,10 +25,10 @@ import javolution.util.FastSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.util.Util;
 
-public class DeadlockDetector extends Thread
+public class DeadlockDetector implements Runnable
 {
 	private static final Log _log = LogFactory.getLog(DeadlockDetector.class);
 	
@@ -47,31 +47,14 @@ public class DeadlockDetector extends Thread
 	
 	private DeadlockDetector()
 	{
-		setPriority(Thread.MIN_PRIORITY);
-		setDaemon(true);
+		ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(this, 1000, 60000);
 		
-		start();
+		_log.info("DeadlockDetector: Initialized.");
 	}
 	
-	@Override
 	public void run()
 	{
-		for (;;)
-			try
-			{
-				sleep(Config.DEADLOCKCHECK_INTERVAL);
-				
-				checkForDeadlocks();
-			}
-			catch (Exception e)
-			{
-				_log.warn("", e);
-			}
-	}
-	
-	private void checkForDeadlocks()
-	{
-		long[] ids = findDeadlockedThreadIDs();
+		long[] ids = findDeadlockedThreadIds();
 		if (ids == null)
 			return;
 		
@@ -86,6 +69,7 @@ public class DeadlockDetector extends Thread
 			Util.printSection("Deadlocked Thread(s)");
 			for (Thread thread : deadlocked)
 			{
+				_log.fatal("");
 				_log.fatal(thread);
 				
 				for (StackTraceElement trace : thread.getStackTrace())
@@ -94,7 +78,7 @@ public class DeadlockDetector extends Thread
 		}
 	}
 	
-	private long[] findDeadlockedThreadIDs()
+	private long[] findDeadlockedThreadIds()
 	{
 		if (_mbean.isSynchronizerUsageSupported())
 			return _mbean.findDeadlockedThreads();
