@@ -497,7 +497,7 @@ public class L2Spawn
 			Object[] parameters = {IdFactory.getInstance().getNextId(), _template};
 			
 			// Call the constructor of the L2NpcInstance 
-			// (can be a L2ArtefactInstance, L2FriendlyMobInstance, L2GuardInstance, L2MonsterInstance, L2SiegeGuardInstance, L2BoxInstance or L2FolkInstance)
+			// (can be a L2ArtefactInstance, L2FriendlyMobInstance, L2GuardInstance, L2MonsterInstance, L2SiegeGuardInstance or L2FolkInstance)
 			Object  tmp = _constructor.newInstance(parameters);
 			
 			// Check if the Instance is a L2NpcInstance

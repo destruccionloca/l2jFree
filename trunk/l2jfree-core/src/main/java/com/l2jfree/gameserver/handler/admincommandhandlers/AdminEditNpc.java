@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -43,10 +42,8 @@ import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2DropCategory;
 import com.l2jfree.gameserver.model.L2DropData;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TradeList;
-import com.l2jfree.gameserver.model.actor.instance.L2BoxInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.L2Item;
@@ -55,7 +52,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
  * @author terry
- *
+ * 
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class AdminEditNpc implements IAdminCommandHandler
@@ -75,7 +72,6 @@ public class AdminEditNpc implements IAdminCommandHandler
 			"admin_showShopList",
 			"admin_addShopItem",
 			"admin_delShopItem",
-			"admin_box_access",
 			"admin_editShopItem",
 			"admin_close_window",
 			// L2JFREE
@@ -498,43 +494,6 @@ public class AdminEditNpc implements IAdminCommandHandler
 			else
 				activeChar.sendMessage("Usage: //del_drop <npc_id> <item_id> <category>");
 		}
-		else if (command.startsWith("admin_box_access"))
-		{
-			L2Object target = activeChar.getTarget();
-			String[] players = command.split(" ");
-			if (target instanceof L2BoxInstance)
-			{
-				L2BoxInstance box = (L2BoxInstance) target;
-				if (players.length > 1)
-				{
-					boolean access = true;
-					for (int i = 1; i < players.length; i++)
-					{
-						if (players[i].equals("no"))
-						{
-							access = false;
-							continue;
-						}
-						box.grantAccess(players[i], access);
-					}
-				}
-				else
-				{
-					try
-					{
-						String msg = "Access: ";
-						for (Object p : box.getAccess())
-							msg += " " + (String) p;
-						activeChar.sendMessage(msg);
-					}
-					catch (Exception e)
-					{
-						_log.info("box_access: " + e);
-					}
-				}
-			}
-		}
-
 		return true;
 	}
 
