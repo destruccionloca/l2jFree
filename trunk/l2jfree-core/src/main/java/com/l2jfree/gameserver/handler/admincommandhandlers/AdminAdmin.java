@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.cache.HtmCache;
+import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
@@ -39,7 +40,6 @@ import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.L2Multisell;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
@@ -87,7 +87,6 @@ public class AdminAdmin implements IAdminCommandHandler
 			"admin_saveolymp",
 			"admin_endolympiad",
 			// L2J-FREE
-			"admin_camera", // test for moviemode.
 			"admin_reload_config",
 			"admin_config_server",
 			"admin_summon",
@@ -275,39 +274,6 @@ public class AdminAdmin implements IAdminCommandHandler
 			}
 		}
 
-		//[L2J_JP_ADD
-		else if (command.startsWith("admin_camera"))
-		{
-			if (activeChar.getTarget() == null)
-			{
-				activeChar.sendMessage("Target incorrect.");
-			}
-			else
-			{
-				StringTokenizer st = new StringTokenizer(command);
-				st.nextToken();
-
-				try
-				{
-					L2Object target = activeChar.getTarget();
-					int scDist = Integer.parseInt(st.nextToken());
-					int scYaw = Integer.parseInt(st.nextToken());
-					int scPitch = Integer.parseInt(st.nextToken());
-					int scTime = Integer.parseInt(st.nextToken());
-					int scDuration = Integer.parseInt(st.nextToken());
-					activeChar.enterMovieMode();
-					activeChar.specialCamera(target, scDist, scYaw, scPitch, scTime, scDuration);
-				}
-				catch (Exception e)
-				{
-					activeChar.sendMessage("Usage:  //camera dist yaw pitch time duration");
-				}
-				finally
-				{
-					activeChar.leaveMovieMode();
-				}
-			}
-		}
 		else if (command.startsWith("admin_summon"))
 		{
 			StringTokenizer st = new StringTokenizer(command);
@@ -457,6 +423,11 @@ public class AdminAdmin implements IAdminCommandHandler
 					NpcTable.getInstance().reloadAll();
 					activeChar.sendMessage("Npcs reloaded");
 				}
+				else if (type.startsWith("door"))
+				{
+					DoorTable.getInstance().reloadAll();
+					activeChar.sendMessage("Doors reloaded");
+				}
 				else if (type.startsWith("htm"))
 				{
 					HtmCache.getInstance().reload();
@@ -502,12 +473,12 @@ public class AdminAdmin implements IAdminCommandHandler
 				else
 				{
 					activeChar
-							.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|npcwalkers|siege|fortsiege>");
+							.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|npcwalkers|siege|fortsiege|door>");
 				}
 			}
 			catch (Exception e)
 			{
-				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|siege|fortsiege>");
+				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|siege|fortsiege|door>");
 			}
 		}
 

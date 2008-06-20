@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.handler.admincommandhandlers.AdminBan;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminBanChat;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCTFEngine;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCache;
+import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCamera;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminChangeAccessLevel;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCreateItem;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCursedWeapons;
@@ -118,6 +119,7 @@ public class AdminCommandHandler
 		registerAdminCommandHandler(new AdminBanChat());
 		registerAdminCommandHandler(new AdminBBS());
 		registerAdminCommandHandler(new AdminCache());
+		registerAdminCommandHandler(new AdminCamera());
 		registerAdminCommandHandler(new AdminChangeAccessLevel());
 		registerAdminCommandHandler(new AdminCreateItem());
 		registerAdminCommandHandler(new AdminCTFEngine());
