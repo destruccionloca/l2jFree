@@ -187,7 +187,8 @@ public class SkillTreeTable
 				statement2.close();
 
 				count += map.size();
-				//_log.info("SkillTreeTable: skill tree for class " + classId + " has " + map.size() + " skills");
+				if (_log.isDebugEnabled())
+					_log.info("SkillTreeTable: skill tree for class " + classId + " has " + map.size() + " skills");
 			}
 
 			classlist.close();
