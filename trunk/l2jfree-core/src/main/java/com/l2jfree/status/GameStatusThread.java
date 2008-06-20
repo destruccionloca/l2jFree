@@ -50,6 +50,7 @@ import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.cache.HtmCache;
+import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
@@ -1095,14 +1096,20 @@ public class GameStatusThread extends Thread
 							TradeListTable.getInstance().reloadAll();
 							_print.print("done\n");
 						}
+						else if (type.startsWith("door"))
+						{
+							_print.print("Reloading Doors...");
+							DoorTable.getInstance().reloadAll();
+							_print.print("dona\n");
+						}
 						else
 						{
-							_print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone>");
+							_print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone|door>");
 						}
 					}
 					catch (Exception e)
 					{
-						_print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone>");
+						_print.println("Usage: reload <multisell|teleport|skill|npc|htm|item|instancemanager|tradelist|zone|door>");
 					}
 				}
 				else if (_usrCommand.startsWith("gamestat"))
