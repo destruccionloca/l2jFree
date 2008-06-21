@@ -187,6 +187,7 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
     <set name="soulConsumeCount" val="2" />
+    <set name="baseCritRate" val="15" />
     <cond
       msg="Checkmate cannot be used due to unsuitable terms.">
       <target active_effect_id="5264" />
