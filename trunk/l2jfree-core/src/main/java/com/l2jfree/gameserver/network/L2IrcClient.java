@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network;
 import java.io.IOException;
 import java.security.cert.X509Certificate;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.schwering.irc.lib.IRCConnection;
@@ -276,7 +275,7 @@ public class L2IrcClient extends Thread
 					player.sendPacket(cs);
 				}
 			}
-			else if (chan.equals(channel))
+			else if (chan.equalsIgnoreCase(channel))
 			{
 				if (Config.IRC_TO_GAME_TYPE.equals("global") || Config.IRC_TO_GAME_TYPE.equals("special"))
 				{

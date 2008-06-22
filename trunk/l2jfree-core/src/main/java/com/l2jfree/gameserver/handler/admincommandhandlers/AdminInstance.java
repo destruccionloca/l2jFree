@@ -105,7 +105,7 @@ public class AdminInstance implements IAdminCommandHandler
 					if (activeChar.getTarget() instanceof L2PlayableInstance)
 					{
 						player.sendMessage("Admin setted your instance to:" + val);
-						InstanceManager.getInstance().getInstance(val).addPlayer(player.getName());
+						InstanceManager.getInstance().getInstance(val).addPlayer(player.getObjectId());
 						player.teleToLocation(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
 						return true;
 					}

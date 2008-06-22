@@ -122,7 +122,7 @@ public class EnterWorld extends L2GameClientPacket
 		
 		// restore instance
 		if(Config.RESTORE_PLAYER_INSTANCE)
-			activeChar.setInstanceId(InstanceManager.getInstance().getPlayerInstance(activeChar.getName()));
+			activeChar.setInstanceId(InstanceManager.getInstance().getPlayerInstance(activeChar.getObjectId()));
 
 		// Register in flood protector
 		FloodProtector.getInstance().registerNewPlayer(activeChar.getObjectId());

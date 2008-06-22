@@ -90,12 +90,12 @@ public class InstanceManager
 		return _instanceList;
 	}
 
-	public int getPlayerInstance(String charName)
+	public int getPlayerInstance(int objectId)
 	{
 		for (Instance temp : _instanceList)
 		{
 			// check if the player is in any active instance
-			if (temp.containsPlayer(charName))
+			if (temp.containsPlayer(objectId))
 				return temp.getId();
 		}
 		// 0 is default instance aka the world

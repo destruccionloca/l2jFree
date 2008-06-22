@@ -7,6 +7,7 @@ import java.util.concurrent.ScheduledFuture;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import javolution.util.FastList;
+import javolution.util.FastSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,7 +36,7 @@ public class Instance
 
 	private int						_id;
 	private String					_name;
-	private FastList<String>		_players			= new FastList<String>();
+	private FastSet<Integer>		_players			= new FastSet<Integer>();
 	private FastList<L2NpcInstance>	_npcs				= new FastList<L2NpcInstance>();
 
 	protected ScheduledFuture<?>	_CheckTimeUpTask	= null;
@@ -60,29 +61,29 @@ public class Instance
 		_name = name;
 	}
 
-	public boolean containsPlayer(String charName)
+	public boolean containsPlayer(int objectId)
 	{
-		if (_players.contains(charName))
+		if (_players.contains(objectId))
 			return true;
 		return false;
 	}
 
-	public void addPlayer(String charName)
+	public void addPlayer(int objectId)
 	{
-		if (!_players.contains(charName))
-			_players.add(charName);
+		if (!_players.contains(objectId))
+			_players.add(objectId);
 	}
 
-	public void removePlayer(String charName)
+	public void removePlayer(int objectId)
 	{
-		L2PcInstance player = L2World.getInstance().getPlayer(charName);
+		L2PcInstance player = L2World.getInstance().findPlayer(objectId);
 		if (player != null && player.getInstanceId() == this.getId())
 		{
 			player.setInstanceId(0);
 			player.sendMessage("You was removed from the instance");
 			player.teleToLocation(TeleportWhereType.Town);
 		}
-		_players.remove(charName);
+		_players.remove(objectId);
 	}
 
 	public void removeNpc(L2Spawn spawn)
@@ -90,7 +91,7 @@ public class Instance
 		_npcs.remove(spawn);
 	}
 
-	public FastList<String> getPlayers()
+	public FastSet<Integer> getPlayers()
 	{
 		return _players;
 	}
@@ -102,9 +103,9 @@ public class Instance
 
 	public void removePlayers()
 	{
-		for (String charName : _players)
+		for (int objectId : _players)
 		{
-			removePlayer(charName);
+			removePlayer(objectId);
 		}
 		_players.clear();
 	}
@@ -253,9 +254,9 @@ public class Instance
 			remaining = remaining - 10000;
 		}
 
-		for (String charName : _players)
+		for (int objectId : _players)
 		{
-			L2PcInstance player = L2World.getInstance().getPlayer(charName);
+			L2PcInstance player = L2World.getInstance().findPlayer(objectId);
 			if (player != null && player.getInstanceId() == getId())
 			{
 				player.sendPacket(cs);
