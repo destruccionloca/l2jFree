@@ -3039,7 +3039,7 @@ public abstract class L2Character extends L2Object
 					onMagicHitTimer(_targets, _skill, _coolTime, false);
 					break;
 				case 3:
-					onMagicFinalizer(_skill);
+					onMagicFinalizer(_skill, _targets[0]);
 					break;
 				default:
 					break;
@@ -6592,7 +6592,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		if (instant || coolTime == 0)
-			onMagicFinalizer(skill);
+			onMagicFinalizer(skill, targets[0]);
 		else
 			_skillCast = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill, coolTime, 3), coolTime);
 	}
@@ -6600,7 +6600,7 @@ public abstract class L2Character extends L2Object
 	/*
 	 * Runs after skill hitTime+coolTime
 	 */
-	public void onMagicFinalizer(L2Skill skill)
+	public void onMagicFinalizer(L2Skill skill, L2Object target)
 	{
 		_skillCast = null;
 		_castEndTime = 0;
@@ -6619,7 +6619,7 @@ public abstract class L2Character extends L2Object
 		case CHARGEDAM:
 		case SPOIL:
 			// case SOW: case DRAIN_SOUL: // Soul Crystal casting
-			if ((getTarget() != null) && (getTarget() instanceof L2Character))
+			if (getTarget() instanceof L2Character && getTarget() != this && target == getTarget())
 				getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getTarget());
 			break;
 		}

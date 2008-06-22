@@ -221,7 +221,7 @@ public class RequestActionUse extends L2GameClientPacket
 			break;
 		case 38: // pet mount
 			// mount
-			if (pet != null && pet.isMountable() && !activeChar.isMounted() && !pet.isBetrayed())
+			if (pet != null && pet.isMountable() && pet.isMountableOverTime() && !activeChar.isMounted() && !activeChar.isBetrayed())
 			{
 				if (pet.getNpcId() == 16030 && pet.getLevel() < Config.GREAT_WOLF_MOUNT_LEVEL)
 				{
@@ -409,7 +409,11 @@ public class RequestActionUse extends L2GameClientPacket
 		case 52: // unsummon
 			if (pet != null && pet instanceof L2SummonInstance)
 			{
-				if (pet.isDead())
+            	if (pet.isInCombat() || pet.isBetrayed())
+            	{
+            		activeChar.sendPacket(new SystemMessage(SystemMessageId.PET_REFUSING_ORDER));
+            	}
+            	else if (pet.isDead())
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.DEAD_PET_CANNOT_BE_RETURNED));
 				}

@@ -12,26 +12,25 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.skills;
+package com.l2jfree.gameserver.skills.funcs;
 
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
+import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.skills.Stats;
 
-/**
- * 
- * An Env object is just a class to pass parameters to a calculator such as L2PcInstance, L2ItemInstance, Initial value.
- *
- */
-
-public final class Env
+public class FuncBaseMul extends Func
 {
-	public L2Character		player;
-	public L2CubicInstance	cubic;
-	public L2Character		target;
-	public L2ItemInstance	item;
-	public L2Skill			skill;
-	public double			value;
-	public double			baseValue;
+	private final Lambda	_lambda;
+
+	public FuncBaseMul(Stats pStat, int pOrder, Object owner, Lambda lambda)
+	{
+		super(pStat, pOrder, owner);
+		_lambda = lambda;
+	}
+
+	@Override
+	public void calc(Env env)
+	{
+		if (cond == null || cond.test(env))
+			env.value += env.baseValue * _lambda.calc(env);
+	}
 }

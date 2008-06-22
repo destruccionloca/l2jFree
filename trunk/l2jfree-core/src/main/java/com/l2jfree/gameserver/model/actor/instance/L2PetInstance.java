@@ -71,6 +71,7 @@ public class L2PetInstance extends L2Summon
     public final int _controlItemId;
     public boolean _respawned;
     public boolean _mountable;
+    private boolean _mountableOverTime;
     
     private Future<?> _feedTask;
     private int _feedTime;
@@ -214,7 +215,10 @@ public class L2PetInstance extends L2Summon
     	L2PetInstance pet = restore(control, template, owner);
     	// add the pet instance to world
     	if (pet != null)
+    	{
     		L2World.getInstance().addPet(owner.getObjectId(), pet);
+    		ThreadPoolManager.getInstance().scheduleGeneral(new PetMountTimer(pet.getOwner().getObjectId()), 3000L);
+    	}
     	
     	return pet;
     }
@@ -1037,5 +1041,38 @@ public class L2PetInstance extends L2Summon
         setOwner(owner);
         L2World.getInstance().removePet(oldOwnerId);
         L2World.getInstance().addPet(oldOwnerId, this);
+    }
+    
+    @Override
+    public final boolean isMountableOverTime()
+    {
+    	return _mountableOverTime;
+    }
+    
+    public final void setIsMountableOverTime(final boolean mountable)
+    {
+    	_mountableOverTime = mountable;
+    }
+    
+    private static final class PetMountTimer implements Runnable
+    {
+    	private final int _ownerObjId;
+    	
+    	PetMountTimer(final int ownerObjId)
+    	{
+    		_ownerObjId = ownerObjId;
+    	}
+    	
+        @Override
+        public void run()
+        {
+        	L2PcInstance player = (L2PcInstance)L2World.getInstance().findObject(_ownerObjId);
+        	if (player != null)
+        	{
+        		L2Summon pet = player.getPet();
+        		if (pet != null && pet instanceof L2PetInstance)
+        			((L2PetInstance)pet).setIsMountableOverTime(true);
+        	}
+        }
     }
 }
