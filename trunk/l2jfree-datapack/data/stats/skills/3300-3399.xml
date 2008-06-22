@@ -588,10 +588,10 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x40" stat="CON" val="2" />
-      <add order="0x40" stat="DEX" val="2" />
-      <add order="0x40" stat="accCombat" val="4.3" />
-      <add order="0x40" stat="maxHp" val="492" />
+      <sub order="0x10" stat="CON" val="2" />
+      <add order="0x10" stat="DEX" val="2" />
+      <add order="0x10" stat="accCombat" val="4.3" />
+      <add order="0x10" stat="maxHp" val="492" />
       <mul order="0x30" stat="darkVuln" val="0.92" />
       <mul order="0x30" stat="rootVuln" val="0.93" />
       <mul order="0x30" stat="pAtkSpd" val="1.05" />
