@@ -37,6 +37,7 @@ public class AdminInstance implements IAdminCommandHandler
 			"admin_createinstance",
 			"admin_destroyinstance",
 			"admin_listinstances"					};
+	
 	private static final int		REQUIRED_LEVEL	= Config.GM_INSTANCE;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
