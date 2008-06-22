@@ -90,6 +90,8 @@ public class L2Spawn
    
     /** Maximum delay RaidBoss */
     private int _respawnMaxDelay;
+    
+    private int _instanceId = 0;
 
 	/** The generic constructor of L2NpcInstance managed by this L2Spawn */
 	private Constructor<?> _constructor;
@@ -441,7 +443,7 @@ public class L2Spawn
 	{
 		return doSpawn();
 	}
-	
+
 	/**
 	 * Set _doRespawn to False to stop respawn in thios L2Spawn.<BR><BR>
 	 */
@@ -478,7 +480,7 @@ public class L2Spawn
 	 * <li>Increase the current number of L2NpcInstance managed by this L2Spawn  </li><BR><BR>
 	 * 
 	 */
-	public L2NpcInstance doSpawn()
+    public L2NpcInstance doSpawn()
 	{
 		L2NpcInstance mob = null;
 		try
@@ -499,6 +501,12 @@ public class L2Spawn
 			// Call the constructor of the L2NpcInstance 
 			// (can be a L2ArtefactInstance, L2FriendlyMobInstance, L2GuardInstance, L2MonsterInstance, L2SiegeGuardInstance or L2FolkInstance)
 			Object  tmp = _constructor.newInstance(parameters);
+			
+			if (tmp instanceof L2Object) // always true
+			{
+				// Must be done before object is spawned into visible world
+				((L2Object)tmp).setInstanceId(_instanceId);
+			}
 			
 			// Check if the Instance is a L2NpcInstance
 			if (!(tmp instanceof L2NpcInstance))
@@ -676,5 +684,15 @@ public class L2Spawn
     public L2NpcTemplate getTemplate()
     {
 	    return _template;   
+    }
+    
+    public int getInstanceId()
+    {
+    	return _instanceId;
+    }
+    
+    public void setInstanceId(int instanceId)
+    {
+    	_instanceId = instanceId;
     }
 }

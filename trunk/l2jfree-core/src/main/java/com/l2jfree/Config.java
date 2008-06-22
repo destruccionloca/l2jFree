@@ -1027,6 +1027,7 @@ public final class Config
 	 */
 	public static int				COORD_SYNCHRONIZE;
 	public static boolean			MOVE_BASED_KNOWNLIST;
+	public static boolean			RESTORE_PLAYER_INSTANCE;
 	public static int				DELETE_DAYS;
 	public static int				FLOODPROTECTOR_INITIALSIZE;								// FloodProtector initial capacity
 	public static int				MAX_DRIFT_RANGE;											// Maximum range mobs can randomly go from spawn point
@@ -1169,6 +1170,7 @@ public final class Config
 
 			COORD_SYNCHRONIZE = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
 			MOVE_BASED_KNOWNLIST = Boolean.parseBoolean(optionsSettings.getProperty("MoveBasedKnownlist", "False"));
+			RESTORE_PLAYER_INSTANCE = Boolean.parseBoolean(optionsSettings.getProperty("RestorePlayerInstance", "False"));
 
 			ALLOW_WAREHOUSE = Boolean.parseBoolean(optionsSettings.getProperty("AllowWarehouse", "True"));
 			ENABLE_WAREHOUSESORTING_CLAN = Boolean.parseBoolean(optionsSettings.getProperty("EnableWarehouseSortingClan", "False"));
@@ -1741,6 +1743,7 @@ public final class Config
 	public static int			GM_CACHE;											// General GM AccessLevel to use Cache commands
 	public static int			GM_TALK_BLOCK;										// General GM AccessLevel to use test&st commands
 	public static int			GM_TEST;
+	public static int			GM_INSTANCE;
 	public static boolean		GM_DISABLE_TRANSACTION;							// Disable transaction on AccessLevel
 	public static int			GM_TRANSACTION_MIN;
 	public static int			GM_TRANSACTION_MAX;
@@ -1820,6 +1823,7 @@ public final class Config
 			GM_CACHE = Integer.parseInt(gmSettings.getProperty("GMCache", "100"));
 			GM_TALK_BLOCK = Integer.parseInt(gmSettings.getProperty("GMTalkBlock", "100"));
 			GM_TEST = Integer.parseInt(gmSettings.getProperty("GMTest", "100"));
+			GM_INSTANCE = Integer.parseInt(gmSettings.getProperty("GMInstance", "100"));
 			GM_STARTUP_AUTO_LIST = Boolean.parseBoolean(gmSettings.getProperty("GMStartupAutoList", "True"));
 			GM_ADMIN_MENU_STYLE = gmSettings.getProperty("GMAdminMenuStyle", "modern");
 			GM_HERO_AURA = Boolean.parseBoolean(gmSettings.getProperty("GMHeroAura", "True"));

@@ -38,57 +38,56 @@ import com.l2jfree.tools.random.Rnd;
 import javolution.util.FastList;
 
 /**
- *
- * @author  L2J_JP SANDMAN
+ * 
+ * @author L2J_JP SANDMAN
  */
 public class LastImperialTombManager extends BossLair
 {
-	private static LastImperialTombManager _instance = null;
+	private static LastImperialTombManager	_instance					= null;
 
-	private static boolean _isInvaded = false;
+	private static boolean					_isInvaded					= false;
 
 	// instance list of monsters.
-	protected static List<L2NpcInstance> _hallAlarmDevices = new FastList<L2NpcInstance>();
-	protected static List<L2NpcInstance> _darkChoirPlayers = new FastList<L2NpcInstance>();
-	protected static List<L2NpcInstance> _darkChoirCaptains = new FastList<L2NpcInstance>();
-	protected static List<L2NpcInstance> _room1Monsters = new FastList<L2NpcInstance>();
-	protected static List<L2NpcInstance> _room2InsideMonsters = new FastList<L2NpcInstance>();
-	protected static List<L2NpcInstance> _room2OutsideMonsters = new FastList<L2NpcInstance>();
+	protected static List<L2NpcInstance>	_hallAlarmDevices			= new FastList<L2NpcInstance>();
+	protected static List<L2NpcInstance>	_darkChoirPlayers			= new FastList<L2NpcInstance>();
+	protected static List<L2NpcInstance>	_darkChoirCaptains			= new FastList<L2NpcInstance>();
+	protected static List<L2NpcInstance>	_room1Monsters				= new FastList<L2NpcInstance>();
+	protected static List<L2NpcInstance>	_room2InsideMonsters		= new FastList<L2NpcInstance>();
+	protected static List<L2NpcInstance>	_room2OutsideMonsters		= new FastList<L2NpcInstance>();
 
 	// instance list of doors.
-	protected static List<L2DoorInstance> _room1Doors = new FastList<L2DoorInstance>();
-	protected static List<L2DoorInstance> _room2InsideDoors = new FastList<L2DoorInstance>();
-	protected static List<L2DoorInstance> _room2OutsideDoors = new FastList<L2DoorInstance>();
-	protected static L2DoorInstance _room3Door = null;
+	protected static List<L2DoorInstance>	_room1Doors					= new FastList<L2DoorInstance>();
+	protected static List<L2DoorInstance>	_room2InsideDoors			= new FastList<L2DoorInstance>();
+	protected static List<L2DoorInstance>	_room2OutsideDoors			= new FastList<L2DoorInstance>();
+	protected static L2DoorInstance			_room3Door					= null;
 
 	// instance list of players.
-	protected static List<L2PcInstance> _partyLeaders = new FastList<L2PcInstance>();
-	protected static List<L2PcInstance> _registedPlayers = new FastList<L2PcInstance>();
-	protected static L2PcInstance _commander = null;
+	protected static List<L2PcInstance>		_partyLeaders				= new FastList<L2PcInstance>();
+	protected static List<L2PcInstance>		_registedPlayers			= new FastList<L2PcInstance>();
+	protected static L2PcInstance			_commander					= null;
 
 	// Frintezza's Magic Force Field Removal Scroll.
-	private final int SCROLL = 8073;
+	private final int						SCROLL						= 8073;
 
 	// player does reach to HallofFrintezza
-	private boolean _isReachToHall = false;
+	private boolean							_isReachToHall				= false;
 
 	// location of invade.
-	private final int[][] _invadeLoc =
-	{
-		{173235,-76884,-5107},
-		{175003,-76933,-5107},
-		{174196,-76190,-5107},
-		{174013,-76120,-5107},
-		{173263,-75161,-5107}
-	};
+	private final int[][]					_invadeLoc					=
+																		{
+																		{ 173235, -76884, -5107 },
+																		{ 175003, -76933, -5107 },
+																		{ 174196, -76190, -5107 },
+																		{ 174013, -76120, -5107 },
+																		{ 173263, -75161, -5107 } };
 
 	// task
-	protected ScheduledFuture<?> _InvadeTask = null;
-	protected ScheduledFuture<?> _RegistrationTimeInfoTask = null;
-	protected ScheduledFuture<?> _Room1SpawnTask = null;
-	protected ScheduledFuture<?> _Room2InsideDoorOpenTask = null;
-	protected ScheduledFuture<?> _Room2OutsideSpawnTask = null;
-	protected ScheduledFuture<?> _CheckTimeUpTask = null;
+	protected ScheduledFuture<?>			_InvadeTask					= null;
+	protected ScheduledFuture<?>			_RegistrationTimeInfoTask	= null;
+	protected ScheduledFuture<?>			_Room1SpawnTask				= null;
+	protected ScheduledFuture<?>			_Room2InsideDoorOpenTask	= null;
+	protected ScheduledFuture<?>			_Room2OutsideSpawnTask		= null;
+	protected ScheduledFuture<?>			_CheckTimeUpTask			= null;
 
 	// Constructor
 	public LastImperialTombManager()
@@ -98,7 +97,7 @@ public class LastImperialTombManager extends BossLair
 	// instance.
 	public static LastImperialTombManager getInstance()
 	{
-		if(_instance == null)
+		if (_instance == null)
 			_instance = new LastImperialTombManager();
 
 		return _instance;
@@ -129,13 +128,13 @@ public class LastImperialTombManager extends BossLair
 		_room1Doors.clear();
 		_room1Doors.add(DoorTable.getInstance().getDoor(25150042));
 
-		for(int i = 25150051;i <= 25150058;i++)
+		for (int i = 25150051; i <= 25150058; i++)
 		{
 			_room1Doors.add(DoorTable.getInstance().getDoor(i));
 		}
 
 		_room2InsideDoors.clear();
-		for(int i = 25150061;i <= 25150070;i++)
+		for (int i = 25150061; i <= 25150070; i++)
 		{
 			_room2InsideDoors.add(DoorTable.getInstance().getDoor(i));
 		}
@@ -145,17 +144,17 @@ public class LastImperialTombManager extends BossLair
 
 		_room3Door = DoorTable.getInstance().getDoor(25150046);
 
-		for(L2DoorInstance door : _room1Doors)
+		for (L2DoorInstance door : _room1Doors)
 		{
 			door.closeMe();
 		}
 
-		for(L2DoorInstance door : _room2InsideDoors)
+		for (L2DoorInstance door : _room2InsideDoors)
 		{
 			door.closeMe();
 		}
 
-		for(L2DoorInstance door : _room2OutsideDoors)
+		for (L2DoorInstance door : _room2OutsideDoors)
 		{
 			door.closeMe();
 		}
@@ -189,21 +188,21 @@ public class LastImperialTombManager extends BossLair
 			return false;
 		}
 
-		if(_commander == null)
+		if (_commander == null)
 		{
-			if(pc.getParty() != null)
+			if (pc.getParty() != null)
 			{
-				if(pc.getParty().getCommandChannel() != null)
+				if (pc.getParty().getCommandChannel() != null)
 				{
-					if(pc.getParty().getCommandChannel().getChannelLeader() == pc &&
-						pc.getParty().getCommandChannel().getPartys().size() >= Config.LIT_MIN_PARTY_CNT &&
-						pc.getParty().getCommandChannel().getPartys().size() <= Config.LIT_MAX_PARTY_CNT &&
-						pc.getInventory().getInventoryItemCount(SCROLL, -1) >= 1)
-							return true;
+					if (pc.getParty().getCommandChannel().getChannelLeader() == pc
+							&& pc.getParty().getCommandChannel().getPartys().size() >= Config.LIT_MIN_PARTY_CNT
+							&& pc.getParty().getCommandChannel().getPartys().size() <= Config.LIT_MAX_PARTY_CNT
+							&& pc.getInventory().getInventoryItemCount(SCROLL, -1) >= 1)
+						return true;
 				}
 			}
 		}
-		
+
 		pc.sendMessage("You must be the commander of a party channel and possess a \"Frintezza's Magic Force Field Removal Scroll\".");
 		return false;
 	}
@@ -223,11 +222,11 @@ public class LastImperialTombManager extends BossLair
 			return false;
 		}
 
-		if(_partyLeaders.size() < Config.LIT_MAX_PARTY_CNT)
+		if (_partyLeaders.size() < Config.LIT_MAX_PARTY_CNT)
 		{
-			if(pc.getParty() != null)
+			if (pc.getParty() != null)
 			{
-				if(pc.getParty().getLeader() == pc && pc.getInventory().getInventoryItemCount(SCROLL, -1) >= 1)
+				if (pc.getParty().getLeader() == pc && pc.getInventory().getInventoryItemCount(SCROLL, -1) >= 1)
 					return true;
 			}
 		}
@@ -263,7 +262,7 @@ public class LastImperialTombManager extends BossLair
 			return false;
 		}
 
-		if(_registedPlayers.contains(pc))
+		if (_registedPlayers.contains(pc))
 		{
 			pc.sendMessage("You are already registered.");
 			return false;
@@ -275,8 +274,8 @@ public class LastImperialTombManager extends BossLair
 			return false;
 		}
 
-		if(_registedPlayers.size() < Config.LIT_MAX_PLAYER_CNT)
-			if(pc.getInventory().getInventoryItemCount(SCROLL, -1) >= 1)
+		if (_registedPlayers.size() < Config.LIT_MAX_PLAYER_CNT)
+			if (pc.getInventory().getInventoryItemCount(SCROLL, -1) >= 1)
 				return true;
 
 		pc.sendMessage("You have to possess a \"Frintezza's Magic Force Field Removal Scroll\".");
@@ -284,145 +283,146 @@ public class LastImperialTombManager extends BossLair
 	}
 
 	// registration to enter to tomb.
-	public synchronized void registration(L2PcInstance pc,L2NpcInstance npc)
+	public synchronized void registration(L2PcInstance pc, L2NpcInstance npc)
 	{
-		switch(Config.LIT_REGISTRATION_MODE)
+		switch (Config.LIT_REGISTRATION_MODE)
 		{
-			case 0:
-				if(_commander != null) return;
-				_commander = pc;
-				if(_InvadeTask != null)
-					_InvadeTask.cancel(true);
-				_InvadeTask =
-					ThreadPoolManager.getInstance().scheduleGeneral(new Invade(),10000);
-				break;
-			case 1:
-				if(_partyLeaders.contains(pc)) return;
-				_partyLeaders.add(pc);
-
-				if(_partyLeaders.size() == 1)
-					_RegistrationTimeInfoTask =
-						ThreadPoolManager.getInstance().scheduleGeneral(new AnnouncementRegstrationInfo(npc,Config.LIT_REGISTRATION_TIME * 60000),1000);
-				break;
-			case 2:
-				if(_registedPlayers.contains(pc)) return;
-				_registedPlayers.add(pc);
-				if(_registedPlayers.size() == 1)
-					_RegistrationTimeInfoTask =
-						ThreadPoolManager.getInstance().scheduleGeneral(new AnnouncementRegstrationInfo(npc,Config.LIT_REGISTRATION_TIME * 60000),1000);
-				break;
-			default:
-				_log.warn("LastImperialTombManager: Invalid Registration Mode!");
+		case 0:
+			if (_commander != null)
 				return;
+			_commander = pc;
+			if (_InvadeTask != null)
+				_InvadeTask.cancel(true);
+			_InvadeTask = ThreadPoolManager.getInstance().scheduleGeneral(new Invade(), 10000);
+			break;
+		case 1:
+			if (_partyLeaders.contains(pc))
+				return;
+			_partyLeaders.add(pc);
+
+			if (_partyLeaders.size() == 1)
+				_RegistrationTimeInfoTask = ThreadPoolManager.getInstance().scheduleGeneral(
+						new AnnouncementRegstrationInfo(npc, Config.LIT_REGISTRATION_TIME * 60000), 1000);
+			break;
+		case 2:
+			if (_registedPlayers.contains(pc))
+				return;
+			_registedPlayers.add(pc);
+			if (_registedPlayers.size() == 1)
+				_RegistrationTimeInfoTask = ThreadPoolManager.getInstance().scheduleGeneral(
+						new AnnouncementRegstrationInfo(npc, Config.LIT_REGISTRATION_TIME * 60000), 1000);
+			break;
+		default:
+			_log.warn("LastImperialTombManager: Invalid Registration Mode!");
+			return;
 		}
 	}
 
 	// announcement of remaining time of registration to players.
-	protected void doAnnouncementRegstrationInfo(L2NpcInstance npc,int remaining)
+	protected void doAnnouncementRegstrationInfo(L2NpcInstance npc, int remaining)
 	{
 		CreatureSay cs = null;
 
-		if(remaining == (Config.LIT_REGISTRATION_TIME * 60000))
+		if (remaining == (Config.LIT_REGISTRATION_TIME * 60000))
 		{
-			cs = new CreatureSay(npc.getObjectId(),1,npc.getName(), "Entrance is now possible.");
+			cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "Entrance is now possible.");
 			npc.broadcastPacket(cs);
 		}
 
-		if(remaining >= 10000)
+		if (remaining >= 10000)
 		{
-			if(remaining > 60000)
+			if (remaining > 60000)
 			{
-				cs = new CreatureSay(npc.getObjectId(),1,npc.getName(), (remaining / 60000) + " minute(s) left for entrance.");
+				cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), (remaining / 60000) + " minute(s) left for entrance.");
 				npc.broadcastPacket(cs);
 				remaining = remaining - 60000;
 
-				switch(Config.LIT_REGISTRATION_MODE)
+				switch (Config.LIT_REGISTRATION_MODE)
 				{
-					case 1:
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(),"For entrance, at least " + Config.LIT_MIN_PARTY_CNT + " parties are needed.");
-						npc.broadcastPacket(cs);
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(), Config.LIT_MAX_PARTY_CNT + " is the maximum party count.");
-						npc.broadcastPacket(cs);
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(),"The current number of registered parties is " + _partyLeaders.size() + ".");
-						npc.broadcastPacket(cs);
-						break;
-					case 2:
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(),"For entrance, at least " + Config.LIT_MIN_PLAYER_CNT + " people are needed.");
-						npc.broadcastPacket(cs);
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(), Config.LIT_MAX_PLAYER_CNT + " is the capacity.");
-						npc.broadcastPacket(cs);
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(), _registedPlayers.size() + " people are currently registered.");
-						npc.broadcastPacket(cs);
-						break;
+				case 1:
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "For entrance, at least " + Config.LIT_MIN_PARTY_CNT + " parties are needed.");
+					npc.broadcastPacket(cs);
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), Config.LIT_MAX_PARTY_CNT + " is the maximum party count.");
+					npc.broadcastPacket(cs);
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "The current number of registered parties is " + _partyLeaders.size() + ".");
+					npc.broadcastPacket(cs);
+					break;
+				case 2:
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "For entrance, at least " + Config.LIT_MIN_PLAYER_CNT + " people are needed.");
+					npc.broadcastPacket(cs);
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), Config.LIT_MAX_PLAYER_CNT + " is the capacity.");
+					npc.broadcastPacket(cs);
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), _registedPlayers.size() + " people are currently registered.");
+					npc.broadcastPacket(cs);
+					break;
 				}
 
-				if(_RegistrationTimeInfoTask != null)
+				if (_RegistrationTimeInfoTask != null)
 					_RegistrationTimeInfoTask.cancel(true);
-				_RegistrationTimeInfoTask = ThreadPoolManager.getInstance().scheduleGeneral(new AnnouncementRegstrationInfo(npc,remaining),60000);
+				_RegistrationTimeInfoTask = ThreadPoolManager.getInstance().scheduleGeneral(new AnnouncementRegstrationInfo(npc, remaining), 60000);
 			}
 			else
 			{
-				cs = new CreatureSay(npc.getObjectId(),1,npc.getName(), (remaining / 60000) + " minute(s) left for entrance.");
+				cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), (remaining / 60000) + " minute(s) left for entrance.");
 				npc.broadcastPacket(cs);
 				remaining = remaining - 10000;
 
-				switch(Config.LIT_REGISTRATION_MODE)
+				switch (Config.LIT_REGISTRATION_MODE)
 				{
-					case 1:
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(),"For entrance, at least " + Config.LIT_MIN_PARTY_CNT + " parties are needed.");
-						npc.broadcastPacket(cs);
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(), Config.LIT_MAX_PARTY_CNT + " is the maximum party count.");
-						npc.broadcastPacket(cs);
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(),"The current number of registered parties is " + _partyLeaders.size() + ".");
-						npc.broadcastPacket(cs);
-						break;
-					case 2:
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(),"For entrance, at least " + Config.LIT_MIN_PLAYER_CNT + " people are needed.");
-						npc.broadcastPacket(cs);
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(), Config.LIT_MAX_PLAYER_CNT + " is the capacity.");
-						npc.broadcastPacket(cs);
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(), _registedPlayers.size() + " people are currently registered.");
-						npc.broadcastPacket(cs);
-						break;
+				case 1:
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "For entrance, at least " + Config.LIT_MIN_PARTY_CNT + " parties are needed.");
+					npc.broadcastPacket(cs);
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), Config.LIT_MAX_PARTY_CNT + " is the maximum party count.");
+					npc.broadcastPacket(cs);
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "The current number of registered parties is " + _partyLeaders.size() + ".");
+					npc.broadcastPacket(cs);
+					break;
+				case 2:
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "For entrance, at least " + Config.LIT_MIN_PLAYER_CNT + " people are needed.");
+					npc.broadcastPacket(cs);
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), Config.LIT_MAX_PLAYER_CNT + " is the capacity.");
+					npc.broadcastPacket(cs);
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), _registedPlayers.size() + " people are currently registered.");
+					npc.broadcastPacket(cs);
+					break;
 				}
 
-				if(_RegistrationTimeInfoTask != null)
+				if (_RegistrationTimeInfoTask != null)
 					_RegistrationTimeInfoTask.cancel(true);
-				_RegistrationTimeInfoTask = ThreadPoolManager.getInstance().scheduleGeneral(new AnnouncementRegstrationInfo(npc,remaining),10000);
+				_RegistrationTimeInfoTask = ThreadPoolManager.getInstance().scheduleGeneral(new AnnouncementRegstrationInfo(npc, remaining), 10000);
 			}
 		}
 		else
 		{
-			cs = new CreatureSay(npc.getObjectId(),1,npc.getName(),"Entrance period ended.");
+			cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "Entrance period ended.");
 			npc.broadcastPacket(cs);
 
-			switch(Config.LIT_REGISTRATION_MODE)
+			switch (Config.LIT_REGISTRATION_MODE)
 			{
-				case 1:
-					if((_partyLeaders.size() < Config.LIT_MIN_PARTY_CNT) || (_partyLeaders.size() > Config.LIT_MAX_PARTY_CNT))
-					{
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(), "Since the conditions were not met, the entrance was refused.");
-						npc.broadcastPacket(cs);
-						return;
-					}
-					break;
-				case 2:
-					if((_registedPlayers.size() < Config.LIT_MIN_PLAYER_CNT) || (_registedPlayers.size() > Config.LIT_MAX_PLAYER_CNT))
-					{
-						cs = new CreatureSay(npc.getObjectId(),1,npc.getName(), "Since the conditions were not met, the entrance was refused.");
-						npc.broadcastPacket(cs);
-						return;
-					}
-					break;
+			case 1:
+				if ((_partyLeaders.size() < Config.LIT_MIN_PARTY_CNT) || (_partyLeaders.size() > Config.LIT_MAX_PARTY_CNT))
+				{
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "Since the conditions were not met, the entrance was refused.");
+					npc.broadcastPacket(cs);
+					return;
+				}
+				break;
+			case 2:
+				if ((_registedPlayers.size() < Config.LIT_MIN_PLAYER_CNT) || (_registedPlayers.size() > Config.LIT_MAX_PLAYER_CNT))
+				{
+					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "Since the conditions were not met, the entrance was refused.");
+					npc.broadcastPacket(cs);
+					return;
+				}
+				break;
 			}
 
-			if(_RegistrationTimeInfoTask != null)
+			if (_RegistrationTimeInfoTask != null)
 				_RegistrationTimeInfoTask.cancel(true);
 
-			if(_InvadeTask != null)
+			if (_InvadeTask != null)
 				_InvadeTask.cancel(true);
-			_InvadeTask =
-				ThreadPoolManager.getInstance().scheduleGeneral(new Invade(),10000);
+			_InvadeTask = ThreadPoolManager.getInstance().scheduleGeneral(new Invade(), 10000);
 		}
 	}
 
@@ -431,33 +431,31 @@ public class LastImperialTombManager extends BossLair
 	{
 		initDoors();
 
-		switch(Config.LIT_REGISTRATION_MODE)
+		switch (Config.LIT_REGISTRATION_MODE)
 		{
-			case 0:
-				doInvadeCc();
-				break;
-			case 1:
-				doInvadePt();
-				break;
-			case 2:
-				doInvadePc();
-				break;
-			default:
-				_log.warn("LastImperialTombManager: Invalid Registration Mode!");
-				return;
+		case 0:
+			doInvadeCc();
+			break;
+		case 1:
+			doInvadePt();
+			break;
+		case 2:
+			doInvadePc();
+			break;
+		default:
+			_log.warn("LastImperialTombManager: Invalid Registration Mode!");
+			return;
 		}
 
 		_isInvaded = true;
 
-		if(_Room1SpawnTask != null)
+		if (_Room1SpawnTask != null)
 			_Room1SpawnTask.cancel(true);
-		_Room1SpawnTask =
-			ThreadPoolManager.getInstance().scheduleGeneral(new SpawnRoom1Mobs1st(),15000);
+		_Room1SpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new SpawnRoom1Mobs1st(), 15000);
 
-		if(_CheckTimeUpTask != null)
+		if (_CheckTimeUpTask != null)
 			_CheckTimeUpTask.cancel(true);
-		_CheckTimeUpTask =
-			ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(Config.LIT_TIME_LIMIT * 60000),15000);
+		_CheckTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(Config.LIT_TIME_LIMIT * 60000), 15000);
 	}
 
 	// invade to tomb. when registration mode is command channel.
@@ -465,7 +463,7 @@ public class LastImperialTombManager extends BossLair
 	{
 		int locId = 0;
 
-		if(_commander.getInventory().getInventoryItemCount(SCROLL, -1) < 1)
+		if (_commander.getInventory().getInventoryItemCount(SCROLL, -1) < 1)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS);
 			_commander.sendPacket(sm);
@@ -479,11 +477,12 @@ public class LastImperialTombManager extends BossLair
 			_commander.destroyItemByItemId("Quest", SCROLL, 1, _commander, true);
 		}
 
-		for(L2Party pt : _commander.getParty().getCommandChannel().getPartys())
+		for (L2Party pt : _commander.getParty().getCommandChannel().getPartys())
 		{
-			if(locId >= 5) locId = 0;
+			if (locId >= 5)
+				locId = 0;
 
-			for(L2PcInstance pc : pt.getPartyMembers())
+			for (L2PcInstance pc : pt.getPartyMembers())
 			{
 				pc.teleToLocation(_invadeLoc[locId][0] + Rnd.get(50), _invadeLoc[locId][1] + Rnd.get(50), _invadeLoc[locId][2]);
 			}
@@ -498,9 +497,9 @@ public class LastImperialTombManager extends BossLair
 		int locId = 0;
 		boolean isReadyToInvade = true;
 
-		for(L2PcInstance ptl : _partyLeaders)
+		for (L2PcInstance ptl : _partyLeaders)
 		{
-			if(ptl.getInventory().getInventoryItemCount(SCROLL, -1) < 1)
+			if (ptl.getInventory().getInventoryItemCount(SCROLL, -1) < 1)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS);
 				ptl.sendPacket(sm);
@@ -513,9 +512,9 @@ public class LastImperialTombManager extends BossLair
 			}
 		}
 
-		if(!isReadyToInvade)
+		if (!isReadyToInvade)
 		{
-			for(L2PcInstance ptl : _partyLeaders)
+			for (L2PcInstance ptl : _partyLeaders)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1);
 				sm.addString("Since the conditions were not met, the entrance was refused.");
@@ -525,16 +524,17 @@ public class LastImperialTombManager extends BossLair
 			return;
 		}
 
-		for(L2PcInstance ptl : _partyLeaders)
+		for (L2PcInstance ptl : _partyLeaders)
 		{
 			ptl.destroyItemByItemId("Quest", SCROLL, 1, _commander, true);
 		}
 
-		for(L2PcInstance ptl : _partyLeaders)
+		for (L2PcInstance ptl : _partyLeaders)
 		{
-			if(locId >= 5) locId = 0;
+			if (locId >= 5)
+				locId = 0;
 
-			for(L2PcInstance pc : ptl.getParty().getPartyMembers())
+			for (L2PcInstance pc : ptl.getParty().getPartyMembers())
 			{
 				pc.teleToLocation(_invadeLoc[locId][0] + Rnd.get(50), _invadeLoc[locId][1] + Rnd.get(50), _invadeLoc[locId][2]);
 			}
@@ -549,9 +549,9 @@ public class LastImperialTombManager extends BossLair
 		int locId = 0;
 		boolean isReadyToInvade = true;
 
-		for(L2PcInstance pc : _registedPlayers)
+		for (L2PcInstance pc : _registedPlayers)
 		{
-			if(pc.getInventory().getInventoryItemCount(SCROLL, -1) < 1)
+			if (pc.getInventory().getInventoryItemCount(SCROLL, -1) < 1)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS);
 				pc.sendPacket(sm);
@@ -564,9 +564,9 @@ public class LastImperialTombManager extends BossLair
 			}
 		}
 
-		if(!isReadyToInvade)
+		if (!isReadyToInvade)
 		{
-			for(L2PcInstance pc : _registedPlayers)
+			for (L2PcInstance pc : _registedPlayers)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1);
 				sm.addString("Since the conditions were not met, the entrance was refused.");
@@ -576,14 +576,15 @@ public class LastImperialTombManager extends BossLair
 			return;
 		}
 
-		for(L2PcInstance pc : _registedPlayers)
+		for (L2PcInstance pc : _registedPlayers)
 		{
 			pc.destroyItemByItemId("Quest", SCROLL, 1, _commander, true);
 		}
 
-		for(L2PcInstance pc : _registedPlayers)
+		for (L2PcInstance pc : _registedPlayers)
 		{
-			if(locId >= 5) locId = 0;
+			if (locId >= 5)
+				locId = 0;
 
 			pc.teleToLocation(_invadeLoc[locId][0] + Rnd.get(50), _invadeLoc[locId][1] + Rnd.get(50), _invadeLoc[locId][2]);
 
@@ -596,63 +597,66 @@ public class LastImperialTombManager extends BossLair
 	{
 		int killCnt = 0;
 
-		for(L2NpcInstance HallAlarmDevice : _hallAlarmDevices)
+		for (L2NpcInstance HallAlarmDevice : _hallAlarmDevices)
 		{
-			if(HallAlarmDevice.isDead()) killCnt++;
+			if (HallAlarmDevice.isDead())
+				killCnt++;
 		}
 
-		switch(killCnt)
+		switch (killCnt)
 		{
-			case 1:
-				if(Rnd.get(100) < 10)
-				{
-					openRoom1Doors();
-					openRoom2OutsideDoors();
-					spawnRoom2InsideMob();
-				}
-				else
-				{
-					if(_Room1SpawnTask != null)
-						_Room1SpawnTask.cancel(true);
-
-					_Room1SpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new SpawnRoom1Mobs2nd(),3000);
-				}
-				break;
-			case 2:
-				if(Rnd.get(100) < 20)
-				{
-					openRoom1Doors();
-					openRoom2OutsideDoors();
-					spawnRoom2InsideMob();
-				}
-				else
-				{
-					if(_Room1SpawnTask != null)
-						_Room1SpawnTask.cancel(true);
-
-					_Room1SpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new SpawnRoom1Mobs3rd(),3000);
-				}
-				break;
-			case 3:
-				if(Rnd.get(100) < 30)
-				{
-					openRoom1Doors();
-					openRoom2OutsideDoors();
-					spawnRoom2InsideMob();
-				}
-				else
-				{
-					if(_Room1SpawnTask != null)
-						_Room1SpawnTask.cancel(true);
-
-					_Room1SpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new SpawnRoom1Mobs4th(),3000);
-				}
-				break;
-			case 4:
+		case 1:
+			if (Rnd.get(100) < 10)
+			{
 				openRoom1Doors();
 				openRoom2OutsideDoors();
 				spawnRoom2InsideMob();
-				break;
+			}
+			else
+			{
+				if (_Room1SpawnTask != null)
+					_Room1SpawnTask.cancel(true);
+
+				_Room1SpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new SpawnRoom1Mobs2nd(), 3000);
+			}
+			break;
+		case 2:
+			if (Rnd.get(100) < 20)
+			{
+				openRoom1Doors();
+				openRoom2OutsideDoors();
+				spawnRoom2InsideMob();
+			}
+			else
+			{
+				if (_Room1SpawnTask != null)
+					_Room1SpawnTask.cancel(true);
+
+				_Room1SpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new SpawnRoom1Mobs3rd(), 3000);
+			}
+			break;
+		case 3:
+			if (Rnd.get(100) < 30)
+			{
+				openRoom1Doors();
+				openRoom2OutsideDoors();
+				spawnRoom2InsideMob();
+			}
+			else
+			{
+				if (_Room1SpawnTask != null)
+					_Room1SpawnTask.cancel(true);
+
+				_Room1SpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new SpawnRoom1Mobs4th(), 3000);
+			}
+			break;
+		case 4:
+			openRoom1Doors();
+			openRoom2OutsideDoors();
+			spawnRoom2InsideMob();
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -661,20 +665,21 @@ public class LastImperialTombManager extends BossLair
 	{
 		int killCnt = 0;
 
-		for(L2NpcInstance DarkChoirPlayer : _room2InsideMonsters)
+		for (L2NpcInstance DarkChoirPlayer : _room2InsideMonsters)
 		{
-			if(DarkChoirPlayer.isDead()) killCnt++;
+			if (DarkChoirPlayer.isDead())
+				killCnt++;
 		}
 
-		if(_room2InsideMonsters.size() <= killCnt)
+		if (_room2InsideMonsters.size() <= killCnt)
 		{
-			if(_Room2InsideDoorOpenTask != null) _Room2InsideDoorOpenTask.cancel(true);
-			if(_Room2OutsideSpawnTask != null) _Room2OutsideSpawnTask.cancel(true);
+			if (_Room2InsideDoorOpenTask != null)
+				_Room2InsideDoorOpenTask.cancel(true);
+			if (_Room2OutsideSpawnTask != null)
+				_Room2OutsideSpawnTask.cancel(true);
 
-			_Room2InsideDoorOpenTask =
-				ThreadPoolManager.getInstance().scheduleGeneral(new OpenRoom2InsideDoors(),3000);
-			_Room2OutsideSpawnTask =
-				ThreadPoolManager.getInstance().scheduleGeneral(new SpawnRoom2OutsideMobs(),4000);
+			_Room2InsideDoorOpenTask = ThreadPoolManager.getInstance().scheduleGeneral(new OpenRoom2InsideDoors(), 3000);
+			_Room2OutsideSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new SpawnRoom2OutsideMobs(), 4000);
 		}
 	}
 
@@ -683,22 +688,23 @@ public class LastImperialTombManager extends BossLair
 	{
 		int killCnt = 0;
 
-		for(L2NpcInstance DarkChoirCaptain : _darkChoirCaptains)
+		for (L2NpcInstance DarkChoirCaptain : _darkChoirCaptains)
 		{
-			if(DarkChoirCaptain.isDead()) killCnt++;
+			if (DarkChoirCaptain.isDead())
+				killCnt++;
 		}
 
-		if(_darkChoirCaptains.size() <= killCnt)
+		if (_darkChoirCaptains.size() <= killCnt)
 		{
 			openRoom2OutsideDoors();
 
-			for(L2NpcInstance mob : _room2OutsideMonsters)
+			for (L2NpcInstance mob : _room2OutsideMonsters)
 			{
 				mob.deleteMe();
 				mob.getSpawn().stopRespawn();
 			}
 
-			for(L2NpcInstance DarkChoirCaptain : _darkChoirCaptains)
+			for (L2NpcInstance DarkChoirCaptain : _darkChoirCaptains)
 			{
 				DarkChoirCaptain.deleteMe();
 				DarkChoirCaptain.getSpawn().stopRespawn();
@@ -708,19 +714,19 @@ public class LastImperialTombManager extends BossLair
 
 	private void openRoom1Doors()
 	{
-		for(L2NpcInstance npc : _hallAlarmDevices)
+		for (L2NpcInstance npc : _hallAlarmDevices)
 		{
 			npc.deleteMe();
 			npc.getSpawn().stopRespawn();
 		}
 
-		for(L2NpcInstance npc : _room1Monsters)
+		for (L2NpcInstance npc : _room1Monsters)
 		{
 			npc.deleteMe();
 			npc.getSpawn().stopRespawn();
 		}
 
-		for(L2DoorInstance door : _room1Doors)
+		for (L2DoorInstance door : _room1Doors)
 		{
 			door.openMe();
 		}
@@ -728,7 +734,7 @@ public class LastImperialTombManager extends BossLair
 
 	protected void openRoom2InsideDoors()
 	{
-		for(L2DoorInstance door : _room2InsideDoors)
+		for (L2DoorInstance door : _room2InsideDoors)
 		{
 			door.openMe();
 		}
@@ -736,7 +742,7 @@ public class LastImperialTombManager extends BossLair
 
 	protected void openRoom2OutsideDoors()
 	{
-		for(L2DoorInstance door : _room2OutsideDoors)
+		for (L2DoorInstance door : _room2OutsideDoors)
 		{
 			door.openMe();
 		}
@@ -745,7 +751,7 @@ public class LastImperialTombManager extends BossLair
 
 	protected void closeRoom2OutsideDoors()
 	{
-		for(L2DoorInstance door : _room2OutsideDoors)
+		for (L2DoorInstance door : _room2OutsideDoors)
 		{
 			door.closeMe();
 		}
@@ -755,7 +761,7 @@ public class LastImperialTombManager extends BossLair
 	private void spawnRoom2InsideMob()
 	{
 		L2NpcInstance mob;
-		for(L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom2InsideSpawnList())
+		for (L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom2InsideSpawnList())
 		{
 			mob = spawn.doSpawn();
 			mob.getSpawn().stopRespawn();
@@ -770,54 +776,53 @@ public class LastImperialTombManager extends BossLair
 
 	protected void doCheckTimeUp(int remaining)
 	{
-		if(_isReachToHall) return;
+		if (_isReachToHall)
+			return;
 
 		CreatureSay cs = null;
 		int timeLeft;
 		int interval;
 
-		if(remaining > 300000)
+		if (remaining > 300000)
 		{
 			timeLeft = remaining / 60000;
 			interval = 300000;
-			cs = new CreatureSay(0,9,"Notice", timeLeft + " minutes left.");
+			cs = new CreatureSay(0, 9, "Notice", timeLeft + " minutes left.");
 			remaining = remaining - 300000;
 		}
 		else if (remaining > 60000)
 		{
 			timeLeft = remaining / 60000;
 			interval = 60000;
-			cs = new CreatureSay(0,9,"Notice", timeLeft + " minutes left.");
+			cs = new CreatureSay(0, 9, "Notice", timeLeft + " minutes left.");
 			remaining = remaining - 60000;
 		}
 		else if (remaining > 30000)
 		{
 			timeLeft = remaining / 1000;
 			interval = 30000;
-			cs = new CreatureSay(0,9,"Notice", timeLeft + " seconds left.");
+			cs = new CreatureSay(0, 9, "Notice", timeLeft + " seconds left.");
 			remaining = remaining - 30000;
 		}
 		else
 		{
 			timeLeft = remaining / 1000;
 			interval = 10000;
-			cs = new CreatureSay(0,9,"Notice", timeLeft + " seconds left.");
+			cs = new CreatureSay(0, 9, "Notice", timeLeft + " seconds left.");
 			remaining = remaining - 10000;
 		}
 
-		for(L2PcInstance pc : getPlayersInside())
+		for (L2PcInstance pc : getPlayersInside())
 		{
 			pc.sendPacket(cs);
 		}
 
-		if(_CheckTimeUpTask != null)
+		if (_CheckTimeUpTask != null)
 			_CheckTimeUpTask.cancel(true);
-		if(remaining >= 10000)
-			_CheckTimeUpTask =
-				ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(remaining),interval);
+		if (remaining >= 10000)
+			_CheckTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(remaining), interval);
 		else
-			_CheckTimeUpTask =
-				ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(),interval);
+			_CheckTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), interval);
 	}
 
 	protected void cleanUpTomb()
@@ -829,12 +834,18 @@ public class LastImperialTombManager extends BossLair
 		_isInvaded = false;
 		_isReachToHall = false;
 
-		if(_InvadeTask != null) _InvadeTask.cancel(true);
-		if(_RegistrationTimeInfoTask != null) _RegistrationTimeInfoTask.cancel(true);
-		if(_Room1SpawnTask != null) _Room1SpawnTask.cancel(true);
-		if(_Room2InsideDoorOpenTask != null) _Room2InsideDoorOpenTask.cancel(true);
-		if(_Room2OutsideSpawnTask != null) _Room2OutsideSpawnTask.cancel(true);
-		if(_CheckTimeUpTask != null) _CheckTimeUpTask.cancel(true);
+		if (_InvadeTask != null)
+			_InvadeTask.cancel(true);
+		if (_RegistrationTimeInfoTask != null)
+			_RegistrationTimeInfoTask.cancel(true);
+		if (_Room1SpawnTask != null)
+			_Room1SpawnTask.cancel(true);
+		if (_Room2InsideDoorOpenTask != null)
+			_Room2InsideDoorOpenTask.cancel(true);
+		if (_Room2OutsideSpawnTask != null)
+			_Room2OutsideSpawnTask.cancel(true);
+		if (_CheckTimeUpTask != null)
+			_CheckTimeUpTask.cancel(true);
 
 		_InvadeTask = null;
 		_RegistrationTimeInfoTask = null;
@@ -847,42 +858,42 @@ public class LastImperialTombManager extends BossLair
 	// delete all mobs from tomb.
 	private void cleanUpMobs()
 	{
-		for(L2NpcInstance mob : _hallAlarmDevices)
+		for (L2NpcInstance mob : _hallAlarmDevices)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
 		}
 		_hallAlarmDevices.clear();
 
-		for(L2NpcInstance mob : _darkChoirPlayers)
+		for (L2NpcInstance mob : _darkChoirPlayers)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
 		}
 		_darkChoirPlayers.clear();
 
-		for(L2NpcInstance mob : _darkChoirCaptains)
+		for (L2NpcInstance mob : _darkChoirCaptains)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
 		}
 		_darkChoirCaptains.clear();
 
-		for(L2NpcInstance mob : _room1Monsters)
+		for (L2NpcInstance mob : _room1Monsters)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
 		}
 		_room1Monsters.clear();
 
-		for(L2NpcInstance mob : _room2InsideMonsters)
+		for (L2NpcInstance mob : _room2InsideMonsters)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
 		}
 		_room2InsideMonsters.clear();
 
-		for(L2NpcInstance mob : _room2OutsideMonsters)
+		for (L2NpcInstance mob : _room2OutsideMonsters)
 		{
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
@@ -902,9 +913,9 @@ public class LastImperialTombManager extends BossLair
 		public void run()
 		{
 			L2NpcInstance mob;
-			for(L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom1SpawnList1st())
+			for (L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom1SpawnList1st())
 			{
-				if(spawn.getNpcid() == 18328)
+				if (spawn.getNpcid() == 18328)
 				{
 					mob = spawn.doSpawn();
 					mob.getSpawn().stopRespawn();
@@ -925,11 +936,11 @@ public class LastImperialTombManager extends BossLair
 		public void run()
 		{
 			L2NpcInstance mob;
-			for(L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom1SpawnList2nd())
+			for (L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom1SpawnList2nd())
 			{
 				mob = spawn.doSpawn();
 				mob.getSpawn().stopRespawn();
-   				_room1Monsters.add(mob);
+				_room1Monsters.add(mob);
 			}
 		}
 	}
@@ -939,11 +950,11 @@ public class LastImperialTombManager extends BossLair
 		public void run()
 		{
 			L2NpcInstance mob;
-			for(L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom1SpawnList3rd())
+			for (L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom1SpawnList3rd())
 			{
 				mob = spawn.doSpawn();
 				mob.getSpawn().stopRespawn();
-   				_room1Monsters.add(mob);
+				_room1Monsters.add(mob);
 			}
 		}
 	}
@@ -953,11 +964,11 @@ public class LastImperialTombManager extends BossLair
 		public void run()
 		{
 			L2NpcInstance mob;
-			for(L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom1SpawnList4th())
+			for (L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom1SpawnList4th())
 			{
 				mob = spawn.doSpawn();
 				mob.getSpawn().stopRespawn();
-   				_room1Monsters.add(mob);
+				_room1Monsters.add(mob);
 			}
 		}
 	}
@@ -975,9 +986,9 @@ public class LastImperialTombManager extends BossLair
 	{
 		public void run()
 		{
-			for(L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom2OutsideSpawnList())
+			for (L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom2OutsideSpawnList())
 			{
-				if(spawn.getNpcid() == 18334)
+				if (spawn.getNpcid() == 18334)
 				{
 					L2NpcInstance mob = spawn.doSpawn();
 					mob.getSpawn().stopRespawn();
@@ -995,10 +1006,10 @@ public class LastImperialTombManager extends BossLair
 
 	private class AnnouncementRegstrationInfo implements Runnable
 	{
-		private L2NpcInstance _npc = null;
-		private int _remaining;
+		private L2NpcInstance	_npc	= null;
+		private int				_remaining;
 
-		public AnnouncementRegstrationInfo(L2NpcInstance npc,int remaining)
+		public AnnouncementRegstrationInfo(L2NpcInstance npc, int remaining)
 		{
 			_npc = npc;
 			_remaining = remaining;
@@ -1006,7 +1017,7 @@ public class LastImperialTombManager extends BossLair
 
 		public void run()
 		{
-			doAnnouncementRegstrationInfo(_npc,_remaining);
+			doAnnouncementRegstrationInfo(_npc, _remaining);
 		}
 	}
 
@@ -1020,7 +1031,7 @@ public class LastImperialTombManager extends BossLair
 
 	private class CheckTimeUp implements Runnable
 	{
-		private int _remaining;
+		private int	_remaining;
 
 		public CheckTimeUp(int remaining)
 		{
@@ -1044,7 +1055,7 @@ public class LastImperialTombManager extends BossLair
 	// When the party is annihilated, they are banished.
 	public void checkAnnihilated()
 	{
-		if(isPlayersAnnihilated())
+		if (isPlayersAnnihilated())
 		{
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 			{

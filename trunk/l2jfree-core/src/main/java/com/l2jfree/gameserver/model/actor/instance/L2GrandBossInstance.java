@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
  * 
  * @version $Revision: 1.0.0.0 $ $Date: 2006/06/16 $
  */
-public final class L2GrandBossInstance extends L2Boss
+public class L2GrandBossInstance extends L2Boss
 {
 	// [L2J_JP ADD SANDMAN]
 	private boolean		_teleportedToNest;

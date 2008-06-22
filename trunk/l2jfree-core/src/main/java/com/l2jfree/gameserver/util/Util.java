@@ -212,6 +212,9 @@ public final class Util
 	 */
 	public static boolean checkIfInRange(int range, L2Object obj1, L2Object obj2, boolean includeZAxis)
 	{
+		if(obj1.getInstanceId()!=obj2.getInstanceId())
+			return false;
+		
 		if (range == -1)
 			return true; // not limited
 

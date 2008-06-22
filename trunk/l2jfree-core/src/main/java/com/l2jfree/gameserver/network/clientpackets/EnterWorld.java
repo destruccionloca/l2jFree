@@ -79,6 +79,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.tools.codec.Base64;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
 
 /**
  * Enter World Packet Handler<p>
@@ -118,6 +119,10 @@ public class EnterWorld extends L2GameClientPacket
 			getClient().closeNow();
 			return;
 		}
+		
+		// restore instance
+		if(Config.RESTORE_PLAYER_INSTANCE)
+			activeChar.setInstanceId(InstanceManager.getInstance().getPlayerInstance(activeChar.getName()));
 
 		// Register in flood protector
 		FloodProtector.getInstance().registerNewPlayer(activeChar.getObjectId());

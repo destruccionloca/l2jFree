@@ -122,6 +122,7 @@ import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.status.Status;
 import com.l2jfree.tools.random.RandomIntGenerator;
 import com.l2jfree.versionning.Version;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
 
 public class GameServer
 {
@@ -195,6 +196,7 @@ public class GameServer
 		GameTimeController.getInstance();
 		TeleportLocationTable.getInstance();
 		BoatManager.getInstance();
+		InstanceManager.getInstance();
 		Util.printSection("Skills");
 		SkillTreeTable.getInstance();
 		SkillsEngine.getInstance();

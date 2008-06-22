@@ -92,7 +92,9 @@ public abstract class L2Summon extends L2PlayableInstance
         getKnownList();	// init knownlist
         getStat();			// init stats
         getStatus();		// init status
-        
+
+        setInstanceId(owner.getInstanceId()); // set instance to owners one
+
         _showSummonAnimation = true;
         _owner = owner;
         _ai = new L2SummonAI(new L2Summon.AIAccessor());
@@ -104,7 +106,6 @@ public abstract class L2Summon extends L2PlayableInstance
     public void onSpawn()
     {
         super.onSpawn();
-        
         this.setFollowStatus(true);
         this.setShowSummonAnimation(false); // addVisibleObject created the info packets with summon animation
                                               // if someone comes into range now, the animation shouldnt show any more

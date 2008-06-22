@@ -453,18 +453,19 @@ public class AdminSpawn implements IAdminCommandHandler
 				spawn.setAmount(1);
 				spawn.setHeading(heading);
 				spawn.setRespawnDelay(Config.STANDARD_RESPAWN_DELAY);
+				spawn.setInstanceId(activeChar.getInstanceId());
 
-				if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcId()) && respawn && !Config.ALT_DEV_NO_SPAWNS)
+				if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcId()) && respawn && !Config.ALT_DEV_NO_SPAWNS && spawn.getInstanceId()==0)
 				{
 					activeChar.sendMessage("You cannot spawn another instance of " + template.getName() + ".");
 				}
-				else if (GrandBossSpawnManager.getInstance().isDefined(spawn.getNpcId()) && respawn && !Config.ALT_DEV_NO_SPAWNS)
+				else if (GrandBossSpawnManager.getInstance().isDefined(spawn.getNpcId()) && respawn && !Config.ALT_DEV_NO_SPAWNS && spawn.getInstanceId()==0)
 				{
 					activeChar.sendMessage("You cannot spawn another instance of " + template.getName() + ".");
 				}
 				else
 				{
-					if (saveInDb && !Config.ALT_DEV_NO_SPAWNS)
+					if (saveInDb && !Config.ALT_DEV_NO_SPAWNS && spawn.getInstanceId()==0)
 					{
 						if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcId()) != null)
 							RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template.getBaseHpMax(), template.getBaseMpMax(), true);
@@ -479,6 +480,7 @@ public class AdminSpawn implements IAdminCommandHandler
 					spawn.init();
 					if (!respawn)
 						spawn.stopRespawn();
+					
 					activeChar.sendMessage("Created " + template.getName() + " on " + target.getX() + " " + target.getY() + " " + target.getZ() + ".");
 				}
 			}

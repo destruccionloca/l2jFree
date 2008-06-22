@@ -473,6 +473,9 @@ public class AdminTeleport implements IAdminCommandHandler
 
 	private void teleportToCharacter(L2PcInstance activeChar, L2Object target)
 	{
+		// move to targets instance
+		activeChar.setInstanceId(target.getInstanceId());
+
 		L2PcInstance player = null;
 		if (target != null && target instanceof L2PcInstance)
 		{
@@ -532,6 +535,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			spawn.setLocz(activeChar.getZ());
 			spawn.setHeading(activeChar.getHeading());
 			spawn.respawnNpc(target);
+			spawn.setInstanceId(activeChar.getInstanceId());
 			SpawnTable.getInstance().updateSpawn(spawn);
 		}
 		else

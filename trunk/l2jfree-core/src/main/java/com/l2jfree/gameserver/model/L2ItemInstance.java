@@ -1277,6 +1277,11 @@ public final class L2ItemInstance extends L2Object
 			y = dropDest.getY();
 			z = dropDest.getZ();
 		}
+		
+        if(dropper != null)
+            setInstanceId(dropper.getInstanceId()); // Inherit instancezone when dropped in visible world
+        else
+            setInstanceId(0); // No dropper? Make it a global item...
 
 		synchronized (this)
 		{

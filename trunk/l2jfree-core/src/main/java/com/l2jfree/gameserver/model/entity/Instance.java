@@ -1,0 +1,296 @@
+package com.l2jfree.gameserver.model.entity;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.concurrent.ScheduledFuture;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import javolution.util.FastList;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+
+import com.l2jfree.Config;
+import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.datatables.NpcTable;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
+import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
+import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
+import com.l2jfree.gameserver.templates.L2NpcTemplate;
+
+/** 
+ * @author evill33t
+ * 
+ */
+public class Instance
+{
+	private final static Log		_log				= LogFactory.getLog(Instance.class.getName());
+
+	private int						_id;
+	private String					_name;
+	private FastList<String>		_players			= new FastList<String>();
+	private FastList<L2NpcInstance>	_npcs				= new FastList<L2NpcInstance>();
+
+	protected ScheduledFuture<?>	_CheckTimeUpTask	= null;
+
+	public Instance(int id)
+	{
+		_id = id;
+	}
+
+	public int getId()
+	{
+		return _id;
+	}
+
+	public String getName()
+	{
+		return _name;
+	}
+
+	public void setName(String name)
+	{
+		_name = name;
+	}
+
+	public boolean containsPlayer(String charName)
+	{
+		if (_players.contains(charName))
+			return true;
+		return false;
+	}
+
+	public void addPlayer(String charName)
+	{
+		if (!_players.contains(charName))
+			_players.add(charName);
+	}
+
+	public void removePlayer(String charName)
+	{
+		L2PcInstance player = L2World.getInstance().getPlayer(charName);
+		if (player != null && player.getInstanceId() == this.getId())
+		{
+			player.setInstanceId(0);
+			player.sendMessage("You was removed from the instance");
+			player.teleToLocation(TeleportWhereType.Town);
+		}
+		_players.remove(charName);
+	}
+
+	public void removeNpc(L2Spawn spawn)
+	{
+		_npcs.remove(spawn);
+	}
+
+	public FastList<String> getPlayers()
+	{
+		return _players;
+	}
+
+	public FastList<L2NpcInstance> getNpcs()
+	{
+		return _npcs;
+	}
+
+	public void removePlayers()
+	{
+		for (String charName : _players)
+		{
+			removePlayer(charName);
+		}
+		_players.clear();
+	}
+
+	public void removeNpcs()
+	{
+		for (L2NpcInstance mob : _npcs)
+		{
+			mob.getSpawn().stopRespawn();
+			mob.deleteMe();
+		}
+		_npcs.clear();
+	}
+
+	public void loadInstanceTemplate(String filename) throws FileNotFoundException
+	{
+		Document doc = null;
+		File xml = new File(Config.DATAPACK_ROOT, "data/instances/" + filename);
+
+		try
+		{
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			factory.setValidating(false);
+			factory.setIgnoringComments(true);
+			doc = factory.newDocumentBuilder().parse(xml);
+
+		}
+		catch (Exception e)
+		{
+			_log.warn("Instance: can not find " + xml.getAbsolutePath() + " !", e);
+		}
+		try
+		{
+			for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
+			{
+				if ("instance".equalsIgnoreCase(n.getNodeName()))
+				{
+					parseInstance(n);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			_log.warn("Instance: error while loading " + xml.getAbsolutePath() + " !", e);
+		}
+	}
+
+	private void parseInstance(Node n) throws Exception
+	{
+		L2Spawn spawnDat;
+		L2NpcTemplate npcTemplate;
+		String name = null;
+		name = n.getAttributes().getNamedItem("name").getNodeValue();
+		setName(name);
+
+		Node a;
+		Node first = n.getFirstChild();
+		for (n = first; n != null; n = n.getNextSibling())
+		{
+			if ("activityTime".equalsIgnoreCase(n.getNodeName()))
+			{
+				a = n.getAttributes().getNamedItem("val");
+				if (a != null)
+					_CheckTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(Integer.parseInt(a.getNodeValue()) * 60000), 15000);
+			}
+			/*			else if ("timeDelay".equalsIgnoreCase(n.getNodeName()))
+						{
+							a = n.getAttributes().getNamedItem("val");
+							if (a != null)
+								instance.setTimeDelay(Integer.parseInt(a.getNodeValue()));
+						}*/
+			else if ("spawnlist".equalsIgnoreCase(n.getNodeName()))
+			{
+				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
+				{
+					int npcId = 0, x = 0, y = 0, z = 0, respawn = 0;
+
+					if ("spawn".equalsIgnoreCase(d.getNodeName()))
+					{
+
+						npcId = Integer.parseInt(d.getAttributes().getNamedItem("npcId").getNodeValue());
+						x = Integer.parseInt(d.getAttributes().getNamedItem("x").getNodeValue());
+						y = Integer.parseInt(d.getAttributes().getNamedItem("y").getNodeValue());
+						z = Integer.parseInt(d.getAttributes().getNamedItem("z").getNodeValue());
+						respawn = Integer.parseInt(d.getAttributes().getNamedItem("respawn").getNodeValue());
+
+						npcTemplate = NpcTable.getInstance().getTemplate(npcId);
+						if (npcTemplate != null)
+						{
+							spawnDat = new L2Spawn(npcTemplate);
+							spawnDat.setLocx(x);
+							spawnDat.setLocy(y);
+							spawnDat.setLocz(z);
+							spawnDat.setAmount(1);
+							spawnDat.setRespawnDelay(respawn);
+							if (respawn == 0)
+								spawnDat.stopRespawn();
+							spawnDat.setInstanceId(getId());
+							L2NpcInstance newmob = spawnDat.doSpawn();
+							_npcs.add(newmob);
+						}
+						else
+						{
+							_log.warn("Instance: Data missing in NPC table for ID: " + npcTemplate + " in Instance " + getId());
+						}
+					}
+				}
+			}
+		}
+		if (_log.isDebugEnabled())
+			_log.info(name + " Instance Template for Instance " + getId() + " loaded");
+	}
+
+	protected void doCheckTimeUp(int remaining)
+	{
+		CreatureSay cs = null;
+		int timeLeft;
+		int interval;
+
+		if (remaining > 300000)
+		{
+			timeLeft = remaining / 60000;
+			interval = 300000;
+			cs = new CreatureSay(0, 9, "Notice", timeLeft + " minutes left.");
+			remaining = remaining - 300000;
+		}
+		else if (remaining > 60000)
+		{
+			timeLeft = remaining / 60000;
+			interval = 60000;
+			cs = new CreatureSay(0, 9, "Notice", timeLeft + " minutes left.");
+			remaining = remaining - 60000;
+		}
+		else if (remaining > 30000)
+		{
+			timeLeft = remaining / 1000;
+			interval = 30000;
+			cs = new CreatureSay(0, 9, "Notice", timeLeft + " seconds left.");
+			remaining = remaining - 30000;
+		}
+		else
+		{
+			timeLeft = remaining / 1000;
+			interval = 10000;
+			cs = new CreatureSay(0, 9, "Notice", timeLeft + " seconds left.");
+			remaining = remaining - 10000;
+		}
+
+		for (String charName : _players)
+		{
+			L2PcInstance player = L2World.getInstance().getPlayer(charName);
+			if (player != null && player.getInstanceId() == getId())
+			{
+				player.sendPacket(cs);
+			}
+		}
+
+		if (_CheckTimeUpTask != null)
+			_CheckTimeUpTask.cancel(true);
+		if (remaining >= 10000)
+			_CheckTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(remaining), interval);
+		else
+			_CheckTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), interval);
+	}
+
+	private class CheckTimeUp implements Runnable
+	{
+		private int	_remaining;
+
+		public CheckTimeUp(int remaining)
+		{
+			_remaining = remaining;
+		}
+
+		public void run()
+		{
+			doCheckTimeUp(_remaining);
+		}
+	}
+
+	private class TimeUp implements Runnable
+	{
+		public void run()
+		{
+			InstanceManager.getInstance().destroyInstance(getId());
+		}
+	}
+
+}

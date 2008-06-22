@@ -83,6 +83,15 @@ public class ObjectKnownList
     {
         if (object == null) return false;
 
+        // instance -1 for gms can see everything on all instances 
+        if(getActiveObject().getInstanceId() != -1 && (object.getInstanceId() != getActiveObject().getInstanceId()))
+            return false;
+        
+        // check if the object is i a l2pcinstance in ghost mode
+        if(object instanceof L2PcInstance && ((L2PcInstance)object).getAppearance().isGhost())
+        	return false;
+        	
+        
         // Check if already know object
         if (knowsObject(object))
         {

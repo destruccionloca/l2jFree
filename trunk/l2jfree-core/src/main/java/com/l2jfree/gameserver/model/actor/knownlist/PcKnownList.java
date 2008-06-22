@@ -94,7 +94,10 @@ public class PcKnownList extends PlayableKnownList
     public boolean addKnownObject(L2Object object, L2Character dropper)
     {
         if (!super.addKnownObject(object, dropper)) return false;
-
+        
+        if(object instanceof L2PcInstance && ((L2PcInstance)object).inObserverMode())
+        	return false;
+        
         if (object.getPoly().isMorphed() && object.getPoly().getPolyType().equals("item"))
         {
             //if (object.getPolytype().equals("item"))

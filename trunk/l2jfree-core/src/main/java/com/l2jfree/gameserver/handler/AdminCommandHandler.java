@@ -51,6 +51,7 @@ import com.l2jfree.gameserver.handler.admincommandhandlers.AdminGmChat;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminHeal;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminHelpPage;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminIRC;
+import com.l2jfree.gameserver.handler.admincommandhandlers.AdminInstance;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminInvul;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminJail;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminKick;
@@ -142,6 +143,7 @@ public class AdminCommandHandler
 		registerAdminCommandHandler(new AdminHeal());
 		registerAdminCommandHandler(new AdminHelpPage());
 		registerAdminCommandHandler(new AdminInvul());
+		registerAdminCommandHandler(new AdminInstance());
 		registerAdminCommandHandler(new AdminKick());
 		registerAdminCommandHandler(new AdminKill());
 		registerAdminCommandHandler(new AdminLevel());
