@@ -60,8 +60,6 @@ public final class ThreadPoolManager
 			new LinkedBlockingQueue<Runnable>(), new L2ThreadFactory("Executor", Thread.NORM_PRIORITY),
 			new L2RejectedExecutionHandler());
 	
-	private boolean _shutdown;
-	
 	private ThreadPoolManager()
 	{
 		_log.info("ThreadPoolManager: Initialized with " + Config.THREAD_POOL_SIZE + " threads...");
