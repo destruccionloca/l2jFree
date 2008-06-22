@@ -802,7 +802,7 @@ INSERT INTO `armor` VALUES
 (6658,'Ring of Baium','rfinger,lfinger','true','none',150,'gold','s',0,-1,0,48,21,1730000,86,'true','true','true','true','3561-1'),
 (6659,'Zaken\'s Earring','rear,lear','true','none',150,'gold','s',0,-1,0,71,31,2590000,129,'true','true','true','true','3559-1'),
 (6660,'Ring of Queen Ant','rfinger,lfinger','true','none',150,'gold','b',0,-1,0,48,21,616000,82,'true','true','true','true','3562-1'),
-(6661,'Earring of Orfen','rear,lear','true','none',150,'gold','a',0,-1,0,71,31,1300000,104,'true','true','true','true','3562-1'),
+(6661,'Earring of Orfen','rear,lear','true','none',150,'gold','a',0,-1,0,71,31,1300000,104,'true','true','true','true','3560-1'),
 (6662,'Ring of Core','rfinger,lfinger','true','none',150,'gold','a',0,-1,0,48,21,870000,69,'true','true','true','true','3563-1'),
 (6674,'Sealed Imperial Crusader Breastplate','chest','true','heavy',7620,'scale_of_dragon','s',0,-1,193,0,0,14300000,715,'true','true','true','true',''),
 (6675,'Sealed Imperial Crusader Gaiters','legs','true','heavy',3260,'scale_of_dragon','s',0,-1,121,0,0,8960000,448,'true','true','true','true',''),
