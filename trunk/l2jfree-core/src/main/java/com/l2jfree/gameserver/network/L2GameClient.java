@@ -19,7 +19,6 @@ import java.nio.ByteBuffer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
-import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -504,15 +503,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	@Override
 	protected void onDisconnection()
 	{
-		// no long running tasks here, do it async
-		try
-		{
-			ThreadPoolManager.getInstance().executeTask(new DisconnectTask());
-		}
-		catch (RejectedExecutionException e)
-		{
-			// server is closing
-		}
+		ThreadPoolManager.getInstance().executeTask(new DisconnectTask());
 	}
 
 	/**

@@ -17,27 +17,23 @@ package com.l2jfree.status;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.StringTokenizer;
-
-
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.sql.ResultSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -339,9 +335,6 @@ public class GameStatusThread extends Thread
 				{
 					_print.println("The following is a list of all available debug commands: ");
 					_print.println("decay			   - prints info about the DecayManager");
-					_print.println("PacketTP			- prints info about the General Packet ThreadPool");
-					_print.println("IOPacketTP		  - prints info about the I/O Packet ThreadPool");
-					_print.println("GeneralTP		   - prints info about the General ThreadPool");
 				}
 				else if (_usrCommand.equals("status"))
 				{
@@ -824,80 +817,9 @@ public class GameStatusThread extends Thread
 					try
 					{
 						String dbg = st.nextToken();
-
+						
 						if (dbg.equals("decay"))
-						{
-							_print.print(DecayTaskManager.getInstance().toString());
-						}
-						else if (dbg.equals("ai"))
-						{
-							/*
-							 * _print.println("AITaskManagerStats"); for(String
-							 * line : AITaskManager.getInstance().getStats()) {
-							 * _print.println(line); }
-							 */
-						}
-						else if (dbg.equals("aiflush"))
-						{
-							// AITaskManager.getInstance().flush();
-						}
-						else if (dbg.equals("PacketTP"))
-						{
-							String str = ThreadPoolManager.getInstance().getPacketStats();
-							_print.println(str);
-							int i = 0;
-							File f = new File("./log/StackTrace-PacketTP-" + i + ".txt");
-							while (f.exists())
-							{
-								i++;
-								f = new File("./log/StackTrace-PacketTP-" + i + ".txt");
-							}
-							f.getParentFile().mkdirs();
-							FileOutputStream fos = new FileOutputStream(f);
-							OutputStreamWriter out = new OutputStreamWriter(fos, "UTF-8");
-							out.write(str);
-							out.flush();
-							out.close();
-							fos.close();
-						}
-						else if (dbg.equals("IOPacketTP"))
-						{
-							String str = ThreadPoolManager.getInstance().getIOPacketStats();
-							_print.println(str);
-							int i = 0;
-							File f = new File("./log/StackTrace-IOPacketTP-" + i + ".txt");
-							while (f.exists())
-							{
-								i++;
-								f = new File("./log/StackTrace-IOPacketTP-" + i + ".txt");
-							}
-							f.getParentFile().mkdirs();
-							FileOutputStream fos = new FileOutputStream(f);
-							OutputStreamWriter out = new OutputStreamWriter(fos, "UTF-8");
-							out.write(str);
-							out.flush();
-							out.close();
-							fos.close();
-						}
-						else if (dbg.equals("GeneralTP"))
-						{
-							String str = ThreadPoolManager.getInstance().getGeneralStats();
-							_print.println(str);
-							int i = 0;
-							File f = new File("./log/StackTrace-GeneralTP-" + i + ".txt");
-							while (f.exists())
-							{
-								i++;
-								f = new File("./log/StackTrace-GeneralTP-" + i + ".txt");
-							}
-							f.getParentFile().mkdirs();
-							FileOutputStream fos = new FileOutputStream(f);
-							OutputStreamWriter out = new OutputStreamWriter(fos, "UTF-8");
-							out.write(str);
-							out.flush();
-							out.close();
-							fos.close();
-						}
+							_print.print(DecayTaskManager.getInstance());
 					}
 					catch (Exception e)
 					{

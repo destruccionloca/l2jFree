@@ -984,12 +984,9 @@ public final class Config
 	public static boolean			SERVER_LIST_CLOCK;											// Displays a clock next to the server name ?
 	public static boolean			SERVER_LIST_TESTSERVER;									// Display test server in the list of servers ?
 	public static boolean			SERVER_GMONLY;												// Set the server as gm only at startup ?
-	public static int				THREAD_P_EFFECTS;											// Thread pool size effect
-	public static int				THREAD_P_GENERAL;											// Thread pool size general
-	public static int				GENERAL_PACKET_THREAD_CORE_SIZE;							// Packet max thread
-	public static int				IO_PACKET_THREAD_CORE_SIZE;
-	public static int				GENERAL_THREAD_CORE_SIZE;									// General max thread
-	public static int				AI_MAX_THREAD;												// AI max thread
+	
+	public static int				THREAD_POOL_SIZE;
+	
 	public static boolean			AUTODELETE_INVALID_QUEST_DATA;								// Auto-delete invalid quest data ?
 	public static boolean			FORCE_INVENTORY_UPDATE;
 	public static boolean			LAZY_CACHE;
@@ -1029,7 +1026,6 @@ public final class Config
 	public static boolean			MOVE_BASED_KNOWNLIST;
 	public static boolean			RESTORE_PLAYER_INSTANCE;
 	public static int				DELETE_DAYS;
-	public static int				FLOODPROTECTOR_INITIALSIZE;								// FloodProtector initial capacity
 	public static int				MAX_DRIFT_RANGE;											// Maximum range mobs can randomly go from spawn point
 	public static boolean			ALLOW_FISHING;
 	public static boolean			ALLOW_MANOR;												// Allow Manor system
@@ -1104,8 +1100,6 @@ public final class Config
 	public static int				MIN_MONSTER_ANIMATION;
 	public static int				MAX_MONSTER_ANIMATION;
 	public static boolean			SHOW_NPC_LVL;									// Show L2Monster level and aggro ?
-	public static int				PACKET_LIFETIME;
-	public static long				PACKET_EXECUTIONTIME;
 	public static boolean			BYPASS_VALIDATION;
 	public static boolean			GAMEGUARD_ENFORCE;
 	public static boolean			GAMEGUARD_PROHIBITACTION;
@@ -1241,22 +1235,12 @@ public final class Config
 
 			AUTODELETE_INVALID_QUEST_DATA = Boolean.parseBoolean(optionsSettings.getProperty("AutoDeleteInvalidQuestData", "False"));
 
-			THREAD_P_EFFECTS = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeEffects", "6"));
-			THREAD_P_GENERAL = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeGeneral", "15"));
-			GENERAL_PACKET_THREAD_CORE_SIZE = Integer.parseInt(optionsSettings.getProperty("GeneralPacketThreadCoreSize", "4"));
-			IO_PACKET_THREAD_CORE_SIZE = Integer.parseInt(optionsSettings.getProperty("UrgentPacketThreadCoreSize", "2"));
-			GENERAL_THREAD_CORE_SIZE = Integer.parseInt(optionsSettings.getProperty("GeneralThreadCoreSize", "4"));
-			AI_MAX_THREAD = Integer.parseInt(optionsSettings.getProperty("AiMaxThread", "10"));
+			THREAD_POOL_SIZE = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSize", "50"));
 
 			DELETE_DAYS = Integer.parseInt(optionsSettings.getProperty("DeleteCharAfterDays", "7"));
 
-			FLOODPROTECTOR_INITIALSIZE = Integer.parseInt(optionsSettings.getProperty("FloodProtectorInitialSize", "50"));
-
 			DEFAULT_PUNISH = Integer.parseInt(optionsSettings.getProperty("DefaultPunish", "2"));
 			DEFAULT_PUNISH_PARAM = Integer.parseInt(optionsSettings.getProperty("DefaultPunishParam", "0"));
-
-			PACKET_LIFETIME = Integer.parseInt(optionsSettings.getProperty("PacketLifeTime", "0"));
-			PACKET_EXECUTIONTIME = Long.parseLong(optionsSettings.getProperty("PacketExecutionTime", "0"));
 
 			BYPASS_VALIDATION = Boolean.parseBoolean(optionsSettings.getProperty("BypassValidation", "True"));
 

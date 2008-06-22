@@ -16,8 +16,6 @@ package com.l2jfree.gameserver.network;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
-import java.util.concurrent.RejectedExecutionException;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -891,25 +889,10 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 
 	public void execute(ReceivablePacket<L2GameClient> rp)
 	{
-		try
-		{
-			if (rp.getClient().getState() == GameClientState.IN_GAME)
-			{
-				ThreadPoolManager.getInstance().executePacket(rp);
-			}
-			else
-			{
-				ThreadPoolManager.getInstance().executeIOPacket(rp);
-			}
-		}
-		catch (RejectedExecutionException e)
-		{
-			// if the server is shutdown we ignore
-			if (!ThreadPoolManager.getInstance().isShutdown())
-			{
-				_log.fatal("Failed executing: " + rp.getClass().getSimpleName() + " for Client: " + rp.getClient().toString());
-			}
-		}
+		if (rp.getClient().getState() == GameClientState.IN_GAME)
+			ThreadPoolManager.getInstance().executePacket(rp);
+		else
+			ThreadPoolManager.getInstance().executeIOPacket(rp);
 	}
 
 	/**

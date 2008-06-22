@@ -36,12 +36,6 @@ public class ConfigHelper
         Config.MAP_TYPE = ObjectMapType.WorldObjectMap;
         Config.SET_TYPE = ObjectSetType.WorldObjectSet;
         
-        Config.THREAD_P_EFFECTS                = 6;
-        Config.THREAD_P_GENERAL                = 15;
-        Config.GENERAL_PACKET_THREAD_CORE_SIZE = 4;
-        Config.IO_PACKET_THREAD_CORE_SIZE      = 2;
-        Config.GENERAL_THREAD_CORE_SIZE        = 4;
-        Config.AI_MAX_THREAD                   = 10;
-        
+        Config.THREAD_POOL_SIZE = 50;
     }
 }
