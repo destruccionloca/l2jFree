@@ -421,7 +421,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			{
 				L2PetInstance targetPet = (L2PetInstance) target;
 				targetPet.setCurrentFed(targetPet.getMaxFed());
-				activeChar.sendPacket(new SetSummonRemainTime(targetPet.getMaxFed(), targetPet.getCurrentFed()));
+				targetPet.getOwner().sendPacket(new SetSummonRemainTime(targetPet.getMaxFed(), targetPet.getCurrentFed()));
 			}
 			else
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));

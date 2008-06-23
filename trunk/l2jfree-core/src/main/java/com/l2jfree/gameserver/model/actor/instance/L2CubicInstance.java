@@ -491,21 +491,8 @@ public class L2CubicInstance
 
 					if (_owner.getPvpFlag() > 0 || _owner.isInsideZone(L2Zone.FLAG_SIEGE) || _owner.isInsideZone(L2Zone.FLAG_SIEGE))
 					{
-						if (_owner.getTarget() instanceof L2Summon)
-						{
-							if (!((L2Summon) _owner.getTarget()).isDead())
-								enemy = ((L2Summon) _owner.getTarget()).getOwner();
-						}
-						else if (_owner.getTarget() instanceof L2Trap)
-						{
-							if (!((L2Trap) _owner.getTarget()).isDead())
-								enemy = ((L2Trap) _owner.getTarget()).getOwner();
-						}
-						else if (_owner.getTarget() instanceof L2PcInstance)
-						{
-							if (!((L2PcInstance) _owner.getTarget()).isDead())
-								enemy = (L2PcInstance) _owner.getTarget();
-						}
+						if (_owner.getTarget() instanceof L2Character && !((L2Character)_owner.getTarget()).isDead())
+							enemy = _owner.getTarget().getActingPlayer();
 
 						if (enemy != null)
 						{

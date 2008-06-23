@@ -186,14 +186,6 @@ public final class RequestRefine extends L2GameClientPacket
 				break;
 		}
 
-		if (gemstoneItem.getCount()-modifyGemstoneCount < 0) return false;
-
-		// consume the life stone
-		if (!player.destroyItem("RequestRefine", refinerItem.getObjectId(), 1, null, false))
-		{
-			return false;
-		}
-		
 		// Prepare inventory update
 		InventoryUpdate iu = new InventoryUpdate();
 
@@ -202,22 +194,26 @@ public final class RequestRefine extends L2GameClientPacket
 			player.destroyItem("RequestRefine", refinerItem, null, false);
 			iu.addRemovedItem(refinerItem);
 		}
-		else
+		else if (refinerItem.getCount() > 1)
 		{
 			player.destroyItem("RequestRefine", refinerItem, 1, null, false);
 			iu.addModifiedItem(refinerItem);
 		}
+		else
+			return false;
 
 		if (gemstoneItem.getCount() == modifyGemstoneCount)
 		{
 			player.destroyItem("RequestRefine", gemstoneItem, null, false);
 			iu.addRemovedItem(gemstoneItem);
 		}
-		else
+		else if (gemstoneItem.getCount() > modifyGemstoneCount)
 		{
 			player.destroyItem("RequestRefine", gemstoneItem, modifyGemstoneCount, null, false);
 			iu.addModifiedItem(gemstoneItem);
 		}
+		else
+			return false;
 
 		// generate augmentation
 		targetItem.setAugmentation(AugmentationData.getInstance().generateRandomAugmentation(targetItem, lifeStoneLevel, lifeStoneGrade));
