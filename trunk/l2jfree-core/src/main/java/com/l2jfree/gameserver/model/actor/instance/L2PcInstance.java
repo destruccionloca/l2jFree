@@ -4595,7 +4595,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					else
 					{
 						((L2PcInstance) killer)
-								.sendMessage("You are a teamkiller !!! Teamkills not allowed, you will get Deathpenalty and your Team will lost one Kill!");
+								.sendMessage("You are a teamkiller! Teamkills are not allowed, you will get death penalty and your team will lose one kill!");
 
 						// Give Penalty for Team-Kill:
 						// 1. Death Penalty + 5
@@ -5266,43 +5266,75 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * <li>Send a Server->Client StatusUpdate packet with its new Experience </li><BR><BR>
 	 *
 	 */
-	public void deathPenalty(boolean atwar, boolean byPc)
+	public void deathPenalty(boolean atwar, boolean killed_by_pc)
 	{
 		//FIXME: Need Correct Penalty
 
 		// Get the level of the L2PcInstance
 		final int lvl = getLevel();
 
-		//The death steal you some Exp
-		double percentLost = 1.0;
-
 		byte level = (byte)getLevel();
+
+		int clan_luck = getSkillLevel(L2Skill.SKILL_CLAN_LUCK);
+
+		double clan_luck_modificator = 1.0;	
+
+		if (!killed_by_pc)
+		{
+			switch (clan_luck)
+			{
+				case 3:
+					clan_luck_modificator = 0.8;
+					break;
+				case 2:
+					clan_luck_modificator = 0.8;
+					break;
+				case 1:
+					clan_luck_modificator = 0.88;
+					break;
+				default:
+					clan_luck_modificator = 1.0;
+					break;
+			}
+		}
+		else
+		{
+			switch (clan_luck)
+			{
+				case 3:
+					clan_luck_modificator = 0.5;
+					break;
+				case 2:
+					clan_luck_modificator = 0.5;
+					break;
+				case 1:
+					clan_luck_modificator = 0.5;
+					break;
+				default:
+					clan_luck_modificator = 1.0;
+					break;
+			}
+		}
+		
+		//The death steal you some Exp
+		double percentLost = (1.0*clan_luck_modificator);
 
 		switch (level)
 		{
-			case 81:
-				percentLost = 1.25;
-				break;
-			case 80:
-				percentLost = 1.5;
-				break;
-			case 79:
-				percentLost = 1.75;
-				break;
 			case 78:
-				percentLost = 2.0;
+				percentLost = (1.5*clan_luck_modificator);
 				break;
 			case 77:
-				percentLost = 2.25;
+				percentLost = (2.0*clan_luck_modificator);
 				break;
 			case 76:
-				percentLost = 2.5;
+				percentLost = (2.5*clan_luck_modificator);
 				break;
 			default:
 				if (level < 40)
-					percentLost = 7.0;
+					percentLost = (7.0*clan_luck_modificator);
 				else if (level >= 40 && level <= 75)
-					percentLost = 4.0;
+					percentLost = (4.0*clan_luck_modificator);
 				break;
 		}
 
@@ -5320,10 +5352,6 @@ public final class L2PcInstance extends L2PlayableInstance
 				lostExp = Math.round((getStat().getExpForLevel(lvl + 1) - getStat().getExpForLevel(lvl)) * percentLost / 100);
 			else
 				lostExp = Math.round((getStat().getExpForLevel(Experience.MAX_LEVEL) - getStat().getExpForLevel(Experience.MAX_LEVEL - 1)) * percentLost / 100);
-			if (byPc)
-				lostExp = (long) calcStat(Stats.LOST_EXP_PVP, lostExp, null, null);
-			else
-				lostExp = (long) calcStat(Stats.LOST_EXP, lostExp, null, null);
 		}
 
 

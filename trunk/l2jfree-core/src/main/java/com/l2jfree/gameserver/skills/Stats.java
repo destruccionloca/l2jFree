@@ -83,6 +83,8 @@ public enum Stats
 	STAT_INT("INT"),
 	STAT_WIT("WIT"),
 	STAT_MEN("MEN"),
+
+	// Unused until DP is updated
 	LOST_EXP("lostExp"),
 	LOST_EXP_PVP("lostExpPvp"),
 	//
