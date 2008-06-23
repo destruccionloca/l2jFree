@@ -860,7 +860,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	}
 
 	@Override
-	public final L2PcInstance getPcFromChar()
+	public final L2PcInstance getActingPlayer()
 	{
 		return getOwner();
 	}

@@ -80,7 +80,7 @@ public class Instance
 		if (player != null && player.getInstanceId() == this.getId())
 		{
 			player.setInstanceId(0);
-			player.sendMessage("You was removed from the instance");
+			player.sendMessage("You were removed from the instance");
 			player.teleToLocation(TeleportWhereType.Town);
 		}
 		_players.remove(objectId);
@@ -293,5 +293,4 @@ public class Instance
 			InstanceManager.getInstance().destroyInstance(getId());
 		}
 	}
-
 }

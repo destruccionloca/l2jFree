@@ -1810,15 +1810,7 @@ public abstract class L2Skill
 			int radius = getSkillRadius();
 			boolean srcInPvP = activeChar.isInsideZone(L2Zone.FLAG_PVP) && !activeChar.isInsideZone(L2Zone.FLAG_SIEGE);
 
-			L2PcInstance src = null;
-			if (activeChar instanceof L2PcInstance)
-				src = (L2PcInstance) activeChar;
-			else if (activeChar instanceof L2Summon)
-				src = ((L2Summon) activeChar).getOwner();
-			else if (activeChar instanceof L2Decoy)
-				src = ((L2Decoy) activeChar).getOwner();
-			else if (activeChar instanceof L2Trap)
-				src = ((L2Trap) activeChar).getOwner();
+			L2PcInstance src = activeChar.getActingPlayer();
 
 			// Go through the L2Character _knownList
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
@@ -1902,13 +1894,7 @@ public abstract class L2Skill
 			int radius = getSkillRadius();
 			boolean srcInArena = activeChar.isInsideZone(L2Zone.FLAG_PVP) && !activeChar.isInsideZone(L2Zone.FLAG_SIEGE);
 
-			L2PcInstance src = null;
-			if (activeChar instanceof L2PcInstance)
-				src = (L2PcInstance) activeChar;
-			else if (activeChar instanceof L2Summon)
-				src = ((L2Summon) activeChar).getOwner();
-			else if (activeChar instanceof L2Trap)
-				src = ((L2Trap) activeChar).getOwner();
+			L2PcInstance src = activeChar.getActingPlayer();
 
 			// Go through the L2Character _knownList
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
@@ -1987,13 +1973,7 @@ public abstract class L2Skill
 			int radius = getSkillRadius();
 			boolean srcInArena = activeChar.isInsideZone(L2Zone.FLAG_PVP) && !activeChar.isInsideZone(L2Zone.FLAG_SIEGE);
 
-			L2PcInstance src = null;
-			if (activeChar instanceof L2PcInstance)
-				src = (L2PcInstance) activeChar;
-			else if (activeChar instanceof L2Summon)
-				src = ((L2Summon) activeChar).getOwner();
-			else if (activeChar instanceof L2Trap)
-				src = ((L2Trap) activeChar).getOwner();
+			L2PcInstance src = activeChar.getActingPlayer();
 
 			// Go through the L2Character _knownList
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
@@ -2093,11 +2073,7 @@ public abstract class L2Skill
 
 			boolean effectOriginIsL2PlayableInstance = (cha instanceof L2PlayableInstance);
 
-			L2PcInstance src = null;
-			if (activeChar instanceof L2PcInstance)
-				src = (L2PcInstance) activeChar;
-			else if (activeChar instanceof L2Summon)
-				src = ((L2Summon) activeChar).getOwner();
+			L2PcInstance src = activeChar.getActingPlayer();
 
 			int radius = getSkillRadius();
 
@@ -2219,13 +2195,7 @@ public abstract class L2Skill
 
 			boolean effectOriginIsL2PlayableInstance = (cha instanceof L2PlayableInstance);
 
-			L2PcInstance src = null;
-			if (activeChar instanceof L2PcInstance)
-				src = (L2PcInstance) activeChar;
-			else if (activeChar instanceof L2Summon)
-				src = ((L2Summon) activeChar).getOwner();
-			else if (activeChar instanceof L2Trap)
-				src = ((L2Trap) activeChar).getOwner();
+			L2PcInstance src = activeChar.getActingPlayer();
 
 			int radius = getSkillRadius();
 
@@ -2352,13 +2322,7 @@ public abstract class L2Skill
 
 			boolean effectOriginIsL2PlayableInstance = (cha instanceof L2PlayableInstance);
 
-			L2PcInstance src = null;
-			if (activeChar instanceof L2PcInstance)
-				src = (L2PcInstance) activeChar;
-			else if (activeChar instanceof L2Summon)
-				src = ((L2Summon) activeChar).getOwner();
-			else if (activeChar instanceof L2Trap)
-				src = ((L2Trap) activeChar).getOwner();
+			L2PcInstance src = activeChar.getActingPlayer();
 
 			int radius = getSkillRadius();
 
@@ -2743,11 +2707,7 @@ public abstract class L2Skill
 			if (activeChar instanceof L2PlayableInstance)
 			{
 				int radius = getSkillRadius();
-				L2PcInstance player = null;
-				if (activeChar instanceof L2Summon)
-					player = ((L2Summon) activeChar).getOwner();
-				else
-					player = (L2PcInstance) activeChar;
+				L2PcInstance player = activeChar.getActingPlayer();
 				if (player == null)
 					return null;
 
@@ -3394,10 +3354,8 @@ public abstract class L2Skill
 			return targetList.toArray(new L2Character[targetList.size()]);
 		}
 
-		if (activeChar instanceof L2PcInstance)
-			acClan = ((L2PcInstance) activeChar).getClan();
-		else if (activeChar instanceof L2Summon)
-			acClan = ((L2Summon) activeChar).getOwner().getClan();
+		if (activeChar.getActingPlayer() != null)
+			acClan = activeChar.getActingPlayer().getClan();
 		else
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));

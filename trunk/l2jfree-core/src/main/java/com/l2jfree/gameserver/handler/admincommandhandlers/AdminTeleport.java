@@ -473,8 +473,12 @@ public class AdminTeleport implements IAdminCommandHandler
 
 	private void teleportToCharacter(L2PcInstance activeChar, L2Object target)
 	{
-		// move to targets instance
-		activeChar.setInstanceId(target.getInstanceId());
+		if (target.getInstanceId() != activeChar.getInstanceId())
+		{
+			// move to targets instance
+			activeChar.setInstanceId(target.getInstanceId());
+			activeChar.sendMessage("Switched to instance "+target.getInstanceId());
+		}
 
 		L2PcInstance player = null;
 		if (target != null && target instanceof L2PcInstance)

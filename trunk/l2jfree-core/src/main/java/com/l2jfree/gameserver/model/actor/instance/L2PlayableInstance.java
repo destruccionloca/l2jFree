@@ -93,13 +93,7 @@ public abstract class L2PlayableInstance extends L2Character
 		if (!super.doDie(killer))
 			return false;
 
-		L2PcInstance player = null;
-		if (killer instanceof L2PcInstance)
-			player = (L2PcInstance) killer;
-		else if (killer instanceof L2Summon)
-			player = ((L2Summon) killer).getOwner();
-		else if (killer instanceof L2Trap)
-			player = ((L2Trap) killer).getOwner();
+		L2PcInstance player = killer.getActingPlayer();
 
 		if (player != null)
 			player.onKillUpdatePvPKarma(this);

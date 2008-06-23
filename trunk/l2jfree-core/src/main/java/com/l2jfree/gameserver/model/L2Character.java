@@ -1225,14 +1225,7 @@ public abstract class L2Character extends L2Object
 			hitted = doAttackHitSimple(attack, target, timeToHit);
 
 		// Flag the attacker if it's a L2PcInstance outside a PvP area
-		L2PcInstance player = null;
-
-		if (this instanceof L2PcInstance)
-			player = (L2PcInstance) this;
-		else if (this instanceof L2Summon)
-			player = ((L2Summon) this).getOwner();
-		else if (this instanceof L2Trap)
-			player = ((L2Trap) this).getOwner();
+		L2PcInstance player = getActingPlayer();
 
 		if (player != null)
 			player.updatePvPStatus(target);
@@ -5952,11 +5945,7 @@ public abstract class L2Character extends L2Object
 
 		if (player.isInOlympiadMode() && target instanceof L2PlayableInstance)
 		{
-			L2PcInstance ptarget;
-			if (target instanceof L2Summon)
-				ptarget = ((L2Summon) target).getOwner();
-			else
-				ptarget = (L2PcInstance) target;
+			L2PcInstance ptarget = target.getActingPlayer();
 
 			if ((ptarget.isInOlympiadMode() && !player.isOlympiadStart()) || (player.getOlympiadGameId() != ptarget.getOlympiadGameId()))
 			{
@@ -6021,30 +6010,17 @@ public abstract class L2Character extends L2Object
 	{
 		if (target == null)
 			return false;
-		if (!(target instanceof L2PlayableInstance) || !(attacker instanceof L2PlayableInstance))
+		if (!(target instanceof L2PlayableInstance && attacker instanceof L2PlayableInstance))
 			return false;
 
 		if (Config.ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE)
 		{
 			// allows red to be attacked and red to attack flagged players
-			if (target instanceof L2PcInstance && ((L2PcInstance) target).getKarma() > 0)
+			if (target.getActingPlayer() != null && target.getActingPlayer().getKarma() > 0)
 				return false;
-			if (target instanceof L2Summon && ((L2Summon) target).getOwner().getKarma() > 0)
-				return false;
-			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getKarma() > 0)
-			{
-				if (target instanceof L2PcInstance && ((L2PcInstance) target).getPvpFlag() > 0)
+			if (attacker.getActingPlayer() != null && attacker.getActingPlayer().getKarma() > 0
+			 && target.getActingPlayer() != null && target.getActingPlayer().getPvpFlag() > 0)
 					return false;
-				if (target instanceof L2Summon && ((L2Summon) target).getOwner().getPvpFlag() > 0)
-					return false;
-			}
-			if (attacker instanceof L2Summon && ((L2Summon) attacker).getOwner().getKarma() > 0)
-			{
-				if (target instanceof L2PcInstance && ((L2PcInstance) target).getPvpFlag() > 0)
-					return false;
-				if (target instanceof L2Summon && ((L2Summon) target).getOwner().getPvpFlag() > 0)
-					return false;
-			}
 		}
 
 		return (((L2Character) attacker).isInsideZone(L2Zone.FLAG_PEACE) || ((L2Character) target).isInsideZone(L2Zone.FLAG_PEACE));
@@ -6774,13 +6750,6 @@ public abstract class L2Character extends L2Object
 			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
 			L2Weapon activeWeapon = getActiveWeaponItem();
 
-			L2PcInstance player = null;
-			if (this instanceof L2PcInstance)
-				player = (L2PcInstance) this;
-			else if (this instanceof L2Summon)
-				player = ((L2Summon) this).getOwner();
-			else if (this instanceof L2Trap)
-				player = ((L2Trap) this).getOwner();
 
 			for (L2Object trg : targets)
 			{
@@ -6846,6 +6815,7 @@ public abstract class L2Character extends L2Object
 			else
 				skill.useSkill(this, targets);
 
+			L2PcInstance player = getActingPlayer();
 			if (player != null)
 			{
 				for (L2Object target : targets)
@@ -6869,18 +6839,7 @@ public abstract class L2Character extends L2Object
 											((L2Character) target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
 										}
 
-										if (target instanceof L2Summon)
-										{
-											player.updatePvPStatus(((L2Summon) target).getOwner());
-										}
-										else if (target instanceof L2Trap)
-										{
-											player.updatePvPStatus(((L2Trap) target).getOwner());
-										}
-										else
-										{
-											player.updatePvPStatus((L2PcInstance) target);
-										}
+										player.updatePvPStatus(target.getActingPlayer());
 									}
 								}
 								else if (target instanceof L2Attackable)

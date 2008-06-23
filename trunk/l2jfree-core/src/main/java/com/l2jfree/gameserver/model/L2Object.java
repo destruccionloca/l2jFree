@@ -527,6 +527,11 @@ public abstract class L2Object
 		}
 	}
 
+	public L2PcInstance getActingPlayer()
+	{
+		return null;
+	}
+
 	/**
 	 * Basic implementation of toString to print the object id
 	 */
@@ -538,31 +543,10 @@ public abstract class L2Object
 
 	public boolean isInFunEvent()
 	{
-		if (this instanceof L2PcInstance)
+		if (getActingPlayer() != null)
 		{
-			return ((L2PcInstance) this).isInFunEvent();
-		}
-		if (this instanceof L2PetInstance)
-		{
-			return ((L2PetInstance) this).getOwner().isInFunEvent();
-		}
-		if (this instanceof L2SummonInstance)
-		{
-			return ((L2SummonInstance) this).getOwner().isInFunEvent();
+			return getActingPlayer().isInFunEvent();
 		}
 		return false;
-	}
-
-	public L2PcInstance getPcFromChar()
-	{
-		return null;
-	}
-
-	public static final L2PcInstance getPcFromChar(L2Object obj)
-	{
-		if (obj == null)
-			return null;
-		else
-			return obj.getPcFromChar();
 	}
 }

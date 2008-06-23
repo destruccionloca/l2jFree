@@ -438,16 +438,9 @@ public class L2Attackable extends L2NpcInstance
         // Notify the Quest Engine of the L2Attackable death if necessary
         try
         {
-            if (killer instanceof L2PcInstance || killer instanceof L2Summon || killer instanceof L2Trap)
+            L2PcInstance player = killer.getActingPlayer();
+            if (player != null)
             {
-                L2PcInstance player = null;
-                
-                if (killer instanceof L2PcInstance)
-                    player = (L2PcInstance)killer;
-                else if (killer instanceof L2Summon)
-                    player = ((L2Summon)killer).getOwner();
-                else if (killer instanceof L2Trap)
-                    player = ((L2Trap)killer).getOwner();
                 
                 if (getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL) != null)
                 {
@@ -1350,10 +1343,7 @@ public class L2Attackable extends L2NpcInstance
      */
     public void doItemDrop(L2NpcTemplate npcTemplate, L2Character lastAttacker)
     {
-        L2PcInstance player = null;
-        if (lastAttacker instanceof L2PcInstance) player = (L2PcInstance)lastAttacker;
-        else if (lastAttacker instanceof L2Summon) player = ((L2Summon)lastAttacker).getOwner();
-        else if (lastAttacker instanceof L2Trap) player = ((L2Trap)lastAttacker).getOwner();
+        L2PcInstance player = lastAttacker.getActingPlayer();
 
         if (player == null) return; // Don't drop anything if the last attacker or ownere isn't L2PcInstance
 
@@ -1653,8 +1643,10 @@ public class L2Attackable extends L2NpcInstance
             if (Rnd.get(L2DropData.MAX_CHANCE) < drop.chance)
             {
                 RewardItem item = new RewardItem(drop.items[Rnd.get(drop.items.length)], Rnd.get(drop.min, drop.max));
-                if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-                else dropItem(player, item); // drop the item on the ground
+                if (Config.AUTO_LOOT)
+                    player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
+                else
+                    dropItem(player, item); // drop the item on the ground
             }
         }
     }

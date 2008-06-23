@@ -48,7 +48,7 @@ public class BlessedSpiritShot implements IItemHandler
 		if (!(playable instanceof L2PcInstance))
 			return;
 		
-		synchronized (playable.getPcFromChar().getItemHandlerLock())
+		synchronized (playable.getActingPlayer().getItemHandlerLock())
 		{
 		
 		L2PcInstance activeChar = (L2PcInstance) playable;

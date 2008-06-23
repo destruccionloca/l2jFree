@@ -356,28 +356,10 @@ public class L2CubicInstance
 			// TvT event targeting
 			if (TvT._started && _owner._inEventTvT)
 			{
-				if (_owner.getTarget() instanceof L2PcInstance)
+				if (_owner.getTarget() != null && _owner.getTarget().getActingPlayer() != null)
 				{
-					L2PcInstance target = (L2PcInstance) _owner.getTarget();
+					L2PcInstance target = _owner.getTarget().getActingPlayer();
 					if (!(target._teamNameTvT.equals(_owner._teamNameTvT)) && !((L2PcInstance) _owner.getTarget()).isDead())
-					{
-						_target = (L2Character) _owner.getTarget();
-						return;
-					}
-				}
-				else if (_owner.getTarget() instanceof L2Summon)
-				{
-					L2Summon target = (L2Summon) _owner.getTarget();
-					if (!(target.getOwner()._teamNameTvT.equals(_owner._teamNameTvT)) && !((L2Summon) _owner.getTarget()).isDead())
-					{
-						_target = (L2Character) _owner.getTarget();
-						return;
-					}
-				}
-				else if (_owner.getTarget() instanceof L2Trap)
-				{
-					L2Trap target = (L2Trap) _owner.getTarget();
-					if (!(target.getOwner()._teamNameTvT.equals(_owner._teamNameTvT)) && !((L2Trap) _owner.getTarget()).isDead())
 					{
 						_target = (L2Character) _owner.getTarget();
 						return;
@@ -573,23 +555,7 @@ public class L2CubicInstance
 				// get enemy pvp targets
 				else if (_owner.getPvpFlag() > 0 || _owner.isInsideZone(L2Zone.FLAG_SIEGE) || _owner.isInsideZone(L2Zone.FLAG_PVP))
 				{
-					enemy = null;
-					if (TgMob instanceof L2Summon)
-					{
-						if (!((L2Summon) TgMob).isDead())
-							enemy = ((L2Summon) TgMob).getOwner();
-					}
-					else if (TgMob instanceof L2Trap)
-					{
-						if (!((L2Trap) TgMob).isDead())
-							enemy = ((L2Trap) TgMob).getOwner();
-					}
-					else if (TgMob instanceof L2PcInstance)
-					{
-						if (!((L2PcInstance) TgMob).isDead())
-							enemy = (L2PcInstance) TgMob;
-					}
-
+					enemy = TgMob.isDead() ? null : TgMob.getActingPlayer();
 					if (enemy != null)
 					{
 						boolean TargetIt = true;

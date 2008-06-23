@@ -150,7 +150,7 @@ public class Potions implements IItemHandler
 			return;
 		}
 		
-		synchronized (playable.getPcFromChar().getItemHandlerLock())
+		synchronized (playable.getActingPlayer().getItemHandlerLock())
 		{
 		
 		int itemId = item.getItemId();

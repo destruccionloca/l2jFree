@@ -135,6 +135,12 @@ public abstract class L2Decoy extends L2Character
     {
         return _owner;
     }
+
+    @Override
+    public L2PcInstance getActingPlayer()
+    {
+        return _owner;
+    }
     
     @Override
     public L2NpcTemplate getTemplate()

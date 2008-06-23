@@ -47,92 +47,92 @@ public class L2Trap extends L2Character
 	 * @see com.l2jfree.gameserver.model.L2Character#onSpawn()
 	 */
 	@Override
-    public void onSpawn()
-    {
-        super.onSpawn();
-    }
+	public void onSpawn()
+	{
+		super.onSpawn();
+	}
 
 	/**
 	 *
 	 * @see com.l2jfree.gameserver.model.L2Object#onAction(com.l2jfree.gameserver.model.actor.instance.L2PcInstance)
 	 */
 	@Override
-    public void onAction(L2PcInstance player)
-    {
-        player.setTarget(this);
-        MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-        player.sendPacket(my);
-    }
+	public void onAction(L2PcInstance player)
+	{
+		player.setTarget(this);
+		MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
+		player.sendPacket(my);
+	}
 
 	/**
 	 *
 	 *
 	 */
 	public void stopDecay()
-    {
-        DecayTaskManager.getInstance().cancelDecayTask(this);
-    }
+	{
+		DecayTaskManager.getInstance().cancelDecayTask(this);
+	}
 
 	/**
 	 *
 	 * @see com.l2jfree.gameserver.model.L2Character#onDecay()
 	 */
 	@Override
-    public void onDecay()
-    {
-        deleteMe(_owner);
-    }
+	public void onDecay()
+	{
+		deleteMe(_owner);
+	}
 
 	/**
 	 *
 	 * @return
 	 */
 	public final int getNpcId()
-    {
-        return getTemplate().getNpcId();
-    }
+	{
+		return getTemplate().getNpcId();
+	}
 
 	/**
 	 *
 	 * @see com.l2jfree.gameserver.model.L2Object#isAutoAttackable(com.l2jfree.gameserver.model.L2Character)
 	 */
 	@Override
-    public boolean isAutoAttackable(L2Character attacker)
-    {
-        return _owner.isAutoAttackable(attacker);
-    }
+	public boolean isAutoAttackable(L2Character attacker)
+	{
+		return _owner.isAutoAttackable(attacker);
+	}
 
 	/**
 	 *
 	 * @param owner
 	 */
-    public void deleteMe(L2PcInstance owner)
-    {
-        decayMe();
-        getKnownList().removeAllKnownObjects();
-        owner.setTrap(null);
-    }
+	public void deleteMe(L2PcInstance owner)
+	{
+		decayMe();
+		getKnownList().removeAllKnownObjects();
+		owner.setTrap(null);
+	}
 
-    /**
-     *
-     * @param owner
-     */
-    public synchronized void unSummon(L2PcInstance owner)
-    {
-        if (isVisible() && !isDead())
-        {
-            if (getWorldRegion() != null)
-                getWorldRegion().removeFromZones(this);
-            owner.setTrap(null);
-            decayMe();
-            getKnownList().removeAllKnownObjects();
-        }
-    }
+	/**
+	 *
+	 * @param owner
+	 */
+	public synchronized void unSummon(L2PcInstance owner)
+	{
+		if (isVisible() && !isDead())
+		{
+			if (getWorldRegion() != null)
+				getWorldRegion().removeFromZones(this);
+			owner.setTrap(null);
+			decayMe();
+			getKnownList().removeAllKnownObjects();
+		}
+	}
 
-    /**
-     *
-     * @see com.l2jfree.gameserver.model.L2Character#getActiveWeaponInstance()
-     */
+	/**
+	 *
+	 * @see com.l2jfree.gameserver.model.L2Character#getActiveWeaponInstance()
+	 */
 	@Override
 	public L2ItemInstance getActiveWeaponInstance()
 	{
@@ -164,24 +164,30 @@ public class L2Trap extends L2Character
 	 * @return
 	 */
 	public final L2PcInstance getOwner()
-    {
-        return _owner;
-    }
+	{
+		return _owner;
+	}
+
+	@Override
+	public L2PcInstance getActingPlayer()
+	{
+		return _owner;
+	}
 
 	/**
 	 *
 	 * @see com.l2jfree.gameserver.model.L2Character#getTemplate()
 	 */
-    @Override
-    public L2NpcTemplate getTemplate()
-    {
-        return (L2NpcTemplate) super.getTemplate();
-    }
+	@Override
+	public L2NpcTemplate getTemplate()
+	{
+		return (L2NpcTemplate) super.getTemplate();
+	}
 
-    /**
-     *
-     * @see com.l2jfree.gameserver.model.L2Character#getSecondaryWeaponInstance()
-     */
+	/**
+	 *
+	 * @see com.l2jfree.gameserver.model.L2Character#getSecondaryWeaponInstance()
+	 */
 	@Override
 	public L2ItemInstance getSecondaryWeaponInstance()
 	{

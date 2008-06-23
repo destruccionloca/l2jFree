@@ -22,6 +22,8 @@ import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.entity.Instance;
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Summon;
 
 /** 
  * @author evill33t
@@ -55,7 +57,7 @@ public class AdminInstance implements IAdminCommandHandler
 			String[] parts = command.split(" ");
 			if (parts.length < 2)
 			{
-				activeChar.sendMessage("Example: //createinstance <id> <templatefile> ids )> 300000 are reserved for dynamic instances");
+				activeChar.sendMessage("Example: //createinstance <id> <templatefile> - ids => 300000 are reserved for dynamic instances");
 			}
 			else
 			{
@@ -95,20 +97,33 @@ public class AdminInstance implements IAdminCommandHandler
 				if (InstanceManager.getInstance().getInstance(val) == null)
 				{
 					activeChar.sendMessage("Instance " + val + " doesnt exist.");
-					;
 					return false;
 				}
 				else
 				{
-					activeChar.getTarget().setInstanceId(val);
-					L2PcInstance player = ((L2PcInstance) activeChar.getTarget());
-					if (activeChar.getTarget() instanceof L2PlayableInstance)
+					L2Object target = activeChar.getTarget();
+					if (target == null || target instanceof L2Summon) // Don't separate summons from masters
 					{
-						player.sendMessage("Admin setted your instance to:" + val);
-						InstanceManager.getInstance().getInstance(val).addPlayer(player.getObjectId());
-						player.teleToLocation(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
-						return true;
+						activeChar.sendMessage("Incorrect target.");
+						return false;
 					}
+					target.setInstanceId(val);
+					if (target instanceof L2PcInstance)
+					{
+						L2PcInstance player = (L2PcInstance)target;
+						player.sendMessage("Admin set your instance to:" + val);
+						InstanceManager.getInstance().getInstance(val).addPlayer(player.getObjectId());
+						player.teleToLocation(player.getX(), player.getY(), player.getZ());
+						L2Summon pet = player.getPet();
+						if (pet != null)
+						{
+							pet.setInstanceId(val);
+							pet.teleToLocation(pet.getX(), pet.getY(), pet.getZ());
+							player.sendMessage("Admin set "+pet.getName()+"'s instance to:" + val);
+						}
+					}
+					activeChar.sendMessage("Moved "+target.getName()+" to instance "+target.getInstanceId()+".");
+					return true;
 				}
 			}
 			catch (Exception e)
