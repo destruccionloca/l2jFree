@@ -611,7 +611,7 @@
           val="#accCombat">
           <using kind="Bow" />
         </add>
-        <basemul order="0x30" stat="rCrit" val="0.2"/>
+        <basemul order="0x30" stat="rCrit" val="0.2">
           <using kind="Bow" />
         </basemul>
         <add order="0x40" stat="pAtkRange" val="300">
@@ -634,7 +634,7 @@
         <add order="0x40" stat="accCombat" val="6">
           <using kind="Bow" />
         </add>
-        <basemul order="0x30" stat="rCrit" val="0.2"/>
+        <basemul order="0x30" stat="rCrit" val="0.2">
           <using kind="Bow" />
         </basemul>
         <add order="0x40" stat="pAtkRange" val="300">

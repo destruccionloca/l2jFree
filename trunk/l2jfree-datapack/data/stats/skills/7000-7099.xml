@@ -1005,7 +1005,7 @@
           <and>
             <player behind="True" />
           </and>
-        </mul>
+        </basemul>
         <mul order="0x30" stat="debuffVuln" val="0.9" />
       </effect>
     </for>
