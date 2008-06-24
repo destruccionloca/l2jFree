@@ -476,6 +476,8 @@ public class Siege
                 for (L2PcInstance player : member.getKnownList().getKnownPlayers().values())
                 {
                     player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
+                    if(member.getPet() != null)
+                        player.sendPacket(new RelationChanged(member.getPet(), member.getRelation(player), member.isAutoAttackable(player)));
                 }
                 member.revalidateZone(true);
             }
@@ -491,6 +493,8 @@ public class Siege
                 for (L2PcInstance player : member.getKnownList().getKnownPlayers().values())
                 {
                     player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
+                    if(member.getPet() != null)
+                        player.sendPacket(new RelationChanged(member.getPet(), member.getRelation(player), member.isAutoAttackable(player)));
                 }
                 member.revalidateZone(true);
             }

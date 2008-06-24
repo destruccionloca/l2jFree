@@ -498,6 +498,7 @@ public abstract class L2Skill
 	private final String[]			_negateStats;
 	private final float				_negatePower;
 	private final int				_negateId;
+	private final int				_maxNegatedEffect;
 
 	private final Stats				_stat;
 
@@ -638,6 +639,7 @@ public abstract class L2Skill
 		_negateStats = set.getString("negateStats", "").split(" ");
 		_negatePower = set.getFloat("negatePower", 0.f);
 		_negateId = set.getInteger("negateId", 0);
+		_maxNegatedEffect = set.getInteger("maxNegated", 0);
 		_levelDepend = set.getInteger("lvlDepend", 0);
 		_stat = set.getEnum("stat", Stats.class, null);
 
@@ -894,6 +896,11 @@ public abstract class L2Skill
 	public final int getNegateId()
 	{
 		return _negateId;
+	}
+
+	public final int getMaxNegatedEffects()
+	{
+		return _maxNegatedEffect;
 	}
 
 	public final int getMagicLvl()
@@ -1691,6 +1698,7 @@ public abstract class L2Skill
 			case MANAHEAL:
 			case NEGATE:
 			case CANCEL:
+			case CANCEL_DEBUFF:
 			case REFLECT:
 			case UNBLEED:
 			case UNPOISON:

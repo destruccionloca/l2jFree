@@ -383,6 +383,8 @@ public class FortSiege
 				for (L2PcInstance player : member.getKnownList().getKnownPlayers().values())
 				{
 					player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
+					if(member.getPet() != null)
+						player.sendPacket(new RelationChanged(member.getPet(), member.getRelation(player), member.isAutoAttackable(player)));
 				}
 			}
 		}
@@ -399,6 +401,8 @@ public class FortSiege
 				for (L2PcInstance player : member.getKnownList().getKnownPlayers().values())
 				{
 					player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
+					if(member.getPet() != null)
+						player.sendPacket(new RelationChanged(member.getPet(), member.getRelation(player), member.isAutoAttackable(player)));
 				}
 			}
 		}

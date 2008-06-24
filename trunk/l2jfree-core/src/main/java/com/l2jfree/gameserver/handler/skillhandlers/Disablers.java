@@ -380,7 +380,28 @@ public class Disablers implements ISkillHandler
 			{
 				// do nothing if not on mob
 				if (target instanceof L2Attackable)
-					skill.getEffects(activeChar, target);
+				{
+					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+					{
+						L2Effect[] effects = target.getAllEffects();
+						for (L2Effect e : effects)
+						{
+							if (e.getSkill().getSkillType() == type)
+								e.exit();
+						}
+						skill.getEffects(activeChar, target);
+					}
+					else
+					{
+						if (activeChar instanceof L2PcInstance)
+						{
+							SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+							sm.addCharName(target);
+							sm.addSkillName(skill);
+							activeChar.sendPacket(sm);
+						}
+					}
+				}
 				else
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				break;
@@ -517,12 +538,12 @@ public class Disablers implements ISkillHandler
 			}
 			case UNBLEED:
 			{
-				negateEffect(target, SkillType.BLEED, skill.getPower());
+				negateEffect(target, SkillType.BLEED, skill.getPower(), skill.getMaxNegatedEffects());
 				break;
 			}
 			case UNPOISON:
 			{
-				negateEffect(target, SkillType.POISON, skill.getPower());
+				negateEffect(target, SkillType.POISON, skill.getPower(), skill.getMaxNegatedEffects());
 				break;
 			}
 
@@ -621,9 +642,10 @@ public class Disablers implements ISkillHandler
 				if (effects.length == 0)
 					break;
 
+				int count = (skill.getMaxNegatedEffects() > 0) ? skill.getMaxNegatedEffects() : -2;
 				for (L2Effect e : effects)
 				{
-					if (e.getSkill().isDebuff())
+					if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
 						e.exit();
 				}
 
@@ -659,7 +681,7 @@ public class Disablers implements ISkillHandler
 					if (Rnd.get(100) < landrate)
 					{
 						L2Effect[] effects = target.getAllEffects();
-						int maxfive = 5;
+						int maxfive = skill.getMaxNegatedEffects();
 						for (L2Effect e : effects)
 						{
 							// do not delete signet effects!
@@ -724,7 +746,7 @@ public class Disablers implements ISkillHandler
 					_negatePower = skill.getNegatePower();
 					_negateId = skill.getNegateId();
 
-					negateEffect(target, SkillType.BUFF, _negatePower, _negateId);
+					negateEffect(target, SkillType.BUFF, _negatePower, _negateId, -1);
 					break;
 				}
 				// Touch of Death
@@ -733,7 +755,7 @@ public class Disablers implements ISkillHandler
 					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
 					{
 						L2Effect[] effects = target.getAllEffects();
-						int maxfive = 5;
+						int maxfive = skill.getMaxNegatedEffects();
 						for (L2Effect e : effects)
 						{
 							if (e.getSkill().getSkillType() == SkillType.BUFF || e.getSkill().getSkillType() == SkillType.CONT
@@ -774,10 +796,15 @@ public class Disablers implements ISkillHandler
 				{
 					_negateStats = skill.getNegateStats();
 					_negatePower = skill.getNegatePower();
+					int removedBuffs = (skill.getMaxNegatedEffects() > 0) ? 0 : -2;
 
 					for (String stat : _negateStats)
 					{
+						if (removedBuffs > skill.getMaxNegatedEffects())
+							break;
+
 						stat = stat.toLowerCase().intern();
+
 						if (stat == "buff")
 						{
 							int lvlmodifier = 52 + skill.getMagicLevel() * 2;
@@ -790,33 +817,59 @@ public class Disablers implements ISkillHandler
 							landrate = (int) activeChar.calcStat(Stats.CANCEL_VULN, landrate, target, null);
 
 							if (Rnd.get(100) < landrate)
-								negateEffect(target, SkillType.BUFF, -1);
+								removedBuffs += negateEffect(target, SkillType.BUFF, -1, skill.getMaxNegatedEffects());
 						}
-						if (stat == "debuff")
-							negateEffect(target, SkillType.DEBUFF, -1);
-						if (stat == "weakness")
-							negateEffect(target, SkillType.WEAKNESS, -1);
-						if (stat == "stun")
-							negateEffect(target, SkillType.STUN, -1);
-						if (stat == "sleep")
-							negateEffect(target, SkillType.SLEEP, -1);
-						if (stat == "confusion")
-							negateEffect(target, SkillType.CONFUSION, -1);
-						if (stat == "mute")
-							negateEffect(target, SkillType.MUTE, -1);
-						if (stat == "fear")
-							negateEffect(target, SkillType.FEAR, -1);
-						if (stat == "paralyze")
-							negateEffect(target, SkillType.PARALYZE, -1);
-						if (stat == "root")
-							negateEffect(target, SkillType.ROOT, -1);
-						if (stat == "poison")
-							negateEffect(target, SkillType.POISON, _negatePower);
-						if (stat == "bleed")
-							negateEffect(target, SkillType.BLEED, _negatePower);
-						if (stat == "death_mark")
-							negateEffect(target, SkillType.DEATH_MARK, _negatePower);
-						if (stat == "heal")
+
+						if (stat == "debuff" && removedBuffs < skill.getMaxNegatedEffects())
+							removedBuffs += negateEffect(target,SkillType.DEBUFF,-1, skill.getMaxNegatedEffects());
+						else
+							break;
+						if (stat == "weakness" && removedBuffs < skill.getMaxNegatedEffects())
+							removedBuffs += negateEffect(target,SkillType.WEAKNESS,-1, skill.getMaxNegatedEffects());
+						else
+							break;
+						if (stat == "stun" && removedBuffs < skill.getMaxNegatedEffects())
+							removedBuffs += negateEffect(target,SkillType.STUN,-1, skill.getMaxNegatedEffects());
+						else
+							break;
+						if (stat == "sleep" && removedBuffs < skill.getMaxNegatedEffects())
+							removedBuffs += negateEffect(target,SkillType.SLEEP,-1, skill.getMaxNegatedEffects());
+						else
+							break;
+						if (stat == "confusion" && removedBuffs < skill.getMaxNegatedEffects())
+							removedBuffs += negateEffect(target,SkillType.CONFUSION,-1, skill.getMaxNegatedEffects());
+						else
+							break;
+						if (stat == "mute" && removedBuffs < skill.getMaxNegatedEffects())
+							removedBuffs += negateEffect(target,SkillType.MUTE,-1, skill.getMaxNegatedEffects());
+						else
+							break;
+						if (stat == "fear" && removedBuffs < skill.getMaxNegatedEffects())
+							removedBuffs += negateEffect(target,SkillType.FEAR,-1, skill.getMaxNegatedEffects());
+						else
+							break;
+						if (stat == "poison" && removedBuffs < skill.getMaxNegatedEffects())
+							removedBuffs += negateEffect(target,SkillType.POISON,_negatePower, skill.getMaxNegatedEffects());
+						else
+							break;
+						if (stat == "bleed" && removedBuffs < skill.getMaxNegatedEffects())
+							removedBuffs += negateEffect(target,SkillType.BLEED,_negatePower, skill.getMaxNegatedEffects());
+						else
+							break;
+						if (stat == "paralyze" && removedBuffs < skill.getMaxNegatedEffects())
+							removedBuffs += negateEffect(target,SkillType.PARALYZE,-1, skill.getMaxNegatedEffects());
+						else
+							break;
+						if (stat == "root" && removedBuffs < skill.getMaxNegatedEffects())
+							removedBuffs += negateEffect(target,SkillType.ROOT,-1, skill.getMaxNegatedEffects());
+						else
+							break;
+						if (stat == "death_mark" && removedBuffs < skill.getMaxNegatedEffects())
+							removedBuffs += negateEffect(target, SkillType.DEATH_MARK, _negatePower, skill.getMaxNegatedEffects());
+						else
+							break;
+
+						if (stat == "heal" && removedBuffs < skill.getMaxNegatedEffects())
 						{
 							ISkillHandler Healhandler = SkillHandler.getInstance().getSkillHandler(SkillType.HEAL);
 							if (Healhandler == null)
@@ -824,8 +877,7 @@ public class Disablers implements ISkillHandler
 								_log.fatal("Couldn't find skill handler for HEAL.");
 								continue;
 							}
-							L2Object tgts[] = new L2Object[]
-							{ target };
+							L2Object tgts[] = new L2Object[] { target };
 							try
 							{
 								Healhandler.useSkill(activeChar, skill, tgts);
@@ -920,36 +972,48 @@ public class Disablers implements ISkillHandler
 					if (effects.length == 0)
 						break;
 
+					int count = (skill.getMaxNegatedEffects() > 0) ? skill.getMaxNegatedEffects() : -2;
 					for (L2Effect e : effects)
 					{
-						if (e.getSkill().isDebuff())
+						if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
+						{
 							e.exit();
+							count++;
+						}
 					}
 					break;
 			}
 		}
 	}
 
-	private void negateEffect(L2Character target, SkillType type, double power)
+	private int negateEffect(L2Character target, SkillType type, double power, int maxRemoved)
 	{
-		negateEffect(target, type, power, 0);
+		return negateEffect(target, type, power, 0, maxRemoved);
 	}
 
-	private void negateEffect(L2Character target, SkillType type, double power, int skillId)
+	private int negateEffect(L2Character target, SkillType type, double power, int skillId, int maxRemoved)
 	{
 		L2Effect[] effects = target.getAllEffects();
+		int count = (maxRemoved <= 0 )? -2 : 0;
 		for (L2Effect e : effects)
+		{
 			if (power == -1) // if power is -1 the effect is always removed without power/lvl check ^^
 			{
 				if (e.getSkill().getSkillType() == type || (e.getSkill().getEffectType() != null && e.getSkill().getEffectType() == type))
 				{
 					if (skillId != 0)
 					{
-						if (skillId == e.getSkill().getId())
+						if (skillId == e.getSkill().getId() && count < maxRemoved)
+						{
 							e.exit();
+							count++;
+						}
 					}
-					else
+					else if (count < maxRemoved)
+					{
 						e.exit();
+						count++;
+					}
 				}
 			}
 			else if ((e.getSkill().getSkillType() == type && e.getSkill().getPower() <= power)
@@ -957,12 +1021,21 @@ public class Disablers implements ISkillHandler
 			{
 				if (skillId != 0)
 				{
-					if (skillId == e.getSkill().getId())
+					if (skillId == e.getSkill().getId() && count < maxRemoved)
+					{
 						e.exit();
+						count++;
+					}
 				}
-				else
+				else if (count < maxRemoved)
+				{
 					e.exit();
+					count++;
+				}
 			}
+		}
+
+		return  (maxRemoved <= 0) ? count + 2 : count;
 	}
 
 	public SkillType[] getSkillIds()

@@ -14,14 +14,18 @@
  */
 package com.l2jfree.gameserver.model;
 
+import java.util.Collection;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.GeoData;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2SummonAI;
 import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.model.L2Attackable.AggroInfo;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
@@ -43,6 +47,7 @@ import com.l2jfree.gameserver.network.serverpackets.PetDelete;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
 import com.l2jfree.gameserver.network.serverpackets.PetStatusShow;
 import com.l2jfree.gameserver.network.serverpackets.PetStatusUpdate;
+import com.l2jfree.gameserver.network.serverpackets.RelationChanged;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
@@ -120,6 +125,11 @@ public abstract class L2Summon extends L2PlayableInstance
 		this.setShowSummonAnimation(false); // addVisibleObject created the info packets with summon animation
 		// if someone comes into range now, the animation shouldnt show any more
 		this.getOwner().sendPacket(new PetInfo(this));
+
+		getOwner().sendPacket(new RelationChanged(this, getOwner().getRelation(getOwner()), false));
+
+		for (L2PcInstance player : getOwner().getKnownList().getKnownPlayersInRadius(800))
+			player.sendPacket(new RelationChanged(this, getOwner().getRelation(player), isAutoAttackable(player)));
 
 		L2Party party = this.getOwner().getParty();
 		if (party != null)
@@ -206,7 +216,7 @@ public abstract class L2Summon extends L2PlayableInstance
 			player.sendPacket(new PetStatusShow(this));
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
-		else
+		else if (player.getTarget() != this)
 		{
 			if (_log.isDebugEnabled())
 				_log.debug("new target selected:" + getObjectId());
@@ -219,6 +229,37 @@ public abstract class L2Summon extends L2PlayableInstance
 			su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
 			su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
 			player.sendPacket(su);
+		}
+		else if (player.getTarget() == this)
+		{
+			if (isAutoAttackable(player))
+			{
+				if (Config.GEODATA)
+				{
+					if (GeoData.getInstance().canSeeTarget(player, this))
+					{
+						player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+						player.onActionRequest();
+					}
+				}
+				else
+				{
+					player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+					player.onActionRequest();
+				}
+			}
+			else
+			{
+				// This Action Failed packet avoids player getting stuck when clicking three or more times
+				player.sendPacket(ActionFailed.STATIC_PACKET);
+				if (Config.GEODATA)
+				{
+					if (GeoData.getInstance().canSeeTarget(player, this))
+						player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
+				}
+				else
+					player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
+			}
 		}
 	}
 
@@ -310,6 +351,27 @@ public abstract class L2Summon extends L2PlayableInstance
 	{
 		if (!super.doDie(killer))
 			return false;
+
+		L2PcInstance owner = getOwner();
+
+		if (owner != null)
+		{
+			Collection<L2Character> KnownTarget = getKnownList().getKnownCharacters();
+			for (L2Character TgMob : KnownTarget)
+			{
+				// get the mobs which have aggro on the this instance
+				if (TgMob instanceof L2Attackable)
+				{
+					if (((L2Attackable) TgMob).isDead())
+						continue;
+					
+					AggroInfo info = ((L2Attackable) TgMob).getAggroListRP().get(this);
+					if (info != null)
+						((L2Attackable) TgMob).addDamageHate(owner, info._damage, info._hate);
+				}
+			}
+		}
+
 		DecayTaskManager.getInstance().addDecayTask(this);
 		return true;
 	}

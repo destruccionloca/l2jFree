@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
+import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -44,6 +45,7 @@ public class EffectTargetMe extends L2Effect
 			getEffected().setTarget(getEffector());
 			MyTargetSelected my = new MyTargetSelected(getEffector().getObjectId(), 0);
 			getEffected().sendPacket(my);
+			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getEffector());
 		}
 	}
 
