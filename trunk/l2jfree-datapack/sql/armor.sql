@@ -1326,6 +1326,7 @@ INSERT INTO `armor` VALUES
 (10318,'Agathion Seal Bracelet - Little Angel Escape','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3423-1;3267-1'),
 (10319,'Agathion Seal Bracelet - Little Angel Resurrection','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3423-1;3267-1'),
 (10320,'Agathion Seal Bracelet - Little Angel','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3423-1;3267-1;'),
+(10321,'Shadow Item - Golden Viking Circlet','hairall','true','none',10,'wood','none',0,500,0,0,0,0,0,'true','true','true','true',''),
 (10322,'Agathion Seal Bracelet - Little Devil Firecracker','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3424-1;3267-1'),
 (10323,'Agathion Seal Bracelet - Little Devil Big Head','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3424-1;3267-1'),
 (10324,'Agathion Seal Bracelet - Little Devil Escape','lbracelet','true','none',150,'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3424-1;3267-1'),
