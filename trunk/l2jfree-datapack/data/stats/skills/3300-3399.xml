@@ -601,7 +601,7 @@
     name="Dynasty Leather Armor - Bow Master">
     <!--
       Description(s):
-      Con-2, Dex+2, Evasion +4.3, MaxHP +321. Increase Darkness Resistance +8, increase Atk Spd, increase MP recovery rate.
+      Con-2, Dex+2, Evasion +4.3, MaxHP +492. Increase Darkness Resistance +8, increase hold resistance, increase Atk Spd.
     -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />

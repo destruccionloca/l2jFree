@@ -1033,7 +1033,7 @@ INSERT INTO `npc` VALUES
 (16022, 16022, "Tame Tiny Baby Cougar", 0, "", 0, "Monster2.baby_tiger", 20, 31, 99, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced"),
 (16023, 16023, "Tiny Baby Kookaburra", 0, "", 0, "Monster2.baby_ostrich", 20, 31, 99, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced"),
 (16024, 16024, "Tame Tiny Baby Kookaburra", 0, "", 0, "Monster2.baby_ostrich", 20, 31, 99, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced"),
-(16025, 16025, "Great Wolf", 0, "", 0, "LineageMonster4.Pet_Wolf_B", 32, 21.41, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 304, 0, 333, 9661, 0, NULL, 45, 170, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced"),
+(16025, 16025, "Great Wolf", 0, "", 0, "LineageMonster4.Pet_Wolf_B", 32, 21.41, 55, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 304, 0, 333, 9661, 0, NULL, 45, 170, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced"),
 (16026, 16026, "Beastly Agathion", 0, "", 0, "LineageNPC2.Agathion_BF", 32, 23.56, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced"),
 (16027, 16027, "Rainbow Agathion", 0, "", 0, "LineageNPC2.Agathion_RA", 32, 23.56, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced"),
 (16028, 16028, "Lord Agathion", 0, "", 0, "LineageNPC2.Agathion_CL", 32, 23.56, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced"),
@@ -8484,6 +8484,7 @@ REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSid
 
 UPDATE `npc` SET `type`='L2Pet' WHERE `id`=16025;
 UPDATE `npc` SET `type`='L2Pet' WHERE `id`=16030;
+UPDATE `npc` SET `level`=55 WHERE `id`=16025;
 UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=30731;
 UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=30827;
 UPDATE `npc` SET `type`='L2PetManager' WHERE `id`=30828;
