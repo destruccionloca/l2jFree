@@ -24,9 +24,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -437,11 +439,40 @@ public class AdminEditChar implements IAdminCommandHandler
 				player = (L2PcInstance) target;
 			else
 				return false;
+			if (Config.ALT_EXTENDEDHERO_ANNOUNCE)
+			{
+				if (player.isHero()) // If player is Hero already, remove the status
+				{
+					player.setHero(false);
+					player.sendMessage(player.getName() + ", your Hero status was removed!");
+					GmListTable.broadcastMessageToGMs("Hero status was removed from " + player.getName());
+					// PublicPlayerHeroAnnounce
+					// If this is enabled in AltSettings, it will broadcast a public announce about the target player Hero Status
+					if (Config.ALT_PUBLICHERO_ANNOUNCE) 
+					{
+						Announcements.getInstance().announceToAll(player.getName() + " lost his Hero status!");
+					} 
+					
+				} else {
+					player.setHero(true); // Grant Hero status to player
+					player.sendMessage(player.getName() + " you have been granted with the Hero status!");
+					player.broadcastPacket(new SocialAction(player.getObjectId(), 16));					
+					GmListTable.broadcastMessageToGMs("Hero status was granted to " + player.getName());
+					// PublicPlayerHeroAnnounce
+					// If this is enabled in AltSettings, it will broadcast a public announce about the target player Hero Status
+					if (Config.ALT_PUBLICHERO_ANNOUNCE)
+					{
+						Announcements.getInstance().announceToAll(player.getName() + " gain the Hero status!");
+					} 
+				}
+			}
+			/**
 			player.setHero(player.isHero() ? false : true);
 			if (player.isHero())
 				player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
 			player.sendMessage("Admin changed your hero status");
 			player.broadcastUserInfo();
+			*/
 		}
 		// [L2J_JP ADD END]
 		else if (command.equals("admin_remclanwait"))
