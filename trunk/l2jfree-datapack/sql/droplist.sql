@@ -28391,3 +28391,299 @@ INSERT INTO droplist (mobId,itemId,`min`,`max`,category,chance) VALUES
 (29068,7575,1,1,5,200000),
 (29068,8751,2,4,200,166666),
 (29068,8752,3,4,200,540000);
+
+
+-- s80 droplist.sql patch by OE for all the mobs that drop Orichalcum *based on data from L2WH.com
+-- Data for the chance of most of the spoils was guested due to lack of useful info
+-- quest items? -- Spirit of the Lake 9689 -- Darion's Badge 9674 -- Mark of Betrayal 9676 - no they are regular drops (at least darions badge)
+-- named wrong? -- Ancient Tome of the Demon xxxx (remark evill33t: called HELIOS ITEM in etcitem its on my todo)
+				   
+-- Dark Water Dragon (83) : 22267
+DELETE FROM `droplist` WHERE `mobId` = 22267;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+(  22267,     6690,      1,      1,         -1,     5200), -- Imperial Staff Head
+(  22267,     6901,      1,      1,         -1,     6200), -- Recipe: Shining Arrow (100%)
+-- default (  22267,       57,  19270,  39270,          0,   700000), -- Adena
+(  22267,       57,   9270,  19270,          0,   700000), -- Adena
+(  22267,     5541,      1,      1,          1,    23250), -- Tallum Glaive Edge [A]
+(  22267,     4040,      1,      1,          2,    66660), -- Mold Lubricant [B]
+(  22267,     9628,      1,      1,          2,    37030), -- Leonard
+(  22267,     9630,      1,      1,          2,    23250), -- Orichalcum
+(  22267,     9596,      1,      1,          3,   800000); -- Red Seed of Evil - Shard  
+					   
+					   
+-- SandStorm (84) : 22340  *listed as lvl 1 in db
+DELETE FROM `droplist` WHERE `mobId` = 22340;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+(  22340,       57,  12770,  25550,          0,   700000), -- Adena
+-- default(  22340,     1895,      1,      3,          1,   333330), -- Metallic Fiber					   
+(  22340,     1895,      1,      1,          1,    33333), -- Metallic Fiber					   
+(  22340,     4040,      1,      1,          1,    58820), -- Mold Lubricant					   
+(  22340,     9630,      1,      1,          1,    19230); -- Orichalcum		
+-- named wrong? (  22340,     xxxx,      1,      3,          2,   550000), -- Ancient Tome of the Demon					   
+
+					   
+-- Fafurion's Henchman (83) : not in spawnlist
+DELETE FROM `droplist` WHERE `mobId` = 22312;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+-- default(  22312,     6690,      1,      1,         -1,    32000), -- Imperial Staff Head
+(  22312,     6690,      1,      1,         -1,    3200), -- Imperial Staff Head
+-- default (  22312,       57,  10710,  37270,          0,   700000), -- Adena						   
+(  22312,       57,   1071,   3727,          0,   700000), -- Adena						   
+(  22312,     5515,      1,      1,          1,    12340), -- Sealed Majestic Gauntlets Design						   
+(  22312,     5503,      1,      1,          1,    29410), -- Sealed Majestic Boots Lining						   
+(  22312,     5514,      1,      1,          1,    24390), -- Sealed Gauntlets of Nightmare Design						   
+(  22312,     5502,      1,      1,          1,    32250), -- Sealed Boots of Nightmare Lining
+(  22312,     9628,      1,      1,          2,     4160), -- Leonard
+-- default (  22312,     1895,      1,      3,          2,    83330), -- Metallic Fiber						   
+(  22312,     1895,      1,      1,          2,    83330), -- Metallic Fiber						   
+(  22312,     4040,      1,      1,          2,    52630), -- Mold Lubricant						   
+(  22312,     9630,      1,      1,          2,    17240), -- Orichalcum						   
+(  22312,     9546,      1,      1,          3,    12340); -- Fire Stone						   
+					   
+					   
+-- Flame Iris (82) : marked as 1 lvl 1 Npc in db / not in spawnlist
+DELETE FROM `droplist` WHERE `mobId` = 22419;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+-- default(  22419,       57,   3436,   6984,         0,    700000), -- Adena
+(  22419,       57,   1718,   3492,         0,    700000), -- Adena
+-- default (  22419,     1895,      1,      1,         1,      4545), -- Metallic Fiber					   
+(  22419,     1895,      1,      1,         1,      4545), -- Metallic Fiber					   
+(  22419,     9630,      1,      1,         1,     15150); -- Orichalcum
+
+					   
+-- Gatekeeper Of The Square (81) : not in spawnlist
+DELETE FROM `droplist` WHERE `mobId` = 22276;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+-- default(  22276,       57,   3912,   7643,         0,    700000), -- Adena	
+(  22276,       57,   1956,   3821,         0,    700000), -- Adena	
+-- default(  22276,     1344,     10,     30,         1,    333330), -- Mithril Arrow
+(  22276,     1344,      1,     3,         1,      13333), -- Mithril Arrow
+(  22276,     4040,      1,      1,         2,     14920), -- Mold Lubricant					   					   
+(  22276,     9630,      1,      1,         2,     14920); -- Orichalcum	
+
+					   
+-- Plaza Caiman (82) : not in spawnlist / lvl 1 in db
+DELETE FROM `droplist` WHERE `mobId` = 22281;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+(  22281,       57,   1459,   3211,          0,   700000), -- Adena
+(  22281,     1895,      1,      1,          0,     6710), -- Metalic Fiber
+(  22281,     9630,      1,      1,          0,    13510); -- Orichalcum					   
+
+					   
+-- Arcane Watchman (83) : lvl 1 in db
+DELETE FROM `droplist` WHERE `mobId` = 22329;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+(  22329,     6901,      1,      1,         -1,     2765), -- Recipe: Shinning Arrow (100%)	
+-- default (  22329,     6708,      1,      1,         -1,    38000), -- Sealed Draconic Leather Gloves Fabric						   
+(  22329,     6708,      1,      1,         -1,    15000), -- Sealed Draconic Leather Gloves Fabric						   
+-- default (  22329,     6707,      1,      1,         -1,    38000), -- Sealed Draconic Leather Armor Part						   
+(  22329,     6707,      1,      1,         -1,    15000), -- Sealed Draconic Leather Armor Part						   
+-- default(  22329,       57,  33250,  66640,          0,   700000), -- Adena						   
+(  22329,       57,  16625,  33320,          0,   700000), -- Adena						   
+(  22329,     5534,      1,      1,          1,    38460), -- Soul Bow Stave						   
+-- default (  22329,     1344,    303,    894,          2,   142850), -- Mithril Arrow
+(  22329,     1344,     30,     89,          2,    14285), -- Mithril Arrow
+(  22329,     5534,      1,      1,          3,    20830), -- Leonard						   
+(  22329,     4040,      1,      1,          3,    83330), -- Mold Lubricant						   
+-- default (  22329,     1895,     12,     36,          3,    41660), -- Metallic Fiber						   
+(  22329,     1895,      1,      3,          3,    41660), -- Metallic Fiber						   
+(  22329,     9630,      1,      1,          3,     9090), -- Orichalcum
+(  22329,     9551,      1,      1,          4,     3890), -- Divine Stone
+-- named wrong? (  22329,     xxxx,      2,      6,          5,   750000), -- Ancient Tome of the Demon						   
+(  22329,     9674,      1,      1,          6,   166660); -- Darion's Badge						   
+
+					   
+-- Junior Watchman (83) : lvl 1 in db
+DELETE FROM `droplist` WHERE `mobId` = 22320;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+-- default (  22320,     1895,      1,      3,         -1,   350000), -- Metallic Fiber					   
+(  22320,     1895,      1,      3,         -1,    35000), -- Metallic Fiber					   
+(  22320,     4040,      1,      2,         -1,   125000), -- Mold Lubricant					   
+(  22320,      960,      1,      2,         -1,    23000), -- Scroll: Enchant Armor (S)
+-- default (  22320,       57,  16450,  32970,          0,   700000), -- Adena					   
+(  22320,       57,   1645,   3297,          0,   700000), -- Adena					   
+(  22320,     5523,      1,      1,          1,     9250), -- Sealed Majestic Plate Armor Pattern 					   
+(  22320,     5522,      1,      1,          1,    12040), -- Sealed Armor of Nightmare Pattern					   
+-- default (  22320,     1895,      1,      3,          2,   250000), -- Metallic Fiber					   
+(  22320,     1895,      1,      3,          2,    25000), -- Metallic Fiber					   
+(  22320,     4040,      1,      1,          2,    37030), -- Mold Lubricant					   
+(  22320,     9628,      1,      1,          2,    10630), -- Leonard 					   
+(  22320,     9630,      1,      1,          2,     5880), -- Orichalcum 
+-- named wrong? (  22320,     xxxx,      1,      3,          3,   720000), -- Ancient Tome of the Demon					   
+(  22320,     9674,      1,      1,          4,   100000), -- Darion's Badge					   
+(  22320,     9551,      1,      1,          5,     5100); -- Divine Stone 
+
+-- Arcane Guardian (83) : lvl 1 in db
+DELETE FROM `droplist` WHERE `mobId` = 22328;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+(  22328,     1885,      1,      7,         -1,     5200), -- High Grade Suede
+-- default (  22328,       57,  13010,  26080,          0,   700000), -- Adena
+(  22328,       57,   6505,  13040,          0,   700000), -- Adena
+(  22328,      270,      1,      1,          1,      330), -- Dragon Grinder
+(  22328,     5538,      1,      1,          2,    12650), -- Dragon Grinder Edge					   
+-- default (  22328,     1344,     60,    179,          3,   125000), -- Mithril Arrow					   
+(  22328,     1344,      6,     18,          3,    12500), -- Mithril Arrow					   
+(  22328,     9629,      1,      1,          4,      660), -- Adamantine					   
+(  22328,     1879,      1,      1,          4,   142850), -- Cokes					   
+(  22328,     1885,      1,      1,          4,    71420), -- High Grade Suede					   
+(  22328,     9628,      1,      1,          4,     4670), -- Leonard					   
+(  22328,     9630,      1,      1,          4,     1660), -- Orichalcum					   
+-- named wrong? (  22328,       xxxx,      1,      3,          5,   590000), -- Ancient Tome of the Demon					   
+(  22328,     9674,      1,      1,          6,    47610), -- Darion's Badge					   
+(  22328,     9551,      1,      1,          7,     2660), -- Divine Stone					   
+(  22328,     9573,      1,      1,          8,     5000), -- Life Stone: level 80					   
+(  22328,     9574,      1,      1,          8,     2330); -- Mid-Grade Life Stone: level 80					   
+
+					   
+-- Pythia (83) :
+DELETE FROM `droplist` WHERE `mobId` = 22266;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+(  22266,     6689,      1,      1,         -1,     6000), -- Basalt Battlehammer Head
+(  22266,     1895,      1,      3,         -1,    65000), -- Metallic Fiber
+(  22266,     4040,      1,      1,         -1,   125000), -- Mold Lubricant
+(  22266,       57,   1816,   3707,          0,   700000), -- Adena
+(  22266,     5537,      1,      1,          1,     1900), -- Soul Separator Head
+-- default (  22266,     1344,     10,     30,          2,   250000), -- Mithril Arrow	
+(  22266,     1344,      1,      3,          2,    25000), -- Mithril Arrow	
+(  22266,     9628,      1,      1,          3,     1660), -- Leonard	
+(  22266,     4040,      1,      1,          3,     4200), -- Mold Lubricant	
+(  22266,     9630,      1,      1,          3,     1520), -- Orichalcum	
+(  22266,     6901,      1,      1,          4,      210), -- Recipe: Shining Arrow (100%)	
+(  22266,     9546,      1,      1,          5,     1890), -- Fire Stone	
+-- default (  22266,     9596,      1,      1,          6,    50000); -- Red Seed of Evil - Shard	
+(  22266,     9596,      1,      1,          6,    5000); -- Red Seed of Evil - Shard	
+
+-- Chrysocolla (83) : 
+DELETE FROM `droplist` WHERE `mobId` = 22265;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+(  22265,     6688,      1,      1,         -1,     8900), -- Forgotten Blade Edge
+(  22265,     6901,      1,      1,         -1,     6200), -- Recipe: Shining Arrow (100%)
+(  22265,       57,   2039,   4161,          0,   700000), -- Adena	
+(  22265,      236,      1,      1,          1,        6), -- Soul Separator
+(  22265,     5537,      1,      1,          2,     2207), -- Soul Separator Head					   
+(  22265,     9628,      1,      1,          3,     1287), -- Leonard					   
+(  22265,     4040,      1,      1,          3,     3154), -- Mold Lubricant					   
+(  22265,     9630,      1,      1,          3,     1043), -- Orichalcum					   
+(  22265,      960,      1,      1,          4,       88), -- Scroll: Enchant Armor (S)					   
+(  22265,     9573,      1,      1,          5,      176), -- Life Stone: level 80					   
+(  22265,     9574,      1,      1,          5,       40), -- Mid-Grade Life Stone: level 80					   
+(  22265,     9546,      1,      1,          6,     1550), -- Fire Stone					   
+-- default(  22265,     9596,      1,      1,          7,    58823); -- Red Seed of Evil - Shard					   
+(  22265,     9596,      1,      1,          7,     5882); -- Red Seed of Evil - Shard					   
+
+					   
+-- Wandering Caravan (84) : lvl 1 in db
+DELETE FROM `droplist` WHERE `mobId` = 22339;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+(  22339,     1885,      1,      2,         -1,    48000), -- High Grade Suede
+(  22339,       57,   2113,   4225,          0,   700000), -- Adena	
+(  22339,     5545,      1,      1,          1,     1152), -- Dark Legion's Edge Blade					   
+(  22339,     5529,      1,      1,          1,      461), -- Dragon Slayer Edge					   
+(  22339,     5546,      1,      1,          1,      691), -- Sword of Miracles Edge					   
+(  22339,     9629,      1,      1,          2,      461), -- Adamantine					   
+(  22339,     1879,      1,      1,          2,    40000), -- Cokes					   
+(  22339,     1885,      1,      1,          2,    16949), -- High Grade Suede					   
+(  22339,     9628,      1,      1,          2,     1152), -- Leonard					   
+(  22339,     9630,      1,      1,          2,      921), -- Orichalcum					   
+(  22339,      960,      1,      1,          3,      230); -- Scroll: Enchant Armor (S)
+-- named wrong? (  22339,     xxxx,      1,      1,          4,   200000), -- Ancient Tome of the Demon					   
+-- quest item? (  22339,     9676,      1,      1,          5,    15625); -- Mark of Betrayal					   
+
+
+-- Sonneratia (82) :
+DELETE FROM `droplist` WHERE `mobId` = 22263;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+(  22263,     1895,      1,      3,         -1,    18000), -- Metallic Fiber
+(  22263,     4040,      1,      1,         -1,   125000), -- Mold Lubricant
+(  22263,     5515,      1,      1,         -1,     4600), -- Sealed Majestic Gauntlets Design
+(  22263,       57,   1526,   4052,          0,   700000), -- Adena
+(  22263,     5538,      1,      1,          1,     1941), -- Dragon Grinder Edge					   
+(  22263,     4040,      1,      1,          2,     3134), -- Mold Lubricant					   
+(  22263,     9628,      1,      1,          2,     1307), -- Leonard					   
+(  22263,     9630,      1,      1,          2,      819), -- Orichalcum
+(  22263,    10091,      1,      1,          3,     1020), -- Battle Manual - Final Form					   
+(  22263,    10602,      1,      1,          3,     1901), -- Battle Manual - Soul Strike					   
+(  22263,    10108,      1,      1,          3,     1213), -- Spellbook - Ice Vortex Crusher					   
+(  22263,    10109,      1,      1,          3,     1051), -- Spellbook - Wind Vortex Slug					   
+-- default (  22263,     9594,      1,      1,          4,   142857); -- Green Seed of Evil - Shard					   
+(  22263,     9594,      1,      1,          4,    14285); -- Green Seed of Evil - Shard					   
+
+
+-- Water Dragon Detractor (82) : not in spawnlist
+DELETE FROM `droplist` WHERE `mobId` = 22270;
+INSERT INTO `droplist`
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+(  22270,     1895,      1,      1,         -1,    18000), -- Metallic Fiber
+(  22270,     5495,      1,      1,         -1,     4600), -- Sealed Shield of Nightmare Fragment
+(  22270,       57,   1537,   3147,          0,   700000), -- Adena
+(  22270,     6342,      1,      1,          1,     3649), -- Sealed Majestic Earring Gemstone
+(  22270,     6344,      1,      1,          1,     2659), -- Sealed Majestic Necklace Beads
+(  22270,     6346,      1,      1,          1,     6097), -- Sealed Majestic Ring Gemstone
+(  22270,     9628,      1,      1,          2,     1883), -- Leonard
+(  22270,     4040,      1,      1,          2,     5524), -- Mold Lubricant
+(  22270,     9630,      1,      1,          2,      775), -- Orichalcum
+(  22270,      960,      1,      1,          3,      221), -- Scroll: Enchant Armor (S)
+-- default (  22270,     9595,      1,      1,          4,   100000), -- Blue Seed of Evil - Shard
+(  22270,     9595,      1,      1,          4,    10000), -- Blue Seed of Evil - Shard
+(  22270,     9549,      1,      1,          5,     1329); -- Wind Stone
+-- quest item? (  22270,     9689,      1,      1,          6,  1000000); -- Spirit of the Lake
+
+					   
+-- Water Dragon Detractor (82) : not in spawnlist
+-- DELETE FROM `droplist` WHERE `mobId` = 22271;
+-- INSERT INTO `droplist` (`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+--                        (  22271,       57,   1537,   3147,          0,   700000), -- Adena	
+
+
+-- Kleopora (80) :
+DELETE FROM `droplist` WHERE `mobId` = 22260;
+INSERT INTO `droplist` 
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+(  22260,     5157,      1,      1,         -1,      700), -- Recipe: Soulshot (S) Compressd Package (100%)
+(  22260,     5502,      1,      1,         -1,     2200), -- Sealed Boots of Nightmare Lining
+(  22260,     5495,      1,      1,         -1,     1900), -- Sealed Shield of Nightmare Fragment
+(  22260,       57,   1647,   3363,          0,   700000), -- Adena
+(  22260,     5316,      1,      1,          1,        9), -- Sealed Majestic Plate Armor				   
+(  22260,     5523,      1,      1,          2,     1213), -- Sealed Majestic Plate Armor Pattern				   
+(  22260,     5522,      1,      1,          2,     1038), -- Sealed Armor of Nightmare Pattern				   
+(  22260,     9628,      1,      1,          3,     1077), -- Leonard			   
+(  22260,     4040,      1,      1,          3,     2785), -- Mold Lubricant				   
+(  22260,    10203,      1,      1,          4,     1058), -- Spellbook - Empowering Echo				   
+(  22260,    10099,      1,      1,          4,     1145), -- Spellbook - Count of Fire				   
+(  22260,    10100,      1,      1,          4,      834), -- Spellbook - Diamond Dust				   
+(  22260,    10101,      1,      1,          4,     1028), -- Spellbook - Throne of Ice				   
+(  22260,    10557,      1,      1,          5,      951), -- Forgotten Scroll - Song of Windstorm				   
+-- default (  22260,     9593,      1,      1,          6,   250000); -- Yellow Seed of Evil - Shard				   
+(  22260,     9593,      1,      1,          6,    25000); -- Yellow Seed of Evil - Shard				   
+
+					   
+-- Beleth's Minion (82) :  not in spawnlist
+DELETE FROM `droplist` WHERE `mobId` = 22272;
+INSERT INTO `droplist`
+(`mobId`, `itemId`,  `min`,  `max`, `category`, `chance`) VALUES
+(  22272,     1895,      1,      3,         -1,    18000), -- Metallic Fiber
+(  22272,     4040,      1,      1,         -1,   125000), -- Mold Lubricant
+(  22272,     5514,      1,      1,         -1,     3700), -- Sealed Gauntlets of Nightmare Design
+(  22272,       57,   2117,   4336,          0,   700000), -- Adena
+(  22272,     5315,      1,      1,          1,      307), -- Sealed Shield of Nightmare
+(  22272,     5528,      1,      1,          2,     1845), -- Sealed Majestic Circlet Design
+(  22272,     5527,      1,      1,          2,     3690), -- Sealed Helm of Nightmare Design
+(  22272,     5495,      1,      1,          2,     4310), -- Sealed Shield of Nightmare Fragment
+(  22272,     9628,      1,      1,          3,     1538), -- Leonard
+(  22272,     4040,      1,      1,          3,     3690), -- Mold Lubricant
+(  22272,     9630,      1,      1,          3,      615), -- Orichalcum
+(  22272,     9573,      1,      1,          4,      615); -- Life Stone: level 80
