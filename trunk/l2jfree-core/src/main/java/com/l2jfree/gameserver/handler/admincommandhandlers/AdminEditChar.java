@@ -453,6 +453,12 @@ public class AdminEditChar implements IAdminCommandHandler
 						Announcements.getInstance().announceToAll(player.getName() + " lost his Hero status!");
 					} 
 					
+					// Hero Log
+					if (Config.ALT_LOGHEROES)
+					{
+						_log.info(player.getName() + " has lost his Hero status.");
+					}
+					
 				} else {
 					player.setHero(true); // Grant Hero status to player
 					player.sendMessage(player.getName() + " you have been granted with the Hero status!");
@@ -464,6 +470,12 @@ public class AdminEditChar implements IAdminCommandHandler
 					{
 						Announcements.getInstance().announceToAll(player.getName() + " gain the Hero status!");
 					} 
+					
+					// Hero Log
+					if (Config.ALT_LOGHEROES)
+					{
+						_log.info(player.getName() + " has gain the Hero status.");
+					}
 				}
 			}
 			/**

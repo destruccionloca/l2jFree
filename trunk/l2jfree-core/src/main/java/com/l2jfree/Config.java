@@ -1479,6 +1479,7 @@ public final class Config
 	public static boolean				ALT_MANA_POTIONS;
 	public static boolean				ALT_EXTENDEDHERO_ANNOUNCE;
 	public static boolean				ALT_PUBLICHERO_ANNOUNCE;
+	public static boolean				ALT_LOGHEROES;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1675,6 +1676,7 @@ public final class Config
 			ALT_MANA_POTIONS = Boolean.parseBoolean(altSettings.getProperty("AllowManaPotions", "false"));
 			ALT_EXTENDEDHERO_ANNOUNCE = Boolean.parseBoolean(altSettings.getProperty("ExtendedHeroGainInfo", "false"));
 			ALT_PUBLICHERO_ANNOUNCE = Boolean.parseBoolean(altSettings.getProperty("PublicPlayerHeroAnnounce", "false"));
+			ALT_LOGHEROES = Boolean.parseBoolean(altSettings.getProperty("LogHeroActivity", "false"));
 		}
 		catch (Exception e)
 		{
