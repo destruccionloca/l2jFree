@@ -118,25 +118,25 @@ class Quest (JQuest) :
            st.takeItems(GREEN_BLOOD,-1)
            st.addSpawn(KURUKA_RATMAN_LEADER,xx,yy,zz)
          else:
-           st.rewardItems(GREEN_BLOOD,int(1))
+           st.giveItems(GREEN_BLOOD,int(1))
            st.playSound("ItemSound.quest_itemget")
        else:
-         st.rewardItems(GREEN_BLOOD,int(1))
+         st.giveItems(GREEN_BLOOD,int(1))
          st.playSound("ItemSound.quest_itemget")
    elif npcId == KURUKA_RATMAN_LEADER :
      if cond and st.getQuestItemsCount(GOBLIN_DWELLING_MAP) == 1 and st.getQuestItemsCount(KURUKA_RATMAN_TOOTH) < 10 :
        st.takeItems(GREEN_BLOOD,-1)
        if st.getQuestItemsCount(KURUKA_RATMAN_TOOTH) == 9 :
-         st.rewardItems(KURUKA_RATMAN_TOOTH,int(1))
+         st.giveItems(KURUKA_RATMAN_TOOTH,int(1))
          st.set("id","2")
          st.set("cond","2")
          st.playSound("ItemSound.quest_middle")
        else:
-         st.rewardItems(KURUKA_RATMAN_TOOTH,int(1))
+         st.giveItems(KURUKA_RATMAN_TOOTH,int(1))
          st.playSound("ItemSound.quest_itemget")
    elif npcId == UMBAR_ORC :
      if cond and st.getQuestItemsCount(BETRAYER_UMBAR_REPORT) > 0 and st.getQuestItemsCount(HEAD_OF_BETRAYER) < 2 :
-       st.rewardItems(HEAD_OF_BETRAYER,int(1))
+       st.giveItems(HEAD_OF_BETRAYER,int(1))
        if st.getQuestItemsCount(HEAD_OF_BETRAYER) > 1 :
          st.set("id","4")
          st.set("cond","4")

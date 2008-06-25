@@ -153,7 +153,7 @@ class Quest (JQuest) :
         st.set("id","0")
         if st.getInt("cond") == 1 and st.getQuestItemsCount(LUCKY_KEY) == 1 and st.getQuestItemsCount(FAMILYS_ASHES)<3 :
           if st.getRandom(2) == 0 :
-            st.rewardItems(FAMILYS_ASHES,1)
+            st.giveItems(FAMILYS_ASHES,1)
             if st.getQuestItemsCount(FAMILYS_ASHES) == 3 :
               st.playSound("ItemSound.quest_middle")
             else:
@@ -162,7 +162,7 @@ class Quest (JQuest) :
         st.set("id","0")
         if st.getInt("cond") == 1 and st.getQuestItemsCount(CANDLE) == 1 and st.getQuestItemsCount(KNEE_BONE)<2 :
           if st.getRandom(2) == 0 :
-            st.rewardItems(KNEE_BONE,1)
+            st.giveItems(KNEE_BONE,1)
             if st.getQuestItemsCount(KNEE_BONE) == 2 :
               st.playSound("ItemSound.quest_middle")
             else:
@@ -171,7 +171,7 @@ class Quest (JQuest) :
         st.set("id","0")
         if st.getInt("cond") == 1 and st.getQuestItemsCount(CANDLE) == 1 and st.getQuestItemsCount(KNEE_BONE)<2 :
           if st.getRandom(2) == 0 :
-            st.rewardItems(KNEE_BONE,1)
+            st.giveItems(KNEE_BONE,1)
             if st.getQuestItemsCount(KNEE_BONE) == 2 :
               st.playSound("ItemSound.quest_middle")
             else:
@@ -180,7 +180,7 @@ class Quest (JQuest) :
         st.set("id","0")
         if st.getInt("cond") == 1 and st.getQuestItemsCount(CANDLE) == 1 and st.getQuestItemsCount(KNEE_BONE)<2 :
           if st.getRandom(2) == 0 :
-            st.rewardItems(KNEE_BONE,1)
+            st.giveItems(KNEE_BONE,1)
             if st.getQuestItemsCount(KNEE_BONE) == 2 :
               st.playSound("ItemSound.quest_middle")
             else:
@@ -189,7 +189,7 @@ class Quest (JQuest) :
         st.set("id","0")
         if st.getInt("cond") == 1 and st.getQuestItemsCount(HUB_SCENT) == 1 and st.getQuestItemsCount(HEART_OF_LUNACY)<3 :
           if st.getRandom(2) == 0 :
-            st.rewardItems(HEART_OF_LUNACY,1)
+            st.giveItems(HEART_OF_LUNACY,1)
             if st.getQuestItemsCount(HEART_OF_LUNACY) == 3 :
               st.playSound("ItemSound.quest_middle")
             else:

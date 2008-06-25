@@ -83,7 +83,7 @@ class Quest (JQuest) :
                   st.set("cond","2")
                else:
                   st.playSound("ItemSound.quest_itemget")
-               st.rewardItems(CURSED_DOLL,int(numItems))
+               st.giveItems(CURSED_DOLL,int(numItems))
    return
 
 QUEST       = Quest(646, qn, "Signs of Revolt")

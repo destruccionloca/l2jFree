@@ -139,12 +139,12 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    if npcId == 27036 :
         if st.getInt("cond") >= 1 and st.getQuestItemsCount(SHILENS_TEARS) == 0 :
-          st.rewardItems(SHILENS_TEARS,int(1))
+          st.giveItems(SHILENS_TEARS,int(1))
           st.playSound("ItemSound.quest_middle")
           st.set("cond","6")
    elif npcId == 20369 :
         if st.getInt("cond") >= 1 and st.getQuestItemsCount(LEIKANS_NOTE) == 1 and st.getQuestItemsCount(ONYX_BEASTS_MOLAR)<10 :
-          st.rewardItems(ONYX_BEASTS_MOLAR,int(1))
+          st.giveItems(ONYX_BEASTS_MOLAR,int(1))
           if st.getQuestItemsCount(ONYX_BEASTS_MOLAR) == 10 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","4")

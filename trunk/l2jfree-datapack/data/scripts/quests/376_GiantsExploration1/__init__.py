@@ -157,7 +157,7 @@ class Quest (JQuest) :
      if st.getRandom(MAX) < chance :
         numItems = numItems + 1
      if int(numItems) != 0 :
-        st.rewardItems(ANC_SCROLL,int(numItems))
+        st.giveItems(ANC_SCROLL,int(numItems))
         st.playSound("ItemSound.quest_itemget")
      return  
 

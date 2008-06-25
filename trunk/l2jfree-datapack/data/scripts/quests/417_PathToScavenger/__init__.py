@@ -287,7 +287,7 @@ class Quest (JQuest) :
    elif npcId == 27058 :
         if st.getInt("cond") and st.getQuestItemsCount(BEAR_PIC) == 1 and st.getQuestItemsCount(HONEY_JAR) < 5 :
           if npc.isSpoil() :
-            st.rewardItems(HONEY_JAR,int(1))
+            st.giveItems(HONEY_JAR,int(1))
             if st.getQuestItemsCount(HONEY_JAR) == 5 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","6")
@@ -297,7 +297,7 @@ class Quest (JQuest) :
         if st.getInt("cond") and st.getQuestItemsCount(TARANTULA_PIC) == 1 and st.getQuestItemsCount(BEAD) < 20 :
           if npc.isSpoil() :
             if st.getRandom(2) == 0 :
-              st.rewardItems(BEAD,int(1))
+              st.giveItems(BEAD,int(1))
               if st.getQuestItemsCount(BEAD) == 20 :
                 st.playSound("ItemSound.quest_middle")
                 st.set("cond","8")
@@ -307,7 +307,7 @@ class Quest (JQuest) :
         if st.getInt("cond") and st.getQuestItemsCount(TARANTULA_PIC) == 1 and st.getQuestItemsCount(BEAD) < 20 :
           if npc.isSpoil() :
             if st.getRandom(10) < 6 :
-              st.rewardItems(BEAD,int(1))
+              st.giveItems(BEAD,int(1))
               if st.getQuestItemsCount(BEAD) == 20 :
                 st.playSound("ItemSound.quest_middle")
                 st.set("cond","8")

@@ -168,13 +168,13 @@ class Quest (JQuest) :
    chance = st.getRandom(100)
    if st.getInt("cond") == 2 :
      if npcId in [21106,21102] and chance < 79 :
-       st.rewardItems(WATCHING_EYES,1)
+       st.giveItems(WATCHING_EYES,1)
        st.playSound("ItemSound.quest_itemget")
      elif npcId == ROUGH_HEWN_ROCK_GOLEM and chance < 75 :
-       st.rewardItems(ROUGHLY_HEWN_ROCK_GOLEM_SHARD,1)
+       st.giveItems(ROUGHLY_HEWN_ROCK_GOLEM_SHARD,1)
        st.playSound("ItemSound.quest_itemget")
      elif npcId in [20781,21104,21107,21105] and chance < 67 :
-       st.rewardItems(DELU_LIZARDMAN_SCALE,1)
+       st.giveItems(DELU_LIZARDMAN_SCALE,1)
        st.playSound("ItemSound.quest_itemget")
    return
 

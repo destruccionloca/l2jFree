@@ -122,7 +122,7 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    if npcId != 20782 :
         if st.getInt("cond")==1 and st.getQuestItemsCount(TOPAZ_PIECE)<20 and st.getRandom(100)<70 :
-            st.rewardItems(TOPAZ_PIECE,int(1))
+            st.giveItems(TOPAZ_PIECE,int(1))
             if st.getQuestItemsCount(TOPAZ_PIECE) == 20 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","2")
@@ -130,7 +130,7 @@ class Quest (JQuest) :
               st.playSound("ItemSound.quest_itemget")
    else :
         if st.getInt("cond")==4 and st.getQuestItemsCount(EMERALD_PIECE)<20 and st.getRandom(100)<50 :
-            st.rewardItems(EMERALD_PIECE,int(1))
+            st.giveItems(EMERALD_PIECE,int(1))
             if st.getQuestItemsCount(EMERALD_PIECE) == 20 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","5")

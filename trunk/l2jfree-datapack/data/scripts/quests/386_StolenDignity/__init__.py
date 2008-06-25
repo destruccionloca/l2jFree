@@ -204,7 +204,7 @@ class Quest (JQuest) :
      if st.getRandom(MAX) < chance :
         numItems = numItems + 1
      if numItems != 0 :   
-        st.rewardItems(SI_ORE,int(numItems))
+        st.giveItems(SI_ORE,int(numItems))
         if int(prevItems+numItems)/REQUIRED_ORE > int(prevItems)/REQUIRED_ORE :
            st.playSound("ItemSound.quest_middle")
         else :
