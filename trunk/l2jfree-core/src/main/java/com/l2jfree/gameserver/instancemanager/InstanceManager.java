@@ -75,6 +75,11 @@ public class InstanceManager
 	{
 		return _instanceList.get(instanceid);
 	}
+	
+	public FastMap<Integer,Instance> getInstances()
+	{
+		return _instanceList;
+	}
 
 	public int getPlayerInstance(int objectId)
 	{

@@ -19,11 +19,10 @@ import java.util.StringTokenizer;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
-import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.Instance;
 
 /** 
  * @author evill33t
@@ -39,7 +38,7 @@ public class AdminInstance implements IAdminCommandHandler
 			"admin_createinstance",
 			"admin_destroyinstance",
 			"admin_listinstances"					};
-	
+
 	private static final int		REQUIRED_LEVEL	= Config.GM_INSTANCE;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
@@ -84,7 +83,7 @@ public class AdminInstance implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_listinstances"))
 		{
-			for (Instance temp : InstanceManager.getInstance().getInstances())
+			for (Instance temp : InstanceManager.getInstance().getInstances().values())
 			{
 				activeChar.sendMessage("Id: " + temp.getId() + " Name: " + temp.getName());
 			}
@@ -110,7 +109,7 @@ public class AdminInstance implements IAdminCommandHandler
 					target.setInstanceId(val);
 					if (target instanceof L2PcInstance)
 					{
-						L2PcInstance player = (L2PcInstance)target;
+						L2PcInstance player = (L2PcInstance) target;
 						player.sendMessage("Admin set your instance to:" + val);
 						InstanceManager.getInstance().getInstance(val).addPlayer(player.getObjectId());
 						player.teleToLocation(player.getX(), player.getY(), player.getZ());
@@ -119,10 +118,10 @@ public class AdminInstance implements IAdminCommandHandler
 						{
 							pet.setInstanceId(val);
 							pet.teleToLocation(pet.getX(), pet.getY(), pet.getZ());
-							player.sendMessage("Admin set "+pet.getName()+"'s instance to:" + val);
+							player.sendMessage("Admin set " + pet.getName() + "'s instance to:" + val);
 						}
 					}
-					activeChar.sendMessage("Moved "+target.getName()+" to instance "+target.getInstanceId()+".");
+					activeChar.sendMessage("Moved " + target.getName() + " to instance " + target.getInstanceId() + ".");
 					return true;
 				}
 			}
@@ -146,6 +145,10 @@ public class AdminInstance implements IAdminCommandHandler
 		}
 
 		// set ghost mode on aka not appearing on any knownlist
+		// you will be invis to all players but you also dont get update packets ;)
+		// you will see snapshots (knownlist echoes?) if you port 
+		// so kinda useless atm
+		// TODO: enable broadcast packets for ghosts
 		else if (command.startsWith("admin_ghoston"))
 		{
 			activeChar.getAppearance().setGhostMode(true);
