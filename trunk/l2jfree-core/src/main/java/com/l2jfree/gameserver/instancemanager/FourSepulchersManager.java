@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SepulcherMonsterInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2SepulcherNpcInstance;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -137,6 +138,17 @@ public class FourSepulchersManager extends BossLair
 
 	protected List<L2NpcInstance>			_allMobs				= new FastList<L2NpcInstance>();
 
+    protected long _coolDownTimeEnd = 0;
+    protected long _entryTimeEnd = 0;
+    protected long _warmUpTimeEnd = 0;
+    protected long _attackTimeEnd = 0;
+    
+    protected byte _newCycleMin = 55;
+    
+    protected boolean _firstTimeRun;
+    
+    protected List<L2Spawn> _managers;
+    
 	public static final FourSepulchersManager getInstance()
 	{
 		if (_instance == null)
@@ -169,6 +181,8 @@ public class FourSepulchersManager extends BossLair
 		_inAttackTime = false;
 		_inCoolDownTime = false;
 
+        _firstTimeRun = true;
+        
 		initFixedInfo();
 
 		loadMysteriousBox();
@@ -179,20 +193,141 @@ public class FourSepulchersManager extends BossLair
 		initExecutionerSpawns();
 		loadDukeMonsters();
 		loadEmperorsGraveMonsters();
-
-		// Entry at every full hour
-		Calendar cal = Calendar.getInstance();
-		int hour = cal.get(Calendar.HOUR_OF_DAY);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.HOUR_OF_DAY, hour+1);
-		long delay = cal.getTimeInMillis() - System.currentTimeMillis();
-
-		_changeEntryTimeTask = 
-				ThreadPoolManager.getInstance().scheduleGeneral(new ChangeEntryTime(), delay);
-		_log.info("Four Sepulchers: Next entry at "+cal.getTime().toString());
+        spawnManagers();
+        timeSelector();
+		
 	}
+    // phase select on server launch
+    protected void timeSelector()
+    {
+    	timeCalculator();
+    	long currentTime = Calendar.getInstance().getTimeInMillis();
+    	// if current time >= time of entry beginning and if current time < time of entry beginning + time of entry end
+    	if(currentTime >= _coolDownTimeEnd && currentTime < _entryTimeEnd) // entry time check
+    	{
+    		cleanUp();
+    		_changeEntryTimeTask = 
+                ThreadPoolManager.getInstance().scheduleGeneral(new ChangeEntryTime(), 0);
+    		_log.info("FourSepulchersManager: Beginning in Entry time");
+    	}
+    	else if(currentTime >= _entryTimeEnd && currentTime < _warmUpTimeEnd) // warmup time check
+    	{
+    		cleanUp();
+    		_changeWarmUpTimeTask = 
+                ThreadPoolManager.getInstance().scheduleGeneral(new ChangeWarmUpTime(), 0);
+    		_log.info("FourSepulchersManager: Beginning in WarmUp time");
+    	}
+    	else if(currentTime >= _warmUpTimeEnd && currentTime < _attackTimeEnd) // attack time check
+    	{
+    		cleanUp();
+    		_changeAttackTimeTask = 
+                ThreadPoolManager.getInstance().scheduleGeneral(new ChangeAttackTime(), 0);
+    		_log.info("FourSepulchersManager: Beginning in Attack time");    	
+    	}
+    	else // else cooldown time and without cleanup because it's already implemented
+    	{
+    		_changeCoolDownTimeTask = 
+                ThreadPoolManager.getInstance().scheduleGeneral(new ChangeCoolDownTime(), 0);
+    		_log.info("FourSepulchersManager: Beginning in Cooldown time");  
+    	}
+    }
+    
+    //phase end times calculator
+    protected void timeCalculator()
+    {
+    	Calendar tmp = Calendar.getInstance();
+    	if (tmp.get(Calendar.MINUTE) < _newCycleMin)
+    		tmp.set(Calendar.HOUR, Calendar.getInstance().get(Calendar.HOUR) - 1);
+    	tmp.set(Calendar.MINUTE, _newCycleMin);
+    	_coolDownTimeEnd = tmp.getTimeInMillis();
+    	_entryTimeEnd = _coolDownTimeEnd + Config.FS_TIME_ENTRY * 60000;
+    	_warmUpTimeEnd = _entryTimeEnd + Config.FS_TIME_WARMUP * 60000;
+    	_attackTimeEnd = _warmUpTimeEnd + Config.FS_TIME_ATTACK * 60000;
+    }
+    protected void cleanUp()
+    {
+    	for(L2PcInstance player :L2World.getInstance().getAllPlayers())
+        {
+        	if ( checkIfInZone(player) &&
+        		(player.getZ() >= -7250 && player.getZ() <= -6841) &&
+        		!player.isGM())
+        	{
+        		int driftX = Rnd.get(-80,80);
+        		int driftY = Rnd.get(-80,80);
+        		player.teleToLocation(169589 + driftX,-90493 + driftY,-2914);
+        	}
+        }
+        
+        deleteAllMobs();
 
+        closeAllDoors();
+        
+        _hallInUse.clear();
+        _hallInUse.put(31921,false);
+        _hallInUse.put(31922,false);
+        _hallInUse.put(31923,false);
+        _hallInUse.put(31924,false);
+
+        if(_archonSpawned.size() != 0)
+        {
+            Set<Integer> npcIdSet = _archonSpawned.keySet();
+            for(int npcId:npcIdSet)
+            {
+            	_archonSpawned.put(npcId, false);
+            }
+        }
+    }
+    
+    protected void spawnManagers()
+    {
+    	_managers = new FastList<L2Spawn>();
+    	//L2Spawn spawnDat;
+        
+        int i = 31921;
+        for(L2Spawn spawnDat; i <= 31924; i++)
+        {
+	        if (i < 31921 || i > 31924)
+	        	continue;
+	        L2NpcTemplate template1 = NpcTable.getInstance().getTemplate(i);
+	        if(template1 == null)
+	        	continue;
+	        spawnDat = new L2Spawn(template1);
+	        spawnDat.setAmount(1);
+	        spawnDat.setRespawnDelay(60);
+	    	switch (i)
+	    	{
+		    	case 31921: //conquerors
+		    		spawnDat.setLocx(181061);
+		            spawnDat.setLocy(-85595);
+		            spawnDat.setLocz(-7200);
+		            spawnDat.setHeading(-32584);
+		            break;
+		    	case 31922: //emperors
+		            spawnDat.setLocx(179292);
+		            spawnDat.setLocy(-88981);
+		            spawnDat.setLocz(-7200);
+		            spawnDat.setHeading(-33272);
+		            break;
+		    	case 31923: //sages
+		    		spawnDat.setLocx(173202);
+		            spawnDat.setLocy(-87004);
+		            spawnDat.setLocz(-7200);
+		            spawnDat.setHeading(-16248);
+		            break;
+		    	case 31924: //judges
+		    		spawnDat.setLocx(175606);
+		            spawnDat.setLocy(-82853);
+		            spawnDat.setLocz(-7200);
+		            spawnDat.setHeading(-16248);
+		            break;
+	    	}
+		    _managers.add(spawnDat);
+	    	SpawnTable.getInstance().addNewSpawn(spawnDat, false);
+	        spawnDat.doSpawn();
+	        spawnDat.startRespawn();
+	        _log.info("FourSepulchersManager: spawned "+spawnDat.getTemplate().getName());
+        }
+    }
 	protected void initFixedInfo()
 	{
 		_startHallSpawns.put(31921, _startHallSpawn[0]);
@@ -1296,7 +1431,111 @@ public class FourSepulchersManager extends BossLair
 			}
 		}
 	}
-
+    protected byte minuteSelect(byte min)
+    {
+    	if ((double)min % 5 !=0)//if doesn't divides on 5 fully
+		{
+    		//mad table for selecting proper minutes...
+			//may be there is a better way to do this
+    		switch(min)
+    		{
+    		case 6: case 7:	min = 5; break;
+    		case 8: case 9: case 11: case 12: min = 10; break;
+    		case 13: case 14: case 16: case 17: min = 15; break;
+    		case 18: case 19: case 21: case 22: min = 20; break;
+    		case 23: case 24: case 26: case 27: min = 25; break;
+    		case 28: case 29: case 31: case 32: min = 30; break;
+    		case 33: case 34: case 36: case 37: min = 35; break;
+    		case 38: case 39: case 41: case 42: min = 40; break;
+    		case 43: case 44: case 46: case 47: min = 45; break;
+    		case 48: case 49: case 51: case 52: min = 50; break;
+    		case 53: case 54: case 56: case 57: min = 55; break;
+    		}
+		}
+    	return min;
+    }
+    
+    public void managerSay(byte min)
+    {
+    	//for attack phase, sending message every 5 minutes
+    	if (_inAttackTime)
+    	{
+    		if (min < 5) return; //do not shout when < 5 minutes
+    		
+    		min = minuteSelect(min); 
+    		
+    		String msg = min + " minute(s) have passed."; // now this is a proper message^^
+    		
+    		if (min == 90) msg = "Game over. The teleport will appear momentarily";
+    		
+           	int i = 0;
+    		for (int k = _managers.size(); i < k; i++)
+    		{
+    			if (_managers.get(i) == null)
+    			{
+    				_log.warn("FourSepulchersManager: managerSay(): manager is null");
+    				continue;
+    			}
+    			if (!(_managers.get(i).getLastSpawn() instanceof L2SepulcherNpcInstance))
+    			{
+        			_log.warn("FourSepulchersManager: managerSay(): manager is not Sepulcher instance");
+        			continue;
+    			}
+    			// hall not used right now, so its manager will not tell you anything :)
+    			// if you don't need this - delete next two lines.
+    			if(!_hallInUse.get(_managers.get(i).getNpcId()).booleanValue())
+    				continue;
+    			
+    			((L2SepulcherNpcInstance)_managers.get(i).getLastSpawn()).sayInShout(msg);
+    		}
+    	}
+    	
+		else if (_inEntryTime)
+    	{
+    		String msg1 = "You may now enter the Sepulcher";
+    		String msg2 = "If you place your hand on the stone statue in front of each sepulcher," +
+    				" you will be able to enter";
+    	  	int i = 0;
+    		for (int k = _managers.size(); i < k; i++){
+    			if (_managers.get(i) == null)
+    			{
+    				_log.warn("FourSepulchersManager: Something goes wrong in managerSay()...");
+    				continue;
+    			}
+    			if (!(_managers.get(i).getLastSpawn() instanceof L2SepulcherNpcInstance))
+    			{
+        			_log.warn("FourSepulchersManager: Something goes wrong in managerSay()...");
+        			continue;
+    			}
+    			((L2SepulcherNpcInstance)_managers.get(i).getLastSpawn()).sayInShout(msg1);
+    			((L2SepulcherNpcInstance)_managers.get(i).getLastSpawn()).sayInShout(msg2);
+    		}
+    	}
+    }
+    
+    protected class ManagerSay implements Runnable
+    {
+    	public void run()
+    	{
+    		if (_inAttackTime)
+    		{
+    			Calendar tmp = Calendar.getInstance();
+    			tmp.setTimeInMillis(Calendar.getInstance().getTimeInMillis() - _warmUpTimeEnd);
+    			if(tmp.get(Calendar.MINUTE) + 5 < Config.FS_TIME_ATTACK)
+    			{
+    				managerSay((byte)tmp.get(Calendar.MINUTE)); //byte because minute cannot be more than 59
+    				ThreadPoolManager.getInstance().scheduleGeneral(new ManagerSay(),5 * 60000);
+    			}
+    			// attack time ending chat
+    			else if(tmp.get(Calendar.MINUTE) + 5 >= Config.FS_TIME_ATTACK)
+    			{
+    				managerSay((byte)90); //sending a unique id :D
+    			}
+    		}
+    		else if (_inEntryTime) managerSay((byte)0);
+    	}
+    }
+    
 	protected class ChangeEntryTime implements Runnable
 	{
 		public void run()
@@ -1307,13 +1546,24 @@ public class FourSepulchersManager extends BossLair
 			_inAttackTime = false;
 			_inCoolDownTime = false;
 
-			_changeWarmUpTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ChangeWarmUpTime(), Config.FS_TIME_ENTRY * 60000);
-
+			long interval = 0;
+            // if this is first launch - search time when entry time will be ended:
+            // counting difference between time when entry time ends and current time
+            // and then launching change time task
+            if (_firstTimeRun)
+            	interval = _entryTimeEnd - Calendar.getInstance().getTimeInMillis();
+            else
+            	interval = Config.FS_TIME_ENTRY * 60000; // else use stupid method
+            
+			//launching saying process...
+            ThreadPoolManager.getInstance().scheduleGeneral(new ManagerSay(), 0);
+            
 			if (_changeEntryTimeTask != null)
 			{
 				_changeEntryTimeTask.cancel(true);
 				_changeEntryTimeTask = null;
 			}
+			
 		}
 	}
 
@@ -1327,7 +1577,15 @@ public class FourSepulchersManager extends BossLair
 			_inAttackTime = false;
 			_inCoolDownTime = false;
 
-			_changeAttackTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ChangeAttackTime(), Config.FS_TIME_WARMUP * 60000);
+			long interval = 0;
+            // searching time when warmup time will be ended:
+            // counting difference between time when warmup time ends and current time
+            // and then launching change time task
+            if (_firstTimeRun) 
+            	interval = _warmUpTimeEnd - Calendar.getInstance().getTimeInMillis();
+            else interval = Config.FS_TIME_WARMUP * 60000;
+            _changeAttackTimeTask =
+                ThreadPoolManager.getInstance().scheduleGeneral(new ChangeAttackTime(),interval);
 
 			if (_changeWarmUpTimeTask != null)
 			{
@@ -1354,8 +1612,36 @@ public class FourSepulchersManager extends BossLair
 			spawnMysteriousBox(31923);
 			spawnMysteriousBox(31924);
 
-			_changeCoolDownTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ChangeCoolDownTime(), Config.FS_TIME_ATTACK * 60000);
-
+			if(!_firstTimeRun){
+            	_warmUpTimeEnd=Calendar.getInstance().getTimeInMillis();
+            }
+            
+            long interval = 0;
+            //say task
+            if(_firstTimeRun)
+            {
+	            for (double min = Calendar.getInstance().get(Calendar.MINUTE); min<_newCycleMin; min++)
+	            {
+	            	//looking for next shout time....
+	            	if(min % 5 == 0)//check if min can be divided by 5
+	            	{
+	            		_log.info(Calendar.getInstance().getTime() + " Atk announce scheduled to " + min + " minute of this hour.");
+	            		Calendar inter = Calendar.getInstance();
+	            		inter.set(Calendar.MINUTE, (int)min);
+	            		ThreadPoolManager.getInstance().scheduleGeneral(new ManagerSay(), inter.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+	            		break;
+	            	}
+	            }
+            }
+            else ThreadPoolManager.getInstance().scheduleGeneral(new ManagerSay(), 5 * 60400);
+            // searching time when attack time will be ended:
+            // counting difference between time when attack time ends and current time
+            // and then launching change time task
+            if (_firstTimeRun) interval = _attackTimeEnd - Calendar.getInstance().getTimeInMillis();
+            else interval = Config.FS_TIME_ATTACK * 60000;
+            _changeCoolDownTimeTask =
+                ThreadPoolManager.getInstance().scheduleGeneral(new ChangeCoolDownTime(),interval);
+            
 			if (_changeAttackTimeTask != null)
 			{
 				_changeAttackTimeTask.cancel(true);
@@ -1374,37 +1660,21 @@ public class FourSepulchersManager extends BossLair
 			_inAttackTime = false;
 			_inCoolDownTime = true;
 
-			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			{
-				if (checkIfInZone(player) && (player.getZ() >= -7250 && player.getZ() <= -6841) && !player.isGM())
-				{
-					int driftX = Rnd.get(-80, 80);
-					int driftY = Rnd.get(-80, 80);
-					player.teleToLocation(169589 + driftX, -90493 + driftY, -2914);
-				}
-			}
+			cleanUp();
 
-			deleteAllMobs();
-
-			closeAllDoors();
-
-			_hallInUse.clear();
-			_hallInUse.put(31921, false);
-			_hallInUse.put(31922, false);
-			_hallInUse.put(31923, false);
-			_hallInUse.put(31924, false);
-
-			if (_archonSpawned.size() != 0)
-			{
-				Set<Integer> npcIdSet = _archonSpawned.keySet();
-				for (int npcId : npcIdSet)
-				{
-					_archonSpawned.put(npcId, false);
-				}
-			}
-
-			_changeEntryTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ChangeEntryTime(), Config.FS_TIME_COOLDOWN * 60000);
-
+			Calendar time = Calendar.getInstance();
+            // one hour = 55th min to 55 min of next hour, so we check for this, also check for first launch
+            if(Calendar.getInstance().get(Calendar.MINUTE) > _newCycleMin && !_firstTimeRun)
+            	time.set(Calendar.HOUR, Calendar.getInstance().get(Calendar.HOUR) + 1);
+            time.set(Calendar.MINUTE, _newCycleMin);
+            _log.info("FourSepulchersManager: Entry time: " + time.getTime());
+            if (_firstTimeRun)
+            	_firstTimeRun = false; // cooldown phase ends event hour, so it will be not first run
+            
+            long interval = time.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+            _changeEntryTimeTask = 
+                ThreadPoolManager.getInstance().scheduleGeneral(new ChangeEntryTime(),interval);
+            
 			if (_changeCoolDownTimeTask != null)
 			{
 				_changeCoolDownTimeTask.cancel(true);

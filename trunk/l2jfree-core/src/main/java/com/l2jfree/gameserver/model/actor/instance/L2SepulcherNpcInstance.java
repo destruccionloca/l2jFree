@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.Future;
 
@@ -27,13 +28,17 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -393,7 +398,20 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 			FourSepulchersManager.getInstance().spawnMonster(_NpcId);
 		}
 	}
-
+	public void sayInShout(String msg)
+	{
+		if(msg==null||msg=="")return;//wrong usage
+		Collection<L2PcInstance> knownPlayers = L2World.getInstance().getAllPlayers();   
+		if (knownPlayers == null || knownPlayers.isEmpty())
+			return;
+		CreatureSay sm =new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(),this.getName(), msg);
+		for (L2PcInstance player : knownPlayers)
+		{
+			if(player == null)continue;
+			if(Util.checkIfInRange(15000, player, this, true))
+				player.sendPacket(sm);	
+		}
+	}
 	public void showHtmlFile(L2PcInstance player, String file)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
