@@ -251,9 +251,12 @@ public class GameStatusThread extends Thread
 						}
 						finally
 						{
-							try {
+							try
+							{
 								con.close();
-							} catch (SQLException e) {
+							}
+							catch (SQLException e)
+							{
 								e.printStackTrace();
 							}
 						}
@@ -595,9 +598,9 @@ public class GameStatusThread extends Thread
 				}
 				else if (_usrCommand.equals("quit"))
 				{ /*
-								 * Do Nothing :p - Just here to save us from the "Command
-								 * Not Understood" Text
-								 */
+											 * Do Nothing :p - Just here to save us from the "Command
+											 * Not Understood" Text
+											 */
 				}
 				else if (_usrCommand.startsWith("give"))
 				{
@@ -712,7 +715,8 @@ public class GameStatusThread extends Thread
 					StringTokenizer st = new StringTokenizer(_usrCommand.substring(5));
 					try
 					{
-						L2PcInstance playerObj = L2World.getInstance().getPlayer(st.nextToken());
+						String name = st.nextToken();
+						L2PcInstance playerObj = L2World.getInstance().getPlayer(name);
 						int delay = 0;
 						try
 						{
@@ -730,10 +734,10 @@ public class GameStatusThread extends Thread
 						if (playerObj != null)
 						{
 							playerObj.setInJail(true, delay);
-							_print.println("Character " + playerObj.getName() + " jailed for " + (delay > 0 ? delay + " minutes." : "ever!"));
+							_print.println("Character " + name + " jailed for " + (delay > 0 ? delay + " minutes." : "ever!"));
 						}
 						else
-							jailOfflinePlayer(playerObj.getName(), delay);
+							jailOfflinePlayer(name, delay);
 					}
 					catch (NoSuchElementException nsee)
 					{
@@ -750,16 +754,18 @@ public class GameStatusThread extends Thread
 					StringTokenizer st = new StringTokenizer(_usrCommand.substring(7));
 					try
 					{
-						L2PcInstance playerObj = L2World.getInstance().getPlayer(st.nextToken());
+						String name = st.nextToken();
+						L2PcInstance playerObj = L2World.getInstance().getPlayer(name);
+
 
 						if (playerObj != null)
 						{
 							playerObj.stopJailTask(false);
 							playerObj.setInJail(false, 0);
-							_print.println("Character " + playerObj.getName() + " removed from jail");
+							_print.println("Character " + name + " removed from jail");
 						}
 						else
-							unjailOfflinePlayer(playerObj.getName());
+							unjailOfflinePlayer(name);
 					}
 					catch (NoSuchElementException nsee)
 					{
@@ -769,7 +775,6 @@ public class GameStatusThread extends Thread
 					{
 						if (_log.isDebugEnabled())
 							_log.debug(e.getMessage(), e);
-						;
 					}
 				}
 				else if (_usrCommand.startsWith("ircc"))
@@ -786,7 +791,6 @@ public class GameStatusThread extends Thread
 						{
 							if (_log.isDebugEnabled())
 								_log.debug(e.getMessage(), e);
-							;
 						}
 					}
 				}
@@ -807,7 +811,6 @@ public class GameStatusThread extends Thread
 						{
 							if (_log.isDebugEnabled())
 								_log.debug(e.getMessage(), e);
-							;
 						}
 					}
 				}
@@ -817,7 +820,7 @@ public class GameStatusThread extends Thread
 					try
 					{
 						String dbg = st.nextToken();
-						
+
 						if (dbg.equals("decay"))
 							_print.print(DecayTaskManager.getInstance());
 					}
@@ -1208,19 +1211,20 @@ public class GameStatusThread extends Thread
 			// send packets
 			InventoryUpdate iu = new InventoryUpdate();
 			iu.addModifiedItem(itemInstance);
-            activeChar.sendPacket(iu);
-            activeChar.broadcastPacket(new CharInfo(activeChar));
-            activeChar.sendPacket(new UserInfo(activeChar));
+			activeChar.sendPacket(iu);
+			activeChar.broadcastPacket(new CharInfo(activeChar));
+			activeChar.sendPacket(new UserInfo(activeChar));
 
 			// informations
 			activeChar.sendMessage("Changed enchantment of " + activeChar.getName() + "'s " + itemInstance.getItem().getName() + " from " + curEnchant + " to "
 					+ ench + ".");
-			activeChar.sendMessage("Admin has changed the enchantment of your " + itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench + ".");
+			activeChar.sendMessage("Admin has changed the enchantment of your " + itemInstance.getItem().getName() + " from " + curEnchant + " to " + ench
+					+ ".");
 
 			String IP = gm.getInetAddress().getHostAddress();
 			// log
-			GMAudit.auditGMAction(IP, "telnet-enchant", activeChar.getName(), itemInstance.getItem().getName() + "(" + itemInstance.getObjectId() + ")" + " from "
-					+ curEnchant + " to " + ench);
+			GMAudit.auditGMAction(IP, "telnet-enchant", activeChar.getName(), itemInstance.getItem().getName() + "(" + itemInstance.getObjectId() + ")"
+					+ " from " + curEnchant + " to " + ench);
 			return true;
 		}
 		return false;
@@ -1261,7 +1265,6 @@ public class GameStatusThread extends Thread
 			try
 			{
 				if (con != null)
-					;
 				{
 					con.close();
 					con = null;
@@ -1308,7 +1311,6 @@ public class GameStatusThread extends Thread
 			try
 			{
 				if (con != null)
-					;
 				{
 					con.close();
 					con = null;
