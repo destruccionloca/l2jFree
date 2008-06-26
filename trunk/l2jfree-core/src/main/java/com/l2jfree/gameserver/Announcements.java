@@ -56,7 +56,6 @@ public class Announcements
 	private static Announcements	_instance;
 	private List<String>			_announcements			= new FastList<String>();
 	private List<List<Object>>		_eventAnnouncements		= new FastList<List<Object>>();
-	private String					leaderboardAnnouncement	= null;
 
 	public Announcements()
 	{
@@ -91,11 +90,6 @@ public class Announcements
 		{
 			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), activeChar.getName(), _announcements.get(i).replace("%name%",
 					activeChar.getName()));
-			activeChar.sendPacket(cs);
-		}
-		if (leaderboardAnnouncement != null)
-		{
-			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), activeChar.getName(), leaderboardAnnouncement);
 			activeChar.sendPacket(cs);
 		}
 
@@ -147,11 +141,6 @@ public class Announcements
 	{
 		_announcements.add(text);
 		saveToDisk();
-	}
-
-	public void setLeaderboardAnnouncement(String announce)
-	{
-		leaderboardAnnouncement = announce;
 	}
 
 	public void delAnnouncement(int line)
