@@ -15,9 +15,8 @@
 package com.l2jfree.gameserver.instancemanager;
 
 import java.io.FileNotFoundException;
-import java.util.List;
 
-import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,10 +29,10 @@ import com.l2jfree.gameserver.model.entity.Instance;
  */
 public class InstanceManager
 {
-	private final static Log		_log			= LogFactory.getLog(InstanceManager.class.getName());
-	private List<Instance>			_instanceList	= new FastList<Instance>();
-	private static InstanceManager	_instance;
-	private int						_dynamic		= 300000;
+	private final static Log			_log			= LogFactory.getLog(InstanceManager.class.getName());
+	private FastMap<Integer, Instance>	_instanceList	= new FastMap<Integer, Instance>();
+	private static InstanceManager		_instance;
+	private int							_dynamic		= 300000;
 
 	public static final InstanceManager getInstance()
 	{
@@ -50,12 +49,12 @@ public class InstanceManager
 	{
 		Instance themultiverse = new Instance(-1);
 		themultiverse.setName("multiverse");
-		_instanceList.add(themultiverse);
+		_instanceList.put(-1, themultiverse);
 		_log.info("Multiverse Instance created");
 
 		Instance universe = new Instance(0);
 		universe.setName("universe");
-		_instanceList.add(universe);
+		_instanceList.put(0, universe);
 		_log.info("Universe Instance created");
 	}
 
@@ -63,36 +62,23 @@ public class InstanceManager
 	{
 		if (instanceid == 0)
 			return;
-
-		for (Instance temp : _instanceList)
+		Instance temp = _instanceList.get(instanceid);
+		if (temp != null)
 		{
-			if (temp.getId() == instanceid)
-			{
-				temp.removeNpcs();
-				temp.removePlayers();
-				_instanceList.remove(temp);
-			}
+			temp.removeNpcs();
+			temp.removePlayers();
+			_instanceList.remove(instanceid);
 		}
 	}
 
 	public Instance getInstance(int instanceid)
 	{
-		for (Instance temp : _instanceList)
-		{
-			if (temp.getId() == instanceid)
-				return temp;
-		}
-		return null;
-	}
-
-	public List<Instance> getInstances()
-	{
-		return _instanceList;
+		return _instanceList.get(instanceid);
 	}
 
 	public int getPlayerInstance(int objectId)
 	{
-		for (Instance temp : _instanceList)
+		for (Instance temp : _instanceList.values())
 		{
 			// check if the player is in any active instance
 			if (temp.containsPlayer(objectId))
@@ -108,7 +94,7 @@ public class InstanceManager
 			return false;
 
 		Instance instance = new Instance(id);
-		_instanceList.add(instance);
+		_instanceList.put(id, instance);
 		return true;
 	}
 
@@ -119,7 +105,7 @@ public class InstanceManager
 
 		Instance instance = new Instance(id);
 		instance.loadInstanceTemplate(template);
-		_instanceList.add(instance);
+		_instanceList.put(id, instance);
 		return true;
 	}
 
@@ -137,7 +123,7 @@ public class InstanceManager
 		}
 		Instance instance = new Instance(_dynamic);
 		instance.loadInstanceTemplate(template);
-		_instanceList.add(instance);
+		_instanceList.put(_dynamic, instance);
 		return _dynamic;
 	}
 }
