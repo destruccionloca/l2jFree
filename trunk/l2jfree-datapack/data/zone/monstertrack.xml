@@ -2,7 +2,7 @@
   <zone id="1" name="Monster Race Track">
     <settings pvp="Arena" noEscape="true" />
     <restart_owner x="12312" y="182752" z="-3558" />
-    <shape type="Poly" zMin="-3596" zMax="-3596">
+    <shape type="Poly" zMin="-3596" zMax="-3500">
       <point x="11947" y="183019" />
       <point x="12937" y="183019" />
       <point x="12943" y="184010" />
