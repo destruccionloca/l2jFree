@@ -1408,70 +1408,45 @@
   </skill>
   <skill id="3080" levels="10"
     name="Item Skill: Aggression">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1 - Chance: Provokes a target to attack during an ordinary physical attack. Power 438.
-      Lvl 2 - Provokes a target to attack during an ordinary physical attack. Power 467.
-      Lvl 3 - Chance: Provokes a target to attack during an ordinary physical attack. Power 495.
-      Lvl 4 - Chance: Provokes a target to attack during an ordinary physical attack. Power 523.
-      Lvl 5 - Chance: Provokes a target to attack during an ordinary physical attack. Power 549.
-      Lvl 6 - Chance: Provokes a target to attack during an ordinary physical attack. Power 574.
-      Lvl 7 - Chance: Provokes a target to attack during an ordinary physical attack. Power 597.
-      Lvl 8 - Chance: Provokes a target to attack during an ordinary physical attack. Power 617.
-      Lvl 9 - Chance: Provokes a target to attack during an ordinary physical attack. Power 635.
-      Lvl 10 - Chance: Provokes a target to attack during an ordinary physical attack. Power 659.
-    -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <table name="#power"> 438.0 467.0 495.0 523.0 549.0 574.0 597.0 617.0 635.0 659.0 </table>
+    <set name="power" val="#power"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="isMagic" val="false"/>
+    <set name="skillType" val="AGGDAMAGE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
+    <set name="isDebuff" val="true" />
+    <for>
+      <effect count="1" name="TargetMe" time="3" val="0" />
+    </for>
   </skill>
   <skill id="3081" levels="10" name="Item Skill: Charm">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1 - Chance: Decreases a target's urge to attack during a general physical attack. Power 219.
-      Lvl 2 - Chance: Decreases a target's urge to attack during a general physical attack. Power 234.
-      Lvl 3 - Chance: Decreases a target's urge to attack during a general physical attack. Power 248.
-      Lvl 4 - Chance: Decreases a target's urge to attack during a general physical attack. Power 262.
-      Lvl 5 - Chance: Decreases a target's urge to attack during a general physical attack. Power 275.
-      Lvl 6 - Chance: Decreases a target's urge to attack during a general physical attack. Power 287.
-      Lvl 7 - Chance: Decreases a target's urge to attack during a general physical attack. Power 299.
-      Lvl 8 - Chance: Decreases a target's urge to attack during a general physical attack. Power 309.
-      Lvl 9 - Chance: Decreases a target's urge to attack during a general physical attack. Power 318.
-      Lvl 10 - Chance: Decreases a target's urge to attack during a general physical attack. Power 330.
-    -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <table name="#aggr"> 219.0 234.0 248.0 262.0 275.0 287.0 299.0 309.0 318.0 330.0 </table>
+    <set name="power" val="0.0"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="isMagic" val="false"/>
+    <set name="skillType" val="AGGREDUCE" />
+    <set name="isDebuff" val="true" />
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
+    <for>
+      <effect name="Buff" time="60" count="1" val="0">
+        <sub order="0x40" stat="aggression" val="#aggr" />
+      </effect>
+    </for>
   </skill>
   <skill id="3082" levels="10"
     name="Item Skill: Mana Burn">
-    <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1 - Chance: Burns up a target's MP during an ordinary physical attack. Power 49.
-      Lvl 2 - Chance: Burns up a target's MP during an ordinary physical attack. Power 53.
-      Lvl 3 - Chance: Burns up a target's MP during an ordinary physical attack. Power 57.
-      Lvl 4 - Chance: Burns up a target's MP during an ordinary physical attack. Power 61.
-      Lvl 5 - Chance: Burns up a target's MP during an ordinary physical attack. Power 66.
-      Lvl 6 - Chance: Burns up a target's MP during an ordinary physical attack. Power 70.
-      Lvl 7 - Chance: Burns up a target's MP during an ordinary physical attack. Power 74.
-      Lvl 8 - Chance: Burns up a target's MP during an ordinary physical attack. Power 78.
-      Lvl 9 - Chance: Burns up a target's MP during an ordinary physical attack. Power 82.
-      Lvl 10 - Chance: Burns up a target's MP during an ordinary physical attack. Power 88.
-    -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <table name="#power"> 49.0 53.0 57.0 61.0 66.0 70.0 74.0 78.0 82.0 88.0 </table>
+    <set name="power" val="#power"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="isMagic" val="false"/>
+    <set name="skillType" val="MANADAM" />
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
     <for></for>
   </skill>
   <skill id="3083" levels="10" name="Item Skill: Slow">
