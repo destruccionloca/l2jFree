@@ -82,16 +82,18 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)
 	{
-		if (!(attacker instanceof L2PcInstance))
+		// Summons and traps are attackable, too
+		L2PcInstance player = attacker.getActingPlayer();
+		if (player == null)
 			return false;
+		if (player.getClan() == null)
+			return true;
 
-		boolean isCastle = ( getCastle() != null && getCastle().getCastleId() > 0 
-				&& getCastle().getSiege().getIsInProgress()
-				&& !getCastle().getSiege().checkIsDefender(((L2PcInstance)attacker).getClan()));
+		boolean isCastle = (getCastle() != null && getCastle().getSiege().getIsInProgress()
+				&& !getCastle().getSiege().checkIsDefender(player.getClan()));
 
-		boolean isFort = ( getFort() != null && getFort().getFortId() > 0 
-				&& getFort().getSiege().getIsInProgress()
-				&& !getFort().getSiege().checkIsDefender(((L2PcInstance)attacker).getClan()));
+		boolean isFort = ( getFort() != null && getFort().getSiege().getIsInProgress()
+				&& !getFort().getSiege().checkIsDefender(player.getClan()));
 
 		// Attackable during siege by all except defenders ( Castle or Fort )
 		return (isCastle || isFort);
