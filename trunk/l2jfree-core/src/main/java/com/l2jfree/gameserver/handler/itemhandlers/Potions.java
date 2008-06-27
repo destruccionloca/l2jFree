@@ -118,7 +118,11 @@ public class Potions implements IItemHandler
 			8636,
 			8637,
 			8638,
-			8639							};
+			8639,
+			10409,
+			10410,
+			10411,
+			10412	};
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
@@ -504,6 +508,53 @@ public class Potions implements IItemHandler
 		case 8202: // Fishing Potion
 			res = usePotion(activeChar, 2275, 1);
 			break;
+		case 10409: // Empty Bottle of Souls
+			if (activeChar.isKamaelic()) //Kamael classes only
+			{
+				if (activeChar.getSouls() >= 6)
+				{
+					res = usePotion(activeChar, 2498, 1);
+				}
+				else
+				{
+					playable.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL));
+				}
+			}
+			else
+			{
+				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+			}
+			break;
+		case 10410: // 5 Souls Bottle
+			if (activeChar.isKamaelic()) //Kamael classes only
+			{
+				res = usePotion(activeChar, 2499, 1);
+			}
+			else
+			{
+				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+			}
+			break;
+		case 10411: // 5 Souls Bottle Combat
+			if (activeChar.isKamaelic()) //Kamael classes only
+			{
+				res = usePotion(activeChar, 2499, 1);
+			}
+			else
+			{
+				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+			}
+			break;
+		case 10412: // 10 Souls Bottle
+			if (activeChar.isKamaelic()) //Kamael classes only
+			{
+				res = usePotion(activeChar, 2499, 2);
+			}
+			else
+			{
+				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+			}
+			break;			
 		default:
 		}
 
