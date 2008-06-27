@@ -313,11 +313,11 @@
       146 146 147 148 148 149 150 150 151 152 152 153 154
       154 155 156 156
     </table>
-    <!-- <table name="#aggro">
+    <table name="#aggro">
       227 243 268 285 313 331 360 379 399 418 438 457 477
       495 514 532 541 549 558 566 574 582 590 597 604 611
       617 624 630 635 641 646 650 655
-    </table> -->
+    </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -329,7 +329,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <!-- <set name="aggroPoints" val="#aggro" /> -->
+    <set name="aggroPoints" val="#aggro" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"

@@ -16,13 +16,13 @@ class Quest (JQuest) :
  def onEvent(self,event,st):
     htmltext = event
     if event == "Little_Angel" :
-      if st.getQuestItemsCount(6471) >= 20 and st.getQuestItemsCount(5094) >= 50 and st.getQuestItemsCount(8160) >= 4 and st.getQuestItemsCount(8166) >= 5 and st.getQuestItemsCount(8169) >= 5 and st.getQuestItemsCount(8163) >= 3 and st.getQuestItemsCount(57) >= 7500000 :
-        st.takeItems(6471,20)
+      if st.getQuestItemsCount(6471) >= 20 and st.getQuestItemsCount(5094) >= 50 and st.getQuestItemsCount(9814) >= 4 and st.getQuestItemsCount(9816) >= 5 and st.getQuestItemsCount(9817) >= 5 and st.getQuestItemsCount(9815) >= 3 and st.getQuestItemsCount(57) >= 7500000 :
+        st.takeItems(6471,25)
         st.takeItems(5094,50)
-        st.takeItems(8160,4)
-        st.takeItems(8166,5)
-        st.takeItems(8169,5)
-        st.takeItems(8163,3)
+        st.takeItems(9814,4)
+        st.takeItems(9816,5)
+        st.takeItems(9817,5)
+        st.takeItems(9815,3)
         st.takeItems(57,7500000)
         st.giveItems(Angel_Bracelet,1)
         st.exitQuest(1)
@@ -30,13 +30,13 @@ class Quest (JQuest) :
         htmltext = "30098-no.htm"
         st.exitQuest(1)
     if event == "Little_Devil" :
-      if st.getQuestItemsCount(6471) >= 20 and st.getQuestItemsCount(5094) >= 50 and st.getQuestItemsCount(8160) >= 4 and st.getQuestItemsCount(8166) >= 5 and st.getQuestItemsCount(8169) >= 5 and st.getQuestItemsCount(8163) >= 3 and st.getQuestItemsCount(57) >= 7500000 :
-        st.takeItems(6471,20)
+      if st.getQuestItemsCount(6471) >= 20 and st.getQuestItemsCount(5094) >= 50 and st.getQuestItemsCount(9814) >= 4 and st.getQuestItemsCount(9816) >= 5 and st.getQuestItemsCount(9817) >= 5 and st.getQuestItemsCount(9815) >= 3 and st.getQuestItemsCount(57) >= 7500000 :
+        st.takeItems(6471,25)
         st.takeItems(5094,50)
-        st.takeItems(8160,4)
-        st.takeItems(8166,5)
-        st.takeItems(8169,5)
-        st.takeItems(8163,3)
+        st.takeItems(9814,4)
+        st.takeItems(9816,5)
+        st.takeItems(9817,5)
+        st.takeItems(9815,3)
         st.takeItems(57,7500000)
         st.giveItems(Devil_Bracelet,1)
         st.exitQuest(1)

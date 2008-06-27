@@ -4,7 +4,7 @@
 CREATE TABLE IF NOT EXISTS `character_skills_save` (
   `charId` INT UNSIGNED NOT NULL DEFAULT 0,
   `skill_id` INT NOT NULL DEFAULT 0,
-  `skill_level` INT NOT NULL DEFAULT 0,
+  `skill_level` TINYINT UNSIGNED NOT NULL DEFAULT 0,
   `effect_count` INT NOT NULL DEFAULT 0,
   `effect_cur_time` INT NOT NULL DEFAULT 0,
   `reuse_delay` INT(8) NOT NULL DEFAULT 0,
