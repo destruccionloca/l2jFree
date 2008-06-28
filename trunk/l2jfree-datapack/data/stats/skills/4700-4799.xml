@@ -1882,8 +1882,8 @@
       <mul order="0x30" stat="mDef" val="#mDef" />
     </for>
   </skill>
+  <!-- A soldier of the Convict Mercenaries, who were famous for their bravery during the Aden-Gracia War. Currently, he is the Commander of the Gracia Convict Mercenaries, the surviving remnants of the company left in Aden Kingdom. His soldiers are based in Gludio.  He waits for an opportunity to return to his country. -->
   <skill id="4790" levels="1" name="Raid Boss - Level 23">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1891,8 +1891,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- The commander of the Katu Mercenaries. Prone to violent outbursts at any cause, he takes special joy in battling both elves and dark elves. He has no care for personal appearance or common courtesies, and some claim him touched by madness. -->  
   <skill id="4791" levels="1" name="Raid Boss - Level 30">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1900,8 +1900,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- A wicked Spider that once lived in the Wastelands while Beleth was free. After Beleth was sealed away, the Spider was chased away by a colony of Ants, empowered by the magic power of the Wastelands. The Spider was forced to retreat to this place. It swears that someday it will feed on the Ants and destroy them. It  quietly grows in power while sharpening its fangs for vengeance. --> 
   <skill id="4792" levels="1" name="Raid Boss - Level 42">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1909,8 +1909,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- A Treant who used to live south of Gludio, he loved trees and nature. After the war with Beleth, his beautiful forest home was destroyed, and his friends were slain. Deeply affected by that traumatic loss he is now trapped in a haze of hatred, madness, and the desire for revenge.  Gripped by his anger, he is still at war against all humans and mystics. -->
   <skill id="4793" levels="1" name="Raid Boss - Level 55">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1918,17 +1918,17 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- One of the leaders of the peasants who resisted the merciless rule of Lord Ashton.He was ultimately captured and brutally executed by Ashton's cruel soldiers. Yet even that did not stop him. To overthrow  Ashton, he made a contract with a devil and came back to life. But the devil's bargain turned his once noble ideals towards loathing, turning him into a monster with the power of evil magic. -->
   <skill id="4794" levels="1" name="Raid Boss - Level 50">
     <!-- This Skill Is Only For Description In The Client -->
-    <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- A mechanical golem owned by the Lord of Innadril Castle. The lord's family has been protected by Eva for generations.This golem was created to protect the Garden of Ev made by a dwarven master artisan. It is a guard to fend off the Water Dragon Fafurion's troops, or invaders threatening the garden. The dwarven master made two other golems, but this third and final one was the strongest. -->
   <skill id="4795" levels="1" name="Raid Boss - Level 60">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1936,8 +1936,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- A Pan who was once a long-time friend of the Elves, and guarded the ancient Elven Forest. The Pans stayed neutral during the tragic war between the Elves and the Dark Elves, and both sides turned against them. The other Pans retreated into hiding after suffering cruel attacks from both sides, but Pay Dryad still remains here waiting for the golden age of peace to return. -->
   <skill id="4796" levels="1" name="Raid Boss - Level 25">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1945,8 +1945,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- An Orc Dark Mage with superior talent. He was once known as "the Hope of the Breka Orc tribe," but he was tricked into plotting against his leader, and exiled. Now, he dreams of the day he will take vengeance on those who betrayed and exiled him. He grows in power, and uses summoning magic learned from the Dark Elves to harness powerful servitors and minions. -->  
   <skill id="4797" levels="1" name="Raid Boss - Level 34">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1954,8 +1954,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- She is the Ruthless Queen of Marsh Stakatos, deep in the Cruma Marshlands. The Queen is notorious for  mecilessness and cruelty to both her own forces and enemies alike. She has ordered the deaths of any and all who oppose her, including subordinates and even her own children. The Queen yearns to build a kingdom for Marsh Stakatos someday. -->  
   <skill id="4798" levels="1" name="Raid Boss - Level 34">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1963,11 +1963,11 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- He is the Commander of the advance forces of the powerful Ketra Orc tribe, who hail from the Goddard Territory of Elmore Kingdom. He believes completely in the superiority of his tribe. He was dispatched to expand their influence upon Aden Kingdom. He greatly detests the Silenos as well as humans, and is a formidable enemy. -->  
   <skill id="4799" levels="1" name="Raid Boss - Level 49">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
+    <set name="skillType" val="PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for></for>
