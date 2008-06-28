@@ -136,7 +136,7 @@ public class Heal implements ISkillHandler
 			}
 			else
 			{
-				if (skill.getSkillType() == SkillType.HEAL_STATIC)
+				if (skill.getSkillType() == SkillType.HEAL_STATIC || skill.isPotion())
 				{
 					hp = skill.getPower();
 				}
@@ -145,6 +145,8 @@ public class Heal implements ISkillHandler
 					hp *= target.calcStat(Stats.HEAL_EFFECTIVNESS, 100, null, null) / 100;
 					// Healer proficiency (since CT1)
 					hp *= activeChar.calcStat(Stats.HEAL_PROFICIENCY, 100, null, null) / 100;
+					// Extra bonus (since CT1.5)
+					hp += target.calcStat(Stats.HEAL_STATIC_BONUS, 0, null, null);
 				}
 			}
 

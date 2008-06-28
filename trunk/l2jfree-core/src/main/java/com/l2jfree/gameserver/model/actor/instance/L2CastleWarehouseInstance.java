@@ -22,6 +22,8 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.WareHouseDepositList;
 import com.l2jfree.gameserver.network.serverpackets.WareHouseWithdrawalList;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.util.IllegalPlayerAction;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  * @author  l3x
@@ -114,8 +116,7 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 	{
 		if (player.getActiveEnchantItem() != null)
 		{
-			_log.info("Player " + player.getName() + " trying to use enchant exploit, ban this player!");
-			player.closeNetConnection();
+			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " trying to use enchant exploit, ban this player!", IllegalPlayerAction.PUNISH_KICK);
 			return;
 		}
 

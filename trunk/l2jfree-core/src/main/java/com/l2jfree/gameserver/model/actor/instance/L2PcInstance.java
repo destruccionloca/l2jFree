@@ -192,6 +192,7 @@ import com.l2jfree.gameserver.network.serverpackets.ObservationMode;
 import com.l2jfree.gameserver.network.serverpackets.ObservationReturn;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PartySpelled;
+import com.l2jfree.gameserver.network.serverpackets.PetInfo;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListDelete;
@@ -4785,9 +4786,17 @@ public final class L2PcInstance extends L2PlayableInstance
 					if (clanWarKill)
 					{
 						if (getClan().getReputationScore() > 0) // when your reputation score is 0 or below, the other clan cannot acquire any reputation points
+						{
 							pk.getClan().setReputationScore(pk.getClan().getReputationScore() + 2, true);
+							getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
+							pk.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(pk.getClan()));
+						}
 						if (pk.getClan().getReputationScore() > 0) // when the opposing sides reputation score is 0 or below, your clans reputation score does not decrease
+						{
 							_clan.setReputationScore(_clan.getReputationScore() - 2, true);
+							getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
+							pk.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(pk.getClan()));
+						}
 					}
 				}
 			}
@@ -10677,6 +10686,16 @@ public final class L2PcInstance extends L2PlayableInstance
 			getTrainedBeast().getAI().stopFollow();
 			getTrainedBeast().teleToLocation(getPosition().getX() + Rnd.get(-100, 100), getPosition().getY() + Rnd.get(-100, 100), getPosition().getZ(), false);
 			getTrainedBeast().getAI().startFollow(this);
+		}
+		// Modify the position of the pet if necessary
+		L2Summon pet = getPet();
+		if (pet != null)
+		{
+			pet.setFollowStatus(false);
+			pet.teleToLocation(getPosition().getX() + Rnd.get(-100, 100), getPosition().getY() + Rnd.get(-100, 100), getPosition().getZ(), false);
+			pet.setFollowStatus(true);
+			sendPacket(new PetInfo(pet));
+			pet.updateEffectIcons(true);
 		}
 	}
 

@@ -819,7 +819,7 @@ public class L2Party
 		int newLevel = 0;
 		for (L2PcInstance member : getPartyMembers())
 		{
-			if (member.getLevel() > newLevel)
+			if (member != null && member.getLevel() > newLevel)
 				newLevel = member.getLevel();
 		}
 		_partyLvl = newLevel;

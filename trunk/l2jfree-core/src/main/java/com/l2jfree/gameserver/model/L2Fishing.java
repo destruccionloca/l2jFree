@@ -125,9 +125,12 @@ public class L2Fishing implements Runnable
 
     public synchronized void doDie(boolean win)
     {
-    	_fishAiTask.cancel(false);
-        _fishAiTask = null;
-        
+        if (_fishAiTask != null)
+        {
+            _fishAiTask.cancel(false);
+            _fishAiTask = null;
+        }
+
         if (_fisher == null) return;
         
         if (win)

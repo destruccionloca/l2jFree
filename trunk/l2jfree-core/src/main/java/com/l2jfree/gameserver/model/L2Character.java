@@ -476,16 +476,6 @@ public abstract class L2Character extends L2Object
 		spawnMe(getPosition().getX(), getPosition().getY(), getPosition().getZ());
 		if (_isPendingRevive)
 			doRevive();
-		// Modify the position of the pet if necessary
-		L2Summon pet = getPet();
-		if (pet != null)
-		{
-			pet.setFollowStatus(false);
-			pet.teleToLocation(getPosition().getX() + Rnd.get(-100, 100), getPosition().getY() + Rnd.get(-100, 100), getPosition().getZ(), false);
-			pet.setFollowStatus(true);
-			sendPacket(new PetInfo(pet));
-			pet.updateEffectIcons(true);
-		}
 	}
 
 	// =========================================================

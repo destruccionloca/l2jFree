@@ -2250,17 +2250,15 @@
   </skill>
   <skill id="390" levels="3" name="Clan Luck">
     <!-- Decreases Exp. loss and the chance of other death penalties when killed by a monster or player. It only effects those who are of an Heir class or higher. -->
-    <table name="#loss">0.9 0.8 0.7</table><!-- Retail values needed -->
+    <!-- Still missing info about other penalties than exp. loss-->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="BUFF" />
+    <set name="skillType" val="COREDONE" />
     <set name="operateType" val="OP_PASSIVE" />
-    <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="minPledgeClass" val="2" />
     <for>
-      <mul stat="lostExp" val="#loss" order="0x30" />
     </for>
   </skill>
   <skill id="391" levels="1" name="Clan Imperium">

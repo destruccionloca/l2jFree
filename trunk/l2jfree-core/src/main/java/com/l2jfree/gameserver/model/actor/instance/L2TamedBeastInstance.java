@@ -232,6 +232,9 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
         if (_owner.isDead()) 
             return;
 
+		if (attacker == null)
+			return;
+
 		// if the tamed beast is currently in the middle of casting, let it complete its skill...
 		if(isCastingNow())
 			return;
