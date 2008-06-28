@@ -651,7 +651,6 @@
   </skill>
   <!-- In his youth, he became a hero of the Timak Orcs after leading them to build the Timak Outpost. Granted a greatly extended lifespan by the power of totems, he is now the leader of all Timak Orcs. -->
   <skill id="4872" levels="1" name="Raid Boss - Level 57">
-    s
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
