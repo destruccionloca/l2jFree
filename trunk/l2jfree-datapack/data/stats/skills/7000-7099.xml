@@ -2,13 +2,13 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="7000" levels="1" name="NPC Default">
-    <set name="power" val="0.0"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="isMagic" val="false"/>
-    <set name="skillType" val="PDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="0"/>
-    <set name="effectRange" val="-1"/>
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="isMagic" val="false" />
+    <set name="skillType" val="PDAM" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="0" />
+    <set name="effectRange" val="-1" />
     <for></for>
   </skill>
   <skill id="7001" levels="1" name="Dispel Buff">
@@ -67,7 +67,7 @@
     <set name="target" val="TARGET_PARTY" />
     <set name="skillType" val="PASSIVE" />
     <set name="hitTime" val="2500" />
-    <set name="coolTime" val="1666"/>
+    <set name="coolTime" val="1666" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="400" />
@@ -76,8 +76,7 @@
     <for></for>
   </skill>
   <!-- Greatly enhances alliance members' HP restoration.  Effect 6. -->
-  <skill id="7006" levels="1"
-    name="The Love of Pa'agrio">
+  <skill id="7006" levels="1" name="The Love of Pa'agrio">
     <!-- TODO -->
     <set name="mpConsume" val="272" />
     <set name="power" val="0.0" />
@@ -89,7 +88,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="655" />
-    <set name="coolTime" val="1666"/>
+    <set name="coolTime" val="1666" />
     <for></for>
   </skill>
   <!-- A protective ring of fire that continuously reduces HP of surrounding enemies and their alliance members. Effect 8. -->
@@ -97,13 +96,13 @@
     name="Greater Seal of Flame">
     <!-- TODO -->
     <set name="mpConsume" val="122" />
-    <set name="mpInitialConsume" val="30"/>
+    <set name="mpInitialConsume" val="30" />
     <set name="power" val="0.0" />
-    <set name="skillRadius" val="200"/>
+    <set name="skillRadius" val="200" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="hitTime" val="4000" />
-    <set name="coolTime" val="2666"/>
+    <set name="coolTime" val="2666" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="400" />
@@ -292,7 +291,7 @@
     2: speed is increased significantly.
     3: Speed is increased dramatically.
     4: Grants the combined power of two warriors.
-  -->  
+  -->
   <skill id="7029" levels="4" name="Super Haste">
     <table name="#Tab-runSpd">1.5 2 3 4</table>
     <table name="#Tab-pReuse">1 2 4 30</table>
@@ -534,7 +533,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#Tab-cAtk" stackType="cAtk">
@@ -556,7 +555,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#Tab-pAtkSpd"
@@ -579,7 +578,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect name="Buff" time="300" count="1" val="0"
         stackOrder="#Tab-accCombat" stackType="hit_up">
@@ -602,7 +601,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#Tab-maxHp" stackType="max_hp_up">
@@ -624,7 +623,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#Tab-maxMp" stackType="MPregen">
@@ -646,7 +645,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#Tab-rEvas" stackType="rEvas">
@@ -668,7 +667,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#Tab-mAtkSpd" stackType="mAtkSpeedUp">
@@ -690,7 +689,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#Weight" stackType="Weight">
@@ -712,7 +711,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#rate" stackType="pa_up">
@@ -734,7 +733,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#rate" stackType="pd_up">
@@ -756,7 +755,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#Tab-mDef" stackType="MagicDefUp">
@@ -778,7 +777,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect name="Buff" time="300" count="1" val="0"
         stackOrder="#Tab-absorbDam" stackType="vampRage">
@@ -801,7 +800,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#Tab-mAtk" stackType="ma_up">
@@ -823,7 +822,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#Tab-runSpd" stackType="speed_up">
@@ -852,7 +851,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="1" stackType="berserk">
@@ -881,7 +880,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="0" stackType="Great">
@@ -903,7 +902,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="0" stackType="Great">
@@ -925,7 +924,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect name="Buff" time="300" count="1" val="0">
         <mul order="0x30" stat="mCritRate" val="#mCrit" />
@@ -947,7 +946,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="#mpConsume" stackType="MPrate">
@@ -971,7 +970,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="1" stackType="multi_buff">
@@ -998,7 +997,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="1" stackType="multi_buff">
@@ -1026,7 +1025,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="1" stackType="multi_buff">
@@ -1061,7 +1060,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="coolTime" val="332"/>
+    <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="1" stackType="multi_buff">
@@ -1171,155 +1170,155 @@
   <!-- Currently stunned. -->
   <skill id="7077" levels="1"
     name="Test - Delay Debuff - Call">
-    <set name="power" val="0.0"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="isMagic" val="false"/>
-    <set name="skillType" val="STUN"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/
-    <for></for>
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="isMagic" val="false" />
+    <set name="skillType" val="STUN" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" /
+      <for></for>
   </skill>
   <!-- Stuns -->
   <skill id="7078" levels="1" name="Test - Blink">
-    <set name="power" val="0.0"/>
-    <set name="mpInitialConsume" val="20"/>
-    <set name="mpConsume" val="80"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="300"/>
-    <set name="coolTime" val="200"/>
-    <set name="isMagic" val="true"/>
-    <set name="skillType" val="MDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="power" val="0.0" />
+    <set name="mpInitialConsume" val="20" />
+    <set name="mpConsume" val="80" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="hitTime" val="300" />
+    <set name="coolTime" val="200" />
+    <set name="isMagic" val="true" />
+    <set name="skillType" val="MDAM" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for></for>
   </skill>
   <!-- Transfers party damage to tanker. -->
   <skill id="7079" levels="1"
     name="Test - Party Damage Absorb">
-    <set name="power" val="0.0"/>
-    <set name="mpInitialConsume" val="20"/>
-    <set name="mpConsume" val="80"/>
-    <set name="target" val="TARGET_PARTY"/>
-    <set name="skillRadius" val="1000"/>
-    <set name="hitTime" val="2500"/>
-    <set name="coolTime" val="1666"/>
-    <set name="isMagic" val="false"/>
-    <set name="skillType" val="PDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="power" val="0.0" />
+    <set name="mpInitialConsume" val="20" />
+    <set name="mpConsume" val="80" />
+    <set name="target" val="TARGET_PARTY" />
+    <set name="skillRadius" val="1000" />
+    <set name="hitTime" val="2500" />
+    <set name="coolTime" val="1666" />
+    <set name="isMagic" val="false" />
+    <set name="skillType" val="PDAM" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for></for>
   </skill>
   <!-- Cannot perform general attack. -->
   <skill id="7080" levels="1"
     name="Test - General Attack Prohibited">
-    <set name="power" val="0.0"/>
-    <set name="mpInitialConsume" val="6"/>
-    <set name="mpConsume" val="24"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="2500"/>
-    <set name="coolTime" val="1666"/>
-    <set name="isMagic" val="false"/>
-    <set name="skillType" val="PDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="600"/>
-    <set name="effectRange" val="1100"/>
+    <set name="power" val="0.0" />
+    <set name="mpInitialConsume" val="6" />
+    <set name="mpConsume" val="24" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="hitTime" val="2500" />
+    <set name="coolTime" val="1666" />
+    <set name="isMagic" val="false" />
+    <set name="skillType" val="PDAM" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="600" />
+    <set name="effectRange" val="1100" />
     <for></for>
   </skill>
   <!-- Shoots toward ground. -->
   <skill id="7081" levels="1"
     name="Effect Test - Land Shot">
-    <set name="power" val="0.0"/>
-    <set name="mpInitialConsume" val="6"/>
-    <set name="mpConsume" val="24"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="3200"/>
-    <set name="coolTime" val="2132"/>
-    <set name="isMagic" val="false"/>
-    <set name="skillType" val="PDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="500"/>
-    <set name="effectRange" val="1000"/>
+    <set name="power" val="0.0" />
+    <set name="mpInitialConsume" val="6" />
+    <set name="mpConsume" val="24" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="hitTime" val="3200" />
+    <set name="coolTime" val="2132" />
+    <set name="isMagic" val="false" />
+    <set name="skillType" val="PDAM" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="500" />
+    <set name="effectRange" val="1000" />
     <for></for>
   </skill>
   <!-- Chain Lightning -->
   <skill id="7082" levels="1"
     name="Effect Test - Chain Lightning">
-    <set name="power" val="0.0"/>
-    <set name="mpInitialConsume" val="20"/>
-    <set name="mpConsume" val="80"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
-    <set name="isMagic" val="true"/>
-    <set name="skillType" val="MDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="500"/>
-    <set name="effectRange" val="1000"/>
+    <set name="power" val="0.0" />
+    <set name="mpInitialConsume" val="20" />
+    <set name="mpConsume" val="80" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="hitTime" val="5000" />
+    <set name="coolTime" val="3332" />
+    <set name="isMagic" val="true" />
+    <set name="skillType" val="MDAM" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="500" />
+    <set name="effectRange" val="1000" />
     <for></for>
   </skill>
   <!-- Trap Range Skill -->
   <skill id="7083" levels="1" name="Test - Trap Skill">
-    <set name="power" val="0.0"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="isMagic" val="true"/>
-    <set name="skillType" val="MDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="isMagic" val="true" />
+    <set name="skillType" val="MDAM" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for></for>
   </skill>
   <!-- Trap Range Skill -->
   <skill id="7084" levels="1" name="Test - Trap Skill">
-    <set name="power" val="0.0"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="isMagic" val="true"/>
-    <set name="skillType" val="MDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="isMagic" val="true" />
+    <set name="skillType" val="MDAM" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for></for>
   </skill>
   <skill id="7085" levels="1"
     name="Self-Destruct Explosion">
-    <set name="power" val="0.0"/>
-    <set name="mpInitialConsume" val="19"/>
-    <set name="mpConsume" val="76"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
-    <set name="isMagic" val="true"/>
-    <set name="skillType" val="MDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="power" val="0.0" />
+    <set name="mpInitialConsume" val="19" />
+    <set name="mpConsume" val="76" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="hitTime" val="1000" />
+    <set name="coolTime" val="666" />
+    <set name="isMagic" val="true" />
+    <set name="skillType" val="MDAM" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for></for>
   </skill>
   <skill id="7086" levels="1" name="Last Stand_test">
-    <set name="power" val="0.0"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="isMagic" val="false"/>
-    <set name="skillType" val="PDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="isMagic" val="false" />
+    <set name="skillType" val="PDAM" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for></for>
   </skill>
   <skill id="7087" levels="1"
     name="Chain Magic - Dark Explosion_test">
-    <set name="power" val="0.0"/>
-    <set name="mpInitialConsume" val="19"/>
-    <set name="mpConsume" val="76"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
-    <set name="isMagic" val="true"/>
-    <set name="skillType" val="MDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="500"/>
-    <set name="effectRange" val="1000"/>
+    <set name="power" val="0.0" />
+    <set name="mpInitialConsume" val="19" />
+    <set name="mpConsume" val="76" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="hitTime" val="1000" />
+    <set name="coolTime" val="666" />
+    <set name="isMagic" val="true" />
+    <set name="skillType" val="MDAM" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="500" />
+    <set name="effectRange" val="1000" />
     <for></for>
   </skill>
 </list>

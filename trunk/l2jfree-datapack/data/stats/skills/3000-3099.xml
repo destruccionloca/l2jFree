@@ -730,8 +730,8 @@
       created 2005-05-29 23:34:31
     -->
     <table name="#rate">
-      61 63 64 66 71.9 68 71 73 75 77 79 81 82 84 86 90 88 106
-      111 116
+      61 63 64 66 71.9 68 71 73 75 77 79 81 82 84 86 90 88
+      106 111 116
     </table>
     <table name="#PvPbonus">
       1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1.05 1.05 1.05 1.05
@@ -1408,29 +1408,35 @@
   </skill>
   <skill id="3080" levels="10"
     name="Item Skill: Aggression">
-    <table name="#power"> 438.0 467.0 495.0 523.0 549.0 574.0 597.0 617.0 635.0 659.0 </table>
-    <set name="power" val="#power"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="isMagic" val="false"/>
-    <set name="skillType" val="AGGDAMAGE"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="40"/>
-    <set name="effectRange" val="400"/>
+    <table name="#power">
+      438.0 467.0 495.0 523.0 549.0 574.0 597.0 617.0 635.0
+      659.0
+    </table>
+    <set name="power" val="#power" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="isMagic" val="false" />
+    <set name="skillType" val="AGGDAMAGE" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="40" />
+    <set name="effectRange" val="400" />
     <set name="isDebuff" val="true" />
     <for>
       <effect count="1" name="TargetMe" time="3" val="0" />
     </for>
   </skill>
   <skill id="3081" levels="10" name="Item Skill: Charm">
-    <table name="#aggr"> 219.0 234.0 248.0 262.0 275.0 287.0 299.0 309.0 318.0 330.0 </table>
-    <set name="power" val="0.0"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="isMagic" val="false"/>
+    <table name="#aggr">
+      219.0 234.0 248.0 262.0 275.0 287.0 299.0 309.0 318.0
+      330.0
+    </table>
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="isMagic" val="false" />
     <set name="skillType" val="AGGREDUCE" />
     <set name="isDebuff" val="true" />
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="40"/>
-    <set name="effectRange" val="400"/>
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="40" />
+    <set name="effectRange" val="400" />
     <for>
       <effect name="Buff" time="60" count="1" val="0">
         <sub order="0x40" stat="aggression" val="#aggr" />
@@ -1439,14 +1445,16 @@
   </skill>
   <skill id="3082" levels="10"
     name="Item Skill: Mana Burn">
-    <table name="#power"> 49.0 53.0 57.0 61.0 66.0 70.0 74.0 78.0 82.0 88.0 </table>
-    <set name="power" val="#power"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="isMagic" val="false"/>
+    <table name="#power">
+      49.0 53.0 57.0 61.0 66.0 70.0 74.0 78.0 82.0 88.0
+    </table>
+    <set name="power" val="#power" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="isMagic" val="false" />
     <set name="skillType" val="MANADAM" />
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="40"/>
-    <set name="effectRange" val="400"/>
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="40" />
+    <set name="effectRange" val="400" />
     <for></for>
   </skill>
   <skill id="3083" levels="10" name="Item Skill: Slow">

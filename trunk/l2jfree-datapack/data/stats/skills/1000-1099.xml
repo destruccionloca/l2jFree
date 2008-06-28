@@ -2118,7 +2118,7 @@
     </table>
     <table name="#mpConsume_Init">5 8 10</table>
     <table name="#mpConsume">18 31 38</table>
-    <table name="#Tab-rCrit"> 0.2 0.25 0.3 </table>
+    <table name="#Tab-rCrit">0.2 0.25 0.3</table>
     <table name="#aggro">243 418 495</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />

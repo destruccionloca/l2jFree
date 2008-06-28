@@ -1038,7 +1038,8 @@
     <set name="effectRange" val="-1" />
     <for>
       <effect count="1" name="Debuff" time="30" val="0"
-        stackOrder="0.77" stackType="pAtkDown"> <!-- time is guessed -->
+        stackOrder="0.77" stackType="pAtkDown">
+        <!-- time is guessed -->
       </effect>
     </for>
   </skill>
@@ -1058,7 +1059,8 @@
     <set name="effectRange" val="-1" />
     <for>
       <effect count="1" name="Debuff" time="30" val="0"
-        stackOrder="0.77" stackType="pDefDown"> <!-- time is guessed -->
+        stackOrder="0.77" stackType="pDefDown">
+        <!-- time is guessed -->
       </effect>
     </for>
   </skill>
@@ -1078,7 +1080,8 @@
     <set name="effectRange" val="-1" />
     <for>
       <effect count="1" name="Debuff" time="30" val="0"
-        stackOrder="0.77" stackType="pAtkSpdDown"> <!-- time is guessed -->
+        stackOrder="0.77" stackType="pAtkSpdDown">
+        <!-- time is guessed -->
       </effect>
     </for>
   </skill>

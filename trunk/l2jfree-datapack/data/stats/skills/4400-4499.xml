@@ -76,7 +76,7 @@
   </skill>
   <skill id="4404" levels="3" name="Focus">
     <!-- by DrLecter -->
-    <table name="#Tab-rCrit"> 0.2 0.25 0.3 </table>
+    <table name="#Tab-rCrit">0.2 0.25 0.3</table>
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="100" />
     <set name="hitTime" val="0" />

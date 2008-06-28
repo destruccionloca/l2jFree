@@ -1,14 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-  <skill id="700" levels="1" name="Divine Healer Group Heal">
+  <skill id="700" levels="1"
+    name="Divine Healer Group Heal">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="701" levels="1" name="Divine Healer Resurrection">
+  <skill id="701" levels="1"
+    name="Divine Healer Resurrection">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -158,7 +160,8 @@
         stackOrder="1" stackType="Root" />
     </for>
   </skill>
-  <skill id="717" levels="4" name="Zaken Concentrated Attack">
+  <skill id="717" levels="4"
+    name="Zaken Concentrated Attack">
     <table name="#power">2751 3252 3752 4224</table>
     <table name="#mpConsume">60 65 69 72</table>
     <set name="mpConsume" val="#mpConsume" />
@@ -204,7 +207,8 @@
       </effect>
     </for>
   </skill>
-  <skill id="720" levels="2" name="Anakim Holy Light Burst">
+  <skill id="720" levels="2"
+    name="Anakim Holy Light Burst">
     <table name="#power">3189 3590</table>
     <table name="#mpConsume">69 72</table>
     <set name="mpConsume" val="#mpConsume" />
@@ -467,7 +471,8 @@
         val="144" abnormal="poison" />
     </for>
   </skill>
-  <skill id="737" levels="1" name="Devil Ultimate Defense">
+  <skill id="737" levels="1"
+    name="Devil Ultimate Defense">
     <set name="mpConsume" val="10" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -530,28 +535,32 @@
     <set name="effectRange" val="900" />
     <for />
   </skill>
-  <skill id="741" levels="3" name="Heretic Heal Side Effect">
+  <skill id="741" levels="3"
+    name="Heretic Heal Side Effect">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="742" levels="3" name="Vale Master Bursting Flame">
+  <skill id="742" levels="3"
+    name="Vale Master Bursting Flame">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="743" levels="3" name="Vale Master Dark Explosion">
+  <skill id="743" levels="3"
+    name="Vale Master Dark Explosion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="744" levels="3" name="Vale Master Dark Flare">
+  <skill id="744" levels="3"
+    name="Vale Master Dark Flare">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -573,21 +582,24 @@
     <set name="aggroPoints" val="624" />
     <for />
   </skill>
-  <skill id="746" levels="3" name="Saber Tooth Tiger Bite">
+  <skill id="746" levels="3"
+    name="Saber Tooth Tiger Bite">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="747" levels="3" name="Saber Tooth Tiger Fear">
+  <skill id="747" levels="3"
+    name="Saber Tooth Tiger Fear">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="748" levels="1" name="Saber Tooth Tiger Sprint">
+  <skill id="748" levels="1"
+    name="Saber Tooth Tiger Sprint">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -601,14 +613,16 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="750" levels="1" name="Oel Mahum Ultimate Defense">
+  <skill id="750" levels="1"
+    name="Oel Mahum Ultimate Defense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="751" levels="3" name="Oel Mahum Arm Flourish">
+  <skill id="751" levels="3"
+    name="Oel Mahum Arm Flourish">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -622,14 +636,16 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="753" levels="3" name="Doll Blader Throwing Knife">
+  <skill id="753" levels="3"
+    name="Doll Blader Throwing Knife">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="754" levels="1" name="Doll Blader Clairvoyance">
+  <skill id="754" levels="1"
+    name="Doll Blader Clairvoyance">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -643,14 +659,16 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="756" levels="1" name="Protection of Elemental">
+  <skill id="756" levels="1"
+    name="Protection of Elemental">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="757" levels="1" name="Protection of Alignment">
+  <skill id="757" levels="1"
+    name="Protection of Alignment">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -699,7 +717,8 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="764" levels="1" name="Song of the Wind Storm">
+  <skill id="764" levels="1"
+    name="Song of the Wind Storm">
     <set name="mpConsume" val="60" />
     <set name="nextDanceCost" val="30" />
     <set name="power" val="0.0" />
@@ -719,7 +738,8 @@
       </effect>
     </for>
   </skill>
-  <skill id="765" levels="1" name="Dance of the Blade Storm">
+  <skill id="765" levels="1"
+    name="Dance of the Blade Storm">
     <set name="weaponsAllowed" val="512" />
     <set name="mpConsume" val="60" />
     <set name="nextDanceCost" val="30" />
@@ -1038,7 +1058,8 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="795" levels="1" name="Divine Knight Brandish">
+  <skill id="795" levels="1"
+    name="Divine Knight Brandish">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1069,7 +1090,8 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="799" levels="3" name="Master Ability - Defense">
+  <skill id="799" levels="3"
+    name="Master Ability - Defense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />

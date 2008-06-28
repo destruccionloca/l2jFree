@@ -1891,7 +1891,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <!-- The commander of the Katu Mercenaries. Prone to violent outbursts at any cause, he takes special joy in battling both elves and dark elves. He has no care for personal appearance or common courtesies, and some claim him touched by madness. -->  
+  <!-- The commander of the Katu Mercenaries. Prone to violent outbursts at any cause, he takes special joy in battling both elves and dark elves. He has no care for personal appearance or common courtesies, and some claim him touched by madness. -->
   <skill id="4791" levels="1" name="Raid Boss - Level 30">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -1900,7 +1900,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <!-- A wicked Spider that once lived in the Wastelands while Beleth was free. After Beleth was sealed away, the Spider was chased away by a colony of Ants, empowered by the magic power of the Wastelands. The Spider was forced to retreat to this place. It swears that someday it will feed on the Ants and destroy them. It  quietly grows in power while sharpening its fangs for vengeance. --> 
+  <!-- A wicked Spider that once lived in the Wastelands while Beleth was free. After Beleth was sealed away, the Spider was chased away by a colony of Ants, empowered by the magic power of the Wastelands. The Spider was forced to retreat to this place. It swears that someday it will feed on the Ants and destroy them. It  quietly grows in power while sharpening its fangs for vengeance. -->
   <skill id="4792" levels="1" name="Raid Boss - Level 42">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -1945,7 +1945,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <!-- An Orc Dark Mage with superior talent. He was once known as "the Hope of the Breka Orc tribe," but he was tricked into plotting against his leader, and exiled. Now, he dreams of the day he will take vengeance on those who betrayed and exiled him. He grows in power, and uses summoning magic learned from the Dark Elves to harness powerful servitors and minions. -->  
+  <!-- An Orc Dark Mage with superior talent. He was once known as "the Hope of the Breka Orc tribe," but he was tricked into plotting against his leader, and exiled. Now, he dreams of the day he will take vengeance on those who betrayed and exiled him. He grows in power, and uses summoning magic learned from the Dark Elves to harness powerful servitors and minions. -->
   <skill id="4797" levels="1" name="Raid Boss - Level 34">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -1954,7 +1954,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <!-- She is the Ruthless Queen of Marsh Stakatos, deep in the Cruma Marshlands. The Queen is notorious for  mecilessness and cruelty to both her own forces and enemies alike. She has ordered the deaths of any and all who oppose her, including subordinates and even her own children. The Queen yearns to build a kingdom for Marsh Stakatos someday. -->  
+  <!-- She is the Ruthless Queen of Marsh Stakatos, deep in the Cruma Marshlands. The Queen is notorious for  mecilessness and cruelty to both her own forces and enemies alike. She has ordered the deaths of any and all who oppose her, including subordinates and even her own children. The Queen yearns to build a kingdom for Marsh Stakatos someday. -->
   <skill id="4798" levels="1" name="Raid Boss - Level 34">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -1963,7 +1963,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <!-- He is the Commander of the advance forces of the powerful Ketra Orc tribe, who hail from the Goddard Territory of Elmore Kingdom. He believes completely in the superiority of his tribe. He was dispatched to expand their influence upon Aden Kingdom. He greatly detests the Silenos as well as humans, and is a formidable enemy. -->  
+  <!-- He is the Commander of the advance forces of the powerful Ketra Orc tribe, who hail from the Goddard Territory of Elmore Kingdom. He believes completely in the superiority of his tribe. He was dispatched to expand their influence upon Aden Kingdom. He greatly detests the Silenos as well as humans, and is a formidable enemy. -->
   <skill id="4799" levels="1" name="Raid Boss - Level 49">
     <set name="target" val="TARGET_SELF" />
     <set name="operateType" val="OP_PASSIVE" />
