@@ -60,13 +60,13 @@ public final class ThreadPoolManager2 extends ThreadPoolManager
 	@Override
 	public ScheduledFuture<?> schedule(Runnable r, long delay)
 	{
-		return _scheduler.schedule(new ScheduleWrapper(r), validateDelay(delay), TimeUnit.MILLISECONDS);
+		return _scheduler.schedule(new ScheduleWrapper(r), validate(delay), TimeUnit.MILLISECONDS);
 	}
 	
 	@Override
 	public ScheduledFuture<?> scheduleAtFixedRate(Runnable r, long delay, long period)
 	{
-		return _scheduler.scheduleAtFixedRate(new ScheduleWrapper(r), validateDelay(delay), validateDelay(period),
+		return _scheduler.scheduleAtFixedRate(new ScheduleWrapper(r), validate(delay), validate(period),
 			TimeUnit.MILLISECONDS);
 	}
 	
@@ -89,7 +89,7 @@ public final class ThreadPoolManager2 extends ThreadPoolManager
 		
 		public void run()
 		{
-			_executor.execute(_runnable);
+			execute(_runnable);
 		}
 	}
 	

@@ -49,7 +49,7 @@ public abstract class ThreadPoolManager
 		}, period, period);
 	}
 	
-	protected final long validateDelay(long delay)
+	protected final long validate(long delay)
 	{
 		return Math.max(0, Math.min(MAX_DELAY, delay));
 	}
