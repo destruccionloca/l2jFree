@@ -22,6 +22,6 @@ public class Venom extends L2DefaultTransformation
 
 	public static void main(String[] args)
 	{
-		TransformationManager.getInstance().registerTransformation(new Zombie());
+		TransformationManager.getInstance().registerTransformation(new Venom());
 	}
 }
