@@ -4,9 +4,9 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2DefaultTransformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-public class Zombie extends L2DefaultTransformation
+public class Venom extends L2DefaultTransformation
 {
-	public Zombie()
+	public Venom()
 	{
 		// id, colRadius, colHeight
 		super(307, 11.0, 25.0);
