@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.L2Trap;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
