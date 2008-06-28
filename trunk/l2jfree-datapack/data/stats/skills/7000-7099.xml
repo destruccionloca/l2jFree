@@ -80,7 +80,7 @@
     <!-- TODO -->
     <set name="mpConsume" val="272" />
     <set name="power" val="0.0" />
-    <set name="target" val="TARGET_ALLIANCE" />
+    <set name="target" val="TARGET_CLAN" />
     <set name="skillType" val="PASSIVE" />
     <set name="hitTime" val="2500" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -1176,7 +1176,7 @@
     <set name="skillType" val="STUN" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" /
+    <set name="effectRange" val="-1" />
       <for></for>
   </skill>
   <!-- Stuns -->

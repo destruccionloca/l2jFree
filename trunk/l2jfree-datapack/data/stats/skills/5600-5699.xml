@@ -109,45 +109,44 @@
     <set name="castRange" val="-1" />
     <for></for>
   </skill>
-  <!-- He was created when a large number of elemental spirits that were constrained in the basement of Tower of Naia were transformed after being affected by Beleth's magic and Core Naia. Although it is a monster with an unstable shape and mind, which is  
-    <skill id="5615" levels="1" name="Raid Boss - Level 87">
+  <!-- He was created when a large number of elemental spirits that were constrained in the basement of Tower of Naia were transformed after being affected by Beleth's magic and Core Naia. Although it is a monster with an unstable shape and mind, which is about to be destroyed, it is still slightly conscious as a nature spirit. -->  
+  <skill id="5615" levels="1" name="Raid Boss - Level 87">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for></for>
     </skill>
-    <!-- He was created when a large number of elemental spirits that were constrained in the basement of Tower of Naia were transformed after being affected by Beleth's magic and Core Naia. Although it is a monster with an unstable shape and mind, which is  
-    <skill id="5616" levels="1" name="Raid Boss - Level 87">
+  <!-- He was created when a large number of elemental spirits that were constrained in the basement of Tower of Naia were transformed after being affected by Beleth's magic and Core Naia. Although it is a monster with an unstable shape and mind, which is about to be destroyed, it is still slightly conscious as a nature spirit. -->  
+  <skill id="5616" levels="1" name="Raid Boss - Level 87">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for></for>
     </skill>
-    <!-- He was created when a large number of elemental spirits that were constrained in the basement of Tower of Naia were transformed after being affected by Beleth's magic and Core Naia. Although it is a monster with an unstable shape and mind, which is  
-    <skill id="5617" levels="1" name="Raid Boss - Level 87">
+  <!-- He was created when a large number of elemental spirits that were constrained in the basement of Tower of Naia were transformed after being affected by Beleth's magic and Core Naia. Although it is a monster with an unstable shape and mind, which is about to be destroyed, it is still slightly conscious as a nature spirit. -->  
+  <skill id="5617" levels="1" name="Raid Boss - Level 87">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for></for>
     </skill>
-    <!-- He was created when a large number of elemental spirits that were constrained in the basement of Tower of Naia were transformed after being affected by Beleth's magic and Core Naia. Although it is a monster with an unstable shape and mind, which is  
-    <skill id="5618" levels="1" name="Raid Boss - Level 87">
+  <!-- He was created when a large number of elemental spirits that were constrained in the basement of Tower of Naia were transformed after being affected by Beleth's magic and Core Naia. Although it is a monster with an unstable shape and mind, which is about to be destroyed, it is still slightly conscious as a nature spirit. -->
+  <skill id="5618" levels="1" name="Raid Boss - Level 87">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for></for>
     </skill>
-    <skill id="5619" levels="1"
+  <skill id="5619" levels="1"
     name="Presentation - Super Giant Mutated Animal">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for></for>
-    </skill>
-    </list>
-  -->
+  </skill>
+</list>

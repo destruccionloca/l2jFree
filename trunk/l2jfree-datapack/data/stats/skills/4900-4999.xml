@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
+  <!-- Created by the dark side of the God of Light, Einhasad, to punish the arrogance of the Giant Argos, this giant Monster Eye is set in the Wall of Argos. It controls other monster eyes in order to eradicate the eyes of Argos and thwart his plans. -->
   <skill id="4900" levels="1" name="Raid Boss - Level 78">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -10,8 +10,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- This servant of the Fairy Queen was dispatched to protect the hot springs, a resort that Fairy Queen Timiniel loves. With power almost equal to the Queen's, he is a little disgruntled at what he feels is so menial an assignment. To pass the time and ease his boredom, he often "plays" with travelers passing by. Unfortunately for them, his hijinks are more than most humans can endure. -->  
   <skill id="4901" levels="1" name="Raid Boss - Level 78">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -19,8 +19,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- The leader of the Mineral Spring Yetis in the hot springs are he styles himself the Icicle Emperor. Despite his arrogant posturing, he is at heart a coward. He once marched into Fire Dragon Valakas' nest to prove his strength, but became frightened and fled at the mere site of Valakas' sleeping form. He is now terrified of Valakas, and runs away or hides at even the sound of roaring. -->  
   <skill id="4902" levels="1" name="Raid Boss - Level 74">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -784,8 +784,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- The Emperor of Crokians, who calls himself Padish  lives on Alligator Island. He has a cadre of elite bodyguards who obey his commands, however many Crokians following the Water Dragon instead of him. While this makes him angry, he does not dare challenge Fafurion. --> 
   <skill id="4987" levels="1" name="Raid Boss - Level 74">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -793,8 +793,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
+  <!-- Einhasad's Messenger who came down to observe the behaviors of the Water Dragon Fafurion. He hates the dragon who killed so many of his allies during the Heaven War, but the gods prohibit him from fighting Fafurion. -->
   <skill id="4988" levels="1" name="Raid Boss - Level 76">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />

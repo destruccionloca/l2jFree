@@ -1920,7 +1920,7 @@
   </skill>
   <!-- One of the leaders of the peasants who resisted the merciless rule of Lord Ashton.He was ultimately captured and brutally executed by Ashton's cruel soldiers. Yet even that did not stop him. To overthrow  Ashton, he made a contract with a devil and came back to life. But the devil's bargain turned his once noble ideals towards loathing, turning him into a monster with the power of evil magic. -->
   <skill id="4794" levels="1" name="Raid Boss - Level 50">
-    <!-- This Skill Is Only For Description In The Client -->
+    <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />

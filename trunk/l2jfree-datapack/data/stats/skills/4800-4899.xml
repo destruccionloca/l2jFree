@@ -109,8 +109,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <!-- A Turek Orc leader praised for his powerful soul, bravery, and wisdom. He has retired from the field, and lives in a secluded corner of the Orc Barracks giving counsel to those who seek his advice. Normally reserved, when roused he does not shy away   
-    <skill id="4812" levels="1" name="Raid Boss - Level 35">
+  <!-- A Turek Orc leader praised for his powerful soul, bravery, and wisdom. He has retired from the field, and lives in a secluded corner of the Orc Barracks giving counsel to those who seek his advice. Normally reserved, when roused he does not shy away from battle. -->
+  <skill id="4812" levels="1" name="Raid Boss - Level 35">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -172,8 +172,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <!-- The leader of a gang of cats, all pets long abandoned by their masters. They are known for snatching fresh fish from the very nets of the Fishermen, and the Fish Traders' Association has offered a great bounty for them. Many hunters have tried to   
-    <skill id="4819" levels="1" name="Raid Boss - Level 39">
+  <!-- The leader of a gang of cats, all pets long abandoned by their masters. They are known for snatching fresh fish from the very nets of the Fishermen, and the Fish Traders' Association has offered a great bounty for them. Many hunters have tried to catch the cats, but ultimately gave up their chase because the cats were too cute. -->   
+  <skill id="4819" levels="1" name="Raid Boss - Level 39">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -253,8 +253,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <!-- A powerful sorcerer who is greatly respected by the Lizardmen. Currently, he is hiding in a distant corner of the plains. He resents how humans continue to encroach upon the Lizardmen's territory, where Lizardmen have lived in peace since ancient   
-    <skill id="4828" levels="1" name="Raid Boss - Level 55">
+  <!-- A powerful sorcerer who is greatly respected by the Lizardmen. Currently, he is hiding in a distant corner of the plains. He resents how humans continue to encroach upon the Lizardmen's territory, where Lizardmen have lived in peace since ancient times. -->   
+  <skill id="4828" levels="1" name="Raid Boss - Level 55">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -298,8 +298,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <!-- The Executioner who held the Execution Grounds during the Peasant Riot, and executed countless innocent farmers at the command of Duke Ashton. Eventually, he was murdered for his actions. Due to the crimes he committed when alive, he was cursed never   
-    <skill id="4833" levels="1" name="Raid Boss - Level 35">
+  <!-- The Executioner who held the Execution Grounds during the Peasant Riot, and executed countless innocent farmers at the command of Duke Ashton. Eventually, he was murdered for his actions. Due to the crimes he committed when alive, he was cursed never to rest in peace, and endlessly wanders in the Execution Grounds. -->   
+  <skill id="4833" levels="1" name="Raid Boss - Level 35">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -307,7 +307,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
     </skill>
-    <!-- A messenger dispatched to Aden by Fairy Queen Timiniel in order to demand a response to those who have invaded the Enchanted Forest. One of the fearless warriors who guards the Fairy Queen. -->
+  <!-- A messenger dispatched to Aden by Fairy Queen Timiniel in order to demand a response to those who have invaded the Enchanted Forest. One of the fearless warriors who guards the Fairy Queen. -->
   <skill id="4834" levels="1" name="Raid Boss - Level 50">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -453,7 +453,7 @@
   </skill>
   <!-- A unicorn aimlessly drifting after losing its home long ago.  It has wandered since the Era of Myths ended with Einhasad's rage against the Titans. The leader of the unicorns lost its herd while roaming the world. Although it is still desperately looking for its fellow unicorns, hundreds of years have passed since it parted ways from them. Wandering alone, it still has not adapted itself to the human world. -->
   <skill id="4850" levels="1" name="Raid Boss - Level 54">
-    <!-- This Skill Is Only For Description In The Client -->
+    <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
@@ -676,16 +676,16 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <!-- The Vanor Silenos Chief, he rules the Plains of Glory east of Aden. During the Unification in the reign of King Raoul, Kandra agreed to a peace treaty with the humans. As war clouds have gathered, though, he has again taken steps to ready the Vanor   
-    <skill id="4875" levels="1" name="Raid Boss - Level 72">
+  <!-- The Vanor Silenos Chief, he rules the Plains of Glory east of Aden. During the Unification in the reign of King Raoul, Kandra agreed to a peace treaty with the humans. As war clouds have gathered, though, he has again taken steps to ready the Vanor Silenos Tribe for battle. Rumor has it that King Raoul proposed the original peace treaty because he feared Kandra's renowned swordsmanship. -->   
+  <skill id="4875" levels="1" name="Raid Boss - Level 72">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for></for>
-    </skill>
-    <!-- This dragon guards the southeastern shore of the river in the Forest of Mirrors. Once a ghost in the Forest, he begged the Shaman Isir to restore his life. Resurrected as a dragon, he was ordered by Isir to prevent any outsiders from crossing the river and penetrating the Forest. -->
+  </skill>
+  <!-- This dragon guards the southeastern shore of the river in the Forest of Mirrors. Once a ghost in the Forest, he begged the Shaman Isir to restore his life. Resurrected as a dragon, he was ordered by Isir to prevent any outsiders from crossing the river and penetrating the Forest. -->
   <skill id="4876" levels="1" name="Raid Boss - Level 59">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -739,8 +739,8 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <!-- The Queen of the Falibati protects the Seal of Shilen. According to Shilen's Priest Hisilrome, who is also a Falibati, Themis is a living piece of the Queen of Evil Spirits, Shilen. Themis is one of the monsters birthed by Shilen during the War of   
-    <skill id="4882" levels="1" name="Raid Boss - Level 70">
+  <!-- The Queen of the Falibati protects the Seal of Shilen. According to Shilen's Priest Hisilrome, who is also a Falibati, Themis is a living piece of the Queen of Evil Spirits, Shilen. Themis is one of the monsters birthed by Shilen during the War of the Gods, and as a result her authority nearly equals that of the Death Lords. Capable of summoning and ruling over both dead and devils, she employs the low-level devil, Succubus, as her maid.  -->   
+  <skill id="4882" levels="1" name="Raid Boss - Level 70">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -748,7 +748,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
     </skill>
-    <!-- The leader of the Ancient Gargoyles, he led them in the service of Shilen against the gods during the War of the Gods. After their defeat, he fled to the Forsaken Plains. There he hides, sharpening his blade of vengeance and waiting for Shilen, Mother of Evil Spirits, to return. -->
+  <!-- The leader of the Ancient Gargoyles, he led them in the service of Shilen against the gods during the War of the Gods. After their defeat, he fled to the Forsaken Plains. There he hides, sharpening his blade of vengeance and waiting for Shilen, Mother of Evil Spirits, to return. -->
   <skill id="4883" levels="1" name="Raid Boss - Level 65">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -804,7 +804,6 @@
   </skill>
   <!-- During the golden years of Elmoreden, this King of Beasts was captured and brought to the Coliseum as a spectacle to entertain the Emperor and his court. When the empire fell, he was sealed beneath the Coliseum by mystics afraid of his vengeance, but late escaped. His gigantic arms can shatter rocks, and he is able to rule all beasts. -->
   <skill id="4889" levels="1" name="Raid Boss - Level 70">
-    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
