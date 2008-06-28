@@ -81,6 +81,7 @@ import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.IrcManager;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
@@ -122,7 +123,6 @@ import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.status.Status;
 import com.l2jfree.tools.random.RandomIntGenerator;
 import com.l2jfree.versionning.Version;
-import com.l2jfree.gameserver.instancemanager.InstanceManager;
 
 public class GameServer
 {
@@ -178,7 +178,7 @@ public class GameServer
 			throw new Exception("Could not initialize the ID factory");
 		}
 		_log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
-		ThreadPoolManager.getInstance();
+		ThreadPoolManager.getInstance().startPurgeTask(600000L);
 		if (Config.GEODATA)
 		{
 			GeoData.getInstance();

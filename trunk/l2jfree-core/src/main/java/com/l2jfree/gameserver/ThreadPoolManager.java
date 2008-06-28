@@ -15,126 +15,114 @@
 package com.l2jfree.gameserver;
 
 import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.ReceivablePacket;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.L2GameClient;
-import com.l2jfree.gameserver.threadmanager.L2RejectedExecutionHandler;
-import com.l2jfree.gameserver.threadmanager.L2ThreadFactory;
+import com.l2jfree.gameserver.threadmanager.ThreadPoolManager1;
 
 /**
  * @author -Wooden-, NB4L1
  */
-public final class ThreadPoolManager
+public abstract class ThreadPoolManager
 {
-	private final static Log _log = LogFactory.getLog(ThreadPoolManager.class);
+	protected static final Log _log = LogFactory.getLog(ThreadPoolManager.class);
 	
 	private static final long MAX_DELAY = TimeUnit.NANOSECONDS.toMillis(Long.MAX_VALUE - System.nanoTime()) / 2;
 	
-	private static ThreadPoolManager _instance;
-	
 	public static ThreadPoolManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new ThreadPoolManager();
-		
-		return _instance;
+		return ThreadPoolManager1.getInstance();
 	}
 	
-	private final ScheduledThreadPoolExecutor _scheduler =
-		new ScheduledThreadPoolExecutor(1, new L2ThreadFactory("Scheduler", Thread.MAX_PRIORITY),
-			new L2RejectedExecutionHandler());
-	
-	private final ThreadPoolExecutor _executor =
-		new ThreadPoolExecutor(Config.THREAD_POOL_SIZE, Config.THREAD_POOL_SIZE, 0L, TimeUnit.SECONDS,
-			new LinkedBlockingQueue<Runnable>(), new L2ThreadFactory("Executor", Thread.NORM_PRIORITY),
-			new L2RejectedExecutionHandler());
-	
-	private ThreadPoolManager()
+	public final void startPurgeTask(long period)
 	{
-		_log.info("ThreadPoolManager: Initialized with " + Config.THREAD_POOL_SIZE + " threads...");
-		
-		scheduleGeneralAtFixedRate(new Runnable() {
+		scheduleAtFixedRate(new Runnable() {
 			public void run()
 			{
 				purge();
 			}
-		}, 3600000, 3600000);
+		}, period, period);
 	}
 	
-	private long validateDelay(long delay)
+	protected final long validateDelay(long delay)
 	{
 		return Math.max(0, Math.min(MAX_DELAY, delay));
 	}
 	
-	public ScheduledFuture<?> scheduleEffect(Runnable r, long delay)
+	// ===========================================================================================
+	
+	public abstract ScheduledFuture<?> schedule(Runnable r, long delay);
+	
+	public final ScheduledFuture<?> scheduleEffect(Runnable r, long delay)
 	{
-		return _scheduler.schedule(new ScheduleWrapper(r), validateDelay(delay), TimeUnit.MILLISECONDS);
+		return schedule(r, delay);
 	}
 	
-	public ScheduledFuture<?> scheduleEffectAtFixedRate(Runnable r, long delay, long period)
+	public final ScheduledFuture<?> scheduleGeneral(Runnable r, long delay)
 	{
-		return _scheduler.scheduleAtFixedRate(new ScheduleWrapper(r), validateDelay(delay), validateDelay(period),
-			TimeUnit.MILLISECONDS);
+		return schedule(r, delay);
 	}
 	
-	public ScheduledFuture<?> scheduleGeneral(Runnable r, long delay)
+	public final ScheduledFuture<?> scheduleAi(Runnable r, long delay)
 	{
-		return _scheduler.schedule(new ScheduleWrapper(r), validateDelay(delay), TimeUnit.MILLISECONDS);
+		return schedule(r, delay);
 	}
 	
-	public ScheduledFuture<?> scheduleGeneralAtFixedRate(Runnable r, long delay, long period)
+	// ===========================================================================================
+	
+	public abstract ScheduledFuture<?> scheduleAtFixedRate(Runnable r, long delay, long period);
+	
+	public final ScheduledFuture<?> scheduleEffectAtFixedRate(Runnable r, long delay, long period)
 	{
-		return _scheduler.scheduleAtFixedRate(new ScheduleWrapper(r), validateDelay(delay), validateDelay(period),
-			TimeUnit.MILLISECONDS);
+		return scheduleAtFixedRate(r, delay, period);
 	}
 	
-	public ScheduledFuture<?> scheduleAi(Runnable r, long delay)
+	public final ScheduledFuture<?> scheduleGeneralAtFixedRate(Runnable r, long delay, long period)
 	{
-		return _scheduler.schedule(new ScheduleWrapper(r), validateDelay(delay), TimeUnit.MILLISECONDS);
+		return scheduleAtFixedRate(r, delay, period);
 	}
 	
-	public ScheduledFuture<?> scheduleAiAtFixedRate(Runnable r, long delay, long period)
+	public final ScheduledFuture<?> scheduleAiAtFixedRate(Runnable r, long delay, long period)
 	{
-		return _scheduler.scheduleAtFixedRate(new ScheduleWrapper(r), validateDelay(delay), validateDelay(period),
-			TimeUnit.MILLISECONDS);
+		return scheduleAtFixedRate(r, delay, period);
 	}
 	
-	public void executePacket(ReceivablePacket<L2GameClient> pkt)
+	// ===========================================================================================
+	
+	public abstract void execute(Runnable r);
+	
+	public final void executePacket(ReceivablePacket<L2GameClient> pkt)
 	{
-		_executor.execute(new ExecuteWrapper(pkt));
+		execute(pkt);
 	}
 	
-	public void executeIOPacket(ReceivablePacket<L2GameClient> pkt)
+	public final void executeIOPacket(ReceivablePacket<L2GameClient> pkt)
 	{
-		_executor.execute(new ExecuteWrapper(pkt));
+		execute(pkt);
 	}
 	
-	public void executeTask(Runnable r)
+	public final void executeTask(Runnable r)
 	{
-		_executor.execute(new ExecuteWrapper(r));
+		execute(r);
 	}
 	
-	public void executeAi(Runnable r)
+	public final void executeAi(Runnable r)
 	{
-		_executor.execute(new ExecuteWrapper(r));
+		execute(r);
 	}
 	
-	private class ExecuteWrapper implements Runnable
+	// ===========================================================================================
+	
+	protected final class ExecuteWrapper implements Runnable
 	{
 		private final Runnable _runnable;
 		
-		private ExecuteWrapper(Runnable runnable)
+		public ExecuteWrapper(Runnable runnable)
 		{
 			_runnable = runnable;
 		}
@@ -152,82 +140,11 @@ public final class ThreadPoolManager
 		}
 	}
 	
-	private class ScheduleWrapper implements Runnable
-	{
-		private final Runnable _runnable;
-		
-		private ScheduleWrapper(Runnable runnable)
-		{
-			_runnable = runnable;
-		}
-		
-		public void run()
-		{
-			_executor.execute(_runnable);
-		}
-	}
+	// ===========================================================================================
 	
-	public List<String> getStats()
-	{
-		List<String> list = FastList.newInstance();
-		
-		list.add("ThreadPoolExecutor");
-		list.add("=================================================");
-		list.add("\tgetActiveCount: ...... " + _executor.getActiveCount());
-		list.add("\tgetCorePoolSize: ..... " + _executor.getCorePoolSize());
-		list.add("\tgetPoolSize: ......... " + _executor.getPoolSize());
-		list.add("\tgetLargestPoolSize: .. " + _executor.getLargestPoolSize());
-		list.add("\tgetMaximumPoolSize: .. " + _executor.getMaximumPoolSize());
-		list.add("\tgetCompletedTaskCount: " + _executor.getCompletedTaskCount());
-		list.add("\tgetQueuedTaskCount: .. " + _executor.getQueue().size());
-		list.add("\tgetTaskCount: ........ " + _executor.getTaskCount());
-		list.add("");
-		list.add("ScheduledThreadPoolExecutor");
-		list.add("=================================================");
-		list.add("\tgetActiveCount: ...... " + _scheduler.getActiveCount());
-		list.add("\tgetCorePoolSize: ..... " + _scheduler.getCorePoolSize());
-		list.add("\tgetPoolSize: ......... " + _scheduler.getPoolSize());
-		list.add("\tgetLargestPoolSize: .. " + _scheduler.getLargestPoolSize());
-		list.add("\tgetMaximumPoolSize: .. " + _scheduler.getMaximumPoolSize());
-		list.add("\tgetCompletedTaskCount: " + _scheduler.getCompletedTaskCount());
-		list.add("\tgetQueuedTaskCount: .. " + _scheduler.getQueue().size());
-		list.add("\tgetTaskCount: ........ " + _scheduler.getTaskCount());
-		list.add("\t");
-		
-		return list;
-	}
+	public abstract List<String> getStats();
 	
-	public void shutdown()
-	{
-		System.out.println("ThreadPoolManager: Shutting down!");
-		
-		System.out.println("\tExecuting " + _scheduler.getQueue().size() + " scheduled tasks!");
-		System.out.println("\tExecuting " + _executor.getQueue().size() + " instant tasks!");
-		
-		_scheduler.shutdown();
-		_executor.shutdown();
-		
-		try
-		{
-			Thread.sleep(5000);
-			
-			System.out.println("ThreadPoolManager: Results!");
-			
-			System.out.println("\tScheduler: " + _scheduler.awaitTermination(0, TimeUnit.SECONDS));
-			System.out.println("\tExecutor:  " + _executor.awaitTermination(0, TimeUnit.SECONDS));
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-		
-		System.out.println("\t" + _scheduler.getQueue().size() + " scheduled tasks left.");
-		System.out.println("\t" + _executor.getQueue().size() + " instant tasks left.");
-	}
+	public abstract void shutdown();
 	
-	public void purge()
-	{
-		_scheduler.purge();
-		_executor.purge();
-	}
+	public abstract void purge();
 }
