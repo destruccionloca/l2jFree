@@ -54,7 +54,7 @@
     type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="1" />
-    <shape type="Rect" zMin="-1801" zMax="-1682">
+    <shape type="Rect" zMin="-1827" zMax="-1682">
       <point x="-16287" y="109204" />
       <point x="-17178" y="109518" />
     </shape>
@@ -130,7 +130,7 @@
     type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="2" />
-    <shape type="Rect" zMin="-1993" zMax="-1877">
+    <shape type="Rect" zMin="-2021" zMax="-1877">
       <point x="20249" y="160547" />
       <point x="21132" y="160228" />
     </shape>
@@ -197,7 +197,7 @@
     type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="3" />
-    <shape type="Rect" zMin="-1868" zMax="-1750">
+    <shape type="Rect" zMin="-1891" zMax="-1750">
       <point x="116400" y="146924" />
       <point x="116718" y="146030" />
     </shape>
@@ -264,7 +264,7 @@
     type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="4" />
-    <shape type="Rect" zMin="-1595" zMax="-1477">
+    <shape type="Rect" zMin="-1621" zMax="-1477">
       <point x="82478" y="39020" />
       <point x="82794" y="38125" />
     </shape>
@@ -336,7 +336,7 @@
     type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="5" />
-    <shape type="Rect" zMin="-2791" zMax="-2641">
+    <shape type="Rect" zMin="-2811" zMax="-2641">
       <point x="146944" y="5112" />
       <point x="147967" y="4097" />
     </shape>
@@ -403,7 +403,7 @@
     type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="6" />
-    <shape type="Rect" zMin="-89" zMax="26">
+    <shape type="Rect" zMin="-117" zMax="26">
       <point x="114195" y="249326" />
       <point x="115081" y="249007" />
     </shape>
@@ -480,7 +480,7 @@
     type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="7" />
-    <shape type="Rect" zMin="-964" zMax="-573">
+    <shape type="Rect" zMin="-989" zMax="-573">
       <point x="147293" y="-47188" />
       <point x="147644" y="-46267" />
     </shape>
@@ -574,7 +574,7 @@
     type="CastleTeleport">
     <!-- mass GK -->
     <entity castleId="9" />
-    <shape type="Rect" zMin="769" zMax="1136">
+    <shape type="Rect" zMin="746" zMax="1136">
       <point x="147293" y="-47188" />
       <point x="147644" y="-46267" />
     </shape>
