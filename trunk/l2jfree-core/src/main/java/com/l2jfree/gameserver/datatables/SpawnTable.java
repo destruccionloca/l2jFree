@@ -39,15 +39,15 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
  */
 public class SpawnTable
 {
-	private final static Log		_log		= LogFactory.getLog(SpawnTable.class.getName());
+	private final static Log			_log		= LogFactory.getLog(SpawnTable.class.getName());
 
-	private static final SpawnTable	_instance	= new SpawnTable();
+	private static final SpawnTable		_instance	= new SpawnTable();
 
-	private Map<Integer, L2Spawn>	_spawntable	= new FastMap<Integer, L2Spawn>().setShared(true);
-	private int						_npcSpawnCount;
-	private int						_cSpawnCount;
-	private int						_highestDbId;
-	private int						_highestCustomDbId;
+	private FastMap<Integer, L2Spawn>	_spawntable	= new FastMap<Integer, L2Spawn>().setShared(true);
+	private int							_npcSpawnCount;
+	private int							_cSpawnCount;
+	private int							_highestDbId;
+	private int							_highestCustomDbId;
 
 	public static SpawnTable getInstance()
 	{
@@ -259,7 +259,7 @@ public class SpawnTable
 
 	}
 
-	public Map<Integer, L2Spawn> getAllTemplates()
+	public FastMap<Integer, L2Spawn> getAllTemplates()
 	{
 		return _spawntable;
 	}

@@ -53,16 +53,49 @@ import com.l2jfree.tools.random.Rnd;
 
 public class TvT
 {
-	private final static Log	_log	= LogFactory.getLog(TvT.class.getName());
-	public static String		_eventName	= new String(), _eventDesc = new String(), _topTeam = new String(), _joiningLocationName = new String();
-	public static Vector<String>	_teams	= new Vector<String>(), _savePlayers = new Vector<String>(), _savePlayerTeams = new Vector<String>();
-	public static Vector<L2PcInstance>	_players	= new Vector<L2PcInstance>(), _playersShuffle = new Vector<L2PcInstance>();
-	public static Vector<Integer>		_teamPlayersCount	= new Vector<Integer>(), _teamKillsCount = new Vector<Integer>(),
-			_teamColors = new Vector<Integer>(), _teamsX = new Vector<Integer>(), _teamsY = new Vector<Integer>(), _teamsZ = new Vector<Integer>();
-	public static boolean				_joining			= false, _teleport = false, _started = false, _sitForced = false;
+	private final static Log			_log					= LogFactory.getLog(TvT.class.getName());
+	public static String				_eventName				= new String();
+	public static String				_eventDesc				= new String();
+	public static String				_topTeam				= new String();
+	public static String				_joiningLocationName	= new String();
+	public static Vector<String>		_teams					= new Vector<String>();
+	public static Vector<String>		_savePlayers			= new Vector<String>();
+	public static Vector<String>		_savePlayerTeams		= new Vector<String>();
+
+	public static Vector<L2PcInstance>	_players				= new Vector<L2PcInstance>();
+	public static Vector<L2PcInstance>	_playersShuffle			= new Vector<L2PcInstance>();
+	public static Vector<Integer>		_teamPlayersCount		= new Vector<Integer>();
+	public static Vector<Integer>		_teamKillsCount			= new Vector<Integer>();
+	public static Vector<Integer>		_teamColors				= new Vector<Integer>();
+	public static Vector<Integer>		_teamsX					= new Vector<Integer>();
+	public static Vector<Integer>		_teamsY					= new Vector<Integer>();
+	public static Vector<Integer>		_teamsZ					= new Vector<Integer>();
+	public static boolean				_joining				= false;
+	public static boolean				_teleport				= false;
+	public static boolean				_started				= false;
+	public static boolean				_sitForced				= false;
 	public static L2Spawn				_npcSpawn;
-	public static int					_npcId				= 0, _npcX = 0, _npcY = 0, _npcZ = 0, _npcHeading = 0, _rewardId = 0, _rewardAmount = 0,
-			_topKills = 0, _minlvl = 0, _maxlvl = 0, _joinTime = 0, _eventTime = 0, _minPlayers = 0, _maxPlayers = 0, _playerWon = 0;
+	
+	public static int					_npcId					= 0;
+	public static int					_npcX					= 0;
+	public static int					_npcY					= 0;
+	public static int					_npcZ					= 0;
+	public static int					_npcHeading				= 0;
+	
+	public static int					_rewardId				= 0;
+	public static int					_rewardAmount			= 0;
+	
+	public static int					_topKills				= 0;
+	public static int					_minlvl					= 0;
+	public static int					_maxlvl					= 0;
+	
+	public static int					_joinTime				= 0;
+	public static int					_eventTime				= 0;
+	
+	public static int					_minPlayers				= 0;
+	public static int					_maxPlayers				= 0;
+	
+	public static int					_playerWon				= 0;
 
 	public static void AnnounceToPlayers(Boolean toall, String announce)
 	{
