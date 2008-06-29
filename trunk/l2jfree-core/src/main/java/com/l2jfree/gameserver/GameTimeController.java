@@ -107,7 +107,7 @@ public class GameTimeController
 	 * @param cha
 	 *            The L2Character to add to _movingObjects of GameTimeController
 	 */
-	public synchronized void registerMovingObject(L2Character cha)
+	public void registerMovingObject(L2Character cha)
 	{
 		if (cha != null)
 			_movingObjects.add(cha);
