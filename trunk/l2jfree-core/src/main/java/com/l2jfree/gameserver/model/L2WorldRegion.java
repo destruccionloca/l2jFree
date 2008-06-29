@@ -27,10 +27,10 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.datatables.SpawnTable;
+import com.l2jfree.gameserver.model.actor.instance.L2GuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
 import com.l2jfree.util.L2ObjectSet;
 
 
@@ -263,8 +263,11 @@ public final class L2WorldRegion
                     ((L2NpcInstance)o).startRandomAnimationTimer();
                 }
             }
-            KnownListUpdateTaskManager.getInstance().updateRegion(this, true, false);
-            if(_log.isDebugEnabled()) _log.debug(c+ " mobs were turned on");
+            
+            updateRegion(true, false);
+            
+            if (_log.isDebugEnabled())
+                _log.debug(c + " mobs were turned on");
         }
         
     }
@@ -458,4 +461,38 @@ public final class L2WorldRegion
         }
         _log.info("All visible NPC's deleted in Region: " + getName());
     }
+	
+	public synchronized void updateRegion(boolean fullUpdate, boolean forgetObjects)
+	{
+		for (L2Object object : getVisibleObjects())
+		{
+			if (object == null || !object.isVisible())
+				continue;
+			
+			boolean mode = (fullUpdate || object instanceof L2PlayableInstance ||
+				(Config.ALLOW_GUARDS && object instanceof L2GuardInstance));
+			
+			if (forgetObjects)
+			{
+				object.getKnownList().forgetObjects(mode);
+				continue;
+			}
+			
+			if (mode)
+			{
+				for (L2WorldRegion regi : getSurroundingRegions())
+					for (L2Object obj : regi.getVisibleObjects())
+						if (obj != object)
+							object.getKnownList().addKnownObject(obj);
+			}
+			else if (object instanceof L2Character)
+			{
+				for (L2WorldRegion regi : getSurroundingRegions())
+					if (regi.isActive())
+						for (L2Object obj : regi.getVisiblePlayable())
+							if (obj != object)
+								object.getKnownList().addKnownObject(obj);
+			}
+		}
+	}
 }

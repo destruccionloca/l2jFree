@@ -107,7 +107,7 @@ public class GameTimeController
 	 * @param cha
 	 *            The L2Character to add to _movingObjects of GameTimeController
 	 */
-	public void registerMovingObject(L2Character cha)
+	public synchronized void registerMovingObject(L2Character cha)
 	{
 		if (cha != null)
 			_movingObjects.add(cha);
@@ -129,7 +129,7 @@ public class GameTimeController
 	 * <BR>
 	 * <BR>
 	 */
-	protected void moveObjects()
+	protected synchronized void moveObjects()
 	{
 		// Create a List to contain all L2Character that are arrived to destination
 		List<L2Character> ended = null;
