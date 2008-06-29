@@ -180,6 +180,7 @@ public class PcStat extends PlayableStat
 					TvT.removePlayer(getActiveChar());
 				if (getActiveChar()._inEventDM && CTF._maxlvl == getLevel() && !DM._started)
 					DM.removePlayer(getActiveChar());
+				getActiveChar().sendMessage("Your event sign up was canceled.");
 			}
 		}
 
