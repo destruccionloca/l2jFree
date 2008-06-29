@@ -129,7 +129,7 @@ public class GameTimeController
 	 * <BR>
 	 * <BR>
 	 */
-	protected synchronized void moveObjects()
+	protected void moveObjects()
 	{
 		// Create a List to contain all L2Character that are arrived to destination
 		List<L2Character> ended = null;
