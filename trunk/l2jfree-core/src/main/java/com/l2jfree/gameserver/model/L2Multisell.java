@@ -188,7 +188,7 @@ public class L2Multisell
         	if ( ing.getItemId() == 57 && ing.isTaxIngredient() )
         	{
         		if (applyTaxes)
-        			adenaAmount += (int)Math.round(ing.getItemCount()*taxRate);
+        			adenaAmount += (int)Math.round(ing.getItemCount() * taxRate);
         		continue;	// do not adena yet, as non-taxIngredient adena entries might occur next (order not guaranteed)
         	}
         	else if ( ing.getItemId() == 57 )  // && !ing.isTaxIngredient()

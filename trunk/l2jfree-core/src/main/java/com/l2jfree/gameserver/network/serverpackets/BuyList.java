@@ -76,9 +76,9 @@ public final class BuyList extends L2GameServerPacket
 				writeH(item.getCustomType2());						// custom type2
                 writeH(0x00);
 	            if (item.getItemId() >= 3960 && item.getItemId() <= 4026)//Config.RATE_SIEGE_GUARDS_PRICE-//'
-	                writeD((int)(item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * (1 + _taxRate)));
+	                writeD((int)(item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * _taxRate));
 	            else
-	                writeD((int)(item.getPriceToSell() * (1 + _taxRate)));
+	                writeD((int)(item.getPriceToSell() * _taxRate));
                 writeD(item.getAttackAttrElement());
                 writeD(item.getAttackAttrElementVal());
                 writeD(item.getDefAttrFire());
