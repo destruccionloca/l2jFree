@@ -9,11 +9,11 @@ CREATE TABLE npcskills (
   PRIMARY KEY (`npcid`,`skillid`,`level`)
 ) DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `npcskills`
--- 
+--
 
-INSERT INTO `npcskills` VALUES 
+INSERT INTO `npcskills` VALUES
 (12077,4121,1),
 (12077,4416,4),
 (12311,4121,1),
@@ -107,7 +107,7 @@ INSERT INTO `npcskills` VALUES
 (12782,4717,1),
 (12782,4718,1);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (13001,4045,1),
 (13001,4416,1),
 (13002,4045,1),
@@ -1461,7 +1461,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (14403,4137,7),
 (14403,4416,7),
 (14404,4121,1),
-(14404,4137,8), 
+(14404,4137,8),
 (14404,4416,7),
 (14405,4121,1),
 (14405,4137,8),
@@ -2962,7 +2962,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (14838,5141,1),
 (14838,5142,1);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (16013,1044,3),
 (16013,1045,5),
 (16013,1086,2),
@@ -3110,7 +3110,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (16042,5584,1);
 
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (18001,4002,6),
 (18001,4035,6),
 (18001,4039,6),
@@ -5476,7 +5476,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (18483,4416,6),
 (18484,4416,19);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (20001,4416,13),
 (20002,4416,4),
 (20003,4416,6),
@@ -10690,7 +10690,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (20999,4278,1),
 (20999,4416,1);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (21000,4002,5),
 (21000,4275,2),
 (21000,4278,1),
@@ -17494,7 +17494,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (21829,4571,1),
 (21829,4657,1);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (22001,4274,3),
 (22001,4413,13),
 (22001,4416,4),
@@ -19794,7 +19794,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (22422,5328,5),
 (22422,5467,1);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (25001,4045,1),
 (25001,4197,2),
 (25001,4416,6),
@@ -23014,7 +23014,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (25595,4045,1),
 (25595,4416,6);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (27001,4416,6),
 (27002,4416,6),
 (27003,4416,3),
@@ -23777,7 +23777,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (27338,4416,8),
 (27339,4416,9);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (29001,4017,1),
 (29001,4018,1),
 (29001,4019,1),
@@ -24254,7 +24254,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (29116,4045,1),
 (29117,4045,1);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (30001,4045,1),
 (30001,4416,14),
 (30002,4045,1),
@@ -25827,7 +25827,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (30995,4045,1),
 (30995,4416,18);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (31001,4045,1),
 (31001,4416,14),
 (31002,4045,1),
@@ -27936,7 +27936,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (31999,4045,1),
 (31999,4416,1);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (32000,4045,1),
 (32000,4416,1),
 (32001,4045,1),
@@ -28666,7 +28666,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (32365,4045,1),
 (32365,4416,6);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (35010,4045,1),
 (35010,4416,23),
 (35011,4045,1),
@@ -30891,7 +30891,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (35998,4721,1),
 (35999,4045,1);
 
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
+INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 (36000,4045,1),
 (36000,4416,14),
 (36001,4045,1),
@@ -31969,7 +31969,7 @@ INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
 
 -- some temp prominence skills for Siege Guard AI court sorcs (requested by Sami)
 -- supplied by Entar
--- 
+--
 INSERT INTO `npcskills` VALUES
 -- Gludio
 ('35067','1230','10'),
@@ -32099,16 +32099,3 @@ INSERT INTO npcskills (npcid, skillid, level) VALUES
 (29068,4299,1),
 (29068,5092,1),
 (29068,5093,1);
-
-
--- baylor
-INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES
-(29065,5118,1),
-(29065,5122,1),
-(29065,5143,1),
-(29099,5402,1),
-(29099,5403,1),
-(29099,5404,1),
-(29103,5402,1),
-(29103,5403,1),
-(29103,5404,1);
