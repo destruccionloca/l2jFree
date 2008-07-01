@@ -454,7 +454,7 @@ public class Castle extends Siegeable
 	public void setTaxPercent(int taxPercent)
 	{
 		_taxPercent = taxPercent;
-		_taxRate = _taxPercent / 100.0;
+		_taxRate = (_taxPercent + 100) / 100.0;
 
 		Connection con = null;
 		try
@@ -565,7 +565,7 @@ public class Castle extends Siegeable
 
 			statement.close();
 
-			_taxRate = _taxPercent / 100.0;
+			_taxRate = (_taxPercent + 100) / 100.0;
 
 			statement = con.prepareStatement("SELECT clan_id FROM clan_data WHERE hasCastle = ?");
 			statement.setInt(1, getCastleId());
