@@ -726,7 +726,9 @@ INSERT INTO teleport VALUES
 ('Talking Village -> Kamael Village',12055,-117251,46771,360,20000,0),
 ('Dwarven Village -> Kamael Village',12056,-117251,46771,360,32000,0),
 ('Soul Harbor -> Nornil\'s Garden',12057,-119534,87176,-12593,0,0),
-('Nornil\'s Garden -> Soul Harbor',12058,-73494,53507,-3680,0,0);
+('Nornil\'s Garden -> Soul Harbor',12058,-73494,53507,-3680,0,0),
+('Underground Coliseum -> Fantasy Isle',12059,-59224,-56837,-2032,0,0),
+('Fantasy Isle -> Underground Coliseum',12060,-81490,-49167,-10352,0,0);
 
 --
 -- L2J-Free Add-ons
@@ -832,8 +834,3 @@ INSERT INTO teleport VALUES
 -- Baylor Teleport
 INSERT INTO teleport VALUES 
 ('Baylors room',800001,153743,142103,-9775,0,0);
-
--- Fantasy Island Teleport
-INSERT INTO `teleport` (`Description`, `id`, `loc_x`, `loc_y`, `loc_z`, `price`, `fornoble`) VALUES
-('Enter the Underground', 14714, -81886, -48784, -10352, 0, 0),
-('Leave the Underground', 14715, -59111, -56896, -2032, 0, 0);

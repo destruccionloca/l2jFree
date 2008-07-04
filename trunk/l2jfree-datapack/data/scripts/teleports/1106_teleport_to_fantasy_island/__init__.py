@@ -1,15 +1,14 @@
 #
-# Created by Shizzo
+# Created by Kerberos
 #
 import sys
 
-from com.l2jfree.gameserver.model.actor.instance import L2PcInstance
-from com.l2jfree.gameserver.model.quest          import State
-from com.l2jfree.gameserver.model.quest          import QuestState
-from com.l2jfree.gameserver.model.quest.jython   import QuestJython as JQuest
-qn = "1106_teleport_to_fantasy_island"
-
-FANTASY_ISLAND_GK = 32378
+from com.l2jfree.gameserver.model.quest           import State
+from com.l2jfree.gameserver.model.quest           import QuestState
+from com.l2jfree.gameserver.model.quest.jython    import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets import NpcSay
+qn = "1106_teleport_to_fantasy_isle"
+PADDIES = 32378
 
 TELEPORTERS = {
     30059:3,    # TRISHA
@@ -22,15 +21,14 @@ TELEPORTERS = {
     30899:5,    # FLAUEN
     31320:9,    # ILYANA
     31275:10,   # TATIANA
-    30727:11,   # VERONA
-    30836:12,   # MINERVA
-    31964:13    # BILIA
+    31964:11    # BILIA
 }
 
 RETURN_LOCS = [[-80826,149775,-3043],[-12672,122776,-3116],[15670,142983,-2705],[83400,147943,-3404], \
               [111409,219364,-3545],[82956,53162,-1495],[146331,25762,-2018],[116819,76994,-2714], \
-              [43835,-47749,-792],[147930,-55281,-2728],[85335,16177,-3694],[105857,109763,-3202], \
-              [87386,-143246,-1293]]
+              [43835,-47749,-792],[147930,-55281,-2728],[87386,-143246,-1293]]              
+
+ISLE_LOCS = [[-58752,-56898,-2032],[-59716,-57868,-2032],[-60691,-56893,-2032],[-59720,-55921,-2032]]
 
 class Quest (JQuest) :
 
@@ -44,16 +42,24 @@ class Quest (JQuest) :
    # Start Locations #
    ###################
    if TELEPORTERS.has_key(npcId) :
-     st.getPlayer().teleToLocation(-59722,-57866,-2032)
+     random_id = st.getRandom(len(ISLE_LOCS))
+     x,y,z = ISLE_LOCS[random_id][0],ISLE_LOCS[random_id][1],ISLE_LOCS[random_id][2]
+     st.getPlayer().teleToLocation(x,y,z)
      st.setState(State.STARTED)
      st.set("id",str(TELEPORTERS[npcId]))     
-   ############################
-   #     Fantasy Island       #
-   ############################
-   elif st.getState() == State.STARTED and npcId == FANTASY_ISLAND_GK:
-     # back to start location
-     return_id = st.getInt("id") - 1
-     st.getPlayer().teleToLocation(RETURN_LOCS[return_id][0],RETURN_LOCS[return_id][1],RETURN_LOCS[return_id][2])
+   ################
+   # Fantasy Isle #
+   ################
+   elif npcId == PADDIES:
+     if st.getState() == State.STARTED and st.getInt("id") :
+        # back to start location
+        return_id = st.getInt("id") - 1
+        st.getPlayer().teleToLocation(RETURN_LOCS[return_id][0],RETURN_LOCS[return_id][1],RETURN_LOCS[return_id][2])
+        st.unset("id")
+     else:
+        # no base location founded (player swimmed)
+        player.sendPacket(NpcSay(npc.getObjectId(),0,npc.getNpcId(),"You've arrived here from a different way. I'll send you to Rune Township which is the nearest town."))
+        st.getPlayer().teleToLocation(43835,-47749,-792)
      st.exitQuest(1)
    return
 
@@ -63,4 +69,5 @@ for npcId in TELEPORTERS.keys() :
     QUEST.addStartNpc(npcId)
     QUEST.addTalkId(npcId)
 
-QUEST.addTalkId(FANTASY_ISLAND_GK)
+QUEST.addStartNpc(PADDIES)
+QUEST.addTalkId(PADDIES)

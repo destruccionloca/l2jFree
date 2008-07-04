@@ -1,40 +1,35 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-  <skill id="2300" levels="1"
-    name="Hair Style Change Potion">
+  <skill id="2300" levels="1" name="Hair Style Change Potion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="2301" levels="1"
-    name="Hair Style Change Potion">
+  <skill id="2301" levels="1" name="Hair Style Change Potion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="2302" levels="1"
-    name="Hair Style Change Potion">
+  <skill id="2302" levels="1" name="Hair Style Change Potion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="2303" levels="1"
-    name="Hair Style Change Potion">
+  <skill id="2303" levels="1" name="Hair Style Change Potion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="2304" levels="1"
-    name="Hair Style Change Potion">
+  <skill id="2304" levels="1" name="Hair Style Change Potion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -43,10 +38,10 @@
   </skill>
   <skill id="2305" levels="1" name="Primeval Potion">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Improves resistance to various poisons and anesthetics that originate on the Primeval Isle.
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Improves resistance to various poisons
+      and anesthetics that originate on the Primeval Isle.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -56,10 +51,9 @@
   </skill>
   <skill id="2306" levels="3" name="Primeval Crystals">
     <!--
-      Description(s):
-      Lvl 1 Name - Blue Primeval Crystal
-      Lvl 2 Name - Green Primeval Crystal
-      Lvl 3 Name - Red Primeval Crystal
+      Description(s): Lvl 1 Name - Blue Primeval Crystal Lvl
+      2 Name - Green Primeval Crystal Lvl 3 Name - Red
+      Primeval Crystal
     -->
     <table name="#power">50000 100000 200000</table>
     <set name="castRange" val="-1" />
@@ -76,10 +70,9 @@
   <skill id="2307" levels="1"
     name="Remove Petrification Scroll">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -89,10 +82,9 @@
   </skill>
   <skill id="2308" levels="36" name="Event Item">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1-36 Name - Event Item
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1-36 Name - Event Item
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -102,10 +94,9 @@
   </skill>
   <skill id="2309" levels="1" name="Pig Chest">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1 - none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1 - none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -116,8 +107,7 @@
   <skill id="2310" levels="1"
     name="Scroll of Guidance - Event Use">
     <!--
-      Description(s):
-      Lvl 1 - Increases Accuracy. Effect 3.
+      Description(s): Lvl 1 - Increases Accuracy. Effect 3.
     -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -136,8 +126,8 @@
   <skill id="2311" levels="1"
     name="Scroll of Death Whisper - Event Use">
     <!--
-      Description(s):
-      Lvl 1 - Increases critical attack power. Effect 3.
+      Description(s): Lvl 1 - Increases critical attack
+      power. Effect 3.
     -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -156,8 +146,8 @@
   <skill id="2312" levels="1"
     name="Scroll of Focus - Event Use">
     <!--
-      Description(s):
-      Lvl 1 - Increases critical attack rate. Effect 3.
+      Description(s): Lvl 1 - Increases critical attack
+      rate. Effect 3.
     -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -176,8 +166,8 @@
   <skill id="2313" levels="1"
     name="Scroll of Acumen - Event Use">
     <!--
-      Description(s):
-      Lvl 1 - Increases Casting Spd. Effect 3.
+      Description(s): Lvl 1 - Increases Casting Spd. Effect
+      3.
     -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -196,8 +186,7 @@
   <skill id="2314" levels="1"
     name="Scroll of Haste - Event Use">
     <!--
-      Description(s):
-      Lvl 1 - Increases Atk. Spd. Effect 2.
+      Description(s): Lvl 1 - Increases Atk. Spd. Effect 2.
     -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -216,8 +205,7 @@
   <skill id="2315" levels="1"
     name="Scroll of Agility - Event Use">
     <!--
-      Description(s):
-      Lvl 1 - Increases Evasion. Effect 3.
+      Description(s): Lvl 1 - Increases Evasion. Effect 3.
     -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -236,8 +224,7 @@
   <skill id="2316" levels="1"
     name="Scroll of Empower - Event Use">
     <!--
-      Description(s):
-      Lvl 1 - Increases M. Atk. Effect 3.
+      Description(s): Lvl 1 - Increases M. Atk. Effect 3.
     -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -256,8 +243,7 @@
   <skill id="2317" levels="1"
     name="Scroll of Might - Event Use">
     <!--
-      Description(s):
-      Lvl 1 - Increases P. Atk. Effect 3.
+      Description(s): Lvl 1 - Increases P. Atk. Effect 3.
     -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -276,8 +262,7 @@
   <skill id="2318" levels="1"
     name="Scroll of Wind Walk - Event Use">
     <!--
-      Description(s):
-      Lvl 1 - Increases Speed. Effect 2.
+      Description(s): Lvl 1 - Increases Speed. Effect 2.
     -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -296,8 +281,7 @@
   <skill id="2319" levels="1"
     name="Scroll of Shield - Event Use">
     <!--
-      Description(s):
-      Lvl 1 - Increases P. Def. Effect 3.
+      Description(s): Lvl 1 - Increases P. Def. Effect 3.
     -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -316,10 +300,9 @@
   <skill id="2320" levels="1"
     name="Blessed Scroll of Escape - Event Use">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1 - none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1 - none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -345,10 +328,9 @@
   <skill id="2322" levels="1"
     name="Chest Key - For Events Only">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1 - none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1 - none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -358,10 +340,9 @@
   </skill>
   <skill id="2323" levels="1" name="Red Sage's Stone">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1 - none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1 - none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -371,10 +352,9 @@
   </skill>
   <skill id="2324" levels="1" name="Blue Sage's Stone">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1 - none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1 - none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -384,10 +364,9 @@
   </skill>
   <skill id="2325" levels="1" name="Orange Sage's Stone">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1 - none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1 - none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -397,10 +376,9 @@
   </skill>
   <skill id="2326" levels="1" name="Black Sage's Stone">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1 - none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1 - none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -410,10 +388,9 @@
   </skill>
   <skill id="2327" levels="1" name="White Sage's Stone">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1 - none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1 - none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -423,10 +400,9 @@
   </skill>
   <skill id="2328" levels="1" name="Green Sage's Stone">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1 - none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1 - none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -566,8 +542,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="2341" levels="1"
-    name="Caravan's Secret Medicine">
+  <skill id="2341" levels="1" name="Caravan's Secret Medicine">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -595,8 +570,7 @@
     <set name="castRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="2345" levels="1"
-    name="Gate Key of Observation">
+  <skill id="2345" levels="1" name="Gate Key of Observation">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -624,8 +598,7 @@
     <set name="castRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="2349" levels="1"
-    name="Gate Key of Arvitaire">
+  <skill id="2349" levels="1" name="Gate Key of Arvitaire">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -639,8 +612,7 @@
     <set name="castRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="2351" levels="1"
-    name="Gate Key of Prediction">
+  <skill id="2351" levels="1" name="Gate Key of Prediction">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -668,8 +640,7 @@
     <set name="castRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="2355" levels="1"
-    name="Gate Key of Destruction">
+  <skill id="2355" levels="1" name="Gate Key of Destruction">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -725,16 +696,14 @@
     <set name="castRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="2363" levels="1"
-    name="Underground Warehouse Key">
+  <skill id="2363" levels="1" name="Underground Warehouse Key">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="2364" levels="1"
-    name="Blessed Scroll of Fortress">
+  <skill id="2364" levels="1" name="Blessed Scroll of Fortress">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -779,9 +748,8 @@
   <skill id="2370" levels="1"
     name="Scroll of Transformation - Pig">
     <!--
-      Done by Skatershi
-      Description:
-      Transform into a cute pig.
+      Done by Skatershi Description: Transform into a cute
+      pig.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -799,9 +767,8 @@
   <skill id="2371" levels="1"
     name="Transform Sealbook - Onyx Beast">
     <!--
-      Done by Skatershi
-      Description:
-      Transform into an Onyx Beast.
+      Done by Skatershi Description: Transform into an Onyx
+      Beast.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -819,9 +786,8 @@
   <skill id="2372" levels="1"
     name="Transform Sealbook - Death Blader">
     <!--
-      Done by Skatershi
-      Description:
-      Transform into a Death Blader.
+      Done by Skatershi Description: Transform into a Death
+      Blader.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -839,9 +805,8 @@
   <skill id="2373" levels="1"
     name="Transform Sealbook - Grail Apostle">
     <!--
-      Done by Skatershi
-      Description:
-      Transform into an Apostle Grail.
+      Done by Skatershi Description: Transform into an
+      Apostle Grail.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -859,9 +824,8 @@
   <skill id="2374" levels="1"
     name="Transform Sealbook - Unicorn">
     <!--
-      Done by Skatershi
-      Description:
-      Transform into a Unicorn.
+      Done by Skatershi Description: Transform into a
+      Unicorn.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -879,9 +843,8 @@
   <skill id="2375" levels="1"
     name="Transform Sealbook - Lilim Knight">
     <!--
-      Done by Skatershi
-      Description:
-      Transform into a Lilim Knight.
+      Done by Skatershi Description: Transform into a Lilim
+      Knight.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -899,9 +862,8 @@
   <skill id="2376" levels="1"
     name="Transform Sealbook - Golem Guardian">
     <!--
-      Done by Skatershi
-      Description:
-      Transform into a Golem Guardian.
+      Done by Skatershi Description: Transform into a Golem
+      Guardian.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -919,9 +881,8 @@
   <skill id="2377" levels="1"
     name="Transform Sealbook - Inferno Drake">
     <!--
-      Done by Skatershi
-      Description:
-      Transform into an Inferno Drake.
+      Done by Skatershi Description: Transform into an
+      Inferno Drake.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -939,9 +900,8 @@
   <skill id="2378" levels="1"
     name="Transform Sealbook - Dragon Bomber">
     <!--
-      Done by Skatershi
-      Description:
-      Transform into a Dragon Bomber.
+      Done by Skatershi Description: Transform into a Dragon
+      Bomber.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -1066,9 +1026,7 @@
   <skill id="2394" levels="1"
     name="Scroll of Battlefield Transformation">
     <!--
-      Done by Skatershi
-      Description:
-      Transform into a Pixy.
+      Done by Skatershi Description: Transform into a Pixy.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -1092,11 +1050,24 @@
     <for></for>
   </skill>
   <skill id="2396" levels="1" name="Mental Potion">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
+    <!-- by Z0mbie! -->
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="buffDuration" val="1200000" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <set name="effectRange" val="-1" />
+    <set name="isPotion" val="true" />
+    <for>
+      <effect count="1" name="Buff" time="1200" val="0"
+        stackOrder="30" stackType="MentalShield">
+        <mul order="0x30" stat="rootVuln" val="0.7" />
+        <mul order="0x30" stat="sleepVuln" val="0.7" />
+        <mul order="0x30" stat="confusionVuln" val="0.7" />
+        <mul order="0x30" stat="derangementVuln" val="0.7" />
+      </effect>
+    </for>
   </skill>
   <skill id="2397" levels="1" name="Medusa Potion">
     <set name="target" val="TARGET_NONE" />
@@ -1107,7 +1078,10 @@
   </skill>
   <skill id="2398" levels="1" name="Instant Haste Potion">
     <!-- Done by DJ MELERIX -->
-    <!-- Need Future Core Support for: "Can only be used in Siege and Fortress war." -->
+    <!--
+      Need Future Core Support for: "Can only be used in
+      Siege and Fortress war."
+    -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
