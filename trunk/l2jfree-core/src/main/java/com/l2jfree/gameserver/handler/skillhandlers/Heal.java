@@ -136,7 +136,7 @@ public class Heal implements ISkillHandler
 			}
 			else
 			{
-				if (skill.getSkillType() == SkillType.HEAL_STATIC || skill.isPotion())
+				if (skill.getSkillType() == SkillType.HEAL_STATIC)
 				{
 					hp = skill.getPower();
 				}

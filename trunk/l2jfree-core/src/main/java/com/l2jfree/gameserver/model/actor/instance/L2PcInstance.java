@@ -10115,6 +10115,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		restoreSkills();
 		regiveTemporarySkills();
 		rewardSkills();
+		// Prevents some issues when changing between subclases that shares skills
+		if(_disabledSkills != null && !_disabledSkills.isEmpty()) 
+			_disabledSkills.clear();
 		restoreEffects();
 		updateEffectIcons();
 		sendPacket(new EtcStatusUpdate(this));
@@ -10154,6 +10157,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		sendPacket(new ShortCutInit(this));
 
 		broadcastPacket(new SocialAction(getObjectId(), 15));
+		sendPacket(new SkillCoolTime(this));
 
 		broadcastClassIcon();
 
@@ -12402,9 +12406,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private FastMap<Integer, TimeStamp>	_reuseTimeStamps	= new FastMap<Integer, TimeStamp>().setShared(true);
 
-	public Collection<TimeStamp> getReuseTimeStamps()
+	public FastMap<Integer, TimeStamp> getReuseTimeStamps()
 	{
-		return _reuseTimeStamps.values();
+		return _reuseTimeStamps;
 	}
 
 	/**

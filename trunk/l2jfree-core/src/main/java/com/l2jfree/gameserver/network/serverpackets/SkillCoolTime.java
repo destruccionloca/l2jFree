@@ -30,7 +30,7 @@ public class SkillCoolTime extends L2GameServerPacket
     
     public SkillCoolTime(L2PcInstance cha)
     {
-        _reuseTimeStamps = cha.getReuseTimeStamps();
+        _reuseTimeStamps = cha.getReuseTimeStamps().values();
     }
     
     /**

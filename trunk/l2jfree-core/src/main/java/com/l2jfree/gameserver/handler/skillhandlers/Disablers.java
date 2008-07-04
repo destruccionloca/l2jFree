@@ -646,7 +646,11 @@ public class Disablers implements ISkillHandler
 				for (L2Effect e : effects)
 				{
 					if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
+					{
+						if (count > -1)
+							count++;
 						e.exit();
+					}
 				}
 
 				break;
@@ -820,56 +824,31 @@ public class Disablers implements ISkillHandler
 								removedBuffs += negateEffect(target, SkillType.BUFF, -1, skill.getMaxNegatedEffects());
 						}
 
-						if (stat == "debuff" && removedBuffs < skill.getMaxNegatedEffects())
+						else if (stat == "debuff" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.DEBUFF,-1, skill.getMaxNegatedEffects());
-						else
-							break;
-						if (stat == "weakness" && removedBuffs < skill.getMaxNegatedEffects())
+						else if (stat == "weakness" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.WEAKNESS,-1, skill.getMaxNegatedEffects());
-						else
-							break;
-						if (stat == "stun" && removedBuffs < skill.getMaxNegatedEffects())
+						else if (stat == "stun" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.STUN,-1, skill.getMaxNegatedEffects());
-						else
-							break;
 						if (stat == "sleep" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.SLEEP,-1, skill.getMaxNegatedEffects());
-						else
-							break;
-						if (stat == "confusion" && removedBuffs < skill.getMaxNegatedEffects())
+						else if (stat == "confusion" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.CONFUSION,-1, skill.getMaxNegatedEffects());
-						else
-							break;
-						if (stat == "mute" && removedBuffs < skill.getMaxNegatedEffects())
+						else if (stat == "mute" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.MUTE,-1, skill.getMaxNegatedEffects());
-						else
-							break;
-						if (stat == "fear" && removedBuffs < skill.getMaxNegatedEffects())
+						else if (stat == "fear" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.FEAR,-1, skill.getMaxNegatedEffects());
-						else
-							break;
-						if (stat == "poison" && removedBuffs < skill.getMaxNegatedEffects())
+						else if (stat == "poison" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.POISON,_negatePower, skill.getMaxNegatedEffects());
-						else
-							break;
-						if (stat == "bleed" && removedBuffs < skill.getMaxNegatedEffects())
+						else if (stat == "bleed" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.BLEED,_negatePower, skill.getMaxNegatedEffects());
-						else
-							break;
-						if (stat == "paralyze" && removedBuffs < skill.getMaxNegatedEffects())
+						else if (stat == "paralyze" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.PARALYZE,-1, skill.getMaxNegatedEffects());
-						else
-							break;
-						if (stat == "root" && removedBuffs < skill.getMaxNegatedEffects())
+						else if (stat == "root" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.ROOT,-1, skill.getMaxNegatedEffects());
-						else
-							break;
-						if (stat == "death_mark" && removedBuffs < skill.getMaxNegatedEffects())
+						else if (stat == "death_mark" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target, SkillType.DEATH_MARK, _negatePower, skill.getMaxNegatedEffects());
-						else
-							break;
-
-						if (stat == "heal" && removedBuffs < skill.getMaxNegatedEffects())
+						else if (stat == "heal" && removedBuffs < skill.getMaxNegatedEffects())
 						{
 							ISkillHandler Healhandler = SkillHandler.getInstance().getSkillHandler(SkillType.HEAL);
 							if (Healhandler == null)
@@ -978,7 +957,8 @@ public class Disablers implements ISkillHandler
 						if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
 						{
 							e.exit();
-							count++;
+							if (count > -1)
+								count++;
 						}
 					}
 					break;
@@ -1006,13 +986,15 @@ public class Disablers implements ISkillHandler
 						if (skillId == e.getSkill().getId() && count < maxRemoved)
 						{
 							e.exit();
-							count++;
+							if (count > -1)
+								count++;
 						}
 					}
 					else if (count < maxRemoved)
 					{
 						e.exit();
-						count++;
+						if (count > -1)
+							count++;
 					}
 				}
 			}
@@ -1024,13 +1006,15 @@ public class Disablers implements ISkillHandler
 					if (skillId == e.getSkill().getId() && count < maxRemoved)
 					{
 						e.exit();
-						count++;
+						if (count > -1)
+							count++;
 					}
 				}
 				else if (count < maxRemoved)
 				{
 					e.exit();
-					count++;
+					if (count > -1)
+						count++;
 				}
 			}
 		}

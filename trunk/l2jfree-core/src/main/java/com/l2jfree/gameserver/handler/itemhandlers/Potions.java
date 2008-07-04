@@ -90,6 +90,7 @@ public class Potions implements IItemHandler
 			8612,
 			8613,
 			8614,
+			10155,
 			10157,
 			//Attribute Potion
 			9997,
@@ -260,6 +261,11 @@ public class Potions implements IItemHandler
 			if (!isUseable(activeChar, item, 2169))
 				return;
 			res = usePotion(activeChar, 2169, (itemId == 6035) ? 1 : 2);
+			break;
+		case 10155: //Mental Potion XML:2396
+			if (!isUseable(activeChar, item, 2396))
+				return;
+			res = usePotion(activeChar, 2396, 1);
 			break;
 
 		// ATTRIBUTE POTION

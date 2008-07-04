@@ -59,6 +59,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.SkillDat;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TimeStamp;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.status.CharStatus;
@@ -1687,8 +1688,48 @@ public abstract class L2Character extends L2Object
 		{
 			if (this instanceof L2PcInstance)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
-				sm.addSkillName(skill);
+				SystemMessage sm = null;
+				FastMap<Integer, TimeStamp> timeStamps = ((L2PcInstance)this).getReuseTimeStamps();
+
+				if (timeStamps != null && timeStamps.containsKey(skill.getId()))
+				{
+					TimeStamp ts = timeStamps.get(skill.getId());
+					int seconds = (int) (ts.getRemaining()/1000);
+					int minutes = (int) (ts.getRemaining()/60000);
+					int hours = (int) (ts.getRemaining()/3600000);
+					if (hours > 0)
+					{
+						sm = new SystemMessage(SystemMessageId.S2_HOURS_S3_MINUTES_S4_SECONDS_REMAINING_FOR_REUSE_S1);
+						sm.addSkillName(skill);
+						sm.addNumber(hours);
+						if (minutes >= 60)
+							minutes = 59;
+
+						sm.addNumber(minutes);
+					}
+					else if (minutes > 0)
+					{
+						sm = new SystemMessage(SystemMessageId.S2_MINUTES_S3_SECONDS_REMAINING_FOR_REUSE_S1);
+						sm.addSkillName(skill);
+						sm.addNumber(minutes);
+					}
+					else if (seconds > 0)
+					{
+						sm = new SystemMessage(SystemMessageId.S2_SECONDS_REMAIMNING_FOR_REUSE_S1);
+						sm.addSkillName(skill);
+					}
+
+					if (seconds >= 60)
+						seconds = 59;
+					
+					sm.addNumber(seconds);
+				}
+				else
+				{
+					sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
+					sm.addSkillName(skill);
+				}
+
 				sendPacket(sm);
 			}
 
@@ -2070,7 +2111,9 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Make sure that char is facing selected target
-		setHeading(Util.calculateHeadingFrom(this, target));
+		if (target != this)
+			setHeading(Util.calculateHeadingFrom(this, target));
+
 
 		// For force buff skills, start the effect as long as the player is casting.
 		if (effectWhileCasting)
@@ -5017,12 +5060,6 @@ public abstract class L2Character extends L2Object
 			// If no distance to go through, the movement is canceled
 			if (distance < 1 || distance - offset <= 0)
 			{
-				sin = 0;
-				cos = 1;
-				distance = 0;
-				x = curX;
-				y = curY;
-
 				if (_log.isDebugEnabled())
 					_log.debug("already in range, no movement needed.");
 
@@ -5170,12 +5207,6 @@ public abstract class L2Character extends L2Object
 					&& (Config.GEO_PATH_FINDING || this instanceof L2PcInstance || (this instanceof L2Summon && !((L2Summon) this).getFollowStatus())
 							|| isAfraid() || this instanceof L2RiftInvaderInstance))
 			{
-				sin = 0;
-				cos = 1;
-				distance = 0;
-				x = curX;
-				y = curY;
-
 				if (this instanceof L2Summon)
 					((L2Summon) this).setFollowStatus(false);
 				getAI().notifyEvent(CtrlEvent.EVT_ARRIVED, null);
@@ -5193,13 +5224,11 @@ public abstract class L2Character extends L2Object
 		m._ySpeedTicks = (float) (sin * speed / GameTimeController.TICKS_PER_SECOND);
 
 		// Calculate and set the heading of the L2Character
-		int heading = (int) (Math.atan2(-sin, -cos) * 10430.378);
-		heading += 32768;
-		setHeading(heading);
+		setHeading(Util.calculateHeadingFrom(cos, sin));
 
 		if (_log.isDebugEnabled())
 			_log.debug("dist:" + distance + "speed:" + speed + " ttt:" + m._ticksToMove + " dx:" + (int) m._xSpeedTicks + " dy:" + (int) m._ySpeedTicks
-					+ " heading:" + heading);
+					+ " heading:" + getHeading());
 
 		m._xDestination = x;
 		m._yDestination = y;
