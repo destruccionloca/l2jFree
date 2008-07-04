@@ -10547,7 +10547,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		super.doRevive();
 		updateEffectIcons();
 		sendPacket(new EtcStatusUpdate(this));
-		_reviveRequested = 0;
+		_reviveRequested = false;
 		_revivePower = 0;
 
 		if (isInParty() && getParty().isInDimensionalRift())
@@ -10572,46 +10572,54 @@ public final class L2PcInstance extends L2PlayableInstance
 		doRevive();
 	}
 
-	public void reviveRequest(L2PcInstance Reviver, L2Skill skill, boolean Pet)
+	public void reviveRequest(L2PcInstance reviver, L2Skill skill)
 	{
-		if (_reviveRequested == 1)
+		if (_reviveRequested || _revivePetRequested)
 		{
-			if (_revivePet == Pet)
-			{
-				Reviver.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
-			}
-			else
-			{
-				if (Pet)
-					Reviver.sendPacket(new SystemMessage(SystemMessageId.CANNOT_RES_PET2)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
-				else
-					Reviver.sendPacket(new SystemMessage(SystemMessageId.MASTER_CANNOT_RES)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
-			}
+			reviver.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
 			return;
 		}
-		if ((Pet && getPet() != null && getPet().isDead()) || (!Pet && isDead()))
+		if (isDead())
 		{
-			_reviveRequested = 1;
-			int restoreExp = 0;
+			_reviveRequested = true;
 			if (isPhoenixBlessed())
 				_revivePower = 100;
 			else
-				_revivePower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), Reviver.getStat().getWIT());
+				_revivePower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), reviver.getStat().getWIT());
 
-			restoreExp = (int) Math.round((getExpBeforeDeath() - getExp()) * _revivePower / 100);
-			_revivePet = Pet;
+			int restoreExp = (int) Math.round((getExpBeforeDeath() - getExp()) * _revivePower / 100);
 
 			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST.getId());
-			sendPacket(dlg.addPcName(Reviver).addString("" + restoreExp));
+			sendPacket(dlg.addPcName(reviver).addString("" + restoreExp));
+		}
+	}
+
+	public void revivePetRequest(L2PcInstance reviver, L2Skill skill)
+	{
+		if (_reviveRequested || _revivePetRequested)
+		{
+			reviver.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
+			return;
+		}
+
+		if (getPet().isDead() && getPet() instanceof L2PetInstance)
+		{
+			_revivePetRequested = true;
+			_revivePetPower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), reviver.getStat().getWIT());
+
+			int restoreExp = (int) Math.round((((L2PetInstance)getPet()).getExpBeforeDeath() - getPet().getStat().getExp()) * _revivePetPower / 100);
+
+			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST.getId());
+			sendPacket(dlg.addPcName(reviver).addString("" + restoreExp));
 		}
 	}
 
 	public void reviveAnswer(int answer)
 	{
-		if (_reviveRequested != 1 || (!isDead() && !_revivePet) || (_revivePet && getPet() != null && !getPet().isDead()))
+		if (!((_reviveRequested && isDead()) || (_revivePetRequested && getPet() != null && getPet().isDead())))
 			return;
 		//If character refuses a PhoenixBless autoress, cancell all buffs he had
-		if (answer == 0 && isPhoenixBlessed())
+		if (answer == 0 && isPhoenixBlessed() && isDead() && _reviveRequested)
 		{
 			stopPhoenixBlessing(null);
 			stopAllEffects();
@@ -10619,14 +10627,14 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		if (answer == 1)
 		{
-			if (!_revivePet)
+			if (_reviveRequested)
 			{
 				if (_revivePower != 0)
 					doRevive(_revivePower);
 				else
 					doRevive();
 			}
-			else if (getPet() != null)
+			else if (_revivePetRequested && getPet() != null)
 			{
 				if (_revivePower != 0)
 					getPet().doRevive(_revivePower);
@@ -10634,24 +10642,30 @@ public final class L2PcInstance extends L2PlayableInstance
 					getPet().doRevive();
 			}
 		}
-		_reviveRequested = 0;
+		_reviveRequested = false;
 		_revivePower = 0;
 	}
 
 	public boolean isReviveRequested()
 	{
-		return (_reviveRequested == 1);
+		return _reviveRequested;
 	}
 
-	public boolean isRevivingPet()
+	public boolean isPetReviveRequested()
 	{
-		return _revivePet;
+		return _revivePetRequested;
 	}
 
 	public void removeReviving()
 	{
-		_reviveRequested = 0;
+		_reviveRequested = false;
 		_revivePower = 0;
+	}
+
+	public void removePetReviving()
+	{
+		_revivePetRequested = false;
+		_revivePetPower = 0;
 	}
 
 	public void onActionRequest()
@@ -12068,9 +12082,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	private int					_cursedWeaponEquippedId	= 0;
 	private boolean				_combatFlagEquipped		= false;
 
-	private int					_reviveRequested		= 0;
+	private boolean				_reviveRequested		= false;
 	private double				_revivePower			= 0;
-	private boolean				_revivePet				= false;
+	private boolean				_revivePetRequested		= false;
+	private double				_revivePetPower			= 0;
 
 	private double				_cpUpdateIncCheck		= .0;
 	private double				_cpUpdateDecCheck		= .0;

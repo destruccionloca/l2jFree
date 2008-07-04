@@ -2858,12 +2858,7 @@ public abstract class L2Skill
 						{
 							if (targetPlayer.isReviveRequested())
 							{
-								if (targetPlayer.isRevivingPet())
-									player.sendPacket(new SystemMessage(SystemMessageId.MASTER_CANNOT_RES)); // While a pet is attempting to resurrect,
-								// it cannot help in resurrecting its
-								// master.
-								else
-									player.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been
+								player.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been
 								// proposed.
 								condGood = false;
 							}

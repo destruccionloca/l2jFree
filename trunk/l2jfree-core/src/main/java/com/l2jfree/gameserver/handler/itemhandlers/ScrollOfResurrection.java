@@ -102,18 +102,12 @@ public class ScrollOfResurrection implements IItemHandler
 
 					if (targetPet != null)
 					{
-						if (targetPet.getOwner() != activeChar)
+						if (targetPet.getOwner().isPetReviveRequested())
 						{
-							if (targetPet.getOwner().isReviveRequested())
-							{
-								if (targetPet.getOwner().isRevivingPet())
-									activeChar.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
-								else
-									activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_RES_PET2)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
-								condGood = false;
-							}
+							activeChar.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
+							condGood = false;
 						}
-						else if (!petScroll)
+						else if (!petScroll && targetPet.getOwner() != activeChar)
 						{
 							condGood = false;
 							activeChar.sendMessage("You do not have the correct scroll.");
@@ -126,12 +120,9 @@ public class ScrollOfResurrection implements IItemHandler
 							condGood = false;
 							activeChar.sendMessage("You may not resurrect participants in a festival.");
 						}
-						if (targetPlayer.isReviveRequested())
+						else if (targetPlayer.isReviveRequested())
 						{
-							if (targetPlayer.isRevivingPet())
-								activeChar.sendPacket(new SystemMessage(SystemMessageId.MASTER_CANNOT_RES)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
-							else
-								activeChar.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
+							activeChar.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
 							condGood = false;
 						}
 						else if (!humanScroll)

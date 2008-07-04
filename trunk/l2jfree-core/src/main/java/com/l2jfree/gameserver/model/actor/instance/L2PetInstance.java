@@ -528,10 +528,9 @@ public class L2PetInstance extends L2Summon
     @Override
     public void deleteMe(L2PcInstance owner)
     {
+        getOwner().removeReviving();
         SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_PETS_CORPSE_HAS_DECAYED);
         getOwner().sendPacket(sm);
-        sm = null;
-        
         super.deleteMe(owner);
         destroyControlItem(owner); //this should also delete the pet from the db
     }
@@ -970,6 +969,11 @@ public class L2PetInstance extends L2Summon
         }
     }
     
+
+	public long getExpBeforeDeath()
+	{
+		return _expBeforeDeath;
+	}
 
     private void deathPenalty()
     {

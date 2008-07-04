@@ -2349,10 +2349,10 @@ public abstract class L2Character extends L2Object
 		{
 			if (this instanceof L2Summon)
 			{
-				((L2Summon) this).getOwner().reviveRequest(((L2Summon) this).getOwner(), null, true);
+				((L2Summon) this).getOwner().revivePetRequest(((L2Summon) this).getOwner(), null);
 			}
 			else
-				((L2PcInstance) this).reviveRequest(((L2PcInstance) this), null, false);
+				((L2PcInstance) this).reviveRequest(((L2PcInstance) this), null);
 		}
 		getAttackByList().clear();
 		return true;
