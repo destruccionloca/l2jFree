@@ -438,16 +438,19 @@ public class L2Attackable extends L2NpcInstance
         // Notify the Quest Engine of the L2Attackable death if necessary
         try
         {
-            L2PcInstance player = killer.getActingPlayer();
-            if (player != null)
-            {
-                
-                if (getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL) != null)
-                {
-                    for (Quest quest: getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL))
-                        quest.notifyKill(this, player, killer instanceof L2Summon);
-                }
-            }
+        	if(killer != null)
+        	{
+	            L2PcInstance player = killer.getActingPlayer();
+	            if (player != null)
+	            {
+	                
+	                if (getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL) != null)
+	                {
+	                    for (Quest quest: getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL))
+	                        quest.notifyKill(this, player, killer instanceof L2Summon);
+	                }
+	            }
+        	}
         } 
         catch (Exception e) { _log.fatal("", e); }
         
@@ -1343,6 +1346,9 @@ public class L2Attackable extends L2NpcInstance
      */
     public void doItemDrop(L2NpcTemplate npcTemplate, L2Character lastAttacker)
     {
+    	if(lastAttacker == null)
+    		return;
+    	
         L2PcInstance player = lastAttacker.getActingPlayer();
 
         if (player == null) return; // Don't drop anything if the last attacker or ownere isn't L2PcInstance

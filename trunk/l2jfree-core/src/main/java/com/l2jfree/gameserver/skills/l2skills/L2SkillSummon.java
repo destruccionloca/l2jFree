@@ -200,4 +200,9 @@ public class L2SkillSummon extends L2Skill
 		L2World.getInstance().storeObject(summon);
 		summon.spawnMe(activeChar.getX() + 50, activeChar.getY() + 100, activeChar.getZ());
 	}
+	
+	public int getNpcId()
+	{
+		return _npcId;
+	}
 }

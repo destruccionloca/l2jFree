@@ -64,6 +64,9 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 
 public class Olympiad
 {
@@ -2168,7 +2171,7 @@ public class Olympiad
 							player.removeSkill(skill, false);
 						}
 					}
-					
+
 					// Heal Player fully
 					player.getStatus().setCurrentCp(player.getMaxCp());
 					player.getStatus().setCurrentHp(player.getMaxHp());
@@ -2188,11 +2191,43 @@ public class Olympiad
 						if (summon instanceof L2PetInstance)
 							summon.unSummon(player);
 					}
-
 					/*
-					 * if (player.getCubics() != null) { for(L2CubicInstance cubic : player.getCubics().values()) { cubic.stopAction();
-					 * player.delCubic(cubic.getId()); } player.getCubics().clear(); }
-					 */
+					if (player.getCubics() != null)
+					{
+						FastList<Integer> allowedList = new FastList<Integer>();
+
+						for (L2Skill skill : player.getAllSkills())
+						{
+							if (skill.isCubic())
+							{
+								if (skill instanceof L2SkillSummon)
+								{
+									int npcId = ((L2SkillSummon) skill).getNpcId();
+									if (npcId != 0)
+										allowedList.add(npcId);
+								}
+							}
+						}
+						
+						for (L2CubicInstance cubic : player.getCubics().values())
+						{
+							if (!allowedList.contains((cubic.getId())))
+							{
+								cubic.stopAction();
+								player.delCubic(cubic.getId());
+							}
+						}
+					}
+					*/
+					if (player.getCubics() != null)
+					{
+						for (L2CubicInstance cubic : player.getCubics().values())
+						{
+							cubic.stopAction();
+							player.delCubic(cubic.getId());
+						}
+						player.getCubics().clear();
+					}
 
 					// Remove player from his party
 					if (player.getParty() != null)
@@ -2252,7 +2287,7 @@ public class Olympiad
 				}
 			}
 		}
-		
+
 		protected void cleanEffects() //Bassed on removals();
 		{
 			if (_playerOne == null || _playerTwo == null)
@@ -2269,17 +2304,18 @@ public class Olympiad
 					{
 						player.getPet().stopAllEffects();
 					}
-					
+
 					//Full Player healing
 					player.getStatus().setCurrentCp(player.getMaxCp());
 					player.getStatus().setCurrentHp(player.getMaxHp());
 					player.getStatus().setCurrentMp(player.getMaxMp());
-					
+
 				}
-				
+
 				//Preventing Exceptions
 				catch (Exception e)
-				{}				
+				{
+				}
 			}
 		}
 

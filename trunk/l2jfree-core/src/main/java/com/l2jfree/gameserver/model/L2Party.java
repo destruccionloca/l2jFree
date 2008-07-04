@@ -478,7 +478,10 @@ public class L2Party
 			}
 		}
 		for (L2PcInstance player : getPartyMembers())
-			player.updateEffectIcons();
+		{
+			if(player!=null)
+				player.updateEffectIcons();
+		}
 	}
 	
 	/**

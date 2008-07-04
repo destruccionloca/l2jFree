@@ -497,7 +497,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	@Override
 	protected void onForcedDisconnection()
 	{
-		_log.info("Client " + toString() + " disconnected abnormally.");
+		if(_log.isDebugEnabled())
+			_log.info("Client " + toString() + " disconnected abnormally.");
 	}
 
 	@Override

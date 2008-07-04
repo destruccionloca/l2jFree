@@ -583,7 +583,7 @@ public class L2CubicInstance
 		}
 		catch (Exception e)
 		{
-			_log.fatal(e);
+			_log.fatal("GetCubicTarget:",e);
 		}
 	}
 
@@ -732,7 +732,7 @@ public class L2CubicInstance
 			}
 			catch (Exception e)
 			{
-				_log.fatal(e);
+				_log.fatal("Action:",e);
 			}
 		}
 	}
@@ -924,7 +924,7 @@ public class L2CubicInstance
 			}
 			catch (Exception e)
 			{
-				_log.fatal(e);
+				_log.fatal("Run",e);
 			}
 		}
 	}
