@@ -3,18 +3,18 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>l2jfree</groupId>
   <artifactId>l2jfree-gameserver</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <packaging>jar</packaging>
   <url>http://www.l2jfree.com</url>
   <scm>
     <connection>
-      scm:svn:svn://www.l2jfree.com/repo/l2j-free/trunk/L2_GameServer_CT1.5
+      scm:svn:svn://www.l2jfree.com/repo/l2j-free/trunk/l2jfree-core
     </connection>
     <developerConnection>
-      scm:svn:svn://www.l2jfree.com/repo/l2j-free/trunk/L2_GameServer_CT1.5
+      scm:svn:svn://www.l2jfree.com/repo/l2j-free/trunk/l2jfree-core
     </developerConnection>
     <url>
-      http://l2jfree.com:8080/l2j-free/browser/trunk/L2_GameServer_CT1.5
+      http://l2jfree.com:8060/changelog/l2jfree/
     </url>
   </scm>
   <pluginRepositories>
@@ -142,7 +142,7 @@
     <dependency>
       <groupId>l2jfree</groupId>
       <artifactId>l2jfree-core</artifactId>
-      <version>1.1.1</version>
+      <version>1.1.2</version>
     </dependency>
   </dependencies>
   <issueManagement>
@@ -192,7 +192,7 @@
                 <artifactItem>
                   <groupId>l2jfree</groupId>
                   <artifactId>datapack</artifactId>
-                  <version>1.1.1</version>
+                  <version>1.1.2</version>
                   <type>jar</type>
                 </artifactItem>
               </artifactItems>

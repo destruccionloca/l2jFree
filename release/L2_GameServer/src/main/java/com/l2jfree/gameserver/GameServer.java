@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Calendar;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.SelectorConfig;
@@ -82,6 +81,7 @@ import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.IrcManager;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
@@ -138,10 +138,33 @@ public class GameServer
 	
 	public GameServer() throws Throwable
 	{
+		String username = java.lang.System.getProperty("user.name");
+		String userdir = java.lang.System.getProperty("user.home");
+		if (username.equals("root") && userdir.equals("/root")) {
+			System.out.print("L2Jfree servers should not run under root-account ...");
+
+			for (int i = 0; i < 9; i++) {
+				System.out.print(".");
+				
+				long ticker = System.currentTimeMillis();
+				while (System.currentTimeMillis() - ticker < 1000) {
+					//
+				}
+			}
+
+			System.out.println(". exited.");
+			System.exit(-1);
+		}
+
 		Config.load();
+		
+		if (Config.DEADLOCKCHECK_INTERVAL > 0)
+			DeadlockDetector.getInstance();
+		
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
 		Util.printSection("Preparations");
+		L2JfreeInfo.showStartupInfo();
 		new PathCreator();
 		Util.printSection("World");
 		RandomIntGenerator.getInstance();
@@ -155,7 +178,7 @@ public class GameServer
 			throw new Exception("Could not initialize the ID factory");
 		}
 		_log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
-		ThreadPoolManager.getInstance();
+		ThreadPoolManager.getInstance().startPurgeTask(600000L);
 		if (Config.GEODATA)
 		{
 			GeoData.getInstance();
@@ -173,6 +196,7 @@ public class GameServer
 		GameTimeController.getInstance();
 		TeleportLocationTable.getInstance();
 		BoatManager.getInstance();
+		InstanceManager.getInstance();
 		Util.printSection("Skills");
 		SkillTreeTable.getInstance();
 		SkillsEngine.getInstance();
