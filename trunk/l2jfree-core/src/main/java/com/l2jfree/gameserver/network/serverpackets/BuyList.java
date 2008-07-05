@@ -27,7 +27,7 @@ public final class BuyList extends L2GameServerPacket
 	private int _listId;
 	private L2ItemInstance[] _list;
 	private int _money;
-	private double _taxRate = 1.;
+	private double _taxRate = 0;
 
 	public BuyList(L2TradeList list, int currentMoney)
 	{

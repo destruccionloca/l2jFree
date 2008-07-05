@@ -209,8 +209,8 @@ public class RequestBuyItem extends L2GameClientPacket
             return;
         }
 
-        double taxRate = 1.;
-        if (merchant != null && merchant.getIsInTown()) taxRate = merchant.getCastle().getTaxRate();
+        double taxRate = 0.;
+        if (merchant != null && merchant.getIsInTown()) taxRate = (1 - merchant.getCastle().getTaxRate());
         long subTotal = 0;
         int tax = 0;
         

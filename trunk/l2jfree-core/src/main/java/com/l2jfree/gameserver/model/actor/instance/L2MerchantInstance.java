@@ -103,7 +103,7 @@ public class L2MerchantInstance extends L2FolkInstance
 
     protected void showBuyWindow(L2PcInstance player, int val)
     {
-        double taxRate = 1.;
+        double taxRate = 0;
 
         // not ready yet
         //taxRate = getMpc().getTotalTaxRate(); 
