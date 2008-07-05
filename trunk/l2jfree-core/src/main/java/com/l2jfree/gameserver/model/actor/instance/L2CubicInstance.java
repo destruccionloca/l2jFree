@@ -699,7 +699,8 @@ public class L2CubicInstance
 								{
 									if (_log.isDebugEnabled())
 										_log.info("L2CubicInstance: Action.run() handler " + type);
-									((Continuous) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
+									if(handler instanceof Continuous)
+										((Continuous) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
 								}
 								else
 								{
