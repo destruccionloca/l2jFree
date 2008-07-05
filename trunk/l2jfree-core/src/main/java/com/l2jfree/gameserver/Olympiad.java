@@ -2191,8 +2191,8 @@ public class Olympiad
 						if (summon instanceof L2PetInstance)
 							summon.unSummon(player);
 					}
-					/*
-					if (player.getCubics() != null)
+					
+					if (player.getCubics() != null && Config.ALT_OLY_REMOVE_CUBICS)
 					{
 						FastList<Integer> allowedList = new FastList<Integer>();
 
@@ -2217,16 +2217,6 @@ public class Olympiad
 								player.delCubic(cubic.getId());
 							}
 						}
-					}
-					*/
-					if (player.getCubics() != null)
-					{
-						for (L2CubicInstance cubic : player.getCubics().values())
-						{
-							cubic.stopAction();
-							player.delCubic(cubic.getId());
-						}
-						player.getCubics().clear();
 					}
 
 					// Remove player from his party

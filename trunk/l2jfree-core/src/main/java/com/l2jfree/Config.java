@@ -1450,6 +1450,7 @@ public final class Config
 	public static int					ALT_OLY_NONCLASSED;
 	public static boolean				ALT_OLY_MATCH_HEAL_COUNTS;
 	public static boolean				ALT_OLY_SUMMON_DAMAGE_COUNTS;
+	public static boolean				ALT_OLY_REMOVE_CUBICS;
 	public static float					ALT_GAME_SUMMON_PENALTY_RATE;												// Alternative game summon penalty
 	public static int					ALT_MANOR_REFRESH_TIME;													// Manor Refresh Starting time
 	public static int					ALT_MANOR_REFRESH_MIN;														// Manor Refresh Min
@@ -1618,6 +1619,7 @@ public final class Config
 			ALT_OLY_NONCLASSED = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedParticipants", "9"));
 			ALT_OLY_MATCH_HEAL_COUNTS = Boolean.parseBoolean(altSettings.getProperty("AltOlyMatchHealCounts", "false"));
 			ALT_OLY_SUMMON_DAMAGE_COUNTS = Boolean.parseBoolean(altSettings.getProperty("AltOlySummonDamageCounts", "false"));
+			ALT_OLY_REMOVE_CUBICS = Boolean.parseBoolean(altSettings.getProperty("AltOlyRemoveCubics", "false"));
 			ALT_OLY_CLASSED_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewardItem", "6651"));
 			ALT_OLY_NONCLASSED_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedRewardItem", "6651"));
 			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewItemCount", "50"));
