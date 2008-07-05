@@ -379,7 +379,7 @@ public class MultiSellChoose extends L2GameClientPacket
 
 			if (newIngredient.getItemId() == 57 && newIngredient.isTaxIngredient())
 			{
-				double taxRate = 0.0;
+				double taxRate = 1.;
 				if (applyTaxes)
 				{
 					if (merchant != null && merchant.getIsInTown())
