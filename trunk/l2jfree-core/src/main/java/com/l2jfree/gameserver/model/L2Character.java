@@ -95,7 +95,6 @@ import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.effects.EffectCharge;
-import com.l2jfree.gameserver.skills.effects.EffectConditionHit;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
 import com.l2jfree.gameserver.templates.L2CharTemplate;
@@ -5862,8 +5861,6 @@ public abstract class L2Character extends L2Object
 
 				if (activeWeapon != null)
 					activeWeapon.getSkillEffects(this, target, crit);
-
-				target.checkRemovalOnHit();
 			}
 			return;
 		}
@@ -6885,9 +6882,6 @@ public abstract class L2Character extends L2Object
 									player.updatePvPStatus();
 							}
 						}
-
-						if (skill.isOffensive())
-							((L2Character) target).checkRemovalOnHit();
 					}
 				}
 
@@ -7408,27 +7402,6 @@ public abstract class L2Character extends L2Object
 	public ChanceSkillList getChanceSkills()
 	{
 		return _chanceSkills;
-	}
-
-	public void checkRemovalOnHit()
-	{
-		L2Effect[] effects = getAllEffects();
-
-		if (effects == null)
-			return;
-
-		for (L2Effect e : effects)
-		{
-			if (e.getEffectType() == L2Effect.EffectType.FEAR)
-			{
-				e.exit();
-			}
-			else if (e.getEffectType() == L2Effect.EffectType.CONDITION_HIT)
-			{
-				((EffectConditionHit) e).setWasHit(true);
-				e.exit();
-			}
-		}
 	}
 
 	public int getDefAttrFire()

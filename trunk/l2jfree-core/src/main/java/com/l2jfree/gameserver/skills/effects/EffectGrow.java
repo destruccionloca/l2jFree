@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.skills.Env;
 
-public class EffectGrow extends L2Effect
+public final class EffectGrow extends L2Effect
 {
 	public EffectGrow(Env env, EffectTemplate template)
 	{

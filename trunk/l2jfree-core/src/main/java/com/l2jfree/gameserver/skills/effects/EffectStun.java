@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-final class EffectStun extends L2Effect
+public final class EffectStun extends L2Effect
 {
 
 	public EffectStun(Env env, EffectTemplate template)

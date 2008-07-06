@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.skills.Env;
  * 
  * Implementation of the Fear Effect
  */
-final class EffectFear extends L2Effect
+public final class EffectFear extends L2Effect
 {
 	public static final int	FEAR_RANGE	= 500;
 

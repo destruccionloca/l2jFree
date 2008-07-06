@@ -18,7 +18,7 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.skills.Env;
 
-class EffectCombatPointHealOverTime extends L2Effect
+public final class EffectCombatPointHealOverTime extends L2Effect
 {
 	public EffectCombatPointHealOverTime(Env env, EffectTemplate template)
 	{

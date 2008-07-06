@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.skills.Env;
  * 
  * @author Darki699
  */
-final class EffectHealCp extends L2Effect
+public final class EffectHealCp extends L2Effect
 {
 
 	public EffectHealCp(Env env, EffectTemplate template)

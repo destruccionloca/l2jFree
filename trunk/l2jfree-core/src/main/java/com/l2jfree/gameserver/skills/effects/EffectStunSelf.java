@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.skills.effects;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
 
-public class EffectStunSelf extends L2Effect
+public final class EffectStunSelf extends L2Effect
 {
 	public EffectStunSelf(Env env, EffectTemplate template)
 	{

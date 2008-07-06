@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 
-class EffectRelax extends L2Effect
+public final class EffectRelax extends L2Effect
 {
 	public EffectRelax(Env env, EffectTemplate template)
 	{

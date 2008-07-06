@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author Ahmed
  */
-public class EffectImmobileUntilAttacked extends L2Effect
+public final class EffectImmobileUntilAttacked extends L2Effect
 {
 	static final Log	_log	= LogFactory.getLog(EffectImmobileUntilAttacked.class.getName());
 

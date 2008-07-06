@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExRegMax;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.skills.Env;
 
-class EffectHealOverTime extends L2Effect
+public final class EffectHealOverTime extends L2Effect
 {
 	public EffectHealOverTime(Env env, EffectTemplate template)
 	{

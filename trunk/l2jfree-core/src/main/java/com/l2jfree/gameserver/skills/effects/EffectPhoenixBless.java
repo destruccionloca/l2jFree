@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author Faror
  */
-final class EffectPhoenixBless extends L2Effect
+public final class EffectPhoenixBless extends L2Effect
 {
 	public EffectPhoenixBless(Env env, EffectTemplate template)
 	{

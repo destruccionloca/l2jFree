@@ -800,8 +800,9 @@
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="549" />
     <for>
-      <effect count="1" name="ConditionHit" time="1200"
-        val="0" stackOrder="1" stackType="conditionhit" />
+      <!--
+        Replace by chance skills
+      -->
     </for>
   </skill>
   <skill id="533" levels="1" name="Counter Rapid Shot">
@@ -819,12 +820,9 @@
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="549" />
     <for>
-      <effect count="1" name="Buff" time="1200" val="0">
-        <mul order="0x30" stat="pAtkSpd" val="1.12">
-          <using kind="Bow" />
-        </mul>
-      </effect>
-      <!-- need core support for chance! -->
+      <!--
+        Replace by chance skills
+      -->
     </for>
   </skill>
   <skill id="534" levels="1" name="Counter Dash">
@@ -839,12 +837,9 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="22" stackType="speed_up">
-        <add order="0x40" stat="runSpd" val="22" />
-        <using kind="Bow" />
-      </effect>
-      <!-- need core support for chance! -->
+      <!--
+        Replace by chance skills
+      -->
     </for>
   </skill>
   <skill id="535" levels="1" name="Counter Mind">
@@ -862,8 +857,9 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="900" />
     <for>
-      <effect count="1" name="ConditionHit" time="1200"
-        val="0" stackOrder="1" stackType="conditionhit" />
+      <!--
+        Replace by chance skills
+      -->
     </for>
   </skill>
   <skill id="536" levels="1" name="Over the Body">

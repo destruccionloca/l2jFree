@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.skills.Env;
  * @author kerberos_20
  * 
  */
-public class EffectCharmOfLuck extends L2Effect
+public final class EffectCharmOfLuck extends L2Effect
 {
 	public EffectCharmOfLuck(Env env, EffectTemplate template)
 	{

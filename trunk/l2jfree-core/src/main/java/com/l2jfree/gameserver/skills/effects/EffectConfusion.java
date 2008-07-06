@@ -33,7 +33,7 @@ import com.l2jfree.tools.random.Rnd;
  * 
  * Implementation of the Confusion Effect
  */
-final class EffectConfusion extends L2Effect
+public final class EffectConfusion extends L2Effect
 {
 
 	private static final Log	_log	= LogFactory.getLog(EffectConfusion.class);

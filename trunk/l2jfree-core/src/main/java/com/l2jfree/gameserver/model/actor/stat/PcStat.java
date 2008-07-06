@@ -121,13 +121,13 @@ public class PcStat extends PlayableStat
 		if (!super.addExpAndSp(addToExp, addToSp))
 			return false;
 
-		if ((int) addToExp == 0)
+		if (addToExp == 0 && addToSp > 0)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.ACQUIRED_S1_SP);
 			sm.addNumber(addToSp);
 			activeChar.sendPacket(sm);
 		}
-		else
+		else if (addToExp > 0 && addToSp > 0)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_EARNED_S1_EXP_AND_S2_SP);
 			sm.addNumber((int) addToExp);

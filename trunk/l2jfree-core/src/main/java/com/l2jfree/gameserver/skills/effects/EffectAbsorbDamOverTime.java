@@ -14,41 +14,49 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
+import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
+import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 
-public final class EffectMpConsumePerLevel extends L2Effect
+public final class EffectAbsorbDamOverTime extends L2Effect
 {
-	public EffectMpConsumePerLevel(Env env, EffectTemplate template)
+	public EffectAbsorbDamOverTime(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 
-	@Override
 	public EffectType getEffectType()
 	{
-		return EffectType.MP_CONSUME_PER_LEVEL;
+		return EffectType.DMG_OVER_TIME;
 	}
 
-	@Override
 	public boolean onActionTime()
 	{
 		if (getEffected().isDead())
 			return false;
 
-		double base = calc();
-		double consume = (getEffected().getLevel() - 1) / 7.5 * base * getPeriod();
-
-		if (consume > getEffected().getStatus().getCurrentMp())
+		double damage = calc();
+		if (damage >= getEffected().getStatus().getCurrentHp())
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
-			getEffected().sendPacket(sm);
-			return false;
+			// For DOT skills that will not kill effected player.
+			if (!getSkill().killByDOT())
+				damage = getEffected().getStatus().getCurrentHp() - 1;
 		}
 
-		getEffected().reduceCurrentMp(consume);
+		boolean awake = !(getEffected() instanceof L2Attackable) && !(getSkill().getTargetType() == SkillTargetType.TARGET_SELF && getSkill().isToggle());
+
+		getEffected().reduceCurrentHp(damage, getEffector(), awake);
+
+		int maxCanAbsorb = (int) (getEffector().getMaxHp() - getEffector().getStatus().getCurrentHp());
+		if (damage > maxCanAbsorb)
+			damage = maxCanAbsorb; // Can't absorb more than max hp
+		if (damage > 0)
+			getEffector().getStatus().increaseHp(damage);
+
 		return true;
 	}
 }

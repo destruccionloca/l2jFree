@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 
-class EffectManaDamOverTime extends L2Effect
+public final class EffectManaDamOverTime extends L2Effect
 {
 	public EffectManaDamOverTime(Env env, EffectTemplate template)
 	{

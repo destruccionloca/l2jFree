@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author demonia
  */
-final class EffectImmobilePetBuff extends L2Effect
+public final class EffectImmobilePetBuff extends L2Effect
 {
 	private L2Summon	_pet;
 

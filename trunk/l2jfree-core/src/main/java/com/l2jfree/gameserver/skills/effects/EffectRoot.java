@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-final class EffectRoot extends L2Effect
+public final class EffectRoot extends L2Effect
 {
 
 	public EffectRoot(Env env, EffectTemplate template)

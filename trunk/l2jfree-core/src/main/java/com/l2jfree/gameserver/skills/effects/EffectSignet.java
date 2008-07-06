@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
  * @authors Forsaiken, Sami
  */
 
-final class EffectSignet extends L2Effect
+public final class EffectSignet extends L2Effect
 {
 	private L2Skill					_skill;
 	private L2EffectPointInstance	_actor;

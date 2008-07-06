@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 
-class EffectChameleonRest extends L2Effect
+public final class EffectChameleonRest extends L2Effect
 {
 	public EffectChameleonRest(Env env, EffectTemplate template)
 	{

@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.skills.Env;
  * 
  * @author LBaldi
  */
-final class EffectBigHead extends L2Effect
+public final class EffectBigHead extends L2Effect
 {
 
 	public EffectBigHead(Env env, EffectTemplate template)

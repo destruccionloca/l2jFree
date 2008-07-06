@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.skills.Env;
 *
 * @author nBd
 */
-public class EffectTransformation extends L2Effect
+public final class EffectTransformation extends L2Effect
 {
 	public EffectTransformation(Env env, EffectTemplate template)
 	{

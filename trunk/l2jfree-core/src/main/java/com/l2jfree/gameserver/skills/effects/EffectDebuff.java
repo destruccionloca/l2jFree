@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.skills.effects;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
 
-final class EffectDebuff extends L2Effect
+public final class EffectDebuff extends L2Effect
 {
 
 	public EffectDebuff(Env env, EffectTemplate template)

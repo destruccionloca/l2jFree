@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.skills.effects;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
 
-public class EffectSilenceMagicPhysical extends L2Effect
+public final class EffectSilenceMagicPhysical extends L2Effect
 {
 
 	public EffectSilenceMagicPhysical(Env env, EffectTemplate template)

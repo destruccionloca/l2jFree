@@ -45,7 +45,7 @@ import com.l2jfree.tools.geometry.Point3D;
 
 import javolution.util.FastList;
 
-final class EffectSignetMDam extends L2Effect
+public final class EffectSignetMDam extends L2Effect
 {
 	private L2EffectPointInstance	_actor;
 

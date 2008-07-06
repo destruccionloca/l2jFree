@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.skills.effects;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
 
-public class EffectInvincible extends L2Effect
+public final class EffectInvincible extends L2Effect
 {
 	public EffectInvincible(Env env, EffectTemplate template)
 	{

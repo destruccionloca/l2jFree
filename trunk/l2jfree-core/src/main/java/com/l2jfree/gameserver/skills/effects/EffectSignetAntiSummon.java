@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.skills.Env;
  * @author Forsaiken
  */
 
-final class EffectSignetAntiSummon extends L2Effect
+public final class EffectSignetAntiSummon extends L2Effect
 {
 	private L2EffectPointInstance	_actor;
 

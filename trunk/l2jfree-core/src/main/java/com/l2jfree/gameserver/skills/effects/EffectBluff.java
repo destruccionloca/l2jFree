@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.skills.Env;
  * 
  * Implementation of the Bluff Effect
  */
-final class EffectBluff extends L2Effect
+public final class EffectBluff extends L2Effect
 {
 	public EffectBluff(Env env, EffectTemplate template)
 	{

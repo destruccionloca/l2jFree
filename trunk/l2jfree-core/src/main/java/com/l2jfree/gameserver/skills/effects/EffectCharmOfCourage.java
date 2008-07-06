@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.skills.Env;
  *
  * @author nBd
  */
-public class EffectCharmOfCourage extends L2Effect
+public final class EffectCharmOfCourage extends L2Effect
 {
 	public EffectCharmOfCourage(Env env, EffectTemplate template)
 	{

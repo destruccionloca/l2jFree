@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.skills.Env;
  * @author decad
  * 
  */
-final class EffectBetray extends L2Effect
+public final class EffectBetray extends L2Effect
 {
 	public EffectBetray(Env env, EffectTemplate template)
 	{

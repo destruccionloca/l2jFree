@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.skills.Env;
  * 
  * Implementation of the CANCEL TARGET
  */
-public class EffectCancelTarget extends L2Effect
+public final class EffectCancelTarget extends L2Effect
 {
 
 	public EffectCancelTarget(Env env, EffectTemplate template)

@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.skills.Formulas;
  * 
  * This was originally done by _drunk_
  */
-public class EffectSpoil extends L2Effect
+public final class EffectSpoil extends L2Effect
 {
 	public EffectSpoil(Env env, EffectTemplate template)
 	{

@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.skills.Env;
  * 
  * @author Darki699
  */
-final class EffectPreventBuff extends L2Effect
+public final class EffectPreventBuff extends L2Effect
 {
 
 	public EffectPreventBuff(Env env, EffectTemplate template)

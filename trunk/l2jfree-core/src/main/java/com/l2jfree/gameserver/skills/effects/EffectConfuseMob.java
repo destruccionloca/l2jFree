@@ -31,7 +31,7 @@ import javolution.util.FastList;
  * 
  * Implementation of the Confusion Effect
  */
-final class EffectConfuseMob extends L2Effect
+public final class EffectConfuseMob extends L2Effect
 {
 
 	public EffectConfuseMob(Env env, EffectTemplate template)

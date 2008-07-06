@@ -18,7 +18,7 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
 
-public class EffectPetrify extends L2Effect
+public final class EffectPetrify extends L2Effect
 {
 	public EffectPetrify(Env env, EffectTemplate template)
 	{

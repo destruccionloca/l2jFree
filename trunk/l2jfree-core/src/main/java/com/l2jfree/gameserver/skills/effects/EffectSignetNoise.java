@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.skills.Env;
  * @authors Forsaiken, Sami
  */
 
-final class EffectSignetNoise extends L2Effect
+public final class EffectSignetNoise extends L2Effect
 {
 	private L2EffectPointInstance	_actor;
 

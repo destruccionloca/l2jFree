@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-final class EffectBuff extends L2Effect
+public final class EffectBuff extends L2Effect
 {
 	public EffectBuff(Env env, EffectTemplate template)
 	{

@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 
-public class EffectCharge extends L2Effect
+public final class EffectCharge extends L2Effect
 {
 	public int	numCharges;
 

@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-final class EffectSleep extends L2Effect
+public final class EffectSleep extends L2Effect
 {
 
 	public EffectSleep(Env env, EffectTemplate template)

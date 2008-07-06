@@ -28,7 +28,7 @@ import com.l2jfree.gameserver.skills.Env;
  * @author Forsaiken
  */
 
-public class EffectRecoverForce extends L2Effect
+public final class EffectRecoverForce extends L2Effect
 {
 	public EffectRecoverForce(Env env, EffectTemplate template)
 	{

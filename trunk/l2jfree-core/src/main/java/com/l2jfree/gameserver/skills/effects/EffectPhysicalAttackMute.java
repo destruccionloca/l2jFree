@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.skills.Env;
  * @author -Rnn-
  *
  */
-public class EffectPhysicalAttackMute extends L2Effect
+public final class EffectPhysicalAttackMute extends L2Effect
 {
 	public EffectPhysicalAttackMute(Env env, EffectTemplate template)
 	{

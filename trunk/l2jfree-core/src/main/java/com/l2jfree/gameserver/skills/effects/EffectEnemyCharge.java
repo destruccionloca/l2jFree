@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.Env;
 
-public class EffectEnemyCharge extends L2Effect
+public final class EffectEnemyCharge extends L2Effect
 {
 
 	private int	_x, _y, _z;

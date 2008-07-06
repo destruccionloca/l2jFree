@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.skills.Env;
  * @author -Nemesiss-
  * 
  */
-public class EffectRemoveTarget extends L2Effect
+public final class EffectRemoveTarget extends L2Effect
 {
 	public EffectRemoveTarget(Env env, EffectTemplate template)
 	{

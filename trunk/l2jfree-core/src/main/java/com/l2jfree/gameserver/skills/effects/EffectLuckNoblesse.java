@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.skills.Env;
  * @author tomciaaa
  * 
  */
-final class EffectLuckNoblesse extends L2Effect
+public final class EffectLuckNoblesse extends L2Effect
 {
 
 	public EffectLuckNoblesse(Env env, EffectTemplate template)
