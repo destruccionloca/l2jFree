@@ -66,7 +66,6 @@ import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 
 public class Olympiad
 {
