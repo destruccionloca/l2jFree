@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
+import com.l2jfree.gameserver.instancemanager.ArenaManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
@@ -314,26 +315,26 @@ public class L2NpcInstance extends L2Character
 	{
 		if (_knownList == null)
 			_knownList = new NpcKnownList(this);
-		
-		return (NpcKnownList)_knownList;
+
+		return (NpcKnownList) _knownList;
 	}
-	
+
 	@Override
 	public NpcStat getStat()
 	{
 		if (_stat == null)
 			_stat = new NpcStat(this);
-		
-		return (NpcStat)_stat;
+
+		return (NpcStat) _stat;
 	}
-	
+
 	@Override
 	public NpcStatus getStatus()
 	{
 		if (_status == null)
 			_status = new NpcStatus(this);
-		
-		return (NpcStatus)_status;
+
+		return (NpcStatus) _status;
 	}
 
 	/** Return the L2NpcTemplate of the L2NpcInstance. */
@@ -1442,6 +1443,12 @@ public class L2NpcInstance extends L2Character
 				replyMSG.append("</body></html>");
 				Reply.setHtml(replyMSG.toString());
 				player.sendPacket(Reply);
+			}
+			else if (command.startsWith("arena_info"))
+			{
+				NpcHtmlMessage htm = new NpcHtmlMessage(getObjectId());
+				htm.setHtml(ArenaManager.getInstance().showHtm(player.getObjectId()));
+				player.sendPacket(htm);
 			}
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);

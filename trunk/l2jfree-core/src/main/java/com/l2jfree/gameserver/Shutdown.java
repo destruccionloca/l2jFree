@@ -14,12 +14,12 @@
  */
 package com.l2jfree.gameserver;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.TradeListTable;
+import com.l2jfree.gameserver.instancemanager.ArenaManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
@@ -413,6 +413,13 @@ public class Shutdown extends Thread
 
 		// Save all global (non-player specific) Quest data that needs to persist after reboot
 		QuestManager.getInstance().save();
+
+		// Save Arena Data if enabled
+		if (Config.ARENA_ENABLED)
+		{
+			ArenaManager.getInstance().stopSaveTask();
+			ArenaManager.getInstance().saveData();
+		}
 
 		// Save Cursed Weapons data before closing.
 		CursedWeaponsManager.getInstance().saveData();

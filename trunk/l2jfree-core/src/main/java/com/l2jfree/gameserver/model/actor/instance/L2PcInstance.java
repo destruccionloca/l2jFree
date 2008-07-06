@@ -51,6 +51,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2PlayerAI;
 import com.l2jfree.gameserver.cache.HtmCache;
+import com.l2jfree.gameserver.instancemanager.ArenaManager;
 import com.l2jfree.gameserver.cache.WarehouseCacheManager;
 import com.l2jfree.gameserver.communitybbs.Manager.ForumsBBSManager;
 import com.l2jfree.gameserver.communitybbs.bb.Forum;
@@ -4742,8 +4743,14 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 
 			boolean srcInPvP = isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_SIEGE);
-
-			if (!srcInPvP)
+			
+			if(killer instanceof L2PcInstance && srcInPvP && Config.ARENA_ENABLED) 
+			{
+				ArenaManager.getInstance().onKill(killer.getObjectId(), killer.getName());
+				ArenaManager.getInstance().onDeath(getObjectId(), getName());
+			}				
+			
+			if(!srcInPvP)
 			{
 				if (pk == null || !pk.isCursedWeaponEquipped())
 				{

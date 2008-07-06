@@ -22,6 +22,7 @@ package com.l2jfree.gameserver.util;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.Map;
 
 import org.python.core.Py;
 import org.python.core.PyModule;
@@ -38,8 +39,6 @@ import com.l2jfree.tools.util.CustomFileNameFilter;
 
 /**
  * General Utility functions related to Gameserver
- * 
- * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
  */
 public final class Util
 {
@@ -122,7 +121,7 @@ public final class Util
 	{
 		if (degree < 0)
 			degree = 360 + degree;
-		return (int)(degree * 182.044444444);
+		return (int) (degree * 182.044444444);
 	}
 
 	public final static int calculateHeadingFrom(L2Object obj1, L2Object obj2)
@@ -135,7 +134,7 @@ public final class Util
 		double angleTarget = Math.toDegrees(Math.atan2(obj2Y - obj1Y, obj2X - obj1X));
 		if (angleTarget < 0)
 			angleTarget = 360 + angleTarget;
-		return (int)(angleTarget*182.044444444);
+		return (int) (angleTarget * 182.044444444);
 	}
 
 	public final static int calculateHeadingFrom(double dx, double dy)
@@ -143,7 +142,7 @@ public final class Util
 		double angleTarget = Math.toDegrees(Math.atan2(dy, dx));
 		if (angleTarget < 0)
 			angleTarget = 360 + angleTarget;
-		return (int)(angleTarget*182.044444444);
+		return (int) (angleTarget * 182.044444444);
 	}
 
 	public final static double calculateDistance(int x1, int y1, int z1, int x2, int y2)
@@ -221,9 +220,9 @@ public final class Util
 	 */
 	public static boolean checkIfInRange(int range, L2Object obj1, L2Object obj2, boolean includeZAxis)
 	{
-		if(obj1.getInstanceId()!=obj2.getInstanceId())
+		if (obj1.getInstanceId() != obj2.getInstanceId())
 			return false;
-		
+
 		if (range == -1)
 			return true; // not limited
 
@@ -409,5 +408,11 @@ public final class Util
 		a = (a + (a << 3)) + (a << 11);
 		a = a ^ (a >>> 16);
 		return a;
+	}
+
+	public static Map<Integer, Integer> sortMap(Map<Integer, Integer> map, boolean asc)
+	{
+		ValueSortMap vsm = new ValueSortMap();
+		return vsm.sortThis(map, asc);
 	}
 }

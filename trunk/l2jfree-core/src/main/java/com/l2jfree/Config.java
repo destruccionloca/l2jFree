@@ -2388,6 +2388,10 @@ public final class Config
 	public static boolean		DM_ON_START_REMOVE_ALL_EFFECTS;
 	public static boolean		DM_ON_START_UNSUMMON_PET;
 	public static boolean		FALLDOWNONDEATH;
+	public static boolean		ARENA_ENABLED;
+	public static int			ARENA_INTERVAL;
+	public static int			ARENA_REWARD_ID;
+	public static int			ARENA_REWARD_COUNT;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -2442,6 +2446,11 @@ public final class Config
 			DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartRemoveAllEffects", "true"));
 			DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartUnsummonPet", "true"));
 			FALLDOWNONDEATH = Boolean.parseBoolean(funEnginesSettings.getProperty("FallDownOnDeath", "true"));
+			
+			ARENA_ENABLED = Boolean.parseBoolean(funEnginesSettings.getProperty("ArenaEnabled", "false"));
+			ARENA_INTERVAL = Integer.parseInt(funEnginesSettings.getProperty("ArenaInterval", "60"));
+			ARENA_REWARD_ID = Integer.parseInt(funEnginesSettings.getProperty("ArenaRewardId", "57"));
+			ARENA_REWARD_COUNT = Integer.parseInt(funEnginesSettings.getProperty("ArenaRewardCount", "100"));
 		}
 		catch (Exception e)
 		{
