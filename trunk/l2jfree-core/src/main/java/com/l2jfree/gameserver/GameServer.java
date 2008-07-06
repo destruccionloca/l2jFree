@@ -378,7 +378,9 @@ public class GameServer
 		_log.info("Revision: " + version.getVersionNumber());
 		//_log.info("Build date: "+version.getBuildDate());
 		_log.info("Compiler version: " + version.getBuildJdk());
-
+		_log.info("Operating System: " + Util.getOSName() + " " + Util.getOSVersion() +" " + Util.getOSArch());
+		_log.info("Available CPUs: " + Util.getAvailableProcessors());
+		
 		printMemUsage();
 		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
 

@@ -42,6 +42,29 @@ import com.l2jfree.tools.util.CustomFileNameFilter;
  */
 public final class Util
 {
+
+	// some sys info utils
+	public static int getAvailableProcessors()
+	{
+		Runtime rt = Runtime.getRuntime();
+		return rt.availableProcessors();
+	}
+	
+	public static String getOSName()
+	{
+		return System.getProperty("os.name");
+	}
+	
+	public static String getOSVersion()
+	{
+		return System.getProperty("os.version");
+	}
+	
+	public static String getOSArch()
+	{
+		return System.getProperty("os.arch");
+	}
+	
 	public static String[] getMemUsage()
 	{
 		double maxMem = ((long) (Runtime.getRuntime().maxMemory() / 1024)); // maxMemory is the upper limit the jvm can use
