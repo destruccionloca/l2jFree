@@ -906,26 +906,9 @@ public class Disablers implements ISkillHandler
 			switch (type)
 			{
 				case STUN:
-					if (Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill))
-					{
-						skill.getEffects(activeCubic, target);
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_SUCCEEDED);
-						sm.addSkillName(skill);
-						activeCubic.getOwner().sendPacket(sm);
-						if (_log.isDebugEnabled())
-							_log.info("Disablers: useCubicSkill() -> success");
-					}
-					else
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-						sm.addCharName(target);
-						sm.addSkillName(skill);
-						activeCubic.getOwner().sendPacket(sm);
-						if (_log.isDebugEnabled())
-							_log.info("Disablers: useCubicSkill() -> failed");
-					}
-					break;
-				case PARALYZE: //use same as root for now
+				case PARALYZE:
+				case ROOT:
+				case DEBUFF:
 					if (Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill))
 					{
 						skill.getEffects(activeCubic, target);

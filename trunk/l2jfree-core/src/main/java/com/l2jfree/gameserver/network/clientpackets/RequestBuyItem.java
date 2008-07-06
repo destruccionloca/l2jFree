@@ -113,37 +113,18 @@ public class RequestBuyItem extends L2GameClientPacket
              !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)))     // Distance is too far
              return;
 
-        boolean ok = true;
         String htmlFolder = "";
 
-        if (target != null)
-        {
-            if (target instanceof L2MerchantInstance)
-                htmlFolder = "merchant";
-            else if (target instanceof L2FishermanInstance)
-                htmlFolder = "fisherman";
-            else if (target instanceof L2MercManagerInstance)
-                ok = true;
-            else if (target instanceof L2ClanHallManagerInstance)
-                ok = true;
-            else if (target instanceof L2CastleChamberlainInstance)
-                ok = true;
-            else
-                ok = false;
-        }
-        else
-            ok = false;
-        
-        L2NpcInstance merchant = null;
-
-        if (ok)
-            merchant = (L2NpcInstance)target;
-        else if (!ok && !player.isGM())
-        {
-            player.sendMessage("Invalid Target: Seller must be targetted");
+        if (target instanceof L2MerchantInstance)
+            htmlFolder = "merchant";
+        else if (target instanceof L2FishermanInstance)
+            htmlFolder = "fisherman";
+        else if (!(target instanceof L2MercManagerInstance || target instanceof L2ClanHallManagerInstance
+                       || target instanceof L2CastleChamberlainInstance))
             return;
-        }
-        
+
+        L2NpcInstance merchant = (L2NpcInstance) target;
+
         L2TradeList list = null;
         
         if (merchant != null && !player.isGM())
@@ -248,7 +229,7 @@ public class RequestBuyItem extends L2GameClientPacket
             if (_listId < 1000000)
             {
                 //list = TradeController.getInstance().getBuyList(_listId);
-                if (itemId >= 3960 && itemId <= 4026) price *= Config.RATE_SIEGE_GUARDS_PRICE;    
+                if (itemId >= 3960 && itemId <= 4026) price *= Config.RATE_SIEGE_GUARDS_PRICE;
             }
 
             if (price < 0)
@@ -260,7 +241,6 @@ public class RequestBuyItem extends L2GameClientPacket
 			
 			if(price == 0 && !player.isGM() && Config.ONLY_GM_ITEMS_FREE)
 			{
-				player.sendMessage("Ohh Cheat dont work? You have a problem now!");
 				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried buy item for 0 adena.", Config.DEFAULT_PUNISH);
 				return;                
             }

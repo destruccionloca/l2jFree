@@ -681,34 +681,14 @@ public class L2CubicInstance
 							ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
 							L2Character[] targets = { _target };
 
-							if (handler != null)
-							{
-								if ((type == L2Skill.SkillType.PARALYZE) || (type == L2Skill.SkillType.STUN))
-								{
-									if (_log.isDebugEnabled())
-										_log.info("L2CubicInstance: Action.run() handler " + type);
-									((Disablers) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
-								}
-								else if (type == L2Skill.SkillType.MDAM)
-								{
-									if (_log.isDebugEnabled())
-										_log.info("L2CubicInstance: Action.run() handler " + type);
-									((Mdam) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
-								}
-								else if ((type == L2Skill.SkillType.POISON) || (type == L2Skill.SkillType.DEBUFF) || (type == L2Skill.SkillType.DOT))
-								{
-									if (_log.isDebugEnabled())
-										_log.info("L2CubicInstance: Action.run() handler " + type);
-									if(handler instanceof Continuous)
-										((Continuous) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
-								}
-								else
-								{
-									handler.useSkill(_owner, skill, targets);
-									if (_log.isDebugEnabled())
-										_log.info("L2CubicInstance: Action.run(); other handler");
-								}
-							}
+							if (handler instanceof Disablers)
+								((Disablers) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
+							else if (handler instanceof Mdam)
+								((Mdam) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
+							else if (handler instanceof Continuous)
+								((Continuous) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
+							else if (handler != null)
+								handler.useSkill(_owner, skill, targets);
 							else
 							{
 								if (type == L2Skill.SkillType.DRAIN)
