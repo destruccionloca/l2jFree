@@ -128,9 +128,9 @@ public final class Util
 	/** Return degree value of object 2 to the horizontal line with object 1 being the origin */
 	public final static double calculateAngleFrom(int obj1X, int obj1Y, int obj2X, int obj2Y)
 	{
-		double angleTarget = Math.toDegrees(Math.atan2(obj1Y - obj2Y, obj1X - obj2X));
+		double angleTarget = Math.toDegrees(Math.atan2(obj2Y - obj1Y, obj2X - obj1X));
 		if (angleTarget < 0)
-			angleTarget = 360 + angleTarget;
+			angleTarget += 360;
 		return angleTarget;
 	}
 
@@ -143,7 +143,7 @@ public final class Util
 	public final static int convertDegreeToClientHeading(double degree)
 	{
 		if (degree < 0)
-			degree = 360 + degree;
+			degree += 360;
 		return (int) (degree * 182.044444444);
 	}
 
@@ -156,7 +156,7 @@ public final class Util
 	{
 		double angleTarget = Math.toDegrees(Math.atan2(obj2Y - obj1Y, obj2X - obj1X));
 		if (angleTarget < 0)
-			angleTarget = 360 + angleTarget;
+			angleTarget += 360;
 		return (int) (angleTarget * 182.044444444);
 	}
 
@@ -164,7 +164,7 @@ public final class Util
 	{
 		double angleTarget = Math.toDegrees(Math.atan2(dy, dx));
 		if (angleTarget < 0)
-			angleTarget = 360 + angleTarget;
+			angleTarget += 360;
 		return (int) (angleTarget * 182.044444444);
 	}
 
