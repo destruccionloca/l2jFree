@@ -69,37 +69,37 @@ class Quest (JQuest) :
      if n<51 :
       st.playSound("ItemSound.quest_itemget")
       if n<50 :
-         st.rewardItems(MONSTER_EYE_CARCASS,1)
+         st.giveItems(MONSTER_EYE_CARCASS,1)
       else :
-         st.rewardItems(MONSTER_EYE_LENS,1)
+         st.giveItems(MONSTER_EYE_LENS,1)
    elif npcId == 20059 :
      if n<55 :
       st.playSound("ItemSound.quest_itemget")
       if n<54 :
-         st.rewardItems(MONSTER_EYE_CARCASS,1)
+         st.giveItems(MONSTER_EYE_CARCASS,1)
       else :
-         st.rewardItems(MONSTER_EYE_LENS,1)
+         st.giveItems(MONSTER_EYE_LENS,1)
    elif npcId == 20067 :
      if n<69 :
       st.playSound("ItemSound.quest_itemget")
       if n<67 :
-         st.rewardItems(MONSTER_EYE_CARCASS,1)
+         st.giveItems(MONSTER_EYE_CARCASS,1)
       else :
-         st.rewardItems(MONSTER_EYE_LENS,1)
+         st.giveItems(MONSTER_EYE_LENS,1)
    elif npcId == 20068 :
      if n<74 :
       st.playSound("ItemSound.quest_itemget")
       if n<72 :
-         st.rewardItems(MONSTER_EYE_CARCASS,1)
+         st.giveItems(MONSTER_EYE_CARCASS,1)
       else :
-         st.rewardItems(MONSTER_EYE_LENS,1)
+         st.giveItems(MONSTER_EYE_LENS,1)
    elif npcId == 20070 :
       if n<50 :
-         st.rewardItems(BASILISK_GIZZARD,1)
+         st.giveItems(BASILISK_GIZZARD,1)
          st.playSound("ItemSound.quest_itemget")
    elif npcId == 20072 :
       if n<53 :
-         st.rewardItems(BASILISK_GIZZARD,1)
+         st.giveItems(BASILISK_GIZZARD,1)
          st.playSound("ItemSound.quest_itemget")
    return
 

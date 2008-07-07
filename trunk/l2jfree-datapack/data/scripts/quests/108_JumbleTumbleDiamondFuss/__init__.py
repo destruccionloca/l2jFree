@@ -95,15 +95,15 @@ class Quest (JQuest) :
           if newbie | NEWBIE_REWARD != newbie :
              player.setNewbie(newbie|NEWBIE_REWARD)
              if player.getClassId().isMage() :
-                st.rewardItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
+                st.giveItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
                 st.playTutorialVoice("tutorial_voice_027")
              else :
-                st.rewardItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
+                st.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
                 st.playTutorialVoice("tutorial_voice_026")
           st.rewardItems(1060,100)     # Lesser Healing Potions
           st.giveItems(SILVERSMITH_HAMMER,1)
           for item in range(4412,4417) :
-              st.rewardItems(item,10)   # Echo crystals
+              st.giveItems(item,10)   # Echo crystals
           st.takeItems(STAR_DIAMOND,-1)
           st.set("cond","0")
           st.exitQuest(False)

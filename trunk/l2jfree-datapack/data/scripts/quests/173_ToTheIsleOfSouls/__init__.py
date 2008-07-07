@@ -40,7 +40,7 @@ class Quest (JQuest) :
      elif event == "30097-06.htm" :
        st.takeItems(MAGIC_SWORD_HILT,-1)
        st.takeItems(MARK_OF_TRAVELER,-1)
-       st.rewardItems(SCROLL_OF_ESCAPE_KAMAEL_VILLAGE,1)
+       st.giveItems(SCROLL_OF_ESCAPE_KAMAEL_VILLAGE,1)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False)
        st.unset("cond")

@@ -113,7 +113,7 @@ class Quest (JQuest) :
             if newbie | NEWBIE_REWARD != newbie :
                player.setNewbie(newbie|NEWBIE_REWARD)
                if not player.getClassId().isMage() :
-                  st.rewardItems(SOULSHOT_FOR_BEGINNERS,7000)
+                  st.giveItems(SOULSHOT_FOR_BEGINNERS,7000)
                   st.playTutorialVoice("tutorial_voice_026")
    return htmltext
 

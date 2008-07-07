@@ -85,7 +85,7 @@ class Quest (JQuest) :
           player.setNewbie(newbie|NEWBIE_REWARD)
           st.showQuestionMark(26)
           st.playTutorialVoice("tutorial_voice_026")
-          st.rewardItems(SOULSHOT_FOR_BEGINNERS,6000)
+          st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
    return htmltext
 
  def onKill(self,npc,player,isPet):

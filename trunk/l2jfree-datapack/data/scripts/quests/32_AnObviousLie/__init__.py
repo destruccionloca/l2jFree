@@ -147,7 +147,7 @@ class Quest (JQuest) :
    count = st.getQuestItemsCount(MEDICINAL_HERB)
    if chance < CHANCE_FOR_DROP and st.getInt("cond")== 3 :
      if count < 20 :
-       st.rewardItems(MEDICINAL_HERB,int(1))
+       st.giveItems(MEDICINAL_HERB,int(1))
        if count == 19 :
          st.playSound("ItemSound.quest_middle")
          st.set("cond","4")

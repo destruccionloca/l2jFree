@@ -63,17 +63,17 @@ class Quest (JQuest) :
    n = st.getRandom(100)
    if npcId == 20085 :
       if n<5 :
-         st.rewardItems(GOLEM_HEARTSTONE,1)
+         st.giveItems(GOLEM_HEARTSTONE,1)
          st.playSound("ItemSound.quest_itemget")
       elif n<58 :
-         st.rewardItems(BROKEN_HEARTSTONE,1)
+         st.giveItems(BROKEN_HEARTSTONE,1)
          st.playSound("ItemSound.quest_itemget")
    elif npcId == 20083 :
       if n<6 :
-         st.rewardItems(GOLEM_HEARTSTONE,1)
+         st.giveItems(GOLEM_HEARTSTONE,1)
          st.playSound("ItemSound.quest_itemget")
       elif n<56 :
-         st.rewardItems(BROKEN_HEARTSTONE,1)
+         st.giveItems(BROKEN_HEARTSTONE,1)
          st.playSound("ItemSound.quest_itemget")
    return
 

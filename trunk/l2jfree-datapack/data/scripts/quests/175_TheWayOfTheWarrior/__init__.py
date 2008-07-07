@@ -49,7 +49,7 @@ class Quest (JQuest) :
        for item in ECHO :
          st.rewardItems(item,10)
        if player.getLevel() < 20 and player.isNewbie() :
-         st.rewardItems(SOULSHOT_FOR_BEGINNERS,7000)
+         st.giveItems(SOULSHOT_FOR_BEGINNERS,7000)
        st.giveItems(WARRIORS_SWORD,1)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False)

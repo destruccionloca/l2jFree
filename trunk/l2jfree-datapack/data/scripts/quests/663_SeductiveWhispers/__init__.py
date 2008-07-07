@@ -110,8 +110,8 @@ class Quest (JQuest) :
          if round == 8: # reached round 8; give prizes and restart game
            round = 0
            st.rewardItems(ADENA,2384000)
-           st.rewardItems(EWA,1) # Scroll: Enchant Weapon A
-           st.rewardItems(EAA,2) # Scroll: Enchant Armor A
+           st.giveItems(EWA,1) # Scroll: Enchant Weapon A
+           st.giveItems(EAA,2) # Scroll: Enchant Armor A
            htmltext = "Wilbert_PlayWonRound8.htm"
          st.set("round",str(round))
    elif event == "Wilbert_TakePrize.htm": # player won round and wants to stop game and take prize

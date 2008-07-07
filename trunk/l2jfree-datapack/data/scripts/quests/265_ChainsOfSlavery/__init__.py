@@ -69,10 +69,10 @@ class Quest (JQuest) :
           st.showQuestionMark(26)
           if player.getClassId().isMage() :
              st.playTutorialVoice("tutorial_voice_027")
-             st.rewardItems(SPIRITSHOT_FOR_BEGINNERS,3000)
+             st.giveItems(SPIRITSHOT_FOR_BEGINNERS,3000)
           else :
              st.playTutorialVoice("tutorial_voice_026")
-             st.rewardItems(SOULSHOT_FOR_BEGINNERS,6000)
+             st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
        htmltext = "30357-05.htm"
      else:
        htmltext = "30357-04.htm"

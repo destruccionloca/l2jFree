@@ -89,7 +89,7 @@ class Quest (JQuest) :
    if st.getState() != State.STARTED : return   
    count = st.getQuestItemsCount(ROUGH_JEWEL)
    if count<10 :
-     st.rewardItems(ROUGH_JEWEL,int(1))
+     st.giveItems(ROUGH_JEWEL,int(1))
      if count == 9 :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","3")

@@ -41,7 +41,7 @@ class Quest (JQuest) :
            st.rewardItems(57,hills*23+400)
          else :
            st.rewardItems(57,hills*23)
-         st.rewardItems(SOULSHOT_FOR_BEGINNERS,6000)
+         st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
          st.takeItems(HILLS,-1)
          st.set("onlyone","1")
        else:
@@ -55,7 +55,7 @@ class Quest (JQuest) :
          htmltext = "32173-07a.htm"
        else:
          if player.getLevel() < 25 and player.isNewbie() and not onlyone :
-           st.rewardItems(SOULSHOT_FOR_BEGINNERS,6000)
+           st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
            st.rewardItems(REWARD,1)
            st.takeItems(HILLS,50)
            st.set("onlyone","1")

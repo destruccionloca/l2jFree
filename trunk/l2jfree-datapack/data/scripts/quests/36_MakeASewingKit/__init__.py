@@ -63,7 +63,7 @@ class Quest (JQuest) :
    
    count = st.getQuestItemsCount(REINFORCED_STEEL)
    if count < 5 :
-     st.rewardItems(REINFORCED_STEEL,int(1))
+     st.giveItems(REINFORCED_STEEL,int(1))
      if count == 4 :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","2")

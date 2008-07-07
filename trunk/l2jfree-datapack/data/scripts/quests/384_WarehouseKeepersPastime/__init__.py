@@ -196,12 +196,12 @@ class Quest (JQuest) :
            bet = self.gameStatus[player.getName()][2]
            if wins == 3 :
                item = self.getReward(eval("Rewards_"+str(bet)+"_Win"))
-               st.rewardItems(item,1)
+               st.giveItems(item,1)
                htmltext = HtmCache.getInstance().getHtm("data/scripts/quests/" + qn + "/" + npcId + "-23.htm")
            elif wins == 0 :
                item = self.getReward(eval("Rewards_"+str(bet)+"_Lose"))
                if item == 2437 : st.giveItems(2463,1)
-               st.rewardItems(item,1)
+               st.giveItems(item,1)
                htmltext = HtmCache.getInstance().getHtm("data/scripts/quests/" + qn + "/" + npcId + "-25.htm")
            else :
                htmltext = HtmCache.getInstance().getHtm("data/scripts/quests/" + qn + "/" + npcId + "-24.htm")

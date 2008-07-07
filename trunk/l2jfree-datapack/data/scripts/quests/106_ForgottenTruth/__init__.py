@@ -102,7 +102,7 @@ class Quest (JQuest) :
          if newbie | NEWBIE_REWARD != newbie :
             player.setNewbie(newbie|NEWBIE_REWARD)
             if player.getClassId().isMage() :
-               st.rewardItems(SPIRITSHOT_FOR_BEGINNERS,3000)
+               st.giveItems(SPIRITSHOT_FOR_BEGINNERS,3000)
                st.playTutorialVoice("tutorial_voice_027")
          st.unset("cond")
          st.exitQuest(False)

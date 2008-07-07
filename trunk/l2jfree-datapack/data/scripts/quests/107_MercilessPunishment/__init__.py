@@ -113,19 +113,19 @@ class Quest (JQuest) :
             st.takeItems(HATOSS_ORDER3_ID,1)
             st.rewardItems(LESSER_HEALING_ID,100)
             st.giveItems(BUTCHER_ID,1)
-            st.rewardItems(CRYSTAL_BATTLE,10)
-            st.rewardItems(CRYSTAL_LOVE,10)
-            st.rewardItems(CRYSTAL_SOLITUDE,10)
-            st.rewardItems(CRYSTAL_FEAST,10)
-            st.rewardItems(CRYSTAL_CELEBRATION,10)
+            st.giveItems(CRYSTAL_BATTLE,10)
+            st.giveItems(CRYSTAL_LOVE,10)
+            st.giveItems(CRYSTAL_SOLITUDE,10)
+            st.giveItems(CRYSTAL_FEAST,10)
+            st.giveItems(CRYSTAL_CELEBRATION,10)
             # check the player state against this quest newbie rewarding mark.
             newbie = player.getNewbie()
             if newbie | NEWBIE_REWARD != newbie :
                player.setNewbie(newbie|NEWBIE_REWARD)
                if player.getClassId().isMage() :
-                  st.rewardItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
+                  st.giveItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
                else :
-                  st.rewardItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
+                  st.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
             st.set("cond","0")
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")

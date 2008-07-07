@@ -92,7 +92,7 @@ class Quest (JQuest) :
    elif st.getInt("cond") == 1 and st.getQuestItemsCount(ANCIENT_SCROLL):
         htmltext = "16.htm"
         numancientscrolls = st.getQuestItemsCount(ANCIENT_SCROLL)
-        st.rewardItems(5965,numancientscrolls)
+        st.giveItems(5965,numancientscrolls)
         st.takeItems(ANCIENT_SCROLL,-1)
    else:
      st.exitQuest(1)  # cond is always 1 if he acceptet the quest, but we have no way to check if he hasnt the quest, so we delete it if he didnt accept by first talk

@@ -93,7 +93,7 @@ class Quest (JQuest) :
          if prevItems + numItems > count :
             numItems = count - prevItems
          if int(numItems) != 0 :
-            st.rewardItems(item,int(numItems))
+            st.giveItems(item,int(numItems))
          if (st.getQuestItemsCount(LEAF) != 80 and st.getQuestItemsCount(STONE) != 100) :
             st.playSound("ItemSound.quest_itemget")
          else :

@@ -161,7 +161,7 @@ class Quest (JQuest) :
    if st.getState() != State.STARTED : return 
    
    item,chance=DROPLIST[npc.getNpcId()]
-   st.rewardItems(item,1)
+   st.giveItems(item,1)
    st.playSound("ItemSound.quest_itemget")
    if st.getRandom(100)<chance :
      n = st.getRandom(100)

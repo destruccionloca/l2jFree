@@ -81,9 +81,9 @@ class Quest (JQuest) :
         for mobId in DROPLIST.keys() :
             st.takeItems(DROPLIST[mobId],-1)
         if player.getClassId().isMage() :
-          st.rewardItems(SPIRITSHOT_NO_GRADE,500)
+          st.giveItems(SPIRITSHOT_NO_GRADE,500)
         else :
-          st.rewardItems(SOULSHOT_NO_GRADE,1000)
+          st.giveItems(SOULSHOT_NO_GRADE,1000)
         # check the player state against this quest newbie rewarding mark.
         newbie = player.getNewbie()
         if newbie | NEWBIE_REWARD != newbie :
@@ -94,7 +94,7 @@ class Quest (JQuest) :
         st.rewardItems(1060,100)     # Lesser Healing Potions
         st.giveItems(WAND_OF_ADEPT,1)
         for item in range(4412,4417) :
-            st.rewardItems(item,10)   # Echo crystals
+            st.giveItems(item,10)   # Echo crystals
         htmltext = "30017-05.htm"
         st.set("cond","0")
         st.exitQuest(False)

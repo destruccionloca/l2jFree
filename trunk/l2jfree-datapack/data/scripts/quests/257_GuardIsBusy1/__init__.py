@@ -68,10 +68,10 @@ class Quest (JQuest) :
           st.showQuestionMark(26)
           if player.getClassId().isMage() :
              st.playTutorialVoice("tutorial_voice_027")
-             st.rewardItems(SPIRITSHOT_FOR_BEGINNERS,3000)
+             st.giveItems(SPIRITSHOT_FOR_BEGINNERS,3000)
           else :
              st.playTutorialVoice("tutorial_voice_026")
-             st.rewardItems(SOULSHOT_FOR_BEGINNERS,6000)
+             st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
        st.rewardItems(ADENA,5*orc_a+15*orc_n+10*wer_f)
        st.takeItems(ORC_AMULET,-1)
        st.takeItems(ORC_NECKLACE,-1)

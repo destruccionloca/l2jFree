@@ -120,22 +120,22 @@ class Quest (JQuest) :
             mage = player.getClassId().isMage()
             if mage :
                st.giveItems(RED_SUNSET_STAFF,1)
-               st.rewardItems(SPIRITSHOT_NO_GRADE,500)
+               st.giveItems(SPIRITSHOT_NO_GRADE,500)
             else :
                st.giveItems(RED_SUNSET_SWORD,1)
-               st.rewardItems(SOULSHOT_NO_GRADE,1000)
+               st.giveItems(SOULSHOT_NO_GRADE,1000)
             if newbie | NEWBIE_REWARD != newbie :
                player.setNewbie(newbie|NEWBIE_REWARD)
                if mage :
                   st.playTutorialVoice("tutorial_voice_027")
-                  st.rewardItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
+                  st.giveItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
                else :
                   st.playTutorialVoice("tutorial_voice_026")
-                  st.rewardItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
+                  st.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
                st.playSound("ItemSound.quest_tutorial")
             st.rewardItems(1060,100)     # Lesser Healing Potions
             for item in range(4412,4417) :
-                st.rewardItems(item,10)   # Echo crystals
+                st.giveItems(item,10)   # Echo crystals
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
             st.set("onlyone","1")

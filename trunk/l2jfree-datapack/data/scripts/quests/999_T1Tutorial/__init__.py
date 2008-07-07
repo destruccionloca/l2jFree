@@ -156,12 +156,12 @@ class Quest (JQuest) :
      if reward == 0:
        if isMage :
          st.playTutorialVoice("tutorial_voice_027")
-         st.rewardItems(SPIRITSHOT_NOVICE,100)
+         st.giveItems(SPIRITSHOT_NOVICE,100)
        else:
          st.playTutorialVoice("tutorial_voice_026")
-         st.rewardItems(SOULSHOT_NOVICE,200)
-       st.rewardItems(TOKEN,12)
-       st.rewardItems(SCROLL,2)
+         st.giveItems(SOULSHOT_NOVICE,200)
+       st.giveItems(TOKEN,12)
+       st.giveItems(SCROLL,2)
        qs.set("reward","1")
        st.exitQuest(False)
      npc.showChatWindow(player)

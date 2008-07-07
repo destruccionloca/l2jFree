@@ -26,7 +26,7 @@ ROUGHLY_HEWN_ROCK_GOLEM_SHARD = 8075
 
 #REWARDS
 ADENA = 57
-SCROLL_ENCANT_ARMOR = 956
+SCROLL_ENCHANT_ARMOR = 956
 SCROLL_ENCHANT_WEAPON = 955
 
 class Quest (JQuest) :
@@ -73,7 +73,7 @@ class Quest (JQuest) :
             st.takeItems(ROUGHLY_HEWN_ROCK_GOLEM_SHARD,t)
         if st.getRandom(10)<8 :
           st.rewardItems(ADENA,13000)
-          st.rewardItems(SCROLL_ENCANT_ARMOR,1)
+          st.giveItems(SCROLL_ENCHANT_ARMOR,1)
         else :
           st.rewardItems(ADENA,1000)
         st.playSound("ItemSound.quest_finish")
@@ -95,9 +95,9 @@ class Quest (JQuest) :
             st.takeItems(ROUGHLY_HEWN_ROCK_GOLEM_SHARD,t)
         if luck in range (0,8) :
           st.rewardItems(ADENA,20000)
-          st.rewardItems(SCROLL_ENCANT_ARMOR,1)
+          st.giveItems(SCROLL_ENCHANT_ARMOR,1)
         if luck in range (8,12) :
-          st.rewardItems(SCROLL_ENCHANT_WEAPON,1)
+          st.giveItems(SCROLL_ENCHANT_WEAPON,1)
         if luck in range (12,15) :
           st.rewardItems(ADENA,2000)
         st.playSound("ItemSound.quest_finish")
@@ -118,7 +118,7 @@ class Quest (JQuest) :
             st.takeItems(ROUGHLY_HEWN_ROCK_GOLEM_SHARD,t)
         if st.getRandom(10)<8 :
           st.rewardItems(ADENA,45000)
-          st.rewardItems(SCROLL_ENCHANT_WEAPON,1)
+          st.giveItems(SCROLL_ENCHANT_WEAPON,1)
         else :
           st.rewardItems(ADENA,5000)
         st.playSound("ItemSound.quest_finish")
