@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver;
+package com.l2jfree.gameserver.threadmanager;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
@@ -26,9 +26,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.util.Util;
 
-public class DeadlockDetector extends Thread
+public final class DeadlockDetector implements Runnable
 {
 	private static final Log _log = LogFactory.getLog(DeadlockDetector.class);
 	
@@ -47,26 +48,14 @@ public class DeadlockDetector extends Thread
 	
 	private DeadlockDetector()
 	{
-		setPriority(Thread.MIN_PRIORITY);
-		setDaemon(true);
-		
-		start();
+		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, Config.DEADLOCKCHECK_INTERVAL,
+			Config.DEADLOCKCHECK_INTERVAL);
 	}
 	
 	@Override
 	public void run()
 	{
-		for (;;)
-			try
-			{
-				sleep(Config.DEADLOCKCHECK_INTERVAL);
-				
-				checkForDeadlocks();
-			}
-			catch (Exception e)
-			{
-				_log.warn("", e);
-			}
+		checkForDeadlocks();
 	}
 	
 	private void checkForDeadlocks()

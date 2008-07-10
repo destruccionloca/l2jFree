@@ -117,6 +117,7 @@ import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
 import com.l2jfree.gameserver.skills.SkillsEngine;
 import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
 import com.l2jfree.gameserver.taskmanager.TaskManager;
+import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
 import com.l2jfree.gameserver.util.DynamicExtension;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.PathCreator;

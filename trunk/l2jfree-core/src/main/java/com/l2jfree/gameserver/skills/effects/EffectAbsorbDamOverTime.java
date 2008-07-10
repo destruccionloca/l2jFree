@@ -17,9 +17,6 @@ package com.l2jfree.gameserver.skills.effects;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
-import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 
 public final class EffectAbsorbDamOverTime extends L2Effect

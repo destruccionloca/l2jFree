@@ -5247,7 +5247,7 @@ public abstract class L2Character extends L2Object
 
 		// Add the L2Character to movingObjects of the GameTimeController
 		// The GameTimeController manage objects movement
-		GameTimeController.getInstance().registerMovingObject(this);
+		GameTimeController.getInstance().registerMovingChar(this);
 
 		int tm = m._ticksToMove * GameTimeController.MILLIS_IN_TICK;
 
@@ -5335,7 +5335,7 @@ public abstract class L2Character extends L2Object
 
 		// Add the L2Character to movingObjects of the GameTimeController
 		// The GameTimeController manage objects movement
-		GameTimeController.getInstance().registerMovingObject(this);
+		GameTimeController.getInstance().registerMovingChar(this);
 
 		int tm = m._ticksToMove * GameTimeController.MILLIS_IN_TICK;
 
