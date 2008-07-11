@@ -4872,7 +4872,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public void stopMove(L2CharPosition pos)
 	{
-		stopMove(pos, true);
+		stopMove(pos, false);
 	}
 
 	public void stopMove(L2CharPosition pos, boolean updateKnownObjects)
@@ -4892,7 +4892,7 @@ public abstract class L2Character extends L2Object
 			revalidateZone(true);
 		}
 		broadcastPacket(new StopMove(this));
-		if (Config.MOVE_BASED_KNOWNLIST)
+		if (Config.MOVE_BASED_KNOWNLIST && updateKnownObjects)
 			getKnownList().findObjects();
 	}
 

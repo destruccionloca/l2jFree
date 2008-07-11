@@ -60,9 +60,14 @@ public class CharEffectList
 		// Create a copy of the effects
 		FastList<L2Effect> temp = new FastList<L2Effect>();
 
-		// Add all buffs and all debuffs
-		if (_buffs != null) temp.addAll(_buffs);
-		if (_debuffs != null) temp.addAll(_debuffs);
+		synchronized(this)
+		{
+			// Add all buffs and all debuffs
+			if (_buffs != null && !_buffs.isEmpty())
+				temp.addAll(_buffs);
+			if (_debuffs != null && !_debuffs.isEmpty())
+				temp.addAll(_debuffs);
+		}
 
 		// Return all effects in an array
 		L2Effect[] tempArray = new L2Effect[temp.size()];
@@ -122,8 +127,10 @@ public class CharEffectList
 		{
 			if (e.getSkill() == skill)
 			{
-				if (e.getInUse()) return e;
-				else eventNotInUse = e;
+				if (e.getInUse())
+					return e;
+				else
+					eventNotInUse = e;
 			}
 		}
 		return eventNotInUse;
@@ -143,8 +150,10 @@ public class CharEffectList
 		{
 			if (e.getSkill().getId() == skillId)
 			{
-				if (e.getInUse()) return e;
-				else eventNotInUse = e;
+				if (e.getInUse())
+					return e;
+				else
+					eventNotInUse = e;
 			}
 		}
 		return eventNotInUse;
@@ -253,7 +262,8 @@ public class CharEffectList
 		for(L2Effect e : effects)
 		{
 			// Stop active skills effects of the selected type
-			if (e.getEffectType() == type) e.exit();
+			if (e.getEffectType() == type)
+				e.exit();
 		}
 	}
 
@@ -268,7 +278,8 @@ public class CharEffectList
 
 		for(L2Effect e : effects)
 		{
-			if (e.getSkill().getId() == skillId) e.exit();
+			if (e.getSkill().getId() == skillId)
+				e.exit();
 		}
 	}
 
@@ -299,7 +310,8 @@ public class CharEffectList
 				else if (removeMe == null) removeMe = e;
 			}
 		}
-		if (removeMe != null) removeMe.exit();
+		if (removeMe != null)
+			removeMe.exit();
 	}
 
 
@@ -393,9 +405,12 @@ public class CharEffectList
 
 		synchronized (this)
 		{
-			if (_buffs == null) _buffs = new FastList<L2Effect>();
-			if (_debuffs == null) _debuffs = new FastList<L2Effect>();
-			if (_stackedEffects == null) _stackedEffects = new FastMap<String, List<L2Effect>>();
+			if (_buffs == null)
+				_buffs = new FastList<L2Effect>();
+			if (_debuffs == null)
+				_debuffs = new FastList<L2Effect>();
+			if (_stackedEffects == null)
+				_stackedEffects = new FastMap<String, List<L2Effect>>();
 		}
 
 		FastList<L2Effect> effectList = newEffect.getSkill().isDebuff() ? _debuffs : _buffs;
