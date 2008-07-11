@@ -14,12 +14,8 @@
  */
 package com.l2jfree.gameserver.ai;
 
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_CAST;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2Character.AIAccessor;
@@ -28,6 +24,7 @@ public class L2SummonAI extends L2CharacterAI
 {
 
 	private boolean	_thinking;	// to prevent recursive thinking
+	private boolean _startFollow = ((L2Summon)_actor).getFollowStatus();
 
 	public L2SummonAI(AIAccessor accessor)
 	{
@@ -38,6 +35,7 @@ public class L2SummonAI extends L2CharacterAI
 	protected void onIntentionIdle()
 	{
 		stopFollow();
+		_startFollow = false;
 		onIntentionActive();
 	}
 
@@ -45,7 +43,7 @@ public class L2SummonAI extends L2CharacterAI
 	protected void onIntentionActive()
 	{
 		L2Summon summon = (L2Summon) _actor;
-		if (summon.getFollowStatus())
+		if (_startFollow)
 			setIntention(AI_INTENTION_FOLLOW, summon.getOwner());
 		else
 			super.onIntentionActive();
@@ -73,11 +71,13 @@ public class L2SummonAI extends L2CharacterAI
 			setCastTarget(null);
 			return;
 		}
+		boolean val = _startFollow;
 		if (maybeMoveToPawn(getCastTarget(), _actor.getMagicalAttackRange(_skill)))
 			return;
 		clientStopMoving(null);
 		summon.setFollowStatus(false);
 		setIntention(AI_INTENTION_IDLE);
+		_startFollow = val;
 		_accessor.doCast(_skill);
 		return;
 	}
@@ -115,14 +115,21 @@ public class L2SummonAI extends L2CharacterAI
 		_thinking = true;
 		try
 		{
-			if (getIntention() == AI_INTENTION_ATTACK)
-				thinkAttack();
-			else if (getIntention() == AI_INTENTION_CAST)
-				thinkCast();
-			else if (getIntention() == AI_INTENTION_PICK_UP)
-				thinkPickUp();
-			else if (getIntention() == AI_INTENTION_INTERACT)
-				thinkInteract();
+			switch(getIntention())
+			{
+				case AI_INTENTION_ATTACK:
+					thinkAttack();
+					break;
+				case AI_INTENTION_CAST:
+					thinkCast();
+					break;
+				case AI_INTENTION_PICK_UP:
+					thinkPickUp();
+					break;
+				case AI_INTENTION_INTERACT:
+					thinkInteract();
+					break;
+			}
 		}
 		finally
 		{
@@ -130,4 +137,26 @@ public class L2SummonAI extends L2CharacterAI
 		}
 	}
 
+	@Override
+	protected void onEvtFinishCasting()
+	{
+		((L2Summon)_actor).setFollowStatus(_startFollow);
+	}
+
+	public void notifyFollowStatusChange()
+	{
+		_startFollow = !_startFollow;
+		switch (getIntention())
+		{
+			case AI_INTENTION_ACTIVE:
+			case AI_INTENTION_FOLLOW:
+			case AI_INTENTION_IDLE:
+				((L2Summon)_actor).setFollowStatus(_startFollow);
+		}
+	}
+
+	public void setStartFollowController(boolean val)
+	{
+		_startFollow = val;
+	}
 }

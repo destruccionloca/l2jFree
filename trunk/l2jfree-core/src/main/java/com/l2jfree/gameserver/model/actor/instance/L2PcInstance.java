@@ -50,6 +50,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2PlayerAI;
+import com.l2jfree.gameserver.ai.L2SummonAI;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.instancemanager.ArenaManager;
 import com.l2jfree.gameserver.cache.WarehouseCacheManager;
@@ -10718,6 +10719,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			pet.setFollowStatus(false);
 			pet.teleToLocation(getPosition().getX() + Rnd.get(-100, 100), getPosition().getY() + Rnd.get(-100, 100), getPosition().getZ(), false);
+			((L2SummonAI)getPet().getAI()).setStartFollowController(true);
 			pet.setFollowStatus(true);
 			sendPacket(new PetInfo(pet));
 			pet.updateEffectIcons(true);

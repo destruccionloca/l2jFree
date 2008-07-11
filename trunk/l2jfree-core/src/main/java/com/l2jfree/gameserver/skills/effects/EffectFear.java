@@ -35,6 +35,9 @@ public final class EffectFear extends L2Effect
 {
 	public static final int	FEAR_RANGE	= 500;
 
+	private int _dX = -1;
+	private int _dY = -1;
+
 	public EffectFear(Env env, EffectTemplate template)
 	{
 		super(env, template);
@@ -47,21 +50,6 @@ public final class EffectFear extends L2Effect
 
 	/** Notify started */
 	public void onStart()
-	{
-		if (!getEffected().isAfraid())
-		{
-			getEffected().startFear();
-			onActionTime();
-		}
-	}
-
-	/** Notify exited */
-	public void onExit()
-	{
-		getEffected().stopFear(this);
-	}
-
-	public boolean onActionTime()
 	{
 		// Fear skills cannot be used L2Pcinstance to L2Pcinstance.
 		// Heroic Dread, Curse: Fear, Fear, Horror, Sword Symphony, Word of Fear and Mass Curse Fear are the exceptions.
@@ -79,42 +67,45 @@ public final class EffectFear extends L2Effect
 				// all ok
 				break;
 			default:
-				return false;
+				return;
 			}
 		}
 
-		if (getEffected() instanceof L2FolkInstance)
-			return false;
-		if (getEffected() instanceof L2SiegeGuardInstance)
-			return false;
+		if (getEffected() instanceof L2FolkInstance || getEffected() instanceof L2SiegeGuardInstance || getEffected() instanceof L2SiegeFlagInstance
+				|| getEffected() instanceof L2SiegeSummonInstance)
+			return;
 
-		// Fear skills cannot be used on Headquarters Flag.
-		if (getEffected() instanceof L2SiegeFlagInstance)
-			return false;
+		if (!getEffected().isAfraid())
+		{
+			if (getEffected().getX() > getEffector().getX())
+				_dX = 1;
+			if (getEffected().getY() > getEffector().getY())
+				_dY = 1;
 
-		if (getEffected() instanceof L2SiegeSummonInstance)
-			return false;
+			getEffected().startFear();
+			onActionTime();
+		}
+		
+	}
 
+	/** Notify exited */
+	public void onExit()
+	{
+		getEffected().stopFear(this);
+	}
+
+	public boolean onActionTime()
+	{
 		int posX = getEffected().getX();
 		int posY = getEffected().getY();
 		int posZ = getEffected().getZ();
 
-		int signx = -1;
-		int signy = -1;
-		if (getEffected().getX() > getEffector().getX())
-			signx = 1;
-		if (getEffected().getY() > getEffector().getY())
-			signy = 1;
-
-		posX += signx * FEAR_RANGE;
-		posY += signy * FEAR_RANGE;
+		posX += _dX * FEAR_RANGE;
+		posY += _dY * FEAR_RANGE;
 
 		Location destiny = GeoData.getInstance().moveCheck(getEffected().getX(), getEffected().getY(), getEffected().getZ(), posX, posY, posZ);
 		getEffected().setRunning();
-
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(destiny.getX(), destiny.getY(), destiny.getZ(), 0));
-
-		destiny = null;
 		return true;
 	}
 }

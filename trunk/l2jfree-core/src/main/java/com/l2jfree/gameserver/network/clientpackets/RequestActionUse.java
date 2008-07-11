@@ -21,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.ai.L2SummonAI;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
@@ -143,9 +144,8 @@ public class RequestActionUse extends L2GameClientPacket
 			break;
 		case 15:
 		case 21: // pet follow/stop
-			if (pet != null && !pet.isMovementDisabled() && !pet.isBetrayed())
-				pet.setFollowStatus(!pet.getFollowStatus());
-
+			if (pet != null && !pet.isBetrayed())
+				((L2SummonAI)pet.getAI()).notifyFollowStatusChange();
 			break;
 		case 16:
 		case 22: // pet attack
