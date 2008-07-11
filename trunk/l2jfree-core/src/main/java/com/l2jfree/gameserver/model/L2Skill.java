@@ -2656,7 +2656,7 @@ public abstract class L2Skill
 						{
 							targetList.add((L2Character) newTarget);
 							if (((L2PcInstance) newTarget).getPet() != null)
-								if (!Util.checkIfInRange(radius, activeChar, ((L2PcInstance) newTarget).getPet(), true))
+								if (Util.checkIfInRange(radius, activeChar, ((L2PcInstance) newTarget).getPet(), true))
 									if ((targetType != SkillTargetType.TARGET_CORPSE_ALLY) && !(((L2PcInstance) newTarget).getPet().isDead()))
 										targetList.add(((L2PcInstance) newTarget).getPet());
 						}
@@ -2781,7 +2781,7 @@ public abstract class L2Skill
 						{
 							targetList.add(newTarget);
 							if (newTarget.getPet() != null)
-								if (!Util.checkIfInRange(radius, activeChar, newTarget.getPet(), true))
+								if (Util.checkIfInRange(radius, activeChar, newTarget.getPet(), true))
 									if ((targetType != SkillTargetType.TARGET_CORPSE_CLAN) && !(newTarget.getPet().isDead()))
 										targetList.add(newTarget.getPet());
 						}

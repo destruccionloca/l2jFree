@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
-import com.l2jfree.gameserver.skills.conditions.ConditionGameChance;
 import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
@@ -41,6 +40,13 @@ public abstract class L2Equip extends L2Item
 
 	public static final Func[]		EMPTY_FUNC_SET		= new Func[0];
 	public static final L2Effect[]	EMPTY_EFFECT_SET	= new L2Effect[0];
+
+	// TODO: Replace by chance skills
+	public static class WeaponSkill
+	{
+		public L2Skill skill;
+		public int chance;
+	}
 
 	public L2Equip(Enum<?> type, StatsSet set)
 	{
@@ -145,9 +151,9 @@ public abstract class L2Equip extends L2Item
 		return itemSkills;
 	}
 
-	protected FastList<L2Skill> parseChanceSkills(String[] from, String skillType, String itemType)
+	protected FastList<WeaponSkill> parseChanceSkills(String[] from, String skillType, String itemType)
 	{
-		FastList<L2Skill> itemSkills = null;
+		FastList<WeaponSkill> itemSkills = null;
 		for (String skillStr : from)
 		{
 			if (skillStr.length() == 0)
@@ -177,10 +183,13 @@ public abstract class L2Equip extends L2Item
 			}
 			else
 			{
-				skill.attach(new ConditionGameChance(chance), true);
+				//skill.attach(new ConditionGameChance(chance), true);
 				if (itemSkills == null)
-					itemSkills = new FastList<L2Skill>();
-				itemSkills.add(skill);
+					itemSkills = new FastList<WeaponSkill>();
+				WeaponSkill ws = new WeaponSkill();
+				ws.skill = skill;
+				ws.chance = chance;
+				itemSkills.add(ws);
 			}
 		}
 		return itemSkills;

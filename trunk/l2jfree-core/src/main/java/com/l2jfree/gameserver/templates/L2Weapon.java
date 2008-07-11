@@ -25,6 +25,11 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
+import com.l2jfree.gameserver.templates.L2Equip.WeaponSkill;
+import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.skills.conditions.Condition;
+import com.l2jfree.gameserver.skills.conditions.ConditionGameChance;
 
 import javolution.util.FastList;
 
@@ -52,7 +57,9 @@ public final class L2Weapon extends L2Equip
 
 	// Attached skills (e.g. Special Abilities)
 	private L2Skill[]		_onCastSkills	= null;
+	private Condition[]		_onCastConditions = null;
 	private L2Skill[]		_onCritSkills	= null;
+	private Condition[]		_onCritConditions = null;
 	private L2Skill[]		_enchant4Skills	= null; // skill that activates when item is enchanted +4 (for duals)
 
 	/**
@@ -95,8 +102,8 @@ public final class L2Weapon extends L2Equip
 		String[] onCritSkillDefs = set.getString("skills_onCrit").split(";");
 
 		FastList<L2Skill> enchant4Skills = null;
-		FastList<L2Skill> onCastSkills = null;
-		FastList<L2Skill> onCritSkills = null;
+		FastList<WeaponSkill> onCastSkills = null;
+		FastList<WeaponSkill> onCritSkills = null;
 
 		// Enchant4 skills
 		if (enchant4SkillDefs != null && enchant4SkillDefs.length > 0)
@@ -117,11 +124,33 @@ public final class L2Weapon extends L2Equip
 		}
 
 		if (enchant4Skills != null && enchant4Skills.size() > 0)
+		{
 			_enchant4Skills = enchant4Skills.toArray(new L2Skill[enchant4Skills.size()]);
+		}
 		if (onCastSkills != null && onCastSkills.size() > 0)
-			_onCastSkills = onCastSkills.toArray(new L2Skill[onCastSkills.size()]);
+		{
+			_onCastSkills = new L2Skill[onCastSkills.size()];
+			_onCastConditions = new Condition[onCastSkills.size()];
+			int i = 0;
+			for (WeaponSkill ws : onCastSkills)
+			{
+				_onCastSkills[i] = ws.skill;
+				_onCastConditions[i] = new ConditionGameChance(ws.chance);
+				i++;
+			}
+		}
 		if (onCritSkills != null && onCritSkills.size() > 0)
-			_onCritSkills = onCritSkills.toArray(new L2Skill[onCritSkills.size()]);
+		{
+			_onCritSkills = new L2Skill[onCritSkills.size()];
+			_onCritConditions = new Condition[onCritSkills.size()];
+			int i = 0;
+			for (WeaponSkill ws : onCritSkills)
+			{
+				_onCritSkills[i] = ws.skill;
+				_onCritConditions[i] = new ConditionGameChance(ws.chance);
+				i++;
+			}
+		}
 	}
 
 	private int initAtkReuse(L2WeaponType type)
@@ -357,17 +386,27 @@ public final class L2Weapon extends L2Equip
 			return L2Equip.EMPTY_EFFECT_SET;
 		List<L2Effect> effects = new FastList<L2Effect>();
 
-		for (L2Skill skill : _onCritSkills)
+		Env env = new Env();
+		env.player = caster;
+		env.target = target;
+
+		for (int i = 0; i < _onCritSkills.length; i++)
 		{
+			L2Skill skill = _onCritSkills[i];
 			// check if this skill can affect the target
 			if (!target.checkSkillCanAffectMyself(skill))
 				continue;
 
-			if (!skill.checkCondition(caster, target, true))
-				continue; // Skill condition not met
+			env.skill = skill;
+			if (!_onCritConditions[i].test(env))
+				continue;
 
-			if (target.getFirstEffect(skill.getId()) != null)
-				target.getFirstEffect(skill.getId()).exit();
+			if (!Formulas.getInstance().calcSkillSuccess(caster, target, skill, false, false, false))
+				continue;
+
+			L2Effect effect = target.getFirstEffect(skill.getId());
+			if (effect != null)
+				effect.exit();
 			for (L2Effect e : skill.getEffects(caster, target))
 				effects.add(e);
 		}
@@ -389,8 +428,17 @@ public final class L2Weapon extends L2Equip
 			return L2Equip.EMPTY_EFFECT_SET;
 		List<L2Effect> effects = new FastList<L2Effect>();
 
-		for (L2Skill skill : _onCastSkills)
+		Env env = new Env();
+		env.player = caster;
+		env.target = target;
+
+		for (int i = 0; i < _onCastSkills.length; i++)
 		{
+			L2Skill skill = _onCastSkills[i];
+			// check if this skill can affect the target
+			if (!target.checkSkillCanAffectMyself(skill))
+				continue;
+
 			if (trigger.isOffensive() != skill.isOffensive())
 				continue; // Trigger only same type of skill
 
@@ -403,8 +451,12 @@ public final class L2Weapon extends L2Equip
 			if (!target.checkSkillCanAffectMyself(skill))
 				continue; // These skills should not work on RaidBoss
 
-			if (!skill.checkCondition(caster, target, true))
-				continue; // Skill condition not met
+			env.skill = skill;
+			if (!_onCastConditions[i].test(env))
+				continue;
+
+			if (skill.isOffensive() && !Formulas.getInstance().calcSkillSuccess(caster, target, skill, false, false, false))
+				continue;
 
 			// Get the skill handler corresponding to the skill type
 			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());

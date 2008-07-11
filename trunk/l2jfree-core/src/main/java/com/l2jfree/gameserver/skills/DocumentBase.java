@@ -167,8 +167,8 @@ abstract class DocumentBase
 				attachFunc(n, template, "Set", condition);
 			else if ("enchant".equalsIgnoreCase(n.getNodeName()))
 				attachFunc(n, template, "Enchant", condition);
-			else if ("skill".equalsIgnoreCase(n.getNodeName()))
-				attachSkill(n, template, condition);
+			//else if ("skill".equalsIgnoreCase(n.getNodeName()))
+				//attachSkill(n, template, condition);
 			else if ("effect".equalsIgnoreCase(n.getNodeName()))
 			{
 				if (template instanceof EffectTemplate)
@@ -314,18 +314,18 @@ abstract class DocumentBase
 
 		// Could also use sql definitions ;)
 		// TODO: Move item XMLs to SQL or SQL to XMLs
-		if (template instanceof L2Weapon)
-		{
+		//if (template instanceof L2Weapon)
+		//{
 			// Seems onUse handler was never used and is replaced by item handlers
 			// TODO: Remove this
 			//if ((attrs.getNamedItem("onCrit") == null && attrs.getNamedItem("onCast") == null))
 			//((L2Weapon) template).attach(skill); // Attach as skill triggered on use
 
-			if (attrs.getNamedItem("onCrit") != null)
-				((L2Weapon) template).attachOnCrit(skill); // Attach as skill triggered on critical hit
-			if (attrs.getNamedItem("onCast") != null)
-				((L2Weapon) template).attachOnCast(skill); // Attach as skill triggered on cast
-		}
+			//if (attrs.getNamedItem("onCrit") != null)
+				//((L2Weapon) template).attachOnCrit(skill); // Attach as skill triggered on critical hit
+			//if (attrs.getNamedItem("onCast") != null)
+				//((L2Weapon) template).attachOnCast(skill); // Attach as skill triggered on cast
+		//}
 
 		// Seems not used for etcitems
 		// TODO: Remove this

@@ -2225,7 +2225,7 @@ public final class Formulas
 
 		SkillType type = skill.getSkillType();
 
-		if (type == SkillType.PDAM || type == SkillType.MDAM || type == SkillType.DRAIN)
+		if (type == SkillType.PDAM || type == SkillType.MDAM || type == SkillType.DRAIN || type == SkillType.WEAPON_SA)
 		{
 			value = skill.getEffectPower();
 			type = skill.getEffectType();
