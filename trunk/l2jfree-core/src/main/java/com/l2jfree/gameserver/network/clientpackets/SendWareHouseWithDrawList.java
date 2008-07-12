@@ -109,7 +109,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && player.getKarma() > 0)
 			return;
 
-		if (!Config.ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH)
+		if (Config.ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH)
 		{
 			if (warehouse instanceof ClanWarehouse && !((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE))
 				return;
