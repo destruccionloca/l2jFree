@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Character;
@@ -94,6 +95,9 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
+		if(!_player.canBeTargetedByAtSiege(player) && Config.SIEGE_ONLY_REGISTERED)
+			return;
+		
 		if (player == null || !canTarget(player))
 			return;
 

@@ -6766,9 +6766,19 @@ public abstract class L2Character extends L2Object
 			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
 			L2Weapon activeWeapon = getActiveWeaponItem();
 
+			L2PcInstance player = getActingPlayer();
 
 			for (L2Object trg : targets)
 			{
+				if (player!=null && trg instanceof L2PcInstance && Config.SIEGE_ONLY_REGISTERED)
+				{
+					if(!((L2PcInstance) trg).canBeTargetedByAtSiege(player))
+					{
+						//quick fix should be just removed from targetlist
+						return;
+					}
+				}
+				
 				if (trg instanceof L2Character)
 				{
 					// Set some values inside target's instance for later use
@@ -6830,8 +6840,7 @@ public abstract class L2Character extends L2Object
 				handler.useSkill(this, skill, targets);
 			else
 				skill.useSkill(this, targets);
-
-			L2PcInstance player = getActingPlayer();
+			
 			if (player != null)
 			{
 				for (L2Object target : targets)

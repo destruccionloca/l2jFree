@@ -18,13 +18,19 @@ package com.l2jfree.gameserver.model.actor.instance;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2SiegeGuardAI;
+import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.actor.knownlist.SiegeGuardKnownList;
+import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
@@ -132,6 +138,39 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	@Override
 	public void onAction(L2PcInstance player)
 	{
+		if(Config.SIEGE_ONLY_REGISTERED)
+		{
+			boolean opp = false;
+			Siege siege = SiegeManager.getInstance().getSiege(player);
+			L2Clan oppClan = player.getClan();
+			if (siege != null && siege.getIsInProgress() && oppClan != null)
+			{
+				for (L2SiegeClan clan : siege.getAttackerClans())
+				{
+					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
+
+					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
+					{
+						opp = true;
+						break;
+					}
+				}
+
+				for (L2SiegeClan clan : siege.getDefenderClans())
+				{
+					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
+
+					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
+					{
+						opp = true;
+						break;
+					}
+				}				
+			}
+			if(!opp)
+				return;
+		}
+			
 		if (!canTarget(player))
 			return;
 

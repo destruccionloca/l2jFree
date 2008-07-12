@@ -3484,7 +3484,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		_currentSkillWorldPosition = worldPosition;
 	}
 
-	private boolean canBeTargetedByAtSiege(L2PcInstance player)
+	public boolean canBeTargetedByAtSiege(L2PcInstance player)
 	{
 		Siege siege = SiegeManager.getInstance().getSiege(this);
 		if (siege != null && siege.getIsInProgress())
