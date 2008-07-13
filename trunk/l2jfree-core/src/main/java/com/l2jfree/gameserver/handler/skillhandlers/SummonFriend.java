@@ -177,6 +177,8 @@ public class SummonFriend implements ISkillHandler
 
 					if (!Util.checkIfInRange(0, activeChar, target, false))
 					{
+						// set correct instance id
+						targetChar.setInstanceId(activeChar.getInstanceId());
 						targetChar.sendMessage("You are summoned to a party member.");
 						targetChar.teleToLocation(activeChar.getX(), activeChar.getY(), activeChar.getZ(), true);
 						if (skill.getTargetConsume() != 0)

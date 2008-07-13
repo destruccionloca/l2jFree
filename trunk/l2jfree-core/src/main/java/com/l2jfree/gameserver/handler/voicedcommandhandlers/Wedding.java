@@ -301,8 +301,14 @@ public class Wedding implements IVoicedCommandHandler
 			activeChar.sendMessage("Your partner is not online.");
 			return false;
 		}
-
-		if (partner.isInJail() || partner.isInsideZone(L2Zone.FLAG_JAIL))
+		
+		// Check to see if the player is in a instance.
+		if (activeChar.getInstanceId()!=partner.getInstanceId())
+		{
+			activeChar.sendMessage("Your partner is in another World!");
+			return false;
+		}
+		else if (partner.isInJail() || partner.isInsideZone(L2Zone.FLAG_JAIL))
 		{
 			activeChar.sendMessage("Your partner is in jail.");
 			return false;
