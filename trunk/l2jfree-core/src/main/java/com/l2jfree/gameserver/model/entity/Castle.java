@@ -519,7 +519,7 @@ public class Castle extends Siegeable
 		if (door == null)
 			return;
 
-		if (door != null && door.getDoorId() == doorId)
+		if (door.getDoorId() == doorId)
 		{
 			door.getStatus().setCurrentHp(door.getMaxHp() + hp);
 

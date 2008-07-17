@@ -482,7 +482,7 @@ public abstract class L2Summon extends L2PlayableInstance
 			((L2PetInstance) this).setIsMountableOverTime(false);
 	}
 
-	public synchronized void unSummon(L2PcInstance owner)
+	public void unSummon(L2PcInstance owner)
 	{
 		if (isVisible())
 		{

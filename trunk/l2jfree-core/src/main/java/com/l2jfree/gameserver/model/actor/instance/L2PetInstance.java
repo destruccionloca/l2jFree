@@ -944,7 +944,7 @@ public class L2PetInstance extends L2Summon
     }
     
     @Override
-    public synchronized void unSummon(L2PcInstance owner)
+    public void unSummon(L2PcInstance owner)
     {
         stopFeed();
         getStatus().stopHpMpRegeneration();

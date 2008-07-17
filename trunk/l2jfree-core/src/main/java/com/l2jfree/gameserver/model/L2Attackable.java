@@ -2088,7 +2088,7 @@ public class L2Attackable extends L2NpcInstance
                 doLevelup = false;
 
             // The player doesn't have any crystals with him get to the next player.
-            if (crystalQTY < 1 || crystalQTY > 1 || !isSuccess || !doLevelup)
+            if (crystalQTY != 1 || !isSuccess || !doLevelup)
             {
                 // Too many crystals in inventory.
                 if  (crystalQTY > 1)
@@ -2096,7 +2096,7 @@ public class L2Attackable extends L2NpcInstance
                     player.sendPacket(new SystemMessage(SystemMessageId.SOUL_CRYSTAL_ABSORBING_FAILED_RESONATION));
                 }
                 // The soul crystal stage of the player is way too high
-                else if (!doLevelup)
+                else if (!doLevelup && crystalQTY > 0)
                     player.sendPacket(new SystemMessage(SystemMessageId.SOUL_CRYSTAL_ABSORBING_REFUSED));
                 
                 crystalQTY = 0;

@@ -433,7 +433,7 @@ public class L2NpcInstance extends L2Character
 	 * <li> object is a L2PlayableInstance : 1500 </li>
 	 * <li> others : 500 </li><BR><BR>
 	 *
-	 * <B><U> Overriden in </U> :</B><BR><BR>
+	 * <B><U> Overridden in </U> :</B><BR><BR>
 	 * <li> L2Attackable</li><BR><BR>
 	 *
 	 * @param object The Object to add to _knownObject
@@ -462,7 +462,7 @@ public class L2NpcInstance extends L2Character
 	 * <li> object is a L2PlayableInstance : 3000 </li>
 	 * <li> others : 1000 </li><BR><BR>
 	 *
-	 * <B><U> Overriden in </U> :</B><BR><BR>
+	 * <B><U> Overridden in </U> :</B><BR><BR>
 	 * <li> L2Attackable</li><BR><BR>
 	 *
 	 * @param object The Object to remove from _knownObject
@@ -476,7 +476,7 @@ public class L2NpcInstance extends L2Character
 	/**
 	 * Return False.<BR><BR>
 	 *
-	 * <B><U> Overriden in </U> :</B><BR><BR>
+	 * <B><U> Overridden in </U> :</B><BR><BR>
 	 * <li> L2MonsterInstance : Check if the attacker is not another L2MonsterInstance</li>
 	 * <li> L2PcInstance</li><BR><BR>
 	 */
@@ -608,7 +608,7 @@ public class L2NpcInstance extends L2Character
 	 * <B><U> Example of use </U> :</B><BR><BR>
 	 * <li> Client packet : Action, AttackRequest</li><BR><BR>
 	 *
-	 * <B><U> Overriden in </U> :</B><BR><BR>
+	 * <B><U> Overridden in </U> :</B><BR><BR>
 	 * <li> L2ArtefactInstance : Manage only fisrt click to select Artefact</li><BR><BR>
 	 * <li> L2GuardInstance : </li><BR><BR>
 	 *
@@ -1638,7 +1638,7 @@ public class L2NpcInstance extends L2Character
 	 * <li> if the file exists on the server (page number > 0) : <B>data/html/default/12006-1.htm</B> (npcId-page number)</li>
 	 * <li> if the file doesn't exist on the server : <B>data/html/npcdefault.htm</B> (message : "I have nothing to say to you")</li><BR><BR>
 	 *
-	 * <B><U> Overriden in </U> :</B><BR><BR>
+	 * <B><U> Overridden in </U> :</B><BR><BR>
 	 * <li> L2GuardInstance : Set the pathfile to data/html/guard/12006-1.htm (npcId-page number)</li><BR><BR>
 	 *
 	 * @param npcId The Identifier of the L2NpcInstance whose text must be display
@@ -2642,7 +2642,7 @@ public class L2NpcInstance extends L2Character
 	 * <li>Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform </li>
 	 * <li>Notify L2Character AI </li><BR><BR>
 	 *
-	 * <B><U> Overriden in </U> :</B><BR><BR>
+	 * <B><U> Overridden in </U> :</B><BR><BR>
 	 * <li> L2Attackable </li><BR><BR>
 	 *
 	 * @param killer The L2Character who killed it
@@ -2724,7 +2724,7 @@ public class L2NpcInstance extends L2Character
 	 *
 	 * <B><U> Actions</U> :</B><BR><BR>
 	 * <li>Remove the L2NpcInstance from the world and update its spawn object </li>
-	 * <li>Remove all L2Object from _knownObjects and _knownPlayer of the L2NpcInstance then cancel Attak or Cast and notify AI </li>
+	 * <li>Remove all L2Object from _knownObjects and _knownPlayer of the L2NpcInstance then cancel Attack or Cast and notify AI </li>
 	 * <li>Remove L2Object object from _allObjects of L2World </li><BR><BR>
 	 *
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packets to players</B></FONT><BR><BR>
@@ -2746,7 +2746,7 @@ public class L2NpcInstance extends L2Character
 		if (oldRegion != null)
 			oldRegion.removeFromZones(this);
 
-		// Remove all L2Object from _knownObjects and _knownPlayer of the L2Character then cancel Attak or Cast and notify AI
+		// Remove all L2Object from _knownObjects and _knownPlayer of the L2Character then cancel Attack or Cast and notify AI
 		try
 		{
 			getKnownList().removeAllKnownObjects();

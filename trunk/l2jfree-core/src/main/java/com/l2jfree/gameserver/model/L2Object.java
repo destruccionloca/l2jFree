@@ -111,7 +111,7 @@ public abstract class L2Object
 	 * 
 	 * Determine default actions on spawn
 	 * 
-	 * <B><U> Overriden in </U> :</B><BR><BR>
+	 * <B><U> Overridden in </U> :</B><BR><BR>
 	 * <li> L2GuardInstance :  Set the home location of its L2GuardInstance </li>
 	 * <li> L2Attackable    :  Reset the Spoiled falg </li><BR><BR>
 	 * 

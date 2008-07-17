@@ -465,6 +465,7 @@ public class L2CubicInstance
 			L2PcInstance enemy = null;
 			// test owners target if it is valid then use it
 			if (_owner.getTarget() != null)
+			{
 				if (_owner.getTarget() instanceof L2Character && _owner.getTarget() != _owner.getPet() && _owner.getTarget() != _owner)
 				{
 					// target mob which has aggro on you or your summon
@@ -520,6 +521,8 @@ public class L2CubicInstance
 						}
 					}
 				}
+			}
+
 			// cubic can not attack owner target, so now we look for a random
 			// target
 			FastList<L2Character> potentialTarget = new FastList<L2Character>();

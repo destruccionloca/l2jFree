@@ -182,6 +182,7 @@ public class BoatManager
 		boat = new L2BoatInstance(IdFactory.getInstance().getNextId(), template, name);
 		boat.getPosition().setHeading(heading);
 		boat.getPosition().setXYZ(xspawn, yspawn, zspawn);
+		boat.setId(id);
 		//boat.spawnMe();
 
 		int IdWaypoint1 = Integer.parseInt(st.nextToken());

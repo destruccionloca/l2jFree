@@ -120,10 +120,23 @@ public class Potions implements IItemHandler
 			8637,
 			8638,
 			8639,
+			// Bottles of souls
 			10409,
 			10410,
 			10411,
-			10412	};
+			10412,
+			// Juices
+			10260,
+			10261,
+			10262,
+			10263,
+			10264,
+			10265,
+			10266,
+			10267,
+			10268,
+			10269,
+			10270				};
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
@@ -560,7 +573,66 @@ public class Potions implements IItemHandler
 			{
 				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
 			}
-			break;			
+			break;
+
+		// Juices
+		// added by Z0mbie!
+		case 10260: // Haste Juice,xml:2429
+			if (!isUseable(activeChar, item, 2429))
+				return;
+			res = usePotion(activeChar, 2429, 1);
+			break;
+		case 10261: // Accuracy Juice,xml:2430
+			if (!isUseable(activeChar, item, 2430))
+				return;
+			res = usePotion(activeChar, 2430, 1);
+			break;
+		case 10262: // Critical Power Juice,xml:2431
+			if (!isUseable(activeChar, item, 2431))
+				return;
+			res = usePotion(activeChar, 2431, 1);
+			break;
+		case 10263: // Critical Attack Juice,xml:2432
+			if (!isUseable(activeChar, item, 2432))
+				return;
+			res = usePotion(activeChar, 2432, 1);
+			break;
+		case 10264: // Casting Speed Juice,xml:2433
+			if (!isUseable(activeChar, item, 2433))
+				return;
+			res = usePotion(activeChar, 2433, 1);
+			break;
+		case 10265: // Evasion Juice,xml:2434
+			if (!isUseable(activeChar, item, 2434))
+				return;
+			res = usePotion(activeChar, 2434, 1);
+			break;
+		case 10266: // Magic Power Juice,xml:2435
+			if (!isUseable(activeChar, item, 2435))
+				return;
+			res = usePotion(activeChar, 2435, 1);
+			break;
+		case 10267: // Power Juice,xml:2436
+			if (!isUseable(activeChar, item, 2436))
+				return;
+			res = usePotion(activeChar, 2436, 1);
+			break;
+		case 10268: // Speed Juice,xml:2437
+			if (!isUseable(activeChar, item, 2437))
+				return;
+			res = usePotion(activeChar, 2437, 1);
+			break;
+		case 10269: // Defense Juice,xml:2438
+			if (!isUseable(activeChar, item, 2438))
+				return;
+			res = usePotion(activeChar, 2438, 1);
+			break;
+		case 10270: // MP Consumption Juice,xml: 2439
+			if (!isUseable(activeChar, item, 2439))
+				return;
+			res = usePotion(activeChar, 2439, 1);
+			break;
+
 		default:
 		}
 

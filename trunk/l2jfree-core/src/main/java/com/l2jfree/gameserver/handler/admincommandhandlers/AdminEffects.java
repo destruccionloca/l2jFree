@@ -492,15 +492,12 @@ public class AdminEffects implements IAdminCommandHandler
 				else if (st.countTokens() == 1)
 				{
 					int social = Integer.parseInt(st.nextToken());
-					if (obj != null)
-					{
-						if (performSocial(social, obj, activeChar))
-							activeChar.sendMessage(obj.getName() + " was affected by your request.");
-						else
-							activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
-					}
+					if (obj == null)
+						obj = activeChar;
+					if (performSocial(social, obj, activeChar))
+						activeChar.sendMessage(obj.getName() + " was affected by your request.");
 					else
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+						activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
 				}
 				else if (!command.contains("menu"))
 					activeChar.sendMessage("Usage: //social <social_id> [player_name|radius]");
