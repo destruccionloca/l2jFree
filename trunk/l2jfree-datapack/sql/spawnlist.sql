@@ -39593,10 +39593,10 @@ INSERT INTO spawnlist VALUES
 (55229,'hellbound',1,32362,-29724,253033,-3520,0,0,29956,60,0,0),
 (55230,'hellbound',1,32361,-29411,253129,-3520,0,0,0,60,0,0),
 (55231,'hellbound',1,32361,-29481,253179,-3520,0,0,0,60,0,0),
-(55232,'hellbound',1,22330,-27124,251321,-2368,0,0,55848,60,0,0),
-(55233,'hellbound',1,22330,-27058,251378,-2352,0,0,56220,60,0,0),
-(55234,'hellbound',1,22330,-27023,251088,-2416,0,0,20480,60,0,0),
-(55235,'hellbound',1,22330,-26945,251114,-2416,0,0,20480,60,0,0),
+(55232,'hellbound',1,22343,-27124,251321,-2368,0,0,55848,60,0,0),
+(55233,'hellbound',1,22342,-27058,251378,-2352,0,0,56220,60,0,0),
+(55234,'hellbound',1,22342,-27023,251088,-2416,0,0,20480,60,0,0),
+(55235,'hellbound',1,22343,-26945,251114,-2416,0,0,20480,60,0,0),
 (55236,'hellbound',1,22330,-25903,254538,-2144,0,0,10629,60,0,0),
 (55237,'hellbound',1,22330,-28877,255181,-2160,0,0,38118,60,0,0),
 (55238,'hellbound',1,22330,-27649,255533,-2056,0,0,13444,60,0,0),
@@ -40264,7 +40264,8 @@ INSERT INTO spawnlist VALUES
 (null,'undgrndColiseum','1',32377,-81904,-53904,-10728,0,0,17044,60,0,0),
 (null,'undgrndColiseum','1',32377,-86359,-50593,-10728,0,0,3704,60,0,0),
 (null,'undgrndColiseum','1',32377,-84640,-45360,-10728,0,0,56156,60,0,0),
-(null,'FantasyIsle','1',32378,-59234,-56897,-2032,0,0,0,60,0,0);
+(null,'FantasyIsle','1',32378,-59234,-56897,-2032,0,0,0,60,0,0),
+(null,'rune_mass_gatekeeper',1,35502,11127,-49148,3843,0,0,18512,60,0,0);
 
 -- Castle Artefacts
 INSERT INTO spawnlist VALUES
@@ -40276,7 +40277,7 @@ INSERT INTO spawnlist VALUES
 (null,'InnadrilArtefact1',1,35279,116031,250555,-798,0,0,49200,60,0,0),
 (null,'GoddardArtefact1',1,35322,146601,-50441,-1505,0,0,32768,60,0,0),
 (null,'GoddardArtefact2',1,35323,148353,-50457,-1505,0,0,0,60,0,0),
-(null,'RuneArtefact1',1,35469,9126,-49161,1094,0,0,64270,60,0,0),
+(null,'RuneArtefact1',1,35469,9132,-49153,1094,0,0,6133,60,0,0),
 (null,'SchuttgartArtefact1',1,35515,76668,-154520,226,0,0,0,60,0,0),
 (null,'SchuttgartArtefact2',1,35514,78446,-154524,227,0,0,0,60,0,0);
 
@@ -40307,6 +40308,10 @@ INSERT INTO spawnlist VALUES
 -- Fortress Suspicious Merchants
 INSERT INTO spawnlist VALUES
 (null,'Dragon_Spine_Fortress',1,36142,12196,93188,-3421,0,0,50504,60,0,0);
+
+-- Blacksmith of Power Lahm (Trader) of S80 Recipes and ingridients
+INSERT INTO spawnlist VALUES
+(null,'Emerald_Square',1,32359,146785,140987,-11885,0,0,24413,60,0,0);
 
 -- Fortresses
 INSERT INTO spawnlist VALUES

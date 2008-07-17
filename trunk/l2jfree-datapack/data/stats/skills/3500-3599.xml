@@ -10,8 +10,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pDef" val="1.02" /><!-- P. Def. +2% -->
-      <add order="0x40" stat="maxHp" val="41" /><!-- HP +41 -->
+      <mul order="0x30" stat="pDef" val="1.02" /><!-- P. Def. +2%-->
+      <add order="0x40" stat="maxHp" val="41" /><!-- HP +41-->
     </for>
   </skill>
   <skill id="3501" levels="1" name="Devotion Set">
@@ -23,7 +23,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15% -->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15%-->
     </for>
   </skill>
   <skill id="3502" levels="1"
@@ -36,7 +36,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="poisonVuln" val="0.8" /><!-- Poison Resistance +20% -->
+      <mul order="0x30" stat="poisonVuln" val="0.8" /><!-- Poison Resistance +20%-->
     </for>
   </skill>
   <skill id="3503" levels="1"
@@ -49,7 +49,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="maxMp" val="80" /><!-- MP +80 -->
+      <add order="0x40" stat="maxMp" val="80" /><!-- MP +80-->
     </for>
   </skill>
   <skill id="3504" levels="1" name="Knowledge Set">
@@ -61,8 +61,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="mAtk" val="1.10" /><!-- M. Atk. +10% -->
-      <mul order="0x30" stat="regMp" val="0.95" /><!-- MP Regeneration -5% -->
+      <mul order="0x30" stat="mAtk" val="1.10" /><!-- M. Atk. +10%-->
+      <mul order="0x30" stat="regMp" val="0.95" /><!-- MP Regeneration -5%-->
     </for>
   </skill>
   <skill id="3505" levels="1" name="Manticore Set">
@@ -74,7 +74,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="maxMp" val="92" /><!-- MP +92 -->
+      <add order="0x40" stat="maxMp" val="92" /><!-- MP +92-->
     </for>
   </skill>
   <skill id="3506" levels="1" name="Brigandine Set">
@@ -86,8 +86,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pDef" val="1.05" /><!-- P. Def. +5% -->
-      <add order="0x40" stat="maxHp" val="153" /><!-- HP +153 -->
+      <mul order="0x30" stat="pDef" val="1.05" /><!-- P. Def. +5%-->
+      <add order="0x40" stat="maxHp" val="153" /><!-- HP +153-->
     </for>
   </skill>
   <skill id="3507" levels="1" name="Mithril Set">
@@ -99,9 +99,9 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="runSpd" val="7" /><!-- Speed +7 -->
-      <add order="0x40" stat="WIT" val="1" /><!-- WIT +1 -->
-      <sub order="0x40" stat="INT" val="1" /><!-- INT -1 -->
+      <add order="0x40" stat="runSpd" val="7" /><!-- Speed +7-->
+      <add order="0x40" stat="WIT" val="1" /><!-- WIT +1-->
+      <sub order="0x40" stat="INT" val="1" /><!-- INT -1-->
     </for>
   </skill>
   <skill id="3508" levels="1"
@@ -114,7 +114,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="rEvas" val="4" /><!-- Evasion +4 -->
+      <add order="0x40" stat="rEvas" val="4" /><!-- Evasion +4-->
     </for>
   </skill>
   <skill id="3509" levels="1" name="Chain Mail Set">
@@ -139,8 +139,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pDef" val="1.0524" /><!-- P. Def. +5.24% -->
-      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15% -->
+      <mul order="0x30" stat="pDef" val="1.0524" /><!-- P. Def. +5.24%-->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15%-->
     </for>
   </skill>
   <skill id="3511" levels="1" name="Plated Leather Set">
@@ -152,8 +152,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="STR" val="4" /><!-- STR +4 -->
-      <sub order="0x40" stat="CON" val="1" /><!-- CON -1 -->
+      <add order="0x40" stat="STR" val="4" /><!-- STR +4-->
+      <sub order="0x40" stat="CON" val="1" /><!-- CON -1-->
     </for>
   </skill>
   <skill id="3512" levels="1"
@@ -166,7 +166,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="maxLoad" val="5795" /><!-- Point at which a weight penalty is applied +5795 -->
+      <add order="0x40" stat="maxLoad" val="5795" /><!-- Point at which a weight penalty is applied +5795-->
     </for>
   </skill>
   <skill id="3513" levels="1" name="Demon's Set">
@@ -178,9 +178,9 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x40" stat="maxHp" val="270" /><!-- HP -270 -->
-      <add order="0x40" stat="INT" val="4" /><!-- INT +4 -->
-      <sub order="0x40" stat="WIT" val="1" /><!-- WIT -1 -->
+      <sub order="0x40" stat="maxHp" val="270" /><!-- HP -270-->
+      <add order="0x40" stat="INT" val="4" /><!-- INT +4-->
+      <sub order="0x40" stat="WIT" val="1" /><!-- WIT -1-->
     </for>
   </skill>
   <skill id="3514" levels="1"
@@ -193,7 +193,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pDef" val="1.0524" /><!-- P. Def. +5.24% -->
+      <mul order="0x30" stat="pDef" val="1.0524" /><!-- P. Def. +5.24%-->
     </for>
   </skill>
   <skill id="3515" levels="1" name="Drake Leather Set">
@@ -205,7 +205,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="mDef" val="1.0524" /><!-- M. Def. +5.24% -->
+      <mul order="0x30" stat="mDef" val="1.0524" /><!-- M. Def. +5.24%-->
     </for>
   </skill>
   <skill id="3516" levels="1" name="Full Plate Set">
@@ -217,7 +217,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="maxHp" val="270" /><!-- HP +270 -->
+      <add order="0x40" stat="maxHp" val="270" /><!-- HP +270-->
     </for>
   </skill>
   <skill id="3517" levels="1" name="Divine Set">
@@ -229,10 +229,10 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pDef" val="1.0524" /><!-- P. Def. +5.24% -->
-      <add order="0x40" stat="maxMp" val="171" /><!-- MP +171 -->
-      <sub order="0x40" stat="INT" val="1" /><!-- INT -1 -->
-      <add order="0x40" stat="WIT" val="1" /><!-- WIT +1 -->
+      <mul order="0x30" stat="pDef" val="1.0524" /><!-- P. Def. +5.24%-->
+      <add order="0x40" stat="maxMp" val="171" /><!-- MP +171-->
+      <sub order="0x40" stat="INT" val="1" /><!-- INT -1-->
+      <add order="0x40" stat="WIT" val="1" /><!-- WIT +1-->
     </for>
   </skill>
   <skill id="3518" levels="1"
@@ -245,8 +245,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pDef" val="1.0524" /><!-- P. Def. +5.24% -->
-      <add order="0x40" stat="maxHp" val="294" /><!-- HP +294 -->
+      <mul order="0x30" stat="pDef" val="1.0524" /><!-- P. Def. +5.24%-->
+      <add order="0x40" stat="maxHp" val="294" /><!-- HP +294-->
     </for>
   </skill>
   <skill id="3519" levels="1"
@@ -259,7 +259,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="maxHp" val="294" /><!-- HP +294 -->
+      <add order="0x40" stat="maxHp" val="294" /><!-- HP +294-->
     </for>
   </skill>
   <skill id="3520" levels="1"
@@ -272,7 +272,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="rEvas" val="4" /><!-- Evasion +4 -->
+      <add order="0x40" stat="rEvas" val="4" /><!-- Evasion +4-->
     </for>
   </skill>
   <skill id="3521" levels="1"
@@ -285,8 +285,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="mDef" val="1.0525" /><!-- M. Def. +5.25% -->
-      <add order="0x40" stat="maxLoad" val="5795" /><!-- Point at which a weight penalty is applied +5795 -->
+      <mul order="0x30" stat="mDef" val="1.0525" /><!-- M. Def. +5.25%-->
+      <add order="0x40" stat="maxLoad" val="5795" /><!-- Point at which a weight penalty is applied +5795-->
     </for>
   </skill>
   <skill id="3522" levels="1"
@@ -299,8 +299,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="mAtk" val="1.10" /><!-- M. Atk. +10% -->
-      <mul order="0x30" stat="regMp" val="0.95" /><!-- MP Regeneration -5% -->
+      <mul order="0x30" stat="mAtk" val="1.10" /><!-- M. Atk. +10%-->
+      <mul order="0x30" stat="regMp" val="0.95" /><!-- MP Regeneration -5%-->
     </for>
   </skill>
   <skill id="3523" levels="1" name="Avadon Robe Set">
@@ -312,8 +312,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pDef" val="1.0547" /><!-- P. Def. +5.247% -->
-      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15% -->
+      <mul order="0x30" stat="pDef" val="1.0547" /><!-- P. Def. +5.247%-->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15%-->
     </for>
   </skill>
   <skill id="3524" levels="1"
@@ -326,11 +326,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="runSpd" val="7" /><!-- Speed +7 -->
-      <mul order="0x30" stat="regHp" val="1.0524" /><!-- HP Regeneration +5.24% -->
-      <add order="0x40" stat="STR" val="3" /><!-- STR +3 -->
-      <sub order="0x40" stat="CON" val="1" /><!-- CON -1 -->
-      <sub order="0x40" stat="DEX" val="2" /><!-- DEX -2 -->
+      <add order="0x40" stat="runSpd" val="7" /><!-- Speed +7-->
+      <mul order="0x30" stat="regHp" val="1.0524" /><!-- HP Regeneration +5.24%-->
+      <add order="0x40" stat="STR" val="3" /><!-- STR +3-->
+      <sub order="0x40" stat="CON" val="1" /><!-- CON -1-->
+      <sub order="0x40" stat="DEX" val="2" /><!-- DEX -2-->
     </for>
   </skill>
   <skill id="3525" levels="1" name="Doom Heavy Armor Set">
@@ -342,10 +342,10 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="maxHp" val="320" /><!-- HP +320 -->
-      <add order="0x40" stat="breath" val="200" /><!-- Breath Gauge increased +200 -->
-      <sub order="0x40" stat="STR" val="3" /><!-- STR -3 -->
-      <add order="0x40" stat="CON" val="3" /><!-- CON +3 -->
+      <add order="0x40" stat="maxHp" val="320" /><!-- HP +320-->
+      <add order="0x40" stat="breath" val="200" /><!-- Breath Gauge increased +200-->
+      <sub order="0x40" stat="STR" val="3" /><!-- STR -3-->
+      <add order="0x40" stat="CON" val="3" /><!-- CON +3-->
     </for>
   </skill>
   <skill id="3526" levels="1"
@@ -358,11 +358,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pDef" val="1.0524" /><!-- P. Def. +5.24% -->
-      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15% -->
-      <sub order="0x40" stat="INT" val="2" /><!-- INT -2 -->
-      <add order="0x40" stat="MEN" val="3" /><!-- MEN +3 -->
-      <sub order="0x40" stat="WIT" val="1" /><!-- WIT -1 -->
+      <mul order="0x30" stat="pDef" val="1.0524" /><!-- P. Def. +5.24%-->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15%-->
+      <sub order="0x40" stat="INT" val="2" /><!-- INT -2-->
+      <add order="0x40" stat="MEN" val="3" /><!-- MEN +3-->
+      <sub order="0x40" stat="WIT" val="1" /><!-- WIT -1-->
     </for>
   </skill>
   <skill id="3527" levels="1" name="Doom Light Armor Set">
@@ -374,13 +374,13 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="breath" val="200" /><!-- Breath Gauge increased +200 -->
-      <mul order="0x30" stat="pAtk" val="1.027" /><!-- P. Atk. +2.7% -->
-      <mul order="0x30" stat="regMp" val="1.025" /><!-- MP Regeneration +2.5% -->
-      <sub order="0x40" stat="STR" val="1" /><!-- STR -1 -->
-      <sub order="0x40" stat="CON" val="2" /><!-- CON -2 -->
-      <add order="0x40" stat="DEX" val="3" /><!-- DEX +3 -->
-      <mul order="0x30" stat="poisonVuln" val="0.8" /><!-- Poision Resistance +20% -->
+      <add order="0x40" stat="breath" val="200" /><!-- Breath Gauge increased +200-->
+      <mul order="0x30" stat="pAtk" val="1.027" /><!-- P. Atk. +2.7%-->
+      <mul order="0x30" stat="regMp" val="1.025" /><!-- MP Regeneration +2.5%-->
+      <sub order="0x40" stat="STR" val="1" /><!-- STR -1-->
+      <sub order="0x40" stat="CON" val="2" /><!-- CON -2-->
+      <add order="0x40" stat="DEX" val="3" /><!-- DEX +3-->
+      <mul order="0x30" stat="poisonVuln" val="0.8" /><!-- Poision Resistance +20%-->
     </for>
   </skill>
   <skill id="3528" levels="1" name="Blue Wolf Robe Set">
@@ -392,11 +392,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="maxMp" val="206" /><!-- MP +206 -->
-      <mul order="0x30" stat="regMp" val="1.0524" /><!-- MP Regeneration +5.24% -->
-      <sub order="0x40" stat="INT" val="2" /><!-- INT -2 -->
-      <sub order="0x40" stat="MEN" val="1" /><!-- MEN -1 -->
-      <add order="0x40" stat="WIT" val="3" /><!-- WIT +3 -->
+      <add order="0x40" stat="maxMp" val="206" /><!-- MP +206-->
+      <mul order="0x30" stat="regMp" val="1.0524" /><!-- MP Regeneration +5.24%-->
+      <sub order="0x40" stat="INT" val="2" /><!-- INT -2-->
+      <sub order="0x40" stat="MEN" val="1" /><!-- MEN -1-->
+      <add order="0x40" stat="WIT" val="3" /><!-- WIT +3-->
     </for>
   </skill>
   <skill id="3529" levels="1" name="Doom Robe Set">
@@ -408,12 +408,12 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="runSpd" val="7" /><!-- Speed + 7 -->
-      <add order="0x40" stat="breath" val="200" /><!-- Breath Gauge increased +200 -->
-      <mul order="0x30" stat="regMp" val="1.0524" /><!-- MP Regeneration +5.24% -->
-      <add order="0x40" stat="INT" val="2" /><!-- INT +2 -->
-      <add order="0x40" stat="MEN" val="1" /><!-- MEN +1 -->
-      <sub order="0x40" stat="WIT" val="3" /><!-- WIT -3 -->
+      <add order="0x40" stat="runSpd" val="7" /><!-- Speed + 7-->
+      <add order="0x40" stat="breath" val="200" /><!-- Breath Gauge increased +200-->
+      <mul order="0x30" stat="regMp" val="1.0524" /><!-- MP Regeneration +5.24%-->
+      <add order="0x40" stat="INT" val="2" /><!-- INT +2-->
+      <add order="0x40" stat="MEN" val="1" /><!-- MEN +1-->
+      <sub order="0x40" stat="WIT" val="3" /><!-- WIT -3-->
     </for>
   </skill>
   <skill id="3530" levels="1"
@@ -426,11 +426,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="gainHp" val="1.04" /><!-- Heal +4% -->
+      <mul order="0x30" stat="gainHp" val="1.04" /><!-- Heal +4%-->
       <mul order="0x30" stat="paralyzeVuln" val="0.5" />
       <!-- Paralysis Resistance +50% -->
-      <sub order="0x40" stat="STR" val="2" /><!-- STR -2 -->
-      <add order="0x40" stat="CON" val="2" /><!-- CON +2 -->
+      <sub order="0x40" stat="STR" val="2" /><!-- STR -2-->
+      <add order="0x40" stat="CON" val="2" /><!-- CON +2-->
     </for>
   </skill>
   <skill id="3531" levels="1"
@@ -443,12 +443,12 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pAtkSpd" val="1.08" /><!-- Atk. Spd. +8% -->
-      <add order="0x40" stat="maxLoad" val="5759" /><!-- Weight increased plus the point at which a weight penalty is applied +5759 -->
-      <mul order="0x30" stat="poisonVuln" val="0.2" /><!-- Poison Resistance +80% -->
-      <mul order="0x30" stat="bleedVuln" val="0.2" /><!-- Bleed Resistance +80% -->
-      <add order="0x40" stat="STR" val="2" /><!-- STR +2 -->
-      <sub order="0x40" stat="CON" val="2" /><!-- CON -2 -->
+      <mul order="0x30" stat="pAtkSpd" val="1.08" /><!-- Atk. Spd. +8%-->
+      <add order="0x40" stat="maxLoad" val="5759" /><!-- Weight increased plus the point at which a weight penalty is applied +5759-->
+      <mul order="0x30" stat="poisonVuln" val="0.2" /><!-- Poison Resistance +80%-->
+      <mul order="0x30" stat="bleedVuln" val="0.2" /><!-- Bleed Resistance +80%-->
+      <add order="0x40" stat="STR" val="2" /><!-- STR +2-->
+      <sub order="0x40" stat="CON" val="2" /><!-- CON -2-->
     </for>
   </skill>
   <skill id="3532" levels="1"
@@ -461,12 +461,12 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pAtkSpd" val="1.04" /><!-- Atk. Spd. +4% -->
-      <mul order="0x30" stat="pAtk" val="1.04" /><!-- P. Atk. +4% -->
+      <mul order="0x30" stat="pAtkSpd" val="1.04" /><!-- Atk. Spd. +4%-->
+      <mul order="0x30" stat="pAtk" val="1.04" /><!-- P. Atk. +4%-->
       <mul order="0x30" stat="paralyzeVuln" val="0.5" />
       <!-- Paralysis Resistance +50% -->
-      <add order="0x40" stat="STR" val="1" /><!-- STR +1 -->
-      <sub order="0x40" stat="CON" val="1" /><!-- CON -1 -->
+      <add order="0x40" stat="STR" val="1" /><!-- STR +1-->
+      <sub order="0x40" stat="CON" val="1" /><!-- CON -1-->
     </for>
   </skill>
   <skill id="3533" levels="1"
@@ -479,12 +479,12 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="regMp" val="1.08" /><!-- MP Regeneration +8% -->
-      <add order="0x40" stat="maxMp" val="222" /><!-- MP +222 -->
-      <mul order="0x30" stat="poisonVuln" val="0.2" /><!-- Poison Resistance +80% -->
-      <mul order="0x30" stat="bleedVuln" val="0.2" /><!-- Bleed Resistance +80% -->
-      <add order="0x40" stat="MEN" val="2" /><!-- MEN +2 -->
-      <sub order="0x40" stat="WIT" val="2" /><!-- WIT -2 -->
+      <mul order="0x30" stat="regMp" val="1.08" /><!-- MP Regeneration +8%-->
+      <add order="0x40" stat="maxMp" val="222" /><!-- MP +222-->
+      <mul order="0x30" stat="poisonVuln" val="0.2" /><!-- Poison Resistance +80%-->
+      <mul order="0x30" stat="bleedVuln" val="0.2" /><!-- Bleed Resistance +80%-->
+      <add order="0x40" stat="MEN" val="2" /><!-- MEN +2-->
+      <sub order="0x40" stat="WIT" val="2" /><!-- WIT -2-->
     </for>
   </skill>
   <skill id="3534" levels="1" name="Tallum Robe Set">
@@ -496,12 +496,12 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15% -->
-      <mul order="0x30" stat="mDef" val="1.08" /><!-- M. Def. +8% -->
-      <mul order="0x30" stat="poisonVuln" val="0.2" /><!-- Poison Resistance +80% -->
-      <mul order="0x30" stat="bleedVuln" val="0.2" /><!-- Bleed Resistance +80% -->
-      <sub order="0x40" stat="INT" val="2" /><!-- INT -2 -->
-      <add order="0x40" stat="WIT" val="2" /><!-- WIT +2 -->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15%-->
+      <mul order="0x30" stat="mDef" val="1.08" /><!-- M. Def. +8%-->
+      <mul order="0x30" stat="poisonVuln" val="0.2" /><!-- Poison Resistance +80%-->
+      <mul order="0x30" stat="bleedVuln" val="0.2" /><!-- Bleed Resistance +80%-->
+      <sub order="0x40" stat="INT" val="2" /><!-- INT -2-->
+      <add order="0x40" stat="WIT" val="2" /><!-- WIT +2-->
     </for>
   </skill>
   <skill id="3535" levels="1"
@@ -514,14 +514,14 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pDef" val="1.08" /><!-- P. Def. +8% -->
-      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15% -->
-      <add order="0x40" stat="runSpd" val="7" /><!-- Speed +7 -->
-      <sub order="0x40" stat="cancel" val="18" /><!-- Small decrease in chance of spell interruption - TO CHECK -->
+      <mul order="0x30" stat="pDef" val="1.08" /><!-- P. Def. +8%-->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15%-->
+      <add order="0x40" stat="runSpd" val="7" /><!-- Speed +7-->
+      <sub order="0x40" stat="cancel" val="18" /><!-- Small decrease in chance of spell interruption - TO CHECK-->
       <mul order="0x30" stat="paralyzeVuln" val="0.5" />
       <!-- Paralysis Resistance +50% -->
-      <add order="0x40" stat="WIT" val="2" /><!-- WIT +2 -->
-      <sub order="0x40" stat="MEN" val="2" /><!-- MEN -2 -->
+      <add order="0x40" stat="WIT" val="2" /><!-- WIT +2-->
+      <sub order="0x40" stat="MEN" val="2" /><!-- MEN -2-->
     </for>
   </skill>
   <skill id="3536" levels="1"
@@ -534,11 +534,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pAtk" val="1.04" /><!-- P. Atk. +4% -->
-      <mul order="0x30" stat="sleepVuln" val="0.3" /><!-- Sleep Resistance +70% -->
-      <mul order="0x30" stat="rootVuln" val="0.3" /><!-- Hold Resistance +70% -->
-      <add order="0x40" stat="CON" val="2" /><!-- CON +2 -->
-      <sub order="0x40" stat="DEX" val="2" /><!-- DEX -2 -->
+      <mul order="0x30" stat="pAtk" val="1.04" /><!-- P. Atk. +4%-->
+      <mul order="0x30" stat="sleepVuln" val="0.3" /><!-- Sleep Resistance +70%-->
+      <mul order="0x30" stat="rootVuln" val="0.3" /><!-- Hold Resistance +70%-->
+      <add order="0x40" stat="CON" val="2" /><!-- CON +2-->
+      <sub order="0x40" stat="DEX" val="2" /><!-- DEX -2-->
     </for>
   </skill>
   <skill id="3537" levels="1"
@@ -551,11 +551,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pAtk" val="1.04" /><!-- P. Atk. +4% -->
-      <add order="0x40" stat="accCombat" val="3" /><!-- Accuracy +3 -->
-      <mul order="0x30" stat="stunVuln" val="0.5" /><!-- Stun Resistance +50% -->
-      <add order="0x40" stat="STR" val="2" /><!-- STR +2 -->
-      <sub order="0x40" stat="CON" val="2" /><!-- CON -2 -->
+      <mul order="0x30" stat="pAtk" val="1.04" /><!-- P. Atk. +4%-->
+      <add order="0x40" stat="accCombat" val="3" /><!-- Accuracy +3-->
+      <mul order="0x30" stat="stunVuln" val="0.5" /><!-- Stun Resistance +50%-->
+      <add order="0x40" stat="STR" val="2" /><!-- STR +2-->
+      <sub order="0x40" stat="CON" val="2" /><!-- CON -2-->
     </for>
   </skill>
   <skill id="3538" levels="1"
@@ -568,12 +568,12 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="mDef" val="1.04" /><!-- M. Def. +4% -->
-      <mul order="0x30" stat="sleepVuln" val="0.3" /><!-- Sleep Resistance +70% -->
-      <mul order="0x30" stat="rootVuln" val="0.3" /><!-- Hold Resistance +70% -->
-      <add order="0x40" stat="absorbDam" val="3" /><!-- Restores 3% of melee damage inflicted on the enemy to oneself -->
-      <add order="0x40" stat="DEX" val="1" /><!-- DEX +1 -->
-      <sub order="0x40" stat="CON" val="1" /><!-- CON -1 -->
+      <mul order="0x30" stat="mDef" val="1.04" /><!-- M. Def. +4%-->
+      <mul order="0x30" stat="sleepVuln" val="0.3" /><!-- Sleep Resistance +70%-->
+      <mul order="0x30" stat="rootVuln" val="0.3" /><!-- Hold Resistance +70%-->
+      <add order="0x40" stat="absorbDam" val="3" /><!-- Restores 3% of melee damage inflicted on the enemy to oneself-->
+      <add order="0x40" stat="DEX" val="1" /><!-- DEX +1-->
+      <sub order="0x40" stat="CON" val="1" /><!-- CON -1-->
     </for>
   </skill>
   <skill id="3539" levels="1"
@@ -586,16 +586,16 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pAtk" val="1.08"><!-- Archery P. Atk. +8% -->
+      <mul order="0x30" stat="pAtk" val="1.08"><!-- Archery P. Atk. +8%-->
         <and>
           <using kind="Bow,Crossbow" />
         </and>
       </mul>
-      <add order="0x40" stat="maxMp" val="240" /><!-- MP +240 -->
-      <add order="0x40" stat="maxLoad" val="5759" /><!-- Weight increased plus the point at which a weight penalty is applied +5759 -->
-      <mul order="0x30" stat="stunVuln" val="0.5" /><!-- Stun Resistance +50% -->
-      <add order="0x40" stat="DEX" val="1" /><!-- DEX +1 -->
-      <sub order="0x40" stat="CON" val="1" /><!-- CON -1 -->
+      <add order="0x40" stat="maxMp" val="240" /><!-- MP +240-->
+      <add order="0x40" stat="maxLoad" val="5759" /><!-- Weight increased plus the point at which a weight penalty is applied +5759-->
+      <mul order="0x30" stat="stunVuln" val="0.5" /><!-- Stun Resistance +50%-->
+      <add order="0x40" stat="DEX" val="1" /><!-- DEX +1-->
+      <sub order="0x40" stat="CON" val="1" /><!-- CON -1-->
     </for>
   </skill>
   <skill id="3540" levels="1" name="Nightmare Robe Set">
@@ -607,12 +607,12 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="regMp" val="1.04" /><!-- MP Regeneration +4% -->
-      <mul order="0x30" stat="mAtk" val="1.08" /><!-- M. Atk. +8% -->
-      <mul order="0x30" stat="sleepVuln" val="0.3" /><!-- Sleep Resistance +70% -->
-      <mul order="0x30" stat="rootVuln" val="0.3" /><!-- Hold Resistance +70% -->
-      <add order="0x40" stat="INT" val="2" /><!-- INT +2 -->
-      <sub order="0x40" stat="WIT" val="2" /><!-- WIT -2 -->
+      <mul order="0x30" stat="regMp" val="1.04" /><!-- MP Regeneration +4%-->
+      <mul order="0x30" stat="mAtk" val="1.08" /><!-- M. Atk. +8%-->
+      <mul order="0x30" stat="sleepVuln" val="0.3" /><!-- Sleep Resistance +70%-->
+      <mul order="0x30" stat="rootVuln" val="0.3" /><!-- Hold Resistance +70%-->
+      <add order="0x40" stat="INT" val="2" /><!-- INT +2-->
+      <sub order="0x40" stat="WIT" val="2" /><!-- WIT -2-->
     </for>
   </skill>
   <skill id="3541" levels="1" name="Majestic Robe Set">
@@ -624,12 +624,12 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="maxMp" val="240" /><!-- MP +240 -->
-      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15% -->
-      <mul order="0x30" stat="regMp" val="1.08" /><!-- MP Regeneration +8% -->
-      <mul order="0x30" stat="stunVuln" val="0.5" /><!-- Stun Resistance +50% -->
-      <add order="0x40" stat="MEN" val="1" /><!-- MEN +1 -->
-      <sub order="0x40" stat="INT" val="1" /><!-- INT -1 -->
+      <add order="0x40" stat="maxMp" val="240" /><!-- MP +240-->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15%-->
+      <mul order="0x30" stat="regMp" val="1.08" /><!-- MP Regeneration +8%-->
+      <mul order="0x30" stat="stunVuln" val="0.5" /><!-- Stun Resistance +50%-->
+      <add order="0x40" stat="MEN" val="1" /><!-- MEN +1-->
+      <sub order="0x40" stat="INT" val="1" /><!-- INT -1-->
     </for>
   </skill>
   <skill id="3542" levels="6"
@@ -811,12 +811,12 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pDef" val="1.08" /><!-- P Def. +8% -->
-      <add order="0x40" stat="maxHp" val="445" /><!-- Maximum HP +445 -->
-      <mul order="0x30" stat="sleepVuln" val="0.3" /><!-- Sleep Probability -70% -->
-      <mul order="0x30" stat="rootVuln" val="0.3" /><!-- Hold Probability -70% -->
-      <sub order="0x40" stat="DEX" val="2" /><!-- DEX -2 -->
-      <add order="0x40" stat="STR" val="2" /><!-- STR +2 -->
+      <mul order="0x30" stat="pDef" val="1.08" /><!-- P Def. +8%-->
+      <add order="0x40" stat="maxHp" val="445" /><!-- Maximum HP +445-->
+      <mul order="0x30" stat="sleepVuln" val="0.3" /><!-- Sleep Probability -70%-->
+      <mul order="0x30" stat="rootVuln" val="0.3" /><!-- Hold Probability -70%-->
+      <sub order="0x40" stat="DEX" val="2" /><!-- DEX -2-->
+      <add order="0x40" stat="STR" val="2" /><!-- STR +2-->
     </for>
   </skill>
   <skill id="3554" levels="1" name="Equipped with Shield">
@@ -845,13 +845,13 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pAtkSpd" val="1.04" /><!-- Attack Speed +4% -->
-      <mul order="0x30" stat="pAtk" val="1.04" /><!-- P. Atk +4% -->
-      <add order="0x40" stat="maxMp" val="289" /><!-- Maximum MP +289 -->
-      <add order="0x40" stat="maxLoad" val="5759" /><!-- Weight Limit +5759 -->
-      <add order="0x40" stat="DEX" val="1" /><!-- DEX +1 -->
-      <add order="0x40" stat="STR" val="1" /><!-- STR +1 -->
-      <sub order="0x40" stat="CON" val="2" /><!-- CON -2 -->
+      <mul order="0x30" stat="pAtkSpd" val="1.04" /><!-- Attack Speed +4%-->
+      <mul order="0x30" stat="pAtk" val="1.04" /><!-- P. Atk +4%-->
+      <add order="0x40" stat="maxMp" val="289" /><!-- Maximum MP +289-->
+      <add order="0x40" stat="maxLoad" val="5759" /><!-- Weight Limit +5759-->
+      <add order="0x40" stat="DEX" val="1" /><!-- DEX +1-->
+      <add order="0x40" stat="STR" val="1" /><!-- STR +1-->
+      <sub order="0x40" stat="CON" val="2" /><!-- CON -2-->
     </for>
   </skill>
   <skill id="3556" levels="1"
@@ -864,14 +864,14 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="mAtk" val="1.17" /><!-- M. Atk +17% -->
-      <add order="0x40" stat="runSpd" val="7" /><!-- Movement Speed +7 -->
-      <sub order="0x40" stat="cancel" val="50" /><!-- Casting Cancel Probability -50% -->
-      <add order="0x40" stat="maxLoad" val="5759" /><!-- Weight Limit +5759 -->
-      <add order="0x40" stat="WIT" val="1" /><!-- WIT +1 -->
-      <add order="0x40" stat="INT" val="1" /><!-- INT +1 -->
-      <sub order="0x40" stat="MEN" val="2" /><!-- MEN -2 -->
-      <mul order="0x30" stat="stunVuln" val="0.5" /><!-- Stun resistance +50% -->
+      <mul order="0x30" stat="mAtk" val="1.17" /><!-- M. Atk +17%-->
+      <add order="0x40" stat="runSpd" val="7" /><!-- Movement Speed +7-->
+      <sub order="0x40" stat="cancel" val="50" /><!-- Casting Cancel Probability -50%-->
+      <add order="0x40" stat="maxLoad" val="5759" /><!-- Weight Limit +5759-->
+      <add order="0x40" stat="WIT" val="1" /><!-- WIT +1-->
+      <add order="0x40" stat="INT" val="1" /><!-- INT +1-->
+      <sub order="0x40" stat="MEN" val="2" /><!-- MEN -2-->
+      <mul order="0x30" stat="stunVuln" val="0.5" /><!-- Stun resistance +50%-->
     </for>
   </skill>
   <skill id="3557" levels="1" name="Necklace of Valakas">
@@ -929,7 +929,7 @@
       <mul val='1.10' order='0x30' stat='gainHp' />
       <add val='4' order='0x40' stat='absorbDam' />
       <mul val='0.8' order='0x30' stat='stunVuln' />
-      <!-- Missing Shock/Abnormal Mental State Attack Success Rate: 20% -->
+      <!-- Missing Shock/Abnormal Mental State Attack Success Rate: 20%-->
       <mul val='0.8' order='0x30' stat='derangementVuln' />
     </for>
   </skill>
@@ -1021,7 +1021,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <add val="80" order="0x40" stat='rCrit' />
-      <mul val="1.05" order="0x30" stat='pvpPhysDmg' /><!-- Enhances damage to target during PvP -->
+      <mul val="1.05" order="0x30" stat='pvpPhysDmg' /><!-- Enhances damage to target during PvP-->
       <mul val="1.05" order="0x30" stat='pvpMagicalDmg' />
     </for>
   </skill>
@@ -1039,7 +1039,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <add val="84" order="0x40" stat="rCrit" />
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg" /><!-- Enhances damage to target during PvP -->
+      <mul val="1.05" order="0x30" stat="pvpPhysDmg" /><!-- Enhances damage to target during PvP-->
       <mul val="1.05" order="0x30" stat="pvpMagicalDmg" />
     </for>
   </skill>
@@ -1060,7 +1060,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <add val="88" order="0x40" stat="rCrit" />
-      <mul val="#pvpBonus" order="0x30" stat="pvpPhysDmg" /><!-- Enhances damage to target during PvP -->
+      <mul val="#pvpBonus" order="0x30" stat="pvpPhysDmg" /><!-- Enhances damage to target during PvP-->
       <mul val="#pvpBonus" order="0x30"
         stat="pvpMagicalDmg" />
     </for>
@@ -1240,17 +1240,17 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25% -->
-      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30% -->
-      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50% -->
-      <mul order="0x30" stat="sDef" val="1.33" /><!-- Shield P.Def. +33% -->
+      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25%-->
+      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30%-->
+      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50%-->
+      <mul order="0x30" stat="sDef" val="1.33" /><!-- Shield P.Def. +33%-->
       <mul order="0x30" stat="pvpPhysDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
-      <add order="0x40" stat="reflectDam" val="9" /><!-- Reflect Damage 9% -->
+      <add order="0x40" stat="reflectDam" val="9" /><!-- Reflect Damage 9%-->
     </for>
   </skill>
   <skill id="3579" levels="1" name="Decrease P. Def.">
@@ -1280,21 +1280,22 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25% -->
-      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30% -->
-      <mul order="0x30" stat="rShld" val="1.39" /><!-- Shield Block Rate +39% -->
+      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25%-->
+      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30%-->
+      <mul order="0x30" stat="rShld" val="1.39" /><!-- Shield Block Rate +39%-->
       <mul order="0x30" stat="pvpPhysDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
-      <add order="0x40" stat="reflectDam" val="9" /><!-- Reflect Damage 9% -->
+      <add order="0x40" stat="reflectDam" val="9" /><!-- Reflect Damage 9%-->
     </for>
   </skill>
   <skill id="3581" levels="1" name="Discord">
     <!-- Infinity Axe Skill -->
     <set name="magicLvl" val="80" />
+    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="CONFUSION" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -1315,10 +1316,10 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="cAtk" val="504" /><!-- P.Atk. +504 on a critical hit -->
-      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25% -->
-      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50% -->
-      <add order="0x40" stat="rCrit" val="78.7" /><!-- Critical +78.7 -->
+      <add order="0x40" stat="cAtk" val="504" /><!-- P.Atk. +504 on a critical hit-->
+      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25%-->
+      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50%-->
+      <add order="0x40" stat="rCrit" val="78.7" /><!-- Critical +78.7-->
       <mul order="0x30" stat="pvpPhysDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05" />
@@ -1342,9 +1343,9 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25% -->
-      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50% -->
-      <mul order="0x30" stat="pAtkSpd" val="1.07" /><!-- Atk. Spd. +7% -->
+      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25%-->
+      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50%-->
+      <mul order="0x30" stat="pAtkSpd" val="1.07" /><!-- Atk. Spd. +7%-->
       <mul order="0x30" stat="pvpPhysDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05" />
@@ -1365,7 +1366,6 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="STUN" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
       <effect count="1" name="Stun" time="9" val="0"
@@ -1384,10 +1384,10 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25% -->
-      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30% -->
-      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50% -->
-      <add order="0x40" stat="rCrit" val="78.7" /><!-- Critical +78.7 -->
+      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25%-->
+      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30%-->
+      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50%-->
+      <add order="0x40" stat="rCrit" val="78.7" /><!-- Critical +78.7-->
       <mul order="0x30" stat="pvpPhysDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05" />
@@ -1426,10 +1426,10 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25% -->
-      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30% -->
-      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50% -->
-      <add order="0x40" stat="rEvas" val="3.15" /><!-- Evasion +3.15 -->
+      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25%-->
+      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30%-->
+      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50%-->
+      <add order="0x40" stat="rEvas" val="3.15" /><!-- Evasion +3.15-->
       <mul order="0x30" stat="pvpPhysDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05" />
@@ -1450,7 +1450,6 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="STUN" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
       <effect count="1" name="Stun" time="9" val="0"
@@ -1469,11 +1468,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30% -->
-      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50% -->
-      <mul order="0x30" stat="pAtkSpd" val="1.03" /><!-- Atk. Spd. +3% -->
-      <add order="0x40" stat="regMp" val="0.51" /><!-- MP regen per tick +0.51 -->
-      <add order="0x40" stat="rCrit" val="220"><!-- Critical +220 from behind target -->
+      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30%-->
+      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50%-->
+      <mul order="0x30" stat="pAtkSpd" val="1.03" /><!-- Atk. Spd. +3%-->
+      <add order="0x40" stat="regMp" val="0.51" /><!-- MP regen per tick +0.51-->
+      <add order="0x40" stat="rCrit" val="220"><!-- Critical +220 from behind target-->
         <and>
           <player behind="True" />
         </and>
@@ -1484,7 +1483,7 @@
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
-      <mul order="0x30" stat="absorbDam" val="1.02" /><!-- Vampiric Rage effect 2% -->
+      <mul order="0x30" stat="absorbDam" val="1.02" /><!-- Vampiric Rage effect 2%-->
     </for>
   </skill>
   <skill id="3590" levels="1" name="Silence">
@@ -1512,10 +1511,10 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25% -->
-      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50% -->
-      <mul order="0x30" stat="pAtkSpd" val="1.07" /><!-- Atk. Spd. +7% -->
-      <add order="0x40" stat="accCombat" val="4.89" /><!-- Accuracy +4.89 -->
+      <mul order="0x30" stat="maxHp" val="1.25" /><!-- HP +25%-->
+      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50%-->
+      <mul order="0x30" stat="pAtkSpd" val="1.07" /><!-- Atk. Spd. +7%-->
+      <add order="0x40" stat="accCombat" val="4.89" /><!-- Accuracy +4.89-->
       <mul order="0x30" stat="pvpPhysDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05" />
@@ -1526,7 +1525,7 @@
       <!-- Reflect Skills 10% of the time -->
       <add order="0x40" stat="reflectSkillMagic" val="10" />
       <!-- Reflect Skills 10% of the time -->
-      <!-- Missing 10% chance to cancel each buff from target on a critical hit (for comparison, Cancel is 25% but Cancel also relies on M.Atk. vs. M.Def. while this weapon does not) -->
+      <!-- Missing 10% chance to cancel each buff from target on a critical hit (for comparison, Cancel is 25% but Cancel also relies on M.Atk. vs. M.Def. while this weapon does not)-->
     </for>
   </skill>
   <skill id="3592" levels="1" name="Dispell">
@@ -1553,8 +1552,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30% -->
-      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50% -->
+      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30%-->
+      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50%-->
       <mul order="0x30" stat="pvpPhysDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05" />
@@ -1568,11 +1567,11 @@
     <!-- Infinity Bow Skill -->
     <set name="magicLvl" val="80" />
     <set name="power" val="0.0" />
-    <set name="target" val="TARGET_SELF" />
+    <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
+    <set name="castRange" val="900" />
+    <set name="effectRange" val="1400" />
     <for>
       <effect count="1" name="Debuff" time="30" val="0"
         stackOrder="0.5" stackType="RunSpeedDown">
@@ -1591,10 +1590,10 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30% -->
-      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50% -->
-      <add order="0x40" stat="mAtk" val="29.67" /><!-- M.Atk. +29.67 -->
-      <mul order="0x30" stat="mCritRate" val="1.54" /><!-- Magic Critical Rate +54% -->
+      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30%-->
+      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50%-->
+      <add order="0x40" stat="mAtk" val="29.67" /><!-- M.Atk. +29.67-->
+      <mul order="0x30" stat="mCritRate" val="1.54" /><!-- Magic Critical Rate +54%-->
       <mul order="0x30" stat="pvpPhysDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05" />
@@ -1602,8 +1601,8 @@
       <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="MagicalMpConsumeRate"
-        val="0.96" /><!-- Magic MP Cost -4% -->
-      <sub order="0x40" stat="cancel" val="106" /><!-- Chance of Magic Cancelation -106 -->
+        val="0.96" /><!-- Magic MP Cost -4%-->
+      <sub order="0x40" stat="cancel" val="106" /><!-- Chance of Magic Cancelation -106-->
     </for>
   </skill>
   <skill id="3596" levels="1" name="Full Recover">
@@ -1629,10 +1628,10 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30% -->
-      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50% -->
-      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15% -->
-      <add order="0x40" stat="regMp" val="0.51" /><!-- MP regen per tick +0.51 -->
+      <mul order="0x30" stat="maxMp" val="1.30" /><!-- MP +30%-->
+      <mul order="0x30" stat="maxCp" val="1.50" /><!-- CP +50%-->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /><!-- Casting Spd. +15%-->
+      <add order="0x40" stat="regMp" val="0.51" /><!-- MP regen per tick +0.51-->
       <mul order="0x30" stat="pvpPhysDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05" />
