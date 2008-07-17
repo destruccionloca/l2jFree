@@ -2,10 +2,13 @@
 <!DOCTYPE list SYSTEM "armors.dtd">
 <list>
   <item id='10314' name="Beleth's Ring">
-    <for></for>
+    <for>
+      <add val='48' order='0x10' stat='mDef' />
+      <add val='21' order='0x40' stat='maxMp' />
+      <enchant val='0' order='0x0C' stat='mDef' />
+    </for>
   </item>
-  <item id='10315'
-    name="Shadow Item - Purple Viking Circlet">
+  <item id='10315' name="Shadow Item - Purple Viking Circlet">
     <for></for>
   </item>
   <item id='10316'
@@ -24,12 +27,10 @@
     name="Agathion Seal Bracelet - Little Angel Resurrection">
     <for></for>
   </item>
-  <item id='10320'
-    name="Agathion Seal Bracelet - Little Angel">
+  <item id='10320' name="Agathion Seal Bracelet - Little Angel">
     <for></for>
   </item>
-  <item id='10321'
-    name="Shadow Item - Golden Viking Circlet">
+  <item id='10321' name="Shadow Item - Golden Viking Circlet">
     <for></for>
   </item>
   <item id='10322'
@@ -48,8 +49,7 @@
     name="Agathion Seal Bracelet - Little Devil Resurrection">
     <for></for>
   </item>
-  <item id='10326'
-    name="Agathion Seal Bracelet - Little Devil">
+  <item id='10326' name="Agathion Seal Bracelet - Little Devil">
     <for></for>
   </item>
 </list>

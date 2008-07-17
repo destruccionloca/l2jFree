@@ -69,7 +69,7 @@
     <set name="target" val="TARGET_ONE" />
     <for>
       <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="1" stackType="hit_up">
+        stackOrder="#accCombat" stackType="hit_up">
         <add order="0x40" stat="accCombat" val="#accCombat" />
       </effect>
     </for>

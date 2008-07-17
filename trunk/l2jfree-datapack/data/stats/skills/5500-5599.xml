@@ -134,8 +134,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5519" levels="1"
-    name="Chain Buff - Power Up">
+  <skill id="5519" levels="1" name="Chain Buff - Power Up">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -190,8 +189,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5526" levels="1"
-    name="Challenger's Blessing">
+  <skill id="5526" levels="1" name="Challenger's Blessing">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -212,8 +210,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5529" levels="12"
-    name="Surrender to the Unholy">
+  <skill id="5529" levels="12" name="Surrender to the Unholy">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -367,11 +364,18 @@
     <for />
   </skill>
   <skill id="5547" levels="1" name="Maximum Ability">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="skillType" val="CONT" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for />
+    <for>
+      <effect name="Buff" time="120" count="1" val="0"> <!-- all these values are guessed -->
+        <mul order="0x30" stat="pAtk" val="1.1" />
+        <mul order="0x30" stat="mAtk" val="1.1" />
+        <add order="0x40" stat="MpConsumeRate" val="-10" />
+      <!-- missing heal power buff -->
+      </effect>
+    </for>
   </skill>
   <skill id="5548" levels="4"
     name="Critical Spiritual Energy Attack">
@@ -440,16 +444,14 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5557" levels="1"
-    name="Protection of Elemental">
+  <skill id="5557" levels="1" name="Protection of Elemental">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5558" levels="1"
-    name="Protection of Alignment">
+  <skill id="5558" levels="1" name="Protection of Alignment">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -547,16 +549,14 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5572" levels="1"
-    name="Warrior Ability - Haste">
+  <skill id="5572" levels="1" name="Warrior Ability - Haste">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5573" levels="1"
-    name="Knight Ability - Defense">
+  <skill id="5573" levels="1" name="Knight Ability - Defense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -587,23 +587,24 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5577" levels="1"
-    name="Healer Ability - Heal">
+  <skill id="5577" levels="1" name="Healer Ability - Heal">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5578" levels="1"
-    name="Summoner Ability - Spirit">
+  <skill id="5578" levels="1" name="Summoner Ability - Spirit">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5579" levels="1" name="Cubic Cure"><!-- this skill is handled on core side -->
+  <skill id="5579" levels="1" name="Cubic Cure">
+    <!--
+      this skill is handled on core side
+    -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="CANCEL_DEBUFF" />
@@ -621,16 +622,14 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5581" levels="1"
-    name="Divine Beast Stun Attack">
+  <skill id="5581" levels="1" name="Divine Beast Stun Attack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5582" levels="1"
-    name="Divine Beast Fire Breath">
+  <skill id="5582" levels="1" name="Divine Beast Fire Breath">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -688,8 +687,7 @@
   </skill>
   <skill id="5590" levels="5" name="Pet Battle Heal">
     <table name="#mpConsume">133 147 158 170 179</table>
-    <table name="#power">
-      618.0 690.0 758.0 817.0 858.0
+    <table name="#power"> 618.0 690.0 758.0 817.0 858.0 
     </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
