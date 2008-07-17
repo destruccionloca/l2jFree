@@ -31,6 +31,9 @@ public class DecayTaskManager
 {
 	protected FastMap<L2Character, Long>	_decayTasks	= new FastMap<L2Character, Long>().setShared(true);
 
+	public static final int RAID_BOSS_DECAY_TIME = 30000;
+	public static final int ATTACKABLE_DECAY_TIME = 8500;
+
 	private static DecayTaskManager			_instance;
 
 	public DecayTaskManager()
@@ -86,7 +89,7 @@ public class DecayTaskManager
 				if (actor instanceof L2MonsterInstance)
 				{
 					if (actor instanceof L2RaidBossInstance)
-						forDecay = 30000;
+						forDecay = RAID_BOSS_DECAY_TIME;
 					else
 					{
 						L2MonsterInstance monster = (L2MonsterInstance) actor;
@@ -122,7 +125,7 @@ public class DecayTaskManager
 					}
 				}
 				else
-					forDecay = 8500; // [L2J_JP EDIT END]
+					forDecay = ATTACKABLE_DECAY_TIME; // [L2J_JP EDIT END]
 
 				if ((current - _decayTasks.get(actor)) > forDecay)
 				{
@@ -131,6 +134,14 @@ public class DecayTaskManager
 				}
 			}
 		}
+	}
+
+	/**
+	* <u><b><font color="FF0000">Read only</font></b></u>
+	*/
+	public FastMap<L2Character, Long> getTasks()
+	{
+		return _decayTasks;
 	}
 
 	public String toString()

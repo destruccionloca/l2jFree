@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -70,8 +71,8 @@ public class SiegeManager
 
 	public final void addSiegeSkills(L2PcInstance character)
 	{
-		character.addSkill(SkillTable.getInstance().getInfo(246, 1), false);
-		character.addSkill(SkillTable.getInstance().getInfo(247, 1), false);
+		for (L2Skill sk : SkillTable.getInstance().getSiegeSkills(character.isNoble()))
+			character.addSkill(sk, false);
 	}
 
 	/** Return true if object is inside zone */
@@ -251,8 +252,8 @@ public class SiegeManager
 
 	public final void removeSiegeSkills(L2PcInstance character)
 	{
-		character.removeSkill(SkillTable.getInstance().getInfo(246, 1));
-		character.removeSkill(SkillTable.getInstance().getInfo(247, 1));
+		for (L2Skill sk : SkillTable.getInstance().getSiegeSkills(character.isNoble()))
+			character.removeSkill(sk);
 	}
 
 	// =========================================================

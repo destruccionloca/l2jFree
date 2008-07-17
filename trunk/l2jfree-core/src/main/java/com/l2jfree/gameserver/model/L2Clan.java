@@ -45,6 +45,7 @@ import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListAll;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListDeleteAll;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PledgeSkillListAdd;
+import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
@@ -243,6 +244,17 @@ public class L2Clan
 		if (getLevel() >= Config.SIEGE_CLAN_MIN_LEVEL)
 		{
 			SiegeManager.getInstance().addSiegeSkills(newLeader);
+
+			// Transferring siege skills TimeStamps from old leader to new leader to prevent unlimited headquarters
+			if (!exLeader.getReuseTimeStamps().isEmpty())
+			{
+				for (L2Skill sk : SkillTable.getInstance().getSiegeSkills(newLeader.isNoble()))
+				{
+					if (exLeader.getReuseTimeStamps().containsKey(sk.getId()))
+						newLeader.addTimeStamp(exLeader.getReuseTimeStamps().get(sk.getId()));
+				}
+				newLeader.sendPacket(new SkillCoolTime(newLeader));
+			}
 		}
 		newLeader.broadcastUserInfo();
 

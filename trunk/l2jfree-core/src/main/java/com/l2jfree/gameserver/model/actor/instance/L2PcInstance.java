@@ -4565,6 +4565,12 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean doDie(L2Character killer)
 	{
+		/* Since L2Character.doDie() calls stopAllEffects(), which includes
+		 * setting charm of curage and other blessings as false, this stores value 
+		 * before calling superclass method
+		 */
+		boolean charmOfCourage = getCharmOfCourage();
+
 		// Kill the L2PcInstance
 		if (!super.doDie(killer))
 			return false;
@@ -4749,8 +4755,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				ArenaManager.getInstance().onKill(killer.getObjectId(), killer.getName());
 				ArenaManager.getInstance().onDeath(getObjectId(), getName());
-			}				
-			
+			}
+
 			if(!srcInPvP)
 			{
 				if (pk == null || !pk.isCursedWeaponEquipped())
@@ -4766,7 +4772,7 @@ public final class L2PcInstance extends L2PlayableInstance
 							// NOTE: deathPenalty +- Exp will update karma
 							// Penalty is lower if the player is at war with the pk (war has to be declared)
 							if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 9)
-								deathPenalty(clanWarKill, playerKill);
+								deathPenalty(clanWarKill, playerKill, charmOfCourage);
 						}
 						else
 						{
@@ -4946,7 +4952,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				for (L2ItemInstance itemDrop : getInventory().getItems())
 				{
 					// Don't drop
-					if (itemDrop.isAugmented() || itemDrop.isShadowItem() || itemDrop.getItemId() == 57 || // Adena
+					if (!itemDrop.isDropable() || itemDrop.getItemId() == 57 || // Adena
 							itemDrop.getItem().getType2() == L2Item.TYPE2_QUEST || // Quest Items
 							nonDroppableList.contains(itemDrop.getItemId()) || // Item listed in the non droppable item list
 							nonDroppableListPet.contains(itemDrop.getItemId()) || // Item listed in the non droppable pet item list
@@ -5291,7 +5297,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * <li>Send a Server->Client StatusUpdate packet with its new Experience </li><BR><BR>
 	 *
 	 */
-	public void deathPenalty(boolean atwar, boolean killed_by_pc)
+	public void deathPenalty(boolean atwar, boolean killed_by_pc, boolean charmOfCourage)
 	{
 		//FIXME: Need Correct Penalty
 
@@ -5383,17 +5389,19 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Get the Experience before applying penalty
 		setExpBeforeDeath(getExp());
 
-		if (getCharmOfCourage())
-		{
-			if (this.getSiegeState() > 0 && isInsideZone(L2Zone.FLAG_SIEGE))
-				lostExp = 0;
-		}
+		if (charmOfCourage && getSiegeState() > 0 && isInsideZone(L2Zone.FLAG_SIEGE))
+			return;
 
 		if (_log.isDebugEnabled())
 			_log.debug(getName() + " died and lost " + lostExp + " experience.");
 
 		// Set the new Experience value of the L2PcInstance
 		getStat().addExp(-lostExp);
+	}
+
+	public void deathPenalty(boolean atwar, boolean killed_by_pc)
+	{
+		deathPenalty(atwar, killed_by_pc, getCharmOfCourage());
 	}
 
 	/**
@@ -8882,65 +8890,64 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (_activeSoulShots == null || _activeSoulShots.size() == 0)
 			return;
 
-		for (int itemId : _activeSoulShots.values())
+		Collection<Integer> vals = _activeSoulShots.values();
+
+		synchronized (_activeSoulShots)
 		{
-			item = getInventory().getItemByItemId(itemId);
-
-			if (item != null)
+			for (int itemId : vals)
 			{
-				if (magic)
-				{
-					if (!summon)
-					{
-						if (itemId == 2509 || itemId == 2510 || itemId == 2511 || itemId == 2512 || itemId == 2513 || itemId == 2514 || itemId == 3947
-								|| itemId == 3948 || itemId == 3949 || itemId == 3950 || itemId == 3951 || itemId == 3952 || itemId == 5790)
-						{
-							handler = ItemHandler.getInstance().getItemHandler(itemId);
+				item = getInventory().getItemByItemId(itemId);
 
-							if (handler != null)
-								handler.useItem(this, item);
+				if (item != null)
+				{
+					if (magic)
+					{
+						if (!summon)
+						{
+							if ((itemId >= 2509 && itemId <= 2514) || (itemId >= 3947 && itemId <= 3952) || itemId == 5790)
+							{
+								handler = ItemHandler.getInstance().getItemHandler(itemId);
+								if (handler != null)
+									handler.useItem(this, item);
+							}
+						}
+						else
+						{
+							if (itemId == 6646 || itemId == 6647)
+							{
+								handler = ItemHandler.getInstance().getItemHandler(itemId);
+								if (handler != null)
+									handler.useItem(this, item);
+							}
 						}
 					}
-					else
-					{
-						if (itemId == 6646 || itemId == 6647)
-						{
-							handler = ItemHandler.getInstance().getItemHandler(itemId);
 
-							if (handler != null)
-								handler.useItem(this, item);
+					if (physical)
+					{
+						if (!summon)
+						{
+							if ((itemId >= 1463 && itemId <= 1467) || itemId == 5789)
+							{
+								handler = ItemHandler.getInstance().getItemHandler(itemId);
+								if (handler != null)
+									handler.useItem(this, item);
+							}
+						}
+						else
+						{
+							if (itemId == 6645)
+							{
+								handler = ItemHandler.getInstance().getItemHandler(itemId);
+								if (handler != null)
+									handler.useItem(this, item);
+							}
 						}
 					}
 				}
-
-				if (physical)
+				else
 				{
-					if (!summon)
-					{
-						if (itemId == 1463 || itemId == 1464 || itemId == 1465 || itemId == 1466 || itemId == 1467 || itemId == 1835 || itemId == 5789
-								|| itemId == 6535 || itemId == 6536 || itemId == 6537 || itemId == 6538 || itemId == 6539 || itemId == 6540)
-						{
-							handler = ItemHandler.getInstance().getItemHandler(itemId);
-
-							if (handler != null)
-								handler.useItem(this, item);
-						}
-					}
-					else
-					{
-						if (itemId == 6645)
-						{
-							handler = ItemHandler.getInstance().getItemHandler(itemId);
-
-							if (handler != null)
-								handler.useItem(this, item);
-						}
-					}
+					removeAutoSoulShot(itemId);
 				}
-			}
-			else
-			{
-				removeAutoSoulShot(itemId);
 			}
 		}
 	}
@@ -12496,7 +12503,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * instance for restoration purposes only.
 	 * @param TimeStamp
 	 */
-	private void addTimeStamp(TimeStamp ts)
+	public void addTimeStamp(TimeStamp ts)
 	{
 		_reuseTimeStamps.put(ts.getSkill(), ts);
 	}

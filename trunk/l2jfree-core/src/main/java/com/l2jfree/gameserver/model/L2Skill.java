@@ -69,6 +69,7 @@ import com.l2jfree.gameserver.skills.l2skills.L2SkillSignet;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillTrap;
+import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.util.Util;
@@ -2895,6 +2896,14 @@ public abstract class L2Skill
 			if (!(target instanceof L2Attackable) || !target.isDead())
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				return null;
+			}
+
+			// Corpse mob only available for half time 
+			if (DecayTaskManager.getInstance().getTasks().containsKey(target) 
+					&& (System.currentTimeMillis() - DecayTaskManager.getInstance().getTasks().get(target)) > DecayTaskManager.ATTACKABLE_DECAY_TIME / 2)
+			{
+				activeChar.sendPacket(SystemMessageId.CORPSE_TOO_OLD_SKILL_NOT_USED);
 				return null;
 			}
 

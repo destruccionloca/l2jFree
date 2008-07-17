@@ -559,6 +559,7 @@ public class L2PetInstance extends L2Summon
         super.doRevive();
         super.stopDecay();
         startFeed(false);
+        setRunning();
     }
     
     @Override
