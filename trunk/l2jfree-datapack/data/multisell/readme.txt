@@ -96,6 +96,9 @@ of this directory a little bit.
 320825001.xml -> Adventure Guildsman: Use Life Crystal for A weapons
 320825002.xml -> Adventure Guildsman: Use Life Crystal for A armors
 
+305986001.xml -> Hellbound's Newbie Shadow Weapon Coupons
+305986002.xml -> Hellbound's Newbie Shadow Armor Coupons
+
 317606001.xml -> Adventurers' Guide Miss Queen: Give Newbie Coupon
 317606002.xml -> Adventurers' Guide Miss Queen: Return Newbie Coupon
 317606003.xml -> Adventurers' Guide Miss Queen: Give Traveler Coupon
@@ -112,5 +115,7 @@ of this directory a little bit.
 350980007.xml -> Manor Products: Goddard
 350980008.xml -> Manor Products: Rune
 350980009.xml -> Manor Products: Schuttgart
+
+350980012.xml -> BlackSmith Lahm
 
 36142001.xml -> Dragonspine fortress buylist
