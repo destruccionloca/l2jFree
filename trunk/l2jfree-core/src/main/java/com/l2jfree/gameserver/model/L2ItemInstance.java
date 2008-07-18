@@ -749,17 +749,25 @@ public final class L2ItemInstance extends L2Object
 		
 		if (_castleId > 0)
 		{
-			if (player.isCastleLord(_castleId))
+			boolean privMatch = (player.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) == L2Clan.CP_CS_MERCENARIES;
+			boolean castleMatch = ((player.getClan() == null) ? false : player.getClan().getHasCastle() == _castleId);
+			if (privMatch && castleMatch)
 			{
 				if (player.isInParty())
+				{
 					player.sendMessage("You cannot pickup mercenaries while in a party.");
+					player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+				}
 				else
+				{
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_PICK_UP, this);
+				}
 			}
 			else
-				player.sendMessage("Only the castle lord can pickup mercenaries.");
-			player.setTarget(this);
-			player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+			{
+				player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+				player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+			}
 			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}

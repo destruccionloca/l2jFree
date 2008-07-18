@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.handler.itemhandlers;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
+import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
@@ -89,7 +90,7 @@ public class MercTicket implements IItemHandler
 			}
 		}
 
-		if (!activeChar.isCastleLord(castleId))
+		if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) != L2Clan.CP_CS_MERCENARIES)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_HAVE_AUTHORITY_TO_POSITION_MERCENARIES));
 			return;
@@ -119,8 +120,8 @@ public class MercTicket implements IItemHandler
 
 		int npcId = MercTicketManager.getInstance().addTicket(item.getItemId(), activeChar, MESSAGES);
 		activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false); // Remove item from char's inventory
-		activeChar.sendMessage("Hired mercenary (" + itemId + "," + npcId + ") at coords:" + activeChar.getX() + "," + activeChar.getY() + ","
-				+ activeChar.getZ() + " heading:" + activeChar.getHeading());
+		//activeChar.sendMessage("Hired mercenary (" + itemId + "," + npcId + ") at coords:" + activeChar.getX() + "," + activeChar.getY() + ","
+		//		+ activeChar.getZ() + " heading:" + activeChar.getHeading());
 	}
 
 	// left in here for backward compatibility

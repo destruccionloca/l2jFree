@@ -772,7 +772,8 @@ public class AutoChatHandler implements SpawnListener
                         FastList<L2PcInstance> nearbyPlayers = new FastList<L2PcInstance>();
                         
                         for (L2Character player : chatNpc.getKnownList().getKnownCharactersInRadius(chatDef._chatRange))
-                            if (player instanceof L2PcInstance) nearbyPlayers.add((L2PcInstance) player);
+                            if (player instanceof L2PcInstance && !((L2PcInstance)player).isGM())
+                                nearbyPlayers.add((L2PcInstance) player);
 
                         int maxIndex = chatDef.getChatTexts().length;
                         int lastIndex = Rnd.nextInt(maxIndex);
@@ -852,10 +853,7 @@ public class AutoChatHandler implements SpawnListener
 
                         if (text.contains("%player_")) return;
 
-                        CreatureSay cs = new CreatureSay(chatNpc.getObjectId(), 0, creatureName, text);
-
-                        for (L2PcInstance nearbyPlayer : nearbyPlayers)
-                            nearbyPlayer.sendPacket(cs);
+                        chatNpc.broadcastPacket(new CreatureSay(chatNpc.getObjectId(), 0, creatureName, text));
 
                         if (_log.isDebugEnabled())
                             _log.info("AutoChatHandler: Chat propogation for object ID "
