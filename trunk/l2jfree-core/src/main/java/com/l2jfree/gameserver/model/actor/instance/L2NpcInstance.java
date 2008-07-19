@@ -41,7 +41,6 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
-import com.l2jfree.gameserver.instancemanager.ArenaManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
@@ -49,6 +48,8 @@ import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
 import com.l2jfree.gameserver.instancemanager.games.Lottery;
 import com.l2jfree.gameserver.instancemanager.grandbosses.BaiumManager;
+import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
+import com.l2jfree.gameserver.instancemanager.leaderboards.FishermanManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -1450,6 +1451,13 @@ public class L2NpcInstance extends L2Character
 				htm.setHtml(ArenaManager.getInstance().showHtm(player.getObjectId()));
 				player.sendPacket(htm);
 			}
+			else if (command.startsWith("fisherman_info"))
+			{
+				NpcHtmlMessage htm = new NpcHtmlMessage(getObjectId());
+				htm.setHtml(FishermanManager.getInstance().showHtm(player.getObjectId()));
+				player.sendPacket(htm);
+			}
+			
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}

@@ -2392,6 +2392,10 @@ public final class Config
 	public static int			ARENA_INTERVAL;
 	public static int			ARENA_REWARD_ID;
 	public static int			ARENA_REWARD_COUNT;
+	public static boolean		FISHERMAN_ENABLED;
+	public static int			FISHERMAN_INTERVAL;
+	public static int			FISHERMAN_REWARD_ID;
+	public static int			FISHERMAN_REWARD_COUNT;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -2451,6 +2455,12 @@ public final class Config
 			ARENA_INTERVAL = Integer.parseInt(funEnginesSettings.getProperty("ArenaInterval", "60"));
 			ARENA_REWARD_ID = Integer.parseInt(funEnginesSettings.getProperty("ArenaRewardId", "57"));
 			ARENA_REWARD_COUNT = Integer.parseInt(funEnginesSettings.getProperty("ArenaRewardCount", "100"));
+
+			FISHERMAN_ENABLED = Boolean.parseBoolean(funEnginesSettings.getProperty("FishermanEnabled", "false"));
+			FISHERMAN_INTERVAL = Integer.parseInt(funEnginesSettings.getProperty("FishermanInterval", "60"));
+			FISHERMAN_REWARD_ID = Integer.parseInt(funEnginesSettings.getProperty("FishermanRewardId", "57"));
+			FISHERMAN_REWARD_COUNT = Integer.parseInt(funEnginesSettings.getProperty("FishermanRewardCount", "100"));
+			
 		}
 		catch (Exception e)
 		{

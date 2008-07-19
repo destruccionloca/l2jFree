@@ -29,7 +29,6 @@ import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.tools.random.Rnd;
 
-
 /**
  * @author  chris
  */
@@ -44,7 +43,11 @@ public class DoorKey implements IItemHandler
 			// Key of Splendor Room
 			8056,
 			// Key of Enigma
-			8060										};
+			8060,
+			// blue coral key
+			9698,
+			// red coral key
+			9699										};
 	public static final int		INTERACTION_DISTANCE	= 100;
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
@@ -185,6 +188,34 @@ public class DoorKey implements IItemHandler
 			break;
 		}
 
+		case 9698: //Sapphire Gate
+		{
+			if ((door.getDoorId() != 24220020) || door.getOpen() == 0)
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
+				return;
+
+			door.openMe();
+			break;
+		}
+		case 9699: //Corridor Gate
+		{
+			if ((door.getDoorId() != 24220022) || door.getOpen() == 0)
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
+				return;
+
+			door.openMe();
+			break;
+		}
 		case 8060:
 		{
 			L2Skill skill = SkillTable.getInstance().getInfo(2260, 1);

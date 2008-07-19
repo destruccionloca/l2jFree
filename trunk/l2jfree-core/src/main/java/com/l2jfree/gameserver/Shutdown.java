@@ -19,7 +19,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.TradeListTable;
-import com.l2jfree.gameserver.instancemanager.ArenaManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
@@ -28,6 +27,8 @@ import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
+import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
+import com.l2jfree.gameserver.instancemanager.leaderboards.FishermanManager;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
@@ -419,6 +420,13 @@ public class Shutdown extends Thread
 		{
 			ArenaManager.getInstance().stopSaveTask();
 			ArenaManager.getInstance().saveData();
+		}
+
+		// Save Fishing Data if enabled
+		if (Config.FISHERMAN_ENABLED)
+		{
+			FishermanManager.getInstance().stopSaveTask();
+			FishermanManager.getInstance().saveData();
 		}
 
 		// Save Cursed Weapons data before closing.

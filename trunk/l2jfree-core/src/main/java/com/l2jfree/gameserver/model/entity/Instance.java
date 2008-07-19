@@ -3,9 +3,10 @@ package com.l2jfree.gameserver.model.entity;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.concurrent.ScheduledFuture;
-
+import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import javolution.util.FastList;
 import javolution.util.FastSet;
 
@@ -15,8 +16,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.NpcTable;
+import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
@@ -38,6 +41,7 @@ public class Instance
 	private String					_name;
 	private FastSet<Integer>		_players			= new FastSet<Integer>();
 	private FastList<L2NpcInstance>	_npcs				= new FastList<L2NpcInstance>();
+	private FastList<L2DoorInstance> _doors				= new FastList<L2DoorInstance>();
 
 	protected ScheduledFuture<?>	_CheckTimeUpTask	= null;
 
@@ -91,6 +95,11 @@ public class Instance
 		_npcs.remove(spawn);
 	}
 
+	public void removeDoor(L2DoorInstance door)
+	{
+		_doors.remove(door);
+	}
+
 	public FastSet<Integer> getPlayers()
 	{
 		return _players;
@@ -101,6 +110,11 @@ public class Instance
 		return _npcs;
 	}
 
+	public FastList<L2DoorInstance> getDoors()
+	{
+		return _doors;
+	}
+	
 	public void removePlayers()
 	{
 		for (int objectId : _players)
@@ -117,6 +131,7 @@ public class Instance
 			mob.getSpawn().stopRespawn();
 			mob.deleteMe();
 		}
+		_doors.clear();
 		_npcs.clear();
 	}
 
@@ -177,6 +192,27 @@ public class Instance
 							if (a != null)
 								instance.setTimeDelay(Integer.parseInt(a.getNodeValue()));
 						}*/
+			else if ("doorlist".equalsIgnoreCase(n.getNodeName()))
+			{
+				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
+				{
+					int doorId = 0;
+					if ("door".equalsIgnoreCase(d.getNodeName()))
+					{					
+						doorId = Integer.parseInt(d.getAttributes().getNamedItem("doorId").getNodeValue());
+						L2DoorInstance newdoor = DoorTable.getInstance().getDoor(doorId);
+						newdoor.setInstanceId(getId());
+						if (newdoor != null)
+						{
+							_doors.add(newdoor);
+						}
+						else
+						{
+							_log.warn("Instance: Data missing in Door table for ID: " + doorId + " in Instance " + getId());
+						}
+					}
+				}
+			}
 			else if ("spawnlist".equalsIgnoreCase(n.getNodeName()))
 			{
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
@@ -229,14 +265,18 @@ public class Instance
 		{
 			timeLeft = remaining / 60000;
 			interval = 300000;
-			cs = new CreatureSay(0, 9, "Notice", timeLeft + " minutes left.");
+			SystemMessage sm = new SystemMessage(SystemMessageId.DUNGEON_EXPIRES_IN_S1_MINUTES);
+			sm.addString(Integer.toString(timeLeft));
+			Announcements.getInstance().announceToInstance(sm,getId());
 			remaining = remaining - 300000;
 		}
 		else if (remaining > 60000)
 		{
 			timeLeft = remaining / 60000;
 			interval = 60000;
-			cs = new CreatureSay(0, 9, "Notice", timeLeft + " minutes left.");
+			SystemMessage sm = new SystemMessage(SystemMessageId.DUNGEON_EXPIRES_IN_S1_MINUTES);
+			sm.addString(Integer.toString(timeLeft));
+			Announcements.getInstance().announceToInstance(sm,getId());
 			remaining = remaining - 60000;
 		}
 		else if (remaining > 30000)

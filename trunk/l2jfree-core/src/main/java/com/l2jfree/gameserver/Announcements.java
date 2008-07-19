@@ -231,6 +231,15 @@ public class Announcements
 		}
 	}
 
+	public void announceToInstance(L2GameServerPacket gsp,int instanceId)
+	{
+		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+		{
+			if(player.getInstanceId()== instanceId)
+				player.sendPacket(gsp);
+		}
+	}
+	
 	// Method fo handling announcements from admin
 	public void handleAnnounce(String command, int lengthToTrim)
 	{

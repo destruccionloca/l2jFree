@@ -99,7 +99,7 @@ public class L2Spawn
 	/** If True a L2NpcInstance is respawned each time that another is killed */
     // [L2J_JP DELETE]private boolean _doRespawn;
     protected boolean _doRespawn;
-    // [L2J_JP ADD SANDMAN]
+
     public boolean IsRespawnable()
     {
         return _doRespawn;
@@ -114,13 +114,10 @@ public class L2Spawn
 	/** The task launching the function doSpawn() */
 	class SpawnTask implements Runnable
 	{
-		//L2NpcInstance _instance;
-		//int _objId;
         private L2NpcInstance _oldNpc;
 		
-		public SpawnTask(/*int objid*/L2NpcInstance pOldNpc)
+		public SpawnTask(L2NpcInstance pOldNpc)
 		{
-			//_objId= objid;
             _oldNpc = pOldNpc;
 		}
 		
@@ -128,9 +125,9 @@ public class L2Spawn
 		{		
 			try
 			{
-                //doSpawn();
                 // [L2J_JP DELETE SANDMAN]respawnNpc(oldNpc);
-                if(_doRespawn) respawnNpc(_oldNpc);
+                if(_doRespawn)
+                	respawnNpc(_oldNpc);
 			}
 			catch (Exception e)
 			{
@@ -403,19 +400,18 @@ public class L2Spawn
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : A respawn is possible ONLY if _doRespawn=True and _scheduledCount + _currentCount < _maximumCount</B></FONT><BR><BR>
 	 * 
 	 */
-	public void decreaseCount(/*int npcId*/L2NpcInstance oldNpc)
+	public void decreaseCount(L2NpcInstance oldNpc)
 	{
 		// Decrease the current number of L2NpcInstance of this L2Spawn
 		_currentCount--;
 		
 		// Check if respawn is possible to prevent multiple respawning caused by lag
-		if (_doRespawn && _scheduledCount + _currentCount < _maximumCount )
+		if (IsRespawnable() && (_doRespawn && _scheduledCount + _currentCount < _maximumCount ) && _respawnDelay > 0)
 		{
 			// Update the current number of SpawnTask in progress or stand by of this L2Spawn
 			_scheduledCount++;
 			
 			// Create a new SpawnTask to launch after the respawn Delay
-			//ClientScheduler.getInstance().scheduleLow(new SpawnTask(npcId), _respawnDelay);
 			ThreadPoolManager.getInstance().scheduleGeneral(new SpawnTask(oldNpc), _respawnDelay);
 		}
 	}
@@ -678,7 +674,7 @@ public class L2Spawn
     public void respawnNpc(L2NpcInstance oldNpc)
     {
         oldNpc.refreshID();
-        /*L2NpcInstance instance = */intializeNpcInstance(oldNpc);
+        intializeNpcInstance(oldNpc);
     }
 
     public L2NpcTemplate getTemplate()

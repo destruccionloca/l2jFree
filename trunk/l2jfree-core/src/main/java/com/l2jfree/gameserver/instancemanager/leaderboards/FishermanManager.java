@@ -1,4 +1,4 @@
-package com.l2jfree.gameserver.instancemanager;
+package com.l2jfree.gameserver.instancemanager.leaderboards;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,47 +25,47 @@ import com.l2jfree.gameserver.util.Util;
 
 /**
  *
- * @author  KID
+ * @author  KID modded for the peace loving fisherman by evill33t
  */
-public class ArenaManager
+public class FishermanManager
 {
-	private static ArenaManager		_instance;
-	public Logger					_log					= Logger.getLogger(ArenaManager.class.getName());
-	public Map<Integer, ArenaRank>	_ranks					= new FastMap<Integer, ArenaRank>();
+	private static FishermanManager		_instance;
+	public Logger					_log					= Logger.getLogger(FishermanManager.class.getName());
+	public Map<Integer, FishRank>	_ranks					= new FastMap<Integer, FishRank>();
 	protected Future<?>				_actionTask				= null;
-	protected int					SAVETASK_DELAY			= Config.ARENA_INTERVAL;
+	protected int					SAVETASK_DELAY			= Config.FISHERMAN_INTERVAL;
 	protected Long					nextTimeUpdateReward	= 0L;
 
-	public static ArenaManager getInstance()
+	public static FishermanManager getInstance()
 	{
 		if (_instance == null)
-			_instance = new ArenaManager();
+			_instance = new FishermanManager();
 
 		return _instance;
 	}
 
-	public void onKill(int owner, String name)
+	public void onCatch(int owner, String name)
 	{
-		ArenaRank ar = null;
+		FishRank ar = null;
 		if (_ranks.get(owner) == null)
-			ar = new ArenaRank();
+			ar = new FishRank();
 		else
 			ar = _ranks.get(owner);
 
-		ar.pvp();
+		ar.cought();
 		ar.name = name;
 		_ranks.put(owner, ar);
 	}
 
-	public void onDeath(int owner, String name)
+	public void onEscape(int owner, String name)
 	{
-		ArenaRank ar = null;
+		FishRank ar = null;
 		if (_ranks.get(owner) == null)
-			ar = new ArenaRank();
+			ar = new FishRank();
 		else
 			ar = _ranks.get(owner);
 
-		ar.death();
+		ar.escaped();
 		ar.name = name;
 		_ranks.put(owner, ar);
 	}
@@ -88,7 +88,7 @@ public class ArenaManager
 	{
 		public void run()
 		{
-			_log.info("ArenaManager: Autotask init.");
+			_log.info("FishManager: Autotask init.");
 			formRank();
 			saveData();
 			nextTimeUpdateReward = System.currentTimeMillis() + SAVETASK_DELAY * 60000;
@@ -106,12 +106,12 @@ public class ArenaManager
 		Map<Integer, Integer> scores = new FastMap<Integer, Integer>();
 		for (int obj : this._ranks.keySet())
 		{
-			ArenaRank ar = _ranks.get(obj);
-			scores.put(obj, ar.kills - ar.death);
+			FishRank ar = _ranks.get(obj);
+			scores.put(obj, ar.cought - ar.escaped);
 		}
 
 		scores = Util.sortMap(scores, false);
-		ArenaRank arTop = null;
+		FishRank arTop = null;
 		int idTop = 0;
 		for (int id : scores.keySet())
 		{
@@ -122,7 +122,7 @@ public class ArenaManager
 
 		if (arTop == null)
 		{
-			Announcements.getInstance().announceToAll("PvP Arena Manager: No winners at this time! Please check out our Arenas!");
+			Announcements.getInstance().announceToAll("Fisherman: No winners at this time!");
 			return;
 		}
 
@@ -131,16 +131,16 @@ public class ArenaManager
 		if (arTop != null)
 		{
 			Announcements.getInstance().announceToAll(
-					"PvP Arena Manager: " + arTop.name + " is the winner for this time with " + arTop.kills + "/" + arTop.death + ". Next calculation in "
-							+ Config.ARENA_INTERVAL + " min(s).");
-			if (winner != null && Config.ARENA_REWARD_ID > 0)
+					"Attention Fishermans: " + arTop.name + " is the winner for this time with " + arTop.cought + "/" + arTop.escaped + ". Next calculation in "
+							+ Config.FISHERMAN_INTERVAL + " min(s).");
+			if (winner != null && Config.FISHERMAN_REWARD_ID > 0)
 			{
-				winner.getInventory().addItem("ArenaManager", Config.ARENA_REWARD_ID, Config.ARENA_REWARD_COUNT, winner, null);
-				if (Config.ARENA_REWARD_COUNT > 1) //You have earned $s1.
-					winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(Config.ARENA_REWARD_ID)
-							.addNumber(Config.ARENA_REWARD_COUNT));
+				winner.getInventory().addItem("FishManager", Config.FISHERMAN_REWARD_ID, Config.FISHERMAN_REWARD_COUNT, winner, null);
+				if (Config.FISHERMAN_REWARD_COUNT > 1) //You have earned $s1.
+					winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(Config.FISHERMAN_REWARD_ID)
+							.addNumber(Config.FISHERMAN_REWARD_COUNT));
 				else
-					winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_ITEM).addItemName(Config.ARENA_REWARD_ID));
+					winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_ITEM).addItemName(Config.FISHERMAN_REWARD_ID));
 				winner.sendPacket(new ItemList(winner, false));
 			}
 		}
@@ -151,25 +151,25 @@ public class ArenaManager
 		Map<Integer, Integer> scores = new FastMap<Integer, Integer>();
 		for (int obj : this._ranks.keySet())
 		{
-			ArenaRank ar = _ranks.get(obj);
-			scores.put(obj, ar.kills - ar.death);
+			FishRank ar = _ranks.get(obj);
+			scores.put(obj, ar.cought - ar.escaped);
 		}
 
 		scores = Util.sortMap(scores, false);
 
 		int counter = 0, max = 20;
-		String pt = "<html><body><center>" + "<font color=\"cc00ad\">Arena TOP " + max + " Players</font><br>";
+		String pt = "<html><body><center>" + "<font color=\"cc00ad\">TOP " + max + " Fisherman</font><br>";
 
 		pt += "<table width=260 border=0 cellspacing=0 cellpadding=0 bgcolor=333333>";
-		pt += "<tr> <td align=center>No.</td> <td align=center>Name</td> <td align=center>Kills</td> <td align=center>Deaths</td> </tr>";
+		pt += "<tr> <td align=center>No.</td> <td align=center>Name</td> <td align=center>Cought</td> <td align=center>Escaped</td> </tr>";
 		pt += "<tr> <td align=center>&nbsp;</td> <td align=center>&nbsp;</td> <td align=center></td> <td align=center></td> </tr>";
 		boolean inTop = false;
 		for (int id : scores.keySet())
 		{
 			if (counter < max)
 			{
-				ArenaRank ar = _ranks.get(id);
-				pt += tx(counter, ar.name, ar.kills, ar.death, id == owner);
+				FishRank ar = _ranks.get(id);
+				pt += tx(counter, ar.name, ar.cought, ar.escaped, id == owner);
 				if (id == owner)
 				{
 					inTop = true;
@@ -182,7 +182,7 @@ public class ArenaManager
 
 		if (!inTop)
 		{
-			ArenaRank arMe = _ranks.get(owner);
+			FishRank arMe = _ranks.get(owner);
 			if (arMe != null)
 			{
 				pt += "<tr> <td align=center>...</td> <td align=center>...</td> <td align=center>...</td> <td align=center>...</td> </tr>";
@@ -193,16 +193,16 @@ public class ArenaManager
 					if (idMe == owner)
 						break;
 				}
-				pt += tx(placeMe, arMe.name, arMe.kills, arMe.death, true);
+				pt += tx(placeMe, arMe.name, arMe.cought, arMe.escaped, true);
 			}
 		}
 
 		pt += "</table>";
 		pt += "<br><br>";
-		if (Config.ARENA_REWARD_ID > 0)
+		if (Config.FISHERMAN_REWARD_ID > 0)
 		{
 			pt += "Next Reward Time in <font color=\"LEVEL\">" + calcMinTo() + " min(s)</font><br1>";
-			pt += "<font color=\"aadd77\">" + Config.ARENA_REWARD_COUNT + " &#" + Config.ARENA_REWARD_ID + ";</font>";
+			pt += "<font color=\"aadd77\">" + Config.FISHERMAN_REWARD_COUNT + " &#" + Config.FISHERMAN_REWARD_ID + ";</font>";
 		}
 
 		pt += "</center></body></html>";
@@ -227,14 +227,14 @@ public class ArenaManager
 
 	public void engineInit()
 	{
-		_ranks = new FastMap<Integer, ArenaRank>();
+		_ranks = new FastMap<Integer, FishRank>();
 		String line = null;
 		LineNumberReader lnr = null;
 		String lineId = "";
-		ArenaRank rank = null;
+		FishRank rank = null;
 		try
 		{
-			lnr = new LineNumberReader(new BufferedReader(new FileReader(new File(Config.DATAPACK_ROOT, "data/arena.dat"))));
+			lnr = new LineNumberReader(new BufferedReader(new FileReader(new File(Config.DATAPACK_ROOT, "data/fish.dat"))));
 			while ((line = lnr.readLine()) != null)
 			{
 				if (line.trim().length() == 0 || line.startsWith("#"))
@@ -246,10 +246,10 @@ public class ArenaManager
 				String t[] = line.split(":");
 
 				int owner = Integer.parseInt(t[0]);
-				rank = new ArenaRank();
+				rank = new FishRank();
 
-				rank.kills = Integer.parseInt(t[1].split("-")[0]);
-				rank.death = Integer.parseInt(t[1].split("-")[1]);
+				rank.cought = Integer.parseInt(t[1].split("-")[0]);
+				rank.escaped = Integer.parseInt(t[1].split("-")[1]);
 
 				rank.name = t[2];
 
@@ -258,7 +258,7 @@ public class ArenaManager
 		}
 		catch (Exception e)
 		{
-			_log.warning("ArenaManager.engineInit() >> last line parsed is \n[" + lineId + "]\n");
+			_log.warning("FishManager.engineInit() >> last line parsed is \n[" + lineId + "]\n");
 			e.printStackTrace();
 		}
 		finally
@@ -273,7 +273,7 @@ public class ArenaManager
 		}
 
 		this.startSaveTask();
-		_log.info("ArenaManager: Loaded " + _ranks.size() + " player(s).");
+		_log.info("FishManager: Loaded " + _ranks.size() + " player(s).");
 	}
 
 	public void saveData()
@@ -283,17 +283,17 @@ public class ArenaManager
 		for (Iterator<Integer> iter = this._ranks.keySet().iterator(); iter.hasNext();)
 		{
 			Integer object = iter.next();
-			ArenaRank ar = _ranks.get(object);
+			FishRank ar = _ranks.get(object);
 
-			pattern += object + " : " + ar.kills + "-" + ar.death + " : " + ar.name + "\n";
+			pattern += object + " : " + ar.cought + "-" + ar.escaped + " : " + ar.name + "\n";
 		}
 
-		File file = new File(Config.DATAPACK_ROOT, "data/arena.dat");
+		File file = new File(Config.DATAPACK_ROOT, "data/fish.dat");
 		try
 		{
 			FileWriter fw = new FileWriter(file);
 
-			fw.write("# ownerId : kills-death-name\n");
+			fw.write("# ownerId : cought-escaped-name\n");
 			fw.write("# ===============================\n\n");
 			fw.write(pattern);
 
@@ -306,25 +306,25 @@ public class ArenaManager
 		}
 	}
 
-	public class ArenaRank
+	public class FishRank
 	{
-		public int		kills, death, classId;
+		public int		cought,escaped;
 		public String	name;
 
-		public ArenaRank()
+		public FishRank()
 		{
-			kills = 0;
-			death = 0;
+			cought = 0;
+			escaped = 0;
 		}
 
-		public void pvp()
+		public void cought()
 		{
-			kills++;
+			cought++;
 		}
 
-		public void death()
+		public void escaped()
 		{
-			death++;
+			escaped++;
 		}
 	}
 }

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler;
 import java.util.Map;
 import java.util.TreeMap;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -53,6 +52,7 @@ import com.l2jfree.gameserver.handler.itemhandlers.SevenSignsRecord;
 import com.l2jfree.gameserver.handler.itemhandlers.SoulCrystals;
 import com.l2jfree.gameserver.handler.itemhandlers.SoulShots;
 import com.l2jfree.gameserver.handler.itemhandlers.SpecialXMas;
+import com.l2jfree.gameserver.handler.itemhandlers.SpiritLake;
 import com.l2jfree.gameserver.handler.itemhandlers.SpiritShot;
 import com.l2jfree.gameserver.handler.itemhandlers.SummonItems;
 import com.l2jfree.gameserver.handler.itemhandlers.TransformationItems;
@@ -130,6 +130,7 @@ public class ItemHandler
 		registerItemHandler(new SevenSignsRecord());
 		registerItemHandler(new SoulCrystals());
 		registerItemHandler(new SoulShots());
+		registerItemHandler(new SpiritLake());
 		registerItemHandler(new SpiritShot());
 		registerItemHandler(new SummonItems());
 		registerItemHandler(new TransformationItems());

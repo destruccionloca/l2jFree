@@ -65,7 +65,6 @@ import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.handler.UserCommandHandler;
 import com.l2jfree.gameserver.handler.VoicedCommandHandler;
 import com.l2jfree.gameserver.idfactory.IdFactory;
-import com.l2jfree.gameserver.instancemanager.ArenaManager;
 import com.l2jfree.gameserver.instancemanager.AuctionManager;
 import com.l2jfree.gameserver.instancemanager.BoatManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
@@ -103,6 +102,8 @@ import com.l2jfree.gameserver.instancemanager.grandbosses.SailrenManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.ValakasManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.VanHalterManager;
 import com.l2jfree.gameserver.instancemanager.lastimperialtomb.LastImperialTombManager;
+import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
+import com.l2jfree.gameserver.instancemanager.leaderboards.FishermanManager;
 import com.l2jfree.gameserver.model.AutoChatHandler;
 import com.l2jfree.gameserver.model.AutoSpawnHandler;
 import com.l2jfree.gameserver.model.L2Manor;
@@ -307,6 +308,8 @@ public class GameServer
 
 		if (Config.ARENA_ENABLED)
 			ArenaManager.getInstance().engineInit();
+		if (Config.FISHERMAN_ENABLED)
+			FishermanManager.getInstance().engineInit();
 
 		Util.printSection("Extensions");
 		if (Config.FACTION_ENABLED)
