@@ -1661,6 +1661,8 @@
   </skill>
   <skill id="3577" levels="1"
     name="Special Ability: Magic Hold">
+    <set name="target" val="TARGET_ONE" />
+    <set name="magicLvl" val="80" />
     <set name="skillType" val="WEAPON_SA" />
     <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
