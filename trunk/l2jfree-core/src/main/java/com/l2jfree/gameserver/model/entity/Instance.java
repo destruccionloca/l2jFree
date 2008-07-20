@@ -293,16 +293,17 @@ public class Instance
 			cs = new CreatureSay(0, 9, "Notice", timeLeft + " seconds left.");
 			remaining = remaining - 10000;
 		}
-
-		for (int objectId : _players)
+		if(cs!=null)
 		{
-			L2PcInstance player = L2World.getInstance().findPlayer(objectId);
-			if (player != null && player.getInstanceId() == getId())
+			for (int objectId : _players)
 			{
-				player.sendPacket(cs);
+				L2PcInstance player = L2World.getInstance().findPlayer(objectId);
+				if (player != null && player.getInstanceId() == getId())
+				{
+					player.sendPacket(cs);
+				}
 			}
 		}
-
 		if (_CheckTimeUpTask != null)
 			_CheckTimeUpTask.cancel(true);
 		if (remaining >= 10000)

@@ -406,7 +406,7 @@ public class L2Spawn
 		_currentCount--;
 		
 		// Check if respawn is possible to prevent multiple respawning caused by lag
-		if (IsRespawnable() && (_doRespawn && _scheduledCount + _currentCount < _maximumCount ) && _respawnDelay > 0)
+		if (IsRespawnable() && (_doRespawn && _scheduledCount + _currentCount < _maximumCount ))
 		{
 			// Update the current number of SpawnTask in progress or stand by of this L2Spawn
 			_scheduledCount++;
