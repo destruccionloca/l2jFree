@@ -113,7 +113,7 @@ public class DoorKey implements IItemHandler
 					//test with: activeChar.sendPacket(new SystemMessage(SystemMessageId.FAILED_TO_UNLOCK_DOOR)); 
 					activeChar.sendMessage("You failed to open Anterooms Door.");
 					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
-					PlaySound playSound = new PlaySound("interfacesound.system_close_01");
+					PlaySound playSound = new PlaySound(0, "interfacesound.system_close_01");
 					activeChar.sendPacket(playSound);
 				}
 			}
@@ -142,7 +142,7 @@ public class DoorKey implements IItemHandler
 				{
 					activeChar.sendMessage("You failed to open Altar Entrance.");
 					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
-					PlaySound playSound = new PlaySound("interfacesound.system_close_01");
+					PlaySound playSound = new PlaySound(0, "interfacesound.system_close_01");
 					activeChar.sendPacket(playSound);
 				}
 			}
@@ -171,7 +171,7 @@ public class DoorKey implements IItemHandler
 				{
 					activeChar.sendMessage("You failed to open Door of Darkness.");
 					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
-					PlaySound playSound = new PlaySound("interfacesound.system_close_01");
+					PlaySound playSound = new PlaySound(0, "interfacesound.system_close_01");
 					activeChar.sendPacket(playSound);
 				}
 			}

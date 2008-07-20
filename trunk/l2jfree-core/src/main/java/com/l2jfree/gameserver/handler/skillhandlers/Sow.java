@@ -107,7 +107,7 @@ public class Sow implements ISkillHandler
 			SystemMessage sm = null;
 			if (calcSuccess())
 			{
-				_activeChar.sendPacket(new PlaySound("Itemsound.quest_itemget"));
+				_activeChar.sendPacket(new PlaySound(0, "Itemsound.quest_itemget"));
 				_target.setSeeded();
 				sm = new SystemMessage(SystemMessageId.THE_SEED_WAS_SUCCESSFULLY_SOWN);
 			}

@@ -646,7 +646,7 @@ public final class QuestState
 	 */
 	public void playSound(String sound) 
 	{
-		getPlayer().sendPacket(new PlaySound(sound));
+		getPlayer().sendPacket(new PlaySound(0, sound));
 	}
 
 	/**

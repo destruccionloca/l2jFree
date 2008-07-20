@@ -305,7 +305,7 @@ public final class L2UrnInstance extends L2FolkInstance
     
     public void playSound(L2PcInstance player, String sound) 
     {
-        player.sendPacket(new PlaySound(sound));
+        player.sendPacket(new PlaySound(0, sound));
     }
     
     public int getUrnItemsCount(L2PcInstance player, int itemId) 
