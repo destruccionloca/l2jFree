@@ -948,8 +948,7 @@ public abstract class L2Character extends L2Object
 		if (isAlikeDead() || target == null || (this instanceof L2NpcInstance && target.isAlikeDead())
 				|| (this instanceof L2PcInstance && target.isDead() && !target.isFakeDeath()) || !getKnownList().knowsObject(target)
 				|| (this instanceof L2PcInstance && isDead())
-				|| (target instanceof L2PcInstance && ((L2PcInstance) target).getDuelState() == Duel.DUELSTATE_DEAD)
-				|| Formulas.getInstance().canCancelAttackerTarget(this, target))
+				|| (target instanceof L2PcInstance && ((L2PcInstance) target).getDuelState() == Duel.DUELSTATE_DEAD))
 		{
 			// If L2PcInstance is dead or the target is dead, the action is stoped
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
@@ -2442,15 +2441,6 @@ public abstract class L2Character extends L2Object
 			// Get the first target of the list
 			target = skill.getFirstOfTargetList(this);
 			break;
-		}
-
-		if (skill.isOffensive() && target instanceof L2Character)
-		{
-			if (Formulas.getInstance().canCancelAttackerTarget(this, (L2Character) target))
-			{
-				getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
-				return;
-			}
 		}
 
 		// Notify the AI with AI_INTENTION_CAST and target
