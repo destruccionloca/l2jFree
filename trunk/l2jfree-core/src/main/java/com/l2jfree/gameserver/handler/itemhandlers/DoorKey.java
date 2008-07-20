@@ -57,6 +57,16 @@ public class DoorKey implements IItemHandler
 		if (!(playable instanceof L2PcInstance))
 			return;
 		L2PcInstance activeChar = (L2PcInstance) playable;
+
+		// Key of Enigma (Pavel Research Quest)
+		if (itemId == 8060)
+		{
+			L2Skill skill = SkillTable.getInstance().getInfo(2260, 1);
+			if (skill != null)
+				activeChar.doCast(skill);
+			return;
+		}
+
 		L2Object target = activeChar.getTarget();
 
 		if (!(target instanceof L2DoorInstance))
@@ -214,13 +224,6 @@ public class DoorKey implements IItemHandler
 				return;
 
 			door.openMe();
-			break;
-		}
-		case 8060:
-		{
-			L2Skill skill = SkillTable.getInstance().getInfo(2260, 1);
-			if (skill != null)
-				activeChar.doCast(skill);
 			break;
 		}
 		}
