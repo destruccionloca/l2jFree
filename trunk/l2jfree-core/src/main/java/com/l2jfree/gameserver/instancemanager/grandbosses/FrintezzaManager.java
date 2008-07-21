@@ -1612,7 +1612,6 @@ public class FrintezzaManager extends BossLair
 		weakScarlet.setIsImmobilized(false);
 		weakScarlet.decayMe();
 		weakScarlet.deleteMe();
-		weakScarlet = null;
 
 		// add Attack Listener
 		ThreadPoolManager.getInstance().scheduleGeneral(new attackerListener(strongScarlet, 150), Rnd.get(4000) + 1000);
