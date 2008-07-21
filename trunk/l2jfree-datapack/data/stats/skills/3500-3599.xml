@@ -1661,15 +1661,14 @@
   </skill>
   <skill id="3577" levels="1"
     name="Special Ability: Magic Hold">
+    <set name="magicLvl" val="75" />
+    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="magicLvl" val="80" />
-    <set name="skillType" val="WEAPON_SA" />
+    <set name="skillType" val="ROOT" />
     <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="600" />
-    <set name="effectRange" val="1100" />
-    <set name="effectType" val="ROOT" />
-    <set name="effectPower" val="80" />
+    <set name="castRange" val="1000" />
+    <set name="effectRange" val="1500" />
     <for>
       <effect count="1" name="Root" time="30" val="0"
         stackOrder="1" stackType="Root" />
@@ -1720,6 +1719,7 @@
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="DEBUFF" />
+    <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -1860,6 +1860,7 @@
     <set name="castRange" val="-1" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="STUN" />
+    <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="effectRange" val="-1" />
     <for>
@@ -1913,6 +1914,7 @@
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="MUTE" />
+    <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -1967,6 +1969,7 @@
     <set name="castRange" val="-1" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="STUN" />
+    <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="effectRange" val="-1" />
     <for>
@@ -2028,6 +2031,7 @@
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="MUTE" />
+    <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -2128,6 +2132,7 @@
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
+    <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
