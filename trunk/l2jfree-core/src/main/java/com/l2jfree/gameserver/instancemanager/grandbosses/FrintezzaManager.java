@@ -21,8 +21,9 @@ package com.l2jfree.gameserver.instancemanager.grandbosses;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledFuture;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.NpcTable;
@@ -99,7 +100,9 @@ public class FrintezzaManager extends BossLair
 	protected boolean				_respawningDemon1	= false, _respawningDemon2 = false, _respawningDemon3 = false, _respawningDemon4 = false,
 			_scarletIsWeakest = true;
 
-	protected Future<?>				_monsterSpawnTask	= null, _activityTimeEndTask = null;
+	protected ScheduledFuture<?>		_monsterSpawnTask		= null;
+	protected ScheduledFuture<?>		_activityTimeEndTask	= null;
+	protected ScheduledFuture<?>		_intervalEndTask		= null;
 
 	private Func					_DecreaseRegHp		= null;
 	private int						_debuffPeriod		= 0;
@@ -137,12 +140,10 @@ public class FrintezzaManager extends BossLair
 
 		_intervalOfFrintezzaSongs = 30000;
 
-		_intervalOfDemons = 60000; // Config.FWA_INTERVALOFFrintezza;
-
-		_intervalOfBoss = 17280000; // Config.FWA_INTERVALOFFrintezza;
-
-		_appTimeOfBoss = 60000; // Config.FWA_APPTIMEOFFrintezza;
-		_activityTimeOfBoss = 7200000; // Config.FWA_ACTIVITYTIMEOFFrintezza;
+		_intervalOfDemons	=	Config.FWF_INTERVALOFNEXTMONSTER;
+		_intervalOfBoss		=	Config.FWF_INTERVALOFFRINTEZZA;
+		_appTimeOfBoss		=	Config.FWF_INTERVALOFNEXTMONSTER;
+		_activityTimeOfBoss	=	Config.FWF_ACTIVITYTIMEOFFRINTEZZA;
 
 		// initialize status in lair.
 		_scarletIsWeakest = true;
@@ -255,7 +256,7 @@ public class FrintezzaManager extends BossLair
 	 */
 	public void setScarletSpawnTask()
 	{
-		if (_monsterSpawnTask == null)
+		if (_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN) && _monsterSpawnTask==null)
 		{
 			_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(1), _appTimeOfBoss);
 		}
@@ -378,7 +379,6 @@ public class FrintezzaManager extends BossLair
 
 		public void run()
 		{
-			ScarletWeakSpawn s = null;
 			SetMobilised mobilise;
 
 			switch (_taskId)
@@ -441,8 +441,7 @@ public class FrintezzaManager extends BossLair
 				frintezza.broadcastPacket(new MagicSkillUse(frintezza, frintezza, 5006, 1, _intervalOfFrintezzaSongs, 0), 360000/* 600 */);
 
 				// set next task.
-				s = new ScarletWeakSpawn(7);
-				ThreadPoolManager.getInstance().scheduleGeneral(s, 5800);
+				ThreadPoolManager.getInstance().scheduleGeneral(new ScarletWeakSpawn(7), 5800);
 
 				weakScarlet = (L2GrandBossInstance) scarletSpawnWeak.doSpawn();
 				weakScarlet.setIsImmobilized(true);
@@ -1398,7 +1397,8 @@ public class FrintezzaManager extends BossLair
 		if (weakScarlet != null && !weakScarlet.isDead())
 		{
 			weakScarletHpListener();
-			weakScarlet.addDamage(attacker, hate);
+			if (weakScarlet != null && !weakScarlet.isDead())
+				weakScarlet.addDamage(attacker, hate);
 		}
 		else
 			bossesAreDead();
@@ -1580,6 +1580,7 @@ public class FrintezzaManager extends BossLair
 		scarletSpawnStrong.setLocy(weakScarlet.getY());
 		scarletSpawnStrong.setLocz(weakScarlet.getZ());
 		scarletSpawnStrong.setHeading(weakScarlet.getHeading());
+		scarletSpawnStrong.setRespawnDelay(_intervalOfBoss);
 		scarletSpawnStrong.stopRespawn();
 
 		// spawn Strong Scarlet and set his HP to the weaker version:
@@ -1607,6 +1608,7 @@ public class FrintezzaManager extends BossLair
 		setTargeted(strongScarlet, targeted);
 
 		// delete the weakScarlet from the world
+		weakScarlet.getPoly().setPolyInfo(null, "1");
 		weakScarlet.decayMe();
 		weakScarlet.deleteMe();
 		weakScarlet = null;
@@ -1980,6 +1982,7 @@ public class FrintezzaManager extends BossLair
 		}
 
 		frintezza = strongScarlet = weakScarlet = null;
+		_state.setState(GrandBossState.StateEnum.DEAD);
 
 		// delete spawns
 		frintezzaSpawn = scarletSpawnWeak = scarletSpawnStrong = null;
@@ -1987,11 +1990,28 @@ public class FrintezzaManager extends BossLair
 		portraitSpawn1 = portraitSpawn2 = portraitSpawn3 = portraitSpawn4 = null;
 
 		demonSpawn1 = demonSpawn2 = demonSpawn3 = demonSpawn4 = null;
+		
+		// not executed tasks are canceled.
+		if (_monsterSpawnTask != null)
+		{
+			_monsterSpawnTask.cancel(true);
+			_monsterSpawnTask = null;
+		}
+		if (_intervalEndTask != null)
+		{
+			_intervalEndTask.cancel(true);
+			_intervalEndTask = null;
+		}
+		if (_activityTimeEndTask != null)
+		{
+			_activityTimeEndTask.cancel(true);
+			_activityTimeEndTask = null;
+		}
 
 		// interval begin.... Count until Frintezza is ready to respawn again.
 		setIntervalEndTask();
 	}
-
+	
 	/**
 	 * Creates a thread to initialize Frintezza again... until this loops ends, no one can enter the lair.
 	 */
@@ -1999,11 +2019,11 @@ public class FrintezzaManager extends BossLair
 	{
 		if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
 		{
-			_state.setRespawnDate(17280000);
+			_state.setRespawnDate(_intervalOfBoss);
 			_state.setState(GrandBossState.StateEnum.INTERVAL);
 			_state.update();
 		}
-		ThreadPoolManager.getInstance().scheduleGeneral(new IntervalEnd(), _state.getInterval());
+		_intervalEndTask =ThreadPoolManager.getInstance().scheduleGeneral(new IntervalEnd(), _state.getInterval());
 	}
 
 	/**

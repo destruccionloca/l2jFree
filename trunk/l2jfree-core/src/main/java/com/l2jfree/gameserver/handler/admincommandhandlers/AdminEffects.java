@@ -234,8 +234,8 @@ public class AdminEffects implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_frintezza"))
 		{
-			activeChar.sendMessage("Frintezza was Initialized.");
 			FrintezzaManager.getInstance().setScarletSpawnTask();
+			activeChar.sendMessage("Frintezza was Initialized.");
 		}
 		else if (command.equals("admin_unpara") || command.equals("admin_unpara_menu"))
 		{

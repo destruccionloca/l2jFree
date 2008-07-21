@@ -2582,6 +2582,13 @@ public final class Config
 	public static int			FWBA_RANDOMINTERVALOFBAYLORSPAWN;
 	public static int			FWBA_INTERVALOFNEXTMONSTER;
 	public static int			FWBA_ACTIVITYTIMEOFMOBS;
+	
+	/******************************************* 
+	 * Frintezza CONFIG                          * 
+	 *******************************************/
+	public static int			FWF_INTERVALOFNEXTMONSTER;
+	public static int			FWF_INTERVALOFFRINTEZZA;
+	public static int			FWF_ACTIVITYTIMEOFFRINTEZZA;
 
 	/******************************************* 
 	 * Sailren CONFIG                          * 
@@ -2731,6 +2738,22 @@ public final class Config
 			if (FWBA_ACTIVITYTIMEOFMOBS < 1 || FWBA_ACTIVITYTIMEOFMOBS > 120)
 				FWS_ACTIVITYTIMEOFMOBS = 120;
 			FWBA_ACTIVITYTIMEOFMOBS *= 60000;
+			
+			//Frintezza
+			FWF_INTERVALOFFRINTEZZA = Integer.parseInt(bossSettings.getProperty("IntervalOfFrintezzaSpawn", "1440"));
+			if (FWF_INTERVALOFFRINTEZZA < 5 || FWF_INTERVALOFFRINTEZZA > 5760)
+				FWF_INTERVALOFFRINTEZZA = 1440;
+			FWF_INTERVALOFFRINTEZZA *= 60000;
+			 
+			FWF_INTERVALOFNEXTMONSTER = Integer.parseInt(bossSettings.getProperty("IntervalOfNextMonsterFrintezza", "1"));
+			if (FWF_INTERVALOFNEXTMONSTER < 1 || FWF_INTERVALOFNEXTMONSTER > 10)
+				FWF_INTERVALOFNEXTMONSTER = 1;
+			FWF_INTERVALOFNEXTMONSTER *= 60000;
+
+			FWF_ACTIVITYTIMEOFFRINTEZZA = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfMobsFrintezza", "120"));
+			if (FWF_ACTIVITYTIMEOFFRINTEZZA < 120 || FWF_ACTIVITYTIMEOFFRINTEZZA > 240)
+				FWF_ACTIVITYTIMEOFFRINTEZZA = 120;
+			FWF_ACTIVITYTIMEOFFRINTEZZA *= 60000;
 
 			//sailren
 			FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(bossSettings.getProperty("EnableSinglePlayer", "False"));
@@ -3696,6 +3719,14 @@ public final class Config
 			FWB_MOVEATRANDOM = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("LimitUntilSleep"))
 			FWB_LIMITUNTILSLEEP = Integer.parseInt(pValue);
+		
+		// fight with Frintezza Custom Setting
+		else if (pName.equalsIgnoreCase("IntervalOfFrintezzaSpawn"))
+			FWF_INTERVALOFFRINTEZZA = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("IntervalOfNextMonsterFrintezza"))
+			FWF_INTERVALOFNEXTMONSTER = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("ActivityTimeOfMobsFrintezza"))
+			FWF_ACTIVITYTIMEOFFRINTEZZA = Integer.parseInt(pValue);
 
 		// JP fight with Valakas Custom Setting
 		else if (pName.equalsIgnoreCase("FixIntervalOfValakas"))
