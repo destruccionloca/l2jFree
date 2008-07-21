@@ -1609,6 +1609,7 @@ public class FrintezzaManager extends BossLair
 
 		// delete the weakScarlet from the world
 		weakScarlet.getPoly().setPolyInfo(null, "1");
+		weakScarlet.setIsImmobilized(false);
 		weakScarlet.decayMe();
 		weakScarlet.deleteMe();
 		weakScarlet = null;
