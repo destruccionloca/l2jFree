@@ -33,7 +33,7 @@ class Quest (JQuest) :
      st.set("cond","3")
    if event == "30165-1.htm" and cond == 3:
      st.set("cond","4")
-   if event == "30165-3.htm" and cond == 5:
+   if event == "30165-3.htm" and cond == 4:
      if st.getQuestItemsCount(SPINNERET) == 10 :
        st.takeItems(SPINNERET,10)
        st.giveItems(SPIDERSILK,1)
@@ -75,7 +75,7 @@ class Quest (JQuest) :
          htmltext = "30088-2.htm"
        elif npcId == 30165 and cond == 3 :
          htmltext = "30165-0.htm"
-       elif npcId == 30165 and cond == 5 :
+       elif npcId == 30165 and cond == 4 :
          htmltext = "30165-2.htm"
        elif npcId == 30088 and cond == 6 :
           htmltext = "30088-4.htm"
@@ -91,7 +91,7 @@ class Quest (JQuest) :
 
    count = st.getQuestItemsCount(SPINNERET)
    if count < 10 :
-     st.rewardItems(SPINNERET,int(1))
+     st.giveItems(SPINNERET,int(1))
      if count == 9 :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","5")
