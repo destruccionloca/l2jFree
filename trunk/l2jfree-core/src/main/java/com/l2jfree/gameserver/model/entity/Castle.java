@@ -260,9 +260,9 @@ public class Castle extends Siegeable
 			Castle rune = CastleManager.getInstance().getCastleByName("Rune");
 			if (rune != null)
 			{
-				int runeTax = (int) (amount * rune.getTaxRate());
+				int runeTax = (int) (amount * rune.getTaxPercent() / 100.);
 				if (rune.getOwnerId() > 0)
-					rune.addToTreasury(runeTax);
+					rune.addToTreasuryNoTax(runeTax);
 				amount -= runeTax;
 			}
 		}
@@ -271,9 +271,9 @@ public class Castle extends Siegeable
 			Castle aden = CastleManager.getInstance().getCastleByName("Aden");
 			if (aden != null)
 			{
-				int adenTax = (int) (amount * aden.getTaxRate()); // Find out what Aden gets from the current castle instance's income
+				int adenTax = (int) (amount * aden.getTaxPercent() / 100.); // Find out what Aden gets from the current castle instance's income
 				if (aden.getOwnerId() > 0)
-					aden.addToTreasury(adenTax); // Only bother to really add the tax to the treasury if not npc owned
+					aden.addToTreasuryNoTax(adenTax); // Only bother to really add the tax to the treasury if not npc owned
 
 				amount -= adenTax; // Subtract Aden's income from current castle instance's income
 			}
