@@ -1531,7 +1531,6 @@
     <set name="mpConsume" val="#mpConsume" />
     <set name="hitTime" val="1000" />
     <set name="reuseDelay" val="5000" />
-    <set name="isMagic" val="true" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillRadius" val="100" />
@@ -1546,7 +1545,6 @@
   <skill id="570" levels="4" name="Attack Rage">
     <!-- by Sephiroth -->
     <table name="#power">904 1108 1235 1404</table>
-    >
     <table name="#charges">1 2 3 4</table>
     <set name="mpConsume" val="5" />
     <set name="power" val="#power" />

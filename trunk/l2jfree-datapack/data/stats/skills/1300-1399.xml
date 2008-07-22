@@ -518,6 +518,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <set name="weaponsAllowed" val="8192"/>
     <for />
   </skill>
   <skill id="1313" levels="27" name="Pumping">
@@ -535,6 +536,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <set name="weaponsAllowed" val="8192"/>
     <for />
   </skill>
   <skill id="1314" levels="27" name="Reeling">
@@ -552,6 +554,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <set name="weaponsAllowed" val="8192"/>
     <for />
   </skill>
   <skill id="1315" levels="27" name="Fishing Expertise">
