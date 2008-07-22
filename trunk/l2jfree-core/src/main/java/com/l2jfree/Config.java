@@ -1478,9 +1478,6 @@ public final class Config
 
 	public static boolean				ALT_ITEM_SKILLS_NOT_INFLUENCED;
 	public static boolean				ALT_MANA_POTIONS;
-	public static boolean				ALT_EXTENDEDHERO_ANNOUNCE;
-	public static boolean				ALT_PUBLICHERO_ANNOUNCE;
-	public static boolean				ALT_LOGHEROES;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1676,9 +1673,6 @@ public final class Config
 			RIFT_BOSS_ROOM_TIME_MUTIPLY = Float.parseFloat(altSettings.getProperty("BossRoomTimeMultiply", "1.5"));
 
 			ALT_MANA_POTIONS = Boolean.parseBoolean(altSettings.getProperty("AllowManaPotions", "false"));
-			ALT_EXTENDEDHERO_ANNOUNCE = Boolean.parseBoolean(altSettings.getProperty("ExtendedHeroGainInfo", "false"));
-			ALT_PUBLICHERO_ANNOUNCE = Boolean.parseBoolean(altSettings.getProperty("PublicPlayerHeroAnnounce", "false"));
-			ALT_LOGHEROES = Boolean.parseBoolean(altSettings.getProperty("LogHeroActivity", "false"));
 		}
 		catch (Exception e)
 		{
