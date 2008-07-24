@@ -365,16 +365,13 @@ public class L2Attackable extends L2NpcInstance
         */
 
         // CommandChannel
-        if (_commandChannelTimer == null && this.isRaid())
+        if (_commandChannelTimer == null && attacker != null && isRaid() && attacker.isInParty() && attacker.getParty().isInCommandChannel()
+                && attacker.getParty().getCommandChannel().meetRaidWarCondition(this))
         {
-            if (attacker.isInParty() && attacker.getParty().isInCommandChannel() 
-                    && attacker.getParty().getCommandChannel().meetRaidWarCondition(this))
-            {
-                _firstCommandChannelAttacked = attacker.getParty().getCommandChannel();
-                _commandChannelTimer = new CommandChannelTimer(this, attacker.getParty().getCommandChannel());
-                ThreadPoolManager.getInstance().scheduleGeneral(_commandChannelTimer, 300000); // 5 min
-                _firstCommandChannelAttacked.broadcastToChannelMembers(new CreatureSay(0, SystemChatChannelId.Chat_Party_Room.getId(), "", "You have looting rights!"));
-            }
+            _firstCommandChannelAttacked = attacker.getParty().getCommandChannel();
+            _commandChannelTimer = new CommandChannelTimer(this, attacker.getParty().getCommandChannel());
+            ThreadPoolManager.getInstance().scheduleGeneral(_commandChannelTimer, 300000); // 5 min
+            _firstCommandChannelAttacked.broadcastToChannelMembers(new CreatureSay(0, SystemChatChannelId.Chat_Party_Room.getId(), "", "You have looting rights!"));
         }
 
         if (isEventMob) return;
