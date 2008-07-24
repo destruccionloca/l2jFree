@@ -1297,10 +1297,11 @@ public final class L2ItemInstance extends L2Object
 			setIsVisible(true);
 			getPosition().setWorldPosition(x, y, z);
 			getPosition().setWorldRegion(L2World.getInstance().getRegion(getPosition().getWorldPosition()));
-			
-			// Add the L2ItemInstance dropped to _visibleObjects of its L2WorldRegion
-			getPosition().getWorldRegion().addVisibleObject(this);
 		}
+
+		// Add the L2ItemInstance dropped to _visibleObjects of its L2WorldRegion
+		getPosition().getWorldRegion().addVisibleObject(this);
+
 		setDropTime(System.currentTimeMillis());
 		
 		// this can synchronize on others instancies, so it's out of

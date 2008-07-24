@@ -44,6 +44,7 @@ import com.l2jfree.gameserver.network.serverpackets.VehicleInfo;
 import com.l2jfree.gameserver.network.serverpackets.VehicleStarted;
 import com.l2jfree.gameserver.templates.L2CharTemplate;
 import com.l2jfree.gameserver.templates.L2Weapon;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  * @author Maktakien
@@ -186,17 +187,15 @@ public class L2BoatInstance extends L2Character
 			if (state < max)
 			{
 				L2BoatPoint bp = _path.get(state);
-				double dx = (bp.x - _boat.getX());
-				double dy = (bp.y - _boat.getX());
+				double dx = (_boat.getX() - bp.x);
+				double dy = (_boat.getX() - bp.y);
 				double distance = Math.sqrt(dx * dx + dy * dy);
 				double cos;
 				double sin;
 				sin = dy / distance;
 				cos = dx / distance;
 
-				int heading = (int) (Math.atan2(-sin, -cos) * 10430.378350470452724949566316381);
-				heading += 32768;
-				_boat.getPosition().setHeading(heading);
+				_boat.getPosition().setHeading(Util.calculateHeadingFrom(cos, sin));
 
 				_boat._vd = new VehicleDeparture(_boat, bp.speed1, bp.speed2, bp.x, bp.y, bp.z);
 				// _boat.getTemplate().baseRunSpd = bp.speed1;
