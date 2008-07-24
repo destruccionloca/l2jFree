@@ -232,13 +232,6 @@ public enum ClassId
 		return _id;
 	}
 
-	public final int getCompetitionId()
-	{ 
-		if (_id == 133) // Only one class for soul hounds
-			return 132;
-		return _id;
-	}
-
 	/**
 	 * Return True if the class is a mage class.<BR><BR>
 	 */

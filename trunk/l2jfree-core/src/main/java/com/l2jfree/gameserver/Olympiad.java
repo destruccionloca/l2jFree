@@ -838,7 +838,7 @@ public class Olympiad
 		if (!_nobles.containsKey(noble.getObjectId()))
 		{
 			StatsSet statDat = new StatsSet();
-			statDat.set(CLASS_ID, noble.getClassId().getCompetitionId());
+			statDat.set(CLASS_ID, getCompetitionClass(noble.getClassId().getId()));
 			statDat.set(CHAR_NAME, noble.getName());
 			statDat.set(POINTS, DEFAULT_POINTS);
 			statDat.set(COMP_DONE, 0);
@@ -847,9 +847,9 @@ public class Olympiad
 			_nobles.put(noble.getObjectId(), statDat);
 		}
 
-		if (_classBasedRegisters.containsKey(noble.getClassId().getCompetitionId()))
+		if (_classBasedRegisters.containsKey(getCompetitionClass(noble.getClassId().getId())))
 		{
-			FastList<L2PcInstance> classed = _classBasedRegisters.get(noble.getClassId().getCompetitionId());
+			FastList<L2PcInstance> classed = _classBasedRegisters.get(getCompetitionClass(noble.getClassId().getId()));
 			for (L2PcInstance partecipant : classed)
 			{
 				if (partecipant.getObjectId() == noble.getObjectId())
@@ -892,13 +892,13 @@ public class Olympiad
 
 		if (classBased)
 		{
-			if (_classBasedRegisters.containsKey(noble.getClassId().getCompetitionId()))
+			if (_classBasedRegisters.containsKey(getCompetitionClass(noble.getClassId().getId())))
 			{
-				FastList<L2PcInstance> classed = _classBasedRegisters.get(noble.getClassId().getCompetitionId());
+				FastList<L2PcInstance> classed = _classBasedRegisters.get(getCompetitionClass(noble.getClassId().getId()));
 				classed.add(noble);
 
-				_classBasedRegisters.remove(noble.getClassId().getCompetitionId());
-				_classBasedRegisters.put(noble.getClassId().getCompetitionId(), classed);
+				_classBasedRegisters.remove(getCompetitionClass(noble.getClassId().getId()));
+				_classBasedRegisters.put(getCompetitionClass(noble.getClassId().getId()), classed);
 
 				sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_CLASSIFIED_GAMES);
 				noble.sendPacket(sm);
@@ -908,7 +908,7 @@ public class Olympiad
 				FastList<L2PcInstance> classed = new FastList<L2PcInstance>();
 				classed.add(noble);
 
-				_classBasedRegisters.put(noble.getClassId().getCompetitionId(), classed);
+				_classBasedRegisters.put(getCompetitionClass(noble.getClassId().getId()), classed);
 
 				sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_CLASSIFIED_GAMES);
 				noble.sendPacket(sm);
@@ -933,13 +933,13 @@ public class Olympiad
 			return false;
 		if (!_nonClassBasedRegisters.contains(noble))
 		{
-			if (!_classBasedRegisters.containsKey(noble.getClassId().getCompetitionId()))
+			if (!_classBasedRegisters.containsKey(getCompetitionClass(noble.getClassId().getId())))
 			{
 				return false;
 			}
 			else
 			{
-				FastList<L2PcInstance> classed = _classBasedRegisters.get(noble.getClassId().getCompetitionId());
+				FastList<L2PcInstance> classed = _classBasedRegisters.get(getCompetitionClass(noble.getClassId().getId()));
 				if (!classed.contains(noble))
 				{
 					return false;
@@ -947,6 +947,13 @@ public class Olympiad
 			}
 		}
 		return true;
+	}
+
+	private int getCompetitionClass(int classId)
+	{
+		if (classId == 133) // Only one class for soul hounds
+			return 132;
+		return classId;
 	}
 
 	public boolean unRegisterNoble(L2PcInstance noble)
@@ -995,11 +1002,11 @@ public class Olympiad
 			_nonClassBasedRegisters.remove(noble);
 		else
 		{
-			FastList<L2PcInstance> classed = _classBasedRegisters.get(noble.getClassId().getCompetitionId());
+			FastList<L2PcInstance> classed = _classBasedRegisters.get(getCompetitionClass(noble.getClassId().getId()));
 			classed.remove(noble);
 
-			_classBasedRegisters.remove(noble.getClassId().getCompetitionId());
-			_classBasedRegisters.put(noble.getClassId().getCompetitionId(), classed);
+			_classBasedRegisters.remove(getCompetitionClass(noble.getClassId().getId()));
+			_classBasedRegisters.put(getCompetitionClass(noble.getClassId().getId()), classed);
 		}
 
 		sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_DELETED_FROM_THE_WAITING_LIST_OF_A_GAME);
@@ -1578,9 +1585,9 @@ public class Olympiad
 		if (_nonClassBasedRegisters != null && _nonClassBasedRegisters.contains(player))
 			result = true;
 
-		else if (_classBasedRegisters != null && _classBasedRegisters.containsKey(player.getClassId().getCompetitionId()))
+		else if (_classBasedRegisters != null && _classBasedRegisters.containsKey(getCompetitionClass(player.getClassId().getId())))
 		{
-			FastList<L2PcInstance> classed = _classBasedRegisters.get(player.getClassId().getCompetitionId());
+			FastList<L2PcInstance> classed = _classBasedRegisters.get(getCompetitionClass(player.getClassId().getId()));
 			if (classed.contains(player))
 				result = true;
 		}
