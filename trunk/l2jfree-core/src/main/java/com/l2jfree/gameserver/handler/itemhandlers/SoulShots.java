@@ -49,9 +49,6 @@ public class SoulShots implements IItemHandler
 		if (!(playable instanceof L2PcInstance))
 			return;
 
-		synchronized (playable.getActingPlayer().getItemHandlerLock())
-		{
-		
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		L2Weapon weaponItem = activeChar.getActiveWeaponItem();
@@ -110,7 +107,6 @@ public class SoulShots implements IItemHandler
 		// Send message to client
 		activeChar.sendPacket(new SystemMessage(SystemMessageId.ENABLED_SOULSHOT));
 		Broadcast.toSelfAndKnownPlayersInRadius(activeChar, new MagicSkillUse(activeChar, activeChar, SKILL_IDS[weaponGrade], 1, 0, 0), 360000/*600*/);
-		}
 	}
 
 	public int[] getItemIds()

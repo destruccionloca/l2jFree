@@ -167,10 +167,7 @@ public class Potions implements IItemHandler
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		
-		synchronized (playable.getActingPlayer().getItemHandlerLock())
-		{
-		
+
 		int itemId = item.getItemId();
 
 		switch (itemId)
@@ -638,7 +635,6 @@ public class Potions implements IItemHandler
 
 		if (res)
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-		}
 	}
 
 	private boolean isEffectReplaceable(L2PcInstance activeChar, Enum effectType, L2ItemInstance item)

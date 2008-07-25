@@ -261,11 +261,4 @@ public abstract class L2PlayableInstance extends L2Character
 		setCharmOfLuck(false);
 		updateAbnormalEffect();
 	}
-	
-	private Object _itemHandlerLock = new Object();
-	
-	public final Object getItemHandlerLock()
-	{
-		return _itemHandlerLock;
-	}
 }
