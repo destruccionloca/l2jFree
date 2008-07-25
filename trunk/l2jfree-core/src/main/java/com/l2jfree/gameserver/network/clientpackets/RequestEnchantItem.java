@@ -93,7 +93,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 		}
 
 		// Restrict enchant during a trade (bug if enchant fails)
-		if (activeChar.getActiveRequester() != null)
+		if (activeChar.getActiveTradeList() != null)
 		{
 			// Cancel trade
 			activeChar.cancelActiveTrade();
