@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -27,18 +28,11 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.datatables.SpawnTable;
-import com.l2jfree.gameserver.model.actor.instance.L2GuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.util.L2ObjectSet;
 
-
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.4.4 $ $Date: 2005/03/27 15:29:33 $
- */
 public final class L2WorldRegion
 {
     private final static Log _log = LogFactory.getLog(L2WorldRegion.class.getName());
@@ -205,72 +199,46 @@ public final class L2WorldRegion
         }
     }
     
-    private void switchAI(Boolean isOn)
-    {
-        int c = 0;
-        if (!isOn)
-        {
-            for(L2Object o: _visibleObjects)
-            {
-                if (o instanceof L2Attackable)
-                {
-                    c++;
-                    L2Attackable mob = (L2Attackable)o;
-
-                    // Set target to null and cancel Attack or Cast
-                    mob.setTarget(null);
-                    
-                    // Stop movement
-                    mob.stopMove(null);
-                    
-                    // Stop all active skills effects in progress on the L2Character
-                    mob.stopAllEffects();
-                    
-                    mob.clearAggroList();
-                    mob.getKnownList().removeAllKnownObjects();
-                    
-                    mob.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-
-                    // stop the ai tasks if mob is no siege guard
-                    if (mob.getAI() instanceof L2AttackableAI)
-                        ((L2AttackableAI) mob.getAI()).stopAITask();
-
-                    // Stop HP/MP/CP Regeneration task
-                    // try this: allow regen, but only until mob is 100% full...then stop
-                    // it until the grid is made active.
-                    //mob.getStatus().stopHpMpRegeneration();
-                }
-            }
-            if(_log.isDebugEnabled()) _log.debug(c+ " mobs were turned off");
-        }
-        else
-        {
-            for(L2Object o: _visibleObjects)
-            {
-                if (o instanceof L2Attackable)
-                {
-                    c++;
-                    // Start HP/MP/CP Regeneration task
-                    ((L2Attackable)o).getStatus().startHpMpRegeneration();
-                    
-                    // start the ai
-                    //((L2AttackableAI) mob.getAI()).startAITask();
-                }
-                else if (o instanceof L2NpcInstance)
-                {
-                    // Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it 
-                    // L2Monsterinstance/L2Attackable socials are handled by AI
-                    ((L2NpcInstance)o).startRandomAnimationTimer();
-                }
-            }
-            
-            updateRegion(true, false);
-            
-            if (_log.isDebugEnabled())
-                _log.debug(c + " mobs were turned on");
-        }
-        
-    }
+	private void switchAI(boolean isOn)
+	{
+		if (!isOn)
+		{
+			for (L2Object obj : getVisibleObjects())
+			{
+				if (obj instanceof L2Attackable)
+				{
+					L2Attackable mob = (L2Attackable)obj;
+					
+					mob.setTarget(null);
+					mob.stopMove(null, false);
+					mob.stopAllEffects();
+					mob.clearAggroList();
+					mob.clearDamageContributors();
+					mob.resetAbsorbList();
+					mob.getKnownList().removeAllKnownObjects();
+					mob.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+					((L2AttackableAI)mob.getAI()).stopAITask();
+				}
+			}
+		}
+		else
+		{
+			for (L2Object obj : getVisibleObjects())
+			{
+				if (obj instanceof L2Attackable)
+				{
+					((L2Attackable)obj).getStatus().startHpMpRegeneration();
+					//((L2AttackableAI)((L2Attackable)obj).getAI()).startAITask();
+				}
+				else if (obj instanceof L2NpcInstance)
+				{
+					((L2NpcInstance)obj).startRandomAnimationTimer();
+				}
+			}
+			
+			updateRegion();
+		}
+	}
 
     public Boolean isActive()
     {
@@ -462,37 +430,27 @@ public final class L2WorldRegion
         _log.info("All visible NPC's deleted in Region: " + getName());
     }
 	
-	public synchronized void updateRegion(boolean fullUpdate, boolean forgetObjects)
+	private void updateRegion()
 	{
+		List<L2Object> addList = getAllSurroundingObjects();
+		
 		for (L2Object object : getVisibleObjects())
 		{
 			if (object == null || !object.isVisible())
 				continue;
 			
-			boolean mode = (fullUpdate || object instanceof L2PlayableInstance ||
-				(Config.ALLOW_GUARDS && object instanceof L2GuardInstance));
-			
-			if (forgetObjects)
-			{
-				object.getKnownList().forgetObjects(mode);
-				continue;
-			}
-			
-			if (mode)
-			{
-				for (L2WorldRegion regi : getSurroundingRegions())
-					for (L2Object obj : regi.getVisibleObjects())
-						if (obj != object)
-							object.getKnownList().addKnownObject(obj);
-			}
-			else if (object instanceof L2Character)
-			{
-				for (L2WorldRegion regi : getSurroundingRegions())
-					if (regi.isActive())
-						for (L2Object obj : regi.getVisiblePlayable())
-							if (obj != object)
-								object.getKnownList().addKnownObject(obj);
-			}
+			object.getKnownList().tryAddObjects(addList);
 		}
+	}
+	
+	public final List<L2Object> getAllSurroundingObjects()
+	{
+		List<L2Object> result = new FastList<L2Object>();
+		
+		for (L2WorldRegion region : getSurroundingRegions())
+			for (L2Object obj : region.getVisibleObjects())
+				result.add(obj);
+		
+		return result;
 	}
 }

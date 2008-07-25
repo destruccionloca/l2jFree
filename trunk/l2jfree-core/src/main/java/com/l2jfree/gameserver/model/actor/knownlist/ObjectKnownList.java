@@ -14,19 +14,19 @@
  */
 package com.l2jfree.gameserver.model.actor.knownlist;
 
+import java.util.List;
 import java.util.Map;
-import javolution.util.FastMap;
 
+import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2WorldRegion;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -115,14 +115,20 @@ public class ObjectKnownList
         return getActiveObject() == object || getKnownObjects().containsKey(object.getObjectId());
     }
 
-    /** 
-     * Remove all L2Object from _knownObjects 
-     */
-    public void removeAllKnownObjects()
-    {
-        getKnownObjects().clear();
-    }
-
+	/** 
+	 * Remove all L2Object from _knownObjects 
+	 */
+	public void removeAllKnownObjects()
+	{
+		for (L2Object object : getKnownObjects().values())
+		{
+			removeKnownObject(object);
+			object.getKnownList().removeKnownObject(getActiveObject());
+		}
+		
+		getKnownObjects().clear();
+	}
+	
     /**
      * Remove a specific object of the known object for this active object
      * @param object
@@ -133,82 +139,6 @@ public class ObjectKnownList
         if (object == null)
             return false;
         return (getKnownObjects().remove(object.getObjectId()) != null);
-    }
-
-    // used only in Config.MOVE_BASED_KNOWNLIST and does not support guards seeing
-    // moving monsters
-    public final void findObjects()
-    {
-        L2WorldRegion region = getActiveObject().getWorldRegion();
-        if (region == null) return;
-
-        if (getActiveObject() instanceof L2PlayableInstance)
-        {
-            for (L2WorldRegion regi : region.getSurroundingRegions()) // offer members of this and surrounding regions
-            {
-                for (L2Object _object : regi.getVisibleObjects()) 
-                {
-                    if (_object != getActiveObject())
-                    {
-                        addKnownObject(_object);
-                        if (_object instanceof L2Character)
-                            _object.getKnownList().addKnownObject(getActiveObject());
-                    }
-                }
-            }
-        }
-        else if (getActiveObject() instanceof L2Character)
-        {
-            for (L2WorldRegion regi : region.getSurroundingRegions()) // offer members of this and surrounding regions
-            {
-                if (regi.isActive()) for (L2Object _object : regi.getVisiblePlayable()) 
-                {
-                    if (_object != getActiveObject())
-                    {
-                        addKnownObject(_object);
-                    }
-                }
-            }
-        }
-    }
-
-    // Remove invisible and too far L2Object from _knowObject and if necessary from _knownPlayers of the L2Character
-    public final void forgetObjects(boolean fullCheck)
-    {
-        // Go through knownObjects
-        for (L2Object object: getKnownObjects().values())
-        {
-            if (!fullCheck && !(object instanceof L2PlayableInstance))
-                continue;
-
-            // Remove all invisible object
-            // Remove all too far object
-            if (!object.isVisible() ||
-                    !Util.checkIfInShortRadius(getDistanceToForgetObject(object), getActiveObject(), object, true)
-            )
-            {
-                if (object instanceof L2BoatInstance && getActiveObject() instanceof L2PcInstance)
-                {
-                    if(((L2BoatInstance)(object)).getVehicleDeparture() == null)
-                    {
-                        //
-                    }
-                    else if(((L2PcInstance)getActiveObject()).isInBoat())
-                    {
-                        if(((L2PcInstance)getActiveObject()).getBoat() == object)
-                        {
-                            //
-                        }
-                        else
-                            removeKnownObject(object);
-                    }
-                    else
-                        removeKnownObject(object);
-                }
-                else
-                    removeKnownObject(object);
-            }
-        }
     }
 
     /**
@@ -248,4 +178,62 @@ public class ObjectKnownList
             _knownObjects = new FastMap<Integer, L2Object>().setShared(true);
         return _knownObjects;
     }
+	
+	public final void tryAddObjects(List<L2Object> addList)
+	{
+		if (getActiveObject() instanceof L2Character)
+		{
+			if (addList == null)
+				addList = L2World.getInstance().getVisibleObjects(getActiveObject());
+			
+			for (L2Object object : addList)
+			{
+				addKnownObject(object);
+				
+				if (object instanceof L2Character)
+					object.getKnownList().addKnownObject(getActiveObject());
+			}
+		}
+	}
+	
+	public final void tryRemoveObjects()
+	{
+		for (L2Object object : getKnownObjects().values())
+		{
+			tryRemoveObject(object);
+			object.getKnownList().tryRemoveObject(getActiveObject());
+		}
+	}
+	
+	private final void tryRemoveObject(L2Object obj)
+	{
+		if (obj.isVisible() && Util.checkIfInShortRadius(getDistanceToForgetObject(obj), getActiveObject(), obj, true))
+			return;
+		
+		if (obj instanceof L2BoatInstance && getActiveObject() instanceof L2PcInstance)
+		{
+			if (((L2BoatInstance)obj).getVehicleDeparture() == null)
+				return;
+			
+			L2PcInstance pc = (L2PcInstance)getActiveObject();
+			
+			if (pc.isInBoat() && pc.getBoat() == obj)
+				return;
+		}
+		
+		removeKnownObject(obj);
+	}
+	
+	private long _lastUpdate;
+	
+	public synchronized final void updateKnownObjects()
+	{
+		if (System.currentTimeMillis() - _lastUpdate < 100)
+			return;
+		
+		tryRemoveObjects();
+		tryAddObjects(null);
+		
+		_lastUpdate = System.currentTimeMillis();
+	}
 }

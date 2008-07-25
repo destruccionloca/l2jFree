@@ -1023,7 +1023,6 @@ public final class Config
 	 * <li>-1 - Old system: will synchronize Z only</li>
 	 */
 	public static int				COORD_SYNCHRONIZE;
-	public static boolean			MOVE_BASED_KNOWNLIST;
 	public static boolean			RESTORE_PLAYER_INSTANCE;
 	public static int				DELETE_DAYS;
 	public static int				MAX_DRIFT_RANGE;											// Maximum range mobs can randomly go from spawn point
@@ -1163,7 +1162,6 @@ public final class Config
 			MULTIPLE_ITEM_DROP = Boolean.parseBoolean(optionsSettings.getProperty("MultipleItemDrop", "True"));
 
 			COORD_SYNCHRONIZE = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
-			MOVE_BASED_KNOWNLIST = Boolean.parseBoolean(optionsSettings.getProperty("MoveBasedKnownlist", "False"));
 			RESTORE_PLAYER_INSTANCE = Boolean.parseBoolean(optionsSettings.getProperty("RestorePlayerInstance", "False"));
 
 			ALLOW_WAREHOUSE = Boolean.parseBoolean(optionsSettings.getProperty("AllowWarehouse", "True"));

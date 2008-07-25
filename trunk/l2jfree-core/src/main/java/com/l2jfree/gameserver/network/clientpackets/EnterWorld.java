@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -35,6 +34,7 @@ import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.CrownManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.PetitionManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -79,7 +79,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.tools.codec.Base64;
-import com.l2jfree.gameserver.instancemanager.InstanceManager;
 
 /**
  * Enter World Packet Handler<p>
@@ -236,7 +235,9 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.setProtection(true);
 
 		activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-
+		
+		activeChar.getKnownList().updateKnownObjects();
+		
 		if (L2Event.active && L2Event.connectionLossData.containsKey(activeChar.getName()) && L2Event.isOnEvent(activeChar))
 			L2Event.restoreChar(activeChar);
 		else if (L2Event.connectionLossData.containsKey(activeChar.getName()))

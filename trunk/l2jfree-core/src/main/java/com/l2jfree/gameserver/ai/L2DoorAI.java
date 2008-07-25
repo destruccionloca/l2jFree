@@ -27,167 +27,145 @@ import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
  */
 public class L2DoorAI extends L2CharacterAI
 {
-
+	
 	public L2DoorAI(L2DoorInstance.AIAccessor accessor)
 	{
 		super(accessor);
 	}
-
-	// rather stupid AI... well,  it's for doors :D
+	
+	// rather stupid AI... well, it's for doors :D
 	@Override
 	protected void onIntentionIdle()
 	{
 	}
-
+	
 	@Override
 	protected void onIntentionActive()
 	{
 	}
-
+	
 	@Override
 	protected void onIntentionRest()
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onIntentionAttack(L2Character target)
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onIntentionCast(L2Skill skill, L2Object target)
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onIntentionMoveTo(L2CharPosition destination)
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onIntentionFollow(L2Character target)
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onIntentionPickUp(L2Object item)
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onIntentionInteract(L2Object object)
 	{
 	}
-
+	
 	@Override
 	protected void onEvtThink()
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onEvtAttacked(L2Character attacker)
 	{
-		L2DoorInstance me = (L2DoorInstance) _actor;
-		ThreadPoolManager.getInstance().executeTask(new onEventAttackedDoorTask(me, attacker));
+		ThreadPoolManager.getInstance().executeTask(new OnEventAttackedDoorTask(attacker));
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onEvtAggression(L2Character target, int aggro)
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onEvtStunned(L2Character attacker)
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onEvtSleeping(L2Character attacker)
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onEvtRooted(L2Character attacker)
 	{
 	}
-
+	
 	@Override
 	protected void onEvtReadyToAct()
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onEvtUserCmd(Object arg0, Object arg1)
 	{
 	}
-
+	
 	@Override
 	protected void onEvtArrived()
 	{
 	}
-
+	
 	@Override
 	protected void onEvtArrivedRevalidate()
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onEvtArrivedBlocked(L2CharPosition blocked_at_pos)
 	{
 	}
-
+	
 	@Override
-	@SuppressWarnings("unused")
 	protected void onEvtForgetObject(L2Object object)
 	{
 	}
-
+	
 	@Override
 	protected void onEvtCancel()
 	{
 	}
-
+	
 	@Override
 	protected void onEvtDead()
 	{
 	}
-
-	private class onEventAttackedDoorTask implements Runnable
+	
+	private class OnEventAttackedDoorTask implements Runnable
 	{
-		private L2DoorInstance	_door;
-		private L2Character		_attacker;
-
-		public onEventAttackedDoorTask(L2DoorInstance door, L2Character attacker)
+		private final L2Character _attacker;
+		
+		public OnEventAttackedDoorTask(L2Character attacker)
 		{
-			_door = door;
 			_attacker = attacker;
 		}
-
-		/* (non-Javadoc)
-		 * @see java.lang.Runnable#run()
-		 */
+		
 		public void run()
 		{
-			for (L2SiegeGuardInstance guard : _door.getKnownSiegeGuards())
-			{
-				if (_actor.isInsideRadius(guard, guard.getFactionRange(), false, true) && Math.abs(_attacker.getZ() - guard.getZ()) < 200)
-				{
+			getActor().getKnownList().updateKnownObjects();
+			
+			for (L2SiegeGuardInstance guard : ((L2DoorInstance)getActor()).getKnownSiegeGuards())
+				if (getActor().isInsideRadius(guard, guard.getFactionRange(), false, true))
 					guard.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, _attacker, 15);
-				}
-			}
 		}
 	}
 }

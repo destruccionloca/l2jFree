@@ -229,7 +229,6 @@ import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.effects.EffectForce;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
-//import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.templates.L2Armor;
 import com.l2jfree.gameserver.templates.L2ArmorType;
 import com.l2jfree.gameserver.templates.L2EtcItemType;
@@ -10708,7 +10707,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	public final void onTeleported()
 	{
 		super.onTeleported();
-
+		
+		getKnownList().updateKnownObjects();
+		
 		if ((Config.PLAYER_SPAWN_PROTECTION > 0) && !isInOlympiadMode())
 			setProtection(true);
 

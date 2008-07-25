@@ -14,11 +14,13 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.L2WorldRegion;
 
+/**
+ * It removes accidently leaked objects from knownlists :)
+ */
 public final class KnownListUpdateTaskManager implements Runnable
 {
 	private static KnownListUpdateTaskManager _instance;
@@ -31,31 +33,17 @@ public final class KnownListUpdateTaskManager implements Runnable
 		return _instance;
 	}
 	
-	private boolean _forgetObjects = Config.MOVE_BASED_KNOWNLIST;
-	
 	public KnownListUpdateTaskManager()
 	{
-		ThreadPoolManager.getInstance().scheduleAiAtFixedRate(this, 1000, Config.MOVE_BASED_KNOWNLIST ? 3000 : 1000);
+		long delay = 10*60*1000; // 10 min
 		
-		update(true);
+		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, delay, delay);
 	}
 	
 	@Override
 	public void run()
 	{
-		update(false);
-	}
-	
-	private void update(boolean fullUpdate)
-	{
-		for (L2WorldRegion[] regions : L2World.getInstance().getAllWorldRegions())
-			for (L2WorldRegion r : regions)
-				if (r.isActive())
-					r.updateRegion(fullUpdate, _forgetObjects);
-		
-		if (Config.MOVE_BASED_KNOWNLIST)
-			_forgetObjects = true;
-		else
-			_forgetObjects = !_forgetObjects;
+		for (L2Object obj : L2World.getInstance().getAllVisibleObjects())
+			obj.getKnownList().tryRemoveObjects();
 	}
 }

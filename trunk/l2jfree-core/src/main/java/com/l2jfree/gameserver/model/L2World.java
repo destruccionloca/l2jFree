@@ -178,15 +178,9 @@ public final class L2World
 	}
 
 	/**
-	 * Added by Tempy - 08 Aug 05
-	 * Allows easy retrevial of all visible objects in world.
-	 * 
-	 * -- do not use that fucntion, its unsafe!
-	 * 
-	 * @deprecated 
+	 * Thread-safe from now (FastMap.setShared(true)). 
 	 */
-	@Deprecated
-	public final L2ObjectMap<L2Object> getAllVisibleObjects()
+	public final Iterable<L2Object> getAllVisibleObjects()
 	{
 		return _allObjects;
 	}
@@ -479,32 +473,33 @@ public final class L2World
 	 */
 	public FastList<L2Object> getVisibleObjects(L2Object object)
 	{
-		L2WorldRegion reg = object.getWorldRegion();
-
-		if (reg == null)
-			return null;
-
-		// Create an FastList in order to contain all visible L2Object
 		FastList<L2Object> result = new FastList<L2Object>();
-
-		// Go through the FastList of region
-		for (L2WorldRegion regi : reg.getSurroundingRegions())
+		
+		if (object == null)
+			return result;
+		
+		L2WorldRegion reg = object.getWorldRegion();
+		
+		if (reg == null)
+			return result;
+		
+		for (L2WorldRegion region : reg.getSurroundingRegions())
 		{
-			// Go through visible objects of the selected region
-			for (L2Object _object : regi.getVisibleObjects())
+			for (L2Object obj : region.getVisibleObjects())
 			{
-				if (_object.equals(object))
-					continue; // skip our own character
-				if (!_object.isVisible())
-					continue; // skip dying objects
-
-				result.add(_object);
+				if (obj == null || obj == object)
+					continue;
+				
+				if (!obj.isVisible())
+					continue;
+				
+				result.add(obj);
 			}
 		}
-
+		
 		return result;
 	}
-
+	
 	/**
 	 * Return all visible objects of the L2WorldRegions in the circular area (radius) centered on the object.<BR><BR>
 	 *

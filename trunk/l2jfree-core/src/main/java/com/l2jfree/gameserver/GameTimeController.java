@@ -170,17 +170,14 @@ public final class GameTimeController extends Thread
 			for (L2Character cha; (cha = getNextEndedChar()) != null;)
 				try
 				{
+					cha.getKnownList().updateKnownObjects();
+					
 					if (cha.hasAI())
-					{
-						if (Config.MOVE_BASED_KNOWNLIST)
-							cha.getKnownList().findObjects();
-						
 						cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
-					}
 				}
 				catch (Exception e)
 				{
-					_log.error("", e);
+					_log.warn("", e);
 				}
 		}
 	}

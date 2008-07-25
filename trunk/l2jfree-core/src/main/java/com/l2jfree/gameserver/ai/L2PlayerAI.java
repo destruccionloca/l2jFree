@@ -22,7 +22,6 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
@@ -389,8 +388,7 @@ public class L2PlayerAI extends L2CharacterAI
 	@Override
 	protected void onEvtArrivedRevalidate()
 	{
-		if (Config.MOVE_BASED_KNOWNLIST)
-			getActor().getKnownList().findObjects();
+		getActor().getKnownList().updateKnownObjects();
 		super.onEvtArrivedRevalidate();
 	}
 }

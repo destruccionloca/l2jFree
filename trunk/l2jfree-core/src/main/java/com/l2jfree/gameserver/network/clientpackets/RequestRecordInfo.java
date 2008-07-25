@@ -58,6 +58,7 @@ public class RequestRecordInfo extends L2GameClientPacket
         if (_activeChar == null)
             return;
 
+        _activeChar.getKnownList().updateKnownObjects();
         _activeChar.sendPacket(new UserInfo(_activeChar));
 
         for (L2Object object : _activeChar.getKnownList().getKnownObjects().values())

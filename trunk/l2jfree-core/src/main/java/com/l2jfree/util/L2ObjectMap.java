@@ -22,7 +22,6 @@ package com.l2jfree.util;
 
 import java.util.Iterator;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Object;
 
 
@@ -53,12 +52,14 @@ public abstract class L2ObjectMap<T extends L2Object> implements Iterable<T>
 
 	public static L2ObjectMap<L2Object> createL2ObjectMap()
 	{
-		switch (Config.MAP_TYPE)
-		{
-		case WorldObjectMap:
-			return new WorldObjectMap<L2Object>();
-		default:
-			return new WorldObjectTree<L2Object>();
-		}
+		return new WorldObjectMap<L2Object>();
+		
+		//switch (Config.MAP_TYPE)
+		//{
+		//case WorldObjectMap:
+		//	return new WorldObjectMap<L2Object>();
+		//default:
+		//	return new WorldObjectTree<L2Object>();
+		//}
 	}
 }

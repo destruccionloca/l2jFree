@@ -2163,7 +2163,7 @@ public class L2Attackable extends L2NpcInstance
         }
     }
 
-    private void resetAbsorbList()
+    public void resetAbsorbList()
     {
         _absorbed = false;
         _absorbersList.clear();

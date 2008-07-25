@@ -72,7 +72,6 @@ import com.l2jfree.gameserver.skills.funcs.LambdaConst;
 import com.l2jfree.gameserver.skills.funcs.LambdaStats;
 import com.l2jfree.gameserver.templates.L2ArmorType;
 import com.l2jfree.gameserver.templates.L2Equip;
-import com.l2jfree.gameserver.templates.L2Weapon;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.gameserver.templates.StatsSet;
 

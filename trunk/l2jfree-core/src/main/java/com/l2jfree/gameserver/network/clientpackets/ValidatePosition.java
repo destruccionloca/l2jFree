@@ -19,14 +19,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.GeoData;
 import com.l2jfree.gameserver.TaskPriority;
 import com.l2jfree.gameserver.geoeditorcon.GeoEditorListener;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
-import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -219,6 +217,8 @@ public class ValidatePosition extends L2GameClientPacket
 		        activeChar.teleToLocation(TeleportWhereType.Town);
 		    }
 		}
+		
+		activeChar.getKnownList().updateKnownObjects();
     }
 
     /* (non-Javadoc)

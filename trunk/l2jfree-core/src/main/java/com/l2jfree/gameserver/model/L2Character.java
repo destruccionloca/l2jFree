@@ -24,6 +24,7 @@ import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -4882,8 +4883,8 @@ public abstract class L2Character extends L2Object
 			revalidateZone(true);
 		}
 		broadcastPacket(new StopMove(this));
-		if (Config.MOVE_BASED_KNOWNLIST && updateKnownObjects)
-			getKnownList().findObjects();
+		if (updateKnownObjects)
+			getKnownList().updateKnownObjects();
 	}
 
 	/**
