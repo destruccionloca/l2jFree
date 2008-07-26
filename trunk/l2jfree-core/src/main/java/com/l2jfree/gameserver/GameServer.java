@@ -145,7 +145,7 @@ public class GameServer
 		String userdir = java.lang.System.getProperty("user.home");
 		if (username.equals("root") && userdir.equals("/root"))
 		{
-			System.out.print("L2Jfree servers should not run under root-account ...");
+			System.out.print("l2jfree servers should not run under root-account ...");
 
 			for (int i = 0; i < 9; i++)
 			{

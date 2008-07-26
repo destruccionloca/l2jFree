@@ -785,6 +785,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	// WorldPosition used by TARGET_SIGNET_GROUND
 	private Point3D							_currentSkillWorldPosition;
+	private long							_timePreviousBroadcastStatusUpdate	= 0;
+	private long							_timePreviousCharInfoUpdate = 0;
 
 	/** Skill casting information (used to queue when several skills are cast in a short time) **/
 	public class SkillDat
@@ -3938,6 +3940,14 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public final void broadcastUserInfo()
 	{
+		if (Config.NETWORK_TRAFFIC_OPTIMIZATION)
+		{
+			long currTimeMillis = System.currentTimeMillis();
+			if (currTimeMillis - _timePreviousBroadcastStatusUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_BROADCAST_MS)
+				return;
+			_timePreviousBroadcastStatusUpdate = currTimeMillis;
+		}
+		
 		// Send a Server->Client packet UserInfo to this L2PcInstance
 		sendPacket(new UserInfo(this));
 
@@ -3963,14 +3973,23 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public final void broadcastPacket(L2GameServerPacket mov)
 	{
+		
 		if (!(mov instanceof CharInfo))
 			sendPacket(mov);
 
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
-			player.sendPacket(mov);
 			if (mov instanceof CharInfo)
 			{
+				if (Config.NETWORK_TRAFFIC_OPTIMIZATION)
+				{
+					long currTimeMillis = System.currentTimeMillis();
+					if (currTimeMillis - _timePreviousCharInfoUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_BROADCAST_MS)
+						return;
+					_timePreviousCharInfoUpdate = currTimeMillis;
+				}
+				player.sendPacket(mov);
+				
 				int relation = getRelation(player);
 				if (getKnownList().getKnownRelations().get(player.getObjectId()) != null
 						&& getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
@@ -3979,6 +3998,10 @@ public final class L2PcInstance extends L2PlayableInstance
 					if (getPet() != null)
 						player.sendPacket(new RelationChanged(getPet(), relation, player.isAutoAttackable(this)));
 				}
+			}
+			else
+			{
+				player.sendPacket(mov);
 			}
 		}
 	}

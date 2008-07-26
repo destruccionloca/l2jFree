@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.GameServer;
+import com.l2jfree.gameserver.L2JfreeInfo;
 import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.TaskPriority;
@@ -260,28 +261,8 @@ public class EnterWorld extends L2GameClientPacket
 		// Send client time
 		sendPacket(ClientSetTime.STATIC_PACKET);
 
-		if (Config.SHOW_L2J_LICENSE)
-		{
-			sm = new SystemMessage(SystemMessageId.S2_S1);
-			sm.addString(getText("IHZlcnNpb24gNiBkZXYvdW5zdGFibGU="));
-			sm.addString(getText("VGhpcyBTZXJ2ZXIgaXMgcnVubmluZyBMMko="));
-			sendPacket(sm);
-			sm = new SystemMessage(SystemMessageId.S2_S1);
-			sm.addString(getText("IEwySiB0ZWFtLg=="));
-			sm.addString(getText("Y3JlYXRlZCBieSBMMkNoZWYgYW5kIHRoZQ=="));
-			sendPacket(sm);
-			sm = new SystemMessage(SystemMessageId.S2_S1);
-			sm.addString(getText("ICBmb3Igc3VwcG9ydC4="));
-			sm.addString(getText("dmlzaXQgbDJqc2VydmVyLmNvbQ=="));
-			sendPacket(sm);
-
-			sm = new SystemMessage(SystemMessageId.S1);
-			sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==") + "   " + GameServer.getVersionNumber());
-			sendPacket(sm);
-			/* sm = new SystemMessage(SystemMessageId.S1);
-			sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==") + " " + GameServer.getBuildDate());
-			sendPacket(sm); */
-		}
+		if (Config.SHOW_LICENSE)
+			L2JfreeInfo.versionInfo(activeChar);
 
 		if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
 		{

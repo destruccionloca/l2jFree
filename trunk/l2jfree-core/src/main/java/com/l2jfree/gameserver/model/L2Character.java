@@ -594,7 +594,7 @@ public abstract class L2Character extends L2Object
 		{
 			long currTimeMillis = System.currentTimeMillis();
 			// Minimum time between sending status update. Can be increased a bit for further saves in network traffic
-			if (getStatus().getCurrentHp() > 1 && currTimeMillis - _timePreviousBroadcastStatusUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_MS)
+			if (getStatus().getCurrentHp() > 1 && currTimeMillis - _timePreviousBroadcastStatusUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_STATUS_MS)
 				return;
 			_timePreviousBroadcastStatusUpdate = currTimeMillis;
 		}

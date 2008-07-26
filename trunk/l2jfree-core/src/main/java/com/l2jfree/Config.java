@@ -89,7 +89,8 @@ public final class Config
 	public static boolean		SAFE_REBOOT_DISABLE_PC_ITERACTION	= false;
 	public static boolean		SAFE_REBOOT_DISABLE_NPC_ITERACTION	= false;
 	public static boolean		NETWORK_TRAFFIC_OPTIMIZATION;
-	public static int			NETWORK_TRAFFIC_OPTIMIZATION_MS;
+	public static int			NETWORK_TRAFFIC_OPTIMIZATION_STATUS_MS;
+	public static int			NETWORK_TRAFFIC_OPTIMIZATION_BROADCAST_MS;
 	public static int			MIN_PROTOCOL_REVISION;																// protocol revision
 	public static int			MAX_PROTOCOL_REVISION;
 	public static boolean		FLOOD_PROTECTION					= false;
@@ -990,7 +991,7 @@ public final class Config
 	public static boolean			AUTODELETE_INVALID_QUEST_DATA;								// Auto-delete invalid quest data ?
 	public static boolean			FORCE_INVENTORY_UPDATE;
 	public static boolean			LAZY_CACHE;
-	public static boolean			SHOW_L2J_LICENSE;											// Show License at login
+	public static boolean			SHOW_LICENSE;											// Show License at login
 	public static boolean			SHOW_HTML_WELCOME;											// Show html window at login
 	public static boolean			SHOW_HTML_NEWBIE;
 	public static boolean			SHOW_HTML_GM;
@@ -1258,7 +1259,7 @@ public final class Config
 			GEO_CORRECT_Z = CorrectSpawnsZ.valueOf(correctZ.toUpperCase());
 			ACCEPT_GEOEDITOR_CONN = Boolean.parseBoolean(optionsSettings.getProperty("AcceptGeoeditorConn", "False"));
 
-			SHOW_L2J_LICENSE = Boolean.parseBoolean(optionsSettings.getProperty("ShowL2JLicense", "false"));
+			SHOW_LICENSE = Boolean.parseBoolean(optionsSettings.getProperty("ShowLicense", "false"));
 			SHOW_HTML_WELCOME = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLWelcome", "false"));
 			SHOW_HTML_NEWBIE = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLNewbie", "False"));
 			SHOW_HTML_GM = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLGm", "False"));

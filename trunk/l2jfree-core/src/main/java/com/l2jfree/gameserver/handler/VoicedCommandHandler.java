@@ -23,6 +23,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.CastleDoors;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Wedding;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Hellbound;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.VersionInfo;
 
 /**
  * This class ...
@@ -49,6 +50,7 @@ public class VoicedCommandHandler
 		_datatable = new FastMap<String, IVoicedCommandHandler>();
 		registerVoicedCommandHandler(new CastleDoors());
 		registerVoicedCommandHandler(new Hellbound());
+		registerVoicedCommandHandler(new VersionInfo());
 		if (Config.ALLOW_WEDDING)
 		{
 			registerVoicedCommandHandler(new Wedding());
