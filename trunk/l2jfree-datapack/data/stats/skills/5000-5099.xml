@@ -91,10 +91,16 @@
       Description(s):
       A general performance.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="power" val="60000.0"/>
+    <set name="hitTime" val="25000"/>
+    <set name="target" val="TARGET_AREA"/>
+    <set name="reuseDelay" val="40000"/>
+    <set name="skillRadius" val="700"/>
+    <set name="skillTime" val="25000"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="1200"/>
+    <set name="effectRange" val="1400"/>
     <for></for>
   </skill>
   <skill id="5007" levels="5" name="Frintezza's Songs">
@@ -108,11 +114,41 @@
       Lvl 4 - Frintezza's Plagued Concerto      A triumphant ballad of Heal Suppressing.
       Lvl 5 - Frintezza's Psycho Symphony       Two Can Dance + Cancel Performance.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <table name="#skill_landing_percent"> 0 60 0 0 0</table>
+    <table name="#skillRadius"> 0 100 0 100 100</table>
+    <table name="#Power">0 0 5.0 10 30</table>
+    <table name="#Heal">2.3 0 0 10 30</table>
+    <table name="#time">20 20 0 10 30</table>
+    <table name="#rampage"> 0 1000 0 0 0</table>
+    <table name="#Plague"> 0 0 0 450.0 0</table>
+    <table name="#Psycho"> 0 0 0 0 4.9</table>
+    <table name="#shTime"> 32000 32000 32000 31000 35000</table>
+    <set name="hitTime" val="#shTime"/>
+    <set name="skillTime" val="#shTime"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillRadius" val="#skillRadius"/>
+    <set name="castRange" val="1200"/>
+    <set name="skill_landing_percent" val="#skill_landing_percent"/>
+    <set name="negateStats" val="Buff"/>
+    <set name="negatePower" val="#rampage"/>
+    <for>
+       <effect count="5" name="DamOverTime" time="#time" val="#Plague"/>
+       <effect count="1" name="Confusion" time="#time" val="0">
+          <div stat="pAtkSpd" val="#Psycho" order="0x40"/>
+          <div stat="mAtkSpd" val="#Psycho" order="0x40"/>
+          <div stat="runSpd" val="#Psycho" order="0x40"/>
+          <div stat="accCombat" val="#Psycho" order="0x40"/>
+          <div stat="rEvas" val="#Psycho" order="0x40"/>
+          <div stat="pDef" val="#Psycho" order="0x40"/>
+       </effect>
+       <effect count="1" name="Buff" time="#time" val="0">
+          <div stat="pAtkSpd" val="#Power" order="0x40"/>
+          <div stat="runSpd" val="#Power" order="0x40"/>
+          <div stat="regHp" val="#Heal" order="0x40"/>
+       </effect>
+    </for>
   </skill>
   <skill id="5008" levels="5" name="Frintezza's Songs">
     <!--
@@ -144,11 +180,22 @@
       Description(s):
       A portrait ghost that can make physical attacks.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <set name="power" val="250"/>
+    <set name="mpConsume" val="140"/>
+    <set name="save" val="4"/>
+    <set name="hitTime" val="830"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillTime" val="4500"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="10000"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
+    <set name="effectType" val="STUN"/>
+    <set name="effectPower" val="900000"/>
+    <for>
+       <effect count="1" name="Stun" time="10" val="0" stackOrder="1" stackType="Stun"/>
+    </for>
   </skill>
   <skill id="5010" levels="1"
     name="Frintezza's Ghostly Mage">
@@ -158,11 +205,24 @@
       Description(s):
       A portrait ghost that can make magical attacks.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <set name="mpConsume" val="20"/>
+    <set name="save" val="3"/>
+    <set name="power" val="250.0"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="4500"/>
+    <set name="skillTime" val="4000"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="6000"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+    <set name="effectType" val="PARALYZE"/>
+    <set name="effectPower" val="90"/>
+    <for>
+       <effect count="1" name="Paralyze" time="6" val="0"/>
+    </for>
   </skill>
   <skill id="5011" levels="1"
     name="Frintezza's Bomber Ghost">
@@ -172,11 +232,26 @@
       Description(s):
       A portrait ghost who can create a suicide explosion.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <set name="hpConsume" val="28000"/>
+    <set name="mpConsume" val="1"/>
+    <set name="power" val="120000"/>
+    <set name="overHit" val="true"/>
+    <set name="target" val="TARGET_AURA"/>
+    <set name="skillRadius" val="300"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="50"/>
+    <set name="effectRange" val="120"/>
+    <set name="skillTime" val="2000"/>
+    <set name="hitTime" val="2000"/>
+    <cond>
+       <player hp="75"/>
+    </cond>
+    <for>
+       <effect count="1" name="Stun" time="25" val="0">
+          <add order="0x40" stat="rCrit" val="20"/>
+       </effect>
+    </for>
   </skill>
   <skill id="5012" levels="1" name="Breath of Scarlet">
     <!--
@@ -185,11 +260,23 @@
       Description(s):
       Instantly Immobilizes.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <set name="mpConsume" val="200"/>
+    <set name="save" val="5"/>
+    <set name="power" val="100"/>
+    <set name="lvlDepend" val="2"/>
+    <set name="target" val="TARGET_AREA"/>
+    <set name="hitTime" val="830"/>
+    <set name="reuseDelay" val="9000"/>
+    <set name="skillTime" val="2500"/>
+    <set name="skillType" val="PARALYZE"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="30000"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <for>
+       <effect count="1" name="Paralyze" time="30" val="0" stackOrder="1" stackType="Paralyze"/>
+    </for>
   </skill>
   <skill id="5013" levels="1"
     name="Frintezza Ghost Drain">
@@ -201,10 +288,18 @@
     -->
     <set name="element" val="6" />
     <!-- Dark -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="mpConsume" val="200"/>
+    <set name="power" val="200"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="1000"/>
+    <set name="element" val="6"/>
+    <set name="skillTime" val="1000"/>
+    <set name="skillType" val="DRAIN"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <set name="absorbPart" val="0.8"/>
     <for></for>
   </skill>
   <skill id="5014" levels="3"
@@ -217,10 +312,21 @@
       Lvl 2 - Demon 2 general attack.
       Lvl 3 - Demon 3 general attack.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="mpConsume" val="300"/>
+    <set name="power" val="60000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="conditionValue" val="2"/>
+    <set name="reuseDelay" val="100000"/>
+    <set name="hitTime" val="2030"/>
+    <set name="condition" val="128"/>
+    <set name="skillTime" val="2000"/>
+    <set name="skillType" val="CHARGEDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="200"/>
+    <set name="effectRange" val="400"/>
+    <!-- charge values -->
+    <set name="num_charges" val="1"/>
+    <set name="charge_skill_id" val="5015"/>
     <for></for>
   </skill>
   <skill id="5015" levels="6"
@@ -236,11 +342,23 @@
       Lvl 5 - Demon 2 slow charge.
       Lvl 6 - Demon 3 slow charge.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <table name="#power"> 3.0 5.0 10.0 15.0 20.0 30.0</table>
+    <table name="#charges"> 1 2 3 4 5 6</table>
+    <table name="#hitTime"> 1500 1450 1300 1200 1050 900</table>
+    <set name="mpConsume" val="20"/>
+    <set name="hpConsume" val="300"/>
+    <set name="power" val="#power"/>
+    <set name="hitTime" val="#hitTime"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillTime" val="900"/>
+    <set name="skillType" val="CHARGE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="num_charges" val="#charges"/>
+    <for>
+       <effect count="1" name="Charge" time="180000" val="1"/>
+    </for>
   </skill>
   <skill id="5016" levels="1" name="Yoke of Scarlet">
     <!--
@@ -249,11 +367,23 @@
       Description(s):
       Instantly Immobilizes.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <set name="mpConsume" val="200"/>
+    <set name="save" val="5"/>
+    <set name="power" val="100"/>
+    <set name="lvlDepend" val="2"/>
+    <set name="target" val="TARGET_AREA"/>
+    <set name="hitTime" val="2030"/>
+    <set name="reuseDelay" val="9000"/>
+    <set name="skillTime" val="2000"/>
+    <set name="skillType" val="PARALYZE"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="30000"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <for>
+       <effect count="1" name="Paralyze" time="30" val="0" stackOrder="1" stackType="Paralyze"/>
+    </for>
   </skill>
   <skill id="5017" levels="1"
     name="Frintezza's Daemon Morph">
@@ -263,11 +393,26 @@
       Description(s):
       Demon 1 metamorphosis.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <set name="mpConsume" val="300"/>
+    <set name="power" val="0.0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="hitTime" val="2500"/>
+    <set name="reuseDelay" val="1000000"/>
+    <set name="skillTime" val="2300"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="120000"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="1400"/>
+    <for>
+       <effect count="1" name="Buff" time="120" val="0">
+          <add order="0x40" stat="pDef" val="500"/>
+          <add order="0x40" stat="mDef" val="300"/>
+          <add order="0x40" stat="rEvas" val="10"/>
+          <sub order="0x40" stat="cancel" val="30"/>
+       </effect>
+    </for>
   </skill>
   <skill id="5018" levels="2"
     name="Frintezza's Daemon Field">
@@ -278,11 +423,22 @@
       Lvl 1 - Demon 2 magic field.
       Lvl 2 - Demon 3 magic field.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <table name="#Tab-pDef"> 2.08 3.12 </table>
+    <set name="power" val="0.0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="hitTime" val="1000"/>
+    <set name="skillTime" val="1500"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="reuseDelay" val="1000000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="buffDuration" val="60000"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+       <effect count="1" name="Buff" time="60" val="0">
+          <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
+       </effect>
+    </for>
   </skill>
   <skill id="5019" levels="1"
     name="Frintezza's Daemon Drain">
@@ -292,12 +448,18 @@
       Description(s):
       Demon 3 HP drain range.
     -->
-    <set name="element" val="6" />
-    <!-- Dark -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="mpConsume" val="200"/>
+    <set name="power" val="2000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="3000"/>
+    <set name="element" val="6"/>
+    <set name="skillTime" val="2700"/>
+    <set name="skillType" val="DRAIN"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <set name="absorbPart" val="0.8"/>
     <for></for>
   </skill>
   <skill id="5020" levels="1" name="Forced Action">

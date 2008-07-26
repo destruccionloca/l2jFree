@@ -1202,18 +1202,35 @@
     <for></for>
   </skill>
   <skill id="4577" levels="12" name="Decrease Accuracy">
-    <!-- TODO -->
-    <table name="#mpConsume">
-      18 29 40 53 68 83 98 104 109 113 115 117
+  <!-- TODO -->
+	<table name="#mpConsume">
+	  18 29 40 53 68 83 98 104 109 113 115 117 
+	</table>
+	<set name="mpConsume" val="#mpConsume"/>
+	<table name="#power">
+      11 16 23 31 41 51 61 66 70 73 76 78
     </table>
+	<table name="#magicLvl">
+      10 20 30 40 50 60 70 75 80 85 90 95
+    </table> 
+    <set name="magicLvl" val="#magicLvl" />
+    <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="hitTime" val="1500" />
-    <set name="operateType" val="OP_ACTIVE" />
+    <set name="power" val="#power" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="hitTime" val="3100" />
+    <set name="skillType" val="MDAM" />
     <set name="isMagic" val="true" />
-    <set name="castRange" val="500" />
-    <for></for>
+    <set name="isDebuff" val="true" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="600" />
+    <set name="effectRange" val="1100" />
+    <for>
+      <effect count="1" name="Debuff" time="30" val="0"
+        stackOrder="10" stackType="accuracyDown">
+        <sub order="0x40" stat="accCombat" val="10" />
+      </effect>
+    </for>
   </skill>
   <skill id="4578" levels="1" name="Petrification">
     <!-- Done by DJ MELERIX -->
@@ -1234,69 +1251,145 @@
     </for>
   </skill>
   <skill id="4579" levels="12" name="Bleed">
-    <!-- TODO -->
-    <table name="#mpConsume">
-      27 44 62 85 109 135 157 168 177 182 187 189
+  <!-- TODO -->
+    <table name="#damage">
+      27 39 51 66 81 93 102 102 105 105 108 108
     </table>
+	<table name="#mpConsume"> 27 44 62 85 109 135 157 168 177 182 187 189 
+	</table>
+    <table name="#effectLevel">
+      2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0
+    </table>
+    <table name="#magicLvl">
+      10 20 30 40 50 60 70 75 80 85 90 95
+    </table>
+    <set name="magicLvl" val="#magicLvl" />
+    <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="hitTime" val="1800" />
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="hitTime" val="1000" />
+    <set name="skillType" val="BLEED" />
+    <set name="isDebuff" val="true" />
+    <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
-    <for></for>
+    <set name="effectRange" val="200" />
+    <set name="effectType" val="BLEED" />
+    <set name="effectLevel" val="#effectLevel" />
+    <for>
+      <effect count="7" name="DamOverTime" time="3"
+        val="#damage" abnormal="bleeding" />
+    </for>
   </skill>
   <skill id="4580" levels="12" name="Decrease P.Atk">
-    <!-- TODO -->
-    <table name="#mpConsume">
-      25 41 57 77 100 123 143 153 161 166 170 172
+  <!-- TODO -->
+  <table name="#mpConsume"> 25 41 57 77 100 123 143 153 161 166 170 172 </table>
+    <table name="#pAtk">
+      0.83 0.80 0.80 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77
+      0.77
+    </table>
+    <table name="#power">
+      18 26 38 52 68 85 102 110 116 122 126 129
+    </table>
+    <table name="#time">
+      10 10 15 15 15 15 15 15 15 15 15 15
     </table>
     <set name="mpConsume" val="#mpConsume" />
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="hitTime" val="1800" />
+    <set name="power" val="#power" />
+    <set name="isDebuff" val="true" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="skillType" val="MDAM" />
+    <set name="hitTime" val="4000" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="40" />
-    <for></for>
+    <set name="isMagic" val="true" />
+    <set name="castRange" val="600" />
+    <set name="effectRange" val="1100" />
+    <for>
+      <effect count="1" name="Debuff" time="#time" val="0"
+        stackOrder="#pAtk" stackType="pDefDown">
+        <mul order="0x30" stat="pAtk" val="#pAtk" />
+      </effect>
+    </for>
   </skill>
   <skill id="4581" levels="12" name="Hold">
-    <!-- TODO -->
-    <table name="#mpConsume">
-      25 41 57 77 100 123 143 153 161 166 170 172
+  <!-- TODO -->
+    <table name="#power">
+      18 26 38 52 68 85 102 110 116 122 126 129
     </table>
+	<table name="#mpConsume">
+	  25 41 57 77 100 123 143 153 161 166 170 172 
+    </table>
+    <set name="element" val="6" /><!-- Dark -->
     <set name="mpConsume" val="#mpConsume" />
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="hitTime" val="1800" />
+    <set name="power" val="#power" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="skillType" val="DRAIN" />
+    <set name="hitTime" val="4000" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="40" />
-    <for></for>
+    <set name="isMagic" val="true" />
+    <set name="isDebuff" val="true" />
+    <set name="castRange" val="600" />
+    <set name="effectRange" val="1100" />
+    <set name="absorbPart" val="0.2" />
+    <set name="absorbAbs" val="0" />
+    <for>
+      <effect count="1" name="Root" time="30" val="0"
+        stackOrder="1" stackType="Root" />
+    </for>
   </skill>
   <skill id="4582" levels="12" name="Poison">
     <!-- TODO -->
-    <table name="#mpConsume">
-      25 41 57 77 100 123 143 153 161 166 170 172
+    <table name="#dot">
+      36 54 72 93 114 132 144 144 150 150 153 153
+    </table>
+    <table name="#mpConsume"> 25 41 57 77 100 123 143 153 161 166 170 172 </table>
+    <table name="#effectLevel">
+      2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0
     </table>
     <set name="mpConsume" val="#mpConsume" />
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="hitTime" val="1800" />
+    <set name="power" val="0.0" />
+    <set name="lvlDepend" val="1" />
+    <set name="target" val="TARGET_AURA" />
+    <set name="skillRadius" val="200" />
+    <set name="skillType" val="POISON" />
+    <set name="isDebuff" val="true" />
+    <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="40" />
-    <for></for>
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
+    <set name="effectType" val="POISON" />
+    <set name="effectLevel" val="#effectLevel" />
+    <for>
+      <effect count="10" name="DamOverTime" time="3"
+        val="#dot" abnormal="poison" />
+    </for>
   </skill>
   <skill id="4583" levels="12" name="Decrease Speed">
     <!-- TODO -->
-    <table name="#mpConsume">
-      38 63 88 119 154 190 222 237 249 258 263 266
+    <table name="#runSpd">
+      0.85 0.70 0.70 0.50 0.50 0.50 0.50 0.50 0.50 0.50 0.50
+      0.50
     </table>
+    <table name="#power">
+      46 105 219 417 722 1136 1626 1876 2112 2320 2487 2617
+    </table>
+    <table name="#mpConsume"> 38 63 88 119 154 190 222 237 249 258 263 266 </table>
     <set name="mpConsume" val="#mpConsume" />
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="hitTime" val="4000" />
+    <set name="power" val="#power" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="skillType" val="PDAM" />
+    <set name="hitTime" val="1800" />
+    <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="700" />
-    <for></for>
+    <set name="castRange" val="40" />
+    <set name="effectRange" val="200" />
+    <for>
+      <effect count="1" name="Debuff" time="30" val="0"
+        stackOrder="#runSpd" stackType="RunSpeedDown">
+        <mul order="0x30" stat="runSpd" val="#runSpd" />
+      </effect>
+    </for>
   </skill>
   <skill id="4584" levels="12"
     name="Reducing P. Def Shock">
