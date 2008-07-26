@@ -188,7 +188,8 @@ public final class Config
 			SAFE_REBOOT_DISABLE_NPC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableNpcIteraction", "False"));
 
 			NETWORK_TRAFFIC_OPTIMIZATION = Boolean.parseBoolean(serverSettings.getProperty("NetworkTrafficOptimization", "False"));
-			NETWORK_TRAFFIC_OPTIMIZATION_MS = Integer.parseInt(serverSettings.getProperty("NetworkTrafficOptimizationMs", "1100"));
+			NETWORK_TRAFFIC_OPTIMIZATION_STATUS_MS = Integer.parseInt(serverSettings.getProperty("NetworkTrafficOptimizationStatusMs", "400"));
+			NETWORK_TRAFFIC_OPTIMIZATION_BROADCAST_MS = Integer.parseInt(serverSettings.getProperty("NetworkTrafficOptimizationBroadcastMs", "800"));
 			FLOOD_PROTECTION = Boolean.parseBoolean(serverSettings.getProperty("FloodProtection", "False"));
 			PACKET_LIMIT = Integer.parseInt(serverSettings.getProperty("PacketLimit", "500"));
 			PACKET_TIME_LIMIT = Integer.parseInt(serverSettings.getProperty("PacketTimeLimit", "1100"));
