@@ -124,79 +124,68 @@ import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.PathCreator;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.status.Status;
-import com.l2jfree.tools.random.RandomIntGenerator;
 import com.l2jfree.versionning.Version;
 
 public class GameServer
 {
-	private static final Log					_log					= LogFactory.getLog(GameServer.class.getName());
-	public static GameServer					gameServer;
-	private final IdFactory						_idFactory;
-	private final Shutdown						_shutdownHandler;
-	private final SelectorThread<L2GameClient>	_selectorThread;
-	private static Status						_statusServer;
-	public static final Calendar				dateTimeServerStarted	= Calendar.getInstance();
-	private LoginServerThread					_loginThread;
-	private static final Version				version					= new Version();
-
+	private static final Log _log = LogFactory.getLog(GameServer.class);
+	private static final Calendar _serverStarted = Calendar.getInstance();
+	private static final Version version = new Version();
+	private static SelectorThread<L2GameClient> _selectorThread;
+	
 	public GameServer() throws Throwable
 	{
-		String username = java.lang.System.getProperty("user.name");
-		String userdir = java.lang.System.getProperty("user.home");
+		String username = System.getProperty("user.name");
+		String userdir = System.getProperty("user.home");
 		if (username.equals("root") && userdir.equals("/root"))
 		{
 			System.out.print("l2jfree servers should not run under root-account ...");
-
+			
 			for (int i = 0; i < 9; i++)
 			{
 				System.out.print(".");
-
+				
 				long ticker = System.currentTimeMillis();
 				while (System.currentTimeMillis() - ticker < 1000)
 				{
 					//
 				}
 			}
-
+			
 			System.out.println(". exited.");
 			System.exit(-1);
 		}
-
+		
 		Config.load();
-
-		if (Config.DEADLOCKCHECK_INTERVAL > 0)
-			DeadlockDetector.getInstance();
-
+		
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
 		Util.printSection("Preparations");
 		L2JfreeInfo.showStartupInfo();
 		new PathCreator();
 		Util.printSection("World");
-		RandomIntGenerator.getInstance();
 		L2World.getInstance();
+		if (Config.IS_TELNET_ENABLED)
+			new Status().start();
+		else
+			_log.info("Telnet Server is currently disabled.");
 		MapRegionManager.getInstance();
 		Announcements.getInstance();
-		_idFactory = IdFactory.getInstance();
-		if (!_idFactory.isInitialized())
+		if (!IdFactory.getInstance().isInitialized())
 		{
 			_log.fatal("Could not read object IDs from DB. Please Check Your Data.");
 			throw new Exception("Could not initialize the ID factory");
 		}
 		_log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
 		ThreadPoolManager.getInstance().startPurgeTask(600000L);
+		if (Config.DEADLOCKCHECK_INTERVAL > 0)
+			DeadlockDetector.getInstance();
 		if (Config.GEODATA)
 		{
 			GeoData.getInstance();
-			if (_log.isDebugEnabled())
-				_log.debug("GeoData initialized");
-
+			
 			if (Config.GEO_PATH_FINDING)
-			{
 				GeoPathFinding.getInstance();
-				if (_log.isDebugEnabled())
-					_log.debug("GeoPathFinding initialized");
-			}
 		}
 		StaticObjects.getInstance();
 		GameTimeController.getInstance();
@@ -291,7 +280,6 @@ public class GameServer
 		Util.printSection("Events/ScriptEngine");
 		try
 		{
-			_log.info("Loading Server Scripts");
 			File scripts = new File(Config.DATAPACK_ROOT.getAbsolutePath(), "data/scripts.cfg");
 			L2ScriptEngineManager.getInstance().executeScriptList(scripts);
 		}
@@ -299,18 +287,18 @@ public class GameServer
 		{
 			_log.fatal("Failed loading scripts.cfg, no script going to be loaded");
 		}
-
+		
 		QuestManager.getInstance().report();
 		TransformationManager.getInstance().report();
-
+		
 		EventDroplist.getInstance();
 		FaenorScriptEngine.getInstance();
-
+		
 		if (Config.ARENA_ENABLED)
 			ArenaManager.getInstance().engineInit();
 		if (Config.FISHERMAN_ENABLED)
 			FishermanManager.getInstance().engineInit();
-
+		
 		Util.printSection("Extensions");
 		if (Config.FACTION_ENABLED)
 		{
@@ -326,7 +314,7 @@ public class GameServer
 		{
 			_log.warn("DynamicExtension could not be loaded and initialized", ex);
 		}
-
+		
 		Util.printSection("Handlers");
 		ItemHandler.getInstance();
 		SkillHandler.getInstance();
@@ -334,7 +322,7 @@ public class GameServer
 		UserCommandHandler.getInstance();
 		VoicedCommandHandler.getInstance();
 		ChatHandler.getInstance();
-
+		
 		Util.printSection("Misc");
 		ObjectRestrictions.getInstance();
 		TaskManager.getInstance();
@@ -346,16 +334,14 @@ public class GameServer
 		FloodProtector.getInstance();
 		ForumsBBSManager.getInstance();
 		KnownListUpdateTaskManager.getInstance();
-
-		_shutdownHandler = Shutdown.getInstance();
-		Runtime.getRuntime().addShutdownHook(_shutdownHandler);
-
+		
+		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
+		
 		System.gc();
-
+		
 		Util.printSection("ServerThreads");
-		_loginThread = LoginServerThread.getInstance();
-		_loginThread.start();
-
+		LoginServerThread.getInstance().start();
+		
 		L2GamePacketHandler gph = new L2GamePacketHandler();
 		SelectorConfig<L2GameClient> sc = new SelectorConfig<L2GameClient>(null, null, gph, gph);
 		sc.setMaxSendPerPass(12);
@@ -363,31 +349,24 @@ public class GameServer
 		_selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, null);
 		_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
 		_selectorThread.start();
-
+		
 		if (Config.IRC_ENABLED)
 			IrcManager.getInstance().getConnection().sendChan("GameServer Started");
-		if (Config.IS_TELNET_ENABLED)
-		{
-			_statusServer = new Status();
-			_statusServer.start();
-		}
-		else
-			_log.info("Telnet server is currently disabled.");
-
+		
 		if (Config.ACCEPT_GEOEDITOR_CONN)
 			GeoEditorListener.getInstance();
-
+		
 		Util.printSection("l2jfree");
 		version.loadInformation(GameServer.class);
 		_log.info("Revision: " + version.getVersionNumber());
-		//_log.info("Build date: "+version.getBuildDate());
+		// _log.info("Build date: "+version.getBuildDate());
 		_log.info("Compiler version: " + version.getBuildJdk());
-		_log.info("Operating System: " + Util.getOSName() + " " + Util.getOSVersion() +" " + Util.getOSArch());
+		_log.info("Operating System: " + Util.getOSName() + " " + Util.getOSVersion() + " " + Util.getOSArch());
 		_log.info("Available CPUs: " + Util.getAvailableProcessors());
 		
 		printMemUsage();
 		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
-
+		
 		Util.printSection("GameServerLog");
 		if (Config.ENABLE_JYTHON_SHELL)
 		{
@@ -395,32 +374,34 @@ public class GameServer
 			Util.JythonShell();
 		}
 	}
-
+	
 	public static String getVersionNumber()
 	{
 		return version.getVersionNumber();
 	}
-
+	
 	public static void printMemUsage()
 	{
 		Util.printSection("Memory");
 		for (String line : Util.getMemUsage())
 			_log.info(line);
 	}
-
-	public SelectorThread<L2GameClient> getSelectorThread()
+	
+	public static SelectorThread<L2GameClient> getSelectorThread()
 	{
 		return _selectorThread;
 	}
-
-	public long getUsedMemoryMB()
+	
+	public static Calendar getStartedTime()
 	{
-		return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576; // 1024 * 1024 = 1048576
+		return _serverStarted;
 	}
-
+	
 	public static void main(String[] args) throws Throwable
 	{
 		System.setProperty("python.home", ".");
-		gameServer = new GameServer();
+		System.setProperty("line.separator", "\r\n");
+		
+		new GameServer();
 	}
 }

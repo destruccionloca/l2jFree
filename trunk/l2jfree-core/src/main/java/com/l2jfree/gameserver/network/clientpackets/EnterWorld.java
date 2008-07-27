@@ -22,7 +22,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
-import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.L2JfreeInfo;
 import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.SevenSigns;

@@ -24,6 +24,10 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
+import javolution.text.TextBuilder;
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.GameTimeController;
@@ -37,10 +41,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-
-import javolution.text.TextBuilder;
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 public class RegionBBSManager extends BaseBBSManager
 {
@@ -381,7 +381,7 @@ public class RegionBBSManager extends BaseBBSManager
 			cal.set(Calendar.HOUR_OF_DAY, t / 60);
 			cal.set(Calendar.MINUTE, t % 60);
 			htmlCode.append(tdOpen + "Game Time: " + format.format(cal.getTime()) + tdClose + colSpacer);
-			htmlCode.append(tdOpen + "Server Restarted: " + GameServer.dateTimeServerStarted.getTime() + tdClose + trClose);
+			htmlCode.append(tdOpen + "Server Restarted: " + GameServer.getStartedTime().getTime() + tdClose + trClose);
 			htmlCode.append("</table>");
 
 			htmlCode.append("<table>");
@@ -518,7 +518,7 @@ public class RegionBBSManager extends BaseBBSManager
 			htmlCode.append("<table>");
 
 			htmlCode.append(trOpen);
-			htmlCode.append("<td align=left valign=top>Server Restarted: " + GameServer.dateTimeServerStarted.getTime() + tdClose);
+			htmlCode.append("<td align=left valign=top>Server Restarted: " + GameServer.getStartedTime().getTime() + tdClose);
 			htmlCode.append(trClose);
 
 			htmlCode.append("</table>");

@@ -10377,7 +10377,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				// Lair of bosses,It is less than 30 minutes from server starting.
 				// Player can restart inside lair, but Antharas do not respawn.
-				if (System.currentTimeMillis() - GameServer.dateTimeServerStarted.getTimeInMillis() <= Config.TIMELIMITOFINVADE)
+				if (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis() <= Config.TIMELIMITOFINVADE)
 				{
 					if (getQuestState("antharas") != null)
 						getQuestState("antharas").exitQuest(true);
@@ -10413,7 +10413,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				// Lair of bosses,It is less than 30 minutes from server starting.
 				// Player can restart inside lair, but Antharas do not respawn.
-				if (System.currentTimeMillis() - GameServer.dateTimeServerStarted.getTimeInMillis() <= Config.TIMELIMITOFINVADE)
+				if (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis() <= Config.TIMELIMITOFINVADE)
 				{
 					if (getQuestState("lastimperialtomb") != null)
 						getQuestState("lastimperialtomb").exitQuest(true);
@@ -10462,7 +10462,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				// Lair of bosses,It is less than 30 minutes from server starting.
 				// Player can restart inside lair, and begin fight against Valakas 30min later.
-				if (System.currentTimeMillis() - GameServer.dateTimeServerStarted.getTimeInMillis() <= Config.TIMELIMITOFINVADE
+				if (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis() <= Config.TIMELIMITOFINVADE
 						&& ValakasManager.getInstance().getState() == GrandBossState.StateEnum.ALIVE)
 				{
 					//
