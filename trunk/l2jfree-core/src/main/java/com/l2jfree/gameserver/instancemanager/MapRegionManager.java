@@ -21,16 +21,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import javolution.util.FastMap;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.instancemanager.FortManager;
-import com.l2jfree.gameserver.instancemanager.TownManager;
-import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.Location;
@@ -469,65 +465,34 @@ public class MapRegionManager
 				if (castle != null && teleportWhere == TeleportWhereType.Castle)
 				{
 					L2Zone zone = castle.getZone();
-
-					// If is on castle with siege and player's clan is defender
-					if (castle.getSiege() != null && castle.getSiege().getIsInProgress())
+					if (zone != null)
 					{
-						// Karma player respawns out of siege zone
-						if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
+						if ((castle.getSiege() != null && castle.getSiege().getIsInProgress()) && (player.getKarma() > 1 || player.isCursedWeaponEquipped()))
 						{
-							zone = castle.getZone();
-							if (zone != null)
-							{
-								return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
-							}
+							// Karma player respawns out of siege zone (only during sieges ? o.O )
+							return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
 						}
 						else
 						{
-
-							zone = castle.getDefenderSpawn();
-							if (zone != null)
-							{
-								return zone.getRandomLocation();
-							}
+							return zone.getRestartPoint(L2Zone.RestartType.OWNER);
 						}
-					}
-
-					zone = castle.getZone();
-					if (zone != null)
-					{
-						return zone.getRestartPoint(L2Zone.RestartType.OWNER);
 					}
 				}
 				else if (fort != null && teleportWhere == TeleportWhereType.Fortress)
 				{
 					L2Zone zone = fort.getZone();
-
-					// If is on castle with siege and player's clan is defender
-					if (fort.getSiege() != null && fort.getSiege().getIsInProgress())
+					if (zone != null)
 					{
-						zone = fort.getZone();
-						// Karma player respawns out of siege zone
-						if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
+						// If is on castle with siege and player's clan is defender
+						if ((fort.getSiege() != null && fort.getSiege().getIsInProgress()) && (player.getKarma() > 1 || player.isCursedWeaponEquipped()))
 						{
-							if (zone != null)
-							{
-								return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
-							}
+							// Karma player respawns out of siege zone (only during sieges ? o.O )
+							return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
 						}
 						else
 						{
-							if (zone != null)
-							{
-								return zone.getRestartPoint(L2Zone.RestartType.OWNER);
-							}
+							return zone.getRestartPoint(L2Zone.RestartType.OWNER);
 						}
-					}
-
-					zone = fort.getZone();
-					if (zone != null)
-					{
-						return zone.getRestartPoint(L2Zone.RestartType.OWNER);
 					}
 				}
 				else if (teleportWhere == TeleportWhereType.SiegeFlag)
