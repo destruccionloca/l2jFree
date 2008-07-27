@@ -35,27 +35,16 @@ public final class KeyPacket extends L2GameServerPacket
 	@Override
 	public void writeImpl()
 	{
-		if(Config.LEGACY_CT1_MODE)
+		writeC(0x2e);
+		writeC(0x01);
+		for (int i = 0; i < 8; i++)
 		{
-			writeC(0x2e);
-			writeC(0x01);
-	        writeB(_key); 
-			writeD(0x01);
-			writeD(0x01);
-		}
-		else
-		{
-			writeC(0x2e);
-			writeC(0x01);
-			for (int i = 0; i < 8; i++)
-			{
-				writeC(_key[i]);
-			} 
-			writeD(0x01);
-			writeD(0x01);
-			writeC(0x00);
-			writeD(0x00);
-		}
+			writeC(_key[i]);
+		} 
+		writeD(0x01);
+		writeD(0x01);
+		writeC(0x00);
+		writeD(0x00);
 	}
 	
 	/* (non-Javadoc)

@@ -101,7 +101,7 @@ public final class Config
 	public static int			SELECTED_NODE_ID;
 	public static int			LINKED_NODE_ID;
 	public static String		NEW_NODE_TYPE;
-	public static boolean		LEGACY_CT1_MODE;
+	public static boolean		CT2_MODE;
 
 	// *******************************************************************************************
 	public static void loadConfiguration()
@@ -193,7 +193,7 @@ public final class Config
 			FLOOD_PROTECTION = Boolean.parseBoolean(serverSettings.getProperty("FloodProtection", "False"));
 			PACKET_LIMIT = Integer.parseInt(serverSettings.getProperty("PacketLimit", "500"));
 			PACKET_TIME_LIMIT = Integer.parseInt(serverSettings.getProperty("PacketTimeLimit", "1100"));
-			LEGACY_CT1_MODE = Boolean.parseBoolean(serverSettings.getProperty("LegacyCT1Mode", "False"));
+			CT2_MODE = Boolean.parseBoolean(serverSettings.getProperty("CT2TestMode", "False"));
 		}
 		catch (Exception e)
 		{

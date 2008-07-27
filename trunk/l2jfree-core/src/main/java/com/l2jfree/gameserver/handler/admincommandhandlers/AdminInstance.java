@@ -157,7 +157,7 @@ public class AdminInstance implements IAdminCommandHandler
 		// ghost mode off
 		else if (command.startsWith("admin_ghostoff"))
 		{
-			activeChar.getAppearance().setGhostMode(true);
+			activeChar.getAppearance().setGhostMode(false);
 			activeChar.sendMessage("Ghost mode disabled");
 		}
 		return true;

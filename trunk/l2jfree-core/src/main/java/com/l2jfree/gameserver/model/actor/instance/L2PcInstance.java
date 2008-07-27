@@ -6044,6 +6044,21 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public boolean mount(L2Summon pet)
 	{
+		//TODO: all checks from usercommandhandler mount and requestactionuse should be handled in ONE place, and this is not l2pcinstance 
+		// so this is temporary
+		if(!this.isInsideRadius(pet, 80, true, false))
+		{
+			SystemMessage msg = new SystemMessage(SystemMessageId.TOO_FAR_AWAY_FROM_STRIDER_TO_MOUNT);
+			this.sendPacket(msg);
+			return false;
+		}
+		else if (!GeoData.getInstance().canSeeTarget(this, pet))
+		{
+			SystemMessage msg = new SystemMessage(SystemMessageId.CANT_SEE_TARGET);
+			this.sendPacket(msg);
+			return false;
+		}
+		
 		if (!disarmWeapons())
 			return false;
 		if (isTransformed())
