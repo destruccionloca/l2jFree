@@ -10429,6 +10429,15 @@ public final class L2PcInstance extends L2PlayableInstance
 				}
 			}
 
+			// 10 minutes
+			// Not sure if Imperial tomb includes Frintezza's room
+			// So just incase lets clear that room from intruders till all FrintezzaManager will work like retail
+			else if (FrintezzaManager.getInstance().checkIfInZone(this))
+			{
+				if (System.currentTimeMillis() - getLastAccess() >= 600000 && !FrintezzaManager.getInstance().getState().equals(GrandBossState.StateEnum.ALIVE))
+					teleToLocation(TeleportWhereType.Town);
+			}
+
 			// Lilith
 			/*else if (LilithManager.getInstance().checkIfInZone(this))
 			{
