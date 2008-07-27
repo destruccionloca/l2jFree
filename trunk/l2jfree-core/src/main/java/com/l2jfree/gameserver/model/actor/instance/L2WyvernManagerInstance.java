@@ -78,13 +78,12 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                 return; 
             }
             
-            // Wyvern requires 10B crystal for ride...
+            // Wyvern requires Config.MANAGER_CRYSTAL_COUNT crystal for ride...
             if(player.getInventory().getItemByItemId(1460) != null &&
                     player.getInventory().getItemByItemId(1460).getCount() >= Config.MANAGER_CRYSTAL_COUNT)
             {
                 if(!player.disarmWeapons())
                 	return;
-                player.getInventory().destroyItemByItemId("WyvernManager", 1460, Config.MANAGER_CRYSTAL_COUNT, player, this);
                 
                 if (player.isMounted())
                 	player.dismount();
