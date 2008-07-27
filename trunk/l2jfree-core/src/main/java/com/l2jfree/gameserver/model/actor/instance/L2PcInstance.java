@@ -787,6 +787,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	private Point3D							_currentSkillWorldPosition;
 	private long							_timePreviousBroadcastStatusUpdate	= 0;
 	private long							_timePreviousCharInfoUpdate = 0;
+	
+	public int								_fameLevel = 0;
+	public int								_vitalityLevel = 0;
 
 	/** Skill casting information (used to queue when several skills are cast in a short time) **/
 	public class SkillDat
@@ -12918,4 +12921,24 @@ public final class L2PcInstance extends L2PlayableInstance
 		else
 			_trustlevel -= inc;
 	}
+	
+	public void setFameLevel(int fame)
+	{
+		_fameLevel = fame;
+	}
+	
+	public int getFameLevel()
+	{
+		return _fameLevel;
+	}
+	
+	public void setVitalityLevel(int fame)
+	{
+		_vitalityLevel = fame;
+	}
+	
+	public int getVitalityLevel()
+	{
+		return _vitalityLevel;
+	}	
 }

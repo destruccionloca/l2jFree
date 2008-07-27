@@ -42,12 +42,12 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
 public final class L2TeleporterInstance extends L2FolkInstance
 {
-    private final static Log _log = LogFactory.getLog(L2TeleporterInstance.class.getName());
+	private final static Log	_log						= LogFactory.getLog(L2TeleporterInstance.class.getName());
 
-	private static final int COND_ALL_FALSE = 0;
-	private static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
-	private static final int COND_OWNER = 2;
-	private static final int COND_REGULAR = 3;
+	private static final int	COND_ALL_FALSE				= 0;
+	private static final int	COND_BUSY_BECAUSE_OF_SIEGE	= 1;
+	private static final int	COND_OWNER					= 2;
+	private static final int	COND_REGULAR				= 3;
 
 	/**
 	 * @param template
@@ -60,12 +60,12 @@ public final class L2TeleporterInstance extends L2FolkInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		if (ObjectRestrictions.getInstance()
-				.checkRestriction(player, AvailableRestriction.PlayerTeleport)) {
+		if (ObjectRestrictions.getInstance().checkRestriction(player, AvailableRestriction.PlayerTeleport))
+		{
 			player.sendMessage("You cannot teleport due to a restriction.");
 			return;
 		}
-		
+
 		int condition = validateCondition(player);
 
 		StringTokenizer st = new StringTokenizer(command, " ");
@@ -73,59 +73,65 @@ public final class L2TeleporterInstance extends L2FolkInstance
 
 		if (actualCommand.equalsIgnoreCase("goto"))
 		{
-            int npcId = getTemplate().getNpcId();
+			int npcId = getTemplate().getNpcId();
 
-            switch (npcId)
-            {
-                case 31095: //
-                case 31096: //
-                case 31097: //
-                case 31098: // Enter Necropolises
-                case 31099: //
-                case 31100: //
-                case 31101: //
-                case 31102: //
+			switch (npcId)
+			{
+			case 31095: //
+			case 31096: //
+			case 31097: //
+			case 31098: // Enter Necropolises
+			case 31099: //
+			case 31100: //
+			case 31101: //
+			case 31102: //
 
-                case 31114: //
-                case 31115: //
-                case 31116: // Enter Catacombs
-                case 31117: //
-                case 31118: //
-                case 31119: //
-                    player.setIsIn7sDungeon(true);
-                    break;
-                case 31103: //
-                case 31104: //
-                case 31105: //
-                case 31106: // Exit Necropolises
-                case 31107: //
-                case 31108: //
-                case 31109: //
-                case 31110: //
+			case 31114: //
+			case 31115: //
+			case 31116: // Enter Catacombs
+			case 31117: //
+			case 31118: //
+			case 31119: //
+				player.setIsIn7sDungeon(true);
+				break;
+			case 31103: //
+			case 31104: //
+			case 31105: //
+			case 31106: // Exit Necropolises
+			case 31107: //
+			case 31108: //
+			case 31109: //
+			case 31110: //
 
-                case 31120: //
-                case 31121: //
-                case 31122: // Exit Catacombs
-                case 31123: //
-                case 31124: //
-                case 31125: //
-                    player.setIsIn7sDungeon(false);
-                    break;
-            }
+			case 31120: //
+			case 31121: //
+			case 31122: // Exit Catacombs
+			case 31123: //
+			case 31124: //
+			case 31125: //
+				player.setIsIn7sDungeon(false);
+				break;
+			}
 
-			if (st.countTokens() <= 0) {return;}
+			if (st.countTokens() <= 0)
+			{
+				return;
+			}
 			int whereTo = Integer.parseInt(st.nextToken());
 			if (condition == COND_REGULAR)
 			{
-				if (player!=null)
+				if (player != null)
 					doTeleport(player, whereTo);
 				return;
 			}
 			else if (condition == COND_OWNER)
 			{
-				int minPrivilegeLevel = 0;          // NOTE: Replace 0 with highest level when privilege level is implemented
-				if (st.countTokens() >= 1) {minPrivilegeLevel = Integer.parseInt(st.nextToken());}
-				if (10 >= minPrivilegeLevel)        // NOTE: Replace 10 with privilege level of player
+				int minPrivilegeLevel = 0; // NOTE: Replace 0 with highest level when privilege level is implemented
+				if (st.countTokens() >= 1)
+				{
+					minPrivilegeLevel = Integer.parseInt(st.nextToken());
+				}
+				if (10 >= minPrivilegeLevel) // NOTE: Replace 10 with privilege level of player
 					doTeleport(player, whereTo);
 				else
 					player.sendMessage("You don't have the sufficient access level to teleport there.");
@@ -133,7 +139,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 			}
 		}
 
-        super.onBypassFeedback(player, command);
+		super.onBypassFeedback(player, command);
 	}
 
 	@Override
@@ -167,8 +173,8 @@ public final class L2TeleporterInstance extends L2FolkInstance
 		{
 			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 				filename = "data/html/teleporter/castleteleporter-busy.htm"; // Busy because of siege
-			else if (condition == COND_OWNER)                                // Clan owns castle
-				filename = getHtmlPath(getNpcId(), 0);                       // Owner message window
+			else if (condition == COND_OWNER) // Clan owns castle
+				filename = getHtmlPath(getNpcId(), 0); // Owner message window
 		}
 
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -184,63 +190,73 @@ public final class L2TeleporterInstance extends L2FolkInstance
 		Calendar cal = Calendar.getInstance();
 		if (list != null)
 		{
-            //you cannot teleport to village that is in siege
-            if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY(), list.getLocZ()))
-            {
-                player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
-                return;
-            }
-            else if (TownManager.getInstance().townHasCastleInSiege(list.getLocX(), list.getLocY(), list.getLocZ()))
-            {
-                player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
-                return;
-            }
-            else if (list.isForNoble() && !player.isNoble())
-            {
-                String filename = "data/html/teleporter/nobleteleporter-no.htm";
-                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-                html.setFile(filename);
-                html.replace("%objectId%", String.valueOf(getObjectId()));
-                html.replace("%npcname%", getName());
-                player.sendPacket(html);
-                return;
-            }
-            else if (player.isAlikeDead())
-            {
-                return;
-            }
-            else if (!list.isForNoble() && (Config.ALT_GAME_FREE_TELEPORT || (cal.get(Calendar.HOUR_OF_DAY)>=20 && cal.get(Calendar.HOUR_OF_DAY)<=23 && (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal.get(Calendar.DAY_OF_WEEK) == 7)) ? player.reduceAdena("Teleport", (int)list.getPrice()/2, this, true) : player.reduceAdena("Teleport", list.getPrice(), this, true)))
-            {
-                if (_log.isDebugEnabled())
-                    _log.debug("Teleporting player " + player.getName() + " to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
-                player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ(), true);
-            }
-            else if(list.isForNoble() && (Config.ALT_GAME_FREE_TELEPORT || player.destroyItemByItemId("Noble Teleport", 6651, list.getPrice(), this, true)))
-            {
-                if (_log.isDebugEnabled())
-                    _log.debug("Teleporting player "+player.getName()+" to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
-                player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
-            }
-        }
-        else
-        {
-            _log.warn("No teleport destination with id:" +val);
-        }
-        player.sendPacket(ActionFailed.STATIC_PACKET);
-    }
+			//you cannot teleport to village that is in siege
+			if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY(), list.getLocZ()))
+			{
+				player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
+				return;
+			}
+			else if (TownManager.getInstance().townHasCastleInSiege(list.getLocX(), list.getLocY(), list.getLocZ()))
+			{
+				player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
+				return;
+			}
+			else if (list.isForNoble() && !player.isNoble())
+			{
+				String filename = "data/html/teleporter/nobleteleporter-no.htm";
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile(filename);
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				html.replace("%npcname%", getName());
+				player.sendPacket(html);
+				return;
+			}
+			else if (player.isAlikeDead())
+			{
+				return;
+			}
+			else if (Config.CT2_MODE && player.getLevel()<40)
+			{
+				//free teleport for chars < level 40
+				//TODO: clean up this whole mess here
+				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ(), true);
+			}
+			else if (!list.isForNoble()
+					&& (Config.ALT_GAME_FREE_TELEPORT
+							|| (cal.get(Calendar.HOUR_OF_DAY) >= 20 && cal.get(Calendar.HOUR_OF_DAY) <= 23 && (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal
+									.get(Calendar.DAY_OF_WEEK) == 7)) ? player.reduceAdena("Teleport", (int) list.getPrice() / 2, this, true) : player
+							.reduceAdena("Teleport", list.getPrice(), this, true)))
+			{
+				if (_log.isDebugEnabled())
+					_log.debug("Teleporting player " + player.getName() + " to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
+				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ(), true);
+			}
+			else if (list.isForNoble() && (Config.ALT_GAME_FREE_TELEPORT || player.destroyItemByItemId("Noble Teleport", 6651, list.getPrice(), this, true)))
+			{
+				if (_log.isDebugEnabled())
+					_log.debug("Teleporting player " + player.getName() + " to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
+				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
+			}
+		}
+		else
+		{
+			_log.warn("No teleport destination with id:" + val);
+		}
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+	}
 
-    private int validateCondition(L2PcInstance player)
-    {
-        if (CastleManager.getInstance().getCastle(this) == null)     // Teleporter isn't on castle ground
-            return COND_REGULAR;                                     // Regular access
-        else if (getCastle().getSiege().getIsInProgress())           // Teleporter is on castle ground and siege is in progress
-            return COND_BUSY_BECAUSE_OF_SIEGE;                       // Busy because of siege
-        else if (player.getClan() != null)                           // Teleporter is on castle ground and player is in a clan
-        {
-            if (getCastle().getOwnerId() == player.getClanId())      // Clan owns castle
-                return COND_OWNER;                                   // Owner
-        }
+	private int validateCondition(L2PcInstance player)
+	{
+		if (CastleManager.getInstance().getCastle(this) == null) // Teleporter isn't on castle ground
+			return COND_REGULAR; // Regular access
+		else if (getCastle().getSiege().getIsInProgress()) // Teleporter is on castle ground and siege is in progress
+			return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
+		else if (player.getClan() != null) // Teleporter is on castle ground and player is in a clan
+		{
+			if (getCastle().getOwnerId() == player.getClanId()) // Clan owns castle
+				return COND_OWNER; // Owner
+		}
 
-        return COND_ALL_FALSE;
-    }
+		return COND_ALL_FALSE;
+	}
 }
