@@ -14,52 +14,64 @@
  */
 package com.l2jfree.tools.random;
 
-public class Rnd {
+import java.security.SecureRandom;
+
+public class Rnd
+{
+	private static final SecureRandom _random = new SecureRandom();
+	
 	/**
 	 * Get random number from 0.0 to 1.0
 	 */
-	public static final double nextDouble() {
-		return RandomIntGenerator.getInstance().getSecureRandom().nextDouble();
+	public static final double nextDouble()
+	{
+		return _random.nextDouble();
 	}
-
+	
 	/**
 	 * Get random number from 0 to n-1
 	 */
-	public static final int nextInt(int n) {
+	public static final int nextInt(int n)
+	{
 		if (n < 0)
-			return RandomIntGenerator.getInstance().getSecureRandom().nextInt(
-					Math.abs(n))
-					* (-1);
+			return _random.nextInt(-n) * -1;
 		else if (n == 0)
-			return n;
-
-		return RandomIntGenerator.getInstance().getSecureRandom().nextInt(n);
+			return 0;
+		
+		return _random.nextInt(n);
 	}
-
+	
 	/**
 	 * Get random number from 0 to n-1
 	 */
-	public static final int get(int n) {
+	public static final int get(int n)
+	{
 		return nextInt(n);
 	}
-
+	
 	/**
 	 * Get random number from min to max <b>(not max-1)</b>
 	 */
-	public static final int get(int min, int max) {
+	public static final int get(int min_, int max_)
+	{
+		int min = Math.min(min_, max_);
+		int max = Math.max(min_, max_);
+		
 		return min + nextInt(max - min + 1);
 	}
-
-	public static final double nextGaussian() {
-		return RandomIntGenerator.getInstance().getSecureRandom()
-				.nextGaussian();
+	
+	public static final double nextGaussian()
+	{
+		return _random.nextGaussian();
 	}
-
-	public static final boolean nextBoolean() {
-		return RandomIntGenerator.getInstance().getSecureRandom().nextBoolean();
+	
+	public static final boolean nextBoolean()
+	{
+		return _random.nextBoolean();
 	}
-
-	public static final void nextBytes(byte[] array) {
-		RandomIntGenerator.getInstance().getSecureRandom().nextBytes(array);
+	
+	public static final void nextBytes(byte[] array)
+	{
+		_random.nextBytes(array);
 	}
 }
