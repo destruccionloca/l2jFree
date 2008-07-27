@@ -213,7 +213,7 @@
     <set name="baseCritRate" val="15" />
     <cond
       msg="Checkmate cannot be used due to unsuitable terms.">
-      <target active_effect_id="5264" />
+      <target active_effect_id="1435" />
     </cond>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />

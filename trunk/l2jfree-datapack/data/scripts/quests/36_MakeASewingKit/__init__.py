@@ -45,7 +45,7 @@ class Quest (JQuest) :
            st.exitQuest(1)
      else:
        st.exitQuest(1)
-   elif st.getQuestItemsCount(REINFORCED_STEEL) == 5 :
+   elif st.getQuestItemsCount(REINFORCED_STEEL) >= 5 :
      htmltext = "30847-2.htm"
    elif cond == 3 and st.getQuestItemsCount(ORIHARUKON) >= 10 and st.getQuestItemsCount(ARTISANS_FRAME) >= 10 :
      st.takeItems(ORIHARUKON,10)
