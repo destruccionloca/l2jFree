@@ -685,7 +685,7 @@
     <for>
       <effect count="5" name="Fear" time="3" val="0" />
     </for>
-  </skill
+  </skill>
   <skill id="5260" levels="12" name="Disarm">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
