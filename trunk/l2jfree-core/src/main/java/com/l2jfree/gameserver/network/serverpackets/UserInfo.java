@@ -388,6 +388,13 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_activeChar.getDefAttrUnholy());
 
 		writeD(_activeChar.getAgathionId());
+		
+		if(Config.CT2_MODE)
+		{
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+		}
 	}
 
 	/* (non-Javadoc)

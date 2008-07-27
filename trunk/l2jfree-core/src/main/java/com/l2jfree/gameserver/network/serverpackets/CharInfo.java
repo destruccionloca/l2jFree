@@ -391,7 +391,13 @@ public class CharInfo extends L2GameServerPacket
 				writeD(0x00); 
 
 			writeD(_activeChar.getTranformationId()); 
-			writeD(_activeChar.getAgathionId()); 
+			writeD(_activeChar.getAgathionId());
+
+			if(Config.CT2_MODE)
+			{
+				writeD(0x00);
+				writeD(0x00);
+			}
 		}
 	}
 	
