@@ -1692,6 +1692,7 @@
         <mul order="0x30" stat="pAtk-monsters" val="1.5" />
         <mul order="0x30" stat="pAtk-dragons" val="1.5" />
         <mul order="0x30" stat="pAtk-giants" val="1.5" />
+        <mul order="0x30" stat="pAtk-magic" val="1.5" />
       </effect>
     </for>
   </skill>

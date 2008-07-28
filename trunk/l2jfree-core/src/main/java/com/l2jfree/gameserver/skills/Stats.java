@@ -162,6 +162,8 @@ public enum Stats
 	PATK_DRAGONS("pAtk-dragons"),
 	PATK_GIANTS("pAtk-giants"),
 	PATK_UNDEAD("pAtk-undead"),
+	PATK_MAGIC("pAtk-magic"),
+
 	PDEF_PLANTS("pDef-plants"),
 	PDEF_INSECTS("pDef-insects"),
 	PDEF_ANIMALS("pDef-animals"),
@@ -169,6 +171,7 @@ public enum Stats
 	PDEF_DRAGONS("pDef-dragons"),
 	PDEF_UNDEAD("pDef-undead"),
 	PDEF_GIANTS("pDef-giants"),
+	PDEF_MAGIC("pDef-magic"),
 
 	PATK_VALAKAS("pAtk-valakas"),
 	PDEF_VALAKAS("pDef-valakas"),

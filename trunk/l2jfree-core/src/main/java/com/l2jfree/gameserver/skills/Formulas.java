@@ -1460,6 +1460,9 @@ public final class Formulas
 			case GIANT:
 				damage *= attacker.getStat().getPAtkGiants(target);
 				break;
+			case MAGICCREATURE:
+				damage *= attacker.getStat().getPAtkMagic(target);
+				break;
 			default:
 				// nothing
 				break;
@@ -1492,6 +1495,9 @@ public final class Formulas
 				break;
 			case GIANT:
 				damage /= target.getStat().getPDefGiants(attacker);
+				break;
+			case MAGICCREATURE:
+				damage /= target.getStat().getPDefMagic(attacker);
 				break;
 			default:
 				// nothing

@@ -521,15 +521,16 @@ public class CharStat
 		return calcStat(Stats.PATK_GIANTS, 1, target, null);
 	}
 
+	/** Return the PAtk Modifier against magic creatures. */
+	public final double getPAtkMagic(L2Character target)
+	{
+		return calcStat(Stats.PATK_MAGIC, 1, target, null);
+	}
+
 	/** Return the PAtk Modifier against valakas. */
 	public final double getPAtkValakas(L2Character target)
 	{
 		return calcStat(Stats.PATK_VALAKAS, 1, target, null);
-	}
-
-	public final double getPDefValakas(L2Character target)
-	{
-		return calcStat(Stats.PDEF_VALAKAS, 1, target, null);
 	}
 
 	/**
@@ -594,6 +595,17 @@ public class CharStat
 	public final double getPDefGiants(L2Character target)
 	{
 		return calcStat(Stats.PDEF_GIANTS, 1, target, null);
+	}
+
+	/** Return the PDef Modifier against magic creatures. */
+	public final double getPDefMagic(L2Character target)
+	{
+		return calcStat(Stats.PDEF_MAGIC, 1, target, null);
+	}
+
+	public final double getPDefValakas(L2Character target)
+	{
+		return calcStat(Stats.PDEF_VALAKAS, 1, target, null);
 	}
 
 	/** Return the PDef (base+modifier) of the L2Character. */
