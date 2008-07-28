@@ -3,10 +3,9 @@ package com.l2jfree.gameserver.model.entity;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.concurrent.ScheduledFuture;
-import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
+
 import javax.xml.parsers.DocumentBuilderFactory;
-import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+
 import javolution.util.FastList;
 import javolution.util.FastSet;
 
@@ -18,15 +17,20 @@ import org.w3c.dom.Node;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.DoorTable;
+import com.l2jfree.gameserver.datatables.NpcTable;
+import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
+import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
 /** 
@@ -35,15 +39,15 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
  */
 public class Instance
 {
-	private final static Log		_log				= LogFactory.getLog(Instance.class.getName());
+	private final static Log			_log				= LogFactory.getLog(Instance.class.getName());
 
-	private int						_id;
-	private String					_name;
-	private FastSet<Integer>		_players			= new FastSet<Integer>();
-	private FastList<L2NpcInstance>	_npcs				= new FastList<L2NpcInstance>();
-	private FastList<L2DoorInstance> _doors				= new FastList<L2DoorInstance>();
+	private int							_id;
+	private String						_name;
+	private FastSet<Integer>			_players			= new FastSet<Integer>();
+	private FastList<L2NpcInstance>		_npcs				= new FastList<L2NpcInstance>();
+	private FastList<L2DoorInstance>	_doors				= new FastList<L2DoorInstance>();
 
-	protected ScheduledFuture<?>	_CheckTimeUpTask	= null;
+	protected ScheduledFuture<?>		_CheckTimeUpTask	= null;
 
 	public Instance(int id)
 	{
@@ -114,7 +118,7 @@ public class Instance
 	{
 		return _doors;
 	}
-	
+
 	public void removePlayers()
 	{
 		for (int objectId : _players)
@@ -198,10 +202,25 @@ public class Instance
 				{
 					int doorId = 0;
 					if ("door".equalsIgnoreCase(d.getNodeName()))
-					{					
+					{
 						doorId = Integer.parseInt(d.getAttributes().getNamedItem("doorId").getNodeValue());
-						L2DoorInstance newdoor = DoorTable.getInstance().getDoor(doorId);
+						L2DoorInstance temp = DoorTable.getInstance().getDoor(doorId);
+						L2DoorInstance newdoor = new L2DoorInstance(IdFactory.getInstance().getNextId(), temp.getTemplate(), temp.getDoorId(), temp.getName(),
+								temp.isUnlockable());
 						newdoor.setInstanceId(getId());
+						newdoor.setRange(temp.getXMin(), temp.getYMin(), temp.getZMin(), temp.getXMax(), temp.getYMax(), temp.getZMax());
+						try
+						{
+							newdoor.setMapRegion(MapRegionManager.getInstance().getRegion(temp.getX(), temp.getY(), temp.getZ()));
+						}
+						catch (Exception e)
+						{
+							_log.fatal("Error in door data, ID:" + temp.getDoorId());
+						}
+						newdoor.getStatus().setCurrentHpMp(newdoor.getMaxHp(), newdoor.getMaxMp());
+						newdoor.getPosition().setXYZInvisible(temp.getX(), temp.getY(), temp.getZ());
+						newdoor.spawnMe(newdoor.getX(), newdoor.getY(), newdoor.getZ());
+
 						if (newdoor != null)
 						{
 							_doors.add(newdoor);
@@ -267,7 +286,7 @@ public class Instance
 			interval = 300000;
 			SystemMessage sm = new SystemMessage(SystemMessageId.DUNGEON_EXPIRES_IN_S1_MINUTES);
 			sm.addString(Integer.toString(timeLeft));
-			Announcements.getInstance().announceToInstance(sm,getId());
+			Announcements.getInstance().announceToInstance(sm, getId());
 			remaining = remaining - 300000;
 		}
 		else if (remaining > 60000)
@@ -276,7 +295,7 @@ public class Instance
 			interval = 60000;
 			SystemMessage sm = new SystemMessage(SystemMessageId.DUNGEON_EXPIRES_IN_S1_MINUTES);
 			sm.addString(Integer.toString(timeLeft));
-			Announcements.getInstance().announceToInstance(sm,getId());
+			Announcements.getInstance().announceToInstance(sm, getId());
 			remaining = remaining - 60000;
 		}
 		else if (remaining > 30000)
@@ -293,7 +312,7 @@ public class Instance
 			cs = new CreatureSay(0, 9, "Notice", timeLeft + " seconds left.");
 			remaining = remaining - 10000;
 		}
-		if(cs!=null)
+		if (cs != null)
 		{
 			for (int objectId : _players)
 			{
