@@ -14087,7 +14087,7 @@ INSERT INTO skill_trees VALUES
 (127,496,9,'Slashing Blade',38000,52),
 (127,501,2,'Violent Temper',115000,52),
 (127,500,2,'True Berserker',115000,52),
-(127,483,2,'Sword Shield',115000,52),
+(127,483,1,'Sword Shield',115000,52),
 (127,626,2,'Critical Sense',115000,52),
 (127,503,2,'Scorn',157000,55),
 (127,501,3,'Violent Temper',157000,55),
