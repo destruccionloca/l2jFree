@@ -32,7 +32,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class SpiritLake implements IItemHandler
 {
-	public static final int		INTERACTION_DISTANCE	= 600;
+	public static final int		INTERACTION_DISTANCE	= 1000;
 
 	private static final int[]	ITEM_IDS				=
 														{ 9689 };

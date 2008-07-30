@@ -219,6 +219,7 @@ public class Instance
 						}
 						newdoor.getStatus().setCurrentHpMp(newdoor.getMaxHp(), newdoor.getMaxMp());
 						newdoor.getPosition().setXYZInvisible(temp.getX(), temp.getY(), temp.getZ());
+						newdoor.setOpen(0);
 						newdoor.spawnMe(newdoor.getX(), newdoor.getY(), newdoor.getZ());
 
 						if (newdoor != null)

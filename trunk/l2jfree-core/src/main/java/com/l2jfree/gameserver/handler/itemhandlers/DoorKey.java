@@ -226,6 +226,20 @@ public class DoorKey implements IItemHandler
 			door.openMe();
 			break;
 		}
+		case 9694: //secret garden key
+		{
+			if ((door.getDoorId() != 24220001 && door.getDoorId() != 24220002 && door.getDoorId() != 24220003 && door.getDoorId() != 24220004) || door.getOpen() == 1)
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
+				return;
+
+			door.openMe();
+			break;
+		}
 		}
 	}
 
