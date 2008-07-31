@@ -512,6 +512,8 @@ public class L2Spawn
 		}
 		catch (Exception e)
 		{
+			// Spawning failed
+			_currentCount++;
 			_log.warn( "NPC "+_template.getNpcId()+" class not found: "+ e.getMessage());
 		}
 		return mob;
