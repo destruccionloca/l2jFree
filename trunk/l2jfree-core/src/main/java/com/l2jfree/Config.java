@@ -1072,15 +1072,16 @@ public final class Config
 		GLOBAL, REGION, GM, OFF
 	}
 
-	public static ChatMode			DEFAULT_GLOBAL_CHAT;							// Global chat state
+	public static ChatMode			DEFAULT_GLOBAL_CHAT;						// Global chat state
 	public static int				GLOBAL_CHAT_TIME;
 	public static ChatMode			DEFAULT_TRADE_CHAT;							// Trade chat state
 	public static int				TRADE_CHAT_TIME;
 	public static boolean			REGION_CHAT_ALSO_BLOCKED;
-	public static boolean			LOG_CHAT;										// Logging Chat Window
+	public static int				SOCIAL_TIME;								// Flood protector delay between socials
+	public static boolean			LOG_CHAT;									// Logging Chat Window
 	public static boolean			LOG_ITEMS;
 	public static int				DEFAULT_PUNISH;								// Default punishment for illegal actions
-	public static int				DEFAULT_PUNISH_PARAM;							// Parameter for default punishment
+	public static int				DEFAULT_PUNISH_PARAM;						// Parameter for default punishment
 	public static boolean			GM_AUDIT;
 	public static String			COMMUNITY_TYPE;								// Community Board
 	public static boolean			BBS_SHOW_PLAYERLIST;
@@ -1195,6 +1196,7 @@ public final class Config
 			DEFAULT_TRADE_CHAT = ChatMode.valueOf(optionsSettings.getProperty("TradeChat", "REGION").toUpperCase());
 			TRADE_CHAT_TIME = Integer.parseInt(optionsSettings.getProperty("TradeChatTime", "1"));
 			REGION_CHAT_ALSO_BLOCKED = Boolean.parseBoolean(optionsSettings.getProperty("RegionChatAlsoBlocked", "false"));
+			SOCIAL_TIME = Integer.parseInt(optionsSettings.getProperty("SocialTime", "26"));
 
 			LOG_CHAT = Boolean.parseBoolean(optionsSettings.getProperty("LogChat", "false"));
 			LOG_ITEMS = Boolean.parseBoolean(optionsSettings.getProperty("LogItems", "false"));

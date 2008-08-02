@@ -26,9 +26,11 @@ import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Broadcast;
 
 /**
@@ -47,7 +49,7 @@ public class Escape implements IUserCommandHandler
 	public boolean useUserCommand(@SuppressWarnings("unused")
 	int id, L2PcInstance activeChar)
 	{
-		if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() || activeChar.isInOlympiadMode())
+		if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isAlikeDead())
 			return false;
 
 		// [L2J_JP ADD]
@@ -58,7 +60,24 @@ public class Escape implements IUserCommandHandler
 			return false;
 		}
 
-		int unstuckTimer = (activeChar.getAccessLevel() >= Config.GM_ESCAPE ? 5000 : Config.UNSTUCK_INTERVAL * 1000);
+		if (activeChar.isSitting())
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
+			return false;
+		}
+
+		if (activeChar.isInOlympiadMode())
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
+			return false;
+		}
+
+		// Check to see if the current player is in TvT , CTF or ViP events.
+		if (activeChar.isInFunEvent())
+		{
+			activeChar.sendMessage("You may not escape from an Event.");
+			return false;
+		}
 
 		// Check to see if the player is in a festival.
 		if (activeChar.isFestivalParticipant())
@@ -73,6 +92,21 @@ public class Escape implements IUserCommandHandler
 			activeChar.sendMessage("You can not escape from jail.");
 			return false;
 		}
+
+		if (activeChar.inObserverMode())
+		{
+			activeChar.sendMessage("You can not use Scroll of Escape during Observation Mode.");
+			return false;
+		}
+
+		// Check to see if player is in a duel
+		if (activeChar.isInDuel())
+		{
+			activeChar.sendMessage("You cannot escape during a duel.");
+			return false;
+		}
+
+		int unstuckTimer = (activeChar.getAccessLevel() >= Config.GM_ESCAPE ? 5000 : Config.UNSTUCK_INTERVAL * 1000);
 
 		if (activeChar.getAccessLevel() >= Config.GM_ESCAPE)
 		{

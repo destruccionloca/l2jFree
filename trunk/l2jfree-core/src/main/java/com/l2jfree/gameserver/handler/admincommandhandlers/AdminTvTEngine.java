@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.util.Util;
 
 import javolution.text.TextBuilder;
 
@@ -176,7 +177,8 @@ public class AdminTvTEngine implements IAdminCommandHandler
 				return false;
 			}
 
-			TvT.setTeamColor(command.substring(params[0].length() + params[1].length() + 2), Integer.decode("0x" + params[1]));
+			// name/title color in client is BGR, not RGB
+			TvT.setTeamColor(command.substring(params[0].length() + params[1].length() + 2), Integer.decode("0x" + Util.reverseColor(params[1])));
 			showMainPage(activeChar);
 		}
 		else if (command.equals("admin_tvt_join"))

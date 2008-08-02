@@ -238,6 +238,19 @@ public final class Util
 		return result;
 	}
 
+	public static String reverseColor(String color)
+	{
+		char[] ch1 = color.toCharArray();
+		char[] ch2 = new char[6];
+		ch2[0] = ch1[4];
+		ch2[1] = ch1[5];
+		ch2[2] = ch1[2];
+		ch2[3] = ch1[3];
+		ch2[4] = ch1[0];
+		ch2[5] = ch1[1];
+		return new String(ch2);
+	}
+
 	/**
 	 *  Checks if object is within range, adding collisionRadius
 	 */

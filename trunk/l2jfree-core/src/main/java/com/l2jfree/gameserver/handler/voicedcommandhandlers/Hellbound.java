@@ -14,11 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.voicedcommandhandlers;
 
-
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -28,7 +23,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class Hellbound implements IVoicedCommandHandler
 {
-	protected static Log			_log			= LogFactory.getLog(Hellbound.class);
+	//protected static Log			_log			= LogFactory.getLog(Hellbound.class);
 	private static final String[]	VOICED_COMMANDS	=
 													{ "trust" };
 
@@ -39,7 +34,12 @@ public class Hellbound implements IVoicedCommandHandler
 	{
 		if (command.startsWith("trust"))
 		{
-			activeChar.sendMessage("Your trust level:" + activeChar.getTrustLevel());
+			if (activeChar.getTrustLevel() > 0)
+				activeChar.sendMessage("Current trust level:" + activeChar.getTrustLevel() + " (Natives side)");
+			else if (activeChar.getTrustLevel() == 0)
+				activeChar.sendMessage("Current trust level: Neutral");
+			else
+				activeChar.sendMessage("Current trust level: " + (-activeChar.getTrustLevel()) + " (Beleth side)");
 			return true;
 		}
 		return false;

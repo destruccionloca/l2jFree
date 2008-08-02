@@ -2386,7 +2386,7 @@ public class L2Attackable extends L2NpcInstance
     @Override
     public boolean hasRandomAnimation()
     {
-        return ((Config.MAX_MONSTER_ANIMATION > 0) && !(this instanceof L2GrandBossInstance));
+        return (Config.MAX_MONSTER_ANIMATION > 0);
     }
 
     @Override

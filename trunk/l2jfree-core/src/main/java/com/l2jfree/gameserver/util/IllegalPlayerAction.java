@@ -82,12 +82,14 @@ public final class IllegalPlayerAction implements Runnable
 			return;
 		case PUNISH_KICK:
 			_actor.deleteMe();
-			client.setActiveChar(null);
+			if (client != null)
+				client.setActiveChar(null);
 			break;
 		case PUNISH_KICKBAN:
 			_actor.setAccountAccesslevel(-100);
 			_actor.deleteMe();
-			client.setActiveChar(null);
+			if (client != null)
+				client.setActiveChar(null);
 			break;
 		case PUNISH_JAIL:
 			_actor.setInJail(true, Config.DEFAULT_PUNISH_PARAM);

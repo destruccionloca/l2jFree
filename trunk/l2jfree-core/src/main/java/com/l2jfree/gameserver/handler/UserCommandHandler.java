@@ -26,11 +26,14 @@ import com.l2jfree.gameserver.handler.usercommandhandlers.ClanPenalty;
 import com.l2jfree.gameserver.handler.usercommandhandlers.ClanWarsList;
 import com.l2jfree.gameserver.handler.usercommandhandlers.DisMount;
 import com.l2jfree.gameserver.handler.usercommandhandlers.Escape;
+import com.l2jfree.gameserver.handler.usercommandhandlers.FatigueTime;
+import com.l2jfree.gameserver.handler.usercommandhandlers.GraduateList;
 import com.l2jfree.gameserver.handler.usercommandhandlers.InstanceZone;
 import com.l2jfree.gameserver.handler.usercommandhandlers.Loc;
 import com.l2jfree.gameserver.handler.usercommandhandlers.Mount;
 import com.l2jfree.gameserver.handler.usercommandhandlers.OlympiadStat;
 import com.l2jfree.gameserver.handler.usercommandhandlers.PartyInfo;
+import com.l2jfree.gameserver.handler.usercommandhandlers.SiegeStatus;
 import com.l2jfree.gameserver.handler.usercommandhandlers.Time;
 
 /**
@@ -63,11 +66,14 @@ public class UserCommandHandler
 		registerUserCommandHandler(new ClanWarsList());
 		registerUserCommandHandler(new DisMount());
 		registerUserCommandHandler(new Escape());
+		registerUserCommandHandler(new FatigueTime());
+		registerUserCommandHandler(new GraduateList());
 		registerUserCommandHandler(new InstanceZone());
 		registerUserCommandHandler(new Loc());
 		registerUserCommandHandler(new Mount());
 		registerUserCommandHandler(new OlympiadStat());
 		registerUserCommandHandler(new PartyInfo());
+		registerUserCommandHandler(new SiegeStatus());
 		registerUserCommandHandler(new Time());
 
 		_log.info("UserCommandHandler: Loaded " + _datatable.size() + " handlers.");

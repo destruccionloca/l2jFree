@@ -93,6 +93,12 @@ public abstract class L2Boss extends L2MonsterInstance
     }
 
     @Override
+    public boolean hasRandomAnimation()
+    {
+        return false;
+    }
+
+    @Override
     protected boolean canInteract(L2PcInstance player)
     {
         // TODO: NPC busy check etc...

@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.util.Util;
 
 import javolution.text.TextBuilder;
 
@@ -118,7 +119,7 @@ public class AdminDMEngine implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_dmevent_color "))
 		{
-			DM._playerColors = Integer.decode("0x" + command.substring(20));
+			DM._playerColors = Integer.decode("0x" + Util.reverseColor(command.substring(20))); // name/title color in client is BGR, not RGB
 			showMainPage(activeChar);
 		}
 		else if (command.equals("admin_dmevent_join"))
