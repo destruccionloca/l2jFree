@@ -435,21 +435,29 @@ public class L2Attackable extends L2NpcInstance
         // Notify the Quest Engine of the L2Attackable death if necessary
         try
         {
-        	if(killer != null)
-        	{
-	            L2PcInstance player = killer.getActingPlayer();
-	            if (player != null)
-	            {
-	                
-	                if (getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL) != null)
-	                {
-	                    for (Quest quest: getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL))
-	                        quest.notifyKill(this, player, killer instanceof L2Summon);
-	                }
-	            }
-        	}
+            if(killer != null)
+            {
+                L2PcInstance player = killer.getActingPlayer();
+                if (player != null)
+                {
+                    //only 1 randomly choosen quest of all quests registered to this character can be applied 
+                    Quest[] allOnKillQuests = getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL);
+                    if (allOnKillQuests != null && allOnKillQuests.length > 0)
+                    {
+                        Quest quest;
+                        if(allOnKillQuests.length > 1)
+                            quest = allOnKillQuests[Rnd.get(allOnKillQuests.length)];
+                        else
+                            quest = allOnKillQuests[0];
+                        quest.notifyKill(this, player, killer instanceof L2Summon);
+                    }
+                }
+            }
         } 
-        catch (Exception e) { _log.fatal("", e); }
+        catch (Exception e)
+        {
+            _log.fatal("", e);
+        }
         
         setChampion(false);
 

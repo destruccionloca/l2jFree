@@ -64,7 +64,10 @@ public class L2DamageZone extends L2DefaultZone
 		{
 			for (L2Character cha : getCharactersInside().values())
 			{
-				cha.reduceCurrentHp(_damage, cha);
+				if (_hpDamage > 0)
+					cha.reduceCurrentHp(_hpDamage, null);
+				if (_mpDamage > 0)
+					cha.reduceCurrentMp(_mpDamage);
 			}
 		}
 	}

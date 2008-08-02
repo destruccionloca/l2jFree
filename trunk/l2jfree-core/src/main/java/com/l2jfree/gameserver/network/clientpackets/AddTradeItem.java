@@ -104,8 +104,8 @@ public class AddTradeItem extends L2GameClientPacket
         TradeList.TradeItem item = trade.addItem(_objectId, _count);
         if (item != null)
         {
-        player.sendPacket(new TradeOwnAdd(item));
-        trade.getPartner().sendPacket(new TradeOtherAdd(item));
+            player.sendPacket(new TradeOwnAdd(item));
+            trade.getPartner().sendPacket(new TradeOtherAdd(item));
         }
     }
 

@@ -4231,6 +4231,13 @@ public final class L2PcInstance extends L2PlayableInstance
 				return;
 			}
 
+			if (getActiveTradeList() != null)
+			{
+				sendPacket(SystemMessageId.CANNOT_PICKUP_OR_USE_ITEM_WHILE_TRADING);
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+
 			if (target.getOwnerId() != 0 && target.getOwnerId() != getObjectId() && !isInLooterParty(target.getOwnerId()))
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);

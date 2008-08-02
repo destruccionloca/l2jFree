@@ -696,7 +696,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 112<br>
-	 * Message: You may no longer adjust items in the trade because the trade has been confirmed.
+	 * Message: You have run out of arrows.
 	 */
 	NOT_ENOUGH_ARROWS(112),
 
@@ -914,7 +914,7 @@ public enum SystemMessageId
 	 * ID: 149<br>
 	 * Message: You cannot pick up or use items while trading.
 	 */
-	CANNOT_USE_ITEM_WHILE_TRADING(149),
+	CANNOT_PICKUP_OR_USE_ITEM_WHILE_TRADING(149),
 
 	/**
 	 * ID: 150<br>

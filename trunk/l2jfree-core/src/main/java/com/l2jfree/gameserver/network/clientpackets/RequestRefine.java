@@ -37,7 +37,7 @@ public final class RequestRefine extends L2GameClientPacket
 	private int _refinerItemObjId;
 	private int _gemstoneItemObjId;
 	private int _gemstoneCount;
-	
+
 	@Override
 	protected void readImpl()
 	{
@@ -51,11 +51,11 @@ public final class RequestRefine extends L2GameClientPacket
 	 * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	protected
-	void runImpl()
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 		L2ItemInstance targetItem = (L2ItemInstance)L2World.getInstance().findObject(_targetItemObjId);
 		L2ItemInstance refinerItem = (L2ItemInstance)L2World.getInstance().findObject(_refinerItemObjId);
 		L2ItemInstance gemstoneItem = (L2ItemInstance)L2World.getInstance().findObject(_gemstoneItemObjId);
@@ -70,10 +70,11 @@ public final class RequestRefine extends L2GameClientPacket
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS));
 			return;
 		}
-		
+
 		// unequip item
-		if (targetItem.isEquipped()) activeChar.disarmWeapons();
-		
+		if (targetItem.isEquipped())
+			activeChar.disarmWeapons();
+
 		if (TryAugmentItem(activeChar, targetItem, refinerItem, gemstoneItem))
 		{
 			int stat12 = 0x0000FFFF&targetItem.getAugmentation().getAugmentationId();
@@ -87,25 +88,64 @@ public final class RequestRefine extends L2GameClientPacket
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS));
 		}
 	}
-	
+
 	boolean TryAugmentItem(L2PcInstance player, L2ItemInstance targetItem,L2ItemInstance refinerItem, L2ItemInstance gemstoneItem)
 	{
-		if (targetItem.isAugmented() || targetItem.isWear()) return false;
+		if (targetItem.isAugmented() || targetItem.isWear())
+			return false;
 
-		// check for the items to be in the inventory of the owner
+		if (player.isDead())
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_DEAD));
+			return false;
+		}
+		if (player.isSitting())
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_SITTING_DOWN));
+			return false;
+		}
+		if (player.isFishing())
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_FISHING));
+			return false;
+		}
+		if (player.isParalyzed())
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_PARALYZED));
+			return false;
+		}
+		if (player.getActiveTradeList() != null)
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_TRADING));
+			return false;
+		}
+		if (player.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_NONE)
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_A_PRIVATE_STORE_OR_PRIVATE_WORKSHOP_IS_IN_OPERATION));
+			return false;
+		}
 		if (player.getInventory().getItemByObjectId(refinerItem.getObjectId()) == null)
 		{
-			Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to refine an item with wrong LifeStone-id.",Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(player, "Warning!! Character "
+			        + player.getName() + " of account "
+			        + player.getAccountName()
+			        + " tried to refine an item with wrong LifeStone-id.", Config.DEFAULT_PUNISH);
 			return false;
 		}
 		if (player.getInventory().getItemByObjectId(targetItem.getObjectId()) == null)
 		{
-			Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to refine an item with wrong Weapon-id.",Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(player, "Warning!! Character "
+			        + player.getName() + " of account "
+			        + player.getAccountName()
+			        + " tried to refine an item with wrong Weapon-id.", Config.DEFAULT_PUNISH);
 			return false;
 		}
 		if (player.getInventory().getItemByObjectId(gemstoneItem.getObjectId()) == null)
 		{
-			Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to refine an item with wrong Gemstone-id.",Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(player, "Warning!! Character "
+			        + player.getName() + " of account "
+			        + player.getAccountName()
+			        + " tried to refine an item with wrong Gemstone-id.", Config.DEFAULT_PUNISH);
 			return false;
 		}
 
@@ -115,35 +155,37 @@ public final class RequestRefine extends L2GameClientPacket
 		int gemstoneItemId = gemstoneItem.getItemId();
 		
 		// is the refiner Item a life stone?
-		if (lifeStoneId < 8723 || (lifeStoneId > 8762 &&  lifeStoneId < 9573) || lifeStoneId > 9576) return false;
-		
+		if (lifeStoneId < 8723 || (lifeStoneId > 8762 &&  lifeStoneId < 9573) || lifeStoneId > 9576)
+			return false;
+
 		// must be a weapon, must be > d grade
-		if (itemGrade < L2Item.CRYSTAL_C || itemType != L2Item.TYPE2_WEAPON || !targetItem.isDestroyable()) return false;
-		
-		// player must be able to use augmentation
-		if (player.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_NONE || player.isDead()
-				|| player.isParalyzed() || player.isFishing() || player.isSitting()) return false;
-		
+		if (itemGrade < L2Item.CRYSTAL_C || itemType != L2Item.TYPE2_WEAPON || !targetItem.isDestroyable())
+			return false;
+
 		int modifyGemstoneCount = _gemstoneCount;
 		int lifeStoneLevel = getLifeStoneLevel(lifeStoneId);
 		int lifeStoneGrade = getLifeStoneGrade(lifeStoneId);
 		switch (itemGrade)
 		{
 			case L2Item.CRYSTAL_C:
-				if (player.getLevel() < 46 || gemstoneItemId != 2130) return false;
+				if (player.getLevel() < 46 || gemstoneItemId != 2130)
+					return false;
 				modifyGemstoneCount = 20;
 				break;
 			case L2Item.CRYSTAL_B:
-				if (lifeStoneLevel < 3 || player.getLevel() < 52 || gemstoneItemId != 2130) return false;
+				if (lifeStoneLevel < 3 || player.getLevel() < 52 || gemstoneItemId != 2130)
+					return false;
 				modifyGemstoneCount = 30;
 				break;
 			case L2Item.CRYSTAL_A:
-				if (lifeStoneLevel < 6 || player.getLevel() < 61 || gemstoneItemId != 2131) return false;
+				if (lifeStoneLevel < 6 || player.getLevel() < 61 || gemstoneItemId != 2131)
+					return false;
 				modifyGemstoneCount = 20;
 				break;
 			case L2Item.CRYSTAL_S:
 			case L2Item.CRYSTAL_S80:
-				if (lifeStoneLevel != 10 || player.getLevel() < 76 || gemstoneItemId != 2131) return false;
+				if (lifeStoneLevel != 10 || player.getLevel() < 76 || gemstoneItemId != 2131)
+					return false;
 				modifyGemstoneCount = 25;
 				break;
 		}

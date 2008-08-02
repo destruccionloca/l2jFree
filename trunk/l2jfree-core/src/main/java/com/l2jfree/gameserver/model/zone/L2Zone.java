@@ -131,7 +131,8 @@ public abstract class L2Zone
 	protected SystemMessage _onEnterMsg, _onExitMsg;
 
 	protected int _abnormal;
-	protected int _damage;
+	protected int _hpDamage;
+	protected int _mpDamage;
 
 	protected boolean _exitOnDeath;
 
@@ -183,9 +184,14 @@ public abstract class L2Zone
 		return _fortId;
 	}
 
-	public int getDamagePerSecond()
+	public int getHPDamagePerSecond()
 	{
-		return _damage;
+		return _hpDamage;
+	}
+
+	public int getMPDamagePerSecond()
+	{
+		return _mpDamage;
 	}
 
 	public boolean isPeace()
@@ -612,15 +618,17 @@ public abstract class L2Zone
 		Node boss = n.getAttributes().getNamedItem("boss");
 		Node abnorm = n.getAttributes().getNamedItem("abnormal");
 		Node exitOnDeath = n.getAttributes().getNamedItem("exitOnDeath");
-		Node damage = n.getAttributes().getNamedItem("damage");
-		
+		Node hpDamage = n.getAttributes().getNamedItem("hpDamage");
+		Node mpDamage = n.getAttributes().getNamedItem("mpDamage");
+
 		_pvp = (pvp != null) ? PvpSettings.valueOf(pvp.getNodeValue().toUpperCase()) : PvpSettings.GENERAL;
 		_noLanding = (noLanding != null) ? Boolean.parseBoolean(noLanding.getNodeValue()) : false;
 		_noEscape = (noEscape != null) ? Boolean.parseBoolean(noEscape.getNodeValue()) : false;
 		_noPrivateStore = (noPrivateStore != null) ? Boolean.parseBoolean(noPrivateStore.getNodeValue()) : false;
 		_abnormal = (abnorm != null) ? Integer.decode("0x"+abnorm.getNodeValue()) : 0;
 		_exitOnDeath = (exitOnDeath != null) ? Boolean.parseBoolean(exitOnDeath.getNodeValue()) : false;
-		_damage = (damage != null) ? Integer.parseInt(damage.getNodeValue()) : 0;
+		_hpDamage = (hpDamage != null) ? Integer.parseInt(hpDamage.getNodeValue()) : 0;
+		_mpDamage = (mpDamage != null) ? Integer.parseInt(mpDamage.getNodeValue()) : 0;
 		if(boss != null)
 			_boss = Boss.valueOf(boss.getNodeValue().toUpperCase());
 	}

@@ -283,12 +283,12 @@ public class Wedding implements IVoicedCommandHandler
 			activeChar.sendMessage("You cannot escape from here.");
 			return false;
 		}
-        else if (ObjectRestrictions.getInstance()
+		else if (ObjectRestrictions.getInstance()
 				.checkRestriction(activeChar, AvailableRestriction.PlayerGotoLove))
-       {
+		{
 			activeChar.sendMessage("You cannot find your love due to a restriction.");
 			return false;
-		}        
+		}
 
 		L2PcInstance partner;
 		partner = (L2PcInstance) L2World.getInstance().findObject(activeChar.getPartnerId());
