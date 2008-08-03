@@ -485,6 +485,7 @@ public class L2Spawn
 			if (_template.getType().equalsIgnoreCase("L2Pet") ||
 				_template.getType().equalsIgnoreCase("L2Minion") ||
 				_template.getType().equalsIgnoreCase("L2Decoy") ||
+				_template.getType().equalsIgnoreCase("L2Trap") ||
 				_template.getType().equalsIgnoreCase("L2EffectPoint"))
 			{
 				_currentCount++;
