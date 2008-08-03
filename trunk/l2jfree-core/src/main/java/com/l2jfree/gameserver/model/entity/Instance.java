@@ -218,8 +218,8 @@ public class Instance
 							_log.fatal("Error in door data, ID:" + temp.getDoorId());
 						}
 						newdoor.getStatus().setCurrentHpMp(newdoor.getMaxHp(), newdoor.getMaxMp());
+						newdoor.setOpen(1);
 						newdoor.getPosition().setXYZInvisible(temp.getX(), temp.getY(), temp.getZ());
-						newdoor.setOpen(0);
 						newdoor.spawnMe(newdoor.getX(), newdoor.getY(), newdoor.getZ());
 
 						if (newdoor != null)
@@ -237,7 +237,7 @@ public class Instance
 			{
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 				{
-					int npcId = 0, x = 0, y = 0, z = 0, respawn = 0;
+					int npcId = 0, x = 0, y = 0, z = 0, respawn = 0, heading = 0;
 
 					if ("spawn".equalsIgnoreCase(d.getNodeName()))
 					{
@@ -246,6 +246,7 @@ public class Instance
 						x = Integer.parseInt(d.getAttributes().getNamedItem("x").getNodeValue());
 						y = Integer.parseInt(d.getAttributes().getNamedItem("y").getNodeValue());
 						z = Integer.parseInt(d.getAttributes().getNamedItem("z").getNodeValue());
+						heading = Integer.parseInt(d.getAttributes().getNamedItem("heading").getNodeValue());
 						respawn = Integer.parseInt(d.getAttributes().getNamedItem("respawn").getNodeValue());
 
 						npcTemplate = NpcTable.getInstance().getTemplate(npcId);
@@ -256,6 +257,7 @@ public class Instance
 							spawnDat.setLocy(y);
 							spawnDat.setLocz(z);
 							spawnDat.setAmount(1);
+							spawnDat.setHeading(heading);
 							spawnDat.setRespawnDelay(respawn);
 							if (respawn == 0)
 								spawnDat.stopRespawn();

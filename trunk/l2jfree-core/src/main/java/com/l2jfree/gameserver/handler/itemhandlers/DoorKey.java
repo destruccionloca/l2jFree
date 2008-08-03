@@ -47,7 +47,9 @@ public class DoorKey implements IItemHandler
 			// blue coral key
 			9698,
 			// red coral key
-			9699										};
+			9699,
+			// Secret race key
+			9694										};
 	public static final int		INTERACTION_DISTANCE	= 100;
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
@@ -228,7 +230,8 @@ public class DoorKey implements IItemHandler
 		}
 		case 9694: //secret garden key
 		{
-			if ((door.getDoorId() != 24220001 && door.getDoorId() != 24220002 && door.getDoorId() != 24220003 && door.getDoorId() != 24220004) || door.getOpen() == 1)
+			if ((door.getDoorId() != 24220001 && door.getDoorId() != 24220002 && door.getDoorId() != 24220003 && door.getDoorId() != 24220004)
+					|| door.getOpen() == 0)
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
