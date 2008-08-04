@@ -584,7 +584,7 @@ public class ClanHall extends Entity
 		else if (!_paid && !forced)
 		{
 			if (System.currentTimeMillis() + (1000 * 60 * 60 * 24) <= _paidUntil + _chRate)
-				ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), System.currentTimeMillis() + (1000 * 60 * 60 * 24));
+				ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), 1000 * 60 * 60 * 24);
 			else
 				ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), (_paidUntil + _chRate) - System.currentTimeMillis());
 		}
@@ -625,7 +625,7 @@ public class ClanHall extends Entity
 					_paid = false;
 					if (System.currentTimeMillis() > _paidUntil + _chRate)
 					{
-						if (ClanHallManager.getInstance().loaded())
+						if (ClanHallManager.loaded())
 						{
 							AuctionManager.getInstance().initNPC(getId());
 							ClanHallManager.getInstance().setFree(getId());
@@ -643,7 +643,7 @@ public class ClanHall extends Entity
 						sm.addNumber(getLease());
 						Clan.broadcastToOnlineMembers(sm);
 						if (System.currentTimeMillis() + (1000 * 60 * 60 * 24) <= _paidUntil + _chRate)
-							ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), System.currentTimeMillis() + (1000 * 60 * 60 * 24));
+							ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), 1000 * 60 * 60 * 24);
 						else
 							ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), (_paidUntil + _chRate) - System.currentTimeMillis());
 					}

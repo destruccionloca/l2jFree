@@ -395,7 +395,7 @@ public class Auction
     /** End of auction */
     public void endAuction()
     {
-    	if(ClanHallManager.getInstance() != null && ClanHallManager.getInstance().loaded())
+    	if(ClanHallManager.loaded())
 		{
 	        if (_highestBidderId == 0 && _sellerId == 0)
 	        {

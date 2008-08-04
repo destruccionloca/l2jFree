@@ -39,7 +39,7 @@ public class ClanHallManager
 	private Map<Integer, ClanHall>	_clanHall;
 	private Map<Integer, ClanHall>	_freeClanHall;
 	private Map<Integer, ClanHall>	_allClanHalls;
-	private boolean					_loaded	= false;
+	private static boolean			_loaded	= false;
 
 	public static ClanHallManager getInstance()
 	{
@@ -50,7 +50,7 @@ public class ClanHallManager
 		return _instance;
 	}
 
-	public boolean loaded()
+	public static boolean loaded()
 	{
 		return _loaded;
 	}
@@ -66,6 +66,7 @@ public class ClanHallManager
 	/** Reload All Clan Hall */
 	public final void reload()
 	{
+		_loaded = false;
 		_clanHall.clear();
 		_freeClanHall.clear();
 		_allClanHalls.clear();
