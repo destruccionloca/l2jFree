@@ -14,17 +14,18 @@
  */
 package com.l2jfree.tools.cache;
 
+import javolution.context.ObjectFactory;
 import javolution.lang.Reusable;
 import javolution.util.FastCollection;
 import javolution.util.FastComparator;
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.context.ObjectFactory;
 
 /**
  * @author Layane
  * 
  */
+@SuppressWarnings("unchecked")
 public class FastMRUCache<K, V> extends FastCollection implements Reusable {
 	/**
 	 * Comment for <code>serialVersionUID</code>

@@ -21,6 +21,8 @@ import java.math.BigInteger;
 import java.util.Properties;
 import java.util.Random;
 
+import com.l2jfree.config.L2Properties;
+
 /**
  * This class provide tools functions for hex manipulations
  * 
@@ -60,7 +62,7 @@ public class HexUtil {
 	 */
 	public static void saveHexid(String string, String fileName) {
 		try {
-			Properties hexSetting = new Properties();
+			Properties hexSetting = new L2Properties();
 			File file = new File(fileName);
 			// Create a new empty file only if it doesn't exist
 			file.createNewFile();
@@ -83,7 +85,7 @@ public class HexUtil {
 	 */
 	public static void saveHexid(int serverId, String hexId, String fileName) {
 		try {
-			Properties hexSetting = new Properties();
+			Properties hexSetting = new L2Properties();
 			File file = new File(fileName);
 			// Create a new empty file only if it doesn't exist
 			file.createNewFile();

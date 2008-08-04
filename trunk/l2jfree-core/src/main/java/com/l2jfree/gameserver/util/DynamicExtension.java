@@ -22,6 +22,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.config.L2Properties;
+
 /**
  * extension loader for l2j
  * 
@@ -82,7 +84,7 @@ public class DynamicExtension
 	 */
 	public void initExtensions()
 	{
-		_prop = new Properties();
+		_prop = new L2Properties();
 		_loadedExtensions = new ConcurrentHashMap<String, Object>();
 		try
 		{

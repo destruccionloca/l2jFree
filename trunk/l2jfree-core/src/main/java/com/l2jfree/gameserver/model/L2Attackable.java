@@ -38,7 +38,6 @@ import com.l2jfree.gameserver.datatables.EventDroplist.DateDrop;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
 import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;

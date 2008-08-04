@@ -19,10 +19,8 @@
 package com.l2jfree.gameserver;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,6 +38,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.config.L2Properties;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.HeroSkillTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
@@ -51,6 +50,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.entity.Hero;
@@ -61,11 +61,10 @@ import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMode;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfoSpectator;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.tools.random.Rnd;
-import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 
 public class Olympiad
 {
@@ -605,10 +604,7 @@ public class Olympiad
 	{
 		_nobles = new FastMap<Integer, StatsSet>();
 
-		Properties OlympiadProperties = new Properties();
-		InputStream is = new FileInputStream(new File("./" + OLYMPIAD_DATA_FILE));
-		OlympiadProperties.load(is);
-		is.close();
+		Properties OlympiadProperties = new L2Properties("./" + OLYMPIAD_DATA_FILE);
 
 		_currentCycle = Integer.parseInt(OlympiadProperties.getProperty("CurrentCycle", "1"));
 		_period = Integer.parseInt(OlympiadProperties.getProperty("Period", "0"));
@@ -1669,7 +1665,7 @@ public class Olympiad
 	{
 		saveNobleData();
 
-		Properties OlympiadProperties = new Properties();
+		Properties OlympiadProperties = new L2Properties();
 		FileOutputStream fos = new FileOutputStream(new File(OLYMPIAD_DATA_FILE));
 
 		OlympiadProperties.setProperty("CurrentCycle", String.valueOf(_currentCycle));

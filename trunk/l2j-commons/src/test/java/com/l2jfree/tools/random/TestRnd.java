@@ -1,7 +1,5 @@
 package com.l2jfree.tools.random;
 
-import com.l2jfree.tools.random.Rnd;
-
 import junit.framework.TestCase;
 
 public class TestRnd extends TestCase {
@@ -22,6 +20,7 @@ public class TestRnd extends TestCase {
 		long timeInt = 0;
 		long timeDbl = 0;
 
+		@SuppressWarnings("unused")
 		int res = 0;
 
 		for (int j = 0; j < 2; j++) {

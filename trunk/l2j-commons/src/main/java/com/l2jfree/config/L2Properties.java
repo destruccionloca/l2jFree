@@ -14,18 +14,95 @@
  */
 package com.l2jfree.config;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.util.Properties;
 
 /**
  * @author Noctarius
  */
-public class L2Properties extends Properties {
+public final class L2Properties extends Properties
+{
 	private static final long serialVersionUID = -4599023842346938325L;
-
+	
+	public L2Properties()
+	{
+	}
+	
+	// ===================================================================================
+	
+	public L2Properties(String name) throws IOException
+	{
+		load(new FileInputStream(name));
+	}
+	
+	public L2Properties(File file) throws IOException
+	{
+		load(new FileInputStream(file));
+	}
+	
+	public L2Properties(InputStream inStream) throws IOException
+	{
+		load(inStream);
+	}
+	
+	public L2Properties(Reader reader) throws IOException
+	{
+		load(reader);
+	}
+	
+	// ===================================================================================
+	
+	public void load(String name) throws IOException
+	{
+		load(new FileInputStream(name));
+	}
+	
+	public void load(File file) throws IOException
+	{
+		load(new FileInputStream(file));
+	}
+	
 	@Override
-	public String getProperty(String key, String defaultValue) {
-		String value = super.getProperty(key, defaultValue);
-
-		return value.trim();
+	public void load(InputStream inStream) throws IOException
+	{
+		try
+		{
+			super.load(inStream);
+		}
+		finally
+		{
+			inStream.close();
+		}
+	}
+	
+	@Override
+	public void load(Reader reader) throws IOException
+	{
+		try
+		{
+			super.load(reader);
+		}
+		finally
+		{
+			reader.close();
+		}
+	}
+	
+	// ===================================================================================
+	
+	@Override
+	public String getProperty(String key)
+	{
+		return super.getProperty(key).trim();
+	}
+	
+	@Override
+	public String getProperty(String key, String defaultValue)
+	{
+		return super.getProperty(key, defaultValue).trim();
 	}
 }

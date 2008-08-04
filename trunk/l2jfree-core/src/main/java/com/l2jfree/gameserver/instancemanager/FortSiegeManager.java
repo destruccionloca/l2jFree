@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,6 +29,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.config.L2Properties;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.CombatFlag;
 import com.l2jfree.gameserver.model.L2Character;
@@ -181,10 +179,7 @@ public class FortSiegeManager
 	{
 		try
 		{
-			InputStream is = new FileInputStream(new File(Config.FORTSIEGE_CONFIGURATION_FILE));
-			Properties siegeSettings = new Properties();
-			siegeSettings.load(is);
-			is.close();
+			Properties siegeSettings = new L2Properties(Config.FORTSIEGE_CONFIGURATION_FILE);
 
 			// Siege spawns settings
 			_commanderSpawnList = new FastMap<Integer, FastList<SiegeSpawn>>();
