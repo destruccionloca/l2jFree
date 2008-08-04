@@ -33,7 +33,7 @@ class Quest (JQuest) :
      st.set("cond","3")
    if event == "30165-1.htm" and cond == 3:
      st.set("cond","4")
-   if event == "30165-3.htm" and cond == 4:
+   if event == "30165-3.htm" and cond == 5:
      if st.getQuestItemsCount(SPINNERET) == 10 :
        st.takeItems(SPINNERET,10)
        st.giveItems(SPIDERSILK,1)
