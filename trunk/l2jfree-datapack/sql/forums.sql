@@ -9,10 +9,7 @@ CREATE TABLE IF NOT EXISTS `forums` (
   `forum_type` int(8) NOT NULL DEFAULT '0',
   `forum_perm` int(8) NOT NULL DEFAULT '0',
   `forum_owner_id` int(8) NOT NULL DEFAULT '0',
-  UNIQUE KEY `forum_id` (`forum_id`),
-  KEY `forum_name` (`forum_name`(10)),
-  KEY `forum_parent` (`forum_parent`),
-  KEY `forum_type` (`forum_type`)
+  UNIQUE KEY `forum_id` (`forum_id`)
 ) DEFAULT CHARSET=utf8;
 
 INSERT IGNORE INTO `forums` VALUES (1, 'NormalRoot', 0, 0, 0, 1, 0);
