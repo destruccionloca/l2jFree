@@ -97,12 +97,16 @@ public final class L2Properties extends Properties
 	@Override
 	public String getProperty(String key)
 	{
-		return super.getProperty(key).trim();
+		String property = super.getProperty(key);
+		
+		return (property == null ? null : property.trim());
 	}
 	
 	@Override
 	public String getProperty(String key, String defaultValue)
 	{
-		return super.getProperty(key, defaultValue).trim();
+		String property = super.getProperty(key, defaultValue);
+		
+		return (property == null ? null : property.trim());
 	}
 }
