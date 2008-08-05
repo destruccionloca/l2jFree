@@ -119,6 +119,7 @@ import com.l2jfree.gameserver.skills.SkillsEngine;
 import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
 import com.l2jfree.gameserver.taskmanager.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
+import com.l2jfree.gameserver.threadmanager.RunnableStatsManager;
 import com.l2jfree.gameserver.util.DynamicExtension;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.PathCreator;
@@ -177,6 +178,7 @@ public class GameServer
 			throw new Exception("Could not initialize the ID factory");
 		}
 		_log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
+		RunnableStatsManager.getInstance();
 		ThreadPoolManager.getInstance().startPurgeTask(600000L);
 		if (Config.DEADLOCKCHECK_INTERVAL > 0)
 			DeadlockDetector.getInstance();

@@ -79,6 +79,7 @@ import com.l2jfree.gameserver.network.serverpackets.LeaveWorld;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
+import com.l2jfree.gameserver.threadmanager.RunnableStatsManager;
 import com.l2jfree.gameserver.util.DynamicExtension;
 import com.l2jfree.gameserver.util.Util;
 
@@ -302,6 +303,7 @@ public class GameStatusThread extends Thread
 					_print.println("performance		 - shows server performance statistics.");
 					_print.println("purge			   - removes finished threads from thread pools.");
 					_print.println("gc				  - forced garbage collection.");
+					_print.println("class			  - dumps TPM-class stats.");
 					_print.println("announce <text>	 - announces <text> in game.");
 					_print.println("msg <nick> <text>   - Sends a whisper to char <nick> with <text>.");
 					_print.println("gmchat <text>	   - Sends a message to all GMs with <text>.");
@@ -449,6 +451,12 @@ public class GameStatusThread extends Thread
 					{
 						_print.println(line);
 					}
+					_print.flush();
+				}
+				else if (_usrCommand.equals("class"))
+				{
+					RunnableStatsManager.getInstance().dumpClassStats();
+					_print.println("TPM-Classes dumped....");
 					_print.flush();
 				}
 				else if (_usrCommand.startsWith("announce"))

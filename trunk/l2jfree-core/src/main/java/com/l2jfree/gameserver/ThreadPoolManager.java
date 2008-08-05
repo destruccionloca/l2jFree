@@ -118,30 +118,6 @@ public abstract class ThreadPoolManager
 	
 	// ===========================================================================================
 	
-	protected final class ExecuteWrapper implements Runnable
-	{
-		private final Runnable _runnable;
-		
-		public ExecuteWrapper(Runnable runnable)
-		{
-			_runnable = runnable;
-		}
-		
-		public void run()
-		{
-			try
-			{
-				_runnable.run();
-			}
-			catch (Exception e)
-			{
-				_log.warn("Exception in a Runnable execution:", e);
-			}
-		}
-	}
-	
-	// ===========================================================================================
-	
 	public abstract List<String> getStats();
 	
 	public abstract void shutdown();
