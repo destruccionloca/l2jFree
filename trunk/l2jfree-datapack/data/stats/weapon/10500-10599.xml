@@ -39,7 +39,10 @@
       <set val='379' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Acumen Not shure about this. Uncomment if i'm right -->
+      <!--
+        SA: Acumen Not shure about this. Uncomment if i'm
+        right
+      -->
       <mul val='1.15' order='0x30' stat='mAtkSpd' />
       <!-- Enhances damage to target during PvP -->
       <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
@@ -86,14 +89,11 @@
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
       <!-- SA: Rsk. Focus -->
-      <add order='0x40' stat='rEvas' val='164' />
-      <mul val='0.60' order='0x30' stat='maxHp' />
-      <!--   SA: Rsk. Focus Old one 
-        <add order='0x40' stat='rEvas' val='164'> 
-        <and>        
-        <player hp='60'/> 
-        </and> 
-        </add> -->
+      <add order='0x40' stat='rCrit' val='164'>
+        <and>
+          <player hp='60' />
+        </and>
+      </add>
       <!-- Enhances damage to target during PvP -->
       <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />

@@ -1665,7 +1665,7 @@ INSERT INTO `weapon` VALUES
 (10454,'Icarus Hammer - Rsk. Focus','rhand','true',1740,1,1,'fine_steel','s80',363,15,'blunt',10,0.00000,0,0,0,379,0,163,-1,0,6132,'true','true','true','true', '', '', '', '', 0),
 (10455,'Icarus Hall - Mana Up','rhand','true',1080,1,1,'wood','s80',290,15,'blunt',10,0.00000,0,0,0,325,0,217,-1,0,6132,'true','true','true','true', '', '', '', '', 0),
 (10456,'Icarus Hall - Conversion','rhand','true',1080,1,1,'wood','s80',290,15,'blunt',10,0.00000,0,0,0,325,0,217,-1,0,6132,'true','true','true','true', '', '', '', '', 0),
-(10457,'Icarus Hall - Acumen','rhand','true',1080,1,1,'wood','s80',290,15,'blunt',10,0.00000,0,0,0,325,0,217,-1,0,6132,'true','true','true','true', '', '', '', '', 0),
+(10457,'Icarus Hall - Acumen','rhand','true',1080,1,1,'wood','s80',290,15,'blunt',10,0.00000,0,0,0,325,0,217,-1,0,6132,'true','true','true','true', '3047-3', '', '', '', 0),
 (10458,'Icarus Hand - Rsk. Evasion','lrhand','true',1550,1,1,'steel','s80',442,15,'dualfist',10,0.00000,0,0,0,325,0,163,-1,0,6132,'true','true','true','true', '', '', '', '', 0),
 (10459,'Icarus Hand - Focus','lrhand','true',1550,1,1,'steel','s80',442,15,'dualfist',10,0.00000,0,0,0,325,0,163,-1,0,6132,'true','true','true','true', '3044-18', '', '', '', 0),
 (10460,'Icarus Hand - Haste','lrhand','true',1550,1,1,'steel','s80',442,15,'dualfist',10,0.00000,0,0,0,325,0,163,-1,0,6132,'true','true','true','true', '', '', '', '', 0),
