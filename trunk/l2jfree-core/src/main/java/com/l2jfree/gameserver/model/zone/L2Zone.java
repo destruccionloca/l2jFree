@@ -32,6 +32,9 @@ import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.zone.form.Shape;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
+import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.tools.random.Rnd;
 
 public abstract class L2Zone
@@ -137,6 +140,9 @@ public abstract class L2Zone
 	protected boolean _exitOnDeath;
 
 	protected FastList<L2Skill> _applyEnter, _applyExit, _removeEnter, _removeExit;
+
+	protected static final Func[] EMPTY_FUNC_SET = new Func[0];
+	protected FuncTemplate[] _funcTemplates;
 
 	public L2Zone()
 	{
@@ -735,5 +741,26 @@ public abstract class L2Zone
 
 	protected void parseCondition(Node n) throws Exception
 	{
+	}
+
+	protected Func[] getStatFuncs(L2Character player)
+	{
+		if (_funcTemplates == null)
+			return EMPTY_FUNC_SET;
+
+		FastList<Func> funcs = new FastList<Func>();
+		for (FuncTemplate t : _funcTemplates)
+		{
+			Env env = new Env();
+			env.player = player;
+			env.target = player;
+			Func f = t.getFunc(env, this);
+			if (f != null)
+				funcs.add(f);
+		}
+
+		if (funcs.size() == 0)
+			return EMPTY_FUNC_SET;
+		return funcs.toArray(new Func[funcs.size()]);
 	}
 }

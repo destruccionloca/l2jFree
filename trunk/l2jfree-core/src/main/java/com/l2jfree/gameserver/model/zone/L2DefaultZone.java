@@ -43,6 +43,11 @@ public class L2DefaultZone extends L2Zone
 				character.stopSkillEffects(sk.getId());
 		}
 
+		if (_funcTemplates != null)
+		{
+			character.addStatFuncs(getStatFuncs(character));
+		}
+
 		if (_pvp == PvpSettings.ARENA)
 		{
 			character.setInsideZone(FLAG_PVP, true);
@@ -88,7 +93,11 @@ public class L2DefaultZone extends L2Zone
 			for(L2Skill sk : _removeExit)
 				character.stopSkillEffects(sk.getId());
 		}
-		
+		if (_funcTemplates != null)
+		{
+			character.removeStatsOwner(this);
+		}
+
 		if (_pvp == PvpSettings.ARENA)
 		{
 			character.setInsideZone(FLAG_PVP, false);

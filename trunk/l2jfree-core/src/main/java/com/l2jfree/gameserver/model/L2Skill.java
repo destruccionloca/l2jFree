@@ -3694,6 +3694,7 @@ public abstract class L2Skill
 		for (EffectTemplate et : _effectTemplates)
 		{
 			Env env = new Env();
+			env.player = effector.getOwner();
 			env.cubic = effector;
 			env.target = effected;
 			env.skill = this;

@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
+import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -911,7 +912,21 @@ public class Disablers implements ISkillHandler
 				case DEBUFF:
 					if (Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill))
 					{
-						skill.getEffects(activeCubic, target);
+						// if this is a debuff let the duel manager know about it
+						// so the debuff can be removed after the duel
+						// (player & target must be in the same duel)
+						if (target instanceof L2PcInstance && ((L2PcInstance)target).isInDuel() &&
+								skill.getSkillType() == L2Skill.SkillType.DEBUFF &&
+								activeCubic.getOwner().getDuelId() == ((L2PcInstance)target).getDuelId())
+						{
+							DuelManager dm = DuelManager.getInstance();
+							for (L2Effect debuff : skill.getEffects(activeCubic.getOwner(), target))
+								if (debuff != null)
+									dm.onBuff(((L2PcInstance)target), debuff);
+						}
+						else
+							skill.getEffects(activeCubic, target);
+
 						SystemMessage sm = new SystemMessage(SystemMessageId.S1_SUCCEEDED);
 						sm.addSkillName(skill);
 						activeCubic.getOwner().sendPacket(sm);

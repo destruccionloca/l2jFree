@@ -46,7 +46,7 @@ public class L2DamageZone extends L2DefaultZone
 	private synchronized void startDamageTask()
 	{
 		if (task == null)
-			task = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new DamageTask(), 1000, 1000);
+			task = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new DamageTask(), 0, 3300);
 	}
 
 	private synchronized void stopDamageTask()
