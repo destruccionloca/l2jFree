@@ -926,7 +926,7 @@
     <set name="effectRange" val="900" />
     <set name="coolTime" val="332" />
     <for>
-      <effect name="Buff" time="300" count="1" val="0">
+      <effect name="Buff" time="300" count="1" val="0" stackOrder="#mCrit" stackType="mCritRate">
         <mul order="0x30" stat="mCritRate" val="#mCrit" />
       </effect>
     </for>

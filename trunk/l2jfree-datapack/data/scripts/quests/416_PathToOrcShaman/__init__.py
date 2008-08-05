@@ -1,11 +1,12 @@
-# Made by Mr. Have fun! Version 0.2
+# Made by Mr. Have fun! Version 0.3
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets import NpcSay
+from com.l2jfree.gameserver.network.serverpackets import SocialAction
 
 qn = "416_PathToOrcShaman"
 
@@ -45,6 +46,18 @@ class Quest (JQuest) :
         st.playSound("ItemSound.quest_accept")
         htmltext = "30585-06.htm"
         st.giveItems(FIRE_CHARM,1)
+    elif event == "32057_1" :
+        htmltext = "32057-02.htm"
+        st.playSound("ItemSound.quest_middle")
+        st.set("cond","14")
+    elif event == "32057_2" :
+        htmltext = "32057-05.htm"
+        st.playSound("ItemSound.quest_middle")
+        st.set("cond","21")
+    elif event == "32090_1" :
+        htmltext = "32090-04.htm"
+        st.playSound("ItemSound.quest_middle")
+        st.set("cond","18")
     elif event == "30585_1" :
           if player.getClassId().getId() != 0x31 :
             if player.getClassId().getId() == 0x32 :
@@ -60,11 +73,19 @@ class Quest (JQuest) :
               else:
                 htmltext = "30585-05.htm"
                 return htmltext
+    elif event == "30585_1a" :
+          htmltext = "30585-10a.htm"
     elif event == "30585_2" :
           htmltext = "30585-11.htm"
           st.takeItems(TOTEM_SPIRIT_CLAW,1)
           st.giveItems(TATARUS_LETTER,1)
           st.set("cond","5")
+          st.playSound("ItemSound.quest_middle")
+    elif event == "30585_3" :
+          htmltext = "30585-11a.htm"
+          st.takeItems(TOTEM_SPIRIT_CLAW,1)
+          st.playSound("ItemSound.quest_middle")
+          st.set("cond","12")
     elif event == "30592_1" :
           htmltext = "30592-02.htm"
     elif event == "30592_2" :
@@ -73,11 +94,13 @@ class Quest (JQuest) :
           st.takeItems(FIERY_EGG2,1)
           st.giveItems(TOTEM_SPIRIT_CLAW,1)
           st.set("cond","4")
+          st.playSound("ItemSound.quest_middle")
     elif event == "30502_2" :
           htmltext = "30502-07.htm"
           st.takeItems(TOTEM_SPIRIT_BLOOD,st.getQuestItemsCount(TOTEM_SPIRIT_BLOOD))
           st.giveItems(MASK_OF_MEDIUM,1)
           st.addExpAndSp(3200,2600)
+          player.sendPacket(SocialAction(player.getObjectId(),3))
           st.set("cond","0")
           st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
@@ -88,6 +111,7 @@ class Quest (JQuest) :
           st.takeItems(BLOOD_CAULDRON,1)
           st.giveItems(SPIRIT_NET,1)
           st.set("cond","9")
+          st.playSound("ItemSound.quest_middle")
     return htmltext
 
 
@@ -102,6 +126,46 @@ class Quest (JQuest) :
 
    if npcId == 30585 and st.getInt("cond")==0 :
         htmltext = "30585-01.htm"
+   elif npcId == 30585 and st.getInt("cond") == 12:
+        htmltext = "30585-11a.htm"
+   elif npcId == 31979 and st.getInt("cond") == 12:
+        htmltext = "31979-01.htm"
+        st.playSound("ItemSound.quest_middle")
+        st.set("cond","13")
+   elif npcId == 31979 and st.getInt("cond") == 21:
+        htmltext = "31979-03.htm"
+        st.giveItems(MASK_OF_MEDIUM,1)
+        st.addExpAndSp(3200,2600)
+        player.sendPacket(SocialAction(player.getObjectId(),3))
+        st.set("cond","0")
+        st.exitQuest(False)
+        st.playSound("ItemSound.quest_finish")
+   elif npcId == 31979 and st.getInt("cond") == 13:
+        htmltext = "31979-02.htm"
+   elif npcId == 32057 and st.getInt("cond") == 13:
+        htmltext = "32057-01.htm"
+   elif npcId == 32057 and st.getInt("cond") == 14:
+        htmltext = "32057-03.htm"
+   elif npcId == 32057 and st.getInt("cond") == 20:
+        htmltext = "32057-04.htm"
+   elif npcId == 32057 and st.getInt("cond") == 21:
+        htmltext = "32057-05.htm"
+   elif npcId == 32090 and st.getInt("cond") == 15:
+        htmltext = "32090-01.htm"
+        st.playSound("ItemSound.quest_middle")
+        st.set("cond","16")
+   elif npcId == 32090 and st.getInt("cond") == 16:
+        htmltext = "32090-01.htm"
+   elif npcId == 32090 and st.getInt("cond") == 17:
+        htmltext = "32090-02.htm"
+   elif npcId == 32090 and st.getInt("cond") == 18:
+        htmltext = "32090-05.htm"
+   elif npcId == 32090 and st.getInt("cond") == 19:
+        htmltext = "32090-06.htm"
+        st.playSound("ItemSound.quest_middle")
+        st.set("cond","20")
+   elif npcId == 32090 and st.getInt("cond") == 20:
+        htmltext = "32090-06.htm"
    elif npcId == 30585 and st.getInt("cond") and st.getQuestItemsCount(FIRE_CHARM)==1 and ((st.getQuestItemsCount(KASHA_BEAR_PELT)+st.getQuestItemsCount(KASHA_BSPIDER_HUSK)+st.getQuestItemsCount(FIERY_EGG1))<3) :
         htmltext = "30585-07.htm"
    elif npcId == 30585 and st.getInt("cond") and st.getQuestItemsCount(FIRE_CHARM)==1 and ((st.getQuestItemsCount(KASHA_BEAR_PELT)+st.getQuestItemsCount(KASHA_BSPIDER_HUSK)+st.getQuestItemsCount(FIERY_EGG1))>=3) :
@@ -113,6 +177,7 @@ class Quest (JQuest) :
         st.giveItems(HESTUI_MASK,1)
         st.giveItems(FIERY_EGG2,1)
         st.set("cond","3")
+        st.playSound("ItemSound.quest_middle")
    elif npcId == 30585 and st.getInt("cond") and st.getQuestItemsCount(HESTUI_MASK)==1 and st.getQuestItemsCount(FIERY_EGG2)==1 :
         htmltext = "30585-09.htm"
    elif npcId == 30585 and st.getInt("cond") and st.getQuestItemsCount(TOTEM_SPIRIT_CLAW)==1 :
@@ -132,6 +197,7 @@ class Quest (JQuest) :
         st.giveItems(FLAME_CHARM,1)
         st.takeItems(TATARUS_LETTER,1)
         st.set("cond","6")
+        st.playSound("ItemSound.quest_middle")
    elif npcId == 30502 and st.getInt("cond") and st.getQuestItemsCount(FLAME_CHARM)==1 and st.getQuestItemsCount(GRIZZLY_BLOOD)<3 :
         htmltext = "30502-02.htm"
    elif npcId == 30502 and st.getInt("cond") and st.getQuestItemsCount(FLAME_CHARM)==1 and st.getQuestItemsCount(GRIZZLY_BLOOD)>=3 :
@@ -140,6 +206,7 @@ class Quest (JQuest) :
         st.takeItems(GRIZZLY_BLOOD,st.getQuestItemsCount(GRIZZLY_BLOOD))
         st.giveItems(BLOOD_CAULDRON,1)
         st.set("cond","8")
+        st.playSound("ItemSound.quest_middle")
    elif npcId == 30502 and st.getInt("cond") and st.getQuestItemsCount(BLOOD_CAULDRON)==1 :
         htmltext = "30502-04.htm"
    elif npcId == 30502 and st.getInt("cond") and (st.getQuestItemsCount(BOUND_DURKA_SPIRIT)==1 or st.getQuestItemsCount(SPIRIT_NET)==1) :
@@ -155,55 +222,68 @@ class Quest (JQuest) :
         st.takeItems(BOUND_DURKA_SPIRIT,1)
         st.giveItems(TOTEM_SPIRIT_BLOOD,1)
         st.set("cond","11")
+        st.playSound("ItemSound.quest_middle")
    elif npcId == 30593 and st.getInt("cond")==1 and st.getQuestItemsCount(TOTEM_SPIRIT_BLOOD) :
         htmltext = "30593-06.htm"
    return htmltext
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return
-   if st.getState() != State.STARTED : return
-
+   if not st : return 
+   if st.getState() != State.STARTED : return 
+   
    npcId = npc.getNpcId()
    if npcId == 20479 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(FIRE_CHARM) == 1 and st.getQuestItemsCount(KASHA_BEAR_PELT)<1 :
           if st.getQuestItemsCount(KASHA_BEAR_PELT)+st.getQuestItemsCount(KASHA_BSPIDER_HUSK)+st.getQuestItemsCount(FIERY_EGG1) == 2 :
-            st.giveItems(KASHA_BEAR_PELT,int(1))
+            st.giveItems(KASHA_BEAR_PELT,1)
             st.playSound("ItemSound.quest_middle")
             st.set("cond","2")
           else:
-            st.giveItems(KASHA_BEAR_PELT,int(1))
+            st.giveItems(KASHA_BEAR_PELT,1)
             st.playSound("ItemSound.quest_itemget")
+   elif npcId == 27319 :
+        if st.getInt("cond") == 14:
+            st.set("cond","15")
+            st.playSound("ItemSound.quest_middle")
+            npc.broadcastPacket(NpcSay(npc.getObjectId(),0,npc.getNpcId(),"My dear friend of "+player.getName()+", who has gone on ahead of me!"))
+        elif st.getInt("cond") == 16:
+            st.set("cond","17")
+            st.playSound("ItemSound.quest_middle")
+            npc.broadcastPacket(NpcSay(npc.getObjectId(),0,npc.getNpcId(),"Listen to Tejakar Gandi, young Oroka! The spirit of the slain leopard is calling you, "+player.getName()+"!"))
+        elif st.getInt("cond") == 18:
+            st.set("cond","19")
+            st.playSound("ItemSound.quest_middle")
    elif npcId == 20478 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(FIRE_CHARM) == 1 and st.getQuestItemsCount(KASHA_BSPIDER_HUSK)<1 :
           if st.getQuestItemsCount(KASHA_BEAR_PELT)+st.getQuestItemsCount(KASHA_BSPIDER_HUSK)+st.getQuestItemsCount(FIERY_EGG1) == 2 :
-            st.giveItems(KASHA_BSPIDER_HUSK,int(1))
+            st.giveItems(KASHA_BSPIDER_HUSK,1)
             st.playSound("ItemSound.quest_middle")
             st.set("cond","2")
           else:
-            st.giveItems(KASHA_BSPIDER_HUSK,int(1))
+            st.giveItems(KASHA_BSPIDER_HUSK,1)
             st.playSound("ItemSound.quest_itemget")
    elif npcId == 20415 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(FIRE_CHARM) == 1 and st.getQuestItemsCount(FIERY_EGG1)<1 :
           if st.getQuestItemsCount(KASHA_BEAR_PELT)+st.getQuestItemsCount(KASHA_BSPIDER_HUSK)+st.getQuestItemsCount(FIERY_EGG1) == 2 :
-            st.giveItems(FIERY_EGG1,int(1))
+            st.giveItems(FIERY_EGG1,1)
             st.playSound("ItemSound.quest_middle")
             st.set("cond","2")
           else:
-            st.giveItems(FIERY_EGG1,int(1))
+            st.giveItems(FIERY_EGG1,1)
             st.playSound("ItemSound.quest_itemget")
    elif npcId == 20335 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(FLAME_CHARM) == 1 and st.getQuestItemsCount(GRIZZLY_BLOOD)<3 :
           if st.getQuestItemsCount(GRIZZLY_BLOOD) == 2 :
-            st.giveItems(GRIZZLY_BLOOD,int(1))
+            st.giveItems(GRIZZLY_BLOOD,1)
             st.playSound("ItemSound.quest_middle")
             st.set("cond","7")
           else:
-            st.giveItems(GRIZZLY_BLOOD,int(1*Config.RATE_DROP_QUEST))
+            st.giveItems(GRIZZLY_BLOOD,1)
             st.playSound("ItemSound.quest_itemget")
    elif npcId == 20038 :
         st.set("id","0")
@@ -226,7 +306,7 @@ class Quest (JQuest) :
             st.playSound("ItemSound.quest_itemget")
             st.takeItems(DURKA_PARASITE,st.getQuestItemsCount(DURKA_PARASITE))
           else:
-            st.giveItems(DURKA_PARASITE,int(1))
+            st.giveItems(DURKA_PARASITE,1)
             st.playSound("ItemSound.quest_itemget")
    elif npcId == 20043 :
         st.set("id","0")
@@ -249,12 +329,12 @@ class Quest (JQuest) :
             st.playSound("ItemSound.quest_itemget")
             st.takeItems(DURKA_PARASITE,st.getQuestItemsCount(DURKA_PARASITE))
           else:
-            st.giveItems(DURKA_PARASITE,int(1))
+            st.giveItems(DURKA_PARASITE,1)
             st.playSound("ItemSound.quest_itemget")
    elif npcId == 27056 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(SPIRIT_NET) == 1 and st.getQuestItemsCount(BOUND_DURKA_SPIRIT) == 0 :
-          st.giveItems(BOUND_DURKA_SPIRIT,int(1))
+          st.giveItems(BOUND_DURKA_SPIRIT,1)
           st.takeItems(SPIRIT_NET,1)
           st.takeItems(DURKA_PARASITE,st.getQuestItemsCount(DURKA_PARASITE))
           st.playSound("ItemSound.quest_middle")
@@ -270,6 +350,9 @@ QUEST.addTalkId(30585)
 QUEST.addTalkId(30502)
 QUEST.addTalkId(30592)
 QUEST.addTalkId(30593)
+QUEST.addTalkId(31979)
+QUEST.addTalkId(32057)
+QUEST.addTalkId(32090)
 
 QUEST.addKillId(20335)
 QUEST.addKillId(20038)
@@ -278,3 +361,4 @@ QUEST.addKillId(20043)
 QUEST.addKillId(20478)
 QUEST.addKillId(20479)
 QUEST.addKillId(27056)
+QUEST.addKillId(27319)
