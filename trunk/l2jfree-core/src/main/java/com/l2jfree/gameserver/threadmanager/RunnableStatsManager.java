@@ -77,12 +77,12 @@ public final class RunnableStatsManager
 			
 			for (ClassStat stat : _classStats.values())
 			{
-				String className = stat._class.getName().replace("net.sf.l2j.gameserver.", "");
+				String className = stat._class.getName().replace("com.l2jfree.gameserver.", "");
 				long runCount = stat._runCount;
 				long runTime = stat._runTime;
 				long average = runTime / runCount;
 				
-				String s = i++ + ". ";
+				String s = i++ + ".";
 				s += " " + className + " - ";
 				s += "Count: " + runCount + " - ";
 				s += "Time: " + runTime + " - ";
