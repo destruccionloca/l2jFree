@@ -443,11 +443,12 @@ public class L2Attackable extends L2NpcInstance
                     Quest[] allOnKillQuests = getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL);
                     if (allOnKillQuests != null && allOnKillQuests.length > 0)
                     {
-                        Quest quest;
-                        if(allOnKillQuests.length > 1)
-                            quest = allOnKillQuests[Rnd.get(allOnKillQuests.length)];
-                        else
-                            quest = allOnKillQuests[0];
+                        //Quest quest;
+                        //if(allOnKillQuests.length > 1)
+                        //    quest = allOnKillQuests[Rnd.get(allOnKillQuests.length)];
+                        //else
+                        //    quest = allOnKillQuests[0];
+                        for (Quest quest : allOnKillQuests)
                         quest.notifyKill(this, player, killer instanceof L2Summon);
                     }
                 }
