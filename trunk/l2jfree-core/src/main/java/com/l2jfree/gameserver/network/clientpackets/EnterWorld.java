@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -78,7 +77,6 @@ import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.util.FloodProtector;
-import com.l2jfree.tools.codec.Base64;
 
 /**
  * Enter World Packet Handler<p>
@@ -573,25 +571,6 @@ public class EnterWorld extends L2GameClientPacket
 		for (L2ShortCut sc : allShortCuts)
 		{
 			activeChar.sendPacket(new ShortCutRegister(sc));
-		}
-	}
-
-	/**
-	 * @param string
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 */
-	private String getText(String string)
-	{
-		try
-		{
-			String result = new String(Base64.decode(string), "UTF-8");
-			return result;
-		}
-		catch (UnsupportedEncodingException e)
-		{
-			// huh, UTF-8 is not supported? :)
-			return null;
 		}
 	}
 

@@ -35,6 +35,7 @@ import com.l2jfree.gameserver.util.Util;
 public class RequestSocialAction extends L2GameClientPacket
 {
 	private static final String _C__1B_REQUESTSOCIALACTION = "[C] 1B RequestSocialAction";
+	@SuppressWarnings("unused")
 	private final static Log _log = LogFactory.getLog(RequestSocialAction.class.getName());
 
 	// format  cd

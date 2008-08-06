@@ -52,6 +52,7 @@ public class ObjectKnownList
     /**
      * Logger
      */
+	@SuppressWarnings("unused")
     private static final Log _log = LogFactory.getLog(ObjectKnownList.class.getName());
     
     /**

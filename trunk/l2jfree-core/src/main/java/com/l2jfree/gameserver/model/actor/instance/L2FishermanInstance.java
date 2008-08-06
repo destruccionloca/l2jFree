@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
 public class L2FishermanInstance extends L2MerchantInstance
 {
+	@SuppressWarnings("unused")
     private final static Log _log = LogFactory.getLog(L2FishermanInstance.class.getName());
     /**
      * @param objectId

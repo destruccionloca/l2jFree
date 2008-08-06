@@ -18,8 +18,6 @@ package com.l2jfree.gameserver.network.serverpackets;
  * CDSDDSS -> (0xd5)(objId)(name)(0x00)(type)(speaker)(name)
  */
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-
 public class Snoop extends L2GameServerPacket
 {
 	private static final String _S__D5_SNOOP = "[S] D5 Snoop";
@@ -28,16 +26,14 @@ public class Snoop extends L2GameServerPacket
 	private int _type;
 	private String _speaker;
 	private String _msg;
-	private L2PcInstance GM;
 	
-	public Snoop(int id, String name, int type, String speaker, String msg, L2PcInstance Snooper)
+	public Snoop(int id, String name, int type, String speaker, String msg)
 	{
 		_convoId = id;
 		_name = name;
 		_type = type;
 		_speaker = speaker;
 		_msg = msg;
-		GM = Snooper;
 	}
 
 	/* (non-Javadoc)

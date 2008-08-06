@@ -29,11 +29,11 @@ import com.l2jfree.gameserver.templates.StatsSet;
  */
 public class Item
 {
-    public int      id;
-    public int		displayid;
-    public Enum     type;
-    public String   name;
-    public StatsSet set;
-    public int      currentLevel;
-    public L2Item   item;
+    public int			id;
+    public int			displayid;
+    public Enum<?>		type;
+    public String		name;
+    public StatsSet		set;
+    public int			currentLevel;
+    public L2Item		item;
 }

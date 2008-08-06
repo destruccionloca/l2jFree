@@ -26,6 +26,7 @@ public class RequestPartyMatchDetail extends L2GameClientPacket
 	private static final String _C__71_REQUESTPARTYMATCHDETAIL = "[C] 71 RequestPartyMatchDetail";
 
 	private int _roomId;
+	@SuppressWarnings("unused")
 	private int _mode;
 
 	@Override

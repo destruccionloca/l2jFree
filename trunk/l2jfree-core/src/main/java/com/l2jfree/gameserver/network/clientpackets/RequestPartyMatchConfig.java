@@ -26,8 +26,11 @@ public class RequestPartyMatchConfig extends L2GameClientPacket
 	private static final String _C__6F_REQUESTPARTYMATCHCONFIG = "[C] 6F RequestPartyMatchConfig";
 	//private final static Log _log = LogFactory.getLog(RequestPartyMatchConfig.class.getName());
 
+	@SuppressWarnings("unused")
 	private int _unk;
+	@SuppressWarnings("unused")
 	private int _region;
+	@SuppressWarnings("unused")
 	private int _allLevels;
 
 	@Override
@@ -41,6 +44,8 @@ public class RequestPartyMatchConfig extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
+		//TODO: Implementation RequestPartyMatchConfig
+		
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;

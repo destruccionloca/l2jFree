@@ -1869,8 +1869,8 @@ public class AdminEditNpc implements IAdminCommandHandler
 
 		replyMSG.append("<table width=270>");
 
-		Set skillset = skills.keySet();
-		Iterator skillite = skillset.iterator();
+		Set<?> skillset = skills.keySet();
+		Iterator<?> skillite = skillset.iterator();
 		Object skillobj = null;
 
 		for (int i = 0; i < SkillsStart; i++)

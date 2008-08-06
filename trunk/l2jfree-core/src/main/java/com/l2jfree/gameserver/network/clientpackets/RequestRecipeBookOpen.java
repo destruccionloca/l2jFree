@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestRecipeBookOpen extends L2GameClientPacket 
 {
 	private static final String _C__AC_REQUESTRECIPEBOOKOPEN = "[C] AC RequestRecipeBookOpen";
+	@SuppressWarnings("unused")
 	private final static Log _log = LogFactory.getLog(RequestRecipeBookOpen.class.getName());
 
 	private boolean _isDwarvenCraft;

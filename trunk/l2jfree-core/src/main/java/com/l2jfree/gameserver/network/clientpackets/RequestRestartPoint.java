@@ -70,7 +70,6 @@ public class RequestRestartPoint extends L2GameClientPacket
 				Location loc = null;
 				Siege siege = null;
 				FortSiege fsiege = null;
-				boolean isInDefense = false;
 
 				if (activeChar.isInJail())
 					_requestedPointType = 27;

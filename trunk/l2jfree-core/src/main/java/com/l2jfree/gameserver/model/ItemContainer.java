@@ -593,7 +593,6 @@ public abstract class ItemContainer
             L2ItemInstance item;
             while (inv.next())
             {
-                int objectId = inv.getInt(1);
                 item = L2ItemInstance.restoreFromDb(getOwnerId(), inv);
                 if (item == null) continue;
 

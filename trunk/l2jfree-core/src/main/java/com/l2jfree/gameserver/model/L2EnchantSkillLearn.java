@@ -31,7 +31,8 @@ public final class L2EnchantSkillLearn
     private final int _id;
     private final int _baseLvl;
     
-    private List<EnchantSkillDetail>[] _enchantDetails = new List[0];
+    @SuppressWarnings("unchecked")
+    private List<EnchantSkillDetail>[] _enchantDetails = new FastTable[0];
 
     public L2EnchantSkillLearn(int id, int baseLvl)
     {
@@ -68,7 +69,7 @@ public final class L2EnchantSkillLearn
         {
             if (enchantType >= _enchantDetails.length)
             {
-                List<EnchantSkillDetail>[] newArray = new List[enchantType+1];
+            	List<EnchantSkillDetail>[] newArray = new FastTable[enchantType+1];
                 System.arraycopy(_enchantDetails, 0, newArray, 0, _enchantDetails.length);
                 _enchantDetails = newArray;
                 _enchantDetails[enchantType] = new FastTable<EnchantSkillDetail>();

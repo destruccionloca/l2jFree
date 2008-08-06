@@ -39,13 +39,13 @@ public enum AvailableRestriction
 	// by adding new lines and new classes
 	;
 	
-	private final Class _applyTo;
+	private final Class<?> _applyTo;
 	
-	private AvailableRestriction(Class applyTo) {
+	private AvailableRestriction(Class<?> applyTo) {
 		_applyTo = applyTo;
 	}
 	
-	public Class getApplyableTo() {
+	public Class<?> getApplyableTo() {
 		return _applyTo;
 	}
 	

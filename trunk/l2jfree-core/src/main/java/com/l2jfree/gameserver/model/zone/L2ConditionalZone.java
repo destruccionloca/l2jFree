@@ -30,7 +30,6 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.conditions.Condition;
-import com.l2jfree.gameserver.skills.conditions.ConditionChangeWeapon;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameChance;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionLogicAnd;
@@ -43,7 +42,6 @@ import com.l2jfree.gameserver.skills.conditions.ConditionPlayerLevel;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerMp;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerRace;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState;
-import com.l2jfree.gameserver.skills.conditions.ConditionSlotItemId;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetActiveEffectId;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetActiveSkillId;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetAggro;
@@ -52,7 +50,6 @@ import com.l2jfree.gameserver.skills.conditions.ConditionTargetLevel;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetRaceId;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetUndead;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
-import com.l2jfree.gameserver.skills.conditions.ConditionUsingItemType;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime.CheckGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
 import com.l2jfree.gameserver.templates.L2ArmorType;
@@ -361,60 +358,6 @@ public class L2ConditionalZone extends L2DefaultZone
 		}
 		if (cond == null)
 			_log.fatal("Unrecognized <target> condition in zone " + _name);
-		return cond;
-	}
-
-	private Condition parseUsingCondition(Node n)
-	{
-		Condition cond = null;
-		NamedNodeMap attrs = n.getAttributes();
-		for (int i = 0; i < attrs.getLength(); i++)
-		{
-			Node a = attrs.item(i);
-			if ("kind".equalsIgnoreCase(a.getNodeName()))
-			{
-				int mask = 0;
-				StringTokenizer st = new StringTokenizer(a.getNodeValue(), ",");
-				while (st.hasMoreTokens())
-				{
-					String item = st.nextToken().trim();
-					for (L2WeaponType wt : L2WeaponType.values())
-					{
-						if (wt.toString().equals(item))
-						{
-							mask |= wt.mask();
-							break;
-						}
-					}
-					for (L2ArmorType at : L2ArmorType.values())
-					{
-						if (at.toString().equals(item))
-						{
-							mask |= at.mask();
-							break;
-						}
-					}
-				}
-				cond = joinAnd(cond, new ConditionUsingItemType(mask));
-			}
-			else if ("slotitem".equalsIgnoreCase(a.getNodeName()))
-			{
-				StringTokenizer st = new StringTokenizer(a.getNodeValue(), ";");
-				int id = Integer.parseInt(st.nextToken().trim());
-				int slot = Integer.parseInt(st.nextToken().trim());
-				int enchant = 0;
-				if (st.hasMoreTokens())
-					enchant = Integer.parseInt(st.nextToken().trim());
-				cond = joinAnd(cond, new ConditionSlotItemId(slot, id, enchant));
-			}
-			else if ("weaponChange".equalsIgnoreCase(a.getNodeName()))
-			{
-				boolean val = Boolean.valueOf(a.getNodeValue());
-				cond = joinAnd(cond, new ConditionChangeWeapon(val));
-			}
-		}
-		if (cond == null)
-			_log.fatal("Unrecognized <using> condition in zone " + _name);
 		return cond;
 	}
 

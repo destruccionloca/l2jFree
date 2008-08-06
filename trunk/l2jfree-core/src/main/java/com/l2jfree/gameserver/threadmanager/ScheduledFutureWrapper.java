@@ -23,11 +23,11 @@ import java.util.concurrent.TimeoutException;
 /**
  * @author NB4L1
  */
-public final class ScheduledFutureWrapper implements ScheduledFuture
+public final class ScheduledFutureWrapper implements ScheduledFuture<Object>
 {
-	private final ScheduledFuture _future;
+	private final ScheduledFuture<?> _future;
 	
-	public ScheduledFutureWrapper(ScheduledFuture future)
+	public ScheduledFutureWrapper(ScheduledFuture<?> future)
 	{
 		_future = future;
 	}

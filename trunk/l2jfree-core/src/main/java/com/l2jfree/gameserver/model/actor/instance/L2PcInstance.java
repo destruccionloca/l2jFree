@@ -10929,7 +10929,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			for (L2PcInstance pci : _snoopListener)
 				if (pci != null)
 				{
-					Snoop sn = new Snoop(objId, getName(), type, name, _text, pci);
+					Snoop sn = new Snoop(objId, getName(), type, name, _text);
 					pci.sendPacket(sn);
 				}
 		}
@@ -10942,7 +10942,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (_snoopedPlayer.size() > 0)
 			for (L2PcInstance p : _snoopedPlayer)
 			{
-				Snoop sn = new Snoop(getObjectId(), getName(), 0, p.getName(), "***Restarting Snoop for " + p.getName() + "***", this);
+				Snoop sn = new Snoop(getObjectId(), getName(), 0, p.getName(), "***Restarting Snoop for " + p.getName() + "***");
 				sendPacket(sn);
 			}
 	}
@@ -10996,7 +10996,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_snoopedPlayer.add(pci); // list of players to listen to them...
 			//for (int x=0xffffff;x>0;x--){
-			Snoop sn = new Snoop(pci.getObjectId(), pci.getName(), 0, getName(), "***Starting Snoop for " + pci.getName() + "***", this);
+			Snoop sn = new Snoop(pci.getObjectId(), pci.getName(), 0, getName(), "***Starting Snoop for " + pci.getName() + "***");
 			//	Snoop sn = new Snoop(x, pci.getName(), x%3, getName(), "***Starting Snoop for "+pci.getName()+"***",this);
 			sendPacket(sn);
 			//	for(int y=0;y<10000000;y++){}

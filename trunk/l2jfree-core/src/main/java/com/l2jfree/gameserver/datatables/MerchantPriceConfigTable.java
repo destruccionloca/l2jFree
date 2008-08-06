@@ -75,13 +75,15 @@ public class MerchantPriceConfigTable
 
 	public MerchantPriceConfig getMerchantPriceConfig(L2MerchantInstance npc)
 	{
+		/*
 		for (MerchantPriceConfig mpc : _mpcs.values())
 		{
-			//if (npc.getWorldRegion().containsZone(mpc.getZoneId()))
-			//{
-			//    return mpc;
-			//}
+			if (npc.getWorldRegion().containsZone(mpc.getZoneId()))
+			{
+			    return mpc;
+			}
 		}
+		*/
 		return _defaultMpc;
 	}
 

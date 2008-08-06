@@ -431,7 +431,6 @@ public class L2Party
 				else
 				{
 					//Swap party members
-					L2PcInstance temp;
 					int p1 = getPartyMembers().indexOf(player);
 					getPartyMembers().set(0, getPartyMembers().get(p1));
 					getPartyMembers().set(p1, leader);

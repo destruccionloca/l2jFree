@@ -36,7 +36,6 @@ public class PartySmallWindowAll extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0x4e);
-		L2PcInstance player =  getClient().getActiveChar();
 		writeD(_partyMembers.get(0).getObjectId()); // c3 party leader id
 		writeD(_partyMembers.get(0).getParty().getLootDistribution());//c3 party loot type (0,1,2,....)
 		writeD(_partyMembers.size()-1);

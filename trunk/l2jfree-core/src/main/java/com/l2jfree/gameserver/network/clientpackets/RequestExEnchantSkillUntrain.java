@@ -127,9 +127,6 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
             long expAfter = player.getExp() - requiredExp;
             if (player.getExp() >= requiredExp && expAfter >= Experience.LEVEL[player.getLevel()])
             {
-                // only first lvl requires book
-                boolean usesBook = _skillLvl == s.getBaseLevel(); //wrong to - need more info about it (with this case it will take a book only at first lvl enchant and all rest lvl's you can untrain without book)
-                
                 L2ItemInstance spb = player.getInventory().getItemByItemId(reqItemId);
                 if (Config.ES_SP_BOOK_NEEDED) //if (Config.ES_SP_BOOK_NEEDED && usesBook)  dissabled till official info - will request book for each untrain
                 {

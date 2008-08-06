@@ -34,7 +34,7 @@ public final class FuncTemplate
 	private final static Log	_log	= LogFactory.getLog(FuncTemplate.class);
 	public Condition			attachCond;
 	public Condition			applayCond;
-	public final Class			func;
+	public final Class<?>			func;
 	public final Constructor<?>	constructor;
 	public final Stats			stat;
 	public final int			order;

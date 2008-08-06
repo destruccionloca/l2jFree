@@ -117,18 +117,18 @@ public class FourSepulchersManager extends BossLair
 	protected Map<Integer, L2Spawn>			_mysteriousBoxSpawns	= new FastMap<Integer, L2Spawn>();
 
 	protected List<L2Spawn>					_physicalSpawns;
-	protected Map<Integer, List>			_physicalMonsters		= new FastMap<Integer, List>();
+	protected Map<Integer, List<L2Spawn>>	_physicalMonsters		= new FastMap<Integer, List<L2Spawn>>();
 	protected List<L2Spawn>					_magicalSpawns;
-	protected Map<Integer, List>			_magicalMonsters		= new FastMap<Integer, List>();
+	protected Map<Integer, List<L2Spawn>>	_magicalMonsters		= new FastMap<Integer, List<L2Spawn>>();
 	protected List<L2Spawn>					_dukeFinalSpawns;
-	protected Map<Integer, List>			_dukeFinalMobs			= new FastMap<Integer, List>();
+	protected Map<Integer, List<L2Spawn>>	_dukeFinalMobs			= new FastMap<Integer, List<L2Spawn>>();
 	protected Map<Integer, Boolean>			_archonSpawned			= new FastMap<Integer, Boolean>();
 	protected List<L2Spawn>					_emperorsGraveSpawns;
-	protected Map<Integer, List>			_emperorsGraveNpcs		= new FastMap<Integer, List>();
+	protected Map<Integer, List<L2Spawn>>	_emperorsGraveNpcs		= new FastMap<Integer, List<L2Spawn>>();
 
-	protected Map<Integer, List>			_viscountMobs			= new FastMap<Integer, List>();
+	protected Map<Integer, List<L2SepulcherMonsterInstance>>	_viscountMobs			= new FastMap<Integer, List<L2SepulcherMonsterInstance>>();
 
-	protected Map<Integer, List>			_dukeMobs				= new FastMap<Integer, List>();
+	protected Map<Integer, List<L2SepulcherMonsterInstance>>	_dukeMobs				= new FastMap<Integer, List<L2SepulcherMonsterInstance>>();
 
 	protected Map<Integer, Integer>			_keyBoxNpc				= new FastMap<Integer, Integer>();
 	protected Map<Integer, L2Spawn>			_keyBoxSpawns			= new FastMap<Integer, L2Spawn>();
@@ -1545,18 +1545,9 @@ public class FourSepulchersManager extends BossLair
 			_inWarmUpTime = false;
 			_inAttackTime = false;
 			_inCoolDownTime = false;
-
-			long interval = 0;
-            // if this is first launch - search time when entry time will be ended:
-            // counting difference between time when entry time ends and current time
-            // and then launching change time task
-            if (_firstTimeRun)
-            	interval = _entryTimeEnd - Calendar.getInstance().getTimeInMillis();
-            else
-            	interval = Config.FS_TIME_ENTRY * 60000; // else use stupid method
             
 			//launching saying process...
-            ThreadPoolManager.getInstance().scheduleGeneral(new ManagerSay(), 0);
+            ThreadPoolManager.getInstance().executeTask(new ManagerSay());
             
 			if (_changeEntryTimeTask != null)
 			{
@@ -1679,26 +1670,6 @@ public class FourSepulchersManager extends BossLair
 			{
 				_changeCoolDownTimeTask.cancel(true);
 				_changeCoolDownTimeTask = null;
-			}
-		}
-	}
-
-	private class OnPartyAnnihilatedTask implements Runnable
-	{
-		private L2PcInstance	_player;
-
-		public OnPartyAnnihilatedTask(L2PcInstance player)
-		{
-			_player = player;
-		}
-
-		public void run()
-		{
-			onPartyAnnihilated(_player);
-			if (_onPartyAnnihilatedTask != null)
-			{
-				_onPartyAnnihilatedTask.cancel(true);
-				_onPartyAnnihilatedTask = null;
 			}
 		}
 	}

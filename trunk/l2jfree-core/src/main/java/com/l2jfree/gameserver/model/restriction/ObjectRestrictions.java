@@ -287,7 +287,7 @@ public class ObjectRestrictions
 		TimedRestrictionEvent event = new TimedRestrictionEvent(objId, restriction, 
 				TimedRestrictionEventType.Remove, delay);
 				
-		ScheduledFuture task = ThreadPoolManager.getInstance().scheduleGeneral(event, delay);
+		ScheduledFuture<?> task = ThreadPoolManager.getInstance().scheduleGeneral(event, delay);
 	
 		event.getActionObject().setTask(task);
 		addTask(objId, event.getActionObject());
@@ -303,7 +303,7 @@ public class ObjectRestrictions
 		TimedRestrictionEvent event = new TimedRestrictionEvent(objId, restriction, 
 				TimedRestrictionEventType.Remove, delay, message);
 				
-		ScheduledFuture task = ThreadPoolManager.getInstance().scheduleGeneral(event, delay);
+		ScheduledFuture<?> task = ThreadPoolManager.getInstance().scheduleGeneral(event, delay);
 		
 		event.getActionObject().setTask(task);
 		addTask(objId, event.getActionObject());
@@ -325,7 +325,7 @@ public class ObjectRestrictions
 		TimedRestrictionEvent event = new TimedRestrictionEvent(objId, restriction, 
 				TimedRestrictionEventType.Add, delay);
 				
-		ScheduledFuture task = ThreadPoolManager.getInstance().scheduleGeneral(event, delay);
+		ScheduledFuture<?> task = ThreadPoolManager.getInstance().scheduleGeneral(event, delay);
 		
 		event.getActionObject().setTask(task);
 		addTask(objId, event.getActionObject());
@@ -347,7 +347,7 @@ public class ObjectRestrictions
 		TimedRestrictionEvent event = new TimedRestrictionEvent(objId, restriction, 
 				TimedRestrictionEventType.Add, delay, message);
 
-		ScheduledFuture task = ThreadPoolManager.getInstance().scheduleGeneral(event, delay);
+		ScheduledFuture<?> task = ThreadPoolManager.getInstance().scheduleGeneral(event, delay);
 		
 		event.getActionObject().setTask(task);
 		addTask(objId, event.getActionObject());
@@ -498,7 +498,7 @@ public class ObjectRestrictions
 		private final String _message;
 		private final Long _delay;
 		private Long _starttime;
-		private ScheduledFuture _task;
+		private ScheduledFuture<?> _task;
 		
 		public TimedRestrictionAction (int objId, AvailableRestriction restriction, TimedRestrictionEventType type, String message, long delay) {
 			_objId			= objId;
@@ -529,10 +529,10 @@ public class ObjectRestrictions
 			return (_delay * 1000) - (System.currentTimeMillis() - _starttime);
 		}
 		
-		public ScheduledFuture getTask() {
+		public ScheduledFuture<?> getTask() {
 			return _task;
 		}
-		public void setTask(ScheduledFuture task) {
+		public void setTask(ScheduledFuture<?> task) {
 			_task = task;
 		}
 	}

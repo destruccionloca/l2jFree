@@ -57,7 +57,6 @@ public class GrandBossSpawnManager extends BossSpawnManager
 
 			L2Spawn spawnDat;
 			L2NpcTemplate template;
-			long respawnTime;
 
 			while (rset.next())
 			{

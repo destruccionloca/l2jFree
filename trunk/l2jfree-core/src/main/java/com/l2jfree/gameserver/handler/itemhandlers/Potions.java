@@ -637,7 +637,7 @@ public class Potions implements IItemHandler
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
 	}
 
-	private boolean isEffectReplaceable(L2PcInstance activeChar, Enum effectType, L2ItemInstance item)
+	private boolean isEffectReplaceable(L2PcInstance activeChar, Enum<?> effectType, L2ItemInstance item)
 	{
 		L2Effect[] effects = activeChar.getAllEffects();
 
@@ -673,7 +673,7 @@ public class Potions implements IItemHandler
 		return true;
 	}
 
-	private boolean isUseable(L2PcInstance activeChar, Enum effectType, L2ItemInstance item, int skillid)
+	private boolean isUseable(L2PcInstance activeChar, Enum<?> effectType, L2ItemInstance item, int skillid)
 	{
 		return (isEffectReplaceable(activeChar, effectType, item) && isUseable(activeChar, item, skillid));
 	}

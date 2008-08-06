@@ -22,7 +22,9 @@ public class RequestChangeNicknameColor extends L2GameClientPacket
 {
 	private static final String	_C__D0_82_REQUESTCHANGENICKNAMECOLOR	= "[C] D0 52 RequestChangeNicknameColor";
 
+	@SuppressWarnings("unused")
 	private int					_unk1;
+	@SuppressWarnings("unused")
 	private String				_unk2;
 	
 	@Override
@@ -35,6 +37,7 @@ public class RequestChangeNicknameColor extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
+		//TODO: Implementation RequestChangeNicknameColor
 	}
 
 	/* (non-Javadoc)

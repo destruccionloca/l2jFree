@@ -78,7 +78,7 @@ public class AugmentationData
 	private static final int			BASESTAT_INT		= 16343;
 	private static final int			BASESTAT_MEN		= 16344;
 
-	private FastList					_augmentationStats[];
+	private FastList<?>					_augmentationStats[];
 	private FastList<AugmentationSkill>	_activeSkills;
 	private FastList<AugmentationSkill>	_passiveSkills;
 	private FastList<AugmentationSkill>	_chanceSkills;

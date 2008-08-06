@@ -22,6 +22,7 @@ public class RequestExTryToPutEnchantTargetItem extends L2GameClientPacket
 {
 	private static final String	_C__D0_78_REQUESTEXTRYTOPUTENCHANTTARGETITEM	= "[C] D0 4F RequestExTryToPutEnchantTargetItem";
 
+	@SuppressWarnings("unused")
 	private int					_unk1;
 
 	@Override
@@ -33,6 +34,7 @@ public class RequestExTryToPutEnchantTargetItem extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
+		//TODO: Implementation RequestExTryToPutEnchantTargetItem
 	}
 
 	/* (non-Javadoc)

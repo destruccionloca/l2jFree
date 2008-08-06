@@ -59,7 +59,7 @@ public class VanHalterManager extends BossLair
 	private static VanHalterManager			_instance;
 
 	// list of intruders.
-	protected Map<Integer, List>			_bleedingPlayers			= new FastMap<Integer, List>();
+	protected Map<Integer, List<L2PcInstance>>	_bleedingPlayers		= new FastMap<Integer, List<L2PcInstance>>();
 
 	// spawn data of monsters.
 	protected Map<Integer, L2Spawn>			_monsterSpawn				= new FastMap<Integer, L2Spawn>();

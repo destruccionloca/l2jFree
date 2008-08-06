@@ -843,16 +843,13 @@ public class MercTicketManager
 		if (castle == null) //this should never happen at this point
 			return -1;
 
-		int count = 0;
-		int castleId = castle.getCastleId();
-
 		for (int i = 0; i < ITEM_IDS.length; i++)
 		{
 			if (ITEM_IDS[i] == itemId) // Find the index of the item used
 			{
 				spawnMercenary(NPC_IDS[i], x, y, z, 3000, messages, 0);
 
-				// Hire merc for this caslte.  NpcId is at the same index as the item used.
+				// Hire merc for this castle.  NpcId is at the same index as the item used.
 				castle.getSiege().getSiegeGuardManager().hireMerc(x, y, z, heading, NPC_IDS[i]);
 
 				// create the ticket in the gameworld

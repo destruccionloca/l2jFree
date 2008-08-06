@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
  */
 public final class L2ObservationInstance extends L2FolkInstance
 {
+	@SuppressWarnings("unused")
     private final static Log _log = LogFactory.getLog(L2ObservationInstance.class.getName());
     /**
      * @param template

@@ -64,17 +64,17 @@ public class FortSiegeManager
 
 	// =========================================================
 	// Data Field
-	private int										_attackerMaxClans			= 500;		// Max number of clans
-	private int										_attackerRespawnDelay		= 20000;	// Time in ms. Changeable in siege.config
-	private int										_defenderMaxClans			= 500;		// Max number of clans
-	private int										_defenderRespawnDelay		= 10000;	// Time in ms. Changeable in siege.config
+	//FIXME: private int										_attackerMaxClans			= 500;		// Max number of clans
+	//FIXME: private int										_attackerRespawnDelay		= 20000;	// Time in ms. Changeable in siege.config
+	//FIXME: private int										_defenderMaxClans			= 500;		// Max number of clans
+	//FIXME: private int										_defenderRespawnDelay		= 10000;	// Time in ms. Changeable in siege.config
 
 	// Fort Siege settings
 	private FastMap<Integer, FastList<SiegeSpawn>>	_commanderSpawnList;
 	private FastMap<Integer, FastList<CombatFlag>>	_flagList;
 
-	private int										_controlTowerLosePenalty	= 20000;	// Time in ms. Changeable in siege.config
-	private int										_flagMaxCount				= 1;		// Changeable in siege.config
+	//FIXME: private int										_controlTowerLosePenalty	= 20000;	// Time in ms. Changeable in siege.config
+	//FIXME: private int										_flagMaxCount				= 1;		// Changeable in siege.config
 	private int										_siegeClanMinLevel			= 4;		// Changeable in siege.config
 	private int										_siegeLength				= 120;		// Time in minute. Changeable in siege.config
 	private List<FortSiege>							_sieges;

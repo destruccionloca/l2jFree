@@ -30,7 +30,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
-import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.Earthquake;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
@@ -69,10 +68,10 @@ public class BaiumManager extends BossLair
 																{ 114886, 14437, 10076, 16868 },
 																{ 115391, 17593, 10076, 55346 },
 																{ 115245, 17558, 10076, 35536 } };
-	protected List<L2Spawn>			_angelSpawn1				= new FastList<L2Spawn>();
-	protected List<L2Spawn>			_angelSpawn2				= new FastList<L2Spawn>();
-	protected Map<Integer, List>	_angelSpawn					= new FastMap<Integer, List>();
-	protected List<L2NpcInstance>	_angels						= new FastList<L2NpcInstance>();
+	protected List<L2Spawn>					_angelSpawn1				= new FastList<L2Spawn>();
+	protected List<L2Spawn>					_angelSpawn2				= new FastList<L2Spawn>();
+	protected Map<Integer, List<L2Spawn>>	_angelSpawn					= new FastMap<Integer, List<L2Spawn>>();
+	protected List<L2NpcInstance>			_angels						= new FastList<L2NpcInstance>();
 
 	// location of teleport cube.
 	protected final int				_teleportCubeId				= 29055;
@@ -614,24 +613,6 @@ public class BaiumManager extends BossLair
 					_sleepCheckTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckLastAttack(), 60000);
 				}
 			}
-		}
-	}
-
-	private class Speak implements Runnable
-	{
-		private L2PcInstance		_target;
-		private L2GrandBossInstance	_boss;
-
-		public Speak(L2PcInstance target, L2GrandBossInstance boss)
-		{
-			_target = target;
-			_boss = boss;
-		}
-
-		public void run()
-		{
-			CreatureSay cs = new CreatureSay(_boss.getObjectId(), 0, _boss.getName(), _target.getName() + _words);
-			_boss.broadcastPacket(cs);
 		}
 	}
 }

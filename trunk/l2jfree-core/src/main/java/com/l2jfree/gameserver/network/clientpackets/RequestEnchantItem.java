@@ -111,8 +111,6 @@ public class RequestEnchantItem extends L2GameClientPacket
 		if ((item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY) && (item.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL))
 			return;
 
-		int itemId = item.getItemId();
-
 		if (item.isWear())
 		{
 			Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " tried to enchant a weared Item", IllegalPlayerAction.PUNISH_KICK);
@@ -451,11 +449,11 @@ public class RequestEnchantItem extends L2GameClientPacket
 					count = 1;
 
 				L2ItemInstance destroyItem = activeChar.getInventory().destroyItem("Enchant", item, activeChar, null);
-				L2ItemInstance forceDestroyItem;
 				if (destroyItem == null)
 				{
 					if (item.getLocation() != null)
-						forceDestroyItem = activeChar.getWarehouse().destroyItem("Enchant", item, activeChar, null);
+						activeChar.getWarehouse().destroyItem("Enchant", item, activeChar, null);
+					
 					activeChar.setActiveEnchantItem(null);
 					return;
 				}

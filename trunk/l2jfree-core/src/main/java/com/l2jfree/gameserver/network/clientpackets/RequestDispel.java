@@ -22,7 +22,9 @@ public class RequestDispel extends L2GameClientPacket
 {
 	private static final String	_C__D0_78_REQUESTDISPEL	= "[C] D0 4E RequestDispel";
 
+	@SuppressWarnings("unused")
 	private int					_unk1;
+	@SuppressWarnings("unused")
 	private int					_unk2;
 
 	@Override
@@ -35,6 +37,7 @@ public class RequestDispel extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
+		//TODO: Implementation RequestDispel
 	}
 
 	/* (non-Javadoc)

@@ -134,7 +134,6 @@ public abstract class L2Character extends L2Object
 	// Data Field
 	private FastList<L2Character>	_attackByList;
 	private L2Character				_attackingChar;
-	private L2Skill					_lastSkillCast;
 	private boolean					_block_buffs						= false;
 	private boolean					_isAfraid							= false;											// Flee in a random direction
 	private boolean					_isConfused							= false;											// Attack anyone randomly

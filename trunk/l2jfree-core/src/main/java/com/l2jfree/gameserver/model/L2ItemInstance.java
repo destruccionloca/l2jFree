@@ -480,7 +480,7 @@ public final class L2ItemInstance extends L2Object
 	 * 
 	 * @return Enum
 	 */
-	public Enum getItemType()
+	public Enum<?> getItemType()
 	{
 		return _item.getItemType();
 	}
@@ -1178,8 +1178,8 @@ public final class L2ItemInstance extends L2Object
 	public static L2ItemInstance restoreFromDb(int ownerId, ResultSet rs)
 	{
 		L2ItemInstance inst = null;
-		int objectId, item_id, count, loc_data, enchant_level, custom_type1, custom_type2, price_sell, price_buy, manaLeft;
-		int attrAtkType = 0, attrAtkVal = 0, ad_water = 0, ad_fire = 0, ad_wind = 0, ad_holy = 0, ad_unholy = 0, ad_earth = 0, attrEnchantLvl = 0;
+		int objectId, item_id, count, loc_data, enchant_level, custom_type1, custom_type2, manaLeft;
+		//FIXME: int attrAtkType = 0, attrAtkVal = 0, ad_water = 0, ad_fire = 0, ad_wind = 0, ad_holy = 0, ad_unholy = 0, ad_earth = 0, attrEnchantLvl = 0;
 		ItemLocation loc;
 		try
 		{
@@ -1192,6 +1192,8 @@ public final class L2ItemInstance extends L2Object
 			custom_type1 =  rs.getInt("custom_type1");
 			custom_type2 =  rs.getInt("custom_type2");
 			manaLeft = rs.getInt("mana_left");
+
+			/*
 			String at[] = rs.getString("attributes").split(",");
 			if (at != null && at.length >= 7)
 			{
@@ -1205,6 +1207,7 @@ public final class L2ItemInstance extends L2Object
 				ad_unholy = Integer.parseInt(at[7]);
 				attrEnchantLvl = Integer.parseInt(at[8]);
 			}
+			*/
 		}
 		catch (Exception e)
 		{

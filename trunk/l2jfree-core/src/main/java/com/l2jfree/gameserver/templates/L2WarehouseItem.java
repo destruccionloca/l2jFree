@@ -37,7 +37,6 @@ public class L2WarehouseItem
 	private int		_augmentationId;
 	private int		_manaLeft;
 
-	private int		ae_enchantLvl;
 	private int		ae_enchantElement;
 	private int		ae_enchantVal;
 	private int		ad_fire;
@@ -137,7 +136,7 @@ public class L2WarehouseItem
 	 * Returns the second type
 	 * @return int
 	 */
-	public final Enum getItemType()
+	public final Enum<?> getItemType()
 	{
 		return _item.getItemType();
 	}

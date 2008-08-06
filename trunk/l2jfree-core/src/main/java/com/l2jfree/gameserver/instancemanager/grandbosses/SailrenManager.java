@@ -482,22 +482,6 @@ public class SailrenManager extends BossLair
 		}
 	}
 
-	// when annihilating or limit of time coming, the compulsion movement players from the sailren's lair.
-	private class OnPartyAnnihilatedTask implements Runnable
-	{
-		private L2PcInstance	_player;
-
-		public OnPartyAnnihilatedTask(L2PcInstance player)
-		{
-			_player = player;
-		}
-
-		public void run()
-		{
-			setUnspawn();
-		}
-	}
-
 	// social.
 	private class Social implements Runnable
 	{

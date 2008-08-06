@@ -379,8 +379,6 @@ public class FrintezzaManager extends BossLair
 
 		public void run()
 		{
-			SetMobilised mobilise;
-
 			switch (_taskId)
 			{
 

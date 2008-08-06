@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class RequestPartyMatchList extends L2GameClientPacket
 {
 	private static final String _C__80_REQUESTPARTYMATCHLIST = "[C] 80 RequestPartyMatchList";
+	@SuppressWarnings("unused")
 	private final static Log _log = LogFactory.getLog(RequestPartyMatchList.class.getName());
 
 
@@ -42,16 +43,24 @@ public class RequestPartyMatchList extends L2GameClientPacket
 		_roomTitle = readS();
 	}
 
+	@SuppressWarnings("unused")
 	private int _lootDist;
+	@SuppressWarnings("unused")
 	private int _maxMembers;
+	@SuppressWarnings("unused")
 	private int _minLevel;
+	@SuppressWarnings("unused")
 	private int _maxLevel;
+	@SuppressWarnings("unused")
 	private int _roomId;
+	@SuppressWarnings("unused")
 	private String _roomTitle;
 
 	@Override
 	protected void runImpl()
 	{
+		//TODO: Implementation RequestPartyMatchList
+		
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;

@@ -48,9 +48,18 @@ public class BaylorManager extends BossLair
 	private static BaylorManager	_instance;
 
 	// teleport cube location.
-	private final int				_baylorCubeLocation[][]		=
-																{
-																{ 153569, 142075, -12732, 0 } };
+	private final int				_baylorCubeLocation[][]		= {
+			{ 153569, 142075, -12732, 0 }
+	};
+	
+	private final int[] doors = {
+			24220001, 24220002,	24220003, 24220004, 24220005,
+			24220006, 24220007, 24220008, 24220009,	24220010,
+			24220011, 24220012, 24220013, 24220014, 24220015,
+			24220016, 24220017, 24220018, 24220019, 24220020,
+			24220021, 24220022, 24220024, 24220025, 24220026
+	};
+
 	protected List<L2Spawn>			_baylorCubeSpawn			= new FastList<L2Spawn>();
 	protected List<L2NpcInstance>	_baylorCube					= new FastList<L2NpcInstance>();
 
@@ -449,31 +458,8 @@ public class BaylorManager extends BossLair
 				_crystaline7 = _crystalineSpawn7.doSpawn();
 				_crystaline8 = _crystalineSpawn8.doSpawn();
 
-				DoorTable.getInstance().getDoor(24220001).openMe();
-				DoorTable.getInstance().getDoor(24220002).openMe();
-				DoorTable.getInstance().getDoor(24220003).openMe();
-				DoorTable.getInstance().getDoor(24220004).openMe();
-				DoorTable.getInstance().getDoor(24220005).openMe();
-				DoorTable.getInstance().getDoor(24220006).openMe();
-				DoorTable.getInstance().getDoor(24220007).openMe();
-				DoorTable.getInstance().getDoor(24220008).openMe();
-				DoorTable.getInstance().getDoor(24220009).openMe();
-				DoorTable.getInstance().getDoor(24220010).openMe();
-				DoorTable.getInstance().getDoor(24220011).openMe();
-				DoorTable.getInstance().getDoor(24220012).openMe();
-				DoorTable.getInstance().getDoor(24220013).openMe();
-				DoorTable.getInstance().getDoor(24220014).openMe();
-				DoorTable.getInstance().getDoor(24220015).openMe();
-				DoorTable.getInstance().getDoor(24220016).openMe();
-				DoorTable.getInstance().getDoor(24220017).openMe();
-				DoorTable.getInstance().getDoor(24220018).openMe();
-				DoorTable.getInstance().getDoor(24220019).openMe();
-				DoorTable.getInstance().getDoor(24220020).openMe();
-				DoorTable.getInstance().getDoor(24220021).openMe();
-				DoorTable.getInstance().getDoor(24220022).openMe();
-				DoorTable.getInstance().getDoor(24220024).openMe();
-				DoorTable.getInstance().getDoor(24220025).openMe();
-				DoorTable.getInstance().getDoor(24220026).openMe();
+				for (int doorId : doors)
+					DoorTable.getInstance().getDoor(doorId).openMe();
 
 				_crystaline1.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
 				_crystaline2.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
@@ -575,22 +561,6 @@ public class BaylorManager extends BossLair
 		{
 			_state.setState(GrandBossState.StateEnum.NOTSPAWN);
 			_state.update();
-		}
-	}
-
-	// when annihilating or limit of time coming, the compulsion movement players from the baylor's lair.
-	private class OnPartyAnnihilatedTask implements Runnable
-	{
-		private L2PcInstance	_player;
-
-		public OnPartyAnnihilatedTask(L2PcInstance player)
-		{
-			_player = player;
-		}
-
-		public void run()
-		{
-			setUnspawn();
 		}
 	}
 
