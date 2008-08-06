@@ -26,7 +26,7 @@ CLASSPATH=${CLASSPATH}:commons-io-1.2.jar
 CLASSPATH=${CLASSPATH}:javolution-1.5.5.2.6.jar
 
 # main jar
-CLASSPATH=${CLASSPATH}:l2j-commons-1.1.7.jar
+CLASSPATH=${CLASSPATH}:l2j-commons-1.1.8.jar
 CLASSPATH=${CLASSPATH}:l2jfree-core-1.1.5.jar
 
 CLASSPATH=${CLASSPATH}:core-3.3.0.jar
