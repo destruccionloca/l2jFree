@@ -54,6 +54,8 @@
 	<scroll itemid="10550" skillid="756" class="93"/> <!--Protection of Elemental -->
 	<scroll itemid="10549" skillid="755" class="93"/> <!--Protection of Rune -->
 	<scroll itemid="10561" skillid="768" class="93"/> <!--Exciting Adventure -->
+	<scroll itemid="10560" skillid="767" class="93"/> <!--Expose Weak Point -->
+	<scroll itemid="10559" skillid="766" class="93"/> <!--Sixth Sense -->
 
 	<!--Class: 94 Archmage-->
 	<scroll itemid="10551" skillid="757" class="94"/> <!--Protection of Alignment -->
@@ -87,13 +89,15 @@
 	<scroll itemid="10549" skillid="755" class="98"/> <!--Protection of Rune -->	
 
 	<!--Class: 99 Evas Templar -->
-	<!--TODO:Needs check on Blessing of Eva -->
+	<!-- TODO: Touch of Eva, missing Skill Book? -->
+	<scroll itemid="10553" skillid="759" class="99"/> <!--Archer's Will -->
+	<scroll itemid="10552" skillid="758" class="99"/> <!--Fighters Will -->
 	<scroll itemid="10551" skillid="757" class="99"/> <!--Protection of Alignment -->
 	<scroll itemid="10550" skillid="756" class="99"/> <!--Protection of Elemental -->
-	<scroll itemid="10549" skillid="755" class="99"/> <!--Protection of Rune -->	
+	<scroll itemid="10549" skillid="755" class="99"/> <!--Protection of Rune -->
 	<scroll itemid="10554" skillid="760" class="99"/> <!--Anti Magic Armor -->
 	<scroll itemid="10592" skillid="786" class="99"/> <!--Evas Will -->
-	<scroll itemid="10586" skillid="787" class="99"/> <!--Blessing of Eva -->
+	<!-- <scroll itemid="" skillid="787" class="99"/> <!--Touch of Eva -->
 	
 	<!--Class: 100 Sword Muse-->
 	<scroll itemid="10553" skillid="759" class="100"/> <!--Archer's Will -->
@@ -108,8 +112,8 @@
 	<scroll itemid="10551" skillid="757" class="101"/> <!--Protection of Alignment -->
 	<scroll itemid="10550" skillid="756" class="101"/> <!--Protection of Elemental -->
 	<scroll itemid="10549" skillid="755" class="101"/> <!--Protection of Rune -->
-	<scroll itemid="10560" skillid="767" class="101"/> <!--Expose Weak Point -->	
-	<scroll itemid="10559" skillid="766" class="101"/> <!--Sixth Sense -->	
+	<scroll itemid="10560" skillid="767" class="101"/> <!--Expose Weak Point -->
+	<scroll itemid="10559" skillid="766" class="101"/> <!--Sixth Sense -->
 	<scroll itemid="10562" skillid="769" class="101"/> <!--Wind Riding -->
 
 	<!--Class: 102 Moonlight Sentinel-->
@@ -124,6 +128,7 @@
 	<scroll itemid="10551" skillid="757" class="103"/> <!--Protection of Alignment -->
 	<scroll itemid="10550" skillid="756" class="103"/> <!--Protection of Elemental -->
 	<scroll itemid="10549" skillid="755" class="103"/> <!--Protection of Rune -->
+	<scroll itemid="10573" skillid="1493" class="103"/> <!--Frost Armor -->
 
 	<!--Class: 104 Elemental Master-->
 	<scroll itemid="10551" skillid="757" class="104"/> <!--Protection of Alignment -->
@@ -137,17 +142,20 @@
 	<scroll itemid="10551" skillid="757" class="105"/> <!--Protection of Alignment -->
 	<scroll itemid="10550" skillid="756" class="105"/> <!--Protection of Elemental -->
 	<scroll itemid="10549" skillid="755" class="105"/> <!--Protection of Rune -->
-	<scroll itemid="10586" skillid="787" class="105"/> <!--Blessing of Eva -->
+	<scroll itemid="10586" skillid="1506" class="105"/> <!--Blessing of Eva -->
 
 	<!--Class: 106 Shillien Templar-->
-	<!--Missing Touch of Shilen? Forgotten scroll unknown-->
+	<!-- TODO: Touch of Shilen, missing Skill Book? -->
 	<scroll itemid="10551" skillid="757" class="106"/> <!--Protection of Alignment -->
 	<scroll itemid="10550" skillid="756" class="106"/> <!--Protection of Elemental -->
-	<scroll itemid="10549" skillid="755" class="106"/> <!--Protection of Rune -->	
+	<scroll itemid="10549" skillid="755" class="106"/> <!--Protection of Rune -->
 	<scroll itemid="10554" skillid="760" class="106"/> <!--Anti Magic Armor -->
-	<scroll itemid="10593" skillid="788" class="106"/> <!--Pain of Shilen -->	
+	<scroll itemid="10593" skillid="788" class="106"/> <!--Pain of Shilen -->
+	<!-- <scroll itemid="" skillid="789" class="106"/> <!--Touch of Shilen -->
 	
 	<!--Class: 107 Spectral Dancer-->
+	<scroll itemid="10553" skillid="759" class="107"/> <!--Archer's Will -->
+	<scroll itemid="10552" skillid="758" class="107"/> <!--Fighters Will -->
 	<scroll itemid="10551" skillid="757" class="107"/> <!--Protection of Alignment -->
 	<scroll itemid="10550" skillid="756" class="107"/> <!--Protection of Elemental -->
 	<scroll itemid="10549" skillid="755" class="107"/> <!--Protection of Rune -->
@@ -158,11 +166,11 @@
 	<scroll itemid="10551" skillid="757" class="108"/> <!--Protection of Alignment -->
 	<scroll itemid="10550" skillid="756" class="108"/> <!--Protection of Elemental -->
 	<scroll itemid="10549" skillid="755" class="108"/> <!--Protection of Rune -->
-	<scroll itemid="10560" skillid="767" class="108"/> <!--Expose Weak Point -->	
+	<scroll itemid="10560" skillid="767" class="108"/> <!--Expose Weak Point -->
 	<scroll itemid="10563" skillid="770" class="108"/> <!--Ghost Walking -->
-	<scroll itemid="10559" skillid="766" class="108"/> <!--Sixth Sense -->	
+	<scroll itemid="10559" skillid="766" class="108"/> <!--Sixth Sense -->
 
-	<!--Class: 109 Ghost Sentine-->
+	<!--Class: 109 Ghost Sentinel-->
 	<scroll itemid="10553" skillid="759" class="109"/> <!--Archer's Will -->
 	<scroll itemid="10552" skillid="758" class="109"/> <!--Fighters Will -->
 	<scroll itemid="10551" skillid="757" class="109"/> <!--Protection of Alignment -->
@@ -208,7 +216,6 @@
 	<scroll itemid="10569" skillid="776" class="114"/> <!--Force of Destruction -->
 
 	<!--Class: 115 Dominator-->
-	<!--TODO: Seal of limit needs to be verified -->
 	<scroll itemid="10551" skillid="757" class="115"/> <!--Protection of Alignment -->
 	<scroll itemid="10550" skillid="756" class="115"/> <!--Protection of Elemental -->
 	<scroll itemid="10549" skillid="755" class="115"/> <!--Protection of Rune -->

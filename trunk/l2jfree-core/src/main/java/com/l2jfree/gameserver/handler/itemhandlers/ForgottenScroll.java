@@ -173,9 +173,22 @@ public class ForgottenScroll implements IItemHandler
 			return;
 		}
 
+		if (activeChar.isSubClassActive())
+		{
+			activeChar.sendPacket(SystemMessageId.SKILL_NOT_FOR_SUBCLASS);
+			return;
+		}
+
+		if (activeChar.getLevel() < 81)
+		{
+			activeChar.sendPacket(SystemMessageId.YOU_DONT_MEET_SKILL_LEVEL_REQUIREMENTS);
+			return;
+		}
+
 		int itemId = item.getItemId();
 
 		for (ForgottenScrollData sd : _scrolls.values())
+		{
 			if (itemId == sd.getItemID())
 			{
 				L2Skill sk = activeChar.getKnownSkill(sd.getSkillID());
@@ -183,6 +196,7 @@ public class ForgottenScroll implements IItemHandler
 				{
 					String[] classes = sd.getClassRequire().split(";");
 					for (String cl : classes)
+					{
 						if (activeChar.getActiveClass() == Integer.parseInt(cl))
 						{
 							if (!activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false))
@@ -195,16 +209,21 @@ public class ForgottenScroll implements IItemHandler
 							L2Skill skill = SkillTable.getInstance().getInfo(sd.getSkillID(), 1);
 							activeChar.addSkill(skill, true);
 							activeChar.sendSkillList();
+							activeChar.sendMessage("You learned the skill "+skill.getName()); // Retail MSG?
+							return;
 						}
+					}
 				}
 				else
 				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-					sm.addItemName(item);
-					activeChar.sendPacket(sm);
+					activeChar.sendMessage("That skill is already learned."); // Retail MSG?
+					return;
 				}
 			}
-
+		}
+		SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+		sm.addItemName(item);
+		activeChar.sendPacket(sm);
 	}
 
 	public int[] getItemIds()

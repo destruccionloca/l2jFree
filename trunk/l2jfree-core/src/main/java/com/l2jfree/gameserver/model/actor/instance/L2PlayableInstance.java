@@ -88,14 +88,14 @@ public abstract class L2PlayableInstance extends L2Character
 
 	@Override
 	public boolean doDie(L2Character killer)
-	{	
+	{
 		if (!super.doDie(killer))
 			return false;
 
-		L2PcInstance player = killer.getActingPlayer();
-
-		if (player != null)
-			player.onKillUpdatePvPKarma(this);
+		if (killer != null && killer.getActingPlayer() != null)
+		{
+			killer.getActingPlayer().onKillUpdatePvPKarma(this);
+		}
 
 		return true;
 	}
