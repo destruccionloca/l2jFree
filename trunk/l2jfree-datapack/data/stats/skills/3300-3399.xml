@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-  <skill id="3300" levels="1"
-    name="Yellow Talisman of Speed">
+  <skill id="3300" levels="1" name="Yellow Talisman of Speed">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -31,8 +30,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3303" levels="1"
-    name="White Talisman of Bandages">
+  <skill id="3303" levels="1" name="White Talisman of Bandages">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -61,8 +59,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3306" levels="1"
-    name="White Talisman of Bravery">
+  <skill id="3306" levels="1" name="White Talisman of Bravery">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -71,8 +68,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3307" levels="1"
-    name="White Talisman of Motion">
+  <skill id="3307" levels="1" name="White Talisman of Motion">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -81,8 +77,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3308" levels="1"
-    name="White Talisman of Freedom">
+  <skill id="3308" levels="1" name="White Talisman of Freedom">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -121,8 +116,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3312" levels="1"
-    name="Yellow Talisman of Healing">
+  <skill id="3312" levels="1" name="Yellow Talisman of Healing">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -190,8 +184,7 @@
     <set name="skillType" val="TAKEFORT" />
     <set name="operateType" val="OP_ACTIVE" />
   </skill>
-  <skill id="3319" levels="1"
-    name="Divine Protection of Ring">
+  <skill id="3319" levels="1" name="Divine Protection of Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -210,8 +203,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3321" levels="1"
-    name="Blue Talisman of Evasion">
+  <skill id="3321" levels="1" name="Blue Talisman of Evasion">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -342,14 +334,15 @@
   </skill>
   <skill id="3335" levels="1" name="Transform Yeti">
     <!--
-      Done by Skatershi
-      Description:
-      Transforms into Yeti.
+      Done by Skatershi Description: Transforms into Yeti.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="reuseDelay" val="14400000" /><!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000" />
+    <!--
+      Retail Like 4Hours
+    -->
     <set name="transformId" val="102" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -360,14 +353,17 @@
   </skill>
   <skill id="3336" levels="1" name="Transform Buffalo">
     <!--
-      Done by Skatershi
-      Description:
-      Transform into a Yeti. There is no effect from the Mystery Potion while in Yeti form.
+      Done by Skatershi Description: Transform into a Yeti.
+      There is no effect from the Mystery Potion while in
+      Yeti form.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="reuseDelay" val="14400000" /><!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000" />
+    <!--
+      Retail Like 4Hours
+    -->
     <set name="transformId" val="103" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -378,14 +374,16 @@
   </skill>
   <skill id="3337" levels="1" name="Transform Cutie Pig">
     <!--
-      Done by Skatershi
-      Description:
-      Transforms into cute pig.
+      Done by Skatershi Description: Transforms into cute
+      pig.
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="reuseDelay" val="14400000" /><!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000" />
+    <!--
+      Retail Like 4Hours
+    -->
     <set name="transformId" val="104" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -486,10 +484,7 @@
   </skill>
   <skill id="3348" levels="1"
     name="Dynasty Breast Plate - Shield Master">
-    <!--
-      Description(s):
-      Str-2, Con+2, Physical Defense Power +5.4%, Maximum HP +492 effect. Darkness resistance is increased +8, received Heal is increased +3%. Shock resistance is increased.
-    -->
+  <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -497,21 +492,18 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <sub val="2" order="0x10" stat="STR" />
-      <add val="2" order="0x10" stat="CON" />
-      <mul val="1.054" order="0x40" stat="pDef" />
-      <add order="0x40" stat="maxHp" val="492" />
-      <mul order="0x30" stat="darkVuln" val="0.92" />
-      <mul order="0x30" stat="mDef" val="1.054" />
-      <mul order="0x30" stat="sleepVuln" val="0.7" />
+      <sub order="0x40" stat="STR" val="2" /> <!-- Str -2 -->
+      <add order="0x40" stat="CON" val="2" /> <!-- Con +2 -->
+      <mul order="0x30" stat="pDef" val="1.054" /> <!-- Physical Defense Power +5.4% -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- Maximum HP +492 effect -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Darkness resistance is increased +8 -->
+      <mul order="0x30" stat="gainHp" val="1.03" /> <!-- received Heal is increased +3% -->
+      <mul order="0x30" stat="stunVuln" val="0.97" /> <!-- Shock resistance is increased +? --> <!-- Guessing -->
     </for>
   </skill>
   <skill id="3349" levels="1"
     name="Dynasty Breast Plate - Weapon Master">
-    <!--
-      Description(s):
-      Con-2, Str+2, P. Atk +5.4%, MaxHP +492. Increase Darkness Resistance +8, Critical Damage Chance. Shield defense rate is increased
-    -->
+  <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -519,22 +511,17 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <sub val="2" order="0x10" stat="CON" />
-      <add val="2" order="0x10" stat="STR" />
-      <mul val="1.054" order="0x40" stat="pDef" />
-      <mul val="1.054" order="0x40" stat="pAtk" />
-      <add val="492" order="0x10" stat="maxHp" />
-      <mul order="0x30" stat="darkVuln" val="0.92" />
-      <mul order="0x30" stat="cAtk" val="1.10" />
-      <add order="0x40" stat="rCrit" val="61" />
+      <sub order="0x40" stat="CON" val="2" /> <!-- Con -2 -->
+      <add order="0x40" stat="STR" val="2" /> <!-- Str +2 -->
+      <mul order="0x30" stat="pAtk" val="1.054" /> <!-- P. Atk +5.4% -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- MaxHP +492 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Increase Darkness Resistance +8 -->
+      <basemul order="0x30" stat="rCrit" val="0.03" /> <!-- Critical Damage Chance +? --> <!-- Guessing -->
     </for>
   </skill>
   <skill id="3350" levels="1"
     name="Dynasty Breast Plate - Force Master">
-    <!--
-      Description(s):
-      Con-2, Str+1, Dex+1, P. Atk. +5.4%, Maximum HP +492 Effect. Darkness resistance is increased by +8. MP consumption of the active skill is decreased. Shield defense rate is increased.
-    -->
+  <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -542,23 +529,18 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x40" stat="CON" val="2" />
-      <add order="0x40" stat="STR" val="2" />
-      <mul order="0x30" stat="pAtk" val="1.054" />
-      <add order="0x40" stat="maxHp" val="492" />
-      <mul order="0x30" stat="darkVuln" val="0.92" />
-      <mul order="0x30" stat="PhysicalMpConsumeRate"
-        val="0.9" />
+      <sub order="0x40" stat="CON" val="2" /> <!-- Con -2 -->
+      <add order="0x40" stat="STR" val="1" /> <!-- Str +1 -->
+      <add order="0x40" stat="DEX" val="1" /> <!-- Dex +1 -->
+      <mul order="0x30" stat="pAtk" val="1.054" /> <!-- P. Atk. +5.4% -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- Maximum HP +492 effect -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Darkness resistance is increased by +8 -->
+      <mul order="0x30" stat="MpConsumeRate" val="0.97" /> <!-- MP consumption of the active skill is decreased +? --> <!-- Guessing -->
     </for>
   </skill>
   <skill id="3351" levels="1"
     name="Dynasty Breast Plate - Bard">
-    <!--
-      Description(s):
-      Con-2, Str+2, P. Def +5.4%, MaxHP +492. Increase Darkness Resistance +8, decrease MP consumption for song, dance skill, increase P. Atk.
-    -->
-    <!-- Done by BoDiE -->
-    <!-- Retail accuracy verified -->
+  <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -566,21 +548,21 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x40" stat="CON" val="2" />
-      <add order="0x40" stat="STR" val="2" />
-      <mul order="0x30" stat="pDef" val="1.054" />
-      <add order="0x40" stat="maxHp" val="492" />
-      <mul order="0x30" stat="darkVuln" val="0.92" />
-      <mul order="0x30" stat="DanceMpConsumeRate" val="0.9" />
-      <mul order="0x30" stat="pAtk" val="1.025" />
+      <sub order="0x40" stat="CON" val="2" /> <!-- Con -2 -->
+      <add order="0x40" stat="STR" val="2" /> <!-- Str +2 -->
+      <mul order="0x30" stat="pDef" val="1.054" /> <!-- Physical Defense Power +5.4% -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- Maximum HP +492 effect -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Darkness resistance is increased by +8 -->
+      <mul order="0x30" stat="MpConsumeRate" val="0.97" />
+      <!--
+        MP consumption is decreased when song and dance
+        skills are used +?
+      --> <!-- Guessing -->
     </for>
   </skill>
   <skill id="3352" levels="1"
     name="Dynasty Leather Armor - Dagger Master">
-    <!--
-      Description(s):
-      Con-2, Dex+2, Accuracy +4.3, MaxHP +492. Increase Darkness Resistance +8, increase hold resistance, increase atk spd.
-    -->
+  <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -588,21 +570,18 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="CON" val="2" />
-      <add order="0x10" stat="DEX" val="2" />
-      <add order="0x10" stat="accCombat" val="4.3" />
-      <add order="0x10" stat="maxHp" val="492" />
-      <mul order="0x30" stat="darkVuln" val="0.92" />
-      <mul order="0x30" stat="rootVuln" val="0.93" />
-      <mul order="0x30" stat="pAtkSpd" val="1.05" />
+      <sub order="0x40" stat="CON" val="2" /> <!-- Con -2 -->
+      <add order="0x40" stat="DEX" val="2" /> <!-- Dex +2 -->
+      <add order="0x40" stat="rEvas" val="4.3" /> <!-- Evasion +4.3 -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- Maximum HP +492 effect -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Darkness resistance is increased by +8 -->
+      <mul order="0x30" stat="rootVuln" val="0.97" /> <!-- Hold resistance +? --> <!-- Guessing -->
+      <mul order="0x30" stat="pAtkSpd" val="1.03" /> <!-- Atk. Spd. are increased +? --> <!-- Guessing -->
     </for>
   </skill>
   <skill id="3353" levels="1"
     name="Dynasty Leather Armor - Bow Master">
-    <!--
-      Description(s):
-      Con-2, Dex+2, Evasion +4.3, MaxHP +492. Increase Darkness Resistance +8, increase hold resistance, increase Atk Spd.
-    -->
+  <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -610,21 +589,17 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x40" stat="CON" val="2" />
-      <add order="0x40" stat="DEX" val="2" />
-      <add order="0x40" stat="rEvas" val="4.3" />
-      <add order="0x40" stat="maxHp" val="321" />
-      <mul order="0x30" stat="darkVuln" val="0.92" />
-      <mul order="0x30" stat="pAtkSpd" val="1.08" />
-      <add order="0x40" stat="regMp" val="3.09" />
+      <sub order="0x40" stat="CON" val="2" /> <!-- Con -2 -->
+      <add order="0x40" stat="DEX" val="2" /> <!-- Dex +2 -->
+      <add order="0x40" stat="accCombat" val="4.3" /> <!-- Accuracy +4.3 -->
+      <add order="0x40" stat="maxMp" val="321" /> <!-- Maximum MP +321 effect -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Darkness resistance is increased by +8 -->
+      <mul order="0x30" stat="pAtkSpd" val="1.03" /> <!-- Atk. Spd. +? --> <!-- Guessing -->
+      <add order="0x40" stat="regMp" val="3.0" /> <!-- MP recovery are increased +? --> <!-- Guessing -->
     </for>
   </skill>
-  <skill id="3354" levels="1"
-    name="Dynasty Tunic - Healer">
-    <!--
-      Description(s):
-      Int-2, Men+2, Casting Spd. +15%, Maximum MP +321. Increase Darkness Resistance +8, increase amount of heal, increase magic cancel rate.
-    -->
+  <skill id="3354" levels="1" name="Dynasty Tunic - Healer">
+  <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -632,21 +607,17 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x40" stat="INT" val="2" />
-      <add order="0x40" stat="MEN" val="2" />
-      <mul order="0x30" stat="mAtkSpd" val="1.15" />
-      <add order="0x40" stat="maxMp" val="321" />
-      <mul order="0x30" stat="darkVuln" val="0.92" />
-      <mul order="0x30" stat="gainHp" val="1.13" />
-      <mul order="0x30" stat="cancel" val="1.17" />
+      <sub order="0x40" stat="INT" val="2" /> <!-- Int -2 -->
+      <add order="0x40" stat="MEN" val="2" /> <!-- Men +2 -->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /> <!-- Casting Spd. +15% -->
+      <add order="0x40" stat="maxMp" val="321" /> <!-- Maximum MP +321 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Increase Darkness Resistance +8 -->
+      <mul order="0x30" stat="giveHp" val="1.03" /> <!-- increase amount of heal +? --> <!-- Guessing -->
+      <mul order="0x30" stat="cancelVuln" val="1.03" /> <!-- increase magic cancel rate +? --> <!-- Guessing -->
     </for>
   </skill>
-  <skill id="3355" levels="1"
-    name="Dynasty Tunic - Enchanter">
-    <!--
-      Description(s):
-      Int-2, Men+2, Casting Spd. +15%, Maximum MP +321. Increase Darkness Resistance +8, decrease MP consumption, decrease magic cancel rate.
-    -->
+  <skill id="3355" levels="1" name="Dynasty Tunic - Enchanter">
+  <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -654,22 +625,17 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x40" stat="INT" val="2" />
-      <add order="0x40" stat="MEN" val="2" />
-      <mul order="0x30" stat="mAtkSpd" val="1.15" />
-      <add order="0x40" stat="maxMp" val="321" />
-      <mul order="0x30" stat="darkVuln" val="0.92" />
-      <mul order="0x30" stat="MagicalMpConsumeRate"
-        val="0.9" />
-      <mul order="0x30" stat="cancelVuln" val="0.81" />
+      <sub order="0x40" stat="INT" val="2" /> <!-- Int -2 -->
+      <add order="0x40" stat="MEN" val="2" /> <!-- Men +2 -->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /> <!-- Casting Spd. +15% -->
+      <add order="0x40" stat="maxMp" val="321" /> <!-- Maximum MP +321 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Increase Darkness Resistance +8 -->
+      <mul order="0x30" stat="MpConsumeRate" val="0.97" /> <!-- decrease MP consumption +? --> <!-- Guessing -->
+      <mul order="0x30" stat="cancelVuln" val="0.97" /> <!-- decrease magic cancel rate +? --> <!-- Guessing -->
     </for>
   </skill>
-  <skill id="3356" levels="1"
-    name="Dynasty Tunic - Summoner">
-    <!--
-      Description(s):
-      Int-2, Men+2, Casting Spd. +15%, Maximum MP +321. Increase Darkness Resistance +8, increase P. Atk., P. Def.
-    -->
+  <skill id="3356" levels="1" name="Dynasty Tunic - Summoner">
+  <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -677,21 +643,17 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x40" stat="INT" val="2" />
-      <add order="0x40" stat="MEN" val="2" />
-      <mul order="0x30" stat="mAtkSpd" val="1.15" />
-      <add order="0x40" stat="maxMp" val="321" />
-      <mul order="0x30" stat="darkVuln" val="0.92" />
-      <mul order="0x30" stat="pAtk" val="1.054" />
-      <mul order="0x30" stat="pDef" val="1.027" />
+      <sub order="0x40" stat="INT" val="2" /> <!-- Int -2 -->
+      <add order="0x40" stat="MEN" val="2" /> <!-- Men +2 -->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /> <!-- Casting Spd. +15% -->
+      <add order="0x40" stat="maxMp" val="321" /> <!-- Maximum MP +321 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Increase Darkness Resistance +8 -->
+      <mul order="0x30" stat="pAtk" val="1.03" /> <!-- increase P. Atk. +? --> <!-- Guessing -->
+      <mul order="0x30" stat="pDef" val="1.03" /> <!-- P. Def. +? --> <!-- Guessing -->
     </for>
   </skill>
-  <skill id="3357" levels="1"
-    name="Dynasty Tunic - Human Wizard">
-    <!--
-      Description(s):
-      Int+1, Wit+1, Men-2, Casting Spd. +15%, Maximum MP +321. Increase Darkness Resistance +8, increase stun resistance, increase M. Atk.
-    -->
+  <skill id="3357" levels="1" name="Dynasty Tunic - Wizard">
+  <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -699,14 +661,14 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="INT" val="1" />
-      <add order="0x40" stat="WIT" val="1" />
-      <sub order="0x40" stat="MEN" val="2" />
-      <mul order="0x30" stat="mAtkSpd" val="1.15" />
-      <add order="0x40" stat="maxMp" val="321" />
-      <mul order="0x30" stat="darkVuln" val="0.92" />
-      <mul order="0x30" stat="stunVuln" val="0.5" />
-      <mul order="0x30" stat="mAtk" val="1.08" />
+      <add order="0x40" stat="INT" val="2" /> <!-- Int +2 -->
+      <add order="0x40" stat="WIT" val="1" /> <!-- Wit +1 -->
+      <sub order="0x40" stat="MEN" val="2" /> <!-- Men -2 -->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /> <!-- Casting Spd. +15% -->
+      <add order="0x40" stat="maxMp" val="321" /> <!-- Maximum MP +321 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Increase Darkness Resistance +8 -->
+      <mul order="0x30" stat="stunVuln" val="0.97" /> <!-- increase stun resistance +? --> <!-- Guessing -->
+      <mul order="0x30" stat="mAtk" val="1.03" /> <!-- increase M. Atk +? --> <!-- Guessing -->
     </for>
   </skill>
   <skill id="3358" levels="1" name="Flag Equip">
@@ -749,8 +711,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3362" levels="1"
-    name="Traits Strengthen Necklace">
+  <skill id="3362" levels="1" name="Traits Strengthen Necklace">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -759,8 +720,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3363" levels="1"
-    name="Traits Strengthen Ring">
+  <skill id="3363" levels="1" name="Traits Strengthen Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -769,8 +729,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3364" levels="1"
-    name="Traits Strengthen Earring">
+  <skill id="3364" levels="1" name="Traits Strengthen Earring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -789,8 +748,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3366" levels="1"
-    name="Dynasty Strengthen Ring">
+  <skill id="3366" levels="1" name="Dynasty Strengthen Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -799,8 +757,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3367" levels="1"
-    name="Dynasty Strengthen Earring">
+  <skill id="3367" levels="1" name="Dynasty Strengthen Earring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -809,8 +766,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3368" levels="1"
-    name="Traits Strengthen Necklace">
+  <skill id="3368" levels="1" name="Traits Strengthen Necklace">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -819,8 +775,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3369" levels="1"
-    name="Traits Strengthen Ring">
+  <skill id="3369" levels="1" name="Traits Strengthen Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -829,8 +784,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3370" levels="1"
-    name="Traits Strengthen Earring">
+  <skill id="3370" levels="1" name="Traits Strengthen Earring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -849,8 +803,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3372" levels="1"
-    name="Dynasty Resistance Ring">
+  <skill id="3372" levels="1" name="Dynasty Resistance Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -859,8 +812,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3373" levels="1"
-    name="Dynasty Resistance Earring">
+  <skill id="3373" levels="1" name="Dynasty Resistance Earring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -869,8 +821,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3374" levels="1"
-    name="Traits Strengthen Necklace">
+  <skill id="3374" levels="1" name="Traits Strengthen Necklace">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -879,8 +830,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3375" levels="1"
-    name="Traits Strengthen Ring">
+  <skill id="3375" levels="1" name="Traits Strengthen Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -889,8 +839,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3376" levels="1"
-    name="Traits Strengthen Earring">
+  <skill id="3376" levels="1" name="Traits Strengthen Earring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -909,8 +858,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3378" levels="1"
-    name="Dynasty Resistance Ring">
+  <skill id="3378" levels="1" name="Dynasty Resistance Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -919,8 +867,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3379" levels="1"
-    name="Dynasty Resistance Earring">
+  <skill id="3379" levels="1" name="Dynasty Resistance Earring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -929,8 +876,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3380" levels="1"
-    name="Traits Strengthen Necklace">
+  <skill id="3380" levels="1" name="Traits Strengthen Necklace">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -939,8 +885,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3381" levels="1"
-    name="Traits Strengthen Ring">
+  <skill id="3381" levels="1" name="Traits Strengthen Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -949,8 +894,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3382" levels="1"
-    name="Traits Strengthen Earring">
+  <skill id="3382" levels="1" name="Traits Strengthen Earring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -969,8 +913,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3384" levels="1"
-    name="Dynasty Resistance Ring">
+  <skill id="3384" levels="1" name="Dynasty Resistance Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -979,8 +922,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3385" levels="1"
-    name="Dynasty Resistance Earring">
+  <skill id="3385" levels="1" name="Dynasty Resistance Earring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -989,8 +931,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3386" levels="1"
-    name="Traits Strengthen Necklace">
+  <skill id="3386" levels="1" name="Traits Strengthen Necklace">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -999,8 +940,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3387" levels="1"
-    name="Traits Strengthen Ring">
+  <skill id="3387" levels="1" name="Traits Strengthen Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1009,8 +949,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3388" levels="1"
-    name="Traits Strengthen Earring">
+  <skill id="3388" levels="1" name="Traits Strengthen Earring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1029,8 +968,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3390" levels="1"
-    name="Dynasty Resistance Ring">
+  <skill id="3390" levels="1" name="Dynasty Resistance Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1039,8 +977,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3391" levels="1"
-    name="Dynasty Resistance Earring">
+  <skill id="3391" levels="1" name="Dynasty Resistance Earring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1049,8 +986,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3392" levels="1"
-    name="Traits Strengthen Necklace">
+  <skill id="3392" levels="1" name="Traits Strengthen Necklace">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1059,8 +995,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3393" levels="1"
-    name="Traits Strengthen Ring">
+  <skill id="3393" levels="1" name="Traits Strengthen Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1069,8 +1004,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3394" levels="1"
-    name="Traits Strengthen Earring">
+  <skill id="3394" levels="1" name="Traits Strengthen Earring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1089,8 +1023,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3396" levels="1"
-    name="Dynasty Resistance Ring">
+  <skill id="3396" levels="1" name="Dynasty Resistance Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1099,8 +1032,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3397" levels="1"
-    name="Dynasty Resistance Earring">
+  <skill id="3397" levels="1" name="Dynasty Resistance Earring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1109,8 +1041,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3398" levels="1"
-    name="Traits Strengthen Necklace">
+  <skill id="3398" levels="1" name="Traits Strengthen Necklace">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1119,8 +1050,7 @@
     <set name="effectRange" val="-1" />
     <for></for>
   </skill>
-  <skill id="3399" levels="1"
-    name="Traits Strengthen Ring">
+  <skill id="3399" levels="1" name="Traits Strengthen Ring">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
