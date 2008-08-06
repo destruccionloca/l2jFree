@@ -35,6 +35,7 @@ public class L2SkillCharge extends L2Skill
 		numCharges = set.getInteger("num_charges", getLevel());
 	}
 
+	@Override
 	public void useSkill(L2Character caster, @SuppressWarnings("unused")
 	L2Object[] targets)
 	{

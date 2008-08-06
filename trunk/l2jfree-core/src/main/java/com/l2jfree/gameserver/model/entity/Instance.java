@@ -222,14 +222,7 @@ public class Instance
 						newdoor.getPosition().setXYZInvisible(temp.getX(), temp.getY(), temp.getZ());
 						newdoor.spawnMe(newdoor.getX(), newdoor.getY(), newdoor.getZ());
 
-						if (newdoor != null)
-						{
-							_doors.add(newdoor);
-						}
-						else
-						{
-							_log.warn("Instance: Data missing in Door table for ID: " + doorId + " in Instance " + getId());
-						}
+						_doors.add(newdoor);
 					}
 				}
 			}

@@ -25,11 +25,13 @@ public final class EffectPetrify extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return L2Effect.EffectType.PETRIFY;
 	}
 
+	@Override
 	public void onStart()
 	{
 		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
@@ -37,6 +39,7 @@ public final class EffectPetrify extends L2Effect
 		getEffected().setIsPetrified(true);
 	}
 
+	@Override
 	public void onExit()
 
 	{
@@ -45,6 +48,7 @@ public final class EffectPetrify extends L2Effect
 		getEffected().setIsPetrified(false);
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		return false;

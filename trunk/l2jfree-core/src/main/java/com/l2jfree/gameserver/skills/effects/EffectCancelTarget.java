@@ -31,12 +31,14 @@ public final class EffectCancelTarget extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.CANCEL_TARGET;
 	}
 
 	/** Notify started */
+	@Override
 	public void onStart()
 	{
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
@@ -48,11 +50,13 @@ public final class EffectCancelTarget extends L2Effect
 		onActionTime();
 	}
 
+	@Override
 	public void onExit()
 	{
 
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		return false;

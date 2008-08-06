@@ -55,6 +55,7 @@ public class GeoEditorThread extends Thread
 		_gms = new FastList<L2PcInstance>();
 	}
 
+	@Override
 	public void interrupt()
 	{
 		try

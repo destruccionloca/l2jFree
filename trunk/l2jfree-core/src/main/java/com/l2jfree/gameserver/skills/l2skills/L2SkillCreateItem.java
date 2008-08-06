@@ -48,6 +48,7 @@ public class L2SkillCreateItem extends L2Skill
 	 * @see com.l2jfree.gameserver.model.L2Skill#useSkill(com.l2jfree.gameserver.model.L2Character,
 	 *      com.l2jfree.gameserver.model.L2Object[])
 	 */
+	@Override
 	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
 		if (activeChar.isAlikeDead())
@@ -76,8 +77,7 @@ public class L2SkillCreateItem extends L2Skill
 	public void giveItems(L2PcInstance activeChar, int itemId, int count)
 	{
 		L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
-		if (item == null)
-			return;
+
 		item.setCount(count);
 		activeChar.getInventory().addItem("Skill", item, activeChar, activeChar);
 

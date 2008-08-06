@@ -108,11 +108,13 @@ public class LastImperialTombManager extends BossLair
 		return 0;
 	}
 
+	@Override
 	public void setUnspawn()
 	{
 	}
 
 	// load monsters and close doors.
+	@Override
 	public void init()
 	{
 		LastImperialTombSpawnlist.getInstance().clear();
@@ -1053,6 +1055,7 @@ public class LastImperialTombManager extends BossLair
 	}
 
 	// When the party is annihilated, they are banished.
+	@Override
 	public void checkAnnihilated()
 	{
 		if (isPlayersAnnihilated())

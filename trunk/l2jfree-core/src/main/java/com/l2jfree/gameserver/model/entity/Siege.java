@@ -713,7 +713,8 @@ public class Siege
         return players;
     }
 
-    /** Control Tower was skilled */
+    /** Control Tower was skilled 
+     * @param ct */
     public void killedCT(L2NpcInstance ct)
     {
         _controlTowerCount--;

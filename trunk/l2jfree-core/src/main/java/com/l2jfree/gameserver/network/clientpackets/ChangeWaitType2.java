@@ -49,6 +49,7 @@ public class ChangeWaitType2 extends L2GameClientPacket
 		_typeStand = (readD() == 1);
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	protected void runImpl()
 	{

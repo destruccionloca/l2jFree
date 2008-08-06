@@ -43,12 +43,14 @@ public final class EffectConfusion extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.CONFUSION;
 	}
 
 	/** Notify started */
+	@Override
 	public void onStart()
 	{
 		getEffected().startConfused();
@@ -56,11 +58,13 @@ public final class EffectConfusion extends L2Effect
 	}
 
 	/** Notify exited */
+	@Override
 	public void onExit()
 	{
 		getEffected().stopConfused(this);
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		if (_log.isDebugEnabled())

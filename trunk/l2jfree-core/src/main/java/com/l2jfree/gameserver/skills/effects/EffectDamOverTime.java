@@ -29,11 +29,13 @@ public final class EffectDamOverTime extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.DMG_OVER_TIME;
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		if (getEffected().isDead())

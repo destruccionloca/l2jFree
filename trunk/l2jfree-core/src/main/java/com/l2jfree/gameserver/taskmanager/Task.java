@@ -36,6 +36,9 @@ public abstract class Task
 			_log.debug("Task" + getName() + " inializate");
 	}
 
+	/**
+	 * @param instance  
+	 */
 	public ScheduledFuture<?> launchSpecial(ExecutedTask instance)
 	{
 		return null;

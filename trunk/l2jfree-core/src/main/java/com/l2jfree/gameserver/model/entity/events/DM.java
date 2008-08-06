@@ -316,6 +316,9 @@ public class DM
 		}
 	}
 
+	/**
+	 * @param activeChar  
+	 */
 	public static void rewardPlayer(L2PcInstance activeChar)
 	{
 		if (_topPlayer != null)

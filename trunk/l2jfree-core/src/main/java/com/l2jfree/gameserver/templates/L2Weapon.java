@@ -177,6 +177,7 @@ public final class L2Weapon extends L2Equip
 	 * Returns the type of Weapon
 	 * @return L2WeaponType
 	 */
+	@Override
 	public L2WeaponType getItemType()
 	{
 		return (L2WeaponType) super._type;
@@ -186,6 +187,7 @@ public final class L2Weapon extends L2Equip
 	 * Returns the ID of the Etc item after applying the mask.
 	 * @return int : ID of the Weapon
 	 */
+	@Override
 	public int getItemMask()
 	{
 		return getItemType().mask();

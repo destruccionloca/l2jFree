@@ -78,8 +78,11 @@ public class AdminUnblockIp implements IAdminCommandHandler
 		return (level >= REQUIRED_LEVEL);
 	}
 
-	private boolean unblockIp(@SuppressWarnings("unused")
-	String ipAddress, L2PcInstance activeChar)
+	/**
+	 * @param ipAddress  
+	 * @param activeChar  
+	 */
+	private boolean unblockIp(String ipAddress, L2PcInstance activeChar)
 	{
 		//LoginServerThread.getInstance().unBlockip(ipAddress);
 		_log.warn("IP removed by GM " + activeChar.getName());

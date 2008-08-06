@@ -55,8 +55,9 @@ public class SqlUtils
 
 		try
 		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			query = L2DatabaseFactory.getInstance().prepQuerySelect(resultFields, usedTables, whereClause, false);
-			statement = L2DatabaseFactory.getInstance().getConnection(con).prepareStatement(query);
+			statement = con.prepareStatement(query);
 			rset = statement.executeQuery();
 
 			int rows = 0;

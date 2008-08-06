@@ -245,8 +245,7 @@ public class AugmentationData
 							AugmentationSkill temp = new AugmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId);
 
 							//added by Alex - check if NOTDONE and exclude from list
-							if (temp == null
-									|| temp.getSkill(1) == null
+							if (temp.getSkill(1) == null
 									|| (Config.AUGMENT_EXCLUDE_NOTDONE && (temp.getSkill(1).getSkillType() == L2Skill.SkillType.NOTDONE) && (temp.getSkill(1)
 											.getTargetType() == L2Skill.SkillTargetType.TARGET_NONE)))
 								continue;

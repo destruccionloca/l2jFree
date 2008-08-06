@@ -2299,6 +2299,10 @@ public class L2Attackable extends L2NpcInstance
         }
     }
 
+    /**
+	 * @param id  
+	 * @param seederLvl  
+	 */
     public void setSeeded(int id, int seederLvl)
     {
         _seeded = true;

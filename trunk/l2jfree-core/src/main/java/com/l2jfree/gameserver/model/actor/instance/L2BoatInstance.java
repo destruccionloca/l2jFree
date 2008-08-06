@@ -584,7 +584,7 @@ public class L2BoatInstance extends L2Character
 							_inboat.put(i, player);
 							i++;
 						}
-						else if (it == null && _t1.idWTicket1 == 0)
+						else if (_t1.idWTicket1 == 0)
 						{
 							_inboat.put(i, player);
 							i++;
@@ -621,7 +621,7 @@ public class L2BoatInstance extends L2Character
 							_inboat.put(i, player);
 							i++;
 						}
-						else if (it == null && _t2.idWTicket1 == 0)
+						else if (_t2.idWTicket1 == 0)
 						{
 							_inboat.put(i, player);
 							i++;

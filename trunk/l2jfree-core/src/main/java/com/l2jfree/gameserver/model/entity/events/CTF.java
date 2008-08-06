@@ -194,6 +194,9 @@ public class CTF
 
 	public static void kickPlayerFromCTf(L2PcInstance playerToKick)
 	{
+		if (playerToKick == null)
+			return;
+		
 		if (_joining)
 		{
 			_playersShuffle.remove(playerToKick);
@@ -206,7 +209,7 @@ public class CTF
 			_playersShuffle.remove(playerToKick);
 			playerToKick._inEventCTF = false;
 			removePlayer(playerToKick);
-			if (playerToKick != null && playerToKick.isOnline() != 0)
+			if (playerToKick.isOnline() != 0)
 			{
 				playerToKick.getAppearance().setNameColor(playerToKick._originalNameColorCTF);
 				playerToKick.setKarma(playerToKick._originalKarmaCTF);

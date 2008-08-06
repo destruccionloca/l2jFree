@@ -37,6 +37,7 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 		super(objectId, template);
 	}
 	
+	@Override
 	public void onAction(L2PcInstance player)
 	{
 		if (!canTarget(player)) return;
@@ -84,6 +85,7 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 	
+	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		if (CastleManorManager.getInstance().isDisabled())

@@ -27,18 +27,21 @@ public final class RequestAuthSequence extends L2GameClientPacket
     {
     }
 
-    protected void readImpl()
+    @Override
+	protected void readImpl()
     {
         _version = readD();
     }
 
-    protected void runImpl()
+    @Override
+	protected void runImpl()
     {
         _log.warn("Requested unknown auth sequence with " + _version + " protocol. Closing connection.");
         getClient().closeNow();
     }
 
-    public String getType()
+    @Override
+	public String getType()
     {
         return "RequestAuthSequence";
     }

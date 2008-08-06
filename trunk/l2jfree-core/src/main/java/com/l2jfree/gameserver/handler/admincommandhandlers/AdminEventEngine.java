@@ -753,6 +753,12 @@ public class AdminEventEngine implements IAdminCommandHandler
 
 	}
 
+	/**
+	 * @param activeChar  
+	 * @param player  
+	 * @param id  
+	 * @param num  
+	 */
 	private void createItem(L2PcInstance activeChar, L2PcInstance player, int id, int num)
 	{
 		player.addItem("Event", id, num, player, false, true);

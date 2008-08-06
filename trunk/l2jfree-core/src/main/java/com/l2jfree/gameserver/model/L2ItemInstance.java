@@ -228,6 +228,7 @@ public final class L2ItemInstance extends L2Object
 		_mana = _item.getDuration();
 	}
 	
+	@Override
 	public NullKnownList getKnownList()
 	{
 		if (_knownList == null)

@@ -58,7 +58,8 @@ public class RequestBuySeed extends L2GameClientPacket
 
 	private int[] _items; // size _count * 2
 	
-    protected void readImpl()
+    @Override
+	protected void readImpl()
 	{
 		_manorId = readD();
 		_count = readD();
@@ -86,6 +87,7 @@ public class RequestBuySeed extends L2GameClientPacket
 		}
 	}
     
+	@Override
 	protected void runImpl()
 	{
 		long totalPrice = 0;
@@ -213,6 +215,7 @@ public class RequestBuySeed extends L2GameClientPacket
 		player.sendPacket(su);
 	}
 
+	@Override
 	public String getType()
 	{
 		return _C__C4_REQUESTBUYSEED;

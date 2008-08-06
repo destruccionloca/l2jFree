@@ -21,19 +21,22 @@ import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
  */
 public class RequestSkillCoolTime extends L2GameClientPacket
 {
-    protected void readImpl()
+    @Override
+	protected void readImpl()
     {
         // Trigger
     }
 
-    protected void runImpl()
+    @Override
+	protected void runImpl()
     {
         // like this?
         if(getClient().getActiveChar() != null)
             getClient().sendPacket(new SkillCoolTime(getClient().getActiveChar()));
     }
 
-    public String getType()
+    @Override
+	public String getType()
     {
         return "[C] 0xa6 RequestSkillCoolTime";
     }

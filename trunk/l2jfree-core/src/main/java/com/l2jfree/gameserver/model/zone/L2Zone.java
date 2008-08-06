@@ -739,6 +739,9 @@ public abstract class L2Zone
 		}
 	}
 
+	/**
+	 * @param n  
+	 */
 	protected void parseCondition(Node n) throws Exception
 	{
 	}

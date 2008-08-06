@@ -668,7 +668,7 @@ public class SkillTreeTable
 
 		skills.addAll(_TransformSkillTrees);
 
-		if (skills == null)
+		if (skills.size() == 0)
 		{
 			// the skilltree for this class is undefined, so we give an empty list
 			_log.warn("SkillTree for transformation is not defined !");

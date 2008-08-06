@@ -102,6 +102,9 @@ public class VIP {
 		setLoc();
 	}
 	
+	/**
+	 * @param activeChar  
+	 */
 	public static void setRandomTeam(L2PcInstance activeChar)
 	{
 		int random = Rnd.nextInt(5) + 1; // (0 - 4) + 1
@@ -248,6 +251,10 @@ public class VIP {
 		}
 	}
 
+	/**
+	 * @param id  
+	 * @param activeChar  
+	 */
 	public static String getNPCName(int id, L2PcInstance activeChar)
 	{
 		if (id == 0)
@@ -258,6 +265,10 @@ public class VIP {
 		}
 	}
 
+	/**
+	 * @param id  
+	 * @param activeChar  
+	 */
 	public static String getItemName(int id, L2PcInstance activeChar)
 	{
 		if (id == 0)
@@ -442,6 +453,9 @@ public class VIP {
 		}
 	}
 
+	/**
+	 * @param activeChar  
+	 */
 	public static void vipWin(L2PcInstance activeChar)
 	{
 		if (!_started)

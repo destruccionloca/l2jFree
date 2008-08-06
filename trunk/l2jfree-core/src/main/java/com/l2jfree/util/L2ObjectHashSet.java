@@ -152,6 +152,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	 * 
 	 * @see com.l2jfree.util.L2ObjectSet#size()
 	 */
+	@Override
 	public int size()
 	{
 		return _count;
@@ -162,6 +163,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	 * 
 	 * @see com.l2jfree.util.L2ObjectSet#isEmpty()
 	 */
+	@Override
 	public boolean isEmpty()
 	{
 		return _count == 0;
@@ -172,6 +174,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	 * 
 	 * @see com.l2jfree.util.L2ObjectSet#clear()
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public synchronized void clear()
 	{
@@ -203,6 +206,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	 * 
 	 * @see com.l2jfree.util.L2ObjectSet#put(T)
 	 */
+	@Override
 	public synchronized void put(T obj)
 	{
 		if (obj == null)
@@ -276,6 +280,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	 * 
 	 * @see com.l2jfree.util.L2ObjectSet#remove(T)
 	 */
+	@Override
 	public synchronized void remove(T obj)
 	{
 		if (obj == null)
@@ -323,6 +328,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	 * 
 	 * @see com.l2jfree.util.L2ObjectSet#contains(T)
 	 */
+	@Override
 	public boolean contains(T obj)
 	{
 		final int size = _table.length;
@@ -407,6 +413,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 	 * 
 	 * @see com.l2jfree.util.L2ObjectSet#iterator()
 	 */
+	@Override
 	public Iterator<T> iterator()
 	{
 		return new Itr(_table);

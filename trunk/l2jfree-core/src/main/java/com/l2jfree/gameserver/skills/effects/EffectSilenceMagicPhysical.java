@@ -25,17 +25,20 @@ public final class EffectSilenceMagicPhysical extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return L2Effect.EffectType.SILENCE_MAGIC_PHYSICAL;
 	}
 
+	@Override
 	public void onStart()
 	{
 		getEffected().startMuted();
 		getEffected().startPhysicalMuted();
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		getEffected().stopMuted(this);
@@ -43,6 +46,7 @@ public final class EffectSilenceMagicPhysical extends L2Effect
 		return false;
 	}
 
+	@Override
 	public void onExit()
 	{
 		getEffected().stopMuted(this);

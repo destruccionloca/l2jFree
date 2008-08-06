@@ -39,6 +39,7 @@ public class L2SkillChargeDmg extends L2Skill
 		chargeSkillId = set.getInteger("charge_skill_id");
 	}
 
+	@Override
 	public boolean checkCondition(L2Character activeChar, L2Object target, boolean itemOrWeapon)
 	{
 		if (activeChar instanceof L2PcInstance)
@@ -56,6 +57,7 @@ public class L2SkillChargeDmg extends L2Skill
 		return super.checkCondition(activeChar, target, itemOrWeapon);
 	}
 
+	@Override
 	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
 		if (activeChar.isAlikeDead())

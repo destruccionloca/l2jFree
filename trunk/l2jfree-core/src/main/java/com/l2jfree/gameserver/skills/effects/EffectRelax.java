@@ -28,12 +28,14 @@ public final class EffectRelax extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.RELAXING;
 	}
 
 	/** Notify started */
+	@Override
 	public void onStart()
 	{
 		if (getEffected() instanceof L2PcInstance)
@@ -58,6 +60,7 @@ public final class EffectRelax extends L2Effect
 		super.onExit();
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		boolean retval = true;

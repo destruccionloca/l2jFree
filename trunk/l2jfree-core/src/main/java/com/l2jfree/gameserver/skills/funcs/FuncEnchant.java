@@ -28,6 +28,7 @@ public class FuncEnchant extends Func
 		super(pStat, pOrder, owner);
 	}
 
+	@Override
 	public void calc(Env env)
 	{
 		if (cond != null && !cond.test(env))

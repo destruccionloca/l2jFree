@@ -65,6 +65,7 @@ public enum L2WeaponType implements AbstractL2ItemType
 	 * Returns the name of the WeaponType
 	 * @return String
 	 */
+	@Override
 	public String toString()
 	{
 		return _name;

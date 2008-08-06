@@ -28,6 +28,7 @@ public class ExAttributeEnchantResult extends L2GameServerPacket
 		_result = result;
 	}
 	
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xfe);
@@ -36,6 +37,7 @@ public class ExAttributeEnchantResult extends L2GameServerPacket
 		writeD(_result);
 	}
 	
+	@Override
 	public String getType()
 	{
 		return _S__FE_61_EXATTRIBUTEENCHANTRESULT;

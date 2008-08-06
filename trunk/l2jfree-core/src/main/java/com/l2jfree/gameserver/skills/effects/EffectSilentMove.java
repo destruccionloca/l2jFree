@@ -30,6 +30,7 @@ public final class EffectSilentMove extends L2Effect
 	}
 
 	/** Notify started */
+	@Override
 	public void onStart()
 	{
 		super.onStart();
@@ -40,6 +41,7 @@ public final class EffectSilentMove extends L2Effect
 	}
 
 	/** Notify exited */
+	@Override
 	public void onExit()
 	{
 		super.onExit();

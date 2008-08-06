@@ -238,6 +238,7 @@ public class GeoEngine extends GeoData
 		return canSee((x - L2World.MAP_MIN_X) >> 4, (y - L2World.MAP_MIN_Y) >> 4, z, (tx - L2World.MAP_MIN_X) >> 4, (ty - L2World.MAP_MIN_Y) >> 4, tz);
 	}
 
+	@Override
 	public boolean hasGeo(int x, int y)
 	{
 		int gx = (x - L2World.MAP_MIN_X) >> 4;
@@ -1142,6 +1143,7 @@ public class GeoEngine extends GeoData
 	 * @param inc_x
 	 * @param inc_y
 	 * @param tz
+	 * @param debug 
 	 * @return True if Char can see target
 	 */
 	private static boolean nLOS(int x, int y, int z, int inc_x, int inc_y, double inc_z, int tz, boolean debug)

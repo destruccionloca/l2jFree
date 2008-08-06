@@ -473,6 +473,12 @@ public class AdminTeleport implements IAdminCommandHandler
 
 	private void teleportToCharacter(L2PcInstance activeChar, L2Object target)
 	{
+		if (target == null)
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			return;
+		}
+		
 		if (target.getInstanceId() != activeChar.getInstanceId())
 		{
 			// move to targets instance
@@ -480,16 +486,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			activeChar.sendMessage("Switched to instance "+target.getInstanceId());
 		}
 
-		L2PcInstance player = null;
-		if (target != null && target instanceof L2PcInstance)
-		{
-			player = (L2PcInstance) target;
-		}
-		else
-		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-			return;
-		}
+		L2PcInstance player = (L2PcInstance) target;
 
 		if (player.getObjectId() == activeChar.getObjectId())
 		{

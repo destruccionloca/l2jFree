@@ -258,14 +258,23 @@ public class Auction
 	    }
 		bidder.sendMessage("Invalid bid!");
 	}
-	/** Return Item in WHC */
+	/** Return Item in WHC 
+	 * @param Clan
+	 * @param itemId
+	 * @param quantity
+	 * @param penalty
+	 */
 	private void returnItem(String Clan, int itemId, int quantity, boolean penalty)
 	{
         if (penalty)
             quantity *= 0.9; //take 10% tax fee if needed
         ClanTable.getInstance().getClanByName(Clan).getWarehouse().addItem("Outbidded", _adenaId, quantity, null, null);
 	}
-	/** Take Item in WHC */
+	/** Take Item in WHC 
+	 * @param bidder 
+	 * @param itemId 
+	 * @param quantity 
+	 */
 	private boolean takeItem(L2PcInstance bidder, int itemId, int quantity)
 	{
     	if (bidder.getClan() != null && bidder.getClan().getWarehouse().getAdena() >= quantity)

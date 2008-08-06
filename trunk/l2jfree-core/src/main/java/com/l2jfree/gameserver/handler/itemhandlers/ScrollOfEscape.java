@@ -99,11 +99,15 @@ public class ScrollOfEscape implements IItemHandler
 	 */
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
+		if (playable == null)
+			return;
+		
 		if (!(playable instanceof L2PcInstance))
 			return;
+		
 		L2PcInstance activeChar = (L2PcInstance) playable;
 
-		if (activeChar == null || ObjectRestrictions.getInstance()
+		if (ObjectRestrictions.getInstance()
 				.checkRestriction(activeChar, AvailableRestriction.PlayerScrollTeleport)) {
 			activeChar.sendMessage("You cannot use this scroll due to a restriction.");
 			return;

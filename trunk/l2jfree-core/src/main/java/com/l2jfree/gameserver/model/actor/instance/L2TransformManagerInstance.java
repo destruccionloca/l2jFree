@@ -151,7 +151,7 @@ public class L2TransformManagerInstance extends L2MerchantInstance
     	
     	if (qs == null || State.getStateName(qs.getState()) != "Completed")
     		return false;
-    	else if (qs != null || State.getStateName(qs.getState()) == "Completed")
+    	else if (State.getStateName(qs.getState()) == "Completed")
     		return true;
     	else
     		return false;

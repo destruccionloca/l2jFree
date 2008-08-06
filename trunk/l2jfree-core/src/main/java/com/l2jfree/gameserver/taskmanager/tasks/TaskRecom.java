@@ -57,6 +57,7 @@ public class TaskRecom extends Task
 		_log.info("Recommendation Global Task: launched.");
 	}
 
+	@Override
 	public void initializate()
 	{
 		super.initializate();

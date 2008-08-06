@@ -38,6 +38,7 @@ public abstract class L2DefaultTransformation extends L2Transformation
 		super(id, graphicalId, collisionRadius, collisionHeight);
 	}
 
+	@Override
 	public void onTransform(L2PcInstance player)
 	{
 		// Disable all character skills.
@@ -59,6 +60,7 @@ public abstract class L2DefaultTransformation extends L2Transformation
 
 	public abstract void transformedSkills(L2PcInstance player);
 
+	@Override
 	public void onUntransform(L2PcInstance player)
 	{
 		// remove transformation skills

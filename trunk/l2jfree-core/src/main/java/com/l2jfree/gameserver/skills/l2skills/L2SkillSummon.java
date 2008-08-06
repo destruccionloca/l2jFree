@@ -83,6 +83,7 @@ public class L2SkillSummon extends L2Skill
 		return super.checkCondition(activeChar, null, itemOrWeapons);
 	}
 
+	@Override
 	public void useSkill(L2Character caster, L2Object[] targets)
 	{
 		if (caster.isAlikeDead() || !(caster instanceof L2PcInstance))

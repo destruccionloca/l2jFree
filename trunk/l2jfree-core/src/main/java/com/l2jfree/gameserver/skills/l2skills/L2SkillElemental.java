@@ -45,6 +45,7 @@ public class L2SkillElemental extends L2Skill
 			_seedAny = false;
 	}
 
+	@Override
 	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
 		if (activeChar.isAlikeDead())

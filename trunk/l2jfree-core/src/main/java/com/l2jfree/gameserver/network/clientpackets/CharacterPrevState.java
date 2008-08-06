@@ -23,17 +23,20 @@ public final class CharacterPrevState extends L2GameClientPacket
     {
     }
 
-    protected void readImpl()
+    @Override
+	protected void readImpl()
     {
     }
 
-    protected void runImpl()
+    @Override
+	protected void runImpl()
     {
         CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
         sendPacket(cl);
     }
 
-    public String getType()
+    @Override
+	public String getType()
     {
         return "CharacterPrevState";
     }

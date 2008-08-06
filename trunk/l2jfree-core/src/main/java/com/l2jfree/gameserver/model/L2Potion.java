@@ -198,6 +198,10 @@ public class L2Potion extends L2Object
 		}
 	}
 	
+	/**
+	 * @param activeChar  
+	 * @param item  
+	 */
 	public void setCurrentMpPotion1(L2Character activeChar, int item)
 	{
 		_potion = item;

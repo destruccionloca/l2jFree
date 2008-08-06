@@ -861,6 +861,7 @@ public class NpcTable
 	}
 
 	/**
+	 * @param clazz 
 	 * @param class1
 	 * @return
 	 */

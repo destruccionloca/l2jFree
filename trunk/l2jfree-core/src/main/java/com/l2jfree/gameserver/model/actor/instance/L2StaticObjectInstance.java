@@ -67,7 +67,8 @@ public class L2StaticObjectInstance extends L2Object
         getKnownList();
     }
     
-    public NullKnownList getKnownList()
+    @Override
+	public NullKnownList getKnownList()
     {
         if (_knownList == null)
             _knownList = new NullKnownList(this);

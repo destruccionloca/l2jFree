@@ -70,6 +70,10 @@ public class Fort extends Siegeable
 
 	}
 
+	/**
+	 * @param clan  
+	 * @param objId  
+	 */
 	public void Engrave(L2Clan clan, int objId)
 	{
 		getSiege().announceToPlayer("Clan " + clan.getName() + " has finished to raise the flag.", true);
@@ -77,13 +81,15 @@ public class Fort extends Siegeable
 	}
 
 	// This method add to the treasury
-	/** Add amount to fort instance's treasury (warehouse). */
+	/** Add amount to fort instance's treasury (warehouse). 
+	 * @param amount */
 	public void addToTreasury(int amount)
 	{
 		return;
 	}
 
-	/** Add amount to fort instance's treasury (warehouse), no tax paying. */
+	/** Add amount to fort instance's treasury (warehouse), no tax paying. 
+	 * @param amount */
 	public boolean addToTreasuryNoTax(int amount)
 	{
 		return true;
@@ -492,6 +498,7 @@ public class Fort extends Siegeable
 
 	// =========================================================
 	// Property
+	@Override
 	public final int getFortId()
 	{
 		return _fortId;

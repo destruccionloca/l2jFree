@@ -47,7 +47,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public final class L2SiegeGuardInstance extends L2Attackable
 {
-	@SuppressWarnings("hiding")
 	private final static Log	_log	= LogFactory.getLog(L2GuardInstance.class.getName());
 
 	public L2SiegeGuardInstance(int objectId, L2NpcTemplate template)

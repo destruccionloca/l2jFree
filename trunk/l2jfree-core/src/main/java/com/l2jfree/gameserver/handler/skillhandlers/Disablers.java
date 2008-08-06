@@ -159,14 +159,18 @@ public class Disablers implements ISkillHandler
 
 		for (L2Object element : targets)
 		{
+			if (element == null)
+				continue;
+			
 			// Get a target L2Character targets
 			if (!(element instanceof L2Character))
 				continue;
 
 			L2Character target = (L2Character) element;
 
-			if (target == null || target.isDead() || target.isInvul() || target.isPetrified()) //bypass if target is null, invul or dead
+			if (target.isDead() || target.isInvul() || target.isPetrified()) //bypass if target is null, invul or dead
 				continue;
+			
 			//check if skill is allowed on other.properties for raidbosses
 			if (!target.checkSkillCanAffectMyself(skill))
 				continue;
@@ -188,7 +192,7 @@ public class Disablers implements ISkillHandler
 				target.breakCast();
 				target.abortAttack();
 				target.abortCast();
-				if (target != null && activeChar instanceof L2PcInstance && Rnd.get(100) < skill.getLandingPercent())
+				if (activeChar instanceof L2PcInstance && Rnd.get(100) < skill.getLandingPercent())
 				{
 					skill.getEffects(activeChar, target);
 					SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
@@ -219,7 +223,7 @@ public class Disablers implements ISkillHandler
 			}
 			case UNSUMMON_ENEMY_PET:
 			{
-				if (target != null && target instanceof L2Summon && Rnd.get(100) < skill.getLandingPercent())
+				if (target instanceof L2Summon && Rnd.get(100) < skill.getLandingPercent())
 				{
 					L2PcInstance targetOwner = null;
 					targetOwner = ((L2Summon) target).getOwner();
@@ -414,8 +418,7 @@ public class Disablers implements ISkillHandler
 				{
 					L2PcInstance PCChar = null;
 					PCChar = ((L2PcInstance) target);
-					if (PCChar != null
-							&& ((PCChar.getPvpFlag() != 0 || PCChar.isInOlympiadMode() || PCChar.isInCombat() || PCChar.isInsideZone(L2Zone.FLAG_PVP))))
+					if ((PCChar.getPvpFlag() != 0 || PCChar.isInOlympiadMode() || PCChar.isInCombat() || PCChar.isInsideZone(L2Zone.FLAG_PVP)))
 					{
 						PCChar.setTarget(activeChar); //c5 hate PvP
 						PCChar.abortAttack();
@@ -438,9 +441,8 @@ public class Disablers implements ISkillHandler
 								if (target instanceof L2PcInstance)
 								{
 									PCChar = ((L2PcInstance) target);
-									if (PCChar != null
-											&& ((PCChar.getPvpFlag() != 0 || PCChar.isInOlympiadMode() || PCChar.isInCombat() || PCChar
-													.isInsideZone(L2Zone.FLAG_PVP))))
+									if ((PCChar.getPvpFlag() != 0 || PCChar.isInOlympiadMode() || PCChar.isInCombat() || PCChar
+													.isInsideZone(L2Zone.FLAG_PVP)))
 									{
 										target.setTarget(activeChar);
 										target.getAI().setAutoAttacking(true);

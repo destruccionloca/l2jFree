@@ -86,8 +86,8 @@ public class SummonItemsData
 						if("item".equalsIgnoreCase(d.getNodeName()))
 						{
 							a = d.getAttributes().getNamedItem("id");
-							itemID = Integer.parseInt(a.getNodeValue());
 							if (a == null) throw new Exception("Error in summon item defenition!");
+							itemID = Integer.parseInt(a.getNodeValue());
 							
 							for(Node e = d.getFirstChild(); e != null; e = e.getNextSibling())
 							{

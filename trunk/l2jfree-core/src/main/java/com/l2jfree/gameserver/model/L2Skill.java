@@ -869,7 +869,7 @@ public abstract class L2Skill
 	 * Return the power of the skill.<BR>
 	 * <BR>
 	 */
-	public final double getPower(L2Character activeChar)
+	public final double getPower(@SuppressWarnings("unused") L2Character activeChar)
 	{
 		return _power;
 	}
@@ -2060,7 +2060,7 @@ public abstract class L2Skill
 		case TARGET_AREA:
 		{
 			if ((!(target instanceof L2Attackable || target instanceof L2PlayableInstance)) || // Target is not L2Attackable or L2PlayableInstance
-					(getCastRange() >= 0 && (target == null || target == activeChar || target.isAlikeDead()))) // target is null or self or dead/faking
+					(getCastRange() >= 0 && (target == activeChar || target.isAlikeDead()))) // target is null or self or dead/faking
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				return null;
@@ -2182,7 +2182,7 @@ public abstract class L2Skill
 		case TARGET_FRONT_AREA:
 		{
 			if ((!(target instanceof L2Attackable || target instanceof L2PlayableInstance)) || //   Target is not L2Attackable or L2PlayableInstance
-					(getCastRange() >= 0 && (target == null || target == activeChar || target.isAlikeDead()))) //target is null or self or dead/faking
+					(getCastRange() >= 0 && (target == activeChar || target.isAlikeDead()))) //target is null or self or dead/faking
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				return null;
@@ -2309,7 +2309,7 @@ public abstract class L2Skill
 		case TARGET_BEHIND_AREA:
 		{
 			if ((!(target instanceof L2Attackable || target instanceof L2PlayableInstance)) || //   Target is not L2Attackable or L2PlayableInstance
-					(getCastRange() >= 0 && (target == null || target == activeChar || target.isAlikeDead()))) //target is null or self or dead/faking
+					(getCastRange() >= 0 && (target == activeChar || target.isAlikeDead()))) //target is null or self or dead/faking
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				return null;

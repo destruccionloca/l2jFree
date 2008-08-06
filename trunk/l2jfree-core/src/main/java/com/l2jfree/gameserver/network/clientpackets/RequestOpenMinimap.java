@@ -24,10 +24,12 @@ public final class RequestOpenMinimap extends L2GameClientPacket
 	{
 	}
 	
+	@Override
 	protected void readImpl()
 	{
 	}
 	
+	@Override
 	protected void runImpl()
 	{
 		L2PcInstance client = getClient().getActiveChar();
@@ -38,6 +40,7 @@ public final class RequestOpenMinimap extends L2GameClientPacket
 		return;
 	}
 	
+	@Override
 	public String getType()
 	{
 		return "RequestOpenMinimap";

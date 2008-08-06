@@ -52,6 +52,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 		super(objectId, template);
 	}
 
+	@Override
 	public void onAction(L2PcInstance player)
 	{
 		if (!canTarget(player)) return;
@@ -110,6 +111,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
+	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		// BypassValidation Exploit plug.

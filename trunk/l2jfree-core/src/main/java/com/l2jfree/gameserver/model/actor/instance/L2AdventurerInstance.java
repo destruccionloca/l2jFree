@@ -96,6 +96,11 @@ public class L2AdventurerInstance extends L2FolkInstance
         return "data/html/adventurer_guildsman/" + pom + ".htm";
     }
 
+    /**
+	 * @param player  
+	 * @param bossLevel  
+	 * @param filename  
+	 */
     private void showChatWindow(L2PcInstance player, int bossLevel, String filename)
     {
         showChatWindow(player, filename);

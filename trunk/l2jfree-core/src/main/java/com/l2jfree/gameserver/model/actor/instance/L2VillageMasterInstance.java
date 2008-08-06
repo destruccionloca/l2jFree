@@ -495,6 +495,10 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     }
 
     //Private stuff
+    /**
+	 * @param player  
+	 * @param clanId  
+	 */
     public void dissolveClan(L2PcInstance player, int clanId)
     {
         if (_log.isDebugEnabled())
@@ -550,6 +554,10 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         player.deathPenalty(false, false);
     }
 
+    /**
+	 * @param player  
+	 * @param clanId  
+	 */
     public void recoverClan(L2PcInstance player, int clanId)
     {
         if (_log.isDebugEnabled())

@@ -405,7 +405,9 @@ public abstract class ItemContainer
     		
     		// Updates database
     		sourceitem.updateDatabase(true);
-    		if (targetitem != sourceitem && targetitem != null) targetitem.updateDatabase();
+    		if (targetitem != sourceitem)
+    			targetitem.updateDatabase();
+    		
     		if (sourceitem.isAugmented())
     			sourceitem.getAugmentation().removeBonus(actor);
     		refreshWeight();
@@ -619,7 +621,14 @@ public abstract class ItemContainer
         }
     }
     
+    /**
+	 * @param slots  
+	 */
     public boolean validateCapacity(int slots) { return true; }
+    
+    /**
+	 * @param weight  
+	 */
     public boolean validateWeight(int weight) { return true; }
     
     public int getUnequippedSize()

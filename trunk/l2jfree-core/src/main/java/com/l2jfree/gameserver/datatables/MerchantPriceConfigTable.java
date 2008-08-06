@@ -73,6 +73,9 @@ public class MerchantPriceConfigTable
 		}
 	}
 
+	/**
+	 * @param npc  
+	 */
 	public MerchantPriceConfig getMerchantPriceConfig(L2MerchantInstance npc)
 	{
 		/*

@@ -111,10 +111,12 @@ public class GeoData
 	}
 
 	/**
-	 * @param x,
-	 *            y, z
-	 * @param tx,
-	 *            ty, tz
+	 * @param x
+	 * @param y 
+	 * @param z 
+	 * @param tx
+	 * @param ty 
+	 * @param tz 
 	 * @return True if cha can see target (LOS)
 	 */
 	public boolean canSeeTarget(int x, int y, int z, int tx, int ty, int tz)
@@ -125,12 +127,11 @@ public class GeoData
 	}
 
 	/**
-	 * @param cha
+	 * @param gm
 	 * @param target
 	 * @return True if cha can see target (LOS) and send usful info to PC
 	 */
-	public boolean canSeeTargetDebug(@SuppressWarnings("unused")
-	L2PcInstance gm, L2Object target)
+	public boolean canSeeTargetDebug(L2PcInstance gm, L2Object target)
 	{
 		return true;
 	}
@@ -169,20 +170,20 @@ public class GeoData
 		// Do Nothing
 	}
 
-	public static boolean unloadGeodata(@SuppressWarnings("unused")
-	byte rx, @SuppressWarnings("unused")
-	byte ry)
+	public static boolean unloadGeodata(byte rx, byte ry)
 	{
 		return GeoEngine.unloadGeodata(rx, ry);
 	}
 
-	public static boolean loadGeodataFile(@SuppressWarnings("unused")
-	byte rx, @SuppressWarnings("unused")
-	byte ry)
+	public static boolean loadGeodataFile(byte rx, byte ry)
 	{
 		return GeoEngine.loadGeodataFile(rx, ry);
 	}
 
+	/**
+	 * @param x  
+	 * @param y 
+	 */
 	public boolean hasGeo(int x, int y)
 	{
 		return false;

@@ -152,6 +152,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#size()
 	 */
+	@Override
 	public int size()
 	{
 		return _count;
@@ -162,6 +163,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#isEmpty()
 	 */
+	@Override
 	public boolean isEmpty()
 	{
 		return _count == 0;
@@ -172,6 +174,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#clear()
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public synchronized void clear()
 	{
@@ -210,6 +213,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#put(T)
 	 */
+	@Override
 	public synchronized void put(T obj)
 	{
 		if (_count >= _table.length / 2)
@@ -281,6 +285,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#remove(T)
 	 */
+	@Override
 	public synchronized void remove(T obj)
 	{
 		int hashcode = obj.getObjectId();
@@ -325,6 +330,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#get(int)
 	 */
+	@Override
 	public T get(int id)
 	{
 		final int size = _table.length;
@@ -365,6 +371,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#contains(T)
 	 */
+	@Override
 	public boolean contains(T obj)
 	{
 		return get(obj.getObjectId()) != null;
@@ -423,6 +430,7 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#iterator()
 	 */
+	@Override
 	public Iterator<T> iterator()
 	{
 		return new Itr(_table);

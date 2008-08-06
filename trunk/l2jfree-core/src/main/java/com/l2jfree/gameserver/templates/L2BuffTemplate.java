@@ -230,6 +230,7 @@ public class L2BuffTemplate
 	}
 
 	/**
+	 * @param player 
 	 * @return Returns the result of faction check
 	 */
 	public boolean checkFaction(L2PcInstance player)

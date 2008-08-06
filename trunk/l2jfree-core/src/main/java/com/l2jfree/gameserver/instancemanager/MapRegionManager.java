@@ -168,11 +168,10 @@ public class MapRegionManager
 							{
 								L2MapRegion region = new L2MapRegion(f);
 
-								if (region != null)
-									if (!regions.containsKey(region.getId()))
-										regions.put(region.getId(), region);
-									else
-										throw new Exception("Duplicate zoneRegionId: " + region.getId() + ".");
+								if (!regions.containsKey(region.getId()))
+									regions.put(region.getId(), region);
+								else
+									throw new Exception("Duplicate zoneRegionId: " + region.getId() + ".");
 							}
 						}
 					}
@@ -184,11 +183,10 @@ public class MapRegionManager
 							{
 								L2MapRegionRestart restart = new L2MapRegionRestart(f);
 
-								if (restart != null)
-									if (!restarts.containsKey(restart.getId()))
-										restarts.put(restart.getId(), restart);
-									else
-										throw new Exception("Duplicate restartpointId: " + restart.getId() + ".");
+								if (!restarts.containsKey(restart.getId()))
+									restarts.put(restart.getId(), restart);
+								else
+									throw new Exception("Duplicate restartpointId: " + restart.getId() + ".");
 							}
 						}
 					}
@@ -222,15 +220,14 @@ public class MapRegionManager
 
 											L2MapArea area = new L2MapArea(id, X, Y);
 
-											if (area != null)
-												if (!areas.containsKey(area.getId()))
-												{
-													restartAreas.put(id, area);
-													areas.put(area.getId(), area);
-													regions.put(area.getId(), area.getMapRegion());
-												}
-												else
-													throw new Exception("Duplicate areaRegionId: " + area.getId() + ".");
+											if (!areas.containsKey(area.getId()))
+											{
+												restartAreas.put(id, area);
+												areas.put(area.getId(), area);
+												regions.put(area.getId(), area.getMapRegion());
+											}
+											else
+												throw new Exception("Duplicate areaRegionId: " + area.getId() + ".");
 										}
 									}
 								}

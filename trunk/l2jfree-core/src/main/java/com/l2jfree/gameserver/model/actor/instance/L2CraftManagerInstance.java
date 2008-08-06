@@ -406,8 +406,6 @@ public class L2CraftManagerInstance extends L2FolkInstance
 
 				boolean _isConsumable = ItemTable.getInstance().getTemplate(_recipeList.getItemId()).isConsumable();
 					
-				if (_recipeList==null) continue;
-					
 				int _price = (int)(Config.ALT_CRAFT_PRICE * _recipeList.getSuccessRate()/100 * ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getReferencePrice());
 				if (_price == 0) _price=Config.ALT_CRAFT_DEFAULT_PRICE;
 				
@@ -462,10 +460,8 @@ public class L2CraftManagerInstance extends L2FolkInstance
 			
 			boolean _isConsumable = ItemTable.getInstance().getTemplate(_recipeList.getItemId()).isConsumable();
 			
-			if( _recipe!=null &&
-				_recipe.getOwnerId()==player.getObjectId() &&
-				_recipe.getItemType()==L2EtcItemType.RECEIPE &&
-				_recipeList!=null)
+			if(	_recipe.getOwnerId()==player.getObjectId() &&
+				_recipe.getItemType()==L2EtcItemType.RECEIPE)
 			{
 				int _price =(int)(Config.ALT_CRAFT_PRICE * _recipeList.getSuccessRate()/100 * _quantity * (_isConsumable?_recipeList.getCount():1) * ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getReferencePrice());
 				if (_price==0) _price=Config.ALT_CRAFT_DEFAULT_PRICE;
@@ -561,10 +557,8 @@ public class L2CraftManagerInstance extends L2FolkInstance
 
 			boolean _isConsumable = ItemTable.getInstance().getTemplate(_recipeList.getItemId()).isConsumable();
 
-			if( _recipe!=null &&
-				_recipe.getOwnerId()==player.getObjectId() &&
+			if( _recipe.getOwnerId()==player.getObjectId() &&
 				_recipe.getItemType()==L2EtcItemType.RECEIPE &&
-				_recipeList!=null &&
 				((_recipeList.isDwarvenRecipe()&&Config.ALT_CRAFT_ALLOW_CRAFT)||(!_recipeList.isDwarvenRecipe()&&Config.ALT_CRAFT_ALLOW_COMMON)))
 			{
                 L2RecipeInstance[] _recipeItems = _recipeList.getRecipes();

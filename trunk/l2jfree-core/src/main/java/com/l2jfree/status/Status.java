@@ -38,6 +38,7 @@ public class Status extends Thread
 	private int					_statusPort;
 	private String				_statusPw;
 
+	@Override
 	public void run()
 	{
 		while (true)

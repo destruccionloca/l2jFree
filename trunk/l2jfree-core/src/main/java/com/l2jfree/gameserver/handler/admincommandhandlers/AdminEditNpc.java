@@ -999,6 +999,12 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 	}
 
+	/**
+	 * @param itemID  
+	 * @param price  
+	 * @param tradeListID  
+	 * @param order  
+	 */
 	private void updateTradeList(int itemID, int price, int tradeListID, int order)
 	{
 		Connection con = null;
@@ -1117,6 +1123,12 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 	}
 
+	/**
+	 * @param itemID  
+	 * @param price  
+	 * @param tradeListID  
+	 * @param order  
+	 */
 	private void updateCustomTradeList(int itemID, int price, int tradeListID, int order)
 	{
 		Connection con = null;

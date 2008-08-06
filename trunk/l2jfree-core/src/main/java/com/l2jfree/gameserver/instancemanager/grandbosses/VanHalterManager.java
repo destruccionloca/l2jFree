@@ -119,11 +119,13 @@ public class VanHalterManager extends BossLair
 		_state = new GrandBossState(29062);
 	}
 
+	@Override
 	public void setUnspawn()
 	{
 	}
 
 	// initialize
+	@Override
 	public void init()
 	{
 		// clear flag.
@@ -913,6 +915,9 @@ public class VanHalterManager extends BossLair
 	}
 
 	// door control.
+	/**
+	 * @param intruder  
+	 */
 	public void intruderDetection(L2PcInstance intruder)
 	{
 		if (_lockUpDoorOfAltarTask == null && !_isLocked && _isCaptainSpawned)

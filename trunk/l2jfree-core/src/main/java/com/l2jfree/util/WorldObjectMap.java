@@ -41,6 +41,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#size()
 	 */
+	@Override
 	public int size()
 	{
 		return _objectMap.size();
@@ -51,6 +52,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#isEmpty()
 	 */
+	@Override
 	public boolean isEmpty()
 	{
 		return _objectMap.isEmpty();
@@ -61,6 +63,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#clear()
 	 */
+	@Override
 	public void clear()
 	{
 		_objectMap.clear();
@@ -71,6 +74,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#put(T)
 	 */
+	@Override
 	public void put(T obj)
 	{
 		if (obj != null)
@@ -82,6 +86,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#remove(T)
 	 */
+	@Override
 	public void remove(T obj)
 	{
 		if (obj != null)
@@ -93,6 +98,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#get(int)
 	 */
+	@Override
 	public T get(int id)
 	{
 		return _objectMap.get(id);
@@ -103,6 +109,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#contains(T)
 	 */
+	@Override
 	public boolean contains(T obj)
 	{
 		if (obj == null)
@@ -115,6 +122,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 	 * 
 	 * @see com.l2jfree.util.L2ObjectMap#iterator()
 	 */
+	@Override
 	public Iterator<T> iterator()
 	{
 		return _objectMap.values().iterator();

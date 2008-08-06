@@ -582,6 +582,9 @@ public abstract class L2Summon extends L2PlayableInstance
 		_maxLoad = maxLoad;
 	}
 
+	/**
+	 * @param object  
+	 */
 	protected void doPickupItem(L2Object object)
 	{
 		return;

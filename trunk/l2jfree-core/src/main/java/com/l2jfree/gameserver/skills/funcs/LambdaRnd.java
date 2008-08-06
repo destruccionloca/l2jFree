@@ -32,6 +32,7 @@ public final class LambdaRnd extends Lambda
 		_linear = linear;
 	}
 
+	@Override
 	public double calc(Env env)
 	{
 		if (_linear)

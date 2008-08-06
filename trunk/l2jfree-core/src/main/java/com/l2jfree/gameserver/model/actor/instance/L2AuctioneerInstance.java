@@ -574,6 +574,9 @@ public final class L2AuctioneerInstance extends L2FolkInstance
         player.sendPacket(html);
     }
 
+    /**
+	 * @param player  
+	 */
     private int validateCondition(L2PcInstance player)
     {
         if (getCastle() != null && getCastle().getCastleId() > 0)

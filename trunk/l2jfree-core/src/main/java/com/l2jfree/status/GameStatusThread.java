@@ -280,7 +280,7 @@ public class GameStatusThread extends Thread
 		}
 	}
 
-	@SuppressWarnings("deprecation")
+	@Override
 	public void run()
 	{
 		String _usrCommand = "";

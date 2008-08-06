@@ -34,11 +34,13 @@ public class TaskOlympiadSave extends Task
 	private static final Log	_log	= LogFactory.getLog(TaskOlympiadSave.class.getName());
 	public static final String	NAME	= "olympiad_save";
 
+	@Override
 	public String getName()
 	{
 		return NAME;
 	}
 
+	@Override
 	public void onTimeElapsed(ExecutedTask task)
 	{
 		try
@@ -55,6 +57,7 @@ public class TaskOlympiadSave extends Task
 		}
 	}
 
+	@Override
 	public void initializate()
 	{
 		super.initializate();

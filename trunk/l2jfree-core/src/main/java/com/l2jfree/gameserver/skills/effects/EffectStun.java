@@ -28,23 +28,27 @@ public final class EffectStun extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.STUN;
 	}
 
 	/** Notify started */
+	@Override
 	public void onStart()
 	{
 		getEffected().startStunning();
 	}
 
 	/** Notify exited */
+	@Override
 	public void onExit()
 	{
 		getEffected().stopStunning(this);
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		// just stop this effect

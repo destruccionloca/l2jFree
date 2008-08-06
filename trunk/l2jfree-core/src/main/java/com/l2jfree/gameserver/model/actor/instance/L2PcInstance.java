@@ -1107,6 +1107,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	/** Return the Level of the L2PcInstance. */
+	@Override
 	public final int getLevel()
 	{
 		return getStat().getLevel();
@@ -1116,6 +1117,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * Return the _newbie state of the L2PcInstance.<BR><BR>
 	 * @deprecated Use {@link #getNewbie()} instead
 	 */
+	@Deprecated
 	public int isNewbie()
 	{
 		return getNewbie();
@@ -3571,6 +3573,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * @param player The player that start an action on this L2PcInstance
 	 *
 	 */
+	@Override
 	public void onAction(L2PcInstance player)
 	{
 		if (player == null)
@@ -4595,6 +4598,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * @param attacker The L2Character who attacks
 	 *
 	 */
+	@Override
 	public boolean doDie(L2Character killer)
 	{
 		/* Since L2Character.doDie() calls stopAllEffects(), which includes
@@ -6325,6 +6329,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	/**
 	 * Send a Server->Client StatusUpdate packet with Karma and PvP Flag to the L2PcInstance and all L2PcInstance to inform (broadcast).<BR><BR>
+	 * @param flag 
 	 */
 	public void setKarmaFlag(int flag)
 	{
@@ -8872,6 +8877,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		return _cubics.get(id);
 	}
 
+	@Override
 	public String toString()
 	{
 		return "player " + getName();
@@ -10613,6 +10619,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		_lastRecomUpdate = update.getTimeInMillis();
 	}
 
+	@Override
 	public void doRevive()
 	{
 		super.doRevive();
@@ -10635,6 +10642,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 	}
 
+	@Override
 	public void doRevive(double revivePower)
 	{
 		// Restore the player's lost experience, 

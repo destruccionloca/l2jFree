@@ -128,21 +128,18 @@ public class ArenaManager
 
 		L2PcInstance winner = L2World.getInstance().findPlayer(idTop);
 
-		if (arTop != null)
+		Announcements.getInstance().announceToAll(
+				"PvP Arena Manager: " + arTop.name + " is the winner for this time with " + arTop.kills + "/" + arTop.death + ". Next calculation in "
+						+ Config.ARENA_INTERVAL + " min(s).");
+		if (winner != null && Config.ARENA_REWARD_ID > 0)
 		{
-			Announcements.getInstance().announceToAll(
-					"PvP Arena Manager: " + arTop.name + " is the winner for this time with " + arTop.kills + "/" + arTop.death + ". Next calculation in "
-							+ Config.ARENA_INTERVAL + " min(s).");
-			if (winner != null && Config.ARENA_REWARD_ID > 0)
-			{
-				winner.getInventory().addItem("ArenaManager", Config.ARENA_REWARD_ID, Config.ARENA_REWARD_COUNT, winner, null);
-				if (Config.ARENA_REWARD_COUNT > 1) //You have earned $s1.
-					winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(Config.ARENA_REWARD_ID)
-							.addNumber(Config.ARENA_REWARD_COUNT));
-				else
-					winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_ITEM).addItemName(Config.ARENA_REWARD_ID));
-				winner.sendPacket(new ItemList(winner, false));
-			}
+			winner.getInventory().addItem("ArenaManager", Config.ARENA_REWARD_ID, Config.ARENA_REWARD_COUNT, winner, null);
+			if (Config.ARENA_REWARD_COUNT > 1) //You have earned $s1.
+				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(Config.ARENA_REWARD_ID)
+						.addNumber(Config.ARENA_REWARD_COUNT));
+			else
+				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_ITEM).addItemName(Config.ARENA_REWARD_ID));
+			winner.sendPacket(new ItemList(winner, false));
 		}
 	}
 

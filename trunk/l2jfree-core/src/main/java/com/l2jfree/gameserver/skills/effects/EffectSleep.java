@@ -28,23 +28,27 @@ public final class EffectSleep extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.SLEEP;
 	}
 
 	/** Notify started */
+	@Override
 	public void onStart()
 	{
 		getEffected().startSleeping();
 	}
 
 	/** Notify exited */
+	@Override
 	public void onExit()
 	{
 		getEffected().stopSleeping(this);
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		getEffected().stopSleeping(this);

@@ -94,6 +94,9 @@ public class L2SiegeNpcInstance extends L2FolkInstance
         }
 	}
     
+	/**
+	 * @param player  
+	 */
 	private boolean validateCondition(L2PcInstance player)
 	{
         if (getCastle().getSiege().getIsInProgress())

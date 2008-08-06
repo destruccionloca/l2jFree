@@ -1486,6 +1486,12 @@ public class AdminSmartShop implements IAdminCommandHandler
 		return moveVal;
 	}
 
+	/**
+	 * @param opCommand  
+	 * @param first  
+	 * @param second  
+	 * @param actor  
+	 */
 	String parseParam(String opCommand, String first, String second, L2PcInstance actor)
 	{
 		if (first == null)
@@ -2545,16 +2551,28 @@ public class AdminSmartShop implements IAdminCommandHandler
 		return query;
 	}
 
+	/**
+	 * @param s  
+	 * @param item  
+	 */
 	String editWeapon(String s, L2Weapon item)
 	{
 		return s;
 	}
 
+	/**
+	 * @param s  
+	 * @param item  
+	 */
 	String editArmor(String s, L2Armor item)
 	{
 		return s;
 	}
 
+	/**
+	 * @param s  
+	 * @param item  
+	 */
 	String editEtcItem(String s, L2EtcItem item)
 	{
 		return s;

@@ -16,17 +16,20 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 public class RequestRemainTime extends L2GameClientPacket
 {
-    protected void readImpl()
+    @Override
+	protected void readImpl()
     {
         // Trigger packet
     }
 
-    protected void runImpl()
+    @Override
+	protected void runImpl()
     {
 		// TODO: /remaintime command (send remaining time for summons?)
     }
 
-    public String getType()
+    @Override
+	public String getType()
     {
         return "[C] 0xb2 RequestRemainTime";
     }

@@ -185,6 +185,9 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
         }
     }
     
+    /**
+	 * @param activeChar  
+	 */
     public void showUntrainEnchantInfo(L2PcInstance activeChar)
     {
         ExEnchantSkillInfo asi = new ExEnchantSkillInfo(EnchantSkillType.UNTRAIN, _skillId);

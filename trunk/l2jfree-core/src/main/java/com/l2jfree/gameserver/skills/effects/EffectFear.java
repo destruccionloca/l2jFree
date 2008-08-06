@@ -43,12 +43,14 @@ public final class EffectFear extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.FEAR;
 	}
 
 	/** Notify started */
+	@Override
 	public void onStart()
 	{
 		// Fear skills cannot be used L2Pcinstance to L2Pcinstance.
@@ -89,11 +91,13 @@ public final class EffectFear extends L2Effect
 	}
 
 	/** Notify exited */
+	@Override
 	public void onExit()
 	{
 		getEffected().stopFear(this);
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		int posX = getEffected().getX();

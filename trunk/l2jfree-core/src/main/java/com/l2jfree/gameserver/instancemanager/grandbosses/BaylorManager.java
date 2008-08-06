@@ -117,6 +117,7 @@ public class BaylorManager extends BossLair
 	}
 
 	// init.
+	@Override
 	public void init()
 	{
 		// init state.
@@ -343,6 +344,7 @@ public class BaylorManager extends BossLair
 	}
 
 	// when annihilating or limit of time coming, the compulsion movement players from the baylor's lair.
+	@Override
 	public void banishForeigners()
 	{
 		super.banishForeigners();
@@ -350,6 +352,7 @@ public class BaylorManager extends BossLair
 	}
 
 	// clean up baylor's lair.
+	@Override
 	public void setUnspawn()
 	{
 		// eliminate players.

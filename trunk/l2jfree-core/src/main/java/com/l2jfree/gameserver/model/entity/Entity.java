@@ -122,6 +122,9 @@ public class Entity
 		return null;
 	}
 
+	/**
+	 * @param cha  
+	 */
 	protected boolean checkBanish(L2PcInstance cha)
 	{
 		return true;

@@ -53,6 +53,7 @@ public final class L2Armor extends L2Equip
 	 * Returns the type of the armor.
 	 * @return L2ArmorType
 	 */
+	@Override
 	public L2ArmorType getItemType()
 	{
 		return (L2ArmorType) super._type;
@@ -62,6 +63,7 @@ public final class L2Armor extends L2Equip
 	 * Returns the ID of the item after applying the mask.
 	 * @return int : ID of the item
 	 */
+	@Override
 	public final int getItemMask()
 	{
 		return getItemType().mask();

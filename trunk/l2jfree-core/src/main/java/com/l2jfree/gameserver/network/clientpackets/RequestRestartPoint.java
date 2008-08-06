@@ -185,16 +185,15 @@ public class RequestRestartPoint extends L2GameClientPacket
 					if (!activeChar.isInJail())
 						return;
 					loc = new Location(-114356, -249645, -2984);
+					
 					break;
 
 				default: // 0
 					if (activeChar.isInsideZone(L2Zone.FLAG_JAIL) || activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
-					{
-						if (loc == null)
-							loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died
-					}
+						loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died
 					else
 						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
+				
 					break;
 				}
 				// Teleport and revive

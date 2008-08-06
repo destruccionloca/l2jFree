@@ -244,11 +244,15 @@ public class RequestProcureCropList extends L2GameClientPacket
 				itemDel = player.getInventory().destroyItem("Manor", objId, count, player, manorManager);
 				if (itemDel == null)
 					continue;
+				
 				if (fee > 0)
 					player.getInventory().reduceAdena("Manor", fee, player,manorManager);
+				
 				crop.setAmount(crop.getAmount() - count);
+				
 				if (Config.ALT_MANOR_SAVE_ALL_ACTIONS)
 					CastleManager.getInstance().getCastleById(manorId).updateCrop(crop.getId(), crop.getAmount(), CastleManorManager.PERIOD_CURRENT);
+				
 				itemAdd = player.getInventory().addItem("Manor", rewardItem,rewardItemCount, player, manorManager);
 			}
 			else
@@ -256,7 +260,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 				continue;
 			}
 
-			if (itemDel == null || itemAdd == null)
+			if (itemAdd == null)
 				continue;
 
 			playerIU.addRemovedItem(itemDel);

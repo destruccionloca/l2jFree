@@ -28,6 +28,7 @@ public final class EffectHealOverTime extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.HEAL_OVER_TIME;
@@ -41,6 +42,7 @@ public final class EffectHealOverTime extends L2Effect
 			getEffected().sendPacket(new ExRegMax(calc(), getTotalCount() * getPeriod(), getPeriod()));
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		if (getEffected().isDead())

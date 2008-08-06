@@ -30,23 +30,27 @@ public final class EffectFakeDeath extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.FAKE_DEATH;
 	}
 
 	/** Notify started */
+	@Override
 	public void onStart()
 	{
 		getEffected().startFakeDeath();
 	}
 
 	/** Notify exited */
+	@Override
 	public void onExit()
 	{
 		getEffected().stopFakeDeath(this);
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		if (getEffected().isDead())

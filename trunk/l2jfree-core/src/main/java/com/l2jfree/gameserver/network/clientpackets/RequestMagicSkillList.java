@@ -24,11 +24,13 @@ public final class RequestMagicSkillList extends L2GameClientPacket
     {
     }
 
-    protected void readImpl()
+    @Override
+	protected void readImpl()
     {
     }
 
-    protected void runImpl()
+    @Override
+	protected void runImpl()
     {
         L2PcInstance cha = getClient().getActiveChar();
         if(cha == null)
@@ -42,7 +44,8 @@ public final class RequestMagicSkillList extends L2GameClientPacket
         }
     }
 
-    public String getType()
+    @Override
+	public String getType()
     {
         return "RequestSkillList";
     }

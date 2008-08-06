@@ -128,21 +128,18 @@ public class FishermanManager
 
 		L2PcInstance winner = L2World.getInstance().findPlayer(idTop);
 
-		if (arTop != null)
+		Announcements.getInstance().announceToAll(
+				"Attention Fishermans: " + arTop.name + " is the winner for this time with " + arTop.cought + "/" + arTop.escaped + ". Next calculation in "
+						+ Config.FISHERMAN_INTERVAL + " min(s).");
+		if (winner != null && Config.FISHERMAN_REWARD_ID > 0)
 		{
-			Announcements.getInstance().announceToAll(
-					"Attention Fishermans: " + arTop.name + " is the winner for this time with " + arTop.cought + "/" + arTop.escaped + ". Next calculation in "
-							+ Config.FISHERMAN_INTERVAL + " min(s).");
-			if (winner != null && Config.FISHERMAN_REWARD_ID > 0)
-			{
-				winner.getInventory().addItem("FishManager", Config.FISHERMAN_REWARD_ID, Config.FISHERMAN_REWARD_COUNT, winner, null);
-				if (Config.FISHERMAN_REWARD_COUNT > 1) //You have earned $s1.
-					winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(Config.FISHERMAN_REWARD_ID)
-							.addNumber(Config.FISHERMAN_REWARD_COUNT));
-				else
-					winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_ITEM).addItemName(Config.FISHERMAN_REWARD_ID));
-				winner.sendPacket(new ItemList(winner, false));
-			}
+			winner.getInventory().addItem("FishManager", Config.FISHERMAN_REWARD_ID, Config.FISHERMAN_REWARD_COUNT, winner, null);
+			if (Config.FISHERMAN_REWARD_COUNT > 1) //You have earned $s1.
+				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(Config.FISHERMAN_REWARD_ID)
+						.addNumber(Config.FISHERMAN_REWARD_COUNT));
+			else
+				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_ITEM).addItemName(Config.FISHERMAN_REWARD_ID));
+			winner.sendPacket(new ItemList(winner, false));
 		}
 	}
 

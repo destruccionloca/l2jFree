@@ -25,11 +25,13 @@ public final class EffectCombatPointHealOverTime extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.COMBAT_POINT_HEAL_OVER_TIME;
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		if (getEffected().isDead())

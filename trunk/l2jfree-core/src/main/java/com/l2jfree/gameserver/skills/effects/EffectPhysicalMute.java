@@ -29,16 +29,19 @@ public final class EffectPhysicalMute extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return L2Effect.EffectType.PHYSICAL_MUTE;
 	}
 
+	@Override
 	public void onStart()
 	{
 		getEffected().startPhysicalMuted();
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		// Simply stop the effect
@@ -46,6 +49,7 @@ public final class EffectPhysicalMute extends L2Effect
 		return false;
 	}
 
+	@Override
 	public void onExit()
 	{
 		getEffected().stopPhysicalMuted(this);

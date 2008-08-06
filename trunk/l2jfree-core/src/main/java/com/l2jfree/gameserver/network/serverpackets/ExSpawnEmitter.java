@@ -31,7 +31,8 @@ public class ExSpawnEmitter extends L2GameServerPacket
         _npcObjectId = npc.getObjectId();
     }
 
-    protected final void writeImpl()
+    @Override
+	protected final void writeImpl()
     {
         writeC(0xfe);
         writeH(0x5d);
@@ -40,7 +41,8 @@ public class ExSpawnEmitter extends L2GameServerPacket
         writeD(0x00);
     }
 
-    public String getType()
+    @Override
+	public String getType()
     {
         return "SpawnEmitter";
     }

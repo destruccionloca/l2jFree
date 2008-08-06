@@ -46,6 +46,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
 	private int[] _items;
 	private List<CropProcure> _procureList = new FastList<CropProcure>();
 	
+	@Override
 	protected void readImpl()
 	{
 		_listId = readD();
@@ -71,6 +72,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
 		}
 	}
     
+	@Override
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
@@ -179,6 +181,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
 		player.sendPacket(su);
 	}
 
+	@Override
 	public String getType()
 	{
 		return _C__C3_REQUESTBUYPROCURE;

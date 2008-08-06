@@ -423,8 +423,7 @@ public class LoginServerThread extends Thread
 	public void sendLogout(String account)
 	{
 		PlayerLogout pl = new PlayerLogout(account);
-		if (pl == null)
-			return;
+
 		try
 		{
 			sendPacket(pl);

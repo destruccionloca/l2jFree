@@ -424,6 +424,13 @@ public abstract class L2Character extends L2Object
 		return null;
 	}
 
+	/**
+	 * @param process  
+	 * @param itemId 
+	 * @param count 
+	 * @param reference 
+	 * @param sendMessage 
+	 */
 	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
 	{
 		// Default: NPCs consume virtual items for their skills
@@ -431,6 +438,13 @@ public abstract class L2Character extends L2Object
 		return true;
 	}
 
+	/**
+	 * @param process  
+	 * @param objectId 
+	 * @param count 
+	 * @param reference 
+	 * @param sendMessage 
+	 */
 	public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
 	{
 		// Default: NPCs consume virtual items for their skills
@@ -627,11 +641,15 @@ public abstract class L2Character extends L2Object
 	 * <li> L2PcInstance</li>
 	 * <BR>
 	 * <BR>
+	 * @param gsp 
 	 */
 	public void sendPacket(L2GameServerPacket gsp)
 	{
 	}
 
+	/**
+	 * @param sm  
+	 */
 	public void sendPacket(SystemMessageId sm)
 	{
 	}
@@ -2204,14 +2222,14 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Index according to skill id the current timestamp of use.<br>
 	 * <br>
-	 *
+	 * 
 	 * @param skill
 	 *            id
 	 * @param reuse
 	 *            delay <BR>
 	 *            <B>Overridden in :</B> (L2PcInstance)
 	 */
-	public void addTimeStamp(int s, int r)
+	public void addTimeStamp(int skill, int reuse)
 	{
 		/***/
 	}
@@ -2219,12 +2237,12 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Index according to skill id the current timestamp of use.<br>
 	 * <br>
-	 *
+	 * 
 	 * @param skill
 	 *            id <BR>
 	 *            <B>Overridden in :</B> (L2PcInstance)
 	 */
-	public void removeTimeStamp(int s)
+	public void removeTimeStamp(int skill)
 	{
 		/***/
 	}
@@ -2234,7 +2252,7 @@ public abstract class L2Character extends L2Object
 	 * <br>
 	 *
 	 * @param caster
-	 * @param force
+	 * @param skill 
 	 *            type <BR>
 	 *            <B>Overridden in :</B> (L2PcInstance)
 	 */
@@ -2356,6 +2374,9 @@ public abstract class L2Character extends L2Object
 		return true;
 	}
 
+	/**
+	 * @param killer  
+	 */
 	protected void calculateRewards(L2Character killer)
 	{
 	}
@@ -2388,7 +2409,8 @@ public abstract class L2Character extends L2Object
 			setIsPendingRevive(true);
 	}
 
-	/** Revives the L2Character using skill. */
+	/** Revives the L2Character using skill. 
+	 * @param revivePower */
 	public void doRevive(double revivePower)
 	{
 		doRevive();
@@ -4113,7 +4135,7 @@ public abstract class L2Character extends L2Object
 	private int							_heading;
 
 	/** L2Charcater targeted by the L2Character */
-	private L2Object					_target;
+	private L2Object					_target = null;
 
 	// set by the start of casting, in game ticks
 	private int							_castEndTime;
@@ -5907,6 +5929,7 @@ public abstract class L2Character extends L2Object
 	 * <li> L2PcInstance</li>
 	 * <BR>
 	 * <BR>
+	 * @param bolts 
 	 */
 	protected void reduceArrowCount(boolean bolts)
 	{
@@ -5928,6 +5951,7 @@ public abstract class L2Character extends L2Object
 	 * @param player
 	 *            The L2PcInstance to attack
 	 */
+	@Override
 	public void onForcedAttack(L2PcInstance player)
 	{
 		if (player.getTarget() == null || !(player.getTarget() instanceof L2Character))
@@ -6062,6 +6086,8 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Return the Attack Speed of the L2Character (delay (in milliseconds) before next attack).<BR>
 	 * <BR>
+	 * @param target 
+	 * @param weapon 
 	 */
 	public int calculateTimeBetweenAttacks(L2Character target, L2Weapon weapon)
 	{
@@ -6920,6 +6946,11 @@ public abstract class L2Character extends L2Object
 		}
 	}
 
+	/**
+	 * @param caster  
+	 * @param target  
+	 * @param skill  
+	 */
 	public void seeSpell(L2PcInstance caster, L2Object target, L2Skill skill)
 	{
 		// TODO: Aggro calculation due to spells ought to be inside the AI script's onSkillSee.
@@ -7091,6 +7122,9 @@ public abstract class L2Character extends L2Object
 		_PvPRegTask = null;
 	}
 
+	/**
+	 * @param value  
+	 */
 	public void updatePvPFlag(int value)
 	{
 		// Overridden in L2PcInstance
@@ -7371,9 +7405,13 @@ public abstract class L2Character extends L2Object
 	 * <li> L2PetInstance</li>
 	 * <BR>
 	 * <BR>
+	 * @param target 
+	 * @param damage 
+	 * @param mcrit 
+	 * @param pcrit 
+	 * @param miss 
 	 */
-	public void sendDamageMessage(@SuppressWarnings("unused")
-	L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
+	public void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
 	{
 	}
 
@@ -7388,6 +7426,9 @@ public abstract class L2Character extends L2Object
 		return true;
 	}
 
+	/**
+	 * @param type  
+	 */
 	public boolean checkSkillCanAffectMyself(SkillType type)
 	{
 		return true;
@@ -7460,7 +7501,6 @@ public abstract class L2Character extends L2Object
 
 	class FlyToLocationTask implements Runnable
 	{
-		@SuppressWarnings("hiding")
 		L2Object	_target;
 		L2Character	_actor;
 		L2Skill		_skill;

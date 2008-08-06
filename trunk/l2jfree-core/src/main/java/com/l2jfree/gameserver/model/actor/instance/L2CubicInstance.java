@@ -314,7 +314,7 @@ public class L2CubicInstance
 		return _owner;
 	}
 
-	public final int getMCriticalHit(L2Character target, L2Skill skill)
+	public final int getMCriticalHit(@SuppressWarnings("unused") L2Character target, @SuppressWarnings("unused") L2Skill skill)
 	{
 		// TODO: Temporary now mcrit for cubics is the baseMCritRate of its
 		// owner
@@ -484,9 +484,6 @@ public class L2CubicInstance
 								return;
 							}
 					}
-
-					// get target in pvp or in siege
-					enemy = null;
 
 					if ((_owner.getPvpFlag() > 0 && !_owner.isInsideZone(L2Zone.FLAG_PEACE)) || _owner.isInsideZone(L2Zone.FLAG_SIEGE) || _owner.isInsideZone(L2Zone.FLAG_SIEGE))
 					{

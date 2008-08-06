@@ -133,6 +133,7 @@ public class CompactionIDFactory extends IdFactory
 		return N - hole;
 	}
 
+	@Override
 	public synchronized int getNextId()
 	{
 		/*if (_freeSize == 0)*/return _curOID++;
@@ -140,6 +141,7 @@ public class CompactionIDFactory extends IdFactory
 		 	return _freeOIDs[--_freeSize];*/
 	}
 
+	@Override
 	public synchronized void releaseId(@SuppressWarnings("unused")
 	int id)
 	{
@@ -153,6 +155,7 @@ public class CompactionIDFactory extends IdFactory
 		 _freeOIDs[_freeSize++] = id;*/
 	}
 
+	@Override
 	public int size()
 	{
 		return _freeSize + LAST_OID - FIRST_OID;

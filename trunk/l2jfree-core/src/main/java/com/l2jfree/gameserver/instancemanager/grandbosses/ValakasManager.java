@@ -102,6 +102,7 @@ public class ValakasManager extends BossLair
 	}
 
 	// initialize
+	@Override
 	public void init()
 	{
 		// setting spawn data of monsters.
@@ -535,6 +536,7 @@ public class ValakasManager extends BossLair
 	}
 
 	// clean Valakas's lair.
+	@Override
 	public void setUnspawn()
 	{
 		// eliminate players.

@@ -115,9 +115,6 @@ public class SummonItems implements IItemHandler
 			{
 				L2Spawn spawn = new L2Spawn(npcTemplate);
 
-				if (spawn == null)
-					return;
-
 				spawn.setId(IdFactory.getInstance().getNextId());
 				spawn.setLocx(activeChar.getX());
 				spawn.setLocy(activeChar.getY());

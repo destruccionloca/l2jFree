@@ -156,10 +156,12 @@ public class FourSepulchersManager extends BossLair
 		return _instance;
 	}
 
+	@Override
 	public void setUnspawn()
 	{
 	}
 
+	@Override
 	public void init()
 	{
 		if (_changeCoolDownTimeTask != null)

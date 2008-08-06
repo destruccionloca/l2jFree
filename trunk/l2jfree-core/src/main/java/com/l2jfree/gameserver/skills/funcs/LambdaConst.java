@@ -29,8 +29,8 @@ public final class LambdaConst extends Lambda
 		_value = value;
 	}
 
-	public double calc(@SuppressWarnings("unused")
-	Env env)
+	@Override
+	public double calc(Env env)
 	{
 		return _value;
 	}

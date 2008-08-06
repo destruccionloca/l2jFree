@@ -29,23 +29,27 @@ public final class EffectLuckNoblesse extends L2Effect
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.LUCKNOBLESSE;
 	}
 
 	/** Notify started */
+	@Override
 	public void onStart()
 	{
 		getEffected().startLuckNoblesse();
 	}
 
 	/** Notify exited */
+	@Override
 	public void onExit()
 	{
 		getEffected().stopLuckNoblesse();
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		getEffected().stopLuckNoblesse();

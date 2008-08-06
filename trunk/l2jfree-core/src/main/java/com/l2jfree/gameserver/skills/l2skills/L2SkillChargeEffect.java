@@ -52,6 +52,7 @@ public class L2SkillChargeEffect extends L2Skill
 		return super.checkCondition(activeChar, target, itemOrWeapon);
 	}
 
+	@Override
 	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
 		if (activeChar.isAlikeDead())

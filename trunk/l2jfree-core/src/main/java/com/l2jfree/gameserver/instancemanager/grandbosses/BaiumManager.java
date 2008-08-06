@@ -122,6 +122,7 @@ public class BaiumManager extends BossLair
 	}
 
 	// initialize
+	@Override
 	public void init()
 	{
 		// setting spawn data of monsters.
@@ -347,6 +348,7 @@ public class BaiumManager extends BossLair
 	}
 
 	// clean Baium's lair.
+	@Override
 	public void setUnspawn()
 	{
 		// eliminate players.

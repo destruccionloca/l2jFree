@@ -228,6 +228,7 @@ public class L2WarehouseItem
 	 * @return String
 	 * @deprecated beware to use getItemName() instead because getName() is final in L2Object and could not be overridden! Allover L2Object.getName() may return null!
 	 */
+	@Deprecated
 	public String getName()
 	{
 		return _item.getName();
@@ -237,6 +238,7 @@ public class L2WarehouseItem
 	 * Returns the name of the item
 	 * @return String
 	 */
+	@Override
 	public String toString()
 	{
 		return _item.toString();

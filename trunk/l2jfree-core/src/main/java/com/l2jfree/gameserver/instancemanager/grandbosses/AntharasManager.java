@@ -92,6 +92,7 @@ public class AntharasManager extends BossLair
 	}
 
 	// initialize
+	@Override
 	public void init()
 	{
 		// setting spawn data of monsters.
@@ -621,6 +622,7 @@ public class AntharasManager extends BossLair
 	}
 
 	// clean Antharas's lair.
+	@Override
 	public void setUnspawn()
 	{
 		// eliminate players.

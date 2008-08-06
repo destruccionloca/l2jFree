@@ -37,7 +37,6 @@ public class AdminGeodata implements IAdminCommandHandler
 			"admin_geo_unload"						};
 	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 
-	@SuppressWarnings("deprecation")
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)

@@ -117,6 +117,9 @@ public class TvT
 
 	public static void kickPlayerFromTvt(L2PcInstance playerToKick)
 	{
+		if (playerToKick == null)
+			return;
+		
 		if (_joining)
 		{
 			_playersShuffle.remove(playerToKick);
@@ -130,7 +133,7 @@ public class TvT
 			_playersShuffle.remove(playerToKick);
 			playerToKick._inEventTvT = false;
 			removePlayer(playerToKick);
-			if (playerToKick != null && playerToKick.isOnline() != 0)
+			if (playerToKick.isOnline() != 0)
 			{
 				playerToKick.getAppearance().setNameColor(playerToKick._originalNameColorTvT);
 				playerToKick.setKarma(playerToKick._originalKarmaTvT);

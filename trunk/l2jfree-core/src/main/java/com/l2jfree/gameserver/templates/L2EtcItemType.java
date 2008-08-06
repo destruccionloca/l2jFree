@@ -65,6 +65,7 @@ public enum L2EtcItemType implements AbstractL2ItemType
 	 * 
 	 * @return String
 	 */
+	@Override
 	public String toString()
 	{
 		return _name;

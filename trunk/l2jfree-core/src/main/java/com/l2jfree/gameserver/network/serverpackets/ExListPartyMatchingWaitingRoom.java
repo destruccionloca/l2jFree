@@ -31,6 +31,11 @@ public class ExListPartyMatchingWaitingRoom extends L2GameServerPacket
 	private int _minLevel = 1; // To be implemented :)
 	private int _maxLevel = 80; // To be implemented :)
 
+	/**
+	 * @param waiting  
+	 * @param searcher  
+	 * @param page  
+	 */
 	public ExListPartyMatchingWaitingRoom(Collection<L2PcInstance> waiting, L2PcInstance searcher, int page)
 	{
 		int first = (page - 1) * 64;

@@ -274,6 +274,10 @@ public class L2ConditionalZone extends L2DefaultZone
 		return cond;
 	}
 
+	/**
+	 * @param n  
+	 * @param template  
+	 */
 	private Condition parseTargetCondition(Node n, Object template)
 	{
 		Condition cond = null;

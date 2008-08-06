@@ -42,7 +42,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public final class L2GuardInstance extends L2Attackable
 {
-    @SuppressWarnings("hiding")
     private final static Log _log = LogFactory.getLog(L2GuardInstance.class.getName());
 
     private static final int RETURN_INTERVAL = 60000;

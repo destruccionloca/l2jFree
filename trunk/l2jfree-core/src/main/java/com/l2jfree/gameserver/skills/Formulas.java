@@ -1710,14 +1710,11 @@ public final class Formulas
 		else if (attacker instanceof L2NpcInstance)
 			damage *= Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
 
-		if (skill != null)
-		{
-			if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
-				damage *= skill.getPvpMulti();
+		if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
+			damage *= skill.getPvpMulti();
 
-			if (skill.getSkillType() == SkillType.DEATHLINK)
-				damage = damage * (1.0 - attacker.getStatus().getCurrentHp() / attacker.getMaxHp()) * 2.0;
-		}
+		if (skill.getSkillType() == SkillType.DEATHLINK)
+			damage = damage * (1.0 - attacker.getStatus().getCurrentHp() / attacker.getMaxHp()) * 2.0;
 
 		return damage;
 	}

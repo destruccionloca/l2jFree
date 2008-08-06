@@ -38,17 +38,20 @@ public final class EffectCharge extends L2Effect
 		}
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.CHARGE;
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		// ignore
 		return true;
 	}
 
+	@Override
 	public int getLevel()
 	{
 		return numCharges;

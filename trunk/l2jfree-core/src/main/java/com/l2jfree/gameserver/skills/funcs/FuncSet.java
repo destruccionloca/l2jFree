@@ -27,6 +27,7 @@ public class FuncSet extends Func
 		_lambda = lambda;
 	}
 
+	@Override
 	public void calc(Env env)
 	{
 		if (cond == null || cond.test(env))

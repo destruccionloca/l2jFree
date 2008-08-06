@@ -90,6 +90,7 @@ public class SailrenManager extends BossLair
 	}
 
 	// init.
+	@Override
 	public void init()
 	{
 		// init state.
@@ -255,6 +256,7 @@ public class SailrenManager extends BossLair
 	}
 
 	// when annihilating or limit of time coming, the compulsion movement players from the sailren's lair.
+	@Override
 	public void banishForeigners()
 	{
 		super.banishForeigners();
@@ -262,6 +264,7 @@ public class SailrenManager extends BossLair
 	}
 
 	// clean up sailren's lair.
+	@Override
 	public void setUnspawn()
 	{
 		// eliminate players.

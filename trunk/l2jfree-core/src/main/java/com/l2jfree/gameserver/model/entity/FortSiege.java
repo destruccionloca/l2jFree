@@ -625,13 +625,14 @@ public class FortSiege
 		return players;
 	}
 
-	/** Control Tower was skilled */
+	/** Control Tower was skilled 
+	 * @param ct */
 	public void killedCT(L2NpcInstance ct)
 	{
 		_defenderRespawnDelayPenalty += Config.FORTSIEGE_CT_LOSS_PENALTY; // Add respawn penalty to defenders for each control tower lose
 	}
 
-	/** Commanderr was skilled */
+	/** Commander was skilled */
 	public void killedCommander(L2CommanderInstance ct)
 	{
 		if (_commanders != null)

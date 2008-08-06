@@ -50,6 +50,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 		super(objectID, template);
 	}
 
+	@Override
 	public void onAction(L2PcInstance player)
 	{
 		if (!canTarget(player))
@@ -95,6 +96,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 		player.sendPacket(html);
 	}
 
+	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		if (command.startsWith("exchange"))

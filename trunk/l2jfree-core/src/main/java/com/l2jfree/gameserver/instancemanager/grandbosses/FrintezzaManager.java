@@ -132,6 +132,7 @@ public class FrintezzaManager extends BossLair
 	/**
 	 * initialize <b>this</b> Frintezza Manager
 	 */
+	@Override
 	public void init()
 	{
 		_callForHelpInterval = 2000;
@@ -1266,7 +1267,7 @@ public class FrintezzaManager extends BossLair
 			 * if (target instanceof L2PcInstance && (((L2PcInstance)target).isInvul() || ((L2PcInstance)target).getAppearance().getInvisible())) {
 			 * _mob.abortAttack(); _mob.abortCast(); _mob.setTarget(null); _mob.getKnownList().getKnownPlayers().remove((L2PcInstance)target); return; }
 			 */
-			if (target != null && target instanceof L2Character)
+			if (target instanceof L2Character)
 				callMinionsToAssist((L2Character) target, _aggroDamage);
 
 			// Now set the mob's Target to the most hated:
@@ -1676,7 +1677,7 @@ public class FrintezzaManager extends BossLair
 		// get the players that targeted this _caster
 		for (L2PcInstance pc : getPlayersInside())
 		{
-			if (pc == null || (pc != null && pc.getTarget() != target))
+			if (pc == null || pc.getTarget() != target)
 				targeted[count] = false;
 			else
 				targeted[count] = true;
@@ -1937,7 +1938,7 @@ public class FrintezzaManager extends BossLair
 	/**
 	 * Clean Frintezza's lair.
 	 */
-
+	@Override
 	public void setUnspawn()
 	{
 		NpcTable.getInstance().getTemplate(29046).setRhand(8204);

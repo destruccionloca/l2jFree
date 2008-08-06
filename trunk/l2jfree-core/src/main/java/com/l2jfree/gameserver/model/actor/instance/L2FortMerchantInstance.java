@@ -69,6 +69,7 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
 	 * Sends a chat to all _knowObjects
 	 * @param chat message to say
 	 */
+	@Override
 	public void broadcastChat(String chat)
 	{
 		Map<Integer, L2PcInstance> _knownPlayers = getKnownList().getKnownPlayers();
@@ -120,7 +121,8 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
 		return (L2NpcWalkerAI)_ai;
 	}
 	
-    public void onAction(L2PcInstance player)
+    @Override
+	public void onAction(L2PcInstance player)
     {
         if (!canTarget(player)) return;
         
@@ -154,7 +156,8 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
         player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 
-    public void onBypassFeedback(L2PcInstance player, String command)
+    @Override
+	public void onBypassFeedback(L2PcInstance player, String command)
     {
         StringTokenizer st = new StringTokenizer(command, " ");
         String actualCommand = st.nextToken(); // Get actual command
@@ -236,6 +239,9 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
         }
     }
 
+    /**
+	 * @param player  
+	 */
     private boolean validateCondition(L2PcInstance player)
     {
         if (getFort().getSiege().getIsInProgress())
