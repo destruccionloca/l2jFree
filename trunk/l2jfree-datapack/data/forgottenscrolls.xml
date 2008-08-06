@@ -97,7 +97,7 @@
 	<scroll itemid="10549" skillid="755" class="99"/> <!--Protection of Rune -->
 	<scroll itemid="10554" skillid="760" class="99"/> <!--Anti Magic Armor -->
 	<scroll itemid="10592" skillid="786" class="99"/> <!--Evas Will -->
-	<!-- <scroll itemid="" skillid="787" class="99"/> <!--Touch of Eva -->
+	<!--Touch of Eva --> <!--<scroll itemid="" skillid="787" class="99"/> -->
 	
 	<!--Class: 100 Sword Muse-->
 	<scroll itemid="10553" skillid="759" class="100"/> <!--Archer's Will -->
@@ -151,7 +151,7 @@
 	<scroll itemid="10549" skillid="755" class="106"/> <!--Protection of Rune -->
 	<scroll itemid="10554" skillid="760" class="106"/> <!--Anti Magic Armor -->
 	<scroll itemid="10593" skillid="788" class="106"/> <!--Pain of Shilen -->
-	<!-- <scroll itemid="" skillid="789" class="106"/> <!--Touch of Shilen -->
+	<!--Touch of Shilen --> <!-- <scroll itemid="" skillid="789" class="106"/> -->
 	
 	<!--Class: 107 Spectral Dancer-->
 	<scroll itemid="10553" skillid="759" class="107"/> <!--Archer's Will -->
@@ -224,7 +224,7 @@
 	<!--Class: 116 Doomcryer-->
 	<scroll itemid="10551" skillid="757" class="116"/> <!--Protection of Alignment -->
 	<scroll itemid="10550" skillid="756" class="116"/> <!--Protection of Elemental -->
-	<scroll itemid="10549" skillid="755" class="116"/> <!--Protection of Rune -->	
+	<scroll itemid="10549" skillid="755" class="116"/> <!--Protection of Rune -->
 	
 	<!--Class: 117 Fortune Seeker-->
 	<scroll itemid="10553" skillid="759" class="117"/> <!--Archer's Will -->
