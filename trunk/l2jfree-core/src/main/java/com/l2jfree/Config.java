@@ -109,10 +109,7 @@ public final class Config
 		_log.info("loading " + CONFIGURATION_FILE);
 		try
 		{
-			Properties serverSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(CONFIGURATION_FILE));
-			serverSettings.load(is);
-			is.close();
+			Properties serverSettings = new L2Properties(CONFIGURATION_FILE);
 
 			GAME_SERVER_LOGIN_HOST = serverSettings.getProperty("LoginHost", "127.0.0.1");
 			GAME_SERVER_LOGIN_PORT = Integer.parseInt(serverSettings.getProperty("LoginPort", "9013"));
@@ -238,10 +235,7 @@ public final class Config
 		_log.info("loading " + CLANS_FILE);
 		try
 		{
-			Properties clansSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(CLANS_FILE));
-			clansSettings.load(is);
-			is.close();
+			Properties clansSettings = new L2Properties(CLANS_FILE);
 
 			ALT_CLAN_MEMBERS_FOR_WAR = Integer.parseInt(clansSettings.getProperty("AltClanMembersForWar", "15"));
 			ALT_CLAN_JOIN_DAYS = Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAClan", "5"));
@@ -298,10 +292,7 @@ public final class Config
 		_log.info("loading " + CHAMPIONS_FILE);
 		try
 		{
-			Properties championsSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(CHAMPIONS_FILE));
-			championsSettings.load(is);
-			is.close();
+			Properties championsSettings = new L2Properties(CHAMPIONS_FILE);
 
 			CHAMPION_FREQUENCY = Integer.parseInt(championsSettings.getProperty("ChampionFrequency", "0"));
 			CHAMPION_PASSIVE = Boolean.parseBoolean(championsSettings.getProperty("ChampionPassive", "false"));
@@ -350,10 +341,7 @@ public final class Config
 		_log.info("loading " + LOTTERY_FILE);
 		try
 		{
-			Properties lotterySettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(LOTTERY_FILE));
-			lotterySettings.load(is);
-			is.close();
+			Properties lotterySettings = new L2Properties(LOTTERY_FILE);
 
 			ALT_LOTTERY_PRIZE = Integer.parseInt(lotterySettings.getProperty("AltLotteryPrize", "50000"));
 			ALT_LOTTERY_TICKET_PRICE = Integer.parseInt(lotterySettings.getProperty("AltLotteryTicketPrice", "2000"));
@@ -389,10 +377,7 @@ public final class Config
 		_log.info("loading " + WEDDING_FILE);
 		try
 		{
-			Properties weddingSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(WEDDING_FILE));
-			weddingSettings.load(is);
-			is.close();
+			Properties weddingSettings = new L2Properties(WEDDING_FILE);
 
 			WEDDING_PRICE = Integer.parseInt(weddingSettings.getProperty("WeddingPrice", "500000"));
 			WEDDING_PUNISH_INFIDELITY = Boolean.parseBoolean(weddingSettings.getProperty("WeddingPunishInfidelity", "true"));
@@ -427,10 +412,7 @@ public final class Config
 		_log.info("loading " + FOUR_SEPULCHERS_FILE);
 		try
 		{
-			Properties sepulchursSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(FOUR_SEPULCHERS_FILE));
-			sepulchursSettings.load(is);
-			is.close();
+			Properties sepulchursSettings = new L2Properties(FOUR_SEPULCHERS_FILE);
 
 			FS_TIME_ATTACK = Integer.parseInt(sepulchursSettings.getProperty("TimeOfAttack", "50"));
 			FS_TIME_COOLDOWN = Integer.parseInt(sepulchursSettings.getProperty("TimeOfCoolDown", "5"));
@@ -504,10 +486,7 @@ public final class Config
 		_log.info("loading " + RATES_CONFIG_FILE);
 		try
 		{
-			Properties ratesSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(RATES_CONFIG_FILE));
-			ratesSettings.load(is);
-			is.close();
+			Properties ratesSettings = new L2Properties(RATES_CONFIG_FILE);
 
 			RATE_XP = Float.parseFloat(ratesSettings.getProperty("RateXp", "1."));
 			RATE_SP = Float.parseFloat(ratesSettings.getProperty("RateSp", "1."));
@@ -600,10 +579,7 @@ public final class Config
 		_log.info("loading " + ENCHANT_CONFIG_FILE);
 		try
 		{
-			Properties enchantSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(ENCHANT_CONFIG_FILE));
-			enchantSettings.load(is);
-			is.close();
+			Properties enchantSettings = new L2Properties(ENCHANT_CONFIG_FILE);
 
 			/* chance to enchant an item normal scroll */
 			ENCHANT_CHANCE_WEAPON = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeapon", "65"));
@@ -687,10 +663,7 @@ public final class Config
 		_log.info("loading " + PVP_CONFIG_FILE);
 		try
 		{
-			Properties pvpSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(PVP_CONFIG_FILE));
-			pvpSettings.load(is);
-			is.close();
+			Properties pvpSettings = new L2Properties(PVP_CONFIG_FILE);
 
 			/* KARMA SYSTEM */
 			KARMA_MIN_KARMA = Integer.parseInt(pvpSettings.getProperty("MinKarma", "240"));
@@ -755,10 +728,7 @@ public final class Config
 		_log.info("loading " + ID_CONFIG_FILE);
 		try
 		{
-			Properties idSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(ID_CONFIG_FILE));
-			idSettings.load(is);
-			is.close();
+			Properties idSettings = new L2Properties(ID_CONFIG_FILE);
 
 			MAP_TYPE = ObjectMapType.valueOf(idSettings.getProperty("L2Map", "WorldObjectMap"));
 			SET_TYPE = ObjectSetType.valueOf(idSettings.getProperty("L2Set", "WorldObjectSet"));
@@ -856,10 +826,7 @@ public final class Config
 		_log.info("loading " + OTHER_CONFIG_FILE);
 		try
 		{
-			Properties otherSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(OTHER_CONFIG_FILE));
-			otherSettings.load(is);
-			is.close();
+			Properties otherSettings = new L2Properties(OTHER_CONFIG_FILE);
 
 			DEEPBLUE_DROP_RULES = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRules", "True"));
 			EFFECT_CANCELING = Boolean.parseBoolean(otherSettings.getProperty("CancelLesserEffect", "True"));
@@ -1128,10 +1095,7 @@ public final class Config
 		_log.info("loading " + OPTIONS_FILE);
 		try
 		{
-			Properties optionsSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(OPTIONS_FILE));
-			optionsSettings.load(is);
-			is.close();
+			Properties optionsSettings = new L2Properties(OPTIONS_FILE);
 
 			ASSERT = Boolean.parseBoolean(optionsSettings.getProperty("Assert", "false"));
 			DEVELOPER = Boolean.parseBoolean(optionsSettings.getProperty("Developer", "false"));
@@ -1489,10 +1453,7 @@ public final class Config
 		_log.info("loading " + ALT_SETTINGS_FILE);
 		try
 		{
-			Properties altSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
-			altSettings.load(is);
-			is.close();
+			Properties altSettings = new L2Properties(ALT_SETTINGS_FILE);
 
 			ALT_DEFAULT_RESTARTTOWN = Integer.parseInt(altSettings.getProperty("AltDefaultRestartTown", "0"));
 			ALT_GAME_TIREDNESS = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "false"));
@@ -1761,10 +1722,8 @@ public final class Config
 		_log.info("loading " + GM_ACCESS_FILE);
 		try
 		{
-			Properties gmSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(GM_ACCESS_FILE));
-			gmSettings.load(is);
-			is.close();
+			Properties gmSettings = new L2Properties(GM_ACCESS_FILE);
+
 			ALT_PRIVILEGES_ADMIN = Boolean.parseBoolean(gmSettings.getProperty("AltPrivilegesAdmin", "False"));
 			EVERYBODY_HAS_ADMIN_RIGHTS = Boolean.parseBoolean(gmSettings.getProperty("EverybodyHasAdminRights", "false"));
 
@@ -1868,10 +1827,7 @@ public final class Config
 		_log.info("loading " + TELNET_FILE);
 		try
 		{
-			Properties telnetSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(TELNET_FILE));
-			telnetSettings.load(is);
-			is.close();
+			Properties telnetSettings = new L2Properties(TELNET_FILE);
 
 			IS_TELNET_ENABLED = Boolean.parseBoolean(telnetSettings.getProperty("EnableTelnet", "false"));
 			ALT_TELNET = Boolean.parseBoolean(telnetSettings.getProperty("AltTelnet", "false"));
@@ -1905,10 +1861,7 @@ public final class Config
 		_log.info("loading " + SIEGE_CONFIGURATION_FILE);
 		try
 		{
-			Properties siegeSettings = new L2Properties();
-			InputStream is = new FileInputStream(SIEGE_CONFIGURATION_FILE);
-			siegeSettings.load(is);
-			is.close();
+			Properties siegeSettings = new L2Properties(SIEGE_CONFIGURATION_FILE);
 
 			SIEGE_MAX_ATTACKER = Integer.parseInt(siegeSettings.getProperty("AttackerMaxClans", "500"));
 			SIEGE_MAX_DEFENDER = Integer.parseInt(siegeSettings.getProperty("DefenderMaxClans", "500"));
@@ -1948,10 +1901,7 @@ public final class Config
 		_log.info("loading " + FORTSIEGE_CONFIGURATION_FILE);
 		try
 		{
-			Properties fortSiegeSettings = new L2Properties();
-			InputStream is = new FileInputStream(SIEGE_CONFIGURATION_FILE);
-			fortSiegeSettings.load(is);
-			is.close();
+			Properties fortSiegeSettings = new L2Properties(SIEGE_CONFIGURATION_FILE);
 
 			FORTSIEGE_MAX_ATTACKER = Integer.parseInt(fortSiegeSettings.getProperty("AttackerMaxClans", "500"));
 			FORTSIEGE_MAX_DEFENDER = Integer.parseInt(fortSiegeSettings.getProperty("DefenderMaxClans", "500"));
@@ -1983,10 +1933,8 @@ public final class Config
 		_log.info("loading " + HEXID_FILE);
 		try
 		{
-			Properties Settings = new L2Properties();
-			InputStream is = new FileInputStream(HEXID_FILE);
-			Settings.load(is);
-			is.close();
+			Properties Settings = new L2Properties(HEXID_FILE);
+
 			SERVER_ID = Integer.parseInt(Settings.getProperty("ServerID"));
 			HEX_ID = new BigInteger(Settings.getProperty("HexID"), 16).toByteArray();
 		}
@@ -2057,10 +2005,7 @@ public final class Config
 		_log.info("loading " + COMMAND_PRIVILEGES_FILE);
 		try
 		{
-			Properties CommandPrivileges = new L2Properties();
-			InputStream is = new FileInputStream(new File(COMMAND_PRIVILEGES_FILE));
-			CommandPrivileges.load(is);
-			is.close();
+			Properties CommandPrivileges = new L2Properties(COMMAND_PRIVILEGES_FILE);
 
 			for (Map.Entry<Object, Object> _command : CommandPrivileges.entrySet())
 			{
@@ -2116,10 +2061,7 @@ public final class Config
 		_log.info("loading " + SEVENSIGNS_FILE);
 		try
 		{
-			Properties SevenSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(SEVENSIGNS_FILE));
-			SevenSettings.load(is);
-			is.close();
+			Properties SevenSettings = new L2Properties(SEVENSIGNS_FILE);
 
 			ALT_GAME_REQUIRE_CASTLE_DAWN = Boolean.parseBoolean(SevenSettings.getProperty("AltRequireCastleForDawn", "False"));
 			ALT_GAME_REQUIRE_CLAN_CASTLE = Boolean.parseBoolean(SevenSettings.getProperty("AltRequireClanCastle", "False"));
@@ -2206,10 +2148,7 @@ public final class Config
 		_log.info("loading " + CLANHALL_CONFIG_FILE);
 		try
 		{
-			Properties clanhallSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(CLANHALL_CONFIG_FILE));
-			clanhallSettings.load(is);
-			is.close();
+			Properties clanhallSettings = new L2Properties(CLANHALL_CONFIG_FILE);
 
 			CH_TELE_FEE_RATIO = Long.parseLong(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeRatio", "604800000"));
 			CH_TELE1_FEE = Integer.parseInt(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl1", "7000"));
@@ -2304,10 +2243,7 @@ public final class Config
 		_log.info("loading " + CASTLE_CONFIG_FILE);
 		try
 		{
-			Properties castleSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(CASTLE_CONFIG_FILE));
-			castleSettings.load(is);
-			is.close();
+			Properties castleSettings = new L2Properties(CASTLE_CONFIG_FILE);
 
 			CS_TELE_FEE_RATIO      = Long.parseLong(castleSettings.getProperty("CastleTeleportFunctionFeeRatio", "604800000"));
             CS_TELE1_FEE           = Integer.parseInt(castleSettings.getProperty("CastleTeleportFunctionFeeLvl1", "7000"));
@@ -2400,10 +2336,7 @@ public final class Config
 		_log.info("loading " + FUN_ENGINES_FILE);
 		try
 		{
-			Properties funEnginesSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(FUN_ENGINES_FILE));
-			funEnginesSettings.load(is);
-			is.close();
+			Properties funEnginesSettings = new L2Properties(FUN_ENGINES_FILE);
 
 			FortressSiege_EVEN_TEAMS = funEnginesSettings.getProperty("FortressSiegeEvenTeams", "BALANCE");
 			FortressSiege_SAME_IP_PLAYERS_ALLOWED = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeSameIPPlayersAllowed", "false"));
@@ -2496,10 +2429,7 @@ public final class Config
 		_log.info("loading " + IRC_FILE);
 		try
 		{
-			Properties ircSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(IRC_FILE));
-			ircSettings.load(is);
-			is.close();
+			Properties ircSettings = new L2Properties(IRC_FILE);
 
 			IRC_ENABLED = Boolean.parseBoolean(ircSettings.getProperty("Enable", "false"));
 			IRC_LOG_CHAT = Boolean.parseBoolean(ircSettings.getProperty("LogChat", "false"));
@@ -2625,10 +2555,7 @@ public final class Config
 		_log.info("loading " + BOSS_FILE);
 		try
 		{
-			Properties bossSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(BOSS_FILE));
-			bossSettings.load(is);
-			is.close();
+			Properties bossSettings = new L2Properties(BOSS_FILE);
 
 			//antharas
 			FWA_FIXINTERVALOFANTHARAS = Integer.parseInt(bossSettings.getProperty("FixIntervalOfAntharas", "11520"));
@@ -2936,10 +2863,7 @@ public final class Config
 		_log.info("loading " + ELAYNE_FILE);
 		try
 		{
-			Properties elayneSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(ELAYNE_FILE));
-			elayneSettings.load(is);
-			is.close();
+			Properties elayneSettings = new L2Properties(BOSS_FILE);
 
 			ALLOW_RMI_SERVER = Boolean.valueOf(elayneSettings.getProperty("AllowRMIServer", "False"));
 			RMI_SERVER_PASSWORD = elayneSettings.getProperty("RMIServerPassword", "******");
@@ -2966,10 +2890,7 @@ public final class Config
 		_log.info("loading " + INFRACTIONS_FILE);
 		try
 		{
-			Properties infractionsSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(INFRACTIONS_FILE));
-			infractionsSettings.load(is);
-			is.close();
+			Properties infractionsSettings = new L2Properties(INFRACTIONS_FILE);
 
 			INFRACTION_BAN_MODE = Integer.parseInt(infractionsSettings.getProperty("BanMode", "0"));
 
