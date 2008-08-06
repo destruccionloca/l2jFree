@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.handler.itemhandlers.EnergyStone;
 import com.l2jfree.gameserver.handler.itemhandlers.ExtractableItems;
 import com.l2jfree.gameserver.handler.itemhandlers.Firework;
 import com.l2jfree.gameserver.handler.itemhandlers.FishShots;
+import com.l2jfree.gameserver.handler.itemhandlers.ForgottenScroll;
 import com.l2jfree.gameserver.handler.itemhandlers.Harvester;
 import com.l2jfree.gameserver.handler.itemhandlers.Maps;
 import com.l2jfree.gameserver.handler.itemhandlers.MercTicket;
@@ -114,6 +115,7 @@ public class ItemHandler
 		registerItemHandler(new ExtractableItems());
 		registerItemHandler(new Firework());
 		registerItemHandler(new FishShots());
+		registerItemHandler(new ForgottenScroll());
 		registerItemHandler(new Harvester());
 		registerItemHandler(new Maps());
 		registerItemHandler(new MercTicket());

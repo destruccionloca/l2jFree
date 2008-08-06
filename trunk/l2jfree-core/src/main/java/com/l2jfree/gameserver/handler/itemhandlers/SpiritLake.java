@@ -46,9 +46,9 @@ public class SpiritLake implements IItemHandler
 		L2Skill skill = SkillTable.getInstance().getInfo(2368, 1);
 		L2Object target = activeChar.getTarget();
 
-		if ((target instanceof L2NpcInstance))
+		if (target instanceof L2NpcInstance)
 		{
-			if (((L2NpcInstance) target).getNpcId() == 18482)
+			if (((L2NpcInstance) target).getNpcId() == 18482) // kindred fafurion TODO: verify id since there are severall fafurions
 			{
 				activeChar.useMagic(skill, false, false);
 			}
