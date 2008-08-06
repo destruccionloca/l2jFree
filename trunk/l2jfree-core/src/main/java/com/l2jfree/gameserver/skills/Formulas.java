@@ -1369,6 +1369,12 @@ public final class Formulas
 			case BIGSWORD:
 				stat = Stats.SWORD_WPN_VULN;
 				break;
+            case ANCIENT_SWORD:
+                stat = Stats.SWORD_WPN_VULN;
+                break;
+            case RAPIER:
+                stat = Stats.DAGGER_WPN_VULN;
+                break;				
 			}
 		}
 
