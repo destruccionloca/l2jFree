@@ -136,7 +136,7 @@ public class L2WarehouseItem
 	 * Returns the second type
 	 * @return int
 	 */
-	public final Enum<?> getItemType()
+	public final AbstractL2ItemType getItemType()
 	{
 		return _item.getItemType();
 	}

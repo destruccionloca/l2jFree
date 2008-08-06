@@ -48,7 +48,7 @@ public abstract class L2Equip extends L2Item
 		public int chance;
 	}
 
-	public L2Equip(Enum<?> type, StatsSet set)
+	public L2Equip(AbstractL2ItemType type, StatsSet set)
 	{
 		super(type, set);
 		_sex = set.getInteger("sex");

@@ -18,7 +18,7 @@ package com.l2jfree.gameserver.templates;
  * Description of EtcItem Type
  */
 
-public enum L2EtcItemType
+public enum L2EtcItemType implements AbstractL2ItemType
 {
 	ARROW(0, "Arrow"),
 	MATERIAL(1, "Material"),

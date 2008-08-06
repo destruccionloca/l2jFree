@@ -19,6 +19,7 @@ package com.l2jfree.gameserver.items.model;
   * 
   */
 
+import com.l2jfree.gameserver.templates.AbstractL2ItemType;
 import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.gameserver.templates.StatsSet;
 
@@ -29,11 +30,11 @@ import com.l2jfree.gameserver.templates.StatsSet;
  */
 public class Item
 {
-    public int			id;
-    public int			displayid;
-    public Enum<?>			type;
-    public String		name;
-    public StatsSet		set;
-    public int			currentLevel;
-    public L2Item		item;
+    public int				id;
+    public int				displayid;
+    public AbstractL2ItemType		type;
+    public String			name;
+    public StatsSet			set;
+    public int				currentLevel;
+    public L2Item			item;
 }

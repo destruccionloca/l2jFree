@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.templates.AbstractL2ItemType;
 import com.l2jfree.gameserver.templates.L2Armor;
 import com.l2jfree.gameserver.templates.L2Equip;
 import com.l2jfree.gameserver.templates.L2EtcItem;
@@ -480,7 +481,7 @@ public final class L2ItemInstance extends L2Object
 	 * 
 	 * @return Enum
 	 */
-	public Enum<?> getItemType()
+	public AbstractL2ItemType getItemType()
 	{
 		return _item.getItemType();
 	}

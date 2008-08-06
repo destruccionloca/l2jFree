@@ -137,7 +137,7 @@ public abstract class L2Item
 	private final boolean		_destroyable;
 	private final boolean		_tradeable;
 
-	protected final Enum<?>		_type;
+	protected final AbstractL2ItemType	_type;
 
 	/**
 	 * Constructor of the L2Item that fill class variables.<BR><BR>
@@ -160,7 +160,7 @@ public abstract class L2Item
 	 * @param type : Enum designating the type of the item
 	 * @param set : StatsSet corresponding to a set of couples (key,value) for description of the item
 	 */
-	protected L2Item(Enum<?> type, StatsSet set)
+	protected L2Item(AbstractL2ItemType type, StatsSet set)
 	{
 		_type = type;
 		_itemId = set.getInteger("item_id");
@@ -187,7 +187,7 @@ public abstract class L2Item
 	 * Returns the itemType.
 	 * @return Enum
 	 */
-	public Enum<?> getItemType()
+	public AbstractL2ItemType getItemType()
 	{
 		return _type;
 	}

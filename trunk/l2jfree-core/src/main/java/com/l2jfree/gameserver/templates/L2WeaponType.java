@@ -18,7 +18,7 @@ package com.l2jfree.gameserver.templates;
  * @author mkizub
  * <BR>Description of Weapon Type
  */
-public enum L2WeaponType
+public enum L2WeaponType implements AbstractL2ItemType
 {
 	NONE(1, "Shield"), // Shields!!!
 	SWORD(2, "Sword"),
