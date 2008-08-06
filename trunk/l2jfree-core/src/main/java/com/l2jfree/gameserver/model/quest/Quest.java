@@ -246,9 +246,10 @@ public class Quest extends ManagedScript
 
 	public QuestTimer getQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
 	{
-		if (_allEventTimers.get(name) == null)
+		FastList<QuestTimer> qt = _allEventTimers.get(name);
+		if (qt == null || qt.isEmpty())
 			return null;
-		for (QuestTimer timer : _allEventTimers.get(name))
+		for (QuestTimer timer : qt)
 			if (timer.isMatch(this, name, npc, player))
 				return timer;
 		return null;
