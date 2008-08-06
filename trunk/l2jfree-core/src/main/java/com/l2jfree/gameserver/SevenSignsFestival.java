@@ -2353,13 +2353,8 @@ public class SevenSignsFestival implements SpawnListener
 
 				for (L2PcInstance participant : _participants)
 				{
-					try
-					{
+					if (participant != null)
 						participant.sendPacket(cs);
-					}
-					catch (NullPointerException e)
-					{
-					}
 				}
 			}
 		}
@@ -2373,13 +2368,10 @@ public class SevenSignsFestival implements SpawnListener
 			{
 				for (L2PcInstance participant : _participants)
 				{
-					try
+					if (participant != null)
 					{
 						relocatePlayer(participant, false);
 						participant.sendMessage("The festival has ended. Your party leader must now register your score before the next festival takes place.");
-					}
-					catch (NullPointerException e)
-					{
 					}
 				}
 

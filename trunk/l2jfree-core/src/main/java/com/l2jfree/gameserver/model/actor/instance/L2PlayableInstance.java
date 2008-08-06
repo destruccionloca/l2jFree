@@ -88,7 +88,7 @@ public abstract class L2PlayableInstance extends L2Character
 
 	@Override
 	public boolean doDie(L2Character killer)
-	{
+	{	
 		if (!super.doDie(killer))
 			return false;
 
