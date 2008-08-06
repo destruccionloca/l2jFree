@@ -137,7 +137,7 @@
       <mul order="0x30" stat="pAtk" val="1.054" /> <!-- P. Atk. +5.4% -->
       <add order="0x40" stat="maxHp" val="492" /> <!-- Maximum HP +492 effect -->
       <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Darkness resistance is increased by +8 -->
-      <mul order="0x30" stat="MpConsumeRate" val="0.97" /> <!-- MP consumption of the active skill is decreased +? --> <!-- Guessing -->
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.97" /> <!-- MP consumption of the active skill is decreased +? --> <!-- Guessing -->
     </for>
   </skill>
   <skill id="3415" levels="1"
