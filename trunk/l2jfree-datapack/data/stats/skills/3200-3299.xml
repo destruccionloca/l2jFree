@@ -1103,7 +1103,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="MpConsumeRate" val="#Tab-Atk" />
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="#Tab-Atk" />
     </for>
   </skill>
   <skill id="3256" levels="3" name="Item Skill: Spell Clarity">
@@ -1119,7 +1119,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="MpConsumeRate" val="#Tab-Atk" />
+      <mul order="0x30" stat="MagicalMpConsumeRate" val="#Tab-Atk" />
     </for>
   </skill>
   <skill id="3257" levels="3" name="Item Skill: Music Clarity">
@@ -1135,7 +1135,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="MpConsumeRate" val="#Tab-Atk" />
+      <mul order="0x30" stat="DanceMpConsumeRate" val="#Tab-Atk" />
     </for>
   </skill>
   <skill id="3258" levels="3" name="Item Skill: Clarity">
@@ -1151,7 +1151,9 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="MpConsumeRate" val="#Tab-Atk" />
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="#Tab-Atk" />
+      <mul order="0x30" stat="MagicalMpConsumeRate" val="#Tab-Atk" />
+      <mul order="0x30" stat="DanceMpConsumeRate" val="#Tab-Atk" />
     </for>
   </skill>
   <skill id="3259" levels="3" name="Item Skill: Reflect Damage">
