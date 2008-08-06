@@ -14,10 +14,7 @@
  */
 package com.l2jfree.status;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Properties;
@@ -84,10 +81,7 @@ public class Status extends Thread
 	public Status() throws IOException
 	{
 		super("Status");
-		Properties telnetSettings = new L2Properties();
-		InputStream is = new FileInputStream(new File(Config.TELNET_FILE));
-		telnetSettings.load(is);
-		is.close();
+		Properties telnetSettings = new L2Properties(Config.TELNET_FILE);
 
 		_statusPort = Integer.parseInt(telnetSettings.getProperty("StatusPort", "12345"));
 		_statusPw = telnetSettings.getProperty("StatusPW");

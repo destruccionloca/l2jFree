@@ -19,10 +19,8 @@
 package com.l2jfree.gameserver;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -606,10 +604,7 @@ public class Olympiad
 	{
 		_nobles = new FastMap<Integer, StatsSet>();
 
-		Properties OlympiadProperties = new L2Properties();
-		InputStream is = new FileInputStream(new File("./" + OLYMPIAD_DATA_FILE));
-		OlympiadProperties.load(is);
-		is.close();
+		Properties OlympiadProperties = new L2Properties("./" + OLYMPIAD_DATA_FILE);
 
 		_currentCycle = Integer.parseInt(OlympiadProperties.getProperty("CurrentCycle", "1"));
 		_period = Integer.parseInt(OlympiadProperties.getProperty("Period", "0"));

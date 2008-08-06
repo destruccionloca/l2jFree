@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -182,10 +179,7 @@ public class FortSiegeManager
 	{
 		try
 		{
-			Properties siegeSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(Config.FORTSIEGE_CONFIGURATION_FILE));
-			siegeSettings.load(is);
-			is.close();
+			Properties siegeSettings = new L2Properties(Config.FORTSIEGE_CONFIGURATION_FILE);
 
 			// Siege spawns settings
 			_commanderSpawnList = new FastMap<Integer, FastList<SiegeSpawn>>();

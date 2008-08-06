@@ -15,10 +15,7 @@
 package com.l2jfree.status;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -141,10 +138,7 @@ public class GameStatusThread extends Thread
 
 		try
 		{
-			Properties telnetSettings = new L2Properties();
-			InputStream telnetIS = new FileInputStream(new File(Config.TELNET_FILE));
-			telnetSettings.load(telnetIS);
-			telnetIS.close();
+			Properties telnetSettings = new L2Properties(Config.TELNET_FILE);
 
 			String HostList = telnetSettings.getProperty("ListOfHosts", "127.0.0.1,localhost");
 
