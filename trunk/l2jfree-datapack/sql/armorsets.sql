@@ -135,16 +135,16 @@ INSERT INTO `armorsets` VALUES (78, 10231, 9421, 9422, 9423, 9424, 3638, 1,    0
 
 --                 SHADOW B GRADE              -------------
 -- ########################   id   chest  legs  head   gloves  feet    skill  skill_lvl shield sh_skill enchant6
-INSERT INTO armorsets VALUES(75, 9067, 9068, 9069,  9071, 9072,   3518,   1,   0,    0,     3617);    -- Shadow Item: Zubei's Breastplate set
-INSERT INTO armorsets VALUES(76, 9073, 9074, 9069,  9075, 9076,   3520,   1,   0,    0,     3618);    -- Shadow Item: Zubei's leather set
-INSERT INTO armorsets VALUES(77, 9077, 9078, 9069,  9079, 9080,   3522,   1,   0,    0,     3619);    -- Shadow Item: Zubei robe set
+INSERT INTO armorsets VALUES(79, 9067, 9068, 9069,  9071, 9072,   3518,   1,   0,    0,     3617);    -- Shadow Item: Zubei's Breastplate set
+INSERT INTO armorsets VALUES(80, 9073, 9074, 9069,  9075, 9076,   3520,   1,   0,    0,     3618);    -- Shadow Item: Zubei's leather set
+INSERT INTO armorsets VALUES(81, 9077, 9078, 9069,  9079, 9080,   3522,   1,   0,    0,     3619);    -- Shadow Item: Zubei robe set
 
 --                 SHADOW A GRADE              -------------
 -- ########################   id   chest legs  head gloves feet    skill  skill_lvl shield sh_skill enchant6
-INSERT INTO armorsets VALUES(78, 9081, 9082, 9083,  9085, 9086,   3530,   1,   641,  3550,  3620);    -- Shadow Item: Dark Crystal Breastplate set
-INSERT INTO armorsets VALUES(79, 9087, 9088, 9083,  9089, 9090,   3532,   1,   0,    0,     3621);    -- Shadow Item: Dark Crystal leather set
-INSERT INTO armorsets VALUES(80, 9091, 0, 9083,  9092, 9093,   3535,   1,   0,    0,     3622);    -- Shadow Item: Dark Crystal robe set
+INSERT INTO armorsets VALUES(82, 9081, 9082, 9083,  9085, 9086,   3530,   1,   641,  3550,  3620);    -- Shadow Item: Dark Crystal Breastplate set
+INSERT INTO armorsets VALUES(83, 9087, 9088, 9083,  9089, 9090,   3532,   1,   0,    0,     3621);    -- Shadow Item: Dark Crystal leather set
+INSERT INTO armorsets VALUES(84, 9091, 0, 9083,  9092, 9093,   3535,   1,   0,    0,     3622);    -- Shadow Item: Dark Crystal robe set
 
-INSERT INTO armorsets VALUES(81, 9094, 0, 9095,  9096, 9097,   3537,   1,   0,    0,     3620);    -- Shadow Item: Majestic plate heavy set
-INSERT INTO armorsets VALUES(82, 9098, 0, 9095,  9099, 9100,   3539,   1,   0,    0,     3621);    -- Shadow Item: Majestic leather set
-INSERT INTO armorsets VALUES(83, 9101, 0, 9095,  9102, 9103,   3541,   1,   0,    0,     3622);    -- Shadow Item: Majestic robe set
+INSERT INTO armorsets VALUES(85, 9094, 0, 9095,  9096, 9097,   3537,   1,   0,    0,     3620);    -- Shadow Item: Majestic plate heavy set
+INSERT INTO armorsets VALUES(86, 9098, 0, 9095,  9099, 9100,   3539,   1,   0,    0,     3621);    -- Shadow Item: Majestic leather set
+INSERT INTO armorsets VALUES(87, 9101, 0, 9095,  9102, 9103,   3541,   1,   0,    0,     3622);    -- Shadow Item: Majestic robe set
