@@ -182,7 +182,7 @@ public class FortSiegeManager
 	{
 		try
 		{
-			Properties siegeSettings = new L2Properties(Config.FORTSIEGE_CONFIGURATION_FILE);
+			Properties siegeSettings = new L2Properties();
 			InputStream is = new FileInputStream(new File(Config.FORTSIEGE_CONFIGURATION_FILE));
 			siegeSettings.load(is);
 			is.close();

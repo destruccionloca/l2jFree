@@ -263,7 +263,7 @@ public class SiegeManager
 	{
 		try
 		{
-			Properties siegeSettings = new L2Properties(Config.SIEGE_CONFIGURATION_FILE);
+			Properties siegeSettings = new L2Properties();
 			InputStream is = new FileInputStream(new File(Config.SIEGE_CONFIGURATION_FILE));
 			siegeSettings.load(is);
 			is.close();
