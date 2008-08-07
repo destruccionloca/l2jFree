@@ -56,7 +56,7 @@ public abstract class L2Object
 	/**
 	 * unique identifier
 	 */
-	private int					_objectId;
+	private Integer				_objectId;
 	/**
 	 * Appearance and type of object 
 	 */
@@ -451,13 +451,13 @@ public abstract class L2Object
 	 */
 	public final void setName(String value)
 	{
-		_name = value;
+		_name = (value == null ? null : value.intern());
 	}
 
 	/**
 	 * @return the object id
 	 */
-	public final int getObjectId()
+	public final Integer getObjectId()
 	{
 		return _objectId;
 	}
@@ -522,27 +522,40 @@ public abstract class L2Object
 			}
 		}
 	}
-
-	public L2PcInstance getActingPlayer()
-	{
-		return null;
-	}
-
+	
 	/**
 	 * Basic implementation of toString to print the object id
 	 */
 	@Override
 	public String toString()
 	{
-		return "" + getObjectId();
+		return String.valueOf(getObjectId());
 	}
-
+	
+	public L2PcInstance getActingPlayer()
+	{
+		return null;
+	}
+	
+	public final static L2PcInstance getActingPlayer(L2Object obj)
+	{
+		return (obj == null ? null : obj.getActingPlayer());
+	}
+	
+	public L2Summon getActingSummon()
+	{
+		return null;
+	}
+	
+	public final static L2Summon getActingSummon(L2Object obj)
+	{
+		return (obj == null ? null : obj.getActingSummon());
+	}
+	
 	public boolean isInFunEvent()
 	{
-		if (getActingPlayer() != null)
-		{
-			return getActingPlayer().isInFunEvent();
-		}
-		return false;
+		L2PcInstance player = getActingPlayer();
+		
+		return (player == null ? false : player.isInFunEvent());
 	}
 }

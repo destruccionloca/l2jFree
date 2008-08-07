@@ -12920,6 +12920,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		return this;
 	}
 	
+	@Override
+	public final L2Summon getActingSummon()
+	{
+		return getPet();
+	}
+	
 	public int getTrustLevel()
 	{
 		return _trustlevel;
