@@ -150,8 +150,6 @@ public class SpawnTable
 			// problem with initializing spawn, go to next one
 			_log.warn("SpawnTable: Spawn could not be initialized: " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-
 		_log.info("SpawnTable: Loaded " + _spawntable.size() + " Npc Spawn Locations.");
 
 		try
@@ -231,7 +229,7 @@ public class SpawnTable
 			// problem with initializing spawn, go to next one
 			_log.warn("SpawnTable: Custom spawn could not be initialized: " + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
         _cSpawnCount = _spawntable.size() - _cSpawnCount;
 		if (_cSpawnCount > 0)
