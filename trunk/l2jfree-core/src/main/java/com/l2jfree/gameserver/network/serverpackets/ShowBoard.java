@@ -127,6 +127,7 @@ public class ShowBoard extends L2GameServerPacket
 				}
 			}	
 			System.arraycopy(html, 0, data, i, html.length);
+			i += html.length;
 			
 			data[i] = 0;
 			i++;
