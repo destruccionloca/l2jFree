@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class ShowBoard extends L2GameServerPacket
@@ -98,6 +99,7 @@ public class ShowBoard extends L2GameServerPacket
 			
 			byte data[] = new byte[2 + 2 + 2 + _id.getBytes().length * 2 + 2
 				* ((_htmlCode != null) ? htmlBytes.length : 0)];
+			
 			int i = 0;
 			for (int j = 0; j < _id.getBytes().length; j++, i += 2)
 			{
@@ -109,14 +111,23 @@ public class ShowBoard extends L2GameServerPacket
 			data[i] = 0;
 			i++;
 
+			byte[] html = new byte[0];	
 			if (_htmlCode != null)
 			{
-				for (int j = 0; j < htmlBytes.length; i += 2, j++)
-				{
-					data[i] = htmlBytes[j];
-					data[i + 1] = 0;
+				try {
+					html = _htmlCode.getBytes("UTF-16LE");
+				} catch (UnsupportedEncodingException e) {
+					html = new byte[_htmlCode.length() * 2];
+					
+					for (int j = 0; j < htmlBytes.length; i += 2, j++)
+					{
+						data[i] = htmlBytes[j];
+						data[i + 1] = 0;
+					}
 				}
-			}
+			}	
+			System.arraycopy(html, 0, data, i, html.length);
+			
 			data[i] = 0;
 			i++;
 			data[i] = 0;
