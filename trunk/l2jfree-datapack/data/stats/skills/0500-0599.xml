@@ -1020,7 +1020,6 @@
     <set name="mpConsume" val="79" />
     <set name="power" val="2583" />
     <set name="target" val="TARGET_ONE" />
-    <set name="overHit" val="true" />
     <set name="SSBoost" val="2.0" />
     <set name="reuseDelay" val="9000" />
     <set name="hitTime" val="500" />
