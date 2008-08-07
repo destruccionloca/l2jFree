@@ -1174,52 +1174,72 @@
       <mul order="0x30" stat="reflectDam" val="#Tab-Atk" />
     </for>
   </skill>
-  <skill id="3260" levels="1" name="Forgiveness">
-  <!-- Done by SHAKA -->
-    <set name="castRange" val="500" />
-    <set name="effectRange" val="1000" />
-    <set name="hitTime" val="2500" />
-    <set name="magicLvl" val="1" /> <!-- Guessing -->
-    <set name="mpConsume" val="1" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
-    <set name="reuseDelay" val="10000" /> <!-- Guessing -->
-    <set name="skillType" val="PDAM" />
-    <set name="target" val="TARGET_ONE" />
+  <skill id="3260" levels="1" name="Heart Shot">
+    <!--
+      Description(s):
+      Gathers up your love and throws a heart at the huge pig.
+    -->
+    <table name="#hotValue">35</table>
+    <table name="#mpConsume">1</table>
+    <table name="#power">472</table>
     <set name="weaponsAllowed" val="32" />
+    <set name="hitTime" val="2500" />
+    <set name="mpConsume" val="#mpConsume" />
+    <set name="power" val="#power" />
+    <set name="reuseDelay" val="12000" />
+    <set name="target" val="TARGET_COUPLE" />
+    <set name="skillType" val="HEAL" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="750" />
     <for>
+      <effect count="15" name="HealOverTime" time="1"
+        val="#hotValue" stackOrder="#hotValue"
+        stackType="LifeForce" />
     </for>
   </skill>
-  <skill id="3261" levels="1" name="Forgiveness">
-  <!-- Done by SHAKA -->
-    <set name="castRange" val="500" />
-    <set name="effectRange" val="1000" />
+  <skill id="3261" levels="1" name="Heart Shot">
+    <!--
+      Description(s):
+      Gathers up your love and throws a heart to the target. Warning: If you send love to a monster, you may be attacked from all sides.
+    -->
+    <table name="#mpConsume">1</table>
+    <table name="#power">180.0</table>
+    <set name="weaponsAllowed" val="32" />
     <set name="hitTime" val="2500" />
-    <set name="magicLvl" val="1" /> <!-- Guessing -->
-    <set name="mpConsume" val="1" />
+    <set name="mpConsume" val="#mpConsume" />
+    <set name="power" val="#power" />
+    <set name="reuseDelay" val="12000" />
+    <set name="target" val="TARGET_COUPLE" />
+    <set name="skillType" val="MANARECHARGE" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
-    <set name="reuseDelay" val="10000" /> <!-- Guessing -->
-    <set name="skillType" val="PDAM" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="weaponsAllowed" val="32" />
-    <for>
-    </for>
+    <set name="castRange" val="750" />
+    <for></for>
   </skill>
-  <skill id="3262" levels="1" name="Pardon">
-  <!-- Done by SHAKA -->
-    <set name="castRange" val="500" />
-    <set name="effectRange" val="1000" />
-    <set name="hitTime" val="3200" />
-    <set name="magicLvl" val="1" /> <!-- Guessing -->
-    <set name="mpConsume" val="1" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
-    <set name="reuseDelay" val="25000" /> <!-- Guessing -->
-    <set name="skillType" val="PDAM" />
-    <set name="target" val="TARGET_ONE" />
+  <skill id="3262" levels="1" name="Double Heart Shot">
+    <!--
+      Description(s):
+      Gathers up your love and throws two hearts at the huge pig. There is a low chance that the huge pig will transform into either a golden pig or a super huge pig.
+    -->
+    <table name="#hotValue">70</table>
+    <table name="#pDef">1.3</table>
+    <table name="#mDef">1.35</table>
+    <table name="#mpConsume">1</table>
+    <table name="#power">944</table>
     <set name="weaponsAllowed" val="32" />
+    <set name="hitTime" val="3500" />
+    <set name="mpConsume" val="#mpConsume" />
+    <set name="power" val="#power" />
+    <set name="reuseDelay" val="12000" />
+    <set name="target" val="TARGET_COUPLE" />
+    <set name="skillType" val="HEAL" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="750" />
     <for>
+      <effect count="15" name="HealOverTime" time="1"
+        val="#hotValue" stackOrder="#hotValue"
+        stackType="LifeForce" />
+      <div order="0x30" stat="pDef" val="#pDef" />
+      <div order="0x30" stat="mDef" val="#mDef" />
     </for>
   </skill>
   <skill id="3263" levels="1" name="Blessed Resurrection">
