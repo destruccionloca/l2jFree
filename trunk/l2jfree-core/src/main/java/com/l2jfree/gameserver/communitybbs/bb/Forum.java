@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.communitybbs.bb;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -125,17 +126,9 @@ public class Forum
 		{
 			_log.warn("data error on Forum " + _forumId + " : ", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		con = null;
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+        con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -162,16 +155,7 @@ public class Forum
 		{
 			_log.warn("data error on Forum " + _forumId + " : ", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -199,17 +183,7 @@ public class Forum
 		{
 			_log.warn("data error on Forum (children): ", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public int getTopicSize()
@@ -332,17 +306,7 @@ public class Forum
 		{
 			_log.warn("error while saving new Forum to db ", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**

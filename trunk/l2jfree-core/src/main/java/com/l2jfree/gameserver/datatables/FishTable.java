@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -95,17 +96,9 @@ public class FishTable
 		{
 			_log.fatal("error while creating fishes table" + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		_log.info("FishTable: Loaded " + count + " Fishes.");
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+        _log.info("FishTable: Loaded " + count + " Fishes.");
 	}
 
 	/**

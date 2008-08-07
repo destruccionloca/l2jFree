@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.entity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -75,7 +76,7 @@ public class Couple
         {
             _log.error("Exception: Couple.load(): " + e.getMessage(),e);
         }
-        finally {try { con.close(); } catch (Exception e) {}}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     
     public Couple(L2PcInstance player1,L2PcInstance player2)
@@ -109,10 +110,7 @@ public class Couple
         {
             _log.error("",e);
         }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     
     public void marry()
@@ -136,10 +134,7 @@ public class Couple
         {
             _log.error("",e);
         }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     
     public void divorce()
@@ -159,10 +154,7 @@ public class Couple
         {
             _log.error("Exception: Couple.divorce(): " + e.getMessage(),e);
         }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     
     public final int getId() { return _id; }

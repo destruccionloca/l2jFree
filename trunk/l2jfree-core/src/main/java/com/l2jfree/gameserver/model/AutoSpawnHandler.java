@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -150,16 +151,7 @@ public class AutoSpawnHandler
 		{
 			_log.warn("AutoSpawnHandler: Could not restore spawn data: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -507,7 +499,7 @@ public class AutoSpawnHandler
 				String nearestTown = TownManager.getInstance().getClosestTownName(npcInst);
 
 				// Announce to all players that the spawn has taken place, with the nearest town location.
-				if (spawnInst.isBroadcasting())
+				if (spawnInst.isBroadcasting() && npcInst != null)
 					Announcements.getInstance().announceToAll("The " + npcInst.getName() + " has spawned near " + nearestTown + "!");
 
 				if (_log.isDebugEnabled())

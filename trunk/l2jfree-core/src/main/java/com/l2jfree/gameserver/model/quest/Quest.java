@@ -19,6 +19,7 @@ import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Map;
 
@@ -645,16 +646,7 @@ public class Quest extends ManagedScript
 		{
 			_log.warn("could not insert char quest:", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		// events
 		for (String name : _allEventsS.keySet())
@@ -689,16 +681,7 @@ public class Quest extends ManagedScript
 		{
 			_log.warn("could not insert global quest variable:", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -731,17 +714,9 @@ public class Quest extends ManagedScript
 		{
 			_log.warn("could not load global quest variable:", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		return result;
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+        return result;
 	}
 
 	/**
@@ -765,16 +740,7 @@ public class Quest extends ManagedScript
 		{
 			_log.warn("could not delete global quest variable:", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -796,16 +762,7 @@ public class Quest extends ManagedScript
 		{
 			_log.warn("could not delete global quest variables:", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -833,16 +790,7 @@ public class Quest extends ManagedScript
 		{
 			_log.fatal("could not insert char quest:", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -878,16 +826,7 @@ public class Quest extends ManagedScript
 		{
 			_log.fatal("could not update char quest:", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -913,16 +852,7 @@ public class Quest extends ManagedScript
 		{
 			_log.warn("could not delete char quest:", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -946,16 +876,7 @@ public class Quest extends ManagedScript
 		{
 			_log.fatal("could not delete char quest:", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -1264,7 +1185,7 @@ public class Quest extends ManagedScript
 			content = content.replaceAll("%objectId%", String.valueOf(player.getTarget().getObjectId()));
 
 		//Send message to client if message not empty	 
-		if (content != null)
+		if (content != null && player != null)
 		{
 			NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
 			npcReply.setHtml(content);

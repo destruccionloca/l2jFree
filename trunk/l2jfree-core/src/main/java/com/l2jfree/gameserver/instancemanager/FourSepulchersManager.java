@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.instancemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -461,16 +462,7 @@ public class FourSepulchersManager extends BossLair
 			// problem with initializing spawn, go to next one
 			_log.warn("FourSepulchersManager.LoadMysteriousBox: Spawn could not be initialized: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void initKeyBoxSpawns()
@@ -573,16 +565,7 @@ public class FourSepulchersManager extends BossLair
 			// problem with initializing spawn, go to next one
 			_log.warn("FourSepulchersManager.LoadPhysicalMonsters: Spawn could not be initialized: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void loadMagicalMonsters()
@@ -652,16 +635,7 @@ public class FourSepulchersManager extends BossLair
 			// problem with initializing spawn, go to next one
 			_log.warn("FourSepulchersManager.LoadMagicalMonsters: Spawn could not be initialized: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void loadDukeMonsters()
@@ -732,16 +706,7 @@ public class FourSepulchersManager extends BossLair
 			// problem with initializing spawn, go to next one
 			_log.warn("FourSepulchersManager.LoadDukeMonsters: Spawn could not be initialized: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void loadEmperorsGraveMonsters()
@@ -811,16 +776,7 @@ public class FourSepulchersManager extends BossLair
 			// problem with initializing spawn, go to next one
 			_log.warn("FourSepulchersManager.LoadEmperorsGraveMonsters: Spawn could not be initialized: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	protected void initLocationShadowSpawns()

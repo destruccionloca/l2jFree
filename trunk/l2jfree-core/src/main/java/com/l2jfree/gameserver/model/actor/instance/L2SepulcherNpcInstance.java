@@ -317,10 +317,11 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 				case 31939:
 				case 31944:
 					FourSepulchersManager.getInstance().spawnShadow(getNpcId());
-				default:
-					openNextDoor(getNpcId());
-					player.destroyItemByItemId("Quest", HALLS_KEY, hallsKey.getCount(), player, true);
 				}
+
+				//Moved here from switch-default
+				openNextDoor(getNpcId());
+				player.destroyItemByItemId("Quest", HALLS_KEY, hallsKey.getCount(), player, true);
 			}
 		}
 		else

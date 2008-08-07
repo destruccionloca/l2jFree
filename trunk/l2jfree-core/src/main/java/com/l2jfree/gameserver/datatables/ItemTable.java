@@ -269,16 +269,7 @@ public class ItemTable
 		{
 			_log.warn("data error on item: ", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		con = null;
 		try
@@ -316,16 +307,7 @@ public class ItemTable
 		{
 			_log.warn("data error on custom item: ", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		for (L2Armor armor : SkillsEngine.getInstance().loadArmors(armorData))
 		{
@@ -849,16 +831,7 @@ public class ItemTable
 				{
 					_log.warn("could not delete pet objectid:", e);
 				}
-				finally
-				{
-					try
-					{
-						con.close();
-					}
-					catch (Exception e)
-					{
-					}
-				}
+	            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 			}
 
 			// delete augmentation data

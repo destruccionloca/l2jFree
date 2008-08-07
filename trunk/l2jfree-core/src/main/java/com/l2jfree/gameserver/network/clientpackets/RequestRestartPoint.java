@@ -158,7 +158,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 					else
 					{
 						fsiege = FortSiegeManager.getInstance().getSiege(activeChar);
-						if (fsiege != null && fsiege.getIsInProgress())
+						if (siege != null && fsiege != null && fsiege.getIsInProgress())
 							siegeClan = siege.getAttackerClan(activeChar.getClan());
 					}
 

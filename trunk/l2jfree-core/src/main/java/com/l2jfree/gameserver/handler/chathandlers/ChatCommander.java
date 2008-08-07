@@ -47,11 +47,11 @@ public class ChatCommander implements IChatHandler
 		String charName = "";
 		int charObjId = 0;
 
-		if (activeChar != null)
-		{
-			charName = activeChar.getName();
-			charObjId = activeChar.getObjectId();
-		}
+		if (activeChar == null)
+			return; 
+
+		charName = activeChar.getName();
+		charObjId = activeChar.getObjectId();
 
 		L2Party party = activeChar.getParty();
 		if (party != null && party.isInCommandChannel())

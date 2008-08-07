@@ -409,16 +409,7 @@ public class Hero
 					if (_log.isDebugEnabled())
 						_log.debug("", e);
 				}
-				finally
-				{
-					try
-					{
-						con.close();
-					}
-					catch (Exception e)
-					{
-					}
-				}
+	            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 			}
 		}
 	}
@@ -553,17 +544,7 @@ public class Hero
 		{
 			_log.error("", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (SQLException e)
-			{
-				_log.error("", e);
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void deleteSkillsInDb()
@@ -581,16 +562,6 @@ public class Hero
 		{
 			_log.error(e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (SQLException e)
-			{
-				_log.error(e.getMessage(), e);
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 }

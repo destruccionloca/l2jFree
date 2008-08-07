@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +96,7 @@ public class HennaTreeTable
 		{
 			_log.warn("Error while creating henna tree for classId "+classId+" "+e, e);
 		}
-		finally { try { con.close(); } catch (Exception e) { } }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		
 		_log.info("HennaTreeTable: Loaded "+count+" Henna Tree Templates.");
 	}

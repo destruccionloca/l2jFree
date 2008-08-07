@@ -377,7 +377,7 @@ public class L2TradeList
 		        }
 		    }
 		    
-		    if (sellerItem !=null)
+		    if (sellerItem !=null && temp2 != null)
 		    {
 		        if (buyerItem.getCount()> temp2.getCount())
 		        {

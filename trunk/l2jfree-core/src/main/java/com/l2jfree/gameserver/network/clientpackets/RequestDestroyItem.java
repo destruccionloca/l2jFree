@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 
 import org.apache.commons.logging.Log;
@@ -167,10 +168,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 			{
                 _log.warn( "could not delete pet objectid: ", e);
 			}
-			finally
-			{
-				try { con.close(); } catch (Exception e) {}
-			}
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 		
 		L2ItemInstance removedItem = activeChar.getInventory().destroyItem("Destroy", _objectId, count, activeChar, null);

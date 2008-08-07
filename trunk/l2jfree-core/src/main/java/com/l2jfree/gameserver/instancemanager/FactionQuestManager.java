@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.instancemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javolution.util.FastList;
 
@@ -98,18 +99,7 @@ public class FactionQuestManager
 		{
 			_log.warn("Exception: FactionQuestManager.load(): " + e.getMessage(), e);
 		}
-
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	// =========================================================

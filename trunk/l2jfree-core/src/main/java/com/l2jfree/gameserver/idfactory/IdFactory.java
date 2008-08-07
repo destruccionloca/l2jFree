@@ -151,11 +151,11 @@ public abstract class IdFactory
 	 */
 	protected void setAllCharacterOffline()
 	{
-		Connection con2 = null;
+		Connection con = null;
 		try
 		{
-			con2 = L2DatabaseFactory.getInstance().getConnection(con2);
-			Statement s2 = con2.createStatement();
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			Statement s2 = con.createStatement();
 			s2.executeUpdate("UPDATE characters SET online = 0;");
 			if (_log.isDebugEnabled())
 				_log.debug("Updated characters online status.");
@@ -164,16 +164,7 @@ public abstract class IdFactory
 		catch (SQLException e)
 		{
 		}
-		finally
-		{
-			try
-			{
-				con2.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -185,12 +176,12 @@ public abstract class IdFactory
 		// Check for more cleanup query
 		// Check order
 
-		Connection conn = null;
+		Connection con = null;
 		try
 		{
 			int cleanCount = 0;
-			conn = L2DatabaseFactory.getInstance().getConnection(conn);
-			Statement stmt = conn.createStatement();
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			Statement stmt = con.createStatement();
 
 			// If a character not exists
 			cleanCount += stmt.executeUpdate("DELETE FROM character_friends WHERE character_friends.charId NOT IN (SELECT charId FROM characters);");
@@ -245,16 +236,7 @@ public abstract class IdFactory
 		{
 			_log.error(e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				conn.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -308,16 +290,7 @@ public abstract class IdFactory
 
 			return tmp_obj_ids;
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public boolean isInitialized()

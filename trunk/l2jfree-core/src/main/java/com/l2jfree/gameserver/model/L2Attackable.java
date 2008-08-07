@@ -477,7 +477,8 @@ public class L2Attackable extends L2NpcInstance
      * @param lastAttacker The L2Character that has killed the L2Attackable
      * 
      */
-    @Override
+    @SuppressWarnings("null")
+	@Override
     protected void calculateRewards(L2Character lastAttacker)
     {
         // Creates an empty list of rewards
@@ -1497,9 +1498,12 @@ public class L2Attackable extends L2NpcInstance
                 if (random < Config.RATE_DROP_COMMON_HERBS) 
                 {
                     RewardItem item = null;
-                    if (i == 0) item = new RewardItem(8606, 1); // Herb of Power
-                    if (i == 1) item = new RewardItem(8608, 1); // Herb of Atk. Spd.
-                    if (i == 2) item = new RewardItem(8610, 1); // Herb of Critical Attack
+                    if (i == 0)
+                    	item = new RewardItem(8606, 1); // Herb of Power
+                    else if (i == 1)
+                    	item = new RewardItem(8608, 1); // Herb of Atk. Spd.
+                    else
+                    	item = new RewardItem(8610, 1); // Herb of Critical Attack
                     
                     if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
                     else dropItem(player, item);
@@ -1521,8 +1525,11 @@ public class L2Attackable extends L2NpcInstance
                 if (random < Config.RATE_DROP_COMMON_HERBS)
                 {
                     RewardItem item = null;
-                    if (i == 0) item = new RewardItem(8607, 1); // Herb of Magic
-                    if (i == 1) item = new RewardItem(8609, 1); // Herb of Casting Speed
+                    
+                    if (i == 0)
+                    	item = new RewardItem(8607, 1); // Herb of Magic
+                    else
+                    	item = new RewardItem(8609, 1); // Herb of Casting Speed
 
                     if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
                     else dropItem(player, item);

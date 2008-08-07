@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.instancemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.concurrent.ScheduledFuture;
 
@@ -272,16 +273,7 @@ public class CastleManorManager
 		{
 			_log.info("Error restoring manor data: " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	protected void init()

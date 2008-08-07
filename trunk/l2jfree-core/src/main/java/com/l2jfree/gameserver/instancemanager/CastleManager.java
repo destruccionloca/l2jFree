@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.instancemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javolution.util.FastMap;
 
@@ -109,20 +110,11 @@ public class CastleManager
 
 			_log.info("Loaded: " + getCastles().size() + " castles");
 		}
-		catch (Exception e)
+		catch (SQLException e)
 		{
 			_log.warn("Exception: loadCastleData(): " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public final Castle getCastleById(int castleId)
@@ -263,20 +255,11 @@ public class CastleManager
 				statement.execute();
 				statement.close();
 			}
-			catch (Exception e)
+			catch (SQLException e)
 			{
 				_log.error("Failed to remove castle circlets offline for player " + member.getName(), e);
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
-			}
+			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 	}
 }

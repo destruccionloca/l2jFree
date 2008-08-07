@@ -992,13 +992,11 @@ public class SevenSignsFestival implements SpawnListener
 					rset = null;
 				}
 				if (statement != null)
-					;
 				{
 					statement.close();
 					statement = null;
 				}
 				if (con != null)
-					;
 				{
 					con.close();
 					con = null;
@@ -1445,7 +1443,7 @@ public class SevenSignsFestival implements SpawnListener
 	{
 		if (!isParticipant(player))
 			return;
-
+		
 		final int[] playerFestInfo = getFestivalForPlayer(player);
 		final int oracle = playerFestInfo[0];
 		final int festivalId = playerFestInfo[1];
@@ -1465,7 +1463,7 @@ public class SevenSignsFestival implements SpawnListener
 			setParticipants(oracle, festivalId, festivalParty);
 
 			// Check on disconect if min player in party
-			if (festivalParty.getMemberCount() < Config.ALT_FESTIVAL_MIN_PLAYER)
+			if (festivalParty != null && festivalParty.getMemberCount() < Config.ALT_FESTIVAL_MIN_PLAYER)
 			{
 				updateParticipants(player, festivalParty);
 				festivalParty.removePartyMember(player);
@@ -2278,7 +2276,7 @@ public class SevenSignsFestival implements SpawnListener
 			case 2:
 				_npcSpawns = (_cabal == SevenSigns.CABAL_DAWN) ? FESTIVAL_DAWN_SECONDARY_SPAWNS[_levelRange] : FESTIVAL_DUSK_SECONDARY_SPAWNS[_levelRange];
 				break;
-			case 3:
+			default:
 				_npcSpawns = (_cabal == SevenSigns.CABAL_DAWN) ? FESTIVAL_DAWN_CHEST_SPAWNS[_levelRange] : FESTIVAL_DUSK_CHEST_SPAWNS[_levelRange];
 				break;
 			}

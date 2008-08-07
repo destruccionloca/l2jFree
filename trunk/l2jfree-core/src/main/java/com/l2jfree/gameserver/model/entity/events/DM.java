@@ -22,6 +22,7 @@ package com.l2jfree.gameserver.model.entity.events;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import javolution.text.TextBuilder;
@@ -508,7 +509,7 @@ public class DM
 		{
 			_log.error("Exception: DM.loadData(): " + e.getMessage());
 		}
-		finally {try { con.close(); } catch (Exception e) {}}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public static void saveData()
@@ -546,7 +547,7 @@ public class DM
 		{
 			_log.error("Exception: DM.saveData(): " + e.getMessage());
 		}		
-		finally {try { con.close(); } catch (Exception e) {}}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public static void showEventHtml(L2PcInstance eventPlayer, String objectId)

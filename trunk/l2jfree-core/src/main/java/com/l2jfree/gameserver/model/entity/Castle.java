@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.entity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -196,7 +197,7 @@ public class Castle extends Siegeable
 			{
 				_log.fatal("Exception: Castle.updateFunctions(int type, int lvl, int lease, long rate, long time, boolean addNew): " + e.getMessage(),e);
 			}
-			finally {try { con.close(); } catch (Exception e) {}}
+			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 		}
 	}	
 
@@ -317,15 +318,7 @@ public class Castle extends Siegeable
 		{
 		}
 		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		{ try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		return true;
 	}
 
@@ -417,7 +410,7 @@ public class Castle extends Siegeable
 		updateOwnerInDB(clan); // Update in database
 
 		// if clan have fortress, remove it
-		if (clan.getHasFort() > 0)
+		if (clan != null && clan.getHasFort() > 0)
 			FortManager.getInstance().getFortByOwner(clan).removeOwner(clan);
 
 		if (getSiege().getIsInProgress()) // If siege in progress
@@ -469,16 +462,7 @@ public class Castle extends Siegeable
 		catch (Exception e)
 		{
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	/**
@@ -588,16 +572,7 @@ public class Castle extends Siegeable
 		{
 			_log.error("Exception: loadCastleData(): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	// This method loads castle door data from database
@@ -630,16 +605,7 @@ public class Castle extends Siegeable
 		{
 			_log.error("Exception: loadCastleDoor(): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	// This method loads castle door upgrade data from database
@@ -665,16 +631,7 @@ public class Castle extends Siegeable
 		{
 			_log.error("Exception: loadCastleDoorUpgrade(): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	private void removeDoorUpgrade()
@@ -693,16 +650,7 @@ public class Castle extends Siegeable
 		{
 			_log.error("Exception: removeDoorUpgrade(): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	private void saveDoorUpgrade(int doorId, int hp, int pDef, int mDef)
@@ -723,16 +671,7 @@ public class Castle extends Siegeable
 		{
 			_log.error("Exception: saveDoorUpgrade(int doorId, int hp, int pDef, int mDef): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	private void updateOwnerInDB(L2Clan clan)
@@ -781,16 +720,7 @@ public class Castle extends Siegeable
 		{
 			_log.error("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	@Override
@@ -1010,16 +940,7 @@ public class Castle extends Siegeable
 		{
 			_log.info("Error adding seed production data for castle " + getName() + ": " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	//save manor production data for specified period
@@ -1069,16 +990,7 @@ public class Castle extends Siegeable
 		{
 			_log.info("Error adding seed production data for castle " + getName() + ": " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	//save crop procure data
@@ -1145,16 +1057,7 @@ public class Castle extends Siegeable
 		{
 			_log.info("Error adding crop data for castle " + getName() + ": " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	//	save crop procure data for specified period
@@ -1204,16 +1107,7 @@ public class Castle extends Siegeable
 		{
 			_log.info("Error adding crop data for castle " + getName() + ": " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	public void updateCrop(int cropId, int amount, int period)
@@ -1236,16 +1130,7 @@ public class Castle extends Siegeable
 		{
 			_log.info("Error adding crop data for castle " + getName() + ": " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	public void updateSeed(int seedId, int amount, int period)
@@ -1268,16 +1153,7 @@ public class Castle extends Siegeable
 		{
 			_log.info("Error adding seed production data for castle " + getName() + ": " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	public boolean isNextPeriodApproved()
@@ -1343,7 +1219,7 @@ public class Castle extends Siegeable
 		{
 			_log.fatal("Exception: Castle.loadFunctions(): " + e.getMessage(),e);
 		}
-		finally {try { con.close(); } catch (Exception e) {}}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	/** Remove function In List and in DB */
@@ -1365,7 +1241,7 @@ public class Castle extends Siegeable
 		{
 			_log.fatal("Exception: Castle.removeFunctions(int functionType): " + e.getMessage(),e);
 		}
-		finally {try { con.close(); } catch (Exception e) {}}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	public boolean updateFunctions(L2PcInstance player,int type, int lvl, int lease, long rate, boolean addNew)

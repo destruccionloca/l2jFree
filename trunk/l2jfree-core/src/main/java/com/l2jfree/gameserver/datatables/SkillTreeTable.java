@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import java.util.Collection;
 import java.util.List;
@@ -132,6 +133,7 @@ public class SkillTreeTable
 		return 0;
 	}
 
+	@SuppressWarnings("null")
 	private SkillTreeTable()
 	{
 		int classId = 0;
@@ -372,16 +374,7 @@ public class SkillTreeTable
 		{
 			_log.fatal("Error while creating Transformation skill table " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		_log.info("FishingSkillTreeTable:   Loaded " + count2 + " general skills.");
 		_log.info("FishingSkillTreeTable:   Loaded " + count3 + " dwarven skills.");

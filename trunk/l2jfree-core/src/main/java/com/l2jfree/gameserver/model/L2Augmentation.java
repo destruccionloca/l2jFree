@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javolution.util.FastList;
 
@@ -139,16 +140,7 @@ public final class L2Augmentation
 		{
 			_log.error("Could not save augmentation for item: " + _item.getObjectId() + " from DB:", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public void deleteAugmentationData()
@@ -170,16 +162,7 @@ public final class L2Augmentation
 		{
 			_log.error("Could not delete augmentation for item: " + _item.getObjectId() + " from DB:", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**

@@ -2710,6 +2710,8 @@ public abstract class L2Skill
 					}
 				}
 			}
+			//FIXME: (Noctarius) Added return here to deny fallthrough - is it wished to add more targets?
+			return targetList.toArray(new L2Character[targetList.size()]);
 		}
 		case TARGET_CORPSE_CLAN:
 		case TARGET_CLAN:

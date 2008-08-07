@@ -245,18 +245,9 @@ public class GameStatusThread extends Thread
 							_print.flush();
 							_cSocket.close();
 						}
-						finally
-						{
-							try
-							{
-								con.close();
-							}
-							catch (SQLException e)
-							{
-								e.printStackTrace();
-							}
-						}
-						telnetOutput(4, gmname + " successfully connected to Telnet.");
+			            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+			            telnetOutput(4, gmname + " successfully connected to Telnet.");
 						_print.println("L2j-free...");
 						_print.print("");
 						_print.flush();

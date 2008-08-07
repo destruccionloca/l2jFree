@@ -928,7 +928,7 @@ public class L2NpcInstance extends L2Character
 
 			if (!_isInTown)
 				_castleIndex = CastleManager.getInstance().getClosestCastle(this).getCastleId();
-			else if (town.getCastle() != null)
+			else if (town != null && town.getCastle() != null)
 				_castleIndex = town.getCastle().getCastleId();
 			else
 				_castleIndex = CastleManager.getInstance().getClosestCastle(this).getCastleId();

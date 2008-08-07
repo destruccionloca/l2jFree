@@ -1110,16 +1110,7 @@ public class TvT
 		{
 			_log.error("Exception: TvT.loadData(): " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public static void saveData()
@@ -1181,16 +1172,7 @@ public class TvT
 		{
 			_log.error("Exception: TvT.saveData(): " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public static void showEventHtml(L2PcInstance eventPlayer, String objectId)
@@ -1335,7 +1317,7 @@ public class TvT
 			{
 				for (L2PcInstance player : _playersShuffle)
 				{
-					if (player == null || player.isOnline() == 0 || player.isInJail())
+					if (player.isOnline() == 0 || player.isInJail())
 					{
 						_playersShuffle.remove(player);
 						player._inEventTvT = false;
@@ -1630,17 +1612,7 @@ public class TvT
 							{
 								_log.error(se.getMessage(), se);
 							}
-							finally
-							{
-								try
-								{
-									con.close();
-								}
-								catch (Exception e)
-								{
-									_log.error(e.getMessage(), e);
-								}
-							}
+				            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 						}
 					}
 				}

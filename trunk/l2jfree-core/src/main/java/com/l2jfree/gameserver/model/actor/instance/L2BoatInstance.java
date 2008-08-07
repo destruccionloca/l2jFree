@@ -166,16 +166,7 @@ public class L2BoatInstance extends L2Character
 			{
 				_log.warn("error while creating boat table " + e);
 			}
-			finally
-			{
-				try
-				{
-					lnr.close();
-				}
-				catch (Exception e1)
-				{ /* ignore problems */
-				}
-			}
+			finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
 		}
 
 		/**
@@ -546,7 +537,7 @@ public class L2BoatInstance extends L2Character
 				}
 				if (check == true)
 				{
-					if (needOnVehicleCheckLocation == true)
+					if (needOnVehicleCheckLocation && player != null)
 					{
 						VehicleCheckLocation vcl = new VehicleCheckLocation(this, x, y, z);
 						player.sendPacket(vcl);

@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -199,16 +200,7 @@ public class TradeListTable
 			// problem with initializing buylists, go to next one
 			_log.warn("TradeListTable:" + (custom ? " custom " : " ") + "Buylists could not be initialized.", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public void load()
@@ -273,16 +265,7 @@ public class TradeListTable
 		{
 			_log.fatal("TradeController: Could not update Timer save in Buylist");
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public void dataCountStore()
@@ -322,16 +305,6 @@ public class TradeListTable
 		{
 			_log.fatal("TradeController: Could not store Count Item");
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 }

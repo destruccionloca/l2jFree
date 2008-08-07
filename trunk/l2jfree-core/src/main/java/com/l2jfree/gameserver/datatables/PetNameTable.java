@@ -60,16 +60,8 @@ public class PetNameTable
 		{
 			_log.warn("could not check existing petname:" + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		return result;
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+        return result;
 	}
 }

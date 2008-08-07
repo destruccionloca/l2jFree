@@ -65,6 +65,7 @@ public class SkillList extends L2GameServerPacket
 					case 2:
 						if (_owner.isGM())
 							break;
+						break;
 					case 1:
 						continue;
 				}

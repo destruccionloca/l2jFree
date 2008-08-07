@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.entity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -146,11 +147,11 @@ public class Fort extends Siegeable
 		}
 
 		// if clan have already fortress, remove it
-		if (clan.getHasFort() > 0)
+		if (clan != null && clan.getHasFort() > 0)
 			FortManager.getInstance().getFortByOwner(clan).removeOwner(clan);
 
 		//if clan already have castle, dont store the fortress owner
-		if (clan.getHasCastle() <= 0)
+		if (clan != null && clan.getHasCastle() <= 0)
 		{
 			updateOwnerInDB(clan);     // Update in database
 		}
@@ -297,16 +298,7 @@ public class Fort extends Siegeable
 		{
 			_log.warn("Exception: loadFortData(): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	// This method loads fort door data from database
@@ -340,16 +332,7 @@ public class Fort extends Siegeable
 		{
 			_log.warn("Exception: loadFortDoor(): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	// This method loads fort door upgrade data from database
@@ -374,16 +357,7 @@ public class Fort extends Siegeable
 		{
 			_log.warn("Exception: loadFortDoorUpgrade(): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	private void removeDoorUpgrade()
@@ -401,16 +375,7 @@ public class Fort extends Siegeable
 		{
 			_log.warn("Exception: removeDoorUpgrade(): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	private void saveDoorUpgrade(int doorId, int hp, int pDef, int mDef)
@@ -431,16 +396,7 @@ public class Fort extends Siegeable
 		{
 			_log.warn("Exception: saveDoorUpgrade(int doorId, int hp, int pDef, int mDef): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	private void updateOwnerInDB(L2Clan clan)
@@ -484,16 +440,7 @@ public class Fort extends Siegeable
 		{
 			_log.warn("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 	}
 
 	// =========================================================

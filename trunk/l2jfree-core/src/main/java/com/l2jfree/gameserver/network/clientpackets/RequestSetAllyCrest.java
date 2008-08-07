@@ -117,10 +117,7 @@ public class RequestSetAllyCrest extends L2GameClientPacket
             {
                 _log.warn("could not update the ally crest id:"+e.getMessage());
             }
-            finally
-            {
-                try { con.close(); } catch (Exception e) {}
-            }
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
             
             
             for (L2Clan clan : ClanTable.getInstance().getClans())

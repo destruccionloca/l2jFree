@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.communitybbs.bb;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 
 import org.apache.commons.logging.Log;
@@ -97,17 +98,7 @@ public class Topic
 		{
 			_log.warn("error while saving new Topic to db ", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public enum ConstructorType
@@ -164,16 +155,7 @@ public class Topic
 		{
 			_log.error(e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**

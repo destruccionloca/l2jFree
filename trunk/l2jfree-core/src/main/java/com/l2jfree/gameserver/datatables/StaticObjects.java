@@ -77,16 +77,7 @@ public class StaticObjects
 		{
 			_log.warn("error while creating StaticObjects table " + e);
 		}
-		finally
-		{
-			try
-			{
-				lnr.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
 	}
 
 	public static L2StaticObjectInstance parse(String line)

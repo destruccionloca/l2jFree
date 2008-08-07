@@ -351,7 +351,7 @@ public class PostBBSManager extends BaseBBSManager
 					activeChar.sendPacket(new ShowBoard(null,"102"));
 					activeChar.sendPacket(new ShowBoard(null,"103"));
 				}
-				else
+				else if(p != null)
 				{
 					p.getCPost(idp).postTxt = ar4;
 					p.updatetxt(idp);

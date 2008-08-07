@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.instancemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javolution.util.FastList;
@@ -96,16 +97,7 @@ public class ItemsOnGroundManager
 			{
 				_log.fatal("error while updating table ItemsOnGround " + e, e);
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
-			}
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 
 		//Add items to world
@@ -162,17 +154,9 @@ public class ItemsOnGroundManager
 				_log.fatal("error while loading ItemsOnGround " + e, e);
 			}
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		if (Config.EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD)
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+        if (Config.EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD)
 			emptyTable();
 	}
 
@@ -202,11 +186,11 @@ public class ItemsOnGroundManager
 
 	public void emptyTable()
 	{
-		Connection conn = null;
+		Connection con = null;
 		try
 		{
-			conn = L2DatabaseFactory.getInstance().getConnection(conn);
-			PreparedStatement del = conn.prepareStatement("delete from itemsonground");
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement del = con.prepareStatement("delete from itemsonground");
 			del.execute();
 			del.close();
 		}
@@ -214,16 +198,7 @@ public class ItemsOnGroundManager
 		{
 			_log.fatal("error while cleaning table ItemsOnGround " + e1, e1);
 		}
-		finally
-		{
-			try
-			{
-				conn.close();
-			}
-			catch (Exception e1)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	protected class StoreInDb extends Thread
@@ -276,16 +251,7 @@ public class ItemsOnGroundManager
 				{
 					_log.fatal("error while inserting into table ItemsOnGround " + e, e);
 				}
-				finally
-				{
-					try
-					{
-						con.close();
-					}
-					catch (Exception e)
-					{
-					}
-				}
+	            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 			}
 			if (_log.isDebugEnabled())
 				_log.warn("ItemsOnGroundManager: " + _items.size() + " items on ground saved");

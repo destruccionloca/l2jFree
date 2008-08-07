@@ -71,16 +71,7 @@ public class CompactionIDFactory extends IdFactory
 		{
 			_log.fatal("ID Factory could not be initialized correctly:" + e1, e1);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private int insertUntil(int[] tmp_obj_ids, int idx, int N, Connection con) throws SQLException

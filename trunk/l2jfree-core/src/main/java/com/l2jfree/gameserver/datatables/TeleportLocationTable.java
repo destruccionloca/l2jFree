@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javolution.util.FastMap;
 
@@ -93,17 +94,8 @@ public class TeleportLocationTable
 		{
 			_log.warn("error while creating teleport table " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-	}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+ 	}
 
 	/**
 	 * @param template id

@@ -274,16 +274,7 @@ public class CursedWeaponsManager
 		{
 			_log.warn("Could not load CursedWeapons data: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		_log.info("CursedWeaponsManager: loaded " + _cursedWeapons.size() + " cursed weapon(s).");
 	}
@@ -418,16 +409,7 @@ public class CursedWeaponsManager
 		{
 			_log.fatal("CursedWeaponsManager: Failed to remove data: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public void saveData()

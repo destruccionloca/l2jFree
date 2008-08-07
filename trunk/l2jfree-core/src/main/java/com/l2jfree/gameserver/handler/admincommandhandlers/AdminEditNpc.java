@@ -986,17 +986,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			esql.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -1020,17 +1010,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			esql.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void deleteTradeList(int tradeListID, int order)
@@ -1047,17 +1027,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			esql.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private int findOrderTradeList(int itemID, int price, int tradeListID)
@@ -1081,17 +1051,8 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			esql.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
 		return order;
 	}
 
@@ -1110,17 +1071,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			esql.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -1144,17 +1095,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			esql.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void deleteCustomTradeList(int tradeListID, int order)
@@ -1172,17 +1113,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			esql.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private int findOrderCustomTradeList(int itemID, int price, int tradeListID)
@@ -1206,17 +1137,8 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			esql.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
 		return order;
 	}
 
@@ -1580,16 +1502,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		catch (Exception e)
 		{
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void showAddDropData(L2PcInstance activeChar, L2NpcTemplate npcData)
@@ -1669,16 +1582,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void addDropData(L2PcInstance activeChar, int npcId, int itemId, int min, int max, int category, int chance)
@@ -1715,16 +1619,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		catch (Exception e)
 		{
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void deleteDropData(L2PcInstance activeChar, int npcId, int itemId, int category)
@@ -1759,18 +1654,9 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void reLoadNpcDropList(int npcId)
@@ -1813,17 +1699,9 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	// [L2J_JP ADD]
@@ -1966,17 +1844,9 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	// [L2J_JP ADD]
@@ -2035,16 +1905,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	// [L2J_JP ADD]
@@ -2120,17 +1981,9 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	// [L2J_JP ADD]
@@ -2165,17 +2018,9 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	// [L2J_JP ADD]
@@ -2218,16 +2063,8 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 }

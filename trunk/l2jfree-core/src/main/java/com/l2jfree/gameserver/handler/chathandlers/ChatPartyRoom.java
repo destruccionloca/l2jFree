@@ -45,11 +45,11 @@ public class ChatPartyRoom implements IChatHandler
 		String charName = "";
 		int charObjId = 0;
 
-		if (activeChar != null)
-		{
+		if (activeChar == null)
+			return;
+		
 			charName = activeChar.getName();
 			charObjId = activeChar.getObjectId();
-		}
 
 		if (activeChar.isInParty())
 		{

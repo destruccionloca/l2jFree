@@ -827,10 +827,15 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
         L2ClanMember newLeaderMember = clan.getClanMember(newLeaderName);
         SubPledge sub = clan.getSubPledge(subUnitName);
-        if (sub == null)
+        if (sub == null) {
             player.sendMessage("Sub-Unit "+subUnitName+" doesn't exist.");
-        if (newLeaderMember == null)
+            return;
+        }
+        
+        if (newLeaderMember == null) {
             player.sendMessage(newLeaderName+" is not in your clan!");
+            return;
+        }
 
         L2ClanMember oldLeader = clan.getClanMember(sub.getLeaderId());
         if(player.getName().equals(newLeaderName))

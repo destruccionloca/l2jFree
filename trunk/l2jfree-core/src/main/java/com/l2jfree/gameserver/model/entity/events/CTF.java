@@ -1632,16 +1632,7 @@ public class CTF
 		{
 			_log.error("Exception: CTF.loadData(): " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public static void saveData()
@@ -1707,16 +1698,7 @@ public class CTF
 		{
 			_log.error("Exception: CTF.saveData(): " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public static void showEventHtml(L2PcInstance eventPlayer, String objectId)
@@ -1860,7 +1842,7 @@ public class CTF
 			{
 				for (L2PcInstance player : _playersShuffle)
 				{
-					if (player == null || player.isOnline() == 0)
+					if (player.isOnline() == 0)
 					{
 						_playersShuffle.remove(player);
 						player._inEventCTF = false;
@@ -2171,17 +2153,7 @@ public class CTF
 							{
 								_log.error(se.getMessage(), se);
 							}
-							finally
-							{
-								try
-								{
-									con.close();
-								}
-								catch (Exception e)
-								{
-									_log.error(e.getMessage(), e);
-								}
-							}
+							finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 						}
 					}
 				}

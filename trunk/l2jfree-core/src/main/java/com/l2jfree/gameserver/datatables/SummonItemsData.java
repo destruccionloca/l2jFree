@@ -22,6 +22,7 @@
 package com.l2jfree.gameserver.datatables;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -67,13 +68,7 @@ public class SummonItemsData
 			factory.setValidating(false);
 			factory.setIgnoringComments(true);
 			doc = factory.newDocumentBuilder().parse(file);
-		}
-		catch (Exception e)
-		{
-			_log.warn("SummonItemsData: Can not find " + file.getAbsolutePath() + " !", e);
-		}
-		try
-		{
+
 			int itemID = 0, npcID = 0;
 			byte summonType = 0;
 			Node a;
@@ -114,6 +109,10 @@ public class SummonItemsData
 			int i = 0;
 			for(int itemId : _summonitems.keySet())
 				_summonItemIds[i++] = itemId;
+		}
+		catch (IOException e)
+		{
+			_log.warn("SummonItemsData: Can not find " + file.getAbsolutePath() + " !", e);
 		}
 		catch (Exception e)
 		{

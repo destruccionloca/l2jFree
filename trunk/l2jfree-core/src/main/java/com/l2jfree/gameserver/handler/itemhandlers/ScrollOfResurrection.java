@@ -115,12 +115,12 @@ public class ScrollOfResurrection implements IItemHandler
 					}
 					else
 					{
-						if (targetPlayer.isFestivalParticipant()) // Check to see if the current player target is in a festival.
+						if (targetPlayer != null && targetPlayer.isFestivalParticipant()) // Check to see if the current player target is in a festival.
 						{
 							condGood = false;
 							activeChar.sendMessage("You may not resurrect participants in a festival.");
 						}
-						else if (targetPlayer.isReviveRequested())
+						else if (targetPlayer != null && targetPlayer.isReviveRequested())
 						{
 							activeChar.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
 							condGood = false;

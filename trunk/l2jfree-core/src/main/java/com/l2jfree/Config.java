@@ -1981,17 +1981,9 @@ public final class Config
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				lnr.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
 	}
 
 	// *******************************************************************************************

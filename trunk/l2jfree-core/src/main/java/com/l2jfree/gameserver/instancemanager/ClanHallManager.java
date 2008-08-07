@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.instancemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -128,20 +129,11 @@ public class ClanHallManager
 			_log.info("ClanHallManager: loaded " + getFreeClanHalls().size() + " free clan halls");
 			_loaded = true;
 		}
-		catch (Exception e)
+		catch (SQLException e)
 		{
 			_log.fatal("Exception: ClanHallManager.load(): " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/** Get Map with all FreeClanHalls */

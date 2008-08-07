@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
@@ -1495,16 +1496,7 @@ public abstract class Inventory extends ItemContainer
 			_log.warn("Could not restore inventory : " + e);
 			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**

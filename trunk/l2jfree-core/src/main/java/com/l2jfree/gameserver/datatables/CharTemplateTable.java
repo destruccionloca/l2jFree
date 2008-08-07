@@ -272,16 +272,7 @@ public class CharTemplateTable
 		{
 			_log.warn("error while loading char templates " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		_log.info("CharTemplateTable: Loaded " + _templates.size() + " Character Templates.");
 	}

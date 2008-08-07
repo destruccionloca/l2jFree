@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -149,17 +150,7 @@ public class SpawnTable
 			// problem with initializing spawn, go to next one
 			_log.warn("SpawnTable: Spawn could not be initialized: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-				con = null;
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		_log.info("SpawnTable: Loaded " + _spawntable.size() + " Npc Spawn Locations.");
 
@@ -240,17 +231,9 @@ public class SpawnTable
 			// problem with initializing spawn, go to next one
 			_log.warn("SpawnTable: Custom spawn could not be initialized: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		_cSpawnCount = _spawntable.size() - _cSpawnCount;
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+        _cSpawnCount = _spawntable.size() - _cSpawnCount;
 		if (_cSpawnCount > 0)
 			_log.info("SpawnTable: Loaded " + _cSpawnCount + " Custom Spawn Locations.");
 
@@ -308,16 +291,7 @@ public class SpawnTable
 				// problem with storing spawn
 				_log.warn("SpawnTable: Could not store spawn in the DB:" + e);
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
-			}
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 	}
 
@@ -348,16 +322,7 @@ public class SpawnTable
 			// problem with storing spawn
 			_log.warn("SpawnTable: Could not update spawn in the DB:" + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public void deleteSpawn(L2Spawn spawn, boolean updateDb)
@@ -382,16 +347,7 @@ public class SpawnTable
 				// problem with deleting spawn
 				_log.warn("SpawnTable: Spawn " + spawn.getDbId() + " could not be removed from DB: " + e);
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
-			}
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 	}
 

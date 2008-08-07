@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.handler.usercommandhandlers;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
@@ -111,16 +112,8 @@ public class ClanWarsList implements IUserCommandHandler
 		{
 			//_log.warn( "Error in attackerlist ",e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
 		return true;
 	}
 

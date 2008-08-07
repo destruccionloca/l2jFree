@@ -115,16 +115,7 @@ public class AdminChangeAccessLevel implements IAdminCommandHandler
 				{
 					activeChar.sendMessage("SQLException while changing character's access level");
 				}
-				finally
-				{
-					try
-					{
-						con.close();
-					}
-					catch (Exception e)
-					{
-					}
-				}
+				finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace();} }
 			}
 		}
 	}

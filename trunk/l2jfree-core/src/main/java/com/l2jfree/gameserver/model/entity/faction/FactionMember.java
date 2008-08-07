@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.entity.faction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -79,7 +80,7 @@ public class FactionMember
         {
             _log.warn("Exception: FactionMember.load(): " + e.getMessage(),e);
         }
-        finally {try { con.close(); } catch (Exception e) {}}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     
     public FactionMember(int playerId, int factionId)
@@ -105,10 +106,7 @@ public class FactionMember
         {
             _log.warn("",e);
         }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     
     public void quitFaction()
@@ -131,10 +129,7 @@ public class FactionMember
         {
             _log.warn("Exception: FactionMember.quitFaction(): " + e.getMessage(),e);
         }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     
     private void updateDb()
@@ -157,10 +152,7 @@ public class FactionMember
         {
             _log.warn("Exception: FactionMember.updateDb(): " + e.getMessage(),e);
         }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     
     public void addFactionPoints(int amount)

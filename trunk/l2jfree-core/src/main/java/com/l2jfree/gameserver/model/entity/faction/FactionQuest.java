@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.entity.faction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 
 import org.apache.commons.logging.Log;
@@ -77,9 +78,7 @@ public class FactionQuest
             statement.close();
         } catch (Exception e) {
             _log.warn( "could not insert char faction quest:", e);
-        } finally {
-            try { con.close(); } catch (Exception e) {}
-        }
+        } finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
 
     public static void endFactionQuest(L2PcInstance player,int factionQuestId)
@@ -105,9 +104,6 @@ public class FactionQuest
         catch (Exception e) 
         {
             _log.warn( "could not delete char faction quest:", e);
-        } finally 
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+        } finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
 }

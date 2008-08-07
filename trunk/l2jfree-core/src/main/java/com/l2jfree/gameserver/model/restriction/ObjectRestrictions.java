@@ -90,10 +90,10 @@ public class ObjectRestrictions
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return;
-		} finally {
-			 try { con.close(); } catch (SQLException e) { e.printStackTrace(); }
 		}
-		_log.info("ObjectRestrictions: loaded "+i+" restrictions.");
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+            _log.info("ObjectRestrictions: loaded "+i+" restrictions.");
 	}
 	public void shutdown() {
 		System.out.println("ObjectRestrictions: storing started:");
@@ -159,10 +159,10 @@ public class ObjectRestrictions
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			 try { con.close(); } catch (SQLException e) { e.printStackTrace(); }
 		}
-		System.out.println("ObjectRestrictions: All data saved.");
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+        System.out.println("ObjectRestrictions: All data saved.");
 	}
 	
 	/**

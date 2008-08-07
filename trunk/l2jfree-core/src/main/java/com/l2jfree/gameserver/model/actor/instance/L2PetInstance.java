@@ -710,10 +710,7 @@ public class L2PetInstance extends L2Summon
         {
             _log.warn("could not delete pet:"+e);
         }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     
     public void dropItemHere(L2ItemInstance dropit)
@@ -853,9 +850,8 @@ public class L2PetInstance extends L2Summon
         } catch (SQLException e) {
             _log.warn("could not restore pet data: "+ e);
             return null;
-        } finally {
-            try { con.close(); } catch (Exception e) {}
         }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
    
     @Override
@@ -896,9 +892,8 @@ public class L2PetInstance extends L2Summon
             
         } catch (SQLException e) {
             _log.warn("could not store pet data: "+e);
-        } finally {
-            try { con.close(); } catch (Exception e) {}
         }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
         
         L2ItemInstance itemInst = getControlItem();
         if (itemInst != null && itemInst.getEnchantLevel() != getStat().getLevel())

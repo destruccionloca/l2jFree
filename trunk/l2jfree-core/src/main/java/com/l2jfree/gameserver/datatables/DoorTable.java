@@ -107,16 +107,7 @@ public class DoorTable
 			_initialized = false;
 			_log.warn("error while creating door table ", e);
 		}
-		finally
-		{
-			try
-			{
-				lnr.close();
-			}
-			catch (Exception e1)
-			{ /* ignore problems */
-			}
-		}
+		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
 	}
 
 	public void registerToClanHalls()

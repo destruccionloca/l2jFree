@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.instancemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -145,21 +146,11 @@ public class AuctionManager
 			statement.close();
 			_log.info("AuctionManager: loaded " + getAuctions().size() + " auction(s)");
 		}
-		catch (Exception e)
+		catch (SQLException e)
 		{
 			_log.fatal("Exception: AuctionManager.load(): " + e.getMessage());
 		}
-
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public final Auction getAuction(int auctionId)
@@ -213,15 +204,6 @@ public class AuctionManager
 		{
 			_log.fatal("Exception: Auction.initNPC(): " + e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 }

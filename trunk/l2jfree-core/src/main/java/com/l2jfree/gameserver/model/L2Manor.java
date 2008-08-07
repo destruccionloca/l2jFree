@@ -358,14 +358,7 @@ public class L2Manor
 		{
 			_log.info("error while loading seeds: " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				lnr.close();
-			}
-			catch (Exception e1){}
-		}
+		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
 	}
 
 	private SeedData parseList(String line)

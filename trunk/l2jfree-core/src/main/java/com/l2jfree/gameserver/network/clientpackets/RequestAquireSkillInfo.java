@@ -114,7 +114,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
                 sendPacket(asi);
                 return;
             }
-            if (!trainer.getTemplate().canTeach(activeChar.getSkillLearningClassId())) 
+            if (trainer != null && !trainer.getTemplate().canTeach(activeChar.getSkillLearningClassId())) 
                 return; // cheater
 
             L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(activeChar, activeChar.getSkillLearningClassId());

@@ -104,16 +104,7 @@ public class BoatManager
 			_initialized = false;
 			_log.warn("error while creating boat table ", e);
 		}
-		finally
-		{
-			try
-			{
-				lnr.close();
-			}
-			catch (Exception e1)
-			{ /* ignore problems */
-			}
-		}
+		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
 	}
 
 	/**

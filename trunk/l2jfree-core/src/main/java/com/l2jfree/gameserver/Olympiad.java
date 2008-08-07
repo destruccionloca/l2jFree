@@ -1424,17 +1424,7 @@ public class Olympiad
 		{
 			_log.warn("Olympiad System: Couldnt save nobles info in db");
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	protected void sortHerosToBe()
@@ -1476,18 +1466,7 @@ public class Olympiad
 		{
 			_log.warn("Olympiad System: Couldnt heros from db", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
-		}
-
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public FastList<String> getClassLeaderBoard(int classId)
@@ -1519,17 +1498,7 @@ public class Olympiad
 		{
 			_log.warn("Olympiad System: Couldnt heros from db", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		return names;
 	}
@@ -1646,17 +1615,7 @@ public class Olympiad
 		{
 			_log.warn("Olympiad System: Couldnt delete nobles from db", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		_nobles.clear();
 	}

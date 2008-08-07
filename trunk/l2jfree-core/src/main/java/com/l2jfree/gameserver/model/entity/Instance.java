@@ -2,6 +2,7 @@ package com.l2jfree.gameserver.model.entity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.concurrent.ScheduledFuture;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -151,13 +152,6 @@ public class Instance
 			factory.setIgnoringComments(true);
 			doc = factory.newDocumentBuilder().parse(xml);
 
-		}
-		catch (Exception e)
-		{
-			_log.warn("Instance: can not find " + xml.getAbsolutePath() + " !", e);
-		}
-		try
-		{
 			for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
 			{
 				if ("instance".equalsIgnoreCase(n.getNodeName()))
@@ -165,6 +159,10 @@ public class Instance
 					parseInstance(n);
 				}
 			}
+		}
+		catch (IOException e)
+		{
+			_log.warn("Instance: can not find " + xml.getAbsolutePath() + " !", e);
 		}
 		catch (Exception e)
 		{

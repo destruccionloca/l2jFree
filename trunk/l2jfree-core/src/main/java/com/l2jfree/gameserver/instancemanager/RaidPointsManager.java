@@ -90,17 +90,7 @@ public class RaidPointsManager
 		{
 			_log.error(e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public static RaidPointsManager getInstance()
@@ -224,17 +214,7 @@ public class RaidPointsManager
 			{
 				_log.warn("RaidBossPointsManager: Couldnt update character_raidpoints table", e);
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-					_log.error(e.getMessage(), e);
-				}
-			}
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public Map<Integer, Map<Integer, Integer>> getPoints()

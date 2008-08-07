@@ -175,16 +175,7 @@ public class Announcements
 		{
 			_log.fatal("Error reading announcements", e1);
 		}
-		finally
-		{
-			try
-			{
-				lnr.close();
-			}
-			catch (Exception e2)
-			{
-			}
-		}
+		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
 	}
 
 	private void saveToDisk()

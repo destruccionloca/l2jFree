@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -155,10 +156,7 @@ public class MacroList
 		{
 			_log.warn( "could not store macro:", e);
 		} 
-		finally 
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 	
 	/**
@@ -181,10 +179,7 @@ public class MacroList
 		{
 			_log.warn( "could not delete macro:", e);
 		} 
-		finally 
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public void restore()
@@ -231,9 +226,6 @@ public class MacroList
 		{
 			_log.warn( "could not store shortcuts:", e);
 		} 
-		finally 
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 }

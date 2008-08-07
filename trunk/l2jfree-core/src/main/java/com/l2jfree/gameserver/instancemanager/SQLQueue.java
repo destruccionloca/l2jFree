@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.instancemanager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,17 +114,9 @@ public class SQLQueue
 			{
 				_log.fatal("error while porcessing sql queue " + e);
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
-			}
-			if (_log.isDebugEnabled())
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+            if (_log.isDebugEnabled())
 				_log.warn("SQLQueue: " + _queue2.size() + " sql's processed");
 		}
 	}

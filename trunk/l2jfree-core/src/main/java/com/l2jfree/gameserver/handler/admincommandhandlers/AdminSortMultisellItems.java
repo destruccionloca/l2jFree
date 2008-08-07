@@ -22,6 +22,8 @@ import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javolution.util.FastList;
 import javolution.text.TextBuilder;
 
@@ -412,17 +414,9 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		if (MULTISELL_BREAK_PROCESS)
 		{
@@ -469,17 +463,9 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			}
 			catch (Exception e)
 			{
+				e.printStackTrace();
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
-			}
+			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		}
 		return ((priceGm == price) ? (price * DEFAULT_GM_SHOP_PRICE_MULTIPLIER) : priceGm);

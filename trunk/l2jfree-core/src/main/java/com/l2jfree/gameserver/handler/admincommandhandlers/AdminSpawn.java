@@ -167,13 +167,13 @@ public class AdminSpawn implements IAdminCommandHandler
 					mode = st.nextToken();
 					string = st.nextToken();
 					page = Integer.parseInt(st.nextToken());
+
+					showNpcs(activeChar, mode.toLowerCase(), string.toLowerCase(), page);
 				}
 				catch (Exception e)
 				{
 					AdminHelpPage.showHelpPage(activeChar, "spawns.htm");
 				}
-
-				showNpcs(activeChar, mode.toLowerCase(), string.toLowerCase(), page);
 			}
 		}
 		else if (cmd.equals("admin_spawnlist"))

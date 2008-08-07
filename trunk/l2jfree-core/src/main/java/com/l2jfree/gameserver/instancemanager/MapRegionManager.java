@@ -519,7 +519,7 @@ public class MapRegionManager
 						FortSiege fsiege = FortSiegeManager.getInstance().getSiege(clan);
 
 						// Check if player's clan is attacker
-						if (fsiege != null && fsiege.checkIsAttacker(clan) && fsiege.checkIfInZone(player))
+						if (siege != null && fsiege != null && fsiege.checkIsAttacker(clan) && fsiege.checkIfInZone(player))
 						{
 							// Karma player respawns out of siege zone
 							if (player.getKarma() > 1 || player.isCursedWeaponEquipped())

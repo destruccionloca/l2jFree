@@ -90,7 +90,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
             return;
         }
 
-        if (!trainer.getTemplate().canTeach(activeChar.getClassId()) && !activeChar.isGM())
+        if (trainer != null && !trainer.getTemplate().canTeach(activeChar.getClassId()) && !activeChar.isGM())
         	return; // cheater
         
         switch (_type)

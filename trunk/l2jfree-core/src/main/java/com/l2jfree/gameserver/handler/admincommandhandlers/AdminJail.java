@@ -137,17 +137,7 @@ public class AdminJail implements IAdminCommandHandler
 			activeChar.sendMessage("SQLException while jailing player");
 			se.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void unjailOfflinePlayer(L2PcInstance activeChar, String name)
@@ -177,17 +167,7 @@ public class AdminJail implements IAdminCommandHandler
 			activeChar.sendMessage("SQLException while unjailing player");
 			se.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public String[] getAdminCommandList()

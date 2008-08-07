@@ -160,6 +160,7 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 					}
 				}
 				cw = cwm.getCursedWeapon(id);
+				
 				if (cw == null)
 				{
 					activeChar.sendMessage("Unknown cursed weapon ID.");
@@ -171,11 +172,11 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 				activeChar.sendMessage("Usage: //cw_remove|//cw_goto|//cw_add <itemid|name>");
 			}
 
-			if (command.startsWith("admin_cw_remove "))
+			if (command.startsWith("admin_cw_remove ") && cw != null)
 			{
 				cw.endOfLife();
 			}
-			else if (command.startsWith("admin_cw_goto "))
+			else if (command.startsWith("admin_cw_goto ") && cw != null)
 			{
 				cw.goTo(activeChar);
 			}

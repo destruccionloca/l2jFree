@@ -351,6 +351,7 @@ public class AugmentationData
 	 * @param lifeSoneGrade
 	 * @return L2Augmentation
 	 */
+	@SuppressWarnings("fallthrough")
 	public L2Augmentation generateRandomAugmentation(L2ItemInstance item, int lifeStoneLevel, int lifeStoneGrade)
 	{
 		// Note that stat12 stands for stat 1 AND 2 (same for stat34 ;p )

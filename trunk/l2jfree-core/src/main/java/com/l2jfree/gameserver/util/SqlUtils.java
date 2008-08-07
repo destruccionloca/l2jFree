@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 import org.apache.commons.logging.Log;
@@ -47,18 +48,16 @@ public class SqlUtils
 
 		String query = "";
 
-		PreparedStatement statement = null;
-		ResultSet rset = null;
-		Connection con = null;
 
 		Integer res[][] = null;
 
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			query = L2DatabaseFactory.getInstance().prepQuerySelect(resultFields, usedTables, whereClause, false);
-			statement = con.prepareStatement(query);
-			rset = statement.executeQuery();
+			PreparedStatement statement = con.prepareStatement(query);
+			ResultSet rset = statement.executeQuery();
 
 			int rows = 0;
 			while (rset.next())
@@ -80,31 +79,7 @@ public class SqlUtils
 		{
 			_log.warn("Error in query '" + query + "':" + e, e);
 		}
-		finally
-		{
-			try
-			{
-				rset.close();
-			}
-			catch (Exception e)
-			{
-			}
-			try
-			{
-				statement.close();
-			}
-			catch (Exception e)
-			{
-			}
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		_log.debug("Get all rows in query '" + query + "' in " + (System.currentTimeMillis() - start) + "ms");
 		return res;

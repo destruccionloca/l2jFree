@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -700,16 +701,7 @@ public class L2Clan
 		{
 			_log.warn("error while saving new clan leader to db " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public void store()
@@ -739,16 +731,7 @@ public class L2Clan
 		{
 			_log.warn("error while saving new clan to db " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void removeMemberInDatabase(L2ClanMember member, long clanJoinExpiryTime, long clanCreateExpiryTime)
@@ -782,16 +765,7 @@ public class L2Clan
 		{
 			_log.warn("error while removing clan member in db " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	@SuppressWarnings("unused")
@@ -813,16 +787,7 @@ public class L2Clan
 		{
 			_log.warn("could not update clans wars data:" + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void restore()
@@ -910,16 +875,7 @@ public class L2Clan
 			_log.warn("error while restoring clan " + e);
 			_log.warn(String.valueOf(getClanId()), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void restoreSkills()
@@ -953,16 +909,7 @@ public class L2Clan
 		{
 			_log.warn("Could not restore clan skills: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/** used to retrieve all skills */
@@ -1029,16 +976,7 @@ public class L2Clan
 			{
 				_log.warn("Error could not store char skills: " + e);
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
-			}
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 			// notify clan members 
 			addSkillEffects(true);
@@ -1412,16 +1350,7 @@ public class L2Clan
 		{
 			_log.warn("Could not restore clan sub-units: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/** used to retrieve subPledge by type */
@@ -1525,16 +1454,7 @@ public class L2Clan
 			{
 				_log.warn("error while saving new sub_clan to db " + e);
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
-			}
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 		broadcastToOnlineMembers(new PledgeShowInfoUpdate(_leader.getClan()));
 		broadcastToOnlineMembers(new PledgeReceiveSubPledgeCreated(subPledge, _leader.getClan()));
@@ -1595,16 +1515,7 @@ public class L2Clan
 		{
 			_log.warn("error while saving new clan leader to db " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void restoreRankPrivs()
@@ -1640,16 +1551,7 @@ public class L2Clan
 			_log.warn("Could not restore clan privs by rank: " + e);
 			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public void initializePrivs()
@@ -1698,17 +1600,9 @@ public class L2Clan
 			{
 				_log.warn("Could not store clan privs for rank: " + e);
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
-			}
-			for (L2ClanMember cm : getMembers())
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+            for (L2ClanMember cm : getMembers())
 			{
 				if (cm.isOnline())
 					if (cm.getPledgeRank() == rank)
@@ -1743,16 +1637,7 @@ public class L2Clan
 			{
 				_log.warn("Could not create new rank and store clan privs for rank: " + e);
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
-			}
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 	}
 
@@ -1862,16 +1747,7 @@ public class L2Clan
 			{
 				_log.warn("Could not store auction for clan: " + e);
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
-			}
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 	}
 
@@ -2447,16 +2323,7 @@ public class L2Clan
 		{
 			_log.warn("could not increase clan level:" + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		setLevel(level);
 

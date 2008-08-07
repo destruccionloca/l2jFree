@@ -28,6 +28,7 @@ public class FuncEnchant extends Func
 		super(pStat, pOrder, owner);
 	}
 
+	@SuppressWarnings("fallthrough")
 	@Override
 	public void calc(Env env)
 	{

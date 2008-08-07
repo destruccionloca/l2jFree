@@ -18,6 +18,7 @@ import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.locks.ReentrantLock;
@@ -231,17 +232,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		{
 			_log.warn("Data error on update delete time of char: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		return null;
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+        return null;
 	}
 
 	public L2PcInstance deleteChar(int charslot) throws Exception
@@ -316,16 +309,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		{
 			_log.fatal("Data error on restoring char: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public static void deleteCharByObjId(int objid)
@@ -425,16 +409,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		{
 			_log.warn("Data error on deleting char: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public L2PcInstance loadCharFromDisk(int charslot)

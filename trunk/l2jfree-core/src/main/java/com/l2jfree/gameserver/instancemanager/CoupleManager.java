@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.instancemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javolution.util.FastList;
 
@@ -92,17 +93,7 @@ public class CoupleManager
 		{
 			_log.error("Exception: CoupleManager.load(): " + e.getMessage(), e);
 		}
-
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	// =========================================================
@@ -170,17 +161,9 @@ public class CoupleManager
 					}
 					catch (Exception e)
 					{
+						e.printStackTrace();
 					}
-					finally
-					{
-						try
-						{
-							con.close();
-						}
-						catch (Exception e)
-						{
-						}
-					}
+		            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 				}
 			}
 			if (player2 != null)
@@ -210,17 +193,9 @@ public class CoupleManager
 					}
 					catch (Exception e)
 					{
+						e.printStackTrace();
 					}
-					finally
-					{
-						try
-						{
-							con.close();
-						}
-						catch (Exception e)
-						{
-						}
-					}
+		            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 				}
 			}
 			couple.divorce();

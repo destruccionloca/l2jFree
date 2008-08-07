@@ -117,6 +117,9 @@ public class L2ControllableMobAI extends L2AttackableAI
 
 	protected void thinkCast()
 	{
+		if (_actor == null)
+			return;
+		
 		L2Attackable npc = (L2Attackable) _actor;
 
 		if (getAttackTarget() == null || getAttackTarget().isAlikeDead())
@@ -133,16 +136,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 		L2Skill[] skills = null;
 		// double dist2 = 0;
 
-		try
-		{
-			skills = _actor.getAllSkills();
-			// dist2 = _actor.getPlanDistanceSq(getAttackTarget().getX(),
-			// getAttackTarget().getY());
-		}
-		catch (NullPointerException e)
-		{
-			_log.warn("Encountered Null Value.", e);
-		}
+		skills = _actor.getAllSkills();
 
 		if (!_actor.isMuted())
 		{
@@ -186,23 +180,19 @@ public class L2ControllableMobAI extends L2AttackableAI
 		int range = 0;
 		int max_range = 0;
 
+		if (_actor == null)
+			return;
+		
 		_actor.setTarget(target);
 		// as a response, we put the target in a forcedattack mode
 		L2ControllableMobInstance theTarget = (L2ControllableMobInstance) target;
 		L2ControllableMobAI ctrlAi = (L2ControllableMobAI) theTarget.getAI();
 		ctrlAi.forceAttack(_actor);
 
-		try
-		{
-			skills = _actor.getAllSkills();
-			dist2 = _actor.getPlanDistanceSq(target.getX(), target.getY());
-			range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius() + getAttackTarget().getTemplate().getCollisionRadius();
-			max_range = range;
-		}
-		catch (NullPointerException e)
-		{
-			_log.warn("Encountered Null Value.", e);
-		}
+		skills = _actor.getAllSkills();
+		dist2 = _actor.getPlanDistanceSq(target.getX(), target.getY());
+		range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius() + getAttackTarget().getTemplate().getCollisionRadius();
+		max_range = range;
 
 		if (!_actor.isMuted() && dist2 > (range + 20) * (range + 20))
 		{
@@ -243,20 +233,16 @@ public class L2ControllableMobAI extends L2AttackableAI
 		int range = 0;
 		int max_range = 0;
 
-		try
-		{
-			_actor.setTarget(getForcedTarget());
-			skills = _actor.getAllSkills();
-			dist2 = _actor.getPlanDistanceSq(getForcedTarget().getX(), getForcedTarget().getY());
-			range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius();
-			if (getAttackTarget() != null)
-				range = range + getAttackTarget().getTemplate().getCollisionRadius();
-			max_range = range;
-		}
-		catch (NullPointerException e)
-		{
-			_log.warn("Encountered Null Value.", e);
-		}
+		if (_actor == null)
+			return;
+
+		_actor.setTarget(getForcedTarget());
+		skills = _actor.getAllSkills();
+		dist2 = _actor.getPlanDistanceSq(getForcedTarget().getX(), getForcedTarget().getY());
+		range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius();
+		if (getAttackTarget() != null)
+			range = range + getAttackTarget().getTemplate().getCollisionRadius();
+		max_range = range;
 
 		if (!_actor.isMuted() && dist2 > (range + 20) * (range + 20))
 		{
@@ -326,18 +312,14 @@ public class L2ControllableMobAI extends L2AttackableAI
 			int range = 0;
 			int max_range = 0;
 
-			try
-			{
-				_actor.setTarget(getAttackTarget());
-				skills = _actor.getAllSkills();
-				dist2 = _actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY());
-				range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius() + getAttackTarget().getTemplate().getCollisionRadius();
-				max_range = range;
-			}
-			catch (NullPointerException e)
-			{
-				_log.warn("Encountered Null Value.", e);
-			}
+			if (_actor == null)
+				return;
+			
+			_actor.setTarget(getAttackTarget());
+			skills = _actor.getAllSkills();
+			dist2 = _actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY());
+			range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius() + getAttackTarget().getTemplate().getCollisionRadius();
+			max_range = range;
 
 			if (!_actor.isMuted() && dist2 > (range + 20) * (range + 20))
 			{

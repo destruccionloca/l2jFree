@@ -20,6 +20,7 @@ package com.l2jfree.gameserver.instancemanager.lastimperialtomb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -140,16 +141,7 @@ public class LastImperialTombSpawnlist
         {
             _log.warn("LastImperialTombSpawnlist: Spawn could not be initialized: " + e);
         }
-        finally
-        {
-            try
-            {
-                con.close();
-            }
-            catch (Exception e)
-            {
-            }
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
         _log.info("LastImperialTombSpawnlist: Loaded " + _Room1SpawnList1st.size() + " Room1 1st Npc Spawn Locations.");
         _log.info("LastImperialTombSpawnlist: Loaded " + _Room1SpawnList2nd.size() + " Room1 2nd Npc Spawn Locations.");

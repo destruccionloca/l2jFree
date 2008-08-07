@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javolution.util.FastMap;
 
@@ -136,17 +137,9 @@ public class PetDataTable
 		{
 			_log.warn("Could not load pets stats: " + e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		_log.info("PetDataTable: loaded " + petTable.size() + " pets.");
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+        _log.info("PetDataTable: loaded " + petTable.size() + " pets.");
 	}
 
 	public void addPetData(L2PetData petData)

@@ -140,7 +140,7 @@ public class RequestSellItem extends L2GameClientPacket
 
 		if (_listId > 1000000) // lease
 		{
-			if (merchant.getTemplate().getNpcId() != _listId-1000000)
+			if (merchant != null && merchant.getTemplate().getNpcId() != _listId-1000000)
 			{
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
@@ -179,13 +179,15 @@ public class RequestSellItem extends L2GameClientPacket
 		}
 		player.addAdena("Sell", (int)totalPrice, merchant, false);
 
-		String html = HtmCache.getInstance().getHtm("data/html/"+ htmlFolder +"/" + merchant.getNpcId() + "-sold.htm");
-
-		if (html != null)
-		{
-            NpcHtmlMessage soldMsg = new NpcHtmlMessage(merchant.getObjectId());
-			soldMsg.setHtml(html.replaceAll("%objectId%", String.valueOf(merchant.getObjectId())));
-			player.sendPacket(soldMsg);
+		if (merchant != null) {
+			String html = HtmCache.getInstance().getHtm("data/html/"+ htmlFolder +"/" + merchant.getNpcId() + "-sold.htm");
+	
+			if (html != null)
+			{
+	            NpcHtmlMessage soldMsg = new NpcHtmlMessage(merchant.getObjectId());
+				soldMsg.setHtml(html.replaceAll("%objectId%", String.valueOf(merchant.getObjectId())));
+				player.sendPacket(soldMsg);
+			}
 		}
 
     	// Update current load as well

@@ -95,7 +95,7 @@ public class GeoEditorListener extends Thread
 			_log.info("GeoEditorListener: " + e.getMessage());
 			try
 			{
-				connection.close();
+				if (connection != null) connection.close();
 			}
 			catch (Exception e2)
 			{

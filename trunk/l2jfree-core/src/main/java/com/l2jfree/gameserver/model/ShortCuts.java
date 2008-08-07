@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -101,10 +102,7 @@ public class ShortCuts
         {
 			_log.warn("Could not store character shortcut: " + e);
         } 
-        finally 
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     
     /**
@@ -173,10 +171,7 @@ public class ShortCuts
         {
             _log.warn("Could not delete character shortcut: " + e);
         } 
-        finally 
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     
     public void restore()
@@ -212,10 +207,7 @@ public class ShortCuts
         {
             _log.warn("Could not restore character shortcuts: " + e);
         } 
-        finally 
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
         // verify shortcuts
         for (L2ShortCut sc : getAllShortCuts()) 

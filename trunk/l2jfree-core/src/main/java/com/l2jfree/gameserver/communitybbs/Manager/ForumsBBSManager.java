@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.communitybbs.Manager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -90,16 +91,7 @@ public class ForumsBBSManager extends BaseBBSManager
 		{
 			_log.warn("data error on Forum (root): ", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/* (non-Javadoc)

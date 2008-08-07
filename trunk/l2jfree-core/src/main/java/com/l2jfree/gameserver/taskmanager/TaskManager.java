@@ -104,17 +104,9 @@ public final class TaskManager
 			{
 				_log.warn("cannot updated the Global Task " + id + ": " + e.getMessage());
 			}
-			finally
-			{
-				try
-				{
-					con.close();
-				}
-				catch (Exception e)
-				{
-				}
-			}
-			if (type == TYPE_SHEDULED || type == TYPE_TIME)
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+            if (type == TYPE_SHEDULED || type == TYPE_TIME)
 			{
 				stopTask();
 			}
@@ -231,16 +223,7 @@ public final class TaskManager
 				_log.fatal("error while loading Global Task table " + e, e);
 			}
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private boolean launchTask(ExecutedTask task)
@@ -368,17 +351,9 @@ public final class TaskManager
 		{
 			_log.warn("cannot add the unique task: " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		return false;
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+        return false;
 	}
 
 	public static boolean addTask(String task, TaskTypes type, String param1, String param2, String param3)
@@ -408,16 +383,8 @@ public final class TaskManager
 		{
 			_log.warn("cannot add the task:  " + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		return false;
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+        return false;
 	}
 }

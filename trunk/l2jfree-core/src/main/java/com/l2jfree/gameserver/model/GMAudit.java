@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 
 import org.apache.commons.logging.Log;
@@ -62,15 +63,7 @@ public class GMAudit
             {
                 _log.fatal( "could not audit GM action:", e);
             }
-            finally
-            {
-                try
-                {
-                    statement.close(); 
-                    con.close(); 
-                }
-                catch (Exception e) {}
-            }
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
         }
     }
 
@@ -79,11 +72,10 @@ public class GMAudit
         if (Config.GM_AUDIT && Config.ALT_PRIVILEGES_ADMIN)
         {
             Connection con = null;
-            PreparedStatement statement = null;
             try
             {
                 con = L2DatabaseFactory.getInstance().getConnection(con);
-                statement = con.prepareStatement(
+                PreparedStatement statement = con.prepareStatement(
                 "INSERT INTO gm_audit(gm_name, target, type, action, param, date) VALUES(?,?,?,?,?,now())");
 
                 statement.setString(1, gm_name);
@@ -93,21 +85,12 @@ public class GMAudit
                 statement.setString(5, ""     );
 
                 statement.executeUpdate();
-
             }
             catch (Exception e)
             {
                 _log.fatal( "could not audit GM action:", e);
             }
-            finally
-            {
-                try
-                {
-                    statement.close(); 
-                    con.close(); 
-                }
-                catch (Exception e) {}
-            }
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
         }
     }
 }

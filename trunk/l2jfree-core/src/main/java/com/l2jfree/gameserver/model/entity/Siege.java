@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.entity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 
 import javolution.util.FastList;
@@ -590,16 +591,7 @@ public class Siege
         {
             _log.error("Exception: clearSiegeClan(): " + e.getMessage(),e);
         }
-        finally
-        {
-            try
-            {
-                con.close();
-            }
-            catch (Exception e)
-            {
-            }
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
 
     /** Clear all siege clans waiting for approval from database for castle */
@@ -620,16 +612,7 @@ public class Siege
         {
             _log.error("Exception: clearSiegeWaitingClan(): " + e.getMessage(),e);
         }
-        finally
-        {
-            try
-            {
-                con.close();
-            }
-            catch (Exception e)
-            {
-            }
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
 
     /** Return list of L2PcInstance registered as attacker in the zone. */
@@ -818,16 +801,7 @@ public class Siege
         catch (Exception e)
         {
         }
-        finally
-        {
-            try
-            {
-                con.close();
-            }
-            catch (Exception e)
-            {
-            }
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
 
     /**
@@ -1100,16 +1074,7 @@ public class Siege
         {
             _log.error("Exception: loadSiegeClan(): " + e.getMessage(),e);
         }
-        finally
-        {
-            try
-            {
-                con.close();
-            }
-            catch (Exception e)
-            {
-            }
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
 
     /** Remove all control tower spawned. */
@@ -1175,16 +1140,7 @@ public class Siege
         {
             _log.error("Exception: saveSiegeDate(): " + e.getMessage(),e);
         }
-        finally
-        {
-            try
-            {
-                con.close();
-            }
-            catch (Exception e)
-            {
-            }
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
 
     /**
@@ -1241,16 +1197,7 @@ public class Siege
             _log.error("Exception: saveSiegeClan(L2Clan clan, int typeId, boolean isUpdateRegistration): "
                 + e.getMessage(),e);
         }
-        finally
-        {
-            try
-            {
-                con.close();
-            }
-            catch (Exception e)
-            {
-            }
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
 
     /** Set the date for the next siege. */

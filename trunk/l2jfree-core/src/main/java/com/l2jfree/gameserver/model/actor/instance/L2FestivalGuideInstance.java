@@ -333,10 +333,12 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
                     {
                         String cabalStr = "Children of Dusk";
                         
-                        if (overallData.getString("cabal").equals("dawn"))
-                            cabalStr = "Children of Dawn";
-                           
-                        strBuffer.append("Consecutive top scores: " + calculateDate(overallData.getString("date")) + ". Score " + overallScore + "<br>Affilated side: " + cabalStr + "<br>" + overallData.getString("members") + "<br>");
+                        if (overallData != null) {
+	                        if (overallData.getString("cabal").equals("dawn"))
+	                            cabalStr = "Children of Dawn";
+	                           
+	                        strBuffer.append("Consecutive top scores: " + calculateDate(overallData.getString("date")) + ". Score " + overallScore + "<br>Affilated side: " + cabalStr + "<br>" + overallData.getString("members") + "<br>");
+                        }
                     }
                     else
                         strBuffer.append("Consecutive top scores: No record exists. Score 0<br>");

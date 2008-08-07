@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.instancemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -107,16 +108,7 @@ public class FortSiegeGuardManager
 		{
 			_log.warn("Error deleting hired siege guard at " + x + ',' + y + ',' + z + ":" + e1);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -137,16 +129,7 @@ public class FortSiegeGuardManager
 		{
 			_log.warn("Error deleting hired siege guard for fort " + getFort().getName() + ":" + e1);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -244,16 +227,7 @@ public class FortSiegeGuardManager
 		{
 			_log.warn("Error loading siege guard for fort " + getFort().getName() + ":" + e1);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
@@ -285,16 +259,7 @@ public class FortSiegeGuardManager
 		{
 			_log.warn("Error adding siege guard for fort " + getFort().getName() + ":" + e1);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	// =========================================================

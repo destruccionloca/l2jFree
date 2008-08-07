@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -81,9 +82,7 @@ public class L2FriendList
 			catch (Exception e) {
 				_log.warn("Could not restore friend data:"+e);
 			} 
-			finally {
-				try {con.close();} catch (Exception e){}
-			}  
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 	}
 
@@ -115,10 +114,9 @@ public class L2FriendList
 			catch (Exception e) {
 				_log.warn("Could not insert friend data:"+e);
 			} 
-			finally {
-				try {con.close();} catch (Exception e){}
-			}
-			friendlist.put(character.getObjectId(),character.getName());
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+            friendlist.put(character.getObjectId(),character.getName());
 			character.getFriendList().getFriendList().put(listOwner.getObjectId(), listOwner.getName());
 		}
 	}
@@ -150,9 +148,7 @@ public class L2FriendList
 			catch (Exception e) {
 				_log.warn("Could not delete friend data:"+e);
 			} 
-			finally {
-				try {con.close();} catch (Exception e){}
-			}
+            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 			
 			 friendlist.remove(_friendId);
 		}
@@ -182,9 +178,7 @@ public class L2FriendList
 		catch (Exception e) {
 			_log.warn("Could not delete friend data:"+e);
 		} 
-		finally {
-			try {con.close();} catch (Exception e){}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		
 		friendlist.remove(character.getObjectId());
 		character.getFriendList().getFriendList().remove(listOwner.getObjectId());
@@ -216,9 +210,7 @@ public class L2FriendList
 		catch (Exception e) {
 			_log.warn("Could not get friend id:"+e);
 		} 
-		finally {
-			try {con.close();} catch (Exception e){}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		
 		return _friendId;
 	}

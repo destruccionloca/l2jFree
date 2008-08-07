@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
@@ -883,16 +884,7 @@ public final class L2ItemInstance extends L2Object
 		{
 			_log.fatal("Could not restore Augmentation data for item " + getObjectId() + " from DB:"+e.getMessage(), e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 	
 	/**
@@ -1355,16 +1347,7 @@ public final class L2ItemInstance extends L2Object
 		{
 			_log.fatal("Could not update item " + getObjectId() + " in DB: Reason: " + "Duplicate itemId");
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 	
 	/**
@@ -1404,16 +1387,7 @@ public final class L2ItemInstance extends L2Object
 		{
 			_log.fatal("Could not insert item " + getObjectId() + " into DB: Reason: " + "Duplicate itemId");
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 	
 	/**
@@ -1444,16 +1418,7 @@ public final class L2ItemInstance extends L2Object
 		{
 			_log.fatal("Could not delete item " + getObjectId() + " in DB:", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 	
 	/**

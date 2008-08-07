@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.Set;
 
@@ -68,6 +69,7 @@ public class NpcTable
 		restoreNpcData();
 	}
 
+	@SuppressWarnings("null")
 	private void restoreNpcData()
 	{
 		Connection con = null;
@@ -422,16 +424,7 @@ public class NpcTable
 				_log.fatal("Error loading minion data: ", e);
 			}
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		_initialized = true;
 	}
@@ -703,16 +696,7 @@ public class NpcTable
 			_log.warn("NPCTable: Could not reload data for NPC " + id + ": " + e, e);
 			return false;
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		return loaded;
 	}
@@ -784,16 +768,7 @@ public class NpcTable
 		{
 			_log.warn("NPCTable: Could not store new NPC data in database: ", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public boolean isInitialized()

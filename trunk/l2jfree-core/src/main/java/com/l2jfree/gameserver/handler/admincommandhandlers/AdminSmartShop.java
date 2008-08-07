@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javolution.text.TextBuilder;
@@ -425,16 +426,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		{
 			_log.warn("data error on item: ", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		for (Integer x : smartList)
 		{
@@ -447,16 +439,15 @@ public class AdminSmartShop implements IAdminCommandHandler
 				{
 					questList.add(false);
 					gradeList.add(L2Item.CRYSTAL_NONE);
+				} else {
+					gradeList.add(item.getCrystalType());
+	
+					if (item.getType2() == 3)
+						questList.add(true);
+	
+					else
+						questList.add(false);
 				}
-
-				gradeList.add(item.getCrystalType());
-
-				if (item.getType2() == 3)
-					questList.add(true);
-
-				else
-					questList.add(false);
-
 			}
 			catch (Throwable t)
 			{
@@ -640,10 +631,11 @@ public class AdminSmartShop implements IAdminCommandHandler
 		}
 
 		if (marks.contains("_quest"))
-		{
 			list = getQuestItems(list);
-		}
 
+		if (list == null)
+			return null;
+		
 		int[] returnList = new int[list.size()];
 
 		for (Integer iter : list)
@@ -2433,16 +2425,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		catch (Exception e)
 		{
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		return shopIds;
 
@@ -2484,16 +2467,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		catch (Exception e)
 		{
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		return NpcIds;
 

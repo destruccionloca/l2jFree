@@ -123,16 +123,7 @@ public class CrestCache
 				{
 					_log.warn("problem with crest bmp file " + e);
 				}
-				finally
-				{
-					try
-					{
-						f.close();
-					}
-					catch (Exception e1)
-					{
-					}
-				}
+				finally { try { if (f != null) f.close(); } catch (Exception e) { e.printStackTrace(); } }
 			}
 		}
 
@@ -178,16 +169,7 @@ public class CrestCache
 				{
 					_log.warn("could not update the crest id:" + e.getMessage());
 				}
-				finally
-				{
-					try
-					{
-						con.close();
-					}
-					catch (Exception e)
-					{
-					}
-				}
+	            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 				clan.setCrestId(newId);
 				clan.setHasCrest(true);

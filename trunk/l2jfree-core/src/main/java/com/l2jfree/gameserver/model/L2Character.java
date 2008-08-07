@@ -1738,7 +1738,8 @@ public abstract class L2Character extends L2Object
 					if (seconds >= 60)
 						seconds = 59;
 					
-					sm.addNumber(seconds);
+					if (sm != null)
+						sm.addNumber(seconds);
 				}
 				else
 				{

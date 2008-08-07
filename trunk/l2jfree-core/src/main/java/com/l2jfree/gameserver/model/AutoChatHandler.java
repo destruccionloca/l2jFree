@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.ScheduledFuture;
 
@@ -115,16 +116,7 @@ public class AutoChatHandler implements SpawnListener
         {
             _log.warn("AutoSpawnHandler: Could not restore chat data: " + e);
         }
-        finally
-        {
-            try
-            {
-                con.close();
-            }
-            catch (Exception e)
-            {
-            }
-        }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
 
     public static AutoChatHandler getInstance()

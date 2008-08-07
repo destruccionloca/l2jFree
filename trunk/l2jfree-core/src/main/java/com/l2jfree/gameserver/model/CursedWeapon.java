@@ -152,10 +152,7 @@ public class CursedWeapon
                 {
                     _log.warn("Could not delete : " + e);
                 }
-                finally
-                {
-                    try { con.close(); } catch (Exception e) {}
-                }
+                finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
             }
         }
         else
@@ -479,13 +476,12 @@ public class CursedWeapon
             _log.debug("CursedWeapon: Saving data to disk.");
 
         Connection con = null;
-        PreparedStatement statement = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
 
             // Delete previous datas
-            statement = con.prepareStatement("DELETE FROM cursed_weapons WHERE itemId = ?");
+            PreparedStatement statement = con.prepareStatement("DELETE FROM cursed_weapons WHERE itemId = ?");
             statement.setInt(1, _itemId);
             statement.executeUpdate();
 
@@ -508,19 +504,7 @@ public class CursedWeapon
         {
             _log.fatal("CursedWeapon: Failed to save data: " + e);
         }
-        finally
-        {
-            try
-            {
-                statement.close();
-            }
-            catch (Exception e) {}
-            try
-            {
-                con.close();
-            }
-            catch (Exception e) {}
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
 
     public void dropIt(L2Character killer)

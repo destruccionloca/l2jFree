@@ -258,16 +258,7 @@ public class FishermanManager
 			_log.warning("FishManager.engineInit() >> last line parsed is \n[" + lineId + "]\n");
 			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				lnr.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
 
 		this.startSaveTask();
 		_log.info("FishManager: Loaded " + _ranks.size() + " player(s).");

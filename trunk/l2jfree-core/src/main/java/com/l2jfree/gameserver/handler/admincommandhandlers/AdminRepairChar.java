@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 import org.apache.commons.logging.Log;
@@ -71,12 +72,12 @@ public class AdminRepairChar implements IAdminCommandHandler
 			return;
 		}
 
-		Connection connection = null;
+		Connection con = null;
 		try
 		{
-			connection = L2DatabaseFactory.getInstance().getConnection(connection);
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 
-			PreparedStatement statement = connection.prepareStatement("SELECT charId FROM characters where char_name=?");
+			PreparedStatement statement = con.prepareStatement("SELECT charId FROM characters where char_name=?");
 			statement.setString(1, parts[1]);
 			ResultSet rset = statement.executeQuery();
 			int objId = 0;
@@ -89,40 +90,29 @@ public class AdminRepairChar implements IAdminCommandHandler
 
 			if (objId == 0)
 			{
-				connection.close();
+				con.close();
 				return;
 			}
 
-			statement = connection.prepareStatement("UPDATE characters SET x=17867, y=170259, z=-3503 WHERE charId=?");
+			statement = con.prepareStatement("UPDATE characters SET x=17867, y=170259, z=-3503 WHERE charId=?");
 			statement.setInt(1, objId);
 			statement.execute();
 			statement.close();
 
-			statement = connection.prepareStatement("DELETE FROM character_shortcuts WHERE charId=?");
+			statement = con.prepareStatement("DELETE FROM character_shortcuts WHERE charId=?");
 			statement.setInt(1, objId);
 			statement.execute();
 			statement.close();
 
-			statement = connection.prepareStatement("UPDATE items SET loc=\"INVENTORY\" WHERE owner_id=? AND loc=\"PAPERDOLL\"");
+			statement = con.prepareStatement("UPDATE items SET loc=\"INVENTORY\" WHERE owner_id=? AND loc=\"PAPERDOLL\"");
 			statement.setInt(1, objId);
 			statement.execute();
 			statement.close();
-
-			connection.close();
 		}
 		catch (Exception e)
 		{
 			_log.warn("could not repair char:", e);
 		}
-		finally
-		{
-			try
-			{
-				connection.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 }

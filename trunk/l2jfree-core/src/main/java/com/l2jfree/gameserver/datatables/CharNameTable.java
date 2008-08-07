@@ -64,16 +64,8 @@ public class CharNameTable
 		{
 			_log.warn("could not check existing charname:" + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
 		return result;
 	}
 
@@ -99,16 +91,7 @@ public class CharNameTable
 		{
 			_log.warn("could not check existing char number:" + e.getMessage());
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		return number;
 	}

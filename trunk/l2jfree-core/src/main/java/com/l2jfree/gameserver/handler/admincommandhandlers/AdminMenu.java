@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import java.util.StringTokenizer;
 
@@ -234,9 +235,10 @@ public class AdminMenu implements IAdminCommandHandler
 		if (player != null)
 		{
 			L2PcInstance plyr = L2World.getInstance().getPlayer(player);
-			if (plyr != null)
+			if (plyr != null) {
 				target = plyr;
-			activeChar.sendMessage("You killed " + plyr.getName());
+				activeChar.sendMessage("You killed " + plyr.getName());
+			}
 		}
 		if (target != null)
 		{
@@ -328,15 +330,6 @@ public class AdminMenu implements IAdminCommandHandler
 			if (_log.isDebugEnabled())
 				e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 }

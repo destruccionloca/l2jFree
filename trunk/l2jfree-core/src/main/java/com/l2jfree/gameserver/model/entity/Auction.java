@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.entity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -168,7 +169,7 @@ public class Auction
         {
             _log.error("Exception: Auction.load(): ", e);
         }
-        finally {try { con.close(); } catch (Exception e) {}}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 	/** Load bidders **/
 	private void loadBid()
@@ -202,7 +203,7 @@ public class Auction
         {
             _log.error("Exception: Auction.loadBid(): ", e);
         }
-        finally {try { con.close(); } catch (Exception e) {}}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
     /** Task Manage */
     private void startAutoTask()
@@ -238,7 +239,7 @@ public class Auction
         {
         	 _log.fatal("Exception: saveAuctionDate(): " + e.getMessage(),e);
         } 
-        finally {try { con.close(); } catch (Exception e) {}}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     /** Set a bid */
 	public void setBid(L2PcInstance bidder, int bid)
@@ -337,10 +338,7 @@ public class Auction
         {
         	 _log.fatal("Exception: Auction.updateInDB(L2PcInstance bidder, int bid): ", e);
         }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
     /** Remove bids */
     private void removeBids()
@@ -361,11 +359,9 @@ public class Auction
         {
         	 _log.fatal("Exception: Auction.deleteFromDB(): " + e.getMessage(),e);
         }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
-        for (Bidder b : _bidders.values())
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+		for (Bidder b : _bidders.values())
         {
           if (ClanTable.getInstance().getClanByName(b.getClanName()).getHasHideout() == 0)
         	  returnItem(b.getClanName(), 57, 9*b.getBid()/10, false); // 10 % tax
@@ -396,10 +392,7 @@ public class Auction
         {
         	 _log.fatal("Exception: Auction.deleteFromDB(): " + e.getMessage(),e);
         }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     /** End of auction */
     public void endAuction()
@@ -455,11 +448,9 @@ public class Auction
         {
         	 _log.fatal("Exception: Auction.cancelBid(String bidder): " + e.getMessage(),e);
         }
-        finally
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
-        returnItem(_bidders.get(bidder).getClanName(), 57, _bidders.get(bidder).getBid(), true);
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+
+		returnItem(_bidders.get(bidder).getClanName(), 57, _bidders.get(bidder).getBid(), true);
         ClanTable.getInstance().getClanByName(_bidders.get(bidder).getClanName()).setAuctionBiddedAt(0, true);
         _bidders.clear();
         loadBid();
@@ -501,7 +492,7 @@ public class Auction
         {
             _log.fatal("Exception: Auction.load(): " + e.getMessage(),e);
         }
-        finally {try { con.close(); } catch (Exception e) {}}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     /** Get var auction */
 	public final int getId() { return _id; }

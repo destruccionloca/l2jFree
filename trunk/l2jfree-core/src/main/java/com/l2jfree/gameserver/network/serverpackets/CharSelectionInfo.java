@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import java.util.ArrayList;
@@ -213,10 +214,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 		{
 			_log.warn("Could not restore char info: " + e);
 		} 
-		finally 
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 		return new CharSelectInfoPackage[0];
 	}
@@ -248,11 +246,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 		{
 			_log.warn("Could not restore char subclass info: " + e);
 		} 
-		finally 
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
-
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	} 
 
 
@@ -355,7 +349,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 			{
 				_log.warn("Could not restore augmentation info: " + e);
 			} 
-			finally { try { con.close(); } catch (Exception e) {} }
+			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 		/*
 		 * Check if the base class is set to zero and alse doesn't match

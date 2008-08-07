@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
@@ -569,9 +570,7 @@ public class PcInventory extends Inventory
         catch (Exception e) {
             _log.warn( "could not restore inventory:", e);
         } 
-        finally {
-            try { con.close(); } catch (Exception e) { _log.warn(""); }
-        }
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
         
         return paperdoll;
     }

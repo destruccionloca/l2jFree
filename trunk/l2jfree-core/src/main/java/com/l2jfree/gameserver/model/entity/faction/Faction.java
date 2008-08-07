@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.entity.faction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -43,7 +44,8 @@ public class Faction
     private FastList<Integer> _list_npcs        = new FastList<Integer>();
     private FastMap<Integer, String> _list_title = new FastMap<Integer, String>();
     
-    public Faction(int factionId)
+    @SuppressWarnings("null")
+	public Faction(int factionId)
     {
         _Id = factionId;
         String _classlist                   = null;
@@ -94,7 +96,7 @@ public class Faction
         {
             _log.warn("Exception: Faction load: " + e.getMessage(),e);
         }
-        finally {try { con.close(); } catch (Exception e) {}}
+        finally { try { if (con != null) con.close(); } catch (Exception e) {} }
     }
     
     private void updateDB()
@@ -116,7 +118,7 @@ public class Faction
         {
             _log.warn("Exception: Faction.load(): " + e.getMessage(),e);
         }
-        finally {try { con.close(); } catch (Exception e) {}}
+        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
     
     public void addPoints(int points) 

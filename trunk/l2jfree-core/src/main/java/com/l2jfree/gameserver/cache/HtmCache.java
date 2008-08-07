@@ -162,16 +162,7 @@ public class HtmCache
 			{
 				_log.warn("problem with htm file " + e);
 			}
-			finally
-			{
-				try
-				{
-					fis.close();
-				}
-				catch (Exception e1)
-				{
-				}
-			}
+			finally { try { if (fis != null) fis.close(); } catch (Exception e) { e.printStackTrace(); } }
 		}
 
 		return null;

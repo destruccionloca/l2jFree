@@ -340,16 +340,7 @@ public class AdminTeleport implements IAdminCommandHandler
 		{
 			e1.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				lnr.close();
-			}
-			catch (Exception e2)
-			{
-			}
-		}
+		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
 	}
 
 	private void teleportTo(L2PcInstance activeChar, String Cords)
@@ -576,15 +567,6 @@ public class AdminTeleport implements IAdminCommandHandler
 		{
 			activeChar.sendMessage("SQLException while changing offline character's position");
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 }
