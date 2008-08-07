@@ -407,7 +407,7 @@ public abstract class L2Skill
 	private static final L2Effect[]	_emptyEffectSet			= new L2Effect[0];
 
 	// these two build the primary key
-	private final int				_id;
+	private final Integer			_id;
 	private final int				_level;
 
 	/** Instant Kill Rate (iRate) * */
@@ -1024,7 +1024,7 @@ public abstract class L2Skill
 	/**
 	 * @return Returns the id.
 	 */
-	public final int getId()
+	public final Integer getId()
 	{
 		return _id;
 	}
