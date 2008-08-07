@@ -93,10 +93,8 @@ public class ShowBoard extends L2GameServerPacket
 			// getBytes is a very costy operation, and should only be called once
 			byte htmlBytes[] = null;
 			
-			if (_htmlCode == null)
-				return;
-				
-			htmlBytes = _htmlCode.getBytes();
+			if (_htmlCode != null)
+				htmlBytes = _htmlCode.getBytes();
 			
 			byte data[] = new byte[2 + 2 + 2 + _id.getBytes().length * 2 + 2
 				* ((_htmlCode != null) ? htmlBytes.length : 0)];
