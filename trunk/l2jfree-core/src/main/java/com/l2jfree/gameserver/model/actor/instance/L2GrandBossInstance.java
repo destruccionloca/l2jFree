@@ -151,12 +151,6 @@ public class L2GrandBossInstance extends L2Boss
 			}
 			break;
 		}
-		case 29020:
-		{
-			BaiumManager.getInstance().setLastAttackTime();
-			break;
-		}
-			// [L2J_JP ADD SANDMAN]
 		case 29001: // Queen ant
 		{
 			List<L2MinionInstance> _minions = _minionList.getSpawnedMinions();
