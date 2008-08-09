@@ -349,9 +349,12 @@ public class BaiumManager extends BossLair
 		_monsters.clear();
 
 		// delete teleport cube.
-		_teleportCube.getSpawn().stopRespawn();
-		_teleportCube.deleteMe();
-		_teleportCube = null;
+		if (_teleportCube != null)
+		{
+			_teleportCube.getSpawn().stopRespawn();
+			_teleportCube.deleteMe();
+			_teleportCube = null;
+		}
 
 		// not executed tasks is canceled.
 		if (_cubeSpawnTask != null)
