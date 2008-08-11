@@ -22,8 +22,8 @@ configure()
 	echo "#               Configuration area              #"
 	echo "#         Please answer to the questions        #"
 	echo "#################################################"
-	MYSQLDUMPPATH=`which -a mysqldump 2>/dev/null`
-	MYSQLPATH=`which -a mysql 2>/dev/null`
+	MYSQLDUMPPATH=`which mysqldump 2>/dev/null`
+	MYSQLPATH=`which mysql 2>/dev/null`
 	if [ $? -ne 0 ]; then
 		echo "Unable to find MySQL binaries on your PATH"
 		while :
