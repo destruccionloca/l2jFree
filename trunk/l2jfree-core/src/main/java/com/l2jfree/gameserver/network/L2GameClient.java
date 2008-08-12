@@ -40,6 +40,7 @@ import com.l2jfree.gameserver.model.CharSelectInfoPackage;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.L2Event;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.tools.security.BlowFishKeygen;
 import com.l2jfree.tools.security.GameCrypt;
@@ -197,6 +198,11 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	{
 		getConnection().sendPacket(gsp);
 		gsp.runImpl();
+	}
+
+	public void sendPacket(SystemMessageId sm)
+	{
+		sendPacket(sm.getSystemMessage());
 	}
 
 	public L2PcInstance markToDeleteChar(int charslot) throws Exception

@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.exception.L2JFunctionnalException;
 import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 
@@ -102,6 +103,10 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		getClient().sendPacket(gsp);
 	}
 	
+	public void sendPacket(SystemMessageId sm)
+	{
+		getClient().sendPacket(sm.getSystemMessage());
+	}
 	/**
 	 * @return A String with this packet name for debuging purposes
 	 */
