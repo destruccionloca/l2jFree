@@ -191,6 +191,8 @@ public abstract class L2Character extends L2Object
 	/** FastMap(Integer, L2Skill) containing all skills of the L2Character */
 	protected Map<Integer, L2Skill>	_skills;
 	protected ChanceSkillList		_chanceSkills;
+	/** Current force buff this caster is casting to a target */
+	protected ForceBuff				_forceBuff;
 
 	protected byte					_zoneValidateCounter				= 4;
 
@@ -2248,18 +2250,13 @@ public abstract class L2Character extends L2Object
 		/***/
 	}
 
-	/**
-	 * Starts a force buff on target.<br>
-	 * <br>
-	 *
-	 * @param caster
-	 * @param skill 
-	 *            type <BR>
-	 *            <B>Overridden in :</B> (L2PcInstance)
-	 */
-	public void startForceBuff(L2Character caster, L2Skill skill)
+	public void startForceBuff(L2Character target, L2Skill skill)
 	{
-		/***/
+		if (skill.getSkillType() != SkillType.FORCE_BUFF)
+			return;
+		
+		if (_forceBuff == null)
+			_forceBuff = new ForceBuff(this, target, skill);
 	}
 
 	/**
@@ -4749,7 +4746,7 @@ public abstract class L2Character extends L2Object
 			}
 
 			if (getForceBuff() != null)
-				getForceBuff().delete();
+				getForceBuff().onCastAbort();
 
 			L2Effect mog = getFirstEffect(L2Effect.EffectType.SIGNET_GROUND);
 			if (mog != null)
@@ -6183,15 +6180,13 @@ public abstract class L2Character extends L2Object
 			{
 			}
 
-			if (oldSkill != null && oldSkill.isChance() && _chanceSkills != null)
+			if (oldSkill != null && _chanceSkills != null)
 			{
-				_chanceSkills.remove(oldSkill);
+				removeChanceSkill(oldSkill.getId());
 			}
 			if (newSkill.isChance())
 			{
-				if (_chanceSkills == null)
-					_chanceSkills = new ChanceSkillList(this);
-				_chanceSkills.put(newSkill, newSkill.getChanceCondition());
+				addChanceSkill(newSkill);
 			}
 		}
 
@@ -6227,7 +6222,13 @@ public abstract class L2Character extends L2Object
 			return null;
 
 		// Remove the skill from the L2Character _skills
-		L2Skill oldSkill = _skills.remove(skill.getId());
+		return removeSkill(skill.getId());
+	}
+
+	public L2Skill removeSkill(int skillId)
+	{
+		// Remove the skill from the L2Character _skills
+		L2Skill oldSkill = _skills.remove(skillId);
 
 		try
 		{
@@ -6269,14 +6270,37 @@ public abstract class L2Character extends L2Object
 
 			if (oldSkill.isChance() && _chanceSkills != null)
 			{
-				_chanceSkills.remove(oldSkill);
-				if (_chanceSkills.size() == 0)
-					_chanceSkills = null;
+				removeChanceSkill(oldSkill.getId());
 			}
 		}
 
 		return oldSkill;
 	}
+
+	public void addChanceSkill(L2Skill skill)
+	{
+		synchronized(this)
+		{
+			if (_chanceSkills == null)
+				_chanceSkills = new ChanceSkillList(this);
+			_chanceSkills.put(skill, skill.getChanceCondition());
+		}
+	}
+
+	public void removeChanceSkill(int id)
+	{
+		synchronized(this)
+		{
+			for (L2Skill skill : _chanceSkills.keySet())
+			{
+				if (skill.getId() == id)
+					_chanceSkills.remove(skill);
+			}
+			if (_chanceSkills.size() == 0)
+				_chanceSkills = null;
+		}
+ 	}
+
 
 	/**
 	 * Return all skills own by the L2Character in a table of L2Skill.<BR>
@@ -6476,7 +6500,7 @@ public abstract class L2Character extends L2Object
 		{
 			_skillCast = null;
 			enableAllSkills();
-			getForceBuff().delete();
+			getForceBuff().onCastAbort();
 			return;
 		}
 
@@ -7437,7 +7461,12 @@ public abstract class L2Character extends L2Object
 
 	public ForceBuff getForceBuff()
 	{
-		return null;
+		return _forceBuff;
+	}
+
+	public void setForceBuff(ForceBuff fb)
+	{
+		_forceBuff = fb;
 	}
 
 	public ChanceSkillList getChanceSkills()

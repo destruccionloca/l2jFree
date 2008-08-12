@@ -96,7 +96,6 @@ import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
 import com.l2jfree.gameserver.model.BlockList;
 import com.l2jfree.gameserver.model.CursedWeapon;
 import com.l2jfree.gameserver.model.FishData;
-import com.l2jfree.gameserver.model.ForceBuff;
 import com.l2jfree.gameserver.model.Inventory;
 import com.l2jfree.gameserver.model.ItemContainer;
 import com.l2jfree.gameserver.model.L2Attackable;
@@ -385,25 +384,6 @@ public final class L2PcInstance extends L2PlayableInstance
 				break;
 			}
 		}
-	}
-
-	/**
-	 * Starts battle force / spell force on target.<br><br>
-	 * 
-	 * @param caster
-	 * @param force type
-	 */
-	@Override
-	public void startForceBuff(L2Character target, L2Skill skill)
-	{
-		if (!(target instanceof L2PcInstance))
-			return;
-
-		if (skill.getSkillType() != SkillType.FORCE_BUFF)
-			return;
-
-		if (_forceBuff == null)
-			_forceBuff = new ForceBuff(this, (L2PcInstance) target, skill);
 	}
 
 	private L2GameClient					_client;
@@ -770,9 +750,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	/* Flag to disable equipment/skills while wearing formal wear **/
 	private boolean							_IsWearingFormalWear	= false;
-
-	// Current force buff this caster is casting to a target
-	protected ForceBuff						_forceBuff;
 
 	private L2Transformation				_transformation;
 
@@ -4872,7 +4849,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		if (_forceBuff != null)
-			_forceBuff.delete();
+			abortCast();
 
 		for (L2Character character : getKnownList().getKnownCharacters())
 			if (character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
@@ -9904,7 +9881,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		// Delete a force buff upon class change.
 		if (_forceBuff != null)
-			_forceBuff.delete();
+			abortCast();
 
 		// Stop casting for any player that may be casting a force buff on this l2pcinstance.
 		for (L2Character character : getKnownList().getKnownCharacters())
@@ -11087,7 +11064,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (_forceBuff != null)
 			{
-				_forceBuff.delete();
+				abortCast();
 			}
 			for (L2Character character : getKnownList().getKnownCharacters())
 				if (character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
@@ -12452,17 +12429,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		getAppearance().setNameColor(_originalNameColor);
 		setKarma(_originalKarma);
 		_eventKills = 0;
-	}
-
-	@Override
-	public ForceBuff getForceBuff()
-	{
-		return _forceBuff;
-	}
-
-	public void setForceBuff(ForceBuff fb)
-	{
-		_forceBuff = fb;
 	}
 
 	public boolean isKamaelic()

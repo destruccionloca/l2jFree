@@ -20,75 +20,89 @@ import java.util.concurrent.Future;
 import com.l2jfree.gameserver.GeoData;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.effects.EffectForce;
 import com.l2jfree.gameserver.util.Util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
- * @author kombat
+ * @author kombat/crion
  *
  */
 public final class ForceBuff
 {
-    final int _skillCastRange;
-    final int _forceId;
-    L2PcInstance _caster;
-    L2PcInstance _target;
-    Future<?> _geoCheckTask;
+	protected static final Log _log = LogFactory.getLog(ForceBuff.class);
 
-    public L2PcInstance getCaster()
-    {
-        return _caster;
-    }
+	protected int _skillCastRange;
+	protected int _forceId;
+	protected int _forceLevel;
+	protected L2Character _caster;
+	protected L2Character _target;
+	protected Future<?> _geoCheckTask;
 
-    public L2PcInstance getTarget()
-    {
-        return _target;
-    }
+	public L2Character getCaster()
+	{
+		return _caster;
+	}
 
-    public ForceBuff(L2PcInstance caster, L2PcInstance target, L2Skill skill)
-    {
-        _skillCastRange = skill.getCastRange();
-        _caster = caster;
-        _target = target;
-        _forceId = skill.getTriggeredId();
+	public L2Character getTarget()
+	{
+		return _target;
+	}
 
-        L2Effect effect = _target.getFirstEffect(_forceId);
-        if (effect != null)
-            ((EffectForce)effect).increaseForce();
-        else
-            SkillTable.getInstance().getInfo(_forceId, 1).getEffects(_caster, _target);
-        
-        _geoCheckTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new GeoCheckTask(), 1000, 1000);
-    }
+	public ForceBuff(L2Character caster, L2Character target, L2Skill skill)
+	{
+		_skillCastRange = skill.getCastRange();
+		_caster = caster;
+		_target = target;
+		_forceId = skill.getTriggeredId();
+		_forceLevel = skill.getTriggeredLevel();
 
-    public void delete()
-    {
-        _caster.setForceBuff(null);
-        L2Effect effect = _target.getFirstEffect(_forceId);
-        if (effect != null)
-            ((EffectForce)effect).decreaseForce();
+		L2Effect effect = _target.getFirstEffect(_forceId);
+		if (effect != null)
+		{
+			((EffectForce)effect).increaseForce();
+		}
+		else
+		{
+			L2Skill force = SkillTable.getInstance().getInfo(_forceId, _forceLevel);
+			if (force != null)
+				force.getEffects(_caster, _target);
+			else
+				_log.warn("Triggered skill ["+_forceId+";"+_forceLevel+"] not found!");
+		}
+		_geoCheckTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new GeoCheckTask(), 1000, 1000);
+	}
 
-        _geoCheckTask.cancel(true);
-    }
+	public void onCastAbort()
+	{
+		_caster.setForceBuff(null);
+		L2Effect effect = _target.getFirstEffect(_forceId);
+		if (effect != null)
+			((EffectForce)effect).decreaseForce();
 
-    private class GeoCheckTask implements Runnable
-    {
-        public void run()
-        {
-            try
-            {
-                if (!Util.checkIfInRange(_skillCastRange, _caster, _target, true))
-                    delete();
+		_geoCheckTask.cancel(true);
+	}
 
-                if (!GeoData.getInstance().canSeeTarget(_caster, _target))
-                    delete();
-            }
-            catch (Exception e)
-            {
-                // ignore
-            }
-        }
-    }
+	public class GeoCheckTask implements Runnable
+	{
+		public void run()
+		{
+			try
+			{
+				if (!Util.checkIfInRange(_skillCastRange, _caster, _target, true))
+					_caster.abortCast();
+
+				if (!GeoData.getInstance().canSeeTarget(_caster, _target))
+					_caster.abortCast();
+			}
+			catch (Exception e)
+			{
+				// ignore
+			}
+		}
+	}
 }

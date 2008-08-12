@@ -80,7 +80,7 @@ public class Continuous implements ISkillHandler
 
 		if (skill.getEffectId() != 0)
 		{
-			int skillLevel = (int) skill.getEffectLvl();
+			int skillLevel = (int)skill.getEffectLvl();
 			int skillEffectId = skill.getEffectId();
 
 			if (skillLevel == 0)

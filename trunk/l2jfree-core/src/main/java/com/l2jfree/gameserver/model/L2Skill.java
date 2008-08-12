@@ -520,6 +520,7 @@ public abstract class L2Skill
 	private final boolean			_isOffensive;
 	private final int				_numCharges;
 	private final int				_triggeredId;
+	private final int				_triggeredLevel;
 	private final int				_triggeredCount;
 
 	private final int				_soulConsume;
@@ -677,6 +678,7 @@ public abstract class L2Skill
 		_minPledgeClass = set.getInteger("minPledgeClass", 0);
 
 		_triggeredId = set.getInteger("triggeredId", 0);
+		_triggeredLevel = set.getInteger("triggeredLevel", 1);
 		int triggeredCount = set.getInteger("triggeredCount", 1);
 
 		if (_triggeredId == 0) // no triggered skill
@@ -912,6 +914,11 @@ public abstract class L2Skill
 	public int getTriggeredId()
 	{
 		return _triggeredId;
+	}
+
+	public int getTriggeredLevel()
+	{
+		return _triggeredLevel;
 	}
 
 	public int getTriggeredCount()

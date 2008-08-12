@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 
 /**
  *
- * @author  kombat
+ * @author  kombat/crion
  */
 public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 {
@@ -97,7 +97,7 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 	{
 		for (FastMap.Entry<L2Skill, ChanceCondition> e = head(), end = tail(); (e = e.getNext()) != end;)
 		{
-			if (e.getValue().trigger(event))
+			if (e.getValue() != null && e.getValue().trigger(event))
 			{
 				makeCast(e.getKey(), target);
 			}
