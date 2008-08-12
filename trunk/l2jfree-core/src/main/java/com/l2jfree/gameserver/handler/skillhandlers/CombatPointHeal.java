@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -44,6 +45,16 @@ public class CombatPointHeal implements ISkillHandler
 	L2Character actChar, L2Skill skill, L2Object[] targets)
 	{
 		L2Character target = null;
+		//check for other effects
+		try
+		{
+			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(SkillType.BUFF);
+			if (handler != null)
+				handler.useSkill(actChar, skill, targets);
+		}
+		catch (Exception e)
+		{
+		}
 
 		for (L2Object element : targets)
 		{

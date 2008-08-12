@@ -4829,13 +4829,13 @@ public final class L2PcInstance extends L2PlayableInstance
 					{
 						if (getClan().getReputationScore() > 0) // when your reputation score is 0 or below, the other clan cannot acquire any reputation points
 						{
-							pk.getClan().setReputationScore(pk.getClan().getReputationScore() + 2, true);
+							pk.getClan().setReputationScore(pk.getClan().getReputationScore() + Config.ALT_REPUTATION_SCORE_PER_KILL, true);
 							getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
 							pk.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(pk.getClan()));
 						}
 						if (pk.getClan().getReputationScore() > 0) // when the opposing sides reputation score is 0 or below, your clans reputation score does not decrease
 						{
-							_clan.setReputationScore(_clan.getReputationScore() - 2, true);
+							_clan.setReputationScore(_clan.getReputationScore() - Config.ALT_REPUTATION_SCORE_PER_KILL, true);
 							getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
 							pk.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(pk.getClan()));
 						}

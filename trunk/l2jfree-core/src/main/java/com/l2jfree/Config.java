@@ -202,12 +202,13 @@ public final class Config
 	// *******************************************************************************************
 	public static final String	CLANS_FILE	= "./config/clans.properties";
 	// *******************************************************************************************
-	public static int			ALT_CLAN_MEMBERS_FOR_WAR;					// Number of members needed to request a clan war
+	public static int			ALT_CLAN_MEMBERS_FOR_WAR;				// Number of members needed to request a clan war
 	public static int			ALT_CLAN_JOIN_DAYS;						// Number of days before joining a new clan
-	public static int			ALT_CLAN_CREATE_DAYS;						// Number of days before creating a new clan
+	public static int			ALT_CLAN_CREATE_DAYS;					// Number of days before creating a new clan
 	public static int			ALT_CLAN_DISSOLVE_DAYS;					// Number of days it takes to dissolve a clan
 	public static int			ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;			// Number of days before joining a new alliance when clan voluntarily leave an alliance
-	public static int			ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;			// Number of days before joining a new alliance when clan was dismissed from an
+	public static int			ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;		// Number of days before joining a new alliance when clan was dismissed from an
+	public static int			ALT_REPUTATION_SCORE_PER_KILL;			// Number of reputation points gained per Kill in Clanwar.
 	// alliance
 	public static int			ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED;		// Number of days before accepting a new clan for alliance when clan was dismissed
 	// from an alliance
@@ -245,6 +246,7 @@ public final class Config
 			ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED = Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
 			ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED = Integer.parseInt(clansSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
 			ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
+			ALT_REPUTATION_SCORE_PER_KILL = Integer.parseInt(clansSettings.getProperty("ReputationScorePerKill", "1"));
 			ALT_MAX_NUM_OF_CLANS_IN_ALLY = Integer.parseInt(clansSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
 			CLAN_LEADER_COLOR_ENABLED = Boolean.parseBoolean(clansSettings.getProperty("ClanLeaderNameColorEnabled", "True"));
 			CLAN_LEADER_COLORED = ClanLeaderColored.valueOf(clansSettings.getProperty("ClanLeaderColored", "name"));

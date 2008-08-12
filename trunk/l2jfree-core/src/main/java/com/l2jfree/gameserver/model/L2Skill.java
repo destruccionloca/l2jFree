@@ -235,7 +235,7 @@ public abstract class L2Skill
 		REELING,
 		CANCEL_TARGET,
 		AGGDEBUFF,
-		COMBATPOINTPERHEAL,
+		COMBATPOINTPERCENTHEAL,
 		SUMMONCP,
 		SUMMON_TREASURE_KEY,
 		SUMMON_CURSED_BONES,
@@ -1545,8 +1545,9 @@ public abstract class L2Skill
 		case HOT:
 		case MANAHEAL:
 		case MANARECHARGE:
+		case COMBATPOINTHEAL:
+		case COMBATPOINTPERCENTHEAL:
 		case NEGATE:
-		case CANCEL:
 		case REFLECT:
 		case UNBLEED:
 		case UNPOISON:
@@ -1559,7 +1560,7 @@ public abstract class L2Skill
 
 	public final boolean isNeedWeapon()
 	{
-		return (_skillType == SkillType.MDAM) ? true : false;
+		return (_skillType == SkillType.MDAM);
 	}
 
 	// int weapons[] = {L2Weapon.WEAPON_TYPE_ETC, L2Weapon.WEAPON_TYPE_BOW,
@@ -1704,6 +1705,7 @@ public abstract class L2Skill
 			case UNBLEED:
 			case UNPOISON:
 			case COMBATPOINTHEAL:
+			case COMBATPOINTPERCENTHEAL:
 			case MAGE_BANE:
 			case WARRIOR_BANE:
 			case BETRAY:

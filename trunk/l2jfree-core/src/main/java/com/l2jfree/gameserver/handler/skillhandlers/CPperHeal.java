@@ -15,11 +15,14 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * @author -Nemesiss-
@@ -33,27 +36,40 @@ public class CPperHeal implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.COMBATPOINTPERHEAL };
+	private static final SkillType[]	SKILL_IDS	= { SkillType.COMBATPOINTPERCENTHEAL };
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	public void useSkill(@SuppressWarnings("unused")
-	L2Character actChar, L2Skill skill, L2Object[] targets)
+	public void useSkill(@SuppressWarnings("unused") L2Character actChar, L2Skill skill, L2Object[] targets)
 	{
 		L2Character target;
+		//check for other effects
+		try
+		{
+			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(SkillType.BUFF);
+			if (handler != null)
+				handler.useSkill(actChar, skill, targets);
+		}
+		catch (Exception e)
+		{
+		}
 
 		for (L2Object element : targets)
 		{
 			target = (L2Character) element;
 
-			double percp = target.getMaxCp() * skill.getPower();
-			target.getStatus().setCurrentCp(target.getStatus().getCurrentCp() - percp);
+			double perCp = target.getMaxCp() * skill.getPower();
+			double newCp = target.getStatus().getCurrentCp() + perCp;
+			if (newCp > target.getMaxCp())
+				perCp = target.getMaxCp() - target.getStatus().getCurrentCp();
+			target.getStatus().setCurrentCp(target.getStatus().getCurrentCp() + perCp);
 			StatusUpdate sucp = new StatusUpdate(target.getObjectId());
 			sucp.addAttribute(StatusUpdate.CUR_CP, (int) target.getStatus().getCurrentCp());
 			target.sendPacket(sucp);
-			//Missing system message?? 
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
+			sm.addNumber((int) perCp);
+			target.sendPacket(sm);
 		}
 	}
 

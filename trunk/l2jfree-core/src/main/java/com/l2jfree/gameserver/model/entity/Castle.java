@@ -68,7 +68,7 @@ public class Castle extends Siegeable
 	private int							_siegeDayOfWeek							= 7;																								// Default to saturday
 	private int							_siegeHourOfDay							= 20;																								// Default to 8 pm server time
 	private int							_taxPercent								= 0;
-	private double						_taxRate								= 0;
+	private double						_taxRate								= 1.0;
 	private int							_treasury								= 0;
 	private int							_nbArtifact								= 1;
 	private Map<Integer, Integer>		_engrave								= new FastMap<Integer, Integer>();

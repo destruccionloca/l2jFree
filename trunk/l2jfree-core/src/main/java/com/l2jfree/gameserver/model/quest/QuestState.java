@@ -153,12 +153,13 @@ public final class QuestState
 	 */
 	public Object setState(byte state)
 	{
-		// set new state
-		_state = state;
-
-		Quest.updateQuestInDb(this);
-
-		getPlayer().sendPacket(new QuestList(getPlayer()));
+		// set new state if it is not already in that state
+		if (_state != state)
+		{
+			_state = state;
+			Quest.updateQuestInDb(this);
+			getPlayer().sendPacket(new QuestList(getPlayer()));
+		}
 		return state;
 	}
 
