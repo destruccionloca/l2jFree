@@ -928,7 +928,7 @@ public abstract class L2Skill
 
 	public L2Skill getTriggeredSkill()
 	{
-		return SkillTable.getInstance().getInfo(_triggeredId, 1); // is there any skill with bigger level than one?! :$
+		return SkillTable.getInstance().getInfo(_triggeredId, _triggeredLevel); // is there any skill with bigger level than one?! :$
 	}
 
 	public final int getLevelDepend()
@@ -1554,7 +1554,6 @@ public abstract class L2Skill
 		case MANARECHARGE:
 		case COMBATPOINTHEAL:
 		case COMBATPOINTPERCENTHEAL:
-		case NEGATE:
 		case REFLECT:
 		case UNBLEED:
 		case UNPOISON:
@@ -2757,7 +2756,7 @@ public abstract class L2Skill
 
 				if (targetType != SkillTargetType.TARGET_CORPSE_CLAN)
 				{
-					if (onlyFirst == false)
+					if (!onlyFirst)
 						targetList.add(player);
 					else
 						return new L2Character[] { player };
