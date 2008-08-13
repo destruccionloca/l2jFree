@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.zone.form.Shape;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -83,6 +84,7 @@ public abstract class L2Zone
 	public static enum Affected
 	{
 		PLAYABLE,
+		PC,
 		NPC,
 		ALL
 	}
@@ -137,7 +139,7 @@ public abstract class L2Zone
 	protected ZoneType _type;
 	protected PvpSettings _pvp;
 	protected Boss _boss;
-	protected Affected _affected = Affected.PLAYABLE;
+	protected Affected _affected = Affected.ALL;
 	
 	protected boolean _noEscape, _noLanding, _noPrivateStore;
 
@@ -286,6 +288,8 @@ public abstract class L2Zone
 		{
 			case PLAYABLE:
 				return character instanceof L2PlayableInstance;
+			case PC:
+				return character instanceof L2PcInstance;
 			case NPC:
 				return character instanceof L2NpcInstance;
 			case ALL:
