@@ -133,8 +133,11 @@ public class Instance
 	{
 		for (L2NpcInstance mob : _npcs)
 		{
-			mob.getSpawn().stopRespawn();
-			mob.deleteMe();
+			if (mob != null)
+			{
+				mob.getSpawn().stopRespawn();
+				mob.deleteMe();
+			}
 		}
 		_doors.clear();
 		_npcs.clear();
