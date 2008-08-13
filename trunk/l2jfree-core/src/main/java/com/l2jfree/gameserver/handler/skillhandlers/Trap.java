@@ -32,9 +32,9 @@ public class Trap implements ISkillHandler
 
 	/**
 	 * 
-	 * @see com.l2jfree.gameserver.handler.ISkillHandler#useSkill(com.l2jfree.gameserver.model.L2Character, com.l2jfree.gameserver.model.L2Skill, com.l2jfree.gameserver.model.L2Object[])
+	 * @see com.l2jfree.gameserver.handler.ISkillHandler#useSkill(com.l2jfree.gameserver.model.L2Character, com.l2jfree.gameserver.model.L2Skill, L2Object...)
 	 */
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
 		if (activeChar == null || skill == null)
 			return;

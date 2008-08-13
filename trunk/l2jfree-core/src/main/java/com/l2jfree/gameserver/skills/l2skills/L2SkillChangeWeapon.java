@@ -42,10 +42,10 @@ public class L2SkillChangeWeapon extends L2Skill
 	}
 
 	/**
-	 * @see com.l2jfree.gameserver.model.L2Skill#useSkill(com.l2jfree.gameserver.model.L2Character, com.l2jfree.gameserver.model.L2Object[])
+	 * @see com.l2jfree.gameserver.model.L2Skill#useSkill(com.l2jfree.gameserver.model.L2Character, L2Object...)
 	 */
 	@Override
-	public void useSkill(L2Character caster, L2Object[] targets)
+	public void useSkill(L2Character caster, L2Object... targets)
 	{
 		if (caster.isAlikeDead())
 			return;

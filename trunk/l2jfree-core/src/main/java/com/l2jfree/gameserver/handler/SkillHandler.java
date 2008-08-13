@@ -15,8 +15,8 @@
 package com.l2jfree.gameserver.handler;
 
 import java.util.Map;
-import java.util.TreeMap;
 
+import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -59,32 +59,29 @@ import com.l2jfree.gameserver.handler.skillhandlers.TakeFort;
 import com.l2jfree.gameserver.handler.skillhandlers.TransformDispel;
 import com.l2jfree.gameserver.handler.skillhandlers.Trap;
 import com.l2jfree.gameserver.handler.skillhandlers.Unlock;
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 
-/**
- * This class ...
- *
- * @version $Revision: 1.1.4.4 $ $Date: 2005/04/03 15:55:06 $
- */
-public class SkillHandler
+public final class SkillHandler implements ISkillHandler
 {
-	private final static Log						_log	= LogFactory.getLog(SkillHandler.class.getName());
-
-	private static SkillHandler						_instance;
-
-	private Map<L2Skill.SkillType, ISkillHandler>	_datatable;
-
+	private static final Log _log = LogFactory.getLog(SkillHandler.class);
+	
+	private static SkillHandler _instance;
+	
 	public static SkillHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new SkillHandler();
+		
 		return _instance;
 	}
-
+	
+	private final Map<SkillType, ISkillHandler> _handlers = new FastMap<SkillType, ISkillHandler>();
+	
 	private SkillHandler()
 	{
-		_datatable = new TreeMap<SkillType, ISkillHandler>();
 		registerSkillHandler(new BalanceLife());
 		registerSkillHandler(new BeastFeed());
 		registerSkillHandler(new Blow());
@@ -123,28 +120,31 @@ public class SkillHandler
 		registerSkillHandler(new TransformDispel());
 		registerSkillHandler(new Trap());
 		registerSkillHandler(new Unlock());
-		_log.info("SkillHandler: Loaded " + _datatable.size() + " handlers.");
+		
+		_log.info("SkillHandler: Loaded " + _handlers.size() + " handlers.");
 	}
-
+	
 	public void registerSkillHandler(ISkillHandler handler)
 	{
-		SkillType[] types = handler.getSkillIds();
-		for (SkillType t : types)
-		{
-			_datatable.put(t, handler);
-		}
+		for (SkillType t : handler.getSkillIds())
+			if (_handlers.put(t, handler) != null)
+				_log.warn("SkillHandler: Already handled SkillType." + t + " " + handler);
 	}
-
+	
 	public ISkillHandler getSkillHandler(SkillType skillType)
 	{
-		return _datatable.get(skillType);
+		ISkillHandler handler = _handlers.get(skillType);
+		
+		return handler == null ? this : handler;
 	}
-
-	/**
-	 * @return
-	 */
-	public int size()
+	
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
-		return _datatable.size();
+		skill.useSkill(activeChar, targets);
+	}
+	
+	public SkillType[] getSkillIds()
+	{
+		return null;
 	}
 }

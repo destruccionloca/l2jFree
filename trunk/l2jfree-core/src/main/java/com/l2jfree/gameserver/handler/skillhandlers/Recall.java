@@ -42,7 +42,7 @@ public class Recall implements ISkillHandler
 
 	public void useSkill(@SuppressWarnings("unused")
 	L2Character activeChar, @SuppressWarnings("unused")
-	L2Skill skill, L2Object[] targets)
+	L2Skill skill, L2Object... targets)
 	{
 		// [L2J_JP ADD SANDMAN]
 		// <!--- Zaken skills - teleport PC --> or <!--- Zaken skills - teleport

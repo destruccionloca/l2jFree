@@ -69,7 +69,7 @@ public class Continuous implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
 		L2Character target = null;
 		boolean acted = true;

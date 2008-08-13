@@ -42,23 +42,13 @@ public class CombatPointHeal implements ISkillHandler
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
 	public void useSkill(@SuppressWarnings("unused")
-	L2Character actChar, L2Skill skill, L2Object[] targets)
+	L2Character actChar, L2Skill skill, L2Object... targets)
 	{
-		L2Character target = null;
-		//check for other effects
-		try
-		{
-			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(SkillType.BUFF);
-			if (handler != null)
-				handler.useSkill(actChar, skill, targets);
-		}
-		catch (Exception e)
-		{
-		}
+		SkillHandler.getInstance().getSkillHandler(SkillType.BUFF).useSkill(actChar, skill, targets);
 
 		for (L2Object element : targets)
 		{
-			target = (L2Character) element;
+			L2Character target = (L2Character) element;
 
 			double cp = skill.getPower();
 			//int cLev = activeChar.getLevel();

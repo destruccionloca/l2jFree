@@ -36,7 +36,7 @@ public class DeluxeKey implements ISkillHandler
 													{ SkillType.DELUXE_KEY_UNLOCK };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
-	L2Object[] targets)
+	L2Object... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;

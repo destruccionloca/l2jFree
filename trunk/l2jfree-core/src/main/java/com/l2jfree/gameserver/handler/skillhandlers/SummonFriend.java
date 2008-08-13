@@ -46,7 +46,7 @@ public class SummonFriend implements ISkillHandler
 
 	public void useSkill(@SuppressWarnings("unused")
 	L2Character activeChar, @SuppressWarnings("unused")
-	L2Skill skill, L2Object[] targets)
+	L2Skill skill, L2Object... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return; // currently not implemented for others

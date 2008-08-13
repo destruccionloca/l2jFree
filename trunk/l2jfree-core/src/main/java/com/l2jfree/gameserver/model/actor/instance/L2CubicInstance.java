@@ -683,7 +683,6 @@ public class L2CubicInstance
 										+ Math.sqrt(_target.getDistanceSq(_owner.getX(), _owner.getY(), _owner.getZ())));
 							}
 
-							L2Skill.SkillType type = skill.getSkillType();
 							ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
 							L2Character[] targets = { _target };
 
@@ -693,24 +692,11 @@ public class L2CubicInstance
 								((Mdam) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
 							else if (handler instanceof Continuous)
 								((Continuous) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
-							else if (handler != null)
-								handler.useSkill(_owner, skill, targets);
+							else if (skill instanceof L2SkillDrain)
+								((L2SkillDrain) skill).useCubicSkill(L2CubicInstance.this, targets);
 							else
-							{
-								if (type == L2Skill.SkillType.DRAIN)
-								{
-									if (_log.isDebugEnabled())
-										_log.info("L2CubicInstance: Action.run() skill " + type);
-									((L2SkillDrain) skill).useCubicSkill(L2CubicInstance.this, targets);
-								}
-								else
-								{
-									skill.useSkill(_owner, targets);
-									if (_log.isDebugEnabled())
-										_log.info("L2CubicInstance: Action.run(); other skill");
-								}
-							}
-
+								handler.useSkill(_owner, skill, targets);
+							
 							MagicSkillUse msu = new MagicSkillUse(_owner, _target, skill.getId(), skill.getLevel(), 0, 0);
 							_owner.broadcastPacket(msu);
 						}
@@ -895,15 +881,8 @@ public class L2CubicInstance
 						if (Rnd.get(1, 100) < chance)
 						{
 							L2Character[] targets = { target };
-							ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
-							if (handler != null)
-							{
-								handler.useSkill(_owner, skill, targets);
-							}
-							else
-							{
-								skill.useSkill(_owner, targets);
-							}
+							SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(_owner, skill, targets);
+							
 							MagicSkillUse msu = new MagicSkillUse(_owner, _target, skill.getId(), skill.getLevel(), 0, 0);
 							_owner.broadcastPacket(msu);
 						}

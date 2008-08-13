@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-import java.io.IOException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -84,7 +82,7 @@ public class Disablers implements ISkillHandler
 	private float						_negatePower	= 0.f;
 	private int							_negateId		= 0;
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
 		SkillType type = skill.getSkillType();
 
@@ -852,23 +850,7 @@ public class Disablers implements ISkillHandler
 						else if (stat == "death_mark" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target, SkillType.DEATH_MARK, _negatePower, skill.getMaxNegatedEffects());
 						else if (stat == "heal" && removedBuffs < skill.getMaxNegatedEffects())
-						{
-							ISkillHandler Healhandler = SkillHandler.getInstance().getSkillHandler(SkillType.HEAL);
-							if (Healhandler == null)
-							{
-								_log.fatal("Couldn't find skill handler for HEAL.");
-								continue;
-							}
-							L2Object tgts[] = new L2Object[] { target };
-							try
-							{
-								Healhandler.useSkill(activeChar, skill, tgts);
-							}
-							catch (IOException e)
-							{
-								_log.warn("", e);
-							}
-						}
+							SkillHandler.getInstance().getSkillHandler(SkillType.HEAL).useSkill(activeChar, skill, target);
 					}//end for
 				}//end else
 			}// end case

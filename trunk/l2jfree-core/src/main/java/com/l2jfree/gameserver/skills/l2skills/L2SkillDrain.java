@@ -44,7 +44,7 @@ public class L2SkillDrain extends L2Skill
 	}
 
 	@Override
-	public void useSkill(L2Character activeChar, L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Object... targets)
 	{
 		if (activeChar.isAlikeDead())
 			return;

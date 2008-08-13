@@ -35,7 +35,7 @@ public class Soul implements ISkillHandler
 													{ SkillType.CHARGESOUL };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
-	L2Object[] targets)
+	L2Object... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance) || activeChar.isAlikeDead())
 			return;

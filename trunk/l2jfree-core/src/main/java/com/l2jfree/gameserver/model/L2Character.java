@@ -39,7 +39,6 @@ import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.FactionManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
@@ -6803,8 +6802,6 @@ public abstract class L2Character extends L2Object
 	{
 		try
 		{
-			// Get the skill handler corresponding to the skill type (PDAM, MDAM, SWEEP...) started in gameserver
-			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
 			L2Weapon activeWeapon = getActiveWeaponItem();
 
 			L2PcInstance player = getActingPlayer();
@@ -6875,12 +6872,9 @@ public abstract class L2Character extends L2Object
 						target.getChanceSkills().onSkillHit(this, true, skill.isMagic(), skill.isOffensive());
 				}
 			}
-
+			
 			// Launch the magic skill and calculate its effects
-			if (handler != null)
-				handler.useSkill(this, skill, targets);
-			else
-				skill.useSkill(this, targets);
+			SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(this, skill, targets);
 			
 			if (player != null)
 			{

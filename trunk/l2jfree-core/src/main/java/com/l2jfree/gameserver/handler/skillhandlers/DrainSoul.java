@@ -35,7 +35,7 @@ public class DrainSoul implements ISkillHandler
 													{ SkillType.DRAIN_SOUL };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
-	L2Object[] targets)
+	L2Object... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;

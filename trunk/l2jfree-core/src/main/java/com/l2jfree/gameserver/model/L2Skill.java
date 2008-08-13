@@ -46,6 +46,7 @@ import com.l2jfree.gameserver.model.entity.Couple;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
@@ -63,7 +64,6 @@ import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeEffect;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeNegate;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillCreateItem;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDecoy;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillDefault;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDrain;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignet;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
@@ -74,12 +74,7 @@ import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.util.Util;
 
-/**
- * This class...
- *
- * @version $Revision: 1.3.2.8.2.22 $ $Date: 2005/04/06 16:13:42 $
- */
-public abstract class L2Skill
+public class L2Skill
 {
 	protected static Log	_log						= LogFactory.getLog(L2Skill.class.getName());
 
@@ -292,7 +287,7 @@ public abstract class L2Skill
 
 		private SkillType()
 		{
-			_class = L2SkillDefault.class;
+			_class = L2Skill.class;
 		}
 
 		private SkillType(Class<? extends L2Skill> classType)
@@ -763,9 +758,15 @@ public abstract class L2Skill
 			}
 		}
 	}
-
-	public abstract void useSkill(L2Character caster, L2Object[] targets);
-
+	
+	public void useSkill(L2Character caster, L2Object... targets)
+	{
+		caster.sendPacket(ActionFailed.STATIC_PACKET);
+		
+		if (caster instanceof L2PcInstance)
+			((L2PcInstance)caster).sendMessage("Skill not implemented. Skill ID: " + getId() + " " + getSkillType());
+	}
+	
 	public final boolean isPotion()
 	{
 		return _ispotion;

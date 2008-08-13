@@ -39,7 +39,7 @@ public class Manadam implements ISkillHandler
 													{ SkillType.MANADAM };
 
 	public void useSkill(@SuppressWarnings("unused")
-	L2Character activeChar, L2Skill skill, L2Object[] targets)
+	L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
 		L2Character target = null;
 

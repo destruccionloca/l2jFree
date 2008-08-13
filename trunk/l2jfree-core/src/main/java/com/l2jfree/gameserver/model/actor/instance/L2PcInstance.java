@@ -69,7 +69,6 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
-import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
@@ -7489,12 +7488,8 @@ public final class L2PcInstance extends L2PlayableInstance
 					continue;
 
 				L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
-				ISkillHandler IHand = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
-				if (IHand != null)
-					IHand.useSkill(this, skill, targets);
-				else
-					skill.useSkill(this, targets);
-
+				SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(this, skill, targets);
+				
 				if (reuseDelay > 10)
 				{
 					disableSkill(skillId, reuseDelay);

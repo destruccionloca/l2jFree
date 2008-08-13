@@ -45,7 +45,7 @@ public class Fishing implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
 	L2Skill skill, @SuppressWarnings("unused")
-	L2Object[] targets)
+	L2Object... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;

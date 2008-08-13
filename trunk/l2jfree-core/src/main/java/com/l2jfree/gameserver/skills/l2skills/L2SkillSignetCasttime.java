@@ -37,7 +37,7 @@ public final class L2SkillSignetCasttime extends L2Skill
 	}
 
 	@Override
-	public void useSkill(L2Character caster, L2Object[] targets)
+	public void useSkill(L2Character caster, L2Object... targets)
 	{
 		if (caster.isAlikeDead())
 			return;

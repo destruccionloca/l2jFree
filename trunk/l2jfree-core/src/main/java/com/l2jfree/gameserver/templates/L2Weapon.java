@@ -16,7 +16,8 @@ package com.l2jfree.gameserver.templates;
 
 import java.util.List;
 
-import com.l2jfree.gameserver.handler.ISkillHandler;
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -29,8 +30,6 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameChance;
-
-import javolution.util.FastList;
 
 /**
  * This class is dedicated to the management of weapons.
@@ -459,19 +458,13 @@ public final class L2Weapon extends L2Equip
 			if (skill.isOffensive() && !Formulas.getInstance().calcSkillSuccess(caster, target, skill, false, false, false))
 				continue;
 
-			// Get the skill handler corresponding to the skill type
-			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
-
-			L2Character[] targets = new L2Character[1];
-			targets[0] = target;
+			L2Character[] targets = new L2Character[] { target };
 
 			try
 			{
 				// Launch the magic skill and calculate its effects
-				if (handler != null)
-					handler.useSkill(caster, skill, targets);
-				else
-					skill.useSkill(caster, targets);
+				SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(caster, skill, targets);
+				
 				// notify quests of a skill use
 				if (caster instanceof L2PcInstance)
 				{

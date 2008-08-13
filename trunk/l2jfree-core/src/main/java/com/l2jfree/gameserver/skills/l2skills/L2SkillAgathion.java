@@ -31,7 +31,7 @@ public class L2SkillAgathion extends L2Skill
 	}
 
 	@Override
-	public void useSkill(L2Character caster, L2Object[] targets)
+	public void useSkill(L2Character caster, L2Object... targets)
 	{
 		if (caster.isAlikeDead() || !(caster instanceof L2PcInstance))
 			return;

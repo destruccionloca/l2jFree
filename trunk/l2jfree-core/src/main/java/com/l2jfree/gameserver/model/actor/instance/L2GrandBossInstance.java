@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
-import com.l2jfree.gameserver.instancemanager.grandbosses.BaiumManager;
 import com.l2jfree.gameserver.model.L2Boss;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;

@@ -33,7 +33,7 @@ public class GetPlayer implements ISkillHandler
 	private static final SkillType[]	SKILL_IDS	=
 													{ SkillType.GET_PLAYER };
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
 		if (activeChar.isAlikeDead())
 			return;

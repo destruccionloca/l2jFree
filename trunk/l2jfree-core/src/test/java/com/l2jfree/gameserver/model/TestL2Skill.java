@@ -14,18 +14,15 @@
  */
 package com.l2jfree.gameserver.model;
 
-import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Skill;
+import junit.framework.TestCase;
+
 import com.l2jfree.gameserver.model.L2Skill.SkillOpType;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.skills.conditions.ConditionItemId;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillDefault;
 import com.l2jfree.gameserver.templates.L2CharTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
-
-import junit.framework.TestCase;
 
 /**
  * Class for L2Skill testing
@@ -96,7 +93,7 @@ public class TestL2Skill extends TestCase
 	{
         try
         {
-            L2Skill l2skill = new L2SkillDefault (statsSetForTest);
+            L2Skill l2skill = new L2Skill (statsSetForTest);
             l2skill.attach(new ConditionItemId(57),true);
             
             L2Character activeChar = new L2BoatInstance(1,new L2CharTemplate(statsSetForTestNpc),"BoatPeople");

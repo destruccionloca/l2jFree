@@ -50,18 +50,9 @@ public class Heal implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
-		//check for other effects
-		try
-		{
-			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(SkillType.BUFF);
-			if (handler != null)
-				handler.useSkill(activeChar, skill, targets);
-		}
-		catch (Exception e)
-		{
-		}
+		SkillHandler.getInstance().getSkillHandler(SkillType.BUFF).useSkill(activeChar, skill, targets);
 
 		L2Character target = null;
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();

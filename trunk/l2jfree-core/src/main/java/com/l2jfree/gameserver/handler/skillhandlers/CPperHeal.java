@@ -31,8 +31,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class CPperHeal implements ISkillHandler
 {
-	//private final static Log _log = LogFactory.getLog(CombatPointHeal.class.getName());
-
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
@@ -41,23 +39,13 @@ public class CPperHeal implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	public void useSkill(@SuppressWarnings("unused") L2Character actChar, L2Skill skill, L2Object[] targets)
+	public void useSkill(@SuppressWarnings("unused") L2Character actChar, L2Skill skill, L2Object... targets)
 	{
-		L2Character target;
-		//check for other effects
-		try
-		{
-			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(SkillType.BUFF);
-			if (handler != null)
-				handler.useSkill(actChar, skill, targets);
-		}
-		catch (Exception e)
-		{
-		}
-
+		SkillHandler.getInstance().getSkillHandler(SkillType.BUFF).useSkill(actChar, skill, targets);
+		
 		for (L2Object element : targets)
 		{
-			target = (L2Character) element;
+			L2Character target = (L2Character) element;
 
 			double perCp = target.getMaxCp() * skill.getPower();
 			double newCp = target.getStatus().getCurrentCp() + perCp;

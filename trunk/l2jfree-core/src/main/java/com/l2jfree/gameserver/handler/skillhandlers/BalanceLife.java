@@ -36,22 +36,9 @@ public class BalanceLife implements ISkillHandler
 	private static final SkillType[]	SKILL_IDS	=
 													{ SkillType.BALANCE_LIFE };
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
-		// L2Character activeChar = activeChar;
-		// check for other effects
-		try
-		{
-			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(SkillType.BUFF);
-
-			if (handler != null)
-				handler.useSkill(activeChar, skill, targets);
-		}
-		catch (Exception e)
-		{
-		}
-
-		L2Character target = null;
+		SkillHandler.getInstance().getSkillHandler(SkillType.BUFF).useSkill(activeChar, skill, targets);
 
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
@@ -62,7 +49,7 @@ public class BalanceLife implements ISkillHandler
 
 		for (L2Object element : targets)
 		{
-			target = (L2Character) element;
+			L2Character target = (L2Character) element;
 
 			// We should not heal if char is dead
 			if (target == null || target.isDead())
@@ -85,7 +72,7 @@ public class BalanceLife implements ISkillHandler
 
 		for (L2Object element : targets)
 		{
-			target = (L2Character) element;
+			L2Character target = (L2Character) element;
 
 			double newHP = target.getMaxHp() * percentHP;
 			double totalHeal = newHP - target.getStatus().getCurrentHp();

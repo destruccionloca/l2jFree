@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model;
 
 import javolution.util.FastMap;
 
-import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -108,20 +107,17 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 	{
 		try
 		{
-			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
 			L2Object[] targets = skill.getTargetList(_owner, false, target);
 
 			_owner.broadcastPacket(new MagicSkillLaunched(_owner, skill.getDisplayId(), skill.getLevel(), targets));
 			_owner.broadcastPacket(new MagicSkillUse(_owner, (L2Character)targets[0], skill.getDisplayId(), skill.getLevel(), 0, 0));
 
 			// Launch the magic skill and calculate its effects
-			if (handler != null)
-				handler.useSkill(_owner, skill, targets);
-			else
-				skill.useSkill(_owner, targets);
+			SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(_owner, skill, targets);
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 	}
 }
