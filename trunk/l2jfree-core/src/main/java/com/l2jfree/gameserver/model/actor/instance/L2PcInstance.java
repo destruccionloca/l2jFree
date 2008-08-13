@@ -765,8 +765,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	private long							_timePreviousBroadcastStatusUpdate	= 0;
 	private long							_timePreviousCharInfoUpdate = 0;
 	
-	public int								_fameLevel = 0;
-	public int								_vitalityLevel = 0;
+	public int								_fame = 0;								// The Fame of this L2PcInstance
+	public int								_vitalityLevel = 5;						// Vitality Level of this L2PcInstance
 
 	/** Skill casting information (used to queue when several skills are cast in a short time) **/
 	public class SkillDat
@@ -12625,11 +12625,19 @@ public final class L2PcInstance extends L2PlayableInstance
 		return (super.mustFallDownOnDeath()) || (isInFunEvent() && Config.FALLDOWNONDEATH);
 	}
 
+	/**
+	* 
+	* @param npcId
+	*/
 	public void setAgathionId(int npcId)
 	{
 		_agathionId = npcId;
 	}
 
+	/**
+	* 
+	* @return
+	*/
 	public int getAgathionId()
 	{
 		return _agathionId;
@@ -12711,24 +12719,45 @@ public final class L2PcInstance extends L2PlayableInstance
 		else
 			_trustlevel -= inc;
 	}
-	
-	public void setFameLevel(int fame)
+
+	/**
+	 * Set the Fame of this L2PcInstane <BR><BR>
+	 * @param fame
+	 */
+	public void setFame(int fame)
 	{
-		_fameLevel = fame;
+		_fame = fame;
 	}
-	
-	public int getFameLevel()
+
+	/**
+	 * Return the Fame of this L2PcInstance <BR><BR>
+	 * @return
+	 */
+	public int getFame()
 	{
-		return _fameLevel;
+		return _fame;
 	}
-	
-	public void setVitalityLevel(int fame)
-	{
-		_vitalityLevel = fame;
-	}
-	
+
+	/**
+	* Returns the VL <BR><BR>
+	* @return
+	*/
 	public int getVitalityLevel()
 	{
 		return _vitalityLevel;
-	}	
+	}
+
+	/**
+	* Sets VL of this L2PcInstance<BR><BR>
+	* @param level
+	*/
+	public void setVitalityLevel(int level)
+	{
+		if (level > 5)
+			level = 5;
+		else if (level < 0)
+			level = 0;
+
+		_vitalityLevel = level;
+	}
 }

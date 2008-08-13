@@ -215,7 +215,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 			{
 				return;
 			}
-			else if (Config.CT2_MODE && player.getLevel()<40)
+			else if (!Config.CT1_LEGACY && player.getLevel() < 40)
 			{
 				//free teleport for chars < level 40
 				//TODO: clean up this whole mess here

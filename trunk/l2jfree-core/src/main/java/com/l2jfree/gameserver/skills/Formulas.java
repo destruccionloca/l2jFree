@@ -461,9 +461,7 @@ public final class Formulas
 			else if (p instanceof L2PcInstance && p.getActiveWeaponInstance() == null)
 				env.value = 8;
 			else
-			{
 				env.value *= WITbonus[p.getStat().getWIT()];
-			}
 		}
 	}
 
@@ -1609,7 +1607,7 @@ public final class Formulas
 			}
 		}
 		else if (mcrit)
-			damage *= 4;
+			damage *= Config.ALT_MCRIT_RATE;
 
 		return damage;
 	}

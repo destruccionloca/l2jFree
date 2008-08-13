@@ -3140,34 +3140,23 @@ public abstract class L2Character extends L2Object
 	}
 
 	/** Task lauching the function stopPvPFlag() */
-	class PvPFlag implements Runnable
+	public class PvPFlag implements Runnable
 	{
-		public PvPFlag()
-		{
-
-		}
-
 		public void run()
 		{
 			try
 			{
-				// _log.fine("Checking pvp time: " + getlastPvpAttack());
-				// "lastattack: " _lastAttackTime "currenttime: "
-				// System.currentTimeMillis());
 				if (System.currentTimeMillis() > getPvpFlagLasts())
 				{
-					// _log.fine("Stopping PvP");
 					stopPvPFlag();
 				}
-				else if (System.currentTimeMillis() > (getPvpFlagLasts() - 5000))
+				else if (System.currentTimeMillis() > (getPvpFlagLasts() - 20000))
 				{
 					updatePvPFlag(2);
 				}
 				else
 				{
 					updatePvPFlag(1);
-					// Start a new PvP timer check
-					// checkPvPFlag();
 				}
 			}
 			catch (Exception e)

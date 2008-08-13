@@ -389,11 +389,12 @@ public class UserInfo extends L2GameServerPacket
 
 		writeD(_activeChar.getAgathionId());
 		
-		if(Config.CT2_MODE)
+		if(!Config.CT1_LEGACY)
 		{
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
+			// T2
+			writeD(_activeChar.getFame());  // Fame
+			writeD(0x01); // Unknown
+			writeD(_activeChar.getVitalityLevel());  // Vitality Level
 		}
 	}
 

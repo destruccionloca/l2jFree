@@ -101,7 +101,7 @@ public final class Config
 	public static int			SELECTED_NODE_ID;
 	public static int			LINKED_NODE_ID;
 	public static String		NEW_NODE_TYPE;
-	public static boolean		CT2_MODE;
+	public static boolean		CT1_LEGACY;
 
 	// *******************************************************************************************
 	public static void loadConfiguration()
@@ -190,7 +190,7 @@ public final class Config
 			FLOOD_PROTECTION = Boolean.parseBoolean(serverSettings.getProperty("FloodProtection", "False"));
 			PACKET_LIMIT = Integer.parseInt(serverSettings.getProperty("PacketLimit", "500"));
 			PACKET_TIME_LIMIT = Integer.parseInt(serverSettings.getProperty("PacketTimeLimit", "1100"));
-			CT2_MODE = Boolean.parseBoolean(serverSettings.getProperty("CT2TestMode", "False"));
+			CT1_LEGACY = Boolean.parseBoolean(serverSettings.getProperty("CT1LegacyMode", "False"));
 		}
 		catch (Exception e)
 		{
@@ -697,8 +697,8 @@ public final class Config
 			PLAYER_RATE_DROP_ADENA = Integer.parseInt(pvpSettings.getProperty("PlayerRateDropAdena", "1"));
 			ALT_ANNOUNCE_PK = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePk", "false"));
 			ALT_ANNOUNCE_PK_NORMAL_MESSAGE = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePkNormalMessage", "false"));
-			PVP_NORMAL_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsNormalTime", "15000"));
-			PVP_PVP_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsPvPTime", "30000"));
+			PVP_NORMAL_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsNormalTime", "120000"));
+			PVP_PVP_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsPvPTime", "60000"));
 			PVP_TIME = PVP_NORMAL_TIME;
 			CURSED_WEAPON_NPC_INTERACT = Boolean.parseBoolean(pvpSettings.getProperty("CursedWeaponNpcInteract", "false"));
 
@@ -1564,9 +1564,9 @@ public final class Config
 			ALT_URN_TEMP_FAIL = Integer.parseInt(altSettings.getProperty("UrnTempFail", "10"));
 			ALT_DISABLE_RAIDBOSS_PETRIFICATION = Boolean.parseBoolean(altSettings.getProperty("DisableRaidBossPetrification", "false"));
 			ALT_PCRITICAL_CAP = Integer.parseInt(altSettings.getProperty("AltPCriticalCap", "500"));
-			ALT_MCRITICAL_CAP = Integer.parseInt(altSettings.getProperty("AltMCriticalCap", "300"));
+			ALT_MCRITICAL_CAP = Integer.parseInt(altSettings.getProperty("AltMCriticalCap", "200"));
 			MAX_RUN_SPEED = Integer.parseInt(altSettings.getProperty("MaxRunSpeed", "250"));
-			ALT_MCRIT_RATE = Float.parseFloat(altSettings.getProperty("AltMCritRate", "4.0"));
+			ALT_MCRIT_RATE = Float.parseFloat(altSettings.getProperty("AltMCritRate", "3.0"));
 
 			ALT_OLY_START_TIME = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "18"));
 			ALT_OLY_MIN = Integer.parseInt(altSettings.getProperty("AltOlyMin", "00"));
