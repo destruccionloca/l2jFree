@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Prestigeshop Enchant Scrolls -->
+<list>
+  <!-- [Scroll of Enchant Armor D grade] for [Crystals D grade] -->
+  <item id="1">
+    <ingredient id="1458" count="80" enchant="0" />
+    <production id="956" count="1" enchant="0" />
+  </item>
+  <!-- [Scroll of Enchant Weapon D grade] for [Crystals D grade] -->
+  <item id="2">
+    <ingredient id="1458" count="120" enchant="0" />
+    <production id="955" count="1" enchant="0" />
+  </item>
+  <!-- [Scroll of Enchant Armor C grade] for [Crystals C grade] -->
+  <item id="3">
+    <ingredient id="1459" count="60" enchant="0" />
+    <production id="952" count="1" enchant="0" />
+  </item>
+  <!-- [Scroll of Enchant Weapon C grade] for [Crystals C grade] -->
+  <item id="4">
+    <ingredient id="1459" count="100" enchant="0" />
+    <production id="951" count="1" enchant="0" />
+  </item>
+</list>
