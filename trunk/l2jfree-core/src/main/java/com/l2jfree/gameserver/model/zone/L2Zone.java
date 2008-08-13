@@ -82,9 +82,9 @@ public abstract class L2Zone
 
 	public static enum Affected
 	{
-		PC,
+		PLAYABLE,
 		NPC,
-		BOTH
+		ALL
 	}
 
 	public static enum Boss
@@ -137,7 +137,7 @@ public abstract class L2Zone
 	protected ZoneType _type;
 	protected PvpSettings _pvp;
 	protected Boss _boss;
-	protected Affected _affected;
+	protected Affected _affected = Affected.PLAYABLE;
 	
 	protected boolean _noEscape, _noLanding, _noPrivateStore;
 
@@ -284,11 +284,11 @@ public abstract class L2Zone
 	{
 		switch (_affected)
 		{
-			case PC:
-				return character instanceof L2PcInstance;
+			case PLAYABLE:
+				return character instanceof L2PlayableInstance;
 			case NPC:
 				return character instanceof L2NpcInstance;
-			case BOTH:
+			case ALL:
 				return true;
 		}
 		return false;
@@ -667,8 +667,8 @@ public abstract class L2Zone
 			_boss = Boss.valueOf(boss.getNodeValue().toUpperCase());
 		if (affected != null)
 			_affected = Affected.valueOf(affected.getNodeValue().toUpperCase());
-		else
-			_affected = Affected.PC;
+		if (_affected == null)
+			_affected = Affected.PLAYABLE;
 	}
 
 	private void parseMessages(Node n) throws Exception
