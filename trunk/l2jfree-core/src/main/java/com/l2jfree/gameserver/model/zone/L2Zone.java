@@ -29,6 +29,8 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.zone.form.Shape;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -48,8 +50,8 @@ public abstract class L2Zone
 		Castle,
 		CastleTeleport,
 		Clanhall,
-		Conditional,
 		Damage,
+		Dynamic,
 		Default,
 		DefenderSpawn,
 		Fishing,
@@ -77,7 +79,14 @@ public abstract class L2Zone
 		OWNER
 		// Others are handled by mapregion manager
 	}
-	
+
+	public static enum Affected
+	{
+		PC,
+		NPC,
+		BOTH
+	}
+
 	public static enum Boss
 	{
 		ANAKIM,
@@ -128,6 +137,7 @@ public abstract class L2Zone
 	protected ZoneType _type;
 	protected PvpSettings _pvp;
 	protected Boss _boss;
+	protected Affected _affected;
 	
 	protected boolean _noEscape, _noLanding, _noPrivateStore;
 
@@ -138,6 +148,7 @@ public abstract class L2Zone
 	protected int _mpDamage;
 
 	protected boolean _exitOnDeath;
+	protected boolean _buffRepeat; // Used for buffs and debuffs
 
 	protected FastList<L2Skill> _applyEnter, _applyExit, _removeEnter, _removeExit;
 
@@ -227,7 +238,7 @@ public abstract class L2Zone
 
 	public void revalidateInZone(L2Character character)
 	{
-		if (isInsideZone(character))
+		if (isCorrectType(character) && isInsideZone(character))
 		{
 			if (!_characterList.containsKey(character.getObjectId()))
 			{
@@ -267,6 +278,20 @@ public abstract class L2Zone
 	public boolean isCharacterInZone(L2Character character)
 	{
 		return _characterList.containsKey(character.getObjectId());
+	}
+
+	public boolean isCorrectType(L2Character character)
+	{
+		switch (_affected)
+		{
+			case PC:
+				return character instanceof L2PcInstance;
+			case NPC:
+				return character instanceof L2NpcInstance;
+			case BOTH:
+				return true;
+		}
+		return false;
 	}
 
 	/**
@@ -622,6 +647,8 @@ public abstract class L2Zone
 		Node noEscape = n.getAttributes().getNamedItem("noEscape");
 		Node noPrivateStore = n.getAttributes().getNamedItem("noPrivateStore");
 		Node boss = n.getAttributes().getNamedItem("boss");
+		Node affected = n.getAttributes().getNamedItem("affected");
+		Node buffRepeat = n.getAttributes().getNamedItem("buffRepeat");
 		Node abnorm = n.getAttributes().getNamedItem("abnormal");
 		Node exitOnDeath = n.getAttributes().getNamedItem("exitOnDeath");
 		Node hpDamage = n.getAttributes().getNamedItem("hpDamage");
@@ -635,8 +662,13 @@ public abstract class L2Zone
 		_exitOnDeath = (exitOnDeath != null) ? Boolean.parseBoolean(exitOnDeath.getNodeValue()) : false;
 		_hpDamage = (hpDamage != null) ? Integer.parseInt(hpDamage.getNodeValue()) : 0;
 		_mpDamage = (mpDamage != null) ? Integer.parseInt(mpDamage.getNodeValue()) : 0;
-		if(boss != null)
+		_buffRepeat = (buffRepeat != null) ? Boolean.parseBoolean(buffRepeat.getNodeValue()) : false;
+		if (boss != null)
 			_boss = Boss.valueOf(boss.getNodeValue().toUpperCase());
+		if (affected != null)
+			_affected = Affected.valueOf(affected.getNodeValue().toUpperCase());
+		else
+			_affected = Affected.PC;
 	}
 
 	private void parseMessages(Node n) throws Exception

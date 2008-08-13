@@ -47,7 +47,7 @@ public class L2DefaultZone extends L2Zone
 		{
 			character.addStatFuncs(getStatFuncs(character));
 		}
-
+		
 		if (_pvp == PvpSettings.ARENA)
 		{
 			character.setInsideZone(FLAG_PVP, true);
@@ -79,7 +79,7 @@ public class L2DefaultZone extends L2Zone
 	{
 		if(_onExitMsg != null && character instanceof L2PcInstance)
 			character.sendPacket(_onExitMsg);
-
+		
 		if(_abnormal > 0)
 			character.stopAbnormalEffect(_abnormal);
 

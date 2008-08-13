@@ -27,6 +27,7 @@ import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.conditions.Condition;
@@ -55,16 +56,14 @@ import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState.CheckPlayer
 import com.l2jfree.gameserver.templates.L2ArmorType;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 
-public class L2ConditionalZone extends L2DefaultZone
+public class L2DynamicZone extends L2DefaultZone
 {
 	private ScheduledFuture<?> _task;
 	private Condition _cond;
-	private FastMap<Integer, L2Character> _checkedList;
 
-	public L2ConditionalZone()
+	public L2DynamicZone()
 	{
 		super();
-		_checkedList = new FastMap<Integer, L2Character>().setShared(true);
 	}
 
 	private boolean checkCondition(L2Character character)
@@ -79,17 +78,19 @@ public class L2ConditionalZone extends L2DefaultZone
 		return _cond.test(env);
 	}
 
+	// Called on movement
 	@Override
 	public void revalidateInZone(L2Character character)
 	{
-		if (isInsideZone(character))
+		if (checkCondition(character) && isCorrectType(character) && isInsideZone(character))
 		{
 			if (!_characterList.containsKey(character.getObjectId()))
 			{
 				_characterList.put(character.getObjectId(), character);
+				onEnter(character);
 				// Timer turns on if characters are in zone
 				if (_task == null)
-					startTimerTask();
+					startZoneTask(character);
 			}
 		}
 		else
@@ -97,19 +98,47 @@ public class L2ConditionalZone extends L2DefaultZone
 			if (_characterList.containsKey(character.getObjectId()))
 			{
 				_characterList.remove(character.getObjectId());
+				onExit(character);
 				// Timer turns off if zone is empty
 				if (_characterList.size() == 0)
-					stopTimerTask();
+					stopZoneTask(character);
 			}
 		}
 	}
 
-	private synchronized void startTimerTask()
+	// Called by timer
+	protected boolean revalidateCondition(L2Character character)
 	{
-		_task = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new ConditionTask(), 1000, 1000);
+		if (checkCondition(character))
+		{
+			if (!_characterList.containsKey(character.getObjectId()))
+			{
+				_characterList.put(character.getObjectId(), character);
+				onEnter(character);
+				// Timer turns on if characters are in zone
+				if (_task == null)
+					startZoneTask(character);
+			}
+			return true;
+		}
+
+		if (_characterList.containsKey(character.getObjectId()))
+		{
+			_characterList.remove(character.getObjectId());
+			onExit(character);
+			// Timer turns off if zone is empty
+			if (_characterList.size() == 0)
+				stopZoneTask(character);
+		}
+		return false;
 	}
 
-	private synchronized void stopTimerTask()
+	private synchronized void startZoneTask(L2Character character)
+	{
+		_task = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new ZoneTask(), 0, 3300);
+	}
+
+	private synchronized void stopZoneTask(L2Character character)
 	{
 		if (_task != null)
 		{
@@ -118,28 +147,34 @@ public class L2ConditionalZone extends L2DefaultZone
 		}
 	}
 
-	private class ConditionTask implements Runnable
+	private class ZoneTask implements Runnable
 	{
 		public void run()
 		{
 			for (L2Character character : getCharactersInside().values())
 			{
-				if (checkCondition(character))
+				if (revalidateCondition(character))
 				{
-					if (!_checkedList.containsKey(character.getObjectId()))
-					{
-						_checkedList.put(character.getObjectId(), character);
-						onEnter(character);
-					}
+					checkForDamage(character);
+					if (_buffRepeat)
+						checkForEffects(character);
 				}
-				else
-				{
-					if (_checkedList.containsKey(character.getObjectId()))
-					{
-						_checkedList.remove(character.getObjectId());
-						onExit(character);
-					}
-				}
+			}
+		}
+	}
+
+	protected void checkForDamage(L2Character character)
+	{
+	}
+
+	protected void checkForEffects(L2Character character)
+	{
+		if(_applyEnter != null)
+		{
+			for(L2Skill sk : _applyEnter)
+			{
+				if (character.getFirstEffect(sk.getId()) == null)
+					sk.getEffects(character, character);
 			}
 		}
 	}
@@ -149,7 +184,7 @@ public class L2ConditionalZone extends L2DefaultZone
 	{
 		_cond = parseCondition(n, this);
 	}
-
+	
 	private Condition parseCondition(Node n, Object template)
 	{
 		while (n != null && n.getNodeType() != Node.ELEMENT_NODE)

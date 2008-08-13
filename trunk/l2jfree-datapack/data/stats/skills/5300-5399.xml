@@ -1401,10 +1401,14 @@
       Description(s):
       Condition causing target to decrease HP by heat of desert.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="CONT" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <set name="effectRange" val="-1" />
+    <for>
+      <effect count="0x7fffffff" name="Buff" time="3" val="0" />
+    </for>
   </skill>
 </list>

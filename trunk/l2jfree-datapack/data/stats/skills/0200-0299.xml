@@ -2718,7 +2718,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <cond>
-        <game time="night" />
+        <game night="true" />
       </cond>
       <add order="0x40" stat="accCombat" val="3" />
     </for>

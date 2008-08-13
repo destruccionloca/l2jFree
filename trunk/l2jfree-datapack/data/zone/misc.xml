@@ -117,8 +117,8 @@
       <point x="17584" y="108569"/>
     </shape>
   </zone>
-  <zone id="11" name="Orfen Poison Zone">
-    <settings applyEnter="4070,1" exitOnDeath="true" />
+  <zone id="11" name="Orfen Poison Zone" type="Dynamic">
+    <settings applyEnter="4035,4" exitOnDeath="true" buffRepeat="true" />
     <shape type="Poly" zMin="-6519" zMax="-6319">
       <point x="43084" y="15944"/>
       <point x="45140" y="15816"/>
@@ -129,8 +129,8 @@
       <point x="42480" y="16448"/>
     </shape>
   </zone>
-  <zone id="12" name="Orfen Slow Zone">
-    <settings exitOnDeath="true" />
+  <zone id="12" name="Orfen Slow Zone"  type="Dynamic">
+    <settings exitOnDeath="true" buffRepeat="true" />
     <shape type="Poly" zMin="-4468" zMax="-4118">
       <point x="43084" y="15944"/>
       <point x="45140" y="15816"/>
@@ -141,19 +141,18 @@
       <point x="42480" y="16448"/>
     </shape>
   </zone>
-  <zone id="13" name="Hellbound Desert Zone"
-    type="Conditional">
-    <skill applyEnter="5399,1" removeExit="5399" /><!-- 5399: Heat of Desert -->
-    <shape type="Rect" zMin="0" zMax="-0">
-      <point x="0" y="0" />
-      <point x="0" y="0" />
+  <zone id="13" name="Hellbound Desert Zone" type="Dynamic">
+    <skill applyEnter="5399,1" removeExit="5399" buffRepeat="true" /><!-- 5399: Heat of Desert -->
+    <shape type="Rect" zMin="-3400" zMax="16400">
+      <point x="-32739" y="262127" />
+      <point x="30984" y="232110" />
     </shape>
     <!-- Zone condition -->
     <cond>
       <not>
         <or>
-          <target active_effect_id="0" /><!-- ID of protection potion -->
-          <game time="night" />
+          <target active_effect_id="0" /><!-- ID of protection potion ? -->
+          <game night="true" />
         </or>
       </not>
     </cond>

@@ -20,18 +20,14 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
 
 
-public class L2DamageZone extends L2DefaultZone
+public class L2DamageZone extends L2DynamicZone
 {
-	private ScheduledFuture<?> task;
-
 	@Override
 	protected void onEnter(L2Character character)
 	{
 		character.setInsideZone(FLAG_DANGER, true);
 
 		super.onEnter(character);
-
-		startDamageTask();
 	}
 
 	@Override
@@ -39,36 +35,14 @@ public class L2DamageZone extends L2DefaultZone
 	{
 		character.setInsideZone(FLAG_DANGER, false);
 		super.onExit(character);
-		if (getCharactersInside().size() == 0)
-			stopDamageTask();
 	}
 
-	private synchronized void startDamageTask()
+	@Override
+	protected void checkForDamage(L2Character character)
 	{
-		if (task == null)
-			task = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new DamageTask(), 0, 3300);
-	}
-
-	private synchronized void stopDamageTask()
-	{
-		if (task != null)
-		{
-			task.cancel(false);
-			task = null;
-		}
-	}
-
-	private class DamageTask implements Runnable
-	{
-		public void run()
-		{
-			for (L2Character cha : getCharactersInside().values())
-			{
-				if (_hpDamage > 0)
-					cha.reduceCurrentHp(_hpDamage, null);
-				if (_mpDamage > 0)
-					cha.reduceCurrentMp(_mpDamage);
-			}
-		}
+		if (_hpDamage > 0)
+			character.reduceCurrentHp(_hpDamage, null);
+		if (_mpDamage > 0)
+			character.reduceCurrentMp(_mpDamage);
 	}
 }
