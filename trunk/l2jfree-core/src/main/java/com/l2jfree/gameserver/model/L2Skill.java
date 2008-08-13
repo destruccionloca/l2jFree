@@ -572,7 +572,7 @@ public class L2Skill
 
 	private final boolean			_isDebuff;
 
-	protected L2Skill(StatsSet set)
+	public L2Skill(StatsSet set)
 	{
 		_id = set.getInteger("skill_id");
 		_level = set.getInteger("level");
