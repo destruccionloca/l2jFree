@@ -1,3 +1,6 @@
+-- ---------------------------
+-- Table structure for table `custom_weapon`
+-- ---------------------------
 CREATE TABLE IF NOT EXISTS `custom_weapon` (
   `item_id` decimal(11,0) NOT NULL DEFAULT '0',
   `item_display_id` decimal(11,0) NOT NULL DEFAULT '0',

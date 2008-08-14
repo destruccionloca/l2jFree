@@ -118,7 +118,8 @@
     </shape>
   </zone>
   <zone id="11" name="Orfen Poison Zone" type="Dynamic">
-    <settings applyEnter="4035,4" exitOnDeath="true" buffRepeat="true" affected="playable" />
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable" />
+    <skill applyEnter="4035,4" removeExit="4035" /><!-- 4035: Poison -->
     <shape type="Poly" zMin="-6519" zMax="-6319">
       <point x="43084" y="15944"/>
       <point x="45140" y="15816"/>
