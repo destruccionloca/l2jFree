@@ -29,7 +29,7 @@
   </skill>
   <skill id="4101" levels="12" name="NPC Spinning Slash">
     <table name="#mpConsume">
-      14 22 31 43 55 68 79 84 89 92 94 95
+      13 20 28 38 50 61 71 76 80 83 84 85
     </table>
     <table name="#power">
       46.0 105.0 219.0 417.0 722.0 1136.0 1626.0 1876.0
@@ -440,7 +440,7 @@
   </skill>
   <skill id="4120" levels="12" name="Shock">
     <table name="#mpConsume">
-      27 44 62 85 109 135 157 168 177 183 187 189
+      25 40 56 76 99 121 142 151 159 165 168 170
     </table>
     <table name="#power">
       46.0 105.0 219.0 417.0 722.0 1136.0 1626.0 1876.0
@@ -503,7 +503,7 @@
       1283.0 1312.0 1342.0 1371.0 1400.0
     </table>
     <table name="#mpConsume">
-      12 19 26 35 45 55 65 84 89 92 94 95
+      12 19 26 35 45 55 65 76 80 83 84 85
     </table>
     <table name="#magicLvl">
       10 20 30 40 50 60 70 75 80 85 90 95
@@ -523,7 +523,7 @@
   </skill>
   <skill id="4124" levels="12" name="NPC Spear Attack">
     <table name="#mpConsume">
-      27 44 62 85 109 135 157 168 177 183 187 189
+      25 40 56 76 99 121 142 151 159 165 168 170
     </table>
     <table name="#power">
       122.0 279.0 584.0 1110.0 1923.0 3030.0 4336.0 5002.0
@@ -881,22 +881,42 @@
     <for></for>
   </skill>
   <skill id="4145" levels="3" name="Decrease P. Atk.">
-    <!-- NOT USED IN C4 -->
-    <set name="power" val="0.0" />
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <table name="#Tab-pAtk"> 0.83 0.80 0.77 </table>
+    <set name="magicLvl" val="1"/>
+    <set name="mpConsume" val="0"/>
+    <set name="power" val="100"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="isDebuff" val="true"/>
+    <set name="hitTime" val="0"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="aggroPoints" val="-100"/>
+    <for>
+     <effect name="Debuff" time="5" count="1" val="0" stackOrder="#Tab-pAtk" stackType="pAtkDown">
+       <mul order="0x30" stat="pAtk" val="#Tab-pAtk"/>
+     </effect>
+    </for>
   </skill>
-  <skill id="4146" levels="3" name="Decrease M.Def">
-    <!-- NOT USED IN C4 -->
-    <set name="power" val="0.0" />
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+  <skill id="4146" levels="3" name="Decrease P.Def">
+    <table name="#Tab-pDef"> 0.83 0.80 0.77 </table>
+    <set name="magicLvl" val="1"/>
+    <set name="mpConsume" val="0"/>
+    <set name="power" val="100"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="isDebuff" val="true"/>
+    <set name="hitTime" val="0"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="aggroPoints" val="-100"/>
+    <for>
+     <effect name="Debuff" time="5" count="1" val="0" stackOrder="#Tab-pDef" stackType="pDefDown">
+       <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
+     </effect>
+    </for>
   </skill>
   <skill id="4147" levels="7" name="Area Dispel">
     <!-- NOT USED IN C4 -->
@@ -908,26 +928,21 @@
     <for></for>
   </skill>
   <skill id="4148" levels="12" name="Poison">
-    <!-- Done by KID -->
-    <table name="#dmg">
-      30 50 60 80 110 130 140 140 145 150 165 170
-    </table>
-    <table name="#effectLevel">
-      2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0
-    </table>
-    <set name="power" val="0.0" />
-    <set name="target" val="TARGET_ONE" />
-    <set name="skillType" val="POISON" />
-    <set name="stat" val="POISON" />
-    <set name="isMagic" val="false" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
-    <set name="effectType" val="POISON" />
-    <set name="effectLevel" val="#effectLevel" />
+    <table name="#dmg"> 12 18 24 31 38 44 48 48 49 49 48 48 </table>
+    <table name="#power"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <set name="magicLvl" val="#magicLvl"/>
+    <set name="mpConsume" val="0"/>
+    <set name="power" val="#power"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="0"/>
+    <set name="isDebuff" val="true"/>
+    <set name="skillType" val="POISON"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
     <for>
-      <effect count="6" name="DamOverTime" time="5"
-        val="#dmg" abnormal="poison" />
+      <effect count="1" name="DamOverTime" time="5" val="#dmg" abnormal="poison" stackOrder="#power" stackType="poison"/>
     </for>
   </skill>
   <skill id="4149" levels="12" name="Bleed">
@@ -1380,7 +1395,7 @@
       20261.0 23243.0 26363.0 29567.0 32796.0
     </table>
     <table name="#mpConsume">
-      18 25 35 47 59 72 83 88 91 93 95 96
+      16 23 32 42 53 65 75 79 82 84 85 87
     </table>
     <table name="#magicLvl">
       14 24 34 44 54 64 74 79 84 89 94 99
@@ -1404,7 +1419,7 @@
       11622.0 13182.0 14784.0 16398.0
     </table>
     <table name="#mpConsume">
-      18 25 35 47 59 72 83 88 91 93 95 96
+      16 23 32 42 53 65 75 79 82 84 85 87
     </table>
     <table name="#magicLvl">
       14 24 34 44 54 64 74 79 84 89 94 99
@@ -1480,7 +1495,7 @@
       18 25 35 47 59 72 83 88 91 93 95 96
     </table>
     <table name="#magicLvl">
-      14 24 34 44 54 64 74 79 84 89 94 99
+      16 23 32 42 53 65 75 79 82 84 85 87
     </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="50" />
@@ -1653,7 +1668,7 @@
       20261.0 23243.0 26363.0 29567.0 32796.0
     </table>
     <table name="#mpConsume">
-      18 25 35 47 59 72 83 88 91 93 95 96
+      16 23 32 42 53 65 75 79 82 84 85 87
     </table>
     <table name="#magicLvl">
       14 24 34 44 54 64 74 79 84 89 94 99
@@ -1677,7 +1692,7 @@
       11622.0 13182.0 14784.0 16398.0
     </table>
     <table name="#mpConsume">
-      18 25 35 47 59 72 83 88 91 93 95 96
+      16 23 32 42 53 65 75 79 82 84 85 87
     </table>
     <table name="#magicLvl">
       14 24 34 44 54 64 74 79 84 89 94 99
@@ -1707,7 +1722,7 @@
       50651.0 58107.0 65907.0 73917.0 81989.0
     </table>
     <table name="#mpConsume">
-      18 25 35 47 59 72 83 88 91 93 95 96
+      16 23 32 42 53 65 75 79 82 84 85 87
     </table>
     <table name="#magicLvl">
       14 24 34 44 54 64 74 79 84 89 94 99
