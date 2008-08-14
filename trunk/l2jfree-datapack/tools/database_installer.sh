@@ -187,6 +187,7 @@ full_install()
 	$MYG < ../sql/castle_manor_procure.sql &> /dev/null
 	$MYG < ../sql/castle_manor_production.sql &> /dev/null
 	$MYG < ../sql/castle_siege_guards.sql &> /dev/null
+	$MYG < ../sql/char_creation_items.sql &> /dev/null
 	$MYG < ../sql/char_templates.sql &> /dev/null
 	$MYG < ../sql/character_friends.sql &> /dev/null
 	$MYG < ../sql/character_hennas.sql &> /dev/null
@@ -260,7 +261,7 @@ full_install()
 	$MYG < ../sql/weapon.sql &> /dev/null
 	# L2JFree tables
 	$MYG < ../sql/buff_templates.sql &> /dev/null
-	$MYG < ../sql/character_raidpoints.sql &> /dev/null
+	$MYG < ../sql/character_raid_points.sql &> /dev/null
 	$MYG < ../sql/couples.sql &> /dev/null
 	$MYG < ../sql/ctf.sql &> /dev/null
 	$MYG < ../sql/ctf_teams.sql &> /dev/null
@@ -311,6 +312,7 @@ update_db()
 			$MYG < ../sql/castle_door.sql &> /dev/null
 			$MYG < ../sql/castle_doorupgrade.sql &> /dev/null
 			$MYG < ../sql/castle_siege_guards.sql &> /dev/null
+			$MYG < ../sql/char_creation_items.sql &> /dev/null
 			$MYG < ../sql/char_templates.sql &> /dev/null
 			$MYG < ../sql/class_list.sql &> /dev/null
 			$MYG < ../sql/droplist.sql &> /dev/null

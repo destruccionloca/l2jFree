@@ -6611,7 +6611,7 @@ INSERT INTO `etcitem` VALUES
 (8592, 'Weapon Exchange Coupon - No Grade', 'false', 'none', 1, 'normal', 'paper', 'none', -1, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none'),
 (8593, 'Weapon Exchange Coupon - D Grade', 'false', 'scroll', 1, 'normal', 'paper', 'none', -1, 0, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none'),
 (8594, 'Scroll: Recovery (No Grade)', 'false', 'scroll', 10, 'stackable', 'paper', 'none', -1, 1999, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none'),
-(8595, 'Scroll: Recovery (Grade D)', 'false', 'scroll', 10, 'stackable', 'paper', 'd', -1, 4800 0, 'true', 'true', 'true', 'true', 'C5Item', 'none'),
+(8595, 'Scroll: Recovery (Grade D)', 'false', 'scroll', 10, 'stackable', 'paper', 'd', -1, 4800, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none'),
 (8596, 'Scroll: Recovery (Grade C)', 'false', 'scroll', 10, 'stackable', 'paper', 'c', -1, 13999, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none'),
 (8597, 'Scroll: Recovery (Grade B)', 'false', 'scroll', 10, 'stackable', 'paper', 'b', -1, 27999, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none'),
 (8598, 'Scroll: Recovery (Grade A)', 'false', 'scroll', 10, 'stackable', 'paper', 'a', -1, 47999, 0, 'true', 'true', 'true', 'true', 'C5Item', 'none'),
