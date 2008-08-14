@@ -142,7 +142,8 @@
     </shape>
   </zone>
   <zone id="13" name="Hellbound Desert Zone" type="Dynamic">
-    <skill applyEnter="5399,1" removeExit="5399" buffRepeat="true" affected="playable" /><!-- 5399: Heat of Desert -->
+    <settings exitOnDeath="true" hpDamage="200" buffRepeat="true" affected="playable" />
+    <skill applyEnter="5399,1" removeExit="5399" /><!-- 5399: Heat of Desert -->
     <shape type="Rect" zMin="-3400" zMax="16400">
       <point x="-32739" y="262127" />
       <point x="30984" y="232110" />
