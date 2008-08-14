@@ -18,7 +18,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  *
- * @author  Noctarius & Nille02 & crion
+ * @author  Noctarius & Nille02 & crion & Skatershi
  */
 public enum SystemMessageId
 {
@@ -13651,7 +13651,906 @@ public enum SystemMessageId
 	* ID: 2305<br>
 	* Message: There are $s2 hour(s), $s3 minute(s), and $s4 second(s) remaining in $s1's re-use time.
 	*/
-	S2_HOURS_S3_MINUTES_S4_SECONDS_REMAINING_FOR_REUSE_S1(2305);
+	S2_HOURS_S3_MINUTES_S4_SECONDS_REMAINING_FOR_REUSE_S1(2305),
+	/**
+	* ID: 2306<br>
+	* Message: Resurrection is possible because of the courage charm's effect. Would you like to resurrect now?
+	*/
+	RESURRECTION_POSSIBLE_BECAUSE_CHARM_EFFECT(2306),
+
+	/**
+	* ID: 2307<br>
+	* Message: The target is receiving the Courage Charm's effect
+	*/
+	TARGET_RECEIVE_COURAGE_CHARM_EFFECT(2307),
+
+	/**
+	* ID: 2308<br>
+	* Message: Remaining time: %s1 day(s)
+	*/
+	S1_DAY_REMAINING_TIME(2308),
+
+	/**
+	* ID: 2309<br>
+	* Message: Remaining time: %s1 hour(s)
+	*/
+	S1_HOUR_REMAINING_TIME(2309),
+
+	/**
+	* ID: 2310<br>
+	* Message: Remaining time: %s1 minute(s)
+	*/
+	S1_MINUTE_REMAINING_TIME(2310),
+
+	/**
+	* ID: 2311<br>
+	* Message: You do not have a servitor.
+	*/
+	DONT_HAVE_SERVITOR(2311),
+
+	/**
+	* ID: 2312<br>
+	* Message: You do not have a pet.
+	*/
+	DONT_HAVE_PET(2312),
+
+	/**
+	* ID: 2313<br>
+	* Message: The premium item has arrived.
+	*/
+	PREMIUM_ITEM_ARRIVED(2313),
+
+	/**
+	* ID: 2314<br>
+	* Message: Your Vitality is at maximum.
+	*/
+	VITALITY_IS_AT_MAXIMUM(2314),
+
+	/**
+	* ID: 2315<br>
+	* Message: Your Vitality has increased,
+	*/
+	VITALITY_HAS_INCREASED(2315),
+
+	/**
+	* ID: 2316<br>
+	* Message: Your Vitality has decreased.
+	*/
+	VITALITY_HAS_DECREASED(2316),
+
+	/**
+	* ID: 2317<br>
+	* Message: Your Vitality is fully exhausted.
+	*/
+	VITALITY_IS_EXHAUSTED(2317),
+
+	/**
+	* ID: 2318<br>
+	* Message: Only an enhanced skill can be cancelled.
+	*/
+	ONLY_ENHANCED_SKILL_CAN_BE_CANCELLED(2318),
+
+	/**
+	* ID: 2319<br>
+	* Message: You have acquired $s1 reputation score.
+	*/
+	ACQUIRED_S1_REPUTATION_SCORE(2319),
+
+	/**
+	* ID: 2320<br>
+	* Message: Masterwork item production possible
+	*/
+	MASTERWORK_ITEM_PRODUCTION_POSSIBLE(2320),
+
+	/**
+	* ID: 2321<br>
+	* Message: Current location: Inside Kamaloka
+	*/
+	LOC_INSIDE_KAMALOKA(2321),
+
+	/**
+	* ID: 2322<br>
+	* Message: Current location: Inside Nia Kamaloka
+	*/
+	LOC_INSIDE_NIA_KAMALOKA(2322),
+
+	/**
+	* ID: 2323<br>
+	* Message: Current location: Inside Rim Kamaloka
+	*/
+	LOC_INSIDE_RIM_KAMALOKA(2323),
+
+	/**
+	* ID: 2324<br>
+	* Message: $c1, you cannot enter because you have insufficient PC cafe points.
+	*/
+	C1_CANNOT_ENTER_BECAUSE_INSUFFICIENT_PC_CAFE_POINTS(2324),
+
+	/**
+	* ID: 2325<br>
+	* Message: Another teleport is taking place. Please try again once the teleport in process ends.
+	*/
+	ANOTHER_TELEPORT_IS_TAKING_PLACE(2325),
+
+	/**
+	* ID: 2326<br>
+	* Message: You have acquired 50 Clan's Fame Points.
+	*/
+	ACQUIRED_50_CLAN_FAME_POINTS(2326),
+
+	/**
+	* ID: 2327<br>
+	* Message: You don't have enough reputation score.
+	*/
+	DONT_HAVE_ENOUGHT_REPUTATION_SCORE(2327),
+
+	/**
+	* ID: 2328<br>
+	* Message: Clans of level 4 or above can register for hideaway wars for devastated castle and fortress of the dead.
+	*/
+	CLAN_LEVEL_4_OR_ABOVE_CAN_REGISTER_FOR_HIDEAWAYS_WARS_FOR_DEVASTED_CASTLE_AND_FORTRESS_OF_THE_DEAD(2328),
+
+	/**
+	* ID: 2329<br>
+	* Message: Vitality Level$s1 $s2
+	*/
+	VITALITY_LEVEL_S1_S2(2329),
+
+	/**
+	* ID: 2330<br>
+	* Message: - Experience score increases $s1 percent.
+	*/
+	EXP_SCORE_INCREASES_S1_PERCENT(2330),
+
+	/**
+	* ID: 2331<br>
+	* Message: <Rare> $s1
+	*/
+	RARE_S1(2331),
+
+	/**
+	* ID: 2332<br>
+	* Message: <Supply> $s1
+	*/
+	SUPPLY_S1(2332),
+
+	/**
+	* ID: 2333<br>
+	* Message: The premium item cannot be given because the inventory weight/quantity limit has been exceeded.
+	*/
+	PREMIUM_ITEM_CANNOT_BE_GIVEN_BECAUSE_INVENTORY_WEIGHT_QUANTITY_LIMIT_EXCEECED(2333),
+
+	/**
+	* ID: 2334<br>
+	* Message: Score that shows an individual's fame. It can be obtained by participating in a castle siege, fortress siege, hideout siege, the Underground Coliseum, the Festival of Darkness, and the Olympiad.
+	*/
+	INDIVIDUAL_FAME_CAN_BE_OBTAINED_BY_PARTICIPATING_IN_SIEGE_UNDERGROUND_COLISEUM_FESTIVAL_OF_DARKNESS_AND_OLYMPIAD(2334),
+
+	/**
+	* ID: 2335<br>
+	* Message: There are no more premium items to be found.
+	*/
+	NO_MORE_PREMIUM_ITEM_BE_FOUND(2335),
+
+	/**
+	* ID: 2336<br>
+	* Message: Half Kill!
+	*/
+	HALF_KILL(2336),
+
+	/**
+	* ID: 2337<br>
+	* Message: CP disappears when hit with a half kill skill.
+	*/
+	CP_DISAPPEARS_WHEN_HIT_WITH_HALF_KILL_SKILL(2337),
+
+	/**
+	* ID: 2363<br>
+	* Message: Your account has been banned because it is registered under a different name. Please contact support for more information.
+	*/
+	ACCOUNT_HAS_BEEN_BANNED_BECAUSE_REGISTERED_UNDER_DIFFERENT_NAME(2363),
+
+	/**
+	* ID: 2501<br>
+	* Message: You will be moved to the previous chatting channel tab
+	*/
+	MOVED_TO_THE_PREVIOUS_CHATTING_CHANNEL_TAB(2501),
+
+	/**
+	* ID: 2502<br>
+	* Message: You will be moved to the next chatting channel tab.
+	*/
+	MOVED_TO_THE_NEXT_CHATTING_CHANNEL_TAB(2502),
+
+	/**
+	* ID: 2503<br>
+	* Message: The currently selected target will be cancelled.
+	*/
+	CURRENT_TARGET_WILL_BE_CANCELLED(2503),
+
+	/**
+	* ID: 2504<br>
+	* Message: Focus will be moved to chat window.
+	*/
+	FOCUS_WILL_MOVED_TO_CHAT_WINDOW(2504),
+
+	/**
+	* ID: 2505<br>
+	* Message: Opens or closes the inventory window.
+	*/
+	OPENS_OR_CLOSES_INVENTORY_WINDOW(2505),
+
+	/**
+	* ID: 2506<br>
+	* Message: Temporarily hides all open windows.
+	*/
+	TEMPORARILY_HIDES_ALL_OPEN_WINDOWS(2506),
+
+	/**
+	* ID: 2507<br>
+	* Message: Closes all open windows.
+	*/
+	CLOSES_ALL_OPEN_WINDOWS(2507),
+
+	/**
+	* ID: 2508<br>
+	* Message: Opens the GM manager window.
+	*/
+	OPENS_GM_MANAGER_WINDOW(2508),
+
+	/**
+	* ID: 2509<br>
+	* Message: Opens the GM petition window.
+	*/
+	OPENS_GM_PETITION_WINDOW(2509),
+
+	/**
+	* ID: 2510<br>
+	* Message: The buff in the party window is toggled. Buff for one input, debuff for two inputs, a song and dance for three inputs, turnoff for 4 inputs.
+	*/
+	BUFF_IN_PARTY_WINDOW_IS_TOGGLED(2510),
+
+	/**
+	* ID: 2511<br>
+	* Message: Activates or deactivates minimum frame function
+	*/
+	ACTIVATES_DESACTIVATES_MINIMUM_FRAME(2511),
+
+	/**
+	* ID: 2512<br>
+	* Message: Runs or closes the MSN messenger window.
+	*/
+	RUN_OR_CLOSES_MSN_WINDOW(2512),
+
+	/**
+	* ID: 2513<br>
+	* Message: Assign 1st slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_1_SLOT_SHORTCUT_BASE_WINDOW(2513),
+
+	/**
+	* ID: 2514<br>
+	* Message: Assign 2nd slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_2_SLOT_SHORTCUT_BASE_WINDOW(2514),
+
+	/**
+	* ID: 2515<br>
+	* Message: Assign 3rd slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_3_SLOT_SHORTCUT_BASE_WINDOW(2515),
+
+	/**
+	* ID: 2516<br>
+	* Message: Assign 4th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_4_SLOT_SHORTCUT_BASE_WINDOW(2516),
+
+	/**
+	* ID: 2517<br>
+	* Message: Assign 5th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_5_SLOT_SHORTCUT_BASE_WINDOW(2517),
+
+	/**
+	* ID: 2518<br>
+	* Message: Assign 6th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_6_SLOT_SHORTCUT_BASE_WINDOW(2518),
+
+	/**
+	* ID: 2519<br>
+	* Message: Assign 7th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_7_SLOT_SHORTCUT_BASE_WINDOW(2519),
+
+	/**
+	* ID: 2520<br>
+	* Message: Assign 8th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_8_SLOT_SHORTCUT_BASE_WINDOW(2520),
+
+	/**
+	* ID: 2521<br>
+	* Message: Assign 9th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_9_SLOT_SHORTCUT_BASE_WINDOW(2521),
+
+	/**
+	* ID: 2522<br>
+	* Message: Assign 10th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_10_SLOT_SHORTCUT_BASE_WINDOW(2522),
+
+	/**
+	* ID: 2523<br>
+	* Message: Assign 11th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_11_SLOT_SHORTCUT_BASE_WINDOW(2523),
+
+	/**
+	* ID: 2524<br>
+	* Message: Assign 12th slot shortcut in the shortcut base window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_12_SLOT_SHORTCUT_BASE_WINDOW(2524),
+
+	/**
+	* ID: 2525<br>
+	* Message: Assign 1st slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_1_SLOT_SHORTCUT_EXPANDED_WINDOW(2525),
+
+	/**
+	* ID: 2526<br>
+	* Message: Assign 2nd slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_2_SLOT_SHORTCUT_EXPANDED_WINDOW(2526),
+
+	/**
+	* ID: 2527<br>
+	* Message: Assign 3rd slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_3_SLOT_SHORTCUT_EXPANDED_WINDOW(2527),
+
+	/**
+	* ID: 2528<br>
+	* Message: Assign 4th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_4_SLOT_SHORTCUT_EXPANDED_WINDOW(2528),
+
+	/**
+	* ID: 2529<br>
+	* Message: Assign 5th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_5_SLOT_SHORTCUT_EXPANDED_WINDOW(2529),
+
+	/**
+	* ID: 2530<br>
+	* Message: Assign 6th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_6_SLOT_SHORTCUT_EXPANDED_WINDOW(2530),
+
+	/**
+	* ID: 2531<br>
+	* Message: Assign 7th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_7_SLOT_SHORTCUT_EXPANDED_WINDOW(2531),
+
+	/**
+	* ID: 2532<br>
+	* Message: Assign 8th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_8_SLOT_SHORTCUT_EXPANDED_WINDOW(2532),
+
+	/**
+	* ID: 2533<br>
+	* Message: Assign 9th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_9_SLOT_SHORTCUT_EXPANDED_WINDOW(2533),
+
+	/**
+	* ID: 2534<br>
+	* Message: Assign 10th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_10_SLOT_SHORTCUT_EXPANDED_WINDOW(2534),
+
+	/**
+	* ID: 2535<br>
+	* Message: Assign 11th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_11_SLOT_SHORTCUT_EXPANDED_WINDOW(2535),
+
+	/**
+	* ID: 2536<br>
+	* Message: Assign 12th slot shortcut in the 1st shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_12_SLOT_SHORTCUT_EXPANDED_WINDOW(2536),
+
+	/**
+	* ID: 2537<br>
+	* Message: Assign 1st slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_1_SLOT_SHORTCUT_EXPANDED_WINDOW2(2537),
+
+	/**
+	* ID: 2538<br>
+	* Message: Assign 2nd slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_2_SLOT_SHORTCUT_EXPANDED_WINDOW2(2538),
+
+	/**
+	* ID: 2539<br>
+	* Message: Assign 3rd slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_3_SLOT_SHORTCUT_EXPANDED_WINDOW2(2539),
+
+	/**
+	* ID: 2540<br>
+	* Message: Assign 4th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_4_SLOT_SHORTCUT_EXPANDED_WINDOW2(2540),
+
+	/**
+	* ID: 2541<br>
+	* Message: Assign 5th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_5_SLOT_SHORTCUT_EXPANDED_WINDOW2(2541),
+
+	/**
+	* ID: 2542<br>
+	* Message: Assign 6th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_6_SLOT_SHORTCUT_EXPANDED_WINDOW2(2542),
+
+	/**
+	* ID: 2543<br>
+	* Message: Assign 7th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_7_SLOT_SHORTCUT_EXPANDED_WINDOW2(2543),
+
+	/**
+	* ID: 2544<br>
+	* Message: Assign 8th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_8_SLOT_SHORTCUT_EXPANDED_WINDOW2(2544),
+
+	/**
+	* ID: 2545<br>
+	* Message: Assign 9th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_9_SLOT_SHORTCUT_EXPANDED_WINDOW2(2545),
+
+	/**
+	* ID: 2546<br>
+	* Message: Assign 10th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_10_SLOT_SHORTCUT_EXPANDED_WINDOW2(2546),
+
+	/**
+	* ID: 2547<br>
+	* Message: Assign 11th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_11_SLOT_SHORTCUT_EXPANDED_WINDOW2(2547),
+
+	/**
+	* ID: 2548<br>
+	* Message: Assign 12th slot shortcut in the 2nd shortcut expanded window. Combination of Ctrl and Shift cannot be assigned.
+	*/
+	ASSIGN_12_SLOT_SHORTCUT_EXPANDED_WINDOW2(2548),
+
+	/**
+	* ID: 2549<br>
+	* Message: Move the shortcut page in the shortcut base window to page 1.
+	*/
+	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE1(2549),
+
+	/**
+	* ID: 2550<br>
+	* Message: Move the shortcut page in the shortcut base window to page 2.
+	*/
+	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE2(2550),
+
+	/**
+	* ID: 2551<br>
+	* Message: Move the shortcut page in the shortcut base window to page 3.
+	*/
+	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE3(2551),
+
+	/**
+	* ID: 2552<br>
+	* Message: Move the shortcut page in the shortcut base window to page 4.
+	*/
+	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE4(2552),
+
+	/**
+	* ID: 2553<br>
+	* Message: Move the shortcut page in the shortcut base window to page 5.
+	*/
+	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE5(2553),
+
+	/**
+	* ID: 2554<br>
+	* Message: Move the shortcut page in the shortcut base window to page 6.
+	*/
+	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE6(2554),
+
+	/**
+	* ID: 2555<br>
+	* Message: Move the shortcut page in the shortcut base window to page 7.
+	*/
+	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE7(2555),
+
+	/**
+	* ID: 2556<br>
+	* Message: Move the shortcut page in the shortcut base window to page 8.
+	*/
+	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE8(2556),
+
+	/**
+	* ID: 2557<br>
+	* Message: Move the shortcut page in the shortcut base window to page 9.
+	*/
+	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE9(2557),
+
+	/**
+	* ID: 2558<br>
+	* Message: Move the shortcut page in the shortcut base window to page 10.
+	*/
+	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE10(2558),
+
+	/**
+	* ID: 2559<br>
+	* Message: Opens and closes the action window, executing character actions and game commands.
+	*/
+	OPENS_CLOSES_ACTION_WINDOW(2559),
+
+	/**
+	* ID: 2560<br>
+	* Message: Opens and closes the game bulletin board.
+	*/
+	OPENS_CLOSES_GAME_BOARD(2560),
+
+	/**
+	* ID: 2561<br>
+	* Message: Opens and closes the calculator.
+	*/
+	OPENS_CLOSES_CALCULATOR(2561),
+
+	/**
+	* ID: 2562<br>
+	* Message: Hides or shows the chat window, the window always shows by default.
+	*/
+	HIDE_SHOWS_CHAT_WINDOW(2562),
+
+	/**
+	* ID: 2563<br>
+	* Message: Opens and closes the clan window, confirming information of the included clan and performs the various set-ups related to the clan.
+	*/
+	OPENS_CLOSES_CLAN_WINDOW(2563),
+
+	/**
+	* ID: 2564<br>
+	* Message: Opens and closes the status window, showing the detailed status of a character that you created.
+	*/
+	OPENS_CLOSES_STATUS_WINDOW(2564),
+
+	/**
+	* ID: 2565<br>
+	* Message: Opens and closes the help window.
+	*/
+	OPENS_CLOSES_HELP_WINDOW(2565),
+
+	/**
+	* ID: 2566<br>
+	* Message: Opens or closes the inventory window.
+	*/
+	OPENS_CLOSES_INVENTORY_WINDOW(2566),
+
+	/**
+	* ID: 2567<br>
+	* Message: Opens and closes the macro window for macro settings.
+	*/
+	OPENS_CLOSES_MACRO_WINDOW(2567),
+
+	/**
+	* ID: 2568<br>
+	* Message: Opens and closes the skill window, displaying the list of skills that you can use.
+	*/
+	OPENS_CLOSES_SKILL_WINDOW(2568),
+
+	/**
+	* ID: 2569<br>
+	* Message: Hides or shows the menu window, the window shows by default.
+	*/
+	HIDE_SHOWS_MENU_WINDOW(2569),
+
+	/**
+	* ID: 2570<br>
+	* Message: Opens and closes the mini map, showing detailed information about the game world.
+	*/
+	OPENS_CLOSES_MINI_MAP(2570),
+
+	/**
+	* ID: 2571<br>
+	* Message: Opens and closes the option window.
+	*/
+	OPENS_CLOSES_OPTION_WINDOW(2571),
+
+	/**
+	* ID: 2572<br>
+	* Message: Open and close the party matching window, useful in organizing a party by helping to easily find other members looking for a party.
+	*/
+	OPEN_CLOSE_PARTY_WINDOW(2572),
+
+	/**
+	* ID: 2573<br>
+	* Message: Open and close the quest journal, displaying the progress of quests.
+	*/
+	OPEN_CLOSE_QUEST_WINDOW(2573),
+
+	/**
+	* ID: 2574<br>
+	* Message: Hide or show the radar map, the map will always show by default.
+	*/
+	HIDE_SHOW_RADAR_MAP(2574),
+
+	/**
+	* ID: 2575<br>
+	* Message: Hide or show the status window, the window will show by default.
+	*/
+	HIDE_SHOW_STATUS_WINDOW(2575),
+
+	/**
+	* ID: 2576<br>
+	* Message: Opens and closes the system menu window, enables detailed menu selection.
+	*/
+	OPENS_CLOSES_SYSTEM_WINDOW(2576),
+
+	/**
+	* ID: 2577<br>
+	* Message: Do not show drop items dropped in the world. Game performance speed can be enhanced by using this option.
+	*/
+	DONT_SHOW_DROPS_ITEMS(2577),
+
+	/**
+	* ID: 2578<br>
+	* Message: A key to automatically send whispers to a targeted character.
+	*/
+	KEY_TO_AUTO_SEND_WHISPERS(2578),
+
+	/**
+	* ID: 2579<br>
+	* Message: Turns off all game sounds.
+	*/
+	DISABLE_ALL_GAME_SOUNDS(2579),
+
+	/**
+	* ID: 2580<br>
+	* Message: Expands each shortcut window.
+	*/
+	EXPEND_SHORTCUT_WINDOW(2580),
+
+	/**
+	* ID: 2581<br>
+	* Message: Initialize user interface location to a default location.
+	*/
+	INITIALIZE_USER_INTERFACE(2581),
+
+	/**
+	* ID: 2582<br>
+	* Message: Turns the character to the left.
+	*/
+	TURN_CHARACTER_TO_LEFT(2582),
+
+	/**
+	* ID: 2583<br>
+	* Message: Turns the character to the right.
+	*/
+	TURN_CHARACTER_TO_RIGHT(2583),
+
+	/**
+	* ID: 2584<br>
+	* Message: Moves the character forward.
+	*/
+	MOVE_CHARACTER_FORWARD(2584),
+
+	/**
+	* ID: 2585<br>
+	* Message: Moves the character backwards.
+	*/
+	MOVE_CHARACTER_BACKWARDS(2585),
+
+	/**
+	* ID: 2586<br>
+	* Message: Moves the character forward automatically.
+	*/
+	MOVE_CHARACTER_FORWARD_AUTO(2586),
+
+	/**
+	* ID: 2587<br>
+	* Message: Reduces the character's view.
+	*/
+	REDUCE_CHARACTER_VIEW(2587),
+
+	/**
+	* ID: 2588<br>
+	* Message: Expands the character's view.
+	*/
+	EXPANDS_CHARACTER_VIEW(2588),
+
+	/**
+	* ID: 2589<br>
+	* Message: Rapidly turns character's view to the front and back.
+	*/
+	RAPID_TURN_CHARACTER_VIEW(2589),
+
+	/**
+	* ID: 2590<br>
+	* Message: Opens the GM manager window.
+	*/
+	OPEN_THE_GM_MANAGER_WINDOW(2590),
+
+	/**
+	* ID: 2591<br>
+	* Message: Opens the GM petition window.
+	*/
+	OPEN_THE_GM_PETITION_WINDOW(2591),
+
+	/**
+	* ID: 2592<br>
+	* Message: Rapidly converts the contents of an expanded shortcut window. This function cannot be used currently.
+	*/
+	RAPID_CONVERTS_CONTENTS_OF_EXPANDED_SHORTCUT_WINDOW(2592),
+
+	/**
+	* ID: 2593<br>
+	* Message: Moves a character's view ahead by a certain distance.
+	*/
+	MOVE_CHARACTER_VIEW_AHEAD(2593),
+
+	/**
+	* ID: 2594<br>
+	* Message: Moves a character's view behind by a certain distance.
+	*/
+	MOVE_CHARACTER_VIEW_BEHIND(2594),
+
+	/**
+	* ID: 2595<br>
+	* Message: Restores the character's view to default.
+	*/
+	RESTORE_CHARACTER_VIEW(2595),
+
+	/**
+	* ID: 2596<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION1(2596),
+
+	/**
+	* ID: 2597<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION2(2597),
+
+	/**
+	* ID: 2598<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION3(2598),
+
+	/**
+	* ID: 2599<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION4(2599),
+
+	/**
+	* ID: 2600<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION5(2600),
+
+	/**
+	* ID: 2601<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION6(2601),
+
+	/**
+	* ID: 2602<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION7(2602),
+
+	/**
+	* ID: 2603<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION8(2603),
+
+	/**
+	* ID: 2604<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION9(2604),
+
+	/**
+	* ID: 2605<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION10(2605),
+
+	/**
+	* ID: 2606<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION11(2606),
+
+	/**
+	* ID: 2607<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION12(2607),
+
+	/**
+	* ID: 2608<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION13(2608),
+
+	/**
+	* ID: 2609<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION14(2609),
+
+	/**
+	* ID: 2610<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION15(2610),
+
+	/**
+	* ID: 2611<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION16(2611),
+
+	/**
+	* ID: 2612<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION17(2612),
+
+	/**
+	* ID: 2613<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION18(2613),
+
+	/**
+	* ID: 2614<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION19(2614),
+
+	/**
+	* ID: 2615<br>
+	* Message: No translation required
+	*/
+	NO_TRANSLATION20(2615),
+
+	/**
+	* ID: 2616<br>
+	* Message: If you join the clan academy, you can become a clan member and learn the game system until you become level 40. If you want more fun, we recommend that you join the clan academy.
+	*/
+	JOIN_CLAN_ACADEMY_INFORMATION(2616),
+
+	/**
+	* ID: 2617<br>
+	* Message: If you become level 40, the second class change is available. If you complete the second class change, the character's capability is enhanced.
+	*/
+	BECOME_LEVEL_40_INFORMATION(2617);
 
 
 	private final SystemMessage _systemMessage;
