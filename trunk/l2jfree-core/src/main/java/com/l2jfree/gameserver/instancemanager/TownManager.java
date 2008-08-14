@@ -129,6 +129,12 @@ public class TownManager
 		case 19:
 			nearestTown = "Floran Village";
 			break;
+		case 20:
+			nearestTown = "Kamael Village";
+			break;
+		case 21:
+			nearestTown = "Fantasy Isle";
+			break;
 		default:
 			nearestTown = "";
 			break;
@@ -223,8 +229,16 @@ public class TownManager
 			return getTown(14);
 		case 15: //Goddard
 			return getTown(15);
-		case 25: //Schuttgart - FIXME
+		case 16: // Schuttgart
 			return getTown(16);
+		case 17: // Dimensional Gap
+			return getTown(17);
+		case 18: // Primeval Isle
+			return getTown(18);
+		case 19: // Kamael Village 
+			return getTown(20);
+		case 20: // Fantasy Isle
+			return getTown(21);
 		default:
 			return getTown(Config.ALT_DEFAULT_RESTARTTOWN);
 		}
