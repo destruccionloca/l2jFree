@@ -33,7 +33,7 @@ class Quest (JQuest) :
     classId = st.getPlayer().getClassId().getId()
     if event == "1" :
         st.set("id","0")
-        if level >= 19 and classId == 0x0a and st.getQuestItemsCount(MARK_OF_FAITH) == 0 :
+        if level >= 18 and classId == 0x0a and st.getQuestItemsCount(MARK_OF_FAITH) == 0 :
           st.set("cond","1")
           st.setState(State.STARTED)
           st.playSound("ItemSound.quest_accept")
@@ -44,9 +44,9 @@ class Quest (JQuest) :
               htmltext = "30022-02a.htm"
             else:
               htmltext = "30022-02.htm"
-        elif level<19 and classId == 0x0a :
+        elif level<18 and classId == 0x0a :
             htmltext = "30022-03.htm"
-        elif level >= 19 and classId == 0x0a and st.getQuestItemsCount(MARK_OF_FAITH) == 1 :
+        elif level >= 18 and classId == 0x0a and st.getQuestItemsCount(MARK_OF_FAITH) == 1 :
             htmltext = "30022-04.htm"
     return htmltext
 
@@ -76,7 +76,7 @@ class Quest (JQuest) :
         st.takeItems(LETTER_OF_ORDER2,1)
         st.giveItems(MARK_OF_FAITH,1)
         st.set("cond","0")
-        st.exitQuest(False) 
+        st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")
    elif npcId == 30022 and st.getInt("cond") and st.getQuestItemsCount(LETTER_OF_ORDER1)==1 :
         if st.getQuestItemsCount(BOOK_OF_VIVI) == 1 and st.getQuestItemsCount(BOOK_OF_SIMLON)>0 and st.getQuestItemsCount(BOOK_OF_PRAGA) == 1 :
@@ -150,12 +150,12 @@ class Quest (JQuest) :
    if npcId == 20026 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(PENDANT_OF_MOTHER) == 0 :
-          st.giveItems(PENDANT_OF_MOTHER,int(1))
+          st.giveItems(PENDANT_OF_MOTHER,1)
           st.playSound("ItemSound.quest_middle")
    elif npcId == 20029 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(PENDANT_OF_MOTHER) == 0 :
-          st.giveItems(PENDANT_OF_MOTHER,int(1))
+          st.giveItems(PENDANT_OF_MOTHER,1)
           st.playSound("ItemSound.quest_middle")
    return
 

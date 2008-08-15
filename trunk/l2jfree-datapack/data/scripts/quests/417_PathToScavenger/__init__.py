@@ -38,7 +38,7 @@ class Quest (JQuest) :
     classId = st.getPlayer().getClassId().getId()
     if event == "1" :
           st.set("id","0")
-          if level >= 19 and classId == 0x35 and st.getQuestItemsCount(RING_OF_RAVEN) == 0 :
+          if level >= 18 and classId == 0x35 and st.getQuestItemsCount(RING_OF_RAVEN) == 0 :
             st.set("cond","1")
             st.setState(State.STARTED)
             st.playSound("ItemSound.quest_accept")
@@ -49,9 +49,9 @@ class Quest (JQuest) :
                   htmltext = "30524-02a.htm"
                 else:
                   htmltext = "30524-08.htm"
-          elif level < 19 and classId == 0x35 :
+          elif level < 18 and classId == 0x35 :
                 htmltext = "30524-02.htm"
-          elif level >= 19 and classId == 0x35 and st.getQuestItemsCount(RING_OF_RAVEN) == 1 :
+          elif level >= 18 and classId == 0x35 and st.getQuestItemsCount(RING_OF_RAVEN) == 1 :
                 htmltext = "30524-04.htm"
     elif event == "30519_1" :
         if st.getQuestItemsCount(PIPIS_LETTER):
@@ -287,7 +287,7 @@ class Quest (JQuest) :
    elif npcId == 27058 :
         if st.getInt("cond") and st.getQuestItemsCount(BEAR_PIC) == 1 and st.getQuestItemsCount(HONEY_JAR) < 5 :
           if npc.isSpoil() :
-            st.giveItems(HONEY_JAR,int(1))
+            st.giveItems(HONEY_JAR,1)
             if st.getQuestItemsCount(HONEY_JAR) == 5 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","6")
@@ -297,7 +297,7 @@ class Quest (JQuest) :
         if st.getInt("cond") and st.getQuestItemsCount(TARANTULA_PIC) == 1 and st.getQuestItemsCount(BEAD) < 20 :
           if npc.isSpoil() :
             if st.getRandom(2) == 0 :
-              st.giveItems(BEAD,int(1))
+              st.giveItems(BEAD,1)
               if st.getQuestItemsCount(BEAD) == 20 :
                 st.playSound("ItemSound.quest_middle")
                 st.set("cond","8")
@@ -307,7 +307,7 @@ class Quest (JQuest) :
         if st.getInt("cond") and st.getQuestItemsCount(TARANTULA_PIC) == 1 and st.getQuestItemsCount(BEAD) < 20 :
           if npc.isSpoil() :
             if st.getRandom(10) < 6 :
-              st.giveItems(BEAD,int(1))
+              st.giveItems(BEAD,1)
               if st.getQuestItemsCount(BEAD) == 20 :
                 st.playSound("ItemSound.quest_middle")
                 st.set("cond","8")

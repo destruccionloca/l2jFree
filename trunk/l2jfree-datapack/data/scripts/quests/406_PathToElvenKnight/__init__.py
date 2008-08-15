@@ -35,7 +35,7 @@ class Quest (JQuest) :
              htmltext = "30327-02.htm"
              st.exitQuest(1)
        else:
-          if player.getLevel()<19 :
+          if player.getLevel()<18 :
              htmltext = "30327-03.htm"
              st.exitQuest(1)
           else:
@@ -88,8 +88,11 @@ class Quest (JQuest) :
             htmltext = "30327-11.htm"
         elif cond == 6 :
             st.takeItems(KLUTO_BOX,-1)
+            st.rewardItems(57,81900)
+            st.addExpAndSp(160267,11576)
+            player.sendPacket(SocialAction(player.getObjectId(),3))
             st.set("cond","0")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
             if st.getQuestItemsCount(ELVEN_KNIGHT_BROOCH) == 0 :
               st.giveItems(ELVEN_KNIGHT_BROOCH,1)
@@ -122,7 +125,7 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    if npcId != 20782 :
         if st.getInt("cond")==1 and st.getQuestItemsCount(TOPAZ_PIECE)<20 and st.getRandom(100)<70 :
-            st.giveItems(TOPAZ_PIECE,int(1))
+            st.giveItems(TOPAZ_PIECE,1)
             if st.getQuestItemsCount(TOPAZ_PIECE) == 20 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","2")
@@ -130,7 +133,7 @@ class Quest (JQuest) :
               st.playSound("ItemSound.quest_itemget")
    else :
         if st.getInt("cond")==4 and st.getQuestItemsCount(EMERALD_PIECE)<20 and st.getRandom(100)<50 :
-            st.giveItems(EMERALD_PIECE,int(1))
+            st.giveItems(EMERALD_PIECE,1)
             if st.getQuestItemsCount(EMERALD_PIECE) == 20 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","5")
@@ -138,7 +141,7 @@ class Quest (JQuest) :
               st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(406,qn,"Path To Elven Knight")
+QUEST       = Quest(406,qn,"Path of the Elven Knight")
 
 QUEST.addStartNpc(30327)
 

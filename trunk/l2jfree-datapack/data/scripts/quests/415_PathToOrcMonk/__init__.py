@@ -52,7 +52,7 @@ class Quest (JQuest) :
               htmltext = "30587-02.htm"
               st.exitQuest(1)
           else:
-            if player.getLevel()<19 :
+            if player.getLevel()<18 :
               htmltext = "30587-03.htm"
             else:
               if st.getQuestItemsCount(KHAVATARI_TOTEM) != 0 :
@@ -86,6 +86,8 @@ class Quest (JQuest) :
     elif event == "31979-03.htm" :
         st.takeItems(SCROLL_FIERY_SPIRIT,1)
         st.giveItems(KHAVATARI_TOTEM,1)
+        st.rewardItems(57,81900)
+        st.addExpAndSp(295862,19344)
         player.sendPacket(SocialAction(player.getObjectId(),3))
         st.set("cond","0")
         st.set("onlyone","1")
@@ -169,6 +171,8 @@ class Quest (JQuest) :
         st.takeItems(SCROLL_FIERY_SPIRIT,1)
         st.takeItems(TORUKUS_LETTER,1)
         st.giveItems(KHAVATARI_TOTEM,1)
+        st.rewardItems(57,81900)
+        st.addExpAndSp(295862,19344)
         player.sendPacket(SocialAction(player.getObjectId(),3))
         st.set("cond","0")
         st.set("onlyone","1")

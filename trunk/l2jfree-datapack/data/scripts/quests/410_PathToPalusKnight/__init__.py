@@ -36,7 +36,7 @@ class Quest (JQuest) :
         htmltext = "30329-06.htm"
         st.giveItems(PALLUS_TALISMAN,1)
     elif event == "410_1" :
-          if level >= 19 and classId == 0x1f and st.getQuestItemsCount(GAZE_OF_ABYSS) == 0 :
+          if level >= 18 and classId == 0x1f and st.getQuestItemsCount(GAZE_OF_ABYSS) == 0 :
             htmltext = "30329-05.htm"
             return htmltext
           elif classId != 0x1f :
@@ -44,9 +44,9 @@ class Quest (JQuest) :
                 htmltext = "30329-02a.htm"
               else:
                 htmltext = "30329-03.htm"
-          elif level<19 and classId == 0x1f :
+          elif level<18 and classId == 0x1f :
               htmltext = "30329-02.htm"
-          elif level >= 19 and classId == 0x1f and st.getQuestItemsCount(GAZE_OF_ABYSS) == 1 :
+          elif level >= 18 and classId == 0x1f and st.getQuestItemsCount(GAZE_OF_ABYSS) == 1 :
               htmltext = "30329-04.htm"
     elif event == "30329_2" :
             htmltext = "30329-10.htm"
@@ -54,11 +54,13 @@ class Quest (JQuest) :
             st.takeItems(LYCANTHROPE_SKULL,st.getQuestItemsCount(LYCANTHROPE_SKULL))
             st.giveItems(VIRGILS_LETTER,1)
             st.set("cond","3")
+            st.playSound("ItemSound.quest_middle")
     elif event == "30422_1" :
           htmltext = "30422-02.htm"
           st.takeItems(VIRGILS_LETTER,1)
           st.giveItems(MORTE_TALISMAN,1)
           st.set("cond","4")
+          st.playSound("ItemSound.quest_middle")
     elif event == "30422_2" :
             htmltext = "30422-06.htm"
             st.takeItems(MORTE_TALISMAN,1)
@@ -66,6 +68,7 @@ class Quest (JQuest) :
             st.takeItems(PREDATOR_CARAPACE,st.getQuestItemsCount(PREDATOR_CARAPACE))
             st.giveItems(COFFIN_ETERNAL_REST,1)
             st.set("cond","6")
+            st.playSound("ItemSound.quest_middle")
     return htmltext
 
 
@@ -94,8 +97,11 @@ class Quest (JQuest) :
             htmltext = "30329-11.htm"
             st.takeItems(COFFIN_ETERNAL_REST,1)
             st.giveItems(GAZE_OF_ABYSS,1)
+            st.rewardItems(57,81900)
+            st.addExpAndSp(295862,19804)
+            player.sendPacket(SocialAction(player.getObjectId(),3))
             st.set("cond","0")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
         elif st.getQuestItemsCount(MORTE_TALISMAN) or st.getQuestItemsCount(VIRGILS_LETTER) :
             htmltext = "30329-12.htm"
@@ -121,7 +127,7 @@ class Quest (JQuest) :
    if npcId == 20049 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(PALLUS_TALISMAN) == 1 and st.getQuestItemsCount(LYCANTHROPE_SKULL)<13 :
-          st.giveItems(LYCANTHROPE_SKULL,int(1))
+          st.giveItems(LYCANTHROPE_SKULL,1)
           if st.getQuestItemsCount(LYCANTHROPE_SKULL) == 13 :
             st.playSound("ItemSound.quest_middle")
             st.set("cond","2")
@@ -130,14 +136,14 @@ class Quest (JQuest) :
    elif npcId == 20038 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(MORTE_TALISMAN) == 1 and st.getQuestItemsCount(PREDATOR_CARAPACE)<1 :
-          st.giveItems(PREDATOR_CARAPACE,int(1))
+          st.giveItems(PREDATOR_CARAPACE,1)
           st.playSound("ItemSound.quest_middle")
           if st.getQuestItemsCount(TRIMDEN_SILK) >= 5 and st.getQuestItemsCount(PREDATOR_CARAPACE)>0 :
             st.set("cond","5")
    elif npcId == 20043 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(MORTE_TALISMAN) == 1 and st.getQuestItemsCount(TRIMDEN_SILK)<5 :
-          st.giveItems(TRIMDEN_SILK,int(1))
+          st.giveItems(TRIMDEN_SILK,1)
           if st.getQuestItemsCount(TRIMDEN_SILK) == 5 :
             st.playSound("ItemSound.quest_middle")
             if st.getQuestItemsCount(TRIMDEN_SILK) >= 5 and st.getQuestItemsCount(PREDATOR_CARAPACE)>0 :
@@ -146,7 +152,7 @@ class Quest (JQuest) :
             st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(410,qn,"Path To Palus Knight")
+QUEST       = Quest(410,qn,"Path of the Palus Knight")
 
 QUEST.addStartNpc(30329)
 

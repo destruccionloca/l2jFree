@@ -35,7 +35,7 @@ class Quest (JQuest) :
     if event == "1" :
       st.set("id","0")
       if player.getClassId().getId() == 0x0a :
-        if player.getLevel() >= 19 :
+        if player.getLevel() >= 18 :
           if st.getQuestItemsCount(BEAD_OF_SEASON) :
             htmltext = "30391-03.htm"
           else:
@@ -204,7 +204,7 @@ class Quest (JQuest) :
         st.takeItems(WATER_NECKLACE,st.getQuestItemsCount(WATER_NECKLACE))
         st.takeItems(EARTH_RING,st.getQuestItemsCount(EARTH_RING))
         st.set("cond","0")
-        st.exitQuest(False) 
+        st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")
         if st.getQuestItemsCount(BEAD_OF_SEASON) == 0 :
           st.giveItems(BEAD_OF_SEASON,1)
@@ -222,7 +222,7 @@ class Quest (JQuest) :
         st.set("id","0")
         #Only get a KEY_OF_FLAME if we are on the quest for the Fire Salamander
         if st.getInt("cond") == 2 :
-            st.giveItems(KEY_OF_FLAME,int(1))
+            st.giveItems(KEY_OF_FLAME,1)
             st.playSound("ItemSound.quest_middle")
             #Increase the Cond so we can only get one key
             st.set("cond","3")
@@ -230,7 +230,7 @@ class Quest (JQuest) :
         st.set("id","0")
         #Only get a SPARKLE_PEBBLE if we are on the quest for the Water Undine
         if st.getInt("cond") == 8 and st.getQuestItemsCount(SPARKLE_PEBBLE) < 2:
-            st.giveItems(SPARKLE_PEBBLE,int(1))
+            st.giveItems(SPARKLE_PEBBLE,1)
             if st.getQuestItemsCount(SPARKLE_PEBBLE) == 2 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","9")
@@ -240,7 +240,7 @@ class Quest (JQuest) :
         st.set("id","0")
         #Only get a RED_SOIL if we are on the quest for the Earth Snake
         if st.getInt("cond") == 11 :
-            st.giveItems(RED_SOIL,int(1))
+            st.giveItems(RED_SOIL,1)
             st.playSound("ItemSound.quest_middle")
             st.set("cond","12")
    return

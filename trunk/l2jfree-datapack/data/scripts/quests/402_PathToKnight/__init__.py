@@ -47,7 +47,7 @@ class Quest (JQuest) :
     church_mark1,church_mark2,church_mark3=st.getQuestItemsCount(EINHASAD_CHURCH_MARK1),st.getQuestItemsCount(EINHASAD_CHURCH_MARK2),st.getQuestItemsCount(EINHASAD_CHURCH_MARK3)
     if event == "30417-02a.htm" :
        if classid == 0x00 :
-          if level >= 19 :
+          if level >= 18 :
              if st.getQuestItemsCount(SWORD_OF_RITUAL)>0 :
                 htmltext = "30417-04.htm"
              else:
@@ -104,7 +104,7 @@ class Quest (JQuest) :
           st.takeItems(MARK_OF_ESQUIRE,-1)
           st.giveItems(SWORD_OF_RITUAL,1)
           st.set("cond","0")
-          st.exitQuest(False) 
+          st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
         else:
           htmltext=default
@@ -115,7 +115,7 @@ class Quest (JQuest) :
           st.takeItems(MARK_OF_ESQUIRE,-1)
           st.giveItems(SWORD_OF_RITUAL,1)
           st.set("cond","0")
-          st.exitQuest(False) 
+          st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
         else:
           htmltext=default
@@ -156,7 +156,7 @@ class Quest (JQuest) :
            st.takeItems(MARK_OF_ESQUIRE,-1)
            st.giveItems(SWORD_OF_RITUAL,1)
            st.set("cond","0")
-           st.exitQuest(False) 
+           st.exitQuest(False)
            st.playSound("ItemSound.quest_finish")
    elif npcId == 30332 and cond==1 and squire :
        if not guards_mark1 and not coin1 :
@@ -250,7 +250,7 @@ class Quest (JQuest) :
    if st.getInt("cond") :
       item_required,item,max,chance=DROPLIST[npc.getNpcId()]
       if st.getQuestItemsCount(item_required) and st.getQuestItemsCount(item)<max and st.getRandom(100)<chance :
-        st.giveItems(item,int(1))
+        st.giveItems(item,1)
         if st.getQuestItemsCount(item) == max :
           st.playSound("ItemSound.quest_middle")
         else:

@@ -28,7 +28,7 @@ class Quest (JQuest) :
     level = st.getPlayer().getLevel()
     classId = st.getPlayer().getClassId().getId()
     if event == "1" :
-        if level >= 19 and classId == 0x1f and st.getQuestItemsCount(IRON_HEART) == 0 :
+        if level >= 18 and classId == 0x1f and st.getQuestItemsCount(IRON_HEART) == 0 :
           st.set("cond","1")
           st.setState(State.STARTED)
           st.playSound("ItemSound.quest_accept")
@@ -40,10 +40,10 @@ class Quest (JQuest) :
             else:
               htmltext = "30416-02.htm"
               st.exitQuest(1)
-        elif level<19 and classId == 0x1f :
+        elif level<18 and classId == 0x1f :
             htmltext = "30416-03.htm"
             st.exitQuest(1)
-        elif level >= 19 and classId == 0x1f and st.getQuestItemsCount(IRON_HEART) == 1 :
+        elif level >= 18 and classId == 0x1f and st.getQuestItemsCount(IRON_HEART) == 1 :
             htmltext = "30416-04.htm"
     elif event == "30419_1" :
           htmltext = "30419-05.htm"
@@ -82,6 +82,9 @@ class Quest (JQuest) :
           htmltext = "30416-06.htm"
           st.takeItems(ARKENIA_RECOMMEND,1)
           st.giveItems(IRON_HEART,1)
+          st.rewardItems(57,81900)
+          st.addExpAndSp(160267,14566)
+          player.sendPacket(SocialAction(player.getObjectId(),3))
           st.set("cond","0")
           st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
@@ -139,12 +142,12 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    if npcId == 27036 :
         if st.getInt("cond") >= 1 and st.getQuestItemsCount(SHILENS_TEARS) == 0 :
-          st.giveItems(SHILENS_TEARS,int(1))
+          st.giveItems(SHILENS_TEARS,1)
           st.playSound("ItemSound.quest_middle")
           st.set("cond","6")
    elif npcId == 20369 :
         if st.getInt("cond") >= 1 and st.getQuestItemsCount(LEIKANS_NOTE) == 1 and st.getQuestItemsCount(ONYX_BEASTS_MOLAR)<10 :
-          st.giveItems(ONYX_BEASTS_MOLAR,int(1))
+          st.giveItems(ONYX_BEASTS_MOLAR,1)
           if st.getQuestItemsCount(ONYX_BEASTS_MOLAR) == 10 :
               st.playSound("ItemSound.quest_middle")
               st.set("cond","4")
@@ -152,7 +155,7 @@ class Quest (JQuest) :
               st.playSound("ItemSound.quest_itemget")
    return
 
-QUEST       = Quest(411,qn,"Path To Assassin")
+QUEST       = Quest(411,qn,"Path of the Assassin")
 
 QUEST.addStartNpc(30416)
 

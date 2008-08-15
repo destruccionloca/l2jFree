@@ -29,7 +29,7 @@ class Quest (JQuest) :
     classId = st.getPlayer().getClassId().getId()
     if event == "1" :
         st.set("id","0")
-        if level >= 19 and classId == 0x19 and st.getQuestItemsCount(LEAF_OF_ORACLE) == 0 :
+        if level >= 18 and classId == 0x19 and st.getQuestItemsCount(LEAF_OF_ORACLE) == 0 :
           st.set("cond","1")
           st.setState(State.STARTED)
           st.playSound("ItemSound.quest_accept")
@@ -40,9 +40,9 @@ class Quest (JQuest) :
               htmltext = "30293-02a.htm"
             else:
               htmltext = "30293-02.htm"
-        elif level<19 and classId == 0x19 :
+        elif level<18 and classId == 0x19 :
             htmltext = "30293-03.htm"
-        elif level >= 19 and classId == 0x19 and st.getQuestItemsCount(LEAF_OF_ORACLE) == 1 :
+        elif level >= 18 and classId == 0x19 and st.getQuestItemsCount(LEAF_OF_ORACLE) == 1 :
             htmltext = "30293-04.htm"
     elif event == "30424-08.htm" :
         if st.getInt("cond") :
@@ -94,7 +94,7 @@ class Quest (JQuest) :
             st.takeItems(CRYSTAL_MEDALLION,1)
             st.giveItems(LEAF_OF_ORACLE,1)
             st.set("cond","0")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
           else:
             htmltext = "30293-07.htm"
@@ -146,13 +146,13 @@ class Quest (JQuest) :
    if npcId == 27032 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(LIZARD_CAPTAIN_ORDER) == 0 :
-          st.giveItems(LIZARD_CAPTAIN_ORDER,int(1))
+          st.giveItems(LIZARD_CAPTAIN_ORDER,1)
           st.playSound("ItemSound.quest_middle")
           st.set("cond","3")
    elif npcId == 27035 :
         st.set("id","0")
         if st.getInt("cond") and st.getQuestItemsCount(TAMATOS_NECKLACE) == 0 :
-          st.giveItems(TAMATOS_NECKLACE,int(1))
+          st.giveItems(TAMATOS_NECKLACE,1)
           st.playSound("ItemSound.quest_middle")
           st.set("cond","5")
    return

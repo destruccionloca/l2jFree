@@ -37,7 +37,7 @@ class Quest (JQuest) :
         st.playSound("ItemSound.quest_accept")
         st.giveItems(SIDRAS_LETTER1,1)
     elif event == "413_1" :
-          if level >= 19 and classId == 0x26 and st.getQuestItemsCount(ORB_OF_ABYSS) == 0 :
+          if level >= 18 and classId == 0x26 and st.getQuestItemsCount(ORB_OF_ABYSS) == 0 :
             htmltext = "30330-05.htm"
             return htmltext
           elif classId != 0x26 :
@@ -45,9 +45,9 @@ class Quest (JQuest) :
                 htmltext = "30330-02a.htm"
               else:
                 htmltext = "30330-03.htm"
-          elif level<19 and classId == 0x26 :
+          elif level<18 and classId == 0x26 :
               htmltext = "30330-02.htm"
-          elif level >= 19 and classId == 0x26 and st.getQuestItemsCount(ORB_OF_ABYSS) == 1 :
+          elif level >= 18 and classId == 0x26 and st.getQuestItemsCount(ORB_OF_ABYSS) == 1 :
               htmltext = "30330-04.htm"
     elif event == "30377_1" :
           htmltext = "30377-02.htm"
@@ -90,7 +90,7 @@ class Quest (JQuest) :
             st.takeItems(GARMIEL_BOOK,1)
             st.giveItems(ORB_OF_ABYSS,1)
             st.set("cond","0")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
    elif npcId == 30377 and st.getInt("cond") :
         if st.getQuestItemsCount(SIDRAS_LETTER1) == 1 :
