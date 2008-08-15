@@ -12507,15 +12507,21 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void transform(L2Transformation transformation)
 	{
-		if (this.isTransformed())
+		if (isTransformed())
 		{
 			// You already polymorphed and cannot polymorph again.
-			sendPacket(new SystemMessage(SystemMessageId.YOU_ALREADY_POLYMORPHED_AND_CANNOT_POLYMORPH_AGAIN));
+			sendPacket(SystemMessageId.YOU_ALREADY_POLYMORPHED_AND_CANNOT_POLYMORPH_AGAIN);
 			return;
 		}
+		if(isMounted())
+		{
+			// Get off the strider or something else if character is mounted
+			dismount();
+		}
+
 		_transformation = transformation;
 		transformation.onTransform(this);
-		this.broadcastUserInfo();
+		broadcastUserInfo();
 	}
 
 	public void untransform()
