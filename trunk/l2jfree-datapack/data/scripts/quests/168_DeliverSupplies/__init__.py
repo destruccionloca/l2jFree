@@ -91,7 +91,7 @@ class Quest (JQuest) :
             htmltext = "30357-01.htm"
             st.takeItems(SENTRY_BLADE3_ID,1)
             st.giveItems(OLD_BRONZE_SWORD_ID,1)
-            if st.getQuestItemsCount(OLD_BRONZE_SWORD_ID)==2
+            if st.getQuestItemsCount(OLD_BRONZE_SWORD_ID) == 2:
               st.set("cond","4")
               st.playSound("ItemSound.quest_middle")
        elif npcId == 30357 and st.getInt("cond") in [3,4] and st.getQuestItemsCount(SENTRY_BLADE3_ID)==0 :
