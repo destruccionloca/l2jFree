@@ -63,7 +63,7 @@ INSERT INTO `buff_templates` VALUES
 (1, 'SupportMagic', 4325, 'Vampiric Rage', 1, 1, 5, 6, 62, 0, 1, 0, 0, 0),
 (1, 'SupportMagic', 4326, 'Regeneration', 1, 1, 6, 6, 62, 0, 1, 0, 0, 0),
 (1, 'SupportMagic', 4327, 'Haste', 1, 1, 7, 6, 39, 0, 1, 0, 0, 0),
-(1, 'SupportMagic', 5632, 'Haste', 2, 1, 8, 40, 62, 0, 1, 0, 0, 0),
+(1, 'SupportMagic', 5632, 'Haste', 1, 1, 8, 40, 62, 0, 1, 0, 0, 0),
 (1, 'SupportMagic', 4328, 'Bless the Soul', 1, 1, 9, 6, 62, 0, 2, 0, 0, 0),
 (1, 'SupportMagic', 4329, 'Acumen', 1, 1, 10, 6, 62, 0, 2, 0, 0, 0),
 (1, 'SupportMagic', 4330, 'Concentration', 1, 1, 11, 6, 62, 0, 2, 0, 0, 0),
