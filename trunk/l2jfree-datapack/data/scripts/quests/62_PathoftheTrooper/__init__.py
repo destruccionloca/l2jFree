@@ -4,6 +4,7 @@ import sys
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets      import SocialAction
 
 qn = "62_PathoftheTrooper"
 
@@ -44,7 +45,7 @@ class Quest (JQuest) :
         if id == State.COMPLETED :
             htmltext = "32197-07.htm"
         elif npcId == Gwain :
-            if player.getLevel() < 19 :
+            if player.getLevel() < 18 :
                 htmltext = "32197-00a.htm"
                 st.exitQuest(1)
             elif player.getClassId().getId() != 123 :
@@ -64,9 +65,11 @@ class Quest (JQuest) :
                 else :
                     st.takeItems(Heart,-1)
                     st.giveItems(Gwain_Rec,1)
-                    st.addExpAndSp(3200,4736)
+                    st.rewardItems(57,81900)
+                    st.addExpAndSp(228064,13773)
                     st.exitQuest(False)
                     st.playSound("ItemSound.quest_finish")
+                    player.sendPacket(SocialAction(player.getObjectId(),3))
                     htmltext = "32197-06.htm"
         elif npcId == Shubain :
             if cond == 1 :

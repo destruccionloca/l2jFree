@@ -6,7 +6,6 @@ from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
-#Complete - 90%. Bug in official server quest, need add 4 etap's
 qn = "174_SupplyCheck"
 
 #NPC'S
@@ -66,8 +65,10 @@ class Quest (JQuest) :
            st.giveItems(37,1)
            st.giveItems(43,1)
            st.giveItems(49,1)
+           st.rewardItems(57,2466)
            st.giveItems(2386,1)
            st.playSound("ItemSound.quest_finish")
+           st.addExpAndSp(5672,446)
            st.exitQuest(False)
        elif npcId == BENIS :
          if cond == 1 :

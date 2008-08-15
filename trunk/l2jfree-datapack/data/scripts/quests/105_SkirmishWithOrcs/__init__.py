@@ -4,6 +4,7 @@ from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets import SocialAction
 
 qn = "105_SkirmishWithOrcs"
 
@@ -101,6 +102,7 @@ class Quest (JQuest) :
           st.giveItems(KENDNELLS_ORDER7,1)
         else:
           st.giveItems(KENDNELLS_ORDER8,1)
+        st.set("cond","3")
       elif st.getQuestItemsCount(KENDNELLS_ORDER1) or st.getQuestItemsCount(KENDNELLS_ORDER2) or st.getQuestItemsCount(KENDNELLS_ORDER3) or st.getQuestItemsCount(KENDNELLS_ORDER4) :
         htmltext = "30218-05.htm"
       elif st.getQuestItemsCount(KABOO_CHIEF_TORC2) :
@@ -118,6 +120,7 @@ class Quest (JQuest) :
             st.takeItems(KABOO_CHIEF_TORC2,1)
             newbie = player.getNewbie()
             mage = player.getClassId().isMage()
+            st.rewardItems(57,17599)
             if mage :
                st.giveItems(RED_SUNSET_STAFF,1)
                st.giveItems(SPIRITSHOT_NO_GRADE,500)
@@ -136,6 +139,8 @@ class Quest (JQuest) :
             st.rewardItems(1060,100)     # Lesser Healing Potions
             for item in range(4412,4417) :
                 st.giveItems(item,10)   # Echo crystals
+            st.addExpAndSp(41478,3555)
+            player.sendPacket(SocialAction(player.getObjectId(),3))
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
             st.set("onlyone","1")
@@ -155,51 +160,59 @@ class Quest (JQuest) :
      if st.getQuestItemsCount(KENDNELLS_ORDER1) and st.getQuestItemsCount(KABOO_CHIEF_TORC1) == 0 :
       st.giveItems(KABOO_CHIEF_TORC1,1)
       st.playSound("ItemSound.quest_middle")
+      st.set("cond","2")
    elif npcId == 27060 :
     st.set("id","0")
     if st.getInt("cond") == 1 :
      if st.getQuestItemsCount(KENDNELLS_ORDER2) and st.getQuestItemsCount(KABOO_CHIEF_TORC1) == 0 :
       st.giveItems(KABOO_CHIEF_TORC1,1)
       st.playSound("ItemSound.quest_middle")
+      st.set("cond","2")
    elif npcId == 27061 :
     st.set("id","0")
     if st.getInt("cond") == 1 :
      if st.getQuestItemsCount(KENDNELLS_ORDER3) and st.getQuestItemsCount(KABOO_CHIEF_TORC1) == 0 :
       st.giveItems(KABOO_CHIEF_TORC1,1)
       st.playSound("ItemSound.quest_middle")
+      st.set("cond","2")
    elif npcId == 27062 :
     st.set("id","0")
     if st.getInt("cond") == 1 :
      if st.getQuestItemsCount(KENDNELLS_ORDER4) and st.getQuestItemsCount(KABOO_CHIEF_TORC1) == 0 :
       st.giveItems(KABOO_CHIEF_TORC1,1)
       st.playSound("ItemSound.quest_middle")
+      st.set("cond","2")
    elif npcId == 27064 :
     st.set("id","0")
-    if st.getInt("cond") == 1 :
+    if st.getInt("cond") == 3 :
      if st.getQuestItemsCount(KENDNELLS_ORDER5) and st.getQuestItemsCount(KABOO_CHIEF_TORC2) == 0 :
       st.giveItems(KABOO_CHIEF_TORC2,1)
       st.playSound("ItemSound.quest_middle")
+      st.set("cond","4")
    elif npcId == 27065 :
     st.set("id","0")
-    if st.getInt("cond") == 1 :
+    if st.getInt("cond") == 3 :
      if st.getQuestItemsCount(KENDNELLS_ORDER6) and st.getQuestItemsCount(KABOO_CHIEF_TORC2) == 0 :
       st.giveItems(KABOO_CHIEF_TORC2,1)
       st.playSound("ItemSound.quest_middle")
+      st.set("cond","4")
    elif npcId == 27067 :
     st.set("id","0")
-    if st.getInt("cond") == 1 :
+    if st.getInt("cond") == 3 :
      if st.getQuestItemsCount(KENDNELLS_ORDER7) and st.getQuestItemsCount(KABOO_CHIEF_TORC2) == 0 :
       st.giveItems(KABOO_CHIEF_TORC2,1)
       st.playSound("ItemSound.quest_middle")
+      st.set("cond","4")
    elif npcId == 27068 :
     st.set("id","0")
-    if st.getInt("cond") == 1 :
+    if st.getInt("cond") == 3 :
      if st.getQuestItemsCount(KENDNELLS_ORDER8) and st.getQuestItemsCount(KABOO_CHIEF_TORC2) == 0 :
       st.giveItems(KABOO_CHIEF_TORC2,1)
       st.playSound("ItemSound.quest_middle")
+      st.set("cond","4")
    return
 
-QUEST       = Quest(105,qn,"Skirmish With Orcs")
+QUEST       = Quest(105,qn,"Skirmish with the Orcs")
 
 QUEST.addStartNpc(30218)
 

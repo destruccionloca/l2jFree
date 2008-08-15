@@ -74,7 +74,7 @@ class Quest (JQuest) :
           st.giveItems(ADAMANTITE_ORE,numItems)
    return
 
-QUEST       = Quest(157,qn,"Recover Smuggled")
+QUEST       = Quest(157,qn,"Recover Smuggled Goods")
 
 QUEST.addStartNpc(30005)
 
