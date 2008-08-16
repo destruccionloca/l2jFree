@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GeoData;
+import com.l2jfree.gameserver.cache.L2Integer;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
@@ -574,7 +575,7 @@ public class L2Skill
 
 	public L2Skill(StatsSet set)
 	{
-		_id = set.getInteger("skill_id");
+		_id = L2Integer.valueOf(set.getInteger("skill_id"));
 		_level = set.getInteger("level");
 
 		_displayId = set.getInteger("displayId", _id);

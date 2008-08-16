@@ -20,8 +20,6 @@ import java.util.concurrent.ScheduledFuture;
 
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
-
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 

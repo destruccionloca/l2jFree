@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.cache.L2Integer;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
@@ -75,7 +76,7 @@ public abstract class L2Object
 	 */
 	public L2Object(int objectId)
 	{
-		_objectId = objectId;
+		_objectId = L2Integer.valueOf(objectId);
 		_name = "";
 	}
 
@@ -269,7 +270,7 @@ public abstract class L2Object
 	{
 		L2World.getInstance().removeObject(this);
 		IdFactory.getInstance().releaseId(getObjectId());
-		_objectId = IdFactory.getInstance().getNextId();
+		_objectId = L2Integer.valueOf(IdFactory.getInstance().getNextId());
 	}
 
 	/**

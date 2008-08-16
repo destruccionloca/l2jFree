@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
-import java.util.concurrent.ScheduledFuture;
-
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
 
 
