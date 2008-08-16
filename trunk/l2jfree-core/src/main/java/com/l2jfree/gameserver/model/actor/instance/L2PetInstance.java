@@ -82,9 +82,9 @@ public class L2PetInstance extends L2Summon
     private L2PetData _data;
 
     /** The Experience before the last Death Penalty */
-	private long _expBeforeDeath = 0; 
+    private long _expBeforeDeath = 0; 
     private static final int FOOD_ITEM_CONSUME_COUNT = 5;
-    private final int CORPSE_DECAY_TIME = 1200000;
+    private static final int PET_DECAY_DELAY = 86400000; // 24 hours
     
     public final L2PetData getPetData()
     {
@@ -546,7 +546,7 @@ public class L2PetInstance extends L2Summon
 
         stopFeed();
         getStatus().stopHpMpRegeneration();
-        DecayTaskManager.getInstance().addDecayTask(this,CORPSE_DECAY_TIME);
+        DecayTaskManager.getInstance().addDecayTask(this, PET_DECAY_DELAY);
         if (isRespawned()) deathPenalty();
         return true;
     }

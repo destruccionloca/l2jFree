@@ -305,7 +305,7 @@ public class NpcTable
 					npcDat = _npcs.get(mobId);
 					if (npcDat == null)
 					{
-						_log.fatal("NPCTable: No npc correlating with id : " + mobId);
+						_log.fatal("NPCTable: Drop data for undefined NPC. npcId: " + mobId);
 						continue;
 					}
 					dropDat = new L2DropData();
@@ -342,7 +342,7 @@ public class NpcTable
 					npcDat = _npcs.get(mobId);
 					if (npcDat == null)
 					{
-						_log.fatal("NPCTable: No npc correlating with id : " + mobId);
+						_log.fatal("NPCTable: Custom drop data for undefined NPC. npcId: " + mobId);
 						continue;
 					}
 					dropDat = new L2DropData();
@@ -407,6 +407,11 @@ public class NpcTable
 				{
 					int raidId = minionData.getInt("boss_id");
 					npcDat = _npcs.get(raidId);
+					if (npcDat == null)
+					{
+						_log.warn("Minion references undefined boss NPC. Boss NpcId: "+raidId);
+						continue;
+					}
 					minionDat = new L2MinionData();
 					minionDat.setMinionId(minionData.getInt("minion_id"));
 					minionDat.setAmountMin(minionData.getInt("amount_min"));
@@ -424,7 +429,18 @@ public class NpcTable
 				_log.fatal("Error loading minion data: ", e);
 			}
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close(); 
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 
 		_initialized = true;
 	}
