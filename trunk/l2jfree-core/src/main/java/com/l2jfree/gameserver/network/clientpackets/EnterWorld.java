@@ -217,9 +217,6 @@ public class EnterWorld extends L2GameClientPacket
 		// Send Shortcuts
 		sendPacket(new ShortCutInit(activeChar));
 
-		// Send Action list
-		activeChar.sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
-
 		activeChar.sendSkillList();
 
 		activeChar.sendPacket(new HennaInfo(activeChar));
@@ -432,7 +429,15 @@ public class EnterWorld extends L2GameClientPacket
 			DM.addDisconnectedPlayer(activeChar);
 
 		if (!activeChar.isTransformed())
+		{
 			activeChar.regiveTemporarySkills();
+			// Send Action list
+			activeChar.sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
+		}
+		else
+		{
+			activeChar.sendPacket(ExBasicActionList.TRANSFORMED_ACTION_LIST);
+		}
 
 		if (activeChar.isCursedWeaponEquipped())
 		{
