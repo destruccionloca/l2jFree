@@ -1,5 +1,3 @@
-# Hibernate and associated jars
-
 CLASSPATH=${CLASSPATH}:l2j-mmocore-1.1.0.jar
 
 #jython
