@@ -90,6 +90,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 	private String								_jClass;
 	private AIType								_ai;
 	private boolean								_isQuestMonster;
+	private boolean								_dropHerbs;
 
 	private Race								_race;
 
@@ -189,6 +190,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 		_npcFaction = set.getInteger("NPCFaction", 0);
 		_npcFactionName = set.getString("NPCFactionName", "Devine Clan");
 		_jClass = set.getString("jClass");
+		_dropHerbs = set.getBool("drop_herbs", false);
 
 		String ai = set.getString("AI", "fighter");
 		if (ai.equalsIgnoreCase("archer"))
@@ -908,6 +910,11 @@ public final class L2NpcTemplate extends L2CharTemplate
 	public boolean isQuestMonster()
 	{
 		return _isQuestMonster;
+	}
+
+	public boolean dropHerbs()
+	{
+		return _dropHerbs;
 	}
 
 	public boolean isCustom()

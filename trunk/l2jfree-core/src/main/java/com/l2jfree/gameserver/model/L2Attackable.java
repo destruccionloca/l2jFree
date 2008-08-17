@@ -1452,8 +1452,7 @@ public class L2Attackable extends L2NpcInstance
         }
 
         //Instant Item Drop :>
-        double rateHp = getStat().calcStat(Stats.MAX_HP , 1, this, null);
-        if (rateHp <= 1 && String.valueOf(npcTemplate.getType()).contentEquals("L2Monster")) //only L2Monster with <= 1x HP can drop herbs
+        if (getTemplate().dropHerbs())
         {
             boolean _hp = false;
             boolean _mp = false;

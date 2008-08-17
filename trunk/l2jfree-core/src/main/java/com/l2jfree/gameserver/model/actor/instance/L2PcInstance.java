@@ -260,8 +260,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	private static final String	DELETE_CHAR_SKILLS				= "DELETE FROM character_skills WHERE charId=? AND class_index=?";
 
 	// Character Skill Save SQL String Definitions:
-	private static final String	ADD_SKILL_SAVE					= "REPLACE INTO character_skills_save (charId,skill_id,skill_level,effect_count,effect_cur_time,reuse_delay,restore_type,class_index,buff_index) VALUES (?,?,?,?,?,?,?,?,?)";
-	private static final String	RESTORE_SKILL_SAVE				= "SELECT skill_id,skill_level,effect_count,effect_cur_time, reuse_delay FROM character_skills_save WHERE charId=? AND class_index=? AND restore_type=? ORDER BY buff_index ASC";
+	private static final String	ADD_SKILL_SAVE					= "REPLACE INTO character_skills_save (charId,skill_id,skill_level,effect_count,effect_cur_time,reuse_delay,systime,restore_type,class_index,buff_index) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	private static final String	RESTORE_SKILL_SAVE				= "SELECT skill_id,skill_level,effect_count,effect_cur_time,reuse_delay,systime FROM character_skills_save WHERE charId=? AND class_index=? AND restore_type=? ORDER BY buff_index ASC";
 	private static final String	DELETE_SKILL_SAVE				= "DELETE FROM character_skills_save WHERE charId=? AND class_index=?";
 
 	// Character Character SQL String Definitions:
@@ -7132,14 +7132,16 @@ public final class L2PcInstance extends L2PlayableInstance
 					{
 						TimeStamp t = _reuseTimeStamps.remove(skillId);
 						statement.setLong(6, t.hasNotPassed() ? t.getReuse() : 0);
+						statement.setLong(7, t.hasNotPassed() ? t.getStamp() : 0 );
 					}
 					else
 					{
 						statement.setLong(6, 0);
+						statement.setLong(7, 0);
 					}
-					statement.setInt(7, 0);
-					statement.setInt(8, getClassIndex());
-					statement.setInt(9, buff_index);
+					statement.setInt(8, 0);
+					statement.setInt(9, getClassIndex());
+					statement.setInt(10, buff_index);
 					statement.execute();
 				}
 			}
@@ -7156,9 +7158,10 @@ public final class L2PcInstance extends L2PlayableInstance
 					statement.setInt(4, -1);
 					statement.setInt(5, -1);
 					statement.setLong(6, t.getReuse());
-					statement.setInt(7, 1);
-					statement.setInt(8, getClassIndex());
-					statement.setInt(9, buff_index);
+					statement.setLong(7, t.getStamp());
+					statement.setInt(8, 1);
+					statement.setInt(9, getClassIndex());
+					statement.setInt(10, buff_index);
 					statement.execute();
 				}
 			}
@@ -7456,6 +7459,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		L2Object[] targets = new L2Character[]
 		{ this };
 		Connection con = null;
+		long delaytime = System.currentTimeMillis() - getLastAccess();
 
 		try
 		{
@@ -7484,8 +7488,8 @@ public final class L2PcInstance extends L2PlayableInstance
 				int skillLvl = rset.getInt("skill_level");
 				int effectCount = rset.getInt("effect_count");
 				int effectCurTime = rset.getInt("effect_cur_time");
-
 				long reuseDelay = rset.getLong("reuse_delay");
+				long systime = rset.getLong("systime");
 
 				// Just incase the admin minipulated this table incorrectly :x
 				if (skillId == -1 || effectCount == -1 || effectCurTime == -1 || reuseDelay < 0)
@@ -7497,7 +7501,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				if (reuseDelay > 10)
 				{
 					disableSkill(skillId, reuseDelay);
-					addTimeStamp(new TimeStamp(skillId, reuseDelay));
+					addTimeStamp(new TimeStamp(skillId, reuseDelay, systime));
 				}
 
 				for (L2Effect effect : getAllEffects())
@@ -7528,12 +7532,15 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				int skillId = rset.getInt("skill_id");
 				long reuseDelay = rset.getLong("reuse_delay");
+				long systime = rset.getLong("systime");
+
+				reuseDelay = reuseDelay - delaytime;
 
 				if (reuseDelay <= 0)
 					continue;
 
 				disableSkill(skillId, reuseDelay);
-				addTimeStamp(new TimeStamp(skillId, reuseDelay));
+				addTimeStamp(new TimeStamp(skillId, reuseDelay, systime));
 			}
 			rset.close();
 			statement.close();
@@ -12341,6 +12348,18 @@ public final class L2PcInstance extends L2PlayableInstance
 			skill = _skill;
 			reuse = _reuse;
 			stamp = System.currentTimeMillis() + reuse;
+		}
+
+		public TimeStamp(int _skill, long _reuse, long _systime)
+		{
+			skill = _skill;
+			reuse = _reuse;
+			stamp = _systime;
+		}
+
+		public long getStamp()
+		{
+			return stamp;
 		}
 
 		public int getSkill()

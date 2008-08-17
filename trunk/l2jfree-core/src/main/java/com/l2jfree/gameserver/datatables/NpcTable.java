@@ -129,7 +129,8 @@ public class NpcTable
 										"ss",
 										"bss",
 										"ss_rate",
-										"AI" }) + " FROM npc");
+										"AI",
+										"drop_herbs" }) + " FROM npc");
 				ResultSet npcdata = statement.executeQuery();
 
 				fillNpcTable(npcdata);
@@ -195,7 +196,8 @@ public class NpcTable
 										"ss",
 										"bss",
 										"ss_rate",
-										"AI" }) + " FROM custom_npc");
+										"AI",
+										"drop_herbs"}) + " FROM custom_npc");
 				ResultSet npcdata = statement.executeQuery();
 				int npc_count = _npcs.size();
 				fillNpcTable(npcdata);
@@ -522,6 +524,7 @@ public class NpcTable
 			npcDat.set("ssRate", NpcData.getInt("ss_rate"));
 
 			npcDat.set("AI", NpcData.getString("AI"));
+			npcDat.set("drop_herbs", Boolean.valueOf(NpcData.getString("drop_herbs")));
 
 			if (Config.FACTION_ENABLED)
 			{
@@ -629,7 +632,8 @@ public class NpcTable
 									"ss",
 									"bss",
 									"ss_rate",
-									"AI" }) + " FROM npc WHERE id=?");
+									"AI",
+									"drop_herbs"}) + " FROM npc WHERE id=?");
 			st.setInt(1, id);
 			ResultSet rs = st.executeQuery();
 			loaded = fillNpcTable(rs);
@@ -687,7 +691,8 @@ public class NpcTable
 										"ss",
 										"bss",
 										"ss_rate",
-										"AI" }) + " FROM custom_npc WHERE id=?");
+										"AI",
+										"drop_herbs"}) + " FROM custom_npc WHERE id=?");
 				st.setInt(1, id);
 				rs = st.executeQuery();
 				loaded = fillNpcTable(rs);
