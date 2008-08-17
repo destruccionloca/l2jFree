@@ -45,7 +45,6 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="reuseDelay" val="6000" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect count="1" name="Debuff" time="15" val="0">
         <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd" />
@@ -90,7 +89,6 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="56" />
     <set name="reuseDelay" val="10000" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for></for>
   </skill>
   <skill id="504" levels="37" name="Triple Thrust"
@@ -257,7 +255,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-    <set name="soulMaxConsumeCount" val="5" />
     <set name="baseCritRate" val="15" />
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
@@ -306,7 +303,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="900" />
-    <set name="soulMaxConsumeCount" val="5" />
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <enchant1 name="power" val="#ench1Power" />
@@ -390,7 +386,6 @@
     <set name="reuseDelay" val="10000" />
     <!-- Guessing -->
     <set name="skillType" val="PDAM" />
-    <set name="soulMaxConsumeCount" val="5" />
     <set name="target" val="TARGET_ONE" />
     <set name="weaponsAllowed" val="65536" />
     <ench1 name="lethal1" val="#ench1Chance1" />
@@ -412,7 +407,6 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="hitTime" val="1500" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for></for>
   </skill>
   <skill id="512" levels="10" name="Create Bio Potion">
@@ -458,7 +452,6 @@
     <set name="triggerSkillId" val="5267" />
     <set name="triggerSkillLvl" val="#triggerlvl" />
     <set name="trapNpcId" val="13037" />
-    <set name="soulMaxConsumeCount" val="5" />
   </skill>
   <skill id="515" levels="6" name="Poison Trap">
     <!-- By Darki699 -->
@@ -477,7 +470,6 @@
     <set name="triggerSkillId" val="5268" />
     <set name="triggerSkillLvl" val="#triggerlvl" />
     <set name="trapNpcId" val="13037" />
-    <set name="soulMaxConsumeCount" val="5" />
   </skill>
   <skill id="516" levels="6" name="Slow Trap">
     <!-- By Darki699 -->
@@ -496,7 +488,6 @@
     <set name="triggerSkillId" val="5269" />
     <set name="triggerSkillLvl" val="#triggerlvl" />
     <set name="trapNpcId" val="13037" />
-    <set name="soulMaxConsumeCount" val="5" />
   </skill>
   <skill id="517" levels="5" name="Flash Trap">
     <!-- By Darki699 -->
@@ -515,7 +506,6 @@
     <set name="triggerSkillId" val="5270" />
     <set name="triggerSkillLvl" val="#triggerlvl" />
     <set name="trapNpcId" val="13037" />
-    <set name="soulMaxConsumeCount" val="5" />
   </skill>
   <skill id="518" levels="8" name="Binding Trap">
     <!-- By Darki699 -->
@@ -534,11 +524,6 @@
     <set name="triggerSkillId" val="5271" />
     <set name="triggerSkillLvl" val="#triggerlvl" />
     <set name="trapNpcId" val="13037" />
-    <set name="soulMaxConsumeCount" val="5" />
-    <!--
-      Consumes 2 Souls -
-      http://www.l2guru.com/forum/archive/index.php/t-92831.html
-    -->
   </skill>
   <skill id="519" levels="1" name="Quiver of Bolts: A-Grade">
     <set name="mpConsume" val="366" />
@@ -602,7 +587,6 @@
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="#aggro" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <cond>
         <player state="stand" />
@@ -644,7 +628,6 @@
     <set name="castRange" val="#castRange" />
     <set name="effectRange" val="#effectRange" />
     <set name="reuseDelay" val="8000" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect count="1" name="Debuff" time="15" val="0">
         <mul order="0x30" stat="bowWpnVuln" val="1.3" />
@@ -679,7 +662,7 @@
   <skill id="524" levels="1" name="Cure Dark Seed">
     <!--
       Description(s): Eliminates the affliction caused by a
-      dark seed. Consumes 1 Soul.
+      dark seed.
     -->
     <set name="mpConsume" val="59" />
     <set name="target" val="TARGET_SELF" />
@@ -689,7 +672,6 @@
     <set name="hitTime" val="1500" />
     <set name="castRange" val="-1" />
     <set name="cancelEffect" val="5447" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for></for>
   </skill>
   <skill id="525" levels="6" name="Decoy">
@@ -707,7 +689,6 @@
     -->
     <set name="castRange" val="-1" />
     <set name="npcId" val="#npcId" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for></for>
   </skill>
   <skill id="526" levels="1" name="Enuma Elish">

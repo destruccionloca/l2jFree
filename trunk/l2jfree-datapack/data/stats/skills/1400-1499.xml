@@ -911,7 +911,6 @@
   <skill id="1432" levels="2" name="Increase Power">
     <!--
       Description(s): Temporarily increase your P Atk.
-      Consumes 1 Soul.
     -->
     <table name="#rate">1.08 1.12</table>
     <table name="#mpConsume">13 25</table>
@@ -926,7 +925,6 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="#rate" stackType="pa_up">
@@ -1015,7 +1013,6 @@
     <set name="effectId" val="5264" />
     <set name="effectLevel" val="#EffectLvl" />
     <set name="landingPercent" val="58" />
-    <set name="soulMaxConsumeCount" val="5" />
     <enchant1 name="effectLevel" val="#ench1EffectLevel" />
     <enchant2 name="landingPercent" val="#ench2Chance" />
     <for></for>
@@ -1206,7 +1203,6 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="#Tab-mAtk" stackType="ma_up">
@@ -1217,7 +1213,7 @@
   <skill id="1442" levels="3" name="Protection from Darkness">
     <!--
       Description(s): Temporarily increase your target's
-      resistance to dark attacks. Consumes 2 Souls.
+      resistance to dark attacks.
     -->
     <table name="#mpConsume_Init">6 7 8</table>
     <table name="#mpConsume">48 55 61</table>
@@ -1235,7 +1231,6 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="#aggro" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="1" stackType="DarkAtr">
@@ -1259,7 +1254,6 @@
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
-    <set name="soulConsumeCount" val="2" />
     <set name="effectType" val="BUFF" />
     <set name="effectRange" val="400" />
     <set name="buffDuration" val="500" />
@@ -1285,13 +1279,12 @@
     <!--
       Description(s): Enhance Kamael abilities. Increases P.
       Atk, M. Atk, and Mortal Blow chances when a
-      Kamael-only weapon is used. Consumes 3 Souls. Usable
+      Kamael-only weapon is used. Usable
       only on Kamael party members.
     -->
     <set name="power" val="0.0" />
     <set name="mpConsume" val="44" />
     <set name="magicLvl" val="49" />
-    <set name="soulMaxConsumeCount" val="5" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="reuseDelay" val="120000" />
     <set name="hitTime" val="3000" />
@@ -1356,7 +1349,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="#Tab-castRange" />
     <set name="effectRange" val="1400" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect count="1" name="Debuff" time="15" val="0"
         stackOrder="2" stackType="surrender">
@@ -1379,7 +1371,6 @@
     <set name="power" val="0.0" />
     <set name="reuseDelay" val="20000" />
     <set name="skillType" val="ROOT" />
-    <set name="soulMaxConsumeCount" val="5" />
     <set name="target" val="TARGET_ONE" />
     <for>
       <effect count="1" name="Root" time="15" val="0"
@@ -1403,7 +1394,6 @@
     <set name="power" val="0.0" />
     <set name="reuseDelay" val="20000" />
     <set name="skillType" val="MUTE" />
-    <set name="soulMaxConsumeCount" val="5" />
     <set name="target" val="TARGET_ONE" />
     <for>
       <effect count="1" name="Mute" time="15" val="0"
@@ -1828,7 +1818,6 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="379" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect count="1" name="Buff" time="120" val="0"
         stackOrder="1" stackType="prahnah">
@@ -1942,7 +1931,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect name="Buff" time="120" count="1" val="0">
         <add order="0x40" stat="pAtk" val="#pAtk" />
@@ -1974,7 +1962,6 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="#aggro" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect name="Buff" time="1200" count="1" val="0"
         stackOrder="#Tab-absorbDam" stackType="vampRage">
@@ -2007,7 +1994,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulConsumeCount" val="5" />
     <for>
       <effect name="Buff" time="120" count="1" val="0">
         <mul order="0x30" stat="pDef" val="#pDef" />
@@ -2043,7 +2029,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulConsumeCount" val="5" />
     <for>
       <effect name="Buff" time="120" count="1" val="0">
         <mul order="0x30" stat="mAtk" val="#mAtk" />
@@ -2231,7 +2216,6 @@
     <!--
       CT1.5 Retail
     -->
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect count="40" name="HealOverTime" time="3"
         val="#Tab-Heal" />
@@ -2241,11 +2225,11 @@
     <!--
       Description(s): Lvl 1 Recovers 10% of maximum HP by
       catalysis under restoration. Restoration will
-      disappear. Consumes 3 soul. Lvl 2 Recovers 15% of
+      disappear. Lvl 2 Recovers 15% of
       maximum HP by catalysis under restoration. Restoration
-      will disappear. Consumes 3 soul. Lvl 3 Recovers 20% of
+      will disappear. Lvl 3 Recovers 20% of
       maximum HP by catalysis under restoration. Restoration
-      will disappear. Consumes 3 soul.
+      will disappear.
     -->
     <table name="#mpConsume_Init">7 8 10</table>
     <table name="#mpConsume">16 20 23</table>
@@ -2260,7 +2244,6 @@
     <set name="skillType" val="HEAL_PERCENT" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1200" />
-    <set name="soulMaxConsumeCount" val="5" />
     <set name="reuseDelay" val="600000" />
     <!--
       CT1.5 Retail

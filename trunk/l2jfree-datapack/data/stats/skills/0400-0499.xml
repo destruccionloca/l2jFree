@@ -1831,7 +1831,6 @@
     <set name="skillRadius" val="400" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for />
   </skill>
   <skill id="471" levels="7" name="Defuse Trap">
@@ -1848,7 +1847,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for />
   </skill>
   <skill id="472" levels="45" name="Ancient Sword Mastery">
@@ -1944,7 +1942,6 @@
     <set name="operateType" val="OP_TOGGLE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime"
         time="3" val="18">
@@ -2066,7 +2063,7 @@
     <set name="operateType" val="OP_TOGGLE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulMAxConsumeCount" val="5" />
+    <set name="soulConsumeCount" val="1" />
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime"
         time="3" val="2">
@@ -2085,7 +2082,6 @@
     <set name="operateType" val="OP_TOGGLE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulMAxConsumeCount" val="5" />
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime"
         time="5" val="0">
@@ -2108,7 +2104,6 @@
     <set name="operateType" val="OP_TOGGLE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulMAxConsumeCount" val="5" />
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime"
         time="5" val="0">
@@ -2129,7 +2124,6 @@
     <set name="reuseDelay" val="300000" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <set name="soulMAxConsumeCount" val="5" />
     <for>
       <effect count="1" name="Buff" time="120" val="0">
         <add order="0x40" stat="rCrit" val="#rCrit" />
@@ -2149,7 +2143,6 @@
     <set name="hitTime" val="1000" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulMAxConsumeCount" val="5" />
     <for>
       <effect count="1" name="Buff" time="30" val="0"
         stackOrder="1" stackType="pDefSpec">
@@ -2162,7 +2155,6 @@
     <!--
       Description: Charge an enemy. An ancient sword or
       short sword must be equipped to use this skill.
-      Consumes 1 Soul.
     -->
     <set name="magicLvl" val="32" />
     <set name="mpInitialConsume" val="6" />
@@ -2177,7 +2169,6 @@
     <set name="effectRange" val="800" />
     <set name="isDebuff" val="true" />
     <set name="reuseDelay" val="60000" />
-    <set name="soulMaxConsumeCount" val="5" />
     <set name="flyType" val="CHARGE" />
     <set name="flyRadius" val="300" />
     <cond
@@ -2192,7 +2183,7 @@
   <skill id="485" levels="7" name="Disarm">
     <!--
       Disarms a target. Weapons cannot be re-equipped while
-      the effect lasts. Consumes 1 Soul. DP side done by Rnn
+      the effect lasts.  DP side done by Rnn
     -->
     <table name="#mpConsume_Init">5 5 6 6 6 7 7</table>
     <table name="#mpConsume">20 25 29 34 40 44 48</table>
@@ -2208,7 +2199,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-    <set name="soulConsumeCount" val="1" />
     <for>
       <effect count="1" name="Disarm" time="10" val="0" />
     </for>
@@ -2272,7 +2262,6 @@
     <set name="skillRadius" val="205" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-    <set name="soulMaxConsumeCount" val="5" />
     <cond
       msg="An equipped crossbow is required to use this skill.">
       <using kind="Crossbow" />
@@ -2312,7 +2301,6 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="#aggro" />
-    <set name="soulMaxConsumeCount" val="5" />
     <cond msg="Crossbow required.">
       <using kind="Crossbow" />
     </cond>
@@ -2352,7 +2340,7 @@
     enchantLevels1="30" enchantLevels2="30">
     <!--
       Description(s): Use your wing to attack hostile
-      enemies behind you. Consumes 1 Soul. Over-hit is
+      enemies behind you. Over-hit is
       possible. Power 722
     -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
@@ -2379,7 +2367,6 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="reuseDelay" val="36000" />
-    <set name="soulMaxConsumeCount" val="5" />
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <enchant1 name="power" val="#ench1Power" />
@@ -2390,7 +2377,7 @@
     enchantLevels1="30" enchantLevels2="30">
     <!--
       Description(s): Charges like a storm to attack nearby
-      enemies. Consumes 3 soul. An equipped ancient sword
+      enemies. An equipped ancient sword
       weapon is required to use this skill. Power 618-1827.
     -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
@@ -2426,7 +2413,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="#castRange" />
     <set name="effectRange" val="900" />
-    <set name="soulMaxConsumeCount" val="5" />
     <set name="flyType" val="CHARGE" />
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
@@ -2695,7 +2681,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect count="1" name="Buff" time="60" val="0">
         <mul stat="rootVuln" val="#vuln" order="0x30" />
