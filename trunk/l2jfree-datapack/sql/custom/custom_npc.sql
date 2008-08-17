@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `custom_npc` (
   `bss` int(4) DEFAULT 0,
   `ss_rate` int(3) DEFAULT 0,
   `AI` varchar(8) DEFAULT "fighter",
+  `drop_herbs` enum('true','false') DEFAULT 'false' NOT NULL,
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
