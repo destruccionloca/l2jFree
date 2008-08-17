@@ -58,16 +58,25 @@ public abstract class L2Boss extends L2MonsterInstance
         if (player != null)
         {
             broadcastPacket(new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL));
-            RaidPointsManager rppm = RaidPointsManager.getInstance();
             if (player.getParty() != null)
             {
                 for (L2PcInstance member : player.getParty().getPartyMembers())
-                    rppm.addPoints(member, getNpcId(), (getLevel() / 2) + Rnd.get(-5, 5));
+                    rewardRaidPoints(member);
             }
             else
-                rppm.addPoints(player, getNpcId(), (getLevel() / 2) + Rnd.get(-5, 5));
+                rewardRaidPoints(player);
+            RaidPointsManager.getInstance().calculateRanking();
         }
         return true;
+    }
+
+    private void rewardRaidPoints(L2PcInstance player)
+    {
+        int points = (getLevel() / 2) + Rnd.get(-5, 5);
+        RaidPointsManager.getInstance().addPoints(player, getNpcId(), points);
+        SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1_RAID_POINTS);
+        sm.addNumber(points);
+        player.sendPacket(sm);
     }
 
     /**

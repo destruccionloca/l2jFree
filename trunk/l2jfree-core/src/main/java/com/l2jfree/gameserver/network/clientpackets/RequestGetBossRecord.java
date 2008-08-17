@@ -59,13 +59,7 @@ public class RequestGetBossRecord extends L2GameClientPacket
 		{
 			_log.info("C5: RequestGetBossRecord: d: "+_bossId+" ActiveChar: "+activeChar); // should be always 0, log it if isnt 0 for furture research
 		}
-
-		int points = RaidPointsManager.getInstance().getPointsByOwnerId(activeChar.getObjectId());
-		int ranking = RaidPointsManager.getInstance().calculateRanking(activeChar);
-
-		Map<Integer, Integer> list = RaidPointsManager.getInstance().getList(activeChar);
-
-		activeChar.sendPacket(new ExGetBossRecord(ranking, points, list));
+		activeChar.sendPacket(new ExGetBossRecord(RaidPointsManager.getInstance().getPlayerEntry(activeChar)));
 	}
 
 	/**

@@ -126,6 +126,30 @@ public class Mdam implements ISkillHandler
 			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, skill));
 			int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, skill, ss, bss, mcrit);
 
+			if (skill.getMaxSoulConsumeCount() > 0 && activeChar instanceof L2PcInstance)
+			{
+				switch (((L2PcInstance) activeChar).getLastSoulConsume())
+				{
+					case 0:
+						break;
+					case 1:
+						damage *= 1.10;
+						break;
+					case 2:
+						damage *= 1.12;
+						break;
+					case 3:
+						damage *= 1.15;
+						break;
+					case 4:
+						damage *= 1.18;
+						break;
+					default:
+						damage *= 1.20;
+						break;
+				}
+			}
+
 			if (skill.isCritical() && !mcrit)
 				damage = 0;
 			else if (mcrit)

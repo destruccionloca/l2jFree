@@ -520,6 +520,7 @@ public class L2Skill
 	private final int				_triggeredCount;
 
 	private final int				_soulConsume;
+	private final int				_soulMaxConsume;
 	private final int				_numSouls;
 	private final int				_expNeeded;
 	private final int				_critChance;
@@ -690,6 +691,7 @@ public class L2Skill
 
 		_numSouls = set.getInteger("num_souls", 0);
 		_soulConsume = set.getInteger("soulConsumeCount", 0);
+		_soulMaxConsume = set.getInteger("soulMaxConsumeCount", 0);
 		_expNeeded = set.getInteger("expNeeded", 0);
 		_critChance = set.getInteger("critChance", 0);
 
@@ -1417,6 +1419,11 @@ public class L2Skill
 	public final int getNumSouls()
 	{
 		return _numSouls;
+	}
+
+	public final int getMaxSoulConsumeCount()
+	{
+		return _soulMaxConsume;
 	}
 
 	public final int getSoulConsumeCount()

@@ -760,6 +760,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	// Absorbed Souls
 	private int								_souls					= 0;
 	private ScheduledFuture<?>				_soulTask				= null;
+	private int								_lastSoulConsume			= 0;
 
 	// WorldPosition used by TARGET_SIGNET_GROUND
 	private Point3D							_currentSkillWorldPosition;
@@ -8025,7 +8026,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		// If a skill is currently being used, queue this one if this is not the same
 		// Note that this check is currently imperfect: getCurrentSkill() isn't always null when a skill has
-		// failed to cast, or the casting is not yet in progress when this is rechecked		
+		// failed to cast, or the casting is not yet in progress when this is rechecked
 		if (getCurrentSkill() != null && isCastingNow())
 		{
 			if (getSkillQueueProtectionTime() < System.currentTimeMillis() || skill.getId() != getCurrentSkill().getSkillId())
@@ -12077,6 +12078,16 @@ public final class L2PcInstance extends L2PlayableInstance
 		return _souls;
 	}
 
+	public int getLastSoulConsume()
+	{
+		return _lastSoulConsume;
+	}
+
+	public void resetLastSoulConsume()
+	{
+		_lastSoulConsume = 0;
+	}
+
 	/**
 	 * Absorbs a Soul from a Npc.
 	 * @param skill
@@ -12120,16 +12131,30 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	/**
 	 * Decreases existing Souls.
-	 * @param count
+	 * @param skill
 	 */
-	public void decreaseSouls(int count)
+	public void decreaseSouls(L2Skill skill)
 	{
-		if (count < 0) // Wrong usage
+		if (_souls == 0)
 			return;
 
-		_souls = Math.max(_souls - count, 0); // No negative values allowed
+		// Calculation part
+		int souls = _souls;
+		if (skill.getSoulConsumeCount() > 0)
+		{
+			souls -= skill.getSoulConsumeCount();
+		}
+		else if (skill.getMaxSoulConsumeCount() > 0)
+		{
+			int consume = Math.min(_souls, skill.getMaxSoulConsumeCount());
+			souls -= consume;
+			_lastSoulConsume = consume; // Store for PDAM/MDAM boosting
+		}
 
-		if (getSouls() == 0)
+		// Consume part
+		_souls = Math.max(souls, 0); // No negative values allowed
+
+		if (_souls == 0)
 			stopSoulTask();
 		else
 			restartSoulTask();
