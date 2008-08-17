@@ -77,7 +77,6 @@ public abstract class L2Summon extends L2PlayableInstance
 	// TODO: currently, all servitors use 1 shot.  However, this value should vary depending on the servitor template (id and level)!
 	private int					_soulShotsPerHit		= 1;
 	private int					_spiritShotsPerHit		= 1;
-	protected boolean			_showSummonAnimation;
 
 	public class AIAccessor extends L2Character.AIAccessor
 	{
@@ -121,10 +120,10 @@ public abstract class L2Summon extends L2PlayableInstance
 	public void onSpawn()
 	{
 		super.onSpawn();
-		this.setFollowStatus(true);
-		this.setShowSummonAnimation(false); // addVisibleObject created the info packets with summon animation
+		setFollowStatus(true);
+		setShowSummonAnimation(false); // addVisibleObject created the info packets with summon animation
 		// if someone comes into range now, the animation shouldnt show any more
-		this.getOwner().sendPacket(new PetInfo(this));
+		getOwner().sendPacket(new PetInfo(this));
 
 		getOwner().sendPacket(new RelationChanged(this, getOwner().getRelation(getOwner()), false));
 
@@ -878,22 +877,6 @@ public abstract class L2Summon extends L2PlayableInstance
 		sm.addCharName(attacker);
 		sm.addNumber(damage);
 		getOwner().sendPacket(sm);
-	}
-
-	/**
-	 * @return Returns the showSummonAnimation.
-	 */
-	public boolean isShowSummonAnimation()
-	{
-		return _showSummonAnimation;
-	}
-
-	/**
-	 * @param showSummonAnimation The showSummonAnimation to set.
-	 */
-	public void setShowSummonAnimation(boolean showSummonAnimation)
-	{
-		_showSummonAnimation = showSummonAnimation;
 	}
 
 	/**

@@ -156,7 +156,8 @@ public class GameServer
 			System.out.println(". exited.");
 			System.exit(-1);
 		}
-		
+
+		long serverLoadStart = System.currentTimeMillis();
 		Config.load();
 		
 		Util.printSection("Database");
@@ -207,21 +208,29 @@ public class GameServer
 		ArmorSetsTable.getInstance();
 		AugmentationData.getInstance();
 		if (Config.SP_BOOK_NEEDED)
+		{
 			SkillSpellbookTable.getInstance();
+		}
 		SummonItemsData.getInstance();
 		ExtractableItemsData.getInstance();
 		if (Config.ALLOW_FISHING)
+		{
 			FishTable.getInstance();
+		}
 		ItemsOnGroundManager.getInstance();
 		if (Config.AUTODESTROY_ITEM_AFTER > 0 || Config.HERB_AUTO_DESTROY_TIME > 0)
+		{
 			ItemsAutoDestroy.getInstance();
+		}
 		Util.printSection("Characters");
 		CharTemplateTable.getInstance();
 		LevelUpData.getInstance();
 		HennaTable.getInstance();
 		HennaTreeTable.getInstance();
 		if (Config.ALLOW_WEDDING)
+		{
 			CoupleManager.getInstance();
+		}
 		CursedWeaponsManager.getInstance();
 		ClanTable.getInstance();
 		CrestCache.getInstance();
@@ -231,7 +240,9 @@ public class GameServer
 		HtmCache.getInstance();
 		BuffTemplateTable.getInstance();
 		if (Config.ALLOW_NPC_WALKERS)
+		{
 			NpcWalkerRoutesTable.getInstance().load();
+		}
 		PetDataTable.getInstance().loadPetsData();
 		Util.printSection("Entities and zones");
 		CrownManager.getInstance();
@@ -263,9 +274,8 @@ public class GameServer
 		SevenSignsFestival.getInstance();
 		Util.printSection("Olympiad");
 		Olympiad.getInstance();
-		Util.printSection("DimensionalRift");
+		Util.printSection("Dungeons");
 		DimensionalRiftManager.getInstance();
-		Util.printSection("FourSepulchers");
 		FourSepulchersManager.getInstance().init();
 		Util.printSection("Bosses");
 		AntharasManager.getInstance().init();
@@ -332,7 +342,9 @@ public class GameServer
 		RemoteAdministrationImpl.getInstance().startServer();
 		PetitionManager.getInstance();
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
+		{
 			OnlinePlayers.getInstance();
+		}
 		FloodProtector.getInstance();
 		ForumsBBSManager.getInstance();
 		KnownListUpdateTaskManager.getInstance();
@@ -368,6 +380,7 @@ public class GameServer
 		
 		printMemUsage();
 		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
+		_log.info("Server Loaded in "+((System.currentTimeMillis() - serverLoadStart) / 1000)+" seconds");
 		
 		Util.printSection("GameServerLog");
 		if (Config.ENABLE_JYTHON_SHELL)

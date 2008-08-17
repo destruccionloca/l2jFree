@@ -36,7 +36,6 @@ import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.EventDroplist.DateDrop;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
-import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
 import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
@@ -767,29 +766,6 @@ public class L2Attackable extends L2NpcInstance
             }
             
             rewards = null;
-            
-            
-            // rewarding with Raid Points according to % of hate from all which are making raid
-            if(this instanceof L2Boss)
-            {
-                int points;
-                long total_damage = 0;
-                for (AggroInfo info : getDamageContributors().values())
-                {
-                    if (info == null) continue;
-                    total_damage += info._hate;
-                }
-                for (AggroInfo info : getDamageContributors().values())
-                {
-                    if (info == null) continue;
-                    points = (int)Math.round(100.0 * (info._hate / total_damage));
-                    RaidPointsManager.getInstance().addPoints(info._attacker.getObjectId(), getNpcId(), points);
-                    SystemMessage sms = new SystemMessage(SystemMessageId.EARNED_S1_RAID_POINTS);
-                    sms.addNumber(points);
-                    info._attacker.sendPacket(sms);
-                }
-                RaidPointsManager.getInstance().calculateRanking();
-            }
         }
         catch(Exception e)
         {

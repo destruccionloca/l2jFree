@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.BossSpawnManager;
+import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -53,10 +54,18 @@ public abstract class L2Boss extends L2MonsterInstance
         if (!super.doDie(killer))
             return false;
 
-        if (killer instanceof L2PlayableInstance)
+        L2PcInstance player = killer.getActingPlayer();
+        if (player != null)
         {
-            SystemMessage msg = new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL);
-            broadcastPacket(msg);
+            broadcastPacket(new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL));
+            RaidPointsManager rppm = RaidPointsManager.getInstance();
+            if (player.getParty() != null)
+            {
+                for (L2PcInstance member : player.getParty().getPartyMembers())
+                    rppm.addPoints(member, getNpcId(), (getLevel() / 2) + Rnd.get(-5, 5));
+            }
+            else
+                rppm.addPoints(player, getNpcId(), (getLevel() / 2) + Rnd.get(-5, 5));
         }
         return true;
     }

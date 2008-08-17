@@ -14,15 +14,14 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ExGetBossRecord;
-import com.l2jfree.gameserver.network.serverpackets.ExGetBossRecord.BossRecordInfo;
-
-import javolution.util.FastList;
 
 /**
  * Format: (ch) d
@@ -31,57 +30,50 @@ import javolution.util.FastList;
  */
 public class RequestGetBossRecord extends L2GameClientPacket
 {
-    private static final String _C__D0_18_REQUESTGETBOSSRECORD = "[C] D0:18 RequestGetBossRecord";
-    private int _bossId;
+	private static final String _C__D0_18_REQUESTGETBOSSRECORD = "[C] D0:18 RequestGetBossRecord";
+	private final static Log _log = LogFactory.getLog(RequestGetBossRecord.class.getName());
 
-    /**
-     * @param buf
-     * @param client
-     */
-    @Override
-    protected void readImpl()
-    {
-        _bossId = readD(); // always 0?
-    }
+	private int _bossId;
 
-    /**
-     * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-     */
-    @Override
-    protected void runImpl()
-    {
-    	L2PcInstance activeChar = getClient().getActiveChar();
-		int totalPoints = 0;
-		int ranking = 0;
-		if(_bossId != 0) System.out.print("[C] D0:18 RequestGetBossRecord _bossId=" + _bossId);
+	/**
+	* @param buf
+	* @param client
+	*/
+	@Override
+	protected void readImpl()
+	{
+		_bossId = readD(); // always 0?
+	}
+
+	/**
+	* @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
+	*/
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
 		if(activeChar == null)
 			return;
 
-		List<BossRecordInfo> list = new FastList<BossRecordInfo>();
-		Map<Integer, Integer> points = RaidPointsManager.getInstance().getPointsByOwnerId(activeChar.getObjectId());
-		if(points != null && !points.isEmpty())
-			for(int bossId : points.keySet())
-				switch(bossId)
-				{
-					case -1:
-						ranking = points.get(bossId);
-						break;
-					case 0:
-						totalPoints = points.get(bossId);
-						break;
-					default:
-						list.add(new BossRecordInfo(bossId, points.get(bossId), 0));
-				}
+		if (_bossId != 0)
+		{
+			_log.info("C5: RequestGetBossRecord: d: "+_bossId+" ActiveChar: "+activeChar); // should be always 0, log it if isnt 0 for furture research
+		}
 
-		activeChar.sendPacket(new ExGetBossRecord(ranking, totalPoints, list));
-    }
+		int points = RaidPointsManager.getInstance().getPointsByOwnerId(activeChar.getObjectId());
+		int ranking = RaidPointsManager.getInstance().calculateRanking(activeChar);
 
-    /**
-     * @see com.l2jfree.gameserver.network.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return _C__D0_18_REQUESTGETBOSSRECORD;
-    }
+		Map<Integer, Integer> list = RaidPointsManager.getInstance().getList(activeChar);
+
+		activeChar.sendPacket(new ExGetBossRecord(ranking, points, list));
+	}
+
+	/**
+	* @see com.l2jfree.gameserver.network.BasePacket#getType()
+	*/
+	@Override
+	public String getType()
+	{
+		return _C__D0_18_REQUESTGETBOSSRECORD;
+	}
 }

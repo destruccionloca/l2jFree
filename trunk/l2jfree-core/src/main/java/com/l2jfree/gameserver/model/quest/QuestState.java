@@ -804,13 +804,22 @@ public final class QuestState
      */
     public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay)
     {
-        return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay);
+        return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, false, 0);
+    }
+
+    /**
+     * Add spawn for player instance
+     * Return object id of newly spawned npc
+     */
+    public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn, int instanceId)
+    {
+        return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, isSummonSpawn, instanceId);
     }
 
     public String showHtmlFile(String fileName) 
     {
-    	return getQuest().showHtmlFile(getPlayer(), fileName);
-	}
+        return getQuest().showHtmlFile(getPlayer(), fileName);
+    }
 
 	/**
 	 * Destroy element used by quest when quest is exited

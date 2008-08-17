@@ -80,7 +80,6 @@ public abstract class BossLair extends Entity
 	@Override
 	public void banishForeigners()
 	{
-		// Get players from this and nearest world regions
 		for (L2PcInstance player : getPlayersInside())
 		{
 			if (_questName != null)

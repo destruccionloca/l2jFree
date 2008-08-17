@@ -2352,7 +2352,6 @@ public class Olympiad
 			catch (Exception e)
 			{
 			}
-			;
 		}
 
 		protected void portPlayersBack()

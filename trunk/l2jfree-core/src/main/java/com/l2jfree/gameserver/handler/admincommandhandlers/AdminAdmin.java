@@ -40,6 +40,7 @@ import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.L2Multisell;
+import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
@@ -90,6 +91,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			"admin_reload_config",
 			"admin_config_server",
 			"admin_summon",
+			"admin_summon_npc",
 			"admin_unsummon",
 			"admin_memusage"						};
 
@@ -196,11 +198,6 @@ public class AdminAdmin implements IAdminCommandHandler
 					Config.loadLotteryConfig();
 					activeChar.sendMessage("Lottery config reloaded");
 				}
-				else if (type.equals("sepulchers"))
-				{
-					Config.loadSepulchersConfig();
-					activeChar.sendMessage("Four Sepulchers config reloaded");
-				}
 				else if (type.equals("clanhall"))
 				{
 					Config.loadClanHallConfig();
@@ -264,17 +261,56 @@ public class AdminAdmin implements IAdminCommandHandler
 				else
 				{
 					activeChar
-							.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
+							.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
 				}
 			}
 			catch (Exception e)
 			{
 				activeChar
-						.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
+						.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
 			}
 		}
 
-		else if (command.startsWith("admin_summon"))
+		else if(command.startsWith("admin_summon"))
+		{
+			StringTokenizer st = new StringTokenizer(command);
+			st.nextToken();
+			try
+			{
+				int id = Integer.parseInt(st.nextToken());
+				if (id > 1000000) // NPC
+				{
+					L2NpcTemplate tpl = NpcTable.getInstance().getTemplate(id - 1000000);
+					if (tpl == null)
+					{
+						activeChar.sendMessage("NPC not yet implemented.");
+						return false;
+					}
+					L2Spawn spawn = new L2Spawn(tpl);
+					spawn.setLocx(activeChar.getX());
+					spawn.setLocy(activeChar.getY());
+					spawn.setLocz(activeChar.getZ());
+					spawn.setAmount(1);
+					spawn.setHeading(activeChar.getHeading());
+					spawn.setRespawnDelay(Config.STANDARD_RESPAWN_DELAY);
+					spawn.setInstanceId(activeChar.getInstanceId());
+					spawn.init();
+					spawn.stopRespawn();
+				}
+				else // item
+				{
+					if (activeChar.addItem("GM", id, 1, activeChar, true, true) == null)
+					{
+						activeChar.sendMessage("Item not yet implemented.");
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				activeChar.sendMessage("Usage: //summon <npcid/itemid>");
+			}
+		}
+		else if (command.startsWith("admin_summon_npc"))
 		{
 			StringTokenizer st = new StringTokenizer(command);
 			st.nextToken();

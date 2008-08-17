@@ -400,47 +400,6 @@ public final class Config
 	}
 
 	// *******************************************************************************************
-	public static final String	FOUR_SEPULCHERS_FILE	= "./config/foursepulchers.properties";
-	// *******************************************************************************************
-	public static int			FS_TIME_ATTACK;
-	public static int			FS_TIME_COOLDOWN;
-	public static int			FS_TIME_ENTRY;
-	public static int			FS_TIME_WARMUP;
-	public static int			FS_PARTY_MEMBER_COUNT;
-
-	// *******************************************************************************************
-	public static void loadSepulchersConfig()
-	{
-		_log.info("loading " + FOUR_SEPULCHERS_FILE);
-		try
-		{
-			Properties sepulchursSettings = new L2Properties(FOUR_SEPULCHERS_FILE);
-
-			FS_TIME_ATTACK = Integer.parseInt(sepulchursSettings.getProperty("TimeOfAttack", "50"));
-			FS_TIME_COOLDOWN = Integer.parseInt(sepulchursSettings.getProperty("TimeOfCoolDown", "5"));
-			FS_TIME_ENTRY = Integer.parseInt(sepulchursSettings.getProperty("TimeOfEntry", "3"));
-			FS_TIME_WARMUP = Integer.parseInt(sepulchursSettings.getProperty("TimeOfWarmUp", "2"));
-			FS_PARTY_MEMBER_COUNT = Integer.parseInt(sepulchursSettings.getProperty("NumberOfNecessaryPartyMembers", "4"));
-			if (FS_TIME_ATTACK <= 0)
-				FS_TIME_ATTACK = 50;
-			if (FS_TIME_COOLDOWN <= 0)
-				FS_TIME_COOLDOWN = 5;
-			if (FS_TIME_ENTRY <= 0)
-				FS_TIME_ENTRY = 3;
-			if (FS_TIME_ENTRY <= 0)
-				FS_TIME_ENTRY = 3;
-			if (FS_TIME_ENTRY <= 0)
-				FS_TIME_ENTRY = 3;
-
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + FOUR_SEPULCHERS_FILE + " File.");
-		}
-	}
-
-	// *******************************************************************************************
 	public static final String	RATES_CONFIG_FILE	= "./config/rates.properties";
 	// *******************************************************************************************
 	public static float			RATE_XP;
@@ -1428,6 +1387,13 @@ public final class Config
 	public static boolean				ALT_MANOR_SAVE_ALL_ACTIONS;												// Manor Save All Actions
 	public static int					ALT_MANOR_SAVE_PERIOD_RATE;												// Manor Save Period Rate
 
+	// Four Sepulchers
+	public static int					FS_TIME_ATTACK;
+	public static int					FS_TIME_COOLDOWN;
+	public static int					FS_TIME_ENTRY;
+	public static int					FS_TIME_WARMUP;
+	public static int					FS_PARTY_MEMBER_COUNT;
+
 	// Dimensional Rift
 	public static int					RIFT_MIN_PARTY_SIZE;														// Minimum siz e of a party that may enter dimensional rift
 	public static int					RIFT_SPAWN_DELAY;															// Time in ms the party has to wait until the mobs spawn
@@ -1636,6 +1602,22 @@ public final class Config
 			RIFT_ENTER_COST_COMMANDER = Integer.parseInt(altSettings.getProperty("CommanderCost", "30"));
 			RIFT_ENTER_COST_HERO = Integer.parseInt(altSettings.getProperty("HeroCost", "33"));
 			RIFT_BOSS_ROOM_TIME_MUTIPLY = Float.parseFloat(altSettings.getProperty("BossRoomTimeMultiply", "1.5"));
+
+			FS_TIME_ATTACK = Integer.parseInt(altSettings.getProperty("TimeOfAttack", "50"));
+			FS_TIME_COOLDOWN = Integer.parseInt(altSettings.getProperty("TimeOfCoolDown", "5"));
+			FS_TIME_ENTRY = Integer.parseInt(altSettings.getProperty("TimeOfEntry", "3"));
+			FS_TIME_WARMUP = Integer.parseInt(altSettings.getProperty("TimeOfWarmUp", "2"));
+			FS_PARTY_MEMBER_COUNT = Integer.parseInt(altSettings.getProperty("NumberOfNecessaryPartyMembers", "4"));
+			if (FS_TIME_ATTACK <= 0)
+				FS_TIME_ATTACK = 50;
+			if (FS_TIME_COOLDOWN <= 0)
+				FS_TIME_COOLDOWN = 5;
+			if (FS_TIME_ENTRY <= 0)
+				FS_TIME_ENTRY = 3;
+			if (FS_TIME_ENTRY <= 0)
+				FS_TIME_ENTRY = 3;
+			if (FS_TIME_ENTRY <= 0)
+				FS_TIME_ENTRY = 3;
 
 			ALT_MANA_POTIONS = Boolean.parseBoolean(altSettings.getProperty("AllowManaPotions", "false"));
 		}
@@ -3025,7 +3007,6 @@ public final class Config
 		loadWeddingConfig();
 		loadSiegeConfig();
 		loadFortSiegeConfig();
-		loadSepulchersConfig();
 		loadClanHallConfig();
 		loadCastleConfig();
 		loadIdFactoryConfig();

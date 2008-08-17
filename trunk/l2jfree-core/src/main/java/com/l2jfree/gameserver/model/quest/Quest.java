@@ -20,6 +20,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.Collection;
 import java.util.Map;
 
@@ -61,6 +62,8 @@ public class Quest extends ManagedScript
 	private static Map<String, Quest>					_allEventsS		= new FastMap<String, Quest>();
 	/** HashMap containing lists of timers from the name of the timer */
 	private static Map<String, FastList<QuestTimer>>	_allEventTimers	= new FastMap<String, FastList<QuestTimer>>();
+
+	private final ReentrantReadWriteLock _rwLock = new ReentrantReadWriteLock();
 
 	private final int									_questId;
 	private final String								_name;
@@ -112,7 +115,6 @@ public class Quest extends ManagedScript
 	 */
 	protected void init_LoadGlobalData()
 	{
-		;
 	}
 
 	/**
@@ -123,7 +125,6 @@ public class Quest extends ManagedScript
 	 */
 	public void saveGlobalData()
 	{
-		;
 	}
 
 	public static enum QuestEventType
@@ -240,29 +241,72 @@ public class Quest extends ManagedScript
 			// if there exists a timer with this name, allow the timer only if the [npc, player] set is unique
 			// nulls act as wildcards
 			if (getQuestTimer(name, npc, player) == null)
-				timers.add(new QuestTimer(this, name, time, npc, player, repeating));
+			{
+				try
+				{
+					_rwLock.writeLock().lock();
+					timers.add(new QuestTimer(this, name, time, npc, player, repeating));
+				}
+				finally
+				{
+					_rwLock.writeLock().unlock();
+				}
+			}
 		}
 		// ignore the startQuestTimer in all other cases (timer is already started)
 	}
 
 	public QuestTimer getQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
 	{
-		FastList<QuestTimer> qt = _allEventTimers.get(name);
+		FastList<QuestTimer> qt = getQuestTimers(name);
 		if (qt == null || qt.isEmpty())
 			return null;
 
-		for (QuestTimer timer : qt)
+		try
 		{
-			if (timer != null && timer.isMatch(this, name, npc, player))
-				return timer;
+			_rwLock.readLock().lock();
+			for (QuestTimer timer : qt)
+			{
+				if (timer != null)
+				{
+					if (timer.isMatch(this, name, npc, player))
+						return timer;
+				}
+			}
+		}
+		finally
+		{
+			_rwLock.readLock().unlock();
 		}
 		return null;
 	}
 
-	public FastList<QuestTimer> getQuestTimers(String name)
+	private FastList<QuestTimer> getQuestTimers(String name)
 	{
 		return _allEventTimers.get(name);
 	}
+
+	public void cancelQuestTimers(String name)
+	{
+		FastList<QuestTimer> timers = getQuestTimers(name);
+		if (timers == null)
+			return;
+		try
+		{
+			_rwLock.writeLock().lock();
+			for(QuestTimer timer :timers)
+			{
+				if (timer != null)
+				{
+					timer.cancel();
+				}
+			}
+		}
+		finally
+		{
+			_rwLock.writeLock().unlock();
+		}
+	} 
 
 	public void cancelQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
 	{
@@ -278,7 +322,15 @@ public class Quest extends ManagedScript
 		FastList<QuestTimer> timers = getQuestTimers(timer.getName());
 		if (timers == null)
 			return;
-		timers.remove(timer);
+		try
+		{
+			_rwLock.writeLock().lock();
+			timers.remove(timer);
+		}
+		finally
+		{
+			_rwLock.writeLock().unlock();
+		}
 	}
 
 	// these are methods to call from java
@@ -380,9 +432,12 @@ public class Quest extends ManagedScript
 			return showError(player, e);
 		}
 		player.setLastQuestNpcObject(npc.getObjectId());
-		// if the quest returns text to display, display it.  Otherwise, use the default npc text.
+		// if the quest returns text to display, display it.
 		if (res != null && res.length() > 0)
 			return showResult(player, res);
+		// else tell the player that
+		else 
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 		// note: if the default html for this npc needs to be shown, onFirstTalk should 
 		// call npc.showChatWindow(player) and then return null.
 		return true;
@@ -1226,15 +1281,30 @@ public class Quest extends ManagedScript
 	 */
 	public L2NpcInstance addSpawn(int npcId, L2Character cha)
 	{
-		return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), false, 0);
+		return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), false, 0, false, cha.getInstanceId());
 	}
 
-	public L2NpcInstance addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay)
+	public L2NpcInstance addSpawn(int npcId, L2Character cha, boolean isSummonSpawn)
 	{
-		return addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, 0);
+		return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), false, 0, isSummonSpawn, cha.getInstanceId());
 	}
 
-	public L2NpcInstance addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay, int instanceId)
+	/**
+	* Add a temporary (quest) spawn
+	* Return instance of newly spawned npc
+	* with summon animation
+	*/
+	public L2NpcInstance addSpawn(int npcId, L2Character cha, boolean isSummonSpawn, int instanceId)
+	{
+		return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), false, 0, isSummonSpawn, instanceId);
+	}
+
+	public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffSet, int despawnDelay, int instanceId)
+	{
+		return addSpawn(npcId, x, y, z, heading, randomOffSet, despawnDelay, false, instanceId);
+	}
+
+	public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn, int instanceId)
 	{
 		L2NpcInstance result = null;
 		try
@@ -1279,7 +1349,7 @@ public class Quest extends ManagedScript
 				spawn.setLocy(y);
 				spawn.setLocz(z + 20);
 				spawn.stopRespawn();
-				result = spawn.spawnOne();
+				result = spawn.spawnOne(isSummonSpawn);
 
 				if (despawnDelay > 0)
 					ThreadPoolManager.getInstance().scheduleGeneral(new DeSpawnScheduleTimerTask(result), despawnDelay);

@@ -880,11 +880,6 @@ public class GameStatusThread extends Thread
 							Config.loadLotteryConfig();
 							_print.println("Lottery config reloaded");
 						}
-						else if (type.equals("sepulchurs"))
-						{
-							Config.loadSepulchersConfig();
-							_print.println("Sepulchurs config reloaded");
-						}
 						else if (type.equals("clanhall"))
 						{
 							Config.loadClanHallConfig();
@@ -943,13 +938,13 @@ public class GameStatusThread extends Thread
 						else
 						{
 							_print
-									.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
+									.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
 						}
 					}
 					catch (Exception e)
 					{
 						_print
-								.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
+								.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|elayne>");
 					}
 				}
 				else if (_usrCommand.startsWith("reload"))

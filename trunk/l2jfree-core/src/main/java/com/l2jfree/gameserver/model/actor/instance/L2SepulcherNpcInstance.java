@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -72,6 +73,13 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 		_closeTask = null;
 		_spawnNextMysteriousBoxTask = null;
 		_spawnMonsterTask = null;
+	}
+
+	@Override
+	public void onSpawn()
+	{
+		super.onSpawn();
+		setShowSummonAnimation(false);
 	}
 
 	@Override
@@ -238,11 +246,22 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 		case 31467:
 			setIsInvul(false);
 			reduceCurrentHp(getMaxHp() + 1, player);
+			if (player.getParty() != null && !player.getParty().isLeader(player))
+				player = player.getParty().getLeader();
 			player.addItem("Quest", HALLS_KEY, 1, player, true);
 			break;
 
 		default:
-			showChatWindow(player, 0);
+		{
+			Quest[] qlsa = getTemplate().getEventQuests(Quest.QuestEventType.QUEST_START);
+			if ( (qlsa != null) && qlsa.length > 0)
+				player.setLastQuestNpcObject(getObjectId());
+			Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.ON_FIRST_TALK);
+			if ( (qlst != null) && qlst.length == 1)
+				qlst[0].notifyFirstTalk(this, player);
+			else
+				showChatWindow(player, 0);
+		}
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -321,7 +340,16 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 
 				//Moved here from switch-default
 				openNextDoor(getNpcId());
-				player.destroyItemByItemId("Quest", HALLS_KEY, hallsKey.getCount(), player, true);
+				if (player.getParty() != null)
+				{
+					for (L2PcInstance mem : player.getParty().getPartyMembers())
+					{
+						if (mem.getInventory().getItemByItemId(HALLS_KEY) != null)
+							mem.destroyItemByItemId("Quest", HALLS_KEY, mem.getInventory().getItemByItemId(HALLS_KEY).getCount(), mem, true);
+					}
+				}
+				else
+					player.destroyItemByItemId("Quest", HALLS_KEY, hallsKey.getCount(), player, true);
 			}
 		}
 		else
@@ -401,16 +429,19 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 	}
 	public void sayInShout(String msg)
 	{
-		if(msg==null||msg=="")return;//wrong usage
-		Collection<L2PcInstance> knownPlayers = L2World.getInstance().getAllPlayers();   
+		if (msg == null || msg == "")
+			return; //wrong usage
+
+		Collection<L2PcInstance> knownPlayers = L2World.getInstance().getAllPlayers();
 		if (knownPlayers == null || knownPlayers.isEmpty())
 			return;
-		CreatureSay sm =new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(),this.getName(), msg);
+		CreatureSay sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), getName(), msg);
 		for (L2PcInstance player : knownPlayers)
 		{
-			if(player == null)continue;
+			if(player == null)
+				continue;
 			if(Util.checkIfInRange(15000, player, this, true))
-				player.sendPacket(sm);	
+				player.sendPacket(sm);
 		}
 	}
 	public void showHtmlFile(L2PcInstance player, String file)

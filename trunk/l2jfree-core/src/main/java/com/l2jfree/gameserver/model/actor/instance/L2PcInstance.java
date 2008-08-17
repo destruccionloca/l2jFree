@@ -2836,7 +2836,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 * @param sendMessage : boolean Specifies whether to send message to Client about this action
 	 */
-	public void addItem(String process, L2ItemInstance item, L2Object reference, boolean sendMessage, boolean UpdateIL)
+	public L2ItemInstance addItem(String process, L2ItemInstance item, L2Object reference, boolean sendMessage, boolean UpdateIL)
 	{
 		if (item.getCount() > 0)
 		{
@@ -2870,7 +2870,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			// do treatments after adding this item
 			processAddItem(UpdateIL, newitem);
+			return newitem;
 		}
+		return null;
 	}
 
 	/**

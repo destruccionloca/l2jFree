@@ -14,25 +14,25 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author KenM
  */
-public class ExGetBossRecord extends L2GameServerPacket {
+public class ExGetBossRecord extends L2GameServerPacket
+{
 	private static final String _S__FE_34_EXGETBOSSRECORD = "[S] FE:34 ExGetBossRecord [ddd (dddd)]";
 
-	private List<BossRecordInfo> _bossRecordInfo;
-
+	private Map<Integer, Integer> _bossRecordInfo;
 	private int _ranking;
-
 	private int _totalPoints;
 
-	public ExGetBossRecord(int ranking, int totalScore, List<BossRecordInfo> bossRecordInfo) 
+
+	public ExGetBossRecord(int ranking, int totalScore, Map<Integer, Integer> list)
 	{
-		_ranking = ranking; // char ranking
-		_totalPoints = totalScore; // char total points
-		_bossRecordInfo = bossRecordInfo;
+		_ranking = ranking;
+		_totalPoints = totalScore;
+		_bossRecordInfo = list;
 	}
 
 	@Override
@@ -40,16 +40,22 @@ public class ExGetBossRecord extends L2GameServerPacket {
 	{
 		writeC(0xfe);
 		writeH(0x34);
-		
-		writeD(_ranking); // char ranking
-		writeD(_totalPoints); // char total points
 
-		writeD(_bossRecordInfo.size()); // list size
-		for (BossRecordInfo w : _bossRecordInfo) 
+		writeD(_ranking);
+		writeD(_totalPoints);
+		if (_bossRecordInfo == null)
 		{
-			writeD(w._bossId);
-			writeD(w._points);
-			writeD(w._unk1);// don`t know
+			writeD(0x00);
+		}
+		else
+		{
+			writeD(_bossRecordInfo.size()); //list size
+			for (int bossId : _bossRecordInfo.keySet())
+			{
+				writeD(bossId);
+				writeD(_bossRecordInfo.get(bossId));
+				writeD(0x00); //??
+			}
 		}
 	}
 
@@ -57,21 +63,5 @@ public class ExGetBossRecord extends L2GameServerPacket {
 	public String getType() 
 	{
 		return _S__FE_34_EXGETBOSSRECORD;
-	}
-
-	public static class BossRecordInfo 
-	{
-		public int _bossId;
-
-		public int _points;
-
-		public int _unk1;
-
-		public BossRecordInfo(int bossId, int points, int unk1) 
-		{
-			_bossId = bossId;
-			_points = points;
-			_unk1 = unk1;
-		}
 	}
 }

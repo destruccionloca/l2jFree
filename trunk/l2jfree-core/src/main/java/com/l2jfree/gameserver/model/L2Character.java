@@ -173,6 +173,7 @@ public abstract class L2Character extends L2Object
 	protected CharStatus			_status;
 	private long					_timePreviousBroadcastStatusUpdate	= 0;
 	private L2CharTemplate			_template;																				// The link on the L2CharTemplate
+	protected boolean 				_showSummonAnimation				= false;
 	// object containing generic and
 	// static properties of this
 	// L2Character type (ex : Max HP,
@@ -4893,6 +4894,22 @@ public abstract class L2Character extends L2Object
 		if (updateKnownObjects)
 			getKnownList().updateKnownObjects();
 	}
+
+	/** 
+	 * @return Returns the showSummonAnimation. 
+	 */ 
+	public boolean isShowSummonAnimation() 
+	{ 
+		return _showSummonAnimation; 
+	} 
+ 
+	/** 
+	 * @param showSummonAnimation The showSummonAnimation to set. 
+	 */ 
+	public void setShowSummonAnimation(boolean showSummonAnimation) 
+	{ 
+		_showSummonAnimation = showSummonAnimation; 
+	} 
 
 	/**
 	 * Target a L2Object (add the target to the L2Character _target, _knownObject and L2Character to _KnownObject of the L2Object).<BR>
