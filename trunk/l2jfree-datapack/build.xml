@@ -75,8 +75,8 @@
           <include name="servername.xml"/>
         </fileset>
       </copy>
-      <delete file="${build}/l2jfree_datapack_ct15.zip"/>
-      <zip destfile="${build}/l2jfree_datapack_ct15.zip" basedir="${build.dist}"/>
+      <delete file="${build}/l2jfree_datapack_ct2.zip"/>
+      <zip destfile="${build}/l2jfree_datapack_ct2.zip" basedir="${build.dist}"/>
     </target>
 
     <target name="version"
