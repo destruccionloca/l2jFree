@@ -1468,21 +1468,35 @@ public class L2Attackable extends L2NpcInstance
                 else dropItem(player, item);
                 _spec = true;
             }
-            else for (int i = 0; i < 3; i++)
+            else for (int i = 0; i < 5; i++)
             {
                 random = Rnd.get(100);
                 if (random < Config.RATE_DROP_COMMON_HERBS) 
                 {
                     RewardItem item = null;
-                    if (i == 0)
-                    	item = new RewardItem(8606, 1); // Herb of Power
-                    else if (i == 1)
-                    	item = new RewardItem(8608, 1); // Herb of Atk. Spd.
-                    else
-                    	item = new RewardItem(8610, 1); // Herb of Critical Attack
+                    switch (i)
+                    {
+                        case 0:
+                            item = new RewardItem(8606, 1); // Herb of Power
+                            break;
+                        case 1:
+                            item = new RewardItem(8608, 1); // Herb of Atk. Spd.
+                            break;
+                        case 2:
+                            item = new RewardItem(8610, 1); // Herb of Critical Attack - Rate
+                            break;
+                        case 3:
+                            item = new RewardItem(10655, 1); // Herb of Life Force Absorption
+                            break;
+                        default:
+                            item = new RewardItem(10656, 1); // Herb of Critical Attack - Power
+                            break;
+                    }
                     
-                    if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-                    else dropItem(player, item);
+                    if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS)
+                        player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
+                    else
+                        dropItem(player, item);
                     break;
                 }
             }
@@ -1597,6 +1611,14 @@ public class L2Attackable extends L2NpcInstance
                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
                 else dropItem(player, item);
             }
+             // Enlarge Head type
+             random = Rnd.get(100);
+             if (random < Config.RATE_DROP_COMMON_HERBS)
+             {
+                 RewardItem item = new RewardItem(10657, 1);  // Herb of Doubt
+                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
+                 else dropItem(player, item);
+             }
         }
     }
 

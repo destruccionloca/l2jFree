@@ -2147,12 +2147,16 @@ public abstract class L2Character extends L2Object
 				}
 			}
 
+			// Reset soul bonus for skills
+			if (this instanceof L2PcInstance)
+				((L2PcInstance) this).resetLastSoulConsume();
+
 			// Consume Souls if necessary
-			if (skill.getSoulConsumeCount() > 0)
+			if (skill.getSoulConsumeCount() > 0 || skill.getMaxSoulConsumeCount() > 0)
 			{
 				if (this instanceof L2PcInstance)
 				{
-					((L2PcInstance) this).decreaseSouls(skill.getSoulConsumeCount());
+					((L2PcInstance) this).decreaseSouls(skill);
 					sendPacket(new EtcStatusUpdate((L2PcInstance) this));
 				}
 			}
@@ -6612,12 +6616,16 @@ public abstract class L2Character extends L2Object
 				}
 			}
 
+			// Reset soul bonus for skills
+			if (this instanceof L2PcInstance)
+				((L2PcInstance) this).resetLastSoulConsume();
+
 			// Consume Souls if necessary
-			if (skill.getSoulConsumeCount() > 0)
+			if (skill.getSoulConsumeCount() > 0 || skill.getMaxSoulConsumeCount() > 0)
 			{
 				if (this instanceof L2PcInstance)
 				{
-					((L2PcInstance) this).decreaseSouls(skill.getSoulConsumeCount());
+					((L2PcInstance) this).decreaseSouls(skill);
 					sendPacket(new EtcStatusUpdate((L2PcInstance) this));
 				}
 			}

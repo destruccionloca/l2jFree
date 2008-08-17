@@ -1679,15 +1679,13 @@ public final class Formulas
 		}
 		else if (mcrit)
 			damage *= Config.ALT_MCRIT_RATE;
+		damage += Rnd.nextDouble() * attacker.getRandomDamage(target);
 
 		// Pvp bonusses for dmg
 		if ((attacker instanceof L2PcInstance || attacker instanceof L2Summon) && (target instanceof L2PcInstance || target instanceof L2Summon))
 		{
-			if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
-			{
-				//if the skill is an itemskill and ALT_ITEM_SKILLS_NOT_INFLUENCED is true do.. nothing
-			}
-			else
+			//if the skill is an itemskill and ALT_ITEM_SKILLS_NOT_INFLUENCED is true do.. nothing
+			if (!(skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED))
 			{
 				if (skill.isMagic())
 					damage *= attacker.calcStat(Stats.PVP_MAGICAL_DMG, 1, null, null);

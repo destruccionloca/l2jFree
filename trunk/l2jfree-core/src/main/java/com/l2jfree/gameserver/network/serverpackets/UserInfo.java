@@ -393,7 +393,7 @@ public class UserInfo extends L2GameServerPacket
 		{
 			// T2
 			writeD(_activeChar.getFame());  // Fame
-			writeD(0x01); // Unknown
+			writeD(0x00); // Unknown
 			writeD(_activeChar.getVitalityLevel());  // Vitality Level
 		}
 	}

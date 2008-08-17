@@ -114,6 +114,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.L2GamePacketHandler;
 import com.l2jfree.gameserver.pathfinding.geonodes.GeoPathFinding;
 import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
+import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
 import com.l2jfree.gameserver.skills.SkillsEngine;
 import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
@@ -299,7 +300,33 @@ public class GameServer
 		{
 			_log.fatal("Failed loading scripts.cfg, no script going to be loaded");
 		}
-		
+		try
+		{
+			CompiledScriptCache compiledScriptCache = L2ScriptEngineManager.getInstance().getCompiledScriptCache();
+			if (compiledScriptCache == null)
+			{
+				_log.info("Compiled Scripts Cache is disabled.");
+			}
+			else
+			{
+				compiledScriptCache.purge();
+				if (compiledScriptCache.isModified())
+				{
+					compiledScriptCache.save();
+					_log.info("Compiled Scripts Cache was saved.");
+				}
+				else
+				{
+					_log.info("Compiled Scripts Cache is up-to-date.");
+				}
+			}
+			
+		}
+		catch (IOException e)
+		{
+			_log.fatal("Failed to store Compiled Scripts Cache.", e);
+		}
+
 		QuestManager.getInstance().report();
 		TransformationManager.getInstance().report();
 		

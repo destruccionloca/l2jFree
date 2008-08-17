@@ -43,9 +43,6 @@ public class RaidPointsManager
 	private static RaidPointsManager							_instance;
 	protected Map<Integer, PointList>							_points;
 
-	public final static int SCORE = 0;
-	public final static int RANKING = -1;
-
 	public static class PointList extends FastMap<Integer, Integer>
 	{
 		private static final long serialVersionUID = -1L;

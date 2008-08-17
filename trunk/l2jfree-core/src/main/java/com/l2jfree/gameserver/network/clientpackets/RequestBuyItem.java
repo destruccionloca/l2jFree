@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2MercManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PetManagerInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
@@ -122,6 +123,8 @@ public class RequestBuyItem extends L2GameClientPacket
             htmlFolder = "merchant";
         else if (target instanceof L2FishermanInstance)
             htmlFolder = "fisherman";
+        else if (target instanceof L2PetManagerInstance)
+            htmlFolder = "petmanager";
         else if (!(target instanceof L2MercManagerInstance || target instanceof L2ClanHallManagerInstance
                        || target instanceof L2CastleChamberlainInstance))
         {

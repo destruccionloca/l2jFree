@@ -470,6 +470,32 @@ public abstract class L2Zone
 		return _shapes[Rnd.nextInt(_shapes.length)].getRandomLocation();
 	}
 
+	/**
+	* Some GrandBosses send all players in zone to a specific part of the zone,
+	* rather than just removing them all. If this is the case, this command should
+	* be used.
+	* 
+	* @param x
+	* @param y
+	* @param z
+	*/
+	public void movePlayersTo(int x, int y, int z)
+	{
+		if (_characterList == null)
+			return;
+		if (_characterList.isEmpty())
+			return;
+		for (L2Character character : _characterList.values())
+		{
+			if (character == null)
+				continue;
+			if (character instanceof L2PcInstance && ((L2PcInstance)character).isOnline() == 1)
+			{
+				character.teleToLocation(x, y, z);
+			}
+		}
+	}
+
 	public static L2Zone parseZone(Node zn)
 	{
 		String type = "Default";

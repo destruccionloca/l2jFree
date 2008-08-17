@@ -187,7 +187,6 @@ public final class L2TeleporterInstance extends L2FolkInstance
 	private void doTeleport(L2PcInstance player, int val)
 	{
 		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
-		Calendar cal = Calendar.getInstance();
 		if (list != null)
 		{
 			//you cannot teleport to village that is in siege
@@ -196,12 +195,12 @@ public final class L2TeleporterInstance extends L2FolkInstance
 				player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
 				return;
 			}
-			else if (TownManager.getInstance().townHasCastleInSiege(list.getLocX(), list.getLocY(), list.getLocZ()))
+			if (TownManager.getInstance().townHasCastleInSiege(list.getLocX(), list.getLocY(), list.getLocZ()))
 			{
 				player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
 				return;
 			}
-			else if (list.isForNoble() && !player.isNoble())
+			if (list.isForNoble() && !player.isNoble())
 			{
 				String filename = "data/html/teleporter/nobleteleporter-no.htm";
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -211,21 +210,28 @@ public final class L2TeleporterInstance extends L2FolkInstance
 				player.sendPacket(html);
 				return;
 			}
-			else if (player.isAlikeDead())
+			if (player.isAlikeDead())
 			{
 				return;
 			}
-			else if (!Config.CT1_LEGACY && player.getLevel() < 40)
+
+			Calendar cal = Calendar.getInstance();
+			int price = list.getPrice();
+			// from CT2 all players below lvl 40 have all ports for free
+			if (player.getLevel() < 40 && !Config.CT1_LEGACY)
 			{
-				//free teleport for chars < level 40
-				//TODO: clean up this whole mess here
-				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ(), true);
+				price = 0;
 			}
-			else if (!list.isForNoble()
-					&& (Config.ALT_GAME_FREE_TELEPORT
-							|| (cal.get(Calendar.HOUR_OF_DAY) >= 20 && cal.get(Calendar.HOUR_OF_DAY) <= 23 && (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal
-									.get(Calendar.DAY_OF_WEEK) == 7)) ? player.reduceAdena("Teleport", (int) list.getPrice() / 2, this, true) : player
-							.reduceAdena("Teleport", list.getPrice(), this, true)))
+			// At weekeend evening hours, teleport costs are / 2
+			// But only adena teleports
+			else if (!list.isForNoble())
+			{
+				if (cal.get(Calendar.HOUR_OF_DAY) >= 20 && cal.get(Calendar.HOUR_OF_DAY) <= 23 
+							&& (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal.get(Calendar.DAY_OF_WEEK) == 7))
+					price /= 2;
+			}
+
+			if (!list.isForNoble() && (Config.ALT_GAME_FREE_TELEPORT || player.reduceAdena("Teleport", price, this, true)))
 			{
 				if (_log.isDebugEnabled())
 					_log.debug("Teleporting player " + player.getName() + " to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());

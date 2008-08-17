@@ -173,6 +173,7 @@ public class GameStatusThread extends Thread
 
 	public GameStatusThread(Socket client, int uptime, String StatusPW) throws IOException
 	{
+		setPriority(Thread.MAX_PRIORITY);
 		_cSocket = client;
 		_uptime = uptime;
 

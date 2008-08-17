@@ -137,7 +137,12 @@ public class Potions implements IItemHandler
 			10267,
 			10268,
 			10269,
-			10270				};
+			10270,
+			// CT2 Herbs
+			10655,
+			10656,
+			10657
+							};
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
@@ -446,6 +451,15 @@ public class Potions implements IItemHandler
 		case 8614: // Herb of Warrior
 			res = usePotion(activeChar, 2278, 3);// Superior Herb of Life
 			res = usePotion(activeChar, 2279, 3);// Superior Herb of Mana
+			break;
+		case 10655:
+			res = usePotion(activeChar, 2512, 1);
+			break;
+		case 10656:
+			res = usePotion(activeChar, 2514, 1);
+			break;
+		case 10657:
+			res = usePotion(activeChar, 2513, 1);
 			break;
 		case 8193: // Fisherman's Potion - Green
 			if (activeChar.getSkillLevel(1315) <= 3)

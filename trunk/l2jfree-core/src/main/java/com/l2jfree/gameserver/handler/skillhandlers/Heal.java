@@ -141,12 +141,19 @@ public class Heal implements ISkillHandler
 				}
 			}
 
-			//target.getStatus().setCurrentHp(hp + target.getStatus().getCurrentHp());
-			target.getStatus().increaseHp(hp);
-			target.setLastHealAmount((int) hp);
-			StatusUpdate su = new StatusUpdate(target.getObjectId());
-			su.addAttribute(StatusUpdate.CUR_HP, (int) target.getStatus().getCurrentHp());
-			target.sendPacket(su);
+			//from CT2 u will receive exact HP, u can't go over it, if u have full HP and u get HP buff, u will receive 0HP restored message
+			if (target.getStatus().getCurrentHp() + hp >= target.getMaxHp())
+				hp = target.getMaxHp() - target.getStatus().getCurrentHp();
+	
+			if (hp > 0)
+			{
+				target.getStatus().increaseHp(hp);
+				target.setLastHealAmount((int) hp);
+				StatusUpdate su = new StatusUpdate(target.getObjectId());
+				su.addAttribute(StatusUpdate.CUR_HP, (int) target.getStatus().getCurrentHp());
+				target.sendPacket(su);
+			}
+
 			if (target instanceof L2PcInstance)
 			{
 				if (skill.getId() == 4051)
