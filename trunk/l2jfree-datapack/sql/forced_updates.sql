@@ -612,7 +612,7 @@ DELETE FROM spawnlist WHERE npc_templateId IN
   32051,32058,32059,32060,32061,32062,32063,32064,32065,32066,32067,32068 );
 
 -- Last Imperial Tomb
-REPLACE INTO npc VALUES
+REPLACE INTO npc (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`,`ss`,`bss`,`ss_rate`,`AI`) VALUES
 (18328,18328,'Hall Alarm Device',0,'',0,'NPC.grave_keeper_key',8,21,80,'male','L2Monster',80,1264000,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,0,333,0,0,0,0,0,'NULL',0,0,0,'LAST_HIT',0,0,0,'balanced'),
 (18329,18329,'Hall Keeper Captain',0,'',0,'Monster.death_lord',21,40,80,'male','L2Monster',80,23582,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,78,0,0,88,132,'NULL',0,0,0,'LAST_HIT',0,0,0,'balanced'),
 (18330,18330,'Hall Keeper Wizard',0,'',0,'Monster.vale_master',12,40,80,'male','L2Monster',80,18203,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,500,333,326,0,0,88,132,'NULL',0,0,0,'LAST_HIT',0,0,0,'balanced'),
@@ -629,7 +629,7 @@ REPLACE INTO npc VALUES
 
 -- Frintezza
 -- Setting NPC
-REPLACE INTO npc VALUES
+REPLACE INTO npc (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`,`ss`,`bss`,`ss_rate`,`AI`) VALUES
 (29045,29045,'Frintezza',0,'',0,'Monster3.frintessa',10,42,90,'male','L2GrandBoss',2000,790857,22197,830.62,3.09,40,43,30,21,20,10,1470000,13232048,9182,6214,7133,4191,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,13,'LAST_HIT',0,0,0,'balanced'),
 (29046,29046,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa',45,90.7,85,'male','L2GrandBoss',50,23480000,22393,823.48,265,60,57,73,76,70,80,496960259,40375148,10699,5036,12680,4191,278,6000,3819,8204,0,0,55,132,'frintezza_clan',6000,0,13,'FULL_PARTY',0,0,0,'balanced'),
 (29047,29047,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa_tran',92,112.8,90,'male','L2GrandBoss',60,23480000,22393,830.62,3.09,40,43,30,21,20,10,496960259,40375148,23813,7000,12680,6238,409,6000,3819,8222,0,0,92,187,'frintezza_clan',6000,0,13,'FULL_PARTY',0,0,0,'balanced'),
