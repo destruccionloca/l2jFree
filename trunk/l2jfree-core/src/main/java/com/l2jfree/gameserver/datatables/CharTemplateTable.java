@@ -181,7 +181,7 @@ public class CharTemplateTable
 			"Inspector",
 			"Judicator"									};
 
-	private FastMap<Integer, L2PcTemplate>	_templates;
+	private final FastMap<Integer, L2PcTemplate> _templates = new FastMap<Integer, L2PcTemplate>();
 
 	public static CharTemplateTable getInstance()
 	{
@@ -194,7 +194,6 @@ public class CharTemplateTable
 
 	private CharTemplateTable()
 	{
-		_templates = new FastMap<Integer, L2PcTemplate>();
 		Connection con = null;
 
 		try
@@ -207,7 +206,6 @@ public class CharTemplateTable
 			while (rset.next())
 			{
 				StatsSet set = new StatsSet();
-				//ClassId classId = ClassId.values()[rset.getInt("id")];
 				set.set("classId", rset.getInt("id"));
 				set.set("className", rset.getString("className"));
 				set.set("raceId", rset.getInt("raceId"));
@@ -254,27 +252,91 @@ public class CharTemplateTable
 				set.set("fcollision_radius", rset.getDouble("f_col_r"));
 				set.set("fcollision_height", rset.getDouble("f_col_h"));
 				ct = new L2PcTemplate(set);
-				//5items must go here
-				for (int x = 1; x < 6; x++)
-				{
-					if (rset.getInt("items" + x) != 0)
-					{
-						ct.addItem(rset.getInt("items" + x));
-					}
-				}
+
 				_templates.put(ct.getClassId().getId(), ct);
 			}
 
 			rset.close();
 			statement.close();
+
+			_log.info("CharTemplateTable: Loaded " + _templates.size() + " Character Templates.");
 		}
 		catch (SQLException e)
 		{
-			_log.warn("error while loading char templates " + e.getMessage());
+			_log.fatal("Failed loading char templates", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+				// nothing
+			}
+		}
 
-		_log.info("CharTemplateTable: Loaded " + _templates.size() + " Character Templates.");
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("SELECT classId, itemId, amount, equipped FROM char_creation_items");
+			ResultSet rset = statement.executeQuery();
+			
+			int classId, itemId, amount;
+			boolean equipped;
+			while (rset.next())
+			{
+				classId = rset.getInt("classId");
+				itemId = rset.getInt("itemId");
+				amount = rset.getInt("amount");
+				equipped = rset.getString("equipped").equals("true");
+				
+				if (ItemTable.getInstance().getTemplate(itemId) != null)
+				{
+					if (classId == -1)
+					{
+						for (L2PcTemplate pct : _templates.values())
+						{
+							pct.addItem(itemId, amount, equipped);
+						}
+					}
+					else
+					{
+						L2PcTemplate pct = _templates.get(classId);
+						if (pct != null)
+						{
+							pct.addItem(itemId, amount, equipped);
+						}
+						else
+						{
+							_log.warn("char_creation_items: Entry for undefined class, classId: "+classId);
+						}
+					}
+				}
+				else
+				{
+					_log.warn("char_creation_items: No data for itemId: "+itemId+" defined for classId "+classId);
+				}
+			}
+			rset.close();
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			_log.fatal("Failed loading char creation items.", e);
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+				// nothing
+			}
+		}
 	}
 
 	public L2PcTemplate getTemplate(ClassId classId)
@@ -284,32 +346,11 @@ public class CharTemplateTable
 
 	public L2PcTemplate getTemplate(int classId)
 	{
-		int key = classId;
-		return _templates.get(key);
+		return _templates.get(classId);
 	}
 
 	public static final String getClassNameById(int classId)
 	{
 		return CHAR_CLASSES[classId];
 	}
-
-	public static final int getClassIdByName(String className)
-	{
-		int currId = 1;
-
-		for (String name : CHAR_CLASSES)
-		{
-			if (name.equalsIgnoreCase(className))
-				break;
-
-			currId++;
-		}
-
-		return currId;
-	}
-
-	//	public L2CharTemplate[] getAllTemplates()
-	//	{
-	//		return _templates.values().toArray(new L2CharTemplate[_templates.size()]);
-	//	}
 }

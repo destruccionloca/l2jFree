@@ -66,7 +66,8 @@ public class L2FriendList
 		{
 			Connection con = null;
 			
-			try {
+			try
+			{
 				
 				con = L2DatabaseFactory.getInstance().getConnection(con);
 				PreparedStatement statement;
@@ -78,11 +79,12 @@ public class L2FriendList
 					friendlist.put(rset.getInt("friendId"),rset.getString("friend_name"));
 					
 				statement.close();
+			}
+			catch (Exception e)
+			{
+				_log.error("Error restoring friend data.", e);
 			} 
-			catch (Exception e) {
-				_log.warn("Could not restore friend data:"+e);
-			} 
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 	}
 

@@ -2755,7 +2755,7 @@ public class L2NpcInstance extends L2Character
 		}
 		catch (Throwable t)
 		{
-			_log.fatal("deleteMe(): " + t);
+			_log.fatal("Failed decayMe().", t);
 		}
 
 		if (oldRegion != null)
@@ -2768,7 +2768,7 @@ public class L2NpcInstance extends L2Character
 		}
 		catch (Throwable t)
 		{
-			_log.fatal("deleteMe(): " + t);
+			_log.fatal("Failed removing cleaning knownlist.", t);
 		}
 
 		// Remove L2Object object from _allObjects of L2World

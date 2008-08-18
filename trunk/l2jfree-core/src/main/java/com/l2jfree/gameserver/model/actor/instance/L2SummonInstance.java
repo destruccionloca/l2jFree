@@ -258,14 +258,12 @@ public class L2SummonInstance extends L2Summon
 					_summon.lastShowntimeRemaining = (int) newTimeRemaining;
 				}
 			}
-            catch (Throwable e)  
-    		{
-            	if (_log.isDebugEnabled()) 
-            		_log.warn("Summon of player [#"+_activeChar.getName()+"] has encountered item consumption errors: "+e);
-
-            }
-        }
-    }
+			catch (Throwable e)  
+			{
+				_log.error("Error on player ["+_activeChar.getName()+"] summon item consume task.", e);
+			}
+		}
+	}
 
     @Override
     public int getCurrentFed() { return _lifeTime; }

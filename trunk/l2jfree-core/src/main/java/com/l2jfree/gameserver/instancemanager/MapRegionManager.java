@@ -101,7 +101,7 @@ public class MapRegionManager
 			}
 			catch (Exception e)
 			{
-				_log.warn("MapRegionManager: Error while loading XML definition: " + xml.getName() + e);
+				_log.warn("MapRegionManager: Error while loading XML definition: " + xml.getName() + e, e);
 				return;
 			}
 
@@ -111,7 +111,7 @@ public class MapRegionManager
 			}
 			catch (Exception e)
 			{
-				_log.warn("MapRegionManager: Error in XML definition: " + xml.getName() + e);
+				_log.warn("MapRegionManager: Error in XML definition: " + xml.getName() + e, e);
 				return;
 			}
 		}

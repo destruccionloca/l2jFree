@@ -53,7 +53,7 @@ public class DoorTable
 		return _instance;
 	}
 
-	public DoorTable()
+	private DoorTable()
 	{
 		_staticItems = new FastMap<Integer, L2DoorInstance>();
 		parseData();
@@ -67,9 +67,7 @@ public class DoorTable
 
 	public void respawn()
 	{
-		//	    L2DoorInstance[] currentDoors = getDoors();
 		_staticItems = null;
-		_instance = null;
 		_instance = new DoorTable();
 	}
 

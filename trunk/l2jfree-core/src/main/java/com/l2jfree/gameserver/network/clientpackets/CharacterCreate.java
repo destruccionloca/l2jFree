@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,6 +41,7 @@ import com.l2jfree.gameserver.network.serverpackets.CharCreateOk;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.gameserver.templates.L2PcTemplate;
+import com.l2jfree.gameserver.templates.L2PcTemplate.PcTemplateItem;
 
 /**
  * This class ...
@@ -167,23 +169,23 @@ public class CharacterCreate extends L2GameClientPacket
 		shortcut = new L2ShortCut(10,0,3,0,-1,1);
 		newChar.registerShortCut(shortcut);
 		
-		L2Item[] items = template.getItems();
-		for (L2Item element : items)
+		for (PcTemplateItem ia : template.getItems())
 		{
-			L2ItemInstance item = newChar.getInventory().addItem("Init", element.getItemId(), 1, newChar, null);
-			if (item.getItemId()==5588)
+			L2ItemInstance item = newChar.getInventory().addItem("Init", ia.getItemId(), ia.getAmount(), newChar, null);
+
+			// add tutbook shortcut
+			if (item.getItemId() == 5588)
 			{
-				//add tutbook shortcut
-				shortcut = new L2ShortCut(11,0,1,item.getObjectId(),-1,1);
+				shortcut = new L2ShortCut(11, 0, 1, item.getObjectId(), -1, 1);
 				newChar.registerShortCut(shortcut);
 			}
-			if (item.isEquipable())
+
+			if (item.isEquipable() && ia.isEquipped())
 			{
-				if (newChar.getActiveWeaponItem() == null || !(item.getItem().getType2() != L2Item.TYPE2_WEAPON))
-					newChar.getInventory().equipItemAndRecord(item);
+				newChar.getInventory().equipItemAndRecord(item);
 			}
 		}
-		
+
 		L2SkillLearn[] startSkills = SkillTreeTable.getInstance().getAvailableSkills(newChar, newChar.getClassId());
 		for (L2SkillLearn element : startSkills)
 		{

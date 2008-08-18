@@ -502,7 +502,7 @@ public class CursedWeapon
         }
         catch (SQLException e)
         {
-            _log.fatal("CursedWeapon: Failed to save data: " + e);
+            _log.error("CursedWeapon: Failed to save data: ", e);
         }
         finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }

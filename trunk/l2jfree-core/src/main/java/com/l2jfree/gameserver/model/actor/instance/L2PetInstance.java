@@ -200,10 +200,9 @@ public class L2PetInstance extends L2Summon
                 }
             }
             catch (Throwable e) 
-        	{
-            if (_log.isDebugEnabled()) 
-                _log.warn("Pet [#"+getObjectId()+"] a feed task error has occurred: "+e);
-        	}	
+            {
+                _log.error("Pet [ObjectId: "+getObjectId()+"] a feed task error has occurred", e);
+            }
         }
     }
     
@@ -643,7 +642,7 @@ public class L2PetInstance extends L2Summon
         }
         catch(Exception e)
         {
-            _log.warn("Give all items error " + e);
+            _log.error("Give all items error ", e);
         }
     }
     
@@ -660,7 +659,7 @@ public class L2PetInstance extends L2Summon
         }
         catch (Exception e)
         {
-            _log.warn("Error while giving item to owner: " + e);
+            _log.error("Error while giving item to owner: ", e);
         }
     }
     
@@ -692,8 +691,9 @@ public class L2PetInstance extends L2Summon
             L2World world = L2World.getInstance();
             world.removeObject(removedItem);
         }
-        catch (Exception e){
-            _log.warn("Error while destroying control item: " + e);
+        catch (Exception e)
+        {
+            _log.error("Error while destroying control item: ", e);
         }
         
         // pet control item no longer exists, delete the pet from the db
@@ -708,7 +708,7 @@ public class L2PetInstance extends L2Summon
         }
         catch (SQLException e)
         {
-            _log.warn("could not delete pet:"+e);
+            _log.error("Failed to delete Pet [ObjectId: "+getObjectId()+"]", e);
         }
         finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
     }
@@ -847,11 +847,13 @@ public class L2PetInstance extends L2Summon
             pet._respawned = true;
             
             return pet;
-        } catch (SQLException e) {
-            _log.warn("could not restore pet data: "+ e);
-            return null;
+        }
+        catch (SQLException e)
+        {
+            _log.error("Failed to restore pet data", e);
         }
         finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        return null;
     }
    
     @Override
@@ -879,7 +881,7 @@ public class L2PetInstance extends L2Summon
             statement.setInt(2, getStat().getLevel());
             statement.setDouble(3, getStatus().getCurrentHp());
             statement.setDouble(4, getStatus().getCurrentMp());
-			statement.setLong(5, getStat().getExp());
+            statement.setLong(5, getStat().getExp());
             statement.setInt(6, getStat().getSp());
             statement.setInt(7, getKarma());
             statement.setInt(8, getPkKills());
@@ -890,8 +892,10 @@ public class L2PetInstance extends L2Summon
             
             _respawned = true;
             
-        } catch (SQLException e) {
-            _log.warn("could not store pet data: "+e);
+        }
+        catch (SQLException e)
+        {
+            _log.error("Failed to store Pet [ObjectId: "+getObjectId()+"] data", e);
         }
         finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
         
@@ -931,7 +935,8 @@ public class L2PetInstance extends L2Summon
                 _feedTime = _data.getPetFeedNormal();
             }
             //  pet feed time must be different than 0. Changing time to bypass divide by 0
-            if (_feedTime <= 0) { _feedTime = 1; }
+            if (_feedTime <= 0)
+                _feedTime = 1;
             
             int _foodConsumeTime = Math.round((60000/_feedTime)/Config.PET_FOOD_RATE);
             

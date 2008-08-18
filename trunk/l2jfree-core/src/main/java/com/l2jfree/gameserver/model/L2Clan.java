@@ -699,9 +699,9 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while saving new clan leader to db " + e);
+			_log.error("Error while saving new clan leader.", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public void store()
@@ -729,9 +729,9 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while saving new clan to db " + e);
+			_log.error("Error saving new clan.", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void removeMemberInDatabase(L2ClanMember member, long clanJoinExpiryTime, long clanCreateExpiryTime)
@@ -763,9 +763,9 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while removing clan member in db " + e);
+			_log.error("Error removing clan member.", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	@SuppressWarnings("unused")
@@ -785,9 +785,9 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			_log.warn("could not update clans wars data:" + e);
+			_log.error("Error updating clan wars data.", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void restore()
@@ -872,10 +872,10 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while restoring clan " + e);
+			_log.error("Error restoring clan data.", e);
 			_log.warn(String.valueOf(getClanId()), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void restoreSkills()
@@ -907,9 +907,9 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			_log.warn("Could not restore clan skills: " + e);
+			_log.error("Error restoring clan skills.", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/** used to retrieve all skills */
@@ -974,9 +974,9 @@ public class L2Clan
 			}
 			catch (Exception e)
 			{
-				_log.warn("Error could not store char skills: " + e);
+				_log.error("Error saving clan skills.", e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
 			// notify clan members 
 			addSkillEffects(true);
@@ -1348,9 +1348,9 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			_log.warn("Could not restore clan sub-units: " + e);
+			_log.error("Error restoring clan sub-units.", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/** used to retrieve subPledge by type */
@@ -1452,9 +1452,9 @@ public class L2Clan
 			}
 			catch (Exception e)
 			{
-				_log.warn("error while saving new sub_clan to db " + e);
+				_log.error("Error saving sub clan data.", e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 		broadcastToOnlineMembers(new PledgeShowInfoUpdate(_leader.getClan()));
 		broadcastToOnlineMembers(new PledgeReceiveSubPledgeCreated(subPledge, _leader.getClan()));
@@ -1513,9 +1513,9 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while saving new clan leader to db " + e);
+			_log.error("Error saving new sub clan leader.", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	private void restoreRankPrivs()
@@ -1548,10 +1548,9 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			_log.warn("Could not restore clan privs by rank: " + e);
-			e.printStackTrace();
+			_log.error("Error restoring clan privs by rank.", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public void initializePrivs()

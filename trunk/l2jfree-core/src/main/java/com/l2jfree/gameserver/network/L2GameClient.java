@@ -236,11 +236,11 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		}
 		catch (Exception e)
 		{
-			_log.warn("Data error on update delete time of char: " + e);
+			_log.error("Error updating delete time of character.", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
-        return null;
+		return null;
 	}
 
 	public L2PcInstance deleteChar(int charslot) throws Exception
@@ -285,7 +285,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Error saving player character: " + e);
+			_log.error("Error saving character.", e);
 		}
 	}
 
@@ -313,9 +313,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Data error on restoring char: " + e);
+			_log.error("Error restoring character.", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public static void deleteCharByObjId(int objid)
@@ -413,9 +413,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		}
 		catch (Exception e)
 		{
-			_log.warn("Data error on deleting char: " + e);
+			_log.error("Error deleting character.", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	public L2PcInstance loadCharFromDisk(int charslot)
@@ -596,7 +596,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 			}
 			catch (Throwable e)
 			{
-				_log.fatal(e.toString());
+				_log.error("Error on AutoSaveTask.", e);
 			}
 		}
 	}

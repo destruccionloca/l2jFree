@@ -101,7 +101,7 @@ public class ClanTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("data error on ClanTable: " + e, e);
+			_log.error("data error on ClanTable:", e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
@@ -281,7 +281,7 @@ public class ClanTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while removing clan in db " + e);
+			_log.error("error while removing clan in db ", e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
@@ -340,7 +340,7 @@ public class ClanTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("could not store clans wars data:" + e);
+			_log.error("could not store clans wars data:", e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
@@ -375,7 +375,7 @@ public class ClanTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("could not restore clans wars data:" + e);
+			_log.error("could not restore clans wars data:", e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 
@@ -421,7 +421,7 @@ public class ClanTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("could not restore clan wars data:" + e);
+			_log.error("could not restore clan wars data:", e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}

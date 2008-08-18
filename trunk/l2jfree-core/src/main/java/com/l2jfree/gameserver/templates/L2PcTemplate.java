@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.templates;
 import java.util.List;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.base.Race;
 
@@ -56,7 +55,7 @@ public class L2PcTemplate extends L2CharTemplate
 	private float			lvlMpAdd;
 	private float			lvlMpMod;
 
-	private List<L2Item>	_items	= new FastList<L2Item>();
+	private List<PcTemplateItem> _items = new FastList<PcTemplateItem>();
 
 	public L2PcTemplate(StatsSet set)
 	{
@@ -79,23 +78,21 @@ public class L2PcTemplate extends L2CharTemplate
 	}
 
 	/**
-	 * add starter equipment
+	 * Adds starter equipment
 	 * @param i
 	 */
-	public void addItem(int itemId)
+	public void addItem(int itemId, int amount, boolean equipped)
 	{
-		L2Item item = ItemTable.getInstance().getTemplate(itemId);
-		if (item != null)
-			_items.add(item);
+		_items.add(new PcTemplateItem(itemId, amount, equipped));
 	}
 
 	/**
 	 *
 	 * @return itemIds of all the starter equipment
 	 */
-	public L2Item[] getItems()
+	public List<PcTemplateItem> getItems()
 	{
-		return _items.toArray(new L2Item[_items.size()]);
+		return _items;
 	}
 
 	/**
@@ -350,5 +347,47 @@ public class L2PcTemplate extends L2CharTemplate
 			Orc Mystic F 280 
 			Orc Mystic M 250 
 		 */
+	}
+
+	public static final class PcTemplateItem
+	{
+		private final int _itemId;
+		private final int _amount;
+		private final boolean _equipped;
+
+		/**
+		 * @param amount
+		 * @param itemId
+		 */
+		public PcTemplateItem(int itemId, int amount, boolean equipped)
+		{
+			_itemId = itemId;
+			_amount = amount;
+			_equipped = equipped;
+		}
+
+		/**
+		 * @return Returns the itemId.
+		 */
+		public int getItemId()
+		{
+			return _itemId;
+		}
+
+		/**
+		 * @return Returns the amount.
+		 */
+		public int getAmount()
+		{
+			return _amount;
+		}
+
+		/**
+		 * @return Returns the if the item should be equipped after char creation.
+		 */
+		public boolean isEquipped()
+		{
+			return _equipped;
+		}
 	}
 }

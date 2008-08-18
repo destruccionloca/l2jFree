@@ -92,9 +92,9 @@ public class TeleportLocationTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while creating teleport table " + e);
+			_log.error("error while creating teleport table ", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
  	}
 
 	/**

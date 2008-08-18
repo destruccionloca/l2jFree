@@ -91,14 +91,13 @@ public class HennaTreeTable
 			
 			classlist.close();
 			statement.close();
+			_log.info("HennaTreeTable: Loaded " + count + " Henna Tree Templates.");
 		}
 		catch (Exception e)
 		{
 			_log.warn("Error while creating henna tree for classId "+classId+" "+e, e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
-		
-		_log.info("HennaTreeTable: Loaded "+count+" Henna Tree Templates.");
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 	
 	public List<L2Henna> getAvailableHenna(L2PcInstance player)

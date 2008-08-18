@@ -101,9 +101,9 @@ public class LevelUpData
 		}
 		catch (Exception e)
 		{
-			_log.warn("error while creating Lvl up data table " + e);
+			_log.error("error while creating Lvl up data table ", e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 
 	/**
