@@ -265,17 +265,6 @@ public class CharTemplateTable
 		{
 			_log.fatal("Failed loading char templates", e);
 		}
-		finally
-		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-				// nothing
-			}
-		}
 
 		try
 		{
