@@ -60,7 +60,7 @@ public class RaidPointsManager
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 
 			//read raidboss points
-			PreparedStatement statement = con.prepareStatement("SELECT * FROM `character_raidpoints`");
+			PreparedStatement statement = con.prepareStatement("SELECT * FROM `character_raid_points`");
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
@@ -124,7 +124,7 @@ public class RaidPointsManager
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("REPLACE INTO character_raidpoints (`charId`,`boss_id`,`points`) VALUES (?,?,?)");
+			PreparedStatement statement = con.prepareStatement("REPLACE INTO character_raid_points (`charId`,`boss_id`,`points`) VALUES (?,?,?)");
 			statement.setInt(1, player.getObjectId());
 			statement.setInt(2, raidId);
 			statement.setInt(3, points);
@@ -154,7 +154,7 @@ public class RaidPointsManager
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("DELETE FROM character_raidpoints;");
+			PreparedStatement statement = con.prepareStatement("DELETE FROM character_raid_points;");
 			statement.executeUpdate();
 			statement.close();
 			_points.clear();

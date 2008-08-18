@@ -76,7 +76,7 @@ public abstract class IdFactory
 			"UPDATE clan_subpledges          SET clan_id = ?        WHERE clan_id = ?",
 			"UPDATE character_recommends     SET charId = ?         WHERE charId = ?",
 			"UPDATE character_recommends     SET target_id = ?      WHERE target_id = ?",
-			"UPDATE character_raidpoints     SET owner_id = ?       WHERE owner_id = ?",
+			"UPDATE character_raid_points     SET charId = ?       WHERE charId = ?",
 			"UPDATE couples                  SET id = ?             WHERE id = ?",
 			"UPDATE couples                  SET player1Id = ?      WHERE player1Id = ?",
 			"UPDATE couples                  SET player2Id = ?      WHERE player2Id = ?",
@@ -194,7 +194,7 @@ public abstract class IdFactory
 			cleanCount += stmt.executeUpdate("DELETE FROM character_skills WHERE character_skills.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_skills_save WHERE character_skills_save.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_subclasses WHERE character_subclasses.charId NOT IN (SELECT charId FROM characters);");
-			cleanCount += stmt.executeUpdate("DELETE FROM character_raidpoints WHERE charId NOT IN (SELECT charId FROM characters);");
+			cleanCount += stmt.executeUpdate("DELETE FROM character_raid_points WHERE charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM clan_data WHERE clan_data.leader_id NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM couples WHERE couples.player1Id NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM couples WHERE couples.player2Id NOT IN (SELECT charId FROM characters);");
