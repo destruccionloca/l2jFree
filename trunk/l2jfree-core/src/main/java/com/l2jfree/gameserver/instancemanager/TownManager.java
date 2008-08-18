@@ -266,7 +266,8 @@ public class TownManager
 
 	public final boolean townHasCastleInSiege(int x, int y, int z)
 	{
-		return townHasCastleInSiege(getClosestTown(x, y, z).getTownId());
+		Town town = getClosestTown(x, y, z);
+		return (town != null && town.hasCastleInSiege());
 	}
 
 	public final Town getTown(int townId)

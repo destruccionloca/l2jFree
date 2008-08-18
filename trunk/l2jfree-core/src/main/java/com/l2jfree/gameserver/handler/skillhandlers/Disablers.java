@@ -73,7 +73,6 @@ public class Disablers implements ISkillHandler
 			SkillType.BETRAY,
 			SkillType.CANCEL_TARGET,
 			SkillType.ERASE,
-			SkillType.DEBUFF,
 			SkillType.MAGE_BANE,
 			SkillType.WARRIOR_BANE,
 			SkillType.DISARM							};
