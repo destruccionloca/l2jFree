@@ -166,7 +166,7 @@ public class TradeListTable
 			rset1.close();
 			statement1.close();
 
-			_log.info("TradeListTable: Loaded " + _lists.size() + (custom ? "custom " : "") + " Buylists.");
+			_log.info("TradeListTable: Loaded " + _lists.size() + (custom ? " custom " : " ") + " Buylists.");
 			/*
 			 *  Restore Task for reinitialize count of buy item
 			 */
@@ -206,7 +206,7 @@ public class TradeListTable
 	public void load()
 	{
 		load(false); // not custom
-		load(true); //custom		
+		load(true); //custom
 	}
 
 	public void reloadAll()

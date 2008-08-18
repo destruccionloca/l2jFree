@@ -23,7 +23,7 @@ import javolution.util.FastMap;
  */
 public final class L2Integer
 {
-	private static final Map<Integer, Integer> MAP = new FastMap<Integer, Integer>();
+	private static final Map<Integer, Integer> MAP = new FastMap<Integer, Integer>().setShared(true);
 	
 	private static final int MIN = -1000;
 	private static final int MAX = 100000;

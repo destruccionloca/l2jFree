@@ -287,50 +287,6 @@ public class Disablers implements ISkillHandler
 				break;
 			}
 			case CONFUSION:
-			case DEBUFF:
-			{
-				if (target instanceof L2NpcInstance)
-				{
-					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, 50);
-				}
-				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
-				{
-					// stop same type effect if avaiable
-					L2Effect[] effects = target.getAllEffects();
-					for (L2Effect e : effects)
-					{
-						if (e.getSkill().getSkillType() == type)
-							e.exit();
-					}
-					// then restart
-					// Make above skills mdef dependant
-					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
-					{
-						skill.getEffects(activeChar, target);
-					}
-					else
-					{
-						if (activeChar instanceof L2PcInstance)
-						{
-							SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-							sm.addCharName(target);
-							sm.addSkillName(skill);
-							activeChar.sendPacket(sm);
-						}
-					}
-				}
-				else
-				{
-					if (activeChar instanceof L2PcInstance)
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-						sm.addCharName(target);
-						sm.addSkillName(skill);
-						activeChar.sendPacket(sm);
-					}
-				}
-				break;
-			}
 			case MUTE:
 			{
 				if (target.reflectSkill(skill))
@@ -411,16 +367,14 @@ public class Disablers implements ISkillHandler
 			}
 			case AGGDAMAGE:
 			{
-
 				if (target instanceof L2PcInstance && Rnd.get(100) < 75)
 				{
-					L2PcInstance PCChar = null;
-					PCChar = ((L2PcInstance) target);
-					if ((PCChar.getPvpFlag() != 0 || PCChar.isInOlympiadMode() || PCChar.isInCombat() || PCChar.isInsideZone(L2Zone.FLAG_PVP)))
+					L2PcInstance pc = ((L2PcInstance) target);
+					if ((pc.getPvpFlag() != 0 || pc.isInOlympiadMode() || pc.isInCombat() || pc.isInsideZone(L2Zone.FLAG_PVP)))
 					{
-						PCChar.setTarget(activeChar); //c5 hate PvP
-						PCChar.abortAttack();
-						PCChar.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, activeChar);
+						pc.setTarget(activeChar); //c5 hate PvP
+						pc.abortAttack();
+						pc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, activeChar);
 					}
 				}
 				if (target instanceof L2Attackable && skill.getId() != 368)
@@ -435,12 +389,10 @@ public class Disablers implements ISkillHandler
 						{
 							if (skill.getId() == 368) //Vengeance
 							{
-								L2PcInstance PCChar = null;
 								if (target instanceof L2PcInstance)
 								{
-									PCChar = ((L2PcInstance) target);
-									if ((PCChar.getPvpFlag() != 0 || PCChar.isInOlympiadMode() || PCChar.isInCombat() || PCChar
-													.isInsideZone(L2Zone.FLAG_PVP)))
+									L2PcInstance pc = ((L2PcInstance) target);
+									if (pc.getPvpFlag() != 0 || pc.isInOlympiadMode() || pc.isInCombat() || pc.isInsideZone(L2Zone.FLAG_PVP))
 									{
 										target.setTarget(activeChar);
 										target.getAI().setAutoAttacking(true);
@@ -893,7 +845,6 @@ public class Disablers implements ISkillHandler
 				case STUN:
 				case PARALYZE:
 				case ROOT:
-				case DEBUFF:
 					if (Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill))
 					{
 						// if this is a debuff let the duel manager know about it
