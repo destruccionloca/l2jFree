@@ -103,4 +103,42 @@
       <point x="175984" y="-90033" />
     </shape>
   </zone>
+  <zone id="14" name="Core Damage Zone" type="Damage">
+    <settings exitOnDeath="true" hpDamage="200" affected="playable" />
+    <shape type="Poly" zMin="-6519" zMax="-6319">
+      <point x="17869" y="108566"/>
+      <point x="18071" y="108774"/>
+      <point x="18072" y="109060"/>
+      <point x="17865" y="109265"/>
+      <point x="17580" y="109264"/>
+      <point x="17379" y="109062"/>
+      <point x="17379" y="108724"/>
+      <point x="17584" y="108569"/>
+    </shape>
+  </zone>
+  <zone id="15" name="Orfen Poison Zone" type="Dynamic">
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable" />
+    <skill applyEnter="4035,4" removeExit="4035" /><!-- 4035: Poison -->
+    <shape type="Poly" zMin="-4468" zMax="-4118">
+      <point x="43084" y="15944"/>
+      <point x="45140" y="15816"/>
+      <point x="45748" y="17200"/>
+      <point x="44504" y="18780"/>
+      <point x="43284" y="18952"/>
+      <point x="42476" y="18164"/>
+      <point x="42480" y="16448"/>
+    </shape>
+  </zone>
+  <zone id="16" name="Orfen Slow Zone"  type="Dynamic">
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable" />
+    <shape type="Poly" zMin="-4468" zMax="-4118">
+      <point x="43084" y="15944"/>
+      <point x="45140" y="15816"/>
+      <point x="45748" y="17200"/>
+      <point x="44504" y="18780"/>
+      <point x="43284" y="18952"/>
+      <point x="42476" y="18164"/>
+      <point x="42480" y="16448"/>
+    </shape>
+  </zone>
 </list>
