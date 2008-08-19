@@ -1294,14 +1294,14 @@ public class Quest extends ManagedScript
 	* Return instance of newly spawned npc
 	* with summon animation
 	*/
-	public L2NpcInstance addSpawn(int npcId, L2Character cha, boolean isSummonSpawn, int instanceId)
+	public L2NpcInstance addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay)
 	{
-		return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), false, 0, isSummonSpawn, instanceId);
+		return addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, false);
 	}
 
-	public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffSet, int despawnDelay, int instanceId)
+	public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffSet, int despawnDelay, boolean isSummonSpawn)
 	{
-		return addSpawn(npcId, x, y, z, heading, randomOffSet, despawnDelay, false, instanceId);
+		return addSpawn(npcId, x, y, z, heading, randomOffSet, despawnDelay, isSummonSpawn, 0);
 	}
 
 	public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn, int instanceId)

@@ -275,7 +275,7 @@ public class L2Clan
 	 */
 	public String getLeaderName()
 	{
-		return _members.get(_leader.getObjectId()).getName();
+		return _leader == null ? "None" : _leader.getName();
 	}
 
 	/**

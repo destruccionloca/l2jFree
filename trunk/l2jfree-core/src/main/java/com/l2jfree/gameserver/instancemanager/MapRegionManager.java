@@ -367,8 +367,7 @@ public class MapRegionManager
 	public int getNextAccessibleRestartId(L2MapRegionRestart restart, L2PcInstance activeChar)
 	{
 		Town town = TownManager.getInstance().getTownByMaprestart(restart);
-
-		if (town.hasCastleInSiege())
+		if (town != null && town.hasCastleInSiege())
 		{
 			int newTownId = TownManager.getInstance().getRedirectTownNumber(town.getTownId());
 			town = TownManager.getInstance().getTown(newTownId);

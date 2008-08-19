@@ -270,7 +270,21 @@ public class AdminAdmin implements IAdminCommandHandler
 						.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
 			}
 		}
-
+		else if (command.startsWith("admin_summon_npc"))
+		{
+			StringTokenizer st = new StringTokenizer(command);
+			st.nextToken();
+			try
+			{
+				int npcId = Integer.parseInt(st.nextToken());
+				if (npcId != 0)
+					adminSummon(activeChar, npcId);
+			}
+			catch (Exception e)
+			{
+				activeChar.sendMessage("Usage: //summon <npcid>");
+			}
+		}
 		else if(command.startsWith("admin_summon"))
 		{
 			StringTokenizer st = new StringTokenizer(command);
@@ -308,21 +322,6 @@ public class AdminAdmin implements IAdminCommandHandler
 			catch (Exception e)
 			{
 				activeChar.sendMessage("Usage: //summon <npcid/itemid>");
-			}
-		}
-		else if (command.startsWith("admin_summon_npc"))
-		{
-			StringTokenizer st = new StringTokenizer(command);
-			st.nextToken();
-			try
-			{
-				int npcId = Integer.parseInt(st.nextToken());
-				if (npcId != 0)
-					adminSummon(activeChar, npcId);
-			}
-			catch (Exception e)
-			{
-				activeChar.sendMessage("Usage: //summon <npcid>");
 			}
 		}
 		else if (command.startsWith("admin_memsuage"))

@@ -802,12 +802,12 @@ public final class QuestState
      * Add spawn for player instance
      * Return object id of newly spawned npc
      */
-    public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay)
+    public L2NpcInstance addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay)
     {
         return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, false, 0);
     }
 
-    public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn)
+    public L2NpcInstance addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn)
     {
         return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, isSummonSpawn, 0);
     }
@@ -816,7 +816,7 @@ public final class QuestState
      * Add spawn for player instance
      * Return object id of newly spawned npc
      */
-    public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn, int instanceId)
+    public L2NpcInstance addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn, int instanceId)
     {
         return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, isSummonSpawn, instanceId);
     }
