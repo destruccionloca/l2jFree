@@ -23,7 +23,7 @@ import javolution.util.FastMap;
  */
 public final class L2Integer
 {
-	private static final Map<Integer, Integer> MAP = new FastMap<Integer, Integer>().setShared(true);
+	private static final Map<Integer, Integer> MAP = new FastMap<Integer, Integer>();
 	
 	private static final int MIN = -1000;
 	private static final int MAX = 100000;
@@ -49,12 +49,15 @@ public final class L2Integer
 		
 		Integer integerValue = new Integer(intValue);
 		
-		Integer cached = MAP.get(integerValue);
-		
-		if (cached != null)
-			return cached;
-		
-		MAP.put(integerValue, integerValue);
+		synchronized (MAP)
+		{
+			Integer cachedInteger = MAP.get(integerValue);
+			
+			if (cachedInteger != null)
+				return cachedInteger;
+			
+			MAP.put(integerValue, integerValue);
+		}
 		
 		return integerValue;
 	}
