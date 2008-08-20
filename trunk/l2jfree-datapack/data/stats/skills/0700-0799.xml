@@ -1345,18 +1345,55 @@
     <for />
   </skill>
   <skill id="793" levels="1" name="Rush Impact">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for />
+	<!--
+      Description: Attacks to damage enemies in the front line and outs them into shock. 
+	  Useable when Ancient Sword weapon is equipped.	 
+      Consumes 3 Souls.
+    -->
+    <set name="magicLvl" val="78" />
+    <set name="mpConsume" val="83" />
+    <set name="power" val="150" />
+    <set name="weaponsAllowed" val="32772" />    
+	<set name="hitTime" val="800" />   
+	<set name="operateType" val="OP_ACTIVE" />
+	<set name="target" val="TARGET_ONE" />
+    <set name="skillType" val="STUN" />
+    <set name="castRange" val="600" />
+    <set name="effectRange" val="800" />
+    <set name="isDebuff" val="true" />
+    <set name="reuseDelay" val="60000" />
+    <set name="soulConsumeCount" val="3" />
+    <set name="flyType" val="CHARGE" />
+    <set name="flyRadius" val="300" />
+    <cond
+      msg="An ancient sword or short sword must be equipped to use this skill">
+      <using kind="Ancient,Sword" />
+    </cond>
+    <for>
+      <effect count="1" name="Stun" time="3" val="0"
+        stackOrder="1" stackType="Stun" />
+    </for>
   </skill>
   <skill id="794" levels="1" name="Mass Disarm">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for />
+	<!--
+      Disarms surrounding enemies. Unable to use weapon while effect last.
+      Consumes 5 Souls.
+    -->
+    <set name="mpConsume" val="58"/>
+    <set name="power" val="40" />
+    <set name="lvlDepend" val="2" />
+    <set name="target" val="TARGET_AURA" />
+    <set name="hitTime" val="3000" />
+    <set name="reuseDelay" val="60000" />
+    <set name="skillType" val="DISARM" />
+    <set name="isDebuff" val="true" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="40" />
+    <set name="effectRange" val="400" />
+    <set name="soulConsumeCount" val="1" />
+    <for>
+      <effect count="1" name="Disarm" time="10" val="0" />
+    </for>
   </skill>
   <skill id="795" levels="1"
     name="Divine Knight Brandish">

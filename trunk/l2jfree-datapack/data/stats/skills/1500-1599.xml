@@ -154,11 +154,24 @@
     <for></for>
   </skill>
   <skill id="1514" levels="1" name="Soul Barrier">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+	<!--  Done by hWnd  -->
+	<!--  Needs to be verified -->
+	<set name="mpConsume" val="7"/>
+	<set name="power" val="0.0"/>
+	<set name="target" val="TARGET_SELF"/>
+	<set name="reuseDelay" val="10000"/>
+	<set name="soulConsumeCount" val="3" />
+	<set name="hitTime" val="1500"/>
+	<set name="skillType" val="BUFF"/>
+	<set name="operateType" val="OP_ACTIVE"/>
+	<set name="castRange" val="-1"/>
+	<set name="effectRange" val="-1"/>
+	<for>
+	<effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="multi_buff">
+	  <mul order="0x30" stat="bowWpnVuln" val="0.60"/>
+	  <mul order="0x30" stat="mDef" val="1.30"/>
+	</effect>
+	</for>
   </skill>
   <skill id="1515" levels="1" name="Lightning Barrier">
     <set name="target" val="TARGET_NONE" />

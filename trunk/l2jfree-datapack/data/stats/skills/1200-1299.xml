@@ -197,7 +197,7 @@
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="0.0" />
+    <set name="power" val="35" />
     <set name="lvlDepend" val="1" />
     <set name="target" val="TARGET_AURA" />
     <set name="skillRadius" val="200" />

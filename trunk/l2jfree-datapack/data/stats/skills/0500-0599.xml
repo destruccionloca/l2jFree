@@ -35,7 +35,7 @@
       0.84 0.82 0.80 0.78 0.76 </table>
     <table name="#pDef"> 0.98 0.96 0.94 0.92 0.90 0.88 0.86
       0.84 0.82 0.80 0.78 0.76 </table>
-    <set name="power" val="0.0" />
+    <set name="power" val="80" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="1800" />

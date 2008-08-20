@@ -2499,7 +2499,7 @@
     <set name="target" val="TARGET_FRONT_AREA" />
     <set name="skillRadius" val="400" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
+    <set name="power" val="50" />
     <set name="lvlDepend" val="2" />
     <set name="skillType" val="BLEED" />
     <set name="castRange" val="#castRange" />
