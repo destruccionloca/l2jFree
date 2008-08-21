@@ -563,7 +563,7 @@ public abstract class Inventory extends ItemContainer
 			String command = process;
 			String params = "(" + String.valueOf(actor.getX()) + "," + String.valueOf(actor.getY()) + "," + String.valueOf(actor.getZ()) + ") - "
 					+ String.valueOf(item.getCount()) + " - " + String.valueOf(item.getEnchantLevel()) + " - " + String.valueOf(item.getItemId()) + " - "
-					+ item.getItemName();
+					+ item.getItemName() + " - " + String.valueOf(item.getObjectId());
 			
 			GMAudit.auditGMAction(actor, "dropitem", command, params);
 		}
@@ -614,7 +614,7 @@ public abstract class Inventory extends ItemContainer
 				String command = process;
 				String params = "(" + String.valueOf(actor.getX()) + "," + String.valueOf(actor.getY()) + "," + String.valueOf(actor.getZ()) + ") - "
 						+ String.valueOf(count) + " - " + String.valueOf(item.getEnchantLevel()) + " - " + String.valueOf(item.getItemId()) + " - "
-						+ item.getItemName();
+						+ item.getItemName() + " - " + String.valueOf(item.getObjectId());
 				
 				GMAudit.auditGMAction(actor, "dropitem", command, params);
 			}

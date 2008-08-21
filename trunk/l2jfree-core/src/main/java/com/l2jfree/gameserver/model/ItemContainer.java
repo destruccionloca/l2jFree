@@ -350,7 +350,7 @@ public abstract class ItemContainer
                 String targetName = "";
                 if(target.getOwner()!=null)
                     targetName = target.getOwner().getName();
-                String params  = targetName + " - " + String.valueOf(count) + " - " + String.valueOf(sourceitem.getEnchantLevel()) + " - " + String.valueOf(sourceitem.getItemId()) + " - " + sourceitem.getItemName();
+                String params  = targetName + " - " + String.valueOf(count) + " - " + String.valueOf(sourceitem.getEnchantLevel()) + " - " + String.valueOf(sourceitem.getItemId()) + " - " + sourceitem.getItemName() + " - " + String.valueOf(sourceitem.getObjectId());
     
                 GMAudit.auditGMAction(actor, "transferitem", command, params);
             }
