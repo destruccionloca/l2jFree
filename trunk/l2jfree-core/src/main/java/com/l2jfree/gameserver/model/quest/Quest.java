@@ -137,7 +137,8 @@ public class Quest extends ManagedScript
 		ON_SPAWN(true), // onSpawn action triggered when an NPC is spawned or respawned.
 		ON_SKILL_SEE(true), // NPC or Mob saw a person casting a skill (regardless what the target is). 
 		ON_FACTION_CALL(true), // NPC or Mob saw a person casting a skill (regardless what the target is). 
-		ON_AGGRO_RANGE_ENTER(true); // a person came within the Npc/Mob's range 
+		ON_AGGRO_RANGE_ENTER(true), // a person came within the Npc/Mob's range 
+		ON_SPELL_FINISHED(true);  // on spell finished action when npc finish casting skill
 
 		// control whether this event type is allowed for the same npc template in multiple quests
 		// or if the npc must be registered in at most one quest for the specified event 
@@ -362,6 +363,20 @@ public class Quest extends ManagedScript
 		return showResult(qs.getPlayer(), res);
 	}
 
+	public final boolean notifySpellFinished(L2NpcInstance instance, L2PcInstance player, L2Skill skill)
+	{
+		String res = null;
+		try
+		{
+			res = onSpellFinished(instance, player, skill);
+		}
+		catch (Exception e)
+		{
+			return showError(player, e);
+		}
+		return showResult(player, res);
+	}
+
 	public final boolean notifySpawn(L2NpcInstance npc)
 	{
 		try
@@ -539,6 +554,12 @@ public class Quest extends ManagedScript
 
 	@SuppressWarnings("unused")
 	public String onSkillSee(L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
+	{
+		return null;
+	}
+
+	@SuppressWarnings("unused")
+	public String onSpellFinished(L2NpcInstance npc, L2PcInstance player, L2Skill skill)
 	{
 		return null;
 	}
@@ -1062,6 +1083,11 @@ public class Quest extends ManagedScript
 	public L2NpcTemplate addSkillSeeId(int npcId)
 	{
 		return addEventId(npcId, Quest.QuestEventType.ON_SKILL_SEE);
+	}
+
+	public L2NpcTemplate addSpellFinishedId(int npcId)
+	{
+		return addEventId(npcId, Quest.QuestEventType.ON_SPELL_FINISHED);
 	}
 
 	/**

@@ -46,7 +46,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.zone.L2Zone;
@@ -171,7 +170,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		if (target instanceof L2PlayableInstance)
 		{
 			// Check if the AI isn't a Raid Boss and the target isn't in silent move mode
-			if (!(me instanceof L2RaidBossInstance) && ((L2PlayableInstance) target).isSilentMoving())
+			if (!(me instanceof L2Boss) && ((L2PlayableInstance) target).isSilentMoving())
 				return false;
 		}
 
@@ -604,7 +603,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			}
 		}
 		// Order to the L2MonsterInstance to random walk (1/100)
-		else if (npc.getSpawn() != null && Rnd.nextInt(RANDOM_WALK_RATE) == 0 && !(_actor instanceof L2RaidBossInstance || _actor instanceof L2MinionInstance))
+		else if (npc.getSpawn() != null && Rnd.nextInt(RANDOM_WALK_RATE) == 0 && !(_actor instanceof L2Boss || _actor instanceof L2MinionInstance))
 		{
 			// [L2J_JP ADD SANDMAN]
 			// Instant move of zaken

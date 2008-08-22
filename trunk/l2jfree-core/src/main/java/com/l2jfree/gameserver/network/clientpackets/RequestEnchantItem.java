@@ -124,9 +124,9 @@ public class RequestEnchantItem extends L2GameClientPacket
 			return;
 		}
 		SystemMessage sm;
-		//can't enchant rods, shadow items, adventurers', hero items
+		// can't enchant rods, hero weapons, adventurers' items,shadow and common items
 		if (item.getItem().getItemType() == L2WeaponType.ROD || item.isShadowItem() || (!Config.ENCHANT_HERO_WEAPONS && item.isHeroItem())
-				|| (item.getItemId() >= 7816 && item.getItemId() <= 7831))
+				|| (item.getItemId() >= 7816 && item.getItemId() <= 7831) || item.getItem().isCommonItem())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
 			activeChar.setActiveEnchantItem(null);

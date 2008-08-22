@@ -809,6 +809,16 @@ public class L2Attackable extends L2NpcInstance
             ai._damage = 0;
             ai._hate = 0;
             getAggroListRP().put(attacker, ai);
+            if ((attacker instanceof L2PcInstance || attacker instanceof L2Summon) && !attacker.isAlikeDead())
+            {
+                L2PcInstance targetPlayer = (attacker instanceof L2PcInstance)? (L2PcInstance) attacker: ((L2Summon) attacker).getOwner();
+                Quest[] events = getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
+                if (events != null)
+                {
+                    for (Quest quest : events)
+                        quest.notifyAggroRangeEnter(this, targetPlayer, (attacker instanceof L2Summon));
+                }
+            }
         }
 
         // If aggro is negative, its comming from SEE_SPELL, buffs use constant 150
