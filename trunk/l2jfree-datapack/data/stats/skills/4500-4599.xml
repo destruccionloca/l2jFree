@@ -1561,18 +1561,31 @@
     <for></for>
   </skill>
   <skill id="4592" levels="12" name="Decrease P. Def">
-    <!-- TODO -->
     <table name="#mpConsume">
       24 39 53 70 90 110 130 138 145 150 153 155
     </table>
+    <table name="#pdef"> 0.85 0.8 0.8 0.75 0.75 0.75 0.75 0.75
+      0.75 0.75 0.75 0.75 
+    </table>
+    <set name="magicLvl" val="80" />
+    <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="isDebuff" val="true" />
+    <set name="reuseDelay" val="8000" />
     <set name="hitTime" val="4000" />
-    <set name="operateType" val="OP_ACTIVE" />
+    <set name="skillType" val="WEAKNESS" />
     <set name="isMagic" val="true" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
-    <for></for>
+    <set name="effectRange" val="1100" />
+    <for>
+      <effect count="1" name="Debuff" time="30" val="0"
+        stackOrder="2" stackType="surrender">
+        <mul order="0x30" stat="pDef" val="#pdef" />
+      </effect>
+    </for>
   </skill>
   <skill id="4593" levels="12" name="Decrease P. Def">
     <!-- TODO -->
