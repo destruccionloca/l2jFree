@@ -138,8 +138,8 @@ class Quest (JQuest) :
           elif cond >= 1 and st.getInt("id") != 18 :
             htmltext = "30106-07.htm"
           elif cond == 17 and st.getInt("id") == 18 :
-              st.addExpAndSp(72126,11000)
-              st.rewardItems(7562,8)
+              st.addExpAndSp(514739,33384)
+              st.rewardItems(57,93803)
               htmltext = "30106-08.htm"
               st.set("cond","0")
               st.set("onlyone","1")
