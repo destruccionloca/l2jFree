@@ -2886,7 +2886,7 @@ INSERT INTO `weapon` VALUES
 (12974, 'Dynasty Phantom - Wisdom - Updown', 'rhand', 'true', '1520', '1', '1', 'fine_steel', 's80', '267', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '202', '-1', '0', 0, 'true', 'true', 'true', 'true', '', '', '', '', 0),
 (12975, 'Dynasty Halberd - Earth - Anger', 'lrhand', 'true', '2010', '1', '1', 'fine_steel', 's80', '333', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '151', '-1', '0', 0, 'true', 'true', 'true', 'true', '', '', '', '', 0),
 (12976, 'Dynasty Halberd - Earth - Critical Stun', 'lrhand', 'true', '2010', '1', '1', 'fine_steel', 's80', '333', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '151', '-1', '0', 0, 'true', 'true', 'true', 'true', '', '', '', '', 0),
-(12977, 'Dynasty Halberd - Earth - Light', 'lrhand', 'true', '2010', '1', '1', 'fine_steel', 's80', '333', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '151', '-1', '0', 0, 'true', 'true', 'true', 'true', '', '', '', '', '');
+(12977, 'Dynasty Halberd - Earth - Light', 'lrhand', 'true', '2010', '1', '1', 'fine_steel', 's80', '333', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '151', '-1', '0', 0, 'true', 'true', 'true', 'true', '', '', '', '', 0);
 
 --
 -- L2J-Free Add-ons
