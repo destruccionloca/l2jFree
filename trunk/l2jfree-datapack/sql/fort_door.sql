@@ -20,7 +20,7 @@ CREATE TABLE fort_door (
   mDef INT NOT NULL DEFAULT 0,
   PRIMARY KEY(id),
   KEY id (fortId)
-);
+) DEFAULT CHARSET=utf8;
 
 -- Dragonspine doors
 INSERT INTO `fort_door` VALUES 

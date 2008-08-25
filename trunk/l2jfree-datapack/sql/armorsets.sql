@@ -16,7 +16,7 @@ CREATE TABLE armorsets (
  shield_skill_id SMALLINT UNSIGNED NOT NULL default 0,
  enchant6skill SMALLINT UNSIGNED NOT NULL default 0,
  PRIMARY KEY (id,chest)
-) ENGINE=MyISAM;
+) DEFAULT CHARSET=utf8;
 
 --                 NO GRADE              -------------
 -- ######################## id chest  legs head gloves feet    skill  skill_lvl shield sh_skill enchant6

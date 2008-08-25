@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS `obj_restrictions` (
   `delay` int(11) NOT NULL default '-1',
   `message` varchar(250) default NULL,
   PRIMARY KEY  (`entry_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=utf8;

@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS fort_siege_guards (
   isHired INT NOT NULL DEFAULT 1,
   PRIMARY KEY  (id),
   KEY id (fortId)
-);
+) DEFAULT CHARSET=utf8;
 
 -- Dragonspine Guards
 -- RETAIL !!

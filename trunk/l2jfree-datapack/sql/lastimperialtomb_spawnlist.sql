@@ -15,7 +15,7 @@ CREATE TABLE `lastimperialtomb_spawnlist` (
   `respawn_delay` int(9) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `key_npc_templateid` (`npc_templateid`)
-) ENGINE=MyISAM;
+) DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records
