@@ -422,17 +422,17 @@
     <table name="#ench1time"> 30 31 32 32 33 34 35 35 36 37 38 38
       39 40 41 41 42 43 43 44 45 46 46 47 48 49 49 50 51 52 
     </table>
-    <table name="#ench2reuseDelay"> 1197000 1177000 1157000 1137000
-      1117000 1097000 1077000 1057000 1037000 1017000
-      997000 977000 957000 937000 917000 897000
-      877000 857000 837000 817000 797000 777000
-      757000 737000 717000 697000 677000 657000
-      637000 617000 </table>
+    <table name="#ench2reuseDelay"> 1177000 1157000 1137000 1117000
+      1097000 1077000 1057000 1037000 1017000 997000
+      977000 957000 937000 917000 897000 877000
+      857000 837000 817000 797000 777000 757000
+      737000 717000 697000 677000 657000 637000
+      617000 597000 </table>
     <table name="#aggro">268 523</table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
-    <set name="reuseDelay" val="1041000" />
+    <set name="reuseDelay" val="1197000" />
     <set name="hitTime" val="1000" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
