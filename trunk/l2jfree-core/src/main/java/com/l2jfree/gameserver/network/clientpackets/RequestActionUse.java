@@ -544,6 +544,22 @@ public class RequestActionUse extends L2GameClientPacket
 		case 1045: // Great Wolf - Howl
 			useSkill(5584);
 			break;
+		// Added by Skatershi
+		case 1046: // Strider - Roar
+			useSkill(5585);
+			break;
+		case 1047: // Divine Beast - Bite
+			useSkill(5580);
+			break;
+		case 1048: // Divine Beast - Stun Attack
+			useSkill(5581);
+			break;
+		case 1049: // Divine Beast - Fire Breath
+			useSkill(5582);
+			break;
+		case 1050: // Divine Beast - Roar
+			useSkill(5583);
+			break;
 		default:
 			_log.warn(activeChar.getName() + ": unhandled action type " + _actionId);
 		}

@@ -1025,7 +1025,7 @@ public class L2NpcInstance extends L2Character
 							SpawnTable.getInstance().addNewSpawn(spawn, false);
 
 							spawn.init();
-							spawn.getLastSpawn().getStatus().setCurrentHp(999999999);
+							spawn.getLastSpawn().getStatus().setCurrentHp(getMaxHp());
 							spawn.getLastSpawn().setName("baal");
 							spawn.getLastSpawn().setTitle("hell's god");
 							spawn.getLastSpawn().isEventMob = true;
@@ -1113,7 +1113,7 @@ public class L2NpcInstance extends L2Character
 							SpawnTable.getInstance().addNewSpawn(spawn, false);
 
 							spawn.init();
-							spawn.getLastSpawn().getStatus().setCurrentHp(999999999);
+							spawn.getLastSpawn().getStatus().setCurrentHp(getMaxHp());
 							spawn.getLastSpawn().setName("mercebu");
 							spawn.getLastSpawn().setTitle("baal's son");
 

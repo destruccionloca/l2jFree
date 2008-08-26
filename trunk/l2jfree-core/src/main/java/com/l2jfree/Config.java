@@ -779,6 +779,7 @@ public final class Config
 	public static int				AUGMENT_BASESTAT;
 	public static int				AUGMENT_SKILL;
 	public static boolean			AUGMENT_EXCLUDE_NOTDONE;
+	public static int				CRUMA_ENTRANCE_MAX_LEVEL;							// Cruma Tower Entrance max level
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -895,6 +896,8 @@ public final class Config
 			JAIL_IS_PVP = Boolean.parseBoolean(otherSettings.getProperty("JailIsPvp", "True"));
 			JAIL_DISABLE_CHAT = Boolean.parseBoolean(otherSettings.getProperty("JailDisableChat", "True"));
 			DEATH_PENALTY_CHANCE = Integer.parseInt(otherSettings.getProperty("DeathPenaltyChance", "20"));
+
+			CRUMA_ENTRANCE_MAX_LEVEL = Integer.parseInt(otherSettings.getProperty("CrumaEntranceMaxLevel", "55"));
 		}
 		catch (Exception e)
 		{

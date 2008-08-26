@@ -13920,7 +13920,7 @@ public enum SystemMessageId
 	* ID: 2512<br>
 	* Message: Runs or closes the MSN messenger window.
 	*/
-	RUN_OR_CLOSES_MSN_WINDOW(2512),
+	RUNS_OR_CLOSES_MSN_WINDOW(2512),
 
 	/**
 	* ID: 2513<br>
@@ -14220,7 +14220,7 @@ public enum SystemMessageId
 	* ID: 2562<br>
 	* Message: Hides or shows the chat window, the window always shows by default.
 	*/
-	HIDE_SHOWS_CHAT_WINDOW(2562),
+	HIDES_SHOWS_CHAT_WINDOW(2562),
 
 	/**
 	* ID: 2563<br>
@@ -14262,7 +14262,7 @@ public enum SystemMessageId
 	* ID: 2569<br>
 	* Message: Hides or shows the menu window, the window shows by default.
 	*/
-	HIDE_SHOWS_MENU_WINDOW(2569),
+	HIDES_SHOWS_MENU_WINDOW(2569),
 
 	/**
 	* ID: 2570<br>
@@ -14328,7 +14328,7 @@ public enum SystemMessageId
 	* ID: 2580<br>
 	* Message: Expands each shortcut window.
 	*/
-	EXPEND_SHORTCUT_WINDOW(2580),
+	EXPANDS_SHORTCUT_WINDOW(2580),
 
 	/**
 	* ID: 2581<br>
@@ -14340,37 +14340,37 @@ public enum SystemMessageId
 	* ID: 2582<br>
 	* Message: Turns the character to the left.
 	*/
-	TURN_CHARACTER_TO_LEFT(2582),
+	TURNS_CHARACTER_TO_LEFT(2582),
 
 	/**
 	* ID: 2583<br>
 	* Message: Turns the character to the right.
 	*/
-	TURN_CHARACTER_TO_RIGHT(2583),
+	TURNS_CHARACTER_TO_RIGHT(2583),
 
 	/**
 	* ID: 2584<br>
 	* Message: Moves the character forward.
 	*/
-	MOVE_CHARACTER_FORWARD(2584),
+	MOVES_CHARACTER_FORWARD(2584),
 
 	/**
 	* ID: 2585<br>
 	* Message: Moves the character backwards.
 	*/
-	MOVE_CHARACTER_BACKWARDS(2585),
+	MOVES_CHARACTER_BACKWARDS(2585),
 
 	/**
 	* ID: 2586<br>
 	* Message: Moves the character forward automatically.
 	*/
-	MOVE_CHARACTER_FORWARD_AUTO(2586),
+	MOVES_CHARACTER_FORWARD_AUTO(2586),
 
 	/**
 	* ID: 2587<br>
 	* Message: Reduces the character's view.
 	*/
-	REDUCE_CHARACTER_VIEW(2587),
+	REDUCES_CHARACTER_VIEW(2587),
 
 	/**
 	* ID: 2588<br>
@@ -14382,19 +14382,19 @@ public enum SystemMessageId
 	* ID: 2589<br>
 	* Message: Rapidly turns character's view to the front and back.
 	*/
-	RAPID_TURN_CHARACTER_VIEW(2589),
+	RAPID_TURNS_CHARACTER_VIEW(2589),
 
 	/**
 	* ID: 2590<br>
 	* Message: Opens the GM manager window.
 	*/
-	OPEN_THE_GM_MANAGER_WINDOW(2590),
+	OPENS_THE_GM_MANAGER_WINDOW(2590),
 
 	/**
 	* ID: 2591<br>
 	* Message: Opens the GM petition window.
 	*/
-	OPEN_THE_GM_PETITION_WINDOW(2591),
+	OPENS_THE_GM_PETITION_WINDOW(2591),
 
 	/**
 	* ID: 2592<br>
@@ -14406,19 +14406,19 @@ public enum SystemMessageId
 	* ID: 2593<br>
 	* Message: Moves a character's view ahead by a certain distance.
 	*/
-	MOVE_CHARACTER_VIEW_AHEAD(2593),
+	MOVES_CHARACTER_VIEW_AHEAD(2593),
 
 	/**
 	* ID: 2594<br>
 	* Message: Moves a character's view behind by a certain distance.
 	*/
-	MOVE_CHARACTER_VIEW_BEHIND(2594),
+	MOVES_CHARACTER_VIEW_BEHIND(2594),
 
 	/**
 	* ID: 2595<br>
 	* Message: Restores the character's view to default.
 	*/
-	RESTORE_CHARACTER_VIEW(2595),
+	RESTORES_CHARACTER_VIEW(2595),
 
 	/**
 	* ID: 2596<br>
