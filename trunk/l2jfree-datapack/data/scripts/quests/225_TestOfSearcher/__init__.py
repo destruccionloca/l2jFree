@@ -113,14 +113,15 @@ class Quest (JQuest) :
        elif cond>1 and cond<19 :
          htmltext = "30690-07.htm"
        elif cond==19 :
-         st.addExpAndSp(37831,18750)
          htmltext = "30690-08.htm"
          st.set("cond","0")
          st.exitQuest(False) 
+	 st.giveItems(MARK_OF_SEARCHER,1)
          st.playSound("ItemSound.quest_finish")
          st.takeItems(ALANKELLS_RECOMMEND,1)
-         st.giveItems(MARK_OF_SEARCHER,1)
-         st.giveItems(SHADOW_WEAPON_COUPON_CGRADE,15)
+         st.giveItems(57,80903)
+	 st.giveItems(SHADOW_WEAPON_COUPON_CGRADE,15)
+         st.addExpAndSp(447444,30704)
      elif npcId == NPC[0] :
       if cond==1 :
         htmltext = "30291-01.htm"
