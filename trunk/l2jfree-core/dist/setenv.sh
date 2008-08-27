@@ -28,7 +28,7 @@ CLASSPATH=${CLASSPATH}:l2j-commons-1.1.8.jar
 CLASSPATH=${CLASSPATH}:l2jfree-core-1.2.0.jar
 
 CLASSPATH=${CLASSPATH}:core-3.3.0.jar
-CLASSPATH=${CLASSPATH}:java-engine-1.0.1.jar
+CLASSPATH=${CLASSPATH}:java-engine-1.0.2.jar
 
 # For SQL use
 CLASSPATH=${CLASSPATH}:mysql-connector-java-5.1.5.jar
