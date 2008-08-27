@@ -19,7 +19,7 @@ public class DivineEnchanter extends L2DefaultTransformation
 	public DivineEnchanter()
 	{
 		// id, colRadius, colHeight
-		super(257, 8.0, 22.0);
+		super(257, 12.0, 24.0);
 	}
 
 	public void transformedSkills(L2PcInstance player)

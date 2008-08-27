@@ -19,7 +19,7 @@ public class OlMahum extends L2DefaultTransformation
 	public OlMahum()
 	{
 		// id, colRadius, colHeight
-		super(6, 32.0, 63.0);
+		super(6, 23.0, 61.0);
 	}
 
 	public void transformedSkills(L2PcInstance player)

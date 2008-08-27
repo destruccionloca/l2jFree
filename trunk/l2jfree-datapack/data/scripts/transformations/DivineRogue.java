@@ -19,7 +19,7 @@ public class DivineRogue extends L2DefaultTransformation
 	public DivineRogue()
 	{
 		// id, colRadius, colHeight
-		super(254, 13.0, 27.5);
+		super(254, 12.0, 30.0);
 	}
 
 	public void transformedSkills(L2PcInstance player)

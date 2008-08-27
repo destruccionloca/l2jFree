@@ -19,7 +19,7 @@ public class Kiyachi extends L2DefaultTransformation
 	public Kiyachi()
 	{
 		// id, colRadius, colHeight
-		super(310, 12.0, 29.8);
+		super(310, 12.0, 29.0);
 	}
 
 	public void transformedSkills(L2PcInstance player)

@@ -19,7 +19,7 @@ public class DivineHealer extends L2DefaultTransformation
 	public DivineHealer()
 	{
 		// id, colRadius, colHeight
-		super(255, 8.0, 27.0);
+		super(255, 12.0, 24.0);
 	}
 
 	public void transformedSkills(L2PcInstance player)

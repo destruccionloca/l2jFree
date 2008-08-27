@@ -19,7 +19,7 @@ public class DivineSummoner extends L2DefaultTransformation
 	public DivineSummoner()
 	{
 		// id, colRadius, colHeight
-		super(258, 10.0, 27.0);
+		super(258, 12.0, 24.0);
 	}
 
 	public void transformedSkills(L2PcInstance player)

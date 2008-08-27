@@ -19,7 +19,7 @@ public class Heretic extends L2DefaultTransformation
 	public Heretic()
 	{
 		// id, colRadius, colHeight
-		super(3, 8.0, 20.0);
+		super(3, 13.0, 29.0);
 	}
 
 	public void transformedSkills(L2PcInstance player)

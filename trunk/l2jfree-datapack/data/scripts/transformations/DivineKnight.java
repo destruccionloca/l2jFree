@@ -19,7 +19,7 @@ public class DivineKnight extends L2DefaultTransformation
 	public DivineKnight()
 	{
 		// id, colRadius, colHeight
-		super(252, 33.0, 30.0);
+		super(252, 12.0, 30.0);
 	}
 
 	public void transformedSkills(L2PcInstance player)

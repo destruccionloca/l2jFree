@@ -19,7 +19,7 @@ public class Ranku extends L2DefaultTransformation
 	public Ranku()
 	{
 		// id, colRadius, colHeight
-		super(309, 13.0, 28.0);
+		super(309, 13.0, 29.0);
 	}
 
 	public void transformedSkills(L2PcInstance player)

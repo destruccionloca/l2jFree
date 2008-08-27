@@ -19,7 +19,7 @@ public class DivineWarrior extends L2DefaultTransformation
 	public DivineWarrior()
 	{
 		// id, colRadius, colHeight
-		super(253, 15.0, 28.5);
+		super(253, 12.0, 30.0);
 	}
 
 	public void transformedSkills(L2PcInstance player)
