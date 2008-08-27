@@ -484,3 +484,13 @@ DELETE FROM minions WHERE boss_id IN ( 22196,22218 );
 INSERT INTO minions VALUES
 (22196, 22197, 2, 2),
 (22218, 22197, 2, 2);
+
+-- l2jfree addon from forced_updates
+DELETE FROM minions WHERE boss_id IN ( 29062,22188,22191 );
+INSERT INTO minions VALUES
+(29062,29063,1,1),
+(29062,29064,3,3),
+(22188,22189,4,4),
+(22188,22190,1,1),
+(22191,22192,1,1),
+(22191,22193,1,1);

@@ -842,3 +842,13 @@ INSERT INTO teleport VALUES
 -- Baylor Teleport
 INSERT INTO teleport VALUES 
 ('Baylors room',800001,153743,142103,-9775,0,0);
+
+-- l2jfree addon from forced_updates
+DELETE FROM teleport WHERE id IN ( 20001,20002 );
+INSERT INTO teleport VALUES
+('Lair of Baium -> Town of Aden',20001,146331,25762,-2018,0,0),
+('Lair of Valakas -> Town of Goddard',20002,147928,-55273,-2734,0,0);
+
+-- Update Teleport
+DELETE FROM teleport WHERE id = 20004;
+INSERT INTO teleport VALUES ('Lair of Sailren -> Primeval Isle Wharf',20004,10468,-24569,-3650,0,0);

@@ -284,7 +284,6 @@ full_install()
 	$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
 	$MYG < ../sql/version.sql &> /dev/null
 	$MYG < ../sql/vip.sql &> /dev/null
-	$MYG < ../sql/forced_updates.sql &> /dev/null
 	$MYG < ../sql/obj_restrictions.sql &> /dev/null
 }
 
@@ -368,7 +367,6 @@ update_db()
 			$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
 			$MYG < ../sql/version.sql &> /dev/null
 			$MYG < ../sql/vip.sql &> /dev/null
-			$MYG < ../sql/forced_updates.sql &> /dev/null
 			echo "Update completed"
 		# Insert update files
 		elif [ "$1" = "critical" ]; then
