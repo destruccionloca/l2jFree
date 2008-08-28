@@ -45,7 +45,8 @@ import com.l2jfree.gameserver.util.Util;
 /**
  * This class contains global server configuration.<br>
  * It has static final fields initialized from configuration files.<br>
- * It's initialized at the very begin of startup, and later JIT will optimize away debug/unused code.
+ * It's initialized at the very begin of startup, and later JIT will optimize
+ * away debug/unused code.
  */
 public final class Config
 {
@@ -202,13 +203,13 @@ public final class Config
 	// *******************************************************************************************
 	public static final String	CLANS_FILE	= "./config/clans.properties";
 	// *******************************************************************************************
-	public static int			ALT_CLAN_MEMBERS_FOR_WAR;				// Number of members needed to request a clan war
+	public static int			ALT_CLAN_MEMBERS_FOR_WAR;					// Number of members needed to request a clan war
 	public static int			ALT_CLAN_JOIN_DAYS;						// Number of days before joining a new clan
-	public static int			ALT_CLAN_CREATE_DAYS;					// Number of days before creating a new clan
+	public static int			ALT_CLAN_CREATE_DAYS;						// Number of days before creating a new clan
 	public static int			ALT_CLAN_DISSOLVE_DAYS;					// Number of days it takes to dissolve a clan
 	public static int			ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;			// Number of days before joining a new alliance when clan voluntarily leave an alliance
-	public static int			ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;		// Number of days before joining a new alliance when clan was dismissed from an
-	public static int			ALT_REPUTATION_SCORE_PER_KILL;			// Number of reputation points gained per Kill in Clanwar.
+	public static int			ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;			// Number of days before joining a new alliance when clan was dismissed from an
+	public static int			ALT_REPUTATION_SCORE_PER_KILL;				// Number of reputation points gained per Kill in Clanwar.
 	// alliance
 	public static int			ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED;		// Number of days before accepting a new clan for alliance when clan was dismissed
 	// from an alliance
@@ -453,11 +454,11 @@ public final class Config
 			RATE_SP = Float.parseFloat(ratesSettings.getProperty("RateSp", "1."));
 			RATE_PARTY_XP = Float.parseFloat(ratesSettings.getProperty("RatePartyXp", "1."));
 			RATE_PARTY_SP = Float.parseFloat(ratesSettings.getProperty("RatePartySp", "1."));
-			
+
 			RATE_QUESTS_REWARD_EXPSP = Float.parseFloat(ratesSettings.getProperty("RateQuestsRewardExpSp", "1."));
 			RATE_QUESTS_REWARD_ADENA = Float.parseFloat(ratesSettings.getProperty("RateQuestsRewardAdena", "1."));
 			RATE_QUESTS_REWARD_ITEMS = Float.parseFloat(ratesSettings.getProperty("RateQuestsRewardItems", "1."));
-			
+
 			RATE_DROP_ADENA = Float.parseFloat(ratesSettings.getProperty("RateDropAdena", "1."));
 			RATE_CONSUMABLE_COST = Float.parseFloat(ratesSettings.getProperty("RateConsumableCost", "1."));
 			RATE_CRAFT_COST = Float.parseFloat(ratesSettings.getProperty("RateCraftCost", "1."));
@@ -758,8 +759,10 @@ public final class Config
 	public static int				MAX_ITEM_IN_PACKET;
 
 	/**
-	 * Allow lesser effects to be canceled if stronger effects are used when effects of the same stack group are used.<br>
-	 * New effects that are added will be canceled if they are of lesser priority to the old one.
+	 * Allow lesser effects to be canceled if stronger effects are used when
+	 * effects of the same stack group are used.<br>
+	 * New effects that are added will be canceled if they are of lesser
+	 * priority to the old one.
 	 */
 	public static boolean			EFFECT_CANCELING;
 	public static String			NONDROPPABLE_ITEMS;
@@ -779,7 +782,7 @@ public final class Config
 	public static int				AUGMENT_BASESTAT;
 	public static int				AUGMENT_SKILL;
 	public static boolean			AUGMENT_EXCLUDE_NOTDONE;
-	public static int				CRUMA_ENTRANCE_MAX_LEVEL;							// Cruma Tower Entrance max level
+	public static int				CRUMA_ENTRANCE_MAX_LEVEL;								// Cruma Tower Entrance max level
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -865,8 +868,8 @@ public final class Config
 			/* Maximum number of available slots for pvt stores */
 			MAX_PVTSTORESELL_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSellSlotsDwarf", "4"));
 			MAX_PVTSTORESELL_SLOTS_OTHER = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSellSlotsOther", "3"));
-			MAX_PVTSTOREBUY_SLOTS_DWARF  = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreBuySlotsDwarf", "5"));
-			MAX_PVTSTOREBUY_SLOTS_OTHER  = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreBuySlotsOther", "4"));
+			MAX_PVTSTOREBUY_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreBuySlotsDwarf", "5"));
+			MAX_PVTSTOREBUY_SLOTS_OTHER = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreBuySlotsOther", "4"));
 
 			STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("StoreSkillCooltime", "true"));
 
@@ -917,13 +920,13 @@ public final class Config
 	public static boolean			SERVER_LIST_CLOCK;											// Displays a clock next to the server name ?
 	public static boolean			SERVER_LIST_TESTSERVER;									// Display test server in the list of servers ?
 	public static boolean			SERVER_GMONLY;												// Set the server as gm only at startup ?
-	
+
 	public static int				THREAD_POOL_SIZE;
-	
+
 	public static boolean			AUTODELETE_INVALID_QUEST_DATA;								// Auto-delete invalid quest data ?
 	public static boolean			FORCE_INVENTORY_UPDATE;
 	public static boolean			LAZY_CACHE;
-	public static boolean			SHOW_LICENSE;											// Show License at login
+	public static boolean			SHOW_LICENSE;												// Show License at login
 	public static boolean			SHOW_HTML_WELCOME;											// Show html window at login
 	public static boolean			SHOW_HTML_NEWBIE;
 	public static boolean			SHOW_HTML_GM;
@@ -947,13 +950,13 @@ public final class Config
 	public static boolean			PRECISE_DROP_CALCULATION;									// Accept precise drop calculation ?
 	public static boolean			MULTIPLE_ITEM_DROP;										// Accept multi-items drop ?
 	/**
-	 * This is setting of experimental Client <--> Server Player coordinates synchronization<br>
-	 * <b><u>Values :</u></b>
-	 * <li>0 - no synchronization at all</li>
-	 * <li>1 - parcial synchronization Client --> Server only * using this option it is difficult for players to bypass obstacles</li>
-	 * <li>2 - parcial synchronization Server --> Client only</li>
-	 * <li>3 - full synchronization Client <--> Server</li>
-	 * <li>-1 - Old system: will synchronize Z only</li>
+	 * This is setting of experimental Client <--> Server Player coordinates
+	 * synchronization<br>
+	 * <b><u>Values :</u></b> <li>0 - no synchronization at all</li> <li>1 -
+	 * parcial synchronization Client --> Server only * using this option it is
+	 * difficult for players to bypass obstacles</li> <li>2 - parcial
+	 * synchronization Server --> Client only</li> <li>3 - full synchronization
+	 * Client <--> Server</li> <li>-1 - Old system: will synchronize Z only</li>
 	 */
 	public static int				COORD_SYNCHRONIZE;
 	public static boolean			RESTORE_PLAYER_INSTANCE;
@@ -1003,16 +1006,16 @@ public final class Config
 		GLOBAL, REGION, GM, OFF
 	}
 
-	public static ChatMode			DEFAULT_GLOBAL_CHAT;						// Global chat state
+	public static ChatMode			DEFAULT_GLOBAL_CHAT;							// Global chat state
 	public static int				GLOBAL_CHAT_TIME;
 	public static ChatMode			DEFAULT_TRADE_CHAT;							// Trade chat state
 	public static int				TRADE_CHAT_TIME;
 	public static boolean			REGION_CHAT_ALSO_BLOCKED;
-	public static int				SOCIAL_TIME;								// Flood protector delay between socials
-	public static boolean			LOG_CHAT;									// Logging Chat Window
+	public static int				SOCIAL_TIME;									// Flood protector delay between socials
+	public static boolean			LOG_CHAT;										// Logging Chat Window
 	public static boolean			LOG_ITEMS;
 	public static int				DEFAULT_PUNISH;								// Default punishment for illegal actions
-	public static int				DEFAULT_PUNISH_PARAM;						// Parameter for default punishment
+	public static int				DEFAULT_PUNISH_PARAM;							// Parameter for default punishment
 	public static boolean			GM_AUDIT;
 	public static String			COMMUNITY_TYPE;								// Community Board
 	public static boolean			BBS_SHOW_PLAYERLIST;
@@ -1334,6 +1337,7 @@ public final class Config
 	public static boolean				ALT_CRAFT_ALLOW_CRYSTALLIZE;												// allow to break items
 	public static boolean				ALT_CRAFT_ALLOW_COMMON;													// allow to craft common craft recipes
 	public static boolean				AUTO_LOOT;																	// Accept auto-loot ?
+	public static boolean				AUTO_LOOT_RAID;
 	public static boolean				AUTO_LOOT_ADENA;
 	public static boolean				AUTO_LOOT_HERBS;
 	public static boolean				SPAWN_SIEGE_GUARD;															// Config for spawn siege guards
@@ -1482,9 +1486,10 @@ public final class Config
 			SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
 			LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(altSettings.getProperty("LifeCrystalNeeded", "true"));
 			ES_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("EnchantSkillSpBookNeeded", "true"));
-			AUTO_LOOT = altSettings.getProperty("AutoLoot", "true").trim().equalsIgnoreCase("True");
-			AUTO_LOOT_ADENA = altSettings.getProperty("AutoLootAdena", "true").trim().equalsIgnoreCase("True");
-			AUTO_LOOT_HERBS = altSettings.getProperty("AutoLootHerbs", "true").trim().equalsIgnoreCase("True");
+			AUTO_LOOT = Boolean.parseBoolean(altSettings.getProperty("AutoLoot", "true"));
+			AUTO_LOOT_RAID = Boolean.parseBoolean(altSettings.getProperty("AutoLootRaid", "true"));
+			AUTO_LOOT_ADENA = Boolean.parseBoolean(altSettings.getProperty("AutoLootAdena", "true"));
+			AUTO_LOOT_HERBS = Boolean.parseBoolean(altSettings.getProperty("AutoLootHerbs", "true"));
 			ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
 			ALT_GAME_KARMA_PLAYER_CAN_SHOP = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanShop", "true"));
 			ALT_GAME_KARMA_PLAYER_CAN_USE_GK = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanUseGK", "false"));
@@ -1970,7 +1975,18 @@ public final class Config
 		{
 			e.printStackTrace();
 		}
-		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (lnr != null)
+					lnr.close();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	// *******************************************************************************************
@@ -2031,8 +2047,8 @@ public final class Config
 	public static long			ALT_FESTIVAL_CHEST_SPAWN;							// Festival Chest Spawn
 	public static int			ALT_FESTIVAL_ARCHER_AGGRO;							// Aggro value of Archer in SevenSigns Festival
 	public static int			ALT_FESTIVAL_CHEST_AGGRO;							// Aggro value of Chest in SevenSigns Festival
-	public static int			ALT_FESTIVAL_MONSTER_AGGRO;							// Aggro value of Monster in SevenSigns Festival
-	public static int			ALT_DAWN_JOIN_COST;									// Amount of adena to pay to join Dawn Cabal
+	public static int			ALT_FESTIVAL_MONSTER_AGGRO;						// Aggro value of Monster in SevenSigns Festival
+	public static int			ALT_DAWN_JOIN_COST;								// Amount of adena to pay to join Dawn Cabal
 
 	// *******************************************************************************************
 	public static void loadSevenSignsConfig()
@@ -2191,30 +2207,30 @@ public final class Config
 	public static final String	CASTLE_CONFIG_FILE	= "./config/castle.properties";
 	// *******************************************************************************************
 	/** Clan Hall function related configs */
-    public static long 			CS_TELE_FEE_RATIO;
-    public static int 			CS_TELE1_FEE;
-    public static int 			CS_TELE2_FEE;
-    public static long 			CS_MPREG_FEE_RATIO;
-    public static int 			CS_MPREG1_FEE;
-    public static int 			CS_MPREG2_FEE;
-    public static int 			CS_MPREG3_FEE;
-    public static int 			CS_MPREG4_FEE;
-    public static long 			CS_HPREG_FEE_RATIO;
-    public static int 			CS_HPREG1_FEE;
-    public static int 			CS_HPREG2_FEE;
-    public static int 			CS_HPREG3_FEE;
-    public static int 			CS_HPREG4_FEE;
-    public static int 			CS_HPREG5_FEE;
-    public static long 			CS_EXPREG_FEE_RATIO;
-    public static int 			CS_EXPREG1_FEE;
-    public static int 			CS_EXPREG2_FEE;
-    public static int 			CS_EXPREG3_FEE;
-    public static int 			CS_EXPREG4_FEE;
-    public static long 			CS_SUPPORT_FEE_RATIO;
-    public static int 			CS_SUPPORT1_FEE;
-    public static int 			CS_SUPPORT2_FEE;
-    public static int 			CS_SUPPORT3_FEE;
-    public static int 			CS_SUPPORT4_FEE;
+	public static long			CS_TELE_FEE_RATIO;
+	public static int			CS_TELE1_FEE;
+	public static int			CS_TELE2_FEE;
+	public static long			CS_MPREG_FEE_RATIO;
+	public static int			CS_MPREG1_FEE;
+	public static int			CS_MPREG2_FEE;
+	public static int			CS_MPREG3_FEE;
+	public static int			CS_MPREG4_FEE;
+	public static long			CS_HPREG_FEE_RATIO;
+	public static int			CS_HPREG1_FEE;
+	public static int			CS_HPREG2_FEE;
+	public static int			CS_HPREG3_FEE;
+	public static int			CS_HPREG4_FEE;
+	public static int			CS_HPREG5_FEE;
+	public static long			CS_EXPREG_FEE_RATIO;
+	public static int			CS_EXPREG1_FEE;
+	public static int			CS_EXPREG2_FEE;
+	public static int			CS_EXPREG3_FEE;
+	public static int			CS_EXPREG4_FEE;
+	public static long			CS_SUPPORT_FEE_RATIO;
+	public static int			CS_SUPPORT1_FEE;
+	public static int			CS_SUPPORT2_FEE;
+	public static int			CS_SUPPORT3_FEE;
+	public static int			CS_SUPPORT4_FEE;
 
 	// *******************************************************************************************
 	public static void loadCastleConfig()
@@ -2224,31 +2240,31 @@ public final class Config
 		{
 			Properties castleSettings = new L2Properties(CASTLE_CONFIG_FILE);
 
-			CS_TELE_FEE_RATIO      = Long.parseLong(castleSettings.getProperty("CastleTeleportFunctionFeeRatio", "604800000"));
-            CS_TELE1_FEE           = Integer.parseInt(castleSettings.getProperty("CastleTeleportFunctionFeeLvl1", "7000"));
-            CS_TELE2_FEE           = Integer.parseInt(castleSettings.getProperty("CastleTeleportFunctionFeeLvl2", "14000"));
-            CS_SUPPORT_FEE_RATIO   = Long.parseLong(castleSettings.getProperty("CastleSupportFunctionFeeRatio", "86400000"));
-            CS_SUPPORT1_FEE        = Integer.parseInt(castleSettings.getProperty("CastleSupportFeeLvl1", "7000"));
-            CS_SUPPORT2_FEE        = Integer.parseInt(castleSettings.getProperty("CastleSupportFeeLvl2", "21000"));
-            CS_SUPPORT3_FEE        = Integer.parseInt(castleSettings.getProperty("CastleSupportFeeLvl3", "37000"));
-            CS_SUPPORT4_FEE        = Integer.parseInt(castleSettings.getProperty("CastleSupportFeeLvl4", "52000"));
-            CS_MPREG_FEE_RATIO     = Long.parseLong(castleSettings.getProperty("CastleMpRegenerationFunctionFeeRatio", "86400000"));
-            CS_MPREG1_FEE          = Integer.parseInt(castleSettings.getProperty("CastleMpRegenerationFeeLvl1", "2000"));
-            CS_MPREG2_FEE          = Integer.parseInt(castleSettings.getProperty("CastleMpRegenerationFeeLvl2", "6500"));
-            CS_MPREG3_FEE          = Integer.parseInt(castleSettings.getProperty("CastleMpRegenerationFeeLvl3", "13750"));
-            CS_MPREG4_FEE          = Integer.parseInt(castleSettings.getProperty("CastleMpRegenerationFeeLvl4", "20000"));
-            CS_HPREG_FEE_RATIO     = Long.parseLong(castleSettings.getProperty("CastleHpRegenerationFunctionFeeRatio", "86400000"));
-            CS_HPREG1_FEE          = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl1", "1000"));
-            CS_HPREG2_FEE          = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl2", "1500"));
-            CS_HPREG3_FEE          = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl3", "2250"));
-            CS_HPREG4_FEE          = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl14", "3270"));
-            CS_HPREG5_FEE          = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl15", "5166"));
-            CS_EXPREG_FEE_RATIO    = Long.parseLong(castleSettings.getProperty("CastleExpRegenerationFunctionFeeRatio", "86400000"));
-            CS_EXPREG1_FEE         = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl1", "9000"));
-            CS_EXPREG2_FEE         = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl2", "15000"));
-            CS_EXPREG3_FEE         = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl3", "21000"));
-            CS_EXPREG4_FEE         = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl4", "30000"));
- 		}
+			CS_TELE_FEE_RATIO = Long.parseLong(castleSettings.getProperty("CastleTeleportFunctionFeeRatio", "604800000"));
+			CS_TELE1_FEE = Integer.parseInt(castleSettings.getProperty("CastleTeleportFunctionFeeLvl1", "7000"));
+			CS_TELE2_FEE = Integer.parseInt(castleSettings.getProperty("CastleTeleportFunctionFeeLvl2", "14000"));
+			CS_SUPPORT_FEE_RATIO = Long.parseLong(castleSettings.getProperty("CastleSupportFunctionFeeRatio", "86400000"));
+			CS_SUPPORT1_FEE = Integer.parseInt(castleSettings.getProperty("CastleSupportFeeLvl1", "7000"));
+			CS_SUPPORT2_FEE = Integer.parseInt(castleSettings.getProperty("CastleSupportFeeLvl2", "21000"));
+			CS_SUPPORT3_FEE = Integer.parseInt(castleSettings.getProperty("CastleSupportFeeLvl3", "37000"));
+			CS_SUPPORT4_FEE = Integer.parseInt(castleSettings.getProperty("CastleSupportFeeLvl4", "52000"));
+			CS_MPREG_FEE_RATIO = Long.parseLong(castleSettings.getProperty("CastleMpRegenerationFunctionFeeRatio", "86400000"));
+			CS_MPREG1_FEE = Integer.parseInt(castleSettings.getProperty("CastleMpRegenerationFeeLvl1", "2000"));
+			CS_MPREG2_FEE = Integer.parseInt(castleSettings.getProperty("CastleMpRegenerationFeeLvl2", "6500"));
+			CS_MPREG3_FEE = Integer.parseInt(castleSettings.getProperty("CastleMpRegenerationFeeLvl3", "13750"));
+			CS_MPREG4_FEE = Integer.parseInt(castleSettings.getProperty("CastleMpRegenerationFeeLvl4", "20000"));
+			CS_HPREG_FEE_RATIO = Long.parseLong(castleSettings.getProperty("CastleHpRegenerationFunctionFeeRatio", "86400000"));
+			CS_HPREG1_FEE = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl1", "1000"));
+			CS_HPREG2_FEE = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl2", "1500"));
+			CS_HPREG3_FEE = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl3", "2250"));
+			CS_HPREG4_FEE = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl14", "3270"));
+			CS_HPREG5_FEE = Integer.parseInt(castleSettings.getProperty("CastleHpRegenerationFeeLvl15", "5166"));
+			CS_EXPREG_FEE_RATIO = Long.parseLong(castleSettings.getProperty("CastleExpRegenerationFunctionFeeRatio", "86400000"));
+			CS_EXPREG1_FEE = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl1", "9000"));
+			CS_EXPREG2_FEE = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl2", "15000"));
+			CS_EXPREG3_FEE = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl3", "21000"));
+			CS_EXPREG4_FEE = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl4", "30000"));
+		}
 		catch (Exception e)
 		{
 			_log.error(e.getMessage(), e);
@@ -2358,7 +2374,7 @@ public final class Config
 			DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartRemoveAllEffects", "true"));
 			DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartUnsummonPet", "true"));
 			FALLDOWNONDEATH = Boolean.parseBoolean(funEnginesSettings.getProperty("FallDownOnDeath", "true"));
-			
+
 			ARENA_ENABLED = Boolean.parseBoolean(funEnginesSettings.getProperty("ArenaEnabled", "false"));
 			ARENA_INTERVAL = Integer.parseInt(funEnginesSettings.getProperty("ArenaInterval", "60"));
 			ARENA_REWARD_ID = Integer.parseInt(funEnginesSettings.getProperty("ArenaRewardId", "57"));
@@ -2368,7 +2384,7 @@ public final class Config
 			FISHERMAN_INTERVAL = Integer.parseInt(funEnginesSettings.getProperty("FishermanInterval", "60"));
 			FISHERMAN_REWARD_ID = Integer.parseInt(funEnginesSettings.getProperty("FishermanRewardId", "57"));
 			FISHERMAN_REWARD_COUNT = Integer.parseInt(funEnginesSettings.getProperty("FishermanRewardCount", "100"));
-			
+
 		}
 		catch (Exception e)
 		{
@@ -2442,8 +2458,8 @@ public final class Config
 	// *******************************************************************************************
 	public static final String	BOSS_FILE	= "./config/boss.properties";
 	// *******************************************************************************************
-	/***************************************** 
-	 * Antharas CONFIG                       * 
+	/*****************************************
+	 * Antharas CONFIG *
 	 *****************************************/
 	public static int			FWA_FIXINTERVALOFANTHARAS;
 	public static int			FWA_RANDOMINTERVALOFANTHARAS;
@@ -2460,8 +2476,8 @@ public final class Config
 	public static int			FWA_INTERVALOFBOMBERONSTRONG;
 	public static boolean		FWA_MOVEATRANDOM;
 
-	/****************************************** 
-	 * Baium CONFIG                           * 
+	/******************************************
+	 * Baium CONFIG *
 	 ******************************************/
 	public static int			FWB_FIXINTERVALOFBAIUM;
 	public static int			FWB_RANDOMINTERVALOFBAIUM;
@@ -2469,8 +2485,8 @@ public final class Config
 	public static boolean		FWB_MOVEATRANDOM;
 	public static int			FWB_LIMITUNTILSLEEP;
 
-	/****************************************** 
-	 * Valakas CONFIG                         * 
+	/******************************************
+	 * Valakas CONFIG *
 	 ******************************************/
 	public static int			FWV_FIXINTERVALOFVALAKAS;
 	public static int			FWV_RANDOMINTERVALOFVALAKAS;
@@ -2479,24 +2495,24 @@ public final class Config
 	public static int			FWV_CAPACITYOFLAIR;
 	public static boolean		FWV_MOVEATRANDOM;
 
-	/******************************************* 
-	 * Baylor CONFIG                          * 
+	/*******************************************
+	 * Baylor CONFIG *
 	 *******************************************/
 	public static boolean		FWBA_ENABLESINGLEPLAYER;
 	public static int			FWBA_FIXINTERVALOFBAYLORSPAWN;
 	public static int			FWBA_RANDOMINTERVALOFBAYLORSPAWN;
 	public static int			FWBA_INTERVALOFNEXTMONSTER;
 	public static int			FWBA_ACTIVITYTIMEOFMOBS;
-	
-	/******************************************* 
-	 * Frintezza CONFIG                          * 
+
+	/*******************************************
+	 * Frintezza CONFIG *
 	 *******************************************/
 	public static int			FWF_INTERVALOFNEXTMONSTER;
 	public static int			FWF_INTERVALOFFRINTEZZA;
 	public static int			FWF_ACTIVITYTIMEOFFRINTEZZA;
 
-	/******************************************* 
-	 * Sailren CONFIG                          * 
+	/*******************************************
+	 * Sailren CONFIG *
 	 *******************************************/
 	public static boolean		FWS_ENABLESINGLEPLAYER;
 	public static int			FWS_FIXINTERVALOFSAILRENSPAWN;
@@ -2504,8 +2520,8 @@ public final class Config
 	public static int			FWS_INTERVALOFNEXTMONSTER;
 	public static int			FWS_ACTIVITYTIMEOFMOBS;
 
-	/******************************************* 
-	 * High Priestess van Halter CONFIG        * 
+	/*******************************************
+	 * High Priestess van Halter CONFIG *
 	 *******************************************/
 	public static int			HPH_FIXINTERVALOFHALTER;
 	public static int			HPH_RANDOMINTERVALOFHALTER;
@@ -2518,8 +2534,8 @@ public final class Config
 	public static int			HPH_TIMEOFLOCKUPDOOROFALTAR;
 
 	/***************************************************************************
-	* JP Attack Last Imperial Tomb Custom CONFIG                              *
-	**************************************************************************/
+	 * JP Attack Last Imperial Tomb Custom CONFIG *
+	 **************************************************************************/
 	public static int			LIT_REGISTRATION_MODE;
 	public static int			LIT_REGISTRATION_TIME;
 	public static int			LIT_MIN_PARTY_CNT;
@@ -2640,13 +2656,13 @@ public final class Config
 			if (FWBA_ACTIVITYTIMEOFMOBS < 1 || FWBA_ACTIVITYTIMEOFMOBS > 120)
 				FWS_ACTIVITYTIMEOFMOBS = 120;
 			FWBA_ACTIVITYTIMEOFMOBS *= 60000;
-			
+
 			//Frintezza
 			FWF_INTERVALOFFRINTEZZA = Integer.parseInt(bossSettings.getProperty("IntervalOfFrintezzaSpawn", "1440"));
 			if (FWF_INTERVALOFFRINTEZZA < 5 || FWF_INTERVALOFFRINTEZZA > 5760)
 				FWF_INTERVALOFFRINTEZZA = 1440;
 			FWF_INTERVALOFFRINTEZZA *= 60000;
-			 
+
 			FWF_INTERVALOFNEXTMONSTER = Integer.parseInt(bossSettings.getProperty("IntervalOfNextMonsterFrintezza", "1"));
 			if (FWF_INTERVALOFNEXTMONSTER < 1 || FWF_INTERVALOFNEXTMONSTER > 10)
 				FWF_INTERVALOFNEXTMONSTER = 1;
@@ -3028,10 +3044,8 @@ public final class Config
 	/**
 	 * Set a new value to a game parameter from the admin console.
 	 * 
-	 * @param pName
-	 *            (String) : name of the parameter to change
-	 * @param pValue
-	 *            (String) : new value of the parameter
+	 * @param pName (String) : name of the parameter to change
+	 * @param pValue (String) : new value of the parameter
 	 * @return boolean : true if modification has been made
 	 * @link useAdminCommand
 	 */
@@ -3434,6 +3448,8 @@ public final class Config
 			ES_SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AutoLoot"))
 			AUTO_LOOT = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AutoLootRaid"))
+			AUTO_LOOT_RAID = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AutoLootAdena"))
 			AUTO_LOOT_ADENA = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AutoLootHerbs"))
@@ -3614,7 +3630,7 @@ public final class Config
 			FWB_MOVEATRANDOM = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("LimitUntilSleep"))
 			FWB_LIMITUNTILSLEEP = Integer.parseInt(pValue);
-		
+
 		// fight with Frintezza Custom Setting
 		else if (pName.equalsIgnoreCase("IntervalOfFrintezzaSpawn"))
 			FWF_INTERVALOFFRINTEZZA = Integer.parseInt(pValue);
@@ -3706,8 +3722,7 @@ public final class Config
 	/**
 	 * Save hexadecimal ID of the server in the properties file.
 	 * 
-	 * @param string
-	 *            (String) : hexadecimal ID of the server to store
+	 * @param string (String) : hexadecimal ID of the server to store
 	 * @see HEXID_FILE
 	 * @see saveHexid(String string, String fileName)
 	 * @link LoginServerThread
@@ -3720,10 +3735,8 @@ public final class Config
 	/**
 	 * Save hexadecimal ID of the server in the properties file.
 	 * 
-	 * @param hexId
-	 *            (String) : hexadecimal ID of the server to store
-	 * @param fileName
-	 *            (String) : name of the properties file
+	 * @param hexId (String) : hexadecimal ID of the server to store
+	 * @param fileName (String) : name of the properties file
 	 */
 	public static void saveHexid(int serverId, String hexId, String fileName)
 	{
@@ -3746,7 +3759,8 @@ public final class Config
 	}
 
 	/**
-	 * To keep compatibility with old loginserver.properties, add db properties into system properties Spring will use those values later
+	 * To keep compatibility with old loginserver.properties, add db properties
+	 * into system properties Spring will use those values later
 	 */
 	public static void initDBProperties()
 	{
