@@ -100,7 +100,7 @@ class Quest (JQuest) :
    if id == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif npcId == BABENCO :
-     if id == State.CREATED :     
+     if id == State.CREATED :
        if player.getLevel() >= 20 :
          htmltext = "30334-0.htm"
        else :
@@ -124,7 +124,7 @@ class Quest (JQuest) :
        drop(partyMember,NECKLACE[npcId])
    else:
        partyMember = self.getRandomPartyMember(player,"4")
-       if (partyMember and npcId != M_LIZARDMAN) :     
+       if (partyMember and npcId != M_LIZARDMAN) :
            drop(partyMember,DROPLIST[npcId])
    return
 

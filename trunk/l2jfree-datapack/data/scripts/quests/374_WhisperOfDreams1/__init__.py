@@ -93,7 +93,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_finish")
        htmltext = "30515-11.htm"
     return htmltext
- 
+
  def onTalk (self,npc,player):
    htmltext = default
    st = player.getQuestState(qn)
@@ -124,7 +124,7 @@ class Quest (JQuest) :
          st.set("cond","3")
          st.playSound("ItemSound.quest_middle")
    return htmltext
- 
+
  def onKill(self,npc,player,isPet) :
      #both mobs may give SEALD_MSTONE to a player
      partyMember = self.getRandomPartyMember(player,"awaitSealedMStone","1")
@@ -150,10 +150,10 @@ class Quest (JQuest) :
             else :
                st.playSound("ItemSound.quest_itemget")
      return  
- 
+
 # Quest class and state definition
 QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRIPTION)
- 
+
 # Quest NPC starter initialization
 QUEST.addStartNpc(MANAKIA)
 # Quest initialization

@@ -92,12 +92,12 @@ class Quest (JQuest) :
     if st.getState() == State.STARTED :
       count = st.getQuestItemsCount(GEM_OF_SUBMISSION)
       if st.getInt("cond") == 1 and count < 300 :
-         st.giveItems(GEM_OF_SUBMISSION,1)  
-         if count == 299 :  
-           st.playSound("ItemSound.quest_middle")  
-           st.set("cond","2")  
-         else:  
-           st.playSound("ItemSound.quest_itemget") 
+         st.giveItems(GEM_OF_SUBMISSION,1)
+         if count == 299 :
+           st.playSound("ItemSound.quest_middle")
+           st.set("cond","2")
+         else:
+           st.playSound("ItemSound.quest_itemget")
   return
 
 QUEST       = Quest(627,qn,"Heart In Search Of Power")

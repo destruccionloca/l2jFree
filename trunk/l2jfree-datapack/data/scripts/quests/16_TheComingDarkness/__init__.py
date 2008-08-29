@@ -95,7 +95,7 @@ class Quest (JQuest) :
        if npcId == HIERARCH and cond == 6 :
          st.addExpAndSp(221958,0)
          st.set("cond","0")
-         st.exitQuest(False) 
+         st.exitQuest(False)
          st.playSound("ItemSound.quest_finish")
          htmltext = "31517-3.htm"
    return htmltext

@@ -14,17 +14,17 @@ GARITA = 30518
 REED   = 30520
 BRUNON = 30526
 
-#ITEMS 
+#ITEMS
 BOLTERS_LIST         = 1547
 MINING_BOOTS         = 1548
 MINERS_PICK          = 1549
 BOOMBOOM_POWDER      = 1550
 REDSTONE_BEER        = 1551
 BOLTERS_SMELLY_SOCKS = 1552
- 
+
 #REWARD
 NECKLACE = 906
- 
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -56,10 +56,10 @@ class Quest (JQuest) :
 
    npcId = npc.getNpcId()
    id = st.getState()
- 
+
    cond    = st.getInt("cond")
    onlyone = st.getInt("onlyone")
- 
+
    if npcId == BOLTER and cond == 0 :
      if onlyone == 1 :
        htmltext = "<html><body>This quest has already been completed.</body></html>"

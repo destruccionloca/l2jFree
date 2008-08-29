@@ -45,8 +45,8 @@ class Quest (JQuest):
         cond = st.getInt("cond")
         if cond == 2 and st.getQuestItemsCount(CRIMSON_DRAKE_HEART) == 100:
            st.takeItems(CRIMSON_DRAKE_HEART, 100)
-           st.rewardItems(FLAMING_FISHING_LURE,4)             
-           st.exitQuest(False) 
+           st.rewardItems(FLAMING_FISHING_LURE,4)
+           st.exitQuest(False)
            st.unset("cond") # we dont need it in db if quest is already State.COMPLETED
            st.playSound("ItemSound.quest_finish")
         else :
@@ -59,7 +59,7 @@ class Quest (JQuest):
      if not st: return htmltext
      id = st.getState()
      if id == State.COMPLETED:
-        htmltext = "<html><body>This quest has already been completed.</body></html>"           
+        htmltext = "<html><body>This quest has already been completed.</body></html>"
      elif id == State.CREATED :
         if player.getLevel() > 59 and fishing_level(player) > 19 :
            htmltext= "31577-0.htm"
@@ -82,7 +82,7 @@ class Quest (JQuest):
         if st.getInt("cond") == 1 and count < 100 :
            chance = 33 * Config.RATE_DROP_QUEST
            numItems, chance = divmod(chance,100)
-           if st.getRandom(100) < chance : 
+           if st.getRandom(100) < chance :
               numItems += 1
            if numItems :
               if count + numItems >= 100 :

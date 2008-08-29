@@ -101,7 +101,7 @@ class Quest (JQuest) :
             htmltext = "30097-10.htm"
         elif npcId == 30097 and st.getInt("cond")==6 :
             htmltext = "30097-11.htm"
-        elif id == State.STARTED :   
+        elif id == State.STARTED :
             if npcId == 30094 and st.getInt("cond")==1 :
                 htmltext = "30094-01.htm"
             elif npcId == 30094 and st.getInt("cond")==2 :

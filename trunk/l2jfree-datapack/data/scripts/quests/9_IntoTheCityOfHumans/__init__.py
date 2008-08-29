@@ -17,7 +17,7 @@ TAMIL   = 30576
 ADENA = 57
 SCROLL_OF_ESCAPE_GIRAN = 7559
 MARK_OF_TRAVELER = 7570
- 
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
@@ -72,7 +72,7 @@ class Quest (JQuest) :
    return htmltext
 
 QUEST     = Quest(9,qn,"Into the City of Humans")
- 
+
 
 QUEST.addStartNpc(PETUKAI)
 

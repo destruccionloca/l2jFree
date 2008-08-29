@@ -90,13 +90,13 @@ def give_reward(st,reward) :
        for j in prize :
            st.giveItems(j,1)
     elif luck < REWARD_RATE[1] :          # worst reward: 4000a
-       st.rewardItems(57,4000) 
+       st.rewardItems(57,4000)
     elif luck < REWARD_RATE[2] :          # quite nice : 2 recipes
        for k in range(2) :
           l = st.getRandom(len(prize))
           st.giveItems(prize[l],1)
           del prize[l]
-    else :                                # ordinary reward: 1 recipe or mat
+    else :                                # ordinary reward: 1 recipe
        st.giveItems(prize[st.getRandom(len(prize))],1)
 
 

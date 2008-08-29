@@ -1,4 +1,4 @@
-# version 0.1 
+# version 0.1
 # by DrLecter
 import sys
 from com.l2jfree import Config
@@ -45,7 +45,7 @@ def check_level(st) :
 
 def check_stone(st,progress) :
     if st.getQuestItemsCount(FRY_STN) == 1 :
-       st.set("cond","3") 
+       st.set("cond","3")
        if progress == 1 :
           st.set("progress","3")
           return "420_cronos_8.htm"
@@ -89,7 +89,7 @@ def craft_stone(st,progress) :
        st.takeItems(2130,1)
        st.takeItems(1873,3)
        st.takeItems(TD_BCK_SKN,10)
-       st.takeItems(FSN_LIST,1) 
+       st.takeItems(FSN_LIST,1)
        st.giveItems(FRY_STN,1)
        st.playSound("ItemSound.quest_itemget")
        return "420_maria_3.htm"
@@ -100,7 +100,7 @@ def craft_stone(st,progress) :
        st.takeItems(1873,5)
        st.takeItems(1875,1)
        st.takeItems(TD_BCK_SKN,20)
-       st.takeItems(FSN_LIST_DLX,1) 
+       st.takeItems(FSN_LIST_DLX,1)
        st.giveItems(FRY_STN_DLX,1)
        st.playSound("ItemSound.quest_itemget")
        return "420_maria_5.htm"
@@ -118,7 +118,7 @@ def check_eggs(st, npc, progress) :
        else :
           if st.getQuestItemsCount(eggs) >= 20 :
              return "420_"+npc+"_9.htm"
-          else : 
+          else :
              return "420_"+npc+"_8.htm"
     elif npc == "exarion" and whom == 1 :
        if st.getQuestItemsCount(eggs) < 20 :
@@ -129,7 +129,7 @@ def check_eggs(st, npc, progress) :
           if progress in [14,21] :
              st.set("progress","19")
           elif progress in [15,22] :
-             st.set("progress","20") 
+             st.set("progress","20")
           st.giveItems(eggs,1)
           st.playSound("ItemSound.quest_itemget")
           st.set("cond","7")
@@ -143,7 +143,7 @@ def check_eggs(st, npc, progress) :
           if progress in [14,21] :
              st.set("progress","19")
           elif progress in [15,22] :
-             st.set("progress","20") 
+             st.set("progress","20")
           st.giveItems(eggs,1)
           st.set("cond","7")
           st.playSound("ItemSound.quest_itemget")
@@ -164,7 +164,7 @@ def check_eggs(st, npc, progress) :
           if progress in [14,21] :
              st.set("progress","19")
           elif progress in [15,22] :
-             st.set("progress","20") 
+             st.set("progress","20")
           st.giveItems(eggs,1)
           st.set("cond","7")
           st.playSound("ItemSound.quest_itemget")
@@ -178,7 +178,7 @@ def check_eggs(st, npc, progress) :
           if progress in [14,21] :
              st.set("progress","19")
           elif progress in [15,22] :
-             st.set("progress","20") 
+             st.set("progress","20")
           st.giveItems(eggs,1)
           st.set("cond","7")
           st.playSound("ItemSound.quest_itemget")
@@ -209,13 +209,13 @@ class Quest (JQuest):
          if event == "wait" :
             return craft_stone(st,progress)
          elif event == "cronos_2" :
-            return "420_cronos_2.htm" 
+            return "420_cronos_2.htm"
          elif event == "cronos_3" :
-            return "420_cronos_3.htm" 
+            return "420_cronos_3.htm"
          elif event == "cronos_4" :
-            return "420_cronos_4.htm" 
+            return "420_cronos_4.htm"
          elif event == "fsn" :
-            st.set("cond","2") 
+            st.set("cond","2")
             if progress == 0:
                st.set("progress","1")
                st.giveItems(FSN_LIST,1)
@@ -227,7 +227,7 @@ class Quest (JQuest):
                st.playSound("ItemSound.quest_itemget")
                return "420_cronos_12.htm"
          elif event == "fsn_dlx" :
-            st.set("cond","2") 
+            st.set("cond","2")
             if progress == 0:
                st.set("progress","2")
                st.giveItems(FSN_LIST_DLX,1)
@@ -269,7 +269,7 @@ class Quest (JQuest):
              st.playSound("ItemSound.quest_itemget")
              st.set("dragon","1")
              st.set("cond","6")
-             st.set("progress",str(progress+9)) 
+             st.set("progress",str(progress+9))
              return "420_exarion_2.htm"
          elif event == "kalibran_1" :
              st.set("dragon","3")
@@ -284,7 +284,7 @@ class Quest (JQuest):
                 st.set("progress","19")
              elif progress in [15,22] :
                 st.set("progress","20")
-             st.takeItems(SCALE_3,1)   
+             st.takeItems(SCALE_3,1)
              st.giveItems(KA_EGG,1)
              st.set("cond","7")
              st.playSound("ItemSound.quest_itemget")
@@ -436,7 +436,7 @@ class Quest (JQuest):
     elif npcId == DK_EXARION :
        if id == State.STARTED and cond >= 5:
           if progress in [ 5,6,12,13 ] and st.getQuestItemsCount(JUICE) == 1:
-             st.takeItems(JUICE,1) 
+             st.takeItems(JUICE,1)
              return "420_exarion_1.htm"
           elif progress > 13 and st.getQuestItemsCount(SCALE_1) == 1:
               return check_eggs(st,"exarion",progress)
@@ -445,7 +445,7 @@ class Quest (JQuest):
     elif npcId == DK_ZWOV :
        if id == State.STARTED and cond >= 5:
           if progress in [ 5,6,12,13 ]  and st.getQuestItemsCount(JUICE) == 1:
-             st.takeItems(JUICE,1)  
+             st.takeItems(JUICE,1)
              return "420_zwov_1.htm"
           elif progress > 13 and st.getQuestItemsCount(SCALE_2) == 1:
               return check_eggs(st,"zwov",progress)
@@ -454,7 +454,7 @@ class Quest (JQuest):
     elif npcId == DK_KALIBRAN :
        if id == State.STARTED and cond >= 5:
           if progress in [ 5,6,12,13 ] and st.getQuestItemsCount(JUICE) == 1:
-             st.takeItems(JUICE,1)  
+             st.takeItems(JUICE,1)
              return "420_kalibran_1.htm"
           elif progress > 13 and st.getQuestItemsCount(SCALE_3) == 1:
               return check_eggs(st,"kalibran",progress)
@@ -463,7 +463,7 @@ class Quest (JQuest):
     elif npcId == WM_SUZET :
        if id == State.STARTED and cond >= 5:
           if progress in [ 5,6,12,13 ] and st.getQuestItemsCount(JUICE) == 1:
-             st.takeItems(JUICE,1)  
+             st.takeItems(JUICE,1)
              return "420_suzet_1.htm"
           elif progress > 13 and st.getQuestItemsCount(SCALE_4) == 1:
               return check_eggs(st,"suzet",progress)
@@ -472,7 +472,7 @@ class Quest (JQuest):
     elif npcId == WM_SHAMHAI :
        if id == State.STARTED and cond >= 5:
           if progress in [ 5,6,12,13 ] and st.getQuestItemsCount(JUICE) == 1:
-             st.takeItems(JUICE,1)  
+             st.takeItems(JUICE,1)
              return "420_shamhai_1.htm"
           elif progress > 13 and st.getQuestItemsCount(SCALE_5) == 1:
               return check_eggs(st,"shamhai",progress)
@@ -482,8 +482,8 @@ class Quest (JQuest):
 
   def onKill(self,npc,player,isPet):
     st = player.getQuestState(qn)
-    if not st : return 
-   
+    if not st : return
+
     id   = st.getState()
     npcId = npc.getNpcId()
     cond = st.getInt("cond")
@@ -543,10 +543,10 @@ class Quest (JQuest):
                   numItems = REQUIRED_EGGS - prevItems
                   st.playSound("ItemSound.quest_middle")
                else:
-                  st.playSound("ItemSound.quest_itemget")   
+                  st.playSound("ItemSound.quest_itemget")
                st.giveItems(eggs,numItems)
                npc.broadcastPacket(NpcSay(npc.getObjectId(),0,npc.getNpcId(),"If the eggs get taken, we're dead!"))
-  #fairy stone destruction    
+  #fairy stone destruction
     elif id == State.STARTED and cond < 5 and st.getQuestItemsCount(FRY_STN_DLX) == 1 :
       if npcId in range(20589,20600)+[20719]:
          st.takeItems(FRY_STN_DLX,1)

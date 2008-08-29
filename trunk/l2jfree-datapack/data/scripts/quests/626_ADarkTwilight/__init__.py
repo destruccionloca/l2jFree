@@ -75,15 +75,15 @@ class Quest (JQuest) :
    if not partyMember : return
    st = partyMember.getQuestState(qn)
    if st :
-      if st.getState() == State.STARTED :  
-         count = st.getQuestItemsCount(BLOOD_OF_SAINT)  
-         if st.getInt("cond") == 1 and count < 300 :  
-            st.giveItems(BLOOD_OF_SAINT,1)  
-            if count == 299 :  
-               st.playSound("ItemSound.quest_middle")  
-               st.set("cond","2")  
-            else:  
-               st.playSound("ItemSound.quest_itemget") 
+      if st.getState() == State.STARTED :
+         count = st.getQuestItemsCount(BLOOD_OF_SAINT)
+         if st.getInt("cond") == 1 and count < 300 :
+            st.giveItems(BLOOD_OF_SAINT,1)
+            if count == 299 :
+               st.playSound("ItemSound.quest_middle")
+               st.set("cond","2")
+            else:
+               st.playSound("ItemSound.quest_itemget")
    return
 
 QUEST       = Quest(626,qn,"A Dark Twilight")

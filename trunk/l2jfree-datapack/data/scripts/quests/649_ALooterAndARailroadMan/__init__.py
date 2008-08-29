@@ -66,13 +66,13 @@ class Quest (JQuest) :
    if st :
      if st.getState() == State.STARTED :
        count = st.getQuestItemsCount(THIEF_GUILD_MARK)
-       if st.getInt("cond") == 1 and count < 200 and st.getRandom(100)<DROP_CHANCE :  
-          st.giveItems(THIEF_GUILD_MARK,1)  
-          if count == 199 :  
-            st.playSound("ItemSound.quest_middle")  
-            st.set("cond","2")  
-          else:  
-            st.playSound("ItemSound.quest_itemget") 
+       if st.getInt("cond") == 1 and count < 200 and st.getRandom(100)<DROP_CHANCE :
+          st.giveItems(THIEF_GUILD_MARK,1)
+          if count == 199 :
+            st.playSound("ItemSound.quest_middle")
+            st.set("cond","2")
+          else:
+            st.playSound("ItemSound.quest_itemget")
    return
 
 QUEST       = Quest(649,qn,"A Looter and a Railroad Man")

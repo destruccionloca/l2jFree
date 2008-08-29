@@ -71,7 +71,7 @@ class Quest (JQuest):
               st.playSound("ItemSound.quest_itemget")
         elif npcId in VAMPIRES:
            partyMember = self.getRandomPartyMember(player, "cond", "1")
-           if not partyMember: return                
+           if not partyMember: return
            st = partyMember.getQuestState(qn)
            if not st: return
            chance = V_HEART_CHANCE * Config.RATE_DROP_QUEST

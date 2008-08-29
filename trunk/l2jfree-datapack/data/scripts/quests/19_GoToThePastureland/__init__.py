@@ -31,7 +31,7 @@ class Quest (JQuest) :
      st.takeItems(BEAST_MEAT,1)
      st.rewardItems(57,30000)
      st.unset("cond")
-     st.exitQuest(False) 
+     st.exitQuest(False)
      st.playSound("ItemSound.quest_finish")
    return htmltext
 

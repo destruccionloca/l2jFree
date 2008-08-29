@@ -46,15 +46,15 @@ UNDEADS = {
     }
 
 class Quest (JQuest):
-    
+
     def __init__(self,id,name,descr):
         JQuest.__init__(self,id,name,descr)
         self.questItemIds = [RIB_BONE, Z_LIVER]
-    
+
     def onEvent (self,event,st):
         htmltext = event
         if event == "accept" :
-            st.set("cond","1")                        
+            st.set("cond","1")
             st.setState(State.STARTED)
             st.playSound("ItemSound.quest_accept")
             htmltext = "31388-04.htm"
@@ -77,9 +77,9 @@ class Quest (JQuest):
                 else :
                     htmltext = "31388-09.htm"
         return htmltext
-    
 
-    def onTalk (self,npc,player):        
+
+    def onTalk (self,npc,player):
         htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
         st = player.getQuestState(qn)
         if not st: return
@@ -92,36 +92,36 @@ class Quest (JQuest):
                     htmltext = "31388-01.htm"
                 else:
                     htmltext = "31388-03.htm"
-                    st.exitQuest(1)        
+                    st.exitQuest(1)
             elif cond == 1:
-                htmltext = "31388-06.htm"            
+                htmltext = "31388-06.htm"
             elif cond == 2:
-                htmltext = "31388-05.htm"                
+                htmltext = "31388-05.htm"
         return htmltext
 
-    def onKill(self,npc,player,isPet):        
+    def onKill(self,npc,player,isPet):
         npcId = npc.getNpcId()
-        if npcId in UNDEADS.keys():            
+        if npcId in UNDEADS.keys():
             partyMember = self.getRandomPartyMemberState(player, State.STARTED)
             if not partyMember: return
             st = partyMember.getQuestState(qn)
             if not st : return
-            if st.getRandom(1000) < UNDEADS[npcId]:  
-                st.giveItems(Z_LIVER, 1)  
-                st.playSound("ItemSound.quest_itemget")  
+            if st.getRandom(1000) < UNDEADS[npcId]:
+                st.giveItems(Z_LIVER, 1)
+                st.playSound("ItemSound.quest_itemget")
         elif npcId in DAMOBS.keys():
             partyMember = self.getRandomPartyMember(player, "cond", "1")
-            if not partyMember: return                
+            if not partyMember: return
             st = partyMember.getQuestState(qn)
             if not st : return
-            if st.getRandom(1000) < DAMOBS[npcId]:                  
-                st.giveItems(RIB_BONE, 1)  
-                if st.getQuestItemsCount(RIB_BONE) == 200:  
-                    st.set("cond","2")  
-                    st.playSound("ItemSound.quest_middle")  
-                else:  
-                    st.playSound("ItemSound.quest_itemget") 
-        return        
+            if st.getRandom(1000) < DAMOBS[npcId]:
+                st.giveItems(RIB_BONE, 1)
+                if st.getQuestItemsCount(RIB_BONE) == 200:
+                    st.set("cond","2")
+                    st.playSound("ItemSound.quest_middle")
+                else:
+                    st.playSound("ItemSound.quest_itemget")
+        return
 
 QUEST       = Quest(633, qn, "In The Forgotten Village")
 

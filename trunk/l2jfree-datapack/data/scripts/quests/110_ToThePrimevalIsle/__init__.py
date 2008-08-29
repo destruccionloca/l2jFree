@@ -32,7 +32,7 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_finish")
       st.rewardItems(ADENA_ID,169380)
       st.takeItems(ANCIENT_BOOK,-1)
-      st.exitQuest(False) 
+      st.exitQuest(False)
       st.exitQuest(0)
     return htmltext
 

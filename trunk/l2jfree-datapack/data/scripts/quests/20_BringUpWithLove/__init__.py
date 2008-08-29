@@ -30,7 +30,7 @@ class Quest (JQuest) :
        st.rewardItems(57,68500)
        st.takeItems(GEM,-1)
        st.playSound("ItemSound.quest_finish")
-       st.exitQuest(False) 
+       st.exitQuest(False)
        st.set("onlyone","1")
    return htmltext 
 

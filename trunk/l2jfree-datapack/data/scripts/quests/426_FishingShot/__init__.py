@@ -94,7 +94,7 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet) :
    partyMember = self.getRandomPartyMemberState(player, State.STARTED)
-   if not partyMember : return 
+   if not partyMember : return
    st = partyMember.getQuestState(qn)
    npcId = npc.getNpcId()
    drop = 0
@@ -119,9 +119,9 @@ class Quest (JQuest) :
        chance,drop = MOBSspecial[npcId]
    if st.getRandom(1000) <= chance :
        drop += 1
-   if drop != 0 : 
+   if drop != 0 :
        st.rewardItems(SWEET_FLUID,drop*int(Config.RATE_DROP_QUEST))
-       st.playSound("ItemSound.quest_itemget")  
+       st.playSound("ItemSound.quest_itemget")
    return
 
 QUEST       = Quest(426,qn,"Quest for Fishing Shot")

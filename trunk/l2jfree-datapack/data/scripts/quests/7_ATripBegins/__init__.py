@@ -15,12 +15,12 @@ ASTERIOS = 30154
 
 #ITEM
 ARIELS_RECOMMENDATION = 7572
- 
+
 #REWARDS
 ADENA                  = 57
 SCROLL_OF_ESCAPE_GIRAN = 7559
 MARK_OF_TRAVELER       = 7570
- 
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -34,7 +34,7 @@ class Quest (JQuest) :
      st.setState(State.STARTED)
      st.playSound("ItemSound.quest_accept")
    elif event == "30148-02.htm" :
-     st.giveItems(ARIELS_RECOMMENDATION,1) 
+     st.giveItems(ARIELS_RECOMMENDATION,1)
      st.set("cond","2")
      st.set("id","2")
      st.playSound("ItemSound.quest_middle")
@@ -89,7 +89,7 @@ class Quest (JQuest) :
    return htmltext
 
 QUEST     = Quest(7,qn,"A Trip Begins")
- 
+
 QUEST.addStartNpc(MIRABEL)
 
 QUEST.addTalkId(MIRABEL)

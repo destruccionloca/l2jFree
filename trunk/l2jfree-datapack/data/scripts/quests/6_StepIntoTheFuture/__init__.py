@@ -12,11 +12,11 @@ qn = "6_StepIntoTheFuture"
 ROXXY      = 30006
 BAULRO     = 30033
 SIR_COLLIN = 30311
- 
+
 #ITEM
 BAULRO_LETTER = 7571
- 
-#REWARDS 
+
+#REWARDS
 SCROLL_OF_ESCAPE_GIRAN = 7559
 MARK_OF_TRAVELER       = 7570
 
@@ -34,7 +34,7 @@ class Quest (JQuest) :
      st.setState(State.STARTED)
      st.playSound("ItemSound.quest_accept")
    elif event == "30033-02.htm" :
-     st.giveItems(BAULRO_LETTER,1) 
+     st.giveItems(BAULRO_LETTER,1)
      st.set("cond","2")
      st.set("id","2")
      st.playSound("ItemSound.quest_middle")

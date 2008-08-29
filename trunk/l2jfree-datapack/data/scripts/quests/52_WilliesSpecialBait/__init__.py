@@ -1,7 +1,7 @@
 # This is essentially a DrLecter's copy&paste from
 # a Kilkenny's contribution to the Official L2J Datapack Project.
 # Visit http://www.l2jdp.com/trac if you find a bug.
-#Corrected proper items order for take/give commands, to avoid any exploit - BoDiE
+# Corrected proper items order for take/give commands, to avoid any exploit - BoDiE
 import sys
 from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
@@ -37,7 +37,7 @@ class Quest (JQuest) :
      st.rewardItems(EARTH_FISHING_LURE,4)
      st.playSound("ItemSound.quest_finish")
      st.unset("cond")
-     st.exitQuest(False) 
+     st.exitQuest(False)
    return htmltext
 
  def onTalk (Self,npc,player):
@@ -71,7 +71,7 @@ class Quest (JQuest) :
       if st.getInt("cond") == 1 and count < 100 :
          chance = 33 * Config.RATE_DROP_QUEST
          numItems, chance = divmod(chance,100)
-         if st.getRandom(100) < chance : 
+         if st.getRandom(100) < chance :
             numItems += 1
          if numItems :
             if count + numItems >= 100 :
