@@ -92,7 +92,7 @@ public abstract class L2Equip extends L2Item
 		FastList<Integer> values = null;
 		for (String strVal : from)
 		{
-			int intVal = 0;
+			int intVal = -1;
 			try
 			{
 				intVal = Integer.parseInt(strVal);
@@ -103,7 +103,7 @@ public abstract class L2Equip extends L2Item
 				continue;
 			}
 
-			if (intVal <= 0)
+			if (intVal < 0)
 				continue;
 
 			if (values == null)
