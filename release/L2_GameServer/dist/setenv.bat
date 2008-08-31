@@ -4,13 +4,13 @@ SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.1.0.jar
 
 REM jython
 SET CLASSPATH=%CLASSPATH%;jython-2.2.1.jar
-SET CLASSPATH=%CLASSPATH%;jython-engine-1.0.0.jar
+SET CLASSPATH=%CLASSPATH%;jython-engine-1.0.1.jar
 
 SET CLASSPATH=%CLASSPATH%;bsf-2.0.jar
-SET CLASSPATH=%CLASSPATH%;bsh-2.0b4.jar
-SET CLASSPATH=%CLASSPATH%;bsh-engine-1.0.0.jar
+SET CLASSPATH=%CLASSPATH%;bsh-2.0b5.jar
+SET CLASSPATH=%CLASSPATH%;bsh-engine-1.0.1.jar
 SET CLASSPATH=%CLASSPATH%;core-3.3.0.jar
-SET CLASSPATH=%CLASSPATH%;java-engine-1.0.0.jar
+SET CLASSPATH=%CLASSPATH%;java-engine-1.0.2.jar
 
 SET CLASSPATH=%CLASSPATH%;commons-lang-2.1.jar
 
@@ -28,9 +28,9 @@ REM for performance usage
 SET CLASSPATH=%CLASSPATH%;javolution-1.5.5.2.6.jar
 
 REM main jar
-SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.7.jar
-SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.1.5.jar
-SET CLASSPATH=%CLASSPATH%;l2jfree-gameserver-1.1.5.jar
+SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.8.jar
+SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.2.0.jar
+SET CLASSPATH=%CLASSPATH%;l2jfree-gameserver-1.2.0.jar
 
 REM For SQL use
 SET CLASSPATH=%CLASSPATH%;mysql-connector-java-5.1.5.jar
