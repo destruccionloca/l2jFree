@@ -23,6 +23,6 @@ DROP TABLE IF EXISTS buff_templates,character_raidpoints,couples,ctf,ctf_teams,
                      custom_etcitem,custom_merchant_buylists,custom_merchant_shopids,
                      custom_npcskills,custom_weapon,fortress_siege,four_sepulchers_spawnlist,
                      grandboss_intervallist,grandboss_spawnlist,lastimperialtomb_spawnlist,
-                     vanhalter_spawnlist,tvt,tvt_teams,version,VIPinfo;
+                     vanhalter_spawnlist,tvt,tvt_teams,version,VIPinfo,clan_notice;
 
 DROP TABLE IF EXISTS temporaryobjecttable,connection_test_table,obj_restrictions,castle_functions;

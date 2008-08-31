@@ -683,13 +683,17 @@
     </for>
   </skill>
   <skill id="3359" levels="1" name="Transform Native">
-    <set name="power" val="0.0" />
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="reuseDelay" val="14400000" />
+    <set name="transformId" val="101" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for>
+      <effect count="1" name="Transformation" time="1800"
+        val="0" /><!-- Transformation lasts 30 minutes -->
+    </for>
   </skill>
   <skill id="3360" levels="1" name="Cheap Shot">
     <set name="power" val="0.0" />

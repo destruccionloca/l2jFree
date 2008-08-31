@@ -543,11 +543,17 @@
     </for>
   </skill>
   <skill id="2341" levels="1" name="Caravan's Secret Medicine">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
+    <set name="hitTime" val="100" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <set name="isPotion" val="true" />
+    <for>
+      <effect count="1" name="Buff" time="3600" val="0"
+        stackOrder="1" stackType="caravan_medicine">
+      </effect>
+    </for>
   </skill>
   <skill id="2342" levels="1" name="Ballista Bomb">
     <set name="target" val="TARGET_NONE" />
@@ -662,17 +668,27 @@
     <for></for>
   </skill>
   <skill id="2358" levels="1" name="Holy Water">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="power" val="0" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="hitTime" val="1000" />
+    <set name="reuseDelay" val="100" />
+    <set name="skillType" val="MAKE_KILLABLE" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="40" />
+    <set name="effectRange" val="400" />
     <for></for>
   </skill>
   <skill id="2359" levels="1" name="Magic Bottle">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="power" val="0" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="hitTime" val="1000" />
+    <set name="reuseDelay" val="100" />
+    <set name="skillType" val="MAKE_QUEST_DROPABLE" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="itemConsumeId" val="9673" />
+    <set name="itemConsumeCount" val="1" />
+    <set name="castRange" val="40" />
+    <set name="effectRange" val="400" />
     <for></for>
   </skill>
   <skill id="2360" levels="1" name="Water Dragon Claw">
@@ -732,17 +748,18 @@
     <for></for>
   </skill>
   <skill id="2368" name="Spirit of the Lake" levels="1">
-    <set name="power" val="100" />
+    <set name="power" val="2000" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="8000" />
     <set name="coolTime" val="5332" />
     <set name="isMagic" val="true" />
-    <set name="skillType" val="HEAL" />
+    <set name="skillType" val="HEAL_MOB" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="itemConsumeId" val="9689" />
     <set name="itemConsumeCount" val="1" />
+    <set name="offensive" val="False" />
     <for>
     </for>
   </skill>

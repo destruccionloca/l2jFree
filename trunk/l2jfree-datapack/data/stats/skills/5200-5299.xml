@@ -648,11 +648,26 @@
     <for></for>
   </skill>
   <skill id="5253" levels="12" name="Bleed">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+    <table name="#dmg">
+      27 39 51 66 81 93 102 102 105 105 108 108
+    </table>
+    <table name="#mpConsume">
+      19 30 42 57 74 91 106 114 119 124 126 128
+    </table>
+    <set name="mpConsume" val="#mpConsume" />
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="skillType" val="MDAM" />
+    <set name="isDebuff" val="true" />
+    <set name="hitTime" val="2000" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="isMagic" val="true" />
+    <set name="castRange" val="500" />
+    <set name="effectRange" val="1000" />
+    <for>
+      <effect count="10" name="DamOverTime" time="3"
+        val="#dmg" abnormal="bleed" />
+    </for>
   </skill>
   <skill id="5254" levels="12" name="Invasion of Spirit">
     <set name="target" val="TARGET_NONE" />
@@ -778,12 +793,28 @@
       </effect>
     </for>
   </skill>
-  <skill id="5265" levels="12" name="NPC - Soul Emission">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for></for>
+  <skill id="5265" levels="12" name="NPC - Soul Emission"> 
+    <table name="#mpConsume">
+      13 20 27 35 45 55 65 69 73 75 77 78
+    </table>
+    <table name="#power">
+      18.0 26.0 38.0 52.0 68.0 85.0 102.0 110.0 116.0 122.0
+      126.0 129.0
+    </table>
+    <table name="#magicLvl">
+      10 20 30 40 50 60 70 75 80 85 90 95
+    </table>
+    <set name="magicLvl" val="#magicLvl" />
+    <set name="mpConsume" val="#mpConsume" />
+    <set name="power" val="#power" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="reuseDelay" val="6000" />
+    <set name="hitTime" val="5000" />
+    <set name="skillType" val="MDAM" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="80" />
+    <set name="effectRange" val="400" />
+    <for />
   </skill>
   <skill id="5266" levels="12" name="Magical Backfire">
     <set name="target" val="TARGET_NONE" />
