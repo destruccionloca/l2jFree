@@ -1,0 +1,86 @@
+# version 0.2
+# by Fulminus
+# L2J_JP EDIT SANDMAN
+
+import sys
+from com.l2jfree.gameserver.datatables import SkillTable
+from com.l2jfree.gameserver.model.quest import State
+from com.l2jfree.gameserver.model.quest import QuestState
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.instancemanager.grandbosses import BaiumManager
+
+BAIUM = 29020
+ARCHANGEL = 29021
+STATUE = 29025
+VORTEX = 31862
+
+FABRIC = 4295
+
+# Boss: Baium
+class baium (JQuest):
+
+  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
+
+  def onTalk (self,npc,player):
+    st = player.getQuestState("baium")
+    if not st : return "<html><head><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
+    npcId = npc.getNpcId()
+    if npcId == STATUE :
+      if st.getInt("ok"):
+        if not npc.isBusy():
+           npc.onBypassFeedback(player,"wake_baium")
+           npc.setBusy(True)
+           npc.setBusyMessage("Attending another player's request")
+      else:
+        st.exitQuest(1)
+        return "Conditions are not right to wake up Baium"
+    elif npcId == VORTEX :
+      if BaiumManager.getInstance().isEnableEnterToLair() :
+        if player.isFlying() :
+          return "<html><body>Angelic Vortex:<br>You may not enter while flying a wyvern.</body></html>"
+        if st.getQuestItemsCount(FABRIC) :
+          st.takeItems(FABRIC, 1)
+          player.teleToLocation(113100,14500,10077)
+          st.set("ok","1")
+        else :
+          return "<html><head><body>Angelic Vortex:<br>You do not have enough items.</body></html>"
+      else :
+        return "<html><body>Angelic Vortex:<br>You may not enter at this time.</body></html>"
+    return
+
+  def onAttack(self, npc, player, damage, isPet) :
+    if npc.getNpcId() == ARCHANGEL:
+      if Rnd.get(100) < 10 :
+        skill = SkillTable.getInstance().getInfo(4132,1)
+        if skill != None :
+          npc.setTarget(player)
+          npc.doCast(skill)
+      if Rnd.get(100) < 5 and ((npc.getCurrentHp() / npc.getMaxHp())*100) < 50:
+        skill = SkillTable.getInstance().getInfo(4133,1)
+        if skill != None :
+          npc.setTarget(npc)
+          npc.doCast(skill)
+    else:
+      BaiumManager.getInstance().setLastAttackTime()
+    return
+
+  def onKill (self,npc,player,isPet):
+    npcId = npc.getNpcId()
+    if npcId == BAIUM :
+      BaiumManager.getInstance().setCubeSpawn()
+      st = player.getQuestState("baium")
+      if st :
+        st.exitQuest(1)
+    return
+
+
+# Quest class and state definition
+QUEST = baium(-1, "baium", "ai")
+# Quest NPC starter initialization
+QUEST.addStartNpc(STATUE)
+QUEST.addStartNpc(VORTEX)
+QUEST.addTalkId(STATUE)
+QUEST.addTalkId(VORTEX)
+QUEST.addKillId(BAIUM)
+QUEST.addAttackId(BAIUM)
+QUEST.addAttackId(ARCHANGEL)
