@@ -28,7 +28,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
-import com.l2jfree.gameserver.GeoData;
+import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.ItemTable;
@@ -1277,7 +1277,7 @@ public final class L2ItemInstance extends L2Object
 
 		if (Config.GEODATA && dropper != null)
 		{
-			Location dropDest = GeoData.getInstance().moveCheck(dropper.getX(), dropper.getY(), dropper.getZ(), x, y, z);
+			Location dropDest = GeoClient.getInstance().moveCheck(dropper.getX(), dropper.getY(), dropper.getZ(), x, y, z);
 			x = dropDest.getX();
 			y = dropDest.getY();
 			z = dropDest.getZ();

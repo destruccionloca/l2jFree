@@ -20,7 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.GeoData;
+import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2SummonAI;
@@ -235,7 +235,7 @@ public abstract class L2Summon extends L2PlayableInstance
 			{
 				if (Config.GEODATA)
 				{
-					if (GeoData.getInstance().canSeeTarget(player, this))
+					if (GeoClient.getInstance().canSeeTarget(player, this))
 					{
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 						player.onActionRequest();
@@ -253,7 +253,7 @@ public abstract class L2Summon extends L2PlayableInstance
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				if (Config.GEODATA)
 				{
-					if (GeoData.getInstance().canSeeTarget(player, this))
+					if (GeoClient.getInstance().canSeeTarget(player, this))
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 				}
 				else

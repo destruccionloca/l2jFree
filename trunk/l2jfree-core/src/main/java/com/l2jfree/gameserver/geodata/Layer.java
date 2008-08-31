@@ -12,17 +12,21 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.pathfinding;
+package com.l2jfree.gameserver.geodata;
 
 /**
- *
- * @author -Nemesiss-
+ * @Author: Diamond
+ * @Date: 23/11/2007
+ * @Time: 13:11:59
  */
-public abstract class AbstractNodeLoc
+public class Layer
 {
-    public abstract int getX();
-    public abstract int getY();
-    public abstract short getZ();
-    public abstract short getNodeX();
-    public abstract short getNodeY();
+	public short	height;
+	public short	nswe;
+
+	public Layer(short h, short n)
+	{
+		height = h;
+		nswe = n;
+	}
 }

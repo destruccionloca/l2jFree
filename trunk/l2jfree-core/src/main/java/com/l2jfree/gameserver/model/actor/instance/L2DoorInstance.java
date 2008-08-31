@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2DoorAI;
 import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -39,6 +40,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Territory;
 import com.l2jfree.gameserver.model.actor.knownlist.DoorKnownList;
 import com.l2jfree.gameserver.model.actor.stat.DoorStat;
 import com.l2jfree.gameserver.model.actor.status.DoorStatus;
@@ -86,7 +88,9 @@ public class L2DoorInstance extends L2Character
 	protected final int			_doorId;
 	protected final String		_name;
 	private int					_open;
+	public boolean				_geoOpen;
 	private boolean				_unlockable;
+	public final L2Territory	_pos;
 
 	private ClanHall			_clanHall;
 
@@ -214,6 +218,8 @@ public class L2DoorInstance extends L2Character
 		_doorId = doorId;
 		_name = name;
 		_unlockable = unlockable;
+		_geoOpen = true;
+		_pos = new L2Territory("door_" + doorId);
 	}
 
 	@Override
@@ -628,12 +634,14 @@ public class L2DoorInstance extends L2Character
 	public final void closeMe()
 	{
 		setOpen(1);
+		setGeoOpen(false);
 		broadcastStatusUpdate();
 	}
 
 	public final void openMe()
 	{
 		setOpen(0);
+		setGeoOpen(true);
 		broadcastStatusUpdate();
 	}
 
@@ -710,5 +718,27 @@ public class L2DoorInstance extends L2Character
 		}
 
 		return result;
+	}
+
+	public void setGeoOpen(boolean val)
+	{
+		if (_geoOpen == val)
+			return;
+
+		_geoOpen = val;
+		if (val)
+			GeoClient.getInstance().openDoor(_pos);
+		else
+			GeoClient.getInstance().closeDoor(_pos);
+	}
+
+	public L2Territory getPos()
+	{
+		return _pos;
+	}
+
+	public boolean getGeoOpen()
+	{
+		return _geoOpen;
 	}
 }

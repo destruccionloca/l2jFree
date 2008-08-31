@@ -141,7 +141,9 @@ public class Potions implements IItemHandler
 			// CT2 Herbs
 			10655,
 			10656,
-			10657
+			10657,
+			// Caravaners Remedy
+			9702
 							};
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
@@ -644,7 +646,10 @@ public class Potions implements IItemHandler
 				return;
 			res = usePotion(activeChar, 2439, 1);
 			break;
-
+		case 9702:
+			if (!isUseable(activeChar, item, 2341))
+				return;
+			res = usePotion(activeChar, 2341, 1);
 		default:
 		}
 

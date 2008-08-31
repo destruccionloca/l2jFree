@@ -116,9 +116,9 @@ public class EnterWorld extends L2GameClientPacket
 			getClient().closeNow();
 			return;
 		}
-		
+
 		// restore instance
-		if(Config.RESTORE_PLAYER_INSTANCE)
+		if (Config.RESTORE_PLAYER_INSTANCE)
 			activeChar.setInstanceId(InstanceManager.getInstance().getPlayerInstance(activeChar.getObjectId()));
 
 		// Register in flood protector
@@ -170,7 +170,7 @@ public class EnterWorld extends L2GameClientPacket
 			else
 				GmListTable.getInstance().addGm(activeChar, true);
 		}
-		else if(activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED
+		else if (activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED
 				&& activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
 		{
 			if (Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
@@ -194,9 +194,9 @@ public class EnterWorld extends L2GameClientPacket
 				if (!siege.getIsInProgress())
 					continue;
 				if (siege.checkIsAttacker(activeChar.getClan()))
-					activeChar.setSiegeState((byte)1);
+					activeChar.setSiegeState((byte) 1);
 				else if (siege.checkIsDefender(activeChar.getClan()))
-					activeChar.setSiegeState((byte)2);
+					activeChar.setSiegeState((byte) 2);
 			}
 		}
 
@@ -221,7 +221,6 @@ public class EnterWorld extends L2GameClientPacket
 
 		activeChar.sendPacket(new HennaInfo(activeChar));
 
-
 		Quest.playerEnter(activeChar);
 		activeChar.sendPacket(new QuestList(activeChar));
 		loadTutorial(activeChar);
@@ -230,9 +229,9 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.setProtection(true);
 
 		activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-		
+
 		activeChar.getKnownList().updateKnownObjects();
-		
+
 		if (L2Event.active && L2Event.connectionLossData.containsKey(activeChar.getName()) && L2Event.isOnEvent(activeChar))
 			L2Event.restoreChar(activeChar);
 		else if (L2Event.connectionLossData.containsKey(activeChar.getName()))
@@ -251,7 +250,7 @@ public class EnterWorld extends L2GameClientPacket
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.WELCOME_TO_LINEAGE);
 		sendPacket(sm);
-		
+
 		// Send client time
 		sendPacket(ClientSetTime.STATIC_PACKET);
 
@@ -295,9 +294,9 @@ public class EnterWorld extends L2GameClientPacket
 			}
 		}
 
-        // Resume paused restrictions
-        ObjectRestrictions.getInstance().resumeTasks(activeChar.getObjectId());
-		
+		// Resume paused restrictions
+		ObjectRestrictions.getInstance().resumeTasks(activeChar.getObjectId());
+
 		// check player skills
 		if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
 			activeChar.checkAllowedSkills();
@@ -532,6 +531,11 @@ public class EnterWorld extends L2GameClientPacket
 				clan.broadcastToOtherOnlineMembers(msg, activeChar);
 				msg = null;
 				clan.broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(activeChar), activeChar);
+				if (clan.isNoticeEnabled() && clan.getNotice() != "")
+				{
+					sendPacket(new NpcHtmlMessage(1, "<html><body><center><font color=\"LEVEL\">" + activeChar.getClan().getName()
+							+ " Clan Notice</font></center><br>" + activeChar.getClan().getNotice() + "</body></html>"));
+				}
 			}
 		}
 	}

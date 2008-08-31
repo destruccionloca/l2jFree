@@ -38,6 +38,7 @@ import com.l2jfree.gameserver.handler.itemhandlers.Firework;
 import com.l2jfree.gameserver.handler.itemhandlers.FishShots;
 import com.l2jfree.gameserver.handler.itemhandlers.ForgottenScroll;
 import com.l2jfree.gameserver.handler.itemhandlers.Harvester;
+import com.l2jfree.gameserver.handler.itemhandlers.HolyWater;
 import com.l2jfree.gameserver.handler.itemhandlers.Maps;
 import com.l2jfree.gameserver.handler.itemhandlers.MercTicket;
 import com.l2jfree.gameserver.handler.itemhandlers.MysteryPotion;
@@ -117,6 +118,7 @@ public class ItemHandler
 		registerItemHandler(new FishShots());
 		registerItemHandler(new ForgottenScroll());
 		registerItemHandler(new Harvester());
+		registerItemHandler(new HolyWater());
 		registerItemHandler(new Maps());
 		registerItemHandler(new MercTicket());
 		registerItemHandler(new MysteryPotion());

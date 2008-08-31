@@ -41,26 +41,29 @@ public final class L2World
 {
 	private final static Log				_log		= LogFactory.getLog(L2World.class.getName());
 
-	/*
-	 * biteshift, defines number of regions
-	 * note, shifting by 15 will result in regions corresponding to map tiles
-	 * shifting by 12 divides one tile to 8x8 regions
-	 */
-	public static final int					SHIFT_BY	= 12;
-
 	/** Map dimensions */
-	public static final int					MAP_MIN_X	= -131072;
-	public static final int					MAP_MAX_X	= 228608;
-	public static final int					MAP_MIN_Y	= -262144;
-	public static final int					MAP_MAX_Y	= 262144;
+	public static final int MAP_MIN_X = -163840;
+	public static final int MAP_MAX_X = 229375;
+	public static final int MAP_MIN_Y = -262144;
+	public static final int MAP_MAX_Y = 294911;
+	public static final int MAP_MIN_Z = -32768;
+	public static final int MAP_MAX_Z = 32767;
 
+	public static final int WORLD_SIZE_X = L2World.MAP_MAX_X - L2World.MAP_MIN_X + 1 >> 15;
+	public static final int WORLD_SIZE_Y = L2World.MAP_MAX_Y - L2World.MAP_MIN_Y + 1 >> 15;
+
+	public static final int SHIFT_BY = 11;
+	public static final int SHIFT_BY_FOR_Z = 9;
+    
 	/** calculated offset used so top left region is 0,0 */
-	public static final int					OFFSET_X	= Math.abs(MAP_MIN_X >> SHIFT_BY);
-	public static final int					OFFSET_Y	= Math.abs(MAP_MIN_Y >> SHIFT_BY);
+	public static final int OFFSET_X = Math.abs(MAP_MIN_X >> SHIFT_BY);
+	public static final int OFFSET_Y = Math.abs(MAP_MIN_Y >> SHIFT_BY);
+	public static final int OFFSET_Z = Math.abs(MAP_MIN_Z >> SHIFT_BY_FOR_Z);
 
 	/** number of regions */
-	public static final int					REGIONS_X	= (MAP_MAX_X >> SHIFT_BY) + OFFSET_X;
-	public static final int					REGIONS_Y	= (MAP_MAX_Y >> SHIFT_BY) + OFFSET_Y;
+	public static final int REGIONS_X = (MAP_MAX_X >> SHIFT_BY) + OFFSET_X;
+	public static final int REGIONS_Y = (MAP_MAX_Y >> SHIFT_BY) + OFFSET_Y;
+	public static final int REGIONS_Z = (MAP_MAX_Z >> SHIFT_BY_FOR_Z) + OFFSET_Z;
 
 	//private FastMap<String, L2PcInstance> _allGms;
 
@@ -474,32 +477,32 @@ public final class L2World
 	public FastList<L2Object> getVisibleObjects(L2Object object)
 	{
 		FastList<L2Object> result = new FastList<L2Object>();
-		
+
 		if (object == null)
 			return result;
-		
+
 		L2WorldRegion reg = object.getWorldRegion();
-		
+
 		if (reg == null)
 			return result;
-		
+
 		for (L2WorldRegion region : reg.getSurroundingRegions())
 		{
 			for (L2Object obj : region.getVisibleObjects())
 			{
 				if (obj == null || obj == object)
 					continue;
-				
+
 				if (!obj.isVisible())
 					continue;
-				
+
 				result.add(obj);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Return all visible objects of the L2WorldRegions in the circular area (radius) centered on the object.<BR><BR>
 	 *

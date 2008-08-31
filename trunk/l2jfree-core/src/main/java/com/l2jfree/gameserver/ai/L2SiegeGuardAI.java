@@ -21,7 +21,7 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 import java.util.concurrent.Future;
 
 import com.l2jfree.gameserver.GameTimeController;
-import com.l2jfree.gameserver.GeoData;
+import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
@@ -159,7 +159,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				return false;
 		}
 		// Los Check Here
-		return (_actor.isAutoAttackable(target) && GeoData.getInstance().canSeeTarget(_actor, target));
+		return (_actor.isAutoAttackable(target) && GeoClient.getInstance().canSeeTarget(_actor, target));
 	}
 
 	/**
@@ -409,7 +409,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 							int chance = 5;
 							if (chance >= Rnd.get(100)) // chance
 								continue;
-							if (!GeoData.getInstance().canSeeTarget(_actor, cha))
+							if (!GeoClient.getInstance().canSeeTarget(_actor, cha))
 								break;
 
 							L2Object OldTarget = _actor.getTarget();
@@ -435,7 +435,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				//&& _actor.getAttackByList().contains(getAttackTarget())
 						&& (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)
 						//limiting aggro for siege guards
-						&& target.isInsideRadius(npc, 1500, true, false) && GeoData.getInstance().canSeeTarget(npc, target))
+						&& target.isInsideRadius(npc, 1500, true, false) && GeoClient.getInstance().canSeeTarget(npc, target))
 				{
 					// Notify the L2Object AI with EVT_AGGRESSION
 					npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, getAttackTarget(), 1);
@@ -457,7 +457,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 						int chance = 4;
 						if (chance >= Rnd.get(100)) // chance
 							continue;
-						if (!GeoData.getInstance().canSeeTarget(_actor, npc))
+						if (!GeoClient.getInstance().canSeeTarget(_actor, npc))
 							break;
 						L2Object OldTarget = _actor.getTarget();
 						clientStopMoving(null);
@@ -506,7 +506,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			return;
 		}
 
-		if (!GeoData.getInstance().canSeeTarget(_actor, _attackTarget))
+		if (!GeoClient.getInstance().canSeeTarget(_actor, _attackTarget))
 		{
 			// Siege guards differ from normal mobs currently:
 			// If target cannot seen, don't attack any more

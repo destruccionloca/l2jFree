@@ -22,11 +22,10 @@ package com.l2jfree.gameserver.model;
 
 public class Location
 {
-	private int _x;
-	private int _y;
-	private int _z;
-	private int _heading;
-	
+	private int	_x;
+	private int	_y;
+	private int	_z;
+	private int	_heading;
 
 	public Location(int x, int y, int z)
 	{
@@ -34,7 +33,7 @@ public class Location
 		_y = y;
 		_z = z;
 	}
-	
+
 	public Location(int x, int y, int z, int heading)
 	{
 		_x = x;
@@ -42,22 +41,37 @@ public class Location
 		_z = z;
 		_heading = heading;
 	}
-	
+
 	public int getX()
 	{
 		return _x;
 	}
-	
+
 	public int getY()
 	{
 		return _y;
 	}
-	
+
 	public int getZ()
 	{
-        return _z;
-    }
-	
+		return _z;
+	}
+
+	public void setX(int x)
+	{
+		_x = x;
+	}
+
+	public void setY(int y)
+	{
+		_y = y;
+	}
+
+	public void setZ(int z)
+	{
+		_z = z;
+	}
+
 	public int getHeading()
 	{
 		return _heading;

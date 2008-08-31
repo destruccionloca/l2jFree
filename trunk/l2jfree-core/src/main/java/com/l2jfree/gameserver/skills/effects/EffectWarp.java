@@ -15,8 +15,8 @@
 package com.l2jfree.gameserver.skills.effects;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.GeoData;
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.Location;
@@ -81,7 +81,7 @@ public final class EffectWarp extends L2Effect
 
 		if (Config.GEODATA)
 		{
-			Location destiny = GeoData.getInstance().moveCheck(_actor.getX(), _actor.getY(), _actor.getZ(), x, y, z);
+			Location destiny = GeoClient.getInstance().moveCheck(_actor.getX(), _actor.getY(), _actor.getZ(), x, y, z);
 			x = destiny.getX();
 			y = destiny.getY();
 			z = destiny.getZ();

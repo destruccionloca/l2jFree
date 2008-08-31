@@ -144,6 +144,11 @@ public class L2Clan
 	private int								_reputationScore			= 0;
 	private int								_rank						= 0;
 
+	private String							_notice;
+
+	@SuppressWarnings("unused")
+	private boolean							_noticeEnabled				= true;
+
 	/**
 	 * Called if a clan is referenced only by id.
 	 * In this case all other data needs to be fetched from db
@@ -169,6 +174,200 @@ public class L2Clan
 		_clanId = clanId;
 		_name = clanName;
 		initializePrivs();
+		insertNotice(); // add this line so it inserts the new clan's (blank) notice into the DB
+	}
+
+	// at the end of the file, before the last '}' that ends the L2Clan class, add the following codes:
+	public void insertNotice()
+	{
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("INSERT INTO clan_notices (clanID, notice, enabled) values (?,?,?)");
+			statement.setInt(1, this.getClanId());
+			statement.setString(2, "Change me");
+			statement.setString(3, "false");
+			statement.execute();
+			statement.close();
+			con.close();
+
+		}
+		catch (Exception e)
+		{
+			System.out.println("BBS: Error while creating clan notice for clan " + this.getClanId() + "");
+			if (e.getMessage() != null)
+				System.out.println("BBS: Exception = " + e.getMessage() + "");
+		}
+	}
+
+	/**
+	 * @return Returns the clan notice.
+	 */
+	public String getNotice()
+	{
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("SELECT notice FROM clan_notices WHERE clanID=?");
+			statement.setInt(1, getClanId());
+			ResultSet rset = statement.executeQuery();
+
+			while (rset.next())
+			{
+				_notice = rset.getString("notice");
+			}
+
+			rset.close();
+			statement.close();
+			con.close();
+
+		}
+		catch (Exception e)
+		{
+			System.out.println("BBS: Error while getting notice from DB for clan " + this.getClanId() + "");
+			if (e.getMessage() != null)
+				System.out.println("BBS: Exception = " + e.getMessage() + "");
+		}
+
+		return _notice;
+	}
+
+	public String getNoticeForBBS()
+	{
+		String notice = "";
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("SELECT notice FROM clan_notices WHERE clanID=?");
+			statement.setInt(1, getClanId());
+			ResultSet rset = statement.executeQuery();
+
+			while (rset.next())
+			{
+				notice = rset.getString("notice");
+			}
+
+			rset.close();
+			statement.close();
+			con.close();
+
+		}
+		catch (Exception e)
+		{
+			System.out.println("BBS: Error while getting notice from DB for clan " + this.getClanId() + "");
+			if (e.getMessage() != null)
+				System.out.println("BBS: Exception = " + e.getMessage() + "");
+		}
+		return notice.replaceAll("<br>", "\n");
+	}
+
+	/**
+	 * @param notice The new clan notice.
+	 */
+	public void setNotice(String notice)
+	{
+
+		notice = notice.replaceAll("\n", "<br>");
+
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("UPDATE clan_notices SET notice=? WHERE clanID=?");
+
+			statement.setString(1, notice);
+			statement.setInt(2, this.getClanId());
+			statement.execute();
+			statement.close();
+			con.close();
+
+			_notice = notice;
+		}
+		catch (Exception e)
+		{
+			System.out.println("BBS: Error while saving notice for clan " + this.getClanId() + "");
+			if (e.getMessage() != null)
+				System.out.println("BBS: Exception = " + e.getMessage() + "");
+		}
+	}
+
+	/**
+	 * @return Returns the noticeEnabled.
+	 */
+	public boolean isNoticeEnabled()
+	{
+		String result = "";
+		java.sql.Connection con = null;
+		try
+		{
+
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("SELECT enabled FROM clan_notices WHERE clanID=?");
+			statement.setInt(1, getClanId());
+			ResultSet rset = statement.executeQuery();
+
+			while (rset.next())
+			{
+				result = rset.getString("enabled");
+			}
+
+			rset.close();
+			statement.close();
+			con.close();
+
+		}
+		catch (Exception e)
+		{
+			System.out.println("BBS: Error while reading _noticeEnabled for clan " + this.getClanId() + "");
+			if (e.getMessage() != null)
+				System.out.println("BBS: Exception = " + e.getMessage() + "");
+		}
+		if (result.isEmpty())
+		{
+			insertNotice();
+			return false;
+		}
+		else if (result.compareToIgnoreCase("true") == 0)
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	 * @param noticeEnabled The noticeEnabled to set.
+	 */
+	public void setNoticeEnabled(boolean noticeEnabled)
+	{
+
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("UPDATE clan_notices SET enabled=? WHERE clanID=?");
+			if (noticeEnabled)
+				statement.setString(1, "true");
+			else
+				statement.setString(1, "false");
+			statement.setInt(2, this.getClanId());
+			statement.execute();
+			statement.close();
+			con.close();
+
+		}
+		catch (Exception e)
+		{
+			System.out.println("BBS: Error while updating notice status for clan " + this.getClanId() + "");
+			if (e.getMessage() != null)
+				System.out.println("BBS: Exception = " + e.getMessage() + "");
+		}
+
+		_noticeEnabled = noticeEnabled;
+
 	}
 
 	/**
@@ -701,7 +900,18 @@ public class L2Clan
 		{
 			_log.error("Error while saving new clan leader.", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void store()
@@ -731,7 +941,18 @@ public class L2Clan
 		{
 			_log.error("Error saving new clan.", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void removeMemberInDatabase(L2ClanMember member, long clanJoinExpiryTime, long clanCreateExpiryTime)
@@ -765,7 +986,18 @@ public class L2Clan
 		{
 			_log.error("Error removing clan member.", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@SuppressWarnings("unused")
@@ -779,7 +1011,7 @@ public class L2Clan
 			statement = con.prepareStatement("UPDATE clan_wars SET wantspeace1=? WHERE clan1=?");
 			statement.setInt(1, 0);
 			statement.setInt(2, 0);
-			
+
 			statement.execute();
 			statement.close();
 		}
@@ -787,7 +1019,18 @@ public class L2Clan
 		{
 			_log.error("Error updating clan wars data.", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void restore()
@@ -875,7 +1118,18 @@ public class L2Clan
 			_log.error("Error restoring clan data.", e);
 			_log.warn(String.valueOf(getClanId()), e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void restoreSkills()
@@ -909,7 +1163,18 @@ public class L2Clan
 		{
 			_log.error("Error restoring clan skills.", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/** used to retrieve all skills */
@@ -976,7 +1241,18 @@ public class L2Clan
 			{
 				_log.error("Error saving clan skills.", e);
 			}
-			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				try
+				{
+					if (con != null)
+						con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
 
 			// notify clan members 
 			addSkillEffects(true);
@@ -1350,7 +1626,18 @@ public class L2Clan
 		{
 			_log.error("Error restoring clan sub-units.", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/** used to retrieve subPledge by type */
@@ -1454,7 +1741,18 @@ public class L2Clan
 			{
 				_log.error("Error saving sub clan data.", e);
 			}
-			finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				try
+				{
+					if (con != null)
+						con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
 		}
 		broadcastToOnlineMembers(new PledgeShowInfoUpdate(_leader.getClan()));
 		broadcastToOnlineMembers(new PledgeReceiveSubPledgeCreated(subPledge, _leader.getClan()));
@@ -1515,7 +1813,18 @@ public class L2Clan
 		{
 			_log.error("Error saving new sub clan leader.", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void restoreRankPrivs()
@@ -1550,7 +1859,18 @@ public class L2Clan
 		{
 			_log.error("Error restoring clan privs by rank.", e);
 		}
-		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void initializePrivs()
@@ -1599,9 +1919,20 @@ public class L2Clan
 			{
 				_log.warn("Could not store clan privs for rank: " + e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				try
+				{
+					if (con != null)
+						con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
 
-            for (L2ClanMember cm : getMembers())
+			for (L2ClanMember cm : getMembers())
 			{
 				if (cm.isOnline())
 					if (cm.getPledgeRank() == rank)
@@ -1636,7 +1967,18 @@ public class L2Clan
 			{
 				_log.warn("Could not create new rank and store clan privs for rank: " + e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				try
+				{
+					if (con != null)
+						con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -1746,7 +2088,18 @@ public class L2Clan
 			{
 				_log.warn("Could not store auction for clan: " + e);
 			}
-            finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+			finally
+			{
+				try
+				{
+					if (con != null)
+						con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -2322,7 +2675,18 @@ public class L2Clan
 		{
 			_log.warn("could not increase clan level:" + e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
 
 		setLevel(level);
 

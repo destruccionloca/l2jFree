@@ -506,12 +506,12 @@ public class Fort extends Siegeable
 				L2Clan owner = ClanTable.getInstance().getClan(getOwnerId());
 				if (owner != null)
 				{
-					owner.setReputationScore(owner.getReputationScore() + Math.min(500, maxreward), true);
+					owner.setReputationScore(owner.getReputationScore() + Math.min(200, maxreward), true);
 					owner.broadcastToOnlineMembers(new PledgeShowInfoUpdate(owner));
 				}
 			}
 			else
-				_formerOwner.setReputationScore(_formerOwner.getReputationScore() + 250, true);
+				_formerOwner.setReputationScore(_formerOwner.getReputationScore() + 200, true);
 
 			_formerOwner.broadcastToOnlineMembers(new PledgeShowInfoUpdate(_formerOwner));
 		}

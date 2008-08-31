@@ -68,7 +68,7 @@ public abstract class L2Object
 	private ObjectPosition		_position;
 
 	// Objects can only see objects in same instancezone, instance 0 is normal world -1 the all seeing world
-	private int					_instanceId = 0;
+	private int					_instanceId	= 0;
 
 	/**
 	 * Constructor
@@ -523,7 +523,7 @@ public abstract class L2Object
 			}
 		}
 	}
-	
+
 	/**
 	 * Basic implementation of toString to print the object id
 	 */
@@ -532,31 +532,37 @@ public abstract class L2Object
 	{
 		return String.valueOf(getObjectId());
 	}
-	
+
 	public L2PcInstance getActingPlayer()
 	{
 		return null;
 	}
-	
+
 	public final static L2PcInstance getActingPlayer(L2Object obj)
 	{
 		return (obj == null ? null : obj.getActingPlayer());
 	}
-	
+
 	public L2Summon getActingSummon()
 	{
 		return null;
 	}
-	
+
 	public final static L2Summon getActingSummon(L2Object obj)
 	{
 		return (obj == null ? null : obj.getActingSummon());
 	}
-	
+
 	public boolean isInFunEvent()
 	{
 		L2PcInstance player = getActingPlayer();
-		
+
 		return (player == null ? false : player.isInFunEvent());
 	}
+
+	public Location getLoc()
+	{
+		return new Location(getX(), getY(), getZ(), 0);
+	}
+
 }

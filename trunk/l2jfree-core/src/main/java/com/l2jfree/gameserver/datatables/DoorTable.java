@@ -33,7 +33,6 @@ import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
-import com.l2jfree.gameserver.pathfinding.AbstractNodeLoc;
 import com.l2jfree.gameserver.templates.L2CharTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
 
@@ -105,7 +104,18 @@ public class DoorTable
 			_initialized = false;
 			_log.warn("error while creating door table ", e);
 		}
-		finally { try { if (lnr != null) lnr.close(); } catch (Exception e) { e.printStackTrace(); } }
+		finally
+		{
+			try
+			{
+				if (lnr != null)
+					lnr.close();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void registerToClanHalls()
@@ -285,11 +295,6 @@ public class DoorTable
 		else if (doorInst.getDoorName().startsWith("Normils_garden")) 
 		    doorInst.setAutoActionDelay(900000);
 		*/
-	}
-
-	public boolean checkIfDoorsBetween(AbstractNodeLoc start, AbstractNodeLoc end)
-	{
-		return checkIfDoorsBetween(start.getX(), start.getY(), start.getZ(), end.getX(), end.getY(), end.getZ());
 	}
 
 	public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz)

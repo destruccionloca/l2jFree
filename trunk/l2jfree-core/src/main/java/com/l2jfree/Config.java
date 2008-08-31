@@ -967,6 +967,7 @@ public final class Config
 	public static boolean			ALLOW_GUARDS;												// Allow guards against aggressive monsters
 
 	public static boolean			GEODATA;													// Load geodata files
+	public static boolean			GEO_DOORS;													// Enable GeoData for doors
 	public static boolean			GEO_CHECK_LOS;												// Enable Line Of Sight check for skills and aggro
 	public static boolean			GEO_MOVE_PC;												// Movement check for playable instances
 	public static boolean			GEO_MOVE_NPC;												// Movement check for NPCs
@@ -1184,6 +1185,7 @@ public final class Config
 			GRID_NEIGHBOR_TURNOFF_TIME = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOffTime", "90"));
 
 			GEODATA = Boolean.parseBoolean(optionsSettings.getProperty("GeoData", "False"));
+			GEO_DOORS = Boolean.parseBoolean(optionsSettings.getProperty("GeoDoors", "False"));
 			GEO_CHECK_LOS = Boolean.parseBoolean(optionsSettings.getProperty("GeoCheckLoS", "False")) && GEODATA;
 			GEO_MOVE_PC = Boolean.parseBoolean(optionsSettings.getProperty("GeoCheckMovePlayable", "False")) && GEODATA;
 			GEO_MOVE_NPC = Boolean.parseBoolean(optionsSettings.getProperty("GeoCheckMoveNpc", "False")) && GEODATA;

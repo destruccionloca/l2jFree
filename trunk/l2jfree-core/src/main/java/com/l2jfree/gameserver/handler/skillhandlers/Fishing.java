@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.GeoData;
+import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.Inventory;
@@ -34,7 +34,6 @@ import com.l2jfree.gameserver.templates.L2Weapon;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
-
 
 public class Fishing implements ISkillHandler
 {
@@ -108,7 +107,7 @@ public class Fishing implements ISkillHandler
 
 		int z = water.getMaxZ(x, y, activeChar.getZ());
 
-		if (Config.GEODATA && !GeoData.getInstance().canSeeTarget(activeChar.getX(), activeChar.getY(), activeChar.getZ(), x, y, z)
+		if (Config.GEODATA && !GeoClient.getInstance().canSeeTarget(activeChar.getX(), activeChar.getY(), activeChar.getZ(), x, y, z)
 				|| (!Config.GEODATA && (Util.calculateDistance(activeChar.getX(), activeChar.getY(), activeChar.getZ(), x, y, z, true) > d * 1.73)))
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_HERE));

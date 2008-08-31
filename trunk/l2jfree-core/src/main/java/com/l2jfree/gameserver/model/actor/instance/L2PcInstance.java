@@ -39,7 +39,7 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.GameTimeController;
-import com.l2jfree.gameserver.GeoData;
+import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.ItemsAutoDestroy;
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.Olympiad;
@@ -2063,11 +2063,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		if ((getSubPledgeType() == -1 || getLvlJoinedAcademy() != 0) && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
 		{
 			if (getLvlJoinedAcademy() <= 16)
-				_clan.setReputationScore(_clan.getReputationScore() + 400, true);
+				_clan.setReputationScore(_clan.getReputationScore() + 650, true);
 			else if (getLvlJoinedAcademy() >= 39)
-				_clan.setReputationScore(_clan.getReputationScore() + 170, true);
+				_clan.setReputationScore(_clan.getReputationScore() + 190, true);
 			else
-				_clan.setReputationScore(_clan.getReputationScore() + (400 - (getLvlJoinedAcademy() - 16) * 10), true);
+				_clan.setReputationScore(_clan.getReputationScore() + (650 - (getLvlJoinedAcademy() - 16) * 20), true);
 			_clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
 			setLvlJoinedAcademy(0);
 
@@ -3634,7 +3634,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					{
 						if (Config.GEO_CHECK_LOS)
 						{
-							if (GeoData.getInstance().canSeeTarget(player, this))
+							if (GeoClient.getInstance().canSeeTarget(player, this))
 							{
 								player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 								player.onActionRequest();
@@ -3653,7 +3653,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					player.sendPacket(ActionFailed.STATIC_PACKET);
 					if (Config.GEO_CHECK_LOS)
 					{
-						if (GeoData.getInstance().canSeeTarget(player, this))
+						if (GeoClient.getInstance().canSeeTarget(player, this))
 							player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 					}
 					else
@@ -6038,7 +6038,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			this.sendPacket(msg);
 			return false;
 		}
-		else if (!GeoData.getInstance().canSeeTarget(this, pet))
+		else if (!GeoClient.getInstance().canSeeTarget(this, pet))
 		{
 			SystemMessage msg = new SystemMessage(SystemMessageId.CANT_SEE_TARGET);
 			this.sendPacket(msg);
@@ -8325,6 +8325,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				case BEAST_FEED:
 				case DELUXE_KEY_UNLOCK:
 				case UNLOCK:
+				case MAKE_KILLABLE:
 					// everything okay
 					break;
 				default:
@@ -8450,14 +8451,14 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (sklTargetType == SkillTargetType.TARGET_GROUND)
 			{
-				if (!GeoData.getInstance().canSeeTarget(this, worldPosition))
+				if (!GeoClient.getInstance().canSeeTarget(this, worldPosition))
 				{
 					sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
 					sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
 			}
-			else if (!GeoData.getInstance().canSeeTarget(this, target))
+			else if (!GeoClient.getInstance().canSeeTarget(this, target))
 			{
 				sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
 				sendPacket(ActionFailed.STATIC_PACKET);

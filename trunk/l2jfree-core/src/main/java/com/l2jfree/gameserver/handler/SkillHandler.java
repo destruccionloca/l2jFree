@@ -39,6 +39,7 @@ import com.l2jfree.gameserver.handler.skillhandlers.GetPlayer;
 import com.l2jfree.gameserver.handler.skillhandlers.GiveSp;
 import com.l2jfree.gameserver.handler.skillhandlers.Harvest;
 import com.l2jfree.gameserver.handler.skillhandlers.Heal;
+import com.l2jfree.gameserver.handler.skillhandlers.MakeKillable;
 import com.l2jfree.gameserver.handler.skillhandlers.ManaHeal;
 import com.l2jfree.gameserver.handler.skillhandlers.Manadam;
 import com.l2jfree.gameserver.handler.skillhandlers.Mdam;
@@ -66,20 +67,20 @@ import com.l2jfree.gameserver.model.L2Skill.SkillType;
 
 public final class SkillHandler implements ISkillHandler
 {
-	private static final Log _log = LogFactory.getLog(SkillHandler.class);
-	
-	private static SkillHandler _instance;
-	
+	private static final Log	_log	= LogFactory.getLog(SkillHandler.class);
+
+	private static SkillHandler	_instance;
+
 	public static SkillHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new SkillHandler();
-		
+
 		return _instance;
 	}
-	
-	private final Map<SkillType, ISkillHandler> _handlers = new FastMap<SkillType, ISkillHandler>();
-	
+
+	private final Map<SkillType, ISkillHandler>	_handlers	= new FastMap<SkillType, ISkillHandler>();
+
 	private SkillHandler()
 	{
 		registerSkillHandler(new BalanceLife());
@@ -100,6 +101,7 @@ public final class SkillHandler implements ISkillHandler
 		registerSkillHandler(new GiveSp());
 		registerSkillHandler(new Harvest());
 		registerSkillHandler(new Heal());
+		registerSkillHandler(new MakeKillable());
 		registerSkillHandler(new Manadam());
 		registerSkillHandler(new ManaHeal());
 		registerSkillHandler(new Mdam());
@@ -120,29 +122,29 @@ public final class SkillHandler implements ISkillHandler
 		registerSkillHandler(new TransformDispel());
 		registerSkillHandler(new Trap());
 		registerSkillHandler(new Unlock());
-		
+
 		_log.info("SkillHandler: Loaded " + _handlers.size() + " handlers.");
 	}
-	
+
 	public void registerSkillHandler(ISkillHandler handler)
 	{
 		for (SkillType t : handler.getSkillIds())
 			if (_handlers.put(t, handler) != null)
 				_log.warn("SkillHandler: Already handled SkillType." + t + " " + handler);
 	}
-	
+
 	public ISkillHandler getSkillHandler(SkillType skillType)
 	{
 		ISkillHandler handler = _handlers.get(skillType);
-		
+
 		return handler == null ? this : handler;
 	}
-	
+
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
 		skill.useSkill(activeChar, targets);
 	}
-	
+
 	public SkillType[] getSkillIds()
 	{
 		return null;

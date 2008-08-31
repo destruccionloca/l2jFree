@@ -17,6 +17,8 @@ package com.l2jfree.gameserver.model;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 
+import java.util.Vector;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +32,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
-import com.l2jfree.gameserver.GeoData;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlEvent;
@@ -39,6 +40,8 @@ import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.geodata.GeoClient;
+import com.l2jfree.gameserver.geodata.PathFind;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.FactionManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
@@ -89,8 +92,6 @@ import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.TeleportToLocation;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
-import com.l2jfree.gameserver.pathfinding.AbstractNodeLoc;
-import com.l2jfree.gameserver.pathfinding.geonodes.GeoPathFinding;
 import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
@@ -173,7 +174,7 @@ public abstract class L2Character extends L2Object
 	protected CharStatus			_status;
 	private long					_timePreviousBroadcastStatusUpdate	= 0;
 	private L2CharTemplate			_template;																				// The link on the L2CharTemplate
-	protected boolean 				_showSummonAnimation				= false;
+	protected boolean				_showSummonAnimation				= false;
 	// object containing generic and
 	// static properties of this
 	// L2Character type (ex : Max HP,
@@ -981,7 +982,7 @@ public abstract class L2Character extends L2Object
 			return;
 
 		// GeoData Los Check here (or dz > 1000)
-		if (!(target instanceof L2DoorInstance) && !GeoData.getInstance().canSeeTarget(this, target))
+		if (!(target instanceof L2DoorInstance) && !GeoClient.getInstance().canSeeTarget(this, target))
 		{
 			sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
@@ -1064,7 +1065,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// BOW and CROSSBOW checks
-		if (weaponItem != null  && !transformed)
+		if (weaponItem != null && !transformed)
 		{
 			if (weaponItem.getItemType() == L2WeaponType.BOW)
 			{
@@ -1075,7 +1076,7 @@ public abstract class L2Character extends L2Object
 					if (_disableBowAttackEndTime <= GameTimeController.getGameTicks())
 					{
 						// Verify if L2PcInstance owns enough MP
-						int saMpConsume = (int)getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
+						int saMpConsume = (int) getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
 						int mpConsume = saMpConsume == 0 ? weaponItem.getMpConsume() : saMpConsume;
 
 						if (getStatus().getCurrentMp() < mpConsume)
@@ -1123,7 +1124,7 @@ public abstract class L2Character extends L2Object
 				{
 					// Checking if target has moved to peace zone - only for player-crossbow attacks at the moment
 					// Other melee is checked in movement code and for offensive spells a check is done every time
-					if (target.isInsidePeaceZone((L2PcInstance)this))
+					if (target.isInsidePeaceZone((L2PcInstance) this))
 					{
 						getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 						sendPacket(ActionFailed.STATIC_PACKET);
@@ -1582,7 +1583,7 @@ public abstract class L2Character extends L2Object
 
 				if (!Util.checkIfInRange(maxRadius, this, obj, false))
 					continue;
-				if (!GeoData.getInstance().canSeeTarget(this, obj))
+				if (!GeoClient.getInstance().canSeeTarget(this, obj))
 					continue;
 
 				// otherwise hit too high/low. 650 because mob z coord sometimes wrong on hills
@@ -1707,14 +1708,14 @@ public abstract class L2Character extends L2Object
 			if (this instanceof L2PcInstance)
 			{
 				SystemMessage sm = null;
-				FastMap<Integer, TimeStamp> timeStamps = ((L2PcInstance)this).getReuseTimeStamps();
+				FastMap<Integer, TimeStamp> timeStamps = ((L2PcInstance) this).getReuseTimeStamps();
 
 				if (timeStamps != null && timeStamps.containsKey(skill.getId()))
 				{
 					TimeStamp ts = timeStamps.get(skill.getId());
-					int seconds = (int) (ts.getRemaining()/1000);
-					int minutes = (int) (ts.getRemaining()/60000);
-					int hours = (int) (ts.getRemaining()/3600000);
+					int seconds = (int) (ts.getRemaining() / 1000);
+					int minutes = (int) (ts.getRemaining() / 60000);
+					int hours = (int) (ts.getRemaining() / 3600000);
 					if (hours > 0)
 					{
 						sm = new SystemMessage(SystemMessageId.S2_HOURS_S3_MINUTES_S4_SECONDS_REMAINING_FOR_REUSE_S1);
@@ -1739,7 +1740,7 @@ public abstract class L2Character extends L2Object
 
 					if (seconds >= 60)
 						seconds = 59;
-					
+
 					if (sm != null)
 						sm.addNumber(seconds);
 				}
@@ -1810,12 +1811,12 @@ public abstract class L2Character extends L2Object
 		}
 		}
 
-		if(!skill.isPotion())
+		if (!skill.isPotion())
 		{
 			// Check if the skill is a magic spell and if the L2Character is not muted
 			if (skill.isMagic())
 			{
-				if(isMuted())
+				if (isMuted())
 				{
 					getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 					return;
@@ -1828,12 +1829,12 @@ public abstract class L2Character extends L2Object
 				{
 					getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 					return;
-				} 
+				}
 				else if (isPhysicalAttackMuted()) // Prevent use attack
 				{
 					sendPacket(ActionFailed.STATIC_PACKET);
 					return;
-				} 
+				}
 			}
 		}
 
@@ -2133,7 +2134,6 @@ public abstract class L2Character extends L2Object
 		if (target != this)
 			setHeading(Util.calculateHeadingFrom(this, target));
 
-
 		// For force buff skills, start the effect as long as the player is casting.
 		if (effectWhileCasting)
 		{
@@ -2258,7 +2258,7 @@ public abstract class L2Character extends L2Object
 	{
 		if (skill.getSkillType() != SkillType.FORCE_BUFF)
 			return;
-		
+
 		if (_forceBuff == null)
 			_forceBuff = new ForceBuff(this, target, skill);
 	}
@@ -3175,42 +3175,42 @@ public abstract class L2Character extends L2Object
 	// Abnormal Effect - NEED TO REMOVE ONCE L2CHARABNORMALEFFECT IS COMPLETE
 	// Data Field
 	/** Map 32 bits (0x0000) containing all abnormal effect in progress */
-	private int										_abnormalEffects;
+	private int				_abnormalEffects;
 
-	private CharEffectList _effects = new CharEffectList(this);
+	private CharEffectList	_effects						= new CharEffectList(this);
 
-	public static final int							ABNORMAL_EFFECT_BLEEDING		= 0x0000001;
-	public static final int							ABNORMAL_EFFECT_POISON			= 0x0000002;
-	public static final int							ABNORMAL_EFFECT_REDCIRCLE		= 0x0000004;
-	public static final int							ABNORMAL_EFFECT_ICE				= 0x0000008;
-	public static final int							ABNORMAL_EFFECT_WIND			= 0x0000010;
-	public static final int							ABNORMAL_EFFECT_UNKNOWN_6		= 0x0000020;
-	public static final int							ABNORMAL_EFFECT_STUN			= 0x0000040;
-	public static final int							ABNORMAL_EFFECT_SLEEP			= 0x0000080;
-	public static final int							ABNORMAL_EFFECT_MUTED			= 0x0000100;
-	public static final int							ABNORMAL_EFFECT_ROOT			= 0x0000200;
-	public static final int							ABNORMAL_EFFECT_HOLD_1			= 0x0000400;
-	public static final int							ABNORMAL_EFFECT_HOLD_2			= 0x0000800;
-	public static final int							ABNORMAL_EFFECT_UNKNOWN_13		= 0x0001000;
-	public static final int							ABNORMAL_EFFECT_BIG_HEAD		= 0x0002000;
-	public static final int							ABNORMAL_EFFECT_FLAME			= 0x0004000;
-	public static final int							ABNORMAL_EFFECT_UNKNOWN_16		= 0x0008000;
-	public static final int							ABNORMAL_EFFECT_GROW			= 0x0010000;
-	public static final int							ABNORMAL_EFFECT_FLOATING_ROOT	= 0x0020000;
-	public static final int							ABNORMAL_EFFECT_DANCE_STUNNED	= 0x0040000;
-	public static final int							ABNORMAL_EFFECT_FIREROOT_STUN	= 0x0080000;
-	public static final int							ABNORMAL_EFFECT_STEALTH			= 0x0100000;
-	public static final int							ABNORMAL_EFFECT_IMPRISIONING_1	= 0x0200000;
-	public static final int							ABNORMAL_EFFECT_IMPRISIONING_2	= 0x0400000;
-	public static final int							ABNORMAL_EFFECT_MAGIC_CIRCLE	= 0x0800000;
-	public static final int							ABNORMAL_EFFECT_ICE2			= 0x1000000;
-	public static final int							ABNORMAL_EFFECT_EARTHQUAKE		= 0x2000000;
-	public static final int							ABNORMAL_EFFECT_UNKNOWN27		= 0x4000000;
-	public static final int							ABNORMAL_EFFECT_INVULNERABLE	= 0x8000000;
+	public static final int	ABNORMAL_EFFECT_BLEEDING		= 0x0000001;
+	public static final int	ABNORMAL_EFFECT_POISON			= 0x0000002;
+	public static final int	ABNORMAL_EFFECT_REDCIRCLE		= 0x0000004;
+	public static final int	ABNORMAL_EFFECT_ICE				= 0x0000008;
+	public static final int	ABNORMAL_EFFECT_WIND			= 0x0000010;
+	public static final int	ABNORMAL_EFFECT_UNKNOWN_6		= 0x0000020;
+	public static final int	ABNORMAL_EFFECT_STUN			= 0x0000040;
+	public static final int	ABNORMAL_EFFECT_SLEEP			= 0x0000080;
+	public static final int	ABNORMAL_EFFECT_MUTED			= 0x0000100;
+	public static final int	ABNORMAL_EFFECT_ROOT			= 0x0000200;
+	public static final int	ABNORMAL_EFFECT_HOLD_1			= 0x0000400;
+	public static final int	ABNORMAL_EFFECT_HOLD_2			= 0x0000800;
+	public static final int	ABNORMAL_EFFECT_UNKNOWN_13		= 0x0001000;
+	public static final int	ABNORMAL_EFFECT_BIG_HEAD		= 0x0002000;
+	public static final int	ABNORMAL_EFFECT_FLAME			= 0x0004000;
+	public static final int	ABNORMAL_EFFECT_UNKNOWN_16		= 0x0008000;
+	public static final int	ABNORMAL_EFFECT_GROW			= 0x0010000;
+	public static final int	ABNORMAL_EFFECT_FLOATING_ROOT	= 0x0020000;
+	public static final int	ABNORMAL_EFFECT_DANCE_STUNNED	= 0x0040000;
+	public static final int	ABNORMAL_EFFECT_FIREROOT_STUN	= 0x0080000;
+	public static final int	ABNORMAL_EFFECT_STEALTH			= 0x0100000;
+	public static final int	ABNORMAL_EFFECT_IMPRISIONING_1	= 0x0200000;
+	public static final int	ABNORMAL_EFFECT_IMPRISIONING_2	= 0x0400000;
+	public static final int	ABNORMAL_EFFECT_MAGIC_CIRCLE	= 0x0800000;
+	public static final int	ABNORMAL_EFFECT_ICE2			= 0x1000000;
+	public static final int	ABNORMAL_EFFECT_EARTHQUAKE		= 0x2000000;
+	public static final int	ABNORMAL_EFFECT_UNKNOWN27		= 0x4000000;
+	public static final int	ABNORMAL_EFFECT_INVULNERABLE	= 0x8000000;
 
 	// FIXME: TEMP HACKS (get the proper mask for these effects)
-	public static final int							ABNORMAL_EFFECT_CONFUSED		= 0x0020;
-	public static final int							ABNORMAL_EFFECT_AFRAID			= 0x0010;
+	public static final int	ABNORMAL_EFFECT_CONFUSED		= 0x0020;
+	public static final int	ABNORMAL_EFFECT_AFRAID			= 0x0010;
 
 	// Method - Public
 	/**
@@ -4090,24 +4090,26 @@ public abstract class L2Character extends L2Object
 		// when we retrieve x/y/z we use GameTimeControl.getGameTicks()
 		// if we are moving, but move timestamp==gameticks, we don't need
 		// to recalculate position
-		public int						_moveTimestamp;
-		public int						_xDestination;
-		public int						_yDestination;
-		public int						_zDestination;
-		public int						_xMoveFrom;
-		public int						_yMoveFrom;
-		public int						_zMoveFrom;
-		public int						_heading;
-		public int						_moveStartTime;
-		public int						_ticksToMove;
-		public float					_xSpeedTicks;
-		public float					_ySpeedTicks;
-		public int						onGeodataPathIndex;
-		public List<AbstractNodeLoc>	geoPath;
-		public int						geoPathAccurateTx;
-		public int						geoPathAccurateTy;
-		public int						geoPathGtx;
-		public int						geoPathGty;
+		public int		_moveTimestamp;
+		public int		_xDestination;
+		public int		_yDestination;
+		public int		_zDestination;
+		public int		_xMoveFrom;
+		public int		_yMoveFrom;
+		public int		_zMoveFrom;
+		public int		_heading;
+		public int		_moveStartTime;
+		public int		_ticksToMove;
+		public float	_xSpeedTicks;
+		public float	_ySpeedTicks;
+		public int		onGeodataPathIndex;
+		//public List<AbstractNodeLoc>	geoPath;
+		public Vector<Location> geoPath;
+		//public PathFind	geoPath;
+		public int		geoPathAccurateTx;
+		public int		geoPathAccurateTy;
+		public int		geoPathGtx;
+		public int		geoPathGty;
 	}
 
 	/** Table containing all skillId that are disabled */
@@ -4126,7 +4128,7 @@ public abstract class L2Character extends L2Object
 	private int							_heading;
 
 	/** L2Charcater targeted by the L2Character */
-	private L2Object					_target = null;
+	private L2Object					_target					= null;
 
 	// set by the start of casting, in game ticks
 	private int							_castEndTime;
@@ -4901,19 +4903,19 @@ public abstract class L2Character extends L2Object
 
 	/** 
 	 * @return Returns the showSummonAnimation. 
-	 */ 
-	public boolean isShowSummonAnimation() 
-	{ 
-		return _showSummonAnimation; 
-	} 
- 
+	 */
+	public boolean isShowSummonAnimation()
+	{
+		return _showSummonAnimation;
+	}
+
 	/** 
 	 * @param showSummonAnimation The showSummonAnimation to set. 
-	 */ 
-	public void setShowSummonAnimation(boolean showSummonAnimation) 
-	{ 
-		_showSummonAnimation = showSummonAnimation; 
-	} 
+	 */
+	public void setShowSummonAnimation(boolean showSummonAnimation)
+	{
+		_showSummonAnimation = showSummonAnimation;
+	}
 
 	/**
 	 * Target a L2Object (add the target to the L2Character _target, _knownObject and L2Character to _KnownObject of the L2Object).<BR>
@@ -5027,7 +5029,7 @@ public abstract class L2Character extends L2Object
 		final int curX = super.getX();
 		final int curY = super.getY();
 		final int curZ = super.getZ();
-
+		
 		// Calculate distance (dx,dy) between current position and destination
 		double dx = (x - curX);
 		double dy = (y - curY);
@@ -5135,7 +5137,7 @@ public abstract class L2Character extends L2Object
 						_move.onGeodataPathIndex = -1; // Set not on geodata path
 				}
 
-				if (curX < L2World.MAP_MIN_X || curX > L2World.MAP_MAX_X || curY < L2World.MAP_MIN_Y || curY > 294912)
+				if (curX < L2World.MAP_MIN_X || curX > L2World.MAP_MAX_X || curY < L2World.MAP_MIN_Y || curY > L2World.MAP_MAX_Y)
 				{
 					// Temporary fix for character outside world region errors
 					_log.warn("Character " + getName() + " outside world area, in coordinates x:" + curX + " y:" + curY);
@@ -5147,7 +5149,7 @@ public abstract class L2Character extends L2Object
 					return;
 				}
 
-				Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z);
+				Location destiny = GeoClient.getInstance().moveCheck(curX, curY, curZ, x, y, z);
 				// location different if destination wasn't reached (or just z coord is different)
 				x = destiny.getX();
 				y = destiny.getY();
@@ -5163,7 +5165,7 @@ public abstract class L2Character extends L2Object
 				// Overrides previous movement check
 				if (this instanceof L2PlayableInstance || this.isInCombat())
 				{
-					m.geoPath = GeoPathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ);
+					m.geoPath = GeoClient.getInstance().checkMovement(curX, curY, curZ, new Location(x, y, z, 0));
 					if (m.geoPath == null || m.geoPath.size() < 2) // No path found
 					{
 						// Even though there's no path found (remember geonodes aren't perfect),
@@ -5202,15 +5204,15 @@ public abstract class L2Character extends L2Object
 							getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 							return;
 						}
-						for (int i = 0; i < m.geoPath.size() - 1; i++)
+						/*for (int i = 0; i < m.geoPath.getPath().size() - 1; i++)
 						{
-							if (DoorTable.getInstance().checkIfDoorsBetween(m.geoPath.get(i), m.geoPath.get(i + 1)))
+							if (DoorTable.getInstance().checkIfDoorsBetween(m.geoPath.getPath().get(i), m.geoPath.getPath().get(i + 1)))
 							{
 								m.geoPath = null;
 								getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 								return;
 							}
-						}
+						}*/
 
 						dx = (x - curX);
 						dy = (y - curY);
@@ -5221,7 +5223,7 @@ public abstract class L2Character extends L2Object
 				}
 			}
 			// If no distance to go through, the movement is canceled
-			if (distance < 1
+			/*if (distance < 2
 					&& (Config.GEO_PATH_FINDING || this instanceof L2PcInstance || (this instanceof L2Summon && !((L2Summon) this).getFollowStatus())
 							|| isAfraid() || this instanceof L2RiftInvaderInstance))
 			{
@@ -5230,7 +5232,7 @@ public abstract class L2Character extends L2Object
 				getAI().notifyEvent(CtrlEvent.EVT_ARRIVED, null);
 				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE); // needed?
 				return;
-			}
+			}*/
 		}
 
 		// Caclulate the Nb of ticks between the current position and the destination
@@ -5793,8 +5795,7 @@ public abstract class L2Character extends L2Object
 			if (!miss && damage > 0)
 			{
 				L2Weapon weapon = getActiveWeaponItem();
-				boolean isRangeWeapon = (weapon != null && (weapon.getItemType() == L2WeaponType.BOW
-								|| weapon.getItemType() == L2WeaponType.CROSSBOW));
+				boolean isRangeWeapon = (weapon != null && (weapon.getItemType() == L2WeaponType.BOW || weapon.getItemType() == L2WeaponType.CROSSBOW));
 
 				if (!isRangeWeapon || (this instanceof L2PcInstance && ((L2PcInstance) this).isTransformed())) // Do not reflect or absorb if weapon is of type bow
 				{
@@ -6014,7 +6015,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// GeoData Los Check or dz > 1000
-		if (!GeoData.getInstance().canSeeTarget(player, this))
+		if (!GeoClient.getInstance().canSeeTarget(player, this))
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
 			player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -6055,9 +6056,9 @@ public abstract class L2Character extends L2Object
 			// allows red to be attacked and red to attack flagged players
 			if (target.getActingPlayer() != null && target.getActingPlayer().getKarma() > 0)
 				return false;
-			if (attacker.getActingPlayer() != null && attacker.getActingPlayer().getKarma() > 0
-			 && target.getActingPlayer() != null && target.getActingPlayer().getPvpFlag() > 0)
-					return false;
+			if (attacker.getActingPlayer() != null && attacker.getActingPlayer().getKarma() > 0 && target.getActingPlayer() != null
+					&& target.getActingPlayer().getPvpFlag() > 0)
+				return false;
 		}
 
 		return (((L2Character) attacker).isInsideZone(L2Zone.FLAG_PEACE) || ((L2Character) target).isInsideZone(L2Zone.FLAG_PEACE));
@@ -6288,7 +6289,7 @@ public abstract class L2Character extends L2Object
 
 	public void addChanceSkill(L2Skill skill)
 	{
-		synchronized(this)
+		synchronized (this)
 		{
 			if (_chanceSkills == null)
 				_chanceSkills = new ChanceSkillList(this);
@@ -6298,7 +6299,7 @@ public abstract class L2Character extends L2Object
 
 	public void removeChanceSkill(int id)
 	{
-		synchronized(this)
+		synchronized (this)
 		{
 			for (L2Skill skill : _chanceSkills.keySet())
 			{
@@ -6308,8 +6309,7 @@ public abstract class L2Character extends L2Object
 			if (_chanceSkills.size() == 0)
 				_chanceSkills = null;
 		}
- 	}
-
+	}
 
 	/**
 	 * Return all skills own by the L2Character in a table of L2Skill.<BR>
@@ -6429,7 +6429,7 @@ public abstract class L2Character extends L2Object
 			{
 				if (element instanceof L2Character)
 				{
-					if ((!Util.checkIfInRange(escapeRange, this, element, true) || !GeoData.getInstance().canSeeTarget(this, element)))
+					if ((!Util.checkIfInRange(escapeRange, this, element, true) || !GeoClient.getInstance().canSeeTarget(this, element)))
 						continue;
 					if (skill.isOffensive())
 					{
@@ -6670,7 +6670,8 @@ public abstract class L2Character extends L2Object
 			break;
 		}
 
-		if (skill.isOffensive() && skill.getSkillType() != SkillType.UNLOCK && skill.getSkillType() != SkillType.DELUXE_KEY_UNLOCK)
+		if (skill.isOffensive() && skill.getSkillType() != SkillType.UNLOCK && skill.getSkillType() != SkillType.DELUXE_KEY_UNLOCK
+				&& skill.getSkillType() != SkillType.MAKE_KILLABLE && skill.getSkillType() != L2Skill.SkillType.MAKE_QUEST_DROPABLE)
 			getAI().clientStartAutoAttack();
 
 		// Notify the AI of the L2Character with EVT_FINISH_CASTING
@@ -6683,12 +6684,12 @@ public abstract class L2Character extends L2Object
 			{
 				L2PcInstance player = null;
 				if (target instanceof L2PcInstance)
-					player = (L2PcInstance)target;
+					player = (L2PcInstance) target;
 				else if (target instanceof L2Summon)
-					player = ((L2Summon)target).getOwner();
+					player = ((L2Summon) target).getOwner();
 				for (Quest quest : events)
 				{
-					quest.notifySpellFinished(((L2NpcInstance)this), player, skill);
+					quest.notifySpellFinished(((L2NpcInstance) this), player, skill);
 				}
 			}
 		}
@@ -6839,15 +6840,15 @@ public abstract class L2Character extends L2Object
 
 			for (L2Object trg : targets)
 			{
-				if (player!=null && trg instanceof L2PcInstance && Config.SIEGE_ONLY_REGISTERED)
+				if (player != null && trg instanceof L2PcInstance && Config.SIEGE_ONLY_REGISTERED)
 				{
-					if(!((L2PcInstance) trg).canBeTargetedByAtSiege(player))
+					if (!((L2PcInstance) trg).canBeTargetedByAtSiege(player))
 					{
 						//quick fix should be just removed from targetlist
 						return;
 					}
 				}
-				
+
 				if (trg instanceof L2Character)
 				{
 					// Set some values inside target's instance for later use
@@ -6903,10 +6904,10 @@ public abstract class L2Character extends L2Object
 						target.getChanceSkills().onSkillHit(this, true, skill.isMagic(), skill.isOffensive());
 				}
 			}
-			
+
 			// Launch the magic skill and calculate its effects
 			SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(this, skill, targets);
-			
+
 			if (player != null)
 			{
 				for (L2Object target : targets)
@@ -6953,7 +6954,9 @@ public abstract class L2Character extends L2Object
 								}
 								else if (target instanceof L2Attackable && !(skill.getSkillType() == L2Skill.SkillType.SUMMON)
 										&& !(skill.getSkillType() == L2Skill.SkillType.BEAST_FEED) && !(skill.getSkillType() == L2Skill.SkillType.UNLOCK)
-										&& !(skill.getSkillType() == L2Skill.SkillType.DELUXE_KEY_UNLOCK))
+										&& !(skill.getSkillType() == L2Skill.SkillType.DELUXE_KEY_UNLOCK)
+										&& !(skill.getSkillType() == L2Skill.SkillType.HEAL_MOB) && !(skill.getSkillType() == L2Skill.SkillType.MAKE_KILLABLE)
+										&& !(skill.getSkillType() == L2Skill.SkillType.MAKE_QUEST_DROPABLE))
 									player.updatePvPStatus();
 							}
 						}

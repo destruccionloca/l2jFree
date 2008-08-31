@@ -67,7 +67,8 @@ public class Territory
 
 			if (_territory.get(terr) == null)
 			{
-				L2Territory t = new L2Territory(terr);
+				String name = "sql_terr_" + terr;
+				L2Territory t = new L2Territory(name);
 				_territory.put(terr, t);
 			}
 			_territory.get(terr).add(row[1], row[2], row[3], row[4], row[5]);

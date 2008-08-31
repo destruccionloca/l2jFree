@@ -64,7 +64,6 @@ import com.l2jfree.gameserver.handler.admincommandhandlers.AdminMenu;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminMobGroup;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminMonsterRace;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminPForge;
-import com.l2jfree.gameserver.handler.admincommandhandlers.AdminPathNode;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminPetition;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminPledge;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminPolymorph;
@@ -155,7 +154,6 @@ public class AdminCommandHandler
 		registerAdminCommandHandler(new AdminMonsterRace());
 		registerAdminCommandHandler(new AdminPetition());
 		registerAdminCommandHandler(new AdminPForge());
-		registerAdminCommandHandler(new AdminPathNode());
 		registerAdminCommandHandler(new AdminPledge());
 		registerAdminCommandHandler(new AdminPolymorph());
 		registerAdminCommandHandler(new AdminQuest());

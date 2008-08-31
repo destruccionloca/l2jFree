@@ -45,7 +45,7 @@ public class L2Territory
 	}
 
 	private FastList<Point>	_points;
-	private int				_terr;
+	private String			_name;
 	private int				_xMin;
 	private int				_xMax;
 	private int				_yMin;
@@ -54,10 +54,10 @@ public class L2Territory
 	private int				_zMax;
 	private int				_procMax;
 
-	public L2Territory(int terr)
+	public L2Territory(String name)
 	{
 		_points = new FastList<Point>();
-		_terr = terr;
+		_name = name;
 		_xMin = 999999;
 		_xMax = -999999;
 		_yMin = 999999;
@@ -174,8 +174,38 @@ public class L2Territory
 				return p;
 			}
 		}
-		_log.warn("Can't make point for territory" + _terr);
+		_log.warn("Can't make point for territory " + _name);
 		return p;
+	}
+
+	public int getXmax()
+	{
+		return _xMax;
+	}
+
+	public int getXmin()
+	{
+		return _xMin;
+	}
+
+	public int getYmax()
+	{
+		return _yMax;
+	}
+
+	public int getYmin()
+	{
+		return _yMin;
+	}
+
+	public int getZmin()
+	{
+		return _zMin;
+	}
+
+	public int getZmax()
+	{
+		return _zMax;
 	}
 
 	public int getProcMax()

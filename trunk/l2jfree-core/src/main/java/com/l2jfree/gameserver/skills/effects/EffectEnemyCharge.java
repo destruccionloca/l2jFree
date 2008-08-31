@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.skills.effects;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.GeoData;
+import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation;
@@ -79,7 +79,7 @@ public final class EffectEnemyCharge extends L2Effect
 
 		if (Config.GEODATA)
 		{
-			Location destiny = GeoData.getInstance().moveCheck(getEffector().getX(), getEffector().getY(), getEffector().getZ(), _x, _y, _z);
+			Location destiny = GeoClient.getInstance().moveCheck(getEffector().getX(), getEffector().getY(), getEffector().getZ(), _x, _y, _z);
 			_x = destiny.getX();
 			_y = destiny.getY();
 		}

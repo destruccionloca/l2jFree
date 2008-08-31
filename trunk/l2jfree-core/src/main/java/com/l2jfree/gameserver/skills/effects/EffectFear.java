@@ -14,8 +14,8 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
-import com.l2jfree.gameserver.GeoData;
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.Location;
@@ -35,8 +35,8 @@ public final class EffectFear extends L2Effect
 {
 	public static final int	FEAR_RANGE	= 500;
 
-	private int _dX = -1;
-	private int _dY = -1;
+	private int				_dX			= -1;
+	private int				_dY			= -1;
 
 	public EffectFear(Env env, EffectTemplate template)
 	{
@@ -87,7 +87,7 @@ public final class EffectFear extends L2Effect
 			getEffected().startFear();
 			onActionTime();
 		}
-		
+
 	}
 
 	/** Notify exited */
@@ -107,7 +107,7 @@ public final class EffectFear extends L2Effect
 		posX += _dX * FEAR_RANGE;
 		posY += _dY * FEAR_RANGE;
 
-		Location destiny = GeoData.getInstance().moveCheck(getEffected().getX(), getEffected().getY(), getEffected().getZ(), posX, posY, posZ);
+		Location destiny = GeoClient.getInstance().moveCheck(getEffected().getX(), getEffected().getY(), getEffected().getZ(), posX, posY, posZ);
 		getEffected().setRunning();
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(destiny.getX(), destiny.getY(), destiny.getZ(), 0));
 		return true;

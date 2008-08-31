@@ -45,7 +45,7 @@ public class Heal implements ISkillHandler
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
 	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.HEAL, SkillType.HEAL_PERCENT, SkillType.HEAL_STATIC };
+													{ SkillType.HEAL, SkillType.HEAL_PERCENT, SkillType.HEAL_STATIC, SkillType.HEAL_MOB };
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
