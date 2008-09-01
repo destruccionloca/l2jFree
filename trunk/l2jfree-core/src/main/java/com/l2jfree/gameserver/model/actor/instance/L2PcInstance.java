@@ -3569,7 +3569,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 		
-		if ((_inOlympiadMode && !player._inOlympiadMode) || (!_inOlympiadMode && player._inOlympiadMode))
+		if ((_inOlympiadMode && !player._inOlympiadMode) || (!_inOlympiadMode && player._inOlympiadMode) || ((_inOlympiadMode && player._inOlympiadMode) && (_olympiadGameId != player._olympiadGameId)))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
