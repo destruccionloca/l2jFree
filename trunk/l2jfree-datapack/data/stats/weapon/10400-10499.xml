@@ -204,7 +204,8 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
-  <item id='10448' name="Icarus Disperser - Critical Damage">
+  <item id='10448'
+    name="Icarus Disperser - Critical Damage">
     <for>
       <set val='318' order='0x08' stat='pAtk' />
       <set val='163' order='0x08' stat='mAtk' />
@@ -540,7 +541,8 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
-  <item id='10474' name="Shadow Item - Apprentice's Staff">
+  <item id='10474'
+    name="Shadow Item - Apprentice's Staff">
     <for>
       <set val='23' order='0x08' stat='pAtk' />
       <set val='22' order='0x08' stat='mAtk' />
@@ -568,7 +570,8 @@
       <set val='433' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='10477' name="Shadow Item - Cestus for Coupon Event">
+  <item id='10477'
+    name="Shadow Item - Cestus for Coupon Event">
     <for>
       <set val='29' order='0x08' stat='pAtk' />
       <set val='17' order='0x08' stat='mAtk' />
@@ -577,7 +580,8 @@
       <set val='325' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='10478' name="Shadow Item - Forest Bow for Coupon Event">
+  <item id='10478'
+    name="Shadow Item - Forest Bow for Coupon Event">
     <for>
       <set val='49' order='0x08' stat='pAtk' />
       <set val='17' order='0x08' stat='mAtk' />
@@ -586,7 +590,8 @@
       <set val='293' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='10479' name="Shadow Item - Long Sword for Coupon Event">
+  <item id='10479'
+    name="Shadow Item - Long Sword for Coupon Event">
     <for>
       <set val='24' order='0x08' stat='pAtk' />
       <set val='17' order='0x08' stat='mAtk' />

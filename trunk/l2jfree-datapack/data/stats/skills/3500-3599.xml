@@ -35,7 +35,8 @@
       -->
     </for>
   </skill>
-  <skill id="3502" levels="1" name="Mithril Heavy Armor Set">
+  <skill id="3502" levels="1"
+    name="Mithril Heavy Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -50,7 +51,8 @@
       -->
     </for>
   </skill>
-  <skill id="3503" levels="1" name="Reinforced Leather Set">
+  <skill id="3503" levels="1"
+    name="Reinforced Leather Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -141,7 +143,8 @@
       -->
     </for>
   </skill>
-  <skill id="3508" levels="1" name="Mithril Light Armor Set">
+  <skill id="3508" levels="1"
+    name="Mithril Light Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -207,7 +210,8 @@
       -->
     </for>
   </skill>
-  <skill id="3512" levels="1" name="Composite Heavy Armor Set">
+  <skill id="3512" levels="1"
+    name="Composite Heavy Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -318,7 +322,8 @@
       -->
     </for>
   </skill>
-  <skill id="3518" levels="1" name="Zubei's Heavy Armor Set">
+  <skill id="3518" levels="1"
+    name="Zubei's Heavy Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -369,7 +374,8 @@
       -->
     </for>
   </skill>
-  <skill id="3521" levels="1" name="Avadon Light Armor Set">
+  <skill id="3521" levels="1"
+    name="Avadon Light Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -388,7 +394,8 @@
       -->
     </for>
   </skill>
-  <skill id="3522" levels="1" name="Tunic of Zubei Robe Set">
+  <skill id="3522" levels="1"
+    name="Tunic of Zubei Robe Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -426,7 +433,8 @@
       -->
     </for>
   </skill>
-  <skill id="3524" levels="1" name="Blue Wolf Heavy Armor Set">
+  <skill id="3524" levels="1"
+    name="Blue Wolf Heavy Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -484,7 +492,8 @@
       -->
     </for>
   </skill>
-  <skill id="3526" levels="1" name="Blue Wolf Light Armor Set">
+  <skill id="3526" levels="1"
+    name="Blue Wolf Light Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -646,7 +655,8 @@
       -->
     </for>
   </skill>
-  <skill id="3531" levels="1" name="Tallum Heavy Armor Set">
+  <skill id="3531" levels="1"
+    name="Tallum Heavy Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -712,7 +722,8 @@
       -->
     </for>
   </skill>
-  <skill id="3533" levels="1" name="Tallum Light Armor Set">
+  <skill id="3533" levels="1"
+    name="Tallum Light Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -782,7 +793,8 @@
       -->
     </for>
   </skill>
-  <skill id="3535" levels="1" name="Dark Crystal Robe Set">
+  <skill id="3535" levels="1"
+    name="Dark Crystal Robe Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -820,7 +832,8 @@
       -->
     </for>
   </skill>
-  <skill id="3536" levels="1" name="Nightmare Heavy Armor Set">
+  <skill id="3536" levels="1"
+    name="Nightmare Heavy Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -851,7 +864,8 @@
       -->
     </for>
   </skill>
-  <skill id="3537" levels="1" name="Majestic Heavy Armor Set">
+  <skill id="3537" levels="1"
+    name="Majestic Heavy Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -919,7 +933,8 @@
       -->
     </for>
   </skill>
-  <skill id="3539" levels="1" name="Majestic Light Armor Set">
+  <skill id="3539" levels="1"
+    name="Majestic Light Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -1047,7 +1062,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="3543" levels="1" name="Equipped with Shield">
     <!--
@@ -1191,7 +1206,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="3553" levels="1"
     name="Imperial Crusader Heavy Armor Set">
@@ -1244,7 +1259,8 @@
       <mul val='0.2' order='0x30' stat='bleedVuln' />
     </for>
   </skill>
-  <skill id="3555" levels="1" name="Draconic Light Armor Set">
+  <skill id="3555" levels="1"
+    name="Draconic Light Armor Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -1283,7 +1299,8 @@
       -->
     </for>
   </skill>
-  <skill id="3556" levels="1" name="Major Arcana Robe Set">
+  <skill id="3556" levels="1"
+    name="Major Arcana Robe Set">
     <!-- Done by DJ MELERIX -->
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -1361,8 +1378,10 @@
       <add val='4' order='0x40' stat='absorbDam' />
       <mul val='0.7' order='0x30' stat='stunVuln' />
       <mul val='0.7' order='0x30' stat='derangementVuln' />
-      <mul val='0.95' order='0x30' stat='PhysicalMpConsumeRate' />
-      <mul val='0.95' order='0x30' stat='MagicalMpConsumeRate' />
+      <mul val='0.95' order='0x30'
+        stat='PhysicalMpConsumeRate' />
+      <mul val='0.95' order='0x30'
+        stat='MagicalMpConsumeRate' />
       <mul val='0.85' order='0x30' stat='earthVuln' />
     </for>
   </skill>
@@ -1446,7 +1465,8 @@
       <add val='1' order='0x40' stat='accCombat' />
     </for>
   </skill>
-  <skill id="3564" levels="1" name="Special Ability: Haste">
+  <skill id="3564" levels="1"
+    name="Special Ability: Haste">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -1457,9 +1477,10 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="3565" levels="1" name="Special Ability: Focus">
+  <skill id="3565" levels="1"
+    name="Special Ability: Focus">
     <!--
       Description(s): Increases critical attack success rate
       and damage inflicted during PvP.
@@ -1479,7 +1500,8 @@
       <mul val="1.05" order="0x30" stat='pvpMagicalDmg' />
     </for>
   </skill>
-  <skill id="3566" levels="1" name="Special Ability: Focus">
+  <skill id="3566" levels="1"
+    name="Special Ability: Focus">
     <!--
       Description(s): Increases critical attack success rate
       and damage inflicted during PvP.
@@ -1499,7 +1521,8 @@
       <mul val="1.05" order="0x30" stat="pvpMagicalDmg" />
     </for>
   </skill>
-  <skill id="3567" levels="2" name="Special Ability: Focus">
+  <skill id="3567" levels="2"
+    name="Special Ability: Focus">
     <!--
       Description(s): 1:Increases critical attack success
       rate and damage inflicted during PvP. none 2:Increases
@@ -1519,12 +1542,15 @@
       <!--
         Enhances damage to target during PvP
       -->
-      <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg" />
+      <mul val="#pvpBonus" order="0x30"
+        stat="pvpMagicalDmg" />
     </for>
   </skill>
-  <skill id="3568" levels="1" name="Special Ability: HP Drain">
+  <skill id="3568" levels="1"
+    name="Special Ability: HP Drain">
     <!-- Vampiric Rage effect -->
-    <set name="element" val="6" /> <!-- Dark -->
+    <set name="element" val="6" />
+    <!-- Dark -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="WEAPON_SA" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1559,9 +1585,10 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="3571" levels="1" name="Special Ability: Crt. Stun">
+  <skill id="3571" levels="1"
+    name="Special Ability: Crt. Stun">
     <!--
       Done by SarutrA - SqueezeD Description(s): Instantly
       throws enemy into a state of shock, immobilizing them.
@@ -1597,7 +1624,8 @@
       <add val='265' order='0x40' stat='cAtk' />
     </for>
   </skill>
-  <skill id="3573" levels="1" name="Special Ability: Guidance">
+  <skill id="3573" levels="1"
+    name="Special Ability: Guidance">
     <!--
       - Descriptions: 1: Increases Accuracy. Increases
       damage inflicted during PvP.
@@ -1612,7 +1640,8 @@
       <add val='5' order='0x40' stat='accCombat' />
     </for>
   </skill>
-  <skill id="3574" levels="1" name="Special Ability: Crt. Slow">
+  <skill id="3574" levels="1"
+    name="Special Ability: Crt. Slow">
     <!-- Done by SarutrA - SqueezeD -->
     <set name="save" val="5" />
     <set name="magicLvl" val="74" />
@@ -1643,7 +1672,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="3576" levels="1"
     name="Special Ability: MP Regeneration">
@@ -1777,8 +1806,7 @@
     <set name="effectRange" val="-1" />
     <set name="isDebuff" val="true" />
     <for>
-      <effect count="5" name="Confusion" time="4"
-        val="0" />
+      <effect count="5" name="Confusion" time="4" val="0" />
     </for>
   </skill>
   <skill id="3582" levels="1"
@@ -1867,8 +1895,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="2" stackType="Stun">
-      </effect>
+        stackOrder="2" stackType="Stun" />
     </for>
   </skill>
   <skill id="3585" levels="1"
@@ -1910,7 +1937,8 @@
       <!-- Reflect Skills 10% of the time -->
     </for>
   </skill>
-  <skill id="3586" levels="1" name="Physical Skill Restraint">
+  <skill id="3586" levels="1"
+    name="Physical Skill Restraint">
     <!-- Infinity Wing Skill -->
     <set name="magicLvl" val="80" />
     <set name="power" val="0.0" />
@@ -1977,8 +2005,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <effect count="1" name="Stun" time="9" val="0"
-        stackOrder="2" stackType="Stun">
-      </effect>
+        stackOrder="2" stackType="Stun" />
     </for>
   </skill>
   <skill id="3589" levels="1"
@@ -2104,8 +2131,8 @@
     <set name="effectRange" val="100" />
     <set name="negateStats" val="BUFF" />
     <set name="negatePower" val="8.0" />
-    <set name="maxNegated" val="3" /> <!-- Making max debuff count 3 -->
-    <for></for>
+    <set name="maxNegated" val="3" /><!-- Making max debuff count 3 -->
+    <for />
   </skill>
   <skill id="3593" levels="1"
     name="Special Ability: Infinity Bow">
@@ -2132,7 +2159,7 @@
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
-      <mul order="0x30" stat="bowReuse" val="0.81" /> <!-- 19% Quick Recovery -->
+      <mul order="0x30" stat="bowReuse" val="0.81" /><!-- 19% Quick Recovery -->
     </for>
   </skill>
   <skill id="3594" levels="1" name="Slow">
@@ -2186,7 +2213,8 @@
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
-      <mul order="0x30" stat="MagicalMpConsumeRate" val="0.96" />
+      <mul order="0x30" stat="MagicalMpConsumeRate"
+        val="0.96" />
       <!--
         Magic MP Cost -4%
       -->
@@ -2206,7 +2234,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="3597" levels="1"
     name="Special Ability: Infinity Rod">
@@ -2253,7 +2281,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="3599" levels="1" name="Polearm Multi-attack">
     <!--
@@ -2266,6 +2294,6 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
 </list>

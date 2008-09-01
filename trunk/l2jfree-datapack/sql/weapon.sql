@@ -2914,3 +2914,6 @@ UPDATE `weapon` SET `skills_item` = '3031-6' WHERE `item_id` = '9878';
 -- Fix for SEVERE Cannot find onCast skill (0,0) for weapon item 8142, by droppo
 UPDATE `weapon` SET `skills_item` = '', `skills_onCast` = '1035-4-50' WHERE `item_id` = 8142;
 UPDATE `weapon` SET `skills_item` = '', `skills_onCast` = '3577-1-10' WHERE `item_id` = 8143;
+
+-- Add Skills to Kamael Hero Weapons by DrunkenDave
+UPDATE `weapon` SET `skills_onCrit` = '3594-1-7' WHERE `item_id` = 9390;

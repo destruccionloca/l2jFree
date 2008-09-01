@@ -9,7 +9,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="0" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7001" levels="1" name="Dispel Buff">
     <!-- TODO -->
@@ -21,7 +21,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7002" levels="1" name="Dispel Debuff">
     <!-- TODO -->
@@ -33,7 +33,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7003" levels="1" name="Dispel All">
     <!-- TODO -->
@@ -44,7 +44,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7004" levels="2" name="Dispel Petrification">
     <!-- TODO -->
@@ -56,7 +56,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="566" />
-    <for></for>
+    <for />
   </skill>
   <!-- Temporarily allows party members to partially restore HP using damage inflicted upon the enemy. Excludes damage from skill or range attack. Effect 4. -->
   <skill id="7005" levels="1"
@@ -73,7 +73,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="655" />
-    <for></for>
+    <for />
   </skill>
   <!-- Greatly enhances alliance members' HP restoration.  Effect 6. -->
   <skill id="7006" levels="1" name="The Love of Pa'agrio">
@@ -89,7 +89,7 @@
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="655" />
     <set name="coolTime" val="1666" />
-    <for></for>
+    <for />
   </skill>
   <!-- A protective ring of fire that continuously reduces HP of surrounding enemies and their alliance members. Effect 8. -->
   <skill id="7007" levels="4"
@@ -107,7 +107,7 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7008" levels="1" name="not_used">
     <set name="power" val="0.0" />
@@ -115,7 +115,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7009" levels="1" name="not_used">
     <set name="power" val="0.0" />
@@ -123,7 +123,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7010" levels="1" name="not_used">
     <set name="power" val="0.0" />
@@ -131,7 +131,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7011" levels="1" name="not_used">
     <set name="power" val="0.0" />
@@ -139,7 +139,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7012" levels="1" name="not_used">
     <set name="power" val="0.0" />
@@ -147,7 +147,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7013" levels="1" name="not_used">
     <set name="power" val="0.0" />
@@ -155,7 +155,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7014" levels="1"
     name="Test - Critical Damage Up">
@@ -164,7 +164,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7015" levels="1"
     name="Test - Critical Damage Down">
@@ -173,7 +173,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7016" levels="1"
     name="Test - Critical Damage Up">
@@ -182,7 +182,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7017" levels="1"
     name="Test - Critical Damage Down">
@@ -191,7 +191,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7018" levels="1"
     name="Test - Critical Rate Up">
@@ -200,7 +200,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7019" levels="1"
     name="Test - Critical Rate Down">
@@ -209,7 +209,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7020" levels="1"
     name="Test - Critical Rate Up">
@@ -218,7 +218,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7021" levels="1"
     name="Test - Critical Rate Down">
@@ -227,7 +227,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7022" levels="1"
     name="Test - Find Hidden Door">
@@ -236,7 +236,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7023" levels="1" name="not_used">
     <set name="power" val="0.0" />
@@ -244,7 +244,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7024" levels="1" name="not_used">
     <set name="power" val="0.0" />
@@ -252,7 +252,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7025" levels="1" name="not_used">
     <set name="power" val="0.0" />
@@ -260,7 +260,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7026" levels="1" name="not_used">
     <set name="power" val="0.0" />
@@ -268,7 +268,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7027" levels="1" name="not_used">
     <set name="power" val="0.0" />
@@ -276,7 +276,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7028" levels="1" name="For Stationary NPCs">
     <set name="power" val="0.0" />
@@ -284,7 +284,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <!--
     1: Speed is increased.
@@ -337,7 +337,7 @@
     <set name="npcId" val="150" />
     <set name="expPenalty" val="0.3" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7031" levels="1"
     name="Summon Skeleton Royal Guard">
@@ -362,7 +362,7 @@
     <set name="npcId" val="622" />
     <set name="expPenalty" val="0.3" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7032" levels="1"
     name="Summon Hunter Gargoyle">
@@ -387,7 +387,7 @@
     <set name="npcId" val="241" />
     <set name="expPenalty" val="0.3" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7033" levels="1" name="not_used">
     <!--
@@ -400,7 +400,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7034" levels="1" name="not_used">
     <!--
@@ -413,7 +413,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7035" levels="1" name="not_used">
     <!--
@@ -426,7 +426,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7036" levels="1" name="not_used">
     <!--
@@ -439,7 +439,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7037" levels="1" name="not_used">
     <!--
@@ -452,7 +452,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7038" levels="1" name="not_used">
     <!--
@@ -465,7 +465,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7039" levels="1" name="not_used">
     <!--
@@ -478,7 +478,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7040" levels="1" name="not_used">
     <!--
@@ -491,7 +491,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <!-- Admin / Game Masters skills -->
   <!--
@@ -580,7 +580,7 @@
     <set name="effectRange" val="900" />
     <set name="coolTime" val="332" />
     <for>
-      <effect name="Buff" time="1200" count="1" val="0"
+      <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="#Tab-accCombat" stackType="hit_up">
         <add order="0x40" stat="accCombat"
           val="#Tab-accCombat" />
@@ -779,7 +779,7 @@
     <set name="effectRange" val="900" />
     <set name="coolTime" val="332" />
     <for>
-      <effect name="Buff" time="1200" count="1" val="0"
+      <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="#Tab-absorbDam" stackType="vampRage">
         <add order="0x40" stat="absorbDam"
           val="#Tab-absorbDam" />
@@ -926,7 +926,7 @@
     <set name="effectRange" val="900" />
     <set name="coolTime" val="332" />
     <for>
-      <effect name="Buff" time="1200" count="1" val="0">
+      <effect count="1" name="Buff" time="1200" val="0">
         <mul order="0x30" stat="mCritRate" val="#mCrit" />
       </effect>
     </for>
@@ -1085,21 +1085,21 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7066" levels="1" name="Test Stun Charge">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7067" levels="1" name="Test Range Charge">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7068" levels="1"
     name="Test Steal Abnormal State">
@@ -1107,7 +1107,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7069" levels="1"
     name="Test Abnormal State DD">
@@ -1115,7 +1115,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7070" levels="1"
     name="Test - Soul Eating Passive">
@@ -1123,49 +1123,49 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7071" levels="1" name="Test - Soul Transfer">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7072" levels="1" name="Test - Basic Trap">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7073" levels="1" name="Test - Find Trap">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7074" levels="1" name="Test - Cancel Trap">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7075" levels="1" name="Test - Distance DD">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7076" levels="1" name="Test - Delay Debuff">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <!-- Currently stunned. -->
   <skill id="7077" levels="1"
@@ -1177,7 +1177,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-      <for></for>
+    <for />
   </skill>
   <!-- Stuns -->
   <skill id="7078" levels="1" name="Test - Blink">
@@ -1192,7 +1192,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <!-- Transfers party damage to tanker. -->
   <skill id="7079" levels="1"
@@ -1209,7 +1209,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <!-- Cannot perform general attack. -->
   <skill id="7080" levels="1"
@@ -1225,7 +1225,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <!-- Shoots toward ground. -->
   <skill id="7081" levels="1"
@@ -1241,7 +1241,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
   <!-- Chain Lightning -->
   <skill id="7082" levels="1"
@@ -1257,7 +1257,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
   <!-- Trap Range Skill -->
   <skill id="7083" levels="1" name="Test - Trap Skill">
@@ -1268,7 +1268,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <!-- Trap Range Skill -->
   <skill id="7084" levels="1" name="Test - Trap Skill">
@@ -1279,7 +1279,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7085" levels="1"
     name="Self-Destruct Explosion">
@@ -1294,7 +1294,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7086" levels="1" name="Last Stand_test">
     <set name="power" val="0.0" />
@@ -1304,7 +1304,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="7087" levels="1"
     name="Chain Magic - Dark Explosion_test">
@@ -1319,6 +1319,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
 </list>

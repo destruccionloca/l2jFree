@@ -199,7 +199,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4608" levels="2"
     name="NPC Clan Buff - Berserk">
@@ -313,7 +313,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4613" levels="12" name="NPC Clan Heal">
     <table name="#mpConsume">
@@ -333,7 +333,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4614" levels="12" name="NPC Death Bomb">
     <table name="#mpConsume">
@@ -353,7 +353,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4615" levels="12" name="Bleed">
     <table name="#dmg">
@@ -404,7 +404,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4618" levels="1" name="NPC Cancel PC Target">
     <set name="mpConsume" val="35" />
@@ -419,7 +419,7 @@
     <set name="negateStats"
       val="STUN ROOT SLEEP MUTE FEAR CONFUSION POISON BLEED BUFF DEBUFF WEAKNESS PARALYZE" />
     <set name="negatePower" val="9.0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4619" levels="1" name="NPC Dispel Sleep">
     <set name="mpConsume" val="35" />
@@ -433,7 +433,7 @@
     <set name="negateStats" val="SLEEP" />
     <set name="negatePower" val="9.0" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4620" levels="12" name="Paralysis">
     <table name="#mpConsume">
@@ -474,7 +474,7 @@
     <set name="effectRange" val="1000" />
     <set name="absorbPart" val="0.8" />
     <set name="absorbAbs" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4622" levels="12"
     name="NPC AE - 80% HP Drain - Magic">
@@ -497,7 +497,7 @@
     <set name="effectRange" val="1000" />
     <set name="absorbPart" val="0.8" />
     <set name="absorbAbs" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4623" levels="12"
     name="NPC AE - 80% HP Drain - Slow">
@@ -520,28 +520,29 @@
     <set name="effectRange" val="1500" />
     <set name="absorbPart" val="0.8" />
     <set name="absorbAbs" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4624" levels="12"
     name="Decrease HP Regeneration Rate">
-    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
-    <set name="magicLvl" val="#magicLvl"/>
-    <set name="mpConsume" val="0"/>
-    <set name="power" val="100"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="isDebuff" val="true"/>
-    <set name="isMagic" val="true"/>
-    <set name="hitTime" val="0"/>
-    <set name="skillType" val="DEBUFF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <table name="#magicLvl">
+      10 20 30 40 50 60 70 75 80 85 90 95
+    </table>
+    <set name="magicLvl" val="#magicLvl" />
+    <set name="mpConsume" val="0" />
+    <set name="power" val="100" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="isDebuff" val="true" />
+    <set name="isMagic" val="true" />
+    <set name="hitTime" val="0" />
+    <set name="skillType" val="DEBUFF" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-     <effect name="Debuff" time="5" count="1" val="0" >
-       <mul order="0x30" stat="gainHp" val="0.0"/>
-     </effect>
-   </for>
-
+      <effect name="Debuff" time="5" count="1" val="0">
+        <mul order="0x30" stat="gainHp" val="0.0" />
+      </effect>
+    </for>
   </skill>
   <skill id="4625" levels="12" name="Decrease Speed">
     <table name="#runSpd">
@@ -621,7 +622,7 @@
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4629" levels="12" name="NPC MR - HP Drain">
     <table name="#power">
@@ -642,7 +643,7 @@
     <set name="effectRange" val="900" />
     <set name="absorbPart" val="0.2" />
     <set name="absorbAbs" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4630" levels="12" name="NPC MR - Twister">
     <table name="#power">
@@ -661,7 +662,7 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4631" levels="3"
     name="NPC Buff - Acumen Shield WildMagic">
@@ -958,7 +959,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4642" levels="9"
     name="NPC Fast Spell Casting">
@@ -1124,7 +1125,7 @@
     <set name="effectRange" val="-1" />
     <set name="negateStats" val="ROOT" />
     <set name="negatePower" val="9.0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4651" levels="3" name="NPC AE - Dispel Slow">
     <!-- TODO -->
@@ -1139,7 +1140,7 @@
     <set name="effectRange" val="-1" />
     <set name="negateStats" val="DEBUFF" />
     <set name="negatePower" val="9.0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4652" levels="1"
     name="NPC AE Dispel Silence">
@@ -1154,7 +1155,7 @@
     <set name="effectRange" val="-1" />
     <set name="negateStats" val="MUTE" />
     <set name="negatePower" val="9.0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4653" levels="12"
     name="NPC Corpse Life Drain">
@@ -1177,7 +1178,7 @@
     <set name="effectRange" val="900" />
     <set name="absorbPart" val="0" />
     <set name="absorbAbs" val="#drain" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4654" levels="12" name="NPC Death Link">
     <table name="#mpConsume">
@@ -1195,7 +1196,7 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4655" levels="12"
     name="NPC Death Link - Magic">
@@ -1214,7 +1215,7 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4656" levels="12"
     name="NPC Death Link - Slow">
@@ -1233,7 +1234,7 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="1000" />
     <set name="effectRange" val="1500" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4657" levels="12" name="Hold">
     <table name="#power">
@@ -1389,7 +1390,7 @@
     <set name="skillRadius" val="1400" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4664" levels="12" name="NPC 100% HP Drain">
     <table name="#power">
@@ -1410,7 +1411,7 @@
     <set name="effectRange" val="1100" />
     <set name="absorbPart" val="1.0" />
     <set name="absorbAbs" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4665" levels="12"
     name="NPC 100% HP Drain - Magic">
@@ -1433,7 +1434,7 @@
     <set name="effectRange" val="1100" />
     <set name="absorbPart" val="1.0" />
     <set name="absorbAbs" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4666" levels="12"
     name="NPC 100% HP Drain - Slow">
@@ -1456,7 +1457,7 @@
     <set name="effectRange" val="1500" />
     <set name="absorbPart" val="1.0" />
     <set name="absorbAbs" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4667" levels="12"
     name="NPC Strong 100% HP Drain">
@@ -1479,7 +1480,7 @@
     <set name="effectRange" val="1100" />
     <set name="absorbPart" val="1.0" />
     <set name="absorbAbs" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4668" levels="12"
     name="NPC Strong 100% HP Drain - Magic">
@@ -1502,7 +1503,7 @@
     <set name="effectRange" val="1100" />
     <set name="absorbPart" val="1.0" />
     <set name="absorbAbs" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4669" levels="12"
     name="NPC Strong 100% HP Drain - Slow">
@@ -1525,7 +1526,7 @@
     <set name="effectRange" val="1500" />
     <set name="absorbPart" val="1.0" />
     <set name="absorbAbs" val="0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4670" levels="12" name="Short Stun">
     <table name="#mpConsume">
@@ -1552,7 +1553,7 @@
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4672" levels="1" name="NPC Corpse Remove">
     <!-- TODO -->
@@ -1561,7 +1562,7 @@
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4673" levels="12"
     name="NPC Dispel Offensive Buff">
@@ -1579,7 +1580,7 @@
     <set name="effectRange" val="1100" />
     <set name="negateStats" val="BUFF" />
     <set name="negatePower" val="8.0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4674" levels="12"
     name="NPC Dispel Offensive Buff">
@@ -1597,7 +1598,7 @@
     <set name="effectRange" val="1100" />
     <set name="negateStats" val="BUFF" />
     <set name="negatePower" val="8.0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4675" levels="12"
     name="NPC Dispel Fighter Buff">
@@ -1615,7 +1616,7 @@
     <set name="effectRange" val="1100" />
     <set name="negateStats" val="BUFF" />
     <set name="negatePower" val="8.0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4676" levels="12"
     name="NPC Dispel Mage Offensive Buff">
@@ -1633,7 +1634,7 @@
     <set name="effectRange" val="1100" />
     <set name="negateStats" val="BUFF" />
     <set name="negatePower" val="8.0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4677" levels="12"
     name="NPC Dispel Fighter Defensive Buff">
@@ -1651,7 +1652,7 @@
     <set name="effectRange" val="1100" />
     <set name="negateStats" val="BUFF" />
     <set name="negatePower" val="8.0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4678" levels="12"
     name="NPC Dispel Mage Defensive Buff">
@@ -1669,7 +1670,7 @@
     <set name="effectRange" val="1100" />
     <set name="negateStats" val="BUFF" />
     <set name="negatePower" val="8.0" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4679" levels="1" name="Valakas">
     <!-- Valakas Skills -->
@@ -1715,7 +1716,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="50" />
     <set name="effectRange" val="400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4682" levels="1" name="Valakas Trample">
     <!-- Valakas Skills -->
@@ -1730,7 +1731,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="50" />
     <set name="effectRange" val="400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4683" levels="1"
     name="Valakas Dragon Breath">
@@ -1788,7 +1789,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4686" levels="1" name="Valakas Tail Stomp">
     <!-- Valakas Skills -->
@@ -1803,7 +1804,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4687" levels="1" name="Valakas Tail Stomp">
     <!-- Valakas Skills -->
@@ -1817,7 +1818,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4688" levels="1" name="Valakas Stun">
     <!-- Valakas Skills -->
@@ -1871,7 +1872,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4691" levels="4" name="Valakas Regeneration">
     <!-- Done by DJ MELERIX -->
@@ -1919,7 +1920,7 @@
     <set name="power" val="0.0" />
     <set name="skillType" val="NEGATE" />
     <set name="target" val="TARGET_SELF" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4694" levels="1" name="Ultimate Debuff">
     <set name="power" val="0.0" />
@@ -1989,7 +1990,7 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4698" levels="12" name="HP Regeneration">
     <table name="#regHp">

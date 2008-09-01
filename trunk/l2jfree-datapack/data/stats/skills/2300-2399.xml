@@ -1,40 +1,45 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-  <skill id="2300" levels="1" name="Hair Style Change Potion">
+  <skill id="2300" levels="1"
+    name="Hair Style Change Potion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="2301" levels="1" name="Hair Style Change Potion">
+  <skill id="2301" levels="1"
+    name="Hair Style Change Potion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="2302" levels="1" name="Hair Style Change Potion">
+  <skill id="2302" levels="1"
+    name="Hair Style Change Potion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="2303" levels="1" name="Hair Style Change Potion">
+  <skill id="2303" levels="1"
+    name="Hair Style Change Potion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="2304" levels="1" name="Hair Style Change Potion">
+  <skill id="2304" levels="1"
+    name="Hair Style Change Potion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2305" levels="1" name="Primeval Potion">
     <!--
@@ -47,7 +52,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2306" levels="3" name="Primeval Crystals">
     <!--
@@ -65,7 +70,7 @@
     <set name="reuseDelay" val="3000" />
     <set name="skillType" val="GIVE_SP" />
     <set name="target" val="TARGET_SELF" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2307" levels="1"
     name="Remove Petrification Scroll">
@@ -78,7 +83,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2308" levels="36" name="Event Item">
     <!--
@@ -90,7 +95,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2309" levels="1" name="Pig Chest">
     <!--
@@ -102,7 +107,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2310" levels="1"
     name="Scroll of Guidance - Event Use">
@@ -308,7 +313,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2321" levels="1"
     name="Blessed Scroll of Resurrection - Event Use">
@@ -323,7 +328,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="600" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2322" levels="1"
     name="Chest Key - For Events Only">
@@ -336,7 +341,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2323" levels="1" name="Red Sage's Stone">
     <!--
@@ -348,7 +353,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2324" levels="1" name="Blue Sage's Stone">
     <!--
@@ -360,7 +365,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2325" levels="1" name="Orange Sage's Stone">
     <!--
@@ -372,7 +377,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2326" levels="1" name="Black Sage's Stone">
     <!--
@@ -384,7 +389,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2327" levels="1" name="White Sage's Stone">
     <!--
@@ -396,7 +401,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2328" levels="1" name="Green Sage's Stone">
     <!--
@@ -408,49 +413,49 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2329" levels="4" name="Fire Stone">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2330" levels="4" name="Water Stone">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2331" levels="4" name="Wind Stone">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2332" levels="4" name="Earth Stone">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2333" levels="4" name="Divine Stone">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2334" levels="4" name="Dark Stone">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2335" levels="1" name="Fire Resist Potion">
     <set name="hitTime" val="100" />
@@ -542,7 +547,8 @@
       </effect>
     </for>
   </skill>
-  <skill id="2341" levels="1" name="Caravan's Secret Medicine">
+  <skill id="2341" levels="1"
+    name="Caravan's Secret Medicine">
     <set name="hitTime" val="100" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -551,8 +557,7 @@
     <set name="isPotion" val="true" />
     <for>
       <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="1" stackType="caravan_medicine">
-      </effect>
+        stackOrder="1" stackType="caravan_medicine" />
     </for>
   </skill>
   <skill id="2342" levels="1" name="Ballista Bomb">
@@ -560,112 +565,116 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2343" levels="1" name="Gate Key of Kamael">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2344" levels="1" name="Gate Key of Records">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="2345" levels="1" name="Gate Key of Observation">
+  <skill id="2345" levels="1"
+    name="Gate Key of Observation">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2346" levels="1" name="Gate Key of Specula">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2347" levels="1" name="Enuma Elish Key">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2348" levels="1" name="Prahnah Key">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="2349" levels="1" name="Gate Key of Arvitaire">
+  <skill id="2349" levels="1"
+    name="Gate Key of Arvitaire">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2350" levels="1" name="Leopold Key">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="2351" levels="1" name="Gate Key of Prediction">
+  <skill id="2351" levels="1"
+    name="Gate Key of Prediction">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2352" levels="1" name="Gate Key of Nornil">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2353" levels="1" name="Nornil's Power">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2354" levels="1" name="Gate Key of Darkness">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="2355" levels="1" name="Gate Key of Destruction">
+  <skill id="2355" levels="1"
+    name="Gate Key of Destruction">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2356" levels="1" name="Gate Key of Blood">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2357" levels="1" name="Fiery Demon Blood">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2358" levels="1" name="Holy Water">
     <set name="power" val="0" />
@@ -676,7 +685,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2359" levels="1" name="Magic Bottle">
     <set name="power" val="0" />
@@ -689,65 +698,67 @@
     <set name="itemConsumeCount" val="1" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2360" levels="1" name="Water Dragon Claw">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2361" levels="1" name="Evolving Wolf's Food">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2362" levels="1" name="Prison Gate Key">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="2363" levels="1" name="Underground Warehouse Key">
+  <skill id="2363" levels="1"
+    name="Underground Warehouse Key">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="2364" levels="1" name="Blessed Scroll of Fortress">
+  <skill id="2364" levels="1"
+    name="Blessed Scroll of Fortress">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2365" levels="1" name="Scroll of Fortress">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2366" levels="1" name="Blue Coral Key">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2367" levels="1" name="Red Coral Key">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <skill id="2368" name="Spirit of the Lake" levels="1">
+  <skill id="2368" levels="1" name="Spirit of the Lake">
     <set name="power" val="2000" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="8000" />
@@ -760,15 +771,14 @@
     <set name="itemConsumeId" val="9689" />
     <set name="itemConsumeCount" val="1" />
     <set name="offensive" val="False" />
-    <for>
-    </for>
+    <for />
   </skill>
   <skill id="2369" levels="1" name="Water Dragon Scale">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2370" levels="1"
     name="Scroll of Transformation - Pig">
@@ -946,91 +956,91 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2380" levels="1" name="Shield">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2381" levels="1" name="Magic Barrier">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2382" levels="1" name="Bless Shield">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2383" levels="1" name="Haste">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2384" levels="1" name="Acumen">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2385" levels="1" name="Empower">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2386" levels="1" name="Divine Power">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2387" levels="1" name="Might">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2388" levels="1" name="Might">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2389" levels="1" name="Guidance">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2390" levels="1" name="Berserker Spirit">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2391" levels="1" name="Clarity">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2392" levels="1"
     name="Blessed Scroll of Battlefield Escape">
@@ -1038,7 +1048,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2393" levels="1"
     name="Blessed Scroll of Battlefield Resurrection">
@@ -1046,7 +1056,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2394" levels="1"
     name="Scroll of Battlefield Transformation">
@@ -1072,7 +1082,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2396" levels="1" name="Mental Potion">
     <!-- by Z0mbie! -->
@@ -1099,7 +1109,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2398" levels="1" name="Instant Haste Potion">
     <!-- Done by DJ MELERIX -->
@@ -1127,6 +1137,6 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
 </list>

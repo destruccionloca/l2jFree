@@ -12,7 +12,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5101" levels="1" name="Cancel Capture C">
     <!--
@@ -25,7 +25,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5102" levels="1" name="Cancel All Capture">
     <!--
@@ -38,7 +38,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5103" levels="1"
     name="Production - Clan / Transfer">
@@ -50,7 +50,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5104" levels="3" name="Battle Force">
     <set name="target" val="TARGET_ONE" />
@@ -88,7 +88,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5107" levels="4" name="Capture B State">
     <!--
@@ -101,7 +101,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5108" levels="4" name="Capture C State">
     <!--
@@ -114,7 +114,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5109" levels="1"
     name="Production - Clan Gate">
@@ -126,7 +126,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5110" levels="1" name="Cannon Fodder">
     <!--
@@ -139,7 +139,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5111" levels="1" name="Big Bang">
     <!--
@@ -152,7 +152,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5112" levels="12" name="Stun">
     <!--
@@ -165,7 +165,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5113" levels="12"
     name="Castle Self AE Dispell Buff">
@@ -179,7 +179,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5114" levels="12" name="Hold">
     <!--
@@ -192,7 +192,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5115" levels="12" name="Cubic Hate">
     <!-- Cubic skill -->
@@ -210,7 +210,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5116" levels="12" name="Hold">
     <!-- Cubic skill -->
@@ -243,7 +243,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5118" levels="1" name="Cancel Sailren Use">
     <!--
@@ -256,7 +256,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5119" levels="1" name="Bleed">
     <!--
@@ -269,7 +269,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5120" levels="1" name="Stun">
     <!--
@@ -282,7 +282,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5121" levels="1"
     name="Production - Corpse Revival">
@@ -294,7 +294,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5122" levels="1" name="Sailren Use Might">
     <!--
@@ -307,7 +307,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5123" levels="1" name="Maximum Defense">
     <!--
@@ -460,7 +460,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5136" levels="1" name="Spin Slash">
     <set name="magicLvl" val="80" />
@@ -476,7 +476,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="500" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5137" levels="1" name="Hold of King">
     <set name="mpConsume" val="214" />
@@ -522,7 +522,7 @@
   <skill id="5139" levels="1" name="Tidal Wave">
     <set name="magicLvl" val="80" />
     <set name="mpConsume" val="322" />
-    <set name="element" val="3" /> <!-- Water -->
+    <set name="element" val="3" /><!-- Water -->
     <set name="power" val="250" />
     <set name="target" val="TARGET_AREA" />
     <set name="hitTime" val="4000" />
@@ -532,7 +532,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="900" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5140" levels="1" name="Dark Curse">
     <set name="mpConsume" val="322" />
@@ -570,7 +570,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5142" levels="1" name="Corpse Kaboom">
     <set name="magicLvl" val="80" />
@@ -583,7 +583,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="900" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5143" levels="1" name="Sailren Use Blow">
     <!--
@@ -596,7 +596,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5144" levels="1" name="Mirage">
     <!--
@@ -609,7 +609,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5145" levels="1" name="Day of Doom">
     <!--
@@ -622,7 +622,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5146" levels="10" name="Heal">
     <!--
@@ -635,7 +635,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5147" levels="10" name="Blessed Body">
     <!--
@@ -648,7 +648,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5148" levels="10" name="Prayer">
     <!--
@@ -661,7 +661,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5149" levels="10" name="Recharge">
     <!--
@@ -683,7 +683,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5150" levels="10" name="Blessed Soul">
     <!--
@@ -705,7 +705,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5151" levels="10" name="Mana Gain">
     <!--
@@ -718,7 +718,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5152" levels="10" name="Ritual">
     <!--
@@ -740,7 +740,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5153" levels="10" name="Cheer">
     <!--
@@ -762,7 +762,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5154" levels="10" name="Might">
     <!--
@@ -775,7 +775,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5156" levels="10" name="Empower">
     <!--
@@ -788,7 +788,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5157" levels="10" name="Duel Might">
     <!--
@@ -801,7 +801,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5158" levels="10" name="Shield">
     <!--
@@ -814,7 +814,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5159" levels="10" name="Magic Barrier">
     <!--
@@ -827,7 +827,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5160" levels="10" name="Duel Weakness">
     <!--
@@ -840,7 +840,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5161" levels="10" name="Agility">
     <!--
@@ -853,7 +853,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5162" levels="10" name="Guidance">
     <!--
@@ -866,7 +866,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5163" levels="10" name="Focus">
     <!--
@@ -879,7 +879,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5164" levels="10" name="Wild Magic">
     <!--
@@ -892,7 +892,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5165" levels="10" name="Charm">
     <!--
@@ -914,7 +914,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5166" levels="10" name="Slow">
     <!--
@@ -927,7 +927,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5167" levels="10" name="Winter">
     <!--
@@ -940,7 +940,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5168" levels="10" name="Stun">
     <!--
@@ -953,7 +953,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5169" levels="10" name="Hold">
     <!--
@@ -966,7 +966,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5170" levels="10" name="Sleep">
     <!--
@@ -979,7 +979,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5171" levels="10" name="Paralyze">
     <!--
@@ -992,7 +992,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5172" levels="10" name="Medusa">
     <!--
@@ -1005,7 +1005,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5173" levels="10" name="Fear">
     <!--
@@ -1018,7 +1018,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5174" levels="10" name="Poison">
     <!--
@@ -1040,7 +1040,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5175" levels="10" name="Bleed">
     <!--
@@ -1062,7 +1062,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5176" levels="10" name="Silence">
     <!--
@@ -1075,7 +1075,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5177" levels="10" name="Doom">
     <!--
@@ -1088,7 +1088,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5178" levels="1" name="NPC Burn">
     <!--
@@ -1101,7 +1101,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5179" levels="1" name="Raid Boss - Level 86">
     <!-- This Skill Is Only For Description In The Client -->
@@ -1110,7 +1110,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5180" levels="1" name="Raid Boss - Level 87">
     <!-- This Skill Is Only For Description In The Client -->
@@ -1119,7 +1119,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5181" levels="1" name="Raid Boss - Level 87">
     <!-- This Skill Is Only For Description In The Client -->
@@ -1128,7 +1128,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5182" levels="1"
     name="Blessing of Protection">
@@ -1142,7 +1142,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5183" levels="1"
     name="Production: Dimensional Stun">
@@ -1168,7 +1168,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5185" levels="1"
     name="Production: Magic-type Guard">
@@ -1180,7 +1180,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5186" levels="2" name="Pet Haste">
     <!--
@@ -1193,7 +1193,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5187" levels="4" name="Pet Vampiric Rage">
     <!--
@@ -1206,7 +1206,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5188" levels="3" name="Pet Regeneration">
     <!--
@@ -1219,7 +1219,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5189" levels="6" name="Pet Blessed Body">
     <!--
@@ -1232,7 +1232,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5190" levels="6" name="Pet Blessed Soul">
     <!--
@@ -1245,7 +1245,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5191" levels="3" name="Pet Guidance">
     <!--
@@ -1258,7 +1258,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5192" levels="2" name="Pet Wind Walk">
     <!--
@@ -1271,7 +1271,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5193" levels="3" name="Pet Acumen">
     <!--
@@ -1284,7 +1284,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5194" levels="3" name="Pet Empower">
     <!--
@@ -1297,7 +1297,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5195" levels="5" name="Pet Greater Heal">
     <!--
@@ -1320,7 +1320,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5196" levels="3" name="Pet Wind Shackle">
     <!--
@@ -1333,7 +1333,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5197" levels="3" name="Pet Hex">
     <!--
@@ -1346,7 +1346,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5198" levels="3" name="Pet Slow">
     <!--
@@ -1359,7 +1359,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="5199" levels="3" name="Pet Curse Gloom">
     <!--
@@ -1372,6 +1372,6 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
 </list>

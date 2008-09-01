@@ -8,25 +8,25 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <!-- This servant of the Fairy Queen was dispatched to protect the hot springs, a resort that Fairy Queen Timiniel loves. With power almost equal to the Queen's, he is a little disgruntled at what he feels is so menial an assignment. To pass the time and ease his boredom, he often "plays" with travelers passing by. Unfortunately for them, his hijinks are more than most humans can endure. -->  
+  <!-- This servant of the Fairy Queen was dispatched to protect the hot springs, a resort that Fairy Queen Timiniel loves. With power almost equal to the Queen's, he is a little disgruntled at what he feels is so menial an assignment. To pass the time and ease his boredom, he often "plays" with travelers passing by. Unfortunately for them, his hijinks are more than most humans can endure. -->
   <skill id="4901" levels="1" name="Raid Boss - Level 78">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <!-- The leader of the Mineral Spring Yetis in the hot springs are he styles himself the Icicle Emperor. Despite his arrogant posturing, he is at heart a coward. He once marched into Fire Dragon Valakas' nest to prove his strength, but became frightened and fled at the mere site of Valakas' sleeping form. He is now terrified of Valakas, and runs away or hides at even the sound of roaring. -->  
+  <!-- The leader of the Mineral Spring Yetis in the hot springs are he styles himself the Icicle Emperor. Despite his arrogant posturing, he is at heart a coward. He once marched into Fire Dragon Valakas' nest to prove his strength, but became frightened and fled at the mere site of Valakas' sleeping form. He is now terrified of Valakas, and runs away or hides at even the sound of roaring. -->
   <skill id="4902" levels="1" name="Raid Boss - Level 74">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4903" levels="1" name="Raid Boss - Level 80">
     <!-- This Skill Is Only For Description In The Client -->
@@ -35,7 +35,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4904" levels="1" name="Raid Boss - Level 84">
     <!-- This Skill Is Only For Description In The Client -->
@@ -44,7 +44,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4905" levels="1" name="Raid Boss - Level 87">
     <!-- This Skill Is Only For Description In The Client -->
@@ -53,7 +53,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4906" levels="1" name="Raid Boss - Level 87">
     <!-- This Skill Is Only For Description In The Client -->
@@ -62,7 +62,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4907" levels="1" name="Raid Boss - Level 80">
     <!-- This Skill Is Only For Description In The Client -->
@@ -71,7 +71,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4908" levels="1" name="Raid Boss - Level 84">
     <!-- This Skill Is Only For Description In The Client -->
@@ -80,7 +80,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4909" levels="1" name="Raid Boss - Level 87">
     <!-- This Skill Is Only For Description In The Client -->
@@ -89,7 +89,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4910" levels="1" name="Raid Boss - Level 87">
     <!-- This Skill Is Only For Description In The Client -->
@@ -98,7 +98,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4911" levels="1" name="Raid Boss - Level 85">
     <!-- This Skill Is Only For Description In The Client -->
@@ -107,7 +107,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4912" levels="1" name="Raid Boss - Level 66">
     <!-- This Skill Is Only For Description In The Client -->
@@ -116,7 +116,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4913" levels="1" name="Raid Boss - Level 70">
     <!-- This Skill Is Only For Description In The Client -->
@@ -125,7 +125,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4914" levels="1" name="Raid Boss - Level 71">
     <!-- This Skill Is Only For Description In The Client -->
@@ -134,7 +134,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4915" levels="1" name="Raid Boss - Level 28">
     <!-- This Skill Is Only For Description In The Client -->
@@ -143,7 +143,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4916" levels="1" name="Raid Boss - Level 38">
     <!-- This Skill Is Only For Description In The Client -->
@@ -152,7 +152,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4917" levels="1" name="Raid Boss - Level 48">
     <!-- This Skill Is Only For Description In The Client -->
@@ -161,7 +161,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4918" levels="1" name="Raid Boss - Level 58">
     <!-- This Skill Is Only For Description In The Client -->
@@ -170,7 +170,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4919" levels="1" name="Raid Boss - Level 68">
     <!-- This Skill Is Only For Description In The Client -->
@@ -179,7 +179,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4920" levels="1" name="Raid Boss - Level 78">
     <!-- This Skill Is Only For Description In The Client -->
@@ -188,7 +188,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4921" levels="1" name="Raid Boss - Level 81">
     <!-- This Skill Is Only For Description In The Client -->
@@ -197,7 +197,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4922" levels="1" name="Raid Boss - Level 81">
     <!-- This Skill Is Only For Description In The Client -->
@@ -206,7 +206,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4923" levels="1" name="Raid Boss - Level 81">
     <!-- This Skill Is Only For Description In The Client -->
@@ -215,7 +215,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4924" levels="1" name="Raid Boss - Level 81">
     <!-- This Skill Is Only For Description In The Client -->
@@ -224,7 +224,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4925" levels="1" name="Raid Boss - Level 30">
     <!-- This Skill Is Only For Description In The Client -->
@@ -233,7 +233,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4926" levels="1" name="Raid Boss - Level 35">
     <!-- This Skill Is Only For Description In The Client -->
@@ -242,7 +242,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4927" levels="1" name="Raid Boss - Level 21">
     <!-- This Skill Is Only For Description In The Client -->
@@ -251,7 +251,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4928" levels="1" name="Raid Boss - Level 26">
     <!-- This Skill Is Only For Description In The Client -->
@@ -260,7 +260,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4929" levels="1" name="Raid Boss - Level 23">
     <!-- This Skill Is Only For Description In The Client -->
@@ -269,7 +269,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4930" levels="1" name="Raid Boss - Level 26">
     <!-- This Skill Is Only For Description In The Client -->
@@ -278,7 +278,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4931" levels="1" name="Raid Boss - Level 23">
     <!-- This Skill Is Only For Description In The Client -->
@@ -287,7 +287,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4932" levels="1" name="Raid Boss - Level 25">
     <!-- This Skill Is Only For Description In The Client -->
@@ -296,7 +296,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4933" levels="1" name="Raid Boss - Level 20">
     <!-- This Skill Is Only For Description In The Client -->
@@ -305,7 +305,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4934" levels="1" name="Raid Boss - Level 21">
     <!-- This Skill Is Only For Description In The Client -->
@@ -314,7 +314,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4935" levels="1" name="Raid Boss - Level 20">
     <!-- This Skill Is Only For Description In The Client -->
@@ -323,7 +323,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4936" levels="1" name="Raid Boss - Level 21">
     <!-- This Skill Is Only For Description In The Client -->
@@ -332,7 +332,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4937" levels="1" name="Raid Boss - Level 34">
     <!-- This Skill Is Only For Description In The Client -->
@@ -341,7 +341,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4938" levels="1" name="Raid Boss - Level 36">
     <!-- This Skill Is Only For Description In The Client -->
@@ -350,7 +350,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4939" levels="1" name="Raid Boss - Level 35">
     <!-- This Skill Is Only For Description In The Client -->
@@ -359,7 +359,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4940" levels="1" name="Raid Boss - Level 33">
     <!-- This Skill Is Only For Description In The Client -->
@@ -368,7 +368,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4941" levels="1" name="Raid Boss - Level 32">
     <!-- This Skill Is Only For Description In The Client -->
@@ -377,7 +377,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4942" levels="1" name="Raid Boss - Level 38">
     <!-- This Skill Is Only For Description In The Client -->
@@ -386,7 +386,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4943" levels="1" name="Raid Boss - Level 45">
     <!-- This Skill Is Only For Description In The Client -->
@@ -395,7 +395,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4944" levels="1" name="Raid Boss - Level 35">
     <!-- This Skill Is Only For Description In The Client -->
@@ -404,7 +404,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4945" levels="1" name="Raid Boss - Level 32">
     <!-- This Skill Is Only For Description In The Client -->
@@ -413,7 +413,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4946" levels="1" name="Raid Boss - Level 33">
     <!-- This Skill Is Only For Description In The Client -->
@@ -422,7 +422,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4947" levels="1" name="Raid Boss - Level 60">
     <!-- This Skill Is Only For Description In The Client -->
@@ -431,7 +431,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4948" levels="1" name="Raid Boss - Level 40">
     <!-- This Skill Is Only For Description In The Client -->
@@ -440,7 +440,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4949" levels="1" name="Raid Boss - Level 47">
     <!-- This Skill Is Only For Description In The Client -->
@@ -449,7 +449,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4950" levels="1" name="Raid Boss - Level 40">
     <!-- This Skill Is Only For Description In The Client -->
@@ -458,7 +458,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4951" levels="1" name="Raid Boss - Level 44">
     <!-- This Skill Is Only For Description In The Client -->
@@ -467,7 +467,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4952" levels="1" name="Raid Boss - Level 48">
     <!-- This Skill Is Only For Description In The Client -->
@@ -476,7 +476,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4953" levels="1" name="Raid Boss - Level 61">
     <!-- This Skill Is Only For Description In The Client -->
@@ -485,7 +485,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4954" levels="1" name="Raid Boss - Level 25">
     <!-- This Skill Is Only For Description In The Client -->
@@ -494,7 +494,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4955" levels="1" name="Raid Boss - Level 55">
     <!-- This Skill Is Only For Description In The Client -->
@@ -503,7 +503,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4956" levels="1" name="Raid Boss - Level 45">
     <!-- This Skill Is Only For Description In The Client -->
@@ -512,7 +512,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4957" levels="1" name="Raid Boss - Level 44">
     <!-- This Skill Is Only For Description In The Client -->
@@ -521,7 +521,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4958" levels="1" name="Raid Boss - Level 45">
     <!-- This Skill Is Only For Description In The Client -->
@@ -530,7 +530,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4959" levels="1" name="Raid Boss - Level 65">
     <!-- This Skill Is Only For Description In The Client -->
@@ -539,7 +539,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4960" levels="1" name="Raid Boss - Level 71">
     <!-- This Skill Is Only For Description In The Client -->
@@ -548,7 +548,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4961" levels="1" name="Raid Boss - Level 79">
     <!-- This Skill Is Only For Description In The Client -->
@@ -557,7 +557,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4962" levels="1" name="Raid Boss - Level 70">
     <!-- This Skill Is Only For Description In The Client -->
@@ -566,7 +566,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4963" levels="1" name="Raid Boss - Level 49">
     <!-- This Skill Is Only For Description In The Client -->
@@ -575,7 +575,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4964" levels="1" name="Raid Boss - Level 51">
     <!-- This Skill Is Only For Description In The Client -->
@@ -584,7 +584,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4965" levels="1" name="Raid Boss - Level 56">
     <!-- This Skill Is Only For Description In The Client -->
@@ -593,7 +593,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4966" levels="1" name="Raid Boss - Level 64">
     <!-- This Skill Is Only For Description In The Client -->
@@ -602,7 +602,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4967" levels="1" name="Raid Boss - Level 66">
     <!-- This Skill Is Only For Description In The Client -->
@@ -611,7 +611,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4968" levels="1" name="Raid Boss - Level 52">
     <!-- This Skill Is Only For Description In The Client -->
@@ -620,7 +620,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4969" levels="1" name="Raid Boss - Level 55">
     <!-- This Skill Is Only For Description In The Client -->
@@ -629,7 +629,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4970" levels="1" name="Raid Boss - Level 65">
     <!-- This Skill Is Only For Description In The Client -->
@@ -638,7 +638,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4971" levels="1" name="Raid Boss - Level 53">
     <!-- This Skill Is Only For Description In The Client -->
@@ -647,7 +647,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4972" levels="1" name="Raid Boss - Level 50">
     <!-- This Skill Is Only For Description In The Client -->
@@ -656,7 +656,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4973" levels="1" name="Raid Boss - Level 40">
     <!-- This Skill Is Only For Description In The Client -->
@@ -665,7 +665,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4974" levels="1" name="Raid Boss - Level 40">
     <!-- This Skill Is Only For Description In The Client -->
@@ -674,7 +674,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4975" levels="1" name="Raid Boss - Level 55">
     <!-- This Skill Is Only For Description In The Client -->
@@ -683,7 +683,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4976" levels="1" name="Raid Boss - Level 52">
     <!-- This Skill Is Only For Description In The Client -->
@@ -692,7 +692,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4977" levels="1" name="Raid Boss - Level 45">
     <!-- This Skill Is Only For Description In The Client -->
@@ -701,7 +701,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4978" levels="1" name="Raid Boss - Level 81">
     <!-- This Skill Is Only For Description In The Client -->
@@ -710,7 +710,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4979" levels="1" name="Raid Boss - Level 82">
     <!-- This Skill Is Only For Description In The Client -->
@@ -719,7 +719,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4980" levels="1" name="Raid Boss - Level 83">
     <!-- This Skill Is Only For Description In The Client -->
@@ -728,7 +728,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4981" levels="1" name="Raid Boss - Level 84">
     <!-- This Skill Is Only For Description In The Client -->
@@ -737,7 +737,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4982" levels="1" name="Raid Boss - Level 85">
     <!-- This Skill Is Only For Description In The Client -->
@@ -746,7 +746,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4983" levels="1" name="Raid Boss - Level 25">
     <!-- This Skill Is Only For Description In The Client -->
@@ -755,7 +755,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4984" levels="1" name="Raid Boss - Level 44">
     <!-- This Skill Is Only For Description In The Client -->
@@ -764,7 +764,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4985" levels="1" name="Raid Boss - Level 70">
     <!-- This Skill Is Only For Description In The Client -->
@@ -773,7 +773,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4986" levels="1" name="Raid Boss - Level 72">
     <!-- This Skill Is Only For Description In The Client -->
@@ -782,16 +782,16 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
-  <!-- The Emperor of Crokians, who calls himself Padish  lives on Alligator Island. He has a cadre of elite bodyguards who obey his commands, however many Crokians following the Water Dragon instead of him. While this makes him angry, he does not dare challenge Fafurion. --> 
+  <!-- The Emperor of Crokians, who calls himself Padish  lives on Alligator Island. He has a cadre of elite bodyguards who obey his commands, however many Crokians following the Water Dragon instead of him. While this makes him angry, he does not dare challenge Fafurion. -->
   <skill id="4987" levels="1" name="Raid Boss - Level 74">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <!-- Einhasad's Messenger who came down to observe the behaviors of the Water Dragon Fafurion. He hates the dragon who killed so many of his allies during the Heaven War, but the gods prohibit him from fighting Fafurion. -->
   <skill id="4988" levels="1" name="Raid Boss - Level 76">
@@ -800,7 +800,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4989" levels="1"
     name="Npc - Hot Spring Nectar">
@@ -810,7 +810,7 @@
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4990" levels="1"
     name="Npc - Hot Spring Mineral">
@@ -820,7 +820,7 @@
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4991" levels="1" name="Hot Spring Sulfur">
     <!-- TODO -->
@@ -830,7 +830,7 @@
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4992" levels="1" name="Stun">
     <!-- TODO -->
@@ -840,7 +840,7 @@
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4993" levels="1" name="Venom - Strike">
     <!-- Done by KID [C5] -->
@@ -851,7 +851,7 @@
     <set name="skillType" val="PDAM" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4994" levels="1" name="Venom - Sonic Storm">
     <!-- Done by KID [C5] -->
@@ -864,7 +864,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="baseCritRate" val="15" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4995" levels="1" name="Venom - Teleport">
     <!-- Benom Skills -->
@@ -874,7 +874,7 @@
     <set name="hitTime" val="2900" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="800" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4996" levels="1"
     name="Venom - Range Teleport">
@@ -885,7 +885,7 @@
     <set name="hitTime" val="2900" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="800" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4997" levels="1" name="Lidia - Regen">
     <!-- Done by KID [C5] -->

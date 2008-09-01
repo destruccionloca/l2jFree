@@ -1,6 +1,7 @@
 <mapregion>
   <restartpoints>
-    <restartpoint id="0" name="talking_island_town" bbs="1" locname="910">
+    <restartpoint id="0" name="talking_island_town" bbs="1"
+      locname="910">
       <point X="-83990" Y="243336" Z="-3700" />
       <point X="-83964" Y="242680" Z="-3700" />
       <point X="-84512" Y="242679" Z="-3700" />
@@ -36,7 +37,8 @@
       <chaospoint X="-83328" Y="238304" Z="-3700" />
       <chaospoint X="-91296" Y="236272" Z="-3690" />
     </restartpoint>
-    <restartpoint id="1" name="gludin_town" bbs="2" locname="911">
+    <restartpoint id="1" name="gludin_town" bbs="2"
+      locname="911">
       <point X="-83520" Y="150560" Z="-3000" />
       <point X="-82464" Y="150848" Z="-3000" />
       <point X="-84064" Y="150864" Z="-3000" />
@@ -72,7 +74,8 @@
       <chaospoint X="-75440" Y="162672" Z="-3350" />
       <chaospoint X="-81760" Y="161248" Z="-3200" />
     </restartpoint>
-    <restartpoint id="2" name="gludio_castle_town" bbs="2" locname="912">
+    <restartpoint id="2" name="gludio_castle_town" bbs="2"
+      locname="912">
       <point X="-14288" Y="122752" Z="-3000" />
       <point X="-14592" Y="123232" Z="-3000" />
       <point X="-14704" Y="122032" Z="-3000" />
@@ -140,7 +143,8 @@
       <chaospoint X="-20176" Y="124512" Z="-3350" />
       <chaospoint X="-19040" Y="121632" Z="-3200" />
     </restartpoint>
-    <restartpoint id="4" name="elf_town" bbs="4" locname="914">
+    <restartpoint id="4" name="elf_town" bbs="4"
+      locname="914">
       <point X="45487" Y="49767" Z="-2950" />
       <point X="45080" Y="49614" Z="-2950" />
       <point X="45284" Y="49309" Z="-2950" />
@@ -175,7 +179,8 @@
       <chaospoint X="49808" Y="56240" Z="-3430" />
       <bannedrace race="Darkelf" restartId="5" />
     </restartpoint>
-    <restartpoint id="5" name="darkelf_town" bbs="3" locname="915">
+    <restartpoint id="5" name="darkelf_town" bbs="3"
+      locname="915">
       <point X="11632" Y="16812" Z="-4500" />
       <point X="11217" Y="16837" Z="-4500" />
       <point X="11498" Y="16979" Z="-4500" />
@@ -210,7 +215,8 @@
       <chaospoint X="-11984" Y="21232" Z="-3600" />
       <bannedrace race="Elf" restartId="4" />
     </restartpoint>
-    <restartpoint id="6" name="dion_castle_town" bbs="5" locname="916">
+    <restartpoint id="6" name="dion_castle_town" bbs="5"
+      locname="916">
       <point X="19025" Y="145245" Z="-3107" />
       <point X="18576" Y="145136" Z="-3104" />
       <point X="18717" Y="145711" Z="-3097" />
@@ -235,7 +241,8 @@
       <chaospoint X="18054" Y="170263" Z="-3400" />
       <chaospoint X="17931" Y="170381" Z="-3400" />
     </restartpoint>
-    <restartpoint id="7" name="floran_town" bbs="5" locname="917">
+    <restartpoint id="7" name="floran_town" bbs="5"
+      locname="917">
       <point X="19025" Y="145245" Z="-3107" />
       <point X="18576" Y="145136" Z="-3104" />
       <point X="18717" Y="145711" Z="-3097" />
@@ -260,7 +267,8 @@
       <chaospoint X="18054" Y="170263" Z="-3451" />
       <chaospoint X="17931" Y="170381" Z="-3451" />
     </restartpoint>
-    <restartpoint id="8" name="giran_castle_town" bbs="6" locname="918">
+    <restartpoint id="8" name="giran_castle_town" bbs="6"
+      locname="918">
       <point X="82480" Y="149087" Z="-3350" />
       <point X="81440" Y="149119" Z="-3350" />
       <point X="81376" Y="148095" Z="-3350" />
@@ -288,7 +296,8 @@
       <chaospoint X="79832" Y="154009" Z="-3500" />
       <chaospoint X="75501" Y="147178" Z="-3530" />
     </restartpoint>
-    <restartpoint id="9" name="giran_habor" bbs="6" locname="919">
+    <restartpoint id="9" name="giran_habor" bbs="6"
+      locname="919">
       <point X="46763" Y="187041" Z="-3451" />
       <point X="46471" Y="186666" Z="-3451" />
       <point X="47290" Y="186842" Z="-3451" />
@@ -314,7 +323,8 @@
       <chaospoint X="49033" Y="184647" Z="-3451" />
       <chaospoint X="49372" Y="185076" Z="-3451" />
     </restartpoint>
-    <restartpoint id="10" name="orc_town" bbs="8" locname="920">
+    <restartpoint id="10" name="orc_town" bbs="8"
+      locname="920">
       <point X="-44316" Y="-113136" Z="-80" />
       <point X="-44296" Y="-114048" Z="-80" />
       <point X="-44704" Y="-112896" Z="-80" />
@@ -344,7 +354,8 @@
       <chaospoint X="-39136" Y="-112688" Z="-1844" />
       <chaospoint X="-37888" Y="-112608" Z="-1772" />
     </restartpoint>
-    <restartpoint id="11" name="dwarf_town" bbs="9" locname="921">
+    <restartpoint id="11" name="dwarf_town" bbs="9"
+      locname="921">
       <point X="116176" Y="-182448" Z="-1400" />
       <point X="116476" Y="-182904" Z="-1500" />
       <point X="115248" Y="-178816" Z="-850" />
@@ -371,7 +382,8 @@
       <chaospoint X="119264" Y="-188736" Z="-3203" />
       <chaospoint X="118656" Y="-187760" Z="-2828" />
     </restartpoint>
-    <restartpoint id="12" name="oren_castle_town" bbs="10" locname="922">
+    <restartpoint id="12" name="oren_castle_town" bbs="10"
+      locname="922">
       <point X="80304" Y="56241" Z="-1500" />
       <point X="80594" Y="55837" Z="-1500" />
       <point X="79933" Y="55752" Z="-1500" />
@@ -407,7 +419,8 @@
       <chaospoint X="70139" Y="55885" Z="-3550" />
       <chaospoint X="80236" Y="45675" Z="-3150" />
     </restartpoint>
-    <restartpoint id="13" name="hunter_town" bbs="11" locname="923">
+    <restartpoint id="13" name="hunter_town" bbs="11"
+      locname="923">
       <point X="116127" Y="76015" Z="-2729" />
       <point X="115683" Y="77610" Z="-2650" />
       <point X="117304" Y="76318" Z="-2670" />
@@ -434,7 +447,8 @@
       <chaospoint X="104257" Y="82194" Z="-2581" />
       <chaospoint X="104474" Y="81109" Z="-2651" />
     </restartpoint>
-    <restartpoint id="14" name="aden_town" bbs="13" locname="924">
+    <restartpoint id="14" name="aden_town" bbs="13"
+      locname="924">
       <point X="146494" Y="30584" Z="-2420" />
       <point X="146038" Y="30519" Z="-2420" />
       <point X="148112" Y="30439" Z="-2420" />
@@ -463,7 +477,8 @@
       <chaospoint X="137708" Y="15640" Z="-3800" />
       <chaospoint X="136629" Y="28127" Z="-3258" />
     </restartpoint>
-    <restartpoint id="15" name="colosseum" bbs="13" locname="925">
+    <restartpoint id="15" name="colosseum" bbs="13"
+      locname="925">
       <point X="147420" Y="46378" Z="-3350" />
       <point X="147696" Y="46416" Z="-3350" />
       <point X="147248" Y="47048" Z="-3350" />
@@ -513,7 +528,8 @@
       <chaospoint X="151536" Y="46482" Z="-3350" />
       <chaospoint X="151296" Y="46480" Z="-3350" />
     </restartpoint>
-    <restartpoint id="16" name="heiness_town" bbs="12" locname="926">
+    <restartpoint id="16" name="heiness_town" bbs="12"
+      locname="926">
       <point X="107568" Y="218256" Z="-3624" />
       <point X="107920" Y="218240" Z="-3624" />
       <point X="107808" Y="217856" Z="-3624" />
@@ -534,7 +550,8 @@
       <chaospoint X="100784" Y="218272" Z="-3420" />
       <chaospoint X="100928" Y="218560" Z="-3420" />
     </restartpoint>
-    <restartpoint id="17" name="Cedric's_Training_Hall" bbs="1" locname="910">
+    <restartpoint id="17" name="Cedric's_Training_Hall"
+      bbs="1" locname="910">
       <point X="-71338" Y="258271" Z="-3104" />
       <point X="-71417" Y="258270" Z="-3104" />
       <point X="-71453" Y="258305" Z="-3104" />
@@ -560,7 +577,8 @@
       <chaospoint X="-83328" Y="238304" Z="-3700" />
       <chaospoint X="-91296" Y="236272" Z="-3690" />
     </restartpoint>
-    <restartpoint id="18" name="Einhovant's_School_of_Magic" bbs="1" locname="910">
+    <restartpoint id="18" name="Einhovant's_School_of_Magic"
+      bbs="1" locname="910">
       <point X="-90875" Y="248162" Z="-3570" />
       <point X="-90954" Y="248118" Z="-3570" />
       <point X="-90918" Y="248070" Z="-3570" />
@@ -586,7 +604,8 @@
       <chaospoint X="-83328" Y="238304" Z="-3700" />
       <chaospoint X="-91296" Y="236272" Z="-3690" />
     </restartpoint>
-    <restartpoint id="19" name="Mothertree_Glade" bbs="4" locname="914">
+    <restartpoint id="19" name="Mothertree_Glade" bbs="4"
+      locname="914">
       <point X="46045" Y="41251" Z="-3440" />
       <point X="46117" Y="41247" Z="-3440" />
       <point X="46182" Y="41198" Z="-3440" />
@@ -615,7 +634,8 @@
       <chaospoint X="49808" Y="56240" Z="-3430" />
       <bannedrace race="Darkelf" restartId="5" />
     </restartpoint>
-    <restartpoint id="20" name="Temple_of_Shilen" bbs="3" locname="915">
+    <restartpoint id="20" name="Temple_of_Shilen" bbs="3"
+      locname="915">
       <point X="28295" Y="11063" Z="-4224" />
       <point X="28302" Y="11008" Z="-4224" />
       <point X="28377" Y="10916" Z="-4224" />
@@ -644,7 +664,8 @@
       <chaospoint X="-11984" Y="21232" Z="-3600" />
       <bannedrace race="Elf" restartId="4" />
     </restartpoint>
-    <restartpoint id="21" name="Temple_of_Paagrio" bbs="8" locname="920">
+    <restartpoint id="21" name="Temple_of_Paagrio" bbs="8"
+      locname="920">
       <point X="-56733" Y="-113459" Z="-690" />
       <point X="-56686" Y="-113470" Z="-690" />
       <point X="-56728" Y="-113610" Z="-690" />
@@ -664,7 +685,8 @@
       <chaospoint X="-39136" Y="-112688" Z="-1844" />
       <chaospoint X="-37888" Y="-112608" Z="-1772" />
     </restartpoint>
-    <restartpoint id="22" name="Quarry" bbs="9" locname="921">
+    <restartpoint id="22" name="Quarry" bbs="9"
+      locname="921">
       <point X="108644" Y="-173947" Z="-400" />
       <point X="108678" Y="-174002" Z="-400" />
       <point X="108505" Y="-173964" Z="-400" />
@@ -683,7 +705,8 @@
       <chaospoint X="119264" Y="-188736" Z="-3203" />
       <chaospoint X="118656" Y="-187760" Z="-2828" />
     </restartpoint>
-    <restartpoint id="23" name="gm_room" bbs="8" locname="1222">
+    <restartpoint id="23" name="gm_room" bbs="8"
+      locname="1222">
       <point X="-114598" Y="-249431" Z="-2984" />
       <point X="-114527" Y="-249452" Z="-2984" />
       <point X="-114567" Y="-249517" Z="-2984" />
@@ -711,7 +734,8 @@
       <chaospoint X="-114475" Y="-249273" Z="-2984" />
       <chaospoint X="-114441" Y="-249293" Z="-2984" />
     </restartpoint>
-    <restartpoint id="24" name="gm_room_solo1" bbs="8" locname="1222">
+    <restartpoint id="24" name="gm_room_solo1" bbs="8"
+      locname="1222">
       <point X="-116059" Y="-251145" Z="-2992" />
       <point X="-116126" Y="-251135" Z="-2992" />
       <point X="-116050" Y="-251210" Z="-2992" />
@@ -721,7 +745,8 @@
       <chaospoint X="-116050" Y="-251210" Z="-2992" />
       <chaospoint X="-116049" Y="-251082" Z="-2992" />
     </restartpoint>
-    <restartpoint id="25" name="gm_room_solo2" bbs="8" locname="1222">
+    <restartpoint id="25" name="gm_room_solo2" bbs="8"
+      locname="1222">
       <point X="-112959" Y="-251147" Z="-2992" />
       <point X="-113157" Y="-251149" Z="-2992" />
       <point X="-113099" Y="-251231" Z="-2992" />
@@ -731,7 +756,8 @@
       <chaospoint X="-113099" Y="-251231" Z="-2992" />
       <chaospoint X="-113097" Y="-251033" Z="-2992" />
     </restartpoint>
-    <restartpoint id="26" name="oracle_of_dawn" bbs="2" locname="911">
+    <restartpoint id="26" name="oracle_of_dawn" bbs="2"
+      locname="911">
       <point X="-78853" Y="111363" Z="-4896" />
       <point X="-78819" Y="111323" Z="-4896" />
       <point X="-78859" Y="111321" Z="-4896" />
@@ -767,7 +793,8 @@
       <chaospoint X="-78783" Y="111429" Z="-4896" />
       <chaospoint X="-78785" Y="111362" Z="-4896" />
     </restartpoint>
-    <restartpoint id="27" name="oracle_of_dusk" bbs="2" locname="911">
+    <restartpoint id="27" name="oracle_of_dusk" bbs="2"
+      locname="911">
       <point X="-80070" Y="86517" Z="-5152" />
       <point X="-80113" Y="86563" Z="-5152" />
       <point X="-80069" Y="86569" Z="-5152" />
@@ -803,7 +830,8 @@
       <chaospoint X="-80148" Y="86462" Z="-5152" />
       <chaospoint X="-80144" Y="86520" Z="-5152" />
     </restartpoint>
-    <restartpoint id="28" name="monster_race" bbs="5" locname="917">
+    <restartpoint id="28" name="monster_race" bbs="5"
+      locname="917">
       <point X="11892" Y="181700" Z="-3560" />
       <point X="14028" Y="181695" Z="-3560" />
       <point X="13111" Y="181695" Z="-3560" />
@@ -837,7 +865,8 @@
       <chaospoint X="11814" Y="181984" Z="-3560" />
       <chaospoint X="11824" Y="182172" Z="-3560" />
     </restartpoint>
-    <restartpoint id="29" name="monster_race_PVP" bbs="5" locname="917">
+    <restartpoint id="29" name="monster_race_PVP" bbs="5"
+      locname="917">
       <point X="11817" Y="182897" Z="-3560" />
       <point X="12438" Y="182887" Z="-3560" />
       <point X="13047" Y="182902" Z="-3560" />
@@ -871,7 +900,8 @@
       <chaospoint X="11820" Y="183806" Z="-3560" />
       <chaospoint X="11811" Y="183209" Z="-3560" />
     </restartpoint>
-    <restartpoint id="30" name="rune_town" bbs="14" locname="1537">
+    <restartpoint id="30" name="rune_town" bbs="14"
+      locname="1537">
       <point X="38096" Y="-46976" Z="899" />
       <point X="38608" Y="-47168" Z="899" />
       <point X="38752" Y="-47792" Z="899" />
@@ -901,7 +931,8 @@
       <chaospoint X="42496" Y="-58192" Z="-3264" />
       <chaospoint X="40784" Y="-59888" Z="-2600" />
     </restartpoint>
-    <restartpoint id="31" name="godard_town" bbs="15" locname="1538">
+    <restartpoint id="31" name="godard_town" bbs="15"
+      locname="1538">
       <point X="148560" Y="-55904" Z="-2779" />
       <point X="150704" Y="-55744" Z="-2979" />
       <point X="150400" Y="-56752" Z="-2979" />
@@ -941,7 +972,8 @@
       <chaospoint X="149680" Y="-59600" Z="-3440" />
       <chaospoint X="149360" Y="-60576" Z="-3520" />
     </restartpoint>
-    <restartpoint id="32" name="rift_bitween_worlds" bbs="17" locname="1643">
+    <restartpoint id="32" name="rift_bitween_worlds"
+      bbs="17" locname="1643">
       <point X="-114444" Y="-178322" Z="-6752" />
       <point X="-114470" Y="-178883" Z="-6752" />
       <point X="-114449" Y="-179708" Z="-6752" />
@@ -966,7 +998,8 @@
       <chaospoint X="-115155" Y="-179354" Z="-6752" />
       <chaospoint X="-115169" Y="-178312" Z="-6752" />
     </restartpoint>
-    <restartpoint id="33" name="the_royal_family's_catacomb" bbs="15" locname="1659">
+    <restartpoint id="33" name="the_royal_family's_catacomb"
+      bbs="15" locname="1659">
       <point X="181544" Y="-80897" Z="-2728" />
       <point X="181415" Y="-80791" Z="-2728" />
       <point X="181383" Y="-80984" Z="-2728" />
@@ -996,7 +1029,8 @@
       <chaospoint X="181722" Y="-80785" Z="-2728" />
       <chaospoint X="181491" Y="-80868" Z="-2728" />
     </restartpoint>
-    <restartpoint id="34" name="schuttgart_town" bbs="16" locname="1714">
+    <restartpoint id="34" name="schuttgart_town" bbs="16"
+      locname="1714">
       <point X="87331" Y="-142842" Z="-1317" />
       <point X="87346" Y="-142374" Z="-1340" />
       <point X="86685" Y="-143016" Z="-1340" />
@@ -1008,7 +1042,8 @@
       <chaospoint X="86602" Y="-137510" Z="-2276" />
       <chaospoint X="88923" Y="-138968" Z="-2275" />
     </restartpoint>
-    <restartpoint id="35" name="primeval_isle" bbs="18" locname="1924">
+    <restartpoint id="35" name="primeval_isle" bbs="18"
+      locname="1924">
       <point X="10825" Y="-24156" Z="-3645" />
       <point X="9404" Y="-23758" Z="-3734" />
       <point X="9839" Y="-23385" Z="-3725" />
@@ -1020,19 +1055,20 @@
       <chaospoint X="40192" Y="-57600" Z="-2343" />
       <chaospoint X="38400" Y="-56832" Z="-992" />
     </restartpoint>
-    <restartpoint id="36" name="isle_of_souls" bbs="19" locname="2189">
+    <restartpoint id="36" name="isle_of_souls" bbs="19"
+      locname="2189">
       <!-- TODO: some more restart points would be nice -->
       <point X="-116702" Y="45943" Z="368" />
       <point X="-118092" Y="46955" Z="360" />
       <chaospoint X="-122827" Y="43303" Z="883" />
     </restartpoint>
-    <restartpoint id="37" name="fantasy_isle" bbs="20" locname="2259">
+    <restartpoint id="37" name="fantasy_isle" bbs="20"
+      locname="2259">
       <!-- TODO -->
       <point X="-58272" Y="-55431" Z="-2012" />
       <chaospoint X="-58752" Y="-56898" Z="-2032" />
     </restartpoint>
   </restartpoints>
-
   <regions>
     <region id="1000">
       <zheight min="-3596" max="-3396" />
@@ -2252,7 +2288,6 @@
       <restart race="Kamael" restartId="35" />
     </region>
   </regions>
-
   <areas>
     <restartarea id="0">
       <map X="15" Y="23" />
@@ -2400,8 +2435,8 @@
       <map X="17" Y="10" />
       <map X="17" Y="11" />
       <map X="18" Y="17" />
-      <map X="18" Y="18" /> <!-- Pagan temple -->
-      <map X="19" Y="16" /> <!-- Pagan temple -->
+      <map X="18" Y="18" /><!-- Pagan temple -->
+      <map X="19" Y="16" /><!-- Pagan temple -->
       <map X="19" Y="17" />
       <map X="20" Y="16" />
       <map X="20" Y="17" />
@@ -2439,7 +2474,7 @@
       <map X="17" Y="18" />
       <map X="17" Y="19" />
     </restartarea>
-    <restartarea id="37"> <!-- Fantasy Isle -->
+    <restartarea id="37"><!-- Fantasy Isle -->
       <map X="17" Y="15" />
       <map X="18" Y="15" />
       <map X="17" Y="16" />

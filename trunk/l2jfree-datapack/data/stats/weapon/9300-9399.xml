@@ -1084,6 +1084,11 @@
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
+      <!-- Enhances damage to target during PvP -->
+  	  <!-- Done by DrunkenDave -->
+      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
+      <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg' />
+      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />      
     </for>
   </item>
   <item id='9389' name="Infinity Sword">
@@ -1095,6 +1100,11 @@
       <set val='350' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
+      <!-- Enhances damage to target during PvP -->
+	  <!-- Done by DrunkenDave -->
+      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
+      <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg' />
+      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />      
     </for>
   </item>
   <item id='9390' name="Infinity Shooter">
@@ -1105,6 +1115,11 @@
       <set val='303' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
+      <!-- Enhances damage to target during PvP -->
+      <!-- Done by DrunkenDave -->
+      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
+      <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg' />
+      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />      
     </for>
   </item>
 </list>

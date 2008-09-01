@@ -544,7 +544,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1012" levels="3" name="Cure Poison">
     <table name="#mpConsume_Init">2 6 11</table>
@@ -563,7 +563,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1013" levels="32" name="Recharge"
     enchantLevels1="30" enchantLevels2="30">
@@ -628,7 +628,7 @@
           class_id_restriction="29, 30, 105, 42, 43, 112" />
       </not>
     </cond>
-    <for></for>
+    <for />
   </skill>
   <skill id="1015" levels="15" name="Battle Heal">
     <table name="#mpConsume_Init">
@@ -657,7 +657,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1016" levels="9" name="Resurrection">
     <table name="#mpConsume_Init">
@@ -684,7 +684,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1018" levels="3" name="Purify">
     <table name="#mpConsume_Init">8 10 11</table>
@@ -705,7 +705,7 @@
     <set name="negateStats" val="POISON BLEED PARALYZE" />
     <set name="negatePower" val="#negatePower" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1020" levels="27" name="Vitalize"
     enchantLevels1="30" enchantLevels2="30">
@@ -769,7 +769,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1027" levels="15" name="Group Heal">
     <table name="#mpConsume_Init">
@@ -799,7 +799,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1028" levels="19" name="Might of Heaven"
     enchantLevels1="30" enchantLevels2="30">
@@ -857,7 +857,7 @@
     <cond msg="Your target is not undead">
       <target undead="true" />
     </cond>
-    <for></for>
+    <for />
   </skill>
   <skill id="1031" levels="8" name="Disrupt Undead">
     <table name="#mpConsume_Init">4 4 5 5 5 6 6 6</table>
@@ -882,7 +882,7 @@
     <cond msg="Your target is not undead">
       <target undead="true" />
     </cond>
-    <for></for>
+    <for />
   </skill>
   <skill id="1032" levels="3" name="Invigor"
     enchantLevels1="30" enchantLevels2="30">
@@ -926,7 +926,7 @@
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
     <for>
-      <effect name="Buff" time="1200" count="1" val="0">
+      <effect count="1" name="Buff" time="1200" val="0">
         <mul order="0x30" stat="bleedVuln" val="#vuln" />
       </effect>
     </for>
@@ -1015,7 +1015,7 @@
     <cond msg="Your target is not undead">
       <target undead="true" />
     </cond>
-    <for></for>
+    <for />
   </skill>
   <skill id="1035" levels="4" name="Mental Shield"
     enchantLevels1="30" enchantLevels2="30">
@@ -1534,7 +1534,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1056" levels="12" name="Cancellation">
     <table name="#mpConsume_Init">
@@ -1562,7 +1562,7 @@
     <set name="negateStats" val="BUFF" />
     <set name="negatePower" val="8.0" />
     <set name="maxNegated" val="5" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1059" levels="3" name="Greater Empower"
     enchantLevels1="30" enchantLevels2="30">
@@ -2093,7 +2093,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1077" levels="3" name="Focus"
     enchantLevels1="30" enchantLevels2="30">
@@ -2445,7 +2445,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="absorbPart" val="0.8" /><!-- absorbs 80% of damage -->
-    <for></for>
+    <for />
   </skill>
   <skill id="1092" levels="19" name="Fear">
     <table name="#mpConsume_Init">

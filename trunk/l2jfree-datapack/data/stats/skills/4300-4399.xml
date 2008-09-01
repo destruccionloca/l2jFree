@@ -7,7 +7,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4301" levels="1" name="Race">
     <!-- Race Bug -->
@@ -15,7 +15,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4302" levels="1" name="Race">
     <!-- Race Fairy -->
@@ -23,7 +23,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4303" levels="1" name="Strong Type">
     <set name="power" val="0.0" />
@@ -180,7 +180,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="700" />
     <set name="effectRange" val="1200" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4315" levels="12" name="Hold">
     <table name="#mpConsume">
@@ -231,7 +231,7 @@
     <set name="castRange" val="750" />
     <set name="effectRange" val="1250" />
     <set name="absorbPart" val="0.4" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4317" levels="5" name="Increase Rage Might">
     <!-- TODO RAGE -->
@@ -567,7 +567,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4335" levels="1" name="Sacred Attack">
     <!-- TODO -->
@@ -575,7 +575,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4336" levels="5"
     name="Dark Attack Weak Point">
@@ -621,7 +621,7 @@
     <set name="npcId" val="3" />
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4339" levels="1" name="Mimir's Elixir">
     <!-- TODO -->
@@ -629,7 +629,7 @@
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4340" levels="1" name="Ultimate Buff, 2nd">
     <set name="magicLvl" val="60" />
@@ -944,7 +944,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <for>
-      <effect name="Buff" time="1200" count="1" val="0"
+      <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="#Tab-absorbDam" stackType="vampRage">
         <add stat="absorbDam" val="#Tab-absorbDam"
           order="0x40" />
@@ -1022,7 +1022,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <for>
-      <effect name="Buff" time="1200" count="1" val="0"
+      <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="#Tab-accCombat" stackType="hit_up">
         <add order="0x40" stat="accCombat"
           val="#Tab-accCombat" />
@@ -1363,7 +1363,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4378" levels="12" name="Self Damage Shield">
     <table name="#mpConsume">
@@ -1412,7 +1412,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4381" levels="1" name="Magic Skill Block">
     <!-- TODO -->
@@ -1420,7 +1420,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4382" levels="12" name="Curse of Lake Ghost">
     <table name="#mpConsume">
@@ -1467,7 +1467,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4385" levels="1" name="Scapegoat's Grace">
     <!-- TODO -->
@@ -1476,7 +1476,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4386" levels="1" name="Scapegoat's Grace">
     <!-- TODO -->
@@ -1485,7 +1485,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4387" levels="1" name="Scapegoat's Grace">
     <!-- TODO -->
@@ -1494,7 +1494,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4388" levels="6" name="Resist Paralysis">
     <table name="#power">0.85 0.7 0.5 0.3 0.1 0.0</table>
@@ -1528,7 +1528,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4391" levels="2" name="Wind Walk">
     <!--

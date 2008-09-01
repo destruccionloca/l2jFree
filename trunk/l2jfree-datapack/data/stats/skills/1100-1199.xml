@@ -276,7 +276,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1126" levels="34" name="Servitor Recharge"
     enchantLevels1="30" enchantLevels2="30">
@@ -334,7 +334,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1127" levels="45" name="Servitor Heal"
     enchantLevels1="30" enchantLevels2="30">
@@ -396,7 +396,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1128" levels="18" name="Summon Shadow"
     enchantLevels1="30">
@@ -460,7 +460,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1129" levels="7" name="Summon Reanimated Man"
     enchantLevels1="30">
@@ -504,7 +504,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="0.15" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1139" levels="2" name="Servitor Magic Shield"
     enchantLevels1="30" enchantLevels2="30">
@@ -849,7 +849,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="absorbPart" val="0.4" /><!-- absorbs 40% of damage -->
-    <for></for>
+    <for />
   </skill>
   <skill id="1148" levels="13" name="Death Spike"
     enchantLevels1="30" enchantLevels2="30">
@@ -905,7 +905,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1151" levels="16" name="Corpse Life Drain"
     enchantLevels1="30" enchantLevels2="30">
@@ -964,7 +964,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1154" levels="6" name="Summon Corrupted Man"
     enchantLevels1="30">
@@ -1002,7 +1002,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="0.9" />
     <set name="isCubic" val="false" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1155" levels="15" name="Corpse Burst"
     enchantLevels1="30" enchantLevels2="30">
@@ -1055,7 +1055,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1156" levels="13" name="Forget">
     <table name="#mpConsume_Init">
@@ -1079,7 +1079,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1157" levels="5" name="Body To Mind">
     <table name="#hpConsume">131 209 280 318 366</table>
@@ -1096,7 +1096,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="#aggro" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1159" levels="22" name="Curse Death Link"
     enchantLevels1="30" enchantLevels2="30">
@@ -1497,7 +1497,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1172" levels="8" name="Aura Burn">
     <table name="#mpConsume_Init">4 4 5 5 5 6 6 6</table>
@@ -1518,7 +1518,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="150" />
     <set name="effectRange" val="650" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1174" levels="22" name="Frost Wall"
     enchantLevels1="30" enchantLevels2="30">
@@ -1575,7 +1575,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1175" levels="8" name="Aqua Swirl">
     <table name="#mpConsume_Init">4 4 5 5 5 6 6 6</table>
@@ -1597,7 +1597,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="750" />
     <set name="effectRange" val="1250" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1176" levels="15" name="Tempest"
     enchantLevels1="30" enchantLevels2="30">
@@ -1651,7 +1651,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1177" levels="5" name="Wind Strike">
     <table name="#mpConsume_Init">2 2 2 3 3</table>
@@ -1671,7 +1671,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1178" levels="8" name="Twister">
     <table name="#mpConsume_Init">4 4 5 5 5 6 6 6</table>
@@ -1693,7 +1693,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="750" />
     <set name="effectRange" val="1250" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1181" levels="3" name="Flame Strike">
     <table name="#mpConsume_Init">6 7 8</table>
@@ -1714,7 +1714,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
   <skill id="1182" levels="3" name="Resist Aqua"
     enchantLevels1="30" enchantLevels2="30">

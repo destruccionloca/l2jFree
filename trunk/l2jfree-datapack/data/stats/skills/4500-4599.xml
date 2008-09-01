@@ -9,7 +9,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4501" levels="1"
     name="Treasure Chest - Level 29">
@@ -19,7 +19,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4502" levels="1"
     name="Treasure Chest - Level 31">
@@ -29,7 +29,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4503" levels="1"
     name="Treasure Chest - Level 32">
@@ -39,7 +39,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4504" levels="1"
     name="Treasure Chest - Level 33">
@@ -49,7 +49,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4505" levels="1"
     name="Treasure Chest - Level 35">
@@ -59,7 +59,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4506" levels="1"
     name="Treasure Chest - Level 39">
@@ -69,7 +69,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4507" levels="1"
     name="Treasure Chest - Level 42">
@@ -79,7 +79,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4508" levels="1"
     name="Treasure Chest - Level 43">
@@ -89,7 +89,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4509" levels="1"
     name="Treasure Chest - Level 45">
@@ -99,7 +99,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4510" levels="1"
     name="Treasure Chest - Level 47">
@@ -109,7 +109,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4511" levels="1"
     name="Treasure Chest - Level 49">
@@ -119,7 +119,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4512" levels="1"
     name="Treasure Chest - Level 52">
@@ -129,7 +129,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4513" levels="1" name="Pumpkin - Level up">
     <!-- TODO -->
@@ -137,7 +137,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4514" levels="1" name="Pumpkin - Poisoning">
     <!-- TODO -->
@@ -145,7 +145,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4515" levels="1" name="Raid Curse">
     <!--
@@ -180,7 +180,7 @@
     <set name="reuseDelay" val="8000" />
     <set name="skillType" val="HEAL" />
     <set name="target" val="TARGET_ONE" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4517" levels="1" name="Quest - BOSS Defend">
     <!-- TODO -->
@@ -188,7 +188,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4518" levels="1" name="Quest - BOSS Rampage">
     <!-- TODO -->
@@ -196,7 +196,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4519" levels="1" name="Quest - BOSS Defend">
     <!-- TODO -->
@@ -204,7 +204,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4520" levels="1" name="Quest - BOSS Rampage">
     <!-- TODO -->
@@ -212,7 +212,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4521" levels="1"
     name="Quest - BOSS Resist non Bow Weapon">
@@ -221,7 +221,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4522" levels="1" name="Eye of Assassin">
     <!-- TODO
@@ -233,7 +233,7 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="400" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4523" levels="1" name="Quest - BOSS Evasion">
     <!-- TODO -->
@@ -243,7 +243,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4524" levels="1" name="Quest - BOSS Bluff">
     <!-- TODO -->
@@ -253,7 +253,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4525" levels="1" name="Quest - BOSS Defend">
     <!-- TODO -->
@@ -261,7 +261,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4526" levels="1" name="Quest - BOSS Summon">
     <!-- TODO -->
@@ -270,7 +270,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4527" levels="1"
     name="Quest - BOSS Inc HP to Summoned">
@@ -281,7 +281,7 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4528" levels="1"
     name="Quest - BOSS Movement to Summoned">
@@ -292,7 +292,7 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="400" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4529" levels="1"
     name="Quest - Summoned Explosion">
@@ -302,7 +302,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4530" levels="1"
     name="Quest - Summoned HP Heal">
@@ -312,7 +312,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4531" levels="1"
     name="Quest - Summoned MP Heal">
@@ -322,7 +322,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4532" levels="1" name="Quest - BOSS Reflect">
     <!-- TODO -->
@@ -330,7 +330,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4533" levels="1" name="Dance of Resistance">
     <!-- Done by DJ MELERIX -->
@@ -515,7 +515,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4543" levels="1"
     name="Quest - BOSS Stun Weakness">
@@ -524,7 +524,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4544" levels="3"
     name="Quest - BOSS Weakness">
@@ -534,7 +534,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4545" levels="1" name="Quest - BOSS Reflect">
     <!-- TODO -->
@@ -542,7 +542,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4546" levels="1"
     name="Quest - Commune to Slate">
@@ -551,7 +551,7 @@
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4547" levels="1" name="Gaze of Watcher">
     <!-- TODO -->
@@ -559,7 +559,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4548" levels="1"
     name="Quest - Dispel Watcher Gaze">
@@ -568,7 +568,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4549" levels="1"
     name="Quest - Unsealed Altar">
@@ -578,7 +578,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4550" levels="1" name="Quest - Cursed Altar">
     <!-- TODO -->
@@ -587,7 +587,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4551" levels="10"
     name="Hot Springs Rheumatism">
@@ -729,7 +729,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4557" levels="1"
     name="Dispel Hot Spring Disease B_D">
@@ -740,7 +740,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4558" levels="1"
     name="Dispel Hot Spring Disease C_D">
@@ -751,7 +751,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4559" levels="1" name="Hot Springs Illusion">
     <set name="power" val="0.0" />
@@ -788,7 +788,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="150" />
     <set name="effectRange" val="650" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4561" levels="12"
     name="NPC Fire Burn - Magic">
@@ -811,7 +811,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="150" />
     <set name="effectRange" val="650" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4562" levels="12" name="NPC Solar Flare">
     <!-- Done by DJ MELERIX -->
@@ -840,7 +840,7 @@
     <set name="reuseDelay" val="30000" />
     <set name="skillType" val="MDAM" />
     <set name="target" val="TARGET_ONE" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4563" levels="12"
     name="NPC Solar Flare - Magic">
@@ -870,7 +870,7 @@
     <set name="power" val="#power" />
     <set name="skillType" val="MDAM" />
     <set name="target" val="TARGET_ONE" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4564" levels="12"
     name="NPC Solar Flare - Slow">
@@ -900,7 +900,7 @@
     <set name="power" val="#power" />
     <set name="skillType" val="MDAM" />
     <set name="target" val="TARGET_ONE" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4565" levels="12" name="NPC Eruption">
     <table name="#mpConsume">
@@ -922,7 +922,7 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4566" levels="12"
     name="NPC Eruption - Magic">
@@ -946,7 +946,7 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4567" levels="12" name="NPC Eruption - Slow">
     <table name="#mpConsume">
@@ -968,7 +968,7 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="1000" />
     <set name="effectRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4568" levels="12" name="NPC AE Solar Flare">
     <!-- Done by DJ MELERIX -->
@@ -998,7 +998,7 @@
     <set name="skillRadius" val="200" />
     <set name="skillType" val="MDAM" />
     <set name="target" val="TARGET_AREA" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4569" levels="12"
     name="NPC AE Solar Flare - Magic">
@@ -1029,7 +1029,7 @@
     <set name="skillRadius" val="200" />
     <set name="skillType" val="MDAM" />
     <set name="target" val="TARGET_AREA" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4570" levels="12"
     name="NPC AE Solar Flare - Slow">
@@ -1060,7 +1060,7 @@
     <set name="skillRadius" val="200" />
     <set name="skillType" val="MDAM" />
     <set name="target" val="TARGET_AREA" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4571" levels="12" name="NPC Blazing Circle">
     <table name="#mpConsume">
@@ -1082,7 +1082,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4572" levels="12"
     name="NPC Triple Sonic Slash">
@@ -1108,7 +1108,7 @@
     <set name="reuseDelay" val="30000" />
     <set name="skillType" val="PDAM" />
     <set name="target" val="TARGET_ONE" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4573" levels="12" name="NPC Sonic Blaster">
     <!-- Done by DJ MELERIX -->
@@ -1132,7 +1132,7 @@
     <set name="reuseDelay" val="15000" />
     <set name="skillType" val="PDAM" />
     <set name="target" val="TARGET_ONE" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4574" levels="12" name="NPC Sonic Storm">
     <!-- Done by DJ MELERIX -->
@@ -1157,7 +1157,7 @@
     <set name="skillType" val="PDAM" />
     <set name="skillRadius" val="150" />
     <set name="target" val="TARGET_AREA" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4575" levels="2"
     name="NPC Clan Buff - Haste">
@@ -1199,20 +1199,20 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
     <set name="aggroPoints" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4577" levels="12" name="Decrease Accuracy">
-  <!-- TODO -->
-	<table name="#mpConsume">
-	  18 29 40 53 68 83 98 104 109 113 115 117 
-	</table>
-	<set name="mpConsume" val="#mpConsume"/>
-	<table name="#power">
+    <!-- TODO -->
+    <table name="#mpConsume">
+      18 29 40 53 68 83 98 104 109 113 115 117
+    </table>
+    <set name="mpConsume" val="#mpConsume" />
+    <table name="#power">
       11 16 23 31 41 51 61 66 70 73 76 78
     </table>
-	<table name="#magicLvl">
+    <table name="#magicLvl">
       10 20 30 40 50 60 70 75 80 85 90 95
-    </table> 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
@@ -1251,12 +1251,13 @@
     </for>
   </skill>
   <skill id="4579" levels="12" name="Bleed">
-  <!-- TODO -->
+    <!-- TODO -->
     <table name="#damage">
       27 39 51 66 81 93 102 102 105 105 108 108
     </table>
-	<table name="#mpConsume"> 25 40 56 76 99 121 142 151 159 165 168 170
-	</table>
+    <table name="#mpConsume">
+      25 40 56 76 99 121 142 151 159 165 168 170
+    </table>
     <table name="#effectLevel">
       2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0
     </table>
@@ -1283,8 +1284,10 @@
     </for>
   </skill>
   <skill id="4580" levels="12" name="Decrease P.Atk">
-  <!-- TODO -->
-  <table name="#mpConsume"> 24 39 54 73 94 116 136 144 152 158 161 163 </table>
+    <!-- TODO -->
+    <table name="#mpConsume">
+      24 39 54 73 94 116 136 144 152 158 161 163
+    </table>
     <table name="#pAtk">
       0.83 0.80 0.80 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77
       0.77
@@ -1313,7 +1316,7 @@
     </for>
   </skill>
   <skill id="4581" levels="12" name="Hold">
-  <!-- TODO -->
+    <!-- TODO -->
     <table name="#power">
       18 26 38 52 68 85 102 110 116 122 126 129
     </table>
@@ -1343,7 +1346,9 @@
     <table name="#dot">
       36 54 72 93 114 132 144 144 150 150 153 153
     </table>
-    <table name="#mpConsume"> 24 39 54 73 94 116 136 144 152 158 161 163 </table>
+    <table name="#mpConsume">
+      24 39 54 73 94 116 136 144 152 158 161 163
+    </table>
     <table name="#effectLevel">
       2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0
     </table>
@@ -1374,7 +1379,9 @@
     <table name="#power">
       46 105 219 417 722 1136 1626 1876 2112 2320 2487 2617
     </table>
-    <table name="#mpConsume"> 36 59 82 111 143 176 206 220 231 239 244 247 </table>
+    <table name="#mpConsume">
+      36 59 82 111 143 176 206 220 231 239 244 247
+    </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1462,7 +1469,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4587" levels="12" name="Decrease P.Atk">
     <!-- TODO
@@ -1477,7 +1484,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="500" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4588" levels="2"
     name="NPC Clan Buff - Berserk Haste">
@@ -1530,7 +1537,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="500" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4590" levels="12" name="Decrease Speed">
     <!-- TODO -->
@@ -1544,7 +1551,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="500" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4591" levels="12" name="Decrease Speed">
     <!-- TODO -->
@@ -1558,14 +1565,15 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4592" levels="12" name="Decrease P. Def">
     <table name="#mpConsume">
       24 39 53 70 90 110 130 138 145 150 153 155
     </table>
-    <table name="#pdef"> 0.85 0.8 0.8 0.75 0.75 0.75 0.75 0.75
-      0.75 0.75 0.75 0.75 
+    <table name="#pdef">
+      0.85 0.8 0.8 0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.75
+      0.75
     </table>
     <set name="magicLvl" val="80" />
     <set name="lvlDepend" val="1" />
@@ -1599,7 +1607,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4594" levels="12" name="Decrease P. Def">
     <!-- TODO -->
@@ -1613,7 +1621,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4595" levels="3"
     name="NPC Clan Buff - Acumen Shield">
@@ -1656,7 +1664,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4597" levels="12" name="Bleed">
     <!-- TODO -->
@@ -1670,7 +1678,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4598" levels="12" name="Bleed">
     <!-- TODO -->
@@ -1684,7 +1692,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="1000" />
-    <for></for>
+    <for />
   </skill>
   <skill id="4599" levels="12" name="Decrease Speed">
     <!-- TODO -->
@@ -1697,6 +1705,6 @@
     <set name="hitTime" val="1800" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
-    <for></for>
+    <for />
   </skill>
 </list>

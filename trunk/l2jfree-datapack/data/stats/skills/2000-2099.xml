@@ -36,7 +36,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2004" levels="1" name="Large Squash Seed">
     <!-- Summer Squash Event Skill (http://www.lineage2.com/archive/2006/11/fall_harvest.html) -->
@@ -45,7 +45,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2005" levels="1" name="Pollen">
     <!-- This skill is used on Potions.java for altuse Mana Potions (use it till true skill not implemented) -->
@@ -73,7 +73,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2007" levels="1"
     name="Scroll: Enchant Armor (Grade A)">
@@ -83,7 +83,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2008" levels="1"
     name="Item - Beast Spirit Shot">
@@ -93,7 +93,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2009" levels="1"
     name="Item - Beast Blessed Spirit Shot">
@@ -103,7 +103,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2010" levels="1" name="Endeavor Potion">
     <!-- Done by DJ MELERIX -->
@@ -164,7 +164,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2014" levels="1"
     name="Scroll Of Resurrection">
@@ -175,7 +175,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="600" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2015" levels="1"
     name="Scroll: Enchant Weapon (Grade B)">
@@ -185,7 +185,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2016" levels="1"
     name="Scroll: Enchant Armor (Grade B)">
@@ -195,7 +195,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2017" levels="1"
     name="Scroll: Enchant Weapon (Grade C)">
@@ -205,7 +205,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2018" levels="1"
     name="Scroll: Enchant Armor (Grade C)">
@@ -215,7 +215,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2019" levels="1"
     name="Scroll: Enchant Weapon (Grade D)">
@@ -225,7 +225,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2020" levels="1"
     name="Scroll: Enchant Armor (Grade D)">
@@ -235,7 +235,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2021" levels="1"
     name="Scroll: Enchant Weapon (Grade S)">
@@ -245,7 +245,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2022" levels="1"
     name="Scroll: Enchant Armor (Grade S)">
@@ -255,7 +255,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2023" levels="1" name="Fairy Firecracker">
     <set name="power" val="0.0" />
@@ -265,7 +265,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2024" levels="1" name="Firecracker">
     <set name="power" val="0.0" />
@@ -275,7 +275,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2025" levels="1" name="Large Firecracker">
     <set name="power" val="0.0" />
@@ -285,7 +285,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2026" levels="1"
     name="Scroll: Enchant Weapon (Grade S)">
@@ -296,7 +296,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2027" levels="1"
     name="Scroll: Enchant Weapon (Grade A)">
@@ -307,7 +307,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2028" levels="1"
     name="Scroll: Enchant Weapon (Grade B)">
@@ -318,7 +318,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2029" levels="1"
     name="Scroll: Enchant Weapon (Grade C)">
@@ -329,7 +329,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2030" levels="1"
     name="Scroll: Enchant Weapon (Grade D)">
@@ -340,7 +340,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2031" levels="1"
     name="Lesser Healing Potion">
@@ -383,7 +383,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2034" levels="1" name="Greater Haste Potion">
     <!-- Done by dc -->
@@ -430,7 +430,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2037" levels="1"
     name="Greater Healing Potion">
@@ -457,7 +457,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="isPotion" val="true" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2039" levels="1" name="Soulshot: No Grade">
     <set name="power" val="0.0" />
@@ -466,7 +466,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2040" levels="1"
     name="Scroll of Escape: Clan Hall">
@@ -477,7 +477,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2041" levels="1"
     name="Scroll of Escape: Castle">
@@ -488,7 +488,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2042" levels="1" name="Antidote">
     <set name="power" val="3.0" />
@@ -497,7 +497,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2043" levels="1" name="Greater Antidote">
     <set name="power" val="7.0" />
@@ -506,7 +506,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2044" levels="1" name="Bandage">
     <set name="power" val="3.0" />
@@ -515,7 +515,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2045" levels="1" name="Emergency Dressing">
     <set name="power" val="7.0" />
@@ -524,7 +524,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2046" levels="1" name="Wolf's Necklace">
     <set name="power" val="0.0" />
@@ -535,7 +535,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2047" levels="1" name="Spiritshot: No Grade">
     <set name="power" val="0.0" />
@@ -544,7 +544,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2048" levels="1" name="Wolves' Food">
     <set name="power" val="0.0" />
@@ -553,7 +553,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2049" levels="1"
     name="Blessed Scroll of Resurrection">
@@ -564,7 +564,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="600" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2050" levels="1" name="Scroll of Guidance">
     <set name="power" val="0.0" />
@@ -735,7 +735,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2061" levels="1"
     name="Blessed Spiritshot: No Grade">
@@ -745,7 +745,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2062" levels="1"
     name="Blessed Scroll of Resurrection">
@@ -756,7 +756,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="600" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2063" levels="1" name="Hatchling Food">
     <set name="power" val="0.0" />
@@ -765,7 +765,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2064" levels="1"
     name="Scroll of Mana Regeneration">
@@ -789,7 +789,7 @@
     <set name="skillType" val="UNLOCK" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2066" levels="1"
     name="Item - Theme Sound Crystal">
@@ -797,7 +797,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2067" levels="1"
     name="Item - Theme Sound Crystal">
@@ -805,7 +805,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2068" levels="1"
     name="Item - Race Sound Crystal">
@@ -813,7 +813,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2069" levels="1"
     name="Item - Race Sound Crystal">
@@ -821,7 +821,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2070" levels="1"
     name="Item - Race Sound Crystal">
@@ -829,7 +829,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2071" levels="1"
     name="Item - Race Sound Crystal">
@@ -837,7 +837,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2072" levels="1"
     name="Item - Race Sound Crystal">
@@ -845,7 +845,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2073" levels="1"
     name="Item - Theme Sound Crystal">
@@ -853,7 +853,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2074" levels="1"
     name="Potion of Critical Escape">
@@ -880,7 +880,7 @@
     <set name="power" val="70" />
     <set name="skillType" val="AGGREMOVE" />
     <set name="target" val="TARGET_ONE" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2076" levels="1" name="Bless of Eva">
     <!-- Done by DJ MELERIX -->
@@ -904,7 +904,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2078" levels="1"
     name="Compressed Package of Soulshots: No Grade">
@@ -912,7 +912,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2079" levels="1"
     name="Compressed Package of Soulshots: D-grade">
@@ -920,7 +920,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2080" levels="1"
     name="Compressed Package of Soulshots: C-grade">
@@ -928,7 +928,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2081" levels="1"
     name="Compressed Package of Soulshots: B-grade">
@@ -936,7 +936,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2082" levels="1"
     name="Compressed Package of Soulshots: A-grade">
@@ -944,7 +944,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2083" levels="1"
     name="Compressed Package of Soulshots: S-grade">
@@ -952,7 +952,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2084" levels="1"
     name="Compressed Package of Spiritshots: No Grade">
@@ -960,7 +960,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2085" levels="1"
     name="Compressed Package of Spiritshots: D-grade">
@@ -968,7 +968,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2086" levels="1"
     name="Compressed Package of Spiritshots: C-grade">
@@ -976,7 +976,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2087" levels="1"
     name="Compressed Package of Spiritshots: B-grade">
@@ -984,7 +984,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2088" levels="1"
     name="Compressed Package of Spiritshots: A-grade">
@@ -992,7 +992,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2089" levels="1"
     name="Compressed Package of Spiritshots: S-grade">
@@ -1000,7 +1000,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2090" levels="1"
     name="Compressed Package of Blessed Spiritshots: No Grade">
@@ -1008,7 +1008,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2091" levels="1"
     name="Compressed Package of Blessed Spiritshots: D-grade">
@@ -1016,7 +1016,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2092" levels="1"
     name="Compressed Package of Blessed Spiritshots: C-grade">
@@ -1024,7 +1024,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2093" levels="1"
     name="Compressed Package of Blessed Spiritshots: B-grade">
@@ -1032,7 +1032,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2094" levels="1"
     name="Compressed Package of Blessed Spiritshots: A-grade">
@@ -1040,7 +1040,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2095" levels="1"
     name="Compressed Package of Blessed Spiritshots: S-grade">
@@ -1048,7 +1048,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2096" levels="1" name="Soul Crystal">
     <set name="power" val="0.0" />
@@ -1060,7 +1060,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="300" />
     <set name="effectRange" val="500" />
-    <for></for>
+    <for />
   </skill>
   <!-- Done by l3x-->
   <skill id="2097" levels="3" name="Sowing">
@@ -1074,7 +1074,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="effectRange" val="400" />
     <set name="castRange" val="40" />
-    <for></for>
+    <for />
   </skill>
   <!-- Done by l3x-->
   <skill id="2098" levels="1" name="Harvesting">
@@ -1087,7 +1087,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="20" />
     <set name="effectRange" val="100" />
-    <for></for>
+    <for />
   </skill>
   <skill id="2099" levels="1" name="Escape: 5 minutes">
     <set name="power" val="0.0" />
@@ -1097,6 +1097,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for></for>
+    <for />
   </skill>
 </list>
