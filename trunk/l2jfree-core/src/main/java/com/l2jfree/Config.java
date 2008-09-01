@@ -417,6 +417,7 @@ public final class Config
 	public static float			RATE_DROP_SPOIL;
 	public static int			RATE_DROP_MANOR;
 	public static float			RATE_DROP_QUEST;
+	public static int			RATE_EXTR_FISH;
 	public static float			RATE_KARMA_EXP_LOST;
 	public static float			RATE_SIEGE_GUARDS_PRICE;
 	public static float			RATE_RUN_SPEED;
@@ -466,6 +467,7 @@ public final class Config
 			RATE_DROP_SPOIL = Float.parseFloat(ratesSettings.getProperty("RateDropSpoil", "1."));
 			RATE_DROP_MANOR = Integer.parseInt(ratesSettings.getProperty("RateDropManor", "1"));
 			RATE_DROP_QUEST = Float.parseFloat(ratesSettings.getProperty("RateDropQuest", "1."));
+			RATE_EXTR_FISH = Integer.parseInt(ratesSettings.getProperty("RateExtractFish", "1"));
 			RATE_RUN_SPEED = Float.parseFloat(ratesSettings.getProperty("RateRunSpeed", "1."));
 			RATE_KARMA_EXP_LOST = Float.parseFloat(ratesSettings.getProperty("RateKarmaExpLost", "1."));
 			RATE_SIEGE_GUARDS_PRICE = Float.parseFloat(ratesSettings.getProperty("RateSiegeGuardsPrice", "1."));
@@ -1252,6 +1254,7 @@ public final class Config
 	// true
 	public static double				ALT_WEIGHT_LIMIT;															// Alternative game weight limit multiplier - default 1
 	public static int					BUFFS_MAX_AMOUNT;															// Alternative number of cumulated buff
+	public static int					DANCES_SONGS_MAX_AMOUNT;													// Alternative number of cumulated dances/songs
 	public static int					ALT_MINIMUM_FALL_HEIGHT;													// Minimum Height(Z) that a character needs to fall, in
 	// order for it to be considered a fall.
 	public static boolean				ALT_DISABLE_RAIDBOSS_PETRIFICATION;										// Disable Raidboss Petrification
@@ -1441,7 +1444,8 @@ public final class Config
 			ALT_WEIGHT_LIMIT = Double.parseDouble(altSettings.getProperty("AltWeightLimit", "1."));
 			ALT_BLACKSMITH_USE_RECIPES = Boolean.parseBoolean(altSettings.getProperty("AltBlacksmithUseRecipes", "true"));
 			ALT_MINIMUM_FALL_HEIGHT = Integer.parseInt(altSettings.getProperty("AltMinimumFallHeight", "400"));
-			BUFFS_MAX_AMOUNT = Integer.parseInt(altSettings.getProperty("AltNbCumulatedBuff", "24"));
+			BUFFS_MAX_AMOUNT = Integer.parseInt(altSettings.getProperty("MaxBuffAmount", "20"));
+			DANCES_SONGS_MAX_AMOUNT = Integer.parseInt(altSettings.getProperty("MaxDanceSongAmount", "12"));
 			ALT_GAME_SKILL_LEARN = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "false"));
 			ALT_GAME_CANCEL_BOW = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("bow")
 					|| altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");

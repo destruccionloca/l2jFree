@@ -623,6 +623,15 @@ public abstract class L2Summon extends L2PlayableInstance
 		return null;
 	}
 
+	/**
+	 * Return True if the L2Summon is invulnerable or if the summoner is in spawn protection.<BR><BR>
+	 */
+	@Override
+	public boolean isInvul()
+	{
+		return _isInvul  || _isTeleporting ||  getOwner().getProtection() > 0;
+	}
+
 	public abstract int getCurrentFed();
 
 	public abstract int getMaxFed();

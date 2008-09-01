@@ -43,7 +43,7 @@ public class ExBasicActionList extends L2GameServerPacket
 
 		1000, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013,
 		1014, 1015, 1016, 1017, 1031, 1032, 1033, 1034, 1035, 1036, 1037, 1038,
-		1039, 1040, 1041, 1042, 1043, 1044, 1045
+		1039, 1040, 1041, 1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050
 	};
 
 	public static final ExBasicActionList DEFAULT_ACTION_LIST = new ExBasicActionList(DEFAULT_ACTIONS);

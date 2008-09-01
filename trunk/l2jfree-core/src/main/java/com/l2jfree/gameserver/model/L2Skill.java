@@ -423,6 +423,7 @@ public class L2Skill
 	private final boolean			_magic;
 	private final boolean			_itemSkill;
 	private final boolean			_physic;
+	private final boolean			_staticReuse;
 	private final int				_mpConsume;
 	private final int				_mpInitialConsume;
 	private final int				_hpConsume;
@@ -589,6 +590,7 @@ public class L2Skill
 		_itemSkill = set.getBool("isItem", false);
 		_physic = set.getBool("isPhysic", false);
 		_ispotion = set.getBool("isPotion", false);
+		_staticReuse = set.getBool("staticReuse", false);
 		_mpConsume = set.getInteger("mpConsume", 0);
 		_mpInitialConsume = set.getInteger("mpInitialConsume", 0);
 		_hpConsume = set.getInteger("hpConsume", 0);
@@ -1208,6 +1210,14 @@ public class L2Skill
 	public final boolean isPhysical()
 	{
 		return _physic;
+	}
+
+	/**
+	* @return Returns true to to set static reuse/hittime.
+	*/
+	public final boolean isStaticReuse()
+	{
+		return _staticReuse;
 	}
 
 	/**

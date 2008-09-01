@@ -2003,7 +2003,7 @@ public abstract class L2Character extends L2Object
 
 		// Calculate the casting time of the skill (base + modifier of MAtkSpd)
 		// Don't modify the skill time for FORCE_BUFF skills. The skill time for those skills represent the buff time.
-		if (!effectWhileCasting)
+		if (!effectWhileCasting && !skill.isStaticReuse())
 		{
 			hitTime = Formulas.getInstance().calcMAtkSpd(this, skill, hitTime);
 			if (coolTime > 0)
@@ -2058,46 +2058,53 @@ public abstract class L2Character extends L2Object
 
 		// Init the reuse time of the skill
 		int reuseDelay;
-
-		// TODO: Duration doubled by chance for effects when Skill Mastery (330/331) is active.
-		if (skill.getSkillType() == SkillType.PDAM && getSkillLevel(330) >= 1)
+		if (skill.isStaticReuse())
 		{
-			int chance = (int) ((100 + getStat().getSTR()) * 1.5) - 200;
-			int finalchance = Rnd.get(100);
-			if (finalchance < chance)
+			reuseDelay = skill.getReuseDelay();
+		}
+		else
+		{
+			// TODO: Duration doubled by chance for effects when Skill Mastery (330/331) is active.
+			if (skill.getSkillType() == SkillType.PDAM && getSkillLevel(330) >= 1)
 			{
-				sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
-				reuseDelay = 0;
+				int chance = (int) ((100 + getStat().getSTR()) * 1.5) - 200;
+				int finalchance = Rnd.get(100);
+				if (finalchance < chance)
+				{
+					sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
+					reuseDelay = 0;
+				}
+				else
+				{
+					reuseDelay = (int) (skill.getReuseDelay() * getStat().getPReuseRate(skill));
+				}
+			}
+			else if (skill.getSkillType() == SkillType.MDAM && getSkillLevel(331) >= 1)
+			{
+				int chance = (int) ((100 + getStat().getINT()) * 1.5) - 200;
+				int finalchance = Rnd.get(100);
+				if (finalchance < chance)
+				{
+					sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
+					reuseDelay = 0;
+				}
+				else
+				{
+					reuseDelay = (int) (skill.getReuseDelay() * getStat().getMReuseRate(skill));
+				}
+			}
+			else if (skill.isMagic())
+			{
+				reuseDelay = (int) (skill.getReuseDelay() * getStat().getMReuseRate(skill));
 			}
 			else
 			{
 				reuseDelay = (int) (skill.getReuseDelay() * getStat().getPReuseRate(skill));
 			}
-		}
-		else if (skill.getSkillType() == SkillType.MDAM && getSkillLevel(331) >= 1)
-		{
-			int chance = (int) ((100 + getStat().getINT()) * 1.5) - 200;
-			int finalchance = Rnd.get(100);
-			if (finalchance < chance)
-			{
-				sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
-				reuseDelay = 0;
-			}
-			else
-			{
-				reuseDelay = (int) (skill.getReuseDelay() * getStat().getMReuseRate(skill));
-			}
-		}
-		else if (skill.isMagic())
-		{
-			reuseDelay = (int) (skill.getReuseDelay() * getStat().getMReuseRate(skill));
-		}
-		else
-		{
-			reuseDelay = (int) (skill.getReuseDelay() * getStat().getPReuseRate(skill));
+			if (reuseDelay != 0)
+				reuseDelay *= 333.0 / (skill.isMagic() ? getMAtkSpd() : getPAtkSpd());
 		}
 
-		reuseDelay *= 333.0 / (skill.isMagic() ? getMAtkSpd() : getPAtkSpd());
 
 		// Skill reuse check
 		if (reuseDelay > 30000)
