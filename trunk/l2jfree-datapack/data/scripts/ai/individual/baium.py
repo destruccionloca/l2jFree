@@ -8,6 +8,7 @@ from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.gameserver.instancemanager.grandbosses import BaiumManager
+from com.l2jfree.tools.random import Rnd
 
 BAIUM = 29020
 ARCHANGEL = 29021
