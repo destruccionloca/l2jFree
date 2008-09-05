@@ -888,6 +888,12 @@ public abstract class L2Summon extends L2PlayableInstance
 		getOwner().sendPacket(sm);
 	}
 
+	@Override
+	public final boolean isOutOfControl()
+	{
+		return isConfused() || isAfraid() || isBetrayed();
+	}
+
 	/**
 	 * Servitors' skills automatically change their level based on the servitor's level.
 	 * Until level 70, the servitor gets 1 lv of skill per 10 levels. After that, it is 1 

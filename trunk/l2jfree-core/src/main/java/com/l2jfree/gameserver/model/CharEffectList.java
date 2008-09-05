@@ -292,7 +292,7 @@ public class CharEffectList
 	 * @param preferSkill If != 0 the given skill Id will be removed instead of the first
 	 * @param danceBuff If true removes song/dance type buff only
 	 */
-	private void removeFirstBuff(int preferSkill, boolean danceBuff)
+	private void removeFirstBuff(int preferSkill)//, boolean danceBuff)
 	{
 		L2Effect[] effects = getAllEffects();
 		L2Effect removeMe = null;
@@ -300,14 +300,14 @@ public class CharEffectList
 		for (L2Effect e : effects)
 		{
 			if ( e != null &&
-					(danceBuff && (e.getSkill().isDance() || e.getSkill().isSong())) ||
-					(!danceBuff && !e.getSkill().isDance() && !e.getSkill().isSong() &&
+					//(danceBuff && (e.getSkill().isDance() || e.getSkill().isSong())) ||
+					//(!danceBuff && !e.getSkill().isDance() && !e.getSkill().isSong() &&
 					 (e.getSkill().getSkillType() == SkillType.BUFF ||
 					 e.getSkill().getSkillType() == SkillType.DEBUFF ||
 					 e.getSkill().getSkillType() == SkillType.REFLECT ||
 					 e.getSkill().getSkillType() == SkillType.HEAL_PERCENT ||
 					 e.getSkill().getSkillType() == SkillType.MANAHEAL_PERCENT) &&
-					!(e.getSkill().getId() > 4360  && e.getSkill().getId() < 4367))) // Seven Signs buff
+					!(e.getSkill().getId() > 4360  && e.getSkill().getId() < 4367)) // Seven Signs buff
 			{
 				if (preferSkill == 0) { removeMe = e; break; }
 				else if (e.getSkill().getId() == preferSkill) { removeMe = e; break; }
@@ -449,8 +449,7 @@ public class CharEffectList
 				tempSkill.getSkillType() == SkillType.REFLECT ||
 				tempSkill.getSkillType() == SkillType.HEAL_PERCENT ||
 				tempSkill.getSkillType() == SkillType.MANAHEAL_PERCENT) &&
-				!tempSkill.isDebuff() && !tempSkill.isDance() && !tempSkill.isSong() &&
-				!(tempSkill.getId() > 4360 && tempSkill.getId() < 4367))
+				!tempSkill.isDebuff() && !(tempSkill.getId() > 4360 && tempSkill.getId() < 4367))
 			)
 			{
 				// if max buffs, no herb effects are used, even if they would replace one old
@@ -459,13 +458,7 @@ public class CharEffectList
 					newEffect.stopEffectTask(); 
 					return; 
 				}
-				removeFirstBuff(tempSkill.getId(), false);
-			}
-
-			// Remove first Song/Dance if number of Song/Dances > getMaxDanceCount()
-			if ((tempSkill.isDance() || tempSkill.isSong()) && (getDanceCount(true) + getDanceCount(false)) >= Config.DANCES_SONGS_MAX_AMOUNT && !doesStack(tempSkill))
-			{
-				removeFirstBuff(tempSkill.getId(), true);
+				removeFirstBuff(tempSkill.getId());
 			}
 
 			// Add the L2Effect to all effect in progress on the L2Character

@@ -17,6 +17,7 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.NpcTable;
@@ -91,6 +92,8 @@ public class L2PetManagerInstance extends L2MerchantInstance
 
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
 		html.setFile(filename);
+		if (Config.ALLOW_RENTPET && Config.LIST_PET_RENT_NPC.contains(getNpcId()))
+			html.replace("_Quest", "_RentPet\">Rent Pet</a><br><a action=\"bypass -h npc_%objectId%_Quest");
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%npcname%", getName());
 		player.sendPacket(html);

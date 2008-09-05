@@ -869,6 +869,9 @@ public class Olympiad
 
 		for (L2OlympiadGame g : _manager.getOlympiadGames().values())
 		{
+			if (g == null || g.getPlayers() == null)
+				continue;
+
 			for (L2PcInstance player : g.getPlayers())
 			{
 				if (player.getObjectId() == noble.getObjectId())
@@ -987,6 +990,9 @@ public class Olympiad
 
 		for (L2OlympiadGame game : _manager.getOlympiadGames().values())
 		{
+			if (game == null)
+				continue;
+
 			if (game._playerOne.getObjectId() == noble.getObjectId() || game._playerTwo.getObjectId() == noble.getObjectId())
 			{
 				noble.sendMessage("Cant Unregister whilst you are already selected for a game");
@@ -1568,6 +1574,9 @@ public class Olympiad
 		{
 			for (L2OlympiadGame game : _manager.getOlympiadGames().values())
 			{
+				if (game == null)
+					continue;
+
 				if (game._playerOne.getObjectId() == player.getObjectId() || game._playerTwo.getObjectId() == player.getObjectId())
 				{
 					result = true;
@@ -2361,8 +2370,10 @@ public class Olympiad
 
 		protected void portPlayersBack()
 		{
-			_playerOne.teleToLocation(x1, y1, z1, true);
-			_playerTwo.teleToLocation(x2, y2, z2, true);
+			if (_playerOne != null)
+				_playerOne.teleToLocation(x1, y1, z1, true);
+			if (_playerTwo != null)
+				_playerTwo.teleToLocation(x2, y2, z2, true);
 		}
 
 		protected void PlayersStatusBack()

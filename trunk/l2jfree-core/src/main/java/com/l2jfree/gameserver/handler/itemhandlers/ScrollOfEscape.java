@@ -89,7 +89,8 @@ public class ScrollOfEscape implements IItemHandler
 			7619,
 			9716,
 			10129,
-			10130							};
+			10130,
+			10650							};
 
 	/*
 	 * (non-Javadoc)

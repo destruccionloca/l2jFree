@@ -144,12 +144,12 @@ public class RequestActionUse extends L2GameClientPacket
 			break;
 		case 15:
 		case 21: // pet follow/stop
-			if (pet != null && !pet.isBetrayed())
+			if (pet != null && !pet.isOutOfControl())
 				((L2SummonAI)pet.getAI()).notifyFollowStatusChange();
 			break;
 		case 16:
 		case 22: // pet attack
-			if (target != null && pet != null && pet != target && !pet.isAttackingDisabled() && !pet.isBetrayed())
+			if (target != null && pet != null && pet != target && !pet.isAttackingDisabled() && !pet.isOutOfControl())
 			{
 				if (pet instanceof L2PetInstance && (pet.getLevel() - activeChar.getLevel() > 20))
 				{
@@ -187,12 +187,12 @@ public class RequestActionUse extends L2GameClientPacket
 			break;
 		case 17:
 		case 23: // pet - cancel action
-			if (pet != null && !pet.isMovementDisabled() && !pet.isBetrayed())
+			if (pet != null && !pet.isMovementDisabled() && !pet.isOutOfControl())
 				pet.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
 
 			break;
 		case 19: // pet unsummon
-			if (pet != null && !pet.isBetrayed())
+			if (pet != null && !pet.isOutOfControl())
 			{
 				//returns pet to control item
 				if (pet.isDead())
@@ -221,7 +221,7 @@ public class RequestActionUse extends L2GameClientPacket
 			break;
 		case 38: // pet mount
 			// mount
-			if (pet != null && pet.isMountable() && pet.isMountableOverTime() && !activeChar.isMounted() && !activeChar.isBetrayed())
+			if (pet != null && pet.isMountable() && pet.isMountableOverTime() && !activeChar.isMounted() && !pet.isOutOfControl())
 			{
 				if (pet.getNpcId() == 16030 && pet.getLevel() < Config.GREAT_WOLF_MOUNT_LEVEL)
 				{
@@ -409,7 +409,7 @@ public class RequestActionUse extends L2GameClientPacket
 		case 52: // unsummon
 			if (pet != null && pet instanceof L2SummonInstance)
 			{
-            	if (pet.isInCombat() || pet.isBetrayed())
+            	if (pet.isInCombat() || pet.isOutOfControl())
             	{
             		activeChar.sendPacket(new SystemMessage(SystemMessageId.PET_REFUSING_ORDER));
             	}
@@ -422,13 +422,13 @@ public class RequestActionUse extends L2GameClientPacket
 			}
 			break;
 		case 53: // move to target
-			if (target != null && pet != null && pet != target && !pet.isMovementDisabled())
+			if (target != null && pet != null && pet != target && !pet.isMovementDisabled() && !pet.isOutOfControl())
 			{
 				pet.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(target.getX(), target.getY(), target.getZ(), 0));
 			}
 			break;
 		case 54: // move to target hatch/strider
-			if (target != null && pet != null && pet != target && !pet.isMovementDisabled())
+			if (target != null && pet != null && pet != target && !pet.isMovementDisabled() && !pet.isOutOfControl())
 			{
 				pet.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(target.getX(), target.getY(), target.getZ(), 0));
 			}
@@ -584,7 +584,7 @@ public class RequestActionUse extends L2GameClientPacket
 			return;
 		}
 
-		if (activeSummon != null && !activeSummon.isBetrayed())
+		if (activeSummon != null && !activeSummon.isOutOfControl())
 		{
 			if (activeSummon instanceof L2PetInstance && (activeSummon.getLevel() - activeChar.getLevel() > 20))
 			{
