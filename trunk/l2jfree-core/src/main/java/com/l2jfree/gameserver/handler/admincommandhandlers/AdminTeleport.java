@@ -71,6 +71,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			"admin_teleport_to_character",
 			"admin_teleportto",
 			"admin_move_to",
+			"admin_delbookmark",
 			"admin_teleport_character",
 			"admin_recall",
 			"admin_recall_gm", //[L2J_JP ADD - TSL]
@@ -91,7 +92,20 @@ public class AdminTeleport implements IAdminCommandHandler
 				return false;
 		if (command.startsWith("admin_bookmark"))// L2J_JP ADD
 		{
-			bookmark(activeChar, command.substring(15));
+			StringTokenizer st = new StringTokenizer(command);
+			st.nextToken();
+			if (st.hasMoreTokens())
+				bookmark(activeChar, st.nextToken());
+			else
+				bookmark(activeChar, null); // Show bookmarks
+		}
+		else if (command.startsWith("admin_delbookmark"))// L2J_JP ADD
+		{
+			StringTokenizer st = new StringTokenizer(command);
+			st.nextToken();
+			if (st.hasMoreTokens())
+				delbookmark(st.nextToken());
+			bookmark(activeChar, null); // Show bookmarks
 		}
 		else if (command.equals("admin_teleto"))
 		{
@@ -289,47 +303,81 @@ public class AdminTeleport implements IAdminCommandHandler
 		return (level >= REQUIRED_LEVEL);
 	}
 
+	private void delbookmark(String Name)
+	{
+		File file = new File(Config.DATAPACK_ROOT+"/"+"data/html/admin/tele/bookmark.txt");
+		LineNumberReader lnr = null;
+		String bookmarks = "";
+
+		try
+		{
+			String line = null;
+			lnr = new LineNumberReader(new FileReader(file));
+			while ( (line = lnr.readLine()) != null)
+			{
+				StringTokenizer st = new StringTokenizer(line, ";");
+				String nm = st.nextToken();
+				if (!nm.equals(Name))
+					bookmarks += line + "\n";
+			}
+
+			FileWriter save = new FileWriter(file);
+			save.write(bookmarks);
+			save.close();
+		}
+		catch (FileNotFoundException e)
+		{
+		}
+		catch (IOException e1)
+		{
+			e1.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				lnr.close();
+			}
+			catch (Exception e2)
+			{
+			}
+		}
+	}
+
 	// L2J_JP ADD
 	private void bookmark(L2PcInstance activeChar, String Name)
 	{
 		File file = new File(Config.DATAPACK_ROOT + "/" + "data/html/admin/tele/bookmark.txt");
 		LineNumberReader lnr = null;
 		String bookmarks = "";
+		String table = "";
 		try
 		{
-			int i = 0;
 			String line = null;
 			lnr = new LineNumberReader(new FileReader(file));
 			while ((line = lnr.readLine()) != null)
 			{
-				StringTokenizer st = new StringTokenizer(line, "\r\n");
-				if (st.hasMoreTokens())
-				{
-					bookmarks += st.nextToken();
-					i++;
-				}
+				bookmarks += line + "\n";
+				StringTokenizer st = new StringTokenizer(line, ";");
+				String nm = st.nextToken();
+				table += ("<a action=\"bypass -h admin_move_to "+st.nextToken()+" "+st.nextToken()+
+							" "+st.nextToken()+"\">"+nm+"</a>&nbsp;");
+				table += ("<a action=\"bypass -h admin_delbookmark "+nm+"\"><font color=\"FF0000\">[X]</font></a><br>");
 			}
-			if (Name.equals("show"))
+			if (Name == null)
 			{
-				FileInputStream fis = null;
-				fis = new FileInputStream(new File(Config.DATAPACK_ROOT + "/" + "data/html/admin/tele/bookmarks.htm"));
-				byte[] raw = new byte[fis.available()];
-				fis.read(raw);
-				String content = new String(raw, "UTF-8");
-				content = content.replaceAll("%bookmarks%", bookmarks);
 				NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-				adminReply.setHtml(content);
+				adminReply.setFile("data/html/admin/tele/bookmarks.htm");
+				adminReply.replace("%bookmarks%", table);
 				activeChar.sendPacket(adminReply);
-				fis.close();
 			}
 			else
 			{
 				FileWriter save = new FileWriter(file);
-				bookmarks += "<tr><td width=\"270\"><a action=\"bypass -h admin_move_to " + activeChar.getX() + " " + activeChar.getY() + " "
-						+ activeChar.getZ() + "\">" + Name + "</a></td></tr>\r\n";
+				bookmarks += Name+";"+activeChar.getX()+";"+activeChar.getY()+";"+activeChar.getZ()+"\n";
 				save.write(bookmarks);
 				save.close();
-				bookmark(activeChar, "show");
+				bookmark(activeChar, null);
 			}
 		}
 		catch (FileNotFoundException e)
@@ -474,7 +522,7 @@ public class AdminTeleport implements IAdminCommandHandler
 		{
 			// move to targets instance
 			activeChar.setInstanceId(target.getInstanceId());
-			activeChar.sendMessage("Switched to instance "+target.getInstanceId());
+			activeChar.sendMessage("Switched to instance "+target.getInstanceId()+".");
 		}
 
 		L2PcInstance player = (L2PcInstance) target;

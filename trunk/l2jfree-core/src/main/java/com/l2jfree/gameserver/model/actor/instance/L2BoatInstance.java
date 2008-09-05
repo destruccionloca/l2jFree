@@ -32,6 +32,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.BoatKnownList;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
@@ -218,6 +219,49 @@ public class L2BoatInstance extends L2Character
 	protected int						_cycle	= 0;
 	protected VehicleDeparture			_vd		= null;
 	private Map<Integer, L2PcInstance>	_inboat;
+	private boolean						_inCycle = true;
+
+	public int getSizeInside()
+	{
+		return _inboat == null ? 0 : _inboat.size();
+	}
+
+	public String getBoatName()
+	{
+		return _name;
+	}
+
+	public int getCycle()
+	{
+		return _cycle;
+	}
+
+	public boolean isInCycle()
+	{
+		return _inCycle;
+	}
+
+	public void stopCycle()
+	{
+		_inCycle = false;
+		stopMove(new L2CharPosition(getX(), getY(), getZ(), getPosition().getHeading()));
+	}
+
+	public void startCycle()
+	{
+		_inCycle = true;
+		_cycle = 1;
+		beginCycle();
+	}
+
+	public void reloadPath()
+	{
+		_t1.loadBoatPath();
+		_t2.loadBoatPath();
+		_cycle = 0;
+		stopCycle();
+		startCycle();
+	}
 
 	public L2BoatInstance(int objectId, L2CharTemplate template, String name)
 	{
@@ -336,6 +380,8 @@ public class L2BoatInstance extends L2Character
 
 		public void run()
 		{
+			if (!_inCycle)
+				return;
 			if (_boat.getId() == 5) // Rune <-> Primeval Isle
 			{
 				switch (_state)
@@ -392,6 +438,8 @@ public class L2BoatInstance extends L2Character
 
 		public void run()
 		{
+			if (!_inCycle)
+				return;
 			_boat._vd = null;
 			_boat.needOnVehicleCheckLocation = false;
 			if (_boat._cycle == 1)
@@ -553,6 +601,8 @@ public class L2BoatInstance extends L2Character
 	 */
 	public void begin()
 	{
+		if (!_inCycle)
+			return;
 		if (_cycle == 1)
 		{
 			Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();

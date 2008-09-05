@@ -23,10 +23,12 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminAdmin;
+import com.l2jfree.gameserver.handler.admincommandhandlers.AdminAI;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminAnnouncements;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminBBS;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminBan;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminBanChat;
+import com.l2jfree.gameserver.handler.admincommandhandlers.AdminBoat;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCTFEngine;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCache;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCamera;
@@ -113,8 +115,10 @@ public class AdminCommandHandler
 	{
 		_datatable = new FastMap<String, IAdminCommandHandler>();
 		registerAdminCommandHandler(new AdminAdmin());
+		registerAdminCommandHandler(new AdminAI());
 		registerAdminCommandHandler(new AdminAnnouncements());
 		registerAdminCommandHandler(new AdminBan());
+		registerAdminCommandHandler(new AdminBoat());
 		registerAdminCommandHandler(new AdminJail());
 		registerAdminCommandHandler(new AdminBanChat());
 		registerAdminCommandHandler(new AdminBBS());
@@ -248,14 +252,26 @@ public class AdminCommandHandler
 
 		//Check command existance
 		if (!_datatable.containsKey(cmd))
+		{
+			player.sendMessage("Command doesn't exist.");
+			_log.warn("Command "+command+" doesn't exist.");
 			return false;
+		}
 
 		//Check command privileges
 		if (Config.ALT_PRIVILEGES_ADMIN)
 		{
 			if (Config.GM_COMMAND_PRIVILEGES.containsKey(cmd))
 			{
-				return (player.getAccessLevel() >= Config.GM_COMMAND_PRIVILEGES.get(cmd));
+				if (player.getAccessLevel() >= Config.GM_COMMAND_PRIVILEGES.get(cmd))
+				{
+					return true;
+				}
+				else
+				{
+					player.sendMessage("Unsufficient privileges.");
+					return false;
+				}
 			}
 			_log.warn("Command \"" + cmd + "\" have no access level definition. Can't be used.");
 			return false;
@@ -263,7 +279,7 @@ public class AdminCommandHandler
 		/*
 		else
 			if (!_datatable.get(cmd).checkLevel(player.getAccessLevel()))
-				return false;	
+				return false;
 		*/
 		if (player.getAccessLevel() > 0)
 			return true;

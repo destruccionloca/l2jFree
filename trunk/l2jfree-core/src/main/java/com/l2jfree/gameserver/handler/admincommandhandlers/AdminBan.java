@@ -104,7 +104,7 @@ public class AdminBan implements IAdminCommandHandler
 			{
 				activeChar.sendMessage("Usage: //unban <account_name>");
 			}
-		}		
+		}
 		return true;
 	}
 

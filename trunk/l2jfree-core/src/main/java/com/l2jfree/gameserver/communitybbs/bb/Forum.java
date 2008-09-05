@@ -188,34 +188,19 @@ public class Forum
 
 	public int getTopicSize()
 	{
-		if (_loaded == false)
-		{
-			load();
-			getChildren();
-			_loaded = true;
-		}
+		vload();
 		return _topic.size();
 	}
 
 	public Topic gettopic(int j)
 	{
-		if (_loaded == false)
-		{
-			load();
-			getChildren();
-			_loaded = true;
-		}
+		vload();
 		return _topic.get(j);
 	}
 
 	public void addtopic(Topic t)
 	{
-		if (_loaded == false)
-		{
-			load();
-			getChildren();
-			_loaded = true;
-		}
+		vload();
 		_topic.put(t.getID(), t);
 	}
 
@@ -229,23 +214,13 @@ public class Forum
 
 	public String getName()
 	{
-		if (_loaded == false)
-		{
-			load();
-			getChildren();
-			_loaded = true;
-		}
+		vload();
 		return _forumName;
 	}
 
 	public int getType()
 	{
-		if (_loaded == false)
-		{
-			load();
-			getChildren();
-			_loaded = true;
-		}
+		vload();
 		return _forumType;
 	}
 
@@ -255,12 +230,7 @@ public class Forum
 	 */
 	public Forum getChildByName(String name)
 	{
-		if (_loaded == false)
-		{
-			load();
-			getChildren();
-			_loaded = true;
-		}
+		vload();
 		for (Forum f : _children)
 		{
 			if (f.getName().equals(name))

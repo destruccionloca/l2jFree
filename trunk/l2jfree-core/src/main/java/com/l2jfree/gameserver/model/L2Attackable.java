@@ -114,6 +114,21 @@ public class L2Attackable extends L2NpcInstance
 			this._attacker = pAttacker;
 		}
 
+		public L2Character getAttacker()
+		{
+			return _attacker;
+		}
+
+		public int getHate()
+		{
+			return _hate;
+		}
+
+		public int getDamage()
+		{
+			return _damage;
+		}
+
 		/**
 		 * Verify is object is equal to this AggroInfo.<BR>
 		 * <BR>
@@ -275,6 +290,11 @@ public class L2Attackable extends L2NpcInstance
 	public final FastMap<L2Character, AggroInfo> getAggroListRP()
 	{
 		return _aggroList;
+	}
+
+	public AggroInfo[] copyAggroList()
+	{
+		return _aggroList.values().toArray(new AggroInfo[_aggroList.size()]);
 	}
 
 	/**

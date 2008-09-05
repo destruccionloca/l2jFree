@@ -235,6 +235,16 @@ abstract class AbstractAI implements Ctrl
 		_intentionArg1 = arg1;
 	}
 
+	public Object getIntentionArg0()
+	{
+		return _intentionArg0;
+	}
+
+	public Object getIntentionArg1()
+	{
+		return _intentionArg1;
+	}
+
 	/**
 	 * Launch the L2CharacterAI onIntention method corresponding to the new Intention.<BR><BR>
 	 *
