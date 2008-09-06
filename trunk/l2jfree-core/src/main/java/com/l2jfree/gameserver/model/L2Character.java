@@ -5041,6 +5041,11 @@ public abstract class L2Character extends L2Object
 		double dx = (x - curX);
 		double dy = (y - curY);
 		double dz = (z - curZ);
+		
+        int toX = x;
+        int toY = y;
+        int toZ = z;
+		
 		//double distance = Math.sqrt(dx * dx + dy * dy);
 		double distSq = dx * dx + dy * dy;
 
@@ -5172,7 +5177,7 @@ public abstract class L2Character extends L2Object
 				// Overrides previous movement check
 				if (this instanceof L2PlayableInstance || this.isInCombat())
 				{
-					m.geoPath = GeoClient.getInstance().checkMovement(curX, curY, curZ, new Location(x, y, z, 0));
+					m.geoPath = GeoClient.getInstance().checkMovement(curX, curY, curZ, new Location(toX, toY, toZ, 0));
 					if (m.geoPath == null || m.geoPath.size() < 2) // No path found
 					{
 						// Even though there's no path found (remember geonodes aren't perfect),
