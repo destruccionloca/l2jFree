@@ -3569,14 +3569,14 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 		
-		if ((_inOlympiadMode && !player._inOlympiadMode) || (!_inOlympiadMode && player._inOlympiadMode) || ((_inOlympiadMode && player._inOlympiadMode) && (_olympiadGameId != player._olympiadGameId)))
+		if (((_inOlympiadMode && !player._inOlympiadMode) || (!_inOlympiadMode && player._inOlympiadMode) || ((_inOlympiadMode && player._inOlympiadMode) && (_olympiadGameId != player._olympiadGameId))) && !this.isGM())
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
-		if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
-				|| (DM._started && !Config.DM_ALLOW_INTERFERENCE) && !this.isGM())
+		if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
+				|| (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !this.isGM())
 		{
 			if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
 			{

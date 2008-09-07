@@ -45,6 +45,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.entity.Couple;
 import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.model.entity.events.CTF;
+import com.l2jfree.gameserver.model.entity.events.DM;
+import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -2546,6 +2549,17 @@ public class L2Skill
 						continue;
 					if (player != null && player.isInDuel() && player.getDuelId() != partyMember.getDuelId())
 						continue;
+					//check if allow interference is allowed if player is not on event but target is on event
+					if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
+							|| (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !player.isGM())
+					{
+						if ((partyMember._inEventTvT && !player._inEventTvT) || (!partyMember._inEventTvT && player._inEventTvT))					
+							continue;
+						if ((partyMember._inEventCTF && !player._inEventCTF) || (!partyMember._inEventCTF && player._inEventCTF))
+							continue;
+						else if ((partyMember._inEventDM && !player._inEventDM) || (!partyMember._inEventDM && player._inEventDM))
+							continue;
+					}
 
 					if (!partyMember.isDead() && Util.checkIfInRange(getSkillRadius(), activeChar, partyMember, true))
 					{
@@ -2674,6 +2688,18 @@ public class L2Skill
 						if (player.isInDuel() && (player.getDuelId() != newTarget.getDuelId() ||
 								(player.getParty() != null && player.getParty() != newTarget.getParty())))
 							continue;
+						
+						//check if allow interference is allowed if player is not on event but target is on event
+						if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
+								|| (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !player.isGM())
+						{
+							if ((newTarget._inEventTvT && !player._inEventTvT) || (!newTarget._inEventTvT && player._inEventTvT))					
+								continue;
+							if ((newTarget._inEventCTF && !player._inEventCTF) || (!newTarget._inEventCTF && player._inEventCTF))
+								continue;
+							else if ((newTarget._inEventDM && !player._inEventDM) || (!newTarget._inEventDM && player._inEventDM))
+								continue;
+						}
 
 						L2Summon pet = newTarget.getPet();
 						if (pet != null && Util.checkIfInRange(radius, activeChar, pet, true)
@@ -2806,6 +2832,18 @@ public class L2Skill
 						if (player.isInDuel()
 								&& (player.getDuelId() != newTarget.getDuelId() || (player.getParty() == null && player.getParty() != newTarget.getParty())))
 							continue;
+						
+						//check if allow interference is allowed if player is not on event but target is on event
+						if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
+								|| (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !player.isGM())
+						{
+							if ((newTarget._inEventTvT && !player._inEventTvT) || (!newTarget._inEventTvT && player._inEventTvT))					
+								continue;
+							if ((newTarget._inEventCTF && !player._inEventCTF) || (!newTarget._inEventCTF && player._inEventCTF))
+								continue;
+							else if ((newTarget._inEventDM && !player._inEventDM) || (!newTarget._inEventDM && player._inEventDM))
+								continue;
+						}
 
 						L2Summon pet = newTarget.getPet();
 						if (pet != null && Util.checkIfInRange(radius, activeChar, pet, true)
