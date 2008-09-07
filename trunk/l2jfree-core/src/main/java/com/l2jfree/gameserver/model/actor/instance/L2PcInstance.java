@@ -9716,7 +9716,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				L2Skill prevSkill = prevSkillList.get(skillInfo.getId());
 				L2Skill newSkill = SkillTable.getInstance().getInfo(skillInfo.getId(), skillInfo.getLevel());
 
-				if (prevSkill != null && (prevSkill.getLevel() > newSkill.getLevel()))
+				if (prevSkill != null && (prevSkill.getLevel() >= newSkill.getLevel()))
 					continue;
 
 				prevSkillList.put(newSkill.getId(), newSkill);
