@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;

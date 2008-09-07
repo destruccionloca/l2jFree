@@ -33,7 +33,6 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.instancemanager.grandbosses.BossLair;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Spawn;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;

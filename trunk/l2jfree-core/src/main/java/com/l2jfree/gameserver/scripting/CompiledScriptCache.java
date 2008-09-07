@@ -32,8 +32,6 @@ import javax.script.ScriptException;
 
 import javolution.util.FastMap;
 
-import com.l2jfree.Config;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

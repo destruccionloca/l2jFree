@@ -41,7 +41,6 @@ import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.geodata.GeoClient;
-import com.l2jfree.gameserver.geodata.PathFind;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.FactionManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;

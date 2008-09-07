@@ -25,16 +25,11 @@ import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class AdminBoat implements IAdminCommandHandler
 {
 	private static final String[] ADMIN_COMMANDS = { "admin_boat" };
 
 	private static final int REQUIRED_LEVEL = Config.GM_ACCESSLEVEL;
-
-	private static final Log _log = LogFactory.getLog(AdminBoat.class.getName());
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{

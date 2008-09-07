@@ -33,16 +33,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class AdminAI implements IAdminCommandHandler
 {
 	private static final String[] ADMIN_COMMANDS = { "admin_show_ai" };
 
 	private static final int REQUIRED_LEVEL = Config.GM_ACCESSLEVEL;
-
-	private static final Log _log = LogFactory.getLog(AdminAI.class.getName());
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
