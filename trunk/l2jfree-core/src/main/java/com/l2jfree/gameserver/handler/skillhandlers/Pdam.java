@@ -157,21 +157,6 @@ public class Pdam implements ISkillHandler
 			if (crit)
 				damage *= 2; // PDAM Critical damage always 2x and not affected by buffs
 
-			if (damage > 5000 && activeChar instanceof L2PcInstance)
-			{
-				String name = "";
-				if (target instanceof L2RaidBossInstance)
-					name = "RaidBoss ";
-				if (target instanceof L2NpcInstance)
-					name += target.getName() + "(" + ((L2NpcInstance) target).getTemplate().getNpcId() + ")";
-				if (target instanceof L2PcInstance)
-					name = target.getName() + "(" + target.getObjectId() + ") ";
-				name += target.getLevel() + " lvl";
-				if (_log.isDebugEnabled())
-					_log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") " + activeChar.getLevel() + " lvl did damage " + damage
-							+ " with skill " + skill.getName() + "(" + skill.getId() + ") to " + name);
-			}
-
 			if (soul && weapon != null)
 				weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
 
@@ -257,6 +242,20 @@ public class Pdam implements ISkillHandler
 				else
 				{
 					target.reduceCurrentHp(damage, activeChar);
+				}
+				if (damage > 5000 && activeChar instanceof L2PcInstance)
+				{
+					String name = "";
+					if (target instanceof L2RaidBossInstance)
+						name = "RaidBoss ";
+					if (target instanceof L2NpcInstance)
+						name += target.getName() + "(" + ((L2NpcInstance) target).getTemplate().getNpcId() + ")";
+					if (target instanceof L2PcInstance)
+						name = target.getName() + "(" + target.getObjectId() + ") ";
+					name += target.getLevel() + " lvl";
+					if (_log.isDebugEnabled())
+						_log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") " + activeChar.getLevel() + " lvl did damage " + damage
+								+ " with skill " + skill.getName() + "(" + skill.getId() + ") to " + name);
 				}
 			}
 			else

@@ -30,6 +30,8 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.PetDataTable;
+import com.l2jfree.gameserver.handler.IItemHandler;
+import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
@@ -58,6 +60,7 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
+import com.l2jfree.gameserver.templates.L2EtcItemType;
 import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.L2Weapon;
@@ -422,107 +425,152 @@ public class L2PetInstance extends L2Summon
         return true;
     }
 
-    @Override
-    protected void doPickupItem(L2Object object)
-    {
-    	
-        getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-        StopMove sm = new StopMove(getObjectId(), getX(), getY(), getZ(), getHeading());
-        
-        if (_log.isDebugEnabled())
-            _log.debug("Pet pickup pos: "+ object.getX() + " "+object.getY()+ " "+object.getZ() );
-        
-        broadcastPacket(sm);
-        
-        if (!(object instanceof L2ItemInstance))
-        {
-            // dont try to pickup anything that is not an item :)
-            _log.warn("trying to pickup wrong target."+object);
-            getOwner().sendPacket(ActionFailed.STATIC_PACKET);
-            return;
-       }
-       
-        L2ItemInstance target = (L2ItemInstance) object;
+	@Override
+	protected void doPickupItem(L2Object object)
+	{
+		boolean follow = getFollowStatus();
+		getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		StopMove sm = new StopMove(getObjectId(), getX(), getY(), getZ(), getHeading());
+		
+		if (_log.isDebugEnabled())
+			_log.debug("Pet pickup pos: "+ object.getX() + " "+object.getY()+ " "+object.getZ() );
 
-       // Herbs
-        if ( target.getItemId() > 8599 && target.getItemId() < 8615 )
-       {
-           SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
-           smsg.addItemName(target);
-           getOwner().sendPacket(smsg);
-           return;
-        }
-        
-       // Cursed weapons
-       if ( CursedWeaponsManager.getInstance().isCursed(target.getItemId()) )
-       {
-           SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
-            smsg.addItemName(target);
-            getOwner().sendPacket(smsg);
-           return;
-       }
+		broadcastPacket(sm);
 
-       long weight=ItemTable.getInstance().getTemplate(target.getItemId()).getWeight() * target.getCount();
-       
-       if (weight > Integer.MAX_VALUE || weight < 0 || !getInventory().validateWeight((int)weight))
-       {
-           sendPacket(new SystemMessage(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS));
-           return;
-       }
+		if (!(object instanceof L2ItemInstance))
+		{
+			// dont try to pickup anything that is not an item :)
+			_log.warn("trying to pickup wrong target."+object);
+			getOwner().sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		L2ItemInstance target = (L2ItemInstance) object;
 
-        synchronized (target)
-        {
-            if (!target.isVisible())
-            {
-                getOwner().sendPacket(ActionFailed.STATIC_PACKET);
-                return;
-            }
-            
-            if (target.getOwnerId() != 0 && target.getOwnerId() != getOwner().getObjectId() && !getOwner().isInLooterParty(target.getOwnerId()))
-            {
-                getOwner().sendPacket(ActionFailed.STATIC_PACKET);
-                
-                if (target.getItemId() == 57)
-                {
-                    SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1_ADENA);
-                    smsg.addNumber(target.getCount());
-                    getOwner().sendPacket(smsg);
-                }
-                else if (target.getCount() > 1)
-                {
-                    SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S2_S1_S);
-                    smsg.addItemName(target);
-                    smsg.addNumber(target.getCount());
-                    getOwner().sendPacket(smsg);
-                }
-                else
-                {
-                    SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
-                    smsg.addItemName(target);
-                    getOwner().sendPacket(smsg);
-                }
-                
-                return;
-            }
-            if(target.getItemLootShedule() != null
-                   && (target.getOwnerId() == getOwner().getObjectId() || getOwner().isInLooterParty(target.getOwnerId())))
-               target.resetOwnerTimer();
+		// Cursed weapons
+		if (CursedWeaponsManager.getInstance().isCursed(target.getItemId()))
+		{
+			SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
+			smsg.addItemName(target);
+			getOwner().sendPacket(smsg);
+			return;
+		}
 
-            target.pickupMe(this);
-            
-            if(Config.SAVE_DROPPED_ITEM) // item must be removed from ItemsOnGroundManager if is active
-                ItemsOnGroundManager.getInstance().removeObject(target);
-        }
+		long weight = ItemTable.getInstance().getTemplate(target.getItemId()).getWeight() * target.getCount();
 
-        getInventory().addItem("Pickup", target, getOwner(), this);
-        PetItemList iu = new PetItemList(this);
-        getOwner().sendPacket(iu);
-        
-        getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-        
-        if (getFollowStatus())
-            followOwner();
-    }
+		if (weight > Integer.MAX_VALUE || weight < 0 || !getInventory().validateWeight((int)weight))
+		{
+			sendPacket(new SystemMessage(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS));
+			return;
+		}
+
+		synchronized (target)
+		{
+			if (!target.isVisible())
+			{
+				getOwner().sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+			
+			if (target.getOwnerId() != 0 && target.getOwnerId() != getOwner().getObjectId() && !getOwner().isInLooterParty(target.getOwnerId()))
+			{
+				getOwner().sendPacket(ActionFailed.STATIC_PACKET);
+				
+				if (target.getItemId() == 57)
+				{
+					SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1_ADENA);
+					smsg.addNumber(target.getCount());
+					getOwner().sendPacket(smsg);
+				}
+				else if (target.getCount() > 1)
+				{
+					SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S2_S1_S);
+					smsg.addItemName(target);
+					smsg.addNumber(target.getCount());
+					getOwner().sendPacket(smsg);
+				}
+				else
+				{
+					SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
+					smsg.addItemName(target);
+					getOwner().sendPacket(smsg);
+				}
+				
+				return;
+			}
+			if(target.getItemLootShedule() != null
+					&& (target.getOwnerId() == getOwner().getObjectId() || getOwner().isInLooterParty(target.getOwnerId())))
+				target.resetOwnerTimer();
+
+			target.pickupMe(this);
+
+			if(Config.SAVE_DROPPED_ITEM) // item must be removed from ItemsOnGroundManager if is active
+				ItemsOnGroundManager.getInstance().removeObject(target);
+		}
+
+		// Herbs
+		if (target.getItemType() == L2EtcItemType.HERB)
+		{
+			IItemHandler handler = ItemHandler.getInstance().getItemHandler(target.getItemId());
+			if (handler == null)
+				_log.warn("No item handler registered for item ID " + target.getItemId() + ".");
+			else
+				handler.useItem(this, target);
+
+			ItemTable.getInstance().destroyItem("Consume", target, getOwner(), null);
+
+			broadcastStatusUpdate();
+
+			PetInfo pi = new PetInfo(this);
+			getOwner().sendPacket(pi);
+
+			// Commented out and moved below synchronized block by DrHouse. 
+			// It seems that pets get full effect of herbs when picking them up by themselves
+			/*
+			SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
+			smsg.addItemName(target.getItemId());
+			getOwner().sendPacket(smsg);
+			return; 
+			*/
+		}
+		else
+		{
+			getInventory().addItem("Pickup", target, getOwner(), this);
+			//FIXME Just send the updates if possible (old way wasn't working though)
+			PetItemList iu = new PetItemList(this);
+			getOwner().sendPacket(iu);
+			if (target.getItemId() == 57)
+			{
+				SystemMessage sm2 = new SystemMessage(SystemMessageId.PET_PICKED_S1_ADENA);
+				sm2.addNumber(target.getCount());
+				getOwner().sendPacket(sm2);
+			}
+			else if (target.getEnchantLevel() > 0)
+			{
+				SystemMessage sm2 = new SystemMessage(SystemMessageId.PET_PICKED_S1_S2);
+				sm2.addNumber(target.getEnchantLevel());
+				sm2.addString(target.getName());
+				getOwner().sendPacket(sm2);
+			}
+			else if (target.getCount() > 1)
+			{
+				SystemMessage sm2 = new SystemMessage(SystemMessageId.PET_PICKED_S2_S1_S);
+				sm2.addNumber(target.getCount());
+				sm2.addString(target.getName());
+				getOwner().sendPacket(sm2);
+			}
+			else
+			{
+				SystemMessage sm2 = new SystemMessage(SystemMessageId.PET_PICKED_S1);
+				sm2.addString(target.getName());
+				getOwner().sendPacket(sm2);
+			}
+		}
+
+		getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		
+		if (follow)
+			followOwner();
+	}
 
     @Override
     public void deleteMe(L2PcInstance owner)

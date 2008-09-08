@@ -4676,7 +4676,7 @@ public abstract class L2Character extends L2Object
 	 * Return True if the L2Character is casting.<BR>
 	 * <BR>
 	 */
-	public final boolean isCastingNow()
+	public synchronized final boolean isCastingNow()
 	{
 		return _castEndTime > GameTimeController.getGameTicks();
 	}
@@ -6867,10 +6867,19 @@ public abstract class L2Character extends L2Object
 
 					// Check Raidboss attack and
 					// check buffing chars who attack raidboss. Results in mute.
-					L2Object target2 = target.getTarget();
-					if (!Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION
-							&& ((target.isRaid() && getLevel() > target.getLevel() + 8) || (target2 instanceof L2Character
-									&& (((L2Character) target2).isRaid()) && getLevel() > ((L2Character) target2).getLevel() + 8)))
+					L2Character targetsAttackTarget = target.getAI().getAttackTarget();
+					L2Character targetsCastTarget = target.getAI().getCastTarget();
+					if (
+							(target.isRaid() && getLevel() > target.getLevel() + 8)
+							||
+							(!skill.isOffensive() && targetsAttackTarget != null && targetsAttackTarget.isRaid() 
+									&& targetsAttackTarget.getAttackByList().contains(target) // has attacked raid
+									&& getLevel() > targetsAttackTarget.getLevel() + 8)
+							||
+							(!skill.isOffensive() && targetsCastTarget != null && targetsCastTarget.isRaid() 
+									&& targetsCastTarget.getAttackByList().contains(target) // has attacked raid
+									&& getLevel() > targetsCastTarget.getLevel() + 8)
+					)
 					{
 						if (skill.isMagic())
 						{
@@ -7294,13 +7303,7 @@ public abstract class L2Character extends L2Object
 
 	public int getMAtkSpd()
 	{
-		int _matkspd = getStat().getMAtkSpd();
-		if (Config.MAX_MATK_SPEED > 0)
-		{
-			if (_matkspd > Config.MAX_MATK_SPEED)
-				return Config.MAX_MATK_SPEED;
-		}
-		return _matkspd;
+		return getStat().getMAtkSpd();
 	}
 
 	public final int getMaxMp()
@@ -7330,13 +7333,7 @@ public abstract class L2Character extends L2Object
 
 	public int getPAtkSpd()
 	{
-		int _patkspd = getStat().getPAtkSpd();
-		if (Config.MAX_PATK_SPEED > 0)
-		{
-			if (_patkspd > Config.MAX_PATK_SPEED)
-				return Config.MAX_PATK_SPEED;
-		}
-		return _patkspd;
+		return getStat().getPAtkSpd();
 	}
 
 	public int getPDef(L2Character target)

@@ -110,12 +110,13 @@ public class L2Party
 	 * returns all party members
 	 * @return
 	 */
-	public FastList<L2PcInstance> getPartyMembers()
+	public synchronized FastList<L2PcInstance> getPartyMembers()
 	{
-        if (_members == null) _members = new FastList<L2PcInstance>();
-	    return _members;
+		if (_members == null)
+			_members = new FastList<L2PcInstance>();
+		return _members;
 	}
-	
+
 	/**
 	 * get random member from party
 	 * @return
@@ -489,15 +490,19 @@ public class L2Party
 	 * @param receives boolean is the player a party leader
 	 * @return List<L2PcInstance> of the party members that need to be shown
 	 */
-	public List<L2PcInstance> getPartyMembers(L2PcInstance player, boolean leader)
+	public FastList<L2PcInstance> getPartyMembers(L2PcInstance player, boolean leader)
 	{
 		try
 		{
-			if (_members == null) return getPartyMembers();
-			List<L2PcInstance> list = new FastList<L2PcInstance>();
+			if (_members == null)
+				return getPartyMembers();
+
+			FastList<L2PcInstance> list = new FastList<L2PcInstance>();
 			for (L2PcInstance p : _members)
-				if (p!=player) 
+			{
+				if (p != player) 
 					list.add(p);
+			}
 			if(!leader) 
 				list.add(player);
 			return list;
@@ -939,5 +944,8 @@ public class L2Party
 
 	public DimensionalRift getDimensionalRift() { return _dr; }
 
-	public L2PcInstance getLeader() { return getPartyMembers().get(0); }
+	public synchronized L2PcInstance getLeader()
+	{
+		return _members == null ? null : _members.getFirst();
+	}
 }

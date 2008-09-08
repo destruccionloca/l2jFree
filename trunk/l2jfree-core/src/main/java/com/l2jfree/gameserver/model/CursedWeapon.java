@@ -533,35 +533,45 @@ public class CursedWeapon
     }
 
 
-    public void increaseKills()
-    {
-        _nbKills++;
+	public void increaseKills()
+	{
+		_nbKills++;
 
-        _player.setPkKills(_nbKills);
-        _player.broadcastUserInfo();
+		if (_player != null && _player.isOnline() > 0)
+		{
+			_player.setPkKills(_nbKills);
+			_player.broadcastUserInfo();
 
-        if (_nbKills % _stageKills == 0 && _nbKills <= _stageKills*(_skillMaxLevel-1))
-        	giveSkill();
+			if (_nbKills % _stageKills == 0 && _nbKills <= _stageKills*(_skillMaxLevel-1))
+			{
+				giveSkill();
+			}
+		}
 
-        // Reduce time-to-live
-        _endTime -= _durationLost * 60000;
-        saveData();
-    }
+		// Reduce time-to-live
+		_endTime -= _durationLost * 60000;
+		saveData();
+	}
 
-    public void increaseKills(int kills)
-    {
-    	_nbKills += kills;
+	public void increaseKills(int kills)
+	{
+		_nbKills += kills;
 
-    	_player.setPkKills(_nbKills);
-    	_player.broadcastUserInfo();
+		if (_player != null && _player.isOnline() > 0)
+		{
+			_player.setPkKills(_nbKills);
+			_player.broadcastUserInfo();
 
-    	if (_nbKills % _stageKills == 0 && _nbKills <= _stageKills*(_skillMaxLevel-1))
-    		giveSkill();
+			if (_nbKills % _stageKills == 0 && _nbKills <= _stageKills*(_skillMaxLevel-1))
+			{
+				giveSkill();
+			}
+		}
 
-    	// Reduce time-to-live
-    	_endTime -= _durationLost * 60000;
-    	saveData();
-    }
+		// Reduce time-to-live
+		_endTime -= _durationLost * 60000;
+		saveData();
+	}
 
     public void setDisapearChance(int disapearChance)
     {

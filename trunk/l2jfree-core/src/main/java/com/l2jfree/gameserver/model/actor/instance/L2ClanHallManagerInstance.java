@@ -1261,6 +1261,13 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
             }
             else if (actualCommand.equalsIgnoreCase("support"))
             {
+                if (player.isCursedWeaponEquipped())
+                {
+                    // Custom system message
+                    player.sendMessage("The wielder of a cursed weapon cannot receive outside heals or buffs.");
+                    return;
+                }
+
                 setTarget(player);
                 L2Skill skill;
                 if (val == "") return;

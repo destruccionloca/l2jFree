@@ -201,7 +201,10 @@ public class CharStat
 		if (_activeChar == null)
 			return 1;
 
-		return (int) (calcStat(Stats.EVASION_RATE, 0, target, null) / _activeChar.getArmourExpertisePenalty());
+		int val = (int) (calcStat(Stats.EVASION_RATE, 0, target, null) / _activeChar.getArmourExpertisePenalty());
+		if (val > Config.MAX_EVASION && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
+			return Config.MAX_EVASION;
+		return val;
 	}
 
 	public long getExp()
@@ -371,9 +374,11 @@ public class CharStat
 		if (_activeChar.isChampion())
 			bonusSpdAtk = Config.CHAMPION_SPD_ATK;
 
-		double val = calcStat(Stats.MAGIC_ATTACK_SPEED, _activeChar.getTemplate().getBaseMAtkSpd() * bonusSpdAtk, null, null);
+		int val = (int) calcStat(Stats.MAGIC_ATTACK_SPEED, _activeChar.getTemplate().getBaseMAtkSpd() * bonusSpdAtk, null, null);
 		val /= _activeChar.getArmourExpertisePenalty();
-		return (int) val;
+		if (val > Config.MAX_MATK_SPEED && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
+			return Config.MAX_MATK_SPEED;
+		return val;
 	}
 
 	/** Return the Magic Critical Hit rate (base+modifier) of the L2Character. */
@@ -546,8 +551,11 @@ public class CharStat
 		if (_activeChar.isChampion())
 			bonusSpdAtk = Config.CHAMPION_SPD_ATK;
 
-		return (int) (calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().getBasePAtkSpd() * bonusSpdAtk, null, null) / _activeChar
-				.getArmourExpertisePenalty());
+		int val = (int) (calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().getBasePAtkSpd() * bonusSpdAtk, null, null)
+				/ _activeChar.getArmourExpertisePenalty());
+		if (val > Config.MAX_PATK_SPEED && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
+			return Config.MAX_PATK_SPEED;
+		return val;
 	}
 
 	/** Return the PAtk Modifier against undead. */

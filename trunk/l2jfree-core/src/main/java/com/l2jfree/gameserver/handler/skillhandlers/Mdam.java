@@ -158,21 +158,6 @@ public class Mdam implements ISkillHandler
 			if (damage < 1)
 				damage = 1;
 
-			if (damage > 5000 && activeChar instanceof L2PcInstance)
-			{
-				String name = "";
-				if (target instanceof L2RaidBossInstance)
-					name = "RaidBoss ";
-				if (target instanceof L2NpcInstance)
-					name += target.getName() + "(" + ((L2NpcInstance) target).getTemplate().getNpcId() + ")";
-				if (target instanceof L2PcInstance)
-					name = target.getName() + "(" + target.getObjectId() + ") ";
-				name += target.getLevel() + " lvl";
-				if (_log.isDebugEnabled())
-					_log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") " + activeChar.getLevel() + " lvl did damage " + damage
-							+ " with skill " + skill.getName() + "(" + skill.getId() + ") to " + name);
-			}
-
 			if (damage > 0)
 			{
 				// Manage attack or cast break of the target (calculating rate, sending message...)
@@ -225,6 +210,20 @@ public class Mdam implements ISkillHandler
 					}
 				}
 				target.reduceCurrentHp(damage, activeChar);
+				if (damage > 5000 && activeChar instanceof L2PcInstance)
+				{
+					String name = "";
+					if (target instanceof L2RaidBossInstance)
+						name = "RaidBoss ";
+					if (target instanceof L2NpcInstance)
+						name += target.getName() + "(" + ((L2NpcInstance) target).getTemplate().getNpcId() + ")";
+					if (target instanceof L2PcInstance)
+						name = target.getName() + "(" + target.getObjectId() + ") ";
+					name += target.getLevel() + " lvl";
+					if (_log.isDebugEnabled())
+						_log.info(activeChar.getName() + "(" + activeChar.getObjectId() + ") " + activeChar.getLevel() + " lvl did damage " + damage
+								+ " with skill " + skill.getName() + "(" + skill.getId() + ") to " + name);
+				}
 			}
 			// Possibility of a lethal strike
 			Formulas.getInstance().calcLethalHit(activeChar, target, skill);

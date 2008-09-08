@@ -24,12 +24,15 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.templates.L2WeaponType;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  *
@@ -151,6 +154,22 @@ public class Blow implements ISkillHandler
 					L2PcInstance player = (L2PcInstance) target;
 					if (!player.isInvul() && !player.isPetrified())
 					{
+						// Check and calculate transfered damage
+						L2Summon summon = player.getPet();
+						if (summon != null && summon instanceof L2SummonInstance && Util.checkIfInRange(900, player, summon, true))
+						{
+							int tDmg = (int)damage * (int)player.getStat().calcStat(Stats.TRANSFER_DAMAGE_PERCENT, 0, null, null) /100;
+
+							// Only transfer dmg up to current HP, it should not be killed
+							if (summon.getStatus().getCurrentHp() < tDmg)
+								tDmg = (int)summon.getStatus().getCurrentHp() - 1;
+							if (tDmg > 0)
+							{
+								summon.reduceCurrentHp(tDmg, activeChar );
+								damage -= tDmg;
+							}
+						}
+
 						if (damage >= player.getStatus().getCurrentHp())
 						{
 							if (player.isInDuel())
@@ -189,6 +208,13 @@ public class Blow implements ISkillHandler
 				}
 				else
 					target.reduceCurrentHp(damage, activeChar);
+
+				// Manage attack or cast break of the target (calculating rate, sending message...)
+				if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
+				{
+					target.breakAttack();
+					target.breakCast();
+				}
 
 				if (activeChar instanceof L2PcInstance)
 				{

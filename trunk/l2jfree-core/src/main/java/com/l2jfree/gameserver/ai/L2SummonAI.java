@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.ai;
 
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
@@ -140,7 +141,8 @@ public class L2SummonAI extends L2CharacterAI
 	@Override
 	protected void onEvtFinishCasting()
 	{
-		((L2Summon)_actor).setFollowStatus(_startFollow);
+		if (getIntention() != AI_INTENTION_ATTACK)
+			((L2Summon)_actor).setFollowStatus(_startFollow);
 	}
 
 	public void notifyFollowStatusChange()

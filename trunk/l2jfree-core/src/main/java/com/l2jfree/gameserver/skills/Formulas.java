@@ -1270,10 +1270,22 @@ public final class Formulas
 		{
 			damage *= ((L2NpcInstance) target).getTemplate().getVulnerability(Stats.DAGGER_WPN_VULN);
 		}
+
 		// get the vulnerability for the instance due to skills (buffs, passives, toggles, etc)
 		damage = target.calcStat(Stats.DAGGER_WPN_VULN, damage, target, null);
 		damage *= 70. / defence;
 		damage += Rnd.nextDouble() * attacker.getRandomDamage(target);
+
+		// Dmg bonusses in PvP fight
+		if((attacker instanceof L2PlayableInstance)
+				&& (target instanceof L2PlayableInstance))
+		{
+			if(skill == null)
+				damage *= attacker.calcStat(Stats.PVP_PHYSICAL_DMG, 1, null, null);
+			else
+				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
+		}
+
 		if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
 			damage *= skill.getPvpMulti();
 		return damage < 1 ? 1. : damage;
@@ -1536,7 +1548,7 @@ public final class Formulas
 		}
 
 		// Dmg bonusses in PvP fight
-		if ((attacker instanceof L2PcInstance || attacker instanceof L2Summon) && (target instanceof L2PcInstance || target instanceof L2Summon))
+		if ((attacker instanceof L2PlayableInstance) && (target instanceof L2PlayableInstance))
 		{
 			if (skill == null)
 				damage *= attacker.calcStat(Stats.PVP_PHYSICAL_DMG, 1, null, null);
@@ -1682,7 +1694,7 @@ public final class Formulas
 		damage += Rnd.nextDouble() * attacker.getRandomDamage(target);
 
 		// Pvp bonusses for dmg
-		if ((attacker instanceof L2PcInstance || attacker instanceof L2Summon) && (target instanceof L2PcInstance || target instanceof L2Summon))
+		if ((attacker instanceof L2PlayableInstance) && (target instanceof L2PlayableInstance))
 		{
 			//if the skill is an itemskill and ALT_ITEM_SKILLS_NOT_INFLUENCED is true do.. nothing
 			if (!(skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED))
