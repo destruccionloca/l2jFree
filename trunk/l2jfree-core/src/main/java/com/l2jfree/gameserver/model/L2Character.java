@@ -2229,7 +2229,39 @@ public abstract class L2Character extends L2Object
 				_skillCast = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill, coolTime, 1), hitTime - 200);
 		}
 		else
+		{
 			onMagicLaunchedTimer(targets, skill, coolTime, true);
+		}
+		final L2Character _character = this;
+		final L2Object[] _targets = targets;
+		final L2Skill _skill = skill;
+		if (this instanceof L2NpcInstance)
+		{
+			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+			{
+				public void run()
+				{
+					try
+					{
+						if (((L2NpcTemplate) getTemplate()).getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED) != null)
+						{
+							L2PcInstance player = null;
+							if (_targets[0] instanceof L2PcInstance)
+								player = (L2PcInstance)_targets[0];
+							else if (_targets[0] instanceof L2Summon)
+								player = ((L2Summon)_targets[0]).getOwner();
+							for (Quest quest: ((L2NpcTemplate) getTemplate()).getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED))
+							{
+								quest.notifySpellFinished(((L2NpcInstance)_character), player, _skill);
+							}
+						}
+					}
+					catch (Throwable e)
+					{
+					}
+				}
+			}, hitTime + coolTime + 1000);
+		}
 	}
 
 	/**
@@ -2671,6 +2703,16 @@ public abstract class L2Character extends L2Object
 	public final void setIsPhysicalAttackMuted(boolean value)
 	{
 		_isPhysicalAttackMuted = value;
+	}
+
+	public void disableCoreAI(boolean val)
+	{
+		_AIdisabled = val;
+	}
+
+	public boolean isCoreAIDisabled()
+	{
+		return _AIdisabled;
 	}
 
 	/** Return True if the L2Character can't move (stun, root, sleep, overload, paralyzed). */
@@ -6688,23 +6730,6 @@ public abstract class L2Character extends L2Object
 		// Notify the AI of the L2Character with EVT_FINISH_CASTING
 		getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING);
 
-		if (this instanceof L2NpcInstance)
-		{
-			Quest[] events = ((L2NpcTemplate) getTemplate()).getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED);
-			if (events != null)
-			{
-				L2PcInstance player = null;
-				if (target instanceof L2PcInstance)
-					player = (L2PcInstance) target;
-				else if (target instanceof L2Summon)
-					player = ((L2Summon) target).getOwner();
-				for (Quest quest : events)
-				{
-					quest.notifySpellFinished(((L2NpcInstance) this), player, skill);
-				}
-			}
-		}
-
 		/*
 		 * If character is a player, then wipe their current cast state and check if a skill is queued.
 		 *
@@ -7167,6 +7192,8 @@ public abstract class L2Character extends L2Object
 	private Future<?>	_PvPRegTask;
 
 	private long		_pvpFlagLasts;
+
+	private boolean		_AIdisabled = false;
 
 	public void setPvpFlagLasts(long time)
 	{

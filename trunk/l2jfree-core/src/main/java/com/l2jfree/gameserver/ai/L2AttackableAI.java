@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.ai;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 
 import java.util.List;
 import java.util.concurrent.Future;
@@ -1521,21 +1522,24 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			_globalAggro = 0;
 
 		// Add the attacker to the _aggroList of the actor
-		((L2Attackable) _actor).addDamageHate(attacker, 0, 1);
+		if (!((L2Attackable) _actor).isCoreAIDisabled())
+			((L2Attackable) _actor).addDamageHate(attacker, 0, 1);
 
 		// Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
 		if (!_actor.isRunning())
 			_actor.setRunning();
 
 		// Set the Intention to AI_INTENTION_ATTACK
-		if (getIntention() != AI_INTENTION_ATTACK)
+		if (getIntention() != AI_INTENTION_ATTACK && !((L2Attackable) _actor).isCoreAIDisabled())
 		{
 			setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
 		}
-		else if (((L2Attackable) _actor).getMostHated() != getAttackTarget())
+		else if (((L2Attackable) _actor).getMostHated() != getAttackTarget() && !((L2Attackable) _actor).isCoreAIDisabled())
 		{
 			setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
 		}
+		else if (getIntention() != AI_INTENTION_INTERACT && ((L2Attackable) _actor).isCoreAIDisabled())
+			setIntention(CtrlIntention.AI_INTENTION_INTERACT, attacker);
 
 		super.onEvtAttacked(attacker);
 	}

@@ -25,10 +25,8 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.datatables.DoorTable;
-import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.instancemanager.DayNightSpawnManager;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Spawn;
 
 public final class GameTimeController extends Thread
 {
@@ -191,11 +189,6 @@ public final class GameTimeController extends Thread
 			if (tempIsNight != _isNight)
 			{
 				_isNight = tempIsNight;
-				
-				for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable().values())
-					if (spawn.getTemplate().getNpcId() == 29022) // Zaken cannot be damaged during the night.
-						spawn.getLastSpawn().setIsInvul(_isNight);
-				
 				DayNightSpawnManager.getInstance().notifyChangeMode();
 			}
 		}

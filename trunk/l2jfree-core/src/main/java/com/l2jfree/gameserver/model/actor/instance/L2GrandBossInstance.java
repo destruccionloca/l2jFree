@@ -36,14 +36,6 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
  */
 public class L2GrandBossInstance extends L2Boss
 {
-	// [L2J_JP ADD SANDMAN]
-	private boolean		_teleportedToNest;
-
-	private long		_lastNurseAntHealTime	= 0;
-	private L2Skill		_nurseAntHeal			= null;
-
-	protected Future<?>	minionMaintainTask		= null;
-
 	protected boolean	_isInSocialAction		= false;
 
 	public boolean IsInSocialAction()
@@ -97,35 +89,6 @@ public class L2GrandBossInstance extends L2Boss
 	}
 
 	/**
-	 * Used by Orfen to set 'teleported' flag, when hp goes to <50%
-	 * @param flag
-	 */
-	private void setTeleported(boolean flag)
-	{
-		_teleportedToNest = flag;
-	}
-
-	private boolean getTeleported()
-	{
-		return _teleportedToNest;
-	}
-
-	@Override
-	public void onSpawn()
-	{
-		switch (getNpcId())
-		{
-		case 29022: // Zaken (Note:teleport-out of instant-move execute onSpawn.)
-			if (GameTimeController.getInstance().isNowNight())
-				setIsInvul(true);
-			else
-				setIsInvul(false);
-			break;
-		}
-		super.onSpawn();
-	}
-
-	/**
 	 * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR> 
 	 * 
 	 */
@@ -136,70 +99,7 @@ public class L2GrandBossInstance extends L2Boss
 		if (IsInSocialAction() || isInvul())
 			return;
 
-		switch (getTemplate().getNpcId())
-		{
-		case 29014: // Orfen
-		{
-			if ((getStatus().getCurrentHp() - damage) < getMaxHp() / 2 && !getTeleported())
-			{
-				clearAggroList();
-				setCanReturnToSpawnPoint(false);
-				setTeleported(true);
-				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-				teleToLocation(43577, 15985, -4396, false);
-			}
-			break;
-		}
-		case 29001: // Queen ant
-		{
-			List<L2MinionInstance> _minions = _minionList.getSpawnedMinions();
-
-			if (_minions.isEmpty())
-			{
-				if (_minionMaintainTask == null)
-				{
-					_minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneral(new RespawnNurseAnts(), Config.NURSEANT_RESPAWN_DELAY);
-				}
-			}
-			else if ((_lastNurseAntHealTime + 5000) < System.currentTimeMillis())
-			{
-				_lastNurseAntHealTime = System.currentTimeMillis();
-				if (_nurseAntHeal == null)
-					_nurseAntHeal = SkillTable.getInstance().getInfo(4020, 1);
-
-				callMinions();
-				for (L2MinionInstance m : _minions)
-				{
-					m.setTarget(this);
-					m.doCast(_nurseAntHeal);
-				}
-			}
-			break;
-		}
-		}
-
 		super.reduceCurrentHp(damage, attacker, awake);
-	}
-
-	// [L2J_JP ADD START SANDMAN]
-	// respawn nurse ants.
-	private class RespawnNurseAnts implements Runnable
-	{
-		public void run()
-		{
-			try
-			{
-				_minionList.maintainMinions();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
-			finally
-			{
-				_minionMaintainTask = null;
-			}
-		}
 	}
 
 	@Override
