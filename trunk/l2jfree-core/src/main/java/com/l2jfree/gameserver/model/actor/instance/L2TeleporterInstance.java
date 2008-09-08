@@ -222,20 +222,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 			{
 				price = 0;
 			}
-			// Chars > XX level can't enter in Cruma Tower in CT2
-			// Retail Like : level 56 and above
-			// TODO: System Message support ?
-			else if (!Config.CT1_LEGACY && getNpcId() == 30483 && player.getLevel() > Config.CRUMA_ENTRANCE_MAX_LEVEL)
-			{
-				int maxlvl = Config.CRUMA_ENTRANCE_MAX_LEVEL + 1;
 
-				String filename = "data/html/teleporter/30483-no.htm";
-				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setFile(filename);
-				html.replace("%maxlvl%", ""+maxlvl+"");
-				player.sendPacket(html);
-				return;
-			}
 			// At weekeend evening hours, teleport costs are / 2
 			// But only adena teleports
 			else if (!list.isForNoble())
