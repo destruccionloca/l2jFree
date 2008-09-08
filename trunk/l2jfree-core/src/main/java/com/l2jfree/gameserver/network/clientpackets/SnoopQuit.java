@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -27,11 +28,11 @@ public class SnoopQuit extends L2GameClientPacket
 
 	private int _snoopID;
 
-    @Override
-    protected void readImpl()
-    {
-        _snoopID = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_snoopID = readD();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -39,14 +40,19 @@ public class SnoopQuit extends L2GameClientPacket
 	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-    protected void runImpl()
+	protected void runImpl()
 	{
-		L2PcInstance player = (L2PcInstance) L2World.getInstance().findObject(_snoopID);
+		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
-		player.removeSnooped(); // Removes only the first snooper, doesn't matter which button window you press
-		player.refreshSnoop();
+		L2Object target = L2World.getInstance().findObject(_snoopID);
 
+		if (target == null || !(target instanceof L2PcInstance))
+			return;
+
+		player.removeSnooped((L2PcInstance)target);
+		((L2PcInstance)target).removeSnooper(player);
+		player.sendMessage("Surveillance of player "+target.getName()+" canceled.");
 	}
 
 	/*

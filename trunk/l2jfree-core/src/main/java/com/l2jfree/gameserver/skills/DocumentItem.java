@@ -122,11 +122,6 @@ final class DocumentItem extends DocumentBase
 		_currentItem.set = _itemData.get(_currentItem.id).set;
 		_currentItem.type = _itemData.get(_currentItem.id).type;
 
-		if (n.getAttributes().getNamedItem("slots") != null) {
-			int talismanSlots = Integer.parseInt(n.getAttributes().getNamedItem("slots").getNodeValue());
-			_currentItem.set.set("talismanslots", talismanSlots);
-		}
-
 		Node first = n.getFirstChild();
 		for (n = first; n != null; n = n.getNextSibling())
 		{

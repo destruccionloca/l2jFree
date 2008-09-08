@@ -49,7 +49,6 @@ import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
@@ -1160,7 +1159,7 @@ public class SevenSignsFestival implements SpawnListener
 			if (player.getClan() != null)
 			{
 				player.getClan().setReputationScore(player.getClan().getReputationScore() + 100, true);
-				player.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(player.getClan()));
+				player.getClan().broadcastClanStatus();
 				SystemMessage sm = new SystemMessage(
 						SystemMessageId.CLAN_MEMBER_S1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION);
 				sm.addString(partyMemberName);
@@ -1187,7 +1186,7 @@ public class SevenSignsFestival implements SpawnListener
 						if (clan != null)
 						{
 							clan.setReputationScore(clan.getReputationScore() + 100, true);
-							clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
+							clan.broadcastClanStatus();
 							SystemMessage sm = new SystemMessage(
 									SystemMessageId.CLAN_MEMBER_S1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION);
 							sm.addString(partyMemberName);

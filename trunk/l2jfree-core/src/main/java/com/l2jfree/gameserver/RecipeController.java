@@ -635,22 +635,35 @@ public class RecipeController
 				}
 			}
 
+			boolean success = false;
 			if ((_items = listItems(true)) == null) // this line actually takes materials from inventory
 			{ // handle possible cheaters here
 				// (they click craft then try to get rid of items in order to get free craft)
 			}
-			else if (Rnd.get(100) < _recipeList.getSuccessRate())
+			else if (_recipeList.getSuccessRate() == 100 || Rnd.get(100) < _recipeList.getSuccessRate())
 			{
-				rewardPlayer(); // and immediately puts created item in its place
-				updateMakeInfo(true);
+				rewardPlayer(_price); // and immediately puts created item in its place
+				success = true;
 			}
 			else
 			{
-				_player.sendMessage("Item(s) failed to create");
 				if (_target != _player)
-					_target.sendMessage("Item(s) failed to create");
-
-				updateMakeInfo(false);
+				{
+					SystemMessage msg = new SystemMessage(SystemMessageId.CREATION_OF_S2_FOR_S1_AT_S3_ADENA_FAILED);
+					msg.addString(_target.getName());
+					msg.addItemName(_recipeList.getItemId());
+					msg.addNumber(_price);
+					_player.sendPacket(msg);
+					msg = new SystemMessage(SystemMessageId.S1_FAILED_TO_CREATE_S2_FOR_S3_ADENA);
+					msg.addString(_player.getName());
+					msg.addItemName(_recipeList.getItemId());
+					msg.addNumber(_price);
+					_target.sendPacket(msg);
+				}
+				else
+				{
+					_player.sendMessage("Item creation failed.");
+				}
 			}
 			// update load and mana bar of craft window
 			updateCurMp();
@@ -658,6 +671,7 @@ public class RecipeController
 			_activeMakers.remove(_player);
 			_player.isInCraftMode(false);
 			_target.sendPacket(new ItemList(_target, false));
+			updateMakeInfo(success);
 		}
 
 		private void updateMakeInfo(boolean success)
@@ -702,14 +716,11 @@ public class RecipeController
 
 				numItems -= count;
 
-				if (_target == _player)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED); // you equipped ...
-					sm.addNumber(count);
-					sm.addItemName(item.getItemId());
-					_player.sendPacket(sm);
-				}
-				else
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED); // you equipped ...
+				sm.addNumber(count);
+				sm.addItemName(item.getItemId());
+				_player.sendPacket(sm);
+				if (_target != _player)
 					_target.sendMessage("Manufacturer " + _player.getName() + " used " + count + " " + item.getItemName());
 			}
 		}
@@ -858,35 +869,60 @@ public class RecipeController
 			}
 		}
 
-		private void rewardPlayer()
+		private void rewardPlayer(int price)
 		{
 			int itemId = _recipeList.getItemId();
 			int itemCount = _recipeList.getCount();
 
 			L2ItemInstance createdItem = _target.getInventory().addItem("Manufacture", itemId, itemCount, _target, _player);
 
-			// inform customer of earned item
-			SystemMessage sm = null;
-			if (itemCount > 1)
-			{
-				sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-				sm.addItemName(createdItem);
-				sm.addNumber(itemCount);
-				_target.sendPacket(sm);
-			}
-			else
-			{
-				sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-				sm.addItemName(createdItem);
-				_target.sendPacket(sm);
-			}
-
+			SystemMessage msg;
 			if (_target != _player)
 			{
 				// inform manufacturer of earned profit
-				sm = new SystemMessage(SystemMessageId.EARNED_ADENA);
-				sm.addNumber(_price);
-				_player.sendPacket(sm);
+				if (itemCount == 1)
+				{
+					msg = new SystemMessage(SystemMessageId.S2_CREATED_FOR_S1_FOR_S3_ADENA);
+					msg.addString(_target.getName());
+					msg.addItemName(createdItem);
+					msg.addNumber(price);
+					_player.sendPacket(msg);
+					msg = new SystemMessage(SystemMessageId.S1_CREATED_S2_FOR_S3_ADENA);
+					msg.addString(_player.getName());
+					msg.addItemName(createdItem);
+					msg.addNumber(price);
+					_target.sendPacket(msg);
+				}
+				else
+				{
+					msg = new SystemMessage(SystemMessageId.S2_S3_S_CREATED_FOR_S1_FOR_S4_ADENA);
+					msg.addString(_target.getName());
+					msg.addNumber(itemCount);
+					msg.addItemName(createdItem);
+					msg.addNumber(price);
+					_player.sendPacket(msg);
+					msg = new SystemMessage(SystemMessageId.S1_CREATED_S2_S3_S_FOR_S4_ADENA);
+					msg.addString(_player.getName());
+					msg.addNumber(itemCount);
+					msg.addItemName(createdItem);
+					msg.addNumber(price);
+					_target.sendPacket(msg);
+				}
+			}
+
+			// inform customer of earned item
+			if (itemCount > 1)
+			{
+				msg = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+				msg.addItemName(createdItem);
+				msg.addNumber(itemCount);
+				_target.sendPacket(msg);
+			}
+			else
+			{
+				msg = new SystemMessage(SystemMessageId.EARNED_ITEM);
+				msg.addItemName(createdItem);
+				_target.sendPacket(msg);
 			}
 
 			if (Config.ALT_GAME_CREATION)

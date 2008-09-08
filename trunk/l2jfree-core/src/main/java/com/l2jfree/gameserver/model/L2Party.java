@@ -222,13 +222,13 @@ public class L2Party
 	 * Broadcasts packet to every party member 
 	 * @param msg
 	 */
-	public void broadcastSnoopToPartyMembers(int objid, int type, String name, String text) 
+	public void broadcastSnoopToPartyMembers(int type, String name, String text)
 	{
 		for(L2PcInstance member : getPartyMembers())
 		{
 			if (member == null)
 				continue;
-			member.broadcastSnoop(objid, type, name, text);
+			member.broadcastSnoop(type, name, text);
 		}
 	}
 	
@@ -307,11 +307,11 @@ public class L2Party
 		}
 
 		//add player to party, adjust party level
-        getPartyMembers().add(player);
+		getPartyMembers().add(player);
 		if (player.getLevel() > _partyLvl)
-        {
+		{
 			_partyLvl = player.getLevel();
-        }
+		}
 		//update partySpelled 
 		for(L2PcInstance member : getPartyMembers())
 		{
@@ -425,7 +425,7 @@ public class L2Party
 		{
 			if (getPartyMembers().contains(player))
 			{
-				if (isLeader(player))
+				if (leader == player)
 				{
 					player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_TRANSFER_RIGHTS_TO_YOURSELF));
 				}
@@ -535,7 +535,7 @@ public class L2Party
 	{
 		if (getPartyMembers().contains(player)) 
 		{
-			if (isLeader(player)) 
+			if (isLeader(player))
 			{
 				removePartyMember(player);
 				if (getPartyMembers().size() > 1)

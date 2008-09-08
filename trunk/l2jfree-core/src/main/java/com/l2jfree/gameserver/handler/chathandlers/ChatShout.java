@@ -73,7 +73,7 @@ public class ChatShout implements IChatHandler
 						&& (player.getInstanceId() == activeChar.getInstanceId()))
 				{
 					player.sendPacket(cs);
-					player.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
+					player.broadcastSnoop(chatType.getId(), activeChar.getName(), text);
 				}
 			}
 		}
@@ -84,7 +84,7 @@ public class ChatShout implements IChatHandler
 				if (!(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)) && (player.getInstanceId() == activeChar.getInstanceId()))
 				{
 					player.sendPacket(cs);
-					player.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
+					player.broadcastSnoop(chatType.getId(), activeChar.getName(), text);
 				}
 			}
 		}

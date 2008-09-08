@@ -79,7 +79,6 @@ public class StaticObject extends L2GameServerPacket
 		writeD(_damageGrade);
 	}
 
-
 	/* (non-Javadoc)
 	* @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	*/

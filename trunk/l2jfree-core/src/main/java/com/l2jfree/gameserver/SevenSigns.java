@@ -401,7 +401,7 @@ public class SevenSigns
 		return _activePeriod;
 	}
 
-	private final int getDaysToPeriodChange()
+	public final int getDaysToPeriodChange()
 	{
 		int numDays = _calendar.get(Calendar.DAY_OF_WEEK) - PERIOD_START_DAY;
 

@@ -42,13 +42,13 @@ public class Snoop extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-        writeC(0xdb);
-        writeD(_convoId);
-        writeS(_name);
-        writeD(0);
-        writeD(_type);
-        writeS(_speaker);
-        writeS(_msg);
+		writeC(0xdb);
+		writeD(_convoId);
+		writeS(_name);
+		writeD(0);
+		writeD(_type);
+		writeS(_speaker);
+		writeS(_msg);
 	}
 
 	/* (non-Javadoc)

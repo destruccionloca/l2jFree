@@ -270,7 +270,7 @@ abstract class DocumentBase
 		String stackType = "none";
 		if (attrs.getNamedItem("stackType") != null)
 		{
-			stackType = attrs.getNamedItem("stackType").getNodeValue();
+			stackType = attrs.getNamedItem("stackType").getNodeValue().intern();
 		}
 		if (attrs.getNamedItem("stackOrder") != null)
 		{

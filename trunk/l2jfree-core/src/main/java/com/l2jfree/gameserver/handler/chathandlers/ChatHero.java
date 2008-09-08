@@ -78,7 +78,6 @@ public class ChatHero implements IChatHandler
 				if (!(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)) && (player.getInstanceId() == activeChar.getInstanceId()))
 				{
 					player.sendPacket(cs);
-					player.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 				}
 			}
 		}

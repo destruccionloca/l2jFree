@@ -1202,8 +1202,7 @@ public class GameStatusThread extends Thread
 			InventoryUpdate iu = new InventoryUpdate();
 			iu.addModifiedItem(itemInstance);
 			activeChar.sendPacket(iu);
-			activeChar.broadcastPacket(new CharInfo(activeChar));
-			activeChar.sendPacket(new UserInfo(activeChar));
+			activeChar.broadcastUserInfo();
 
 			// informations
 			activeChar.sendMessage("Changed enchantment of " + activeChar.getName() + "'s " + itemInstance.getItem().getName() + " from " + curEnchant + " to "

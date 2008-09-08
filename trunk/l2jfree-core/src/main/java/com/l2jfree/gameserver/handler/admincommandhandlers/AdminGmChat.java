@@ -14,10 +14,13 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
+import java.util.StringTokenizer;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -57,18 +60,21 @@ public class AdminGmChat implements IAdminCommandHandler
 	 */
 	private void snoop(String command, L2PcInstance activeChar)
 	{
-		L2Object target = activeChar.getTarget();
-		if (target == null)
+		StringTokenizer st = new StringTokenizer(command);
+		st.nextToken();
+
+		if (!st.hasMoreTokens())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_MUST_SELECT_A_TARGET));
+			activeChar.sendMessage("Usage: //snoop <player_name>");
 			return;
 		}
-		if (!(target instanceof L2PcInstance))
+
+		L2PcInstance player = L2World.getInstance().getPlayer(st.nextToken());
+		if(player == null)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_CANT_FOUND));
 			return;
 		}
-		L2PcInstance player = (L2PcInstance) target;
 		if (player.getAccessLevel() > activeChar.getAccessLevel())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));

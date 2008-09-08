@@ -1313,7 +1313,7 @@ public class L2Clan
 		}
 	}
 
-	public void broadcastSnoopToOnlineAllyMembers(int objid, int type, String name, String text)
+	public void broadcastSnoopToOnlineAllyMembers(int type, String name, String text)
 	{
 		if (getAllyId() == 0)
 		{
@@ -1323,25 +1323,21 @@ public class L2Clan
 		{
 			if (clan.getAllyId() == getAllyId())
 			{
-				clan.broadcastSnoopToOnlineMembers(objid, type, name, text);
+				clan.broadcastSnoopToOnlineMembers(type, name, text);
 			}
 		}
 	}
 
-	public void broadcastSnoopToOnlineMembers(int objid, int type, String name, String text)
+	public void broadcastSnoopToOnlineMembers(int type, String name, String text)
 	{
 		for (L2ClanMember member : _members.values())
 		{
-			if (member == null)
+			if (member == null || !member.isOnline())
 				continue;
-			try
-			{
-				if (member.isOnline())
-					member.getPlayerInstance().broadcastSnoop(objid, type, name, text);
-			}
-			catch (NullPointerException e)
-			{
-			}
+
+			L2PcInstance pl = member.getPlayerInstance();
+			if (pl != null)
+				pl.broadcastSnoop(type, name, text);
 		}
 	}
 

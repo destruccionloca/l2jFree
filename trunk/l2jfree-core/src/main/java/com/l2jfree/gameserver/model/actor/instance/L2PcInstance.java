@@ -474,8 +474,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	private TradeList						_sellList;
 	private TradeList						_buyList;
 
-	private List<L2PcInstance>				_snoopListener			= new FastList<L2PcInstance>();							// list of GMs
-	private List<L2PcInstance>				_snoopedPlayer			= new FastList<L2PcInstance>();							// list of players being snooped
+	private List<L2PcInstance>				_snoopListener; // list of GMs snooping this player
+	private List<L2PcInstance>				_snoopedPlayer; // list of players being snooped by this GM
 
 	/** The Private Store type of the L2PcInstance (STORE_PRIVATE_NONE=0, STORE_PRIVATE_SELL=1, sellmanage=2, STORE_PRIVATE_BUY=3, buymanage=4, STORE_PRIVATE_MANUFACTURE=5) */
 	private int								_privatestore;
@@ -760,7 +760,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	// Absorbed Souls
 	private int								_souls					= 0;
 	private ScheduledFuture<?>				_soulTask				= null;
-	private int								_lastSoulConsume			= 0;
+	private int								_lastSoulConsume		= 0;
 
 	// WorldPosition used by TARGET_SIGNET_GROUND
 	private Point3D							_currentSkillWorldPosition;
@@ -10839,31 +10839,16 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * @param name - name of snooped player
 	 * @param _text - the msg the snooped player sent/received
 	 */
-	public void broadcastSnoop(int objId, int type, String name, String _text)
+	public void broadcastSnoop(int type, String name, String _text)
 	{
 		if (_snoopListener == null)
 			return;
-		if (_snoopListener.size() > 0)
-		{
-			for (L2PcInstance pci : _snoopListener)
-				if (pci != null)
-				{
-					Snoop sn = new Snoop(objId, getName(), type, name, _text);
-					pci.sendPacket(sn);
-				}
-		}
-	}
 
-	public void refreshSnoop()
-	{
-		if (_snoopedPlayer == null)
-			return;
-		if (_snoopedPlayer.size() > 0)
-			for (L2PcInstance p : _snoopedPlayer)
-			{
-				Snoop sn = new Snoop(getObjectId(), getName(), 0, p.getName(), "***Restarting Snoop for " + p.getName() + "***");
-				sendPacket(sn);
-			}
+		Snoop sn = new Snoop(getObjectId(), getName(), type, name, _text);
+		for (L2PcInstance pci : _snoopListener)
+		{
+			pci.sendPacket(sn);
+		}
 	}
 
 	/**
@@ -10872,36 +10857,30 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void addSnooper(L2PcInstance pci)
 	{
+		if (_snoopListener == null)
+			_snoopListener = new FastList<L2PcInstance>();
+
 		if (!_snoopListener.contains(pci))
 			_snoopListener.add(pci); // gm list of "pci"s
 	}
 
 	public void removeSnooper(L2PcInstance pci)
 	{
-		if (_snoopListener == null)
-			return;
-		if (_snoopListener.size() > 0)
+		if (_snoopListener != null)
+		{
 			_snoopListener.remove(pci);
+			if (_snoopListener.size() == 0)
+				_snoopListener = null;
+		}
 	}
 
 	public void removeSnooped(L2PcInstance snooped)
 	{
-		if (_snoopedPlayer == null)
-			return;
-		if (_snoopedPlayer.size() > 0)
-			_snoopedPlayer.remove(snooped);
-	}
-
-	public void removeSnooped()
-	{
-		if (_snoopedPlayer == null)
-			return;
-		if (_snoopedPlayer.size() > 0)
+		if (_snoopedPlayer != null)
 		{
-			L2PcInstance player = _snoopedPlayer.get(0);
-			_snoopedPlayer.remove(0);
-			if (player != null)
-				player.removeSnooper(this);
+			_snoopedPlayer.remove(snooped);
+			if (_snoopedPlayer.size() == 0)
+				_snoopedPlayer = null;
 		}
 	}
 
@@ -10911,15 +10890,14 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void addSnooped(L2PcInstance pci)
 	{
+		if (_snoopedPlayer == null)
+			_snoopedPlayer = new FastList<L2PcInstance>();
+
 		if (!_snoopedPlayer.contains(pci))
 		{
-			_snoopedPlayer.add(pci); // list of players to listen to them...
-			//for (int x=0xffffff;x>0;x--){
-			Snoop sn = new Snoop(pci.getObjectId(), pci.getName(), 0, getName(), "***Starting Snoop for " + pci.getName() + "***");
-			//	Snoop sn = new Snoop(x, pci.getName(), x%3, getName(), "***Starting Snoop for "+pci.getName()+"***",this);
+			_snoopedPlayer.add(pci);
+			Snoop sn = new Snoop(pci.getObjectId(), pci.getName(), 0, "", "*** Starting Snoop for "+pci.getName()+" ***");
 			sendPacket(sn);
-			//	for(int y=0;y<10000000;y++){}
-			//}
 		}
 	}
 
@@ -11331,11 +11309,22 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (getClanId() > 0)
 			getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);
 
-		for (L2PcInstance player : _snoopedPlayer)
-			player.removeSnooper(this);
+		if (_snoopedPlayer != null)
+		{
+			for (L2PcInstance player : _snoopedPlayer)
+				player.removeSnooper(this);
+			_snoopedPlayer.clear();
+			_snoopedPlayer = null;
+		}
 
-		for (L2PcInstance player : _snoopListener)
-			player.removeSnooped(this);
+		if (_snoopListener != null)
+		{
+			broadcastSnoop(0, "", "*** Player "+getName()+" logged off ***");
+			for (L2PcInstance player : _snoopListener)
+				player.removeSnooped(this);
+			_snoopListener.clear();
+			_snoopListener = null;
+		}
 
 		for (String friendName : L2FriendList.getFriendListNames(this))
 		{
