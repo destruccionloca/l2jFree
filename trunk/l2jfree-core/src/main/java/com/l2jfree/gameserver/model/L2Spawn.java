@@ -424,9 +424,14 @@ public class L2Spawn
 	 */
 	public int init()
 	{
+		return init(false);
+	}
+	
+	public int init(boolean firstspawn)
+	{
 		while (_currentCount < _maximumCount)
 		{
-			doSpawn();
+			doSpawn(false,firstspawn);
 		}
 		_doRespawn = true;
 
@@ -441,11 +446,16 @@ public class L2Spawn
 		return doSpawn(val);
 	}
 
-	public L2NpcInstance doSpawn()
+	public L2NpcInstance doSpawn(boolean isSummonSpawn)
 	{
-		return doSpawn(false);
+		return doSpawn(isSummonSpawn,false);
 	}
 
+	public L2NpcInstance doSpawn()
+	{
+		return doSpawn(false,false);
+	}
+	
 	/**
 	 * Set _doRespawn to False to stop respawn in thios L2Spawn.<BR><BR>
 	 */
@@ -482,7 +492,7 @@ public class L2Spawn
 	 * <li>Increase the current number of L2NpcInstance managed by this L2Spawn  </li><BR><BR>
 	 * 
 	 */
-	public L2NpcInstance doSpawn(boolean isSummonSpawn)
+	public L2NpcInstance doSpawn(boolean isSummonSpawn, boolean firstspawn)
 	{
 		L2NpcInstance mob = null;
 		try
@@ -512,7 +522,7 @@ public class L2Spawn
 			if (!(tmp instanceof L2NpcInstance))
 				return mob;
 			mob = (L2NpcInstance) tmp;
-			return intializeNpcInstance(mob);
+			return intializeNpcInstance(mob,firstspawn);
 		}
 		catch (Exception e)
 		{
@@ -527,7 +537,7 @@ public class L2Spawn
 	 * @param mob
 	 * @return
 	 */
-	private L2NpcInstance intializeNpcInstance(L2NpcInstance mob)
+	private L2NpcInstance intializeNpcInstance(L2NpcInstance mob,boolean firstspawn)
 	{
 		int newlocx, newlocy, newlocz;
 
@@ -613,7 +623,7 @@ public class L2Spawn
 		mob.setSpawn(this);
 
 		// Init other values of the L2NpcInstance (ex : from its L2CharTemplate for INT, STR, DEX...) and add it in the world as a visible object
-		mob.spawnMe(newlocx, newlocy, newlocz, true);
+		mob.spawnMe(newlocx, newlocy, newlocz, firstspawn);
 
 		L2Spawn.notifyNpcSpawned(mob);
 
@@ -679,7 +689,7 @@ public class L2Spawn
 	public void respawnNpc(L2NpcInstance oldNpc)
 	{
 		oldNpc.refreshID();
-		intializeNpcInstance(oldNpc);
+		intializeNpcInstance(oldNpc,false);
 	}
 
 	public L2NpcTemplate getTemplate()

@@ -120,7 +120,7 @@ public class SpawnTable
 						switch (rset.getInt("periodOfDay"))
 						{
 						case 0: // default
-							_npcSpawnCount += spawnDat.init();
+							_npcSpawnCount += spawnDat.init(true);
 							break;
 						case 1: // Day
 							DayNightSpawnManager.getInstance().addDayCreature(spawnDat);
