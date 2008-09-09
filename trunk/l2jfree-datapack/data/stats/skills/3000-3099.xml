@@ -1410,6 +1410,8 @@
       659.0
     </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="1" />
     <set name="skillType" val="AGGDAMAGE" />
@@ -1450,6 +1452,8 @@
       330.0
     </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="isDebuff" val="true" />
     <set name="hitTime" val="1" />
@@ -1489,6 +1493,8 @@
       49 53 57 61 66 70 74 78 82 88
     </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="MANADAM" />
@@ -1505,6 +1511,8 @@
       attack. Effect 3.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <table name="#Tab-runSpd">
       0.7 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
     </table>
@@ -1530,6 +1538,8 @@
       physical attack. Effect 3.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1552,6 +1562,8 @@
       physical attack.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="STUN" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1572,6 +1584,8 @@
       additional hold attacks while the effect lasts.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="ROOT" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1593,6 +1607,8 @@
       additional sleep attacks while the effect lasts.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="SLEEP" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1613,6 +1629,8 @@
       ordinary physical attack.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PARALYZE" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1632,6 +1650,8 @@
       physical attack.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PARALYZE" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1652,6 +1672,8 @@
       during a general physical attack.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="FEAR" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1692,12 +1714,15 @@
       during a general physical attack. Effect 8.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <table name="#dmg">
       24 24 54 54 72 72 93 114 132 144
     </table>
-    <table name="#power">
+    <table name="#effectLevel">
       1.0 1.0 3.0 3.0 4.0 4.0 5.0 6.0 7.0 8.0
     </table>
+    <set name="power" val="0.0" />
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="POISON" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1706,6 +1731,8 @@
     <set name="castRange" val="-1" />
     <set name="isDebuff" val="true" />
     <set name="isMagic" val="true" />
+    <set name="effectType" val="POISON" />
+    <set name="effectLevel" val="#effectLevel" />
     <for>
       <!--
         retail value: 8 18 24 31 38 44 48/sec; stat update
@@ -1743,12 +1770,15 @@
       during a general physical attack. Effect 8.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <table name="#dmg">
       39 39 51 51 66 66 81 81 93 102
     </table>
-    <table name="#power">
+    <table name="#effectLevel">
       3.0 3.0 4.0 4.0 5.0 5.0 6.0 6.0 7.0 8.0
     </table>
+    <set name="power" val="0.0" />
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BLEED" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1756,6 +1786,8 @@
     <set name="activationChance" val="#chance" />
     <set name="castRange" val="-1" />
     <set name="isDebuff" val="true" />
+    <set name="effectType" val="BLEED" />
+    <set name="effectLevel" val="#effectLevel" />
     <for>
       <!--
         retail value: 13 17 22 27 31 34/sec; stat update
@@ -1773,6 +1805,8 @@
       attack.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="MUTE" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1793,6 +1827,8 @@
       general physical attack.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="MUTE" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1828,6 +1864,8 @@
       49 53 57 61 66 70 74 78 82 88
     </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="MANADAM" />
@@ -1844,6 +1882,8 @@
       3.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <table name="#Tab-runSpd">
       0.7 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
     </table>
@@ -1869,6 +1909,8 @@
       Effect 3.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1890,6 +1932,8 @@
       the target into a state of shock during magic use.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="STUN" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1910,6 +1954,8 @@
       attacks while the effect lasts.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="ROOT" />
     <set name="operateType" val="OP_CHANCE" />
