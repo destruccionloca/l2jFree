@@ -120,6 +120,10 @@ public abstract class L2Object
 	public void onSpawn()
 	{
 	}
+	
+	public void firstSpawn()
+	{
+	}
 
 	/**
 	 * get the x coordinate for this object
@@ -338,7 +342,7 @@ public abstract class L2Object
 	 * @param y
 	 * @param z 
 	 */
-	public final void spawnMe(int x, int y, int z)
+	public final void spawnMe(int x, int y, int z, boolean firstspawn)
 	{
 		if (Config.ASSERT)
 			assert getPosition().getWorldRegion() == null;
@@ -369,8 +373,15 @@ public abstract class L2Object
 		// synchronized, to avoid deadlocks
 		// Add the L2Object spawn in the world as a visible object
 		L2World.getInstance().addVisibleObject(this, getPosition().getWorldRegion(), null);
-
-		onSpawn();
+		if(firstspawn)
+			firstSpawn();
+		else
+			onSpawn();
+	}
+	
+	public final void spawnMe(int x, int y, int z)
+	{
+		this.spawnMe(x,y,z,false);
 	}
 
 	/**

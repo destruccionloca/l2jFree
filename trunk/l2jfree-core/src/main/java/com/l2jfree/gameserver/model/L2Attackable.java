@@ -2570,15 +2570,23 @@ public class L2Attackable extends L2NpcInstance
 		resetAbsorbList();
 
 		setWalking();
-
 		// check the region where this mob is, do not activate the AI if region is inactive.
 		if (!isInActiveRegion())
+		{
 			if (this instanceof L2SiegeGuardInstance)
 				((L2SiegeGuardAI) getAI()).stopAITask();
 			else
 				((L2AttackableAI) getAI()).stopAITask();
+		}
 	}
 
+	@Override
+	public void firstSpawn()
+	{
+		super.onSpawn();
+		setWalking();
+	}
+	
 	/**
 	 * Sets state of the mob to seeded. Paramets needed to be set before.
 	 */

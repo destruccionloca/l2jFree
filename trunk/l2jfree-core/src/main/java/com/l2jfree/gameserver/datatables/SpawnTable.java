@@ -44,7 +44,7 @@ public class SpawnTable
 
 	private static final SpawnTable		_instance	= new SpawnTable();
 
-	private FastMap<Integer, L2Spawn>	_spawntable	= new FastMap<Integer, L2Spawn>().setShared(true);
+	private Map<Integer, L2Spawn>		_spawntable	= new FastMap<Integer, L2Spawn>().setShared(true);
 	private int							_npcSpawnCount;
 	private int							_cSpawnCount;
 	private int							_highestDbId;
@@ -240,7 +240,7 @@ public class SpawnTable
 
 	}
 
-	public FastMap<Integer, L2Spawn> getAllTemplates()
+	public Map<Integer, L2Spawn> getAllTemplates()
 	{
 		return _spawntable;
 	}
