@@ -9,8 +9,6 @@
     -->
     <table name="#mpConsume">27 31 34</table>
     <table name="#mReuseRate">0.9 0.8 0.7</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
-    <set name="magicLvl" val="#magicLvl" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -34,8 +32,6 @@
     -->
     <table name="#mpConsume">27 31 34</table>
     <table name="#pReuseRate">0.9 0.8 0.7</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
-    <set name="magicLvl" val="#magicLvl" />
     <!-- Needs check -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="0.0" />
@@ -60,8 +56,6 @@
     -->
     <table name="#mpConsume">27 31 34</table>
     <table name="#reuseRate">0.9 0.8 0.7</table><!-- Needs check -->
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
-    <set name="magicLvl" val="#magicLvl" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -107,8 +101,6 @@
     <table name="#mpConsume_Init">4 5 5</table>
     <table name="#mpConsume">14 17 19</table>
     <table name="#power">10.0 15.0 20.0</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
-    <set name="magicLvl" val="#magicLvl" />
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -135,10 +127,8 @@
       place such as the GM Consultation Service.
     -->
     <table name="#mpConsume_Init">52 61</table>
-    <table name="#mpConsume">205 244</table>
+    <table name="#mpConsume">162 244</table>
     <table name="#hitTime">20000 3500</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
-    <set name="magicLvl" val="#magicLvl" />
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="0.0" />

@@ -255,8 +255,6 @@
       <set val='350' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Health -->
-      <mul val='1.25' order='0x30' stat='maxHp' />
     </for>
   </item>
   <item id='9323' name="Dismantler - Critical Bleed">
@@ -492,9 +490,6 @@
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='9343' name="Lacerator - Rsk. Focus">
@@ -530,9 +525,6 @@
       <set val='350' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='9346' name="Undertaker - Critical Bleed">
@@ -544,9 +536,6 @@
       <set val='350' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='9347' name="Undertaker - Critical Drain">
@@ -651,9 +640,6 @@
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='9355' name="clair Bijou - Critical Poison">
@@ -664,9 +650,6 @@
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='9356' name="Durendal">
@@ -717,9 +700,6 @@
       <set val='350' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='9360' name="Screaming Vengeance">
@@ -811,9 +791,6 @@
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='9367' name="Laevateinn - Focus">
@@ -863,9 +840,6 @@
       <set val='350' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='9371' name="Gram - Focus">
@@ -962,9 +936,6 @@
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='9379' name="Dynasty Rapier - Light">
@@ -1008,9 +979,6 @@
       <set val='350' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='9383' name="Dynasty Ancient Sword - Light">

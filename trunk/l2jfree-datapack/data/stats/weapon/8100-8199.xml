@@ -21,8 +21,6 @@
       <set val='325' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Health -->
-      <mul val='1.25' order='0x30' stat='maxHp' />
     </for>
   </item>
   <item id='8104' name="sword_of_paagrio_crt._drain">
@@ -56,8 +54,6 @@
       <set val='325' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Health -->
-      <mul val='1.25' order='0x30' stat='maxHp' />
     </for>
   </item>
   <item id='8107' name="guardian_sword_crt._drain">
@@ -227,8 +223,6 @@
       <set val='325' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Health -->
-      <mul val='1.25' order='0x30' stat='maxHp' />
     </for>
   </item>
   <item id='8121' name="dwarven_hammer_anger">
@@ -300,8 +294,6 @@
       <set val='325' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Health -->
-      <mul val='1.25' order='0x30' stat='maxHp' />
     </for>
   </item>
   <item id='8127' name="destroyer_hammer_haste">
@@ -373,8 +365,6 @@
       <set val='325' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Health -->
-      <mul val='1.25' order='0x30' stat='maxHp' />
     </for>
   </item>
   <item id='8133' name="star_buster_haste">
@@ -410,8 +400,6 @@
       <set val='325' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Health -->
-      <mul val='1.25' order='0x30' stat='maxHp' />
     </for>
   </item>
   <item id='8136' name="doom_crusher_anger">

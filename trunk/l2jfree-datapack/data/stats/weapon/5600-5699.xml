@@ -38,9 +38,6 @@
       <set val='379' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='5603' name="elysian_anger">
@@ -354,9 +351,6 @@
       <set val='325' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='5626' name="halberd_haste">
@@ -466,9 +460,6 @@
       <set val='325' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='5634' name="tallum_glaive_wide_blow">
@@ -619,9 +610,6 @@
       <set val='325' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='5645' name="dragon_slayer_critical_bleed">
@@ -676,9 +664,6 @@
       <set val='379' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- Enhances damage to target during PvP -->
-      <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='5649' name="Dark Legion\'s Edge - Rsk. Focus">

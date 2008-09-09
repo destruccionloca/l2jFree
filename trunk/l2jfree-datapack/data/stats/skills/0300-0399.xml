@@ -1401,10 +1401,6 @@
     <set name="lethal2" val="2" />
     <set name="hitTime" val="1800" />
     <set name="baseCritRate" val="15" />
-    <!--
-      Skill desc don't say nothing about Critical Hit
-      possibly this needs to be removed
-    -->
     <for />
   </skill>
   <skill id="345" levels="1" name="Sonic Rage">
