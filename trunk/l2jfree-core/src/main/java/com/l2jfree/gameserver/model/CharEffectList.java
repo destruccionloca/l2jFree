@@ -183,7 +183,7 @@ public class CharEffectList
 		L2Effect[] effects = getAllEffects();
 		for (L2Effect e : effects)
 		{
-			if (e.getStackType() != null && e.getStackType().equals(stackType))
+			if (e.getStackType() == stackType)
 			{
 				return true;
 			}
@@ -336,7 +336,8 @@ public class CharEffectList
 			}
 			else
 			{
-				if(_stackedEffects == null) return;
+				if(_stackedEffects == null)
+					return;
 
 				// Get the list of all stacked effects corresponding to the stack type of the L2Effect to add
 				List<L2Effect> stackQueue = _stackedEffects.get(effect.getStackType());
@@ -479,7 +480,7 @@ public class CharEffectList
 			else effectList.addLast(newEffect);
 
 			// Check if a stack group is defined for this effect
-			if (newEffect.getStackType().equals("none"))
+			if (newEffect.getStackType() == "none")
 			{
 				// Set this L2Effect to In Use
 				newEffect.setInUse(true);

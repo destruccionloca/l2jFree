@@ -103,7 +103,6 @@ public class L2SkillChargeNegate extends L2Skill
 					return;
 				}
 
-				stat = stat.toLowerCase().intern();
 				if (stat == "root")
 				{
 					negateEffect(target, SkillType.ROOT);

@@ -759,8 +759,6 @@ public class Disablers implements ISkillHandler
 						if (removedBuffs > skill.getMaxNegatedEffects())
 							break;
 
-						stat = stat.toLowerCase().intern();
-
 						if (stat == "buff")
 						{
 							int lvlmodifier = 52 + skill.getMagicLevel() * 2;

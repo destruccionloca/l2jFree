@@ -643,7 +643,16 @@ public class L2Skill
 		_targetType = set.getEnum("target", SkillTargetType.class);
 		_power = set.getFloat("power", 0.f);
 		_effectPoints = set.getInteger("effectPoints", 0);
-		_negateStats = set.getString("negateStats", "").split(" ");
+		String[] negateStats = set.getString("negateStats", "").split(" ");
+		if (negateStats.length > 0)
+		{
+			FastList<String> stats = new FastList<String>();
+			for (String stat : negateStats)
+				stats.add(stat.toLowerCase().intern());
+			_negateStats = stats.toArray(new String[stats.size()]);
+		}
+		else
+			_negateStats = negateStats;
 		_negatePower = set.getFloat("negatePower", 0.f);
 		_negateId = set.getInteger("negateId", 0);
 		_maxNegatedEffect = set.getInteger("maxNegated", 0);
