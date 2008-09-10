@@ -1046,30 +1046,30 @@
   </item>
   <item id='9388' name="Infinity Rapier">
     <for>
-      <set val='287' order='0x08' stat='pAtk' />
-      <set val='142' order='0x08' stat='mAtk' />
-      <set val='400' order='0x08' stat='rCrit' />
+      <set val='344' order='0x08' stat='pAtk' />
+      <set val='169' order='0x08' stat='mAtk' />
+      <set val='10' order='0x08' stat='rCrit' />
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
       <!-- Enhances damage to target during PvP -->
-  	  <!-- Done by DrunkenDave -->
+      <!-- Done by DrunkenDave -->
       <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
       <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg' />
-      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />      
+      <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
   <item id='9389' name="Infinity Sword">
     <for>
-      <set val='342' order='0x08' stat='pAtk' />
-      <set val='142' order='0x08' stat='mAtk' />
+      <set val='410' order='0x08' stat='pAtk' />
+      <set val='169' order='0x08' stat='mAtk' />
       <set val='6' order='0x08' stat='rCrit' />
       <add val='2' order='0x10' stat='accCombat' />
       <set val='350' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
       <!-- Enhances damage to target during PvP -->
-	  <!-- Done by DrunkenDave -->
+      <!-- Done by DrunkenDave -->
       <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
       <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg' />
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />      
@@ -1077,8 +1077,8 @@
   </item>
   <item id='9390' name="Infinity Shooter">
     <for>
-      <set val='400' order='0x08' stat='pAtk' />
-      <set val='142' order='0x08' stat='mAtk' />
+      <set val='405' order='0x08' stat='pAtk' />
+      <set val='169' order='0x08' stat='mAtk' />
       <set val='10' order='0x08' stat='rCrit' />
       <set val='303' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />

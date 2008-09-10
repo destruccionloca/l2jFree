@@ -331,9 +331,9 @@
     <for>
       <effect self="1" count="1" name="Buff" time="15"
         val="0">
-        <mul order="0x10" stat="blowRate" val="1.4" />
+        <mul order="0x30" stat="blowRate" val="1.4" />
         <!-- Confirmed trough private sources for IT/CT1 -->
-        <mul order="0x10" stat="lethalRate" val="1.38" />
+        <mul order="0x30" stat="lethalRate" val="1.38" />
       </effect>
     </for>
   </skill>
@@ -1003,6 +1003,7 @@
     <set name="reuseDelay" val="3600000" />
     <set name="hitTime" val="4000" />
     <set name="skillType" val="BUFF" />
+    <set name="staticReuse" val="true" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
@@ -1448,6 +1449,7 @@
     <set name="reuseDelay" val="1800000" />
     <set name="castRange" val="-1" />
     <set name="skillRadius" val="180" />
+    <set name="staticReuse" val="true" />
     <set name="magicLvl" val="80" />
     <set name="effectNpcId" val="13018" />
     <set name="effectId" val="5123" />
@@ -1479,6 +1481,7 @@
     <set name="reuseDelay" val="1800000" />
     <set name="castRange" val="900" />
     <set name="skillRadius" val="180" />
+    <set name="staticReuse" val="true" />
     <set name="magicLvl" val="80" />
     <set name="effectNpcId" val="13025" />
     <set name="offensive" val="True" />
@@ -1512,6 +1515,7 @@
     <set name="reuseDelay" val="1800000" />
     <set name="castRange" val="-1" />
     <set name="skillRadius" val="180" />
+    <set name="staticReuse" val="true" />
     <set name="magicLvl" val="80" />
     <set name="effectNpcId" val="13018" />
     <set name="effectId" val="5125" />
@@ -1543,6 +1547,7 @@
     <set name="reuseDelay" val="1800000" />
     <set name="castRange" val="-1" />
     <set name="skillRadius" val="180" />
+    <set name="staticReuse" val="true" />
     <set name="magicLvl" val="80" />
     <set name="effectNpcId" val="13018" />
     <set name="effectId" val="5126" />
@@ -1574,6 +1579,7 @@
     <set name="reuseDelay" val="1800000" />
     <set name="castRange" val="-1" />
     <set name="skillRadius" val="180" />
+    <set name="staticReuse" val="true" />
     <set name="magicLvl" val="80" />
     <set name="effectNpcId" val="13018" />
     <set name="effectId" val="5127" />
@@ -1605,6 +1611,7 @@
     <set name="reuseDelay" val="1800000" />
     <set name="castRange" val="-1" />
     <set name="skillRadius" val="180" />
+    <set name="staticReuse" val="true" />
     <set name="magicLvl" val="80" />
     <set name="effectNpcId" val="13018" />
     <set name="effectId" val="5128" />
@@ -1638,6 +1645,7 @@
     <set name="reuseDelay" val="1800000" />
     <set name="castRange" val="-1" />
     <set name="skillRadius" val="180" />
+    <set name="staticReuse" val="true" />
     <set name="magicLvl" val="80" />
     <set name="effectNpcId" val="13018" />
     <set name="effectId" val="5129" />

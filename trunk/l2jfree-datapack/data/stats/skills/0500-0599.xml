@@ -396,6 +396,8 @@
       87 88 89 91 92 94 96 97 99 100 102 103 105 106 108 109
     </table>
     <set name="weaponsAllowed" val="65536" />
+    <set name="itemConsumeId" val="10113" />
+    <set name="itemConsumeCount" val="1" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="SSBoost" val="2.0" />

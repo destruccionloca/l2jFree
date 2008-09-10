@@ -73,15 +73,14 @@
   <skill id="5005" levels="1"
     name="Frintezza's Ghost Summoning">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Frintezza is in temporary state of paralysis.
+    Lvl 1: Frintezza is in temporary state of paralysis.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
+    <set name="isMagic" val="true"/>
     <for />
   </skill>
   <skill id="5006" levels="1" name="Frintezza's Melody">

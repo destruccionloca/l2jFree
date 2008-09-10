@@ -1850,7 +1850,7 @@
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
     <for>
-      <effect count="1" name="Sleep" time="30" val="0" />
+      <effect count="1" name="Sleep" time="30" val="0" stackOrder="1" stackType="sleep" />
     </for>
   </skill>
   <skill id="1071" levels="14" name="Surrender To Water"
@@ -1956,7 +1956,7 @@
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
     <for>
-      <effect count="1" name="Sleep" time="30" val="0" />
+      <effect count="1" name="Sleep" time="30" val="0" stackOrder="1" stackType="sleep" />
     </for>
   </skill>
   <skill id="1073" levels="2" name="Kiss of Eva"
@@ -2615,7 +2615,7 @@
     <enchant2 name="mpInitialConsume"
       val="#ench2MpConsume_Init" />
     <for>
-      <effect count="1" name="Sleep" time="30" val="0" />
+      <effect count="1" name="Sleep" time="30" val="0" stackOrder="1" stackType="sleep" />
     </for>
   </skill>
   <skill id="1099" levels="15" name="Seal of Slow"

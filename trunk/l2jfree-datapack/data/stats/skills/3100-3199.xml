@@ -20,7 +20,7 @@
     <set name="isDebuff" val="true" />
     <set name="isMagic" val="true" />
     <for>
-      <effect count="1" name="Sleep" time="5" val="0" />
+      <effect count="1" name="Sleep" time="5" val="0" stackOrder="1" stackType="sleep" />
     </for>
   </skill>
   <skill id="3101" levels="10"
@@ -469,7 +469,7 @@
     <set name="isDebuff" val="true" />
     <set name="isMagic" val="true" />
     <for>
-      <effect count="1" name="Sleep" time="5" val="0" />
+      <effect count="1" name="Sleep" time="5" val="0" stackOrder="1" stackType="sleep" />
     </for>
   </skill>
   <skill id="3116" levels="10"
@@ -2061,6 +2061,7 @@
     <set name="magicLvl" val="#magicLvl" />
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
+    <set name="element" val="4" /> <!-- Earth -->
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
@@ -3021,7 +3022,7 @@
     <set name="effectRange" val="1100" />
     <set name="lvlDepend" val="2" />
     <for>
-      <effect count="1" name="Sleep" time="30" val="0" />
+      <effect count="1" name="Sleep" time="30" val="0" stackOrder="1" stackType="sleep" />
     </for>
   </skill>
   <skill id="3192" levels="10"
@@ -3057,7 +3058,7 @@
       <effect count="1" name="Paralyze" time="30" val="0" />
     </for>
   </skill>
-  <skill id="3193" levels="1" name="Item Skill: Medusa">
+  <skill id="3193" levels="10" name="Item Skill: Medusa">
     <!--
       Description(s): Lvl 1-10 - Active: Temporarily throws
       the target into a petrified state.
