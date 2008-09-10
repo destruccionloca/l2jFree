@@ -81,6 +81,7 @@ import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ExQuestInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExShowVariationCancelWindow;
 import com.l2jfree.gameserver.network.serverpackets.ExShowVariationMakeWindow;
@@ -1419,7 +1420,7 @@ public class L2NpcInstance extends L2Character
 			{
 				int cmdChoice = Integer.parseInt(command.substring(10, 11).trim());
 				int[] pen_clear_price = { 3600, 8640, 25200, 50400, 86400, 144000 };
-				int price = pen_clear_price[player.getExpertiseIndex()] * Config.RATE_DROP_ADENA;
+				int price = pen_clear_price[player.getExpertiseIndex()] * (int)Config.RATE_DROP_ADENA;
 				switch (cmdChoice)
 				{
 					case 1:
