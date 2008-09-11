@@ -232,7 +232,7 @@
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="35" />
+    <set name="power" val="35" /> <!-- Base Land Rate -->
     <set name="lvlDepend" val="1" />
     <set name="target" val="TARGET_AURA" />
     <set name="skillRadius" val="200" />
@@ -302,7 +302,7 @@
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="0.0" />
+    <set name="power" val="20" />
     <set name="target" val="TARGET_AURA" />
     <set name="skillRadius" val="200" />
     <set name="reuseDelay" val="20000" />
@@ -314,7 +314,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="5" name="Confusion" time="6" val="0" />
+      <effect count="5" name="Confusion" time="4" val="0" />
     </for>
   </skill>
   <skill id="1216" levels="1" name="Self Heal">
@@ -1453,7 +1453,7 @@
     <set name="effectRange" val="1400" />
     <set name="isDebuff" val="true" />
     <set name="effectType" val="BLEED" />
-    <set name="effectPower" val="50" />
+    <set name="effectPower" val="50" /> <!-- Base Land Rate -->
     <set name="effectLevel" val="#effectLevel" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
@@ -3022,8 +3022,7 @@
       44 48 52 56 58 60 62 64 66 68 70 72 74
     </table>
     <table name="#power">
-      30.0 50.0 70.0 90.0 110.0 130.0 150.0 170.0 190.0
-      210.0 230.0 250.0 300.0
+      30 50 70 90 110 130 150 170 190 210 230 250 300
     </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
@@ -3033,7 +3032,7 @@
     <set name="skillRadius" val="200" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="4000" />
-    <set name="skillType" val="AGGREDUCE" />
+    <set name="skillType" val="AGGREMOVE" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
@@ -3634,7 +3633,7 @@
         retail value: 118/sec; stat update every time unit
         (2/3 sec)
       -->
-      <effect count="20" name="DamOverTime" time="1"
+      <effect count="15" name="DamOverTime" time="1"
         val="118" />
     </for>
   </skill>

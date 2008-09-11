@@ -128,7 +128,6 @@
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="0" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -148,7 +147,6 @@
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="0" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -168,7 +166,6 @@
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="0" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -188,7 +185,6 @@
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="0" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
@@ -207,7 +203,6 @@
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="0" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -227,7 +222,6 @@
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="0" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -240,14 +234,13 @@
       </effect>
     </for>
   </skill>
-  <skill id="5214" levels="1" name="Event Bless the soul">
+  <skill id="5214" levels="1" name="Event Bless the Soul">
     <!--
       Description(s):
       Temporarily increases maximum MP. Effect 6.
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="0" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -267,7 +260,6 @@
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="0" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -287,7 +279,6 @@
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="0" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -307,7 +298,6 @@
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="0" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -326,7 +316,7 @@
     <!-- Only pre-implementation -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
-    <set name="hitTime" val="4000" />
+    <set name="hitTime" val="2000" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />

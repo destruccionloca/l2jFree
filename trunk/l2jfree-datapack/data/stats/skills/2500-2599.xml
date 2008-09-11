@@ -86,7 +86,6 @@
   <skill id="2512" levels="1"
     name="Herb of Life Force Absorption">
     <set name="power" val="0.0" />
-    <set name="hitTime" val="100" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -102,7 +101,6 @@
   </skill>
   <skill id="2513" levels="1" name="Herb of Doubt">
     <set name="power" val="0.0" />
-    <set name="hitTime" val="0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -118,7 +116,6 @@
   <skill id="2514" levels="1"
     name="Herb of Mortal Blow - Damage">
     <set name="power" val="0.0" />
-    <set name="hitTime" val="100" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -258,10 +255,13 @@
   </skill>
   <skill id="2531" levels="1"
     name="Adventurer's Scroll of Escape">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="hitTime" val="20000" />
+    <set name="skillType" val="RECALL" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for />
   </skill>
   <skill id="2532" levels="1" name="Pathfinder">

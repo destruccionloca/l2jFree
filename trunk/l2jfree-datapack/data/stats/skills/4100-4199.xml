@@ -58,7 +58,7 @@
     <table name="#mpConsume">35 65</table>
     <table name="#magicLvl">20 70</table>
     <set name="magicLvl" val="#magicLvl" />
-    <set name="lvlDepend" val="1" />
+    <set name="lvlDepend" val="2" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
@@ -159,9 +159,10 @@
   </skill>
   <skill id="4106" levels="1" name="Antharas Stun">
     <!-- Antharas Skills -->
+    <!-- "Antharas Jump" from Front -->
     <set name="magicLvl" val="70" />
     <set name="power" val="11000" />
-    <set name="target" val="TARGET_AURA" />
+    <set name="target" val="TARGET_FRONT_AURA" />
     <set name="skillRadius" val="1100" />
     <set name="overHit" val="true" />
     <set name="coolTime" val="2000" />
@@ -178,10 +179,11 @@
   </skill>
   <skill id="4107" levels="1" name="Antharas Stun">
     <!-- Antharas Skills -->
+    <!-- "Antharas Tail" from Behind -->
     <set name="magicLvl" val="70" />
     <set name="lvlDepend" val="1" />
     <set name="power" val="11000" />
-    <set name="target" val="TARGET_AURA" />
+    <set name="target" val="TARGET_BEHIND_AURA" />
     <set name="skillRadius" val="1500" />
     <set name="overHit" val="true" />
     <set name="coolTime" val="3000" />
@@ -207,12 +209,13 @@
     <set name="coolTime" val="2700" />
     <set name="isDebuff" val="true" />
     <set name="hitTime" val="2300" />
+    <set name="lvlDepend" val="1" />
     <set name="skillType" val="FEAR" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <for>
-      <effect count="5" name="Fear" time="3" val="0" />
+      <effect count="5" name="Fear" time="3" val="0" stackOrder="1" stackType="turn_flee" />
     </for>
   </skill>
   <skill id="4109" levels="1" name="Curse of Antharas">
@@ -230,7 +233,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect name="Debuff" time="120" count="1" val="0">
+      <effect name="Debuff" time="120" count="1" val="0" stackOrder="1" stackType="antaras_debuff">
         <sub order="0x40" stat="accCombat" val="19" />
         <sub order="0x40" stat="rEvas" val="19" />
         <div order="0x30" stat="mAtk" val="1.15" />
@@ -485,7 +488,7 @@
   </skill>
   <skill id="4122" levels="1" name="Antharas">
     <!-- Antharas Skills -->
-    <set name="magicLvl" val="70" /><!-- Possibly 79 -->
+    <set name="magicLvl" val="70" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="WEAKNESS" />
@@ -883,11 +886,10 @@
   <skill id="4145" levels="3" name="Decrease P. Atk.">
     <table name="#Tab-pAtk">0.83 0.80 0.77</table>
     <set name="magicLvl" val="1" />
-    <set name="mpConsume" val="0" />
     <set name="power" val="100" />
     <set name="target" val="TARGET_ONE" />
     <set name="isDebuff" val="true" />
-    <set name="hitTime" val="0" />
+    <set name="lvlDepend" val="1" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
@@ -903,11 +905,10 @@
   <skill id="4146" levels="3" name="Decrease P.Def">
     <table name="#Tab-pDef">0.83 0.80 0.77</table>
     <set name="magicLvl" val="1" />
-    <set name="mpConsume" val="0" />
     <set name="power" val="100" />
     <set name="target" val="TARGET_ONE" />
     <set name="isDebuff" val="true" />
-    <set name="hitTime" val="0" />
+    <set name="lvlDepend" val="1" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
@@ -933,7 +934,7 @@
     <table name="#dmg">
       12 18 24 31 38 44 48 48 49 49 48 48
     </table>
-    <table name="#power">
+    <table name="#effectLevel">
       2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0
     </table>
     <table name="#magicLvl">
@@ -941,17 +942,19 @@
     </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="mpConsume" val="0" />
-    <set name="power" val="#power" />
+    <set name="power" val="10" /> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE" />
-    <set name="hitTime" val="0" />
     <set name="isDebuff" val="true" />
     <set name="skillType" val="POISON" />
+    <set name="lvlDepend" val="1" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <set name="effectType" val="POISON" />
+    <set name="effectLevel" val="#effectLevel" />
     <for>
-      <effect count="1" name="DamOverTime" time="5"
-        val="#dmg" abnormal="poison" stackOrder="#power"
+      <effect count="2" name="DamOverTime" time="3"
+        val="#dmg" abnormal="poison" stackOrder="#effectLevel"
         stackType="poison" />
     </for>
   </skill>
@@ -967,6 +970,7 @@
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BLEED" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="lvlDepend" val="1" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <set name="displayId" val="96" />
@@ -990,6 +994,7 @@
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DOT" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="lvlDepend" val="1" />
     <set name="castRange" val="-1" />
     <set name="abnormal_type" val="dot_attr" />
     <for>
@@ -1284,6 +1289,7 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="WEAKNESS" />
     <set name="operateType" val="OP_PASSIVE" />
+    <set name="lvlDepend" val="1" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
@@ -1296,7 +1302,6 @@
       10 20 30 40 50 60 70 75 80 85 90 95
     </table>
     <set name="magicLvl" val="#magicLvl" />
-    <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -1766,7 +1771,7 @@
     <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="save" val="3" />
-    <set name="power" val="0.0" />
+    <set name="power" val="90" /> <!-- Base Land Rate -->
     <set name="target" val="TARGET_AURA" />
     <set name="skillRadius" val="200" />
     <set name="hitTime" val="3300" />
@@ -1939,7 +1944,7 @@
     <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="save" val="4" />
-    <set name="power" val="0.0" />
+    <set name="power" val="90" /> <!-- Base Land Rate -->
     <set name="target" val="TARGET_AURA" />
     <set name="skillRadius" val="200" />
     <set name="isDebuff" val="true" />
@@ -2201,7 +2206,7 @@
     <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="save" val="3" />
-    <set name="power" val="0.0" />
+    <set name="power" val="90" /> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="2500" />
     <set name="skillType" val="POISON" />

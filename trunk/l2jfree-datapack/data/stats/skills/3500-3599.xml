@@ -1601,6 +1601,7 @@
     <set name="overHit" val="true" />
     <set name="skillType" val="PDAM" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="lvlDepend" val="1" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="effectType" val="STUN" />
@@ -1651,6 +1652,7 @@
     <set name="skillType" val="DEBUFF" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="lvlDepend" val="1" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <for>
@@ -1696,6 +1698,7 @@
     <set name="skillType" val="ROOT" />
     <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="lvlDepend" val="1" />
     <set name="castRange" val="1000" />
     <set name="effectRange" val="1500" />
     <for>
@@ -1749,6 +1752,7 @@
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="lvlDepend" val="1" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <set name="isDebuff" val="true" />
@@ -1799,13 +1803,13 @@
     <set name="magicLvl" val="80" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="skillType" val="CONFUSION" />
+    <set name="skillType" val="CONFUSE_MOB_ONLY" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <set name="isDebuff" val="true" />
     <for>
-      <effect count="5" name="Confusion" time="4" val="0" />
+      <effect count="5" name="ConfuseMob" time="4" val="0" />
     </for>
   </skill>
   <skill id="3582" levels="1"
@@ -1890,6 +1894,7 @@
     <set name="skillType" val="STUN" />
     <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="lvlDepend" val="1" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <for>
@@ -1942,11 +1947,13 @@
     <set name="magicLvl" val="80" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
-    <set name="skillType" val="MUTE" />
+    <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
+    <set name="effectType" val="MUTE" />
     <set name="isDebuff" val="true" />
+    <set name="lvlDepend" val="2" />
     <for>
       <effect count="1" name="PhysicalMute" time="60"
         val="0" stackOrder="1" stackType="silence" />
@@ -1999,6 +2006,7 @@
     <set name="skillType" val="STUN" />
     <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="lvlDepend" val="1" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <for>
@@ -2060,6 +2068,7 @@
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="MUTE" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="lvlDepend" val="1" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <set name="isDebuff" val="true" />
@@ -2120,8 +2129,8 @@
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="CANCEL" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="900" />
-    <set name="effectRange" val="1400" />
+    <set name="castRange" val="40" />
+    <set name="effectRange" val="400" />
     <set name="negateStats" val="BUFF" />
     <set name="negatePower" val="8.0" />
     <set name="maxNegated" val="3" /><!-- Making max debuff count 3 -->
@@ -2162,6 +2171,7 @@
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="lvlDepend" val="1" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
     <set name="isDebuff" val="true" />

@@ -165,21 +165,25 @@
       0.95 0.92 0.90 0.90 0.90 0.90 0.90 0.90 0.90 0.90 0.90
       0.90 0.90
     </table>
+    <table name="#power"> 40 40 40 41 42 43 44 45 46 47 48 49 50 </table>
+    <table name="#stackOrder"> 1 2 3 3 3 3 3 3 3 3 3 3 3 </table>
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="100.0" />
+    <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="8000" />
     <set name="element" val="6" /><!-- Dark -->
     <set name="skillType" val="AGGDEBUFF" />
     <set name="hitTime" val="2000" />
     <set name="isDebuff" val="true" />
+    <set name="lvlDepend" val="1" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <for>
+      <effect count="1" name="TargetMe" time="1" val="0" noicon="1" />
       <effect count="1" name="Debuff" time="30" val="0"
-        stackOrder="100" stackType="CurseShade">
+            stackOrder="#stackOrder" stackType="debuff_nightshade">
         <mul order="0x30" stat="mDef" val="#Tab-mDef" />
         <mul order="0x30" stat="pDef" val="#Tab-pDef" />
       </effect>
@@ -197,8 +201,10 @@
       0.95 0.92 0.90 0.90 0.90 0.90 0.90 0.90 0.90 0.90 0.90
       0.90 0.90
     </table>
+    <table name="#power"> 40 40 40 41 42 43 44 45 46 47 48 49 50 </table>
+    <table name="#stackOrder"> 1 2 3 3 3 3 3 3 3 3 3 3 3 </table>
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="100.0" />
+    <set name="power" val="#power" />
     <set name="target" val="TARGET_AURA" />
     <set name="skillRadius" val="200" />
     <set name="reuseDelay" val="8000" />
@@ -206,13 +212,15 @@
     <set name="skillType" val="AGGDEBUFF" />
     <set name="hitTime" val="2000" />
     <set name="isDebuff" val="true" />
+    <set name="lvlDepend" val="1" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
+      <effect count="1" name="TargetMe" time="1" val="0" noicon="1" />
       <effect count="1" name="Debuff" time="30" val="0"
-        stackOrder="100" stackType="CurseShade">
+           stackOrder="#stackOrder" stackType="debuff_nightshade">
         <mul order="0x30" stat="mDef" val="#Tab-mDef" />
         <mul order="0x30" stat="pDef" val="#Tab-pDef" />
       </effect>
@@ -254,6 +262,7 @@
     <set name="hitTime" val="2000" />
     <set name="reuseDelay" val="10000" />
     <set name="isDebuff" val="true" />
+    <set name="lvlDepend" val="1" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />

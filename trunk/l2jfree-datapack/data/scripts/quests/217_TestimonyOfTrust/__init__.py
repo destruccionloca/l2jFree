@@ -10,6 +10,7 @@ qn = "217_TestimonyOfTrust"
 MARK_OF_TRUST_ID = 2734
 LETTER_TO_ELF_ID = 1558
 LETTER_TO_DARKELF_ID = 1556
+ADENA = 57
 
 LETTER_TO_DWARF_ID,           LETTER_TO_ORC_ID,        LETTER_TO_SERESIN_ID,  SCROLL_OF_DARKELF_TRUST_ID, \
 SCROLL_OF_ELF_TRUST_ID,       SCROLL_OF_DWARF_TRUST_ID,SCROLL_OF_ORC_TRUST_ID,RECOMMENDATION_OF_HOLLIN_ID,\
@@ -250,7 +251,8 @@ class Quest (JQuest) :
            htmltext = "30191-07.htm"
          elif npcId == 30031 and st.getQuestItemsCount(RECOMMENDATION_OF_HOLLIN_ID) :
            st.addExpAndSp(695149,46391)
-           st.rewardItems(57,126106)
+           st.rewardItems(ADENA,126106)
+           st.giveItems(7562,96)
            htmltext = "30031-01.htm"
            st.takeItems(RECOMMENDATION_OF_HOLLIN_ID,1)
            st.giveItems(MARK_OF_TRUST_ID,1)
