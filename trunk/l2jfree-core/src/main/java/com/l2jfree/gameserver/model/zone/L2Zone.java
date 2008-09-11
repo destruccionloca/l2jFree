@@ -246,7 +246,7 @@ public abstract class L2Zone
 
 	public void revalidateInZone(L2Character character)
 	{
-		if (isCorrectType(character) && isInsideZone(character) && (_instanceName == null || character.getInstanceId() > 0))
+		if (isCorrectType(character) && isInsideZone(character))
 		{
 			if (!_characterList.containsKey(character.getObjectId()))
 			{
