@@ -154,6 +154,12 @@ public abstract class L2Zone
 
 	protected FastList<L2Skill> _applyEnter, _applyExit, _removeEnter, _removeExit;
 
+	// Instances
+	protected String _instanceName;
+	protected String _instanceGroup;
+	protected int _minPlayers;
+	protected int _maxPlayers;
+
 	protected static final Func[] EMPTY_FUNC_SET = new Func[0];
 	protected FuncTemplate[] _funcTemplates;
 
@@ -240,7 +246,7 @@ public abstract class L2Zone
 
 	public void revalidateInZone(L2Character character)
 	{
-		if (isCorrectType(character) && isInsideZone(character))
+		if (isCorrectType(character) && isInsideZone(character) && (_instanceName == null || character.getInstanceId() > 0))
 		{
 			if (!_characterList.containsKey(character.getObjectId()))
 			{
@@ -557,6 +563,18 @@ public abstract class L2Zone
 					return null;
 				}
 			}
+			else if ("instance".equalsIgnoreCase(n.getNodeName()))
+			{
+				try
+				{
+					zone.parseInstance(n);
+				}
+				catch(Exception e)
+				{
+					_log.error("Cannot parse instance for zone "+zone.getName()+" ("+zone.getId()+")");
+					return null;
+				}
+			}
 			else if ("settings".equalsIgnoreCase(n.getNodeName()))
 			{
 				try
@@ -663,11 +681,24 @@ public abstract class L2Zone
 		Node clanhall = n.getAttributes().getNamedItem("clanhallId");
 		Node town = n.getAttributes().getNamedItem("townId");
 		Node fort = n.getAttributes().getNamedItem("fortId");
-		
+
 		_castleId = (castle != null) ? Integer.parseInt(castle.getNodeValue()) : -1;
 		_clanhallId = (clanhall != null) ? Integer.parseInt(clanhall.getNodeValue()) : -1;
 		_townId = (town != null) ? Integer.parseInt(town.getNodeValue()) : -1;
 		_fortId = (fort != null) ? Integer.parseInt(fort.getNodeValue()) : -1;
+	}
+
+	private void parseInstance(Node n) throws Exception
+	{
+		Node instanceName = n.getAttributes().getNamedItem("instanceName");
+		Node instanceGroup = n.getAttributes().getNamedItem("instanceGroup");
+		Node minPlayers = n.getAttributes().getNamedItem("minPlayers");
+		Node maxPlayers = n.getAttributes().getNamedItem("maxPlayers");
+
+		_instanceName = (instanceName != null) ? instanceName.getNodeValue() : null;
+		_instanceGroup = (instanceGroup != null) ? instanceGroup.getNodeValue().toLowerCase() : null;
+		_minPlayers = (minPlayers != null) ? Integer.parseInt(minPlayers.getNodeValue()) : -1;
+		_maxPlayers = (maxPlayers != null) ? Integer.parseInt(maxPlayers.getNodeValue()) : -1;
 	}
 
 	private void parseSettings(Node n) throws Exception

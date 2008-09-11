@@ -692,6 +692,24 @@ public class L2Clan
 		return limit;
 	}
 
+	public List<L2PcInstance> getOnlineMembersList()
+	{
+		List<L2PcInstance> result = new FastList<L2PcInstance>();
+		for (L2ClanMember temp : _members.values())
+		{
+			try
+			{
+				if (temp.isOnline() && temp.getPlayerInstance() != null)
+					result.add(temp.getPlayerInstance());
+			}
+			catch (NullPointerException e)
+			{
+			}
+		}
+
+		return result;
+	}
+
 	public L2PcInstance[] getOnlineMembers(int exclude)
 	{
 		List<L2PcInstance> result = new FastList<L2PcInstance>();
@@ -708,7 +726,6 @@ public class L2Clan
 		}
 
 		return result.toArray(new L2PcInstance[result.size()]);
-
 	}
 
 	/**
@@ -2714,5 +2731,22 @@ public class L2Clan
 		 */
 		//clan.broadcastToOnlineMembers(new PledgeStatusChanged(clan));
 		//clan.broadcastClanStatus();
+	}
+
+	public List<L2PcInstance> getOnlineAllyMembers()
+	{
+		List<L2PcInstance> list = new FastList<L2PcInstance>();
+		if (getAllyId() == 0)
+		{
+			return list;
+		}
+		for (L2Clan clan : ClanTable.getInstance().getClans())
+		{
+			if (clan.getAllyId() == getAllyId())
+			{
+				list.addAll(clan.getOnlineMembersList());
+			}
+		}
+		return list;
 	}
 }
