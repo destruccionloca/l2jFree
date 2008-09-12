@@ -591,8 +591,8 @@ public class Castle extends Siegeable
 				// Create list of the door default for use when respawning dead doors
 				_doorDefault.add(rs.getString("name") + ";" + rs.getInt("id") + ";" + rs.getInt("posx") + ";" + rs.getInt("posy") + ";" + rs.getInt("posz") + ";"
 						+ rs.getInt("ax") + ";" + rs.getInt("ay") + ";" + rs.getInt("bx") + ";" + rs.getInt("by") + ";" + rs.getInt("cx") + ";"
-						+ rs.getInt("cy") + ";" + rs.getInt("dx") + ";" + rs.getInt("dy") + ";" + rs.getInt("minz") + ";" + rs.getInt("maxz") 
-						+ ";" + rs.getInt("hp") + rs.getInt("pdef") + ";" + rs.getInt("mdef"));
+						+ rs.getInt("cy") + ";" + rs.getInt("dx") + ";" + rs.getInt("dy") + ";" + rs.getInt("minz") + ";" + rs.getInt("maxz") + ";"
+						+ rs.getInt("hp") + ";" + rs.getInt("pdef") + ";" + rs.getInt("mdef"));
 
 				L2DoorInstance door = DoorTable.parseList(_doorDefault.get(_doorDefault.size() - 1));
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
