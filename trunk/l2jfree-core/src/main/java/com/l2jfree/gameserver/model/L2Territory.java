@@ -32,15 +32,14 @@ public class L2Territory
 
 	protected class Point
 	{
-		protected int	_x, _y, _zmin, _zmax, _proc;
+		protected int	_x, _y, _zmin, _zmax;
 
-		Point(int x, int y, int zmin, int zmax, int proc)
+		Point(int x, int y, int zmin, int zmax)
 		{
 			_x = x;
 			_y = y;
 			_zmin = zmin;
 			_zmax = zmax;
-			_proc = proc;
 		}
 	}
 
@@ -52,7 +51,6 @@ public class L2Territory
 	private int				_yMax;
 	private int				_zMin;
 	private int				_zMax;
-	private int				_procMax;
 
 	public L2Territory(String name)
 	{
@@ -64,12 +62,11 @@ public class L2Territory
 		_yMax = -999999;
 		_zMin = 999999;
 		_zMax = -999999;
-		_procMax = 0;
 	}
 
-	public void add(int x, int y, int zmin, int zmax, int proc)
+	public void add(int x, int y, int zmin, int zmax)
 	{
-		_points.add(new Point(x, y, zmin, zmax, proc));
+		_points.add(new Point(x, y, zmin, zmax));
 		if (x < _xMin)
 			_xMin = x;
 		if (y < _yMin)
@@ -82,7 +79,6 @@ public class L2Territory
 			_zMin = zmin;
 		if (zmax > _zMax)
 			_zMax = zmax;
-		_procMax += proc;
 	}
 
 	public void print()
@@ -128,56 +124,6 @@ public class L2Territory
 		return intersect_count % 2 == 1;
 	}
 
-	public int[] getRandomPoint()
-	{
-		int i;
-		int[] p = new int[4];
-		if (_procMax > 0)
-		{
-			int pos = 0;
-			int rnd = Rnd.nextInt(_procMax);
-			for (i = 0; i < _points.size(); i++)
-			{
-				Point p1 = _points.get(i);
-				pos += p1._proc;
-				if (rnd <= pos)
-				{
-					p[0] = p1._x;
-					p[1] = p1._y;
-					p[2] = p1._zmin;
-					p[3] = p1._zmax;
-					return p;
-				}
-			}
-		}
-		for (i = 0; i < 100; i++)
-		{
-			p[0] = Rnd.get(_xMin, _xMax);
-			p[1] = Rnd.get(_yMin, _yMax);
-			if (isInside(p[0], p[1]))
-			{
-				double curdistance = 0;
-				p[2] = _zMin + 100;
-				p[3] = _zMax;
-				for (i = 0; i < _points.size(); i++)
-				{
-					Point p1 = _points.get(i);
-					double dx = p1._x - p[0];
-					double dy = p1._y - p[1];
-					double distance = Math.sqrt(dx * dx + dy * dy);
-					if (curdistance == 0 || distance < curdistance)
-					{
-						curdistance = distance;
-						p[2] = p1._zmin + 100;
-					}
-				}
-				return p;
-			}
-		}
-		_log.warn("Can't make point for territory " + _name);
-		return p;
-	}
-
 	public int getXmax()
 	{
 		return _xMax;
@@ -207,10 +153,4 @@ public class L2Territory
 	{
 		return _zMax;
 	}
-
-	public int getProcMax()
-	{
-		return _procMax;
-	}
-
 }

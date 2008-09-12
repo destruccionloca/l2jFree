@@ -5251,12 +5251,12 @@ public abstract class L2Character extends L2Object
 						z = m.geoPath.get(m.onGeodataPathIndex).getZ();
 
 						// check for doors in the route
-						if (DoorTable.getInstance().checkIfDoorsBetween(curX, curY, curZ, x, y, z))
+						/*if (DoorTable.getInstance().checkIfDoorsBetween(curX, curY, curZ, x, y, z))
 						{
 							m.geoPath = null;
 							getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 							return;
-						}
+						}*/
 						/*for (int i = 0; i < m.geoPath.getPath().size() - 1; i++)
 						{
 							if (DoorTable.getInstance().checkIfDoorsBetween(m.geoPath.getPath().get(i), m.geoPath.getPath().get(i + 1)))

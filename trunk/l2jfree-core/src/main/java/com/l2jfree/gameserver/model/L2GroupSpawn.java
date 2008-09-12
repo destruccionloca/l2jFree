@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model;
 
 import java.lang.reflect.Constructor;
 
-import com.l2jfree.gameserver.Territory;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
@@ -60,22 +59,9 @@ public class L2GroupSpawn extends L2Spawn
 
 			int newlocx, newlocy, newlocz;
 
-			if (getLocx() == 0 && getLocy() == 0)
-			{
-				if (getLocation() == 0)
-					return null;
-
-				int p[] = Territory.getInstance().getRandomPoint(getLocation());
-				newlocx = p[0];
-				newlocy = p[1];
-				newlocz = p[2];
-			}
-			else
-			{
-				newlocx = getLocx();
-				newlocy = getLocy();
-				newlocz = getLocz();
-			}
+			newlocx = getLocx();
+			newlocy = getLocy();
+			newlocz = getLocz();
 
 			mob.getStatus().setCurrentHpMp(mob.getMaxHp(), mob.getMaxMp());
 

@@ -426,6 +426,9 @@ public class CharEffectList
 			// Check for same effects
 			for (L2Effect e : effectList)
 			{
+				if (e == null)
+					continue;
+
 				if (e.getSkill().getId() == newEffect.getSkill().getId()
 						&& e.getEffectType() == newEffect.getEffectType()
 						&& e.getStackOrder() == newEffect.getStackOrder())

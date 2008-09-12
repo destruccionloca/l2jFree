@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
+import com.l2jfree.gameserver.model.L2Territory;
 import com.l2jfree.gameserver.templates.L2CharTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
 
@@ -145,35 +146,26 @@ public class DoorTable
 		int x = Integer.parseInt(st.nextToken());
 		int y = Integer.parseInt(st.nextToken());
 		int z = Integer.parseInt(st.nextToken());
-		int rangeXMin = Integer.parseInt(st.nextToken());
-		int rangeYMin = Integer.parseInt(st.nextToken());
-		int rangeZMin = Integer.parseInt(st.nextToken());
-		int rangeXMax = Integer.parseInt(st.nextToken());
-		int rangeYMax = Integer.parseInt(st.nextToken());
-		int rangeZMax = Integer.parseInt(st.nextToken());
+		int ax = Integer.parseInt(st.nextToken());
+		int ay = Integer.parseInt(st.nextToken());
+		int bx = Integer.parseInt(st.nextToken());
+		int by = Integer.parseInt(st.nextToken());
+		int cx = Integer.parseInt(st.nextToken());
+		int cy = Integer.parseInt(st.nextToken());
+		int dx = Integer.parseInt(st.nextToken());
+		int dy = Integer.parseInt(st.nextToken());
+		int zmin = Integer.parseInt(st.nextToken());
+		int zmax = Integer.parseInt(st.nextToken());
 		int hp = Integer.parseInt(st.nextToken());
 		int pdef = Integer.parseInt(st.nextToken());
 		int mdef = Integer.parseInt(st.nextToken());
 		boolean unlockable = false;
-
 		if (st.hasMoreTokens())
 			unlockable = Boolean.parseBoolean(st.nextToken());
 
 		boolean autoopen = false;
 		if (st.hasMoreTokens())
 			autoopen = Boolean.parseBoolean(st.nextToken());
-
-		if (rangeXMin > rangeXMax)
-			_log.fatal("Error in door data, ID:" + id);
-		if (rangeYMin > rangeYMax)
-			_log.fatal("Error in door data, ID:" + id);
-		if (rangeZMin > rangeZMax)
-			_log.fatal("Error in door data, ID:" + id);
-		int collisionRadius; // (max) radius for movement checks
-		if ((rangeXMax - rangeXMin) > (rangeYMax - rangeYMin))
-			collisionRadius = rangeYMax - rangeYMin;
-		else
-			collisionRadius = rangeXMax - rangeXMin;
 
 		StatsSet npcDat = new StatsSet();
 		npcDat.set("npcId", id);
@@ -194,10 +186,10 @@ public class DoorTable
 		npcDat.set("baseCritRate", 38);
 
 		//npcDat.set("name", "");
-		npcDat.set("collision_radius", collisionRadius);
-		npcDat.set("collision_height", rangeZMax - rangeZMin);
-		npcDat.set("fcollision_radius", collisionRadius);
-		npcDat.set("fcollision_height", rangeZMax - rangeZMin);
+		npcDat.set("collision_radius", 0);
+		npcDat.set("collision_height", zmax - zmin & 0xfff0);
+		npcDat.set("fcollision_radius", 0);
+		npcDat.set("fcollision_height", zmax - zmin & 0xfff0);
 		npcDat.set("sex", "male");
 		npcDat.set("type", "");
 		npcDat.set("baseAtkRange", 0);
@@ -224,7 +216,11 @@ public class DoorTable
 
 		L2CharTemplate template = new L2CharTemplate(npcDat);
 		L2DoorInstance door = new L2DoorInstance(IdFactory.getInstance().getNextId(), template, id, name, unlockable);
-		door.setRange(rangeXMin, rangeYMin, rangeZMin, rangeXMax, rangeYMax, rangeZMax);
+		L2Territory pos = door.getPos();
+		pos.add(ax, ay, zmin, zmax);
+		pos.add(bx, by, zmin, zmax);
+		pos.add(cx, cy, zmin, zmax);
+		pos.add(dx, dy, zmin, zmax);
 		try
 		{
 			door.setMapRegion(MapRegionManager.getInstance().getRegion(x, y, z));
@@ -233,9 +229,10 @@ public class DoorTable
 		{
 			_log.fatal("Error in door data, ID:" + id);
 		}
+		template.setCollisionRadius(Math.min(x - pos.getXmin(), y - pos.getYmin()));
 		door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
 		door.setOpen(autoopen ? 0 : 1);
-		door.getPosition().setXYZInvisible(x, y, z);
+		door.getPosition().setXYZInvisible(x, y, (zmax + zmin) / 2);
 
 		return door;
 	}
@@ -297,7 +294,7 @@ public class DoorTable
 		*/
 	}
 
-	public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz)
+	/*public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz)
 	{
 		L2MapRegion region;
 		try
@@ -334,5 +331,5 @@ public class DoorTable
 			}
 		}
 		return false;
-	}
+	}*/
 }

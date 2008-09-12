@@ -77,20 +77,12 @@ public class L2DoorInstance extends L2Character
 
 	private L2MapRegion			_mapRegion			= null;
 
-	// when door is closed, the dimensions are
-	private int					_rangeXMin			= 0;
-	private int					_rangeYMin			= 0;
-	private int					_rangeZMin			= 0;
-	private int					_rangeXMax			= 0;
-	private int					_rangeYMax			= 0;
-	private int					_rangeZMax			= 0;
-
 	protected final int			_doorId;
 	protected final String		_name;
 	private int					_open;
 	public boolean				_geoOpen;
 	private boolean				_unlockable;
-	public final L2Territory	_pos;
+	private L2Territory	_pos;
 
 	private ClanHall			_clanHall;
 
@@ -656,47 +648,6 @@ public class L2DoorInstance extends L2Character
 		return _name;
 	}
 
-	public int getXMin()
-	{
-		return _rangeXMin;
-	}
-
-	public int getYMin()
-	{
-		return _rangeYMin;
-	}
-
-	public int getZMin()
-	{
-		return _rangeZMin;
-	}
-
-	public int getXMax()
-	{
-		return _rangeXMax;
-	}
-
-	public int getYMax()
-	{
-		return _rangeYMax;
-	}
-
-	public int getZMax()
-	{
-		return _rangeZMax;
-	}
-
-	public void setRange(int xMin, int yMin, int zMin, int xMax, int yMax, int zMax)
-	{
-		_rangeXMin = xMin;
-		_rangeYMin = yMin;
-		_rangeZMin = zMin;
-
-		_rangeXMax = xMax;
-		_rangeYMax = yMax;
-		_rangeZMax = zMax;
-	}
-
 	public L2MapRegion getMapRegion()
 	{
 		return _mapRegion;
@@ -735,6 +686,11 @@ public class L2DoorInstance extends L2Character
 	public L2Territory getPos()
 	{
 		return _pos;
+	}
+
+	public void setPos(L2Territory pos)
+	{
+		_pos = pos;
 	}
 
 	public boolean getGeoOpen()

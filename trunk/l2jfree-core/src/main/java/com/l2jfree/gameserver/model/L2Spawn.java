@@ -22,7 +22,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.Territory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.idfactory.IdFactory;
@@ -560,27 +559,10 @@ public class L2Spawn
 			}
 		}
 
-		// If Locx=0 and Locy=0, the L2NpcInstance must be spawned in an area defined by location
-		if (getLocx() == 0 && getLocy() == 0)
-		{
-			if (getLocation() == 0)
-				return mob;
-
-			// Calculate the random position in the location area
-			int p[] = Territory.getInstance().getRandomPoint(getLocation());
-
-			// Set the calculated position of the L2NpcInstance
-			newlocx = p[0];
-			newlocy = p[1];
-			newlocz = doCorrect ? GeoClient.getInstance().getSpawnHeight(newlocx, newlocy, p[2], p[3], _id) : p[2];
-		}
-		else
-		{
-			// The L2NpcInstance is spawned at the exact position (Lox, Locy, Locz)
-			newlocx = getLocx();
-			newlocy = getLocy();
-			newlocz = doCorrect ? GeoClient.getInstance().getSpawnHeight(newlocx, newlocy, getLocz(), getLocz(), _id) : getLocz();
-		}
+		// The L2NpcInstance is spawned at the exact position (Lox, Locy, Locz)
+		newlocx = getLocx();
+		newlocy = getLocy();
+		newlocz = doCorrect ? GeoClient.getInstance().getSpawnHeight(newlocx, newlocy, getLocz(), getLocz(), _id) : getLocz();
 
 		for (L2Effect f : mob.getAllEffects())
 		{

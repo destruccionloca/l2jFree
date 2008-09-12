@@ -25,7 +25,6 @@ import java.util.concurrent.Future;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.geodata.GeoClient;
-import com.l2jfree.gameserver.Territory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
@@ -638,37 +637,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				}
 			}
 
-			// If NPC with random coord in territory
-			if (npc.getSpawn().getLocx() == 0 && npc.getSpawn().getLocy() == 0)
-			{
-				// Calculate a destination point in the spawn area
-				int p[] = Territory.getInstance().getRandomPoint(npc.getSpawn().getLocation());
-				x1 = p[0];
-				y1 = p[1];
-				z1 = p[2];
-
-				// Calculate the distance between the current position of the L2Character and the target (x,y)
-				double distance2 = _actor.getPlanDistanceSq(x1, y1);
-
-				if (distance2 > range * range)
-				{
-					npc.setisReturningToSpawnPoint(true);
-					float delay = (float) Math.sqrt(distance2) / range;
-					x1 = _actor.getX() + (int) ((x1 - _actor.getX()) / delay);
-					y1 = _actor.getY() + (int) ((y1 - _actor.getY()) / delay);
-				}
-
-				// If NPC with random fixed coord, don't move (unless needs to return to spawnpoint)
-				if (Territory.getInstance().getProcMax(npc.getSpawn().getLocation()) > 0 && !npc.isReturningToSpawnPoint())
-					return;
-			}
-			else
-			{
-				// If NPC with fixed coord
-				x1 = npc.getSpawn().getLocx() + Rnd.nextInt(range * 2) - range;
-				y1 = npc.getSpawn().getLocy() + Rnd.nextInt(range * 2) - range;
-				z1 = npc.getZ();
-			}
+			x1 = npc.getSpawn().getLocx() + Rnd.nextInt(range * 2) - range;
+			y1 = npc.getSpawn().getLocy() + Rnd.nextInt(range * 2) - range;
+			z1 = npc.getZ();
 
 			//_log.config("Curent pos ("+getX()+", "+getY()+"), moving to ("+x1+", "+y1+").");
 			// Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet MoveToLocation (broadcast)
