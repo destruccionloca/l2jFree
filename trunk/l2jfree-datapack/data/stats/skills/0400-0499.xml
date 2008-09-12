@@ -16,8 +16,7 @@
       52 56 58 60 62 64 66 68 70 72
     </table>
     <table name="#power">
-      770.0 879.0 955.0 1034.0 1115.0 1197.0 1281.0 1366.0
-      1451.0 1535.0
+      770 879 955 1034 1115 1197 1281 1366 1451 1535
     </table>
     <table name="#rCrit">
       -0.3 -0.3 -0.3 -0.3 -0.3 -0.3 -0.4 -0.4 -0.4 -0.5
@@ -25,8 +24,7 @@
     <set name="weaponsAllowed" val="18444" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
-    <set name="element" val="5" />
-    <!-- Holy -->
+    <set name="element" val="5" /> <!-- Holy -->
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="30000" />
     <set name="hitTime" val="1300" />
@@ -62,17 +60,15 @@
       52 56 58 60 62 64 66 68 70 72
     </table>
     <table name="#power">
-      880.0 1004.0 1091.0 1181.0 1274.0 1368.0 1464.0 1561.0
-      1658.0 1754.0
+      880 1004 1091 1181 1274 1368 1464 1561 1658 1754
     </table>
     <table name="#cAtk">
       0.75 0.75 0.75 0.75 0.75 0.7 0.7 0.7 0.7 0.65
     </table>
-    <set name="weaponsAllowed" val="18444" />
+    <set name="weaponsAllowed" val="18956" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
-    <set name="element" val="6" />
-    <!-- Dark -->
+    <set name="element" val="6" /> <!-- Dark -->
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="30000" />
     <set name="hitTime" val="1300" />
