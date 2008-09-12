@@ -1838,15 +1838,16 @@ public class CTF
 				return;
 			else if (_playersShuffle.isEmpty())
 				return;
-			else if (_playersShuffle.size() > 0)
+			else if (_playersShuffle.size() > 0 || !_playersShuffle.isEmpty())
 			{
 				for (L2PcInstance player : _playersShuffle)
 				{
 					if (player.isOnline() == 0)
 					{
-						_playersShuffle.remove(player);
-						player._inEventCTF = false;
 						removePlayer(player);
+						player._inEventCTF = false;
+						if (_playersShuffle.size() > 0 || !_playersShuffle.isEmpty())
+							break;
 					}
 				}
 			}
