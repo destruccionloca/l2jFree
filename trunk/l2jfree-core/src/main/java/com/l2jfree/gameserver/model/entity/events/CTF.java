@@ -380,7 +380,7 @@ public class CTF
 			}
 			catch (Exception e)
 			{
-				_log.warn("CTF Engine[spawnAllFlags()]: exception: " + e.getMessage());
+				_log.warn("CTF Engine[spawnAllFlags()]: exception: " + e.getStackTrace());
 			}
 		}
 	}
@@ -442,6 +442,7 @@ public class CTF
 		}
 		catch (Throwable t)
 		{
+			_log.warn("CTF Engine[unspawnAllFlags()]: exception: " + t.getStackTrace());
 		}
 	}
 
@@ -1838,17 +1839,16 @@ public class CTF
 				return;
 			else if (_playersShuffle.isEmpty())
 				return;
-			else if (_playersShuffle.size() > 0 || !_playersShuffle.isEmpty())
+			else if (_playersShuffle.size() > 0)
 			{
 				for (L2PcInstance player : _playersShuffle)
 				{
-					if (player.isOnline() == 0)
-					{
+					if (player == null)
+						_playersShuffle.remove(player);
+					else if (player.isOnline() == 0 || player.isInJail())
 						removePlayer(player);
-						player._inEventCTF = false;
-						if (_playersShuffle.size() > 0 || !_playersShuffle.isEmpty())
-							break;
-					}
+					if (_playersShuffle.size() == 0 || _playersShuffle.isEmpty())
+						break;
 				}
 			}
 		}

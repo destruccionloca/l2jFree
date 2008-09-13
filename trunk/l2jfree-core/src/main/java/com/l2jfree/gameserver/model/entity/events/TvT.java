@@ -1313,17 +1313,16 @@ public class TvT
 				return;
 			else if (_playersShuffle.isEmpty())
 				return;
-			else if (_playersShuffle.size() > 0 || !_playersShuffle.isEmpty())
+			else if (_playersShuffle.size() > 0)
 			{
 				for (L2PcInstance player : _playersShuffle)
 				{
-					if (player.isOnline() == 0 || player.isInJail())
-					{
+					if (player == null)
+						_playersShuffle.remove(player);					
+					else if (player.isOnline() == 0 || player.isInJail())
 						removePlayer(player);
-						player._inEventTvT = false;
-						if (_playersShuffle.size() > 0 || !_playersShuffle.isEmpty())
-							break;
-					}
+					if (_playersShuffle.size() == 0 || _playersShuffle.isEmpty())
+						break;
 				}
 			}
 		}
