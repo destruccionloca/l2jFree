@@ -4826,9 +4826,9 @@ INSERT INTO `npc` VALUES
 (29093, 29093, "", 0, "", 0, "NPC.clear_npc", 0.1, 0.1, 99, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (29094, 29094, "", 0, "", 0, "NPC.clear_npc", 0.1, 0.1, 99, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (29095, 29095, "Gordon", 0, "Knight of Destruction", 0, "Monster3.Cruel_Rider", 43, 46.6, 87, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
-(29096, 29096, "Anais", 0, "Lord of Splendor", 0, "Monster3.solina_priest_120p", 16, 41.8, 87, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
-(29097, 29097, "Splendor Disciple", 0, "Raid Fighter", 0, "Monster3.apostle_grail", 13, 47, 99, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
-(29098, 29098, "Splendor Worshiper", 0, "Raid Fighter", 0, "Monster3.apostle_grail_a", 13, 47, 86, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
+(29096, 29096, "Anais", 0, "Lord of Splendor", 0, "Monster3.solina_priest_120p", 16, 41.8, 87, "male", "L2RaidBoss", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
+(29097, 29097, "Splendor Disciple", 0, "Raid Fighter", 0, "Monster3.apostle_grail", 13, 47, 86, "male", "L2Minion", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
+(29098, 29098, "Splendor Worshiper", 0, "Raid Fighter", 0, "Monster3.apostle_grail_a", 13, 47, 86, "male", "L2Minion", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (29099, 29099, "Baylor", 0, "Warden", 0, "LineageMonster4.Barler", 54, 77.5, 1, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (29100, 29100, "Crystal Prison Guard", 0, "", 0, "LineageMonster4.eyeless", 36, 43.5, 1, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (29101, 29101, "Crystaline Golem", 0, "", 0, "LineageMonster4.Crystal_Golem", 40, 22, 1, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
@@ -8714,7 +8714,7 @@ UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25499,25500 );
 UPDATE `npc` SET `exp` = 1154, `sp` = 64 WHERE `id` IN ( 25502,25503 );
 UPDATE `npc` SET `exp` = 30, `sp` = 2 WHERE `id` IN ( 25507,25508,25510 );
 UPDATE `npc` SET `exp` = 33008, `sp` = 4024 WHERE `id` IN ( 25515,25516 );
-UPDATE `npc` SET `exp` = 30, `sp` = 2 WHERE `id` IN ( 25518,25519 );
+UPDATE `npc` SET `exp` = 30, `sp` = 2 WHERE `id` IN ( 29097,29098 );
 UPDATE `npc` SET `exp` = 6742, `sp` = 730 WHERE `id` IN ( 25525,25526 );
 UPDATE `npc` SET `exp` = 440000, `sp` = 40000 WHERE `id` IN ( 29063,29064 );
 
@@ -8776,13 +8776,11 @@ REPLACE INTO npc(`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTi
 (13037, 13037, "Trap", 0, "", 0, "LineageNpc2.trap_mark", 5, 10, 1, "male", "L2Trap", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 0, 0, "", 0, 0, 0, "LAST_HIT");
 
 -- Master anays fixes:
-UPDATE `npc` SET `collision_radius`=16 WHERE `id`=25517;
-UPDATE `npc` SET `collision_height`=41.8 WHERE `id`=25517;
+UPDATE `npc` SET `collision_radius`=16 WHERE `id`=29096;
+UPDATE `npc` SET `collision_height`=41.8 WHERE `id`=29096;
 
 -- Minon fixes:
-UPDATE `npc` SET `collision_height`=43 WHERE `id`=25518;
 UPDATE `npc` SET `collision_radius`=20,`collision_height`=43 WHERE `id`=29097;
-UPDATE `npc` SET `collision_height`=43 WHERE `id`=25519;
 UPDATE `npc` SET `collision_radius`=20,`collision_height`=43 WHERE `id`=29098;
 UPDATE `npc` SET `collision_radius`=22,`collision_height`=23 WHERE `id`=25524;
 
