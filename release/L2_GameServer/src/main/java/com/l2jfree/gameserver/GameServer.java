@@ -137,27 +137,6 @@ public class GameServer
 
 	public GameServer() throws Throwable
 	{
-		String username = System.getProperty("user.name");
-		String userdir = System.getProperty("user.home");
-		if (username.equals("root") && userdir.equals("/root"))
-		{
-			System.out.print("l2jfree servers should not run under root-account ...");
-
-			for (int i = 0; i < 9; i++)
-			{
-				System.out.print(".");
-
-				long ticker = System.currentTimeMillis();
-				while (System.currentTimeMillis() - ticker < 1000)
-				{
-					//
-				}
-			}
-
-			System.out.println(". exited.");
-			System.exit(-1);
-		}
-
 		long serverLoadStart = System.currentTimeMillis();
 		Config.load();
 
@@ -253,36 +232,6 @@ public class GameServer
 		ZoneManager.getInstance();
 		MercTicketManager.getInstance();
 		DoorTable.getInstance().registerToClanHalls();
-		Util.printSection("Spawns");
-		SpawnTable.getInstance();
-		DayNightSpawnManager.getInstance().notifyChangeMode();
-		RaidBossSpawnManager.getInstance();
-		GrandBossSpawnManager.getInstance();
-		RaidPointsManager.getInstance();
-		AutoChatHandler.getInstance();
-		AutoSpawnHandler.getInstance();
-		Util.printSection("Economy");
-		TradeListTable.getInstance();
-		CastleManorManager.getInstance();
-		L2Manor.getInstance();
-		AuctionManager.getInstance();
-		Util.printSection("SevenSigns");
-		SevenSigns.getInstance();
-		SevenSignsFestival.getInstance();
-		Util.printSection("Olympiad");
-		Olympiad.getInstance();
-		Util.printSection("Dungeons");
-		DimensionalRiftManager.getInstance();
-		FourSepulchersManager.getInstance().init();
-		Util.printSection("Bosses");
-		AntharasManager.getInstance().init();
-		BaiumManager.getInstance().init();
-		BaylorManager.getInstance().init();
-		SailrenManager.getInstance().init();
-		ValakasManager.getInstance().init();
-		VanHalterManager.getInstance().init();
-		LastImperialTombManager.getInstance().init();
-		FrintezzaManager.getInstance().init();
 		Util.printSection("Quests");
 		QuestManager.getInstance();
 		TransformationManager.getInstance();
@@ -333,6 +282,36 @@ public class GameServer
 			ArenaManager.getInstance().engineInit();
 		if (Config.FISHERMAN_ENABLED)
 			FishermanManager.getInstance().engineInit();
+		Util.printSection("Spawns");
+		SpawnTable.getInstance();
+		DayNightSpawnManager.getInstance().notifyChangeMode();
+		RaidBossSpawnManager.getInstance();
+		GrandBossSpawnManager.getInstance();
+		RaidPointsManager.getInstance();
+		AutoChatHandler.getInstance();
+		AutoSpawnHandler.getInstance();
+		Util.printSection("Economy");
+		TradeListTable.getInstance();
+		CastleManorManager.getInstance();
+		L2Manor.getInstance();
+		AuctionManager.getInstance();
+		Util.printSection("SevenSigns");
+		SevenSigns.getInstance();
+		SevenSignsFestival.getInstance();
+		Util.printSection("Olympiad");
+		Olympiad.getInstance();
+		Util.printSection("Dungeons");
+		DimensionalRiftManager.getInstance();
+		FourSepulchersManager.getInstance().init();
+		Util.printSection("Bosses");
+		AntharasManager.getInstance().init();
+		BaiumManager.getInstance().init();
+		BaylorManager.getInstance().init();
+		SailrenManager.getInstance().init();
+		ValakasManager.getInstance().init();
+		VanHalterManager.getInstance().init();
+		LastImperialTombManager.getInstance().init();
+		FrintezzaManager.getInstance().init();
 
 		Util.printSection("Extensions");
 		if (Config.FACTION_ENABLED)

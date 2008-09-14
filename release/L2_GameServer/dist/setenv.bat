@@ -29,8 +29,8 @@ SET CLASSPATH=%CLASSPATH%;javolution-1.5.5.2.6.jar
 
 REM main jar
 SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.8.jar
-SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.2.0.jar
-SET CLASSPATH=%CLASSPATH%;l2jfree-gameserver-1.2.0.jar
+SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.2.1.jar
+SET CLASSPATH=%CLASSPATH%;l2jfree-gameserver-1.2.1.jar
 
 REM For SQL use
 SET CLASSPATH=%CLASSPATH%;mysql-connector-java-5.1.5.jar
