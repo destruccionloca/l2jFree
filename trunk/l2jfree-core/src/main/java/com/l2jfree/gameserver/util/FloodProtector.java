@@ -48,7 +48,7 @@ public class FloodProtector
 
 	// reuse delays for protected actions (in game ticks 1 tick = 100ms)
 	private static final int[]			REUSEDELAY				= new int[]
-																{ 4, 42, 42, Config.GLOBAL_CHAT_TIME, Config.TRADE_CHAT_TIME, 16, 100, Config.SOCIAL_TIME };
+																{ 4, 42, 42, Config.GLOBAL_CHAT_TIME, Config.TRADE_CHAT_TIME, 16, 100, Config.SOCIAL_TIME, 2 };
 
 	// protected actions
 	public static final int				PROTECTED_USEITEM		= 0;
@@ -59,6 +59,7 @@ public class FloodProtector
 	public static final int				PROTECTED_ITEMPETSUMMON	= 5;
 	public static final int				PROTECTED_HEROVOICE		= 6;
 	public static final int				PROTECTED_SOCIAL		= 7;
+	public static final int				PROTECTED_MULTISELL		= 8;
 
 	// =========================================================
 	// Constructor
@@ -119,7 +120,7 @@ public class FloodProtector
 		if (entry == null || entry.getValue() == null)
 		{
 			registerNewPlayer(playerObjId);
-			_log.warn("Player "+playerObjId+" tried to Perform action "+ action + " but wasnt registered to Floodprotector!!");
+			_log.warn("Player " + playerObjId + " tried to Perform action " + action + " but wasnt registered to Floodprotector!!");
 		}
 
 		entry = _floodClient.getEntry(playerObjId);
