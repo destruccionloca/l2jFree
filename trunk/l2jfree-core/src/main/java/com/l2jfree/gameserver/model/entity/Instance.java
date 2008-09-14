@@ -255,6 +255,8 @@ public class Instance
 							spawnDat.setRespawnDelay(respawn);
 							if (respawn == 0)
 								spawnDat.stopRespawn();
+							else
+								spawnDat.startRespawn();							
 							spawnDat.setInstanceId(getId());
 							L2NpcInstance newmob = spawnDat.doSpawn();
 							_npcs.add(newmob);
