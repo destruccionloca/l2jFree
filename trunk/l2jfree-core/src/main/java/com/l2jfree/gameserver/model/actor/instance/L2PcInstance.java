@@ -4748,7 +4748,7 @@ public final class L2PcInstance extends L2PlayableInstance
 						}
 						TvT.setTeamKillsCount(_teamNameTvT, TvT.teamKillsCount(_teamNameTvT) - 1);
 					}
-					sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+					sendMessage("You will be revived and teleported to team spot in " + Config.TVT_REVIVE_DELAY / 1000 + " seconds!");
 					ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 					{
 						public void run()
@@ -4757,7 +4757,7 @@ public final class L2PcInstance extends L2PlayableInstance
 									.get(TvT._teams.indexOf(_teamNameTvT)), false);
 							doRevive();
 						}
-					}, 20000);
+					}, Config.TVT_REVIVE_DELAY);
 				}
 			}
 
@@ -4765,7 +4765,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				if (TvT._teleport || TvT._started)
 				{
-					sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+					sendMessage("You will be revived and teleported to team spot in " + Config.TVT_REVIVE_DELAY / 1000 + " seconds!");
 					ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 					{
 						public void run()
@@ -4774,7 +4774,7 @@ public final class L2PcInstance extends L2PlayableInstance
 									.get(TvT._teams.indexOf(_teamNameTvT)), false);
 							doRevive();
 						}
-					}, 20000);
+					}, Config.TVT_REVIVE_DELAY);
 				}
 			}
 
@@ -4782,7 +4782,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				if (CTF._teleport || CTF._started)
 				{
-					sendMessage("You will be revived and teleported to team flag in 20 seconds!");
+					sendMessage("You will be revived and teleported to team flag in " + Config.CTF_REVIVE_DELAY / 1000 + " seconds!");
 
 					if (_haveFlagCTF)
 						removeCTFFlagOnDie();
@@ -4795,7 +4795,7 @@ public final class L2PcInstance extends L2PlayableInstance
 									.get(CTF._teams.indexOf(_teamNameCTF)), false);
 							doRevive();
 						}
-					}, 20000);
+					}, Config.CTF_REVIVE_DELAY);
 				}
 			}
 
@@ -4805,7 +4805,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				{
 					((L2PcInstance) killer)._countDMkills++;
 
-					sendMessage("You will be revived and teleported to spot in 20 seconds!");
+					sendMessage("You will be revived and teleported to spot in " + Config.DM_REVIVE_DELAY / 1000 + " seconds!");
 					ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 					{
 						public void run()
@@ -4813,14 +4813,14 @@ public final class L2PcInstance extends L2PlayableInstance
 							teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
 							doRevive();
 						}
-					}, 20000);
+					}, Config.DM_REVIVE_DELAY);
 				}
 			}
 			else if (_inEventDM)
 			{
 				if (DM._teleport || DM._started)
 				{
-					sendMessage("You will be revived and teleported to spot in 20 seconds!");
+					sendMessage("You will be revived and teleported to spot in " + Config.DM_REVIVE_DELAY / 1000 + " seconds!");
 					ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 					{
 						public void run()
@@ -4828,7 +4828,7 @@ public final class L2PcInstance extends L2PlayableInstance
 							teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
 							doRevive();
 						}
-					}, 20000);
+					}, Config.DM_REVIVE_DELAY);
 				}
 			}
 

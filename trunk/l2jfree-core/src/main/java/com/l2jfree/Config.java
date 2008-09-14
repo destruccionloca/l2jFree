@@ -2295,6 +2295,7 @@ public final class Config
 	public static boolean		CTF_ANNOUNCE_REWARD;
 	public static boolean		CTF_JOIN_CURSED;
 	public static boolean		CTF_REVIVE_RECOVERY;
+	public static long			CTF_REVIVE_DELAY;
 	public static boolean		FortressSiege_SAME_IP_PLAYERS_ALLOWED;
 	public static boolean		FortressSiege_ALLOW_INTERFERENCE;
 	public static boolean		FortressSiege_ALLOW_POTIONS;
@@ -2315,11 +2316,13 @@ public final class Config
 	public static boolean		TVT_ANNOUNCE_REWARD;
 	public static boolean		TVT_PRICE_NO_KILLS;
 	public static boolean		TVT_JOIN_CURSED;
+	public static long			TVT_REVIVE_DELAY;
 	public static boolean		DM_ALLOW_INTERFERENCE;
 	public static boolean		DM_ALLOW_POTIONS;
 	public static boolean		DM_ALLOW_SUMMON;
 	public static boolean		DM_ON_START_REMOVE_ALL_EFFECTS;
 	public static boolean		DM_ON_START_UNSUMMON_PET;
+	public static long			DM_REVIVE_DELAY;
 	public static boolean		FALLDOWNONDEATH;
 	public static boolean		ARENA_ENABLED;
 	public static int			ARENA_INTERVAL;
@@ -2361,6 +2364,9 @@ public final class Config
 			CTF_ANNOUNCE_REWARD = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAnnounceReward", "false"));
 			CTF_JOIN_CURSED = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFJoinWithCursedWeapon", "true"));
 			CTF_REVIVE_RECOVERY = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFReviveRecovery", "false"));
+			CTF_REVIVE_DELAY = Long.parseLong(funEnginesSettings.getProperty("CTFReviveDelay", "20000"));
+			if (CTF_REVIVE_DELAY < 1000)
+				CTF_REVIVE_DELAY = 1000; //can't be set less then 1 second
 
 			TVT_EVEN_TEAMS = funEnginesSettings.getProperty("TvTEvenTeams", "BALANCE");
 			TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowInterference", "false"));
@@ -2373,12 +2379,19 @@ public final class Config
 			TVT_ANNOUNCE_REWARD = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAnnounceReward", "false"));
 			TVT_PRICE_NO_KILLS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTPriceNoKills", "false"));
 			TVT_JOIN_CURSED = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTJoinWithCursedWeapon", "true"));
+			TVT_REVIVE_DELAY = Long.parseLong(funEnginesSettings.getProperty("TVTReviveDelay", "20000"));
+			if (TVT_REVIVE_DELAY < 1000)
+				TVT_REVIVE_DELAY = 1000; //can't be set less then 1 second
 
 			DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowInterference", "false"));
 			DM_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowPotions", "false"));
 			DM_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowSummon", "false"));
 			DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartRemoveAllEffects", "true"));
 			DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartUnsummonPet", "true"));
+			DM_REVIVE_DELAY = Long.parseLong(funEnginesSettings.getProperty("DMReviveDelay", "20000"));
+			if (DM_REVIVE_DELAY < 1000)
+				DM_REVIVE_DELAY = 1000; //can't be set less then 1 second
+			
 			FALLDOWNONDEATH = Boolean.parseBoolean(funEnginesSettings.getProperty("FallDownOnDeath", "true"));
 
 			ARENA_ENABLED = Boolean.parseBoolean(funEnginesSettings.getProperty("ArenaEnabled", "false"));
@@ -3557,6 +3570,8 @@ public final class Config
 			CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("CTFOnStartUnsummonPet"))
 			CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("CTFReviveDelay"))
+			CTF_REVIVE_DELAY = Long.parseLong(pValue);
 
 		else if (pName.equalsIgnoreCase("TvTEvenTeams"))
 			TVT_EVEN_TEAMS = pValue;
@@ -3570,6 +3585,8 @@ public final class Config
 			TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("TvTOnStartUnsummonPet"))
 			TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("TVTReviveDelay"))
+			TVT_REVIVE_DELAY = Long.parseLong(pValue);
 
 		else if (pName.equalsIgnoreCase("DMAllowInterference"))
 			DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
@@ -3581,6 +3598,8 @@ public final class Config
 			DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("DMOnStartUnsummonPet"))
 			DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("DMReviveDelay"))
+			DM_REVIVE_DELAY = Long.parseLong(pValue);
 
 		else if (pName.equalsIgnoreCase("FailFakeDeath"))
 			FAIL_FAKEDEATH = Boolean.parseBoolean(pValue);
