@@ -55,7 +55,7 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
             readH();//TODO: analyse this
             readH();//TODO: analyse this
             long cnt    = readD(); 
-        if (cnt > Integer.MAX_VALUE || cnt < 0)
+        if (cnt >= Integer.MAX_VALUE || cnt < 0)
         {
         _count = 0; _items = null;
         return;

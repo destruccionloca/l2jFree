@@ -116,7 +116,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 		}
 
 		long weight = item.getItem().getWeight() * _amount;
-		if (weight > Integer.MAX_VALUE || weight < 0 || !pet.getInventory().validateWeight((int)weight))
+		if (weight >= Integer.MAX_VALUE || weight < 0 || !pet.getInventory().validateWeight((int)weight))
 		{
 			sendPacket(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS);
 			return;

@@ -77,7 +77,7 @@ public class RequestBuySeed extends L2GameClientPacket
 			int itemId = readD();
 			_items[i * 2 + 0] = itemId;
 			long cnt = readD();
-			if (cnt > Integer.MAX_VALUE || cnt < 1)
+			if (cnt >= Integer.MAX_VALUE || cnt < 1)
 			{
 				_count = 0;
 				_items = null;
@@ -141,7 +141,7 @@ public class RequestBuySeed extends L2GameClientPacket
 				slots++;
 		}
 		
-		if (totalPrice > Integer.MAX_VALUE)
+		if (totalPrice >= Integer.MAX_VALUE)
 		{
 			Util.handleIllegalPlayerAction(player, "Warning!! Character "
 					+ player.getName() + " of account "

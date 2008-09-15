@@ -87,7 +87,7 @@ public class RequestBuyItem extends L2GameClientPacket
             int itemId   = readD();
             _items[i * 2] = itemId;
             long cnt      = readD(); 
-            if (cnt > Integer.MAX_VALUE || cnt < 0)
+            if (cnt >= Integer.MAX_VALUE || cnt < 0)
             {
                 _count = 0;
                 _items = null;
@@ -262,7 +262,7 @@ public class RequestBuyItem extends L2GameClientPacket
             long stackPrice = price * count;
             long taxedPrice = (long)(stackPrice * taxRate);
             long tax = taxedPrice - stackPrice;
-            if (taxedPrice > Integer.MAX_VALUE)
+            if (taxedPrice >= Integer.MAX_VALUE)
             {
                 player.sendPacket(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
                 return;
@@ -277,13 +277,13 @@ public class RequestBuyItem extends L2GameClientPacket
                 slots++;
         }
 
-        if (weight > Integer.MAX_VALUE || weight < 0 || !player.getInventory().validateWeight((int)weight))
+        if (weight >= Integer.MAX_VALUE || weight < 0 || !player.getInventory().validateWeight((int)weight))
         {
             sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
             return;
         }
 
-        if (slots > Integer.MAX_VALUE || slots < 0 || !player.getInventory().validateCapacity((int)slots))
+        if (slots >= Integer.MAX_VALUE || slots < 0 || !player.getInventory().validateCapacity((int)slots))
         {
             sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
             return;
@@ -291,7 +291,7 @@ public class RequestBuyItem extends L2GameClientPacket
 
         if (!player.isGM() || (player.isGM() && player.getAccessLevel() < Config.GM_FREE_SHOP))
         {
-            if (taxedPriceTotal < 0 || taxedPriceTotal > Integer.MAX_VALUE || !player.reduceAdena("Buy", (int) taxedPriceTotal, merchant, false))
+            if (taxedPriceTotal < 0 || taxedPriceTotal >= Integer.MAX_VALUE || !player.reduceAdena("Buy", (int) taxedPriceTotal, merchant, false))
             {
                 sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
                 return;

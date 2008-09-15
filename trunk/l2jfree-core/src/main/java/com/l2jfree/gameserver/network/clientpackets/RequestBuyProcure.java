@@ -63,7 +63,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
 			long servise = readD();
 			int itemId   = readD(); _items[i * 2 + 0] = itemId;
 			long cnt      = readD(); 
-			if (cnt > Integer.MAX_VALUE || cnt < 1)
+			if (cnt >= Integer.MAX_VALUE || cnt < 1)
 			{
 				_count=0; _items = null;
 				return;
@@ -105,8 +105,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
 			int count  = _items[i * 2 + 1];
 			int price = 0;
 			
-			//FIXME: count cannot be higher than MAX_VALUE
-			if (count > Integer.MAX_VALUE)
+			if (count >= Integer.MAX_VALUE)
 			{
 				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+Integer.MAX_VALUE+" items at the same time.",  Config.DEFAULT_PUNISH);
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);

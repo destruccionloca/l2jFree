@@ -82,7 +82,7 @@ public class RequestSellItem extends L2GameClientPacket
             int objectId = readD(); _items[i * 3 + 0] = objectId;
             int itemId   = readD(); _items[i * 3 + 1] = itemId;
             long cnt      = readD(); 
-            if (cnt > Integer.MAX_VALUE || cnt <= 0)
+            if (cnt >= Integer.MAX_VALUE || cnt <= 0)
             {
                 _count = 0; _items = null;
                 return;
@@ -172,7 +172,7 @@ public class RequestSellItem extends L2GameClientPacket
             if (item == null || (!item.getItem().isSellable())) continue;
 
             totalPrice += item.getReferencePrice() * count /2;
-            if (totalPrice > Integer.MAX_VALUE)
+            if (totalPrice >= Integer.MAX_VALUE)
             {
                 Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+Integer.MAX_VALUE+" adena worth of goods.",  Config.DEFAULT_PUNISH);
                 return;

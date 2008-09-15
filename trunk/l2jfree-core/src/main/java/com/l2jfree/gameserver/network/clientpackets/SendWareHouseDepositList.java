@@ -68,7 +68,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			int objectId = readD();
 			_items[i * 2 + 0] = objectId;
 			long cnt = readD(); 
-			if (cnt > Integer.MAX_VALUE || cnt < 0)
+			if (cnt >= Integer.MAX_VALUE || cnt < 0)
 			{
 				_count = 0;
 				_items = null;
