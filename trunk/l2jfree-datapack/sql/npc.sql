@@ -8759,7 +8759,7 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 (29075, 29075, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
 (29076, 29076, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b', 42, 34.5, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT');
 
-DELETE FROM npc WHERE id IN ( 29045,29046,29047,29048,29049,29050,29051 );
+DELETE FROM npc WHERE id IN ( 29045,29046,29047,29048,29049,29050,29051,29052,29053 );
 INSERT INTO npc(`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
 (29045,29045,'Frintezza',0,'',0,'Monster3.frintessa',10,42,90,'male','L2GrandBoss',2000,790857,22197,830.62,3.09,40,43,30,21,20,10,1470000,13232048,9182,6214,7133,4191,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,13,'LAST_HIT'),
 (29046,29046,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa',29,90,85,'male','L2GrandBoss',50,23480000,22393,823.48,265,60,57,73,76,70,80,496960259,40375148,10699,5036,12680,4191,278,6000,3819,8204,0,0,55,132,'frintezza_clan',6000,0,13,'FULL_PARTY'),
