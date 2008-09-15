@@ -709,13 +709,13 @@
     <table name="#dmg">5 10 15 20 25 30 35</table><!-- guees -->
     <set name="target" val="TARGET_ONE" />
     <set name="element" val="6" /><!-- Dark -->
-    <set name="skillType" val="DOT" />
+    <set name="skillType" val="PARALYZE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
     <set name="castRange" val="40" />
     <for>
       <effect count="1" name="Paralyze" time="15" val="0" />
-      <effect count="15" name="DamOverTime" time="1"
+      <effect count="5" name="DamOverTime" time="3"
         val="#dmg" abnormal="poison" noicon="1" />
     </for>
   </skill>

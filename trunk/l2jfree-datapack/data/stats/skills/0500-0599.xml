@@ -196,6 +196,7 @@
     <set name="coolTime" val="720" />
     <set name="skillType" val="BLOW" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="overHit" val="true" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <set name="soulMaxConsumeCount" val="5" />
@@ -757,9 +758,9 @@
     <set name="target" val="TARGET_SELF" />
     <set name="summonTotalLifeTime" val="20000" />
     <set name="hitTime" val="2500" />
+    <set name="reuseDelay" val="60000" /> <!-- Guessing -->
     <set name="skillType" val="DECOY" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="reuseDelay" val="1800000" />
     <!--
       have to be confirmed
     -->
