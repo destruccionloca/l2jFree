@@ -40,9 +40,9 @@ public class GeoClient
 
 	private static GeoClient	instance;
 
-	private transient GeoEngine	geoEngine;
+	private transient GeoInterface	geoEngine;
 
-	public GeoEngine getEngine()
+	public GeoInterface getEngine()
 	{
 		return geoEngine;
 	}

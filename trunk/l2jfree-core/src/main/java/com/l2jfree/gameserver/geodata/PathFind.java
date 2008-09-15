@@ -44,11 +44,11 @@ public class PathFind
 
 	private ArrayList<GeoNode>	path;
 
-	private final GeoEngine		engine;
+	private final GeoInterface		engine;
 
 	long						time;
 
-	public PathFind(int x, int y, int z, int destX, int destY, int destZ, GeoEngine engine)
+	public PathFind(int x, int y, int z, int destX, int destY, int destZ, GeoInterface engine)
 	{
 		this.engine = engine;
 		time = System.currentTimeMillis();

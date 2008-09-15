@@ -598,6 +598,7 @@ public class Castle extends Siegeable
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
 				_doors.add(door);
 				DoorTable.getInstance().putDoor(door);
+				door.closeMe();
 			}
 
 			statement.close();

@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.model.Location;
  * @Date: 20/5/2007
  * @Time: 9:57:48
  */
-public class GeoEngine
+public final class GeoEngine implements GeoInterface
 {
 	final static Log					_log					= LogFactory.getLog(GeoEngine.class.getName());
 

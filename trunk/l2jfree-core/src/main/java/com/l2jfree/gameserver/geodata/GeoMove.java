@@ -27,9 +27,9 @@ import com.l2jfree.gameserver.model.Location;
  */
 public class GeoMove
 {
-	private final GeoEngine	engine;
+	private final GeoInterface	engine;
 
-	public GeoMove(GeoEngine engine)
+	public GeoMove(GeoInterface engine)
 	{
 		this.engine = engine;
 	}
