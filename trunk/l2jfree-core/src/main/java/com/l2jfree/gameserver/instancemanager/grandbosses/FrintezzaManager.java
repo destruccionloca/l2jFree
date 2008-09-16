@@ -1608,7 +1608,7 @@ public class FrintezzaManager extends BossLair
 
 		// delete the weakScarlet from the world
 		scarletSpawnWeak.stopRespawn();
-		scarletSpawnWeak = null;
+		
 		weakScarlet.getPoly().setPolyInfo(null, "1");
 		weakScarlet.decayMe();
 		weakScarlet.deleteMe();
@@ -1986,6 +1986,29 @@ public class FrintezzaManager extends BossLair
 		_state.setState(GrandBossState.StateEnum.DEAD);
 
 		// delete spawns
+		if (frintezzaSpawn != null)
+			frintezzaSpawn.stopRespawn();
+		if (scarletSpawnWeak != null)
+			scarletSpawnWeak.stopRespawn();
+		if (scarletSpawnStrong != null)
+			scarletSpawnStrong.stopRespawn();
+		if (portraitSpawn1 != null)
+			portraitSpawn1.stopRespawn();
+		if (portraitSpawn2 != null)
+			portraitSpawn2.stopRespawn();
+		if (portraitSpawn3 != null)
+			portraitSpawn3.stopRespawn();
+		if (portraitSpawn4 != null)
+			portraitSpawn4.stopRespawn();
+		if (demonSpawn1 != null)
+			demonSpawn1.stopRespawn();
+		if (demonSpawn2 != null)
+			demonSpawn2.stopRespawn();
+		if (demonSpawn3 != null)
+			demonSpawn3.stopRespawn();
+		if (demonSpawn4 != null)
+			demonSpawn4.stopRespawn();
+		
 		frintezzaSpawn = scarletSpawnWeak = scarletSpawnStrong = null;
 
 		portraitSpawn1 = portraitSpawn2 = portraitSpawn3 = portraitSpawn4 = null;
