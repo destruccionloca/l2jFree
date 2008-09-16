@@ -1537,7 +1537,7 @@ public class FrintezzaManager extends BossLair
 
 	public void weakScarletHpListener()
 	{
-		if (weakScarlet == null)
+		if (weakScarlet == null || weakScarlet.isDead())
 			return;
 
 		double curHp = weakScarlet.getStatus().getCurrentHp(), maxHp = weakScarlet.getMaxHp();
@@ -1581,7 +1581,7 @@ public class FrintezzaManager extends BossLair
 		scarletSpawnStrong.setHeading(weakScarlet.getHeading());
 		scarletSpawnStrong.setRespawnDelay(_intervalOfBoss);
 		scarletSpawnStrong.stopRespawn();
-
+		
 		// spawn Strong Scarlet and set his HP to the weaker version:
 		strongScarlet = (L2GrandBossInstance) scarletSpawnStrong.doSpawn();
 		double newHp = weakScarlet.getStatus().getCurrentHp();
@@ -1607,6 +1607,8 @@ public class FrintezzaManager extends BossLair
 		setTargeted(strongScarlet, targeted);
 
 		// delete the weakScarlet from the world
+		scarletSpawnWeak.stopRespawn();
+		scarletSpawnWeak = null;
 		weakScarlet.getPoly().setPolyInfo(null, "1");
 		weakScarlet.decayMe();
 		weakScarlet.deleteMe();

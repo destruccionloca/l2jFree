@@ -50,7 +50,7 @@ public class AdminRepairChar implements IAdminCommandHandler
 				return false;
 		}
 
-		handleRepair(command);
+		handleRepair(command, activeChar);
 		return true;
 	}
 
@@ -64,7 +64,7 @@ public class AdminRepairChar implements IAdminCommandHandler
 		return (level >= REQUIRED_LEVEL);
 	}
 
-	private void handleRepair(String command)
+	private void handleRepair(String command, L2PcInstance activeChar)
 	{
 		String[] parts = command.split(" ");
 		if (parts.length != 2)
@@ -108,6 +108,8 @@ public class AdminRepairChar implements IAdminCommandHandler
 			statement.setInt(1, objId);
 			statement.execute();
 			statement.close();
+			
+			activeChar.sendMessage("Character " + parts[1] + " got repaired.");
 		}
 		catch (Exception e)
 		{
