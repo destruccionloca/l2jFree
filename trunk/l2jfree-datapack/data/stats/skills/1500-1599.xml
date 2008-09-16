@@ -15,16 +15,14 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="1502" levels="1"
-    name="Improve Critical Attack">
+  <skill id="1502" levels="1" name="Improve Critical Attack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="1503" levels="1"
-    name="Improve Shield Defense">
+  <skill id="1503" levels="1" name="Improve Shield Defense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -38,8 +36,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="1505" levels="1"
-    name="Sublime Self-Sacrifice">
+  <skill id="1505" levels="1" name="Sublime Self-Sacrifice">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -123,8 +120,7 @@
     <set name="soulMaxConsumeCount" val="5" />
     <for>
       <effect count="5" name="ManaDamOverTime" time="2"
-        val="40" stackOrder="1"
-        stackType="multiple_debuff">
+        val="40" stackOrder="1" stackType="multiple_debuff">
         <mul order="0x30" stat="runSpd" val="0.7" />
         <mul order="0x30" stat="pAtkSpd" val="0.9" />
         <mul order="0x30" stat="mAtkSpd" val="0.9" />
@@ -132,8 +128,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="1513" levels="1"
-    name="Soul Vortex Extinction">
+  <skill id="1513" levels="1" name="Soul Vortex Extinction">
     <!-- Done By Akira35 -->
     <!-- Needs to be verified -->
     <set name="mpInitialConsume" val="28" />
@@ -197,7 +192,10 @@
     <set name="mpConsume" val="35" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="power" val="166" />
-    <set name="reuseDelay" val="10000" /><!-- Guessing -->
+    <set name="reuseDelay" val="10000" />
+    <!--
+      Guessing
+    -->
     <set name="skillType" val="MDAM" />
     <set name="soulMaxConsumeCount" val="5" />
     <set name="target" val="TARGET_ONE" />
@@ -217,8 +215,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="1519" levels="1"
-    name="Chant of Blood Awakening">
+  <skill id="1519" levels="1" name="Chant of Blood Awakening">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -247,14 +244,32 @@
     <for />
   </skill>
   <skill id="1523" levels="42" name="Divine Punishment">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <table name="#mpConsume"> 35 37 38 38 39 40 42 42 43 44 45 45
+      47 48 49 49 50 52 53 53 54 55 55 57 58 58 59 60 60 62
+      62 63 63 64 64 65 65 67 67 67 68 68 </table>
+    <table name="#magicLvl"> 44 45 46 47 48 49 50 51 52 53 54 55
+      56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73
+      74 75 76 77 78 79 80 81 82 83 84 85 </table>
+    <table name="#power"> 51.0 52.0 54.0 55.0 57.0 58.0 60.0
+      61.0 63.0 64.0 66.0 68.0 69.0 71.0 72.0 74.0 75.0 77.0
+      78.0 80.0 81.0 83.0 85.0 86.0 88.0 89.0 90.0 92.0 93.0
+      95.0 96.0 97.0 99.0 100.0 101.0 102.0 103.0 105.0
+      106.0 107.0 108.0 109.0 </table> <!-- Guess - need retail confirmation -->
+    <set name="mpConsume" val="#mpConsume" />
+    <set name="magicLvl" val="#magicLvl" />
+    <set name="power" val="#power" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="element" val="5" /> <!-- Holy -->
+    <set name="hitTime" val="1000" />
+    <set name="skillType" val="MDAM" />
+    <set name="reuseDelay" val="4000" /> <!-- Guess - skill has reuse like Might of Heaven -->
+    <set name="isMagic" val="true" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="750" />
+    <set name="effectRange" val="1250" />
     <for />
   </skill>
-  <skill id="1524" levels="42"
-    name="Surrender to the Holy">
+  <skill id="1524" levels="42" name="Surrender to the Holy">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -269,9 +284,16 @@
     <for />
   </skill>
   <skill id="1526" levels="3" name="Steal Mana">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
+    <table name="#power"> 41.0 51.0 59.0 </table>
+    <table name="#magicLvl"> 46 56 64 </table>
+    <table name="#chance"> 5 7 9 </table>
+    <set name="magicLvl" val="#magicLvl" />
+    <set name="power" val="#power" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="MANARECHARGE" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="chanceType" val="ON_HIT" />
+    <set name="activationChance" val="#chance" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
@@ -283,9 +305,15 @@
     <for />
   </skill>
   <skill id="1528" levels="42" name="Divine Flash">
-    <table name="#mpConsume"> 57 59 60 62 63 65 67 68 69 70 73 74 75 77 79 80 82 83 85 87 88 89 90 93 94 95 97 98 99 100 102 103 104 105 105 107 108 109 109 110 112 112</table>
-    <table name="#magicLvl"> 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 </table>
-    <table name="#power"> 29 29 30 31 32 33 33 34 35 36 37 38 39 39 40 41 42 43 44 45 45 46 47 48 49 50 50 51 52 53 54 54 55 56 56 57 58 58 59 60 60 61</table>
+    <table name="#mpConsume"> 57 59 60 62 63 65 67 68 69 70 73 74
+      75 77 79 80 82 83 85 87 88 89 90 93 94 95 97 98 99 100
+      102 103 104 105 105 107 108 109 109 110 112 112</table>
+    <table name="#magicLvl"> 44 45 46 47 48 49 50 51 52 53 54 55
+      56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73
+      74 75 76 77 78 79 80 81 82 83 84 85 </table>
+    <table name="#power"> 29 29 30 31 32 33 33 34 35 36 37 38
+      39 39 40 41 42 43 44 45 45 46 47 48 49 50 50 51 52 53
+      54 54 55 56 56 57 58 58 59 60 60 61</table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="#power" />
@@ -310,9 +338,12 @@
   </skill>
   <skill id="1530" levels="13" name="Death Spike">
     <table name="#mpConsume_Init"> 4 5 6 7 7 7 8 8 8 9 9 9 10 </table>
-    <table name="#mpConsume"> 19 22 24 28 29 31 32 33 35 36 37 38 40 </table>
-    <table name="#magicLvl"> 44 48 52 56 58 60 62 64 66 68 70 72 74 </table>
-    <table name="#power"> 35 39 43 47 49 51 53 56 58 59 61 63 65 </table>
+    <table name="#mpConsume"> 19 22 24 28 29 31 32 33 35 36 37 38
+      40 </table>
+    <table name="#magicLvl"> 44 48 52 56 58 60 62 64 66 68 70 72
+      74 </table>
+    <table name="#power"> 35 39 43 47 49 51 53 56 58 59 61 63
+      65 </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="itemConsumeId" val="2508" />
