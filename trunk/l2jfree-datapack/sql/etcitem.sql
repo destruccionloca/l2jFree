@@ -8152,3 +8152,9 @@ INSERT INTO `etcitem` VALUES
 (13006,'Pathfinder\'s Reward - A-Grade','false','none',100,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (13007,'Pathfinder\'s Reward - S-Grade','false','none',100,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (13008,'Spellbook - Blessed Body','false','none',120,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none');
+
+--
+-- L2J-Free Add-ons
+--
+-- Mammon's Varnish Enhancer consume_type fix
+UPDATE `etcitem` SET `consume_type` = 'stackable' WHERE `item_id` = 12374;
