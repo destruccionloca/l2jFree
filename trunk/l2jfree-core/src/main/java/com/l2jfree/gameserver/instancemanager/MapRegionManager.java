@@ -27,6 +27,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.Location;
@@ -367,7 +368,7 @@ public class MapRegionManager
 	public int getNextAccessibleRestartId(L2MapRegionRestart restart, L2PcInstance activeChar)
 	{
 		Town town = TownManager.getInstance().getTownByMaprestart(restart);
-		if (town != null && town.hasCastleInSiege())
+		if (town != null && town.hasCastleInSiege() && SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE) == SevenSigns.CABAL_DAWN)
 		{
 			int newTownId = TownManager.getInstance().getRedirectTownNumber(town.getTownId());
 			town = TownManager.getInstance().getTown(newTownId);

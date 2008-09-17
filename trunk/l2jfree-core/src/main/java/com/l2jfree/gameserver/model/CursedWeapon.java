@@ -353,6 +353,8 @@ public class CursedWeapon
 
     public void disableAllSkills()
     {
+        if (_player == null)
+            return;
         for (L2Skill sk : _player.getAllSkills())
         {
             if (sk != null && !sk.isPassive())

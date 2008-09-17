@@ -74,6 +74,7 @@ public class L2BossZone extends L2DefaultZone
 		{
 			FrintezzaManager.getInstance().setScarletSpawnTask();
 		}
+		character.setInsideZone(FLAG_NOSUMMON, true);
 		super.onEnter(character);
 	}
 
@@ -82,7 +83,7 @@ public class L2BossZone extends L2DefaultZone
 	{
 		if (_boss == Boss.SUNLIGHTROOM)
 			character.setInsideZone(FLAG_SUNLIGHTROOM, false);
-
+		character.setInsideZone(FLAG_NOSUMMON, false);
 		super.onExit(character);
 	}
 }

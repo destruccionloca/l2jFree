@@ -121,12 +121,14 @@ public abstract class BossSpawnManager
 
 			_log.info("BossSpawnManager: Updated " + boss.getName() + " respawn time to " + respawnTime);
 
-			ScheduledFuture<?> futureSpawn;
-			futureSpawn = ThreadPoolManager.getInstance().scheduleGeneral(new SpawnTask(boss.getNpcId()), respawn_delay);
+			if (!_schedules.containsKey(boss.getNpcId()))
+			{
+				ScheduledFuture<?> futureSpawn = ThreadPoolManager.getInstance().scheduleGeneral(new SpawnTask(boss.getNpcId()), respawn_delay);
 
-			_schedules.put(boss.getNpcId(), futureSpawn);
-			//To update immediately Database uncomment on the following line, to post the hour of respawn raid boss on your site for example or to envisage a crash landing of the waiter. 
-			//updateDb();
+				_schedules.put(boss.getNpcId(), futureSpawn);
+				//To update immediately Database uncomment on the following line, to post the hour of respawn raid boss on your site for example or to envisage a crash landing of the waiter.
+				updateDb();
+			}
 		}
 		else
 		{

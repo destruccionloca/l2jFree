@@ -19,6 +19,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
@@ -31,25 +32,32 @@ public class DlgAnswer extends L2GameClientPacket
     private final static Log _log = LogFactory.getLog(DlgAnswer.class.getName());
     
     private int _messageId;
-    private int _answer, _unk;
+    private int _answer;
+    private int _requesterId;
     
     @Override
     protected void readImpl()
     {
         _messageId = readD();
         _answer = readD();
-        _unk = readD();
+        _requesterId = readD();
     }
 
     @Override
     public void runImpl()
     {
+        L2PcInstance cha = getClient().getActiveChar();
+        if (cha == null)
+            return;
+
         if(_log.isDebugEnabled())
-            _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", answer "+_answer+", unknown field "+_unk);
+            _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", answer "+_answer+", Requester ID "+_requesterId);
         if (_messageId == SystemMessageId.RESSURECTION_REQUEST.getId())
-            getClient().getActiveChar().reviveAnswer(_answer);
-        else if (Config.ALLOW_WEDDING && getClient().getActiveChar().isEngageRequest() &&_messageId == SystemMessageId.S1.getId())
-            getClient().getActiveChar().engageAnswer(_answer);
+            cha.reviveAnswer(_answer);
+        else if (_messageId == SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId())
+            cha.teleportAnswer(_answer, _requesterId);
+        else if (_messageId == SystemMessageId.S1.getId() && Config.ALLOW_WEDDING && cha.isEngageRequest())
+            cha.engageAnswer(_answer);
     }
 
     @Override

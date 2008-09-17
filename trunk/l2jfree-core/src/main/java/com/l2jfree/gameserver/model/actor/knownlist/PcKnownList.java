@@ -168,60 +168,37 @@ public class PcKnownList extends PlayableKnownList
                 L2PcInstance otherPlayer = (L2PcInstance) object;
                 if(otherPlayer.isInBoat())
                 {
-                	otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition().getWorldPosition());
-                	getActiveChar().sendPacket(new CharInfo(otherPlayer));
-                	int relation = otherPlayer.getRelation(getActiveChar());
-                	if (otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != null && otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != relation)
-                	{
-                		getActiveChar().sendPacket(new RelationChanged(otherPlayer, relation, getActiveChar().isAutoAttackable(otherPlayer)));
-                		if (otherPlayer.getPet() != null)
-                			getActiveChar().sendPacket(new RelationChanged(otherPlayer.getPet(), relation, getActiveChar().isAutoAttackable(otherPlayer)));
-                	}
-                	getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
-                    /*if(otherPlayer.getBoat().GetVehicleDeparture() == null)
-                    {                   
-                        
-                        int xboat = otherPlayer.getBoat().getX();
-                        int yboat= otherPlayer.getBoat().getY();
-                        double modifier = Math.PI/2;
-                        if (yboat == 0)
-                        {
-                            yboat = 1;
-                        }
-                        if(yboat < 0)
-                        {
-                            modifier = -modifier;
-                        }                       
-                        double angleboat = modifier - Math.atan(xboat/yboat);
-                        int xp = otherPlayer.getX();
-                        int yp = otherPlayer.getY();
-                        modifier = Math.PI/2;
-                        if (yp == 0)
-                        {
-                            yboat = 1;
-                        }
-                        if(yboat < 0)
-                        {
-                            modifier = -modifier;
-                        }                       
-                        double anglep = modifier - Math.atan(yp/xp);
-                        
-                        double finx = Math.cos(anglep - angleboat)*Math.sqrt(xp *xp +yp*yp ) + Math.cos(angleboat)*Math.sqrt(xboat *xboat +yboat*yboat );
-                        double finy = Math.sin(anglep - angleboat)*Math.sqrt(xp *xp +yp*yp ) + Math.sin(angleboat)*Math.sqrt(xboat *xboat +yboat*yboat );
-                        //otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getX() - otherPlayer.getInBoatPosition().x,otherPlayer.getBoat().getY() - otherPlayer.getInBoatPosition().y,otherPlayer.getBoat().getZ()- otherPlayer.getInBoatPosition().z);
-                        otherPlayer.getPosition().setWorldPosition((int)finx,(int)finy,otherPlayer.getBoat().getZ()- otherPlayer.getInBoatPosition().z);
-                        
-                    }*/
+                    otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition().getWorldPosition());
+                    getActiveChar().sendPacket(new CharInfo(otherPlayer));
+                    int relation1 = otherPlayer.getRelation(getActiveChar());
+                    int relation2 = getActiveChar().getRelation(otherPlayer);
+                    Integer relation = otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId());
+                    if (relation != null && relation.intValue() != relation1)
+                    {
+                        getActiveChar().sendPacket(new RelationChanged(otherPlayer, relation1, getActiveChar().isAutoAttackable(otherPlayer)));
+                        if (otherPlayer.getPet() != null)
+                            getActiveChar().sendPacket(new RelationChanged(otherPlayer.getPet(), relation1, getActiveChar().isAutoAttackable(otherPlayer)));
+                    }
+                    getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
                 }
                 else
                 {
                     getActiveChar().sendPacket(new CharInfo(otherPlayer));
-                    int relation = otherPlayer.getRelation(getActiveChar());
-                    if (otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != null && otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != relation)
+                    int relation1 = otherPlayer.getRelation(getActiveChar());
+                    int relation2 = getActiveChar().getRelation(otherPlayer);
+                    Integer relation = otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId());
+                    if (relation != null && relation.intValue() != relation1)
                     {
-                        getActiveChar().sendPacket(new RelationChanged(otherPlayer, relation, getActiveChar().isAutoAttackable(otherPlayer)));
+                        getActiveChar().sendPacket(new RelationChanged(otherPlayer, relation1, getActiveChar().isAutoAttackable(otherPlayer)));
                         if (otherPlayer.getPet() != null)
-                            getActiveChar().sendPacket(new RelationChanged(otherPlayer.getPet(), relation, getActiveChar().isAutoAttackable(otherPlayer)));
+                            getActiveChar().sendPacket(new RelationChanged(otherPlayer.getPet(), relation1, getActiveChar().isAutoAttackable(otherPlayer)));
+                    }
+                    relation = getActiveChar().getKnownList().getKnownRelations().get(otherPlayer.getObjectId());
+                    if (relation != null && relation.intValue() != relation2)
+                    {
+                        otherPlayer.sendPacket(new RelationChanged(getActiveChar(), relation2, otherPlayer.isAutoAttackable(getActiveChar())));
+                        if (getActiveChar().getPet() != null)
+                            otherPlayer.sendPacket(new RelationChanged(getActiveChar().getPet(), relation2, otherPlayer.isAutoAttackable(getActiveChar())));
                     }
                 }
 

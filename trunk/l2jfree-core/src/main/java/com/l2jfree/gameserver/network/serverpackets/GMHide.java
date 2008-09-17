@@ -12,32 +12,37 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model.zone;
+package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.instancemanager.CastleManager;
-import com.l2jfree.gameserver.model.L2Character;
-
-public class L2CastleTeleportZone extends EntityZone
+/**
+ * @author Kerberos
+ */
+public class GMHide extends L2GameServerPacket
 {
-	@Override
-	protected void register()
+	// cd
+	private int _mode;
+
+	/**
+	 * @param _mode (0 = display windows, 1 = hide windows)
+	 */
+	public GMHide(int mode)
 	{
-		_entity = CastleManager.getInstance().getCastleById(_castleId);
-		if (_entity != null)
-			_entity.registerTeleportZone(this);
-		else
-			_log.warn("Invalid castleId: "+_castleId);
+		_mode = mode;
 	}
 
 	@Override
-	protected void onEnter(L2Character character)
+	protected final void writeImpl()
 	{
-		character.setInsideZone(FLAG_NOSUMMON, true);
+		writeC(0x93);
+		writeD(_mode);
 	}
 
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
 	@Override
-	protected void onExit(L2Character character)
+	public String getType()
 	{
-		character.setInsideZone(FLAG_NOSUMMON, false);
+		return "[S] 93 GMHide";
 	}
 }

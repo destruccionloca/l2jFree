@@ -14,9 +14,11 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
+import java.util.Calendar;
 import java.util.StringTokenizer;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.AuctionManager;
@@ -55,6 +57,7 @@ public class AdminSiege implements IAdminCommandHandler
 			"admin_spawn_doors",
 			"admin_endsiege",
 			"admin_startsiege",
+			"admin_setsiegetime",
 			"admin_setcastle",
 			"admin_removecastle",
 			"admin_clanhall",
@@ -158,6 +161,31 @@ public class AdminSiege implements IAdminCommandHandler
 				else
 					activeChar.sendMessage("Unable to remove castle");
 			}
+			else if (command.equalsIgnoreCase("admin_setsiegetime"))
+			{
+				if (st.hasMoreTokens())
+				{
+					Calendar newAdminSiegeDate = castle.getSiegeDate();
+					if (val.equalsIgnoreCase("day"))
+						newAdminSiegeDate.set(Calendar.DAY_OF_YEAR, Integer.parseInt(st.nextToken()));
+					else if (val.equalsIgnoreCase("hour"))
+						newAdminSiegeDate.set(Calendar.HOUR_OF_DAY, Integer.parseInt(st.nextToken()));
+					else if (val.equalsIgnoreCase("min"))
+						newAdminSiegeDate.set(Calendar.MINUTE, Integer.parseInt(st.nextToken()));
+
+					if (newAdminSiegeDate.getTimeInMillis() < Calendar.getInstance().getTimeInMillis())
+					{
+						activeChar.sendMessage("Unable to change Siege Date");
+					}
+					else if (newAdminSiegeDate.getTimeInMillis() != castle.getSiegeDate().getTimeInMillis())
+					{
+						castle.getSiegeDate().setTimeInMillis(newAdminSiegeDate.getTimeInMillis());
+						// castle.getSiege().saveSiegeDate();
+					}
+				}
+				showSiegeTimePage(activeChar,castle);
+				return true;
+			}
 			else if (command.equalsIgnoreCase("admin_clanhallset") && clanhall != null)
 			{
 				if (player == null || player.getClan() == null)
@@ -216,6 +244,40 @@ public class AdminSiege implements IAdminCommandHandler
 				showSiegePage(activeChar, castle.getName());
 		}
 		return true;
+	}
+
+	private void showSiegeTimePage(L2PcInstance activeChar, Castle castle)
+	{
+		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+		adminReply.setFile("data/html/admin/castlesiegetime.htm");
+		adminReply.replace("%castleName%", castle.getName());
+		adminReply.replace("%time%", castle.getSiegeDate().getTime().toString());
+		Calendar newDay = Calendar.getInstance();
+		boolean isSunday = false;
+		if (newDay.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
+			isSunday = true;
+		else
+			newDay.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+		if (!SevenSigns.getInstance().isDateInSealValidPeriod(newDay))
+			newDay.add(Calendar.DAY_OF_MONTH, 7);
+		
+		if (isSunday)
+		{
+			adminReply.replace("%sundaylink%", String.valueOf(newDay.get(Calendar.DAY_OF_YEAR)));
+			adminReply.replace("%sunday%", String.valueOf(newDay.get(Calendar.MONTH) + "/" + String.valueOf(newDay.get(Calendar.DAY_OF_MONTH))));
+			newDay.add(Calendar.DAY_OF_MONTH, 13);
+			adminReply.replace("%saturdaylink%", String.valueOf(newDay.get(Calendar.DAY_OF_YEAR)));
+			adminReply.replace("%saturday%", String.valueOf(newDay.get(Calendar.MONTH) + "/" + String.valueOf(newDay.get(Calendar.DAY_OF_MONTH))));
+		}
+		else
+		{
+			adminReply.replace("%saturdaylink%", String.valueOf(newDay.get(Calendar.DAY_OF_YEAR)));
+			adminReply.replace("%saturday%", String.valueOf(newDay.get(Calendar.MONTH) + "/" + String.valueOf(newDay.get(Calendar.DAY_OF_MONTH))));			
+			newDay.add(Calendar.DAY_OF_MONTH, 1);
+			adminReply.replace("%sundaylink%", String.valueOf(newDay.get(Calendar.DAY_OF_YEAR)));
+			adminReply.replace("%sunday%", String.valueOf(newDay.get(Calendar.MONTH) + "/" + String.valueOf(newDay.get(Calendar.DAY_OF_MONTH))));
+		}
+		activeChar.sendPacket(adminReply);
 	}
 
 	private void showCastleSelectPage(L2PcInstance activeChar)

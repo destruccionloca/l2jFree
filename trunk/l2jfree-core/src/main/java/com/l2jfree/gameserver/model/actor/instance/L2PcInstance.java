@@ -74,6 +74,7 @@ import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
 import com.l2jfree.gameserver.handler.skillhandlers.TakeCastle;
 import com.l2jfree.gameserver.handler.skillhandlers.TakeFort;
+import com.l2jfree.gameserver.handler.skillhandlers.SummonFriend;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
@@ -180,6 +181,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExSetCompassZoneCode;
 import com.l2jfree.gameserver.network.serverpackets.ExSpawnEmitter;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
 import com.l2jfree.gameserver.network.serverpackets.GameGuardQuery;
+import com.l2jfree.gameserver.network.serverpackets.GMHide;
 import com.l2jfree.gameserver.network.serverpackets.HennaInfo;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
@@ -837,6 +839,32 @@ public final class L2PcInstance extends L2PlayableInstance
 			_player.sendPacket(new ShortBuffStatusUpdate(0, 0, 0));
 		}
 	}
+
+	//summon friend
+	private SummonRequest _summonRequest = new SummonRequest();
+
+	public class SummonRequest
+	{
+		private L2PcInstance _target = null;
+		private L2Skill _skill = null;
+
+		public void setTarget(L2PcInstance destination, L2Skill skill)
+		{
+			_target = destination;
+			_skill = skill;
+		}
+
+		public L2PcInstance getTarget()
+		{
+			return _target;
+		}
+		
+		public L2Skill getSkill()
+		{
+			return _skill;
+		}
+	}
+
 
 	/**
 	 * Create a new L2PcInstance and add it in the characters table of the database.<BR><BR>
@@ -3960,10 +3988,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		L2Effect[] effects = getAllEffects();
 		if (effects != null && effects.length > 0)
 		{
-			for (int i = 0; i < effects.length; i++)
+			for (L2Effect effect : effects)
 			{
-				L2Effect effect = effects[i];
-
 				if (effect == null || !effect.getShowIcon())
 				{
 					continue;
@@ -8133,7 +8159,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		case 13:
 		case 299:
 		case 448:
-			if (!SiegeManager.getInstance().checkIfOkToSummon(this, false) && !FortSiegeManager.getInstance().checkIfOkToSummon(this, false))
+			if ((!SiegeManager.getInstance().checkIfOkToSummon(this, false) && !FortSiegeManager.getInstance().checkIfOkToSummon(this, false))
+					|| SevenSigns.getInstance().CheckSummonConditions(this))
 			{
 				return;
 			}
@@ -9048,6 +9075,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		setIsParalyzed(true);
 		setIsInvul(true);
 		getAppearance().setInvisible();
+		sendPacket(new GMHide(1));
 		sendPacket(new ObservationMode(x, y, z));
 		getPosition().setXYZ(x, y, z);
 
@@ -9081,6 +9109,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		setIsInvul(true);
 		getAppearance().setInvisible();
 		teleToLocation(x, y, z, false);
+		sendPacket(new GMHide(1));
 		sendPacket(new ExOlympiadMode(3));
 		_observerMode = true;
 		broadcastUserInfo();
@@ -9121,6 +9150,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		setTarget(null);
 		getPosition().setXYZ(_obsX, _obsY, _obsZ);
 		getAppearance().setVisible();
+		sendPacket(new GMHide(0));
 		setIsInvul(false);
 		setIsParalyzed(false);
 
@@ -9129,7 +9159,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		sendPacket(new ObservationReturn(this));
 		_observerMode = false;
-		broadcastPacket(new CharInfo(this));
+		broadcastUserInfo();
 	}
 
 	public void leaveOlympiadObserverMode()
@@ -9137,6 +9167,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		setTarget(null);
 		sendPacket(new ExOlympiadMode(0));
 		teleToLocation(_obsX, _obsY, _obsZ);
+		sendPacket(new GMHide(0));
 		if (!isGM())
 		{
 			getAppearance().setVisible();
@@ -9149,7 +9180,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		Olympiad.getInstance().removeSpectator(_olympiadGameId, this);
 		_olympiadGameId = -1;
 		_observerMode = false;
-		broadcastPacket(new CharInfo(this));
+		broadcastUserInfo();
 	}
 
 	public void updateNameTitleColor()
@@ -12915,5 +12946,29 @@ public final class L2PcInstance extends L2PlayableInstance
 			level = 0;
 
 		_vitalityLevel = level;
+	}
+
+	/*
+	 * Function for skill Summon Friend or Gate Chant.
+	 */
+	/** Request Teleport **/
+	public boolean teleportRequest(L2PcInstance requester, L2Skill skill)
+	{
+		if (_summonRequest.getTarget() != null && requester != null)
+			return false;
+		_summonRequest.setTarget(requester, skill);
+		return true;
+	}
+
+	/** Action teleport **/
+	public void teleportAnswer(int answer, int requesterId)
+	{
+		if (_summonRequest.getTarget() == null)
+			return;
+		if (answer == 1 && _summonRequest.getTarget().getCharId() == requesterId)
+		{
+			SummonFriend.teleToTarget(this, _summonRequest.getTarget(), _summonRequest.getSkill());
+		}
+		_summonRequest.setTarget(null, null);
 	}
 }

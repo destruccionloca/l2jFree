@@ -1854,6 +1854,10 @@ public final class Config
 
 	public static boolean		SIEGE_ONLY_REGISTERED;
 
+	public static FastList<String> CL_SET_SIEGE_TIME_LIST;
+	public static FastList<Integer> SIEGE_HOUR_LIST_MORNING;
+	public static FastList<Integer> SIEGE_HOUR_LIST_AFTERNOON;
+
 	public static void loadSiegeConfig()
 	{
 		_log.info("loading " + SIEGE_CONFIGURATION_FILE);
@@ -1872,6 +1876,52 @@ public final class Config
 			SIEGE_LENGTH_MINUTES = Integer.parseInt(siegeSettings.getProperty("SiegeLength", "120"));
 
 			SIEGE_ONLY_REGISTERED = Boolean.parseBoolean(siegeSettings.getProperty("OnlyRegistered", "true"));
+
+			CL_SET_SIEGE_TIME_LIST = new FastList<String>();
+			SIEGE_HOUR_LIST_MORNING = new FastList<Integer>();
+			SIEGE_HOUR_LIST_AFTERNOON = new FastList<Integer>();
+			String[] sstl = siegeSettings.getProperty("CLSetSiegeTimeList", "").split(",");
+			if (sstl.length != 0)
+			{
+				boolean isHour = false;
+				for (String st : sstl)
+				{
+					if (st.equalsIgnoreCase("day") || st.equalsIgnoreCase("hour") || st.equalsIgnoreCase("minute"))
+					{
+						if (st.equalsIgnoreCase("hour")) isHour = true;
+						CL_SET_SIEGE_TIME_LIST.add(st.toLowerCase());
+					}
+					else
+					{
+						System.out.println("[CLSetSiegeTimeList]: invalid config property -> CLSetSiegeTimeList \"" + st + "\"");
+					}
+				}
+				if (isHour)
+				{
+					String[] shl = siegeSettings.getProperty("SiegeHourList", "").split(","); 
+					for (String st : shl)
+					{
+						if (!st.equalsIgnoreCase(""))
+						{
+							int val = Integer.valueOf(st);
+							if (val > 23 || val < 0)
+								System.out.println("[SiegeHourList]: invalid config property -> SiegeHourList \"" + st + "\"");
+							else if (val < 12)
+								SIEGE_HOUR_LIST_MORNING.add(val);
+							else
+							{
+								val -= 12;
+								SIEGE_HOUR_LIST_AFTERNOON.add(val);
+							}
+						}
+					}
+					if (Config.SIEGE_HOUR_LIST_AFTERNOON.isEmpty() && Config.SIEGE_HOUR_LIST_AFTERNOON.isEmpty())
+					{
+						System.out.println("[SiegeHourList]: invalid config property -> SiegeHourList is empty");
+						CL_SET_SIEGE_TIME_LIST.remove("hour");
+					}
+				}
+			}
 		}
 		catch (Exception e)
 		{
@@ -2056,6 +2106,11 @@ public final class Config
 	public static int			ALT_FESTIVAL_MONSTER_AGGRO;						// Aggro value of Monster in SevenSigns Festival
 	public static int			ALT_DAWN_JOIN_COST;								// Amount of adena to pay to join Dawn Cabal
 
+	public static double		ALT_SIEGE_DAWN_GATES_PDEF_MULT;
+	public static double		ALT_SIEGE_DUSK_GATES_PDEF_MULT;
+	public static double		ALT_SIEGE_DAWN_GATES_MDEF_MULT;
+	public static double		ALT_SIEGE_DUSK_GATES_MDEF_MULT;
+
 	// *******************************************************************************************
 	public static void loadSevenSignsConfig()
 	{
@@ -2080,6 +2135,11 @@ public final class Config
 			ALT_FESTIVAL_CHEST_AGGRO = Integer.parseInt(SevenSettings.getProperty("AltFestivalChestAggro", "0"));
 			ALT_FESTIVAL_MONSTER_AGGRO = Integer.parseInt(SevenSettings.getProperty("AltFestivalMonsterAggro", "200"));
 			ALT_DAWN_JOIN_COST = Integer.parseInt(SevenSettings.getProperty("AltJoinDawnCost", "50000"));
+
+			ALT_SIEGE_DAWN_GATES_PDEF_MULT = Double.parseDouble(SevenSettings.getProperty("AltDawnGatesPdefMult", "1.1"));
+			ALT_SIEGE_DUSK_GATES_PDEF_MULT = Double.parseDouble(SevenSettings.getProperty("AltDuskGatesPdefMult", "0.8"));
+			ALT_SIEGE_DAWN_GATES_MDEF_MULT = Double.parseDouble(SevenSettings.getProperty("AltDawnGatesMdefMult", "1.1"));
+			ALT_SIEGE_DUSK_GATES_MDEF_MULT = Double.parseDouble(SevenSettings.getProperty("AltDuskGatesMdefMult", "0.8"));
 		}
 		catch (Exception e)
 		{

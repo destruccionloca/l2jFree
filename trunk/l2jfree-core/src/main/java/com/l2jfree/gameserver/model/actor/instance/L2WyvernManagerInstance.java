@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -44,6 +45,12 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             if (!player.isClanLeader())
             {
                 player.sendMessage("Only clan leaders are allowed.");
+                return;
+            }
+
+            if ((SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE) == SevenSigns.CABAL_DUSK) && SevenSigns.getInstance().isSealValidationPeriod())
+            {
+                player.sendMessage("You cannot ride wyvern while the Seal of Strife is controlled by Dusk.");
                 return;
             }
 

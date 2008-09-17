@@ -95,7 +95,7 @@ public class Escape implements IUserCommandHandler
 
 		if (activeChar.inObserverMode())
 		{
-			activeChar.sendMessage("You can not use Scroll of Escape during Observation Mode.");
+			activeChar.sendMessage("You cannot escape during Observation Mode.");
 			return false;
 		}
 

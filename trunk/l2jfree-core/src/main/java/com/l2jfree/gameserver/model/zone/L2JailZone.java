@@ -28,6 +28,7 @@ public class L2JailZone extends L2DefaultZone
 		if (character instanceof L2PcInstance)
 		{
 			character.setInsideZone(FLAG_JAIL, true);
+			character.setInsideZone(FLAG_NOSUMMON, true);
 			if(Config.JAIL_IS_PVP)
 			{
 				character.setInsideZone(FLAG_PVP, true);
@@ -44,6 +45,7 @@ public class L2JailZone extends L2DefaultZone
 		if (character instanceof L2PcInstance)
 		{
 			character.setInsideZone(FLAG_JAIL, false);
+			character.setInsideZone(FLAG_NOSUMMON, false);
 			if(Config.JAIL_IS_PVP)
 			{
 				character.setInsideZone(FLAG_PVP, false);

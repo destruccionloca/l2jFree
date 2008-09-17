@@ -465,19 +465,30 @@ public class AdminSpawn implements IAdminCommandHandler
 				}
 				else
 				{
-					if (saveInDb && !Config.ALT_DEV_NO_SPAWNS && spawn.getInstanceId()==0)
+					if (saveInDb && !Config.ALT_DEV_NO_SPAWNS && spawn.getInstanceId() == 0)
 					{
 						if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcId()) != null)
+						{
+							spawn.setRespawnMinDelay(43200);
+							spawn.setRespawnMaxDelay(129600);
 							RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template.getBaseHpMax(), template.getBaseMpMax(), true);
+						}
 						else if (GrandBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcId()) != null)
+						{
+							spawn.setRespawnMinDelay(43200);
+							spawn.setRespawnMaxDelay(129600);
 							GrandBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template.getBaseHpMax(), template.getBaseMpMax(), true);
+						}
 						else
+						{
 							SpawnTable.getInstance().addNewSpawn(spawn, respawn);
+						}
 					}
 					else
+					{
 						spawn.spawnOne(false);
-
-					spawn.init();
+						spawn.init();
+					}
 					if (!respawn)
 						spawn.stopRespawn();
 					

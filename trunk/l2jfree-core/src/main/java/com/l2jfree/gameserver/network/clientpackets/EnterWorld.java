@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.TaskPriority;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.datatables.GmListTable;
+import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.AdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
@@ -202,6 +203,18 @@ public class EnterWorld extends L2GameClientPacket
 
 		if (Hero.getInstance().getHeroes() != null && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
 			activeChar.setHero(true);
+
+		//Updating Seal of Strife Buff/Debuff 
+		if (SevenSigns.getInstance().isSealValidationPeriod())
+		{
+			if (SevenSigns.getInstance().getPlayerCabal(activeChar) != SevenSigns.CABAL_NULL)
+			{
+				if (SevenSigns.getInstance().getPlayerCabal(activeChar) == SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
+					activeChar.addSkill(SkillTable.getInstance().getInfo(5074,1), false);
+				else
+					activeChar.addSkill(SkillTable.getInstance().getInfo(5075,1), false);
+			}
+		}
 
 		sendPacket(new UserInfo(activeChar));
 
@@ -479,17 +492,20 @@ public class EnterWorld extends L2GameClientPacket
 	{
 		if (cha.getPartnerId() != 0)
 		{
+			int objId = cha.getPartnerId();
 			L2Object obj = L2World.getInstance().findObject(cha.getPartnerId());
-			if (obj == null || !(obj instanceof L2PcInstance))
+			try
 			{
-				// If other char is deleted, maybe a npc or mob takes the ID
-				return;
+				if (obj != null)
+				{
+					L2PcInstance partner = (L2PcInstance) obj;
+					partner.sendMessage("Your Partner has logged in");
+				}
 			}
-
-			L2PcInstance partner = (L2PcInstance) obj;
-			partner.sendMessage("Your Partner has logged in");
-
-			partner = null;
+			catch (ClassCastException cce)
+			{
+				_log.warn("Wedding mod error. This ID: " + objId + " is now owned by an " + obj.getClass().getSimpleName());
+			}
 		}
 	}
 

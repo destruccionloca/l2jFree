@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
+import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
@@ -54,6 +55,13 @@ public class MercTicket implements IItemHandler
 		//add check that certain tickets can only be placed in certain castles
 		if (MercTicketManager.getInstance().getTicketCastleId(itemId) != castleId)
 		{
+			if (castleId == -1)
+			{
+				// player is not in a castle
+				activeChar.sendMessage("Mercenary Tickets can only be used in a castle.");
+				return;
+			}
+
 			switch (castleId)
 			{
 			case 1:
@@ -83,10 +91,6 @@ public class MercTicket implements IItemHandler
 			case 9:
 				activeChar.sendMessage("This Mercenary Ticket can only be used in Schuttgart.");
 				return;
-				// player is not in a castle
-			default:
-				activeChar.sendMessage("Mercenary Tickets can only be used in a castle.");
-				return;
 			}
 		}
 
@@ -100,6 +104,36 @@ public class MercTicket implements IItemHandler
 		{
 			activeChar.sendMessage("You cannot hire mercenary while siege is in progress!");
 			return;
+		 }
+
+		//Checking Seven Signs Quest Period
+		if (SevenSigns.getInstance().getCurrentPeriod() != SevenSigns.PERIOD_SEAL_VALIDATION) 
+		{
+			//_log.warning("Someone has tried to spawn a guardian during Quest Event Period of The Seven Signs.");
+			activeChar.sendMessage("You cannot position any Mercenaries during Quest Period.");
+			return;
+		}
+		//Checking the Seal of Strife status
+		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
+		{
+			case SevenSigns.CABAL_NULL:
+				if (SevenSigns.getInstance().CheckIsDawnPostingTicket(itemId))
+				{
+					//_log.warning("Someone has tried to spawn a Dawn Mercenary though the Seal of Strife is not controlled by anyone.");
+					activeChar.sendMessage("You cannot position any Dawn Mercenaries at this time.");
+					return;
+				}
+				break;
+			case SevenSigns.CABAL_DUSK:
+				if (!SevenSigns.getInstance().CheckIsRookiePostingTicket(itemId))
+				{
+					//_log.warning("Someone has tried to spawn a non-Rookie Mercenary though the Seal of Strife is controlled by Revolutionaries of Dusk.");
+					activeChar.sendMessage("You can position only Rookie Mercenaries at this time.");
+					return;
+				}
+				break;
+			case SevenSigns.CABAL_DAWN:
+				break;
 		}
 
 		if (MercTicketManager.getInstance().isAtCasleLimit(item.getItemId()))

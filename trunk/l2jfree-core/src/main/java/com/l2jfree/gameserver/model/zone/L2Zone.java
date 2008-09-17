@@ -106,21 +106,22 @@ public abstract class L2Zone
 		ZAKEN
 	}
 
-	public static final int FLAG_PVP = 1;
-	public static final int FLAG_PEACE = 2;
-	public static final int FLAG_SIEGE = 4;
-	public static final int FLAG_MOTHERTREE = 8;
-	public static final int FLAG_CLANHALL = 16;
-	public static final int FLAG_NOESCAPE = 32;
-	public static final int FLAG_NOLANDING = 64;
-	public static final int FLAG_NOSTORE = 128;
-	public static final int FLAG_WATER = 256;
-	public static final int FLAG_FISHING = 512;
-	public static final int FLAG_JAIL = 1024;
-	public static final int FLAG_STADIUM = 2048;
-	public static final int FLAG_SUNLIGHTROOM = 4096;
-	public static final int FLAG_DANGER = 8192;
-	public static final int FLAG_CASTLE = 16384;
+	public static final byte FLAG_PVP			= 0;
+	public static final byte FLAG_PEACE			= 1;
+	public static final byte FLAG_SIEGE			= 2;
+	public static final byte FLAG_MOTHERTREE	= 3;
+	public static final byte FLAG_CLANHALL		= 4;
+	public static final byte FLAG_NOESCAPE		= 5;
+	public static final byte FLAG_NOLANDING		= 6;
+	public static final byte FLAG_NOSTORE		= 7;
+	public static final byte FLAG_WATER			= 8;
+	public static final byte FLAG_FISHING		= 9;
+	public static final byte FLAG_JAIL			= 10;
+	public static final byte FLAG_STADIUM		= 11;
+	public static final byte FLAG_SUNLIGHTROOM	= 12;
+	public static final byte FLAG_DANGER		= 13;
+	public static final byte FLAG_CASTLE		= 14;
+	public static final byte FLAG_NOSUMMON		= 15;
 
 	protected int _id;
 	protected String _name;
@@ -141,7 +142,7 @@ public abstract class L2Zone
 	protected Boss _boss;
 	protected Affected _affected = Affected.ALL;
 	
-	protected boolean _noEscape, _noLanding, _noPrivateStore;
+	protected boolean _noEscape, _noLanding, _noPrivateStore, _noSummon;
 
 	protected SystemMessage _onEnterMsg, _onExitMsg;
 
@@ -707,6 +708,7 @@ public abstract class L2Zone
 		Node noLanding = n.getAttributes().getNamedItem("noLanding");
 		Node noEscape = n.getAttributes().getNamedItem("noEscape");
 		Node noPrivateStore = n.getAttributes().getNamedItem("noPrivateStore");
+		Node noSummon = n.getAttributes().getNamedItem("noSummon"); // Forbids summon friend skills.
 		Node boss = n.getAttributes().getNamedItem("boss");
 		Node affected = n.getAttributes().getNamedItem("affected");
 		Node buffRepeat = n.getAttributes().getNamedItem("buffRepeat");
@@ -719,6 +721,7 @@ public abstract class L2Zone
 		_noLanding = (noLanding != null) ? Boolean.parseBoolean(noLanding.getNodeValue()) : false;
 		_noEscape = (noEscape != null) ? Boolean.parseBoolean(noEscape.getNodeValue()) : false;
 		_noPrivateStore = (noPrivateStore != null) ? Boolean.parseBoolean(noPrivateStore.getNodeValue()) : false;
+		_noSummon = (noSummon != null) ? Boolean.parseBoolean(noSummon.getNodeValue()) : false;
 		_abnormal = (abnorm != null) ? Integer.decode("0x"+abnorm.getNodeValue()) : 0;
 		_exitOnDeath = (exitOnDeath != null) ? Boolean.parseBoolean(exitOnDeath.getNodeValue()) : false;
 		_hpDamage = (hpDamage != null) ? Integer.parseInt(hpDamage.getNodeValue()) : 0;

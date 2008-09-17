@@ -65,8 +65,8 @@ public class Castle extends Siegeable
 	private int							_castleId								= 0;
 	private Siege						_siege									= null;
 	private Calendar					_siegeDate;
-	private int							_siegeDayOfWeek							= 7;																								// Default to saturday
-	private int							_siegeHourOfDay							= 20;																								// Default to 8 pm server time
+	private boolean						_isTimeRegistrationOver					= true; // true if Castle Lords set the time, false if 24h are elapsed after the siege
+	private Calendar					_siegeTimeRegistrationEndDate;					// last siege end date + 1 day
 	private int							_taxPercent								= 0;
 	private double						_taxRate								= 1.0;
 	private int							_treasury								= 0;
@@ -535,13 +535,10 @@ public class Castle extends Siegeable
 				_siegeDate = Calendar.getInstance();
 				_siegeDate.setTimeInMillis(rs.getLong("siegeDate"));
 
-				_siegeDayOfWeek = rs.getInt("siegeDayOfWeek");
-				if (_siegeDayOfWeek < 1 || _siegeDayOfWeek > 7)
-					_siegeDayOfWeek = 7;
+				_siegeTimeRegistrationEndDate = Calendar.getInstance();
+				_siegeTimeRegistrationEndDate.setTimeInMillis(rs.getLong("regTimeEnd"));
+				_isTimeRegistrationOver = rs.getBoolean("regTimeOver");
 
-				_siegeHourOfDay = rs.getInt("siegeHourOfDay");
-				if (_siegeHourOfDay < 0 || _siegeHourOfDay > 23)
-					_siegeHourOfDay = 20;
 
 				_taxPercent = rs.getInt("taxPercent");
 				_treasury = rs.getInt("treasury");
@@ -762,15 +759,24 @@ public class Castle extends Siegeable
 		return _siegeDate;
 	}
 
-	public final int getSiegeDayOfWeek()
+	public boolean getIsTimeRegistrationOver()
 	{
-		return _siegeDayOfWeek;
+		return _isTimeRegistrationOver;
 	}
 
-	public final int getSiegeHourOfDay()
+	public void setIsTimeRegistrationOver(boolean val)
 	{
-		return _siegeHourOfDay;
+		_isTimeRegistrationOver = val;
+		return;
 	}
+
+	public Calendar getTimeRegistrationOverDate()
+	{
+		if (_siegeTimeRegistrationEndDate == null)
+			_siegeTimeRegistrationEndDate = Calendar.getInstance();
+		return _siegeTimeRegistrationEndDate;
+ 	}
+
 
 	public final int getTaxPercent()
 	{

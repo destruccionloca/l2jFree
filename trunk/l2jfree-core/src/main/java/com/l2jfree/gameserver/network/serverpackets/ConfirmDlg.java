@@ -28,7 +28,7 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
 /**
  * @author kombat
- * Format: cd d[d s/d/dd/ddd]
+ * Format: c dd[d s/d/dd/ddd] dd
  */
 public class ConfirmDlg extends L2GameServerPacket
 {
@@ -47,6 +47,8 @@ public class ConfirmDlg extends L2GameServerPacket
 	private Vector<Integer> _types = new Vector<Integer>(2); // Average parameter size for most common messages
 	private Vector<Object> _values = new Vector<Object>(2); // Average parameter size for most common messages
 
+	private int _time = 0;
+	private int _requesterId = 0;
 
 	public ConfirmDlg(int messageId)
 	{
@@ -168,6 +170,18 @@ public class ConfirmDlg extends L2GameServerPacket
 		return this;
 	}
 
+	public ConfirmDlg addTime(int time)
+	{
+		_time = time;
+		return this;
+	}
+
+	public ConfirmDlg addRequesterId(int id)
+	{
+		_requesterId = id;
+		return this;
+	}
+
 	@Override
 	protected final void writeImpl()
 	{
@@ -215,6 +229,9 @@ public class ConfirmDlg extends L2GameServerPacket
 				}
 			}
 		}
+		// timed dialog (Summon Friend skill request)
+		writeD(_time);
+		writeD(_requesterId);
 	}
 
 	/* (non-Javadoc)

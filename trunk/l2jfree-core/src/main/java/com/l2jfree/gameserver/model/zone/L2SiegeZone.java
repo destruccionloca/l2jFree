@@ -63,6 +63,7 @@ public class L2SiegeZone extends EntityZone
 		{
 			character.setInsideZone(FLAG_PVP, true);
 			character.setInsideZone(FLAG_SIEGE, true);
+			character.setInsideZone(FLAG_NOSUMMON, true);
 
 			if (character instanceof L2PcInstance)
 				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
@@ -79,6 +80,7 @@ public class L2SiegeZone extends EntityZone
 		{
 			character.setInsideZone(FLAG_PVP, false);
 			character.setInsideZone(FLAG_SIEGE, false);
+			character.setInsideZone(FLAG_NOSUMMON, false);
 
 			if (character instanceof L2PcInstance)
 			{
@@ -108,7 +110,9 @@ public class L2SiegeZone extends EntityZone
 				{
 					onEnter(character);
 				}
-				catch(Exception e){}
+				catch(Exception e)
+				{
+				}
 			}
 		}
 		else
@@ -119,6 +123,7 @@ public class L2SiegeZone extends EntityZone
 				{
 					character.setInsideZone(FLAG_PVP, false);
 					character.setInsideZone(FLAG_SIEGE, false);
+					character.setInsideZone(FLAG_NOSUMMON, false);
 
 					if (character instanceof L2PcInstance)
 						((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
@@ -127,7 +132,9 @@ public class L2SiegeZone extends EntityZone
 						((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
 					}
 				}
-				catch(Exception e){}
+				catch(Exception e)
+				{
+				}
 			}
 		}
 	}

@@ -192,7 +192,7 @@ public class CharEffectList
 	}
 
 	/**
-	 * Return the number of buffs in this CharEffectList
+	 * Return the number of buffs in this CharEffectList not counting Songs/Dances
 	 * @return
 	 */
 	public int getBuffCount()
@@ -202,7 +202,7 @@ public class CharEffectList
 		
 		for (L2Effect e : _buffs)
 		{
-			if (e != null && e.getShowIcon() &&
+			if (e != null && e.getShowIcon() && !e.getSkill().isDance() && !e.getSkill().isSong() && !e.getSkill().isDebuff() &&
 					(e.getSkill().getSkillType() == SkillType.BUFF ||
 					e.getSkill().getSkillType() == SkillType.REFLECT ||
 					e.getSkill().getSkillType() == SkillType.HEAL_PERCENT ||
@@ -216,7 +216,7 @@ public class CharEffectList
 	}
 
 	/**
-	 * Return the number of dances in this CharEffectList
+	 * Return the number of Songs/Dances in this CharEffectList
 	 * @return
 	 */
 	public int getDanceCount(boolean song)
@@ -289,36 +289,61 @@ public class CharEffectList
 	/**
 	 * Removes the first buff of this list.
 	 *
-	 * @param preferSkill If != 0 the given skill Id will be removed instead of the first
-	 * @param danceBuff If true removes song/dance type buff only
+	 * @param s Is the skill that is being applied.
 	 */
-	private void removeFirstBuff(int preferSkill)//, boolean danceBuff)
+	private void removeFirstBuff(L2Skill checkSkill)
 	{
+		boolean danceBuff = false;
+		if (!checkSkill.isDance() && !checkSkill.isSong() && getBuffCount() >= _owner.getMaxBuffCount())
+		{
+			if (checkSkill.getSkillType() != SkillType.BUFF &&
+				checkSkill.getSkillType() != SkillType.REFLECT &&
+				checkSkill.getSkillType() != SkillType.HEAL_PERCENT &&
+				checkSkill.getSkillType() != SkillType.MANAHEAL_PERCENT)
+			{
+				return;
+			}
+		}
+		else if ((checkSkill.isDance() || checkSkill.isSong()) && getDanceCount(checkSkill.isSong()) >= Config.DANCES_SONGS_MAX_AMOUNT)
+		{
+			danceBuff = true;
+		}
+		else
+			return;
+
 		L2Effect[] effects = getAllEffects();
 		L2Effect removeMe = null;
 
 		for (L2Effect e : effects)
 		{
-			if ( e != null &&
-					//(danceBuff && (e.getSkill().isDance() || e.getSkill().isSong())) ||
-					//(!danceBuff && !e.getSkill().isDance() && !e.getSkill().isSong() &&
-					 (e.getSkill().getSkillType() == SkillType.BUFF ||
-					 e.getSkill().getSkillType() == SkillType.DEBUFF ||
-					 e.getSkill().getSkillType() == SkillType.REFLECT ||
-					 e.getSkill().getSkillType() == SkillType.HEAL_PERCENT ||
-					 e.getSkill().getSkillType() == SkillType.MANAHEAL_PERCENT) &&
-					!(e.getSkill().getId() > 4360  && e.getSkill().getId() < 4367)) // Seven Signs buff
+			if (e == null)
+				continue;
+			switch (e.getSkill().getSkillType())
 			{
-				if (preferSkill == 0) { removeMe = e; break; }
-				else if (e.getSkill().getId() == preferSkill) { removeMe = e; break; }
-				else if (removeMe == null) removeMe = e;
+				case BUFF:
+				case DEBUFF:
+				case REFLECT:
+				case HEAL_PERCENT:
+				case MANAHEAL_PERCENT:
+					break;
+				default:
+					continue;
+			}
+
+			if ((danceBuff && (e.getSkill().isDance() || e.getSkill().isSong())) || (!danceBuff && !e.getSkill().isDance() && !e.getSkill().isSong()))
+			{
+				if (e.getSkill().getId() == checkSkill.getId())
+				{
+					removeMe = e;
+					break;
+				}
+				else if (removeMe == null)
+					removeMe = e;
 			}
 		}
 		if (removeMe != null)
 			removeMe.exit();
 	}
-
-
 
 	public final void removeEffect(L2Effect effect)
 	{
@@ -383,7 +408,6 @@ public class CharEffectList
 				}
 			}
 
-
 			// Remove the active skill L2effect from _effects of the L2Character
 			// The Integer key of _effects is the L2Skill Identifier that has created the effect
 			for (L2Effect e : effectList)
@@ -446,23 +470,19 @@ public class CharEffectList
 				}
 			}
 
-			// Remove first Buff if number of buffs > getMaxBuffCount()
+			// if max buffs, no herb effects are used, even if they would replace one old
+			if (getBuffCount() >= _owner.getMaxBuffCount() && newEffect.isHerbEffect())
+			{ 
+				newEffect.stopEffectTask(); 
+				return; 
+			}
+			
+			// Remove first buff when buff list is full
 			L2Skill tempSkill = newEffect.getSkill();
-			if (getBuffCount() >= _owner.getMaxBuffCount() && !doesStack(tempSkill) && ((
-				tempSkill.getSkillType() == SkillType.BUFF ||
-				tempSkill.getSkillType() == SkillType.REFLECT ||
-				tempSkill.getSkillType() == SkillType.HEAL_PERCENT ||
-				tempSkill.getSkillType() == SkillType.MANAHEAL_PERCENT) &&
-				!tempSkill.isDebuff() && !(tempSkill.getId() > 4360 && tempSkill.getId() < 4367))
-			)
+			if (!doesStack(tempSkill) && !tempSkill.isDebuff() &&
+					!(tempSkill.getId() > 4360 && tempSkill.getId() < 4367))
 			{
-				// if max buffs, no herb effects are used, even if they would replace one old
-				if (newEffect.isHerbEffect()) 
-				{ 
-					newEffect.stopEffectTask(); 
-					return; 
-				}
-				removeFirstBuff(tempSkill.getId());
+				removeFirstBuff(tempSkill);
 			}
 
 			// Add the L2Effect to all effect in progress on the L2Character
@@ -470,14 +490,16 @@ public class CharEffectList
 			{
 				int pos=0;
 				for (L2Effect e : effectList)
-            	{
-            		if (e != null)
-            		{
-            			int skillid = e.getSkill().getId();
-            			if (!e.getSkill().isToggle() && (!(skillid > 4360  && skillid < 4367))) pos++;
-            		}
-            		else break;
-            	}
+				{
+					if (e != null)
+					{
+						int skillid = e.getSkill().getId();
+						if (!e.getSkill().isToggle() && (!(skillid > 4360  && skillid < 4367)))
+							pos++;
+					}
+					else
+						break;
+				}
 				effectList.add(pos, newEffect);
 			}
 			else effectList.addLast(newEffect);

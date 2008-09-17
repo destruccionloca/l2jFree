@@ -63,6 +63,7 @@ public class L2DefaultZone extends L2Zone
 		
 		if (_pvp == PvpSettings.ARENA)
 		{
+			character.setInsideZone(FLAG_NOSUMMON, true);
 			character.setInsideZone(FLAG_PVP, true);
 			if (character instanceof L2PcInstance)
 				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
@@ -84,6 +85,10 @@ public class L2DefaultZone extends L2Zone
 		if (_noPrivateStore)
 		{
 			character.setInsideZone(FLAG_NOSTORE, true);
+		}
+		if (_noSummon)
+		{
+			character.setInsideZone(FLAG_NOSUMMON, true);
 		}
 
 		if (_instanceName != null && _instanceGroup != null && character instanceof L2PcInstance)
@@ -146,7 +151,80 @@ public class L2DefaultZone extends L2Zone
 			}
 		}
 	}
+
+	@Override
+	protected void onExit(L2Character character)
+	{
+		if(_onExitMsg != null && character instanceof L2PcInstance)
+			character.sendPacket(_onExitMsg);
+		
+		if(_abnormal > 0)
+			character.stopAbnormalEffect(_abnormal);
+
+		if(_applyExit != null)
+		{
+			for(L2Skill sk : _applyExit)
+				sk.getEffects(character, character);
+		}
+		if(_removeExit != null)
+		{
+			for(L2Skill sk : _removeExit)
+				character.stopSkillEffects(sk.getId());
+		}
+		if (_funcTemplates != null)
+		{
+			character.removeStatsOwner(this);
+		}
+
+		if (_pvp == PvpSettings.ARENA)
+		{
+			character.setInsideZone(FLAG_NOSUMMON, false);
+			character.setInsideZone(FLAG_PVP, false);
+			if (character instanceof L2PcInstance)
+				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+		}
+		else if (_pvp == PvpSettings.PEACE)
+		{
+			character.setInsideZone(FLAG_PEACE, false);
+		}
+
+		if (_noLanding)
+		{
+			character.setInsideZone(FLAG_NOLANDING, false);
+		}
+		if (_noEscape)
+		{
+			character.setInsideZone(FLAG_NOESCAPE, false);
+		}
+		if (_noPrivateStore)
+		{
+			character.setInsideZone(FLAG_NOSTORE, false);
+		}
+		if (_noSummon)
+		{
+			character.setInsideZone(FLAG_NOSUMMON, false);
+		}
+
+		if (character instanceof L2PcInstance && _instanceName != null && character.getInstanceId() > 0)
+		{
+			portIntoInstance((L2PcInstance) character, 0);
+		}
+	}
+
+	@Override
+	public final void onDieInside(L2Character character)
+	{
+		if (_exitOnDeath)
+			onExit(character);
+	}
 	
+	@Override
+	public final void onReviveInside(L2Character character)
+	{
+		if (_exitOnDeath)
+			onEnter(character);
+	}
+
 	private void getInstanceFromGroup(InstanceResult ir, List<L2PcInstance> group, boolean allowMultiple)
 	{
 		for (L2PcInstance mem : group)
@@ -203,73 +281,5 @@ public class L2DefaultZone extends L2Zone
 			pet.setInstanceId(instanceId);
 			pet.getKnownList().updateKnownObjects();
 		}
-	}
-	
-	@Override
-	protected void onExit(L2Character character)
-	{
-		if(_onExitMsg != null && character instanceof L2PcInstance)
-			character.sendPacket(_onExitMsg);
-		
-		if(_abnormal > 0)
-			character.stopAbnormalEffect(_abnormal);
-
-		if(_applyExit != null)
-		{
-			for(L2Skill sk : _applyExit)
-				sk.getEffects(character, character);
-		}
-		if(_removeExit != null)
-		{
-			for(L2Skill sk : _removeExit)
-				character.stopSkillEffects(sk.getId());
-		}
-		if (_funcTemplates != null)
-		{
-			character.removeStatsOwner(this);
-		}
-
-		if (_pvp == PvpSettings.ARENA)
-		{
-			character.setInsideZone(FLAG_PVP, false);
-			if (character instanceof L2PcInstance)
-				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
-		}
-		else if (_pvp == PvpSettings.PEACE)
-		{
-			character.setInsideZone(FLAG_PEACE, false);
-		}
-
-		if (_noLanding)
-		{
-			character.setInsideZone(FLAG_NOLANDING, false);
-		}
-		if (_noEscape)
-		{
-			character.setInsideZone(FLAG_NOESCAPE, false);
-		}
-		if (_noPrivateStore)
-		{
-			character.setInsideZone(FLAG_NOSTORE, false);
-		}
-
-		if (character instanceof L2PcInstance && _instanceName != null && character.getInstanceId() > 0)
-		{
-			portIntoInstance((L2PcInstance) character, 0);
-		}
-	}
-
-	@Override
-	public final void onDieInside(L2Character character)
-	{
-		if (_exitOnDeath)
-			onExit(character);
-	}
-	
-	@Override
-	public final void onReviveInside(L2Character character)
-	{
-		if (_exitOnDeath)
-			onEnter(character);
 	}
 }
