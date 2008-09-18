@@ -389,7 +389,11 @@ update_db()
 			$MYG < ../sql/updates/20080518update.sql
 			$MYG < ../sql/updates/20080529update.sql
 			$MYG < ../sql/updates/20080607update.sql
+			$MYG < ../sql/updates/20080611update.sql
+			$MYG < ../sql/updates/20080615update.sql
 			$MYG < ../sql/updates/20080626update.sql
+			$MYG < ../sql/updates/20080817update.sql
+			$MYG < ../sql/updates/20080917update.sql
 			echo "Update completed"
 		# Bad argument O_o
 		else
