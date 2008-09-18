@@ -7335,7 +7335,7 @@ INSERT INTO `etcitem` VALUES
 (10110, 'Spellbook - Meteor', 'false', 'spellbook', 120, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', 'KamaelItem', 'none'),
 (10111, 'Spellbook - Star Fall', 'false', 'spellbook', 120, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', 'KamaelItem', 'none'),
 (10112, 'Dark Seed', 'false', 'none', 120, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', 'KamaelItem', 'none'),
-(10113, 'Special Bolt', 'false', 'none', 6, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', 'KamaelItem', 'none'),
+(10113, 'Special Bolt', 'false', 'none', 6, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'false', 'true', 'false', 'KamaelItem', 'none'),
 (10114, 'Medicine1', 'false', 'none', 5, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', 'KamaelItem', 'none'),
 (10115, 'Medicine2', 'false', 'none', 5, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', 'KamaelItem', 'none'),
 (10116, 'Medicine3', 'false', 'none', 5, 'stackable', 'wood', 'none', -1, 0, NULL, 'true', 'true', 'true', 'true', 'KamaelItem', 'none'),

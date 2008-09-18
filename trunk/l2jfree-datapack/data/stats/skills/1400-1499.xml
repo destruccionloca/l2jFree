@@ -873,7 +873,7 @@
   </skill>
   <skill id="1429" levels="1" name="Gate Chant">
     <!-- Done by DJ MELERIX -->
-    <set name="target" val="TARGET_PARTY_MEMBER" />
+    <set name="target" val="TARGET_PARTY" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="power" val="0.0" />
