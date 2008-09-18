@@ -217,7 +217,7 @@ public class L2DoormenInstance extends L2FolkInstance
 				L2Clan owner = ClanTable.getInstance().getClan(getClanHall().getOwnerId());
 				if (owner != null && owner.getLeader() != null)
 				{
-					str = "<html><body>Hello there!<br>This clan hall is owned by <font color=\"55FFFF\">" + owner.getLeader().getName()
+					str = "<html><body>Hello there!<br><font color=\"LEVEL\">" + getClanHall().getName() + "</font> clan hall is owned by <font color=\"55FFFF\">" + owner.getLeader().getName()
 							+ " who is the Lord of the ";
 					str += owner.getName() + "</font> clan.<br>";
 					str += "I am sorry, but only the clan members who belong to the " + owner.getName() + " clan can enter the clan hall.</body></html>";

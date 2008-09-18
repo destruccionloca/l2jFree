@@ -32,10 +32,10 @@ public class ConfigHelper
     {
         // Set a increment id factory for test purpose
         Config.IDFACTORY_TYPE = IdFactoryType.Increment;
-        
+
         Config.MAP_TYPE = ObjectMapType.WorldObjectMap;
         Config.SET_TYPE = ObjectSetType.WorldObjectSet;
-        
+
         Config.THREAD_POOL_SIZE = 50;
     }
 }

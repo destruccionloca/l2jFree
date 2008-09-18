@@ -218,7 +218,7 @@ public final class Broadcast
 		{
 			if (onlinePlayer == null)
 				continue;
-			
+
 			onlinePlayer.sendPacket(mov);
 		}
 	}

@@ -263,10 +263,10 @@ public final class RequestRefine extends L2GameClientPacket
 		// finish and send the inventory update packet
 		iu.addModifiedItem(targetItem);
 		player.sendPacket(iu);
-		
+
 		return true;
 	}
-	
+
 	private int getLifeStoneGrade(int itemId)
 	{
 		itemId -= 8723;
@@ -275,7 +275,7 @@ public final class RequestRefine extends L2GameClientPacket
 		if (itemId < 30 || itemId == 852) return 2; // high grade
 		return 3; // top grade
 	}
-	
+
 	private int getLifeStoneLevel(int itemId)
 	{
 		itemId -= 10 * getLifeStoneGrade(itemId);

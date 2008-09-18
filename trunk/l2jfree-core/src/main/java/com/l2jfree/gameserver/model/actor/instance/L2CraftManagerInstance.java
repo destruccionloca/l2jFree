@@ -84,7 +84,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 				}
 				else
 					_pageId= Integer.parseInt(command.substring(11).trim()); 
-			} 
+			}
 			catch (NumberFormatException  e)
 			{
 				_pageId=0;
@@ -207,7 +207,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 						replyMSG.append("<td valign=center width=20><button value=\"\" action=\"bypass -h npc_"+getObjectId()+"_Crystallize "+_pageId+_elementsSelected.replace(" "+_items.get(i).toString(),"") +"\" width=16 height=16 back=\"L2UI.CheckBox_checked\" fore=\"L2UI.CheckBox_checked\"></td>");
 					else
 						replyMSG.append("<td valign=center width=20><button value=\"\" action=\"bypass -h npc_"+getObjectId()+"_Crystallize "+_pageId+" "+_items.get(i).toString()+_elementsSelected+"\" width=16 height=16 back=\"L2UI.CheckBox\" fore=\"L2UI.CheckBox\"></td>");
-				} 
+				}
 				else replyMSG.append("<td valign=center width=20></td>");
 
 				replyMSG.append("</tr></table>");
@@ -277,7 +277,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 						_price=Config.ALT_CRAFT_DEFAULT_PRICE;
 
 					_priceTotal+=_price;
-				} 
+				}
 				else 
 					_itemsSelected.remove(i);
 			}
@@ -449,7 +449,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 				else _recipeObjId = Integer.parseInt(st.nextToken());
 				
 				_pageId = Integer.parseInt(st.nextToken());
-			} 
+			}
 			catch (NumberFormatException  e){}  
 
 			Inventory _inventory = player.getInventory();
@@ -546,7 +546,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 			{
 				_recipeObjId = Integer.parseInt(st.nextToken());
 				_quantity = Integer.parseInt(st.nextToken());
-			} 
+			}
 			catch (NumberFormatException  e){}  
 
 			Inventory _inventory = player.getInventory();
@@ -651,7 +651,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 		TextBuilder replyMSG = new TextBuilder("<html><body>");
 		
 		replyMSG.append(getName()+":<br>");
-		replyMSG.append("Come back later, when you will have "+count+" of "+itemname+".");
+		replyMSG.append("Come back later, when you have "+count+" of "+itemname+".");
 		replyMSG.append("</body></html>");
 		
 		npcReply.setHtml(replyMSG.toString());
@@ -668,7 +668,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 		replyMSG.append(getName()+":<br>");
 		
 		if (success==0)
-		replyMSG.append("I am sorry, "+player.getName()+", but all attempts to create <font color=\"LEVEL\">"+itemname+"</font> failed. All your materials have been lost.");
+		replyMSG.append("I'm sorry, "+player.getName()+", but all attempts to create <font color=\"LEVEL\">"+itemname+"</font> failed. All your materials have been lost.");
 		else
 		if (failed==0)
 		replyMSG.append("Congratulations, "+player.getName()+", I created "+success+" <font color=\"LEVEL\">"+itemname+"</font> for you!");
@@ -680,7 +680,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 		npcReply.setHtml(replyMSG.toString());
 		
 		player.sendPacket(npcReply);
-	}  
+	}
 	
 	@Override
 	public String getHtmlPath(int npcId, int val)
@@ -689,7 +689,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 		if (val == 0)
 		{
 			pom = "" + npcId;
-		} 
+		}
 		else 
 		{
 			pom = npcId + "-" + val;

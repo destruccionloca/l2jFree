@@ -491,7 +491,7 @@ public class AdminSpawn implements IAdminCommandHandler
 					}
 					if (!respawn)
 						spawn.stopRespawn();
-					
+
 					activeChar.sendMessage("Created " + template.getName() + " on " + target.getX() + " " + target.getY() + " " + target.getZ() + ".");
 				}
 			}

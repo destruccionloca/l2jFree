@@ -1059,7 +1059,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                         if (st.countTokens() >= 1)
                         {
                             if(getClanHall().getOwnerId() == 0){
-                                player.sendMessage("This clan Hall have no owner, you cannot change configuration");
+                                player.sendMessage("This clan Hall has no owner, you cannot change configuration");
                                 return;
                             }
                             val = st.nextToken();

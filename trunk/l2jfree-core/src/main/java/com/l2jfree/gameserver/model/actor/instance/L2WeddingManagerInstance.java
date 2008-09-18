@@ -173,7 +173,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                         ptarget.useMagic(skill, false, false);
                     }
                     
-                    Announcements.getInstance().announceToAll("Gratulations, "+player.getName()+" and "+ptarget.getName()+" have married!");
+                    Announcements.getInstance().announceToAll("Congratulations, "+player.getName()+" and "+ptarget.getName()+" have married!");
                     
                     MSU = null;
                     
