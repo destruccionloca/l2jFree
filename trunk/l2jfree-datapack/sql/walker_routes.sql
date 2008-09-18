@@ -15,10 +15,6 @@ CREATE TABLE `walker_routes` (
    PRIMARY KEY (`route_id`,`npc_id`,`move_point`)
 ) DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `walker_routes`
---
-
 INSERT INTO `walker_routes` VALUES 
 (1,31361,1,NULL,22418,10249,-3648,61,1),
 (1,31361,2,NULL,23423,11165,-3720,0,1),
@@ -683,3 +679,11 @@ INSERT INTO `walker_routes` (`route_id`, `npc_id`, `move_point`, `chatText`, `mo
 (41, 35966, 29, NULL, 72715, -56729, -3104, 0, 0),
 (41, 35966, 30, NULL, 71731, -56949, -3080, 0, 0),
 (41, 35966, 31, NULL, 71436, -58182, -2904, 3, 0);
+
+INSERT INTO `walker_routes` (`route_id`, `npc_id`, `move_point`, `chatText`, `move_x`, `move_y`, `move_z`, `delay`, `running`) VALUES
+(42, 35828, 1, NULL, 159388, 52392, -3317, 3, 0),
+(42, 35828, 2, NULL, 158407, 52708, -3264, 0, 0),
+(42, 35828, 3, NULL, 159588, 52684, -3328, 0, 0),
+(42, 35828, 4, NULL, 160872, 53771, -3528, 0, 0),
+(42, 35828, 5, NULL, 162518, 55063, -3672, 0, 0),
+(42, 35828, 6, NULL, 159388, 52392, -3317, 0, 0);

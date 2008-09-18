@@ -7796,7 +7796,7 @@ INSERT INTO `etcitem` VALUES
 (12440,'Chaotic Sword of Ipos','false','none',1820,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (12441,'Chaotic Sobekk\'s Hurricane','false','none',1330,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (12442,'Chaotic Sirra\'s Blade','false','none',1300,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
-(12443,'Chaotic Éclair Bijou','false','none',1300,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
+(12443,'Chaotic Eclair Bijou','false','none',1300,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (12444,'Chaotic Tiphon\'s Spear','false','none',1820,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (12445,'Chaotic Themis\' Tongue','false','none',820,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (12446,'Chaotic Cabrio\'s Hand','false','none',1510,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),

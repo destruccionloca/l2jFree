@@ -164,8 +164,8 @@ INSERT INTO merchant_shopids VALUES
 (3089003,'30890'),
 (3089100,'30891'),
 (3089101,'30891'),
-(3089102,'30891'),
-(3089103,'30891'),
+-- (3089102,'30891'), Commented to cleanup loading error messages. Uncomment if you have the info to finish it
+-- (3089103,'30891'), Commented to cleanup loading error messages. Uncomment if you have the info to finish it
 (3089200,'30892'),
 (3089201,'30892'),
 (3089202,'30892'),
@@ -410,7 +410,7 @@ INSERT INTO merchant_shopids VALUES
 (9058,'gm'),
 (9059,'gm'),
 (9060,'gm'),
-(9061,'gm'),
+-- (9061,'gm'),
 (9062,'gm'),
 (9063,'gm'),
 (9064,'gm'),
