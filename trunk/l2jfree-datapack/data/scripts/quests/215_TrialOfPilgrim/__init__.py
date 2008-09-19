@@ -8,6 +8,7 @@ from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets import SocialAction 
 
 qn = "215_TrialOfPilgrim"
 
@@ -110,8 +111,9 @@ class Quest (JQuest) :
       htmltext = "30648-09.htm"
    elif npcId == 30648 and cond==17 and st.getQuestItemsCount(BOOK_OF_SAGE) :
       st.addExpAndSp(629125,40803)
-      st.rewardItems(7562,42)
+      st.rewardItems(7562,49)
       st.rewardItems(ADENA,114649)
+      player.sendPacket(SocialAction(player.getObjectId(),3))
       htmltext = "30648-10.htm"
       st.giveItems(MARK_OF_PILGRIM,1)
       st.takeItems(BOOK_OF_SAGE,1)
