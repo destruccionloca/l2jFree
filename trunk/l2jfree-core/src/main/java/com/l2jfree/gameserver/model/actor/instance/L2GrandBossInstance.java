@@ -14,14 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import java.util.List;
-import java.util.concurrent.Future;
-
-import com.l2jfree.Config;
-import com.l2jfree.gameserver.GameTimeController;
-import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
 import com.l2jfree.gameserver.model.L2Boss;
 import com.l2jfree.gameserver.model.L2Character;

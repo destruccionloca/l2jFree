@@ -24,8 +24,6 @@ import javolution.util.FastList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.tools.random.Rnd;
-
 public class L2Territory
 {
 	private final static Log	_log	= LogFactory.getLog(L2Territory.class.getName());
