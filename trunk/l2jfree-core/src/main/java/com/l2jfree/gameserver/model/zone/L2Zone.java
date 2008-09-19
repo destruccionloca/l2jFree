@@ -28,16 +28,16 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.zone.form.Shape;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
-import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.geoserver.model.Location;
 import com.l2jfree.tools.random.Rnd;
 
 public abstract class L2Zone

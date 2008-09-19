@@ -32,9 +32,9 @@ import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.entity.ClanHall;
-import com.l2jfree.gameserver.model.L2Territory;
 import com.l2jfree.gameserver.templates.L2CharTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.geoserver.model.L2Territory;
 
 public class DoorTable
 {

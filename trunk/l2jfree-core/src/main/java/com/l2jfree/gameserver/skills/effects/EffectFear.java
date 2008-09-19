@@ -18,13 +18,13 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.geoserver.model.Location;
 
 /**
  * @author littlecrow

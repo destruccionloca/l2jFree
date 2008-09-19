@@ -26,7 +26,6 @@ import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -36,7 +35,6 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Spawn;
-import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.DimensionalRift;
@@ -44,6 +42,7 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.geoserver.model.Location;
 import com.l2jfree.tools.random.Rnd;
 
 /**

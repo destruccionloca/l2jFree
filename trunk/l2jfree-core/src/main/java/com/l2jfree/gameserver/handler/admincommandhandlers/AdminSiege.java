@@ -17,6 +17,8 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
+import javolution.text.TextBuilder;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.datatables.ClanTable;
@@ -26,7 +28,6 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
@@ -34,8 +35,7 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-
-import javolution.text.TextBuilder;
+import com.l2jfree.geoserver.model.Location;
 
 /**
  * This class handles all siege commands:
@@ -82,18 +82,18 @@ public class AdminSiege implements IAdminCommandHandler
 		// Get castle
 		Castle castle = null;
 		ClanHall clanhall = null;
-		
+
 		if (command.startsWith("admin_clanhall"))
 			clanhall = ClanHallManager.getInstance().getClanHallById(Integer.parseInt(st.nextToken()));
 		else if (st.hasMoreTokens())
 			castle = CastleManager.getInstance().getCastleByName(st.nextToken());
-		
+
 		// Get castle
 		String val = "";
-		
+
 		if (st.hasMoreTokens())
 			val = st.nextToken();
-		
+
 		if ((castle == null || castle.getCastleId() < 0) && clanhall == null)
 			// No castle specified
 			showCastleSelectPage(activeChar);
@@ -183,7 +183,7 @@ public class AdminSiege implements IAdminCommandHandler
 						// castle.getSiege().saveSiegeDate();
 					}
 				}
-				showSiegeTimePage(activeChar,castle);
+				showSiegeTimePage(activeChar, castle);
 				return true;
 			}
 			else if (command.equalsIgnoreCase("admin_clanhallset") && clanhall != null)
@@ -240,7 +240,7 @@ public class AdminSiege implements IAdminCommandHandler
 			}
 			if (clanhall != null)
 				showClanHallPage(activeChar, clanhall);
-			else if(castle != null)
+			else if (castle != null)
 				showSiegePage(activeChar, castle.getName());
 		}
 		return true;
@@ -260,7 +260,7 @@ public class AdminSiege implements IAdminCommandHandler
 			newDay.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
 		if (!SevenSigns.getInstance().isDateInSealValidPeriod(newDay))
 			newDay.add(Calendar.DAY_OF_MONTH, 7);
-		
+
 		if (isSunday)
 		{
 			adminReply.replace("%sundaylink%", String.valueOf(newDay.get(Calendar.DAY_OF_YEAR)));
@@ -272,7 +272,7 @@ public class AdminSiege implements IAdminCommandHandler
 		else
 		{
 			adminReply.replace("%saturdaylink%", String.valueOf(newDay.get(Calendar.DAY_OF_YEAR)));
-			adminReply.replace("%saturday%", String.valueOf(newDay.get(Calendar.MONTH) + "/" + String.valueOf(newDay.get(Calendar.DAY_OF_MONTH))));			
+			adminReply.replace("%saturday%", String.valueOf(newDay.get(Calendar.MONTH) + "/" + String.valueOf(newDay.get(Calendar.DAY_OF_MONTH))));
 			newDay.add(Calendar.DAY_OF_MONTH, 1);
 			adminReply.replace("%sundaylink%", String.valueOf(newDay.get(Calendar.DAY_OF_YEAR)));
 			adminReply.replace("%sunday%", String.valueOf(newDay.get(Calendar.MONTH) + "/" + String.valueOf(newDay.get(Calendar.DAY_OF_MONTH))));

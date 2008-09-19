@@ -29,10 +29,10 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
 import com.l2jfree.gameserver.instancemanager.ZoneManager;
-import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.geoserver.model.Location;
 
 
 public class AdminZone implements IAdminCommandHandler

@@ -17,11 +17,10 @@ package com.l2jfree.gameserver.model;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 
-import java.util.Vector;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import java.util.concurrent.Future;
 
 import javolution.util.FastList;
@@ -101,6 +100,7 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.L2Weapon;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.geoserver.model.Location;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 

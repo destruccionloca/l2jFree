@@ -49,6 +49,7 @@ import com.l2jfree.gameserver.templates.L2Equip;
 import com.l2jfree.gameserver.templates.L2EtcItem;
 import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.gameserver.templates.L2Weapon;
+import com.l2jfree.geoserver.model.Location;
 
 /**
  * This class manages items.

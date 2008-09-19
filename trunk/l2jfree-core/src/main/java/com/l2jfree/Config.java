@@ -201,6 +201,58 @@ public final class Config
 	}
 
 	// *******************************************************************************************
+	public static final String	GEO_FILE	= "./config/geodata.properties";
+	// *******************************************************************************************
+	public static int			GEODATA_MODE;									//TODO: GEO CONFIG
+	public static String		GEO_SERVER;
+	public static int			GEO_PORT;
+	public static boolean		GEODATA;										// Load geodata files
+	public static boolean		GEO_DOORS;										// Enable GeoData for doors
+	public static boolean		GEO_CHECK_LOS;									// Enable Line Of Sight check for skills and aggro
+	public static boolean		GEO_MOVE_PC;									// Movement check for playable instances
+	public static boolean		GEO_MOVE_NPC;									// Movement check for NPCs
+	public static boolean		GEO_PATH_FINDING;								// Enable Path Finding [ EXPERIMENTAL]
+
+	public static enum CorrectSpawnsZ
+	{
+		TOWN, MONSTER, ALL, NONE
+	}
+
+	public static CorrectSpawnsZ	GEO_CORRECT_Z;			// Enable spawns' z-correction
+	public static boolean			FORCE_GEODATA;			// Force loading GeoData to psychical memory
+	public static boolean			ACCEPT_GEOEDITOR_CONN;	// Accept connection from geodata editor
+
+	// *******************************************************************************************
+	public static void loadGeoConfig()
+	{
+		_log.info("loading " + CLANS_FILE);
+		try
+		{
+			Properties geoSettings = new L2Properties(GEO_FILE);
+			GEODATA_MODE = Integer.parseInt(geoSettings.getProperty("GeoMode", "0"));
+			GEO_SERVER = geoSettings.getProperty("GeoServer", "127.0.0.1");
+			GEO_PORT = Integer.parseInt(geoSettings.getProperty("GeoPort", "9013"));
+			if (GEODATA_MODE == 0)
+				GEODATA = false;
+			GEO_DOORS = Boolean.parseBoolean(geoSettings.getProperty("GeoDoors", "False"));
+			GEO_CHECK_LOS = Boolean.parseBoolean(geoSettings.getProperty("GeoCheckLoS", "False")) && GEODATA;
+			GEO_MOVE_PC = Boolean.parseBoolean(geoSettings.getProperty("GeoCheckMovePlayable", "False")) && GEODATA;
+			GEO_MOVE_NPC = Boolean.parseBoolean(geoSettings.getProperty("GeoCheckMoveNpc", "False")) && GEODATA;
+			GEO_PATH_FINDING = Boolean.parseBoolean(geoSettings.getProperty("GeoPathFinding", "False")) && GEODATA;
+			FORCE_GEODATA = Boolean.parseBoolean(geoSettings.getProperty("ForceGeoData", "True")) && GEODATA;
+			String correctZ = GEODATA ? geoSettings.getProperty("GeoCorrectZ", "ALL") : "NONE";
+			GEO_CORRECT_Z = CorrectSpawnsZ.valueOf(correctZ.toUpperCase());
+			ACCEPT_GEOEDITOR_CONN = Boolean.parseBoolean(geoSettings.getProperty("AcceptGeoeditorConn", "False"));
+
+		}
+		catch (Exception e)
+		{
+			_log.error(e.getMessage(), e);
+			throw new Error("Failed to Load " + CLANS_FILE + " File.");
+		}
+	}
+
+	// *******************************************************************************************
 	public static final String	CLANS_FILE	= "./config/clans.properties";
 	// *******************************************************************************************
 	public static int			ALT_CLAN_MEMBERS_FOR_WAR;					// Number of members needed to request a clan war
@@ -966,30 +1018,14 @@ public final class Config
 	public static boolean			ALLOW_MANOR;												// Allow Manor system
 	public static boolean			ALLOW_GUARDS;												// Allow guards against aggressive monsters
 
-	public static boolean			GEODATA;													// Load geodata files
-	public static boolean			GEO_DOORS;													// Enable GeoData for doors
-	public static boolean			GEO_CHECK_LOS;												// Enable Line Of Sight check for skills and aggro
-	public static boolean			GEO_MOVE_PC;												// Movement check for playable instances
-	public static boolean			GEO_MOVE_NPC;												// Movement check for NPCs
-	public static boolean			GEO_PATH_FINDING;											// Enable Path Finding [ EXPERIMENTAL]
-
-	public static enum CorrectSpawnsZ
-	{
-		TOWN, MONSTER, ALL, NONE
-	}
-
-	public static CorrectSpawnsZ	GEO_CORRECT_Z;						// Enable spawns' z-correction
-	public static boolean			FORCE_GEODATA;						// Force loading GeoData to psychical memory
-	public static boolean			ACCEPT_GEOEDITOR_CONN;				// Accept connection from geodata editor
-
 	public static boolean			ALLOW_DISCARDITEM;
 	public static boolean			ALLOW_FREIGHT;
 	public static boolean			ALLOW_WAREHOUSE;
-	public static boolean			ENABLE_WAREHOUSESORTING_CLAN;		// Warehouse Sorting Clan
-	public static boolean			ENABLE_WAREHOUSESORTING_PRIVATE;	// Warehouse Sorting Privat
-	public static boolean			ENABLE_WAREHOUSESORTING_FREIGHT;	// Warehouse Sorting freight
-	public static boolean			WAREHOUSE_CACHE;					// Allow warehouse cache?
-	public static int				WAREHOUSE_CACHE_TIME;				// How long store WH datas
+	public static boolean			ENABLE_WAREHOUSESORTING_CLAN;								// Warehouse Sorting Clan
+	public static boolean			ENABLE_WAREHOUSESORTING_PRIVATE;							// Warehouse Sorting Privat
+	public static boolean			ENABLE_WAREHOUSESORTING_FREIGHT;							// Warehouse Sorting freight
+	public static boolean			WAREHOUSE_CACHE;											// Allow warehouse cache?
+	public static int				WAREHOUSE_CACHE_TIME;										// How long store WH datas
 	public static boolean			ALLOW_WEAR;
 	public static int				WEAR_DELAY;
 	public static int				WEAR_PRICE;
@@ -998,8 +1034,8 @@ public final class Config
 	public static boolean			ALLOW_WATER;
 	public static boolean			ALLOW_RENTPET;
 	public static boolean			ALLOW_BOAT;
-	public static boolean			ALLOW_CURSED_WEAPONS;				// Allow cursed weapons ?
-	public static boolean			ALLOW_NPC_WALKERS;					// WALKER NPC
+	public static boolean			ALLOW_CURSED_WEAPONS;										// Allow cursed weapons ?
+	public static boolean			ALLOW_NPC_WALKERS;											// WALKER NPC
 	public static boolean			ALLOW_PET_WALKERS;
 
 	public static enum ChatMode
@@ -1183,17 +1219,6 @@ public final class Config
 			GRIDS_ALWAYS_ON = Boolean.parseBoolean(optionsSettings.getProperty("GridsAlwaysOn", "False"));
 			GRID_NEIGHBOR_TURNON_TIME = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOnTime", "1"));
 			GRID_NEIGHBOR_TURNOFF_TIME = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOffTime", "90"));
-
-			GEODATA = Boolean.parseBoolean(optionsSettings.getProperty("GeoData", "False"));
-			GEO_DOORS = Boolean.parseBoolean(optionsSettings.getProperty("GeoDoors", "False"));
-			GEO_CHECK_LOS = Boolean.parseBoolean(optionsSettings.getProperty("GeoCheckLoS", "False")) && GEODATA;
-			GEO_MOVE_PC = Boolean.parseBoolean(optionsSettings.getProperty("GeoCheckMovePlayable", "False")) && GEODATA;
-			GEO_MOVE_NPC = Boolean.parseBoolean(optionsSettings.getProperty("GeoCheckMoveNpc", "False")) && GEODATA;
-			GEO_PATH_FINDING = Boolean.parseBoolean(optionsSettings.getProperty("GeoPathFinding", "False")) && GEODATA;
-			FORCE_GEODATA = Boolean.parseBoolean(optionsSettings.getProperty("ForceGeoData", "True")) && GEODATA;
-			String correctZ = GEODATA ? optionsSettings.getProperty("GeoCorrectZ", "ALL") : "NONE";
-			GEO_CORRECT_Z = CorrectSpawnsZ.valueOf(correctZ.toUpperCase());
-			ACCEPT_GEOEDITOR_CONN = Boolean.parseBoolean(optionsSettings.getProperty("AcceptGeoeditorConn", "False"));
 
 			SHOW_LICENSE = Boolean.parseBoolean(optionsSettings.getProperty("ShowLicense", "false"));
 			SHOW_HTML_WELCOME = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLWelcome", "false"));
@@ -1839,24 +1864,24 @@ public final class Config
 	}
 
 	// *******************************************************************************************
-	public static final String	SIEGE_CONFIGURATION_FILE	= "./config/siege.properties";
+	public static final String		SIEGE_CONFIGURATION_FILE	= "./config/siege.properties";
 	// *******************************************************************************************
 
-	public static int			SIEGE_MAX_ATTACKER;
-	public static int			SIEGE_MAX_DEFENDER;
-	public static int			SIEGE_RESPAWN_DELAY_ATTACKER;
-	public static int			SIEGE_RESPAWN_DELAY_DEFENDER;
+	public static int				SIEGE_MAX_ATTACKER;
+	public static int				SIEGE_MAX_DEFENDER;
+	public static int				SIEGE_RESPAWN_DELAY_ATTACKER;
+	public static int				SIEGE_RESPAWN_DELAY_DEFENDER;
 
-	public static int			SIEGE_CT_LOSS_PENALTY;
-	public static int			SIEGE_FLAG_MAX_COUNT;
-	public static int			SIEGE_CLAN_MIN_LEVEL;
-	public static int			SIEGE_LENGTH_MINUTES;
+	public static int				SIEGE_CT_LOSS_PENALTY;
+	public static int				SIEGE_FLAG_MAX_COUNT;
+	public static int				SIEGE_CLAN_MIN_LEVEL;
+	public static int				SIEGE_LENGTH_MINUTES;
 
-	public static boolean		SIEGE_ONLY_REGISTERED;
+	public static boolean			SIEGE_ONLY_REGISTERED;
 
-	public static FastList<String> CL_SET_SIEGE_TIME_LIST;
-	public static FastList<Integer> SIEGE_HOUR_LIST_MORNING;
-	public static FastList<Integer> SIEGE_HOUR_LIST_AFTERNOON;
+	public static FastList<String>	CL_SET_SIEGE_TIME_LIST;
+	public static FastList<Integer>	SIEGE_HOUR_LIST_MORNING;
+	public static FastList<Integer>	SIEGE_HOUR_LIST_AFTERNOON;
 
 	public static void loadSiegeConfig()
 	{
@@ -1888,7 +1913,8 @@ public final class Config
 				{
 					if (st.equalsIgnoreCase("day") || st.equalsIgnoreCase("hour") || st.equalsIgnoreCase("minute"))
 					{
-						if (st.equalsIgnoreCase("hour")) isHour = true;
+						if (st.equalsIgnoreCase("hour"))
+							isHour = true;
 						CL_SET_SIEGE_TIME_LIST.add(st.toLowerCase());
 					}
 					else
@@ -1898,7 +1924,7 @@ public final class Config
 				}
 				if (isHour)
 				{
-					String[] shl = siegeSettings.getProperty("SiegeHourList", "").split(","); 
+					String[] shl = siegeSettings.getProperty("SiegeHourList", "").split(",");
 					for (String st : shl)
 					{
 						if (!st.equalsIgnoreCase(""))
@@ -2451,7 +2477,7 @@ public final class Config
 			DM_REVIVE_DELAY = Long.parseLong(funEnginesSettings.getProperty("DMReviveDelay", "20000"));
 			if (DM_REVIVE_DELAY < 1000)
 				DM_REVIVE_DELAY = 1000; //can't be set less then 1 second
-			
+
 			FALLDOWNONDEATH = Boolean.parseBoolean(funEnginesSettings.getProperty("FallDownOnDeath", "true"));
 
 			ARENA_ENABLED = Boolean.parseBoolean(funEnginesSettings.getProperty("ArenaEnabled", "false"));
@@ -3098,6 +3124,7 @@ public final class Config
 		loadTelnetConfig();
 		loadOptionsConfig();
 		loadOtherConfig();
+		loadGeoConfig();
 		loadAltConfig();
 		loadClansConfig();
 		loadChampionsConfig();

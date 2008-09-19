@@ -19,12 +19,12 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.geoserver.model.Location;
 
 /**
  * This class handles warp effects, disappear and quickly turn up in a near location. If geodata enabled and

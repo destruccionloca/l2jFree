@@ -30,7 +30,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
-import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
@@ -45,6 +44,7 @@ import com.l2jfree.gameserver.model.mapregion.L2MapRegionRestart;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.geoserver.model.Location;
 import com.l2jfree.tools.geometry.Point3D;
 
 /**

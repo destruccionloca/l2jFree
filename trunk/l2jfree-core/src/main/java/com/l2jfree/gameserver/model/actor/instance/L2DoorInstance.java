@@ -40,7 +40,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Territory;
+import com.l2jfree.geoserver.model.L2Territory;
 import com.l2jfree.gameserver.model.actor.knownlist.DoorKnownList;
 import com.l2jfree.gameserver.model.actor.stat.DoorStat;
 import com.l2jfree.gameserver.model.actor.status.DoorStatus;

@@ -15,17 +15,25 @@
 package com.l2jfree.gameserver.geodata;
 
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Vector;
+import java.util.concurrent.ScheduledFuture;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2Territory;
-import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
+import com.l2jfree.geoclient.GeoClientInterface;
+import com.l2jfree.geoserver.GeoServerInterface;
+import com.l2jfree.geoserver.geodata.GeoEngine;
+import com.l2jfree.geoserver.model.L2Territory;
+import com.l2jfree.geoserver.model.Location;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 
@@ -34,18 +42,20 @@ import com.l2jfree.tools.random.Rnd;
  * @Date: 23/11/2007
  * @Time: 12:13:11
  */
-public class GeoClient
+@SuppressWarnings("serial")
+public class GeoClient extends UnicastRemoteObject implements GeoClientInterface
 {
-	final static Log			_log	= LogFactory.getLog(GeoClient.class.getName());
+	final static Log						_log			= LogFactory.getLog(GeoClient.class.getName());
 
-	private static GeoClient	instance;
+	private static GeoClient				instance;
 
-	private transient GeoInterface	geoEngine;
+	public static final int					MODE_NO_GEO		= 0;
+	public static final int					MODE_LOCAL_GEO	= 1;
+	public static final int					MODE_RMI_GEO	= 2;
 
-	public GeoInterface getEngine()
-	{
-		return geoEngine;
-	}
+	private transient GeoEngine				geoEngine;
+	private transient GeoServerInterface	geoServer;
+	private transient ScheduledFuture		reconnectTask;
 
 	public static GeoClient getInstance()
 	{
@@ -66,11 +76,19 @@ public class GeoClient
 	public GeoClient() throws RemoteException
 	{
 		instance = this;
-		if (Config.GEODATA)
-			initLocal();
-		else
-			initFake();
 
+		switch (Config.GEODATA_MODE)
+		{
+		case MODE_NO_GEO:
+			initFake();
+			break;
+		case MODE_LOCAL_GEO:
+			initLocal();
+			break;
+		case MODE_RMI_GEO:
+			initRemote();
+			break;
+		}
 	}
 
 	public void initFake()
@@ -94,13 +112,80 @@ public class GeoClient
 		}
 	}
 
+	public void initRemote()
+	{
+		try
+		{
+			Registry r = LocateRegistry.getRegistry(Config.GEO_SERVER, Config.GEO_PORT);
+			geoServer = (GeoServerInterface) r.lookup("geoServer");
+			geoServer.addClient(this);
+			Config.GEODATA_MODE = MODE_RMI_GEO;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			_log.fatal("GeoData: Connection Failed.");
+			onConnectionLost();
+		}
+		_log.info("GeoData: Using remote communication");
+
+		for (L2DoorInstance door : DoorTable.getInstance().getDoors())
+			if (door.getOpen() == 1)
+			{
+				closeDoor(door.getPos());
+				door.setGeoOpen(false);
+			}
+	}
+
+	public void onConnectionLost()
+	{
+		if (reconnectTask != null)
+			return;
+
+		_log.info("GeoData: Connection with server lost, switching to no geodata mode.");
+
+		Config.GEODATA_MODE = MODE_NO_GEO;
+		geoServer = null;
+
+		_log.info("GeoData: Starting reconnect task");
+
+		reconnectTask = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+		{
+			public void run()
+			{
+				reconnectTask = null;
+				_log.info("GeoData: Reconecting to GeoServer...");
+				initRemote();
+			}
+		}, 5000);
+	}
+
+	public void testConnection()
+	{
+	}
+
 	public Vector<Location> checkMovement(int x, int y, int z, Location pos)
 	{
-		if (Config.GEODATA)
+		switch (Config.GEODATA_MODE)
 		{
+		case MODE_LOCAL_GEO:
 			return geoEngine.getGeoMove().checkMovement(x, y, z, pos);
+		case MODE_RMI_GEO:
+			Vector<Location> v = null;
+			try
+			{
+				v = geoServer.checkMovement(this, x, y, z, pos);
+			}
+			catch (RemoteException e)
+			{
+				e.printStackTrace();
+				onConnectionLost();
+			}
+			return v != null ? v : new Vector<Location>();
+		case MODE_NO_GEO:
+		default:
+			return new Vector<Location>();
 		}
-		return new Vector<Location>();
 	}
 
 	public boolean canSeeTarget(L2Object actor, L2Object target)
@@ -113,20 +198,48 @@ public class GeoClient
 
 	public boolean canSeeTarget(int x, int y, int z, int tx, int ty, int tz)
 	{
-		if (Config.GEODATA)
+		switch (Config.GEODATA_MODE)
 		{
+		case MODE_LOCAL_GEO:
 			return geoEngine.canSeeTarget(x, y, z, tx, ty, tz);
+		case MODE_RMI_GEO:
+			try
+			{
+				return geoServer.canSeeTarget(this, x, y, z, tx, ty, tz);
+			}
+			catch (RemoteException e)
+			{
+				e.printStackTrace();
+				onConnectionLost();
+				return true;
+			}
+		case MODE_NO_GEO:
+		default:
+			return true;
 		}
-		return true;
 	}
 
 	public int getHeight(int x, int y, int z)
 	{
-		if (Config.GEODATA)
+		switch (Config.GEODATA_MODE)
 		{
+		case MODE_LOCAL_GEO:
 			return geoEngine.getHeight(x, y, z);
+		case MODE_RMI_GEO:
+			try
+			{
+				return geoServer.getHeight(this, x, y, z);
+			}
+			catch (RemoteException e)
+			{
+				e.printStackTrace();
+				onConnectionLost();
+				return z;
+			}
+		case MODE_NO_GEO:
+		default:
+			return z;
 		}
-		return z;
 	}
 
 	public int getHeight(Location loc)
@@ -136,20 +249,48 @@ public class GeoClient
 
 	public Location moveCheck(int x, int y, int z, int tx, int ty, int tz)
 	{
-		if (Config.GEODATA)
+		switch (Config.GEODATA_MODE)
 		{
+		case MODE_LOCAL_GEO:
 			return geoEngine.moveCheck(x, y, z, tx, ty);
+		case MODE_RMI_GEO:
+			try
+			{
+				return geoServer.moveCheck(this, x, y, z, tx, ty);
+			}
+			catch (RemoteException e)
+			{
+				e.printStackTrace();
+				onConnectionLost();
+				return new Location(tx, ty, tz);
+			}
+		case MODE_NO_GEO:
+		default:
+			return new Location(tx, ty, tz);
 		}
-		return new Location(tx, ty, tz);
 	}
 
 	public boolean canMoveToCoord(int x, int y, int z, int tx, int ty, int tz)
 	{
-		if (Config.GEODATA)
+		switch (Config.GEODATA_MODE)
 		{
+		case MODE_LOCAL_GEO:
 			return geoEngine.canMoveToCoord(x, y, z, tx, ty, tz);
+		case MODE_RMI_GEO:
+			try
+			{
+				return geoServer.canMoveToCoord(this, x, y, z, tx, ty, tz);
+			}
+			catch (RemoteException e)
+			{
+				e.printStackTrace();
+				onConnectionLost();
+				return true;
+			}
+		case MODE_NO_GEO:
+		default:
+			return true;
 		}
-		return true;
 	}
 
 	public Location moveCheckForAI(L2Object cha, L2Object target)
@@ -159,29 +300,71 @@ public class GeoClient
 
 	public Location moveCheckForAI(Location loc1, Location loc2)
 	{
-		if (Config.GEODATA)
+		switch (Config.GEODATA_MODE)
 		{
+		case MODE_LOCAL_GEO:
 			return geoEngine.moveCheckForAI(loc1, loc2);
+		case MODE_RMI_GEO:
+			try
+			{
+				return geoServer.moveCheckForAI(this, loc1, loc2);
+			}
+			catch (RemoteException e)
+			{
+				e.printStackTrace();
+				onConnectionLost();
+				return loc2;
+			}
+		case MODE_NO_GEO:
+		default:
+			return loc2;
 		}
-		return loc2;
 	}
 
 	public short getNSWE(int x, int y, int z)
 	{
-		if (Config.GEODATA)
+		switch (Config.GEODATA_MODE)
 		{
+		case MODE_LOCAL_GEO:
 			return geoEngine.getNSWE(x, y, z);
+		case MODE_RMI_GEO:
+			try
+			{
+				return geoServer.getNSWE(this, x, y, z);
+			}
+			catch (RemoteException e)
+			{
+				e.printStackTrace();
+				onConnectionLost();
+				return 15;
+			}
+		case MODE_NO_GEO:
+		default:
+			return 15;
 		}
-		return 15;
 	}
 
 	public boolean canMoveToCoordWithCollision(int x, int y, int z, int tx, int ty, int tz)
 	{
-		if (Config.GEODATA)
+		switch (Config.GEODATA_MODE)
 		{
+		case MODE_LOCAL_GEO:
 			return geoEngine.canMoveToCoordWithCollision(x, y, z, tx, ty, tz);
+		case MODE_RMI_GEO:
+			try
+			{
+				return geoServer.canMoveToCoordWithCollision(this, x, y, z, tx, ty, tz);
+			}
+			catch (RemoteException e)
+			{
+				e.printStackTrace();
+				onConnectionLost();
+				return true;
+			}
+		case MODE_NO_GEO:
+		default:
+			return true;
 		}
-		return true;
 	}
 
 	/**
@@ -192,27 +375,73 @@ public class GeoClient
 	 */
 	public short getType(int x, int y)
 	{
-		if (Config.GEODATA)
+		switch (Config.GEODATA_MODE)
 		{
+		case MODE_LOCAL_GEO:
 			return geoEngine.getType(x, y);
+		case MODE_RMI_GEO:
+			try
+			{
+				return geoServer.getType(this, x, y);
+			}
+			catch (RemoteException e)
+			{
+				e.printStackTrace();
+				onConnectionLost();
+				return 0;
+			}
+		case MODE_NO_GEO:
+		default:
+			return 0;
 		}
-		return 0;
 	}
 
 	public void openDoor(L2Territory pos)
 	{
-		if (!Config.GEODATA && !Config.GEO_DOORS)
+		if (!Config.GEO_DOORS)
 			return;
 
-		geoEngine.openDoor(pos);
+		switch (Config.GEODATA_MODE)
+		{
+		case MODE_LOCAL_GEO:
+			geoEngine.openDoor(pos);
+			break;
+		case MODE_RMI_GEO:
+			try
+			{
+				geoServer.openDoor(this, pos);
+			}
+			catch (RemoteException e)
+			{
+				e.printStackTrace();
+				onConnectionLost();
+			}
+			break;
+		}
 	}
 
 	public void closeDoor(L2Territory pos)
 	{
-		if (!Config.GEODATA && !Config.GEO_DOORS)
+		if (!Config.GEO_DOORS)
 			return;
 
-		geoEngine.closeDoor(pos);
+		switch (Config.GEODATA_MODE)
+		{
+		case MODE_LOCAL_GEO:
+			geoEngine.closeDoor(pos);
+			break;
+		case MODE_RMI_GEO:
+			try
+			{
+				geoServer.closeDoor(this, pos);
+			}
+			catch (RemoteException e)
+			{
+				e.printStackTrace();
+				onConnectionLost();
+			}
+			break;
+		}
 	}
 
 	public static Location coordsRandomize(L2Object obj, int min, int max)
@@ -259,15 +488,33 @@ public class GeoClient
 	public boolean canSeeTarget(L2Object cha, Point3D target)
 	{
 		//if (DoorTable.getInstance().checkIfDoorsBetween(cha.getX(), cha.getY(), cha.getZ(), target.getX(), target.getY(), target.getZ()))
-			//return false;
+		//return false;
 		if (cha.getZ() >= target.getZ())
 			return canSeeTarget(cha.getX(), cha.getY(), cha.getZ(), target.getX(), target.getY(), target.getZ());
 		else
 			return canSeeTarget(target.getX(), target.getY(), target.getZ(), cha.getX(), cha.getY(), cha.getZ());
 	}
-	
+
 	public short getSpawnHeight(int x, int y, int zmin, int zmax, int spawnid)
 	{
-		return geoEngine.getSpawnHeight(x, y, zmin, zmax, spawnid);
+		switch (Config.GEODATA_MODE)
+		{
+		case MODE_LOCAL_GEO:
+			return geoEngine.getSpawnHeight(x, y, zmin, zmax, spawnid);
+		case MODE_RMI_GEO:
+			try
+			{
+				return geoServer.getSpawnHeight(this, x, y, zmin, zmax, spawnid);
+			}
+			catch (RemoteException e)
+			{
+				e.printStackTrace();
+				onConnectionLost();
+				return 0;
+			}
+		case MODE_NO_GEO:
+		default:
+			return 0;
+		}
 	}
 }
