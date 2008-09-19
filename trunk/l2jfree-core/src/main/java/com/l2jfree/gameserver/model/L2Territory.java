@@ -42,7 +42,7 @@ public class L2Territory
 	}
 
 	private FastList<Point>	_points;
-	private String			_name;
+	// private String			_name;
 	private int				_xMin;
 	private int				_xMax;
 	private int				_yMin;
@@ -53,7 +53,7 @@ public class L2Territory
 	public L2Territory(String name)
 	{
 		_points = new FastList<Point>();
-		_name = name;
+		//_name = name;
 		_xMin = 999999;
 		_xMax = -999999;
 		_yMin = 999999;

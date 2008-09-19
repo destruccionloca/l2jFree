@@ -171,7 +171,7 @@ public class PcKnownList extends PlayableKnownList
                     otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition().getWorldPosition());
                     getActiveChar().sendPacket(new CharInfo(otherPlayer));
                     int relation1 = otherPlayer.getRelation(getActiveChar());
-                    int relation2 = getActiveChar().getRelation(otherPlayer);
+                    // int relation2 = getActiveChar().getRelation(otherPlayer);
                     Integer relation = otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId());
                     if (relation != null && relation.intValue() != relation1)
                     {

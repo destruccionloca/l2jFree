@@ -18,6 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
@@ -37,6 +38,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.gameserverpackets.ServerStatus;
 import com.l2jfree.gameserver.network.serverpackets.ServerClose;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.taskmanager.SQLQueue;
 
 /**
  * This class provides the functions for shutting down and restarting the server It closes all open clientconnections and saves all data.
@@ -137,7 +139,7 @@ public class Shutdown extends Thread
 		if (this == _instance)
 		{
 			saveData();
-
+			
 			// ensure all services are stopped
 			try
 			{
@@ -145,26 +147,28 @@ public class Shutdown extends Thread
 			}
 			catch (Throwable t)
 			{
+				t.printStackTrace();
 			}
-
+			
 			try
 			{
 				LoginServerThread.getInstance().interrupt();
 			}
 			catch (Throwable t)
 			{
+				t.printStackTrace();
 			}
-
+			
 			// saveData sends messages to exit players, so shutdown selector after it
 			try
 			{
 				GameServer.getSelectorThread().shutdown();
-				GameServer.getSelectorThread().setDaemon(true);
 			}
 			catch (Throwable t)
 			{
+				t.printStackTrace();
 			}
-
+			
 			// stop all threadpools
 			try
 			{
@@ -172,8 +176,18 @@ public class Shutdown extends Thread
 			}
 			catch (Throwable t)
 			{
+				t.printStackTrace();
 			}
-
+			
+			try
+			{
+				L2DatabaseFactory.getInstance().shutdown();
+			}
+			catch (Throwable t)
+			{
+				t.printStackTrace();
+			}
+			
 			// server will quit, when this function ends.
 			if (_instance._shutdownMode == ShutdownModeType.RESTART)
 				Runtime.getRuntime().halt(2);
@@ -439,16 +453,16 @@ public class Shutdown extends Thread
 			ItemsOnGroundManager.getInstance().cleanUp();
 			System.out.println("ItemsOnGroundManager: All items on ground saved.");
 		}
+		
+		SQLQueue.getInstance().run();
 		System.out.println("Data saved. All players disconnected, " + _shutdownMode.getText().toLowerCase() + ".");
-
+		
 		try
 		{
-			int delay = 5000;
-			Thread.sleep(delay);
+			sleep(5000);
 		}
 		catch (InterruptedException e)
 		{
-			// never happens :p
 		}
 	}
 

@@ -22,16 +22,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
-import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.ItemTable;
+import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -42,6 +41,8 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.taskmanager.SQLQuery;
+import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.AbstractL2ItemType;
 import com.l2jfree.gameserver.templates.L2Armor;
 import com.l2jfree.gameserver.templates.L2Equip;
@@ -1143,23 +1144,63 @@ public final class L2ItemInstance extends L2Object
 	*/
 	public void updateDatabase(boolean force)
 	{
-		if (isWear()) //avoid saving weared items
-			return;
+		if (getUpdateMode(force) != UpdateMode.NONE)
+			SQLQueue.getInstance().add(UPDATE_DATABASE_QUERY);
+	}
+	
+	private final SQLQuery UPDATE_DATABASE_QUERY = new SQLQuery() {
+		public void execute(Connection con)
+		{
+			switch (getUpdateMode(true))
+			{
+				case INSERT:
+					insertIntoDb(con);
+					break;
+					
+				case UPDATE:
+					updateInDb(con);
+					break;
+					
+				case REMOVE:
+					removeFromDb(con);
+					break;
+			}
+		}
+	};
+	
+	private UpdateMode getUpdateMode(boolean force)
+	{
+		if (_wear)
+			return UpdateMode.NONE;
+		
+		boolean shouldBeInDb = true;
+		shouldBeInDb &= (_ownerId != 0);
+		shouldBeInDb &= (_loc != ItemLocation.VOID);
+		shouldBeInDb &= (_count != 0 || _loc == ItemLocation.LEASE);
+		
 		if (_existsInDb)
 		{
-			if (_ownerId == 0 || _loc == ItemLocation.VOID || (getCount() == 0 && _loc != ItemLocation.LEASE))
-				removeFromDb();
+			if (!shouldBeInDb)
+				return UpdateMode.REMOVE;
+			
 			else if (!Config.LAZY_ITEMS_UPDATE || force)
-				updateInDb();
+				return UpdateMode.UPDATE;
 		}
 		else
 		{
-			if (getCount() == 0 && _loc != ItemLocation.LEASE)
-				return;
-			if (_loc == ItemLocation.VOID || _ownerId == 0 || _loc == ItemLocation.NPC)
-				return;
-			insertIntoDb();
+			if (shouldBeInDb && _loc != ItemLocation.NPC)
+				return UpdateMode.INSERT;
 		}
+		
+		return UpdateMode.NONE;
+	}
+	
+	private static enum UpdateMode
+	{
+		INSERT,
+		UPDATE,
+		REMOVE,
+		NONE;
 	}
 	
 	/**
@@ -1235,7 +1276,20 @@ public final class L2ItemInstance extends L2Object
 		// if mana left is 0 delete this item
 		if (inst._mana == 0)
 		{
-			inst.removeFromDb();
+			Connection con = null;
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection();
+				inst.removeFromDb(con);
+			}
+			catch (SQLException e)
+			{
+				_log.warn("", e);
+			}
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 			return null;
 		}
 		else if (inst._mana > 0 && inst.getLocation() == ItemLocation.PAPERDOLL)
@@ -1312,19 +1366,13 @@ public final class L2ItemInstance extends L2Object
 	/**
 	 * Update the database with values of the item
 	 */
-	private void updateInDb()
+	private void updateInDb(Connection con)
 	{
-		if (Config.ASSERT)
-			assert _existsInDb;
-		if (_wear)
-			return;
 		if (_storedInDb)
 			return;
-
-		Connection con = null;
+		
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
 					.prepareStatement("UPDATE items SET owner_id=?,count=?,loc=?,loc_data=?,enchant_level=?,custom_type1=?,custom_type2=?,mana_left=?,attributes=? "
 							+ "WHERE object_id = ?");
@@ -1345,24 +1393,17 @@ public final class L2ItemInstance extends L2Object
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Could not update item " + getObjectId() + " in DB: Reason: " + "Duplicate itemId");
+			_log.fatal("Could not update item " + getObjectId(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 	
 	/**
 	 * Insert the item in database
 	 */
-	private void insertIntoDb()
+	private void insertIntoDb(Connection con)
 	{
-		if (_wear)
-			return;
-		if (Config.ASSERT)
-			assert !_existsInDb && getObjectId() != 0;
-		Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
 					.prepareStatement("INSERT INTO items (owner_id,item_id,count,loc,loc_data,enchant_level,object_id,custom_type1,custom_type2,mana_left,attributes) "
 							+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
@@ -1377,7 +1418,6 @@ public final class L2ItemInstance extends L2Object
 			statement.setInt(9, _type2);
 			statement.setInt(10, getMana());
 			statement.setString(11, getAttrString());
-			
 			statement.executeUpdate();
 			_existsInDb = true;
 			_storedInDb = true;
@@ -1385,28 +1425,19 @@ public final class L2ItemInstance extends L2Object
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Could not insert item " + getObjectId() + " into DB: Reason: " + "Duplicate itemId");
+			_log.fatal("Could not insert item " + getObjectId(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 	
 	/**
 	 * Delete item from database
 	 */
-	private void removeFromDb()
+	private void removeFromDb(Connection con)
 	{
-		if (_wear)
-			return;
-		
-		if (Config.ASSERT)
-			assert _existsInDb;
-		
 		_augmentation = null;
 		
-		Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("DELETE FROM items WHERE object_id=?");
 			statement.setInt(1, getObjectId());
 			statement.executeUpdate();
@@ -1416,9 +1447,8 @@ public final class L2ItemInstance extends L2Object
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Could not delete item " + getObjectId() + " in DB:", e);
+			_log.fatal("Could not delete item " + getObjectId(), e);
 		}
-        finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
 	
 	/**
@@ -1430,7 +1460,7 @@ public final class L2ItemInstance extends L2Object
 	public String toString()
 	{
 		StringBuffer output = new StringBuffer();
-		output.append("item " + getObjectId() + ":");
+		output.append("item " + getObjectId() + ": ");
 		if (getEnchantLevel() > 0)
 			output.append("+" + getEnchantLevel() + " ");
 		output.append(getItem().getName());

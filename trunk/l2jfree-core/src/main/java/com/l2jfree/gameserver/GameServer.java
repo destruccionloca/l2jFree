@@ -119,6 +119,7 @@ import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
 import com.l2jfree.gameserver.skills.SkillsEngine;
 import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
+import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
 import com.l2jfree.gameserver.threadmanager.RunnableStatsManager;
@@ -164,6 +165,7 @@ public class GameServer
 		ThreadPoolManager.getInstance().startPurgeTask(600000L);
 		if (Config.DEADLOCKCHECK_INTERVAL > 0)
 			DeadlockDetector.getInstance();
+		SQLQueue.getInstance();
 
 		GeoClient.getInstance();
 
