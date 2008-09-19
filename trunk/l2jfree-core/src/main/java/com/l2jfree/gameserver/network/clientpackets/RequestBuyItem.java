@@ -227,7 +227,7 @@ public class RequestBuyItem extends L2GameClientPacket
             
             if (template == null) continue;
 
-            if (!template.isStackable() && count > 1)
+            if (count > Integer.MAX_VALUE || !template.isStackable() && (count > 1))
             {
                 Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase invalid quantity of items at the same time.",Config.DEFAULT_PUNISH);
                 SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
@@ -259,8 +259,8 @@ public class RequestBuyItem extends L2GameClientPacket
                 return;
             }
 
-            long stackPrice = price * count;
-            long taxedPrice = (long)(stackPrice * taxRate);
+            long stackPrice = (price * count);
+            long taxedPrice = (long) (stackPrice * taxRate);
             long tax = taxedPrice - stackPrice;
             if (taxedPrice >= Integer.MAX_VALUE)
             {
@@ -270,7 +270,7 @@ public class RequestBuyItem extends L2GameClientPacket
             taxedPriceTotal += taxedPrice;
             taxTotal += tax;
 
-            weight += (long)(count * template.getWeight());
+            weight += (count * template.getWeight());
             if (!template.isStackable())
                 slots += count;
             else if (player.getInventory().getItemByItemId(itemId) == null)
