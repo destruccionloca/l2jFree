@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 err=1
 until [ $err == 0 ]; 
 do
@@ -11,4 +10,3 @@ do
 	err=$?
 	sleep 10;
 done
-
