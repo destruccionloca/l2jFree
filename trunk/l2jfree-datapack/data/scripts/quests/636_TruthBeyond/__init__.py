@@ -28,7 +28,6 @@ class Quest (JQuest) :
     elif htmltext == "32010-02.htm" :
        st.playSound("ItemSound.quest_finish")
        st.giveItems(MARK,1)
-       st.unset("cond")
        st.exitQuest(1) 
     return htmltext
 
@@ -46,10 +45,9 @@ class Quest (JQuest) :
        id = State.CREATED
      elif id == State.COMPLETED and st.getQuestItemsCount(MARK) == 1 :
        return "<html><body>Go to the temple and talk to the teleporter near the front gate.</body></html>"
-     elif id == State.COMPLETED and st.getQuestItemsCount(8065) == 1 :
-       return "<html><body>This quest is already completed. To become a pagan you should try to go <font color = \"LEVEL\">Through the gate once more</font>.</body></html>"
-     elif id == State.COMPLETED and st.getQuestItemsCount(8067) == 1 :
-       return "<html><body>You are already a Pagan. There are no further tasks for you here.</body></html>"
+     elif id == State.COMPLETED and st.getQuestItemsCount(8065) == 1 or st.getQuestItemsCount(8067) == 1 :
+       htmltext = "31329-mark.htm"
+       return htmltext
      if cond == 0 and id == State.CREATED :
        if npcId == ELIYAH :
          if player.getLevel()>72 :
