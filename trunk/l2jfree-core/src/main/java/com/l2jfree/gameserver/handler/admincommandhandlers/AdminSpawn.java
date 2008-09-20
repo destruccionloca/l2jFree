@@ -487,8 +487,10 @@ public class AdminSpawn implements IAdminCommandHandler
 					else
 					{
 						spawn.spawnOne(false);
-						spawn.init();
 					}
+
+					spawn.init();
+					
 					if (!respawn)
 						spawn.stopRespawn();
 
