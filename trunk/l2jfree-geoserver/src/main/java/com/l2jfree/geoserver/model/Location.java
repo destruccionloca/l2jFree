@@ -14,7 +14,10 @@
  */
 package com.l2jfree.geoserver.model;
 
-public class Location
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Location implements Serializable
 {
 	private int	_x;
 	private int	_y;

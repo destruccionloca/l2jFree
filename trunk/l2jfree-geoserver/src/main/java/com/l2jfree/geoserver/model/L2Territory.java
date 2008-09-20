@@ -24,11 +24,14 @@ import javolution.util.FastList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class L2Territory
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class L2Territory implements Serializable
 {
 	private final static Log	_log	= LogFactory.getLog(L2Territory.class.getName());
 
-	protected class Point
+	protected class Point implements Serializable
 	{
 		protected int	_x, _y, _zmin, _zmax;
 
