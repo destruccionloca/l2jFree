@@ -915,8 +915,8 @@
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_AREA" />
-    <set name="skillRadius" val="200" />
-    <set name="element" val="2" /><!-- Fire -->
+    <set name="skillRadius" val="100" />
+    <set name="element" val="2" /> <!-- Fire -->
     <set name="skillType" val="MDAM" />
     <set name="hitTime" val="5000" />
     <set name="reuseDelay" val="6000" />
@@ -938,9 +938,8 @@
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_AREA" />
-    <set name="skillRadius" val="200" />
-    <set name="element" val="2" />
-    <!-- Fire -->
+    <set name="skillRadius" val="100" />
+    <set name="element" val="2" /> <!-- Fire -->
     <set name="skillType" val="MDAM" />
     <set name="hitTime" val="5000" />
     <set name="reuseDelay" val="6000" />
@@ -961,8 +960,8 @@
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_AREA" />
-    <set name="skillRadius" val="200" />
-    <set name="element" val="2" /><!-- Fire -->
+    <set name="skillRadius" val="100" />
+    <set name="element" val="2" /> <!-- Fire -->
     <set name="skillType" val="MDAM" />
     <set name="hitTime" val="2500" />
     <set name="reuseDelay" val="6000" />
