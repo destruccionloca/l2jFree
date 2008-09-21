@@ -258,16 +258,21 @@ public class AdminAdmin implements IAdminCommandHandler
 					Config.loadElayneConfig();
 					activeChar.sendMessage("Elayne config reloaded");
 				}
+				else if (type.equals("geodata"))
+				{
+					Config.loadGeoConfig();
+					activeChar.sendMessage("Geodata config reloaded");
+				}
 				else
 				{
 					activeChar
-							.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
+							.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne|geodata>");
 				}
 			}
 			catch (Exception e)
 			{
 				activeChar
-						.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne>");
+						.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne|geodata>");
 			}
 		}
 		else if (command.startsWith("admin_summon_npc"))

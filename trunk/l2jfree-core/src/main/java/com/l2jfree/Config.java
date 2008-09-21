@@ -225,7 +225,7 @@ public final class Config
 	// *******************************************************************************************
 	public static void loadGeoConfig()
 	{
-		_log.info("loading " + CLANS_FILE);
+		_log.info("loading " + GEO_FILE);
 		try
 		{
 			Properties geoSettings = new L2Properties(GEO_FILE);
@@ -248,7 +248,7 @@ public final class Config
 		catch (Exception e)
 		{
 			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + CLANS_FILE + " File.");
+			throw new Error("Failed to Load " + GEO_FILE + " File.");
 		}
 	}
 
