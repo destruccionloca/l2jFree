@@ -234,6 +234,8 @@ public final class Config
 			GEO_PORT = Integer.parseInt(geoSettings.getProperty("GeoPort", "9013"));
 			if (GEODATA_MODE == 0)
 				GEODATA = false;
+			else
+				GEODATA = true;
 			GEO_DOORS = Boolean.parseBoolean(geoSettings.getProperty("GeoDoors", "False"));
 			GEO_CHECK_LOS = Boolean.parseBoolean(geoSettings.getProperty("GeoCheckLoS", "False")) && GEODATA;
 			GEO_MOVE_PC = Boolean.parseBoolean(geoSettings.getProperty("GeoCheckMovePlayable", "False")) && GEODATA;
