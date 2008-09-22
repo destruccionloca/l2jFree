@@ -2192,8 +2192,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 	}
 
-	public synchronized void useEquippableItem(L2ItemInstance item, boolean abortAttack)
+	private final Object _equipLock = new Object();
+
+	public void useEquippableItem(L2ItemInstance item, boolean abortAttack)
 	{
+		synchronized (_equipLock)
+		{
 		// Equip or unEquip
 		L2ItemInstance[] items = null;
 		boolean isEquiped = item.isEquipped();
@@ -2299,6 +2303,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		else
 		{
 			broadcastUserInfo();
+		}
 		}
 	}
 

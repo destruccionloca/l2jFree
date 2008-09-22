@@ -115,7 +115,7 @@
     <cond>
       <not>
         <or>
-          <target active_effect_id="0" /><!-- ID of protection potion ? -->
+          <target active_effect_id="2341" /><!-- 2341: Caravan's Secret Medicine -->
           <game night="true" />
         </or>
       </not>
