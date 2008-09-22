@@ -71,7 +71,8 @@ public class ChatCommander implements IChatHandler
 				if (party.getLeader() == activeChar)
 				{
 					CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
-					party.getCommandChannel().broadcastToChannelMembers(cs);
+					//party.getCommandChannel().broadcastToChannelMembers(cs);
+					party.getCommandChannel().broadcastCSToChannelMembers(cs, activeChar);
 				}
 				else
 					activeChar.sendPacket(SystemMessageId.COMMAND_CHANNEL_ONLY_FOR_PARTY_LEADER);

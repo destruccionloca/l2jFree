@@ -61,9 +61,7 @@ public class ManaHeal implements ISkillHandler
 			{
 				mp = (skill.getSkillType() == SkillType.MANARECHARGE) ? target.calcStat(Stats.RECHARGE_MP_RATE, mp, null, null) : mp;
 			}
-			//int cLev = activeChar.getLevel();
-			//hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;
-			target.setLastHealAmount((int) mp);
+
 			if (actChar.getLevel() != target.getLevel())
 			{
 				if (actChar.getLevel() + 3 >= target.getLevel())
@@ -77,6 +75,14 @@ public class ManaHeal implements ISkillHandler
 				else if (actChar.getLevel() + 10 <= target.getLevel())
 					mp = mp * 0.1;
 			}
+
+			//from CT2 u will receive exact MP, u can't go over it, if u have full MP and u get MP buff, u will receive 0MP restored message
+			if ((target.getStatus().getCurrentMp() + mp) >= target.getMaxMp())
+			{
+				mp = target.getMaxMp() - target.getStatus().getCurrentMp();
+			}
+
+			target.setLastHealAmount((int) mp);
 			target.getStatus().setCurrentMp(mp + target.getStatus().getCurrentMp());
 			StatusUpdate sump = new StatusUpdate(target.getObjectId());
 			sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());

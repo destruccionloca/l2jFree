@@ -80,21 +80,16 @@ public class ArmorSetsTable
 
 			rset.close();
 			statement.close();
-			con.close();
 		}
 		catch (Exception e)
 		{
-			_log.warn("Error while loading buff templates " + e.getMessage());
+			_log.warn("Error while loading armor sets " + e.getMessage());
 		}
 		finally
 		{
 			try
 			{
-				if (con != null)
-				{
-					con.close();
-					con = null;
-				}
+				con.close();
 			}
 			catch (Exception e)
 			{

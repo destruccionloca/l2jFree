@@ -39,6 +39,7 @@ import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.PetDataTable;
+import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
@@ -58,6 +59,7 @@ import com.l2jfree.gameserver.model.L2DropData;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2World;
@@ -2144,23 +2146,26 @@ public class L2NpcInstance extends L2Character
 
 	public void makeCPRecovery(L2PcInstance player)
 	{
-		if (getNpcId() != 31225 && getNpcId() != 31226)
+		if (getNpcId() != 31225)
 			return;
 		if (!cwCheck(player))
 		{
 			player.sendMessage("Go away, you're not welcome here.");
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
 		int neededmoney = 100;
-		SystemMessage sm;
 		if (!player.reduceAdena("RestoreCP", neededmoney, player.getLastFolkNPC(), true))
 			return;
-		player.getStatus().setCurrentCp(player.getMaxCp());
-		//cp restored
-		sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
-		sm.addPcName(player);
-		player.sendPacket(sm);
+
+		L2Skill skill = SkillTable.getInstance().getInfo(4380, 1);
+		if (skill != null)
+		{
+			setTarget(player);
+			doCast(skill);
+		}
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	/**

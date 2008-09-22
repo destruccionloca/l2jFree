@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.entity.DimensionalRift;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.ExCloseMPCC;
 import com.l2jfree.gameserver.network.serverpackets.ExMultiPartyCommandChannelInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExOpenMPCC;
@@ -216,6 +217,15 @@ public class L2Party
 	{
 		for(L2PcInstance member : getPartyMembers())
 			member.sendPacket(msg);
+	}
+
+	public void broadcastCSToPartyMembers(CreatureSay msg, L2PcInstance broadcaster)
+	{
+		for (L2PcInstance member : getPartyMembers())
+		{
+			if (!(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(member, broadcaster)))
+				member.sendPacket(msg);
+		}
 	}
 
 	/**

@@ -94,6 +94,9 @@ public class Hero
 		_heroes = new FastMap<Integer, StatsSet>();
 		_completeHeroes = new FastMap<Integer, StatsSet>();
 
+		Connection con = null;
+		Connection con2 = null;
+
 		PreparedStatement statement;
 		PreparedStatement statement2;
 
@@ -102,8 +105,6 @@ public class Hero
 
 		try
 		{
-			Connection con = null;
-			Connection con2 = null;
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			con2 = L2DatabaseFactory.getInstance().getConnection(con2);
 			statement = con.prepareStatement(GET_HEROES);
@@ -159,15 +160,23 @@ public class Hero
 
 			rset.close();
 			statement.close();
-
-			con.close();
-			con2.close();
 		}
 		catch (SQLException e)
 		{
 			_log.warn("HeroSystem: Couldnt load Heroes");
 			if (_log.isDebugEnabled())
 				_log.debug("", e);
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+				con2.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 
 		_log.info("HeroSystem: Loaded " + _heroes.size() + " Heroes.");

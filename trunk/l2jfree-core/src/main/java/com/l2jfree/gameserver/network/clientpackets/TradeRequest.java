@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.model.BlockList;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -71,8 +72,8 @@ public class TradeRequest extends L2GameClientPacket
 
 		
 		L2Object target = L2World.getInstance().findObject(_objectId);
-		if (target == null || !player.getKnownList().knowsObject(target) 
-				|| !(target instanceof L2PcInstance) || (target.getObjectId() == player.getObjectId()))
+		if (!(target instanceof L2PcInstance) || !player.getKnownList().knowsObject(target) 
+				|| (target.getObjectId() == player.getObjectId()))
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return;
@@ -83,6 +84,14 @@ public class TradeRequest extends L2GameClientPacket
 		if (partner.isInOlympiadMode() || player.isInOlympiadMode())
 		{
 			player.sendMessage("You or your target can't request trade in Olympiad mode");
+			return;
+		}
+
+		if (BlockList.isBlocked(partner, player))
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_ADDED_YOU_TO_IGNORE_LIST);
+			sm.addCharName(partner);
+			player.sendPacket(sm);
 			return;
 		}
 

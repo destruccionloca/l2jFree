@@ -29,33 +29,54 @@ import javolution.text.TextBuilder;
 
 public class ConsoleLogFormatter extends Formatter
 {
+	/* (non-Javadoc)
+	* @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
+	*/
+	private static final String CRLF = "\r\n";
 
-    /* (non-Javadoc)
-     * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
-     */
-    private static final String CRLF = "\r\n";
-    @Override
-    public String format(LogRecord record)
-    {
-        TextBuilder output = new TextBuilder();
-        output.append(record.getLevel().getName());
-        output.append(" ");
-//      output.append(record.getLoggerName());
-//      output.append(_);
-        output.append(record.getMessage());
-        output.append(CRLF);
-        if (record.getThrown() != null) {
-            try {
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                record.getThrown().printStackTrace(pw);
-                pw.close();
-                output.append(sw.toString());
-                output.append(CRLF);
-            } catch (Exception ex) {
-            }
-        }
-
-        return output.toString();
-    }
+	@Override
+	public String format(LogRecord record)
+	{
+		TextBuilder output = new TextBuilder();
+		output.append(record.getLevel().getName());
+		output.append(" ");
+		// output.append(record.getLoggerName());
+		// output.append(_);
+		output.append(record.getMessage());
+		output.append(CRLF);
+		if (record.getThrown() != null)
+		{
+			StringWriter sw = null;
+			PrintWriter pw = null;
+			try
+			{
+				sw = new StringWriter();
+				pw = new PrintWriter(sw);
+				record.getThrown().printStackTrace(pw);
+				output.append(sw.toString());
+				output.append(CRLF);
+			}
+			catch (Exception ex)
+			{
+			}
+			finally
+			{
+				try
+				{
+					pw.close();
+				}
+				catch (Exception e)
+				{
+				}
+				try
+				{
+					sw.close();
+				}
+				catch (Exception e)
+				{
+				}
+			}
+		}
+		return output.toString();
+	}
 }

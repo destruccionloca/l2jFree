@@ -49,6 +49,7 @@ import com.l2jfree.gameserver.skills.conditions.ConditionPlayerLevel;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerMp;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerRace;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState;
+import com.l2jfree.gameserver.skills.conditions.ConditionPlayerWeight;
 import com.l2jfree.gameserver.skills.conditions.ConditionSkillStats;
 import com.l2jfree.gameserver.skills.conditions.ConditionSlotItemId;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetActiveEffectId;
@@ -478,6 +479,11 @@ abstract class DocumentBase
 			else if ("spell_force".equalsIgnoreCase(a.getNodeName()))
 			{
 				forces[1] = Byte.decode(getValue(a.getNodeValue(), null));
+			}
+			else if ("weight".equalsIgnoreCase(a.getNodeName()))
+			{
+				int weight = Integer.decode(getValue(a.getNodeValue(), null));
+				cond = joinAnd(cond, new ConditionPlayerWeight(weight));
 			}
 		}
 

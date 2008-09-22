@@ -38,6 +38,7 @@ import com.l2jfree.gameserver.instancemanager.CrownManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.PledgeReceiveSubPledgeCreated;
@@ -1367,6 +1368,21 @@ public class L2Clan
 			try
 			{
 				if (member.isOnline())
+					member.getPlayerInstance().sendPacket(packet);
+			}
+			catch (NullPointerException e)
+			{
+			}
+		}
+	}
+
+	public void broadcastCSToOnlineMembers(CreatureSay packet, L2PcInstance broadcaster)
+	{
+		for (L2ClanMember member : _members.values())
+		{
+			try
+			{
+				if (member.isOnline() && !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(member.getPlayerInstance(), broadcaster)))
 					member.getPlayerInstance().sendPacket(packet);
 			}
 			catch (NullPointerException e)

@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.datatables;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,12 +32,15 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.instancemanager.FactionManager;
+import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.L2DropCategory;
 import com.l2jfree.gameserver.model.L2DropData;
 import com.l2jfree.gameserver.model.L2MinionData;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.entity.faction.Faction;
+import com.l2jfree.gameserver.model.quest.Quest;
+import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
@@ -726,6 +731,29 @@ public class NpcTable
 	public void reloadAll()
 	{
 		restoreNpcData();
+
+		// Reload quest templates
+		FastMap<String, Quest> quests = QuestManager.getInstance().getQuests();
+		if (quests != null && quests.size() != 0)
+		{
+			_log.info("Reloading Server Scripts");
+			try
+			{
+				// unload all scripts
+				for (Quest quest : quests.values())
+				{
+					quest.unload();
+				}
+				// now load all scripts
+				File scripts = new File(Config.DATAPACK_ROOT + "/data/scripts.cfg");
+				L2ScriptEngineManager.getInstance().executeScriptList(scripts);
+				QuestManager.getInstance().report();
+			}
+			catch (IOException ioe)
+			{
+				_log.fatal("Failed loading scripts.cfg, no script going to be loaded");
+			}
+		}
 	}
 
 	public void cleanUp()

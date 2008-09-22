@@ -45,7 +45,8 @@ public class ChatParty implements IChatHandler
 
 		if (activeChar.isInParty())
 		{
-			activeChar.getParty().broadcastToPartyMembers(cs);
+			//activeChar.getParty().broadcastToPartyMembers(cs);
+			activeChar.getParty().broadcastCSToPartyMembers(cs, activeChar);
 			activeChar.getParty().broadcastSnoopToPartyMembers(chatType.getId(), activeChar.getName(), text);
 		}
 	}

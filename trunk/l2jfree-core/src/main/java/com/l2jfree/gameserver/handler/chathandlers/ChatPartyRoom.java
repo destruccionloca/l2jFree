@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.handler.chathandlers;
 
 import com.l2jfree.gameserver.handler.IChatHandler;
+import com.l2jfree.gameserver.model.L2CommandChannel;
+import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -51,12 +53,15 @@ public class ChatPartyRoom implements IChatHandler
 			charName = activeChar.getName();
 			charObjId = activeChar.getObjectId();
 
-		if (activeChar.isInParty())
+		L2Party party = activeChar.getParty();
+		if (party != null)
 		{
-			if (activeChar.getParty().isInCommandChannel() && activeChar.getParty().isLeader(activeChar))
+			L2CommandChannel chan = party.getCommandChannel();
+			if (chan != null && party.isLeader(activeChar))
 			{
 				CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
-				activeChar.getParty().getCommandChannel().broadcastToChannelMembers(cs);
+				//activeChar.getParty().getCommandChannel().broadcastToChannelMembers(cs);
+				chan.broadcastCSToChannelMembers(cs, activeChar);
 			}
 		}
 	}

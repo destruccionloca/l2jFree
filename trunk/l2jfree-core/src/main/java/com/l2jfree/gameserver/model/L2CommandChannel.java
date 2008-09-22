@@ -18,6 +18,7 @@ import java.util.List;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.ExCloseMPCC;
 import com.l2jfree.gameserver.network.serverpackets.ExMultiPartyCommandChannelInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExOpenMPCC;
@@ -135,9 +136,24 @@ public class L2CommandChannel
 	public void broadcastToChannelMembers(L2GameServerPacket gsp) 
 	{
 		if (_partys != null)
-		for (L2Party party : _partys)
 		{
-			party.broadcastToPartyMembers(gsp);
+			for (L2Party party : _partys)
+			{
+				if (party != null)
+					party.broadcastToPartyMembers(gsp);
+			}
+		}
+	}
+
+	public void broadcastCSToChannelMembers(CreatureSay gsp, L2PcInstance broadcaster)
+	{
+		if (_partys != null)
+		{
+			for (L2Party party : _partys)
+			{
+				if(party != null)
+					party.broadcastCSToPartyMembers(gsp, broadcaster);
+			}
 		}
 	}
 

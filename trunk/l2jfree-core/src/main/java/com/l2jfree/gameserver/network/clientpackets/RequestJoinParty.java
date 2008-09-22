@@ -18,6 +18,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.gameserver.model.BlockList;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -63,6 +64,14 @@ public class RequestJoinParty extends L2GameClientPacket
 		if (target == null || (target.isGM() && target.getAppearance().getInvisible() && !requestor.isGM()))
 		{
 			requestor.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			return;
+		}
+
+		if (BlockList.isBlocked(target, requestor))
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_ADDED_YOU_TO_IGNORE_LIST);
+			sm.addCharName(target);
+			requestor.sendPacket(sm);
 			return;
 		}
 

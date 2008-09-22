@@ -22,7 +22,9 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2Zone;
@@ -106,18 +108,33 @@ public class Escape implements IUserCommandHandler
 			return false;
 		}
 
-		int unstuckTimer = (activeChar.getAccessLevel() >= Config.GM_ESCAPE ? 5000 : Config.UNSTUCK_INTERVAL * 1000);
+		int unstuckTimer = (activeChar.getAccessLevel() >= Config.GM_ESCAPE ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
 
+		L2Skill GM_escape = SkillTable.getInstance().getInfo(2100, 1); // 1 second escape
+		L2Skill escape = SkillTable.getInstance().getInfo(2099, 1); // 5 minutes escape
 		if (activeChar.getAccessLevel() >= Config.GM_ESCAPE)
 		{
-			activeChar.sendMessage("You use Fast Escape: 5 seconds.");
+			if (GM_escape != null)
+			{
+				activeChar.doCast(GM_escape);
+				return true;
+			}
+			activeChar.sendMessage("You use Escape: 1 second.");
 		}
-		else if (Config.UNSTUCK_INTERVAL > 100)
+		else if (Config.UNSTUCK_INTERVAL == 300 && escape  != null)
 		{
-			activeChar.sendMessage("You use Escape: " + unstuckTimer / 60000 + " minutes.");
+			activeChar.doCast(escape);
+			return true;
 		}
 		else
-			activeChar.sendMessage("You use Escape: " + unstuckTimer / 1000 + " seconds.");
+		{
+			if (Config.UNSTUCK_INTERVAL > 100)
+			{
+				activeChar.sendMessage("You use Escape: " + unstuckTimer / 60000 + " minutes.");
+			}
+			else
+				activeChar.sendMessage("You use Escape: " + unstuckTimer / 1000 + " seconds.");
+		}
 
 		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		//SoE Animation section

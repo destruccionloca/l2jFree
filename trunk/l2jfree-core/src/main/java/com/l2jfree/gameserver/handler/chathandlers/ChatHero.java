@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.chathandlers;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IChatHandler;
 import com.l2jfree.gameserver.instancemanager.IrcManager;
-import com.l2jfree.gameserver.model.BlockList;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
@@ -52,8 +51,6 @@ public class ChatHero implements IChatHandler
 			IrcManager.getInstance().getConnection().sendChan("12%" + activeChar.getName() + ": " + text);
 		}
 
-		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
-
 		boolean canSpeak = activeChar.isGM();
 
 		if (!canSpeak)
@@ -73,12 +70,10 @@ public class ChatHero implements IChatHandler
 
 		if (canSpeak)
 		{
+			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				if (!(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)) && (player.getInstanceId() == activeChar.getInstanceId()))
-				{
-					player.sendPacket(cs);
-				}
+				player.sendPacket(cs);
 			}
 		}
 	}

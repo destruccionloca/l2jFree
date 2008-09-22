@@ -128,14 +128,15 @@ public class Shutdown extends Thread
 	public void run()
 	{
 		// disallow new logins
-		try
+		/*try
 		{
 			// Doesnt actually do anything
 			// Server.gameServer.getLoginController().setMaxAllowedOnlinePlayers(0);
 		}
 		catch (Throwable t)
 		{
-		}
+		}*/
+
 		if (this == _instance)
 		{
 			saveData();

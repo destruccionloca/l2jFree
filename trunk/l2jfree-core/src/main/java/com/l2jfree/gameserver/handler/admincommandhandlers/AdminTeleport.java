@@ -80,7 +80,8 @@ public class AdminTeleport implements IAdminCommandHandler
 			"admin_recall_npc",
 			"admin_go",
 			"admin_tele",
-			"admin_teleto"							};
+			"admin_teleto",
+			"admin_instant_move"					};
 	private static final int		REQUIRED_LEVEL	= Config.GM_TELEPORT;
 	private static final int		REQUIRED_LEVEL2	= Config.GM_TELEPORT_OTHER;
 
@@ -106,7 +107,7 @@ public class AdminTeleport implements IAdminCommandHandler
 				delbookmark(st.nextToken());
 			bookmark(activeChar, null); // Show bookmarks
 		}
-		else if (command.equals("admin_teleto"))
+		else if (command.equals("admin_teleto") || command.equals("admin_instant_move"))
 		{
 			activeChar.setTeleMode(1);
 		}
