@@ -75,7 +75,7 @@ public final class RequestRefine extends L2GameClientPacket
 		if (targetItem.isEquipped())
 			activeChar.disarmWeapons();
 
-		if (TryAugmentItem(activeChar, targetItem, refinerItem, gemstoneItem))
+		if (tryAugmentItem(activeChar, targetItem, refinerItem, gemstoneItem))
 		{
 			int stat12 = 0x0000FFFF&targetItem.getAugmentation().getAugmentationId();
 			int stat34 = targetItem.getAugmentation().getAugmentationId()>>16;
@@ -89,7 +89,7 @@ public final class RequestRefine extends L2GameClientPacket
 		}
 	}
 
-	boolean TryAugmentItem(L2PcInstance player, L2ItemInstance targetItem,L2ItemInstance refinerItem, L2ItemInstance gemstoneItem)
+	private boolean tryAugmentItem(L2PcInstance player, L2ItemInstance targetItem, L2ItemInstance refinerItem, L2ItemInstance gemstoneItem)
 	{
 		if (targetItem.isAugmented() || targetItem.isWear())
 			return false;
