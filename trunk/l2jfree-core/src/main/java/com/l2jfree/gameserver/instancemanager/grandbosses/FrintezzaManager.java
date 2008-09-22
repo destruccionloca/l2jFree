@@ -1608,6 +1608,7 @@ public class FrintezzaManager extends BossLair
 
 		// delete the weakScarlet from the world
 		scarletSpawnWeak.stopRespawn();
+		scarletSpawnWeak.decreaseCount((L2NpcInstance)weakScarlet);
 		
 		weakScarlet.getPoly().setPolyInfo(null, "1");
 		weakScarlet.decayMe();
