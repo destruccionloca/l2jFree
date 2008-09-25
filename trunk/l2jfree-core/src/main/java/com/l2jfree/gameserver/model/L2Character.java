@@ -268,7 +268,7 @@ public abstract class L2Character extends L2Object
 			setIsInvul(true);
 	}
 
-	private byte[]	_currentZones = new byte[16];
+	private byte[]	_currentZones	= new byte[16];
 
 	public boolean isInsideZone(byte zone)
 	{
@@ -1969,7 +1969,6 @@ public abstract class L2Character extends L2Object
 				reuseDelay *= 333.0 / (skill.isMagic() ? getMAtkSpd() : getPAtkSpd());
 		}
 
-
 		// Skill reuse check
 		if (reuseDelay > 30000)
 			addTimeStamp(skill.getId(), reuseDelay);
@@ -2112,12 +2111,12 @@ public abstract class L2Character extends L2Object
 						{
 							L2PcInstance player = null;
 							if (_targets[0] instanceof L2PcInstance)
-								player = (L2PcInstance)_targets[0];
+								player = (L2PcInstance) _targets[0];
 							else if (_targets[0] instanceof L2Summon)
-								player = ((L2Summon)_targets[0]).getOwner();
-							for (Quest quest: ((L2NpcTemplate) getTemplate()).getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED))
+								player = ((L2Summon) _targets[0]).getOwner();
+							for (Quest quest : ((L2NpcTemplate) getTemplate()).getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED))
 							{
-								quest.notifySpellFinished(((L2NpcInstance)_character), player, _skill);
+								quest.notifySpellFinished(((L2NpcInstance) _character), player, _skill);
 							}
 						}
 					}
@@ -4003,26 +4002,26 @@ public abstract class L2Character extends L2Object
 		// when we retrieve x/y/z we use GameTimeControl.getGameTicks()
 		// if we are moving, but move timestamp==gameticks, we don't need
 		// to recalculate position
-		public int		_moveTimestamp;
-		public int		_xDestination;
-		public int		_yDestination;
-		public int		_zDestination;
-		public int		_xMoveFrom;
-		public int		_yMoveFrom;
-		public int		_zMoveFrom;
-		public int		_heading;
-		public int		_moveStartTime;
-		public int		_ticksToMove;
-		public float	_xSpeedTicks;
-		public float	_ySpeedTicks;
-		public int		onGeodataPathIndex;
+		public int				_moveTimestamp;
+		public int				_xDestination;
+		public int				_yDestination;
+		public int				_zDestination;
+		public int				_xMoveFrom;
+		public int				_yMoveFrom;
+		public int				_zMoveFrom;
+		public int				_heading;
+		public int				_moveStartTime;
+		public int				_ticksToMove;
+		public float			_xSpeedTicks;
+		public float			_ySpeedTicks;
+		public int				onGeodataPathIndex;
 		//public List<AbstractNodeLoc>	geoPath;
-		public Vector<Location> geoPath;
+		public Vector<Location>	geoPath;
 		//public PathFind	geoPath;
-		public int		geoPathAccurateTx;
-		public int		geoPathAccurateTy;
-		public int		geoPathGtx;
-		public int		geoPathGty;
+		public int				geoPathAccurateTx;
+		public int				geoPathAccurateTy;
+		public int				geoPathGtx;
+		public int				geoPathGty;
 	}
 
 	/** Table containing all skillId that are disabled */
@@ -4145,32 +4144,35 @@ public abstract class L2Character extends L2Object
 	 * @param f
 	 *            The Func object to add to the Calculator corresponding to the state affected
 	 */
-	public final synchronized void addStatFunc(Func f)
+	public final void addStatFunc(Func f)
 	{
 		if (f == null)
 			return;
 
-		// Check if Calculator set is linked to the standard Calculator set of NPC
-		if (_calculators == NPC_STD_CALCULATOR)
+		synchronized (_calculators)
 		{
-			// Create a copy of the standard NPC Calculator set
-			_calculators = new Calculator[Stats.NUM_STATS];
-
-			for (int i = 0; i < Stats.NUM_STATS; i++)
+			// Check if Calculator set is linked to the standard Calculator set of NPC
+			if (_calculators == NPC_STD_CALCULATOR)
 			{
-				if (NPC_STD_CALCULATOR[i] != null)
-					_calculators[i] = new Calculator(NPC_STD_CALCULATOR[i]);
+				// Create a copy of the standard NPC Calculator set
+				_calculators = new Calculator[Stats.NUM_STATS];
+
+				for (int i = 0; i < Stats.NUM_STATS; i++)
+				{
+					if (NPC_STD_CALCULATOR[i] != null)
+						_calculators[i] = new Calculator(NPC_STD_CALCULATOR[i]);
+				}
 			}
+
+			// Select the Calculator of the affected state in the Calculator set
+			int stat = f.stat.ordinal();
+
+			if (_calculators[stat] == null)
+				_calculators[stat] = new Calculator();
+
+			// Add the Func to the calculator corresponding to the state
+			_calculators[stat].addFunc(f);
 		}
-
-		// Select the Calculator of the affected state in the Calculator set
-		int stat = f.stat.ordinal();
-
-		if (_calculators[stat] == null)
-			_calculators[stat] = new Calculator();
-
-		// Add the Func to the calculator corresponding to the state
-		_calculators[stat].addFunc(f);
 	}
 
 	/**
@@ -4194,7 +4196,7 @@ public abstract class L2Character extends L2Object
 	 * @param funcs
 	 *            The list of Func objects to add to the Calculator corresponding to the state affected
 	 */
-	public final synchronized void addStatFuncs(Func[] funcs)
+	public final void addStatFuncs(Func[] funcs)
 	{
 		FastList<Stats> modifiedStats = new FastList<Stats>();
 		for (Func f : funcs)
@@ -4230,7 +4232,7 @@ public abstract class L2Character extends L2Object
 	 * @param f
 	 *            The Func object to remove from the Calculator corresponding to the state affected
 	 */
-	public final synchronized void removeStatFunc(Func f)
+	public final void removeStatFunc(Func f)
 	{
 		if (f == null)
 			return;
@@ -4282,7 +4284,7 @@ public abstract class L2Character extends L2Object
 	 * @param funcs
 	 *            The list of Func objects to add to the Calculator corresponding to the state affected
 	 */
-	public final synchronized void removeStatFuncs(Func[] funcs)
+	public final void removeStatFuncs(Func[] funcs)
 	{
 		FastList<Stats> modifiedStats = new FastList<Stats>();
 		for (Func f : funcs)
@@ -4324,42 +4326,45 @@ public abstract class L2Character extends L2Object
 	 * @param owner
 	 *            The Object(Skill, Item...) that has created the effect
 	 */
-	public final synchronized void removeStatsOwner(Object owner)
+	public final void removeStatsOwner(Object owner)
 	{
 		FastList<Stats> modifiedStats = null;
+
 		// Go through the Calculator set
-		for (int i = 0; i < _calculators.length; i++)
+		synchronized (_calculators)
 		{
-			if (_calculators[i] != null)
+			for (int i = 0; i < _calculators.length; i++)
 			{
-				// Delete all Func objects of the selected owner
-				if (modifiedStats != null)
-					modifiedStats.addAll(_calculators[i].removeOwner(owner));
-				else
-					modifiedStats = _calculators[i].removeOwner(owner);
+				if (_calculators[i] != null)
+				{
+					// Delete all Func objects of the selected owner
+					if (modifiedStats != null)
+						modifiedStats.addAll(_calculators[i].removeOwner(owner));
+					else
+						modifiedStats = _calculators[i].removeOwner(owner);
 
-				if (_calculators[i].size() == 0)
-					_calculators[i] = null;
-			}
-		}
-
-		// If possible, free the memory and just create a link on NPC_STD_CALCULATOR
-		if (this instanceof L2NpcInstance)
-		{
-			int i = 0;
-			for (; i < Stats.NUM_STATS; i++)
-			{
-				if (!Calculator.equalsCals(_calculators[i], NPC_STD_CALCULATOR[i]))
-					break;
+					if (_calculators[i].size() == 0)
+						_calculators[i] = null;
+				}
 			}
 
-			if (i >= Stats.NUM_STATS)
-				_calculators = NPC_STD_CALCULATOR;
+			// If possible, free the memory and just create a link on NPC_STD_CALCULATOR
+			if (this instanceof L2NpcInstance)
+			{
+				int i = 0;
+				for (; i < Stats.NUM_STATS; i++)
+				{
+					if (!Calculator.equalsCals(_calculators[i], NPC_STD_CALCULATOR[i]))
+						break;
+				}
+
+				if (i >= Stats.NUM_STATS)
+					_calculators = NPC_STD_CALCULATOR;
+			}
+
+			if (owner instanceof L2Effect && !((L2Effect) owner).preventExitUpdate)
+				broadcastModifiedStats(modifiedStats);
 		}
-
-		if (owner instanceof L2Effect && !((L2Effect) owner).preventExitUpdate)
-			broadcastModifiedStats(modifiedStats);
-
 	}
 
 	private void broadcastModifiedStats(FastList<Stats> stats)
@@ -4942,16 +4947,16 @@ public abstract class L2Character extends L2Object
 		final int curX = super.getX();
 		final int curY = super.getY();
 		final int curZ = super.getZ();
-		
+
 		// Calculate distance (dx,dy) between current position and destination
 		double dx = (x - curX);
 		double dy = (y - curY);
 		double dz = (z - curZ);
-		
-        int toX = x;
-        int toY = y;
-        int toZ = z;
-		
+
+		int toX = x;
+		int toY = y;
+		int toZ = z;
+
 		//double distance = Math.sqrt(dx * dx + dy * dy);
 		double distSq = dx * dx + dy * dy;
 
@@ -6759,17 +6764,13 @@ public abstract class L2Character extends L2Object
 					// check buffing chars who attack raidboss. Results in mute.
 					L2Character targetsAttackTarget = target.getAI().getAttackTarget();
 					L2Character targetsCastTarget = target.getAI().getCastTarget();
-					if (
-							(target.isRaid() && getLevel() > target.getLevel() + 8)
-							||
-							(!skill.isOffensive() && targetsAttackTarget != null && targetsAttackTarget.isRaid() 
+					if ((target.isRaid() && getLevel() > target.getLevel() + 8)
+							|| (!skill.isOffensive() && targetsAttackTarget != null && targetsAttackTarget.isRaid()
 									&& targetsAttackTarget.getAttackByList().contains(target) // has attacked raid
-									&& getLevel() > targetsAttackTarget.getLevel() + 8)
-							||
-							(!skill.isOffensive() && targetsCastTarget != null && targetsCastTarget.isRaid() 
+							&& getLevel() > targetsAttackTarget.getLevel() + 8)
+							|| (!skill.isOffensive() && targetsCastTarget != null && targetsCastTarget.isRaid()
 									&& targetsCastTarget.getAttackByList().contains(target) // has attacked raid
-									&& getLevel() > targetsCastTarget.getLevel() + 8)
-					)
+							&& getLevel() > targetsCastTarget.getLevel() + 8))
 					{
 						if (skill.isMagic())
 						{
@@ -7058,7 +7059,7 @@ public abstract class L2Character extends L2Object
 
 	private long		_pvpFlagLasts;
 
-	private boolean		_AIdisabled = false;
+	private boolean		_AIdisabled	= false;
 
 	public void setPvpFlagLasts(long time)
 	{

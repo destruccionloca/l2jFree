@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -34,27 +33,27 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class RequestGiveItemToPet extends L2GameClientPacket
 {
-	private static final String REQUESTCIVEITEMTOPET__C__8B = "[C] 8B RequestGiveItemToPet";
-	private final static Log _log = LogFactory.getLog(RequestGetItemFromPet.class.getName());
+	private static final String	REQUESTCIVEITEMTOPET__C__8B	= "[C] 8B RequestGiveItemToPet";
+	private final static Log	_log						= LogFactory.getLog(RequestGetItemFromPet.class.getName());
 
-	private int _objectId;
-	private int _amount;
+	private int					_objectId;
+	private int					_amount;
 
 	@Override
 	protected void readImpl()
 	{
 		_objectId = readD();
-		_amount   = readD();
+		_amount = readD();
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar(); 
+		L2PcInstance player = getClient().getActiveChar();
 		if (player == null || !(player.getPet() instanceof L2PetInstance))
 			return;
 
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null
 				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
 		{
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
@@ -68,7 +67,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		
+
 		// Alt game - Karma punishment
 		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TRADE && player.getKarma() > 0)
 			return;
@@ -79,14 +78,13 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 			return;
 		}
 
-		if (player.getRequest().getRequestPacket() instanceof TradeRequest
-		 || player.getRequest().getRequestPacket() instanceof TradeDone)
+		if (player.getRequest().getRequestPacket() instanceof TradeRequest || player.getRequest().getRequestPacket() instanceof TradeDone)
 		{
 			sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_OR_DESTROY_ITEM_WHILE_TRADING));
 			return;
 		}
 
-		L2PetInstance pet = (L2PetInstance)player.getPet(); 
+		L2PetInstance pet = (L2PetInstance) player.getPet();
 		if (pet.isDead())
 		{
 			sendPacket(new SystemMessage(SystemMessageId.CANNOT_GIVE_ITEMS_TO_DEAD_PET));
@@ -97,6 +95,12 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 			return;
 
 		L2ItemInstance item = player.getInventory().getItemByObjectId(_objectId);
+		if (!item.isDropable() || !item.isDestroyable() || !item.isTradeable())
+		{
+			sendPacket(new SystemMessage(SystemMessageId.ITEM_NOT_FOR_PETS));
+			return;
+		}
+		
 		if (!item.isAvailable(player, true))
 		{
 			sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
@@ -116,7 +120,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 		}
 
 		long weight = item.getItem().getWeight() * _amount;
-		if (weight >= Integer.MAX_VALUE || weight < 0 || !pet.getInventory().validateWeight((int)weight))
+		if (weight >= Integer.MAX_VALUE || weight < 0 || !pet.getInventory().validateWeight((int) weight))
 		{
 			sendPacket(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS);
 			return;

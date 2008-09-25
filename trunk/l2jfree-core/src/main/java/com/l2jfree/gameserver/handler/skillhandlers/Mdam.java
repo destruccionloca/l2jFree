@@ -238,7 +238,7 @@ public class Mdam implements ISkillHandler
 		skill.getEffectsSelf(activeChar);
 
 		if (skill.isSuicideAttack())
-			activeChar.doDie(null);
+			activeChar.doDie(activeChar);
 	}
 
 	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Object[] targets)

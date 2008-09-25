@@ -557,7 +557,9 @@ public class L2Attackable extends L2NpcInstance
 		{
 			if (killer != null)
 			{
-				L2PcInstance player = killer.getActingPlayer();
+				L2PcInstance player = null;
+				if (killer != null)
+					player = killer.getActingPlayer();
 				if (player != null)
 				{
 					//only 1 randomly choosen quest of all quests registered to this character can be applied 
@@ -1540,9 +1542,6 @@ public class L2Attackable extends L2NpcInstance
 	 */
 	public void doItemDrop(L2NpcTemplate npcTemplate, L2Character lastAttacker)
 	{
-		if (lastAttacker == null)
-			return;
-
 		L2PcInstance player = lastAttacker.getActingPlayer();
 
 		if (player == null)
@@ -1605,50 +1604,50 @@ public class L2Attackable extends L2NpcInstance
 						// Looting process
 						switch (item.getItemId())
 						{
-							// Adena / Seal stones
-							case 57:
-							case 5575:
-							case 6360:
-							case 6361:
-							case 6362:
-								if (Config.AUTO_LOOT_RAID && isRaid())
-									player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-								else if (Config.AUTO_LOOT && !isRaid())
-									player.doAutoLoot(this, item);
-								else
-									dropItem(player, item); // drop the item on the ground
-								break;
+						// Adena / Seal stones
+						case 57:
+						case 5575:
+						case 6360:
+						case 6361:
+						case 6362:
+							if (Config.AUTO_LOOT_RAID && isRaid())
+								player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
+							else if (Config.AUTO_LOOT && !isRaid())
+								player.doAutoLoot(this, item);
+							else
+								dropItem(player, item); // drop the item on the ground
+							break;
 
-							// Herbs
-							case 8600:
-							case 8608:
-							case 8601:
-							case 8609:
-							case 8602:
-							case 8610:
-							case 8603:
-							case 8611:
-							case 8604:
-							case 8612:
-							case 8605:
-							case 8613:
-							case 8606:
-							case 8614:
-							case 8607:
-								if (Config.AUTO_LOOT_HERBS)
-									player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-								else
-									dropItem(player, item); // drop the item on the ground
-								break;
+						// Herbs
+						case 8600:
+						case 8608:
+						case 8601:
+						case 8609:
+						case 8602:
+						case 8610:
+						case 8603:
+						case 8611:
+						case 8604:
+						case 8612:
+						case 8605:
+						case 8613:
+						case 8606:
+						case 8614:
+						case 8607:
+							if (Config.AUTO_LOOT_HERBS)
+								player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
+							else
+								dropItem(player, item); // drop the item on the ground
+							break;
 
-							default:
-								if (Config.AUTO_LOOT_RAID && isRaid())
-									player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-								else if (Config.AUTO_LOOT && !isRaid())
-									player.doAutoLoot(this, item);
-								else
-									dropItem(player, item); // drop the item on the ground
-								break;
+						default:
+							if (Config.AUTO_LOOT_RAID && isRaid())
+								player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
+							else if (Config.AUTO_LOOT && !isRaid())
+								player.doAutoLoot(this, item);
+							else
+								dropItem(player, item); // drop the item on the ground
+							break;
 						}
 
 						// Broadcast message if RaidBoss was defeated
@@ -1707,21 +1706,21 @@ public class L2Attackable extends L2NpcInstance
 						RewardItem item = null;
 						switch (i)
 						{
-							case 0:
-								item = new RewardItem(8606, 1); // Herb of Power
-								break;
-							case 1:
-								item = new RewardItem(8608, 1); // Herb of Atk. Spd.
-								break;
-							case 2:
-								item = new RewardItem(8610, 1); // Herb of Critical Attack - Rate
-								break;
-							case 3:
-								item = new RewardItem(10655, 1); // Herb of Life Force Absorption
-								break;
-							default:
-								item = new RewardItem(10656, 1); // Herb of Critical Attack - Power
-								break;
+						case 0:
+							item = new RewardItem(8606, 1); // Herb of Power
+							break;
+						case 1:
+							item = new RewardItem(8608, 1); // Herb of Atk. Spd.
+							break;
+						case 2:
+							item = new RewardItem(8610, 1); // Herb of Critical Attack - Rate
+							break;
+						case 3:
+							item = new RewardItem(10655, 1); // Herb of Life Force Absorption
+							break;
+						default:
+							item = new RewardItem(10656, 1); // Herb of Critical Attack - Power
+							break;
 						}
 
 						if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS)
@@ -2518,7 +2517,8 @@ public class L2Attackable extends L2NpcInstance
 			}
 		}
 
-		int[] tmp = { (int) xp, (int) sp };
+		int[] tmp =
+		{ (int) xp, (int) sp };
 
 		return tmp;
 	}
@@ -2586,7 +2586,7 @@ public class L2Attackable extends L2NpcInstance
 		super.onSpawn();
 		setWalking();
 	}
-	
+
 	/**
 	 * Sets state of the mob to seeded. Paramets needed to be set before.
 	 */
@@ -2629,30 +2629,30 @@ public class L2Attackable extends L2NpcInstance
 			{
 				switch (skillId)
 				{
-					case 4303: //Strong type x2
-						count *= 2;
-						break;
-					case 4304: //Strong type x3
-						count *= 3;
-						break;
-					case 4305: //Strong type x4
-						count *= 4;
-						break;
-					case 4306: //Strong type x5
-						count *= 5;
-						break;
-					case 4307: //Strong type x6
-						count *= 6;
-						break;
-					case 4308: //Strong type x7
-						count *= 7;
-						break;
-					case 4309: //Strong type x8
-						count *= 8;
-						break;
-					case 4310: //Strong type x9
-						count *= 9;
-						break;
+				case 4303: //Strong type x2
+					count *= 2;
+					break;
+				case 4304: //Strong type x3
+					count *= 3;
+					break;
+				case 4305: //Strong type x4
+					count *= 4;
+					break;
+				case 4306: //Strong type x5
+					count *= 5;
+					break;
+				case 4307: //Strong type x6
+					count *= 6;
+					break;
+				case 4308: //Strong type x7
+					count *= 7;
+					break;
+				case 4309: //Strong type x8
+					count *= 8;
+					break;
+				case 4310: //Strong type x9
+					count *= 9;
+					break;
 				}
 			}
 		}

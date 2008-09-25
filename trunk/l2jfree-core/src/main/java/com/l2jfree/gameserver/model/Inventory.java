@@ -855,7 +855,7 @@ public abstract class Inventory extends ItemContainer
 	 *            L2ItemInstance pointing out the item to add in slot
 	 * @return L2ItemInstance designating the item placed in the slot before
 	 */
-	public L2ItemInstance setPaperdollItem(int slot, L2ItemInstance item)
+	public synchronized L2ItemInstance setPaperdollItem(int slot, L2ItemInstance item)
 	{
 		L2ItemInstance old = _paperdoll[slot];
 		if (old != item)
@@ -915,7 +915,7 @@ public abstract class Inventory extends ItemContainer
 	 *            int designating the slot of the paperdoll
 	 * @return L2ItemInstance[] : list of changes
 	 */
-	public synchronized L2ItemInstance[] unEquipItemInBodySlotAndRecord(int slot)
+	public L2ItemInstance[] unEquipItemInBodySlotAndRecord(int slot)
 	{
 		Inventory.ChangeRecorder recorder = newRecorder();
 		try
@@ -938,7 +938,7 @@ public abstract class Inventory extends ItemContainer
 	 *            int designating the slot
 	 * @return L2ItemInstance designating the item in slot before change
 	 */
-	public synchronized L2ItemInstance unEquipItemInSlot(int pdollSlot)
+	public L2ItemInstance unEquipItemInSlot(int pdollSlot)
 	{
 		return setPaperdollItem(pdollSlot, null);
 	}
@@ -950,7 +950,7 @@ public abstract class Inventory extends ItemContainer
 	 *            int designating the slot
 	 * @return L2ItemInstance[] : list of items altered
 	 */
-	public synchronized L2ItemInstance[] unEquipItemInSlotAndRecord(int slot)
+	public L2ItemInstance[] unEquipItemInSlotAndRecord(int slot)
 	{
 		Inventory.ChangeRecorder recorder = newRecorder();
 		try
@@ -1088,7 +1088,7 @@ public abstract class Inventory extends ItemContainer
 	 * @param item :
 	 *            L2ItemInstance designating the item and slot used.
 	 */
-	public synchronized void equipItem(L2ItemInstance item)
+	public void equipItem(L2ItemInstance item)
 	{
 		if ((getOwner() instanceof L2PcInstance) && ((L2PcInstance) getOwner()).getPrivateStoreType() != 0)
 			return;
