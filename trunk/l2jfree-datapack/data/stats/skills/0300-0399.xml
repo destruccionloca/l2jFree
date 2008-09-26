@@ -889,7 +889,7 @@
       </effect>
     </for>
     <enchant1for>
-      <effect count="0x7fffffff" name="MpConsume
+      <effect count="0x7fffffff" name="MpConsumePerLevel"
         time="3" val="0.4">
         <add order="0x40" stat="sDef" val="#ench1sDef">
           <using kind="Shield" />

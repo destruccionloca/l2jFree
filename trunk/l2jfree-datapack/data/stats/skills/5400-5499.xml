@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-  <skill id="5400" levels=" name="Presentation - Solar Spark">
+  <skill id="5400" levels="1" name="Presentation - Solar Spark">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -26,7 +26,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5402" levels=" name="Presentation - Balor 2">
+  <skill id="5402" levels="1" name="Presentation - Balor 2">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -38,7 +38,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5403" levels=" name="Presentation - Balor 3">
+  <skill id="5403" levels="1" name="Presentation - Balor 3">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -50,7 +50,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5404" levels=" name="Presentation - Balor 4">
+  <skill id="5404" levels="1" name="Presentation - Balor 4">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -62,7 +62,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5405" levels=" name="Presentation - Demonic 1">
+  <skill id="5405" levels="1" name="Presentation - Demonic 1">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -75,7 +75,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5406" levels=" name="Presentation - Demonic 2">
+  <skill id="5406" levels="1" name="Presentation - Demonic 2">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -127,7 +127,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5410" levels=" name="Presentation - Balor 10">
+  <skill id="5410" levels="1" name="Presentation - Balor 10">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -139,7 +139,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5411" levels=" name="Presentation - Balor 11">
+  <skill id="5411" levels="1" name="Presentation - Balor 11">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -151,7 +151,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5412" levels=" name="Presentation - Balor 12">
+  <skill id="5412" levels="1" name="Presentation - Balor 12">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -507,7 +507,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5436" levels=" name="Increase Recovery Rate">
+  <skill id="5436" levels="1" name="Increase Recovery Rate">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -534,7 +534,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5438" levels=" name="NPC party 30 Clan Heal">
+  <skill id="5438" levels="9" name="NPC party 30 Clan Heal">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -546,7 +546,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5439" levels=" name="NPC party 60 Clan Heal">
+  <skill id="5439" levels="9" name="NPC party 60 Clan Heal">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -1042,7 +1042,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5480" levels=" name="Balor Invincible Removal">
+  <skill id="5480" levels="1" name="Balor Invincible Removal">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -1128,7 +1128,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5487" levels=" name="Counter Delete Aggression">
+  <skill id="5487" levels="1" name="Counter Delete Aggression">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -1140,7 +1140,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5488" levels=" name="Counter Critical Power Up">
+  <skill id="5488" levels="1" name="Counter Critical Power Up">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -1153,7 +1153,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5489" levels=" name="Counter Critical Rate Up">
+  <skill id="5489" levels="1" name="Counter Critical Rate Up">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -1260,7 +1260,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5497" levels=" name="Horn of Rising Darkness">
+  <skill id="5497" levels="1" name="Horn of Rising Darkness">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.

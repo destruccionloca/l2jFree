@@ -152,8 +152,7 @@
     <set name="itemConsumeId" val="1461" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
     <set name="itemConsumeIdOT" val="1461" />
-    <set name="itemConsumeCountO val=" #
-      itemConsumeCountOT " />
+    <set name="itemConsumeCountOT" val="#itemConsumeCountOT" />
     <set name="itemConsumeSteps" val="14" />
     <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
@@ -177,8 +176,7 @@
     <set name="isCubic" val="false" />
     <for />
   </skill>
-  <skill id="1407" levels=" name=" Summon Magnus the
-    Unicorn ">
+  <skill id="1407" levels="1" name="Summon Magnus the Unicorn ">
     <!--
       Needs to be verified. Description(s): Summons Magnus
       the Unicorn. Requires 2 Crystals: A-Grade. Consumes 1
@@ -196,8 +194,7 @@
     <set name="itemConsumeId" val="1461" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
     <set name="itemConsumeIdOT" val="1461" />
-    <set name="itemConsumeCountO val=" #
-      itemConsumeCountOT " />
+    <set name="itemConsumeCountOT" val="#itemConsumeCountOT" />
     <set name="itemConsumeSteps" val="14" />
     <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
@@ -235,8 +232,7 @@
     <set name="itemConsumeId" val="1461" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
     <set name="itemConsumeIdOT" val="1461" />
-    <set name="itemConsumeCountO val=" #
-      itemConsumeCountOT " />
+    <set name="itemConsumeCountOT" val="#itemConsumeCountOT" />
     <set name="itemConsumeSteps" val="14" />
     <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
@@ -391,8 +387,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="1414" levels=" name=" Victories of Pa '
-    agrio ">
+  <skill id="1414" levels="1" name="Victories of Pa'agrio">
     <!--
       Allows the Ancient Hero's Soul to temporarily
       possesses an alliance member. Consumes 40 Spirit Ores.
@@ -1234,8 +1229,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="1442" levels=" name=" Protection from
-    Darkness ">
+  <skill id="1442" levels="3" name="Protection from Darkness">
     <!--
       Description(s): Temporarily increase your target's
       resistance to dark attacks.
@@ -1295,8 +1289,7 @@
       </effect>
     </enchant1for>
     <enchant2for>
-      <effect name="Buff" count="1" val=" time=" #
-        ench2Time ">
+      <effect name="Buff" count="1" val="0" time="#ench2Time">
         <set order="0x30" stat="dark" val="100" />
       </effect>
     </enchant2for>
@@ -1330,8 +1323,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="1445" levels="1 name=" Surrender to the
-    Unholy ">
+  <skill id="1445" levels="18" name="Surrender to the Unholy">
     <!--
       Description(s): Instantly decrease the enemy's
       resistance to dark attacks and increase their
@@ -1364,8 +1356,7 @@
     <for>
       <effect count="1" name="Debuff" time="15" val="0"
         stackOrder="2" stackType="surrender">
-        <mul order="0x30" stat="darkVul val=" #
-          Tab-darkVuln " />
+        <mul order="0x30" stat="darkVuln" val="#Tab-darkVuln" />
       </effect>
     </for>
   </skill>
@@ -1921,7 +1912,7 @@
     <set name="castRange" val="600" />
     <for />
   </skill>
-  <skill id="1476" levels=" name="Appetite for Destruction">
+  <skill id="1476" levels="3" name="Appetite for Destruction">
     <!-- Done by DJ MELERIX -->
     <table name="#magicLvl"> 40 49 58 </table>
     <table name="#mpConsume"> 70 88 107 </table>
@@ -1968,7 +1959,7 @@
     <for>
       <effect name="Buff" time="1200" count="1" val="0"
         stackOrder="#Tab-absorbDam" stackType="vampRage">
-        <add order="0x40" stat="absorbDa val="#Tab-absorbDam" />
+        <add order="0x40" stat="absorbDam" val="#Tab-absorbDam" />
       </effect>
     </for>
   </skill>
@@ -2249,16 +2240,14 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="1490" levels=" name=" Healer Ability -
-    Heal ">
+  <skill id="1490" levels="1" name="Healer Ability - Heal">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="1491" levels=" name=" Summoner Ability -
-    Spirit ">
+  <skill id="1491" levels="1" name="Summoner Ability - Spirit">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
