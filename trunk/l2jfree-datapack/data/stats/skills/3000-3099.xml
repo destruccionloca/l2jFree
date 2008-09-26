@@ -44,8 +44,8 @@
     <set name="effectType" val="BLEED" />
     <set name="effectLevel" val="5.0" />
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="66"
-        abnormal="bleeding" />
+      <effect count="7" name="DamOverTime" time="3"
+        val="66" abnormal="bleeding" />
     </for>
   </skill>
   <skill id="3006" levels="1" name="Equip Set Items">
@@ -56,8 +56,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3007" levels="6"
-    name="Special Ability: Guidance">
+  <skill id="3007" levels="6" name="Special Ability: Guidance">
     <!--
       Descriptions: Increases Accuracy.
     -->
@@ -72,8 +71,7 @@
       <add val='#val' order='0x40' stat='accCombat' />
     </for>
   </skill>
-  <skill id="3008" levels="6"
-    name="Special Ability: Guidance">
+  <skill id="3008" levels="6" name="Special Ability: Guidance">
     <!--
       Descriptions: Increases Accuracy.
     -->
@@ -88,8 +86,7 @@
       <add val='#val' order='0x40' stat='accCombat' />
     </for>
   </skill>
-  <skill id="3009" levels="6"
-    name="Special Ability: Evasion">
+  <skill id="3009" levels="6" name="Special Ability: Evasion">
     <!--
       Descriptions:
       Increases Evasion.
@@ -105,12 +102,10 @@
       <add val='#val' order='0x40' stat='rEvas' />
     </for>
   </skill>
-  <skill id="3010" levels="6"
-    name="Special Ability: Focus">
+  <skill id="3010" levels="6" name="Special Ability: Focus">
     <!-- Done by DJ MELERIX -->
     <table name="#magicLvl">46 49 52 55 58 61</table>
-    <table name="#rCrit">
-      8.67 8.22 7.78 7.33 6.89 6.45
+    <table name="#rCrit"> 8.67 8.22 7.78 7.33 6.89 6.45 
     </table>
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -123,12 +118,10 @@
       <add order="0x40" stat="rCrit" val="#rCrit" />
     </for>
   </skill>
-  <skill id="3011" levels="6"
-    name="Special Ability: Focus">
+  <skill id="3011" levels="6" name="Special Ability: Focus">
     <!-- Done by DJ MELERIX -->
     <table name="#magicLvl">46 49 52 55 58 61</table>
-    <table name="#rCrit">
-      9.05 8.59 8.12 7.66 7.19 6.73
+    <table name="#rCrit"> 9.05 8.59 8.12 7.66 7.19 6.73 
     </table>
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -141,13 +134,11 @@
       <add order="0x40" stat="rCrit" val="#rCrit" />
     </for>
   </skill>
-  <skill id="3012" levels="6"
-    name="Special Ability: Anger">
+  <skill id="3012" levels="6" name="Special Ability: Anger">
     <!--
       Descriptions: Decreases MaxHP and increases P. Atk.
     -->
-    <table name="#patk">
-      20.44 22.64 24.77 26.78 28.59 30.12
+    <table name="#patk"> 20.44 22.64 24.77 26.78 28.59 30.12 
     </table>
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -160,14 +151,15 @@
       <mul val='0.85' order='0x30' stat='maxHp' />
     </for>
   </skill>
-  <skill id="3013" levels="5"
-    name="Special Ability: Health">
+  <skill id="3013" levels="5" name="Special Ability: Health">
     <!--
-    Lvl 1: Increases Max HP.
-    Lvl 2: Increases Max HP. Allows simultaneous attacks on multiple targets.
-    Lvl 3: Increases Max HP. Inflicts additional damage during PvP.
-    Lvl 4: Increases Max HP. Allows simultaneous attacks on multiple targets. Inflicts additional damage during PvP.
-    Lvl 5: Increases Max HP. Increases damage inflicted during PvP.
+      Lvl 1: Increases Max HP. Lvl 2: Increases Max HP.
+      Allows simultaneous attacks on multiple targets. Lvl
+      3: Increases Max HP. Inflicts additional damage during
+      PvP. Lvl 4: Increases Max HP. Allows simultaneous
+      attacks on multiple targets. Inflicts additional
+      damage during PvP. Lvl 5: Increases Max HP. Increases
+      damage inflicted during PvP.
     -->
     <!-- Done by DJ MELERIX -->
     <!-- Guessing Lvl 5 -->
@@ -182,33 +174,33 @@
     <set name="skillType" val="WEAPON_SA" />
     <set name="target" val="TARGET_SELF" />
     <for>
-      <mul order="0x30" stat="maxHp" val="1.25"/>
-      <add order="0x40" stat="atkCountMax" val="#atkCountMax"/>
-      <mul order="0x30" stat="pvpPhysDmg" val="#pvpBonus"/>
-      <mul order="0x30" stat="pvpMagicalDmg" val="#pvpBonus"/>
+      <mul order="0x30" stat="maxHp" val="1.25" />
+      <add order="0x40" stat="atkCountMax" val="#atkCountMax" />
+      <mul order="0x30" stat="pvpPhysDmg" val="#pvpBonus" />
+      <mul order="0x30" stat="pvpMagicalDmg" val="#pvpBonus" />
     </for>
   </skill>
-  <skill id="3014" levels="3"
-    name="Special Ability: Mana Up">
+  <skill id="3014" levels="3" name="Special Ability: Mana Up">
     <!--
-    Lvl 1: Increases Max MP.
-    Lvl 2: Increases maximum MP. Inflicts additional damage during PvP.
-    Lvl 3: Increases maximum MP. Increases damage inflicted during PvP.
+      Lvl 1: Increases Max MP. Lvl 2: Increases maximum MP.
+      Inflicts additional damage during PvP. Lvl 3:
+      Increases maximum MP. Increases damage inflicted
+      during PvP.
     -->
     <!-- Guessing Lvl 3 -->
     <table name="#magicLvl"> 1 64 64 </table>
     <table name="#pvpBonus"> 1.0 1.05 1.05 </table>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <set name="magicLvl" val="#magicLvl"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="power" val="0.0"/>
-    <set name="skillType" val="WEAPON_SA"/>
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
+    <set name="magicLvl" val="#magicLvl" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="power" val="0.0" />
+    <set name="skillType" val="WEAPON_SA" />
     <set name="target" val="TARGET_SELF" />
     <for>
-      <mul order="0x30" stat="maxMp" val="1.30"/>
-      <mul order="0x30" stat="pvpPhysDmg" val="#pvpBonus"/>
-      <mul order="0x30" stat="pvpMagicalDmg" val="#pvpBonus"/>
+      <mul order="0x30" stat="maxMp" val="1.30" />
+      <mul order="0x30" stat="pvpPhysDmg" val="#pvpBonus" />
+      <mul order="0x30" stat="pvpMagicalDmg" val="#pvpBonus" />
     </for>
   </skill>
   <skill id="3016" levels="6"
@@ -232,13 +224,11 @@
         stackOrder="1" stackType="Stun" />
     </for>
   </skill>
-  <skill id="3018" levels="6"
-    name="Special Ability: Back Blow">
+  <skill id="3018" levels="6" name="Special Ability: Back Blow">
     <!-- Done by DJ MELERIX -->
     <!-- Swords only -->
     <table name="#magicLvl">46 49 52 55 58 61</table>
-    <table name="#rCrit">
-      1.71 1.67 1.63 1.60 1.56 1.53
+    <table name="#rCrit"> 1.71 1.67 1.63 1.60 1.56 1.53 
     </table>
     <set name="castRange" val="-1" />
     <set name="condition" val="8" />
@@ -250,19 +240,15 @@
     <set name="target" val="TARGET_SELF" />
     <for>
       <mul order="0x30" stat="rCrit" val="#rCrit">
-        <and>
-          <player behind="True" />
-        </and>
+        <player behind="True" />
       </mul>
     </for>
   </skill>
-  <skill id="3019" levels="6"
-    name="Special Ability: Back Blow">
+  <skill id="3019" levels="6" name="Special Ability: Back Blow">
     <!-- Done by DJ MELERIX -->
     <!-- Daggers Only -->
     <table name="#magicLvl">46 49 52 55 58 61</table>
-    <table name="#rCrit">
-      1.50 1.47 1.45 1.42 1.40 1.37
+    <table name="#rCrit"> 1.50 1.47 1.45 1.42 1.40 1.37 
     </table>
     <set name="castRange" val="-1" />
     <set name="condition" val="8" />
@@ -274,9 +260,7 @@
     <set name="target" val="TARGET_SELF" />
     <for>
       <mul order="0x30" stat="rCrit" val="#rCrit">
-        <and>
-          <player behind="True" />
-        </and>
+        <player behind="True" />
       </mul>
     </for>
   </skill>
@@ -318,8 +302,7 @@
     name="Special Ability: Critical Drain">
     <!-- Done by SarutrA - SqueezeD -->
     <table name="#magicLvl">68 69 70 71 72 73 74</table>
-    <table name="#power">
-      90.0 92.0 94.0 96.0 98.0 100.0 102.0
+    <table name="#power"> 90.0 92.0 94.0 96.0 98.0 100.0 102.0 
     </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="#power" />
@@ -578,8 +561,7 @@
       </add>
     </for>
   </skill>
-  <skill id="3036" levels="6"
-    name="Special Ability: Haste">
+  <skill id="3036" levels="6" name="Special Ability: Haste">
     <!--
       Descriptions:
       Increases ATK Spd.
@@ -595,8 +577,7 @@
       <mul val='#val' order='0x30' stat='pAtkSpd' />
     </for>
   </skill>
-  <skill id="3037" levels="6"
-    name="Special Ability: Haste">
+  <skill id="3037" levels="6" name="Special Ability: Haste">
     <!--
       Descriptions:
       Increases ATK Spd.
@@ -612,8 +593,7 @@
       <mul val='#val' order='0x30' stat='pAtkSpd' />
     </for>
   </skill>
-  <skill id="3038" levels="6"
-    name="Special Ability: Haste">
+  <skill id="3038" levels="6" name="Special Ability: Haste">
     <!--
       Automatically generated from C3 client files. Need to
       be checked/fixed. Target is set to TARGET_NONE,
@@ -676,8 +656,7 @@
         val="#dmg" abnormal="poison" />
     </for>
   </skill>
-  <skill id="3042" levels="20"
-    name="Critical Damage Duel 4">
+  <skill id="3042" levels="20" name="Critical Damage Duel 4">
     <!--
       Automatically generated from C3 client files. Need to
       be checked/fixed. Target is set to TARGET_NONE,
@@ -710,21 +689,17 @@
       <add val='#val' order='0x40' stat='cAtk' />
     </for>
   </skill>
-  <skill id="3044" levels="20"
-    name="Special Ability: Focus">
+  <skill id="3044" levels="20" name="Special Ability: Focus">
     <!--
       Descriptions: lvl1-16: Increases critical attack
       success rate. lvl17-20: Increases critical attack
       success rate and damage inflicted during PvP. created
       2005-05-29 23:34:31
     -->
-    <table name="#rate">
-      61 63 64 66 71.9 68 71 73 75 77 79 81 82 84 86 90 88
-      106 111 116
-    </table>
-    <table name="#PvPbonus">
-      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1.05 1.05 1.05 1.05
-    </table>
+    <table name="#rate"> 61 63 64 66 71.9 68 71 73 75 77 79 81
+      82 84 86 90 88 106 111 116 </table>
+    <table name="#PvPbonus"> 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1.05
+      1.05 1.05 1.05 </table>
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -733,8 +708,7 @@
     <for>
       <add order="0x40" stat="rCrit" val="#rate" />
       <mul order="0x30" stat="pvpPhysDmg" val="#PvPbonus" />
-      <mul order="0x30" stat="pvpMagicalDmg"
-        val="#PvPbonus" />
+      <mul order="0x30" stat="pvpMagicalDmg" val="#PvPbonus" />
     </for>
   </skill>
   <skill id="3045" levels="20" name="Haste Duel 4">
@@ -767,50 +741,51 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3047" levels="3"
-    name="Special Ability: Acumen">
+  <skill id="3047" levels="3" name="Special Ability: Acumen">
     <!--
-    Lvl 1: Increases Casting Spd.
-    Lvl 2: Increases Casting Spd. and damage inflicted during PvP.
-    Lvl 3: Increases Casting Spd. Increases damage inflicted during PvP.
+      Lvl 1: Increases Casting Spd. Lvl 2: Increases Casting
+      Spd. and damage inflicted during PvP. Lvl 3: Increases
+      Casting Spd. Increases damage inflicted during PvP.
     -->
     <table name="#pvpBonus"> 1.0 1.05 1.05 </table>
     <!-- Guessing Lvl 3 -->
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <set name="magicLvl" val="64"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
+    <set name="magicLvl" val="64" />
+    <set name="operateType" val="OP_PASSIVE" />
     <set name="power" val="0.0" />
     <set name="skillType" val="WEAPON_SA" />
     <set name="target" val="TARGET_SELF" />
     <for>
-      <mul order="0x30" stat="mAtkSpd" val="1.15"/>
-      <mul order="0x30" stat="pvpPhysDmg" val="#pvpBonus"/>
-      <mul order="0x30" stat="pvpMagicalDmg" val="#pvpBonus"/>
+      <mul order="0x30" stat="mAtkSpd" val="1.15" />
+      <mul order="0x30" stat="pvpPhysDmg" val="#pvpBonus" />
+      <mul order="0x30" stat="pvpMagicalDmg" val="#pvpBonus" />
     </for>
   </skill>
   <skill id="3048" levels="3"
     name="Special Ability: Conversion">
     <!--
-    Lvl 1: Decreases Max HP and increases Max MP.
-    Lvl 2: Decreases Max HP and increases Max MP. Increases damage inflicted during PvP.
-    Lvl 3: Decreases Max HP and increases maximum MP. Increases damage inflicted during PvP.
+      Lvl 1: Decreases Max HP and increases Max MP. Lvl 2:
+      Decreases Max HP and increases Max MP. Increases
+      damage inflicted during PvP. Lvl 3: Decreases Max HP
+      and increases maximum MP. Increases damage inflicted
+      during PvP.
     -->
     <!-- Done by DJ MELERIX -->
     <!-- Guessing Lvl 3 -->
     <table name="#pvpBonus"> 1.0 1.05 1.05 </table>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
-    <set name="magicLvl" val="64"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="power" val="0.0"/>
-    <set name="skillType" val="WEAPON_SA"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
+    <set name="magicLvl" val="64" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="power" val="0.0" />
+    <set name="skillType" val="WEAPON_SA" />
+    <set name="target" val="TARGET_SELF" />
     <for>
-      <mul order="0x30" stat="maxMp" val="1.60"/>
-      <mul order="0x30" stat="maxHp" val="0.60"/>
-      <mul order="0x30" stat="pvpPhysDmg" val="#pvpBonus"/>
-      <mul order="0x30" stat="pvpMagicalDmg" val="#pvpBonus"/>
+      <mul order="0x30" stat="maxMp" val="1.60" />
+      <mul order="0x30" stat="maxHp" val="0.60" />
+      <mul order="0x30" stat="pvpPhysDmg" val="#pvpBonus" />
+      <mul order="0x30" stat="pvpMagicalDmg" val="#pvpBonus" />
     </for>
   </skill>
   <skill id="3049" levels="2"
@@ -828,8 +803,7 @@
     <set name="castRange" val="1000" />
     <for />
   </skill>
-  <skill id="3050" levels="2"
-    name="Special Ability: Focus">
+  <skill id="3050" levels="2" name="Special Ability: Focus">
     <!--
       Descriptions: 1: Increases critical attack success
       rate and damage inflicted during PvP. 2: Increases
@@ -849,12 +823,10 @@
       <!--
         Enhances damage to target during PvP
       -->
-      <mul val="#pvpBonus" order="0x30"
-        stat="pvpMagicalDmg" />
+      <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg" />
     </for>
   </skill>
-  <skill id="3051" levels="2"
-    name="Special Ability: Focus">
+  <skill id="3051" levels="2" name="Special Ability: Focus">
     <!--
       Descriptions: 1: Increases critical attack success
       rate and damage inflicted during PvP. 2: Increases
@@ -874,8 +846,7 @@
       <!--
         Enhances damage to target during PvP
       -->
-      <mul val="#pvpBonus" order="0x30"
-        stat="pvpMagicalDmg" />
+      <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg" />
     </for>
   </skill>
   <skill id="3052" levels="2"
@@ -972,8 +943,7 @@
       </mul>
     </for>
   </skill>
-  <skill id="3057" levels="2"
-    name="Special Ability: Anger">
+  <skill id="3057" levels="2" name="Special Ability: Anger">
     <!--
       Descriptions: 1: Decreases maximum HP and increases P.
       Atk. Increases damage inflicted during PvP. 2:
@@ -991,8 +961,7 @@
       <mul val='0.85' order='0x30' stat='maxHp' />
     </for>
   </skill>
-  <skill id="3058" levels="2"
-    name="Special Ability: Anger">
+  <skill id="3058" levels="2" name="Special Ability: Anger">
     <!--
       Descriptions: 1: Decreases maximum HP and increases P.
       Atk. Increases damage inflicted during PvP. 2:
@@ -1078,8 +1047,7 @@
     <set name="castRange" val="600" />
     <for />
   </skill>
-  <skill id="3063" levels="2"
-    name="Special Ability: Back Blow">
+  <skill id="3063" levels="2" name="Special Ability: Back Blow">
     <!-- Done by DJ MELERIX -->
     <table name="#magicLvl">64 64</table>
     <!-- Guessing Lvl 2 -->
@@ -1095,16 +1063,13 @@
     <set name="target" val="TARGET_SELF" />
     <for>
       <mul order="0x30" stat="rCrit" val="#rCrit">
-        <and>
-          <player behind="True" />
-        </and>
+        <player behind="True" />
       </mul>
       <mul order="0x30" stat="pvpPhysDmg" val="1.05" />
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05" />
     </for>
   </skill>
-  <skill id="3064" levels="1"
-    name="Special Ability: Guidance">
+  <skill id="3064" levels="1" name="Special Ability: Guidance">
     <!--
       Descriptions: 1: Increases Accuracy. Increases damage
       inflicted during PvP.
@@ -1119,8 +1084,7 @@
       <add val='4' order='0x40' stat='accCombat' />
     </for>
   </skill>
-  <skill id="3065" levels="1"
-    name="Special Ability: Guidance">
+  <skill id="3065" levels="1" name="Special Ability: Guidance">
     <!--
       Descriptions: 1: Increases Accuracy. Increases damage
       inflicted during PvP.
@@ -1173,8 +1137,7 @@
       <add val='#val' order='0x40' stat='cAtk' />
     </for>
   </skill>
-  <skill id="3068" levels="2"
-    name="Special Ability: Haste">
+  <skill id="3068" levels="2" name="Special Ability: Haste">
     <!--
       Descriptions: 1: Increases ATK Spd. 2: Increases Atk.
       Spd. Increases damage inflicted during PvP.
@@ -1252,8 +1215,7 @@
       <!--
         Enhances damage to target during PvP
       -->
-      <mul val="#pvpBonus" order="0x30"
-        stat="pvpMagicalDmg" />
+      <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg" />
       <add order="0x40" stat="rCrit" val="#val">
         <and>
           <player hp="60" />
@@ -1261,8 +1223,7 @@
       </add>
     </for>
   </skill>
-  <skill id="3072" levels="2"
-    name="Special Ability: Empower">
+  <skill id="3072" levels="2" name="Special Ability: Empower">
     <!--
       Descriptions: 1: Increases M. Atk. Increases damage
       inflicted during PvP. 2: Increases M. Atk. Increases
@@ -1331,12 +1292,11 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <for>
-      <effect count="1" name="Paralyze" time="30" val="0"
-        stackOrder="1" stackType="Paralyze" />
+      <effect count="1" name="Paralyze" time="30"
+        val="0" stackOrder="1" stackType="Paralyze" />
     </for>
   </skill>
-  <skill id="3076" levels="6"
-    name="Special Ability: Empower">
+  <skill id="3076" levels="6" name="Special Ability: Empower">
     <!--
       Descriptions: 1: Increases M. Atk. Increases damage
       inflicted during PvP. 2: Increases M. Atk. Increases
@@ -1403,11 +1363,11 @@
     <set name="effectType" val="PARALYZE" />
     <set name="effectPower" val="20" />
     <for>
-      <effect count="1" name="Paralyze" time="30" val="0" />
+      <effect count="1" name="Paralyze" time="30"
+        val="0" />
     </for>
   </skill>
-  <skill id="3080" levels="10"
-    name="Item Skill: Aggression">
+  <skill id="3080" levels="10" name="Item Skill: Aggression">
     <!--
       Description(s): Lvl 1 - Chance: Provokes a target to
       attack during an ordinary physical attack. Power 438.
@@ -1427,11 +1387,11 @@
       Power 635. Lvl 10 - Chance: Provokes a target to
       attack during an ordinary physical attack. Power 659.
     -->
-    <table name="#power">
-      438 467 495 523 549 574 597 617 635 659
-    </table>
+    <table name="#power"> 438 467 495 523 549 574 597 617 635
+      659 </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="1" />
@@ -1469,11 +1429,11 @@
       target's urge to attack during a general physical
       attack. Power 330.
     -->
-    <table name="#power">
-      219 234 248 262 275 287 299 309 318 330
-    </table>
+    <table name="#power"> 219 234 248 262 275 287 299 309 318
+      330 </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="isDebuff" val="true" />
@@ -1486,8 +1446,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3082" levels="10"
-    name="Item Skill: Mana Burn">
+  <skill id="3082" levels="10" name="Item Skill: Mana Burn">
     <!--
       Description(s): Lvl 1 - Chance: Burns up a target's MP
       during an ordinary physical attack. Power 49. Lvl 2 -
@@ -1507,11 +1466,11 @@
       Burns up a target's MP during an ordinary physical
       attack. Power 88.
     -->
-    <table name="#power">
-      49 53 57 61 66 70 74 78 82 88
+    <table name="#power"> 49 53 57 61 66 70 74 78 82 88 
     </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1529,11 +1488,11 @@
       attack. Effect 3.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
-    <set name="magicLvl" val="#magicLvl" />
-    <table name="#Tab-runSpd">
-      0.7 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
+    <set name="magicLvl" val="#magicLvl" />
+    <table name="#Tab-runSpd"> 0.7 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+      0.5 </table>
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1556,7 +1515,8 @@
       physical attack. Effect 3.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
@@ -1580,7 +1540,8 @@
       physical attack.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="STUN" />
@@ -1602,7 +1563,8 @@
       additional hold attacks while the effect lasts.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="ROOT" />
@@ -1625,7 +1587,8 @@
       additional sleep attacks while the effect lasts.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="SLEEP" />
@@ -1636,18 +1599,19 @@
     <set name="isDebuff" val="true" />
     <set name="isMagic" val="true" />
     <for>
-      <effect count="1" name="Sleep" time="5" val="0" stackOrder="1" stackType="sleep" />
+      <effect count="1" name="Sleep" time="5" val="0"
+        stackOrder="1" stackType="sleep" />
     </for>
   </skill>
-  <skill id="3088" levels="10"
-    name="Item Skill: Paralyze">
+  <skill id="3088" levels="10" name="Item Skill: Paralyze">
     <!--
       Description(s): Lvl 1-10 - Chance: Momentarily throws
       the target into a state of paralysis during an
       ordinary physical attack.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PARALYZE" />
@@ -1668,7 +1632,8 @@
       physical attack.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PARALYZE" />
@@ -1690,7 +1655,8 @@
       during a general physical attack.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="FEAR" />
@@ -1732,13 +1698,12 @@
       during a general physical attack. Effect 8.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
-    <table name="#dmg">
-      24 24 54 54 72 72 93 114 132 144
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
-    <table name="#effectLevel">
-      1.0 1.0 3.0 3.0 4.0 4.0 5.0 6.0 7.0 8.0
+    <table name="#dmg"> 24 24 54 54 72 72 93 114 132 144 
     </table>
+    <table name="#effectLevel"> 1.0 1.0 3.0 3.0 4.0 4.0 5.0 6.0 7.0
+      8.0 </table>
     <set name="power" val="0.0" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
@@ -1788,13 +1753,12 @@
       during a general physical attack. Effect 8.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
-    <table name="#dmg">
-      39 39 51 51 66 66 81 81 93 102
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
-    <table name="#effectLevel">
-      3.0 3.0 4.0 4.0 5.0 5.0 6.0 6.0 7.0 8.0
+    <table name="#dmg"> 39 39 51 51 66 66 81 81 93 102 
     </table>
+    <table name="#effectLevel"> 3.0 3.0 4.0 4.0 5.0 5.0 6.0 6.0 7.0
+      8.0 </table>
     <set name="power" val="0.0" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
@@ -1823,7 +1787,8 @@
       attack.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="MUTE" />
@@ -1845,7 +1810,8 @@
       general physical attack.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="MUTE" />
@@ -1856,12 +1822,11 @@
     <set name="isDebuff" val="true" />
     <set name="isMagic" val="true" />
     <for>
-      <effect count="1" name="SilenceMagicPhysical" time="5"
-        val="0" stackOrder="30" stackType="silence_all" />
+      <effect count="1" name="SilenceMagicPhysical"
+        time="5" val="0" stackOrder="30" stackType="silence_all" />
     </for>
   </skill>
-  <skill id="3095" levels="10"
-    name="Item Skill: Mana Burn">
+  <skill id="3095" levels="10" name="Item Skill: Mana Burn">
     <!--
       Description(s): Lvl 1 - Chance: Burns up a target's MP
       during magic use. Power 49. Lvl 2 - Chance: Burns up a
@@ -1878,11 +1843,11 @@
       82. Lvl 10 - Chance: Burns up a target's MP during
       magic use. Power 88.
     -->
-    <table name="#power">
-      49 53 57 61 66 70 74 78 82 88
+    <table name="#power"> 49 53 57 61 66 70 74 78 82 88 
     </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1900,11 +1865,11 @@
       3.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
-    <set name="magicLvl" val="#magicLvl" />
-    <table name="#Tab-runSpd">
-      0.7 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
+    <set name="magicLvl" val="#magicLvl" />
+    <table name="#Tab-runSpd"> 0.7 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+      0.5 </table>
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_CHANCE" />
@@ -1927,7 +1892,8 @@
       Effect 3.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
@@ -1950,7 +1916,8 @@
       the target into a state of shock during magic use.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="STUN" />
@@ -1972,7 +1939,8 @@
       attacks while the effect lasts.
     -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
+    </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="ROOT" />

@@ -23,11 +23,11 @@
     <for />
   </skill>
   <skill id="7002" levels="1" name="Dispel Debuff">
-    <set name="magicLevel" val="99"/>
-    <set name="power" val="100"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="skillType" val="CANCEL_DEBUFF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="magicLevel" val="99" />
+    <set name="power" val="100" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="skillType" val="CANCEL_DEBUFF" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="100" />
@@ -56,7 +56,11 @@
     <set name="aggroPoints" val="566" />
     <for />
   </skill>
-  <!-- Temporarily allows party members to partially restore HP using damage inflicted upon the enemy. Excludes damage from skill or range attack. Effect 4. -->
+  <!--
+    Temporarily allows party members to partially restore HP
+    using damage inflicted upon the enemy. Excludes damage
+    from skill or range attack. Effect 4.
+  -->
   <skill id="7005" levels="1" name="Greater Chant of Vampire">
     <set name="magicLevel" val="74" />
     <set name="mpInitialConsume" val="55" />
@@ -74,12 +78,16 @@
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="655" />
     <for>
-      <effect name="Buff" time="1200" count="1" val="0" stackOrder="9" stackType="vampRage">
+      <effect name="Buff" time="1200" count="1" val="0"
+        stackOrder="9" stackType="vampRage">
         <add order="0x40" stat="absorbDam" val="9" />
       </effect>
     </for>
   </skill>
-  <!-- Greatly enhances alliance members' HP restoration.  Effect 6. -->
+  <!--
+    Greatly enhances alliance members' HP restoration.
+    Effect 6.
+  -->
   <skill id="7006" levels="1" name="The Love of Pa'agrio">
     <!-- TODO -->
     <set name="mpConsume" val="272" />
@@ -95,9 +103,12 @@
     <set name="coolTime" val="1666" />
     <for />
   </skill>
-  <!-- A protective ring of fire that continuously reduces HP of surrounding enemies and their alliance members. Effect 8. -->
-  <skill id="7007" levels="4"
-    name="Greater Seal of Flame">
+  <!--
+    A protective ring of fire that continuously reduces HP
+    of surrounding enemies and their alliance members.
+    Effect 8.
+  -->
+  <skill id="7007" levels="4" name="Greater Seal of Flame">
     <!-- TODO -->
     <set name="mpConsume" val="122" />
     <set name="mpInitialConsume" val="30" />
@@ -161,8 +172,7 @@
     <set name="castRange" val="0" />
     <for />
   </skill>
-  <skill id="7014" levels="1"
-    name="Test - Critical Damage Up">
+  <skill id="7014" levels="1" name="Test - Critical Damage Up">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
@@ -179,8 +189,7 @@
     <set name="castRange" val="0" />
     <for />
   </skill>
-  <skill id="7016" levels="1"
-    name="Test - Critical Damage Up">
+  <skill id="7016" levels="1" name="Test - Critical Damage Up">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
@@ -197,8 +206,7 @@
     <set name="castRange" val="0" />
     <for />
   </skill>
-  <skill id="7018" levels="1"
-    name="Test - Critical Rate Up">
+  <skill id="7018" levels="1" name="Test - Critical Rate Up">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
@@ -206,8 +214,7 @@
     <set name="castRange" val="0" />
     <for />
   </skill>
-  <skill id="7019" levels="1"
-    name="Test - Critical Rate Down">
+  <skill id="7019" levels="1" name="Test - Critical Rate Down">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
@@ -215,8 +222,7 @@
     <set name="castRange" val="0" />
     <for />
   </skill>
-  <skill id="7020" levels="1"
-    name="Test - Critical Rate Up">
+  <skill id="7020" levels="1" name="Test - Critical Rate Up">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
@@ -224,8 +230,7 @@
     <set name="castRange" val="0" />
     <for />
   </skill>
-  <skill id="7021" levels="1"
-    name="Test - Critical Rate Down">
+  <skill id="7021" levels="1" name="Test - Critical Rate Down">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
@@ -233,8 +238,7 @@
     <set name="castRange" val="0" />
     <for />
   </skill>
-  <skill id="7022" levels="1"
-    name="Test - Find Hidden Door">
+  <skill id="7022" levels="1" name="Test - Find Hidden Door">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
@@ -291,10 +295,9 @@
     <for />
   </skill>
   <!--
-    1: Speed is increased.
-    2: speed is increased significantly.
-    3: Speed is increased dramatically.
-    4: Grants the combined power of two warriors.
+    1: Speed is increased. 2: speed is increased
+    significantly. 3: Speed is increased dramatically. 4:
+    Grants the combined power of two warriors.
   -->
   <skill id="7029" levels="4" name="Super Haste">
     <table name="#Tab-runSpd">1.5 2 3 4</table>
@@ -309,8 +312,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect name="Buff" time="144000" count="1" val="0"
-        stackOrder="99" stackType="attack_time_down">
+      <effect name="Buff" time="144000" count="1"
+        val="0" stackOrder="99" stackType="attack_time_down">
         <mul order="0x30" stat="runSpd" val="#Tab-runSpd" />
         <div order="0x30" stat="pReuse" val="#Tab-pReuse" />
         <div order="0x30" stat="mReuse" val="#Tab-mReuse" />
@@ -368,8 +371,7 @@
     <set name="isCubic" val="false" />
     <for />
   </skill>
-  <skill id="7032" levels="1"
-    name="Summon Hunter Gargoyle">
+  <skill id="7032" levels="1" name="Summon Hunter Gargoyle">
     <table name="#itemConsumeCount">8</table>
     <set name="itemConsumeId" val="1458" />
     <set name="mpConsume" val="3" />
@@ -395,10 +397,9 @@
   </skill>
   <skill id="7033" levels="1" name="not_used">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -408,10 +409,9 @@
   </skill>
   <skill id="7034" levels="1" name="not_used">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -421,10 +421,9 @@
   </skill>
   <skill id="7035" levels="1" name="not_used">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -434,10 +433,9 @@
   </skill>
   <skill id="7036" levels="1" name="not_used">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -447,10 +445,9 @@
   </skill>
   <skill id="7037" levels="1" name="not_used">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -460,10 +457,9 @@
   </skill>
   <skill id="7038" levels="1" name="not_used">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -473,10 +469,9 @@
   </skill>
   <skill id="7039" levels="1" name="not_used">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -486,10 +481,9 @@
   </skill>
   <skill id="7040" levels="1" name="not_used">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -499,12 +493,14 @@
   </skill>
   <!-- Admin / Game Masters skills -->
   <!--
-    Done by SqueezeD
-    Edit by Shaka for L2J Project - 01/28/2008
+    Done by SqueezeD Edit by Shaka for L2J Project -
+    01/28/2008
   -->
-  <skill id="7041" levels="1"
-    name="Master's Blessing - Focus">
-    <!-- A GM is always by your side. Increases critical attack rate temporarily. Effect 3. -->
+  <skill id="7041" levels="1" name="Master's Blessing - Focus">
+    <!--
+      A GM is always by your side. Increases critical attack
+      rate temporarily. Effect 3.
+    -->
     <table name="#Tab-rCrit">0.3</table>
     <set name="mpConsume" val="2" />
     <set name="power" val="0.0" />
@@ -523,7 +519,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Increases critical attack rate temporarily. Effect 3. -->
+  <!--
+    A GM is always by your side. Increases critical attack
+    rate temporarily. Effect 3.
+  -->
   <skill id="7042" levels="1"
     name="Master's Blessing - Death Whisper">
     <table name="#Tab-cAtk">1.5</table>
@@ -545,9 +544,11 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Increases Atk. Spd. temporarily. Effect 2. -->
-  <skill id="7043" levels="1"
-    name="Master's Blessing - Haste">
+  <!--
+    A GM is always by your side. Increases Atk. Spd.
+    temporarily. Effect 2.
+  -->
+  <skill id="7043" levels="1" name="Master's Blessing - Haste">
     <table name="#Tab-pAtkSpd">1.33</table>
     <set name="mpConsume" val="2" />
     <set name="power" val="0.0" />
@@ -562,13 +563,15 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-pAtkSpd"
-        stackType="attack_time_down">
+        stackOrder="#Tab-pAtkSpd" stackType="attack_time_down">
         <mul order="0x30" stat="pAtkSpd" val="#Tab-pAtkSpd" />
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Increases Accuracy temporarily. Effect 3. -->
+  <!--
+    A GM is always by your side. Increases Accuracy
+    temporarily. Effect 3.
+  -->
   <skill id="7044" levels="1"
     name="Master's Blessing - Guidance">
     <table name="#Tab-accCombat">4</table>
@@ -586,12 +589,14 @@
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="#Tab-accCombat" stackType="hit_up">
-        <add order="0x40" stat="accCombat"
-          val="#Tab-accCombat" />
+        <add order="0x40" stat="accCombat" val="#Tab-accCombat" />
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Increases maximum HP temporarily. Effect 6. -->
+  <!--
+    A GM is always by your side. Increases maximum HP
+    temporarily. Effect 6.
+  -->
   <skill id="7045" levels="1"
     name="Master's Blessing - Blessed Body">
     <table name="#Tab-maxHp">1.35</table>
@@ -613,7 +618,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Increases maximum MP temporarily. Effect 6. -->
+  <!--
+    A GM is always by your side. Increases maximum MP
+    temporarily. Effect 6.
+  -->
   <skill id="7046" levels="1"
     name="Master's Blessing - Blessed Soul">
     <table name="#Tab-maxMp">1.35</table>
@@ -635,7 +643,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Increases Evasion temporarily. Effect 3. -->
+  <!--
+    A GM is always by your side. Increases Evasion
+    temporarily. Effect 3.
+  -->
   <skill id="7047" levels="1"
     name="Master's Blessing - Agility">
     <table name="#Tab-rEvas">4</table>
@@ -657,9 +668,11 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Increases Casting Spd. temporarily. Effect 3. -->
-  <skill id="7048" levels="1"
-    name="Master's Blessing - Acumen">
+  <!--
+    A GM is always by your side. Increases Casting Spd.
+    temporarily. Effect 3.
+  -->
+  <skill id="7048" levels="1" name="Master's Blessing - Acumen">
     <table name="#Tab-mAtkSpd">1.3</table>
     <set name="mpConsume" val="2" />
     <set name="power" val="0.0" />
@@ -679,7 +692,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Reduces current weight. Effect 3. -->
+  <!--
+    A GM is always by your side. Reduces current weight.
+    Effect 3.
+  -->
   <skill id="7049" levels="1"
     name="Master's Blessing - Decrease Weight">
     <table name="#Weight">9000</table>
@@ -701,9 +717,11 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Increases P. Atk. temporarily. Effect 3. -->
-  <skill id="7050" levels="1"
-    name="Master's Blessing - Might">
+  <!--
+    A GM is always by your side. Increases P. Atk.
+    temporarily. Effect 3.
+  -->
+  <skill id="7050" levels="1" name="Master's Blessing - Might">
     <table name="#rate">1.15</table>
     <set name="mpConsume" val="2" />
     <set name="power" val="0.0" />
@@ -723,9 +741,11 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Increases P. Def. temporarily. Effect 3. -->
-  <skill id="7051" levels="1"
-    name="Master's Blessing - Shield">
+  <!--
+    A GM is always by your side. Increases P. Def.
+    temporarily. Effect 3.
+  -->
+  <skill id="7051" levels="1" name="Master's Blessing - Shield">
     <table name="#rate">1.15</table>
     <set name="mpConsume" val="2" />
     <set name="power" val="0.0" />
@@ -745,7 +765,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Increases M. Def. temporarily. Effect 3. -->
+  <!--
+    A GM is always by your side. Increases M. Def.
+    temporarily. Effect 3.
+  -->
   <skill id="7052" levels="1"
     name="Master's Blessing - Magic Barrier">
     <table name="#Tab-mDef">1.3</table>
@@ -767,7 +790,11 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Temporarily increases the amount of HP absorbed from damage done to a target. Excludes damage from skills or ranged attacks. Effect 4. -->
+  <!--
+    A GM is always by your side. Temporarily increases the
+    amount of HP absorbed from damage done to a target.
+    Excludes damage from skills or ranged attacks. Effect 4.
+  -->
   <skill id="7053" levels="1"
     name="Master's Blessing - Vampiric Rage">
     <table name="#Tab-absorbDam">9</table>
@@ -785,12 +812,14 @@
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="#Tab-absorbDam" stackType="vampRage">
-        <add order="0x40" stat="absorbDam"
-          val="#Tab-absorbDam" />
+        <add order="0x40" stat="absorbDam" val="#Tab-absorbDam" />
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Increases M. Atk. temporarily. Effect 3. -->
+  <!--
+    A GM is always by your side. Increases M. Atk.
+    temporarily. Effect 3.
+  -->
   <skill id="7054" levels="1"
     name="Master's Blessing - Empower">
     <table name="#Tab-mAtk">1.75</table>
@@ -812,7 +841,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Increases Speed temporarily. Effect 2. -->
+  <!--
+    A GM is always by your side. Increases Speed
+    temporarily. Effect 2.
+  -->
   <skill id="7055" levels="1"
     name="Master's Blessing - Wind Walk">
     <table name="#Tab-runSpd">33</table>
@@ -834,7 +866,11 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Temporarily reduces P. Def., M. Def. and Evasion, and increases P. Atk., M. Atk., Atk. Spd., Casting Spd. and Speed. Effect 2. -->
+  <!--
+    A GM is always by your side. Temporarily reduces P.
+    Def., M. Def. and Evasion, and increases P. Atk., M.
+    Atk., Atk. Spd., Casting Spd. and Speed. Effect 2.
+  -->
   <skill id="7056" levels="1"
     name="Master's Blessing - Berserker Spirit">
     <table name="#Tab-mAtk">1.16</table>
@@ -870,7 +906,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Temporarily increases the target's P. Atk. Effect 3. -->
+  <!--
+    A GM is always by your side. Temporarily increases the
+    target's P. Atk. Effect 3.
+  -->
   <skill id="7057" levels="1"
     name="Master's Blessing - Greater Might">
     <table name="#pAtk">1.1</table>
@@ -892,7 +931,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side.  Temporarily increases the target's P. Def. Effect 3. -->
+  <!--
+    A GM is always by your side. Temporarily increases the
+    target's P. Def. Effect 3.
+  -->
   <skill id="7058" levels="1"
     name="Master's Blessing - Greater Shield">
     <table name="#rate">1.15</table>
@@ -914,7 +956,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side.  Temporarily increases the critical attack rate for magic attacks. Effect 2. -->
+  <!--
+    A GM is always by your side. Temporarily increases the
+    critical attack rate for magic attacks. Effect 2.
+  -->
   <skill id="7059" levels="1"
     name="Master's Blessing - Wild Magic">
     <table name="#mCrit">4</table>
@@ -935,7 +980,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. Temporarily decreases the target's MP consumption for skills. Effect 3. -->
+  <!--
+    A GM is always by your side. Temporarily decreases the
+    target's MP consumption for skills. Effect 3.
+  -->
   <skill id="7060" levels="1"
     name="Master's Blessing - Clarity">
     <table name="#mpConsumeRate">0.9</table>
@@ -961,7 +1009,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. The spirit of an ancient wizard temporarily possesses the target. -->
+  <!--
+    A GM is always by your side. The spirit of an ancient
+    wizard temporarily possesses the target.
+  -->
   <skill id="7061" levels="1"
     name="Master's Blessing - Prophecy of Water">
     <set name="mpConsume" val="2" />
@@ -988,7 +1039,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. The spirit of an ancient warrior temporarily possesses the target. -->
+  <!--
+    A GM is always by your side. The spirit of an ancient
+    warrior temporarily possesses the target.
+  -->
   <skill id="7062" levels="1"
     name="Master's Blessing - Prophecy of Fire">
     <set name="mpConsume" val="2" />
@@ -1016,7 +1070,10 @@
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. The spirit of an ancient assassin temporarily possesses the target. -->
+  <!--
+    A GM is always by your side. The spirit of an ancient
+    assassin temporarily possesses the target.
+  -->
   <skill id="7063" levels="1"
     name="Master's Blessing - Prophecy of Wind">
     <set name="mpConsume" val="2" />
@@ -1038,20 +1095,19 @@
         <add order="0x40" stat="rEvas" val="4" />
         <mul order="0x30" stat="pAtkSpd" val="1.20" />
         <mul order="0x30" stat="cAtk" val="1.2">
-          <and>
-            <player behind="True" />
-          </and>
+          <player behind="True" />
         </mul>
         <basemul order="0x30" stat="rCrit" val="0.2">
-          <and>
-            <player behind="True" />
-          </and>
+          <player behind="True" />
         </basemul>
         <mul order="0x30" stat="debuffVuln" val="0.9" />
       </effect>
     </for>
   </skill>
-  <!-- A GM is always by your side. The spirit of an ancient hero temporarily possesses the target. -->
+  <!--
+    A GM is always by your side. The spirit of an ancient
+    hero temporarily possesses the target.
+  -->
   <skill id="7064" levels="1"
     name="Master's Blessing - Chant of Victory">
     <set name="mpConsume" val="2" />
@@ -1105,24 +1161,21 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="7068" levels="1"
-    name="Test Steal Abnormal State">
+  <skill id="7068" levels="1" name="Test Steal Abnormal State">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="7069" levels="1"
-    name="Test Abnormal State DD">
+  <skill id="7069" levels="1" name="Test Abnormal State DD">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="7070" levels="1"
-    name="Test - Soul Eating Passive">
+  <skill id="7070" levels="1" name="Test - Soul Eating Passive">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1172,8 +1225,7 @@
     <for />
   </skill>
   <!-- Currently stunned. -->
-  <skill id="7077" levels="1"
-    name="Test - Delay Debuff - Call">
+  <skill id="7077" levels="1" name="Test - Delay Debuff - Call">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="isMagic" val="false" />
@@ -1199,8 +1251,7 @@
     <for />
   </skill>
   <!-- Transfers party damage to tanker. -->
-  <skill id="7079" levels="1"
-    name="Test - Party Damage Absorb">
+  <skill id="7079" levels="1" name="Test - Party Damage Absorb">
     <set name="power" val="0.0" />
     <set name="mpInitialConsume" val="20" />
     <set name="mpConsume" val="80" />
@@ -1232,8 +1283,7 @@
     <for />
   </skill>
   <!-- Shoots toward ground. -->
-  <skill id="7081" levels="1"
-    name="Effect Test - Land Shot">
+  <skill id="7081" levels="1" name="Effect Test - Land Shot">
     <set name="power" val="0.0" />
     <set name="mpInitialConsume" val="6" />
     <set name="mpConsume" val="24" />
@@ -1285,8 +1335,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="7085" levels="1"
-    name="Self-Destruct Explosion">
+  <skill id="7085" levels="1" name="Self-Destruct Explosion">
     <set name="power" val="0.0" />
     <set name="mpInitialConsume" val="19" />
     <set name="mpConsume" val="76" />
