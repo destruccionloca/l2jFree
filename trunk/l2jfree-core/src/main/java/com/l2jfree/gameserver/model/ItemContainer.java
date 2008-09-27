@@ -577,7 +577,7 @@ public abstract class ItemContainer
 			}
 		}
 	}
-
+	
     /**
 	 * Get back items in container from database
 	 */

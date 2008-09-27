@@ -1447,6 +1447,7 @@ public final class Config
 
 	public static boolean				ALT_ITEM_SKILLS_NOT_INFLUENCED;
 	public static boolean				ALT_MANA_POTIONS;
+	public static int					AUTOCHAT_DELAY;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1658,6 +1659,7 @@ public final class Config
 				FS_TIME_ENTRY = 3;
 
 			ALT_MANA_POTIONS = Boolean.parseBoolean(altSettings.getProperty("AllowManaPotions", "false"));
+			AUTOCHAT_DELAY = Integer.parseInt(altSettings.getProperty("AutoChatDelay", "30000"));
 		}
 		catch (Exception e)
 		{

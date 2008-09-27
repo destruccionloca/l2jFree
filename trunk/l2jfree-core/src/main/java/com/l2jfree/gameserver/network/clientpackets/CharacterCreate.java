@@ -172,6 +172,7 @@ public class CharacterCreate extends L2GameClientPacket
 		for (PcTemplateItem ia : template.getItems())
 		{
 			L2ItemInstance item = newChar.getInventory().addItem("Init", ia.getItemId(), ia.getAmount(), newChar, null);
+			item.instantInsert();
 
 			// add tutbook shortcut
 			if (item.getItemId() == 5588)
