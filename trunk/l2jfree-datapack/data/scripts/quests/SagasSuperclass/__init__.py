@@ -550,13 +550,13 @@ class Quest (JQuest) :
             st.set("Quest0","1")
             self.AutoChat(npc,self.Text[17].replace('PLAYERNAME',player.getName()))
             npc.reduceCurrentHp(9999999,npc)
-            self.cancelQuestTimer("Mob_3 has despawned",npc,player)
+            self.cancelQuestTimer("Mob_3 has despawned",npc,st2.getPlayer())
             st.set("Tab","1")
             self.DeleteSpawn(st,npc.getObjectId())
     elif npcId == self.Mob[1] and cond == 15 :
         if st != st2 or (st == st2 and player.isInParty()) :
             self.AutoChat(npc,self.Text[5].replace('PLAYERNAME',player.getName()))
-            self.cancelQuestTimer("Archon Hellisha has despawned",npc,player)
+            self.cancelQuestTimer("Archon Hellisha has despawned",npc,st2.getPlayer())
             st2.set("spawned","0")
             self.DeleteSpawn(st2,npc.getObjectId())
     return
@@ -569,7 +569,7 @@ class Quest (JQuest) :
              st2 = self.findRightState(npc.getObjectId())
              if not st2 : return
              self.AutoChat(npc,self.Text[5].replace('PLAYERNAME',player.getName()))
-             self.cancelQuestTimer("Archon Hellisha has despawned",npc,player)
+             self.cancelQuestTimer("Archon Hellisha has despawned",npc,st2.getPlayer())
              st2.set("spawned","0")
              self.DeleteSpawn(st2,npc.getObjectId())
      return
@@ -614,7 +614,7 @@ class Quest (JQuest) :
                         st1.playSound("ItemSound.quest_middle")
                         st1.giveItems(st1.getQuest().Items[5],1)
                         st1.set("cond","7")
-    elif st :
+    elif st and npcId != self.Mob[2]:
         st2 = self.findRightState(npc.getObjectId())
         if not st2 : return
         cond = st.getInt("cond")
@@ -625,7 +625,7 @@ class Quest (JQuest) :
                     st.giveItems(self.Items[6],1)
                     st.set("cond","9")
                     st.playSound("ItemSound.quest_middle")
-            self.cancelQuestTimer("Mob_1 has despawned",npc,player)
+            self.cancelQuestTimer("Mob_1 has despawned",npc,st2.getPlayer())
             st2.set("spawned","0")
             self.DeleteSpawn(st2,npc.getObjectId())
         elif npcId == self.Mob[1] and cond == 15 :
@@ -638,20 +638,20 @@ class Quest (JQuest) :
                     st.playSound("ItemSound.quest_middle")
                 else :
                     self.AutoChat(npc,self.Text[5].replace('PLAYERNAME',player.getName()))
-            self.cancelQuestTimer("Archon Hellisha has despawned",npc,player)
+            self.cancelQuestTimer("Archon Hellisha has despawned",npc,st2.getPlayer())
             st2.set("spawned","0")
             self.DeleteSpawn(st2,npc.getObjectId())
     else :
         if npcId == self.Mob[0] :
             st = self.findRightState(npc.getObjectId())
             if st:
-                self.cancelQuestTimer("Mob_1 has despawned",npc,player)
+                self.cancelQuestTimer("Mob_1 has despawned",npc,st2.getPlayer())
                 st.set("spawned","0")
                 self.DeleteSpawn(st,npc.getObjectId())
         elif npcId == self.Mob[1] :
             st = self.findRightState(npc.getObjectId())
             if st:
-                self.cancelQuestTimer("Archon Hellisha has despawned",npc,player)
+                self.cancelQuestTimer("Archon Hellisha has despawned",npc,st2.getPlayer())
                 st.set("spawned","0")
                 self.DeleteSpawn(st,npc.getObjectId())
     return
