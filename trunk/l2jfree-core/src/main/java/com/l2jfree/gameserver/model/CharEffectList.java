@@ -173,7 +173,7 @@ public class CharEffectList
 	{
 		if ((_buffs == null || _buffs.isEmpty()) && (_debuffs == null || _debuffs.isEmpty()) || checkSkill._effectTemplates == null
 				|| checkSkill._effectTemplates.length < 1 || checkSkill._effectTemplates[0].stackType == null
-				|| checkSkill._effectTemplates[0].stackType.equals("none"))
+				|| checkSkill._effectTemplates[0].stackType == "none")
 		{
 			return false;
 		}
@@ -183,7 +183,7 @@ public class CharEffectList
 		L2Effect[] effects = getAllEffects();
 		for (L2Effect e : effects)
 		{
-			if (e.getStackType() != null && e.getStackType().equals(stackType))
+			if (e.getStackType() != null && e.getStackType() == stackType)
 			{
 				return true;
 			}
@@ -222,7 +222,7 @@ public class CharEffectList
 	 * Return the number of Songs/Dances in this CharEffectList
 	 * @return
 	 */
-	public int getDanceCount()
+	public int getDanceCount(boolean dances, boolean songs)
 	{
 		if (_buffs == null)
 			return 0;
@@ -230,7 +230,7 @@ public class CharEffectList
 
 		for (L2Effect e : _buffs)
 		{
-			if (e != null && (e.getSkill().isDance() || e.getSkill().isSong() ) && e.getInUse())
+			if (e != null && ((e.getSkill().isDance() && dances) || (e.getSkill().isSong() && songs)) && e.getInUse())
 				danceCount++;
 		}
 		return danceCount;
@@ -304,7 +304,7 @@ public class CharEffectList
 				return;
 			}
 		}
-		else if ((checkSkill.isDance() || checkSkill.isSong()) && getDanceCount() >= Config.DANCES_SONGS_MAX_AMOUNT)
+		else if ((checkSkill.isDance() || checkSkill.isSong()) && getDanceCount(true, true) >= Config.DANCES_SONGS_MAX_AMOUNT)
 		{
 			danceBuff = true;
 		}

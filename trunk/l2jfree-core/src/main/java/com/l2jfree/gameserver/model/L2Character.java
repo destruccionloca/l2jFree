@@ -6295,9 +6295,9 @@ public abstract class L2Character extends L2Object
 		return _effects.getBuffCount();
 	}
 
-	public int getDanceCount(boolean song)
+	public int getDanceCount(boolean dances, boolean songs)
 	{
-		return _effects.getDanceCount();
+		return _effects.getDanceCount(dances, songs);
 	}
 
 	/**

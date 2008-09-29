@@ -751,8 +751,12 @@ public class CharStat
 
 		int mpconsume = skill.getMpConsume();
 
-		if (!Config.ALT_DANCE_MP_CONSUME && (skill.isDance() || skill.isSong()) && _activeChar != null && _activeChar.getDanceCount(skill.isSong()) > 0)
-			mpconsume += _activeChar.getDanceCount(skill.isSong()) * skill.getNextDanceMpCost();
+		if (!Config.ALT_DANCE_MP_CONSUME && (skill.isDance() || skill.isSong()) && _activeChar != null)
+		{
+			int count = _activeChar.getDanceCount(skill.isDance(), skill.isSong());
+			if (count > 0)
+				mpconsume += (count * skill.getNextDanceMpCost());
+		}
 
 		return (int) calcStat(Stats.MP_CONSUME, mpconsume, null, skill);
 	}
