@@ -1,4 +1,4 @@
--- ---------------------------
+ï»¿-- ---------------------------
 -- Table structure for table `weapon`
 -- ---------------------------
 DROP TABLE IF EXISTS `weapon`;
@@ -2409,7 +2409,7 @@ INSERT INTO `weapon` VALUES
 (11699, 'Standard Item - Spinebone Sword*Spinebone Sword', 'lrhand', 'true', '2520', '3', '3', 'fine_steel', 'd', '96', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '47', '-1', 52050,96, 'true', 'true', 'true', 'true', '', '', '', '', 0),
 (11700, 'Standard Item - Spinebone Sword*Artisan''s Sword', 'lrhand', 'true', '2460', '3', '3', 'fine_steel', 'd', '96', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '47', '-1', 52050,96, 'true', 'true', 'true', 'true', '', '', '', '', 0),
 (11701, 'Standard Item - Arm Breaker', 'lrhand', 'true', '1820', '6', '3', 'fine_steel', 'd', '100', '10', 'crossbow', '10', '-1.00000', '0', '0', '0', '303', '0', '47', '-1', 52050,96, 'true', 'true', 'true', 'true', '', '', '', '', 0),
-(11702, 'Standard Item - Épée', 'rhand', 'true', '1450', '3', '3', 'fine_steel', 'd', '72', '40', 'rapier', '10', '-1.00000', '0', '0', '0', '406', '0', '47', '-1', 52050,96, 'true', 'true', 'true', 'true', '', '', '', '', 0),
+(11702, 'Standard Item - Ã‰pÃ©e', 'rhand', 'true', '1450', '3', '3', 'fine_steel', 'd', '72', '40', 'rapier', '10', '-1.00000', '0', '0', '0', '406', '0', '47', '-1', 52050,96, 'true', 'true', 'true', 'true', '', '', '', '', 0),
 (11703, 'Standard Item - Winged Spear', 'lrhand', 'true', '2060', '3', '3', 'fine_steel', 'd', '79', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '47', '-1', 52050, 96, 'true', 'true', 'true', 'true', '', '', '', '', 0),
 (11704, 'Standard Item - Artisan''s Sword*Knight''s Sword', 'lrhand', 'true', '2470', '3', '3', 'fine_steel', 'd', '96', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '47', '-1', 52050,96, 'true', 'true', 'true', 'true', '', '', '', '', 0),
 (11705, 'Standard Item - Artisan''s Sword*Artisan''s Sword', 'lrhand', 'true', '2480', '3', '3', 'fine_steel', 'd', '96', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '47', '-1', 52050,96, 'true', 'true', 'true', 'true', '', '', '', '', 0),
@@ -2431,7 +2431,7 @@ INSERT INTO `weapon` VALUES
 (11721, 'Standard Item - Spinebone Sword*Crimson Sword', 'lrhand', 'true', '2520', '3', '3', 'fine_steel', 'd', '107', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '51', '-1', 60480,112, 'true', 'true', 'true', 'true', '', '', '', '', 0),
 (11722, 'Standard Item - Artisan''s Sword*Elven Sword', 'lrhand', 'true', '2470', '3', '3', 'fine_steel', 'd', '107', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '51', '-1', 60480,112, 'true', 'true', 'true', 'true', '', '', '', '', 0),
 (11723, 'Standard Item - Artisan''s Sword*Crimson Sword', 'lrhand', 'true', '2450', '3', '3', 'fine_steel', 'd', '107', '10', 'dual', '8', '0.00000', '0', '0', '0', '325', '0', '51', '-1', 60480,112, 'true', 'true', 'true', 'true', '', '', '', '', 0),
-(11724, 'Standard Item - Grand Épée', 'rhand', 'true', '1440', '3', '3', 'fine_steel', 'd', '83', '40', 'rapier', '10', '-1.00000', '0', '0', '0', '406', '0', '54', '-1', 65580,121, 'true', 'true', 'true', 'true', '', '', '', '', 0),
+(11724, 'Standard Item - Grand Ã‰pÃ©e', 'rhand', 'true', '1440', '3', '3', 'fine_steel', 'd', '83', '40', 'rapier', '10', '-1.00000', '0', '0', '0', '406', '0', '54', '-1', 65580,121, 'true', 'true', 'true', 'true', '', '', '', '', 0),
 (11725, 'Standard Item - Glaive', 'lrhand', 'true', '2050', '3', '3', 'fine_steel', 'd', '92', '10', 'pole', '8', '-3.00000', '0', '0', '0', '325', '0', '54', '-1', 65580, 121, 'true', 'true', 'true', 'true', '', '', '', '', 0),
 (11726, 'Standard Item - Mithril Dagger', 'rhand', 'true', '1060', '3', '3', 'fine_steel', 'd', '80', '5', 'dagger', '12', '-3.00000', '0', '0', '0', '433', '0', '54', '-1', 65580, 121, 'true', 'true', 'true', 'true', '', '', '', '', 0),
 (11727, 'Standard Item - Bonebreaker', 'rhand', 'true', '1720', '3', '3', 'fine_steel', 'd', '92', '20', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '54', '-1', 65580, 121, 'true', 'true', 'true', 'true', '', '', '', '', 0),

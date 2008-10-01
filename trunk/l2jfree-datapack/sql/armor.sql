@@ -2152,3 +2152,7 @@ INSERT INTO `armor` VALUES
 INSERT INTO `armor` VALUES
 (10209, 'Enhanced Steel Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'a', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1),
 (10210, 'Enhanced Mithril Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 's', 0, -1, 0, 0, 120, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1);
+
+-- According to client and xml this line should be here (Needs confirmation on skills part)
+INSERT INTO `armor` (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`) VALUES
+(10607, 'Agathion Seal Bracelet - Rudolph', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '3425-1;3267-1', '-1', '-1', -1);
