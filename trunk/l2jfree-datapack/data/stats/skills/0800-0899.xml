@@ -162,6 +162,7 @@
       3422.0 3480.0 </table>
     <set name="weaponsAllowed" val="18432" />
     <set name="mpConsume" val="#mpConsume" />
+    <set name="power" val="#power" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_AURA" />
     <set name="skillRadius" val="150" />
@@ -193,6 +194,7 @@
       3422.0 3480.0 </table>
     <set name="weaponsAllowed" val="512" />
     <set name="mpConsume" val="#mpConsume" />
+    <set name="power" val="#power" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_AURA" />
     <set name="skillRadius" val="150" />
@@ -224,6 +226,7 @@
       3422.0 3480.0 </table>
     <set name="weaponsAllowed" val="18432" />
     <set name="mpConsume" val="#mpConsume" />
+    <set name="power" val="#power" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="overHit" val="true" />
@@ -254,6 +257,7 @@
       3422.0 3480.0 </table>
     <set name="weaponsAllowed" val="512" />
     <set name="mpConsume" val="#mpConsume" />
+    <set name="power" val="#power" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
     <set name="overHit" val="true" />
