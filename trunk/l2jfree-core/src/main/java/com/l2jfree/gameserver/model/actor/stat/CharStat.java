@@ -376,7 +376,7 @@ public class CharStat
 
 		int val = (int) calcStat(Stats.MAGIC_ATTACK_SPEED, _activeChar.getTemplate().getBaseMAtkSpd() * bonusSpdAtk, null, null);
 		val /= _activeChar.getArmourExpertisePenalty();
-		if (val > Config.MAX_MATK_SPEED && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
+		if ((val > Config.MAX_MATK_SPEED) || (Config.MAX_PATK_SPEED == 0) && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
 			return Config.MAX_MATK_SPEED;
 		return val;
 	}
@@ -553,7 +553,7 @@ public class CharStat
 
 		int val = (int) (calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().getBasePAtkSpd() * bonusSpdAtk, null, null)
 				/ _activeChar.getArmourExpertisePenalty());
-		if (val > Config.MAX_PATK_SPEED && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
+		if ((val > Config.MAX_PATK_SPEED) || (Config.MAX_PATK_SPEED == 0) && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
 			return Config.MAX_PATK_SPEED;
 		return val;
 	}
