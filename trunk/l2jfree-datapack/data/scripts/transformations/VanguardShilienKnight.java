@@ -4,6 +4,7 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Transformation;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class VanguardShilienKnight extends L2Transformation
 {
@@ -13,10 +14,10 @@ public class VanguardShilienKnight extends L2Transformation
 		super(315, Integer.MAX_VALUE, 11.0, 25.0);
 	}
 
-	public void onTransform()
+	public void onTransform(L2PcInstance player)
 	{
 		// Disable all character skills.
-		for (L2Skill sk : this.getPlayer().getAllSkills())
+		for (L2Skill sk : player.getAllSkills())
 		{
 			if (sk != null && !sk.isPassive())
 			{
@@ -44,54 +45,54 @@ public class VanguardShilienKnight extends L2Transformation
 					}
 					default:
 					{
-						this.getPlayer().removeSkill(sk, false, false);
+						player.removeSkill(sk, false);
 						break;
 					}
 				}
 			}
 
 		}
-		if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
+		if (player.transformId() > 0 && !player.isCursedWeaponEquipped())
 		{
 			// give transformation skills
-			transformedSkills();
+			transformedSkills(player);
 			return;
 		}
 		// give transformation skills
-		transformedSkills();
+		transformedSkills(player);
 	}
 
-	public void transformedSkills()
+	public void transformedSkills(L2PcInstance player)
 	{
-		if (this.getPlayer().getLevel() > 43)
+		if (player.getLevel() > 43)
 		{
 			// Double Strike
-			this.getPlayer().addSkill(SkillTable.getInstance().getInfo(817, this.getPlayer().getLevel() - 43), false);
+			player.addSkill(SkillTable.getInstance().getInfo(817, player.getLevel() - 43), false);
 			// Blade Hurricane
-			this.getPlayer().addSkill(SkillTable.getInstance().getInfo(815, this.getPlayer().getLevel() - 43), false);
+			player.addSkill(SkillTable.getInstance().getInfo(815, player.getLevel() - 43), false);
 			// Switch Stance
-			this.getPlayer().addSkill(SkillTable.getInstance().getInfo(838, 1), false);
+			player.addSkill(SkillTable.getInstance().getInfo(838, 1), false);
 			// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-			this.getPlayer().sendSkillList();
+			player.sendSkillList();
 		}
 	}
 
-	public void onUntransform()
+	public void onUntransform(L2PcInstance player)
 	{
 		// remove transformation skills
-		removeSkills();
+		removeSkills(player);
 	}
 
-	public void removeSkills()
+	public void removeSkills(L2PcInstance player)
 	{
 		// Double Strike
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(817, this.getPlayer().getLevel() - 43), false);
+		player.removeSkill(SkillTable.getInstance().getInfo(817, player.getLevel() - 43), false);
 		// Blade Hurricane
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(815, this.getPlayer().getLevel() - 43), false);
+		player.removeSkill(SkillTable.getInstance().getInfo(815, player.getLevel() - 43), false);
 		// Switch Stance
-		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(838, 1), false);
+		player.removeSkill(SkillTable.getInstance().getInfo(838, 1), false);
 		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
-		this.getPlayer().sendSkillList();
+		player.sendSkillList();
 	}
 
 	public static void main(String[] args)
