@@ -312,7 +312,12 @@ public class Pdam implements ISkillHandler
 		}
 
 		if (skill.isSuicideAttack())
-			activeChar.doDie(activeChar);
+		{
+			if (targets.length > 0 && targets[0] instanceof L2Character)
+				activeChar.doDie((L2Character) targets[0]);
+			else
+				activeChar.doDie(null);
+		}
 	}
 
 	public SkillType[] getSkillIds()

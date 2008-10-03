@@ -1455,7 +1455,11 @@ public class GeoEngine implements GeoInterface
 	{
 		byte[] block = getGeoBlockFromGeoCoords(geox, geoy);
 		if (block == null)
-			return (short) zmin;
+		{
+			if (zmin == zmax)
+				return (short) zmin;
+			return (short) ((zmin + zmax) / 2);
+		}
 
 		int index = 0;
 		int cellX, cellY;

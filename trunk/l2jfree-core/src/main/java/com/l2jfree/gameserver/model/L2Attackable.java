@@ -1542,6 +1542,9 @@ public class L2Attackable extends L2NpcInstance
 	 */
 	public void doItemDrop(L2NpcTemplate npcTemplate, L2Character lastAttacker)
 	{
+		if (lastAttacker == null)
+			return;
+
 		L2PcInstance player = lastAttacker.getActingPlayer();
 
 		if (player == null)

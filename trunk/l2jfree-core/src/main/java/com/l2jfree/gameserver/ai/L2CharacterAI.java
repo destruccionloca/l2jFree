@@ -709,7 +709,6 @@ public class L2CharacterAI extends AbstractAI
 	@Override
 	protected void onEvtArrived()
 	{
-		// Launch an explore task if necessary
 		_accessor.getActor().revalidateZone(true);
 
 		if (_accessor.getActor().moveToNextRoutePoint())

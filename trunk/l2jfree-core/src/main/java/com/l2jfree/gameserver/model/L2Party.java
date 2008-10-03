@@ -216,7 +216,10 @@ public class L2Party
 	public void broadcastToPartyMembers(L2GameServerPacket msg) 
 	{
 		for(L2PcInstance member : getPartyMembers())
-			member.sendPacket(msg);
+		{
+			if (member != null)
+				member.sendPacket(msg);
+		}
 	}
 
 	public void broadcastCSToPartyMembers(CreatureSay msg, L2PcInstance broadcaster)

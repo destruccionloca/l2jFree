@@ -7363,7 +7363,15 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public L2Skill removeSkill(L2Skill skill, boolean store)
 	{
-		return (store) ? removeSkill(skill) : super.removeSkill(skill);
+		return (store) ? removeSkill(skill) : super.removeSkill(skill, true);
+	}
+
+	public L2Skill removeSkill(L2Skill skill, boolean store, boolean cancelEffect)
+	{
+		if (store)
+			return removeSkill(skill);
+		else
+			return super.removeSkill(skill, cancelEffect);
 	}
 
 	/**
@@ -10743,59 +10751,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 	}
 
-	@Override
-	public final boolean updatePosition(int gameTicks)
-	{
-		// Disables custom movement for L2PCInstance when Old Synchronization is selected
-		if (Config.COORD_SYNCHRONIZE == -1)
-			return super.updatePosition(gameTicks);
-
-		// Get movement data
-		MoveData m = _move;
-
-		if (_move == null)
-			return true;
-
-		if (!isVisible())
-		{
-			_move = null;
-			return true;
-		}
-
-		// Check if the position has alreday be calculated
-		if (m._moveTimestamp == 0)
-			m._moveTimestamp = m._moveStartTime;
-
-		// Check if the position has alreday be calculated
-		if (m._moveTimestamp == gameTicks)
-			return false;
-
-		double dx = m._xDestination - getX();
-		double dy = m._yDestination - getY();
-		double dz = m._zDestination - getZ();
-		int distPassed = (int) getStat().getMoveSpeed() * (gameTicks - m._moveTimestamp) / GameTimeController.TICKS_PER_SECOND;
-		double distFraction = (distPassed) / Math.sqrt(dx * dx + dy * dy + dz * dz);
-		//	  if (Config.DEVELOPER) _log.debugr("Move Ticks:" + (gameTicks - m._moveTimestamp) + ", distPassed:" + distPassed + ", distFraction:" + distFraction);
-
-		if (distFraction > 1)
-		{
-			// Set the position of the L2Character to the destination
-			super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
-		}
-		else
-		{
-			// Set the position of the L2Character to estimated after parcial move
-			super.getPosition().setXYZ(getX() + (int) (dx * distFraction + 0.5), getY() + (int) (dy * distFraction + 0.5), getZ() + (int) (dz * distFraction));
-		}
-
-		// Set the timer of last position update to now
-		m._moveTimestamp = gameTicks;
-
-		revalidateZone(false);
-
-		return (distFraction > 1);
-	}
-
 	public void setLastPartyPosition(int x, int y, int z)
 	{
 		_lastPartyPosition.setXYZ(x,y,z);
@@ -10813,6 +10768,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setLastServerPosition(int x, int y, int z)
 	{
 		_lastServerPosition.setXYZ(x, y, z);
+	}
+
+	public Point3D getLastServerPosition()
+	{
+		return _lastServerPosition;
 	}
 
 	public boolean checkLastServerPosition(int x, int y, int z)

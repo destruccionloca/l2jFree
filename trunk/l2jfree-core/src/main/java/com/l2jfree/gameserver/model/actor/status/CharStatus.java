@@ -416,12 +416,14 @@ public class CharStatus
 	 */
 	public final void setCurrentCp(double newCp, boolean broadcastPacket)
 	{
+		// Get the Max CP of the L2Character
+		int maxCp = getActiveChar().getStat().getMaxCp();
+
 		synchronized (this)
 		{
 			if (getActiveChar().isDead())
 				return;
-			// Get the Max CP of the L2Character
-			int maxCp = getActiveChar().getStat().getMaxCp();
+
 
 			if (newCp < 0)
 				newCp = 0;
@@ -477,10 +479,9 @@ public class CharStatus
 	public final void setCurrentHp(double newHp, boolean broadcastPacket)
 	{
 		// Get the Max HP of the L2Character
-		double maxHp;
+		double maxHp = getActiveChar().getStat().getMaxHp();;
 		synchronized (this)
 		{
-			maxHp = getActiveChar().getStat().getMaxHp();
 			if (getActiveChar().isDead())
 				return;
 			if (newHp >= maxHp)
@@ -555,12 +556,12 @@ public class CharStatus
 	 */
 	public final void setCurrentMp(double newMp, boolean broadcastPacket)
 	{
+		// Get the Max MP of the L2Character
+		int maxMp = getActiveChar().getStat().getMaxMp();
 		synchronized (this)
 		{
 			if (getActiveChar().isDead())
 				return;
-			// Get the Max MP of the L2Character
-			int maxMp = getActiveChar().getStat().getMaxMp();
 
 			if (newMp >= maxMp)
 			{

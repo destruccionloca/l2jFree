@@ -69,6 +69,8 @@ public class CharacterCreate extends L2GameClientPacket
 	private byte _hairColor;
 	private byte _face;
 	
+	private static Object _lock = new Object();
+	
 	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 	
 	/**
@@ -96,58 +98,62 @@ public class CharacterCreate extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (CharNameTable.getInstance().accountCharNumber(getClient().getAccountName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
+		// Only 1 character creation at the same time to prevent multiple names
+		synchronized (_lock)
 		{
-			if (_log.isDebugEnabled())
-				_log.debug("Max number of characters reached. Creation failed.");
-			CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_TOO_MANY_CHARACTERS);
-			sendPacket(ccf);
-			return;
-		}
-		else if (CharNameTable.getInstance().doesCharNameExist(_name))
-		{
-			if (_log.isDebugEnabled())
-				_log.debug("charname: "+ _name + " already exists. creation failed.");
-			CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_NAME_ALREADY_EXISTS);
-			sendPacket(ccf);
-			return;
-		}
-		else if (!Config.CNAME_PATTERN.matcher(_name).matches())
-		{
-			if (_log.isDebugEnabled()) 
-				_log.debug("charname: " + _name + " is invalid. creation failed.");
-			CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_16_ENG_CHARS);
-			sendPacket(ccf);
-			return;
-		}
+			if (CharNameTable.getInstance().accountCharNumber(getClient().getAccountName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
+			{
+				if (_log.isDebugEnabled())
+					_log.debug("Max number of characters reached. Creation failed.");
+				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_TOO_MANY_CHARACTERS);
+				sendPacket(ccf);
+				return;
+			}
+			else if (CharNameTable.getInstance().doesCharNameExist(_name))
+			{
+				if (_log.isDebugEnabled())
+					_log.debug("charname: "+ _name + " already exists. creation failed.");
+				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_NAME_ALREADY_EXISTS);
+				sendPacket(ccf);
+				return;
+			}
+			else if (!Config.CNAME_PATTERN.matcher(_name).matches())
+			{
+				if (_log.isDebugEnabled()) 
+					_log.debug("charname: " + _name + " is invalid. creation failed.");
+				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_16_ENG_CHARS);
+				sendPacket(ccf);
+				return;
+			}
 
-		if (_log.isDebugEnabled())
-			_log.debug("charname: " + _name + " classId: " + _classId);
-		
-		L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(_classId);
-		if(template == null || template.getClassBaseLevel() > 1) 
-		{
-			CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_CREATION_FAILED);
-			sendPacket(ccf);
-			return;
-		}
-		
-		int objectId = IdFactory.getInstance().getNextId();
-		L2PcInstance newChar = L2PcInstance.create(objectId, template, getClient().getAccountName(),_name, _hairStyle, _hairColor, _face, _sex!=0);
-		newChar.getStatus().setCurrentHp(template.getBaseHpMax());
-		newChar.getStatus().setCurrentCp(template.getBaseCpMax());
-		newChar.getStatus().setCurrentMp(template.getBaseMpMax());
-		//newChar.setMaxLoad(template.baseLoad);
-		
-		// send acknowledgement
-		CharCreateOk cco = new CharCreateOk();
-		sendPacket(cco);
+			if (_log.isDebugEnabled())
+				_log.debug("charname: " + _name + " classId: " + _classId);
+			
+			L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(_classId);
+			if(template == null || template.getClassBaseLevel() > 1) 
+			{
+				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_CREATION_FAILED);
+				sendPacket(ccf);
+				return;
+			}
+			
+			int objectId = IdFactory.getInstance().getNextId();
+			L2PcInstance newChar = L2PcInstance.create(objectId, template, getClient().getAccountName(),_name, _hairStyle, _hairColor, _face, _sex!=0);
+			newChar.getStatus().setCurrentHp(template.getBaseHpMax());
+			newChar.getStatus().setCurrentCp(template.getBaseCpMax());
+			newChar.getStatus().setCurrentMp(template.getBaseMpMax());
+			//newChar.setMaxLoad(template.baseLoad);
+			
+			// send acknowledgement
+			CharCreateOk cco = new CharCreateOk();
+			sendPacket(cco);
 
-		initNewChar(getClient(), newChar);
+			initNewChar(getClient(), newChar);
+		}
 	}
 	
 	private void initNewChar(L2GameClient client, L2PcInstance newChar)
-	{   
+	{
 		if (_log.isDebugEnabled()) _log.debug("Character init start");
 		L2World.getInstance().storeObject(newChar);
 		
