@@ -1,6 +1,5 @@
 package transformations;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Transformation;
@@ -10,8 +9,8 @@ public class VanguardDarkAvenger extends L2Transformation
 {
 	public VanguardDarkAvenger()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(313, Integer.MAX_VALUE, 8.0, 23.0);
+		// id, colRadius, colHeight
+		super(313, 8.0, 23.0);
 	}
 
 	public void onTransform(L2PcInstance player)
@@ -62,12 +61,13 @@ public class VanguardDarkAvenger extends L2Transformation
 	{
 		if (player.getLevel() > 43)
 		{
+			int level = player.getLevel() - 43;
 			// Double Strike
-			player.addSkill(SkillTable.getInstance().getInfo(817, player.getLevel() - 43), false);
+			addSkill(player, 817, level);
 			// Blade Hurricane
-			player.addSkill(SkillTable.getInstance().getInfo(815, player.getLevel() - 43), false);
+			addSkill(player, 815, level);
 			// Switch Stance
-			player.addSkill(SkillTable.getInstance().getInfo(838, 1), false);
+			addSkill(player, 838, 1);
 			// Send a Server->Client packet StatusUpdate to the L2PcInstance.
 			player.sendSkillList();
 		}
@@ -82,11 +82,11 @@ public class VanguardDarkAvenger extends L2Transformation
 	public void removeSkills(L2PcInstance player)
 	{
 		// Double Strike
-		player.removeSkill(SkillTable.getInstance().getInfo(817, player.getLevel() - 43), false);
+		removeSkill(player, 817);
 		// Blade Hurricane
-		player.removeSkill(SkillTable.getInstance().getInfo(815, player.getLevel() - 43), false);
+		removeSkill(player, 815);
 		// Switch Stance
-		player.removeSkill(SkillTable.getInstance().getInfo(838, 1), false);
+		removeSkill(player, 838);
 		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
 		player.sendSkillList();
 	}

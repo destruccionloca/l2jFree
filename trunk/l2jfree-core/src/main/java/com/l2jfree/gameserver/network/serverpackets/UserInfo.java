@@ -375,7 +375,7 @@ public class UserInfo extends L2GameServerPacket
 		else
 			writeD(0x00);
 
-		writeD(_activeChar.getTranformationId());
+		writeD(_activeChar.getTransformationId());
 
 		int attackAttribute = _activeChar.getAttackElement();
 		writeD(attackAttribute);

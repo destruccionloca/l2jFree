@@ -2230,7 +2230,7 @@ public abstract class L2Character extends L2Object
 				if (pl.getCharmOfLuck()) // remove Lucky Charm if player have Nobless blessing buff
 					pl.stopCharmOfLuck(null);
 
-				// Delete tranformation effects, even if you have noblesse blessing
+				// Delete transformation effects, even if you have noblesse blessing
 				L2Effect[] effects = getAllEffects();
 				for (L2Effect e : effects)
 				{

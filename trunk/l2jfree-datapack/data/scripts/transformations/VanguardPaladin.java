@@ -1,6 +1,5 @@
 package transformations;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Transformation;
@@ -10,8 +9,8 @@ public class VanguardPaladin extends L2Transformation
 {
 	public VanguardPaladin()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(312, Integer.MAX_VALUE, 8.0, 23.0);
+		// id, colRadius, colHeight
+		super(312, 8.0, 23.0);
 	}
 
 	public void onTransform(L2PcInstance player)
@@ -62,12 +61,13 @@ public class VanguardPaladin extends L2Transformation
 	{
 		if (player.getLevel() > 43)
 		{
+			int level = player.getLevel() - 43;
 			// Power Divide
-			player.addSkill(SkillTable.getInstance().getInfo(816, player.getLevel() - 43), false);
+			addSkill(player, 816, level);
 			// Full Swing
-			player.addSkill(SkillTable.getInstance().getInfo(814, player.getLevel() - 43), false);
+			addSkill(player, 814, level);
 			// Switch Stance
-			player.addSkill(SkillTable.getInstance().getInfo(838, 1), false);
+			addSkill(player, 838, 1);
 			// Send a Server->Client packet StatusUpdate to the L2PcInstance.
 			player.sendSkillList();
 		}
@@ -82,11 +82,11 @@ public class VanguardPaladin extends L2Transformation
 	public void removeSkills(L2PcInstance player)
 	{
 		// Power Divide
-		player.removeSkill(SkillTable.getInstance().getInfo(816, player.getLevel() - 43), false);
+		removeSkill(player, 816);
 		// Full Swing
-		player.removeSkill(SkillTable.getInstance().getInfo(814, player.getLevel() - 43), false);
+		removeSkill(player, 814);
 		// Switch Stance
-		player.removeSkill(SkillTable.getInstance().getInfo(838, 1), false);
+		removeSkill(player, 838);
 		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
 		player.sendSkillList();
 	}

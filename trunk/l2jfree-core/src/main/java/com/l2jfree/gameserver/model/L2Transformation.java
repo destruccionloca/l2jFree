@@ -17,12 +17,17 @@ package com.l2jfree.gameserver.model;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  *
  * @author  KenM
  */
 public abstract class L2Transformation
 {
+    protected final static Log _log = LogFactory.getLog(L2Transformation.class.getName());
+
     private final int _id;
     private final int _graphicalId;
     private final double _collisionRadius;
@@ -98,11 +103,15 @@ public abstract class L2Transformation
 
     public void addSkill(L2PcInstance player, int skillId, int skillLevel)
     {
-        player.addSkill(SkillTable.getInstance().getInfo(skillId, skillLevel), false);
+        L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
+        if (skill == null)
+            _log.warn("Transformed skill "+skillId+" "+skillLevel+" not found!");
+        else
+            player.addSkill(skill, false);
     }
 
     public void removeSkill(L2PcInstance player, int skillId)
     {
-        player.removeSkill(SkillTable.getInstance().getInfo(skillId, 1), false);
+        player.removeSkill(skillId);
     }
 }

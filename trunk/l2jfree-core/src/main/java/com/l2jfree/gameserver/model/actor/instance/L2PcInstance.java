@@ -12686,7 +12686,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * the transform Id returned will be that of the Zariche, and NOT the Buffalo.
 	 * @return Transformation Id
 	 */
-	public int getTranformationId()
+	public int getTransformationId()
 	{
 		L2Transformation transformation = this.getTransformation();
 		if (transformation == null)
@@ -12711,10 +12711,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void transformInsertInfo()
 	{
 
-		if (getTranformationId() == L2Transformation.TRANSFORM_AKAMANAH || getTranformationId() == L2Transformation.TRANSFORM_ZARICHE)
+		if (getTransformationId() == L2Transformation.TRANSFORM_AKAMANAH || getTransformationId() == L2Transformation.TRANSFORM_ZARICHE)
 			return;
 
-		_transformationId = getTranformationId();
+		_transformationId = getTransformationId();
 
 		Connection con = null;
 		try

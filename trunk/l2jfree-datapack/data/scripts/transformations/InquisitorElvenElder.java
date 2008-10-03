@@ -11,8 +11,8 @@ public class InquisitorElvenElder extends L2Transformation
 {
 	public InquisitorElvenElder()
 	{
-		// id, duration (secs), colRadius, colHeight
-		super(317, Integer.MAX_VALUE, 7.0, 24.0);
+		// id, colRadius, colHeight
+		super(317, 7.0, 24.0);
 	}
 
 	public void onTransform(L2PcInstance player)
@@ -59,16 +59,17 @@ public class InquisitorElvenElder extends L2Transformation
 	{
 		if (player.getLevel() > 43)
 		{
+			int level = player.getLevel() - 43;
 			// Divine Punishment
-			player.addSkill(SkillTable.getInstance().getInfo(1523, player.getLevel() - 43), false);
+			addSkill(player, 1523, level);
 			// Divine Flash
-			player.addSkill(SkillTable.getInstance().getInfo(1528, player.getLevel() - 43), false);
+			addSkill(player, 1528, level);
 			// Surrender to the Holy
-			player.addSkill(SkillTable.getInstance().getInfo(1524, player.getLevel() - 43), false);
+			addSkill(player, 1524, level);
 			// Divine Curse
-			player.addSkill(SkillTable.getInstance().getInfo(1525, player.getLevel() - 43), false);
+			addSkill(player, 1525, level);
 			// Switch Stance
-			player.addSkill(SkillTable.getInstance().getInfo(838, 1), false);
+			addSkill(player, 838, 1);
 			// Send a Server->Client packet StatusUpdate to the L2PcInstance.
 			player.sendSkillList();
 		}
@@ -83,15 +84,15 @@ public class InquisitorElvenElder extends L2Transformation
 	public void removeSkills(L2PcInstance player)
 	{
 		// Divine Punishment
-		player.removeSkill(SkillTable.getInstance().getInfo(1523, player.getLevel() - 43), false);
+		removeSkill(player, 1523);
 		// Divine Flash
-		player.removeSkill(SkillTable.getInstance().getInfo(1528, player.getLevel() - 43), false);
+		removeSkill(player, 1528);
 		// Surrender to the Holy
-		player.removeSkill(SkillTable.getInstance().getInfo(1524, player.getLevel() - 43), false);
+		removeSkill(player, 1524);
 		// Divine Curse
-		player.removeSkill(SkillTable.getInstance().getInfo(1525, player.getLevel() - 43), false);
+		removeSkill(player, 1525);
 		// Switch Stance
-		player.removeSkill(SkillTable.getInstance().getInfo(838, 1), false);
+		removeSkill(player, 838);
 		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
 		player.sendSkillList();
 	}

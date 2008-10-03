@@ -194,7 +194,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				return false;
 			
 			//if player is disguised beleth faction ignores him
-			if (me.getFactionId() == "beleth" && player.isTransformed() && player.getTranformationId()==101)
+			if (me.getFactionId() == "beleth" && player.isTransformed() && player.getTransformationId() == 101)
 				return false;
 			
 			//event playere are also ignored
