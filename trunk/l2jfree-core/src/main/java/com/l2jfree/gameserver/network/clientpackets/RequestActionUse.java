@@ -22,7 +22,6 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2SummonAI;
-import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ManufactureList;
@@ -40,7 +39,6 @@ import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.ChairSit;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopManageList;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
@@ -101,15 +99,12 @@ public class RequestActionUse extends L2GameClientPacket
 			if (activeChar.getMountType() != 0)
 				break;
 
-			if (target != null && !activeChar.isSitting() && target instanceof L2StaticObjectInstance && ((L2StaticObjectInstance) target).getType() == 1
-					&& activeChar.isInsideRadius(target, L2StaticObjectInstance.INTERACTION_DISTANCE, false, false)
-					&& CastleManager.getInstance().getCastle(target) != null && !((L2StaticObjectInstance) target).isBusy())
-			{
-				((L2StaticObjectInstance) target).setBusyStatus(true);
-				activeChar.setObjectSittingOn((L2StaticObjectInstance) target);
-				ChairSit cs = new ChairSit(activeChar, ((L2StaticObjectInstance) target).getStaticObjectId());
-				activeChar.sitDown();
-				activeChar.broadcastPacket(cs);
+			if (target != null &&
+					target instanceof L2StaticObjectInstance &&
+					!activeChar.isSitting()) {
+				if (!((L2StaticObjectInstance) target).useThrone(activeChar))
+					activeChar.sendMessage("Sitting on throne has failed.");
+				
 				break;
 			}
 
@@ -118,7 +113,7 @@ public class RequestActionUse extends L2GameClientPacket
 				activeChar.standUp(false); // false - No forced standup but user requested - Checks if animation already running.
 				if (activeChar.getObjectSittingOn() != null)
 				{
-					activeChar.getObjectSittingOn().setBusyStatus(false);
+					activeChar.getObjectSittingOn().setBusyStatus(null);
 					activeChar.setObjectSittingOn(null);
 				}
 			}

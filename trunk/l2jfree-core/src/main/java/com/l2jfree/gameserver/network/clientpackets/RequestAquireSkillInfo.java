@@ -106,7 +106,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
                 int requiredSp = 0;
                 AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredSp,0);
 
-                if (Config.SP_BOOK_NEEDED)
+                if (Config.ALT_SP_BOOK_NEEDED)
                 {
                     asi.addRequirement(99, itemId, 1, 50);
                 }
@@ -134,7 +134,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
             int requiredSp = SkillTreeTable.getInstance().getSkillCost(activeChar, skill);
             AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredSp,0);
             
-            if (Config.SP_BOOK_NEEDED)
+            if (Config.ALT_SP_BOOK_NEEDED)
             {
                 int spbId = -1;
                 if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION)
@@ -171,7 +171,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
             
             AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredRep,2);
             
-            if (Config.LIFE_CRYSTAL_NEEDED)
+            if (Config.ALT_LIFE_CRYSTAL_NEEDED)
             {
                 asi.addRequirement(1, itemId, 1, 0);
             }

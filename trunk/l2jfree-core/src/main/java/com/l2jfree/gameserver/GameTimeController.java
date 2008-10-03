@@ -204,11 +204,11 @@ public final class GameTimeController extends Thread
 			if (!DoorTable.isInitialized())
 				return;
 			
-			if (getGameTime() / 60 % 24 == Config.TIME_IN_A_DAY_OF_OPEN_A_DOOR)
+			if (getGameTime() / 60 % 24 == Config.ALT_TIME_IN_A_DAY_OF_OPEN_A_DOOR)
 			{
 				DoorTable.getInstance().getDoor(21240006).openMe();
 				ThreadPoolManager.getInstance().schedule(new ClosePiratesRoom(),
-					Config.TIME_OF_OPENING_A_DOOR * 60 * 1000);
+					Config.ALT_TIME_OF_OPENING_A_DOOR * 60 * 1000);
 			}
 		}
 	}

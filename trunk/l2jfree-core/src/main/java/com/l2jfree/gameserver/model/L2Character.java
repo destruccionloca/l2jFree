@@ -3219,7 +3219,7 @@ public abstract class L2Character extends L2Object
 		// [L2J_JP ADD START]
 		setIsFallsdown(true);
 
-		if (Config.FAIL_FAKEDEATH)
+		if (Config.ALT_FAIL_FAKEDEATH)
 		{
 			// It fails in Fake Death at the probability
 			setIsFakeDeath(true);
@@ -7346,7 +7346,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public int getMaxBuffCount()
 	{
-		return Config.BUFFS_MAX_AMOUNT + Math.max(0, getSkillLevel(L2Skill.SKILL_DIVINE_INSPIRATION));
+		return Config.ALT_BUFFS_MAX_AMOUNT + Math.max(0, getSkillLevel(L2Skill.SKILL_DIVINE_INSPIRATION));
 	}
 
 	/**

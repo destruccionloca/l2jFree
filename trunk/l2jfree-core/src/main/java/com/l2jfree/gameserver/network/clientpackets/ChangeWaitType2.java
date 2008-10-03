@@ -14,12 +14,10 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.ChairSit;
 
 /**
  * This class ...
@@ -65,27 +63,21 @@ public class ChangeWaitType2 extends L2GameClientPacket
 			
 			if (player.getMountType() != 0) //prevent sit/stand if you riding
 				return;
-			if (target != null 
-					&& !player.isSitting()
-					&& target instanceof L2StaticObjectInstance
-					&& ((L2StaticObjectInstance)target).getType() == 1
-					&& player.isInsideRadius(target, L2StaticObjectInstance.INTERACTION_DISTANCE, false, false)
-					&& CastleManager.getInstance().getCastle(target) != null
-					&& !((L2StaticObjectInstance)target).isBusy()
-			)
-			{
-				((L2StaticObjectInstance)target).setBusyStatus(true);
-				player.setObjectSittingOn((L2StaticObjectInstance)target);
-				ChairSit cs = new ChairSit(player,((L2StaticObjectInstance)target).getStaticObjectId());
-				player.sitDown(true);
-				player.broadcastPacket(cs);
+
+			if (target != null &&
+					target instanceof L2StaticObjectInstance &&
+					!player.isSitting()) {
+				if (!((L2StaticObjectInstance) target).useThrone(player))
+					player.sendMessage("Sitting on throne has failed.");
+				
 				return;
 			}
+
 			if (_typeStand)
 			{
 				if(player.getObjectSittingOn() != null)
 				{
-					player.getObjectSittingOn().setBusyStatus(false);
+					player.getObjectSittingOn().setBusyStatus(null);
 					player.setObjectSittingOn(null);
 				}
 				player.standUp(false); // false - No forced standup but user requested - Checks if animation already running.

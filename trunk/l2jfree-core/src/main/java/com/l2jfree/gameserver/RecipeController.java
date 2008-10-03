@@ -532,7 +532,7 @@ public class RecipeController
 
 		public void run()
 		{
-			if (!Config.IS_CRAFTING_ENABLED)
+			if (!Config.ALT_IS_CRAFTING_ENABLED)
 			{
 				_target.sendMessage("Item creation is currently disabled.");
 				abort();

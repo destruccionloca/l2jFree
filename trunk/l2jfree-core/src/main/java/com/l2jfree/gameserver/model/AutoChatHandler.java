@@ -179,7 +179,7 @@ public class AutoChatHandler implements SpawnListener
     {
         AutoChatInstance chatInst = null;
 
-        if (chatDelay < 0) chatDelay = Config.AUTOCHAT_DELAY;
+        if (chatDelay < 0) chatDelay = Config.ALT_AUTOCHAT_DELAY;
         if (chatRange < 0) chatRange = DEFAULT_CHAT_RANGE;
 
         if (_registeredChats.containsKey(npcId))
@@ -305,7 +305,7 @@ public class AutoChatHandler implements SpawnListener
     public class AutoChatInstance
     {
         protected int _npcId;
-        private long _defaultDelay = Config.AUTOCHAT_DELAY;
+        private long _defaultDelay = Config.ALT_AUTOCHAT_DELAY;
         private int _defaultRange = DEFAULT_CHAT_RANGE;
         private String[] _defaultTexts;
         private boolean _defaultRandom;
@@ -320,7 +320,7 @@ public class AutoChatHandler implements SpawnListener
         {
             _defaultTexts = chatTexts;
             _npcId = npcId;
-            _defaultDelay = (chatDelay<=0 ? Config.AUTOCHAT_DELAY : chatDelay);
+            _defaultDelay = (chatDelay<=0 ? Config.ALT_AUTOCHAT_DELAY : chatDelay);
             _defaultRange = chatRange;
             _defaultRandom = chatRandom;
             _globalChat = isGlobal;
@@ -614,7 +614,7 @@ public class AutoChatHandler implements SpawnListener
 
             protected AutoChatInstance _chatInstance;
 
-            private long _chatDelay = Config.AUTOCHAT_DELAY;
+            private long _chatDelay = Config.ALT_AUTOCHAT_DELAY;
             private int _chatRange = DEFAULT_CHAT_RANGE;
             private String[] _chatTexts = null;
             private boolean _isActiveDefinition;
@@ -628,7 +628,7 @@ public class AutoChatHandler implements SpawnListener
                 _chatInstance = chatInst;
                 _randomChat = chatInst.isDefaultRandom();
 
-                _chatDelay = (chatDelay<=0 ? Config.AUTOCHAT_DELAY : chatDelay );
+                _chatDelay = (chatDelay<=0 ? Config.ALT_AUTOCHAT_DELAY : chatDelay );
                 _chatRange = chatInst.getDefaultRange();
                 _chatTexts = chatTexts;
 

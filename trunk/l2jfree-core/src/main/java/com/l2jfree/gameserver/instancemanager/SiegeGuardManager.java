@@ -145,7 +145,7 @@ public class SiegeGuardManager
 			int hiredCount = 0;
 			int hiredMax = MercTicketManager.getInstance().getMaxAllowedMerc(_castle.getCastleId());
 			boolean isHired = (getCastle().getOwnerId() > 0) ? true : false;
-			if (Config.SPAWN_SIEGE_GUARD)
+			if (Config.ALT_SPAWN_SIEGE_GUARD)
 			{
 				loadSiegeGuard();
 				for (L2Spawn spawn : getSiegeGuardSpawn())

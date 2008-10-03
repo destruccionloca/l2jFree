@@ -185,7 +185,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 
                 if (player.getSp() >= _requiredSp)
                 {
-                    if (Config.SP_BOOK_NEEDED)
+                    if (Config.ALT_SP_BOOK_NEEDED)
                     {
                         int spbId = -1;
                         if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION)
@@ -305,7 +305,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 
                 if (player.getClan().getReputationScore() >= repCost)
                 {
-                    if (Config.LIFE_CRYSTAL_NEEDED)
+                    if (Config.ALT_LIFE_CRYSTAL_NEEDED)
                     {
                         if (!player.destroyItemByItemId("Consume", itemId, 1, trainer, false))
                         {

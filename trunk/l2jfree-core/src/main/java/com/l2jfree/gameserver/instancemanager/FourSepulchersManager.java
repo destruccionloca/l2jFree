@@ -233,9 +233,9 @@ public class FourSepulchersManager extends BossLair
 			tmp.set(Calendar.HOUR, Calendar.getInstance().get(Calendar.HOUR) - 1);
 		tmp.set(Calendar.MINUTE, _newCycleMin);
 		_coolDownTimeEnd = tmp.getTimeInMillis();
-		_entryTimeEnd = _coolDownTimeEnd + Config.FS_TIME_ENTRY * 60000;
-		_warmUpTimeEnd = _entryTimeEnd + Config.FS_TIME_WARMUP * 60000;
-		_attackTimeEnd = _warmUpTimeEnd + Config.FS_TIME_ATTACK * 60000;
+		_entryTimeEnd = _coolDownTimeEnd + Config.ALT_FS_TIME_ENTRY * 60000;
+		_warmUpTimeEnd = _entryTimeEnd + Config.ALT_FS_TIME_WARMUP * 60000;
+		_attackTimeEnd = _warmUpTimeEnd + Config.ALT_FS_TIME_ATTACK * 60000;
 	}
 
 	protected void cleanUp()
@@ -864,9 +864,9 @@ public class FourSepulchersManager extends BossLair
 			return;
 		}
 
-		if (Config.FS_PARTY_MEMBER_COUNT > 1)
+		if (Config.ALT_FS_PARTY_MEMBER_COUNT > 1)
 		{
-			if (!player.isInParty() || player.getParty().getMemberCount() < Config.FS_PARTY_MEMBER_COUNT)
+			if (!player.isInParty() || player.getParty().getMemberCount() < Config.ALT_FS_PARTY_MEMBER_COUNT)
 			{
 				showHtmlFile(player, npcId + "-SP.htm", npc, null);
 				return;
@@ -964,7 +964,7 @@ public class FourSepulchersManager extends BossLair
 		int driftx;
 		int drifty;
 
-		if (Config.FS_PARTY_MEMBER_COUNT > 1)
+		if (Config.ALT_FS_PARTY_MEMBER_COUNT > 1)
 		{
 			List<L2PcInstance> members = new FastList<L2PcInstance>();
 			for (L2PcInstance mem : player.getParty().getPartyMembers())
@@ -1503,13 +1503,13 @@ public class FourSepulchersManager extends BossLair
 			{
 				Calendar tmp = Calendar.getInstance();
 				tmp.setTimeInMillis(Calendar.getInstance().getTimeInMillis() - _warmUpTimeEnd);
-				if(tmp.get(Calendar.MINUTE) + 5 < Config.FS_TIME_ATTACK)
+				if(tmp.get(Calendar.MINUTE) + 5 < Config.ALT_FS_TIME_ATTACK)
 				{
 					managerSay((byte) tmp.get(Calendar.MINUTE)); //byte because minute cannot be more than 59
 					ThreadPoolManager.getInstance().scheduleGeneral(new ManagerSay(), 5 * 60000);
 				}
 				// attack time ending chat
-				else if(tmp.get(Calendar.MINUTE) + 5 >= Config.FS_TIME_ATTACK)
+				else if(tmp.get(Calendar.MINUTE) + 5 >= Config.ALT_FS_TIME_ATTACK)
 				{
 					managerSay((byte) 90); //sending a unique id :D
 				}
@@ -1538,7 +1538,7 @@ public class FourSepulchersManager extends BossLair
 			if (_firstTimeRun)
 				interval = _entryTimeEnd - Calendar.getInstance().getTimeInMillis();
 			else
-				interval = Config.FS_TIME_ENTRY * 60000; // else use stupid method
+				interval = Config.ALT_FS_TIME_ENTRY * 60000; // else use stupid method
 			// launching saying process...
 			ThreadPoolManager.getInstance().executeTask(new ManagerSay());
 			_changeWarmUpTimeTask = ThreadPoolManager.getInstance().scheduleEffect(new ChangeWarmUpTime(), interval);
@@ -1567,7 +1567,7 @@ public class FourSepulchersManager extends BossLair
 			if (_firstTimeRun) 
 				interval = _warmUpTimeEnd - Calendar.getInstance().getTimeInMillis();
 			else
-				interval = Config.FS_TIME_WARMUP * 60000;
+				interval = Config.ALT_FS_TIME_WARMUP * 60000;
 			_changeAttackTimeTask =
 				ThreadPoolManager.getInstance().scheduleGeneral(new ChangeAttackTime(),interval);
 
@@ -1624,7 +1624,7 @@ public class FourSepulchersManager extends BossLair
 			if (_firstTimeRun)
 				interval = _attackTimeEnd - Calendar.getInstance().getTimeInMillis();
 			else
-				interval = Config.FS_TIME_ATTACK * 60000;
+				interval = Config.ALT_FS_TIME_ATTACK * 60000;
 			_changeCoolDownTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ChangeCoolDownTime(), interval);
 
 			if (_changeAttackTimeTask != null)

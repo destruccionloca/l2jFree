@@ -702,7 +702,7 @@ public class ValakasManager extends BossLair
 			_respawnValakasTask.cancel(true);
 			_respawnValakasTask = null;
 		}
-		_respawnValakasTask = ThreadPoolManager.getInstance().scheduleGeneral(new RestartValakas(valakas), Config.TIMELIMITOFINVADE + 1000);
+		_respawnValakasTask = ThreadPoolManager.getInstance().scheduleGeneral(new RestartValakas(valakas), Config.ALT_TIMELIMITOFINVADE + 1000);
 	}
 
 	private class RestartValakas implements Runnable

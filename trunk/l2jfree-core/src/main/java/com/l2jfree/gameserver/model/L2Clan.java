@@ -582,7 +582,7 @@ public class L2Clan
 		}
 		exMember.saveApprenticeAndSponsor(0, 0);
 
-		if (Config.REMOVE_CASTLE_CIRCLETS)
+		if (Config.ALT_REMOVE_CASTLE_CIRCLETS)
 		{
 			CastleManager.getInstance().removeCirclet(exMember, getHasCastle());
 		}

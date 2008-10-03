@@ -172,7 +172,7 @@ public class DimensionalRift
 			}
 		};
 
-		spawnTimer.schedule(spawnTimerTask, Config.RIFT_SPAWN_DELAY);
+		spawnTimer.schedule(spawnTimerTask, Config.ALT_RIFT_SPAWN_DELAY);
 	}
 
 	public void partyMemberInvited()
@@ -188,7 +188,7 @@ public class DimensionalRift
 		if(revivedInWaitingRoom.contains(player))
 			revivedInWaitingRoom.remove(player);
 
-		if(_party.getMemberCount() < Config.RIFT_MIN_PARTY_SIZE || _party.getMemberCount() == 1)
+		if(_party.getMemberCount() < Config.ALT_RIFT_MIN_PARTY_SIZE || _party.getMemberCount() == 1)
 		{
 			for(L2PcInstance p : _party.getPartyMembers())
 				teleportToWaitingRoom(p);
@@ -319,10 +319,10 @@ public class DimensionalRift
 
 	private long calcTimeToNextJump()
 	{
-		int time = Rnd.get(Config.RIFT_AUTO_JUMPS_TIME_MIN, Config.RIFT_AUTO_JUMPS_TIME_MAX) * 1000;
+		int time = Rnd.get(Config.ALT_RIFT_AUTO_JUMPS_TIME_MIN, Config.ALT_RIFT_AUTO_JUMPS_TIME_MAX) * 1000;
 		
 		if(isBossRoom)
-			return (long)(time * Config.RIFT_BOSS_ROOM_TIME_MUTIPLY);
+			return (long)(time * Config.ALT_RIFT_BOSS_ROOM_TIME_MUTIPLY);
 		else
 			return time;
 	}
@@ -361,7 +361,7 @@ public class DimensionalRift
 		if(!deadPlayers.contains(player))
 			deadPlayers.add(player);
 
-		if(_party.getMemberCount() - revivedInWaitingRoom.size() < Config.RIFT_MIN_PARTY_SIZE)
+		if(_party.getMemberCount() - revivedInWaitingRoom.size() < Config.ALT_RIFT_MIN_PARTY_SIZE)
 		{
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 			{
@@ -398,8 +398,8 @@ public class DimensionalRift
 
 	public byte getMaxJumps()
 	{
-		if(Config.RIFT_MAX_JUMPS <= 8 && Config.RIFT_MAX_JUMPS >= 1)
-			return (byte) Config.RIFT_MAX_JUMPS;
+		if(Config.ALT_RIFT_MAX_JUMPS <= 8 && Config.ALT_RIFT_MAX_JUMPS >= 1)
+			return (byte) Config.ALT_RIFT_MAX_JUMPS;
 		else
 			return 4;
 	}

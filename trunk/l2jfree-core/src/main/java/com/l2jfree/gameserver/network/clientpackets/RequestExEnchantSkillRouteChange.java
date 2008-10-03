@@ -135,7 +135,7 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
             {
                 // only first lvl requires book
                 L2ItemInstance spb = player.getInventory().getItemByItemId(reqItemId);
-                if (Config.ES_SP_BOOK_NEEDED) 
+                if (Config.ALT_ES_SP_BOOK_NEEDED) 
                 {
                     if (spb == null)// Haven't spellbook
                     {
@@ -146,7 +146,7 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
                 
                 boolean check;
                 check = player.getStat().removeExpAndSp(requiredExp, requiredSp);
-                if (Config.ES_SP_BOOK_NEEDED) 
+                if (Config.ALT_ES_SP_BOOK_NEEDED) 
                 {
                     check &= player.destroyItem("Consume", spb.getObjectId(), 1, trainer, true);
                 }

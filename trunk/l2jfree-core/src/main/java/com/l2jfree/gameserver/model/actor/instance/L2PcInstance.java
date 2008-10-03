@@ -2031,7 +2031,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void refreshExpertisePenalty()
 	{
-		if (Config.GRADE_PENALTY)
+		if (Config.ALT_GRADE_PENALTY)
 		{
 			int newPenalty = 0;
 
@@ -2477,7 +2477,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		// Auto-Learn skills if activated
-		if (Config.AUTO_LEARN_SKILLS)
+		if (Config.ALT_AUTO_LEARN_SKILLS)
 		{
 			if (this.isTransformed() || this.isCursedWeaponEquipped())
 				return;
@@ -2544,7 +2544,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			for (L2SkillLearn s : skills)
 			{
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-				if (sk == null || !sk.getCanLearn(getClassId()) || (sk.getId() == L2Skill.SKILL_DIVINE_INSPIRATION && !Config.AUTO_LEARN_DIVINE_INSPIRATION))
+				if (sk == null || !sk.getCanLearn(getClassId()) || (sk.getId() == L2Skill.SKILL_DIVINE_INSPIRATION && !Config.ALT_AUTO_LEARN_DIVINE_INSPIRATION))
 				{
 					unLearnable++;
 					continue;
@@ -9803,7 +9803,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean addSubClass(int classId, int classIndex)
 	{
-		if (getTotalSubClasses() == Config.MAX_SUBCLASS || classIndex == 0)
+		if (getTotalSubClasses() == Config.ALT_MAX_SUBCLASS || classIndex == 0)
 			return false;
 
 		if (getSubClasses().containsKey(classIndex))
@@ -10346,7 +10346,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				// Lair of bosses,It is less than 30 minutes from server starting.
 				// Player can restart inside lair, but Antharas do not respawn.
-				if (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis() <= Config.TIMELIMITOFINVADE)
+				if (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis() <= Config.ALT_TIMELIMITOFINVADE)
 				{
 					if (getQuestState("antharas") != null)
 						getQuestState("antharas").exitQuest(true);
@@ -10382,7 +10382,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				// Lair of bosses,It is less than 30 minutes from server starting.
 				// Player can restart inside lair, but Antharas do not respawn.
-				if (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis() <= Config.TIMELIMITOFINVADE)
+				if (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis() <= Config.ALT_TIMELIMITOFINVADE)
 				{
 					if (getQuestState("lastimperialtomb") != null)
 						getQuestState("lastimperialtomb").exitQuest(true);
@@ -10440,7 +10440,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				// Lair of bosses,It is less than 30 minutes from server starting.
 				// Player can restart inside lair, and begin fight against Valakas 30min later.
-				if (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis() <= Config.TIMELIMITOFINVADE
+				if (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis() <= Config.ALT_TIMELIMITOFINVADE
 						&& ValakasManager.getInstance().getState() == GrandBossState.StateEnum.ALIVE)
 				{
 					//
@@ -11181,7 +11181,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			CursedWeaponsManager.getInstance().onExit(this);
 
 		if (_objectSittingOn != null)
-			_objectSittingOn.setBusyStatus(false);
+			_objectSittingOn.setBusyStatus(null);
 		_objectSittingOn = null;
 
 		try
@@ -11771,14 +11771,14 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public int getDwarfRecipeLimit()
 	{
-		int recdlim = Config.DWARF_RECIPE_LIMIT;
+		int recdlim = Config.ALT_DWARF_RECIPE_LIMIT;
 		recdlim += (int) getStat().calcStat(Stats.REC_D_LIM, 0, null, null);
 		return recdlim;
 	}
 
 	public int getCommonRecipeLimit()
 	{
-		int recclim = Config.COMMON_RECIPE_LIMIT;
+		int recclim = Config.ALT_COMMON_RECIPE_LIMIT;
 		recclim += (int) getStat().calcStat(Stats.REC_C_LIM, 0, null, null);
 		return recclim;
 	}

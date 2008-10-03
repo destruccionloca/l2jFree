@@ -298,12 +298,12 @@ public class DimensionalRiftManager
 			return;
 		}
 
-		if (player.getParty().getMemberCount() < Config.RIFT_MIN_PARTY_SIZE)
+		if (player.getParty().getMemberCount() < Config.ALT_RIFT_MIN_PARTY_SIZE)
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
 			html.setFile("data/html/seven_signs/rift/SmallParty.htm");
 			html.replace("%npc_name%", npc.getName());
-			html.replace("%count%", Integer.valueOf(Config.RIFT_MIN_PARTY_SIZE).toString());
+			html.replace("%count%", Integer.valueOf(Config.ALT_RIFT_MIN_PARTY_SIZE).toString());
 			player.sendPacket(html);
 			return;
 		}
@@ -475,17 +475,17 @@ public class DimensionalRiftManager
 		switch (type)
 		{
 		case 1:
-			return Config.RIFT_ENTER_COST_RECRUIT;
+			return Config.ALT_RIFT_ENTER_COST_RECRUIT;
 		case 2:
-			return Config.RIFT_ENTER_COST_SOLDIER;
+			return Config.ALT_RIFT_ENTER_COST_SOLDIER;
 		case 3:
-			return Config.RIFT_ENTER_COST_OFFICER;
+			return Config.ALT_RIFT_ENTER_COST_OFFICER;
 		case 4:
-			return Config.RIFT_ENTER_COST_CAPTAIN;
+			return Config.ALT_RIFT_ENTER_COST_CAPTAIN;
 		case 5:
-			return Config.RIFT_ENTER_COST_COMMANDER;
+			return Config.ALT_RIFT_ENTER_COST_COMMANDER;
 		case 6:
-			return Config.RIFT_ENTER_COST_HERO;
+			return Config.ALT_RIFT_ENTER_COST_HERO;
 		default:
 			return 999999;
 		}

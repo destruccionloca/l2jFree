@@ -179,42 +179,42 @@ public class UseItem extends L2GameClientPacket
 
 		L2Clan cl = activeChar.getClan();
 		//A shield that can only be used by the members of a clan that owns a castle.
-		if ((cl == null || cl.getHasCastle() == 0) && itemId == 7015 && Config.CASTLE_SHIELD)
+		if ((cl == null || cl.getHasCastle() == 0) && itemId == 7015 && Config.ALT_CASTLE_SHIELD)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 			return;
 		}
 
 		//A shield that can only be used by the members of a clan that owns a clan hall.
-		if ((cl == null || cl.getHasHideout() == 0) && itemId == 6902 && Config.CLANHALL_SHIELD)
+		if ((cl == null || cl.getHasHideout() == 0) && itemId == 6902 && Config.ALT_CLANHALL_SHIELD)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 			return;
 		}
 
 		//Apella armor used by clan members may be worn by a Baron or a higher level Aristocrat.
-		if ((itemId >= 7860 && itemId <= 7879) && Config.APELLA_ARMORS && (cl == null || activeChar.getPledgeClass() < 5))
+		if ((itemId >= 7860 && itemId <= 7879) && Config.ALT_APELLA_ARMORS && (cl == null || activeChar.getPledgeClass() < 5))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 			return;
 		}
 
 		//Clan Oath armor used by all clan members
-		if ((itemId >= 7850 && itemId <= 7859) && Config.OATH_ARMORS && (cl == null))
+		if ((itemId >= 7850 && itemId <= 7859) && Config.ALT_OATH_ARMORS && (cl == null))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 			return;
 		}
 
 		//The Lord's Crown used by castle lords only
-		if (itemId == 6841 && Config.CASTLE_CROWN && (cl == null || (cl.getHasCastle() == 0 || !activeChar.isClanLeader())))
+		if (itemId == 6841 && Config.ALT_CASTLE_CROWN && (cl == null || (cl.getHasCastle() == 0 || !activeChar.isClanLeader())))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 			return;
 		}
 
 		//Castle circlets used by the members of a clan that owns a castle, academy members are excluded.
-		if (Config.CASTLE_CIRCLETS && ((itemId >= 6834 && itemId <= 6840) || itemId == 8182 || itemId == 8183))
+		if (Config.ALT_CASTLE_CIRCLETS && ((itemId >= 6834 && itemId <= 6840) || itemId == 8182 || itemId == 8183))
 		{
 			if (cl == null)
 			{

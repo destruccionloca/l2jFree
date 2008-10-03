@@ -186,7 +186,7 @@ public class GameServer
 		ItemTable.getInstance();
 		ArmorSetsTable.getInstance();
 		AugmentationData.getInstance();
-		if (Config.SP_BOOK_NEEDED)
+		if (Config.ALT_SP_BOOK_NEEDED)
 		{
 			SkillSpellbookTable.getInstance();
 		}

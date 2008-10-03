@@ -361,7 +361,7 @@ public class Castle extends Siegeable
 		if (clan != null)
 		{
 			_formerOwner = clan;
-			if (Config.REMOVE_CASTLE_CIRCLETS)
+			if (Config.ALT_REMOVE_CASTLE_CIRCLETS)
 			{
 				CastleManager.getInstance().removeCirclet(_formerOwner, getCastleId());
 			}
@@ -393,7 +393,7 @@ public class Castle extends Siegeable
 				if (_formerOwner == null)
 				{
 					_formerOwner = oldOwner;
-					if (Config.REMOVE_CASTLE_CIRCLETS)
+					if (Config.ALT_REMOVE_CASTLE_CIRCLETS)
 					{
 						CastleManager.getInstance().removeCirclet(_formerOwner, getCastleId());
 					}

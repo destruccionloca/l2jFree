@@ -88,12 +88,12 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 
 			int newJobLevel = jobLevel + 1;
 
-			if ((((level >= 20 && jobLevel == 0) || (level >= 40 && jobLevel == 1) || (level >= 76 && jobLevel == 2)) && Config.CLASS_MASTER_SETTINGS
+			if ((((level >= 20 && jobLevel == 0) || (level >= 40 && jobLevel == 1) || (level >= 76 && jobLevel == 2)) && Config.ALT_CLASS_MASTER_SETTINGS
 					.isAllowed(newJobLevel))
-					|| Config.CLASS_MASTER_STRIDER_UPDATE)
+					|| Config.ALT_CLASS_MASTER_STRIDER_UPDATE)
 			{
 				if (((level >= 20 && jobLevel == 0) || (level >= 40 && jobLevel == 1) || (level >= 76 && jobLevel == 2))
-						&& Config.CLASS_MASTER_SETTINGS.isAllowed(newJobLevel))
+						&& Config.ALT_CLASS_MASTER_SETTINGS.isAllowed(newJobLevel))
 				{
 					sb.append("You can change your occupation to following:<br>");
 
@@ -102,14 +102,14 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 							sb.append("<br><a action=\"bypass -h npc_" + getObjectId() + "_change_class " + (child.getId()) + "\"> "
 									+ CharTemplateTable.getClassNameById(child.getId()) + "</a>");
 
-					if (Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel) != null
-							&& Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).size() > 0)
+					if (Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel) != null
+							&& Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).size() > 0)
 					{
 						sb.append("<br><br>Item(s) required for class change:");
 						sb.append("<table width=270>");
-						for (Integer _itemId : Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
+						for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
 						{
-							int _count = Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
+							int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
 							sb.append("<tr><td><font color=\"LEVEL\">" + _count + "</font></td><td>" + ItemTable.getInstance().getTemplate(_itemId).getName()
 									+ "</td></tr>");
 						}
@@ -117,7 +117,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 					}
 				}
 
-				if (Config.CLASS_MASTER_STRIDER_UPDATE)
+				if (Config.ALT_CLASS_MASTER_STRIDER_UPDATE)
 				{
 					sb.append("<table width=270>");
 					sb.append("<tr><td><br></td></tr>");
@@ -131,25 +131,25 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 				switch (jobLevel)
 				{
 				case 0:
-					if (Config.CLASS_MASTER_SETTINGS.isAllowed(1))
+					if (Config.ALT_CLASS_MASTER_SETTINGS.isAllowed(1))
 						sb.append("Come back here when you reached level 20 to change your class.<br>");
-					else if (Config.CLASS_MASTER_SETTINGS.isAllowed(2))
+					else if (Config.ALT_CLASS_MASTER_SETTINGS.isAllowed(2))
 						sb.append("Come back after your first occupation change.<br>");
-					else if (Config.CLASS_MASTER_SETTINGS.isAllowed(3))
+					else if (Config.ALT_CLASS_MASTER_SETTINGS.isAllowed(3))
 						sb.append("Come back after your second occupation change.<br>");
 					else
 						sb.append("I can't change your occupation.<br>");
 					break;
 				case 1:
-					if (Config.CLASS_MASTER_SETTINGS.isAllowed(2))
+					if (Config.ALT_CLASS_MASTER_SETTINGS.isAllowed(2))
 						sb.append("Come back here when you reached level 40 to change your class.<br>");
-					else if (Config.CLASS_MASTER_SETTINGS.isAllowed(3))
+					else if (Config.ALT_CLASS_MASTER_SETTINGS.isAllowed(3))
 						sb.append("Come back after your second occupation change.<br>");
 					else
 						sb.append("I can't change your occupation.<br>");
 					break;
 				case 2:
-					if (Config.CLASS_MASTER_SETTINGS.isAllowed(3))
+					if (Config.ALT_CLASS_MASTER_SETTINGS.isAllowed(3))
 						sb.append("Come back here when you reached level 76 to change your class.<br>");
 					else
 						sb.append("I can't change your occupation.<br>");
@@ -159,7 +159,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 					break;
 				}
 				//If the player hasn't available class , he can change pet too...
-				if (Config.CLASS_MASTER_STRIDER_UPDATE)
+				if (Config.ALT_CLASS_MASTER_STRIDER_UPDATE)
 				{
 					sb.append("<table width=270>");
 					sb.append("<tr><td><br></td></tr>");
@@ -195,7 +195,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 
 			// -- exploit prevention
 			// prevents changing if config option disabled
-			if (!Config.CLASS_MASTER_SETTINGS.isAllowed(newJobLevel))
+			if (!Config.ALT_CLASS_MASTER_SETTINGS.isAllowed(newJobLevel))
 				return;
 
 			// prevents changing to class not in same class tree
@@ -216,9 +216,9 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 			// -- prevention ends
 
 			// check if player have all required items for class transfer
-			for (Integer _itemId : Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
+			for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
 			{
-				int _count = Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
+				int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
 				if (player.getInventory().getInventoryItemCount(_itemId, -1) < _count)
 				{
 					player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
@@ -227,16 +227,16 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 			}
 
 			// get all required items for class transfer
-			for (Integer _itemId : Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
+			for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
 			{
-				int _count = Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
+				int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
 				player.destroyItemByItemId("ClassMaster", _itemId, _count, player, true);
 			}
 
 			// reward player with items
-			for (Integer _itemId : Config.CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).keySet())
+			for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).keySet())
 			{
-				int _count = Config.CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).get(_itemId);
+				int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).get(_itemId);
 				player.addItem("ClassMaster", _itemId, _count, player, true);
 			}
 
@@ -266,7 +266,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 			// Update the expertise status of the L2PcInstance
 			player.refreshExpertisePenalty();
 		}
-		else if (command.startsWith("upgrade_hatchling") && Config.CLASS_MASTER_STRIDER_UPDATE)
+		else if (command.startsWith("upgrade_hatchling") && Config.ALT_CLASS_MASTER_STRIDER_UPDATE)
 		{
 			boolean canUpgrade = false;
 			if (player.getPet() != null)

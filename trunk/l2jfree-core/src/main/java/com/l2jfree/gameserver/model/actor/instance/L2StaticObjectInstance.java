@@ -18,12 +18,16 @@ package com.l2jfree.gameserver.model.actor.instance;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.cache.HtmCache;
+import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.knownlist.NullKnownList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.ChairSit;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ShowTownMap;
@@ -43,7 +47,7 @@ public class L2StaticObjectInstance extends L2Object
     private int _y;
     private String _texture;
 
-    private boolean _isBusy;
+    private L2PcInstance actualPersonToSitOn = null;
     
     /**
      * @return Returns the StaticObjectId.
@@ -79,11 +83,11 @@ public class L2StaticObjectInstance extends L2Object
     
     public boolean isBusy()
     {
-    	return _isBusy;
+    	return (actualPersonToSitOn != null);
     }
-    public void setBusyStatus(boolean bool)
+    public void setBusyStatus(L2PcInstance actualPersonToSitOn)
     {
-    	_isBusy = bool;
+    	this.actualPersonToSitOn = actualPersonToSitOn;
     }
 
     public int getType()
@@ -164,6 +168,56 @@ public class L2StaticObjectInstance extends L2Object
                 }
             }
         }
+    }
+    
+    /**
+     * Tries to use the StaticObjectInstance as a throne with the given
+     * player to assign to
+     * 
+     * @param player The actual person who wants to sit on the throne
+     * @return Sitting was possible or not
+     */
+    public boolean useThrone(L2PcInstance player) {
+    	// This check is added if char that sits on the chair had
+    	// a critical game error and throne wasn't release in a
+    	// clean way to avoid that "isBusy" will be true all the
+    	// way until server restarts.
+    	if (L2World.getInstance().findPlayer(								// If the actual user isn't
+    			actualPersonToSitOn.getObjectId()) == null)					// found in the world anymore
+    		setBusyStatus(null);											// release me
+    	
+    	if (player.getTarget() != this ||									// Player's target isn't me or
+    			getType() != 1 ||											// I'm no throne or
+    			isBusy())													// I'm already in use
+    		return false;
+    	
+    	if (player.getClan() == null ||										// Player has no clan or
+    			CastleManager.getInstance().getCastle(this) == null ||		// I got no castle assigned or
+    			CastleManager.getInstance().getCastleById(
+    					player.getClan().getHasCastle()) == null)			// Player's clan has no castle
+    		return false;
+    	
+    	if (!player.isInsideRadius(this, 									// Player is not in radius
+    			INTERACTION_DISTANCE, false, false))						// to interact with me
+    		return false;
+    	
+    	if (CastleManager.getInstance().getCastle(this) != 					// Player's clan castle isn't
+					CastleManager.getInstance().getCastleById(				// the same as mine
+							player.getClan().getHasCastle()))
+    		return false;
+    	
+    	if (Config.ALT_ONLY_CLANLEADER_CAN_SIT_ON_THRONE &&					// Only clan leader can use throne is set and
+    			player.getObjectId() != player.getClan().getLeaderId())		// Player is not the clan leader
+    		return false;
+    	
+    	setBusyStatus(player);
+		player.setObjectSittingOn(this);
+		
+		ChairSit cs = new ChairSit(player, getStaticObjectId());
+		player.sitDown();
+		player.broadcastPacket(cs);
+
+		return true;
     }
     
     /* (non-Javadoc)

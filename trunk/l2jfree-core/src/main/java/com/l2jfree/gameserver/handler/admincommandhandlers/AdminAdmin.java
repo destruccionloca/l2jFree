@@ -617,17 +617,17 @@ public class AdminAdmin implements IAdminCommandHandler
 		replyMSG.append("<tr><td><font color=\"LEVEL\">Hide GM Status</font> = " + Config.HIDE_GM_STATUS + "</td><td></td><td><button value=\""
 				+ !Config.HIDE_GM_STATUS + "\" action=\"bypass -h admin_set HideGMStatus " + !Config.HIDE_GM_STATUS
 				+ "\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
-		replyMSG.append("<tr><td><font color=\"LEVEL\">Spawn Siege Guard</font> = " + Config.SPAWN_SIEGE_GUARD + "</td><td></td><td><button value=\""
-				+ !Config.SPAWN_SIEGE_GUARD + "\" action=\"bypass -h admin_set SpawnSiegeGuard " + !Config.SPAWN_SIEGE_GUARD
+		replyMSG.append("<tr><td><font color=\"LEVEL\">Spawn Siege Guard</font> = " + Config.ALT_SPAWN_SIEGE_GUARD + "</td><td></td><td><button value=\""
+				+ !Config.ALT_SPAWN_SIEGE_GUARD + "\" action=\"bypass -h admin_set SpawnSiegeGuard " + !Config.ALT_SPAWN_SIEGE_GUARD
 				+ "\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
-		replyMSG.append("<tr><td><font color=\"LEVEL\">Auto Loot</font> = " + Config.AUTO_LOOT + "</td><td></td><td><button value=\"" + !Config.AUTO_LOOT
-				+ "\" action=\"bypass -h admin_set AutoLoot " + !Config.AUTO_LOOT
+		replyMSG.append("<tr><td><font color=\"LEVEL\">Auto Loot</font> = " + Config.ALT_AUTO_LOOT + "</td><td></td><td><button value=\"" + !Config.ALT_AUTO_LOOT
+				+ "\" action=\"bypass -h admin_set AutoLoot " + !Config.ALT_AUTO_LOOT
 				+ "\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 		replyMSG.append("<tr><td><font color=\"LEVEL\">Magic Failures</font> = " + Config.ALT_GAME_MAGICFAILURES + "</td><td></td><td><button value=\""
 				+ !Config.ALT_GAME_MAGICFAILURES + "\" action=\"bypass -h admin_set MagicFailures " + !Config.ALT_GAME_MAGICFAILURES
 				+ "\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
-		replyMSG.append("<tr><td><font color=\"LEVEL\">Book Needed</font> = " + Config.SP_BOOK_NEEDED + "</td><td></td><td><button value=\""
-				+ !Config.SP_BOOK_NEEDED + "\" action=\"bypass -h admin_set SpBookNeeded " + !Config.SP_BOOK_NEEDED
+		replyMSG.append("<tr><td><font color=\"LEVEL\">Book Needed</font> = " + Config.ALT_SP_BOOK_NEEDED + "</td><td></td><td><button value=\""
+				+ !Config.ALT_SP_BOOK_NEEDED + "\" action=\"bypass -h admin_set SpBookNeeded " + !Config.ALT_SP_BOOK_NEEDED
 				+ "\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 		replyMSG.append("<tr><td><font color=\"LEVEL\">Learn Other Skill</font> = " + Config.ALT_GAME_SKILL_LEARN + "</td><td></td><td><button value=\""
 				+ !Config.ALT_GAME_SKILL_LEARN + "\" action=\"bypass -h admin_set AltGameSkillLearn " + !Config.ALT_GAME_SKILL_LEARN
@@ -663,8 +663,8 @@ public class AdminAdmin implements IAdminCommandHandler
 		replyMSG
 				.append("<center><table width=270><tr><td width=60><button value=\"Admin\" action=\"bypass -h admin_admin\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><td width=150><font color=\"LEVEL\">Config Server Panel</font></td><td width=60><button value=\"Panel2\" action=\"bypass -h admin_config_server2\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table></center><br>");
 		replyMSG.append("<center><table width=260>");
-		replyMSG.append("<tr><td><font color=\"LEVEL\">Auto loot</font> = " + Config.AUTO_LOOT + "</td><td></td><td><button value=\"" + !Config.AUTO_LOOT
-				+ "\" action=\"bypass -h admin_set AutoLoot " + !Config.AUTO_LOOT
+		replyMSG.append("<tr><td><font color=\"LEVEL\">Auto loot</font> = " + Config.ALT_AUTO_LOOT + "</td><td></td><td><button value=\"" + !Config.ALT_AUTO_LOOT
+				+ "\" action=\"bypass -h admin_set AutoLoot " + !Config.ALT_AUTO_LOOT
 				+ "\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 		replyMSG.append("<tr><td><font color=\"LEVEL\">Allow Discard Item</font> = " + Config.ALLOW_DISCARDITEM + "</td><td></td><td><button value=\""
 				+ !Config.ALLOW_DISCARDITEM + "\" action=\"bypass -h admin_set AllowDiscardItem " + !Config.ALLOW_DISCARDITEM

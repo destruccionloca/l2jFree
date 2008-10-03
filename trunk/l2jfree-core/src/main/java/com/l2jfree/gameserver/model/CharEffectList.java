@@ -304,7 +304,7 @@ public class CharEffectList
 				return;
 			}
 		}
-		else if ((checkSkill.isDance() || checkSkill.isSong()) && getDanceCount(true, true) >= Config.DANCES_SONGS_MAX_AMOUNT)
+		else if ((checkSkill.isDance() || checkSkill.isSong()) && getDanceCount(true, true) >= Config.ALT_DANCES_SONGS_MAX_AMOUNT)
 		{
 			danceBuff = true;
 		}

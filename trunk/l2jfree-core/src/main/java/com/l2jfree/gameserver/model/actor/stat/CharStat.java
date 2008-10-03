@@ -202,8 +202,8 @@ public class CharStat
 			return 1;
 
 		int val = (int) (calcStat(Stats.EVASION_RATE, 0, target, null) / _activeChar.getArmourExpertisePenalty());
-		if (val > Config.MAX_EVASION && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
-			return Config.MAX_EVASION;
+		if (val > Config.ALT_MAX_EVASION && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
+			return Config.ALT_MAX_EVASION;
 		return val;
 	}
 
@@ -376,8 +376,8 @@ public class CharStat
 
 		int val = (int) calcStat(Stats.MAGIC_ATTACK_SPEED, _activeChar.getTemplate().getBaseMAtkSpd() * bonusSpdAtk, null, null);
 		val /= _activeChar.getArmourExpertisePenalty();
-		if ((val > Config.MAX_MATK_SPEED) && (Config.MAX_MATK_SPEED != 0) && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
-			return Config.MAX_MATK_SPEED;
+		if ((val > Config.ALT_MAX_MATK_SPEED) && (Config.ALT_MAX_MATK_SPEED != 0) && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
+			return Config.ALT_MAX_MATK_SPEED;
 		return val;
 	}
 
@@ -553,8 +553,8 @@ public class CharStat
 
 		int val = (int) (calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().getBasePAtkSpd() * bonusSpdAtk, null, null)
 				/ _activeChar.getArmourExpertisePenalty());
-		if ((val > Config.MAX_PATK_SPEED) && (Config.MAX_PATK_SPEED != 0) && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
-			return Config.MAX_PATK_SPEED;
+		if ((val > Config.ALT_MAX_PATK_SPEED) && (Config.ALT_MAX_PATK_SPEED != 0) && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
+			return Config.ALT_MAX_PATK_SPEED;
 		return val;
 	}
 
@@ -687,8 +687,8 @@ public class CharStat
 		val /= _activeChar.getArmourExpertisePenalty();
 
 		// Apply max run speed cap.
-		if (val > Config.MAX_RUN_SPEED && !(_activeChar instanceof L2PcInstance && ((L2PcInstance) _activeChar).isGM()))
-			val = Config.MAX_RUN_SPEED;
+		if (val > Config.ALT_MAX_RUN_SPEED && !(_activeChar instanceof L2PcInstance && ((L2PcInstance) _activeChar).isGM()))
+			val = Config.ALT_MAX_RUN_SPEED;
 
 		return val;
 	}

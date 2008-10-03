@@ -1272,18 +1272,19 @@ public final class Config
 	public static double				ALT_GAME_CREATION_SP_RATE;													// Alternative game crafting SP rate multiplier - default 1
 	public static boolean				ALT_BLACKSMITH_USE_RECIPES;												// Alternative setting to blacksmith use of recipes to craft -
 	// default true
-	public static boolean				REMOVE_CASTLE_CIRCLETS;													// Remove Castle circlets after clan lose his castle? - default
+	public static boolean				ALT_REMOVE_CASTLE_CIRCLETS;													// Remove Castle circlets after clan lose his castle? - default
+	public static boolean				ALT_ONLY_CLANLEADER_CAN_SIT_ON_THRONE;
 	// true
 	public static double				ALT_WEIGHT_LIMIT;															// Alternative game weight limit multiplier - default 1
-	public static int					BUFFS_MAX_AMOUNT;															// Alternative number of cumulated buff
-	public static int					DANCES_SONGS_MAX_AMOUNT;													// Alternative number of cumulated dances/songs
+	public static int					ALT_BUFFS_MAX_AMOUNT;															// Alternative number of cumulated buff
+	public static int					ALT_DANCES_SONGS_MAX_AMOUNT;													// Alternative number of cumulated dances/songs
 	public static int					ALT_MINIMUM_FALL_HEIGHT;													// Minimum Height(Z) that a character needs to fall, in
 	// order for it to be considered a fall.
 	public static boolean				ALT_DISABLE_RAIDBOSS_PETRIFICATION;										// Disable Raidboss Petrification
 	public static int					ALT_PCRITICAL_CAP;															// PCritical Cap
 	public static int					ALT_MCRITICAL_CAP;															// MCritical Cap
-	public static int					MAX_EVASION;
-	public static int					MAX_RUN_SPEED;																// Runspeed limit
+	public static int					ALT_MAX_EVASION;
+	public static int					ALT_MAX_RUN_SPEED;																// Runspeed limit
 	public static float					ALT_MCRIT_RATE;
 	public static boolean				ALT_GAME_SKILL_LEARN;														// Alternative game skill learning
 	public static boolean				ALT_GAME_CANCEL_BOW;														// Cancel attack bow by hit
@@ -1320,28 +1321,28 @@ public final class Config
 	public static boolean				ALT_RECOMMEND;																// Disallow recommend character twice or more a day ?
 	public static boolean				ALT_GAME_SUBCLASS_WITHOUT_QUESTS;											// Alternative gaming - allow sub-class addition without
 	// quest completion.
-	public static int					MAX_SUBCLASS;																// Allow to change max number of subclasses
+	public static int					ALT_MAX_SUBCLASS;																// Allow to change max number of subclasses
 	public static boolean				ALT_GAME_VIEWNPC;															// View npc stats/drop by shift-cliking it for nongm-players
 	public static boolean				ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE	= true;								// Alternative gaming - all new characters always are newbies.
 	public static boolean				ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;										// Alternative gaming - clan members with see privilege can
 	// also withdraw from clan warehouse.
-	public static boolean				CASTLE_SHIELD;																// Alternative gaming - Castle Shield can be equiped by all clan members if they own a castle. - default True
-	public static boolean				CLANHALL_SHIELD;															// Alternative gaming - Clan Hall Shield can be equiped by all clan members if they own a clan hall. - default True
-	public static boolean				APELLA_ARMORS;																// Alternative gaming - Apella armors can be equiped only by clan members if their class is Baron or higher - default True
-	public static boolean				OATH_ARMORS;																// Alternative gaming - Clan Oath Armors can be equiped only by clan members - default True
-	public static boolean				CASTLE_CROWN;																// Alternative gaming - Castle Crown can be equiped only by castle lord - default True
-	public static boolean				CASTLE_CIRCLETS;															// Alternative gaming - Castle Circlets can be equiped only by clan members if they own a castle - default True
+	public static boolean				ALT_CASTLE_SHIELD;																// Alternative gaming - Castle Shield can be equiped by all clan members if they own a castle. - default True
+	public static boolean				ALT_CLANHALL_SHIELD;															// Alternative gaming - Clan Hall Shield can be equiped by all clan members if they own a clan hall. - default True
+	public static boolean				ALT_APELLA_ARMORS;																// Alternative gaming - Apella armors can be equiped only by clan members if their class is Baron or higher - default True
+	public static boolean				ALT_OATH_ARMORS;																// Alternative gaming - Clan Oath Armors can be equiped only by clan members - default True
+	public static boolean				ALT_CASTLE_CROWN;																// Alternative gaming - Castle Crown can be equiped only by castle lord - default True
+	public static boolean				ALT_CASTLE_CIRCLETS;															// Alternative gaming - Castle Circlets can be equiped only by clan members if they own a castle - default True
 
 	public static boolean				ALT_STRICT_HERO_SYSTEM;													// Strict Hero Mode
 	public static boolean				ALT_STRICT_SEVENSIGNS;														// Strict Seven Signs
-	public static boolean				SP_BOOK_NEEDED;															// Spell Book needed to learn skill
-	public static boolean				LIFE_CRYSTAL_NEEDED;														// Clan Item needed to learn clan skills
-	public static boolean				ES_SP_BOOK_NEEDED;															// Spell Book needet to enchant skill
+	public static boolean				ALT_SP_BOOK_NEEDED;															// Spell Book needed to learn skill
+	public static boolean				ALT_LIFE_CRYSTAL_NEEDED;														// Clan Item needed to learn clan skills
+	public static boolean				ALT_ES_SP_BOOK_NEEDED;															// Spell Book needet to enchant skill
 	public static int					ALT_BUFF_TIME;
 	public static int					ALT_DANCE_TIME;
 	public static boolean				ALT_DANCE_MP_CONSUME;
-	public static int					MAX_PATK_SPEED;															// Config for limit physical attack speed
-	public static int					MAX_MATK_SPEED;															// Config for limit magical attack speed
+	public static int					ALT_MAX_PATK_SPEED;															// Config for limit physical attack speed
+	public static int					ALT_MAX_MATK_SPEED;															// Config for limit magical attack speed
 	public static float					ALT_MAGES_PHYSICAL_DAMAGE_MULTI;											// Config for damage multiplies
 	public static float					ALT_MAGES_MAGICAL_DAMAGE_MULTI;											// Config for damage multiplies
 	public static float					ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;										// Config for damage multiplies
@@ -1353,30 +1354,30 @@ public final class Config
 	public static int					ALT_URN_TEMP_FAIL;															// Config for URN temp fail
 	public static int					ALT_BUFFER_HATE;															// Buffer Hate
 	public static int					ALT_DIFF_CUTOFF;															// No exp cutoff
-	public static boolean				SPAWN_WYVERN_MANAGER;
-	public static int					MANAGER_CRYSTAL_COUNT;
-	public static boolean				SPAWN_CLASS_MASTER;
-	public static boolean				CLASS_MASTER_STRIDER_UPDATE;
-	public static String				CLASS_MASTER_SETTINGS_LINE;
-	public static ClassMasterSettings	CLASS_MASTER_SETTINGS;
+	public static boolean				ALT_SPAWN_WYVERN_MANAGER;
+	public static int					ALT_MANAGER_CRYSTAL_COUNT;
+	public static boolean				ALT_SPAWN_CLASS_MASTER;
+	public static boolean				ALT_CLASS_MASTER_STRIDER_UPDATE;
+	public static String				ALT_CLASS_MASTER_SETTINGS_LINE;
+	public static ClassMasterSettings	ALT_CLASS_MASTER_SETTINGS;
 	public static double				ALT_CRAFT_PRICE;															// reference price multiplier
 	public static int					ALT_CRAFT_DEFAULT_PRICE;													// default price, in case reference is 0
 	public static boolean				ALT_CRAFT_ALLOW_CRAFT;														// allow to craft dwarven recipes
 	public static boolean				ALT_CRAFT_ALLOW_CRYSTALLIZE;												// allow to break items
 	public static boolean				ALT_CRAFT_ALLOW_COMMON;													// allow to craft common craft recipes
-	public static boolean				AUTO_LOOT;																	// Accept auto-loot ?
-	public static boolean				AUTO_LOOT_RAID;
-	public static boolean				AUTO_LOOT_ADENA;
-	public static boolean				AUTO_LOOT_HERBS;
-	public static boolean				SPAWN_SIEGE_GUARD;															// Config for spawn siege guards
-	public static int					TIME_IN_A_DAY_OF_OPEN_A_DOOR;
-	public static int					TIME_OF_OPENING_A_DOOR;
-	public static int					NURSEANT_RESPAWN_DELAY;
-	public static int					TIMELIMITOFINVADE;															//Time limit of invade to lair of bosses after server restarted
-	public static int					DWARF_RECIPE_LIMIT;														// Recipebook limits
-	public static int					COMMON_RECIPE_LIMIT;
-	public static int					CHANCE_BREAK;																// Chance For Soul Crystal to Break
-	public static int					CHANCE_LEVEL;																// Chance For Soul Crystal to Level
+	public static boolean				ALT_AUTO_LOOT;																	// Accept auto-loot ?
+	public static boolean				ALT_AUTO_LOOT_RAID;
+	public static boolean				ALT_AUTO_LOOT_ADENA;
+	public static boolean				ALT_AUTO_LOOT_HERBS;
+	public static boolean				ALT_SPAWN_SIEGE_GUARD;															// Config for spawn siege guards
+	public static int					ALT_TIME_IN_A_DAY_OF_OPEN_A_DOOR;
+	public static int					ALT_TIME_OF_OPENING_A_DOOR;
+	public static int					ALT_NURSEANT_RESPAWN_DELAY;
+	public static int					ALT_TIMELIMITOFINVADE;															//Time limit of invade to lair of bosses after server restarted
+	public static int					ALT_DWARF_RECIPE_LIMIT;														// Recipebook limits
+	public static int					ALT_COMMON_RECIPE_LIMIT;
+	public static int					ALT_CHANCE_BREAK;																// Chance For Soul Crystal to Break
+	public static int					ALT_CHANCE_LEVEL;																// Chance For Soul Crystal to Level
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;							// Karma Punishment
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_SHOP;
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_USE_GK;											// Allow player with karma to use GK ?
@@ -1384,11 +1385,11 @@ public final class Config
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_TRADE;
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE;
 	public static int					ALT_PLAYER_PROTECTION_LEVEL;												// Player Protection Level
-	public static boolean				AUTO_LEARN_SKILLS;															// Config for Auto Learn Skills
-	public static boolean				AUTO_LEARN_DIVINE_INSPIRATION;												// Alternative auto skill learning for divine inspiration (+4 max buff count)
-	public static boolean				GRADE_PENALTY;																// Disable Grade penalty
-	public static boolean				IS_CRAFTING_ENABLED;														// Crafting Enabled?
-	public static boolean				FAIL_FAKEDEATH;															// Config for Fake Death Fail Feature
+	public static boolean				ALT_AUTO_LEARN_SKILLS;															// Config for Auto Learn Skills
+	public static boolean				ALT_AUTO_LEARN_DIVINE_INSPIRATION;												// Alternative auto skill learning for divine inspiration (+4 max buff count)
+	public static boolean				ALT_GRADE_PENALTY;																// Disable Grade penalty
+	public static boolean				ALT_IS_CRAFTING_ENABLED;														// Crafting Enabled?
+	public static boolean				ALT_FAIL_FAKEDEATH;															// Config for Fake Death Fail Feature
 	public static boolean				ALT_FLYING_WYVERN_IN_SIEGE;												// Config for Wyvern enable flying in siege **/
 	public static int					ALT_OLY_START_TIME;														// Olympiad Competition Starting time
 	public static int					ALT_OLY_MIN;																// Olympiad Minutes
@@ -1408,7 +1409,7 @@ public final class Config
 	public static int					ALT_OLY_MIN_POINT_FOR_EXCH;
 	public static int					ALT_OLY_HERO_POINTS;
 	public static String				ALT_OLY_RESTRICTED_ITEMS;
-	public static FastList<Integer>		LIST_OLY_RESTRICTED_ITEMS			= new FastList<Integer>();
+	public static FastList<Integer>		ALT_LIST_OLY_RESTRICTED_ITEMS			= new FastList<Integer>();
 	public static int					ALT_OLY_NONCLASSED;
 	public static boolean				ALT_OLY_MATCH_HEAL_COUNTS;
 	public static boolean				ALT_OLY_SUMMON_DAMAGE_COUNTS;
@@ -1423,31 +1424,31 @@ public final class Config
 	public static int					ALT_MANOR_SAVE_PERIOD_RATE;												// Manor Save Period Rate
 
 	// Four Sepulchers
-	public static int					FS_TIME_ATTACK;
-	public static int					FS_TIME_COOLDOWN;
-	public static int					FS_TIME_ENTRY;
-	public static int					FS_TIME_WARMUP;
-	public static int					FS_PARTY_MEMBER_COUNT;
+	public static int					ALT_FS_TIME_ATTACK;
+	public static int					ALT_FS_TIME_COOLDOWN;
+	public static int					ALT_FS_TIME_ENTRY;
+	public static int					ALT_FS_TIME_WARMUP;
+	public static int					ALT_FS_PARTY_MEMBER_COUNT;
 
 	// Dimensional Rift
-	public static int					RIFT_MIN_PARTY_SIZE;														// Minimum siz e of a party that may enter dimensional rift
-	public static int					RIFT_SPAWN_DELAY;															// Time in ms the party has to wait until the mobs spawn
+	public static int					ALT_RIFT_MIN_PARTY_SIZE;														// Minimum siz e of a party that may enter dimensional rift
+	public static int					ALT_RIFT_SPAWN_DELAY;															// Time in ms the party has to wait until the mobs spawn
 	// when entering a room
-	public static int					RIFT_MAX_JUMPS;															// Amount of random rift jumps before party is ported back
-	public static int					RIFT_AUTO_JUMPS_TIME_MIN;													// Random time between two jumps in dimensional rift - in
+	public static int					ALT_RIFT_MAX_JUMPS;															// Amount of random rift jumps before party is ported back
+	public static int					ALT_RIFT_AUTO_JUMPS_TIME_MIN;													// Random time between two jumps in dimensional rift - in
 	// seconds
-	public static int					RIFT_AUTO_JUMPS_TIME_MAX;
-	public static int					RIFT_ENTER_COST_RECRUIT;													// Dimensional Fragment cost for entering rift
-	public static int					RIFT_ENTER_COST_SOLDIER;
-	public static int					RIFT_ENTER_COST_OFFICER;
-	public static int					RIFT_ENTER_COST_CAPTAIN;
-	public static int					RIFT_ENTER_COST_COMMANDER;
-	public static int					RIFT_ENTER_COST_HERO;
-	public static float					RIFT_BOSS_ROOM_TIME_MUTIPLY;												// Time multiplier for boss room
+	public static int					ALT_RIFT_AUTO_JUMPS_TIME_MAX;
+	public static int					ALT_RIFT_ENTER_COST_RECRUIT;													// Dimensional Fragment cost for entering rift
+	public static int					ALT_RIFT_ENTER_COST_SOLDIER;
+	public static int					ALT_RIFT_ENTER_COST_OFFICER;
+	public static int					ALT_RIFT_ENTER_COST_CAPTAIN;
+	public static int					ALT_RIFT_ENTER_COST_COMMANDER;
+	public static int					ALT_RIFT_ENTER_COST_HERO;
+	public static float					ALT_RIFT_BOSS_ROOM_TIME_MUTIPLY;												// Time multiplier for boss room
 
 	public static boolean				ALT_ITEM_SKILLS_NOT_INFLUENCED;
 	public static boolean				ALT_MANA_POTIONS;
-	public static int					AUTOCHAT_DELAY;
+	public static int					ALT_AUTOCHAT_DELAY;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1468,8 +1469,8 @@ public final class Config
 			ALT_WEIGHT_LIMIT = Double.parseDouble(altSettings.getProperty("AltWeightLimit", "1."));
 			ALT_BLACKSMITH_USE_RECIPES = Boolean.parseBoolean(altSettings.getProperty("AltBlacksmithUseRecipes", "true"));
 			ALT_MINIMUM_FALL_HEIGHT = Integer.parseInt(altSettings.getProperty("AltMinimumFallHeight", "400"));
-			BUFFS_MAX_AMOUNT = Integer.parseInt(altSettings.getProperty("MaxBuffAmount", "20"));
-			DANCES_SONGS_MAX_AMOUNT = Integer.parseInt(altSettings.getProperty("MaxDanceSongAmount", "12"));
+			ALT_BUFFS_MAX_AMOUNT = Integer.parseInt(altSettings.getProperty("MaxBuffAmount", "20"));
+			ALT_DANCES_SONGS_MAX_AMOUNT = Integer.parseInt(altSettings.getProperty("MaxDanceSongAmount", "12"));
 			ALT_GAME_SKILL_LEARN = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "false"));
 			ALT_GAME_CANCEL_BOW = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("bow")
 					|| altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
@@ -1494,32 +1495,33 @@ public final class Config
 			ALT_GAME_EXPONENT_XP = Float.parseFloat(altSettings.getProperty("AltGameExponentXp", "0."));
 			ALT_GAME_EXPONENT_SP = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
 
-			SPAWN_WYVERN_MANAGER = Boolean.parseBoolean(altSettings.getProperty("SpawnWyvernManager", "True"));
-			MANAGER_CRYSTAL_COUNT = Integer.parseInt(altSettings.getProperty("ManagerCrystalCount", "25"));
-			SPAWN_CLASS_MASTER = Boolean.parseBoolean(altSettings.getProperty("SpawnClassMaster", "False"));
-			CLASS_MASTER_STRIDER_UPDATE = Boolean.parseBoolean(altSettings.getProperty("ClassMasterUpdateStrider", "False"));
+			ALT_SPAWN_WYVERN_MANAGER = Boolean.parseBoolean(altSettings.getProperty("SpawnWyvernManager", "True"));
+			ALT_MANAGER_CRYSTAL_COUNT = Integer.parseInt(altSettings.getProperty("ManagerCrystalCount", "25"));
+			ALT_SPAWN_CLASS_MASTER = Boolean.parseBoolean(altSettings.getProperty("SpawnClassMaster", "False"));
+			ALT_CLASS_MASTER_STRIDER_UPDATE = Boolean.parseBoolean(altSettings.getProperty("ClassMasterUpdateStrider", "False"));
 			if (!altSettings.getProperty("ConfigClassMaster").trim().equalsIgnoreCase("False"))
-				CLASS_MASTER_SETTINGS_LINE = altSettings.getProperty("ConfigClassMaster");
+				ALT_CLASS_MASTER_SETTINGS_LINE = altSettings.getProperty("ConfigClassMaster");
 
-			CLASS_MASTER_SETTINGS = new ClassMasterSettings(CLASS_MASTER_SETTINGS_LINE);
+			ALT_CLASS_MASTER_SETTINGS = new ClassMasterSettings(ALT_CLASS_MASTER_SETTINGS_LINE);
 
 			ALT_GAME_FREIGHTS = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "false"));
 			ALT_GAME_FREIGHT_PRICE = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
-			REMOVE_CASTLE_CIRCLETS = Boolean.parseBoolean(altSettings.getProperty("RemoveCastleCirclets", "true"));
+			ALT_REMOVE_CASTLE_CIRCLETS = Boolean.parseBoolean(altSettings.getProperty("RemoveCastleCirclets", "true"));
+			ALT_ONLY_CLANLEADER_CAN_SIT_ON_THRONE  = Boolean.parseBoolean(altSettings.getProperty("AltOnlyClanleaderCanSitOnThrone", "false"));
 			ALT_PARTY_RANGE = Integer.parseInt(altSettings.getProperty("AltPartyRange", "1600"));
 			ALT_PARTY_RANGE2 = Integer.parseInt(altSettings.getProperty("AltPartyRange2", "1400"));
-			CHANCE_BREAK = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
-			CHANCE_LEVEL = Integer.parseInt(altSettings.getProperty("ChanceToLevel", "32"));
-			IS_CRAFTING_ENABLED = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
-			FAIL_FAKEDEATH = Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
+			ALT_CHANCE_BREAK = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
+			ALT_CHANCE_LEVEL = Integer.parseInt(altSettings.getProperty("ChanceToLevel", "32"));
+			ALT_IS_CRAFTING_ENABLED = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
+			ALT_FAIL_FAKEDEATH = Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
 			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
-			SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
-			LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(altSettings.getProperty("LifeCrystalNeeded", "true"));
-			ES_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("EnchantSkillSpBookNeeded", "true"));
-			AUTO_LOOT = Boolean.parseBoolean(altSettings.getProperty("AutoLoot", "true"));
-			AUTO_LOOT_RAID = Boolean.parseBoolean(altSettings.getProperty("AutoLootRaid", "true"));
-			AUTO_LOOT_ADENA = Boolean.parseBoolean(altSettings.getProperty("AutoLootAdena", "true"));
-			AUTO_LOOT_HERBS = Boolean.parseBoolean(altSettings.getProperty("AutoLootHerbs", "true"));
+			ALT_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
+			ALT_LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(altSettings.getProperty("LifeCrystalNeeded", "true"));
+			ALT_ES_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("EnchantSkillSpBookNeeded", "true"));
+			ALT_AUTO_LOOT = Boolean.parseBoolean(altSettings.getProperty("AutoLoot", "true"));
+			ALT_AUTO_LOOT_RAID = Boolean.parseBoolean(altSettings.getProperty("AutoLootRaid", "true"));
+			ALT_AUTO_LOOT_ADENA = Boolean.parseBoolean(altSettings.getProperty("AutoLootAdena", "true"));
+			ALT_AUTO_LOOT_HERBS = Boolean.parseBoolean(altSettings.getProperty("AutoLootHerbs", "true"));
 			ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
 			ALT_GAME_KARMA_PLAYER_CAN_SHOP = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanShop", "true"));
 			ALT_GAME_KARMA_PLAYER_CAN_USE_GK = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanUseGK", "false"));
@@ -1530,19 +1532,19 @@ public final class Config
 			ALT_GAME_FREE_TELEPORT = Boolean.parseBoolean(altSettings.getProperty("AltFreeTeleporting", "False"));
 			ALT_RECOMMEND = Boolean.parseBoolean(altSettings.getProperty("AltRecommend", "False"));
 			ALT_GAME_SUBCLASS_WITHOUT_QUESTS = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
-			MAX_SUBCLASS = Integer.parseInt(altSettings.getProperty("MaxSubclass", "3"));
+			ALT_MAX_SUBCLASS = Integer.parseInt(altSettings.getProperty("MaxSubclass", "3"));
 			ALT_GAME_VIEWNPC = Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
 			//ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
 			ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(altSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
 			ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
-			CASTLE_SHIELD = Boolean.parseBoolean(altSettings.getProperty("CastleShieldRestriction", "True"));
-			CLANHALL_SHIELD = Boolean.parseBoolean(altSettings.getProperty("ClanHallShieldRestriction", "True"));
-			APELLA_ARMORS = Boolean.parseBoolean(altSettings.getProperty("ApellaArmorsRestriction", "True"));
-			OATH_ARMORS = Boolean.parseBoolean(altSettings.getProperty("OathArmorsRestriction", "True"));
-			CASTLE_CROWN = Boolean.parseBoolean(altSettings.getProperty("CastleLordsCrownRestriction", "True"));
-			CASTLE_CIRCLETS = Boolean.parseBoolean(altSettings.getProperty("CastleCircletsRestriction", "True"));
-			DWARF_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit", "50"));
-			COMMON_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit", "50"));
+			ALT_CASTLE_SHIELD = Boolean.parseBoolean(altSettings.getProperty("CastleShieldRestriction", "True"));
+			ALT_CLANHALL_SHIELD = Boolean.parseBoolean(altSettings.getProperty("ClanHallShieldRestriction", "True"));
+			ALT_APELLA_ARMORS = Boolean.parseBoolean(altSettings.getProperty("ApellaArmorsRestriction", "True"));
+			ALT_OATH_ARMORS = Boolean.parseBoolean(altSettings.getProperty("OathArmorsRestriction", "True"));
+			ALT_CASTLE_CROWN = Boolean.parseBoolean(altSettings.getProperty("CastleLordsCrownRestriction", "True"));
+			ALT_CASTLE_CIRCLETS = Boolean.parseBoolean(altSettings.getProperty("CastleCircletsRestriction", "True"));
+			ALT_DWARF_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit", "50"));
+			ALT_COMMON_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit", "50"));
 
 			ALT_STRICT_HERO_SYSTEM = Boolean.parseBoolean(altSettings.getProperty("StrictHeroSystem", "True"));
 			ALT_STRICT_SEVENSIGNS = Boolean.parseBoolean(altSettings.getProperty("StrictSevenSigns", "True"));
@@ -1550,11 +1552,11 @@ public final class Config
 			ALT_BUFF_TIME = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
 			ALT_DANCE_TIME = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
 			ALT_DANCE_MP_CONSUME = Boolean.parseBoolean(altSettings.getProperty("AltDanceMpConsume", "false"));
-			SPAWN_SIEGE_GUARD = Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
-			AUTO_LEARN_SKILLS = Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "false"));
-			AUTO_LEARN_DIVINE_INSPIRATION = Boolean.parseBoolean(altSettings.getProperty("AutoLearnDivineInspiration", "false"));
-			MAX_PATK_SPEED = Integer.parseInt(altSettings.getProperty("MaxPAtkSpeed", "1500"));
-			MAX_MATK_SPEED = Integer.parseInt(altSettings.getProperty("MaxMAtkSpeed", "1999"));
+			ALT_SPAWN_SIEGE_GUARD = Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
+			ALT_AUTO_LEARN_SKILLS = Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "false"));
+			ALT_AUTO_LEARN_DIVINE_INSPIRATION = Boolean.parseBoolean(altSettings.getProperty("AutoLearnDivineInspiration", "false"));
+			ALT_MAX_PATK_SPEED = Integer.parseInt(altSettings.getProperty("MaxPAtkSpeed", "1500"));
+			ALT_MAX_MATK_SPEED = Integer.parseInt(altSettings.getProperty("MaxMAtkSpeed", "1999"));
 			ALT_MAGES_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageMages", "1.00"));
 			ALT_MAGES_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageMages", "1.00"));
 			ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageFighters", "1.00"));
@@ -1564,13 +1566,13 @@ public final class Config
 			ALT_NPC_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageNpc", "1.00"));
 			ALT_NPC_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageNpc", "1.00"));
 			ALT_BUFFER_HATE = Integer.parseInt(altSettings.getProperty("BufferHate", "4"));
-			GRADE_PENALTY = Boolean.parseBoolean(altSettings.getProperty("GradePenalty", "true"));
+			ALT_GRADE_PENALTY = Boolean.parseBoolean(altSettings.getProperty("GradePenalty", "true"));
 			ALT_URN_TEMP_FAIL = Integer.parseInt(altSettings.getProperty("UrnTempFail", "10"));
 			ALT_DISABLE_RAIDBOSS_PETRIFICATION = Boolean.parseBoolean(altSettings.getProperty("DisableRaidBossPetrification", "false"));
 			ALT_PCRITICAL_CAP = Integer.parseInt(altSettings.getProperty("AltPCriticalCap", "500"));
 			ALT_MCRITICAL_CAP = Integer.parseInt(altSettings.getProperty("AltMCriticalCap", "200"));
-			MAX_EVASION = Integer.parseInt(altSettings.getProperty("MaxEvasion", "200"));
-			MAX_RUN_SPEED = Integer.parseInt(altSettings.getProperty("MaxRunSpeed", "250"));
+			ALT_MAX_EVASION = Integer.parseInt(altSettings.getProperty("MaxEvasion", "200"));
+			ALT_MAX_RUN_SPEED = Integer.parseInt(altSettings.getProperty("MaxRunSpeed", "250"));
 			ALT_MCRIT_RATE = Float.parseFloat(altSettings.getProperty("AltMCritRate", "3.0"));
 
 			ALT_OLY_START_TIME = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "18"));
@@ -1595,10 +1597,10 @@ public final class Config
 			ALT_OLY_MIN_POINT_FOR_EXCH = Integer.parseInt(altSettings.getProperty("AltOlyMinPointForExchange", "50"));
 			ALT_OLY_HERO_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyHeroPoints", "300"));
 			ALT_OLY_RESTRICTED_ITEMS = altSettings.getProperty("AltOlyRestrictedItems", "0");
-			LIST_OLY_RESTRICTED_ITEMS = new FastList<Integer>();
+			ALT_LIST_OLY_RESTRICTED_ITEMS = new FastList<Integer>();
 			for (String id : ALT_OLY_RESTRICTED_ITEMS.split(","))
 			{
-				LIST_OLY_RESTRICTED_ITEMS.add(Integer.parseInt(id));
+				ALT_LIST_OLY_RESTRICTED_ITEMS.add(Integer.parseInt(id));
 			}
 
 			ALT_MANOR_REFRESH_TIME = Integer.parseInt(altSettings.getProperty("AltManorRefreshTime", "20"));
@@ -1615,51 +1617,51 @@ public final class Config
 			ALT_CRAFT_PRICE = Float.parseFloat(altSettings.getProperty("CraftManagerPriceMultiplier", "0.1"));
 			ALT_CRAFT_DEFAULT_PRICE = Integer.parseInt(altSettings.getProperty("CraftManagerDefaultPrice", "50000"));
 
-			TIME_IN_A_DAY_OF_OPEN_A_DOOR = Integer.parseInt(altSettings.getProperty("TimeInADayOfOpenADoor", "0"));
-			TIME_OF_OPENING_A_DOOR = Integer.parseInt(altSettings.getProperty("TimeOfOpeningADoor", "5"));
-			NURSEANT_RESPAWN_DELAY = Integer.parseInt(altSettings.getProperty("NurseAntRespawnDelay", "15"));
-			if (NURSEANT_RESPAWN_DELAY < 15)
-				NURSEANT_RESPAWN_DELAY = 15;
-			else if (NURSEANT_RESPAWN_DELAY > 120)
-				NURSEANT_RESPAWN_DELAY = 120;
-			NURSEANT_RESPAWN_DELAY = NURSEANT_RESPAWN_DELAY * 1000;
+			ALT_TIME_IN_A_DAY_OF_OPEN_A_DOOR = Integer.parseInt(altSettings.getProperty("TimeInADayOfOpenADoor", "0"));
+			ALT_TIME_OF_OPENING_A_DOOR = Integer.parseInt(altSettings.getProperty("TimeOfOpeningADoor", "5"));
+			ALT_NURSEANT_RESPAWN_DELAY = Integer.parseInt(altSettings.getProperty("NurseAntRespawnDelay", "15"));
+			if (ALT_NURSEANT_RESPAWN_DELAY < 15)
+				ALT_NURSEANT_RESPAWN_DELAY = 15;
+			else if (ALT_NURSEANT_RESPAWN_DELAY > 120)
+				ALT_NURSEANT_RESPAWN_DELAY = 120;
+			ALT_NURSEANT_RESPAWN_DELAY = ALT_NURSEANT_RESPAWN_DELAY * 1000;
 
-			TIMELIMITOFINVADE = Integer.parseInt(altSettings.getProperty("TimeLimitOfInvade", "1800000"));
+			ALT_TIMELIMITOFINVADE = Integer.parseInt(altSettings.getProperty("TimeLimitOfInvade", "1800000"));
 
 			ALT_GAME_SUMMON_PENALTY_RATE = Float.parseFloat(altSettings.getProperty("AltSummonPenaltyRate", "1"));
 
 			// Dimensional Rift Config
-			RIFT_MIN_PARTY_SIZE = Integer.parseInt(altSettings.getProperty("RiftMinPartySize", "5"));
-			RIFT_MAX_JUMPS = Integer.parseInt(altSettings.getProperty("MaxRiftJumps", "4"));
-			RIFT_SPAWN_DELAY = Integer.parseInt(altSettings.getProperty("RiftSpawnDelay", "10000"));
-			RIFT_AUTO_JUMPS_TIME_MIN = Integer.parseInt(altSettings.getProperty("AutoJumpsDelayMin", "480"));
-			RIFT_AUTO_JUMPS_TIME_MAX = Integer.parseInt(altSettings.getProperty("AutoJumpsDelayMax", "600"));
-			RIFT_ENTER_COST_RECRUIT = Integer.parseInt(altSettings.getProperty("RecruitCost", "18"));
-			RIFT_ENTER_COST_SOLDIER = Integer.parseInt(altSettings.getProperty("SoldierCost", "21"));
-			RIFT_ENTER_COST_OFFICER = Integer.parseInt(altSettings.getProperty("OfficerCost", "24"));
-			RIFT_ENTER_COST_CAPTAIN = Integer.parseInt(altSettings.getProperty("CaptainCost", "27"));
-			RIFT_ENTER_COST_COMMANDER = Integer.parseInt(altSettings.getProperty("CommanderCost", "30"));
-			RIFT_ENTER_COST_HERO = Integer.parseInt(altSettings.getProperty("HeroCost", "33"));
-			RIFT_BOSS_ROOM_TIME_MUTIPLY = Float.parseFloat(altSettings.getProperty("BossRoomTimeMultiply", "1.5"));
+			ALT_RIFT_MIN_PARTY_SIZE = Integer.parseInt(altSettings.getProperty("RiftMinPartySize", "5"));
+			ALT_RIFT_MAX_JUMPS = Integer.parseInt(altSettings.getProperty("MaxRiftJumps", "4"));
+			ALT_RIFT_SPAWN_DELAY = Integer.parseInt(altSettings.getProperty("RiftSpawnDelay", "10000"));
+			ALT_RIFT_AUTO_JUMPS_TIME_MIN = Integer.parseInt(altSettings.getProperty("AutoJumpsDelayMin", "480"));
+			ALT_RIFT_AUTO_JUMPS_TIME_MAX = Integer.parseInt(altSettings.getProperty("AutoJumpsDelayMax", "600"));
+			ALT_RIFT_ENTER_COST_RECRUIT = Integer.parseInt(altSettings.getProperty("RecruitCost", "18"));
+			ALT_RIFT_ENTER_COST_SOLDIER = Integer.parseInt(altSettings.getProperty("SoldierCost", "21"));
+			ALT_RIFT_ENTER_COST_OFFICER = Integer.parseInt(altSettings.getProperty("OfficerCost", "24"));
+			ALT_RIFT_ENTER_COST_CAPTAIN = Integer.parseInt(altSettings.getProperty("CaptainCost", "27"));
+			ALT_RIFT_ENTER_COST_COMMANDER = Integer.parseInt(altSettings.getProperty("CommanderCost", "30"));
+			ALT_RIFT_ENTER_COST_HERO = Integer.parseInt(altSettings.getProperty("HeroCost", "33"));
+			ALT_RIFT_BOSS_ROOM_TIME_MUTIPLY = Float.parseFloat(altSettings.getProperty("BossRoomTimeMultiply", "1.5"));
 
-			FS_TIME_ATTACK = Integer.parseInt(altSettings.getProperty("TimeOfAttack", "50"));
-			FS_TIME_COOLDOWN = Integer.parseInt(altSettings.getProperty("TimeOfCoolDown", "5"));
-			FS_TIME_ENTRY = Integer.parseInt(altSettings.getProperty("TimeOfEntry", "3"));
-			FS_TIME_WARMUP = Integer.parseInt(altSettings.getProperty("TimeOfWarmUp", "2"));
-			FS_PARTY_MEMBER_COUNT = Integer.parseInt(altSettings.getProperty("NumberOfNecessaryPartyMembers", "4"));
-			if (FS_TIME_ATTACK <= 0)
-				FS_TIME_ATTACK = 50;
-			if (FS_TIME_COOLDOWN <= 0)
-				FS_TIME_COOLDOWN = 5;
-			if (FS_TIME_ENTRY <= 0)
-				FS_TIME_ENTRY = 3;
-			if (FS_TIME_ENTRY <= 0)
-				FS_TIME_ENTRY = 3;
-			if (FS_TIME_ENTRY <= 0)
-				FS_TIME_ENTRY = 3;
+			ALT_FS_TIME_ATTACK = Integer.parseInt(altSettings.getProperty("TimeOfAttack", "50"));
+			ALT_FS_TIME_COOLDOWN = Integer.parseInt(altSettings.getProperty("TimeOfCoolDown", "5"));
+			ALT_FS_TIME_ENTRY = Integer.parseInt(altSettings.getProperty("TimeOfEntry", "3"));
+			ALT_FS_TIME_WARMUP = Integer.parseInt(altSettings.getProperty("TimeOfWarmUp", "2"));
+			ALT_FS_PARTY_MEMBER_COUNT = Integer.parseInt(altSettings.getProperty("NumberOfNecessaryPartyMembers", "4"));
+			if (ALT_FS_TIME_ATTACK <= 0)
+				ALT_FS_TIME_ATTACK = 50;
+			if (ALT_FS_TIME_COOLDOWN <= 0)
+				ALT_FS_TIME_COOLDOWN = 5;
+			if (ALT_FS_TIME_ENTRY <= 0)
+				ALT_FS_TIME_ENTRY = 3;
+			if (ALT_FS_TIME_ENTRY <= 0)
+				ALT_FS_TIME_ENTRY = 3;
+			if (ALT_FS_TIME_ENTRY <= 0)
+				ALT_FS_TIME_ENTRY = 3;
 
 			ALT_MANA_POTIONS = Boolean.parseBoolean(altSettings.getProperty("AllowManaPotions", "false"));
-			AUTOCHAT_DELAY = Integer.parseInt(altSettings.getProperty("AutoChatDelay", "30000"));
+			ALT_AUTOCHAT_DELAY = Integer.parseInt(altSettings.getProperty("AutoChatDelay", "30000"));
 		}
 		catch (Exception e)
 		{
@@ -3222,9 +3224,9 @@ public final class Config
 			DELETE_DAYS = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("ChanceToBreak"))
-			CHANCE_BREAK = Integer.parseInt(pValue);
+			ALT_CHANCE_BREAK = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("ChanceToLevel"))
-			CHANCE_LEVEL = Integer.parseInt(pValue);
+			ALT_CHANCE_LEVEL = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("AllowDiscardItem"))
 			ALLOW_DISCARDITEM = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("ChampionFrequency"))
@@ -3481,7 +3483,7 @@ public final class Config
 		else if (pName.equalsIgnoreCase("AltMinimumFallHeight"))
 			ALT_MINIMUM_FALL_HEIGHT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("AltNbCumulatedBuff"))
-			BUFFS_MAX_AMOUNT = Integer.parseInt(pValue);
+			ALT_BUFFS_MAX_AMOUNT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("AltBuffTime"))
 			ALT_BUFF_TIME = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("AltSuccessRate"))
@@ -3505,13 +3507,13 @@ public final class Config
 		else if (pName.equalsIgnoreCase("AltDanceTime"))
 			ALT_DANCE_TIME = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("MaxPAtkSpeed"))
-			MAX_PATK_SPEED = Integer.parseInt(pValue);
+			ALT_MAX_PATK_SPEED = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("MaxMAtkSpeed"))
-			MAX_MATK_SPEED = Integer.parseInt(pValue);
+			ALT_MAX_MATK_SPEED = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("GradePenalty"))
-			GRADE_PENALTY = Boolean.parseBoolean(pValue);
+			ALT_GRADE_PENALTY = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("RemoveCastleCirclets"))
-			REMOVE_CASTLE_CIRCLETS = Boolean.parseBoolean(pValue);
+			ALT_REMOVE_CASTLE_CIRCLETS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AltGameCancelByHit"))
 		{
 			ALT_GAME_CANCEL_BOW = pValue.equalsIgnoreCase("bow") || pValue.equalsIgnoreCase("all");
@@ -3544,23 +3546,23 @@ public final class Config
 			ALT_PARTY_RANGE2 = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("CraftingEnabled"))
-			IS_CRAFTING_ENABLED = Boolean.parseBoolean(pValue);
+			ALT_IS_CRAFTING_ENABLED = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("ManagerCrystalCount"))
-			MANAGER_CRYSTAL_COUNT = Integer.parseInt(pValue);
+			ALT_MANAGER_CRYSTAL_COUNT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("SpBookNeeded"))
-			SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);
+			ALT_SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("LifeCrystalNeeded"))
-			LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(pValue);
+			ALT_LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("EnchantSkillSpBookNeeded"))
-			ES_SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);
+			ALT_ES_SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AutoLoot"))
-			AUTO_LOOT = Boolean.parseBoolean(pValue);
+			ALT_AUTO_LOOT = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AutoLootRaid"))
-			AUTO_LOOT_RAID = Boolean.parseBoolean(pValue);
+			ALT_AUTO_LOOT_RAID = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AutoLootAdena"))
-			AUTO_LOOT_ADENA = Boolean.parseBoolean(pValue);
+			ALT_AUTO_LOOT_ADENA = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AutoLootHerbs"))
-			AUTO_LOOT_HERBS = Boolean.parseBoolean(pValue);
+			ALT_AUTO_LOOT_HERBS = Boolean.parseBoolean(pValue);
 
 		else if (pName.equalsIgnoreCase("AltKarmaPlayerCanBeKilledInPeaceZone"))
 			ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE = Boolean.parseBoolean(pValue);
@@ -3583,25 +3585,25 @@ public final class Config
 		else if (pName.equalsIgnoreCase("AltSubClassWithoutQuests"))
 			ALT_GAME_SUBCLASS_WITHOUT_QUESTS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("MaxSubclass"))
-			MAX_SUBCLASS = Integer.parseInt(pValue);
+			ALT_MAX_SUBCLASS = Integer.parseInt(pValue);
 		//else if (pName.equalsIgnoreCase("AltNewCharAlwaysIsNewbie"))
 		//ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("DwarfRecipeLimit"))
-			DWARF_RECIPE_LIMIT = Integer.parseInt(pValue);
+			ALT_DWARF_RECIPE_LIMIT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("CommonRecipeLimit"))
-			COMMON_RECIPE_LIMIT = Integer.parseInt(pValue);
+			ALT_COMMON_RECIPE_LIMIT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("CastleShieldRestriction"))
-			CASTLE_SHIELD = Boolean.parseBoolean(pValue);
+			ALT_CASTLE_SHIELD = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("ClanHallShieldRestriction"))
-			CLANHALL_SHIELD = Boolean.parseBoolean(pValue);
+			ALT_CLANHALL_SHIELD = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("ApellaArmorsRestriction"))
-			APELLA_ARMORS = Boolean.parseBoolean(pValue);
+			ALT_APELLA_ARMORS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("OathArmorsRestriction"))
-			OATH_ARMORS = Boolean.parseBoolean(pValue);
+			ALT_OATH_ARMORS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("CastleLordsCrownRestriction"))
-			CASTLE_CROWN = Boolean.parseBoolean(pValue);
+			ALT_CASTLE_CROWN = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("CastleCircletsRestriction"))
-			CASTLE_CIRCLETS = Boolean.parseBoolean(pValue);
+			ALT_CASTLE_CIRCLETS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AllowManaPotions"))
 			ALT_MANA_POTIONS = Boolean.parseBoolean(pValue);
 
@@ -3690,17 +3692,17 @@ public final class Config
 			DM_REVIVE_DELAY = Long.parseLong(pValue);
 
 		else if (pName.equalsIgnoreCase("FailFakeDeath"))
-			FAIL_FAKEDEATH = Boolean.parseBoolean(pValue);
+			ALT_FAIL_FAKEDEATH = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AltFlyingWyvernInSiege"))
 			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("TimeInADayOfOpenADoor"))
-			TIME_IN_A_DAY_OF_OPEN_A_DOOR = Integer.parseInt(pValue);
+			ALT_TIME_IN_A_DAY_OF_OPEN_A_DOOR = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("TimeOfOpeningADoor"))
-			TIME_OF_OPENING_A_DOOR = Integer.parseInt(pValue);
+			ALT_TIME_OF_OPENING_A_DOOR = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("NurseAntRespawnDelay"))
-			NURSEANT_RESPAWN_DELAY = Integer.parseInt(pValue);
+			ALT_NURSEANT_RESPAWN_DELAY = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("TimeLimitOfInvade"))
-			TIMELIMITOFINVADE = Integer.parseInt(pValue);
+			ALT_TIMELIMITOFINVADE = Integer.parseInt(pValue);
 
 		// JP fight with Antharas Custom Setting
 		else if (pName.equalsIgnoreCase("FixIntervalOfAntharas"))

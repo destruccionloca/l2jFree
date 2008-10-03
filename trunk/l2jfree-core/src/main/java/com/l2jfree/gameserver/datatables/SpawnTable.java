@@ -95,11 +95,11 @@ public class SpawnTable
 					{
 						// Don't spawn raidbosses
 					}
-					else if (!Config.SPAWN_CLASS_MASTER && template1.getType().equals("L2ClassMaster"))
+					else if (!Config.ALT_SPAWN_CLASS_MASTER && template1.getType().equals("L2ClassMaster"))
 					{
 						// Dont' spawn class masters
 					}
-					else if (!Config.SPAWN_WYVERN_MANAGER && template1.getType().equals("L2WyvernManager"))
+					else if (!Config.ALT_SPAWN_WYVERN_MANAGER && template1.getType().equals("L2WyvernManager"))
 					{
 						// Dont' spawn wyvern managers
 					}
@@ -177,7 +177,7 @@ public class SpawnTable
 					{
 						// Don't spawn raidbosses
 					}
-					else if (!Config.SPAWN_CLASS_MASTER && template1.getType().equals("L2ClassMaster"))
+					else if (!Config.ALT_SPAWN_CLASS_MASTER && template1.getType().equals("L2ClassMaster"))
 					{
 						// Dont' spawn class masters
 					}
