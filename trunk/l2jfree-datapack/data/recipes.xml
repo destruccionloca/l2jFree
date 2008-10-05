@@ -13420,6 +13420,8 @@
     <ingredient id="1888" count="154" />
     <!-- Durable Metal Plate -->
     <ingredient id="5550" count="308" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="77" />
     <!-- Enria -->
     <ingredient id="4042" count="77" />
     <!-- Crystal: S Grade -->
@@ -13447,6 +13449,8 @@
     <ingredient id="1888" count="284" />
     <!-- Durable Metal Plate -->
     <ingredient id="5550" count="568" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="142" />
     <!-- Enria -->
     <ingredient id="4042" count="142" />
     <!-- Crystal: S Grade -->
@@ -13640,6 +13644,8 @@
     <ingredient id="1888" count="124" />
     <!-- Durable Metal Plate -->
     <ingredient id="5550" count="248" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="62" />
     <!-- Enria -->
     <ingredient id="4042" count="62" />
     <!-- Crystal: S Grade -->
@@ -13667,6 +13673,8 @@
     <ingredient id="1888" count="232" />
     <!-- Durable Metal Plate -->
     <ingredient id="5550" count="464" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="116" />
     <!-- Enria -->
     <ingredient id="4042" count="116" />
     <!-- Crystal: S Grade -->
@@ -13694,6 +13702,8 @@
     <ingredient id="1888" count="124" />
     <!-- Durable Metal Plate -->
     <ingredient id="5550" count="248" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="62" />
     <!-- Enria -->
     <ingredient id="4042" count="62" />
     <!-- Crystal: S Grade -->
@@ -13721,6 +13731,8 @@
     <ingredient id="1888" count="232" />
     <!-- Durable Metal Plate -->
     <ingredient id="5550" count="464" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="116" />
     <!-- Enria -->
     <ingredient id="4042" count="116" />
     <!-- Crystal: S Grade -->
@@ -13748,6 +13760,8 @@
     <ingredient id="1888" count="154" />
     <!-- Durable Metal Plate -->
     <ingredient id="5550" count="308" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="77" />
     <!-- Enria -->
     <ingredient id="4042" count="77" />
     <!-- Crystal: S Grade -->
@@ -13775,6 +13789,8 @@
     <ingredient id="1888" count="284" />
     <!-- Durable Metal Plate -->
     <ingredient id="5550" count="568" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="142" />
     <!-- Enria -->
     <ingredient id="4042" count="142" />
     <!-- Crystal: S Grade -->
@@ -13856,6 +13872,8 @@
     <ingredient id="1888" count="154" />
     <!-- Durable Metal Plate -->
     <ingredient id="5550" count="308" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="77" />
     <!-- Enria -->
     <ingredient id="4042" count="77" />
     <!-- Crystal: S Grade -->
@@ -13883,6 +13901,8 @@
     <ingredient id="1888" count="284" />
     <!-- Durable Metal Plate -->
     <ingredient id="5550" count="568" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="142" />
     <!-- Enria -->
     <ingredient id="4042" count="142" />
     <!-- Crystal: S Grade -->
@@ -14241,6 +14261,8 @@
     <ingredient id="5551" count="1" />
     <!-- Mithril Alloy -->
     <ingredient id="1890" count="36" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="12" />
     <!-- Synthetic Cokes -->
     <ingredient id="1888" count="12" />
     <!-- Asofe -->
@@ -14269,6 +14291,8 @@
     <ingredient id="1890" count="87" />
     <!-- Synthetic Cokes -->
     <ingredient id="1888" count="29" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="29" />
     <!-- Asofe -->
     <ingredient id="4043" count="29" />
     <!-- Crystal: S Grade -->
@@ -16211,15 +16235,17 @@
     <!-- Warsmith's Holder -->
     <ingredient id="5554" count="4" />
     <!-- Mithril Alloy -->
-    <ingredient id="1890" count="375" />
-    <!-- Synthetic Cokes -->
-    <ingredient id="1888" count="75" />
+    <ingredient id="1890" count="385" />
     <!-- Durable Metal Plate -->
-    <ingredient id="5550" count="150" />
+    <ingredient id="5550" count="154" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="77" />
+    <!-- Compound Braid -->
+    <ingredient id="1889" count="77" />
     <!-- Enria -->
-    <ingredient id="4042" count="75" />
+    <ingredient id="4042" count="77" />
     <!-- Crystal: S Grade -->
-    <ingredient id="1462" count="212" />
+    <ingredient id="1462" count="214" />
     <!-- Gemstone S -->
     <ingredient id="2134" count="43" />
   </item>
@@ -16253,14 +16279,14 @@
     <ingredient id="2134" count="43" />
   </item>
   <item id="776" name="mk_racoon_ear">
-    <!-- Recipe - Raccoon Ears (100%) -->
+    <!-- Recipe: Raccoon Ears (100%) -->
     <recipe id="7689" level="4" />
     <common />
     <mpCost>138</mpCost>
     <successRate>100</successRate>
     <!-- Raccoon Ears -->
     <production id="7680" count="1" />
-    <!-- Recipe - Raccoon Ears (100%) -->
+    <!-- Recipe: Raccoon Ears (100%) -->
     <ingredient id="7689" count="1" />
     <!-- Raccoon Ears Fabric -->
     <ingredient id="7684" count="20" />
@@ -16270,14 +16296,14 @@
     <ingredient id="6914" count="150" />
   </item>
   <item id="777" name="mk_outlaw_eyepatch">
-    <!-- Recipe - Outlaw's Eyepatch (100%) -->
+    <!-- Recipe: Outlaw's Eyepatch (100%) -->
     <recipe id="7690" level="4" />
     <common />
     <mpCost>138</mpCost>
     <successRate>100</successRate>
     <!-- Outlaw's Eyepatch -->
     <production id="7681" count="1" />
-    <!-- Recipe - Outlaw's Eyepatch (100%) -->
+    <!-- Recipe: Outlaw's Eyepatch (100%) -->
     <ingredient id="7690" count="1" />
     <!-- Outlaw's Eyepatch Strap -->
     <ingredient id="7685" count="20" />
@@ -16287,14 +16313,14 @@
     <ingredient id="6914" count="150" />
   </item>
   <item id="778" name="mk_maidens_hairpin">
-    <!-- Recipe - Maiden's Hairpin (100%) -->
+    <!-- Recipe: Maiden's Hairpin (100%) -->
     <recipe id="7691" level="4" />
     <common />
     <mpCost>138</mpCost>
     <successRate>100</successRate>
     <!-- Maiden's Hairpin -->
     <production id="7682" count="1" />
-    <!-- Recipe - Maiden's Hairpin (100%) -->
+    <!-- Recipe: Maiden's Hairpin (100%) -->
     <ingredient id="7691" count="1" />
     <!-- Maiden's Hairpin Piece -->
     <ingredient id="7686" count="20" />
@@ -16304,14 +16330,14 @@
     <ingredient id="6914" count="150" />
   </item>
   <item id="779" name="mk_rabbit_ear">
-    <!-- Recipe - Rabbit Ears (100%) -->
+    <!-- Recipe: Rabbit Ears (100%) -->
     <recipe id="7692" level="4" />
     <common />
     <mpCost>138</mpCost>
     <successRate>100</successRate>
     <!-- Rabbit Ears -->
     <production id="7683" count="1" />
-    <!-- Recipe - Rabbit Ears (100%) -->
+    <!-- Recipe: Rabbit Ears (100%) -->
     <ingredient id="7692" count="1" />
     <!-- Rabbit Ears Fabric -->
     <ingredient id="7687" count="20" />
@@ -16321,14 +16347,14 @@
     <ingredient id="6914" count="150" />
   </item>
   <item id="780" name="mk_cat_ear">
-    <!-- Recipe - Cat Ears (100%) -->
+    <!-- Recipe: Cat Ears (100%) -->
     <recipe id="7693" level="4" />
     <common />
     <mpCost>138</mpCost>
     <successRate>100</successRate>
     <!-- Cat Ear -->
     <production id="6843" count="1" />
-    <!-- Recipe - Cat Ears (100%) -->
+    <!-- Recipe: Cat Ears (100%) -->
     <ingredient id="7693" count="1" />
     <!-- Cat Ears Fabric -->
     <ingredient id="7688" count="20" />
@@ -18372,7 +18398,7 @@
   </item>
   <!-- 1stThrone Recipes by Skatershi -->
   <item id="872" name="mk_dynasty_blade_i">
-    <!-- Recipe - Dynasty Sword (60%) -->
+    <!-- Recipe: Dynasty Sword (60%) -->
     <recipe id="9967" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18399,7 +18425,7 @@
     <ingredient id="2134" count="154" />
   </item>
   <item id="873" name="mk_dynasty_two_hand_sword_i">
-    <!-- Recipe - Dynasty Blade (60%) -->
+    <!-- Recipe: Dynasty Blade (60%) -->
     <recipe id="9968" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18426,7 +18452,7 @@
     <ingredient id="2134" count="154" />
   </item>
   <item id="874" name="mk_dynasty_magic_sword_i">
-    <!-- Recipe - Dynasty Phantom (60%) -->
+    <!-- Recipe: Dynasty Phantom (60%) -->
     <recipe id="9969" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18453,7 +18479,7 @@
     <ingredient id="2134" count="154" />
   </item>
   <item id="875" name="mk_dynasty_bow_i">
-    <!-- Recipe - Dynasty Bow (60%) -->
+    <!-- Recipe: Dynasty Bow (60%) -->
     <recipe id="9970" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18482,7 +18508,7 @@
     <ingredient id="2134" count="154" />
   </item>
   <item id="876" name="mk_dynasty_dagger_i">
-    <!-- Recipe - Dynasty Knife (60%) -->
+    <!-- Recipe: Dynasty Knife (60%) -->
     <recipe id="9971" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18509,7 +18535,7 @@
     <ingredient id="2134" count="154" />
   </item>
   <item id="877" name="mk_dynasty_spear_i">
-    <!-- Recipe - Dynasty Halberd (60%) -->
+    <!-- Recipe: Dynasty Halberd (60%) -->
     <recipe id="9972" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18538,7 +18564,7 @@
     <ingredient id="2134" count="154" />
   </item>
   <item id="878" name="mk_dynasty_hammer_i">
-    <!-- Recipe - Dynasty Cudgel (60%) -->
+    <!-- Recipe: Dynasty Cudgel (60%) -->
     <recipe id="9973" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18565,7 +18591,7 @@
     <ingredient id="2134" count="154" />
   </item>
   <item id="879" name="mk_dynasty_staff_i">
-    <!-- Recipe - Dynasty Mace (60%) -->
+    <!-- Recipe: Dynasty Mace (60%) -->
     <recipe id="9974" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18594,7 +18620,7 @@
     <ingredient id="2134" count="154" />
   </item>
   <item id="880" name="mk_dynasty_jamadhr_i">
-    <!-- Recipe - Dynasty Bagh-Nakh (60%) -->
+    <!-- Recipe: Dynasty Bagh-Nakh (60%) -->
     <recipe id="9975" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18623,7 +18649,7 @@
     <ingredient id="2134" count="154" />
   </item>
   <item id="881" name="mk_sealed_dynasty_blast_plate_i">
-    <!-- Recipe - Sealed Dynasty Breast Plate (60%) -->
+    <!-- Recipe: Sealed Dynasty Breast Plate (60%) -->
     <recipe id="9482" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18646,7 +18672,7 @@
     <ingredient id="2134" count="44" />
   </item>
   <item id="882" name="mk_sealed_dynasty_gaiter_i">
-    <!-- Recipe - Sealed Dynasty Gaiter (60%) -->
+    <!-- Recipe: Sealed Dynasty Gaiter (60%) -->
     <recipe id="9483" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18669,7 +18695,7 @@
     <ingredient id="2134" count="26" />
   </item>
   <item id="883" name="mk_sealed_dynasty_helmet_i">
-    <!-- Recipe - Sealed Dynasty Helmet (60%) -->
+    <!-- Recipe: Sealed Dynasty Helmet (60%) -->
     <recipe id="9484" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18692,7 +18718,7 @@
     <ingredient id="2134" count="15" />
   </item>
   <item id="884" name="mk_sealed_dynasty_gauntlet_i">
-    <!-- Recipe - Sealed Dynasty Gauntlet (60%) -->
+    <!-- Recipe: Sealed Dynasty Gauntlet (60%) -->
     <recipe id="9485" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18717,7 +18743,7 @@
     <ingredient id="2134" count="9" />
   </item>
   <item id="885" name="mk_sealed_dynasty_boots_i">
-    <!-- Recipe - Sealed Dynasty Boots (60%) -->
+    <!-- Recipe: Sealed Dynasty Boots (60%) -->
     <recipe id="9486" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18742,7 +18768,7 @@
     <ingredient id="2134" count="9" />
   </item>
   <item id="886" name="mk_sealed_dynasty_leather_mail_i">
-    <!-- Recipe - Sealed Dynasty Leather Armor (60%) -->
+    <!-- Recipe: Sealed Dynasty Leather Armor (60%) -->
     <recipe id="9487" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18768,7 +18794,7 @@
   </item>
   <item id="887"
     name="mk_sealed_dynasty_leather_legging_i">
-    <!-- Recipe - Sealed Dynasty Leather Armor (60%) -->
+    <!-- Recipe: Sealed Dynasty Leather Armor (60%) -->
     <recipe id="9488" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18794,7 +18820,7 @@
   </item>
   <item id="888"
     name="mk_sealed_dynasty_leather_helmet_i">
-    <!-- Recipe - Sealed Dynasty Leather Helmet (60%) -->
+    <!-- Recipe: Sealed Dynasty Leather Helmet (60%) -->
     <recipe id="9489" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18818,7 +18844,7 @@
   </item>
   <item id="889"
     name="mk_sealed_dynasty_leather_gloves_i">
-    <!-- Recipe - Sealed Dynasty Leather Gloves (60%) -->
+    <!-- Recipe: Sealed Dynasty Leather Gloves (60%) -->
     <recipe id="9490" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18843,7 +18869,7 @@
     <ingredient id="2134" count="9" />
   </item>
   <item id="890" name="mk_sealed_dynasty_leather_boots_i">
-    <!-- Recipe - Sealed Dynasty Leather Boots (60%) -->
+    <!-- Recipe: Sealed Dynasty Leather Boots (60%) -->
     <recipe id="9491" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18868,7 +18894,7 @@
     <ingredient id="2134" count="9" />
   </item>
   <item id="891" name="mk_sealed_dynasty_tunic_i">
-    <!-- Recipe - Sealed Dynasty Tunic (60%) -->
+    <!-- Recipe: Sealed Dynasty Tunic (60%) -->
     <recipe id="9492" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18893,7 +18919,7 @@
     <ingredient id="2134" count="32" />
   </item>
   <item id="892" name="mk_sealed_dynasty_hose_i">
-    <!-- Recipe - Sealed Dynasty Stockings (60%) -->
+    <!-- Recipe: Sealed Dynasty Stockings (60%) -->
     <recipe id="9493" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18918,7 +18944,7 @@
     <ingredient id="2134" count="19" />
   </item>
   <item id="893" name="mk_sealed_dynasty_circlet_i">
-    <!-- Recipe - Sealed Dynasty Circlet (60%) -->
+    <!-- Recipe: Sealed Dynasty Circlet (60%) -->
     <recipe id="9494" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18941,7 +18967,7 @@
     <ingredient id="2134" count="15" />
   </item>
   <item id="894" name="mk_sealed_dynasty_gloves_i">
-    <!-- Recipe - Sealed Dynasty Gloves (60%) -->
+    <!-- Recipe: Sealed Dynasty Gloves (60%) -->
     <recipe id="9495" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18966,7 +18992,7 @@
     <ingredient id="2134" count="9" />
   </item>
   <item id="895" name="mk_sealed_dynasty_shoes_i">
-    <!-- Recipe - Sealed Dynasty Shoes (60%) -->
+    <!-- Recipe: Sealed Dynasty Shoes (60%) -->
     <recipe id="9496" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -18991,7 +19017,7 @@
     <ingredient id="2134" count="9" />
   </item>
   <item id="896" name="mk_sealed_dynasty_shield_i">
-    <!-- Recipe - Sealed Dynasty Shield (60%) -->
+    <!-- Recipe: Sealed Dynasty Shield (60%) -->
     <recipe id="9497" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19018,7 +19044,7 @@
     <ingredient id="2134" count="10" />
   </item>
   <item id="897" name="mk_sealed_dynasty_earring_i">
-    <!-- Recipe - Sealed Dynasty Earrings (70%) -->
+    <!-- Recipe: Sealed Dynasty Earrings (70%) -->
     <recipe id="9985" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19043,7 +19069,7 @@
     <ingredient id="2134" count="11" />
   </item>
   <item id="898" name="mk_sealed_dynasty_neckalce_i">
-    <!-- Recipe - Sealed Dynasty Necklace (70%) -->
+    <!-- Recipe: Sealed Dynasty Necklace (70%) -->
     <recipe id="9986" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19068,7 +19094,7 @@
     <ingredient id="2134" count="15" />
   </item>
   <item id="899" name="mk_sealed_dynasty_ring_i">
-    <!-- Recipe - Sealed Dynasty Ring (70%) -->
+    <!-- Recipe: Sealed Dynasty Ring (70%) -->
     <recipe id="9987" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19094,7 +19120,7 @@
   </item>
   <!-- CT1.5 Recipes by Skatershi -->
   <item id="900" name="mk_icarus_sowsword_i">
-    <!-- Recipe - Icarus Sawsword (60%) -->
+    <!-- Recipe: Icarus Sawsword (60%) -->
     <recipe id="10373" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19121,7 +19147,7 @@
     <ingredient id="2134" count="236" />
   </item>
   <item id="901" name="mk_icarus_disperser_i">
-    <!-- Recipe - Icarus Disperser (60%) -->
+    <!-- Recipe: Icarus Disperser (60%) -->
     <recipe id="10374" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19148,7 +19174,7 @@
     <ingredient id="2134" count="236" />
   </item>
   <item id="902" name="mk_icarus_spirits_i">
-    <!-- Recipe - Icarus Spirit (60%) -->
+    <!-- Recipe: Icarus Spirit (60%) -->
     <recipe id="10375" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19175,7 +19201,7 @@
     <ingredient id="2134" count="236" />
   </item>
   <item id="903" name="mk_icarus_heavy_arms_i">
-    <!-- Recipe - Icarus Heavy Arms (60%) -->
+    <!-- Recipe: Icarus Heavy Arms (60%) -->
     <recipe id="10376" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19202,7 +19228,7 @@
     <ingredient id="2134" count="236" />
   </item>
   <item id="904" name="mk_icarus_trident_i">
-    <!-- Recipe - Icarus Trident (60%) -->
+    <!-- Recipe: Icarus Trident (60%) -->
     <recipe id="10377" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19231,7 +19257,7 @@
     <ingredient id="2134" count="236" />
   </item>
   <item id="905" name="mk_icarus_chopper_i">
-    <!-- Recipe - Icarus Hammer (60%) -->
+    <!-- Recipe: Icarus Hammer (60%) -->
     <recipe id="10378" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19260,7 +19286,7 @@
     <ingredient id="2134" count="236" />
   </item>
   <item id="906" name="mk_icarus_knuckle_i">
-    <!-- Recipe - Icarus Hand (60%) -->
+    <!-- Recipe: Icarus Hand (60%) -->
     <recipe id="10379" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19289,7 +19315,7 @@
     <ingredient id="2134" count="236" />
   </item>
   <item id="907" name="mk_icarus_wand_i">
-    <!-- Recipe - Icarus Hall (60%) -->
+    <!-- Recipe: Icarus Hall (60%) -->
     <recipe id="10380" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19318,7 +19344,7 @@
     <ingredient id="2134" count="236" />
   </item>
   <item id="908" name="mk_icarus_accipiter_i">
-    <!-- Recipe - Icarus Spitter (60%) -->
+    <!-- Recipe: Icarus Spitter (60%) -->
     <recipe id="10381" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
@@ -19347,14 +19373,14 @@
     <ingredient id="2134" count="236" />
   </item>
   <item id="909" name="mk_dynasty_twohand_staff_i">
-    <!-- Recipe - Dynasty Staff(60%) -->
+    <!-- Recipe: Dynasty Staff(60%) -->
     <recipe id="10544" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Staff -->
     <production id="10252" count="1" />
-    <!-- Recipe - Dynasty Staff Fragment -->
+    <!-- Recipe: Dynasty Staff Fragment -->
     <ingredient id="10546" count="18" />
     <!-- Warsmith's Holder -->
     <ingredient id="5554" count="4" />
@@ -19376,14 +19402,14 @@
     <ingredient id="2134" count="154" />
   </item>
   <item id="910" name="mk_dynasty_crusher_i">
-    <!-- Recipe - Dynasty Crusher(60%) -->
+    <!-- Recipe: Dynasty Crusher(60%) -->
     <recipe id="10545" level="9" />
     <dwarven />
     <mpCost>240</mpCost>
     <successRate>60</successRate>
     <!-- Dynasty Crusher -->
     <production id="10253" count="1" />
-    <!-- Recipe - Dynasty Crusher Fragment -->
+    <!-- Recipe: Dynasty Crusher Fragment -->
     <ingredient id="10547" count="18" />
     <!-- Warsmith's Holder -->
     <ingredient id="5554" count="4" />
