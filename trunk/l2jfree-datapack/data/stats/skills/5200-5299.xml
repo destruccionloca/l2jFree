@@ -3,10 +3,9 @@
 <list>
   <skill id="5200" levels="3" name="Pet Recharge">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1-3 - Regenerates MP.
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1-3 - Regenerates MP.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -16,10 +15,11 @@
   </skill>
   <skill id="5201" levels="6" name="Pet Concentration">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1-2 - Temporarily lowers the probability of magic being canceled due to damage taken taken.
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1-2 - Temporarily lowers the
+      probability of magic being canceled due to damage
+      taken taken.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -29,10 +29,10 @@
   </skill>
   <skill id="5202" levels="12" name="Stun">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1-12 - Temporarily gets thrown into a state of shock and Immobilized.
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1-12 - Temporarily gets thrown
+      into a state of shock and Immobilized.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -42,10 +42,10 @@
   </skill>
   <skill id="5203" levels="12" name="Fear">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      Lvl 1-12 - Temporarily becomes overcome with fear and flees mindlessly.
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): Lvl 1-12 - Temporarily becomes
+      overcome with fear and flees mindlessly.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -68,10 +68,9 @@
   </skill>
   <skill id="5205" levels="1" name="Boss Regeneration">
     <!--
-      Needs to be finished.
-      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-      Description(s):
-      none
+      Needs to be finished. Target is set to TARGET_NONE,
+      skillType to NOTDONE for server compatability.
+      Description(s): none
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -81,8 +80,8 @@
   </skill>
   <skill id="5206" levels="1" name="Decrease Speed">
     <!--
-      Description(s):
-      Curse of the Pig: Instantly reduces Speed. Effect 1.
+      Description(s): Curse of the Pig: Instantly reduces
+      Speed. Effect 1.
     -->
     <set name="power" val="542.0" />
     <set name="target" val="TARGET_ONE" />
@@ -103,8 +102,8 @@
   </skill>
   <skill id="5207" levels="1" name="Decrease Atk. Spd.">
     <!--
-      Description(s):
-      Curse of the Pig: Instantly reduces Atk. Spd. Effect 1.
+      Description(s): Curse of the Pig: Instantly reduces
+      Atk. Spd. Effect 1.
     -->
     <set name="lvlDepend" val="1" />
     <set name="power" val="10" />
@@ -123,8 +122,7 @@
   </skill>
   <skill id="5208" levels="1" name="Event Wind walk">
     <!--
-      Description(s):
-      Temporarily increases Speed. Effect 2.
+      Description(s): Temporarily increases Speed. Effect 2.
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
@@ -142,8 +140,8 @@
   </skill>
   <skill id="5209" levels="1" name="Event Shield">
     <!--
-      Description(s):
-      Temporarily increases P. Def. Effect 3.
+      Description(s): Temporarily increases P. Def. Effect
+      3.
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
@@ -161,8 +159,8 @@
   </skill>
   <skill id="5210" levels="1" name="Event Bless the body">
     <!--
-      Description(s):
-      Temporarily increases maximum HP. Effect 6.
+      Description(s): Temporarily increases maximum HP.
+      Effect 6.
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
@@ -180,8 +178,9 @@
   </skill>
   <skill id="5211" levels="1" name="Event Vampiric rage">
     <!--
-      Description(s):
-      Uses damage inflicted upon an enemy to temporarily restore HP. Excludes damage inflicted by skill or remote attack. Effect 4.
+      Description(s): Uses damage inflicted upon an enemy to
+      temporarily restore HP. Excludes damage inflicted by
+      skill or remote attack. Effect 4.
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
@@ -198,8 +197,8 @@
   </skill>
   <skill id="5212" levels="1" name="Event Regeneration">
     <!--
-      Description(s):
-      Temporarily increases ability to restore HP. Effect 3.
+      Description(s): Temporarily increases ability to
+      restore HP. Effect 3.
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
@@ -217,8 +216,8 @@
   </skill>
   <skill id="5213" levels="1" name="Event Haste">
     <!--
-      Description(s):
-      Temporarily increases Atk. Spd. Effect 1.
+      Description(s): Temporarily increases Atk. Spd. Effect
+      1.
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
@@ -236,8 +235,8 @@
   </skill>
   <skill id="5214" levels="1" name="Event Bless the Soul">
     <!--
-      Description(s):
-      Temporarily increases maximum MP. Effect 6.
+      Description(s): Temporarily increases maximum MP.
+      Effect 6.
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
@@ -255,8 +254,8 @@
   </skill>
   <skill id="5215" levels="1" name="Event Acumen">
     <!--
-      Description(s):
-      Temporarily increases Casting Spd. Effect 3.
+      Description(s): Temporarily increases Casting Spd.
+      Effect 3.
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
@@ -274,8 +273,8 @@
   </skill>
   <skill id="5216" levels="1" name="Event Concentration">
     <!--
-      Description(s):
-      Temporarily decreases the probability of magic being canceled due to damage taken. Effect 1.
+      Description(s): Temporarily decreases the probability
+      of magic being canceled due to damage taken. Effect 1.
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
@@ -293,8 +292,8 @@
   </skill>
   <skill id="5217" levels="1" name="Event Empower">
     <!--
-      Description(s):
-      Temporarily increases M. Atk. Effect 1.
+      Description(s): Temporarily increases M. Atk. Effect
+      1.
     -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
@@ -310,8 +309,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="5218" levels="1"
-    name="Production: Event Teleport">
+  <skill id="5218" levels="1" name="Production: Event Teleport">
     <!-- Needs more work -->
     <!-- Only pre-implementation -->
     <set name="target" val="TARGET_ONE" />
@@ -325,8 +323,8 @@
   <skill id="5219" levels="1"
     name="Stun of giant mutated animal">
     <!--
-      Description(s):
-      Curse of the Huge Pig: Target is temporarily stunned and immoblized.
+      Description(s): Curse of the Huge Pig: Target is
+      temporarily stunned and immoblized.
     -->
     <set name="magicLvl" val="99" />
     <set name="lvlDepend" val="1" />
@@ -349,8 +347,9 @@
   <skill id="5220" levels="1"
     name="Fear of giant mutated animal">
     <!--
-      Description(s):
-      Curse of the Huge Pig: Target is temporarily overcome with fear, causing it to flee mindlessly.
+      Description(s): Curse of the Huge Pig: Target is
+      temporarily overcome with fear, causing it to flee
+      mindlessly.
     -->
     <set name="mpConsume" val="43" />
     <set name="power" val="0.0" />
@@ -383,8 +382,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5223" levels="1"
-    name="Balor - Magic Weak Point">
+  <skill id="5223" levels="1" name="Balor - Magic Weak Point">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -492,16 +490,14 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5233" levels="1"
-    name="Weight Spin Attack - Weak">
+  <skill id="5233" levels="1" name="Weight Spin Attack - Weak">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5234" levels="1"
-    name="Weight Spin Attack - Mid">
+  <skill id="5234" levels="1" name="Weight Spin Attack - Mid">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -636,12 +632,10 @@
     <for />
   </skill>
   <skill id="5253" levels="12" name="Bleed">
-    <table name="#dmg">
-      27 39 51 66 81 93 102 102 105 105 108 108
-    </table>
-    <table name="#mpConsume">
-      19 30 42 57 74 91 106 114 119 124 126 128
-    </table>
+    <table name="#dmg"> 27 39 51 66 81 93 102 102 105 105 108
+      108 </table>
+    <table name="#mpConsume"> 19 30 42 57 74 91 106 114 119 124 126
+      128 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
@@ -665,12 +659,10 @@
     <for />
   </skill>
   <skill id="5255" levels="12" name="Mana Burn">
-    <table name="#mpConsume">
-      77 78 80 83 87 89 93 95 98 100 102 103
-    </table>
-    <table name="#power">
-      117 119 123 128 133 138 143 148 153 157 160 162
-    </table>
+    <table name="#mpConsume"> 77 78 80 83 87 89 93 95 98 100 102
+      103 </table>
+    <table name="#power"> 117 119 123 128 133 138 143 148 153
+      157 160 162 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="reuseDelay" val="13000" />
@@ -683,8 +675,7 @@
     <set name="isMagic" val="true" />
     <for />
   </skill>
-  <skill id="5256" levels="1"
-    name="Announcement of Death">
+  <skill id="5256" levels="1" name="Announcement of Death">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -706,15 +697,9 @@
     <for />
   </skill>
   <skill id="5259" levels="12" name="Fear">
-    <table name="#mpConsume_Init">
-      9 10 11 11 11 12 12 13 13 13 14 14
-    </table>
-    <table name="#mpConsume">
-      35 38 41 43 44 46 48 49 51 52 53 55
-    </table>
-    <table name="#magicLvl">
-      48 52 56 58 60 62 64 66 68 70 72 74
-    </table>
+    <table name="#mpConsume_Init"> 9 10 11 11 11 12 12 13 13 13 14 14 </table>
+    <table name="#mpConsume"> 35 38 41 43 44 46 48 49 51 52 53 55 </table>
+    <table name="#magicLvl"> 48 52 56 58 60 62 64 66 68 70 72 74 </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
@@ -753,8 +738,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5263" levels="12"
-    name="NPC _ Chain Lightning">
+  <skill id="5263" levels="12" name="NPC - Chain Lightning">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -762,13 +746,8 @@
     <for />
   </skill>
   <skill id="5264" levels="12" name="Death Mark">
-    <!--
-      Description(s):
-      Condition of being marked with the brand of darkness.
-    -->
-    <table name="#dmg">
-      18 29 40 53 68 83 98 104 109 113 115 117
-    </table>
+    <table name="#dmg"> 18 29 40 53 68 83 98 104 109 113 115
+      117 </table>
     <set name="target" val="TARGET_ONE" />
     <set name="element" val="6" /><!-- Dark -->
     <set name="skillType" val="DOT" />
@@ -785,16 +764,10 @@
     </for>
   </skill>
   <skill id="5265" levels="12" name="NPC - Soul Emission">
-    <table name="#mpConsume">
-      13 20 27 35 45 55 65 69 73 75 77 78
-    </table>
-    <table name="#power">
-      18.0 26.0 38.0 52.0 68.0 85.0 102.0 110.0 116.0 122.0
-      126.0 129.0
-    </table>
-    <table name="#magicLvl">
-      10 20 30 40 50 60 70 75 80 85 90 95
-    </table>
+    <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
+    <table name="#power"> 18.0 26.0 38.0 52.0 68.0 85.0 102.0
+      110.0 116.0 122.0 126.0 129.0 </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -816,12 +789,10 @@
   </skill>
   <skill id="5267" levels="9" name="Trap Explosion">
     <!-- Needs retail value corrections, By Darki699 -->
-    <table name="#magicLvl">
-      28 36 44 48 52 56 60 68 74
-    </table><!-- Guessing levels 3-9 -->
-    <table name="#power">
-      50.0 54.0 60.0 78.0 84.0 92.0 120.0 130.0 140.0
-    </table><!-- Guessing -->
+    <table name="#magicLvl"> 28 36 44 48 52 56 60 68 74 </table>
+    <!-- Guessing levels 3-9 -->
+    <table name="#power"> 50.0 54.0 60.0 78.0 84.0 92.0 120.0
+      130.0 140.0 </table><!-- Guessing -->
     <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -836,9 +807,7 @@
     <!-- Needs retail value corrections, By Darki699 -->
     <table name="#dmg">54 72 93 114 132 144</table>
     <table name="#magicLvl">49 55 60 64 68 72</table>
-    <table name="#effectLevel">
-      4.0 5.0 6.0 7.0 8.0 9.0
-    </table>
+    <table name="#effectLevel"> 4.0 5.0 6.0 7.0 8.0 9.0 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="0.0" />
     <set name="lvlDepend" val="1" />
@@ -922,9 +891,8 @@
   <skill id="5272" levels="6" name="Decoy Provocation">
     <table name="#mpConsume">50 51 53 54 55 57</table>
     <table name="#magicLvl">38 39 40 41 42 43</table>
-    <table name="#power">
-      2000.0 2800.0 3600.0 4400.0 5200.0 6000.0
-    </table>
+    <table name="#power"> 2000.0 2800.0 3600.0 4400.0 5200.0
+      6000.0 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="#power" />
@@ -943,16 +911,10 @@
   </skill>
   <skill id="5273" levels="9"
     name="NPC(party) - Physical Single Close Range Attack">
-    <table name="#mpConsume">
-      13 20 28 38 50 61 71 76 80 83 84 85
-    </table>
-    <table name="#power">
-      1626.0 1876.0 2112.0 2320.0 2487.0 2617.0 3328.0
-      4558.0 4750.0
-    </table>
-    <table name="#magicLvl">
-      60 65 70 75 80 82 85 88 90
-    </table>
+    <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
+    <table name="#power"> 1626.0 1876.0 2112.0 2320.0 2487.0
+      2617.0 3328.0 4558.0 4750.0 </table>
+    <table name="#magicLvl"> 60 65 70 75 80 82 85 88 90 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
@@ -968,16 +930,10 @@
   </skill>
   <skill id="5274" levels="9"
     name="NPC(party) - Physical Single Long Range Attack">
-    <table name="#mpConsume">
-      13 20 28 38 50 61 71 76 80 83 84 85
-    </table>
-    <table name="#power">
-      1626.0 1876.0 2112.0 2320.0 2487.0 2617.0 3328.0
-      4558.0 4750.0
-    </table>
-    <table name="#magicLvl">
-      60 65 70 75 80 82 85 88 90
-    </table>
+    <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
+    <table name="#power"> 1626.0 1876.0 2112.0 2320.0 2487.0
+      2617.0 3328.0 4558.0 4750.0 </table>
+    <table name="#magicLvl"> 60 65 70 75 80 82 85 88 90 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
@@ -993,16 +949,10 @@
   </skill>
   <skill id="5275" levels="9"
     name="NPC(party) - Physical Range Close Range Attack">
-    <table name="#mpConsume">
-      13 20 28 38 50 61 71 76 80 83 84 85
-    </table>
-    <table name="#power">
-      1626.0 1876.0 2112.0 2320.0 2487.0 2617.0 3328.0
-      4558.0 4750.0
-    </table>
-    <table name="#magicLvl">
-      60 65 70 75 80 82 85 88 90
-    </table>
+    <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
+    <table name="#power"> 1626.0 1876.0 2112.0 2320.0 2487.0
+      2617.0 3328.0 4558.0 4750.0 </table>
+    <table name="#magicLvl"> 60 65 70 75 80 82 85 88 90 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
@@ -1194,16 +1144,10 @@
   </skill>
   <skill id="5298" levels="9"
     name="NPC(party) - Physical Single Long Range Attack - Dark">
-    <table name="#mpConsume">
-      13 20 28 38 50 61 71 76 80 83 84 85
-    </table>
-    <table name="#power">
-      1626.0 1876.0 2112.0 2320.0 2487.0 2617.0 3328.0
-      4558.0 4750.0
-    </table>
-    <table name="#magicLvl">
-      60 65 70 75 80 82 85 88 90
-    </table>
+    <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
+    <table name="#power"> 1626.0 1876.0 2112.0 2320.0 2487.0
+      2617.0 3328.0 4558.0 4750.0 </table>
+    <table name="#magicLvl"> 60 65 70 75 80 82 85 88 90 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />

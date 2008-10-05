@@ -1006,10 +1006,10 @@
       -->
       <effect count="10" name="ManaDamOverTime" time="3"
         val="72" stackOrder="1" stackType="multiple_debuff">
-        <mul order="0x30" stat="cancelVuln" val="1.3" />
+        <mul order="0x30" stat="cancelVuln" val="1.30" />
         <mul order="0x30" stat="MagicalMpConsumeRate"
           val="1.30" />
-        <mul order="0x30" stat="debuffVuln" val="1.3" />
+        <mul order="0x30" stat="debuffVuln" val="1.30" />
       </effect>
     </for>
   </skill>
@@ -1122,7 +1122,7 @@
       <effect count="5" name="ManaDamOverTime" time="2"
         val="40" stackOrder="1" stackType="multiple_debuff">
         <sub order="0x40" stat="accCombat" val="6" />
-        <mul order="0x30" stat="holyVuln" val="1.3" />
+        <mul order="0x30" stat="holyVuln" val="1.30" />
       </effect>
     </for>
   </skill>
@@ -1156,7 +1156,7 @@
       -->
       <effect count="5" name="ManaDamOverTime" time="2"
         val="40" stackOrder="1" stackType="multiple_debuff">
-        <mul order="0x30" stat="darkVuln" val="1.3" />
+        <mul order="0x30" stat="darkVuln" val="1.30" />
       </effect>
     </for>
   </skill>
