@@ -40326,3 +40326,9 @@ INSERT INTO spawnlist VALUES (NULL,'primeval_isle',1,32109,23666,-7144,-1134,0,0
 DELETE FROM spawnlist WHERE npc_templateId IN
 ( 22175,22176,22188,22189,22190,22191,22192,22193,22195,29062,29063,29064,32038,
   32051,32058,32059,32060,32061,32062,32063,32064,32065,32066,32067,32068 );
+
+DELETE FROM `spawnlist`WHERE `npc_templateid` = 30484;
+
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`, `periodOfDay`) VALUES 
+('', '', 1, 30484, 17539, 113911, -11673, 0, 0, 12333, 60, 0, 0),
+('', '', 1, 30487, 17904, 113931, -11673, 0, 0, 16383, 60, 0, 0);

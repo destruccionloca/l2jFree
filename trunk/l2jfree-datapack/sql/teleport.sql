@@ -852,3 +852,5 @@ INSERT INTO teleport VALUES
 -- Update Teleport
 DELETE FROM teleport WHERE id = 20004;
 INSERT INTO teleport VALUES ('Lair of Sailren -> Primeval Isle Wharf',20004,10468,-24569,-3650,0,0);
+
+UPDATE `teleport` SET `loc_x` = '17724',`loc_y` = '114004',`loc_z` = '-11667' WHERE `id` = 24;
