@@ -82,7 +82,7 @@ public class L2DoorInstance extends L2Character
 	private int					_open;
 	public boolean				_geoOpen;
 	private boolean				_unlockable;
-	private L2Territory	_pos;
+	private L2Territory			_pos;
 
 	private ClanHall			_clanHall;
 
@@ -696,5 +696,15 @@ public class L2DoorInstance extends L2Character
 	public boolean getGeoOpen()
 	{
 		return _geoOpen;
+	}
+
+	@Override
+	public boolean doDie(L2Character killer)
+	{
+		if (!super.doDie(killer))
+			return false;
+
+		setGeoOpen(true);
+		return true;
 	}
 }
