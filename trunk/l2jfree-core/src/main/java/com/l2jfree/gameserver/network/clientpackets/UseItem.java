@@ -364,11 +364,16 @@ public class UseItem extends L2GameClientPacket
 					&& ((bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND) || itemId == 6408)) // Don't allow to put formal wear
 				return;
 
-			if (activeChar.isAttackingNow())
+			if (activeChar.isAttackingNow() && !activeChar.isInOlympiadMode())
 			{
 				ThreadPoolManager.getInstance().scheduleGeneral(new WeaponEquipTask(item, activeChar), (activeChar.getAttackEndTime() - GameTimeController.getGameTicks()) * GameTimeController.MILLIS_IN_TICK);
 				return;
 			}
+			else if (activeChar.isAttackingNow() && activeChar.isInOlympiadMode() && !item.isOlyRestrictedItem() && !item.isHeroItem())
+			{
+				ThreadPoolManager.getInstance().scheduleGeneral(new WeaponEquipTask(item, activeChar), (activeChar.getAttackEndTime() - GameTimeController.getGameTicks()) * GameTimeController.MILLIS_IN_TICK);
+				return;
+			}			
 
 			// Fortress siege combat flags can't be unequipped
 			if (itemId == 9819)
