@@ -62,10 +62,10 @@ public class VanguardDarkAvenger extends L2Transformation
 		if (player.getLevel() > 43)
 		{
 			int level = player.getLevel() - 43;
-			// Double Strike
-			addSkill(player, 817, level);
-			// Blade Hurricane
-			addSkill(player, 815, level);
+			// Full Swing
+			addSkill(player, 814, level);
+			// Power Divide aka Cleave
+			addSkill(player, 816, level);
 			// Switch Stance
 			addSkill(player, 838, 1);
 			// Send a Server->Client packet StatusUpdate to the L2PcInstance.
@@ -82,9 +82,9 @@ public class VanguardDarkAvenger extends L2Transformation
 	public void removeSkills(L2PcInstance player)
 	{
 		// Double Strike
-		removeSkill(player, 817);
+		removeSkill(player, 814);
 		// Blade Hurricane
-		removeSkill(player, 815);
+		removeSkill(player, 816);
 		// Switch Stance
 		removeSkill(player, 838);
 		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
