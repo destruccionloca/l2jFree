@@ -2917,3 +2917,11 @@ UPDATE `weapon` SET `skills_item` = '', `skills_onCast` = '3577-1-10' WHERE `ite
 
 -- Add Skills to Kamael Hero Weapons by DrunkenDave
 UPDATE `weapon` SET `skills_onCrit` = '3594-1-7' WHERE `item_id` = 9390;
+
+--  Dynasty Crusher - Two Handed by cybrex
+UPDATE `weapon` SET `bodypart` = 'lrhand' WHERE CONCAT( `weapon`.`item_id` ) =10253 LIMIT 1 ;
+UPDATE `weapon` SET `bodypart` = 'lrhand' WHERE CONCAT( `weapon`.`item_id` ) =10530 LIMIT 1 ;
+UPDATE `weapon` SET `bodypart` = 'lrhand' WHERE CONCAT( `weapon`.`item_id` ) =10531 LIMIT 1 ;
+UPDATE `weapon` SET `bodypart` = 'lrhand' WHERE CONCAT( `weapon`.`item_id` ) =12966 LIMIT 1 ;
+UPDATE `weapon` SET `bodypart` = 'lrhand' WHERE CONCAT( `weapon`.`item_id` ) =12967 LIMIT 1 ;
+UPDATE `weapon` SET `bodypart` = 'lrhand' WHERE CONCAT( `weapon`.`item_id` ) =12968 LIMIT 1 ;
