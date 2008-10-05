@@ -127,7 +127,33 @@ public class L2MonsterInstance extends L2Attackable
 			}
 		}
 	}
+	
+	@Override
+	public void firstSpawn()
+	{
+		super.firstSpawn();
 
+		if (getTemplate().getMinionData() != null)
+		{
+			try
+			{
+				for (L2MinionInstance minion : getSpawnedMinions())
+				{
+					if (minion == null)
+						continue;
+					getSpawnedMinions().remove(minion);
+					minion.deleteMe();
+				}
+				_minionList.clearRespawnList();
+
+				manageMinions();
+			}
+			catch (NullPointerException e)
+			{
+			}
+		}
+	}
+	
 	protected int getMaintenanceInterval()
 	{
 		return MONSTER_MAINTENANCE_INTERVAL;
