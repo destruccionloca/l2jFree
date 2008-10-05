@@ -18,9 +18,9 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.L2Effect.EffectType;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Effect.EffectType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
@@ -144,8 +144,9 @@ public class Potions implements IItemHandler
 			10656,
 			10657,
 			// Caravaners Remedy
-			9702
-							};
+			9702,
+			// Bless of Eva
+			4679							};
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
@@ -542,6 +543,11 @@ public class Potions implements IItemHandler
 		case 8202: // Fishing Potion
 			res = usePotion(activeChar, 2275, 1);
 			break;
+		case 4679: // Bless of Eva
+			if (!isUseable(activeChar, item, 2076))
+				return;
+			res = usePotion(activeChar, 2076, 1);
+			break;
 		case 10409: // Empty Bottle of Souls
 			if (activeChar.isKamaelic()) //Kamael classes only
 			{
@@ -718,15 +724,14 @@ public class Potions implements IItemHandler
 			activeChar.doCast(skill);
 			if (activeChar instanceof L2PcInstance)
 			{
-				L2PcInstance player = (L2PcInstance)activeChar;
+				L2PcInstance player = (L2PcInstance) activeChar;
 				//only for Heal potions
 				if (magicId == 2031 || magicId == 2032 || magicId == 2037)
 				{
 					player.shortBuffStatusUpdate(magicId, level, 15);
 				}
 				// Summons should be affected by herbs too, self time effect is handled at L2Effect constructor 
-				else if (((magicId > 2277 && magicId < 2286) || (magicId >= 2512 && magicId <= 2514))
-					&& (player.getPet() instanceof L2SummonInstance))
+				else if (((magicId > 2277 && magicId < 2286) || (magicId >= 2512 && magicId <= 2514)) && (player.getPet() instanceof L2SummonInstance))
 				{
 					player.getPet().doCast(skill);
 				}
@@ -738,7 +743,7 @@ public class Potions implements IItemHandler
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.PET_USES_S1);
 				sm.addString(skill.getName());
-				((L2PetInstance)(activeChar)).getOwner().sendPacket(sm);
+				((L2PetInstance) (activeChar)).getOwner().sendPacket(sm);
 			}
 		}
 		return false;
