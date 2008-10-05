@@ -109,6 +109,7 @@ import com.l2jfree.gameserver.model.AutoChatHandler;
 import com.l2jfree.gameserver.model.AutoSpawnHandler;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Hero;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.L2GameClient;
@@ -118,6 +119,7 @@ import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
 import com.l2jfree.gameserver.skills.SkillsEngine;
 import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
+import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
 import com.l2jfree.gameserver.threadmanager.RunnableStatsManager;
@@ -163,6 +165,7 @@ public class GameServer
 		ThreadPoolManager.getInstance().startPurgeTask(600000L);
 		if (Config.DEADLOCKCHECK_INTERVAL > 0)
 			DeadlockDetector.getInstance();
+		SQLQueue.getInstance();
 
 		GeoClient.getInstance();
 
@@ -183,7 +186,7 @@ public class GameServer
 		ItemTable.getInstance();
 		ArmorSetsTable.getInstance();
 		AugmentationData.getInstance();
-		if (Config.SP_BOOK_NEEDED)
+		if (Config.ALT_SP_BOOK_NEEDED)
 		{
 			SkillSpellbookTable.getInstance();
 		}
@@ -220,6 +223,9 @@ public class GameServer
 			NpcWalkerRoutesTable.getInstance().load();
 		}
 		PetDataTable.getInstance().loadPetsData();
+		Util.printSection("SevenSigns");
+		SevenSigns.getInstance();
+		SevenSignsFestival.getInstance();
 		Util.printSection("Entities and zones");
 		CrownManager.getInstance();
 		TownManager.getInstance();
@@ -232,6 +238,11 @@ public class GameServer
 		ZoneManager.getInstance();
 		MercTicketManager.getInstance();
 		DoorTable.getInstance().registerToClanHalls();
+		// make sure that all the scheduled siege dates are in the Seal Validation period
+		for (Castle castle : CastleManager.getInstance().getCastles().values())
+		{
+			castle.getSiege().correctSiegeDateTime();
+		}
 		Util.printSection("Quests");
 		QuestManager.getInstance();
 		TransformationManager.getInstance();
@@ -295,9 +306,6 @@ public class GameServer
 		CastleManorManager.getInstance();
 		L2Manor.getInstance();
 		AuctionManager.getInstance();
-		Util.printSection("SevenSigns");
-		SevenSigns.getInstance();
-		SevenSignsFestival.getInstance();
 		Util.printSection("Olympiad");
 		Olympiad.getInstance();
 		Util.printSection("Dungeons");
