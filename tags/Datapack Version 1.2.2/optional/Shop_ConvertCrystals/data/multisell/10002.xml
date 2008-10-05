@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Convert crystals -->
+<list>
+  <!-- [S TO A] for [Crystalz] -->
+  <item id="1">
+    <ingredient id="1462" count="1" enchant="0" />
+    <production id="1461" count="5" enchant="0" />
+  </item>
+  <!-- [A TO B] for [Crystalz] -->
+  <item id="2">
+    <ingredient id="1461" count="1" enchant="0" />
+    <production id="1460" count="5" enchant="0" />
+  </item>
+  <!-- [B to C] for [Crystalz] -->
+  <item id="3">
+    <ingredient id="1460" count="1" enchant="0" />
+    <production id="1459" count="5" enchant="0" />
+  </item>
+  <!-- [C to D] for [Crystalz] -->
+  <item id="4">
+    <ingredient id="1459" count="1" enchant="0" />
+    <production id="1458" count="5" enchant="0" />
+  </item>
+  <!-- [D to C] for [Crystalz] -->
+  <item id="5">
+    <ingredient id="1458" count="7" enchant="0" />
+    <production id="1459" count="1" enchant="0" />
+  </item>
+  <!-- [C to B] for [Crystalz] -->
+  <item id="6">
+    <ingredient id="1459" count="7" enchant="0" />
+    <production id="1460" count="1" enchant="0" />
+  </item>
+  <!-- [B to A] for [Crystalz] -->
+  <item id="7">
+    <ingredient id="1460" count="7" enchant="0" />
+    <production id="1461" count="1" enchant="0" />
+  </item>
+  <!-- [A to S] for [Crystalz] -->
+  <item id="8">
+    <ingredient id="1461" count="7" enchant="0" />
+    <production id="1462" count="1" enchant="0" />
+  </item>
+</list>
