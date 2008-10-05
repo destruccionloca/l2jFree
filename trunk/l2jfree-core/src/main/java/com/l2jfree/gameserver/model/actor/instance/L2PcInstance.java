@@ -39,7 +39,6 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.GameTimeController;
-import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.ItemsAutoDestroy;
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.Olympiad;
@@ -68,13 +67,14 @@ import com.l2jfree.gameserver.datatables.NobleSkillTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
+import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
+import com.l2jfree.gameserver.handler.skillhandlers.SummonFriend;
 import com.l2jfree.gameserver.handler.skillhandlers.TakeCastle;
 import com.l2jfree.gameserver.handler.skillhandlers.TakeFort;
-import com.l2jfree.gameserver.handler.skillhandlers.SummonFriend;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
@@ -180,8 +180,8 @@ import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfoSpectator;
 import com.l2jfree.gameserver.network.serverpackets.ExSetCompassZoneCode;
 import com.l2jfree.gameserver.network.serverpackets.ExSpawnEmitter;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
-import com.l2jfree.gameserver.network.serverpackets.GameGuardQuery;
 import com.l2jfree.gameserver.network.serverpackets.GMHide;
+import com.l2jfree.gameserver.network.serverpackets.GameGuardQuery;
 import com.l2jfree.gameserver.network.serverpackets.HennaInfo;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
@@ -231,6 +231,7 @@ import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.effects.EffectForce;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
+import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.L2Armor;
 import com.l2jfree.gameserver.templates.L2ArmorType;
 import com.l2jfree.gameserver.templates.L2EtcItemType;
@@ -11332,6 +11333,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		
 		//getClearableReference().clear();
 		//LeakTaskManager.getInstance().add(getImmutableReference());
+		
+		SQLQueue.getInstance().run();
 	}
 
 	private FishData	_fish;

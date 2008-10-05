@@ -55,7 +55,7 @@ public class GeoClient extends UnicastRemoteObject implements GeoClientInterface
 
 	private transient GeoEngine				geoEngine;
 	private transient GeoServerInterface	geoServer;
-	private transient ScheduledFuture		reconnectTask;
+	private transient ScheduledFuture<?>	reconnectTask;
 
 	public static GeoClient getInstance()
 	{
