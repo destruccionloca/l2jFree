@@ -697,4 +697,14 @@ public class L2DoorInstance extends L2Character
 	{
 		return _geoOpen;
 	}
+	
+	@Override
+	public boolean doDie(L2Character killer)
+	{
+		if (!super.doDie(killer))
+			return false;
+
+		setGeoOpen(true);
+		return true;
+	}	
 }
