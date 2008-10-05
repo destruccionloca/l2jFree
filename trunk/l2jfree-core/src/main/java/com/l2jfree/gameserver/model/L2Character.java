@@ -1860,7 +1860,7 @@ public abstract class L2Character extends L2Object
 		int hitTime = skill.getHitTime();
 		int coolTime = skill.getCoolTime();
 
-		// Get the delay under wich the cast can be aborted (base)
+		// Get the delay under which the cast can be aborted (base)
 		int skillInterruptTime = skill.getSkillInterruptTime();
 
 		boolean effectWhileCasting = skill.getSkillType() == SkillType.FORCE_BUFF || skill.getSkillType() == SkillType.SIGNET_CASTTIME;
@@ -2059,6 +2059,20 @@ public abstract class L2Character extends L2Object
 			SystemMessage sm = new SystemMessage(SystemMessageId.USE_S1);
 			sm.addSkillName(skill);
 			sendPacket(sm);
+		}
+
+		switch (skill.getTargetType())
+		{
+		case TARGET_AURA:
+		case TARGET_FRONT_AURA:
+		case TARGET_BEHIND_AURA:
+		case TARGET_GROUND:
+		{
+			if (targets.length==0||targets==null)
+				return;
+			break;
+		}
+		default:break;
 		}
 
 		// Before start AI Cast Broadcast Fly Effect is Need
