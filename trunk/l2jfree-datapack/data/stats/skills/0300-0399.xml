@@ -627,9 +627,6 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2mpConsume" />
     <for>
-      <cond>
-        <using kind="Bow" />
-      </cond>
     </for>
   </skill>
   <skill id="315" levels="16" name="Crush of Doom"
@@ -1616,7 +1613,7 @@
       <effect count="1" name="Bluff" time="1" val="0"
         stackOrder="1" stackType="Stun" />
       <effect count="1" name="RemoveTarget" time="1"
-        val="0" noicon="1" />
+        val="0" />
     </for>
   </skill>
   <skill id="359" levels="1" name="Eye of Hunter">

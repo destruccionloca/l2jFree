@@ -228,6 +228,7 @@ full_install()
 	$MYG < ../sql/henna_trees.sql &> /dev/null
 	$MYG < ../sql/heroes.sql &> /dev/null
 	$MYG < ../sql/items.sql &> /dev/null
+	$MYG < ../sql/item_attributes.sql &> /dev/null
 	$MYG < ../sql/items_on_ground.sql &> /dev/null
 	$MYG < ../sql/lvlupgain.sql &> /dev/null
 	$MYG < ../sql/merchant_buylists.sql &> /dev/null
@@ -395,6 +396,7 @@ update_db()
 			$MYG < ../sql/updates/20080817update.sql
 			$MYG < ../sql/updates/20080917update.sql
 			$MYG < ../sql/updates/20080920update.sql
+			$MYG < ../sql/updates/20081004update.sql
 			echo "Update completed"
 		# Bad argument O_o
 		else
