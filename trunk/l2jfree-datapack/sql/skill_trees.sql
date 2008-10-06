@@ -10121,7 +10121,7 @@ INSERT INTO skill_trees VALUES
 (41,1403,1,'Summon Friend',95000,56),
 (41,1380,1,'Betray',95000,56),
 (41,1387,1,'Summon Cursed Bones',120000,58),
-(41,1148,5,'Death Spike',120000,58),
+(41,1530,5,'Death Spike',120000,58),
 (41,1380,2,'Betray',120000,58),
 (41,1385,1,'Mass Surrender to Wind',120000,58),
 (41,1333,2,'Summon Nightshade',120000,58),
