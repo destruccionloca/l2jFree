@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 err=1
 until [ $err == 0 ]; do
 	. ./setenv.sh
