@@ -177,7 +177,6 @@ full_install()
 	$MYG < ../sql/auction.sql &> /dev/null
 	$MYG < ../sql/auction_bid.sql &> /dev/null
 	$MYG < ../sql/auction_watch.sql &> /dev/null
-	$MYG < ../sql/augmentations.sql &> /dev/null
 	$MYG < ../sql/auto_chat.sql &> /dev/null
 	$MYG < ../sql/auto_chat_text.sql &> /dev/null
 	$MYG < ../sql/castle.sql &> /dev/null
