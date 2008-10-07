@@ -127,7 +127,7 @@ public class CharInfo extends L2GameServerPacket
 					writeC(_appearance.getInvisible()? 1 : 0); // invisible ?? 0=false  1=true   2=summoned (only works if model has a summon animation)
 				}
 				
-				writeS(_appearance.getVisibleName());;
+				writeS(_appearance.getVisibleName());
 
 				if (gmSeeInvis)
 				{
