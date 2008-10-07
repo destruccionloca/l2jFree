@@ -7581,7 +7581,7 @@ INSERT INTO `etcitem` VALUES
 (10521,"Rough Ore of Fire", "false", "none", 120, "stackable", "wood", "none", -1, 0, NULL, "false", "false", "true", "false", "", ""),
 (10522,"Rough Ore of Water", "false", "none", 120, "stackable", "wood", "none", -1, 0, NULL, "false", "false", "true", "false", "", ""),
 (10523,"Rough Ore of the Earth", "false", "none", 120, "stackable", "wood", "none", -1, 0, NULL, "false", "false", "true", "false", "", ""),
-(10524,"Rough Ore of Wind", "false", "none", 120, "stackable", "wood", "none", -1, 0, NULL, "true", "false", "false", "true", "false", "", ""),
+(10524,"Rough Ore of Wind", "false", "none", 120, "stackable", "wood", "none", -1, 0, NULL, "false", "false", "true", "false", "", ""),
 (10525,"Rough Ore of Darkness", "false", "none", 120, "stackable", "wood", "none", -1, 0, NULL, "false", "false", "true", "false", "", ""),
 (10526,"Rough Ore of Divinity", "false", "none", 120, "stackable", "wood", "none", -1, 0, NULL, "false", "false", "true", "false", "", ""),
 (10544,"Recipe - Dynasty Staff(60%)", "false", "recipe", 30, "stackable", "wood", "none", -1, 0, NULL, "true", "true", "true", "true", "", ""),
