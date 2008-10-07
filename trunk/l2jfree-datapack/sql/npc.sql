@@ -8784,7 +8784,6 @@ UPDATE `npc` SET `collision_radius`=20,`collision_height`=43 WHERE `id`=29097;
 UPDATE `npc` SET `collision_radius`=20,`collision_height`=43 WHERE `id`=29098;
 UPDATE `npc` SET `collision_radius`=22,`collision_height`=23 WHERE `id`=25524;
 
-
 REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
 ('29065',29065,'Sailren',0,'Sealed Evil Power',0,'Monster3.sailren',100.00,83.10,87,'male','L2GrandBoss',40,4068372,7347,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,12,'LAST_HIT'),
 ('25595',25595,'Gerg\'s Henchman',0,'',0,'LineageMonster.batur_orc','9.00','21.50','1','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT'),
