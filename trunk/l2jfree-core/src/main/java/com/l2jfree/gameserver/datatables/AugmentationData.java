@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.datatables;
 
 import java.io.File;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,7 +29,6 @@ import org.w3c.dom.Node;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Augmentation;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.tools.random.Rnd;
@@ -305,7 +303,7 @@ public class AugmentationData
 										String tableName = attrs.getNamedItem("name").getNodeValue();
 
 										StringTokenizer data = new StringTokenizer(cd.getFirstChild().getNodeValue());
-										List<Float> array = new FastList<Float>();
+										FastList<Float> array = new FastList<Float>();
 										while (data.hasMoreTokens())
 											array.add(Float.parseFloat(data.nextToken()));
 
@@ -352,7 +350,7 @@ public class AugmentationData
 	 * @return L2Augmentation
 	 */
 	@SuppressWarnings("fallthrough")
-	public L2Augmentation generateRandomAugmentation(L2ItemInstance item, int lifeStoneLevel, int lifeStoneGrade)
+	public L2Augmentation generateRandomAugmentation(int lifeStoneLevel, int lifeStoneGrade)
 	{
 		// Note that stat12 stands for stat 1 AND 2 (same for stat34 ;p )
 		// this is because a value can contain up to 2 stat modifications
@@ -439,7 +437,7 @@ public class AugmentationData
 			}
 		}
 
-		return new L2Augmentation(item, ((stat34 << 16) + stat12), skill, true);
+		return new L2Augmentation(((stat34 << 16) + stat12), skill);
 	}
 
 	public class AugStat

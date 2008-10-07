@@ -26,17 +26,17 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class PrivateStoreManageListBuy extends L2GameServerPacket
 {
 	private static final String _S__D0_PRIVATESELLLISTBUY = "[S] b7 PrivateSellListBuy";
-	private L2PcInstance _activeChar;
-	private int _activeCharAdena;
+	private int _objId;
+	private int _playerAdena;
 	private L2ItemInstance[] _itemList;
 	private TradeList.TradeItem[] _buyList;
 	
 	public PrivateStoreManageListBuy(L2PcInstance player)
 	{
-		_activeChar = player;
-		_activeCharAdena = _activeChar.getAdena();
-		_itemList = _activeChar.getInventory().getUniqueItems(false,true);
-		_buyList = _activeChar.getBuyList().getItems(); 
+		_objId = player.getObjectId();
+		_playerAdena = player.getAdena();
+		_itemList = player.getInventory().getUniqueItems(false,true);
+		_buyList = player.getBuyList().getItems(); 
 	}
 	
 	@Override
@@ -44,8 +44,8 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 	{
 		writeC(0xbd);
 		//section 1 
-		writeD(_activeChar.getObjectId());
-		writeD(_activeCharAdena);
+		writeD(_objId);
+		writeD(_playerAdena);
 
 		//section2 
 		writeD(_itemList.length); // inventory items for potential buy
@@ -59,14 +59,12 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getItem().getType2());
 
-			writeD(item.getAttackAttrElement());
-			writeD(item.getAttackAttrElementVal());
-			writeD(item.getDefAttrFire());
-			writeD(item.getDefAttrWater());
-			writeD(item.getDefAttrWind());
-			writeD(item.getDefAttrEarth());
-			writeD(item.getDefAttrHoly());
-			writeD(item.getDefAttrUnholy());
+			writeD(item.getAttackElementType());
+			writeD(item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(item.getElementDefAttr(i));
+			}
 		}
 
 		//section 3
@@ -83,14 +81,12 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 			writeD(item.getPrice());//your price
 			writeD(item.getItem().getReferencePrice());//fixed store price
 
-			writeD(item.getAttackAttrElement());
-			writeD(item.getAttackAttrElementVal());
-			writeD(item.getDefAttrFire());
-			writeD(item.getDefAttrWater());
-			writeD(item.getDefAttrWind());
-			writeD(item.getDefAttrEarth());
-			writeD(item.getDefAttrHoly());
-			writeD(item.getDefAttrUnholy());
+			writeD(item.getAttackElementType());
+			writeD(item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(item.getElementDefAttr(i));
+			}
 		}
 	}
 	

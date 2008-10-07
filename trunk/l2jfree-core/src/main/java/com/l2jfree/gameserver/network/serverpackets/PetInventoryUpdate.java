@@ -89,14 +89,12 @@ public class PetInventoryUpdate extends L2GameServerPacket
 			writeH(item.getEnchant());	// enchant level
 			writeH(0x00);	// ?
 
-			writeD(0x00); // T1
-			writeD(0x00); // T1
-			writeD(0x00); // T1
-			writeD(0x00); // T1
-			writeD(0x00); // T1
-			writeD(0x00); // T1
-			writeD(0x00); // T1
-			writeD(0x00); // T1
+			writeD(item.getAttackElementType());
+			writeD(item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(item.getElementDefAttr(i));
+			}
 		}
 	}
 

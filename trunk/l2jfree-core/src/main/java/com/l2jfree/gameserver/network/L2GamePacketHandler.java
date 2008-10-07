@@ -806,8 +806,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					msg = new ExGetOnAirShip();
 					break;
 				case 0x38:
-					// This one is actually done in matters of client support, but I will only commit if after the formulas are done to
-					// msg = new RequestEnchantItemAttribute();
+					msg = new RequestExEnchantItemAttribute();
 					break;
 				case 0x3f:
 					msg = new RequestAllCastleInfo();

@@ -68,14 +68,12 @@ public class PetItemList extends L2GameServerPacket
 			writeH(temp.getEnchantLevel());	// enchant level
 			writeH(0x00);	// ?
 
-			writeD(0x00); // T1
-			writeD(0x00); // T1
-			writeD(0x00); // T1
-			writeD(0x00); // T1
-			writeD(0x00); // T1
-			writeD(0x00); // T1
-			writeD(0x00); // T1
-			writeD(0x00); // T1
+			writeD(temp.getAttackElementType());
+			writeD(temp.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(temp.getElementDefAttr(i));
+			}
 		}
 	}
 

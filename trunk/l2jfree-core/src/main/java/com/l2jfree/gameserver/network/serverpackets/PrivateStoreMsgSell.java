@@ -24,21 +24,21 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class PrivateStoreMsgSell extends L2GameServerPacket
 {
 	private static final String _S__B5_PRIVATESTOREMSGSELL = "[S] 9c PrivateStoreMsgSell";
-	private L2PcInstance _activeChar;
+	private int _objId;
 	private String _storeMsg;
 	
 	public PrivateStoreMsgSell(L2PcInstance player)
 	{
-		_activeChar = player;
-		if (_activeChar.getSellList() != null)
-			_storeMsg = _activeChar.getSellList().getTitle();
+		_objId = player.getObjectId();
+		if (player.getSellList() != null)
+			_storeMsg = player.getSellList().getTitle();
 	}
 	
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xa2);
-		writeD(_activeChar.getObjectId());
+		writeD(_objId);
 		writeS(_storeMsg);
 	}
 

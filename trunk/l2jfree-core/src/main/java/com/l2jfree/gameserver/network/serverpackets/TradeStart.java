@@ -56,16 +56,15 @@ public class TradeStart extends L2GameServerPacket
 
 			writeD(item.getItem().getBodyPart());	// rev 415  slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
 			writeH(item.getEnchantLevel());	// enchant level
-            writeH(0x00);
-            writeH(0x00);
-            writeD(item.getAttackAttrElement());
-            writeD(item.getAttackAttrElementVal());
-            writeD(item.getDefAttrFire());
-            writeD(item.getDefAttrWater());
-            writeD(item.getDefAttrWind());
-            writeD(item.getDefAttrEarth());
-            writeD(item.getDefAttrHoly());
-            writeD(item.getDefAttrUnholy());
+			writeH(0x00);
+			writeH(0x00);
+
+			writeD(item.getAttackElementType());
+			writeD(item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(item.getElementDefAttr(i));
+			}
 		}
 	}
 

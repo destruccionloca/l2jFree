@@ -14,10 +14,13 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
+import com.l2jfree.Config;
+import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExChooseInventoryAttributeItem;
 
 public class EnchantAttr implements IItemHandler
@@ -49,10 +52,6 @@ public class EnchantAttr implements IItemHandler
 			9568,
 			9569							};
 
-	public EnchantAttr()
-	{
-	}
-
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
@@ -60,15 +59,19 @@ public class EnchantAttr implements IItemHandler
 
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		if (activeChar.isCastingNow())
+			return;
+
+		// Restrict enchant during restart/shutdown (because of an existing exploit)
+		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_ENCHANT && Shutdown.getCounterInstance() != null
+				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
 		{
+			activeChar.sendMessage("Enchanting items is not allowed during restart/shutdown.");
 			return;
 		}
-		else
-		{
-			//activeChar.setActiveEnchantAttrItem(item);
-			activeChar.sendPacket(new ExChooseInventoryAttributeItem(item.getItemId()));
-			return;
-		}
+
+		activeChar.sendPacket(SystemMessageId.SELECT_ITEM_TO_ADD_ELEMENTAL_POWER);
+		activeChar.setActiveEnchantAttrItem(item);
+		activeChar.sendPacket(new ExChooseInventoryAttributeItem(item.getItemId()));
 	}
 
 	public int[] getItemIds()

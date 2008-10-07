@@ -578,6 +578,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private int								_expertisePenalty		= 0;
 
 	private L2ItemInstance					_activeEnchantItem		= null;
+	private L2ItemInstance					_activeEnchantAttrItem	= null;
 
 	private boolean							_isOnline				= false;
 
@@ -2319,6 +2320,16 @@ public final class L2PcInstance extends L2PlayableInstance
 	public L2ItemInstance getActiveEnchantItem()
 	{
 		return _activeEnchantItem;
+	}
+
+	public void setActiveEnchantAttrItem(L2ItemInstance stone)
+	{
+		_activeEnchantAttrItem = stone;
+	}
+
+	public L2ItemInstance getActiveEnchantAttrItem()
+	{
+		return _activeEnchantAttrItem;
 	}
 
 	/**
@@ -4445,9 +4456,6 @@ public final class L2PcInstance extends L2PlayableInstance
 					msg.addItemName(target);
 					broadcastPacket(msg, 1400);
 				}
-				// restoring Augmentation data from DB
-				if (target.getItemType() instanceof L2WeaponType)
-					target.restoreAugmentation();
 			}
 
 			// Check if a Party is in progress

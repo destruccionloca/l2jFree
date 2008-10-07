@@ -34,20 +34,20 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class PrivateStoreManageListSell extends L2GameServerPacket
 {
 	private static final String _S__B3_PRIVATESELLLISTSELL = "[S] 9a PrivateSellListSell";
-	private L2PcInstance _activeChar;
-	private int _activeCharAdena;
+	private int _objId;
+	private int _playerAdena;
 	private boolean _packageSale;
 	private TradeList.TradeItem[] _itemList;
 	private TradeList.TradeItem[] _sellList;
 	
 	public PrivateStoreManageListSell(L2PcInstance player, boolean isPackageSale)
 	{
-		_activeChar = player;
-		_activeCharAdena = _activeChar.getAdena();
-		_activeChar.getSellList().updateItems();
+		_objId = player.getObjectId();
+		_playerAdena = player.getAdena();
+		player.getSellList().updateItems();
 		_packageSale = isPackageSale;
-		_itemList = _activeChar.getInventory().getAvailableItems(_activeChar.getSellList());
-		_sellList = _activeChar.getSellList().getItems(); 
+		_itemList = player.getInventory().getAvailableItems(player.getSellList());
+		_sellList = player.getSellList().getItems();
 	}
 	
 	@Override
@@ -55,9 +55,9 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 	{
 		writeC(0xa0);
 		//section 1 
-		writeD(_activeChar.getObjectId());
+		writeD(_objId);
 		writeD(_packageSale ? 1 : 0); // Package sell
-		writeD(_activeCharAdena);
+		writeD(_playerAdena);
 
 		//section2 
 		writeD(_itemList.length); //for potential sells
@@ -72,14 +72,13 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
 			writeD(item.getPrice()); //store price
-			writeD(item.getAttackAttrElement());
-			writeD(item.getAttackAttrElementVal());
-			writeD(item.getDefAttrFire());
-			writeD(item.getDefAttrWater());
-			writeD(item.getDefAttrWind());
-			writeD(item.getDefAttrEarth());
-			writeD(item.getDefAttrHoly());
-			writeD(item.getDefAttrUnholy());
+
+			writeD(item.getAttackElementType());
+			writeD(item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(item.getElementDefAttr(i));
+			}
 		}
 
 		//section 3
@@ -96,14 +95,13 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 			writeD(item.getItem().getBodyPart());
 			writeD(item.getPrice());//your price
 			writeD(item.getItem().getReferencePrice()); //store price
-			writeD(item.getAttackAttrElement());
-			writeD(item.getAttackAttrElementVal());
-			writeD(item.getDefAttrFire());
-			writeD(item.getDefAttrWater());
-			writeD(item.getDefAttrWind());
-			writeD(item.getDefAttrEarth());
-			writeD(item.getDefAttrHoly());
-			writeD(item.getDefAttrUnholy());
+
+			writeD(item.getAttackElementType());
+			writeD(item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(item.getElementDefAttr(i));
+			}
 		}
 	}
 	

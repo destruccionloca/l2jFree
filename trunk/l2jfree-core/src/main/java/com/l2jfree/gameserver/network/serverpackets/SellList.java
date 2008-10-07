@@ -87,20 +87,19 @@ public class SellList extends L2GameServerPacket
 			writeD(item.getItemDisplayId());
 			writeD(item.getCount());
 			writeH(item.getItem().getType2());
-            writeH(item.getCustomType1());
+			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getEnchantLevel());
-            writeH(item.getCustomType2());
-            writeH(0x00);
-            writeD(item.getItem().getReferencePrice() / 2);
-            writeD(item.getAttackAttrElement());
-            writeD(item.getAttackAttrElementVal());
-            writeD(item.getDefAttrFire());
-            writeD(item.getDefAttrWater());
-            writeD(item.getDefAttrWind());
-            writeD(item.getDefAttrEarth());
-            writeD(item.getDefAttrHoly());
-            writeD(item.getDefAttrUnholy());
+			writeH(item.getCustomType2());
+			writeH(0x00);
+			writeD(item.getItem().getReferencePrice() / 2);
+
+			writeD(item.getAttackElementType());
+			writeD(item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(item.getElementDefAttr(i));
+			}
 		}
 	}
 

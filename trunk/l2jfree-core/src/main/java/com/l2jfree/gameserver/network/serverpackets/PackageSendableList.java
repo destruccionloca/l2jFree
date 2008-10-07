@@ -59,14 +59,12 @@ public class PackageSendableList extends L2GameServerPacket
 			writeH(0x00);
 			writeD(item.getObjectId()); // Will be used in RequestPackageSend response packet
 			//T1
-			writeD(item.getAttackAttrElement()); //element type 
-			writeD(item.getAttackAttrElementVal()); //element val 
-			writeD(item.getDefAttrFire()); //fire element
-			writeD(item.getDefAttrWater()); //water element
-			writeD(item.getDefAttrWind()); //wind element
-			writeD(item.getDefAttrEarth()); //earth element
-			writeD(item.getDefAttrHoly()); //holy element
-			writeD(item.getDefAttrUnholy()); //unholy element
+			writeD(item.getAttackElementType());
+			writeD(item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(item.getElementDefAttr(i));
+			}
 		}
 	}
 

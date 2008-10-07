@@ -258,7 +258,7 @@ public final class RequestRefine extends L2GameClientPacket
 			return false;
 
 		// generate augmentation
-		targetItem.setAugmentation(AugmentationData.getInstance().generateRandomAugmentation(targetItem, lifeStoneLevel, lifeStoneGrade));
+		targetItem.setAugmentation(AugmentationData.getInstance().generateRandomAugmentation(lifeStoneLevel, lifeStoneGrade));
 
 		// finish and send the inventory update packet
 		iu.addModifiedItem(targetItem);

@@ -707,15 +707,14 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 				writeD(item.getAugmentationId()>>16);
 			}
 			else writeQ(0x00);
-			writeD(item.getManaLeft()); 
-			writeD(item.getAttackAttrElement());
-			writeD(item.getAttackAttrElementVal());
-			writeD(item.getDefAttrFire());
-			writeD(item.getDefAttrWater());
-			writeD(item.getDefAttrWind());
-			writeD(item.getDefAttrEarth());
-			writeD(item.getDefAttrHoly());
-			writeD(item.getDefAttrUnholy());
+			writeD(item.getManaLeft());
+
+			writeD(item.getAttackElementType());
+			writeD(item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(item.getElementDefAttr(i));
+			}
 		}
 	}
 	

@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.TradeList;
-import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -26,38 +25,27 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class PrivateStoreListSell extends L2GameServerPacket
 {
 	private static final String _S__B4_PRIVATESTORELISTSELL = "[S] 9b PrivateStoreListSell";
-	private L2PcInstance _storePlayer;
-	private L2PcInstance _activeChar;
-	private int _activeCharAdena;
+	private int _objId;
+	private int _playerAdena;
 	private boolean _packageSale;
 	private TradeList.TradeItem[] _items;
 	
 	// player's private shop
 	public PrivateStoreListSell(L2PcInstance player, L2PcInstance storePlayer)
 	{
-		_activeChar = player;
-		_storePlayer = storePlayer;
-		_activeCharAdena = _activeChar.getAdena();
-		_items = _storePlayer.getSellList().getItems();
-		_packageSale = _storePlayer.getSellList().isPackaged();
-	}
-	
-	// lease shop
-	@Deprecated public PrivateStoreListSell(L2PcInstance player, @SuppressWarnings("unused") L2MerchantInstance storeMerchant)
-	{
-		_activeChar = player;
-		_activeCharAdena = _activeChar.getAdena();
-		_items = _storePlayer.getSellList().getItems();
-		_packageSale = _storePlayer.getSellList().isPackaged();
+		_objId = storePlayer.getObjectId();
+		_playerAdena = player.getAdena();
+		_items = storePlayer.getSellList().getItems();
+		_packageSale = storePlayer.getSellList().isPackaged();
 	}
 	
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xa1);
-		writeD(_storePlayer.getObjectId());
+		writeD(_objId);
 		writeD(_packageSale ? 1 : 0);
-		writeD(_activeCharAdena);
+		writeD(_playerAdena);
 		
 		writeD(_items.length);
 		for (TradeList.TradeItem item : _items)
@@ -72,14 +60,12 @@ public class PrivateStoreListSell extends L2GameServerPacket
 			writeD(item.getItem().getBodyPart());
 			writeD(item.getPrice()); //your price
 			writeD(item.getItem().getReferencePrice()); //store price
-			writeD(item.getAttackAttrElement());
-			writeD(item.getAttackAttrElementVal());
-			writeD(item.getDefAttrFire());
-			writeD(item.getDefAttrWater());
-			writeD(item.getDefAttrWind());
-			writeD(item.getDefAttrEarth());
-			writeD(item.getDefAttrHoly());
-			writeD(item.getDefAttrUnholy());
+			writeD(item.getAttackElementType());
+			writeD(item.getAttackElementPower());
+			for (byte i = 0; i < 6; i++)
+			{
+				writeD(item.getElementDefAttr(i));
+			}
 		}
 	}
 	

@@ -83,16 +83,13 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 					writeQ(0);
 				}
 				writeD(item.getObjectId());
-				
-				writeD(item.getAttackAttrElement());
-				writeD(item.getAttackAttrElementVal());
-				writeD(item.getDefAttrFire());
-				writeD(item.getDefAttrWater());
-				writeD(item.getDefAttrWind());
-				writeD(item.getDefAttrEarth());
-				writeD(item.getDefAttrHoly()); 
-				writeD(item.getDefAttrUnholy());
-				
+
+				writeD(item.getAttackElementType());
+				writeD(item.getAttackElementPower());
+				for (byte i = 0; i < 6; i++)
+				{
+					writeD(item.getElementDefAttr(i));
+				}
 			}
 			
 			writeD(item.getMana());

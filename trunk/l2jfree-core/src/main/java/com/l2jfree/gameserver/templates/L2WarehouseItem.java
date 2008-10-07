@@ -37,14 +37,9 @@ public class L2WarehouseItem
 	private int		_augmentationId;
 	private int		_manaLeft;
 
-	private int		ae_enchantElement;
-	private int		ae_enchantVal;
-	private int		ad_fire;
-	private int		ad_water;
-	private int		ad_earth;
-	private int		ad_wind;
-	private int		ad_holy;
-	private int		ad_unholy;
+	private int _elemAtkType = -2;
+	private int _elemAtkPower = 0;
+	private int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
 
 	private int		_type1;
 	private int		_type2;
@@ -68,14 +63,10 @@ public class L2WarehouseItem
 		_type1 = item.getCustomType1();
 		_type2 = item.getCustomType2();
 
-		ae_enchantElement = item.getAttackAttrElement();
-		ae_enchantVal = item.getAttackAttrElementVal();
-		ad_fire = item.getDefAttrFire();
-		ad_water = item.getDefAttrWater();
-		ad_earth = item.getDefAttrEarth();
-		ad_wind = item.getDefAttrWind();
-		ad_holy = item.getDefAttrHoly();
-		ad_unholy = item.getDefAttrUnholy();
+		_elemAtkType = item.getAttackElementType();
+		_elemAtkPower = item.getAttackElementPower();
+		for (byte i = 0; i < 6; i++)
+			_elemDefAttr[i] = item.getElementDefAttr(i);
 	}
 
 	/**
@@ -259,43 +250,18 @@ public class L2WarehouseItem
 		return _manaLeft;
 	}
 
-	public int getAttackAttrElement()
+	public int getAttackElementType()
 	{
-		return ae_enchantElement;
+		return _elemAtkType;
 	}
 
-	public int getAttackAttrElementVal()
+	public int getAttackElementPower()
 	{
-		return ae_enchantVal;
+		return _elemAtkPower;
 	}
 
-	public int getDefAttrFire()
+	public int getElementDefAttr(byte i)
 	{
-		return ad_fire;
-	}
-
-	public int getDefAttrWater()
-	{
-		return ad_water;
-	}
-
-	public int getDefAttrEarth()
-	{
-		return ad_earth;
-	}
-
-	public int getDefAttrWind()
-	{
-		return ad_wind;
-	}
-
-	public int getDefAttrHoly()
-	{
-		return ad_holy;
-	}
-
-	public int getDefAttrUnholy()
-	{
-		return ad_unholy;
+		return _elemDefAttr[i];
 	}
 }
