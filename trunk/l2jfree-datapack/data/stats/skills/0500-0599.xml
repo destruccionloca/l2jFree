@@ -991,7 +991,7 @@
     <set name="skillType" val="PDAM" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
-    <set name="effectRange" val="56" />
+    <set name="effectRange" val="400" />
     <for />
   </skill>
   <skill id="540" levels="1" name="Wing Assault">
