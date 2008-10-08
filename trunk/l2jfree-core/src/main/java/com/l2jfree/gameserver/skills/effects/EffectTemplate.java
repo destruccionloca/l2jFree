@@ -124,7 +124,7 @@ public final class EffectTemplate
 		Constructor<?> stolenCons;
 		try
 		{
-			func = Class.forName("net.sf.l2j.gameserver.skills.effects.Effect"+stolen.getEffectTemplate().funcName);
+			func = Class.forName("com.l2jfree.gameserver.skills.effects.Effect"+stolen.getEffectTemplate().funcName);
 		}
 		catch (ClassNotFoundException e)
 		{
