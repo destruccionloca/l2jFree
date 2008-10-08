@@ -430,7 +430,7 @@ public class CharEffectList
 		}
 	}
 
-	public final void addEffect(L2Effect newEffect)
+	public void addEffect(L2Effect newEffect)
 	{
 		if (newEffect == null)
 			return;

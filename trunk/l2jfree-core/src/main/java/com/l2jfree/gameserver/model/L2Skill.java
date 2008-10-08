@@ -213,6 +213,7 @@ public class L2Skill
 		SWEEP,
 		WEAKNESS,
 		DISARM,
+		STEAL_BUFF,
 		DEATHLINK_PET,
 		MANA_BY_LEVEL,
 		FAKE_DEATH,
@@ -1422,6 +1423,7 @@ public class L2Skill
 		case CANCEL_TARGET:
 		case BETRAY:
 		case DISARM:
+		case STEAL_BUFF:
 		case AGGDAMAGE:
 		case DELUXE_KEY_UNLOCK:
 		case FATALCOUNTER:
@@ -1572,6 +1574,8 @@ public class L2Skill
 		case SOW:
 		case HARVEST:
 		case DISARM:
+		case STEAL_BUFF:
+		
 			return true;
 		default:
 			return false;
@@ -3748,8 +3752,17 @@ public class L2Skill
 		if (effected instanceof L2DoorInstance || effected instanceof L2SiegeFlagInstance)
 			return _emptyEffectSet;
 
-		if ((effector != effected) && effected.isInvul())
-			return _emptyEffectSet;
+		if (effector != effected)
+		{
+			if (effected.isInvul())
+				return _emptyEffectSet;
+			
+			if ((isOffensive() || isDebuff()) && effector instanceof L2PcInstance && ((L2PcInstance)effector).isGM())
+			{
+				 if (((L2PcInstance)effector).getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+					 return _emptyEffectSet;
+			}
+		}
 
 		FastList<L2Effect> effects = new FastList<L2Effect>();
 
@@ -3784,6 +3797,13 @@ public class L2Skill
 
 		if ((!effector.equals(effected)) && effected.isInvul())
 			return _emptyEffectSet;
+
+		if ((isDebuff() || isOffensive()) && effector.getOwner() != effected &&
+				effector.getOwner().isGM() && 
+				effector.getOwner().getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+		{
+			return _emptyEffectSet;
+		}
 
 		List<L2Effect> effects = new FastList<L2Effect>();
 

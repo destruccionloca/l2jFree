@@ -1389,6 +1389,11 @@ public final class Formulas
 		if (skill != null)
 		{
 			double skillpower = skill.getPower();
+			if (skill.getSkillType() == SkillType.FATALCOUNTER)
+			{
+				skillpower *= (3.5 * (1 - attacker.getStatus().getCurrentHp() / attacker.getMaxHp()));
+			}
+
 			float ssboost = skill.getSSBoost();
 			if (ssboost <= 0)
 				damage += skillpower;
@@ -1592,9 +1597,6 @@ public final class Formulas
 
 		if (skill != null)
 		{
-			if (skill.getSkillType() == SkillType.FATALCOUNTER)
-				damage *= (1.0 - attacker.getStatus().getCurrentHp() / attacker.getMaxHp()) * 2.0;
-
 			if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
 				damage *= skill.getPvpMulti();
 		}
@@ -1709,6 +1711,16 @@ public final class Formulas
 		else if (ss)
 			mAtk *= 2;
 
+		double power = skill.getPower(attacker);
+		if (skill.getSkillType() == SkillType.DEATHLINK)
+		{
+			double part = attacker.getStatus().getCurrentHp() / attacker.getMaxHp();
+			if (part > 0.005)
+				power *= (-0.45 * Math.log(part) + 1.);
+			else
+				power *= (-0.45 * Math.log(0.005) + 1.);
+		}
+
 		double damage = 91 * Math.sqrt(mAtk) / mDef * skill.getPower(attacker) * calcSkillVulnerability(target, skill);
 
 		// In C5 summons make 10 % less dmg in PvP.
@@ -1789,9 +1801,6 @@ public final class Formulas
 
 		if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
 			damage *= skill.getPvpMulti();
-
-		if (skill.getSkillType() == SkillType.DEATHLINK)
-			damage = damage * (1.0 - attacker.getStatus().getCurrentHp() / attacker.getMaxHp()) * 2.0;
 
 		return damage;
 	}

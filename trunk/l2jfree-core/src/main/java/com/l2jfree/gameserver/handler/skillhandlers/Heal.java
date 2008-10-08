@@ -59,6 +59,7 @@ public class Heal implements ISkillHandler
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
 			player = (L2PcInstance) activeChar;
+		boolean clearSpiritShot = false;
 
 		for (L2Object element : targets)
 		{
@@ -90,12 +91,12 @@ public class Heal implements ISkillHandler
 					if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
 					{
 						hp *= 1.5;
-						weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+						clearSpiritShot = true;
 					}
 					else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
 					{
 						hp *= 1.3;
-						weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+						clearSpiritShot = true;
 					}
 				}
 
@@ -106,12 +107,12 @@ public class Heal implements ISkillHandler
 					if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
 					{
 						hp *= 1.5;
-						activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+						clearSpiritShot = true;
 					}
 					else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
 					{
 						hp *= 1.3;
-						activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+						clearSpiritShot = true;
 					}
 				}
 				else if (activeChar instanceof L2NpcInstance)
@@ -180,6 +181,19 @@ public class Heal implements ISkillHandler
 			}
 		}
 
+		if (clearSpiritShot)
+		{
+			if (activeChar instanceof L2Summon)
+			{
+				L2Summon activeSummon = (L2Summon) activeChar;
+				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+			}
+			else
+			{
+				if (weaponInst != null)
+					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+			}
+		}
 	}
 
 	public SkillType[] getSkillIds()

@@ -58,6 +58,10 @@ public class DlgAnswer extends L2GameClientPacket
             cha.teleportAnswer(_answer, _requesterId);
         else if (_messageId == SystemMessageId.S1.getId() && Config.ALLOW_WEDDING && cha.isEngageRequest())
             cha.engageAnswer(_answer);
+        else if (_messageId == 1140)
+            cha.gatesAnswer(_answer, 1);
+        else if (_messageId == 1141)
+            cha.gatesAnswer(_answer, 0);
     }
 
     @Override

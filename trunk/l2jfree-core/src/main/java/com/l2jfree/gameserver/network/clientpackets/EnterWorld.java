@@ -207,11 +207,13 @@ public class EnterWorld extends L2GameClientPacket
 		//Updating Seal of Strife Buff/Debuff 
 		if (SevenSigns.getInstance().isSealValidationPeriod())
 		{
-			if (SevenSigns.getInstance().getPlayerCabal(activeChar) != SevenSigns.CABAL_NULL)
+			int owner = SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE);
+			if (owner != SevenSigns.CABAL_NULL)
 			{
-				if (SevenSigns.getInstance().getPlayerCabal(activeChar) == SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
+				int cabal = SevenSigns.getInstance().getPlayerCabal(activeChar);
+				if (cabal == owner)
 					activeChar.addSkill(SkillTable.getInstance().getInfo(5074,1), false);
-				else
+				else if (cabal != SevenSigns.CABAL_NULL)
 					activeChar.addSkill(SkillTable.getInstance().getInfo(5075,1), false);
 			}
 		}

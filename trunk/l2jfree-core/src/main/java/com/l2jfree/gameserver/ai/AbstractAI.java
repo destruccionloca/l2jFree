@@ -284,9 +284,6 @@ abstract class AbstractAI implements Ctrl
 	 */
 	public final void setIntention(CtrlIntention intention, Object arg0, Object arg1)
 	{
-		if (!_actor.isVisible() || !_actor.hasAI())
-			return;
-
 		/*
 		 if (Config.DEBUG)
 		 _log.warning("AbstractAI: setIntention -> " + intention + " " + arg0 + " " + arg1);

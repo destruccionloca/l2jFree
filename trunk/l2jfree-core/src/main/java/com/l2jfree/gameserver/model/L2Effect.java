@@ -59,7 +59,7 @@ public abstract class L2Effect
 		MUTE, FEAR, SILENT_MOVE, SEED, PARALYZE, STUN_SELF, BLUFF, BETRAY, NOBLESSE_BLESSING, PHOENIX_BLESSING, PETRIFY,
 		CANCEL_TARGET, SILENCE_MAGIC_PHYSICAL, ERASE, LUCKNOBLESSE, PHYSICAL_MUTE, PHYSICAL_ATTACK_MUTE, TARGET_ME, REMOVE_TARGET,
 		CHARM_OF_LUCK, INVINCIBLE, BAND_OF_DARKNESS, DARK_SEED, TRANSFORM, DISARM, CHARMOFCOURAGE,
-		PREVENT_BUFF, CONDITION_HIT, TRANSFORMATION, SIGNET_EFFECT, SIGNET_GROUND, WARP, SPOIL
+		PREVENT_BUFF, CONDITION_HIT, TRANSFORMATION, SIGNET_EFFECT, SIGNET_GROUND, WARP, SPOIL, PROTECTION_BLESSING
 	}
 	
 	private static final Func[]		_emptyFunctionSet	= new Func[0];
@@ -90,6 +90,9 @@ public abstract class L2Effect
 	private int						_period;
 	private int						_periodStartTicks;
 	private int						_periodfirsttime;
+
+	// Effect template
+	private EffectTemplate			_template;
 	
 	// function templates
 	private final FuncTemplate[]	_funcTemplates;
@@ -152,6 +155,7 @@ public abstract class L2Effect
 		_state = EffectState.CREATED;
 		_skill = env.skill;
 		// _item = env._item == null ? null : env._item.getItem();
+		_template = template;
 		_effected = env.target;
 		_effector = env.player;
 		_lambda = template.lambda;
@@ -182,6 +186,34 @@ public abstract class L2Effect
 		scheduleEffect();
 	}
 	
+	/**
+	 * Special constructor to "steal" buffs. Must be implemented on
+	 * every child class that can be stolen.
+	 *
+	 * @param env
+	 * @param effect
+	 */
+	protected L2Effect(Env env, L2Effect effect)
+	{
+		_template = effect._template;
+		_state = EffectState.CREATED;
+		_skill = env.skill;
+		_effected = env.target;
+		_effector = env.player;
+		_lambda = _template.lambda;
+		_funcTemplates = _template.funcTemplates;
+		_count = effect.getCount();
+		_totalCount = _template.counter;
+		_period = _template.period - effect.getTime();
+		_abnormalEffect = _template.abnormalEffect;
+		_stackType = _template.stackType;
+		_stackOrder = _template.stackOrder;
+		_periodStartTicks = effect.getPeriodStartTicks();
+		_periodfirsttime = effect.getPeriodfirsttime();
+		_icon = _template.icon;
+		scheduleEffect();
+	}
+
 	public int getCount()
 	{
 		return _count;
@@ -246,6 +278,26 @@ public abstract class L2Effect
 	public int getRemainingTaskTime()
 	{
 		return getTotalTaskTime() - getElapsedTaskTime();
+	}
+	
+	public int getPeriodfirsttime()
+	{
+		return _periodfirsttime;
+	}
+	
+	public void setPeriodfirsttime(int periodfirsttime)
+	{
+		_periodfirsttime = periodfirsttime;
+	}
+	
+	public int getPeriodStartTicks()
+	{
+		return _periodStartTicks;
+	}
+
+	public void setPeriodStartTicks(int periodStartTicks)
+	{
+		_periodStartTicks = periodStartTicks;
 	}
 	
 	public boolean getInUse()
@@ -560,6 +612,11 @@ public abstract class L2Effect
 	public int getLevel()
 	{
 		return getSkill().getLevel();
+	}
+	
+	public EffectTemplate getEffectTemplate()
+	{
+		return _template;
 	}
 	
 	public void destroy()

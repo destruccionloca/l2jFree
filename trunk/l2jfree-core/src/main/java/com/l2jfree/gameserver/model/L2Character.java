@@ -51,6 +51,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2CommanderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ControlTowerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcWalkerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -132,6 +133,7 @@ public abstract class L2Character extends L2Object
 	// Data Field
 	private FastList<L2Character>	_attackByList;
 	private L2Character				_attackingChar;
+	private volatile boolean		_isCastingNow						= false;
 	private boolean					_block_buffs						= false;
 	private boolean					_isAfraid							= false;											// Flee in a random direction
 	private boolean					_isConfused							= false;											// Attack anyone randomly
@@ -264,7 +266,7 @@ public abstract class L2Character extends L2Object
 
 		if (!(this instanceof L2PlayableInstance) && !(this instanceof L2Attackable) && !(this instanceof L2ControlTowerInstance)
 				&& !(this instanceof L2DoorInstance) && !(this instanceof L2Trap) && !(this instanceof L2SiegeFlagInstance) && !(this instanceof L2Decoy)
-				&& !(this instanceof L2EffectPointInstance) && !(this instanceof L2CommanderInstance))
+				&& !(this instanceof L2EffectPointInstance) && !(this instanceof L2CommanderInstance) && !(this instanceof L2FolkInstance))
 			setIsInvul(true);
 	}
 
@@ -1561,197 +1563,10 @@ public abstract class L2Character extends L2Object
 	 */
 	public void doCast(L2Skill skill)
 	{
-		if (skill == null)
+		if (!checkDoCastConditions(skill))
 		{
-			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+			setIsCastingNow(false);
 			return;
-		}
-
-		if (isSkillDisabled(skill.getId()))
-		{
-			if (this instanceof L2PcInstance)
-			{
-				SystemMessage sm = null;
-				FastMap<Integer, TimeStamp> timeStamps = ((L2PcInstance) this).getReuseTimeStamps();
-
-				if (timeStamps != null && timeStamps.containsKey(skill.getId()))
-				{
-					TimeStamp ts = timeStamps.get(skill.getId());
-					int seconds = (int) (ts.getRemaining() / 1000);
-					int minutes = (int) (ts.getRemaining() / 60000);
-					int hours = (int) (ts.getRemaining() / 3600000);
-					if (hours > 0)
-					{
-						sm = new SystemMessage(SystemMessageId.S2_HOURS_S3_MINUTES_S4_SECONDS_REMAINING_FOR_REUSE_S1);
-						sm.addSkillName(skill);
-						sm.addNumber(hours);
-						if (minutes >= 60)
-							minutes = 59;
-
-						sm.addNumber(minutes);
-					}
-					else if (minutes > 0)
-					{
-						sm = new SystemMessage(SystemMessageId.S2_MINUTES_S3_SECONDS_REMAINING_FOR_REUSE_S1);
-						sm.addSkillName(skill);
-						sm.addNumber(minutes);
-					}
-					else if (seconds > 0)
-					{
-						sm = new SystemMessage(SystemMessageId.S2_SECONDS_REMAIMNING_FOR_REUSE_S1);
-						sm.addSkillName(skill);
-					}
-
-					if (seconds >= 60)
-						seconds = 59;
-
-					if (sm != null)
-						sm.addNumber(seconds);
-				}
-				else
-				{
-					sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
-					sm.addSkillName(skill);
-				}
-
-				sendPacket(sm);
-			}
-
-			return;
-		}
-
-		// Check if the caster has enough MP
-		if (getStatus().getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
-		{
-			if (this instanceof L2PcInstance)
-			{
-				// Send a System Message to the caster
-				sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
-
-				// Send a Server->Client packet ActionFailed to the L2PcInstance
-				sendPacket(ActionFailed.STATIC_PACKET);
-			}
-			return;
-		}
-
-		// Check if the caster has enough HP
-		if (getStatus().getCurrentHp() <= skill.getHpConsume())
-		{
-			if (this instanceof L2PcInstance)
-			{
-				// Send a System Message to the caster
-				sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_HP));
-
-				// Send a Server->Client packet ActionFailed to the L2PcInstance
-				sendPacket(ActionFailed.STATIC_PACKET);
-			}
-			return;
-		}
-
-		switch (skill.getSkillType())
-		{
-		case SUMMON_TRAP:
-		{
-			if (isInsideZone(L2Zone.FLAG_PEACE))
-			{
-				if (this instanceof L2PcInstance)
-					((L2PcInstance) this).sendPacket(new SystemMessage(SystemMessageId.A_MALICIOUS_SKILL_CANNOT_BE_USED_IN_PEACE_ZONE));
-				return;
-			}
-			if (this instanceof L2PcInstance && ((L2PcInstance) this).getTrap() != null)
-				return;
-			break;
-		}
-		case SUMMON:
-		{
-			if (!skill.isCubic() && this instanceof L2PcInstance && (((L2PcInstance) this).getPet() != null || ((L2PcInstance) this).isMounted()))
-			{
-				if (_log.isDebugEnabled())
-					_log.info("player has a pet already. ignore summon skill");
-
-				sendPacket(new SystemMessage(SystemMessageId.YOU_ALREADY_HAVE_A_PET));
-				return;
-			}
-		}
-		}
-
-		if (!skill.isPotion())
-		{
-			// Check if the skill is a magic spell and if the L2Character is not muted
-			if (skill.isMagic())
-			{
-				if (isMuted())
-				{
-					getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
-					return;
-				}
-			}
-			else
-			{
-				// Check if the skill is physical and if the L2Character is not physical_muted
-				if (isPhysicalMuted())
-				{
-					getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
-					return;
-				}
-				else if (isPhysicalAttackMuted()) // Prevent use attack
-				{
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return;
-				}
-			}
-		}
-
-		// prevent casting signets to peace zone
-		if (skill.getSkillType() == SkillType.SIGNET || skill.getSkillType() == SkillType.SIGNET_CASTTIME)
-		{
-			L2WorldRegion region = getWorldRegion();
-			if (region == null)
-				return;
-			boolean canCast = true;
-			if (skill.getTargetType() == SkillTargetType.TARGET_GROUND && this instanceof L2PcInstance)
-			{
-				Point3D wp = ((L2PcInstance) this).getCurrentSkillWorldPosition();
-				if (!region.checkEffectRangeInsidePeaceZone(skill, wp.getX(), wp.getY(), wp.getZ()))
-					canCast = false;
-			}
-			else if (!region.checkEffectRangeInsidePeaceZone(skill, getX(), getY(), getZ()))
-				canCast = false;
-			if (!canCast)
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-				sm.addSkillName(skill);
-				sendPacket(sm);
-				return;
-			}
-		}
-
-		// Check if the spell consumes an Item
-		// TODO: combine check and consume
-		if (skill.getItemConsume() > 0 && getInventory() != null)
-		{
-			// Get the L2ItemInstance consumed by the spell
-			L2ItemInstance requiredItems = getInventory().getItemByItemId(skill.getItemConsumeId());
-
-			// Check if the caster owns enough consumed Item to cast
-			if (requiredItems == null || requiredItems.getCount() < skill.getItemConsume())
-			{
-				// Checked: when a summon skill failed, server show required consume item count
-				if (skill.getSkillType() == L2Skill.SkillType.SUMMON)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.SUMMONING_SERVITOR_COSTS_S2_S1);
-					sm.addItemName(skill.getItemConsumeId());
-					sm.addNumber(skill.getItemConsume());
-					sendPacket(sm);
-					return;
-				}
-				else
-				{
-					// Send a System Message to the caster
-					sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
-					return;
-				}
-			}
 		}
 
 		// Recharge AutoSoulShot
@@ -1794,6 +1609,7 @@ public abstract class L2Character extends L2Object
 			if (targets == null || (targets.length == 0))
 			{
 				getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+				setIsCastingNow(false);
 				return;
 			}
 
@@ -1838,6 +1654,7 @@ public abstract class L2Character extends L2Object
 		if (target == null)
 		{
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+			setIsCastingNow(false);
 			return;
 		}
 
@@ -1916,8 +1733,9 @@ public abstract class L2Character extends L2Object
 			}
 		}
 
-		// Set the _castEndTime and _castInterruptTim. +10 ticks for lag situations, will be reseted in onMagicFinalizer
-		_castEndTime = 10 + GameTimeController.getGameTicks() + (coolTime + hitTime) / GameTimeController.MILLIS_IN_TICK;
+		// Set the _castInterruptTime and casting status (L2PcInstance already has this true)
+		setIsCastingNow(true);
+		// Note: _castEndTime = GameTimeController.getGameTicks() + (coolTime + hitTime) / GameTimeController.MILLIS_IN_TICK;
 		_castInterruptTime = GameTimeController.getGameTicks() + skillInterruptTime / GameTimeController.MILLIS_IN_TICK;
 
 		// Init the reuse time of the skill
@@ -2013,6 +1831,7 @@ public abstract class L2Character extends L2Object
 				if (!destroyItemByItemId("Consume", skill.getItemConsumeId(), skill.getItemConsume(), null, false))
 				{
 					sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+					setIsCastingNow(false);
 					return;
 				}
 			}
@@ -2110,6 +1929,9 @@ public abstract class L2Character extends L2Object
 		{
 			onMagicLaunchedTimer(targets, skill, coolTime, true);
 		}
+
+		// TODO: This should be moved since it's not considering that a cast can be aborted...
+		// and it's just generating more timers
 		final L2Character _character = this;
 		final L2Object[] _targets = targets;
 		final L2Skill _skill = skill;
@@ -2140,6 +1962,163 @@ public abstract class L2Character extends L2Object
 				}
 			}, hitTime + coolTime + 1000);
 		}
+	}
+
+	private boolean checkDoCastConditions(L2Skill skill)
+	{
+		if (skill == null)
+		{
+			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+			return false;
+		}
+
+		if (isSkillDisabled(skill.getId()))
+		{
+			return false;
+		}
+
+		// Check if the caster has enough MP
+		if (getStatus().getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
+		{
+			if (this instanceof L2PcInstance)
+			{
+				// Send a System Message to the caster
+				sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
+
+				// Send a Server->Client packet ActionFailed to the L2PcInstance
+				sendPacket(ActionFailed.STATIC_PACKET);
+			}
+			return false;
+		}
+
+		// Check if the caster has enough HP
+		if (getStatus().getCurrentHp() <= skill.getHpConsume())
+		{
+			if (this instanceof L2PcInstance)
+			{
+				// Send a System Message to the caster
+				sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_HP));
+
+				// Send a Server->Client packet ActionFailed to the L2PcInstance
+				sendPacket(ActionFailed.STATIC_PACKET);
+			}
+			return false;
+		}
+
+		switch (skill.getSkillType())
+		{
+		case SUMMON_TRAP:
+		{
+			if (isInsideZone(L2Zone.FLAG_PEACE))
+			{
+				if (this instanceof L2PcInstance)
+					((L2PcInstance) this).sendPacket(new SystemMessage(SystemMessageId.A_MALICIOUS_SKILL_CANNOT_BE_USED_IN_PEACE_ZONE));
+				return false;
+			}
+			if (this instanceof L2PcInstance && ((L2PcInstance) this).getTrap() != null)
+				return false;
+			break;
+		}
+		case SUMMON:
+		{
+			if (!skill.isCubic() && this instanceof L2PcInstance && (((L2PcInstance) this).getPet() != null || ((L2PcInstance) this).isMounted()))
+			{
+				if (_log.isDebugEnabled())
+					_log.info("player has a pet already. ignore summon skill");
+
+				sendPacket(new SystemMessage(SystemMessageId.YOU_ALREADY_HAVE_A_PET));
+				return false;
+			}
+		}
+		}
+
+		if (!skill.isPotion())
+		{
+			// Check if the skill is a magic spell and if the L2Character is not muted
+			if (skill.isMagic())
+			{
+				if (isMuted())
+				{
+					getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+					return false;
+				}
+			}
+			else
+			{
+				// Check if the skill is physical and if the L2Character is not physical_muted
+				if (isPhysicalMuted())
+				{
+					getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+					return false;
+				}
+				else if (isPhysicalAttackMuted()) // Prevent use attack
+				{
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return false;
+				}
+			}
+		}
+
+		// prevent casting signets to peace zone
+		if (skill.getSkillType() == SkillType.SIGNET || skill.getSkillType() == SkillType.SIGNET_CASTTIME)
+		{
+			L2WorldRegion region = getWorldRegion();
+			if (region == null)
+				return false;
+			boolean canCast = true;
+			if (skill.getTargetType() == SkillTargetType.TARGET_GROUND && this instanceof L2PcInstance)
+			{
+				Point3D wp = ((L2PcInstance) this).getCurrentSkillWorldPosition();
+				if (!region.checkEffectRangeInsidePeaceZone(skill, wp.getX(), wp.getY(), wp.getZ()))
+					canCast = false;
+			}
+			else if (!region.checkEffectRangeInsidePeaceZone(skill, getX(), getY(), getZ()))
+				canCast = false;
+			if (!canCast)
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+				sm.addSkillName(skill);
+				sendPacket(sm);
+				return false;
+			}
+		}
+
+		// Check if the caster owns the weapon needed
+		if (!skill.getWeaponDependancy(this))
+		{
+			// Send a Server->Client packet ActionFailed to the L2PcInstance
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
+		}
+
+		// Check if the spell consumes an Item
+		// TODO: combine check and consume
+		if (skill.getItemConsume() > 0 && getInventory() != null)
+		{
+			// Get the L2ItemInstance consumed by the spell
+			L2ItemInstance requiredItems = getInventory().getItemByItemId(skill.getItemConsumeId());
+
+			// Check if the caster owns enough consumed Item to cast
+			if (requiredItems == null || requiredItems.getCount() < skill.getItemConsume())
+			{
+				// Checked: when a summon skill failed, server show required consume item count
+				if (skill.getSkillType() == L2Skill.SkillType.SUMMON)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.SUMMONING_SERVITOR_COSTS_S2_S1);
+					sm.addItemName(skill.getItemConsumeId());
+					sm.addNumber(skill.getItemConsume());
+					sendPacket(sm);
+					return false;
+				}
+				else
+				{
+					// Send a System Message to the caster
+					sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -2334,60 +2313,6 @@ public abstract class L2Character extends L2Object
 		doRevive();
 	}
 
-	/**
-	 * Check if the active L2Skill can be casted.<BR>
-	 * <BR>
-	 * <B><U> Actions</U> :</B><BR>
-	 * <BR>
-	 * <li>Check if the L2Character can cast (ex : not sleeping...) </li>
-	 * <li>Check if the target is correct </li>
-	 * <li>Notify the AI with AI_INTENTION_CAST and target</li>
-	 * <BR>
-	 * <BR>
-	 *
-	 * @param skill
-	 *            The L2Skill to use
-	 */
-	protected void useMagic(L2Skill skill)
-	{
-		if (skill == null || isDead())
-			return;
-
-		// Check if the L2Character can cast
-		if (isAllSkillsDisabled())
-		{
-			// must be checked by caller
-			return;
-		}
-
-		// Ignore the passive skill request. why does the client send it anyway ??
-		if (skill.isPassive() || skill.isChance())
-			return;
-
-		// Get the target for the skill
-		L2Object target = null;
-
-		switch (skill.getTargetType())
-		{
-		case TARGET_AURA: // AURA, SELF should be cast even if no target has been found
-		case TARGET_FRONT_AURA:
-		case TARGET_BEHIND_AURA:
-		case TARGET_GROUND:
-		case TARGET_SELF:
-			target = this;
-			break;
-		default:
-
-			// Get the first target of the list
-			target = skill.getFirstOfTargetList(this);
-			break;
-		}
-
-		// Notify the AI with AI_INTENTION_CAST and target
-		getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, skill, target);
-
-	}
-
 	// =========================================================
 	// Property - Public
 	/**
@@ -2395,15 +2320,17 @@ public abstract class L2Character extends L2Object
 	 */
 	public L2CharacterAI getAI()
 	{
-		if (_ai == null)
+		L2CharacterAI ai = _ai; // copy handle
+		if (ai == null)
 		{
 			synchronized (this)
 			{
 				_ai = new L2CharacterAI(new AIAccessor());
+				return _ai;
 			}
 		}
 
-		return _ai;
+		return ai;
 	}
 
 	public void setAI(L2CharacterAI newAI)
@@ -2601,7 +2528,7 @@ public abstract class L2Character extends L2Object
 				|| isFakeDeath() || isFallsdown() || isPetrified();
 	}
 
-	/** Return True if the L2Character can be controlled by the player (confused, afraid). */
+	/** Return True if the L2Character can not be controlled by the player (confused, afraid). */
 	public boolean isOutOfControl()
 	{
 		return isConfused() || isAfraid();
@@ -2907,7 +2834,7 @@ public abstract class L2Character extends L2Object
 			setIsRunning(false);
 	}
 
-	/** Task lauching the function enableSkill() */
+	/** Task launching the function enableSkill() */
 	class EnableSkill implements Runnable
 	{
 		int	_skillId;
@@ -2931,7 +2858,7 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * Task lauching the function onHitTimer().<BR>
+	 * Task launching the function onHitTimer().<BR>
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
@@ -2975,7 +2902,7 @@ public abstract class L2Character extends L2Object
 		}
 	}
 
-	/** Task lauching the magic skill phases */
+	/** Task launching the magic skill phases */
 	class MagicUseTask implements Runnable
 	{
 		L2Object[]	_targets;
@@ -3018,7 +2945,7 @@ public abstract class L2Character extends L2Object
 		}
 	}
 
-	/** Task lauching the function useMagic() */
+	/** Task launching the function useMagic() */
 	class QueuedMagicUseTask implements Runnable
 	{
 		L2PcInstance	_currPlayer;
@@ -3070,7 +2997,7 @@ public abstract class L2Character extends L2Object
 		}
 	}
 
-	/** Task lauching the function stopPvPFlag() */
+	/** Task launching the function stopPvPFlag() */
 	public class PvPFlag implements Runnable
 	{
 		public void run()
@@ -3161,7 +3088,7 @@ public abstract class L2Character extends L2Object
 	 * <li>Update active skills in progress icons on player client</li>
 	 * <BR>
 	 */
-	public final void addEffect(L2Effect newEffect)
+	public void addEffect(L2Effect newEffect)
 	{
 		_effects.addEffect(newEffect);
 
@@ -4056,15 +3983,13 @@ public abstract class L2Character extends L2Object
 	/** L2Charcater targeted by the L2Character */
 	private L2Object					_target					= null;
 
-	// set by the start of casting, in game ticks
-	private int							_castEndTime;
-	private int							_castInterruptTime;
-
 	// set by the start of attack, in game ticks
 	private int							_attackEndTime;
 	private int							_attacking;
 	private int							_disableBowAttackEndTime;
 	private int							_disableCrossBowAttackEndTime;
+
+	private int							_castInterruptTime;
 
 	/** Table of calculators containing all standard NPC calculator (ex : ACCURACY_COMBAT, EVASION_RATE */
 	private static final Calculator[]	NPC_STD_CALCULATOR;
@@ -4598,7 +4523,12 @@ public abstract class L2Character extends L2Object
 	 */
 	public final boolean isCastingNow()
 	{
-		return _castEndTime > GameTimeController.getGameTicks();
+		return _isCastingNow;
+	}
+
+	public void setIsCastingNow(boolean value)
+	{
+		_isCastingNow = value;
 	}
 
 	/**
@@ -4657,7 +4587,6 @@ public abstract class L2Character extends L2Object
 	{
 		if (isCastingNow())
 		{
-			_castEndTime = 0;
 			_castInterruptTime = 0;
 
 			if (_skillCast != null)
@@ -4674,7 +4603,7 @@ public abstract class L2Character extends L2Object
 				mog.exit();
 
 			// cancels the skill hit scheduled task
-			enableAllSkills(); // re-enables the skills
+			enableAllSkills(); // re-enables the skills and setIsCastingNow(false)
 			if (this instanceof L2PcInstance)
 				getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING); // setting back previous intention
 			broadcastPacket(new MagicSkillCanceled(getObjectId())); // broadcast packet to stop animations client-side
@@ -6250,7 +6179,7 @@ public abstract class L2Character extends L2Object
 				}
 			}
 
-			if (cancelEffect)
+			if (cancelEffect || oldSkill.isToggle())
 			{
 				// for now, to support transformations, we have to let their
 				// effects stay when skill is removed
@@ -6390,12 +6319,8 @@ public abstract class L2Character extends L2Object
 	{
 		if (skill == null || targets == null || targets.length <= 0)
 		{
-			_skillCast = null;
-			enableAllSkills();
-
+			abortCast();
 			setAttackingChar(null);
-			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
-
 			return;
 		}
 
@@ -6457,7 +6382,6 @@ public abstract class L2Character extends L2Object
 			setAttackingChar(null);
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 
-			_castEndTime = 0;
 			_castInterruptTime = 0;
 			return;
 		}
@@ -6488,11 +6412,8 @@ public abstract class L2Character extends L2Object
 	{
 		if (skill == null || targets == null || targets.length <= 0)
 		{
-			_skillCast = null;
-			enableAllSkills();
-
+			abortCast();
 			setAttackingChar(null);
-			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 			return;
 		}
 		if (getForceBuff() != null)
@@ -6602,6 +6523,7 @@ public abstract class L2Character extends L2Object
 				if (!destroyItemByItemId("Consume", skill.getItemConsumeId(), skill.getItemConsume(), null, false))
 				{
 					sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+					abortCast();
 					return;
 				}
 			}
@@ -6639,7 +6561,6 @@ public abstract class L2Character extends L2Object
 	public void onMagicFinalizer(L2Skill skill, L2Object target)
 	{
 		_skillCast = null;
-		_castEndTime = 0;
 		_castInterruptTime = 0;
 		enableAllSkills();
 
@@ -6792,6 +6713,7 @@ public abstract class L2Character extends L2Object
 		if (_log.isDebugEnabled())
 			_log.debug("all skills enabled");
 		_allSkillsDisabled = false;
+		setIsCastingNow(false);
 	}
 
 	/**
@@ -7115,11 +7037,12 @@ public abstract class L2Character extends L2Object
 		_skillCast = newSkillCast;
 	}
 
-	public final void setSkillCastEndTime(int newSkillCastEndTime)
+	/** Sets _isCastingNow to true and _castInterruptTime is calculated from end time (ticks) */
+	public final void forceIsCasting(int newSkillCastEndTick)
 	{
-		_castEndTime = newSkillCastEndTime;
-		// for interrupt -12 ticks; first removing the extra second and then -200 ms
-		// _castInterruptTime = newSkillCastEndTime-12;
+		setIsCastingNow(true);
+		// for interrupt -200 ms
+		_castInterruptTime = newSkillCastEndTick - 2;
 	}
 
 	private Future<?>	_PvPRegTask;

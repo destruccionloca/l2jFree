@@ -50,6 +50,7 @@ import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.DoorStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -144,12 +145,6 @@ public class L2DoorInstance extends L2Character
 			}
 		}
 		return _ai;
-	}
-
-	@Override
-	public boolean hasAI()
-	{
-		return (_ai != null);
 	}
 
 	class CloseTask implements Runnable
@@ -534,10 +529,15 @@ public class L2DoorInstance extends L2Character
 				}
 				else
 				{
+					player.gatesRequest(this);
 					if (getOpen() == 1)
-						openMe();
+					{
+						player.sendPacket(new ConfirmDlg(1140));
+					}
 					else
-						closeMe();
+					{
+						player.sendPacket(new ConfirmDlg(1141));;
+					}
 				}
 			}
 		}

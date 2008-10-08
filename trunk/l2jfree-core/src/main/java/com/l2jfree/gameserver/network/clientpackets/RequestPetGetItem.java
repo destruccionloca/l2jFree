@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -58,7 +59,14 @@ public class RequestPetGetItem extends L2GameClientPacket
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-	
+
+		int castleId = MercTicketManager.getInstance().getTicketCastleId(item.getItemId());
+		if (castleId > 0)
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+
 		L2PetInstance pet = (L2PetInstance)player.getPet();
 		if (pet.isDead() || pet.isOutOfControl())
 		{

@@ -100,22 +100,25 @@ public class RequestSellItem extends L2GameClientPacket
 	protected void processSell()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
-        
+		if (player == null)
+			return;
+
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
-        {
+				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		{
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			player.cancelActiveTrade();
-            return;
-        }
-        // Alt game - Karma punishment
-        if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0) return;
+			return;
+		}
+
+		// Alt game - Karma punishment
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
+			return;
 
         L2Object target = player.getTarget();
         if (!player.isGM() && (target == null								// No target (ie GM Shop)
-        		|| !(target instanceof L2MerchantInstance || target instanceof L2MercManagerInstance)	// Target not a merchant and not mercmanager
+        		|| !(target instanceof L2MerchantInstance)	// Target not a merchant and not mercmanager
 			    || !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false) 	// Distance is too far
 			        )) return;
 
@@ -141,9 +144,9 @@ public class RequestSellItem extends L2GameClientPacket
         if (ok)
         	merchant = (L2NpcInstance)target;
 
-		if (_listId > 1000000) // lease
+		if (merchant != null && _listId > 1000000) // lease
 		{
-			if (merchant != null && merchant.getTemplate().getNpcId() != _listId-1000000)
+			if (merchant.getTemplate().getNpcId() != _listId-1000000)
 			{
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;

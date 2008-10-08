@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.skills;
 
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
@@ -32,6 +33,7 @@ public final class Env
 	public L2Character		target;
 	public L2ItemInstance	item;
 	public L2Skill			skill;
+	public L2Effect			effect;
 	public double			value;
 	public double			baseValue;
 }

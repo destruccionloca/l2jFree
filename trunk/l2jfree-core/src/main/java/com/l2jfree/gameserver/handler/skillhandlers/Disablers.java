@@ -17,9 +17,16 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import javolution.util.FastList;
+
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
+import com.l2jfree.gameserver.datatables.HeroSkillTable;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
@@ -35,10 +42,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.tools.random.Rnd;
@@ -74,11 +83,10 @@ public class Disablers implements ISkillHandler
 			SkillType.ERASE,
 			SkillType.MAGE_BANE,
 			SkillType.WARRIOR_BANE,
-			SkillType.DISARM							};
+			SkillType.DISARM,
+			SkillType.STEAL_BUFF						};
+
 	protected static Log				_log			= LogFactory.getLog(L2Skill.class.getName());
-	private String[]					_negateStats	= null;
-	private float						_negatePower	= 0.f;
-	private int							_negateId		= 0;
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
@@ -598,6 +606,53 @@ public class Disablers implements ISkillHandler
 
 				break;
 			}
+			case STEAL_BUFF:
+			{
+				if (!(target instanceof L2PlayableInstance))
+					return;
+
+				L2Effect[] effects = target.getAllEffects();
+
+				if (effects == null || effects.length < 1)
+					return;
+
+				// Reversing array
+				List<L2Effect> list = Arrays.asList(effects);
+				Collections.reverse(list);
+				list.toArray(effects);
+
+				FastList<L2Effect> toSteal = new FastList<L2Effect>();
+				int count = 0;
+				int lastSkill = 0;
+
+				for (L2Effect e : effects)
+				{
+					if (e == null || (e.getEffectType() != L2Effect.EffectType.BUFF && e.getEffectType() != L2Effect.EffectType.TRANSFORMATION)
+							|| e.getSkill().getSkillType() == SkillType.HEAL
+							|| e.getSkill().isToggle()
+							|| e.getSkill().isDebuff()
+							|| HeroSkillTable.isHeroSkill(e.getSkill().getId())
+							|| e.getSkill().isPotion()
+							|| e.isHerbEffect())
+						continue;
+					
+					if (e.getSkill().getId() == lastSkill)
+					{
+						if (count == 0) count = 1;
+							toSteal.add(e);
+					}
+					else if (count < skill.getPower())
+					{
+						toSteal.add(e);
+						count++;
+					}
+					else
+						break;
+				}
+				if (!toSteal.isEmpty())
+					stealEffects(activeChar, target, toSteal);
+				break;
+			}
 			case NEGATE:
 			case CANCEL:
 			{
@@ -648,7 +703,8 @@ public class Disablers implements ISkillHandler
 							case 111:
 							case 1323:
 							case 1325:
-								// Cannot cancel skills 4082, 4215, 4515, 110, 111, 1323, 1325
+							case 5182:
+								// Cannot cancel skills 4082, 4215, 4515, 110, 111, 1323, 1325, 5182
 								break;
 							default:
 								if (e.getSkill().getSkillType() == SkillType.BUFF) //sleep, slow, surrenders etc
@@ -690,10 +746,10 @@ public class Disablers implements ISkillHandler
 				// fishing potion
 				else if (skill.getId() == 2275)
 				{
-					_negatePower = skill.getNegatePower();
-					_negateId = skill.getNegateId();
+					float negatePower = skill.getNegatePower();
+					int negateId = skill.getNegateId();
 
-					negateEffect(target, SkillType.BUFF, _negatePower, _negateId, -1);
+					negateEffect(target, SkillType.BUFF, negatePower, negateId, -1);
 					break;
 				}
 				// Touch of Death
@@ -741,11 +797,11 @@ public class Disablers implements ISkillHandler
 				//  all others negate type skills
 				else
 				{
-					_negateStats = skill.getNegateStats();
-					_negatePower = skill.getNegatePower();
+					String[] negateStats = skill.getNegateStats();
+					float negatePower = skill.getNegatePower();
 					int removedBuffs = (skill.getMaxNegatedEffects() > 0) ? 0 : -2;
 
-					for (String stat : _negateStats)
+					for (String stat : negateStats)
 					{
 						if (removedBuffs > skill.getMaxNegatedEffects())
 							break;
@@ -780,15 +836,15 @@ public class Disablers implements ISkillHandler
 						else if (stat == "fear" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.FEAR,-1, skill.getMaxNegatedEffects());
 						else if (stat == "poison" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.POISON,_negatePower, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,SkillType.POISON, negatePower, skill.getMaxNegatedEffects());
 						else if (stat == "bleed" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.BLEED,_negatePower, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,SkillType.BLEED, negatePower, skill.getMaxNegatedEffects());
 						else if (stat == "paralyze" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.PARALYZE,-1, skill.getMaxNegatedEffects());
 						else if (stat == "root" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,SkillType.ROOT,-1, skill.getMaxNegatedEffects());
 						else if (stat == "death_mark" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target, SkillType.DEATH_MARK, _negatePower, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target, SkillType.DEATH_MARK,  negatePower, skill.getMaxNegatedEffects());
 						else if (stat == "heal" && removedBuffs < skill.getMaxNegatedEffects())
 							SkillHandler.getInstance().getSkillHandler(SkillType.HEAL).useSkill(activeChar, skill, target);
 					}//end for
@@ -941,6 +997,34 @@ public class Disablers implements ISkillHandler
 		}
 
 		return  (maxRemoved <= 0) ? count + 2 : count;
+	}
+
+	private void stealEffects(L2Character stealer, L2Character stolen, FastList<L2Effect> stolenEffects)
+	{
+		for (L2Effect eff : stolenEffects)
+		{
+			// if eff time is smaller than 1 sec, will not be stolen, just to save CPU,
+			// avoid synchronization(?) problems and NPEs
+			if (eff.getPeriod() - eff.getTime() < 1)
+				continue;
+
+			Env env = new Env();
+			env.player = stolen;
+			env.target = stealer;
+			env.skill = eff.getSkill();
+			L2Effect e = eff.getEffectTemplate().getStolenEffect(env, eff);
+
+			// Since there is a previous check that limits allowed effects to those which come from SkillType.BUFF,
+			// it is not needed another check for SkillType
+			if (stealer instanceof L2PcInstance && e != null)
+			{
+				SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
+				smsg.addSkillName(eff);
+				stealer.sendPacket(smsg);
+			}
+			// Finishing stolen effect
+			eff.exit();
+		}
 	}
 
 	public SkillType[] getSkillIds()

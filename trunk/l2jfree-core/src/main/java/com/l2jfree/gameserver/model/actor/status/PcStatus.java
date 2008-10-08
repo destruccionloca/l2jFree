@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor.status;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -46,25 +47,33 @@ public class PcStatus extends PlayableStatus
     {
         double realValue = value;
         
-        if (getActiveChar().isInvul() || getActiveChar().isDead() || getActiveChar().isPetrified()) return;
+        if ((getActiveChar().isInvul() && getActiveChar() != attacker) || getActiveChar().isDead() || getActiveChar().isPetrified())
+            return;
 
         if ( attacker instanceof L2PcInstance)
         {
-			if (getActiveChar().isInDuel())
-			{
-				// the duel is finishing - players do not recive damage
-				if (getActiveChar().getDuelState() == Duel.DUELSTATE_DEAD) return;
-				else if (getActiveChar().getDuelState() == Duel.DUELSTATE_WINNER) return;
-				
-				// cancel duel if player got hit by another player, that is not part of the duel
-				if (((L2PcInstance)attacker).getDuelId() != getActiveChar().getDuelId())
-					getActiveChar().setDuelState(Duel.DUELSTATE_INTERRUPTED);
-			}
-        } 
+            L2PcInstance pcInst = (L2PcInstance)attacker;
+            if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+                return;
+
+            if (getActiveChar().isInDuel())
+            {
+                // the duel is finishing - players do not recive damage
+                if (getActiveChar().getDuelState() == Duel.DUELSTATE_DEAD)
+                    return;
+                else if (getActiveChar().getDuelState() == Duel.DUELSTATE_WINNER)
+                    return;
+
+                // cancel duel if player got hit by another player, that is not part of the duel
+                if (pcInst.getDuelId() != getActiveChar().getDuelId())
+                    getActiveChar().setDuelState(Duel.DUELSTATE_INTERRUPTED);
+            }
+        }
         else 
         {
-			// if attacked by a non L2PcInstance & non L2SummonInstance the duel gets canceled
-        	if (getActiveChar().isInDuel() && !(attacker instanceof L2SummonInstance)) getActiveChar().setDuelState(Duel.DUELSTATE_INTERRUPTED);
+            // if attacked by a non L2PcInstance & non L2SummonInstance the duel gets canceled
+            if (getActiveChar().isInDuel() && !(attacker instanceof L2SummonInstance))
+                getActiveChar().setDuelState(Duel.DUELSTATE_INTERRUPTED);
         }
 
         if (attacker != null && attacker != getActiveChar())

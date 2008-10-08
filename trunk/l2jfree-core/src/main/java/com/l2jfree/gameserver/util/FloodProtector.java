@@ -48,7 +48,7 @@ public class FloodProtector
 
 	// reuse delays for protected actions (in game ticks 1 tick = 100ms)
 	private static final int[]			REUSEDELAY				= new int[]
-																{ 4, 42, 42, Config.GLOBAL_CHAT_TIME, Config.TRADE_CHAT_TIME, 16, 100, Config.SOCIAL_TIME, 2 };
+																{ 4, 42, 42, Config.GLOBAL_CHAT_TIME, Config.TRADE_CHAT_TIME, 16, 100, Config.SOCIAL_TIME, 2, 20 };
 
 	// protected actions
 	public static final int				PROTECTED_USEITEM		= 0;
@@ -60,6 +60,7 @@ public class FloodProtector
 	public static final int				PROTECTED_HEROVOICE		= 6;
 	public static final int				PROTECTED_SOCIAL		= 7;
 	public static final int				PROTECTED_MULTISELL		= 8;
+	public static final int				PROTECTED_SUBCLASS		= 9;
 
 	// =========================================================
 	// Constructor

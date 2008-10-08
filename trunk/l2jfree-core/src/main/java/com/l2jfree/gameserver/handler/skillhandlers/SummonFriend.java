@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
@@ -48,13 +49,18 @@ public class SummonFriend implements ISkillHandler
 
 		if (summonerChar.isInOlympiadMode())
 		{
-			summonerChar.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
+			summonerChar.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
+			return false;
+		}
+
+		if (summonerChar.inObserverMode())
+		{
 			return false;
 		}
 
 		if (summonerChar.isInsideZone(L2Zone.FLAG_NOSUMMON))
 		{
-			summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
+			summonerChar.sendPacket(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING);
 			return false;
 		}
 		return true;
@@ -91,13 +97,19 @@ public class SummonFriend implements ISkillHandler
 
 		if (targetChar.isInOlympiadMode())
 		{
-			summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_SUMMON_PLAYERS_WHO_ARE_IN_OLYMPIAD));
+			summonerChar.sendPacket(SystemMessageId.YOU_CANNOT_SUMMON_PLAYERS_WHO_ARE_IN_OLYMPIAD);
+			return false;
+		}
+
+		if (targetChar.inObserverMode())
+		{
+			summonerChar.sendPacket(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING);
 			return false;
 		}
 
 		if (targetChar.isFestivalParticipant())
 		{
-			summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
+			summonerChar.sendPacket(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING);
 			return false;
 		}
 
@@ -123,6 +135,30 @@ public class SummonFriend implements ISkillHandler
 			summonerChar.sendMessage("You cannot summon your friend due to events restrictions.");
 			targetChar.sendMessage("You cannot be summoned due to events restriction.");
 			return false;
+		}
+
+		// on retail character can enter 7s dungeon with summon friend,
+		// but will be teleported away by mobs
+		// because currently this is not working in L2J we do not allowing summoning
+		if (summonerChar.isIn7sDungeon())
+		{
+			int targetCabal = SevenSigns.getInstance().getPlayerCabal(targetChar);
+			if (SevenSigns.getInstance().isSealValidationPeriod())
+			{
+				if (targetCabal != SevenSigns.getInstance().getCabalHighestScore())
+				{
+					summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
+					return false;
+				}
+			}
+			else
+			{
+				if (targetCabal == SevenSigns.CABAL_NULL)
+				{
+					summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
+					return false;
+				}
+			}
 		}
 
 		return true;

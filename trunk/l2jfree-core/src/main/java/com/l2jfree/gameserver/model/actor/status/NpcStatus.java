@@ -14,8 +14,10 @@
  */
 package com.l2jfree.gameserver.model.actor.status;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class NpcStatus extends CharStatus
 {
@@ -32,13 +34,21 @@ public class NpcStatus extends CharStatus
     // =========================================================
     // Method - Public
     @Override
-    public final void reduceHp(double value, L2Character attacker) { reduceHp(value, attacker, true); }
+    public void reduceHp(double value, L2Character attacker) { reduceHp(value, attacker, true); }
 
     @Override
-    public final void reduceHp(double value, L2Character attacker, boolean awake)
+    public void reduceHp(double value, L2Character attacker, boolean awake)
     {
-        if (attacker == null || getActiveChar().isDead() || getActiveChar().isInvul() || getActiveChar().isPetrified()) return;
-        
+        if (attacker == null || getActiveChar().isDead() || getActiveChar().isInvul() || getActiveChar().isPetrified())
+            return;
+
+        if (attacker instanceof L2PcInstance)
+        {
+            L2PcInstance pcInst = (L2PcInstance)attacker;
+            if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+                return;
+        }
+
         // Add attackers to npc's attacker list
         getActiveChar().addAttackerToAttackByList(attacker);
 

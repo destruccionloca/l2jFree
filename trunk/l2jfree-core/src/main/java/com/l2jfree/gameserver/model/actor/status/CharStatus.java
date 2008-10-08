@@ -160,6 +160,14 @@ public class CharStatus
 		if (getActiveChar().isInvul() || getActiveChar().isDead() || getActiveChar().isPetrified())
 			return;
 
+		if (attacker instanceof L2PcInstance)
+		{
+			L2PcInstance pcInst = (L2PcInstance)attacker;
+			if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+				return;
+		}
+
+
 		L2PcInstance player = null;
 		L2PcInstance attackerPlayer = null;
 
@@ -245,7 +253,7 @@ public class CharStatus
 			value = getCurrentHp() - value; // Get diff of Hp vs value
 			if (value <= 0)
 			{
-				// is the dieing one a duelist? if so change his duel state to dead
+				// is the dying a duelist? if so, change his duel state to dead
 				if (player != null && player.isInDuel() && getActiveChar() instanceof L2PcInstance) // pets can die as usual
 				{
 					getActiveChar().disableAllSkills();
@@ -309,7 +317,7 @@ public class CharStatus
 	/**
 	 * @param value the mp to remove
 	 */
-	public final void reduceMp(double value)
+	public void reduceMp(double value)
 	{
 		value = getCurrentMp() - value;
 		if (value < 0)

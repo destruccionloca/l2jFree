@@ -19,9 +19,12 @@ import java.util.List;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
+import com.l2jfree.gameserver.model.actor.status.FolkStatus;
+import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
+import com.l2jfree.gameserver.model.actor.status.FolkStatus;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillList;
@@ -30,6 +33,8 @@ import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList.EnchantSkillType;
+import com.l2jfree.gameserver.skills.effects.EffectBuff;
+import com.l2jfree.gameserver.skills.effects.EffectDebuff;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
 import javolution.text.TextBuilder;
@@ -49,6 +54,23 @@ public class L2FolkInstance extends L2NpcInstance
 	{
 		player.setLastFolkNPC(this);
 		super.onAction(player);
+	}
+
+	@Override
+	public FolkStatus getStatus()
+	{
+		if (_status == null)
+			_status = new FolkStatus(this);
+		return (FolkStatus) _status;
+	}
+
+	@Override
+	public void addEffect(L2Effect newEffect)
+	{
+		if (newEffect instanceof EffectDebuff || newEffect instanceof EffectBuff)
+			super.addEffect(newEffect);
+		else if (newEffect != null)
+			newEffect.stopEffectTask();
 	}
 
 	/**

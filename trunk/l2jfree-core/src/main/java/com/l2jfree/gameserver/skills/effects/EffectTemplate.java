@@ -49,6 +49,7 @@ public final class EffectTemplate
 	public final float				stackOrder;
 
 	public final boolean			icon;
+	public final String				funcName;
 
 	public EffectTemplate(Condition pAttachCond, Condition pApplayCond, String func, Lambda pLambda, int pCounter, int pPeriod, int pAbnormalEffect,
 			String pStackType, float pStackOrder, boolean showicon)
@@ -62,6 +63,7 @@ public final class EffectTemplate
 		stackType = pStackType;
 		stackOrder = pStackOrder;
 		icon = showicon;
+		funcName = func;
 		try
 		{
 			_func = Class.forName("com.l2jfree.gameserver.skills.effects.Effect" + func);
@@ -107,7 +109,58 @@ public final class EffectTemplate
 			e.getTargetException().printStackTrace();
 			return null;
 		}
+	}
 
+	/**
+	 * Creates an L2Effect instance from an existing one and an Env object.
+	 *
+	 * @param env
+	 * @param stolen
+	 * @return
+	 */
+	public L2Effect getStolenEffect(Env env, L2Effect stolen)
+	{
+		Class<?> func;
+		Constructor<?> stolenCons;
+		try
+		{
+			func = Class.forName("net.sf.l2j.gameserver.skills.effects.Effect"+stolen.getEffectTemplate().funcName);
+		}
+		catch (ClassNotFoundException e)
+		{
+			throw new RuntimeException(e);
+		}
+		try
+		{
+			stolenCons = func.getConstructor(Env.class, L2Effect.class);
+		}
+		catch (NoSuchMethodException e)
+		{
+			throw new RuntimeException(e);
+		}
+		try
+		{
+			L2Effect effect = (L2Effect)stolenCons.newInstance(env, stolen);
+			//if (_applayCond != null)
+			//	effect.setCondition(_applayCond);
+			return effect;
+		}
+		catch (IllegalAccessException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		catch (InstantiationException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		catch (InvocationTargetException e)
+		{
+			_log.warn("Error creating new instance of Class "+func+" Exception was:");
+			e.getTargetException().printStackTrace();
+			return null;
+		}
 	}
 
 	public void attach(FuncTemplate f)

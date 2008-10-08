@@ -51,6 +51,7 @@ import com.l2jfree.gameserver.network.serverpackets.PledgeReceiveSubPledgeCreate
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.util.FloodProtector;
 
 /**
  * This class ...
@@ -406,6 +407,17 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
 				{
 					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+					return;
+				}
+
+				/*
+				 * DrHouse: Despite this is not 100% retail like, it is here to avoid some exploits during subclass changes, specially
+				 * on small servers. TODO: On retail, each village master doesn't offer any subclass that is not given by itself so player
+				 * always has to move to other location to change subclass after changing previously. Thanks Aikimaniac for this info.
+				 */
+				if (!FloodProtector.getInstance().tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_SUBCLASS))
+				{
+					_log.warn("Player "+player.getName()+" has performed a subclass change too fast");
 					return;
 				}
 

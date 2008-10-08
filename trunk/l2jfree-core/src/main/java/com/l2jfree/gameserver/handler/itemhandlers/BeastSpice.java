@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.itemhandlers;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2FeedableBeastInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
@@ -42,9 +41,6 @@ public class BeastSpice implements IItemHandler
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return;
 		}
-
-		L2Object[] targets = new L2Object[1];
-		targets[0] = activeChar.getTarget();
 
 		int itemId = item.getItemId();
 		if (itemId == 6643)
