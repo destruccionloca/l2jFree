@@ -93,11 +93,6 @@
   </skill>
   <skill id="504" levels="37" name="Triple Thrust"
     enchantLevels1="30" enchantLevels2="30">
-    <!--
-      Description(s): Makes three quick stabs. Consumes 1
-      Soul. An equipped rapier is required to use this
-      skill. Power 517-2557.
-    -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
     </table>
@@ -140,11 +135,6 @@
   </skill>
   <skill id="505" levels="28" name="Shining Edge"
     enchantLevels1="30" enchantLevels2="30">
-    <!--
-      Description(s): A flashing attack at your enemy's
-      vital organs. Consumes 2 soul. An equipped rapier is
-      required to use this skill. Power 1853-5479.
-    -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
     </table>
@@ -226,12 +216,6 @@
   </skill>
   <skill id="507" levels="37" name="Twin Shot"
     enchantLevels1="30" enchantLevels2="30">
-    <!--
-      Description(s): Launches 2 bolts in rapid succession.
-      Consumes 1 Soul. Critical hit is possible. An equipped
-      crossbow is required to use this skill. Overhit is
-      possible. Power 984-4870.
-    -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
     </table>
@@ -275,12 +259,6 @@
   </skill>
   <skill id="508" levels="31" name="Rising Shot"
     enchantLevels1="30" enchantLevels2="30">
-    <!--
-      Description(s): Shoot a bolt that rises from the
-      ground. Consumes 3 Souls. A crossbow has to be
-      equipped to use this skill. Over-hit is possible.
-      Power 350-1218.
-    -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
     </table>
@@ -367,7 +345,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-    <set name="soulMaxConsumeCount" val="5" />
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <enchant1 name="power" val="#ench1Power" />
@@ -399,8 +376,7 @@
     <set name="mpConsume" val="#mpConsume" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="power" val="0.0" />
-    <set name="reuseDelay" val="10000" />
-    <!-- Guessing -->
+    <set name="reuseDelay" val="10000" /> <!-- Guessing -->
     <set name="skillType" val="PDAM" />
     <set name="target" val="TARGET_ONE" />
     <set name="weaponsAllowed" val="65536" />
@@ -423,6 +399,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="hitTime" val="1500" />
+    <set name="soulMaxConsumeCount" val="5" />
     <for />
   </skill>
   <skill id="512" levels="10" name="Create Bio Potion">
@@ -433,10 +410,6 @@
     <for />
   </skill>
   <skill id="513" levels="1" name="Create Dark Seed">
-    <!--
-      Description(s): Transform a soul into a seed of
-      darkness. Consumes 1 Soul.
-    -->
     <set name="mpConsume" val="58" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="CREATE_ITEM" />

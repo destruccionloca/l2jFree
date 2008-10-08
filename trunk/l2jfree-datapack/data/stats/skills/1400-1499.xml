@@ -5,18 +5,15 @@
     enchantLevels1="30" enchantLevels2="30">
     <!-- Done by KID -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <table name="#ench1Power"> 413 415 417 419 421 423 425 427 429
       431 433 435 437 439 441 443 445 447 449 451 453 455
       457 461 463 465 467 469 471 473 </table>
     <table name="#ench2MpConsume"> 66 65 65 63 62 62 61 60 58 58 57 56
-      55 55 53 52 52 51 50 48 48 47 46 45 45 43 42 42 41 40 
-    </table>
-    <table name="#mpConsume"> 52 54 55 58 60 62 64 65 67 69 
-    </table>
+      55 55 53 52 52 51 50 48 48 47 46 45 45 43 42 42 41 40 </table>
+    <table name="#mpConsume"> 52 54 55 58 60 62 64 65 67 69 </table>
     <table name="#power"> 230 250 270 290 310 330 350 370 390
       411 </table>
     <table name="#itemConsumeCount"> 3 3 4 4 4 4 5 5 5 5 </table>
@@ -47,10 +44,8 @@
       967 969 972 974 976 979 981 983 985 988 990 992 994
       997 999 1001 1003 1006 1008 1010 1013 </table>
     <table name="#ench2MpConsume"> 78 77 76 75 73 72 72 71 70 68 67 66
-      65 65 63 62 61 60 58 57 57 56 55 53 52 51 50 50 48 47 
-    </table>
-    <table name="#mpConsume"> 60 64 65 67 69 72 74 77 78 80 80 
-    </table>
+      65 65 63 62 61 60 58 57 57 56 55 53 52 51 50 50 48 47 </table>
+    <table name="#mpConsume"> 60 64 65 67 69 72 74 77 78 80 80 </table>
     <table name="#power"> 690 722 753 783 812 840 867 892 915
       936 946 </table>
     <set name="mpConsume" val="#mpConsume" />
@@ -380,7 +375,8 @@
         <mul order="0x30" stat="mDef" val="1.30" />
         <mul order="0x30" stat="mAtk" val="1.30" />
         <mul order="0x30" stat="maxMp" val="1.20" />
-        <mul order="0x30" stat="MagicalMpConsumeRate" val="0.80" />
+        <mul order="0x30" stat="MagicalMpConsumeRate"
+          val="0.80" />
         <mul order="0x30" stat="mCritRate" val="1.2" />
         <!-- Guessing -->
       </effect>
@@ -428,15 +424,6 @@
     </for>
   </skill>
   <skill id="1415" levels="1" name="Pa'agrio's Emblem">
-    <!--
-      By Darki699 Description(s): Temporarily increases an
-      alliance member's resistance to buff cancelling and
-      de-buff attacks. Effect 3.
-    -->
-    <!--
-      All the values here are guessed (taken from Chant of
-      Spirit and other clan buffs)
-    -->
     <set name="mpInitialConsume" val="56" />
     <set name="mpConsume" val="228" />
     <set name="power" val="0.0" />
@@ -452,7 +439,7 @@
     <set name="aggroPoints" val="666" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1" stackType="cancelVuln">
+        stackOrder="1" stackType="resist_debuff_dispel">
         <mul order="0x30" stat="cancelVuln" val="0.7" />
         <mul order="0x30" stat="debuffVuln" val="0.8" />
       </effect>
@@ -903,10 +890,6 @@
     </for>
   </skill>
   <skill id="1431" levels="6" name="Fallen Arrow">
-    <!--
-      Description(s): Release an arrow infused with
-      darkness. Consumes 1 Soul. Power 13-22.
-    -->
     <table name="#mpConsume_Init">2 2 3 4 5 5</table>
     <table name="#mpConsume">7 7 7 10 10 10</table>
     <table name="#magicLvl">17 20 23 25 28 30</table>
@@ -952,16 +935,9 @@
     </for>
   </skill>
   <skill id="1433" levels="10" name="Abyssal Blaze">
-    <!--
-      Description(s): Disperses a materialized soul.
-      Consumes 1 Soul. Power 24-46.
-    -->
-    <table name="#mpConsume"> 15 17 17 18 19 20 22 23 24 25 
-    </table>
-    <table name="#power"> 24 26 28 31 33 35 38 40 43 46 
-    </table>
-    <table name="#magicLvl"> 20 22 24 26 38 30 32 34 36 38 
-    </table>
+    <table name="#mpConsume"> 15 17 17 18 19 20 22 23 24 25 </table>
+    <table name="#power"> 24 26 28 31 33 35 38 40 43 46 </table>
+    <table name="#magicLvl"> 20 22 24 26 38 30 32 34 36 38 </table>
     <set name="element" val="6" /><!-- Dark -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -980,10 +956,6 @@
     <for />
   </skill>
   <skill id="1434" levels="4" name="Dark Explosion">
-    <!--
-      Description(s): Detonates a soul to damage nearby
-      enemies. Consumes 1 Soul. Power 16-23.
-    -->
     <table name="#mpConsume">28 33 37 42</table>
     <table name="#power">16 18 20 23</table>
     <table name="#magicLvl">24 28 32 36</table>
@@ -1006,17 +978,13 @@
     <for />
   </skill>
   <skill id="1435" levels="10" name="Death Mark">
-    <table name="#mpConsume"> 12 14 18 22 24 28 29 32 33 35 
-    </table>
-    <table name="#power"> 35 40 45 50 55 60 65 70 75 80 
-    </table>
+    <table name="#mpConsume"> 12 14 18 22 24 28 29 32 33 35 </table>
+    <table name="#power"> 35 40 45 50 55 60 65 70 75 80 </table>
     <table name="#EffectLvl">1 2 3 4 5 6 7 8 9 10</table>
     <table name="#ench1EffectLevel"> 10 10 10 10 10 10 10 10 11 11 11 11
-      11 11 11 11 12 12 12 12 12 12 12 12 12 13 13 13 13 13 
-    </table>
+      11 11 11 11 12 12 12 12 12 12 12 12 12 13 13 13 13 13 </table>
     <table name="#ench2Chance"> 59 60 61 62 63 64 65 66 67 68 69 70
-      71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 
-    </table>
+      71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1037,29 +1005,20 @@
   </skill>
   <skill id="1436" levels="30" name="Soul of Pain"
     enchantLevels1="30" enchantLevels2="30">
-    <!--
-      Description(s): Unleash a soul to attack an enemy. Has
-      a chance to remove the enemy's target. Consumes 1
-      Soul. Power 50-108. Enchant1 + Power. Enchant2 +Cost.
-    -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 111 112 112 112 113 113 113 114 114
       115 115 115 116 116 116 117 117 117 118 118 119 119
       119 120 120 120 121 121 121 122 </table>
     <table name="#ench2MpConsume"> 69 68 67 65 64 63 62 60 60 59 58 57
-      55 54 53 52 50 49 48 48 47 45 44 43 42 40 39 38 37 37 
-    </table>
+      55 54 53 52 50 49 48 48 47 45 44 43 42 40 39 38 37 37 </table>
     <table name="#mpConsume"> 28 29 30 30 33 33 35 35 38 38 40 40
-      43 43 44 45 45 47 48 48 49 49 50 52 52 53 53 54 54 55 
-    </table>
+      43 43 44 45 45 47 48 48 49 49 50 52 52 53 53 54 54 55 </table>
     <table name="#power"> 50 52 55 57 60 61 65 66 70 72 75 77
       80 82 84 85 87 88 90 92 94 96 97 99 100 102 104 105
       107 108 </table>
     <table name="#magicLvl"> 38 40 42 43 45 46 48 49 51 52 54 55
-      57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 
-    </table>
+      57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="magicLvl" val="#magicLvl" />
@@ -1087,29 +1046,22 @@
   </skill>
   <skill id="1437" levels="26" name="Dark Flame"
     enchantLevels1="30" enchantLevels2="30">
-    <!--
-      Description: Unleash a soul to frighten enemies in
-      front of you. Consumes 3 Souls. Power 42.
-    -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 78 78 79 79 79 79 80 80 80 80 81 81
-      81 81 82 82 82 82 83 83 83 83 84 84 84 84 85 85 85 85 
-    </table>
+      81 81 82 82 82 82 83 83 83 83 84 84 84 84 85 85 85 85 </table>
     <table name="#ench2MpConsume"> 89 88 87 85 84 83 82 80 79 78 77 75
-      74 73 72 70 69 68 67 67 65 64 63 62 60 59 58 57 55 54 
-    </table>
+      74 73 72 70 69 68 67 67 65 64 63 62 60 59 58 57 55 54 </table>
     <table name="#mpConsume_Init"> 16 16 17 17 18 19 19 20 20 21 22 22
       22 23 23 23 24 24 25 25 25 26 26 26 26 27 </table>
     <table name="#mpConsume"> 36 38 40 41 42 43 45 45 48 48 50 51
       52 52 54 55 55 56 57 58 59 59 59 61 62 62 </table>
-    <set name="mpInitialConsume" val="#mpConsume_Init" />
-    <set name="mpConsume" val="#mpConsume" />
     <table name="#power"> 42 43 45 47 49 50 53 54 56 57 59 60
       61 62 63 65 66 67 68 69 70 72 73 74 75 76 </table>
     <table name="#effectPower"> 10 10 10 10 10 10 10 10 10 10 15 15
       15 15 15 15 15 15 15 15 15 15 15 15 15 15 </table>
+    <set name="mpInitialConsume" val="#mpConsume_Init" />
+    <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="hitTime" val="1800" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -1118,7 +1070,7 @@
     <set name="skillRadius" val="120" />
     <set name="skillType" val="MDAM" />
     <set name="castRange" val="40" />
-    <set name="element" val="6" /><!-- Dark -->
+    <set name="element" val="6" /> <!-- Dark -->
     <set name="lvlDepend" val="1" />
     <set name="effectRange" val="56" />
     <set name="reuseDelay" val="18000" />
@@ -1136,22 +1088,15 @@
   </skill>
   <skill id="1438" levels="9" name="Annihilation Circle"
     enchantLevels1="30" enchantLevels2="30">
-    <!--
-      Description(s): Flaming hail attack, useful against
-      multiple enemies. Consumes 3 soul. Power 82-108.
-    -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 111 112 112 112 113 113 113 114 114
       115 115 115 116 116 116 117 117 117 118 118 119 119
       119 120 120 120 121 121 121 122 </table>
     <table name="#ench2MpConsume"> 89 88 87 85 84 83 82 80 79 78 77 75
-      74 73 72 70 69 68 67 67 65 64 63 62 60 59 58 57 55 54 
-    </table>
+      74 73 72 70 69 68 67 67 65 64 63 62 60 59 58 57 55 54 </table>
     <table name="#mpConsume"> 69 73 75 78 80 83 85 87 89 </table>
-    <table name="#power"> 82 85 89 92 96 99 102 105 108 
-    </table>
+    <table name="#power"> 82 85 89 92 96 99 102 105 108 </table>
     <table name="#magicLvl"> 58 60 62 64 66 68 70 72 74 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -1187,18 +1132,23 @@
     <for />
   </skill>
   <skill id="1440" levels="5" name="Steal Divinity">
-    <!--
-      Description(s): Lvls 1 - 5 Steals abnormal state of
-      enemy. Consumes 4 soul.
-    -->
-    <!--
-      Moving back to NOTDONE since it was removed from
-      retail, will research later
-    -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <!-- Done by ratonofx. -->
+    <table name="#mpConsume"> 50 55 60 64 67 </table>
+    <table name="#power"> 3 4 5 6 7 </table>
+    <table name="#magicLvl"> 55 60 64 68 72 </table>
+    <set name="mpConsume" val="#mpConsume" />
+    <set name="magicLvl" val="#magicLvl" />
+    <set name="power" val="#power" />
+    <set name="lvlDepend" val="2" /> <!-- Guessing -->
+    <set name="target" val="TARGET_ONE" />
+    <set name="reuseDelay" val="60000" />
+    <set name="hitTime" val="1200" />
+    <set name="isDebuff" val="true" />
+    <set name="skillType" val="STEAL_BUFF" />
+    <set name="isMagic" val="true" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="castRange" val="600" />
+    <set name="effectRange" val="1100" />
     <for />
   </skill>
   <skill id="1441" levels="2" name="Soul to Empower">
@@ -1328,8 +1278,7 @@
       resistance to dark attacks and increase their
       resistance to holy attacks. Consumes 2 Souls.
     -->
-    <table name="#mpConsume_Init"> 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10 
-    </table>
+    <table name="#mpConsume_Init"> 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10 </table>
     <table name="#mpConsume"> 23 26 29 32 34 38 39 43 44 48 48 51
       52 54 55 56 57 59 </table>
     <table name="#magicLvl"> 28 32 36 40 43 46 49 52 56 58 60 62
@@ -1361,8 +1310,10 @@
   </skill>
   <skill id="1446" levels="1" name="Shadow Bind">
     <!-- Needs to be verified -->
-    <table name="#magicLvl"> 52 55 58 60 62 64 66 68 70 72 74 
-    </table><!-- guessing -->
+    <table name="#magicLvl"> 52 55 58 60 62 64 66 68 70 72 74 </table>
+    <!--
+      guessing
+   -->
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="hitTime" val="1500" />
@@ -1404,10 +1355,6 @@
     </for>
   </skill>
   <skill id="1448" levels="1" name="Blink">
-    <!--
-      Description: Teleports you backwards while stunning
-      and damaging nearby enemies. Consumes 3 Souls.
-    -->
     <set name="mpInitialConsume" val="30" />
     <set name="mpConsume" val="70" />
     <set name="power" val="1000" />
@@ -1457,6 +1404,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
+    <set name="soulMaxConsumeCount" val="5" />
     <for />
   </skill>
   <skill id="1451" levels="1" name="Fire Vortex Buster">
@@ -1715,7 +1663,8 @@
     <set name="skillType" val="MDAM" />
     <set name="target" val="TARGET_AURA" />
     <for>
-      <effect count="1" name="PhysicalAttackMute" time="10" val="0" />
+      <effect count="1" name="PhysicalAttackMute"
+        time="10" val="0" />
     </for>
   </skill>
   <skill id="1463" levels="1" name="Fire Weapon">
@@ -1808,7 +1757,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="900" />
-    <set name="soulMaxConsumeCount" val="5" />
+    <set name="soulMaxConsumeCount" val="20" />
     <for />
   </skill>
   <skill id="1470" levels="1" name="Prahnah">
@@ -2010,8 +1959,8 @@
     <for>
       <effect name="Buff" time="10" count="1" val="0">
         <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd" />
-        <add order="0x40" stat="mAtk" val="#mAtk" /> 
- 		<!-- Missing Magic Critical Rate +? -->
+        <add order="0x40" stat="mAtk" val="#mAtk" />
+        <!-- Missing Magic Critical Rate +? -->
       </effect>
     </for>
   </skill>
@@ -2178,8 +2127,7 @@
     <table name="#mpConsume">49 57 34 38 41 43 45 48</table>
     <table name="#Tab-Heal">12 15 18 23 27 31 35 39</table>
     <!-- CT1 Retail -->
-    <table name="#effectPoint"> 204 243 285 331 379 418 457 495 
-    </table>
+    <table name="#effectPoint"> 204 243 285 331 379 418 457 495 </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="effectPoint" val="#effectPoint" />

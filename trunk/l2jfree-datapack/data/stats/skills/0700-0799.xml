@@ -1287,7 +1287,7 @@
     <set name="skillRadius" val="130" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
-    <set name="soulConsumeCount" val="2" />
+    <set name="soulConsumeCount" val="5" />
     <cond>
       <using kind="Crossbow" />
     </cond>
@@ -1311,7 +1311,7 @@
     <set name="effectRange" val="900" />
     <set name="effectType" val="PARALYZE" />
     <set name="effectPower" val="20" />
-    <set name="soulConsumeCount" val="2" />
+    <set name="soulConsumeCount" val="5" />
     <for>
       <effect count="1" name="Paralyze" time="30"
         val="0" />
@@ -1325,11 +1325,6 @@
     <for />
   </skill>
   <skill id="793" levels="1" name="Rush Impact">
-    <!--
-      Description: Attacks to damage enemies in the front
-      line and outs them into shock. Useable when Ancient
-      Sword weapon is equipped. Consumes 3 Souls.
-    -->
     <set name="mpInitialConsume" val="30" />
     <set name="mpConsume" val="83" />
     <set name="magicLvl" val="78" />
@@ -1343,7 +1338,7 @@
     <set name="effectRange" val="1100" />
     <set name="isDebuff" val="true" />
     <set name="reuseDelay" val="1800000" />
-    <set name="soulConsumeCount" val="3" />
+    <set name="soulConsumeCount" val="5" />
     <set name="flyType" val="CHARGE" />
     <set name="flyRadius" val="300" />
     <cond

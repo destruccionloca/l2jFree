@@ -321,16 +321,16 @@
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="438" />
     <cond msg="Requires a hand-to-hand combat weapon.">
-      <using kind="Fist, Dual Fist" />
+      <using kind="Fist,Dual Fist" />
     </cond>
     <for>
       <effect name="Buff" time="120" count="1" val="0"
         stackOrder="1" stackType="possession">
         <mul order="0x30" stat="pDef" val="1.30">
-          <using kind="Fist, Dual Fist" /> <!-- when using hand-to-hand combat weapons -->
+          <using kind="Fist,Dual Fist" /> <!-- when using hand-to-hand combat weapons -->
         </mul>
         <mul order="0x30" stat="mDef" val="1.30">
-          <using kind="Fist, Dual Fist" /> <!-- when using hand-to-hand combat weapons -->
+          <using kind="Fist,Dual Fist" /> <!-- when using hand-to-hand combat weapons -->
         </mul>
         <mul order="0x30" stat="runSpd" val="0.7" />
         <sub order="0x40" stat="rEvas" val="9" />
@@ -933,7 +933,7 @@
     </cond>
     <for>
       <effect name="Buff" time="90" count="1" val="0"
-        stackOrder="1" stackType="OrcBuff">
+        stackOrder="1" stackType="pinch">
         <mul order="0x30" stat="pDef" val="#Tab-pDef" />
       </effect>
     </for>
@@ -1197,10 +1197,11 @@
   </skill>
   <skill id="176" levels="3" name="Frenzy">
     <!-- Done by dc, completed by NewAge -->
-    <table name="#swordbluntpole"> 1.3 1.3 1.5 </table> <!-- L2P say: +100% +149.76% +246.38% "Please Check" -->
-    <table name="#twohanded"> 1.5 1.55 1.66 </table> <!-- L2P say: +150.26% +199.55% +301.95% "Please Check" -->
+    <table name="#swordbluntpole"> 1.50 1.75 2.25 </table>
+    <table name="#sbp-under30"> 1.50 1.75 2.25 </table>
+    <table name="#twohand"> 1.75 2.0 2.5 </table>
+    <table name="#twohand-under30"> 1.75 2.0 2.5 </table>
     <table name="#other"> 1.30 1.30 1.50 </table>
-    <table name="#under-30">1.55 1.9 2.3</table>
     <table name="#accCombat"> 4 4 6 </table>
     <table name="#mpConsume">14 21 25</table>
     <table name="#aggro">303 438 523</table>
@@ -1220,9 +1221,8 @@
     </cond>
     <for>
       <effect name="Buff" time="90" count="1" val="0"
-        stackOrder="1" stackType="OrcBuff">
+        stackOrder="1" stackType="pinch">
         <add order="0x40" stat="accCombat" val="#accCombat">
-          <player hp="30" />
           <using kind="Big Sword,Big Blunt" /> <!-- when using two-handed swords and blunt weapons. -->
         </add>
         <mul order="0x30" stat="pAtk" val="#swordbluntpole">
@@ -1232,16 +1232,20 @@
             according to L2P)
           -->
         </mul>
-        <mul order="0x30" stat="pAtk" val="#under-30">
-          <player hp="30" />
-          <using kind="Sword,Blunt,Pole" />
+        <mul order="0x30" stat="pAtk" val="#sbp-under30">
+          <and>
+            <player hp="30" />
+            <using kind="Sword,Blunt,Pole" />
+          </and>
         </mul>
-        <mul order="0x30" stat="pAtk" val="#twohanded">
+        <mul order="0x30" stat="pAtk" val="#twohand">
           <using kind="Big Sword,Big Blunt" /> <!-- when using two-handed swords and blunt weapons. -->
         </mul>
-        <mul order="0x30" stat="pAtk" val="#under-30">
-          <player hp="30" />
-          <using kind="Big Sword,Big Blunt" />
+        <mul order="0x30" stat="pAtk" val="#twohand-under30">
+          <and>
+            <player hp="30" />
+            <using kind="Big Sword,Big Blunt" />
+          </and>
         </mul>
         <mul order="0x30" stat="pAtk" val="#other">
           <using kind="Dual Fist,Dual Sword,Fist,Etc,Bow,Dagger" />

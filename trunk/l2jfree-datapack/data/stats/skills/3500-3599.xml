@@ -791,33 +791,13 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="pDef" val="1.08" />
-      <!--
-        P. Def. +8%
-      -->
-      <mul order="0x30" stat="mAtkSpd" val="1.15" />
-      <!--
-        Casting Spd. +15%
-      -->
-      <add order="0x40" stat="runSpd" val="7" />
-      <!--
-        Speed +7
-      -->
-      <sub order="0x40" stat="cancel" val="18" />
-      <!--
-        Small decrease in chance of spell interruption - TO
-        CHECK
-      -->
-      <mul order="0x30" stat="paralyzeVuln" val="0.50" />
-      <!-- Paralysis Resistance +50% -->
-      <add order="0x40" stat="WIT" val="2" />
-      <!--
-        WIT +2
-      -->
-      <sub order="0x40" stat="MEN" val="2" />
-      <!--
-        MEN -2
-      -->
+      <mul order="0x30" stat="pDef" val="1.08" /> <!-- P. Def. +8% -->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /> <!-- Casting Spd. +15% -->
+      <add order="0x40" stat="runSpd" val="7" /> <!-- Speed +7 -->
+      <sub order="0x40" stat="cancel" val="50" /> <!-- Small decrease in chance of spell interruption -->
+      <mul order="0x30" stat="paralyzeVuln" val="0.50" /> <!-- Paralysis Resistance +50% -->
+      <add order="0x40" stat="WIT" val="2" /> <!-- WIT +2 -->
+      <sub order="0x40" stat="MEN" val="2" /> <!-- MEN -2 -->
     </for>
   </skill>
   <skill id="3536" levels="1" name="Nightmare Heavy Armor Set">
@@ -1271,12 +1251,12 @@
       <mul order="0x30" stat="bleedVuln" val="0.6" />
       <!-- Missing Bleed Attack Success Rate: +40% -->
       <!-- Missing Stun/Silence Attack Success Rate: +30% -->
-      <mul order="0x30" stat="gainHp" val="1.10"/> 
- 		    <add order="0x40" stat="absorbDam" val="4"/> 
- 		    <mul order="0x30" stat="stunVuln" val="0.70"/> 
- 		    <mul order="0x30" stat="derangementVuln" val="0.70"/> 
- 		    <mul order="0x30" stat="MagicalMpConsumeRate" val="0.95"/> 
- 		    <mul order="0x30" stat="earthVuln" val="0.85"/>
+      <mul order="0x30" stat="gainHp" val="1.10" />
+      <add order="0x40" stat="absorbDam" val="4" />
+      <mul order="0x30" stat="stunVuln" val="0.70" />
+      <mul order="0x30" stat="derangementVuln" val="0.70" />
+      <mul order="0x30" stat="MagicalMpConsumeRate" val="0.95" />
+      <mul order="0x30" stat="earthVuln" val="0.85" />
     </for>
   </skill>
   <skill id="3559" levels="1" name="Earring of Zaken">
@@ -1289,10 +1269,13 @@
     <for>
       <mul order="0x30" stat="bleedVuln" val="0.70" />
       <!-- Missing Bleed Attack Success Rate: +30% -->
-      <mul order="0x30" stat="gainHp" val="1.10"/> 
- 		    <add order="0x40" stat="absorbDam" val="4"/> 
- 		    <mul order="0x30" stat="stunVuln" val="0.80"/>
-      <!--Missing Shock/Abnormal Mental State Attack SuccessRate: 20%-->
+      <mul order="0x30" stat="gainHp" val="1.10" />
+      <add order="0x40" stat="absorbDam" val="4" />
+      <mul order="0x30" stat="stunVuln" val="0.80" />
+      <!--
+        Missing Shock/Abnormal Mental State Attack
+        SuccessRate: 20%
+      -->
       <mul order="0x30" stat="derangementVuln" val="0.80" />
     </for>
   </skill>
@@ -1304,9 +1287,9 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="bleedVuln" val="0.80"/>
+      <mul order="0x30" stat="bleedVuln" val="0.80" />
       <!-- Missing Bleed Attack Success Rate: 20% -->
-      <mul order="0x30" stat="gainHp" val="1.06"/>
+      <mul order="0x30" stat="gainHp" val="1.06" />
     </for>
   </skill>
   <skill id="3561" levels="1" name="Ring of Baium">
@@ -1317,14 +1300,14 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="poisonVuln" val="0.60"/>
+      <mul order="0x30" stat="poisonVuln" val="0.60" />
       <!-- Missing Poison Attack Success Rate: 40% -->
-      <add order="0x40" stat="accCombat" val="2"/> 
- 		    <mul order="0x30" stat="cAtk" val="1.15"/> 
- 		    <mul order="0x30" stat="rootVuln" val="0.70"/>
+      <add order="0x40" stat="accCombat" val="2" />
+      <mul order="0x30" stat="cAtk" val="1.15" />
+      <mul order="0x30" stat="rootVuln" val="0.70" />
       <!-- Missing Hold Attack Success Rate: 30% -->
-      <mul order="0x30" stat="pAtkSpd" val="1.04"/> 
- 		    <mul order="0x30" stat="mAtkSpd" val="1.04"/>
+      <mul order="0x30" stat="pAtkSpd" val="1.04" />
+      <mul order="0x30" stat="mAtkSpd" val="1.04" />
     </for>
   </skill>
   <skill id="3562" levels="1" name="Ring of Ant Queen">
@@ -1335,11 +1318,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="poisonVuln" val="0.70"/>
+      <mul order="0x30" stat="poisonVuln" val="0.70" />
       <!-- Missing Poison Attack Success Rate: +30% -->
-      <add order="0x40" stat="accCombat" val="2"/> 
- 		    <mul order="0x30" stat="cAtk" val="1.15"/> 
- 		    <mul order="0x30" stat="rootVuln" val="0.80"/>
+      <add order="0x40" stat="accCombat" val="2" />
+      <mul order="0x30" stat="cAtk" val="1.15" />
+      <mul order="0x30" stat="rootVuln" val="0.80" />
       <!-- Missing Hold Attack Success Rate: 20% -->
     </for>
   </skill>
@@ -1351,9 +1334,9 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="poisonVuln" val="0.80"/>
+      <mul order="0x30" stat="poisonVuln" val="0.80" />
       <!-- Missing Poison Attack Success Rate: 20% -->
-      <add order="0x40" stat="accCombat" val="1"/>
+      <add order="0x40" stat="accCombat" val="1" />
     </for>
   </skill>
   <skill id="3564" levels="1" name="Special Ability: Haste">
@@ -1678,7 +1661,7 @@
   <skill id="3581" levels="1" name="Discord">
     <!-- Infinity Axe Skill -->
     <set name="magicLvl" val="80" />
-    <set name="power" val="0.0" />
+    <set name="power" val="0.0" /> <!-- Chance is 20% Managed by SQL Side -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="CONFUSE_MOB_ONLY" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -1767,7 +1750,7 @@
   <skill id="3584" levels="1" name="Shock">
     <!-- Infinity Crusher Skill -->
     <set name="magicLvl" val="80" />
-    <set name="power" val="0.0" />
+    <set name="power" val="0.0" /> <!-- Chance is 25% Managed by SQL Side -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="STUN" />
     <set name="isDebuff" val="true" />
@@ -1822,7 +1805,7 @@
   <skill id="3586" levels="1" name="Physical Skill Restraint">
     <!-- Infinity Wing Skill -->
     <set name="magicLvl" val="80" />
-    <set name="power" val="0.0" />
+    <set name="power" val="0.0" /> <!-- Chance is 10% Managed by SQL Side -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -1878,7 +1861,7 @@
   <skill id="3588" levels="1" name="Shock">
     <!-- Infinity Fang Skill -->
     <set name="magicLvl" val="80" />
-    <set name="power" val="0.0" />
+    <set name="power" val="0.0" /> <!-- Chance is 25% Managed by SQL Side -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="STUN" />
     <set name="isDebuff" val="true" />
@@ -1887,7 +1870,8 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <for>
-      <effect count="1" name="Stun" time="9" val="0" stackOrder="2" stackType="Stun" />
+      <effect count="1" name="Stun" time="9" val="0"
+        stackOrder="2" stackType="Stun" />
     </for>
   </skill>
   <skill id="3589" levels="1"
@@ -1936,7 +1920,7 @@
   <skill id="3590" levels="1" name="Silence">
     <!-- Infinity Stinger Skill -->
     <set name="magicLvl" val="80" />
-    <set name="power" val="0.0" />
+    <set name="power" val="0.0" /> <!-- Chance is 5% Managed by SQL Side -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="MUTE" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -1986,18 +1970,12 @@
       <!-- Reflect Skills 10% of the time -->
       <add order="0x40" stat="reflectSkillMagic" val="10" />
       <!-- Reflect Skills 10% of the time -->
-      <!--
-        Missing 10% chance to cancel each buff from target
-        on a critical hit (for comparison, Cancel is 25% but
-        Cancel also relies on M.Atk. vs. M.Def. while this
-        weapon does not)
-      -->
     </for>
   </skill>
   <skill id="3592" levels="1" name="Dispell">
     <!-- Infinity Spear Skill -->
     <set name="magicLvl" val="80" />
-    <set name="power" val="0.0" />
+    <set name="power" val="0.0" /> <!-- Chance is 10% Managed by SQL Side -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="CANCEL" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -2045,7 +2023,7 @@
   <skill id="3594" levels="1" name="Slow">
     <!-- Infinity Bow Skill -->
     <set name="magicLvl" val="80" />
-    <set name="power" val="0.0" />
+    <set name="power" val="0.0" /> <!-- Chance is 7% Managed by SQL Side -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -2108,7 +2086,7 @@
     <set name="magicLvl" val="80" />
     <set name="target" val="TARGET_SELF" />
     <set name="power" val="100" />
-    <set name="skillType" val="HEAL_PERCENT" />
+    <set name="skillType" val="HEAL_PERCENT" /> <!-- Chance is 3% Managed by SQL Side -->
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -2155,7 +2133,7 @@
     <set name="magicLvl" val="80" />
     <set name="target" val="TARGET_ONE" />
     <set name="power" val="100" />
-    <set name="skillType" val="HEAL_PERCENT" />
+    <set name="skillType" val="HEAL_PERCENT" /> <!-- Chance is 3% Managed by SQL Side -->
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -2163,16 +2141,15 @@
     <for />
   </skill>
   <skill id="3599" levels="1" name="Polearm Multi-attack">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Enables the character to attack
-      multiple opponents.
-    -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
+    <!-- Done by DJ MELERIX -->
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
+    <set name="effectRange" val="-1" />
+    <for>
+      <add order="0x40" stat="atkCountMax" val="4" />
+    </for>
   </skill>
 </list>

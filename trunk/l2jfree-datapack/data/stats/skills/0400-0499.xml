@@ -669,19 +669,19 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <cond msg="Requires a hand-to-hand combat weapon.">
-      <using kind="Fist, Dual Fist" />
+      <using kind="Fist,Dual Fist" />
     </cond>
     <for>
       <effect count="1" name="Buff" time="120" val="0"
         stackOrder="1" stackType="possession">
         <add order="0x40" stat="accCombat" val="6">
-          <using kind="Fist, Dual Fist" /> <!-- when using hand-to-hand combat weapons -->
+          <using kind="Fist,Dual Fist" /> <!-- when using hand-to-hand combat weapons -->
         </add>
         <add order="0x40" stat="rCrit" val="100">
-          <using kind="Fist, Dual Fist" /> <!-- when using hand-to-hand combat weapons -->
+          <using kind="Fist,Dual Fist" /> <!-- when using hand-to-hand combat weapons -->
         </add>
         <mul order="0x30" stat="cAtk" val="1.5"> <!-- L2calc says 1.3 -->
-          <using kind="Fist, Dual Fist" /> <!-- when using hand-to-hand combat weapons -->
+          <using kind="Fist,Dual Fist" /> <!-- when using hand-to-hand combat weapons -->
         </mul>
       </effect>
     </for>
@@ -829,8 +829,10 @@
         <player front="True" />
       </mul>
       <mul order="0x30" stat="blowRate" val="1.1"> <!-- Blow land rate +10% from side -->
-        <player front="False" />
-        <player behind="False" />
+        <and>
+          <player front="False" />
+          <player behind="False" />
+        </and>
       </mul>
       <mul order="0x30" stat="blowRate" val="1.2"> <!-- Blow land rate +20% from back -->
         <player behind="True" />
@@ -1579,7 +1581,7 @@
     <set name="effectRange" val="-1" />
     <cond
       msg="An equipped hand-to-hand combat weapon is required to use this skill.">
-      <using kind="Fist, Dual Fist" />
+      <using kind="Fist,Dual Fist" />
     </cond>
     <!-- charge values -->
     <set name="num_charges" val="#numcharge" />
@@ -1883,12 +1885,6 @@
     </for>
   </skill>
   <skill id="476" levels="15" name="Dark Strike">
-    <!--
-      Done by theREALizzy - need to check values: Summon
-      soul power for a lethal strike. Consumes 1 Soul. A
-      sword, blunt, or ancient sword weapon must be equipped
-      to use this skill. Over-hit is possible. Power 90-326.
-    -->
     <table name="#power"> 108 117 126 147 159 171 198 213 229
       263 281 301 344 367 391 </table>
     <table name="#mpConsume"> 16 16 16 17 18 18 20 21 21 23 23 24
@@ -1965,11 +1961,6 @@
     <for />
   </skill>
   <skill id="478" levels="15" name="Double Thrust">
-    <!--
-      Description(s): Makes two quick stabs. Consumes 1
-      Soul. An equipped rapier is required to use this
-      skill. Power 90-326.
-    -->
     <table name="#mpConsume"> 16 16 16 18 18 19 20 21 21 23 23 24
       25 26 27 </table>
     <table name="#power"> 108 117 126 147 159 171 198 213 229
@@ -1993,16 +1984,11 @@
     <for />
   </skill>
   <skill id="479" levels="1" name="Hard March">
-    <!--
-      Description(s): Increases own speed. Consumes 1 Soul.
-      MP continually decreases.
-    -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_TOGGLE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="soulConsumeCount" val="1" />
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime"
         time="3" val="2">
@@ -2155,13 +2141,7 @@
       </add>
     </for>
   </skill>
-  <skill id="487" levels="15" name="Penetrate Shot">
-    <!--
-      Description(s): Releases a powerful bolt at a distant
-      enemy. Consumes 1 Soul. Over-hit is possible. An
-      equipped crossbow is required to use this skill. Power
-      179-651.
-    -->
+  <skill id="487" levels="15" name="Penetrating Shot">
     <table name="#mpConsume"> 69 70 71 74 78 81 88 91 95 101 101
       104 112 116 120 </table>
     <table name="#power"> 179 194 210 245 264 285 330 354 381
@@ -2205,10 +2185,6 @@
   </skill>
   <skill id="490" levels="2" name="Fast Shot"
     enchantLevels1="30" enchantLevels2="30">
-    <!--
-      Description(s): Temporarily increases your crossbow
-      attack speed. Consumes 1 Soul.
-    -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
     </table>
@@ -2361,12 +2337,6 @@
     <for />
   </skill>
   <skill id="494" levels="37" name="Shoulder Charge">
-    <!--
-      Description: Attack with a powerful charge, ramming an
-      enemy with your shoulder. Instantly puts the enemy
-      into shock. Consumes 1 Soul. An equipped ancient sword
-      weapon is required to use this skill.
-    -->
     <table name="#mpConsume"> 25 26 27 27 28 29 30 30 31 32 33 34
       35 35 36 37 38 38 39 40 41 42 43 43 44 45 45 46 47 48
       48 49 50 51 51 52 53 </table>
@@ -2409,12 +2379,6 @@
   </skill>
   <skill id="495" levels="10" name="Blade Rush"
     enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <!--
-      Description: Charges forward with sword brandished.
-      Causes all enemies in your path to bleed. Consumes 1
-      Soul. An equipped ancient sword weapon is required to
-      use this skill. Effect 6.
-    -->
     <table name="#mpConsume"> 65 70 73 75 77 80 83 85 88 90 
     </table>
     <table name="#effectLevel"> 3 3 4 4 5 6 6 7 8 8 </table>
@@ -2460,12 +2424,6 @@
   </skill>
   <skill id="496" levels="31" name="Slashing Blade"
     enchantLevels1="30" enchantLevels2="30">
-    <!--
-      Description(s): Swing sword to attack nearby enemies.
-      Consumes 2 soul. An equipped ancient sword weapon is
-      required to use this skill. Over-hit is possible.
-      Power 656-2283.
-    -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
     </table>
@@ -2516,12 +2474,6 @@
   </skill>
   <skill id="497" levels="16" name="Crushing Pain"
     enchantLevels1="30" enchantLevels2="30">
-    <!--
-      Description(s): Deals a powerful attack to the enemy.
-      Consumes 1 Soul. An equipped ancient sword weapon is
-      required to use this skill. Shield defense is ignored.
-      Over-hit is possible. Power 4558-7635.
-    -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
     </table>
@@ -2562,13 +2514,6 @@
   </skill>
   <skill id="498" levels="12" name="Contagion"
     enchantLevels1="30" enchantLevels2="30">
-    <!--
-      Description(s): Exacerbates a bleeding wound with
-      additional attacks. Consumes 1 Soul. An equipped
-      ancient sword weapon is required to use this skill.
-      Shield defense is ignored. Over-hit is possible. Power
-      5342-7635.
-    -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
     </table>

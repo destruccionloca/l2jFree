@@ -693,6 +693,7 @@
   </skill>
   <skill id="3634" levels="1"
     name="Special Ability Infinity Sword">
+    <!-- Guessed. Copied from Infinity Cleaver -->
     <set name="magicLvl" val="80" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -700,7 +701,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for><!-- Guessed. Copied from Infinity Cleaver -->
+    <for>
       <add order="0x40" stat="cAtk" val="504" />
       <!--
         P.Atk. +504 on a critical hit
@@ -731,6 +732,10 @@
   </skill>
   <skill id="3635" levels="1"
     name="Special Ability Infinity Shooter">
+    <!--
+      Guessed. Copied from Infinity Bow with minor
+      modification
+    -->
     <set name="magicLvl" val="80" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -739,10 +744,6 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <!--
-        Guessed. Copied from Infinity Bow with minor
-        modification
-      -->
       <mul order="0x30" stat="maxMp" val="1.30" />
       <!--
         MP +30%
