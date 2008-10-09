@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 import javolution.text.TextBuilder;
 
@@ -87,7 +86,7 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 					{
 						activeChar.sendMessage("  Don't exist in the world.");
 					}
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.FRIEND_LIST_FOOTER));
+					activeChar.sendPacket(SystemMessageId.FRIEND_LIST_FOOTER);
 				}
 			}
 			else

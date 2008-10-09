@@ -220,7 +220,7 @@ public class L2FolkInstance extends L2NpcInstance
 
 			if (counts == 0)
 			{
-				player.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT));
+				player.sendPacket(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
 			}
 			else
 			{
@@ -230,7 +230,7 @@ public class L2FolkInstance extends L2NpcInstance
 		}
 		else
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT));
+			player.sendPacket(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -310,7 +310,7 @@ public class L2FolkInstance extends L2NpcInstance
 
 		else
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT));
+			player.sendPacket(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -390,7 +390,7 @@ public class L2FolkInstance extends L2NpcInstance
 		}
 		else
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT));
+			player.sendPacket(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}

@@ -147,7 +147,7 @@ public class SummonFriend implements ISkillHandler
 			{
 				if (targetCabal != SevenSigns.getInstance().getCabalHighestScore())
 				{
-					summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
+					summonerChar.sendPacket(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING);
 					return false;
 				}
 			}
@@ -155,7 +155,7 @@ public class SummonFriend implements ISkillHandler
 			{
 				if (targetCabal == SevenSigns.CABAL_NULL)
 				{
-					summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
+					summonerChar.sendPacket(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING);
 					return false;
 				}
 			}

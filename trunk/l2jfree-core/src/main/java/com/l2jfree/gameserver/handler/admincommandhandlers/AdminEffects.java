@@ -442,7 +442,7 @@ public class AdminEffects implements IAdminCommandHandler
 						player.setSouls(count);
 					}
 					else
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+						activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				}
 				else
 				{
@@ -497,7 +497,7 @@ public class AdminEffects implements IAdminCommandHandler
 					if (performSocial(social, obj, activeChar))
 						activeChar.sendMessage(obj.getName() + " was affected by your request.");
 					else
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+						activeChar.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 				}
 				else if (!command.contains("menu"))
 					activeChar.sendMessage("Usage: //social <social_id> [player_name|radius]");
@@ -521,7 +521,7 @@ public class AdminEffects implements IAdminCommandHandler
 				if (obj != null)
 				{
 					if (!(obj instanceof L2Character))
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+						activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 					else
 					{
 						L2Character target = (L2Character) obj;
@@ -530,7 +530,7 @@ public class AdminEffects implements IAdminCommandHandler
 					}
 				}
 				else
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+					activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			}
 			catch (Exception e)
 			{
@@ -556,7 +556,7 @@ public class AdminEffects implements IAdminCommandHandler
 							if (performAbnormal(abnormal, player))
 								activeChar.sendMessage(player.getName() + "'s abnormal status was affected by your request.");
 							else
-								activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+								activeChar.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 						}
 						else
 						{
@@ -583,10 +583,10 @@ public class AdminEffects implements IAdminCommandHandler
 						if (performAbnormal(abnormal, obj))
 							activeChar.sendMessage(obj.getName() + "'s abnormal status was affected by your request.");
 						else
-							activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+							activeChar.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 					}
 					else
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+						activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				}
 				else if (!command.contains("menu"))
 					activeChar.sendMessage("Usage: //abnormal <abnormal_mask> [player_name|radius]");
@@ -628,17 +628,17 @@ public class AdminEffects implements IAdminCommandHandler
 			{
 				if ((target instanceof L2Summon) || (target instanceof L2ChestInstance))
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+					activeChar.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 					return false;
 				}
 				if ((target instanceof L2NpcInstance) && (action < 1 || action > 6))
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+					activeChar.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 					return false;
 				}
 				if ((target instanceof L2PcInstance) && (action < 2 || action > 16))
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+					activeChar.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 					return false;
 				}
 				L2Character character = (L2Character) target;

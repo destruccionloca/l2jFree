@@ -153,7 +153,7 @@ public class Mdam implements ISkillHandler
 			if (skill.isCritical() && !mcrit)
 				damage = 0;
 			else if (mcrit)
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
+				activeChar.sendPacket(SystemMessageId.CRITICAL_HIT);
 
 			if (damage < 1)
 				damage = 1;

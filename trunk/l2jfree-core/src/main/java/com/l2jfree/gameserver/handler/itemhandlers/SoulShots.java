@@ -58,7 +58,7 @@ public class SoulShots implements IItemHandler
 		if (weaponInst == null || weaponItem.getSoulShotCount() == 0)
 		{
 			if (!activeChar.getAutoSoulShot().containsKey(itemId))
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_SOULSHOTS));
+				activeChar.sendPacket(SystemMessageId.CANNOT_USE_SOULSHOTS);
 			return;
 		}
 
@@ -74,7 +74,7 @@ public class SoulShots implements IItemHandler
 				|| (weaponGrade == L2Item.CRYSTAL_S80 && itemId != 1467))
 		{
 			if (!activeChar.getAutoSoulShot().containsKey(itemId))
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.SOULSHOTS_GRADE_MISMATCH));
+				activeChar.sendPacket(SystemMessageId.SOULSHOTS_GRADE_MISMATCH);
 			return;
 		}
 
@@ -94,7 +94,7 @@ public class SoulShots implements IItemHandler
 				activeChar.sendPacket(sm);
 			}
 			else
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_SOULSHOTS));
+				activeChar.sendPacket(SystemMessageId.NOT_ENOUGH_SOULSHOTS);
 			return;
 		}
 
@@ -105,7 +105,7 @@ public class SoulShots implements IItemHandler
 		weaponInst.setChargedSoulshot(L2ItemInstance.CHARGED_SOULSHOT);
 
 		// Send message to client
-		activeChar.sendPacket(new SystemMessage(SystemMessageId.ENABLED_SOULSHOT));
+		activeChar.sendPacket(SystemMessageId.ENABLED_SOULSHOT);
 		Broadcast.toSelfAndKnownPlayersInRadius(activeChar, new MagicSkillUse(activeChar, activeChar, SKILL_IDS[weaponGrade], 1, 0, 0), 360000/*600*/);
 	}
 

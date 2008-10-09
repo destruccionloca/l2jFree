@@ -368,7 +368,7 @@ public class Disablers implements ISkillHandler
 					}
 				}
 				else
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				break;
 			}
 			case AGGDAMAGE:
@@ -515,8 +515,7 @@ public class Disablers implements ISkillHandler
 					summonOwner = ((L2Summon) target).getOwner();
 					summonPet = summonOwner.getPet();
 					summonPet.unSummon(summonOwner);
-					SystemMessage sm = new SystemMessage(SystemMessageId.LETHAL_STRIKE);
-					summonOwner.sendPacket(sm);
+					summonOwner.sendPacket(SystemMessageId.LETHAL_STRIKE);
 				}
 				else
 				{

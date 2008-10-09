@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * 
@@ -59,8 +58,7 @@ public class Soul implements ISkillHandler
 			}
 			else
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.SOUL_CANNOT_BE_INCREASED_ANYMORE);
-				player.sendPacket(sm);
+				player.sendPacket(SystemMessageId.SOUL_CANNOT_BE_INCREASED_ANYMORE);
 			}
 		}
 	}

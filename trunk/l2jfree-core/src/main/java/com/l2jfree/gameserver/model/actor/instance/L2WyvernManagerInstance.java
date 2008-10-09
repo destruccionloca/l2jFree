@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
@@ -73,9 +72,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             if  ( petItemId==0 || !player.isMounted() || 
                  !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)))
             {
-                SystemMessage sm = new SystemMessage(SystemMessageId.YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER);
-                player.sendPacket(sm);
-                sm = null;
+                player.sendPacket(SystemMessageId.YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER);
                 return;
             }
             else if ( player.isMounted() &&  PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) &&

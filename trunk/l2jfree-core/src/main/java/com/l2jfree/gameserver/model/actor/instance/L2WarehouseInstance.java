@@ -78,7 +78,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
         if (player.getActiveWarehouse().getSize() == 0)
         {
-            player.sendPacket(new SystemMessage(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH));
+            player.sendPacket(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
             return;
         }
         
@@ -93,7 +93,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         
         if (player.getActiveWarehouse().getSize() == 0)
         {
-            player.sendPacket(new SystemMessage(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH));
+            player.sendPacket(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
             return;
         }
 
@@ -118,13 +118,13 @@ public final class L2WarehouseInstance extends L2FolkInstance
         {
             if (player.getClan().getLevel() == 0)
             {
-                player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
+                player.sendPacket(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE);
             }
             else
             {
                 if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
                 {
-                    player.sendPacket(new SystemMessage(SystemMessageId.ONLY_CLAN_LEADER_CAN_RETRIEVE_ITEMS_FROM_CLAN_WAREHOUSE));
+                    player.sendPacket(SystemMessageId.ONLY_CLAN_LEADER_CAN_RETRIEVE_ITEMS_FROM_CLAN_WAREHOUSE);
                 }
                 player.setActiveWarehouse(player.getClan().getWarehouse());
                 player.tempInvetoryDisable();
@@ -140,11 +140,11 @@ public final class L2WarehouseInstance extends L2FolkInstance
     {
         if (player.getClan() == null || player.getClan().getLevel() == 0)
         {
-            player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
+            player.sendPacket(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE);
         }
         else if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
         {
-            player.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE));
+            player.sendPacket(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE);
             return;
         }
         else
@@ -160,11 +160,11 @@ public final class L2WarehouseInstance extends L2FolkInstance
     {
         if (player.getClan() == null || player.getClan().getLevel() == 0)
         {
-            player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
+            player.sendPacket(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE);
         }
         else if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
         {
-            player.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE));
+            player.sendPacket(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE);
             return;
         }
         else
@@ -200,7 +200,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
             }
             else
             {
-                player.sendPacket(new SystemMessage(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH));
+                player.sendPacket(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
             }
         }
         else
@@ -233,7 +233,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         	}
         	else
         	{
-            	player.sendPacket(new SystemMessage(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH));
+            	player.sendPacket(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
         	}
         }
         else
@@ -247,7 +247,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         // No other chars in the account of this player
         if (player.getAccountChars().size() == 0)
         {
-            player.sendPacket(new SystemMessage(SystemMessageId.CHARACTER_DOES_NOT_EXIST));
+            player.sendPacket(SystemMessageId.CHARACTER_DOES_NOT_EXIST);
         }
         // One or more chars other than this player for this account
         else

@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * @author Made in Taiwan
@@ -46,7 +45,7 @@ public class AdminCamera implements IAdminCommandHandler
 		{
 			if (activeChar.getTarget() == null)
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			}
 			else
 			{

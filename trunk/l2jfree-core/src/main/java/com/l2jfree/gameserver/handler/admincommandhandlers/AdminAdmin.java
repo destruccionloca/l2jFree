@@ -48,7 +48,6 @@ import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
 
@@ -131,12 +130,12 @@ public class AdminAdmin implements IAdminCommandHandler
 			if (activeChar.getMessageRefusal()) // already in message refusal mode
 			{
 				activeChar.setMessageRefusal(false);
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.MESSAGE_ACCEPTANCE_MODE));
+				activeChar.sendPacket(SystemMessageId.MESSAGE_ACCEPTANCE_MODE);
 			}
 			else
 			{
 				activeChar.setMessageRefusal(true);
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.MESSAGE_REFUSAL_MODE));
+				activeChar.sendPacket(SystemMessageId.MESSAGE_REFUSAL_MODE);
 			}
 
 		}

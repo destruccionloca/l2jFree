@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
@@ -189,7 +188,7 @@ public class AdminFightCalculator implements IAdminCommandHandler
 			npc2 = (L2Character) activeChar.getTarget();
 			if (npc2 == null)
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				return;
 			}
 		}

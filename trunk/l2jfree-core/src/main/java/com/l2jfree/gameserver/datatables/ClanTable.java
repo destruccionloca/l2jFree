@@ -148,27 +148,27 @@ public class ClanTable
 
 		if (10 > player.getLevel())
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_MEET_CRITERIA_IN_ORDER_TO_CREATE_A_CLAN));
+			player.sendPacket(SystemMessageId.YOU_DO_NOT_MEET_CRITERIA_IN_ORDER_TO_CREATE_A_CLAN);
 			return null;
 		}
 		if (0 != player.getClanId())
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.FAILED_TO_CREATE_CLAN));
+			player.sendPacket(SystemMessageId.FAILED_TO_CREATE_CLAN);
 			return null;
 		}
 		if (System.currentTimeMillis() < player.getClanCreateExpiryTime())
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.YOU_MUST_WAIT_XX_DAYS_BEFORE_CREATING_A_NEW_CLAN));
+			player.sendPacket(SystemMessageId.YOU_MUST_WAIT_XX_DAYS_BEFORE_CREATING_A_NEW_CLAN);
 			return null;
 		}
 		if (clanName.length() < 3 || clanName.length() > 16)
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_NAME_TOO_LONG));
+			player.sendPacket(SystemMessageId.CLAN_NAME_TOO_LONG);
 			return null;
 		}
 		if (!Config.CLAN_ALLY_NAME_PATTERN.matcher(clanName).matches())
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_NAME_INCORRECT));
+			player.sendPacket(SystemMessageId.CLAN_NAME_INCORRECT);
 			return null;
 		}
 		if (null != getClanByName(clanName))
@@ -177,7 +177,6 @@ public class ClanTable
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_ALREADY_EXISTS);
 			sm.addString(clanName);
 			player.sendPacket(sm);
-			sm = null;
 			return null;
 		}
 

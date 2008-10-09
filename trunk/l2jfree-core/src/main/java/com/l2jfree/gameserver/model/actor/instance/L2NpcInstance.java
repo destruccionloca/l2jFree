@@ -1312,11 +1312,11 @@ public class L2NpcInstance extends L2Character
 				switch (cmdChoice)
 				{
 				case 1:
-					player.sendPacket(new SystemMessage(SystemMessageId.SELECT_THE_ITEM_TO_BE_AUGMENTED));
+					player.sendPacket(SystemMessageId.SELECT_THE_ITEM_TO_BE_AUGMENTED);
 					player.sendPacket(new ExShowVariationMakeWindow());
 					break;
 				case 2:
-					player.sendPacket(new SystemMessage(SystemMessageId.SELECT_THE_ITEM_FROM_WHICH_YOU_WISH_TO_REMOVE_AUGMENTATION));
+					player.sendPacket(SystemMessageId.SELECT_THE_ITEM_FROM_WHICH_YOU_WISH_TO_REMOVE_AUGMENTATION);
 					player.sendPacket(new ExShowVariationCancelWindow());
 					break;
 				}
@@ -1444,7 +1444,7 @@ public class L2NpcInstance extends L2Character
 								if (!player.reduceAdena("DeathPenality", price, this, true))
 									return;
 								player.setDeathPenaltyBuffLevel(player.getDeathPenaltyBuffLevel() - 1);
-								player.sendPacket(new SystemMessage(SystemMessageId.DEATH_PENALTY_LIFTED));
+								player.sendPacket(SystemMessageId.DEATH_PENALTY_LIFTED);
 								player.sendPacket(new EtcStatusUpdate(player));
 								return;
 							}
@@ -1768,7 +1768,7 @@ public class L2NpcInstance extends L2Character
 			if ((q.getQuestIntId() >= 1 && q.getQuestIntId() < 1000)
 					&& (player.getWeightPenalty() >= 3 || player.getInventoryLimit() * 0.8 <= player.getInventory().getSize()))
 			{
-				player.sendPacket(new SystemMessage(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT));
+				player.sendPacket(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT);
 				return;
 			}
 
@@ -1779,7 +1779,7 @@ public class L2NpcInstance extends L2Character
 					Quest[] questList = player.getAllActiveQuests();
 					if (questList.length >= 25) // if too many ongoing quests, don't show window and send message
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.TOO_MANY_QUESTS));
+						player.sendPacket(SystemMessageId.TOO_MANY_QUESTS);
 						return;
 					}
 				}
@@ -1932,13 +1932,13 @@ public class L2NpcInstance extends L2Character
 			if (!Lottery.getInstance().isStarted())
 			{
 				//tickets can't be sold
-				player.sendPacket(new SystemMessage(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD));
+				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD);
 				return;
 			}
 			if (!Lottery.getInstance().isSellableTickets())
 			{
 				//tickets can't be sold
-				player.sendPacket(new SystemMessage(SystemMessageId.NO_LOTTERY_TICKETS_AVAILABLE));
+				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_AVAILABLE);
 				return;
 			}
 
@@ -1997,13 +1997,13 @@ public class L2NpcInstance extends L2Character
 			if (!Lottery.getInstance().isStarted())
 			{
 				//tickets can't be sold
-				player.sendPacket(new SystemMessage(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD));
+				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD);
 				return;
 			}
 			if (!Lottery.getInstance().isSellableTickets())
 			{
 				//tickets can't be sold
-				player.sendPacket(new SystemMessage(SystemMessageId.NO_LOTTERY_TICKETS_AVAILABLE));
+				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_AVAILABLE);
 				return;
 			}
 
@@ -2400,13 +2400,13 @@ public class L2NpcInstance extends L2Character
 				{
 					if (compWinner == SevenSigns.CABAL_DAWN && (playerCabal != SevenSigns.CABAL_DAWN || sealAvariceOwner != SevenSigns.CABAL_DAWN))
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
+						player.sendPacket(SystemMessageId.CAN_BE_USED_BY_DAWN);
 						filename += "necro_no.htm";
 						break;
 					}
 					else if (compWinner == SevenSigns.CABAL_DUSK && (playerCabal != SevenSigns.CABAL_DUSK || sealAvariceOwner != SevenSigns.CABAL_DUSK))
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
+						player.sendPacket(SystemMessageId.CAN_BE_USED_BY_DUSK);
 						filename += "necro_no.htm";
 						break;
 					}
@@ -2437,13 +2437,13 @@ public class L2NpcInstance extends L2Character
 				{
 					if (compWinner == SevenSigns.CABAL_DAWN && (playerCabal != SevenSigns.CABAL_DAWN || sealGnosisOwner != SevenSigns.CABAL_DAWN))
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
+						player.sendPacket(SystemMessageId.CAN_BE_USED_BY_DAWN);
 						filename += "cata_no.htm";
 						break;
 					}
 					else if (compWinner == SevenSigns.CABAL_DUSK && (playerCabal != SevenSigns.CABAL_DUSK || sealGnosisOwner != SevenSigns.CABAL_DUSK))
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
+						player.sendPacket(SystemMessageId.CAN_BE_USED_BY_DUSK);
 						filename += "cata_no.htm";
 						break;
 					}
@@ -2511,7 +2511,7 @@ public class L2NpcInstance extends L2Character
 				case SevenSigns.CABAL_DAWN:
 					if (playerCabal != compWinner || playerCabal != sealAvariceOwner)
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
+						player.sendPacket(SystemMessageId.CAN_BE_USED_BY_DAWN);
 						player.sendPacket(ActionFailed.STATIC_PACKET);
 						return;
 					}
@@ -2519,7 +2519,7 @@ public class L2NpcInstance extends L2Character
 				case SevenSigns.CABAL_DUSK:
 					if (playerCabal != compWinner || playerCabal != sealAvariceOwner)
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
+						player.sendPacket(SystemMessageId.CAN_BE_USED_BY_DUSK);
 						player.sendPacket(ActionFailed.STATIC_PACKET);
 						return;
 					}
@@ -2536,7 +2536,7 @@ public class L2NpcInstance extends L2Character
 				case SevenSigns.CABAL_DAWN:
 					if (playerCabal != compWinner || playerCabal != sealGnosisOwner)
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
+						player.sendPacket(SystemMessageId.CAN_BE_USED_BY_DAWN);
 						player.sendPacket(ActionFailed.STATIC_PACKET);
 						return;
 					}
@@ -2544,7 +2544,7 @@ public class L2NpcInstance extends L2Character
 				case SevenSigns.CABAL_DUSK:
 					if (playerCabal != compWinner || playerCabal != sealGnosisOwner)
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
+						player.sendPacket(SystemMessageId.CAN_BE_USED_BY_DUSK);
 						player.sendPacket(ActionFailed.STATIC_PACKET);
 						return;
 					}

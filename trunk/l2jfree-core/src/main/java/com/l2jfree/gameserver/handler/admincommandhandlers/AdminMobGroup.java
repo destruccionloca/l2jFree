@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Broadcast;
 
@@ -540,7 +539,7 @@ public class AdminMobGroup implements IAdminCommandHandler
 			activeChar.sendMessage(mobGroup.getGroupId() + ": " + mobGroup.getActiveMobCount() + " alive out of " + mobGroup.getMaxMobCount() + " of NPC ID "
 					+ mobGroup.getTemplate().getNpcId() + " (" + mobGroup.getStatus() + ")");
 
-		activeChar.sendPacket(new SystemMessage(SystemMessageId.FRIEND_LIST_FOOTER));
+		activeChar.sendPacket(SystemMessageId.FRIEND_LIST_FOOTER);
 	}
 
 	public String[] getAdminCommandList()

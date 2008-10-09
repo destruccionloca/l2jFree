@@ -51,13 +51,13 @@ public class HolyWater implements IItemHandler
 			}
 			else
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 		}
 		else
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}

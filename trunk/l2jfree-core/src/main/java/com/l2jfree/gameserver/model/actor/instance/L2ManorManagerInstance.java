@@ -125,7 +125,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 
 			if (CastleManorManager.getInstance().isUnderMaintenance())
 			{
-				player.sendPacket(new SystemMessage(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE));
+				player.sendPacket(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE);
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
@@ -147,7 +147,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 			case 1: // Seed purchase
 				if (castleId != getCastle().getCastleId())
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.HERE_YOU_CAN_BUY_ONLY_SEEDS_OF_S1_MANOR));
+					player.sendPacket(new SystemMessage(SystemMessageId.HERE_YOU_CAN_BUY_ONLY_SEEDS_OF_S1_MANOR)); // Parameter ?!
 				}
 				else
 				{

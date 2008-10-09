@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler.usercommandhandlers;
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * 
@@ -47,7 +46,7 @@ public class InstanceZone implements IUserCommandHandler
 		if (id != COMMAND_IDS[0])
 			return false;
 
-		activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_INSTANCEZONE_TIME_LIMIT));
+		activeChar.sendPacket(SystemMessageId.NO_INSTANCEZONE_TIME_LIMIT);
 
 		return true;
 	}

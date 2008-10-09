@@ -96,7 +96,7 @@ public class Manadam implements ISkillHandler
 			boolean acted = Formulas.getInstance().calcMagicAffected(activeChar, target, skill);
 			if (!acted || target.isInvul() || target.isPetrified())
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET));
+				activeChar.sendPacket(SystemMessageId.MISSED_TARGET);
 			}
 			else
 			{

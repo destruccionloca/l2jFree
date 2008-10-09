@@ -159,8 +159,7 @@ public class Heal implements ISkillHandler
 			{
 				if (skill.getId() == 4051)
 				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.REJUVENATING_HP);
-					target.sendPacket(sm);
+					target.sendPacket(SystemMessageId.REJUVENATING_HP);
 				}
 				else
 				{

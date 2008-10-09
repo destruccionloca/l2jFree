@@ -81,7 +81,7 @@ public class AdminSendHome implements IAdminCommandHandler
 		if (obj instanceof L2Character)
 			doSendhome((L2Character) obj);
 		else
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 	}
 
 	private void doSendhome(L2Character targetChar)

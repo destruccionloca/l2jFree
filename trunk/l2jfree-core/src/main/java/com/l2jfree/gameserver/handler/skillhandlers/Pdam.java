@@ -261,7 +261,7 @@ public class Pdam implements ISkillHandler
 			else
 			// No - damage
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
+				activeChar.sendPacket(SystemMessageId.ATTACK_FAILED);
 			}
 			if (skill.getId() == 345 || skill.getId() == 346) // Sonic Rage or Raging Force
 			{
@@ -283,8 +283,7 @@ public class Pdam implements ISkillHandler
 					}
 					else
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_MAXLEVEL_REACHED);
-						activeChar.sendPacket(sm);
+						activeChar.sendPacket(SystemMessageId.FORCE_MAXLEVEL_REACHED);
 					}
 				}
 				else

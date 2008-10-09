@@ -30,7 +30,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
@@ -103,8 +102,7 @@ public class SoulCrystals implements IItemHandler
 		if (!(target instanceof L2MonsterInstance))
 		{
 			// Send a System Message to the caster
-			SystemMessage sm = new SystemMessage(SystemMessageId.INCORRECT_TARGET);
-			activeChar.sendPacket(sm);
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 
 			// Send a Server->Client packet ActionFailed to the L2PcInstance 
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);

@@ -132,22 +132,20 @@ public class GmListTable
 	{
 		if (!isGmOnline(player.isGM()))
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.NO_GM_PROVIDING_SERVICE_NOW);
-			player.sendPacket(sm);
+			player.sendPacket(SystemMessageId.NO_GM_PROVIDING_SERVICE_NOW);
 		}
 		else
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.GM_LIST);
-			player.sendPacket(sm);
+			player.sendPacket(SystemMessageId.GM_LIST);
 
 			for (String name : getAllGmNames(player.isGM()))
 			{
-				sm = new SystemMessage(SystemMessageId.GM_S1);
+				SystemMessage sm = new SystemMessage(SystemMessageId.GM_S1);
 				sm.addString(name);
 				player.sendPacket(sm);
 			}
 
-			player.sendPacket(new SystemMessage(SystemMessageId.FRIEND_LIST_FOOTER));
+			player.sendPacket(SystemMessageId.FRIEND_LIST_FOOTER);
 		}
 	}
 

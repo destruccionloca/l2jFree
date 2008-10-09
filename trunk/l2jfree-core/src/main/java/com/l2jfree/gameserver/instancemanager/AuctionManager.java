@@ -33,6 +33,7 @@ public class AuctionManager
 	protected static Log			_log			= LogFactory.getLog(AuctionManager.class.getName());
 	private static AuctionManager	_instance;
 	private List<Auction>			_auctions;
+
 	private static final String[]	ITEM_INIT_DATA	=
 													{
 			"(23, 0, 'NPC', 'NPC Clan', 'ClanHall', 23, 0, 'Onyx Hall', 1, 20000000, 0, 1164841200000)",
@@ -72,7 +73,8 @@ public class AuctionManager
 			"(59, 0, 'NPC', 'NPC Clan', 'ClanHall', 59, 0, 'Heavy Metal Hall', 1, 50000000, 0, 1164841200000)",
 			"(60, 0, 'NPC', 'NPC Clan', 'ClanHall', 60, 0, 'Molten Ore Hall', 1, 50000000, 0, 1164841200000)",
 			"(61, 0, 'NPC', 'NPC Clan', 'ClanHall', 61, 0, 'Titan Hall', 1, 50000000, 0, 1164841200000)" };
-	private static final Integer[]	ItemInitDataId	=
+
+	private static final int[]	ITEM_INIT_IDS	=
 													{
 			23,
 			24,
@@ -182,11 +184,17 @@ public class AuctionManager
 	public void initNPC(int id)
 	{
 		Connection con = null;
-		int i = 0;
-		for (i = 0; i < ItemInitDataId.length; i++)
-			if (ItemInitDataId[i] == id)
+		int found = -1;
+		for (int i = 0; i < ITEM_INIT_IDS.length; i++)
+		{
+			if (ITEM_INIT_IDS[i] == id)
+			{
+				found = i;
 				break;
-		if (i >= ItemInitDataId.length)
+			}
+		}
+
+		if (found == -1)
 		{
 			_log.warn("Clan Hall auction not found for Id :" + id);
 			return;
@@ -195,7 +203,7 @@ public class AuctionManager
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement;
-			statement = con.prepareStatement("INSERT INTO `auction` VALUES " + ITEM_INIT_DATA[i]);
+			statement = con.prepareStatement("INSERT INTO `auction` VALUES " + ITEM_INIT_DATA[found]);
 			statement.execute();
 			statement.close();
 			_auctions.add(new Auction(id));

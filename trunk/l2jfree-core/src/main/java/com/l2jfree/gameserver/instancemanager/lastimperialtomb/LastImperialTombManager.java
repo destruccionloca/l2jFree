@@ -467,8 +467,7 @@ public class LastImperialTombManager extends BossLair
 
 		if (_commander.getInventory().getInventoryItemCount(SCROLL, -1) < 1)
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS);
-			_commander.sendPacket(sm);
+			_commander.sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
 
 			_commander.sendMessage("Since the conditions were not met, the entrance was refused.");
 
@@ -499,15 +498,13 @@ public class LastImperialTombManager extends BossLair
 		int locId = 0;
 		boolean isReadyToInvade = true;
 
+		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
+		sm.addString("Since the conditions were not met, the entrance was refused.");
 		for (L2PcInstance ptl : _partyLeaders)
 		{
 			if (ptl.getInventory().getInventoryItemCount(SCROLL, -1) < 1)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS);
-				ptl.sendPacket(sm);
-
-				sm = new SystemMessage(SystemMessageId.S1);
-				sm.addString("Since the conditions were not met, the entrance was refused.");
+				ptl.sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
 				ptl.sendPacket(sm);
 
 				isReadyToInvade = false;
@@ -518,8 +515,6 @@ public class LastImperialTombManager extends BossLair
 		{
 			for (L2PcInstance ptl : _partyLeaders)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1);
-				sm.addString("Since the conditions were not met, the entrance was refused.");
 				ptl.sendPacket(sm);
 			}
 

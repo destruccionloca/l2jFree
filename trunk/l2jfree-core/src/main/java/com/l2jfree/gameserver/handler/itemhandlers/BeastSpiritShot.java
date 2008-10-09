@@ -48,7 +48,7 @@ public class BeastSpiritShot implements IItemHandler
 		if (playable instanceof L2Summon)
 		{
 			activeOwner = ((L2Summon) playable).getOwner();
-			activeOwner.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_USE_ITEM));
+			activeOwner.sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
 			return;
 		}
 		else if (playable instanceof L2PcInstance)
@@ -62,13 +62,13 @@ public class BeastSpiritShot implements IItemHandler
 
 		if (activePet == null)
 		{
-			activeOwner.sendPacket(new SystemMessage(SystemMessageId.PETS_ARE_NOT_AVAILABLE_AT_THIS_TIME));
+			activeOwner.sendPacket(SystemMessageId.PETS_ARE_NOT_AVAILABLE_AT_THIS_TIME);
 			return;
 		}
 
 		if (activePet.isDead())
 		{
-			activeOwner.sendPacket(new SystemMessage(SystemMessageId.SOULSHOTS_AND_SPIRITSHOTS_ARE_NOT_AVAILABLE_FOR_A_DEAD_PET));
+			activeOwner.sendPacket(SystemMessageId.SOULSHOTS_AND_SPIRITSHOTS_ARE_NOT_AVAILABLE_FOR_A_DEAD_PET);
 			return;
 		}
 
@@ -86,7 +86,7 @@ public class BeastSpiritShot implements IItemHandler
 
 			if (weaponInst == null)
 			{
-				activeOwner.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_SPIRITSHOTS));
+				activeOwner.sendPacket(SystemMessageId.CANNOT_USE_SPIRITSHOTS);
 				return;
 			}
 
@@ -108,7 +108,7 @@ public class BeastSpiritShot implements IItemHandler
 			if (!(shotCount > shotConsumption))
 			{
 				// Not enough SpiritShots to use.
-				activeOwner.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_SPIRITHOTS_FOR_PET));
+				activeOwner.sendPacket(SystemMessageId.NOT_ENOUGH_SPIRITHOTS_FOR_PET);
 				return;
 			}
 
@@ -141,12 +141,12 @@ public class BeastSpiritShot implements IItemHandler
 				return;
 			}
 
-			activeOwner.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_SPIRITSHOTS));
+			activeOwner.sendPacket(SystemMessageId.NOT_ENOUGH_SPIRITSHOTS);
 			return;
 		}
 
 		// Pet uses the power of spirit.
-		activeOwner.sendPacket(new SystemMessage(SystemMessageId.PET_USE_THE_POWER_OF_SPIRIT));
+		activeOwner.sendPacket(SystemMessageId.PET_USE_THE_POWER_OF_SPIRIT);
 
 		Broadcast.toSelfAndKnownPlayersInRadius(activeOwner, new MagicSkillUse(activePet, activePet, isBlessed ? 2009 : 2008, 1, 0, 0), 360000/*600*/);
 	}

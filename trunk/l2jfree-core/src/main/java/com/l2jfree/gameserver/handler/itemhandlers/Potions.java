@@ -168,7 +168,7 @@ public class Potions implements IItemHandler
 
 		if (activeChar.isInOlympiadMode())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
+			activeChar.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
 			return;
 		}
 
@@ -469,7 +469,7 @@ public class Potions implements IItemHandler
 			if (activeChar.getSkillLevel(1315) <= 3)
 			{
 				playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 				return;
 			}
 			res = usePotion(activeChar, 2274, 1);
@@ -478,7 +478,7 @@ public class Potions implements IItemHandler
 			if (activeChar.getSkillLevel(1315) <= 6)
 			{
 				playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 				return;
 			}
 			res = usePotion(activeChar, 2274, 2);
@@ -487,7 +487,7 @@ public class Potions implements IItemHandler
 			if (activeChar.getSkillLevel(1315) <= 9)
 			{
 				playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 				return;
 			}
 			res = usePotion(activeChar, 2274, 3);
@@ -496,7 +496,7 @@ public class Potions implements IItemHandler
 			if (activeChar.getSkillLevel(1315) <= 12)
 			{
 				playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 				return;
 			}
 			res = usePotion(activeChar, 2274, 4);
@@ -505,7 +505,7 @@ public class Potions implements IItemHandler
 			if (activeChar.getSkillLevel(1315) <= 15)
 			{
 				playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 				return;
 			}
 			res = usePotion(activeChar, 2274, 5);
@@ -514,7 +514,7 @@ public class Potions implements IItemHandler
 			if (activeChar.getSkillLevel(1315) <= 18)
 			{
 				playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 				return;
 			}
 			res = usePotion(activeChar, 2274, 6);
@@ -523,7 +523,7 @@ public class Potions implements IItemHandler
 			if (activeChar.getSkillLevel(1315) <= 21)
 			{
 				playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 				return;
 			}
 			res = usePotion(activeChar, 2274, 7);
@@ -532,7 +532,7 @@ public class Potions implements IItemHandler
 			if (activeChar.getSkillLevel(1315) <= 24)
 			{
 				playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 				return;
 			}
 			res = usePotion(activeChar, 2274, 8);
@@ -557,12 +557,12 @@ public class Potions implements IItemHandler
 				}
 				else
 				{
-					playable.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL));
+					playable.sendPacket(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL);
 				}
 			}
 			else
 			{
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 			}
 			break;
 		case 10410: // 5 Souls Bottle
@@ -572,7 +572,7 @@ public class Potions implements IItemHandler
 			}
 			else
 			{
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 			}
 			break;
 		case 10411: // 5 Souls Bottle Combat
@@ -582,7 +582,7 @@ public class Potions implements IItemHandler
 			}
 			else
 			{
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 			}
 			break;
 		case 10412: // 10 Souls Bottle
@@ -592,7 +592,7 @@ public class Potions implements IItemHandler
 			}
 			else
 			{
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 			}
 			break;
 

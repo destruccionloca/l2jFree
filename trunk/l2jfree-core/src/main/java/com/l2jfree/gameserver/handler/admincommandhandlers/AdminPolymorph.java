@@ -25,8 +25,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-
 
 /**
  * This class handles following admin commands: - polymorph
@@ -69,7 +67,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 			}
 			else
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			}
 		}
 		else if (command.startsWith("admin_transform"))
@@ -101,7 +99,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 				}
 				else
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+					activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				}
 			}
 		}
@@ -167,7 +165,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 			activeChar.sendMessage("Polymorph succeed");
 		}
 		else
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 	}
 
 	/**
@@ -184,7 +182,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 			activeChar.sendMessage("Unpolymorph succeed");
 		}
 		else
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 	}
 
 	private void showMainPage(L2PcInstance activeChar, String command)

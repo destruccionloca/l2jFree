@@ -105,13 +105,13 @@ public class L2SignsPriestInstance extends L2FolkInstance
                 case 2: // Purchase Record of the Seven Signs
                     if (!player.getInventory().validateCapacity(1))
                     {
-                        player.sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
+                        player.sendPacket(SystemMessageId.SLOTS_FULL);
                         break;
                     }
 
                     if (!player.reduceAdena("SevenSigns", SevenSigns.RECORD_SEVEN_SIGNS_COST, this, true))
                     {
-                        player.sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+                        player.sendPacket(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
                         break;
                     }
                     L2ItemInstance recordSevenSigns = player.getInventory().addItem("SevenSigns", SevenSigns.RECORD_SEVEN_SIGNS_ID, 1, player, this);
@@ -198,20 +198,22 @@ public class L2SignsPriestInstance extends L2FolkInstance
 
                     SevenSigns.getInstance().setPlayerInfo(player, cabal, newSeal);
 
-                    if (cabal == SevenSigns.CABAL_DAWN) player.sendPacket(new SystemMessage(SystemMessageId.SEVENSIGNS_PARTECIPATION_DAWN)); // Joined Dawn
-                    else player.sendPacket(new SystemMessage(SystemMessageId.SEVENSIGNS_PARTECIPATION_DUSK)); // Joined Dusk
+                    if (cabal == SevenSigns.CABAL_DAWN)
+                        player.sendPacket(SystemMessageId.SEVENSIGNS_PARTECIPATION_DAWN); // Joined Dawn
+                    else
+                        player.sendPacket(SystemMessageId.SEVENSIGNS_PARTECIPATION_DUSK); // Joined Dusk
 
                     // Show a confirmation message to the user, indicating which seal they chose.
                     switch (newSeal)
                     {
                         case SevenSigns.SEAL_AVARICE:
-                            player.sendPacket(new SystemMessage(SystemMessageId.FIGHT_FOR_AVARICE));
+                            player.sendPacket(SystemMessageId.FIGHT_FOR_AVARICE);
                             break;
                         case SevenSigns.SEAL_GNOSIS:
-                            player.sendPacket(new SystemMessage(SystemMessageId.FIGHT_FOR_GNOSIS));
+                            player.sendPacket(SystemMessageId.FIGHT_FOR_GNOSIS);
                             break;
                         case SevenSigns.SEAL_STRIFE:
-                            player.sendPacket(new SystemMessage(SystemMessageId.FIGHT_FOR_STRIFE));
+                            player.sendPacket(SystemMessageId.FIGHT_FOR_STRIFE);
                             break;
                     }
 
@@ -230,7 +232,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
 
                     if (contribScore == Config.ALT_MAXIMUM_PLAYER_CONTRIB)
                     {
-                        player.sendPacket(new SystemMessage(SystemMessageId.CONTRIB_SCORE_EXCEEDED));
+                        player.sendPacket(SystemMessageId.CONTRIB_SCORE_EXCEEDED);
                         break;
                     }
                     else

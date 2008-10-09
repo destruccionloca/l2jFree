@@ -33,7 +33,6 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
@@ -253,7 +252,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 		player.setPet(petSummon);
 
 		player.sendPacket(new MagicSkillUse(this, 2046, 1, 1000, 600000));
-		player.sendPacket(new SystemMessage(SystemMessageId.SUMMON_A_PET));
+		player.sendPacket(SystemMessageId.SUMMON_A_PET);
 		L2World.getInstance().storeObject(petSummon);
 		petSummon.spawnMe(player.getX() + 50, player.getY() + 100, player.getZ());
 		petSummon.startFeed(false);

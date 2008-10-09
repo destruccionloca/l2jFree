@@ -30,7 +30,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
@@ -221,7 +220,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 				int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
 				if (player.getInventory().getInventoryItemCount(_itemId, -1) < _count)
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+					player.sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
 					return;
 				}
 			}
@@ -246,10 +245,10 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 
 			if (newJobLevel == 3)
 				// system sound 3rd occupation
-				player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER));
+				player.sendPacket(SystemMessageId.THIRD_CLASS_TRANSFER);
 			else
 				// system sound for 1st and 2nd occupation
-				player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER));
+				player.sendPacket(SystemMessageId.CLASS_TRANSFER);
 
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder sb = new TextBuilder();

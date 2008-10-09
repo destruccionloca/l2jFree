@@ -29,7 +29,6 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.L2Weapon;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.gameserver.util.Util;
@@ -63,25 +62,25 @@ public class Fishing implements ISkillHandler
 			else
 				player.endFishing(false);
 			//Cancels fishing
-			player.sendPacket(new SystemMessage(SystemMessageId.FISHING_ATTEMPT_CANCELLED));
+			player.sendPacket(SystemMessageId.FISHING_ATTEMPT_CANCELLED);
 			return;
 		}
 		if (player.isInBoat())
 		{
 			//You can't fish while you are on boat
-			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_ON_BOAT));
+			player.sendPacket(SystemMessageId.CANNOT_FISH_ON_BOAT);
 			return;
 		}
 		if (!player.isInsideZone(L2Zone.FLAG_FISHING) || player.isInsideZone(L2Zone.FLAG_PEACE))
 		{
 			//You can't fish here
-			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_HERE));
+			player.sendPacket(SystemMessageId.CANNOT_FISH_HERE);
 			return;
 		}
 		if (player.isInsideZone(L2Zone.FLAG_WATER))
 		{
 			//You can't fish in water
-			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_UNDER_WATER));
+			player.sendPacket(SystemMessageId.CANNOT_FISH_UNDER_WATER);
 			return;
 		}
 
@@ -101,7 +100,7 @@ public class Fishing implements ISkillHandler
 		// float must be in water
 		if (water == null)
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_HERE));
+			player.sendPacket(SystemMessageId.CANNOT_FISH_HERE);
 			return;
 		}
 
@@ -110,26 +109,26 @@ public class Fishing implements ISkillHandler
 		if (Config.GEODATA && !GeoClient.getInstance().canSeeTarget(activeChar.getX(), activeChar.getY(), activeChar.getZ(), x, y, z)
 				|| (!Config.GEODATA && (Util.calculateDistance(activeChar.getX(), activeChar.getY(), activeChar.getZ(), x, y, z, true) > d * 1.73)))
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_HERE));
+			player.sendPacket(SystemMessageId.CANNOT_FISH_HERE);
 			return;
 		}
 		if (player.isInCraftMode() || player.isInStoreMode())
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_WHILE_USING_RECIPE_BOOK));
+			player.sendPacket(SystemMessageId.CANNOT_FISH_WHILE_USING_RECIPE_BOOK);
 			return;
 		}
 		L2Weapon weaponItem = player.getActiveWeaponItem();
 		if ((weaponItem == null || weaponItem.getItemType() != L2WeaponType.ROD))
 		{
 			//Fishing poles are not installed
-			player.sendPacket(new SystemMessage(SystemMessageId.FISHING_POLE_NOT_EQUIPPED));
+			player.sendPacket(SystemMessageId.FISHING_POLE_NOT_EQUIPPED);
 			return;
 		}
 		L2ItemInstance lure = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
 		if (lure == null)
 		{
 			//Bait not equiped.
-			player.sendPacket(new SystemMessage(SystemMessageId.BAIT_ON_HOOK_BEFORE_FISHING));
+			player.sendPacket(SystemMessageId.BAIT_ON_HOOK_BEFORE_FISHING);
 			return;
 		}
 		player.setLure(lure);
@@ -137,7 +136,7 @@ public class Fishing implements ISkillHandler
 
 		if (lure2 == null || lure2.getCount() < 1) //Not enough bait.
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_BAIT));
+			player.sendPacket(SystemMessageId.NOT_ENOUGH_BAIT);
 			player.sendPacket(new ItemList(player, false));
 		}
 		else

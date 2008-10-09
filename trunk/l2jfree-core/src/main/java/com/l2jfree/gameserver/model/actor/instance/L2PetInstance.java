@@ -157,8 +157,7 @@ public class L2PetInstance extends L2Summon
 
                         if(getCurrentFed() < (0.55 * getMaxFed()))
                         {
-                            SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_PET_ATE_A_LITTLE_BUT_IS_STILL_HUNGRY);
-                            getOwner().sendPacket(sm);
+                            getOwner().sendPacket(SystemMessageId.YOUR_PET_ATE_A_LITTLE_BUT_IS_STILL_HUNGRY);
                        }
                     }
                 }
@@ -179,14 +178,12 @@ public class L2PetInstance extends L2Summon
                 	{
                 		if(getCurrentFed() >= (0.25 * getMaxFed()) &&  getCurrentFed() < (0.40 * getMaxFed()))
                 		{
-                			SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_PET_IS_VERY_HUNGRY);
-                			getOwner().sendPacket(sm);
+                			getOwner().sendPacket(SystemMessageId.YOUR_PET_IS_VERY_HUNGRY);
                 		}
                 		else
                 		if(getCurrentFed() > 0 && getCurrentFed() < (0.25 * getMaxFed()))
                 		{
-                			SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_PET_IS_VERY_HUNGRY_PLEASE_BE_CAREFULL);
-                			getOwner().sendPacket(sm);
+                			getOwner().sendPacket(SystemMessageId.YOUR_PET_IS_VERY_HUNGRY_PLEASE_BE_CAREFULL);
                 		}
                 	}
                 	// send pet food bar info
@@ -197,8 +194,7 @@ public class L2PetInstance extends L2Summon
                 
                 if(getCurrentFed() == 0)
                 {
-                	SystemMessage sm = new SystemMessage(SystemMessageId.STARVING_GRUMPY_AND_FED_UP_YOUR_PET_HAS_LEFT);
-                	getOwner().sendPacket(sm);
+                	getOwner().sendPacket(SystemMessageId.STARVING_GRUMPY_AND_FED_UP_YOUR_PET_HAS_LEFT);
                 	unSummon(getOwner()); // unsummon or die?
                 }
             }
@@ -373,7 +369,7 @@ public class L2PetInstance extends L2Summon
         if (item == null)
         {
             if (sendMessage) 
-                getOwner().sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+                getOwner().sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
             
             return false;
         }
@@ -407,7 +403,7 @@ public class L2PetInstance extends L2Summon
         
         if (item == null)
         {
-            if (sendMessage) getOwner().sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+            if (sendMessage) getOwner().sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
             return false;
         }
 
@@ -459,7 +455,7 @@ public class L2PetInstance extends L2Summon
 
 		if (weight > Integer.MAX_VALUE || weight < 0 || !getInventory().validateWeight((int)weight))
 		{
-			sendPacket(new SystemMessage(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS));
+			sendPacket(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS);
 			return;
 		}
 
@@ -576,8 +572,7 @@ public class L2PetInstance extends L2Summon
     public void deleteMe(L2PcInstance owner)
     {
         getOwner().removeReviving();
-        SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_PETS_CORPSE_HAS_DECAYED);
-        getOwner().sendPacket(sm);
+        getOwner().sendPacket(SystemMessageId.YOUR_PETS_CORPSE_HAS_DECAYED);
         super.deleteMe(owner);
         destroyControlItem(owner); //this should also delete the pet from the db
     }
@@ -588,8 +583,7 @@ public class L2PetInstance extends L2Summon
         if (!super.doDie(killer,true))
             return false;
 
-        SystemMessage sm = new SystemMessage(SystemMessageId.MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES);
-        getOwner().sendPacket(sm);
+        getOwner().sendPacket(SystemMessageId.MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES);
 
         stopFeed();
         getStatus().stopHpMpRegeneration();
@@ -877,7 +871,7 @@ public class L2PetInstance extends L2Summon
             			curFed = pet.getCurrentFed() + (100);
             		else
             		{
-            			pet.getOwner().sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_RESTORE_HUNGRY_PETS));
+            			pet.getOwner().sendPacket(SystemMessageId.YOU_CANNOT_RESTORE_HUNGRY_PETS);
             			
                         rset.close();
                         statement.close();

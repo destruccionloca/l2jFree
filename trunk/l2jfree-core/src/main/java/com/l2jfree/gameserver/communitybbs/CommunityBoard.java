@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class CommunityBoard
 {
@@ -94,7 +93,7 @@ public class CommunityBoard
 		}
 		else
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.CB_OFFLINE));
+			activeChar.sendPacket(SystemMessageId.CB_OFFLINE);
 		}
 	}
 

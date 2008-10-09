@@ -34,7 +34,6 @@ import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.geoserver.model.Location;
 
 /**
@@ -107,14 +106,14 @@ public class AdminSiege implements IAdminCommandHandler
 			if (command.equalsIgnoreCase("admin_add_attacker") && castle != null)
 			{
 				if (player == null)
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				else
 					castle.getSiege().registerAttacker(player, true);
 			}
 			else if (command.equalsIgnoreCase("admin_add_defender") && castle != null)
 			{
 				if (player == null)
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				else
 					castle.getSiege().registerDefender(player, true);
 			}
@@ -144,12 +143,12 @@ public class AdminSiege implements IAdminCommandHandler
 			}
 			else if (command.equalsIgnoreCase("admin_move_defenders"))
 			{
-				activeChar.sendPacket(SystemMessage.sendString("Not implemented yet."));
+				activeChar.sendMessage("Not implemented yet.");
 			}
 			else if (command.equalsIgnoreCase("admin_setcastle") && castle != null)
 			{
 				if (player == null || player.getClan() == null)
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				else
 					castle.setOwner(player.getClan());
 			}
@@ -189,7 +188,7 @@ public class AdminSiege implements IAdminCommandHandler
 			else if (command.equalsIgnoreCase("admin_clanhallset") && clanhall != null)
 			{
 				if (player == null || player.getClan() == null)
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				else if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
 					activeChar.sendMessage("This ClanHall isn't free!");
 				else if (player.getClan().getHasHideout() == 0)

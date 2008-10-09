@@ -57,7 +57,7 @@ public class SpiritShot implements IItemHandler
 		if (weaponInst == null || weaponItem.getSpiritShotCount() == 0)
 		{
 			if (!activeChar.getAutoSoulShot().containsKey(itemId))
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_SPIRITSHOTS));
+				activeChar.sendPacket(SystemMessageId.CANNOT_USE_SPIRITSHOTS);
 			return;
 		}
 
@@ -73,7 +73,7 @@ public class SpiritShot implements IItemHandler
 				|| (weaponGrade == L2Item.CRYSTAL_S80 && itemId != 2514))
 		{
 			if (!activeChar.getAutoSoulShot().containsKey(itemId))
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.SPIRITSHOTS_GRADE_MISMATCH));
+				activeChar.sendPacket(SystemMessageId.SPIRITSHOTS_GRADE_MISMATCH);
 			return;
 		}
 
@@ -90,7 +90,7 @@ public class SpiritShot implements IItemHandler
 				activeChar.sendPacket(sm);
 			}
 			else
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_SPIRITSHOTS));
+				activeChar.sendPacket(SystemMessageId.NOT_ENOUGH_SPIRITSHOTS);
 			return;
 		}
 
@@ -98,7 +98,7 @@ public class SpiritShot implements IItemHandler
 		weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_SPIRITSHOT);
 
 		// Send message to client
-		activeChar.sendPacket(new SystemMessage(SystemMessageId.ENABLED_SPIRITSHOT));
+		activeChar.sendPacket(SystemMessageId.ENABLED_SPIRITSHOT);
 		Broadcast.toSelfAndKnownPlayersInRadius(activeChar, new MagicSkillUse(activeChar, activeChar, SKILL_IDS[weaponGrade], 1, 0, 0), 360000/*600*/);
 	}
 

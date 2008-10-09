@@ -73,8 +73,7 @@ public class Loc implements IUserCommandHandler
 			{
 				if (restart.getLocName() != 943)
 				{
-					SystemMessage message = new SystemMessage(SystemMessageId.getSystemMessageId(msg.getId() + 31));
-					activeChar.sendPacket(message);
+					activeChar.sendPacket(SystemMessageId.getSystemMessageId(msg.getId() + 31));
 				}
 				else
 					activeChar.sendMessage("Restart at the Town of Gludio.");

@@ -247,8 +247,7 @@ public class RegionBBSManager extends BaseBBSManager
 					}
 					else
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);
-						activeChar.sendPacket(sm);
+						activeChar.sendPacket(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);
 						parsecmd("_bbsloc;playerinfo;" + receiver.getName(), activeChar);
 					}
 				}

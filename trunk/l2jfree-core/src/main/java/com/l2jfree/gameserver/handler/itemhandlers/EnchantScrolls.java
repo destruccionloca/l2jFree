@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ChooseInventoryItem;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class EnchantScrolls implements IItemHandler
 {
@@ -71,7 +70,7 @@ public class EnchantScrolls implements IItemHandler
 		}
 
 		activeChar.setActiveEnchantItem(item);
-		activeChar.sendPacket(new SystemMessage(SystemMessageId.SELECT_ITEM_TO_ENCHANT));
+		activeChar.sendPacket(SystemMessageId.SELECT_ITEM_TO_ENCHANT);
 
 		int itemId = item.getItemId();
 

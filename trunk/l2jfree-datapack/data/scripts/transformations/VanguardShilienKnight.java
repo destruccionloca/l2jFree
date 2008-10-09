@@ -65,10 +65,11 @@ public class VanguardShilienKnight extends L2Transformation
 	{
 		if (player.getLevel() > 43)
 		{
+			int level = player.getLevel() - 43;
 			// Full Swing
-			addSkill(player, 814, 1);
+			addSkill(player, 814, level);
 			// Power Divide aka Cleave
-			addSkill(player, 816, 1);
+			addSkill(player, 816, level);
 			// Switch Stance
 			addSkill(player, 838, 1);
 			// Send a Server->Client packet StatusUpdate to the L2PcInstance.

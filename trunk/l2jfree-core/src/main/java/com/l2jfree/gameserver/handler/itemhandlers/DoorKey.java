@@ -26,7 +26,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -73,7 +72,7 @@ public class DoorKey implements IItemHandler
 
 		if (!(target instanceof L2DoorInstance))
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
@@ -188,7 +187,7 @@ public class DoorKey implements IItemHandler
 		{
 			if ((door.getDoorId() != 23150003 && door.getDoorId() != 23150004) || door.getOpen() == 0)
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
@@ -204,7 +203,7 @@ public class DoorKey implements IItemHandler
 		{
 			if ((door.getDoorId() != 24220020) || door.getOpen() == 0)
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
@@ -218,7 +217,7 @@ public class DoorKey implements IItemHandler
 		{
 			if ((door.getDoorId() != 24220022) || door.getOpen() == 0)
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
@@ -233,7 +232,7 @@ public class DoorKey implements IItemHandler
 			if ((door.getDoorId() != 24220001 && door.getDoorId() != 24220002 && door.getDoorId() != 24220003 && door.getDoorId() != 24220004)
 					|| door.getOpen() == 0)
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}

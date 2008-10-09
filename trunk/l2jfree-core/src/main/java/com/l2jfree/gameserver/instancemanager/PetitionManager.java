@@ -142,7 +142,7 @@ public final class PetitionManager
 
 			// End petition consultation and inform them, if they are still online.
 			if (getPetitioner() != null && getPetitioner().isOnline() == 1)
-				getPetitioner().sendPacket(new SystemMessage(SystemMessageId.THIS_END_THE_PETITION_PLEASE_PROVIDE_FEEDBACK));
+				getPetitioner().sendPacket(SystemMessageId.THIS_END_THE_PETITION_PLEASE_PROVIDE_FEEDBACK);
 
 			getCompletedPetitions().put(getId(), this);
 			return (getPendingPetitions().remove(getId()) != null);

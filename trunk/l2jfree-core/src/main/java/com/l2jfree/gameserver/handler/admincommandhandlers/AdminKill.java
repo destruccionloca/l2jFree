@@ -28,7 +28,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2ControllableMobInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class handles following admin commands:
@@ -126,7 +125,7 @@ public class AdminKill implements IAdminCommandHandler
 
 				if (obj instanceof L2ControllableMobInstance || !(obj instanceof L2Character))
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+					activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				}
 				else
 				{

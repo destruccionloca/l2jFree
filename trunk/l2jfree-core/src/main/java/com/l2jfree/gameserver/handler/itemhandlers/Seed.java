@@ -30,7 +30,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * @author  l3x
@@ -313,14 +312,14 @@ public class Seed implements IItemHandler
 
 		if (!(target instanceof L2NpcInstance))
 		{
-			_activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			_activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
 		if (!(target instanceof L2MonsterInstance) || (target instanceof L2ChestInstance) || (target instanceof L2Boss))
 		{
-			_activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_TARGET_IS_UNAVAILABLE_FOR_SEEDING));
+			_activeChar.sendPacket(SystemMessageId.THE_TARGET_IS_UNAVAILABLE_FOR_SEEDING);
 			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
@@ -329,7 +328,7 @@ public class Seed implements IItemHandler
 
 		if (_target == null || _target.isDead())
 		{
-			_activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			_activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
@@ -351,7 +350,7 @@ public class Seed implements IItemHandler
 		}
 		else
 		{
-			_activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_SEED_MAY_NOT_BE_SOWN_HERE));
+			_activeChar.sendPacket(SystemMessageId.THIS_SEED_MAY_NOT_BE_SOWN_HERE);
 		}
 	}
 

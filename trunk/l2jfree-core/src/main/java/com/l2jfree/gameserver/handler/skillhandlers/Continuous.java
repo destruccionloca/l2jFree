@@ -282,7 +282,7 @@ public class Continuous implements ISkillHandler
 				boolean acted = Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill);
 				if (!acted)
 				{
-					activeCubic.getOwner().sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
+					activeCubic.getOwner().sendPacket(SystemMessageId.ATTACK_FAILED);
 					continue;
 				}
 			}

@@ -68,7 +68,7 @@ public class ChatWhisper implements IChatHandler
 				activeChar.broadcastSnoop(chatType.getId(), "->" + receiver.getName(), text);
 			}
 			else
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE));
+				activeChar.sendPacket(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);
 		}
 		else
 		{

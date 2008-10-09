@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
 /**
@@ -56,7 +55,8 @@ public final class L2ObservationInstance extends L2FolkInstance
             if (SiegeManager.getInstance().checkIfInZone(Integer.parseInt(st.nextToken()),
                                                          Integer.parseInt(st.nextToken()),
                                                          Integer.parseInt(st.nextToken()))) doObserve(player,val);
-            else player.sendPacket(new SystemMessage(SystemMessageId.ONLY_VIEW_SIEGE));
+            else
+                player.sendPacket(SystemMessageId.ONLY_VIEW_SIEGE);
         }
         else if (command.startsWith("observe"))
         {

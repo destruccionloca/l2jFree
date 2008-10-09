@@ -116,7 +116,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				if (target != null)
 					showCharacterInfo(activeChar, target);
 				else
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.CHARACTER_DOES_NOT_EXIST));
+					activeChar.sendPacket(SystemMessageId.CHARACTER_DOES_NOT_EXIST);
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
@@ -424,7 +424,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				targetPet.getOwner().sendPacket(new SetSummonRemainTime(targetPet.getMaxFed(), targetPet.getCurrentFed()));
 			}
 			else
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 		}
 		// [L2J_JP ADD START]
 		else if (command.startsWith("admin_sethero") || command.startsWith("admin_manualhero"))

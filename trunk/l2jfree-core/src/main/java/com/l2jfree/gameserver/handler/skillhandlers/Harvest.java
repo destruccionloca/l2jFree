@@ -75,8 +75,7 @@ public class Harvest implements ISkillHandler
 
 			if (_activeChar != _target.getSeeder())
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_HARVEST);
-				_activeChar.sendPacket(sm);
+				_activeChar.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_HARVEST);
 				continue;
 			}
 
@@ -130,12 +129,12 @@ public class Harvest implements ISkillHandler
 				}
 				else
 				{
-					_activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_HARVEST_HAS_FAILED));
+					_activeChar.sendPacket(SystemMessageId.THE_HARVEST_HAS_FAILED);
 				}
 			}
 			else
 			{
-				_activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_HARVEST_FAILED_BECAUSE_THE_SEED_WAS_NOT_SOWN));
+				_activeChar.sendPacket(SystemMessageId.THE_HARVEST_FAILED_BECAUSE_THE_SEED_WAS_NOT_SOWN);
 			}
 		}
 	}

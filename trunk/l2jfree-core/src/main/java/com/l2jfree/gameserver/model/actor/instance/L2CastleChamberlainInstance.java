@@ -47,7 +47,6 @@ import com.l2jfree.gameserver.network.serverpackets.ExShowSeedInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExShowSeedSetting;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
@@ -311,7 +310,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 							if (player.reduceAdena("Castle", amount, this, true))
 								getCastle().addToTreasuryNoTax(amount);
 							else
-								sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+								sendPacket(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 						}
 					}
 					else if (val.equalsIgnoreCase("withdraw"))
@@ -402,7 +401,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				if (CastleManorManager.getInstance().isUnderMaintenance())
 				{
 					player.sendPacket(ActionFailed.STATIC_PACKET);
-					player.sendPacket(new SystemMessage(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE));
+					player.sendPacket(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE);
 					return;
 				}
 
@@ -438,13 +437,13 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					break;
 				case 7: // Edit seed setup
 					if (getCastle().isNextPeriodApproved())
-						player.sendPacket(new SystemMessage(SystemMessageId.A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM));
+						player.sendPacket(SystemMessageId.A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM);
 					else
 						player.sendPacket(new ExShowSeedSetting(getCastle().getCastleId()));
 					break;
 				case 8: // Edit crop setup
 					if (getCastle().isNextPeriodApproved())
-						player.sendPacket(new SystemMessage(SystemMessageId.A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM));
+						player.sendPacket(SystemMessageId.A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM);
 					else
 						player.sendPacket(new ExShowCropSetting(getCastle().getCastleId()));
 					break;

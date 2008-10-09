@@ -60,7 +60,7 @@ public class Recall implements ISkillHandler
 		{
 			if (((L2PcInstance) activeChar).isInOlympiadMode())
 			{
-				((L2PcInstance) activeChar).sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
+				((L2PcInstance) activeChar).sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
 				return;
 			}
 		}

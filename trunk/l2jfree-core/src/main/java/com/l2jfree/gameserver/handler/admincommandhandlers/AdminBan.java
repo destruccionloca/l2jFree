@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 
 /**
@@ -66,7 +65,7 @@ public class AdminBan implements IAdminCommandHandler
 			}
 			if (plyr != null && plyr == activeChar)
 			{
-				plyr.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ON_YOURSELF));
+				plyr.sendPacket(SystemMessageId.CANNOT_USE_ON_YOURSELF);
 			}
 			else if (plyr == null)
 			{

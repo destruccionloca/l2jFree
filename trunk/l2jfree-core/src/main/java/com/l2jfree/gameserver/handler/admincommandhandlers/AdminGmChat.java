@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class handles following admin commands:
@@ -71,12 +70,12 @@ public class AdminGmChat implements IAdminCommandHandler
 		L2PcInstance player = L2World.getInstance().getPlayer(st.nextToken());
 		if(player == null)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_CANT_FOUND));
+			activeChar.sendPacket(SystemMessageId.TARGET_CANT_FOUND);
 			return;
 		}
 		if (player.getAccessLevel() > activeChar.getAccessLevel())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			player.sendMessage(activeChar.getName() + " tried to snoop your conversations. Blocked.");
 			return;
 		}

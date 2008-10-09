@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.tools.random.Rnd;
 
@@ -53,7 +52,7 @@ public class Unlock implements ISkillHandler
 				L2DoorInstance door = (L2DoorInstance) target;
 				if (!door.isUnlockable())
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.UNABLE_TO_UNLOCK_DOOR));
+					activeChar.sendPacket(SystemMessageId.UNABLE_TO_UNLOCK_DOOR);
 					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
@@ -66,7 +65,7 @@ public class Unlock implements ISkillHandler
 				}
 				else
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.FAILED_TO_UNLOCK_DOOR));
+					activeChar.sendPacket(SystemMessageId.FAILED_TO_UNLOCK_DOOR);
 				}
 			}
 			else if (target instanceof L2ChestInstance)

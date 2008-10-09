@@ -26,7 +26,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2ControllableMobInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 
 /**
@@ -114,7 +113,7 @@ public class AdminRes implements IAdminCommandHandler
 
 		if (obj instanceof L2ControllableMobInstance)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return;
 		}
 
@@ -156,7 +155,7 @@ public class AdminRes implements IAdminCommandHandler
 
 		if (obj == null || obj instanceof L2PcInstance || obj instanceof L2ControllableMobInstance)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return;
 		}
 

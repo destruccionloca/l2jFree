@@ -65,7 +65,7 @@ public class EnergyStone implements IItemHandler
 
 			if (activeChar.isSitting())
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
+				activeChar.sendPacket(SystemMessageId.CANT_MOVE_SITTING);
 				return;
 			}
 
@@ -103,7 +103,7 @@ public class EnergyStone implements IItemHandler
 			}
 			else if (_effect.getLevel() == 2)
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.FORCE_MAXLEVEL_REACHED));
+				activeChar.sendPacket(SystemMessageId.FORCE_MAXLEVEL_REACHED);
 			}
 			SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
 			sm.addNumber(_effect.getLevel());
