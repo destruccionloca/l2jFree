@@ -1887,11 +1887,16 @@ public abstract class L2Character extends L2Object
 		case TARGET_BEHIND_AURA:
 		case TARGET_GROUND:
 		{
-			if (targets.length==0||targets==null)
+			if (targets.length == 0 || targets == null)
+			{
+				getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+				setIsCastingNow(false);
 				return;
+			}
 			break;
 		}
-		default:break;
+		default:
+			break;
 		}
 
 		// Before start AI Cast Broadcast Fly Effect is Need
