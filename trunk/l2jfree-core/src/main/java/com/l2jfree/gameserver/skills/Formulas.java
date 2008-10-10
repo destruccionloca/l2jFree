@@ -1944,20 +1944,7 @@ public final class Formulas
 	}
 
 	/** Calculate delay (in milliseconds) for skills cast */
-	public final int calcMAtkSpd(L2Character attacker, @SuppressWarnings("unused")
-	L2Character target, L2Skill skill, double time)
-	{
-		if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
-			return (int) time;
-		else if (skill.isMagic())
-			return (int) (time * 333 / attacker.getMAtkSpd());
-		else
-			return (int) (time * 333 / attacker.getPAtkSpd());
-
-	}
-
-	/** Calculate delay (in milliseconds) for skills cast */
-	public final int calcMAtkSpd(L2Character attacker, L2Skill skill, double time)
+	public final int calcAtkSpd(L2Character attacker, L2Skill skill, double time)
 	{
 		if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
 			return (int) time;

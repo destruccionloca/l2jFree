@@ -10979,6 +10979,9 @@ public final class L2PcInstance extends L2PlayableInstance
 				return true;
 		}
 
+		if (cmd.startsWith("npc_") && cmd.endsWith("_SevenSigns 7"))
+			return true;
+
 		_log.warn("[L2PcInstance] player [" + getName() + "] sent invalid bypass '" + cmd + "', ban this player!");
 		return false;
 	}

@@ -1684,16 +1684,16 @@ public abstract class L2Character extends L2Object
 
 		// Calculate the casting time of the skill (base + modifier of MAtkSpd)
 		// Don't modify the skill time for FORCE_BUFF skills. The skill time for those skills represent the buff time.
-		if (!effectWhileCasting && !skill.isStaticReuse())
+		if (!effectWhileCasting)
 		{
-			hitTime = Formulas.getInstance().calcMAtkSpd(this, skill, hitTime);
+			hitTime = Formulas.getInstance().calcAtkSpd(this, skill, hitTime);
 			if (coolTime > 0)
-				coolTime = Formulas.getInstance().calcMAtkSpd(this, skill, coolTime);
+				coolTime = Formulas.getInstance().calcAtkSpd(this, skill, coolTime);
 		}
 
 		// Calculate the Interrupt Time of the skill (base + modifier) if the skill is a spell else 0
 		if (skill.isMagic())
-			skillInterruptTime = Formulas.getInstance().calcMAtkSpd(this, skill, skillInterruptTime);
+			skillInterruptTime = Formulas.getInstance().calcAtkSpd(this, skill, skillInterruptTime);
 		else
 			skillInterruptTime = 0;
 
@@ -1731,6 +1731,13 @@ public abstract class L2Character extends L2Object
 				coolTime = (int) (0.70 * coolTime);
 				skillInterruptTime = (int) (0.70 * skillInterruptTime);
 			}
+		}
+
+		// Don't modify skills HitTime if staticHitTime is specified for skill in datapack.
+		if (skill.isStaticHitTime())
+		{
+			hitTime = skill.getHitTime();
+			coolTime = skill.getCoolTime();
 		}
 
 		// Set the _castInterruptTime and casting status (L2PcInstance already has this true)

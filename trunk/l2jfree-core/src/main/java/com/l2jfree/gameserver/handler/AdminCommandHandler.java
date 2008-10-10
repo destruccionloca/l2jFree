@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.handler.admincommandhandlers.AdminDoorControl;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditNpc;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEffects;
+import com.l2jfree.gameserver.handler.admincommandhandlers.AdminElement;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEnchant;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEventEngine;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminExpSp;
@@ -134,6 +135,7 @@ public class AdminCommandHandler
 		registerAdminCommandHandler(new AdminEditChar());
 		registerAdminCommandHandler(new AdminEditNpc());
 		registerAdminCommandHandler(new AdminEffects());
+		registerAdminCommandHandler(new AdminElement());
 		registerAdminCommandHandler(new AdminEnchant());
 		registerAdminCommandHandler(new AdminEventEngine());
 		registerAdminCommandHandler(new AdminExpSp());

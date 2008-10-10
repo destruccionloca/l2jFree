@@ -46,18 +46,17 @@ public class Unlock implements ISkillHandler
 		{
 			L2Object target = element;
 
-			boolean success = Formulas.getInstance().calculateUnlockChance(skill);
 			if (target instanceof L2DoorInstance)
 			{
 				L2DoorInstance door = (L2DoorInstance) target;
-				if (!door.isUnlockable())
+				if (!door.isUnlockable() || door.getFort() != null)
 				{
 					activeChar.sendPacket(SystemMessageId.UNABLE_TO_UNLOCK_DOOR);
 					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
 
-				if (success && (door.getOpen() == 1))
+				if (door.getOpen() == 1 && Formulas.getInstance().calculateUnlockChance(skill))
 				{
 					door.openMe();
 					door.onOpen();
