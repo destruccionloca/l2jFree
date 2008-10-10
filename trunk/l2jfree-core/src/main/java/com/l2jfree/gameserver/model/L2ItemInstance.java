@@ -848,8 +848,7 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public void removeAugmentation()
 	{
-		if (_augmentation == null)
-			return;
+		_augmentation = null;
 
 		Connection con = null;
 		try
@@ -1016,10 +1015,7 @@ public final class L2ItemInstance extends L2Object
 
 	public void clearElementAttr()
 	{
-		if (_elementals != null)
-		{
-			_elementals = null;
-		}
+		_elementals = null;
 
 		Connection con = null;
 		try
