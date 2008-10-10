@@ -170,12 +170,9 @@
       tricks.
     -->
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="UNLOCK" />
-    <!--
-      havent found any matching skilltype, this one working
-      fine :)
-    -->
+    <set name="skillType" val="UNLOCK" /> <!-- havent found any matching skilltype, this one working fine :) -->
     <set name="hitTime" val="3000" />
+    <set name="staticHitTime" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -188,12 +185,9 @@
       tricks.
     -->
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="UNLOCK" />
-    <!--
-      havent found any matching skilltype, this one working
-      fine :)
-    -->
+    <set name="skillType" val="UNLOCK" /> <!-- havent found any matching skilltype, this one working fine :) -->
     <set name="hitTime" val="3000" />
+    <set name="staticHitTime" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -206,12 +200,9 @@
       tricks.
     -->
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="UNLOCK" />
-    <!--
-      havent found any matching skilltype, this one working
-      fine :)
-    -->
+    <set name="skillType" val="UNLOCK" /> <!-- havent found any matching skilltype, this one working fine :) -->
     <set name="hitTime" val="3000" />
+    <set name="staticHitTime" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -812,12 +803,9 @@
       tricks.
     -->
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="UNLOCK" />
-    <!--
-      havent found any matching skilltype, this one working
-      fine :)
-    -->
+    <set name="skillType" val="UNLOCK" /> <!-- havent found any matching skilltype, this one working fine :) -->
     <set name="hitTime" val="3000" />
+    <set name="staticHitTime" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />

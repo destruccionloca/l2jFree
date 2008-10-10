@@ -958,6 +958,7 @@
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="4000" />
+    <set name="staticHitTime" val="true" />
     <set name="reuseDelay" val="1800000" />
     <set name="skillType" val="SIEGEFLAG" />
     <set name="operateType" val="OP_ACTIVE" />
