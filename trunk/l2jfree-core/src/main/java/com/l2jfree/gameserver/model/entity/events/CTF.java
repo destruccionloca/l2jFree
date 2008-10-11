@@ -261,11 +261,6 @@ public class CTF
 
 	public static void addFlagToPlayer(L2PcInstance _player)
 	{
-		if(_player.isRidingFenrirWolf() || _player.isRidingGreatSnowWolf() || _player.isRidingStrider() || _player.isRidingWFenrirWolf() || _player.isFlying())
-		{
-			_player.sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_A_PET_OR_A_SERVITOR_IS_SUMMONED);
-			return;
-		}
 		//remove items from the player hands (right, left, both)
 		// This is NOT a BUG, I don't want them to see the icon they have 8D
 		L2ItemInstance wpn = _player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
@@ -540,15 +535,23 @@ public class CTF
 					//if the player is near a enemy flag
 					if (InRangeOfFlag(_player, indexEnemy, 100) && !_flagsTaken.get(indexEnemy) && !_player._haveFlagCTF && !_player.isDead())
 					{
-						_flagsTaken.set(indexEnemy, true);
-						unspawnFlag(team);
-						_player._teamNameHaveFlagCTF = team;
-						addFlagToPlayer(_player);
-						_player.broadcastUserInfo();
-						_player._haveFlagCTF = true;
-						AnnounceToPlayers(false, _eventName + "(CTF): " + team + " flag taken by " + _player.getName() + "...");
-						pointTeamTo(_player, team);
-						break;
+						if(_player.isRidingFenrirWolf() || _player.isRidingGreatSnowWolf() || _player.isRidingStrider() || _player.isRidingWFenrirWolf() || _player.isFlying())
+						{
+							_player.sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_A_PET_OR_A_SERVITOR_IS_SUMMONED);
+							break;
+						}
+						else
+						{
+							_flagsTaken.set(indexEnemy, true);
+							unspawnFlag(team);
+							_player._teamNameHaveFlagCTF = team;
+							addFlagToPlayer(_player);
+							_player.broadcastUserInfo();
+							_player._haveFlagCTF = true;
+							AnnounceToPlayers(false, _eventName + "(CTF): " + team + " flag taken by " + _player.getName() + "...");
+							pointTeamTo(_player, team);
+							break;
+						}
 					}
 				}
 			}
