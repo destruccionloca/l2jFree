@@ -47,6 +47,7 @@ import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
@@ -260,6 +261,11 @@ public class CTF
 
 	public static void addFlagToPlayer(L2PcInstance _player)
 	{
+		if(_player.isRidingFenrirWolf() || _player.isRidingGreatSnowWolf() || _player.isRidingStrider() || _player.isRidingWFenrirWolf() || _player.isFlying())
+		{
+			_player.sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_A_PET_OR_A_SERVITOR_IS_SUMMONED);
+			return;
+		}
 		//remove items from the player hands (right, left, both)
 		// This is NOT a BUG, I don't want them to see the icon they have 8D
 		L2ItemInstance wpn = _player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);

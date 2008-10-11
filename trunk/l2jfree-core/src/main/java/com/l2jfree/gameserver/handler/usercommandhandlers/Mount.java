@@ -47,6 +47,12 @@ public class Mount implements IUserCommandHandler
 				activeChar.sendMessage("Your Wolf needs minimum level " + Config.GREAT_WOLF_MOUNT_LEVEL);
 				return false;
 			}
+			if (activeChar._haveFlagCTF)
+			{
+				// You cannot mount a steed while holding a flag.
+				activeChar.sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_HOLDING_A_FLAG);
+				return false;
+			}
 			if (activeChar.isTransformed())
 			{
 				// You cannot mount a steed while transformed.
