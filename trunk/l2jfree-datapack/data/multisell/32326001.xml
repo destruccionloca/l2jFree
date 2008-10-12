@@ -1,32 +1,38 @@
 <?xml version='1.0' encoding='utf-8'?>
-<!-- Elemental attributes -->
+
+<!-- Elemental potions multisell -->
 <list>
-  <!-- fire potion for 30000 adena -->
+  <!-- Fire potion -->
   <item id="1">
     <ingredient id="57" count="30000" />
     <production id="9997" count="1" />
   </item>
-  <!-- water  potion for 30000 adena -->
+
+  <!-- Water potion -->
   <item id="2">
     <ingredient id="57" count="30000" />
     <production id="9998" count="1" />
   </item>
-  <!-- earth potion for 30000 adena -->
+
+  <!-- Earth potion -->
   <item id="3">
     <ingredient id="57" count="30000" />
     <production id="9999" count="1" />
   </item>
-  <!-- wind potion for 30000 adena -->
+
+  <!-- Wind potion -->
   <item id="4">
     <ingredient id="57" count="30000" />
     <production id="10000" count="1" />
   </item>
-  <!-- dark potion for 30000 adena -->
+
+  <!-- Dark potion -->
   <item id="5">
     <ingredient id="57" count="30000" />
     <production id="10001" count="1" />
   </item>
-  <!-- divine potion for 30000 adena -->
+
+  <!-- Divine potion -->
   <item id="6">
     <ingredient id="57" count="30000" />
     <production id="10002" count="1" />
