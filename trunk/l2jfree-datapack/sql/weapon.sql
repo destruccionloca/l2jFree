@@ -2922,3 +2922,32 @@ UPDATE `weapon` SET `bodypart` = 'lrhand' WHERE CONCAT( `weapon`.`item_id` ) =10
 UPDATE `weapon` SET `bodypart` = 'lrhand' WHERE CONCAT( `weapon`.`item_id` ) =12966 LIMIT 1 ;
 UPDATE `weapon` SET `bodypart` = 'lrhand' WHERE CONCAT( `weapon`.`item_id` ) =12967 LIMIT 1 ;
 UPDATE `weapon` SET `bodypart` = 'lrhand' WHERE CONCAT( `weapon`.`item_id` ) =12968 LIMIT 1 ;
+
+-- Fix for SA Critical Drain
+UPDATE `weapon` SET `skills_item` = '' WHERE `item_id` IN (5604,8104,8105,8125,8128,9287,9321);
+UPDATE `weapon` SET `skills_onCrit` = '3022-4-15' WHERE `item_id` = '4694';
+UPDATE `weapon` SET `skills_onCrit` = '3022-4-10' WHERE `item_id` = '4795';
+UPDATE `weapon` SET `skills_onCrit` = '3039-3-10' WHERE `item_id` = '4804';
+UPDATE `weapon` SET `skills_onCrit` = '3022-4-10' WHERE `item_id` = '4807';
+UPDATE `weapon` SET `skills_onCrit` = '3039-7-10' WHERE `item_id` = '5604';
+UPDATE `weapon` SET `skills_onCrit` = '3022-6-20' WHERE `item_id` = '5646';
+UPDATE `weapon` SET `skills_onCrit` = '3022-4-20' WHERE `item_id` = '6308';
+UPDATE `weapon` SET `skills_onCrit` = '3022-4-15' WHERE `item_id` = '8104';
+UPDATE `weapon` SET `skills_onCrit` = '3022-3-15' WHERE `item_id` = '8105';
+UPDATE `weapon` SET `skills_onCrit` = '3022-4-10' WHERE `item_id` = '8125';
+UPDATE `weapon` SET `skills_onCrit` = '3039-6-15' WHERE `item_id` = '8128';
+UPDATE `weapon` SET `skills_onCrit` = '3039-3-15' WHERE `item_id` = '8811';
+UPDATE `weapon` SET `skills_onCrit` = '3022-4-10' WHERE `item_id` = '9254';
+UPDATE `weapon` SET `skills_onCrit` = '3022-4-10' WHERE `item_id` = '9282';
+UPDATE `weapon` SET `skills_onCrit` = '3022-4-10' WHERE `item_id` = '9287';
+UPDATE `weapon` SET `skills_onCrit` = '3022-3-10' WHERE `item_id` = '9321';
+UPDATE `weapon` SET `skills_onCrit` = '3022-6-20' WHERE `item_id` = '9347';
+UPDATE `weapon` SET `skills_onCrit` = '3039-3-20' WHERE `item_id` = '10690';
+UPDATE `weapon` SET `skills_onCrit` = '3022-3-15' WHERE `item_id` = '10956';
+UPDATE `weapon` SET `skills_onCrit` = '3022-3-15' WHERE `item_id` = '10964';
+UPDATE `weapon` SET `skills_onCrit` = '3039-3-15' WHERE `item_id` = '10972';
+UPDATE `weapon` SET `skills_onCrit` = '3039-6-20' WHERE `item_id` = '11065';
+UPDATE `weapon` SET `skills_onCrit` = '3022-6-20' WHERE `item_id` = '11087';
+UPDATE `weapon` SET `skills_onCrit` = '3022-6-20' WHERE `item_id` = '11099';
+UPDATE `weapon` SET `skills_onCrit` = '3039-4-20' WHERE `item_id` = '11123';
+UPDATE `weapon` SET `skills_onCrit` = '3039-3-20' WHERE `item_id` = '11168';

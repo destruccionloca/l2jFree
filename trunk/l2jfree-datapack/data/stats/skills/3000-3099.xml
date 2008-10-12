@@ -298,14 +298,13 @@
         val="#dmg" abnormal="bleeding" />
     </for>
   </skill>
-  <skill id="3022" levels="7"
+  <skill id="3022" levels="6"
     name="Special Ability: Critical Drain">
     <!-- Done by SarutrA - SqueezeD -->
-    <table name="#magicLvl">68 69 70 71 72 73 74</table>
-    <table name="#power"> 90.0 92.0 94.0 96.0 98.0 100.0 102.0 
-    </table>
+    <table name="#magicLvl">68 69 70 71 72 73</table>
+    <table name="#HPget"> 6 7 8 9 10 11 </table>
     <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="#power" />
+    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="element" val="6" />
     <set name="skillType" val="DRAIN" />
@@ -313,15 +312,8 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <!-- Drain-specific: absorb 20% from target's damage -->
-    <set name="absorbPart" val="0.2" />
-    <!--
-      absorbs 20% or damage
-    -->
-    <set name="absorbAbs" val="0" />
-    <!--
-      Drain absorbs absolute values from corpses only
-    -->
+    <set name="absorbPart" val="0" />
+    <set name="absorbAbs" val="#HPget" />
     <for />
   </skill>
   <skill id="3023" levels="6"
@@ -607,19 +599,22 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3039" levels="6"
+  <skill id="3039" levels="7"
     name="Special Ability: Critical Drain">
-    <!--
-      Automatically generated from C3 client files. Need to
-      be checked/fixed. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability. created
-      2005-05-29 23:34:31
-    -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
+    <!-- Done by SarutrA - SqueezeD -->
+    <table name="#magicLvl">74 75 76 77 78 79 80</table>
+    <table name="#HPget"> 12 13 14 15 17 18 19 </table>
+    <set name="magicLvl" val="#magicLvl" />
+    <set name="power" val="0.0" />
+    <set name="target" val="TARGET_ONE" />
+    <set name="element" val="6" />
+    <set name="skillType" val="DRAIN" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
+    <set name="effectRange" val="1100" />
+    <set name="absorbPart" val="0" />
+    <set name="absorbAbs" val="#HPget" />
     <for />
   </skill>
   <skill id="3040" levels="6"
