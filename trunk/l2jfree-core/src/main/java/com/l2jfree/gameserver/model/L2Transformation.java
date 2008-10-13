@@ -114,4 +114,9 @@ public abstract class L2Transformation
     {
         player.removeSkill(skillId);
     }
+
+    // Override if necessary
+    public void onLevelUp()
+    {
+    }
 }

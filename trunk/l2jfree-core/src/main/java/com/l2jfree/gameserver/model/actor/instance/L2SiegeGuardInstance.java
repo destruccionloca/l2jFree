@@ -67,14 +67,17 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	@Override
 	public L2CharacterAI getAI()
 	{
-		if (_ai == null)
-		{
-			synchronized (this)
-			{
-				_ai = new L2SiegeGuardAI(new AIAccessor());
-			}
-		}
-		return _ai;
+		 L2CharacterAI ai = _ai; // copy handle
+		 if (ai == null)
+		 {
+			 synchronized(this)
+			 {
+				 if (_ai == null)
+					_ai = new L2SiegeGuardAI(new AIAccessor());
+				 return _ai;
+			 }
+		 }
+		 return ai;
 	}
 
 	/**

@@ -1125,14 +1125,17 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public L2CharacterAI getAI()
 	{
-		if (_ai == null)
+		L2CharacterAI ai = _ai; // copy handle
+		if (ai == null)
 		{
-			synchronized (this)
+			synchronized(this)
 			{
-				_ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
+				if (_ai == null)
+					_ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
+				return _ai;
 			}
 		}
-		return _ai;
+		return ai;
 	}
 
 	/** Return the Level of the L2PcInstance. */
@@ -10978,9 +10981,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (cmd.startsWith(bp))
 				return true;
 		}
-
-		if (cmd.startsWith("npc_") && cmd.endsWith("_SevenSigns 7"))
-			return true;
 
 		_log.warn("[L2PcInstance] player [" + getName() + "] sent invalid bypass '" + cmd + "', ban this player!");
 		return false;

@@ -2116,22 +2116,20 @@ public final class Config
 	// *******************************************************************************************
 	public static final String	SEVENSIGNS_FILE	= "./config/sevensigns.properties";
 	// *******************************************************************************************
-	public static boolean		ALT_GAME_REQUIRE_CASTLE_DAWN;						// Alternative gaming - player must be in a castle-owning clan or ally to
-	// sign up for Dawn.
-	public static boolean		ALT_GAME_REQUIRE_CLAN_CASTLE;						// Alternative gaming - allow clan-based castle ownage check rather than
-	// ally-based.
-	public static int			ALT_FESTIVAL_MIN_PLAYER;							// Minimum number of player to participate in SevenSigns Festival
+	public static boolean		ALT_GAME_CASTLE_DAWN;							// Alternative gaming - players must be in a castle-owning clan or ally to sign up for Dawn.
+	public static boolean		ALT_GAME_CASTLE_DUSK;							// Alternative gaming - players being in a castle-owning clan or ally cannot sign up for Dusk.
+	public static int			ALT_FESTIVAL_MIN_PLAYER;						// Minimum number of player to participate in SevenSigns Festival
 	public static int			ALT_MAXIMUM_PLAYER_CONTRIB;						// Maximum of player contrib during Festival
 	public static long			ALT_FESTIVAL_MANAGER_START;						// Festival Manager start time.
-	public static long			ALT_FESTIVAL_LENGTH;								// Festival Length
-	public static long			ALT_FESTIVAL_CYCLE_LENGTH;							// Festival Cycle Length
-	public static long			ALT_FESTIVAL_FIRST_SPAWN;							// Festival First Spawn
-	public static long			ALT_FESTIVAL_FIRST_SWARM;							// Festival First Swarm
-	public static long			ALT_FESTIVAL_SECOND_SPAWN;							// Festival Second Spawn
-	public static long			ALT_FESTIVAL_SECOND_SWARM;							// Festival Second Swarm
-	public static long			ALT_FESTIVAL_CHEST_SPAWN;							// Festival Chest Spawn
-	public static int			ALT_FESTIVAL_ARCHER_AGGRO;							// Aggro value of Archer in SevenSigns Festival
-	public static int			ALT_FESTIVAL_CHEST_AGGRO;							// Aggro value of Chest in SevenSigns Festival
+	public static long			ALT_FESTIVAL_LENGTH;							// Festival Length
+	public static long			ALT_FESTIVAL_CYCLE_LENGTH;						// Festival Cycle Length
+	public static long			ALT_FESTIVAL_FIRST_SPAWN;						// Festival First Spawn
+	public static long			ALT_FESTIVAL_FIRST_SWARM;						// Festival First Swarm
+	public static long			ALT_FESTIVAL_SECOND_SPAWN;						// Festival Second Spawn
+	public static long			ALT_FESTIVAL_SECOND_SWARM;						// Festival Second Swarm
+	public static long			ALT_FESTIVAL_CHEST_SPAWN;						// Festival Chest Spawn
+	public static int			ALT_FESTIVAL_ARCHER_AGGRO;						// Aggro value of Archer in SevenSigns Festival
+	public static int			ALT_FESTIVAL_CHEST_AGGRO;						// Aggro value of Chest in SevenSigns Festival
 	public static int			ALT_FESTIVAL_MONSTER_AGGRO;						// Aggro value of Monster in SevenSigns Festival
 	public static int			ALT_DAWN_JOIN_COST;								// Amount of adena to pay to join Dawn Cabal
 
@@ -2148,8 +2146,8 @@ public final class Config
 		{
 			Properties SevenSettings = new L2Properties(SEVENSIGNS_FILE);
 
-			ALT_GAME_REQUIRE_CASTLE_DAWN = Boolean.parseBoolean(SevenSettings.getProperty("AltRequireCastleForDawn", "False"));
-			ALT_GAME_REQUIRE_CLAN_CASTLE = Boolean.parseBoolean(SevenSettings.getProperty("AltRequireClanCastle", "False"));
+			ALT_GAME_CASTLE_DAWN = Boolean.parseBoolean(SevenSettings.getProperty("AltCastleForDawn", "True"));
+			ALT_GAME_CASTLE_DUSK = Boolean.parseBoolean(SevenSettings.getProperty("AltCastleForDusk", "True"));
 			ALT_FESTIVAL_MIN_PLAYER = Integer.parseInt(SevenSettings.getProperty("AltFestivalMinPlayer", "5"));
 			ALT_MAXIMUM_PLAYER_CONTRIB = Integer.parseInt(SevenSettings.getProperty("AltMaxPlayerContrib", "1000000"));
 			ALT_FESTIVAL_MANAGER_START = Long.parseLong(SevenSettings.getProperty("AltFestivalManagerStart", "120000"));
@@ -3576,10 +3574,10 @@ public final class Config
 			ALT_GAME_KARMA_PLAYER_CAN_TRADE = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AltKarmaPlayerCanUseWareHouse"))
 			ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("AltRequireCastleForDawn"))
-			ALT_GAME_REQUIRE_CASTLE_DAWN = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("AltRequireClanCastle"))
-			ALT_GAME_REQUIRE_CLAN_CASTLE = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AltCastleForDawn"))
+			ALT_GAME_CASTLE_DAWN = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AltCastleForDusk"))
+			ALT_GAME_CASTLE_DUSK = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AltFreeTeleporting"))
 			ALT_GAME_FREE_TELEPORT = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AltSubClassWithoutQuests"))

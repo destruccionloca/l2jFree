@@ -1295,7 +1295,7 @@ public abstract class Inventory extends ItemContainer
 					setPaperdollItem(PAPERDOLL_DECO1, item);
 				break;
 			default:
-				_log.warn("unknown body slot:" + targetSlot);
+				_log.warn("unknown body slot:" + targetSlot + " for item ID:"+item.getItemId());
 		}
 	}
 	

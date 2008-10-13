@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2MercManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;

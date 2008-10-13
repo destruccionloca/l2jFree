@@ -134,17 +134,19 @@ public class L2DoorInstance extends L2Character
 		}
 	}
 
-	@Override
-	public L2CharacterAI getAI()
+	public L2CharacterAI getAI() 
 	{
-		if (_ai == null)
+		L2CharacterAI ai = _ai; // copy handle
+		if (ai == null)
 		{
-			synchronized (this)
+			synchronized(this)
 			{
-				_ai = new L2DoorAI(new AIAccessor());
+				if (_ai == null)
+					_ai = new L2DoorAI(new AIAccessor());
+				return _ai;
 			}
 		}
-		return _ai;
+		return ai;
 	}
 
 	class CloseTask implements Runnable

@@ -85,6 +85,9 @@ public final class Formulas
 	protected static final double[]	DEXbonus				= new double[MAX_STAT_VALUE];
 	protected static final double[]	CONbonus				= new double[MAX_STAT_VALUE];
 
+	protected static final double[]	sqrtMENbonus			= new double[MAX_STAT_VALUE];
+	protected static final double[]	sqrtCONbonus			= new double[MAX_STAT_VALUE];
+
 	// These values are 100% matching retail tables, no need to change and no need add 
 	// calculation into the stat bonus when accessing (not efficient),
 	// better to have everything precalculated and use values directly (saves CPU)
@@ -102,6 +105,12 @@ public final class Formulas
 			CONbonus[i] = Math.floor(Math.pow(CONCompute[0], i - CONCompute[1]) * 100 + .5d) / 100;
 		for (int i = 0; i < MENbonus.length; i++)
 			MENbonus[i] = Math.floor(Math.pow(MENCompute[0], i - MENCompute[1]) * 100 + .5d) / 100;
+
+		// precompute  square root values
+		for (int i = 0; i < sqrtCONbonus.length; i++)
+			sqrtCONbonus[i] = Math.sqrt(CONbonus[i]);
+		for (int i = 0; i < sqrtMENbonus.length; i++)
+			sqrtMENbonus[i] = Math.sqrt(MENbonus[i]);
 	}
 
 	static class FuncAddLevel3 extends Func
@@ -2265,29 +2274,37 @@ public final class Formulas
 		double multiplier = 1;
 		if (type == null)
 			return multiplier;
-		switch (type)
+
+		try
 		{
-		case STUN:
-		case BLEED:
-			multiplier = 2 - Math.sqrt(CONbonus[target.getStat().getCON()]);
-			break;
-		case POISON:
-		case SLEEP:
-		case DEBUFF:
-		case WEAKNESS:
-		case ERASE:
-		case ROOT:
-		case MUTE:
-		case FEAR:
-		case BETRAY:
-		case CONFUSION:
-		case CONFUSE_MOB_ONLY:
-		case AGGREDUCE_CHAR:
-		case PARALYZE:
-			multiplier = 2 - Math.sqrt(MENbonus[target.getStat().getMEN()]);
-			break;
-		default:
-			return multiplier;
+			switch (type)
+			{
+			case STUN:
+			case BLEED:
+				multiplier = 2 - sqrtCONbonus[target.getStat().getCON()];
+				break;
+			case POISON:
+			case SLEEP:
+			case DEBUFF:
+			case WEAKNESS:
+			case ERASE:
+			case ROOT:
+			case MUTE:
+			case FEAR:
+			case BETRAY:
+			case CONFUSION:
+			case CONFUSE_MOB_ONLY:
+			case AGGREDUCE_CHAR:
+			case PARALYZE:
+				multiplier = 2 - sqrtMENbonus[target.getStat().getMEN()];
+				break;
+			default:
+				return multiplier;
+			}
+		}
+		catch (ArrayIndexOutOfBoundsException e)
+		{
+			_log.warn("Character "+target.getName()+" has been set (by a GM?) a MEN or CON stat value out of accepted range");
 		}
 		if (multiplier < 0)
 			multiplier = 0;

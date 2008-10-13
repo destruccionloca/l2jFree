@@ -123,6 +123,36 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     sm.addItemName(SevenSigns.RECORD_SEVEN_SIGNS_ID);
                     player.sendPacket(sm);
                     break;
+                case 34: // Pay the participation fee request
+                    boolean fee = true;
+                    L2ItemInstance adena = player.getInventory().getItemByItemId(57); //adena
+                    L2ItemInstance certif = player.getInventory().getItemByItemId(5708); //Lord of the Manor's Certificate of Approval
+                    if ((adena != null && adena.getCount() >= Config.ALT_DAWN_JOIN_COST) || (certif != null && certif.getCount() >= 1))
+                        fee = false;
+                    if (fee)
+                    {
+                        showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dawn_no.htm");
+                        break;
+                    }
+                case 33: // "I want to participate" request
+                    if (cabal == SevenSigns.CABAL_DUSK && Config.ALT_GAME_CASTLE_DUSK) //dusk
+                    {
+                        // castle owners cannot participate with dusk side
+                        if (player.getClan() != null && player.getClan().getHasCastle() > 0)
+                        {
+                            showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dusk_no.htm");
+                            break;
+                        }
+                    }
+                    else if(cabal == SevenSigns.CABAL_DAWN && Config.ALT_GAME_CASTLE_DAWN) //dawn
+                    {
+                        // clans without castle need to pay participation fee
+                        if (player.getClan() == null || player.getClan().getHasCastle() == 0)
+                        {
+                            showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dawn_fee.htm");
+                            break;
+                        }
+                    }
                 case 3: // Join Cabal Intro 1
                 case 8: // Festival of Darkness Intro - SevenSigns x [0]1
                 case 10: // Teleport Locations List
@@ -146,51 +176,52 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     }
                     else if (player.getClassId().level() >= 2)
                     {
-                        if (Config.ALT_GAME_REQUIRE_CASTLE_DAWN)
+                        if (Config.ALT_GAME_CASTLE_DUSK)
                         {
-                            /*if (getPlayerAllyHasCastle(player))
+                            if (player.getClan() != null && player.getClan().getHasCastle() >= 0)
                             {
                                 if (cabal == SevenSigns.CABAL_DUSK)
                                 {
-                                    player.sendMessage("You must not be a member of a castle-owning clan to join the Revolutionaries of Dusk.");
+                                    showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dusk_no.htm");
                                     return;
                                 }
                             }
-                            else*/
+                        }
+                        /*
+                         * If the player is trying to join the Lords of Dawn, check if they are
+                         * carrying a Lord's certificate.
+                         *
+                         * If not then try to take the required amount of adena instead.
+                         */
+                        if (Config.ALT_GAME_CASTLE_DAWN)
+                        {
+                            if (cabal == SevenSigns.CABAL_DAWN)
                             {
-                                /*
-                                 * If the player is trying to join the Lords of Dawn, check if they are
-                                 * carrying a Lord's certificate.
-                                 * 
-                                 * If not then try to take the required amount of adena instead.
-                                 */
-                                if (cabal == SevenSigns.CABAL_DAWN)
+                                boolean allowJoinDawn = false;
+
+                                if (player.getClan() != null && player.getClan().getHasCastle() >= 0) // castle owner don't need to pay anything
                                 {
-                                    boolean allowJoinDawn = false;
-
-                                    if (player.destroyItemByItemId(
-                                                                   "SevenSigns",
-                                                                   SevenSigns.CERTIFICATE_OF_APPROVAL_ID,
-                                                                   1, this, false))
-                                    {
-                                        sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-                                        sm.addItemName(SevenSigns.CERTIFICATE_OF_APPROVAL_ID);
-                                        player.sendPacket(sm);
-                                        allowJoinDawn = true;
-                                    }
-                                    else if (player.reduceAdena("SevenSigns", Config.ALT_DAWN_JOIN_COST, this, false))
-                                    {
-                                        sm = new SystemMessage(SystemMessageId.DISAPPEARED_ADENA);
-                                        sm.addNumber(Config.ALT_DAWN_JOIN_COST);
-                                        player.sendPacket(sm);
-                                        allowJoinDawn = true;
-                                    }
-
-                                    if (!allowJoinDawn)
-                                    {
-                                        player.sendMessage("You must be a member of a castle-owning clan, have a Certificate of Lord's Approval, or pay "+Config.ALT_DAWN_JOIN_COST+" adena to join the Lords of Dawn.");
-                                        return;
-                                    }
+                                    allowJoinDawn = true;
+                                }
+                                else if (player.destroyItemByItemId("SevenSigns", SevenSigns.CERTIFICATE_OF_APPROVAL_ID, 1, this, false))
+                                {
+                                    sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+                                    sm.addItemName(SevenSigns.CERTIFICATE_OF_APPROVAL_ID);
+                                    sm.addNumber(1);
+                                    player.sendPacket(sm);
+                                    allowJoinDawn = true;
+                                }
+                                else if (player.reduceAdena("SevenSigns", Config.ALT_DAWN_JOIN_COST, this, false))
+                                {
+                                    sm = new SystemMessage(SystemMessageId.DISAPPEARED_ADENA);
+                                    sm.addNumber(Config.ALT_DAWN_JOIN_COST);
+                                    player.sendPacket(sm);
+                                    allowJoinDawn = true;
+                                }
+                                if (!allowJoinDawn)
+                                {
+                                    showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dawn_fee.htm");
+                                    return;
                                 }
                             }
                         }
@@ -339,12 +370,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     {
                         ancientAdenaConvert = Integer.parseInt(command.substring(13).trim());
                     }
-                    catch (NumberFormatException e)
-                    {
-                        showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "blkmrkt_3.htm");
-                        break;
-                    }
-                    catch (StringIndexOutOfBoundsException e)
+                    catch (Exception e)
                     {
                         showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "blkmrkt_3.htm");
                         break;
@@ -368,6 +394,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     iu.addModifiedItem(player.getInventory().getAncientAdenaInstance());
                     iu.addModifiedItem(player.getInventory().getAdenaInstance());
                     player.sendPacket(iu);
+                    showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "blkmrkt_5.htm");
                     break;
                 case 9: // Receive Contribution Rewards
                     int playerCabal = SevenSigns.getInstance().getPlayerCabal(player);

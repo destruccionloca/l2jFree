@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import java.util.Map;
+import java.util.Arrays;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -80,10 +81,17 @@ public class RequestActionUse extends L2GameClientPacket
 		if (_log.isDebugEnabled())
 			_log.debug(activeChar.getName() + " request Action use: id " + _actionId + " 2:" + _ctrlPressed + " 3:" + _shiftPressed);
 
-		// dont do anything if player is dead/confused/transformed
-		if (activeChar.isAlikeDead() || activeChar.isOutOfControl() || activeChar.isTransformed())
+		if (activeChar.isAlikeDead() || activeChar.isOutOfControl())
 		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			getClient().sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+
+		// don't allow to do some action if player is transformed
+		int[] notAllowedActions = {0, 10, 28, 37, 51, 61};
+		if (Arrays.binarySearch(notAllowedActions, _actionId) >= 0)
+		{
+			getClient().sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 

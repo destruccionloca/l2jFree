@@ -1453,7 +1453,7 @@ public class SevenSigns
 	{
 		for (L2PcInstance character : L2World.getInstance().getAllPlayers())
 		{
-			if (getPlayerCabal(character) != SevenSigns.CABAL_NULL)
+			if (getPlayerCabal(character) != CABAL_NULL)
 			{
 				if (getPlayerCabal(character) == StrifeOwner)
 					//Gives "Victor of War" passive skill to all online characters with Cabal, which controls Seal of Strife 

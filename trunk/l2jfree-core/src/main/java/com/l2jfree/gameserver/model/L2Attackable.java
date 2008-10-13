@@ -424,14 +424,17 @@ public class L2Attackable extends L2NpcInstance
 	@Override
 	public L2CharacterAI getAI()
 	{
-		if (_ai == null)
+		L2CharacterAI ai = _ai; // copy handle
+		if (ai == null)
 		{
-			synchronized (this)
+			synchronized(this)
 			{
-				_ai = new L2AttackableAI(new AIAccessor());
+				if (_ai == null)
+					_ai = new L2AttackableAI(new AIAccessor());
+				return _ai;
 			}
 		}
-		return _ai;
+		return ai;
 	}
 
 	/**
