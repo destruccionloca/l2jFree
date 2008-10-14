@@ -88,11 +88,14 @@ public class RequestActionUse extends L2GameClientPacket
 		}
 
 		// don't allow to do some action if player is transformed
-		int[] notAllowedActions = {0, 10, 28, 37, 51, 61};
-		if (Arrays.binarySearch(notAllowedActions, _actionId) >= 0)
+		if (activeChar.isTransformed())
 		{
-			getClient().sendPacket(ActionFailed.STATIC_PACKET);
-			return;
+			int[] notAllowedActions = {0, 10, 28, 37, 51, 61};
+			if (Arrays.binarySearch(notAllowedActions, _actionId) >= 0)
+			{
+				getClient().sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
 		}
 
 		L2Summon pet = activeChar.getPet();
