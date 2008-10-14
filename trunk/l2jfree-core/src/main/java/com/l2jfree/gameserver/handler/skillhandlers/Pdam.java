@@ -95,24 +95,6 @@ public class Pdam implements ISkillHandler
 			}
 			else if (target.isDead())
 				continue;
-			else if (f.canEvadeMeleeSkill(target, skill))
-			{
-				if (activeChar instanceof L2PcInstance)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
-					sm.addString(target.getName());
-					((L2PcInstance) activeChar).sendPacket(sm);
-					sm = null;
-				}
-				if (target instanceof L2PcInstance)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
-					sm.addString(activeChar.getName());
-					((L2PcInstance) target).sendPacket(sm);
-					sm = null;
-				}
-				continue;
-			}
 
 			boolean dual = activeChar.isUsingDualWeapon();
 			boolean shld = f.calcShldUse(activeChar, target);
@@ -256,7 +238,7 @@ public class Pdam implements ISkillHandler
 								
 						}
 						else
-							target.reduceCurrentHp(damage, activeChar);						
+							target.reduceCurrentHp(damage, activeChar);
 					}
 					else
 					{
@@ -274,13 +256,13 @@ public class Pdam implements ISkillHandler
 				if (activeChar instanceof L2PcInstance)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
-					sm.addString(target.getName());
+					sm.addCharName(target);
 					((L2PcInstance) activeChar).sendPacket(sm);
 				}
 				if (target instanceof L2PcInstance)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
-					sm.addString(activeChar.getName());
+					sm.addCharName(activeChar);
 					((L2PcInstance) target).sendPacket(sm);
 				}
 

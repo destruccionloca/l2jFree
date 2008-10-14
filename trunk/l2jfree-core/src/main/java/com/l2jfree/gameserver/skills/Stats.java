@@ -152,7 +152,6 @@ public enum Stats
 	ABSORB_DAMAGE_PERCENT("absorbDam"),
 	TRANSFER_DAMAGE_PERCENT("transDam"),
 	ABSORB_CP_PERCENT("absorbCpPercent"),
-	EVADE_MELEE_SKILL("evadeMeleeSkill"),
 
 	MAX_LOAD("maxLoad"),
 

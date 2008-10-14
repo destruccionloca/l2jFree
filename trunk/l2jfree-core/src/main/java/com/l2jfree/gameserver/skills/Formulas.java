@@ -2550,21 +2550,11 @@ public final class Formulas
 		return STRbonus[activeChar.getStat().getSTR()];
 	}
 
-	public boolean canEvadeMeleeSkill(L2Character target, L2Skill skill)
-	{
-		if (!skill.isMagic() && skill.getCastRange() < 100)
-		{
-			double evade = target.calcStat(Stats.EVADE_MELEE_SKILL, 0, null, null);
-			return (Rnd.get(100) < evade);
-		}
-		return false;
-	}
-	
 	public boolean calcPhysicalSkillEvasion(L2Character target, L2Skill skill)
-    {
-    	if (skill.isMagic())
-    		return false;
-    	
-    	return Rnd.get(100) < target.calcStat(Stats.P_SKILL_EVASION, 0, null, skill);
-    }
+	{
+		if (skill.isMagic())
+			return false;
+
+		return Rnd.get(100) < target.calcStat(Stats.P_SKILL_EVASION, 0, null, skill);
+	}
 }

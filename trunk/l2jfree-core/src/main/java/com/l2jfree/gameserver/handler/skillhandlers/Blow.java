@@ -75,24 +75,6 @@ public class Blow implements ISkillHandler
 
 			if (target.isAlikeDead())
 				continue;
-			else if (Formulas.getInstance().canEvadeMeleeSkill(target, skill))
-			{
-				if (activeChar instanceof L2PcInstance)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
-					sm.addString(target.getName());
-					((L2PcInstance) activeChar).sendPacket(sm);
-					sm = null;
-				}
-				if (target instanceof L2PcInstance)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
-					sm.addString(activeChar.getName());
-					((L2PcInstance) target).sendPacket(sm);
-					sm = null;
-				}
-				continue;
-			}
 
 			// Check firstly if target dodges skill
 			boolean skillIsEvaded = Formulas.getInstance().calcPhysicalSkillEvasion(target, skill);
@@ -237,13 +219,13 @@ public class Blow implements ISkillHandler
 				if (activeChar instanceof L2PcInstance)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
-					sm.addString(target.getName());
+					sm.addCharName(target);
 					((L2PcInstance) activeChar).sendPacket(sm);
 				}
 				if (target instanceof L2PcInstance)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
-					sm.addString(activeChar.getName());
+					sm.addCharName(activeChar);
 					((L2PcInstance) target).sendPacket(sm);
 				}
 			}

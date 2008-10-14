@@ -1119,7 +1119,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <effect count="1" name="Buff" time="6" val="0">
-        <add order="0x40" stat="evadeMeleeSkill" val="100" />
+        <add order="0x40" stat="pSkillEvas" val="100" />
       </effect>
     </for>
   </skill>
