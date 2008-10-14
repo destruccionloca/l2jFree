@@ -53,6 +53,7 @@ public enum Stats
 	PVP_PHYS_SKILL_DMG("pvpPhysSkillsDmg"),
 	// Atk & Def rates
 	EVASION_RATE("rEvas"),
+	P_SKILL_EVASION	("pSkillEvas"),
 	SHIELD_RATE("rShld"),
 	SHIELD_ANGLE("shldAngle"),
 	CRITICAL_RATE("rCrit"),

@@ -2559,4 +2559,12 @@ public final class Formulas
 		}
 		return false;
 	}
+	
+	public boolean calcPhysicalSkillEvasion(L2Character target, L2Skill skill)
+    {
+    	if (skill.isMagic())
+    		return false;
+    	
+    	return Rnd.get(100) < target.calcStat(Stats.P_SKILL_EVASION, 0, null, skill);
+    }
 }

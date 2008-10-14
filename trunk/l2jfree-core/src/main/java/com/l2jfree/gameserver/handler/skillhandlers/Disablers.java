@@ -514,8 +514,11 @@ public class Disablers implements ISkillHandler
 					L2Summon summonPet = null;
 					summonOwner = ((L2Summon) target).getOwner();
 					summonPet = summonOwner.getPet();
-					summonPet.unSummon(summonOwner);
-					summonOwner.sendPacket(SystemMessageId.LETHAL_STRIKE);
+					if (summonPet != null)
+					{
+						summonPet.unSummon(summonOwner);
+						summonOwner.sendPacket(SystemMessageId.YOUR_SERVITOR_HAS_VANISHED);
+					}
 				}
 				else
 				{

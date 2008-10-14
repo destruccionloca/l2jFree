@@ -94,6 +94,9 @@ public class Blow implements ISkillHandler
 				continue;
 			}
 
+			// Check firstly if target dodges skill
+			boolean skillIsEvaded = Formulas.getInstance().calcPhysicalSkillEvasion(target, skill);
+			
 			if (activeChar.isBehindTarget())
 				_successChance = BEHIND;
 			else if (activeChar.isInFrontOfTarget())
@@ -102,7 +105,7 @@ public class Blow implements ISkillHandler
 				_successChance = SIDE;
 			//If skill requires Crit or skill requires behind, 
 			//calculate chance based on DEX, Position and on self BUFF
-			if (((skill.getCondition() & L2Skill.COND_BEHIND) != 0) && _successChance == BEHIND || ((skill.getCondition() & L2Skill.COND_CRIT) != 0)
+			if (!skillIsEvaded && ((skill.getCondition() & L2Skill.COND_BEHIND) != 0) && _successChance == BEHIND || ((skill.getCondition() & L2Skill.COND_CRIT) != 0) 
 					&& Formulas.getInstance().calcBlow(activeChar, target, _successChance))
 			{
 				if (skill.hasEffects())
@@ -227,6 +230,24 @@ public class Blow implements ISkillHandler
 				sm.addNumber((int) damage);
 				activeChar.sendPacket(sm);
 			}
+			
+			// Sending system messages
+			if (skillIsEvaded)
+			{
+				if (activeChar instanceof L2PcInstance)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
+					sm.addString(target.getName());
+					((L2PcInstance) activeChar).sendPacket(sm);
+				}
+				if (target instanceof L2PcInstance)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
+					sm.addString(activeChar.getName());
+					((L2PcInstance) target).sendPacket(sm);
+				}
+			}
+
 			//Possibility of a lethal strike
 			Formulas.getInstance().calcLethalHit(activeChar, target, skill);
 
