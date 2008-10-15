@@ -586,12 +586,6 @@
     <set name="create_item_count" val="20" />
   </skill>
   <skill id="1325" levels="1" name="Fortune of Noblesse">
-    <!--
-      Description(s): Confers the ability of the Lucky Charm
-      to all party members regardless of level. Preventing
-      reduced combat capability if killed by a Boss or a
-      Raid Monster. Consumes 4 Lucky Charm: A Grade
-    -->
     <set name="itemConsumeId" val="5806" />
     <set name="itemConsumeCount" val="4" />
     <set name="mpInitialConsume" val="75" />

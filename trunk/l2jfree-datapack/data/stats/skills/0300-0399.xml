@@ -1839,7 +1839,7 @@
     <set name="effectRange" val="1400" />
     <for>
       <effect self="1" count="1" name="Buff" time="30"
-        val="0" stackOrder="6" stackType="rEvasSpec">
+        val="0" stackOrder="6" stackType="avoid_up_special">
         <add order="0x40" stat="rEvas" val="6" />
       </effect>
     </for>

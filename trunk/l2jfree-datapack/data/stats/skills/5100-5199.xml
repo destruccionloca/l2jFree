@@ -325,20 +325,12 @@
     </for>
   </skill>
   <skill id="5124" levels="1" name="Anti-Music">
-    <!--
-      Description(s):
-      none
-    -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5125" levels="1" name="Maximum Resist Status">
-    <!--
-      Description(s): Maximizes resistance to all debuff
-      attacks.
-    -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -357,9 +349,6 @@
     </for>
   </skill>
   <skill id="5126" levels="1" name="Maximum Recovery">
-    <!--
-      Description(s): Maximizes HP and CP recovery.
-    -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -372,10 +361,6 @@
     </for>
   </skill>
   <skill id="5127" levels="1" name="Recover Force">
-    <!--
-      Description(s): Maximizes P. Atk. and increases force
-      by 1 every 5 seconds.
-    -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -389,9 +374,6 @@
     </for>
   </skill>
   <skill id="5128" levels="1" name="Maximum Archery">
-    <!--
-      Description(s): Maximizes archery ability.
-    -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -403,10 +385,7 @@
     </for>
   </skill>
   <skill id="5129" levels="1" name="Smokescreen">
-    <!--
-      Needs to be finished. Description(s): Maximizes
-      Evasion and assassination skill.
-    -->
+    <!-- Needs to be finished -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -1295,12 +1274,6 @@
     <for />
   </skill>
   <skill id="5195" levels="5" name="Pet Greater Heal">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1-3 - Instantly recovers HP and
-      increases HP recovery rate.
-    -->
     <table name="#mpConsume">105 109 115 115 115</table>
     <table name="#power"> 340.0 380.0 417.0 450.0 475.0 </table>
     <set name="mpConsume" val="#mpConsume" />

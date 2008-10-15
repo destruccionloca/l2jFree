@@ -165,10 +165,7 @@
   </skill>
   <skill id="5413" levels="1"
     name="Performing Agathion - Beast Farm">
-    <!--
-      Description(s): See a summoned Agathion perform
-      tricks.
-    -->
+    <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="UNLOCK" /> <!-- havent found any matching skilltype, this one working fine :) -->
     <set name="hitTime" val="3000" />
@@ -180,10 +177,7 @@
   </skill>
   <skill id="5414" levels="1"
     name="Performing Agathion - Rainbow Clan Hall">
-    <!--
-      Description(s): See a summoned Agathion perform
-      tricks.
-    -->
+    <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="UNLOCK" /> <!-- havent found any matching skilltype, this one working fine :) -->
     <set name="hitTime" val="3000" />
@@ -195,10 +189,7 @@
   </skill>
   <skill id="5415" levels="1"
     name="Performing Agathion - Castle">
-    <!--
-      Description(s): See a summoned Agathion perform
-      tricks.
-    -->
+    <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="UNLOCK" /> <!-- havent found any matching skilltype, this one working fine :) -->
     <set name="hitTime" val="3000" />
@@ -650,10 +641,7 @@
     <for />
   </skill>
   <skill id="5447" levels="7" name="Paralysis">
-    <!--
-      Dark Seed paralyze effect Description(s): A temporary
-      paralysis which prevents movement.
-    -->
+    <!-- Needs to be verified -->
     <table name="#dmg">5 10 15 20 25 30 35</table>
     <!--
       guees
@@ -798,10 +786,7 @@
   </skill>
   <skill id="5458" levels="1"
     name="Performing Agathion - Fortress">
-    <!--
-      Description(s): See a summoned Agathion perform
-      tricks.
-    -->
+    <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="UNLOCK" /> <!-- havent found any matching skilltype, this one working fine :) -->
     <set name="hitTime" val="3000" />

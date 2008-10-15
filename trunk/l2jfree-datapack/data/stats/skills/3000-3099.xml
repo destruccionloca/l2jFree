@@ -537,12 +537,7 @@
   </skill>
   <skill id="3035" levels="6"
     name="Special Ability: Mighty Mortal">
-    <!--
-      TODO Descriptions: 1: Increases the success rate of
-      Mortal Blow and Deadly Blow. 6: Increases the success
-      rate of Mortal Blow and Deadly Blow. created
-      2005-05-29 23:34:31
-    -->
+    <!-- Needs to be verified -->
     <table name="#rate">50 48 46 44 42 40</table>
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -685,12 +680,7 @@
     </for>
   </skill>
   <skill id="3044" levels="20" name="Special Ability: Focus">
-    <!--
-      Descriptions: lvl1-16: Increases critical attack
-      success rate. lvl17-20: Increases critical attack
-      success rate and damage inflicted during PvP. created
-      2005-05-29 23:34:31
-    -->
+    <!-- Needs to be verified -->
     <table name="#rate"> 61 63 64 66 71.9 68 71 73 75 77 79 81
       82 84 86 90 88 106 111 116 </table>
     <table name="#PvPbonus"> 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1.05
@@ -1363,25 +1353,6 @@
     </for>
   </skill>
   <skill id="3080" levels="10" name="Item Skill: Aggression">
-    <!--
-      Description(s): Lvl 1 - Chance: Provokes a target to
-      attack during an ordinary physical attack. Power 438.
-      Lvl 2 - Provokes a target to attack during an ordinary
-      physical attack. Power 467. Lvl 3 - Chance: Provokes a
-      target to attack during an ordinary physical attack.
-      Power 495. Lvl 4 - Chance: Provokes a target to attack
-      during an ordinary physical attack. Power 523. Lvl 5 -
-      Chance: Provokes a target to attack during an ordinary
-      physical attack. Power 549. Lvl 6 - Chance: Provokes a
-      target to attack during an ordinary physical attack.
-      Power 574. Lvl 7 - Chance: Provokes a target to attack
-      during an ordinary physical attack. Power 597. Lvl 8 -
-      Chance: Provokes a target to attack during an ordinary
-      physical attack. Power 617. Lvl 9 - Chance: Provokes a
-      target to attack during an ordinary physical attack.
-      Power 635. Lvl 10 - Chance: Provokes a target to
-      attack during an ordinary physical attack. Power 659.
-    -->
     <table name="#power"> 438 467 495 523 549 574 597 617 635
       659 </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
@@ -1402,28 +1373,6 @@
     </for>
   </skill>
   <skill id="3081" levels="10" name="Item Skill: Charm">
-    <!--
-      Description(s): Lvl 1 - Chance: Decreases a target's
-      urge to attack during a general physical attack. Power
-      219. Lvl 2 - Chance: Decreases a target's urge to
-      attack during a general physical attack. Power 234.
-      Lvl 3 - Chance: Decreases a target's urge to attack
-      during a general physical attack. Power 248. Lvl 4 -
-      Chance: Decreases a target's urge to attack during a
-      general physical attack. Power 262. Lvl 5 - Chance:
-      Decreases a target's urge to attack during a general
-      physical attack. Power 275. Lvl 6 - Chance: Decreases
-      a target's urge to attack during a general physical
-      attack. Power 287. Lvl 7 - Chance: Decreases a
-      target's urge to attack during a general physical
-      attack. Power 299. Lvl 8 - Chance: Decreases a
-      target's urge to attack during a general physical
-      attack. Power 309. Lvl 9 - Chance: Decreases a
-      target's urge to attack during a general physical
-      attack. Power 318. Lvl 10 - Chance: Decreases a
-      target's urge to attack during a general physical
-      attack. Power 330.
-    -->
     <table name="#power"> 219 234 248 262 275 287 299 309 318
       330 </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
@@ -1442,25 +1391,6 @@
     <for />
   </skill>
   <skill id="3082" levels="10" name="Item Skill: Mana Burn">
-    <!--
-      Description(s): Lvl 1 - Chance: Burns up a target's MP
-      during an ordinary physical attack. Power 49. Lvl 2 -
-      Chance: Burns up a target's MP during an ordinary
-      physical attack. Power 53. Lvl 3 - Chance: Burns up a
-      target's MP during an ordinary physical attack. Power
-      57. Lvl 4 - Chance: Burns up a target's MP during an
-      ordinary physical attack. Power 61. Lvl 5 - Chance:
-      Burns up a target's MP during an ordinary physical
-      attack. Power 66. Lvl 6 - Chance: Burns up a target's
-      MP during an ordinary physical attack. Power 70. Lvl 7
-      - Chance: Burns up a target's MP during an ordinary
-      physical attack. Power 74. Lvl 8 - Chance: Burns up a
-      target's MP during an ordinary physical attack. Power
-      78. Lvl 9 - Chance: Burns up a target's MP during an
-      ordinary physical attack. Power 82. Lvl 10 - Chance:
-      Burns up a target's MP during an ordinary physical
-      attack. Power 88.
-    -->
     <table name="#power"> 49 53 57 61 66 70 74 78 82 88 
     </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
@@ -1477,11 +1407,6 @@
     <set name="isMagic" val="true" />
   </skill>
   <skill id="3083" levels="10" name="Item Skill: Slow">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily
-      decreases a target's speed during an ordinary physical
-      attack. Effect 3.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1504,11 +1429,6 @@
     </for>
   </skill>
   <skill id="3084" levels="10" name="Item Skill: Winter">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily
-      decreases a target's Atk. Spd. during an ordinary
-      physical attack. Effect 3.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1529,11 +1449,6 @@
     </for>
   </skill>
   <skill id="3085" levels="10" name="Item Skill: Stun">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily throws
-      the target into a state of shock during an ordinary
-      physical attack.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1551,12 +1466,6 @@
     </for>
   </skill>
   <skill id="3086" levels="10" name="Item Skill: Hold">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily throws
-      the target into a state of hold during an ordinary
-      physical attack. The target cannot be affected by any
-      additional hold attacks while the effect lasts.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1575,12 +1484,6 @@
     </for>
   </skill>
   <skill id="3087" levels="10" name="Item Skill: Sleep">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily throws
-      the target into a state of sleep during a general
-      physical attack. The target cannot be affected by any
-      additional sleep attacks while the effect lasts.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1599,11 +1502,6 @@
     </for>
   </skill>
   <skill id="3088" levels="10" name="Item Skill: Paralyze">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily throws
-      the target into a state of paralysis during an
-      ordinary physical attack.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1621,11 +1519,6 @@
     </for>
   </skill>
   <skill id="3089" levels="10" name="Item Skill: Medusa">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily throws
-      the target into a petrified state during a general
-      physical attack.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1644,11 +1537,6 @@
     </for>
   </skill>
   <skill id="3090" levels="10" name="Item Skill: Fear">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily throws
-      the target into a state of fear and causes him to flee
-      during a general physical attack.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1666,32 +1554,6 @@
     </for>
   </skill>
   <skill id="3091" levels="10" name="Item Skill: Poison">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1 - Chance: Momentarily throws the
-      target into a poisoned state during a general physical
-      attack. Effect 5. Lvl 2 - Chance: Momentarily throws
-      the target into a poisoned state during a general
-      physical attack. Effect 5. Lvl 3 - Chance: Momentarily
-      throws the target into a poisoned state during a
-      general physical attack. Effect 6. Lvl 4 - Chance:
-      Momentarily throws the target into a poisoned state
-      during a general physical attack. Effect 6. Lvl 5 -
-      Chance: Momentarily throws the target into a poisoned
-      state during a general physical attack. Effect 6. Lvl
-      6 - Chance: Momentarily throws the target into a
-      poisoned state during a general physical attack.
-      Effect 7. Lvl 7 - Chance: Momentarily throws the
-      target into a poisoned state during a general physical
-      attack. Effect 7. Lvl 8 - Chance: Momentarily throws
-      the target into a poisoned state during a general
-      physical attack. Effect 7. Lvl 9 - Chance: Momentarily
-      throws the target into a poisoned state during a
-      general physical attack. Effect 8. Lvl 10 - Chance:
-      Momentarily throws the target into a poisoned state
-      during a general physical attack. Effect 8.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1721,32 +1583,6 @@
     </for>
   </skill>
   <skill id="3092" levels="10" name="Item Skill: Bleed">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1 - Chance: Momentarily throws the
-      target into a bleeding state during a general physical
-      attack. Effect 5. Lvl 2 - Chance: Momentarily throws
-      the target into a bleeding state during a general
-      physical attack. Effect 5. Lvl 3 - Chance: Momentarily
-      throws the target into a bleeding state during a
-      general physical attack. Effect 6. Lvl 4 - Chance:
-      Momentarily throws the target into a bleeding state
-      during a general physical attack. Effect 6. Lvl 5 -
-      Chance: Momentarily throws the target into a bleeding
-      state during a general physical attack. Effect 6. Lvl
-      6 - Chance: Momentarily throws the target into a
-      bleeding state during a general physical attack.
-      Effect 7. Lvl 7 - Chance: Momentarily throws the
-      target into a bleeding state during a general physical
-      attack. Effect 7. Lvl 8 - Chance: Momentarily throws
-      the target into a bleeding state during a general
-      physical attack. Effect 7. Lvl 9 - Chance: Momentarily
-      throws the target into a bleeding state during a
-      general physical attack. Effect 8. Lvl 10 - Chance:
-      Momentarily throws the target into a bleeding state
-      during a general physical attack. Effect 8.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1776,11 +1612,6 @@
     </for>
   </skill>
   <skill id="3093" levels="10" name="Item Skill: Silence">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily blocks
-      the target's magic skill during a general physical
-      attack.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1799,11 +1630,6 @@
     </for>
   </skill>
   <skill id="3094" levels="10" name="Item Skill: Doom">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily blocks
-      all of the target's physical and magic skills during a
-      general physical attack.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1822,22 +1648,6 @@
     </for>
   </skill>
   <skill id="3095" levels="10" name="Item Skill: Mana Burn">
-    <!--
-      Description(s): Lvl 1 - Chance: Burns up a target's MP
-      during magic use. Power 49. Lvl 2 - Chance: Burns up a
-      target's MP during magic use. Power 53. Lvl 3 -
-      Chance: Burns up a target's MP during magic use. Power
-      57. Lvl 4 - Chance: Burns up a target's MP during
-      magic use. Power 61. Lvl 5 - Chance: Burns up a
-      target's MP during magic use. Power 66. Lvl 6 -
-      Chance: Burns up a target's MP during magic use. Power
-      70. Lvl 7 - Chance: Burns up a target's MP during
-      magic use. Power 74. Lvl 8 - Chance: Burns up a
-      target's MP during magic use. Power 78. Lvl 9 -
-      Chance: Burns up a target's MP during magic use. Power
-      82. Lvl 10 - Chance: Burns up a target's MP during
-      magic use. Power 88.
-    -->
     <table name="#power"> 49 53 57 61 66 70 74 78 82 88 
     </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
@@ -1854,11 +1664,6 @@
     <set name="isMagic" val="true" />
   </skill>
   <skill id="3096" levels="10" name="Item Skill: Slow">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily
-      decreases the target's speed during magic use. Effect
-      3.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1881,11 +1686,6 @@
     </for>
   </skill>
   <skill id="3097" levels="10" name="Item Skill: Winter">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily
-      decreases the target's Atk. Spd. during magic use.
-      Effect 3.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1906,10 +1706,6 @@
     </for>
   </skill>
   <skill id="3098" levels="10" name="Item Skill: Stun">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily throws
-      the target into a state of shock during magic use.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>
@@ -1927,12 +1723,6 @@
     </for>
   </skill>
   <skill id="3099" levels="10" name="Item Skill: Hold">
-    <!--
-      Description(s): Lvl 1-10 - Chance: Momentarily throws
-      the target into a state of hold during magic use. The
-      target cannot be affected by any additional hold
-      attacks while the effect lasts.
-    -->
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
     </table>

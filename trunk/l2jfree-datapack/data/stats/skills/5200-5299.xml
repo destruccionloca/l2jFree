@@ -79,10 +79,6 @@
     <for />
   </skill>
   <skill id="5206" levels="1" name="Decrease Speed">
-    <!--
-      Description(s): Curse of the Pig: Instantly reduces
-      Speed. Effect 1.
-    -->
     <set name="power" val="542.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="2200" />
@@ -101,10 +97,6 @@
     </for>
   </skill>
   <skill id="5207" levels="1" name="Decrease Atk. Spd.">
-    <!--
-      Description(s): Curse of the Pig: Instantly reduces
-      Atk. Spd. Effect 1.
-    -->
     <set name="lvlDepend" val="1" />
     <set name="power" val="10" />
     <set name="target" val="TARGET_ONE" />
@@ -121,9 +113,6 @@
     </for>
   </skill>
   <skill id="5208" levels="1" name="Event Wind walk">
-    <!--
-      Description(s): Temporarily increases Speed. Effect 2.
-    -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
@@ -139,10 +128,6 @@
     </for>
   </skill>
   <skill id="5209" levels="1" name="Event Shield">
-    <!--
-      Description(s): Temporarily increases P. Def. Effect
-      3.
-    -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
@@ -158,10 +143,6 @@
     </for>
   </skill>
   <skill id="5210" levels="1" name="Event Bless the body">
-    <!--
-      Description(s): Temporarily increases maximum HP.
-      Effect 6.
-    -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
@@ -177,11 +158,6 @@
     </for>
   </skill>
   <skill id="5211" levels="1" name="Event Vampiric rage">
-    <!--
-      Description(s): Uses damage inflicted upon an enemy to
-      temporarily restore HP. Excludes damage inflicted by
-      skill or remote attack. Effect 4.
-    -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
@@ -196,10 +172,6 @@
     </for>
   </skill>
   <skill id="5212" levels="1" name="Event Regeneration">
-    <!--
-      Description(s): Temporarily increases ability to
-      restore HP. Effect 3.
-    -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
@@ -215,10 +187,6 @@
     </for>
   </skill>
   <skill id="5213" levels="1" name="Event Haste">
-    <!--
-      Description(s): Temporarily increases Atk. Spd. Effect
-      1.
-    -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
@@ -234,10 +202,6 @@
     </for>
   </skill>
   <skill id="5214" levels="1" name="Event Bless the Soul">
-    <!--
-      Description(s): Temporarily increases maximum MP.
-      Effect 6.
-    -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
@@ -253,10 +217,6 @@
     </for>
   </skill>
   <skill id="5215" levels="1" name="Event Acumen">
-    <!--
-      Description(s): Temporarily increases Casting Spd.
-      Effect 3.
-    -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
@@ -287,10 +247,6 @@
     </for>
   </skill>
   <skill id="5217" levels="1" name="Event Empower">
-    <!--
-      Description(s): Temporarily increases M. Atk. Effect
-      1.
-    -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
@@ -318,10 +274,6 @@
   </skill>
   <skill id="5219" levels="1"
     name="Stun of giant mutated animal">
-    <!--
-      Description(s): Curse of the Huge Pig: Target is
-      temporarily stunned and immoblized.
-    -->
     <set name="magicLvl" val="99" />
     <set name="lvlDepend" val="1" />
     <set name="power" val="47895.0" />
@@ -342,11 +294,6 @@
   </skill>
   <skill id="5220" levels="1"
     name="Fear of giant mutated animal">
-    <!--
-      Description(s): Curse of the Huge Pig: Target is
-      temporarily overcome with fear, causing it to flee
-      mindlessly.
-    -->
     <set name="mpConsume" val="43" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />

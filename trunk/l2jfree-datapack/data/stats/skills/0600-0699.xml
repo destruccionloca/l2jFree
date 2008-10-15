@@ -356,6 +356,7 @@
     <for />
   </skill>
   <skill id="625" levels="1" name="Soul Gathering">
+    <!-- Needs to be verified -->
     <set name="hpConsume" val="200" />
     <set name="hitTime" val="1500" />
     <set name="itemConsumeId" val="3031" />

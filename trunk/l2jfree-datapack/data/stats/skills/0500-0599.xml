@@ -53,11 +53,8 @@
     </for>
   </skill>
   <skill id="502" levels="5" name="Life to Soul">
-    <!--
-      Need to verified. Done by akira35. Tweaked by Xantusq
-      description(s) : Cannibalizes your own life to
-      increase your soul.
-    -->
+    <!-- Done by akira35. Tweaked by Xantusq -->
+    <!-- Need to verified -->
     <table name="#hpConsume">193 237 279 311 328</table>
     <table name="#charges">1 2 3 4 5</table>
     <set name="hpConsume" val="#hpConsume" />
@@ -72,10 +69,6 @@
     <for />
   </skill>
   <skill id="503" levels="3" name="Scorn">
-    <!--
-      Description: Provokes enemies in front of you.
-      Consumes 1 Soul. Power 1630.
-    -->
     <table name="#mpConsume">21 28 33</table>
     <table name="#skillRadius">80 160 240</table>
     <set name="mpConsume" val="#mpConsume" />
@@ -627,11 +620,7 @@
     </for>
   </skill>
   <skill id="523" levels="7" name="Imbue Dark Seed">
-    <!--
-      Description(s) : Sow a dark seed into the body of an
-      enemy, eating up health and eventually paralyzing the
-      enemy when it is fully grown. Consumes 1 Dark Seed.
-    -->
+    <!-- Needs to be finished with a correct abnormal effect -->
     <table name="#EffectLvl">1 2 3 4 5 6 7</table>
     <set name="itemConsumeId" val="10112" />
     <set name="itemConsumeCount" val="1" />
@@ -649,10 +638,6 @@
     <for />
   </skill>
   <skill id="524" levels="1" name="Cure Dark Seed">
-    <!--
-      Description(s): Eliminates the affliction caused by a
-      dark seed.
-    -->
     <set name="mpConsume" val="59" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NEGATE" />
