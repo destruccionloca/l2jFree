@@ -2572,12 +2572,10 @@
       151 155 159 163 </table>
     <table name="#magicLvl"> 44 48 52 56 58 60 62 64 66 68 70 72
       74 </table>
-    <table name="#power"> 30 50 70 90 110 130 150 170 190 210
-      230 250 300 </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="#power" />
+    <set name="power" val="40" />
     <set name="target" val="TARGET_AURA" />
     <set name="skillRadius" val="200" />
     <set name="reuseDelay" val="20000" />
@@ -3383,21 +3381,21 @@
     <enchant2 name="reuseDelay" val="#ench2reuseDelay" />
     <for>
       <effect count="1" name="ImmobilePetBuff" time="30"
-        val="0" stackOrder="1" stackType="pDefSpec">
+        val="0" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="#pDef" />
         <add order="0x40" stat="mDef" val="#mDef" />
       </effect>
     </for>
     <enchant1for>
       <effect count="1" name="ImmobilePetBuff" time="#ench1time"
-        val="0" stackOrder="1" stackType="pDefSpec">
+        val="0" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="3600" />
         <add order="0x40" stat="mDef" val="2700" />
       </effect>
     </enchant1for>
     <enchant2for>
       <effect count="1" name="ImmobilePetBuff" time="30"
-        val="0" stackOrder="1" stackType="pDefSpec">
+        val="0" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="#ench2pDef" />
         <add order="0x40" stat="mDef" val="#ench2mDef" />
       </effect>
