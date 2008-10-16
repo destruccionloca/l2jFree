@@ -40332,3 +40332,39 @@ DELETE FROM `spawnlist`WHERE `npc_templateid` = 30484;
 INSERT INTO `spawnlist` (`location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`, `periodOfDay`) VALUES 
 ('', 1, 30484, 17539, 113911, -11673, 0, 0, 12333, 60, 0, 0),
 ('', 1, 30487, 17904, 113931, -11673, 0, 0, 16383, 60, 0, 0);
+
+-- LOA Spawns Fixes
+UPDATE `spawnlist` SET `locx` = 139712,`locy` = 114096,`locz` = -3720 WHERE `id` = 13508;
+UPDATE `spawnlist` SET `locx` = 143888,`locy` = 114240,`locz` = -3720 WHERE `id` = 13518;
+UPDATE `spawnlist` SET `locx` = 144256,`locy` = 108656,`locz` = -3944 WHERE `id` = 13620;
+UPDATE `spawnlist` SET `locx` = 144112,`locy` = 108000,`locz` = -3944 WHERE `id` = 13632;
+UPDATE `spawnlist` SET `locx` = 141072,`locy` = 118736,`locz` = -3912 WHERE `id` = 13666;
+UPDATE `spawnlist` SET `locx` = 141744,`locy` = 116960,`locz` = -3912 WHERE `id` = 13698;
+UPDATE `spawnlist` SET `locx` = 140544,`locy` = 119712,`locz` = -3912 WHERE `id` = 13710;
+UPDATE `spawnlist` SET `locx` = 148960,`locy` = 119376,`locz` = -4864 WHERE `id` = 13784;
+UPDATE `spawnlist` SET `locx` = 154896,`locy` = 115488,`locz` = -5256 WHERE `id` = 13837;
+UPDATE `spawnlist` SET `locx` = 150208,`locy` = 115072,`locz` = -5472 WHERE `id` = 13846;
+UPDATE `spawnlist` SET `locx` = 148736,`locy` = 114528,`locz` = -5472 WHERE `id` = 13860;
+UPDATE `spawnlist` SET `locx` = 150112,`locy` = 109696,`locz` = -5160 WHERE `id` = 13901;
+UPDATE `spawnlist` SET `locx` = 149504,`locy` = 110080,`locz` = -5280 WHERE `id` = 13902;
+UPDATE `spawnlist` SET `locx` = 149680,`locy` = 109296,`locz` = -5192 WHERE `id` = 13903;
+UPDATE `spawnlist` SET `locx` = 149216,`locy` = 109664,`locz` = -5216 WHERE `id` = 13904;
+UPDATE `spawnlist` SET `locx` = 149808,`locy` = 110048,`locz` = -5256 WHERE `id` = 13905;
+UPDATE `spawnlist` SET `locx` = 149680,`locy` = 109680,`locz` = -5208 WHERE `id` = 13906;
+UPDATE `spawnlist` SET `locx` = 153600,`locy` = 108032,`locz` = -5152 WHERE `id` = 13921;
+UPDATE `spawnlist` SET `locx` = 152496,`locy` = 107408,`locz` = -5088 WHERE `id` = 13951;
+UPDATE `spawnlist` SET `locx` = 153040,`locy` = 107216,`locz` = -5152 WHERE `id` = 13953;
+UPDATE `spawnlist` SET `locx` = 150848,`locy` = 107184,`locz` = -4792 WHERE `id` = 13956;
+UPDATE `spawnlist` SET `locx` = 149488,`locy` = 115744,`locz` = -3696 WHERE `id` = 14015;
+UPDATE `spawnlist` SET `locx` = 149488,`locy` = 116416,`locz` = -3704 WHERE `id` = 14017;
+UPDATE `spawnlist` SET `locx` = 152784,`locy` = 119024,`locz` = -3800 WHERE `id` = 14042;
+UPDATE `spawnlist` SET `locx` = 152368,`locy` = 118864,`locz` = -3808 WHERE `id` = 14045;
+UPDATE `spawnlist` SET `locx` = 152912,`locy` = 119184,`locz` = -3784 WHERE `id` = 14060;
+UPDATE `spawnlist` SET `locx` = 152448,`locy` = 120592,`locz` = -3808 WHERE `id` = 14066;
+UPDATE `spawnlist` SET `locx` = 135728,`locy` = 114256,`locz` = -3720 WHERE `id` = 23060;
+UPDATE `spawnlist` SET `locx` = 148704,`locy` = 119472,`locz` = -4856 WHERE `id` = 23165;
+UPDATE `spawnlist` SET `locx` = 148944,`locy` = 114432,`locz` = -5472 WHERE `id` = 23177;
+UPDATE `spawnlist` SET `locx` = 150800,`locy` = 108976,`locz` = -5152 WHERE `id` = 23190;
+UPDATE `spawnlist` SET `locx` = 149168,`locy` = 115008,`locz` = -3720 WHERE `id` = 23219;
+UPDATE `spawnlist` SET `locx` = 151088,`locy` = 118256,`locz` = -3768 WHERE `id` = 23232;
+UPDATE `spawnlist` SET `locx` = 151664,`locy` = 121552,`locz` = -3808 WHERE `id` = 23250;
