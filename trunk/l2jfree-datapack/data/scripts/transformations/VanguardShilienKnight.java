@@ -57,15 +57,13 @@ public class VanguardShilienKnight extends L2Transformation
 			transformedSkills(player);
 			return;
 		}
-		// give transformation skills
-		transformedSkills(player);
 	}
 
 	public void transformedSkills(L2PcInstance player)
 	{
-		if (player.getLevel() > 43)
+		if (player.getLevel() >= 43)
 		{
-			int level = player.getLevel() - 43;
+			int level = player.getLevel() - 42;
 			// Full Swing
 			addSkill(player, 814, level);
 			// Power Divide aka Cleave

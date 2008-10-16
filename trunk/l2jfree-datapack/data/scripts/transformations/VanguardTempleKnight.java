@@ -55,15 +55,13 @@ public class VanguardTempleKnight extends L2Transformation
 			transformedSkills(player);
 			return;
 		}
-		// give transformation skills
-		transformedSkills(player);
 	}
 
 	public void transformedSkills(L2PcInstance player)
 	{
-		if (player.getLevel() > 43)
+		if (player.getLevel() >= 43)
 		{
-			int level = player.getLevel() - 43;
+			int level = player.getLevel() - 42;
 			// Power Divide
 			addSkill(player, 816, level);
 			// Full Swing
