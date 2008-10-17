@@ -13636,6 +13636,180 @@ public enum SystemMessageId
 	SKILL_NOT_FOR_SUBCLASS(2273),
 
 	/**
+	 * ID: 2274<br>
+	 * Message: You entered an area where you cannot throw away items.
+	 */
+	AREA_CANNOT_DROP_ITEMS(2274),
+
+	/**
+	 * ID: 2275<br>
+	 * Message: You are in an area where you cannot cancel pet summoning.
+	 */
+	AREA_CANNOT_CANCEL_PET_SUMMON(2275),
+
+	/**
+	 * ID: 2276<br>
+	 * Message: The rebel army recaptured the fortress.
+	 */
+	REBELS_RECAPTURED_FORTRESS(2276),
+
+	/**
+	 * ID: 2277<br>
+	 * Message: Party of $s1.
+	 */
+	PARTY_OF_S1(2277),
+
+	/**
+	 * ID: 2278<br>
+	 * Message: Remaining Time $s1:$s2.
+	 */
+	REMAINING_TIME_S1_S2(2278),
+
+	/**
+	 * ID: 2279<br>
+	 * Message: You can no longer add a quest to the Quest Alerts.
+	 */
+	CANNOT_ADD_QUEST_TO_ALERTS(2279),
+
+	/**
+	 * ID: 2280<br>
+	 * Message: Damage is decreased because $c1 resisted against $c2's magic.
+	 */
+	DAMAGE_DECREACE_C1_RESISTED_C2_MAGIC(2280),
+
+	/**
+	 * ID: 2281<br>
+	 * Message: $c1 caused damage of $s3 to $c2, and also caused damage of $s4 to the damage transition object.
+	 */
+	C1_DAMAGED_S3_TO_C2_AND_DAMAGED_S4_TO_TRANSITION_OBJ(2281),
+
+	/**
+	 * ID: 2282<br>
+	 * Message: Leave Fantasy Isle.
+	 */
+	LEAVE_FANTASY_ISLE(2282),
+
+	/**
+	 * ID: 2283<br>
+	 * Message: You cannot transform while sitting.
+	 */
+	CANNOT_TRANSFORM_WHILE_SITTING(2283),
+
+	/**
+	 * ID: 2284<br>
+	 * Message: You have obtained all the points you can get today in a place other than Internet Cafe.
+	 */
+	OBTAINED_ALL_POINTS_YOU_CAN_GET_TODAY(2284),
+
+	/**
+	 * ID: 2285<br>
+	 * Message: This skill cannot remove this trap.
+	 */
+	CANNOT_REMOVE_TRAP_WITH_THIS_SKILL(2285),
+
+	/**
+	 * ID: 2286<br>
+	 * Message: You cannot wear $s1 because you are not wearing the bracelet.
+	 */
+	CANNOT_WEAR_S1_WITHOUT_BRACELET(2286),
+
+	/**
+	 * ID: 2287<br>
+	 * Message: There is no space to wear $s1.
+	 */
+	NO_SPACE_TO_WEAR_S1(2287),
+
+	/**
+	 * ID: 2288<br>
+	 * Message: Resurrection is going to take place near the Tower of Resurrection in $s1 seconds.
+	 */
+	RESSURECTION_NEAR_TOWER_OF_RESURRECTION_S1_SECONDS(2288),
+
+	/**
+	 * ID: 2289<br>
+	 * Message: The match between the parties is not available because one of the party members is being teleported.
+	 */
+	CANNOT_MATCH_BETWEEN_PARTIES_ONE_TELEPORTED(2289),
+
+	/**
+	 * ID: 2290<br>
+	 * Message: You cannot assign shortcut keys before you log in.
+	 */
+	CANNOT_ASSIGN_SHORTCUT_KEYS_BEFORE_LOGIN(2290),
+
+	/**
+	 * ID: 2291<br>
+	 * Message: You can operate the machine when you participate in the party.
+	 */
+	CAN_OPERATE_MACHINE_WHEN_IN_PARTY(2291),
+
+	/**
+	 * ID: 2292<br>
+	 * Message: Agathion skills can be used only when Agathion is summoned.
+	 */
+	AGATHION_SKILLS_USED_WHEN_AGATHION_SUMMONED(2292),
+
+	/**
+	 * ID: 2293<br>
+	 * Message: Current location: $s1, $s2, $s3 (inside the Steel Citadel).
+	 */
+	LOC_STEEL_CITADEL_S1_S2_S3(2293),
+
+	/**
+	 * ID: 2294<br>
+	 * Message: The width of the uploaded badge or insignia does not meet the standard requirements.
+	 */
+	INVALID_INSIGNIA_WIDTH(2294),
+
+	/**
+	 * ID: 2295<br>
+	 * Message: The length of the uploaded badge or insignia does not meet the standard requirements.
+	 */
+	INVALID_INSIGNIA_LENGTH(2295),
+
+	/**
+	 * ID: 2296<br>
+	 * Message: 
+	 */
+	EMPTY1(2296),
+
+	/**
+	 * ID: 2297<br>
+	 * Message: 
+	 */
+	EMPTY2(2297),
+
+	/**
+	 * ID: 2298<br>
+	 * Message: The color of the badge or insignia that you want to register does not meet the standard requirements.
+	 */
+	INVALID_INSIGNIA_COLOR(2298),
+
+	/**
+	 * ID: 2299<br>
+	 * Message: The file format of the badge or insignia that you want to register does not meet the standard requirements.
+	 */
+	INVALID_INSIGNIA_FORMAT(2299),
+
+	/**
+	 * ID: 2300<br>
+	 * Message: Failed to load keyboard security module. For effective gaming functionality, when the game is over, please check all the files in the Lineage II automatic update.
+	 */
+	CANNOT_LOAD_KEY_SECURITY(2300),
+
+	/**
+	 * ID: 2301<br>
+	 * Message: Current Location: Inside Steel Citadel.
+	 */
+	LOC_STEEL_CITADEL(2301),
+
+	/**
+	 * ID: 2302<br>
+	 * Message: The premium item has arrived. If you go to the $c1% in each village, you can obtain the item.
+	 */
+	PREMIUM_ITEM_ARRIVED_GOTO_C1_IN_EACH_VILLAGE(2302),
+
+	/**
 	* ID: 2303<br>
 	* Message: There are $s2 second(s) remaining in $s1's re-use time.
 	*/
