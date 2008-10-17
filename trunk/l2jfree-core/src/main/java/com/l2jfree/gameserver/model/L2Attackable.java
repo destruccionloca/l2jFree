@@ -1674,8 +1674,7 @@ public class L2Attackable extends L2NpcInstance
 		if (isChampion() && Math.abs(getLevel() - player.getLevel()) <= Config.CHAMPION_SPCL_LVL_DIFF && Config.CHAMPION_SPCL_CHANCE > 0
 				&& Rnd.get(100) < Config.CHAMPION_SPCL_CHANCE)
 		{
-			int champqty = Rnd.get(Config.CHAMPION_SPCL_QTY);
-			champqty++; //quantity should actually vary between 1 and whatever admin specified as max, inclusive.
+			int champqty = Rnd.get(Config.CHAMPION_SPCL_QTY) + 1; //quantity should actually vary between 1 and whatever admin specified as max, inclusive.
 
 			// Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
 			RewardItem item = new RewardItem(Config.CHAMPION_SPCL_ITEM, champqty);
@@ -2311,9 +2310,8 @@ public class L2Attackable extends L2NpcInstance
 					// Find any of the 39 possible crystals.
 					if (id == itemId)
 					{
-						crystalQTY++;
 						// Keep count but make sure the player has no more than 1 crystal
-						if (crystalQTY > 1)
+						if (++crystalQTY > 1)
 						{
 							isSuccess = false;
 							break;

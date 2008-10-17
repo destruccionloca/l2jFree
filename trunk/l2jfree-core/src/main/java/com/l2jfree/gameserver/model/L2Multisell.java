@@ -252,8 +252,7 @@ public class L2Multisell
 		{
 			if (temp.getEntries().size() == 40)
 			{
-				player.sendPacket(new MultiSellList(temp, page, 0));
-				page++;
+				player.sendPacket(new MultiSellList(temp, page++, 0));
 				temp = new MultiSellListContainer();
 				temp.setListId(list.getListId());
 			}
@@ -319,7 +318,7 @@ public class L2Multisell
         
         public int stackable()
         {
-            for(MultiSellIngredient p : _products)
+            for (MultiSellIngredient p : _products)
             {
                 if(!ItemTable.getInstance().createDummyItem(p.getItemId()).isStackable())
                     return 0;

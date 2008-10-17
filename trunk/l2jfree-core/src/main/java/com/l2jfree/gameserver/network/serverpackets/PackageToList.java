@@ -46,7 +46,7 @@ public class PackageToList extends L2GameServerPacket
 	{
 		writeC(0xC8);
 		writeD(_players.size());
-		for(int objId : _players.keySet())
+		for (int objId : _players.keySet())
 		{
 			writeD(objId); // you told me char id, i guess this was object id?
 			writeS(_players.get(objId));

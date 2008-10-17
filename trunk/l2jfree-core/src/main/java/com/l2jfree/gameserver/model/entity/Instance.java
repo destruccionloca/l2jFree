@@ -219,7 +219,7 @@ public class Instance
 							_log.fatal("Error in door data, ID:" + temp.getDoorId());
 						}
 						newdoor.getStatus().setCurrentHpMp(newdoor.getMaxHp(), newdoor.getMaxMp());
-						newdoor.setOpen(1);
+						newdoor.setOpen(false);
 						newdoor.getPosition().setXYZInvisible(temp.getX(), temp.getY(), temp.getZ());
 						newdoor.spawnMe(newdoor.getX(), newdoor.getY(), newdoor.getZ());
 

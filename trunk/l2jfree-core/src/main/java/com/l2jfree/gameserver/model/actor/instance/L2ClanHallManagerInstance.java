@@ -1499,7 +1499,11 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
 
     private void revalidateDeco(L2PcInstance player)
     {
-        AgitDecoInfo bl = new AgitDecoInfo(ClanHallManager.getInstance().getClanHallByOwner(player.getClan()));
-        player.sendPacket(bl);
+        ClanHall ch = ClanHallManager.getInstance().getClanHallByOwner(player.getClan());
+        if (ch != null)
+        {
+            AgitDecoInfo bl = new AgitDecoInfo(ch);
+            player.sendPacket(bl);
+        }
     }
 }

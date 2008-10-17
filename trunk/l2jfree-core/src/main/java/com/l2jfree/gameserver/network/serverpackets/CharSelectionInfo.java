@@ -30,8 +30,8 @@ import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.model.CharSelectInfoPackage;
 import com.l2jfree.gameserver.model.CursedWeapon;
-import com.l2jfree.gameserver.model.Inventory;
 import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.L2GameClient;
 
 public class CharSelectionInfo extends L2GameServerPacket

@@ -95,7 +95,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         }
         
         long priceTotal = 0;
-        for(ItemRequest ir : _items)
+        for (ItemRequest ir : _items)
         {
 			if (ir.getCount() < 0)
 			{

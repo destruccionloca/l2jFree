@@ -134,6 +134,11 @@ public class L2SignsPriestInstance extends L2FolkInstance
                         showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dawn_no.htm");
                         break;
                     }
+                    else
+                    {
+                        showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dawn.htm");
+                        break;
+                    }
                 case 33: // "I want to participate" request
                     if (cabal == SevenSigns.CABAL_DUSK && Config.ALT_GAME_CASTLE_DUSK) //dusk
                     {
@@ -176,53 +181,44 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     }
                     else if (player.getClassId().level() >= 2)
                     {
-                        if (Config.ALT_GAME_CASTLE_DUSK)
+                        if (cabal == SevenSigns.CABAL_DUSK && Config.ALT_GAME_CASTLE_DUSK)
                         {
                             if (player.getClan() != null && player.getClan().getHasCastle() >= 0)
                             {
-                                if (cabal == SevenSigns.CABAL_DUSK)
-                                {
-                                    showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dusk_no.htm");
-                                    return;
-                                }
+                                showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dusk_no.htm");
+                                return;
                             }
                         }
+
                         /*
                          * If the player is trying to join the Lords of Dawn, check if they are
                          * carrying a Lord's certificate.
                          *
                          * If not then try to take the required amount of adena instead.
                          */
-                        if (Config.ALT_GAME_CASTLE_DAWN)
+                        if (Config.ALT_GAME_CASTLE_DAWN && cabal == SevenSigns.CABAL_DAWN)
                         {
-                            if (cabal == SevenSigns.CABAL_DAWN)
+                            if (player.getClan() != null && player.getClan().getHasCastle() >= 0) // castle owner don't need to pay anything
                             {
-                                boolean allowJoinDawn = false;
-
-                                if (player.getClan() != null && player.getClan().getHasCastle() >= 0) // castle owner don't need to pay anything
-                                {
-                                    allowJoinDawn = true;
-                                }
-                                else if (player.destroyItemByItemId("SevenSigns", SevenSigns.CERTIFICATE_OF_APPROVAL_ID, 1, this, false))
-                                {
-                                    sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-                                    sm.addItemName(SevenSigns.CERTIFICATE_OF_APPROVAL_ID);
-                                    sm.addNumber(1);
-                                    player.sendPacket(sm);
-                                    allowJoinDawn = true;
-                                }
-                                else if (player.reduceAdena("SevenSigns", Config.ALT_DAWN_JOIN_COST, this, false))
-                                {
-                                    sm = new SystemMessage(SystemMessageId.DISAPPEARED_ADENA);
-                                    sm.addNumber(Config.ALT_DAWN_JOIN_COST);
-                                    player.sendPacket(sm);
-                                    allowJoinDawn = true;
-                                }
-                                if (!allowJoinDawn)
-                                {
-                                    showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dawn_fee.htm");
-                                    return;
-                                }
+                                // No additional fees
+                            }
+                            else if (player.destroyItemByItemId("SevenSigns", SevenSigns.CERTIFICATE_OF_APPROVAL_ID, 1, this, false))
+                            {
+                                sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+                                sm.addItemName(SevenSigns.CERTIFICATE_OF_APPROVAL_ID);
+                                sm.addNumber(1);
+                                player.sendPacket(sm);
+                            }
+                            else if (player.reduceAdena("SevenSigns", Config.ALT_DAWN_JOIN_COST, this, false))
+                            {
+                                sm = new SystemMessage(SystemMessageId.DISAPPEARED_ADENA);
+                                sm.addNumber(Config.ALT_DAWN_JOIN_COST);
+                                player.sendPacket(sm);
+                            }
+                            else
+                            {
+                                showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dawn_fee.htm");
+                                return;
                             }
                         }
                     }

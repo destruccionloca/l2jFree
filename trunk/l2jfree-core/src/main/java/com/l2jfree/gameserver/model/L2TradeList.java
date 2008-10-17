@@ -22,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.datatables.ItemTable;
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
@@ -234,7 +235,7 @@ public class L2TradeList
 	public void removeItem(int objId,int count)
 	{
 		L2ItemInstance temp;
-		for(int y = 0 ; y < _items.size(); y++)
+		for (int y = 0 ; y < _items.size(); y++)
 		{
 			temp = _items.get(y);
 			if (temp.getObjectId()  == objId)
@@ -253,7 +254,7 @@ public class L2TradeList
 	{
 		boolean bool = false;
 		L2ItemInstance temp;
-		for(int y = 0 ; y < _items.size(); y++)
+		for (int y = 0 ; y < _items.size(); y++)
 		{
 			temp = _items.get(y);
 			if (temp.getObjectId()  == objId)
@@ -271,7 +272,7 @@ public class L2TradeList
 		Inventory playersInv = player.getInventory();	
 		L2ItemInstance playerItem,temp;
 		
-		for(int y = 0 ; y < _items.size(); y++)
+		for (int y = 0 ; y < _items.size(); y++)
 		{
 			temp = _items.get(y);
 			playerItem = playersInv.getItemByObjectId(temp.getObjectId());
@@ -365,9 +366,9 @@ public class L2TradeList
 		List<SystemMessage> sysmsgs = new FastList<SystemMessage>();
 		SystemMessage msg = null;
 		
-		for(TradeItem buyerItem : buyerslist)
+		for (TradeItem buyerItem : buyerslist)
 		{
-		    for(x=0 ; x < sellerslist.size(); x++)//find in sellerslist
+		    for (x=0 ; x < sellerslist.size(); x++)//find in sellerslist
 		    {
 		        temp2 = sellerslist.get(x);
 		        if (temp2.getItemId() == buyerItem.getItemId())

@@ -42,7 +42,7 @@ public class ExListPartyMatchingWaitingRoom extends L2GameServerPacket
 		int firstNot = page * 64;
 
 		int i = -1;
-		for(L2PcInstance pc : waiting)
+		for (L2PcInstance pc : waiting)
 		{
 			if (pc.getLevel() >= _minLevel && pc.getLevel() <= _maxLevel && !pc.isGM())
 			{
@@ -73,7 +73,7 @@ public class ExListPartyMatchingWaitingRoom extends L2GameServerPacket
 		}
 
 		writeD(_waiting.size());
-		for(L2PcInstance p : _waiting)
+		for (L2PcInstance p : _waiting)
 		{
 			writeS(p.getName());
 			writeD(p.getClassId().getId());

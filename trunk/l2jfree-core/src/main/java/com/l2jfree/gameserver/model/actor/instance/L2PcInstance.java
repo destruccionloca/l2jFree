@@ -96,8 +96,6 @@ import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
 import com.l2jfree.gameserver.model.BlockList;
 import com.l2jfree.gameserver.model.CursedWeapon;
 import com.l2jfree.gameserver.model.FishData;
-import com.l2jfree.gameserver.model.Inventory;
-import com.l2jfree.gameserver.model.ItemContainer;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -124,9 +122,6 @@ import com.l2jfree.gameserver.model.L2Trap;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.MacroList;
-import com.l2jfree.gameserver.model.PcFreight;
-import com.l2jfree.gameserver.model.PcInventory;
-import com.l2jfree.gameserver.model.PcWarehouse;
 import com.l2jfree.gameserver.model.ShortCuts;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.L2Effect.EffectType;
@@ -154,6 +149,11 @@ import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.model.entity.faction.FactionMember;
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
+import com.l2jfree.gameserver.model.itemcontainer.PcFreight;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
+import com.l2jfree.gameserver.model.itemcontainer.PcWarehouse;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
@@ -3413,7 +3413,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			return false;
 		}
 
-		item.dropMe(this, getPosition().getX() + Rnd.get(50) - 25, getPosition().getY() + Rnd.get(50) - 25, getPosition().getZ() + 20);
+		item.dropMe(this, getX() + Rnd.get(50) - 25, getY() + Rnd.get(50) - 25, getZ() + 20);
 
 		if (Config.AUTODESTROY_ITEM_AFTER > 0 && Config.DESTROY_DROPPED_PLAYER_ITEM && !Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
 		{
@@ -5293,10 +5293,10 @@ public final class L2PcInstance extends L2PlayableInstance
 					L2ItemInstance invItem = getInventory().getItemByItemId(getInventory().getPaperdollItemId(7));
 					if (invItem.isEquipped())
 					{
-						L2ItemInstance unequiped[] = getInventory().unEquipItemInSlotAndRecord(invItem.getLocationSlot());
+						L2ItemInstance[] unequiped = getInventory().unEquipItemInSlotAndRecord(invItem.getLocationSlot());
 						InventoryUpdate iu = new InventoryUpdate();
-						for (int i = 0; i < unequiped.length; i++)
-							iu.addModifiedItem(unequiped[i]);
+						for (L2ItemInstance itm: unequiped)
+							iu.addModifiedItem(itm);
 						sendPacket(iu);
 					}
 					refreshExpertisePenalty();
@@ -7288,7 +7288,6 @@ public final class L2PcInstance extends L2PlayableInstance
 					if (effect instanceof EffectForce)
 						continue;
 					int skillId = effect.getSkill().getId();
-					buff_index++;
 
 					statement.setInt(1, getObjectId());
 					statement.setInt(2, skillId);
@@ -7308,7 +7307,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					}
 					statement.setInt(8, 0);
 					statement.setInt(9, getClassIndex());
-					statement.setInt(10, buff_index);
+					statement.setInt(10, ++buff_index);
 					statement.execute();
 				}
 			}
@@ -7318,7 +7317,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				if (t.hasNotPassed())
 				{
-					buff_index++;
 					statement.setInt(1, getObjectId());
 					statement.setInt(2, t.getSkill());
 					statement.setInt(3, -1);
@@ -7328,7 +7326,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					statement.setLong(7, t.getStamp());
 					statement.setInt(8, 1);
 					statement.setInt(9, getClassIndex());
-					statement.setInt(10, buff_index);
+					statement.setInt(10, ++buff_index);
 					statement.execute();
 				}
 			}
@@ -8705,37 +8703,42 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * @param skill L2Skill instance with the skill being casted
 	 * @return False if the skill is a pvpSkill and target is not a valid pvp target
 	 */
-	public boolean checkPvpSkill(L2Object target, L2Skill skill)
+	public boolean checkPvpSkill(L2Object obj, L2Skill skill)
 	{
 		if ((_inEventTvT && TvT._started) || (_inEventDM && DM._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started))
 			return true;
 
 		// check for PC->PC Pvp status
-		if (target != null && // target not null and
-				target != this && // target is not self and
-				target instanceof L2PcInstance && // target is L2PcInstance and
-				!(isInDuel() && ((L2PcInstance) target).getDuelId() == getDuelId()) && // self is not in a duel and attacking opponent
+		if (obj != this && // target is not self and
+				obj instanceof L2PcInstance && // target is L2PcInstance and
+				!(isInDuel() && ((L2PcInstance) obj).getDuelId() == getDuelId()) && // self is not in a duel and attacking opponent
 				!isInsideZone(L2Zone.FLAG_PVP) && // Pc is not in PvP zone
-				!((L2PcInstance) target).isInsideZone(L2Zone.FLAG_PVP) // target is not in PvP zone
+				!((L2PcInstance) obj).isInsideZone(L2Zone.FLAG_PVP) // target is not in PvP zone
 		)
 		{
+			L2PcInstance target = (L2PcInstance) obj;
 			if (skill.isPvpSkill()) // pvp skill
 			{
-				if (getClan() != null && ((L2PcInstance) target).getClan() != null)
+				if (getClan() != null && target.getClan() != null)
 				{
-					if (getClan().isAtWarWith(((L2PcInstance) target).getClan().getClanId())
-							&& ((L2PcInstance) target).getClan().isAtWarWith(getClan().getClanId()))
+					if (getClan().isAtWarWith(target.getClan().getClanId())
+							&& target.getClan().isAtWarWith(getClan().getClanId()))
 						return true; // in clan war player can attack whites even with sleep etc.
 				}
-				if (((L2PcInstance) target).getPvpFlag() == 0 && //   target's pvp flag is not set and
-						((L2PcInstance) target).getKarma() == 0 //   target has no karma
+				if (target.getPvpFlag() == 0 && //   target's pvp flag is not set and
+						target.getKarma() == 0 //   target has no karma
 				)
 					return false;
 			}
 			else if (getCurrentSkill() != null && !getCurrentSkill().isCtrlPressed() && skill.isOffensive())
 			{
-				if (((L2PcInstance) target).getPvpFlag() == 0 && //   target's pvp flag is not set and
-						((L2PcInstance) target).getKarma() == 0 //   target has no karma
+				if(getClan() != null && target.getClan() != null)
+				{
+					if(getClan().isAtWarWith(target.getClan().getClanId()) && target.getClan().isAtWarWith(getClan().getClanId()))
+						return true; // in clan war player can attack whites even without ctrl
+				}
+				if (target.getPvpFlag() == 0 && //   target's pvp flag is not set and
+						target.getKarma() == 0 //   target has no karma
 				)
 					return false;
 			}
@@ -12400,7 +12403,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void calculateDeathPenaltyBuffLevel(L2Character killer)
 	{
-		if (!(killer instanceof L2PlayableInstance) && !isGM() && !(getCharmOfLuck() && killer.isRaid()) && Rnd.get(100) <= Config.DEATH_PENALTY_CHANCE)
+		if (!(killer instanceof L2PlayableInstance) && !isGM() && !(getCharmOfLuck() && killer.isRaid())
+				&& !isPhoenixBlessed() && !isInFunEvent() && Rnd.get(100) <= Config.DEATH_PENALTY_CHANCE)
 			increaseDeathPenaltyBuffLevel();
 	}
 

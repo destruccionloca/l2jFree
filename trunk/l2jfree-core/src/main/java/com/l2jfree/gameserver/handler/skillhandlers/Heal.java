@@ -54,18 +54,16 @@ public class Heal implements ISkillHandler
 	{
 		SkillHandler.getInstance().getSkillHandler(SkillType.BUFF).useSkill(activeChar, skill, targets);
 
-		L2Character target = null;
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
 			player = (L2PcInstance) activeChar;
 		boolean clearSpiritShot = false;
 
-		for (L2Object element : targets)
+		for (L2Character target: (L2Character[]) targets)
 		{
-			target = (L2Character) element;
 			//We should not heal if char is dead
-			if (target == null || target.isDead())
+			if (target.isDead())
 				continue;
 
 			// Player holding a cursed weapon can't be healed and can't heal

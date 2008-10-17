@@ -20,9 +20,9 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
-import com.l2jfree.gameserver.model.ItemContainer;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
 
 /**
  * Thorgrim - 2005 Class managing periodical events with castle
@@ -59,8 +59,7 @@ public class CastleUpdater implements Runnable
 							_log.info("Manor System: all data for " + castle.getName() + " saved");
 					}
 				}
-				_runCount++;
-				CastleUpdater cu = new CastleUpdater(_clan, _runCount);
+				CastleUpdater cu = new CastleUpdater(_clan, ++_runCount);
 				ThreadPoolManager.getInstance().scheduleGeneral(cu, 3600000);
 			}
 		}

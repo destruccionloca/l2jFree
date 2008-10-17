@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CrownManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.ClanWarehouse;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
@@ -92,7 +93,7 @@ public class L2Clan
 	/** Leader clan dissolve ally */
 	public static final int					PENALTY_TYPE_DISSOLVE_ALLY	= 4;
 
-	private ItemContainer					_warehouse					= new ClanWarehouse(this);
+	private ClanWarehouse					_warehouse					= new ClanWarehouse(this);
 	private List<Integer>					_atWarWith					= new FastList<Integer>();
 	private List<Integer>					_atWarAttackers				= new FastList<Integer>();
 
@@ -1435,7 +1436,7 @@ public class L2Clan
 		_hasCrestLarge = flag;
 	}
 
-	public ItemContainer getWarehouse()
+	public ClanWarehouse getWarehouse()
 	{
 		return _warehouse;
 	}

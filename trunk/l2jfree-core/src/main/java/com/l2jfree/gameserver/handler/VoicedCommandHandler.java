@@ -20,10 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.handler.voicedcommandhandlers.CastleDoors;
-import com.l2jfree.gameserver.handler.voicedcommandhandlers.Wedding;
-import com.l2jfree.gameserver.handler.voicedcommandhandlers.Hellbound;
-import com.l2jfree.gameserver.handler.voicedcommandhandlers.VersionInfo;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.*;
 
 /**
  * This class ...

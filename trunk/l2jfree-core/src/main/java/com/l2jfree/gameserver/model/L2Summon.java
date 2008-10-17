@@ -35,6 +35,7 @@ import com.l2jfree.gameserver.model.actor.knownlist.SummonKnownList;
 import com.l2jfree.gameserver.model.actor.stat.SummonStat;
 import com.l2jfree.gameserver.model.actor.status.SummonStatus;
 import com.l2jfree.gameserver.model.base.Experience;
+import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowAdd;
@@ -426,10 +427,8 @@ public abstract class L2Summon extends L2PlayableInstance
 		L2Effect[] effects = getAllEffects();
 		if (effects != null && effects.length > 0)
 		{
-			for (int i = 0; i < effects.length; i++)
+			for (L2Effect effect: effects)
 			{
-				L2Effect effect = effects[i];
-
 				if (effect == null)
 					continue;
 

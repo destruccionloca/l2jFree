@@ -97,7 +97,6 @@ public class WareHouseDepositList extends L2GameServerPacket
 			}
 			else
 				writeQ(0x00);
-			writeD(item.getMana());
 
 			writeD(item.getAttackElementType());
 			writeD(item.getAttackElementPower());
@@ -105,6 +104,8 @@ public class WareHouseDepositList extends L2GameServerPacket
 			{
 				writeD(item.getElementDefAttr(i));
 			}
+
+			writeD(item.getMana());
 		}
 	}
 	

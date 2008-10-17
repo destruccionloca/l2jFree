@@ -169,7 +169,7 @@ public class L2DynamicZone extends L2DefaultZone
 	{
 		if(_applyEnter != null)
 		{
-			for(L2Skill sk : _applyEnter)
+			for (L2Skill sk : _applyEnter)
 			{
 				if (character.getFirstEffect(sk.getId()) == null)
 					sk.getEffects(character, character);

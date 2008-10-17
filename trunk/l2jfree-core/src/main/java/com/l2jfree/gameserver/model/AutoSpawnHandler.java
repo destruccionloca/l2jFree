@@ -437,8 +437,7 @@ public class AutoSpawnHandler
 				 */
 				if (!spawnInst.isRandomSpawn())
 				{
-					locationIndex = spawnInst._lastLocIndex;
-					locationIndex++;
+					locationIndex = spawnInst._lastLocIndex + 1;
 
 					if (locationIndex == locationCount)
 						locationIndex = 0;

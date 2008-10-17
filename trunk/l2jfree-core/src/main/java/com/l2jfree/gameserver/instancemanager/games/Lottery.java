@@ -471,8 +471,7 @@ public class Lottery
 			int val = enchant / 2;
 			if (val != (double) enchant / 2)
 			{
-				res[id] = nr;
-				id++;
+				res[id++] = nr;
 			}
 			enchant /= 2;
 			nr++;
@@ -485,8 +484,7 @@ public class Lottery
 			int val = type2 / 2;
 			if (val != (double) type2 / 2)
 			{
-				res[id] = nr;
-				id++;
+				res[id++] = nr;
 			}
 			type2 /= 2;
 			nr++;

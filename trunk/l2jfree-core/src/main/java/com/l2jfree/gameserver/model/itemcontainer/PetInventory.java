@@ -12,8 +12,9 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.model.itemcontainer;
 
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.serverpackets.PetInventoryUpdate;
@@ -32,7 +33,22 @@ public class PetInventory extends Inventory
     { 
         return _owner; 
     }
-    
+
+	@Override
+	public int getOwnerId()
+	{
+		// gets the L2PcInstance-owner's ID
+		int id = 0;
+		try
+		{
+			id = _owner.getOwner().getObjectId();
+		}
+		catch (NullPointerException e) 
+		{
+		}
+		return id;
+	}
+
 	@Override
     protected ItemLocation getBaseLocation() 
     {

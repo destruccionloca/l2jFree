@@ -127,7 +127,7 @@ public class ExtractableItemsData
 				catch (Exception e)
 				{
 					_log.warn("Extractable items data: Error in line " + lineCount + " -> incomplete/invalid production data or wrong seperator!");
-					_log.warn("		" + line);
+					_log.warn("      " + line);
 					ok = false;
 				}
 
@@ -169,8 +169,7 @@ public class ExtractableItemsData
 		int i = 0;
 		for (L2ExtractableItem ei : _items.values())
 		{
-			result[i] = ei.getItemId();
-			i++;
+			result[i++] = ei.getItemId();
 		}
 		return result;
 	}

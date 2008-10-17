@@ -14,12 +14,12 @@
  */
 package com.l2jfree.gameserver.skills.l2skills;
 
-import com.l2jfree.gameserver.model.Inventory;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -85,8 +85,8 @@ public class L2SkillChangeWeapon extends L2Skill
 
 				L2ItemInstance[] unequiped = player.getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
 				InventoryUpdate iu = new InventoryUpdate();
-				for (int i = 0; i < unequiped.length; i++)
-					iu.addModifiedItem(unequiped[i]);
+				for (L2ItemInstance item: unequiped)
+					iu.addModifiedItem(item);
 
 				player.sendPacket(iu);
 
@@ -94,25 +94,25 @@ public class L2SkillChangeWeapon extends L2Skill
 				{
 					byte count = 0;
 
-					for (int i = 0; i < unequiped.length; i++)
+					for (L2ItemInstance item: unequiped)
 					{
-						if (!(unequiped[i].getItem() instanceof L2Weapon))
+						if (!(item.getItem() instanceof L2Weapon))
 						{
 							count++;
 							continue;
 						}
 
 						SystemMessage sm = null;
-						if (unequiped[i].getEnchantLevel() > 0)
+						if (item.getEnchantLevel() > 0)
 						{
 							sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-							sm.addNumber(unequiped[i].getEnchantLevel());
-							sm.addItemName(unequiped[i]);
+							sm.addNumber(item.getEnchantLevel());
+							sm.addItemName(item);
 						}
 						else
 						{
 							sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-							sm.addItemName(unequiped[i]);
+							sm.addItemName(item);
 						}
 						player.sendPacket(sm);
 					}

@@ -50,7 +50,7 @@ public class AdminForgePacket extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-		for(Part p : _parts)
+		for (Part p : _parts)
 		{
 			generate(p.b, p.str);
 		}

@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 
 /**
  * 

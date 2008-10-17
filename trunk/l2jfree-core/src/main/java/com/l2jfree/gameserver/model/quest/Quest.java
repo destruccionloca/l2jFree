@@ -295,7 +295,7 @@ public class Quest extends ManagedScript
 		try
 		{
 			_rwLock.writeLock().lock();
-			for(QuestTimer timer :timers)
+			for (QuestTimer timer :timers)
 			{
 				if (timer != null)
 				{

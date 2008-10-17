@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.model.itemcontainer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,6 +24,12 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.ArmorSetsTable;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.model.GMAudit;
+import com.l2jfree.gameserver.model.L2ArmorSet;
+import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.L2Armor;
@@ -246,7 +252,7 @@ public abstract class Inventory extends ItemContainer
 			if (itemSkills != null)
 			{
 				for (L2Skill itemSkill : itemSkills)
-					player.removeSkill(itemSkill, false);
+					player.removeSkill(itemSkill, false, itemSkill.isPassive());
 			}
 			if (enchant4Skills != null)
 			{
@@ -1464,7 +1470,7 @@ public abstract class Inventory extends ItemContainer
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
 					.prepareStatement("SELECT object_id, item_id, count, enchant_level, loc, loc_data, custom_type1, custom_type2, mana_left, attributes FROM items WHERE owner_id=? AND (loc=? OR loc=?) ");
-			statement.setInt(1, getOwner().getObjectId());
+			statement.setInt(1, getOwnerId());
 			statement.setString(2, getBaseLocation().name());
 			statement.setString(3, getEquipLocation().name());
 			ResultSet inv = statement.executeQuery();
@@ -1472,7 +1478,7 @@ public abstract class Inventory extends ItemContainer
 			L2ItemInstance item;
 			while (inv.next())
 			{
-				item = L2ItemInstance.restoreFromDb(getOwner().getObjectId(), inv);
+				item = L2ItemInstance.restoreFromDb(getOwnerId(), inv);
 				if (item == null)
 					continue;
 				
@@ -1504,14 +1510,11 @@ public abstract class Inventory extends ItemContainer
 	 */
 	public void reloadEquippedItems() 
 	{
-		L2ItemInstance item;
-		int slot;
-		
-		for (int i = 0; i < _paperdoll.length; i++)
+		for (L2ItemInstance item: _paperdoll)
 		{
-			item = _paperdoll[i];
-			if (item == null) continue;
-			slot = item.getLocationSlot();
+			if (item == null)
+				continue;
+			int slot = item.getLocationSlot();
 			
 			for (PaperdollListener listener : _paperdollListeners)
 			{

@@ -314,20 +314,20 @@ public abstract class L2Zone
 	public boolean isInsideZone(int x, int y)
 	{
 		boolean inside = false;
-		for(Shape sh : _shapes)
+		for (Shape sh : _shapes)
 		{
-			if(sh.contains(x, y))
+			if (sh.contains(x, y))
 			{
 				inside = true;
 				break;
 			}
 		}
 
-		if(_exShapes != null && inside)
+		if (_exShapes != null && inside)
 		{
-			for(Shape sh : _exShapes)
+			for (Shape sh : _exShapes)
 			{
-				if(sh.contains(x, y))
+				if (sh.contains(x, y))
 				{
 					inside = false;
 					break;
@@ -346,20 +346,20 @@ public abstract class L2Zone
 	public boolean isInsideZone(int x, int y, int z)
 	{
 		boolean inside = false;
-		for(Shape sh : _shapes)
+		for (Shape sh : _shapes)
 		{
-			if(sh.contains(x, y, z))
+			if (sh.contains(x, y, z))
 			{
 				inside = true;
 				break;
 			}
 		}
 
-		if(_exShapes != null && inside)
+		if (_exShapes != null && inside)
 		{
-			for(Shape sh : _exShapes)
+			for (Shape sh : _exShapes)
 			{
-				if(sh.contains(x, y, z))
+				if (sh.contains(x, y, z))
 				{
 					inside = false;
 					break;
@@ -387,7 +387,7 @@ public abstract class L2Zone
 	public double getDistanceToZone(int x, int y)
 	{
 		double dist = Double.MAX_VALUE;
-		for(Shape sh : _shapes)
+		for (Shape sh : _shapes)
 		{
 			dist = Math.min(dist, sh.getDistanceToZone(x, y));
 		}
@@ -396,14 +396,14 @@ public abstract class L2Zone
 
 	public int getMiddleX()
 	{
-		if(_shapes.length == 0)
+		if (_shapes.length == 0)
 		{
 			_log.error(getClassName()+" \""+getName()+"\" "+getId()+" has no shapes defined");
 			return 0;
 		}
 
 		int sum = 0;
-		for(Shape sh : _shapes)
+		for (Shape sh : _shapes)
 		{
 			sum += sh.getMiddleX();
 		}
@@ -412,14 +412,14 @@ public abstract class L2Zone
 
 	public int getMiddleY()
 	{
-		if(_shapes.length == 0)
+		if (_shapes.length == 0)
 		{
 			_log.error(getClassName()+" \""+getName()+"\" "+getId()+" has no shapes defined");
 			return 0;
 		}
 
 		int sum = 0;
-		for(Shape sh : _shapes)
+		for (Shape sh : _shapes)
 		{
 			sum += sh.getMiddleY();
 		}
@@ -428,9 +428,9 @@ public abstract class L2Zone
 
 	public boolean intersectsRectangle(int ax, int bx, int ay, int by)
 	{
-		for(Shape sh : _shapes)
+		for (Shape sh : _shapes)
 		{
-			if(sh.intersectsRectangle(ax, bx, ay, by))
+			if (sh.intersectsRectangle(ax, bx, ay, by))
 				return true;
 		}
 		return false;
@@ -448,9 +448,9 @@ public abstract class L2Zone
 
 	public int getMaxZ(int x, int y, int z)
 	{
-		for(Shape sh : _shapes)
+		for (Shape sh : _shapes)
 		{
-			if(sh.contains(x, y))
+			if (sh.contains(x, y))
 				return sh.getMaxZ();
 		}
 		return z;
@@ -458,9 +458,9 @@ public abstract class L2Zone
 
 	public int getMinZ(int x, int y, int z)
 	{
-		for(Shape sh : _shapes)
+		for (Shape sh : _shapes)
 		{
-			if(sh.contains(x, y))
+			if (sh.contains(x, y))
 				return sh.getMinZ();
 		}
 		return z;
@@ -468,7 +468,7 @@ public abstract class L2Zone
 
 	public Location getRandomLocation()
 	{
-		if(_shapes.length == 0)
+		if (_shapes.length == 0)
 		{
 			_log.error(getClassName()+" \""+getName()+"\" "+getId()+" has no shapes defined");
 			return new Location(0, 0, 0);

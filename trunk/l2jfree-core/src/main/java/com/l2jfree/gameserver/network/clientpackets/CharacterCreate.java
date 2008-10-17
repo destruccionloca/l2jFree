@@ -193,22 +193,21 @@ public class CharacterCreate extends L2GameClientPacket
 			}
 		}
 
-		L2SkillLearn[] startSkills = SkillTreeTable.getInstance().getAvailableSkills(newChar, newChar.getClassId());
-		for (L2SkillLearn element : startSkills)
+		for (L2SkillLearn skill: SkillTreeTable.getInstance().getAvailableSkills(newChar, newChar.getClassId()))
 		{
-			newChar.addSkill(SkillTable.getInstance().getInfo(element.getId(), element.getLevel()), true);
-			if (element.getId()==1001 || element.getId()==1177)
+			newChar.addSkill(SkillTable.getInstance().getInfo(skill.getId(), skill.getLevel()), true);
+			if (skill.getId() == 1001 || skill.getId() == 1177)
 			{
-				shortcut = new L2ShortCut(1,0,2,element.getId(),1,1);
+				shortcut = new L2ShortCut(1, 0, 2, skill.getId(), 1, 1);
 				newChar.registerShortCut(shortcut);
 			}
-			if (element.getId()==1216)
+			if (skill.getId() == 1216)
 			{
-				shortcut = new L2ShortCut(10,0,2,element.getId(),1,1);
+				shortcut = new L2ShortCut(10, 0, 2, skill.getId(), 1, 1);
 				newChar.registerShortCut(shortcut);
 			}
 			if (_log.isDebugEnabled()) 
-				_log.debug("adding starter skill:" + element.getId()+ " / "+ element.getLevel());
+				_log.debug("adding starter skill:" + skill.getId() + " / " + skill.getLevel());
 		}
 		startTutorialQuest(newChar);
 		L2GameClient.saveCharToDisk(newChar);

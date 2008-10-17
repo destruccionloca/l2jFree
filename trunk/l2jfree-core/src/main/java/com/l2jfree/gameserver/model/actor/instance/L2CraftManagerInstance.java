@@ -19,11 +19,11 @@ import java.util.StringTokenizer;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.RecipeController;
 import com.l2jfree.gameserver.datatables.ItemTable;
-import com.l2jfree.gameserver.model.Inventory;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2RecipeInstance;
 import com.l2jfree.gameserver.model.L2RecipeList;
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -99,7 +99,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 			_crystals.add(0,0);_crystals.add(1,0);_crystals.add(2,0);
 			_crystals.add(3,0);_crystals.add(4,0);_crystals.add(5,0);
 
-			for(L2ItemInstance _item : _inventory.getItems())
+			for (L2ItemInstance _item : _inventory.getItems())
 			{
 				if (!_item.isStackable() && 
 					_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE && 
@@ -354,7 +354,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
 
 			ArrayList<Integer> _recipes = new ArrayList<Integer>();
 
-			for(L2ItemInstance _item : _inventory.getItems())
+			for (L2ItemInstance _item : _inventory.getItems())
 			{
 				if (_item.getItemType()==L2EtcItemType.RECEIPE)
 				{
@@ -589,12 +589,12 @@ public class L2CraftManagerInstance extends L2FolkInstance
 				
 				int _quantitySuccess=0;
 				
-				for(int i=0;i<_quantity;i++)
-					if (Rnd.get(100) < _recipeList.getSuccessRate()) _quantitySuccess++;	
-					
+				for (int i = 0; i < _quantity; i++)
+					if (Rnd.get(100) < _recipeList.getSuccessRate())
+						_quantitySuccess++;
+
 				InventoryUpdate iu = new InventoryUpdate();
-					
-                for (L2RecipeInstance _recipeItem:_recipeItems)
+				for (L2RecipeInstance _recipeItem:_recipeItems)
 				{
 					player.destroyItemByItemId("CraftManager", _recipeItem.getItemId(), (int)(_quantity*_recipeItem.getQuantity()*Config.RATE_CRAFT_COST), player, true);
 					iu.addModifiedItem(player.getInventory().getItemByItemId(_recipeItem.getItemId()));

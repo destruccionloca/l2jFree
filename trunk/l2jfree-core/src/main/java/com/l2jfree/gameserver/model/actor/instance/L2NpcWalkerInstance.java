@@ -70,7 +70,7 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 	{
 		Map<Integer, L2PcInstance> _knownPlayers = getKnownList().getKnownPlayers();
 
-		if(_knownPlayers == null)
+		if (_knownPlayers == null)
 		{
 			if(Config.DEVELOPER)
 				_log.info("broadcastChat _players == null");
@@ -78,13 +78,12 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 		}
 
 		//we send message to known players only!
-		if(_knownPlayers.size() > 0)
+		if (_knownPlayers.size() > 0)
 		{
 			CreatureSay cs = new CreatureSay(getObjectId(), 0, getName(), chat);
 
 			//we interact and list players here
-			for(L2PcInstance players : _knownPlayers.values())
-
+			for (L2PcInstance players : _knownPlayers.values())
 				//finally send packet :D
 				players.sendPacket(cs);
 		}

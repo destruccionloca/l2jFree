@@ -53,10 +53,8 @@ public class Blow implements ISkillHandler
 		if (activeChar.isAlikeDead())
 			return;
 
-		for (L2Object element : targets)
+		for (L2Character target: (L2Character[]) targets)
 		{
-			L2Character target = (L2Character) element;
-
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance)
 			{
 				if (((L2PcInstance) activeChar).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)

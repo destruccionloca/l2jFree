@@ -86,6 +86,12 @@ public class ValidatePosition extends L2GameClientPacket
         int realY = activeChar.getY();
         int realZ = activeChar.getZ();
 
+        if (_x == 0 && _y == 0) 
+        {
+            if (realX != 0) // in this case this seems like a client error
+                return;
+        }
+
         if(activeChar.getParty() != null && activeChar.getLastPartyPositionDistance(_x, _y, _z) > 150)
         {
             activeChar.setLastPartyPosition(_x, _y, _z);
@@ -110,7 +116,18 @@ public class ValidatePosition extends L2GameClientPacket
 
         if (activeChar.isFlying() || activeChar.isInsideZone(L2Zone.FLAG_WATER))
         {
-            activeChar.getPosition().setXYZ(_x, _y, _z);
+            activeChar.getPosition().setXYZ(realX, realY, _z);
+            if (diffSq > 90000) // validate packet, may also cause z bounce if close to land
+            {
+                if (activeChar.isInBoat())
+                {
+                    sendPacket(new ValidateLocationInVehicle(activeChar));
+                }
+                else
+                {
+                    activeChar.sendPacket(new ValidateLocation(activeChar));
+                }
+            }
         }
         else if (diffSq < 250000) // if too large, messes observation
         {

@@ -43,9 +43,7 @@ public class Charge implements ISkillHandler
 		{
 			if (!(element instanceof L2PcInstance))
 				continue;
-
-			L2PcInstance target = (L2PcInstance) element;
-			skill.getEffects(activeChar, target);
+			skill.getEffects(activeChar, (L2PcInstance) element);
 		}
 
 		// self Effect :]

@@ -51,9 +51,9 @@ public class MultiSellList extends L2GameServerPacket
         writeD(0x28);	// size of pages
         writeD(_list == null ? 0 : _list.getEntries().size()); //list lenght
         
-        if(_list != null)
+        if (_list != null)
         {
-            for(MultiSellEntry ent : _list.getEntries())
+            for (MultiSellEntry ent : _list.getEntries())
             {
             	writeD(ent.getEntryId());
                 writeC(ent.stackable());
@@ -71,7 +71,7 @@ public class MultiSellList extends L2GameServerPacket
                 writeH(ent.getProducts().size());
                 writeH(ent.getIngredients().size());
     
-                for(MultiSellIngredient i: ent.getProducts())
+                for (MultiSellIngredient i: ent.getProducts())
                 {
                     L2Item tpl = ItemTable.getInstance().getTemplate(i.getItemId());
                     if (tpl == null)
@@ -99,7 +99,7 @@ public class MultiSellList extends L2GameServerPacket
                     writeD(0x00);
                 }
 
-                for(MultiSellIngredient i : ent.getIngredients())
+                for (MultiSellIngredient i : ent.getIngredients())
                 {
                     int items = i.getItemId();
                     int typeE = 65535;

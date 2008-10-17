@@ -47,12 +47,12 @@ public class L2DefaultZone extends L2Zone
 		
 		if(_applyEnter != null)
 		{
-			for(L2Skill sk : _applyEnter)
+			for (L2Skill sk : _applyEnter)
 				sk.getEffects(character, character);
 		}
 		if(_removeEnter != null)
 		{
-			for(L2Skill sk : _removeEnter)
+			for (L2Skill sk : _removeEnter)
 				character.stopSkillEffects(sk.getId());
 		}
 
@@ -163,12 +163,12 @@ public class L2DefaultZone extends L2Zone
 
 		if(_applyExit != null)
 		{
-			for(L2Skill sk : _applyExit)
+			for (L2Skill sk : _applyExit)
 				sk.getEffects(character, character);
 		}
 		if(_removeExit != null)
 		{
-			for(L2Skill sk : _removeExit)
+			for (L2Skill sk : _removeExit)
 				character.stopSkillEffects(sk.getId());
 		}
 		if (_funcTemplates != null)

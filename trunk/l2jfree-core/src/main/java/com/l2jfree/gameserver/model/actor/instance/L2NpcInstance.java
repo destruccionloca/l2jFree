@@ -65,7 +65,6 @@ import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.MobGroupTable;
-import com.l2jfree.gameserver.model.NpcInventory;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.knownlist.NpcKnownList;
 import com.l2jfree.gameserver.model.actor.stat.NpcStat;
@@ -78,6 +77,7 @@ import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.entity.events.VIP;
+import com.l2jfree.gameserver.model.itemcontainer.NpcInventory;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
@@ -1788,9 +1788,9 @@ public class L2NpcInstance extends L2Character
 
 				if (qlst != null && qlst.length > 0)
 				{
-					for (int i = 0; i < qlst.length; i++)
+					for (Quest temp: qlst)
 					{
-						if (qlst[i] == q)
+						if (temp == q)
 						{
 							qs = q.newQuestState(player);
 							break;

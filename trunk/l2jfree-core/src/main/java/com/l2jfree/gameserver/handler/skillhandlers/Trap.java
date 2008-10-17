@@ -43,10 +43,8 @@ public class Trap implements ISkillHandler
 		{
 		case DETECT_TRAP:
 		{
-			for (int index = 0; index < targets.length; index++)
+			for (L2Character target: (L2Character[]) targets)
 			{
-				L2Character target = (L2Character) targets[index];
-
 				if (!(target instanceof L2TrapInstance))
 					continue;
 
@@ -64,10 +62,8 @@ public class Trap implements ISkillHandler
 		}
 		case REMOVE_TRAP:
 		{
-			for (int index = 0; index < targets.length; index++)
+			for (L2Character target: (L2Character[]) targets)
 			{
-				L2Character target = (L2Character) targets[index];
-
 				if (!(target instanceof L2Trap))
 					continue;
 

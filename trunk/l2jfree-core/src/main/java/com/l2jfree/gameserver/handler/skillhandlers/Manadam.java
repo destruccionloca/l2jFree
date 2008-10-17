@@ -41,8 +41,6 @@ public class Manadam implements ISkillHandler
 	public void useSkill(@SuppressWarnings("unused")
 	L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
-		L2Character target = null;
-
 		if (activeChar.isAlikeDead())
 			return;
 
@@ -86,10 +84,8 @@ public class Manadam implements ISkillHandler
 			ss = ((L2NpcInstance) activeChar).isUsingShot(true);
 		}
 
-		for (L2Object element : targets)
+		for (L2Character target: (L2Character[]) targets)
 		{
-			target = (L2Character) element;
-
 			if (target.reflectSkill(skill))
 				target = activeChar;
 

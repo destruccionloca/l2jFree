@@ -91,7 +91,7 @@ public abstract class LoginServerBasePacket
 	public final byte[] readB(int length)
 	{
 		byte[] result = new byte[length];
-		for(int i = 0; i < length; i++)
+		for (int i = 0; i < length; i++)
 		{
 			result[i]=_decrypt[_off+i];
 		}

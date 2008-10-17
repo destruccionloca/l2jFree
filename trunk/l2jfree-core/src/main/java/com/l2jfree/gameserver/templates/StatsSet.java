@@ -260,8 +260,7 @@ public final class StatsSet
 		{
 			try
 			{
-				result[c] = Integer.parseInt(v);
-				c++;
+				result[c++] = Integer.parseInt(v);
 			}
 			catch (Exception e)
 			{

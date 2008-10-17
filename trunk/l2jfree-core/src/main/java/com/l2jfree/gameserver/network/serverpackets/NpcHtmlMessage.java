@@ -210,7 +210,7 @@ public class NpcHtmlMessage extends L2GameServerPacket
         
         activeChar.clearBypass();
 		int len = _html.length();
-		for(int i=0; i<len; i++)
+		for (int i = 0; i < len; i++)
 		{
 			int start = _html.indexOf("bypass -h", i);
 			int finish = _html.indexOf("\"", start);

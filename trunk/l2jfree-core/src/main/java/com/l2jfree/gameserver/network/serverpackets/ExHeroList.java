@@ -48,9 +48,9 @@ public class ExHeroList extends L2GameServerPacket
 		writeH(0x79);
 		
 		writeD(_heroList.size());
-		for(Integer heroId : _heroList.keySet())
+		for (Integer heroId : _heroList.keySet())
 		{
-            StatsSet hero = _heroList.get(heroId);
+			StatsSet hero = _heroList.get(heroId);
 			writeS(hero.getString(Olympiad.CHAR_NAME));
 			writeD(hero.getInteger(Olympiad.CLASS_ID));
 			writeS(hero.getString(Hero.CLAN_NAME, ""));

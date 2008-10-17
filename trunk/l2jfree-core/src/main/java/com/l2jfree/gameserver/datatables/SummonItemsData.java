@@ -72,27 +72,27 @@ public class SummonItemsData
 			int itemID = 0, npcID = 0;
 			byte summonType = 0;
 			Node a;
-			for(Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
+			for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
 			{
-				if("list".equalsIgnoreCase(n.getNodeName()))
+				if ("list".equalsIgnoreCase(n.getNodeName()))
 				{
-					for(Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
+					for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 					{
-						if("item".equalsIgnoreCase(d.getNodeName()))
+						if ("item".equalsIgnoreCase(d.getNodeName()))
 						{
 							a = d.getAttributes().getNamedItem("id");
 							if (a == null) throw new Exception("Error in summon item defenition!");
 							itemID = Integer.parseInt(a.getNodeValue());
 							
-							for(Node e = d.getFirstChild(); e != null; e = e.getNextSibling())
+							for (Node e = d.getFirstChild(); e != null; e = e.getNextSibling())
 							{
-								if("npcId".equalsIgnoreCase(e.getNodeName()))
+								if ("npcId".equalsIgnoreCase(e.getNodeName()))
 								{
 									a = e.getAttributes().getNamedItem("val");
 									if (a == null) throw new Exception("Not defined npc id for summon item id=" + itemID + "!");
 									npcID = Integer.parseInt(a.getNodeValue());
 								}
-								else if("summonType".equalsIgnoreCase(e.getNodeName()))
+								else if ("summonType".equalsIgnoreCase(e.getNodeName()))
 								{
 									a = e.getAttributes().getNamedItem("val");
 									if (a == null) throw new Exception("Not defined summon type for summon item id=" + itemID + "!");

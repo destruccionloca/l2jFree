@@ -58,7 +58,7 @@ public class FriendList extends L2GameServerPacket
 			writeC(0x75);
 			writeH(L2FriendList.getFriendListNames(_activeChar).length);
 
-			for(Map.Entry<Integer, String> _friend : L2FriendList.getFriendList(_activeChar).entrySet())
+			for (Map.Entry<Integer, String> _friend : L2FriendList.getFriendList(_activeChar).entrySet())
 			{
 				L2PcInstance friend = L2World.getInstance().getPlayer(_friend.getValue());
 				writeH(0); // ??

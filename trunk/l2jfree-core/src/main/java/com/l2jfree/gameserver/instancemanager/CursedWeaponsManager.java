@@ -382,12 +382,14 @@ public class CursedWeaponsManager
 		if(player == null)
 			return;
 
-		for(CursedWeapon cw : _cursedWeapons.values())
+		for (CursedWeapon cw : _cursedWeapons.values())
+		{
 			if(cw.isActivated() && player.getObjectId() == cw.getPlayerId())
 			{
 				cw.setPlayer(null);
 				cw.setItem(null);
 			}
+		}
 	}
 	
 	public static void removeFromDb(int itemId)

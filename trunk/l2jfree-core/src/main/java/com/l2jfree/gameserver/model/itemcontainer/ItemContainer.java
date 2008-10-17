@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.model.itemcontainer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,6 +28,11 @@ import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.datatables.ItemTable;
+import com.l2jfree.gameserver.model.GMAudit;
+import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.L2Item;
@@ -444,7 +449,6 @@ public abstract class ItemContainer
             // Adjust item quantity
             if (item.getCount() > count)
             {
-                
                 item.changeCount(process, -count, actor, reference);
                 item.setLastChange(L2ItemInstance.MODIFIED);
 
@@ -458,13 +462,14 @@ public abstract class ItemContainer
                 
                 return item;
             }
-            else 
+            else
             {
+                if (item.getCount() < count)
+                    return null;
+                
                 boolean removed = this.removeItem(item);
                 if (!removed)
-                {
                     return null;
-                }
                 
                 ItemTable.getInstance().destroyItem(process, item, actor, reference);
                 item.updateDatabase();
@@ -631,7 +636,7 @@ public abstract class ItemContainer
     public int getUnequippedSize()
     {
         int count = 0;
-        for(L2ItemInstance temp:_items)
+        for (L2ItemInstance temp:_items)
         {
             if(!temp.isEquipped())
                 count++;

@@ -46,10 +46,8 @@ public class CombatPointHeal implements ISkillHandler
 	{
 		SkillHandler.getInstance().getSkillHandler(SkillType.BUFF).useSkill(actChar, skill, targets);
 
-		for (L2Object element : targets)
+		for (L2Character target: (L2Character[]) targets)
 		{
-			L2Character target = (L2Character) element;
-
 			double cp = skill.getPower();
 
 			//from CT2 u will receive exact CP, u can't go over it, if u have full CP and u get CP buff, u will receive 0CP restored message

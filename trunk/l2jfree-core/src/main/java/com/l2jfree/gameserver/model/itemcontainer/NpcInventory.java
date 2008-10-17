@@ -15,10 +15,11 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.model.itemcontainer;
 
 import java.util.List;
 
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 

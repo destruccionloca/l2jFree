@@ -69,7 +69,7 @@ public final class FortSiegeAttackerList extends L2GameServerPacket
 
             writeD(size);
             writeD(size);
-            for(L2SiegeClan siegeclan : _fort.getSiege().getAttackerClans())
+            for (L2SiegeClan siegeclan : _fort.getSiege().getAttackerClans())
             {
                 clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
                 if (clan == null) continue;

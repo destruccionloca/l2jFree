@@ -47,7 +47,7 @@ public class ExMultiPartyCommandChannelInfo extends L2GameServerPacket
 
 		writeD(_cc.getMemberCount());
 		writeD(_cc.getPartys().size());
-		for(L2Party party : _cc.getPartys())
+		for (L2Party party : _cc.getPartys())
 		{
 			writeS(party.getLeader().getName());
 			writeD(party.getPartyLeaderOID());

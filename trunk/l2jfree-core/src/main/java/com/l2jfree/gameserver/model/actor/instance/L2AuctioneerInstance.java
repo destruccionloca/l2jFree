@@ -306,11 +306,11 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 				if (_log.isDebugEnabled()) _log.warn("cmd list: auction test started");
 				String items = "";
 				items += "<table width=280 border=0><tr>";
-				for(int j = 1; j <= npage; j++)
+				for (int j = 1; j <= npage; j++)
 					items+= "<td><center><a action=\"bypass -h npc_"+getObjectId()+"_list "+j+"\"> Page "+j+" </a></center></td>";
 				items += "</tr></table>" +
 						"<table width=280 border=0>";
-				for(Auction a:auctions)
+				for (Auction a:auctions)
 				{
 					if(i > limit)
 					{
@@ -359,7 +359,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 					_log.warn("cmd bidlist: auction test started");
 				String biders = "";
 				Map<Integer, Bidder> bidders = AuctionManager.getInstance().getAuction(auctionId).getBidders();
-				for(Bidder b : bidders.values())
+				for (Bidder b : bidders.values())
 				{
 					biders+="<tr>" +
 							"<td>"+b.getClanName()+"</td><td>"+b.getName()+"</td><td>"+b.getTimeBid().get(Calendar.YEAR)+"/"+(b.getTimeBid().get(Calendar.MONTH)+1)+"/"+b.getTimeBid().get(Calendar.DATE)+"</td><td>"+b.getBid()+"</td>" +

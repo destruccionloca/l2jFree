@@ -155,8 +155,7 @@ public class SiegeGuardManager
 						spawn.init();
 						if (isHired)
 						{
-							hiredCount++;
-							if (hiredCount > hiredMax)
+							if (++hiredCount > hiredMax)
 								return;
 						}
 					}

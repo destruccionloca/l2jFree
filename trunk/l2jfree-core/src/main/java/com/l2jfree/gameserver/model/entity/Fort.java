@@ -234,7 +234,7 @@ public class Fort extends Siegeable
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
 				getDoors().set(i, door);
 			}
-			else if (door.getOpen() == 0)
+			else if (door.getOpen())
 				door.closeMe();
 		}
 		loadDoorUpgrade(); // Check for any upgrade the doors may have
@@ -458,9 +458,8 @@ public class Fort extends Siegeable
 		if (doorId <= 0)
 			return null;
 
-		for (int i = 0; i < getDoors().size(); i++)
+		for (L2DoorInstance door: getDoors())
 		{
-			L2DoorInstance door = getDoors().get(i);
 			if (door.getDoorId() == doorId)
 				return door;
 		}

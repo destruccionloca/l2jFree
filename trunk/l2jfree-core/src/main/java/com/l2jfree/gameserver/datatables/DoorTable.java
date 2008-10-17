@@ -158,13 +158,14 @@ public class DoorTable
 		int hp = Integer.parseInt(st.nextToken());
 		int pdef = Integer.parseInt(st.nextToken());
 		int mdef = Integer.parseInt(st.nextToken());
+
 		boolean unlockable = false;
 		if (st.hasMoreTokens())
 			unlockable = Boolean.parseBoolean(st.nextToken());
 
-		boolean autoopen = false;
+		boolean startOpen = false;
 		if (st.hasMoreTokens())
-			autoopen = Boolean.parseBoolean(st.nextToken());
+			startOpen = Boolean.parseBoolean(st.nextToken());
 
 		StatsSet npcDat = new StatsSet();
 		npcDat.set("npcId", id);
@@ -230,7 +231,7 @@ public class DoorTable
 		}
 		template.setCollisionRadius(Math.min(x - pos.getXmin(), y - pos.getYmin()));
 		door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
-		door.setOpen(autoopen ? 0 : 1);
+		door.setOpen(startOpen);
 		door.getPosition().setXYZInvisible(x, y, (zmax + zmin) / 2);
 
 		return door;
@@ -265,7 +266,7 @@ public class DoorTable
 	 */
 	public void checkAutoOpen()
 	{
-		for (L2DoorInstance doorInst : getDoors())
+		for (L2DoorInstance doorInst : _staticItems.values())
 			// Garden of Eva (every 7 minutes)
 			if (doorInst.getDoorName().startsWith("goe"))
 				doorInst.setAutoActionDelay(420000);

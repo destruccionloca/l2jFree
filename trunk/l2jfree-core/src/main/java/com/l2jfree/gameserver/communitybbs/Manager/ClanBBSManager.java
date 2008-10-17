@@ -279,7 +279,7 @@ public class ClanBBSManager extends BaseBBSManager
 			{
 				break;
 			}
-			if (i >= (index - 1) * 7)
+			if (i++ >= (index - 1) * 7)
 			{
 				html.append("<img src=\"L2UI.SquareBlank\" width=\"610\" height=\"3\">");
 				html.append("<table border=0 cellspacing=0 cellpadding=0 width=610>");
@@ -296,7 +296,6 @@ public class ClanBBSManager extends BaseBBSManager
 				html.append("<img src=\"L2UI.SquareBlank\" width=\"610\" height=\"3\">");
 				html.append("<img src=\"L2UI.SquareGray\" width=\"610\" height=\"1\">");
 			}
-			i++;
 		}
 		html.append("<img src=\"L2UI.SquareBlank\" width=\"610\" height=\"2\">");
 		html.append("<table cellpadding=0 cellspacing=2 border=0><tr>");

@@ -19,22 +19,7 @@ import javolution.util.FastMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.gameserver.handler.usercommandhandlers.ChannelDelete;
-import com.l2jfree.gameserver.handler.usercommandhandlers.ChannelLeave;
-import com.l2jfree.gameserver.handler.usercommandhandlers.ChannelListUpdate;
-import com.l2jfree.gameserver.handler.usercommandhandlers.ClanPenalty;
-import com.l2jfree.gameserver.handler.usercommandhandlers.ClanWarsList;
-import com.l2jfree.gameserver.handler.usercommandhandlers.DisMount;
-import com.l2jfree.gameserver.handler.usercommandhandlers.Escape;
-import com.l2jfree.gameserver.handler.usercommandhandlers.FatigueTime;
-import com.l2jfree.gameserver.handler.usercommandhandlers.GraduateList;
-import com.l2jfree.gameserver.handler.usercommandhandlers.InstanceZone;
-import com.l2jfree.gameserver.handler.usercommandhandlers.Loc;
-import com.l2jfree.gameserver.handler.usercommandhandlers.Mount;
-import com.l2jfree.gameserver.handler.usercommandhandlers.OlympiadStat;
-import com.l2jfree.gameserver.handler.usercommandhandlers.PartyInfo;
-import com.l2jfree.gameserver.handler.usercommandhandlers.SiegeStatus;
-import com.l2jfree.gameserver.handler.usercommandhandlers.Time;
+import com.l2jfree.gameserver.handler.usercommandhandlers.*;
 
 /**
  * This class ...

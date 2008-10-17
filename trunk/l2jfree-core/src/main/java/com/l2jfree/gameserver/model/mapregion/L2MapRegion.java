@@ -169,13 +169,13 @@ public class L2MapRegion
     	int yMax = yPoints[0];
     	int yMin = yPoints[0];
     	
-    	for(int in: xPoints)
+    	for (int in: xPoints)
 	        if(in > xMax) 
     			xMax = in;
     		else if(in < xMin) 
     			xMin = in;
     	
-    	for(int in: yPoints)
+    	for (int in: yPoints)
 	        if(in > yMax) 
     			yMax = in;
     		else if(in < yMin) 

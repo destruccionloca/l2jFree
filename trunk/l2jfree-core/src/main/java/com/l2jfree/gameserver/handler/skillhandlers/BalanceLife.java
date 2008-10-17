@@ -47,10 +47,8 @@ public class BalanceLife implements ISkillHandler
 		double fullHP = 0;
 		double currentHPs = 0;
 
-		for (L2Object element : targets)
+		for (L2Character target: (L2Character[]) targets)
 		{
-			L2Character target = (L2Character) element;
-
 			// We should not heal if char is dead
 			if (target == null || target.isDead())
 				continue;
@@ -70,10 +68,8 @@ public class BalanceLife implements ISkillHandler
 
 		double percentHP = currentHPs / fullHP;
 
-		for (L2Object element : targets)
+		for (L2Character target: (L2Character[]) targets)
 		{
-			L2Character target = (L2Character) element;
-
 			double newHP = target.getMaxHp() * percentHP;
 			double totalHeal = newHP - target.getStatus().getCurrentHp();
 

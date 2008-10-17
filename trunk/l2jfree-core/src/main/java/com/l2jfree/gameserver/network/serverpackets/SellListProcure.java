@@ -42,10 +42,10 @@ public class SellListProcure extends L2GameServerPacket
         _activeChar = player;
         _castle = castleId;
         _procureList =  CastleManager.getInstance().getCastleById(_castle).getCropProcure(0);
-        for(CropProcure c : _procureList)
+        for (CropProcure c : _procureList)
         {
             L2ItemInstance item = _activeChar.getInventory().getItemByItemId(c.getId());
-            if(item != null && c.getAmount() > 0)
+            if (item != null && c.getAmount() > 0)
             {
                 _sellList.put(item,c.getAmount());
             }
@@ -60,7 +60,7 @@ public class SellListProcure extends L2GameServerPacket
         writeD(0x00);           // lease ?
         writeH(_sellList.size());         // list size
         
-        for(L2ItemInstance item : _sellList.keySet())
+        for (L2ItemInstance item : _sellList.keySet())
         {
             writeH(item.getItem().getType1());
             writeD(item.getObjectId());

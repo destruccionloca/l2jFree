@@ -59,9 +59,8 @@ public class DuelManager
 
 	private int getNextDuelId()
 	{
-		_currentDuelId++;
 		// In case someone wants to run the server forever :)
-		if (_currentDuelId >= 2147483640)
+		if (++_currentDuelId >= 2147483640)
 			_currentDuelId = 1;
 		return _currentDuelId;
 	}

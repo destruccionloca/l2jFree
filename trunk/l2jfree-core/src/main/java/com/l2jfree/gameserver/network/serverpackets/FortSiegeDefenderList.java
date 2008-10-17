@@ -71,7 +71,7 @@ public final class FortSiegeDefenderList extends L2GameServerPacket
             writeD(size);
             writeD(size);
             // Listing the Lord and the approved clans
-            for(L2SiegeClan siegeclan : _fort.getSiege().getDefenderClans())
+            for (L2SiegeClan siegeclan : _fort.getSiege().getDefenderClans())
             {
                 clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
                 if (clan == null) continue;
@@ -101,7 +101,7 @@ public final class FortSiegeDefenderList extends L2GameServerPacket
                 writeS(""); //AllyLeaderName
                 writeD(clan.getAllyCrestId());
             }
-            for(L2SiegeClan siegeclan : _fort.getSiege().getDefenderWaitingClans())
+            for (L2SiegeClan siegeclan : _fort.getSiege().getDefenderWaitingClans())
             {
                 clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
                 writeD(clan.getClanId());

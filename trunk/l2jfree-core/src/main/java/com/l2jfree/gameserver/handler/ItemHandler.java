@@ -20,45 +20,7 @@ import java.util.TreeMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.gameserver.handler.itemhandlers.AdvQuestItems;
-import com.l2jfree.gameserver.handler.itemhandlers.BeastSoulShot;
-import com.l2jfree.gameserver.handler.itemhandlers.BeastSpice;
-import com.l2jfree.gameserver.handler.itemhandlers.BeastSpiritShot;
-import com.l2jfree.gameserver.handler.itemhandlers.BlessedSpiritShot;
-import com.l2jfree.gameserver.handler.itemhandlers.Book;
-import com.l2jfree.gameserver.handler.itemhandlers.CharChangePotions;
-import com.l2jfree.gameserver.handler.itemhandlers.ChestKey;
-import com.l2jfree.gameserver.handler.itemhandlers.CrystalCarol;
-import com.l2jfree.gameserver.handler.itemhandlers.DoorKey;
-import com.l2jfree.gameserver.handler.itemhandlers.EnchantAttr;
-import com.l2jfree.gameserver.handler.itemhandlers.EnchantScrolls;
-import com.l2jfree.gameserver.handler.itemhandlers.EnergyStone;
-import com.l2jfree.gameserver.handler.itemhandlers.ExtractableItems;
-import com.l2jfree.gameserver.handler.itemhandlers.Firework;
-import com.l2jfree.gameserver.handler.itemhandlers.FishShots;
-import com.l2jfree.gameserver.handler.itemhandlers.ForgottenScroll;
-import com.l2jfree.gameserver.handler.itemhandlers.Harvester;
-import com.l2jfree.gameserver.handler.itemhandlers.HolyWater;
-import com.l2jfree.gameserver.handler.itemhandlers.Maps;
-import com.l2jfree.gameserver.handler.itemhandlers.MercTicket;
-import com.l2jfree.gameserver.handler.itemhandlers.MysteryPotion;
-import com.l2jfree.gameserver.handler.itemhandlers.Potions;
-import com.l2jfree.gameserver.handler.itemhandlers.Recipes;
-import com.l2jfree.gameserver.handler.itemhandlers.Remedy;
-import com.l2jfree.gameserver.handler.itemhandlers.RollingDice;
-import com.l2jfree.gameserver.handler.itemhandlers.ScrollOfEscape;
-import com.l2jfree.gameserver.handler.itemhandlers.ScrollOfResurrection;
-import com.l2jfree.gameserver.handler.itemhandlers.Scrolls;
-import com.l2jfree.gameserver.handler.itemhandlers.Seed;
-import com.l2jfree.gameserver.handler.itemhandlers.SevenSignsRecord;
-import com.l2jfree.gameserver.handler.itemhandlers.SoulCrystals;
-import com.l2jfree.gameserver.handler.itemhandlers.SoulShots;
-import com.l2jfree.gameserver.handler.itemhandlers.SpecialXMas;
-import com.l2jfree.gameserver.handler.itemhandlers.SpiritLake;
-import com.l2jfree.gameserver.handler.itemhandlers.SpiritShot;
-import com.l2jfree.gameserver.handler.itemhandlers.SummonItems;
-import com.l2jfree.gameserver.handler.itemhandlers.TransformationItems;
-import com.l2jfree.gameserver.handler.itemhandlers.WorldMap;
+import com.l2jfree.gameserver.handler.itemhandlers.*;
 
 /**
  * This class manages handlers of items

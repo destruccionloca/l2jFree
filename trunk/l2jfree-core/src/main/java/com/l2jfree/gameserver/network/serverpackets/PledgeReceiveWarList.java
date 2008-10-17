@@ -45,7 +45,7 @@ public class PledgeReceiveWarList extends L2GameServerPacket
 		writeD(_tab); // type : 0 = Declared, 1 = Under Attack
 		writeD(0x00); // page
 		writeD(_tab == 0 ? _clan.getWarList().size() : _clan.getAttackerList().size());
-		for(Integer i : _tab == 0 ? _clan.getWarList() : _clan.getAttackerList())
+		for (Integer i : _tab == 0 ? _clan.getWarList() : _clan.getAttackerList())
 		{
 			L2Clan clan = ClanTable.getInstance().getClan(i);
 			if (clan == null) continue;

@@ -35,7 +35,6 @@ import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
-import com.l2jfree.gameserver.model.Inventory;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
@@ -43,9 +42,10 @@ import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.PcInventory;
-import com.l2jfree.gameserver.model.PetInventory;
 import com.l2jfree.gameserver.model.actor.stat.PetStat;
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
+import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
@@ -240,6 +240,7 @@ public class L2PetInstance extends L2Summon
            getStat().setLevel(template.getLevel());
 
         _inventory = new PetInventory(this);
+        _inventory.restore();
         int npcId = template.getNpcId();
         _mountable = PetDataTable.isMountable(npcId);
     }
@@ -664,10 +665,8 @@ public class L2PetInstance extends L2Summon
         try
         {
             Inventory petInventory = getInventory();
-            L2ItemInstance[] items = petInventory.getItems();
-            for (int i = 0; (i < items.length); i++)
+            for (L2ItemInstance giveit: petInventory.getItems())
             { 
-                L2ItemInstance giveit = items[i];
                 if (((giveit.getItem().getWeight() * giveit.getCount())
                         + getOwner().getInventory().getTotalWeight()) 
                         < getOwner().getMaxLoad())
@@ -761,7 +760,8 @@ public class L2PetInstance extends L2Summon
         
         if (dropit != null)
         {
-            _log.debug("Item id to drop: "+dropit.getItemId()+" amount: "+dropit.getCount());
+            if (_log.isDebugEnabled())
+                _log.debug("Item id to drop: "+dropit.getItemId()+" amount: "+dropit.getCount());
             dropit.dropMe(this, getX(), getY(), getZ()+100);
         }
     }

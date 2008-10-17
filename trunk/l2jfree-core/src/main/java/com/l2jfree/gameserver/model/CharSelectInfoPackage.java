@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.model;
 
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 
 /**
  * Used to Store data sent to Client for Character

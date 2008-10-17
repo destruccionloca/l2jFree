@@ -43,16 +43,13 @@ public class Harvest implements ISkillHandler
 	private static final SkillType[]	SKILL_IDS	=
 													{ SkillType.HARVEST };
 
-	private L2PcInstance				_activeChar;
-	private L2MonsterInstance			_target;
-
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		_activeChar = (L2PcInstance) activeChar;
+		L2PcInstance activePlayer = (L2PcInstance) activeChar;
 
 		L2Object[] targetList = skill.getTargetList(activeChar);
 
@@ -71,11 +68,11 @@ public class Harvest implements ISkillHandler
 			if (!(element instanceof L2MonsterInstance))
 				continue;
 
-			_target = (L2MonsterInstance) element;
+			L2MonsterInstance target = (L2MonsterInstance) element;
 
-			if (_activeChar != _target.getSeeder())
+			if (activePlayer != target.getSeeder())
 			{
-				_activeChar.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_HARVEST);
+				activePlayer.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_HARVEST);
 				continue;
 			}
 
@@ -83,22 +80,22 @@ public class Harvest implements ISkillHandler
 			int total = 0;
 			int cropId = 0;
 
-			if (_target.isSeeded())
+			if (target.isSeeded())
 			{
-				if (calcSuccess())
+				if (calcSuccess(activePlayer, target))
 				{
-					L2Attackable.RewardItem[] items = _target.takeHarvest();
+					L2Attackable.RewardItem[] items = target.takeHarvest();
 					if (items != null && items.length > 0)
 					{
 						for (L2Attackable.RewardItem ritem : items)
 						{
 							cropId = ritem.getItemId(); // always got 1 type of
 							// crop as reward
-							if (_activeChar.isInParty())
-								_activeChar.getParty().distributeItem(_activeChar, ritem, true, _target);
+							if (activePlayer.isInParty())
+								activePlayer.getParty().distributeItem(activePlayer, ritem, true, target);
 							else
 							{
-								L2ItemInstance item = _activeChar.getInventory().addItem("Manor", ritem.getItemId(), ritem.getCount(), _activeChar, _target);
+								L2ItemInstance item = activePlayer.getInventory().addItem("Manor", ritem.getItemId(), ritem.getCount(), activePlayer, target);
 								if (iu != null)
 									iu.addItem(item);
 								send = true;
@@ -110,40 +107,40 @@ public class Harvest implements ISkillHandler
 							SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
 							smsg.addNumber(total);
 							smsg.addItemName(cropId);
-							_activeChar.sendPacket(smsg);
-							if (_activeChar.getParty() != null)
+							activePlayer.sendPacket(smsg);
+							if (activePlayer.getParty() != null)
 							{
 								smsg = new SystemMessage(SystemMessageId.S1_HARVESTED_S3_S2S);
-								smsg.addString(_activeChar.getName());
+								smsg.addString(activePlayer.getName());
 								smsg.addNumber(total);
 								smsg.addItemName(cropId);
-								_activeChar.getParty().broadcastToPartyMembers(_activeChar, smsg);
+								activePlayer.getParty().broadcastToPartyMembers(activePlayer, smsg);
 							}
 
 							if (iu != null)
-								_activeChar.sendPacket(iu);
+								activePlayer.sendPacket(iu);
 							else
-								_activeChar.sendPacket(new ItemList(_activeChar, false));
+								activePlayer.sendPacket(new ItemList(activePlayer, false));
 						}
 					}
 				}
 				else
 				{
-					_activeChar.sendPacket(SystemMessageId.THE_HARVEST_HAS_FAILED);
+					activePlayer.sendPacket(SystemMessageId.THE_HARVEST_HAS_FAILED);
 				}
 			}
 			else
 			{
-				_activeChar.sendPacket(SystemMessageId.THE_HARVEST_FAILED_BECAUSE_THE_SEED_WAS_NOT_SOWN);
+				activePlayer.sendPacket(SystemMessageId.THE_HARVEST_FAILED_BECAUSE_THE_SEED_WAS_NOT_SOWN);
 			}
 		}
 	}
 
-	private boolean calcSuccess()
+	private boolean calcSuccess(L2PcInstance activePlayer, L2MonsterInstance target)
 	{
 		int basicSuccess = 100;
-		int levelPlayer = _activeChar.getLevel();
-		int levelTarget = _target.getLevel();
+		int levelPlayer = activePlayer.getLevel();
+		int levelTarget = target.getLevel();
 
 		int diff = (levelPlayer - levelTarget);
 		if (diff < 0)

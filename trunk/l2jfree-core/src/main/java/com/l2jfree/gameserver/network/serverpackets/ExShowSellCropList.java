@@ -63,7 +63,7 @@ public class ExShowSellCropList extends L2GameServerPacket
 		_cropsItems = new FastMap<Integer, L2ItemInstance>();
 		
 		FastList<Integer> allCrops = L2Manor.getInstance().getAllCrops();
-		for(int cropId : allCrops)
+		for (int cropId : allCrops)
 		{
 			L2ItemInstance item = player.getInventory().getItemByItemId(cropId);
 			if(item != null)

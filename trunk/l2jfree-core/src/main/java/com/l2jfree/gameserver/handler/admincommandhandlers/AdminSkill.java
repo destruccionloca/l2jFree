@@ -348,8 +348,10 @@ public class AdminSkill implements IAdminCommandHandler
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return;
 		}
-		if (player.getName().equals(activeChar.getName()))
+		if (player == activeChar)
+		{
 			player.sendPacket(SystemMessageId.CANNOT_USE_ON_YOURSELF);
+		}
 		else
 		{
 			L2Skill[] skills = player.getAllSkills();
@@ -366,31 +368,17 @@ public class AdminSkill implements IAdminCommandHandler
 
 	private void adminResetSkills(L2PcInstance activeChar)
 	{
-		L2Object target = activeChar.getTarget();
-		L2PcInstance player = null;
-		if (target instanceof L2PcInstance)
-			player = (L2PcInstance) target;
-		else
-		{
-			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-			return;
-		}
 		if (adminSkills == null)
 		{
 			activeChar.sendMessage("You must get the skills of someone in order to do this.");
 		}
 		else
 		{
-			L2Skill[] skills = player.getAllSkills();
-			for (L2Skill element : skills)
-				player.removeSkill(element);
-			for (int i = 0; i < activeChar.getAllSkills().length; i++)
-				player.addSkill(activeChar.getAllSkills()[i], true);
-			for (L2Skill element : skills)
-				activeChar.removeSkill(element);
-			for (L2Skill element : adminSkills)
-				activeChar.addSkill(element, true);
-			player.sendMessage("[GM]" + activeChar.getName() + " updated your skills.");
+			L2Skill[] skills = activeChar.getAllSkills();
+			for (L2Skill skill : skills)
+				activeChar.removeSkill(skill);
+			for (L2Skill skill : adminSkills)
+				activeChar.addSkill(skill, true);
 			activeChar.sendMessage("You now have all your skills back.");
 			adminSkills = null;
 			activeChar.sendSkillList();

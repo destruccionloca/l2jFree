@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
@@ -882,7 +883,7 @@ public class TradeList
 	 */
 	public TradeItem getItem(int objectId)
 	{
-		for(TradeItem item : _items)
+		for (TradeItem item : _items)
 		{
 			if(item.getObjectId() == objectId)
 				return item;

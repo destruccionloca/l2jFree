@@ -257,7 +257,7 @@ public class FourSepulchersManager extends BossLair
 		if(_archonSpawned.size() != 0)
 		{
 			Set<Integer> npcIdSet = _archonSpawned.keySet();
-			for(int npcId : npcIdSet)
+			for (int npcId : npcIdSet)
 			{
 				_archonSpawned.put(npcId, false);
 			}
@@ -269,7 +269,7 @@ public class FourSepulchersManager extends BossLair
 		_managers = new FastList<L2Spawn>();
 
 		int i = 31921;
-		for(L2Spawn spawnDat; i <= 31924; i++)
+		for (L2Spawn spawnDat; i <= 31924; i++)
 		{
 			if (i < 31921 || i > 31924)
 				continue;
@@ -1449,25 +1449,23 @@ public class FourSepulchersManager extends BossLair
 			if (min == 90)
 				msg = "Game over. The teleport will appear momentarily";
 
-			int i = 0;
-			for (int k = _managers.size(); i < k; i++)
+			for (L2Spawn temp : _managers)
 			{
-				if (_managers.get(i) == null)
+				if (temp == null)
 				{
-					_log.warn("FourSepulchersManager: managerSay(): manager "+i+" is null");
 					continue;
 				}
-				if (!(_managers.get(i).getLastSpawn() instanceof L2SepulcherNpcInstance))
+				if (!(temp.getLastSpawn() instanceof L2SepulcherNpcInstance))
 				{
 					_log.warn("FourSepulchersManager: managerSay(): manager is not Sepulcher instance");
 					continue;
 				}
 				// hall not used right now, so its manager will not tell you anything :)
 				// if you don't need this - delete next two lines.
-				if(!_hallInUse.get(_managers.get(i).getNpcId()).booleanValue())
+				if(!_hallInUse.get(temp.getNpcId()).booleanValue())
 					continue;
 
-				((L2SepulcherNpcInstance)_managers.get(i).getLastSpawn()).sayInShout(msg);
+				((L2SepulcherNpcInstance)temp.getLastSpawn()).sayInShout(msg);
 			}
 		}
 		else if (_inEntryTime)
@@ -1475,21 +1473,21 @@ public class FourSepulchersManager extends BossLair
 			String msg1 = "You may now enter the Sepulcher";
 			String msg2 = "If you place your hand on the stone statue in front of each sepulcher," +
 					" you will be able to enter";
-			int i = 0;
-			for (int k = _managers.size(); i < k; i++)
+
+			for (L2Spawn temp : _managers)
 			{
-				if (_managers.get(i) == null)
+				if (temp == null)
 				{
 					_log.warn("FourSepulchersManager: Something goes wrong in managerSay()...");
 					continue;
 				}
-				if (!(_managers.get(i).getLastSpawn() instanceof L2SepulcherNpcInstance))
+				if (!(temp.getLastSpawn() instanceof L2SepulcherNpcInstance))
 				{
 					_log.warn("FourSepulchersManager: Something goes wrong in managerSay()...");
 					continue;
 				}
-				((L2SepulcherNpcInstance)_managers.get(i).getLastSpawn()).sayInShout(msg1);
-				((L2SepulcherNpcInstance)_managers.get(i).getLastSpawn()).sayInShout(msg2);
+				((L2SepulcherNpcInstance)temp.getLastSpawn()).sayInShout(msg1);
+				((L2SepulcherNpcInstance)temp.getLastSpawn()).sayInShout(msg2);
 			}
 		}
 	}

@@ -65,7 +65,7 @@ public class NpcWalkerRoutesTable
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
-					.prepareStatement("SELECT route_id, npc_id, move_point, chatText, move_x, move_y, move_z, delay, running FROM walker_routes");
+					.prepareStatement("SELECT route_id, npc_id, move_point, chatText, move_x, move_y, move_z, delay, running FROM walker_routes ORDER By move_point ASC");
 			ResultSet rset = statement.executeQuery();
 			L2NpcWalkerNode route;
 			while (rset.next())

@@ -36,7 +36,6 @@ public class ShowBoard extends L2GameServerPacket
 		_id = "1002";
 		_htmlCode = null;
 		_arg = arg;
-
 	}
 
 	private byte[] get1002()
@@ -53,10 +52,8 @@ public class ShowBoard extends L2GameServerPacket
 			data[i] = _id.getBytes()[j];
 			data[i + 1] = 0;
 		}
-		data[i] = 8;
-		i++;
-		data[i] = 0;
-		i++;
+		data[i++] = 8;
+		data[i++] = 0;
 		for (String arg : _arg)
 		{
 			for (int j = 0; j < arg.getBytes().length; j++, i += 2)
@@ -64,14 +61,10 @@ public class ShowBoard extends L2GameServerPacket
 				data[i] = arg.getBytes()[j];
 				data[i + 1] = 0;
 			}
-			data[i] = 0x20;
-			i++;
-			data[i] = 0x0;
-			i++;
-			data[i] = 0x8;
-			i++;
-			data[i] = 0x0;
-			i++;
+			data[i++] = 0x20;
+			data[i++] = 0x0;
+			data[i++] = 0x8;
+			data[i++] = 0x0;
 		}
 		return data;
 	}
@@ -88,49 +81,46 @@ public class ShowBoard extends L2GameServerPacket
 		writeS("bypass _bbsmemo"); // memo
 		writeS("bypass _bbsmail"); // mail
 		writeS("bypass _bbsfriends"); // friends
-		writeS("bypass bbs_add_fav"); // add fav.	
+		writeS("bypass bbs_add_fav"); // add fav.
 		if (!_id.equals("1002"))
 		{
-			// getBytes is a very costy operation, and should only be called once
-			byte htmlBytes[] = null;
-			
+			// getBytes is a very costly operation, and should only be called once
+			byte[] htmlBytes = null;
 			if (_htmlCode != null)
 				htmlBytes = _htmlCode.getBytes();
 			
-			byte data[] = new byte[2 + 2 + 2 + _id.getBytes().length * 2 + 2
-				* ((_htmlCode != null) ? htmlBytes.length : 0)];
-			
+			byte[] idBytes = _id.getBytes();
+			byte data[] = new byte[2 + 2 + 2 + idBytes.length * 2 + 2 * ((_htmlCode != null) ? htmlBytes.length : 0)];
 			int i = 0;
-			for (int j = 0; j < _id.getBytes().length; j++, i += 2)
+			for (int j = 0; j < idBytes.length; j++, i += 2)
 			{
-				data[i] = _id.getBytes()[j];
+				data[i] = idBytes[j];
 				data[i + 1] = 0;
 			}
-			data[i] = 8;
-			i++;
-			data[i] = 0;
-			i++;
+			data[i++] = 8;
+			data[i++] = 0;
 
-			byte[] html = new byte[0];	
+			byte[] html = new byte[0];
 			if (_htmlCode != null)
 			{
-				try {
+				try
+				{
 					html = _htmlCode.getBytes("UTF-16LE");
-				} catch (UnsupportedEncodingException e) {
+				}
+				catch (UnsupportedEncodingException e)
+				{
 					html = new byte[_htmlCode.length() * 2];
-					
 					for (int j = 0; j < htmlBytes.length; i += 2, j++)
 					{
 						data[i] = htmlBytes[j];
 						data[i + 1] = 0;
 					}
 				}
-			}	
+			}
 			System.arraycopy(html, 0, data, i, html.length);
 			i += html.length;
 			
-			data[i] = 0;
-			i++;
+			data[i++] = 0;
 			data[i] = 0;
 			//writeS(_htmlCode); // current page
 			writeB(data);

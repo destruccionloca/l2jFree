@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.model.itemcontainer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,6 +22,9 @@ import java.sql.SQLException;
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.ItemTable;
+import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.TradeList.TradeItem;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -216,11 +219,11 @@ public class PcInventory extends Inventory
 	public void adjustAvailableItem(TradeItem item) 
 	{
 		boolean notAllEquipped = false;
-		for(L2ItemInstance adjItem: getItemsByItemId(item.getItem().getItemId()))
+		for (L2ItemInstance adjItem: getItemsByItemId(item.getItem().getItemId()))
 		{
-			if(adjItem.isEquipable())
+			if (adjItem.isEquipable())
 			{
-				if(!adjItem.isEquipped())
+				if (!adjItem.isEquipped())
 					notAllEquipped |= true;
 			}
 			else
@@ -230,7 +233,7 @@ public class PcInventory extends Inventory
 			}
 		}
 
-		if(notAllEquipped)
+		if (notAllEquipped)
 		{
 			L2ItemInstance adjItem = getItemByItemId(item.getItem().getItemId());
 			item.setObjectId(adjItem.getObjectId());

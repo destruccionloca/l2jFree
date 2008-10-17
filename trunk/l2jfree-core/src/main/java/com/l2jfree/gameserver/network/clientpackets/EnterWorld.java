@@ -540,7 +540,7 @@ public class EnterWorld extends L2GameClientPacket
 		L2Clan clan = activeChar.getClan();
 		if (clan != null)
 		{
-			L2ClanMember clanmember = clan.getClanMember(activeChar.getName());
+			L2ClanMember clanmember = clan.getClanMember(activeChar.getObjectId());
 			if (clanmember != null)
 			{
 				clanmember.setPlayerInstance(activeChar);

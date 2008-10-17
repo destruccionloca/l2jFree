@@ -733,10 +733,11 @@ public class Siege
     /** Remove the flag that was killed */
     public void killedFlag(L2NpcInstance flag)
     {
-        if (flag == null) return;
-        for (int i = 0; i < getAttackerClans().size(); i++)
+        if (flag == null)
+            return;
+        for (L2SiegeClan clan: getAttackerClans())
         {
-            if (getAttackerClan(i).removeFlag(flag)) return;
+            if (clan.removeFlag(flag)) return;
         }
     }
 

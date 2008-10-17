@@ -150,8 +150,8 @@ public class L2Party
 	{
 		for (int i = 0; i < getMemberCount(); i++)
 		{
-			_itemLastLoot++;
-			if (_itemLastLoot >= getMemberCount()) _itemLastLoot = 0;
+			if (++_itemLastLoot >= getMemberCount())
+				_itemLastLoot = 0;
 			L2PcInstance member;
 			try 
 			{ 
@@ -215,7 +215,7 @@ public class L2Party
 	 */
 	public void broadcastToPartyMembers(L2GameServerPacket msg) 
 	{
-		for(L2PcInstance member : getPartyMembers())
+		for (L2PcInstance member : getPartyMembers())
 		{
 			if (member != null)
 				member.sendPacket(msg);
@@ -237,7 +237,7 @@ public class L2Party
 	 */
 	public void broadcastSnoopToPartyMembers(int type, String name, String text)
 	{
-		for(L2PcInstance member : getPartyMembers())
+		for (L2PcInstance member : getPartyMembers())
 		{
 			if (member == null)
 				continue;
@@ -250,7 +250,7 @@ public class L2Party
 	 */
 	public void broadcastToPartyMembers(L2PcInstance player, L2GameServerPacket msg) 
     {
-		for(L2PcInstance member : getPartyMembers())
+		for (L2PcInstance member : getPartyMembers())
 		{
 			if (member != null && !member.equals(player))
 				member.sendPacket(msg);
@@ -326,7 +326,7 @@ public class L2Party
 			_partyLvl = player.getLevel();
 		}
 		//update partySpelled 
-		for(L2PcInstance member : getPartyMembers())
+		for (L2PcInstance member : getPartyMembers())
 		{
 			member.updateEffectIcons(true); // update party icons only
 			summon = member.getPet();
@@ -533,7 +533,7 @@ public class L2Party
 	 */
 	private L2PcInstance getPlayerByName(String name) 
     {
-		for(L2PcInstance member : getPartyMembers())
+		for (L2PcInstance member : getPartyMembers())
 		{
 			if (member.getName().equals(name)) return member;
 		}
@@ -713,7 +713,7 @@ public class L2Party
         // Check the number of party members that must be rewarded
         // (The party member must be in range to receive its reward)
         FastList<L2PcInstance> ToReward = new FastList<L2PcInstance>();
-        for(L2PcInstance member : membersList)
+        for (L2PcInstance member : membersList)
         {
             if (!Util.checkIfInRange(Config.ALT_PARTY_RANGE2, target, member, true)) continue;
             ToReward.add(member);

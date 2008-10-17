@@ -197,10 +197,9 @@ public class RaidPointsManager
 
 		// Insert ranking
 		int r = 1;
-		for(PointList pl : lists)
+		for (PointList pl : lists)
 		{
-			pl.ranking = r;
-			r++;
+			pl.ranking = r++;
 		}
 	}
 }

@@ -706,8 +706,8 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 				writeD(0x0000FFFF&item.getAugmentationId());
 				writeD(item.getAugmentationId()>>16);
 			}
-			else writeQ(0x00);
-			writeD(item.getManaLeft());
+			else
+				writeQ(0x00);
 
 			writeD(item.getAttackElementType());
 			writeD(item.getAttackElementPower());
@@ -715,6 +715,8 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 			{
 				writeD(item.getElementDefAttr(i));
 			}
+
+			writeD(item.getManaLeft());
 		}
 	}
 	

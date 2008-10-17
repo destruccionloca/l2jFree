@@ -48,15 +48,14 @@ public class MakeQuestDropable implements ISkillHandler
 
 		for (L2Object element : targetList)
 		{
-			L2Object target = element;
-			if (!((L2MonsterInstance) target).getQuestDropable())
-			{
-				((L2MonsterInstance) target).setQuestDropable(true);
-			}
-			else
+			if (!(element instanceof L2MonsterInstance) || ((L2MonsterInstance) element).getQuestDropable())
 			{
 				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			}
+			else
+			{
+				((L2MonsterInstance) element).setQuestDropable(true);
 			}
 		}
 	}

@@ -71,7 +71,7 @@ public class MagicSkillLaunched extends L2GameServerPacket
 		writeD(_numberOfTargets); // also failed or not?
 		if (_targets == null || _singleTargetId != 0 || _numberOfTargets == 0) 
 			writeD(_singleTargetId);
-		else for(L2Object target : _targets)
+		else for (L2Object target : _targets)
 		{
 			try 
 			{ 

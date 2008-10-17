@@ -43,7 +43,6 @@ import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.HeroSkillTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
-import com.l2jfree.gameserver.model.Inventory;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -54,6 +53,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.entity.Hero;
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExAutoSoulShot;
@@ -1881,8 +1881,7 @@ public class Olympiad
 			int tmpIndex = 0;
 			for (FastList<L2PcInstance> l : list.values())
 			{
-				tmp.put(tmpIndex, l);
-				tmpIndex++;
+				tmp.put(tmpIndex++, l);
 			}
 
 			FastList<L2PcInstance> rndList = new FastList<L2PcInstance>();
@@ -1955,8 +1954,7 @@ public class Olympiad
 				{
 					showbattle = 0;
 				}
-				msg[count] = "<" + showbattle + "><" + instance._stadiumID + "> In Progress " + instance.getTitle();
-				count++;
+				msg[count++] = "<" + showbattle + "><" + instance._stadiumID + "> In Progress " + instance.getTitle();
 				match++;
 			}
 

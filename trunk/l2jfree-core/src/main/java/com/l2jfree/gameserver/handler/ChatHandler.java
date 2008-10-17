@@ -19,19 +19,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.gameserver.handler.chathandlers.ChatAll;
-import com.l2jfree.gameserver.handler.chathandlers.ChatAlliance;
-import com.l2jfree.gameserver.handler.chathandlers.ChatAnnounce;
-import com.l2jfree.gameserver.handler.chathandlers.ChatClan;
-import com.l2jfree.gameserver.handler.chathandlers.ChatCommander;
-import com.l2jfree.gameserver.handler.chathandlers.ChatHero;
-import com.l2jfree.gameserver.handler.chathandlers.ChatParty;
-import com.l2jfree.gameserver.handler.chathandlers.ChatPartyRoom;
-import com.l2jfree.gameserver.handler.chathandlers.ChatPetition;
-import com.l2jfree.gameserver.handler.chathandlers.ChatShout;
-import com.l2jfree.gameserver.handler.chathandlers.ChatSystem;
-import com.l2jfree.gameserver.handler.chathandlers.ChatTrade;
-import com.l2jfree.gameserver.handler.chathandlers.ChatWhisper;
+import com.l2jfree.gameserver.handler.chathandlers.*;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 
 

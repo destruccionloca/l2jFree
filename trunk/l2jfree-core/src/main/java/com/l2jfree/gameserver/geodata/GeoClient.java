@@ -104,7 +104,7 @@ public class GeoClient extends UnicastRemoteObject implements GeoClientInterface
 
 		for (L2DoorInstance door : DoorTable.getInstance().getDoors())
 		{
-			if (door.getOpen() == 1)
+			if (!door.getOpen())
 			{
 				closeDoor(door.getPos());
 				door.setGeoOpen(false);
@@ -130,7 +130,7 @@ public class GeoClient extends UnicastRemoteObject implements GeoClientInterface
 		_log.info("GeoData: Using remote communication");
 
 		for (L2DoorInstance door : DoorTable.getInstance().getDoors())
-			if (door.getOpen() == 1)
+			if (!door.getOpen())
 			{
 				closeDoor(door.getPos());
 				door.setGeoOpen(false);
