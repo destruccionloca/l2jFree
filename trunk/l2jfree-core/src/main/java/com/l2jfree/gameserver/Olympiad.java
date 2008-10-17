@@ -2157,6 +2157,8 @@ public class Olympiad
 
 					// Remove Buffs
 					player.stopAllEffects();
+					player.clearSouls();
+					player.clearCharges();
 
 					// Remove Summon's Buffs
 					if (player.getPet() != null)
