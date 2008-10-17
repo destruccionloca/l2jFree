@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.skills.effects.EffectCharge;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -74,23 +73,6 @@ public class CharEffectList
 		L2Effect[] tempArray = new L2Effect[temp.size()];
 		temp.toArray(tempArray);
 		return tempArray;
-	}
-
-	/**
-	 * Returns the first ChargeEffect in this CharEffectList
-	 * @return
-	 */
-	public final EffectCharge getChargeEffect()
-	{
-		L2Effect[] effects = getAllEffects();
-		for (L2Effect e : effects)
-		{
-			if (e.getSkill().getSkillType() == SkillType.CHARGE)
-			{
-				return (EffectCharge) e;
-			}
-		}
-		return null;
 	}
 
 	/**

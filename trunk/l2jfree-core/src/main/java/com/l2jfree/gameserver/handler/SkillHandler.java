@@ -48,7 +48,6 @@ public final class SkillHandler implements ISkillHandler
 		registerSkillHandler(new BalanceLife());
 		registerSkillHandler(new BeastFeed());
 		registerSkillHandler(new Blow());
-		registerSkillHandler(new Charge());
 		registerSkillHandler(new CombatPointHeal());
 		registerSkillHandler(new Continuous());
 		registerSkillHandler(new Craft());

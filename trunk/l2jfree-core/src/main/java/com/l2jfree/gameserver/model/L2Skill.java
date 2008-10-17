@@ -51,20 +51,16 @@ import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.conditions.Condition;
-import com.l2jfree.gameserver.skills.effects.EffectCharge;
 import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChangeWeapon;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillCharge;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeDmg;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeEffect;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeNegate;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillCreateItem;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDecoy;
@@ -258,9 +254,7 @@ public class L2Skill
 
 		AGATHION(L2SkillAgathion.class),
 		CHANGEWEAPON(L2SkillChangeWeapon.class),
-		CHARGE(L2SkillCharge.class),
 		CHARGEDAM(L2SkillChargeDmg.class),
-		CHARGE_EFFECT(L2SkillChargeEffect.class),
 		CHARGE_NEGATE(L2SkillChargeNegate.class),
 		CREATE_ITEM(L2SkillCreateItem.class),
 		DECOY(L2SkillDecoy.class),
@@ -522,7 +516,11 @@ public class L2Skill
 	private final FastList<ClassId>	_canLearn;									// which classes can learn
 	private final FastList<Integer>	_teachers;									// which NPC teaches
 	private final boolean			_isOffensive;
-	private final int				_numCharges;
+
+	private final int				_needCharges;
+	private final int				_giveCharges;
+	private final int				_maxCharges;
+
 	private final int				_triggeredId;
 	private final int				_triggeredLevel;
 	private final int				_triggeredCount;
@@ -689,7 +687,11 @@ public class L2Skill
 		_mulCrossLearnRace = set.getFloat("mulCrossLearnRace", 2.f);
 		_mulCrossLearnProf = set.getFloat("mulCrossLearnProf", 3.f);
 		_isOffensive = set.getBool("offensive", isSkillTypeOffensive());
-		_numCharges = set.getInteger("num_charges", getLevel());
+
+		_needCharges = set.getInteger("needCharges", 0);
+		_giveCharges = set.getInteger("giveCharges", 0);
+		_maxCharges = set.getInteger("maxCharges", 0);
+
 		_successRate = set.getFloat("rate", 1);
 		_minPledgeClass = set.getInteger("minPledgeClass", 0);
 
@@ -1449,9 +1451,19 @@ public class L2Skill
 		return _isOffensive;
 	}
 
-	public final int getNumCharges()
+	public final int getNeededCharges()
 	{
-		return _numCharges;
+		return _needCharges;
+	}
+
+	public final int getGiveCharges()
+	{
+		return _giveCharges;
+	}
+
+	public final int getMaxCharges()
+	{
+		return _maxCharges;
 	}
 
 	public final int getNumSouls()
@@ -3853,30 +3865,7 @@ public class L2Skill
 			L2Effect e = et.getEffect(env);
 			if (e != null)
 			{
-				// Implements effect charge
-				if (e.getEffectType() == L2Effect.EffectType.CHARGE)
-				{
-					env.skill = SkillTable.getInstance().getInfo(8, effector.getSkillLevel(8));
-					EffectCharge effect = (EffectCharge) env.target.getFirstEffect(L2Effect.EffectType.CHARGE);
-					if (effect != null)
-					{
-						if (effect.numCharges < _numCharges)
-						{
-							effect.numCharges++;
-							if (env.target instanceof L2PcInstance)
-							{
-								env.target.sendPacket(new EtcStatusUpdate((L2PcInstance) env.target));
-								SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
-								sm.addNumber(effect.numCharges);
-								env.target.sendPacket(sm);
-							}
-						}
-					}
-					else
-						effects.add(e);
-				}
-				else
-					effects.add(e);
+				effects.add(e);
 			}
 		}
 		if (effects.size() == 0)

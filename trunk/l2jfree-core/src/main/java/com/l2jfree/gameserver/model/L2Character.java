@@ -94,9 +94,9 @@ import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.skills.effects.EffectCharge;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeDmg;
 import com.l2jfree.gameserver.templates.L2CharTemplate;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.L2Weapon;
@@ -1844,17 +1844,22 @@ public abstract class L2Character extends L2Object
 				}
 			}
 
-			// Reset soul bonus for skills
 			if (this instanceof L2PcInstance)
-				((L2PcInstance) this).resetLastSoulConsume();
-
-			// Consume Souls if necessary
-			if (skill.getSoulConsumeCount() > 0 || skill.getMaxSoulConsumeCount() > 0)
 			{
-				if (this instanceof L2PcInstance)
+				L2PcInstance player = (L2PcInstance) this;
+				// Reset soul bonus for skills
+				player.resetLastSoulConsume();
+
+				// Consume Souls if necessary
+				if (skill.getSoulConsumeCount() > 0 || skill.getMaxSoulConsumeCount() > 0)
 				{
-					((L2PcInstance) this).decreaseSouls(skill);
-					sendPacket(new EtcStatusUpdate((L2PcInstance) this));
+					player.decreaseSouls(skill);
+				}
+
+				// Consume Charges if necessary ... L2SkillChargeDmg does the consume by itself.
+				if (skill.getNeededCharges() > 0 && !(skill instanceof L2SkillChargeDmg))
+				{
+					player.decreaseCharges(skill.getNeededCharges());
 				}
 			}
 
@@ -3845,11 +3850,6 @@ public abstract class L2Character extends L2Object
 	public final L2Effect getFirstEffect(L2Effect.EffectType tp)
 	{
 		return _effects.getFirstEffect(tp);
-	}
-
-	public EffectCharge getChargeEffect()
-	{
-		return _effects.getChargeEffect();
 	}
 
 	// =========================================================
@@ -6541,17 +6541,22 @@ public abstract class L2Character extends L2Object
 				}
 			}
 
-			// Reset soul bonus for skills
 			if (this instanceof L2PcInstance)
-				((L2PcInstance) this).resetLastSoulConsume();
-
-			// Consume Souls if necessary
-			if (skill.getSoulConsumeCount() > 0 || skill.getMaxSoulConsumeCount() > 0)
 			{
-				if (this instanceof L2PcInstance)
+				L2PcInstance player = (L2PcInstance) this;
+				// Reset soul bonus for skills
+				player.resetLastSoulConsume();
+
+				// Consume Souls if necessary
+				if (skill.getSoulConsumeCount() > 0 || skill.getMaxSoulConsumeCount() > 0)
 				{
-					((L2PcInstance) this).decreaseSouls(skill);
-					sendPacket(new EtcStatusUpdate((L2PcInstance) this));
+					player.decreaseSouls(skill);
+				}
+
+				// Consume Charges if necessary ... L2SkillChargeDmg does the consume by itself.
+				if (skill.getNeededCharges() > 0 && !(skill instanceof L2SkillChargeDmg))
+				{
+					player.decreaseCharges(skill.getNeededCharges());
 				}
 			}
 

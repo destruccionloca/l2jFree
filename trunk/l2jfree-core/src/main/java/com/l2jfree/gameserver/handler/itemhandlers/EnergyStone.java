@@ -26,15 +26,10 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.skills.effects.EffectCharge;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillCharge;
 
 public class EnergyStone implements IItemHandler
 {
-	private static final int[]	ITEM_IDS	=
-											{ 5589 };
-	private EffectCharge		_effect;
-	private L2SkillCharge		_skill;
+	private static final int[]	ITEM_IDS	=	{ 5589 };
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
@@ -50,85 +45,32 @@ public class EnergyStone implements IItemHandler
 		else
 			return;
 
-		if (item.getItemId() != 5589)
-			return;
-		int classid = activeChar.getClassId().getId();
-
-		if (classid == 2 || classid == 48 || classid == 88 || classid == 114)
+		if (activeChar.isAllSkillsDisabled())
 		{
-			if (activeChar.isAllSkillsDisabled())
-			{
-				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-
-			if (activeChar.isSitting())
-			{
-				activeChar.sendPacket(SystemMessageId.CANT_MOVE_SITTING);
-				return;
-			}
-
-			_skill = getChargeSkill(activeChar);
-			if (_skill == null)
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-				sm.addItemName(5589);
-				activeChar.sendPacket(sm);
-				return;
-			}
-
-			_effect = activeChar.getChargeEffect();
-
-			if (_effect == null)
-			{
-				L2Skill dummy = SkillTable.getInstance().getInfo(_skill.getId(), _skill.getLevel());
-				if (dummy != null)
-				{
-					dummy.getEffects(activeChar, activeChar);
-					activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), 1, null, false);
-					return;
-				}
-				return;
-			}
-
-			if (_effect.getLevel() < 2)
-			{
-				MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, _skill.getId(), 1, 1, 0);
-				activeChar.sendPacket(MSU);
-				activeChar.broadcastPacket(MSU);
-				_effect.addNumCharges(1);
-				activeChar.sendPacket(new EtcStatusUpdate(activeChar));
-				activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
-			}
-			else if (_effect.getLevel() == 2)
-			{
-				activeChar.sendPacket(SystemMessageId.FORCE_MAXLEVEL_REACHED);
-			}
-			SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
-			sm.addNumber(_effect.getLevel());
-			activeChar.sendPacket(sm);
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		else
+
+		if (activeChar.isSitting())
 		{
+			activeChar.sendPacket(SystemMessageId.CANT_MOVE_SITTING);
+			return;
+		}
+
+		L2Skill skill = activeChar.getChargeSkill();
+		if (skill == null)
+		{
+			// Player is not a charger class
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 			sm.addItemName(5589);
 			activeChar.sendPacket(sm);
-			return;
 		}
-	}
-
-	private L2SkillCharge getChargeSkill(L2PcInstance activeChar)
-	{
-		L2Skill[] skills = activeChar.getAllSkills();
-		for (L2Skill s : skills)
+		else
 		{
-			if (s.getId() == 50 || s.getId() == 8)
-			{
-				return (L2SkillCharge) s;
-			}
+			activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
+			L2Skill energy = SkillTable.getInstance().getInfo(2165, 1);
+			activeChar.doCast(energy);
 		}
-		return null;
 	}
 
 	public int[] getItemIds()

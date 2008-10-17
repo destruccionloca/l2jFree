@@ -768,6 +768,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	private ScheduledFuture<?>				_soulTask				= null;
 	private int								_lastSoulConsume		= 0;
 
+	// Force charges
+	private int								_charges				= 0;
+	private ScheduledFuture<?>				_chargeTask				= null;
+
 	// WorldPosition used by TARGET_SIGNET_GROUND
 	private Point3D							_currentSkillWorldPosition;
 	private long							_timePreviousBroadcastStatusUpdate	= 0;
@@ -2020,12 +2024,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		int maxLoad = getMaxLoad();
 		int newWeightPenalty = 0;
 
-		if (maxLoad > 0 && !_dietMode)
+		if (maxLoad > 0)
 		{
-			setIsOverloaded(getCurrentLoad() > maxLoad);
+			setIsOverloaded(getCurrentLoad() > maxLoad && !_dietMode);
 			int weightproc = getCurrentLoad() * 1000 / maxLoad;
 
-			if (weightproc < 500)
+			if (weightproc < 500 || _dietMode)
 				newWeightPenalty = 0;
 			else if (weightproc < 666)
 				newWeightPenalty = 1;
@@ -4031,7 +4035,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
 				switch (effect.getEffectType())
 				{
-				case CHARGE: // handled by EtcStatusUpdate
 				case SIGNET_GROUND:
 					continue;
 				}
@@ -5008,6 +5011,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (isTransformed())
 			untransform();
 
+		// Force Charges
+		_charges = 0; //empty charges
+
 		setPvpFlag(0); // Clear the pvp flag
 		//Pet shouldn't get unsummoned after masters death.
 		// Unsummon the Pet
@@ -5651,6 +5657,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		stopWarnUserTakeBreak();
 		stopWaterTask();
 		stopSoulTask();
+		stopChargeTask();
 	}
 
 	/**
@@ -6854,9 +6861,6 @@ public final class L2PcInstance extends L2PlayableInstance
 						player.stopEffects(L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME);
 						player.removeEffect(e);
 					}
-					//  Charges are gone after relog.
-					else if (e.getEffectType() == L2Effect.EffectType.CHARGE)
-						e.exit();
 				}
 			}
 
@@ -8426,6 +8430,24 @@ public final class L2PcInstance extends L2PlayableInstance
 				return false;
 			}
 		}
+
+		// Check if spell consumes charges
+		if (_charges < skill.getNeededCharges())
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+			sm.addSkillName(skill);
+			sendPacket(sm);
+			return false;
+		}
+
+		// Check if spell adds charges
+		if (skill.getGiveCharges() > 0 && _charges >= skill.getMaxCharges())
+		{
+			sendPacket(SystemMessageId.FORCE_MAXLEVEL_REACHED);
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
+		}
+
 		//************************************* Check Casting Conditions *******************************************
 
 		// Check if all casting conditions are completed
@@ -12220,6 +12242,108 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		_charmOfCourage = val;
 		sendPacket(new EtcStatusUpdate(this));
+	}
+
+	public int getCharges()
+	{
+		return _charges;
+	}
+
+	private static final int[] CHARGE_SKILLS = {570, 8, 50}; // Transformation skill is checked first
+
+	public L2Skill getChargeSkill()
+	{
+		for (int id : L2PcInstance.CHARGE_SKILLS)
+		{
+			L2Skill skill = getKnownSkill(id);
+			if (skill != null && skill.getMaxCharges() > 0)
+			{
+				return skill;
+			}
+		}
+		return null;
+	}
+
+	public void increaseCharges(int count, int max)
+	{
+		if (count <= 0) // Wrong usage
+			return;
+
+		SystemMessage sm = null;
+		int charges = _charges + count;
+		// checking charges maximum
+		if (_charges < max)
+		{
+			//increase charges
+			_charges = Math.min(max, charges);
+			sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
+			sm.addNumber(_charges);
+		}
+		else
+		{
+			sm = new SystemMessage(SystemMessageId.FORCE_MAXLEVEL_REACHED);
+		}
+		sendPacket(sm);
+		sendPacket(new EtcStatusUpdate(this));
+		restartChargeTask();
+	}
+
+	public void decreaseCharges(int count)
+	{
+		if (count < 0) // Wrong usage
+			return;
+		if (_charges - count >= 0)
+			_charges -= count;
+		else
+			_charges = 0;
+		sendPacket(new EtcStatusUpdate(this));
+		if (_charges == 0)
+			stopChargeTask();
+		else
+			restartChargeTask();
+	}
+
+	public class ChargeTask implements Runnable
+	{
+		public void run()
+		{
+			clearCharges();
+		}
+	}
+
+	/**
+	* Clear out all charges from this L2PcInstance
+	*/
+	public void clearCharges()
+	{
+		_charges = 0;
+		stopChargeTask();
+		sendPacket(new EtcStatusUpdate(this));
+	}
+
+	/**
+	* Starts/Restarts the SoulTask to Clear Charges after 10 Mins.
+	*/
+	private void restartChargeTask()
+	{
+		if (_chargeTask != null)
+		{
+			_chargeTask.cancel(false);
+			_chargeTask = null;
+		}
+		_chargeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ChargeTask(), 600000);
+	}
+
+	/**
+	* Stops the Clearing Task.
+	*/
+	public void stopChargeTask()
+	{
+		if (_chargeTask != null)
+		{
+			_chargeTask.cancel(false);
+			_chargeTask = null;
+		}
 	}
 
 	/**

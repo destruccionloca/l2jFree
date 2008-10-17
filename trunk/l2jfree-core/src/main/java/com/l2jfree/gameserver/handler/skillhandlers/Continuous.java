@@ -258,6 +258,13 @@ public class Continuous implements ISkillHandler
 			// Possibility of a lethal strike
 			Formulas.getInstance().calcLethalHit(activeChar, target, skill);
 		}
+
+		// Increase Charges
+		if (activeChar instanceof L2PcInstance && skill.getGiveCharges() > 0)
+		{
+			((L2PcInstance)activeChar).increaseCharges(skill.getGiveCharges(), skill.getMaxCharges());
+		}
+
 		// self Effect :]
 		L2Effect effect = activeChar.getFirstEffect(skill.getId());
 		if (effect != null && effect.isSelfEffect())

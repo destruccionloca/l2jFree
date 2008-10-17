@@ -19,7 +19,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -31,10 +30,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
-import com.l2jfree.gameserver.skills.effects.EffectCharge;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 
 /**
@@ -266,45 +263,14 @@ public class Pdam implements ISkillHandler
 
 				// Possibility of a lethal strike despite skill is evaded
 				Formulas.getInstance().calcLethalHit(activeChar, target, skill);
+			}
 
-			}
-			if (skill.getId() == 345 || skill.getId() == 346) // Sonic Rage or Raging Force
+			// Increase Charges
+			if (activeChar instanceof L2PcInstance && skill.getGiveCharges() > 0)
 			{
-				EffectCharge effect = (EffectCharge) activeChar.getFirstEffect(L2Effect.EffectType.CHARGE);
-				if (effect != null)
-				{
-					int effectcharge = effect.getLevel();
-					if (effectcharge < 8)
-					{
-						effectcharge++;
-						effect.addNumCharges(1);
-						if (activeChar instanceof L2PcInstance)
-						{
-							activeChar.sendPacket(new EtcStatusUpdate((L2PcInstance) activeChar));
-							SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
-							sm.addNumber(effectcharge);
-							activeChar.sendPacket(sm);
-						}
-					}
-					else
-					{
-						activeChar.sendPacket(SystemMessageId.FORCE_MAXLEVEL_REACHED);
-					}
-				}
-				else
-				{
-					if (skill.getId() == 345) // Sonic Rage
-					{
-						L2Skill dummy = SkillTable.getInstance().getInfo(8, 8); // Lv7 Sonic Focus
-						dummy.getEffects(activeChar, activeChar);
-					}
-					else if (skill.getId() == 346) // Raging Force
-					{
-						L2Skill dummy = SkillTable.getInstance().getInfo(50, 8); // Lv7 Focused Force
-						dummy.getEffects(activeChar, activeChar);
-					}
-				}
+				((L2PcInstance)activeChar).increaseCharges(skill.getGiveCharges(), skill.getMaxCharges());
 			}
+
 			//self Effect :]
 			L2Effect effect = activeChar.getFirstEffect(skill.getId());
 			if (effect != null && effect.isSelfEffect())

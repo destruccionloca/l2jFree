@@ -22,64 +22,30 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.EtcStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
-import com.l2jfree.gameserver.skills.effects.EffectCharge;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 public class L2SkillChargeDmg extends L2Skill
 {
-	final int	chargeSkillId;
-
 	public L2SkillChargeDmg(StatsSet set)
 	{
 		super(set);
-		chargeSkillId = set.getInteger("charge_skill_id");
-	}
-
-	@Override
-	public boolean checkCondition(L2Character activeChar, L2Object target, boolean itemOrWeapon)
-	{
-		if (activeChar instanceof L2PcInstance)
-		{
-			L2PcInstance player = (L2PcInstance) activeChar;
-			EffectCharge e = (EffectCharge) player.getFirstEffect(chargeSkillId);
-			if (e == null || e.numCharges < getNumCharges())
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-				sm.addSkillName(this);
-				activeChar.sendPacket(sm);
-				return false;
-			}
-		}
-		return super.checkCondition(activeChar, target, itemOrWeapon);
 	}
 
 	@Override
 	public void useSkill(L2Character activeChar, L2Object... targets)
 	{
-		if (activeChar.isAlikeDead())
+		if (activeChar.isAlikeDead() || !(activeChar instanceof L2PcInstance))
 			return;
 
-		// get the effect
-		EffectCharge effect = (EffectCharge) activeChar.getFirstEffect(chargeSkillId);
-		if (effect == null || effect.numCharges < getNumCharges())
-		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-			sm.addSkillName(this);
-			activeChar.sendPacket(sm);
-			return;
-		}
-		double modifier = 0.8 + 0.201 * effect.numCharges; // thanks Diego Vargas of L2Guru: 70*((0.8+0.201*No.Charges) * (PATK+POWER)) / PDEF
+		L2PcInstance player = (L2PcInstance) activeChar;
 
-		if (getTargetType() != SkillTargetType.TARGET_AREA && getTargetType() != SkillTargetType.TARGET_MULTIFACE)
-			effect.numCharges -= getNumCharges();
-		if (activeChar instanceof L2PcInstance)
-			activeChar.sendPacket(new EtcStatusUpdate((L2PcInstance) activeChar));
-		if (effect.numCharges == 0)
-			effect.exit();
+		double modifier = 0.8 + 0.201 * player.getCharges(); // thanks Diego Vargas of L2Guru: 70*((0.8+0.201*No.Charges) * (PATK+POWER)) / PDEF
+		player.decreaseCharges(getNeededCharges());
+		Formulas f = Formulas.getInstance();
+
 		for (L2Object element : targets)
 		{
 			L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
@@ -87,15 +53,15 @@ public class L2SkillChargeDmg extends L2Skill
 			if (target.isAlikeDead())
 				continue;
 
-			boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
+			boolean shld = f.calcShldUse(activeChar, target);
 			boolean crit = false;
 			if (getBaseCritRate() > 0)
-				crit = Formulas.getInstance().calcCrit(getBaseCritRate() * 10 * Formulas.getInstance().getSTRBonus(activeChar));
+				crit = f.calcCrit(getBaseCritRate() * 10 * f.getSTRBonus(activeChar));
 
 			boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
 
 			// damage calculation, crit is static 2x
-			int damage = (int) Formulas.getInstance().calcPhysDam(activeChar, target, this, shld, false, false, soul);
+			int damage = (int) f.calcPhysDam(activeChar, target, this, shld, false, false, soul);
 			if (crit)
 				damage *= 2;
 
@@ -107,7 +73,23 @@ public class L2SkillChargeDmg extends L2Skill
 					damage = 0;
 			}
 
-			if (damage > 0)
+			boolean skillIsEvaded = f.calcPhysicalSkillEvasion(target, this);
+			if (skillIsEvaded)
+			{
+				if (activeChar instanceof L2PcInstance)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
+					sm.addCharName(target);
+					((L2PcInstance) activeChar).sendPacket(sm);
+				}
+				if (target instanceof L2PcInstance)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
+					sm.addCharName(activeChar);
+					((L2PcInstance) target).sendPacket(sm);
+				}
+			}
+			else if (damage > 0)
 			{
 				double finalDamage = damage * modifier;
 				target.reduceCurrentHp(finalDamage, activeChar);
