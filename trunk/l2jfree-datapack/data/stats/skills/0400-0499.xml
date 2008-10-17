@@ -992,18 +992,17 @@
     <table name="#pDef">0.20</table>
     <table name="#hhot">100</table><!-- Guessing -->
     <table name="#mhot">20</table><!-- Guessing -->
-    <set name="buffDuration" val="120000" />
-    <set name="cancelEffect" val="441" />
-    <set name="castRange" val="-1" />
-    <set name="charge_skill_id" val="50" />
-    <set name="effectRange" val="-1" />
-    <set name="hitTime" val="2000" />
-    <set name="num_charges" val="3" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
-    <set name="reuseDelay" val="1200000" />
-    <set name="skillType" val="CHARGE_EFFECT" />
+    <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_SELF" />
+    <set name="power" val="0.0" />
+    <set name="hitTime" val="2000" />
+    <set name="reuseDelay" val="1200000" />
+    <set name="buffDuration" val="120000" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
+    <set name="cancelEffect" val="441" />
+    <set name="needCharges" val="3" />
     <for>
       <effect count="1" name="ImmobileUntilAttacked"
         time="120" val="0">
@@ -1016,18 +1015,17 @@
     </for>
   </skill>
   <skill id="442" levels="1" name="Sonic Barrier">
-    <set name="num_charges" val="5" />
-    <set name="charge_skill_id" val="8" />
     <set name="weaponsAllowed" val="512" />
     <set name="mpConsume" val="65" />
     <set name="power" val="0.0" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="2000" />
     <set name="reuseDelay" val="1800000" />
-    <set name="skillType" val="CHARGE_EFFECT" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
+    <set name="needCharges" val="5" />
     <for>
       <effect count="1" name="Invincible" time="10"
         val="0" />
@@ -1040,12 +1038,11 @@
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="2000" />
     <set name="reuseDelay" val="600000" />
-    <set name="skillType" val="CHARGE_EFFECT" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="num_charges" val="4" />
-    <set name="charge_skill_id" val="50" />
+    <set name="needCharges" val="4" />
     <for>
       <effect count="1" name="Invincible" time="10"
         val="0" />
@@ -1240,14 +1237,12 @@
     <set name="hitTime" val="1000" />
     <set name="reuseDelay" val="75000" />
     <set name="target" val="TARGET_SELF" />
-    <set name="charge_skill_id" val="8" />
-    <set name="num_charges" val="#charges" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="skillType" val="CHARGE_EFFECT" />
+    <set name="skillType" val="BUFF" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="isMagic" val="false" />
+    <set name="needCharges" val="#charges" />
     <for>
       <effect name="Buff" time="15" count="1" val="0"
         stackOrder="#spd" stackType="speed_up_special">
@@ -1562,11 +1557,7 @@
       <using kind="Fist,Dual Fist" />
     </cond>
     <!-- charge values -->
-    <set name="num_charges" val="#numcharge" />
-    <set name="charge_skill_id" val="50" />
-    <!--
-      Force Focus is the charger
-    -->
+    <set name="needCharges" val="#numcharge" />
     <for />
   </skill>
   <skill id="462" levels="1" name="Guilted Body">

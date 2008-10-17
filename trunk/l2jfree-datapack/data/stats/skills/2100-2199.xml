@@ -554,17 +554,18 @@
     <for />
   </skill>
   <skill id="2165" levels="1" name="Energy Stone">
-    <set name="power" val="7.0" />
+    <set name="power" val="0.0" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="skillType" val="CONT" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="100" />
     <set name="hitTime" val="100" />
-    <set name="skillType" val="CHARGE" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <set name="num_charges" val="7" />
-    <for>
-      <effect count="1" name="Charge" time="600" val="1" />
-    </for>
+    <set name="effectRange" val="-1" />
+    <!-- charge values -->
+    <set name="giveCharges" val="1" />
+    <set name="maxCharges" val="2" />
+    <for />
   </skill>
   <skill id="2166" levels="2" name="CP Gauge Potion">
     <table name="#power">50 200</table>

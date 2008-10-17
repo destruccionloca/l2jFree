@@ -1237,12 +1237,10 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <set name="baseCritRate" val="15" />
-    <!-- charge values -->
-    <set name="num_charges" val="4" />
-    <set name="charge_skill_id" val="8" />
-    <!-- Focus Sonic is the charger -->
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
+    <!-- charge values -->
+    <set name="needCharges" val="4" />
     <for />
   </skill>
   <skill id="262" levels="37" name="Holy Blessing"
@@ -2227,12 +2225,10 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <set name="baseCritRate" val="15" />
-    <!-- charge values -->
-    <set name="num_charges" val="2" />
-    <set name="charge_skill_id" val="50" />
-    <!-- Force Focus is the charger -->
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
+    <!-- charge values -->
+    <set name="needCharges" val="2" />
     <for />
   </skill>
   <skill id="285" levels="27" name="Higher Mana Gain">

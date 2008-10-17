@@ -152,9 +152,7 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <!-- charge values -->
-    <set name="num_charges" val="3" />
-    <set name="charge_skill_id" val="8" />
-    <!-- Sonic Focus is the charger -->
+    <set name="needCharges" val="3" />
     <for />
   </skill>
   <skill id="6" levels="37" name="Sonic Blaster"
@@ -198,9 +196,7 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <!-- charge values -->
-    <set name="num_charges" val="2" />
-    <set name="charge_skill_id" val="8" />
-    <!-- Focus Sonic is the charger -->
+    <set name="needCharges" val="2" />
   </skill>
   <skill id="7" levels="28" name="Sonic Storm"
     enchantLevels1="30" enchantLevels2="30">
@@ -241,33 +237,30 @@
     <set name="magicLvl" val="#magicLvl" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
-    <!-- charge values -->
     <set name="itemConsumeId" val="5589" />
     <set name="itemConsumeCount" val="3" />
-    <set name="num_charges" val="2" />
-    <set name="charge_skill_id" val="8" />
-    <!-- Sonic Focus is the charger -->
+    <!-- charge values -->
+    <set name="needCharges" val="2" />
     <for />
   </skill>
   <skill id="8" levels="8" name="Sonic Focus">
-    <table name="#power"> 1 2 3 4 5 6 7 8 </table>
     <table name="#charges">1 2 3 4 5 6 7 8</table>
     <set name="weaponsAllowed" val="18956" />
     <set name="mpConsume" val="5" />
     <set name="hpConsume" val="25" />
-    <set name="power" val="#power" />
+    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="1000" />
     <set name="hitTime" val="900" />
-    <set name="skillType" val="CHARGE" />
+    <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="num_charges" val="#charges" />
     <set name="aggroPoints" val="200" />
-    <for>
-      <effect count="1" name="Charge" time="600" val="1" />
-    </for>
+    <!-- charge values -->
+    <set name="giveCharges" val="1" />
+    <set name="maxCharges" val="#charges" />
+    <for />
   </skill>
   <skill id="9" levels="34" name="Sonic Buster"
     enchantLevels1="30" enchantLevels2="30">
@@ -310,12 +303,10 @@
     <set name="baseCritRate" val="15" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
-    <!-- charge values -->
     <set name="itemConsumeId" val="5589" />
     <set name="itemConsumeCount" val="3" />
-    <set name="num_charges" val="2" />
-    <set name="charge_skill_id" val="8" />
-    <!-- Sonic Focus is the charger -->
+    <!-- charge values -->
+    <set name="needCharges" val="2" />
     <for />
   </skill>
   <skill id="10" levels="8" name="Summon Storm Cubic">
@@ -518,12 +509,10 @@
     <set name="baseCritRate" val="15" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
-    <!-- charge values -->
     <set name="itemConsumeId" val="5589" />
     <set name="itemConsumeCount" val="2" />
-    <set name="num_charges" val="2" />
-    <set name="charge_skill_id" val="50" />
-    <!-- Force Focus is the charger -->
+    <!-- charge values -->
+    <set name="needCharges" val="1" />
     <for />
   </skill>
   <skill id="18" levels="37" name="Aura of Hate"
@@ -995,12 +984,10 @@
     <set name="baseCritRate" val="15" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
-    <!-- charge values -->
     <set name="itemConsumeId" val="5589" />
     <set name="itemConsumeCount" val="2" />
-    <set name="num_charges" val="2" />
-    <set name="charge_skill_id" val="50" />
-    <!-- Force Focus is the charger -->
+    <!-- charge values -->
+    <set name="needCharges" val="1" />
     <for />
   </skill>
   <skill id="36" levels="37" name="Whirlwind"
@@ -1263,25 +1250,22 @@
     <for />
   </skill>
   <skill id="50" levels="8" name="Focused Force">
-    <table name="#power"> 1 2 3 4 5 6 7 8 </table>
     <table name="#charges">1 2 3 4 5 6 7 8</table>
     <set name="mpConsume" val="5" />
     <set name="hpConsume" val="20" />
-    <set name="power" val="#power" />
+    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="1000" />
     <set name="hitTime" val="900" />
-    <set name="skillType" val="CHARGE" />
+    <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="num_charges" val="#charges" />
     <set name="aggroPoints" val="150" />
-    <for>
-      <effect count="1" name="Charge" time="0x7fffffff"
-        val="1" />
-      <using kind="Fist,Dual Fist" /> <!-- when using hand-to-hand combat weapon -->
-    </for>
+    <!-- charge values -->
+    <set name="giveCharges" val="1" />
+    <set name="maxCharges" val="#charges" />
+    <for />
   </skill>
   <skill id="51" levels="1" name="Lure"
     enchantLevels1="30">
@@ -1346,9 +1330,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <set name="baseCritRate" val="15" />
     <!-- charge values -->
-    <set name="num_charges" val="1" />
-    <set name="charge_skill_id" val="50" />
-    <!-- Force Focus is the charger -->
+    <set name="needCharges" val="1" />
     <for />
   </skill>
   <skill id="56" levels="24" name="Power Shot">

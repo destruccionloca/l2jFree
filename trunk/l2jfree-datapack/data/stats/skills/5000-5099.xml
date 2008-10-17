@@ -300,13 +300,13 @@
     <set name="hitTime" val="2030" />
     <set name="condition" val="128" />
     <set name="skillTime" val="2000" />
-    <set name="skillType" val="CHARGEDAM" />
+    <set name="skillType" val="PDAM" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="200" />
     <set name="effectRange" val="400" />
-    <!-- charge values -->
-    <set name="num_charges" val="1" />
-    <set name="charge_skill_id" val="5015" />
+    <!-- charge values ... should be done by AI -->
+    <!--<set name="num_charges" val="1" />
+    <set name="charge_skill_id" val="5015" />-->
     <for />
   </skill>
   <skill id="5015" levels="6" name="Frintezza's Daemon Charge">
@@ -317,7 +317,6 @@
       slow charge. Lvl 6 - Demon 3 slow charge.
     -->
     <table name="#power">3.0 5.0 10.0 15.0 20.0 30.0</table>
-    <table name="#charges">1 2 3 4 5 6</table>
     <table name="#hitTime"> 1500 1450 1300 1200 1050 900 </table>
     <set name="mpConsume" val="20" />
     <set name="hpConsume" val="300" />
@@ -325,15 +324,11 @@
     <set name="hitTime" val="#hitTime" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillTime" val="900" />
-    <set name="skillType" val="CHARGE" />
+    <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="num_charges" val="#charges" />
-    <for>
-      <effect count="1" name="Charge" time="180000"
-        val="1" />
-    </for>
+    <for />
   </skill>
   <skill id="5016" levels="1" name="Yoke of Scarlet">
     <!--

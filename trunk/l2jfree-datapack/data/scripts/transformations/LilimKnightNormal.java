@@ -32,6 +32,8 @@ public class LilimKnightNormal extends L2DefaultTransformation
 		addSkill(player, 570, 3);
 		// Poison Dust
 		addSkill(player, 571, 3);
+
+		player.clearCharges();
 	}
 
 	public void removeSkills(L2PcInstance player)
@@ -44,6 +46,8 @@ public class LilimKnightNormal extends L2DefaultTransformation
 		removeSkill(player, 570);
 		// Poison Dust
 		removeSkill(player, 571);
+
+		player.clearCharges();
 	}
 
 	public static void main(String[] args)

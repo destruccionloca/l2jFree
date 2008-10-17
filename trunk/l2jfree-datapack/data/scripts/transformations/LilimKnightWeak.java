@@ -26,24 +26,28 @@ public class LilimKnightWeak extends L2DefaultTransformation
 	{
 		// Attack Buster
 		addSkill(player, 568, 2);
-		// Attack Storm
-		addSkill(player, 569, 2);
+		// Attack Storm - Too few charges reachable to use this skill
+		//addSkill(player, 569, 2);
 		// Attack Rage
 		addSkill(player, 570, 2);
 		// Poison Dust
 		addSkill(player, 571, 2);
+
+		player.clearCharges();
 	}
 
 	public void removeSkills(L2PcInstance player)
 	{
 		// Attack Buster
 		removeSkill(player, 568);
-		// Attack Storm
-		removeSkill(player, 569);
+		// Attack Storm - Too few charges reachable to use this skill
+		//removeSkill(player, 569);
 		// Attack Rage
 		removeSkill(player, 570);
 		// Poison Dust
 		removeSkill(player, 571);
+
+		player.clearCharges();
 	}
 
 	public static void main(String[] args)

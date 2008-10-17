@@ -968,8 +968,8 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-    <set name="num_charges" val="2" />
-    <set name="charge_skill_id" val="8" />
+    <!-- charge values -->
+    <set name="needCharges" val="2" />
     <for>
       <effect name="Disarm" count="1" time="10" val="0" />
     </for>
@@ -987,8 +987,8 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="baseCritRate" val="17" />
-    <set name="num_charges" val="2" />
-    <set name="charge_skill_id" val="50" />
+    <!-- charge values -->
+    <set name="needCharges" val="2" />
     <cond
       msg="An equipped hand-to-hand combat weapon is required to use this skill.">
       <using kind="Fist, Dual Fist" />

@@ -1505,11 +1505,10 @@
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillRadius" val="600" />
-    <set name="skillType" val="PDAM" />
+    <set name="skillType" val="CHARGEDAM" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="SSBoost" val="2.0" />
-    <set name="num_charges" val="2" />
-    <set name="charge_skill_id" val="570" />
+    <set name="needCharges" val="2" />
     <for />
   </skill>
   <skill id="569" levels="4" name="Attack Storm">
@@ -1521,12 +1520,11 @@
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillRadius" val="100" />
-    <set name="skillType" val="PDAM" />
+    <set name="skillType" val="CHARGEDAM" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="SSBoost" val="2.0" />
     <set name="castRange" val="500" />
-    <set name="num_charges" val="3" />
-    <set name="charge_skill_id" val="570" />
+    <set name="needCharges" val="3" />
     <for />
   </skill>
   <skill id="570" levels="4" name="Attack Rage">
@@ -1545,7 +1543,9 @@
     <set name="effectRange" val="1100" />
     <set name="SSBoost" val="2.0" />
     <set name="baseCritRate" val="18" />
-    <set name="num_charges" val="#charges" />
+    <!-- charge values -->
+    <set name="maxCharges" val="#charges" />
+    <set name="giveCharges" val="1" />
     <for />
   </skill>
   <skill id="571" levels="4" name="Poison Dust">

@@ -1272,8 +1272,10 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1000" />
-    <set name="num_charges" val="7" />
     <set name="baseCritRate" val="15" />
+    <!-- charge values -->
+    <set name="giveCharges" val="1" />
+    <set name="maxCharges" val="7" />
   </skill>
   <skill id="346" levels="1" name="Raging Force">
     <set name="weaponsAllowed" val="1280" />
@@ -1289,8 +1291,10 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1000" />
-    <set name="num_charges" val="7" />
     <set name="baseCritRate" val="15" />
+    <!-- charge values -->
+    <set name="giveCharges" val="1" />
+    <set name="maxCharges" val="7" />
   </skill>
   <skill id="347" levels="1" name="Earthquake">
     <set name="hpConsume" val="340" />
