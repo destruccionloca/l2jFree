@@ -45,12 +45,6 @@ public class ChatHero implements IChatHandler
 	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
-		if (Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("hero") && activeChar.isHero() || Config.IRC_ENABLED
-				&& Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("all")) // added hero voice to IRC like said in the properties files
-		{
-			IrcManager.getInstance().getConnection().sendChan("12%" + activeChar.getName() + ": " + text);
-		}
-
 		boolean canSpeak = activeChar.isGM();
 
 		if (!canSpeak)
@@ -70,6 +64,12 @@ public class ChatHero implements IChatHandler
 
 		if (canSpeak)
 		{
+			if (Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("hero") && activeChar.isHero() || Config.IRC_ENABLED
+					&& Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("all")) // added hero voice to IRC like said in the properties files
+			{
+				IrcManager.getInstance().getConnection().sendChan("12%" + activeChar.getName() + ": " + text);
+			}
+			
 			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
