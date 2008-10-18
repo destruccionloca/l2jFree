@@ -227,7 +227,7 @@ public abstract class IdFactory
 
 			// Others
 			stmt.executeUpdate("UPDATE items SET loc='INVENTORY' WHERE loc='PAPERDOLL' AND loc_data=0;");
-			//stmt.executeUpdate("DELETE FROM item_attributes WHERE `itemId` NOT IN (SELECT object_id FROM items);");
+			stmt.executeUpdate("DELETE FROM item_attributes WHERE `itemId` NOT IN (SELECT object_id FROM items);");
 
 			stmt.close();
 			_log.info("Cleaned " + cleanCount + " elements from database.");
