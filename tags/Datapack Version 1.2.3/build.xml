@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="L2JFree_Datapack_CT2" default="dist" basedir=".">
+  <description>
+        This script will build the l2jfree datapack.
+        
+        This program is free software: you can redistribute it and/or modify it under
+        the terms of the GNU General Public License as published by the Free Software
+        Foundation, either version 3 of the License, or (at your option) any later
+        version.
+       
+        This program is distributed in the hope that it will be useful, but WITHOUT
+        ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+        FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+        details.
+       
+        You should have received a copy of the GNU General Public License along with
+        this program. If not, see http://www.gnu.org/licenses
+  </description>
+
+  <property name="build" location="build"/>
+  <property name="build.dist" location="${build}/dist"/>
+  <property name="build.dist.game" location="${build.dist}/gameserver"/>
+  <property name="build.dist.login" location="${build.dist}/login"/>
+
+    <target name="init"
+      depends="clean"
+      description="Create the output directories.">
+      <mkdir dir="${build}"/>
+      <mkdir dir="${build.dist}"/>
+      <mkdir dir="${build.dist.game}"/>
+      <mkdir dir="${build.dist.login}" />
+    </target>
+
+    <target name="dist"
+      depends="version">
+      <copy todir="${build.dist.game}">
+         <fileset dir="${basedir}">
+           <exclude name=".project"/>
+           <exclude name="build.xml"/>
+           <exclude name="build/**"/>
+           <exclude name="log/**"/>
+           <exclude name="data/clans/**"/>
+           <exclude name="data/crests/**"/>
+           <exclude name="**.svn**"/>
+           <exclude name="**/*.class"/>
+           <exclude name="sql/**"/>
+           <exclude name="tools/**"/>
+           <exclude name="geodata/**"/>
+           <exclude name="pathnode/**"/>
+           <include name="**/*.*"/>
+         </fileset>
+      </copy>
+      <copy todir="${build.dist}">
+         <fileset dir="${basedir}">
+           <exclude name=".project"/>
+           <exclude name="build.xml"/>
+           <exclude name="config/**"/>
+           <exclude name="build/**"/>
+           <exclude name="log/**"/>
+           <exclude name="data/clans/**"/>
+           <exclude name="data/**"/>
+           <exclude name="data/crests/**"/>
+           <exclude name="**.svn**"/>
+           <exclude name="**/*.class"/>
+           <exclude name="geodata/**"/>
+           <exclude name="pathnode/**"/>
+           <include name="sql/*.*"/>
+           <include name="sql/updates/*.*"/>
+           <include name="sql/custom/*.*"/>
+           <include name="tools/*.*"/>
+         </fileset>
+      </copy>
+      <copy todir="${build.dist.login}">
+        <fileset dir="${build.dist.game}/data">
+          <include name="servername.xml"/>
+        </fileset>
+      </copy>
+      <delete file="${build}/l2jfree_datapack_ct2.zip"/>
+      <zip destfile="${build}/l2jfree_datapack_ct2.zip" basedir="${build.dist}"/>
+    </target>
+
+    <target name="version"
+      depends="init"
+      description="Create l2j-free-dp.properties file">
+      <tstamp>
+        <format property="build.tstamp" pattern="yyyyMMdd_HHmm"/>
+      </tstamp>
+      <exec dir="." executable="svnversion" outputproperty="l2j-free-dp.revision"
+        failifexecutionfails="false">
+        <arg line="-n ."/>
+      </exec>
+      <concat destfile="${properties-file}">
+      version=${l2j-free-dp.revision}
+      builddate=${build.tstamp}
+      detailed info:
+	  </concat>
+      <concat destfile="${properties-file}" append="true">
+        <filelist dir="${src}/../.svn/" files="entries"/>
+        <filterchain>
+          <prefixlines prefix="          "/>
+          <headfilter lines="8" skip="4"/>
+          <tokenfilter>
+             <ignoreblank/>
+          </tokenfilter>
+        </filterchain>
+	  </concat>
+    </target>
+
+    <target name="clean" 
+      description="Deletes the zip file">
+      <delete dir="${build}"/>
+    </target>
+
+</project>

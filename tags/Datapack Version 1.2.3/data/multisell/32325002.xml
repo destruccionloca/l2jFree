@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Elemental attributes -->
+<list>
+  <!-- fire stone for water stone -->
+  <item id="1">
+    <ingredient id="9546" count="1" />
+    <production id="9547" count="1" />
+  </item>
+  <!-- water  stone for fire stone -->
+  <item id="2">
+    <ingredient id="9547" count="1" />
+    <production id="9546" count="1" />
+  </item>
+  <!-- earth stone for wind stone -->
+  <item id="3">
+    <ingredient id="9548" count="1" />
+    <production id="9549" count="1" />
+  </item>
+  <!-- wind stone for earth stone -->
+  <item id="4">
+    <ingredient id="9549" count="1" />
+    <production id="9548" count="1" />
+  </item>
+  <!-- divine stone for dark stone -->
+  <item id="5">
+    <ingredient id="9551" count="1" />
+    <production id="9550" count="1" />
+  </item>
+  <!-- dark stone for divine stone -->
+  <item id="6">
+    <ingredient id="9550" count="1" />
+    <production id="9551" count="1" />
+  </item>
+</list>
