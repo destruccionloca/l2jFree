@@ -908,9 +908,9 @@ public class Castle extends Siegeable
 				if (values.length > 0)
 				{
 					query += values[0];
-					for (String value: values)
+					for (int i = 1; i < values.length; i++)
 					{
-						query += "," + value;
+						query += "," + values[i];
 					}
 					statement = con.prepareStatement(query);
 					statement.execute();
@@ -931,9 +931,9 @@ public class Castle extends Siegeable
 				if (values.length > 0)
 				{
 					query += values[0];
-					for (String value: values)
+					for (int i = 1; i < values.length; i++)
 					{
-						query += "," + value;
+						query += "," + values[i];
 					}
 					statement = con.prepareStatement(query);
 					statement.execute();
@@ -980,9 +980,9 @@ public class Castle extends Siegeable
 				if (values.length > 0)
 				{
 					query += values[0];
-					for (String value: values)
+					for (int i = 1; i < values.length; i++)
 					{
-						query += "," + value;
+						query += "," + values[i];
 					}
 					statement = con.prepareStatement(query);
 					statement.execute();
@@ -1023,9 +1023,9 @@ public class Castle extends Siegeable
 				if (values.length > 0)
 				{
 					query += values[0];
-					for (String value: values)
+					for (int i = 1; i < values.length; i++)
 					{
-						query += "," + value;
+						query += "," + values[i];
 					}
 					statement = con.prepareStatement(query);
 					statement.execute();
@@ -1045,9 +1045,9 @@ public class Castle extends Siegeable
 				if (values.length > 0)
 				{
 					query += values[0];
-					for (String value: values)
+					for (int i = 1; i < values.length; i++)
 					{
-						query += "," + value;
+						query += "," + values[i];
 					}
 					statement = con.prepareStatement(query);
 					statement.execute();
@@ -1094,9 +1094,9 @@ public class Castle extends Siegeable
 				if (values.length > 0)
 				{
 					query += values[0];
-					for (String value: values)
+					for (int i = 1; i < values.length; i++)
 					{
-						query += "," + value;
+						query += "," + values[i];
 					}
 					statement = con.prepareStatement(query);
 					statement.execute();

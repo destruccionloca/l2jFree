@@ -789,7 +789,7 @@ public class L2PetInstance extends L2Summon
      */
     public void refreshOverloaded()
     {
-        getOwner().sendPacket(new PetInfo(getOwner().getPet()));
+        getOwner().sendPacket(new PetInfo(this));
         broadcastStatusUpdate();
         
         if (getMaxLoad() > 0 && !getOwner().getDietMode())
