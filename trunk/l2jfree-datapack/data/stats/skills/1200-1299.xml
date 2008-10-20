@@ -3063,7 +3063,7 @@
     <set name="mpInitialConsume" val="50" />
     <set name="mpConsume" val="200" />
     <set name="magicLvl" val="68" />
-    <set name="power" val="150.0" />
+    <set name="power" val="150" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="7000" />
     <set name="skillType" val="MDAM" />
@@ -3078,7 +3078,7 @@
     <set name="mpInitialConsume" val="50" />
     <set name="mpConsume" val="200" />
     <set name="magicLvl" val="70" />
-    <set name="power" val="150.0" />
+    <set name="power" val="150" />
     <set name="target" val="TARGET_ONE" />
     <set name="element" val="2" /><!-- Fire -->
     <set name="hitTime" val="7000" />
@@ -3090,7 +3090,7 @@
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
     <set name="effectType" val="DOT" />
-    <set name="effectPower" val="350" />
+    <set name="effectPower" val="80" />
     <for>
       <!--
         retail value: 118/sec; stat update every time unit
@@ -3104,7 +3104,7 @@
     <set name="mpInitialConsume" val="50" />
     <set name="mpConsume" val="200" />
     <set name="magicLvl" val="70" />
-    <set name="power" val="150.0" />
+    <set name="power" val="150" />
     <set name="target" val="TARGET_ONE" />
     <set name="element" val="3" /><!-- Water -->
     <set name="hitTime" val="7000" />
@@ -3116,7 +3116,7 @@
     <set name="isDebuff" val="true" />
     <set name="effectRange" val="1400" />
     <set name="effectType" val="DEBUFF" />
-    <set name="effectPower" val="350" />
+    <set name="effectPower" val="80" />
     <for>
       <effect count="1" name="Debuff" time="30" val="0"
         stackOrder="0.5" stackType="RunSpeedDown">
@@ -3128,7 +3128,7 @@
     <set name="mpInitialConsume" val="50" />
     <set name="mpConsume" val="200" />
     <set name="magicLvl" val="70" />
-    <set name="power" val="150.0" />
+    <set name="power" val="150" />
     <set name="target" val="TARGET_ONE" />
     <set name="element" val="1" /><!-- Wind -->
     <set name="hitTime" val="7000" />
@@ -3140,7 +3140,7 @@
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
     <set name="effectType" val="DEBUFF" />
-    <set name="effectPower" val="350" />
+    <set name="effectPower" val="80" />
     <for>
       <effect count="1" name="Debuff" time="120" val="0">
         <mul order="0x30" stat="gainHp" val="0.5" />
@@ -3151,7 +3151,7 @@
     <set name="mpInitialConsume" val="50" />
     <set name="mpConsume" val="200" />
     <set name="magicLvl" val="72" />
-    <set name="power" val="200.0" />
+    <set name="power" val="200" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="7000" />
     <set name="skillType" val="MDAM" />
@@ -3167,7 +3167,7 @@
     <set name="mpInitialConsume" val="50" />
     <set name="mpConsume" val="200" />
     <set name="magicLvl" val="72" />
-    <set name="power" val="200.0" />
+    <set name="power" val="200" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="7000" />
     <set name="skillType" val="MDAM" />
@@ -3183,7 +3183,7 @@
     <set name="mpInitialConsume" val="50" />
     <set name="mpConsume" val="200" />
     <set name="magicLvl" val="72" />
-    <set name="power" val="200.0" />
+    <set name="power" val="200" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="7000" />
     <set name="skillType" val="MDAM" />

@@ -221,9 +221,10 @@
     <for />
   </skill>
   <skill id="4708" levels="10" name="Cursed Strike">
+    <table name="#magicLvl"> 58 62 66 70 72 74 76 78 79 80 </table>
     <table name="#mpConsume"> 58 62 67 71 73 75 77 78 79 80 </table>
-    <table name="#power"> 1046.0 1230.0 1425.0 1626.0 1727.0
-      1827.0 1925.0 2020.0 2067.0 2112.0 </table>
+    <table name="#power"> 1046 1230 1425 1626 1727 1827 1925
+      2020 2067 2112 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -232,9 +233,12 @@
     <set name="reuseDelay" val="10000" />
     <set name="isDebuff" val="true" />
     <set name="lvlDepend" val="1" />
+    <set name="magicLvl" val="#magicLvl" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
+    <set name="effectType" val="STUN" />
+    <set name="effectPower" val="50" />
     <for>
       <effect count="1" name="Stun" time="9" val="0"
         stackOrder="1" stackType="Stun" />
@@ -310,8 +314,7 @@
   </skill>
   <skill id="4712" levels="12" name="Bright Burst">
     <table name="#mpConsume"> 6 6 7 7 8 8 9 9 10 10 11 11 </table>
-    <table name="#power"> 6.0 9.0 13.0 17.0 23.0 28.0 34.0 36.0
-      39.0 41.0 42.0 43.0 </table>
+    <table name="#power"> 6 9 13 17 23 28 34 36 39 41 42 43 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -486,15 +489,19 @@
     <table name="#power"> 56 151 417 1089 2816 5504 8522 10060
       11622 13182 14784 16398 </table>
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87 </table>
+    <table name="#magicLvl"> 14 24 34 44 54 64 75 79 84 89 94 99 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PDAM" />
     <set name="hitTime" val="830" />
+    <set name="magicLvl" val="#magicLvl" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
+    <set name="effectType" val="STUN" />
+    <set name="effectPower" val="80" />
     <for>
       <effect count="1" name="Stun" time="9" val="0"
         stackOrder="1" stackType="Stun" />
@@ -504,15 +511,19 @@
     <table name="#power"> 48 128 352 920 2377 4645 7195 8490
       9855 11350 12936 14430 </table>
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87 </table>
+    <table name="#magicLvl"> 14 24 34 44 54 64 75 79 84 89 94 99 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PDAM" />
     <set name="hitTime" val="830" />
+    <set name="magicLvl" val="#magicLvl" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
+    <set name="effectType" val="STUN" />
+    <set name="effectPower" val="80" />
     <for>
       <effect count="1" name="Stun" time="9" val="0"
         stackOrder="1" stackType="Stun" />
@@ -522,16 +533,19 @@
     <table name="#power"> 26 68 188 491 1268 2479 3834 4519
       5242 6037 6889 7675 </table>
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87 </table>
+    <table name="#magicLvl"> 14 24 34 44 54 64 75 79 84 89 94 99 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PDAM" />
     <set name="hitTime" val="830" />
+    <set name="magicLvl" val="#magicLvl" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
     <set name="effectType" val="STUN" />
+    <set name="effectPower" val="80" />
     <for>
       <effect count="1" name="Stun" time="9" val="0"
         stackOrder="1" stackType="Stun" />
@@ -541,16 +555,19 @@
     <table name="#power"> 24 64 176 461 1189 2326 3598 4245
       4928 5682 6461 7215 </table>
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87 </table>
+    <table name="#magicLvl"> 14 24 34 44 54 64 75 79 84 89 94 99 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PDAM" />
     <set name="hitTime" val="830" />
     <set name="isDebuff" val="true" />
+    <set name="magicLvl" val="#magicLvl" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
     <set name="effectType" val="STUN" />
+    <set name="effectPower" val="80" />
     <for>
       <effect count="1" name="Stun" time="9" val="0"
         stackOrder="1" stackType="Stun" />
@@ -560,16 +577,19 @@
     <table name="#power"> 23 60 165 429 1109 2172 3362 3971
       4614 5313 6047 6756 </table>
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87 </table>
+    <table name="#magicLvl"> 14 24 34 44 54 64 75 79 84 89 94 99 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PDAM" />
     <set name="hitTime" val="830" />
+    <set name="magicLvl" val="#magicLvl" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
     <set name="isDebuff" val="true" />
     <set name="effectType" val="STUN" />
+    <set name="effectPower" val="80" />
     <for>
       <effect count="1" name="Stun" time="9" val="0"
         stackOrder="1" stackType="Stun" />

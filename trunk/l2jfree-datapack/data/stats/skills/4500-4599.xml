@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-  <skill id="4500" levels="1"
-    name="Treasure Chest - Level 27">
+  <skill id="4500" levels="1" name="Treasure Chest - Level 27">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -11,8 +10,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4501" levels="1"
-    name="Treasure Chest - Level 29">
+  <skill id="4501" levels="1" name="Treasure Chest - Level 29">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -21,8 +19,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4502" levels="1"
-    name="Treasure Chest - Level 31">
+  <skill id="4502" levels="1" name="Treasure Chest - Level 31">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -31,8 +28,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4503" levels="1"
-    name="Treasure Chest - Level 32">
+  <skill id="4503" levels="1" name="Treasure Chest - Level 32">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -41,8 +37,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4504" levels="1"
-    name="Treasure Chest - Level 33">
+  <skill id="4504" levels="1" name="Treasure Chest - Level 33">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -51,8 +46,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4505" levels="1"
-    name="Treasure Chest - Level 35">
+  <skill id="4505" levels="1" name="Treasure Chest - Level 35">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -61,8 +55,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4506" levels="1"
-    name="Treasure Chest - Level 39">
+  <skill id="4506" levels="1" name="Treasure Chest - Level 39">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -71,8 +64,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4507" levels="1"
-    name="Treasure Chest - Level 42">
+  <skill id="4507" levels="1" name="Treasure Chest - Level 42">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -81,8 +73,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4508" levels="1"
-    name="Treasure Chest - Level 43">
+  <skill id="4508" levels="1" name="Treasure Chest - Level 43">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -91,8 +82,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4509" levels="1"
-    name="Treasure Chest - Level 45">
+  <skill id="4509" levels="1" name="Treasure Chest - Level 45">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -101,8 +91,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4510" levels="1"
-    name="Treasure Chest - Level 47">
+  <skill id="4510" levels="1" name="Treasure Chest - Level 47">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -111,8 +100,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4511" levels="1"
-    name="Treasure Chest - Level 49">
+  <skill id="4511" levels="1" name="Treasure Chest - Level 49">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -121,8 +109,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4512" levels="1"
-    name="Treasure Chest - Level 52">
+  <skill id="4512" levels="1" name="Treasure Chest - Level 52">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -149,10 +136,12 @@
   </skill>
   <skill id="4515" levels="1" name="Raid Curse">
     <!--
-      Curse of the guardian spirit of a Raid Boss.  It's a state in which
-      one's body is temporarily petrified like a stone.  One can receive
-      this curse when trying to kill a raid monster whose level is lower than
-      one's level by 9 or more. This curse cannot be undone. -->
+      Curse of the guardian spirit of a Raid Boss. It's a
+      state in which one's body is temporarily petrified
+      like a stone. One can receive this curse when trying
+      to kill a raid monster whose level is lower than one's
+      level by 9 or more. This curse cannot be undone.
+    -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PARALYZE" />
     <set name="isDebuff" val="true" />
@@ -161,8 +150,8 @@
     <set name="castRange" val="1500" />
     <set name="effectRange" val="2000" />
     <for>
-      <effect count="1" name="Petrify" time="120" val="0"
-        stackOrder="120" stackType="turn_stone" />
+      <effect count="1" name="Petrify" time="120"
+        val="0" stackOrder="120" stackType="turn_stone" />
     </for>
   </skill>
   <skill id="4516" levels="1" name="Orfen Heal">
@@ -230,9 +219,11 @@
     <for />
   </skill>
   <skill id="4522" levels="1" name="Eye of Assassin">
-    <!-- TODO
-      Extreme assassin sensation. Greatly increases critical
-      chances and the success rate of dagger skills. -->
+    <!--
+      TODO Extreme assassin sensation. Greatly increases
+      critical chances and the success rate of dagger
+      skills.
+    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -300,8 +291,7 @@
     <set name="aggroPoints" val="100" />
     <for />
   </skill>
-  <skill id="4529" levels="1"
-    name="Quest - Summoned Explosion">
+  <skill id="4529" levels="1" name="Quest - Summoned Explosion">
     <!-- TODO -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -310,8 +300,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="4530" levels="1"
-    name="Quest - Summoned HP Heal">
+  <skill id="4530" levels="1" name="Quest - Summoned HP Heal">
     <!-- TODO -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -320,8 +309,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="4531" levels="1"
-    name="Quest - Summoned MP Heal">
+  <skill id="4531" levels="1" name="Quest - Summoned MP Heal">
     <!-- TODO -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -414,8 +402,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="4537" levels="1"
-    name="Song of Sweet Whisper">
+  <skill id="4537" levels="1" name="Song of Sweet Whisper">
     <!-- Done by DJ MELERIX -->
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
@@ -523,8 +510,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="4543" levels="1"
-    name="Quest - BOSS Stun Weakness">
+  <skill id="4543" levels="1" name="Quest - BOSS Stun Weakness">
     <!-- TODO -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -532,8 +518,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="4544" levels="3"
-    name="Quest - BOSS Weakness">
+  <skill id="4544" levels="3" name="Quest - BOSS Weakness">
     <!-- TODO -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -550,8 +535,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="4546" levels="1"
-    name="Quest - Commune to Slate">
+  <skill id="4546" levels="1" name="Quest - Commune to Slate">
     <!-- TODO -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -576,8 +560,7 @@
     <set name="castRange" val="1000" />
     <for />
   </skill>
-  <skill id="4549" levels="1"
-    name="Quest - Unsealed Altar">
+  <skill id="4549" levels="1" name="Quest - Unsealed Altar">
     <!-- TODO -->
     <set name="target" val="TARGET_NONE" />
     <set name="hitTime" val="3000" />
@@ -595,11 +578,9 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="4551" levels="10"
-    name="Hot Springs Rheumatism">
-    <table name="#pDef">
-      1 0.96 0.96 0.96 0.92 0.92 0.92 0.88 0.88 0.85
-    </table>
+  <skill id="4551" levels="10" name="Hot Springs Rheumatism">
+    <table name="#pDef"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88
+      0.88 0.85 </table>
     <table name="#rCrit">3 5 8 10 5 0 0 0 0 0</table>
     <set name="mpInitialConsume" val="14" />
     <set name="mpConsume" val="55" />
@@ -614,8 +595,8 @@
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="-100" />
     <for>
-      <effect count="1" name="Debuff" time="3600" val="0"
-        abnormal="poison">
+      <effect count="1" name="Debuff" time="3600"
+        val="0" abnormal="poison">
         <!-- needs core support for abnormal = spa_disease_a -->
         <mul order="0x30" stat="pDef" val="#pDef" />
         <add order="0x40" stat="rCrit" val="#rCrit" />
@@ -638,8 +619,8 @@
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="-100" />
     <for>
-      <effect count="1" name="Debuff" time="3600" val="0"
-        abnormal="poison">
+      <effect count="1" name="Debuff" time="3600"
+        val="0" abnormal="poison">
         <!-- needs core support for abnormal = spa_disease_b -->
         <sub order="0x40" stat="rEvas" val="#rEvas" />
         <add order="0x40" stat="accCombat" val="#accCombat" />
@@ -647,12 +628,9 @@
     </for>
   </skill>
   <skill id="4553" levels="10" name="Hot Springs Flu">
-    <table name="#pAtkSpd">
-      1.04 1.08 1.12 1.16 1.08 1 1 1 1 1
-    </table>
-    <table name="#pAtk">
-      1 0.96 0.96 0.96 0.92 0.92 0.92 0.88 0.88 0.85
-    </table>
+    <table name="#pAtkSpd"> 1.04 1.08 1.12 1.16 1.08 1 1 1 1 1 </table>
+    <table name="#pAtk"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88
+      0.88 0.85 </table>
     <set name="mpInitialConsume" val="14" />
     <set name="mpConsume" val="55" />
     <set name="power" val="0.0" />
@@ -666,8 +644,8 @@
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="-100" />
     <for>
-      <effect count="1" name="Debuff" time="3600" val="0"
-        abnormal="poison">
+      <effect count="1" name="Debuff" time="3600"
+        val="0" abnormal="poison">
         <!-- needs core support for abnormal = spa_disease_c -->
         <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd" />
         <mul order="0x30" stat="pAtk" val="#pAtk" />
@@ -675,12 +653,9 @@
     </for>
   </skill>
   <skill id="4554" levels="10" name="Hot Springs Malaria">
-    <table name="#mAtkSpd">
-      1.04 1.08 1.12 1.16 1.08 1 1 1 1 1
-    </table>
-    <table name="#mpConsumeRate">
-      1 0.96 0.96 0.96 0.92 0.92 0.92 0.88 0.88 0.84
-    </table>
+    <table name="#mAtkSpd"> 1.04 1.08 1.12 1.16 1.08 1 1 1 1 1 </table>
+    <table name="#mpConsumeRate"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88
+      0.88 0.84 </table>
     <set name="mpInitialConsume" val="14" />
     <set name="mpConsume" val="55" />
     <set name="power" val="0.0" />
@@ -694,8 +669,8 @@
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="-100" />
     <for>
-      <effect count="1" name="Debuff" time="3600" val="0"
-        abnormal="poison">
+      <effect count="1" name="Debuff" time="3600"
+        val="0" abnormal="poison">
         <!-- needs core support for abnormal = spa_disease_d -->
         <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd" />
         <mul order="0x30" stat="PhysicalMpConsumeRate"
@@ -765,20 +740,15 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <for>
-      <effect count="1" name="BigHead" time="600" val="0"
-        abnormal="bighead" stackOrder="600"
+      <effect count="1" name="BigHead" time="600"
+        val="0" abnormal="bighead" stackOrder="600"
         stackType="big_head" />
     </for>
   </skill>
   <skill id="4560" levels="12" name="NPC Fire Burn">
-    <!-- TODO -->
-    <table name="#mpConsume">
-      13 20 27 35 45 55 65 69 73 75 77 78
-    </table>
-    <table name="#power">
-      13.0 15.0 18.0 20.0 23.0 26.0 29.0 32.0 35.0 38.0 42.0
-      44.0
-    </table>
+    <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
+    <table name="#power"> 13.0 15.0 18.0 20.0 23.0 26.0 29.0
+      32.0 35.0 38.0 42.0 44.0 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -792,15 +762,10 @@
     <set name="effectRange" val="650" />
     <for />
   </skill>
-  <skill id="4561" levels="12"
-    name="NPC Fire Burn - Magic">
-    <table name="#mpConsume">
-      4 5 8 9 12 14 17 18 19 19 20 20
-    </table>
-    <table name="#power">
-      13.0 15.0 18.0 20.0 23.0 26.0 29.0 32.0 35.0 38.0 42.0
-      44.0
-    </table>
+  <skill id="4561" levels="12" name="NPC Fire Burn - Magic">
+    <table name="#mpConsume"> 4 5 8 9 12 14 17 18 19 19 20 20 </table>
+    <table name="#power"> 13.0 15.0 18.0 20.0 23.0 26.0 29.0
+      32.0 35.0 38.0 42.0 44.0 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -817,18 +782,11 @@
   </skill>
   <skill id="4562" levels="12" name="NPC Solar Flare">
     <!-- Done by DJ MELERIX -->
-    <table name="#magicLvl">
-      10 20 30 40 50 60 70 75 80 85 90 95
-    </table>
-    <table name="#mpInitialConsume">
-      3 5 7 9 12 14 17 18 18 19 20 20
-    </table>
-    <table name="#mpConsume">
-      12 19 26 35 45 55 65 69 72 75 77 78
-    </table>
-    <table name="#power">
-      22 33 47 65 85 107 127 137 145 152 157 161
-    </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#mpInitialConsume"> 3 5 7 9 12 14 17 18 18 19 20 20 </table>
+    <table name="#mpConsume"> 12 19 26 35 45 55 65 69 72 75 77 78 </table>
+    <table name="#power"> 22 33 47 65 85 107 127 137 145 152
+      157 161 </table>
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
     <set name="element" val="5" /><!-- Holy -->
@@ -844,21 +802,13 @@
     <set name="target" val="TARGET_ONE" />
     <for />
   </skill>
-  <skill id="4563" levels="12"
-    name="NPC Solar Flare - Magic">
+  <skill id="4563" levels="12" name="NPC Solar Flare - Magic">
     <!-- Done by DJ MELERIX -->
-    <table name="#magicLvl">
-      10 20 30 40 50 60 70 75 80 85 90 95
-    </table>
-    <table name="#mpInitialConsume">
-      3 5 7 9 12 14 17 18 18 19 20 20
-    </table>
-    <table name="#mpConsume">
-      12 19 26 35 45 55 65 69 72 75 77 78
-    </table>
-    <table name="#power">
-      22 33 47 65 85 107 127 137 145 152 157 161
-    </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#mpInitialConsume"> 3 5 7 9 12 14 17 18 18 19 20 20 </table>
+    <table name="#mpConsume"> 12 19 26 35 45 55 65 69 72 75 77 78 </table>
+    <table name="#power"> 22 33 47 65 85 107 127 137 145 152
+      157 161 </table>
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
     <set name="element" val="5" />
@@ -874,21 +824,12 @@
     <set name="target" val="TARGET_ONE" />
     <for />
   </skill>
-  <skill id="4564" levels="12"
-    name="NPC Solar Flare - Slow">
+  <skill id="4564" levels="12" name="NPC Solar Flare - Slow">
     <!-- Done by DJ MELERIX -->
-    <table name="#magicLvl">
-      10 20 30 40 50 60 70 75 80 85 90 95
-    </table>
-    <table name="#mpInitialConsume">
-      3 5 7 9 12 14 17 18 18 19 20 20
-    </table>
-    <table name="#mpConsume">
-      12 19 26 35 45 55 65 69 72 75 77 78
-    </table>
-    <table name="#power">
-      11 17 24 33 43 54 64 69 73 76 79 81
-    </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#mpInitialConsume"> 3 5 7 9 12 14 17 18 18 19 20 20 </table>
+    <table name="#mpConsume"> 12 19 26 35 45 55 65 69 72 75 77 78 </table>
+    <table name="#power"> 11 17 24 33 43 54 64 69 73 76 79 81 </table>
     <set name="castRange" val="1000" />
     <set name="effectRange" val="1500" />
     <set name="element" val="5" />
@@ -905,13 +846,9 @@
     <for />
   </skill>
   <skill id="4565" levels="12" name="NPC Eruption">
-    <table name="#mpConsume">
-      13 20 27 35 45 55 65 69 73 75 77 78
-    </table>
-    <table name="#power">
-      37.0 39.0 41.0 43.0 45.0 46.0 48.0 50.0 51.0 53.0 54.0
-      56.0
-    </table>
+    <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
+    <table name="#power"> 37.0 39.0 41.0 43.0 45.0 46.0 48.0
+      50.0 51.0 53.0 54.0 56.0 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_AREA" />
@@ -926,15 +863,10 @@
     <set name="effectRange" val="1000" />
     <for />
   </skill>
-  <skill id="4566" levels="12"
-    name="NPC Eruption - Magic">
-    <table name="#mpConsume">
-      13 20 27 35 45 55 65 69 73 75 77 78
-    </table>
-    <table name="#power">
-      37.0 39.0 41.0 43.0 45.0 46.0 48.0 50.0 51.0 53.0 54.0
-      56.0
-    </table>
+  <skill id="4566" levels="12" name="NPC Eruption - Magic">
+    <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
+    <table name="#power"> 37.0 39.0 41.0 43.0 45.0 46.0 48.0
+      50.0 51.0 53.0 54.0 56.0 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_AREA" />
@@ -950,13 +882,9 @@
     <for />
   </skill>
   <skill id="4567" levels="12" name="NPC Eruption - Slow">
-    <table name="#mpConsume">
-      13 20 27 35 45 55 65 69 73 75 77 78
-    </table>
-    <table name="#power">
-      37.0 39.0 41.0 43.0 45.0 46.0 48.0 50.0 51.0 53.0 54.0
-      56.0
-    </table>
+    <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
+    <table name="#power"> 37.0 39.0 41.0 43.0 45.0 46.0 48.0
+      50.0 51.0 53.0 54.0 56.0 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_AREA" />
@@ -973,18 +901,11 @@
   </skill>
   <skill id="4568" levels="12" name="NPC AE Solar Flare">
     <!-- Done by DJ MELERIX -->
-    <table name="#magicLvl">
-      10 20 30 40 50 60 70 75 80 85 90 95
-    </table>
-    <table name="#mpInitialConsume">
-      5 8 10 14 17 21 25 26 27 28 29 29
-    </table>
-    <table name="#mpConsume">
-      17 29 39 53 67 83 97 103 108 112 115 116
-    </table>
-    <table name="#power">
-      11 17 24 33 43 54 64 69 73 76 79 81
-    </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#mpInitialConsume"> 5 8 10 14 17 21 25 26 27 28 29 29 </table>
+    <table name="#mpConsume"> 17 29 39 53 67 83 97 103 108 112 115
+      116 </table>
+    <table name="#power"> 11 17 24 33 43 54 64 69 73 76 79 81 </table>
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
     <set name="element" val="5" /><!-- Holy -->
@@ -1001,21 +922,13 @@
     <set name="target" val="TARGET_AREA" />
     <for />
   </skill>
-  <skill id="4569" levels="12"
-    name="NPC AE Solar Flare - Magic">
+  <skill id="4569" levels="12" name="NPC AE Solar Flare - Magic">
     <!-- Done by DJ MELERIX -->
-    <table name="#magicLvl">
-      10 20 30 40 50 60 70 75 80 85 90 95
-    </table>
-    <table name="#mpInitialConsume">
-      5 8 10 14 17 21 25 26 27 28 29 29
-    </table>
-    <table name="#mpConsume">
-      17 29 39 53 67 83 97 103 108 112 115 116
-    </table>
-    <table name="#power">
-      11 17 24 33 43 54 64 69 73 76 79 81
-    </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#mpInitialConsume"> 5 8 10 14 17 21 25 26 27 28 29 29 </table>
+    <table name="#mpConsume"> 17 29 39 53 67 83 97 103 108 112 115
+      116 </table>
+    <table name="#power"> 11 17 24 33 43 54 64 69 73 76 79 81 </table>
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
     <set name="element" val="5" />
@@ -1032,21 +945,13 @@
     <set name="target" val="TARGET_AREA" />
     <for />
   </skill>
-  <skill id="4570" levels="12"
-    name="NPC AE Solar Flare - Slow">
+  <skill id="4570" levels="12" name="NPC AE Solar Flare - Slow">
     <!-- Done by DJ MELERIX -->
-    <table name="#magicLvl">
-      10 20 30 40 50 60 70 75 80 85 90 95
-    </table>
-    <table name="#mpInitialConsume">
-      5 8 10 14 17 21 25 26 27 28 29 29
-    </table>
-    <table name="#mpConsume">
-      17 29 39 53 67 83 97 103 108 112 115 116
-    </table>
-    <table name="#power">
-      6 9 12 17 22 27 32 35 37 38 40 41
-    </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#mpInitialConsume"> 5 8 10 14 17 21 25 26 27 28 29 29 </table>
+    <table name="#mpConsume"> 17 29 39 53 67 83 97 103 108 112 115
+      116 </table>
+    <table name="#power"> 6 9 12 17 22 27 32 35 37 38 40 41 </table>
     <set name="castRange" val="1000" />
     <set name="effectRange" val="1500" />
     <set name="element" val="5" />
@@ -1064,13 +969,10 @@
     <for />
   </skill>
   <skill id="4571" levels="12" name="NPC Blazing Circle">
-    <table name="#mpConsume">
-      18 29 40 53 68 83 98 104 109 113 115 117
-    </table>
-    <table name="#power">
-      42.0 44.0 46.0 48.0 50.0 52.0 55.0 57.0 58.0 60.0 62.0
-      64.0
-    </table>
+    <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115
+      117 </table>
+    <table name="#power"> 42.0 44.0 46.0 48.0 50.0 52.0 55.0
+      57.0 58.0 60.0 62.0 64.0 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_AURA" />
@@ -1085,18 +987,13 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="4572" levels="12"
-    name="NPC Triple Sonic Slash">
+  <skill id="4572" levels="12" name="NPC Triple Sonic Slash">
     <!-- Done by DJ MELERIX -->
-    <table name="#magicLvl">
-      10 20 30 40 50 60 70 75 80 85 90 95
-    </table>
-    <table name="#mpConsume">
-      25 40 56 76 99 121 142 151 159 165 168 170
-    </table>
-    <table name="#power">
-      92 210 438 833 1443 2272 3252 3752 4224 4640 4974 5233
-    </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#mpConsume"> 25 40 56 76 99 121 142 151 159 165
+      168 170 </table>
+    <table name="#power"> 92 210 438 833 1443 2272 3252 3752
+      4224 4640 4974 5233 </table>
     <set name="baseCritRate" val="15" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
@@ -1113,15 +1010,10 @@
   </skill>
   <skill id="4573" levels="12" name="NPC Sonic Blaster">
     <!-- Done by DJ MELERIX -->
-    <table name="#magicLvl">
-      10 20 30 40 50 60 70 75 80 85 90 95
-    </table>
-    <table name="#mpConsume">
-      13 20 28 38 50 61 71 76 80 83 84 85
-    </table>
-    <table name="#power">
-      46 105 219 417 722 1136 1626 1876 2112 2320 2487 2617
-    </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
+    <table name="#power"> 46 105 219 417 722 1136 1626 1876
+      2112 2320 2487 2617 </table>
     <set name="baseCritRate" val="15" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
@@ -1137,15 +1029,10 @@
   </skill>
   <skill id="4574" levels="12" name="NPC Sonic Storm">
     <!-- Done by DJ MELERIX -->
-    <table name="#magicLvl">
-      10 20 30 40 50 60 70 75 80 85 90 95
-    </table>
-    <table name="#mpConsume">
-      9 14 19 26 33 41 48 51 53 55 56 57
-    </table>
-    <table name="#power">
-      31 70 146 278 481 758 1084 1251 1408 1547 1658 1745
-    </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#mpConsume"> 9 14 19 26 33 41 48 51 53 55 56 57 </table>
+    <table name="#power"> 31 70 146 278 481 758 1084 1251 1408
+      1547 1658 1745 </table>
     <set name="baseCritRate" val="15" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="1000" />
@@ -1160,8 +1047,7 @@
     <set name="target" val="TARGET_AREA" />
     <for />
   </skill>
-  <skill id="4575" levels="2"
-    name="NPC Clan Buff - Haste">
+  <skill id="4575" levels="2" name="NPC Clan Buff - Haste">
     <!-- Done by DJ MELERIX -->
     <table name="#magicLvl">30 70</table>
     <table name="#mpInitialConsume">4 10</table>
@@ -1204,16 +1090,11 @@
   </skill>
   <skill id="4577" levels="12" name="Decrease Accuracy">
     <!-- TODO -->
-    <table name="#mpConsume">
-      18 29 40 53 68 83 98 104 109 113 115 117
-    </table>
+    <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115
+      117 </table>
     <set name="mpConsume" val="#mpConsume" />
-    <table name="#power">
-      11 16 23 31 41 51 61 66 70 73 76 78
-    </table>
-    <table name="#magicLvl">
-      10 20 30 40 50 60 70 75 80 85 90 95
-    </table>
+    <table name="#power"> 11 16 23 31 41 51 61 66 70 73 76 78 </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
@@ -1253,18 +1134,13 @@
   </skill>
   <skill id="4579" levels="12" name="Bleed">
     <!-- TODO -->
-    <table name="#damage">
-      27 39 51 66 81 93 102 102 105 105 108 108
-    </table>
-    <table name="#mpConsume">
-      25 40 56 76 99 121 142 151 159 165 168 170
-    </table>
-    <table name="#effectLevel">
-      2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0
-    </table>
-    <table name="#magicLvl">
-      10 20 30 40 50 60 70 75 80 85 90 95
-    </table>
+    <table name="#damage"> 27 39 51 66 81 93 102 102 105 105 108
+      108 </table>
+    <table name="#mpConsume"> 25 40 56 76 99 121 142 151 159 165
+      168 170 </table>
+    <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0
+      9.0 10.0 10.0 </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="2" />
     <set name="mpConsume" val="#mpConsume" />
@@ -1286,19 +1162,13 @@
   </skill>
   <skill id="4580" levels="12" name="Decrease P.Atk">
     <!-- TODO -->
-    <table name="#mpConsume">
-      24 39 54 73 94 116 136 144 152 158 161 163
-    </table>
-    <table name="#pAtk">
-      0.83 0.80 0.80 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77
-      0.77
-    </table>
-    <table name="#power">
-      18 26 38 52 68 85 102 110 116 122 126 129
-    </table>
-    <table name="#time">
-      10 10 15 15 15 15 15 15 15 15 15 15
-    </table>
+    <table name="#mpConsume"> 24 39 54 73 94 116 136 144 152 158
+      161 163 </table>
+    <table name="#pAtk"> 0.83 0.80 0.80 0.77 0.77 0.77 0.77
+      0.77 0.77 0.77 0.77 0.77 </table>
+    <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126
+      129 </table>
+    <table name="#time"> 10 10 15 15 15 15 15 15 15 15 15 15 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="isDebuff" val="true" />
@@ -1311,20 +1181,18 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <for>
-      <effect count="1" name="Debuff" time="#time" val="0"
-        stackOrder="#pAtk" stackType="pDefDown">
+      <effect count="1" name="Debuff" time="#time"
+        val="0" stackOrder="#pAtk" stackType="pDefDown">
         <mul order="0x30" stat="pAtk" val="#pAtk" />
       </effect>
     </for>
   </skill>
   <skill id="4581" levels="12" name="Hold">
     <!-- TODO -->
-    <table name="#power">
-      18 26 38 52 68 85 102 110 116 122 126 129
-    </table>
-    <table name="#mpConsume">
-      24 39 54 73 94 116 136 144 152 158 161 163
-    </table>
+    <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126
+      129 </table>
+    <table name="#mpConsume"> 24 39 54 73 94 116 136 144 152 158
+      161 163 </table>
     <set name="element" val="6" /><!-- Dark -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -1346,15 +1214,12 @@
   </skill>
   <skill id="4582" levels="12" name="Poison">
     <!-- TODO -->
-    <table name="#dot">
-      36 54 72 93 114 132 144 144 150 150 153 153
-    </table>
-    <table name="#mpConsume">
-      24 39 54 73 94 116 136 144 152 158 161 163
-    </table>
-    <table name="#effectLevel">
-      2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0
-    </table>
+    <table name="#dot"> 36 54 72 93 114 132 144 144 150 150
+      153 153 </table>
+    <table name="#mpConsume"> 24 39 54 73 94 116 136 144 152 158
+      161 163 </table>
+    <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0
+      9.0 10.0 10.0 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="0.0" />
     <set name="lvlDepend" val="2" />
@@ -1375,16 +1240,12 @@
   </skill>
   <skill id="4583" levels="12" name="Decrease Speed">
     <!-- TODO -->
-    <table name="#runSpd">
-      0.85 0.70 0.70 0.50 0.50 0.50 0.50 0.50 0.50 0.50 0.50
-      0.50
-    </table>
-    <table name="#power">
-      46 105 219 417 722 1136 1626 1876 2112 2320 2487 2617
-    </table>
-    <table name="#mpConsume">
-      36 59 82 111 143 176 206 220 231 239 244 247
-    </table>
+    <table name="#runSpd"> 0.85 0.70 0.70 0.50 0.50 0.50 0.50
+      0.50 0.50 0.50 0.50 0.50 </table>
+    <table name="#power"> 46 105 219 417 722 1136 1626 1876
+      2112 2320 2487 2617 </table>
+    <table name="#mpConsume"> 36 59 82 111 143 176 206 220 231 239
+      244 247 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1402,14 +1263,13 @@
       </effect>
     </for>
   </skill>
-  <skill id="4584" levels="12"
-    name="Reducing P. Def Shock">
-    <!-- TODO
-      Instantly decreases P. Def. and gets shocked so that one's
-      target cannot move temporarily. Effect 3. -->
-    <table name="#mpConsume">
-      24 39 54 73 94 116 136 144 152 158 161 163
-    </table>
+  <skill id="4584" levels="12" name="Reducing P. Def Shock">
+    <!--
+      TODO Instantly decreases P. Def. and gets shocked so
+      that one's target cannot move temporarily. Effect 3.
+    -->
+    <table name="#mpConsume"> 24 39 54 73 94 116 136 144 152 158
+      161 163 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1464,9 +1324,7 @@
   </skill>
   <skill id="4586" levels="12" name="Decrease Evasion">
     <!-- TODO -->
-    <table name="#mpConsume">
-      13 20 27 35 45 55 65 69 73 77 78 83
-    </table>
+    <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 77 78 83 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1478,11 +1336,11 @@
     <for />
   </skill>
   <skill id="4587" levels="12" name="Decrease P.Atk">
-    <!-- TODO
-      Temporarily decreases Accuracy.  Effect 3. -->
-    <table name="#mpConsume">
-      18 29 40 53 68 83 98 104 109 113 115 117
-    </table>
+    <!--
+      TODO Temporarily decreases Accuracy. Effect 3.
+    -->
+    <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115
+      117 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1534,9 +1392,8 @@
   </skill>
   <skill id="4589" levels="12" name="Decrease Speed">
     <!-- TODO -->
-    <table name="#mpConsume">
-      35 58 79 105 135 165 194 207 217 224 229 233
-    </table>
+    <table name="#mpConsume"> 35 58 79 105 135 165 194 207 217 224
+      229 233 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1549,9 +1406,8 @@
   </skill>
   <skill id="4590" levels="12" name="Decrease Speed">
     <!-- TODO -->
-    <table name="#mpConsume">
-      35 58 79 105 135 165 194 207 217 224 229 233
-    </table>
+    <table name="#mpConsume"> 35 58 79 105 135 165 194 207 217 224
+      229 233 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1564,9 +1420,8 @@
   </skill>
   <skill id="4591" levels="12" name="Decrease Speed">
     <!-- TODO -->
-    <table name="#mpConsume">
-      35 58 79 105 135 165 194 207 217 224 229 233
-    </table>
+    <table name="#mpConsume"> 35 58 79 105 135 165 194 207 217 224
+      229 233 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1578,13 +1433,10 @@
     <for />
   </skill>
   <skill id="4592" levels="12" name="Decrease P. Def">
-    <table name="#mpConsume">
-      24 39 53 70 90 110 130 138 145 150 153 155
-    </table>
-    <table name="#pdef">
-      0.85 0.8 0.8 0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.75
-      0.75
-    </table>
+    <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150
+      153 155 </table>
+    <table name="#pdef"> 0.85 0.8 0.8 0.75 0.75 0.75 0.75 0.75
+      0.75 0.75 0.75 0.75 </table>
     <set name="magicLvl" val="80" />
     <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
@@ -1608,9 +1460,8 @@
   </skill>
   <skill id="4593" levels="12" name="Decrease P. Def">
     <!-- TODO -->
-    <table name="#mpConsume">
-      24 39 53 70 90 110 130 138 145 150 153 155
-    </table>
+    <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150
+      153 155 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1623,9 +1474,8 @@
   </skill>
   <skill id="4594" levels="12" name="Decrease P. Def">
     <!-- TODO -->
-    <table name="#mpConsume">
-      24 39 53 70 90 110 130 138 145 150 153 155
-    </table>
+    <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150
+      153 155 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1667,9 +1517,8 @@
   </skill>
   <skill id="4596" levels="12" name="Bleed">
     <!-- TODO -->
-    <table name="#mpConsume">
-      29 47 64 88 113 138 162 173 180 188 192 194
-    </table>
+    <table name="#mpConsume"> 29 47 64 88 113 138 162 173 180 188
+      192 194 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1682,9 +1531,8 @@
   </skill>
   <skill id="4597" levels="12" name="Bleed">
     <!-- TODO -->
-    <table name="#mpConsume">
-      20 34 47 63 82 100 117 124 130 135 138 140
-    </table>
+    <table name="#mpConsume"> 20 34 47 63 82 100 117 124 130 135
+      138 140 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1697,9 +1545,8 @@
   </skill>
   <skill id="4598" levels="12" name="Bleed">
     <!-- TODO -->
-    <table name="#mpConsume">
-      20 34 47 63 82 100 117 124 130 135 138 140
-    </table>
+    <table name="#mpConsume"> 20 34 47 63 82 100 117 124 130 135
+      138 140 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1712,9 +1559,8 @@
   </skill>
   <skill id="4599" levels="12" name="Decrease Speed">
     <!-- TODO -->
-    <table name="#mpConsume">
-      35 58 81 109 141 174 203 216 227 235 241 244
-    </table>
+    <table name="#mpConsume"> 35 58 81 109 141 174 203 216 227 235
+      241 244 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />

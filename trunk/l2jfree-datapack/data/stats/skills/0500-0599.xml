@@ -29,8 +29,7 @@
   </skill>
   <skill id="501" levels="12" name="Violent Temper">
     <!-- Needs retail value checks -->
-    <table name="#mpConsume"> 22 24 25 27 28 29 30 31 32 33 34 34 
-    </table>
+    <table name="#mpConsume"> 22 24 25 27 28 29 30 31 32 33 34 34 </table>
     <table name="#mAtkSpd"> 0.98 0.96 0.94 0.92 0.90 0.88 0.86
       0.84 0.82 0.80 0.78 0.76 </table>
     <table name="#pDef"> 0.98 0.96 0.94 0.92 0.90 0.88 0.86
@@ -80,22 +79,20 @@
     <set name="skillRadius" val="#skillRadius" />
     <set name="skillType" val="AGGDAMAGE" />
     <set name="castRange" val="40" />
-    <set name="effectRange" val="56" />
+    <set name="effectRange" val="400" />
     <set name="reuseDelay" val="10000" />
     <for />
   </skill>
   <skill id="504" levels="37" name="Triple Thrust"
     enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 3255 3278 3300 3322 3344 3366 3388
       3411 3433 3455 3477 3499 3521 3544 3566 3588 3610 3632
       3654 3676 3699 3721 3743 3765 3787 3809 3832 3854 3876
       3898 </table>
     <table name="#ench2MpConsume"> 59 58 57 56 55 54 53 52 51 50 49 48
-      47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 
-    </table>
+      47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 </table>
     <table name="#mpConsume"> 29 30 31 31 32 33 34 32 36 37 38 39
       40 40 41 42 43 44 45 46 47 48 49 49 50 51 52 53 54 54
       55 56 57 58 59 59 60 </table>
@@ -129,25 +126,20 @@
   <skill id="505" levels="28" name="Shining Edge"
     enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 5813 5852 5892 5932 5971 6011 6050
       6090 6129 6169 6209 6248 6288 6327 6367 6406 6446 6486
       6525 6565 6604 6644 6683 6723 6763 6802 6842 6881 6921
       6960 </table>
     <table name="#ench2MpConsume"> 59 58 57 56 55 54 53 52 51 50 49 48
-      47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 
-    </table>
+      47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 </table>
     <table name="#mpConsume"> 37 38 39 40 40 41 42 43 44 45 46 47
-      48 49 49 50 51 52 53 54 54 55 56 57 58 59 59 60 
-    </table>
+      48 49 49 50 51 52 53 54 54 55 56 57 58 59 59 60 </table>
     <table name="#power"> 1853 1953 2057 2164 2274 2388 2505
       2625 2748 2875 3004 3136 3271 3408 3548 3690 3834 3980
-      4127 4275 4425 4575 4726 4878 5029 5180 5330 5479 
-    </table>
+      4127 4275 4425 4575 4726 4878 5029 5180 5330 5479 </table>
     <table name="#magicLvl"> 49 50 51 52 53 54 55 56 57 58 59 60
-      61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 
-    </table>
+      61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 </table>
     <set name="weaponsAllowed" val="131072" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -173,15 +165,13 @@
     enchantLevels1="30" enchantLevels2="30">
     <!-- by Sephiroth for team umbrella -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 5813 5852 5892 5932 5971 6011 6050
       6090 6129 6169 6209 6248 6288 6327 6367 6406 6446 6486
       6525 6565 6604 6644 6683 6723 6763 6802 6842 6881 6921
       6960 </table>
     <table name="#ench2MpConsume"> 50 49 48 47 46 46 45 44 43 42 41 41
-      40 39 38 37 36 36 35 34 33 32 31 31 30 29 28 27 26 26 
-    </table>
+      40 39 38 37 36 36 35 34 33 32 31 31 30 29 28 27 26 26 </table>
     <table name="#mpConsume">36 43 47 51</table>
     <table name="#power">2388 3408 4275 5180</table>
     <set name="weaponsAllowed" val="131072" />
@@ -210,8 +200,7 @@
   <skill id="507" levels="37" name="Twin Shot"
     enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 5167 5202 5237 5273 5308 5343 5378
       5413 5448 5484 5519 5554 5589 5621 5660 5695 5730 5765
       5800 5835 5871 5906 5941 5976 6011 6046 6082 6117 6152
@@ -253,8 +242,7 @@
   <skill id="508" levels="31" name="Rising Shot"
     enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 1292 1301 1310 1319 1327 1336 1345
       1354 1362 1371 1380 1389 1398 1406 1415 1424 1433 1442
       1450 1459 1468 147 1486 1494 1503 1512 1521 1530 1538
@@ -301,8 +289,7 @@
       Power 530-2192.
     -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 2325 2341 2357 2373 2389 2405 2420
       2436 2452 2468 2484 2500 2515 2531 2547 2563 2579 2595
       2610 2626 2642 2658 2674 2690 2705 2721 2737 2753 2769
@@ -338,6 +325,8 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
+    <set name="effectType" val="BLEED" />
+    <set name="effectPower" val="40" /> <!-- Base Land Rate --> <!-- Guessing -->
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <enchant1 name="power" val="#ench1Power" />
@@ -541,22 +530,18 @@
   </skill>
   <skill id="521" levels="8" name="Sharpshooting">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <table name="#mpConsume">28 29 30 31 32 33 34 34</table>
-    <table name="#pAtk"> 110 119 129 138 148 158 167 177 
-    </table>
+    <table name="#pAtk"> 110 119 129 138 148 158 167 177 </table>
     <table name="#accCombat">1 3 3 3 3 3 3 3</table>
     <table name="#ench1pAtk"> 179 181 182 184 185 187 188 190 192
       193 195 196 198 199 201 203 204 206 207 209 210 212
       214 215 217 218 220 221 223 225 </table>
     <table name="#ench2MpConsume"> 33 33 32 32 32 31 31 30 30 29 29 28
-      28 28 27 27 26 26 25 25 25 24 24 23 23 22 22 21 20 20 
-    </table>
-    <table name="#aggro"> 566 582 597 611 624 635 646 655 
-    </table>
+      28 28 27 27 26 26 25 25 25 24 24 23 23 22 22 21 20 20 </table>
+    <table name="#aggro"> 566 582 597 611 624 635 646 655 </table>
     <set name="weaponsAllowed" val="65536" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="0.0" />
@@ -649,8 +634,7 @@
     <for />
   </skill>
   <skill id="525" levels="6" name="Decoy">
-    <table name="#npcId"> 13071 13072 13073 13074 13075 13076 
-    </table>
+    <table name="#npcId"> 13071 13072 13073 13074 13075 13076 </table>
     <set name="mpConsume" val="60" />
     <set name="target" val="TARGET_SELF" />
     <set name="summonTotalLifeTime" val="20000" />
@@ -989,15 +973,12 @@
     <set name="SSBoost" val="2.0" />
     <set name="skillRadius" val="600" />
     <set name="overHit" val="true" />
-    <set name="reuseDelay" val="5000" />
-    <!--
-      no reuse
-    -->
+    <set name="reuseDelay" val="5000" /> <!-- no reuse -->
     <set name="hitTime" val="800" />
     <set name="skillType" val="PDAM" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
-    <set name="effectRange" val="-1" />
+    <set name="effectRange" val="1200" />
     <set name="flyType" val="CHARGE" />
     <set name="flyRadius" val="400" />
     <set name="isDebuff" val="true" />
@@ -1789,10 +1770,6 @@
       Cleaning and building a better match with CT1.5 by
       BoDiE (Addind description to work on)
     -->
-    <!--
-      Description: A deadly frontal attack puts enemies in a
-      bleeding state.
-    -->
     <table name="#mpConsume">61 63 67 70</table>
     <table name="#power">875 984 1098 1213</table>
     <table name="#effect">6 6 7 7</table>
@@ -1805,19 +1782,15 @@
     <set name="reuseDelay" val="8000" />
     <set name="hitTime" val="1080" />
     <set name="coolTime" val="720" />
-    <set name="overHit" val="true" />
-    <!--
-      If I'm not wrong, overhit is possible
-    -->
-    <set name="skillType" val="BLEED" />
+    <set name="overHit" val="true" /> <!-- If I'm not wrong, overhit is possible -->
+    <set name="skillType" val="PDAM" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="900" />
-    <set name="nextAction" val="attack" />
-    <!--
-      To prevent character stop from attacking
-    -->
+    <set name="castRange" val="40" />
+    <set name="effectRange" val="400" />
+    <set name="effectType" val="BLEED" />
+    <set name="effectPower" val="40" /> <!-- Base Land Rate --> <!-- Guessing -->
+    <set name="nextAction" val="attack" /> <!-- To prevent character stop from attacking -->
     <for>
       <effect abnormal="bleeding" count="#effect"
         name="DamOverTime" time="3" val="#bleeddmg" />

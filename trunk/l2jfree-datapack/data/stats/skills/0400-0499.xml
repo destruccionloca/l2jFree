@@ -2271,6 +2271,9 @@
     <table name="#castRange"> 400 400 400 400 400 400 400 400 400
       400 400 500 500 500 500 500 500 500 500 500 500 500
       500 500 500 500 500 500 </table>
+    <table name="#effectRange"> 900 900 900 900 900 900 900 900 900
+      900 900 1000 1000 1000 1000 1000 1000 1000 1000 1000
+      1000 1000 1000 1000 1000 1000 1000 1000 </table>
     <set name="weaponsAllowed" val="32768" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -2284,7 +2287,7 @@
     <set name="skillType" val="PDAM" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="#castRange" />
-    <set name="effectRange" val="900" />
+    <set name="effectRange" val="#effectRange" />
     <set name="flyType" val="CHARGE" />
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
@@ -2355,7 +2358,7 @@
     <set name="target" val="TARGET_FRONT_AREA" />
     <set name="skillRadius" val="400" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="50" />
+    <set name="power" val="40" /> <!-- Base Land Rate --> <!-- Guessing -->
     <set name="lvlDepend" val="2" />
     <set name="skillType" val="BLEED" />
     <set name="castRange" val="#castRange" />
@@ -2494,6 +2497,8 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
+    <set name="effectType" val="BLEED" />
+    <set name="effectPower" val="40" /> <!-- Base Land Rate --> <!-- Guessing -->
     <set name="isDebuff" val="true" />
     <set name="soulMaxConsumeCount" val="5" />
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />

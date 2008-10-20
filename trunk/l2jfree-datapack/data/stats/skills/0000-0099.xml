@@ -598,6 +598,7 @@
     <set name="baseCritRate" val="15" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
+    <for />
   </skill>
   <skill id="21" levels="3" name="Poison Recovery">
     <table name="#mpConsume_Init">4 7 11</table>
@@ -695,6 +696,7 @@
     <set name="effectRange" val="1000" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
+    <for />
   </skill>
   <skill id="25" levels="9" name="Summon Mechanic Golem"
     enchantLevels1="30">

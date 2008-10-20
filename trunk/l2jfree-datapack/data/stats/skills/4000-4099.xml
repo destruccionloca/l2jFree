@@ -1608,7 +1608,7 @@
     </for>
   </skill>
   <skill id="4083" levels="1" name="Die! You fool!">
-    <set name="power" val="90000.0" />
+    <set name="power" val="90000" />
     <set name="target" val="TARGET_ONE" />
     <set name="overHit" val="true" />
     <set name="hitTime" val="1000" />
