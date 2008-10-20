@@ -43,8 +43,6 @@ public class L2SkillChargeNegate extends L2Skill
 		if (activeChar.isAlikeDead() || !(activeChar instanceof L2PcInstance))
 			return;
 
-		L2PcInstance player = (L2PcInstance) activeChar;
-
 		for (L2Object element : targets)
 		{
 			L2Character target = (L2Character) element;

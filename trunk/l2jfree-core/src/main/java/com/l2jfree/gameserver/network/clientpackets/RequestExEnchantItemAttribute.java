@@ -280,7 +280,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 
 	public int getPowerToAdd(int stoneId, int oldValue, L2ItemInstance item)
 	{
-		boolean stone = false, crystal = false;
+		boolean stone = false/*, crystal = false*/;
 		//boolean jewel = false, energy = false;
 		for (int id : Elementals.STONES)
 		{

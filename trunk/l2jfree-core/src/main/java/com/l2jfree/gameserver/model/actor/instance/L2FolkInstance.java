@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
-import com.l2jfree.gameserver.model.actor.status.FolkStatus;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillList;

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.mmocore.network.SendablePacket;
 
 import com.l2jfree.gameserver.GameServer;
@@ -29,7 +28,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
  */
 public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 {
-	private final static Log	_log	= LogFactory.getLog(L2GameServerPacket.class.getName());
+	protected static final Log _log = LogFactory.getLog(L2GameServerPacket.class);
 
 	/**
 	 * @see com.l2jserver.mmocore.network.SendablePacket#write()

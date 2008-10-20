@@ -14,14 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.clientpackets.RequestBypassToServer;
 
 /**
  *
@@ -126,37 +121,26 @@ import com.l2jfree.gameserver.network.clientpackets.RequestBypassToServer;
  *
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class NpcHtmlMessage extends L2GameServerPacket
+public final class NpcHtmlMessage extends L2GameServerPacket
 {
+	private static final String _S__1B_NPCHTMLMESSAGE = "[S] 0f NpcHtmlMessage";
+	
 	// d S
 	// d is usually 0, S is the html text starting with <html> and ending with </html>
-	//
-	private static final String _S__1B_NPCHTMLMESSAGE = "[S] 0f NpcHtmlMessage";
-	private static Log	_log	= LogFactory.getLog(RequestBypassToServer.class.getName());
-
-	private int _npcObjId;
-	private String _html;
+	private final int _npcObjId;
+	private StringBuilder _builder;
 	private int _itemId = 0;
-
-	/**
-	 * 
-	 * @param npcObjId
-	 * @param itemId
-	 */
+	
 	public NpcHtmlMessage(int npcObjId, int itemId)
 	{
 		_npcObjId = npcObjId;
 		_itemId = itemId;
 	}
-
-	/**
-	 * 
-	 * @param npcObjId
-	 * @param text
-	 */
+	
 	public NpcHtmlMessage(int npcObjId, String text)
 	{
 		_npcObjId = npcObjId;
+		
 		setHtml(text);
 	}
 	
@@ -172,76 +156,85 @@ public class NpcHtmlMessage extends L2GameServerPacket
 			buildBypassCache(getClient().getActiveChar());
 	}
 	
-	public void setHtml(String text)
+	public void setHtml(CharSequence text)
 	{
-        if(text.length() > 8192)
-		{
-			_log.warn("Html is too long! this will crash the client!");
-			_html = "<html><body>Html was too long</body></html>";
-			return;
-		}
-		_html = text; // html code must not exceed 8192 bytes 
-	}
-
-	public boolean setFile(String path)
-	{
-        String content = HtmCache.getInstance().getHtm(path);
-
-		if (content == null)
-		{
-			setHtml("<html><body>My Text is missing:<br>"+path+"</body></html>");
-			_log.warn("missing html page "+path);
-			return false;
-		}
-        
-        setHtml(content);
-        return true;
-	}
-
-	public void replace(String pattern, String value)
-	{
-		_html = _html.replaceAll(pattern, value);
+		_builder = new StringBuilder(text);
 	}
 	
-	private final void buildBypassCache(L2PcInstance activeChar)
+	public void setHtml(StringBuilder text)
 	{
-        if (activeChar == null)
-            return;
-        
-        activeChar.clearBypass();
-		int len = _html.length();
-		for (int i = 0; i < len; i++)
+		_builder = text;
+	}
+	
+	public void setFile(String path)
+	{
+		String content = HtmCache.getInstance().getHtm(path);
+		
+		if (content == null)
 		{
-			int start = _html.indexOf("bypass -h", i);
-			int finish = _html.indexOf("\"", start);
-
-			if(start < 0 || finish < 0)
+			content = "<html><body>Sorry, my HTML is missing!<br>" + path + "</body></html>";
+			
+			_log.warn("Missing html page: " + path);
+		}
+		
+		setHtml(content);
+	}
+	
+	public void replace(String pattern, String value)
+	{
+		for (int index; (index = _builder.indexOf(pattern)) != -1;)
+			_builder.replace(index, index + pattern.length(), value);
+	}
+	
+	public void replace(String pattern, Object value)
+	{
+		replace(pattern, String.valueOf(value));
+	}
+	
+	private void buildBypassCache(L2PcInstance activeChar)
+	{
+		if (activeChar == null)
+			return;
+		
+		activeChar.clearBypass();
+		
+		for (int i = 0; i < _builder.length(); i++)
+		{
+			int start = _builder.indexOf("bypass -h", i);
+			int finish = _builder.indexOf("\"", start);
+			
+			if (start < 0 || finish < 0)
 				break;
 			
 			start += 10;
 			i = start;
-			int finish2 = _html.indexOf("$",start);
-			if (finish2 < finish && finish2 > 0)
-				activeChar.addBypass2(_html.substring(start, finish2).trim());
+			int finish2 = _builder.indexOf("$", start);
+			
+			if (0 < finish2 && finish2 < finish)
+				activeChar.addBypass2(_builder.substring(start, finish2).trim());
 			else
-				activeChar.addBypass(_html.substring(start, finish).trim());
-			//System.err.println("["+_html.substring(start, finish)+"]");
+				activeChar.addBypass(_builder.substring(start, finish).trim());
 		}
 	}
 	
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0x19);
-
 		writeD(_npcObjId);
-		writeS(_html);
+		
+		if (_builder.length() > 8192)
+		{
+			writeS("<html><body>Sorry, the HTML is too long!</body></html>");
+			
+			_log.warn("The HTML is too long! This will crash the client!");
+		}
+		else
+			writeS(_builder);
+		
 		writeD(_itemId);
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
