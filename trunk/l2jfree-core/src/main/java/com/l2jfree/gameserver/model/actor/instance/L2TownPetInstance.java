@@ -30,15 +30,12 @@ import com.l2jfree.tools.random.Rnd;
  */
 
 public class L2TownPetInstance extends L2NpcInstance
-{    
-    int randomX, randomY, spawnX, spawnY;
+{
+    private int _spawnX, _spawnY, _spawnZ;
 
     public L2TownPetInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-
-        if (Config.ALLOW_PET_WALKERS)
-            ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new RandomWalkTask(), 2000, 4000);
     }
 
     @Override
@@ -73,24 +70,27 @@ public class L2TownPetInstance extends L2NpcInstance
     }
 
     @Override
-    public void onSpawn()
+    public void firstSpawn()
     {
-        super.onSpawn();
-        spawnX = getX();
-        spawnY = getY();
+        _spawnX = getX();
+        _spawnY = getY();
+        _spawnZ = getZ();
+        if (Config.ALLOW_PET_WALKERS)
+            ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new RandomWalkTask(), 2000, 4000);
     }
 
     public class RandomWalkTask implements Runnable
     {
         public void run()
         {
-            if(!isInActiveRegion()) return; // but rather the AI should be turned off completely
+            if (!isInActiveRegion())
+                return; // but rather the AI should be turned off completely
 
-            randomX = spawnX + Rnd.get(2)*50-50;
-            randomY = spawnY + Rnd.get(2)*50-50;
+            int randomX = _spawnX + Rnd.get(2) * 50 - 50;
+            int randomY = _spawnY + Rnd.get(2) * 50 - 50;
 
-            if ((randomX != getX()) || (randomY != getY()))
-                getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(randomX,randomY,getZ(),0));
+            if (randomX != getX() || randomY != getY())
+                getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(randomX, randomY, _spawnZ, 0));
         }
     }
 }

@@ -282,6 +282,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		}
 	}
 
+	@Override
 	public void stopAITask()
 	{
 		if (_aiTask != null)

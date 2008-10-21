@@ -1035,6 +1035,10 @@ public class L2CharacterAI extends AbstractAI
 		return false;
 	}
 
+	public void stopAITask()
+	{
+	}
+
 	/**
 	 * Modify current Intention and actions if the target is lost or dead.<BR><BR>
 	 *
