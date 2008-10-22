@@ -472,6 +472,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
+    <for />
   </skill>
   <skill id="17" levels="34" name="Force Burst"
     enchantLevels1="30" enchantLevels2="30">
@@ -885,6 +886,7 @@
     <set name="skillType" val="BLOW" />
     <set name="baseCritRate" val="15" />
     <set name="lethal1" val="5" />
+    <set name="lethal2" val="2" />
     <set name="dmgDirectlyToHp" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />

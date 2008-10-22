@@ -246,8 +246,8 @@
   </skill>
   <skill id="4709" levels="10" name="Cursed Blow">
     <table name="#mpConsume"> 58 62 67 71 73 75 77 78 79 80 </table>
-    <table name="#power"> 4181.0 4920.0 5700.0 6503.0 6906.0
-      7305.0 7698.0 8079.0 8265.0 8447.0 </table>
+    <table name="#power"> 4181 4920 5700 6503 6906 7305 7698
+      8079 8265 8447 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -609,6 +609,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
+    <for />
   </skill>
   <skill id="4730" levels="12" name="BOSS Mortal Blow">
     <table name="#power"> 142 382 1056 2760 7131 13935 21585
@@ -639,6 +640,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
+    <for />
   </skill>
   <skill id="4732" levels="12" name="BOSS Mortal Blow">
     <table name="#power"> 71 191 528 1382 3566 6977 10793 12734
@@ -654,6 +656,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
+    <for />
   </skill>
   <skill id="4733" levels="12" name="BOSS Mortal Blow">
     <table name="#power"> 67 179 494 1287 3327 6516 10085 11913
@@ -669,6 +672,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
+    <for />
   </skill>
   <skill id="4734" levels="12" name="BOSS Spinning Slash">
     <table name="#power"> 56 151 417 1089 2816 5504 8522 10060
@@ -924,6 +928,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
+    <for />
   </skill>
   <skill id="4750" levels="12" name="BOSS Mortal Blow">
     <table name="#power"> 236 637 1761 4600 11884 23226 35974
@@ -939,6 +944,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
+    <for />
   </skill>
   <skill id="4751" levels="12" name="BOSS Mortal Blow">
     <table name="#power"> 126 339 937 2455 6339 12395 19166
@@ -954,6 +960,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
+    <for />
   </skill>
   <skill id="4752" levels="12" name="BOSS Mortal Blow">
     <table name="#power"> 118 319 879 2303 5942 11627 17987
@@ -969,6 +976,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
+    <for />
   </skill>
   <skill id="4753" levels="12" name="BOSS Mortal Blow">
     <table name="#power"> 111 298 824 2145 5545 10860 16808
@@ -984,6 +992,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
+    <for />
   </skill>
   <skill id="4754" levels="12" name="BOSS Power Shot">
     <table name="#power"> 327 882 2435 6357 16445 32150 49783
