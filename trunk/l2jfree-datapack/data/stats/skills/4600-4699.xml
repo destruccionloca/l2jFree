@@ -1119,8 +1119,6 @@
     <table name="#drain"> 131 201 271 351 451 551 651 691 731
       751 771 781 </table>
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
-    <set name="element" val="6" />
-    <!-- Dark -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_CORPSE" />
@@ -1183,7 +1181,6 @@
       129 </table>
     <table name="#mpConsume"> 24 39 57 70 90 110 130 138 145 150
       153 155 </table>
-    <set name="element" val="6" /><!-- Dark -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1207,7 +1204,6 @@
       129 </table>
     <table name="#mpConsume"> 24 39 57 70 90 110 130 138 145 150
       153 155 </table>
-    <set name="element" val="6" /><!-- Dark -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1230,7 +1226,6 @@
     <table name="#power"> 9 13 19 26 34 43 51 55 58 61 63 65 </table>
     <table name="#mpConsume"> 24 39 57 70 90 110 130 138 145 150
       153 155 </table>
-    <set name="element" val="6" /><!-- Dark -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1254,7 +1249,6 @@
       129 </table>
     <table name="#mpConsume"> 24 39 57 70 90 110 130 138 145 150
       153 155 </table>
-    <set name="element" val="6" /><!-- Dark -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1276,7 +1270,6 @@
       129 </table>
     <table name="#mpConsume"> 24 39 57 70 90 110 130 138 145 150
       153 155 </table>
-    <set name="element" val="6" /><!-- Dark -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1299,7 +1292,6 @@
     <table name="#power"> 9 13 19 26 34 43 51 55 58 61 63 65 </table>
     <table name="#mpConsume"> 24 39 57 70 90 110 130 138 145 150
       153 155 </table>
-    <set name="element" val="6" /><!-- Dark -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />

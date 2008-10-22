@@ -208,8 +208,8 @@
   </skill>
   <skill id="4316" levels="12" name="Boss Lilim Drain">
     <table name="#power">
-      6.0 8.0 11.0 15.0 19.0 23.0 27.0 29.0 31.0 32.0 33.0
-      33.0
+      6 8 11 15 19 23 27 29 31 32 33
+      33
     </table>
     <table name="#mpConsume">
       17 29 39 53 67 83 97 103 108 112 115 116
@@ -301,7 +301,7 @@
       13 20 27 35 45 55 65 69 73 77 78 83
     </table>
     <table name="#effectLevel">
-      4.0 5.0 6.0 7.0 8.0 9.0 10.0 11.0 12.0 13.0 15.0 16.0
+      4 5 6 7 8 9 10 11 12 13 15 16
     </table>
     <table name="#magicLvl">
       10 20 30 40 50 60 70 75 80 85 90 95
@@ -1033,7 +1033,7 @@
     </for>
   </skill>
   <skill id="4361" levels="2" name="Curse of Destruction">
-    <table name="#power">1.0 2.0</table>
+    <table name="#power">1 2</table>
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
@@ -1053,7 +1053,7 @@
     </for>
   </skill>
   <skill id="4362" levels="2" name="Curse of Destruction">
-    <table name="#power">1.0 2.0</table>
+    <table name="#power">1 2</table>
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
@@ -1090,7 +1090,7 @@
     </for>
   </skill>
   <skill id="4364" levels="2" name="Blessing of Prophecy">
-    <table name="#power">1.0 2.0</table>
+    <table name="#power">1 2</table>
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
@@ -1305,8 +1305,8 @@
   </skill>
   <skill id="4377" levels="12" name="Wield Temper">
     <table name="#power">
-      46.0 105.0 219.0 417.0 722.0 1136.0 1626.0 1876.0
-      2112.0 2320.0 2487.0 2617.0
+      46 105 219 417 722 1136 1626 1876
+      2112 2320 2487 2617
     </table>
     <table name="#mpConsume">
       13 20 28 38 50 61 71 76 80 83 84 85

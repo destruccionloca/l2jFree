@@ -834,8 +834,6 @@
     <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_CORPSE_MOB" />
-    <set name="element" val="6" />
-    <!-- Dark -->
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="1500" />
     <set name="skillType" val="DRAIN" />
