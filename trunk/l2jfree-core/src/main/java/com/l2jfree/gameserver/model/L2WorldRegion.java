@@ -27,7 +27,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
-import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
@@ -218,7 +217,7 @@ public final class L2WorldRegion
 					mob.resetAbsorbList();
 					mob.getKnownList().removeAllKnownObjects();
 					mob.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-					mob.getAI().stopAITask();;
+					mob.getAI().stopAITask();
 				}
 			}
 		}

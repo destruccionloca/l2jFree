@@ -50,6 +50,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.skills.effects.EffectBuff;
 import com.l2jfree.tools.random.Rnd;
 
 /** 
@@ -620,7 +621,7 @@ public class Disablers implements ISkillHandler
 
 				for (L2Effect e : effects)
 				{
-					if (e == null || (e.getEffectType() != L2Effect.EffectType.BUFF && e.getEffectType() != L2Effect.EffectType.TRANSFORMATION)
+					if (e == null || (!(e instanceof EffectBuff) && e.getEffectType() != L2Effect.EffectType.TRANSFORMATION)
 							|| e.getSkill().getSkillType() == SkillType.HEAL
 							|| e.getSkill().isToggle()
 							|| e.getSkill().isDebuff()

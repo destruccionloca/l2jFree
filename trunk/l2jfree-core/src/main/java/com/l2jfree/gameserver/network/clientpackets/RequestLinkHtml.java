@@ -48,14 +48,22 @@ public class RequestLinkHtml extends L2GameClientPacket
 		
 		if(_link.contains("..") || !_link.contains(".htm"))
 		{
-			_log.warn("[RequestLinkHtml] hack? link contains prohibited characters: '"+_link+"', skipped");
+			_log.warn("[RequestLinkHtml] hack by " + actor.getName() + "? link contains prohibited characters: '"+_link+"', skipped");
 			return;
 		}
 		
-		NpcHtmlMessage msg = new NpcHtmlMessage(0);
-		msg.setFile(_link);
-		
-		sendPacket(msg);
+		try
+		{
+			String filename = "data/html/"+_link;
+			NpcHtmlMessage msg = new NpcHtmlMessage(0);
+			msg.setFile(filename);
+			sendPacket(msg);
+		}
+		catch (Exception e)
+		{
+			_log.warn("Bad RequestLinkHtml: "+e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

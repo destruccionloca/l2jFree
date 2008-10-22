@@ -86,8 +86,8 @@ public class L2TownPetInstance extends L2NpcInstance
             if (!isInActiveRegion())
                 return; // but rather the AI should be turned off completely
 
-            int randomX = _spawnX + Rnd.get(2) * 50 - 50;
-            int randomY = _spawnY + Rnd.get(2) * 50 - 50;
+            int randomX = _spawnX + Rnd.get(-1, 1) * 50;
+            int randomY = _spawnY + Rnd.get(-1, 1) * 50;
 
             if (randomX != getX() || randomY != getY())
                 getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(randomX, randomY, _spawnZ, 0));
