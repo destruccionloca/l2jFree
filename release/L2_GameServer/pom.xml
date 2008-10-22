@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>l2jfree</groupId>
   <artifactId>l2jfree-gameserver</artifactId>
-  <version>1.2.3</version>
+  <version>1.2.3A</version>
   <packaging>jar</packaging>
   <url>http://www.l2jfree.com</url>
   <scm>
@@ -142,7 +142,7 @@
     <dependency>
       <groupId>l2jfree</groupId>
       <artifactId>l2jfree-core</artifactId>
-      <version>1.2.3</version>
+      <version>1.2.3A</version>
     </dependency>
   </dependencies>
   <issueManagement>
@@ -203,8 +203,8 @@
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
-        <artifactId>maven-buildnumber-plugin</artifactId>
-        <version>0.9.5</version>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <version>1.0-beta-1</version>
         <executions>
           <execution>
             <phase>validate</phase>
