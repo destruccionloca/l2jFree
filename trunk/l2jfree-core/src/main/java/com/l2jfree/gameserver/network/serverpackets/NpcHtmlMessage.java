@@ -182,8 +182,18 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 	
 	public void replace(String pattern, String value)
 	{
-		for (int index; (index = _builder.indexOf(pattern)) != -1;)
+		for (int index = 0; (index = _builder.indexOf(pattern, index)) != -1; index += value.length())
 			_builder.replace(index, index + pattern.length(), value);
+	}
+	
+	public void replace(String pattern, long value)
+	{
+		replace(pattern, String.valueOf(value));
+	}
+	
+	public void replace(String pattern, double value)
+	{
+		replace(pattern, String.valueOf(value));
 	}
 	
 	public void replace(String pattern, Object value)
