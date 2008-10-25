@@ -15,42 +15,43 @@ public class VanguardTempleKnight extends L2Transformation
 
 	public void onTransform(L2PcInstance player)
 	{
-		// Disable all character skills.
-		for (L2Skill sk : player.getAllSkills())
+		// Update transformation ID into database and player instance variables.
+		player.transformInsertInfo();
+		if (player.transformId() > 0 && !player.isCursedWeaponEquipped())
 		{
-			if (sk != null && !sk.isPassive())
+			// Disable all character skills.
+			for (L2Skill sk : player.getAllSkills())
 			{
-				switch (sk.getId())
+				if (sk != null && !sk.isPassive())
 				{
-					// Aggression
-					case 28:
-						// Aura of Hate
-					case 18:
-						// Summon Storm Cubic
-					case 10:
-						// Summon Life Cubic
-					case 67:
-						// Summon Attractive Cubic
-					case 449:
-						// 	Tribunal
-					case 400:
-						// Holy Armor
-					case 197:
+					switch (sk.getId())
 					{
-						// Those Skills wont be removed.
-						break;
-					}
-					default:
-					{
-						player.removeSkill(sk, false);
-						break;
+						// Aggression
+						case 28:
+							// Aura of Hate
+						case 18:
+							// Summon Storm Cubic
+						case 10:
+							// Summon Life Cubic
+						case 67:
+							// Summon Attractive Cubic
+						case 449:
+							// 	Tribunal
+						case 400:
+							// Holy Armor
+						case 197:
+						{
+							// Those Skills wont be removed.
+							break;
+						}
+						default:
+						{
+							player.removeSkill(sk, false);
+							break;
+						}
 					}
 				}
 			}
-
-		}
-		if (player.transformId() > 0 && !player.isCursedWeaponEquipped())
-		{
 			// give transformation skills
 			transformedSkills(player);
 			return;

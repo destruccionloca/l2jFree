@@ -15,44 +15,45 @@ public class VanguardShilienKnight extends L2Transformation
 
 	public void onTransform(L2PcInstance player)
 	{
-		// Disable all character skills.
-		for (L2Skill sk : player.getAllSkills())
+		// Update transformation ID into database and player instance variables.
+		player.transformInsertInfo();
+		if (player.transformId() > 0 && !player.isCursedWeaponEquipped())
 		{
-			if (sk != null && !sk.isPassive())
+			// Disable all character skills.
+			for (L2Skill sk : player.getAllSkills())
 			{
-				switch (sk.getId())
+				if (sk != null && !sk.isPassive())
 				{
-					// Aggression
-					case 28:
-						// Aura of Hate
-					case 18:
-						// Summon Vampiric Cubic
-					case 22:
-						// Summon Phantom Cubic
-					case 33:
-						// Judgment
-					case 401:
-						// Summon Viper Cubic
-					case 278:
-						// 	Life Leech
-					case 289:
-						// Lightning Strike
-					case 279:
+					switch (sk.getId())
 					{
-						// Those Skills wont be removed.
-						break;
-					}
-					default:
-					{
-						player.removeSkill(sk, false);
-						break;
+						// Aggression
+						case 28:
+							// Aura of Hate
+						case 18:
+							// Summon Vampiric Cubic
+						case 22:
+							// Summon Phantom Cubic
+						case 33:
+							// Judgment
+						case 401:
+							// Summon Viper Cubic
+						case 278:
+							// 	Life Leech
+						case 289:
+							// Lightning Strike
+						case 279:
+						{
+							// Those Skills wont be removed.
+							break;
+						}
+						default:
+						{
+							player.removeSkill(sk, false);
+							break;
+						}
 					}
 				}
 			}
-
-		}
-		if (player.transformId() > 0 && !player.isCursedWeaponEquipped())
-		{
 			// give transformation skills
 			transformedSkills(player);
 			return;

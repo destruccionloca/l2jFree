@@ -15,36 +15,37 @@ public class InquisitorShilienElder extends L2Transformation
 
 	public void onTransform(L2PcInstance player)
 	{
-		// Disable all character skills.
-		for (L2Skill sk : player.getAllSkills())
+		// Update transformation ID into database and player instance variables.
+		player.transformInsertInfo();
+		if (player.transformId() > 0 && !player.isCursedWeaponEquipped())
 		{
-			if (sk != null && !sk.isPassive())
+			// Disable all character skills.
+			for (L2Skill sk : player.getAllSkills())
 			{
-				switch (sk.getId())
+				if (sk != null && !sk.isPassive())
 				{
-					// Invocation
-					case 1430:
-						// Holy Weapon
-					case 1043:
-						// Wild Magic
-					case 1303:
-						// Empower
-					case 1059:
+					switch (sk.getId())
 					{
-						// Those Skills wont be removed.
-						break;
-					}
-					default:
-					{
-						player.removeSkill(sk, false);
-						break;
+						// Invocation
+						case 1430:
+							// Holy Weapon
+						case 1043:
+							// Wild Magic
+						case 1303:
+							// Empower
+						case 1059:
+						{
+							// Those Skills wont be removed.
+							break;
+						}
+						default:
+						{
+							player.removeSkill(sk, false);
+							break;
+						}
 					}
 				}
 			}
-
-		}
-		if (player.transformId() > 0 && !player.isCursedWeaponEquipped())
-		{
 			// give transformation skills
 			transformedSkills(player);
 			return;
