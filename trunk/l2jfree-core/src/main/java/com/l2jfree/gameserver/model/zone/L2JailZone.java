@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -29,10 +30,10 @@ public class L2JailZone extends L2DefaultZone
 		{
 			character.setInsideZone(FLAG_JAIL, true);
 			character.setInsideZone(FLAG_NOSUMMON, true);
-			if(Config.JAIL_IS_PVP)
+			if (Config.JAIL_IS_PVP)
 			{
 				character.setInsideZone(FLAG_PVP, true);
-				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
+				((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 			}
 		}
 
@@ -46,10 +47,18 @@ public class L2JailZone extends L2DefaultZone
 		{
 			character.setInsideZone(FLAG_JAIL, false);
 			character.setInsideZone(FLAG_NOSUMMON, false);
-			if(Config.JAIL_IS_PVP)
+			if (Config.JAIL_IS_PVP)
 			{
 				character.setInsideZone(FLAG_PVP, false);
-				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+				((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+			}
+			if (((L2PcInstance) character).isInJail())
+			{// This is for when a player tries to bug his way out of jail
+				((L2PcInstance) character).teleToLocation(-114356, -249645, -2984, false); // Jail
+				((L2PcInstance) character).sendMessage("You dare try and escape from jail before your time is up? Think again!");
+				String msg = "Player: " + ((L2PcInstance) character).getName() + " tried to escape from jail.";
+				_log.warn(msg);
+				GmListTable.broadcastMessageToGMs(msg);
 			}
 		}
 

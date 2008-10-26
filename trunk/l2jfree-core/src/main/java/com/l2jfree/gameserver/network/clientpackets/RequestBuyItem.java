@@ -261,7 +261,7 @@ public class RequestBuyItem extends L2GameClientPacket
 				return;
 			}
 
-			long stackPrice = (price * count);
+			long stackPrice = (long)price * count;
 			long taxedPrice = (long) (stackPrice * taxRate);
 			long tax = taxedPrice - stackPrice;
 			if (taxedPrice >= Integer.MAX_VALUE)
