@@ -57,6 +57,9 @@ public class TransformationManager
 		L2Transformation template = this.getTransformationById(id);
 		if (template != null)
 		{
+			if (player.getPet() != null)
+				player.getPet().unSummon(player);
+
 			player.transform(template);
 			return true;
 		}
