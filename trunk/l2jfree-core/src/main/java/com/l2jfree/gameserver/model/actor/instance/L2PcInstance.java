@@ -12835,7 +12835,11 @@ public final class L2PcInstance extends L2PlayableInstance
 			// Get off the strider or something else if character is mounted
 			dismount();
 		}
-
+		if (getPet() != null)
+		{
+			// unsummon pets
+			getPet().unSummon(this);
+		}
 		_transformation = transformation;
 		transformation.onTransform(this);
 		sendPacket(ExBasicActionList.TRANSFORMED_ACTION_LIST);
