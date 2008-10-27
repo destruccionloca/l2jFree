@@ -158,7 +158,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <for>
-      <effect count="5" name="Confusion" time="4"
+      <effect count="5" name="ConfuseMob" time="4"
         val="0" />
     </for>
   </skill>
