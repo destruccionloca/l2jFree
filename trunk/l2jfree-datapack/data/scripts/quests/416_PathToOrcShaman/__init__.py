@@ -98,9 +98,9 @@ class Quest (JQuest) :
           st.playSound("ItemSound.quest_middle")
     elif event == "30502_2" :
           htmltext = "30502-07.htm"
+          st.rewardItems(57,81900)
           st.takeItems(TOTEM_SPIRIT_BLOOD,st.getQuestItemsCount(TOTEM_SPIRIT_BLOOD))
           st.giveItems(MASK_OF_MEDIUM,1)
-          st.rewardItems(57,81900)
           st.addExpAndSp(295862,18194)
           player.sendPacket(SocialAction(player.getObjectId(),3))
           player.sendPacket(SocialAction(player.getObjectId(),15))
