@@ -30,7 +30,7 @@ class Quest (JQuest) :
    elif event == "30095-5.htm" :
      count = st.getQuestItemsCount(TREASURE_CHEST)
      if count :
-        reward = (count*1600)
+        reward = (19800 + count * 400)
         st.takeItems(TREASURE_CHEST,-1)
         st.rewardItems(57,reward)
      else:
