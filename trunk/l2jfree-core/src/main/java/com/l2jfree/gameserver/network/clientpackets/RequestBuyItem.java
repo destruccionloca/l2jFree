@@ -272,7 +272,7 @@ public class RequestBuyItem extends L2GameClientPacket
 			taxedPriceTotal += taxedPrice;
 			taxTotal += tax;
 
-			weight += (count * template.getWeight());
+			weight += (long) count * template.getWeight();
 			if (!template.isStackable())
 				slots += count;
 			else if (player.getInventory().getItemByItemId(itemId) == null)
