@@ -71,6 +71,7 @@ class Quest (JQuest) :
             st.set("cond","11")
         elif event == "31522-19.htm":
             st.giveItems(SuspiciousTotem,1)
+            st.addExpAndSp(242105, 22529)
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
         elif event == "31531-02.htm":

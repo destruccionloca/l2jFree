@@ -104,6 +104,7 @@ class Quest (JQuest) :
        st.set("cond","19")
        st.playSound("ItemSound.quest_middle")
     elif event == "32046-06.htm" :
+       st.adddExpAndSP(410358, 32060)
        st.exitQuest(False)
        st.playSound("ItemSound.quest_finish")
     elif event == "32047-01.htm" :
@@ -183,7 +184,6 @@ class Quest (JQuest) :
           st.playSound("ItemSound.quest_middle")
     elif event == "32047-38.htm" :
        st.giveItems(Starstone2,1)
-       st.takeItems(57,3000)
        st.set("cond","26")
        st.playSound("ItemSound.quest_middle")
     elif event == "32050-02.htm" :

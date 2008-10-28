@@ -30,8 +30,9 @@ class Quest (JQuest) :
     if event == "2" and st.getQuestItemsCount(ANCIENT_BOOK):
       htmltext="3.htm"
       st.playSound("ItemSound.quest_finish")
-      st.rewardItems(ADENA_ID,169380)
+      st.rewardItems(ADENA_ID,191678)
       st.takeItems(ANCIENT_BOOK,-1)
+      st.addExpAndSp(251602,25245)
       st.exitQuest(False)
       st.exitQuest(0)
     return htmltext

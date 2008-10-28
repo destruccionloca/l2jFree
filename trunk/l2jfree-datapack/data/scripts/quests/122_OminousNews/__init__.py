@@ -28,7 +28,8 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_accept")
      elif htmltext == "32017-02.htm" :
        if cond == 1 and st.getInt("ok") :
-         st.rewardItems(57,1695)
+         st.rewardItems(57,8923)
+         st.addExpAndSp(45151, 2310)
          st.unset("cond")
          st.unset("ok")
          st.exitQuest(False) 

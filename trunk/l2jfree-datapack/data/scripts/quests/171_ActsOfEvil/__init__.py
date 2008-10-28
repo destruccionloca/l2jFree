@@ -97,7 +97,8 @@ class Quest (JQuest) :
              htmltext = "30381-07a.htm"
          elif cond==11 :
              htmltext = "30381-08.htm"
-             st.rewardItems(ADENA,90000)
+             st.rewardItems(ADENA,95000)
+             st.addExpAndSp(159820,9182)
              st.playSound("ItemSound.quest_finish")
              st.exitQuest(False)
      elif id == State.STARTED :
