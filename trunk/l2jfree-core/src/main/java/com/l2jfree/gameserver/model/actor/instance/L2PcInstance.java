@@ -8410,7 +8410,11 @@ public final class L2PcInstance extends L2PlayableInstance
 				if (ef.getEffectType() == EffectType.TRANSFORMATION)
 					found = true;
 			}
-
+	 	 	if (getPet() != null)
+	 	 	{
+	 	 		// unsummon pets
+	 	 		getPet().unSummon(this);
+	 	 	}
 			if (found || getPet() != null || isRidingStrider() || isRidingFenrirWolf() || isRidingGreatSnowWolf() || isRidingWFenrirWolf() || isFlying())
 			{
 				sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill));
