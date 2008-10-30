@@ -127,7 +127,7 @@ public class SystemMessage extends L2GameServerPacket
 
 	public SystemMessage addItemName(L2ItemInstance item)
 	{
-		return addItemName(item.getItem().getItemId());
+		return addItemName(item.getItem());
 	}
 
 	public SystemMessage addItemName(L2Item item)

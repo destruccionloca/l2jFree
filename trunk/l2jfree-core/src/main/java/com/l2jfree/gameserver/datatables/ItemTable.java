@@ -693,7 +693,7 @@ public class ItemTable
 	public L2ItemInstance createItem(String process, int itemId, int count, L2PcInstance actor, L2Object reference)
 	{
 		// Create and Init the L2ItemInstance corresponding to the Item Identifier
-		L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId, itemId);
+		L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
 
 		if (process.equalsIgnoreCase("loot") && ((!Config.ALT_AUTO_LOOT && itemId != 57 && itemId != 5575 && itemId < 6360 && itemId > 6362) || (!Config.ALT_AUTO_LOOT_ADENA && (itemId == 57 || itemId == 5575 || itemId >= 6360 && itemId <= 6362))))
 		{

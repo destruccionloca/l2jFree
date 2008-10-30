@@ -1460,14 +1460,14 @@ public final class Formulas
 				stat = Stats.SWORD_WPN_VULN;
 				break;
 			case BIGSWORD:
+				stat = Stats.BIGSWORD_WPN_VULN;
+				break;
+			case ANCIENT_SWORD:
 				stat = Stats.SWORD_WPN_VULN;
 				break;
-            case ANCIENT_SWORD:
-                stat = Stats.SWORD_WPN_VULN;
-                break;
-            case RAPIER:
-                stat = Stats.DAGGER_WPN_VULN;
-                break;				
+			case RAPIER:
+				stat = Stats.DAGGER_WPN_VULN;
+				break;
 			}
 		}
 
@@ -1724,10 +1724,11 @@ public final class Formulas
 		if (skill.getSkillType() == SkillType.DEATHLINK)
 		{
 			double part = attacker.getStatus().getCurrentHp() / attacker.getMaxHp();
-			if (part > 0.005)
+			/*if (part > 0.005)
 				power *= (-0.45 * Math.log(part) + 1.);
 			else
-				power *= (-0.45 * Math.log(0.005) + 1.);
+				power *= (-0.45 * Math.log(0.005) + 1.);*/
+			power =* Math.pow(1.7165 - part, 2) * 0.577;
 		}
 
 		double damage = 91 * Math.sqrt(mAtk) / mDef * power * calcSkillVulnerability(target, skill);
