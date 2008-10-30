@@ -137,6 +137,8 @@ public abstract class L2Item
 	private final boolean		_destroyable;
 	private final boolean		_tradeable;
 
+	private final boolean		_isCommonItem;
+
 	protected final AbstractL2ItemType	_type;
 
 	/**
@@ -181,6 +183,7 @@ public abstract class L2Item
 		_dropable = set.getBool("dropable", true);
 		_destroyable = set.getBool("destroyable", true);
 		_tradeable = set.getBool("tradeable", true);
+		_isCommonItem = _name.startsWith("Common Item") || _name.startsWith("Standard Item");
 	}
 
 	/**
@@ -380,7 +383,7 @@ public abstract class L2Item
 
 	public boolean isCommonItem()
 	{
-		return ((_itemId >= 12006 && _itemId <= 12361) || (_itemId >= 11605 && _itemId <= 12308));
+		return _isCommonItem;
 	}
 
 	public boolean isEquipable()

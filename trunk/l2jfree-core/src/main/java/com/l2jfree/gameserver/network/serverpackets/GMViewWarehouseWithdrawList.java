@@ -33,7 +33,7 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 
 	public GMViewWarehouseWithdrawList(L2PcInstance cha)
 	{
-		_activeChar  = cha;
+		_activeChar = cha;
 		_items = _activeChar.getWarehouse().getItems();
 		_playerName = _activeChar.getName();
 		_money = _activeChar.getAdena();
@@ -93,6 +93,8 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 			}
 			
 			writeD(item.getMana());
+			// T2
+			writeD(0x00);
 		}
 	}
 

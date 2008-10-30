@@ -717,6 +717,8 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 			}
 
 			writeD(item.getManaLeft());
+			// T2
+			writeD(0x00);
 		}
 	}
 	

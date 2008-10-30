@@ -57,7 +57,7 @@ public class GMViewItemList extends L2GameServerPacket
 			
 			writeD(temp.getObjectId());
 			writeD(temp.getItemDisplayId());
-			writeD(temp.getLocationSlot());
+			writeD(temp.getLocationSlot()); // T1
 			writeD(temp.getCount());
 			writeH(temp.getItem().getType2());
 			writeH(temp.getCustomType1()); 
@@ -75,12 +75,15 @@ public class GMViewItemList extends L2GameServerPacket
 			}
 			writeD(temp.getMana());
 
+			// T1
 			writeD(temp.getAttackElementType());
 			writeD(temp.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
 				writeD(temp.getElementDefAttr(i));
 			}
+			// T2
+			writeD(0x00);
 		}
 	}
 	

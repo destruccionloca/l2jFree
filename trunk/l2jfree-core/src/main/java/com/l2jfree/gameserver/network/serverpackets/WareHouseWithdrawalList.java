@@ -99,6 +99,9 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 			}
 
 			writeD(item.getMana());
+
+			// T2
+			writeD(0x00);
 		}
 	}
 	

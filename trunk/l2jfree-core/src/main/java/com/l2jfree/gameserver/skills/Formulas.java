@@ -1728,7 +1728,7 @@ public final class Formulas
 				power *= (-0.45 * Math.log(part) + 1.);
 			else
 				power *= (-0.45 * Math.log(0.005) + 1.);*/
-			power =* Math.pow(1.7165 - part, 2) * 0.577;
+			power *= (Math.pow(1.7165 - part, 2) * 0.577);
 		}
 
 		double damage = 91 * Math.sqrt(mAtk) / mDef * power * calcSkillVulnerability(target, skill);

@@ -98,14 +98,17 @@ public class WareHouseDepositList extends L2GameServerPacket
 			else
 				writeQ(0x00);
 
+			// T1
 			writeD(item.getAttackElementType());
 			writeD(item.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
 				writeD(item.getElementDefAttr(i));
 			}
-
+			
 			writeD(item.getMana());
+			// T2
+			writeD(0x00);
 		}
 	}
 	

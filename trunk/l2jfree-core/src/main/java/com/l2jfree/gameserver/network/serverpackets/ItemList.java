@@ -121,12 +121,16 @@ public class ItemList extends L2GameServerPacket
 				writeD(0x00);
 			
 			writeD(temp.getMana());
+			
+			// T1
 			writeD(temp.getAttackElementType());
 			writeD(temp.getAttackElementPower());
 			for (byte i = 0; i < 6; i++)
 			{
 				writeD(temp.getElementDefAttr(i));
 			}
+			// T2
+			writeD(0x00);
 		}
 	}
 	

@@ -443,6 +443,10 @@ public class RequestActionUse extends L2GameClientPacket
 			// Private Store Package Sell
 			activeChar.tryOpenPrivateSellStore(true);
 			break;
+		case 65:
+			// Bot report Button.
+			activeChar.sendMessage("Not implemented yet.");
+			break;
 		case 96: // Quit Party Command Channel
 			_log.info("96 Accessed");
 			break;
