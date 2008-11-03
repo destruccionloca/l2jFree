@@ -24,7 +24,8 @@ BLOODSABER_ID = 975
 #Bit #1 isn't used for backwards compatibility.
 NEWBIE_REWARD = 8
 SOULSHOT_FOR_BEGINNERS = 5789
-
+SOULSHOT_NOGRADE = 1835
+LESSER_HEALING_POTION = 1060
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -102,8 +103,11 @@ class Quest (JQuest) :
             htmltext = "30132-06.htm"
        elif npcId == 30307 and st.getInt("cond")==8 and st.getQuestItemsCount(STEELBENDERS_HEAD_ID)==1 :
             htmltext = "30307-07.htm"
+            st.rewardItems(57,19799)
             st.takeItems(STEELBENDERS_HEAD_ID,1)
             st.giveItems(BLOODSABER_ID,1)
+            st.giveItems(LESSER_HEALING_POTION,100)
+            st.giveItems(SOULSHOT_NOGRADE,1000)
             st.set("cond","0")
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")

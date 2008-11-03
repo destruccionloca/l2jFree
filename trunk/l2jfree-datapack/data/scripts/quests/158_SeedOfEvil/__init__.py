@@ -47,12 +47,14 @@ class Quest (JQuest) :
    elif npcId == 30031 and st.getInt("cond")!=0 and st.getQuestItemsCount(CLAY_TABLET_ID)!=0 and st.getInt("onlyone")==0 :
         if st.getInt("id") != 158 :
           st.set("id","158")
+          st.rewardItems(57, 1495)
+          st.giveItems(ENCHANT_ARMOR_D,1)
           st.takeItems(CLAY_TABLET_ID,st.getQuestItemsCount(CLAY_TABLET_ID))
+          st.addExpAndSp(17818, 927)
           st.set("cond","0")
           st.exitQuest(False) 
           st.playSound("ItemSound.quest_finish")
           st.set("onlyone","1")
-          st.giveItems(ENCHANT_ARMOR_D,1)
           htmltext = "30031-06.htm"
    return htmltext
 

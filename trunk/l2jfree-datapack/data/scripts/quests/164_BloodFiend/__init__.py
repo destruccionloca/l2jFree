@@ -51,8 +51,9 @@ class Quest (JQuest) :
           if st.getInt("id") != 164 :
             st.set("id","164")
             htmltext = "30149-06.htm"
-            st.rewardItems(ADENA_ID,42000)
+            st.rewardItems(ADENA_ID,42130)
             st.takeItems(KIRUNAK_SKULL_ID,1)
+            st.addExpAndSp(35637,1854)
             st.set("cond","0")
             st.exitQuest(False) 
             st.playSound("ItemSound.quest_finish")

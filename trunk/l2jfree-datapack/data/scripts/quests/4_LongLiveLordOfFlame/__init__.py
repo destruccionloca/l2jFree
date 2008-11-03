@@ -9,6 +9,8 @@ qn = "4_LongLiveLordOfFlame"
 HONEY_KHANDAR,BEAR_FUR_CLOAK,BLOODY_AXE,ANCESTOR_SKULL,SPIDER_DUST,DEEP_SEA_ORB = range(1541,1547)
 NPC_GIFTS = {30585:BEAR_FUR_CLOAK,30566:HONEY_KHANDAR,30562:BLOODY_AXE,30560:ANCESTOR_SKULL,30559:SPIDER_DUST,30587:DEEP_SEA_ORB}
 
+CLUB = 4
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -48,9 +50,11 @@ class Quest (JQuest) :
        htmltext = "30578-04.htm"
      elif cond == 2 :
        htmltext = "30578-06.htm"
-       st.addExpAndSp(4254,335)
+       st.giveItems(CLUB, 1)
+       st.rewardItems(57,1850)
        for item in NPC_GIFTS.values():
            st.takeItems(item,-1)
+       st.addExpAndSp(4254,335)
        st.unset("cond")
        st.exitQuest(False)
        st.playSound("ItemSound.quest_finish")

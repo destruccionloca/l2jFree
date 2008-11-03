@@ -41,8 +41,12 @@ class Quest (JQuest) :
         st.takeItems(ROIENS_LETTER,st.getQuestItemsCount(ROIENS_LETTER))
         st.giveItems(HOWTOGO_RUINS,1)
     elif event == "30283-07.htm" :
-        st.takeItems(BROKEN_SWORD_HANDLE,-1)
+        st.rewardItems(57,10981)
         st.giveItems(SWORD_OF_SOLIDARITY,1)
+        st.takeItems(BROKEN_SWORD_HANDLE,-1)
+        for item in range(4412,4417) :
+            st.giveItems(item,10)   # Echo crystals
+        st.giveExpAndSp(25747,2171)
         st.set("cond","0")
         st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")

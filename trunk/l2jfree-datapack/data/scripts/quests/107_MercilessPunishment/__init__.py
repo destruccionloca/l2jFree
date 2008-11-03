@@ -108,12 +108,13 @@ class Quest (JQuest) :
           if st.getInt("id") != 107 :
             st.set("id","107")
             htmltext = "30568-10.htm"
+            st.rewardItems(57, 14666)
+            st.rewardItems(LESSER_HEALING_ID,100)
+            st.giveItems(BUTCHER_ID,1)
             st.takeItems(LETTER_TO_DARKELF_ID,1)
             st.takeItems(LETTER_TO_HUMAN_ID,1)
             st.takeItems(LETTER_TO_ELF_ID,1)
             st.takeItems(HATOSS_ORDER3_ID,1)
-            st.rewardItems(LESSER_HEALING_ID,100)
-            st.giveItems(BUTCHER_ID,1)
             st.giveItems(CRYSTAL_BATTLE,10)
             st.giveItems(CRYSTAL_LOVE,10)
             st.giveItems(CRYSTAL_SOLITUDE,10)
