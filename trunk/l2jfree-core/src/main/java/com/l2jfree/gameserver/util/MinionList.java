@@ -23,9 +23,7 @@ package com.l2jfree.gameserver.util;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.apache.commons.logging.Log;
@@ -39,6 +37,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.SingletonList;
+import com.l2jfree.util.SingletonMap;
 
 /**
  * This class ...
@@ -51,13 +51,12 @@ public class MinionList
 	private final static Log				_log			= LogFactory.getLog(L2MonsterInstance.class.getName());
 
 	/** List containing the current spawned minions for this L2MonsterInstance */
-	private final List <L2MinionInstance>	minionReferences;
-	protected Map<Long, Integer>			_respawnTasks	= new FastMap<Long, Integer>().setShared(true);
+	private final List<L2MinionInstance> minionReferences = new SingletonList<L2MinionInstance>();
+	private final Map<Long, Integer> _respawnTasks = new SingletonMap<Long,Integer>().setShared();
 	private final L2MonsterInstance			master;
 
 	public MinionList(L2MonsterInstance pMaster)
 	{
-		minionReferences = new CopyOnWriteArrayList<L2MinionInstance>();
 		master = pMaster;
 	}
 
