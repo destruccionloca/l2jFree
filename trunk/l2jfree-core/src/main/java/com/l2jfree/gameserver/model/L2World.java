@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +29,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.tools.geometry.Point3D;
-import com.l2jfree.util.L2ObjectMap;
+import com.l2jfree.util.L2Collection;
 
 /**
  * This class ...
@@ -70,8 +69,8 @@ public final class L2World
 	/** HashMap(String Player name, L2PcInstance) containing all the players in game */
 	private Map<String, L2PcInstance>		_allPlayers;
 
-	/** L2ObjectHashMap(L2Object) containing all visible objects */
-	private L2ObjectMap<L2Object>			_allObjects;
+	/** L2Collection(L2Object) containing all visible objects */
+	private final L2Collection<L2Object> _objects = new L2Collection<L2Object>();
 
 	/** List with the pets instances and their owner id */
 	private FastMap<Integer, L2PetInstance>	_petsInstance;
@@ -88,7 +87,6 @@ public final class L2World
 		//_allGms     = new FastMap<String, L2PcInstance>();
 		_allPlayers = new FastMap<String, L2PcInstance>().setShared(true);
 		_petsInstance = new FastMap<Integer, L2PetInstance>().setShared(true);
-		_allObjects = L2ObjectMap.createL2ObjectMap();
 
 		initRegions();
 	}
@@ -102,7 +100,7 @@ public final class L2World
 	}
 
 	/**
-	 * Add L2Object object in _allObjects.<BR><BR>
+	 * Add L2Object object in _objects.<BR><BR>
 	 *
 	 * <B><U> Example of use </U> :</B><BR><BR>
 	 * <li> Withdraw an item from the warehouse, create an item</li>
@@ -110,51 +108,51 @@ public final class L2World
 	 */
 	public void storeObject(L2Object object)
 	{
-		if (_allObjects.get(object.getObjectId()) != null)
+		if (_objects.get(object.getObjectId()) != null)
 		{
 			if (_log.isDebugEnabled())
 				_log.warn("[L2World] objectId " + object.getObjectId() + " already exist in OID map!");
 			return;
 		}
 
-		_allObjects.put(object);
+		_objects.add(object);
 	}
 
 	/**
-	 * Remove L2Object object from _allObjects of L2World.<BR><BR>
+	 * Remove L2Object object from _objects of L2World.<BR><BR>
 	 *
 	 * <B><U> Example of use </U> :</B><BR><BR>
 	 * <li> Delete item from inventory, tranfer Item from inventory to warehouse</li>
 	 * <li> Crystallize item</li>
 	 * <li> Remove NPC/PC/Pet from the world</li><BR>
 	 *
-	 * @param object L2Object to remove from _allObjects of L2World
+	 * @param object L2Object to remove from _objects of L2World
 	 *
 	 */
 	public void removeObject(L2Object object)
 	{
-		_allObjects.remove(object); // suggestion by whatev
+		_objects.remove(object); // suggestion by whatev
 		//IdFactory.getInstance().releaseId(object.getObjectId());
 	}
 
 	public void removeObjects(List<L2Object> list)
 	{
 		for (L2Object o : list)
-			_allObjects.remove(o); // suggestion by whatev
+			_objects.remove(o); // suggestion by whatev
 		//IdFactory.getInstance().releaseId(object.getObjectId());
 	}
 
 	public void removeObjects(L2Object[] objects)
 	{
 		for (L2Object o : objects)
-			_allObjects.remove(o); // suggestion by whatev
+			_objects.remove(o); // suggestion by whatev
 		//IdFactory.getInstance().releaseId(object.getObjectId());
 	}
 
 	public long timeRemoveObject(L2Object object)
 	{
 		long time = System.currentTimeMillis();
-		_allObjects.remove(object);
+		_objects.remove(object);
 		time -= System.currentTimeMillis();
 		return time;
 	}
@@ -169,25 +167,22 @@ public final class L2World
 	 */
 	public L2Object findObject(int oID)
 	{
-		return _allObjects.get(oID);
+		return _objects.get(oID);
 	}
 
 	public long timeFindObject(int objectID)
 	{
 		long time = System.currentTimeMillis();
-		_allObjects.get(objectID);
+		_objects.get(objectID);
 		time -= System.currentTimeMillis();
 		return time;
 	}
-
-	/**
-	 * Thread-safe from now (FastMap.setShared(true)). 
-	 */
-	public final Iterable<L2Object> getAllVisibleObjects()
+	
+	public L2Object[] getAllVisibleObjects()
 	{
-		return _allObjects;
+		return _objects.toArray(new L2Object[_objects.size()]);
 	}
-
+	
 	/**
 	 * Get the count of all visible objects in world.<br><br>
 	 * 
@@ -195,7 +190,7 @@ public final class L2World
 	 */
 	public final int getAllVisibleObjectsCount()
 	{
-		return _allObjects.size();
+		return _objects.size();
 	}
 
 	/**
@@ -297,7 +292,7 @@ public final class L2World
 	 * <I>** only if object is a GM L2PcInstance</I><BR><BR>
 	 *
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T ADD the object in _visibleObjects and _allPlayers* of L2WorldRegion (need synchronisation)</B></FONT><BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T ADD the object to _allObjects and _allPlayers* of L2World (need synchronisation)</B></FONT><BR><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T ADD the object to _objects and _allPlayers* of L2World (need synchronisation)</B></FONT><BR><BR>
 	 *
 	 * <B><U> Example of use </U> :</B><BR><BR>
 	 * <li> Drop an Item </li>
@@ -399,7 +394,7 @@ public final class L2World
 	 *
 	 * <li>If object is a L2Character, remove all L2Object from its _knownObjects and all L2PcInstance from its _knownPlayer </li><BR><BR>
 	 *
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T REMOVE the object from _allObjects of L2World</B></FONT><BR><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T REMOVE the object from _objects of L2World</B></FONT><BR><BR>
 	 *
 	 * <I>*  only if object is a L2PcInstance</I><BR>
 	 * <I>** only if object is a GM L2PcInstance</I><BR><BR>
@@ -642,24 +637,19 @@ public final class L2World
 		// Go through the FastList of region
 		for (L2WorldRegion regi : reg.getSurroundingRegions())
 		{
-			// Create an Iterator to go through the visible L2Object of the L2WorldRegion
-			Iterator<L2PlayableInstance> _playables = regi.iterateAllPlayers();
-
 			// Go through visible object of the selected region
-			while (_playables.hasNext())
+			for (L2PlayableInstance pl : regi.getVisiblePlayables())
 			{
-				L2PlayableInstance _object = _playables.next();
-
-				if (_object == null)
+				if (pl == null)
 					continue;
 
-				if (_object.equals(object))
+				if (pl.equals(object))
 					continue; // skip our own character
 
-				if (!_object.isVisible()) // GM invisible is different than this...
+				if (!pl.isVisible()) // GM invisible is different than this...
 					continue; // skip dying objects
 
-				result.add(_object);
+				result.add(pl);
 			}
 		}
 
@@ -771,7 +761,7 @@ public final class L2World
 
 	public L2Character findCharacter(int oId)
 	{
-		L2Object obj = _allObjects.get(oId);
+		L2Object obj = _objects.get(oId);
 
 		if (obj instanceof L2Character)
 			return (L2Character) obj;
@@ -781,7 +771,7 @@ public final class L2World
 
 	public L2PcInstance findPlayer(int oId)
 	{
-		L2Object obj = _allObjects.get(oId);
+		L2Object obj = _objects.get(oId);
 
 		if (obj instanceof L2PcInstance)
 			return (L2PcInstance) obj;

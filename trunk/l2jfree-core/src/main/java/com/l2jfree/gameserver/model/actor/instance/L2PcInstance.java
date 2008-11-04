@@ -4555,7 +4555,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			// Remove the L2PcInstance from the _statusListener of the old target if it was a L2Character
 			if (oldTarget instanceof L2Character)
 			{
-				((L2Character) oldTarget).removeStatusListener(this);
+				((L2Character) oldTarget).getStatus().removeStatusListener(this);
 			}
 		}
 

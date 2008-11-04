@@ -17,17 +17,13 @@ package com.l2jfree.gameserver.model.actor.knownlist;
 import java.util.List;
 import java.util.Map;
 
-import javolution.util.FastMap;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.util.SingletonMap;
 
 /**
  * Class that hold the known list of a specific L2Object.<br>
@@ -48,12 +44,6 @@ public class ObjectKnownList
      * Map of all L2Object known by the active char
      */
     private Map<Integer, L2Object> _knownObjects;
-    
-    /**
-     * Logger
-     */
-	@SuppressWarnings("unused")
-    private static final Log _log = LogFactory.getLog(ObjectKnownList.class.getName());
     
     /**
      * Constructor with the reference of an activeObject
@@ -176,7 +166,8 @@ public class ObjectKnownList
     public final Map<Integer, L2Object> getKnownObjects()
     {
         if (_knownObjects == null)
-            _knownObjects = new FastMap<Integer, L2Object>().setShared(true);
+            _knownObjects = new SingletonMap<Integer, L2Object>().setShared();
+        
         return _knownObjects;
     }
 	

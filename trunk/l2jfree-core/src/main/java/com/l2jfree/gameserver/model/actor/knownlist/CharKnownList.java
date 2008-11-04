@@ -25,8 +25,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.util.Util;
-
-import javolution.util.FastMap;
+import com.l2jfree.util.SingletonMap;
 
 
 
@@ -157,13 +156,13 @@ public class CharKnownList extends ObjectKnownList
 
     public final Map<Integer, L2PcInstance> getKnownPlayers()
     {
-        if (_knownPlayers == null) _knownPlayers = new FastMap<Integer, L2PcInstance>().setShared(true);
+        if (_knownPlayers == null) _knownPlayers = new SingletonMap<Integer, L2PcInstance>().setShared();
         return _knownPlayers;
     }
 
     public final Map<Integer, Integer> getKnownRelations()
     {
-        if (_knownRelations == null) _knownRelations = new FastMap<Integer, Integer>().setShared(true);
+        if (_knownRelations == null) _knownRelations = new SingletonMap<Integer, Integer>().setShared();
         return _knownRelations;
     }
 

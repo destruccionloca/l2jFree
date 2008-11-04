@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExPutEnchantTargetItemResult;

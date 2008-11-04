@@ -20,6 +20,7 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.Future;
 
@@ -104,6 +105,8 @@ import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.geoserver.model.Location;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.SingletonList;
+import com.l2jfree.util.SingletonSet;
 
 /**
  * Mother class of all character objects of the world (PC, NPC...)<BR>
@@ -131,7 +134,7 @@ public abstract class L2Character extends L2Object
 
 	// =========================================================
 	// Data Field
-	private FastList<L2Character>	_attackByList;
+	private List<L2Character>		_attackByList;
 	private L2Character				_attackingChar;
 	private volatile boolean		_isCastingNow						= false;
 	private boolean					_block_buffs						= false;
@@ -463,43 +466,26 @@ public abstract class L2Character extends L2Object
 	 */
 	public void broadcastStatusUpdate()
 	{
-		if (getStatus().getStatusListener().isEmpty())
+		if (getStatus().getStatusListeners().isEmpty() || !needHpUpdate(352))
 			return;
-
-		if (!needHpUpdate(352))
-			return;
-
-		if (_log.isDebugEnabled())
-			_log.info("Broadcast Status Update for " + getObjectId() + "(" + getName() + "). HP: " + getStatus().getCurrentHp());
-
-		if (Config.NETWORK_TRAFFIC_OPTIMIZATION)
+		
+		if (Config.NETWORK_TRAFFIC_OPTIMIZATION && getStatus().getCurrentHp() > 1)
 		{
-			long currTimeMillis = System.currentTimeMillis();
-			// Minimum time between sending status update. Can be increased a bit for further saves in network traffic
-			if (getStatus().getCurrentHp() > 1 && currTimeMillis - _timePreviousBroadcastStatusUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_STATUS_MS)
+			if (System.currentTimeMillis() - _timePreviousBroadcastStatusUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_STATUS_MS)
 				return;
-			_timePreviousBroadcastStatusUpdate = currTimeMillis;
 		}
-		// Create the Server->Client packet StatusUpdate with current HP and MP
+		
 		StatusUpdate su = new StatusUpdate(getObjectId());
-		su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
-		su.addAttribute(StatusUpdate.CUR_MP, (int) getStatus().getCurrentMp());
-
-		// Go through the StatusListener
-		// Send the Server->Client packet StatusUpdate with current HP and MP
-		synchronized (getStatus().getStatusListener())
+		su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
+		su.addAttribute(StatusUpdate.CUR_MP, (int)getStatus().getCurrentMp());
+		
+		synchronized (getStatus().getStatusListeners())
 		{
-			for (L2Character temp : getStatus().getStatusListener())
-			{
-				try
-				{
-					temp.sendPacket(su);
-				}
-				catch (NullPointerException e)
-				{
-				}
-			}
+			for (L2PcInstance player : getStatus().getStatusListeners())
+				player.sendPacket(su);
 		}
+		
+		_timePreviousBroadcastStatusUpdate = System.currentTimeMillis();
 	}
 
 	/**
@@ -2371,10 +2357,11 @@ public abstract class L2Character extends L2Object
 	}
 
 	/** Return a list of L2Character that attacked. */
-	public final FastList<L2Character> getAttackByList()
+	public final List<L2Character> getAttackByList()
 	{
 		if (_attackByList == null)
-			_attackByList = new FastList<L2Character>();
+			_attackByList = new SingletonList<L2Character>();
+		
 		return _attackByList;
 	}
 
@@ -3978,7 +3965,7 @@ public abstract class L2Character extends L2Object
 	}
 
 	/** Table containing all skillId that are disabled */
-	protected List<Integer>				_disabledSkills;
+	protected Set<Integer>				_disabledSkills;
 	private boolean						_allSkillsDisabled;
 
 	// private int _flyingRunSpeed;
@@ -4022,7 +4009,7 @@ public abstract class L2Character extends L2Object
 	private int							_clientHeading;
 
 	/** List of all QuestState instance that needs to be notified of this character's death */
-	private FastList<QuestState>		_NotifyQuestOfDeathList	= new FastList<QuestState>();
+	private List<QuestState>			_NotifyQuestOfDeathList	= new SingletonList<QuestState>();
 
 	/**
 	 * Add QuestState instance that is to be notified of character's death.<BR>
@@ -4043,10 +4030,10 @@ public abstract class L2Character extends L2Object
 	 * Return a list of L2Character that attacked.<BR>
 	 * <BR>
 	 */
-	public final FastList<QuestState> getNotifyQuestOfDeath()
+	public final List<QuestState> getNotifyQuestOfDeath()
 	{
 		if (_NotifyQuestOfDeathList == null)
-			_NotifyQuestOfDeathList = new FastList<QuestState>();
+			_NotifyQuestOfDeathList = new SingletonList<QuestState>();
 
 		return _NotifyQuestOfDeathList;
 	}
@@ -6677,7 +6664,7 @@ public abstract class L2Character extends L2Object
 	public void disableSkill(int skillId)
 	{
 		if (_disabledSkills == null)
-			_disabledSkills = Collections.synchronizedList(new FastList<Integer>());
+			_disabledSkills = Collections.synchronizedSet(new SingletonSet<Integer>());
 
 		_disabledSkills.add(skillId);
 	}
@@ -7277,11 +7264,6 @@ public abstract class L2Character extends L2Object
 	public void reduceCurrentMp(double i)
 	{
 		getStatus().reduceMp(i);
-	}
-
-	public void removeStatusListener(L2Character object)
-	{
-		getStatus().removeStatusListener(object);
 	}
 
 	// =========================================================

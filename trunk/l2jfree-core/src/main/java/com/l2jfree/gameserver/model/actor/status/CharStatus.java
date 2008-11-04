@@ -15,9 +15,7 @@
 package com.l2jfree.gameserver.model.actor.status;
 
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Future;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,6 +38,7 @@ import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.SingletonSet;
 
 /**
  * Represent the status of a character.
@@ -62,7 +61,7 @@ public class CharStatus
 	private double				_currentMp			= 0;												//Current MP of the L2Character
 
 	/** Array containing all clients that need to be notified about hp/mp updates of the L2Character */
-	private Set<L2Character>	_StatusListener;
+	private Set<L2PcInstance> _statusListeners;
 
 	private Future<?>			_regTask;
 	private byte				_flagsRegenActive	= 0;
@@ -89,16 +88,14 @@ public class CharStatus
 	 * @param object L2Character to add to the listener
 	 *
 	 */
-	public final void addStatusListener(L2Character object)
+	public final void addStatusListener(L2PcInstance player)
 	{
-		if (object == getActiveChar())
+		if (getActiveChar() == player)
 			return;
-
-		synchronized (getStatusListener())
+		
+		synchronized (getStatusListeners())
 		{
-			if (_StatusListener == null)
-				_StatusListener = new CopyOnWriteArraySet<L2Character>();
-			getStatusListener().add(object);
+			getStatusListeners().add(player);
 		}
 	}
 
@@ -339,11 +336,11 @@ public class CharStatus
 	 * @param object L2Character to add to the listener
 	 *
 	 */
-	public final void removeStatusListener(L2Character object)
+	public final void removeStatusListener(L2PcInstance player)
 	{
-		synchronized (getStatusListener())
+		synchronized (getStatusListeners())
 		{
-			getStatusListener().remove(object);
+			getStatusListeners().remove(player);
 		}
 	}
 
@@ -608,11 +605,12 @@ public class CharStatus
 	 * @return The list of L2Character to inform or null if empty
 	 *
 	 */
-	public final Set<L2Character> getStatusListener()
+	public final Set<L2PcInstance> getStatusListeners() 
 	{
-		if (_StatusListener == null)
-			_StatusListener = new CopyOnWriteArraySet<L2Character>();
-		return _StatusListener;
+		if (_statusListeners == null)
+			_statusListeners = new SingletonSet<L2PcInstance>();
+		
+		return _statusListeners; 
 	}
 
 	/** 

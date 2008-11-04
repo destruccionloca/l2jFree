@@ -58,6 +58,7 @@ import com.l2jfree.gameserver.templates.L2EtcItemType;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.SingletonMap;
 
 /**
  * This class manages all NPC that can be attacked.<BR>
@@ -284,10 +285,10 @@ public class L2Attackable extends L2NpcInstance
 	 * and L2Character that attacked the L2Attackable This Map is Thread Safe,
 	 * but Removing Object While Interating Over It Will Result NPE
 	 */
-	private FastMap<L2Character, AggroInfo>	_aggroList	= new FastMap<L2Character, AggroInfo>().setShared(true);
+	private final Map<L2Character, AggroInfo> _aggroList = new SingletonMap<L2Character, AggroInfo>().setShared();
 
 	/** Use this to Read or Put Object to this Map */
-	public final FastMap<L2Character, AggroInfo> getAggroListRP()
+	public final Map<L2Character, AggroInfo> getAggroListRP()
 	{
 		return _aggroList;
 	}
@@ -302,14 +303,14 @@ public class L2Attackable extends L2NpcInstance
 	 * Interating over This Map - ie u cant interating and removing object at
 	 * once
 	 */
-	public final FastMap<L2Character, AggroInfo> getAggroList()
+	public final Map<L2Character, AggroInfo> getAggroList()
 	{
 		return _aggroList;
 	}
 
-	private FastMap<L2Character, AggroInfo>	_damageContributors	= new FastMap<L2Character, AggroInfo>().setShared(true);
+	private final Map<L2Character, AggroInfo> _damageContributors = new SingletonMap<L2Character, AggroInfo>().setShared();
 
-	public final FastMap<L2Character, AggroInfo> getDamageContributors()
+	public final Map<L2Character, AggroInfo> getDamageContributors()
 	{
 		return _damageContributors;
 	}
@@ -379,7 +380,7 @@ public class L2Attackable extends L2NpcInstance
 	 * The table containing all L2PcInstance that successfuly absorbed the soul
 	 * of this L2Attackable
 	 */
-	private FastMap<L2PcInstance, AbsorberInfo>	_absorbersList					= new FastMap<L2PcInstance, AbsorberInfo>().setShared(true);
+	private final Map<L2PcInstance, AbsorberInfo> _absorbersList = new SingletonMap<L2PcInstance, AbsorberInfo>().setShared();
 
 	/** Have this L2Attackable to reward Exp and SP on Die? **/
 	private boolean								_mustGiveExpSp;
