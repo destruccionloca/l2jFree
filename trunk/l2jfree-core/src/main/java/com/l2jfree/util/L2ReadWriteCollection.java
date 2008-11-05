@@ -19,18 +19,17 @@
 package com.l2jfree.util;
 
 import java.lang.reflect.Array;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import javolution.util.FastMap;
 
 import com.l2jfree.gameserver.model.L2Object;
 
 /**
  * @author NB4L1
  */
-public final class L2Collection<T extends L2Object>
+public final class L2ReadWriteCollection<T extends L2Object> implements L2Collection<T>
 {
-	private final FastMap<Integer, T> _map = FastMap.newInstance();
+	private final Map<Integer, T> _map = new SingletonMap<Integer, T>();
 	
 	private final ReentrantReadWriteLock _lock = new ReentrantReadWriteLock();
 	private final ReentrantReadWriteLock.ReadLock _read = _lock.readLock();

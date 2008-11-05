@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.util.L2Collection;
+import com.l2jfree.util.L2ReadWriteCollection;
 
 /**
  * This class ...
@@ -69,8 +70,8 @@ public final class L2World
 	/** HashMap(String Player name, L2PcInstance) containing all the players in game */
 	private Map<String, L2PcInstance>		_allPlayers;
 
-	/** L2Collection(L2Object) containing all visible objects */
-	private final L2Collection<L2Object> _objects = new L2Collection<L2Object>();
+	/** L2ReadWriteCollection(L2Object) containing all visible objects */
+	private final L2Collection<L2Object> _objects = new L2ReadWriteCollection<L2Object>(); 
 
 	/** List with the pets instances and their owner id */
 	private FastMap<Integer, L2PetInstance>	_petsInstance;

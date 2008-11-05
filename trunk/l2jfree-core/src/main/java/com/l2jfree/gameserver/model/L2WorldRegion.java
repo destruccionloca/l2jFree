@@ -30,16 +30,17 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.util.L2Collection;
+import com.l2jfree.util.L2SynchronizedCollection;
 
 public final class L2WorldRegion
 {
     private final static Log _log = LogFactory.getLog(L2WorldRegion.class.getName());
 
-    /** L2Collection(L2PlayableInstance) containing L2PlayableInstance of all player & summon in game in this L2WorldRegion */
-    private final L2Collection<L2PlayableInstance> _playables = new L2Collection<L2PlayableInstance>();
+    /** L2ReadWriteCollection(L2PlayableInstance) containing L2PlayableInstance of all player & summon in game in this L2WorldRegion */
+    private final L2Collection<L2PlayableInstance> _playables = new L2SynchronizedCollection<L2PlayableInstance>();
 
-    /** L2Collection(L2Object) containing L2Object visible in this L2WorldRegion */
-    private final L2Collection<L2Object> _objects = new L2Collection<L2Object>();
+    /** L2ReadWriteCollection(L2Object) containing L2Object visible in this L2WorldRegion */
+    private final L2Collection<L2Object> _objects = new L2SynchronizedCollection<L2Object>();
 
     private FastList<L2WorldRegion> _surroundingRegions;
     private int _tileX, _tileY;
