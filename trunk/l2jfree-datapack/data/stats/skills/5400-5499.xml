@@ -447,7 +447,6 @@
     <for />
   </skill>
   <skill id="5433" levels="1" name="Presentation - Gathering of Evil Power">
-
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.

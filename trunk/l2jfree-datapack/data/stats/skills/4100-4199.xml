@@ -1449,8 +1449,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="negateStats" val="BUFF HEAL_PERCENT" />
-    <set name="negatePower" val="8.0" />
+    <set name="negateStats" val="BUFF HEAL_PERCENT" />    <set name="negatePower" val="8.0" />
     <for />
   </skill>
   <skill id="4178" levels="12" name="BOSS Flame Strike">
