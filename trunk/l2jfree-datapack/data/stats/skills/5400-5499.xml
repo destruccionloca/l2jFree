@@ -87,8 +87,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5407" levels="1"
-    name="Presentation - Crystaline Golem 1">
+  <skill id="5407" levels="1" name="Presentation - Crystaline Golem 1">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -100,8 +99,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5408" levels="1"
-    name="Presentation - Crystaline Golem 2">
+  <skill id="5408" levels="1" name="Presentation - Crystaline Golem 2">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -114,8 +112,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5409" levels="1"
-    name="Presentation - Crystaline Golem 3">
+  <skill id="5409" levels="1" name="Presentation - Crystaline Golem 3">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -163,8 +160,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5413" levels="1"
-    name="Performing Agathion - Beast Farm">
+  <skill id="5413" levels="1" name="Performing Agathion - Beast Farm">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="UNLOCK" /> <!-- havent found any matching skilltype, this one working fine :) -->
@@ -175,8 +171,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="5414" levels="1"
-    name="Performing Agathion - Rainbow Clan Hall">
+  <skill id="5414" levels="1" name="Performing Agathion - Rainbow Clan Hall">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="UNLOCK" /> <!-- havent found any matching skilltype, this one working fine :) -->
@@ -187,8 +182,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="5415" levels="1"
-    name="Performing Agathion - Castle">
+  <skill id="5415" levels="1" name="Performing Agathion - Castle">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="UNLOCK" /> <!-- havent found any matching skilltype, this one working fine :) -->
@@ -452,8 +446,8 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5433" levels="1"
-    name="Presentation - Gathering of Evil Power">
+  <skill id="5433" levels="1" name="Presentation - Gathering of Evil Power">
+
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -540,8 +534,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5440" levels="1"
-    name="Presentation - Trap Activate">
+  <skill id="5440" levels="1" name="Presentation - Trap Activate">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -553,8 +546,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5441" levels="1"
-    name="Presentation - Tears Mirror Image">
+  <skill id="5441" levels="1" name="Presentation - Tears Mirror Image">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -643,15 +635,14 @@
   <skill id="5447" levels="7" name="Paralysis">
     <!-- Needs to be verified -->
     <table name="#dmg">5 10 15 20 25 30 35</table>
-    <!--
-      guees
-    -->
+    <!-- guees -->
     <set name="target" val="TARGET_ONE" />
     <set name="element" val="6" /><!-- Dark -->
     <set name="skillType" val="PARALYZE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
     <set name="castRange" val="40" />
+    <set name="killByDOT" val="false"/>
     <for>
       <effect count="1" name="Paralyze" time="15"
         val="0" />
@@ -784,8 +775,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5458" levels="1"
-    name="Performing Agathion - Fortress">
+  <skill id="5458" levels="1" name="Performing Agathion - Fortress">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="UNLOCK" /> <!-- havent found any matching skilltype, this one working fine :) -->
@@ -1002,8 +992,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="5479" levels="1"
-    name="Boss Petrification Resistance">
+  <skill id="5479" levels="1" name="Boss Petrification Resistance">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -1152,8 +1141,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5491" levels="1"
-    name="Decrease Bow/Crossbow Attack Speed">
+  <skill id="5491" levels="1" name="Decrease Bow/Crossbow Attack Speed">
     <!--
       Description(s): Decreases attack speed when equipped
       with bow/crossbow while transformed.

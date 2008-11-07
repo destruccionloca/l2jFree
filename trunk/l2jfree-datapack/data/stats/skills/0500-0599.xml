@@ -326,6 +326,7 @@
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
     <set name="effectType" val="BLEED" />
+    <set name="killByDOT" val="false"/>
     <set name="effectPower" val="40" /> <!-- Base Land Rate --> <!-- Guessing -->
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
@@ -1789,6 +1790,7 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <set name="effectType" val="BLEED" />
+    <set name="killByDOT" val="false"/>
     <set name="effectPower" val="40" /> <!-- Base Land Rate --> <!-- Guessing -->
     <set name="nextAction" val="attack" /> <!-- To prevent character stop from attacking -->
     <for>
