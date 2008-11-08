@@ -514,7 +514,7 @@
     <set name="effectRange" val="400" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-rCrit" stackType="rCrit">
+        stackOrder="#Tab-rCrit" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="#Tab-rCrit" />
       </effect>
     </for>
@@ -539,7 +539,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-cAtk" stackType="cAtk">
+        stackOrder="#Tab-cAtk" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="#Tab-cAtk" />
       </effect>
     </for>
@@ -638,7 +638,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-maxMp" stackType="MPregen">
+        stackOrder="#Tab-maxMp" stackType="max_mp_up">
         <mul order="0x30" stat="maxMp" val="#Tab-maxMp" />
       </effect>
     </for>
@@ -687,7 +687,7 @@
     <set name="coolTime" val="332" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-mAtkSpd" stackType="mAtkSpeedUp">
+        stackOrder="#Tab-mAtkSpd" stackType="casting_time_down">
         <mul order="0x30" stat="mAtkSpd" val="#Tab-mAtkSpd" />
       </effect>
     </for>
@@ -960,8 +960,7 @@
     A GM is always by your side. Temporarily increases the
     critical attack rate for magic attacks. Effect 2.
   -->
-  <skill id="7059" levels="1"
-    name="Master's Blessing - Wild Magic">
+  <skill id="7059" levels="1" name="Master's Blessing - Wild Magic">
     <table name="#mCrit">4</table>
     <set name="mpConsume" val="2" />
     <set name="power" val="0.0" />
@@ -975,7 +974,7 @@
     <set name="effectRange" val="900" />
     <set name="coolTime" val="332" />
     <for>
-      <effect count="1" name="Buff" time="1200" val="0">
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#mCrit" stackType="magic_critical_up">
         <mul order="0x30" stat="mCritRate" val="#mCrit" />
       </effect>
     </for>

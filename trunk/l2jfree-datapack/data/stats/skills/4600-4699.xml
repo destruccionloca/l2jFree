@@ -266,13 +266,12 @@
     <set name="aggroPoints" val="100" />
     <for>
       <effect count="1" name="Buff" time="120" val="0"
-        stackOrder="#rCrit" stackType="rCrit">
+        stackOrder="#rCrit" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="#rCrit" />
       </effect>
     </for>
   </skill>
-  <skill id="4611" levels="3"
-    name="NPC Clan Buff - Death Whisper">
+  <skill id="4611" levels="3" name="NPC Clan Buff - Death Whisper">
     <table name="#cAtk">1.3 1.4 1.5</table>
     <table name="#mpConsume">15 27 49</table>
     <set name="mpConsume" val="#mpConsume" />
@@ -287,17 +286,14 @@
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="100" />
     <for>
-      <effect count="1" name="Buff" time="120" val="0"
-        stackOrder="1" stackType="multi_buff">
+      <effect count="1" name="Buff" time="120" val="0" stackOrder="#cAtk" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="#cAtk" />
       </effect>
     </for>
   </skill>
   <skill id="4612" levels="12" name="NPC Wide Wild Sweep">
-    <table name="#power"> 46 105 216 417 722 1136 1626 1876
-      2112 2320 2487 2617 </table>
-    <table name="#mpConsume"> 19 30 42 57 74 91 106 114 119 124 126
-      128 </table>
+    <table name="#power"> 46 105 216 417 722 1136 1626 1876 2112 2320 2487 2617 </table>
+    <table name="#mpConsume"> 19 30 42 57 74 91 106 114 119 124 126 128 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_MULTIFACE" />
@@ -996,7 +992,7 @@
     <set name="aggroPoints" val="100" />
     <for>
       <effect count="1" name="Buff" time="5" val="0"
-        stackOrder="#rCrit" stackType="rCrit">
+        stackOrder="#rCrit" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="#rCrit" />
       </effect>
     </for>
@@ -1012,7 +1008,7 @@
     <set name="aggroPoints" val="100" />
     <for>
       <effect count="1" name="Buff" time="5" val="0"
-        stackOrder="#cAtk" stackType="cAtk">
+        stackOrder="#cAtk" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="#cAtk" />
       </effect>
     </for>

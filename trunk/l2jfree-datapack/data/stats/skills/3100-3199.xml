@@ -607,7 +607,7 @@
     <set name="effectRange" val="900" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-maxMp" stackType="MPregen">
+        stackOrder="#Tab-maxMp" stackType="max_mp_up">
         <mul order="0x30" stat="maxMp" val="#Tab-maxMp" />
       </effect>
     </for>
@@ -634,7 +634,7 @@
     <set name="effectRange" val="900" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-maxMp" stackType="MPregen">
+        stackOrder="#Tab-maxMp" stackType="gainMp">
         <mul order="0x30" stat="gainMp" val="#Tab-maxMp" />
       </effect>
     </for>
@@ -944,7 +944,7 @@
     <set name="effectRange" val="900" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#rate" stackType="rCrit">
+        stackOrder="#rate" stackType="critical_prob_up">
         <mul order="0x30" stat="rCrit" val="#rate" />
       </effect>
     </for>
@@ -952,10 +952,8 @@
   <skill id="3142" levels="10" name="Item Skill: Wild Magic">
     <table name="#mpConsume_Init"> 2 4 7 10 13 15 18 20 24 28 </table>
     <table name="#mpConsume"> 8 16 28 36 48 59 67 75 88 99 </table>
-    <table name="#rate"> 1.08 1.12 1.15 1.17 1.20 1.23 1.25
-      1.27 1.30 1.32 </table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
-    </table>
+    <table name="#rate"> 1.08 1.12 1.15 1.17 1.20 1.23 1.25 1.27 1.30 1.32 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
@@ -970,7 +968,7 @@
     <set name="effectRange" val="900" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#rate" stackType="mCritRate">
+        stackOrder="#rate" stackType="magic_critical_up">
         <mul order="0x30" stat="mCritRate" val="#rate" />
       </effect>
     </for>
@@ -1059,16 +1057,11 @@
     <for />
   </skill>
   <skill id="3149" levels="10" name="Item Skill: Aggression">
-    <table name="#mpConsume"> 20 21 22 23 24 25 26 27 28 29 
-    </table>
-    <table name="#power"> 438 467 495 523 549 574 597 617 635
-      659 </table>
-    <table name="#castRange"> 400 400 400 400 400 400 400 400 400
-      400 </table>
-    <table name="#effectRange"> 900 900 900 900 900 900 900 900 900
-      900 </table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
-    </table>
+    <table name="#mpConsume"> 20 21 22 23 24 25 26 27 28 29 </table>
+    <table name="#power"> 438 467 495 523 549 574 597 617 635 659 </table>
+    <table name="#castRange"> 400 400 400 400 400 400 400 400 400 400 </table>
+    <table name="#effectRange"> 900 900 900 900 900 900 900 900 900 900 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -1087,10 +1080,8 @@
   <skill id="3150" levels="10" name="Item Skill: Charm">
     <table name="#mpConsume_Init"> 2 2 2 2 3 3 3 3 3 3 </table>
     <table name="#mpConsume">8 8 8 8 9 9 10 10 10 11</table>
-    <table name="#power"> 219 234 248 262 275 287 299 309 318
-      330 </table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 
-    </table>
+    <table name="#power"> 219 234 248 262 275 287 299 309 318 330 </table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
@@ -1246,13 +1237,13 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3158" levels="1"
-    name="Item Skill: Celestial Shield">
+  <skill id="3158" levels="1" name="Item Skill: Celestial Shield">
     <set name="mpConsume" val="82" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="1000" />
     <set name="reuseDelay" val="2600000" />
+    <set name="staticReuse" val="true" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />

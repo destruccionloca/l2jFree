@@ -887,8 +887,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3666" levels="1"
-    name="Yellow Talisman - Increase Energy">
+  <skill id="3666" levels="1" name="Yellow Talisman - Increase Force">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />

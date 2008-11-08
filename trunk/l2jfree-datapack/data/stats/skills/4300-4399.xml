@@ -463,7 +463,7 @@
     <set name="effectRange" val="900" />
     <for>
       <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="1.35" stackType="MPregen">
+        stackOrder="1.35" stackType="max_mp_up">
         <mul order="0x30" stat="maxMp" val="1.35" />
       </effect>
     </for>
@@ -480,7 +480,7 @@
     <set name="effectRange" val="900" />
     <for>
       <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="4" stackType="mAtkSpeedUp">
+        stackOrder="4" stackType="casting_time_down">
         <mul order="0x30" stat="mAtkSpd" val="1.30" />
       </effect>
     </for>
@@ -787,7 +787,7 @@
     <set name="effectRange" val="900" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-maxMp" stackType="MPregen">
+        stackOrder="#Tab-maxMp" stackType="max_mp_up">
         <mul order="0x30" stat="maxMp" val="#Tab-maxMp" />
       </effect>
     </for>
@@ -935,7 +935,7 @@
     <set name="effectRange" val="900" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-mAtkSpd" stackType="mAtkSpeedUp">
+        stackOrder="#Tab-mAtkSpd" stackType="casting_time_down">
         <mul order="0x30" stat="mAtkSpd" val="#Tab-mAtkSpd" />
       </effect>
     </for>
@@ -1009,7 +1009,7 @@
     <set name="effectRange" val="900" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-rCrit" stackType="rCrit">
+        stackOrder="#Tab-rCrit" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="#Tab-rCrit" />
       </effect>
     </for>
@@ -1028,7 +1028,7 @@
     <set name="effectRange" val="900" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-cAtk" stackType="cAtk">
+        stackOrder="#Tab-cAtk" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="#Tab-cAtk" />
       </effect>
     </for>
@@ -1569,9 +1569,7 @@
     </for>
   </skill>
   <skill id="4395" levels="6" name="Blessed Soul">
-    <table name="#Tab-maxMp">
-      1.1 1.15 1.2 1.25 1.3 1.35
-    </table>
+    <table name="#Tab-maxMp"> 1.1 1.15 1.2 1.25 1.3 1.35 </table>
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="100" />
@@ -1582,7 +1580,7 @@
     <set name="effectRange" val="900" />
     <for>
       <effect count="1" name="Buff" time="3600" val="0"
-        stackOrder="#Tab-maxMp" stackType="MPregen">
+        stackOrder="#Tab-maxMp" stackType="max_mp_up">
         <mul order="0x30" stat="maxMp" val="#Tab-maxMp" />
       </effect>
     </for>
@@ -1665,8 +1663,7 @@
     <for>
       <effect name="Buff" time="3600" count="1" val="0"
         stackOrder="#Tab-absorbDam" stackType="vampRage">
-        <add stat="absorbDam" val="#Tab-absorbDam"
-          order="0x40" />
+        <add stat="absorbDam" val="#Tab-absorbDam" order="0x40" />
       </effect>
     </for>
   </skill>

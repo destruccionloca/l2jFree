@@ -106,7 +106,7 @@
     <enchant1 name="hpConsume" val="#ench1hpConsume" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#mp" stackType="MPregen">
+        stackOrder="#mp" stackType="max_mp_up">
         <mul stat="maxMp" order="0x30" val="#mp">
           <using kind="Bow" />
         </mul>
@@ -114,7 +114,7 @@
     </for>
     <enchant1for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#ench1mp" stackType="MPregen">
+        stackOrder="#ench1mp" stackType="max_mp_up">
         <mul stat="maxMp" order="0x30" val="#ench1mp">
           <using kind="Bow" />
         </mul>
@@ -510,7 +510,7 @@
     <table name="#ench2MpConsume"> 33 33 32 32 32 31 31 30 30 29 29 28
       28 28 27 27 26 26 25 25 25 24 24 23 23 22 22 21 20 20 </table>
     <table name="#aggro"> 566 582 597 611 624 635 646 655 </table>
-    <set name="weaponsAllowed" val="32" />
+    <set name="weaponsAllowed" val="32" /> <!-- Bow -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
@@ -523,11 +523,7 @@
     <set name="aggroPoints" val="#aggro" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <for>
-      <cond>
-        <player state="stand" />
-      </cond>
-      <effect count="1" name="ImmobileBuff" time="120"
-        val="0">
+      <effect count="1" name="ImmobileBuff" time="120" val="0">
         <add order="0x40" stat="pAtk" val="#pAtk">
           <using kind="Bow" />
         </add>
@@ -543,18 +539,14 @@
       </effect>
     </for>
     <enchant1for>
-      <cond>
-        <player state="stand" />
-      </cond>
-      <effect count="1" name="ImmobileBuff" time="120"
-        val="0">
+      <effect count="1" name="ImmobileBuff" time="120" val="0">
         <add order="0x40" stat="pAtk" val="#ench1pAtk">
           <using kind="Bow" />
         </add>
         <add order="0x40" stat="pAtk" val="20">
           <using kind="Bow" />
         </add>
-        <add order="0x40" stat="accCombat" val="6">
+        <add order="0x40" stat="accCombat" val="3">
           <using kind="Bow" />
         </add>
         <basemul order="0x30" stat="rCrit" val="0.2">

@@ -1311,13 +1311,13 @@
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-cAtk" stackType="cAtk">
+        stackOrder="#Tab-cAtk" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="#Tab-cAtk" />
       </effect>
     </for>
     <enchant1for>
       <effect count="1" name="Buff" time="#ench1time"
-        val="0" stackOrder="1.5" stackType="cAtk">
+        val="0" stackOrder="1.5" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="1.5" />
       </effect>
     </enchant1for>
@@ -1783,13 +1783,13 @@
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-cAtk" stackType="cAtk">
+        stackOrder="#Tab-cAtk" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="#Tab-cAtk" />
       </effect>
     </for>
     <enchant1for>
       <effect count="1" name="Buff" time="#ench1time"
-        val="0" stackOrder="1.5" stackType="cAtk">
+        val="0" stackOrder="1.5" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="1.5" />
       </effect>
     </enchant1for>

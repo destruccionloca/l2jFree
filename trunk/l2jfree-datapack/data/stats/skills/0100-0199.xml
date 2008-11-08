@@ -492,7 +492,6 @@
   </skill>
   <skill id="113" levels="2" name="Long Shot">
     <table name="#dist">200 400</table>
-    <set name="weaponsAllowed" val="32" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -990,7 +989,6 @@
       37.1 39.4 41.7 44.1 46.6 49.2 51.9 54.6 57.5 60.4 63.3
       66.4 69.5 72.7 76.0 79.3 82.7 86.1 89.6 93.1 96.6
       100.2 103.8 107.5 111.1 114.8 118.4 122.1 125.7 129.3 </table>
-    <set name="weaponsAllowed" val="512" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -1200,10 +1198,10 @@
   </skill>
   <skill id="176" levels="3" name="Frenzy">
     <!-- Done by dc, completed by NewAge -->
-    <table name="#swordbluntpole"> 1.50 1.75 2.25 </table>
-    <table name="#sbp-under30"> 1.50 1.75 2.25 </table>
+    <table name="#swordbluntpole"> 1.5 1.75 2.25 </table>
+    <table name="#sbp-under30"> 1.33 1.43 1.55 </table>
     <table name="#twohand"> 1.75 2.0 2.5 </table>
-    <table name="#twohand-under30"> 1.75 2.0 2.5 </table>
+    <table name="#twohand-under30"> 1.43 1.5 1.6 </table>
     <table name="#other"> 1.30 1.30 1.50 </table>
     <table name="#accCombat"> 4 4 6 </table>
     <table name="#mpConsume">14 21 25</table>

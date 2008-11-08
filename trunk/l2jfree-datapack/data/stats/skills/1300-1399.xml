@@ -74,7 +74,7 @@
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#mCrit" stackType="mCrit">
+        stackOrder="#mCrit" stackType="magic_critical_up">
         <mul order="0x30" stat="mCritRate" val="#mCrit" />
         <!--
           Magic critical rate has been reduced for 30% on
@@ -86,7 +86,7 @@
     </for>
     <enchant1for>
       <effect name="Buff" time="#ench1time" count="1"
-        val="0" stackOrder="4" stackType="mCrit">
+        val="0" stackOrder="4" stackType="magic_critical_up">
         <mul order="0x30" stat="mCritRate" val="4" />
       </effect>
     </enchant1for>
@@ -288,13 +288,13 @@
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="#Tab-rCrit" stackType="rCrit">
+        stackOrder="#Tab-rCrit" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="#Tab-rCrit" />
       </effect>
     </for>
     <enchant1for>
       <effect count="1" name="Buff" time="#ench1time"
-        val="0" stackOrder="1.30" stackType="rCrit">
+        val="0" stackOrder="1.30" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="0.30" />
       </effect>
     </enchant1for>
@@ -1618,7 +1618,7 @@
     <set name="aggroPoints" val="666" />
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="1.5" stackType="cAtk">
+        stackOrder="1.5" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="1.5" />
       </effect>
     </for>

@@ -18,7 +18,6 @@
     <table name="#ench2cAtk"> 113 127 141 155 169 183 196 210 224
       238 252 266 279 293 307 321 335 349 362 376 390 404
       418 432 445 459 473 487 501 515 </table>
-    <set name="weaponsAllowed" val="16392" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -55,7 +54,6 @@
       453.5 473.2 493.1 513.5 534.2 555.1 576.3 597.8 619.4
       641.2 663.1 685.0 707.1 729.1 751.0 772.9 794.6 
     </table>
-    <set name="weaponsAllowed" val="32" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -74,7 +72,6 @@
       42.7 45 47.4 49.9 52.4 55 57.7 60.4 63.2 66.1 69.0
       71.9 74.9 78.0 81.1 84.2 87.3 90.5 93.7 96.8 100.0
       103.2 106.4 109.6 112.8 </table>
-    <set name="weaponsAllowed" val="16" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -93,7 +90,6 @@
       46.6 49.2 51.9 54.6 57.5 60.4 63.3 66.4 69.5 72.7 76.0
       79.3 82.7 86.1 89.6 93.1 96.6 100.2 103.8 107.5 111.1
       114.8 118.4 122.1 125.7 129.3 </table>
-    <set name="weaponsAllowed" val="1280" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -190,7 +186,6 @@
     <table name="#atkCountMax"> 5 5 5 5 5 5 5 5 10 10 10 10 10 10 10
       10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10
       10 10 10 10 10 10 10 10 10 10 10 10 </table>
-    <set name="weaponsAllowed" val="64" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -212,7 +207,6 @@
       28.3 29.9 31.6 33.3 35.0 36.8 38.6 40.5 42.4 44.4 46.4
       48.4 50.4 52.5 54.6 56.8 58.9 61.1 63.3 65.5 67.6 69.8
       72.0 74.2 76.4 </table>
-    <set name="weaponsAllowed" val="18444" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -1050,7 +1044,6 @@
       46.6 49.2 51.9 54.6 57.5 60.4 63.3 66.4 69.5 72.7 76.0
       79.3 82.7 86.1 89.6 93.1 96.6 100.2 103.8 107.5 111.1
       114.8 118.4 122.1 125.7 129.3 </table>
-    <set name="weaponsAllowed" val="18444" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -2447,7 +2440,6 @@
       122.1 129.3 </table>
     <table name="#Accuracy"> 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
       3 </table>
-    <set name="weaponsAllowed" val="18432" />
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />

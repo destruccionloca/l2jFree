@@ -128,17 +128,11 @@
     <set name="effectRange" val="-1" />
     <for>
       <add order="0x40" stat="runSpd" val="7" />
-      <!--
-        Speed +7
-      -->
-      <add order="0x40" stat="WIT" val="1" />
-      <!--
-        WIT +1
-      -->
-      <sub order="0x40" stat="INT" val="1" />
-      <!--
-        INT -1
-      -->
+      <!-- Speed +7 -->
+      <add order="0x10" stat="WIT" val="1" />
+      <!-- WIT +1 -->
+      <sub order="0x10" stat="INT" val="1" />
+      <!-- INT -1 -->
     </for>
   </skill>
   <skill id="3508" levels="1" name="Mithril Light Armor Set">
@@ -151,9 +145,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <add order="0x40" stat="rEvas" val="4" />
-      <!--
-        Evasion +4
-      -->
+      <!-- Evasion +4 -->
     </for>
   </skill>
   <skill id="3509" levels="1" name="Chain Mail Set">
@@ -197,14 +189,10 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="STR" val="4" />
-      <!--
-        STR +4
-      -->
-      <sub order="0x40" stat="CON" val="1" />
-      <!--
-        CON -1
-      -->
+      <add order="0x10" stat="STR" val="4" />
+      <!-- STR +4 -->
+      <sub order="0x10" stat="CON" val="1" />
+      <!-- CON -1 -->
     </for>
   </skill>
   <skill id="3512" levels="1" name="Composite Heavy Armor Set">
@@ -232,17 +220,11 @@
     <set name="effectRange" val="-1" />
     <for>
       <sub order="0x40" stat="maxHp" val="270" />
-      <!--
-        HP -270
-      -->
-      <add order="0x40" stat="INT" val="4" />
-      <!--
-        INT +4
-      -->
-      <sub order="0x40" stat="WIT" val="1" />
-      <!--
-        WIT -1
-      -->
+      <!-- HP -270 -->
+      <add order="0x10" stat="INT" val="4" />
+      <!-- INT +4 -->
+      <sub order="0x10" stat="WIT" val="1" />
+      <!-- WIT -1 -->
     </for>
   </skill>
   <skill id="3514" levels="1"
@@ -286,9 +268,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <add order="0x40" stat="maxHp" val="270" />
-      <!--
-        HP +270
-      -->
+      <!-- HP +270 -->
     </for>
   </skill>
   <skill id="3517" levels="1" name="Divine Set">
@@ -301,21 +281,13 @@
     <set name="effectRange" val="-1" />
     <for>
       <mul order="0x30" stat="pDef" val="1.0524" />
-      <!--
-        P. Def. +5.24%
-      -->
+      <!-- P. Def. +5.24% -->
       <add order="0x40" stat="maxMp" val="171" />
-      <!--
-        MP +171
-      -->
-      <sub order="0x40" stat="INT" val="1" />
-      <!--
-        INT -1
-      -->
-      <add order="0x40" stat="WIT" val="1" />
-      <!--
-        WIT +1
-      -->
+      <!-- MP +171 -->
+      <sub order="0x10" stat="INT" val="1" />
+      <!-- INT -1 -->
+      <add order="0x10" stat="WIT" val="1" />
+      <!-- WIT +1 -->
     </for>
   </skill>
   <skill id="3518" levels="1" name="Zubei's Heavy Armor Set">
@@ -436,25 +408,15 @@
     <set name="effectRange" val="-1" />
     <for>
       <add order="0x40" stat="runSpd" val="7" />
-      <!--
-        Speed +7
-      -->
+      <!-- Speed +7 -->
       <mul order="0x30" stat="regHp" val="1.0524" />
-      <!--
-        HP Regeneration +5.24%
-      -->
-      <add order="0x40" stat="STR" val="3" />
-      <!--
-        STR +3
-      -->
-      <sub order="0x40" stat="CON" val="1" />
-      <!--
-        CON -1
-      -->
-      <sub order="0x40" stat="DEX" val="2" />
-      <!--
-        DEX -2
-      -->
+      <!-- HP Regeneration +5.24% -->
+      <add order="0x10" stat="STR" val="3" />
+      <!-- STR +3 -->
+      <sub order="0x10" stat="CON" val="1" />
+      <!-- CON -1 -->
+      <sub order="0x10" stat="DEX" val="2" />
+      <!-- DEX -2 -->
     </for>
   </skill>
   <skill id="3525" levels="1" name="Doom Heavy Armor Set">
@@ -474,11 +436,11 @@
       <!--
         Breath Gauge increased +200
       -->
-      <sub order="0x40" stat="STR" val="3" />
+      <sub order="0x10" stat="STR" val="3" />
       <!--
         STR -3
       -->
-      <add order="0x40" stat="CON" val="3" />
+      <add order="0x10" stat="CON" val="3" />
       <!--
         CON +3
       -->
@@ -501,15 +463,15 @@
       <!--
         Casting Spd. +15%
       -->
-      <sub order="0x40" stat="INT" val="2" />
+      <sub order="0x10" stat="INT" val="2" />
       <!--
         INT -2
       -->
-      <add order="0x40" stat="MEN" val="3" />
+      <add order="0x10" stat="MEN" val="3" />
       <!--
         MEN +3
       -->
-      <sub order="0x40" stat="WIT" val="1" />
+      <sub order="0x10" stat="WIT" val="1" />
       <!--
         WIT -1
       -->
@@ -536,15 +498,15 @@
       <!--
         MP Regeneration +2.5%
       -->
-      <sub order="0x40" stat="STR" val="1" />
+      <sub order="0x10" stat="STR" val="1" />
       <!--
         STR -1
       -->
-      <sub order="0x40" stat="CON" val="2" />
+      <sub order="0x10" stat="CON" val="2" />
       <!--
         CON -2
       -->
-      <add order="0x40" stat="DEX" val="3" />
+      <add order="0x10" stat="DEX" val="3" />
       <!--
         DEX +3
       -->
@@ -571,15 +533,15 @@
       <!--
         MP Regeneration +5.24%
       -->
-      <sub order="0x40" stat="INT" val="2" />
+      <sub order="0x10" stat="INT" val="2" />
       <!--
         INT -2
       -->
-      <sub order="0x40" stat="MEN" val="1" />
+      <sub order="0x10" stat="MEN" val="1" />
       <!--
         MEN -1
       -->
-      <add order="0x40" stat="WIT" val="3" />
+      <add order="0x10" stat="WIT" val="3" />
       <!--
         WIT +3
       -->
@@ -606,15 +568,15 @@
       <!--
         MP Regeneration +5.24%
       -->
-      <add order="0x40" stat="INT" val="2" />
+      <add order="0x10" stat="INT" val="2" />
       <!--
         INT +2
       -->
-      <add order="0x40" stat="MEN" val="1" />
+      <add order="0x10" stat="MEN" val="1" />
       <!--
         MEN +1
       -->
-      <sub order="0x40" stat="WIT" val="3" />
+      <sub order="0x10" stat="WIT" val="3" />
       <!--
         WIT -3
       -->
@@ -634,13 +596,13 @@
       <!--
         Heal +4%
       -->
-      <mul order="0x30" stat="paralyzeVuln" val="0.50" />
+      <mul order="0x30" stat="paralyzeVuln" val="0.5" />
       <!-- Paralysis Resistance +50% -->
-      <sub order="0x40" stat="STR" val="2" />
+      <sub order="0x10" stat="STR" val="2" />
       <!--
         STR -2
       -->
-      <add order="0x40" stat="CON" val="2" />
+      <add order="0x10" stat="CON" val="2" />
       <!--
         CON +2
       -->
@@ -672,11 +634,11 @@
       <!--
         Bleed Resistance +80%
       -->
-      <add order="0x40" stat="STR" val="2" />
+      <add order="0x10" stat="STR" val="2" />
       <!--
         STR +2
       -->
-      <sub order="0x40" stat="CON" val="2" />
+      <sub order="0x10" stat="CON" val="2" />
       <!--
         CON -2
       -->
@@ -700,13 +662,13 @@
       <!--
         P. Atk. +4%
       -->
-      <mul order="0x30" stat="paralyzeVuln" val="0.50" />
+      <mul order="0x30" stat="paralyzeVuln" val="0.5" />
       <!-- Paralysis Resistance +50% -->
-      <add order="0x40" stat="STR" val="1" />
+      <add order="0x10" stat="STR" val="1" />
       <!--
         STR +1
       -->
-      <sub order="0x40" stat="CON" val="1" />
+      <sub order="0x10" stat="CON" val="1" />
       <!--
         CON -1
       -->
@@ -737,11 +699,11 @@
       <!--
         Bleed Resistance +80%
       -->
-      <add order="0x40" stat="MEN" val="2" />
+      <add order="0x10" stat="MEN" val="2" />
       <!--
         MEN +2
       -->
-      <sub order="0x40" stat="WIT" val="2" />
+      <sub order="0x10" stat="WIT" val="2" />
       <!--
         WIT -2
       -->
@@ -772,11 +734,11 @@
       <!--
         Bleed Resistance +80%
       -->
-      <sub order="0x40" stat="INT" val="2" />
+      <sub order="0x10" stat="INT" val="2" />
       <!--
         INT -2
       -->
-      <add order="0x40" stat="WIT" val="2" />
+      <add order="0x10" stat="WIT" val="2" />
       <!--
         WIT +2
       -->
@@ -795,9 +757,9 @@
       <mul order="0x30" stat="mAtkSpd" val="1.15" /> <!-- Casting Spd. +15% -->
       <add order="0x40" stat="runSpd" val="7" /> <!-- Speed +7 -->
       <sub order="0x40" stat="cancel" val="50" /> <!-- Small decrease in chance of spell interruption -->
-      <mul order="0x30" stat="paralyzeVuln" val="0.50" /> <!-- Paralysis Resistance +50% -->
-      <add order="0x40" stat="WIT" val="2" /> <!-- WIT +2 -->
-      <sub order="0x40" stat="MEN" val="2" /> <!-- MEN -2 -->
+      <mul order="0x30" stat="paralyzeVuln" val="0.5" /> <!-- Paralysis Resistance +50% -->
+      <add order="0x10" stat="WIT" val="2" /> <!-- WIT +2 -->
+      <sub order="0x10" stat="MEN" val="2" /> <!-- MEN -2 -->
     </for>
   </skill>
   <skill id="3536" levels="1" name="Nightmare Heavy Armor Set">
@@ -821,11 +783,11 @@
       <!--
         Hold Resistance +70%
       -->
-      <add order="0x40" stat="CON" val="2" />
+      <add order="0x10" stat="CON" val="2" />
       <!--
         CON +2
       -->
-      <sub order="0x40" stat="DEX" val="2" />
+      <sub order="0x10" stat="DEX" val="2" />
       <!--
         DEX -2
       -->
@@ -852,11 +814,11 @@
       <!--
         Stun Resistance +50%
       -->
-      <add order="0x40" stat="STR" val="2" />
+      <add order="0x10" stat="STR" val="2" />
       <!--
         STR +2
       -->
-      <sub order="0x40" stat="CON" val="2" />
+      <sub order="0x10" stat="CON" val="2" />
       <!--
         CON -2
       -->
@@ -889,11 +851,11 @@
         Restores 3% of melee damage inflicted on the enemy
         to oneself
       -->
-      <add order="0x40" stat="DEX" val="1" />
+      <add order="0x10" stat="DEX" val="1" />
       <!--
         DEX +1
       -->
-      <sub order="0x40" stat="CON" val="1" />
+      <sub order="0x10" stat="CON" val="1" />
       <!--
         CON -1
       -->
@@ -918,8 +880,8 @@
         penalty is applied +5759
       -->
       <mul order="0x30" stat="stunVuln" val="0.50" /> <!-- Stun Resistance +50% -->
-      <add order="0x40" stat="DEX" val="1" /> <!-- DEX +1 -->
-      <sub order="0x40" stat="CON" val="1" /> <!-- CON -1 -->
+      <add order="0x10" stat="DEX" val="1" /> <!-- DEX +1 -->
+      <sub order="0x10" stat="CON" val="1" /> <!-- CON -1 -->
     </for>
   </skill>
   <skill id="3540" levels="1" name="Nightmare Robe Set">
@@ -947,11 +909,11 @@
       <!--
         Hold Resistance +70%
       -->
-      <add order="0x40" stat="INT" val="2" />
+      <add order="0x10" stat="INT" val="2" />
       <!--
         INT +2
       -->
-      <sub order="0x40" stat="WIT" val="2" />
+      <sub order="0x10" stat="WIT" val="2" />
       <!--
         WIT -2
       -->
@@ -982,11 +944,11 @@
       <!--
         Stun Resistance +50%
       -->
-      <add order="0x40" stat="MEN" val="1" />
+      <add order="0x10" stat="MEN" val="1" />
       <!--
         MEN +1
       -->
-      <sub order="0x40" stat="INT" val="1" />
+      <sub order="0x10" stat="INT" val="1" />
       <!--
         INT -1
       -->
@@ -1151,8 +1113,8 @@
       <add order="0x40" stat="maxHp" val="445" /> <!-- Maximum HP +445 -->
       <mul order="0x30" stat="sleepVuln" val="0.3" /> <!-- Sleep Probability -70% -->
       <mul order="0x30" stat="rootVuln" val="0.3" /> <!-- Hold Probability -70% -->
-      <sub order="0x40" stat="DEX" val="2" /> <!-- DEX -2 -->
-      <add order="0x40" stat="STR" val="2" /> <!-- STR +2 -->
+      <sub order="0x10" stat="DEX" val="2" /> <!-- DEX -2 -->
+      <add order="0x10" stat="STR" val="2" /> <!-- STR +2 -->
     </for>
   </skill>
   <skill id="3554" levels="1" name="Equipped with Shield">
@@ -1185,11 +1147,11 @@
       <!-- Maximum MP +289 -->
       <add order="0x40" stat="maxLoad" val="5759" />
       <!-- Weight Limit +5759 -->
-      <add order="0x40" stat="DEX" val="1" />
+      <add order="0x10" stat="DEX" val="1" />
       <!-- DEX +1 -->
-      <add order="0x40" stat="STR" val="1" />
+      <add order="0x10" stat="STR" val="1" />
       <!-- STR +1 -->
-      <sub order="0x40" stat="CON" val="2" />
+      <sub order="0x10" stat="CON" val="2" />
       <!-- CON -2 -->
     </for>
   </skill>
@@ -1210,11 +1172,11 @@
       <!-- Casting Cancel Probability -50% -->
       <add order="0x40" stat="maxLoad" val="5759" />
       <!-- Weight Limit +5759 -->
-      <add order="0x40" stat="WIT" val="1" />
+      <add order="0x10" stat="WIT" val="1" />
       <!-- WIT +1 -->
-      <add order="0x40" stat="INT" val="1" />
+      <add order="0x10" stat="INT" val="1" />
       <!-- INT +1 -->
-      <sub order="0x40" stat="MEN" val="2" />
+      <sub order="0x10" stat="MEN" val="2" />
       <!-- MEN -2 -->
       <mul order="0x30" stat="stunVuln" val="0.50" />
       <!-- Stun resistance +50% -->

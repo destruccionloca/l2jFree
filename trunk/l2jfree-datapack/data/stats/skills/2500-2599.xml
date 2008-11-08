@@ -1,24 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-  <skill id="2500" levels="1"
-    name="Beast Soulshot Compressed Pack">
+  <skill id="2500" levels="1" name="Beast Soulshot Compressed Pack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2501" levels="1"
-    name="Beast Spiritshot Compressed Pack">
+  <skill id="2501" levels="1" name="Beast Spiritshot Compressed Pack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2502" levels="1"
-    name="Blessed Beast Spiritshot Compressed Pack">
+  <skill id="2502" levels="1" name="Blessed Beast Spiritshot Compressed Pack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -46,8 +43,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2507" levels="1"
-    name="Chant of Blood Awakening">
+  <skill id="2507" levels="1" name="Chant of Blood Awakening">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -75,16 +71,14 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2511" levels="1"
-    name="Scroll of Transformation - Gatekeeper">
+  <skill id="2511" levels="1" name="Scroll of Transformation - Gatekeeper">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2512" levels="1"
-    name="Herb of Life Force Absorption">
+  <skill id="2512" levels="1" name="Herb of Life Force Absorption">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -109,12 +103,10 @@
     <set name="isPotion" val="true" />
     <for>
       <effect count="1" name="BigHead" time="300" val="0"
-        abnormal="bighead" stackOrder="300"
-        stackType="big_head" />
+        abnormal="bighead" stackOrder="300" stackType="big_head" />
     </for>
   </skill>
-  <skill id="2514" levels="1"
-    name="Herb of Mortal Blow - Damage">
+  <skill id="2514" levels="1" name="Herb of Mortal Blow - Damage">
     <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -124,93 +116,82 @@
     <set name="isPotion" val="true" />
     <for>
       <effect name="Buff" time="300" val="0"
-        stackOrder="1.5" stackType="cAtk">
+        stackOrder="1.5" stackType="critical_dmg_up">
         <mul order="0x30" stat="cAtk" val="1.5" />
       </effect>
     </for>
   </skill>
-  <skill id="2515" levels="1"
-    name="Lucky Clover - D-Grade">
+  <skill id="2515" levels="1" name="Lucky Clover - D-Grade">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2516" levels="1"
-    name="Lucky Clover - C-Grade">
+  <skill id="2516" levels="1" name="Lucky Clover - C-Grade">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2517" levels="1"
-    name="Lucky Clover - B-Grade">
+  <skill id="2517" levels="1" name="Lucky Clover - B-Grade">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2518" levels="1"
-    name="Lucky Clover - A-Grade">
+  <skill id="2518" levels="1" name="Lucky Clover - A-Grade">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2519" levels="1"
-    name="Lucky Clover - S-Grade">
+  <skill id="2519" levels="1" name="Lucky Clover - S-Grade">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2520" levels="1"
-    name="Lucky Clover - D-Grade">
+  <skill id="2520" levels="1" name="Lucky Clover - D-Grade">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2521" levels="1"
-    name="Lucky Clover - C-Grade">
+  <skill id="2521" levels="1" name="Lucky Clover - C-Grade">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2522" levels="1"
-    name="Lucky Clover - B-Grade">
+  <skill id="2522" levels="1" name="Lucky Clover - B-Grade">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2523" levels="1"
-    name="Lucky Clover - A-Grade">
+  <skill id="2523" levels="1" name="Lucky Clover - A-Grade">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2524" levels="1"
-    name="Lucky Clover - S-Grade">
+  <skill id="2524" levels="1" name="Lucky Clover - S-Grade">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2525" levels="1"
-    name="Scroll to move to Kamael Village">
+  <skill id="2525" levels="1" name="Scroll to move to Kamael Village">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -579,4 +560,188 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
+<skill id="2577" levels="1" name="Instant Defense">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2578" levels="1" name="Cure Poison Paralyze">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2579" levels="1" name="Cure Death Clock">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2580" levels="1" name="Energy Replenishing Herb">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2581" levels="1" name="not_used">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2582" levels="1" name="not_used">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2583" levels="1" name="not_used">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2584" levels="1" name="Item - Special Sound Crystal">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2585" levels="1" name="Item - Special Sound Crystal">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2586" levels="2" name="Energy Replenishing Potion">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2587" levels="1" name="Increase number of teleport slots">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2588" levels="1" name="My Teleport">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2589" levels="1" name="Extra Entrance Pass - Kamaloka (Hall of the Abyss)">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2590" levels="1" name="Extra Entrance Pass - Near Kamaloka">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2591" levels="1" name="Extra Entrance Pass - Kamaloka (Labyrinth of the Abyss)">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2592" levels="1" name="Quick Healing Potion">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2593" levels="1" name="Bow/Crossbow Attack Resistance Potion">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2594" levels="1" name="Pailaka Scroll of Escape">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2595" levels="1" name="Gran Kain's Blessed Scroll of Escape">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2596" levels="1" name="Gran Kain's Blessed Scroll of Resurrection">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2597" levels="1" name="Gran Kain's Echo Crystal - Theme of Journey">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2598" levels="1" name="Gran Kain's Echo Crystal - Theme of Battle">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="2599" levels="1" name="Gran Kain's Echo Crystal - Theme of Love">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
 </list>
