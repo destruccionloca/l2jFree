@@ -2,7 +2,6 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
   <skill id="7000" levels="1" name="NPC Default">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="isMagic" val="false" />
     <set name="skillType" val="PDAM" />
@@ -34,19 +33,18 @@
     <for />
   </skill>
   <skill id="7003" levels="1" name="Dispel All">
-    <!-- TODO -->
-    <set name="power" val="0.0" />
+    <!-- Needs to be done -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
+    <set name="power" val="100"/>
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <set name="aggroPoints" val="100" />
     <for />
   </skill>
   <skill id="7004" levels="2" name="Dispel Petrification">
-    <!-- TODO -->
-    <set name="power" val="0.0" />
+    <!-- Needs to be done -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -65,7 +63,6 @@
     <set name="magicLevel" val="74" />
     <set name="mpInitialConsume" val="55" />
     <set name="mpConsume" val="217" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_CLAN" />
     <set name="skillRadius" val="200" />
     <set name="skillType" val="BUFF" />
@@ -89,9 +86,8 @@
     Effect 6.
   -->
   <skill id="7006" levels="1" name="The Love of Pa'agrio">
-    <!-- TODO -->
+    <!-- Needs to be done -->
     <set name="mpConsume" val="272" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_CLAN" />
     <set name="skillType" val="PASSIVE" />
     <set name="hitTime" val="2500" />
@@ -109,10 +105,9 @@
     Effect 8.
   -->
   <skill id="7007" levels="4" name="Greater Seal of Flame">
-    <!-- TODO -->
+    <!-- Needs to be done -->
     <set name="mpConsume" val="122" />
     <set name="mpInitialConsume" val="30" />
-    <set name="power" val="0.0" />
     <set name="skillRadius" val="200" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
@@ -125,7 +120,6 @@
     <for />
   </skill>
   <skill id="7008" levels="1" name="not_used">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -133,7 +127,6 @@
     <for />
   </skill>
   <skill id="7009" levels="1" name="not_used">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -141,7 +134,6 @@
     <for />
   </skill>
   <skill id="7010" levels="1" name="not_used">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -149,7 +141,6 @@
     <for />
   </skill>
   <skill id="7011" levels="1" name="not_used">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -157,7 +148,6 @@
     <for />
   </skill>
   <skill id="7012" levels="1" name="not_used">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -165,7 +155,6 @@
     <for />
   </skill>
   <skill id="7013" levels="1" name="not_used">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -173,7 +162,6 @@
     <for />
   </skill>
   <skill id="7014" levels="1" name="Test - Critical Damage Up">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -182,7 +170,6 @@
   </skill>
   <skill id="7015" levels="1"
     name="Test - Critical Damage Down">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -190,7 +177,6 @@
     <for />
   </skill>
   <skill id="7016" levels="1" name="Test - Critical Damage Up">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -199,7 +185,6 @@
   </skill>
   <skill id="7017" levels="1"
     name="Test - Critical Damage Down">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -207,7 +192,6 @@
     <for />
   </skill>
   <skill id="7018" levels="1" name="Test - Critical Rate Up">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -215,7 +199,6 @@
     <for />
   </skill>
   <skill id="7019" levels="1" name="Test - Critical Rate Down">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -223,7 +206,6 @@
     <for />
   </skill>
   <skill id="7020" levels="1" name="Test - Critical Rate Up">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -231,7 +213,6 @@
     <for />
   </skill>
   <skill id="7021" levels="1" name="Test - Critical Rate Down">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -239,7 +220,6 @@
     <for />
   </skill>
   <skill id="7022" levels="1" name="Test - Find Hidden Door">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -247,7 +227,6 @@
     <for />
   </skill>
   <skill id="7023" levels="1" name="not_used">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -255,7 +234,6 @@
     <for />
   </skill>
   <skill id="7024" levels="1" name="not_used">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -263,7 +241,6 @@
     <for />
   </skill>
   <skill id="7025" levels="1" name="not_used">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -271,7 +248,6 @@
     <for />
   </skill>
   <skill id="7026" levels="1" name="not_used">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -279,7 +255,6 @@
     <for />
   </skill>
   <skill id="7027" levels="1" name="not_used">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -287,7 +262,6 @@
     <for />
   </skill>
   <skill id="7028" levels="1" name="For Stationary NPCs">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -305,7 +279,6 @@
     <table name="#Tab-mReuse">1 2 4 30</table>
     <table name="#Tab-mAtkSpd">1.5 1.8 3 4</table>
     <table name="#Tab-pAtkSpd">1.2 1.5 2 3</table>
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_TOGGLE" />
@@ -330,7 +303,6 @@
     <set name="summonTotalLifeTime" val="1200000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
     <set name="reuseDelay" val="18600000" />
@@ -355,7 +327,6 @@
     <set name="summonTotalLifeTime" val="1200000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
     <set name="reuseDelay" val="18600000" />
@@ -379,7 +350,6 @@
     <set name="summonTotalLifeTime" val="1200000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
     <set name="reuseDelay" val="18600000" />
@@ -503,7 +473,6 @@
     -->
     <table name="#Tab-rCrit">0.3</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -527,7 +496,6 @@
     name="Master's Blessing - Death Whisper">
     <table name="#Tab-cAtk">1.5</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -551,7 +519,6 @@
   <skill id="7043" levels="1" name="Master's Blessing - Haste">
     <table name="#Tab-pAtkSpd">1.33</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -576,7 +543,6 @@
     name="Master's Blessing - Guidance">
     <table name="#Tab-accCombat">4</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -601,7 +567,6 @@
     name="Master's Blessing - Blessed Body">
     <table name="#Tab-maxHp">1.35</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -626,7 +591,6 @@
     name="Master's Blessing - Blessed Soul">
     <table name="#Tab-maxMp">1.35</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -651,7 +615,6 @@
     name="Master's Blessing - Agility">
     <table name="#Tab-rEvas">4</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -675,7 +638,6 @@
   <skill id="7048" levels="1" name="Master's Blessing - Acumen">
     <table name="#Tab-mAtkSpd">1.3</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -700,7 +662,6 @@
     name="Master's Blessing - Decrease Weight">
     <table name="#Weight">9000</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -724,7 +685,6 @@
   <skill id="7050" levels="1" name="Master's Blessing - Might">
     <table name="#rate">1.15</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -748,7 +708,6 @@
   <skill id="7051" levels="1" name="Master's Blessing - Shield">
     <table name="#rate">1.15</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -773,7 +732,6 @@
     name="Master's Blessing - Magic Barrier">
     <table name="#Tab-mDef">1.3</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -799,7 +757,6 @@
     name="Master's Blessing - Vampiric Rage">
     <table name="#Tab-absorbDam">9</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -824,7 +781,6 @@
     name="Master's Blessing - Empower">
     <table name="#Tab-mAtk">1.75</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -849,7 +805,6 @@
     name="Master's Blessing - Wind Walk">
     <table name="#Tab-runSpd">33</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -882,7 +837,6 @@
     <table name="#Tab-runSpd">8</table>
     <table name="#Tab-rEvas">4</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -914,7 +868,6 @@
     name="Master's Blessing - Greater Might">
     <table name="#pAtk">1.1</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="hitTime" val="500" />
     <set name="target" val="TARGET_ONE" />
@@ -939,7 +892,6 @@
     name="Master's Blessing - Greater Shield">
     <table name="#rate">1.15</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="hitTime" val="500" />
     <set name="target" val="TARGET_ONE" />
@@ -963,7 +915,6 @@
   <skill id="7059" levels="1" name="Master's Blessing - Wild Magic">
     <table name="#mCrit">4</table>
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -988,7 +939,6 @@
     <table name="#mpConsumeRate">0.9</table>
     <table name="#mpConsume">2</table>
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="hitTime" val="500" />
     <set name="target" val="TARGET_ONE" />
@@ -1015,7 +965,6 @@
   <skill id="7061" levels="1"
     name="Master's Blessing - Prophecy of Water">
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -1045,7 +994,6 @@
   <skill id="7062" levels="1"
     name="Master's Blessing - Prophecy of Fire">
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -1076,7 +1024,6 @@
   <skill id="7063" levels="1"
     name="Master's Blessing - Prophecy of Wind">
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="500" />
@@ -1110,7 +1057,6 @@
   <skill id="7064" levels="1"
     name="Master's Blessing - Chant of Victory">
     <set name="mpConsume" val="2" />
-    <set name="power" val="0.0" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="2500" />
@@ -1225,7 +1171,6 @@
   </skill>
   <!-- Currently stunned. -->
   <skill id="7077" levels="1" name="Test - Delay Debuff - Call">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="isMagic" val="false" />
     <set name="skillType" val="STUN" />
@@ -1236,7 +1181,6 @@
   </skill>
   <!-- Stuns -->
   <skill id="7078" levels="1" name="Test - Blink">
-    <set name="power" val="0.0" />
     <set name="mpInitialConsume" val="20" />
     <set name="mpConsume" val="80" />
     <set name="target" val="TARGET_SELF" />
@@ -1251,7 +1195,6 @@
   </skill>
   <!-- Transfers party damage to tanker. -->
   <skill id="7079" levels="1" name="Test - Party Damage Absorb">
-    <set name="power" val="0.0" />
     <set name="mpInitialConsume" val="20" />
     <set name="mpConsume" val="80" />
     <set name="target" val="TARGET_PARTY" />
@@ -1268,7 +1211,6 @@
   <!-- Cannot perform general attack. -->
   <skill id="7080" levels="1"
     name="Test - General Attack Prohibited">
-    <set name="power" val="0.0" />
     <set name="mpInitialConsume" val="6" />
     <set name="mpConsume" val="24" />
     <set name="target" val="TARGET_ONE" />
@@ -1283,7 +1225,6 @@
   </skill>
   <!-- Shoots toward ground. -->
   <skill id="7081" levels="1" name="Effect Test - Land Shot">
-    <set name="power" val="0.0" />
     <set name="mpInitialConsume" val="6" />
     <set name="mpConsume" val="24" />
     <set name="target" val="TARGET_ONE" />
@@ -1299,7 +1240,6 @@
   <!-- Chain Lightning -->
   <skill id="7082" levels="1"
     name="Effect Test - Chain Lightning">
-    <set name="power" val="0.0" />
     <set name="mpInitialConsume" val="20" />
     <set name="mpConsume" val="80" />
     <set name="target" val="TARGET_ONE" />
@@ -1314,7 +1254,6 @@
   </skill>
   <!-- Trap Range Skill -->
   <skill id="7083" levels="1" name="Test - Trap Skill">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="isMagic" val="true" />
     <set name="skillType" val="MDAM" />
@@ -1325,7 +1264,6 @@
   </skill>
   <!-- Trap Range Skill -->
   <skill id="7084" levels="1" name="Test - Trap Skill">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="isMagic" val="true" />
     <set name="skillType" val="MDAM" />
@@ -1335,7 +1273,6 @@
     <for />
   </skill>
   <skill id="7085" levels="1" name="Self-Destruct Explosion">
-    <set name="power" val="0.0" />
     <set name="mpInitialConsume" val="19" />
     <set name="mpConsume" val="76" />
     <set name="target" val="TARGET_SELF" />
@@ -1349,7 +1286,6 @@
     <for />
   </skill>
   <skill id="7086" levels="1" name="Last Stand_test">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="isMagic" val="false" />
     <set name="skillType" val="PDAM" />
@@ -1360,7 +1296,6 @@
   </skill>
   <skill id="7087" levels="1"
     name="Chain Magic - Dark Explosion_test">
-    <set name="power" val="0.0" />
     <set name="mpInitialConsume" val="19" />
     <set name="mpConsume" val="76" />
     <set name="target" val="TARGET_ONE" />

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
+  <skill id="4900" levels="1" name="Raid Boss - Level 78">
   <!--
     Created by the dark side of the God of Light, Einhasad,
     to punish the arrogance of the Giant Argos, this giant
@@ -8,7 +9,6 @@
     other monster eyes in order to eradicate the eyes of
     Argos and thwart his plans.
   -->
-  <skill id="4900" levels="1" name="Raid Boss - Level 78">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -16,6 +16,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
+  <skill id="4901" levels="1" name="Raid Boss - Level 78">
   <!--
     This servant of the Fairy Queen was dispatched to
     protect the hot springs, a resort that Fairy Queen
@@ -26,7 +27,6 @@
     for them, his hijinks are more than most humans can
     endure.
   -->
-  <skill id="4901" levels="1" name="Raid Boss - Level 78">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -34,6 +34,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
+  <skill id="4902" levels="1" name="Raid Boss - Level 74">
   <!--
     The leader of the Mineral Spring Yetis in the hot
     springs are he styles himself the Icicle Emperor.
@@ -44,7 +45,6 @@
     Valakas, and runs away or hides at even the sound of
     roaring.
   -->
-  <skill id="4902" levels="1" name="Raid Boss - Level 74">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -808,6 +808,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
+  <skill id="4987" levels="1" name="Raid Boss - Level 74">
   <!--
     The Emperor of Crokians, who calls himself Padish lives
     on Alligator Island. He has a cadre of elite bodyguards
@@ -815,7 +816,6 @@
     the Water Dragon instead of him. While this makes him
     angry, he does not dare challenge Fafurion.
   -->
-  <skill id="4987" levels="1" name="Raid Boss - Level 74">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -823,6 +823,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
+  <skill id="4988" levels="1" name="Raid Boss - Level 76">
   <!--
     Einhasad's Messenger who came down to observe the
     behaviors of the Water Dragon Fafurion. He hates the
@@ -830,7 +831,6 @@
     Heaven War, but the gods prohibit him from fighting
     Fafurion.
   -->
-  <skill id="4988" levels="1" name="Raid Boss - Level 76">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -840,7 +840,6 @@
   </skill>
   <skill id="4989" levels="1" name="Npc - Hot Spring Nectar">
     <!-- TODO -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -849,7 +848,6 @@
   </skill>
   <skill id="4990" levels="1" name="Npc - Hot Spring Mineral">
     <!-- TODO -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -859,7 +857,6 @@
   <skill id="4991" levels="1" name="Hot Spring Sulfur">
     <!-- TODO -->
     <!-- Decreases Atk. Spd. and Casting Spd. Effect 5. -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -869,7 +866,6 @@
   <skill id="4992" levels="1" name="Stun">
     <!-- TODO -->
     <!-- Shocks and instantly Immobilizes. -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -893,8 +889,8 @@
     <set name="power" val="12450" />
     <set name="target" val="TARGET_AREA" />
     <set name="skillRadius" val="205" />
-    <set name="hitTime" val="1899" />
     <set name="skillType" val="PDAM" />
+    <set name="hitTime" val="1899" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="baseCritRate" val="15" />
@@ -902,7 +898,6 @@
   </skill>
   <skill id="4995" levels="1" name="Venom - Teleport">
     <!-- Benom Skills -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="hitTime" val="2900" />
@@ -912,7 +907,6 @@
   </skill>
   <skill id="4996" levels="1" name="Venom - Range Teleport">
     <!-- Benom Skills -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="hitTime" val="2900" />
@@ -921,7 +915,7 @@
     <for />
   </skill>
   <skill id="4997" levels="1" name="Lidia - Regen">
-    <!-- Done by KID [C5] -->
+    <!-- Needs to be done -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="reuseDelay" val="89000" />
@@ -935,8 +929,7 @@
     </for>
   </skill>
   <skill id="4998" levels="1" name="Lidia - Twister">
-    <!-- Done by KID [C5] -->
-    <set name="power" val="0.0" />
+    <!-- Needs to be done -->
     <set name="element" val="1" /><!-- Wind -->
     <set name="mpConsume" val="116" />
     <set name="power" val="287" />
@@ -949,7 +942,7 @@
     <set name="castRange" val="750" />
   </skill>
   <skill id="4999" levels="6" name="Lidia - Range Life Drain">
-    <!-- Done by KID [C5] -->
+    <!-- Needs to be done -->
     <set name="mpConsume" val="126" />
     <set name="power" val="144" />
     <set name="target" val="TARGET_ONE" />

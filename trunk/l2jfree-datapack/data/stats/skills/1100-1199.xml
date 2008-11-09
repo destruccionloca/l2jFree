@@ -250,7 +250,6 @@
     <set name="summonTimeLostActive" val="1000" />
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="#reuseDelay" />
     <set name="hitTime" val="15000" />
@@ -398,7 +397,6 @@
     <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="#reuseDelay" />
     <set name="hitTime" val="15000" />
@@ -439,7 +437,6 @@
     <set name="summonTotalLifeTime" val="1200000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_CORPSE_MOB" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="1500" />
@@ -478,7 +475,6 @@
     <table name="#aggro">418 495</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PET" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -525,7 +521,6 @@
     <table name="#aggro">379 457 532</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PET" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -572,7 +567,6 @@
     <table name="#aggro">418 495</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PET" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -619,7 +613,6 @@
     <table name="#aggro">331 457</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PET" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -666,7 +659,6 @@
     <table name="#aggro">331 457 532</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PET" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -714,7 +706,6 @@
     <table name="#aggro">331 457 532</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PET" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -833,7 +824,7 @@
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="target" val="TARGET_CORPSE_MOB" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="1500" />
@@ -870,7 +861,6 @@
     <set name="summonTotalLifeTime" val="1200000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_CORPSE_MOB" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="1500" />
@@ -1067,7 +1057,7 @@
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="0.0" />
+    <set name="power" val="20" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="120000" />
     <set name="hitTime" val="4000" />
@@ -1522,7 +1512,6 @@
     <table name="#aggro">243 379 418</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -1628,7 +1617,6 @@
     <table name="#aggro">331 379 418</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -1670,7 +1658,6 @@
     <table name="#aggro">285 379 418</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />

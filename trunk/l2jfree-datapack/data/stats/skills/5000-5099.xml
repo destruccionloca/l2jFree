@@ -154,7 +154,6 @@
       Immobilizes the target by making it dance
       involuntarily.
     -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="0" />
     <set name="skillType" val="BUFF" />
@@ -361,7 +360,6 @@
       metamorphosis.
     -->
     <set name="mpConsume" val="300" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="2500" />
     <set name="reuseDelay" val="1000000" />
@@ -387,7 +385,6 @@
       magic field. Lvl 2 - Demon 3 magic field.
     -->
     <table name="#Tab-pDef">2.08 3.12</table>
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="1000" />
     <set name="skillTime" val="1500" />
@@ -1136,7 +1133,6 @@
     <for />
   </skill>
   <skill id="5074" levels="1" name="The Victor of War">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1147,7 +1143,6 @@
     </for>
   </skill>
   <skill id="5075" levels="1" name="The Vanquished of War">
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />

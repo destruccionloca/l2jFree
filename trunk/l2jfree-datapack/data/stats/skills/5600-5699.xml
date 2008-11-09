@@ -257,7 +257,6 @@
   </skill>
   <skill id="5627" levels="1" name="Adventurer's Wind Walk">
     <set name="magicLvl" val="60" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -273,7 +272,6 @@
   </skill>
   <skill id="5628" levels="1" name="Adventurer's Shield">
     <set name="magicLvl" val="60" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -290,7 +288,6 @@
   <skill id="5629" levels="1"
     name="Adventurer's Bless the Body">
     <set name="magicLvl" val="60" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -306,7 +303,6 @@
   </skill>
   <skill id="5630" levels="1" name="Adventurer's Vampiric Rage">
     <set name="magicLvl" val="60" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="isMagic" val="true" />
     <set name="skillType" val="BUFF" />
@@ -322,7 +318,6 @@
   </skill>
   <skill id="5631" levels="1" name="Adventurer's Regeneration">
     <set name="magicLvl" val="60" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -338,7 +333,6 @@
   </skill>
   <skill id="5632" levels="1" name="Adventurer's Haste">
     <set name="magicLvl" val="60" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -355,7 +349,6 @@
   <skill id="5633" levels="1"
     name="Adventurer's Bless the Soul">
     <set name="magicLvl" val="60" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -371,7 +364,6 @@
   </skill>
   <skill id="5634" levels="1" name="Adventurer's Acumen">
     <set name="magicLvl" val="60" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -387,7 +379,6 @@
   </skill>
   <skill id="5635" levels="1" name="Adventurer's Concentration">
     <set name="magicLvl" val="60" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -403,7 +394,6 @@
   </skill>
   <skill id="5636" levels="1" name="Adventurer's Empower">
     <set name="magicLvl" val="60" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -419,7 +409,6 @@
   </skill>
   <skill id="5637" levels="1" name="Adventurer's Magic Barrier">
     <set name="magicLvl" val="60" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -446,7 +435,6 @@
     <set name="isMagic" val="true" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
     <set name="reuseDelay" val="6000" />
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_ONE" />
@@ -470,7 +458,6 @@
     <set name="isMagic" val="true" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
     <set name="reuseDelay" val="6000" />
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_ONE" />
@@ -493,7 +480,6 @@
     <set name="isMagic" val="true" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
     <set name="reuseDelay" val="6000" />
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_ONE" />
@@ -527,7 +513,6 @@
     <set name="isMagic" val="true" />
     <set name="mpConsume" val="44" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
     <set name="reuseDelay" val="6000" />
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_ONE" />
@@ -565,7 +550,6 @@
     <set name="isMagic" val="true" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
     <set name="reuseDelay" val="6000" />
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_ONE" />
@@ -589,7 +573,6 @@
     <set name="itemConsumeId" val="3031" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
     <set name="reuseDelay" val="6000" />
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_ONE" />
@@ -613,7 +596,6 @@
     <set name="isMagic" val="true" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
     <set name="reuseDelay" val="6000" />
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_ONE" />
@@ -657,7 +639,6 @@
     <set name="isMagic" val="true" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
     <set name="reuseDelay" val="6000" />
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_ONE" />
@@ -680,7 +661,6 @@
     <set name="isMagic" val="true" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
     <set name="reuseDelay" val="6000" />
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_ONE" />
@@ -703,7 +683,6 @@
     <set name="isMagic" val="true" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
     <set name="reuseDelay" val="6000" />
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_ONE" />

@@ -334,7 +334,7 @@
     <set name="magicLvl" val="76" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="skillType" val="DEBUFF" />
     <set name="target" val="TARGET_ONE" />
     <for>
@@ -352,7 +352,7 @@
     <set name="hitTime" val="1500" />
     <set name="magicLvl" val="76" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="isDebuff" val="true" />
     <set name="skillType" val="DEBUFF" />
     <set name="target" val="TARGET_ONE" />
@@ -372,7 +372,7 @@
     <set name="magicLvl" val="76" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="skillType" val="DEBUFF" />
     <set name="target" val="TARGET_ONE" />
     <for>
@@ -391,7 +391,7 @@
     <set name="magicLvl" val="76" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="skillType" val="DEBUFF" />
     <set name="target" val="TARGET_ONE" />
     <for>
@@ -409,7 +409,7 @@
     <set name="hitTime" val="1500" />
     <set name="magicLvl" val="76" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="skillType" val="DEBUFF" />
     <set name="isDebuff" val="true" />
     <set name="target" val="TARGET_ONE" />
@@ -429,7 +429,7 @@
     <set name="magicLvl" val="76" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="skillType" val="DEBUFF" />
     <set name="target" val="TARGET_ONE" />
     <for>
@@ -448,7 +448,7 @@
     <set name="isMagic" val="true" />
     <set name="magicLvl" val="76" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="skillType" val="DEBUFF" />
     <set name="isDebuff" val="true" />
     <set name="target" val="TARGET_ONE" />
@@ -469,7 +469,7 @@
     <set name="magicLvl" val="76" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="skillType" val="DEBUFF" />
     <set name="target" val="TARGET_ONE" />
     <for>
@@ -489,7 +489,7 @@
     <set name="isDebuff" val="true" />
     <set name="magicLvl" val="76" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="skillType" val="DEBUFF" />
     <set name="target" val="TARGET_ONE" />
     <for>
@@ -584,7 +584,7 @@
     <table name="#rCrit">3 5 8 10 5 0 0 0 0 0</table>
     <set name="mpInitialConsume" val="14" />
     <set name="mpConsume" val="55" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="magicLvl" val="75" />
     <set name="target" val="TARGET_ONE" />
     <set name="isDebuff" val="true" />
@@ -608,7 +608,7 @@
     <table name="#accCombat">3 6 8 10 6 0 0 0 0 0</table>
     <set name="mpInitialConsume" val="14" />
     <set name="mpConsume" val="55" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="magicLvl" val="75" />
     <set name="target" val="TARGET_ONE" />
     <set name="isDebuff" val="true" />
@@ -633,7 +633,7 @@
       0.88 0.85 </table>
     <set name="mpInitialConsume" val="14" />
     <set name="mpConsume" val="55" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="magicLvl" val="75" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="DEBUFF" />
@@ -658,7 +658,7 @@
       0.88 0.84 </table>
     <set name="mpInitialConsume" val="14" />
     <set name="mpConsume" val="55" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="magicLvl" val="75" />
     <set name="target" val="TARGET_ONE" />
     <set name="isDebuff" val="true" />
@@ -686,7 +686,6 @@
     <set name="effectRange" val="-1" />
     <set name="magicLvl" val="75" />
     <set name="operateType" val="OP_PASSIVE" />
-    <set name="power" val="0.0" />
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_SELF" />
     <for>
@@ -1057,7 +1056,6 @@
     <set name="mpInitialConsume" val="#mpInitialConsume" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_CLAN" />
-    <set name="power" val="0.0" />
     <set name="skillRadius" val="900" />
     <set name="skillType" val="BUFF" />
     <set name="hitTime" val="2000" />
@@ -1124,7 +1122,7 @@
     <set name="mpConsume" val="58" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
-    <set name="power" val="0.0" />
+    <set name="power" val="100" />
     <set name="skillType" val="PARALYZE" />
     <set name="target" val="TARGET_ONE" />
     <for>
@@ -1144,7 +1142,6 @@
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="2" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="1000" />
     <set name="skillType" val="BLEED" />
@@ -1221,7 +1218,6 @@
     <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0
       9.0 10.0 10.0 </table>
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="lvlDepend" val="2" />
     <set name="target" val="TARGET_AURA" />
     <set name="skillRadius" val="200" />
@@ -1329,8 +1325,8 @@
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="hitTime" val="1500" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="2" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
     <for />
@@ -1345,8 +1341,8 @@
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="hitTime" val="1500" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="1" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="500" />
     <for />
@@ -1398,8 +1394,8 @@
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="hitTime" val="4000" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="1" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="500" />
     <for />
@@ -1412,35 +1408,31 @@
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="hitTime" val="4000" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="1" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="500" />
     <for />
   </skill>
   <skill id="4591" levels="12" name="Decrease Speed">
     <!-- TODO -->
-    <table name="#mpConsume"> 35 58 79 105 135 165 194 207 217 224
-      229 233 </table>
+    <table name="#mpConsume"> 35 58 79 105 135 165 194 207 217 224 229 233 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="hitTime" val="2000" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="1" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="1000" />
     <for />
   </skill>
   <skill id="4592" levels="12" name="Decrease P. Def">
-    <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150
-      153 155 </table>
-    <table name="#pdef"> 0.85 0.8 0.8 0.75 0.75 0.75 0.75 0.75
-      0.75 0.75 0.75 0.75 </table>
+    <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
+    <table name="#pdef"> 0.85 0.8 0.8 0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.75 0.75 </table>
     <set name="magicLvl" val="80" />
     <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="isDebuff" val="true" />
     <set name="reuseDelay" val="8000" />
@@ -1460,28 +1452,26 @@
   </skill>
   <skill id="4593" levels="12" name="Decrease P. Def">
     <!-- TODO -->
-    <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150
-      153 155 </table>
+    <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="hitTime" val="4000" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="2" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
     <for />
   </skill>
   <skill id="4594" levels="12" name="Decrease P. Def">
     <!-- TODO -->
-    <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150
-      153 155 </table>
+    <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="hitTime" val="2000" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="2" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="1000" />
     <for />
@@ -1523,8 +1513,8 @@
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="hitTime" val="4000" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="2" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
     <for />
@@ -1537,36 +1527,34 @@
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="hitTime" val="4000" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="2" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
     <for />
   </skill>
   <skill id="4598" levels="12" name="Bleed">
     <!-- TODO -->
-    <table name="#mpConsume"> 20 34 47 63 82 100 117 124 130 135
-      138 140 </table>
+    <table name="#mpConsume"> 20 34 47 63 82 100 117 124 130 135 138 140 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="hitTime" val="2000" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="2" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="isMagic" val="true" />
     <set name="castRange" val="1000" />
     <for />
   </skill>
   <skill id="4599" levels="12" name="Decrease Speed">
     <!-- TODO -->
-    <table name="#mpConsume"> 35 58 81 109 141 174 203 216 227 235
-      241 244 </table>
+    <table name="#mpConsume"> 35 58 81 109 141 174 203 216 227 235 241 244 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="hitTime" val="1800" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="2" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <for />
   </skill>

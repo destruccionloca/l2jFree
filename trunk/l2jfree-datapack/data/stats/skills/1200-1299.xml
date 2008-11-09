@@ -63,7 +63,6 @@
     <table name="#aggro">204 285</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -600,7 +599,6 @@
     <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="#reuseDelay" />
     <set name="hitTime" val="15000" />
@@ -646,7 +644,6 @@
     <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="#reuseDelay" />
     <set name="hitTime" val="15000" />
@@ -688,7 +685,6 @@
     <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="#reuseDelay" />
     <set name="hitTime" val="15000" />
@@ -728,7 +724,6 @@
     <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="itemConsumeCount" val="1" />
     <set name="reuseDelay" val="#reuseDelay" />
@@ -773,7 +768,6 @@
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PARTY" />
     <set name="skillRadius" val="1000" />
     <set name="reuseDelay" val="20000" />
@@ -1252,7 +1246,6 @@
     <table name="#aggro">379 457 532</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -1297,7 +1290,6 @@
     <table name="#aggro">379 457 532</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -1342,7 +1334,6 @@
     <table name="#aggro">379 457 532 582 611 635</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -1579,7 +1570,6 @@
     <table name="#aggro">418 495 532</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_CLAN" />
     <set name="skillRadius" val="400" />
     <set name="reuseDelay" val="20000" />
@@ -1627,7 +1617,6 @@
     <table name="#aggro">379 457 532</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_CLAN" />
     <set name="skillRadius" val="400" />
     <set name="reuseDelay" val="20000" />
@@ -1674,7 +1663,6 @@
     <table name="#aggro">457 532</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PARTY" />
     <set name="skillRadius" val="1000" />
     <set name="reuseDelay" val="20000" />
@@ -1721,7 +1709,6 @@
     <table name="#aggro">379 457 532</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PARTY" />
     <set name="skillRadius" val="1000" />
     <set name="reuseDelay" val="20000" />
@@ -1768,7 +1755,6 @@
     <table name="#aggro">418 495 532</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PARTY" />
     <set name="skillRadius" val="1000" />
     <set name="reuseDelay" val="20000" />
@@ -1820,7 +1806,6 @@
     <table name="#hitTime">20000 3500</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PARTY" />
     <set name="skillRadius" val="1000" />
     <set name="reuseDelay" val="600000" />
@@ -1912,7 +1897,6 @@
     <table name="#aggro">331 418 495</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -1973,7 +1957,6 @@
     <table name="#aggro">379 495 597 646</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="6000" />
     <set name="hitTime" val="4000" />
@@ -2019,7 +2002,6 @@
     <table name="#aggro">379 457 532</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_CLAN" />
     <set name="skillRadius" val="400" />
     <set name="reuseDelay" val="20000" />
@@ -2073,7 +2055,6 @@
     <table name="#aggro">418 495</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_CLAN" />
     <set name="skillRadius" val="400" />
     <set name="reuseDelay" val="20000" />
@@ -2117,7 +2098,6 @@
     <table name="#mpConsume_Init">7 9 11 12 13</table>
     <table name="#power">10 20 30 40 50</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_TOGGLE" />
@@ -2523,7 +2503,6 @@
     <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="15000" />
@@ -2564,7 +2543,6 @@
     <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
     <set name="reuseDelay" val="20000" />
@@ -2607,7 +2585,6 @@
     <set name="summonTotalLifeTime" val="3600000" />
     <set name="summonTimeLostIdle" val="500" />
     <set name="summonTimeLostActive" val="1000" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="15000" />
@@ -2741,7 +2718,6 @@
     <table name="#aggro">549 597</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_CLAN" />
     <set name="skillRadius" val="400" />
     <set name="reuseDelay" val="20000" />
@@ -2811,7 +2787,6 @@
     <table name="#aggro">582 624 655</table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_PARTY" />
     <set name="skillRadius" val="1000" />
     <set name="reuseDelay" val="20000" />
@@ -3118,7 +3093,6 @@
   <skill id="1297" levels="6" name="Clear Mind">
     <table name="#Tab-regMp-Walk"> 3.2 4.0 4.3 5.1 5.8 6.2 </table>
     <table name="#Tab-regMp-Stand"> 2.6 3.2 3.5 4.1 4.7 4.9 </table>
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
