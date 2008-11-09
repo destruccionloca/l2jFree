@@ -101,7 +101,7 @@ class Quest (JQuest) :
              if count < 50 :
                if count + numItems > 50 :
                  numItems = 50 - count
-               st.giveItems(item,numItems)
+               st.giveItems(item,int(numItems))
                count_trunk = st.getQuestItemsCount(TRUNK_OF_NEPENTHES)
                count_foot = st.getQuestItemsCount(FOOT_OF_BANDERSNATCHLING)
                count_spice = st.getQuestItemsCount(SECRET_SPICE)

@@ -165,7 +165,7 @@ class Quest (JQuest) :
      if st.getRandom(100) < chance :
          numItems = numItems + 1
      if numItems :
-        st.giveItems(item,numItems)
+        st.giveItems(item,int(numItems))
         st.playSound("ItemSound.quest_itemget")
      return
 

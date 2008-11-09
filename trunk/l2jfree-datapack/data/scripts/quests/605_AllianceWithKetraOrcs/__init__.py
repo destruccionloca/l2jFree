@@ -139,7 +139,7 @@ def giveReward(st,item,chance,MAX,drop) :
           st.playSound("ItemSound.quest_middle")
         else :
           st.playSound("ItemSound.quest_itemget")
-        st.giveItems(drop,numItems)
+        st.giveItems(drop,int(numItems))
 
 
 class Quest (JQuest) :

@@ -113,7 +113,7 @@ class Quest (JQuest) :
          if count + numItems > max :
             numItems = max - count
          if numItems != 0 :
-            st.giveItems(item,numItems)
+            st.giveItems(item,int(numItems))
             if st.getQuestItemsCount(RITRONS_FRUIT) == 4 and st.getQuestItemsCount(MOON_FACE_FLOWER) == 20 and st.getQuestItemsCount(LEECH_FLUIDS) == 10 :
                st.set("cond","2")
                st.playSound("ItemSound.quest_middle")

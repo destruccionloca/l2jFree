@@ -506,7 +506,7 @@ class Quest (JQuest):
               st.playSound("ItemSound.quest_middle")
           else :
               st.playSound("ItemSound.quest_itemget")
-          st.giveItems(TD_BCK_SKN,numItems)
+          st.giveItems(TD_BCK_SKN,int(numItems))
   #dragon detection
     elif id == State.STARTED and cond >= 5 and (st.get("progress") in [ "14","15","21","22" ]) :
       whom = int(st.get("dragon"))
@@ -544,7 +544,7 @@ class Quest (JQuest):
                   st.playSound("ItemSound.quest_middle")
                else:
                   st.playSound("ItemSound.quest_itemget")
-               st.giveItems(eggs,numItems)
+               st.giveItems(eggs,int(numItems))
                npc.broadcastPacket(NpcSay(npc.getObjectId(),0,npc.getNpcId(),"If the eggs get taken, we're dead!"))
   #fairy stone destruction
     elif id == State.STARTED and cond < 5 and st.getQuestItemsCount(FRY_STN_DLX) == 1 :

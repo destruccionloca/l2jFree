@@ -140,7 +140,7 @@ class Quest (JQuest) :
                st.set("cond","4")
             else:
                st.playSound("ItemSound.quest_itemget")
-            st.giveItems(BONE_FRAGMENT1_ID,numItems)
+            st.giveItems(BONE_FRAGMENT1_ID,int(numItems))
    elif npcId in [20015,20020] :
       if st.getQuestItemsCount(PRESERVE_OIL_ID) == 1 :
          if st.getRandom(10)<3*Config.RATE_DROP_QUEST :

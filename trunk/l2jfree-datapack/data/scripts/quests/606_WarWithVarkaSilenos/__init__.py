@@ -108,7 +108,7 @@ class Quest (JQuest) :
                         st.playSound("ItemSound.quest_middle")
                     else :
                         st.playSound("ItemSound.quest_itemget")
-                    st.giveItems(Mane,numItems)
+                    st.giveItems(Mane,int(numItems))
                 st.giveItems(Mane,1)
          elif npcId in Ketra_Orcs :
              st.unset("id")

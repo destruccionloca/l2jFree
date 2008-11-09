@@ -71,7 +71,7 @@ class Quest (JQuest) :
              st.set("cond","2")
           else:
              st.playSound("ItemSound.quest_itemget")
-          st.giveItems(ADAMANTITE_ORE,numItems)
+          st.giveItems(ADAMANTITE_ORE,int(numItems))
    return
 
 QUEST       = Quest(157,qn,"Recover Smuggled Goods")

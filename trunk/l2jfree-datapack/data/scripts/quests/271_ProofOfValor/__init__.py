@@ -80,7 +80,7 @@ class Quest (JQuest) :
             st.set("cond","2")
          else:
             st.playSound("ItemSound.quest_itemget")
-         st.giveItems(KASHA_WOLF_FANG,numItems)
+         st.giveItems(KASHA_WOLF_FANG,int(numItems))
    return
 
 QUEST       = Quest(271,qn,"Proof Of Valor")

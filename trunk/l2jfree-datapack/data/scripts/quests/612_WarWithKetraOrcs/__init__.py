@@ -106,7 +106,7 @@ class Quest (JQuest) :
                 st.playSound("ItemSound.quest_middle")
             else :
                 st.playSound("ItemSound.quest_itemget")
-            st.giveItems(Molar,numItems)
+            st.giveItems(Molar,int(numItems))
      elif npcId in Varka_Mobs :
          st.unset("id")
          st.takeItems(Molar,-1)

@@ -52,7 +52,7 @@ class Quest (JQuest) :
                 itemMultiplier += 1
             numItems = int(itemMultiplier * (npc.getLevel() * 0.15 +1.6))
             if numItems > 0 :
-                st.giveItems(DIMENSION_FRAGMENT_ID,numItems)
+                st.giveItems(DIMENSION_FRAGMENT_ID,int(numItems))
     return
 
 QUEST       = Quest(634, qn, "In Search of Dimensional Fragments")
