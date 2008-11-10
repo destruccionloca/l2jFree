@@ -33,19 +33,16 @@
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench3-pDef"> 0.99 0.98 0.98 0.97 0.97 0.95 0.94
       0.93 0.93 0.92 0.91 0.90 0.90 0.88 0.87 0.86 0.86 0.85
-      0.84 0.81 0.80 0.80 0.79 0.78 0.78 0.77 0.76 0.74 0.73
-      0.72 </table>
+      0.84 0.81 0.80 0.80 0.79 0.78 0.78 0.77 0.76 0.74 0.73 0.72 </table>
     <table name="#ench4-mDef"> 0.99 0.98 0.98 0.97 0.97 0.95 0.94
       0.93 0.93 0.92 0.91 0.90 0.90 0.88 0.87 0.86 0.86 0.85
-      0.84 0.81 0.80 0.80 0.79 0.78 0.78 0.77 0.76 0.74 0.73
-      0.72 </table>
+      0.84 0.81 0.80 0.80 0.79 0.78 0.78 0.77 0.76 0.74 0.73 0.72 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <enchant3 name="magicLvl" val="#enchantMagicLvl" />
     <enchant4 name="magicLvl" val="#enchantMagicLvl" />
     <table name="#ench2MpConsume"> 107 106 104 103 101 100 98 97 96 94
-      93 91 90 88 87 85 84 83 81 80 78 77 75 74 73 71 70 68
-      67 65 </table>
+      93 91 90 88 87 85 84 83 81 80 78 77 75 74 73 71 70 68 67 65 </table>
     <table name="#mpConsume"> 46 48 49 52 54 56 56 58 59 61 63 65
       66 68 70 72 72 74 76 78 80 81 83 85 87 88 89 91 92 94
       96 97 99 100 102 103 105 106 108 109 </table>
@@ -60,8 +57,7 @@
       62 63 64 65 66 67 68 68 69 70 71 72 73 74 75 76 77 78 </table>
     <table name="#ench2Power"> 2211 2231 2251 2270 2290 2310 2330
       2349 2369 2389 2409 2428 2448 2468 2488 2507 2527 2547
-      2566 2586 2606 2626 2645 2665 2685 2705 2724 2744 2764
-      2784 </table>
+      2566 2586 2606 2626 2645 2665 2685 2705 2724 2744 2764 2784 </table>
     <set name="weaponsAllowed" val="32" /> <!-- Bow -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -86,8 +82,7 @@
     <for>
       <effect count="1" name="Stun" time="9" val="0"
         stackOrder="1" stackType="Stun" />
-      <effect count="1" name="RemoveTarget" time="1"
-        val="0" />
+      <effect count="1" name="RemoveTarget" time="1" val="0" />
     </for>
     <enchant3for>
       <effect count="1" name="Debuff" time="9" val="0">
@@ -95,8 +90,7 @@
       </effect>
       <effect count="1" name="Stun" time="9" val="0"
         stackOrder="1" stackType="Stun" noicon="1" />
-      <effect count="1" name="RemoveTarget" time="1"
-        val="0" />
+      <effect count="1" name="RemoveTarget" time="1" val="0" />
     </enchant3for>
     <enchant4for>
       <effect count="1" name="Debuff" time="9" val="0">
@@ -104,12 +98,10 @@
       </effect>
       <effect count="1" name="Stun" time="9" val="0"
         stackOrder="1" stackType="Stun" noicon="1" />
-      <effect count="1" name="RemoveTarget" time="1"
-        val="0" />
+      <effect count="1" name="RemoveTarget" time="1" val="0" />
     </enchant4for>
   </skill>
-  <skill id="102" levels="16" name="Entangle"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="102" levels="16" name="Entangle" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -270,8 +262,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="107" levels="9" name="Holy Aura"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="107" levels="9" name="Holy Aura" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#enchantmpConsume"> 51 50 50 49 48 48 47 47 46 45 45 44
@@ -337,12 +328,10 @@
     <table name="#mDef">1350 2700</table>
     <table name="#ench1pDef"> 3636 3672 3708 3744 3780 3816 3852
       3888 3924 3960 3996 4032 4068 4104 4140 4176 4212 4248
-      4284 4320 4356 4392 4428 4464 4500 4536 4572 4608 4644
-      4680 </table>
+      4284 4320 4356 4392 4428 4464 4500 4536 4572 4608 4644 4680 </table>
     <table name="#ench1mDef"> 2727 2754 2781 2808 2835 2862 2889
       2916 2943 2970 2997 3024 3051 3078 3105 3132 3159 3186
-      3213 3240 3267 3294 3321 3348 3375 3402 3429 3456 3483
-      3510 </table>
+      3213 3240 3267 3294 3321 3348 3375 3402 3429 3456 3483 3510 </table>
     <table name="#mpConsume">10 21</table>
     <table name="#ench1time"> 30 31 32 32 33 34 35 35 36 37 38 38
       39 40 41 41 42 43 43 44 45 46 46 47 48 49 49 50 51 52 </table>
@@ -436,16 +425,14 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="112" levels="4" name="Deflect Arrow"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="112" levels="4" name="Deflect Arrow" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480
       1520 1560 1600 1640 1680 1720 1760 1800 1840 1880 1920
-      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360
-      2400 </table>
+      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#Vuln">0.84 0.76 0.68 0.60</table>
     <table name="#mpConsume">11 14 19 22</table>
     <table name="#ench2MpConsume"> 21 21 20 20 19 19 18 18 17 17 16 16
@@ -685,8 +672,7 @@
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480
       1520 1560 1600 1640 1680 1720 1760 1800 1840 1880 1920
-      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360
-      2400 </table>
+      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 20 20 19 19 19 18 18 18 17 17 17 16
       16 16 15 15 15 14 14 14 13 13 12 12 12 11 11 11 10 10 </table>
     <table name="#ench2MpConsume_Init"> 5 5 5 5 5 5 5 5 5 5 4 4 4 4 4 4 4 4 4
@@ -729,11 +715,9 @@
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <table name="#ench2MpConsume"> 33 33 33 32 32 32 32 31 31 31 31 30
       30 30 30 30 28 28 28 28 27 27 27 27 26 26 26 26 25 25 </table>
-    <table name="#magicLvl"> 43 46 49 52 55 58 60 62 64 66 68 70
-      72 74 </table>
+    <table name="#magicLvl"> 43 46 49 52 55 58 60 62 64 66 68 70 72 74 </table>
     <table name="#mpConsume_Init"> 4 5 5 5 5 6 6 6 6 7 7 7 7 7 </table>
-    <table name="#mpConsume"> 15 17 18 19 20 22 22 23 24 25 26 26
-      27 28 </table>
+    <table name="#mpConsume"> 15 17 18 19 20 22 22 23 24 25 26 26 27 28 </table>
     <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
       88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
@@ -798,8 +782,7 @@
     <table name="#mpConsume">21 25</table>
     <table name="#ench1runSpd"> 0.81 0.82 0.82 0.83 0.84 0.84 0.85
       0.86 0.86 0.87 0.88 0.88 0.89 0.90 0.90 0.91 0.92 0.92
-      0.93 0.94 0.94 0.95 0.96 0.96 0.97 0.98 0.98 0.99 1.00
-      1.00 </table>
+      0.93 0.94 0.94 0.95 0.96 0.96 0.97 0.98 0.98 0.99 1.00 1.00 </table>
     <table name="#aggro">438 523</table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_SELF" />
@@ -823,8 +806,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="131" levels="3" name="Hawk Eye"
-    enchantLevels1="30">
+  <skill id="131" levels="3" name="Hawk Eye" enchantLevels1="30">
     <table name="#ench1time"> 310 320 330 340 350 360 370 380 390
       400 410 420 430 440 450 460 470 480 490 500 510 520
       530 540 550 560 570 580 590 600 </table>
