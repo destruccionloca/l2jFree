@@ -62,8 +62,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5005" levels="1"
-    name="Frintezza's Ghost Summoning">
+  <skill id="5005" levels="1" name="Frintezza's Ghost Summoning">
     <!--
       Lvl 1: Frintezza is in temporary state of paralysis.
     -->
@@ -686,8 +685,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="CharmOfCourage" time="1200"
-        val="0" />
+      <effect count="1" name="CharmOfCourage" time="1200" val="0" />
     </for>
   </skill>
   <skill id="5042" levels="12" name="NPC Dispel Bomb">
@@ -727,27 +725,36 @@
     <for />
   </skill>
   <skill id="5045" levels="12" name="Castle Power Strike">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <table name="#power"> 65 164 451 1121 2992 5736 8832 10130 11982 13131 14865 16351 </table>
+    <table name="#mpConsume"> 19 22 25 28 31 33 36 38 40 42 42 43</table>
+    <table name="#magicLvl"> 14 24 34 44 54 64 74 79 84 89 94 99 </table>
+    <set name="magicLvl" val="#magicLvl"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="#power"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="overHit" val="true"/>
+    <set name="hitTime" val="830"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="200"/>
     <for />
   </skill>
   <skill id="5046" levels="12" name="Castle Power Shot">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <table name="#power"> 65 164 451 1121 2992 5736 8832 10130 11982 13131 14865 16351 </table>
+    <table name="#mpConsume"> 19 22 25 28 31 33 36 38 40 42 42 43</table>
+    <table name="#magicLvl"> 14 24 34 44 54 64 74 79 84 89 94 99 </table>
+    <set name="magicLvl" val="#magicLvl"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="#power"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="1500"/>
+    <set name="effectRange" val="2100"/>
     <for />
   </skill>
   <skill id="5047" levels="12" name="Castle Spinning Slash">
@@ -823,15 +830,22 @@
     <for />
   </skill>
   <skill id="5053" levels="12" name="Castle DD Water">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <table name="#mpConsume"> 7 10 14 18 23 28 33 35 37 38 39 39 </table>
+    <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <set name="magicLvl" val="#magicLvl"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="#power"/>
+    <set name="element" val="3"/> <!-- Water -->
+    <set name="reuseDelay" val="3000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="1500"/>
+    <set name="effectRange" val="2100"/>
     <for />
   </skill>
   <skill id="5054" levels="12" name="Castle Self AE Water">
@@ -967,15 +981,22 @@
     <for />
   </skill>
   <skill id="5065" levels="12" name="Castle DD Unholy">
-    <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): none
-    -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <table name="#mpConsume"> 7 10 14 18 23 28 33 35 37 38 39 39 </table>
+    <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <set name="magicLvl" val="#magicLvl"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="#power"/>
+    <set name="element" val="6"/> <!-- Unholy -->
+    <set name="reuseDelay" val="3000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="1500"/>
+    <set name="effectRange" val="2100"/>
     <for />
   </skill>
   <skill id="5066" levels="12" name="Castle Self AE Unholy">
@@ -1116,8 +1137,7 @@
     <for />
   </skill>
   <skill id="5073" levels="12" name="Quest Trap -  Power Shot">
-    <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126
-      129 </table>
+    <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="1" />
@@ -1253,8 +1273,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5082" levels="4"
-    name="NPC Spinning, Slashing Trick">
+  <skill id="5082" levels="4" name="NPC Spinning, Slashing Trick">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -1340,8 +1359,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5089" levels="1"
-    name="Representation - Enter the Sailren Nest Quest">
+  <skill id="5089" levels="1" name="Representation - Enter the Sailren Nest Quest">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -1412,8 +1430,7 @@
     <set name="effectRange" val="1100" />
     <for />
   </skill>
-  <skill id="5094" levels="1"
-    name="Antharas Subordinate Suicide ">
+  <skill id="5094" levels="1" name="Antharas Subordinate Suicide ">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -1425,8 +1442,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5095" levels="1"
-    name="Antharas Subordinate Melee Attack">
+  <skill id="5095" levels="1" name="Antharas Subordinate Melee Attack">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -1438,8 +1454,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5096" levels="1"
-    name="Antharas Subordinate Remote Attack">
+  <skill id="5096" levels="1" name="Antharas Subordinate Remote Attack">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
@@ -1451,8 +1466,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5097" levels="1"
-    name="Antharas Subordinate Suicide (Narrow Range)">
+  <skill id="5097" levels="1" name="Antharas Subordinate Suicide (Narrow Range)">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
