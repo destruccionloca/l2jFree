@@ -1,4 +1,4 @@
--- ---------------------------
+﻿-- ---------------------------
 -- Table structure for table `weapon`
 -- ---------------------------
 DROP TABLE IF EXISTS `weapon`;
@@ -849,7 +849,7 @@ INSERT INTO `weapon` VALUES
 (5599,'Meteor Shower - Focus','rhand','true',1600,1,1,'fine_steel','a',213,20,'blunt',4,4.00000,0,0,0,379,0,107,-1,18300000,1464,'true','true','true','true','3044-1','','','',0),
 (5600,'Meteor Shower - Critical Bleed','rhand','true',1600,1,1,'fine_steel','a',213,20,'blunt',4,4.00000,0,0,0,379,0,107,-1,18300000,1464,'true','true','true','true','','','','3052-1-10',0),
 (5601,'Meteor Shower - Rsk. Haste','rhand','true',1600,1,1,'fine_steel','a',213,20,'blunt',4,4.00000,0,0,0,379,0,107,-1,18300000,1464,'true','true','true','true','3056-1','','','',0),
-(5602,'Elysian - Health','rhand','true',1580,1,1,'oriharukon','a',232,20,'blunt',4,4.00000,0,0,0,379,0,114,-1,27000000,2160,'true','true','true','true','3013-3','','','3021-5-42',0),
+(5602,'Elysian - Health','rhand','true',1580,1,1,'oriharukon','a',232,20,'blunt',4,4.00000,0,0,0,379,0,114,-1,27000000,2160,'true','true','true','true','3013-3','','','',0),
 (5603,'Elysian - Anger','rhand','true',1580,1,1,'oriharukon','a',232,20,'blunt',4,4.00000,0,0,0,379,0,114,-1,27000000,2160,'true','true','true','true','3057-2','','','',0),
 (5604,'Elysian - Critical Drain','rhand','true',1580,1,1,'oriharukon','a',232,20,'blunt',4,4.00000,0,0,0,379,0,114,-1,27000000,2160,'true','true','true','true','3072-1','','','',0),
 (5605,'Branch of The Mother Tree - Conversion','lrhand','true',900,1,1,'wood','a',226,20,'bigblunt',4,4.00000,0,0,0,325,0,152,-1,27000000,2160,'true','true','true','true','3048-2','','','',0),
