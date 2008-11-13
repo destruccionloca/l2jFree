@@ -87,8 +87,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="1206" levels="19" name="Wind Shackle"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="1206" levels="19" name="Wind Shackle" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -126,7 +125,7 @@
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init" />
     <for>
       <effect count="1" name="Debuff" time="15" val="0"
-        stackOrder="#Tab-pAtkSpd" stackType="pAtkSpdDown">
+        stackOrder="#Tab-pAtkSpd" stackType="attack_time_up">
         <mul order="0x30" stat="pAtkSpd" val="#Tab-pAtkSpd" />
       </effect>
     </for>
