@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
-<?xml version='1.0' encoding='utf-8'?>
 <list>
   <skill id="23000" levels="1" name="Majo Agathion Cute Trick">
     <set name="target" val="TARGET_NONE"/>
