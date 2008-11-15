@@ -98,7 +98,7 @@ public class L2Spawn
 	// [L2J_JP DELETE]private boolean _doRespawn;
 	protected boolean		_doRespawn;
 
-	public boolean IsRespawnable()
+	public boolean isRespawnable()
 	{
 		return _doRespawn;
 	}
@@ -406,7 +406,7 @@ public class L2Spawn
 		_currentCount--;
 
 		// Check if respawn is possible to prevent multiple respawning caused by lag
-		if (IsRespawnable() && (_doRespawn && _scheduledCount + _currentCount < _maximumCount))
+		if (isRespawnable() && (_doRespawn && _scheduledCount + _currentCount < _maximumCount))
 		{
 			// Update the current number of SpawnTask in progress or stand by of this L2Spawn
 			_scheduledCount++;

@@ -665,7 +665,7 @@ public class L2CubicInstance
 						{
 							// friendly skill, so we look a target in owner's
 							// party
-							CubicTargetForHeal();
+							setCubicTargetForHeal();
 						}
 						else
 						{
@@ -728,7 +728,7 @@ public class L2CubicInstance
 	}
 
 	/** this sets the friendly target for a cubic */
-	public void CubicTargetForHeal()
+	public void setCubicTargetForHeal()
 	{
 		L2Character target = null;
 		double percentleft = 100.0;
@@ -849,7 +849,7 @@ public class L2CubicInstance
 
 				if (skill != null)
 				{
-					CubicTargetForHeal();
+					setCubicTargetForHeal();
 					L2Character target = _target;
 					if (target != null && !target.isDead())
 					{

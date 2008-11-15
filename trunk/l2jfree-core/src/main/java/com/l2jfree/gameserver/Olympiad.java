@@ -254,7 +254,7 @@ public class Olympiad
 				_terminated = true;
 				_game._gamestarted = false;
 				_game.closeDoors();
-				_game.PlayersStatusBack();
+				_game.resetPlayerStatus();
 				_game.cleanEffects();
 				try
 				{
@@ -369,8 +369,8 @@ public class Olympiad
 					{
 						return;
 					}
-					UnSpawnBuffer(_game._spawnOne);
-					UnSpawnBuffer(_game._spawnTwo);
+					removeBuffer(_game._spawnOne);
+					removeBuffer(_game._spawnTwo);
 					_game._playerOne.sendPacket(new ExOlympiadUserInfoSpectator(_game._playerTwo, 1));
 					_game._playerTwo.sendPacket(new ExOlympiadUserInfoSpectator(_game._playerOne, 1));
 					if (_game._spectators != null)
@@ -412,7 +412,7 @@ public class Olympiad
 					try
 					{
 						_game.validateWinner();
-						_game.PlayersStatusBack();
+						_game.resetPlayerStatus();
 						_game.cleanEffects();
 						_game.portPlayersBack();
 						_game.clearSpectators();
@@ -1326,7 +1326,7 @@ public class Olympiad
 		_manager.getOlympiadInstance(id).addSpectator(spectator);
 	}
 
-	public void UnSpawnBuffer(L2Spawn spawn)
+	public void removeBuffer(L2Spawn spawn)
 	{
 		spawn.getLastSpawn().decayMe();
 	}
@@ -2087,7 +2087,7 @@ public class Olympiad
 			}
 		}
 
-		public L2Spawn SpawnBuffer(int xPos, int yPos, int zPos, int npcId)
+		public L2Spawn spawnBuffer(int xPos, int yPos, int zPos, int npcId)
 		{
 			L2NpcTemplate template;
 			template = NpcTable.getInstance().getTemplate(npcId);
@@ -2315,7 +2315,7 @@ public class Olympiad
 					_playerOne.teleToLocation(_stadiumPort[0] + 1200, _stadiumPort[1], _stadiumPort[2], false);
 
 					_playerOne.sendPacket(new ExOlympiadMode(2));
-					_spawnOne = SpawnBuffer(_stadiumPort[0] + 1100, _stadiumPort[1], _stadiumPort[2], OLY_BUFFER);
+					_spawnOne = spawnBuffer(_stadiumPort[0] + 1100, _stadiumPort[1], _stadiumPort[2], OLY_BUFFER);
 
 					_playerOne.setIsInOlympiadMode(true);
 					_playerOne.setIsOlympiadStart(false);
@@ -2336,7 +2336,7 @@ public class Olympiad
 					_playerTwo.teleToLocation(_stadiumPort[0] - 1200, _stadiumPort[1], _stadiumPort[2], false);
 
 					_playerTwo.sendPacket(new ExOlympiadMode(2));
-					_spawnTwo = SpawnBuffer(_stadiumPort[0] - 1100, _stadiumPort[1], _stadiumPort[2], OLY_BUFFER);
+					_spawnTwo = spawnBuffer(_stadiumPort[0] - 1100, _stadiumPort[1], _stadiumPort[2], OLY_BUFFER);
 
 					_playerTwo.setIsInOlympiadMode(true);
 					_playerTwo.setIsOlympiadStart(false);
@@ -2379,7 +2379,7 @@ public class Olympiad
 				_playerTwo.teleToLocation(x2, y2, z2, true);
 		}
 
-		protected void PlayersStatusBack()
+		protected void resetPlayerStatus()
 		{
 			for (L2PcInstance player : _players)
 			{

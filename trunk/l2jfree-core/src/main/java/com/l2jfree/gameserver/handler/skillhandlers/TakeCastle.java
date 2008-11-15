@@ -55,7 +55,7 @@ public class TakeCastle implements ISkillHandler
 		try
 		{
 			if (targets[0] instanceof L2ArtefactInstance)
-				castle.Engrave(player.getClan(), targets[0].getObjectId());
+				castle.engrave(player.getClan(), targets[0].getObjectId());
 		}
 		catch (Exception e)
 		{

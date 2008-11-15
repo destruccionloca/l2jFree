@@ -91,7 +91,7 @@ public class Status extends Thread
 		{
 			_log.warn("Server's Telnet Function Has No Password Defined!");
 			_log.warn("A Password Has Been Automaticly Created!");
-			_statusPw = RndPW(10);
+			_statusPw = generateRandomPassword(10);
 			_log.warn("Password Has Been Set To: " + _statusPw);
 		}
 		_log.info("Telnet StatusServer started successfully, listening on Port: " + _statusPort);
@@ -99,7 +99,7 @@ public class Status extends Thread
 		_uptime = (int) System.currentTimeMillis();
 	}
 
-	private String RndPW(int length)
+	private String generateRandomPassword(int length)
 	{
 		TextBuilder password = new TextBuilder();
 		String lowerChar = "qwertyuiopasdfghjklzxcvbnm";

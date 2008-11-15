@@ -109,11 +109,11 @@ public class AdminAdmin implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_config_server"))
 		{
-			ShowConfigPage(activeChar);
+			showConfigPage(activeChar);
 		}
 		else if (command.equals("admin_config_server2"))
 		{
-			ShowConfigPage2(activeChar);
+			showConfigPage2(activeChar);
 		}
 		else if (command.startsWith("admin_gmliston"))
 		{
@@ -602,7 +602,7 @@ public class AdminAdmin implements IAdminCommandHandler
 		AdminHelpPage.showHelpPage(activeChar, filename + "_menu.htm");
 	}
 
-	public void ShowConfigPage2(L2PcInstance activeChar)
+	public void showConfigPage2(L2PcInstance activeChar)
 	{
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 
@@ -654,7 +654,7 @@ public class AdminAdmin implements IAdminCommandHandler
 		activeChar.sendPacket(adminReply);
 	}
 
-	public void ShowConfigPage(L2PcInstance activeChar)
+	public void showConfigPage(L2PcInstance activeChar)
 	{
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 

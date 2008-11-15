@@ -30,7 +30,7 @@ public class L2GrandBossInstance extends L2Boss
 {
 	protected boolean	_isInSocialAction		= false;
 
-	public boolean IsInSocialAction()
+	public boolean isInSocialAction()
 	{
 		return _isInSocialAction;
 	}
@@ -88,7 +88,7 @@ public class L2GrandBossInstance extends L2Boss
 	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
 	{
 		// [L2J_JP ADD SANDMAN]
-		if (IsInSocialAction() || isInvul())
+		if (isInSocialAction() || isInvul())
 			return;
 
 		super.reduceCurrentHp(damage, attacker, awake);

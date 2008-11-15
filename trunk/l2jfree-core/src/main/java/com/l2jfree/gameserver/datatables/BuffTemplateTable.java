@@ -57,13 +57,13 @@ public class BuffTemplateTable
 	public BuffTemplateTable()
 	{
 		_buffs = new FastList<L2BuffTemplate>();
-		ReloadBuffTemplates();
+		reloadBuffTemplates();
 	}
 
 	/**
 	 * Read and Load the buff templates from SQL Table buff_templates
 	 */
-	public void ReloadBuffTemplates()
+	public void reloadBuffTemplates()
 	{
 		_buffs.clear();
 

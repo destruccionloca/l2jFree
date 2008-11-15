@@ -49,7 +49,7 @@ public class RecordTable
 		{
 			_instance = new RecordTable();
 		}
-		_instance.RestoreRecordData();
+		_instance.restoreRecordData();
 		return _instance;
 	}
 
@@ -60,7 +60,7 @@ public class RecordTable
 	/**
 	 * 
 	 */
-	public void RestoreRecordData()
+	public void restoreRecordData()
 	{
 		Connection con = null;
 		try

@@ -8284,7 +8284,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		case 299:
 		case 448:
 			if ((!SiegeManager.getInstance().checkIfOkToSummon(this, false) && !FortSiegeManager.getInstance().checkIfOkToSummon(this, false))
-					|| SevenSigns.getInstance().CheckSummonConditions(this))
+					|| SevenSigns.getInstance().checkSummonConditions(this))
 			{
 				return false;
 			}
@@ -11449,7 +11449,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			_fish.setType(-1);
 		efs = new ExFishingStart(this, _fish.getType(), x, y, z, _lure.isNightLure());
 		broadcastPacket(efs);
-		StartLookingForFishTask();
+		startLookingForFishTask();
 	}
 
 	public void stopLookingForFishTask()
@@ -11461,7 +11461,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 	}
 
-	public void StartLookingForFishTask()
+	public void startLookingForFishTask()
 	{
 		if (!isDead() && _taskforfish == null)
 		{

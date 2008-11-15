@@ -271,7 +271,7 @@ public class AdminSpawn implements IAdminCommandHandler
 
 					L2Spawn spawn = target.getSpawn();
 
-					if (spawn.IsRespawnable())
+					if (spawn.isRespawnable())
 					{
 						SpawnTable.getInstance().deleteSpawn(spawn, true);
 						target.deleteMe();

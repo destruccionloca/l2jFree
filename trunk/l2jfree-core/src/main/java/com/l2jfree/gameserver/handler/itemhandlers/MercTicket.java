@@ -116,7 +116,7 @@ public class MercTicket implements IItemHandler
 		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
 		{
 			case SevenSigns.CABAL_NULL:
-				if (SevenSigns.getInstance().CheckIsDawnPostingTicket(itemId))
+				if (SevenSigns.getInstance().checkIsDawnPostingTicket(itemId))
 				{
 					//_log.warning("Someone has tried to spawn a Dawn Mercenary though the Seal of Strife is not controlled by anyone.");
 					activeChar.sendMessage("You cannot position any Dawn Mercenaries at this time.");
@@ -124,7 +124,7 @@ public class MercTicket implements IItemHandler
 				}
 				break;
 			case SevenSigns.CABAL_DUSK:
-				if (!SevenSigns.getInstance().CheckIsRookiePostingTicket(itemId))
+				if (!SevenSigns.getInstance().checkIsRookiePostingTicket(itemId))
 				{
 					//_log.warning("Someone has tried to spawn a non-Rookie Mercenary though the Seal of Strife is controlled by Revolutionaries of Dusk.");
 					activeChar.sendMessage("You can position only Rookie Mercenaries at this time.");

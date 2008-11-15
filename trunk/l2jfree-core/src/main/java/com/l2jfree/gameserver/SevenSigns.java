@@ -1356,7 +1356,7 @@ public class SevenSigns
 				// Perform initial Seal Validation set up.
 				initializeSeals();
 				//Buff/Debuff members of the event when Seal of Strife captured.
-				GiveCPMult(getSealOwner(SEAL_STRIFE));
+				giveCPMult(getSealOwner(SEAL_STRIFE));
 				// Send message that Seal Validation has begun.
 				sendMessageToAll(SystemMessageId.SEAL_VALIDATION_PERIOD_BEGUN);
 
@@ -1373,7 +1373,7 @@ public class SevenSigns
 				// Send message that Seal Validation has ended.
 				sendMessageToAll(SystemMessageId.SEAL_VALIDATION_PERIOD_ENDED);
 				//Clear Seal of Strife influence.
-				RemoveCPMult();
+				removeCPMult();
 				// Reset all data
 				resetPlayerData();
 				resetSeals();
@@ -1413,7 +1413,7 @@ public class SevenSigns
 		}
 	}
 
-	public boolean CheckIsDawnPostingTicket(int itemId)
+	public boolean checkIsDawnPostingTicket(int itemId)
 	{
 		//TODO I think it should be some kind of a list in the datapack for compare;
 		if (itemId > 6114 && itemId < 6175)
@@ -1435,7 +1435,7 @@ public class SevenSigns
 		return false;
 	}
 
-	public boolean CheckIsRookiePostingTicket(int itemId)
+	public boolean checkIsRookiePostingTicket(int itemId)
 	{
 		//TODO I think it should be some kind of a list in the datapack for compare;
 		if (itemId > 6174 && itemId < 6295)
@@ -1449,7 +1449,7 @@ public class SevenSigns
 		return false;
 	}
 
-	public void GiveCPMult(int StrifeOwner)
+	public void giveCPMult(int StrifeOwner)
 	{
 		for (L2PcInstance character : L2World.getInstance().getAllPlayers())
 		{
@@ -1465,7 +1465,7 @@ public class SevenSigns
 		}
 	}
 
-	public void RemoveCPMult()
+	public void removeCPMult()
 	{
 		for (L2PcInstance character : L2World.getInstance().getAllPlayers())
 		{
@@ -1475,7 +1475,7 @@ public class SevenSigns
 		}
 	}
 
-	public boolean CheckSummonConditions(L2PcInstance activeChar)
+	public boolean checkSummonConditions(L2PcInstance activeChar)
 	{
 		if (activeChar == null)
 			return true;

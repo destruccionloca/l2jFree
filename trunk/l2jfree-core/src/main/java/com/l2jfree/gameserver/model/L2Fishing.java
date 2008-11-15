@@ -143,7 +143,7 @@ public class L2Fishing implements Runnable
 			int check = Rnd.get(100);
 			if (check <= 5)
 			{
-				PenaltyMonster();
+				spawnPenaltyMonster();
 			}
 			else
 			{
@@ -346,7 +346,7 @@ public class L2Fishing implements Runnable
 		}
 	}
 
-	private void PenaltyMonster()
+	private void spawnPenaltyMonster()
 	{
 		int lvl = (int) Math.round(_fisher.getLevel() * 0.1);
 		int npcid;

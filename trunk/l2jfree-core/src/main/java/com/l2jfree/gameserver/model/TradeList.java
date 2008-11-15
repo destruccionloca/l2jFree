@@ -544,7 +544,7 @@ public class TradeList
     /**
      * Transfers all TradeItems from inventory to partner
      */
-    private boolean TransferItems(L2PcInstance partner, InventoryUpdate ownerIU,
+    private boolean transferItems(L2PcInstance partner, InventoryUpdate ownerIU,
                                   InventoryUpdate partnerIU)
     {
         for (TradeItem titem : _items)
@@ -636,8 +636,8 @@ public class TradeList
             InventoryUpdate partnerIU = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 
             // Transfer items
-            partnerList.TransferItems(getOwner(), partnerIU, ownerIU);
-            TransferItems(partnerList.getOwner(), ownerIU, partnerIU);
+            partnerList.transferItems(getOwner(), partnerIU, ownerIU);
+            transferItems(partnerList.getOwner(), ownerIU, partnerIU);
 
             // Send inventory update packet
             if (ownerIU != null) _owner.sendPacket(ownerIU);

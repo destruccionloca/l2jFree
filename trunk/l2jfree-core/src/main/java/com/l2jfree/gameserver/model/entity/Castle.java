@@ -224,7 +224,7 @@ public class Castle extends Siegeable
         return null;
 	}
 
-	public void Engrave(L2Clan clan, int objId)
+	public void engrave(L2Clan clan, int objId)
 	{
 		_engrave.put(objId, clan.getClanId());
 		if (_engrave.size() == _nbArtifact)

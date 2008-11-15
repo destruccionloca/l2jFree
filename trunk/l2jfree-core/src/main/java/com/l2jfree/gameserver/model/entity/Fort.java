@@ -65,7 +65,7 @@ public class Fort extends Siegeable
 	// =========================================================
 	// Method - Public
 
-	public void EndOfSiege(L2Clan clan)
+	public void endOfSiege(L2Clan clan)
 	{
 		ThreadPoolManager.getInstance().scheduleGeneral(new endFortressSiege(this, clan), 1000);
 
@@ -75,7 +75,7 @@ public class Fort extends Siegeable
 	 * @param clan  
 	 * @param objId  
 	 */
-	public void Engrave(L2Clan clan, int objId)
+	public void engrave(L2Clan clan, int objId)
 	{
 		getSiege().announceToPlayer("Clan " + clan.getName() + " has finished to raise the flag.", true);
 		setOwner(clan);
@@ -540,7 +540,7 @@ public class Fort extends Siegeable
 
 		public void run()
 		{
-			_f.Engrave(_clan, 0);
+			_f.engrave(_clan, 0);
 		}
 
 	}

@@ -267,7 +267,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 		if (mark.contains("_getSkillItem="))
 		{
-			return SkillItemText(itemId, actor);
+			return getSkillItemText(itemId, actor);
 		}
 
 		else if (mark.contains("_editItem="))
@@ -277,7 +277,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 		else if (mark.contains("_detailItem="))
 		{
-			return DetailItemText(itemId);
+			return getDetailItemText(itemId);
 		}
 
 		else if (mark.contains("_getQuestItem="))
@@ -1860,7 +1860,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		return mark;
 	}
 
-	private String SkillItemText(int itemId, L2PcInstance activeChar)
+	private String getSkillItemText(int itemId, L2PcInstance activeChar)
 	{
 		String message = "";
 		if (skillsWithItems == null)
@@ -1977,7 +1977,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		return (message.equals("")) ? "<br1><center><font color=\"FF0000\">No Skills attached to this item.</font></center>" : message;
 	}
 
-	private String DetailItemText(int itemId)
+	private String getDetailItemText(int itemId)
 	{
 		String message = "";
 
