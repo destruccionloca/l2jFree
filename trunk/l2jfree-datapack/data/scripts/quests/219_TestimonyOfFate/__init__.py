@@ -218,12 +218,12 @@ class Quest (JQuest) :
    elif npcId == 30358 and st.getInt("cond")>=1 and st.getQuestItemsCount(PALUS_CHARM_ID) and st.getQuestItemsCount(ARKENIAS_NOTE_ID) :
       htmltext = "30358-03.htm"
    elif npcId == 30358 and st.getInt("cond")>=1 and st.getQuestItemsCount(PALUS_CHARM_ID) and st.getQuestItemsCount(ARKENIAS_LETTER_ID) :
-      st.addExpAndSp(68183,1750)
-      st.rewardItems(7562,16)
-      htmltext = "30358-04.htm"
+      st.rewardItems(57,123854)
+      st.addExpAndSp(682735,45562)
       st.giveItems(MARK_OF_FATE_ID,1)
-      st.takeItems(ARKENIAS_LETTER_ID,1)
+      htmltext = "30358-04.htm"
       st.takeItems(PALUS_CHARM_ID,1)
+      st.takeItems(ARKENIAS_LETTER_ID,1)
       st.set("cond","0")
       st.exitQuest(False)
       st.playSound("ItemSound.quest_finish")
