@@ -44,7 +44,9 @@ public class RequestPledgeCrest extends L2GameClientPacket
 		_crestId = 0;
 		try {
 		    _crestId = readD();
-		} catch (Exception e) {};
+		} catch (Exception e) {
+			e.printStackTrace();
+		};
 	}
 
     @Override

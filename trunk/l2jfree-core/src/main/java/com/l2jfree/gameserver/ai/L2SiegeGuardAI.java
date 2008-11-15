@@ -484,17 +484,14 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 		L2SiegeGuardInstance sGuard = (L2SiegeGuardInstance) _actor;
 		L2Character attackTarget = getAttackTarget();
 
-		try
-		{
+		if (attackTarget != null) {
 			_actor.setTarget(attackTarget);
 			skills = _actor.getAllSkills();
 			dist_2 = _actor.getPlanDistanceSq(attackTarget.getX(), attackTarget.getY());
 			range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius() + attackTarget.getTemplate().getCollisionRadius();
 			if (attackTarget.isMoving())
 				range += 50;
-		}
-		catch (NullPointerException e)
-		{
+		} else {
 			//_log.warning("AttackableAI: Attack target is NULL.");
 			_actor.setTarget(null);
 			setIntention(AI_INTENTION_IDLE, null, null);

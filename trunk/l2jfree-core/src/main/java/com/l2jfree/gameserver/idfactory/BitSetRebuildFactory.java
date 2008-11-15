@@ -127,7 +127,7 @@ public class BitSetRebuildFactory extends IdFactory
 			}
 			else
 			{
-				throw new NullPointerException("Ran out of valid Id's.");
+				throw new IndexOutOfBoundsException("Ran out of valid Id's.");
 			}
 		}
 

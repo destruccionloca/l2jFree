@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2ManorManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
@@ -133,22 +134,28 @@ public class RequestProcureCropList extends L2GameClientPacket
 				return;
 			}
 
-			try
-			{
-				CropProcure crop = CastleManager.getInstance().getCastleById(manorId).getCrop(itemId, CastleManorManager.PERIOD_CURRENT);
-				int rewardItemId = L2Manor.getInstance().getRewardItem(itemId,crop.getReward());
-				L2Item template = ItemTable.getInstance().getTemplate(rewardItemId);
-				weight += count * template.getWeight();
-
-				if (!template.isStackable())
-					slots += count;
-				else if (player.getInventory().getItemByItemId(itemId) == null)
-					slots++;
-			}
-			catch (NullPointerException e)
-			{
+			Castle castle = CastleManager.getInstance().getCastleById(manorId);
+			if (castle == null)
 				continue;
-			}
+			
+			CropProcure crop = castle.getCrop(itemId, CastleManorManager.PERIOD_CURRENT);
+			
+			if (crop == null)
+				continue;
+			
+			int rewardItemId = L2Manor.getInstance().getRewardItem(itemId,crop.getReward());
+			
+			L2Item template = ItemTable.getInstance().getTemplate(rewardItemId);
+			
+			if (template == null)
+				continue;
+			
+			weight += count * template.getWeight();
+
+			if (!template.isStackable())
+				slots += count;
+			else if (player.getInventory().getItemByItemId(itemId) == null)
+				slots++;
 		}
 
 		if (!player.getInventory().validateWeight(weight))
@@ -181,16 +188,15 @@ public class RequestProcureCropList extends L2GameClientPacket
 
 			CropProcure crop = null;
 
-			try
-			{
-				crop = CastleManager.getInstance().getCastleById(manorId).getCrop(cropId, CastleManorManager.PERIOD_CURRENT);
-			}
-			catch (NullPointerException e)
-			{
+			Castle castle = CastleManager.getInstance().getCastleById(manorId);
+			if (castle == null)
 				continue;
-			}
+			else
+				crop = castle.getCrop(cropId, CastleManorManager.PERIOD_CURRENT);
+
 			if (crop == null || crop.getId() == 0 || crop.getPrice() == 0)
 				continue;
+
 			int fee = 0; // fee for selling to other manors
 
 			int rewardItem = L2Manor.getInstance().getRewardItem(cropId,

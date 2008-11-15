@@ -73,12 +73,9 @@ public class MagicSkillLaunched extends L2GameServerPacket
 			writeD(_singleTargetId);
 		else for (L2Object target : _targets)
 		{
-			try 
-			{ 
+			if (target != null) { 
 				writeD(target.getObjectId());
-			} 
-			catch (NullPointerException e) 
-			{ 
+			} else {
 				writeD(0); // untested 
 			}
 		}

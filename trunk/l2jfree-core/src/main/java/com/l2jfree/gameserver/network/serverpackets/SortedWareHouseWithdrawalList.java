@@ -190,7 +190,9 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
                     break;
             }
         }
-        catch(Exception e) {}
+        catch(Exception e) {
+        	e.printStackTrace();
+        }
     }
 	
 	/**

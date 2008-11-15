@@ -68,7 +68,9 @@ public class RequestDestroyItem extends L2GameClientPacket
 	    try {
 		_objectId = readD();
 		_count = readD();
-	    } catch (Exception e) {}
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }
 	}
 
     @Override

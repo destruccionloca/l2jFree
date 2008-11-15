@@ -39,13 +39,11 @@ public class PetInventory extends Inventory
 	{
 		// gets the L2PcInstance-owner's ID
 		int id = 0;
-		try
-		{
+
+		if (_owner.getOwner() != null) {
 			id = _owner.getOwner().getObjectId();
 		}
-		catch (NullPointerException e) 
-		{
-		}
+
 		return id;
 	}
 

@@ -28,19 +28,19 @@ public class Tupel
 
 	public static Tupel parseTupel(Node n, int zoneId)
 	{
-		try
-		{
+		if (n.getAttributes().getNamedItem("x") == null ||
+				n.getAttributes().getNamedItem("y") == null) {
+			
+			_log.error("x or y value missing in zone "+zoneId);
+			return null;
+		}
+		
+		try {
 			Tupel t = new Tupel();
 			t.x = Integer.parseInt(n.getAttributes().getNamedItem("x").getNodeValue());
 			t.y = Integer.parseInt(n.getAttributes().getNamedItem("y").getNodeValue());
 			return t;
-		}
-		catch(NullPointerException npe)
-		{
-			_log.error("x or y value missing in zone "+zoneId);
-		}
-		catch(NumberFormatException nfe)
-		{
+		} catch(NumberFormatException nfe) {
 			_log.error("x or y value not a number in zone "+zoneId);
 		}
 		return null;

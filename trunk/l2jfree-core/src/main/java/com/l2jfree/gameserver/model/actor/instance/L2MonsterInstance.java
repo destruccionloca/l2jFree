@@ -109,8 +109,7 @@ public class L2MonsterInstance extends L2Attackable
 
 		if (getTemplate().getMinionData() != null)
 		{
-			try
-			{
+			if (getSpawnedMinions() != null) {
 				for (L2MinionInstance minion : getSpawnedMinions())
 				{
 					if (minion == null)
@@ -121,9 +120,6 @@ public class L2MonsterInstance extends L2Attackable
 				_minionList.clearRespawnList();
 
 				manageMinions();
-			}
-			catch (NullPointerException e)
-			{
 			}
 		}
 	}
@@ -135,8 +131,7 @@ public class L2MonsterInstance extends L2Attackable
 
 		if (getTemplate().getMinionData() != null)
 		{
-			try
-			{
+			if (getSpawnedMinions() != null) {
 				for (L2MinionInstance minion : getSpawnedMinions())
 				{
 					if (minion == null)
@@ -147,9 +142,6 @@ public class L2MonsterInstance extends L2Attackable
 				_minionList.clearRespawnList();
 
 				manageMinions();
-			}
-			catch (NullPointerException e)
-			{
 			}
 		}
 	}

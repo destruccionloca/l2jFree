@@ -377,7 +377,9 @@ public class L2Party
 					if (character.getForceBuff() != null && character.getForceBuff().getTarget() == player)
 						character.abortCast();
 			}
-			catch (Exception e){}
+			catch (Exception e){
+				e.printStackTrace();
+			}
 
 			SystemMessage msg = new SystemMessage(SystemMessageId.YOU_LEFT_PARTY);
 			player.sendPacket(msg);

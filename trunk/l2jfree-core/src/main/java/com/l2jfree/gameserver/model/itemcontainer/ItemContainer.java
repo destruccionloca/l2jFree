@@ -561,7 +561,11 @@ public abstract class ItemContainer
 	 */
 	public void deleteMe()
 	{
-		try { updateDatabase(); } catch (Throwable t) {_log.fatal( "deletedMe()", t); }
+		try {
+			updateDatabase();
+		} catch (Exception t) {
+			_log.fatal( "deletedMe()", t); 
+		}
 		FastList<L2Object> items = new FastList<L2Object>(_items);
     	_items.clear();
 		

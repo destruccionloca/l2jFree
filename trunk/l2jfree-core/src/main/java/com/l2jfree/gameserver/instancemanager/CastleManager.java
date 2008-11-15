@@ -226,23 +226,17 @@ public class CastleManager
 		if (circletId != 0)
 		{
 			// online-player circlet removal
-			if (player != null)
+			if (player != null &&
+					player.getInventory() != null)
 			{
-				try
+				L2ItemInstance circlet = player.getInventory().getItemByItemId(circletId);
+				if (circlet != null)
 				{
-					L2ItemInstance circlet = player.getInventory().getItemByItemId(circletId);
-					if (circlet != null)
-					{
-						if (circlet.isEquipped())
-							player.getInventory().unEquipItemInSlotAndRecord(circlet.getLocationSlot());
-						player.destroyItemByItemId("CastleCircletRemoval", circletId, 1, player, true);
-					}
-					return;
+					if (circlet.isEquipped())
+						player.getInventory().unEquipItemInSlotAndRecord(circlet.getLocationSlot());
+					player.destroyItemByItemId("CastleCircletRemoval", circletId, 1, player, true);
 				}
-				catch (NullPointerException e)
-				{
-					// continue removing offline
-				}
+				return;
 			}
 			// else offline-player circlet removal
 			Connection con = null;

@@ -4358,13 +4358,8 @@ public abstract class L2Character extends L2Object
 					{
 						for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 						{
-							try
-							{
+							if (player != null)
 								player.sendPacket(su);
-							}
-							catch (NullPointerException e)
-							{
-							}
 						}
 					}
 				}
@@ -5042,16 +5037,11 @@ public abstract class L2Character extends L2Object
 			{
 				if (isOnGeodataPath())
 				{
-					try
-					{
+					if (_move != null) {
 						if (gtx == _move.geoPathGtx && gty == _move.geoPathGty)
 							return;
 						else
 							_move.onGeodataPathIndex = -1; // Set not on geodata path
-					}
-					catch (NullPointerException e)
-					{
-						// nothing
 					}
 				}
 

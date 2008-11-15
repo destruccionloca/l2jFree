@@ -699,13 +699,9 @@ public class L2Clan
 		List<L2PcInstance> result = new FastList<L2PcInstance>();
 		for (L2ClanMember temp : _members.values())
 		{
-			try
-			{
+			if (temp != null) {
 				if (temp.isOnline() && temp.getPlayerInstance() != null)
 					result.add(temp.getPlayerInstance());
-			}
-			catch (NullPointerException e)
-			{
 			}
 		}
 
@@ -717,13 +713,9 @@ public class L2Clan
 		List<L2PcInstance> result = new FastList<L2PcInstance>();
 		for (L2ClanMember temp : _members.values())
 		{
-			try
-			{
+			if (temp != null) {
 				if (temp.isOnline() && temp.getObjectId() != exclude)
 					result.add(temp.getPlayerInstance());
-			}
-			catch (NullPointerException e)
-			{
 			}
 		}
 
@@ -1286,13 +1278,9 @@ public class L2Clan
 			return;
 		for (L2ClanMember temp : _members.values())
 		{
-			try
-			{
+			if (temp != null) {
 				if (temp.isOnline() && temp.getPlayerInstance() != null)
 					addSkillEffects(temp.getPlayerInstance(), notify);
-			}
-			catch (NullPointerException e)
-			{
 			}
 		}
 	}
@@ -1366,29 +1354,21 @@ public class L2Clan
 		{
 			if (member == null)
 				continue;
-			try
-			{
-				if (member.isOnline())
-					member.getPlayerInstance().sendPacket(packet);
-			}
-			catch (NullPointerException e)
-			{
-			}
+			
+			if (member.isOnline() && member.getPlayerInstance() != null)
+				member.getPlayerInstance().sendPacket(packet);
 		}
 	}
 
-	public void broadcastCSToOnlineMembers(CreatureSay packet, L2PcInstance broadcaster)
+	public void broadcastCreatureSayToOnlineMembers(CreatureSay packet, L2PcInstance broadcaster)
 	{
 		for (L2ClanMember member : _members.values())
 		{
-			try
-			{
-				if (member.isOnline() && !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(member.getPlayerInstance(), broadcaster)))
-					member.getPlayerInstance().sendPacket(packet);
-			}
-			catch (NullPointerException e)
-			{
-			}
+			if (member.isOnline() &&
+					member.getPlayerInstance() != null &&
+					!(Config.REGION_CHAT_ALSO_BLOCKED && 
+							BlockList.isBlocked(member.getPlayerInstance(), broadcaster)))
+				member.getPlayerInstance().sendPacket(packet);
 		}
 	}
 
@@ -1396,14 +1376,10 @@ public class L2Clan
 	{
 		for (L2ClanMember member : _members.values())
 		{
-			try
-			{
-				if (member.isOnline() && member.getPlayerInstance() != player)
-					member.getPlayerInstance().sendPacket(packet);
-			}
-			catch (NullPointerException e)
-			{
-			}
+			if (member.isOnline() && 
+					member.getPlayerInstance() != null && 
+					member.getPlayerInstance() != player)
+				member.getPlayerInstance().sendPacket(packet);
 		}
 	}
 

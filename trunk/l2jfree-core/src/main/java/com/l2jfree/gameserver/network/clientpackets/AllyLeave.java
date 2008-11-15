@@ -71,14 +71,11 @@ public class AllyLeave extends L2GameClientPacket
         clan.updateClanInDB();
         
         player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_WITHDRAWN_FROM_ALLIANCE));
-		// Added to delete the Alliance Crest when a clan leaves an ally.
-		try
-		{
-			player.getClan().setAllyCrestId(0);
-			for (L2PcInstance member : player.getClan().getOnlineMembers(0))
-				member.broadcastUserInfo();
-		}
-		catch(Throwable t){}
+
+        // Added to delete the Alliance Crest when a clan leaves an ally.
+		player.getClan().setAllyCrestId(0);
+		for (L2PcInstance member : player.getClan().getOnlineMembers(0))
+			member.broadcastUserInfo();
     }
     
     @Override

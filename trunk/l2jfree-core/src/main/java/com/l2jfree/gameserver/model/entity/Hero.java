@@ -190,27 +190,28 @@ public class Hero
 	 */
 	private void initRelationBetweenHeroAndClan(ResultSet resultSet, StatsSet hero) throws SQLException
 	{
-		try
+		if (resultSet.next())
 		{
-			if (resultSet.next())
-			{
-				int clanId = resultSet.getInt("clanid");
-				int allyId = resultSet.getInt("allyId");
+			int clanId = resultSet.getInt("clanid");
+			int allyId = resultSet.getInt("allyId");
 
-				String clanName = "";
-				String allyName = "";
-				int clanCrest = 0;
-				int allyCrest = 0;
+			String clanName = "";
+			String allyName = "";
+			int clanCrest = 0;
+			int allyCrest = 0;
 
+			L2Clan clan = ClanTable.getInstance().getClan(clanId);
+			
+			if (clan != null) { 
 				if (clanId > 0)
 				{
-					clanName = ClanTable.getInstance().getClan(clanId).getName();
-					clanCrest = ClanTable.getInstance().getClan(clanId).getCrestId();
-
+					clanName = clan.getName();
+					clanCrest = clan.getCrestId();
+	
 					if (allyId > 0)
 					{
-						allyName = ClanTable.getInstance().getClan(clanId).getAllyName();
-						allyCrest = ClanTable.getInstance().getClan(clanId).getAllyCrestId();
+						allyName = clan.getAllyName();
+						allyCrest = clan.getAllyCrestId();
 					}
 				}
 
@@ -218,11 +219,9 @@ public class Hero
 				hero.set(CLAN_NAME, clanName);
 				hero.set(ALLY_CREST, allyCrest);
 				hero.set(ALLY_NAME, allyName);
+			} else {
+				_log.warn("Hero: initRelationBetweenHeroAndClan ");
 			}
-		}
-		catch (NullPointerException e)
-		{
-			_log.fatal("Hero: initRelationBetweenHeroAndClan ", e);
 		}
 	}
 

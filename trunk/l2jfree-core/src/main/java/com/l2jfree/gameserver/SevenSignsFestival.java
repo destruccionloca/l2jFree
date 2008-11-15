@@ -1275,15 +1275,11 @@ public class SevenSignsFestival implements SpawnListener
 		// Remove any unused blood offerings from online players.
 		for (L2PcInstance onlinePlayer : L2World.getInstance().getAllPlayers())
 		{
-			try
-			{
+			if (onlinePlayer != null) {
 				L2ItemInstance bloodOfferings = onlinePlayer.getInventory().getItemByItemId(FESTIVAL_OFFERING_ID);
 
 				if (bloodOfferings != null)
 					onlinePlayer.destroyItem("SevenSigns", bloodOfferings, null, false);
-			}
-			catch (NullPointerException e)
-			{
 			}
 		}
 
@@ -1600,12 +1596,8 @@ public class SevenSignsFestival implements SpawnListener
 			// Record a string list of the party members involved.
 			for (L2PcInstance partyMember : prevParticipants)
 			{
-				try
-				{
+				if (partyMember != null) {
 					partyMembers.add(partyMember.getName());
-				}
-				catch (NullPointerException e)
-				{
 				}
 			}
 
@@ -2100,45 +2092,41 @@ public class SevenSignsFestival implements SpawnListener
 			// Teleport all players to arena and notify them.
 			if (_participants.size() > 0)
 			{
-				try
+				for (L2PcInstance participant : _participants)
 				{
-					for (L2PcInstance participant : _participants)
+					if (participant == null)
+						continue;
+					
+					_originalLocations.put(participant, new FestivalSpawn(participant.getX(), participant.getY(), participant.getZ(), participant
+							.getHeading()));
+
+					// Randomize the spawn point around the specific centerpoint for each player.
+					int x = _startLocation._x;
+					int y = _startLocation._y;
+
+					isPositive = (Rnd.nextInt(2) == 1);
+
+					if (isPositive)
 					{
-						_originalLocations.put(participant, new FestivalSpawn(participant.getX(), participant.getY(), participant.getZ(), participant
-								.getHeading()));
-
-						// Randomize the spawn point around the specific centerpoint for each player.
-						int x = _startLocation._x;
-						int y = _startLocation._y;
-
-						isPositive = (Rnd.nextInt(2) == 1);
-
-						if (isPositive)
-						{
-							x += Rnd.nextInt(FESTIVAL_MAX_OFFSET_X);
-							y += Rnd.nextInt(FESTIVAL_MAX_OFFSET_Y);
-						}
-						else
-						{
-							x -= Rnd.nextInt(FESTIVAL_MAX_OFFSET_X);
-							y -= Rnd.nextInt(FESTIVAL_MAX_OFFSET_Y);
-						}
-
-						participant.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-						participant.teleToLocation(x, y, _startLocation._z, true);
-
-						// Remove all buffs from all participants on entry. Works like the skill Cancel.
-						participant.stopAllEffects();
-
-						// Remove any stray blood offerings in inventory
-						L2ItemInstance bloodOfferings = participant.getInventory().getItemByItemId(FESTIVAL_OFFERING_ID);
-						if (bloodOfferings != null)
-							participant.destroyItem("SevenSigns", bloodOfferings, null, true);
+						x += Rnd.nextInt(FESTIVAL_MAX_OFFSET_X);
+						y += Rnd.nextInt(FESTIVAL_MAX_OFFSET_Y);
 					}
-				}
-				catch (NullPointerException e)
-				{
-					// deleteMe handling should teleport party out in case of disconnect
+					else
+					{
+						x -= Rnd.nextInt(FESTIVAL_MAX_OFFSET_X);
+						y -= Rnd.nextInt(FESTIVAL_MAX_OFFSET_Y);
+					}
+
+					participant.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+					participant.teleToLocation(x, y, _startLocation._z, true);
+
+					// Remove all buffs from all participants on entry. Works like the skill Cancel.
+					participant.stopAllEffects();
+
+					// Remove any stray blood offerings in inventory
+					L2ItemInstance bloodOfferings = participant.getInventory().getItemByItemId(FESTIVAL_OFFERING_ID);
+					if (bloodOfferings != null)
+						participant.destroyItem("SevenSigns", bloodOfferings, null, true);
 				}
 			}
 

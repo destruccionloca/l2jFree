@@ -1400,13 +1400,11 @@ public class L2NpcInstance extends L2Character
 				while (st.hasMoreTokens())
 				{
 					doorId = Integer.parseInt(st.nextToken());
-					try
-					{
+					
+					if (_doorTable.getDoor(doorId) != null) {
 						_doorTable.getDoor(doorId).openMe();
 						_doorTable.getDoor(doorId).onOpen();
-					}
-					catch (NullPointerException e)
-					{
+					} else {
 						_log.warn("Door Id does not exist.(" + doorId + ")");
 					}
 				}

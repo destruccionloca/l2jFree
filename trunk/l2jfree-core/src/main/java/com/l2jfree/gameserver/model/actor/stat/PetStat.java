@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.actor.stat;
 
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.base.Experience;
@@ -102,12 +103,10 @@ public class PetStat extends SummonStat
     @Override
     public final long getExpForLevel(int level) 
     {
-        try
-        {
-            return PetDataTable.getInstance().getPetData(getActiveChar().getNpcId(), level).getPetMaxExp();
-        }
-        catch (NullPointerException e)
-        {
+    	L2PetData data = PetDataTable.getInstance().getPetData(getActiveChar().getNpcId(), level);
+        if (data != null) {
+            return data.getPetMaxExp();
+        } else {
             _log.warn("Pet NPC ID "+getActiveChar().getNpcId()+", level "+level+" is missing data from pets_stats table!");
             return 5000000L * level; // temp value calculated from lvl 81 wyvern, 395734658
         }

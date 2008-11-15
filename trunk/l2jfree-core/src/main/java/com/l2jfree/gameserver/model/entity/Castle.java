@@ -131,35 +131,32 @@ public class Castle extends Siegeable
 			}
 			public void run()
 			{
-				try
+				if (getOwnerId() <= 0)
+					return;
+				if(ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().getAdena() >= _fee || !_cwh)
 				{
-					if (getOwnerId() <= 0)
-						return;
-					if(ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().getAdena() >= _fee || !_cwh)
+					int fee = _fee;
+					boolean newfc = true;
+					if(getEndTime() == 0 || getEndTime() == -1)
 					{
-						int fee = _fee;
-						boolean newfc = true;
-						if(getEndTime() == 0 || getEndTime() == -1)
+						if(getEndTime() == -1)
 						{
-							if(getEndTime() == -1)
-							{
-								newfc = false;
-								fee = _tempFee;
-							}
-						}else
 							newfc = false;
-						setEndTime(System.currentTimeMillis()+getRate());
-						dbSave(newfc);
-						if (_cwh)
-						{
-							ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CS_function_fee", 57, fee, null, null);
-							if (_log.isDebugEnabled())
-								_log.warn("deducted "+fee+" adena from "+getName()+" owner's cwh for function id : "+getType());
+							fee = _tempFee;
 						}
-						ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(true), getRate());
 					}else
-						removeFunction(getType());
-				} catch (Throwable t) { }
+						newfc = false;
+					setEndTime(System.currentTimeMillis()+getRate());
+					dbSave(newfc);
+					if (_cwh)
+					{
+						ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CS_function_fee", 57, fee, null, null);
+						if (_log.isDebugEnabled())
+							_log.warn("deducted "+fee+" adena from "+getName()+" owner's cwh for function id : "+getType());
+					}
+					ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(true), getRate());
+				}else
+					removeFunction(getType());
 			}
 		}
 
