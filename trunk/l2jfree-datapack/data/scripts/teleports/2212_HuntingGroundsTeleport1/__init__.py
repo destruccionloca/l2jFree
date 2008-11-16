@@ -1,8 +1,8 @@
 import sys
-from net.sf.l2j.gameserver.model.actor.instance import L2PcInstance
-from net.sf.l2j.gameserver.model.quest          import State
-from net.sf.l2j.gameserver.model.quest          import QuestState
-from net.sf.l2j.gameserver.model.quest.jython   import QuestJython as JQuest
+from com.l2jfree.gameserver.model.actor.instance import L2PcInstance
+from com.l2jfree.gameserver.model.quest          import State
+from com.l2jfree.gameserver.model.quest          import QuestState
+from com.l2jfree.gameserver.model.quest.jython   import QuestJython as JQuest
 qn = "2212_HuntingGroundsTeleport1"
 GLUDIN_DAWN,GLUDIO_DAWN,DION_DAWN,GIRAN_DAWN,HEINE_DAWN,OREN_DAWN,ADEN_DAWN,\
 GLUDIN_DUSK,GLUDIO_DUSK,DION_DUSK,GIRAN_DUSK,HEINE_DUSK,OREN_DUSK,ADEN_DUSK = range(31078,31092)
