@@ -1,0 +1,134 @@
+<list>
+  <zone id="1" name="Stadia 1" type="Stadium">
+    <shape type="Rect" zMin="-3200" zMax="-2800">
+      <point x="-17000" y="-17000" />
+      <point x="-23000" y="-23000" />
+    </shape>
+  </zone>
+  <zone id="2" name="Stadia 2" type="Stadium">
+    <shape type="Rect" zMin="-3400" zMax="-3000">
+      <point x="-118000" y="-227000" />
+      <point x="-122000" y="-223000" />
+    </shape>
+  </zone>
+  <zone id="3" name="Stadia 3" type="Stadium">
+    <shape type="Rect" zMin="-3500" zMax="-3100">
+      <point x="-105000" y="-211000" />
+      <point x="-101000" y="-207000" />
+    </shape>
+  </zone>
+  <zone id="4" name="Stadia 4" type="Stadium">
+    <shape type="Rect" zMin="-3500" zMax="-3100">
+      <point x="-119079" y="-206078" />
+      <point x="-121438" y="-208668" />
+    </shape>
+  </zone>
+  <zone id="5" name="Stadia 5" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-89500" y="-227500" />
+      <point x="-85500" y="-223500" />
+    </shape>
+  </zone>
+  <zone id="6" name="Stadia 6" type="Stadium">
+    <shape type="Rect" zMin="-3500" zMax="-3100">
+      <point x="-80000" y="-211000" />
+      <point x="-84000" y="-216000" />
+    </shape>
+  </zone>
+  <zone id="7" name="Stadia 7" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-89500" y="-205500" />
+      <point x="-85500" y="-209500" />
+    </shape>
+  </zone>
+  <zone id="8" name="Stadia 8" type="Stadium">
+    <shape type="Rect" zMin="-3500" zMax="-3100">
+      <point x="-91500" y="-220000" />
+      <point x="-96500" y="-215000" />
+    </shape>
+  </zone>
+  <zone id="9" name="Stadia 9" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-75000" y="-221000" />
+      <point x="-80000" y="-216000" />
+    </shape>
+  </zone>
+  <zone id="10" name="Stadia 10" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-67500" y="-207000" />
+      <point x="-71500" y="-211000" />
+    </shape>
+  </zone>
+  <zone id="11" name="Stadia 11" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-79000" y="-199000" />
+      <point x="-75000" y="-223000" />
+    </shape>
+  </zone>
+  <zone id="12" name="Stadia 12" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-112000" y="-216000" />
+      <point x="-108000" y="-221000" />
+    </shape>
+  </zone>
+  <zone id="13" name="Stadia 13" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-124500" y="-221000" />
+      <point x="-128500" y="-216500" />
+    </shape>
+  </zone>
+  <zone id="14" name="Stadia 14" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-107000" y="-203000" />
+      <point x="-112000" y="-199000" />
+    </shape>
+  </zone>
+  <zone id="15" name="Stadia 15" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-85000" y="-238000" />
+      <point x="-90000" y="-242000" />
+    </shape>
+  </zone>
+  <zone id="16" name="Stadia 16" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-79000" y="-243000" />
+      <point x="-84000" y="-248000" />
+    </shape>
+  </zone>
+  <zone id="17" name="Stadia 17" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-79500" y="-253500" />
+      <point x="-75500" y="-249500" />
+    </shape>
+  </zone>
+  <zone id="18" name="Stadia 18" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-72000" y="-239000" />
+      <point x="-68000" y="-244000" />
+    </shape>
+  </zone>
+  <zone id="19" name="Stadia 19" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-74000" y="-236000" />
+      <point x="-79000" y="-231000" />
+    </shape>
+  </zone>
+  <zone id="20" name="Stadia 20" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-91500" y="-253000" />
+      <point x="-96000" y="-248000" />
+    </shape>
+  </zone>
+  <zone id="21" name="Stadia 21" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-91000" y="-260000" />
+      <point x="-84000" y="-255000" />
+    </shape>
+  </zone>
+  <zone id="22" name="Stadia 22" type="Stadium">
+    <shape type="Rect" zMin="-3600" zMax="-3200">
+      <point x="-117000" y="-210000" />
+      <point x="-111000" y="-215000" />
+    </shape>
+  </zone>
+</list>
