@@ -541,6 +541,7 @@ public class Castle extends Siegeable
 				_treasury = rs.getInt("treasury");
 			}
 
+			rs.close();
 			statement.close();
 
 			_taxRate = (_taxPercent + 100) / 100.0;
@@ -560,6 +561,7 @@ public class Castle extends Siegeable
 				ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000); // Schedule owner tasks to start running 
 			}
 
+			rs.close();
 			statement.close();
 		}
 		catch (Exception e)
@@ -595,6 +597,7 @@ public class Castle extends Siegeable
 				door.closeMe();
 			}
 
+			rs.close();
 			statement.close();
 		}
 		catch (Exception e)
@@ -621,6 +624,7 @@ public class Castle extends Siegeable
 				upgradeDoor(rs.getInt("id"), rs.getInt("hp"), rs.getInt("pDef"), rs.getInt("mDef"));
 			}
 
+			rs.close();
 			statement.close();
 		}
 		catch (Exception e)

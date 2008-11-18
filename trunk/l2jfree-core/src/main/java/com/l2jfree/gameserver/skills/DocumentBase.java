@@ -34,35 +34,7 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.base.Race;
-import com.l2jfree.gameserver.skills.conditions.Condition;
-import com.l2jfree.gameserver.skills.conditions.ConditionChangeWeapon;
-import com.l2jfree.gameserver.skills.conditions.ConditionForceBuff;
-import com.l2jfree.gameserver.skills.conditions.ConditionGameChance;
-import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
-import com.l2jfree.gameserver.skills.conditions.ConditionLogicAnd;
-import com.l2jfree.gameserver.skills.conditions.ConditionLogicNot;
-import com.l2jfree.gameserver.skills.conditions.ConditionLogicOr;
-import com.l2jfree.gameserver.skills.conditions.ConditionPlayerCp;
-import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
-import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHpPercentage;
-import com.l2jfree.gameserver.skills.conditions.ConditionPlayerLevel;
-import com.l2jfree.gameserver.skills.conditions.ConditionPlayerMp;
-import com.l2jfree.gameserver.skills.conditions.ConditionPlayerRace;
-import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState;
-import com.l2jfree.gameserver.skills.conditions.ConditionPlayerWeight;
-import com.l2jfree.gameserver.skills.conditions.ConditionSkillStats;
-import com.l2jfree.gameserver.skills.conditions.ConditionSlotItemId;
-import com.l2jfree.gameserver.skills.conditions.ConditionTargetActiveEffectId;
-import com.l2jfree.gameserver.skills.conditions.ConditionTargetActiveSkillId;
-import com.l2jfree.gameserver.skills.conditions.ConditionTargetAggro;
-import com.l2jfree.gameserver.skills.conditions.ConditionTargetClassIdRestriction;
-import com.l2jfree.gameserver.skills.conditions.ConditionTargetLevel;
-import com.l2jfree.gameserver.skills.conditions.ConditionTargetRaceId;
-import com.l2jfree.gameserver.skills.conditions.ConditionTargetUndead;
-import com.l2jfree.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
-import com.l2jfree.gameserver.skills.conditions.ConditionUsingItemType;
-import com.l2jfree.gameserver.skills.conditions.ConditionUsingSkill;
-import com.l2jfree.gameserver.skills.conditions.ConditionWithSkill;
+import com.l2jfree.gameserver.skills.conditions.*;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime.CheckGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
 import com.l2jfree.gameserver.skills.effects.EffectTemplate;
@@ -534,6 +506,11 @@ abstract class DocumentBase
 			{
 				int skill_id = Integer.decode(getValue(a.getNodeValue(), template));
 				cond = joinAnd(cond, new ConditionTargetActiveSkillId(skill_id));
+			}
+			else if("mindistance".equalsIgnoreCase(a.getNodeName()))
+			{
+				int distance = Integer.decode(getValue(a.getNodeValue(),null));
+				cond = joinAnd(cond, new ConditionMinDistance(distance * distance));
 			}
 			else if ("race_id".equalsIgnoreCase(a.getNodeName()))
 			{

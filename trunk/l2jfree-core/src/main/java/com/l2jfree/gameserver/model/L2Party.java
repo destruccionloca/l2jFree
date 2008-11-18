@@ -408,12 +408,16 @@ public class L2Party
 					cmd.broadcastToChannelMembers(new SystemMessage(SystemMessageId.S1_PARTY_LEFT_COMMAND_CHANNEL)
 																		.addString(getLeader().getName()));
 				}
-				getLeader().setParty(null);
-				if (getLeader().isInDuel())
-					DuelManager.getInstance().onRemoveFromParty(getLeader());
-				if (player.isFestivalParticipant())
-					SevenSignsFestival.getInstance().updateParticipants(player, this);
-				getLeader().sendPacket(new PartySmallWindowDeleteAll());
+				L2PcInstance leader = getLeader();
+				if (leader != null)
+				{
+					leader.setParty(null);
+					if (leader.isInDuel())
+						DuelManager.getInstance().onRemoveFromParty(leader);
+					if (player.isFestivalParticipant())
+						SevenSignsFestival.getInstance().updateParticipants(player, this);
+					leader.sendPacket(new PartySmallWindowDeleteAll());
+				}
 			}
 			else
 			{

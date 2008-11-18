@@ -437,6 +437,10 @@ public final class Formulas
 			env.value += p.getLevel();
 			if (p instanceof L2Summon)
 				env.value += (p.getLevel() < 60) ? 4 : 5;
+			if (p.getLevel() > 77)
+				env.value += (p.getLevel() - 77);
+			if (p.getLevel() > 69)
+				env.value += (p.getLevel() - 69);
 		}
 	}
 
@@ -461,6 +465,10 @@ public final class Formulas
 			//[Square(DEX)]*6 + lvl;
 			env.value += Math.sqrt(p.getStat().getDEX()) * 6;
 			env.value += p.getLevel();
+			if (p.getLevel() > 77)
+				env.value += (p.getLevel() - 77);
+			if (p.getLevel() > 69)
+				env.value += (p.getLevel() - 69);
 		}
 	}
 
@@ -1910,7 +1918,7 @@ public final class Formulas
 		double init = 0;
 
 		if (Config.ALT_GAME_CANCEL_CAST && target.isCastingNow())
-			init = 50;
+			init = 15;
 		if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow())
 		{
 			L2Weapon wpn = target.getActiveWeaponItem();

@@ -110,7 +110,7 @@ public class ScrollOfEscape implements IItemHandler
 			return;
 		}
 		
-		if (activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() || activeChar.isAllSkillsDisabled())
+		if (checkConditions(activeChar))
 			return;
 
 		// [L2J_JP ADD]
@@ -361,6 +361,12 @@ public class ScrollOfEscape implements IItemHandler
 				_log.error(e.getMessage(), e);
 			}
 		}
+	}
+
+	private static boolean checkConditions(L2PcInstance actor)
+	{
+		 return actor.isStunned() || actor.isSleeping() || actor.isParalyzed() || actor.isFakeDeath() || actor.isTeleporting()
+		 || actor.isMuted() || actor.isAlikeDead() || actor.isAllSkillsDisabled();
 	}
 
 	public int[] getItemIds()

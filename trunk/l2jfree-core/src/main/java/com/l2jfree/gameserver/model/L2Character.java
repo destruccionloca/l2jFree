@@ -5696,6 +5696,7 @@ public abstract class L2Character extends L2Object
 				L2Weapon weapon = getActiveWeaponItem();
 				boolean isRangeWeapon = (weapon != null && (weapon.getItemType() == L2WeaponType.BOW || weapon.getItemType() == L2WeaponType.CROSSBOW));
 
+				int reflectedDamage = 0;
 				if (!isRangeWeapon || (this instanceof L2PcInstance && ((L2PcInstance) this).isTransformed())) // Do not reflect or absorb if weapon is of type bow
 				{
 					// Reduce HP of the target and calculate reflection damage to reduce HP of attacker if necessary
@@ -5703,12 +5704,18 @@ public abstract class L2Character extends L2Object
 
 					if (reflectPercent > 0)
 					{
-						int reflectedDamage = (int) (reflectPercent / 100. * damage);
+						reflectedDamage = (int) (reflectPercent / 100. * damage);
 						damage -= reflectedDamage;
 
 						if (reflectedDamage > target.getMaxHp()) // to prevent extreme damage when hitting a low lvl char...
 							reflectedDamage = target.getMaxHp();
+					}
+					
+					// Reduce targets HP
+					target.reduceCurrentHp(damage, this);
 
+					if (reflectedDamage > 0)
+					{
 						getStatus().reduceHp(reflectedDamage, target, true);
 
 						// Custom messages - nice but also more network load
@@ -5753,8 +5760,6 @@ public abstract class L2Character extends L2Object
 						getStatus().setCurrentCp(getStatus().getCurrentCp() + absorbDamage);
 					}
 				}
-
-				target.reduceCurrentHp(damage, this);
 
 				// Notify AI with EVT_ATTACKED
 				target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);

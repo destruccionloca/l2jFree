@@ -14,11 +14,11 @@
  */
 package com.l2jfree.tools.random;
 
-import java.security.SecureRandom;
+import java.util.Random;
 
 public class Rnd
 {
-	private static final SecureRandom _random = new SecureRandom();
+	private static final Random _random = new Random();
 	
 	/**
 	 * Get random number from 0.0 to 1.0

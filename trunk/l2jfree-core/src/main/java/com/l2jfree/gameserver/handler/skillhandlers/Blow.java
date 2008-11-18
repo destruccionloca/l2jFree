@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -85,8 +86,12 @@ public class Blow implements ISkillHandler
 				_successChance = SIDE;
 			//If skill requires Crit or skill requires behind, 
 			//calculate chance based on DEX, Position and on self BUFF
-			if (!skillIsEvaded && ((skill.getCondition() & L2Skill.COND_BEHIND) != 0) && _successChance == BEHIND || ((skill.getCondition() & L2Skill.COND_CRIT) != 0) 
-					&& Formulas.getInstance().calcBlow(activeChar, target, _successChance))
+			boolean success = true;
+			if ((skill.getCondition() & L2Skill.COND_BEHIND) != 0)
+				success = (_successChance == BEHIND);
+			if ((skill.getCondition() & L2Skill.COND_CRIT) != 0)
+				success = (success && Formulas.getInstance().calcBlow(activeChar, target, _successChance));
+			if (!skillIsEvaded && success)
 			{
 				if (skill.hasEffects())
 				{

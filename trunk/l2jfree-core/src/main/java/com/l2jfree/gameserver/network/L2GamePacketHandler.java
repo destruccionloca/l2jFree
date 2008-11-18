@@ -861,11 +861,16 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					break;
 				case 0x52:
 					msg = new RequestChangeNicknameColor();
-					break;					
+					break;
 				case 0x53:
 					msg = new RequestResetNickname();
-					break;					
-					
+					break;
+				case 0x54:
+					// TODO: implement me (just disabling warnings for this packet)
+					break;
+				case 0x58:
+					// TODO: implement me (just disabling warnings for this packet)
+					break;
 				default:
 					this.printDebugDoubleOpcode(opcode, id2, buf, state, client);
 					break;

@@ -50,13 +50,8 @@ public class SoulCrystal
    };
    
    public static final byte MAX_CRYSTALS_LEVEL = 14;
-   public static final int BREAK_CHANCE = Config.ALT_CHANCE_BREAK;
    public static final int LEVEL_CHANCE = Config.ALT_CHANCE_LEVEL;
    
-   public static final short RED_BROKEN_CRYSTAL = 4662;
-   public static final short GRN_BROKEN_CYRSTAL = 4663;
-   public static final short BLU_BROKEN_CRYSTAL = 4664;
-
    public static final short RED_NEW_CRYSTAL = 4629;
    public static final short GRN_NEW_CYRSTAL = 4640;
    public static final short BLU_NEW_CRYSTAL = 4651;

@@ -1053,7 +1053,7 @@ public final class Config
 	public static int				DEFAULT_PUNISH;								// Default punishment for illegal actions
 	public static int				DEFAULT_PUNISH_PARAM;							// Parameter for default punishment
 	public static boolean			GM_AUDIT;
-	public static String			COMMUNITY_TYPE;								// Community Board
+	public static int				COMMUNITY_TYPE;								// Community Board
 	public static boolean			BBS_SHOW_PLAYERLIST;
 	public static String			BBS_DEFAULT;
 	public static boolean			SHOW_LEVEL_COMMUNITYBOARD;
@@ -1170,7 +1170,7 @@ public final class Config
 
 			GM_AUDIT = Boolean.parseBoolean(optionsSettings.getProperty("GMAudit", "False"));
 
-			COMMUNITY_TYPE = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
+			COMMUNITY_TYPE = Integer.parseInt(optionsSettings.getProperty("CommunityType", "1"));
 			BBS_SHOW_PLAYERLIST = Boolean.parseBoolean(optionsSettings.getProperty("BBSShowPlayerList", "false"));
 			BBS_DEFAULT = optionsSettings.getProperty("BBSDefault", "_bbshome");
 			SHOW_LEVEL_COMMUNITYBOARD = Boolean.parseBoolean(optionsSettings.getProperty("ShowLevelOnCommunityBoard", "False"));
@@ -3275,7 +3275,7 @@ public final class Config
 		else if (pName.equalsIgnoreCase("AllowRentPet"))
 			ALLOW_RENTPET = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("CommunityType"))
-			COMMUNITY_TYPE = pValue.toLowerCase();
+			COMMUNITY_TYPE = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("BBSShowPlayerList"))
 			BBS_SHOW_PLAYERLIST = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("BBSDefault"))
