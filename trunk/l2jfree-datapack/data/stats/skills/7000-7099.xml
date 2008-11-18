@@ -913,7 +913,7 @@
     critical attack rate for magic attacks. Effect 2.
   -->
   <skill id="7059" levels="1" name="Master's Blessing - Wild Magic">
-    <table name="#mCrit">4</table>
+    <table name="#mCrit">1.4</table>
     <set name="mpConsume" val="2" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
@@ -934,9 +934,8 @@
     A GM is always by your side. Temporarily decreases the
     target's MP consumption for skills. Effect 3.
   -->
-  <skill id="7060" levels="1"
-    name="Master's Blessing - Clarity">
-    <table name="#mpConsumeRate">0.9</table>
+  <skill id="7060" levels="1" name="Master's Blessing - Clarity">
+    <table name="#MpConsumeRate">0.9</table>
     <table name="#mpConsume">2</table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="1" />
@@ -951,10 +950,8 @@
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="#mpConsume" stackType="MPrate">
-        <mul order="0x30" stat="MagicalMpConsumeRate"
-          val="#mpConsumeRate" />
-        <mul order="0x30" stat="PhysicalMpConsumeRate"
-          val="#mpConsumeRate" />
+        <mul order="0x30" stat="MagicalMpConsumeRate" val="#MpConsumeRate" />
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="#MpConsumeRate" />
       </effect>
     </for>
   </skill>
@@ -962,8 +959,7 @@
     A GM is always by your side. The spirit of an ancient
     wizard temporarily possesses the target.
   -->
-  <skill id="7061" levels="1"
-    name="Master's Blessing - Prophecy of Water">
+  <skill id="7061" levels="1" name="Master's Blessing - Prophecy of Water">
     <set name="mpConsume" val="2" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
@@ -980,7 +976,7 @@
         <mul order="0x30" stat="mAtk" val="1.20" />
         <mul order="0x30" stat="mDef" val="1.20" />
         <mul order="0x30" stat="mAtkSpd" val="1.20" />
-        <mul order="0x30" stat="mCritRate" val="2.00" />
+        <mul order="0x30" stat="mCritRate" val="1.20" />
         <mul order="0x30" stat="regMp" val="1.2" />
         <mul order="0x30" stat="runSpd" val="0.80" />
         <mul order="0x30" stat="debuffVuln" val="0.9" />
@@ -991,8 +987,7 @@
     A GM is always by your side. The spirit of an ancient
     warrior temporarily possesses the target.
   -->
-  <skill id="7062" levels="1"
-    name="Master's Blessing - Prophecy of Fire">
+  <skill id="7062" levels="1" name="Master's Blessing - Prophecy of Fire">
     <set name="mpConsume" val="2" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />
@@ -1021,8 +1016,7 @@
     A GM is always by your side. The spirit of an ancient
     assassin temporarily possesses the target.
   -->
-  <skill id="7063" levels="1"
-    name="Master's Blessing - Prophecy of Wind">
+  <skill id="7063" levels="1" name="Master's Blessing - Prophecy of Wind">
     <set name="mpConsume" val="2" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />

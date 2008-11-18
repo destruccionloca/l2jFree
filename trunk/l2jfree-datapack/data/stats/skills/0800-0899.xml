@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-  <skill id="800" levels="3"
-    name="Master Ability - Magic Defense">
+  <skill id="800" levels="3" name="Master Ability - Magic Defense">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -27,16 +26,14 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="803" levels="1"
-    name="Healer Ability - Divine Protection">
+  <skill id="803" levels="1" name="Healer Ability - Divine Protection">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="804" levels="1"
-    name="Knight Ability - Resist Critical">
+  <skill id="804" levels="1" name="Knight Ability - Resist Critical">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -89,8 +86,7 @@
     <set name="effectRange" val="-1" />
     <set name="transformId" val="312" />
     <for>
-      <effect count="1" name="Transformation" time="18400"
-        val="0">
+      <effect count="1" name="Transformation" time="18400" val="0">
         <mul order="0x30" stat="pDef" val="0.75" />
         <mul order="0x30" stat="sDef" val="0.80" />  <!-- Guess - need retail confirmation -->
       </effect>
@@ -107,8 +103,7 @@
     <set name="effectRange" val="-1" />
     <set name="transformId" val="313" />
     <for>
-      <effect count="1" name="Transformation" time="18400"
-        val="0">
+      <effect count="1" name="Transformation" time="18400" val="0">
         <mul order="0x30" stat="pDef" val="0.75" />
         <mul order="0x30" stat="sDef" val="0.80" />  <!-- Guess - need retail confirmation -->
       </effect>
@@ -125,8 +120,7 @@
     <set name="effectRange" val="-1" />
     <set name="transformId" val="314" />
     <for>
-      <effect count="1" name="Transformation" time="18400"
-        val="0">
+      <effect count="1" name="Transformation" time="18400" val="0">
         <mul order="0x30" stat="pDef" val="0.75" />
         <mul order="0x30" stat="sDef" val="0.80" />  <!-- Guess - need retail confirmation -->
       </effect>
@@ -143,8 +137,7 @@
     <set name="effectRange" val="-1" />
     <set name="transformId" val="315" />
     <for>
-      <effect count="1" name="Transformation" time="18400"
-        val="0">
+      <effect count="1" name="Transformation" time="18400" val="0">
         <mul order="0x30" stat="pDef" val="0.75" />
         <mul order="0x30" stat="sDef" val="0.80" />  <!-- Guess - need retail confirmation -->
       </effect>
@@ -161,8 +154,7 @@
     <table name="#power"> 744 787 832 879 927 977 1029 1082
       1137 1194 1253 1313 1374 1438 1502 1568 1636 1704 1774
       1845 1917 1990 2064 2138 2213 2288 2363 2439 2515 2590
-      2665 2740 2814 2887 2959 3030 3100 3168 3234 3299 3362
-      3422 3480 </table>
+      2665 2740 2814 2887 2959 3030 3100 3168 3234 3299 3362 3422 3480 </table>
     <set name="weaponsAllowed" val="18432"/> <!-- Big Sword/Big Blunt -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -191,8 +183,7 @@
     <table name="#power"> 744 787 832 879 927 977 1029 1082
       1137 1194 1253 1313 1374 1438 1502 1568 1636 1704 1774
       1845 1917 1990 2064 2138 2213 2288 2363 2439 2515 2590
-      2665 2740 2814 2887 2959 3030 3100 3168 3234 3299 3362
-      3422 3480 </table>
+      2665 2740 2814 2887 2959 3030 3100 3168 3234 3299 3362 3422 3480 </table>
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -221,8 +212,7 @@
     <table name="#power"> 744 787 832 879 927 977 1029 1082
       1137 1194 1253 1313 1374 1438 1502 1568 1636 1704 1774
       1845 1917 1990 2064 2138 2213 2288 2363 2439 2515 2590
-      2665 2740 2814 2887 2959 3030 3100 3168 3234 3299 3362
-      3422 3480 </table>
+      2665 2740 2814 2887 2959 3030 3100 3168 3234 3299 3362 3422 3480 </table>
     <set name="weaponsAllowed" val="18432"/> <!-- Big Sword/Big Blunt -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -250,8 +240,7 @@
     <table name="#power"> 744 787 832 879 927 977 1029 1082
       1137 1194 1253 1313 1374 1438 1502 1568 1636 1704 1774
       1845 1917 1990 2064 2138 2213 2288 2363 2439 2515 2590
-      2665 2740 2814 2887 2959 3030 3100 3168 3234 3299 3362
-      3422 3480 </table>
+      2665 2740 2814 2887 2959 3030 3100 3168 3234 3299 3362 3422 3480 </table>
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -290,11 +279,22 @@
     <for />
   </skill>
   <skill id="821" levels="1" name="Shadow Step">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for />
+    <set name="mpConsume" val="50"/>
+    <set name="hitTime" val="0"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="INSTANT_JUMP"/>
+    <set name="effectType" val="DEBUFF"/>
+    <set name="effectPower" val="50"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="900"/>
+    <set name="reuseDelay" val="480000"/>
+    <cond msg="Shadow Step cannot be used due to unsuitable terms.">
+        <target mindistance="300"/>
+    </cond>
+    <for>
+        <effect count="1" name="RemoveTarget" time="1" val="0"/>
+    </for>
   </skill>
   <skill id="822" levels="3" name="Repair Golem">
     <set name="target" val="TARGET_NONE" />

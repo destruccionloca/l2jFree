@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-  <skill id="400" levels="10" name="Tribunal"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="400" levels="10" name="Tribunal" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1Power"> 1548 1562 1576 1590 1604 1617 1631
       1645 1659 1673 1686 1700 1714 1728 1742 1755 1769 1783
-      1797 1811 1824 1838 1852 1866 1880 1893 1907 1921 1935
-      1949 </table>
+      1797 1811 1824 1838 1852 1866 1880 1893 1907 1921 1935 1949 </table>
     <table name="#ench2MpConsume"> 70 69 68 67 66 64 63 62 61 60 58 57
       56 55 54 52 51 50 49 48 46 45 44 43 42 40 39 38 37 36 </table>
     <table name="#mpConsume"> 52 56 58 60 62 64 66 68 70 72 </table>
-    <table name="#power"> 770 879 955 1034 1115 1197 1281 1366
-      1451 1535 </table>
-    <table name="#rCrit"> -0.3 -0.3 -0.3 -0.3 -0.3 -0.3 -0.4
-      -0.4 -0.4 -0.5 </table>
+    <table name="#power"> 770 879 955 1034 1115 1197 1281 1366 1451 1535 </table>
+    <table name="#rCrit"> -0.3 -0.3 -0.3 -0.3 -0.3 -0.3 -0.4 -0.4 -0.4 -0.5 </table>
     <set name="weaponsAllowed" val="18444" /> <!-- Sword/Big Sword/Blunt/Big Blunt -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -38,19 +34,15 @@
       </effect>
     </for>
   </skill>
-  <skill id="401" levels="10" name="Judgment"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="401" levels="10" name="Judgment" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1Power"> 1769 1785 1801 1817 1833 1848 1864
       1880 1896 1912 1927 1943 1959 1975 1991 2006 2022 2038
-      2054 2070 2085 2101 2117 2133 2149 2164 2180 2196 2212
-      2228 </table>
+      2054 2070 2085 2101 2117 2133 2149 2164 2180 2196 2212 2228 </table>
     <table name="#ench2MpConsume"> 70 69 68 67 66 64 63 62 61 60 58 57
       56 55 54 52 51 50 49 48 46 45 44 43 42 40 39 38 37 36 </table>
     <table name="#mpConsume"> 52 56 58 60 62 64 66 68 70 72 </table>
-    <table name="#power"> 880 1004 1091 1181 1274 1368 1464
-      1561 1658 1754 </table>
-    <table name="#cAtk"> 0.75 0.75 0.75 0.75 0.75 0.7 0.7 0.7
-      0.7 0.65 </table>
+    <table name="#power"> 880 1004 1091 1181 1274 1368 1464 1561 1658 1754 </table>
+    <table name="#cAtk"> 0.75 0.75 0.75 0.75 0.75 0.7 0.7 0.7 0.7 0.65 </table>
     <set name="weaponsAllowed" val="18956" /> <!-- Dual Sword/Sword/Big Sword/Blunt/Big Blunt -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -128,8 +120,7 @@
         stackOrder="1" stackType="Root" />
     </for>
   </skill>
-  <skill id="405" levels="10" name="Banish Undead"
-    enchantLevels1="30">
+  <skill id="405" levels="10" name="Banish Undead" enchantLevels1="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -142,24 +133,22 @@
     -->
     <table name="#mpConsume"> 50 53 55 58 59 61 63 65 67 68 </table>
     <table name="#itemConsumeCount"> 5 6 7 7 8 8 9 9 10 10 </table>
-    <table name="#lethal2"> 5 9 13 17 21 25 29 33 37 41 </table>
+    <table name="#magicLvl"> 56 58 60 62 64 66 68 70 72 74 </table>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="itemConsumeId" val="1785" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="40" />
     <set name="reuseDelay" val="10000" />
     <set name="hitTime" val="2000" />
-    <set name="target" val="TARGET_ONE" />
+   <set name="target" val="TARGET_UNDEAD"/>
     <set name="isDebuff" val="true" />
     <set name="skillType" val="FEAR" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="lethal2" val="#lethal2" />
+    <set name="lethal2" val="40"/>
     <set name="castRange" val="150" />
     <set name="effectRange" val="550" />
     <enchant1 name="mpConsume" val="#ench1MpConsume" />
-    <cond msg="Your target is not undead">
-      <target undead="true" />
-    </cond>
     <for>
       <effect count="8" name="Fear" time="2" val="0" />
     </for>
@@ -201,12 +190,10 @@
     </for>
   </skill>
   <skill id="407" levels="10" name="Psycho Symphony">
-    <table name="#debuff"> 0.90 0.90 0.90 0.85 0.85 0.80 0.80
-      0.75 0.75 0.70 </table>
+    <table name="#debuff"> 0.90 0.90 0.90 0.85 0.85 0.80 0.80 0.75 0.75 0.70 </table>
     <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74 </table>
     <table name="#mpConsume"> 78 84 87 90 93 96 99 102 105 107 </table>
-    <table name="#power"> 229 262 284 308 332 357 382 407 432
-      457 </table>
+    <table name="#power"> 229 262 284 308 332 357 382 407 432 457 </table>
     <set name="castRange" val="-1" />
     <set name="effectPower" val="60" /> <!-- Base Land Rate --> <!-- Guessing -->
     <set name="effectRange" val="-1" />
@@ -232,12 +219,10 @@
     </for>
   </skill>
   <skill id="408" levels="10" name="Demonic Blade Dance">
-    <table name="#debuff"> 0.90 0.90 0.90 0.85 0.85 0.80 0.80
-      0.75 0.75 0.70 </table>
+    <table name="#debuff"> 0.90 0.90 0.90 0.85 0.85 0.80 0.80 0.75 0.75 0.70 </table>
     <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74 </table>
     <table name="#mpConsume"> 78 84 87 90 93 96 99 102 105 107 </table>
-    <table name="#power"> 275 314 341 369 398 428 458 488 518
-      548 </table>
+    <table name="#power"> 275 314 341 369 398 428 458 488 518 548 </table>
     <set name="castRange" val="-1" />
     <set name="effectPower" val="60" /> <!-- Base Land Rate --> <!-- Guessing -->
     <set name="effectRange" val="-1" />
@@ -261,16 +246,16 @@
       </effect>
     </for>
   </skill>
-  <skill id="409" levels="10" name="Critical Blow"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="409" levels="10" name="Critical Blow" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1Power"> 3685 3718 3751 3784 3817 3850 3883
       3916 3949 3982 4014 4047 4080 4113 4146 4179 4212 4245
-      4278 4311 4343 4376 4409 4442 4475 4508 4541 4574 4607
-      4640 </table>
+      4278 4311 4343 4376 4409 4442 4475 4508 4541 4574 4607 4640 </table>
     <table name="#ench2MpConsume"> 70 69 68 67 66 64 63 62 61 60 58 57
       56 55 54 52 51 50 49 48 46 45 44 43 42 40 39 38 37 36 </table>
     <table name="#mpConsume"> 52 56 58 60 62 64 66 68 70 72 </table>
     <table name="#power"> 1832 2091 2272 2460 2653 2850 3050 3252 3453 3653 </table>
+    <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74 </table>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="weaponsAllowed" val="16" /> <!-- Dagger -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -668,12 +653,10 @@
       By Darki699 Description(s): MP consumption for singing
       and dancing is decreased.
     -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
     <for>
       <mul order="0x30" stat="DanceMpConsumeRate" val="0.95" />
     </for>
@@ -790,12 +773,6 @@
     </for>
   </skill>
   <skill id="435" levels="1" name="Summon Lore">
-    <!--
-      Needs to be finished. Description(s): Increases P.
-      Def. when equipped with Robe/Light Armor and increases
-      Casting Speed. Decreases MP consumption for magic
-      skills.
-    -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -803,25 +780,11 @@
     <set name="effectRange" val="-1" />
     <for>
       <mul order="0x30" stat="pDef" val="1.10">
-        <and>
           <using kind="Magic,Light" />
-          <not>
-            <using kind="Heavy" />
-          </not>
-        </and>
       </mul>
       <mul order="0x30" stat="mAtkSpd" val="1.07">
-        <and>
           <using kind="Magic,Light" />
-          <not>
-            <using kind="Heavy" />
-          </not>
-        </and>
       </mul>
-      <!--
-        need to add MP consumption decrease and check
-        whether armor restriction applies to it as well
-      -->
       <!-- Confirmed consume rate is -5% -->
       <mul order="0x30" stat="MagicalMpConsumeRate" val="0.95" />
     </for>
@@ -846,7 +809,7 @@
     <set name="nextDanceCost" val="30" />
     <set name="skillRadius" val="150" />
     <set name="target" val="TARGET_AURA" />
-    <set name="skillType" val="DEBUFF" />
+    <set name="skillType" val="MUTE"/>
     <set name="operateType" val="OP_ACTIVE" />
     <set name="power" val="40"/> <!-- Guessing -->
     <set name="isSong" val="true" />
@@ -1118,8 +1081,7 @@
     <set name="isCubic" val="true" />
     <for />
   </skill>
-  <skill id="450" levels="10" name="Banish Seraph"
-    enchantLevels1="30">
+  <skill id="450" levels="10" name="Banish Seraph" enchantLevels1="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -1127,7 +1089,8 @@
       53 52 51 49 48 47 46 45 44 43 41 40 39 38 37 36 35 34 </table>
     <table name="#mpConsume"> 50 53 55 58 59 61 63 65 67 68 </table>
     <table name="#itemConsumeCount"> 5 6 7 7 8 8 9 9 10 10 </table>
-    <table name="#lethal2"> 5 9 13 17 21 25 29 33 37 41 </table>
+    <table name="#magicLvl"> 56 58 60 62 64 66 68 70 72 74 </table>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="itemConsumeId" val="1785" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
     <set name="mpConsume" val="#mpConsume" />
@@ -1138,7 +1101,7 @@
     <set name="skillType" val="FEAR" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
-    <set name="lethal2" val="#lethal2" />
+    <set name="lethal2" val="40"/>
     <set name="castRange" val="150" />
     <set name="effectRange" val="550" />
     <enchant1 name="mpConsume" val="#ench1MpConsume" />
@@ -1879,13 +1842,11 @@
     <set name="reuseDelay" val="60000" />
     <set name="flyType" val="CHARGE" />
     <set name="flyRadius" val="300" />
-    <cond
-      msg="An ancient sword or short sword must be equipped to use this skill">
-      <using kind="Ancient,Sword" />
+    <cond msg="Rush cannot be used due to unsuitable terms.">
+        <target mindistance="200"/>
     </cond>
     <for>
-      <effect count="1" name="EnemyCharge" time="1"
-        val="0" />
+      <effect count="1" name="EnemyCharge" time="1" val="0" />
     </for>
   </skill>
   <skill id="485" levels="7" name="Disarm">
@@ -2053,8 +2014,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <for />
   </skill>
-  <skill id="493" levels="28" name="Storm Assault"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="493" levels="28" name="Storm Assault" enchantLevels1="30" enchantLevels2="30">
     <!--
       Description(s): Charges like a storm to attack nearby
       enemies. An equipped ancient sword weapon is required
@@ -2064,8 +2024,7 @@
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 2212 2231 2251 2271 2291 2310 2330
       2350 2370 2389 2409 2429 2449 2468 2488 2508 2528 2547
-      2567 2587 2607 2626 2646 2666 2686 2705 2725 2745 2765
-      2784 </table>
+      2567 2587 2607 2626 2646 2666 2686 2705 2725 2745 2765 2784 </table>
     <table name="#ench2MpConsume"> 74 73 72 72 71 70 69 69 68 67 66 66
       65 64 64 63 62 61 61 60 59 58 58 57 56 55 55 54 53 53 </table>
     <table name="#mpConsume"> 46 47 48 50 50 51 52 53 55 56 57 58
@@ -2074,8 +2033,7 @@
       1100 1150 1202 1255 1309 1364 1420 1476 1531 1592 1651
       1710 1770 1830 1891 1951 2012 2072 2132 2192 </table>
     <table name="#magicLvl"> 46 47 48 49 50 51 52 53 54 55 56 57
-      58 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74
-      75 </table>
+      58 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 </table>
     <table name="#castRange"> 400 400 400 400 400 400 400 400 400
       400 400 500 500 500 500 500 500 500 500 500 500 500
       500 500 500 500 500 500 </table>
@@ -2097,14 +2055,13 @@
     <set name="castRange" val="#castRange" />
     <set name="effectRange" val="#effectRange" />
     <set name="flyType" val="CHARGE" />
+    <cond msg="Storm Assault cannot be used due to unsuitable terms.">
+        <target mindistance="200"/>
+    </cond>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
-    <cond
-      msg="An equipped ancient sword weapon is required to use this skill">
-      <using kind="Ancient" />
-    </cond>
   </skill>
   <skill id="494" levels="37" name="Shoulder Charge">
     <table name="#mpConsume"> 25 26 27 27 28 29 30 30 31 32 33 34
@@ -2122,9 +2079,7 @@
       52 53 54 55 56 57 58 58 59 60 61 62 63 64 65 66 67 68
       69 70 71 72 73 74 75 </table>
     <set name="magicLvl" val="#magicLvl" />
-    <!--
-      40,76
-    -->
+    <!-- 40,76 -->
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="50" />
@@ -2138,25 +2093,21 @@
     <set name="reuseDelay" val="36000" />
     <set name="soulMaxConsumeCount" val="5" />
     <set name="flyType" val="CHARGE" />
-    <cond
-      msg="An equipped ancient sword weapon is required to use this skill">
-      <using kind="Ancient" />
+    <cond msg="Shoulder Charge cannot be used due to unsuitable terms.">
+        <target mindistance="200"/>
     </cond>
     <for>
       <effect count="1" name="Stun" time="9" val="0"
         stackOrder="1" stackType="Stun" />
     </for>
   </skill>
-  <skill id="495" levels="10" name="Blade Rush"
-    enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
+  <skill id="495" levels="10" name="Blade Rush" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#mpConsume"> 65 70 73 75 77 80 83 85 88 90 </table>
     <table name="#effectLevel"> 3 3 4 4 5 6 6 7 8 8 </table>
     <table name="#dmg"> 39 51 66 81 93 102 111 120 129 138 </table>
     <table name="#magicLvl"> 55 57 59 61 63 66 68 70 72 74 </table>
-    <table name="#castRange"> 500 500 500 500 500 500 600 600 600
-      600 </table>
-    <table name="#effectRange"> 1000 1000 1000 1000 1000 1000 1100
-      1100 1100 1100 </table>
+    <table name="#castRange"> 500 500 500 500 500 500 600 600 600 600 </table>
+    <table name="#effectRange"> 1000 1000 1000 1000 1000 1000 1100 1100 1100 1100 </table>
     <set name="magicLvl" val="#magicLvl" />
     <!-- 55,76 -->
     <set name="mpConsume" val="#mpConsume" />
@@ -2177,9 +2128,8 @@
     <set name="soulMaxConsumeCount" val="5" />
     <set name="effectType" val="BLEED" />
     <set name="effectLevel" val="#effectLevel" />
-    <cond
-      msg="An equipped ancient sword weapon is required to use this skill">
-      <using kind="Ancient" />
+    <cond msg="Blade Rush cannot be used due to unsuitable terms.">
+        <target mindistance="200"/>
     </cond>
     <for>
       <!--
@@ -2190,26 +2140,21 @@
         val="#dmg" abnormal="bleeding" />
     </for>
   </skill>
-  <skill id="496" levels="31" name="Slashing Blade"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="496" levels="31" name="Slashing Blade" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 2907 2926 2946 2966 2986 3006 3025
       3045 3065 3085 3105 3124 3144 3164 3184 3203 3223 3243
-      3263 3283 3302 3322 3342 3362 3382 3401 3421 3441 3461
-      3480 </table>
+      3263 3283 3302 3322 3342 3362 3382 3401 3421 3441 3461 3480 </table>
     <table name="#ench2MpConsume"> 74 73 72 72 71 70 69 69 68 67 66 66
       65 64 64 63 62 61 61 60 59 58 58 57 56 55 55 54 53 53 </table>
     <table name="#mpConsume"> 42 43 44 46 47 48 50 50 51 52 53 55
-      56 57 58 60 61 61 62 63 65 66 67 68 69 70 71 72 73 74
-      75 </table>
+      56 57 58 60 61 61 62 63 65 66 67 68 69 70 71 72 73 74 75 </table>
     <table name="#power"> 787 832 879 927 977 1029 1082 1137
       1194 1253 1313 1374 1438 1502 1568 1636 1704 1774 1845
-      1917 1990 2064 2138 2213 2288 2363 2439 2515 2590 2665
-      2740 </table>
+      1917 1990 2064 2138 2213 2288 2363 2439 2515 2590 2665 2740 </table>
     <table name="#magicLvl"> 46 47 48 49 50 51 52 53 54 55 56 57
-      58 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74
-      75 </table>
+      58 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 </table>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -2224,13 +2169,9 @@
     <set name="skillType" val="PDAM" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
-    <!--
-      Corrected to match with skills effect, verified
-    -->
+    <!-- Corrected to match with skills effect, verified -->
     <set name="effectRange" val="400" />
-    <!--
-      Corrected to match with skills effect, verified
-    -->
+    <!-- Corrected to match with skills effect, verified -->
     <set name="soulMaxConsumeCount" val="5" />
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
@@ -2243,16 +2184,13 @@
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 8100 8155 8210 8266 8321 8376 8431
       8486 8541 8596 8652 8707 8762 8817 8872 8927 8982 9038
-      9093 9148 9203 9258 9313 9368 9424 9479 9534 9589 9644
-      9699 </table>
+      9093 9148 9203 9258 9313 9368 9424 9479 9534 9589 9644 9699 </table>
     <table name="#ench2MpConsume"> 74 73 72 72 71 70 69 69 68 67 66 66
       65 64 64 63 62 61 61 60 59 58 58 57 56 55 55 54 53 53 </table>
-    <table name="#mpConsume"> 60 61 61 62 63 65 66 67 68 69 70 71
-      72 73 74 75 </table>
+    <table name="#mpConsume"> 60 61 61 62 63 65 66 67 68 69 70 71 72 73 74 75 </table>
     <table name="#power"> 4558 4750 4944 5142 5342 5545 5751
       5958 6166 6376 6586 6797 7008 7218 7427 7635 </table>
-    <table name="#magicLvl"> 60 61 62 63 64 65 66 67 68 69 70 71
-      72 73 74 75 </table>
+    <table name="#magicLvl"> 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 </table>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -2280,8 +2218,7 @@
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 8100 8155 8210 8266 8321 8376 8431
       8486 8541 8596 8652 8707 8762 8817 8872 8927 8982 9038
-      9093 9148 9203 9258 9313 9368 9424 9479 9534 9589 9644
-      9699 </table>
+      9093 9148 9203 9258 9313 9368 9424 9479 9534 9589 9644 9699 </table>
     <table name="#ench2MpConsume"> 74 73 72 72 71 70 69 69 68 67 66 66
       65 64 64 63 62 61 61 60 59 58 58 57 56 55 55 54 53 53 </table>
     <table name="#power"> 5342 5545 5751 5958 6166 6376 6586

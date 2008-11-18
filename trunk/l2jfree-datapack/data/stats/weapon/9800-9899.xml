@@ -111,8 +111,8 @@
   </item>
   <item id='9854' name="Dynasty Sword - Focus">
     <for>
-      <set val='307' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='333' order='0x08' stat='pAtk'/>
+      <set val='151' order='0x08' stat='mAtk'/>
       <set val='8' order='0x08' stat='rCrit' />
       <set val='379' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -121,8 +121,8 @@
   </item>
   <item id='9855' name="Dynasty Sword - Health">
     <for>
-      <set val='307' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='333' order='0x08' stat='pAtk'/>
+      <set val='151' order='0x08' stat='mAtk'/>
       <set val='8' order='0x08' stat='rCrit' />
       <set val='379' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -131,8 +131,8 @@
   </item>
   <item id='9856' name="Dynasty Sword - Light">
     <for>
-      <set val='307' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='333' order='0x08' stat='pAtk'/>
+      <set val='151' order='0x08' stat='mAtk'/>
       <set val='8' order='0x08' stat='rCrit' />
       <set val='379' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -174,8 +174,8 @@
   </item>
   <item id='9860' name="Dynasty Phantom - Acumen">
     <for>
-      <set val='246' order='0x08' stat='pAtk' />
-      <set val='186' order='0x08' stat='mAtk' />
+      <set val='267' order='0x08' stat='pAtk'/>
+      <set val='202' order='0x08' stat='mAtk'/>
       <set val='8' order='0x08' stat='rCrit' />
       <set val='379' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -184,8 +184,8 @@
   </item>
   <item id='9861' name="Dynasty Phantom - Mana Up">
     <for>
-      <set val='246' order='0x08' stat='pAtk' />
-      <set val='186' order='0x08' stat='mAtk' />
+      <set val='267' order='0x08' stat='pAtk'/>
+      <set val='202' order='0x08' stat='mAtk'/>
       <set val='8' order='0x08' stat='rCrit' />
       <set val='379' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -194,8 +194,8 @@
   </item>
   <item id='9862' name="Dynasty Phantom - Conversion">
     <for>
-      <set val='246' order='0x08' stat='pAtk' />
-      <set val='186' order='0x08' stat='mAtk' />
+      <set val='267' order='0x08' stat='pAtk'/>
+      <set val='202' order='0x08' stat='mAtk'/>
       <set val='8' order='0x08' stat='rCrit' />
       <set val='379' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -246,8 +246,8 @@
   </item>
   <item id='9866' name="Dynasty Knife - Focus">
     <for>
-      <set val='269' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='291' order='0x08' stat='pAtk'/>
+      <set val='151' order='0x08' stat='mAtk'/>
       <set val='12' order='0x08' stat='rCrit' />
       <set val='433' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -256,8 +256,8 @@
   </item>
   <item id='9867' name="Dynasty Knife - Evasion">
     <for>
-      <set val='269' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='291' order='0x08' stat='pAtk'/>
+      <set val='151' order='0x08' stat='mAtk'/>
       <set val='12' order='0x08' stat='rCrit' />
       <set val='433' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -269,8 +269,8 @@
   </item>
   <item id='9868' name="Dynasty Knife - Critical Damage">
     <for>
-      <set val='269' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='291' order='0x08' stat='pAtk'/>
+      <set val='151' order='0x08' stat='mAtk'/>
       <set val='12' order='0x08' stat='rCrit' />
       <set val='433' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />

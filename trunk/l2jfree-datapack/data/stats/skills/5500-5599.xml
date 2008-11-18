@@ -141,48 +141,42 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5520" levels="1"
-    name="Chain Buff - Vampiric Shield">
+  <skill id="5520" levels="1" name="Chain Buff - Vampiric Shield">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5521" levels="1"
-    name="Chain Buff - Critical Sense">
+  <skill id="5521" levels="1" name="Chain Buff - Critical Sense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5522" levels="1"
-    name="Chain Magic - Dark Explosion">
+  <skill id="5522" levels="1" name="Chain Magic - Dark Explosion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5523" levels="1"
-    name="Chain Magic - Unholy Castle">
+  <skill id="5523" levels="1" name="Chain Magic - Unholy Castle">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5524" levels="1"
-    name="Chain Buff - Resistance to Bow and Magic attacks">
+  <skill id="5524" levels="1" name="Chain Buff - Resistance to Bow and Magic attacks">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5525" levels="1"
-    name="Chain Buff - Resistance to Melee Attacks">
+  <skill id="5525" levels="1" name="Chain Buff - Resistance to Melee Attacks">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -224,80 +218,70 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5531" levels="1"
-    name="Direction-Beleth Magic Skill 1">
+  <skill id="5531" levels="1" name="Direction-Beleth Magic Skill 1">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5532" levels="1"
-    name="Direction-Beleth Summon Skill 1">
+  <skill id="5532" levels="1" name="Direction-Beleth Summon Skill 1">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5533" levels="1"
-    name="Direction-Beleth Self-Destruction Skill 1">
+  <skill id="5533" levels="1" name="Direction-Beleth Self-Destruction Skill 1">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5534" levels="1"
-    name="Direction-Beleth Transformation Skill 1">
+  <skill id="5534" levels="1" name="Direction-Beleth Transformation Skill 1">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5535" levels="1"
-    name="Little Angel Agathion Cuteness Attack">
+  <skill id="5535" levels="1" name="Little Angel Agathion Cuteness Attack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5536" levels="1"
-    name="Little Devil Agathion Cuteness Attack">
+  <skill id="5536" levels="1" name="Little Devil Agathion Cuteness Attack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5537" levels="1"
-    name="Rudolph Agathion Cuteness Attack">
+  <skill id="5537" levels="1" name="Rudolph Agathion Cuteness Attack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5538" levels="1"
-    name="Little Angel Agathion Special Skill - Firecrackers">
+  <skill id="5538" levels="1" name="Little Angel Agathion Special Skill - Firecrackers">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5539" levels="1"
-    name="Little Angel Agathion Special Skill - Mysterious Power">
+  <skill id="5539" levels="1" name="Little Angel Agathion Special Skill - Mysterious Power">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5540" levels="1"
-    name="Little Angel Agathion Special Skill - Power of Blessed Return">
+  <skill id="5540" levels="1" name="Little Angel Agathion Special Skill - Power of Blessed Return">
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="200" />
     <set name="skillType" val="RECALL" />
@@ -306,8 +290,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="5541" levels="1"
-    name="Little Angel Agathion Special Skill - Power of Blessed Resurrection">
+  <skill id="5541" levels="1" name="Little Angel Agathion Special Skill - Power of Blessed Resurrection">
     <set name="power" val="100.0" />
     <set name="target" val="TARGET_CORPSE_PLAYER" />
     <set name="hitTime" val="3000" />
@@ -317,24 +300,21 @@
     <set name="effectRange" val="600" />
     <for />
   </skill>
-  <skill id="5542" levels="1"
-    name="Little Devil Agathion Special Skill - Firecrackers">
+  <skill id="5542" levels="1" name="Little Devil Agathion Special Skill - Firecrackers">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5543" levels="1"
-    name="Little Devil Agathion Special Skill - Mysterious Power">
+  <skill id="5543" levels="1" name="Little Devil Agathion Special Skill - Mysterious Power">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5544" levels="1"
-    name="Little Devil Agathion Special Skill - Power of Blessed Return">
+  <skill id="5544" levels="1" name="Little Devil Agathion Special Skill - Power of Blessed Return">
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="200" />
     <set name="skillType" val="RECALL" />
@@ -343,8 +323,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="5545" levels="1"
-    name="Little Devil Agathion Special Skill - Power of Blessed Resurrection">
+  <skill id="5545" levels="1" name="Little Devil Agathion Special Skill - Power of Blessed Resurrection">
     <set name="power" val="100.0" />
     <set name="target" val="TARGET_CORPSE_PLAYER" />
     <set name="hitTime" val="3000" />
@@ -371,24 +350,20 @@
         <!-- all these values are guessed -->
         <mul order="0x30" stat="pAtk" val="1.1" />
         <mul order="0x30" stat="mAtk" val="1.1" />
-        <mul order="0x30" stat="MagicalMpConsumeRate"
-          val="0.90" />
-        <mul order="0x30" stat="PhysicalMpConsumeRate"
-          val="0.90" />
+        <mul order="0x30" stat="MagicalMpConsumeRate" val="0.90" />
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.90" />
         <!-- missing heal power buff -->
       </effect>
     </for>
   </skill>
-  <skill id="5548" levels="4"
-    name="Critical Spiritual Energy Attack">
+  <skill id="5548" levels="4" name="Critical Spiritual Energy Attack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5549" levels="1"
-    name="Physical Short-range Weakness">
+  <skill id="5549" levels="1" name="Physical Short-range Weakness">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -423,16 +398,14 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5554" levels="12"
-    name="NPC Silence Resistance enhanced">
+  <skill id="5554" levels="12" name="NPC Silence Resistance enhanced">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5555" levels="12"
-    name="NPC Silence Resistance weakened">
+  <skill id="5555" levels="12" name="NPC Silence Resistance weakened">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -565,24 +538,21 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5574" levels="1"
-    name="Log Ability - Critical Chance">
+  <skill id="5574" levels="1" name="Log Ability - Critical Chance">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5575" levels="1"
-    name="Wizard Ability - Mana Steel">
+  <skill id="5575" levels="1" name="Wizard Ability - Mana Steel">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5576" levels="1"
-    name="Enchanter Ability - Barrier">
+  <skill id="5576" levels="1" name="Enchanter Ability - Barrier">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />

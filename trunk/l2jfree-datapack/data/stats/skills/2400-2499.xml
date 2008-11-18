@@ -399,15 +399,12 @@
     <for>
       <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="0.8" stackType="MPrate">
-        <mul order="0x30" stat="MagicalMpConsumeRate"
-          val="0.8" />
-        <mul order="0x30" stat="PhysicalMpConsumeRate"
-          val="0.8" />
+        <mul order="0x30" stat="MagicalMpConsumeRate" val="0.8" />
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.8" />
       </effect>
     </for>
   </skill>
-  <skill id="2440" levels="1"
-    name="Ancient Tome of the Demon">
+  <skill id="2440" levels="1" name="Ancient Tome of the Demon">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -421,8 +418,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="2442" levels="1"
-    name="Protection of Elemental">
+  <skill id="2442" levels="1" name="Protection of Elemental">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />

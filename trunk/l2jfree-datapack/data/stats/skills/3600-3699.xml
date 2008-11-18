@@ -610,8 +610,7 @@
       <!-- Reflect Skills 10% of the time -->
     </for>
   </skill>
-  <skill id="3635" levels="1"
-    name="Special Ability Infinity Shooter">
+  <skill id="3635" levels="1" name="Special Ability Infinity Shooter">
     <!--
       Guessed. Copied from Infinity Bow with minor
       modification
@@ -624,13 +623,9 @@
     <set name="effectRange" val="-1" />
     <for>
       <mul order="0x30" stat="maxMp" val="1.30" />
-      <!--
-        MP +30%
-      -->
+      <!-- MP +30% -->
       <mul order="0x30" stat="maxCp" val="1.50" />
-      <!--
-        CP +50%
-      -->
+      <!-- CP +50% -->
       <mul order="0x30" stat="pvpPhysDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="pvpMagicalDmg" val="1.05" />
@@ -638,15 +633,11 @@
       <mul order="0x30" stat="pvpPhysSkillsDmg" val="1.05" />
       <!-- PVP Damage Bonus +5% -->
       <mul order="0x30" stat="bowReuse" val="0.81" />
-      <!--
-        19% Quick Recovery
-      -->
+      <!-- 19% Quick Recovery -->
       <mul order="0x30" stat="MagicalMpConsumeRate" val="0.88" />
-      <!--
-        MP Consumption -12%
-      -->
-      <mul order="0x30" stat="PhysicalMpConsumeRate"
-        val="0.88" /><!-- MP Consumption -12% -->
+      <!-- MP Consumption -12% -->
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.88" />
+      <!-- MP Consumption -12% -->
     </for>
   </skill>
   <skill id="3636" levels="1" name="Dynasty Platinum Plate - Shield Master">
@@ -836,24 +827,21 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3656" levels="1"
-    name="PvP Weapon - Decrease Range">
+  <skill id="3656" levels="1" name="PvP Weapon - Decrease Range">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3657" levels="1"
-    name="PvP Weapon - Decrease Resist">
+  <skill id="3657" levels="1" name="PvP Weapon - Decrease Resist">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3658" levels="1"
-    name="PvP Weapon - Reflect Damage">
+  <skill id="3658" levels="1" name="PvP Weapon - Reflect Damage">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -902,8 +890,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3665" levels="2"
-    name="Red Talisman - CP Regeneration">
+  <skill id="3665" levels="2" name="Red Talisman - CP Regeneration">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -917,8 +904,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3667" levels="1"
-    name="Yellow Talisman - Damage Transition">
+  <skill id="3667" levels="1" name="Yellow Talisman - Damage Transition">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />

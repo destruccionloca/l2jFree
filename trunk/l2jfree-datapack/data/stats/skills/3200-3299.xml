@@ -40,9 +40,7 @@
   <skill id="3202" levels="3" name="Item Skill: Refresh">
     <table name="#mpConsume">27 31 34</table>
     <table name="#reuseRate">0.9 0.8 0.7</table>
-    <!--
-      Needs check
-    -->
+    <!-- Needs check -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="300000" />
@@ -86,7 +84,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for>
+    <for> 
       <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="#power" stackType="DmgShield">
         <add order="0x40" stat="reflectDam" val="#power" />
@@ -123,10 +121,9 @@
     <for />
   </skill>
   <skill id="3207" levels="10" name="Item Skill: Heal">
-    <table name="#power"> 308 337 365 393 421 448 474 498 520
-      552 </table>
-    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
+    <table name="#power"> 308 337 365 393 421 448 474 498 520 552 </table>
     <table name="#chance">1 1 2 2 3 3 4 4 5 5</table>
+    <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_SELF" />
@@ -139,8 +136,7 @@
   </skill>
   <skill id="3208" levels="10" name="Item Skill: Blessed Body">
     <table name="#chance">1 1 2 2 3 3 4 4 5 5</table>
-    <table name="#Tab-maxHp"> 1.1 1.1 1.15 1.15 1.2 1.2 1.25 1.25
-      1.3 1.35 </table>
+    <table name="#Tab-maxHp"> 1.1 1.1 1.15 1.15 1.2 1.2 1.25 1.25 1.3 1.35 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_SELF" />
@@ -190,8 +186,7 @@
   </skill>
   <skill id="3211" levels="10" name="Item Skill: Blessed Soul">
     <table name="#chance">1 1 2 2 3 3 4 4 5 5</table>
-    <table name="#Tab-maxMp"> 1.1 1.1 1.15 1.15 1.2 1.2 1.25 1.25
-      1.3 1.35 </table>
+    <table name="#Tab-maxMp"> 1.1 1.1 1.15 1.15 1.2 1.2 1.25 1.25 1.3 1.35 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_SELF" />
@@ -420,8 +415,7 @@
   </skill>
   <skill id="3224" levels="10" name="Item Skill: Wild Magic">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#rate"> 1.1 1.11 1.12 1.13 1.14 1.15 1.16
-      1.17 1.18 1.19 </table>
+    <table name="#rate"> 1.1 1.11 1.12 1.13 1.14 1.15 1.16 1.17 1.18 1.19 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_SELF" />
@@ -437,8 +431,7 @@
     </for>
   </skill>
   <skill id="3225" levels="10" name="Item Skill: Charm">
-    <table name="#power"> 219 234 248 262 275 287 299 309 318
-      330 </table>
+    <table name="#power"> 219 234 248 262 275 287 299 309 318 330 </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl" />
@@ -454,8 +447,7 @@
   </skill>
   <skill id="3226" levels="10" name="Item Skill: Slow">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
-    <table name="#Tab-runSpd"> 0.7 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
-      0.5 </table>
+    <table name="#Tab-runSpd"> 0.7 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
@@ -594,8 +586,7 @@
   <skill id="3234" levels="10" name="Item Skill: Poison">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#dmg"> 24 24 54 54 72 72 93 114 132 144 </table>
-    <table name="#effectLevel"> 1.0 1.0 3.0 3.0 4.0 4.0 5.0 6.0 7.0
-      8.0 </table>
+    <table name="#effectLevel"> 1.0 1.0 3.0 3.0 4.0 4.0 5.0 6.0 7.0 8.0 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
@@ -621,8 +612,7 @@
   <skill id="3235" levels="10" name="Item Skill: Bleed">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#dmg"> 39 39 51 51 66 66 81 81 93 102 </table>
-    <table name="#power"> 3.0 3.0 4.0 4.0 5.0 5.0 6.0 6.0 7.0
-      8.0 </table>
+    <table name="#power"> 3.0 3.0 4.0 4.0 5.0 5.0 6.0 6.0 7.0 8.0 </table>
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_ONE" />
@@ -880,8 +870,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="PhysicalMpConsumeRate"
-        val="#Tab-Atk" />
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="#Tab-Atk" />
     </for>
   </skill>
   <skill id="3256" levels="3" name="Item Skill: Spell Clarity">
@@ -914,9 +903,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <mul order="0x30" stat="PhysicalMpConsumeRate"
-        val="#Tab-Atk" />
       <mul order="0x30" stat="MagicalMpConsumeRate" val="#Tab-Atk" />
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="#Tab-Atk" />
       <mul order="0x30" stat="DanceMpConsumeRate" val="#Tab-Atk" />
     </for>
   </skill>
@@ -1072,8 +1060,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="3269" levels="1"
-    name="Summon Agathion - Rainbow Clan Hall">
+  <skill id="3269" levels="1" name="Summon Agathion - Rainbow Clan Hall">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="AGATHION" />
     <set name="hitTime" val="3000" />
@@ -1084,8 +1071,7 @@
     <set name="effectRange" val="-1" />
     <for />
   </skill>
-  <skill id="3270" levels="1"
-    name="Summon Agathion - Beast Farm">
+  <skill id="3270" levels="1" name="Summon Agathion - Beast Farm">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="AGATHION" />
     <set name="hitTime" val="3000" />
@@ -1097,18 +1083,28 @@
     <for />
   </skill>
   <skill id="3271" levels="1" name="Blue Talisman of Power">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for />
+    <!-- Done by Nekys/ Stats by Goz -->
+    <set name="power" val="0.0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <add order="0x30" stat="pAtk" val="10"/> <!-- increase P. Atk. +10 -->
+    </for>
   </skill>
   <skill id="3272" levels="1" name="Blue Talisman of Defense">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for />
+    <!-- Done by Nekys/ Stats by Goz -->
+    <set name="power" val="0.0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <add order="0x30" stat="pDef" val="18"/> <!-- increase P. Def. +18 -->
+    </for>
   </skill>
   <skill id="3273" levels="1" name="Red Talisman of Recovery">
     <set name="target" val="TARGET_NONE" />
@@ -1117,40 +1113,35 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3274" levels="1"
-    name="Blue Talisman of Protection">
+  <skill id="3274" levels="1" name="Blue Talisman of Protection">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3275" levels="1"
-    name="Blue Talisman of Protection">
+  <skill id="3275" levels="1" name="Blue Talisman of Protection">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3276" levels="1"
-    name="Blue Talisman of Magic Defense">
+  <skill id="3276" levels="1" name="Blue Talisman of Magic Defense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3277" levels="1"
-    name="Blue Talisman of Wild Magic">
+  <skill id="3277" levels="1" name="Blue Talisman of Wild Magic">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3278" levels="1"
-    name="Red Talisman of Mental Regeneration">
+  <skill id="3278" levels="1" name="Red Talisman of Mental Regeneration">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1164,24 +1155,21 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3280" levels="1"
-    name="Blue Talisman of Invisibility">
+  <skill id="3280" levels="1" name="Blue Talisman of Invisibility">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3281" levels="1"
-    name="Red Talisman of Minimum Clarity">
+  <skill id="3281" levels="1" name="Red Talisman of Minimum Clarity">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3282" levels="1"
-    name="Red Talisman of Maximum Clarity">
+  <skill id="3282" levels="1" name="Red Talisman of Maximum Clarity">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1195,8 +1183,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3284" levels="1"
-    name="Blue Talisman of Invincibility">
+  <skill id="3284" levels="1" name="Blue Talisman of Invincibility">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1217,16 +1204,14 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3287" levels="1"
-    name="Black Talisman of Physical Freedom">
+  <skill id="3287" levels="1" name="Black Talisman of Physical Freedom">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3288" levels="1"
-    name="Black Talisman of Arcane Freedom">
+  <skill id="3288" levels="1" name="Black Talisman of Arcane Freedom">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1247,16 +1232,14 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3291" levels="1"
-    name="Black Talisman of Vocalization">
+  <skill id="3291" levels="1" name="Black Talisman of Vocalization">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3292" levels="1"
-    name="Black Talisman of Free Speech">
+  <skill id="3292" levels="1" name="Black Talisman of Free Speech">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1270,31 +1253,38 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3294" levels="1"
-    name="Yellow Talisman of Arcane Power">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for />
+  <skill id="3294" levels="1" name="Yellow Talisman of Arcane Power">
+    <!-- Done by Nekys/ Stats by Goz -->
+    <set name="power" val="0.0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <add order="0x30" stat="mAtk" val="12"/> <!-- increase M. Atk. +12 -->
+    </for>
   </skill>
   <skill id="3295" levels="1" name="Yellow Talisman of Defense">
+    <!-- Done by Nekys/ Stats by Goz -->
+    <set name="power" val="0.0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <add order="0x30" stat="pDef" val="18"/> <!-- increase P. Def. +18 -->
+    </for>
+  </skill>
+  <skill id="3296" levels="1" name="Yellow Talisman of Arcane Defense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3296" levels="1"
-    name="Yellow Talisman of Arcane Defense">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for />
-  </skill>
-  <skill id="3297" levels="1"
-    name="Yellow Talisman of Accuracy">
+  <skill id="3297" levels="1" name="Yellow Talisman of Accuracy">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1302,14 +1292,18 @@
     <for />
   </skill>
   <skill id="3298" levels="1" name="Yellow Talisman of Evasion">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for />
+    <!-- Done by Nekys/ Stats by Goz -->
+    <set name="power" val="0.0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <add order="0x40" stat="rEvas" val="1"/> <!-- increase Evasion +1 -->
+    </for>
   </skill>
-  <skill id="3299" levels="1"
-    name="Yellow Talisman of Critical Power">
+  <skill id="3299" levels="1" name="Yellow Talisman of Critical Power">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
