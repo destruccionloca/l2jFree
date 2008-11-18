@@ -251,6 +251,7 @@ public class L2Skill
 		DETECT_TRAP,
 		REMOVE_TRAP,
 		SHIFT_TARGET,
+		INSTANT_JUMP,
 
 		AGATHION(L2SkillAgathion.class),
 		CHANGEWEAPON(L2SkillChangeWeapon.class),
@@ -1605,7 +1606,7 @@ public class L2Skill
 		case HARVEST:
 		case DISARM:
 		case STEAL_BUFF:
-		
+		case INSTANT_JUMP:
 			return true;
 		default:
 			return false;

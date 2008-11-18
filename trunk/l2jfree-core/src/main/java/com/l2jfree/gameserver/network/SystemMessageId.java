@@ -14016,7 +14016,7 @@ public enum SystemMessageId
 	* ID: 2337<br>
 	* Message: CP disappears when hit with a half kill skill.
 	*/
-	CP_DISAPPEARS_WHEN_HIT_WITH_HALF_KILL_SKILL(2337),
+	CP_DISAPPEARS_WHEN_HIT_WITH_A_HALF_KILL_SKILL(2337),
 
 	/**
 	* ID: 2363<br>

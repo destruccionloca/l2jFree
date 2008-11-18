@@ -1346,9 +1346,7 @@ public final class Formulas
 		if (ss && skill.getSSBoost() > 0)
 			power *= skill.getSSBoost();
 
-		//Multiplier should be removed, it's false ??
-		// TODO: Check if CritVuln effects whole part of CritDmg.
-		damage += 1.5 * (attacker.calcStat(Stats.CRITICAL_DAMAGE, damage + power, target, skill) * target.calcStat(Stats.CRIT_VULN,
+		damage = 1.5 * (attacker.calcStat(Stats.CRITICAL_DAMAGE, damage + power, target, skill) * target.calcStat(Stats.CRIT_VULN,
 				target.getTemplate().baseCritVuln, target, skill));
 
 		// get the natural vulnerability for the template
@@ -1858,6 +1856,7 @@ public final class Formulas
 					{
 						player.getStatus().setCurrentHp(1);
 						player.getStatus().setCurrentCp(1);
+						player.sendPacket(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL);
 					}
 				}
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));
@@ -1868,11 +1867,14 @@ public final class Formulas
 				{
 					L2PcInstance player = (L2PcInstance) target;
 					if (!player.isInvul())
+					{
 						player.getStatus().setCurrentCp(1); // Set CP to 1
+						player.sendPacket(SystemMessageId.CP_DISAPPEARS_WHEN_HIT_WITH_A_HALF_KILL_SKILL);
+					}
 				}
 				else if (target instanceof L2NpcInstance) // If is a monster remove first damage and after 50% of current hp
 					target.reduceCurrentHp(target.getStatus().getCurrentHp() / 2, activeChar);
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));
+				activeChar.sendPacket(SystemMessageId.HALF_KILL);
 			}
 			else
 				return false;

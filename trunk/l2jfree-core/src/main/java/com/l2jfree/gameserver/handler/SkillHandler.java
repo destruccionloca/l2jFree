@@ -62,6 +62,7 @@ public final class SkillHandler implements ISkillHandler
 		registerSkillHandler(new GiveSp());
 		registerSkillHandler(new Harvest());
 		registerSkillHandler(new Heal());
+		registerSkillHandler(new InstantJump());
 		registerSkillHandler(new MakeKillable());
 		registerSkillHandler(new Manadam());
 		registerSkillHandler(new ManaHeal());
