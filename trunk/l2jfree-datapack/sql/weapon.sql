@@ -1648,7 +1648,7 @@ INSERT INTO `weapon` VALUES
 (10440,'Icarus Spirit - Acumen','rhand','true',1520,1,1,'steel','s80',290,15,'sword',8,0.00000,0,0,0,379,0,217,-1,0,10394,'true','true','true','true','3047-3','','','',0),
 (10441,'Icarus Spirit - Mana Up','rhand','true',1520,1,1,'steel','s80',290,15,'sword',8,0.00000,0,0,0,379,0,217,-1,0,10394,'true','true','true','true','3014-3','','','',0),
 (10442,'Icarus Spirit - Conversion','rhand','true',1520,1,1,'steel','s80',290,15,'sword',8,0.00000,0,0,0,379,0,217,-1,0,10394,'true','true','true','true','3048-3','','','',0),
-10443,'Icarus Spitter - Cheap Shot','lrhand','true',1520,1,1,'steel','s80',689,15,'bow',12,0.00000,0,0,0,293,11,163,-1,0,10394,'true','true','true','true','','','','',0),
+(10443,'Icarus Spitter - Cheap Shot','lrhand','true',1520,1,1,'steel','s80',689,15,'bow',12,0.00000,0,0,0,293,11,163,-1,0,10394,'true','true','true','true','','','','',0),
 (10444,'Icarus Spitter - Guidance','lrhand','true',1520,1,1,'steel','s80',689,15,'bow',12,0.00000,0,0,0,293,11,163,-1,0,10394,'true','true','true','true','','','','',0),
 (10445,'Icarus Spitter - Focus','lrhand','true',1520,1,1,'steel','s80',689,15,'bow',12,0.00000,0,0,0,293,11,163,-1,0,10394,'true','true','true','true','3044-20','','','',0),
 (10446,'Icarus Disperser - Focus','rhand','true',1520,1,1,'steel','s80',318,15,'dagger',8,0.00000,0,0,0,433,0,163,-1,0,10394,'true','true','true','true','3044-20','','','',0),
