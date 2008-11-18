@@ -78,6 +78,7 @@ public class RequestSocialAction extends L2GameClientPacket
 		if (	activeChar.getPrivateStoreType() == 0 &&
 				activeChar.getActiveRequester() == null &&
 				!activeChar.isAlikeDead() &&
+				!activeChar.isCastingNow() && !activeChar.isCastingSimultaneouslyNow() &&
 				(!activeChar.isAllSkillsDisabled() || activeChar.isInDuel()) &&
 				activeChar.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE
 				&& FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_SOCIAL))

@@ -36,9 +36,10 @@ public final class EffectRoot extends L2Effect
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffected().startRooted();
+		return true;
 	}
 
 	/** Notify exited */

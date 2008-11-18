@@ -1552,7 +1552,7 @@ public class L2NpcInstance extends L2Character
 						// hack for newbie summons
 						if (_buff.getSkill().getSkillType() == SkillType.SUMMON)
 						{
-							player.doCast(_buff.getSkill());
+							player.doSimultaneousCast(_buff.getSkill());
 						}
 						else
 						{ // Ignore skill cast time, using 100ms for NPC buffer's animation

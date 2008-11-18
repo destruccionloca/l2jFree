@@ -85,7 +85,7 @@ public class L2SummonAI extends L2CharacterAI
 
 	private void thinkPickUp()
 	{
-		if (_actor.isAllSkillsDisabled())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
 			return;
 		if (checkTargetLost(getTarget()))
 			return;
@@ -98,7 +98,7 @@ public class L2SummonAI extends L2CharacterAI
 
 	private void thinkInteract()
 	{
-		if (_actor.isAllSkillsDisabled())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
 			return;
 		if (checkTargetLost(getTarget()))
 			return;
@@ -111,7 +111,7 @@ public class L2SummonAI extends L2CharacterAI
 	@Override
 	protected void onEvtThink()
 	{
-		if (_thinking || _actor.isAllSkillsDisabled())
+		if (_thinking)
 			return;
 		_thinking = true;
 		try

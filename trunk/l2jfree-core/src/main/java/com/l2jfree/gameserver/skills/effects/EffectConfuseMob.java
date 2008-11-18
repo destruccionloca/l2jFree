@@ -47,10 +47,11 @@ public final class EffectConfuseMob extends L2Effect
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffected().startConfused();
 		onActionTime();
+		return true;
 	}
 
 	/** Notify exited */

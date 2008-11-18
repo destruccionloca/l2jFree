@@ -42,9 +42,10 @@ public final class EffectImmobileBuff extends EffectBuff
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffector().setIsImmobilized(true);
+		return true;
 	}
 
 	/** Notify exited */

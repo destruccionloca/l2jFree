@@ -33,7 +33,7 @@ public final class EffectGrow extends L2Effect
 	}
 
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		if (getEffected() instanceof L2NpcInstance)
 		{
@@ -42,33 +42,23 @@ public final class EffectGrow extends L2Effect
 			npc.setCollisionRadius((int) (npc.getTemplate().getCollisionRadius() * 1.19));
 
 			getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_GROW);
+			return true;
 		}
+		return false;
 	}
 
 	@Override
 	public boolean onActionTime()
 	{
-		if (getEffected() instanceof L2NpcInstance)
-		{
-			L2NpcInstance npc = (L2NpcInstance) getEffected();
-			npc.setCollisionHeight(npc.getTemplate().getCollisionHeight());
-			npc.setCollisionRadius(npc.getTemplate().getCollisionRadius());
-
-			getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_GROW);
-		}
 		return false;
 	}
 
 	@Override
 	public void onExit()
 	{
-		if (getEffected() instanceof L2NpcInstance)
-		{
-			L2NpcInstance npc = (L2NpcInstance) getEffected();
-			npc.setCollisionHeight(npc.getTemplate().getCollisionHeight());
-			npc.setCollisionRadius(npc.getTemplate().getCollisionRadius());
-
-			getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_GROW);
-		}
+		L2NpcInstance npc = (L2NpcInstance) getEffected();
+		npc.setCollisionHeight(npc.getTemplate().getCollisionHeight());
+		npc.setCollisionRadius(npc.getTemplate().getCollisionRadius());
+		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_GROW);
 	}
 }

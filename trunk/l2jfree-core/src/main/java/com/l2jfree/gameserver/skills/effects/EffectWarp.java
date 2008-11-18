@@ -59,7 +59,7 @@ public final class EffectWarp extends L2Effect
 	}
 
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		if (isSelfEffect())
 			_actor = getEffector();
@@ -93,6 +93,7 @@ public final class EffectWarp extends L2Effect
 		_actor.broadcastPacket(new FlyToLocation(_actor, x, y, z, FlyType.DUMMY));
 		_actor.abortAttack();
 		_actor.abortCast();
+		return true;
 	}
 
 	@Override

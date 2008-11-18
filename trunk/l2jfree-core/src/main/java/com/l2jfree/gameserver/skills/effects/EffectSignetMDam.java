@@ -61,13 +61,13 @@ public final class EffectSignetMDam extends L2Effect
 	}
 
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		L2NpcTemplate template;
 		if (getSkill() instanceof L2SkillSignetCasttime)
 			template = NpcTable.getInstance().getTemplate(((L2SkillSignetCasttime) getSkill())._effectNpcId);
 		else
-			return;
+			return false;
 
 		L2EffectPointInstance effectPoint = new L2EffectPointInstance(IdFactory.getInstance().getNextId(), template, getEffector());
 		effectPoint.getStatus().setCurrentHp(effectPoint.getMaxHp());
@@ -93,14 +93,14 @@ public final class EffectSignetMDam extends L2Effect
 		effectPoint.spawnMe(x, y, z);
 
 		_actor = effectPoint;
-
+		return true;
 	}
 
 	@Override
 	public boolean onActionTime()
 	{
 		if (getCount() >= getTotalCount() - 2)
-			return true; // do nothing first 2 times      
+			return true; // do nothing first 2 times
 		int mpConsume = getSkill().getMpConsume();
 
 		L2PcInstance caster = (L2PcInstance) getEffector();

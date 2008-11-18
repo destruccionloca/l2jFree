@@ -206,7 +206,7 @@ public class L2PlayerAI extends L2CharacterAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled() || _actor.isAttackingNow())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
 		{
 			clientActionFailed();
 			saveNextIntention(AI_INTENTION_MOVE_TO, pos, null);
@@ -316,7 +316,7 @@ public class L2PlayerAI extends L2CharacterAI
 
 	private void thinkPickUp()
 	{
-		if (_actor.isAllSkillsDisabled())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
 		{
 			clientActionFailed();
 			return;
@@ -338,7 +338,7 @@ public class L2PlayerAI extends L2CharacterAI
 
 	private void thinkInteract()
 	{
-		if (_actor.isAllSkillsDisabled())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
 		{
 			clientActionFailed();
 			return;
@@ -362,7 +362,7 @@ public class L2PlayerAI extends L2CharacterAI
 	@Override
 	protected void onEvtThink()
 	{
-		if (_thinking || _actor.isAllSkillsDisabled())
+		if (_thinking && getIntention() != AI_INTENTION_CAST) // casting must always continue
 		{
 			clientActionFailed();
 			return;

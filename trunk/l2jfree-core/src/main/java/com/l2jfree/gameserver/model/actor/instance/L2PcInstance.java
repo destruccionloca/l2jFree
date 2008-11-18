@@ -187,7 +187,6 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.LeaveWorld;
-import com.l2jfree.gameserver.network.serverpackets.MagicSkillCanceled;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NicknameChanged;
@@ -2256,7 +2255,11 @@ public final class L2PcInstance extends L2PlayableInstance
 				sendPacket(new ItemList(this, false));
 			}
 
-			items = getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
+			// we cant unequip talisman by body slot
+			if (bodyPart == L2Item.SLOT_DECO)
+				items = getInventory().unEquipItemInSlotAndRecord(item.getLocationSlot());
+			else
+				items = getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
 		}
 		else
 		{
@@ -2753,7 +2756,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void sitDown(boolean force)
 	{
-		if (isCastingNow() && !_relax)
+		if ((isCastingNow() || isCastingSimultaneouslyNow()) && !_relax)
 		{
 			sendMessage("Cannot sit while casting");
 			return;
@@ -3563,7 +3566,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		// We cannot put a Weapon with Augmention in WH while casting (Possible Exploit)
-		if (item.isAugmented() && isCastingNow())
+		if (item.isAugmented() && (isCastingNow() || isCastingSimultaneouslyNow()))
 			return null;
 
 		return item;
@@ -6408,30 +6411,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	/**
-	 * Manage a cancel cast task for the L2PcInstance.<BR><BR>
-	 *
-	 * <B><U> Actions</U> :</B><BR><BR>
-	 * <li>Set the Intention of the AI to AI_INTENTION_IDLE </li>
-	 * <li>Enable all skills (set _allSkillsDisabled to False) </li>
-	 * <li>Send a Server->Client Packet MagicSkillCanceld to the L2PcInstance and all L2PcInstance in the _knownPlayers of the L2Character (broadcast) </li><BR><BR>
-	 *
-	 */
-	public void cancelCastMagic()
-	{
-		// Set the Intention of the AI to AI_INTENTION_IDLE
-		getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-
-		// Enable all skills (set _allSkillsDisabled to False)
-		enableAllSkills();
-
-		// Send a Server->Client Packet MagicSkillCanceld to the L2PcInstance and all L2PcInstance in the _knownPlayers of the L2Character (broadcast)
-		MagicSkillCanceled msc = new MagicSkillCanceled(getObjectId());
-
-		// Broadcast the packet to self and known players.
-		Broadcast.toSelfAndKnownPlayersInRadius(this, msc, 810000/*900*/);
-	}
-
-	/**
 	 * Set the _accessLevel of the L2PcInstance.<BR><BR>
 	 */
 	public void setAccessLevel(int level)
@@ -7283,6 +7262,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			statement = con.prepareStatement(ADD_SKILL_SAVE);
 			
+			List<Integer> storedSkills = new FastList<Integer>();
+			
 			// Store all effect data along with calulated remaining
 			// reuse delays for matching skills. 'restore_type'= 0.
 			for (L2Effect effect : getAllEffects())
@@ -7292,6 +7273,9 @@ public final class L2PcInstance extends L2PlayableInstance
 					if (effect instanceof EffectForce)
 						continue;
 					int skillId = effect.getSkill().getId();
+					if (storedSkills.contains(skillId))
+						continue;
+					storedSkills.add(skillId);
 
 					statement.setInt(1, getObjectId());
 					statement.setInt(2, skillId);
@@ -7300,7 +7284,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					statement.setInt(5, effect.getTime());
 					if (_reuseTimeStamps.containsKey(skillId))
 					{
-						TimeStamp t = _reuseTimeStamps.remove(skillId);
+						TimeStamp t = _reuseTimeStamps.get(skillId);
 						statement.setLong(6, t.hasNotPassed() ? t.getReuse() : 0);
 						statement.setLong(7, t.hasNotPassed() ? t.getStamp() : 0 );
 					}
@@ -7321,8 +7305,13 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				if (t.hasNotPassed())
 				{
+					int skillId = t.getSkill();
+					if (storedSkills.contains(skillId))
+						continue;
+					storedSkills.add(skillId);
+
 					statement.setInt(1, getObjectId());
-					statement.setInt(2, t.getSkill());
+					statement.setInt(2, skillId);
 					statement.setInt(3, -1);
 					statement.setInt(4, -1);
 					statement.setInt(5, -1);
@@ -8151,9 +8140,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		// If a skill is currently being used, queue this one if this is not the same
 		if (isCastingNow())
 		{
+			SkillDat currentSkill = getCurrentSkill();
 			// Check if new skill different from current skill in progress
-
-			if (getCurrentSkill() != null && skill.getId() == getCurrentSkill().getSkillId())
+			if (currentSkill != null && skill.getId() == currentSkill.getSkillId())
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
@@ -8199,6 +8188,16 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		// Notify the AI with AI_INTENTION_CAST and target
 		getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, skill, target);
+	}
+
+	@Override
+	public void setIsCastingNow(boolean value)
+	{
+		if (value == false)
+		{
+			_currentSkill = null;
+		}
+		super.setIsCastingNow(value);
 	}
 
 	private boolean checkUseMagicConditions(L2Skill skill, boolean forceUse, boolean dontMove)

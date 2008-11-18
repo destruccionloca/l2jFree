@@ -32,11 +32,12 @@ public final class EffectPetrify extends L2Effect
 	}
 
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
 		getEffected().startParalyze();
 		getEffected().setIsPetrified(true);
+		return true;
 	}
 
 	@Override

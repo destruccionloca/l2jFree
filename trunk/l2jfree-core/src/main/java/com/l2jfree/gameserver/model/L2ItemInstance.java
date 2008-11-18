@@ -728,7 +728,9 @@ public final class L2ItemInstance extends L2Object
 				&& (player.getPet() == null || getObjectId() != player.getPet().getControlItemId()) // Not Control item of currently summoned pet
 				&& (player.getActiveEnchantItem() != this) // Not momentarily used enchant scroll
 				&& (allowAdena || getItemId() != 57) // Not adena
-				&& (player.getCurrentSkill() == null || player.getCurrentSkill().getSkill().getItemConsumeId() != getItemId()) && (isTradeable()));
+				&& (player.getCurrentSkill() == null || player.getCurrentSkill().getSkill().getItemConsumeId() != getItemId())
+				&& (!player.isCastingSimultaneouslyNow() || player.getLastSimultaneousSkillCast() == null || player.getLastSimultaneousSkillCast().getItemConsumeId() != getItemId())
+				&& (isTradeable()));
 	}
 	
 	/*

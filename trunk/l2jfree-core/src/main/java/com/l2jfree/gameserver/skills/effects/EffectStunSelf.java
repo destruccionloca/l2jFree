@@ -31,9 +31,10 @@ public final class EffectStunSelf extends L2Effect
 	}
 
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffector().startStunning();
+		return true;
 	}
 
 	@Override

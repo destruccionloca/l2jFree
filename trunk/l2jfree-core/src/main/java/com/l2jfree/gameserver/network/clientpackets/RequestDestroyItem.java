@@ -109,6 +109,16 @@ public class RequestDestroyItem extends L2GameClientPacket
 			}
 		}
 
+		// Cannot discard item that the skill is consuming
+		if (activeChar.isCastingSimultaneouslyNow())
+		{
+			if (activeChar.getLastSimultaneousSkillCast() != null && activeChar.getLastSimultaneousSkillCast().getItemConsumeId() == itemToRemove.getItemId())
+			{
+	            activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
+	            return;
+			}
+		}
+
 		int itemId = itemToRemove.getItemId();
         if (itemToRemove.isWear() || (!itemToRemove.isDestroyable() && !activeChar.isGM()) || (CursedWeaponsManager.getInstance().isCursed(itemId) &&  !activeChar.isGM()))
 		{

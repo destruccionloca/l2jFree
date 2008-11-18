@@ -199,7 +199,8 @@ public enum Stats
 	MP_CONSUME("MpConsume"),
 	SOULSHOT_COUNT("soulShotCount"),
 
-	transformId("transformId");
+	transformId("transformId"),
+	TALISMAN_SLOTS("talisman");
 
 	public static final int	NUM_STATS	= values().length;
 

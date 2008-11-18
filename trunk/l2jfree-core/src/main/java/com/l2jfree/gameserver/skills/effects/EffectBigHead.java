@@ -37,9 +37,10 @@ public final class EffectBigHead extends L2Effect
 	}
 
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
+		return true;
 	}
 
 	@Override

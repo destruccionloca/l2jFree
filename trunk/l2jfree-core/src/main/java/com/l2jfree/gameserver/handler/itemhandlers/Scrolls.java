@@ -93,7 +93,7 @@ public class Scrolls implements IItemHandler
 		else
 			return;
 
-		if (activeChar.isAllSkillsDisabled())
+		if (activeChar.isAllSkillsDisabled() || activeChar.isCastingNow())
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
@@ -351,7 +351,7 @@ public class Scrolls implements IItemHandler
 	{
 		L2Skill skill = SkillTable.getInstance().getInfo(magicId, level);
 		if (skill != null)
-			activeChar.doCast(skill);
+			activeChar.useMagic(skill, true, false);
 	}
 
 	public int[] getItemIds()

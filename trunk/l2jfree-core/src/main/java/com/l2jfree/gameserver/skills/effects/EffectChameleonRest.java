@@ -38,7 +38,7 @@ public final class EffectChameleonRest extends L2Effect
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		L2Character effected = getEffected();
 		if (effected instanceof L2PcInstance)
@@ -49,7 +49,7 @@ public final class EffectChameleonRest extends L2Effect
 		}
 		else
 			effected.getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
-		super.onStart();
+		return super.onStart();
 	}
 
 	/* (non-Javadoc)

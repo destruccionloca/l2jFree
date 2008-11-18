@@ -1299,7 +1299,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                         {
                             //reduceCurrentMp(mpConsume);
                             if (skill.getSkillType() == SkillType.SUMMON)
-                                player.doCast(skill);
+                                player.doSimultaneousCast(skill);
                             else
                             {
                                 doCast(skill);

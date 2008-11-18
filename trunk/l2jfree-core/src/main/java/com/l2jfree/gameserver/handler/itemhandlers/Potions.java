@@ -717,11 +717,10 @@ public class Potions implements IItemHandler
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
 				sm.addSkillName(skill);
 				activeChar.sendPacket(sm);
-
 				return false;
 			}
 
-			activeChar.doCast(skill);
+			activeChar.doSimultaneousCast(skill);
 			if (activeChar instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance) activeChar;
@@ -733,7 +732,7 @@ public class Potions implements IItemHandler
 				// Summons should be affected by herbs too, self time effect is handled at L2Effect constructor 
 				else if (((magicId > 2277 && magicId < 2286) || (magicId >= 2512 && magicId <= 2514)) && (player.getPet() instanceof L2SummonInstance))
 				{
-					player.getPet().doCast(skill);
+					player.getPet().doSimultaneousCast(skill);
 				}
 
 				if (!(player.isSitting() && !skill.isPotion()))

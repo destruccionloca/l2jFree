@@ -340,7 +340,7 @@ public class UseItem extends L2GameClientPacket
 			// Prevent player to remove the weapon on special conditions
 			if (bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND)
 			{
-				if (activeChar.isCastingNow())
+				if (activeChar.isCastingNow() || activeChar.isCastingSimultaneouslyNow())
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ITEM_WHILE_USING_MAGIC));
 					return;
@@ -351,6 +351,12 @@ public class UseItem extends L2GameClientPacket
 						activeChar.sendMessage("This item can not be equipped when you have the flag.");
 					return;
 				}
+			}
+
+			if (bodyPart == L2Item.SLOT_DECO && !item.isEquipped() && activeChar.getInventory().getMaxTalismanCount() == 0)
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+				return;
 			}
 
 			if (activeChar.isDisarmed() && (bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND))
@@ -373,7 +379,7 @@ public class UseItem extends L2GameClientPacket
 			{
 				ThreadPoolManager.getInstance().scheduleGeneral(new WeaponEquipTask(item, activeChar), (activeChar.getAttackEndTime() - GameTimeController.getGameTicks()) * GameTimeController.MILLIS_IN_TICK);
 				return;
-			}			
+			}
 
 			// Fortress siege combat flags can't be unequipped
 			if (itemId == 9819)

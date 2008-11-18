@@ -206,7 +206,7 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled() || _actor.isAfraid())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAfraid())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
@@ -312,7 +312,7 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
@@ -345,7 +345,7 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled())
+		if (_actor.isAllSkillsDisabled()|| _actor.isCastingNow())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
@@ -385,7 +385,7 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
@@ -442,7 +442,7 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
@@ -488,7 +488,7 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
@@ -748,12 +748,12 @@ public class L2CharacterAI extends AbstractAI
 	@Override
 	protected void onEvtArrivedBlocked(L2CharPosition blocked_at_pos)
 	{
+		// If the Intention was AI_INTENTION_MOVE_TO, set the Intention to AI_INTENTION_ACTIVE
+		if (getIntention() == AI_INTENTION_MOVE_TO || getIntention() == AI_INTENTION_CAST)
+			setIntention(AI_INTENTION_ACTIVE);
+
 		// Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation (broadcast)
 		clientStopMoving(blocked_at_pos);
-
-		// If the Intention was AI_INTENTION_MOVE_TO, tet the Intention to AI_INTENTION_ACTIVE
-		if (getIntention() == AI_INTENTION_MOVE_TO)
-			setIntention(AI_INTENTION_ACTIVE);
 
 		// Launch actions corresponding to the Event Think
 		onEvtThink();
@@ -847,6 +847,8 @@ public class L2CharacterAI extends AbstractAI
 	@Override
 	protected void onEvtCancel()
 	{
+		_actor.abortCast();
+
 		// Stop an AI Follow Task
 		stopFollow();
 

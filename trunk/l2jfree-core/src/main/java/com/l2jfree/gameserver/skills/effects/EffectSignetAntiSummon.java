@@ -45,9 +45,10 @@ public final class EffectSignetAntiSummon extends L2Effect
 	}
 
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		_actor = (L2EffectPointInstance) getEffected();
+		return true;
 	}
 
 	@Override

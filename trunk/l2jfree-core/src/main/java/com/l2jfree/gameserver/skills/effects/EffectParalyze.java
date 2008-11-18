@@ -32,10 +32,11 @@ public final class EffectParalyze extends L2Effect
 	}
 
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 		getEffected().startParalyze();
+		return true;
 	}
 
 	@Override

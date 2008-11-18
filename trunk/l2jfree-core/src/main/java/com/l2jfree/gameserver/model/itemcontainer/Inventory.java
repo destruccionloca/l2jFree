@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.L2Armor;
 import com.l2jfree.gameserver.templates.L2EtcItem;
 import com.l2jfree.gameserver.templates.L2EtcItemType;
@@ -82,11 +83,11 @@ public abstract class Inventory extends ItemContainer
     public static final int PAPERDOLL_RBRACELET = 22;
     public static final int PAPERDOLL_LBRACELET = 23;
     public static final int PAPERDOLL_DECO1 = 24;
-    public static final int PAPERDOLL_DECO2 = 24;
-    public static final int PAPERDOLL_DECO3 = 24;
-    public static final int PAPERDOLL_DECO4 = 24;
-    public static final int PAPERDOLL_DECO5 = 24;
-    public static final int PAPERDOLL_DECO6 = 24;
+    public static final int PAPERDOLL_DECO2 = 25;
+    public static final int PAPERDOLL_DECO3 = 26;
+    public static final int PAPERDOLL_DECO4 = 27;
+    public static final int PAPERDOLL_DECO5 = 28;
+    public static final int PAPERDOLL_DECO6 = 29;
 	
 	// Speed percentage mods
 	public static final double					MAX_ARMOR_WEIGHT	= 12000;
@@ -503,6 +504,26 @@ public abstract class Inventory extends ItemContainer
 		}
 	}
 	
+	final class BraceletListener implements PaperdollListener
+	{
+		public void notifyUnequiped(int slot, L2ItemInstance item)
+		{
+			if (item.getItem().getBodyPart() == L2Item.SLOT_R_BRACELET)
+			{
+				unEquipItemInSlot(PAPERDOLL_DECO1);
+				unEquipItemInSlot(PAPERDOLL_DECO2);
+				unEquipItemInSlot(PAPERDOLL_DECO3);
+				unEquipItemInSlot(PAPERDOLL_DECO4);
+				unEquipItemInSlot(PAPERDOLL_DECO5);
+				unEquipItemInSlot(PAPERDOLL_DECO6);
+			}
+		}
+
+		public void notifyEquiped(int slot, L2ItemInstance item)
+		{
+		}
+	}
+
 	/**
 	 * Constructor of the inventory
 	 */
@@ -515,6 +536,7 @@ public abstract class Inventory extends ItemContainer
 		addPaperdollListener(new ItemSkillsListener());
 		addPaperdollListener(new ArmorSetListener());
 		addPaperdollListener(new FormalWearListener());
+		addPaperdollListener(new BraceletListener());
 	}
 	
 	protected abstract ItemLocation getEquipLocation();
@@ -1270,35 +1292,7 @@ public abstract class Inventory extends ItemContainer
 				setPaperdollItem(PAPERDOLL_BACK, item);
 				break;
 			case L2Item.SLOT_DECO:
-				if (_paperdoll[PAPERDOLL_DECO1] == null)
-				{
-					setPaperdollItem(PAPERDOLL_DECO1, item);
-					break;
-				}
-				if (_paperdoll[PAPERDOLL_DECO2] == null)
-				{
-					setPaperdollItem(PAPERDOLL_DECO2, item);
-					break;
-				}
-				if (_paperdoll[PAPERDOLL_DECO3] == null)
-				{
-					setPaperdollItem(PAPERDOLL_DECO3, item);
-					break;
-				}
-				if (_paperdoll[PAPERDOLL_DECO4] == null)
-				{
-					setPaperdollItem(PAPERDOLL_DECO4, item);
-					break;
-				}
-				if (_paperdoll[PAPERDOLL_DECO5] == null)
-				{
-					setPaperdollItem(PAPERDOLL_DECO5, item);
-					break;
-				}
-				if (_paperdoll[PAPERDOLL_DECO6] == null)
-					setPaperdollItem(PAPERDOLL_DECO6, item);
-				else
-					setPaperdollItem(PAPERDOLL_DECO1, item);
+				equipTalisman(item);
 				break;
 			default:
 				_log.warn("unknown body slot:" + targetSlot + " for item ID:"+item.getItemId());
@@ -1523,5 +1517,43 @@ public abstract class Inventory extends ItemContainer
 				listener.notifyEquiped(slot, item);
 			}
 		}
+	}
+
+	public int getMaxTalismanCount()
+	{
+		return (int)getOwner().getStat().calcStat(Stats.TALISMAN_SLOTS, 0, null, null);
+	}
+
+	private void equipTalisman(L2ItemInstance item)
+	{
+		if (getMaxTalismanCount() == 0)
+			return;
+
+		// find same (or incompatible) talisman type
+		for (int i = PAPERDOLL_DECO1; i < PAPERDOLL_DECO1 + getMaxTalismanCount(); i++)
+		{
+			if (_paperdoll[i] != null) 
+			{
+				if (getPaperdollItemId(i) == item.getItemId())
+				{
+					// overwrite
+					setPaperdollItem(i, item);
+					return;
+				}
+			}
+		}
+		
+		// no free slot found - put on first free
+		for (int i = PAPERDOLL_DECO1; i < PAPERDOLL_DECO1 + getMaxTalismanCount(); i++)
+		{
+			if (_paperdoll[i] == null)
+			{
+				setPaperdollItem(i, item);
+				return;
+			}
+		}
+
+		// no free slots - put on first
+		setPaperdollItem(PAPERDOLL_DECO1, item);
 	}
 }

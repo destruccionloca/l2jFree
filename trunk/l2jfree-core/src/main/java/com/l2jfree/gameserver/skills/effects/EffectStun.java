@@ -36,9 +36,10 @@ public final class EffectStun extends L2Effect
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffected().startStunning();
+		return true;
 	}
 
 	/** Notify exited */

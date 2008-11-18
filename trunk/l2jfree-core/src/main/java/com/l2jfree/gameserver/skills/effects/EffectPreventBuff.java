@@ -36,9 +36,10 @@ public final class EffectPreventBuff extends L2Effect
 	}
 
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffected().setPreventedFromReceivingBuffs(true);
+		return true;
 	}
 
 	@Override

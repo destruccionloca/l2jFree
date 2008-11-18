@@ -176,6 +176,16 @@ public class RequestDropItem extends L2GameClientPacket
             }
         }
 
+        // Cannot discard item that the skill is consuming
+        if (activeChar.isCastingSimultaneouslyNow())
+        {
+            if (activeChar.getLastSimultaneousSkillCast() != null && activeChar.getLastSimultaneousSkillCast().getItemConsumeId() == item.getItemId())
+            {
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
+                return;
+            }
+        }
+
         if (L2Item.TYPE2_QUEST == item.getItem().getType2() && !activeChar.isGM())
         {
             if (_log.isDebugEnabled()) _log.debug(activeChar.getObjectId()+":player tried to drop quest item");

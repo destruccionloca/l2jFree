@@ -64,7 +64,7 @@ public class DoorKey implements IItemHandler
 		{
 			L2Skill skill = SkillTable.getInstance().getInfo(2260, 1);
 			if (skill != null)
-				activeChar.doCast(skill);
+				activeChar.doSimultaneousCast(skill);
 			return;
 		}
 

@@ -35,16 +35,16 @@ public final class EffectPhysicalAttackMute extends L2Effect
 	}
 
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffected().startPhysicalAttackMuted();
+		return true;
 	}
 
 	@Override
 	public boolean onActionTime()
 	{
 		// Simply stop the effect
-		getEffected().stopPhysicalAttackMuted(this);
 		return false;
 	}
 

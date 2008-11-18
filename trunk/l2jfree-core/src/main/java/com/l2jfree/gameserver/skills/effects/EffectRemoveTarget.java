@@ -36,11 +36,12 @@ public final class EffectRemoveTarget extends L2Effect
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffected().setTarget(null);
 		getEffected().abortAttack();
 		getEffected().abortCast();
+		return true;
 	}
 
 	/** Notify exited */

@@ -40,7 +40,7 @@ public final class EffectEnemyCharge extends L2Effect
 	}
 
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		// Get current position of the L2Character
 		final int curX = getEffector().getX();
@@ -66,7 +66,7 @@ public final class EffectEnemyCharge extends L2Effect
 
 		// If no distance
 		if (distance < 1 || distance - offset <= 0)
-			return;
+			return false;
 
 		// Calculate movement angles needed
 		sin = dy / distance;
@@ -86,6 +86,7 @@ public final class EffectEnemyCharge extends L2Effect
 		getEffector().broadcastPacket(new FlyToLocation(getEffector(), _x, _y, _z, FlyType.CHARGE));
 		//getEffector().abortAttack();
 		//getEffector().abortCast();
+		return true;
 	}
 
 	@Override

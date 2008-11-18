@@ -37,9 +37,10 @@ public final class EffectLuckNoblesse extends L2Effect
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffected().startLuckNoblesse();
+		return true;
 	}
 
 	/** Notify exited */
@@ -52,7 +53,6 @@ public final class EffectLuckNoblesse extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		getEffected().stopLuckNoblesse();
 		// just stop this effect
 		return false;
 	}

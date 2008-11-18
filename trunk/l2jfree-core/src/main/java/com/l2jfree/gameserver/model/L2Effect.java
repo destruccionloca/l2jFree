@@ -149,6 +149,7 @@ public abstract class L2Effect
 	private final float		_stackOrder;
 	
 	private boolean			_inUse	= false;
+	private boolean			_startConditionsCorrect = true;
 	
 	protected L2Effect(Env env, EffectTemplate template)
 	{
@@ -309,7 +310,7 @@ public abstract class L2Effect
 	{
 		_inUse = inUse;
 		if (_inUse)
-			onStart();
+			_startConditionsCorrect = onStart();
 		else
 			onExit();
 	}
@@ -431,10 +432,11 @@ public abstract class L2Effect
 	public abstract EffectType getEffectType();
 	
 	/** Notify started */
-	public void onStart()
+	public boolean onStart()
 	{
 		if (_abnormalEffect != 0)
 			getEffected().startAbnormalEffect(_abnormalEffect);
+		return true;
 	}
 	
 	/**
@@ -505,11 +507,11 @@ public abstract class L2Effect
 			{
 				if (getInUse()) // effect has to be in use
 				{
-					if (onActionTime())
+					if (onActionTime() && _startConditionsCorrect)
 						return; // false causes effect to finish right away
 				}
 				else if (_count > 0) // do not finish it yet, in case reactivated
-				{ return; }
+					return;
 			}
 			_state = EffectState.FINISHING;
 		}
@@ -517,8 +519,9 @@ public abstract class L2Effect
 		if (_state == EffectState.FINISHING)
 		{
 			// Cancel the effect in the the abnormal effect map of the L2Character
-			if ((getInUse() || !(_count > 1 || _period > 0)) && _skill.getTransformId() < 1)
-				setInUse(false);
+			if (getInUse() || !(_count > 1 || _period > 0))
+				if (_startConditionsCorrect)
+					setInUse(false);
 			
 			// If the time left is equal to zero, send the message
 			if (_count == 0)

@@ -41,9 +41,10 @@ public final class EffectImmobileUntilAttacked extends L2Effect
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		getEffected().startImmobileUntilAttacked();
+		return true;
 	}
 
 	/** Notify exited */
@@ -56,7 +57,6 @@ public final class EffectImmobileUntilAttacked extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		getEffected().stopImmobileUntilAttacked(this);
 		// just stop this effect
 		return false;
 	}

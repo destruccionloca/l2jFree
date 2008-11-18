@@ -36,7 +36,7 @@ public final class EffectRelax extends L2Effect
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		if (getEffected() instanceof L2PcInstance)
 		{
@@ -45,7 +45,7 @@ public final class EffectRelax extends L2Effect
 		}
 		else
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
-		super.onStart();
+		return super.onStart();
 	}
 
 	/*

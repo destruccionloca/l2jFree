@@ -51,7 +51,7 @@ public final class EffectFear extends L2Effect
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		// Fear skills cannot be used L2Pcinstance to L2Pcinstance.
 		// Heroic Dread, Curse: Fear, Fear, Horror, Sword Symphony, Word of Fear and Mass Curse Fear are the exceptions.
@@ -69,13 +69,13 @@ public final class EffectFear extends L2Effect
 				// all ok
 				break;
 			default:
-				return;
+				return false;
 			}
 		}
 
 		if (getEffected() instanceof L2FolkInstance || getEffected() instanceof L2SiegeGuardInstance || getEffected() instanceof L2SiegeFlagInstance
 				|| getEffected() instanceof L2SiegeSummonInstance)
-			return;
+			return false;
 
 		if (!getEffected().isAfraid())
 		{
@@ -86,8 +86,9 @@ public final class EffectFear extends L2Effect
 
 			getEffected().startFear();
 			onActionTime();
+			return true;
 		}
-
+		return false;
 	}
 
 	/** Notify exited */

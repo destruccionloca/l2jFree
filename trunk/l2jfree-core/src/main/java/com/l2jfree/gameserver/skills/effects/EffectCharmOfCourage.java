@@ -43,18 +43,21 @@ public final class EffectCharmOfCourage extends L2Effect
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		if (getEffected() instanceof L2PcInstance)
+		{
 			((L2PcInstance) getEffected()).setCharmOfCourage(true);
+			return true;
+		}
+		return false;
 	}
 
 	/** Notify exited */
 	@Override
 	public void onExit()
 	{
-		if (getEffected() instanceof L2PcInstance)
-			((L2PcInstance) getEffected()).setCharmOfCourage(false);
+		((L2PcInstance) getEffected()).setCharmOfCourage(false);
 	}
 
 	/**

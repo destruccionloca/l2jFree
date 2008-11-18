@@ -37,12 +37,16 @@ final class EffectBestowSkill extends L2Effect
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		L2Skill tempSkill = SkillTable.getInstance().getInfo
 				(getSkill().getTriggeredId(), getSkill().getTriggeredLevel());
 		if (tempSkill != null)
+		{
 			getEffected().addSkill(tempSkill);
+			return true;
+		}
+		return false;
 	}
 
 	@Override

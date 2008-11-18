@@ -47,12 +47,8 @@ public class Escape implements IUserCommandHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IUserCommandHandler#useUserCommand(int, com.l2jfree.gameserver.model.L2PcInstance)
 	 */
-	public boolean useUserCommand(@SuppressWarnings("unused")
-	int id, L2PcInstance activeChar)
+	public boolean useUserCommand(@SuppressWarnings("unused") int id, L2PcInstance activeChar)
 	{
-		if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isAlikeDead())
-			return false;
-
 		// [L2J_JP ADD]
 		if (activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
 		{
@@ -107,7 +103,12 @@ public class Escape implements IUserCommandHandler
 			return false;
 		}
 
+		if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead())
+			return false;
+
 		int unstuckTimer = (activeChar.getAccessLevel() >= Config.GM_ESCAPE ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
+
+		activeChar.forceIsCasting(GameTimeController.getGameTicks() + unstuckTimer / GameTimeController.MILLIS_IN_TICK);
 
 		L2Skill GM_escape = SkillTable.getInstance().getInfo(2100, 1); // 1 second escape
 		L2Skill escape = SkillTable.getInstance().getInfo(2099, 1); // 5 minutes escape
@@ -149,7 +150,6 @@ public class Escape implements IUserCommandHandler
 		EscapeFinalizer ef = new EscapeFinalizer(activeChar);
 		// continue execution later
 		activeChar.setSkillCast(ThreadPoolManager.getInstance().scheduleGeneral(ef, unstuckTimer));
-		activeChar.forceIsCasting(GameTimeController.getGameTicks() + unstuckTimer / GameTimeController.MILLIS_IN_TICK);
 
 		return true;
 	}
@@ -169,8 +169,8 @@ public class Escape implements IUserCommandHandler
 				return;
 
 			_activeChar.setIsIn7sDungeon(false);
-
 			_activeChar.enableAllSkills();
+			_activeChar.setIsCastingNow(false);
 
 			try
 			{

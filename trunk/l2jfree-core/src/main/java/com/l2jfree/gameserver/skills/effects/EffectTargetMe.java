@@ -39,16 +39,16 @@ public final class EffectTargetMe extends L2Effect
 
 	/** Notify started */
 	@Override
-	public void onStart()
+	public boolean onStart()
 	{
 		// Should only work on PC?
 		if (getEffected() instanceof L2PcInstance)
 		{
 			getEffected().setTarget(getEffector());
-			MyTargetSelected my = new MyTargetSelected(getEffector().getObjectId(), 0);
-			getEffected().sendPacket(my);
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getEffector());
+			return true;
 		}
+		return false;
 	}
 
 	/** Notify exited */
