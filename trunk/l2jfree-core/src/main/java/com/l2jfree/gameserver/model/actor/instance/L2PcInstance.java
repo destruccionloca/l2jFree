@@ -5561,7 +5561,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (getKarma() > 0)
 			percentLost *= Config.RATE_KARMA_EXP_LOST;
 
-		if (isFestivalParticipant() || atwar || SiegeManager.getInstance().checkIfInZone(this))
+		if (isFestivalParticipant() || atwar)
 			percentLost /= 4.0;
 
 		// Calculate the Experience loss
@@ -5581,7 +5581,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (charmOfCourage && getSiegeState() > 0 && isInsideZone(L2Zone.FLAG_SIEGE))
 			return;
 
-		if (isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_SIEGE) && killed_by_pc)
+		if (killed_by_pc && (
+				(isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_SIEGE))
+			|| (isInsideZone(L2Zone.FLAG_SIEGE) && getSiegeState() > 0)))
 			return;
 
 		if (_log.isDebugEnabled())
@@ -10784,7 +10786,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (answer == 0 && isPhoenixBlessed() && isDead() && _reviveRequested)
 		{
 			stopPhoenixBlessing(null);
-			stopAllEffects();
+			stopAllEffectsExceptThoseThatLastThroughDeath();
 		}
 
 		if (answer == 1)

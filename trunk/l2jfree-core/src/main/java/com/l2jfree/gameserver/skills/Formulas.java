@@ -1841,11 +1841,11 @@ public final class Formulas
 		{
 			int delta = ((magiclvl + activeChar.getLevel()) / 2) - 1 - target.getLevel();
 
-			if((delta + 3) >= 0)
+			if ((delta + 3) >= 0)
 			{
-				chance = (baseLethal * ((double)activeChar.getLevel()/target.getLevel()));
+				chance = (baseLethal * ((double) activeChar.getLevel() / target.getLevel()));
 			}
-			else if((delta + 3) < 0 && (delta + 3) >= -9)
+			else if (delta < 0 && delta >= -9)
 			{
 				chance = (-1) * (baseLethal / (delta * 1.5));
 			}

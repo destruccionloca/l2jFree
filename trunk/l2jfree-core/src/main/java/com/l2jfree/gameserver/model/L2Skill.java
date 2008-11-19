@@ -2790,18 +2790,23 @@ public class L2Skill
 
 						if (targetType == SkillTargetType.TARGET_CORPSE_ALLY)
 						{
-							if (!((L2Character) obj).isDead())
+							if (!newTarget.isDead())
 								continue;
 							if (getSkillType() == SkillType.RESURRECT)
 							{
-								// check target is not in a active siege zone
-								Siege siege = SiegeManager.getInstance().getSiege(obj);
+								// check for charm of courage and caster being a siege participant, otherwise do not allow resurrection
+								// on siege battlefield
+								Siege siege = SiegeManager.getInstance().getSiege(newTarget);
 								if (siege != null && siege.getIsInProgress())
-									continue;
+								{
+									// could/should be a more accurate check for siege clans
+									if (!newTarget.getCharmOfCourage() || player.getSiegeState() == 0)
+										continue;
+								}
 							}
 						}
 
-						if (!Util.checkIfInRange(radius, activeChar, obj, true))
+						if (!Util.checkIfInRange(radius, activeChar, newTarget, true))
 							continue;
 
 						// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
@@ -2810,10 +2815,10 @@ public class L2Skill
 
 						if (onlyFirst == false)
 						{
-							targetList.add((L2Character) obj);
+							targetList.add(newTarget);
 						}
 						else
-							return new L2Character[] { (L2Character) obj };
+							return new L2Character[] { newTarget };
 
 					}
 				}
@@ -2938,10 +2943,15 @@ public class L2Skill
 								continue;
 							if (getSkillType() == SkillType.RESURRECT)
 							{
-								// check target is not in a active siege zone
+								// check for charm of courage and caster being a siege participant, otherwise do not allow resurrection
+								// on siege battlefield
 								Siege siege = SiegeManager.getInstance().getSiege(newTarget);
 								if (siege != null && siege.getIsInProgress())
-									continue;
+								{
+									// could/should be a more accurate check for siege clans
+									if (!newTarget.getCharmOfCourage() || player.getSiegeState() == 0)
+										continue;
+								}
 							}
 						}
 
@@ -3015,7 +3025,7 @@ public class L2Skill
 						else if (targetPet != null)
 							siege = SiegeManager.getInstance().getSiege(targetPet);
 
-						if (siege != null && siege.getIsInProgress())
+						if (siege != null && siege.getIsInProgress() && (!targetPlayer.getCharmOfCourage() || player.getSiegeState() == 0))
 						{
 							condGood = false;
 							player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));

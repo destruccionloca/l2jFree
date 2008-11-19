@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.effects.EffectCharmOfCourage;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -235,6 +236,26 @@ public class CharEffectList
 			}
 		}
 	}
+
+	/**
+	 * Exits all effects in this CharEffectList
+	 */
+	public final void stopAllEffectsExceptThoseThatLastThroughDeath()
+	{
+		// Get all active skills effects from this list
+		L2Effect[] effects = getAllEffects();
+
+		// Exit them
+		for (L2Effect e : effects)
+		{
+			if (e != null)
+			{
+				if (e instanceof EffectCharmOfCourage)
+					continue;
+				e.exit(true);
+			}
+		}
+ 	}
 
 	/**
 	 * Exit all effects having a specified type

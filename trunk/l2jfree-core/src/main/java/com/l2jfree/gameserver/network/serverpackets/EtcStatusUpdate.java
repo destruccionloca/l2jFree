@@ -44,7 +44,7 @@ public class EtcStatusUpdate extends L2GameServerPacket
 		writeD(_activeChar.getMessageRefusal() ? 1 : 0);
 		writeD(_activeChar.isInsideZone(L2Zone.FLAG_DANGER) ? 1 : 0);
 		writeD(_activeChar.getExpertisePenalty());
-		writeD(_activeChar.getCharmOfCourage() ? 1 : 0);
+		writeD(_activeChar.getCharmOfCourage() ? 1 : 0); // 1 = charm of courage (allows resurrection on the same spot upon death on the siege battlefield)
 		writeD(_activeChar.getDeathPenaltyBuffLevel());
 		writeD(_activeChar.getSouls());
 	}

@@ -2274,10 +2274,10 @@ public abstract class L2Character extends L2Object
 				}
 			}
 			else
-				stopAllEffects();
+				stopAllEffectsExceptThoseThatLastThroughDeath();
 		}
 		else
-			stopAllEffects();
+			stopAllEffectsExceptThoseThatLastThroughDeath();
 
 		if (this instanceof L2PcInstance && ((L2PcInstance) this).getAgathionId() != 0)
 			((L2PcInstance) this).setAgathionId(0);
@@ -3436,6 +3436,15 @@ public abstract class L2Character extends L2Object
 	public final void stopAllEffects()
 	{
 		_effects.stopAllEffects();
+		if (this instanceof L2PcInstance)
+			((L2PcInstance)this).updateAndBroadcastStatus(2);
+	}
+
+	public final void stopAllEffectsExceptThoseThatLastThroughDeath()
+	{
+		_effects.stopAllEffectsExceptThoseThatLastThroughDeath();
+		if (this instanceof L2PcInstance)
+			((L2PcInstance)this).updateAndBroadcastStatus(2);
 	}
 
 	/**
