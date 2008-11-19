@@ -168,7 +168,6 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
     <set name="effectType" val="POISON" />
-    <set name="killByDOT" val="false"/>
     <set name="effectPower" val="35" /> <!-- Base Land Rate -->
     <for>
       <effect count="10" name="DamOverTime" time="3"
@@ -332,7 +331,6 @@
     <set name="power" val="50" /> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BLEED" />
-    <set name="killByDOT" val="false"/>
     <set name="isDebuff" val="true" />
     <set name="hitTime" val="2000" />
     <set name="lvlDepend" val="1" />
@@ -1004,7 +1002,6 @@
     <set name="target" val="TARGET_AURA" />
     <set name="skillRadius" val="200" />
     <set name="skillType" val="POISON" />
-    <set name="killByDOT" val="false"/>
     <set name="isDebuff" val="true" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -1597,7 +1594,6 @@
     <set name="effectPower" val="80" />
     <set name="effectRange" val="1100" />
     <set name="effectType" val="DOT" />
-    <set name="killByDOT" val="false"/>
     <for>
       <effect count="5" name="DamOverTime" time="2"
         val="216" abnormal="flame" stackOrder="1"
@@ -1622,7 +1618,6 @@
     <set name="effectPower" val="80" />
     <set name="effectRange" val="1400" />
     <set name="effectType" val="DOT" />
-    <set name="killByDOT" val="false"/>
     <for>
       <effect count="5" name="DamOverTime" time="2"
         val="216" abnormal="flame" stackOrder="1"

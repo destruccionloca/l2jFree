@@ -9,8 +9,7 @@
     <for />
   </skill>
   <!-- NPC Short-Range Physical Resistance -->
-  <skill id="5601" levels="12"
-    name="Short-Range Physical Attack Resistance">
+  <skill id="5601" levels="12" name="Short-Range Physical Attack Resistance">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -31,11 +30,25 @@
     increased.
   -->
   <skill id="5603" levels="1" name="Dagger Mastery">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for />
+    <set name="activationChance" val="25"/>
+    <set name="castRange" val="-1"/>
+    <set name="chanceType" val="ON_CRIT"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="skillType" val="BUFF"/> 
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowed" val="true"/>
+    <set name="weaponsAllowed" val="16"/>
+    <for>
+      <effect count="1" name="Buff" time="5" val="0">
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.33">  
+             <using kind="Dagger"/>
+        </mul>
+        <mul order="0x30" stat="blowRate" val="1.10">
+             <using kind="Dagger"/>
+        </mul>
+      </effect>
+    </for>
   </skill>
   <!--
     A state in which MP consumption of skills is greatly
@@ -43,11 +56,22 @@
     increased.
   -->
   <skill id="5604" levels="1" name="Blunt Mastery">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for />
+    <set name="activationChance" val="25"/>
+    <set name="castRange" val="-1"/>
+    <set name="chanceType" val="ON_CRIT"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowed" val="true"/>
+    <set name="weaponsAllowed" val="16392"/>
+    <for>
+      <effect count="1" name="Buff" time="5" val="0">
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.33">
+            <using kind="Blunt,Big Blunt"/>
+        </mul>
+      </effect>
+    </for>
   </skill>
   <!--
     Power of Apella. Increased M. Def., increased critical
@@ -837,24 +861,39 @@
     <for />
   </skill>
   <skill id="5676" levels="1" name="Steal Mana">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="activationChance" val="5"/>
+    <set name="castRange" val="-1"/>
+    <set name="chanceType" val="ON_HIT"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="skillType" val="MANARECHARGE"/> 
+    <set name="power" val="41"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowed" val="true"/>
     <for />
   </skill>
   <skill id="5677" levels="1" name="Steal Mana">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="activationChance" val="7"/>
+    <set name="castRange" val="-1"/>
+    <set name="chanceType" val="ON_HIT"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="skillType" val="MANARECHARGE"/> 
+    <set name="power" val="51"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowed" val="true"/>
     <for />
   </skill>
   <skill id="5678" levels="1" name="Steal Mana">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="activationChance" val="9"/>
+    <set name="castRange" val="-1"/>
+    <set name="chanceType" val="ON_HIT"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="skillType" val="MANARECHARGE"/> 
+    <set name="power" val="59"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowed" val="true"/>
     <for />
   </skill>
   <skill id="5679" levels="3" name="Oblivion Trap">
@@ -885,8 +924,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5683" levels="1"
-    name="PvP Weapon - Ignore Shield Defense">
+  <skill id="5683" levels="1" name="PvP Weapon - Ignore Shield Defense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -914,24 +952,21 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5687" levels="1"
-    name="PvP Weapon - Decrease Range">
+  <skill id="5687" levels="1" name="PvP Weapon - Decrease Range">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5688" levels="1"
-    name="PvP Weapon - Decrease Resist">
+  <skill id="5688" levels="1" name="PvP Weapon - Decrease Resist">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="5689" levels="1"
-    name="PvP Shield - Reflect Damage">
+  <skill id="5689" levels="1" name="PvP Shield - Reflect Damage">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />

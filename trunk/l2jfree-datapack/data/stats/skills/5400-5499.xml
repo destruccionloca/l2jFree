@@ -334,78 +334,69 @@
     </for>
   </skill>
   <skill id="5426" levels="1" name="Counter Chance">
-    <!--
-      Done by Darki699 Shot skill. Condition is set in skill
-      532 Description(s): Condition causing target to
-      decrease skill casting speed and MP consumption.
-    -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="BUFF" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
-    <set name="skill_landing_percent" val="60" />
+    <set name="activationChance" val="10"/>
+    <set name="castRange" val="-1"/>
+    <set name="chanceType" val="ON_ATTACKED"/>
+    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="bestowed" val="true"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0">
-        <mul order="0x30" stat="pReuse" val="1.12">
-          <using kind="Bow" />
+      <effect count="1" name="Buff" time="60" val="0">
+        <mul order="0x30" stat="pReuse" val="0.90"> <!-- Guessing -->
+          <using kind="Bow"/>
         </mul>
-        <mul order="0x30" stat="PhysicalMpConsumeRate"
-          val="0.7">
-          <using kind="Bow" />
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.97"> <!-- Guessing -->
+          <using kind="Bow"/>
         </mul>
       </effect>
     </for>
   </skill>
   <skill id="5427" levels="1" name="Counter Rapid Shot">
-    <!--
-      Done by Darki699 Shot skill. Condition is set in skill
-      533 Description(s): Condition causing target to
-      increase bow attack speed.
-    -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="BUFF" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
-    <set name="skill_landing_percent" val="60" />
+    <set name="activationChance" val="10"/>
+    <set name="castRange" val="-1"/>
+    <set name="chanceType" val="ON_ATTACKED"/>
+    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="bestowed" val="true"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0">
+      <effect count="1" name="Buff" time="60" val="0">
         <mul order="0x30" stat="pAtkSpd" val="1.12">
-          <using kind="Bow" />
+          <using kind="Bow,Crossbow"/>
         </mul>
       </effect>
     </for>
   </skill>
   <skill id="5428" levels="1" name="Counter Dash">
-    <!--
-      Done by Darki699 Shot skill. Condition is set in skill
-      534 Description(s): Condition causing target to
-      increase speed.
-    -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="BUFF" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
-    <set name="skill_landing_percent" val="60" />
+    <set name="activationChance" val="10"/>
+    <set name="castRange" val="-1"/>
+    <set name="chanceType" val="ON_ATTACKED"/>
+    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="bestowed" val="true"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0"
-        stackOrder="22" stackType="SpeedUp">
-        <add order="0x40" stat="runSpd" val="22">
-          <using kind="Bow" />
-        </add>
+      <effect count="1" name="Buff" time="60" val="0">
+        <add order="0x40" stat="runSpd" val="50"/>
       </effect>
     </for>
   </skill>
   <skill id="5429" levels="1" name="Counter Mind">
-    <!--
-      Done by Darki699 Shot skill. Condition is set in skill
-      535 Description(s): Condition Fully restoring MP.
-    -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="power" val="100" />
-    <set name="skillType" val="MANAHEAL_PERCENT" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
-    <set name="skill_landing_percent" val="40" />
+    <set name="activationChance" val="5"/>
+    <set name="castRange" val="-1"/>
+    <set name="chanceType" val="ON_ATTACKED"/>
+    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="MANAHEAL"/>
+    <set name="power" val="42"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="bestowed" val="true"/>
     <for />
   </skill>
   <skill id="5430" levels="1" name="Spoil Bomb">
@@ -641,7 +632,6 @@
     <set name="power" val="40"/> <!-- Guessing -->
     <set name="isDebuff" val="true" />
     <set name="castRange" val="40" />
-    <set name="killByDOT" val="false"/>
     <for>
       <effect count="1" name="Paralyze" time="15" val="0" />
       <effect count="5" name="DamOverTime" time="3"

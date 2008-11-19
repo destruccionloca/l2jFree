@@ -321,7 +321,6 @@
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
     <set name="effectType" val="BLEED" />
-    <set name="killByDOT" val="false"/>
     <set name="effectPower" val="40" /> <!-- Base Land Rate --> <!-- Guessing -->
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
@@ -783,76 +782,51 @@
   </skill>
   <skill id="532" levels="1" name="Counter Chance">
     <!-- Needs to be verified -->
-    <!-- Done by DJ MELERIX -->
-    <set name="activationChance" val="10" />
-    <set name="castRange" val="-1" />
-    <set name="chanceType" val="ON_ATTACKED" />
-    <set name="effectRange" val="-1" />
-    <set name="magicLevel" val="79" />
-    <set name="operateType" val="OP_CHANCE" />
-    <set name="skillType" val="BUFF" />
-    <set name="target" val="TARGET_SELF" />
-    <for>
-      <effect count="1" name="Buff" time="60" val="0">
-        <mul order="0x30" stat="pReuse" val="0.90"> <!-- Guessing -->
-          <using kind="Bow" />
-        </mul>
-        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.97"> <!-- Guessing -->
-          <using kind="Bow" />
-        </mul>
-      </effect>
-    </for>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5426"/>
+    <set name="triggeredLevel" val="1"/>
+    <for />
   </skill>
   <skill id="533" levels="1" name="Counter Rapid Shot">
     <!-- Needs to be verified -->
-    <set name="activationChance" val="10" />
-    <set name="castRange" val="-1" />
-    <set name="chanceType" val="ON_ATTACKED" />
-    <set name="effectRange" val="-1" />
-    <set name="magicLevel" val="79" />
-    <set name="operateType" val="OP_CHANCE" />
-    <set name="skillRadius" val="1000" />
-    <set name="skillType" val="BUFF" />
-    <set name="target" val="TARGET_PARTY" />
-    <for>
-      <effect count="1" name="Buff" time="60" val="0"
-        stackOrder="1.12" stackType="attack_time_down_special">
-        <mul order="0x30" stat="pAtkSpd" val="1.12">
-          <using kind="Bow,Crossbow" />
-        </mul>
-      </effect>
-    </for>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5427"/>
+    <set name="triggeredLevel" val="1"/>
+    <for />
   </skill>
   <skill id="534" levels="1" name="Counter Dash">
     <!-- Needs to be verified -->
-    <set name="activationChance" val="10" />
-    <set name="castRange" val="-1" />
-    <set name="chanceType" val="ON_ATTACKED" />
-    <set name="effectRange" val="-1" />
-    <set name="magicLevel" val="79" />
-    <set name="operateType" val="OP_CHANCE" />
-    <set name="skillRadius" val="1000" />
-    <set name="skillType" val="BUFF" />
-    <set name="target" val="TARGET_PARTY" />
-    <for>
-      <effect count="1" name="Buff" time="60" val="0"
-        stackOrder="50" stackType="speed_up_special">
-        <add order="0x40" stat="runSpd" val="50" />
-      </effect>
-    </for>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5428"/>
+    <set name="triggeredLevel" val="1"/>
+    <for />
   </skill>
   <skill id="535" levels="1" name="Counter Mind">
     <!-- Needs to be verified -->
-    <!-- Done by DJ MELERIX -->
-    <set name="activationChance" val="5" />
-    <set name="castRange" val="-1" />
-    <set name="chanceType" val="ON_ATTACKED" />
-    <set name="effectRange" val="-1" />
-    <set name="magicLevel" val="79" />
-    <set name="operateType" val="OP_CHANCE" />
-    <set name="power" val="42" />
-    <set name="skillType" val="MANAHEAL" />
-    <set name="target" val="TARGET_SELF" />
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="bestowTriggered" val="true"/>
+    <set name="triggeredId" val="5429"/>
+    <set name="triggeredLevel" val="1"/>
+    <for />
   </skill>
   <skill id="536" levels="1" name="Over the Body">
     <!-- Done by DJ MELERIX -->
@@ -896,8 +870,7 @@
     <set name="reuseDelay" val="45000" />
     <set name="power" val="3000" />
     <for>
-      <effect count="1" name="DamOverTime" time="30"
-        val="74" />
+      <effect count="1" name="DamOverTime" time="30" val="74" />
     </for>
   </skill>
   <skill id="538" levels="1" name="Final Form">
@@ -915,8 +888,7 @@
     <set name="effectRange" val="-1" />
     <set name="soulConsumeCount" val="20" />
     <for>
-      <effect count="1" name="Transformation" time="300"
-        val="0">
+      <effect count="1" name="Transformation" time="300" val="0">
         <!-- Transformation lasts 5 minutes -->
         <mul order="0x30" stat="maxHp" val="1.1" />
         <!-- Max Hp +10% -->
@@ -994,8 +966,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="542" levels="1" name="Transform Grail Apostle">
@@ -1012,8 +984,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="543" levels="1" name="Transform Grail Apostle">
@@ -1030,8 +1002,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="544" levels="1" name="Transform Unicorn">
@@ -1048,8 +1020,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="545" levels="1" name="Transform Unicorn">
@@ -1066,8 +1038,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="546" levels="1" name="Transform Unicorn">
@@ -1084,8 +1056,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="547" levels="1" name="Transform Lilim Knight">
@@ -1102,8 +1074,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="548" levels="1" name="Transform Lilim Knight">
@@ -1120,8 +1092,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="549" levels="1" name="Transform Lilim Knight">
@@ -1138,8 +1110,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="550" levels="1" name="Transform Golem Guardian">
@@ -1156,8 +1128,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="551" levels="1" name="Transform Golem Guardian">
@@ -1174,8 +1146,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="552" levels="1" name="Transform Golem Guardian">
@@ -1192,8 +1164,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="553" levels="1" name="Transform Inferno Drake">
@@ -1210,8 +1182,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="554" levels="1" name="Transform Inferno Drake">
@@ -1228,8 +1200,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="555" levels="1" name="Transform Inferno Drake">
@@ -1246,8 +1218,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="556" levels="1" name="Transform Dragon Bomber">
@@ -1264,8 +1236,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="557" levels="1" name="Transform Dragon Bomber">
@@ -1282,8 +1254,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="558" levels="1" name="Transform Dragon Bomber">
@@ -1300,8 +1272,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="559" levels="4" name="Spear">
@@ -1367,9 +1339,7 @@
   <skill id="562" levels="4" name="Wind of Angel">
     <table name="#mpConsume">61 63 67 70</table>
     <table name="#aggro">549 655 655 655</table>
-    <!--
-      Most close to CT1.5
-    -->
+    <!-- Most close to CT1.5 -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_PARTY" />
     <set name="skillRadius" val="1000" />
@@ -1723,9 +1693,7 @@
     <set name="lethal2" val="2" />
     <set name="effectRange" val="360" />
     <set name="nextAction" val="attack" />
-    <!--
-      To prevent character stop from attacking
-    -->
+    <!-- To prevent character stop from attacking -->
     <for>
       <effect name="Buff" time="15" count="1" val="0"
         stackOrder="#accCombat" stackType="accuracyDown">
@@ -1778,7 +1746,6 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <set name="effectType" val="BLEED" />
-    <set name="killByDOT" val="false"/>
     <set name="effectPower" val="40" /> <!-- Base Land Rate --> <!-- Guessing -->
     <set name="nextAction" val="attack" /> <!-- To prevent character stop from attacking -->
     <for>

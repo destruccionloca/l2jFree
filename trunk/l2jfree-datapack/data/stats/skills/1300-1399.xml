@@ -2214,7 +2214,7 @@
   <skill id="1397" levels="3" name="Clarity">
     <table name="#mpConsume">54 62 69</table>
     <table name="#SpiritOre">1 2 3</table>
-    <table name="#mpConsumeRate">0.96 0.92 0.9</table>
+    <table name="#MpConsumeRate">0.96 0.92 0.9</table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="itemConsumeId" val="3031" />
     <set name="itemConsumeCount" val="#SpiritOre" />
@@ -2230,7 +2230,7 @@
       <effect count="1" name="Buff" time="1200" val="0"
         stackOrder="#mpConsume" stackType="MPrate">
         <mul order="0x30" stat="MagicalMpConsumeRate"
-          val="#mpConsumeRate" />
+          val="#MpConsumeRate" />
       </effect>
     </for>
   </skill>
