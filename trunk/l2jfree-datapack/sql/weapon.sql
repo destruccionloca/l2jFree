@@ -1,4 +1,4 @@
-ï»¿-- ---------------------------
+-- ---------------------------
 -- Table structure for table `weapon`
 -- ---------------------------
 DROP TABLE IF EXISTS `weapon`;
@@ -2403,7 +2403,7 @@ INSERT INTO `weapon` VALUES
 (11699,'Common Item - Spinebone Sword*Spinebone Sword','lrhand','true','2520','3','3','fine_steel','d','96','10','dual','8','0.00000','0','0','0','325','0','47','-1',52050,96,'true','true','true','true','','','','',0),
 (11700,'Common Item - Spinebone Sword*Artisan\'s Sword','lrhand','true','2460','3','3','fine_steel','d','96','10','dual','8','0.00000','0','0','0','325','0','47','-1',52050,96,'true','true','true','true','','','','',0),
 (11701,'Common Item - Arm Breaker','lrhand','true','1820','6','3','fine_steel','d','100','10','crossbow','10','-1.00000','0','0','0','303','0','47','-1',52050,96,'true','true','true','true','','','','',11683),
-(11702,'Common Item - Ã‰pÃ©e','rhand','true','1450','3','3','fine_steel','d','72','40','rapier','10','-1.00000','0','0','0','406','0','47','-1',52050,96,'true','true','true','true','','','','',11714),
+(11702,'Common Item - Épée','rhand','true','1450','3','3','fine_steel','d','72','40','rapier','10','-1.00000','0','0','0','406','0','47','-1',52050,96,'true','true','true','true','','','','',11714),
 (11703,'Common Item - Winged Spear','lrhand','true','2060','3','3','fine_steel','d','79','10','pole','8','-3.00000','0','0','0','325','0','47','-1',52050,96,'true','true','true','true','','','','',0),
 (11704,'Common Item - Artisan\'s Sword*Knight\'s Sword','lrhand','true','2470','3','3','fine_steel','d','96','10','dual','8','0.00000','0','0','0','325','0','47','-1',52050,96,'true','true','true','true','','','','',0),
 (11705,'Common Item - Artisan\'s Sword*Artisan\'s Sword','lrhand','true','2480','3','3','fine_steel','d','96','10','dual','8','0.00000','0','0','0','325','0','47','-1',52050,96,'true','true','true','true','','','','',0),
