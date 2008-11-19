@@ -198,6 +198,7 @@ public class UserInfo extends L2GameServerPacket
 		writeH(0x00);
 		writeH(0x00);
 		writeH(0x00);
+		writeD(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
 		writeH(0x00);
 		writeH(0x00);
 		writeH(0x00);
