@@ -33,7 +33,7 @@
     <for>
       <effect count="1" name="Buff" time="1200" val="0">
         <mul order="0x30" stat="pReuse" val="#pReuseRate" />
-        <!-- add core support to songs/dances -->
+        <!-- needs core support only for songs/dances -->
       </effect>
     </for>
   </skill>
