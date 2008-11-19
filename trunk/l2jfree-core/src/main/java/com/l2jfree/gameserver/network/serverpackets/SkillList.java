@@ -14,10 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import java.util.List;
+
+import javolution.util.FastList;
 
 /**
  * 
@@ -41,40 +40,45 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class SkillList extends L2GameServerPacket
 {
     private static final String _S__6D_SKILLLIST = "[S] 58 SkillList";
-    private L2PcInstance _owner;
 
-    public SkillList(L2PcInstance client)
+    private List<Skill> _skills;
+
+    private class Skill
     {
-        _owner = client;
+        public int id;
+        public int level;
+        public boolean passive;
+
+        public Skill(int pId, int pLevel, boolean pPassive)
+        {
+            id = pId;
+            level = pLevel;
+            passive = pPassive;
+        }
+    }
+
+    public SkillList()
+    {
+        _skills = new FastList<Skill>();
+    }
+
+    public void addSkill(int id, int level, boolean passive)
+    {
+        _skills.add(new Skill(id, level, passive));
     }
 
     @Override
     protected final void writeImpl()
     {
         writeC(0x5f);
-        writeD(_owner.getAllSkills().length);
-        L2Skill templ[] = _owner.getAllSkills();
-        for (int i = 0; i < templ.length; i++)
+        writeD(_skills.size());
+
+        for (Skill temp : _skills)
         {
-            L2Skill temp = templ[i];
-        	
-			if (temp.getSkillType() == SkillType.NOTDONE)
-			{
-				switch (Config.SEND_NOTDONE_SKILLS)
-				{
-					case 2:
-						if (_owner.isGM())
-							break;
-						break;
-					case 1:
-						continue;
-				}
-			}
-        	
-            writeD(temp.isPassive() ? 1 : 0);
-            writeD(temp.getLevel());
-            writeD(temp.getDisplayId());
-            writeC(0x00); //transformation
+            writeD(temp.passive ? 1 : 0);
+            writeD(temp.level);
+            writeD(temp.id);
+            writeC(0x00); // 1 = Disabled (gray) e.g. when transformed
         }
     }
 

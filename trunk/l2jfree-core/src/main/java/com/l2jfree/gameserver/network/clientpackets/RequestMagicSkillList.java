@@ -19,34 +19,23 @@ import com.l2jfree.gameserver.network.serverpackets.SkillList;
 
 public final class RequestMagicSkillList extends L2GameClientPacket
 {
-
-    public RequestMagicSkillList()
-    {
-    }
-
-    @Override
+	@Override
 	protected void readImpl()
-    {
-    }
+	{
+	}
 
-    @Override
+	@Override
 	protected void runImpl()
-    {
-        L2PcInstance cha = getClient().getActiveChar();
-        if(cha == null)
-        {
-            return;
-        } 
-        else
-        {
-            sendPacket(new SkillList(cha));
-            return;
-        }
-    }
+	{
+		L2PcInstance cha = getClient().getActiveChar();
+		if(cha == null)
+			return;
+		cha.sendSkillList();
+	}
 
-    @Override
+	@Override
 	public String getType()
-    {
-        return "RequestSkillList";
-    }
+	{
+		return "RequestSkillList";
+	}
 }

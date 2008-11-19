@@ -4777,37 +4777,36 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		if (killer != null)
 		{
-			L2PcInstance pk = null;
+			L2PcInstance pk = killer.getActingPlayer();
 
 			boolean clanWarKill = false;
 			boolean playerKill = false;
 
-			if ((killer instanceof L2PcInstance && ((L2PcInstance) killer)._inEventTvT) && _inEventTvT)
+			if (pk != null && pk._inEventTvT && _inEventTvT)
 			{
 				if (TvT._teleport || TvT._started)
 				{
-					if (!(((L2PcInstance) killer)._teamNameTvT.equals(_teamNameTvT)))
+					if (!(pk._teamNameTvT.equals(_teamNameTvT)))
 					{
 						PlaySound ps;
 						ps = new PlaySound(0, "ItemSound.quest_itemget", 1, getObjectId(), getX(), getY(), getZ());
 						_countTvTdies++;
-						((L2PcInstance) killer)._countTvTkills++;
-						((L2PcInstance) killer).setTitle("Kills: " + ((L2PcInstance) killer)._countTvTkills);
-						((L2PcInstance) killer).sendPacket(ps);
-						TvT.setTeamKillsCount(((L2PcInstance) killer)._teamNameTvT, TvT.teamKillsCount(((L2PcInstance) killer)._teamNameTvT) + 1);
+						pk._countTvTkills++;
+						pk.setTitle("Kills: " + ((L2PcInstance) killer)._countTvTkills);
+						pk.sendPacket(ps);
+						TvT.setTeamKillsCount(pk._teamNameTvT, TvT.teamKillsCount(pk._teamNameTvT) + 1);
 					}
 					else
 					{
-						((L2PcInstance) killer)
-								.sendMessage("You are a teamkiller! Teamkills are not allowed, you will get death penalty and your team will lose one kill!");
+						pk.sendMessage("You are a teamkiller! Teamkills are not allowed, you will get death penalty and your team will lose one kill!");
 
 						// Give Penalty for Team-Kill:
 						// 1. Death Penalty + 5
 						// 2. Team will lost 1 Kill
-						if (((L2PcInstance) killer).getDeathPenaltyBuffLevel() < 10)
+						if (pk.getDeathPenaltyBuffLevel() < 10)
 						{
-							((L2PcInstance) killer).setDeathPenaltyBuffLevel(((L2PcInstance) killer).getDeathPenaltyBuffLevel() + 4);
-							((L2PcInstance) killer).increaseDeathPenaltyBuffLevel();
+							pk.setDeathPenaltyBuffLevel(pk.getDeathPenaltyBuffLevel() + 4);
+							pk.increaseDeathPenaltyBuffLevel();
 						}
 						TvT.setTeamKillsCount(_teamNameTvT, TvT.teamKillsCount(_teamNameTvT) - 1);
 					}
@@ -4895,13 +4894,13 @@ public final class L2PcInstance extends L2PlayableInstance
 				}
 			}
 
-			else if (killer instanceof L2PcInstance && _inEventVIP)
+			else if (pk != null && _inEventVIP)
 			{
 				if (VIP._started)
 				{
-					if (_isTheVIP && ((L2PcInstance) killer)._inEventVIP)
+					if (_isTheVIP && pk._inEventVIP)
 						VIP.vipDied();
-					else if (_isTheVIP && !((L2PcInstance) killer)._inEventVIP)
+					else if (_isTheVIP && !pk._inEventVIP)
 					{
 						Announcements.getInstance().announceToAll("VIP Killed by non-event character. VIP going back to initial spawn.");
 						doRevive();
@@ -4924,10 +4923,9 @@ public final class L2PcInstance extends L2PlayableInstance
 					}
 				}
 			}
-			else if (killer instanceof L2PcInstance)
+			else if (pk != null)
 			{
-				pk = (L2PcInstance) killer;
-				clanWarKill = (pk.getClan() != null && getClan() != null && !isAcademyMember() && !(pk.isAcademyMember()) && _clan.isAtWarWith(pk.getClanId()));
+				clanWarKill = (pk.getClan() != null && getClan() != null && !isAcademyMember() && !pk.isAcademyMember() && _clan.isAtWarWith(pk.getClanId()) && pk.getClan().isAtWarWith(getClanId()));
 				playerKill = true;
 			}
 
@@ -4948,7 +4946,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				if (pk == null || !pk.isCursedWeaponEquipped())
 				{
-					//if (getKarma() > 0)
 					onDieDropItem(killer); // Check if any item should be dropped
 
 					if (!srcInPvP)
@@ -4963,7 +4960,8 @@ public final class L2PcInstance extends L2PlayableInstance
 						}
 						else
 						{
-							onDieUpdateKarma(); // Update karma if delevel is not allowed
+							if (!(isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_PVP)) || pk == null)
+								onDieUpdateKarma(); // Update karma if delevel is not allowed
 						}
 					}
 				}
@@ -5093,13 +5091,14 @@ public final class L2PcInstance extends L2PlayableInstance
 				|| killer == null)
 			return;
 
-		if (getKarma() <= 0 && killer instanceof L2PcInstance && ((L2PcInstance) killer).getClan() != null && getClan() != null
-				&& (((L2PcInstance) killer).getClan().isAtWarWith(getClanId())
+		L2PcInstance pk = killer.getActingPlayer();
+		if (pk != null && getKarma() <= 0 && pk.getClan() != null && getClan() != null
+				&& (pk.getClan().isAtWarWith(getClanId())
 				//					  || this.getClan().isAtWarWith(((L2PcInstance)killer).getClanId())
 				))
 			return;
 
-		if (!isInsideZone(L2Zone.FLAG_PVP) && (!isGM() || Config.KARMA_DROP_GM))
+		if ((!isInsideZone(L2Zone.FLAG_PVP) || pk == null) && (!isGM() || Config.KARMA_DROP_GM))
 		{
 			boolean isKarmaDrop = false;
 			boolean isKillerNpc = (killer instanceof L2NpcInstance);
@@ -5580,6 +5579,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		setExpBeforeDeath(getExp());
 
 		if (charmOfCourage && getSiegeState() > 0 && isInsideZone(L2Zone.FLAG_SIEGE))
+			return;
+
+		if (isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_SIEGE) && killed_by_pc)
 			return;
 
 		if (_log.isDebugEnabled())
@@ -8335,11 +8337,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Skills can be used on walls and doors only during siege
 		if(target instanceof L2DoorInstance)
 		{
-			boolean isCastleDoor = (((L2DoorInstance) target).getCastle() != null
-					&& ((L2DoorInstance) target).getCastle().getSiege().getIsInProgress());
-			boolean isFortDoor = (((L2DoorInstance) target).getFort() != null
-					&& ((L2DoorInstance) target).getFort().getSiege().getIsInProgress());
-			if (!isCastleDoor && !isFortDoor)
+			L2DoorInstance door = (L2DoorInstance) target;
+			boolean isCastleDoor = (door.getCastle() != null && door.getCastle().getSiege().getIsInProgress());
+			boolean isFortDoor = (door.getFort() != null && door.getFort().getSiege().getIsInProgress());
+			if (!isCastleDoor && !isFortDoor && !(door.isUnlockable() && skill.getSkillType() == SkillType.UNLOCK))
 				return false;
 		}
 
@@ -9902,7 +9903,31 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void sendSkillList()
 	{
-		sendPacket(new SkillList(this));
+		SkillList sl = new SkillList();
+		for (L2Skill s : getAllSkills())
+		{
+			if (s == null)
+				continue;
+			if (s.getId() > 9000)
+				continue; // Fake skills to change base stats
+			if (s.bestowed())
+				continue;
+			if (s.getSkillType() == SkillType.NOTDONE)
+			{
+				switch (Config.SEND_NOTDONE_SKILLS)
+				{
+					case 3:
+						break;
+					case 2:
+						if (isGM())
+							break;
+					default:
+						continue;
+				}
+			}
+			sl.addSkill(s.getDisplayId(), s.getLevel(), s.isPassive());
+		}
+		sendPacket(sl);  
 	}
 
 	/**

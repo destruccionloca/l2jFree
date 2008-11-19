@@ -4008,6 +4008,7 @@ public abstract class L2Character extends L2Object
 		public int				_zMoveFrom;
 		public int				_heading;
 
+		public boolean			disregardingGeodata;
 		public int				onGeodataPathIndex;
 		//public List<AbstractNodeLoc>	geoPath;
 		public Vector<Location>	geoPath;
@@ -4554,7 +4555,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public final boolean isInCombat()
 	{
-		return (getAI().getAttackTarget() != null);
+		return (getAI().getAttackTarget() != null || getAI().isAutoAttacking());
 	}
 
 	/**
@@ -4747,6 +4748,7 @@ public abstract class L2Character extends L2Object
 		// Z coordinate will follow geodata or client values
 		if (Config.GEODATA && Config.COORD_SYNCHRONIZE == 2 
 			&& !isFlying() && !isInsideZone(L2Zone.FLAG_WATER)
+			&& !m.disregardingGeodata
 			&& GameTimeController.getGameTicks() % 10 == 0
 			&& !(this instanceof L2BoatInstance)) // once a second to reduce possible cpu load
 		{
@@ -5090,6 +5092,7 @@ public abstract class L2Character extends L2Object
 
 		// GEODATA MOVEMENT CHECKS AND PATHFINDING
 		m.onGeodataPathIndex = -1; // Initialize not on geodata path
+		m.disregardingGeodata = false;
 
 		if (Config.GEODATA && !isFlying() // flying chars not checked - even canSeeTarget doesn't work yet
 				&& (!isInsideZone(L2Zone.FLAG_WATER) || isInsideZone(L2Zone.FLAG_SIEGE)) // swimming also not checked unless in siege zone - but distance is limited
@@ -5168,6 +5171,7 @@ public abstract class L2Character extends L2Object
 						}
 						else
 						{
+							m.disregardingGeodata = true;
 							x = originalX;
 							y = originalY;
 							z = originalZ;
@@ -5756,12 +5760,17 @@ public abstract class L2Character extends L2Object
 			if (target instanceof L2PcInstance)
 			{
 				L2PcInstance enemy = (L2PcInstance) target;
+				enemy.getAI().clientStartAutoAttack();
 
 				// Check if shield is efficient
 				if (shld)
 					enemy.sendPacket(new SystemMessage(SystemMessageId.SHIELD_DEFENCE_SUCCESSFULL));
 				// else if (!miss && damage < 1)
 				// enemy.sendMessage("You hit the target's armor.");
+			}
+			else if (target instanceof L2Summon)
+			{
+				((L2Summon) target).getOwner().getAI().clientStartAutoAttack();
 			}
 
 			if (!miss && damage > 0)
@@ -5840,6 +5849,14 @@ public abstract class L2Character extends L2Object
 				// Notify AI with EVT_ATTACKED
 				target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
 				getAI().clientStartAutoAttack();
+				if (this instanceof L2Summon)
+				{
+					L2PcInstance owner = ((L2Summon)this).getOwner();
+					if (owner != null)
+					{
+						owner.getAI().clientStartAutoAttack();
+					}
+				}
 
 				// Manage attack or cast break of the target (calculating rate, sending message...)
 				if (Formulas.getInstance().calcAtkBreak(target, damage))
@@ -6154,7 +6171,14 @@ public abstract class L2Character extends L2Object
 
 			// If an old skill has been replaced, remove all its Func objects
 			if (oldSkill != null)
+			{
+				// if skill came with another one, we should delete the other one too.
+				if((oldSkill.bestowTriggered() || oldSkill.triggerAnotherSkill()) && oldSkill.getTriggeredId() > 0 )
+				{
+					removeSkill(oldSkill.getTriggeredId(), true);
+				}
 				removeStatsOwner(oldSkill);
+			}
 
 			// Add Func objects of newSkill to the calculator set of the L2Character
 			if (newSkill.getSkillType() != SkillType.NOTDONE)
@@ -6178,6 +6202,20 @@ public abstract class L2Character extends L2Object
 			if (newSkill.isChance())
 			{
 				addChanceSkill(newSkill);
+			}
+
+			if (!newSkill.isChance() && newSkill.getTriggeredId() > 0 && newSkill.bestowTriggered())
+			{
+				L2Skill bestowed = SkillTable.getInstance().getInfo(newSkill.getTriggeredId(), newSkill.getTriggeredLevel());
+				addSkill(bestowed); 
+				//bestowed skills are invisible for player. Visible for gm's looking thru gm window. 
+				//those skills should always be chance or passive, to prevent hlapex.
+			}
+
+			if(newSkill.isChance() && newSkill.getTriggeredId() > 0 && !newSkill.bestowTriggered() && newSkill.triggerAnotherSkill())
+			{
+				L2Skill triggeredSkill = SkillTable.getInstance().getInfo(newSkill.getTriggeredId(),newSkill.getTriggeredLevel());
+				addSkill(triggeredSkill);
 			}
 		}
 
@@ -6248,6 +6286,11 @@ public abstract class L2Character extends L2Object
 		// Remove all its Func objects from the L2Character calculator set
 		if (oldSkill != null)
 		{
+			//this is just a fail-safe againts buggers and gm dummies...
+			if ((oldSkill.bestowTriggered() || oldSkill.triggerAnotherSkill()) && oldSkill.getTriggeredId() > 0)
+			{
+				removeSkill(oldSkill.getTriggeredId(), true);
+			}
 			// Stop casting if this skill is used right now
 			if (this instanceof L2PcInstance)
 			{
@@ -6973,6 +7016,18 @@ public abstract class L2Character extends L2Object
 										{
 											// notify target AI about the attack
 											((L2Character) target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
+										}
+										if (target instanceof L2PcInstance)
+										{
+											((L2PcInstance) target).getAI().clientStartAutoAttack();
+										}
+										else if (target instanceof L2Summon)
+										{
+											L2PcInstance owner = ((L2Summon) target).getOwner();
+											if (owner != null)
+											{
+												owner.getAI().clientStartAutoAttack();
+											}
 										}
 
 										player.updatePvPStatus(target.getActingPlayer());
