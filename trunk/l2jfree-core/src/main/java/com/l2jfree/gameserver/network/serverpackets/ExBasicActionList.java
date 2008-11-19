@@ -33,7 +33,8 @@ public class ExBasicActionList extends L2GameServerPacket
 
 		1000, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013,
 		1014, 1015, 1016, 1017, 1031, 1032, 1033, 1034, 1035, 1036, 1037, 1038,
-		1039, 1040, 1041, 1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050
+		1039, 1040, 1041, 1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050,
+		1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059, 1060
 	};
 
 	private static final int[] TRANSFORMED_ACTIONS = 
@@ -44,7 +45,8 @@ public class ExBasicActionList extends L2GameServerPacket
 
 		1000, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013,
 		1014, 1015, 1016, 1017, 1031, 1032, 1033, 1034, 1035, 1036, 1037, 1038,
-		1039, 1040, 1041, 1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050
+		1039, 1040, 1041, 1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050,
+		1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059, 1060
 	};
 
 	public static final ExBasicActionList DEFAULT_ACTION_LIST = new ExBasicActionList(DEFAULT_ACTIONS);
@@ -158,6 +160,17 @@ public class ExBasicActionList extends L2GameServerPacket
 	1048 - Stun Attack (Divine Beast)
 	1049 - Fire Breath (Divine Beast)
 	1050 - Roar (Divine Beast)
+	1051 - Bless the Body (Feline Queen)
+	1052 - Bless the Soul (Feline Queen)
+	1053 - Haste (Feline Queen)
+	1054 - Acumen (Seraphim Unicorn)
+	1055 - Clarity (Seraphim Unicorn)
+	1056 - Empower (Seraphim Unicorn)
+	1057 - Wild Magic (Seraphim Unicorn)
+	1058 - Death Whisper (Nightshade)
+	1059 - Focus (Nightshade)
+	1060 - Guidance (Nightshade)
+	
 	*/
 
 	private ExBasicActionList(int... actionIds)

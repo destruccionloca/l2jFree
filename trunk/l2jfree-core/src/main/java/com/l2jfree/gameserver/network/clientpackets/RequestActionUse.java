@@ -572,6 +572,36 @@ public class RequestActionUse extends L2GameClientPacket
 		case 1050: // Divine Beast - Roar
 			useSkill(5583);
 			break;
+		case 1051: // Bless the Body (Feline Queen)
+			useSkill(5638);
+			break;
+		case 1052: // Bless the Soul (Feline Queen)
+			useSkill(5639);
+			break;
+		case 1053: // Haste (Feline Queen)
+			useSkill(5640);
+			break;
+		case 1054: // Acumen (Seraphim Unicorn)
+			useSkill(5643);
+			break;
+		case 1055: // Clarity (Seraphim Unicorn)
+			useSkill(5647);
+			break;
+		case 1056: // Empower (Seraphim Unicorn)
+			useSkill(5648);
+			break;
+		case 1057: // Wild Magic (Seraphim Unicorn)
+			useSkill(5646);
+			break;
+		case 1058: // Death Whisper (Nightshade)
+			useSkill(5652);
+			break;
+		case 1059: // Focus (Nightshade)
+			useSkill(5653);
+			break;
+		case 1060: // Guidance (Nightshade)
+			useSkill(5654);
+			break;
 		default:
 			_log.warn(activeChar.getName() + ": unhandled action type " + _actionId);
 		}
