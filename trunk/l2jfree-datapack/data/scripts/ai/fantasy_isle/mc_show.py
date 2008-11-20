@@ -260,7 +260,7 @@ class MC_Show(JQuest) :
        npc5 = self.addSpawn(self.showstuff[4],-56672,-56272,-2000,32768,False,0)
        for j in [npc1,npc2,npc3,npc4,npc5]:
           self.startQuestTimer("social1",5500, j, None)
-          self.startQuestTimer("social1_1",12500, j, None)
+          self.startQuestTimer("social_1",12500, j, None)
           self.startQuestTimer("28",19700, j, None)
     elif event == "28" and npc :
        self.AutoChat(npc,"We love you.",0)

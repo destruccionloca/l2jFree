@@ -58,7 +58,7 @@ public class InquisitorBishop extends L2Transformation
 	{
 		if (player.getLevel() >= 43)
 		{
-			int level = player.getLevel() - 42;
+			int level = player.getLevel() - 43;
 			// Divine Punishment
 			addSkill(player, 1523, level);
 			// Divine Flash

@@ -24,7 +24,7 @@ class baium (JQuest):
 
   def onTalk (self,npc,player):
     st = player.getQuestState("baium")
-    if not st : return "<html><head><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
+    if not st : return "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     npcId = npc.getNpcId()
     if npcId == STATUE :
       if st.getInt("ok"):
@@ -44,7 +44,7 @@ class baium (JQuest):
           player.teleToLocation(113100,14500,10077)
           st.set("ok","1")
         else :
-          return "<html><head><body>Angelic Vortex:<br>You do not have enough items.</body></html>"
+          return "<html><body>Angelic Vortex:<br>You do not have enough items.</body></html>"
       else :
         return "<html><body>Angelic Vortex:<br>You may not enter at this time.</body></html>"
     return

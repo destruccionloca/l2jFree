@@ -60,7 +60,7 @@ public class VanguardDarkAvenger extends L2Transformation
 	{
 		if (player.getLevel() >= 43)
 		{
-			int level = player.getLevel() - 42;
+			int level = player.getLevel() - 43;
 			// Full Swing
 			addSkill(player, 814, level);
 			// Power Divide aka Cleave

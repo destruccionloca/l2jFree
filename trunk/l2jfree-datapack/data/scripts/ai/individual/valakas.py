@@ -12,7 +12,7 @@ class valakas(JQuest):
 
   def onTalk (self,npc,player):
     st = player.getQuestState("valakas")
-    if not st : return "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
+    if not st : return "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     npcId = npc.getNpcId()
     if npcId == 31385 :    # Heart of Volcano
       if st.getInt("ok"):
@@ -22,7 +22,7 @@ class valakas(JQuest):
           return
         else:
           st.exitQuest(1)
-          return "<html><body>Heart of Volcano:<br><br>Valakas is already awake!<br>You may not enter the Lair of Valakas.<br></body></html>"
+          return "<html><body>Heart of Volcano:<br>Valakas is already awake!<br>You may not enter the Lair of Valakas.</body></html>"
       else:
         st.exitQuest(1)
         return "Conditions are not right to enter to Lair of Valakas."
@@ -37,7 +37,7 @@ class valakas(JQuest):
           return "<html><body>Klein:<br>You do not have the Floating Stone. Go get one and then come back to me.</body></html>"
       else:
         st.exitQuest(1)
-        return "<html><body>Klein:<br><br>Valakas is already awake!<br>You may not enter the Lair of Valakas.<br></body></html>"
+        return "<html><body>Klein:<br>Valakas is already awake!<br>You may not enter the Lair of Valakas.</body></html>"
       return
 
   def onKill (self,npc,player,isPet):

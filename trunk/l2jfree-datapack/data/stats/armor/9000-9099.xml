@@ -17,8 +17,7 @@
       <add val='53' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9033'
-    name="Shadow Item: Hard Leather Gaiters">
+  <item id='9033' name="Shadow Item: Hard Leather Gaiters">
     <for>
       <add val='33' order='0x10' stat='pDef' />
     </for>

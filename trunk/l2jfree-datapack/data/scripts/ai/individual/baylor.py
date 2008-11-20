@@ -24,7 +24,7 @@ class baylor (JQuest):
 
   def onTalk (self,npc,player):
     st = player.getQuestState("baylor")
-    if not st : return "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
+    if not st : return "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     npcId = npc.getNpcId()
     if npcId == STATUE :
         ENTRY_SATAT = BaylorManager.getInstance().canIntoBaylorLair(player)

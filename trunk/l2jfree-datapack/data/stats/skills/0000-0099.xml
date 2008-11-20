@@ -223,7 +223,6 @@
     <set name="weaponsAllowed" val="18956" /> <!-- Dual Sword/Sword/Big Sword/Blunt/Big Blunt -->
     <set name="mpConsume" val="5" />
     <set name="hpConsume" val="25" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="1000" />
     <set name="hitTime" val="900" />
@@ -648,8 +647,7 @@
     <table name="#mpConsume"> 49 62 75 88 100 110 119 126 133 </table>
     <table name="#itemConsumeCount"> 7 11 3 1 3 2 4 3 5 </table>
     <table name="#itemConsumeCountOT"> 4 4 1 2 2 3 3 4 4 </table>
-    <table name="#itemConsumeId"> 1458 1458 1459 1459 1459 1459 1459
-      1459 1459 </table>
+    <table name="#itemConsumeId"> 1458 1458 1459 1459 1459 1459 1459 1459 1459 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="itemConsumeId" val="#itemConsumeId" />
     <set name="itemConsumeCount" val="#itemConsumeCount" />
@@ -1016,10 +1014,8 @@
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
-    <table name="#mpConsume_Init"> 7 8 9 9 10 10 11 11 12 12 13 13 13 14
-      14 </table>
-    <table name="#mpConsume"> 28 30 33 35 38 40 43 44 46 48 49 51
-      52 53 55 </table>
+    <table name="#mpConsume_Init"> 7 8 9 9 10 10 11 11 12 12 13 13 13 14 14 </table>
+    <table name="#mpConsume"> 28 30 33 35 38 40 43 44 46 48 49 51 52 53 55 </table>
     <table name="#ench2MpConsume"> 55 54 54 53 53 52 51 50 50 49 49 48
       48 47 46 45 45 44 44 43 43 42 42 41 41 40 40 39 39 38 </table>
     <table name="#HPget"> 105 113 122 131 140 150 159 169 180
@@ -1027,8 +1023,7 @@
     <table name="#enchHPget"> 245 248 251 253 255 258 261 263 266
       269 271 274 276 279 282 285 288 290 293 296 299 301
       304 307 309 312 314 317 320 322 </table>
-    <table name="#magicLvl"> 40 43 46 49 52 55 58 60 62 64 66 68
-      70 72 74 </table>
+    <table name="#magicLvl"> 40 43 46 49 52 55 58 60 62 64 66 68 70 72 74 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="power" val="100" />

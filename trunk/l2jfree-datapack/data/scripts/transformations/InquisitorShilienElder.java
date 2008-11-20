@@ -28,8 +28,6 @@ public class InquisitorShilienElder extends L2Transformation
 					{
 						// Invocation
 						case 1430:
-							// Holy Weapon
-						case 1043:
 							// Wild Magic
 						case 1303:
 							// Empower
@@ -56,11 +54,13 @@ public class InquisitorShilienElder extends L2Transformation
 	{
 		if (player.getLevel() >= 43)
 		{
-			int level = player.getLevel() - 42;
+			int level = player.getLevel() - 43;
 			// Divine Punishment
 			addSkill(player, 1523, level);
 			// Divine Flash
 			addSkill(player, 1528, level);
+			// Holy Weapon
+			addSkill(player, 1043, 1);
 			// Surrender to the Holy
 			addSkill(player, 1524, level);
 			// Divine Curse
@@ -84,6 +84,8 @@ public class InquisitorShilienElder extends L2Transformation
 		removeSkill(player, 1523);
 		// Divine Flash
 		removeSkill(player, 1528);
+		// Holy Weapon
+		removeSkill(player, 1043);
 		// Surrender to the Holy
 		removeSkill(player, 1524);
 		// Divine Curse
