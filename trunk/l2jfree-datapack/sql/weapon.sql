@@ -2403,7 +2403,7 @@ INSERT INTO `weapon` VALUES
 (11699,'Common Item - Spinebone Sword*Spinebone Sword','lrhand','true','2520','3','3','fine_steel','d','96','10','dual','8','0.00000','0','0','0','325','0','47','-1',52050,96,'true','true','true','true','','','','',0),
 (11700,'Common Item - Spinebone Sword*Artisan\'s Sword','lrhand','true','2460','3','3','fine_steel','d','96','10','dual','8','0.00000','0','0','0','325','0','47','-1',52050,96,'true','true','true','true','','','','',0),
 (11701,'Common Item - Arm Breaker','lrhand','true','1820','6','3','fine_steel','d','100','10','crossbow','10','-1.00000','0','0','0','303','0','47','-1',52050,96,'true','true','true','true','','','','',11683),
-(11702,'Common Item - Épée','rhand','true','1450','3','3','fine_steel','d','72','40','rapier','10','-1.00000','0','0','0','406','0','47','-1',52050,96,'true','true','true','true','','','','',11714),
+(11702,'Common Item - ï¿½pï¿½e','rhand','true','1450','3','3','fine_steel','d','72','40','rapier','10','-1.00000','0','0','0','406','0','47','-1',52050,96,'true','true','true','true','','','','',11714),
 (11703,'Common Item - Winged Spear','lrhand','true','2060','3','3','fine_steel','d','79','10','pole','8','-3.00000','0','0','0','325','0','47','-1',52050,96,'true','true','true','true','','','','',0),
 (11704,'Common Item - Artisan\'s Sword*Knight\'s Sword','lrhand','true','2470','3','3','fine_steel','d','96','10','dual','8','0.00000','0','0','0','325','0','47','-1',52050,96,'true','true','true','true','','','','',0),
 (11705,'Common Item - Artisan\'s Sword*Artisan\'s Sword','lrhand','true','2480','3','3','fine_steel','d','96','10','dual','8','0.00000','0','0','0','325','0','47','-1',52050,96,'true','true','true','true','','','','',0),
@@ -3046,3 +3046,93 @@ UPDATE `weapon` SET `skills_onCrit` = '3022-6-20' WHERE `item_id` = '11087';
 UPDATE `weapon` SET `skills_onCrit` = '3022-6-20' WHERE `item_id` = '11099';
 UPDATE `weapon` SET `skills_onCrit` = '3039-4-20' WHERE `item_id` = '11123';
 UPDATE `weapon` SET `skills_onCrit` = '3039-3-20' WHERE `item_id` = '11168';
+
+-- Masterwork support
+UPDATE `weapon` SET `change_weaponId` = 11058 WHERE `item_id` = 11025;
+UPDATE `weapon` SET `change_weaponId` = 11059 WHERE `item_id` = 11026;
+UPDATE `weapon` SET `change_weaponId` = 11060 WHERE `item_id` = 11027;
+UPDATE `weapon` SET `change_weaponId` = 11061 WHERE `item_id` = 11028;
+UPDATE `weapon` SET `change_weaponId` = 11025 WHERE `item_id` = 11058;
+UPDATE `weapon` SET `change_weaponId` = 11026 WHERE `item_id` = 11059;
+UPDATE `weapon` SET `change_weaponId` = 11027 WHERE `item_id` = 11060;
+UPDATE `weapon` SET `change_weaponId` = 11028 WHERE `item_id` = 11061;
+UPDATE `weapon` SET `change_weaponId` = 11096 WHERE `item_id` = 11084;
+UPDATE `weapon` SET `change_weaponId` = 11097 WHERE `item_id` = 11085;
+UPDATE `weapon` SET `change_weaponId` = 11098 WHERE `item_id` = 11086;
+UPDATE `weapon` SET `change_weaponId` = 11099 WHERE `item_id` = 11087;
+UPDATE `weapon` SET `change_weaponId` = 11084 WHERE `item_id` = 11096;
+UPDATE `weapon` SET `change_weaponId` = 11085 WHERE `item_id` = 11097;
+UPDATE `weapon` SET `change_weaponId` = 11086 WHERE `item_id` = 11098;
+UPDATE `weapon` SET `change_weaponId` = 11087 WHERE `item_id` = 11099;
+UPDATE `weapon` SET `change_weaponId` = 11053 WHERE `item_id` = 11021;
+UPDATE `weapon` SET `change_weaponId` = 11054 WHERE `item_id` = 11022;
+UPDATE `weapon` SET `change_weaponId` = 11055 WHERE `item_id` = 11023;
+UPDATE `weapon` SET `change_weaponId` = 11056 WHERE `item_id` = 11024;
+UPDATE `weapon` SET `change_weaponId` = 11021 WHERE `item_id` = 11053;
+UPDATE `weapon` SET `change_weaponId` = 11022 WHERE `item_id` = 11054;
+UPDATE `weapon` SET `change_weaponId` = 11023 WHERE `item_id` = 11055;
+UPDATE `weapon` SET `change_weaponId` = 11024 WHERE `item_id` = 11056;
+UPDATE `weapon` SET `change_weaponId` = 11124 WHERE `item_id` = 11112;
+UPDATE `weapon` SET `change_weaponId` = 11125 WHERE `item_id` = 11113;
+UPDATE `weapon` SET `change_weaponId` = 11126 WHERE `item_id` = 11114;
+UPDATE `weapon` SET `change_weaponId` = 11127 WHERE `item_id` = 11115;
+UPDATE `weapon` SET `change_weaponId` = 11112 WHERE `item_id` = 11124;
+UPDATE `weapon` SET `change_weaponId` = 11113 WHERE `item_id` = 11125;
+UPDATE `weapon` SET `change_weaponId` = 11114 WHERE `item_id` = 11126;
+UPDATE `weapon` SET `change_weaponId` = 11115 WHERE `item_id` = 11127;
+UPDATE `weapon` SET `change_weaponId` = 11080 WHERE `item_id` = 11075;
+UPDATE `weapon` SET `change_weaponId` = 11081 WHERE `item_id` = 11076;
+UPDATE `weapon` SET `change_weaponId` = 11082 WHERE `item_id` = 11077;
+UPDATE `weapon` SET `change_weaponId` = 11083 WHERE `item_id` = 11078;
+UPDATE `weapon` SET `change_weaponId` = 11075 WHERE `item_id` = 11080;
+UPDATE `weapon` SET `change_weaponId` = 11076 WHERE `item_id` = 11081;
+UPDATE `weapon` SET `change_weaponId` = 11077 WHERE `item_id` = 11082;
+UPDATE `weapon` SET `change_weaponId` = 11078 WHERE `item_id` = 11083;
+UPDATE `weapon` SET `change_weaponId` = 11235 WHERE `item_id` = 11206;
+UPDATE `weapon` SET `change_weaponId` = 11236 WHERE `item_id` = 11207;
+UPDATE `weapon` SET `change_weaponId` = 11237 WHERE `item_id` = 11208;
+UPDATE `weapon` SET `change_weaponId` = 11238 WHERE `item_id` = 11209;
+UPDATE `weapon` SET `change_weaponId` = 11206 WHERE `item_id` = 11235;
+UPDATE `weapon` SET `change_weaponId` = 11207 WHERE `item_id` = 11236;
+UPDATE `weapon` SET `change_weaponId` = 11208 WHERE `item_id` = 11237;
+UPDATE `weapon` SET `change_weaponId` = 11209 WHERE `item_id` = 11238;
+UPDATE `weapon` SET `change_weaponId` = 11239 WHERE `item_id` = 11190;
+UPDATE `weapon` SET `change_weaponId` = 11240 WHERE `item_id` = 11191;
+UPDATE `weapon` SET `change_weaponId` = 11241 WHERE `item_id` = 11192;
+UPDATE `weapon` SET `change_weaponId` = 11242 WHERE `item_id` = 11193;
+UPDATE `weapon` SET `change_weaponId` = 11190 WHERE `item_id` = 11239;
+UPDATE `weapon` SET `change_weaponId` = 11191 WHERE `item_id` = 11240;
+UPDATE `weapon` SET `change_weaponId` = 11192 WHERE `item_id` = 11241;
+UPDATE `weapon` SET `change_weaponId` = 11193 WHERE `item_id` = 11242;
+UPDATE `weapon` SET `change_weaponId` = 11198 WHERE `item_id` = 11214;
+UPDATE `weapon` SET `change_weaponId` = 11199 WHERE `item_id` = 11215;
+UPDATE `weapon` SET `change_weaponId` = 11200 WHERE `item_id` = 11216;
+UPDATE `weapon` SET `change_weaponId` = 11201 WHERE `item_id` = 11217;
+UPDATE `weapon` SET `change_weaponId` = 11214 WHERE `item_id` = 11198;
+UPDATE `weapon` SET `change_weaponId` = 11215 WHERE `item_id` = 11199;
+UPDATE `weapon` SET `change_weaponId` = 11216 WHERE `item_id` = 11200;
+UPDATE `weapon` SET `change_weaponId` = 11217 WHERE `item_id` = 11201;
+UPDATE `weapon` SET `change_weaponId` = 11049 WHERE `item_id` = 11066;
+UPDATE `weapon` SET `change_weaponId` = 11050 WHERE `item_id` = 11067;
+UPDATE `weapon` SET `change_weaponId` = 11051 WHERE `item_id` = 11068;
+UPDATE `weapon` SET `change_weaponId` = 11052 WHERE `item_id` = 11069;
+UPDATE `weapon` SET `change_weaponId` = 11066 WHERE `item_id` = 11049;
+UPDATE `weapon` SET `change_weaponId` = 11067 WHERE `item_id` = 11050;
+UPDATE `weapon` SET `change_weaponId` = 11068 WHERE `item_id` = 11051;
+UPDATE `weapon` SET `change_weaponId` = 11069 WHERE `item_id` = 11052;
+UPDATE `weapon` SET `change_weaponId` = 11169 WHERE `item_id` = 11173;
+UPDATE `weapon` SET `change_weaponId` = 11170 WHERE `item_id` = 11174;
+UPDATE `weapon` SET `change_weaponId` = 11171 WHERE `item_id` = 11175;
+UPDATE `weapon` SET `change_weaponId` = 11172 WHERE `item_id` = 11176;
+UPDATE `weapon` SET `change_weaponId` = 11173 WHERE `item_id` = 11169;
+UPDATE `weapon` SET `change_weaponId` = 11174 WHERE `item_id` = 11170;
+UPDATE `weapon` SET `change_weaponId` = 11175 WHERE `item_id` = 11171;
+UPDATE `weapon` SET `change_weaponId` = 11176 WHERE `item_id` = 11172;
+UPDATE `weapon` SET `change_weaponId` = 11157 WHERE `item_id` = 11145;
+UPDATE `weapon` SET `change_weaponId` = 11158 WHERE `item_id` = 11146;
+UPDATE `weapon` SET `change_weaponId` = 11159 WHERE `item_id` = 11147;
+UPDATE `weapon` SET `change_weaponId` = 11160 WHERE `item_id` = 11148;
+UPDATE `weapon` SET `change_weaponId` = 11145 WHERE `item_id` = 11157;
+UPDATE `weapon` SET `change_weaponId` = 11146 WHERE `item_id` = 11158;
+UPDATE `weapon` SET `change_weaponId` = 11147 WHERE `item_id` = 11159;
+UPDATE `weapon` SET `change_weaponId` = 11148 WHERE `item_id` = 11160;

@@ -464,6 +464,7 @@ public final class Config
 	public static float			RATE_DROP_ADENA;
 	public static float			RATE_CONSUMABLE_COST;
 	public static float			RATE_CRAFT_COST;
+	public static int			RATE_MASTERWORK;
 	public static float			RATE_DROP_ITEMS;
 	public static float			RATE_DROP_SPOIL;
 	public static int			RATE_DROP_MANOR;
@@ -514,6 +515,7 @@ public final class Config
 			RATE_DROP_ADENA = Float.parseFloat(ratesSettings.getProperty("RateDropAdena", "1."));
 			RATE_CONSUMABLE_COST = Float.parseFloat(ratesSettings.getProperty("RateConsumableCost", "1."));
 			RATE_CRAFT_COST = Float.parseFloat(ratesSettings.getProperty("RateCraftCost", "1."));
+			RATE_MASTERWORK = Integer.parseInt(ratesSettings.getProperty("RateMasterwork", "20"));
 			RATE_DROP_ITEMS = Float.parseFloat(ratesSettings.getProperty("RateDropItems", "1."));
 			RATE_DROP_SPOIL = Float.parseFloat(ratesSettings.getProperty("RateDropSpoil", "1."));
 			RATE_DROP_MANOR = Integer.parseInt(ratesSettings.getProperty("RateDropManor", "1"));
@@ -1091,6 +1093,7 @@ public final class Config
 	public static boolean			ENABLE_JYTHON_SHELL;							// JythonShell
 	public static boolean			ONLY_GM_ITEMS_FREE;							// Only GM buy items for free
 	public static int				DEADLOCKCHECK_INTERVAL;
+	public static boolean			ALLOW_MASTERWORK;
 
 	// *******************************************************************************************
 	public static void loadOptionsConfig()
@@ -1253,6 +1256,7 @@ public final class Config
 			ALT_DEV_NO_SPAWNS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoSpawns", "False"));
 			ENABLE_JYTHON_SHELL = Boolean.parseBoolean(optionsSettings.getProperty("EnableJythonShell", "False"));
 			DEADLOCKCHECK_INTERVAL = Integer.parseInt(optionsSettings.getProperty("DeadLockCheck", "10000"));
+			ALLOW_MASTERWORK = Boolean.parseBoolean(optionsSettings.getProperty("AllowMasterwork", "False"));
 		}
 		catch (Exception e)
 		{
@@ -1272,19 +1276,19 @@ public final class Config
 	public static double				ALT_GAME_CREATION_SP_RATE;													// Alternative game crafting SP rate multiplier - default 1
 	public static boolean				ALT_BLACKSMITH_USE_RECIPES;												// Alternative setting to blacksmith use of recipes to craft -
 	// default true
-	public static boolean				ALT_REMOVE_CASTLE_CIRCLETS;													// Remove Castle circlets after clan lose his castle? - default
+	public static boolean				ALT_REMOVE_CASTLE_CIRCLETS;												// Remove Castle circlets after clan lose his castle? - default
 	public static boolean				ALT_ONLY_CLANLEADER_CAN_SIT_ON_THRONE;
 	// true
 	public static double				ALT_WEIGHT_LIMIT;															// Alternative game weight limit multiplier - default 1
-	public static int					ALT_BUFFS_MAX_AMOUNT;															// Alternative number of cumulated buff
-	public static int					ALT_DANCES_SONGS_MAX_AMOUNT;													// Alternative number of cumulated dances/songs
+	public static int					ALT_BUFFS_MAX_AMOUNT;														// Alternative number of cumulated buff
+	public static int					ALT_DANCES_SONGS_MAX_AMOUNT;												// Alternative number of cumulated dances/songs
 	public static int					ALT_MINIMUM_FALL_HEIGHT;													// Minimum Height(Z) that a character needs to fall, in
 	// order for it to be considered a fall.
 	public static boolean				ALT_DISABLE_RAIDBOSS_PETRIFICATION;										// Disable Raidboss Petrification
 	public static int					ALT_PCRITICAL_CAP;															// PCritical Cap
 	public static int					ALT_MCRITICAL_CAP;															// MCritical Cap
 	public static int					ALT_MAX_EVASION;
-	public static int					ALT_MAX_RUN_SPEED;																// Runspeed limit
+	public static int					ALT_MAX_RUN_SPEED;															// Runspeed limit
 	public static float					ALT_MCRIT_RATE;
 	public static boolean				ALT_GAME_SKILL_LEARN;														// Alternative game skill learning
 	public static boolean				ALT_GAME_CANCEL_BOW;														// Cancel attack bow by hit
@@ -1321,28 +1325,28 @@ public final class Config
 	public static boolean				ALT_RECOMMEND;																// Disallow recommend character twice or more a day ?
 	public static boolean				ALT_GAME_SUBCLASS_WITHOUT_QUESTS;											// Alternative gaming - allow sub-class addition without
 	// quest completion.
-	public static int					ALT_MAX_SUBCLASS;																// Allow to change max number of subclasses
+	public static int					ALT_MAX_SUBCLASS;															// Allow to change max number of subclasses
 	public static boolean				ALT_GAME_VIEWNPC;															// View npc stats/drop by shift-cliking it for nongm-players
 	public static boolean				ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE	= true;								// Alternative gaming - all new characters always are newbies.
 	public static boolean				ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;										// Alternative gaming - clan members with see privilege can
 	// also withdraw from clan warehouse.
-	public static boolean				ALT_CASTLE_SHIELD;																// Alternative gaming - Castle Shield can be equiped by all clan members if they own a castle. - default True
-	public static boolean				ALT_CLANHALL_SHIELD;															// Alternative gaming - Clan Hall Shield can be equiped by all clan members if they own a clan hall. - default True
-	public static boolean				ALT_APELLA_ARMORS;																// Alternative gaming - Apella armors can be equiped only by clan members if their class is Baron or higher - default True
-	public static boolean				ALT_OATH_ARMORS;																// Alternative gaming - Clan Oath Armors can be equiped only by clan members - default True
-	public static boolean				ALT_CASTLE_CROWN;																// Alternative gaming - Castle Crown can be equiped only by castle lord - default True
-	public static boolean				ALT_CASTLE_CIRCLETS;															// Alternative gaming - Castle Circlets can be equiped only by clan members if they own a castle - default True
+	public static boolean				ALT_CASTLE_SHIELD;															// Alternative gaming - Castle Shield can be equiped by all clan members if they own a castle. - default True
+	public static boolean				ALT_CLANHALL_SHIELD;														// Alternative gaming - Clan Hall Shield can be equiped by all clan members if they own a clan hall. - default True
+	public static boolean				ALT_APELLA_ARMORS;															// Alternative gaming - Apella armors can be equiped only by clan members if their class is Baron or higher - default True
+	public static boolean				ALT_OATH_ARMORS;															// Alternative gaming - Clan Oath Armors can be equiped only by clan members - default True
+	public static boolean				ALT_CASTLE_CROWN;															// Alternative gaming - Castle Crown can be equiped only by castle lord - default True
+	public static boolean				ALT_CASTLE_CIRCLETS;														// Alternative gaming - Castle Circlets can be equiped only by clan members if they own a castle - default True
 
 	public static boolean				ALT_STRICT_HERO_SYSTEM;													// Strict Hero Mode
 	public static boolean				ALT_STRICT_SEVENSIGNS;														// Strict Seven Signs
-	public static boolean				ALT_SP_BOOK_NEEDED;															// Spell Book needed to learn skill
-	public static boolean				ALT_LIFE_CRYSTAL_NEEDED;														// Clan Item needed to learn clan skills
-	public static boolean				ALT_ES_SP_BOOK_NEEDED;															// Spell Book needet to enchant skill
+	public static boolean				ALT_SP_BOOK_NEEDED;														// Spell Book needed to learn skill
+	public static boolean				ALT_LIFE_CRYSTAL_NEEDED;													// Clan Item needed to learn clan skills
+	public static boolean				ALT_ES_SP_BOOK_NEEDED;														// Spell Book needet to enchant skill
 	public static int					ALT_BUFF_TIME;
 	public static int					ALT_DANCE_TIME;
 	public static boolean				ALT_DANCE_MP_CONSUME;
-	public static int					ALT_MAX_PATK_SPEED;															// Config for limit physical attack speed
-	public static int					ALT_MAX_MATK_SPEED;															// Config for limit magical attack speed
+	public static int					ALT_MAX_PATK_SPEED;														// Config for limit physical attack speed
+	public static int					ALT_MAX_MATK_SPEED;														// Config for limit magical attack speed
 	public static float					ALT_MAGES_PHYSICAL_DAMAGE_MULTI;											// Config for damage multiplies
 	public static float					ALT_MAGES_MAGICAL_DAMAGE_MULTI;											// Config for damage multiplies
 	public static float					ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;										// Config for damage multiplies
@@ -1365,19 +1369,19 @@ public final class Config
 	public static boolean				ALT_CRAFT_ALLOW_CRAFT;														// allow to craft dwarven recipes
 	public static boolean				ALT_CRAFT_ALLOW_CRYSTALLIZE;												// allow to break items
 	public static boolean				ALT_CRAFT_ALLOW_COMMON;													// allow to craft common craft recipes
-	public static boolean				ALT_AUTO_LOOT;																	// Accept auto-loot ?
+	public static boolean				ALT_AUTO_LOOT;																// Accept auto-loot ?
 	public static boolean				ALT_AUTO_LOOT_RAID;
 	public static boolean				ALT_AUTO_LOOT_ADENA;
 	public static boolean				ALT_AUTO_LOOT_HERBS;
-	public static boolean				ALT_SPAWN_SIEGE_GUARD;															// Config for spawn siege guards
+	public static boolean				ALT_SPAWN_SIEGE_GUARD;														// Config for spawn siege guards
 	public static int					ALT_TIME_IN_A_DAY_OF_OPEN_A_DOOR;
 	public static int					ALT_TIME_OF_OPENING_A_DOOR;
 	public static int					ALT_NURSEANT_RESPAWN_DELAY;
-	public static int					ALT_TIMELIMITOFINVADE;															//Time limit of invade to lair of bosses after server restarted
-	public static int					ALT_DWARF_RECIPE_LIMIT;														// Recipebook limits
+	public static int					ALT_TIMELIMITOFINVADE;														//Time limit of invade to lair of bosses after server restarted
+	public static int					ALT_DWARF_RECIPE_LIMIT;													// Recipebook limits
 	public static int					ALT_COMMON_RECIPE_LIMIT;
-	public static int					ALT_CHANCE_BREAK;																// Chance For Soul Crystal to Break
-	public static int					ALT_CHANCE_LEVEL;																// Chance For Soul Crystal to Level
+	public static int					ALT_CHANCE_BREAK;															// Chance For Soul Crystal to Break
+	public static int					ALT_CHANCE_LEVEL;															// Chance For Soul Crystal to Level
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;							// Karma Punishment
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_SHOP;
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_USE_GK;											// Allow player with karma to use GK ?
@@ -1385,11 +1389,11 @@ public final class Config
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_TRADE;
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE;
 	public static int					ALT_PLAYER_PROTECTION_LEVEL;												// Player Protection Level
-	public static boolean				ALT_AUTO_LEARN_SKILLS;															// Config for Auto Learn Skills
-	public static boolean				ALT_AUTO_LEARN_DIVINE_INSPIRATION;												// Alternative auto skill learning for divine inspiration (+4 max buff count)
-	public static boolean				ALT_GRADE_PENALTY;																// Disable Grade penalty
-	public static boolean				ALT_IS_CRAFTING_ENABLED;														// Crafting Enabled?
-	public static boolean				ALT_FAIL_FAKEDEATH;															// Config for Fake Death Fail Feature
+	public static boolean				ALT_AUTO_LEARN_SKILLS;														// Config for Auto Learn Skills
+	public static boolean				ALT_AUTO_LEARN_DIVINE_INSPIRATION;											// Alternative auto skill learning for divine inspiration (+4 max buff count)
+	public static boolean				ALT_GRADE_PENALTY;															// Disable Grade penalty
+	public static boolean				ALT_IS_CRAFTING_ENABLED;													// Crafting Enabled?
+	public static boolean				ALT_FAIL_FAKEDEATH;														// Config for Fake Death Fail Feature
 	public static boolean				ALT_FLYING_WYVERN_IN_SIEGE;												// Config for Wyvern enable flying in siege **/
 	public static int					ALT_OLY_START_TIME;														// Olympiad Competition Starting time
 	public static int					ALT_OLY_MIN;																// Olympiad Minutes
@@ -1409,7 +1413,7 @@ public final class Config
 	public static int					ALT_OLY_MIN_POINT_FOR_EXCH;
 	public static int					ALT_OLY_HERO_POINTS;
 	public static String				ALT_OLY_RESTRICTED_ITEMS;
-	public static FastList<Integer>		ALT_LIST_OLY_RESTRICTED_ITEMS			= new FastList<Integer>();
+	public static FastList<Integer>		ALT_LIST_OLY_RESTRICTED_ITEMS		= new FastList<Integer>();
 	public static int					ALT_OLY_NONCLASSED;
 	public static boolean				ALT_OLY_MATCH_HEAL_COUNTS;
 	public static boolean				ALT_OLY_SUMMON_DAMAGE_COUNTS;
@@ -1431,20 +1435,20 @@ public final class Config
 	public static int					ALT_FS_PARTY_MEMBER_COUNT;
 
 	// Dimensional Rift
-	public static int					ALT_RIFT_MIN_PARTY_SIZE;														// Minimum siz e of a party that may enter dimensional rift
-	public static int					ALT_RIFT_SPAWN_DELAY;															// Time in ms the party has to wait until the mobs spawn
+	public static int					ALT_RIFT_MIN_PARTY_SIZE;													// Minimum siz e of a party that may enter dimensional rift
+	public static int					ALT_RIFT_SPAWN_DELAY;														// Time in ms the party has to wait until the mobs spawn
 	// when entering a room
-	public static int					ALT_RIFT_MAX_JUMPS;															// Amount of random rift jumps before party is ported back
-	public static int					ALT_RIFT_AUTO_JUMPS_TIME_MIN;													// Random time between two jumps in dimensional rift - in
+	public static int					ALT_RIFT_MAX_JUMPS;														// Amount of random rift jumps before party is ported back
+	public static int					ALT_RIFT_AUTO_JUMPS_TIME_MIN;												// Random time between two jumps in dimensional rift - in
 	// seconds
 	public static int					ALT_RIFT_AUTO_JUMPS_TIME_MAX;
-	public static int					ALT_RIFT_ENTER_COST_RECRUIT;													// Dimensional Fragment cost for entering rift
+	public static int					ALT_RIFT_ENTER_COST_RECRUIT;												// Dimensional Fragment cost for entering rift
 	public static int					ALT_RIFT_ENTER_COST_SOLDIER;
 	public static int					ALT_RIFT_ENTER_COST_OFFICER;
 	public static int					ALT_RIFT_ENTER_COST_CAPTAIN;
 	public static int					ALT_RIFT_ENTER_COST_COMMANDER;
 	public static int					ALT_RIFT_ENTER_COST_HERO;
-	public static float					ALT_RIFT_BOSS_ROOM_TIME_MUTIPLY;												// Time multiplier for boss room
+	public static float					ALT_RIFT_BOSS_ROOM_TIME_MUTIPLY;											// Time multiplier for boss room
 
 	public static boolean				ALT_ITEM_SKILLS_NOT_INFLUENCED;
 	public static boolean				ALT_MANA_POTIONS;
@@ -1507,7 +1511,7 @@ public final class Config
 			ALT_GAME_FREIGHTS = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "false"));
 			ALT_GAME_FREIGHT_PRICE = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
 			ALT_REMOVE_CASTLE_CIRCLETS = Boolean.parseBoolean(altSettings.getProperty("RemoveCastleCirclets", "true"));
-			ALT_ONLY_CLANLEADER_CAN_SIT_ON_THRONE  = Boolean.parseBoolean(altSettings.getProperty("AltOnlyClanleaderCanSitOnThrone", "false"));
+			ALT_ONLY_CLANLEADER_CAN_SIT_ON_THRONE = Boolean.parseBoolean(altSettings.getProperty("AltOnlyClanleaderCanSitOnThrone", "false"));
 			ALT_PARTY_RANGE = Integer.parseInt(altSettings.getProperty("AltPartyRange", "1600"));
 			ALT_PARTY_RANGE2 = Integer.parseInt(altSettings.getProperty("AltPartyRange2", "1400"));
 			ALT_CHANCE_BREAK = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
@@ -2116,20 +2120,20 @@ public final class Config
 	// *******************************************************************************************
 	public static final String	SEVENSIGNS_FILE	= "./config/sevensigns.properties";
 	// *******************************************************************************************
-	public static boolean		ALT_GAME_CASTLE_DAWN;							// Alternative gaming - players must be in a castle-owning clan or ally to sign up for Dawn.
-	public static boolean		ALT_GAME_CASTLE_DUSK;							// Alternative gaming - players being in a castle-owning clan or ally cannot sign up for Dusk.
-	public static int			ALT_FESTIVAL_MIN_PLAYER;						// Minimum number of player to participate in SevenSigns Festival
+	public static boolean		ALT_GAME_CASTLE_DAWN;								// Alternative gaming - players must be in a castle-owning clan or ally to sign up for Dawn.
+	public static boolean		ALT_GAME_CASTLE_DUSK;								// Alternative gaming - players being in a castle-owning clan or ally cannot sign up for Dusk.
+	public static int			ALT_FESTIVAL_MIN_PLAYER;							// Minimum number of player to participate in SevenSigns Festival
 	public static int			ALT_MAXIMUM_PLAYER_CONTRIB;						// Maximum of player contrib during Festival
 	public static long			ALT_FESTIVAL_MANAGER_START;						// Festival Manager start time.
-	public static long			ALT_FESTIVAL_LENGTH;							// Festival Length
-	public static long			ALT_FESTIVAL_CYCLE_LENGTH;						// Festival Cycle Length
-	public static long			ALT_FESTIVAL_FIRST_SPAWN;						// Festival First Spawn
-	public static long			ALT_FESTIVAL_FIRST_SWARM;						// Festival First Swarm
-	public static long			ALT_FESTIVAL_SECOND_SPAWN;						// Festival Second Spawn
-	public static long			ALT_FESTIVAL_SECOND_SWARM;						// Festival Second Swarm
-	public static long			ALT_FESTIVAL_CHEST_SPAWN;						// Festival Chest Spawn
-	public static int			ALT_FESTIVAL_ARCHER_AGGRO;						// Aggro value of Archer in SevenSigns Festival
-	public static int			ALT_FESTIVAL_CHEST_AGGRO;						// Aggro value of Chest in SevenSigns Festival
+	public static long			ALT_FESTIVAL_LENGTH;								// Festival Length
+	public static long			ALT_FESTIVAL_CYCLE_LENGTH;							// Festival Cycle Length
+	public static long			ALT_FESTIVAL_FIRST_SPAWN;							// Festival First Spawn
+	public static long			ALT_FESTIVAL_FIRST_SWARM;							// Festival First Swarm
+	public static long			ALT_FESTIVAL_SECOND_SPAWN;							// Festival Second Spawn
+	public static long			ALT_FESTIVAL_SECOND_SWARM;							// Festival Second Swarm
+	public static long			ALT_FESTIVAL_CHEST_SPAWN;							// Festival Chest Spawn
+	public static int			ALT_FESTIVAL_ARCHER_AGGRO;							// Aggro value of Archer in SevenSigns Festival
+	public static int			ALT_FESTIVAL_CHEST_AGGRO;							// Aggro value of Chest in SevenSigns Festival
 	public static int			ALT_FESTIVAL_MONSTER_AGGRO;						// Aggro value of Monster in SevenSigns Festival
 	public static int			ALT_DAWN_JOIN_COST;								// Amount of adena to pay to join Dawn Cabal
 

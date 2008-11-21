@@ -11951,6 +11951,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+	<!-- Dragon Slayer - Evil Spirit -->
+	<masterwork>12424</masterwork>
     <!-- Dragon Slayer -->
     <production id="81" count="1" />
     <!-- Recipe: Dragon Slayer(60%) -->
@@ -11978,6 +11980,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+	<!-- Dragon Slayer - Evil Spirit -->
+	<masterwork>12424</masterwork>
     <!-- Dragon Slayer -->
     <production id="81" count="1" />
     <!-- Recipe: Dragon Slayer(100%) -->
@@ -12049,6 +12053,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+	<!-- Meteor Shower - Earth -->
+	<masterwork>12408</masterwork>
     <!-- Meteor Shower -->
     <production id="2504" count="1" />
     <!-- Recipe: Meteor Shower(60%) -->
@@ -12078,6 +12084,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+	<!-- Meteor Shower - Earth -->
+	<masterwork>12408</masterwork>
     <!-- Meteor Shower -->
     <production id="2504" count="1" />
     <!-- Recipe: Meteor Shower(100%) -->
@@ -12107,6 +12115,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+	<!-- Elysian - Great Gale -->
+	<masterwork>12430</masterwork>
     <!-- Elysian -->
     <production id="164" count="1" />
     <!-- Recipe: Elysian(60%) -->
@@ -12136,6 +12146,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+	<!-- Elysian - Great Gale -->
+	<masterwork>12430</masterwork>
     <!-- Elysian -->
     <production id="164" count="1" />
     <!-- Recipe: Elysian(100%) -->
@@ -12165,6 +12177,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+	<!-- Soul Bow - Clairvoyance -->
+	<masterwork>12431</masterwork>
     <!-- Soul Bow -->
     <production id="289" count="1" />
     <!-- Recipe: Soul Bow(60%) -->
@@ -12194,6 +12208,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+	<!-- Soul Bow - Clairvoyance -->
+	<masterwork>12431</masterwork>
     <!-- Soul Bow -->
     <production id="289" count="1" />
     <!-- Recipe: Soul Bow(100%) -->
@@ -12223,6 +12239,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+	<!-- Carnage Bow - Concentration -->
+	<masterwork>12414</masterwork>
     <!-- Carnage Bow -->
     <production id="288" count="1" />
     <!-- Recipe: Carnage Bow(60%) -->
@@ -12252,6 +12270,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+	<!-- Carnage Bow - Concentration -->
+	<masterwork>12414</masterwork>
     <!-- Carnage Bow -->
     <production id="288" count="1" />
     <!-- Recipe: Carnage Bow(100%) -->
@@ -12281,6 +12301,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+	<!-- Bloody Orchid - Confusion -->
+	<masterwork>12410</masterwork>
     <!-- Bloody Orchid -->
     <production id="235" count="1" />
     <!-- Recipe: Bloody Orchid(60%) -->
@@ -12308,6 +12330,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+	<!-- Bloody Orchid - Confusion -->
+	<masterwork>12410</masterwork>
     <!-- Bloody Orchid -->
     <production id="235" count="1" />
     <!-- Recipe: Bloody Orchid(100%) -->
@@ -12335,6 +12359,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+	<!-- Soul Separator - On Fire -->
+	<masterwork>12429</masterwork>
     <!-- Soul Separator -->
     <production id="236" count="1" />
     <!-- Recipe: Soul Separator(60%) -->
@@ -12362,6 +12388,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+	<!-- Soul Separator - On Fire -->
+	<masterwork>12429</masterwork>
     <!-- Soul Separator -->
     <production id="236" count="1" />
     <!-- Recipe: Soul Separator(100%) -->
@@ -12389,6 +12417,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+	<!-- Dragon Grinder - Earth -->
+	<masterwork>12423</masterwork>
     <!-- Dragon Grinder -->
     <production id="270" count="1" />
     <!-- Recipe: Dragon Grinder(60%) -->
@@ -12418,6 +12448,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+	<!-- Dragon Grinder - Earth -->
+	<masterwork>12423</masterwork>
     <!-- Dragon Grinder -->
     <production id="270" count="1" />
     <!-- Recipe: Dragon Grinder(100%) -->
@@ -12447,6 +12479,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+	<!-- Blood Tornado - Destruction -->
+	<masterwork>12409</masterwork>
     <!-- Blood Tornado -->
     <production id="269" count="1" />
     <!-- Recipe: Blood Tornado(60%) -->
@@ -12476,6 +12510,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+	<!-- Blood Tornado - Destruction -->
+	<masterwork>12409</masterwork>
     <!-- Blood Tornado -->
     <production id="269" count="1" />
     <!-- Recipe: Blood Tornado(100%) -->
@@ -12505,6 +12541,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+	<!-- Tallum Glaive - On Fire -->
+	<masterwork>12432</masterwork>
     <!-- Tallum Glaive -->
     <production id="305" count="1" />
     <!-- Recipe: Tallum Glaive(60%) -->
@@ -12534,6 +12572,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+	<!-- Tallum Glaive - On Fire -->
+	<masterwork>12432</masterwork>
     <!-- Tallum Glaive -->
     <production id="305" count="1" />
     <!-- Recipe: Tallum Glaive(100%) -->
@@ -12563,6 +12603,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+	<!-- Halberd - Thunder -->
+	<masterwork>12418</masterwork>
     <!-- Halberd -->
     <production id="98" count="1" />
     <!-- Recipe: Halberd(60%) -->
@@ -12592,6 +12634,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+	<!-- Halberd - Thunder -->
+	<masterwork>12418</masterwork>
     <!-- Halberd -->
     <production id="98" count="1" />
     <!-- Recipe: Halberd(100%) -->
@@ -12621,6 +12665,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+	<!-- Dasparion's Staff - Hail -->
+	<masterwork>12405</masterwork>
     <!-- Dasparion's Staff -->
     <production id="212" count="1" />
     <!-- Recipe: Dasparion's Staff(60%) -->
@@ -12650,6 +12696,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+	<!-- Dasparion's Staff - Hail -->
+	<masterwork>12405</masterwork>
     <!-- Dasparion's Staff -->
     <production id="212" count="1" />
     <!-- Recipe: Dasparion's Staff(100%) -->
@@ -12679,6 +12727,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+	<!-- Branch of the Mother Tree - Nature -->
+	<masterwork>12426</masterwork>
     <!-- Branch of The Mother Tree -->
     <production id="213" count="1" />
     <!-- Recipe: Branch of The Mother Tree(60%) -->
@@ -12708,6 +12758,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+	<!-- Branch of the Mother Tree - Nature -->
+	<masterwork>12426</masterwork>
     <!-- Branch of The Mother Tree -->
     <production id="213" count="1" />
     <!-- Recipe: Branch of The Mother Tree(100%) -->
@@ -12737,6 +12789,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+	<!-- Dark Legion's Edge - Lightning -->
+	<masterwork>12420</masterwork>
     <!-- Dark Legion's Edge -->
     <production id="2500" count="1" />
     <!-- Recipe: Dark Legion's Edge(60%) -->
@@ -12764,6 +12818,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+	<!-- Dark Legion's Edge - Lightning -->
+	<masterwork>12420</masterwork>
     <!-- Dark Legion's Edge -->
     <production id="2500" count="1" />
     <!-- Recipe: Dark Legion's Edge(100%) -->
@@ -12791,6 +12847,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+	<!-- Sword of Miracles - Holy Spirit -->
+	<masterwork>12427</masterwork>
     <!-- Sword of Miracles -->
     <production id="151" count="1" />
     <!-- Recipe: Sword of Miracles(60%) -->
@@ -12818,6 +12876,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+	<!-- Sword of Miracles - Holy Spirit -->
+	<masterwork>12427</masterwork>
     <!-- Sword of Miracles -->
     <production id="151" count="1" />
     <!-- Recipe: Sword of Miracles(100%) -->
@@ -12845,6 +12905,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+	<!-- Elemental Sword - Hail -->
+	<masterwork>12411</masterwork>
     <!-- Elemental Sword -->
     <production id="150" count="1" />
     <!-- Recipe: Elemental Sword(60%) -->
@@ -12872,6 +12934,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+	<!-- Elemental Sword - Hail -->
+	<masterwork>12411</masterwork>
     <!-- Elemental Sword -->
     <production id="150" count="1" />
     <!-- Recipe: Elemental Sword(100%) -->
@@ -12899,6 +12963,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+	<!-- Tallum Blade - Destruction -->
+	<masterwork>12415</masterwork>
     <!-- Tallum Blade -->
     <production id="80" count="1" />
     <!-- Recipe: Tallum Blade(60%) -->
@@ -12926,6 +12992,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+	<!-- Tallum Blade - Destruction -->
+	<masterwork>12415</masterwork>
     <!-- Tallum Blade -->
     <production id="80" count="1" />
     <!-- Recipe: Tallum Blade(100%) -->
@@ -13352,6 +13420,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+	<!-- Forgotten Blade - Thunder -->
+	<masterwork>12458</masterwork>
     <!-- Forgotten Blade -->
     <production id="6364" count="1" />
     <!-- Recipe: Forgotten Blade (60%) -->
@@ -13379,6 +13449,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+	<!-- Forgotten Blade - Thunder -->
+	<masterwork>12458</masterwork>
     <!-- Forgotten Blade -->
     <production id="6364" count="1" />
     <!-- Recipe: Forgotten Blade (100%) -->
@@ -13406,6 +13478,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+	<!-- Basalt Battlehammer - Earth -->
+	<masterwork>12452</masterwork>
     <!-- Basalt Battlehammer -->
     <production id="6365" count="1" />
     <!-- Recipe: Basalt Battlehammer (60%) -->
@@ -13435,6 +13509,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+	<!-- Basalt Battlehammer - Earth -->
+	<masterwork>12452</masterwork>
     <!-- Basalt Battlehammer -->
     <production id="6365" count="1" />
     <!-- Recipe: Basalt Battlehammer (100%) -->
@@ -13464,6 +13540,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+	<!-- Imperial Staff - Nature -->
+	<masterwork>12457</masterwork>
     <!-- Imperial Staff -->
     <production id="6366" count="1" />
     <!-- Recipe: Imperial Staff (60%) -->
@@ -13493,6 +13571,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+	<!-- Imperial Staff - Nature -->
+	<masterwork>12457</masterwork>
     <!-- Imperial Staff -->
     <production id="6366" count="1" />
     <!-- Recipe: Imperial Staff(100%) -->
@@ -13522,6 +13602,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+	<!-- Angel Slayer - Concentration -->
+	<masterwork>12456</masterwork>
     <!-- Angel Slayer -->
     <production id="6367" count="1" />
     <!-- Recipe: Angel Slayer (60%) -->
@@ -13549,6 +13631,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+	<!-- Angel Slayer - Concentration -->
+	<masterwork>12456</masterwork>
     <!-- Angel Slayer -->
     <production id="6367" count="1" />
     <!-- Recipe: Angel Slayer (100%) -->
@@ -13630,6 +13714,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+	<!-- Dragon Hunter Axe - Lightning -->
+	<masterwork>12450</masterwork>
     <!-- Dragon Hunter Axe -->
     <production id="6369" count="1" />
     <!-- Recipe: Dragon Hunter Axe (60%) -->
@@ -13659,6 +13745,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+	<!-- Dragon Hunter Axe - Lightning -->
+	<masterwork>12450</masterwork>
     <!-- Dragon Hunter Axe -->
     <production id="6369" count="1" />
     <!-- Recipe: Dragon Hunter Axe (100%) -->
@@ -13688,6 +13776,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+	<!-- Saint Spear - Destruction -->
+	<masterwork>12454</masterwork>
     <!-- Saint Spear -->
     <production id="6370" count="1" />
     <!-- Recipe: Saint Spear (60%) -->
@@ -13717,6 +13807,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+	<!-- Saint Spear - Destruction -->
+	<masterwork>12454</masterwork>
     <!-- Saint Spear -->
     <production id="6370" count="1" />
     <!-- Recipe: Saint Spear (100%) -->
@@ -13746,6 +13838,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+	<!-- Demon Splinter - Lightning -->
+	<masterwork>12448</masterwork>
     <!-- Demon Splinter -->
     <production id="6371" count="1" />
     <!-- Recipe: Demon Splinter (60%) -->
@@ -13775,6 +13869,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+	<!-- Demon Splinter - Lightning -->
+	<masterwork>12448</masterwork>
     <!-- Demon Splinter -->
     <production id="6371" count="1" />
     <!-- Recipe: Demon Splinter (100%) -->
@@ -13804,6 +13900,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+	<!-- Heaven's Divider - Lightning -->
+	<masterwork>12459</masterwork>
     <!-- Heaven's Divider -->
     <production id="6372" count="1" />
     <!-- Recipe: Heavens Divider (60%) -->
@@ -13831,6 +13929,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+	<!-- Heaven's Divider - Lightning -->
+	<masterwork>12459</masterwork>
     <!-- Heaven's Divider -->
     <production id="6372" count="1" />
     <!-- Recipe: Heavens Divider (100%) -->
@@ -13858,6 +13958,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+	<!-- Arcana Mace - Nature -->
+	<masterwork>12455</masterwork>
     <!-- Arcana Mace -->
     <production id="6579" count="1" />
     <!-- Recipe: Arcana Mace (60%) -->
@@ -13887,6 +13989,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+	<!-- Arcana Mace - Nature -->
+	<masterwork>12455</masterwork>
     <!-- Arcana Mace -->
     <production id="6579" count="1" />
     <!-- Recipe: Arcana Mace (100%) -->
@@ -16226,6 +16330,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+	<!-- Draconic Bow - Lightning -->
+	<masterwork>12449</masterwork>
     <!-- Draconic Bow -->
     <production id="7575" count="1" />
     <!-- Recipe: Draconic Bow (60%) -->
@@ -16255,6 +16361,8 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+	<!-- Draconic Bow - Lightning -->
+	<masterwork>12449</masterwork>
     <!-- Draconic Bow -->
     <production id="7575" count="1" />
     <!-- Recipe: Draconic Bow (100%) -->
@@ -16902,6 +17010,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+	<!-- Spiritual Eye - Hail -->
+	<masterwork>12412</masterwork>
     <!-- Spiritual Eye -->
     <production id="7894" count="1" />
     <!-- Recipe: Spiritual Eye (60%) -->
@@ -16931,6 +17041,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+	<!-- Spiritual Eye - Hail -->
+	<masterwork>12412</masterwork>
     <!-- Spiritual Eye -->
     <production id="7894" count="1" />
     <!-- Recipe: Spiritual Eye (100%) -->
@@ -16960,6 +17072,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+	<!-- Flaming Dragon Skull - Wisdom -->
+	<masterwork>12425</masterwork>
     <!-- Flaming Dragon Skull -->
     <production id="7895" count="1" />
     <!-- Recipe: Flaming Dragon Skull (60%) -->
@@ -16989,6 +17103,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+	<!-- Flaming Dragon Skull - Wisdom -->
+	<masterwork>12425</masterwork>
     <!-- Flaming Dragon Skull -->
     <production id="7895" count="1" />
     <!-- Recipe: Flaming Dragon Skull (100%) -->
@@ -17018,6 +17134,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+	<!-- Doom Crusher - Lightning -->
+	<masterwork>12422</masterwork>
     <!-- Doom Crusher -->
     <production id="7902" count="1" />
     <!-- Recipe: Doom Crusher (60%) -->
@@ -17047,6 +17165,8 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+	<!-- Doom Crusher - Lightning -->
+	<masterwork>12422</masterwork>
     <!-- Doom Crusher -->
     <production id="7902" count="1" />
     <!-- Recipe: Doom Crusher (100%) -->
@@ -17126,6 +17246,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+	<!-- Destroyer Hammer - Thunder -->
+	<masterwork>12416</masterwork>
     <!-- Destroyer Hammer -->
     <production id="7899" count="1" />
     <!-- Recipe: Destroyer Hammer (60%) -->
@@ -17155,6 +17277,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+	<!-- Destroyer Hammer - Thunder -->
+	<masterwork>12416</masterwork>
     <!-- Destroyer Hammer -->
     <production id="7899" count="1" />
     <!-- Recipe: Destroyer Hammer (100%) -->
@@ -17184,6 +17308,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+	<!-- Infernal Master - Concentration -->
+	<masterwork>12413</masterwork>
     <!-- Infernal Master -->
     <production id="7884" count="1" />
     <!-- Recipe: Infernal Master (60%) -->
@@ -17211,6 +17337,8 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+	<!-- Infernal Master - Concentration -->
+	<masterwork>12413</masterwork>
     <!-- Infernal Master -->
     <production id="7884" count="1" />
     <!-- Recipe: Infernal Master (100%) -->
@@ -17690,6 +17818,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>60</successRate>
+	<!-- Sirra's Blade - Landslide -->
+	<masterwork>12442</masterwork>
     <!-- Sirra's Blade -->
     <production id="8678" count="1" />
     <!-- Recipe: Sirra's Blade (60%) -->
@@ -17717,6 +17847,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>100</successRate>
+	<!-- Sirra's Blade - Landslide -->
+	<masterwork>12442</masterwork>
     <!-- Sirra's Blade -->
     <production id="8678" count="1" />
     <!-- Recipe: Sirra's Blade (100%) -->
@@ -17744,6 +17876,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>60</successRate>
+	<!-- Sword of Ipos - Earth -->
+	<masterwork>12440</masterwork>
     <!-- Sword of Ipos -->
     <production id="8679" count="1" />
     <!-- Recipe: Sword of Ipos (60%) -->
@@ -17771,6 +17905,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>100</successRate>
+	<!-- Sword of Ipos - Earth -->
+	<masterwork>12440</masterwork>
     <!-- Sword of Ipos -->
     <production id="8679" count="1" />
     <!-- Recipe: Sword of Ipos (100%) -->
@@ -17798,6 +17934,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>60</successRate>
+	<!-- Barakiel's Axe - On Fire -->
+	<masterwork>12435</masterwork>
     <!-- Barakiel's Axe -->
     <production id="8680" count="1" />
     <!-- Recipe: Barakiel's Axe (60%) -->
@@ -17827,6 +17965,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>100</successRate>
+	<!-- Barakiel's Axe - On Fire -->
+	<masterwork>12435</masterwork>
     <!-- Barakiel's Axe -->
     <production id="8680" count="1" />
     <!-- Recipe: Barakiel's Axe (100%) -->
@@ -17856,6 +17996,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>60</successRate>
+	<!-- Behemoth Tunik Fork - Destruction -->
+	<masterwork>12437</masterwork>
     <!-- Behemoth's Tuning Fork -->
     <production id="8681" count="1" />
     <!-- Recipe: Behemoth's Tuning Fork (60%) -->
@@ -17885,6 +18027,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>100</successRate>
+	<!-- Behemoth Tunik Fork - Destruction -->
+	<masterwork>12437</masterwork>
     <!-- Behemoth's Tuning Fork -->
     <production id="8681" count="1" />
     <!-- Recipe: Behemoth's Tuning Fork (100%) -->
@@ -17914,6 +18058,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>60</successRate>
+	<!-- Naga Storm - Molar -->
+	<masterwork>12433</masterwork>
     <!-- Naga Storm -->
     <production id="8682" count="1" />
     <!-- Recipe: Naga Storm (60%) -->
@@ -17941,6 +18087,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>100</successRate>
+	<!-- Naga Storm - Molar -->
+	<masterwork>12433</masterwork>
     <!-- Naga Storm -->
     <production id="8682" count="1" />
     <!-- Recipe: Naga Storm (100%) -->
@@ -17968,6 +18116,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>60</successRate>
+	<!-- Tiphon's Spear - Landslide -->
+	<masterwork>12444</masterwork>
     <!-- Tiphon's Spear -->
     <production id="8683" count="1" />
     <!-- Recipe: Tiphon's Spear (60%) -->
@@ -17997,6 +18147,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>100</successRate>
+	<!-- Tiphon's Spear - Landslide -->
+	<masterwork>12444</masterwork>
     <!-- Tiphon's Spear -->
     <production id="8683" count="1" />
     <!-- Recipe: Tiphon's Spear (100%) -->
@@ -18026,6 +18178,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>60</successRate>
+	<!-- Shyeed Bow - Concentration -->
+	<masterwork>12439</masterwork>
     <!-- Shyeed's Bow -->
     <production id="8684" count="1" />
     <!-- Recipe: Shyeed's Bow (60%) -->
@@ -18055,6 +18209,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>100</successRate>
+	<!-- Shyeed Bow - Concentration -->
+	<masterwork>12439</masterwork>
     <!-- Shyeed's Bow -->
     <production id="8684" count="1" />
     <!-- Recipe: Shyeed's Bow (100%) -->
@@ -18084,6 +18240,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>60</successRate>
+	<!-- Sobekk's Hurricane - Landslide -->
+	<masterwork>12441</masterwork>
     <!-- Sobekk's Hurricane -->
     <production id="8685" count="1" />
     <!-- Recipe: Sobekk's Hurricane (60%) -->
@@ -18113,6 +18271,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>100</successRate>
+	<!-- Sobekk's Hurricane - Landslide -->
+	<masterwork>12441</masterwork>
     <!-- Sobekk's Hurricane -->
     <production id="8685" count="1" />
     <!-- Recipe: Sobekk's Hurricane (100%) -->
@@ -18142,6 +18302,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>60</successRate>
+	<!-- Themis Tongue - Cleverness -->
+	<masterwork>12445</masterwork>
     <!-- Themis' Tongue -->
     <production id="8686" count="1" />
     <!-- Recipe: Themis' Tongue (60%) -->
@@ -18169,6 +18331,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>100</successRate>
+	<!-- Themis Tongue - Cleverness -->
+	<masterwork>12445</masterwork>
     <!-- Themis' Tongue -->
     <production id="8686" count="1" />
     <!-- Recipe: Themis' Tongue (100%) -->
@@ -18196,6 +18360,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>60</successRate>
+	<!-- Cabrio's Hand - Cleverness -->
+	<masterwork>12446</masterwork>
     <!-- Cabrio's Hand -->
     <production id="8687" count="1" />
     <!-- Recipe: Cabrio's Hand (60%) -->
@@ -18225,6 +18391,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>100</successRate>
+	<!-- Cabrio's Hand - Cleverness -->
+	<masterwork>12446</masterwork>
     <!-- Cabrio's Hand -->
     <production id="8687" count="1" />
     <!-- Recipe: Cabrio's Hand (100%) -->
@@ -18254,6 +18422,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>60</successRate>
+	<!-- Daimon Crystal - Wisdom -->
+	<masterwork>12434</masterwork>
     <!-- Daimon Crystal -->
     <production id="8688" count="1" />
     <!-- Recipe: Daimon Crystal (60%) -->
@@ -18283,6 +18453,8 @@
     <dwarven />
     <mpCost>210</mpCost>
     <successRate>100</successRate>
+	<!-- Daimon Crystal - Wisdom -->
+	<masterwork>12434</masterwork>
     <!-- Daimon Crystal -->
     <production id="8688" count="1" />
     <!-- Recipe: Daimon Crystal (100%) -->

@@ -30,7 +30,6 @@ import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -338,6 +337,7 @@ public class RecipeController
 							int recipeId = -1;
 							int level = -1;
 							boolean isDwarvenRecipe = false;
+							int masterwork = -1;
 							int mpCost = -1;
 							int successRate = -1;
 							int prodId = -1;
@@ -363,6 +363,10 @@ public class RecipeController
 								{
 									successRate = Integer.parseInt(c.getTextContent());
 								}
+								else if ("masterwork".equalsIgnoreCase(c.getNodeName()))
+								{
+									masterwork = Integer.parseInt(c.getTextContent());
+								}
 								else if ("ingredient".equalsIgnoreCase(c.getNodeName()))
 								{
 									int ingId = Integer.parseInt(c.getAttributes().getNamedItem("id").getNodeValue());
@@ -375,7 +379,7 @@ public class RecipeController
 									count = Integer.parseInt(c.getAttributes().getNamedItem("count").getNodeValue());
 								}
 							}
-							L2RecipeList recipeList = new L2RecipeList(id, level, recipeId, recipeName, successRate, mpCost, prodId, count, isDwarvenRecipe);
+							L2RecipeList recipeList = new L2RecipeList(id, level, recipeId, recipeName, successRate, masterwork, mpCost, prodId, count, isDwarvenRecipe);
 							for (L2RecipeInstance recipePart : recipePartList)
 							{
 								recipeList.addRecipe(recipePart);
@@ -873,6 +877,18 @@ public class RecipeController
 		{
 			int itemId = _recipeList.getItemId();
 			int itemCount = _recipeList.getCount();
+			
+			int masterworkId = _recipeList.getMasterwork();
+			
+			boolean isMasterwork = false;
+			if (Config.ALLOW_MASTERWORK)
+			{
+				if (masterworkId > -1 && Rnd.get(100) <= Config.RATE_MASTERWORK)
+				{
+					itemId = masterworkId;
+					isMasterwork = true;
+				}
+			}
 
 			L2ItemInstance createdItem = _target.getInventory().addItem("Manufacture", itemId, itemCount, _target, _player);
 
