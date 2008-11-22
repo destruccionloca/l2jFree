@@ -127,7 +127,7 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_activeChar.getCurrentLoad());
 		writeD(_activeChar.getMaxLoad());
 
-		writeD(0x28); // unknown
+		writeD(_activeChar.getActiveWeaponItem() != null ? 0x40 : 0x20); // 0x20 no weapon, 0x40 weapon equipped
 
 		Inventory _inv = _activeChar.getInventory();
 
@@ -184,57 +184,34 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
 
 		// c6 new h's
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeD(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeD(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_LRHAND));
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_UNDER));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_REAR));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LEAR));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_NECK));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RFINGER));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LFINGER));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HEAD));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LHAND));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_GLOVES));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_CHEST));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LEGS));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_FEET));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_BACK));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LRHAND));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HAIR));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HAIR2));
 		// end of c6 new h's
 
 		// start of T1 new h's
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
-		writeH(0x00);
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RBRACELET));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LBRACELET));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO1));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO2));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO3));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO4));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO5));
+		writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO6));
 		// end of T1 new h's
 
 		writeD(_activeChar.getPAtk(null));

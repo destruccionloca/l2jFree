@@ -216,58 +216,39 @@ public class NpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
 
 			// T1 new d's 
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
+			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_RBRACELET));
+			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_LBRACELET));
+			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO1));
+			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO2));
+			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO3));
+			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
+			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
+			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
 			// end of t1 new d's 
 
 			// c6 new h's
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_UNDER));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HEAD));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LHAND));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_GLOVES));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_CHEST));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LEGS));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_FEET));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_BACK));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LRHAND));
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HAIR));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HAIR2));
 
 			// T1 new h's 
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RBRACELET));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LBRACELET));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO1));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO2));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO3));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO4));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO5));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO6));
 			// end of t1 new h's 
 
 			writeD(owner.getPvpFlag());

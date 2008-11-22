@@ -660,7 +660,10 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	//Death Penalty Buff Level
 	private int								_deathPenaltyBuffLevel	= 0;
-	
+
+	// Self resurrect during siege
+	private boolean							_charmOfCourage			= false;
+
 	private int								_trustlevel				= 0;
 
 	private boolean							_hero					= false;
@@ -10748,8 +10751,10 @@ public final class L2PcInstance extends L2PlayableInstance
 			_reviveRequested = true;
 			if (isPhoenixBlessed())
 				_revivePower = 100;
-			else
+			else if (skill != null)
 				_revivePower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), reviver.getStat().getWIT());
+			else
+				_revivePower = 0;
 
 			int restoreExp = (int) Math.round((getExpBeforeDeath() - getExp()) * _revivePower / 100);
 
@@ -10769,7 +10774,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (getPet().isDead() && getPet() instanceof L2PetInstance)
 		{
 			_revivePetRequested = true;
-			_revivePetPower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), reviver.getStat().getWIT());
+			if (skill != null)
+				_revivePetPower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), reviver.getStat().getWIT());
+			else
+				_revivePetPower = 0;
 
 			int restoreExp = (int) Math.round((((L2PetInstance)getPet()).getExpBeforeDeath() - getPet().getStat().getExp()) * _revivePetPower / 100);
 
@@ -10782,7 +10790,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		if (!((_reviveRequested && isDead()) || (_revivePetRequested && getPet() != null && getPet().isDead())))
 			return;
-		//If character refuses a PhoenixBless autoress, cancell all buffs he had
+		//If character refuses a PhoenixBless autoress, cancel all buffs he had
 		if (answer == 0 && isPhoenixBlessed() && isDead() && _reviveRequested)
 		{
 			stopPhoenixBlessing(null);
@@ -12286,8 +12294,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			_faction = null;
 		}
 	}
-
-	private boolean	_charmOfCourage	= false;
 
 	public boolean getCharmOfCourage()
 	{

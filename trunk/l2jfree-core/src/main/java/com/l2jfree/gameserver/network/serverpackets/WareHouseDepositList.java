@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.templates.L2Item;
 
 /**
  * 0x53 WareHouseDepositList  dh (h dddhh dhhh d)
@@ -52,12 +53,14 @@ public class WareHouseDepositList extends L2GameServerPacket
 		for (L2ItemInstance temp : _activeChar.getInventory().getAvailableItems(true))
 			_items.add(temp);
 		
-		// augmented and shadow items can be stored in private wh
+		// non-tradeable, augmented and shadow items can be stored in private wh
 		if (_whType == PRIVATE)
 		{
 			for (L2ItemInstance temp :player.getInventory().getItems())
 			{
-				if (temp != null && !temp.isEquipped() && (temp.isShadowItem() || temp.isAugmented()))
+				if (temp != null && !temp.isEquipped() 
+						&& (temp.isShadowItem() || temp.isAugmented() || !temp.isTradeable())
+						&& temp.getItem().getType2() != L2Item.TYPE2_QUEST) // exclude quest items
 					_items.add(temp);
 			}
 		}

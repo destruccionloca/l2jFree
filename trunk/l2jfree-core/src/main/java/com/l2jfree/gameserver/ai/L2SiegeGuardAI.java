@@ -700,7 +700,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	protected void onEvtThink()
 	{
 		// Check if the thinking action is already in progress
-		if (_thinking || _actor.isCastingNow())
+		if (_thinking || _actor.isCastingNow() || _actor.isAllSkillsDisabled())
 			return;
 
 		// Start thinking action

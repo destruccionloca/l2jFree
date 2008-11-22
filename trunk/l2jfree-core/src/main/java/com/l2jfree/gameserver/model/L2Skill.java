@@ -2772,7 +2772,7 @@ public class L2Skill
 						if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
 								|| (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !player.isGM())
 						{
-							if ((newTarget._inEventTvT && !player._inEventTvT) || (!newTarget._inEventTvT && player._inEventTvT))					
+							if ((newTarget._inEventTvT && !player._inEventTvT) || (!newTarget._inEventTvT && player._inEventTvT))
 								continue;
 							if ((newTarget._inEventCTF && !player._inEventCTF) || (!newTarget._inEventCTF && player._inEventCTF))
 								continue;
@@ -2792,17 +2792,11 @@ public class L2Skill
 						{
 							if (!newTarget.isDead())
 								continue;
+							// Siege battlefield resurrect has been made possible for participants
 							if (getSkillType() == SkillType.RESURRECT)
 							{
-								// check for charm of courage and caster being a siege participant, otherwise do not allow resurrection
-								// on siege battlefield
-								Siege siege = SiegeManager.getInstance().getSiege(newTarget);
-								if (siege != null && siege.getIsInProgress())
-								{
-									// could/should be a more accurate check for siege clans
-									if (!newTarget.getCharmOfCourage() || player.getSiegeState() == 0)
-										continue;
-								}
+								if (newTarget.isInsideZone(L2Zone.FLAG_SIEGE) && newTarget.getSiegeState() == 0)
+									continue;
 							}
 						}
 

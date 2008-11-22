@@ -85,8 +85,6 @@ public class L2SummonAI extends L2CharacterAI
 
 	private void thinkPickUp()
 	{
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
-			return;
 		if (checkTargetLost(getTarget()))
 			return;
 		if (maybeMoveToPawn(getTarget(), 36))
@@ -98,8 +96,6 @@ public class L2SummonAI extends L2CharacterAI
 
 	private void thinkInteract()
 	{
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
-			return;
 		if (checkTargetLost(getTarget()))
 			return;
 		if (maybeMoveToPawn(getTarget(), 36))
@@ -111,7 +107,7 @@ public class L2SummonAI extends L2CharacterAI
 	@Override
 	protected void onEvtThink()
 	{
-		if (_thinking || _actor.isCastingNow())
+		if (_thinking || _actor.isCastingNow() || _actor.isAllSkillsDisabled())
 			return;
 		_thinking = true;
 		try
