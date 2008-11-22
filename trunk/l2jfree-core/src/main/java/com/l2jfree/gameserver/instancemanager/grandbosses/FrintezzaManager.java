@@ -1083,12 +1083,16 @@ public class FrintezzaManager extends BossLair
 			{
 				if (_effected == null)
 					return;
+				
+				//stun dance can be cast on L2PcInstance only
+				if (!(_effected instanceof L2PcInstance))
+					return;
 
 				if (_effected.getFirstEffect(_skill) != null)
 					return;
 
-				// if (_effected instanceof L2PcInstance && (((L2PcInstance)_effected).isInvul() || ((L2PcInstance)_effected).getAppearance().getInvisible()) )
-				// return;
+				if (_effected instanceof L2PcInstance && (((L2PcInstance)_effected).isInvul() || ((L2PcInstance)_effected).getAppearance().getInvisible()) )
+					return;
 
 				// stop all actions
 				setIdle(_effected);
