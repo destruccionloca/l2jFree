@@ -6683,6 +6683,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12501</masterwork>
     <!-- Zubei's Breastplate -->
     <production id="357" count="1" />
     <!-- Recipe: Zubei's Breastplate (60%) -->
@@ -6706,6 +6707,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12501</masterwork>
     <!-- Zubei's Breastplate -->
     <production id="357" count="1" />
     <!-- Recipe: Zubei's Breastplate -->
@@ -6729,6 +6731,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12492</masterwork>
     <!-- Zubei's Gaiters -->
     <production id="383" count="1" />
     <!-- Recipe: Zubei's Gaiters (60%) -->
@@ -6752,6 +6755,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12492</masterwork>
     <!-- Zubei's Gaiters -->
     <production id="383" count="1" />
     <!-- Recipe: Zubei's Gaiters -->
@@ -7063,6 +7067,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12513</masterwork>
     <!-- Avadon Breastplate -->
     <production id="2376" count="1" />
     <!-- Recipe: Avadon Breastplate (60%) -->
@@ -7086,6 +7091,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12513</masterwork>
     <!-- Avadon Breastplate -->
     <production id="2376" count="1" />
     <!-- Recipe: Avadon Breastplate -->
@@ -7109,6 +7115,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12512</masterwork>
     <!-- Avadon Gaiters -->
     <production id="2379" count="1" />
     <!-- Recipe: Avadon Gaiters (60%) -->
@@ -7132,6 +7139,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12510</masterwork>
     <!-- Avadon Gaiters -->
     <production id="2379" count="1" />
     <!-- Recipe: Avadon Gaiters -->
@@ -7155,6 +7163,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12491</masterwork>
     <!-- Zubei's Leather Shirt -->
     <production id="2384" count="1" />
     <!-- Recipe: Zubei's Leather Shirt (60%) -->
@@ -7178,6 +7187,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12491</masterwork>
     <!-- Zubei's Leather Shirt -->
     <production id="2384" count="1" />
     <!-- Recipe: Zubei's Leather Shirt -->
@@ -7203,6 +7213,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12490</masterwork>
     <!-- Zubei's Leather Gaiters -->
     <production id="2388" count="1" />
     <!-- Recipe: Zubei's Leather Gaiters (60%) -->
@@ -7226,6 +7237,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12490</masterwork>
     <!-- Zubei's Leather Gaiters -->
     <production id="2388" count="1" />
     <!-- Recipe: Zubei's Leather Gaiters -->
@@ -7251,6 +7263,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12505</masterwork>
     <!-- Avadon Leather Armor -->
     <production id="2390" count="1" />
     <!-- Recipe: Avadon Leather Armor (60%) -->
@@ -7276,6 +7289,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12505</masterwork>
     <!-- Avadon Leather Armor -->
     <production id="2390" count="1" />
     <!-- Recipe: Avadon Leather Armor -->
@@ -7303,6 +7317,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12514</masterwork>
     <!-- Tunic of Zubei -->
     <production id="2397" count="1" />
     <!-- Recipe: Tunic of Zubei (60%) -->
@@ -7326,6 +7341,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12514</masterwork>
     <!-- Tunic of Zubei -->
     <production id="2397" count="1" />
     <!-- Recipe: Tunic of Zubei -->
@@ -7351,6 +7367,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12515</masterwork>
     <!-- Stockings of Zubei -->
     <production id="2402" count="1" />
     <!-- Recipe: Stockings of Zubei (60%) -->
@@ -7374,6 +7391,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12515</masterwork>
     <!-- Stockings of Zubei -->
     <production id="2402" count="1" />
     <!-- Recipe: Stockings of Zubei -->
@@ -7399,6 +7417,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12506</masterwork>
     <!-- Avadon Robe -->
     <production id="2406" count="1" />
     <!-- Recipe: Avadon Robe (60%) -->
@@ -7424,6 +7443,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12506</masterwork>
     <!-- Avadon Robe -->
     <production id="2406" count="1" />
     <!-- Recipe: Avadon Robe -->
@@ -7451,6 +7471,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12510</masterwork>
     <!-- Avadon Circlet -->
     <production id="2415" count="1" />
     <!-- Recipe: Avadon Circlet (60%) -->
@@ -7474,6 +7495,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12510</masterwork>
     <!-- Avadon Circlet -->
     <production id="2415" count="1" />
     <!-- Recipe: Avadon Circlet -->
@@ -7497,6 +7519,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12488</masterwork>
     <!-- Avadon Gloves -->
     <production id="2464" count="1" />
     <!-- Recipe: Avadon Gloves (60%) -->
@@ -7520,6 +7543,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12488</masterwork>
     <!-- Avadon Gloves -->
     <production id="2464" count="1" />
     <!-- Recipe: Avadon Gloves -->
@@ -7689,6 +7713,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12522</masterwork>
     <!-- Doom Shield -->
     <production id="110" count="1" />
     <!-- Recipe: Doom Shield (60%) -->
@@ -7714,6 +7739,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12522</masterwork>
     <!-- Doom Shield -->
     <production id="110" count="1" />
     <!-- Recipe: Doom Shield -->
@@ -7741,6 +7767,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12542</masterwork>
     <!-- Blue Wolf Breastplate -->
     <production id="358" count="1" />
     <!-- Recipe: Blue Wolf Breastplate (60%) -->
@@ -7764,6 +7791,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12542</masterwork>
     <!-- Blue Wolf Breastplate -->
     <production id="358" count="1" />
     <!-- Recipe: Blue Wolf Breastplate -->
@@ -7835,6 +7863,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12531</masterwork>
     <!-- Blue Wolf Gaiters -->
     <production id="2380" count="1" />
     <!-- Recipe: Blue Wolf Gaiters (60%) -->
@@ -7858,6 +7887,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12531</masterwork>
     <!-- Blue Wolf Gaiters -->
     <production id="2380" count="1" />
     <!-- Recipe: Blue Wolf Gaiters -->
@@ -7881,6 +7911,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12523</masterwork>
     <!-- Doom Plate Armor -->
     <production id="2381" count="1" />
     <!-- Recipe: Doom Plate Armor (60%) -->
@@ -7906,6 +7937,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12523</masterwork>
     <!-- Doom Plate Armor -->
     <production id="2381" count="1" />
     <!-- Recipe: Doom Plate Armor -->
@@ -7931,6 +7963,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12532</masterwork>
     <!-- Blue Wolf Leather Armor -->
     <production id="2391" count="1" />
     <!-- Recipe: Blue Wolf Leather Armor (60%) -->
@@ -7956,6 +7989,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12532</masterwork>
     <!-- Blue Wolf Leather Armor -->
     <production id="2391" count="1" />
     <!-- Recipe: Blue Wolf Leather Armor -->
@@ -7983,6 +8017,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12525</masterwork>
     <!-- Leather Armor of Doom -->
     <production id="2392" count="1" />
     <!-- Recipe: Leather Armor of Doom (60%) -->
@@ -8008,6 +8043,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12525</masterwork>
     <!-- Leather Armor of Doom -->
     <production id="2392" count="1" />
     <!-- Recipe: Leather Armor of Doom -->
@@ -8035,6 +8071,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12539</masterwork>
     <!-- Blue Wolf Tunic -->
     <production id="2398" count="1" />
     <!-- Recipe: Blue Wolf Tunic (60%) -->
@@ -8058,6 +8095,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12539</masterwork>
     <!-- Blue Wolf Tunic -->
     <production id="2398" count="1" />
     <!-- Recipe: Blue Wolf Tunic -->
@@ -8083,6 +8121,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12530</masterwork>
     <!-- Tunic of Doom -->
     <production id="2399" count="1" />
     <!-- Recipe: Tunic of Doom (60%) -->
@@ -8106,6 +8145,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12530</masterwork>
     <!-- Tunic of Doom -->
     <production id="2399" count="1" />
     <!-- Recipe: Tunic of Doom -->
@@ -8131,6 +8171,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12541</masterwork>
     <!-- Blue Wolf Stockings -->
     <production id="2403" count="1" />
     <!-- Recipe: Blue Wolf Stockings (60%) -->
@@ -8154,6 +8195,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12541</masterwork>
     <!-- Blue Wolf Stockings -->
     <production id="2403" count="1" />
     <!-- Recipe: Blue Wolf Stockings -->
@@ -8179,6 +8221,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12543</masterwork>
     <!-- Stockings of Doom -->
     <production id="2404" count="1" />
     <!-- Recipe: Stockings of Doom (60%) -->
@@ -8202,6 +8245,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12543</masterwork>
     <!-- Stockings of Doom -->
     <production id="2404" count="1" />
     <!-- Recipe: Stockings of Doom -->
@@ -8227,6 +8271,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12540</masterwork>
     <!-- Blue Wolf Helmet -->
     <production id="2416" count="1" />
     <!-- Recipe: Blue Wolf Helmet (60%) -->
@@ -8250,6 +8295,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12540</masterwork>
     <!-- Blue Wolf Helmet -->
     <production id="2416" count="1" />
     <!-- Recipe: Blue Wolf Helmet -->
@@ -8273,6 +8319,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12524</masterwork>
     <!-- Doom Helmet -->
     <production id="2417" count="1" />
     <!-- Recipe: Doom Helmet (60%) -->
@@ -8296,6 +8343,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12524</masterwork>
     <!-- Doom Helmet -->
     <production id="2417" count="1" />
     <!-- Recipe: Doom Helmet -->
@@ -8319,6 +8367,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12528</masterwork>
     <!-- Blue Wolf Boots -->
     <production id="2439" count="1" />
     <!-- Recipe: Blue Wolf Boots (60%) -->
@@ -8342,6 +8391,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12528</masterwork>
     <!-- Blue Wolf Boots -->
     <production id="2439" count="1" />
     <!-- Recipe: Blue Wolf Boots -->
@@ -8367,6 +8417,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12526</masterwork>
     <!-- Doom Gloves -->
     <production id="2475" count="1" />
     <!-- Recipe: Doom Gloves (60%) -->
@@ -8390,6 +8441,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12526</masterwork>
     <!-- Doom Gloves -->
     <production id="2475" count="1" />
     <!-- Recipe: Doom Gloves -->
@@ -8607,6 +8659,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12529</masterwork>
     <!-- Blue Wolf Gloves -->
     <production id="2487" count="1" />
     <!-- Recipe: Blue Wolf Gloves (60%) -->
@@ -8630,6 +8683,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12529</masterwork>
     <!-- Blue Wolf Gloves -->
     <production id="2487" count="1" />
     <!-- Recipe: Blue Wolf Gloves -->
@@ -8655,6 +8709,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12487</masterwork>
     <!-- Zubei's Boots -->
     <production id="554" count="1" />
     <!-- Recipe: Zubei's Boots (60%) -->
@@ -8678,6 +8733,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12487</masterwork>
     <!-- Zubei's Boots -->
     <production id="554" count="1" />
     <!-- Recipe: Zubei's Boots -->
@@ -8703,6 +8759,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12489</masterwork>
     <!-- Avadon Boots -->
     <production id="600" count="1" />
     <!-- Recipe: Avadon Boots (60%) -->
@@ -8726,6 +8783,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12489</masterwork>
     <!-- Avadon Boots -->
     <production id="600" count="1" />
     <!-- Recipe: Avadon Boots -->
@@ -8751,6 +8809,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>60</successRate>
+    <masterwork>12527</masterwork>
     <!-- Boots of Doom -->
     <production id="601" count="1" />
     <!-- Recipe: Doom Boots (60%) -->
@@ -8774,6 +8833,7 @@
     <dwarven />
     <mpCost>183</mpCost>
     <successRate>100</successRate>
+    <masterwork>12527</masterwork>
     <!-- Boots of Doom -->
     <production id="601" count="1" />
     <!-- Recipe: Doom Boots -->
@@ -8799,6 +8859,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12486</masterwork>
     <!-- Zubei's Gauntlets -->
     <production id="612" count="1" />
     <!-- Recipe: Zubei's Gauntlets (60%) -->
@@ -8822,6 +8883,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12486</masterwork>
     <!-- Zubei's Gauntlets -->
     <production id="612" count="1" />
     <!-- Recipe: Zubei's Gauntlets -->
@@ -8847,6 +8909,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12499</masterwork>
     <!-- Zubei's Shield -->
     <production id="633" count="1" />
     <!-- Recipe: Zubei's Shield (60%) -->
@@ -8872,6 +8935,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12499</masterwork>
     <!-- Zubei's Shield -->
     <production id="633" count="1" />
     <!-- Recipe: Zubei's Shield (100%) -->
@@ -8899,6 +8963,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12500</masterwork>
     <!-- Zubei's Helmet -->
     <production id="503" count="1" />
     <!-- Recipe: Zubei's Helmet (60%) -->
@@ -8922,6 +8987,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12500</masterwork>
     <!-- Zubei's Helmet -->
     <production id="503" count="1" />
     <!-- Recipe: Zubei's Helmet -->
@@ -9992,6 +10058,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>60</successRate>
+    <masterwork>12511</masterwork>
     <!-- Avadon Shield -->
     <production id="673" count="1" />
     <!-- Recipe: Avadon Shield (60%) -->
@@ -10017,6 +10084,7 @@
     <dwarven />
     <mpCost>174</mpCost>
     <successRate>100</successRate>
+    <masterwork>12511</masterwork>
     <!-- Avadon Shield -->
     <production id="673" count="1" />
     <!-- Recipe: Avadon Shield -->
@@ -10484,6 +10552,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12559</masterwork>
     <!-- Sealed Dark Crystal Leather Armor -->
     <production id="5297" count="1" />
     <!-- Recipe: Sealed Dark Crystal Leather Armor(60%) -->
@@ -10510,6 +10579,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12559</masterwork>
     <!-- Sealed Dark Crystal Leather Armor -->
     <production id="5297" count="1" />
     <!-- Recipe: Sealed Dark Crystal Leather Armor(100%) -->
@@ -10535,6 +10605,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12567</masterwork>
     <!-- Sealed Tallum Leather Armor -->
     <production id="5301" count="1" />
     <!-- Recipe: Sealed Tallum Leather Armor(60%) -->
@@ -10562,6 +10633,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12567</masterwork>
     <!-- Sealed Tallum Leather Armor -->
     <production id="5301" count="1" />
     <!-- Recipe: Sealed Tallum Leather Armor(100%) -->
@@ -10590,6 +10662,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12603</masterwork>
     <!-- Sealed Leather Armor of Nightmare -->
     <production id="5320" count="1" />
     <!-- Recipe: Sealed Leather Armor of Nightmare(60%) -->
@@ -10618,6 +10691,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12603</masterwork>
     <!-- Sealed Leather Armor of Nightmare -->
     <production id="5320" count="1" />
     <!-- Recipe: Sealed Leather Armor of Nightmare(100%) -->
@@ -10645,6 +10719,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12596</masterwork>
     <!-- Sealed Majestic Leather Armor -->
     <production id="5323" count="1" />
     <!-- Recipe: Sealed Majestic Leather Armor(60%) -->
@@ -10673,6 +10748,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12596</masterwork>
     <!-- Sealed Majestic Leather Armor -->
     <production id="5323" count="1" />
     <!-- Recipe: Sealed Majestic Leather Armor(100%) -->
@@ -10701,6 +10777,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12565</masterwork>
     <!-- Sealed Dark Crystal Leggings -->
     <production id="5298" count="1" />
     <!-- Recipe: Sealed Dark Crystal Leggings(60%) -->
@@ -10727,6 +10804,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12565</masterwork>
     <!-- Sealed Dark Crystal Leggings -->
     <production id="5298" count="1" />
     <!-- Recipe: Sealed Dark Crystal Leggings(100%) -->
@@ -10752,6 +10830,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12569</masterwork>
     <!-- Sealed Tallum Tunic -->
     <production id="5304" count="1" />
     <!-- Recipe: Sealed Tallum Tunic(60%) -->
@@ -10777,6 +10856,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12569</masterwork>
     <!-- Sealed Tallum Tunic -->
     <production id="5304" count="1" />
     <!-- Recipe: Sealed Tallum Tunic(100%) -->
@@ -10802,6 +10882,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12560</masterwork>
     <!-- Sealed Dark Crystal Robe -->
     <production id="5308" count="1" />
     <!-- Recipe: Sealed Dark Crystal Robe(60%) -->
@@ -10829,6 +10910,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12560</masterwork>
     <!-- Sealed Dark Crystal Robe -->
     <production id="5308" count="1" />
     <!-- Recipe: Sealed Dark Crystal Robe(100%) -->
@@ -10856,6 +10938,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12604</masterwork>
     <!-- Sealed Nightmare Robe -->
     <production id="5326" count="1" />
     <!-- Recipe: Sealed Nightmare Robe(60%) -->
@@ -10883,6 +10966,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12604</masterwork>
     <!-- Sealed Nightmare Robe -->
     <production id="5326" count="1" />
     <!-- Recipe: Sealed Nightmare Robe(100%) -->
@@ -10910,6 +10994,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12597</masterwork>
     <!-- Sealed Majestic Robe -->
     <production id="5329" count="1" />
     <!-- Recipe: Sealed Majestic Robe(60%) -->
@@ -10937,6 +11022,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12597</masterwork>
     <!-- Sealed Majestic Robe -->
     <production id="5329" count="1" />
     <!-- Recipe: Sealed Majestic Robe(100%) -->
@@ -10964,6 +11050,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12572</masterwork>
     <!-- Sealed Tallum Stockings -->
     <production id="5305" count="1" />
     <!-- Recipe: Sealed Tallum Stockings(60%) -->
@@ -10989,6 +11076,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12572</masterwork>
     <!-- Sealed Tallum Stockings -->
     <production id="5305" count="1" />
     <!-- Recipe: Sealed Tallum Stockings(100%) -->
@@ -11014,6 +11102,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12562</masterwork>
     <!-- Sealed Dark Crystal Shield -->
     <production id="5292" count="1" />
     <!-- Recipe: Sealed Dark Crystal Shield(60%) -->
@@ -11041,6 +11130,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12562</masterwork>
     <!-- Sealed Dark Crystal Shield -->
     <production id="5292" count="1" />
     <!-- Recipe: Sealed Dark Crystal Shield(100%) -->
@@ -11068,6 +11158,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12606</masterwork>
     <!-- Sealed Shield of Nightmare -->
     <production id="5315" count="1" />
     <!-- Recipe: Sealed Shield of Nightmare(60%) -->
@@ -11095,6 +11186,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12606</masterwork>
     <!-- Sealed Shield of Nightmare -->
     <production id="5315" count="1" />
     <!-- Recipe: Sealed Shield of Nightmare(100%) -->
@@ -11122,6 +11214,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12561</masterwork>
     <!-- Sealed Dark Crystal Boots -->
     <production id="5291" count="1" />
     <!-- Recipe: Sealed Dark Crystal Boots(60%) -->
@@ -11147,6 +11240,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12561</masterwork>
     <!-- Sealed Dark Crystal Boots -->
     <production id="5291" count="1" />
     <!-- Recipe: Sealed Dark Crystal Boots(100%) -->
@@ -11172,6 +11266,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12568</masterwork>
     <!-- Sealed Tallum Boots -->
     <production id="5296" count="1" />
     <!-- Recipe: Sealed Tallum Boots(60%) -->
@@ -11197,6 +11292,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12568</masterwork>
     <!-- Sealed Tallum Boots -->
     <production id="5296" count="1" />
     <!-- Recipe: Sealed Tallum Boots(100%) -->
@@ -11222,6 +11318,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12605</masterwork>
     <!-- Sealed Boots of Nightmare -->
     <production id="5314" count="1" />
     <!-- Recipe: Sealed Boots of Nightmare(60%) -->
@@ -11247,6 +11344,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12605</masterwork>
     <!-- Sealed Boots of Nightmare -->
     <production id="5314" count="1" />
     <!-- Recipe: Sealed Boots of Nightmare(100%) -->
@@ -11272,6 +11370,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12598</masterwork>
     <!-- Sealed Majestic Boots -->
     <production id="5319" count="1" />
     <!-- Recipe: Sealed Majestic Boots(60%) -->
@@ -11297,6 +11396,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12598</masterwork>
     <!-- Sealed Majestic Boots -->
     <production id="5319" count="1" />
     <!-- Recipe: Sealed Majestic Boots(100%) -->
@@ -11322,6 +11422,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12558</masterwork>
     <!-- Sealed Dark Crystal Gloves -->
     <production id="5290" count="1" />
     <!-- Recipe: Sealed Dark Crystal Gloves(60%) -->
@@ -11347,6 +11448,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12558</masterwork>
     <!-- Sealed Dark Crystal Gloves -->
     <production id="5290" count="1" />
     <!-- Recipe: Sealed Dark Crystal Gloves(100%) -->
@@ -11372,6 +11474,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12566</masterwork>
     <!-- Sealed Tallum Gloves -->
     <production id="5295" count="1" />
     <!-- Recipe: Sealed Tallum Gloves(60%) -->
@@ -11397,6 +11500,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12566</masterwork>
     <!-- Sealed Tallum Gloves -->
     <production id="5295" count="1" />
     <!-- Recipe: Sealed Tallum Gloves(100%) -->
@@ -11422,6 +11526,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12602</masterwork>
     <!-- Sealed Gauntlets of Nightmare -->
     <production id="5313" count="1" />
     <!-- Recipe: Sealed Gauntlets of Nightmare(60%) -->
@@ -11447,6 +11552,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12602</masterwork>
     <!-- Sealed Gauntlets of Nightmare -->
     <production id="5313" count="1" />
     <!-- Recipe: Sealed Gauntlets of Nightmare(100%) -->
@@ -11472,6 +11578,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12595</masterwork>
     <!-- Sealed Majestic Gauntlets -->
     <production id="5318" count="1" />
     <!-- Recipe: Sealed Majestic Gauntlets(60%) -->
@@ -11497,6 +11604,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12595</masterwork>
     <!-- Sealed Majestic Gauntlets -->
     <production id="5318" count="1" />
     <!-- Recipe: Sealed Majestic Gauntlets(100%) -->
@@ -11523,6 +11631,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12564</masterwork>
     <!-- Sealed Dark Crystal breastplate -->
     <production id="5287" count="1" />
     <!-- Recipe: Sealed Dark Crystal Breastplate(60%) -->
@@ -11547,6 +11656,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12564</masterwork>
     <!-- Sealed Dark Crystal breastplate -->
     <production id="5287" count="1" />
     <!-- Recipe: Sealed Dark Crystal Breastplate(100%) -->
@@ -11570,6 +11680,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12570</masterwork>
     <!-- Sealed Tallum Plate Armor -->
     <production id="5293" count="1" />
     <!-- Recipe: Sealed Tallum Plate Armor(60%) -->
@@ -11595,6 +11706,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12570</masterwork>
     <!-- Sealed Tallum Plate Armor -->
     <production id="5293" count="1" />
     <!-- Recipe: Sealed Tallum Plate Armor(100%) -->
@@ -11620,6 +11732,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12601</masterwork>
     <!-- Sealed Armor of Nightmare -->
     <production id="5311" count="1" />
     <!-- Recipe: Sealed Armor of Nightmare(60%) -->
@@ -11645,6 +11758,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12601</masterwork>
     <!-- Sealed Armor of Nightmare -->
     <production id="5311" count="1" />
     <!-- Recipe: Sealed Armor of Nightmare(100%) -->
@@ -11670,6 +11784,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12600</masterwork>
     <!-- Sealed Majestic Plate Armor -->
     <production id="5316" count="1" />
     <!-- Recipe: Sealed Majestic Plate Armor(60%) -->
@@ -11696,6 +11811,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12600</masterwork>
     <!-- Sealed Majestic Plate Armor -->
     <production id="5316" count="1" />
     <!-- Recipe: Sealed Majestic Plate Armor(100%) -->
@@ -11721,6 +11837,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12557</masterwork>
     <!-- Sealed Dark Crystal Gaiters -->
     <production id="5288" count="1" />
     <!-- Recipe: Sealed Dark Crystal Gaiters(60%) -->
@@ -11744,6 +11861,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12557</masterwork>
     <!-- Sealed Dark Crystal Gaiters -->
     <production id="5288" count="1" />
     <!-- Recipe: Sealed Dark Crystal Gaiters(100%) -->
@@ -11767,6 +11885,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12563</masterwork>
     <!-- Sealed Dark Crystal Helmet -->
     <production id="5289" count="1" />
     <!-- Recipe: Sealed Dark Crystal Helmet(60%) -->
@@ -11790,6 +11909,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12563</masterwork>
     <!-- Sealed Dark Crystal Helmet -->
     <production id="5289" count="1" />
     <!-- Recipe: Sealed Dark Crystal Helmet(100%) -->
@@ -11813,6 +11933,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>60</successRate>
+    <masterwork>12571</masterwork>
     <!-- Sealed Tallum Helmet -->
     <production id="5294" count="1" />
     <!-- Recipe: Sealed Tallum Helmet(60%) -->
@@ -11836,6 +11957,7 @@
     <dwarven />
     <mpCost>192</mpCost>
     <successRate>100</successRate>
+    <masterwork>12571</masterwork>
     <!-- Sealed Tallum Helmet -->
     <production id="5294" count="1" />
     <!-- Recipe: Sealed Tallum Helmet(100%) -->
@@ -11859,6 +11981,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12607</masterwork>
     <!-- Sealed Helm of Nightmare -->
     <production id="5312" count="1" />
     <!-- Recipe: Sealed Helm of Nightmare(60%) -->
@@ -11882,6 +12005,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12607</masterwork>
     <!-- Sealed Helm of Nightmare -->
     <production id="5312" count="1" />
     <!-- Recipe: Sealed Helm of Nightmare(100%) -->
@@ -11905,6 +12029,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>60</successRate>
+    <masterwork>12599</masterwork>
     <!-- Sealed Majestic Circlet -->
     <production id="5317" count="1" />
     <!-- Recipe: Sealed Majestic Circlet(60%) -->
@@ -11928,6 +12053,7 @@
     <dwarven />
     <mpCost>201</mpCost>
     <successRate>100</successRate>
+    <masterwork>12599</masterwork>
     <!-- Sealed Majestic Circlet -->
     <production id="5317" count="1" />
     <!-- Recipe: Sealed Majestic Circlet(100%) -->
@@ -14171,6 +14297,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12640</masterwork>
     <!-- Sealed Imperial Crusader Breastplate -->
     <production id="6674" count="1" />
     <!-- Recipe: Sealed Imperial Crusader Breastplate (60%) -->
@@ -14195,6 +14322,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12640</masterwork>
     <!-- Sealed Imperial Crusader Breastplate -->
     <production id="6674" count="1" />
     <!-- Recipe: Sealed Imperial Crusader Breastplate (100%) -->
@@ -14219,6 +14347,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12635</masterwork>
     <!-- Sealed Imperial Crusader Gaiters -->
     <production id="6675" count="1" />
     <!-- Recipe: Sealed Imperial Crusader Gaiters (60%) -->
@@ -14243,6 +14372,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12635</masterwork>
     <!-- Sealed Imperial Crusader Gaiters -->
     <production id="6675" count="1" />
     <!-- Recipe: Sealed Imperial Crusader Gaiters (100%) -->
@@ -14267,6 +14397,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12636</masterwork>
     <!-- Sealed Imperial Crusader Gauntlet -->
     <production id="6676" count="1" />
     <!-- Recipe: Sealed Imperial Crusader Gauntlets (60%) -->
@@ -14289,6 +14420,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12636</masterwork>
     <!-- Sealed Imperial Crusader Gauntlet -->
     <production id="6676" count="1" />
     <!-- Recipe: Sealed Imperial Crusader Gauntlets (100%) -->
@@ -14311,6 +14443,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12637</masterwork>
     <!-- Sealed Imperial Crusader Boots -->
     <production id="6677" count="1" />
     <!-- Recipe: Sealed Imperial Crusader Boots (60%) -->
@@ -14333,6 +14466,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12637</masterwork>
     <!-- Sealed Imperial Crusader Boots -->
     <production id="6677" count="1" />
     <!-- Recipe: Sealed Imperial Crusader Boots (100%) -->
@@ -14355,6 +14489,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12638</masterwork>
     <!-- Sealed Imperial Crusader Shield -->
     <production id="6678" count="1" />
     <!-- Recipe: Sealed Imperial Crusader Shield (60%) -->
@@ -14383,6 +14518,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12638</masterwork>
     <!-- Sealed Imperial Crusader Shield -->
     <production id="6678" count="1" />
     <!-- Recipe: Sealed Imperial Crusader Shield (100%) -->
@@ -14411,6 +14547,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12639</masterwork>
     <!-- Sealed Imperial Crusader Helmet -->
     <production id="6679" count="1" />
     <!-- Recipe: Sealed Imperial Crusader Helmet (60%) -->
@@ -14431,6 +14568,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12639</masterwork>
     <!-- Sealed Imperial Crusader Helmet -->
     <production id="6679" count="1" />
     <!-- Recipe: Sealed Imperial Crusader Helmet (100%) -->
@@ -14453,6 +14591,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12621</masterwork>
     <!-- Sealed Draconic Leather Armor -->
     <production id="6680" count="1" />
     <!-- Recipe: Sealed Draconic Leather Armor (60%) -->
@@ -14479,6 +14618,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12621</masterwork>
     <!-- Sealed Draconic Leather Armor -->
     <production id="6680" count="1" />
     <!-- Recipe: Sealed Draconic Leather Armor (100%) -->
@@ -14505,6 +14645,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12627</masterwork>
     <!-- Sealed Draconic Leather Glove -->
     <production id="6681" count="1" />
     <!-- Recipe: Sealed Draconic Leather Gloves (60%) -->
@@ -14527,6 +14668,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12627</masterwork>
     <!-- Sealed Draconic Leather Glove -->
     <production id="6681" count="1" />
     <!-- Recipe: Sealed Draconic Leather Gloves (100%) -->
@@ -14549,6 +14691,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12628</masterwork>
     <!-- Sealed Draconic Leather Boots -->
     <production id="6682" count="1" />
     <!-- Recipe: Sealed Draconic Leather Boots (60%) -->
@@ -14571,6 +14714,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12628</masterwork>
     <!-- Sealed Draconic Leather Boots -->
     <production id="6682" count="1" />
     <!-- Recipe: Sealed Draconic Leather Boots (100%) -->
@@ -14593,6 +14737,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12630</masterwork>
     <!-- Sealed Draconic Leather Helmet -->
     <production id="6683" count="1" />
     <!-- Recipe: Sealed Draconic Leather Helmet (60%) -->
@@ -14613,6 +14758,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12630</masterwork>
     <!-- Sealed Draconic Leather Helmet -->
     <production id="6683" count="1" />
     <!-- Recipe: Sealed Draconic Leather Helmet (100%) -->
@@ -14634,6 +14780,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12632</masterwork>
     <!-- Sealed Major Arcana Robe -->
     <production id="6684" count="1" />
     <!-- Recipe: Sealed Major Arcana Robe (60%) -->
@@ -14659,6 +14806,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12632</masterwork>
     <!-- Sealed Major Arcana Robe -->
     <production id="6684" count="1" />
     <!-- Recipe: Sealed Major Arcana Robe (100%) -->
@@ -14684,6 +14832,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12631</masterwork>
     <!-- Sealed Major Arcana Glove -->
     <production id="6685" count="1" />
     <!-- Recipe: Sealed Major Arcana Gloves (60%) -->
@@ -14705,6 +14854,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12631</masterwork>
     <!-- Sealed Major Arcana Glove -->
     <production id="6685" count="1" />
     <!-- Recipe: Sealed Major Arcana Gloves (100%) -->
@@ -14726,6 +14876,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12633</masterwork>
     <!-- Sealed Major Arcana Boots -->
     <production id="6686" count="1" />
     <!-- Recipe: Sealed Major Arcana Boots (60%) -->
@@ -14747,6 +14898,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12633</masterwork>
     <!-- Sealed Major Arcana Boots -->
     <production id="6686" count="1" />
     <!-- Recipe: Sealed Major Arcana Boots (100%) -->
@@ -14768,6 +14920,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>60</successRate>
+    <masterwork>12634</masterwork>
     <!-- Sealed Major Arcana Circlet -->
     <production id="6687" count="1" />
     <!-- Recipe: Sealed Major Arcana Circlet (60%) -->
@@ -14787,6 +14940,7 @@
     <dwarven />
     <mpCost>225</mpCost>
     <successRate>100</successRate>
+    <masterwork>12634</masterwork>
     <!-- Sealed Major Arcana Circlet -->
     <production id="6687" count="1" />
     <!-- Recipe: Sealed Major Arcana Circlet (100%) -->
