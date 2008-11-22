@@ -168,8 +168,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='6586'
-    name="basalt_battlehammer_hp_regeneration">
+  <item id='6586' name="basalt_battlehammer_hp_regeneration">
     <for>
       <set val='281' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -234,6 +233,8 @@
       <set val='433' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
+      <!-- SA: Critical Damage -->
+      <add val='265' order='0x40' stat='cAtkAdd'/>
       <!-- Enhances damage to target during PvP -->
       <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
@@ -307,8 +308,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='6596'
-    name="dragon_hunter_axe_hp_regeneration">
+  <item id='6596' name="dragon_hunter_axe_hp_regeneration">
     <for>
       <set val='342' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />

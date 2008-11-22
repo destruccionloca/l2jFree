@@ -379,7 +379,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <basemul order="0x30" stat="rCrit" val="#rCrit" />
-      <add order="0x40" stat="cAtk" val="#cAtk" />
+      <add order="0x40" stat="cAtkAdd" val="#cAtk" />
     </for>
   </skill>
   <skill id="627" levels="40" name="Soul Shock">
@@ -432,8 +432,7 @@
     <set name="flyRadius" val="500" />
     <set name="flyCourse" val="0" />
     <for>
-      <effect self="1" count="1" name="Warp" time="0"
-        val="0" />
+      <effect self="1" count="1" name="Warp" time="0" val="0" />
     </for>
   </skill>
   <skill id="629" levels="1" name="Rabbit Magic Eye">
@@ -450,11 +449,8 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="631" levels="6"
-    name="Emergent Ability - Attack">
-    <table name="#pAtk">
-      1.06 1.08 1.10 1.11 1.12 1.13
-    </table>
+  <skill id="631" levels="6" name="Emergent Ability - Attack">
+    <table name="#pAtk"> 1.06 1.08 1.10 1.11 1.12 1.13 </table>
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -463,11 +459,8 @@
       <mul order="0x30" val="#pAtk" stat="pAtk" />
     </for>
   </skill>
-  <skill id="632" levels="6"
-    name="Emergent Ability - Defense">
-    <table name="#pDef">
-      1.06 1.08 1.10 1.11 1.12 1.13
-    </table>
+  <skill id="632" levels="6" name="Emergent Ability - Defense">
+    <table name="#pDef"> 1.06 1.08 1.10 1.11 1.12 1.13 </table>
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -476,11 +469,8 @@
       <mul order="0x30" val="#pDef" stat="pDef" />
     </for>
   </skill>
-  <skill id="633" levels="6"
-    name="Emergent Ability - Empower">
-    <table name="#mAtk">
-      1.02 1.04 1.05 1.07 1.08 1.09
-    </table>
+  <skill id="633" levels="6" name="Emergent Ability - Empower">
+    <table name="#mAtk"> 1.02 1.04 1.05 1.07 1.08 1.09 </table>
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />

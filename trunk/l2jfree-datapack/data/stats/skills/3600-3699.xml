@@ -572,8 +572,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="3634" levels="1"
-    name="Special Ability Infinity Sword">
+  <skill id="3634" levels="1" name="Special Ability Infinity Sword">
     <!-- Guessed. Copied from Infinity Cleaver -->
     <set name="magicLvl" val="80" />
     <set name="target" val="TARGET_SELF" />
@@ -582,7 +581,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="cAtk" val="504" />
+      <add order="0x40" stat="cAtkAdd" val="504" />
       <!--
         P.Atk. +504 on a critical hit
       -->

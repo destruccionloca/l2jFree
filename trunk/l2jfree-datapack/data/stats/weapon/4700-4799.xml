@@ -43,6 +43,8 @@
       <set val='379' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
+      <!-- SA: Critical Damage -->
+      <add val='213' order='0x40' stat='cAtkAdd'/>
     </for>
   </item>
   <item id='4704' name="tsurugi_haste">
@@ -110,6 +112,8 @@
       <set val='379' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
+      <!-- SA: Critical Damage -->
+      <add val='231' order='0x40' stat='cAtkAdd'/>
     </for>
   </item>
   <item id='4710' name="samurai_longsword_haste">
@@ -132,6 +136,8 @@
       <set val='325' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
+      <!-- SA: Critical Damage -->
+      <add val='174' order='0x40' stat='cAtkAdd'/>
     </for>
   </item>
   <item id='4712' name="Flamberge - Focus">
@@ -200,8 +206,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4718'
-    name="sword_of_damascus_critical_damage">
+  <item id='4718' name="sword_of_damascus_critical_damage">
     <for>
       <set val='194' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -210,6 +215,8 @@
       <set val='379' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
+      <!-- SA: Critical Damage -->
+      <add val='262' order='0x40' stat='cAtkAdd'/>
     </for>
   </item>
   <item id='4719' name="sword_of_damascus_haste">
@@ -234,8 +241,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4721'
-    name="tallum_blade_-_rsk._evasion_rsk._evasio">
+  <item id='4721' name="tallum_blade_-_rsk._evasion_rsk._evasio">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='107' order='0x08' stat='mAtk' />
@@ -246,8 +252,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4722'
-    name="tallum_blade_-_rsk._haste_rsk._haste">
+  <item id='4722' name="tallum_blade_-_rsk._haste_rsk._haste">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='107' order='0x08' stat='mAtk' />
@@ -278,6 +283,8 @@
       <set val='325' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
+      <!-- SA: Critical Damage -->
+      <add val='247' order='0x40' stat='cAtkAdd'/>
     </for>
   </item>
   <item id='4725' name="Great Sword - Focus">

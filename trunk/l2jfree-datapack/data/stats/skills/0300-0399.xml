@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-  <skill id="301" levels="5" name="Summon Big Boom"
-    enchantLevels1="30">
+  <skill id="301" levels="5" name="Summon Big Boom" enchantLevels1="30">
     <table name="#enchantNpcIds"> 14707 14708 14709 14710 14711 14712
       14713 14714 14715 14716 14717 14718 14719 14720 14721
       14722 14723 14724 14725 14726 14727 14728 14729 14730
@@ -421,8 +420,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="312" levels="20" name="Vicious Stance"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="312" levels="20" name="Vicious Stance" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -438,8 +436,7 @@
       9 9 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 </table>
     <table name="#ench2val"> 0.39 0.39 0.39 0.38 0.38 0.38 0.38
       0.37 0.37 0.37 0.36 0.36 0.36 0.36 0.35 0.35 0.35 0.34
-      0.34 0.34 0.34 0.33 0.33 0.33 0.32 0.32 0.32 0.32 0.31
-      0.31 0.31 </table>
+      0.34 0.34 0.34 0.33 0.33 0.33 0.32 0.32 0.32 0.32 0.31 0.31 0.31 </table>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="CONT" />
@@ -450,22 +447,21 @@
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init" />
     <for>
       <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.4">
-        <add order="0x40" stat="cAtk" val="#crit" />
+        <add order="0x40" stat="cAtkAdd" val="#crit" />
       </effect>
     </for>
     <enchant1for>
       <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.4">
-        <add order="0x40" stat="cAtk" val="#ench1crit" />
+        <add order="0x40" stat="cAtkAdd" val="#ench1crit" />
       </effect>
     </enchant1for>
     <enchant2for>
       <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="#ench2val">
-        <add order="0x40" stat="cAtk" val="609" />
+        <add order="0x40" stat="cAtkAdd" val="609" />
       </effect>
     </enchant2for>
   </skill>
-  <skill id="313" levels="8" name="Snipe"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="313" levels="8" name="Snipe" enchantLevels1="30" enchantLevels2="30">
     <!--
       Changed some values related to
       http://l2p.bravehost.com/buffs.html... Since the

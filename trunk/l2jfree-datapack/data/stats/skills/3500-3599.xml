@@ -1328,7 +1328,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add order="0x40" stat="cAtk" val="504" />
+      <add order="0x40" stat="cAtkAdd" val="504" />
       <!-- P.Atk. +504 on a critical hit -->
       <mul order="0x30" stat="maxHp" val="1.25" />
       <!-- HP +25% -->

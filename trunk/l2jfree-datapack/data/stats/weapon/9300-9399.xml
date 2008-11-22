@@ -115,8 +115,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='9310'
-    name="Innominate Victory - Critical Damage">
+  <item id='9310' name="Innominate Victory - Critical Damage">
     <for>
       <set val='190' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -125,6 +124,8 @@
       <set val='350' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
+      <!-- SA: Critical Damage -->
+      <add val='247' order='0x40' stat='cAtkAdd'/>
     </for>
   </item>
   <item id='9311' name="Innominate Victory - Focus">
@@ -212,6 +213,8 @@
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
+      <!-- SA: Critical Damage -->
+      <add val='262' order='0x40' stat='cAtkAdd'/>
     </for>
   </item>
   <item id='9319' name="Colichemarde - Haste">
@@ -326,8 +329,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='9329'
-    name="White Lightning - Critical Poison">
+  <item id='9329' name="White Lightning - Critical Poison">
     <for>
       <set val='193' order='0x08' stat='pAtk' />
       <set val='107' order='0x08' stat='mAtk' />
@@ -400,7 +402,7 @@
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
       <!-- SA: Critical Damage -->
-      <add val='297' order='0x08' stat='cAtk' />
+      <add val='297' order='0x08' stat='cAtkAdd' />
     </for>
   </item>
   <item id='9335' name="Divine Pain - Focus">
@@ -477,6 +479,8 @@
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
+      <!-- SA: Critical Damage -->
+      <add val='326' order='0x40' stat='cAtkAdd'/>
       <!-- Enhances damage to target during PvP -->
       <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
@@ -609,7 +613,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
-  <item id='9352' name="clair Bijou">
+  <item id='9352' name="Eclair Bijou">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -619,7 +623,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='9353' name="clair Bijou - Haste">
+  <item id='9353' name="Eclair Bijou - Haste">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -632,7 +636,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
-  <item id='9354' name="clair Bijou - Health">
+  <item id='9354' name="Eclair Bijou - Health">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -642,7 +646,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='9355' name="clair Bijou - Critical Poison">
+  <item id='9355' name="Eclair Bijou - Critical Poison">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -744,8 +748,7 @@
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
     </for>
   </item>
-  <item id='9363'
-    name="Screaming Vengeance - Quick Recovery">
+  <item id='9363' name="Screaming Vengeance - Quick Recovery">
     <for>
       <set val='318' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -910,8 +913,8 @@
   </item>
   <item id='9376' name="Dynasty Rapier">
     <for>
-      <set val='278' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='302' order='0x08' stat='pAtk' />
+      <set val='151' order='0x08' stat='mAtk' />
       <set val='10' order='0x08' stat='rCrit' />
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -920,8 +923,8 @@
   </item>
   <item id='9377' name="Dynasty Rapier - Focus">
     <for>
-      <set val='278' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='302' order='0x08' stat='pAtk' />
+      <set val='151' order='0x08' stat='mAtk' />
       <set val='10' order='0x08' stat='rCrit' />
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -930,8 +933,8 @@
   </item>
   <item id='9378' name="Dynasty Rapier - Health">
     <for>
-      <set val='278' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='302' order='0x08' stat='pAtk' />
+      <set val='151' order='0x08' stat='mAtk' />
       <set val='10' order='0x08' stat='rCrit' />
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -940,8 +943,8 @@
   </item>
   <item id='9379' name="Dynasty Rapier - Light">
     <for>
-      <set val='278' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='302' order='0x08' stat='pAtk' />
+      <set val='151' order='0x08' stat='mAtk' />
       <set val='10' order='0x08' stat='rCrit' />
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -950,8 +953,8 @@
   </item>
   <item id='9380' name="Dynasty Ancient Sword">
     <for>
-      <set val='332' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='361' order='0x08' stat='pAtk' />
+      <set val='151' order='0x08' stat='mAtk' />
       <set val='6' order='0x08' stat='rCrit' />
       <add val='2' order='0x10' stat='accCombat' />
       <set val='350' order='0x08' stat='pAtkSpd' />
@@ -961,8 +964,8 @@
   </item>
   <item id='9381' name="Dynasty Ancient Sword - Focus">
     <for>
-      <set val='332' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='361' order='0x08' stat='pAtk' />
+      <set val='151' order='0x08' stat='mAtk' />
       <set val='6' order='0x08' stat='rCrit' />
       <add val='2' order='0x10' stat='accCombat' />
       <set val='350' order='0x08' stat='pAtkSpd' />
@@ -972,8 +975,8 @@
   </item>
   <item id='9382' name="Dynasty Ancient Sword - Health">
     <for>
-      <set val='332' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='361' order='0x08' stat='pAtk' />
+      <set val='151' order='0x08' stat='mAtk' />
       <set val='6' order='0x08' stat='rCrit' />
       <add val='2' order='0x10' stat='accCombat' />
       <set val='350' order='0x08' stat='pAtkSpd' />
@@ -983,8 +986,8 @@
   </item>
   <item id='9383' name="Dynasty Ancient Sword - Light">
     <for>
-      <set val='332' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='361' order='0x08' stat='pAtk' />
+      <set val='151' order='0x08' stat='mAtk' />
       <set val='6' order='0x08' stat='rCrit' />
       <add val='2' order='0x10' stat='accCombat' />
       <set val='350' order='0x08' stat='pAtkSpd' />
@@ -994,8 +997,8 @@
   </item>
   <item id='9384' name="Dynasty Crossbow">
     <for>
-      <set val='389' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='401' order='0x08' stat='pAtk' />
+      <set val='151' order='0x08' stat='mAtk' />
       <set val='10' order='0x08' stat='rCrit' />
       <set val='303' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -1004,8 +1007,8 @@
   </item>
   <item id='9385' name="Dynasty Crossbow - Cheap Shot">
     <for>
-      <set val='389' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='401' order='0x08' stat='pAtk' />
+      <set val='151' order='0x08' stat='mAtk' />
       <set val='10' order='0x08' stat='rCrit' />
       <set val='303' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -1023,8 +1026,8 @@
   </item>
   <item id='9386' name="Dynasty Crossbow - Guidance">
     <for>
-      <set val='389' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='401' order='0x08' stat='pAtk' />
+      <set val='151' order='0x08' stat='mAtk' />
       <set val='10' order='0x08' stat='rCrit' />
       <set val='303' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
@@ -1036,8 +1039,8 @@
   </item>
   <item id='9387' name="Dynasty Crossbow - Focus">
     <for>
-      <set val='389' order='0x08' stat='pAtk' />
-      <set val='140' order='0x08' stat='mAtk' />
+      <set val='401' order='0x08' stat='pAtk' />
+      <set val='151' order='0x08' stat='mAtk' />
       <set val='10' order='0x08' stat='rCrit' />
       <set val='303' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />

@@ -260,7 +260,7 @@
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
       <!-- SA: Critical Damage -->
-      <add val='174' order='0x40' stat='cAtk' />
+      <add val='174' order='0x40' stat='cAtkAdd' />
     </for>
   </item>
   <item id='9234' name="Schlager - Focus">
@@ -401,8 +401,7 @@
       <add val='82' order='0x40' stat='rCrit' />
     </for>
   </item>
-  <item id='9246'
-    name="Chevalier Rapier - Critical Damage">
+  <item id='9246' name="Chevalier Rapier - Critical Damage">
     <for>
       <set val='111' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -411,7 +410,7 @@
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
       <!-- SA: Critical Damage -->
-      <add val='194' order='0x40' stat='cAtk' />
+      <add val='194' order='0x40' stat='cAtkAdd' />
     </for>
   </item>
   <item id='9247' name="Chevalier Rapier - Haste">
@@ -436,8 +435,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='9249'
-    name="Chevalier Rapier - Critical Damage">
+  <item id='9249' name="Chevalier Rapier - Critical Damage">
     <for>
       <set val='111' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -446,11 +444,10 @@
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
       <!-- SA: Critical Damage -->
-      <add val='194' order='0x40' stat='cAtk' />
+      <add val='194' order='0x40' stat='cAtkAdd' />
     </for>
   </item>
-  <item id='9250'
-    name="Chevalier Rapier - Critical Poison">
+  <item id='9250' name="Chevalier Rapier - Critical Poison">
     <for>
       <set val='111' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -661,7 +658,7 @@
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
       <!-- SA: Critical Damage -->
-      <add val='213' order='0x40' stat='cAtk' />
+      <add val='213' order='0x40' stat='cAtkAdd' />
     </for>
   </item>
   <item id='9268' name="Blinzlasher">
@@ -743,7 +740,7 @@
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
       <!-- SA: Critical Damage -->
-      <add val='213' order='0x40' stat='cAtk' />
+      <add val='213' order='0x40' stat='cAtkAdd' />
     </for>
   </item>
   <item id='9275' name="Blinzlasher - Haste">
@@ -958,8 +955,7 @@
       <add val='73' order='0x40' stat='rCrit' />
     </for>
   </item>
-  <item id='9294'
-    name="Admiral's Estoc - Critical Damage">
+  <item id='9294' name="Admiral's Estoc - Critical Damage">
     <for>
       <set val='141' order='0x08' stat='pAtk' />
       <set val='83' order='0x08' stat='mAtk' />
@@ -968,7 +964,7 @@
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
       <!-- SA: Critical Damage -->
-      <add val='231' order='0x40' stat='cAtk' />
+      <add val='231' order='0x40' stat='cAtkAdd' />
     </for>
   </item>
   <item id='9295' name="Admiral's Estoc - Haste">
@@ -1015,7 +1011,7 @@
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
       <!-- SA: Critical Damage -->
-      <add val='270' order='0x40' stat='cAtk' />
+      <add val='270' order='0x40' stat='cAtkAdd' />
     </for>
   </item>
   <item id='9299' name="Saber Tooth - Haste">

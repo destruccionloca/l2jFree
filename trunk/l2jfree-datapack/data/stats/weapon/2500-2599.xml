@@ -240,8 +240,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='2531'
-    name="bastard_sword*sword_of_revolution">
+  <item id='2531' name="bastard_sword*sword_of_revolution">
     <for>
       <set val='124' order='0x08' stat='pAtk' />
       <set val='58' order='0x08' stat='mAtk' />
@@ -318,8 +317,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='2538'
-    name="spinebone_sword*sword_of_revolution">
+  <item id='2538' name="spinebone_sword*sword_of_revolution">
     <for>
       <set val='124' order='0x08' stat='pAtk' />
       <set val='58' order='0x08' stat='mAtk' />
@@ -385,8 +383,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='2544'
-    name="artisans_sword*sword_of_revolution">
+  <item id='2544' name="artisans_sword*sword_of_revolution">
     <for>
       <set val='124' order='0x08' stat='pAtk' />
       <set val='58' order='0x08' stat='mAtk' />
@@ -441,8 +438,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='2549'
-    name="knights_sword*sword_of_revolution">
+  <item id='2549' name="knights_sword*sword_of_revolution">
     <for>
       <set val='124' order='0x08' stat='pAtk' />
       <set val='58' order='0x08' stat='mAtk' />
@@ -486,8 +482,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='2553'
-    name="crimson_sword*sword_of_revolution">
+  <item id='2553' name="crimson_sword*sword_of_revolution">
     <for>
       <set val='136' order='0x08' stat='pAtk' />
       <set val='63' order='0x08' stat='mAtk' />
@@ -551,8 +546,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='2558'
-    name="sword_of_revolution*sword_of_revolution">
+  <item id='2558' name="sword_of_revolution*sword_of_revolution">
     <for>
       <set val='148' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -568,8 +562,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='2559'
-    name="sword_of_revolution*elven_long_sword">
+  <item id='2559' name="sword_of_revolution*elven_long_sword">
     <for>
       <set val='155' order='0x08' stat='pAtk' />
       <set val='70' order='0x08' stat='mAtk' />
@@ -585,8 +578,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='2560'
-    name="elven_long_sword*elven_long_sword">
+  <item id='2560' name="elven_long_sword*elven_long_sword">
     <for>
       <set val='162' order='0x08' stat='pAtk' />
       <set val='73' order='0x08' stat='mAtk' />
@@ -703,7 +695,7 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <add val='166' order='0x10' stat='cAtk'>
+      <add val='166' order='0x10' stat='cAtkAdd'>
         <and>
           <using slotitem="2567;16;4" />
         </and>
@@ -860,7 +852,7 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <add val='146' order='0x10' stat='cAtk'>
+      <add val='146' order='0x10' stat='cAtkAdd'>
         <and>
           <using slotitem="2577;16;4" />
         </and>
@@ -1001,7 +993,7 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <add val='146' order='0x10' stat='cAtk'>
+      <add val='146' order='0x10' stat='cAtkAdd'>
         <and>
           <using slotitem="2586;16;4" />
         </and>
@@ -1065,7 +1057,7 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <add val='106' order='0x10' stat='cAtk'>
+      <add val='106' order='0x10' stat='cAtkAdd'>
         <and>
           <using slotitem="2590;16;4" />
         </and>
@@ -1128,7 +1120,7 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <add val='146' order='0x10' stat='cAtk'>
+      <add val='146' order='0x10' stat='cAtkAdd'>
         <and>
           <using slotitem="2594;16;4" />
         </and>

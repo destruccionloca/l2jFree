@@ -21,13 +21,13 @@
   </item>
   <item id='10126' name="Dynasty Leather Armor">
     <for>
-      <add val='166' order='0x10' stat='pDef' />
+      <add val='170' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
   <item id='10127' name="Dynasty Leather Armor">
     <for>
-      <add val='166' order='0x10' stat='pDef' />
+      <add val='170' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
@@ -43,17 +43,15 @@
   <item id='10141' name="White Talisman - Yeti Transform">
     <for />
   </item>
-  <item id='10142'
-    name="White Talisman - Buffalo Transform">
+  <item id='10142' name="White Talisman - Buffalo Transform">
     <for />
   </item>
-  <item id='10158'
-    name="Grey Talisman of Upper Grade Fishing">
+  <item id='10158' name="Grey Talisman of Upper Grade Fishing">
     <for />
   </item>
   <item id='10168' name="Dynasty Leather Armor">
     <for>
-      <add val='166' order='0x10' stat='pDef' />
+      <add val='170' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
