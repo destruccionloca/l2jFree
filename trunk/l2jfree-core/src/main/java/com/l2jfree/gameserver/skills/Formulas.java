@@ -1365,10 +1365,9 @@ public final class Formulas
 		if((attacker instanceof L2PlayableInstance)
 				&& (target instanceof L2PlayableInstance))
 		{
-			if(skill == null)
-				damage *= attacker.calcStat(Stats.PVP_PHYSICAL_DMG, 1, null, null);
-			else
-				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
+			// Removed skill == null check since it cannot be null at this 
+			// position or method throws NullPOinterException a way before 
+			damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
 		}
 
 		if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
@@ -1479,7 +1478,10 @@ public final class Formulas
 		}
 
 		if (crit)
-			damage += attacker.getCriticalDmg(target, damage) * target.calcStat(Stats.CRIT_VULN, target.getTemplate().baseCritVuln, target, skill != null ? skill : null) + attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill);
+			damage += attacker.getCriticalDmg(target, damage) 
+			* target.calcStat(Stats.CRIT_VULN, target.getTemplate().baseCritVuln, target, skill)
+			+ attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill);
+		
 		if (shld && !Config.ALT_GAME_SHIELD_BLOCKS)
 		{
 			defence += target.getStat().getShldDef();
