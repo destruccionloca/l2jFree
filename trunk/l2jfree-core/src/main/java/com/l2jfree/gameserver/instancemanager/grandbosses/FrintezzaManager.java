@@ -1091,7 +1091,8 @@ public class FrintezzaManager extends BossLair
 				if (_effected.getFirstEffect(_skill) != null)
 					return;
 
-				if (_effected instanceof L2PcInstance && (((L2PcInstance)_effected).isInvul() || ((L2PcInstance)_effected).getAppearance().getInvisible()) )
+				L2PcInstance effected = (L2PcInstance) _effected;
+				if (effected.isInvul() || effected.getAppearance().getInvisible())
 					return;
 
 				// stop all actions
