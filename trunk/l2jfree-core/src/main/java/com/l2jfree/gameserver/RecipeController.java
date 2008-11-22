@@ -889,6 +889,17 @@ public class RecipeController
 					isMasterwork = true;
 				}
 			}
+			
+			// Critical Craft support done by Psychokiller1888
+			boolean isCriticalCraft = false;
+			if (Config.ALLOW_CRITICAL_CRAFT && _recipeList.isCriticalAffected())
+			{
+				if (Rnd.get(100) <= Config.RATE_CRITICAL_CRAFT_CHANCE)
+				{
+					itemCount = itemCount * Config.RATE_CRITICAL_CRAFT_MULTIPLIER;
+					isCriticalCraft = true;
+				}
+			}
 
 			L2ItemInstance createdItem = _target.getInventory().addItem("Manufacture", itemId, itemCount, _target, _player);
 

@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 /**
  * 
  *
- * @author  Luno
+ * @author Luno & Psychokiller1888
  */
 public final class L2ArmorSet
 {
@@ -37,7 +37,14 @@ public final class L2ArmorSet
     
     private final int _enchant6Skill;
     
-    public L2ArmorSet(int chest, int legs, int head, int gloves, int feet, int skillId, int skill_lvl, int shield, int shieldSkillId, int enchant6Skill)
+    private final int _mwork_chest;
+    private final int _mwork_legs;
+    private final int _mwork_head;
+    private final int _mwork_gloves;
+    private final int _mwork_feet;
+    private final int _mwork_shield;
+    
+    public L2ArmorSet(int chest, int legs, int head, int gloves, int feet, int skillId, int skill_lvl, int shield, int shieldSkillId, int enchant6Skill, int mwork_chest, int mwork_legs, int mwork_head, int mwork_gloves, int mwork_feet, int mwork_shield)
     {
         _chest = chest;
         _legs  = legs;
@@ -51,6 +58,13 @@ public final class L2ArmorSet
         _shieldSkillId = shieldSkillId;
         
         _enchant6Skill = enchant6Skill;
+        
+        _mwork_chest = mwork_chest;
+        _mwork_legs  = mwork_legs;
+        _mwork_head  = mwork_head;
+        _mwork_gloves = mwork_gloves;
+        _mwork_feet  = mwork_feet;
+        _mwork_shield = mwork_shield;
     }
     /**
      * Checks if player have equiped all items from set (not checking shield)
@@ -82,15 +96,15 @@ public final class L2ArmorSet
 
     public boolean containAll(int chest, int legs, int head, int gloves, int feet)
     {
-        if(_chest != 0 && _chest != chest)
+        if(_chest != 0 && (_chest != chest && chest != _mwork_chest))
             return false;
-        if(_legs != 0 && _legs != legs)
+        if(_legs != 0 && (_legs != legs && legs != _mwork_legs))
             return false;
-        if(_head != 0 && _head != head)
+        if(_head != 0 && (_head != head && head != _mwork_head))
             return false;
-        if(_gloves != 0 && _gloves != gloves)
+        if(_gloves != 0 && (_gloves != gloves && gloves != _mwork_gloves))
             return false;
-        if(_feet != 0 && _feet != feet)
+        if(_feet != 0 && (_feet != feet && feet != _mwork_feet))
             return false;
     
         return true;
@@ -101,15 +115,15 @@ public final class L2ArmorSet
         switch(slot)
         {
         case Inventory.PAPERDOLL_CHEST:
-            return _chest == itemId;
+            return (_chest == itemId || _mwork_chest == itemId);
         case Inventory.PAPERDOLL_LEGS:
-            return _legs == itemId;
+            return (_legs == itemId || _mwork_legs == itemId);
         case Inventory.PAPERDOLL_HEAD:
-            return _head == itemId;
+            return (_head == itemId || _mwork_head == itemId);
         case Inventory.PAPERDOLL_GLOVES:
-            return _gloves == itemId;
+            return (_gloves == itemId || _mwork_gloves == itemId);
         case Inventory.PAPERDOLL_FEET:
-            return _feet == itemId;
+            return (_feet == itemId || _mwork_feet == itemId);
         default:
             return false;
         }
@@ -138,7 +152,7 @@ public final class L2ArmorSet
 
     public boolean containShield(int shield_id)
     {
-        return _shield == 0 ? false : (_shield == shield_id);
+        return _shield == 0 ? false : ((_shield == shield_id || _mwork_shield == shield_id));
     }
 
     public int getShieldSkillId()

@@ -465,6 +465,8 @@ public final class Config
 	public static float			RATE_CONSUMABLE_COST;
 	public static float			RATE_CRAFT_COST;
 	public static int			RATE_MASTERWORK;
+	public static int			RATE_CRITICAL_CRAFT_CHANCE;
+	public static int			RATE_CRITICAL_CRAFT_MULTIPLIER;
 	public static float			RATE_DROP_ITEMS;
 	public static float			RATE_DROP_SPOIL;
 	public static int			RATE_DROP_MANOR;
@@ -516,6 +518,8 @@ public final class Config
 			RATE_CONSUMABLE_COST = Float.parseFloat(ratesSettings.getProperty("RateConsumableCost", "1."));
 			RATE_CRAFT_COST = Float.parseFloat(ratesSettings.getProperty("RateCraftCost", "1."));
 			RATE_MASTERWORK = Integer.parseInt(ratesSettings.getProperty("RateMasterwork", "20"));
+			RATE_CRITICAL_CRAFT_CHANCE = Integer.parseInt(ratesSettings.getProperty("RateCriticalCraftChance", "5"));
+			RATE_CRITICAL_CRAFT_MULTIPLIER = Integer.parseInt(ratesSettings.getProperty("RateCriticalCraftMutliplier", "2"));
 			RATE_DROP_ITEMS = Float.parseFloat(ratesSettings.getProperty("RateDropItems", "1."));
 			RATE_DROP_SPOIL = Float.parseFloat(ratesSettings.getProperty("RateDropSpoil", "1."));
 			RATE_DROP_MANOR = Integer.parseInt(ratesSettings.getProperty("RateDropManor", "1"));
@@ -1094,6 +1098,7 @@ public final class Config
 	public static boolean			ONLY_GM_ITEMS_FREE;							// Only GM buy items for free
 	public static int				DEADLOCKCHECK_INTERVAL;
 	public static boolean			ALLOW_MASTERWORK;
+	public static boolean			ALLOW_CRITICAL_CRAFT;
 
 	// *******************************************************************************************
 	public static void loadOptionsConfig()
@@ -1257,6 +1262,7 @@ public final class Config
 			ENABLE_JYTHON_SHELL = Boolean.parseBoolean(optionsSettings.getProperty("EnableJythonShell", "False"));
 			DEADLOCKCHECK_INTERVAL = Integer.parseInt(optionsSettings.getProperty("DeadLockCheck", "10000"));
 			ALLOW_MASTERWORK = Boolean.parseBoolean(optionsSettings.getProperty("AllowMasterwork", "False"));
+			ALLOW_CRITICAL_CRAFT = Boolean.parseBoolean(optionsSettings.getProperty("AllowCriticalCraft", "False"));
 		}
 		catch (Exception e)
 		{
