@@ -36,40 +36,35 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="704" levels="1"
-    name="Divine Enchanter Water Spirit">
+  <skill id="704" levels="1" name="Divine Enchanter Water Spirit">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="705" levels="1"
-    name="Divine Enchanter Fire Spirit">
+  <skill id="705" levels="1" name="Divine Enchanter Fire Spirit">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="706" levels="1"
-    name="Divine Enchanter Wind Spirit">
+  <skill id="706" levels="1" name="Divine Enchanter Wind Spirit">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="707" levels="1"
-    name="Divine Enchanter Hero Spirit">
+  <skill id="707" levels="1" name="Divine Enchanter Hero Spirit">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="708" levels="1"
-    name="Divine Enchanter Mass Binding">
+  <skill id="708" levels="1" name="Divine Enchanter Mass Binding">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -83,32 +78,28 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="710" levels="1"
-    name="Divine Summoner Summon Divine Beast">
+  <skill id="710" levels="1" name="Divine Summoner Summon Divine Beast">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="711" levels="1"
-    name="Divine Summoner Transfer Pain">
+  <skill id="711" levels="1" name="Divine Summoner Transfer Pain">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="712" levels="1"
-    name="Divine Summoner Final Servitor">
+  <skill id="712" levels="1" name="Divine Summoner Final Servitor">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="713" levels="1"
-    name="Divine Summoner Servitor Hill">
+  <skill id="713" levels="1" name="Divine Summoner Servitor Hill">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />

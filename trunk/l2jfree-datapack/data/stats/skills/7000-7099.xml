@@ -279,6 +279,7 @@
     <table name="#Tab-mReuse">1 2 4 30</table>
     <table name="#Tab-mAtkSpd">1.5 1.8 3 4</table>
     <table name="#Tab-pAtkSpd">1.2 1.5 2 3</table>
+    <table name="#Tab-MpConsume">0 0 0 0</table>
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="CONT" />
     <set name="operateType" val="OP_TOGGLE" />
@@ -292,6 +293,7 @@
         <div order="0x30" stat="mReuse" val="#Tab-mReuse" />
         <mul order="0x30" stat="mAtkSpd" val="#Tab-mAtkSpd" />
         <mul order="0x30" stat="pAtkSpd" val="#Tab-pAtkSpd" />
+        <mul order="0x30" stat="MagicalMpConsumeRate" val="#Tab-MpConsume" />
       </effect>
     </for>
   </skill>

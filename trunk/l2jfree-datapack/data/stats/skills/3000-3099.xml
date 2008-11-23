@@ -190,8 +190,7 @@
       <mul order="0x30" stat="pvpMagicalDmg" val="#pvpBonus" />
     </for>
   </skill>
-  <skill id="3016" levels="6"
-    name="Special Ability: Critical Stun">
+  <skill id="3016" levels="6" name="Special Ability: Critical Stun">
     <!--
       Automatically generated from C3 client files. Need to
       be checked/fixed. Target is set to TARGET_NONE,
@@ -215,8 +214,7 @@
     <!-- Done by DJ MELERIX -->
     <!-- Swords only -->
     <table name="#magicLvl">46 49 52 55 58 61</table>
-    <table name="#rCrit"> 1.71 1.67 1.63 1.60 1.56 1.53 
-    </table>
+    <table name="#rCrit"> 1.71 1.67 1.63 1.60 1.56 1.53 </table>
     <set name="castRange" val="-1" />
     <set name="condition" val="8" />
     <set name="effectRange" val="-1" />
@@ -234,8 +232,7 @@
     <!-- Done by DJ MELERIX -->
     <!-- Daggers Only -->
     <table name="#magicLvl">46 49 52 55 58 61</table>
-    <table name="#rCrit"> 1.50 1.47 1.45 1.42 1.40 1.37 
-    </table>
+    <table name="#rCrit"> 1.50 1.47 1.45 1.42 1.40 1.37 </table>
     <set name="castRange" val="-1" />
     <set name="condition" val="8" />
     <set name="effectRange" val="-1" />
@@ -249,8 +246,7 @@
       </mul>
     </for>
   </skill>
-  <skill id="3020" levels="6"
-    name="Special Ability: Critical Bleed">
+  <skill id="3020" levels="6" name="Special Ability: Critical Bleed">
     <!-- Daggers only -->
     <table name="#dmg">66 66 81 81 81 93</table>
     <set name="target" val="TARGET_NONE" />
@@ -266,8 +262,7 @@
         val="#dmg" abnormal="bleeding" />
     </for>
   </skill>
-  <skill id="3021" levels="6"
-    name="Special Ability: Critical Bleed">
+  <skill id="3021" levels="6" name="Special Ability: Critical Bleed">
     <!-- Bows only -->
     <table name="#dmg">66 66 81 81 81 93</table>
     <set name="target" val="TARGET_NONE" />
@@ -283,8 +278,7 @@
         val="#dmg" abnormal="bleeding" />
     </for>
   </skill>
-  <skill id="3022" levels="6"
-    name="Special Ability: Critical Drain">
+  <skill id="3022" levels="6" name="Special Ability: Critical Drain">
     <!-- Done by SarutrA - SqueezeD -->
     <table name="#magicLvl">68 69 70 71 72 73</table>
     <table name="#HPget"> 6 7 8 9 10 11 </table>
@@ -300,8 +294,7 @@
     <set name="absorbAbs" val="#HPget" />
     <for />
   </skill>
-  <skill id="3023" levels="6"
-    name="Special Ability: Critical Damage">
+  <skill id="3023" levels="6" name="Special Ability: Critical Damage">
     <!--
       Descriptions: Causes additional damage when launching
       a critical attack.
@@ -316,8 +309,7 @@
       <add val='#val' order='0x40' stat='cAtk' />
     </for>
   </skill>
-  <skill id="3024" levels="6"
-    name="Special Ability: Critical Poison">
+  <skill id="3024" levels="6" name="Special Ability: Critical Poison">
     <table name="#dmg">92 92 114 114 114 144</table>
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="WEAPON_SA" />
@@ -332,8 +324,7 @@
         val="#dmg" abnormal="poison" />
     </for>
   </skill>
-  <skill id="3025" levels="6"
-    name="Special Ability: Critical Anger">
+  <skill id="3025" levels="6" name="Special Ability: Critical Anger">
     <!--
       Automatically generated from C3 client files. Need to
       be checked/fixed. Target is set to TARGET_NONE,
@@ -346,8 +337,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3026" levels="6"
-    name="Special Ability: Critical Anger">
+  <skill id="3026" levels="6" name="Special Ability: Critical Anger">
     <!--
       TODO Descriptions: 1: Causes additional damage during
       a critical attack while reducing one's own HP. 6:
@@ -361,8 +351,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3027" levels="6"
-    name="Special Ability: Rsk. Focus">
+  <skill id="3027" levels="6" name="Special Ability: Rsk. Focus">
     <!--
       Descriptions: When HP gets decreased, critical attack
       rate increases.
@@ -381,8 +370,7 @@
       </add>
     </for>
   </skill>
-  <skill id="3028" levels="6"
-    name="Special Ability: Rsk. Evasion">
+  <skill id="3028" levels="6" name="Special Ability: Rsk. Evasion">
     <!--
       Descriptions: Evasion increases when HP falls.
     -->
@@ -400,8 +388,7 @@
       </add>
     </for>
   </skill>
-  <skill id="3029" levels="6"
-    name="Special Ability: Rsk. Evasion">
+  <skill id="3029" levels="6" name="Special Ability: Rsk. Evasion">
     <!--
       Automatically generated from C3 client files. Need to
       be checked/fixed. Target is set to TARGET_NONE,
@@ -416,8 +403,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3030" levels="6"
-    name="Special Ability: Rsk. Evasion">
+  <skill id="3030" levels="6" name="Special Ability: Rsk. Evasion">
     <!--
       Descriptions: Evasion increases when HP falls.
     -->
@@ -435,8 +421,7 @@
       </add>
     </for>
   </skill>
-  <skill id="3031" levels="6"
-    name="Special Ability: Rsk. Evasion">
+  <skill id="3031" levels="6" name="Special Ability: Rsk. Evasion">
     <!--
       Descriptions: Evasion increases when HP falls.
     -->
@@ -454,8 +439,7 @@
       </add>
     </for>
   </skill>
-  <skill id="3032" levels="6"
-    name="Special Ability: Rsk. Haste">
+  <skill id="3032" levels="6" name="Special Ability: Rsk. Haste">
     <!--
       Descriptions: ATK Spd increases when HP falls.
     -->
@@ -473,8 +457,7 @@
       </mul>
     </for>
   </skill>
-  <skill id="3033" levels="6"
-    name="Special Ability: Rsk. Haste">
+  <skill id="3033" levels="6" name="Special Ability: Rsk. Haste">
     <!--
       Descriptions: ATK Spd increases when HP falls.
     -->
@@ -492,8 +475,7 @@
       </mul>
     </for>
   </skill>
-  <skill id="3034" levels="6"
-    name="Special Ability: Rsk. Haste">
+  <skill id="3034" levels="6" name="Special Ability: Rsk. Haste">
     <!--
       Descriptions: ATK Spd increases when HP falls.
     -->
@@ -567,8 +549,7 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3039" levels="7"
-    name="Special Ability: Critical Drain">
+  <skill id="3039" levels="7" name="Special Ability: Critical Drain">
     <!-- Done by SarutrA - SqueezeD -->
     <table name="#magicLvl">74 75 76 77 78 79 80</table>
     <table name="#HPget"> 12 13 14 15 17 18 19 </table>
@@ -963,8 +944,7 @@
     <set name="castRange" val="600" />
     <for />
   </skill>
-  <skill id="3062" levels="2"
-    name="Special Ability: Critical Poison">
+  <skill id="3062" levels="2" name="Special Ability: Critical Poison">
     <!--
       Automatically generated from C3 client files. Need to
       be checked/fixed. Target is set to TARGET_NONE,
@@ -1031,8 +1011,7 @@
       <add val='5.41' order='0x40' stat='accCombat' />
     </for>
   </skill>
-  <skill id="3066" levels="2"
-    name="Special Ability: Critical Damage">
+  <skill id="3066" levels="2" name="Special Ability: Critical Damage">
     <!--
       Descriptions: 1: Increases damage during a critical
       attack. Increases damage inflicted during PvP. 2:
@@ -1049,8 +1028,7 @@
       <add val='#val' order='0x40' stat='cAtk' />
     </for>
   </skill>
-  <skill id="3067" levels="2"
-    name="Special Ability: Critical Damage">
+  <skill id="3067" levels="2" name="Special Ability: Critical Damage">
     <!--
       Descriptions: 1: Increases damage during a critical
       attack. Increases damage inflicted during PvP. 2:
@@ -1082,8 +1060,7 @@
       <mul val='#val' order='0x30' stat='pAtkSpd' />
     </for>
   </skill>
-  <skill id="3069" levels="1"
-    name="Special Ability: Risky Evasion">
+  <skill id="3069" levels="1" name="Special Ability: Risky Evasion">
     <!--
       Descriptions: 1: Evasion increases when HP falls.
     -->
@@ -1100,8 +1077,7 @@
       </add>
     </for>
   </skill>
-  <skill id="3070" levels="2"
-    name="Special Ability: Critical Stun">
+  <skill id="3070" levels="2" name="Special Ability: Critical Stun">
     <!--
       Done by SarutrA - SqueezeD Description(s): Instantly
       throws enemy into a state of shock, immobilizing them.
@@ -1123,8 +1099,7 @@
         stackOrder="1" stackType="Stun" />
     </for>
   </skill>
-  <skill id="3071" levels="2"
-    name="Special Ability: Rsk. Focus">
+  <skill id="3071" levels="2" name="Special Ability: Rsk. Focus">
     <!--
       Descriptions: 1: Critical attack rate increases when
       HP falls. 2: Critical attack rate increases when HP
@@ -1184,8 +1159,7 @@
       <mul val='1.15' order='0x30' stat='MpConsume' />
     </for>
   </skill>
-  <skill id="3074" levels="2"
-    name="Special Ability: Magic Silence">
+  <skill id="3074" levels="2" name="Special Ability: Magic Silence">
     <!-- Done by SarutrA - SqueezeD -->
     <set name="magicLvl" val="74" />
     <set name="power" val="80" />
@@ -1202,8 +1176,7 @@
         stackOrder="1" stackType="silence" />
     </for>
   </skill>
-  <skill id="3075" levels="2"
-    name="Special Ability: Magic Paralyze">
+  <skill id="3075" levels="2" name="Special Ability: Magic Paralyze">
     <!-- Done by SarutrA - SqueezeD -->
     <set name="magicLvl" val="74" />
     <set name="power" val="60" />
@@ -1235,8 +1208,7 @@
       <add val='60' order='0x40' stat='mAtk' />
     </for>
   </skill>
-  <skill id="3077" levels="6"
-    name="Special Ability: Magic Power">
+  <skill id="3077" levels="6" name="Special Ability: Magic Power">
     <!--
       Descriptions: 1: Increases MP consumption rate and M.
       Atk. Increases damage inflicted during PvP. 2:
@@ -1254,8 +1226,7 @@
       <mul val='1.15' order='0x30' stat='MpConsume' />
     </for>
   </skill>
-  <skill id="3078" levels="6"
-    name="Special Ability: Magic Silence">
+  <skill id="3078" levels="6" name="Special Ability: Magic Silence">
     <!-- Done by SarutrA - SqueezeD -->
     <set name="magicLvl" val="74" />
     <set name="power" val="80" />

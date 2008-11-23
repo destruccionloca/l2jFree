@@ -352,18 +352,21 @@
     <for />
   </skill>
   <skill id="4218" levels="1" name="Absorb HP MP">
-    <!-- Zaken skills -->
+    <!-- Zaken skills Done By DrunkenDave -->
     <set name="magicLvl" val="60" />
     <set name="lvlDepend" val="1" />
-    <set name="target" val="TARGET_NONE" />
+    <set name="target" val="TARGET_ONE" />
     <set name="element" val="6" /><!-- Dark -->
     <set name="coolTime" val="2000" />
     <set name="hitTime" val="2000" />
     <set name="skillRadius" val="100" />
-    <set name="skillType" val="NOTDONE" />
+    <set name="skillType" val="DRAIN" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
+    <!-- Drain-specific: absorb 20% from target's damage -->
+    <set name="absorbPart" val="0.2" /><!-- absorbs 20% or damage -->
+    <set name="absorbAbs" val="0" /><!-- Drain absorbs absolute values from corpses only -->
     <for />
   </skill>
   <skill id="4219" levels="1" name="Hold">

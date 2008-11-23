@@ -7,8 +7,7 @@
     <table name="#Tab-pAtk"> 1.06 1.08 1.10 1.10 1.10 1.10 1.10
       1.10 1.10 1.10 1.10 1.10 1.10 </table>
     <table name="#Tab-accCombat"> 2 2 3 3 3 3 3 3 3 3 3 3 3 </table>
-    <table name="#time"> 120 120 120 150 165 180 195 210 225
-      240 255 270 285 </table>
+    <table name="#time"> 120 120 120 150 165 180 195 210 225 240 255 270 285 </table>
     <table name="#power"> 541 611 659 666 669 673 676 679 681
       684 687 689 692 </table>
     <set name="mpConsume" val="#mpConsume" />

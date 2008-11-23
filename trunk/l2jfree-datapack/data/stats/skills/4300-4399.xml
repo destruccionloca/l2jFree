@@ -585,7 +585,6 @@
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="WEAKNESS" /> <!-- just broadcast -->
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="400" />
     <set name="castRange" val="900" />
     <for />
   </skill>

@@ -358,8 +358,7 @@
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
     <for>
-      <effect count="1" name="Paralyze" time="120"
-        val="0" />
+      <effect count="1" name="Paralyze" time="120" val="0" />
     </for>
   </skill>
   <skill id="4118" levels="7" name="Paralysis">
@@ -381,8 +380,7 @@
     <set name="castRange" val="300" />
     <set name="effectRange" val="800" />
     <for>
-      <effect count="1" name="Paralyze" time="120"
-        val="0" />
+      <effect count="1" name="Paralyze" time="120" val="0" />
     </for>
   </skill>
   <skill id="4119" levels="3" name="Fall in accuracy">
@@ -1707,8 +1705,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Paralyze" time="120"
-        val="0" />
+      <effect count="1" name="Paralyze" time="120" val="0" />
     </for>
   </skill>
   <skill id="4190" levels="12" name="Decrease MP">
