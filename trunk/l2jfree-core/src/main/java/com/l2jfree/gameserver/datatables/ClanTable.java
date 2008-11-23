@@ -43,19 +43,17 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 public class ClanTable
 {
+	private static class InstanceHolder {
+		public static ClanTable INSTANCE = new ClanTable();
+	}
+	
 	private static final Log		_log	= LogFactory.getLog(ClanTable.class.getName());
-
-	private static ClanTable		_instance;
 
 	private Map<Integer, L2Clan>	_clans;
 
 	public static ClanTable getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new ClanTable();
-		}
-		return _instance;
+		return InstanceHolder.INSTANCE;
 	}
 
 	public L2Clan[] getClans()
