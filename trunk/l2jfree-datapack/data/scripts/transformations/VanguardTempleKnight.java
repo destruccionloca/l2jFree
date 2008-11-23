@@ -60,7 +60,7 @@ public class VanguardTempleKnight extends L2Transformation
 
 	public void transformedSkills(L2PcInstance player)
 	{
-		if (player.getLevel() >= 43)
+		if (player.getLevel() > 43)
 		{
 			int level = player.getLevel() - 43;
 			// Power Divide
