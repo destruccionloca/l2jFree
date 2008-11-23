@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model;
 
 import com.l2jfree.gameserver.datatables.ItemTable;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.templates.L2Item;
 
 /**
@@ -166,10 +165,15 @@ public class L2RecipeList
 	 */
 	public boolean isCriticalAffected()
 	{
-		return ((ItemTable.getInstance().getTemplate(_itemId).getCrystalType() != L2Item.CRYSTAL_B)
-				&& (ItemTable.getInstance().getTemplate(_itemId).getCrystalType() != L2Item.CRYSTAL_A)
-				&& (ItemTable.getInstance().getTemplate(_itemId).getCrystalType() != L2Item.CRYSTAL_S)
-				&& (ItemTable.getInstance().getTemplate(_itemId).getCrystalType() != L2Item.CRYSTAL_S80)
+		L2Item item = ItemTable.getInstance().getTemplate(_itemId);
+		
+		if (item == null)
+			return false;
+		
+		return (item.getCrystalType() != L2Item.CRYSTAL_B
+				&& item.getCrystalType() != L2Item.CRYSTAL_A
+				&& item.getCrystalType() != L2Item.CRYSTAL_S
+				&& item.getCrystalType() != L2Item.CRYSTAL_S80
 		);
 	}
 

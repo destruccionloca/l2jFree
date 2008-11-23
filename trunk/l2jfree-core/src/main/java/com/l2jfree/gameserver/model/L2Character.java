@@ -1940,7 +1940,7 @@ public abstract class L2Character extends L2Object
 		case TARGET_BEHIND_AURA:
 		case TARGET_GROUND:
 		{
-			if (targets.length == 0 || targets == null)
+			if (targets.length == 0)
 			{
 				// now cancels both, simultaneous and normal
 				getAI().notifyEvent(CtrlEvent.EVT_CANCEL);

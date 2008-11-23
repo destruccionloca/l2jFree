@@ -7386,6 +7386,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		return addSkill(newSkill, false);
 	}
 
+	@Override
 	public L2Skill removeSkill(L2Skill skill, boolean store)
 	{
 		return (store) ? removeSkill(skill) : super.removeSkill(skill, true);

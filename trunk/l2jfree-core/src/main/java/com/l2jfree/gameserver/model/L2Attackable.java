@@ -562,8 +562,8 @@ public class L2Attackable extends L2NpcInstance
 			if (killer != null)
 			{
 				L2PcInstance player = null;
-				if (killer != null)
-					player = killer.getActingPlayer();
+				player = killer.getActingPlayer();
+
 				if (player != null)
 				{
 					//only 1 randomly choosen quest of all quests registered to this character can be applied 

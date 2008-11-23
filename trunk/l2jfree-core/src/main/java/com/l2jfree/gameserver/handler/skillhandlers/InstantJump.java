@@ -39,8 +39,11 @@ public class InstantJump implements ISkillHandler
 		L2Skill.SkillType.INSTANT_JUMP
 	};
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
+		if (targets.length == 0)
+			return;
+		
 		L2Character target = (L2Character)targets[0];
 
 		Formulas f = Formulas.getInstance();

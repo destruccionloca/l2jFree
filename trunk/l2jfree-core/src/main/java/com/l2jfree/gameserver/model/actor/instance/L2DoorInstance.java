@@ -134,6 +134,7 @@ public class L2DoorInstance extends L2Character
 		}
 	}
 
+	@Override
 	public L2CharacterAI getAI() 
 	{
 		L2CharacterAI ai = _ai; // copy handle
