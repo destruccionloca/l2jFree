@@ -79,7 +79,7 @@ public class SummonMinions extends L2AttackableAIScript
 					case 22032:
 					case 22038:
 					{
-						if (npc.getCurrentHp() < (npc.getMaxHp() / 2))
+						if (npc.getStatus().getCurrentHp() < (npc.getMaxHp() / 2))
 						{
 							HasSpawned = 0;
 							if (Rnd.get(100) < 33) //mobs that summon minions only on certain chance
