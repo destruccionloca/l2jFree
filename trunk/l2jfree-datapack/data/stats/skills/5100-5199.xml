@@ -1044,7 +1044,7 @@
     <set name="isDebuff" val="true"/>
     <set name="bestowed" val="true"/>
     <for>
-      <effect count="1" name="Petrification" time="5" val="0" stackOrder="30" stackType="turn_stone"/>
+      <effect count="1" name="Petrify" time="5" val="0" stackOrder="30" stackType="turn_stone"/>
     </for>
   </skill>
   <skill id="5173" levels="10" name="Fear">
