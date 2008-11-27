@@ -18,8 +18,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4101" levels="12" name="NPC Spinning Slash">
     <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
     <table name="#power"> 46 105 219 417 722 1136 1626 1876 2112 2320 2487 2617 </table>
@@ -36,8 +35,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4102" levels="2" name="Become weak against line of fire">
     <table name="#Tab-fireVuln">1.15 1.2</table>
     <table name="#mpConsume">35 65</table>
@@ -121,8 +119,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4106" levels="1" name="Antharas Stun">
     <!-- Antharas Skills -->
     <!-- "Antharas Jump" from Front -->
@@ -233,8 +230,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="1000" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4111" levels="1" name="Antharas Fossilization">
     <!-- Antharas Skills -->
     <set name="magicLvl" val="70" />
@@ -269,8 +265,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="50" />
     <set name="effectRange" val="400" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4113" levels="1" name="Animal doing ordinary attack">
     <!-- Antharas Skills -->
     <set name="magicLvl" val="70" />
@@ -285,8 +280,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="50" />
     <set name="effectRange" val="400" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4114" levels="1" name="Aden Flame">
     <!-- Done by DJ MELERIX -->
     <set name="castRange" val="1100" />
@@ -303,8 +297,7 @@
     <set name="skillRadius" val="200" />
     <set name="skillType" val="MDAM" />
     <set name="target" val="TARGET_AREA" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4115" levels="1" name="Aden Heal">
     <!-- Done by DJ MELERIX -->
     <set name="castRange" val="600" />
@@ -319,8 +312,7 @@
     <set name="reuseDelay" val="10000" />
     <set name="skillType" val="HEAL" />
     <set name="target" val="TARGET_ONE" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4116" levels="10" name="Resist M.Atk">
     <!-- Done by dc -->
     <table name="#Tab-mDef"> 1.05 1.11 1.17 1.25 1.33 1.43 1.67
@@ -464,8 +456,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4124" levels="12" name="NPC Spear Attack">
     <table name="#mpConsume"> 25 40 56 76 99 121 142 151 159 165 168 170 </table>
     <table name="#power"> 122 279 584 1110 1923 3030 4336 5002 5632 6187 6632 6978 </table>
@@ -481,8 +472,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="700" />
     <set name="effectRange" val="1200" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4125" levels="1" name="Antharas Regeneration">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF" />
@@ -524,8 +514,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="100" />
     <set name="effectRange" val="400" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4128" levels="1" name="Wind Of Force">
     <!-- Baium Skills -->
     <set name="magicLvl" val="75" />
@@ -539,8 +528,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4129" levels="1" name="Earthquake">
     <!-- Baium Skills -->
     <set name="magicLvl" val="75" />
@@ -555,8 +543,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="baseCritRate" val="15" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4130" levels="1" name="Striking of Thunderbolt">
     <!-- Baium Skills -->
     <set name="magicLvl" val="75" />
@@ -570,8 +557,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1000" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4131" levels="1" name="Stun">
     <!-- Baium Skills -->
     <set name="magicLvl" val="75" />
@@ -601,8 +587,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4133" levels="1" name="Angel Heal">
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="75" />
@@ -614,16 +599,14 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1000" />
     <set name="aggroPoints" val="100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4134" levels="1" name="Seal Skill">
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="20000" />
     <set name="skillType" val="WEAKNESS" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="700" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4135" levels="1" name="Baium Heal">
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="75" />
@@ -635,8 +618,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4136" levels="1" name="Baium's Gift">
     <set name="power" val="1000000" />
     <set name="magicLvl" val="75" />
@@ -647,8 +629,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="1000" />
     <set name="effectRange" val="2000" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4137" levels="12" name="Hydro Screw">
     <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
     <table name="#power"> 9 13 19 26 34 43 51 55 58 61 63 65 </table>
@@ -667,8 +648,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="1000" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4138" levels="12" name="NPC AE - Corpse Burst">
     <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
     <table name="#power"> 9 13 19 26 34 43 51 55 58 61 63 65 </table>
@@ -688,8 +668,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4139" levels="12" name="Boom Attack">
     <table name="#power"> 33 49 71 98 128 161 192 207 219 230 238 244 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
@@ -706,8 +685,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4140" levels="12" name="Contract Payment">
     <table name="#power"> 1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 10.0 11.0 12.0 </table>
     <set name="power" val="#power" />
@@ -717,8 +695,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4141" levels="12" name="NPC Wind Fist">
     <set name="target" val="TARGET_NONE" />
     <set name="hitTime" val="1500" />
@@ -726,8 +703,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="1000" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4142" levels="12" name="NPC Fast Wind Fist">
     <set name="target" val="TARGET_NONE" />
     <set name="hitTime" val="1100" />
@@ -735,8 +711,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="1000" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4143" levels="10" name="Treasure Bomb">
     <!-- levels 9 & 10 need to be confirmed -->
     <table name="#power"> 2 4 8 15 23 35 48 63 80 100 </table>
@@ -752,8 +727,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4144" levels="80" name="Mimic Strong Attack">
     <!-- Done by DJ MELERIX -->
     <table name="#magicLvl"> 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 
@@ -777,8 +751,7 @@
     <set name="power" val="#power" />
     <set name="skillType" val="PDAM" />
     <set name="target" val="TARGET_ONE" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4145" levels="3" name="Decrease P. Atk.">
     <table name="#Tab-pAtk">0.83 0.80 0.77</table>
     <set name="magicLvl" val="1" />
@@ -823,8 +796,7 @@
     <set name="skillType" val="WEAKNESS" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4148" levels="12" name="Poison">
     <table name="#dmg"> 12 18 24 31 38 44 48 48 49 49 48 48 </table>
     <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0
@@ -900,8 +872,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4152" levels="12" name="NPC HP Drain - Magic">
     <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
     <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
@@ -920,8 +891,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="absorbPart" val="0.2" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4153" levels="12" name="Decrease Speed">
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
     <table name="#power"> 11 16 23 31 41 51 61 66 70 73 76 78 </table>
@@ -963,8 +933,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4155" levels="12" name="NPC Twister - Magic">
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
     <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
@@ -982,8 +951,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4156" levels="12" name="NPC Curve Beam Cannon - Magic">
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
     <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
@@ -1000,8 +968,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4157" levels="12" name="NPC Blaze - Magic">
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
     <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
@@ -1019,8 +986,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4158" levels="12" name="NPC Prominence - Magic">
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
     <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
@@ -1039,8 +1005,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4159" levels="12" name="NPC Straight Beam Cannon - Magic">
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
     <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
@@ -1057,8 +1022,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4160" levels="12" name="NPC Aura Burn - Magic">
     <table name="#mpConsume"> 4 5 8 9 12 14 17 18 19 19 20 20 </table>
     <table name="#power"> 5 7 10 13 17 22 26 28 29 31 32 33 </table>
@@ -1075,8 +1039,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="150" />
     <set name="effectRange" val="650" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4161" levels="1" name="Summon PC">
     <!-- Teleports player to mob (Porta/Perum skill) -->
     <set name="target" val="TARGET_ONE" />
@@ -1085,8 +1048,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4162" levels="3" name="Decrease P. Atk.">
     <!-- Done by DJ MELERIX -->
     <table name="#pAtkSpd"> 0.83 0.80 0.77 </table>
@@ -1223,8 +1185,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4169" levels="12" name="Stun">
     <table name="#power"> 61 163 447 1169 2942 5686 8732 10131 11622 13182 14784 16398 </table>
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87 </table>
@@ -1280,8 +1241,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4172" levels="12" name="Stun">
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87</table>
     <table name="#magicLvl"> 14 24 34 44 54 64 74 79 84 89 94 99 </table>
@@ -1398,9 +1358,9 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="negateStats" val="BUFF HEAL_PERCENT" />    <set name="negatePower" val="8.0" />
-    <for />
-  </skill>
+    <set name="negateStats" val="BUFF HEAL_PERCENT" />
+    <set name="negatePower" val="8.0" />
+   </skill>
   <skill id="4178" levels="12" name="BOSS Flame Strike">
     <table name="#mpConsume"> 23 32 44 58 74 79 102 107 112 114 116 118 </table>
     <table name="#power"> 21 31 43 58 75 92 108 115 121 125 129 132 </table>
@@ -1417,8 +1377,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="700" />
     <set name="effectRange" val="1200" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4179" levels="12" name="BOSS Power Strike">
     <table name="#power"> 121 325 893 2338 5884 11371 17463
       20261 23243 26363 29567 32796 </table>
@@ -1435,8 +1394,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4180" levels="12" name="Stun">
     <table name="#power"> 61 163 447 1169 2942 5686 8732 10131
       11622 13182 14784 16398 </table>
@@ -1700,8 +1658,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="750" />
     <set name="effectRange" val="1250" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4192" levels="12" name="BOSS HP Drain">
     <table name="#mpConsume"> 12 29 39 53 67 83 97 103 108 112 115 116 </table>
     <table name="#power"> 16 23 32 44 56 69 81 86 91 94 97 99 </table>
@@ -1718,8 +1675,7 @@
     <set name="castRange" val="750" />
     <set name="effectRange" val="1250" />
     <set name="absorbPart" val="0.4" /> <!-- absorbs 40% of damage -->
-    <for />
-  </skill>
+   </skill>
   <skill id="4193" levels="12" name="BOSS Life Drain">
     <table name="#mpConsume"> 17 29 39 53 67 83 97 103 108 112 115 116 </table>
     <table name="#power"> 11 16 22 29 38 46 54 58 61 63 65 66 </table>
@@ -1735,8 +1691,7 @@
     <set name="castRange" val="750" />
     <set name="effectRange" val="1250" />
     <set name="absorbPart" val="0.8" /> <!-- absorbs 80% of damage -->
-    <for />
-  </skill>
+   </skill>
   <skill id="4194" levels="12" name="BOSS Aura Burn">
     <table name="#mpConsume"> 12 19 26 35 45 55 65 69 72 75 77 78 </table>
     <table name="#power"> 13 19 26 35 45 56 65 69 73 75 77 79 </table>
@@ -1751,8 +1706,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="150" />
     <set name="effectRange" val="650" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4195" levels="12" name="BOSS Twister">
     <table name="#mpConsume"> 12 19 26 35 45 55 65 69 72 75 77 78 </table>
     <table name="#power"> 21 31 43 58 75 92 108 115 121 125 129 132 </table>
@@ -1768,8 +1722,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="750" />
     <set name="effectRange" val="1250" />
-    <for />
-  </skill>
+   </skill>
   <skill id="4196" levels="12" name="Decreases Speed">
     <table name="#mpConsume"> 12 19 26 35 45 55 65 69 72 75 77 78 </table>
     <table name="#power"> 13 19 26 35 45 56 65 69 73 75 77 79 </table>

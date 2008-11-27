@@ -6,29 +6,25 @@
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3002" levels="1" name="int_2">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3003" levels="1" name="str_2">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3004" levels="1" name="maxmp_5">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3005" levels="1" name="Bleed">
     <set name="power" val="50" /> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE" />
@@ -49,8 +45,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3007" levels="6" name="Special Ability: Guidance">
     <!--
       Descriptions: Increases Accuracy.
@@ -292,8 +287,7 @@
     <set name="effectRange" val="1100" />
     <set name="absorbPart" val="0" />
     <set name="absorbAbs" val="#HPget" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3023" levels="6" name="Special Ability: Critical Damage">
     <!--
       Descriptions: Causes additional damage when launching
@@ -335,8 +329,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3026" levels="6" name="Special Ability: Critical Anger">
     <!--
       TODO Descriptions: 1: Causes additional damage during
@@ -349,8 +342,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3027" levels="6" name="Special Ability: Rsk. Focus">
     <!--
       Descriptions: When HP gets decreased, critical attack
@@ -401,8 +393,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3030" levels="6" name="Special Ability: Rsk. Evasion">
     <!--
       Descriptions: Evasion increases when HP falls.
@@ -547,8 +538,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3039" levels="7" name="Special Ability: Critical Drain">
     <!-- Done by SarutrA - SqueezeD -->
     <table name="#magicLvl">74 75 76 77 78 79 80</table>
@@ -563,8 +553,7 @@
     <set name="effectRange" val="1100" />
     <set name="absorbPart" val="0" />
     <set name="absorbAbs" val="#HPget" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3040" levels="6" name="Special Ability: Critical Poison">
     <!-- Fists only -->
     <table name="#dmg">92 92 114 114 114 144</table>
@@ -611,8 +600,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3043" levels="6" name="Special Ability: Critical Damage">
     <!--
       Descriptions: Causes additional damage when launching
@@ -657,8 +645,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3046" levels="20" name="Guidance Duel 4">
     <!--
       Automatically generated from C3 client files. Need to
@@ -672,8 +659,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3047" levels="3" name="Special Ability: Acumen">
     <!--
       Lvl 1: Increases Casting Spd. Lvl 2: Increases Casting
@@ -730,8 +716,7 @@
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="1000" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3050" levels="2" name="Special Ability: Focus">
     <!--
       Descriptions: 1: Increases critical attack success
@@ -808,8 +793,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="1" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3054" levels="2" name="Special Ability: Critical Bleed">
     <!--
       Automatically generated from C3 client files. Need to
@@ -826,8 +810,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="1" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3055" levels="2" name="Special Ability: Critical Bleed">
     <!-- Big Swords only -->
     <table name="#dmg">93 93</table>
@@ -910,8 +893,7 @@
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3060" levels="2" name="Special Ability: Critical Drain">
     <!--
       Automatically generated from C3 client files. Need to
@@ -924,8 +906,7 @@
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3061" levels="2" name="Special Ability: Critical Poison">
     <!--
       Automatically generated from C3 client files. Need to
@@ -942,8 +923,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="1" />
     <set name="castRange" val="600" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3062" levels="2" name="Special Ability: Critical Poison">
     <!--
       Automatically generated from C3 client files. Need to
@@ -960,8 +940,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="1" />
     <set name="castRange" val="600" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3063" levels="2" name="Special Ability: Back Blow">
     <!-- Done by DJ MELERIX -->
     <table name="#magicLvl">64 64</table>
@@ -1289,8 +1268,7 @@
     <set name="triggeredId" val="5165"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3082" levels="10" name="Item Skill: Mana Burn">
     <table name="#power"> 49 53 57 61 66 70 74 78 82 88 </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
@@ -1318,8 +1296,7 @@
     <set name="triggeredId" val="5166"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3084" levels="10" name="Item Skill: Winter">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1333,8 +1310,7 @@
     <set name="triggeredId" val="5167"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3085" levels="10" name="Item Skill: Stun">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1348,8 +1324,7 @@
     <set name="triggeredId" val="5168"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3086" levels="10" name="Item Skill: Hold">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1363,8 +1338,7 @@
     <set name="triggeredId" val="5169"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3087" levels="10" name="Item Skill: Sleep">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1378,8 +1352,7 @@
     <set name="triggeredId" val="5170"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3088" levels="10" name="Item Skill: Paralyze">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1393,8 +1366,7 @@
     <set name="triggeredId" val="5171"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3089" levels="10" name="Item Skill: Medusa">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1408,8 +1380,7 @@
     <set name="triggeredId" val="5172"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3090" levels="10" name="Item Skill: Fear">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1423,8 +1394,7 @@
     <set name="triggeredId" val="5173"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3091" levels="10" name="Item Skill: Poison">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1438,8 +1408,7 @@
     <set name="triggeredId" val="5174"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3092" levels="10" name="Item Skill: Bleed">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1453,8 +1422,7 @@
     <set name="triggeredId" val="5175"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3093" levels="10" name="Item Skill: Silence">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1468,8 +1436,7 @@
     <set name="triggeredId" val="5176"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3094" levels="10" name="Item Skill: Doom">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1483,8 +1450,7 @@
     <set name="triggeredId" val="5177"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3095" levels="10" name="Item Skill: Mana Burn">
     <table name="#power"> 49 53 57 61 66 70 74 78 82 88 </table>
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
@@ -1512,8 +1478,7 @@
     <set name="triggeredId" val="5166"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3097" levels="10" name="Item Skill: Winter">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1527,8 +1492,7 @@
     <set name="triggeredId" val="5167"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3098" levels="10" name="Item Skill: Stun">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1542,8 +1506,7 @@
     <set name="triggeredId" val="5168"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3099" levels="10" name="Item Skill: Hold">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -1557,6 +1520,5 @@
     <set name="triggeredId" val="5169"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
 </list>

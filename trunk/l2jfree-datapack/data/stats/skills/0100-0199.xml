@@ -932,8 +932,7 @@
     <set name="castRange" val="-1" />
     <!-- Was missed -->
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="144" levels="37" name="Dual Weapon Mastery">
     <table name="#pAtk"> 23.7 25.4 27.1 29.0 30.9 32.9 35.0
       37.1 39.4 41.7 44.1 46.6 49.2 51.9 54.6 57.5 60.4 63.3
@@ -1070,8 +1069,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="168" levels="3" name="Boost Attack Speed">
     <table name="#rate">1.05 1.07 1.10</table>
     <set name="target" val="TARGET_SELF" />
@@ -1117,8 +1115,7 @@
     <set name="skillType" val="COREDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="173" levels="2" name="Acrobat">
     <table name="#magicLvl"> 20 55 </table>
     <table name="#fallVuln"> 0.4 0.0 </table>
@@ -1278,8 +1275,7 @@
     <set name="effectRange" val="-1" />
     <!-- cannot be learned, given -->
     <set name="canLearn" val="" />
-    <for />
-  </skill>
+   </skill>
   <skill id="195" levels="2" name="Boost Breath">
     <!-- Done by DJ MELERIX -->
     <table name="#breath">180 300</table>

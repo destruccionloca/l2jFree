@@ -6,71 +6,61 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1501" levels="1" name="Improve Condition">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1502" levels="1" name="Improve Critical Attack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1503" levels="1" name="Improve Shield Defense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1504" levels="1" name="Improve Movement">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1505" levels="1" name="Sublime Self-Sacrifice">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1506" levels="1" name="Blessing of Eva">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1507" levels="1" name="Lord of Vampire">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1508" levels="1" name="Throne Root">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1509" levels="1" name="Seal of Limit">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1510" levels="1" name="Soul Cleanse">
     <set name="mpInitialConsume" val="10" />
     <set name="mpConsume" val="22" />
@@ -87,15 +77,13 @@
       <target
         class_id_restriction="123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136" />
     </cond>
-    <for />
-  </skill>
+   </skill>
   <skill id="1511" levels="8" name="Curse of Life Flow">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1512" levels="1" name="Soul Vortex">
     <!-- Done By Akira35 -->
     <!-- Needs to be verified -->
@@ -151,8 +139,7 @@
     <cond msg="Invalid target.">
       <target active_effect_id="1512" />
     </cond>
-    <for />
-  </skill>
+   </skill>
   <skill id="1514" levels="1" name="Soul Barrier">
     <!--  Needs to be verified -->
     <set name="castRange" val="-1" />
@@ -178,8 +165,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1516" levels="1" name="Soul Strike">
     <!-- Done by DJ MELERIX -->
     <set name="castRange" val="750" />
@@ -194,29 +180,25 @@
     <set name="skillType" val="MDAM" />
     <set name="soulMaxConsumeCount" val="5" />
     <set name="target" val="TARGET_ONE" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1517" levels="1" name="Chant of Combat">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1518" levels="1" name="Chant of Critical">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1519" levels="1" name="Chant of Blood Awakening">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1520" levels="1" name="Inquisitor">
     <set name="mpConsume" val="31" />
     <set name="target" val="TARGET_SELF" />
@@ -283,8 +265,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="750" />
     <set name="effectRange" val="1250" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1524" levels="42" name="Surrender to the Holy">
     <!-- Inquisitor Stance Skill -->
     <!-- Done by caramon81 -->
@@ -358,15 +339,13 @@
     <set name="triggeredId" val="#triggeredId"/>
     <set name="triggeredLevel" val="1"/>
     <set name="bestowTriggered" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="1527" levels="1" name="Expert Casting">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1528" levels="42" name="Divine Flash">
     <!-- Inquisitor Stance Skill -->
     <table name="#mpConsume"> 57 59 60 62 63 65 67 68 69 70 73 74
@@ -391,15 +370,13 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="500" />
     <set name="effectRange" val="1000" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1529" levels="7" name="Soul Web">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1530" levels="13" name="Death Spike">
     <table name="#mpConsume_Init"> 4 5 6 7 7 7 8 8 8 9 9 9 10 </table>
     <table name="#mpConsume"> 19 22 24 28 29 31 32 33 35 36 37 38
@@ -423,13 +400,11 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-    <for />
-  </skill>
+   </skill>
   <skill id="1531" levels="7" name="Bless the Blood">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
 </list>

@@ -106,8 +106,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="staticReuse" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3206" levels="10" name="Item Skill: Music">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -118,8 +117,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3207" levels="10" name="Item Skill: Heal">
     <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -133,8 +131,7 @@
     <set name="triggeredId" val="5146"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3208" levels="10" name="Item Skill: Blessed Body">
     <table name="#chance">1 1 2 2 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -148,8 +145,7 @@
     <set name="triggeredId" val="5147"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3209" levels="10" name="Item Skill: Prayer">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -163,8 +159,7 @@
     <set name="triggeredId" val="5148"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3210" levels="10" name="Item Skill: Recharge">
     <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -178,8 +173,7 @@
     <set name="triggeredId" val="5149"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3211" levels="10" name="Item Skill: Blessed Soul">
     <table name="#chance">1 1 2 2 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -193,8 +187,7 @@
     <set name="triggeredId" val="5150"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3212" levels="10" name="Item Skill: Mana Gain">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -208,8 +201,7 @@
     <set name="triggeredId" val="5151"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3213" levels="10" name="Item Skill: Ritual">
     <table name="#chance">1 1 2 2 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -223,8 +215,7 @@
     <set name="triggeredId" val="5152"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3214" levels="10" name="Item Skill: Cheer">
     <table name="#chance">1 1 2 2 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -238,8 +229,7 @@
     <set name="triggeredId" val="5153"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3215" levels="10" name="Item Skill: Might">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -253,8 +243,7 @@
     <set name="triggeredId" val="5154"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3216" levels="10" name="Item Skill: Empower">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -268,8 +257,7 @@
     <set name="triggeredId" val="5156"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3217" levels="10" name="Item Skill: Duel Might">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -283,8 +271,7 @@
     <set name="triggeredId" val="5157"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3218" levels="10" name="Item Skill: Shield">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -298,8 +285,7 @@
     <set name="triggeredId" val="5158"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3219" levels="10" name="Item Skill: Magic Barrier">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -313,8 +299,7 @@
     <set name="triggeredId" val="5159"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3220" levels="10" name="Item Skill: Duel Weakness">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -330,8 +315,7 @@
     <set name="triggeredId" val="5160"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3221" levels="10" name="Item Skill: Agility">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -345,8 +329,7 @@
     <set name="triggeredId" val="5161"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3222" levels="10" name="Item Skill: Guidance">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -360,8 +343,7 @@
     <set name="triggeredId" val="5162"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3223" levels="10" name="Item Skill: Focus">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -375,8 +357,7 @@
     <set name="triggeredId" val="5163"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3224" levels="10" name="Item Skill: Wild Magic">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -390,8 +371,7 @@
     <set name="triggeredId" val="5164"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3225" levels="10" name="Item Skill: Charm">
     <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -405,8 +385,7 @@
     <set name="triggeredId" val="5165"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3226" levels="10" name="Item Skill: Slow">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -420,8 +399,7 @@
     <set name="triggeredId" val="5166"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3227" levels="10" name="Item Skill: Winter">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -435,8 +413,7 @@
     <set name="triggeredId" val="5167"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3228" levels="10" name="Item Skill: Stun">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -450,8 +427,7 @@
     <set name="triggeredId" val="5168"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3229" levels="10" name="Item Skill: Hold">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -465,8 +441,7 @@
     <set name="triggeredId" val="5169"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3230" levels="10" name="Item Skill: Sleep">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -480,8 +455,7 @@
     <set name="triggeredId" val="5170"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3231" levels="10" name="Item Skill: Paralyze">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -495,8 +469,7 @@
     <set name="triggeredId" val="5171"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3232" levels="10" name="Item Skill: Medusa">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -510,8 +483,7 @@
     <set name="triggeredId" val="5172"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3233" levels="10" name="Item Skill: Fear">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -525,8 +497,7 @@
     <set name="triggeredId" val="5173"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3234" levels="10" name="Item Skill: Poison">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -540,8 +511,7 @@
     <set name="triggeredId" val="5174"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3235" levels="10" name="Item Skill: Bleed">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -555,8 +525,7 @@
     <set name="triggeredId" val="5175"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3236" levels="10" name="Item Skill: Silence">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -570,8 +539,7 @@
     <set name="triggeredId" val="5176"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3237" levels="10" name="Item Skill: Doom">
     <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
@@ -585,8 +553,7 @@
     <set name="triggeredId" val="5177"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
     <set name="triggerAnotherSkill" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="3238" levels="10" name="Item Skill: Prayer">
     <table name="#rate"> 1.1 1.11 1.12 1.13 1.14 1.15 1.16
       1.17 1.18 1.19 </table>
@@ -759,8 +726,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3254" levels="10" name="Item Skill: Iron Body">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -772,8 +738,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3255" levels="3" name="Item Skill: Skill Clarity">
     <table name="#Tab-Atk">0.95 0.92 0.9</table>
     <set name="target" val="TARGET_SELF" />
@@ -910,8 +875,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3264" levels="1" name="Blessed Escape">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -922,8 +886,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3265" levels="1" name="Mysterious Ability">
     <!-- Done by lastsin -->
     <set name="castRange" val="-1" />
@@ -947,8 +910,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3267" levels="1" name="Dismiss Agathion">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="AGATHION" />
@@ -958,8 +920,7 @@
     <set name="npcId" val="0" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3268" levels="1" name="Summon Agathion - Castle">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="AGATHION" />
@@ -969,8 +930,7 @@
     <set name="npcId" val="16028" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3269" levels="1" name="Summon Agathion - Rainbow Clan Hall">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="AGATHION" />
@@ -980,8 +940,7 @@
     <set name="npcId" val="16027" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3270" levels="1" name="Summon Agathion - Beast Farm">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="AGATHION" />
@@ -991,8 +950,7 @@
     <set name="npcId" val="16026" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3271" levels="1" name="Blue Talisman of Power">
     <!-- Done by Nekys/ Stats by Goz -->
     <set name="power" val="0.0"/>
@@ -1022,148 +980,127 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3274" levels="1" name="Blue Talisman of Protection">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3275" levels="1" name="Blue Talisman of Protection">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3276" levels="1" name="Blue Talisman of Magic Defense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3277" levels="1" name="Blue Talisman of Wild Magic">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3278" levels="1" name="Red Talisman of Mental Regeneration">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3279" levels="1" name="Red Talisman of Meditation">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3280" levels="1" name="Blue Talisman of Invisibility">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3281" levels="1" name="Red Talisman of Minimum Clarity">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3282" levels="1" name="Red Talisman of Maximum Clarity">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3283" levels="1" name="Blue Talisman of Healing">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3284" levels="1" name="Blue Talisman of Invincibility">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3285" levels="1" name="Blue Talisman of Defense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3286" levels="1" name="Black Talisman - Mending">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3287" levels="1" name="Black Talisman of Physical Freedom">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3288" levels="1" name="Black Talisman of Arcane Freedom">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3289" levels="1" name="Black Talisman - Escape">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3290" levels="1" name="Black Talisman of Rescue">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3291" levels="1" name="Black Talisman of Vocalization">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3292" levels="1" name="Black Talisman of Free Speech">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3293" levels="1" name="Yellow Talisman of Power">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3294" levels="1" name="Yellow Talisman of Arcane Power">
     <!-- Done by Nekys/ Stats by Goz -->
     <set name="power" val="0.0"/>
@@ -1193,15 +1130,13 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3297" levels="1" name="Yellow Talisman of Accuracy">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3298" levels="1" name="Yellow Talisman of Evasion">
     <!-- Done by Nekys/ Stats by Goz -->
     <set name="power" val="0.0"/>
@@ -1219,6 +1154,5 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
 </list>

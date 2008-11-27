@@ -11,8 +11,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5201" levels="6" name="Pet Concentration">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -25,8 +24,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5202" levels="12" name="Stun">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -38,8 +36,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5203" levels="12" name="Fear">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -51,8 +48,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5204" levels="1"
     name="Production-First Gigantic Pig Combination">
     <!-- Needs more work -->
@@ -64,8 +60,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5205" levels="1" name="Boss Regeneration">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -76,8 +71,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5206" levels="1" name="Decrease Speed">
     <set name="power" val="542.0" />
     <set name="target" val="TARGET_ONE" />
@@ -269,8 +263,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5219" levels="1"
     name="Stun of giant mutated animal">
     <set name="magicLvl" val="99" />
@@ -314,51 +307,44 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5222" levels="1"
     name="Balor - Physical Long Range Weak Point">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5223" levels="1" name="Balor - Magic Weak Point">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5224" levels="1" name="Berserk">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5225" levels="1" name="Invincible">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5226" levels="1" name="Imprison">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5227" levels="1" name="Ground Strike">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5228" levels="1" name="Jump Attack">
     <set name="magicLvl" val="83" />
     <set name="mpConsume" val="99" />
@@ -373,8 +359,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="baseCritRate" val="15" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5229" levels="1" name="Strong Punch">
     <set name="magicLvl" val="83" />
     <set name="mpConsume" val="99" />
@@ -388,8 +373,7 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <set name="baseCritRate" val="15" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5230" levels="1" name="Stun">
     <set name="power" val="38501" />
     <set name="magicLvl" val="83" />
@@ -430,149 +414,128 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5233" levels="1" name="Weight Spin Attack - Weak">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5234" levels="1" name="Weight Spin Attack - Mid">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5235" levels="1"
     name="Weight Spin Attack - Strong">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5236" levels="1" name="Speed Up">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5237" levels="1" name="Speed Down">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5238" levels="1" name="Freezing">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5239" levels="5" name="Event Timer">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5240" levels="1" name="Stun">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5241" levels="1" name="Stun">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5242" levels="1" name="Sickness">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5243" levels="1" name="Blind">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5244" levels="1" name="Physical Up">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5245" levels="1" name="Magical Up">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5246" levels="12" name="Boss Dark Explosion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5247" levels="12" name="Seed of Darkness">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5248" levels="12" name="Seed Explosion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5249" levels="12" name="Boss Dark Circle">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5250" levels="1" name="Stun">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5251" levels="12" name="Poison">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5252" levels="12" name="Paralysis">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5253" levels="12" name="Bleed">
     <table name="#dmg"> 27 39 51 66 81 93 102 102 105 105 108
       108 </table>
@@ -597,8 +560,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5255" levels="12" name="Mana Burn">
     <table name="#mpConsume"> 77 78 80 83 87 89 93 95 98 100 102
       103 </table>
@@ -614,29 +576,25 @@
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
     <set name="isMagic" val="true" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5256" levels="1" name="Announcement of Death">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5257" levels="1" name="Death">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5258" levels="12" name="Mana Burn">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5259" levels="12" name="Fear">
     <table name="#mpConsume_Init"> 9 10 11 11 11 12 12 13 13 13 14 14 </table>
     <table name="#mpConsume"> 35 38 41 43 44 46 48 49 51 52 53 55 </table>
@@ -663,29 +621,25 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5261" levels="1" name="Zombie">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5262" levels="12" name="NPC - Rise Shot">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5263" levels="12" name="NPC - Chain Lightning">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5264" levels="12" name="Death Mark">
     <table name="#dmg"> 18 29 40 53 68 83 98 104 109 113 115
       117 </table>
@@ -719,15 +673,13 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="80" />
     <set name="effectRange" val="400" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5266" levels="12" name="Magical Backfire">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5267" levels="9" name="Trap Explosion">
     <!-- Needs retail value corrections, By Darki699 -->
     <table name="#magicLvl"> 28 36 44 48 52 56 60 68 74 </table>
@@ -741,8 +693,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="600" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5268" levels="6" name="Poison">
     <!-- Needs retail value corrections, By Darki699 -->
     <table name="#dmg">54 72 93 114 132 144</table>
@@ -866,8 +817,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5274" levels="9"
     name="NPC(party) - Physical Single Long Range Attack">
     <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
@@ -885,8 +835,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="80" />
     <set name="effectRange" val="400" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5275" levels="9"
     name="NPC(party) - Physical Range Close Range Attack">
     <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
@@ -904,184 +853,161 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="80" />
     <set name="effectRange" val="400" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5276" levels="9"
     name="NPC(party) - Physical Range Long Range Attack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5277" levels="9"
     name="NPC(party) - Physical Single Close Range Attack - Fire">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5278" levels="9"
     name="NPC(party) - Physical Single Long Range Attack - Fire">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5279" levels="9"
     name="NPC(party) - Physical Range Close Range Attack - Fire">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5280" levels="9"
     name="NPC(party) - Physical Range Long Range Attack - Fire">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5281" levels="9"
     name="NPC(party) - Physical Single Close Range Attack - Water">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5282" levels="9"
     name="NPC(party) - Physical Single Long Range Attack - Water">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5283" levels="9"
     name="NPC(party) - Physical Range Close Range Attack - Water">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5284" levels="9"
     name="NPC(party) - Physical Range Long Range Attack - Water">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5285" levels="9"
     name="NPC(party) - Physical Single Close Range Attack - Wind">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5286" levels="9"
     name="NPC(party) - Physical Single Long Range Attack - Wind">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5287" levels="9"
     name="NPC(party) - Physical Range Close Range Attack - Wind">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5288" levels="9"
     name="NPC(party) - Physical Range Long Range Attack - Wind">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5289" levels="9"
     name="NPC(party) - Physical Single Close Range Attack - Earth">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5290" levels="9"
     name="NPC(party) - Physical Single Long Range Attack - Earth">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5291" levels="9"
     name="NPC(party) - Physical Range Close Range Attack - Earth">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5292" levels="9"
     name="NPC(party) - Physical Range Long Range Attack - Earth">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5293" levels="9"
     name="NPC(party) - Physical Single Close Range Attack - Holy">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5294" levels="9"
     name="NPC(party) - Physical Single Long Range Attack - Holy">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5295" levels="9"
     name="NPC(party) - Physical Range Close Range Attack - Holy">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5296" levels="9"
     name="NPC(party) - Physical Range Long Range Attack - Holy">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5297" levels="9"
     name="NPC(party) - Physical Single Close Range Attack - Dark">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5298" levels="9"
     name="NPC(party) - Physical Single Long Range Attack - Dark">
     <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
@@ -1100,14 +1026,12 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="80" />
     <set name="effectRange" val="400" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5299" levels="9"
     name="NPC(party) - Physical Range Close Range Attack - Dark">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
 </list>

@@ -11,8 +11,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5401" levels="1" name="Stun">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -24,8 +23,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5402" levels="1" name="Presentation - Balor 2">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -36,8 +34,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5403" levels="1" name="Presentation - Balor 3">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -48,8 +45,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5404" levels="1" name="Presentation - Balor 4">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -60,8 +56,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5405" levels="1" name="Presentation - Demonic 1">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -73,8 +68,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5406" levels="1" name="Presentation - Demonic 2">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -85,8 +79,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5407" levels="1" name="Presentation - Crystaline Golem 1">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -97,8 +90,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5408" levels="1" name="Presentation - Crystaline Golem 2">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -110,8 +102,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5409" levels="1" name="Presentation - Crystaline Golem 3">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -122,8 +113,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5410" levels="1" name="Presentation - Balor 10">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -134,8 +124,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5411" levels="1" name="Presentation - Balor 11">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -146,8 +135,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5412" levels="1" name="Presentation - Balor 12">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -158,8 +146,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5413" levels="1" name="Performing Agathion - Beast Farm">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF" />
@@ -169,8 +156,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5414" levels="1" name="Performing Agathion - Rainbow Clan Hall">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF" />
@@ -180,8 +166,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5415" levels="1" name="Performing Agathion - Castle">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF" />
@@ -191,8 +176,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5416" levels="1" name="Dark Cloud Mansion">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -203,8 +187,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5417" levels="1" name="Invincible">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -216,8 +199,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5418" levels="1" name="Invincible">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -229,8 +211,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5419" levels="1" name="Invincible Blow">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -241,8 +222,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5420" levels="1" name="Invincible">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -254,8 +234,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5422" levels="15" name="Flame">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -267,8 +246,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5423" levels="12" name="Poison">
     <table name="#dmg"> 93 114 132 144 144 150 150 153 153
       156 156 160 </table>
@@ -397,8 +375,7 @@
     <set name="power" val="42"/>
     <set name="operateType" val="OP_CHANCE"/>
     <set name="bestowed" val="true"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="5430" levels="1" name="Spoil Bomb">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -409,8 +386,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5431" levels="1" name="Slow">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -422,8 +398,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5432" levels="2" name="Weapon Supply">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -434,8 +409,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5433" levels="1" name="Presentation - Gathering of Evil Power">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -446,8 +420,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5434" levels="1" name="Gust">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -458,8 +431,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5435" levels="1" name="Gust">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -470,8 +442,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5436" levels="1" name="Increase Recovery Rate">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -483,8 +454,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5437" levels="2" name="Dissonance">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -497,8 +467,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5438" levels="9" name="NPC party 30 Clan Heal">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -509,8 +478,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5439" levels="9" name="NPC party 60 Clan Heal">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -521,8 +489,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5440" levels="1" name="Presentation - Trap Activate">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -533,8 +500,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5441" levels="1" name="Presentation - Tears Mirror Image">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -545,8 +511,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5442" levels="4" name="Bite Attack">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -561,8 +526,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5443" levels="4" name="Cry of the Wolf">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -578,8 +542,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5444" levels="2" name="Maul">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -593,8 +556,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5445" levels="1" name="Awakening">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -607,8 +569,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5446" levels="45" name="Soul Expansion">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -619,8 +580,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5447" levels="7" name="Paralysis">
     <!-- Needs to be verified -->
     <table name="#dmg">5 10 15 20 25 30 35</table>
@@ -648,8 +608,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5449" levels="1" name="Weak Constitution">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -661,8 +620,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5450" levels="7" name="Tin Skin">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -674,8 +632,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5451" levels="1" name="Enervation">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -686,8 +643,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5452" levels="3" name="Spite">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -699,8 +655,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5453" levels="4" name="Mental Impoverish">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -711,8 +666,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5454" levels="1" name="Shadow Bind">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -723,8 +677,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5455" levels="1" name="Voice Bind">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -735,8 +688,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5456" levels="1" name="Stubborn Resistance">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -749,8 +701,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5457" levels="1" name="NPC Full Recover">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -761,8 +712,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5458" levels="1" name="Performing Agathion - Fortress">
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF" />
@@ -772,8 +722,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5459" levels="1" name="Paralysis">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -785,8 +734,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5460" levels="1" name="Fear">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -798,8 +746,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5461" levels="12" name="Castle Gunner Shot">
     <table name="#mpConsume"> 19 22 25 28 31 33 36 38 40 42 42 43 </table>
     <set name="magicLvl" val="70"/>
@@ -813,8 +760,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1500"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="5462" levels="1" name="Fire Attacks">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -889,8 +835,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
     <set name="effectRange" val="600"/>
-    <for />
-  </skill>
+   </skill>
   <skill id="5469" levels="1" name="Raid Boss - Level 22">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
@@ -898,8 +843,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5470" levels="1" name="Raid Boss - Level 81">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
@@ -907,8 +851,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5471" levels="1" name="Raid Boss - Level 82">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
@@ -916,8 +859,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5472" levels="1" name="Raid Boss - Level 83">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
@@ -925,8 +867,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5473" levels="1" name="Raid Boss - Level 83">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
@@ -934,8 +875,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5474" levels="1" name="Raid Boss - Level 84">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
@@ -943,8 +883,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5475" levels="1" name="Raid Boss - Level 85">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
@@ -952,8 +891,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5476" levels="1" name="Raid Boss - Level 85">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
@@ -961,8 +899,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5477" levels="1" name="Raid Boss - Level 86">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
@@ -970,8 +907,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5478" levels="1" name="Raid Boss - Level 83">
     <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF" />
@@ -979,8 +915,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5479" levels="1" name="Boss Petrification Resistance">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -991,8 +926,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5480" levels="1" name="Balor Invincible Removal">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1003,8 +937,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5481" levels="1" name="Transform Penalty">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1016,8 +949,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5482" levels="1" name="Transform Penalty">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1029,8 +961,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5483" levels="1" name="Counter Aggression">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1041,8 +972,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5484" levels="1" name="Endurance Defense Up">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1053,8 +983,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5485" levels="1" name="Endurance Defense Up">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1065,8 +994,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5486" levels="1" name="Endurance Offense Up">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1077,8 +1005,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5487" levels="1" name="Counter Delete Aggression">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1089,8 +1016,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5488" levels="1" name="Counter Critical Power Up">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1102,8 +1028,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5489" levels="1" name="Counter Critical Rate Up">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1115,8 +1040,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5490" levels="1" name="Weakened Life">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1128,8 +1052,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5491" levels="1" name="Decrease Bow/Crossbow Attack Speed">
     <!--
       Description(s): Decreases attack speed when equipped
@@ -1156,8 +1079,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5493" levels="1" name="Naia Production">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1168,8 +1090,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5494" levels="1" name="Gust">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1180,8 +1101,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5495" levels="1" name="Bleed">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1193,8 +1113,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5496" levels="1" name="Dark Fireball">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1205,8 +1124,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5497" levels="1" name="Horn of Rising Darkness">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1218,8 +1136,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5498" levels="1" name="Self-Destruct">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1230,8 +1147,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="5499" levels="1" name="Dark Lightening">
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
@@ -1242,6 +1158,5 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
 </list>

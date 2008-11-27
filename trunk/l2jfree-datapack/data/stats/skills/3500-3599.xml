@@ -719,8 +719,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3543" levels="1" name="Equipped with Shield">
     <!-- Hoplon Shield Skill -->
     <set name="target" val="TARGET_SELF" />
@@ -1038,8 +1037,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3565" levels="1" name="Special Ability: Focus">
     <!--
       Description(s): Increases critical attack success rate
@@ -1129,8 +1127,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3571" levels="1" name="Special Ability: Crt. Stun">
     <!--
       Done by SarutrA - SqueezeD Description(s): Instantly
@@ -1207,8 +1204,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3576" levels="1" name="Special Ability: MP Regeneration">
     <!-- Done by SarutrA - SqueezeD -->
     <set name="target" val="TARGET_SELF" />
@@ -1567,11 +1563,11 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-    <set name="negateStats" val="BUFF HEAL_PERCENT" />    <set name="negatePower" val="8.0" />
+    <set name="negateStats" val="BUFF HEAL_PERCENT" />
+    <set name="negatePower" val="8.0" />
     <set name="maxNegated" val="3" />
     <!-- Making max debuff count 3 -->
-    <for />
-  </skill>
+   </skill>
   <skill id="3593" levels="1" name="Special Ability: Infinity Bow">
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="80" />
@@ -1652,8 +1648,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3597" levels="1" name="Special Ability: Infinity Rod">
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="80" />
@@ -1689,8 +1684,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="100" />
-    <for />
-  </skill>
+   </skill>
   <skill id="3599" levels="1" name="Polearm Multi-attack">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF" />
