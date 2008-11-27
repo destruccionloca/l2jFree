@@ -183,23 +183,16 @@ public final class L2ArmorSet
         L2ItemInstance headItem   = inv.getPaperdollItem(Inventory.PAPERDOLL_HEAD);
         L2ItemInstance glovesItem = inv.getPaperdollItem(Inventory.PAPERDOLL_GLOVES);
         L2ItemInstance feetItem   = inv.getPaperdollItem(Inventory.PAPERDOLL_FEET);
-        
-        if (chestItem == null
-        		|| legsItem == null 
-        		|| glovesItem == null
-        		|| headItem == null
-        		|| feetItem == null)
-        	return false;
-        
-        if(chestItem.getEnchantLevel() < 6)
+
+        if(chestItem != null && chestItem.getEnchantLevel() < 6)
             return false;
-        if(_legs != 0 && legsItem.getEnchantLevel() < 6)
+        if(_legs != 0 && legsItem != null && legsItem.getEnchantLevel() < 6)
             return false;
-        if(_gloves != 0 && glovesItem.getEnchantLevel() < 6)
+        if(_gloves != 0 && glovesItem != null && glovesItem.getEnchantLevel() < 6)
             return false;
-        if(_head != 0 && headItem.getEnchantLevel() < 6)
+        if(_head != 0 && headItem != null && headItem.getEnchantLevel() < 6)
             return false;
-        if(_feet != 0 && feetItem.getEnchantLevel() < 6)
+        if(_feet != 0 && feetItem != null && feetItem.getEnchantLevel() < 6)
             return false;
         
         return true;
