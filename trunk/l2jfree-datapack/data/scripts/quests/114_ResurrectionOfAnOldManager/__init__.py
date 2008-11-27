@@ -104,7 +104,7 @@ class Quest (JQuest) :
        st.set("cond","19")
        st.playSound("ItemSound.quest_middle")
     elif event == "32046-06.htm" :
-       st.addExpAndSP(410358, 32060)
+       st.addExpAndSp(410358, 32060)
        st.exitQuest(False)
        st.playSound("ItemSound.quest_finish")
     elif event == "32047-01.htm" :

@@ -1,32 +1,28 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
-  <skill id="3400" levels="1"
-    name="Traits Strengthen Earring">
+  <skill id="3400" levels="1" name="Traits Strengthen Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3401" levels="1"
-    name="Dynasty Resistance Necklace">
+  <skill id="3401" levels="1" name="Dynasty Resistance Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3402" levels="1"
-    name="Dynasty Resistance Ring">
+  <skill id="3402" levels="1" name="Dynasty Resistance Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3403" levels="1"
-    name="Dynasty Resistance Earring">
+  <skill id="3403" levels="1" name="Dynasty Resistance Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -40,13 +36,13 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3405" levels="1"
-    name="Large Firecracker Effect">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
-    <for />
+  <skill id="3405" levels="1" name="Large Firecracker Effect">
+    <set name="target" val="TARGET_SELF"/>
+    <!-- HOT ??? this a temp hack to make it work? -->
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="3406" levels="1" name="Weight Decrease Ring">
     <set name="target" val="TARGET_NONE" />
@@ -62,32 +58,28 @@
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3408" levels="1"
-    name="Blessed Ring of Escape">
+  <skill id="3408" levels="1" name="Blessed Ring of Escape">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3409" levels="1"
-    name="Blessed Ring of Resurrection">
+  <skill id="3409" levels="1" name="Blessed Ring of Resurrection">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3410" levels="1"
-    name="Blue Talisman of Reflection">
+  <skill id="3410" levels="1" name="Blue Talisman of Reflection">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <for />
   </skill>
-  <skill id="3411" levels="1"
-    name="Special Ability: Focus">
+  <skill id="3411" levels="1" name="Special Ability: Focus">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -109,8 +101,7 @@
       <mul order="0x30" stat="darkVuln" val="0.94" /><!-- Darkness Resistance +6 -->
     </for>
   </skill>
-  <skill id="3413" levels="1"
-    name="Dynasty Leather Armor">
+  <skill id="3413" levels="1" name="Dynasty Leather Armor">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />

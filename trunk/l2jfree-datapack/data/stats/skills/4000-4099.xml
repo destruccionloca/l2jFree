@@ -24,8 +24,7 @@
     <for />
   </skill>
   <skill id="4002" levels="12" name="NPC HP Drain">
-    <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 112 115
-      117 </table>
+    <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 112 115 117 </table>
     <table name="#power"> 18.0 26.0 38.0 52.0 68.0 85.0 102.0
       110.0 116.0 122.0 126.0 129.0 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
@@ -52,7 +51,7 @@
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -66,7 +65,7 @@
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -78,7 +77,7 @@
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -91,7 +90,7 @@
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -104,7 +103,7 @@
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -117,7 +116,7 @@
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -177,12 +176,11 @@
       <mul stat="earthVuln" val="#vuln" order="0x30" />
     </for>
   </skill>
-  <skill id="4013" levels="1"
-    name="Resistance To Fire, Vulnerable To Water">
+  <skill id="4013" levels="1" name="Resistance To Fire, Vulnerable To Water">
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -191,12 +189,11 @@
       <mul order="0x30" stat="waterVuln" val="1.15" />
     </for>
   </skill>
-  <skill id="4014" levels="1"
-    name="Resistance To Water, Vulnerable To Fire">
+  <skill id="4014" levels="1" name="Resistance To Water, Vulnerable To Fire">
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -205,12 +202,11 @@
       <mul order="0x30" stat="fireVuln" val="1.15" />
     </for>
   </skill>
-  <skill id="4015" levels="1"
-    name="Resistance To Wind, Vulnerable To Earth">
+  <skill id="4015" levels="1" name="Resistance To Wind, Vulnerable To Earth">
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -219,12 +215,11 @@
       <mul order="0x30" stat="earthVuln" val="1.15" />
     </for>
   </skill>
-  <skill id="4016" levels="1"
-    name="Resistance To Earth, Vulnerable To Wind">
+  <skill id="4016" levels="1" name="Resistance To Earth, Vulnerable To Wind">
     <!-- Done by DJ MELERIX -->
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -307,7 +302,7 @@
     <!-- Queen Ant Skills -->
     <set name="magicLvl" val="40" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -1053,7 +1048,7 @@
     <!-- Orfen Skills -->
     <set name="magicLvl" val="50" />
     <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
+    <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -1090,7 +1085,6 @@
     <set name="hitTime" val="4000" />
     <set name="skillType" val="PARALYZE" />
     <set name="isDebuff" val="true" />
-    <set name="isMagic" val="false" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="800" />
     <set name="effectRange" val="1300" />
@@ -1100,8 +1094,7 @@
     </for>
   </skill>
   <skill id="4065" levels="12" name="NPC Heal">
-    <table name="#mpConsume"> 17 30 44 62 80 98 114 122 127 130 132
-      132 </table>
+    <table name="#mpConsume"> 17 30 44 62 80 98 114 122 127 130 132 132 </table>
     <table name="#power"> 83.0 151.0 245.0 362.0 494.0 627.0
       743.0 789.0 823.0 845.0 853.0 853.0 </table>
     <set name="mpConsume" val="#mpConsume" />
@@ -1119,8 +1112,7 @@
   </skill>
   <skill id="4066" levels="12" name="NPC Twister">
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
-    <table name="#power"> 18.0 26.0 38.0 52.0 68.0 85.0 102.0
-      110.0 116.0 122.0 126.0 129.0 </table>
+    <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="1" />
@@ -1176,8 +1168,7 @@
   </skill>
   <skill id="4069" levels="12" name="NPC Curve Beam Cannon">
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
-    <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126
-      129 </table>
+    <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="1" />

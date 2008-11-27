@@ -120,7 +120,7 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init" />
     <for>
-      <effect count="1" name="Debuff" time="15" val="0"
+      <effect count="1" name="Debuff" time="15" val="0" 
         stackOrder="0.77" stackType="attack_time_up">
         <mul order="0x30" stat="pAtkSpd" val="0.77" />
       </effect>
@@ -133,7 +133,7 @@
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="40" />
+    <set name="power" val="20" />
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="40000" />
     <set name="hitTime" val="4000" />
@@ -144,7 +144,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <for>
-      <effect count="5" name="ConfuseMob" time="4" val="0" />
+      <effect count="5" name="Confusion" time="4" val="0" />
     </for>
   </skill>
   <skill id="1107" levels="2" name="Frost Flame">
@@ -1470,20 +1470,16 @@
     <set name="effectRange" val="1000" />
     <for />
   </skill>
-  <skill id="1182" levels="3" name="Resist Aqua"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="1182" levels="3" name="Resist Aqua" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480
       1520 1560 1600 1640 1680 1720 1760 1800 1840 1880 1920
-      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360
-      2400 </table>
+      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 30 29 29 28 28 27 27 26 26 25 25 24
-      24 23 23 22 22 21 21 20 20 19 19 18 18 17 17 16 16 15 
-    </table>
+      24 23 23 22 22 21 21 20 20 19 19 18 18 17 17 16 16 15 </table>
     <table name="#ench2MpConsume_Init"> 7 7 7 7 7 7 7 6 6 6 6 6 6 6 6 5 5 5 5
       5 5 5 4 4 4 4 4 4 4 4 </table>
     <table name="#mpConsume_Init">5 7 8</table>
@@ -1541,8 +1537,7 @@
         retail value: 77 94 108 118/sec; stat update every
         time unit (2/3 sec)
       -->
-      <effect count="15" name="DamOverTime" time="1"
-        val="#dmg" />
+      <effect count="15" name="DamOverTime" time="1" val="#dmg" />
     </for>
   </skill>
   <skill id="1184" levels="6" name="Ice Bolt">
@@ -1575,20 +1570,16 @@
       </effect>
     </for>
   </skill>
-  <skill id="1189" levels="3" name="Resist Wind"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="1189" levels="3" name="Resist Wind" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480
       1520 1560 1600 1640 1680 1720 1760 1800 1840 1880 1920
-      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360
-      2400 </table>
+      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 30 29 29 28 28 27 27 26 26 25 25 24
-      24 23 23 22 22 21 21 20 20 19 19 18 18 17 17 16 16 15 
-    </table>
+      24 23 23 22 22 21 21 20 20 19 19 18 18 17 17 16 16 15 </table>
     <table name="#ench2MpConsume_Init"> 7 7 7 7 7 7 7 6 6 6 6 6 6 6 6 5 5 5 5
       5 5 5 4 4 4 4 4 4 4 4 </table>
     <table name="#mpConsume_Init">6 7 8</table>
@@ -1621,15 +1612,12 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="1191" levels="3" name="Resist Fire"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="1191" levels="3" name="Resist Fire" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480
       1520 1560 1600 1640 1680 1720 1760 1800 1840 1880 1920
-      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360
-      2400 </table>
+      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 30 29 29 28 28 27 27 26 26 25 25 24
-      24 23 23 22 22 21 21 20 20 19 19 18 18 17 17 16 16 15 
-    </table>
+      24 23 23 22 22 21 21 20 20 19 19 18 18 17 17 16 16 15 </table>
     <table name="#ench2MpConsume_Init"> 7 7 7 7 7 7 7 6 6 6 6 6 6 6 6 5 5 5 5
       5 5 5 4 4 4 4 4 4 4 4 </table>
     <table name="#mpConsume_Init">6 7 8</table>

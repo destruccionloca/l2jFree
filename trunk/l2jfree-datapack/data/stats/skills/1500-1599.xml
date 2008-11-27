@@ -343,8 +343,7 @@
     <set name="skillType" val="DOT" />
     <set name="target" val="TARGET_ONE" />
     <for>
-      <effect count="15" name="DamOverTime" time="1"
-        val="#dmg">
+      <effect count="15" name="DamOverTime" time="1" val="#dmg">
         <mul order="0x30" stat="gainHp" val="0.5" />
       </effect>
     </for>
