@@ -33,6 +33,7 @@
     <table name="#mpConsume"> 62 79 98 102 104 107 108 110 113 115 117 119 122 </table>
     <table name="#aggroPoints"> 541 611 659 666 669 673 676 679 681 684 687 689 692 </table>
     <table name="#Power"> 40 45 50 55 60 65 70 75 80 85 90 95 100 </table>
+    <table name="#negatePower"> 40 45 50 55 60 65 70 75 80 85 90 95 100 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#Power"/>
     <set name="target" val="TARGET_PARTY" />
@@ -45,9 +46,9 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="negateStats" val="DEBUFF" />
-    <set name="negatePower" val="9.0" />
+    <set name="negatePower" val="#negatePower"/>
     <set name="aggroPoints" val="#aggroPoints" />
-   </skill>
+  </skill>
   <skill id="4702" levels="13" name="Blessing of Seraphim">
     <!-- Done by Soulkiller -->
     <table name="#mpConsume"> 122 157 194 202 207 212 215 220 224
@@ -120,19 +121,16 @@
     <set name="effectRange" val="-1" />
     <set name="negateStats" val="SLEEP ROOT STUN MUTE PARALYZE" />
     <set name="aggroPoints" val="#aggroPoints"/>
-   </skill>
+  </skill>
   <skill id="4705" levels="13" name="Curse of Shade">
-    <table name="#mpConsume"> 53 62 69 70 72 73 73 73 74 74 75 75
-      75 </table>
+    <table name="#mpConsume"> 53 62 69 70 72 73 73 73 74 74 75 75 75 </table>
     <table name="#Tab-pDef"> 0.94 0.92 0.90 0.90 0.90 0.90 0.90
       0.90 0.90 0.90 0.90 0.90 0.90 </table>
     <table name="#Tab-mDef"> 0.95 0.92 0.90 0.90 0.90 0.90 0.90
       0.90 0.90 0.90 0.90 0.90 0.90 </table>
-    <table name="#power"> 40 40 40 41 42 43 44 45 46 47 48 49
-      50 </table>
+    <table name="#power"> 40 40 40 41 42 43 44 45 46 47 48 49 50 </table>
     <table name="#stackOrder"> 1 2 3 3 3 3 3 3 3 3 3 3 3 </table>
-    <table name="#magicLvl"> 57 66 75 77 78 79 80 81 82 83 84 85
-      86 </table>
+    <table name="#magicLvl"> 57 66 75 77 78 79 80 81 82 83 84 85 86 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -153,8 +151,7 @@
         <mul order="0x30" stat="mDef" val="#Tab-mDef" />
         <mul order="0x30" stat="pDef" val="#Tab-pDef" />
       </effect>
-      <effect count="1" name="TargetMe" time="1" val="0"
-        noicon="1" />
+      <effect count="1" name="TargetMe" time="1" val="0" noicon="1" />
     </for>
   </skill>
   <skill id="4706" levels="13" name="Mass Curse of Shade">
@@ -164,11 +161,9 @@
       0.90 0.90 0.90 0.90 0.90 0.90 </table>
     <table name="#Tab-mDef"> 0.95 0.92 0.90 0.90 0.90 0.90 0.90
       0.90 0.90 0.90 0.90 0.90 0.90 </table>
-    <table name="#power"> 40 40 40 41 42 43 44 45 46 47 48 49
-      50 </table>
+    <table name="#power"> 40 40 40 41 42 43 44 45 46 47 48 49 50 </table>
     <table name="#stackOrder"> 1 2 3 3 3 3 3 3 3 3 3 3 3 </table>
-    <table name="#magicLvl"> 57 66 75 77 78 79 80 81 82 83 84 85
-      86 </table>
+    <table name="#magicLvl"> 57 66 75 77 78 79 80 81 82 83 84 85 86 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_AURA" />
@@ -190,8 +185,7 @@
         <mul order="0x30" stat="mDef" val="#Tab-mDef" />
         <mul order="0x30" stat="pDef" val="#Tab-pDef" />
       </effect>
-      <effect count="1" name="TargetMe" time="1" val="0"
-        noicon="1" />
+      <effect count="1" name="TargetMe" time="1" val="0" noicon="1" />
     </for>
   </skill>
   <skill id="4707" levels="13" name="Shade Sacrifice">
@@ -210,7 +204,7 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="#power" />
-   </skill>
+  </skill>
   <skill id="4708" levels="10" name="Cursed Strike">
     <table name="#magicLvl"> 58 62 66 70 72 74 76 78 79 80 </table>
     <table name="#mpConsume"> 58 62 67 71 73 75 77 78 79 80 </table>
@@ -249,11 +243,10 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-   </skill>
+  </skill>
   <skill id="4710" levels="12" name="Wild Stun">
     <table name="#mpConsume"> 3 5 7 9 12 14 17 18 18 19 20 20 </table>
-    <table name="#power"> 16 35 73 138 238 375 537 619 697 766
-      821 864 </table>
+    <table name="#power"> 16 35 73 138 238 375 537 619 697 766 821 864 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -276,11 +269,9 @@
     </for>
   </skill>
   <skill id="4711" levels="12" name="Wild Defense">
-    <table name="#mpConsume"> 46 76 104 139 179 220 258 275 288 298
-      305 309 </table>
+    <table name="#mpConsume"> 46 76 104 139 179 220 258 275 288 298 305 309 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
-    <table name="#aggro"> 138 204 285 379 477 566 635 659 676
-      689 700 709 </table>
+    <table name="#aggro"> 138 204 285 379 477 566 635 659 676 689 700 709 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
     <set name="target" val="TARGET_SELF" />
@@ -314,11 +305,10 @@
     <set name="isMagic" val="true" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-   </skill>
+  </skill>
   <skill id="4713" levels="12" name="Bright Heal">
     <table name="#mpConsume"> 5 9 11 15 19 23 27 28 30 30 32 32 </table>
-    <table name="#power"> 33.0 61.0 98.0 145.0 198.0 251.0
-      298.0 316.0 330.0 338.0 341.0 342.0 </table>
+    <table name="#power"> 33 61 98 145 198 251 298 316 330 338 341 342 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#aggro"> 33 34 35 36 37 38 39 40 41 42 43 44 </table>
     <set name="mpConsume" val="#mpConsume" />
@@ -333,32 +323,31 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="#aggro" />
-   </skill>
+  </skill>
   <skill id="4714" levels="1" name="Twilight Dragon">
     <!-- TODO -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4715" levels="1" name="Wind Dragon">
     <!-- TODO -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4716" levels="1" name="Star Dragon">
     <!-- TODO -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4717" levels="12" name="Heal Trick">
     <table name="#mpConsume"> 5 8 12 17 20 25 29 32 33 33 34 34 </table>
-    <table name="#power"> 9.0 16.0 25.0 37.0 50.0 63.0 75.0
-      79.0 83.0 85.0 86.0 86.0 </table>
+    <table name="#power"> 9 16 25 37 50 63 75 79 83 85 86 86 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#aggro"> 9 16 25 37 50 63 75 79 83 85 86 86 </table>
     <set name="mpConsume" val="#mpConsume" />
@@ -373,12 +362,10 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="#aggro" />
-   </skill>
+  </skill>
   <skill id="4718" levels="12" name="Greater Heal Trick">
-    <table name="#mpConsume"> 33 59 88 122 162 195 228 242 252 259
-      262 262 </table>
-    <table name="#power"> 62 113 184 272 371 471 558 592 617
-      634 640 640 </table>
+    <table name="#mpConsume"> 33 59 88 122 162 195 228 242 252 259 262 262 </table>
+    <table name="#power"> 62 113 184 272 371 471 558 592 617 634 640 640 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -392,9 +379,9 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="aggroPoints" val="#power" />
-   </skill>
+  </skill>
   <skill id="4719" levels="12" name="BOSS Strike">
-    <table name="#power"> 112 302 834 2177 5631 11008 17044
+    <table name="#power"> 112 302 834 2177 5631 11008 17044 
       20119 23243 26363 29567 32796 </table>
     <table name="#mpConsume"> 16 23 32 42 53 65 75 79 82 84 85 87 </table>
     <set name="mpConsume" val="#mpConsume" />
@@ -405,7 +392,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-   </skill>
+  </skill>
   <skill id="4720" levels="12" name="BOSS Strike">
     <table name="#power"> 95 255 705 1840 4754 9291 14390 16978
       19710 22699 25871 28860 </table>
@@ -418,7 +405,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-   </skill>
+  </skill>
   <skill id="4721" levels="12" name="BOSS Strike">
     <table name="#power"> 51 136 375 982 2536 4958 7667 9037
       10483 12074 13778 15349 </table>
@@ -431,7 +418,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-   </skill>
+  </skill>
   <skill id="4722" levels="12" name="BOSS Strike">
     <table name="#power"> 48 128 352 922 2377 4651 7195 8489
       9855 11363 12921 14430 </table>
@@ -444,7 +431,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-   </skill>
+  </skill>
   <skill id="4723" levels="12" name="BOSS Strike">
     <table name="#power"> 45 120 330 858 2218 4344 6724 7942
       9228 10625 12093 13512 </table>
@@ -457,7 +444,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-   </skill>
+  </skill>
   <skill id="4724" levels="12" name="Stun">
     <table name="#power"> 56 151 417 1089 2816 5504 8522 10060
       11622 13182 14784 16398 </table>
@@ -651,7 +638,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4735" levels="12" name="BOSS Spinning Slasher">
     <table name="#power"> 48 128 352 920 2377 4645 7195 8490
       9855 11350 12936 14430 </table>
@@ -665,7 +652,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4736" levels="12" name="BOSS Spinning Slasher">
     <table name="#power"> 26 68 188 491 1268 2479 3834 4519
       5242 6037 6889 7675 </table>
@@ -679,7 +666,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4737" levels="12" name="BOSS Spinning Slasher">
     <table name="#power"> 24 64 176 461 1189 2326 3598 4245
       4928 5682 6461 7215 </table>
@@ -693,7 +680,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4738" levels="12" name="BOSS Spinning Slasher">
     <table name="#power"> 23 60 165 429 1109 2172 3362 3971
       4614 5313 6047 6756 </table>
@@ -707,7 +694,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4739" levels="12" name="BOSS Strike">
     <table name="#power"> 112 302 834 2177 5631 11008 17044
       20119 23243 26363 29567 32796 </table>
@@ -720,7 +707,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-   </skill>
+  </skill>
   <skill id="4740" levels="12" name="BOSS Strike">
     <table name="#power"> 95 255 705 1840 4754 9291 14390 16978
       19710 22699 25871 28860 </table>
@@ -733,7 +720,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-   </skill>
+  </skill>
   <skill id="4741" levels="12" name="BOSS Strike">
     <table name="#power"> 51 136 375 982 2536 4958 7667 9037
       10483 12074 13778 15349 </table>
@@ -746,7 +733,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-   </skill>
+  </skill>
   <skill id="4742" levels="12" name="BOSS Strike">
     <table name="#power"> 48 128 352 922 2377 4651 7195 8489
       9855 11363 12921 14430 </table>
@@ -759,7 +746,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-   </skill>
+  </skill>
   <skill id="4743" levels="12" name="BOSS Strike">
     <table name="#power"> 45 120 330 858 2218 4344 6724 7942
       9228 10625 12093 13512 </table>
@@ -772,7 +759,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
-   </skill>
+  </skill>
   <skill id="4744" levels="12" name="Stun">
     <table name="#power"> 56 151 417 1089 2816 5504 8522 10060
       11622 13182 14784 16398 </table>
@@ -951,7 +938,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4755" levels="12" name="BOSS Power Shot">
     <table name="#power"> 275 744 2057 5374 13885 27135 42030
       49590 57569 66298 75565 84295 </table>
@@ -965,7 +952,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4756" levels="12" name="BOSS Power Shot">
     <table name="#power"> 147 396 1095 2868 7407 14481 22392
       26393 30618 35267 40244 44830 </table>
@@ -979,7 +966,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4757" levels="12" name="BOSS Power Shot">
     <table name="#power"> 138 372 1027 2691 6943 13584 21015
       24795 28785 33188 37739 42148 </table>
@@ -993,7 +980,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4758" levels="12" name="BOSS Power Shot">
     <table name="#power"> 129 348 962 2506 6479 12688 19638
       23198 26952 31032 35321 39466 </table>
@@ -1007,7 +994,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4759" levels="12" name="Stun">
     <table name="#power"> 164 441 1218 3179 8223 16075 24892
       29382 33944 38501 43180 47895 </table>
@@ -1071,8 +1058,7 @@
   <skill id="4762" levels="12" name="Stun">
     <table name="#power"> 69 186 514 1346 3472 6792 10508 12398
       14393 16594 18870 21074 </table>
-    <table name="#mpConsume"> 36 50 69 93 118 143 166 175 182 186
-      189 192 </table>
+    <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168 170 173 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1121,7 +1107,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4765" levels="12" name="BOSS Power Shot">
     <table name="#power"> 275 744 2057 5374 13885 27135 42030
       49590 57569 66298 75565 84295 </table>
@@ -1135,7 +1121,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4766" levels="12" name="BOSS Power Shot">
     <table name="#power"> 147 396 1095 2868 7407 14481 22392
       26393 30618 35267 40244 44830 </table>
@@ -1149,7 +1135,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4767" levels="12" name="BOSS Power Shot">
     <table name="#power"> 138 372 1027 2691 6943 13584 21015
       24795 28785 33188 37739 42148 </table>
@@ -1163,7 +1149,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4768" levels="12" name="BOSS Power Shot">
     <table name="#power"> 129 348 962 2506 6479 12688 19638
       23198 26952 31032 35321 39466 </table>
@@ -1177,7 +1163,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4769" levels="12" name="Stun">
     <table name="#power"> 164 441 1218 3179 8223 16075 24892
       29382 33944 38501 43180 47895 </table>
@@ -1221,8 +1207,7 @@
   <skill id="4771" levels="12" name="Stun">
     <table name="#power"> 74 198 548 1434 3704 7241 11196 13197
       15309 17634 20122 22415 </table>
-    <table name="#mpConsume"> 36 50 69 93 118 143 166 175 182 186
-      189 192 </table>
+    <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168 170 173 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1241,8 +1226,7 @@
   <skill id="4772" levels="12" name="Stun">
     <table name="#power"> 69 186 514 1346 3472 6792 10508 12398
       14393 16594 18870 21074 </table>
-    <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168
-      170 173 </table>
+    <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168 170 173 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1261,8 +1245,7 @@
   <skill id="4773" levels="12" name="Stun">
     <table name="#power"> 65 174 481 1253 3240 6344 9819 11599
       13476 15516 17661 19733 </table>
-    <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168
-      170 173 </table>
+    <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168 170 173 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1281,8 +1264,7 @@
   <skill id="4774" levels="12" name="BOSS Spear Attack">
     <table name="#power"> 352 949 2607 6828 17184 33213 51007
       59177 67888 77001 86359 95790 </table>
-    <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168
-      170 173 </table>
+    <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168 170 173 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1291,12 +1273,11 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4775" levels="12" name="BOSS Spear Attack">
     <table name="#power"> 352 949 2607 6828 17184 33213 51007
       59177 67888 77001 86359 95790 </table>
-    <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168
-      170 173 </table>
+    <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168 170 173 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1305,12 +1286,11 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4776" levels="12" name="BOSS Spear Attack">
     <table name="#power"> 352 949 2607 6828 17184 33213 51007
       59177 67888 77001 86359 95790 </table>
-    <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168
-      170 173 </table>
+    <table name="#mpConsume"> 32 45 63 83 106 129 150 158 164 168 170 173 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
     <set name="target" val="TARGET_ONE" />
@@ -1319,7 +1299,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4777" levels="12" name="BOSS Spear Attack">
     <table name="#power"> 352 949 2607 6828 17184 33213 51007
       59177 67888 77001 86359 95790 </table>
@@ -1333,7 +1313,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4778" levels="12" name="BOSS Spear Attack">
     <table name="#power"> 352 949 2607 6828 17184 33213 51007
       59177 67888 77001 86359 95790 </table>
@@ -1347,7 +1327,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
-   </skill>
+  </skill>
   <skill id="4779" levels="12" name="BOSS Heal">
     <table name="#power"> 1640 2824 4501 6612 9334 11649 12865
       13406 13624 13544 13303 13157 </table>
@@ -1362,7 +1342,7 @@
     <set name="castRange" val="700" />
     <set name="effectRange" val="1200" />
     <set name="aggroPoints" val="100" />
-   </skill>
+  </skill>
   <skill id="4780" levels="12" name="BOSS Heal">
     <table name="#power"> 1382 2381 3802 5590 7881 9832 10862
       11314 11553 11661 11640 11578 </table>
@@ -1377,7 +1357,7 @@
     <set name="castRange" val="700" />
     <set name="effectRange" val="1200" />
     <set name="aggroPoints" val="100" />
-   </skill>
+  </skill>
   <skill id="4781" levels="12" name="BOSS Heal">
     <table name="#power"> 736 1267 2024 2983 4204 5247 5787
       6022 6144 6203 6199 6158 </table>
@@ -1392,7 +1372,7 @@
     <set name="castRange" val="700" />
     <set name="effectRange" val="1200" />
     <set name="aggroPoints" val="100" />
-   </skill>
+  </skill>
   <skill id="4782" levels="12" name="BOSS Heal">
     <table name="#power"> 691 1191 1899 2799 3941 4922 5431
       5657 5777 5838 5813 5789 </table>
@@ -1407,7 +1387,7 @@
     <set name="castRange" val="700" />
     <set name="effectRange" val="1200" />
     <set name="aggroPoints" val="100" />
-   </skill>
+  </skill>
   <skill id="4783" levels="12" name="BOSS Heal">
     <table name="#power"> 647 1115 1778 2607 3677 4597 5075
       5293 5409 5458 5441 5421 </table>
@@ -1422,7 +1402,7 @@
     <set name="castRange" val="700" />
     <set name="effectRange" val="1200" />
     <set name="aggroPoints" val="100" />
-   </skill>
+  </skill>
   <skill id="4784" levels="12" name="BOSS Chant of Life">
     <table name="#hot"> 118 202 322 473 667 833 919 958 974
       968 951 940 </table>
@@ -1464,10 +1444,8 @@
     </for>
   </skill>
   <skill id="4786" levels="12" name="BOSS Chant of Life">
-    <table name="#hot"> 53 91 145 214 301 375 414 431 439 444
-      443 440 </table>
-    <table name="#mpConsume"> 43 69 99 134 173 207 239 250 258 262
-      262 263 </table>
+    <table name="#hot"> 53 91 145 214 301 375 414 431 439 444 443 440 </table>
+    <table name="#mpConsume"> 43 69 99 134 173 207 239 250 258 262 262 263 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_SELF" />
@@ -1504,10 +1482,8 @@
     </for>
   </skill>
   <skill id="4788" levels="12" name="BOSS Chant of Life">
-    <table name="#hot"> 47 80 127 187 263 329 363 379 387 390
-      389 388 </table>
-    <table name="#mpConsume"> 43 69 99 134 173 207 239 250 258 262
-      262 263 </table>
+    <table name="#hot"> 47 80 127 187 263 329 363 379 387 390 389 388 </table>
+    <table name="#mpConsume"> 43 69 99 134 173 207 239 250 258 262 262 263 </table>
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_SELF" />
@@ -1551,7 +1527,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4791" levels="1" name="Raid Boss - Level 30">
   <!--
     The commander of the Katu Mercenaries. Prone to violent
@@ -1565,7 +1541,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4792" levels="1" name="Raid Boss - Level 42">
   <!--
     A wicked Spider that once lived in the Wastelands while
@@ -1581,7 +1557,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4793" levels="1" name="Raid Boss - Level 55">
   <!--
     A Treant who used to live south of Gludio, he loved
@@ -1597,7 +1573,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4794" levels="1" name="Raid Boss - Level 50">
   <!--
     One of the leaders of the peasants who resisted the
@@ -1614,7 +1590,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4795" levels="1" name="Raid Boss - Level 60">
   <!--
     A mechanical golem owned by the Lord of Innadril Castle.
@@ -1631,7 +1607,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4796" levels="1" name="Raid Boss - Level 25">
   <!--
     A Pan who was once a long-time friend of the Elves, and
@@ -1647,7 +1623,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4797" levels="1" name="Raid Boss - Level 34">
   <!--
     An Orc Dark Mage with superior talent. He was once known
@@ -1663,7 +1639,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4798" levels="1" name="Raid Boss - Level 34">
   <!--
     She is the Ruthless Queen of Marsh Stakatos, deep in the
@@ -1679,7 +1655,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="4799" levels="1" name="Raid Boss - Level 49">
   <!--
     He is the Commander of the advance forces of the
@@ -1695,5 +1671,5 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
 </list>

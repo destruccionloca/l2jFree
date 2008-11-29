@@ -168,8 +168,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <cond
-      msg="This skill is only available when your HP is at 30 percent or lower.">
+    <cond msg="This skill is only available when your HP is at 30 percent or lower.">
       <player hp="30" />
     </cond>
     <for>
@@ -445,7 +444,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="418" levels="3" name="Quiver of Holding">
     <table name="#rate">1.3 1.4 1.5</table>
     <set name="target" val="TARGET_SELF" />
@@ -478,8 +477,7 @@
     <table name="#pAtkSpd">1.1 1.2 1.3</table>
     <table name="#rCrit">33 66 100</table>
     <table name="#cAtk">1.38 1.54 1.91</table>
-    <!-- Confirmed trough private sources - CT1
-    -->
+    <!-- Confirmed trough private sources - CT1 -->
     <set name="hpConsume" val="#hpConsume" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="condition" val="32" />
@@ -490,8 +488,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <cond
-      msg="This skill is only available when your HP is at 30 percent or lower.">
+    <cond msg="This skill is only available when your HP is at 30 percent or lower.">
       <player hp="30" />
     </cond>
     <for>
@@ -552,14 +549,13 @@
   </skill>
   <skill id="423" levels="3" name="Infernal Form">
     <table name="#mpConsume">27 31 34</table>
-    <table name="#vuln">0.85 0.77 0.69</table>
+    <table name="#vuln">0.85 0.77 0.7</table>
     <!-- Updated for Hellbound -->
     <!-- Initial -15% vuln, then -8% per level -->
     <table name="#stack">15 23 30</table>
     <table name="#pAtk">1.03 1.05 1.09</table>
     <!--
-      This was missing, and IT's present on character
-      effects
+      This was missing, and IT's present on character effects
     -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="target" val="TARGET_SELF" />
@@ -630,7 +626,7 @@
     <set name="effectRange" val="1400" />
     <set name="reuseDelay" val="30000" />
     <set name="isMagic" val="true" />
-   </skill>
+  </skill>
   <skill id="427" levels="1" name="Spell Force">
     <set name="mpInitialConsume" val="12" />
     <set name="magicLvl" val="77" />
@@ -643,7 +639,7 @@
     <set name="effectRange" val="1400" />
     <set name="reuseDelay" val="30000" />
     <set name="isMagic" val="true" />
-   </skill>
+  </skill>
   <skill id="428" levels="1" name="Inner Rhythm">
     <!--
       By Darki699 Description(s): MP consumption for singing
@@ -690,12 +686,10 @@
     <set name="effectRange" val="-1" />
     <for>
       <add order="0x40" stat="pAtk" val="80">
-        <using
-          kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist" />
+        <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist" />
       </add>
       <mul order="0x30" stat="maxCp" val="1.05">
-        <using
-          kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist" />
+        <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist" />
       </mul>
     </for>
   </skill>
@@ -873,26 +867,25 @@
     <set name="buffDuration" val="20000" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="441" levels="1" name="Force Meditation">
     <!-- Done by Ritsu -->
     <!-- Needs to be verified -->
     <table name="#pDef">0.20</table>
     <table name="#hhot">100</table><!-- Guessing -->
     <table name="#mhot">20</table><!-- Guessing -->
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="skillType" val="BUFF" />
-    <set name="target" val="TARGET_SELF" />
-    <set name="hitTime" val="2000" />
-    <set name="reuseDelay" val="1200000" />
     <set name="buffDuration" val="120000" />
+    <set name="negateId" val="441"/>
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="cancelEffect" val="441" />
+    <set name="hitTime" val="2000" />
     <set name="needCharges" val="3" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="reuseDelay" val="1200000" />
+    <set name="skillType" val="BUFF" />
+    <set name="target" val="TARGET_SELF" />
     <for>
-      <effect count="1" name="ImmobileUntilAttacked"
-        time="120" val="0">
+      <effect count="1" name="ImmobileUntilAttacked" time="120" val="0">
         <mul order="0x30" stat="pDef" val="#pDef" />
       </effect>
       <effect count="40" name="HealOverTime" time="3"
@@ -945,7 +938,7 @@
     <set name="castRange" val="-1" />
     <set name="reuseDelay" val="23000" />
     <set name="hitTime" val="5000" />
-   </skill>
+  </skill>
   <skill id="445" levels="1" name="Mirage">
     <!-- Needs to be verified -->
     <set name="castRange" val="-1" />
@@ -960,8 +953,7 @@
     <set name="triggeredId" val="5144" />
     <set name="triggeredLevel" val="1" />
     <for>
-      <effect count="1" name="BestowSkill" time="60"
-        val="0" />
+      <effect count="1" name="BestowSkill" time="60" val="0" />
     </for>
   </skill>
   <skill id="446" levels="1" name="Dodge">
@@ -983,8 +975,7 @@
   <skill id="447" levels="1" name="Counterattack">
     <!--
       Description(s): Temporarily allows you to reflect
-      damage caused by a melee attack skill back to the
-      enemy.
+      damage caused by a melee attack skill back to the enemy.
     -->
     <set name="mpConsume" val="29" />
     <set name="target" val="TARGET_SELF" />
@@ -1029,7 +1020,7 @@
     <set name="npcId" val="14839" />
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="false" />
-   </skill>
+  </skill>
   <skill id="449" levels="4" name="Summon Attractive Cubic">
     <!--
       Needs to be finished. L2CubicInstance.java has to be
@@ -1072,7 +1063,7 @@
     <!-- guessed -->
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-   </skill>
+  </skill>
   <skill id="450" levels="10" name="Banish Seraph" enchantLevels1="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
@@ -1097,8 +1088,7 @@
     <set name="castRange" val="150" />
     <set name="effectRange" val="650" />
     <enchant1 name="mpConsume" val="#ench1MpConsume" />
-    <cond
-      msg="Banish Seraph cannot be used due to unsuitable terms.">
+    <cond msg="Banish Seraph cannot be used due to unsuitable terms.">
       <target race_id="8" />
     </cond>
     <for>
@@ -1152,16 +1142,13 @@
     <set name="mpConsume" val="60" />
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="1000" />
-    <set name="reuseDelay" val="120000" />
-    <!--
-      guessed
-    -->
+    <set name="reuseDelay" val="120000" /> <!-- guessed -->
     <set name="skillType" val="NEGATE" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="negateStats" val="ROOT" />
-    <set name="negatePower" val="8.0" />
+    <set name="negatePower" val="8" /> <!-- guessed -->
   </skill>
   <skill id="454" levels="1" name="Symbol of Defense">
     <set name="target" val="TARGET_SELF" />
@@ -1212,8 +1199,7 @@
       <player battle_force="2" />
     </cond>
     <for>
-      <effect count="6" name="SignetNoise" time="5"
-        val="0" />
+      <effect count="6" name="SignetNoise" time="5" val="0" />
     </for>
   </skill>
   <skill id="456" levels="1" name="Symbol of Resistance">
@@ -1365,13 +1351,12 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <cond
-      msg="An equipped hand-to-hand combat weapon is required to use this skill.">
+    <cond msg="An equipped hand-to-hand combat weapon is required to use this skill.">
       <using kind="Fist,Dual Fist" />
     </cond>
     <!-- charge values -->
     <set name="needCharges" val="#numcharge" />
-   </skill>
+  </skill>
   <skill id="462" levels="1" name="Guilted Body">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -1470,7 +1455,7 @@
     <set name="num_souls" val="#Max-Souls" />
     <set name="expNeeded" val="#Exp" />
     <set name="critChance" val="#Critic-Chance" />
-   </skill>
+  </skill>
   <skill id="468" levels="9" name="Fallen Attack">
     <!--
       Description(s): Deal a powerful strike to the enemy.
@@ -1499,8 +1484,7 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <!-- Added missing weapon condition -->
-    <cond
-      msg="A sword or blunt weapon has to be equipped to use this skill">
+    <cond msg="A sword or blunt weapon has to be equipped to use this skill">
       <using kind="Sword,Blunt,Rapier" />
     </cond>
   </skill>
@@ -1541,7 +1525,7 @@
     <set name="skillRadius" val="400" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="471" levels="7" name="Defuse Trap">
     <!-- By Darki699 -->
     <!-- Needs retail value corrections -->
@@ -1556,7 +1540,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="400" />
     <set name="effectRange" val="900" />
-   </skill>
+  </skill>
   <skill id="472" levels="45" name="Ancient Sword Mastery">
     <table name="#pAtk"> 4.5 7.3 8.9 10.7 12.8 15.1 17.7 20.5
       23.7 25.4 27.1 29.0 30.9 32.9 35.0 37.1 39.4 41.7 44.1
@@ -1619,8 +1603,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="0x7fffffff" name="ManaDamOverTime"
-        time="3" val="18">
+      <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="18">
         <add order="0x40" stat="reflectSkillPhysic" val="40" />
       </effect>
     </for>
@@ -1647,20 +1630,17 @@
     <set name="effectRange" val="400" />
     <set name="soulMaxConsumeCount" val="5" />
     <set name="SSBoost" val="2.0" />
-    <cond
-      msg="A sword, blunt, or ancient sword weapon has to be equipped to use this skill">
+    <cond msg="A sword, blunt, or ancient sword weapon has to be equipped to use this skill">
       <using kind="Sword,Blunt,Ancient" />
     </cond>
   </skill>
-  <skill id="477" levels="37" name="Dark Smash"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="477" levels="37" name="Dark Smash" enchantLevels1="30" enchantLevels2="30">
     <!-- Done by theREALizzy - Need retail accuracy check. -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 3875 3902 3928 3955 3981 4007 4034
       4060 4086 4113 4139 4166 4192 4218 4245 4271 4298 4324
-      4350 4377 4403 4429 4456 4482 4509 4535 4561 4588 4614
-      4640 </table>
+      4350 4377 4403 4429 4456 4482 4509 4535 4561 4588 4614 4640 </table>
     <table name="#ench2MpConsume"> 60 59 58 58 57 56 55 55 54 53 52 52
       51 50 49 49 48 47 46 46 45 44 43 43 42 41 41 40 39 38 </table>
     <table name="#power"> 738 784 833 884 937 992 1049 1109
@@ -1688,8 +1668,7 @@
     <set name="effectRange" val="400" />
     <set name="soulMaxConsumeCount" val="5" />
     <set name="SSBoost" val="2.0" />
-    <cond
-      msg="An ancient sword weapon has to be equipped to use this skill">
+    <cond msg="An ancient sword weapon has to be equipped to use this skill">
       <using kind="Ancient" />
     </cond>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -1727,8 +1706,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="0x7fffffff" name="ManaDamOverTime"
-        time="3" val="2">
+      <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="2">
         <add order="0x40" stat="runSpd" val="20" />
       </effect>
     </for>
@@ -1744,8 +1722,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="0x7fffffff" name="ManaDamOverTime"
-        time="5" val="0">
+      <effect count="0x7fffffff" name="ManaDamOverTime" time="5" val="0">
         <!--
           require core support <mul order="0x30"
           stat="darkPower" val="1.1"/>
@@ -1765,8 +1742,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="0x7fffffff" name="ManaDamOverTime"
-        time="5" val="0">
+      <effect count="0x7fffffff" name="ManaDamOverTime" time="5" val="0">
         <mul order="0x30" stat="darkVuln" val="#darkVuln" />
       </effect>
     </for>
@@ -1792,9 +1768,12 @@
       </effect>
     </for>
   </skill>
-  <skill id="483" levels="1" name="Sword Shield">
-    <!-- Updating since has only 1 level -->
-    <set name="mpConsume" val="16" />
+  <skill id="483" levels="2" name="Sword Shield">
+    <!-- Sorry, but client says 2 Lvls -->
+    <table name="#runSpd"> 0.7 0.7 </table>
+    <table name="#pDef"> 1600 3200 </table>
+    <table name="#mpConsume"> 16 24 </table>
+    <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -1803,10 +1782,10 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Buff" time="30" val="0"
+      <effect count="1" name="Buff" time="30" val="0" 
         stackOrder="1" stackType="pd_up_special">
-        <add order="0x40" stat="pDef" val="1600" />
-        <mul order="0x30" stat="runSpd" val="0.7" />
+        <add order="0x40" stat="pDef" val="#pDef" />
+        <mul order="0x30" stat="runSpd" val="#runSpd" />
       </effect>
     </for>
   </skill>
@@ -1901,21 +1880,19 @@
     <set name="hitTime" val="3200" />
     <set name="reuseDelay" val="15000" />
     <set name="coolTime" val="720" />
+    <set name="skillRadius" val="205" />
     <set name="skillType" val="SHIFT_TARGET" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="skillRadius" val="205" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
     <set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
   </skill>
-  <skill id="490" levels="2" name="Fast Shot"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="490" levels="2" name="Fast Shot" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480
       1520 1560 1600 1640 1680 1720 1760 1800 1840 1880 1920
-      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360
-      2400 </table>
+      1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 24 24 23 23 22 22 21 21 21 20 20 19
       19 18 18 18 17 17 16 16 15 15 15 14 14 13 13 12 12 12 </table>
     <table name="#ench2MpConsume_Init"> 5 5 5 5 5 5 5 5 5 5 4 4 4 4 4 4 4 4 4
@@ -1946,8 +1923,7 @@
       </effect>
     </for>
     <enchant1for>
-      <effect count="1" name="Buff" time="#ench1time"
-        val="0">
+      <effect count="1" name="Buff" time="#ench1time" val="0">
         <mul order="0x30" stat="pAtkSpd" val="1.12">
           <using kind="crossbow" />
         </mul>
@@ -1964,9 +1940,8 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
-  <skill id="492" levels="25" name="Spread Wing"
-    enchantLevels1="30" enchantLevels2="30">
+  </skill>
+  <skill id="492" levels="25" name="Spread Wing" enchantLevels1="30" enchantLevels2="30">
     <!--
       Description(s): Use your wing to attack hostile
       enemies behind you. Over-hit is possible. Power 722
@@ -1975,8 +1950,7 @@
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 2325 2341 2357 2373 2389 2405 2420
       2436 2452 2468 2484 2500 2515 2531 2547 2563 2579 2595
-      2610 2626 2642 2658 2674 2690 2705 2721 2737 2753 2769
-      2784 </table>
+      2610 2626 2642 2658 2674 2690 2705 2721 2737 2753 2769 2784 </table>
     <table name="#ench2MpConsume"> 74 73 72 72 71 70 69 69 68 67 66 66
       65 64 64 63 62 61 61 60 59 58 58 57 56 55 55 54 53 53 </table>
     <table name="#mpConsume"> 50 50 51 52 53 55 56 57 58 60 61 61
@@ -1999,7 +1973,7 @@
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
-   </skill>
+  </skill>
   <skill id="493" levels="28" name="Storm Assault" enchantLevels1="30" enchantLevels2="30">
     <!--
       Description(s): Charges like a storm to attack nearby
@@ -2163,8 +2137,7 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
   </skill>
-  <skill id="497" levels="16" name="Crushing Pain"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="497" levels="16" name="Crushing Pain" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 8100 8155 8210 8266 8321 8376 8431
@@ -2197,8 +2170,7 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
   </skill>
-  <skill id="498" levels="12" name="Contagion"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="498" levels="12" name="Contagion" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 8100 8155 8210 8266 8321 8376 8431

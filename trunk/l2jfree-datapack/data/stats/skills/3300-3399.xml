@@ -18,77 +18,77 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3302" levels="1" name="Yellow Talisman of Arcane Haste">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3303" levels="1" name="White Talisman of Bandages">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3304" levels="1" name="White Talisman of Attention">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3305" levels="1" name="White Talisman of Grounding">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3306" levels="1" name="White Talisman of Bravery">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3307" levels="1" name="White Talisman of Motion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3308" levels="1" name="White Talisman of Freedom">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3309" levels="1" name="White Talisman of Protection">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3310" levels="1" name="Yellow Talisman of Physical Regeneration">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3311" levels="1" name="Yellow Talisman of CP Regeneration">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3312" levels="1" name="Yellow Talisman of Healing">
     <set name="power" val="0.0"/>
     <set name="target" val="TARGET_SELF"/>
@@ -106,35 +106,35 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3314" levels="1" name="Gray Talisman of Weight Training">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3315" levels="1" name="Gray Talisman of Weight Fishing">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3316" levels="1" name="Yellow Talisman of Critical Dodging">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3317" levels="1" name="Yellow Talisman of Critical Reduction">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3318" levels="1" name="Flag Display">
     <set name="target" val="TARGET_FLAGPOLE" />
     <set name="hitTime" val="180000" />
@@ -148,112 +148,112 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3320" levels="1" name="Yellow Talisman of Mental Regeneration">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3321" levels="1" name="Blue Talisman of Evasion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3322" levels="1" name="Brass Bracelet">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3323" levels="1" name="Bronze Bracelet">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3324" levels="1" name="Steel Bracelet">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3325" levels="1" name="Mithril Bracelet">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3326" levels="1" name="Jewerly Bracelet">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3327" levels="1" name="Oriharukon Bracelet">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3328" levels="1" name="Double Stab">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3329" levels="1" name="Power Slash">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3330" levels="1" name="Air Blade">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3331" levels="1" name="Enslave">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3332" levels="1" name="Orange Talisman - Hot Springs Recovery">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3333" levels="1" name="Orange Talisman - A Grade Elixir of Life">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3334" levels="1" name="Orange Talisman - A Grade Elixir of Mental Strength">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3335" levels="1" name="Transform Yeti">
     <!-- Done by Skatershi Description: Transforms into Yeti. -->
     <set name="target" val="TARGET_SELF" />
@@ -312,70 +312,70 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3339" levels="1" name="Bard">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3340" levels="1" name="Weapon Master">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3341" levels="1" name="Force Master">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3342" levels="1" name="Bow Master">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3343" levels="1" name="Dagger Master">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3344" levels="1" name="Wizard">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3345" levels="1" name="Summoner">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3346" levels="1" name="Healer">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3347" levels="1" name="Enchanter">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3348" levels="1" name="Dynasty Breast Plate - Shield Master">
     <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF" />
@@ -586,7 +586,7 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3361" levels="1" name="Summon Agathion - Fortress">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="AGATHION" />
@@ -596,271 +596,271 @@
     <set name="npcId" val="16029" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3362" levels="1" name="Traits Strengthen Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3363" levels="1" name="Traits Strengthen Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3364" levels="1" name="Traits Strengthen Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3365" levels="1" name="Dynasty Strengthen Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3366" levels="1" name="Dynasty Strengthen Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3367" levels="1" name="Dynasty Strengthen Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3368" levels="1" name="Traits Strengthen Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3369" levels="1" name="Traits Strengthen Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3370" levels="1" name="Traits Strengthen Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3371" levels="1" name="Dynasty Resistance Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3372" levels="1" name="Dynasty Resistance Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3373" levels="1" name="Dynasty Resistance Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3374" levels="1" name="Traits Strengthen Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3375" levels="1" name="Traits Strengthen Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3376" levels="1" name="Traits Strengthen Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3377" levels="1" name="Dynasty Resistance Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3378" levels="1" name="Dynasty Resistance Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3379" levels="1" name="Dynasty Resistance Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3380" levels="1" name="Traits Strengthen Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3381" levels="1" name="Traits Strengthen Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3382" levels="1" name="Traits Strengthen Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3383" levels="1" name="Dynasty Resistance Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3384" levels="1" name="Dynasty Resistance Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3385" levels="1" name="Dynasty Resistance Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3386" levels="1" name="Traits Strengthen Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3387" levels="1" name="Traits Strengthen Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3388" levels="1" name="Traits Strengthen Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3389" levels="1" name="Dynasty Resistance Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3390" levels="1" name="Dynasty Resistance Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3391" levels="1" name="Dynasty Resistance Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3392" levels="1" name="Traits Strengthen Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3393" levels="1" name="Traits Strengthen Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3394" levels="1" name="Traits Strengthen Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3395" levels="1" name="Dynasty Resistance Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3396" levels="1" name="Dynasty Resistance Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3397" levels="1" name="Dynasty Resistance Earring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3398" levels="1" name="Traits Strengthen Necklace">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="3399" levels="1" name="Traits Strengthen Ring">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
 </list>

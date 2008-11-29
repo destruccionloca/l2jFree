@@ -65,7 +65,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="num_souls" val="#charges" />
-   </skill>
+  </skill>
   <skill id="503" levels="3" name="Scorn">
     <table name="#mpConsume">21 28 33</table>
     <table name="#skillRadius">80 160 240</table>
@@ -80,15 +80,13 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <set name="reuseDelay" val="10000" />
-   </skill>
-  <skill id="504" levels="37" name="Triple Thrust"
-    enchantLevels1="30" enchantLevels2="30">
+  </skill>
+  <skill id="504" levels="37" name="Triple Thrust" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 3255 3278 3300 3322 3344 3366 3388
       3411 3433 3455 3477 3499 3521 3544 3566 3588 3610 3632
-      3654 3676 3699 3721 3743 3765 3787 3809 3832 3854 3876
-      3898 </table>
+      3654 3676 3699 3721 3743 3765 3787 3809 3832 3854 3876 3898 </table>
     <table name="#ench2MpConsume"> 59 58 57 56 55 54 53 52 51 50 49 48
       47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 </table>
     <table name="#mpConsume"> 29 30 31 31 32 33 34 32 36 37 38 39
@@ -121,14 +119,12 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
   </skill>
-  <skill id="505" levels="28" name="Shining Edge"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="505" levels="28" name="Shining Edge" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 5813 5852 5892 5932 5971 6011 6050
       6090 6129 6169 6209 6248 6288 6327 6367 6406 6446 6486
-      6525 6565 6604 6644 6683 6723 6763 6802 6842 6881 6921
-      6960 </table>
+      6525 6565 6604 6644 6683 6723 6763 6802 6842 6881 6921 6960 </table>
     <table name="#ench2MpConsume"> 59 58 57 56 55 54 53 52 51 50 49 48
       47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 </table>
     <table name="#mpConsume"> 37 38 39 40 40 41 42 43 44 45 46 47
@@ -158,8 +154,7 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
   </skill>
-  <skill id="506" levels="4" name="Checkmate"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="506" levels="4" name="Checkmate" enchantLevels1="30" enchantLevels2="30">
     <!-- by Sephiroth for team umbrella -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
@@ -183,8 +178,7 @@
     <set name="effectRange" val="200" />
     <set name="soulMaxConsumeCount" val="5" />
     <set name="baseCritRate" val="15" />
-    <cond
-      msg="Checkmate cannot be used due to unsuitable terms.">
+    <cond msg="Checkmate cannot be used due to unsuitable terms.">
       <target active_effect_id="1435" />
     </cond>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -192,8 +186,7 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
   </skill>
-  <skill id="507" levels="37" name="Twin Shot"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="507" levels="37" name="Twin Shot" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 5167 5202 5237 5273 5308 5343 5378
@@ -232,14 +225,12 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
   </skill>
-  <skill id="508" levels="31" name="Rising Shot"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="508" levels="31" name="Rising Shot" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 1292 1301 1310 1319 1327 1336 1345
       1354 1362 1371 1380 1389 1398 1406 1415 1424 1433 1442
-      1450 1459 1468 147 1486 1494 1503 1512 1521 1530 1538
-      1547 </table>
+      1450 1459 1468 147 1486 1494 1503 1512 1521 1530 1538 1547 </table>
     <table name="#ench2MpConsume"> 199 196 193 190 187 184 181 178 175
       172 169 166 163 160 157 154 151 148 145 142 139 136
       133 130 127 124 121 118 115 113 </table>
@@ -250,8 +241,7 @@
       557 584 611 639 668 697 727 758 789 820 852 885 917
       950 984 1017 1051 1084 1118 1151 1185 1218 </table>
     <table name="#magicLvl"> 46 47 48 49 50 51 52 53 54 55 56 57
-      58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75
-      76 </table>
+      58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 </table>
     <set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -272,23 +262,14 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
   </skill>
-  <skill id="509" levels="34" name="Bleeding Shot"
-    enchantLevels1="30" enchantLevels2="30">
-    <!--
-      Description(s): Shoots a sharp bolt that causes the
-      enemy to bleed. Consumes 2 Souls. An equipped crossbow
-      is required to use this skill. Over-hit is possible.
-      Power 530-2192.
-    -->
+  <skill id="509" levels="34" name="Bleeding Shot" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 2325 2341 2357 2373 2389 2405 2420
       2436 2452 2468 2484 2500 2515 2531 2547 2563 2579 2595
-      2610 2626 2642 2658 2674 2690 2705 2721 2737 2753 2769
-      2784 </table>
+      2610 2626 2642 2658 2674 2690 2705 2721 2737 2753 2769 2784 </table>
     <table name="#ench2MpConsume"> 107 105 103 102 100 98 96 94 92 91 89
-      87 85 83 82 80 78 76 74 72 71 69 67 65 63 62 60 58 56
-      54 </table>
+      87 85 83 82 80 78 76 74 72 71 69 67 65 63 62 60 58 56 54 </table>
     <table name="#power"> 530 562 595 630 666 703 742 782 823
       866 910 955 1002 1050 1100 1150 1202 1255 1309 1364
       1420 1476 1534 1592 1651 1710 1770 1830 1891 1951 2012
@@ -319,6 +300,7 @@
     <set name="effectRange" val="1400" />
     <set name="effectType" val="BLEED" />
     <set name="effectPower" val="40" /> <!-- Base Land Rate --> <!-- Guessing -->
+    <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <enchant1 name="power" val="#ench1Power" />
@@ -328,8 +310,7 @@
         val="74" abnormal="bleeding" />
     </for>
   </skill>
-  <skill id="510" levels="5" name="Deadly Roulette"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="510" levels="5" name="Deadly Roulette" enchantLevels1="30" enchantLevels2="30">
     <!-- by Sephiroth for team umbrella -->
     <table name="#lethal2">10 18 26 34 42 50</table>
     <!-- Guessing -->
@@ -362,24 +343,24 @@
     </cond>
   </skill>
   <skill id="511" levels="1" name="Temptation">
+    <set name="castRange" val="400" />
+    <set name="effectRange" val="900" />
+    <set name="hitTime" val="1500" />
     <set name="magicLvl" val="52" />
     <set name="mpConsume" val="44" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="power" val="500" />
     <set name="reuseDelay" val="10000" />
-    <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="AGGDAMAGE" />
-    <set name="castRange" val="400" />
-    <set name="effectRange" val="900" />
-    <set name="hitTime" val="1500" />
+    <set name="target" val="TARGET_ONE" />
     <set name="soulMaxConsumeCount" val="5" />
-   </skill>
+  </skill>
   <skill id="512" levels="10" name="Create Bio Potion">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="513" levels="1" name="Create Dark Seed">
     <set name="mpConsume" val="58" />
     <set name="target" val="TARGET_SELF" />
@@ -393,7 +374,7 @@
     <set name="create_item_id" val="10112" />
     <set name="create_item_count" val="1" />
     <set name="soulConsumeCount" val="1" />
-   </skill>
+  </skill>
   <skill id="514" levels="9" name="Fire Trap">
     <!-- By Darki699 -->
     <!-- Needs retail value corrections -->
@@ -498,7 +479,7 @@
     <set name="create_item_id" val="9636" />
     <set name="create_item_count" val="700" />
     <set name="random_count" val="4" />
-   </skill>
+  </skill>
   <skill id="520" levels="1" name="Quiver of Bolts: S-Grade">
     <set name="mpConsume" val="366" />
     <set name="target" val="TARGET_SELF" />
@@ -513,7 +494,7 @@
     <set name="create_item_id" val="9637" />
     <set name="create_item_count" val="700" />
     <set name="random_count" val="4" />
-   </skill>
+  </skill>
   <skill id="521" levels="8" name="Sharpshooting">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
@@ -612,7 +593,7 @@
     <set name="effectRange" val="150" />
     <set name="effectId" val="5447" />
     <set name="effectLevel" val="#EffectLvl" />
-   </skill>
+  </skill>
   <skill id="524" levels="1" name="Cure Dark Seed">
     <set name="mpConsume" val="59" />
     <set name="target" val="TARGET_SELF" />
@@ -621,8 +602,8 @@
     <set name="reuseDelay" val="15000" />
     <set name="hitTime" val="1500" />
     <set name="castRange" val="-1" />
-    <set name="cancelEffect" val="5447" />
-   </skill>
+    <set name="negateId" val="5447" />
+  </skill>
   <skill id="525" levels="6" name="Decoy">
     <table name="#npcId"> 13071 13072 13073 13074 13075 13076 </table>
     <set name="mpConsume" val="60" />
@@ -632,12 +613,9 @@
     <set name="reuseDelay" val="60000" /> <!-- Guessing -->
     <set name="skillType" val="DECOY" />
     <set name="operateType" val="OP_ACTIVE" />
-    <!--
-      have to be confirmed
-    -->
     <set name="castRange" val="-1" />
     <set name="npcId" val="#npcId" />
-   </skill>
+  </skill>
   <skill id="526" levels="1" name="Enuma Elish">
     <!-- Needs retail accuracy check -->
     <set name="mpConsume" val="78" />
@@ -653,7 +631,7 @@
     <set name="effectRange" val="400" />
     <set name="reuseDelay" val="1800000" />
     <set name="soulMaxConsumeCount" val="5" />
-   </skill>
+  </skill>
   <skill id="527" levels="1" name="Iron Shield">
     <!-- Needs to be verified -->
     <set name="castRange" val="-1" />
@@ -690,8 +668,7 @@
       </effect>
       <!--
         Needs Core Support: absorbs most of the damage they
-        (Party Members) will receive for the duration of the
-        spell
+        (Party Members) will receive for the duration of the spell
       -->
     </for>
   </skill>
@@ -707,8 +684,7 @@
     <set name="isSong" val="false" />
     <!--
       Despite its name it is a standard party buff and not a
-      Song. It is not affected by other song/dances on the
-      stack.
+      Song. It is not affected by other song/dances on the stack.
     -->
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
@@ -716,10 +692,10 @@
     <set name="aggroPoints" val="523" />
     <for>
       <effect name="Buff" time="120" count="1" val="0">
-        <mul stat="fireVuln" val="0.70" order="0x30" />
-        <mul stat="waterVuln" val="0.70" order="0x30" />
-        <mul stat="earthVuln" val="0.70" order="0x30" />
-        <mul stat="windVuln" val="0.70" order="0x30" />
+        <mul stat="fireVuln" val="0.7" order="0x30" />
+        <mul stat="waterVuln" val="0.7" order="0x30" />
+        <mul stat="earthVuln" val="0.7" order="0x30" />
+        <mul stat="windVuln" val="0.7" order="0x30" />
       </effect>
     </for>
   </skill>
@@ -735,8 +711,7 @@
     <set name="isDance" val="false" />
     <!--
       Despite its name it is a standard party buff and not a
-      Dance. It is not affected by other song/dances on the
-      stack.
+      Dance. It is not affected by other song/dances on the stack.
     -->
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
@@ -750,6 +725,8 @@
     </for>
   </skill>
   <skill id="531" levels="1" name="Critical Wound">
+    <set name="castRange" val="40" />
+    <set name="effectRange" val="400" />
     <set name="magicLvl" val="77" />
     <set name="mpConsume" val="43" />
     <set name="hitTime" val="1200" />
@@ -759,8 +736,6 @@
     <set name="reuseDelay" val="30000" />
     <set name="skillType" val="DEBUFF" />
     <set name="target" val="TARGET_ONE" />
-    <set name="castRange" val="40" />
-    <set name="effectRange" val="400" />
     <set name="weaponsAllowed" val="16"/> <!-- Dagger -->
     <for>
       <effect name="Debuff" count="1" time="30" val="0">
@@ -778,7 +753,7 @@
     <set name="bestowTriggered" val="true"/>
     <set name="triggeredId" val="5426"/>
     <set name="triggeredLevel" val="1"/>
-   </skill>
+  </skill>
   <skill id="533" levels="1" name="Counter Rapid Shot">
     <!-- Needs to be verified -->
     <set name="castRange" val="-1"/>
@@ -789,7 +764,7 @@
     <set name="bestowTriggered" val="true"/>
     <set name="triggeredId" val="5427"/>
     <set name="triggeredLevel" val="1"/>
-   </skill>
+  </skill>
   <skill id="534" levels="1" name="Counter Dash">
     <!-- Needs to be verified -->
     <set name="castRange" val="-1"/>
@@ -800,7 +775,7 @@
     <set name="bestowTriggered" val="true"/>
     <set name="triggeredId" val="5428"/>
     <set name="triggeredLevel" val="1"/>
-   </skill>
+  </skill>
   <skill id="535" levels="1" name="Counter Mind">
     <!-- Needs to be verified -->
     <set name="castRange" val="-1"/>
@@ -811,7 +786,7 @@
     <set name="bestowTriggered" val="true"/>
     <set name="triggeredId" val="5429"/>
     <set name="triggeredLevel" val="1"/>
-   </skill>
+  </skill>
   <skill id="536" levels="1" name="Over the Body">
     <!-- Done by DJ MELERIX -->
     <set name="castRange" val="-1" />
@@ -826,8 +801,7 @@
     <set name="reuseDelay" val="3600000" />
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_SELF" />
-    <cond
-      msg="Available to use when CP is more than 80 percent.">
+    <cond msg="Available to use when CP is more than 80 percent.">
       <player cp="80" />
     </cond>
     <for>
@@ -910,7 +884,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-   </skill>
+  </skill>
   <skill id="540" levels="1" name="Wing Assault">
     <set name="magicLvl" val="78" />
     <set name="mpConsume" val="71" />
@@ -931,8 +905,7 @@
     <set name="effectType" val="DEBUFF" />
     <set name="effectPower" val="80" />
     <for>
-      <effect count="1" name="EnemyCharge" time="1"
-        val="0" />
+      <effect count="1" name="EnemyCharge" time="1" val="0" />
     </for>
   </skill>
   <skill id="541" levels="1" name="Transform Grail Apostle">
@@ -1277,7 +1250,7 @@
     <set name="effectRange" val="400" />
     <set name="effectType" val="BLEED" />
     <set name="effectLevel" val="#effectLevel" />
-   </skill>
+  </skill>
   <skill id="560" levels="4" name="Power Slash">
     <!-- by Sephiroth -->
     <table name="#power">1250 1406 1588 1733</table>
@@ -1293,7 +1266,7 @@
     <set name="castRange" val="40" />
     <set name="skillRadius" val="100" />
     <set name="effectRange" val="100" />
-   </skill>
+  </skill>
   <skill id="561" levels="4" name="Bless of Angel">
     <table name="#mpConsume">61 63 67 70</table>
     <table name="#aggro">223 301 379 454</table>
@@ -1356,7 +1329,7 @@
     <set name="castRange" val="40" />
     <set name="skillRadius" val="100" />
     <set name="effectRange" val="40" />
-   </skill>
+  </skill>
   <skill id="564" levels="4" name="Gravity Control">
     <!-- by Sephiroth -->
     <table name="#mpConsume">68 70 74 78</table>
@@ -1395,8 +1368,7 @@
     <set name="flyType" val="CHARGE" />
     <set name="flyRadius" val="400" />
     <for>
-      <effect count="1" name="EnemyCharge" time="1"
-        val="0" />
+      <effect count="1" name="EnemyCharge" time="1" val="0" />
     </for>
   </skill>
   <skill id="567" levels="4" name="Light of Heal">
@@ -1413,7 +1385,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="568" levels="4" name="Attack Buster">
     <!-- by Sephiroth -->
     <table name="#power">1250 1406 1568 1733</table>
@@ -1428,7 +1400,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="SSBoost" val="2.0" />
     <set name="needCharges" val="2" />
-   </skill>
+  </skill>
   <skill id="569" levels="4" name="Attack Storm">
     <table name="#power">625 703 784 867</table>
     <table name="#mpConsume">68 70 74 78</table>
@@ -1443,7 +1415,7 @@
     <set name="SSBoost" val="2.0" />
     <set name="castRange" val="500" />
     <set name="needCharges" val="3" />
-   </skill>
+  </skill>
   <skill id="570" levels="4" name="Attack Rage">
     <!-- by Sephiroth -->
     <table name="#power">904 1108 1235 1404</table>
@@ -1463,7 +1435,7 @@
     <!-- charge values -->
     <set name="maxCharges" val="#charges" />
     <set name="giveCharges" val="1" />
-   </skill>
+  </skill>
   <skill id="571" levels="4" name="Poison Dust">
     <table name="#dmg">114 114 132 132</table>
     <table name="#mpConsume">23 27 29 33</table>
@@ -1498,7 +1470,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-   </skill>
+  </skill>
   <skill id="573" levels="4" name="Earthquake">
     <table name="#mpConsume">61 63 67 70</table>
     <table name="#power">625 703 784 867</table>
@@ -1536,7 +1508,7 @@
     <set name="triggerSkillId" val="5267" />
     <set name="triggerSkillLvl" val="#triggerlvl" />
     <set name="trapNpcId" val="13037" />
-   </skill>
+  </skill>
   <skill id="575" levels="4" name="Steel Cutter">
     <table name="#mpConsume">61 63 67 70</table>
     <table name="#power">1250 1406 1568 1733</table>
@@ -1551,7 +1523,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-   </skill>
+  </skill>
   <skill id="576" levels="4" name="Paw Strike">
     <!-- by Sephiroth-->
     <table name="#power">1250 1406 1568 1733</table>
@@ -1564,7 +1536,7 @@
     <set name="skillType" val="PDAM" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
-   </skill>
+  </skill>
   <skill id="577" levels="4" name="Fire Breath">
     <!-- by Sephiroth -->
     <table name="#mpConsume">68 70 74 78</table>
@@ -1585,7 +1557,7 @@
     <set name="castRange" val="100" />
     <set name="skillRadius" val="100" />
     <set name="effectRange" val="155" />
-   </skill>
+  </skill>
   <skill id="578" levels="4" name="Blaze Quake">
     <!-- by Sephiroth -->
     <table name="#mpConsume">68 70 74 78</table>
@@ -1636,7 +1608,7 @@
   <skill id="580" levels="4" name="Death Blow">
     <!--
       Cleaning and building a better match with CT1.5 by
-      BoDiE (Addind description to work on)
+      BoDiE (Adding description to work on)
     -->
     <!--
       Description: Inflicts deadly blow. Lethal Strike is
@@ -1646,8 +1618,7 @@
     <table name="#accCombat">13 15 17 19</table>
     <table name="#power">1500 2000 2500 3000</table>
     <!--
-      I think that the aggro points are missed also... Need
-      to check yet
+      I think the aggro points are missing also... Need check
     -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -1735,13 +1706,9 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="SilentMove" abnormal="stealth"
-        time="120" val="0">
+      <effect count="1" name="SilentMove" abnormal="stealth" time="120" val="0">
         <mul order="0x30" stat="runSpd" val="0.82" />
-        <!--
-          runSpd is reduced about 17-18% (maybe 19%) when is
-          used
-        -->
+        <!-- runSpd is reduced about 17-18% (maybe 19%) when is used -->
       </effect>
     </for>
   </skill>
@@ -1758,7 +1725,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-   </skill>
+  </skill>
   <skill id="585" levels="1" name="Fast Moving">
     <set name="mpConsume" val="55" />
     <set name="target" val="TARGET_SELF" />
@@ -1793,7 +1760,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="operateType" val="OP_ACTIVE" />
-   </skill>
+  </skill>
   <skill id="587" levels="2" name="Earth Storm">
     <table name="#mpConsume">54 58</table>
     <table name="#power">1200 1406</table>
@@ -1809,7 +1776,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-   </skill>
+  </skill>
   <skill id="588" levels="2" name="Curse of Darkness">
     <!-- by Sephiroth -->
     <table name="#mpConsume">54 58</table>
@@ -1852,10 +1819,9 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="40" />
     <set name="absorbPart" val="0.8" />
-   </skill>
+  </skill>
   <skill id="590" levels="1" name="Residence Body">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -1868,7 +1834,6 @@
   </skill>
   <skill id="591" levels="1" name="Residence Spirit">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1881,7 +1846,6 @@
   </skill>
   <skill id="592" levels="1" name="Residence Soul">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1894,7 +1858,6 @@
   </skill>
   <skill id="593" levels="1" name="Residence Health">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1907,7 +1870,6 @@
   </skill>
   <skill id="594" levels="1" name="Residence Moral">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1920,7 +1882,6 @@
   </skill>
   <skill id="595" levels="1" name="Residence Clarity">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1933,7 +1894,6 @@
   </skill>
   <skill id="596" levels="1" name="Residence Might">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1946,7 +1906,6 @@
   </skill>
   <skill id="597" levels="1" name="Residence Shield">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1959,7 +1918,6 @@
   </skill>
   <skill id="598" levels="1" name="Residence Empower">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -1972,7 +1930,6 @@
   </skill>
   <skill id="599" levels="1" name="Residence Magic Barrier">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />

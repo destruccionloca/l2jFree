@@ -31,7 +31,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="0.3" />
     <set name="isCubic" val="false" />
-   </skill>
+  </skill>
   <skill id="302" levels="9" name="Spoil Festival" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
@@ -146,8 +146,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="305" levels="1" name="Song of Vengeance"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="305" levels="1" name="Song of Vengeance" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -183,8 +182,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="306" levels="1" name="Song of Flame Guard"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="306" levels="1" name="Song of Flame Guard" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -222,8 +220,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="307" levels="1" name="Dance of Aqua Guard"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="307" levels="1" name="Dance of Aqua Guard" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -262,8 +259,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="308" levels="1" name="Song of Storm Guard"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="308" levels="1" name="Song of Storm Guard" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -301,8 +297,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="309" levels="1" name="Dance of Earth Guard"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="309" levels="1" name="Dance of Earth Guard" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -341,8 +336,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="310" levels="1" name="Dance of the Vampire"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="310" levels="1" name="Dance of the Vampire" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -379,8 +373,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="311" levels="1" name="Dance of Protection"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="311" levels="1" name="Dance of Protection" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -528,8 +521,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="314" levels="16" name="Fatal Counter"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="314" levels="16" name="Fatal Counter" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -542,8 +534,7 @@
       3800 3933 4067 4201 4336 4470 4604 4738 4870 </table>
     <table name="#ench1Power"> 4915 4959 5003 5047 5090 5134 5178
       5222 5266 5310 5354 5398 5442 5486 5529 5573 5617 5661
-      5705 5749 5793 5837 5881 5925 5968 6012 6056 6100 6144
-      6188 </table>
+      5705 5749 5793 5837 5881 5925 5968 6012 6056 6100 6144 6188 </table>
     <table name="#ench2mpConsume"> 149 147 146 144 142 141 139 138 136
       135 133 132 130 129 127 126 124 123 121 120 118 117
       115 113 112 110 109 107 106 104 </table>
@@ -563,8 +554,7 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2mpConsume" />
   </skill>
-  <skill id="315" levels="16" name="Crush of Doom"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="315" levels="16" name="Crush of Doom" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -580,8 +570,7 @@
       184 181 178 174 171 167 164 161 </table>
     <table name="#ench1Power"> 7710 7779 7848 7917 7986 8055 8123
       8192 8261 8330 8399 8468 8537 8605 8674 8743 8812 8881
-      8950 9019 9088 9156 9225 9294 9363 9432 9501 9570 9639
-      9707 </table>
+      8950 9019 9088 9156 9225 9294 9363 9432 9501 9570 9639 9707 </table>
     <set name="weaponsAllowed" val="18432" /> <!-- Big Sword/Big Blunt -->
     <set name="hpConsume" val="#hpConsume" />
     <set name="magicLvl" val="#magicLvl" />
@@ -673,8 +662,7 @@
       </effect>
     </for>
     <enchant1for>
-      <effect count="0x7fffffff" name="ManaDamOverTime"
-        time="9999" val="0">
+      <effect count="0x7fffffff" name="ManaDamOverTime" time="9999" val="0">
         <mul order="0x30" stat="sDef" val="#ench1sDef" />
         <set order="0x30" stat="shldAngle" val="180" />
       </effect>
@@ -707,8 +695,7 @@
       </add>
     </for>
   </skill>
-  <skill id="320" levels="10" name="Wrath"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="320" levels="10" name="Wrath" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -726,8 +713,7 @@
       0.75 0.73 0.7 </table>
     <table name="#ench1Power"> 0.70 0.69 0.68 0.67 0.66 0.65 0.64
       0.63 0.62 0.61 0.61 0.60 0.59 0.58 0.57 0.56 0.55 0.54
-      0.53 0.52 0.52 0.51 0.50 0.49 0.48 0.47 0.46 0.45 0.44
-      0.43 </table>
+      0.53 0.52 0.52 0.51 0.50 0.49 0.48 0.47 0.46 0.45 0.44 0.43 </table>
     <set name="weaponsAllowed" val="64" /> <!-- Pole -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
@@ -772,8 +758,7 @@
       <effect count="1" name="Bluff" time="1" val="0" noicon="1" />
     </for>
   </skill>
-  <skill id="322" levels="6" name="Shield Fortress"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="322" levels="6" name="Shield Fortress" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -824,7 +809,7 @@
     <set name="create_item_id" val="1344" />
     <set name="create_item_count" val="700" />
     <set name="random_count" val="4" />
-   </skill>
+  </skill>
   <skill id="324" levels="1" name="Quiver of Arrow: Grade S">
     <set name="mpConsume" val="398" />
     <set name="target" val="TARGET_SELF" />
@@ -838,7 +823,7 @@
     <set name="create_item_id" val="1345" />
     <set name="create_item_count" val="900" />
     <set name="random_count" val="4" />
-   </skill>
+  </skill>
   <skill id="325" levels="1" name="Strider Siege Assault">
     <!-- SHOULD WORK ONLY DURING SIEGE -->
     <table name="#itemConsumeCount">5</table>
@@ -855,7 +840,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="500" />
-   </skill>
+  </skill>
   <skill id="326" levels="1" name="Build Advanced Headquarters">
     <set name="mpInitialConsume" val="30" />
     <set name="mpConsume" val="0" />
@@ -870,7 +855,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="isAdvanced" val="true" />
-   </skill>
+  </skill>
   <skill id="327" levels="1" name="Wyvern Aegis">
     <set name="mpConsume" val="69" />
     <set name="itemConsumeId" val="3031" />
@@ -883,7 +868,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="aggroPoints" val="662" />
-    <cond msg="You can only use Wyvern Aegis when flying">
+    <cond msg="Usable only while mounted on a Wyvern.">
       <player flying="true" />
     </cond>
     <for>
@@ -931,7 +916,7 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="331" levels="1" name="Skill Mastery">
     <!--
       Masters excellence in skills. Low possibility of being
@@ -942,21 +927,21 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="332" levels="1" name="Extra Inventory">
     <!-- Increases size of inventory. -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="333" levels="1" name="Extra Sell Inventory">
     <!-- Increases private store sales slots. -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="334" levels="1" name="Focus Skill Mastery">
     <!--
       Skill for dagger and archer Need to be
@@ -1093,9 +1078,7 @@
     <set name="magicLvl" val="78" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="buffDuration" val="120000" />
-    <!--
-      To Show The Countdown
-    -->
+    <!-- To Show The Countdown -->
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
     <set name="reuseDelay" val="1200000" />
@@ -1118,7 +1101,7 @@
     <set name="isDebuff" val="true" />
     <set name="lvlDepend" val="1" />
     <set name="magicLvl" val="78" />
-    <set name="negatePower" val="2.5" />
+    <set name="negatePower" val="25" />
     <set name="negateStats" val="BUFF HEAL_PERCENT" />
     <set name="maxNegated" val="5" />
     <set name="operateType" val="OP_ACTIVE" />
@@ -1504,13 +1487,11 @@
     -->
     <!-- Done by BoDiE -->
     <set name="weaponsAllowed" val="16"/> <!-- Dagger -->
+    <set name="magicLvl" val="77" />
     <set name="mpConsume" val="35" />
     <set name="power" val="40" />
     <set name="target" val="TARGET_ONE" />
-    <set name="magicLvl" val="77" />
-    <set name="hitTime" val="1000" />
     <set name="condition" val="16" />
-    <set name="reuseDelay" val="80000" />
     <set name="skillType" val="AGGREDUCE_CHAR" />
     <set name="effectType" val="STUN" />
     <set name="effectPower" val="40" />
@@ -1518,6 +1499,8 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
+    <set name="reuseDelay" val="80000" />
+    <set name="hitTime" val="1000" />
     <for>
       <effect count="1" name="Bluff" time="1" val="0"
         stackOrder="1" stackType="Stun" />
@@ -2124,8 +2107,7 @@
       effects those who are of an Heir class or higher.
     -->
     <!--
-      Still missing info about other penalties than exp.
-      loss
+      Still missing info about other penalties than exp. loss
     -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="COREDONE" />
@@ -2133,7 +2115,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="minPledgeClass" val="2" />
-   </skill>
+  </skill>
   <skill id="391" levels="1" name="Clan Imperium">
     <!--
       Gives authority to open up a command channel. Only
@@ -2145,7 +2127,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="minPledgeClass" val="4" />
-   </skill>
+  </skill>
   <skill id="395" levels="1" name="Heroic Miracle">
     <set name="mpConsume" val="72" />
     <set name="itemConsumeId" val="1785" />

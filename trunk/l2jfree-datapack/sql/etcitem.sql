@@ -7334,7 +7334,7 @@ INSERT INTO `etcitem` VALUES
 (10109,'Spellbook - Wind Vortex Slug','false','spellbook',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (10110,'Spellbook - Meteor','false','spellbook',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (10111,'Spellbook - Star Fall','false','spellbook',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
-(10112,'Dark Seed','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
+(10112,'Dark Seed','false','none',120,'stackable','wood','none',-1,0,NULL,'false','false','false','false','KamaelItem','none'),
 (10113,'Special Bolt','false','none',6,'stackable','wood','none',-1,0,NULL,'true','false','true','false','KamaelItem','none'),
 (10114,'Sealed Dynasty Sickle Piece','false','none',5,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (10115,'Recipe: Sealed Dynasty Sickle (60%)','false','none',5,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),

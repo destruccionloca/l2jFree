@@ -3,7 +3,6 @@
 <list>
   <skill id="600" levels="1" name="Residence Guidance">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -16,7 +15,6 @@
   </skill>
   <skill id="601" levels="1" name="Residence Agility">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -27,10 +25,8 @@
       <add stat="rEvas" val="3" order="0x40" />
     </for>
   </skill>
-  <skill id="602" levels="1"
-    name="Residence Shield Block">
+  <skill id="602" levels="1" name="Residence Shield Block">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -41,10 +37,8 @@
       <mul stat="rShld" val="1.06" order="0x30" />
     </for>
   </skill>
-  <skill id="603" levels="1"
-    name="Residence Shield Defense">
+  <skill id="603" levels="1" name="Residence Shield Defense">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -55,10 +49,8 @@
       <mul stat="sDef" val="1.06" order="0x30" />
     </for>
   </skill>
-  <skill id="604" levels="1"
-    name="Residence Resist Typhoon">
+  <skill id="604" levels="1" name="Residence Resist Typhoon">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -72,7 +64,6 @@
   </skill>
   <skill id="605" levels="1" name="Residence Resist Lava">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -86,7 +77,6 @@
   </skill>
   <skill id="606" levels="1" name="Residence Fortitude">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -99,7 +89,6 @@
   </skill>
   <skill id="607" levels="1" name="Residence Freedom">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -112,7 +101,6 @@
   </skill>
   <skill id="608" levels="1" name="Residence Vigilance">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -125,7 +113,6 @@
   </skill>
   <skill id="609" levels="1" name="Residence Movement">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -137,10 +124,8 @@
       <add stat="runSpd" val="6" order="0x40" />
     </for>
   </skill>
-  <skill id="610" levels="1"
-    name="Residence Death Fortune">
+  <skill id="610" levels="1" name="Residence Death Fortune">
     <!-- by Sephiroth -->
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -217,12 +202,9 @@
     <set name="castRange" val="-1" />
     <for>
       <mul order="0x30" val="#gainHp" stat="gainHp" />
-      <mul order="0x30" val="#mpConsume"
-        stat="PhysicalMpConsumeRate" />
-      <mul order="0x30" val="#mpConsume"
-        stat="MagicalMpConsumeRate" />
-      <mul order="0x30" val="#mpConsume"
-        stat="DanceMpConsumeRate" />
+      <mul order="0x30" val="#mpConsume" stat="PhysicalMpConsumeRate" />
+      <mul order="0x30" val="#mpConsume" stat="MagicalMpConsumeRate" />
+      <mul order="0x30" val="#mpConsume" stat="DanceMpConsumeRate" />
     </for>
   </skill>
   <skill id="616" levels="3" name="Dark Squad">
@@ -251,12 +233,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
-  <skill id="618" levels="1"
-    name="Transform Death Blader">
+  <skill id="618" levels="1" name="Transform Death Blader">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="isMagic" val="true" />
@@ -269,8 +250,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="619" levels="1" name="Transform Dispel">
@@ -279,9 +260,8 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="hitTime" val="2500" />
     <set name="castRange" val="-1" />
-   </skill>
-  <skill id="620" levels="1"
-    name="Quiver of Bolts - Grade B">
+  </skill>
+  <skill id="620" levels="1" name="Quiver of Bolts - Grade B">
     <set name="mpConsume" val="366" />
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="3000" />
@@ -294,7 +274,7 @@
     <set name="create_item_id" val="9635" />
     <set name="create_item_count" val="700" />
     <set name="random_count" val="4" />
-   </skill>
+  </skill>
   <skill id="621" levels="1" name="Create Special Bolt">
     <!-- Needs to be verified -->
     <set name="mpConsume" val="38" />
@@ -307,7 +287,7 @@
     <set name="effectRange" val="-1" />
     <set name="create_item_id" val="10113" />
     <set name="create_item_count" val="1" />
-   </skill>
+  </skill>
   <skill id="622" levels="1" name="Ultimate Escape">
     <!-- Done by erhiwan -->
     <!-- Needs to be verified -->
@@ -320,9 +300,9 @@
     <set name="skillType" val="BUFF" />
     <set name="target" val="TARGET_SELF" />
     <for>
-      <effect name="Buff" count="1" time="20" val="0"
+      <effect count="1" name="Buff" time="20" val="0"
         stackOrder="50" stackType="multi_buff">
-        <add order="0x40" stat="rEvas" val="36" />
+        <add order="0x40" stat="rEvas" val="35" />
         <add order="0x40" stat="runSpd" val="66" />
       </effect>
     </for>
@@ -337,7 +317,7 @@
     <set name="skillRadius" val="400" />
     <set name="castRange" val="-1" />
     <set name="skill_landing_percent" val="100" /><!-- Guessing -->
-   </skill>
+  </skill>
   <skill id="624" levels="1" name="Remove Trap">
     <set name="mpConsume" val="17" />
     <set name="power" val="78" />
@@ -348,7 +328,7 @@
     <set name="effectRange" val="400" />
     <set name="castRange" val="400" />
     <set name="skill_landing_percent" val="100" /><!-- Guessing -->
-   </skill>
+  </skill>
   <skill id="625" levels="1" name="Soul Gathering">
     <!-- Needs to be verified -->
     <set name="hpConsume" val="200" />
@@ -378,22 +358,16 @@
     </for>
   </skill>
   <skill id="627" levels="40" name="Soul Shock">
-    <table name="#mpConsume">
-      48 49 51 52 54 56 56 58 59 61 63 65 66 68 70 72 72 74
-      76 78 80 81 83 85 87 88 89 91 92 94 96 97 99 100 102
-      103 105 106 108 109
-    </table>
-    <table name="#power">
-      344 367 391 443 471 500 530 562 595 630 666 703 742
-      782 823 866 910 955 1002 1050 1100 1150 1202 1255 1309
-      1364 1420 1476 1534 1592 1651 1710 1770 1830 1891 1951
-      2012 2072 2132 2192
-    </table>
-    <table name="#magicLvl">
-      40 41 42 43 44 44 45 46 47 48 49 50 51 51 52 53 54 55
-      56 57 58 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72
-      73 74 75 76
-    </table>
+    <table name="#mpConsume"> 48 49 51 52 54 56 56 58 59
+      61 63 65 66 68 70 72 72 74  76 78 80 81 83 85 87 88
+      89 91 92 94 96 97 99 100 102 103 105 106 108 109 </table>
+    <table name="#power"> 344 367 391 443 471 500 530 562
+      595 630 666 703 742 782 823 866 910 955 1002 1050 1100
+      1150 1202 1255 1309 1364 1420 1476 1534 1592 1651 1710
+      1770 1830 1891 1951 2012 2072 2132 2192 </table>
+    <table name="#magicLvl"> 40 41 42 43 44 44 45 46 47 48
+      49 50 51 51 52 53 54 55 56 57 58 58 59 60 61 62 63 64
+      65 66 67 68 69 70 71 72 73 74 75 76 </table>
     <set name="weaponsAllowed" val="65568"/> <!-- Bow/Crossbow -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="#power" />
@@ -435,13 +409,13 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="630" levels="1" name="Rabbit Tornado">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="631" levels="6" name="Emergent Ability - Attack">
     <table name="#pAtk"> 1.06 1.08 1.10 1.11 1.12 1.13 </table>
     <set name="target" val="TARGET_SELF" />
@@ -472,11 +446,8 @@
       <mul order="0x30" val="#mAtk" stat="mAtk" />
     </for>
   </skill>
-  <skill id="634" levels="6"
-    name="Emergent Ability - Magic Defense">
-    <table name="#mDef">
-      1.06 1.08 1.10 1.11 1.12 1.13
-    </table>
+  <skill id="634" levels="6" name="Emergent Ability - Magic Defense">
+    <table name="#mDef"> 1.06 1.08 1.10 1.11 1.12 1.13 </table>
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -490,15 +461,14 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="636" levels="3" name="Not In Use">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
-  <skill id="637" levels="1"
-    name="Master Ability - Attack">
+  </skill>
+  <skill id="637" levels="1" name="Master Ability - Attack">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -507,8 +477,7 @@
       <mul order="0x30" val="1.25" stat="pAtk" />
     </for>
   </skill>
-  <skill id="638" levels="1"
-    name="Master Ability - Empower">
+  <skill id="638" levels="1" name="Master Ability - Empower">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -517,8 +486,7 @@
       <mul order="0x30" val="1.17" stat="mAtk" />
     </for>
   </skill>
-  <skill id="639" levels="1"
-    name="Master Ability - Casting">
+  <skill id="639" levels="1" name="Master Ability - Casting">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -527,8 +495,7 @@
       <mul order="0x30" val="1.13" stat="mAtkSpd" />
     </for>
   </skill>
-  <skill id="640" levels="1"
-    name="Master Ability - Focus">
+  <skill id="640" levels="1" name="Master Ability - Focus">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -537,8 +504,7 @@
       <add order="0x40" val="100" stat="rCrit" />
     </for>
   </skill>
-  <skill id="641" levels="1"
-    name="Knight Ability - Boost HP">
+  <skill id="641" levels="1" name="Knight Ability - Boost HP">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -547,8 +513,7 @@
       <mul order="0x30" val="1.17" stat="maxHp" />
     </for>
   </skill>
-  <skill id="642" levels="1"
-    name="Enchanter Ability - Boost Mana">
+  <skill id="642" levels="1" name="Enchanter Ability - Boost Mana">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -557,8 +522,7 @@
       <mul order="0x30" val="1.17" stat="maxMp" />
     </for>
   </skill>
-  <skill id="643" levels="1"
-    name="Summoner Ability - Boost HP/MP">
+  <skill id="643" levels="1" name="Summoner Ability - Boost HP/MP">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -568,8 +532,7 @@
       <mul order="0x30" val="1.13" stat="maxMp" />
     </for>
   </skill>
-  <skill id="644" levels="1"
-    name="Rogue Ability - Evasion">
+  <skill id="644" levels="1" name="Rogue Ability - Evasion">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -578,8 +541,7 @@
       <add order="0x40" val="4" stat="rEvas" />
     </for>
   </skill>
-  <skill id="645" levels="1"
-    name="Rogue Ability - Long Shot">
+  <skill id="645" levels="1" name="Rogue Ability - Long Shot">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -590,8 +552,7 @@
       </add>
     </for>
   </skill>
-  <skill id="646" levels="1"
-    name="Wizard Ability - Mana Gain">
+  <skill id="646" levels="1" name="Wizard Ability - Mana Gain">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -600,8 +561,7 @@
       <mul order="0x30" stat="gainMp" val="1.47" />
     </for>
   </skill>
-  <skill id="647" levels="1"
-    name="Enchanter Ability - Mana Recovery">
+  <skill id="647" levels="1" name="Enchanter Ability - Mana Recovery">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -610,8 +570,7 @@
       <mul order="0x30" stat="regMp" val="1.44" />
     </for>
   </skill>
-  <skill id="648" levels="1"
-    name="Healer Ability - Prayer">
+  <skill id="648" levels="1" name="Healer Ability - Prayer">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -620,8 +579,7 @@
       <mul order="0x30" stat="gainHp" val="1.65" />
     </for>
   </skill>
-  <skill id="650" levels="1"
-    name="Warrior Ability - Resist Trait">
+  <skill id="650" levels="1" name="Warrior Ability - Resist Trait">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -634,8 +592,7 @@
       <mul order="0x30" stat="cancelVuln" val="0.85" />
     </for>
   </skill>
-  <skill id="651" levels="1"
-    name="Warrior Ability - Haste">
+  <skill id="651" levels="1" name="Warrior Ability - Haste">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -644,36 +601,31 @@
       <mul order="0x30" stat="pAtkSpd" val="1.07" />
     </for>
   </skill>
-  <skill id="652" levels="1"
-    name="Knight Ability - Defense">
+  <skill id="652" levels="1" name="Knight Ability - Defense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
-  <skill id="653" levels="1"
-    name="Rogue Ability - Critical Chance">
+  </skill>
+  <skill id="653" levels="1" name="Rogue Ability - Critical Chance">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
-  <skill id="654" levels="1"
-    name="Wizard Ability - Mana Steal">
+  </skill>
+  <skill id="654" levels="1" name="Wizard Ability - Mana Steal">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
-  <skill id="655" levels="1"
-    name="Enchanter Ability - Barrier">
+  </skill>
+  <skill id="655" levels="1" name="Enchanter Ability - Barrier">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
-  <skill id="656" levels="3"
-    name="Transform Divine Warrior">
+  </skill>
+  <skill id="656" levels="3" name="Transform Divine Warrior">
     <set name="mpConsume" val="31" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -687,12 +639,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
-  <skill id="657" levels="3"
-    name="Transform Divine Knight">
+  <skill id="657" levels="3" name="Transform Divine Knight">
     <set name="mpConsume" val="31" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -706,12 +657,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
-  <skill id="658" levels="3"
-    name="Transform Divine Rogue">
+  <skill id="658" levels="3" name="Transform Divine Rogue">
     <set name="mpConsume" val="31" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -725,12 +675,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
-  <skill id="659" levels="3"
-    name="Transform Divine Wizard">
+  <skill id="659" levels="3" name="Transform Divine Wizard">
     <set name="mpConsume" val="31" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -744,12 +693,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
-  <skill id="660" levels="3"
-    name="Transform Divine Summoner">
+  <skill id="660" levels="3" name="Transform Divine Summoner">
     <set name="mpConsume" val="31" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -763,12 +711,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
-  <skill id="661" levels="3"
-    name="Transform Divine Healer">
+  <skill id="661" levels="3" name="Transform Divine Healer">
     <set name="mpConsume" val="31" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -782,12 +729,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
-  <skill id="662" levels="3"
-    name="Transform Divine Enchanter">
+  <skill id="662" levels="3" name="Transform Divine Enchanter">
     <set name="mpConsume" val="31" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -801,8 +747,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="663" levels="1" name="Transform Zaken">
@@ -819,8 +765,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="664" levels="1" name="Transform Anakim">
@@ -837,8 +783,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="665" levels="1" name="Transform Benom">
@@ -855,8 +801,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="666" levels="1" name="Transform Gordon">
@@ -873,8 +819,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="667" levels="1" name="Transform Ranku">
@@ -891,8 +837,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="668" levels="1" name="Transform Kiyachi">
@@ -909,12 +855,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
-  <skill id="669" levels="1"
-    name="Transform Demon Prince">
+  <skill id="669" levels="1" name="Transform Demon Prince">
     <set name="mpConsume" val="44" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -928,8 +873,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="670" levels="1" name="Transform Heretic">
@@ -946,8 +891,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="671" levels="1" name="Transform Vale Master">
@@ -964,12 +909,11 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
-  <skill id="672" levels="1"
-    name="Transform Saber Tooth Tiger">
+  <skill id="672" levels="1" name="Transform Saber Tooth Tiger">
     <set name="mpConsume" val="44" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
@@ -983,8 +927,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="673" levels="1" name="Transform Oel Mahum">
@@ -1001,8 +945,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="674" levels="1" name="Transform Doll Blader">
@@ -1019,8 +963,8 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Transformation" time="1800"
-        val="0" /><!-- Transformation lasts 30 minutes -->
+      <effect count="1" name="Transformation" time="1800" val="0" />
+      <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="675" levels="1" name="Divine Warrior Cross Slash">
@@ -1028,149 +972,149 @@
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="676" levels="1" name="Divine Warrior Sonic Blaster">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="677" levels="1" name="Divine Warrior Transfixion of Earth">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="678" levels="1" name="Divine Warrior War Cry">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="679" levels="1" name="Sacrifice Warrior">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="680" levels="1" name="Divine Knight Hate">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="681" levels="1" name="Divine Knight Hate Aura">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="682" levels="1" name="Divine Knight Stun Attack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="683" levels="1" name="Divine Knight Thunder Storm">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="684" levels="1" name="Divine Knight Ultimate Defense">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="685" levels="1" name="Sacrifice Knight">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="686" levels="1" name="Divine Rogue Stun Shot">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="687" levels="1" name="Divine Rogue Double Shot">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="688" levels="1" name="Divine Rogue Bleed Attack">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="689" levels="1" name="Divine Rogue Deadly Blow">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="690" levels="1" name="Divine Rogue Agility">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="691" levels="1" name="Sacrifice Rogue">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="692" levels="1" name="Divine Wizard Holy Flare">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="693" levels="1" name="Divine Wizard Holy Strike">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="694" levels="1" name="Divine Wizard Holy Curtain">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="695" levels="1" name="Divine Wizard Holy Cloud">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="696" levels="1" name="Divine Wizard Surrender to Holy">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="697" levels="1" name="Sacrifice Wizard">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="698" levels="1" name="Divine Healer Major Heal">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="699" levels="1" name="Divine Healer Battle Heal">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
 </list>

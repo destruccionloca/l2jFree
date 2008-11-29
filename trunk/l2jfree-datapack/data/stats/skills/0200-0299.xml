@@ -104,8 +104,7 @@
       </add>
     </for>
   </skill>
-  <skill id="211" levels="10" name="Boost HP"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="211" levels="10" name="Boost HP" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -208,9 +207,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <add order="0x40" stat="pAtk" val="#pAtk">
-        <and>
           <using kind="Sword,Big Sword,Blunt,Big Blunt" />
-        </and>
       </add>
     </for>
   </skill>
@@ -275,8 +272,7 @@
       1306 1317 1328 1339 1350 1361 1372 1383 1394 1405 1415
       1426 1437 1448 1459 1470 1481 1492 1503 1514 1525 1536 1547 </table>
     <table name="#ench1Chance"> 50 51 52 53 54 55 56 57 58 59 60 61
-      62 63 64 65 66 67 68 68 69 70 71 72 73 74 75 76 77 78 
-    </table>
+      62 63 64 65 66 67 68 68 69 70 71 72 73 74 75 76 77 78 </table>
     <set name="weaponsAllowed" val="2580" /> <!-- Sword/Big Sword/Dagger/Dual Sword -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
@@ -391,19 +387,16 @@
       <add order="0x40" stat="regMp" val="#regMp" />
     </for>
   </skill>
-  <skill id="230" levels="2" name="Sprint"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="230" levels="2" name="Sprint" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480
       1520 1560 1600 1640 1680 1720 1760 1800 1840 1880 1920
       1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 18 18 17 17 17 16 16 16 15 15 15 14
-      14 14 13 13 13 12 12 12 11 11 10 10 10 9 9 9 8 8 
-    </table>
+      14 14 13 13 13 12 12 12 11 11 10 10 10 9 9 9 8 8 </table>
     <table name="#ench2MpConsume_Init"> 5 5 5 5 5 5 5 5 5 5 4 4 4 4 4 4 4 4 4
       4 3 3 3 3 3 3 3 3 3 3 </table>
     <table name="#mpConsume_Init">3 5</table>
@@ -496,8 +489,7 @@
       42.0 43.5 44.9 46.5 48.0 49.5 51.1 52.7 54.2 55.8 57.4
       59.1 60.7 62.3 63.9 65.6 </table>
     <table name="#rEvas"> 4 4 6 6 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
-      7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
-      7 </table>
+      7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 </table>
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -617,31 +609,31 @@
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="240" levels="1" name="Expertise C Deleted">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="241" levels="1" name="Expertise B Deleted">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="242" levels="1" name="Expertise A Deleted">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="243" levels="1" name="Expertise S Deleted">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="PASSIVE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="244" levels="3" name="Armor Mastery">
     <table name="#pDef">6.7 8.0 9.2</table>
     <set name="target" val="TARGET_SELF" />
@@ -684,7 +676,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="85" />
     <set name="effectRange" val="400" />
-   </skill>
+  </skill>
   <skill id="247" levels="1" name="Build Headquarters">
     <set name="mpInitialConsume" val="30" />
     <set name="itemConsumeId" val="2131" />
@@ -698,13 +690,13 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="248" levels="5" name="Crystallize">
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="COREDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="249" levels="42" name="Weapon Mastery"><!-- Mage -->
     <table name="#pAtk"> 1.5 2.8 4.5 5.7 6.7 8.3 9.5 11.6 13.3
       16 17 18.1 20.4 21.6 22.8 25.5 26.9 28.3 31.4 33 34.6
@@ -887,8 +879,7 @@
       </mul>
     </for>
   </skill>
-  <skill id="254" levels="11" name="Spoil"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="254" levels="11" name="Spoil" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -1121,8 +1112,7 @@
       <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun" />
     </for>
   </skill>
-  <skill id="261" levels="22" name="Triple Sonic Slash"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="261" levels="22" name="Triple Sonic Slash" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -1203,7 +1193,7 @@
     <set name="aggroPoints" val="#aggro" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
-   </skill>
+  </skill>
   <skill id="263" levels="37" name="Deadly Blow" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
@@ -1247,16 +1237,14 @@
   </skill>
   <skill id="264" levels="1" name="Song of Earth" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 
-    </table>
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <table name="#ench1time"> 125 131 136 142 147 153 158 164 169
       175 180 186 191 197 202 208 213 219 224 230 235 241
       246 252 257 263 268 274 279 285 </table>
     <table name="#ench2MpConsume"> 58 57 56 55 53 52 51 50 48 47 46 45
-      43 42 41 40 39 37 36 35 34 32 31 30 29 27 26 25 24 22 
-    </table>
+      43 42 41 40 39 37 36 35 34 32 31 30 29 27 26 25 24 22 </table>
     <set name="mpConsume" val="60" />
     <set name="nextDanceCost" val="30" />
     <set name="target" val="TARGET_PARTY" />
@@ -1285,8 +1273,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="265" levels="1" name="Song of Life"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="265" levels="1" name="Song of Life" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -1324,8 +1311,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="266" levels="1" name="Song of Water"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="266" levels="1" name="Song of Water" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -1363,8 +1349,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="267" levels="1" name="Song of Warding"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="267" levels="1" name="Song of Warding" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -1402,8 +1387,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="268" levels="1" name="Song of Wind"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="268" levels="1" name="Song of Wind" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 125 131 136 142 147 153 158 164 169
       175 180 186 191 197 202 208 213 219 224 230 235 241
       246 252 257 263 268 274 279 285 </table>
@@ -1437,8 +1421,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="269" levels="1" name="Song of Hunter"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="269" levels="1" name="Song of Hunter" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -1476,8 +1459,7 @@
       </effect>
     </enchant1for>
   </skill>
-  <skill id="270" levels="1" name="Song of Invocation"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="270" levels="1" name="Song of Invocation" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -1486,8 +1468,7 @@
       175 180 186 191 197 202 208 213 219 224 230 235 241
       246 252 257 263 268 274 279 285 </table>
     <table name="#ench2MpConsume"> 58 57 56 55 53 52 51 50 48 47 46 45
-      43 42 41 40 39 37 36 35 34 32 31 30 29 27 26 25 24 22 
-    </table>
+      43 42 41 40 39 37 36 35 34 32 31 30 29 27 26 25 24 22 </table>
     <set name="mpConsume" val="60" />
     <set name="nextDanceCost" val="30" />
     <set name="target" val="TARGET_PARTY" />
@@ -1825,9 +1806,8 @@
     <!-- guessed -->
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="true" />
-   </skill>
-  <skill id="279" levels="5" name="Lightning Strike"
-    enchantLevels1="30" enchantLevels2="30">
+  </skill>
+  <skill id="279" levels="5" name="Lightning Strike" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#enchantPower"> 109 109 110 111 111 112 113 113 114
@@ -2017,7 +1997,7 @@
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="0.15" />
     <set name="isCubic" val="false" />
-   </skill>
+  </skill>
   <skill id="284" levels="40" name="Hurricane Assault" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
@@ -2089,7 +2069,7 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-   </skill>
+  </skill>
   <skill id="287" levels="3" name="Lionheart">
     <table name="#mpConsume">16 22 29</table>
     <table name="#vuln">0.6 0.4 0.2</table>
@@ -2115,8 +2095,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="288" levels="4" name="Guard Stance"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="288" levels="4" name="Guard Stance" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
@@ -2193,7 +2172,7 @@
     <enchant1 name="power" val="#ench1power" />
     <enchant2 name="mpConsume" val="#ench2mpConsume" />
     <enchant2 name="mpInitialConsume" val="#ench2mpConsume_Init" />
-   </skill>
+  </skill>
   <skill id="290" levels="14" name="Final Frenzy">
     <table name="#final"> 32.9 39.4 46.6 54.6 63.3 72.7 79.3
       86.1 93.1 100.2 107.5 114.8 122.1 129.3 </table>
@@ -2391,5 +2370,5 @@
     <set name="npcId" val="14768" />
     <set name="expPenalty" val="0.0" />
     <set name="isCubic" val="false" />
-   </skill>
+  </skill>
 </list>
