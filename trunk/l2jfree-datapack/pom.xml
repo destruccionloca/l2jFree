@@ -5,7 +5,7 @@
   <groupId>l2jfree</groupId>
   <artifactId>datapack</artifactId>
   <name>L2JFree Datapack</name>
-  <version>1.2.5</version>
+  <version>1.2.6</version>
   <build>
     <extensions>
       <extension>
