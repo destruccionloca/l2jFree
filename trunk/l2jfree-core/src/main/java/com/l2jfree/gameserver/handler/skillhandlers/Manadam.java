@@ -20,13 +20,13 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /**
  * Class handling the Mana damage skill
@@ -35,8 +35,8 @@ import com.l2jfree.gameserver.skills.Formulas;
  */
 public class Manadam implements ISkillHandler
 {
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.MANADAM };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.MANADAM };
 
 	public void useSkill(@SuppressWarnings("unused")
 	L2Character activeChar, L2Skill skill, L2Object... targets)
@@ -130,7 +130,7 @@ public class Manadam implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

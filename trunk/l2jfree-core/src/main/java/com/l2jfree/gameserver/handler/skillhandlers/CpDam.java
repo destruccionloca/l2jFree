@@ -20,10 +20,10 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /*
  * Just a quick draft to support Wrath skill. Missing angle based calculation etc.
@@ -31,8 +31,8 @@ import com.l2jfree.gameserver.skills.Formulas;
 
 public class CpDam implements ISkillHandler
 {
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.CPDAM };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.CPDAM };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
@@ -112,7 +112,7 @@ public class CpDam implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

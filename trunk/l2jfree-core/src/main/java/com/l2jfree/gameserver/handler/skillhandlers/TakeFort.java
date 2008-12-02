@@ -19,11 +19,11 @@ import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -35,8 +35,8 @@ import com.l2jfree.gameserver.util.Util;
 public class TakeFort implements ISkillHandler
 {
 	//private static Logger _log = Logger.getLogger(TakeFort.class.getName());
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.TAKEFORT };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.TAKEFORT };
 
 	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
 	L2Skill skill, @SuppressWarnings("unused")
@@ -63,7 +63,7 @@ public class TakeFort implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

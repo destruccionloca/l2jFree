@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -34,9 +35,9 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class InstantJump implements ISkillHandler
 {
-	private static final L2Skill.SkillType[] SKILL_IDS =
+	private static final L2SkillType[] SKILL_IDS =
 	{
-		L2Skill.SkillType.INSTANT_JUMP
+		L2SkillType.INSTANT_JUMP
 	};
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
@@ -122,7 +123,7 @@ public class InstantJump implements ISkillHandler
 	 * 
 	 * @see com.l2jfree.gameserver.handler.ISkillHandler#getSkillIds()
 	 */
-	public L2Skill.SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

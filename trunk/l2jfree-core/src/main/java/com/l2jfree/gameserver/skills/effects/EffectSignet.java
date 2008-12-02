@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignet;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
+import com.l2jfree.gameserver.templates.L2EffectType;
 
 /**
  * @authors Forsaiken, Sami
@@ -41,9 +42,9 @@ public final class EffectSignet extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.SIGNET_EFFECT;
+		return L2EffectType.SIGNET_EFFECT;
 	}
 
 	@Override

@@ -124,9 +124,7 @@ import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.MacroList;
 import com.l2jfree.gameserver.model.ShortCuts;
 import com.l2jfree.gameserver.model.TradeList;
-import com.l2jfree.gameserver.model.L2Effect.EffectType;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.knownlist.PcKnownList;
 import com.l2jfree.gameserver.model.actor.reference.ClearableReference;
@@ -233,10 +231,12 @@ import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.L2Armor;
 import com.l2jfree.gameserver.templates.L2ArmorType;
+import com.l2jfree.gameserver.templates.L2EffectType;
 import com.l2jfree.gameserver.templates.L2EtcItemType;
 import com.l2jfree.gameserver.templates.L2Henna;
 import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.gameserver.templates.L2PcTemplate;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.gameserver.templates.L2Weapon;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.gameserver.util.Broadcast;
@@ -346,7 +346,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			// cancel the recent fake-death protection instantly if the player attacks or casts spells 
 			getPlayer().setRecentFakeDeath(false);
-			L2Effect silentMove = getPlayer().getFirstEffect(L2Effect.EffectType.SILENT_MOVE);
+			L2Effect silentMove = getPlayer().getFirstEffect(L2EffectType.SILENT_MOVE);
 			if (silentMove != null)
 				silentMove.exit();
 		}
@@ -365,7 +365,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 			if (getPlayer().isSilentMoving())
 			{
-				L2Effect silentMove = getPlayer().getFirstEffect(EffectType.SILENT_MOVE);
+				L2Effect silentMove = getPlayer().getFirstEffect(L2EffectType.SILENT_MOVE);
 				if (silentMove != null)
 					silentMove.exit();
 			}
@@ -2180,7 +2180,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			L2Skill effectSkill = currenteffect.getSkill();
 
 			// Ignore all buff skills that are party related (ie. songs, dances) while still remaining weapon dependant on cast though.
-			if (!effectSkill.isOffensive() && !(effectSkill.getTargetType() == SkillTargetType.TARGET_PARTY && effectSkill.getSkillType() == SkillType.BUFF))
+			if (!effectSkill.isOffensive() && !(effectSkill.getTargetType() == SkillTargetType.TARGET_PARTY && effectSkill.getSkillType() == L2SkillType.BUFF))
 			{
 				// Check to rest to assure current effect meets weapon requirements.
 				if (!effectSkill.getWeaponDependancy(this))
@@ -2797,7 +2797,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (_relax)
 			{
 				setRelax(false);
-				stopEffects(EffectType.RELAXING);
+				stopEffects(L2EffectType.RELAXING);
 			}
 			_waitTypeSitting = false;
 			getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
@@ -6837,14 +6837,14 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				for (L2Effect e : player.getAllEffects())
 				{
-					if (e.getEffectType() == L2Effect.EffectType.HEAL_OVER_TIME)
+					if (e.getEffectType() == L2EffectType.HEAL_OVER_TIME)
 					{
-						player.stopEffects(L2Effect.EffectType.HEAL_OVER_TIME);
+						player.stopEffects(L2EffectType.HEAL_OVER_TIME);
 						player.removeEffect(e);
 					}
-					else if (e.getEffectType() == L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME)
+					else if (e.getEffectType() == L2EffectType.COMBAT_POINT_HEAL_OVER_TIME)
 					{
-						player.stopEffects(L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME);
+						player.stopEffects(L2EffectType.COMBAT_POINT_HEAL_OVER_TIME);
 						player.removeEffect(e);
 					}
 				}
@@ -8210,7 +8210,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private boolean checkUseMagicConditions(L2Skill skill, boolean forceUse, boolean dontMove)
 	{
-		SkillType sklType = skill.getSkillType();
+		L2SkillType sklType = skill.getSkillType();
 		
 		//************************************* Check Player State *******************************************
 
@@ -8231,8 +8231,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			return false;
 		}
 
-		if (isFishing() && (sklType != SkillType.PUMPING &&
-				sklType != SkillType.REELING && sklType != SkillType.FISHING))
+		if (isFishing() && (sklType != L2SkillType.PUMPING &&
+				sklType != L2SkillType.REELING && sklType != L2SkillType.FISHING))
 		{
 			//Only fishing skills are available
 			sendPacket(SystemMessageId.ONLY_FISHING_SKILLS_NOW);
@@ -8346,7 +8346,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			L2DoorInstance door = (L2DoorInstance) target;
 			boolean isCastleDoor = (door.getCastle() != null && door.getCastle().getSiege().getIsInProgress());
 			boolean isFortDoor = (door.getFort() != null && door.getFort().getSiege().getIsInProgress());
-			if (!isCastleDoor && !isFortDoor && !(door.isUnlockable() && skill.getSkillType() == SkillType.UNLOCK))
+			if (!isCastleDoor && !isFortDoor && !(door.isUnlockable() && skill.getSkillType() == L2SkillType.UNLOCK))
 				return false;
 		}
 
@@ -8413,7 +8413,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			for (int k = al2effect.length; i < k; i++)
 			{
 				L2Effect ef = al2effect[i];
-				if (ef.getEffectType() == EffectType.TRANSFORMATION)
+				if (ef.getEffectType() == L2EffectType.TRANSFORMATION)
 					found = true;
 			}
 	 	 	if (getPet() != null)
@@ -8470,7 +8470,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		//************************************* Check Player State *******************************************
 
-		if (isFishing() && (sklType != SkillType.PUMPING && sklType != SkillType.REELING && sklType != SkillType.FISHING))
+		if (isFishing() && (sklType != L2SkillType.PUMPING && sklType != L2SkillType.REELING && sklType != L2SkillType.FISHING))
 		{
 			//Only fishing skills are available
 			sendPacket(SystemMessageId.ONLY_FISHING_SKILLS_NOW);
@@ -8562,7 +8562,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 
-		if(skill.getSkillType() == SkillType.INSTANT_JUMP)
+		if (skill.getSkillType() == L2SkillType.INSTANT_JUMP)
 		{
 			// You cannot jump while rooted right ;)
 			if (isRooted())
@@ -8624,7 +8624,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		// Check if the skill is Spoil type and if the target isn't already spoiled
-		if (sklType == SkillType.SPOIL)
+		if (sklType == L2SkillType.SPOIL)
 		{
 			if (!(target instanceof L2MonsterInstance) && !(target instanceof L2ChestInstance))
 			{
@@ -8638,7 +8638,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		// Check if the skill is Sweep type and if conditions not apply
-		if (sklType == SkillType.SWEEP && target instanceof L2Attackable)
+		if (sklType == L2SkillType.SWEEP && target instanceof L2Attackable)
 		{
 			int spoilerId = ((L2Attackable) target).getIsSpoiledBy();
 
@@ -8667,7 +8667,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 
 		// Check if the skill is Drain Soul (Soul Crystals) and if the target is a MOB
-		if (sklType == SkillType.DRAIN_SOUL)
+		if (sklType == L2SkillType.DRAIN_SOUL)
 		{
 			if (!(target instanceof L2MonsterInstance))
 			{
@@ -8709,8 +8709,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		if ((sklTargetType == SkillTargetType.TARGET_HOLY && (!TakeCastle.checkIfOkToCastSealOfRule(this, false)))
 			|| (sklTargetType == SkillTargetType.TARGET_FLAGPOLE && !TakeFort.checkIfOkToCastFlagDisplay(this, false))
-			|| (sklType == SkillType.SIEGEFLAG && !SiegeManager.checkIfOkToPlaceFlag(this, false))
-			|| (sklType == SkillType.STRSIEGEASSAULT && !SiegeManager.checkIfOkToUseStriderSiegeAssault(this, false)))
+			|| (sklType == L2SkillType.SIEGEFLAG && !SiegeManager.checkIfOkToPlaceFlag(this, false))
+			|| (sklType == L2SkillType.STRSIEGEASSAULT && !SiegeManager.checkIfOkToUseStriderSiegeAssault(this, false)))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			abortCast();
@@ -9918,7 +9918,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				continue; // Fake skills to change base stats
 			if (s.bestowed())
 				continue;
-			if (s.getSkillType() == SkillType.NOTDONE)
+			if (s.getSkillType() == L2SkillType.NOTDONE)
 			{
 				switch (Config.SEND_NOTDONE_SKILLS)
 				{

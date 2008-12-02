@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
 import com.l2jfree.tools.random.Rnd;
 
 import javolution.util.FastList;
@@ -40,9 +41,9 @@ public final class EffectConfuseMob extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.CONFUSE_MOB_ONLY;
+		return L2EffectType.CONFUSE_MOB_ONLY;
 	}
 
 	/** Notify started */

@@ -19,8 +19,8 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /**
  * This class manages all Minions. 
@@ -75,13 +75,13 @@ public final class L2MinionInstance extends L2MonsterInstance
 	}
 	
 	@Override
-	public boolean checkSkillCanAffectMyself(SkillType type)
+	public boolean checkSkillCanAffectMyself(L2SkillType type)
 	{
 		if (getLeader() == null)
 			return true;
 		
 		return getLeader().checkSkillCanAffectMyself(type);
-	}    
+	}
 
 	/**
 	 * Return the master of this L2MinionInstance.<BR><BR>

@@ -23,9 +23,9 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /**
  * @author mkizub
@@ -552,7 +552,7 @@ final class DocumentSkill extends DocumentBase
 		{
 			try
 			{
-				_currentSkill.currentSkills.add(i, _currentSkill.sets[i].getEnum("skillType", SkillType.class).makeSkill(_currentSkill.sets[i]));
+				_currentSkill.currentSkills.add(i, _currentSkill.sets[i].getEnum("skillType", L2SkillType.class).makeSkill(_currentSkill.sets[i]));
 				count++;
 			}
 			catch (Exception e)
@@ -564,7 +564,7 @@ final class DocumentSkill extends DocumentBase
 		{
 			try
 			{
-				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets1[i].getEnum("skillType", SkillType.class).makeSkill(
+				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets1[i].getEnum("skillType", L2SkillType.class).makeSkill(
 						_currentSkill.enchsets1[i]));
 				count++;
 			}
@@ -577,7 +577,7 @@ final class DocumentSkill extends DocumentBase
 		{
 			try
 			{
-				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets2[i].getEnum("skillType", SkillType.class).makeSkill(
+				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets2[i].getEnum("skillType", L2SkillType.class).makeSkill(
 						_currentSkill.enchsets2[i]));
 				count++;
 			}
@@ -590,7 +590,7 @@ final class DocumentSkill extends DocumentBase
 		{
 			try
 			{
-				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets3[i].getEnum("skillType", SkillType.class).makeSkill(
+				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets3[i].getEnum("skillType", L2SkillType.class).makeSkill(
 						_currentSkill.enchsets3[i]));
 				count++;
 			}
@@ -603,7 +603,7 @@ final class DocumentSkill extends DocumentBase
 		{
 			try
 			{
-				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets4[i].getEnum("skillType", SkillType.class).makeSkill(
+				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets4[i].getEnum("skillType", L2SkillType.class).makeSkill(
 						_currentSkill.enchsets4[i]));
 				count++;
 			}
@@ -616,7 +616,7 @@ final class DocumentSkill extends DocumentBase
 		{
 			try
 			{
-				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets5[i].getEnum("skillType", SkillType.class).makeSkill(
+				_currentSkill.currentSkills.add(_count + i, _currentSkill.enchsets5[i].getEnum("skillType", L2SkillType.class).makeSkill(
 						_currentSkill.enchsets5[i]));
 				count++;
 			}

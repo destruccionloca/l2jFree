@@ -18,16 +18,16 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /** 
  * @author _drunk_ 
  */
 public class BeastFeed implements ISkillHandler
 {
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.BEAST_FEED };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.BEAST_FEED };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object... targets)
@@ -46,7 +46,7 @@ public class BeastFeed implements ISkillHandler
 		// since the AI responce onSkillUse handles the rest.
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

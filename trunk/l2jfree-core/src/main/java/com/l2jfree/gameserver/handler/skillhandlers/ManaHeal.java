@@ -18,12 +18,12 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /**
  * This class ...
@@ -36,8 +36,8 @@ public class ManaHeal implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.MANAHEAL, SkillType.MANARECHARGE, SkillType.MANAHEAL_PERCENT };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.MANAHEAL, L2SkillType.MANARECHARGE, L2SkillType.MANAHEAL_PERCENT };
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
@@ -48,14 +48,14 @@ public class ManaHeal implements ISkillHandler
 		for (L2Character target: (L2Character[]) targets)
 		{
 			double mp = skill.getPower();
-			if (skill.getSkillType() == SkillType.MANAHEAL_PERCENT)
+			if (skill.getSkillType() == L2SkillType.MANAHEAL_PERCENT)
 			{
 				//double mp = skill.getPower();
 				mp = target.getMaxMp() * mp / 100.0;
 			}
 			else
 			{
-				mp = (skill.getSkillType() == SkillType.MANARECHARGE) ? target.calcStat(Stats.RECHARGE_MP_RATE, mp, null, null) : mp;
+				mp = (skill.getSkillType() == L2SkillType.MANARECHARGE) ? target.calcStat(Stats.RECHARGE_MP_RATE, mp, null, null) : mp;
 			}
 
 			if (actChar.getLevel() != target.getLevel())
@@ -100,7 +100,7 @@ public class ManaHeal implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

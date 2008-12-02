@@ -23,21 +23,21 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 public class Recall implements ISkillHandler
 {
 	private final static Log			_log		= LogFactory.getLog(Recall.class.getName());
 
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.RECALL };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.RECALL };
 
 	public void useSkill(@SuppressWarnings("unused")
 	L2Character activeChar, @SuppressWarnings("unused")
@@ -120,7 +120,7 @@ public class Recall implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.network.serverpackets.FlyToLocation;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.geoserver.model.Location;
 
@@ -53,9 +54,9 @@ public final class EffectWarp extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.WARP;
+		return L2EffectType.WARP;
 	}
 
 	@Override

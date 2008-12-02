@@ -19,9 +19,9 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /**
  * 
@@ -30,8 +30,8 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class Soul implements ISkillHandler
 {
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.CHARGESOUL };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.CHARGESOUL };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object... targets)
@@ -63,7 +63,7 @@ public class Soul implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

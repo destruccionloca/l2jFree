@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
 
 public final class EffectAbsorbDamOverTime extends L2Effect
 {
@@ -27,9 +28,9 @@ public final class EffectAbsorbDamOverTime extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.DMG_OVER_TIME;
+		return L2EffectType.DMG_OVER_TIME;
 	}
 
 	@Override

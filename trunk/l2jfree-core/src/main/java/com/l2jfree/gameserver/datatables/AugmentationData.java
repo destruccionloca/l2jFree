@@ -31,6 +31,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Augmentation;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -244,7 +245,7 @@ public class AugmentationData
 
 							//added by Alex - check if NOTDONE and exclude from list
 							if (temp.getSkill(1) == null
-									|| (Config.AUGMENT_EXCLUDE_NOTDONE && (temp.getSkill(1).getSkillType() == L2Skill.SkillType.NOTDONE) && (temp.getSkill(1)
+									|| (Config.AUGMENT_EXCLUDE_NOTDONE && (temp.getSkill(1).getSkillType() == L2SkillType.NOTDONE) && (temp.getSkill(1)
 											.getTargetType() == L2Skill.SkillTargetType.TARGET_NONE)))
 								continue;
 							if (type.equalsIgnoreCase("active"))

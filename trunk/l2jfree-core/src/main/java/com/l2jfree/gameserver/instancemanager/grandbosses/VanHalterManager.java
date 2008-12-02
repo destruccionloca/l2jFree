@@ -34,7 +34,6 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
-import com.l2jfree.gameserver.model.L2Effect.EffectType;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -42,6 +41,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
+import com.l2jfree.gameserver.templates.L2EffectType;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
@@ -1145,8 +1145,8 @@ public class VanHalterManager extends BossLair
 			return;
 		for (L2PcInstance pc : (FastList<L2PcInstance>) _bleedingPlayers.get(npcId))
 		{
-			if (pc.getFirstEffect(EffectType.DMG_OVER_TIME) != null)
-				pc.stopEffects(EffectType.DMG_OVER_TIME);
+			if (pc.getFirstEffect(L2EffectType.DMG_OVER_TIME) != null)
+				pc.stopEffects(L2EffectType.DMG_OVER_TIME);
 		}
 		_bleedingPlayers.remove(npcId);
 	}

@@ -54,6 +54,7 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.templates.L2EffectType;
 import com.l2jfree.gameserver.templates.L2EtcItemType;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
@@ -465,11 +466,11 @@ public class L2Attackable extends L2NpcInstance
 	{
 		/*
 		if ((this instanceof L2SiegeGuardInstance) && (attacker instanceof L2SiegeGuardInstance))
-		    //if((this.getEffect(L2Effect.EffectType.CONFUSION)!=null) && (attacker.getEffect(L2Effect.EffectType.CONFUSION)!=null))
+		    //if((this.getEffect(L2EffectType.CONFUSION)!=null) && (attacker.getEffect(L2EffectType.CONFUSION)!=null))
 		        return;
 		
 		if ((this instanceof L2MonsterInstance)&&(attacker instanceof L2MonsterInstance))
-		    if((this.getEffect(L2Effect.EffectType.CONFUSION)!=null) && (attacker.getEffect(L2Effect.EffectType.CONFUSION)!=null))
+		    if((this.getEffect(L2EffectType.CONFUSION)!=null) && (attacker.getEffect(L2EffectType.CONFUSION)!=null))
 		        return;
 		*/
 

@@ -17,11 +17,12 @@ package com.l2jfree.gameserver.skills.effects;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 public final class EffectChameleonRest extends L2Effect
 {
@@ -31,9 +32,9 @@ public final class EffectChameleonRest extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.RELAXING;
+		return L2EffectType.RELAXING;
 	}
 
 	/** Notify started */
@@ -77,7 +78,7 @@ public final class EffectChameleonRest extends L2Effect
 			retval = false;
 
 		// Only cont skills shouldn't end
-		if (getSkill().getSkillType() != SkillType.CONT)
+		if (getSkill().getSkillType() != L2SkillType.CONT)
 			return false;
 
 		if (effected instanceof L2PcInstance)

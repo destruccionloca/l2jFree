@@ -36,7 +36,6 @@ import com.l2jfree.gameserver.instancemanager.CastleManorManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TeleportLocation;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -49,6 +48,7 @@ import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -1165,7 +1165,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						if (st.countTokens() >= 1)
 							skill_lvl = Integer.parseInt(st.nextToken());
 						skill = SkillTable.getInstance().getInfo(skill_id, skill_lvl);
-						if (skill.getSkillType() == SkillType.SUMMON)
+						if (skill.getSkillType() == L2SkillType.SUMMON)
 							player.doSimultaneousCast(skill);
 						else
 						{

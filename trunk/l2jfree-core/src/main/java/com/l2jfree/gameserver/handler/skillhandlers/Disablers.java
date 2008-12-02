@@ -37,7 +37,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -51,6 +50,8 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.effects.EffectBuff;
+import com.l2jfree.gameserver.templates.L2EffectType;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 /** 
@@ -59,39 +60,39 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class Disablers implements ISkillHandler
 {
-	private static final SkillType[]	SKILL_IDS		=
+	private static final L2SkillType[]	SKILL_IDS		=
 														{
-			SkillType.STUN,
-			SkillType.ROOT,
-			SkillType.SLEEP,
-			SkillType.CONFUSION,
-			SkillType.AGGDAMAGE,
-			SkillType.AGGREDUCE,
-			SkillType.AGGREDUCE_CHAR,
-			SkillType.AGGREMOVE,
-			SkillType.UNBLEED,
-			SkillType.UNPOISON,
-			SkillType.MUTE,
-			SkillType.FAKE_DEATH,
-			SkillType.CONFUSE_MOB_ONLY,
-			SkillType.NEGATE,
-			SkillType.CANCEL,
-			SkillType.CANCEL_DEBUFF,
-			SkillType.PARALYZE,
-			SkillType.UNSUMMON_ENEMY_PET,
-			SkillType.BETRAY,
-			SkillType.CANCEL_TARGET,
-			SkillType.ERASE,
-			SkillType.MAGE_BANE,
-			SkillType.WARRIOR_BANE,
-			SkillType.DISARM,
-			SkillType.STEAL_BUFF						};
+			L2SkillType.STUN,
+			L2SkillType.ROOT,
+			L2SkillType.SLEEP,
+			L2SkillType.CONFUSION,
+			L2SkillType.AGGDAMAGE,
+			L2SkillType.AGGREDUCE,
+			L2SkillType.AGGREDUCE_CHAR,
+			L2SkillType.AGGREMOVE,
+			L2SkillType.UNBLEED,
+			L2SkillType.UNPOISON,
+			L2SkillType.MUTE,
+			L2SkillType.FAKE_DEATH,
+			L2SkillType.CONFUSE_MOB_ONLY,
+			L2SkillType.NEGATE,
+			L2SkillType.CANCEL,
+			L2SkillType.CANCEL_DEBUFF,
+			L2SkillType.PARALYZE,
+			L2SkillType.UNSUMMON_ENEMY_PET,
+			L2SkillType.BETRAY,
+			L2SkillType.CANCEL_TARGET,
+			L2SkillType.ERASE,
+			L2SkillType.MAGE_BANE,
+			L2SkillType.WARRIOR_BANE,
+			L2SkillType.DISARM,
+			L2SkillType.STEAL_BUFF						};
 
 	protected static Log				_log			= LogFactory.getLog(L2Skill.class.getName());
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
-		SkillType type = skill.getSkillType();
+		L2SkillType type = skill.getSkillType();
 
 		boolean ss = false;
 		boolean sps = false;
@@ -489,12 +490,12 @@ public class Disablers implements ISkillHandler
 			}
 			case UNBLEED:
 			{
-				negateEffect(target, SkillType.BLEED, skill.getPower(), skill.getMaxNegatedEffects());
+				negateEffect(target, L2SkillType.BLEED, skill.getPower(), skill.getMaxNegatedEffects());
 				break;
 			}
 			case UNPOISON:
 			{
-				negateEffect(target, SkillType.POISON, skill.getPower(), skill.getMaxNegatedEffects());
+				negateEffect(target, L2SkillType.POISON, skill.getPower(), skill.getMaxNegatedEffects());
 				break;
 			}
 
@@ -545,7 +546,7 @@ public class Disablers implements ISkillHandler
 				L2Effect[] effects = target.getAllEffects();
 				for (L2Effect e : effects)
 				{
-					// TODO: Unhardcode this SkillType, maybe on its own child class
+					// TODO: Unhardcode this L2SkillType, maybe on its own child class
 					// only Acumen and Greater Empower
 					if (e.getSkill().getId() == 1085 || e.getSkill().getId() == 1059)
 						e.exit();
@@ -573,7 +574,7 @@ public class Disablers implements ISkillHandler
 				L2Effect[] effects = target.getAllEffects();
 				for (L2Effect e : effects)
 				{
-					// TODO: Unhardcode this SkillType, maybe on its own child class
+					// TODO: Unhardcode this L2SkillType, maybe on its own child class
 					// only Wind Walk and Haste
 					if (e.getSkill().getId() == 1204 || e.getSkill().getId() == 1086)
 						e.exit();
@@ -621,8 +622,8 @@ public class Disablers implements ISkillHandler
 
 				for (L2Effect e : effects)
 				{
-					if (e == null || (!(e instanceof EffectBuff) && e.getEffectType() != L2Effect.EffectType.TRANSFORMATION)
-							|| e.getSkill().getSkillType() == SkillType.HEAL
+					if (e == null || (!(e instanceof EffectBuff) && e.getEffectType() != L2EffectType.TRANSFORMATION)
+							|| e.getSkill().getSkillType() == L2SkillType.HEAL
 							|| e.getSkill().isToggle()
 							|| e.getSkill().isDebuff()
 							|| HeroSkillTable.isHeroSkill(e.getSkill().getId())
@@ -701,7 +702,7 @@ public class Disablers implements ISkillHandler
 								// Cannot cancel skills 4082, 4215, 4515, 110, 111, 1323, 1325, 5182
 								break;
 							default:
-								if (e.getSkill().getSkillType() == SkillType.BUFF) //sleep, slow, surrenders etc
+								if (e.getSkill().getSkillType() == L2SkillType.BUFF) //sleep, slow, surrenders etc
 								{
 									int rate = 100;
 									int level = e.getLevel();
@@ -743,7 +744,7 @@ public class Disablers implements ISkillHandler
 					float negatePower = skill.getNegatePower();
 					int negateId = skill.getNegateId();
 
-					negateEffect(target, SkillType.BUFF, negatePower, negateId, -1);
+					negateEffect(target, L2SkillType.BUFF, negatePower, negateId, -1);
 					break;
 				}
 				// Touch of Death
@@ -755,8 +756,8 @@ public class Disablers implements ISkillHandler
 						int maxfive = skill.getMaxNegatedEffects();
 						for (L2Effect e : effects)
 						{
-							if (e.getSkill().getSkillType() == SkillType.BUFF || e.getSkill().getSkillType() == SkillType.CONT
-									|| e.getSkill().getSkillType() == SkillType.DEATHLINK_PET)
+							if (e.getSkill().getSkillType() == L2SkillType.BUFF || e.getSkill().getSkillType() == L2SkillType.CONT
+									|| e.getSkill().getSkillType() == L2SkillType.DEATHLINK_PET)
 							{
 								int skillrate = 100;
 								int level = e.getLevel();
@@ -812,35 +813,35 @@ public class Disablers implements ISkillHandler
 							landrate = (int) activeChar.calcStat(Stats.CANCEL_VULN, landrate, target, null);
 
 							if (Rnd.get(100) < landrate)
-								removedBuffs += negateEffect(target, SkillType.BUFF, -1, skill.getMaxNegatedEffects());
+								removedBuffs += negateEffect(target, L2SkillType.BUFF, -1, skill.getMaxNegatedEffects());
 						}
 
 						else if (stat == "debuff" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.DEBUFF,-1, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,L2SkillType.DEBUFF,-1, skill.getMaxNegatedEffects());
 						else if (stat == "weakness" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.WEAKNESS,-1, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,L2SkillType.WEAKNESS,-1, skill.getMaxNegatedEffects());
 						else if (stat == "stun" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.STUN,-1, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,L2SkillType.STUN,-1, skill.getMaxNegatedEffects());
 						if (stat == "sleep" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.SLEEP,-1, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,L2SkillType.SLEEP,-1, skill.getMaxNegatedEffects());
 						else if (stat == "confusion" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.CONFUSION,-1, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,L2SkillType.CONFUSION,-1, skill.getMaxNegatedEffects());
 						else if (stat == "mute" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.MUTE,-1, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,L2SkillType.MUTE,-1, skill.getMaxNegatedEffects());
 						else if (stat == "fear" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.FEAR,-1, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,L2SkillType.FEAR,-1, skill.getMaxNegatedEffects());
 						else if (stat == "poison" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.POISON, negatePower, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,L2SkillType.POISON, negatePower, skill.getMaxNegatedEffects());
 						else if (stat == "bleed" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.BLEED, negatePower, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,L2SkillType.BLEED, negatePower, skill.getMaxNegatedEffects());
 						else if (stat == "paralyze" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.PARALYZE,-1, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,L2SkillType.PARALYZE,-1, skill.getMaxNegatedEffects());
 						else if (stat == "root" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,SkillType.ROOT,-1, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target,L2SkillType.ROOT,-1, skill.getMaxNegatedEffects());
 						else if (stat == "death_mark" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target, SkillType.DEATH_MARK,  negatePower, skill.getMaxNegatedEffects());
+							removedBuffs += negateEffect(target, L2SkillType.DEATH_MARK,  negatePower, skill.getMaxNegatedEffects());
 						else if (stat == "heal" && removedBuffs < skill.getMaxNegatedEffects())
-							SkillHandler.getInstance().getSkillHandler(SkillType.HEAL).useSkill(activeChar, skill, target);
+							SkillHandler.getInstance().getSkillHandler(L2SkillType.HEAL).useSkill(activeChar, skill, target);
 					}//end for
 				}//end else
 			}// end case
@@ -865,7 +866,7 @@ public class Disablers implements ISkillHandler
 		if (_log.isDebugEnabled())
 			_log.info("Disablers: useCubicSkill()");
 
-		SkillType type = skill.getSkillType();
+		L2SkillType type = skill.getSkillType();
 
 		for (L2Character target: (L2Character[]) targets)
 		{
@@ -883,7 +884,7 @@ public class Disablers implements ISkillHandler
 						// so the debuff can be removed after the duel
 						// (player & target must be in the same duel)
 						if (target instanceof L2PcInstance && ((L2PcInstance)target).isInDuel() &&
-								skill.getSkillType() == L2Skill.SkillType.DEBUFF &&
+								skill.getSkillType() == L2SkillType.DEBUFF &&
 								activeCubic.getOwner().getDuelId() == ((L2PcInstance)target).getDuelId())
 						{
 							DuelManager dm = DuelManager.getInstance();
@@ -931,12 +932,12 @@ public class Disablers implements ISkillHandler
 		}
 	}
 
-	private int negateEffect(L2Character target, SkillType type, double power, int maxRemoved)
+	private int negateEffect(L2Character target, L2SkillType type, double power, int maxRemoved)
 	{
 		return negateEffect(target, type, power, 0, maxRemoved);
 	}
 
-	private int negateEffect(L2Character target, SkillType type, double power, int skillId, int maxRemoved)
+	private int negateEffect(L2Character target, L2SkillType type, double power, int skillId, int maxRemoved)
 	{
 		L2Effect[] effects = target.getAllEffects();
 		int count = (maxRemoved <= 0 )? -2 : 0;
@@ -1002,8 +1003,8 @@ public class Disablers implements ISkillHandler
 			env.skill = eff.getSkill();
 			L2Effect e = eff.getEffectTemplate().getStolenEffect(env, eff);
 
-			// Since there is a previous check that limits allowed effects to those which come from SkillType.BUFF,
-			// it is not needed another check for SkillType
+			// Since there is a previous check that limits allowed effects to those which come from L2SkillType.BUFF,
+			// it is not needed another check for L2SkillType
 			if (stealer instanceof L2PcInstance && e != null)
 			{
 				SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
@@ -1015,7 +1016,7 @@ public class Disablers implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

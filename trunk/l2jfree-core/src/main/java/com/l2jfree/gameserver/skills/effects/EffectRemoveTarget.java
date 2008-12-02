@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.skills.effects;
 
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
 
 /**
  * @author -Nemesiss-
@@ -29,9 +30,9 @@ public final class EffectRemoveTarget extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.REMOVE_TARGET;
+		return L2EffectType.REMOVE_TARGET;
 	}
 
 	/** Notify started */

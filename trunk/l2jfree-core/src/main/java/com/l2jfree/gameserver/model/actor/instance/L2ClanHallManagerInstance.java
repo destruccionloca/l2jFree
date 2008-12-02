@@ -28,7 +28,6 @@ import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TeleportLocation;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
@@ -40,6 +39,7 @@ import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.WareHouseDepositList;
 import com.l2jfree.gameserver.network.serverpackets.WareHouseWithdrawalList;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 public class L2ClanHallManagerInstance extends L2MerchantInstance
 {
@@ -1298,7 +1298,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                         else
                         {
                             //reduceCurrentMp(mpConsume);
-                            if (skill.getSkillType() == SkillType.SUMMON)
+                            if (skill.getSkillType() == L2SkillType.SUMMON)
                                 player.doSimultaneousCast(skill);
                             else
                             {

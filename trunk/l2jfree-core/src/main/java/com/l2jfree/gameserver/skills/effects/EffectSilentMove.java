@@ -16,11 +16,12 @@ package com.l2jfree.gameserver.skills.effects;
 
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 public final class EffectSilentMove extends L2Effect
 {
@@ -51,16 +52,16 @@ public final class EffectSilentMove extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.SILENT_MOVE;
+		return L2EffectType.SILENT_MOVE;
 	}
 
 	@Override
 	public boolean onActionTime()
 	{
 		// Only cont skills shouldn't end
-		if (getSkill().getSkillType() != SkillType.CONT)
+		if (getSkill().getSkillType() != L2SkillType.CONT)
 			return false;
 
 		if (getEffected().isDead())

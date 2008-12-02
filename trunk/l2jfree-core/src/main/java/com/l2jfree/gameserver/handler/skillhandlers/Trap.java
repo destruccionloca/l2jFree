@@ -19,16 +19,16 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Trap;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TrapInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 public class Trap implements ISkillHandler
 {
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.DETECT_TRAP, SkillType.REMOVE_TRAP };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.DETECT_TRAP, L2SkillType.REMOVE_TRAP };
 
 	/**
 	 * 
@@ -90,7 +90,7 @@ public class Trap implements ISkillHandler
 	 * 
 	 * @see com.l2jfree.gameserver.handler.ISkillHandler#getSkillIds()
 	 */
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

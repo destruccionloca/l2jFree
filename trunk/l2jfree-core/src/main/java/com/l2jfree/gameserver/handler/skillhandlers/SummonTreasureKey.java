@@ -22,8 +22,8 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 /** 
@@ -33,8 +33,8 @@ import com.l2jfree.tools.random.Rnd;
 public class SummonTreasureKey implements ISkillHandler
 {
 	private static Log					_log		= LogFactory.getLog(SummonTreasureKey.class.getName());
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.SUMMON_TREASURE_KEY };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.SUMMON_TREASURE_KEY };
 
 	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
 	L2Skill skill, @SuppressWarnings("unused")
@@ -80,7 +80,7 @@ public class SummonTreasureKey implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

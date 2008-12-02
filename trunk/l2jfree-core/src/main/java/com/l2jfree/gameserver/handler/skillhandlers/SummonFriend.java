@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
@@ -30,6 +29,7 @@ import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -39,8 +39,8 @@ import com.l2jfree.gameserver.util.Util;
 public class SummonFriend implements ISkillHandler
 {
 	private static final Log			_log		= LogFactory.getLog(SummonFriend.class.getName());
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.SUMMON_FRIEND };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.SUMMON_FRIEND };
 
 	public static boolean checkSummonerStatus(L2PcInstance summonerChar)
 	{
@@ -251,7 +251,7 @@ public class SummonFriend implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

@@ -65,7 +65,6 @@ import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.MobGroupTable;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.knownlist.NpcKnownList;
 import com.l2jfree.gameserver.model.actor.stat.NpcStat;
 import com.l2jfree.gameserver.model.actor.status.NpcStatus;
@@ -103,6 +102,7 @@ import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.L2BuffTemplate;
 import com.l2jfree.gameserver.templates.L2Item;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.gameserver.templates.L2Weapon;
 import com.l2jfree.tools.random.Rnd;
 
@@ -1554,7 +1554,7 @@ public class L2NpcInstance extends L2Character
 						sm = null;
 
 						// hack for newbie summons
-						if (_buff.getSkill().getSkillType() == SkillType.SUMMON)
+						if (_buff.getSkill().getSkillType() == L2SkillType.SUMMON)
 						{
 							player.doSimultaneousCast(_buff.getSkill());
 						}

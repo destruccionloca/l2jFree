@@ -20,10 +20,11 @@ import java.util.Map;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.effects.EffectCharmOfCourage;
+import com.l2jfree.gameserver.templates.L2EffectType;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -81,7 +82,7 @@ public class CharEffectList
 	 * @param tp
 	 * @return
 	 */
-	public final L2Effect getFirstEffect(L2Effect.EffectType tp)
+	public final L2Effect getFirstEffect(L2EffectType tp)
 	{
 		L2Effect[] effects = getAllEffects();
 
@@ -191,8 +192,8 @@ public class CharEffectList
 					&& !e.getSkill().isDance()
 					&& !e.getSkill().isSong()
 					&& !e.getSkill().isDebuff()
-					&& (e.getSkill().getSkillType() == SkillType.BUFF || e.getSkill().getSkillType() == SkillType.REFLECT
-							|| e.getSkill().getSkillType() == SkillType.HEAL_PERCENT || e.getSkill().getSkillType() == SkillType.MANAHEAL_PERCENT)
+					&& (e.getSkill().getSkillType() == L2SkillType.BUFF || e.getSkill().getSkillType() == L2SkillType.REFLECT
+							|| e.getSkill().getSkillType() == L2SkillType.HEAL_PERCENT || e.getSkill().getSkillType() == L2SkillType.MANAHEAL_PERCENT)
 					&& !(e.getSkill().getId() > 4360 && e.getSkill().getId() < 4367)) // Seven Signs buffs
 			{
 				buffCount++;
@@ -261,7 +262,7 @@ public class CharEffectList
 	 * Exit all effects having a specified type
 	 * @param type
 	 */
-	public final void stopEffects(L2Effect.EffectType type)
+	public final void stopEffects(L2EffectType type)
 	{
 		// Get all active skills effects from this list
 		L2Effect[] effects = getAllEffects();
@@ -301,8 +302,8 @@ public class CharEffectList
 		boolean danceBuff = false;
 		if (!checkSkill.isDance() && !checkSkill.isSong() && getBuffCount() >= _owner.getMaxBuffCount())
 		{
-			if (checkSkill.getSkillType() != SkillType.BUFF && checkSkill.getSkillType() != SkillType.REFLECT
-					&& checkSkill.getSkillType() != SkillType.HEAL_PERCENT && checkSkill.getSkillType() != SkillType.MANAHEAL_PERCENT)
+			if (checkSkill.getSkillType() != L2SkillType.BUFF && checkSkill.getSkillType() != L2SkillType.REFLECT
+					&& checkSkill.getSkillType() != L2SkillType.HEAL_PERCENT && checkSkill.getSkillType() != L2SkillType.MANAHEAL_PERCENT)
 			{
 				return;
 			}

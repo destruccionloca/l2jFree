@@ -19,9 +19,9 @@ import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /**
  * This class ...
@@ -33,12 +33,12 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 
 public class BalanceLife implements ISkillHandler
 {
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.BALANCE_LIFE };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.BALANCE_LIFE };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
-		SkillHandler.getInstance().getSkillHandler(SkillType.BUFF).useSkill(activeChar, skill, targets);
+		SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF).useSkill(activeChar, skill, targets);
 
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
@@ -86,7 +86,7 @@ public class BalanceLife implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

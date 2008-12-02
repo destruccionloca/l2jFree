@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -44,9 +45,9 @@ public final class EffectConfusion extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.CONFUSION;
+		return L2EffectType.CONFUSION;
 	}
 
 	/** Notify started */

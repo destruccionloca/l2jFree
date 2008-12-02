@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
 
 /**
 *
@@ -38,9 +39,9 @@ public final class EffectTransformation extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return L2Effect.EffectType.TRANSFORMATION;
+		return L2EffectType.TRANSFORMATION;
 	}
 
 	@Override

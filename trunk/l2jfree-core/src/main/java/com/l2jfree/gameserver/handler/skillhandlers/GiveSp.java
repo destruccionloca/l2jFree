@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /**
  * @author Forsaiken
@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.model.L2Skill.SkillType;
 
 public class GiveSp implements ISkillHandler
 {
-	private static final SkillType[] SKILL_IDS = {SkillType.GIVE_SP};
+	private static final L2SkillType[] SKILL_IDS = {L2SkillType.GIVE_SP};
 
 	public void useSkill(@SuppressWarnings("unused") L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
@@ -42,7 +42,7 @@ public class GiveSp implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

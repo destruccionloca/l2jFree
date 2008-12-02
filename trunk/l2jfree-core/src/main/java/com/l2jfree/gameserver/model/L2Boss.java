@@ -21,12 +21,12 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.BossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 public abstract class L2Boss extends L2MonsterInstance
@@ -92,7 +92,7 @@ public abstract class L2Boss extends L2MonsterInstance
     }
 
     @Override
-    public boolean checkSkillCanAffectMyself(SkillType type)
+    public boolean checkSkillCanAffectMyself(L2SkillType type)
     {
         switch(type)
         {

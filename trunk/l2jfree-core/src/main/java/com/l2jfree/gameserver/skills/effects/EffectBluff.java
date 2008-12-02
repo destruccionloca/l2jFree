@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
 
 /**
  * @author decad
@@ -35,9 +36,9 @@ public final class EffectBluff extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.BLUFF; // test for bluff effect
+		return L2EffectType.BLUFF; // test for bluff effect
 	}
 
 	/** Notify started */

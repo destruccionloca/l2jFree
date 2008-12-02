@@ -17,10 +17,11 @@ package com.l2jfree.gameserver.skills.effects;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 public final class EffectDamOverTime extends L2Effect
 {
@@ -30,9 +31,9 @@ public final class EffectDamOverTime extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.DMG_OVER_TIME;
+		return L2EffectType.DMG_OVER_TIME;
 	}
 
 	@Override
@@ -44,11 +45,11 @@ public final class EffectDamOverTime extends L2Effect
 		double damage = calc();
 		if (getSkill().getId() < 2000)
 		{ // fix for players' poison and bleed weak effect
-			if (getSkill().getSkillType() == SkillType.POISON)
+			if (getSkill().getSkillType() == L2SkillType.POISON)
 			{
 				damage = damage * 2;
 			}
-			else if (getSkill().getSkillType() == SkillType.BLEED)
+			else if (getSkill().getSkillType() == L2SkillType.BLEED)
 			{
 				damage = damage * 2;
 			}

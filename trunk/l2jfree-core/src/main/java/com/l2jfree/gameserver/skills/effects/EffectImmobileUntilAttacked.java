@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
 
 /**
  * @author Ahmed
@@ -34,9 +35,9 @@ public final class EffectImmobileUntilAttacked extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.IMMOBILEUNTILATTACKED;
+		return L2EffectType.IMMOBILEUNTILATTACKED;
 	}
 
 	/** Notify started */

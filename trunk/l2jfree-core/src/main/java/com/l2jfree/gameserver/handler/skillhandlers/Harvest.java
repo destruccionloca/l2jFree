@@ -25,13 +25,13 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -40,8 +40,8 @@ import com.l2jfree.tools.random.Rnd;
 public class Harvest implements ISkillHandler
 {
 	private static Log					_log		= LogFactory.getLog(Harvest.class.getName());
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.HARVEST };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.HARVEST };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object... targets)
@@ -164,7 +164,7 @@ public class Harvest implements ISkillHandler
 		return false;
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

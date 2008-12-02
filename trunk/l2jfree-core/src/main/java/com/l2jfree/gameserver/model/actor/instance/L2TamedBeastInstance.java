@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 
@@ -170,7 +171,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
             for (L2Skill skill: getTemplate().getSkills().values())
             {
                 // if the skill is a buff, check if the owner has it already [  owner.getEffect(L2Skill skill) ]
-                if (skill.getSkillType() == L2Skill.SkillType.BUFF)
+                if (skill.getSkillType() == L2SkillType.BUFF)
                     totalBuffsAvailable++;
             }
 
@@ -250,7 +251,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 			for (L2Skill skill: skills.values())
 			{
 				// if the skill is a debuff, check if the attacker has it already [  attacker.getEffect(L2Skill skill) ]
-				if ((skill.getSkillType() == L2Skill.SkillType.DEBUFF) && Rnd.get(3) < 1 && (attacker.getFirstEffect(skill) != null))
+				if ((skill.getSkillType() == L2SkillType.DEBUFF) && Rnd.get(3) < 1 && (attacker.getFirstEffect(skill) != null))
 				{
 					sitCastAndFollow(skill, attacker);
 				}
@@ -270,18 +271,18 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 			for (L2Skill skill: skills.values())
 			{
 				// if the skill is a buff, check if the owner has it already [  owner.getEffect(L2Skill skill) ]
-				if ( (Rnd.get(5) < chance) && ((skill.getSkillType() == L2Skill.SkillType.HEAL) || 
-						(skill.getSkillType() == L2Skill.SkillType.HOT) ||
-						(skill.getSkillType() == L2Skill.SkillType.BALANCE_LIFE) ||
-						(skill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT) ||
-						(skill.getSkillType() == L2Skill.SkillType.HEAL_STATIC) ||
-						(skill.getSkillType() == L2Skill.SkillType.COMBATPOINTHEAL) ||
-						(skill.getSkillType() == L2Skill.SkillType.CPHOT) ||
-						(skill.getSkillType() == L2Skill.SkillType.MANAHEAL) ||
-						(skill.getSkillType() == L2Skill.SkillType.MANA_BY_LEVEL) ||
-						(skill.getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT) ||
-						(skill.getSkillType() == L2Skill.SkillType.MANARECHARGE) ||
-						(skill.getSkillType() == L2Skill.SkillType.MPHOT) )
+				if ( (Rnd.get(5) < chance) && ((skill.getSkillType() == L2SkillType.HEAL) || 
+						(skill.getSkillType() == L2SkillType.HOT) ||
+						(skill.getSkillType() == L2SkillType.BALANCE_LIFE) ||
+						(skill.getSkillType() == L2SkillType.HEAL_PERCENT) ||
+						(skill.getSkillType() == L2SkillType.HEAL_STATIC) ||
+						(skill.getSkillType() == L2SkillType.COMBATPOINTHEAL) ||
+						(skill.getSkillType() == L2SkillType.CPHOT) ||
+						(skill.getSkillType() == L2SkillType.MANAHEAL) ||
+						(skill.getSkillType() == L2SkillType.MANA_BY_LEVEL) ||
+						(skill.getSkillType() == L2SkillType.MANAHEAL_PERCENT) ||
+						(skill.getSkillType() == L2SkillType.MANARECHARGE) ||
+						(skill.getSkillType() == L2SkillType.MPHOT) )
 					)
 				{
 					sitCastAndFollow(skill, _owner);
@@ -411,7 +412,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
     		for (L2Skill skill: skills.values())
     		{
     			// if the skill is a buff, check if the owner has it already [  owner.getEffect(L2Skill skill) ]
-    			if (skill.getSkillType() == L2Skill.SkillType.BUFF)
+    			if (skill.getSkillType() == L2SkillType.BUFF)
     			{
     				if (i++ == rand)
     					buffToGive = skill;

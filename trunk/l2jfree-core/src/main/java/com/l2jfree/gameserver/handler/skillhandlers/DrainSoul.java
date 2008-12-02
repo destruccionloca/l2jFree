@@ -22,8 +22,8 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /** 
  * @author _drunk_ 
@@ -31,8 +31,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class DrainSoul implements ISkillHandler
 {
 	private static final Log			_log		= LogFactory.getLog(DrainSoul.class.getName());
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.DRAIN_SOUL };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.DRAIN_SOUL };
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object... targets)
@@ -54,7 +54,7 @@ public class DrainSoul implements ISkillHandler
 		// since the Soul Crystal item handler already does everything.
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

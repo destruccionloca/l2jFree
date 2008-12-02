@@ -25,10 +25,10 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -260,16 +260,23 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 	}
 
 	@Override
-	public boolean checkSkillCanAffectMyself(SkillType type)
+	public boolean checkSkillCanAffectMyself(L2SkillType type)
 	{
 		if (!isRaid())
 			return true;
-		if (type == SkillType.CONFUSION	||	type == SkillType.MUTE		||	type == SkillType.PARALYZE	||
-			type == SkillType.ROOT		||	type == SkillType.FEAR		||	type == SkillType.SLEEP		||
-			type == SkillType.STUN		||	type == SkillType.DEBUFF	||	type == SkillType.AGGDEBUFF
-		)
-			return Rnd.get(1000) == 1;
-		
+		switch (type)
+		{
+			case CONFUSION:
+			case MUTE:
+			case PARALYZE:
+			case ROOT:
+			case FEAR:
+			case SLEEP:
+			case STUN:
+			case DEBUFF:
+			case AGGDEBUFF:
+				return Rnd.get(1000) == 1;
+		}
 		return true;
 	}
 

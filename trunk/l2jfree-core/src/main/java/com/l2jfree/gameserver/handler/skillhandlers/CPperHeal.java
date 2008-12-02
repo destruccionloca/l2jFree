@@ -19,10 +19,10 @@ import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /**
  * @author -Nemesiss-
@@ -34,14 +34,14 @@ public class CPperHeal implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	private static final SkillType[]	SKILL_IDS	= { SkillType.COMBATPOINTPERCENTHEAL };
+	private static final L2SkillType[]	SKILL_IDS	= { L2SkillType.COMBATPOINTPERCENTHEAL };
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
 	public void useSkill(@SuppressWarnings("unused") L2Character actChar, L2Skill skill, L2Object... targets)
 	{
-		SkillHandler.getInstance().getSkillHandler(SkillType.BUFF).useSkill(actChar, skill, targets);
+		SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF).useSkill(actChar, skill, targets);
 		
 		for (L2Object element : targets)
 		{
@@ -61,7 +61,7 @@ public class CPperHeal implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

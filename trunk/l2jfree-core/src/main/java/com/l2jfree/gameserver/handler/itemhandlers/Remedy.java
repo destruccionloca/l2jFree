@@ -23,6 +23,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
+import com.l2jfree.gameserver.templates.L2EffectType;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /**
  * This class ...
@@ -57,7 +59,7 @@ public class Remedy implements IItemHandler
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
 			{
-				if (e.getSkill().getSkillType() == L2Skill.SkillType.POISON && e.getSkill().getLevel() <= 3)
+				if (e.getSkill().getSkillType() == L2SkillType.POISON && e.getSkill().getLevel() <= 3)
 				{
 					e.exit();
 					break;
@@ -73,7 +75,7 @@ public class Remedy implements IItemHandler
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
 			{
-				if (e.getSkill().getSkillType() == L2Skill.SkillType.POISON && e.getSkill().getLevel() <= 7)
+				if (e.getSkill().getSkillType() == L2SkillType.POISON && e.getSkill().getLevel() <= 7)
 				{
 					e.exit();
 					break;
@@ -89,7 +91,7 @@ public class Remedy implements IItemHandler
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
 			{
-				if (e.getSkill().getSkillType() == L2Skill.SkillType.BLEED && e.getSkill().getLevel() <= 3)
+				if (e.getSkill().getSkillType() == L2SkillType.BLEED && e.getSkill().getLevel() <= 3)
 				{
 					e.exit();
 					break;
@@ -105,7 +107,7 @@ public class Remedy implements IItemHandler
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
 			{
-				if (e.getSkill().getSkillType() == L2Skill.SkillType.BLEED && e.getSkill().getLevel() <= 7)
+				if (e.getSkill().getSkillType() == L2SkillType.BLEED && e.getSkill().getLevel() <= 7)
 				{
 					e.exit();
 					break;
@@ -125,7 +127,7 @@ public class Remedy implements IItemHandler
 					e.exit();
 			}
 			activeChar.setIsImmobilized(false);
-			if (activeChar.getFirstEffect(L2Effect.EffectType.ROOT) == null)
+			if (activeChar.getFirstEffect(L2EffectType.ROOT) == null)
 				activeChar.stopRooting(null);
 			MagicSkillUse MSU = new MagicSkillUse(playable, playable, 2042, 1, 0, 0);
 			activeChar.sendPacket(MSU);

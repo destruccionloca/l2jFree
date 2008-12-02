@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
 import com.l2jfree.gameserver.model.actor.status.PcStatus;
 import com.l2jfree.gameserver.model.actor.status.PlayableStatus;
 import com.l2jfree.gameserver.templates.L2CharTemplate;
+import com.l2jfree.gameserver.templates.L2EffectType;
 
 /**
  * This class represents all Playable characters in the world.<BR><BR>
@@ -183,7 +184,7 @@ public abstract class L2PlayableInstance extends L2Character
 	public final void stopNoblesseBlessing(L2Effect effect)
 	{
 		if (effect == null)
-			stopEffects(L2Effect.EffectType.NOBLESSE_BLESSING);
+			stopEffects(L2EffectType.NOBLESSE_BLESSING);
 		else
 			removeEffect(effect);
 
@@ -211,7 +212,7 @@ public abstract class L2PlayableInstance extends L2Character
 	public final void stopPhoenixBlessing(L2Effect effect)
 	{
 		if (effect == null)
-			stopEffects(L2Effect.EffectType.PHOENIX_BLESSING);
+			stopEffects(L2EffectType.PHOENIX_BLESSING);
 		else
 			removeEffect(effect);
 
@@ -258,7 +259,7 @@ public abstract class L2PlayableInstance extends L2Character
 	public void stopProtectionBlessing(L2Effect effect)
 	{
 		if (effect == null)
-			stopEffects(L2Effect.EffectType.PROTECTION_BLESSING);
+			stopEffects(L2EffectType.PROTECTION_BLESSING);
 		else
 			removeEffect(effect);
 
@@ -286,7 +287,7 @@ public abstract class L2PlayableInstance extends L2Character
 	public final void stopCharmOfLuck(L2Effect effect)
 	{
 		if (effect == null)
-			stopEffects(L2Effect.EffectType.CHARM_OF_LUCK);
+			stopEffects(L2EffectType.CHARM_OF_LUCK);
 		else
 			removeEffect(effect);
 

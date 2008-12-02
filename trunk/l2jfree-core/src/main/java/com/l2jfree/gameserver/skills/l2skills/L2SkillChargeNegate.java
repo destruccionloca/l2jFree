@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
@@ -62,27 +63,27 @@ public class L2SkillChargeNegate extends L2Skill
 
 				if (stat == "root")
 				{
-					negateEffect(target, SkillType.ROOT);
+					negateEffect(target, L2SkillType.ROOT);
 				}
 				if (stat == "slow")
 				{
-					negateEffect(target, SkillType.DEBUFF);
-					negateEffect(target, SkillType.WEAKNESS);
+					negateEffect(target, L2SkillType.DEBUFF);
+					negateEffect(target, L2SkillType.WEAKNESS);
 				}
 				if (stat == "paralyze")
 				{
-					negateEffect(target, SkillType.PARALYZE);
+					negateEffect(target, L2SkillType.PARALYZE);
 				}
 			}
 		}
 	}
 
-	private void negateEffect(L2Character target, SkillType type)
+	private void negateEffect(L2Character target, L2SkillType type)
 	{
 		L2Effect[] effects = target.getAllEffects();
 		for (L2Effect e : effects)
 		{
-			if (type == SkillType.DEBUFF || type == SkillType.WEAKNESS)
+			if (type == L2SkillType.DEBUFF || type == L2SkillType.WEAKNESS)
 			{
 				if (e.getSkill().getSkillType() == type)
 				{

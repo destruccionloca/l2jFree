@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.skills.funcs.Lambda;
+import com.l2jfree.gameserver.templates.L2EffectType;
 
 /**
  * This class ...
@@ -49,17 +50,9 @@ public abstract class L2Effect
 	
 	public static enum EffectState
 	{
-		CREATED, ACTING, FINISHING
-	}
-	
-	public static enum EffectType
-	{
-		BUFF, DEBUFF, DMG_OVER_TIME, HEAL_OVER_TIME, COMBAT_POINT_HEAL_OVER_TIME, MANA_DMG_OVER_TIME, MP_CONSUME_PER_LEVEL,
-		MANA_HEAL_OVER_TIME, RELAXING, STUN, ROOT, SLEEP, IMMOBILEUNTILATTACKED, HATE, FAKE_DEATH, CONFUSION, CONFUSE_MOB_ONLY,
-		MUTE, FEAR, SILENT_MOVE, SEED, PARALYZE, STUN_SELF, BLUFF, BETRAY, NOBLESSE_BLESSING, PHOENIX_BLESSING, PETRIFY,
-		CANCEL_TARGET, SILENCE_MAGIC_PHYSICAL, ERASE, LUCKNOBLESSE, PHYSICAL_MUTE, PHYSICAL_ATTACK_MUTE, TARGET_ME, REMOVE_TARGET,
-		CHARM_OF_LUCK, INVINCIBLE, BAND_OF_DARKNESS, DARK_SEED, TRANSFORM, DISARM, CHARMOFCOURAGE,
-		PREVENT_BUFF, CONDITION_HIT, TRANSFORMATION, SIGNET_EFFECT, SIGNET_GROUND, WARP, SPOIL, PROTECTION_BLESSING
+		CREATED,
+		ACTING,
+		FINISHING
 	}
 	
 	private static final Func[]		_emptyFunctionSet	= new Func[0];
@@ -429,7 +422,7 @@ public abstract class L2Effect
 	}
 	
 	/** returns effect type */
-	public abstract EffectType getEffectType();
+	public abstract L2EffectType getEffectType();
 	
 	/** Notify started */
 	public boolean onStart()

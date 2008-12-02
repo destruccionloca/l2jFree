@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 
@@ -531,15 +532,15 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				{
 
 					L2Object OldTarget = _actor.getTarget();
-					if (sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL)
+					if (sk.getSkillType() == L2SkillType.BUFF || sk.getSkillType() == L2SkillType.HEAL)
 					{
 						boolean useSkillSelf = true;
-						if (sk.getSkillType() == L2Skill.SkillType.HEAL && _actor.getStatus().getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
+						if (sk.getSkillType() == L2SkillType.HEAL && _actor.getStatus().getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
 						{
 							useSkillSelf = false;
 							break;
 						}
-						if (sk.getSkillType() == L2Skill.SkillType.BUFF)
+						if (sk.getSkillType() == L2SkillType.BUFF)
 						{
 							L2Effect[] effects = _actor.getAllEffects();
 							for (int i = 0; effects != null && i < effects.length; i++)
@@ -656,15 +657,15 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 							&& !_actor.isSkillDisabled(sk.getId()))
 					{
 						L2Object OldTarget = _actor.getTarget();
-						if (sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL)
+						if (sk.getSkillType() == L2SkillType.BUFF || sk.getSkillType() == L2SkillType.HEAL)
 						{
 							boolean useSkillSelf = true;
-							if (sk.getSkillType() == L2Skill.SkillType.HEAL && _actor.getStatus().getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
+							if (sk.getSkillType() == L2SkillType.HEAL && _actor.getStatus().getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
 							{
 								useSkillSelf = false;
 								break;
 							}
-							if (sk.getSkillType() == L2Skill.SkillType.BUFF)
+							if (sk.getSkillType() == L2SkillType.BUFF)
 							{
 								L2Effect[] effects = _actor.getAllEffects();
 								for (int i = 0; effects != null && i < effects.length; i++)

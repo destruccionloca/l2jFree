@@ -40,6 +40,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
+import com.l2jfree.gameserver.templates.L2EffectType;
 import com.l2jfree.gameserver.templates.L2NpcTemplate;
 import com.l2jfree.tools.geometry.Point3D;
 
@@ -55,9 +56,9 @@ public final class EffectSignetMDam extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.SIGNET_GROUND;
+		return L2EffectType.SIGNET_GROUND;
 	}
 
 	@Override

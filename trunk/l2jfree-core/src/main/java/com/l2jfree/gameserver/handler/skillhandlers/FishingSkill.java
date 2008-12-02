@@ -20,16 +20,16 @@ import com.l2jfree.gameserver.model.L2Fishing;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.gameserver.templates.L2Weapon;
 
 public class FishingSkill implements ISkillHandler
 {
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.PUMPING, SkillType.REELING };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.PUMPING, L2SkillType.REELING };
 
 	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
 	L2Skill skill, @SuppressWarnings("unused")
@@ -43,12 +43,12 @@ public class FishingSkill implements ISkillHandler
 		L2Fishing fish = player.getFishCombat();
 		if (fish == null)
 		{
-			if (skill.getSkillType() == SkillType.PUMPING)
+			if (skill.getSkillType() == L2SkillType.PUMPING)
 			{
 				//Pumping skill is available only while fishing
 				player.sendPacket(SystemMessageId.CAN_USE_PUMPING_ONLY_WHILE_FISHING);
 			}
-			else if (skill.getSkillType() == SkillType.REELING)
+			else if (skill.getSkillType() == L2SkillType.REELING)
 			{
 				//Reeling skill is available only while fishing
 				player.sendPacket(SystemMessageId.CAN_USE_REELING_ONLY_WHILE_FISHING);
@@ -79,7 +79,7 @@ public class FishingSkill implements ISkillHandler
 		{
 			weaponInst.setChargedFishshot(false);
 		}
-		if (skill.getSkillType() == SkillType.REELING)//Realing
+		if (skill.getSkillType() == L2SkillType.REELING)//Realing
 		{
 			fish.useRealing(dmg, pen);
 		}
@@ -90,7 +90,7 @@ public class FishingSkill implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

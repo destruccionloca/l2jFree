@@ -15,9 +15,9 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.L2Effect.EffectType;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.templates.L2EffectType;
 
 /** 
  * @author evill33t/crion
@@ -50,7 +50,7 @@ public class RequestDispel extends L2GameClientPacket
 			s = e.getSkill();
 			if (s.getId() == _skillId && s.getLevel() == _skillLevel)
 			{
-				if (!s.isDance() && !s.isSong() && !s.isDebuff() && e.getEffectType() != EffectType.TRANSFORMATION)
+				if (!s.isDance() && !s.isSong() && !s.isDebuff() && e.getEffectType() != L2EffectType.TRANSFORMATION)
 					e.exit();
 				return;
 			}

@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.handler.skillhandlers.*;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 public final class SkillHandler implements ISkillHandler
 {
@@ -41,7 +41,7 @@ public final class SkillHandler implements ISkillHandler
 		return _instance;
 	}
 
-	private final Map<SkillType, ISkillHandler>	_handlers	= new FastMap<SkillType, ISkillHandler>();
+	private final Map<L2SkillType, ISkillHandler>	_handlers	= new FastMap<L2SkillType, ISkillHandler>();
 
 	private SkillHandler()
 	{
@@ -90,12 +90,12 @@ public final class SkillHandler implements ISkillHandler
 
 	public void registerSkillHandler(ISkillHandler handler)
 	{
-		for (SkillType t : handler.getSkillIds())
+		for (L2SkillType t : handler.getSkillIds())
 			if (_handlers.put(t, handler) != null)
 				_log.warn("SkillHandler: Already handled SkillType." + t + " " + handler);
 	}
 
-	public ISkillHandler getSkillHandler(SkillType skillType)
+	public ISkillHandler getSkillHandler(L2SkillType skillType)
 	{
 		ISkillHandler handler = _handlers.get(skillType);
 
@@ -107,7 +107,7 @@ public final class SkillHandler implements ISkillHandler
 		skill.useSkill(activeChar, targets);
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return null;
 	}

@@ -26,7 +26,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2ClanHallManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -35,6 +34,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /**
  * This class ...
@@ -46,24 +46,24 @@ public class Continuous implements ISkillHandler
 {
 	//private static Logger _log = Logger.getLogger(Continuous.class.getName());
 
-	private static final SkillType[]	SKILL_IDS	=
+	private static final L2SkillType[]	SKILL_IDS	=
 													{
-			L2Skill.SkillType.BUFF,
-			L2Skill.SkillType.DEBUFF,
-			L2Skill.SkillType.DOT,
-			L2Skill.SkillType.MDOT,
-			L2Skill.SkillType.POISON,
-			L2Skill.SkillType.BLEED,
-			L2Skill.SkillType.HOT,
-			L2Skill.SkillType.CPHOT,
-			L2Skill.SkillType.MPHOT,
-			L2Skill.SkillType.FEAR,
-			L2Skill.SkillType.CONT,
-			L2Skill.SkillType.WEAKNESS,
-			L2Skill.SkillType.REFLECT,
-			L2Skill.SkillType.UNDEAD_DEFENSE,
-			L2Skill.SkillType.AGGDEBUFF,
-			L2Skill.SkillType.FORCE_BUFF			};
+			L2SkillType.BUFF,
+			L2SkillType.DEBUFF,
+			L2SkillType.DOT,
+			L2SkillType.MDOT,
+			L2SkillType.POISON,
+			L2SkillType.BLEED,
+			L2SkillType.HOT,
+			L2SkillType.CPHOT,
+			L2SkillType.MPHOT,
+			L2SkillType.FEAR,
+			L2SkillType.CONT,
+			L2SkillType.WEAKNESS,
+			L2SkillType.REFLECT,
+			L2SkillType.UNDEAD_DEFENSE,
+			L2SkillType.AGGDEBUFF,
+			L2SkillType.FORCE_BUFF			};
 	private L2Skill						_skill;
 
 	/* (non-Javadoc)
@@ -123,7 +123,7 @@ public class Continuous implements ISkillHandler
 				continue;
 
 			// Player holding a cursed weapon can't be buffed and can't buff
-			if (skill.getSkillType() == L2Skill.SkillType.BUFF && !(activeChar instanceof L2ClanHallManagerInstance))
+			if (skill.getSkillType() == L2SkillType.BUFF && !(activeChar instanceof L2ClanHallManagerInstance))
 			{
 				if (target != activeChar)
 				{
@@ -224,7 +224,7 @@ public class Continuous implements ISkillHandler
 				// so the debuff can be removed after the duel
 				// (player & target must be in the same duel)
 				if (target instanceof L2PcInstance && ((L2PcInstance) target).isInDuel()
-						&& (skill.getSkillType() == L2Skill.SkillType.DEBUFF || skill.getSkillType() == L2Skill.SkillType.BUFF) && player != null
+						&& (skill.getSkillType() == L2SkillType.DEBUFF || skill.getSkillType() == L2SkillType.BUFF) && player != null
 						&& player.getDuelId() == ((L2PcInstance) target).getDuelId())
 				{
 					DuelManager dm = DuelManager.getInstance();
@@ -235,7 +235,7 @@ public class Continuous implements ISkillHandler
 				else
 					skill.getEffects(activeChar, target);
 
-				if (skill.getSkillType() == L2Skill.SkillType.AGGDEBUFF)
+				if (skill.getSkillType() == L2SkillType.AGGDEBUFF)
 				{
 					if (target instanceof L2Attackable)
 						target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) skill.getPower());
@@ -293,7 +293,7 @@ public class Continuous implements ISkillHandler
 			// so the debuff can be removed after the duel
 			// (player & target must be in the same duel)
 			if (target instanceof L2PcInstance && ((L2PcInstance)target).isInDuel() &&
-					skill.getSkillType() == L2Skill.SkillType.DEBUFF &&
+					skill.getSkillType() == L2SkillType.DEBUFF &&
 					activeCubic.getOwner().getDuelId() == ((L2PcInstance)target).getDuelId())
 			{
 				DuelManager dm = DuelManager.getInstance();
@@ -308,7 +308,7 @@ public class Continuous implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

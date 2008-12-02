@@ -22,13 +22,13 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.gameserver.templates.L2Weapon;
 import com.l2jfree.gameserver.templates.L2WeaponType;
 import com.l2jfree.gameserver.util.Util;
@@ -37,9 +37,9 @@ import com.l2jfree.tools.random.Rnd;
 public class Fishing implements ISkillHandler
 {
 	// private static Logger _log = Logger.getLogger(SiegeFlag.class.getName());
-	// protected SkillType[] _skillIds = {SkillType.FISHING};
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.FISHING };
+	// protected L2SkillType[] _skillIds = {L2SkillType.FISHING};
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.FISHING };
 
 	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
 	L2Skill skill, @SuppressWarnings("unused")
@@ -152,7 +152,7 @@ public class Fishing implements ISkillHandler
 		player.startFishing(x, y, z + 10);
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

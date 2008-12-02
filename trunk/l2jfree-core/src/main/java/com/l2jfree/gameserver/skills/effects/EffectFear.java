@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
 import com.l2jfree.geoserver.model.Location;
 
 /**
@@ -44,9 +45,9 @@ public final class EffectFear extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.FEAR;
+		return L2EffectType.FEAR;
 	}
 
 	/** Notify started */

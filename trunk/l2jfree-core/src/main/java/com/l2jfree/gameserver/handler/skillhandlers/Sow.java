@@ -25,13 +25,13 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -40,8 +40,8 @@ import com.l2jfree.tools.random.Rnd;
 public class Sow implements ISkillHandler
 {
 	private static Log					_log		= LogFactory.getLog(Sow.class.getName());
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.SOW };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.SOW };
 
 	private L2PcInstance				_activeChar;
 	private L2MonsterInstance			_target;
@@ -163,7 +163,7 @@ public class Sow implements ISkillHandler
 		return (rate < basicSuccess);
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}

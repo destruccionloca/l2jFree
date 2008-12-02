@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.templates.L2EffectType;
 
 public final class EffectMpConsumePerLevel extends L2Effect
 {
@@ -27,9 +28,9 @@ public final class EffectMpConsumePerLevel extends L2Effect
 	}
 
 	@Override
-	public EffectType getEffectType()
+	public L2EffectType getEffectType()
 	{
-		return EffectType.MP_CONSUME_PER_LEVEL;
+		return L2EffectType.MP_CONSUME_PER_LEVEL;
 	}
 
 	@Override

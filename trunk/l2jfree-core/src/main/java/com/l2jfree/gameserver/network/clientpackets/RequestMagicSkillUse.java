@@ -21,11 +21,11 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /**
  * This class ...
@@ -81,10 +81,10 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 		L2Skill skill = SkillTable.getInstance().getInfo(_magicId, level);
 
 		// Check the validity of the skill
-		if (skill != null && skill.getSkillType() != SkillType.NOTDONE)
+		if (skill != null && skill.getSkillType() != L2SkillType.NOTDONE)
 		{
 			// If Alternate rule Karma punishment is set to true, forbid skill Return to player with Karma
-			if (skill.getSkillType() == L2Skill.SkillType.RECALL && !Config.ALT_GAME_KARMA_PLAYER_CAN_TELEPORT && activeChar.getKarma() > 0)
+			if (skill.getSkillType() == L2SkillType.RECALL && !Config.ALT_GAME_KARMA_PLAYER_CAN_TELEPORT && activeChar.getKarma() > 0)
 				return;
 			
 			activeChar.useMagic(skill, _ctrlPressed, _shiftPressed);

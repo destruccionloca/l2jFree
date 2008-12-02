@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -30,6 +29,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.templates.L2SkillType;
 
 /**
  * This class ...
@@ -44,15 +44,15 @@ public class Heal implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
-	private static final SkillType[]	SKILL_IDS	=
-													{ SkillType.HEAL, SkillType.HEAL_PERCENT, SkillType.HEAL_STATIC, SkillType.HEAL_MOB };
+	private static final L2SkillType[]	SKILL_IDS	=
+													{ L2SkillType.HEAL, L2SkillType.HEAL_PERCENT, L2SkillType.HEAL_STATIC, L2SkillType.HEAL_MOB };
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
-		SkillHandler.getInstance().getSkillHandler(SkillType.BUFF).useSkill(activeChar, skill, targets);
+		SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF).useSkill(activeChar, skill, targets);
 
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		L2PcInstance player = null;
@@ -77,7 +77,7 @@ public class Heal implements ISkillHandler
 
 			double hp = skill.getPower();
 
-			if (skill.getSkillType() == SkillType.HEAL_PERCENT)
+			if (skill.getSkillType() == L2SkillType.HEAL_PERCENT)
 			{
 				hp = target.getMaxHp() * hp / 100.0;
 			}
@@ -126,11 +126,11 @@ public class Heal implements ISkillHandler
 			}
 			else
 			{
-				if (skill.getSkillType() == SkillType.HEAL_STATIC)
+				if (skill.getSkillType() == L2SkillType.HEAL_STATIC)
 				{
 					hp = skill.getPower();
 				}
-				else if (skill.getSkillType() != SkillType.HEAL_PERCENT)
+				else if (skill.getSkillType() != L2SkillType.HEAL_PERCENT)
 				{
 					hp *= target.calcStat(Stats.HEAL_EFFECTIVNESS, 100, null, null) / 100;
 					// Healer proficiency (since CT1)
@@ -193,7 +193,7 @@ public class Heal implements ISkillHandler
 		}
 	}
 
-	public SkillType[] getSkillIds()
+	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}
