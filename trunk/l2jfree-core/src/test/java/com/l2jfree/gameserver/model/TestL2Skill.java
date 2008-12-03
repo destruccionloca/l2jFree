@@ -18,7 +18,7 @@ import junit.framework.TestCase;
 
 import com.l2jfree.gameserver.model.L2Skill.SkillOpType;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
-import com.l2jfree.gameserver.model.L2Skill.SkillType;
+import com.l2jfree.gameserver.templates.L2SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.skills.conditions.ConditionItemId;
 import com.l2jfree.gameserver.templates.L2CharTemplate;
@@ -51,7 +51,7 @@ public class TestL2Skill extends TestCase
         statsSetForTest.set("name","Skill test");
         statsSetForTest.set("operateType",SkillOpType.OP_PASSIVE);
         statsSetForTest.set("target",SkillTargetType.TARGET_ALLY);
-        statsSetForTest.set("skillType",SkillType.BLEED);
+        statsSetForTest.set("skillType",L2SkillType.BLEED);
         
         statsSetForTestNpc = new StatsSet();
         statsSetForTestNpc.set("baseSTR",1);

@@ -20,6 +20,7 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
  *
  */
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.DM;
@@ -58,8 +59,9 @@ public class AdminDMEngine implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			return false;
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
 
 		if (command.equals("admin_dmevent"))
 			showMainPage(activeChar);
