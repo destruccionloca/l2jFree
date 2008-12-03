@@ -6972,11 +6972,12 @@ public abstract class L2Character extends L2Object
 					L2Character targetsAttackTarget = target.getAI().getAttackTarget();
 					L2Character targetsCastTarget = target.getAI().getCastTarget();
 
-					if ((target.isRaid() && getLevel() > target.getLevel() + 8) || (!skill.isOffensive() && targetsAttackTarget != null && targetsAttackTarget.isRaid()
+					if (!Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION
+					&& ((target.isRaid() && getLevel() > target.getLevel() + 8) || (!skill.isOffensive() && targetsAttackTarget != null && targetsAttackTarget.isRaid()
 					&& targetsAttackTarget.getAttackByList().contains(target) // has attacked raid
 					&& getLevel() > targetsAttackTarget.getLevel() + 8) || (!skill.isOffensive() && targetsCastTarget != null && targetsCastTarget.isRaid()
 					&& targetsCastTarget.getAttackByList().contains(target) // has attacked raid
-					&& getLevel() > targetsCastTarget.getLevel() + 8 && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION))
+					&& getLevel() > targetsCastTarget.getLevel() + 8 )))
 					{
 						if (skill.isMagic())
 						{
