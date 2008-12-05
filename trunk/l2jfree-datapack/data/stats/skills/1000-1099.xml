@@ -709,7 +709,7 @@
       1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 30 29 29 28 28 27 27 26 26 25 25 24
       24 23 23 22 22 21 21 20 20 19 19 18 18 17 17 16 16 15 </table>
-    <table name="#ench2MpConsume_Init"> 7 7 7 7 7 7 7 6 6 6 6 6 6 6 6 5 5 5 5 
+    <table name="#ench2MpConsume_Init"> 7 7 7 7 7 7 7 6 6 6 6 6 6 6 6 5 5 5 5
       5 5 5 4 4 4 4 4 4 4 4 </table>
     <table name="#mpConsume_Init">6 7 8</table>
     <table name="#mpConsume">24 28 31</table>

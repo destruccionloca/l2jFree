@@ -1238,7 +1238,7 @@
     <set name="effectType" val="DOT" />
     <set name="effectPower" val="40" /> <!-- Guessing -->
     <for>
-      <effect count="7" name="DamOverTime" time="3"    val="100" />
+      <effect count="7" name="DamOverTime" time="3" val="100" />
     </for>
   </skill>
   <skill id="1453" levels="1" name="Ice Vortex Crusher">
