@@ -62,7 +62,7 @@ class Quest (JQuest) :
        htmltext = "30435-04.htm"
      else :
        htmltext = "30435-05.htm"
-       st.rewardItems(ADENA,60*red+65*blue+70*black)
+       st.rewardItems(ADENA,46*red+52*blue+58*black+4320)
        st.takeItems(RED_CROSS_BADGE,-1)
        st.takeItems(BLUE_CROSS_BADGE,-1)
        st.takeItems(BLACK_CROSS_BADGE,-1)

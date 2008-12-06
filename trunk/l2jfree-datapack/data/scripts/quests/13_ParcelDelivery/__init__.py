@@ -31,8 +31,9 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_accept")
    if event == "31539-1.htm" :
      if cond == 1 and st.getQuestItemsCount(PACKAGE) == 1 :
+       st.rewardItems(57,157834)
        st.takeItems(PACKAGE,1)
-       st.rewardItems(57,82000)
+       st.addExpAndSp(589092,58794)
        st.exitQuest(False)
        st.set("cond","0")
        st.playSound("ItemSound.quest_finish")

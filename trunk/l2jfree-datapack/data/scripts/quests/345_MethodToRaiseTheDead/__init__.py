@@ -66,6 +66,7 @@ class Quest (JQuest) :
      level = player.getLevel()
      cond = st.getInt("cond")
      amount = st.getQuestItemsCount(USELESS_BONE_PIECES)
+     bonus = 5390
      if npcId==30970 :
          if id == State.CREATED :
              if level>=35 :
@@ -80,9 +81,9 @@ class Quest (JQuest) :
          elif cond==7 :
              htmltext = "30970-07.htm"
              st.set("cond","1")
-             st.rewardItems(ADENA,amount*238)
-             st.giveItems(BILL_OF_IASON_HEINE,st.getRandom(7)+1)
+             st.rewardItems(ADENA,amount*70+bonus)
              st.takeItems(USELESS_BONE_PIECES,-1)
+             st.giveItems(BILL_OF_IASON_HEINE,st.getRandom(7)+1)
      if npcId==30912 :
          if cond == 2 :
              htmltext = "30912-01.htm"

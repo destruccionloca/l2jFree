@@ -54,11 +54,12 @@ class Quest (JQuest) :
             st.giveItems(Tenain_Rec,1)
             st.set("cond","14")
         if event == "32207-05.htm" :
+            st.rewardItems(57,81900)
             st.takeItems(Tenain_Rec,-1)
             st.exitQuest(False) 
             st.playSound("ItemSound.quest_finish")
             st.giveItems(Orkurus_Rec,1)
-            st.addExpAndSp(73590,8344)
+            st.addExpAndSp(174503,11974)
             st.unset("cond")
             st.unset("kills")
             st.unset("spawned")

@@ -38,8 +38,8 @@ class Quest (JQuest) :
          htmltext = "30559-01.htm"
    elif st.getQuestItemsCount(10869) >= 30:
       htmltext = "30559-04.htm"
-      st.takeItems(10869,-1)
       st.rewardItems(57,2474)
+      st.takeItems(10869,-1)
       st.addExpAndSp(8738,409)
       st.playSound("ItemSound.quest_finish")
       st.exitQuest(1)

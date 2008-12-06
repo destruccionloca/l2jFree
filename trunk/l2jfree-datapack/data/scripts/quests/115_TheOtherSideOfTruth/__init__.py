@@ -143,7 +143,8 @@ class Quest (JQuest) :
           htmltext = "32020-18.htm"
           st.exitQuest(0)
           st.playSound("ItemSound.quest_finish")
-          st.rewardItems(57,60044)
+          st.rewardItems(57,115673)
+          st.addExpAndSp(493595,40442)
     elif npcId == Misa :
        if cond == 1:
           htmltext = "32018-01.htm"

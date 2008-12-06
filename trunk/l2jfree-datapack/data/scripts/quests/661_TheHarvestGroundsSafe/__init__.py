@@ -46,10 +46,10 @@ class Quest (JQuest) :
       STING = st.getQuestItemsCount(STING_OF_GIANT_POISON)    
       TALON = st.getQuestItemsCount(TALON_OF_YOUNG_ARANEID)
       GEM = st.getQuestItemsCount(CLOUDY_GEM)
-      amount = 0
+      bonus = 0
       if STING+GEM+TALON >= 10 :
-          amount = 2800
-      st.rewardItems(57,STING*50+GEM*60+TALON*70 + amount)
+          bonus = 2871
+      st.rewardItems(57,STING*57+GEM*56+TALON*60+bonus)
       st.takeItems(STING_OF_GIANT_POISON,-1)
       st.takeItems(TALON_OF_YOUNG_ARANEID,-1)
       st.takeItems(CLOUDY_GEM,-1)
