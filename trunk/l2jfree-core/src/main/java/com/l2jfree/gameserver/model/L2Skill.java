@@ -468,7 +468,7 @@ public class L2Skill
 		_skillInterruptTime = (_hitTime / 2);
 		_reuseDelay = set.getInteger("reuseDelay", 0);
 
-		_skillType = set.getEnum("L2SkillType", L2SkillType.class);
+		_skillType = set.getEnum("skillType", L2SkillType.class);
 		_isDance = set.getBool("isDance", false);
 		_isSong = set.getBool("isSong", false);
 		if (_isDance || _isSong)
