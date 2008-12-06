@@ -40,7 +40,8 @@ class Quest (JQuest) :
      id = st.getState()
      level = player.getLevel()
      cond = st.getInt("cond")
-     amount = st.getQuestItemsCount(ALLIGATOR_PELTS)*40
+     bonus = 3430
+     amount = st.getQuestItemsCount(ALLIGATOR_PELTS)
      if id == State.CREATED :
         if level>=40 :
            htmltext = "30892-01.htm"
@@ -49,7 +50,7 @@ class Quest (JQuest) :
      elif cond==1 :
         if amount :
            htmltext = "30892-03.htm"
-           st.rewardItems(ADENA,amount)
+           st.rewardItems(ADENA,amount*60+bonus)
            st.takeItems(ALLIGATOR_PELTS,-1)
         else :
            htmltext = "30892-04.htm"
