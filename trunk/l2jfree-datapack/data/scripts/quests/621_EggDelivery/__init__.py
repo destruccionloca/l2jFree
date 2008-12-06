@@ -24,7 +24,7 @@ ADENA = 57
 HASTE_POTION = 734
 
 #Chance to get an S-grade random recipe instead of just adena and haste potion
-RPCHANCE=10
+RPCHANCE=20
 #Change this value to 1 if you wish 100% recipes, default 70%
 ALT_RP100=0
 

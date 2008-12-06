@@ -83,6 +83,8 @@ class Quest (JQuest) :
 
    cond = st.getInt("cond")
    count = st.getQuestItemsCount(GALFREDOS_BUST)
+   bonus1 = 2800
+   bonus2 = 5000 
    if npcId == GALIBREDO :
      if cond == 0 :
        if player.getLevel() >= 36 : 
@@ -92,9 +94,9 @@ class Quest (JQuest) :
          st.exitQuest(1)
      elif cond == 1 :
        if count :
-         reward = count * 232
+         reward = count * 232 + bonus
          if count >= 100 :
-           reward = reward + 5000   # custom - need more info
+           reward = reward + bonus2
          st.takeItems(GALFREDOS_BUST,count)
          st.rewardItems(57,reward)
          htmltext = "30181-3.htm"

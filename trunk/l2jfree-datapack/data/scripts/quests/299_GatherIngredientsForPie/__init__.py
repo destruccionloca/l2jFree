@@ -23,6 +23,9 @@ HONEY_POUCH = 7138
 #REWARDS
 ADENA = 57
 VARNISH = 1865
+IRON_ORE = 1869
+COAL = 1870
+CHARCOAL = 1871
 
 class Quest (JQuest) :
 
@@ -51,6 +54,7 @@ class Quest (JQuest) :
      st.set("cond","6")
    elif event == "30620-7.htm" and st.getQuestItemsCount(FRUIT_BASKET):
      st.takeItems(FRUIT_BASKET,1)
+#Reward should be random (adena, varnish, coal, charcoal, iron ore)... etc don't know how to do that
      st.rewardItems(ADENA,25000)
      st.rewardItems(VARNISH,50)
      st.unset("cond")

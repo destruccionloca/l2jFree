@@ -40,6 +40,7 @@ class Quest (JQuest) :
      cond = st.getInt("cond")
      eggs1 = st.getQuestItemsCount(LIENRIK_EGG1)
      eggs2 = st.getQuestItemsCount(LIENRIK_EGG2)
+     bonus = 2000
      if id == State.CREATED :
         if level>=39 :
             htmltext = "31067-01.htm"
@@ -51,17 +52,17 @@ class Quest (JQuest) :
           htmltext = "31067-05.htm"
         elif eggs1 and not eggs2 :
           htmltext = "31067-06.htm"
-          st.rewardItems(ADENA,eggs1*209)
+          st.rewardItems(ADENA,eggs1*34+bonus)
           st.takeItems(LIENRIK_EGG1,-1)
           st.playSound("ItemSound.quest_itemget")
         elif not eggs1 and eggs2 :
           htmltext = "31067-08.htm"
-          st.rewardItems(ADENA,eggs2*2050)
+          st.rewardItems(ADENA,eggs2*1025+bonus)
           st.takeItems(LIENRIK_EGG2,-1)
           st.playSound("ItemSound.quest_itemget")
         elif eggs1 and eggs2 :
           htmltext = "31067-08.htm"
-          st.rewardItems(ADENA,eggs1*209+eggs2*2050)
+          st.rewardItems(ADENA,eggs1*34+eggs2*1025+bonus*2)
           st.takeItems(LIENRIK_EGG1,-1)
           st.takeItems(LIENRIK_EGG2,-1)
           st.playSound("ItemSound.quest_itemget")

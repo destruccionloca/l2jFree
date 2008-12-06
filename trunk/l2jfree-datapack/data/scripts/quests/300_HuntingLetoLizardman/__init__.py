@@ -32,9 +32,9 @@ class Quest (JQuest) :
    elif event == "30126-05.htm" :
      if count == 60 and cond == 2 :
        htmltext = "30126-06.htm"
-       st.takeItems(BRACELET,-1)
        item,qty = REWARDS[st.getRandom(len(REWARDS))]
        st.rewardItems(item,qty)
+       st.takeItems(BRACELET,-1)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
    return htmltext

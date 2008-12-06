@@ -34,6 +34,7 @@ class Quest (JQuest) :
 
    npcId = npc.getNpcId()
    id = st.getState()
+   bonus = 0
    if id == State.CREATED :
      st.set("cond","0")
    if st.getInt("cond")==0 :
@@ -45,8 +46,10 @@ class Quest (JQuest) :
    else :
       heart=st.getQuestItemsCount(GOLEM_HEARTSTONE)
       broken=st.getQuestItemsCount(BROKEN_HEARTSTONE)
+	if broken+heart >= 10
+         bonus = 1183
       if broken+heart>0 :
-         st.rewardItems(ADENA,50*broken+1000*heart)
+         st.rewardItems(ADENA,50*broken+1000*heart+bonus )
          st.takeItems(BROKEN_HEARTSTONE,-1)
          st.takeItems(GOLEM_HEARTSTONE,-1)
          htmltext = "30437-05.htm"
