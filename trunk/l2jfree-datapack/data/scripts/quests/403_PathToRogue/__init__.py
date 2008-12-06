@@ -94,12 +94,14 @@ class Quest (JQuest) :
    elif npcId == 30379 and st.getInt("cond") :
         if st.getQuestItemsCount(HORSESHOE_OF_LIGHT) == 0 and HaveAllStolenItems(st) :
           htmltext = "30379-09.htm"
-          st.giveItems(BEZIQUES_RECOMMENDATION,1)
           st.takeItems(NETIS_BOW,1)
           st.takeItems(NETIS_DAGGER,1)
           st.takeItems(WANTED_BILL,1)
           for i in STOLEN_ITEM.keys() :
             st.takeItems(STOLEN_ITEM[i],-1)
+          st.rewardItems(57,81900)
+          st.giveItems(BEZIQUES_RECOMMENDATION,1)
+          st.addExpAndSp(295862,16814)
           st.set("cond","0")
           st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")

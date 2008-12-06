@@ -92,10 +92,12 @@ class Quest (JQuest) :
     elif event == "30317_9" :
         if st.getQuestItemsCount(PASS_1ST) and st.getQuestItemsCount(PASS_2ND) and st.getQuestItemsCount(SECRET_BOX2) :
           htmltext = "30317-12.htm"
+          st.rewardItems(57,81900)
           st.takeItems(PASS_1ST,1)
           st.takeItems(PASS_2ND,1)
-          st.takeItems(SECRET_BOX2,1)
           st.giveItems(PASS_FINAL,1)
+          st.takeItems(SECRET_BOX2,1)
+          st.addExpAndSp(160267,11726)
           st.set("cond","0")
           st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")

@@ -159,11 +159,13 @@ class Quest (JQuest) :
         st.takeItems(PURE_AQUAMARINE,st.getQuestItemsCount(PURE_AQUAMARINE))
         st.takeItems(NOBILITY_AMETHYST,st.getQuestItemsCount(NOBILITY_AMETHYST))
         st.takeItems(FERTILITY_PERIDOT,st.getQuestItemsCount(FERTILITY_PERIDOT))
+        st.rewardItems(57,81900)
+        if st.getQuestItemsCount(ETERNITY_DIAMOND) == 0 :
+          st.giveItems(ETERNITY_DIAMOND,1)
+        st.addExpAndSp(228064,14615)
         st.set("cond","0")
         st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")
-        if st.getQuestItemsCount(ETERNITY_DIAMOND) == 0 :
-          st.giveItems(ETERNITY_DIAMOND,1)
         htmltext = "30414-24.htm"
    return htmltext
 

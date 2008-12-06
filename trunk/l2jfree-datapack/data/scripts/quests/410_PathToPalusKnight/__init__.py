@@ -96,9 +96,9 @@ class Quest (JQuest) :
             htmltext = "30329-09.htm"
         elif st.getQuestItemsCount(COFFIN_ETERNAL_REST) == 1 :
             htmltext = "30329-11.htm"
+            st.rewardItems(57,81900)
             st.takeItems(COFFIN_ETERNAL_REST,1)
             st.giveItems(GAZE_OF_ABYSS,1)
-            st.rewardItems(57,81900)
             st.addExpAndSp(295862,19804)
             player.sendPacket(SocialAction(player.getObjectId(),3))
             st.set("cond","0")

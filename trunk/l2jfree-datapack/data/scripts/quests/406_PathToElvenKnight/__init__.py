@@ -88,15 +88,15 @@ class Quest (JQuest) :
         elif cond in [3, 4, 5] :
             htmltext = "30327-11.htm"
         elif cond == 6 :
-            st.takeItems(KLUTO_BOX,-1)
             st.rewardItems(57,81900)
-            st.addExpAndSp(160267,11576)
+            st.takeItems(KLUTO_BOX,-1)
             player.sendPacket(SocialAction(player.getObjectId(),3))
             st.set("cond","0")
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
             if st.getQuestItemsCount(ELVEN_KNIGHT_BROOCH) == 0 :
               st.giveItems(ELVEN_KNIGHT_BROOCH,1)
+            st.addExpAndSp(228064,14925)
             htmltext = "30327-10.htm"
    elif npcId == 30317 :
         if cond == 3 :

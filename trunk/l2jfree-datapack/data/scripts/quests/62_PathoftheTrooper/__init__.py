@@ -63,9 +63,9 @@ class Quest (JQuest) :
                 if not st.getQuestItemsCount(Heart) :
                     htmltext = "32197-05.htm"
                 else :
+                    st.rewardItems(57,81900)
                     st.takeItems(Heart,-1)
                     st.giveItems(Gwain_Rec,1)
-                    st.rewardItems(57,81900)
                     st.addExpAndSp(228064,13773)
                     st.exitQuest(False)
                     st.playSound("ItemSound.quest_finish")

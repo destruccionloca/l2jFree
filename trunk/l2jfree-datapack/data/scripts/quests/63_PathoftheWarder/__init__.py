@@ -134,10 +134,11 @@ class Quest (JQuest) :
                 htmltext = "32198-14.htm"
             elif cond == 12 :
                 htmltext = "32198-15.htm"
+                st.rewardItems(57,81900)
                 st.takeItems(Soul_C,-1)
                 st.giveItems(Eval,1)
+                st.addExpAndSp(160267,11023)
                 st.playSound("ItemSound.quest_finish")
-                st.addExpAndSp(3200,5934)
                 st.exitQuest(False)
                 st.unset("cond")
         elif npcId == Bathis :

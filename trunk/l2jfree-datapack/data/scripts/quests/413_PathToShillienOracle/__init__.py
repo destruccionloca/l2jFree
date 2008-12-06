@@ -86,9 +86,11 @@ class Quest (JQuest) :
             htmltext = "30330-09.htm"
         elif st.getQuestItemsCount(ANDARIEL_BOOK) == 1 and st.getQuestItemsCount(GARMIEL_BOOK) == 1 :
             htmltext = "30330-10.htm"
+            st.rewardItems(57,81900)
             st.takeItems(ANDARIEL_BOOK,1)
             st.takeItems(GARMIEL_BOOK,1)
             st.giveItems(ORB_OF_ABYSS,1)
+            st.addExpAndSp(295862,19664)
             st.set("cond","0")
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")

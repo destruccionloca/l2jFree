@@ -206,8 +206,11 @@ class Quest (JQuest) :
         st.set("cond","0")
         st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")
+        st.rewardItems(57,81900)
         if st.getQuestItemsCount(BEAD_OF_SEASON) == 0 :
           st.giveItems(BEAD_OF_SEASON,1)
+#EXP and SP taken from Dark Wizard quest(better than nothing!)
+        st.addExpAndSp(228064,14615)
         htmltext = "30391-06.htm"
         
    return htmltext
