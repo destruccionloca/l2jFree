@@ -173,7 +173,8 @@
     <table name="#mpConsume_Init">6 8 11 14 18 20</table>
     <table name="#mpConsume">23 32 42 56 69 78</table>
     <table name="#magicLvl">20 30 40 52 62 70</table>
-    <table name="#effectLevel"> 3 4 5 6 7 8 </table>
+    <table name="#abnormalLvl"> 3 4 5 6 7 8 </table>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
@@ -189,8 +190,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="effectType" val="POISON" />
-    <set name="effectLevel" val="#effectLevel" />
     <for>
       <!--
         retail value: 18 24 31 38 44 48/sec; stat update
@@ -892,7 +891,7 @@
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="70" />
+    <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="lvlDepend" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="element" val="4" /><!-- Earth -->
@@ -1035,27 +1034,23 @@
     </for>
   </skill>
   <skill id="1237" levels="17" name="Ice Dagger" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81
+      81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
-    <table name="#ench2MpConsume"> 56 56 55 54 53 52 52 51 52 49 48 48
-      47 46 45 44 43 43 42 41 40 39 39 38 37 36 35 35 34 33 </table>
-    <table name="#ench2MpConsume_Init"> 14 14 13 13 13 13 13 12 12 12 12 12
-      11 11 11 11 10 10 10 10 10 9 9 9 9 9 8 8 8 8 </table>
-    <table name="#mpConsume_Init"> 8 8 9 9 10 10 11 11 11 12 12 13 13 13
-      14 14 15 </table>
-    <table name="#mpConsume"> 29 31 31 34 35 37 38 41 42 43 45 46
-      47 50 50 53 53 </table>
-    <table name="#magicLvl"> 42 44 46 48 50 52 54 56 58 60 62 64
-      66 68 70 72 74 </table>
-    <table name="#power"> 28 29 31 33 34 36 38 39 41 43 45 46
-      48 50 51 53 54 </table>
-    <table name="#bleeddmg"> 66 66 66 66 66 81 81 81 81 93 93 93
-      93 93 102 102 102 </table>
-    <table name="#ench1Power"> 55 55 55 56 56 56 57 57 57 58 58 58
-      58 59 59 59 60 60 60 61 61 61 62 62 62 63 63 63 64 64 </table>
-    <table name="#effectLevel"> 5 5 5 5 5 6 6 6 6 7 7 7 7 7 8 8 8 </table>
+    <table name="#ench2MpConsume"> 56 56 55 54 53 52 52 51 52 49 48 48 47 46 45 44 43
+      43 42 41 40 39 39 38 37 36 35 35 34 33 </table>
+    <table name="#ench2MpConsume_Init"> 14 14 13 13 13 13 13 12 12 12 12 12 11 11 11 11
+      10 10 10 10 10 9 9 9 9 9 8 8 8 8 </table>
+    <table name="#mpConsume_Init"> 8 8 9 9 10 10 11 11 11 12 12 13 13 13 14 14 15 </table>
+    <table name="#mpConsume"> 29 31 31 34 35 37 38 41 42 43 45 46 47 50 50 53 53 </table>
+    <table name="#magicLvl"> 42 44 46 48 50 52 54 56 58 60 62 64 66 68 70 72 74 </table>
+    <table name="#power"> 28 29 31 33 34 36 38 39 41 43 45 46 48 50 51 53 54 </table>
+    <table name="#bleeddmg"> 66 66 66 66 66 81 81 81 81 93 93 93 93 93 102 102 102 </table>
+    <table name="#ench1Power"> 55 55 55 56 56 56 57 57 57 58 58 58 58 59 59 59 60 60 60
+      61 61 61 62 62 62 63 63 63 64 64 </table>
+    <table name="#abnormalLvl"> 5 5 5 5 6 6 6 6 6 7 7 7 7 7 8 8 8 </table>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
@@ -1073,7 +1068,6 @@
     <set name="isDebuff" val="true" />
     <set name="effectType" val="BLEED" />
     <set name="effectPower" val="50" /> <!-- Base Land Rate -->
-    <set name="effectLevel" val="#effectLevel" />
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init" />
@@ -1301,7 +1295,7 @@
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="70" />
+    <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="lvlDepend" val="1" />
     <set name="target" val="TARGET_ONE" />
     <set name="element" val="2" /><!-- Fire -->
@@ -2735,7 +2729,6 @@
     <set name="mpInitialConsume" val="50" />
     <set name="mpConsume" val="200" />
     <set name="magicLvl" val="70" />
-    <set name="power" val="150" />
     <set name="target" val="TARGET_ONE" />
     <set name="element" val="2" /><!-- Fire -->
     <set name="hitTime" val="7000" />
@@ -2744,14 +2737,14 @@
     <set name="isDebuff" val="true" />
     <set name="isMagic" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
+    <set name="power" val="150" />
     <set name="castRange" val="900" />
     <set name="effectRange" val="1400" />
     <set name="effectType" val="DOT" />
     <set name="effectPower" val="80" />
     <for>
       <!--
-        retail value: 118/sec; stat update every time unit
-        (2/3 sec)
+        retail value: 118/sec; stat update every time unit (2/3 sec)
       -->
       <effect count="15" name="DamOverTime" time="1" val="118" />
     </for>

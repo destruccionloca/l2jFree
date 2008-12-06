@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='2915' name="old_knight_sword">
+  <item id='2915' name="Old Knight Sword">
     <for>
       <set val='24' order='0x08' stat='pAtk' />
       <set val='17' order='0x08' stat='mAtk' />

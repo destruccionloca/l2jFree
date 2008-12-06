@@ -1678,7 +1678,8 @@
     <table name="#magicLvl">55 60 72</table>
     <table name="#mpConsume">38 42 50</table>
     <table name="#dmg"> 114 132 144 </table>
-    <table name="#effectLevel">6 7 8</table>
+    <table name="#abnormalLvl"> 6 7 8 </table>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="weaponsAllowed" val="512" /> <!-- Dual Sword -->
     <set name="magicLvl" val="#magicLvl" />
     <set name="mpConsume" val="#mpConsume" />
@@ -1697,7 +1698,6 @@
     <set name="effectRange" val="-1" />
     <set name="effectType" val="POISON" />
     <set name="effectPower" val="35" /> <!-- Base Land Rate -->
-    <set name="effectLevel" val="#effectLevel" />
     <enchant1 name="effectPower" val="#ench1effectPower" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <for>
@@ -1954,7 +1954,8 @@
     <table name="#magicLvl">24 32 49 58 66 70</table>
     <table name="#dmg">39 51 66 81 93 102</table>
     <table name="#mpConsume">28 37 60 73 83 89</table>
-    <table name="#effectLevel"> 3 4 5 6 7 8 </table>
+    <table name="#abnormalLvl"> 3 4 5 6 7 8 </table>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="weaponsAllowed" val="16" /> <!-- Dagger -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
@@ -1969,8 +1970,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />
     <set name="effectRange" val="400" />
-    <set name="effectType" val="BLEED" />
-    <set name="effectLevel" val="#effectLevel" />
     <enchant1 name="mpConsume" val="#ench1MpConsume" />
     <for>
       <!--

@@ -26,6 +26,7 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="3005" levels="1" name="Bleed">
+    <set name="abnormalLvl" val="5"/>
     <set name="power" val="50" /> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="BLEED" />
@@ -33,8 +34,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="isDebuff" val="true" />
     <set name="castRange" val="-1" />
-    <set name="effectType" val="BLEED" />
-    <set name="effectLevel" val="5.0" />
     <for>
       <effect count="7" name="DamOverTime" time="3"
         val="66" abnormal="bleeding" />
@@ -243,6 +242,8 @@
   <skill id="3020" levels="6" name="Special Ability: Critical Bleed">
     <!-- Daggers only -->
     <table name="#dmg">66 66 81 81 81 93</table>
+    <table name="#abnormalLvl"> 5 5 5 6 6 7 </table>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="WEAPON_SA" />
     <set name="lvlDepend" val="1" />
@@ -259,6 +260,8 @@
   <skill id="3021" levels="6" name="Special Ability: Critical Bleed">
     <!-- Bows only -->
     <table name="#dmg">66 66 81 81 81 93</table>
+    <table name="#abnormalLvl"> 5 5 5 6 6 7 </table>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="WEAPON_SA" />
     <set name="lvlDepend" val="1" />
@@ -304,10 +307,12 @@
   </skill>
   <skill id="3024" levels="6" name="Special Ability: Critical Poison">
     <table name="#dmg">92 92 114 114 114 144</table>
+    <table name="#abnormalLvl"> 5 5 6 6 6 7 </table>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="WEAPON_SA" />
-    <set name="operateType" val="OP_ACTIVE" />
     <set name="lvlDepend" val="1" />
+    <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="effectType" val="POISON" />
@@ -556,6 +561,8 @@
   <skill id="3040" levels="6" name="Special Ability: Critical Poison">
     <!-- Fists only -->
     <table name="#dmg">92 92 114 114 114 144</table>
+    <table name="#abnormalLvl"> 5 5 6 6 6 7 </table>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="WEAPON_SA" />
     <set name="lvlDepend" val="1" />
@@ -572,6 +579,8 @@
   <skill id="3041" levels="6" name="Special Ability: Critical Poison">
     <!-- Daggers only -->
     <table name="#dmg">92 92 114 114 114 144</table>
+    <table name="#abnormalLvl"> 5 5 6 6 6 7 </table>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="WEAPON_SA" />
     <set name="lvlDepend" val="1" />
@@ -718,10 +727,9 @@
   </skill>
   <skill id="3050" levels="2" name="Special Ability: Focus">
     <!--
-      Descriptions: 1: Increases critical attack success
-      rate and damage inflicted during PvP. 2: Increases
-      critical attack success rate. Increases damage
-      inflicted during PvP.
+      Need to be checked/fixed.
+    Descriptions:
+    1: Enhances critical attack. Increases damage inflicted during PvP.
     -->
     <table name="#pvpBonus">1.05 1.05</table>
     <set name="target" val="TARGET_SELF" />
@@ -754,39 +762,37 @@
     <for>
       <add val='67' order='0x40' stat='rCrit' />
       <mul val="#pvpBonus" order="0x30" stat="pvpPhysDmg" />
-      <!--
-        Enhances damage to target during PvP
-      -->
+      <!-- Enhances damage to target during PvP -->
       <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg" />
     </for>
   </skill>
   <skill id="3052" levels="2" name="Special Ability: Critical Bleed">
     <!-- Blunts only -->
-    <table name="#dmg">93 93</table>
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="WEAPON_SA" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="lvlDepend" val="1" />
-    <set name="castRange" val="-1" />
-    <set name="effectRange" val="-1" />
-    <set name="effectType" val="BLEED" />
-    <set name="effectPower" val="100" />
+    <table name="#dmg"> 93 93 </table>
+    <set name="abnormalLvl" val="7"/>
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="WEAPON_SA"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="effectType" val="BLEED"/>
+    <set name="effectPower" val="100"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3"
-        val="#dmg" abnormal="bleeding" />
+      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding"/>
     </for>
   </skill>
   <skill id="3053" levels="2" name="Special Ability: Critical Bleed">
     <!--
-      Automatically generated from C3 client files. Need to
-      be checked/fixed. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Descriptions: 1: A wound appears and HP falls. Effect
-      7. 2: A wound appears and HP falls. Effect 7. created
-      2005-05-29 23:34:31
+      Automatically generated from C3 client files.
+      Need to be checked/fixed.
+      Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+      Descriptions:
+      1: A wound appears and HP falls. Effect 7.
+      2: A wound appears and HP falls. Effect 7.
+      created 2005-05-29 23:34:31
     -->
-    <table name="#power">7.0 7.0</table>
-    <set name="power" val="#power" />
+    <set name="abnormalLvl" val="7"/>
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="lvlDepend" val="1" />
@@ -795,15 +801,15 @@
   </skill>
   <skill id="3054" levels="2" name="Special Ability: Critical Bleed">
     <!--
-      Automatically generated from C3 client files. Need to
-      be checked/fixed. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Descriptions: 1: A wound appears and HP falls. Effect
-      7. 2: A wound appears and HP falls. Effect 7. created
-      2005-05-29 23:34:31
+      Automatically generated from C3 client files.
+      Need to be checked/fixed.
+      Target is set to TARGET_NONE, skillType  to NOTDONE for server compatability.
+      Descriptions:
+      1: A wound appears and HP falls. Effect 7.
+      2: A wound appears and HP falls. Effect 7.
+      created 2005-05-29 23:34:31
     -->
-    <table name="#power">7.0 7.0</table>
-    <set name="power" val="#power" />
+    <set name="abnormalLvl" val="7"/>
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="lvlDepend" val="1" />
@@ -813,6 +819,7 @@
   <skill id="3055" levels="2" name="Special Ability: Critical Bleed">
     <!-- Big Swords only -->
     <table name="#dmg">93 93</table>
+    <set name="abnormalLvl" val="7"/>
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="WEAPON_SA" />
     <set name="lvlDepend" val="1" />

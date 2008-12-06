@@ -643,6 +643,7 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5264" levels="12" name="Death Mark">
+    <!-- This skill is wrong, needs core support! -->
     <table name="#dmg"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
     <set name="target" val="TARGET_ONE" />
     <set name="element" val="6" /><!-- Dark -->
@@ -697,7 +698,6 @@
     <!-- Needs retail value corrections, By Darki699 -->
     <table name="#dmg">54 72 93 114 132 144</table>
     <table name="#magicLvl">49 55 60 64 68 72</table>
-    <table name="#effectLevel"> 4 5 6 7 8 9 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="1" />
     <set name="target" val="TARGET_AURA" />
@@ -708,8 +708,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
-    <set name="effectType" val="POISON" />
-    <set name="effectLevel" val="#effectLevel" />
     <for>
       <effect count="10" name="DamOverTime" time="3"
         val="#dmg" abnormal="poison" />

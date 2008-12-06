@@ -618,6 +618,7 @@
     </for>
   </skill>
   <skill id="2060" levels="1" name="Healing Medicine">
+    <!-- Needs to be Checked -->
     <set name="power" val="1.0" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="NEGATE" />

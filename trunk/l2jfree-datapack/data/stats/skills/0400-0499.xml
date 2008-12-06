@@ -2038,8 +2038,7 @@
     <table name="#magicLvl"> 40 41 42 43 44 45 46 47 48 49 50 51
       52 53 54 55 56 57 58 58 59 60 61 62 63 64 65 66 67 68
       69 70 71 72 73 74 75 </table>
-    <set name="magicLvl" val="#magicLvl" />
-    <!-- 40,76 -->
+    <set name="magicLvl" val="#magicLvl" /> <!-- 40,76 -->
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="power" val="50" />
@@ -2063,13 +2062,13 @@
   </skill>
   <skill id="495" levels="10" name="Blade Rush" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#mpConsume"> 65 70 73 75 77 80 83 85 88 90 </table>
-    <table name="#effectLevel"> 3 3 4 4 5 6 6 7 8 8 </table>
     <table name="#dmg"> 39 51 66 81 93 102 111 120 129 138 </table>
     <table name="#magicLvl"> 55 57 59 61 63 66 68 70 72 74 </table>
     <table name="#castRange"> 500 500 500 500 500 500 600 600 600 600 </table>
     <table name="#effectRange"> 1000 1000 1000 1000 1000 1000 1100 1100 1100 1100 </table>
-    <set name="magicLvl" val="#magicLvl" />
-    <!-- 55,76 -->
+    <table name="#abnormalLvl"> 6 6 7 7 7 7 7 8 8 8 </table>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
+    <set name="magicLvl" val="#magicLvl" /> <!-- 55,76 -->
     <set name="mpConsume" val="#mpConsume" />
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <set name="hitTime" val="800" />
@@ -2085,8 +2084,6 @@
     <set name="reuseDelay" val="36000" />
     <set name="flyType" val="CHARGE" />
     <set name="soulMaxConsumeCount" val="5" />
-    <set name="effectType" val="BLEED" />
-    <set name="effectLevel" val="#effectLevel" />
     <cond msg="Blade Rush cannot be used due to unsuitable terms.">
         <target mindistance="200"/>
     </cond>

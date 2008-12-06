@@ -260,12 +260,12 @@
   <skill id="4320" levels="12" name="Poison">
     <table name="#dot"> 36 54 72 93 114 132 144 144 150 150 153 153 </table>
     <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 77 78 83 </table>
-    <table name="#effectLevel"> 4 5 6 7 8 9 10 11 12 13 15 16 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#abnormalLvl"> 2 3 4 5 6 7 8 8 9 9 10 10 </table>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="magicLvl" val="#magicLvl" />
     <set name="lvlDepend" val="1" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="0.0" />
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="POISON" />
     <set name="isMagic" val="true" />
@@ -273,8 +273,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="1500" />
     <set name="effectRange" val="2000" />
-    <set name="effectType" val="POISON" />
-    <set name="effectLevel" val="#effectLevel" />
     <for>
       <effect count="10" name="DamOverTime" time="3"
         val="#dot" abnormal="poison" />
@@ -484,7 +482,7 @@
   <skill id="4334" levels="1" name="SSQ Cancel">
     <set name="target" val="TARGET_AREA" />
     <set name="radius" val="2000" />
-    <set name="skillType" val="CANCEL" />
+    <set name="skillType" val="CANCEL" /> <!-- Needs core support for CANCEL_ALL -->
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="1000" />
     <set name="effectRange" val="1500" />

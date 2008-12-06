@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='1213' name="guards_bow">
+  <item id='1213' name="Guards Bow">
     <for>
       <set val='49' order='0x08' stat='pAtk' />
       <set val='17' order='0x08' stat='mAtk' />
@@ -12,7 +12,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='1295' name="long_sword">
+  <item id='1295' name="Long Sword">
     <for>
       <set val='22' order='0x08' stat='pAtk' />
       <set val='6' order='0x08' stat='mAtk' />
@@ -23,7 +23,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='1296' name="gladius">
+  <item id='1296' name="Gladius">
     <for>
       <set val='22' order='0x08' stat='pAtk' />
       <set val='6' order='0x08' stat='mAtk' />
@@ -34,7 +34,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='1297' name="bastard_sword">
+  <item id='1297' name="Bastard Sword">
     <for>
       <set val='22' order='0x08' stat='pAtk' />
       <set val='6' order='0x08' stat='mAtk' />
@@ -45,7 +45,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='1298' name="caliburs">
+  <item id='1298' name="Caliburs">
     <for>
       <set val='22' order='0x08' stat='pAtk' />
       <set val='6' order='0x08' stat='mAtk' />
@@ -56,7 +56,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='1299' name="great_sword">
+  <item id='1299' name="Great Sword">
     <for>
       <set val='200' order='0x08' stat='pAtk' />
       <set val='6' order='0x08' stat='mAtk' />

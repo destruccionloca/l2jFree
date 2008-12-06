@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='4665' name="pipette_knife">
+  <item id='4665' name="Pipette Knife">
     <for>
       <set val='10' order='0x08' stat='pAtk' />
       <set val='9' order='0x08' stat='mAtk' />
@@ -12,7 +12,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4681' name="stormbringer_critical_anger">
+  <item id='4681' name="Stormbringer - Critical Anger">
     <for>
       <set val='107' order='0x08' stat='pAtk' />
       <set val='61' order='0x08' stat='mAtk' />
@@ -34,7 +34,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4683' name="stormbringer_light">
+  <item id='4683' name="Stormbringer - Light">
     <for>
       <set val='107' order='0x08' stat='pAtk' />
       <set val='61' order='0x08' stat='mAtk' />
@@ -45,7 +45,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4684' name="shamshir_guidance">
+  <item id='4684' name="Shamshir - Guidance">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -56,7 +56,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4685' name="shamshir_back_blow">
+  <item id='4685' name="Shamshir - Back Blow">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -67,7 +67,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4686' name="shamshir_rsk._evasion">
+  <item id='4686' name="Shamshir - Rsk. Evasion">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -89,7 +89,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4688' name="katana_critical_damage">
+  <item id='4688' name="Katana - Critical Damage">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -100,7 +100,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4689' name="katana_haste">
+  <item id='4689' name="Katana Haste">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -111,7 +111,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4690' name="spirit_sword_critical_damage">
+  <item id='4690' name="Spirit Sword - Critical Damage">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -124,7 +124,7 @@
       <add val='194' order='0x40' stat='cAtkAdd'/>
     </for>
   </item>
-  <item id='4691' name="spirit_sword_critical_poison">
+  <item id='4691' name="Spirit Sword - Critical Poison">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -135,7 +135,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4692' name="spirit_sword_haste">
+  <item id='4692' name="Spirit Sword - Haste">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -157,7 +157,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4694' name="raid_sword_critical_drain">
+  <item id='4694' name="Raid Sword - Critical Drain">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -168,7 +168,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4695' name="raid_sword_critical_poison">
+  <item id='4695' name="Raid Sword - Critical Poison">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='68' order='0x08' stat='mAtk' />
@@ -179,7 +179,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4696' name="caliburs_guidance">
+  <item id='4696' name="Caliburs - Guidance">
     <for>
       <set val='139' order='0x08' stat='pAtk' />
       <set val='76' order='0x08' stat='mAtk' />
@@ -201,7 +201,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4698' name="caliburs_critical_damage">
+  <item id='4698' name="Caliburs - Critical Damage">
     <for>
       <set val='139' order='0x08' stat='pAtk' />
       <set val='76' order='0x08' stat='mAtk' />
@@ -214,7 +214,7 @@
       <add val='213' order='0x40' stat='cAtkAdd'/>
     </for>
   </item>
-  <item id='4699' name="Sword of Delusion - Focus">
+  <item id='4699' name="Sword Of Delusion - Focus">
     <for>
       <set val='139' order='0x08' stat='pAtk' />
       <set val='76' order='0x08' stat='mAtk' />

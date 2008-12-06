@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='300' name="great_axe">
+  <item id='300' name="Great Axe">
     <for>
       <set val='175' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -13,7 +13,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='301' name="scorpion">
+  <item id='301' name="Scorpion">
     <for>
       <set val='144' order='0x08' stat='pAtk' />
       <set val='78' order='0x08' stat='mAtk' />
@@ -25,7 +25,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='302' name="body_slasher">
+  <item id='302' name="Body Slasher">
     <for>
       <set val='107' order='0x08' stat='pAtk' />
       <set val='61' order='0x08' stat='mAtk' />
@@ -37,7 +37,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='303' name="widow_maker">
+  <item id='303' name="Widow Maker">
     <for>
       <set val='144' order='0x08' stat='pAtk' />
       <set val='78' order='0x08' stat='mAtk' />
@@ -49,7 +49,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='304' name="orcish_halberd">
+  <item id='304' name="Orcish Halberd">
     <for>
       <set val='219' order='0x08' stat='pAtk' />
       <set val='109' order='0x08' stat='mAtk' />
@@ -61,7 +61,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='305' name="tallum_glaive">
+  <item id='305' name="Tallum Glaive">
     <for>
       <set val='232' order='0x08' stat='pAtk' />
       <set val='114' order='0x08' stat='mAtk' />
@@ -73,7 +73,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='306' name="dragon_claw_axe">
+  <item id='306' name="Dragon Claw Axe">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -85,7 +85,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='307' name="aurakyria_lance">
+  <item id='307' name="Aurakyria Lance">
     <for>
       <set val='269' order='0x08' stat='pAtk' />
       <set val='128' order='0x08' stat='mAtk' />
@@ -97,7 +97,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='308' name="buffalos_horn">
+  <item id='308' name="Buffalo's Horn">
     <for>
       <set val='6' order='0x08' stat='pAtk' />
       <set val='8' order='0x08' stat='mAtk' />
@@ -108,7 +108,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='309' name="tears_of_eva">
+  <item id='309' name="Tears of Eva">
     <for>
       <set val='19' order='0x08' stat='pAtk' />
       <set val='22' order='0x08' stat='mAtk' />
@@ -119,7 +119,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='310' name="relic_of_the_saints">
+  <item id='310' name="Relic of the Saints">
     <for>
       <set val='19' order='0x08' stat='pAtk' />
       <set val='22' order='0x08' stat='mAtk' />
@@ -130,7 +130,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='311' name="crucifix_of_blessing">
+  <item id='311' name="Crucifix of Blessing">
     <for>
       <set val='25' order='0x08' stat='pAtk' />
       <set val='28' order='0x08' stat='mAtk' />
@@ -141,7 +141,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='312' name="branch_of_life">
+  <item id='312' name="Branch of Life">
     <for>
       <set val='32' order='0x08' stat='pAtk' />
       <set val='35' order='0x08' stat='mAtk' />
@@ -152,7 +152,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='313' name="temptation_of_abyss">
+  <item id='313' name="Temptation of Abyss">
     <for>
       <set val='32' order='0x08' stat='pAtk' />
       <set val='35' order='0x08' stat='mAtk' />
@@ -163,7 +163,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='314' name="proof_of_revenge">
+  <item id='314' name="Proof of Revenge">
     <for>
       <set val='32' order='0x08' stat='pAtk' />
       <set val='35' order='0x08' stat='mAtk' />
@@ -174,7 +174,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='315' name="divine_tome">
+  <item id='315' name="Divine Tome">
     <for>
       <set val='41' order='0x08' stat='pAtk' />
       <set val='43' order='0x08' stat='mAtk' />
@@ -185,7 +185,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='316' name="blood_of_saints">
+  <item id='316' name="Blood of Saints">
     <for>
       <set val='51' order='0x08' stat='pAtk' />
       <set val='52' order='0x08' stat='mAtk' />
@@ -196,7 +196,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='317' name="tome_of_blood">
+  <item id='317' name="Tome of Blood">
     <for>
       <set val='51' order='0x08' stat='pAtk' />
       <set val='52' order='0x08' stat='mAtk' />
@@ -207,7 +207,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='318' name="crucifix_of_blood">
+  <item id='318' name="Crucifix of Blood">
     <for>
       <set val='63' order='0x08' stat='pAtk' />
       <set val='63' order='0x08' stat='mAtk' />
@@ -218,7 +218,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='319' name="eye_of_infinity">
+  <item id='319' name="Eye of Infinity">
     <for>
       <set val='63' order='0x08' stat='pAtk' />
       <set val='63' order='0x08' stat='mAtk' />
@@ -229,7 +229,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='320' name="blue_crystal_skull">
+  <item id='320' name="Blue Crystal Skull">
     <for>
       <set val='67' order='0x08' stat='pAtk' />
       <set val='66' order='0x08' stat='mAtk' />
@@ -240,7 +240,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='321' name="demon_fangs">
+  <item id='321' name="Demon Fangs">
     <for>
       <set val='67' order='0x08' stat='pAtk' />
       <set val='66' order='0x08' stat='mAtk' />
@@ -251,7 +251,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='322' name="vajra_wands">
+  <item id='322' name="Vajra Wands">
     <for>
       <set val='74' order='0x08' stat='pAtk' />
       <set val='72' order='0x08' stat='mAtk' />
@@ -262,7 +262,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='323' name="ancient_reagent">
+  <item id='323' name="Ancient Reagent">
     <for>
       <set val='74' order='0x08' stat='pAtk' />
       <set val='72' order='0x08' stat='mAtk' />
@@ -273,7 +273,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='324' name="tears_of_fairy">
+  <item id='324' name="Tears of Fairy">
     <for>
       <set val='98' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -284,7 +284,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='325' name="horn_of_glory">
+  <item id='325' name="Horn of Glory">
     <for>
       <set val='98' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -295,7 +295,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='326' name="heathens_book">
+  <item id='326' name="Heathen's Book">
     <for>
       <set val='111' order='0x08' stat='pAtk' />
       <set val='101' order='0x08' stat='mAtk' />
@@ -306,7 +306,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='327' name="hex_doll">
+  <item id='327' name="Hex Doll">
     <for>
       <set val='111' order='0x08' stat='pAtk' />
       <set val='101' order='0x08' stat='mAtk' />
@@ -317,7 +317,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='328' name="candle_of_wisdom">
+  <item id='328' name="Candle of Wisdom">
     <for>
       <set val='125' order='0x08' stat='pAtk' />
       <set val='111' order='0x08' stat='mAtk' />
@@ -328,7 +328,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='329' name="blessed_branch">
+  <item id='329' name="Blessed Branch">
     <for>
       <set val='125' order='0x08' stat='pAtk' />
       <set val='111' order='0x08' stat='mAtk' />
@@ -339,7 +339,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='330' name="phoenix_feather">
+  <item id='330' name="Phoenix Feather">
     <for>
       <set val='125' order='0x08' stat='pAtk' />
       <set val='111' order='0x08' stat='mAtk' />
@@ -350,7 +350,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='331' name="cerberus_eye">
+  <item id='331' name="Cerberus Eye">
     <for>
       <set val='125' order='0x08' stat='pAtk' />
       <set val='111' order='0x08' stat='mAtk' />
@@ -361,7 +361,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='332' name="scroll_of_destruction">
+  <item id='332' name="Scroll of Destruction">
     <for>
       <set val='125' order='0x08' stat='pAtk' />
       <set val='111' order='0x08' stat='mAtk' />
@@ -372,7 +372,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='333' name="claws_of_black_dragon">
+  <item id='333' name="Claws of Black Dragon">
     <for>
       <set val='125' order='0x08' stat='pAtk' />
       <set val='111' order='0x08' stat='mAtk' />
@@ -383,7 +383,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='334' name="three_eyed_crows_feather">
+  <item id='334' name="Three Eyed Crow's Feather">
     <for>
       <set val='125' order='0x08' stat='pAtk' />
       <set val='111' order='0x08' stat='mAtk' />
@@ -394,7 +394,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='335' name="soul_crystal">
+  <item id='335' name="Soul Crystal">
     <for>
       <set val='155' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -405,7 +405,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='336' name="scroll_of_mana">
+  <item id='336' name="Scroll of Mana">
     <for>
       <set val='170' order='0x08' stat='pAtk' />
       <set val='143' order='0x08' stat='mAtk' />
@@ -416,7 +416,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='337' name="scroll_of_massacre">
+  <item id='337' name="Scroll of Massacre">
     <for>
       <set val='170' order='0x08' stat='pAtk' />
       <set val='143' order='0x08' stat='mAtk' />
@@ -427,7 +427,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='338' name="wyverns_skull">
+  <item id='338' name="Wyvern's Skull">
     <for>
       <set val='170' order='0x08' stat='pAtk' />
       <set val='143' order='0x08' stat='mAtk' />
@@ -438,7 +438,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='339' name="blood_crystal">
+  <item id='339' name="Blood Crystal">
     <for>
       <set val='170' order='0x08' stat='pAtk' />
       <set val='143' order='0x08' stat='mAtk' />
@@ -449,7 +449,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='340' name="unicorns_horn">
+  <item id='340' name="Unicorn's Horn">
     <for>
       <set val='170' order='0x08' stat='pAtk' />
       <set val='143' order='0x08' stat='mAtk' />
@@ -460,7 +460,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='341' name="forgotten_tome">
+  <item id='341' name="Forgotten Tome">
     <for>
       <set val='186' order='0x08' stat='pAtk' />
       <set val='152' order='0x08' stat='mAtk' />
@@ -471,7 +471,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='342' name="enchanted_flute">
+  <item id='342' name="Enchanted Flute">
     <for>
       <set val='186' order='0x08' stat='pAtk' />
       <set val='152' order='0x08' stat='mAtk' />
@@ -482,7 +482,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='343' name="headless_arrow">
+  <item id='343' name="Headless Arrow">
     <for>
       <set val='186' order='0x08' stat='pAtk' />
       <set val='152' order='0x08' stat='mAtk' />
@@ -493,7 +493,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='344' name="proof_of_overlord">
+  <item id='344' name="Proof of Overlord">
     <for>
       <set val='186' order='0x08' stat='pAtk' />
       <set val='152' order='0x08' stat='mAtk' />
@@ -504,7 +504,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='345' name="deathbringer_sword">
+  <item id='345' name="Deathbringer Sword">
     <for>
       <set val='186' order='0x08' stat='pAtk' />
       <set val='152' order='0x08' stat='mAtk' />
@@ -515,7 +515,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='346' name="tears_of_fallen_angel">
+  <item id='346' name="Tears of Fallen Angel">
     <for>
       <set val='201' order='0x08' stat='pAtk' />
       <set val='162' order='0x08' stat='mAtk' />

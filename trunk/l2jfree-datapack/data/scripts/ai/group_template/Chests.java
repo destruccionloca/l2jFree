@@ -103,7 +103,8 @@ public class Chests extends L2AttackableAIScript
 						}
 					}
 					// used a skill other than chest-key, or used a chest-key but failed to open: disappear with no rewards
-					chest.onDecay();
+					chest.getSpawn().decreaseCount(chest);
+					chest.deleteMe();
 				}
 				else
 				{
@@ -135,7 +136,8 @@ public class Chests extends L2AttackableAIScript
 				chest.setInteracted();
 				if (Rnd.get(100) < IS_BOX)
 				{
-					chest.onDecay();
+					chest.getSpawn().decreaseCount(chest);
+					chest.deleteMe();
 				}
 				else
 				{

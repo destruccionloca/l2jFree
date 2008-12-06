@@ -1181,7 +1181,7 @@
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
-    <set name="power" val="25" />
+    <set name="power" val="25"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="120000" />
     <set name="hitTime" val="6000" />
@@ -1196,7 +1196,6 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <set name="negateStats" val="BUFF HEAL_PERCENT" />
-    <set name="negatePower" val="25" />
     <set name="maxNegated" val="5" />
   </skill>
   <skill id="1059" levels="3" name="Empower" enchantLevels1="30" enchantLevels2="30">
@@ -1904,7 +1903,8 @@
     <table name="#mpConsume">8 12 16 28 38</table>
     <table name="#magicLvl">7 14 20 40 52</table>
     <table name="#dmg">24 36 54 93 114</table>
-    <table name="#effectLevel">1.0 2.0 3.0 5.0 6.0</table>
+    <table name="#abnormalLvl"> 1 2 3 4 5 6 </table>
+    <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="mpInitialConsume" val="#mpConsume_Init" />
     <set name="mpConsume" val="#mpConsume" />
     <set name="magicLvl" val="#magicLvl" />
@@ -1919,8 +1919,6 @@
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
-    <set name="effectType" val="POISON" />
-    <set name="effectLevel" val="#effectLevel" />
     <for>
       <!--
         retail value: 8 12 18 31 38/sec; stat update every 5
@@ -1931,8 +1929,7 @@
         val="#dmg" abnormal="poison" />
     </for>
   </skill>
-  <skill id="1096" levels="16" name="Seal of Chaos"
-    enchantLevels1="30" enchantLevels2="30">
+  <skill id="1096" levels="16" name="Seal of Chaos" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />

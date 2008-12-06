@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-  <item id='3902' name="ghost_canine">
+  <item id='3902' name="Ghost Canine">
     <for>
       <add val='11' order='0x10' stat='pAtk' />
       <add val='10' order='0x10' stat='mAtk' />
@@ -9,7 +9,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3903' name="mithril_canine">
+  <item id='3903' name="Mithril Canine">
     <for>
       <add val='16' order='0x10' stat='pAtk' />
       <add val='14' order='0x10' stat='mAtk' />
@@ -17,7 +17,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3904' name="sylvan_canine">
+  <item id='3904' name="Sylvan Canine">
     <for>
       <add val='23' order='0x10' stat='pAtk' />
       <add val='18' order='0x10' stat='mAtk' />
@@ -25,7 +25,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3905' name="orikarukon_canine">
+  <item id='3905' name="Orikarukon Canine">
     <for>
       <add val='31' order='0x10' stat='pAtk' />
       <add val='24' order='0x10' stat='mAtk' />
@@ -33,7 +33,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3906' name="fang_of_saltydog">
+  <item id='3906' name="Fang Of Saltydog">
     <for>
       <add val='40' order='0x10' stat='pAtk' />
       <add val='30' order='0x10' stat='mAtk' />
@@ -41,7 +41,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3907' name="fang_of_cerberus">
+  <item id='3907' name="Fang Of Cerberus">
     <for>
       <add val='49' order='0x10' stat='pAtk' />
       <add val='36' order='0x10' stat='mAtk' />
@@ -49,7 +49,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3908' name="fang_of_coyote">
+  <item id='3908' name="Fang Of Coyote">
     <for>
       <add val='58' order='0x10' stat='pAtk' />
       <add val='42' order='0x10' stat='mAtk' />
@@ -57,7 +57,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3909' name="crystalized_ice_canine">
+  <item id='3909' name="Crystalized Ice Canine">
     <for>
       <add val='69' order='0x10' stat='pAtk' />
       <add val='50' order='0x10' stat='mAtk' />
@@ -65,7 +65,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3910' name="fang_of_the_blue_wolf">
+  <item id='3910' name="Fang Of The Blue Wolf">
     <for>
       <add val='80' order='0x10' stat='pAtk' />
       <add val='58' order='0x10' stat='mAtk' />
@@ -73,7 +73,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3911' name="fang_of_fenril">
+  <item id='3911' name="Fang Of Fenril">
     <for>
       <add val='93' order='0x10' stat='pAtk' />
       <add val='66' order='0x10' stat='mAtk' />
@@ -81,7 +81,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3919' name="serpent_fang">
+  <item id='3919' name="Serpent Fang">
     <for>
       <add val='8' order='0x10' stat='pAtk' />
       <add val='7' order='0x10' stat='mAtk' />
@@ -89,7 +89,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3920' name="viperbite">
+  <item id='3920' name="Viperbite">
     <for>
       <add val='9' order='0x10' stat='pAtk' />
       <add val='10' order='0x10' stat='mAtk' />
@@ -97,7 +97,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3921' name="shadow_fang">
+  <item id='3921' name="Shadow Fang">
     <for>
       <add val='10' order='0x10' stat='pAtk' />
       <add val='11' order='0x10' stat='mAtk' />
@@ -105,7 +105,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3922' name="alya_fang">
+  <item id='3922' name="Alya Fang">
     <for>
       <add val='12' order='0x10' stat='pAtk' />
       <add val='13' order='0x10' stat='mAtk' />
@@ -113,7 +113,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3923' name="torturer">
+  <item id='3923' name="Torturer">
     <for>
       <add val='13' order='0x10' stat='pAtk' />
       <add val='16' order='0x10' stat='mAtk' />
@@ -121,7 +121,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3924' name="unuk_alhay_fang">
+  <item id='3924' name="Unuk Alhay Fang">
     <for>
       <add val='15' order='0x10' stat='pAtk' />
       <add val='18' order='0x10' stat='mAtk' />
@@ -129,7 +129,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3925' name="antiplague">
+  <item id='3925' name="Antiplague">
     <for>
       <add val='17' order='0x10' stat='pAtk' />
       <add val='21' order='0x10' stat='mAtk' />
@@ -137,7 +137,7 @@
       <set val='304' order='0x08' stat='pAtkSpd' />
     </for>
   </item>
-  <item id='3937' name="giant_bar">
+  <item id='3937' name="Giant Bar">
     <for>
       <set val='50' order='0x08' stat='pAtk' />
       <set val='26' order='0x08' stat='mAtk' />
@@ -149,7 +149,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='3938' name="giant_rod">
+  <item id='3938' name="Giant Rod">
     <for>
       <set val='50' order='0x08' stat='pAtk' />
       <set val='26' order='0x08' stat='mAtk' />
@@ -161,7 +161,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='3939' name="ladys_fan">
+  <item id='3939' name="Lady's Fan">
     <for>
       <set val='50' order='0x08' stat='pAtk' />
       <set val='26' order='0x08' stat='mAtk' />
