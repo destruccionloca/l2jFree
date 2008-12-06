@@ -51,7 +51,7 @@ public class TestL2Skill extends TestCase
         statsSetForTest.set("name","Skill test");
         statsSetForTest.set("operateType",SkillOpType.OP_PASSIVE);
         statsSetForTest.set("target",SkillTargetType.TARGET_ALLY);
-        statsSetForTest.set("skillType",L2SkillType.BLEED);
+        statsSetForTest.set("L2SkillType",L2SkillType.BLEED);
         
         statsSetForTestNpc = new StatsSet();
         statsSetForTestNpc.set("baseSTR",1);
