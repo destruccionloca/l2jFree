@@ -407,7 +407,7 @@ INSERT INTO `weapon` VALUES
 (1302,'Bec de Corbin','lrhand','false',750,2,2,'fine_steel','none',22,10,'pole',8,-3.00000,0,0,0,325,0,6,-1,66600,0,'false','true','true','false','','','','',0),
 (1303,'Lance','lrhand','false',750,2,2,'fine_steel','none',1,10,'pole',8,-3.00000,0,0,0,325,0,6,-1,66600,0,'false','true','true','false','','','','',0),
 (1304,'Conjuror\'s Staff','lrhand','false',150,2,2,'oriharukon','none',15,20,'bigblunt',4,4.00000,0,0,0,325,0,17,-1,66600,0,'false','true','true','false','','','','',0),
-(1305,'Knife','rhand','false',120,2,2,'bronze','none',30000,15,'dagger',12,-3.00000,0,0,0,433,0,6,-1,66600,0,'false','true','true','false','','','','',0),
+(1305,'Knife','rhand','false',120,2,2,'bronze','none',1,15,'dagger',12,-3.00000,0,0,0,433,0,6,-1,66600,0,'false','true','true','false','','','','',0),
 (1306,'Crafted Dagger','rhand','false',100,2,2,'chrysolite','none',22,5,'dagger',12,-3.00000,0,0,0,433,0,6,-1,66600,0,'false','true','true','false','','','','',0),
 (1307,'Bow','lrhand','false',150,9,3,'wood','none',120,5,'bow',12,-3.00000,0,0,0,293,7,6,-1,3340000,0,'false','true','true','false','','','','',0),
 (1328,'Shield of Grace','lhand','false',300,0,0,'mithril','none',0,0,'none',0,0.00000,-8,71,20,0,0,0,-1,1090000,0,'false','true','true','false','','','','',0),
