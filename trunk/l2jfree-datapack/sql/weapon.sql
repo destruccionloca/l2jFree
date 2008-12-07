@@ -407,7 +407,7 @@ INSERT INTO `weapon` VALUES
 (1302,'Bec de Corbin','lrhand','false',750,2,2,'fine_steel','none',22,10,'pole',8,-3.00000,0,0,0,325,0,6,-1,66600,0,'false','true','true','false','','','','',0),
 (1303,'Lance','lrhand','false',750,2,2,'fine_steel','none',1,10,'pole',8,-3.00000,0,0,0,325,0,6,-1,66600,0,'false','true','true','false','','','','',0),
 (1304,'Conjuror\'s Staff','lrhand','false',150,2,2,'oriharukon','none',15,20,'bigblunt',4,4.00000,0,0,0,325,0,17,-1,66600,0,'false','true','true','false','','','','',0),
-(1305,'Knife','rhand','false',120,2,2,'bronze','none',15,'dagger',12,-3.00000,0,0,0,433,0,6,-1,66600,0,'false','true','true','false','','','','',0),
+(1305,'Knife','rhand','false',120,2,2,'bronze','none',30000,15,'dagger',12,-3.00000,0,0,0,433,0,6,-1,66600,0,'false','true','true','false','','','','',0),
 (1306,'Crafted Dagger','rhand','false',100,2,2,'chrysolite','none',22,5,'dagger',12,-3.00000,0,0,0,433,0,6,-1,66600,0,'false','true','true','false','','','','',0),
 (1307,'Bow','lrhand','false',150,9,3,'wood','none',120,5,'bow',12,-3.00000,0,0,0,293,7,6,-1,3340000,0,'false','true','true','false','','','','',0),
 (1328,'Shield of Grace','lhand','false',300,0,0,'mithril','none',0,0,'none',0,0.00000,-8,71,20,0,0,0,-1,1090000,0,'false','true','true','false','','','','',0),
@@ -441,7 +441,8 @@ INSERT INTO `weapon` VALUES
 (2502,'Dwarven War Hammer','rhand','true',1670,2,2,'fine_steel','c',122,20,'blunt',4,4.00000,0,0,0,379,0,68,-1,2209700,884,'true','true','true','true','','','','',0),
 (2503,'Yaksa Mace','rhand','true',1640,3,3,'fine_steel','c',156,20,'blunt',4,4.00000,0,0,0,379,0,83,-1,4713500,1885,'true','true','true','true','','','','',0),
 (2504,'Meteor Shower','rhand','true',1600,1,1,'fine_steel','a',213,20,'blunt',4,4.00000,0,0,0,379,0,107,-1,18300000,1464,'true','true','true','true','','','','',0),
-(2505,'Iron Canine','wolf','false',100,1,1,'steel','none',4,10,'pet',8,0.00000,0,0,0,277,0,5,-1,15166,0,'true','true','true','true','','','','',0),
+(2505,'Iron Canine','wolf','false',100,1,1,'steel','none',4,10,'pet',8,0.00000,0,0,0,277,0,5,-1,15166,0,'true','true','true','true','','','','',0);
+INSERT INTO `weapon` VALUES
 (2507,'Lizardspear','rhand','false',300,2,2,'steel','d',5,5,'dagger',12,-3.00000,0,0,0,433,0,5,-1,409000,744,'true','true','true','true','','','','',0),
 (2516,'Saber*Saber','lrhand','true',2530,2,2,'fine_steel','d',73,10,'dual',8,0.00000,0,0,0,325,0,37,-1,877000,1595,'true','true','true','true','','','','',0),
 (2517,'Saber*Bastard Sword','lrhand','true',2520,3,3,'fine_steel','d',83,10,'dual',8,0.00000,0,0,0,325,0,41,-1,1060000,1927,'true','true','true','true','','','','',0),
@@ -842,7 +843,8 @@ INSERT INTO `weapon` VALUES
 (5285,'Heavy Sword','lrhand','true',1520,2,2,'steel','d',49,10,'bigsword',8,0.00000,0,0,0,325,0,26,-1,315000,573,'true','true','true','true','','','','',9210),
 (5286,'Berserker Blade','lrhand','true',1380,3,3,'oriharukon','c',190,10,'bigsword',8,0.00000,0,0,0,325,0,83,-1,4713500,1885,'true','true','true','true','','','','',9296),
 (5292,'Sealed Dark Crystal Shield','lhand','true',1190,0,0,'crystal','a',0,0,'none',0,0.00000,-8,243,20,0,0,0,-1,1220000,98,'true','true','true','true','','','','',0),
-(5315,'Sealed Shield of Nightmare','lhand','true',1180,0,0,'leather','a',0,0,'none',0,0.00000,-8,256,20,0,0,0,-1,1850000,148,'true','true','true','true','','','','',0),
+(5315,'Sealed Shield of Nightmare','lhand','true',1180,0,0,'leather','a',0,0,'none',0,0.00000,-8,256,20,0,0,0,-1,1850000,148,'true','true','true','true','','','','',0);
+INSERT INTO `weapon` VALUES
 (5596,'Dasparion\'s Staff - Mana Up','lrhand','true',920,1,1,'adamantaite','a',207,20,'bigblunt',4,4.00000,0,0,0,325,0,143,-1,18300000,1464,'true','true','true','true','3014-2','','','',0),
 (5597,'Dasparion\'s Staff - Conversion','lrhand','true',920,1,1,'adamantaite','a',207,20,'bigblunt',4,4.00000,0,0,0,325,0,143,-1,18300000,1464,'true','true','true','true','3048-2','','','',0),
 (5598,'Dasparion\'s Staff - Acumen','lrhand','true',920,1,1,'adamantaite','a',207,20,'bigblunt',4,4.00000,0,0,0,325,0,143,-1,18300000,1464,'true','true','true','true','3047-2','','','',0),
@@ -1224,7 +1226,8 @@ INSERT INTO `weapon` VALUES
 (8817,'Cabrio\'s Hand - Magic Silence','rhand','true',1510,1,1,'fine_steel','a',202,20,'blunt',4,4.00000,0,0,0,379,0,161,-1,0,0,'true','true','true','true','','','3078-1-10','',0),
 (8818,'Daimon Crystal - Mana Up','lrhand','true',880,1,1,'wood','a',245,20,'bigblunt',4,4.00000,0,0,0,325,0,161,-1,0,0,'true','true','true','true','3014-2','','','',0),
 (8819,'Daimon Crystal - Acumen','lrhand','true',880,1,1,'wood','a',245,20,'bigblunt',4,4.00000,0,0,0,325,0,161,-1,0,0,'true','true','true','true','3047-2','','','',0),
-(8820,'Daimon Crystal - Magic Mental Shield','lrhand','true',880,1,1,'wood','a',245,20,'bigblunt',4,4.00000,0,0,0,325,0,161,-1,0,0,'true','true','true','true','','','1035-2-50','',0),
+(8820,'Daimon Crystal - Magic Mental Shield','lrhand','true',880,1,1,'wood','a',245,20,'bigblunt',4,4.00000,0,0,0,325,0,161,-1,0,0,'true','true','true','true','','','1035-2-50','',0);
+INSERT INTO `weapon` VALUES
 (8821,'Shadow Item: Two Handed Sword','lrhand','true',730,2,2,'fine_steel','d',78,10,'bigsword',8,0.00000,0,0,0,325,0,39,90,0,0,'false','false','true','false','','','','',0),
 (8822,'Shadow Item: Crimson Sword','rhand','true',500,2,2,'fine_steel','d',64,10,'sword',8,0.00000,0,0,0,379,0,39,90,0,0,'false','false','true','false','','','','',0),
 (8823,'Shadow Item: Spiked Club','rhand','true',590,2,2,'steel','d',64,20,'blunt',4,4.00000,0,0,0,379,0,39,90,0,0,'false','false','true','false','','','','',0),
@@ -1544,7 +1547,8 @@ INSERT INTO `weapon` VALUES
 (9448,'Dynasty Cudgel','rhand','true',1740,1,1,'wood','s80',333,20,'blunt',4,4.00000,0,0,0,379,0,151,-1,0,7050,'true','true','true','true','','','','',0),
 (9449,'Dynasty Mace','rhand','true',1080,1,1,'wood','s80',267,20,'blunt',4,4.00000,0,0,0,379,0,202,-1,0,7050,'true','true','true','true','','','','',0),
 (9450,'Dynasty Bagh-Nakh','lrhand','true',1550,1,1,'wood','s80',405,5,'dualfist',4,4.00000,0,0,0,325,0,151,-1,0,7050,'true','true','true','true','','','','',0),
-(9529,'Sealed Dynasty Shield','lhand','true',1370,0,0,'wood','s80',0,0,'none',0,0.00000,-8,305,20,0,0,0,-1,0,602,'true','true','true','true','','','','',0),
+(9529,'Sealed Dynasty Shield','lhand','true',1370,0,0,'wood','s80',0,0,'none',0,0.00000,-8,305,20,0,0,0,-1,0,602,'true','true','true','true','','','','',0);
+INSERT INTO `weapon` VALUES
 (9638,'Tears r1','rhand','true',300,2,2,'wood','d',5,5,'none',12,-3.00000,0,0,0,433,0,5,-1,0,0,'true','true','true','true','','','','',0),
 (9639,'Tears r2','rhand','true',300,2,2,'wood','d',5,5,'none',12,-3.00000,0,0,0,433,0,5,-1,0,0,'true','true','true','true','','','','',0),
 (9640,'Tears r3','rhand','true',300,2,2,'wood','d',5,5,'none',12,-3.00000,0,0,0,433,0,5,-1,0,0,'true','true','true','true','','','','',0),
@@ -1925,7 +1929,8 @@ INSERT INTO `weapon` VALUES
 (10976,'Staff of Evil Spirits - Holy Spirit - Magic Focus','lrhand','true',930,1,1,'fine_steel','b',189,20,'blunt',4,4.00000,0,0,0,325,0,132,-1,0,0,'true','true','true','true','','','','',0),
 (10977,'Staff of Evil Spirits - Holy Spirit - Blessed Body','lrhand','true',930,1,1,'fine_steel','b',189,20,'blunt',4,4.00000,0,0,0,325,0,132,-1,0,0,'true','true','true','true','','','','',0),
 (10978,'Staff of Evil Spirits - Holy Spirit - Magic Poison','lrhand','true',930,1,1,'fine_steel','b',189,20,'blunt',4,4.00000,0,0,0,325,0,132,-1,0,0,'true','true','true','true','','','','',0),
-(10979,'Deadman\'s Glory - Landslide','rhand','true',1600,1,1,'fine_steel','b',194,20,'blunt',4,4.00000,0,0,0,379,0,99,-1,0,0,'true','true','true','true','','','','',0),
+(10979,'Deadman\'s Glory - Landslide','rhand','true',1600,1,1,'fine_steel','b',194,20,'blunt',4,4.00000,0,0,0,379,0,99,-1,0,0,'true','true','true','true','','','','',0);
+INSERT INTO `weapon` VALUES
 (10980,'Deadman\'s Glory - Landslide - Anger','rhand','true',1600,1,1,'fine_steel','b',194,20,'blunt',4,4.00000,0,0,0,379,0,99,-1,0,0,'true','true','true','true','','','','',0),
 (10981,'Deadman\'s Glory - Landslide - Health','rhand','true',1600,1,1,'fine_steel','b',194,20,'blunt',4,4.00000,0,0,0,379,0,99,-1,0,0,'true','true','true','true','3013-1','','','',0),
 (10982,'Deadman\'s Glory - Landslide - Haste','rhand','true',1600,1,1,'fine_steel','b',194,20,'blunt',4,4.00000,0,0,0,379,0,99,-1,0,0,'true','true','true','true','','','','',0),
@@ -2294,7 +2299,8 @@ INSERT INTO `weapon` VALUES
 (11345,'Icarus Hall - Hail','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4.00000,0,0,0,379,0,217,-1,0,10394,'true','true','true','true','','','','',0),
 (11346,'Icarus Hall - Hail - Mana Up','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4.00000,0,0,0,379,0,217,-1,0,10394,'true','true','true','true','3014-3','','','',0),
 (11347,'Icarus Hall - Hail - Updown','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4.00000,0,0,0,379,0,217,-1,0,10394,'true','true','true','true','','','','',0),
-(11348,'Icarus Hall - Hail - Acumen','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4.00000,0,0,0,379,0,217,-1,0,10394,'true','true','true','true','3047-2','','','',0),
+(11348,'Icarus Hall - Hail - Acumen','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4.00000,0,0,0,379,0,217,-1,0,10394,'true','true','true','true','3047-2','','','',0);
+INSERT INTO `weapon` VALUES
 (11362,'Zubei\'s Shield','lhand','true',1210,0,0,'fine_steel','b',0,0,'sword',0,0.00000,-8,216,20,0,0,0,-1,419000,56,'true','true','true','true','','','','',0),
 (11374,'Avadon Shield','lhand','true',1210,0,0,'fine_steel','b',0,0,'sword',0,0.00000,-8,216,20,0,0,0,-1,419000,56,'true','true','true','true','','','','',0),
 (11385,'Doom Shield','lhand','true',1200,0,0,'fine_steel','b',0,0,'sword',0,0.00000,-8,230,20,0,0,0,-1,649800,87,'true','true','true','true','','','','',0),
@@ -2729,7 +2735,8 @@ INSERT INTO `weapon` VALUES
 (12268,'Common Item - Sealed Shield of Nightmare','lhand','true',393,0,0,'fine_steel','a',0,0,'none',0,0.00000,-8,256,20,0,0,0,-1,77100,6,'true','true','true','true','','','','',0),
 (12279,'Common Item - Shield of Nightmare','lhand','true',393,0,0,'fine_steel','a',0,0,'none',0,0.00000,-8,256,20,0,0,0,-1,77100,6,'true','true','true','true','','','','',0),
 (12302,'Common Item - Sealed Imperial Crusader Shield','lhand','true',390,0,0,'fine_steel','s',0,0,'none',0,0.00000,-8,0,20,0,0,0,-1,0,0,'true','true','true','true','','','','',0),
-(12308,'Common Item - Imperial Crusader Shield','lhand','true',390,0,0,'fine_steel','s',0,0,'none',0,0.00000,-8,290,20,0,0,0,-1,0,0,'true','true','true','true','','','','',0),
+(12308,'Common Item - Imperial Crusader Shield','lhand','true',390,0,0,'fine_steel','s',0,0,'none',0,0.00000,-8,290,20,0,0,0,-1,0,0,'true','true','true','true','','','','',0);
+INSERT INTO `weapon` VALUES
 (12793,'O Stick','rhand','false',0,0,0,'fine_steel','none',1,10,'sword',8,0.00000,0,0,0,379,0,1,-1,0,0,'true','true','true','true','','','','',0),
 (12794,'X Stick','rhand','false',0,0,0,'fine_steel','none',1,10,'sword',8,0.00000,0,0,0,379,0,1,-1,0,0,'true','true','true','true','','','','',0),
 (12795,'Scissors Stick','rhand','false',0,0,0,'fine_steel','none',1,10,'sword',8,0.00000,0,0,0,379,0,1,-1,0,0,'true','true','true','true','','','','',0),
