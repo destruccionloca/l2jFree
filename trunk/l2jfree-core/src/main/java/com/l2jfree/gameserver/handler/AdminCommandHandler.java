@@ -49,6 +49,7 @@ public class AdminCommandHandler
 	{
 		_datatable = new FastMap<String, IAdminCommandHandler>();
 		registerAdminCommandHandler(new AdminAdmin());
+		registerAdminCommandHandler(new AdminBuffs());
 		registerAdminCommandHandler(new AdminAI());
 		registerAdminCommandHandler(new AdminAnnouncements());
 		registerAdminCommandHandler(new AdminBan());
