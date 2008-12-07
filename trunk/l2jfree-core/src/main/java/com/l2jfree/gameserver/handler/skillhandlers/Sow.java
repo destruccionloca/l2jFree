@@ -67,7 +67,8 @@ public class Sow implements ISkillHandler
 
 		for (L2Object element : targetList)
 		{
-			if (!(element instanceof L2MonsterInstance))
+			if (element == null ||
+					!(element instanceof L2MonsterInstance))
 				continue;
 
 			_target = (L2MonsterInstance) element;

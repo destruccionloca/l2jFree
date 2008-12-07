@@ -51,7 +51,7 @@ public class TestL2Skill extends TestCase
         statsSetForTest.set("name","Skill test");
         statsSetForTest.set("operateType",SkillOpType.OP_PASSIVE);
         statsSetForTest.set("target",SkillTargetType.TARGET_ALLY);
-        statsSetForTest.set("L2SkillType",L2SkillType.BLEED);
+        statsSetForTest.set("skillType",L2SkillType.BLEED);
         
         statsSetForTestNpc = new StatsSet();
         statsSetForTestNpc.set("baseSTR",1);
@@ -91,19 +91,12 @@ public class TestL2Skill extends TestCase
 	 */
 	public final void testCheckCondition()
 	{
-        try
-        {
             L2Skill l2skill = new L2Skill (statsSetForTest);
             l2skill.attach(new ConditionItemId(57),true);
             
             L2Character activeChar = new L2BoatInstance(1,new L2CharTemplate(statsSetForTestNpc),"BoatPeople");
 
             l2skill.checkCondition(activeChar,activeChar, true);
-        }
-        catch (Exception e)
-        {
-           fail (e.getMessage()); 
-        }
 	}
     
      

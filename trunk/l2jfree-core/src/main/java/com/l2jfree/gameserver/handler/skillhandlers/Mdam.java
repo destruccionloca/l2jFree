@@ -18,7 +18,7 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.ICubicSkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -41,7 +41,7 @@ import com.l2jfree.gameserver.templates.L2SkillType;
  * @version $Revision: 1.1.2.7.2.16 $ $Date: 2005/04/06 16:13:49 $
  */
 
-public class Mdam implements ISkillHandler
+public class Mdam implements ICubicSkillHandler
 {
 	private final static Log			_log		= LogFactory.getLog(Mdam.class);
 
@@ -110,8 +110,14 @@ public class Mdam implements ISkillHandler
 			ss = ((L2NpcInstance) activeChar).isUsingShot(true);
 		}
 
-		for (L2Character target: (L2Character[]) targets)
+		for (L2Object element:  targets)
 		{
+			if (element == null || 
+					!(element instanceof L2Character))
+				continue;
+			
+			L2Character target = (L2Character) element;
+			
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
 			{
 				target.stopFakeDeath(null);
@@ -246,8 +252,14 @@ public class Mdam implements ISkillHandler
 
 	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Object[] targets)
 	{
-		for (L2Character target: (L2Character[]) targets)
+		for (L2Object element:  targets)
 		{
+			if (element == null || 
+					!(element instanceof L2Character))
+				continue;
+			
+			L2Character target = (L2Character) element;
+			
 			if (target instanceof L2PcInstance && target.isAlikeDead() && target.isFakeDeath())
 				target.stopFakeDeath(null);
 			else if (target.isAlikeDead())

@@ -46,9 +46,14 @@ public class MakeKillable implements ISkillHandler
 			return;
 		}
 
-		for (L2Object element : targetList)
+		for (L2Object element:  targets)
 		{
-			L2Object target = element;
+			if (element == null || 
+					!(element instanceof L2MonsterInstance))
+				continue;
+			
+			L2MonsterInstance target = (L2MonsterInstance) element;
+			
 			if (!((L2MonsterInstance) target).getKillable())
 			{
 				((L2MonsterInstance) target).setKillable(true);

@@ -31,14 +31,16 @@ public class GiveSp implements ISkillHandler
 
 	public void useSkill(@SuppressWarnings("unused") L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
-		for (L2Object obj : targets)
+		for (L2Object element:  targets)
 		{
-			L2Character target = (L2Character)obj;
-			if (target != null)
-			{
-				int spToAdd = (int)skill.getPower();
-				target.addExpAndSp(0, spToAdd);
-			}
+			if (element == null || 
+					!(element instanceof L2Character))
+				continue;
+			
+			L2Character target = (L2Character) element;
+			
+			int spToAdd = (int)skill.getPower();
+			target.addExpAndSp(0, spToAdd);
 		}
 	}
 

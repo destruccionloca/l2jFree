@@ -84,8 +84,14 @@ public class Manadam implements ISkillHandler
 			ss = ((L2NpcInstance) activeChar).isUsingShot(true);
 		}
 
-		for (L2Character target: (L2Character[]) targets)
+		for (L2Object element:  targets)
 		{
+			if (element == null || 
+					!(element instanceof L2Character))
+				continue;
+			
+			L2Character target = (L2Character) element;
+			
 			if (target.reflectSkill(skill))
 				target = activeChar;
 

@@ -49,8 +49,14 @@ public class Resurrect implements ISkillHandler
 		L2PcInstance targetPlayer;
 		FastList<L2Character> targetToRes = new FastList<L2Character>();
 
-		for (L2Character target: (L2Character[]) targets)
+		for (L2Object element:  targets)
 		{
+			if (element == null || 
+					!(element instanceof L2Character))
+				continue;
+			
+			L2Character target = (L2Character) element;
+			
 			if (target instanceof L2PcInstance)
 			{
 				targetPlayer = (L2PcInstance) target;
@@ -62,6 +68,7 @@ public class Resurrect implements ISkillHandler
 						continue;
 				}
 			}
+			
 			if (target.isVisible())
 				targetToRes.add(target);
 		}

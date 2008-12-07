@@ -43,8 +43,14 @@ public class Trap implements ISkillHandler
 		{
 		case DETECT_TRAP:
 		{
-			for (L2Character target: (L2Character[]) targets)
+			for (L2Object element:  targets)
 			{
+				if (element == null || 
+						!(element instanceof L2Character))
+					continue;
+				
+				L2Character target = (L2Character) element;
+				
 				if (!(target instanceof L2TrapInstance))
 					continue;
 
@@ -62,8 +68,14 @@ public class Trap implements ISkillHandler
 		}
 		case REMOVE_TRAP:
 		{
-			for (L2Character target: (L2Character[]) targets)
+			for (L2Object element:  targets)
 			{
+				if (element == null || 
+						!(element instanceof L2Character))
+					continue;
+				
+				L2Character target = (L2Character) element;
+				
 				if (!(target instanceof L2Trap))
 					continue;
 

@@ -44,6 +44,9 @@ public class Unlock implements ISkillHandler
 
 		for (L2Object element : targetList)
 		{
+			if (element == null)
+				continue;
+			
 			L2Object target = element;
 
 			if (target instanceof L2DoorInstance)

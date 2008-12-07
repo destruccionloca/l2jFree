@@ -198,8 +198,14 @@ public class L2SkillDrain extends L2Skill
 		if (_log.isDebugEnabled())
 			_log.info("L2SkillDrain: useCubicSkill()");
 
-		for (L2Character target: (L2Character[]) targets)
+		for (L2Object element:  targets)
 		{
+			if (element == null || 
+					!(element instanceof L2Character))
+				continue;
+			
+			L2Character target = (L2Character) element;
+			
 			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
 				continue;
 

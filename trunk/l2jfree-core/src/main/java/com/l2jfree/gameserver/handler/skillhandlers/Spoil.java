@@ -43,12 +43,12 @@ public class Spoil implements ISkillHandler
 		if (targets == null)
 			return;
 
-		for (L2Object tgt: targets)
+		for (L2Object element: targets)
 		{
-			if (!(tgt instanceof L2MonsterInstance))
+			if (!(element instanceof L2MonsterInstance))
 				continue;
 
-			L2MonsterInstance target = (L2MonsterInstance) tgt;
+			L2MonsterInstance target = (L2MonsterInstance) element;
 
 			if (target.isSpoil())
 			{

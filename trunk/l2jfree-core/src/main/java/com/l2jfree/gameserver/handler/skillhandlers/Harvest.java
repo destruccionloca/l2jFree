@@ -65,7 +65,8 @@ public class Harvest implements ISkillHandler
 
 		for (L2Object element : targetList)
 		{
-			if (!(element instanceof L2MonsterInstance))
+			if (element == null ||
+					!(element instanceof L2MonsterInstance))
 				continue;
 
 			L2MonsterInstance target = (L2MonsterInstance) element;

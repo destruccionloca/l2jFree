@@ -50,8 +50,10 @@ public class Sweep implements ISkillHandler
 
 		for (L2Object element : targets)
 		{
-			if (!(element instanceof L2Attackable))
+			if (element == null ||
+					!(element instanceof L2Attackable))
 				continue;
+			
 			L2Attackable target = (L2Attackable) element;
 
 			L2Attackable.RewardItem[] items = null;

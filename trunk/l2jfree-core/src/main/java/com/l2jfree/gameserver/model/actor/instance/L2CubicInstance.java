@@ -21,11 +21,9 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.handler.ICubicSkillHandler;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
-import com.l2jfree.gameserver.handler.skillhandlers.Continuous;
-import com.l2jfree.gameserver.handler.skillhandlers.Disablers;
-import com.l2jfree.gameserver.handler.skillhandlers.Mdam;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
@@ -686,12 +684,8 @@ public class L2CubicInstance
 							ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
 							L2Character[] targets = { _target };
 
-							if (handler instanceof Disablers)
-								((Disablers) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
-							else if (handler instanceof Mdam)
-								((Mdam) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
-							else if (handler instanceof Continuous)
-								((Continuous) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
+							if (handler instanceof ICubicSkillHandler)
+								((ICubicSkillHandler) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
 							else if (skill instanceof L2SkillDrain)
 								((L2SkillDrain) skill).useCubicSkill(L2CubicInstance.this, targets);
 							else

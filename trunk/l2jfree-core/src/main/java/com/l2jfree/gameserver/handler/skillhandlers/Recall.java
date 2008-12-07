@@ -64,59 +64,58 @@ public class Recall implements ISkillHandler
 			}
 		}
 
-		try
+		for (L2Object element:  targets)
 		{
-			for (L2Character target: (L2Character[]) targets)
+			if (element == null || 
+					!(element instanceof L2Character))
+				continue;
+			
+			L2Character target = (L2Character) element;
+			
+			if (target instanceof L2PcInstance)
 			{
-				if (target instanceof L2PcInstance)
+				L2PcInstance targetChar = (L2PcInstance) target;
+
+				// [L2J_JP ADD]
+				if (targetChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
 				{
-					L2PcInstance targetChar = (L2PcInstance) target;
-
-					// [L2J_JP ADD]
-					if (targetChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
-					{
-						targetChar.sendMessage("You can not escape from here.");
-						targetChar.sendPacket(ActionFailed.STATIC_PACKET);
-						break;
-					}
-
-					// Check to see if the current player target is in a
-					// festival.
-					if (targetChar.isFestivalParticipant())
-					{
-						targetChar.sendMessage("You may not use an escape skill in a festival.");
-						continue;
-					}
-
-					// Check to see if the current player target is in TvT , CTF
-					// or ViP events.
-					if (targetChar._inEventCTF || targetChar._inEventTvT || targetChar._inEventVIP)
-					{
-						targetChar.sendMessage("You may not use an escape skill in a Event.");
-						continue;
-					}
-
-					// Check to see if player is in jail
-					if (targetChar.isInJail() || targetChar.isInsideZone(L2Zone.FLAG_JAIL))
-					{
-						targetChar.sendMessage("You can not escape from jail.");
-						continue;
-					}
-
-					// Check to see if player is in a duel
-					if (targetChar.isInDuel())
-					{
-						targetChar.sendMessage("You cannot use escape skills during a duel.");
-						continue;
-					}
+					targetChar.sendMessage("You can not escape from here.");
+					targetChar.sendPacket(ActionFailed.STATIC_PACKET);
+					break;
 				}
 
-				target.teleToLocation(TeleportWhereType.Town);
+				// Check to see if the current player target is in a
+				// festival.
+				if (targetChar.isFestivalParticipant())
+				{
+					targetChar.sendMessage("You may not use an escape skill in a festival.");
+					continue;
+				}
+
+				// Check to see if the current player target is in TvT , CTF
+				// or ViP events.
+				if (targetChar._inEventCTF || targetChar._inEventTvT || targetChar._inEventVIP)
+				{
+					targetChar.sendMessage("You may not use an escape skill in a Event.");
+					continue;
+				}
+
+				// Check to see if player is in jail
+				if (targetChar.isInJail() || targetChar.isInsideZone(L2Zone.FLAG_JAIL))
+				{
+					targetChar.sendMessage("You can not escape from jail.");
+					continue;
+				}
+
+				// Check to see if player is in a duel
+				if (targetChar.isInDuel())
+				{
+					targetChar.sendMessage("You cannot use escape skills during a duel.");
+					continue;
+				}
 			}
-		}
-		catch (Throwable e)
-		{
-			_log.error(e.getMessage(), e);
+
+			target.teleToLocation(TeleportWhereType.Town);
 		}
 	}
 
@@ -149,28 +148,21 @@ public class Recall implements ISkillHandler
 		int rndX = 0;
 		int rndY = 0;
 
-		try
+		for (L2Object element : targets)
 		{
-			for (L2Object element : targets)
-			{
-				if (!(element instanceof L2Character))
-					continue;
+			if (element == null ||
+					!(element instanceof L2Character))
+				continue;
 
-				L2Character target = (L2Character) element;
+			L2Character target = (L2Character) element;
 
-				target.abortAttack();
+			target.abortAttack();
 
-				rndLoc = Rnd.get(14);
-				rndX = Rnd.get(-400, 400);
-				rndY = Rnd.get(-400, 400);
+			rndLoc = Rnd.get(14);
+			rndX = Rnd.get(-400, 400);
+			rndY = Rnd.get(-400, 400);
 
-				target.teleToLocation(loc[rndLoc][0] + rndX, loc[rndLoc][1] + rndY, loc[rndLoc][2]);
-			}
-		}
-		catch (Throwable e)
-		{
-			if (_log.isDebugEnabled())
-				_log.error(e.getMessage(), e);
+			target.teleToLocation(loc[rndLoc][0] + rndX, loc[rndLoc][1] + rndY, loc[rndLoc][2]);
 		}
 	}
 }

@@ -54,13 +54,7 @@ public class TakeFort implements ISkillHandler
 		if (fort == null || !checkIfOkToCastFlagDisplay(player, fort, true))
 			return;
 
-		try
-		{
-			fort.endOfSiege(player.getClan());
-		}
-		catch (Exception e)
-		{
-		}
+		fort.endOfSiege(player.getClan());
 	}
 
 	public L2SkillType[] getSkillIds()

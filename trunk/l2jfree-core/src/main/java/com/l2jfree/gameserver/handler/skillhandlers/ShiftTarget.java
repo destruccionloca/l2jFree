@@ -35,9 +35,9 @@ public class ShiftTarget implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
-		L2Attackable _attacker = null;
+		L2Attackable attackerChar = null;
 		L2NpcInstance attacker = null;
-		L2Character _target = null;
+		L2Character targetChar = null;
 
 		boolean targetShifted = false;
 
@@ -45,7 +45,7 @@ public class ShiftTarget implements ISkillHandler
 		{
 			if (target instanceof L2PcInstance)
 			{
-				_target = (L2Character) target;
+				targetChar = (L2Character) target;
 				break;
 			}
 		}
@@ -56,37 +56,37 @@ public class ShiftTarget implements ISkillHandler
 			{
 				if (nearby instanceof L2Attackable)
 				{
-					_attacker = (L2Attackable) nearby;
+					attackerChar = (L2Attackable) nearby;
 					targetShifted = true;
 					break;
 				}
 			}
 		}
-
-		if (targetShifted && _attacker != null && _target != null)
+		
+		if (targetShifted && attackerChar != null && targetChar != null)
 		{
-			attacker = (L2NpcInstance) _attacker;
-			int aggro = _attacker.getHating(activeChar);
+			attacker = (L2NpcInstance) attackerChar;
+			int aggro = attackerChar.getHating(activeChar);
 
 			if (aggro == 0)
 			{
-				if (_target.isRunning())
+				if (targetChar.isRunning())
 					attacker.setRunning();
 				{
-					_attacker.addDamageHate(_target, 0, 1);
-					attacker.setTarget(_target);
-					_attacker.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, _target);
+					attackerChar.addDamageHate(targetChar, 0, 1);
+					attacker.setTarget(targetChar);
+					attackerChar.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, targetChar);
 				}
 			}
 			else
 			{
-				_attacker.stopHating(activeChar);
-				if (_target.isRunning())
+				attackerChar.stopHating(activeChar);
+				if (targetChar.isRunning())
 					attacker.setRunning();
 				{
-					_attacker.addDamageHate(_target, 0, aggro);
-					attacker.setTarget(_target);
-					_attacker.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, _target);
+					attackerChar.addDamageHate(targetChar, 0, aggro);
+					attacker.setTarget(targetChar);
+					attackerChar.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, targetChar);
 				}
 			}
 		}

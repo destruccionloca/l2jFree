@@ -52,14 +52,9 @@ public class TakeCastle implements ISkillHandler
 		if (castle == null || !checkIfOkToCastSealOfRule(player, castle, true))
 			return;
 
-		try
-		{
-			if (targets[0] instanceof L2ArtefactInstance)
-				castle.engrave(player.getClan(), targets[0].getObjectId());
-		}
-		catch (Exception e)
-		{
-		}
+		if (targets[0] != null &&
+				targets[0] instanceof L2ArtefactInstance)
+			castle.engrave(player.getClan(), targets[0].getObjectId());
 	}
 
 	public L2SkillType[] getSkillIds()

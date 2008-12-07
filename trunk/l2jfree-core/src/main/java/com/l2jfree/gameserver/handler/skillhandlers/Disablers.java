@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.datatables.HeroSkillTable;
-import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.ICubicSkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.model.L2Attackable;
@@ -58,7 +58,7 @@ import com.l2jfree.tools.random.Rnd;
  * This Handles Disabler skills
  * @author _drunk_ 
  */
-public class Disablers implements ISkillHandler
+public class Disablers implements ICubicSkillHandler
 {
 	private static final L2SkillType[]	SKILL_IDS		=
 														{
@@ -163,8 +163,14 @@ public class Disablers implements ISkillHandler
 			ss = ((L2NpcInstance) activeChar).isUsingShot(true);
 		}
 
-		for (L2Character target: (L2Character[]) targets)
+		for (L2Object element:  targets)
 		{
+			if (element == null || 
+					!(element instanceof L2Character))
+				continue;
+			
+			L2Character target = (L2Character) element;
+			
 			if (target.isDead() || target.isInvul() || target.isPetrified()) //bypass if target is null, invul or dead
 				continue;
 			
@@ -861,15 +867,21 @@ public class Disablers implements ISkillHandler
 		skill.getEffectsSelf(activeChar);
 	} //end void
 
-	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Object[] targets)
+	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Object... targets)
 	{
 		if (_log.isDebugEnabled())
 			_log.info("Disablers: useCubicSkill()");
 
 		L2SkillType type = skill.getSkillType();
 
-		for (L2Character target: (L2Character[]) targets)
+		for (L2Object element:  targets)
 		{
+			if (element == null || 
+					!(element instanceof L2Character))
+				continue;
+			
+			L2Character target = (L2Character) element;
+			
 			if (target.isDead()) //bypass if target is null or dead
 				continue;
 

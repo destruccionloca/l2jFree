@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.ICubicSkillHandler;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
@@ -42,7 +42,7 @@ import com.l2jfree.gameserver.templates.L2SkillType;
  * @version $Revision: 1.1.2.2.2.9 $ $Date: 2005/04/03 15:55:04 $
  */
 
-public class Continuous implements ISkillHandler
+public class Continuous implements ICubicSkillHandler
 {
 	//private static Logger _log = Logger.getLogger(Continuous.class.getName());
 
@@ -95,8 +95,14 @@ public class Continuous implements ISkillHandler
 				skill = _skill;
 		}
 
-		for (L2Character target: (L2Character[]) targets)
+		for (L2Object element:  targets)
 		{
+			if (element == null || 
+					!(element instanceof L2Character))
+				continue;
+			
+			L2Character target = (L2Character) element;
+			
 			//check if skill is allowed on other.properties for raidbosses
 			if (!target.checkSkillCanAffectMyself(skill))
 				continue;
@@ -277,8 +283,14 @@ public class Continuous implements ISkillHandler
 
 	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Object[] targets)
 	{
-		for (L2Character target: (L2Character[]) targets)
+		for (L2Object element : targets)
 		{
+			if (element == null || 
+					!(element instanceof L2Character))
+				continue;
+			
+			L2Character target = (L2Character) element;
+			
 			if (skill.isOffensive())
 			{
 				boolean acted = Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill);

@@ -34,17 +34,18 @@ public class TransformDispel implements ISkillHandler
 		if (activeChar.isAlikeDead())
 			return;
 
-		for (L2Object target : targets)
+		for (L2Object element : targets)
 		{
-			if (!(target instanceof L2PcInstance))
+			if (element == null ||
+					!(element instanceof L2PcInstance))
 				continue;
 
-			L2PcInstance trg = (L2PcInstance) target;
+			L2PcInstance target = (L2PcInstance) element;
 
-			if (trg.isAlikeDead() || trg.isCursedWeaponEquipped())
+			if (target.isAlikeDead() || target.isCursedWeaponEquipped())
 				continue;
 
-			if (trg.isTransformed())
+			if (target.isTransformed())
 			{
 				activeChar.stopTransformation(null);
 			}

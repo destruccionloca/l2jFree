@@ -41,9 +41,7 @@ public class StrSiegeAssault implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.STRSIEGEASSAULT };
 
-	public void useSkill(L2Character activeChar, @SuppressWarnings("unused")
-	L2Skill skill, @SuppressWarnings("unused")
-	L2Object... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
@@ -52,45 +50,44 @@ public class StrSiegeAssault implements ISkillHandler
 
 		if (SiegeManager.checkIfOkToUseStriderSiegeAssault(player, false) || FortSiegeManager.checkIfOkToUseStriderSiegeAssault(player, false))
 		{
-			try
-			{
-				//TODO: damage calculation below is crap - needs rewrite
-				int damage = 0;
+			//TODO: damage calculation below is crap - needs rewrite
+			int damage = 0;
 
-				for (L2Character target : (L2Character[]) targets)
+			for (L2Object element:  targets)
+			{
+				if (element == null || 
+						!(element instanceof L2Character))
+					continue;
+				
+				L2Character target = (L2Character) element;
+				
+				L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
+				if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
 				{
-					L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-					if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
-					{
-						target.stopFakeDeath(null);
-					}
-					else if (target.isDead())
-						continue;
-
-					boolean dual = activeChar.isUsingDualWeapon();
-					boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
-					boolean crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getCriticalHit(target, skill));
-					boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
-
-					if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
-						damage = 0;
-					else
-						damage = (int) Formulas.getInstance().calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
-
-					if (damage > 0)
-					{
-						target.reduceCurrentHp(damage, activeChar);
-						if (soul && weapon != null)
-							weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
-						activeChar.sendDamageMessage(target, damage, false, false, false);
-					}
-					else
-						activeChar.sendMessage(skill.getName() + " failed.");
+					target.stopFakeDeath(null);
 				}
-			}
-			catch (Exception e)
-			{
-				_log.error(e);
+				else if (target.isDead())
+					continue;
+
+				boolean dual = activeChar.isUsingDualWeapon();
+				boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
+				boolean crit = Formulas.getInstance().calcCrit(activeChar, target, activeChar.getCriticalHit(target, skill));
+				boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
+
+				if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
+					damage = 0;
+				else
+					damage = (int) Formulas.getInstance().calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
+
+				if (damage > 0)
+				{
+					target.reduceCurrentHp(damage, activeChar);
+					if (soul && weapon != null)
+						weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
+					activeChar.sendDamageMessage(target, damage, false, false, false);
+				}
+				else
+					activeChar.sendMessage(skill.getName() + " failed.");
 			}
 		}
 	}

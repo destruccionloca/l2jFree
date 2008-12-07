@@ -45,12 +45,10 @@ public class SummonTreasureKey implements ISkillHandler
 
 		L2PcInstance player = (L2PcInstance) activeChar;
 
-		try
-		{
-			int item_id = 0;
+		int item_id = 0;
 
-			switch (skill.getLevel())
-			{
+		switch (skill.getLevel())
+		{
 			case 1:
 			{
 				item_id = Rnd.get(6667, 6669);
@@ -71,13 +69,10 @@ public class SummonTreasureKey implements ISkillHandler
 				item_id = Rnd.get(6670, 6672);
 				break;
 			}
-			}
+		}
+		
+		if (item_id != 0)
 			player.addItem("Skill", item_id, Rnd.get(2, 3), player, false);
-		}
-		catch (Exception e)
-		{
-			_log.fatal("Error using skill summon Treasure Key:" + e);
-		}
 	}
 
 	public L2SkillType[] getSkillIds()
