@@ -219,7 +219,7 @@ public class Hero
 				hero.set(CLAN_NAME, clanName);
 				hero.set(ALLY_CREST, allyCrest);
 				hero.set(ALLY_NAME, allyName);
-			} else {
+			} else if (hero.getInteger(PLAYED, 1)==1){
 				_log.warn("Hero: initRelationBetweenHeroAndClan ");
 			}
 		}
