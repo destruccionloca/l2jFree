@@ -104,7 +104,7 @@ public class DarkWaterDragon extends L2AttackableAIScript
             }
             if (event.equalsIgnoreCase("fafurion_poison"))    //Reduces Fafurions hp like it is poisoned
             {
-                if (npc.getCurrentHp() < 500)
+                if (npc.getStatus().getCurrentHp() < 500)
                 {
                     this.cancelQuestTimer("fafurion_despawn", npc, null);
                     this.cancelQuestTimer("1", npc, null);
@@ -156,7 +156,7 @@ public class DarkWaterDragon extends L2AttackableAIScript
                     }
                     _Shades.clear();
                 }
-                if (npc.getCurrentHp() < (npc.getMaxHp() / 2) && !(secondSpawn.contains(npcObjId)))
+                if (npc.getStatus().getCurrentHp() < (npc.getMaxHp() / 2) && !(secondSpawn.contains(npcObjId)))
                 {
                     //Spawn second 5 shades on half hp of on Dark Water Dragon
                     int x = npc.getX();
