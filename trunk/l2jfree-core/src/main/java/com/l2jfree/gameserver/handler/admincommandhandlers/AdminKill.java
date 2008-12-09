@@ -145,10 +145,15 @@ public class AdminKill implements IAdminCommandHandler
 				target.stopAllEffects(); // e.g. invincibility effect
 			target.reduceCurrentHp(target.getMaxHp() + target.getMaxCp() + 1, activeChar);
 		}
-		else if (target.isChampion())
-			target.reduceCurrentHp(target.getMaxHp() * Config.CHAMPION_HP + 1, activeChar);
 		else
-			target.reduceCurrentHp(target.getMaxHp() + 1, activeChar);
+		{
+			if (target.isInvul())
+				target.setIsInvul(false);
+			if (target.isChampion())
+				target.reduceCurrentHp(target.getMaxHp() * Config.CHAMPION_HP + 1, activeChar);
+			else
+				target.reduceCurrentHp(target.getMaxHp() + 1, activeChar);
+		}
 
 		if (_log.isDebugEnabled())
 			_log.debug("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ")" + " killed character " + target.getObjectId());

@@ -78,37 +78,6 @@ public abstract class L2Boss extends L2MonsterInstance
         player.sendPacket(sm);
     }
 
-    /**
-     * Boss are not affected by some type of skills (confusion, mute, paralyze, root
-     * and a list of skills define in the configuration)
-
-     * @param skill the casted skill
-     * @see L2Character#checkSkillCanAffectMyself(L2Skill)
-     */
-    @Override
-    public boolean checkSkillCanAffectMyself(L2Skill skill)
-    {
-        return checkSkillCanAffectMyself(skill.getSkillType());
-    }
-
-    @Override
-    public boolean checkSkillCanAffectMyself(L2SkillType type)
-    {
-        switch(type)
-        {
-            case CONFUSION: case MUTE: case PARALYZE: case ROOT: case SHIFT_TARGET:
-            case DEBUFF: case AGGDEBUFF: case FEAR: case SLEEP: case STUN:
-                return Rnd.get(1000) == 1;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean isRaid()
-    {
-        return true;
-    }
-
     @Override
     public boolean hasRandomAnimation()
     {

@@ -52,4 +52,11 @@ public final class L2RaidBossInstance extends L2Boss
         RaidBossSpawnManager.getInstance().updateStatus(this, true);
         return true;
     }
+
+    @Override
+    public void onSpawn()
+    {
+        setIsRaid(true);
+        super.onSpawn();
+    }
 }

@@ -10948,19 +10948,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	@Override
-	public void reduceCurrentHp(double i, L2Character attacker)
+	public void reduceCurrentHp(double value, L2Character attacker, boolean awake, boolean isDOT)
 	{
-		getStatus().reduceHp(i, attacker);
-
-		// notify the tamed beast of attacks
-		if (getTrainedBeast() != null)
-			getTrainedBeast().onOwnerGotAttacked(attacker);
-	}
-
-	@Override
-	public void reduceCurrentHp(double value, L2Character attacker, boolean awake)
-	{
-		getStatus().reduceHp(value, attacker, awake);
+		getStatus().reduceHp(value, attacker, awake, isDOT);
 
 		// notify the tamed beast of attacks
 		if (getTrainedBeast() != null)

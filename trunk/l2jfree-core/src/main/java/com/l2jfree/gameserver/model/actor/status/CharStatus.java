@@ -122,7 +122,12 @@ public class CharStatus
 	 */
 	public void reduceHp(double value, L2Character attacker)
 	{
-		reduceHp(value, attacker, true);
+		reduceHp(value, attacker, true, false);
+	}
+
+	public void reduceHp(double value, L2Character attacker, boolean awake)
+	{
+		reduceHp(value, attacker, awake, false);
 	}
 
 	public void increaseHp(double value)
@@ -152,7 +157,7 @@ public class CharStatus
 	 * @param awake The awake state (If True : stop sleeping)
 	 *
 	 */
-	public void reduceHp(double value, L2Character attacker, boolean awake)
+	public void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
 	{
 		if (getActiveChar().isInvul() || getActiveChar().isDead() || getActiveChar().isPetrified())
 			return;
@@ -205,16 +210,19 @@ public class CharStatus
 			attackerPlayer.setDuelState(Duel.DUELSTATE_INTERRUPTED);
 		}
 
-		if (awake)
+		if (!isDOT)
 		{
-			if (getActiveChar().isSleeping())
-				getActiveChar().stopSleeping(null);
-			if (getActiveChar().isImmobileUntilAttacked())
-				getActiveChar().stopImmobileUntilAttacked(null);
-		}
+			if (awake)
+			{
+				if (getActiveChar().isSleeping())
+					getActiveChar().stopSleeping(null);
+				if (getActiveChar().isImmobileUntilAttacked())
+					getActiveChar().stopImmobileUntilAttacked(null);
+			}
 
-		if (getActiveChar().isStunned() && Rnd.get(10) == 0)
-			getActiveChar().stopStunning(null);
+			if (getActiveChar().isStunned() && Rnd.get(10) == 0)
+				getActiveChar().stopStunning(null);
+		}
 
 		// Add attackers to npc's attacker list
 		if (getActiveChar() instanceof L2NpcInstance)

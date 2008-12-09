@@ -199,6 +199,8 @@ public abstract class L2Character extends L2Object
 
 	protected byte					_zoneValidateCounter				= 4;
 
+	private boolean					_isRaid								= false;
+
 	// =========================================================
 	// Constructor
 	/**
@@ -2410,7 +2412,16 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character is RaidBoss or his minion. */
 	public boolean isRaid()
 	{
-		return false;
+		return _isRaid;
+	}
+
+	/**
+	 * Set this Npc as a Raid instance.<BR><BR>
+	 * @param isRaid
+	 */
+	public void setIsRaid(boolean isRaid)
+	{
+		_isRaid = isRaid;
 	}
 
 	/** Return a list of L2Character that attacked. */
@@ -2472,7 +2483,7 @@ public abstract class L2Character extends L2Object
 	public boolean isAttackingDisabled()
 	{
 		return isStunned() || isSleeping() || isImmobileUntilAttacked() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed()
-				|| isPetrified() || isFallsdown() || isPhysicalAttackMuted();
+				|| isPetrified() || isFallsdown() || isPhysicalAttackMuted() || isCoreAIDisabled();
 	}
 
 	public final Calculator[] getCalculators()
@@ -5756,7 +5767,7 @@ public abstract class L2Character extends L2Object
 				boolean isRangeWeapon = (weapon != null && (weapon.getItemType() == L2WeaponType.BOW || weapon.getItemType() == L2WeaponType.CROSSBOW));
 
 				int reflectedDamage = 0;
-				if (!isRangeWeapon || (this instanceof L2PcInstance && ((L2PcInstance) this).isTransformed())) // Do not reflect if weapon is of type bow
+				if (!isRangeWeapon) // Do not reflect if weapon is of type bow
 				{
 					// Reduce HP of the target and calculate reflection damage to reduce HP of attacker if necessary
 					double reflectPercent = target.getStat().calcStat(Stats.REFLECT_DAMAGE_PERCENT, 0, null, null);
@@ -5789,7 +5800,7 @@ public abstract class L2Character extends L2Object
 					 */
 				}
 
-				if (!isRangeWeapon || (this instanceof L2PcInstance && ((L2PcInstance) this).isTransformed())) // Do not absorb if weapon is of type bow
+				if (!isRangeWeapon) // Do not absorb if weapon is of type bow
 				{
 					// Absorb HP from the damage inflicted
 					double absorbPercent = getStat().calcStat(Stats.ABSORB_DAMAGE_PERCENT, 0, null, null);
@@ -7231,6 +7242,8 @@ public abstract class L2Character extends L2Object
 
 	private boolean		_AIdisabled	= false;
 
+	private boolean		_isMinion = false;
+
 	public void setPvpFlagLasts(long time)
 	{
 		_pvpFlagLasts = time;
@@ -7421,12 +7434,17 @@ public abstract class L2Character extends L2Object
 	// Method - Public
 	public void reduceCurrentHp(double i, L2Character attacker)
 	{
-		reduceCurrentHp(i, attacker, true);
+		reduceCurrentHp(i, attacker, true, false);
 	}
 
 	public void reduceCurrentHp(double i, L2Character attacker, boolean awake)
 	{
-		getStatus().reduceHp(i, attacker, awake);
+		reduceCurrentHp(i, attacker, awake, false);
+	}
+
+	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT)
+	{
+		getStatus().reduceHp(i, attacker, awake, isDOT);
 	}
 
 	public void reduceCurrentMp(double i)
@@ -7532,25 +7550,6 @@ public abstract class L2Character extends L2Object
 	 */
 	public void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
 	{
-	}
-
-	/**
-	 * Check if the skill can affect myself. This method could be overridden to allow immunization for some skills and some child of L2Character
-	 *
-	 * @param skill
-	 *            the casted skill
-	 */
-	public boolean checkSkillCanAffectMyself(L2Skill skill)
-	{
-		return true;
-	}
-
-	/**
-	 * @param type  
-	 */
-	public boolean checkSkillCanAffectMyself(L2SkillType type)
-	{
-		return true;
 	}
 
 	public ForceBuff getForceBuff()
@@ -7673,5 +7672,20 @@ public abstract class L2Character extends L2Object
 				_log.error(e.getMessage(), e);
 			}
 		}
+	}
+
+	public boolean isRaidMinion()
+	{
+		return _isMinion;
+	}
+
+	/**
+	 * Set this Npc as a Minion instance.<BR><BR>
+	 * @param val
+	 */
+	public void setIsRaidMinion(boolean val)
+	{
+		_isRaid = val;
+		_isMinion = val;
 	}
 }

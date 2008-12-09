@@ -50,38 +50,6 @@ public final class L2MinionInstance extends L2MonsterInstance
 	{
 		super(objectId, template);
 	}
-	
-    /** Return True if the L2Character is minion of RaidBoss. */
-    @Override
-    public boolean isRaid()
-    {
-        return getLeader().isRaid();
-    }
-    
-    /**
-     * Minions of boss and raidboss are not affected by some type of skills (confusion, mute, paralyze, root
-     * and a list of skills define in the configuration)
-
-     * @param skill the casted skill
-     * @see L2Character#checkSkillCanAffectMyself(L2Skill)
-     */
-	@Override
-	public boolean checkSkillCanAffectMyself(L2Skill skill)
-	{
-		if (getLeader() == null)
-			return true;
-		
-		return getLeader().checkSkillCanAffectMyself(skill);
-	}
-	
-	@Override
-	public boolean checkSkillCanAffectMyself(L2SkillType type)
-	{
-		if (getLeader() == null)
-			return true;
-		
-		return getLeader().checkSkillCanAffectMyself(type);
-	}
 
 	/**
 	 * Return the master of this L2MinionInstance.<BR><BR>
@@ -90,20 +58,22 @@ public final class L2MinionInstance extends L2MonsterInstance
 	{
 		return _master;
 	}
-    
-    @Override
-    public void onSpawn()
-    {
-        super.onSpawn();
-        // Notify Leader that Minion has Spawned
-        _master.notifyMinionSpawned(this);
-        
-        // check the region where this mob is, do not activate the AI if region is inactive.
-        L2WorldRegion region = L2World.getInstance().getRegion(getX(),getY());
-        if ((region !=null) && (!region.isActive()))
-            ((L2AttackableAI) getAI()).stopAITask();
 
-    }
+	@Override
+	public void onSpawn()
+	{
+		super.onSpawn();
+		// Notify Leader that Minion has Spawned
+		_master.notifyMinionSpawned(this);
+
+		if (getLeader().isRaid())
+			setIsRaidMinion(true);
+
+		// check the region where this mob is, do not activate the AI if region is inactive.
+		L2WorldRegion region = L2World.getInstance().getRegion(getX(),getY());
+		if (region != null && !region.isActive())
+			((L2AttackableAI) getAI()).stopAITask();
+	}
 	
 	/**
 	 * Set the master of this L2MinionInstance.<BR><BR>

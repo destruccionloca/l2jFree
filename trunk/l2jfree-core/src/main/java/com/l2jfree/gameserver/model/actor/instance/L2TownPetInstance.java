@@ -72,6 +72,7 @@ public class L2TownPetInstance extends L2NpcInstance
     @Override
     public void firstSpawn()
     {
+        super.firstSpawn();
         _spawnX = getX();
         _spawnY = getY();
         _spawnZ = getZ();

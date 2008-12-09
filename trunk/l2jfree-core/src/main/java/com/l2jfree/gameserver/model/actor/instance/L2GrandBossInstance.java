@@ -85,13 +85,13 @@ public class L2GrandBossInstance extends L2Boss
 	 * 
 	 */
 	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
+	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT)
 	{
 		// [L2J_JP ADD SANDMAN]
 		if (isInSocialAction() || isInvul())
 			return;
 
-		super.reduceCurrentHp(damage, attacker, awake);
+		super.reduceCurrentHp(damage, attacker, awake, isDOT);
 	}
 
 	@Override
@@ -110,4 +110,13 @@ public class L2GrandBossInstance extends L2Boss
 		super.doCast(skill);
 	}
 	// [L2J_JP ADD END SANDMAN]
+
+	@Override
+	public void onSpawn()
+	{
+		setIsRaid(true);
+		//if (getNpcId() == 29020 || getNpcId() == 29028) // baium and valakas are all the time in passive mode, theirs attack AI handled in AI scripts
+			//super.disableCoreAI(true);
+		super.onSpawn();
+	}
 }

@@ -869,9 +869,13 @@ public abstract class L2Summon extends L2PlayableInstance
 		}
 	}
 
-	public void reduceCurrentHp(int damage, L2Character attacker)
+	public void reduceCurrentHp(int damage, L2Character attacker, boolean awake, boolean isDOT)
 	{
 		super.reduceCurrentHp(damage, attacker);
+
+		if (isDOT)
+			return;
+
 		SystemMessage sm;
 		if (this instanceof L2SummonInstance)
 			sm = new SystemMessage(SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_S1);

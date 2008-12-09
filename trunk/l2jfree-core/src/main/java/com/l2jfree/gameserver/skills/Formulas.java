@@ -1840,17 +1840,17 @@ public final class Formulas
 	public final double calcLethal(L2Character activeChar, L2Character target, int baseLethal, int magiclvl)
 	{
 		double chance = 0;
-		if(magiclvl > 0)
+		if (magiclvl > 0)
 		{
 			int delta = ((magiclvl + activeChar.getLevel()) / 2) - 1 - target.getLevel();
 
-			if ((delta + 3) >= 0)
+			if (delta >= -3)
 			{
 				chance = (baseLethal * ((double) activeChar.getLevel() / target.getLevel()));
 			}
 			else if (delta < 0 && delta >= -9)
 			{
-				chance = (-1) * (baseLethal / (delta * 1.5));
+				chance = (-1) * (baseLethal / (delta / 3));
 			}
 			else
 			{
@@ -2158,9 +2158,6 @@ public final class Formulas
 		//FIXME: CHECK/FIX THIS FORMULA UP!!
 		double attack = 0;
 
-		if (!target.checkSkillCanAffectMyself(skill))
-			return false;
-
 		if (skill.isActive() && skill.isOffensive())
 			defence = target.getMDef(actor, skill);
 
@@ -2352,9 +2349,6 @@ public final class Formulas
 		if (skill.isMagic() && target.isPreventedFromReceivingBuffs())
 			return false;
 
-		if (!target.checkSkillCanAffectMyself(skill))
-			return false;
-
 		int value = (int) skill.getPower();
 		int lvlDepend = skill.getLevelDepend();
 
@@ -2377,9 +2371,6 @@ public final class Formulas
 			else if (skill.getSkillType() == L2SkillType.MDAM /*|| type == L2SkillType.DRAIN*/) //FIXME: ???
 				type = L2SkillType.PARALYZE;
 		}
-
-		if (!target.checkSkillCanAffectMyself(type))
-			return false;
 
 		if (value == 0)
 		{

@@ -100,8 +100,9 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
 	 * @param awake  ignore it
 	 */
 	@Override
-	public void reduceCurrentHp(double i, L2Character attacker, boolean awake)
-	{}
+	public void reduceCurrentHp(double i, L2Character attacker, boolean awake, boolean isDOT)
+	{
+	}
 
 	/**
 	 * NPCs are immortal

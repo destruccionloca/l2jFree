@@ -393,9 +393,6 @@ public final class L2Weapon extends L2Equip
 		for (int i = 0; i < _onCritSkills.length; i++)
 		{
 			L2Skill skill = _onCritSkills[i];
-			// check if this skill can affect the target
-			if (!target.checkSkillCanAffectMyself(skill))
-				continue;
 
 			env.skill = skill;
 			if (!_onCritConditions[i].test(env))
@@ -435,9 +432,6 @@ public final class L2Weapon extends L2Equip
 		for (int i = 0; i < _onCastSkills.length; i++)
 		{
 			L2Skill skill = _onCastSkills[i];
-			// check if this skill can affect the target
-			if (!target.checkSkillCanAffectMyself(skill))
-				continue;
 
 			if (trigger.isOffensive() != skill.isOffensive())
 				continue; // Trigger only same type of skill
@@ -447,9 +441,6 @@ public final class L2Weapon extends L2Equip
 
 			if (trigger.getId() >= 1320 && trigger.getId() <= 1322)
 				continue; // No buffing with Common and Dwarven Craft
-
-			if (!target.checkSkillCanAffectMyself(skill))
-				continue; // These skills should not work on RaidBoss
 
 			env.skill = skill;
 			if (!_onCastConditions[i].test(env))

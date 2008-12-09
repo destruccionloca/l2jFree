@@ -168,10 +168,6 @@ public class Disablers implements ICubicSkillHandler
 			
 			if (target.isDead() || target.isInvul() || target.isPetrified()) //bypass if target is null, invul or dead
 				continue;
-			
-			//check if skill is allowed on other.properties for raidbosses
-			if (!target.checkSkillCanAffectMyself(skill))
-				continue;
 
 			// With Mystic Immunity you can't be buffed/debuffed
 			if (target.isPreventedFromReceivingBuffs())

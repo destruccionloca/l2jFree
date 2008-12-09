@@ -41,9 +41,7 @@ public class PcStatus extends PlayableStatus
     // =========================================================
     // Method - Public
     @Override
-    public final void reduceHp(double value, L2Character attacker) { reduceHp(value, attacker, true); }
-    @Override
-    public final void reduceHp(double value, L2Character attacker, boolean awake)
+    public final void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
     {
         double realValue = value;
         
@@ -110,7 +108,7 @@ public class PcStatus extends PlayableStatus
             }
         }
 
-        super.reduceHp(value, attacker, awake);
+        super.reduceHp(value, attacker, awake, isDOT);
 
         if (!getActiveChar().isDead() && getActiveChar().isSitting()) 
             getActiveChar().standUp();

@@ -115,6 +115,12 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		case 18256:
 			//
 			break;
+		case 25339:
+		case 25342:
+		case 25346:
+		case 25349:
+			setIsRaid(true);
+			break;
 		}
 	}
 
@@ -244,43 +250,6 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 	}
 
 	@Override
-	public boolean checkSkillCanAffectMyself(L2Skill skill)
-	{
-		if (!isRaid())
-			return true;
-		if(skill.getEffectType() == null)
-		{
-			return checkSkillCanAffectMyself(skill.getSkillType());
-		}
-		else
-		{
-			return checkSkillCanAffectMyself(skill.getEffectType())
-				&& checkSkillCanAffectMyself(skill.getSkillType());
-		}
-	}
-
-	@Override
-	public boolean checkSkillCanAffectMyself(L2SkillType type)
-	{
-		if (!isRaid())
-			return true;
-		switch (type)
-		{
-			case CONFUSION:
-			case MUTE:
-			case PARALYZE:
-			case ROOT:
-			case FEAR:
-			case SLEEP:
-			case STUN:
-			case DEBUFF:
-			case AGGDEBUFF:
-				return Rnd.get(1000) == 1;
-		}
-		return true;
-	}
-
-	@Override
 	public void deleteMe()
 	{
 		if (_victimSpawnKeyBoxTask != null)
@@ -295,21 +264,6 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		}
 
 		super.deleteMe();
-	}
-
-	@Override
-	public boolean isRaid()
-	{
-		switch (getNpcId())
-		{
-		case 25339:
-		case 25342:
-		case 25346:
-		case 25349:
-			return true;
-		default:
-			return false;
-		}
 	}
 
 	private void giveCup(L2PcInstance player)

@@ -36,13 +36,12 @@ public class PetStatus extends SummonStatus
     // =========================================================
     // Method - Public
     @Override
-    public final void reduceHp(double value, L2Character attacker) { reduceHp(value, attacker, true); }
-    @Override
-    public final void reduceHp(double value, L2Character attacker, boolean awake)
+    public final void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
     {
-        if (getActiveChar().isDead()) return;
+        if (getActiveChar().isDead())
+            return;
 
-        super.reduceHp(value, attacker, awake);
+        super.reduceHp(value, attacker, awake, isDOT);
 
         if (attacker != null)
         {

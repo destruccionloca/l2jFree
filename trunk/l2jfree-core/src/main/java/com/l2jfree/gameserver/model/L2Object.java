@@ -124,6 +124,7 @@ public abstract class L2Object
 	
 	public void firstSpawn()
 	{
+		onSpawn();
 	}
 
 	/**

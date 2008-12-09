@@ -89,7 +89,9 @@ public class DecayTaskManager
 				if (actor instanceof L2MonsterInstance)
 				{
 					if (actor instanceof L2RaidBossInstance)
+					{
 						forDecay = RAID_BOSS_DECAY_TIME;
+					}
 					else
 					{
 						L2MonsterInstance monster = (L2MonsterInstance) actor;

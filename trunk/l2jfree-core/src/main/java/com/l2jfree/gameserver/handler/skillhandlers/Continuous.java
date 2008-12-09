@@ -100,10 +100,6 @@ public class Continuous implements ICubicSkillHandler
 				continue;
 			
 			L2Character target = (L2Character) element;
-			
-			//check if skill is allowed on other.properties for raidbosses
-			if (!target.checkSkillCanAffectMyself(skill))
-				continue;
 
 			switch (skill.getSkillType())
 			{

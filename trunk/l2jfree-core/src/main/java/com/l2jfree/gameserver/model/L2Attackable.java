@@ -440,19 +440,6 @@ public class L2Attackable extends L2NpcInstance
 	}
 
 	/**
-	 * Reduce the current HP of the L2Attackable.<BR>
-	 * <BR>
-	 * 
-	 * @param damage The HP decrease value
-	 * @param attacker The L2Character who attacks
-	 */
-	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker)
-	{
-		reduceCurrentHp(damage, attacker, true);
-	}
-
-	/**
 	 * Reduce the current HP of the L2Attackable, update its _aggroList and
 	 * launch the doDie Task if necessary.<BR>
 	 * <BR>
@@ -462,7 +449,7 @@ public class L2Attackable extends L2NpcInstance
 	 * @param awake The awake state (If True : stop sleeping)
 	 */
 	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
+	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT)
 	{
 		/*
 		if ((this instanceof L2SiegeGuardInstance) && (attacker instanceof L2SiegeGuardInstance))
@@ -489,7 +476,7 @@ public class L2Attackable extends L2NpcInstance
 			return;
 
 		// Add damage and hate to the attacker AggroInfo of the L2Attackable _aggroList
-		if (attacker != null)
+		if (attacker != null && !isDOT)
 			addDamage(attacker, (int) damage);
 
 		// If this L2Attackable is a L2MonsterInstance and it has spawned minions, call its minions to battle
@@ -507,7 +494,7 @@ public class L2Attackable extends L2NpcInstance
 		}
 
 		// Reduce the current HP of the L2Attackable and launch the doDie Task if necessary
-		super.reduceCurrentHp(damage, attacker, awake);
+		super.reduceCurrentHp(damage, attacker, awake, isDOT);
 	}
 
 	public synchronized void setMustRewardExpSp(boolean value)
