@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import com.l2jfree.gameserver.skills.Env;
-import com.l2jfree.gameserver.templates.L2EffectType;
+import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author decad

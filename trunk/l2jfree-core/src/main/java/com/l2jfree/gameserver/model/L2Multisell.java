@@ -29,9 +29,9 @@ import org.w3c.dom.Node;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.MultiSellList;
-import com.l2jfree.gameserver.templates.L2Armor;
-import com.l2jfree.gameserver.templates.L2Item;
-import com.l2jfree.gameserver.templates.L2Weapon;
+import com.l2jfree.gameserver.templates.item.L2Armor;
+import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.util.Util;
 
 /**

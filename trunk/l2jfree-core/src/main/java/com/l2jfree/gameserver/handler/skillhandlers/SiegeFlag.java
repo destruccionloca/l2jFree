@@ -26,8 +26,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
-import com.l2jfree.gameserver.templates.L2SkillType;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /** 
  * @author _drunk_ 

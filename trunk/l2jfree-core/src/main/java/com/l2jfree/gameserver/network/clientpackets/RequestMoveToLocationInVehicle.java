@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.templates.L2WeaponType;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.tools.geometry.Point3D;
 
 

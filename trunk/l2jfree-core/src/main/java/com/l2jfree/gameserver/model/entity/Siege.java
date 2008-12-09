@@ -56,7 +56,7 @@ import com.l2jfree.gameserver.network.serverpackets.RelationChanged;
 import com.l2jfree.gameserver.network.serverpackets.SiegeInfo;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class Siege
 {

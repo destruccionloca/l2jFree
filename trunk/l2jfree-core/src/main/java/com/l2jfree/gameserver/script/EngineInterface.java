@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.script;
 import java.util.Map;
 
 import com.l2jfree.gameserver.model.L2DropData;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 
 /**

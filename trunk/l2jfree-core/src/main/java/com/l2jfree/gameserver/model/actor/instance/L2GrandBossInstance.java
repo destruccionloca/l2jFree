@@ -18,7 +18,7 @@ import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
 import com.l2jfree.gameserver.model.L2Boss;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 
 /**

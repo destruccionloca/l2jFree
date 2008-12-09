@@ -18,7 +18,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.datatables.HennaTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.HennaItemInfo;
-import com.l2jfree.gameserver.templates.L2Henna;
+import com.l2jfree.gameserver.templates.item.L2Henna;
 
 /**
  * This class ...

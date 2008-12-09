@@ -37,9 +37,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.AutoAttackStop;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
-import com.l2jfree.gameserver.templates.L2Weapon;
-import com.l2jfree.gameserver.templates.L2WeaponType;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 
@@ -1118,6 +1118,7 @@ public class L2CharacterAI extends AbstractAI
 		public boolean			isMage						= false;
 		public boolean			isBalanced;
 		public boolean			isArcher					= false;
+		public boolean			isHealer					= false;
 		public boolean			isFighter					= false;
 		public boolean			cannotMoveOnLand			= false;
 		public List<L2Skill>	generalSkills				= new FastList<L2Skill>();
@@ -1157,6 +1158,9 @@ public class L2CharacterAI extends AbstractAI
 				break;
 			case ARCHER:
 				isArcher = true;
+				break;
+			case HEALER:
+				isHealer = true;
 				break;
 			default:
 				isFighter = true;

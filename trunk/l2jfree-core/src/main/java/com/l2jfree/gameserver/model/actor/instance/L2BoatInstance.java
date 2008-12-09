@@ -43,8 +43,8 @@ import com.l2jfree.gameserver.network.serverpackets.VehicleCheckLocation;
 import com.l2jfree.gameserver.network.serverpackets.VehicleDeparture;
 import com.l2jfree.gameserver.network.serverpackets.VehicleInfo;
 import com.l2jfree.gameserver.network.serverpackets.VehicleStarted;
-import com.l2jfree.gameserver.templates.L2CharTemplate;
-import com.l2jfree.gameserver.templates.L2Weapon;
+import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.util.Util;
 
 /**

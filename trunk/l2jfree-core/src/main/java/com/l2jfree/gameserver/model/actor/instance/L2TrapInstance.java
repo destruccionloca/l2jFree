@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.model.actor.knownlist.TrapKnownList;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
-import com.l2jfree.gameserver.templates.L2CharTemplate;
+import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 
 
 public class L2TrapInstance extends L2Trap

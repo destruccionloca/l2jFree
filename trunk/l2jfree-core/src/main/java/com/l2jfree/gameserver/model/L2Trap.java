@@ -17,9 +17,9 @@ package com.l2jfree.gameserver.model;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
-import com.l2jfree.gameserver.templates.L2CharTemplate;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
-import com.l2jfree.gameserver.templates.L2Weapon;
+import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 /**
  *

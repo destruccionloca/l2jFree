@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 // This class is here mostly for convinience and for avoidance of hardcoded IDs.
 // It refers to Beast (mobs) that can be attacked but can also be fed 

@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExAutoSoulShot;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.templates.L2Weapon;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.util.Broadcast;
 
 /**

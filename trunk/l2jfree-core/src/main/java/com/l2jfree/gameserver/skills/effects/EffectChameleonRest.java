@@ -21,8 +21,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
-import com.l2jfree.gameserver.templates.L2EffectType;
-import com.l2jfree.gameserver.templates.L2SkillType;
+import com.l2jfree.gameserver.templates.skills.L2EffectType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public final class EffectChameleonRest extends L2Effect
 {

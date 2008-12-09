@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.skills.conditions;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Env;
-import com.l2jfree.gameserver.templates.L2Weapon;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 /**
  * @author nBd

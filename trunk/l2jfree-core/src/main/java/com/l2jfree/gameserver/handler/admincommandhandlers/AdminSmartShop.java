@@ -48,12 +48,12 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.funcs.Func;
-import com.l2jfree.gameserver.templates.L2Armor;
-import com.l2jfree.gameserver.templates.L2Equip;
-import com.l2jfree.gameserver.templates.L2EtcItem;
-import com.l2jfree.gameserver.templates.L2EtcItemType;
-import com.l2jfree.gameserver.templates.L2Item;
-import com.l2jfree.gameserver.templates.L2Weapon;
+import com.l2jfree.gameserver.templates.item.L2Armor;
+import com.l2jfree.gameserver.templates.item.L2Equip;
+import com.l2jfree.gameserver.templates.item.L2EtcItem;
+import com.l2jfree.gameserver.templates.item.L2EtcItemType;
+import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 /**
  * Smart GM Shop that can give you all available items
@@ -2500,7 +2500,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			{
 				return editWeapon(makeQuery("weapon (" + SQL_ITEM_SELECTS[2] + ")"), (L2Weapon) item);
 			}
-			else if (item instanceof com.l2jfree.gameserver.templates.L2EtcItem)
+			else if (item instanceof L2EtcItem)
 			{
 				return editEtcItem(makeQuery("etcitem (" + SQL_ITEM_SELECTS[0] + ")"), (L2EtcItem) item);
 			}

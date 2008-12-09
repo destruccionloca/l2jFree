@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
-import com.l2jfree.gameserver.templates.L2EtcItemType;
+import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 
 import javolution.util.FastList;
 

@@ -17,8 +17,8 @@ package com.l2jfree.gameserver.skills.funcs;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.templates.L2Item;
-import com.l2jfree.gameserver.templates.L2WeaponType;
+import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
 public class FuncEnchant extends Func
 {

@@ -29,7 +29,7 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ExAutoSoulShot;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutInit;
-import com.l2jfree.gameserver.templates.L2EtcItemType;
+import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 
 /**
  * This class ...

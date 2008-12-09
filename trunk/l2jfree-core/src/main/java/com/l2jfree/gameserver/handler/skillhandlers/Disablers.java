@@ -47,8 +47,8 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.effects.EffectBuff;
-import com.l2jfree.gameserver.templates.L2EffectType;
-import com.l2jfree.gameserver.templates.L2SkillType;
+import com.l2jfree.gameserver.templates.skills.L2EffectType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 /** 

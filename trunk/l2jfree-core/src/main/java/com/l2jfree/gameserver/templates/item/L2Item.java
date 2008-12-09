@@ -12,12 +12,13 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.templates;
+package com.l2jfree.gameserver.templates.item;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
  * This class contains all informations concerning the item (weapon, armor, etc).<BR>
@@ -384,6 +385,13 @@ public abstract class L2Item
 	public boolean isCommonItem()
 	{
 		return _isCommonItem;
+	}
+
+	public boolean isLifeStone()
+	{
+		if (_itemId < 8723 || (_itemId > 8762 && _itemId < 9573) || (_itemId > 9576 && _itemId < 10483) || _itemId > 10486)
+			return false;
+		return true;
 	}
 
 	public boolean isEquipable()

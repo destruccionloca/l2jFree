@@ -29,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ItemTable;
-import com.l2jfree.gameserver.templates.L2Item;
+import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
  * Service class for manor

@@ -37,7 +37,7 @@ import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.skills.funcs.Lambda;
-import com.l2jfree.gameserver.templates.L2EffectType;
+import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * This class ...

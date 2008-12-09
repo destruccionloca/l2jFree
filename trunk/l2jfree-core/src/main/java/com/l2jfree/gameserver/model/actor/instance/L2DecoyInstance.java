@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.model.L2Decoy;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.knownlist.DecoyKnownList;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2DecoyInstance extends L2Decoy
 {

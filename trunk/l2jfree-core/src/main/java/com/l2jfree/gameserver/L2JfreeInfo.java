@@ -31,7 +31,7 @@ public class L2JfreeInfo
 		activeChar.sendMessage(":__.     :_____:_____:_____:_____:_____:_____:");
 		activeChar.sendMessage("|    |__|___   |__.     |     __|        |     __|     __|");
 		activeChar.sendMessage("|         |   ___|   |     |     __|    ) _|     __|     __|");
-		activeChar.sendMessage("|_____|_____|_____|__|    |__|__|_____|_____|");	
+		activeChar.sendMessage("|_____|_____|_____|__|    |__|__|_____|_____|");
 		activeChar.sendMessage("l2jfree version: "+ GameServer.getVersionNumber() + " license: gpl 3 ");
 	}
 }

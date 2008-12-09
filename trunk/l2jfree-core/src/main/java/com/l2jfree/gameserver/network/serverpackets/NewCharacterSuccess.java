@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
-import com.l2jfree.gameserver.templates.L2PcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
 
 import javolution.util.FastList;
 

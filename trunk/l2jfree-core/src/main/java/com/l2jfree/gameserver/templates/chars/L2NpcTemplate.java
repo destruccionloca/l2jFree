@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.templates;
+package com.l2jfree.gameserver.templates.chars;
 
 import java.util.List;
 import java.util.Map;
@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
  * This cl contains all generic data of a L2Spawn object.<BR><BR>
@@ -119,7 +120,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public static enum AIType
 	{
-		FIGHTER, ARCHER, BALANCED, MAGE
+		FIGHTER, ARCHER, BALANCED, MAGE, HEALER
 	}
 
 	public static enum Race
@@ -199,6 +200,8 @@ public final class L2NpcTemplate extends L2CharTemplate
 			_ai = AIType.BALANCED;
 		else if (ai.equalsIgnoreCase("mage"))
 			_ai = AIType.MAGE;
+		else if (ai.equalsIgnoreCase("healer"))
+			_ai = AIType.HEALER;
 		else
 			_ai = AIType.FIGHTER;
 

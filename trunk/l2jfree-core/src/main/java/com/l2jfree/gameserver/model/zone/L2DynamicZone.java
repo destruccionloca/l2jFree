@@ -51,8 +51,8 @@ import com.l2jfree.gameserver.skills.conditions.ConditionTargetUndead;
 import com.l2jfree.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime.CheckGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
-import com.l2jfree.gameserver.templates.L2ArmorType;
-import com.l2jfree.gameserver.templates.L2WeaponType;
+import com.l2jfree.gameserver.templates.item.L2ArmorType;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
 public class L2DynamicZone extends L2DefaultZone
 {

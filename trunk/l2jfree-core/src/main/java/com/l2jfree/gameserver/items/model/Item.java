@@ -19,8 +19,8 @@ package com.l2jfree.gameserver.items.model;
   * 
   */
 
-import com.l2jfree.gameserver.templates.AbstractL2ItemType;
-import com.l2jfree.gameserver.templates.L2Item;
+import com.l2jfree.gameserver.templates.item.AbstractL2ItemType;
+import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 /**

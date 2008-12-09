@@ -23,8 +23,8 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Formulas;
-import com.l2jfree.gameserver.templates.L2SkillType;
-import com.l2jfree.gameserver.templates.L2WeaponType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
 /**
  * @author _tomciaaa_

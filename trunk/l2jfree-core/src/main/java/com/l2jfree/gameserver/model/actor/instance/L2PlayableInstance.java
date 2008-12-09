@@ -22,8 +22,8 @@ import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
 import com.l2jfree.gameserver.model.actor.status.PcStatus;
 import com.l2jfree.gameserver.model.actor.status.PlayableStatus;
-import com.l2jfree.gameserver.templates.L2CharTemplate;
-import com.l2jfree.gameserver.templates.L2EffectType;
+import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
+import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * This class represents all Playable characters in the world.<BR><BR>

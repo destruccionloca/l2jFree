@@ -37,7 +37,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
-import com.l2jfree.gameserver.templates.L2SkillType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 
@@ -594,8 +594,10 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				{
 					// Temporary hack for preventing guards jumping off towers,
 					// before replacing this with effective geodata checks and AI modification
-					if (dz * dz < 170 * 170) // normally 130 if guard z coordinates correct
+					if (dz * dz < 28900) // 170 // normally 130 if guard z coordinates correct
 					{
+						if (_selfAnalysis.isHealer)
+							return;
 						if (_selfAnalysis.isMage)
 							range = _selfAnalysis.maxCastRange - 50;
 						if (_attackTarget.isMoving())
@@ -610,7 +612,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 
 		}
 		// Else, if the actor is muted and far from target, just "move to pawn"
-		else if (_actor.isMuted() && dist_2 > range * range)
+		else if (_actor.isMuted() && dist_2 > range * range && !_selfAnalysis.isHealer)
 		{
 			// Temporary hack for preventing guards jumping off towers,
 			// before replacing this with effective geodata checks and AI modification
@@ -690,7 +692,8 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				}
 			}
 			// Finally, do the physical attack itself
-			_accessor.doAttack(attackTarget);
+			if (!_selfAnalysis.isHealer)
+				_accessor.doAttack(attackTarget);
 		}
 	}
 

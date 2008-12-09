@@ -12,13 +12,14 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.templates;
+package com.l2jfree.gameserver.templates.chars;
 
 import java.util.List;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.base.Race;
+import com.l2jfree.gameserver.templates.StatsSet;
 
 import javolution.util.FastList;
 

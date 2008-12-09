@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExVariationResult;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.templates.L2Item;
+import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -155,7 +155,7 @@ public final class RequestRefine extends L2GameClientPacket
 		int gemstoneItemId = gemstoneItem.getItemId();
 		
 		// is the refiner Item a life stone?
-		if (lifeStoneId < 8723 || (lifeStoneId > 8762 &&  lifeStoneId < 9573) || lifeStoneId > 9576)
+		if (!refinerItem.getItem().isLifeStone())
 			return false;
 
 		// must be a weapon, must be > d grade
@@ -173,18 +173,18 @@ public final class RequestRefine extends L2GameClientPacket
 				modifyGemstoneCount = 20;
 				break;
 			case L2Item.CRYSTAL_B:
-				if (lifeStoneLevel < 3 || player.getLevel() < 52 || gemstoneItemId != 2130)
+				if (player.getLevel() < 52 || gemstoneItemId != 2130)
 					return false;
 				modifyGemstoneCount = 30;
 				break;
 			case L2Item.CRYSTAL_A:
-				if (lifeStoneLevel < 6 || player.getLevel() < 61 || gemstoneItemId != 2131)
+				if (player.getLevel() < 61 || gemstoneItemId != 2131)
 					return false;
 				modifyGemstoneCount = 20;
 				break;
 			case L2Item.CRYSTAL_S:
 			case L2Item.CRYSTAL_S80:
-				if (lifeStoneLevel != 10 || player.getLevel() < 76 || gemstoneItemId != 2131)
+				if (player.getLevel() < 76 || gemstoneItemId != 2131)
 					return false;
 				modifyGemstoneCount = 25;
 				break;
@@ -225,6 +225,9 @@ public final class RequestRefine extends L2GameClientPacket
 				break;
 			case 11:
 				if (player.getLevel() < 80) return false;
+				break;
+			case 12:
+				if (player.getLevel() < 82) return false;
 				break;
 		}
 
@@ -270,9 +273,9 @@ public final class RequestRefine extends L2GameClientPacket
 	private int getLifeStoneGrade(int itemId)
 	{
 		itemId -= 8723;
-		if (itemId < 10 || itemId == 850) return 0; // normal grade
-		if (itemId < 20 || itemId == 851) return 1; // mid grade
-		if (itemId < 30 || itemId == 852) return 2; // high grade
+		if (itemId < 10 || itemId == 850 || itemId == 1760) return 0; // normal grade
+		if (itemId < 20 || itemId == 851 || itemId == 1761) return 1; // mid grade
+		if (itemId < 30 || itemId == 852 || itemId == 1762) return 2; // high grade
 		return 3; // top grade
 	}
 
@@ -280,7 +283,8 @@ public final class RequestRefine extends L2GameClientPacket
 	{
 		itemId -= 10 * getLifeStoneGrade(itemId);
 		itemId -= 8722;
-		if (itemId > 823) return 10;
+		if (itemId > 823 && itemId < 852) return 11;
+		if (itemId > 833 && itemId < 1762) return 12;
 		return itemId;
 	}
 

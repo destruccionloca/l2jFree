@@ -33,12 +33,12 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.templates.L2Armor;
-import com.l2jfree.gameserver.templates.L2EtcItem;
-import com.l2jfree.gameserver.templates.L2EtcItemType;
-import com.l2jfree.gameserver.templates.L2Item;
-import com.l2jfree.gameserver.templates.L2Weapon;
-import com.l2jfree.gameserver.templates.L2WeaponType;
+import com.l2jfree.gameserver.templates.item.L2Armor;
+import com.l2jfree.gameserver.templates.item.L2EtcItem;
+import com.l2jfree.gameserver.templates.item.L2EtcItemType;
+import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
 import javolution.util.FastList;
 

@@ -43,12 +43,12 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.taskmanager.SQLQuery;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
-import com.l2jfree.gameserver.templates.AbstractL2ItemType;
-import com.l2jfree.gameserver.templates.L2Armor;
-import com.l2jfree.gameserver.templates.L2Equip;
-import com.l2jfree.gameserver.templates.L2EtcItem;
-import com.l2jfree.gameserver.templates.L2Item;
-import com.l2jfree.gameserver.templates.L2Weapon;
+import com.l2jfree.gameserver.templates.item.AbstractL2ItemType;
+import com.l2jfree.gameserver.templates.item.L2Armor;
+import com.l2jfree.gameserver.templates.item.L2Equip;
+import com.l2jfree.gameserver.templates.item.L2EtcItem;
+import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.geoserver.model.Location;
 
 /**

@@ -28,9 +28,9 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
-import com.l2jfree.gameserver.templates.L2SkillType;
-import com.l2jfree.gameserver.templates.L2Weapon;
-import com.l2jfree.gameserver.templates.L2WeaponType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 

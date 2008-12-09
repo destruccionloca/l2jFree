@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.network.serverpackets.FlyToLocation;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import com.l2jfree.gameserver.skills.Env;
-import com.l2jfree.gameserver.templates.L2EffectType;
+import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.geoserver.model.Location;
 
 public final class EffectEnemyCharge extends L2Effect

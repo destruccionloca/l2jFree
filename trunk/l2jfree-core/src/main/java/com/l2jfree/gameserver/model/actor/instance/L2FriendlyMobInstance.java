@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.model.actor.instance;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.knownlist.FriendlyMobKnownList;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * This class represents Friendly Mobs lying over the world.

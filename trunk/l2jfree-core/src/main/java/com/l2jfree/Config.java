@@ -594,6 +594,17 @@ public final class Config
 	public static int			ENCHANT_DWARF_2_CHANCE;								// Dwarf enchant System Dwarf 2 chance?
 	public static int			ENCHANT_DWARF_3_CHANCE;								// Dwarf enchant System Dwarf 3 chance?
 
+	public static boolean		AUGMENT_EXCLUDE_NOTDONE;
+	public static int			AUGMENTATION_NG_SKILL_CHANCE; // Chance to get a skill while using a NoGrade Life Stone
+	public static int			AUGMENTATION_NG_GLOW_CHANCE; // Chance to get a Glow effect while using a NoGrade Life Stone(only if you get a skill)
+	public static int			AUGMENTATION_MID_SKILL_CHANCE; // Chance to get a skill while using a MidGrade Life Stone
+	public static int			AUGMENTATION_MID_GLOW_CHANCE; // Chance to get a Glow effect while using a MidGrade Life Stone(only if you get a skill)
+	public static int			AUGMENTATION_HIGH_SKILL_CHANCE; // Chance to get a skill while using a HighGrade Life Stone
+	public static int			AUGMENTATION_HIGH_GLOW_CHANCE; // Chance to get a Glow effect while using a HighGrade Life Stone
+	public static int			AUGMENTATION_TOP_SKILL_CHANCE; // Chance to get a skill while using a TopGrade Life Stone
+	public static int			AUGMENTATION_TOP_GLOW_CHANCE; // Chance to get a Glow effect while using a TopGrade Life Stone
+	public static int			AUGMENTATION_BASESTAT_CHANCE; // Chance to get a BaseStatModifier in the augmentation process
+
 	// *******************************************************************************************
 	public static void loadEnchantConfig()
 	{
@@ -644,6 +655,19 @@ public final class Config
 			ENCHANT_DWARF_1_CHANCE = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf1Chance", "15"));
 			ENCHANT_DWARF_2_CHANCE = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf2Chance", "15"));
 			ENCHANT_DWARF_3_CHANCE = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf3Chance", "15"));
+
+
+			AUGMENT_EXCLUDE_NOTDONE = Boolean.parseBoolean(enchantSettings.getProperty("AugmentExcludeNotdone", "False"));
+			AUGMENTATION_NG_SKILL_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationNGSkillChance", "15"));
+			AUGMENTATION_NG_GLOW_CHANCE			= Integer.parseInt(enchantSettings.getProperty("AugmentationNGGlowChance", "0"));
+			AUGMENTATION_MID_SKILL_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationMidSkillChance", "30"));
+			AUGMENTATION_MID_GLOW_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationMidGlowChance", "40"));
+			AUGMENTATION_HIGH_SKILL_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationHighSkillChance", "45"));
+			AUGMENTATION_HIGH_GLOW_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationHighGlowChance", "70"));
+			AUGMENTATION_TOP_SKILL_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationTopSkillChance", "60"));
+			AUGMENTATION_TOP_GLOW_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationTopGlowChance", "100"));
+			AUGMENTATION_BASESTAT_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationBaseStatChance", "1"));
+			
 		}
 		catch (Exception e)
 		{
@@ -837,10 +861,6 @@ public final class Config
 	public static int				INVENTORY_MAXIMUM_DWARF;								// Inventory slots limits
 	public static int				INVENTORY_MAXIMUM_GM;									// Inventory slots limits
 	public static int				DEATH_PENALTY_CHANCE;									// Death Penalty chance
-	// Augmentation chances , chancestat=100 -chanceskill-chancebasestat 
-	public static int				AUGMENT_BASESTAT;
-	public static int				AUGMENT_SKILL;
-	public static boolean			AUGMENT_EXCLUDE_NOTDONE;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -877,11 +897,6 @@ public final class Config
 			WAREHOUSE_SLOTS_CLAN = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForClan", "150"));
 			FREIGHT_SLOTS = Integer.parseInt(otherSettings.getProperty("MaximumFreightSlots", "20"));
 			MAX_ITEM_IN_PACKET = Math.max(INVENTORY_MAXIMUM_NO_DWARF, Math.max(INVENTORY_MAXIMUM_DWARF, INVENTORY_MAXIMUM_GM));
-
-			/* Augmentation chances */
-			AUGMENT_BASESTAT = Integer.parseInt(otherSettings.getProperty("AugmentBasestat", "1"));
-			AUGMENT_SKILL = Integer.parseInt(otherSettings.getProperty("AugmentSkill", "11"));
-			AUGMENT_EXCLUDE_NOTDONE = Boolean.parseBoolean(otherSettings.getProperty("AugmentExcludeNotdone", "false"));
 
 			/* if different from 100 (ie 100%) heal rate is modified acordingly */
 			NPC_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("NPCHpRegenMultiplier", "100")) / 100;
@@ -3410,6 +3425,25 @@ public final class Config
 			ENCHANT_DWARF_2_CHANCE = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("EnchantDwarf3Chance"))
 			ENCHANT_DWARF_3_CHANCE = Integer.parseInt(pValue);
+
+		else if (pName.equalsIgnoreCase("AugmentationNGSkillChance"))
+			AUGMENTATION_NG_SKILL_CHANCE = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("AugmentationNGGlowChance"))
+			AUGMENTATION_NG_GLOW_CHANCE = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("AugmentationMidSkillChance"))
+			AUGMENTATION_MID_SKILL_CHANCE = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("AugmentationMidGlowChance"))
+			AUGMENTATION_MID_GLOW_CHANCE = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("AugmentationHighSkillChance"))
+			AUGMENTATION_HIGH_SKILL_CHANCE = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("AugmentationHighGlowChance"))
+			AUGMENTATION_HIGH_GLOW_CHANCE = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("AugmentationTopSkillChance"))
+			AUGMENTATION_TOP_SKILL_CHANCE = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("AugmentationTopGlowChance"))
+			AUGMENTATION_TOP_GLOW_CHANCE = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("AugmentationBaseStatChance"))
+			AUGMENTATION_BASESTAT_CHANCE = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("NPCHpRegenMultiplier"))
 			NPC_HP_REGEN_MULTIPLIER = Double.parseDouble(pValue);

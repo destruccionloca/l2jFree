@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.model;
 
 import com.l2jfree.gameserver.datatables.ItemTable;
-import com.l2jfree.gameserver.templates.L2Item;
+import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
  * This class describes a Recipe used by Dwarf to craft Item. All L2RecipeList

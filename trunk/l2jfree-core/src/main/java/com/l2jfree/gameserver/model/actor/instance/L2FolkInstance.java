@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList.EnchantSkillType;
 import com.l2jfree.gameserver.skills.effects.EffectBuff;
 import com.l2jfree.gameserver.skills.effects.EffectDebuff;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 import javolution.text.TextBuilder;
 

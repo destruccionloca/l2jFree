@@ -12,39 +12,41 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.templates;
+package com.l2jfree.gameserver.templates.item;
 
 /**
- * Description of EtcItem Type
+ * @author mkizub
+ * <BR>Description of Weapon Type
  */
-
-public enum L2EtcItemType implements AbstractL2ItemType
+public enum L2WeaponType implements AbstractL2ItemType
 {
-	ARROW(0, "Arrow"),
-	MATERIAL(1, "Material"),
-	PET_COLLAR(2, "PetCollar"),
-	POTION(3, "Potion"),
-	RECEIPE(4, "Receipe"),
-	SCROLL(5, "Scroll"),
-	QUEST(6, "Quest"),
-	MONEY(7, "Money"),
-	OTHER(8, "Other"),
-	SPELLBOOK(9, "Spellbook"),
-	SEED(10, "Seed"),
-	SHOT(11, "Shot"),
-	HERB(12, "Herb"),
-	BOLT(13, "Bolt");
+	NONE(1, "Shield"), // Shields!!!
+	SWORD(2, "Sword"),
+	BLUNT(3, "Blunt"),
+	DAGGER(4, "Dagger"),
+	BOW(5, "Bow"),
+	POLE(6, "Pole"),
+	ETC(7, "Etc"),
+	FIST(8, "Fist"),
+	DUAL(9, "Dual Sword"),
+	DUALFIST(10, "Dual Fist"),
+	BIGSWORD(11, "Big Sword"), // Two Handed Swords
+	PET(12, "Pet"),
+	ROD(13, "Rod"),
+	BIGBLUNT(14, "Big Blunt"),
+	ANCIENT_SWORD(15, "Ancient"),
+	CROSSBOW(16, "Crossbow"),
+	RAPIER(17, "Rapier");
 
-	final int		_id;
-	final String	_name;
+	private final int		_id;
+	private final String	_name;
 
 	/**
-	 * Constructor of the L2EtcItemType.
-	 * 
-	 * @param id : int designating the ID of the EtcItemType
-	 * @param name : String designating the name of the EtcItemType
+	 * Constructor of the L2WeaponType.
+	 * @param id : int designating the ID of the WeaponType
+	 * @param name : String designating the name of the WeaponType
 	 */
-	L2EtcItemType(int id, String name)
+	private L2WeaponType(int id, String name)
 	{
 		_id = id;
 		_name = name;
@@ -52,17 +54,15 @@ public enum L2EtcItemType implements AbstractL2ItemType
 
 	/**
 	 * Returns the ID of the item after applying the mask.
-	 * 
 	 * @return int : ID of the item
 	 */
 	public int mask()
 	{
-		return 1 << (_id + 21);
+		return 1 << _id;
 	}
 
 	/**
-	 * Returns the name of the EtcItemType
-	 * 
+	 * Returns the name of the WeaponType
 	 * @return String
 	 */
 	@Override
@@ -70,4 +70,5 @@ public enum L2EtcItemType implements AbstractL2ItemType
 	{
 		return _name;
 	}
+
 }

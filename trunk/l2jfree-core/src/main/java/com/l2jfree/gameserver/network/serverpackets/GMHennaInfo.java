@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.templates.L2Henna;
+import com.l2jfree.gameserver.templates.item.L2Henna;
 
 /**
  *

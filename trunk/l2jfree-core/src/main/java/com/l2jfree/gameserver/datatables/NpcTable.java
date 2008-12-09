@@ -42,7 +42,7 @@ import com.l2jfree.gameserver.model.entity.faction.Faction;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
 import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 /**

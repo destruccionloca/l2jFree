@@ -28,9 +28,9 @@ import com.l2jfree.gameserver.RecipeController;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2RecipeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.templates.L2EtcItemType;
-import com.l2jfree.gameserver.templates.L2Item;
-import com.l2jfree.gameserver.templates.L2WarehouseItem;
+import com.l2jfree.gameserver.templates.item.L2EtcItemType;
+import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.gameserver.templates.item.L2WarehouseItem;
 
 /**
  * 0x42 WarehouseWithdrawalList  dh (h dddhh dhhh d)

@@ -16,8 +16,8 @@ package com.l2jfree.gameserver.skills.conditions;
 
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.skills.Env;
-import com.l2jfree.gameserver.templates.L2Armor;
-import com.l2jfree.gameserver.templates.L2Item;
+import com.l2jfree.gameserver.templates.item.L2Armor;
+import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
  * @author mkizub

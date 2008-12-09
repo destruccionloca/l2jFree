@@ -25,7 +25,7 @@ import org.w3c.dom.Node;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.templates.StatsSet;
-import com.l2jfree.gameserver.templates.L2SkillType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
  * @author mkizub

@@ -21,7 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.network.serverpackets.NewCharacterSuccess;
-import com.l2jfree.gameserver.templates.L2PcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
 
 /**
  * This class ...

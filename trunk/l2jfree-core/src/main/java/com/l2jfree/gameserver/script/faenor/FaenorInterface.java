@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.script.DateRange;
 import com.l2jfree.gameserver.script.EngineInterface;
 import com.l2jfree.gameserver.script.Expression;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * @author Luis Arias

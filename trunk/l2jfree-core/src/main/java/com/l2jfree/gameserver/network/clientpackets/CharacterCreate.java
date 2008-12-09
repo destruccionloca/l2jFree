@@ -39,9 +39,9 @@ import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.serverpackets.CharCreateFail;
 import com.l2jfree.gameserver.network.serverpackets.CharCreateOk;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
-import com.l2jfree.gameserver.templates.L2Item;
-import com.l2jfree.gameserver.templates.L2PcTemplate;
-import com.l2jfree.gameserver.templates.L2PcTemplate.PcTemplateItem;
+import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2PcTemplate.PcTemplateItem;
 
 /**
  * This class ...

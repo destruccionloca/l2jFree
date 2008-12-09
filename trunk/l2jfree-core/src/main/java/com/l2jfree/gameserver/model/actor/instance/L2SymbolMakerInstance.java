@@ -16,8 +16,8 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.HennaEquipList;
-import com.l2jfree.gameserver.templates.L2Henna;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.item.L2Henna;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 import javolution.text.TextBuilder;
 

@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.network.serverpackets.ExQuestInfo;
 import com.l2jfree.gameserver.network.serverpackets.RadarControl;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * This class ...

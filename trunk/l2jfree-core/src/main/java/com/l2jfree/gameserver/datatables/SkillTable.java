@@ -19,7 +19,7 @@ import javolution.util.FastMap;
 
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.SkillsEngine;
-import com.l2jfree.gameserver.templates.L2WeaponType;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.util.Util;
 
 /**

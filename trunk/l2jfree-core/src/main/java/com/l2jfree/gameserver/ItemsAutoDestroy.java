@@ -23,7 +23,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.templates.L2EtcItemType;
+import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 
 public class ItemsAutoDestroy
 {

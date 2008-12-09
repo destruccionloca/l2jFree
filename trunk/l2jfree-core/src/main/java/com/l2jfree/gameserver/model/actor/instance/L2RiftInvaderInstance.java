@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2RiftInvaderInstance extends L2MonsterInstance
 {

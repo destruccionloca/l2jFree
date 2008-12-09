@@ -42,9 +42,9 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.templates.L2EtcItemType;
-import com.l2jfree.gameserver.templates.L2Item;
-import com.l2jfree.gameserver.templates.L2WeaponType;
+import com.l2jfree.gameserver.templates.item.L2EtcItemType;
+import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
 /*************************************/
 /* command.equals("admin_sortmulti") */
@@ -1673,10 +1673,10 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 				if (item == null)
 					continue;
 
-				else if (!(item instanceof com.l2jfree.gameserver.templates.L2Weapon))
+				else if (!(item instanceof com.l2jfree.gameserver.templates.item.L2Weapon))
 					continue;
 
-				L2WeaponType weaponType = ((com.l2jfree.gameserver.templates.L2Weapon) item).getItemType();
+				L2WeaponType weaponType = ((com.l2jfree.gameserver.templates.item.L2Weapon) item).getItemType();
 
 				try
 				{

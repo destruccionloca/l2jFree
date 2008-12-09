@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.templates;
+package com.l2jfree.gameserver.templates.item;
 
 import java.util.List;
 
@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameChance;
+import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
  * This class is dedicated to the management of weapons.

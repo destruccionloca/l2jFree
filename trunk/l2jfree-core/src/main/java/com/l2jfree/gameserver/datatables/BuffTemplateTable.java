@@ -25,7 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
-import com.l2jfree.gameserver.templates.L2BuffTemplate;
+import com.l2jfree.gameserver.templates.skills.L2BuffTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
