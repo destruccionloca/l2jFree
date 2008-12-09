@@ -118,8 +118,7 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='5320'
-    name="Sealed Leather Armor of Nightmare">
+  <item id='5320' name="Sealed Leather Armor of Nightmare">
     <for>
       <add val='220' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />

@@ -469,12 +469,12 @@
       <set val='66' order='0x08' stat='pAtkRange' />
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
+      <set val='180' order='0x08' stat='pAtkAngle' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
       <!-- Enhances damage to target during PvP -->
       <mul val='1.05' order='0x30' stat='pvpPhysDmg' />
       <mul val='1.05' order='0x30' stat='pvpMagicalDmg' />
-      <set val='180' order='0x08' stat='pAtkAngle' />
     </for>
   </item>
   <item id='5635' name="tallum_blade_critical_poison">

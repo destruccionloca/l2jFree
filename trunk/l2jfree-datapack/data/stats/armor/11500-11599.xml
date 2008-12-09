@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <list>
-  <item id='11500'
-    name="Sealed Imperial Crusader Gauntlet">
+  <item id='11500' name="Sealed Imperial Crusader Gauntlet">
     <for>
       <add val='55' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
@@ -19,8 +18,7 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='11504'
-    name="Sealed Imperial Crusader Breastplate">
+  <item id='11504' name="Sealed Imperial Crusader Breastplate">
     <for>
       <add val='193' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
@@ -326,8 +324,7 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='11557'
-    name="Dynasty Helmet - Heavy Armor Use">
+  <item id='11557' name="Dynasty Helmet - Heavy Armor Use">
     <for>
       <add val='92' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />

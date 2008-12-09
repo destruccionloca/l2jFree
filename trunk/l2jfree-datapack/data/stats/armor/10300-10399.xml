@@ -8,52 +8,28 @@
       <enchant val='0' order='0x0C' stat='mDef' />
     </for>
   </item>
-  <item id='10315'
-    name="Shadow Item - Purple Viking Circlet">
-    <for />
+  <item id='10315' name="Shadow Item - Purple Viking Circlet">
   </item>
-  <item id='10316'
-    name="Agathion Seal Bracelet - Little Angel Firecracker">
-    <for />
+  <item id='10316' name="Agathion Seal Bracelet - Little Angel Firecracker">
   </item>
-  <item id='10317'
-    name="Agathion Seal Bracelet - Little Angel Big Head">
-    <for />
+  <item id='10317' name="Agathion Seal Bracelet - Little Angel Big Head">
   </item>
-  <item id='10318'
-    name="Agathion Seal Bracelet - Little Angel Escape">
-    <for />
+  <item id='10318' name="Agathion Seal Bracelet - Little Angel Escape">
   </item>
-  <item id='10319'
-    name="Agathion Seal Bracelet - Little Angel Resurrection">
-    <for />
+  <item id='10319' name="Agathion Seal Bracelet - Little Angel Resurrection">
   </item>
-  <item id='10320'
-    name="Agathion Seal Bracelet - Little Angel">
-    <for />
+  <item id='10320' name="Agathion Seal Bracelet - Little Angel">
   </item>
-  <item id='10321'
-    name="Shadow Item - Golden Viking Circlet">
-    <for />
+  <item id='10321' name="Shadow Item - Golden Viking Circlet">
   </item>
-  <item id='10322'
-    name="Agathion Seal Bracelet - Little Devil Firecracker">
-    <for />
+  <item id='10322' name="Agathion Seal Bracelet - Little Devil Firecracker">
   </item>
-  <item id='10323'
-    name="Agathion Seal Bracelet - Little Devil Big Head">
-    <for />
+  <item id='10323' name="Agathion Seal Bracelet - Little Devil Big Head">
   </item>
-  <item id='10324'
-    name="Agathion Seal Bracelet - Little Devil Escape">
-    <for />
+  <item id='10324' name="Agathion Seal Bracelet - Little Devil Escape">
   </item>
-  <item id='10325'
-    name="Agathion Seal Bracelet - Little Devil Resurrection">
-    <for />
+  <item id='10325' name="Agathion Seal Bracelet - Little Devil Resurrection">
   </item>
-  <item id='10326'
-    name="Agathion Seal Bracelet - Little Devil">
-    <for />
+  <item id='10326' name="Agathion Seal Bracelet - Little Devil">
   </item>
 </list>

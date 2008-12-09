@@ -50,8 +50,7 @@
       <enchant val='0' order='0x0C' stat='mDef' />
     </for>
   </item>
-  <item id='6674'
-    name="Sealed Imperial Crusader Breastplate">
+  <item id='6674' name="Sealed Imperial Crusader Breastplate">
     <for>
       <add val='193' order='0x10' stat='pDef' />
     </for>
@@ -61,8 +60,7 @@
       <add val='121' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='6676'
-    name="Sealed Imperial Crusader Gauntlet">
+  <item id='6676' name="Sealed Imperial Crusader Gauntlet">
     <for>
       <add val='55' order='0x10' stat='pDef' />
     </for>

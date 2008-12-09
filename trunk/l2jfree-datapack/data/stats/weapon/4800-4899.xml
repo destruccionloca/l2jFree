@@ -78,8 +78,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4807'
-    name="blood_tornado_-_critical_drain_critical">
+  <item id='4807' name="blood_tornado_-_critical_drain_critical">
     <for>
       <set val='259' order='0x08' stat='pAtk' />
       <set val='107' order='0x08' stat='mAtk' />
@@ -90,8 +89,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4808'
-    name="blood_tornado_-_rsk._evasion_rsk._evasi">
+  <item id='4808' name="blood_tornado_-_rsk._evasion_rsk._evasi">
     <for>
       <set val='259' order='0x08' stat='pAtk' />
       <set val='107' order='0x08' stat='mAtk' />
@@ -135,8 +133,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4812'
-    name="crystallized_ice_bow_quick_recovery">
+  <item id='4812' name="crystallized_ice_bow_quick_recovery">
     <for>
       <set val='220' order='0x08' stat='pAtk' />
       <set val='61' order='0x08' stat='mAtk' />
@@ -332,8 +329,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4826'
-    name="dark_elven_long_bow_critical_bleed">
+  <item id='4826' name="dark_elven_long_bow_critical_bleed">
     <for>
       <set val='397' order='0x08' stat='pAtk' />
       <set val='100' order='0x08' stat='mAtk' />
@@ -531,9 +527,9 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
+      <set val='180' order='0x08' stat='pAtkAngle' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <set val='180' order='0x08' stat='pAtkAngle' />
     </for>
   </item>
   <item id='4843' name="bec_de_corbin_critical_stun">
@@ -631,9 +627,9 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
+      <set val='180' order='0x08' stat='pAtkAngle' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <set val='180' order='0x08' stat='pAtkAngle' />
     </for>
   </item>
   <item id='4852' name="orcish_poleaxe_critical_stun">
@@ -665,9 +661,9 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
+      <set val='180' order='0x08' stat='pAtkAngle' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <set val='180' order='0x08' stat='pAtkAngle' />
     </for>
   </item>
   <item id='4855' name="great_axe_anger">
@@ -765,13 +761,12 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
+      <set val='180' order='0x08' stat='pAtkAngle' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <set val='180' order='0x08' stat='pAtkAngle' />
     </for>
   </item>
-  <item id='4864'
-    name="heavy_doom_hammer_magic_regeneration">
+  <item id='4864' name="heavy_doom_hammer_magic_regeneration">
     <for>
       <set val='103' order='0x08' stat='pAtk' />
       <set val='81' order='0x08' stat='mAtk' />
@@ -1035,8 +1030,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='4888'
-    name="deadmans_staff_magic_regeneration">
+  <item id='4888' name="deadmans_staff_magic_regeneration">
     <for>
       <set val='152' order='0x08' stat='pAtk' />
       <set val='111' order='0x08' stat='mAtk' />

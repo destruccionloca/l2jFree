@@ -66,9 +66,6 @@
       <add val='157' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
-    <for>
-      <enchant val='0' order='0x0C' stat='pDef' />
-    </for>
   </item>
   <item id='358' name="Blue Wolf Breastplate">
     <for>

@@ -56,8 +56,7 @@
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='7848'
-    name="Forget-me-not Hairpin - For Event">
+  <item id='7848' name="Forget-me-not Hairpin - For Event">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>

@@ -42,15 +42,13 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='11356'
-    name="Zubei's Gauntlet - Heavy Armor Use">
+  <item id='11356' name="Zubei's Gauntlet - Heavy Armor Use">
     <for>
       <add val='41' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='11357'
-    name="Zubei's Gauntlet - Light Armor Use">
+  <item id='11357' name="Zubei's Gauntlet - Light Armor Use">
     <for>
       <add val='41' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
@@ -80,8 +78,7 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='11363'
-    name="Zubei's Helmet - Heavy Armor Use">
+  <item id='11363' name="Zubei's Helmet - Heavy Armor Use">
     <for>
       <add val='62' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
@@ -141,8 +138,7 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='11373'
-    name="Avadon Circlet - Heavy Armor Use">
+  <item id='11373' name="Avadon Circlet - Heavy Armor Use">
     <for>
       <add val='62' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
@@ -268,15 +264,13 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='11396'
-    name="Blue Wolf Boots - Heavy Armor Use">
+  <item id='11396' name="Blue Wolf Boots - Heavy Armor Use">
     <for>
       <add val='44' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='11397'
-    name="Blue Wolf Boots - Light Armor Use">
+  <item id='11397' name="Blue Wolf Boots - Light Armor Use">
     <for>
       <add val='44' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
@@ -288,8 +282,7 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='11399'
-    name="Blue Wolf Gloves - Heavy Armor Use">
+  <item id='11399' name="Blue Wolf Gloves - Heavy Armor Use">
     <for>
       <add val='44' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />

@@ -4,7 +4,7 @@
 <list>
   <item id='9100' name="Shadow Item: Magestic Boots">
     <for>
-      <add val='48' order='0x10' stat='pDef' />
+      <add val='49' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
@@ -23,7 +23,7 @@
   </item>
   <item id='9103' name="Shadow Item: Magestic Boots">
     <for>
-      <add val='48' order='0x10' stat='pDef' />
+      <add val='49' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
@@ -58,86 +58,72 @@
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9177'
-    name="Teddy Bear Hat - Blessed Scroll of Resurrection">
+  <item id='9177' name="Teddy Bear Hat - Blessed Scroll of Resurrection">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9178'
-    name="Piggy Hat - Blessed Scroll of Resurrection">
+  <item id='9178' name="Piggy Hat - Blessed Scroll of Resurrection">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9179'
-    name="Jester Hat - Blessed Scroll of Resurrection">
+  <item id='9179' name="Jester Hat - Blessed Scroll of Resurrection">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9180'
-    name="Wizard\'s Hat - Blessed Scroll of Resurrection">
+  <item id='9180' name="Wizard\'s Hat - Blessed Scroll of Resurrection">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9181'
-    name="Dapper Cap - Blessed Scroll of Resurrection">
+  <item id='9181' name="Dapper Cap - Blessed Scroll of Resurrection">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9182'
-    name="Romantic Chapeau - Blessed Scroll of Resurrection">
+  <item id='9182' name="Romantic Chapeau - Blessed Scroll of Resurrection">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9183'
-    name="Iron Circlet - Blessed Scroll of Resurrection">
+  <item id='9183' name="Iron Circlet - Blessed Scroll of Resurrection">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9184'
-    name="Teddy Bear Hat - Blessed Scroll of Escape">
+  <item id='9184' name="Teddy Bear Hat - Blessed Scroll of Escape">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9185'
-    name="Piggy Hat - Blessed Scroll of Escape">
+  <item id='9185' name="Piggy Hat - Blessed Scroll of Escape">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9186'
-    name="Jester Hat - Blessed Scroll of Escape">
+  <item id='9186' name="Jester Hat - Blessed Scroll of Escape">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9187'
-    name="Wizard\'s Hat - Blessed Scroll of Escape">
+  <item id='9187' name="Wizard\'s Hat - Blessed Scroll of Escape">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9188'
-    name="Dapper Cap - Blessed Scroll of Escape">
+  <item id='9188' name="Dapper Cap - Blessed Scroll of Escape">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9189'
-    name="Romantic Chapeau - Blessed Scroll of Escape">
+  <item id='9189' name="Romantic Chapeau - Blessed Scroll of Escape">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='9190'
-    name="Iron Circlet - Blessed Scroll of Escape">
+  <item id='9190' name="Iron Circlet - Blessed Scroll of Escape">
     <for>
       <add val='0' order='0x10' stat='pDef' />
     </for>

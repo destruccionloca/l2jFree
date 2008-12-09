@@ -403,7 +403,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="negateStats" val="POISON"/>
-    <set name="negatePower" val="3"/>
+    <set name="negateLvl" val="3"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -412,7 +412,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="negateStats" val="POISON"/>
-    <set name="negatePower" val="7"/>
+    <set name="negateLvl" val="7"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -421,7 +421,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="negateStats" val="BLEED"/>
-    <set name="negatePower" val="3"/>
+    <set name="negateLvl" val="3"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
@@ -430,7 +430,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="negateStats" val="BLEED"/>
-    <set name="negatePower" val="7"/>
+    <set name="negateLvl" val="7"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>

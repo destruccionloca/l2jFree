@@ -877,7 +877,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='2579' name="Shamshir*Sword Of nightmare">
+  <item id='2579' name="Shamshir*Sword Of Nightmare">
     <for>
       <set val='204' order='0x08' stat='pAtk' />
       <set val='89' order='0x08' stat='mAtk' />
@@ -1018,7 +1018,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='2588' name="Katana*Sword Of nightmare">
+  <item id='2588' name="Katana*Sword Of Nightmare">
     <for>
       <set val='204' order='0x08' stat='pAtk' />
       <set val='89' order='0x08' stat='mAtk' />

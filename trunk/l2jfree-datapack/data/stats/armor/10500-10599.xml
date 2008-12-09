@@ -2,90 +2,59 @@
 <!DOCTYPE list SYSTEM "armors.dtd">
 <list>
   <item id='10500' name="Mithril Shirt - HP">
-    <for />
   </item>
   <item id='10501' name="Mithril Shirt - MP">
-    <for />
   </item>
   <item id='10502' name="Mithril Shirt - CP">
-    <for />
   </item>
   <item id='10503' name="Striped Silk Shirt - HP">
-    <for />
   </item>
   <item id='10504' name="Striped Silk Shirt - MP">
-    <for />
   </item>
   <item id='10505' name="Striped Silk Shirt - CP">
-    <for />
   </item>
   <item id='10506' name="Thin Striped Leather Shirt - HP">
-    <for />
   </item>
   <item id='10507' name="Thin Striped Leather Shirt - MP">
-    <for />
   </item>
   <item id='10508' name="Thin Striped Leather Shirt - CP">
-    <for />
   </item>
   <item id='10509' name="Striped Scale Shirt - HP">
-    <for />
   </item>
   <item id='10510' name="Striped Scale Shirt - MP">
-    <for />
   </item>
   <item id='10511' name="Striped Scale Shirt - CP">
-    <for />
   </item>
   <item id='10512' name="Striped Mithril Shirt - HP">
-    <for />
   </item>
   <item id='10513' name="Striped Mithril Shirt - MP">
-    <for />
   </item>
   <item id='10514' name="Striped Mithril Shirt - CP">
-    <for />
   </item>
   <item id='10518' name="Blue Talisman - Life Force">
-    <for />
   </item>
   <item id='10519' name="White Talisman -  Earth">
-    <for />
   </item>
   <item id='10533' name="Blue Talisman - Attack Power">
-    <for />
   </item>
   <item id='10534' name="Blue Talisman - Shield Defense">
-    <for />
   </item>
   <item id='10535' name="Yellow Talisman - Defense Power">
-    <for />
   </item>
   <item id='10536' name="Yellow Talisman - Magic Power">
-    <for />
   </item>
   <item id='10537' name="Yellow Talisman - Evasion">
-    <for />
   </item>
   <item id='10538' name="Yellow Talisman - Healing Power">
-    <for />
   </item>
-  <item id='10539'
-    name="Yellow Talisman - CP Recovery Rate">
-    <for />
+  <item id='10539' name="Yellow Talisman - CP Recovery Rate">
   </item>
-  <item id='10540'
-    name="Yellow Talisman - HP Recovery Rate">
-    <for />
+  <item id='10540' name="Yellow Talisman - HP Recovery Rate">
   </item>
-  <item id='10541'
-    name="Yellow Talisman - MP Recovery Rate">
-    <for />
+  <item id='10541' name="Yellow Talisman - MP Recovery Rate">
   </item>
   <item id='10542' name="Red Talisman - HP/CP Recovery">
-    <for />
   </item>
   <item id='10543' name="Yellow Talisman - Moving Speed">
-    <for />
   </item>
 </list>
