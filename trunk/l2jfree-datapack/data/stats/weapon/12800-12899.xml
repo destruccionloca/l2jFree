@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <list>
-  <item id='12800'
-    name="Halloween Pumpkin Transformation Stick">
+  <item id='12800' name="Halloween Pumpkin Transformation Stick">
     <for>
       <set val='1' order='0x08' stat='pAtk' />
       <set val='1' order='0x08' stat='mAtk' />
@@ -141,8 +140,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12853'
-    name="Naga Storm - Molar - Crt. Damage">
+  <item id='12853' name="Naga Storm - Molar - Crt. Damage">
     <for>
       <set val='220' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -164,8 +162,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12855'
-    name="Daimon Crystal - Wisdom - Mana Up">
+  <item id='12855' name="Daimon Crystal - Wisdom - Mana Up">
     <for>
       <set val='245' order='0x08' stat='pAtk' />
       <set val='161' order='0x08' stat='mAtk' />
@@ -176,8 +173,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12856'
-    name="Daimon Crystal - Wisdom - Acumen">
+  <item id='12856' name="Daimon Crystal - Wisdom - Acumen">
     <for>
       <set val='245' order='0x08' stat='pAtk' />
       <set val='161' order='0x08' stat='mAtk' />
@@ -188,8 +184,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12857'
-    name="Daimon Crystal - Wisdom - Magic Mental Shield">
+  <item id='12857' name="Daimon Crystal - Wisdom - Magic Mental Shield">
     <for>
       <set val='245' order='0x08' stat='pAtk' />
       <set val='161' order='0x08' stat='mAtk' />
@@ -200,8 +195,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12858'
-    name="Barakiel's Axe - On Fire - Health">
+  <item id='12858' name="Barakiel's Axe - On Fire - Health">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -212,8 +206,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12859'
-    name="Barakiel's Axe - On Fire - Haste">
+  <item id='12859' name="Barakiel's Axe - On Fire - Haste">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -224,8 +217,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12860'
-    name="Barakiel's Axe - On Fire - Focus">
+  <item id='12860' name="Barakiel's Axe - On Fire - Focus">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -236,8 +228,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12861'
-    name="Screaming Vengeance - Concentration - Cheap Shot">
+  <item id='12861' name="Screaming Vengeance - Concentration - Cheap Shot">
     <for>
       <set val='318' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -248,8 +239,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12862'
-    name="Screaming Vengeance - Concentration - Focus">
+  <item id='12862' name="Screaming Vengeance - Concentration - Focus">
     <for>
       <set val='318' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -260,8 +250,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12863'
-    name="Screaming Vengeance - Concentration - Quick Recovery">
+  <item id='12863' name="Screaming Vengeance - Concentration - Quick Recovery">
     <for>
       <set val='318' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -272,8 +261,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12864'
-    name="Behemoth's Tuning Fork - Destruction - Focus">
+  <item id='12864' name="Behemoth's Tuning Fork - Destruction - Focus">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -284,8 +272,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12865'
-    name="Behemoth's Tuning Fork - Destruction - Health">
+  <item id='12865' name="Behemoth's Tuning Fork - Destruction - Health">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -296,8 +283,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12866'
-    name="Behemoth's Tuning Fork - Destruction - Anger">
+  <item id='12866' name="Behemoth's Tuning Fork - Destruction - Anger">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -341,8 +327,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12870'
-    name="Shyeed's Bow - Concentration - Cheap Shot">
+  <item id='12870' name="Shyeed's Bow - Concentration - Cheap Shot">
     <for>
       <set val='571' order='0x08' stat='pAtk' />
       <set val='133' order='0x08' stat='mAtk' />
@@ -353,8 +338,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12871'
-    name="Shyeed's Bow - Concentration - Focus">
+  <item id='12871' name="Shyeed's Bow - Concentration - Focus">
     <for>
       <set val='571' order='0x08' stat='pAtk' />
       <set val='133' order='0x08' stat='mAtk' />
@@ -365,8 +349,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12872'
-    name="Shyeed's Bow - Concentration - Quick Recovery">
+  <item id='12872' name="Shyeed's Bow - Concentration - Quick Recovery">
     <for>
       <set val='571' order='0x08' stat='pAtk' />
       <set val='133' order='0x08' stat='mAtk' />
@@ -410,8 +393,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12876'
-    name="Sobekk's Hurricane - Landslide - Rsk. Haste">
+  <item id='12876' name="Sobekk's Hurricane - Landslide - Rsk. Haste">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -422,8 +404,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12877'
-    name="Sobekk's Hurricane - Landslide - Haste">
+  <item id='12877' name="Sobekk's Hurricane - Landslide - Haste">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -434,8 +415,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12878'
-    name="Sobekk's Hurricane - Landslide - Crt. Drain">
+  <item id='12878' name="Sobekk's Hurricane - Landslide - Crt. Drain">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -446,8 +426,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12879'
-    name="Sirra's Blade - Landslide - Haste">
+  <item id='12879' name="Sirra's Blade - Landslide - Haste">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -458,8 +437,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12880'
-    name="Sirra's Blade - Landslide - Health">
+  <item id='12880' name="Sirra's Blade - Landslide - Health">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -470,8 +448,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12881'
-    name="Sirra's Blade - Landslide - Critical Poison">
+  <item id='12881' name="Sirra's Blade - Landslide - Critical Poison">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -482,8 +459,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12882'
-    name="Éclair Bijou - Landslide - Haste">
+  <item id='12882' name="Eclair Bijou - Landslide - Haste">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -494,8 +470,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12883'
-    name="Éclair Bijou - Landslide - Health">
+  <item id='12883' name="Eclair Bijou - Landslide - Health">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -506,8 +481,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12884'
-    name="Éclair Bijou - Landslide - Critical Poison">
+  <item id='12884' name="Eclair Bijou - Landslide - Critical Poison">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -518,8 +492,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12885'
-    name="Tiphon's Spear - Landslide - Critical Stun">
+  <item id='12885' name="Tiphon's Spear - Landslide - Critical Stun">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -530,8 +503,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12886'
-    name="Tiphon's Spear - Landslide - Longblow">
+  <item id='12886' name="Tiphon's Spear - Landslide - Longblow">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -542,8 +514,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12887'
-    name="Tiphon's Spear - Landslide - Wild Blow">
+  <item id='12887' name="Tiphon's Spear - Landslide - Wild Blow">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -554,8 +525,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12888'
-    name="Tallum Blade*Damascus - Landslide">
+  <item id='12888' name="Tallum Blade*Damascus - Landslide">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -566,8 +536,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12889'
-    name="Themis' Tongue - Cleverness - Mana Up">
+  <item id='12889' name="Themis' Tongue - Cleverness - Mana Up">
     <for>
       <set val='202' order='0x08' stat='pAtk' />
       <set val='161' order='0x08' stat='mAtk' />
@@ -578,8 +547,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12890'
-    name="Themis' Tongue - Cleverness - Magic Mental Shield">
+  <item id='12890' name="Themis' Tongue - Cleverness - Magic Mental Shield">
     <for>
       <set val='202' order='0x08' stat='pAtk' />
       <set val='161' order='0x08' stat='mAtk' />
@@ -590,8 +558,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12891'
-    name="Themis' Tongue - Cleverness - Magic Focus">
+  <item id='12891' name="Themis' Tongue - Cleverness - Magic Focus">
     <for>
       <set val='202' order='0x08' stat='pAtk' />
       <set val='161' order='0x08' stat='mAtk' />
@@ -602,8 +569,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12892'
-    name="Cabrio's Hand - Cleverness - Updown">
+  <item id='12892' name="Cabrio's Hand - Cleverness - Updown">
     <for>
       <set val='202' order='0x08' stat='pAtk' />
       <set val='161' order='0x08' stat='mAtk' />
@@ -614,8 +580,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12893'
-    name="Cabrio's Hand - Cleverness - Mana Up">
+  <item id='12893' name="Cabrio's Hand - Cleverness - Mana Up">
     <for>
       <set val='202' order='0x08' stat='pAtk' />
       <set val='161' order='0x08' stat='mAtk' />
@@ -626,8 +591,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12894'
-    name="Cabrio's Hand - Cleverness - Magic Silence">
+  <item id='12894' name="Cabrio's Hand - Cleverness - Magic Silence">
     <for>
       <set val='202' order='0x08' stat='pAtk' />
       <set val='161' order='0x08' stat='mAtk' />
@@ -671,8 +635,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12898'
-    name="Demon Splinter - Lightning - Focus">
+  <item id='12898' name="Demon Splinter - Lightning - Focus">
     <for>
       <set val='342' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -683,8 +646,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='12899'
-    name="Demon Splinter - Lightning - Health">
+  <item id='12899' name="Demon Splinter - Lightning - Health">
     <for>
       <set val='342' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
