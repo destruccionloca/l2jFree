@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -36,8 +32,6 @@ import com.l2jfree.gameserver.templates.L2WeaponType;
  */
 public class StrSiegeAssault implements ISkillHandler
 {
-	private final static Log			_log		= LogFactory.getLog(StrSiegeAssault.class);
-
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.STRSIEGEASSAULT };
 

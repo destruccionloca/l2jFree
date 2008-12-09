@@ -764,8 +764,6 @@ public class NpcTable
 	public void saveNpc(StatsSet npc)
 	{
 		Connection con = null;
-		String query = "";
-		String query_custom = "";
 
 		try
 		{
@@ -788,8 +786,8 @@ public class NpcTable
 				values += name + " = '" + set.get(name) + "'";
 			}
 
-			query = "UPDATE npc SET " + values + " WHERE id = ?";
-			query_custom = "UPDATE custom_npc SET " + values + " WHERE id = ?";
+			String query = "UPDATE npc SET " + values + " WHERE id = ?";
+			String query_custom = "UPDATE custom_npc SET " + values + " WHERE id = ?";
 
 			try
 			{

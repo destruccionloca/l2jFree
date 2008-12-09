@@ -16,8 +16,6 @@ package com.l2jfree.gameserver.handler.itemhandlers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -49,7 +47,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class ForgottenScroll implements IItemHandler
 {
-	protected static final Logger					_log			= Logger.getLogger(ForgottenScroll.class.getName());
 	private static final String						SCROLLS_FILE	= "forgottenscrolls.xml";
 
 	private FastMap<Integer, ForgottenScrollData>	_scrolls		= new FastMap<Integer, ForgottenScrollData>();
@@ -95,7 +92,7 @@ public class ForgottenScroll implements IItemHandler
 		}
 		catch (Exception e)
 		{
-			_log.log(Level.SEVERE, "Failed loading forgotten scrolls", e);
+			_log.fatal("Failed loading forgotten scrolls", e);
 		}
 
 	}
@@ -123,7 +120,7 @@ public class ForgottenScroll implements IItemHandler
 							att = attrs.getNamedItem("itemid");
 							if (att == null)
 							{
-								_log.severe("Missing itemid for scroll item, skipping");
+								_log.fatal("Missing itemid for scroll item, skipping");
 								continue;
 							}
 							int itemid = Integer.parseInt(att.getNodeValue());
@@ -131,7 +128,7 @@ public class ForgottenScroll implements IItemHandler
 							att = attrs.getNamedItem("skillid");
 							if (att == null)
 							{
-								_log.severe("Missing skillid for scroll item, skipping");
+								_log.fatal("Missing skillid for scroll item, skipping");
 								continue;
 							}
 							int skillid = Integer.parseInt(att.getNodeValue());
@@ -139,7 +136,7 @@ public class ForgottenScroll implements IItemHandler
 							att = attrs.getNamedItem("class");
 							if (att == null)
 							{
-								_log.severe("Missing class requirements for scroll item, skipping");
+								_log.fatal("Missing class requirements for scroll item, skipping");
 								continue;
 							}
 							String classreq = att.getNodeValue();
@@ -153,7 +150,7 @@ public class ForgottenScroll implements IItemHandler
 		}
 		else
 		{
-			_log.severe("Forgotten Scrolls data file (" + file.getAbsolutePath() + ") doesnt exists.");
+			_log.fatal("Forgotten Scrolls data file (" + file.getAbsolutePath() + ") doesnt exists.");
 		}
 	}
 

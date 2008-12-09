@@ -44,8 +44,6 @@ import com.l2jfree.gameserver.templates.L2SkillType;
 
 public class Continuous implements ICubicSkillHandler
 {
-	//private static Logger _log = Logger.getLogger(Continuous.class.getName());
-
 	private static final L2SkillType[]	SKILL_IDS	=
 													{
 			L2SkillType.BUFF,

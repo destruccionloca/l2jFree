@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.templates.L2SkillType;
  */
 public class Spoil implements ISkillHandler
 {
-	//private static Logger _log = Logger.getLogger(Spoil.class.getName()); 
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.SPOIL };
 

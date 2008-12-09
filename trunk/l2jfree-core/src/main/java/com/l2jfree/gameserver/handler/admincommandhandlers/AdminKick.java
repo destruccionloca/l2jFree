@@ -77,8 +77,9 @@ public class AdminKick implements IAdminCommandHandler
 			// prevent deleteMe from being called a second time on disconnection
 			client.setActiveChar(null);
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
+			e.printStackTrace();
 		}
 	}
 

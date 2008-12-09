@@ -124,8 +124,9 @@ public class Auction
 			{
 				endAuction();
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}

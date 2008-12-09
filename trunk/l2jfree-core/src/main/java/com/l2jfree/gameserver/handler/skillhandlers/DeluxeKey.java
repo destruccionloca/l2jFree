@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
@@ -31,7 +27,6 @@ import com.l2jfree.gameserver.templates.L2SkillType;
  */
 public class DeluxeKey implements ISkillHandler
 {
-	private final static Log			_log		= LogFactory.getLog(BeastFeed.class.getName());
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.DELUXE_KEY_UNLOCK };
 

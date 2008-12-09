@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.handler.ICubicSkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -43,8 +39,6 @@ import com.l2jfree.gameserver.templates.L2SkillType;
 
 public class Mdam implements ICubicSkillHandler
 {
-	private final static Log			_log		= LogFactory.getLog(Mdam.class);
-
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */

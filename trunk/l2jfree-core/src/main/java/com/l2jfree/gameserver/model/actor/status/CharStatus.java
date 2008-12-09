@@ -646,9 +646,9 @@ public class CharStatus
 				else
 					getActiveChar().broadcastStatusUpdate(); //send the StatusUpdate packet
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
-				_log.fatal("", e);
+				_log.fatal(e.getMessage(), e);
 			}
 		}
 	}

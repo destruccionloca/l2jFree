@@ -51,7 +51,6 @@ import com.l2jfree.gameserver.util.Broadcast;
  */
 public class Wedding implements IVoicedCommandHandler
 {
-	protected static Log			_log			= LogFactory.getLog(Wedding.class);
 	private static final String[]	VOICED_COMMANDS	=
 													{ "divorce", "engage", "gotolove" };
 
@@ -438,7 +437,7 @@ public class Wedding implements IVoicedCommandHandler
 			{
 				_activeChar.teleToLocation(_partnerx, _partnery, _partnerz);
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
 				_log.error(e.getMessage(), e);
 			}

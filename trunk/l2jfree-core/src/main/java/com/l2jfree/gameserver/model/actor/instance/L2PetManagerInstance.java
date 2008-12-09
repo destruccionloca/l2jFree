@@ -43,8 +43,6 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
  */
 public class L2PetManagerInstance extends L2MerchantInstance
 {
-	//private static Logger _log = Logger.getLogger(L2SymbolMakerInstance.class.getName());
-
 	public L2PetManagerInstance(int objectID, L2NpcTemplate template)
 	{
 		super(objectID, template);
@@ -286,8 +284,9 @@ public class L2PetManagerInstance extends L2MerchantInstance
 				else
 					_petSummon.startFeed(false);
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -311,8 +310,9 @@ public class L2PetManagerInstance extends L2MerchantInstance
 				_petSummon.setFollowStatus(true);
 				_petSummon.setShowSummonAnimation(false);
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}

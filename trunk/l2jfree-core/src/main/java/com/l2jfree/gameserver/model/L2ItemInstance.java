@@ -58,7 +58,8 @@ import com.l2jfree.geoserver.model.Location;
  */
 public final class L2ItemInstance extends L2Object
 {
-	private static final Log	_log		= LogFactory.getLog(L2ItemInstance.class.getName());
+	protected static final Log	_log		= LogFactory.getLog(L2ItemInstance.class.getName());
+
 	private static final Log	_logItems	= LogFactory.getLog("item");
 	
 	/** Enumeration of locations for item */
@@ -1076,8 +1077,9 @@ public final class L2ItemInstance extends L2Object
 				if (_shadowItem != null)
 					_shadowItem.decreaseMana(true);
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}

@@ -596,9 +596,9 @@ public class L2Skill
 				{
 					_canLearn.add(ClassId.valueOf(cls));
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
-					_log.fatal("Bad class " + cls + " to learn skill", t);
+					_log.fatal("Bad class " + cls + " to learn skill", e);
 				}
 			}
 		}
@@ -619,9 +619,9 @@ public class L2Skill
 				{
 					_teachers.add(Integer.parseInt(npcid));
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
-					_log.fatal("Bad teacher id " + npcid + " to teach skill", t);
+					_log.fatal("Bad teacher id " + npcid + " to teach skill", e);
 				}
 			}
 		}

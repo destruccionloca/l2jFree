@@ -46,7 +46,7 @@ public class FortUpdater implements Runnable
 		try
 		{
 		}
-		catch (Throwable e)
+		catch (Exception e)
 		{
 			_log.error(e.getMessage(), e);
 		}

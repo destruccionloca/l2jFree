@@ -16,10 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.concurrent.Future;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Character;
@@ -31,8 +27,6 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
 public class L2DecoyInstance extends L2Decoy
 {
-    protected static final Log _log = LogFactory.getLog(L2DecoyInstance.class.getName());
-    
     private int _totalLifeTime;
     
     private int _timeRemaining;
@@ -107,10 +101,9 @@ public class L2DecoyInstance extends L2Decoy
                     _Decoy.unSummon(_activeChar);
                 }
             }
-            catch (Throwable e)
+            catch (Exception e)
             {
-                if (_log.isDebugEnabled())
-                    _log.warn("Decoy Error:" + e);
+                _log.error(e.getMessage(), e);
             }
         }
     }
@@ -134,10 +127,9 @@ public class L2DecoyInstance extends L2Decoy
                 _activeChar.setTarget(_activeChar);
                 _activeChar.doCast(_skill);
             }
-            catch (Throwable e)
+            catch (Exception e)
             {
-                if (_log.isDebugEnabled())
-                    _log.warn("Decoy Error:" + e);
+                _log.error(e.getMessage(), e);
             }
         }
     }

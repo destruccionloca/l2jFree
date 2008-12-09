@@ -122,7 +122,7 @@ public class AdminTeleport implements IAdminCommandHandler
 				}
 				changeCharacterPosition(activeChar, param[1]);
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 			}
 		}

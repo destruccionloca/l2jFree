@@ -20,9 +20,13 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class QuestTimer
 {
+    protected final static Log _log = LogFactory.getLog(QuestTimer.class.getName());
+
     // =========================================================
     // Schedule Task
     public class ScheduleTimerTask implements Runnable
@@ -37,8 +41,9 @@ public class QuestTimer
                     cancel();
                 getQuest().notifyEvent(getName(), getNpc(), getPlayer());
             }
-            catch (Throwable t)
+            catch (Exception e)
             {
+                _log.error(e.getMessage(), e);
             }
         }
     }

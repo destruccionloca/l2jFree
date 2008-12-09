@@ -245,6 +245,7 @@ public final class L2ScriptEngineManager
 					}
 				}
 			}
+			lnr.close();
 		}
 		else
 		{

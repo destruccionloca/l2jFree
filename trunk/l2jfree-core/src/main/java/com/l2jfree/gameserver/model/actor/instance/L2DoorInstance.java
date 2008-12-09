@@ -20,9 +20,6 @@ import java.util.concurrent.ScheduledFuture;
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -66,9 +63,6 @@ import com.l2jfree.gameserver.templates.L2Weapon;
  */
 public class L2DoorInstance extends L2Character
 {
-
-	final static Log			_log				= LogFactory.getLog(L2DoorInstance.class.getName());
-
 	/** The castle index in the array of L2Castle this L2DoorInstance belongs to */
 	private int					_castleIndex		= -2;
 	private Castle				_castle;
@@ -158,9 +152,9 @@ public class L2DoorInstance extends L2Character
 			{
 				onClose();
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
-				_log.fatal("", e);
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -193,6 +187,7 @@ public class L2DoorInstance extends L2Character
 			catch (Exception e)
 			{
 				_log.warn("Could not auto open/close door ID " + _doorId + " (" + _name + ")");
+				e.printStackTrace();
 			}
 		}
 	}

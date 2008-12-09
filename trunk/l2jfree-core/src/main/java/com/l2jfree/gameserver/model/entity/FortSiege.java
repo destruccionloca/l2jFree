@@ -112,9 +112,9 @@ public class FortSiege
 					_fortInst.getSiege().endSiege();
 				}
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
-
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -171,9 +171,9 @@ public class FortSiege
 					_fortInst.getSiege().startSiege();
 				}
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
-
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -724,7 +724,7 @@ public class FortSiege
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			_log.error(e.getMessage(), e);
 		}
         finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}

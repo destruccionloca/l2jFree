@@ -110,9 +110,9 @@ abstract class AbstractAI implements Ctrl
 					moveToPawn(followTarget, _range);
 				}
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
-				_log.warn("", t);
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}

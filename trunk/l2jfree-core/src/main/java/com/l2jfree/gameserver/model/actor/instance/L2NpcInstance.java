@@ -22,9 +22,6 @@ import java.util.StringTokenizer;
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.SevenSigns;
@@ -118,8 +115,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class L2NpcInstance extends L2Character
 {
-	protected final static Log		_log					= LogFactory.getLog(L2NpcInstance.class.getName());
-
 	/** The interaction distance of the L2NpcInstance(is used as offset in MovetoLocation method) */
 	public static final int			INTERACTION_DISTANCE	= 150;
 
@@ -188,8 +183,9 @@ public class L2NpcInstance extends L2Character
 
 				startRandomAnimationTimer();
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -248,8 +244,9 @@ public class L2NpcInstance extends L2Character
 				_oldSpawn.stopRespawn();
 				SpawnTable.getInstance().deleteSpawn(_oldSpawn, false);
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -727,9 +724,9 @@ public class L2NpcInstance extends L2Character
 					player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 		}
-		catch (Throwable e)
+		catch (Exception e)
 		{
-			_log.error("Error: L2NpcInstance--> onAction(){" + e.toString() + "}\n\n");
+			_log.error("Error: L2NpcInstance--> onAction(){" + e.toString() + "}\n\n", e);
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
@@ -2802,9 +2799,9 @@ public class L2NpcInstance extends L2Character
 		{
 			decayMe();
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("Failed decayMe().", t);
+			_log.fatal("Failed decayMe().", e);
 		}
 
 		if (oldRegion != null)
@@ -2815,9 +2812,9 @@ public class L2NpcInstance extends L2Character
 		{
 			getKnownList().removeAllKnownObjects();
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("Failed removing cleaning knownlist.", t);
+			_log.fatal("Failed removing cleaning knownlist.", e);
 		}
 
 		// Remove L2Object object from _allObjects of L2World

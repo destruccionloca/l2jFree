@@ -492,6 +492,12 @@ public final class L2PcInstance extends L2PlayableInstance
 	private int								_hennaWIT;
 	private int								_hennaCON;
 
+	private boolean					_isRidingFenrirWolf					= false;
+	private boolean					_isRidingWFenrirWolf				= false;
+	private boolean					_isRidingGreatSnowWolf				= false;
+	private boolean					_isRidingStrider					= false;
+	private boolean					_isFlyingWyvern						= false;
+
 	/** The L2Summon of the L2PcInstance */
 	private L2Summon						_summon					= null;
 	/** The L2Decoy of the L2PcInstance */
@@ -4232,7 +4238,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		/**
 		 * @see java.lang.Runnable#run()
 		 */
-		@SuppressWarnings("synthetic-access")
 		public void run()
 		{
 			L2GameClient client = L2PcInstance.this.getClient();
@@ -8869,7 +8874,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			setIsRidingFenrirWolf(true);
 			setIsRidingWFenrirWolf(true);
 			setIsRidingGreatSnowWolf(true);
-			break;			
+			break;
 		}
 
 		_mountType = mountType;
@@ -11204,9 +11209,9 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (isFlying())
 				removeSkill(SkillTable.getInstance().getInfo(4289, 1));
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("deleteMe()", t);
+			_log.fatal(e.getMessage(), e);
 		}
 
 		// If the L2PcInstance has Pet, unsummon it
@@ -11216,8 +11221,9 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				getPet().unSummon(this);
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}// returns pet to control item
 		}
 
@@ -11234,9 +11240,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			setOnlineStatus(false);
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("deleteMe()", t);
+			_log.fatal(e.getMessage(), e);
 		}
 
 		// Stop the HP/MP/CP Regeneration task (scheduled tasks)
@@ -11244,9 +11250,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			stopAllTimers();
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("deleteMe()", t);
+			_log.fatal(e.getMessage(), e);
 		}
 
 		// Unregister from Olympiad games
@@ -11255,9 +11261,9 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (isInOlympiadMode())
 				Olympiad.getInstance().unRegisterNoble(this);
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("deleteMe()", t);
+			_log.fatal(e.getMessage(), e);
 		}
 
 		// Stop crafting, if in progress
@@ -11265,18 +11271,18 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			RecipeController.getInstance().requestMakeItemAbort(this);
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("deleteMe()", t);
+			_log.fatal(e.getMessage(), e);
 		}
 
 		try
 		{
 			setTarget(null);
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("deleteMe()", t);
+			_log.fatal(e.getMessage(), e);
 		}
 
 		if (isCursedWeaponEquipped())
@@ -11296,9 +11302,9 @@ public final class L2PcInstance extends L2PlayableInstance
 				if (character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
 					character.abortCast();
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("deleteMe()", t);
+			_log.fatal(e.getMessage(), e);
 		}
 
 		stopAllEffects();
@@ -11313,9 +11319,9 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				decayMe();
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
-				_log.fatal("deleteMe()", t);
+				_log.fatal(e.getMessage(), e);
 			}
 		}
 
@@ -11336,9 +11342,9 @@ public final class L2PcInstance extends L2PlayableInstance
 						getParty().broadcastToPartyMembers(SystemMessage.sendString(getName() + " has been removed from the upcoming festival."));
 				}
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
-				_log.fatal("deleteMe()", t);
+				_log.fatal(e.getMessage(), e);
 			}
 		}
 
@@ -11354,9 +11360,9 @@ public final class L2PcInstance extends L2PlayableInstance
 				if (clanMember != null)
 					clanMember.setPlayerInstance(null);
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
-				_log.fatal("deleteMe()", t);
+				_log.fatal(e.getMessage(), e);
 			}
 		}
 
@@ -11373,9 +11379,9 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				GmListTable.getInstance().deleteGm(this);
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
-				_log.fatal("deleteMe()", t);
+				_log.fatal(e.getMessage(), e);
 			}
 		}
 
@@ -11384,9 +11390,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			getInventory().deleteMe();
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("deleteMe()", t);
+			_log.fatal(e.getMessage(), e);
 		}
 
 		// Update database with items in its warehouse and remove them from the world
@@ -11394,9 +11400,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			clearWarehouse();
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("deleteMe()", t);
+			_log.fatal(e.getMessage(), e);
 		}
 		if (Config.WAREHOUSE_CACHE)
 			WarehouseCacheManager.getInstance().remCacheTask(this);
@@ -11406,9 +11412,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			getFreight().deleteMe();
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("deleteMe()", t);
+			_log.fatal(e.getMessage(), e);
 		}
 
 		// Remove all L2Object from _knownObjects and _knownPlayer of the L2Character then cancel Attak or Cast and notify AI
@@ -11416,9 +11422,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			getKnownList().removeAllKnownObjects();
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("deleteMe()", t);
+			_log.fatal(e.getMessage(), e);
 		}
 
 		// Close the connection with the client
@@ -11426,9 +11432,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			closeNetConnection();
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("deleteMe()", t);
+			_log.fatal(e.getMessage(), e);
 		}
 
 		untransform();
@@ -12192,7 +12198,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	private ScheduledFuture<?>	_jailTask;
-	@SuppressWarnings("unused")
 	private int					_cursedWeaponEquippedId	= 0;
 	private boolean				_combatFlagEquipped		= false;
 
@@ -12305,6 +12310,63 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		_charmOfCourage = val;
 		sendPacket(new EtcStatusUpdate(this));
+	}
+
+	/** Return True if the L2Character is riding. */
+	public final boolean isRidingFenrirWolf()
+	{
+		return _isRidingFenrirWolf;
+	}
+
+	public final boolean isRidingWFenrirWolf()
+	{
+		return _isRidingWFenrirWolf;
+	}
+
+	public final boolean isRidingGreatSnowWolf()
+	{
+		return _isRidingGreatSnowWolf;
+	}
+
+	public final boolean isRidingStrider()
+	{
+		return _isRidingStrider;
+	}
+
+	/**
+	 * PcInstance flying wyvern 
+	 * @return
+	 */
+	@Override
+	public final boolean isFlying()
+	{
+		return _isFlyingWyvern;
+	}
+
+	/** Set the L2Character riding mode to True. */
+	public final void setIsRidingFenrirWolf(boolean mode)
+	{
+		_isRidingFenrirWolf = mode;
+	}
+
+	public final void setIsRidingWFenrirWolf(boolean mode)
+	{
+		_isRidingWFenrirWolf = mode;
+	}
+
+	public final void setIsRidingGreatSnowWolf(boolean mode)
+	{
+		_isRidingGreatSnowWolf = mode;
+	}
+
+	public final void setIsRidingStrider(boolean mode)
+	{
+		_isRidingStrider = mode;
+	}
+
+	public final void setIsFlying(boolean mode)
+	{ 
+		_isFlyingWyvern = mode;
 	}
 
 	public int getCharges()
@@ -12977,7 +13039,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Transformation insert info: " + e);
+			_log.fatal("Transformation insert info: " + e, e);
 		}
         finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}
@@ -13004,7 +13066,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Transformation select info error:" + e.toString());
+			_log.fatal("Transformation select info error:" + e.getMessage(), e);
 		}
         finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 

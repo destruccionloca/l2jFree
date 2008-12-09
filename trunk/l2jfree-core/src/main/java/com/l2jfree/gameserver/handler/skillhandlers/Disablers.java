@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -87,8 +84,6 @@ public class Disablers implements ICubicSkillHandler
 			L2SkillType.WARRIOR_BANE,
 			L2SkillType.DISARM,
 			L2SkillType.STEAL_BUFF						};
-
-	protected static Log				_log			= LogFactory.getLog(L2Skill.class.getName());
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{

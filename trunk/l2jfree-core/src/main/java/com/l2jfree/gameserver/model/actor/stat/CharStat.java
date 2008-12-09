@@ -21,7 +21,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
@@ -108,13 +107,28 @@ public class CharStat
 		// Launch the calculation
 		c.calc(env);
 		// avoid some troubles with negative stats (some stats should never be negative)
-		if (env.value <= 0
-				&& ((stat == Stats.MAX_HP) || (stat == Stats.MAX_MP) || (stat == Stats.MAX_CP) || (stat == Stats.MAGIC_DEFENCE)
-						|| (stat == Stats.POWER_DEFENCE) || (stat == Stats.POWER_ATTACK) || (stat == Stats.MAGIC_ATTACK) || (stat == Stats.POWER_ATTACK_SPEED)
-						|| (stat == Stats.MAGIC_ATTACK_SPEED) || (stat == Stats.SHIELD_DEFENCE) || (stat == Stats.STAT_CON) || (stat == Stats.STAT_DEX)
-						|| (stat == Stats.STAT_INT) || (stat == Stats.STAT_MEN) || (stat == Stats.STAT_STR) || (stat == Stats.STAT_WIT)))
+		if (env.value <= 0 && stat != null)
 		{
-			env.value = 1;
+			switch (stat)
+			{
+				case MAX_HP:
+				case MAX_MP:
+				case MAX_CP:
+				case MAGIC_DEFENCE:
+				case POWER_DEFENCE:
+				case POWER_ATTACK:
+				case MAGIC_ATTACK:
+				case POWER_ATTACK_SPEED:
+				case MAGIC_ATTACK_SPEED:
+				case SHIELD_DEFENCE:
+				case STAT_CON:
+				case STAT_DEX:
+				case STAT_INT:
+				case STAT_MEN:
+				case STAT_STR:
+				case STAT_WIT:
+					env.value = 1;
+			}
 		}
 
 		return env.value;
@@ -202,8 +216,7 @@ public class CharStat
 			return 1;
 
 		int val = (int) (calcStat(Stats.EVASION_RATE, 0, target, null) / _activeChar.getArmourExpertisePenalty());
-		if (val > Config.ALT_MAX_EVASION && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
-			return Config.ALT_MAX_EVASION;
+
 		return val;
 	}
 
@@ -375,9 +388,7 @@ public class CharStat
 			bonusSpdAtk = Config.CHAMPION_SPD_ATK;
 
 		int val = (int) calcStat(Stats.MAGIC_ATTACK_SPEED, _activeChar.getTemplate().getBaseMAtkSpd() * bonusSpdAtk, null, null);
-		val /= _activeChar.getArmourExpertisePenalty();
-		if ((val > Config.ALT_MAX_MATK_SPEED) && (Config.ALT_MAX_MATK_SPEED != 0) && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
-			return Config.ALT_MAX_MATK_SPEED;
+
 		return val;
 	}
 
@@ -551,10 +562,8 @@ public class CharStat
 		if (_activeChar.isChampion())
 			bonusSpdAtk = Config.CHAMPION_SPD_ATK;
 
-		int val = (int) (calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().getBasePAtkSpd() * bonusSpdAtk, null, null)
-				/ _activeChar.getArmourExpertisePenalty());
-		if ((val > Config.ALT_MAX_PATK_SPEED) && (Config.ALT_MAX_PATK_SPEED != 0) && !(_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isGM()))
-			return Config.ALT_MAX_PATK_SPEED;
+		int val = (int) (calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().getBasePAtkSpd() * bonusSpdAtk, null, null));
+
 		return val;
 	}
 
@@ -653,42 +662,6 @@ public class CharStat
 		// err we should be adding TO the persons run speed
 		// not making it a constant
 		int val = (int) calcStat(Stats.RUN_SPEED, _activeChar.getTemplate().getBaseRunSpd(), null, null);
-
-		if (_activeChar.isFlying())
-		{
-			val += Config.WYVERN_SPEED;
-			return val;
-		}
-		else if (_activeChar.isRidingStrider())
-		{
-			val += Config.STRIDER_SPEED;
-			return val;
-		}
-		if (_activeChar.isRidingFenrirWolf())
-		{
-			val += Config.FENRIR_SPEED;
-			return val;
-		}
-		if (_activeChar.isRidingWFenrirWolf())
-		{
-			val += Config.SNOW_FENRIR_SPEED;
-			return val;
-		}
-		if (_activeChar.isRidingGreatSnowWolf())
-		{
-			val += Config.GREAT_SNOW_WOLF_SPEED;
-			return val;
-		}
-
-		// TODO: check if sharks/fish should be affected ;)
-		if (_activeChar.isInsideZone(L2Zone.FLAG_WATER))
-			val /= 2;
-
-		val /= _activeChar.getArmourExpertisePenalty();
-
-		// Apply max run speed cap.
-		if (val > Config.ALT_MAX_RUN_SPEED && !(_activeChar instanceof L2PcInstance && ((L2PcInstance) _activeChar).isGM()))
-			val = Config.ALT_MAX_RUN_SPEED;
 
 		return val;
 	}

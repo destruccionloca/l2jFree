@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
@@ -38,7 +35,6 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class SummonFriend implements ISkillHandler
 {
-	private static final Log			_log		= LogFactory.getLog(SummonFriend.class.getName());
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.SUMMON_FRIEND };
 

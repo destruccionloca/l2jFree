@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
@@ -42,9 +38,6 @@ import com.l2jfree.gameserver.templates.L2WeaponType;
 
 public class Pdam implements ISkillHandler
 {
-	// all the items ids that this handler knowns
-	private final static Log			_log		= LogFactory.getLog(Pdam.class.getName());
-
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */

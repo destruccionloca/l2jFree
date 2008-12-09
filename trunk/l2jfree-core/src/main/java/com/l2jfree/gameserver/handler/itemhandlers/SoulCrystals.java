@@ -153,7 +153,7 @@ public class SoulCrystals implements IItemHandler
 				_target.addAbsorber(_activeChar, _crystalId);
 				_activeChar.setTarget(_target);
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
 				_log.error(e.getMessage(), e);
 			}

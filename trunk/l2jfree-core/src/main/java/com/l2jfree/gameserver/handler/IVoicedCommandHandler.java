@@ -16,6 +16,9 @@ package com.l2jfree.gameserver.handler;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class ...
  *
@@ -23,8 +26,10 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public interface IVoicedCommandHandler
 {
+	public static Log	_log	= LogFactory.getLog(IVoicedCommandHandler.class.getName());
+
 	/**
-	 * this is the worker method that is called when someone uses an admin command.
+	 * this is the worker method that is called when someone uses an .user command.
 	 * @param activeChar
 	 * @param command
 	 * @return command success

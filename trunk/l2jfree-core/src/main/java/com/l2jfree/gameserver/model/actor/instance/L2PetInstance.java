@@ -198,7 +198,7 @@ public class L2PetInstance extends L2Summon
                 	unSummon(getOwner()); // unsummon or die?
                 }
             }
-            catch (Throwable e) 
+            catch (Exception e) 
             {
                 _log.error("Pet [ObjectId: "+getObjectId()+"] a feed task error has occurred", e);
             }

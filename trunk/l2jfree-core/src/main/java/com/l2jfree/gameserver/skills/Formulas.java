@@ -1933,8 +1933,8 @@ public final class Formulas
 	/** Returns true in case when ATTACK is canceled due to hit */
 	public final boolean calcAtkBreak(L2Character target, double dmg)
 	{
-		if (target.isRaid())
-			return false;
+		if (target.isRaid() || target.isInvul() || dmg <= 0)
+			return false; // No attack break
 
 		if (target instanceof L2PcInstance)
 		{
@@ -1945,15 +1945,15 @@ public final class Formulas
 		double init = 0;
 
 		if (Config.ALT_GAME_CANCEL_CAST && target.isCastingNow())
-			init = 15;
-		if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow())
 		{
-			L2Weapon wpn = target.getActiveWeaponItem();
-			if (wpn != null && wpn.getItemType() == L2WeaponType.BOW)
-				init = 15;
+			init = 15;
 		}
-
-		if (init <= 0)
+		else if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow()
+					&& target.getActiveWeaponItem() != null && target.getActiveWeaponItem().getItemType() == L2WeaponType.BOW)
+		{
+			init = 15;
+		}
+		else
 			return false; // No attack break
 
 		// Chance of break is higher with higher dmg

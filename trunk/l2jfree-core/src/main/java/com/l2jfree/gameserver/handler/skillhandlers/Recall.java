@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
@@ -34,8 +30,6 @@ import com.l2jfree.tools.random.Rnd;
 
 public class Recall implements ISkillHandler
 {
-	private final static Log			_log		= LogFactory.getLog(Recall.class.getName());
-
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.RECALL };
 

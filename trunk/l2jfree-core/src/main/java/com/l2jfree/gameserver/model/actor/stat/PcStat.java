@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.model.actor.stat;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.base.Experience;
@@ -335,5 +336,93 @@ public class PcStat extends PlayableStat
 			getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).setSp(value);
 		else
 			super.setSp(value);
+	}
+
+	/**
+	 * Return the RunSpeed (base+modifier) of the L2Character in function of the
+	 * Armour Expertise Penalty.
+	 */
+	@Override
+	public int getRunSpeed()
+	{
+		int val = super.getRunSpeed();
+
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar.isFlying())
+		{
+			val += Config.WYVERN_SPEED;
+			return val;
+		}
+		else if (activeChar.isRidingStrider())
+		{
+			val += Config.STRIDER_SPEED;
+			return val;
+		}
+		if (activeChar.isRidingFenrirWolf())
+		{
+			val += Config.FENRIR_SPEED;
+			return val;
+		}
+		if (activeChar.isRidingWFenrirWolf())
+		{
+			val += Config.SNOW_FENRIR_SPEED;
+			return val;
+		}
+		if (activeChar.isRidingGreatSnowWolf())
+		{
+			val += Config.GREAT_SNOW_WOLF_SPEED;
+			return val;
+		}
+
+		val /= _activeChar.getArmourExpertisePenalty();
+
+		// Apply max run speed cap.
+		if (val > Config.ALT_MAX_RUN_SPEED && Config.ALT_MAX_RUN_SPEED > 0 && !getActiveChar().isGM())
+			return Config.ALT_MAX_RUN_SPEED;
+
+		return val;
+	}
+
+	/**
+	 * Return the PAtk Speed (base+modifier) of the L2Character in function of
+	 * the Armour Expertise Penalty.
+	 */
+	@Override
+	public int getPAtkSpd()
+	{
+		int val = super.getPAtkSpd();
+
+		val /= _activeChar.getArmourExpertisePenalty();
+
+		if (val > Config.ALT_MAX_PATK_SPEED && Config.ALT_MAX_PATK_SPEED > 0 && !getActiveChar().isGM())
+			return Config.ALT_MAX_PATK_SPEED;
+		return val;
+	}
+
+	/**
+	 * Return the MAtk Speed (base+modifier) of the L2Character in function of
+	 * the Armour Expertise Penalty.
+	 */
+	@Override
+	public int getMAtkSpd()
+	{
+		int val = super.getMAtkSpd();
+
+		val /= _activeChar.getArmourExpertisePenalty();
+
+		if (val > Config.ALT_MAX_MATK_SPEED && Config.ALT_MAX_MATK_SPEED > 0 && !getActiveChar().isGM())
+			return Config.ALT_MAX_MATK_SPEED;
+		return val;
+	}
+
+	/** Return the Attack Evasion rate (base+modifier) of the L2Character. */
+	@Override
+	public int getEvasionRate(L2Character target)
+	{
+		int val = super.getEvasionRate(target);
+
+		if (val > Config.ALT_MAX_EVASION && Config.ALT_MAX_EVASION > 0 && !getActiveChar().isGM())
+			return Config.ALT_MAX_EVASION;
+		return val;
 	}
 }

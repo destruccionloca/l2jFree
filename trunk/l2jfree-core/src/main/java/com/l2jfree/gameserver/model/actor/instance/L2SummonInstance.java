@@ -16,10 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.concurrent.Future;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
@@ -31,8 +27,6 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
 
 public class L2SummonInstance extends L2Summon
 {
-    final static Log _log = LogFactory.getLog(L2SummonInstance.class.getName());
-    
     private float _expPenalty = 0; // exp decrease multiplier (i.e. 0.3 (= 30%) for shadow)
 	private int _itemConsumeId;
 	private int _itemConsumeCount;
@@ -258,7 +252,7 @@ public class L2SummonInstance extends L2Summon
 					_summon.lastShowntimeRemaining = (int) newTimeRemaining;
 				}
 			}
-			catch (Throwable e)  
+			catch (Exception e)  
 			{
 				_log.error("Error on player ["+_activeChar.getName()+"] summon item consume task.", e);
 			}

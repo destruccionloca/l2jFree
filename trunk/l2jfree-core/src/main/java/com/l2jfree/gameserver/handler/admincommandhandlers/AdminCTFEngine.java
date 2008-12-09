@@ -288,7 +288,7 @@ public class AdminCTFEngine implements IAdminCommandHandler
 
 			return true;
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
 			activeChar.sendMessage("The command was not used correctly");
 			return false;

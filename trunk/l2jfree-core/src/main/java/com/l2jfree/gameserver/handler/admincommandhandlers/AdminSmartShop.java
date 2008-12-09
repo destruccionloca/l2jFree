@@ -297,9 +297,8 @@ public class AdminSmartShop implements IAdminCommandHandler
 			{
 				caution = (ItemTable.getInstance().getTemplate(itemId).isStackable()) ? "" : "<center><font color=\"FF0000\">CAUTION!!!</font> Item is not stackable!</center>";
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
-				caution = "";
 			}
 			return "<br><center><font color=\"00FF00\">Create</font> - How many would you like?<br></center>" + caution;
 		}
@@ -449,7 +448,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 						questList.add(false);
 				}
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				questList.add(false);
 				gradeList.add(L2Item.CRYSTAL_NONE);
@@ -480,7 +479,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				itemName1 = (ItemTable.getInstance().getTemplate(itemId[x]) == null) ? "<font color = \"FF0011\">(unknown)</font>" : ItemTable.getInstance()
 						.getTemplate(itemId[x]).getName();
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				itemName1 = "<font color = \"FF0000\">(not found)</font>";
 			}
@@ -490,7 +489,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				itemName2 = (ItemTable.getInstance().getTemplate(itemId[x + 1]) == null) ? "<font color = \"FF0011\">(unknown)</font>" : ItemTable
 						.getInstance().getTemplate(itemId[x + 1]).getName();
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				itemName2 = "<font color = \"FF0000\">(not found)</font>";
 			}
@@ -500,7 +499,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				itemName3 = (ItemTable.getInstance().getTemplate(itemId[x + 2]) == null) ? "<font color = \"FF0011\">(unknown)</font>" : (ItemTable
 						.getInstance().getTemplate(itemId[x + 2]).getName());
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				itemName3 = "<font color = \"FF0000\">(not found)</font>";
 			}
@@ -729,7 +728,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 					}
 
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				returnItem = false;
 			}
@@ -753,7 +752,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 						}
 					}
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				returnItem = false;
 			}
@@ -1139,7 +1138,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			{
 				changeVal = Integer.valueOf(newMark.substring(6)).intValue();
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 			}
 
@@ -1180,7 +1179,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			{
 				changeVal = Integer.valueOf(newMark.substring(6)).intValue();
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 			}
 
@@ -1209,7 +1208,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				changeVal = Integer.valueOf(newMark.substring(6)).intValue();
 				changeVal = getMaxMove(changeVal, marks);
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 			}
 			newMark = buildNewMark + changeVal;
@@ -1432,7 +1431,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 					if (i > 0 && i < 100)
 						marks = "_view=" + i + " " + marks;
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
 					return marks;
 				}
@@ -1535,7 +1534,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				else
 					return "-editItem";
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				return "-eraseItem";
 			}
@@ -1549,7 +1548,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				if (!getGrade(first.substring(1)).equals(""))
 					return first;
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				return "";
 			}
@@ -1576,7 +1575,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 					int value = Integer.valueOf(s);
 					ids.add(value);
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
 					search.add(s);
 				}
@@ -1690,7 +1689,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			}
 			return param;
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
 			return null;
 		}
@@ -1736,7 +1735,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				{
 					return Integer.valueOf(param[1]);
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
 					return -1;
 				}
@@ -1760,7 +1759,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				{
 					return param[1];
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
 					return "";
 				}
@@ -1890,14 +1889,14 @@ public class AdminSmartShop implements IAdminCommandHandler
 							if (add)
 								skillsWithItems.add(s);
 						}
-						catch (Throwable t)
+						catch (Exception e)
 						{
 							continue;
 						}
 					}
 
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
 					continue;
 				}
@@ -1970,7 +1969,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				}
 			}
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
 		}
 
@@ -2248,7 +2247,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 							+ ItemTable.getInstance().getTemplate(weapn.getChangeWeaponId()).getName() + " Id: " + weapn.getChangeWeaponId())
 							+ " </a> " : "";
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
 				}
 			}
@@ -2263,7 +2262,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			}
 
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
 		}
 
@@ -2319,7 +2318,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			message += (questItem) ? ", but no quests contains this item." : "";
 
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
 		}
 
@@ -2379,13 +2378,13 @@ public class AdminSmartShop implements IAdminCommandHandler
 					message += "<tr><td>" + NpcTable.getInstance().getTemplate(npc.intValue()).getName() + "</td><td>" + npc.intValue() + "</td><td>" + coord
 							+ "</td></tr>";
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
 				}
 			}
 			message += "</table>";
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
 		}
 
@@ -2507,7 +2506,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			}
 
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
 		}
 

@@ -35,8 +35,6 @@ import javolution.util.FastList;
 
 public class Resurrect implements ISkillHandler
 {
-	//private final static Log _log = LogFactory.getLog(Resurrect.class.getName());
-
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.RESURRECT };
 

@@ -85,8 +85,9 @@ public class AdminBan implements IAdminCommandHandler
 					// prevent deleteMe from being called a second time on disconnection
 					client.setActiveChar(null);
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
+					e.printStackTrace();
 				}
 				activeChar.sendMessage("Account " + account_name + " banned.");
 			}

@@ -131,7 +131,7 @@ import com.l2jfree.util.SingletonSet;
  */
 public abstract class L2Character extends L2Object
 {
-	private final static Log		_log								= LogFactory.getLog(L2Character.class.getName());
+	public final static Log		_log								= LogFactory.getLog(L2Character.class.getName());
 
 	// =========================================================
 	// Data Field
@@ -145,7 +145,6 @@ public abstract class L2Character extends L2Object
 	private boolean					_isConfused							= false;											// Attack anyone randomly
 	private boolean					_isFakeDeath						= false;											// Fake death
 	private boolean					_isFallsdown						= false;											// Falls down [L2J_JP_ADD]
-	private boolean					_isFlying							= false;											// Is flying Wyvern?
 	private boolean					_isMuted							= false;											// Cannot use magic
 	private boolean					_isPhysicalMuted					= false;											// Cannot use physical attack
 	private boolean					_isPhysicalAttackMuted				= false;											// Cannot use attack
@@ -154,10 +153,7 @@ public abstract class L2Character extends L2Object
 	private boolean					_isOverloaded						= false;											// the char is carrying too much
 	private boolean					_isParalyzed						= false;											// cannot do anything
 	private boolean					_isPetrified						= false;											// cannot receive dmg from hits.
-	private boolean					_isRidingFenrirWolf					= false;
-	private boolean					_isRidingWFenrirWolf				= false;
-	private boolean					_isRidingGreatSnowWolf				= false;
-	private boolean					_isRidingStrider					= false;
+
 	private boolean					_isPendingRevive					= false;
 	private boolean					_isRooted							= false;											// Cannot move until root timed out
 	private boolean					_isRunning							= true;
@@ -681,9 +677,9 @@ public abstract class L2Character extends L2Object
 			}
 		}
 
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("Template Missing : ", t);
+			_log.fatal(e.getMessage(), e);
 		}
 
 		return safeFallHeight;
@@ -784,9 +780,9 @@ public abstract class L2Character extends L2Object
 			{
 				isFalling(true, _fallHeight);
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
-				_log.fatal("L2PcInstance.CheckFalling exception ", e);
+				_log.fatal(e.getMessage(), e);
 			}
 		}
 	}
@@ -2533,16 +2529,9 @@ public abstract class L2Character extends L2Object
 
 	// [L2J_JP_ADD END]
 
-	/** Return True if the L2Character is flying. */
-	public final boolean isFlying()
+	public boolean isFlying()
 	{
-		return _isFlying;
-	}
-
-	/** Set the L2Character flying mode to True. */
-	public final void setIsFlying(boolean mode)
-	{
-		_isFlying = mode;
+		return false;
 	}
 
 	public boolean isImmobilized()
@@ -2662,48 +2651,6 @@ public abstract class L2Character extends L2Object
 	public L2Summon getPet()
 	{
 		return null;
-	}
-
-	/** Return True if the L2Character is riding. */
-	public final boolean isRidingFenrirWolf()
-	{
-		return _isRidingFenrirWolf;
-	}
-
-	public final boolean isRidingWFenrirWolf()
-	{
-		return _isRidingWFenrirWolf;
-	}
-
-	public final boolean isRidingGreatSnowWolf()
-	{
-		return _isRidingGreatSnowWolf;
-	}
-
-	public final boolean isRidingStrider()
-	{
-		return _isRidingStrider;
-	}
-
-	/** Set the L2Character riding mode to True. */
-	public final void setIsRidingFenrirWolf(boolean mode)
-	{
-		_isRidingFenrirWolf = mode;
-	}
-
-	public final void setIsRidingWFenrirWolf(boolean mode)
-	{
-		_isRidingWFenrirWolf = mode;
-	}
-
-	public final void setIsRidingGreatSnowWolf(boolean mode)
-	{
-		_isRidingGreatSnowWolf = mode;
-	}
-
-	public final void setIsRidingStrider(boolean mode)
-	{
-		_isRidingStrider = mode;
 	}
 
 	public final boolean isRooted()
@@ -2970,9 +2917,9 @@ public abstract class L2Character extends L2Object
 			{
 				onHitTimer(_hitTarget, _damage, _crit, _miss, _soulshot, _shld);
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
-				_log.fatal(e.toString());
+				_log.fatal(e.getMessage(), e);
 			}
 		}
 	}
@@ -3099,7 +3046,7 @@ public abstract class L2Character extends L2Object
 			}
 			catch (Exception e)
 			{
-				_log.warn("error in pvp flag task:", e);
+				_log.warn(e.getMessage(), e);
 			}
 		}
 	} // =========================================================
@@ -5247,16 +5194,15 @@ public abstract class L2Character extends L2Object
 				}
 			}
 			// If no distance to go through, the movement is canceled
-			/*if (distance < 2
+			if (distance < 2
 					&& (Config.GEO_PATH_FINDING || this instanceof L2PcInstance || (this instanceof L2Summon && !((L2Summon) this).getFollowStatus())
 							|| isAfraid() || this instanceof L2RiftInvaderInstance))
 			{
 				if (this instanceof L2Summon)
 					((L2Summon) this).setFollowStatus(false);
-				getAI().notifyEvent(CtrlEvent.EVT_ARRIVED, null);
 				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE); // needed?
 				return;
-			}*/
+			}
 		}
 
 		// Caclulate the Nb of ticks between the current position and the destination
@@ -6222,8 +6168,9 @@ public abstract class L2Character extends L2Object
 					getStat().addElement(newSkill);
 				}
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 
 			if (oldSkill != null && _chanceSkills != null)
@@ -6310,8 +6257,9 @@ public abstract class L2Character extends L2Object
 				getStat().removeElement(oldSkill);
 			}
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
+			_log.error(e.getMessage(), e);
 		}
 
 		// Remove all its Func objects from the L2Character calculator set
@@ -6726,8 +6674,9 @@ public abstract class L2Character extends L2Object
 			// Launch the magic skill in order to calculate its effects
 			callSkill(skill, targets);
 		}
-		catch (NullPointerException e)
+		catch (Exception e)
 		{
+			_log.error(e.getMessage(), e);
 		}
 
 		if (instant || coolTime == 0)
@@ -6831,6 +6780,7 @@ public abstract class L2Character extends L2Object
 			} 
 			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}

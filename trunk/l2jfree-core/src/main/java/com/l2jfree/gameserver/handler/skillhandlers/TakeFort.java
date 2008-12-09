@@ -34,7 +34,6 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class TakeFort implements ISkillHandler
 {
-	//private static Logger _log = Logger.getLogger(TakeFort.class.getName());
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.TAKEFORT };
 

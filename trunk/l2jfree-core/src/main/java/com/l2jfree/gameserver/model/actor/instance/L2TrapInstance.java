@@ -136,9 +136,9 @@ public class L2TrapInstance extends L2Trap
 					}
 				}
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
-
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}

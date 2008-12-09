@@ -173,7 +173,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			{
 				itemName = ItemTable.getInstance().getTemplate(itemId).getName();
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				itemName = "unKnown";
 			}
@@ -215,7 +215,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 				{
 					itemId = (param.length > 1) ? Integer.valueOf((MULTISELL_ID_SORT) ? param[0] : param[1]).intValue() : 0;
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
 					itemId = 0;
 				}
@@ -224,7 +224,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 				{
 					price = (param.length > 2) ? Integer.valueOf(param[2]).intValue() : 0;
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
 					price = 0;
 				}
@@ -611,7 +611,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 		{
 			item = ItemTable.getInstance().getTemplate(itemId);
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
 			addEtc(itemId, price);
 			return;
@@ -757,7 +757,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 		{
 			item = ItemTable.getInstance().getTemplate(itemId);
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
 			addEtc(itemId, price);
 			return;
@@ -916,7 +916,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 		{
 			item = ItemTable.getInstance().getTemplate(itemId);
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
 			addEtc(itemId, price);
 			return;
@@ -1183,7 +1183,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 					_log.info(fileName + " is being created...");
 				}
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				if (MULTISELL_GENERATE_OUTPUT_TEXT)
 				{
@@ -1215,7 +1215,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			//Close the output stream
 			out.close();
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
 			if (MULTISELL_GENERATE_OUTPUT_TEXT)
 			{
@@ -1291,7 +1291,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 				return;
 			}
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
 			etc.addItem(itemId, price);
 			return;
@@ -1439,7 +1439,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			{
 				DEFAULT_GM_SHOP_PRICE_MULTIPLIER = Integer.valueOf(cmd.substring(7)).intValue();
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				DEFAULT_GM_SHOP_PRICE_MULTIPLIER = 2;
 			}
@@ -1451,7 +1451,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			{
 				DEFAULT_SPACES_BETWEEN_MULTISELL_LIST_ITEMS = Integer.valueOf(cmd.substring(6)).intValue();
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				DEFAULT_SPACES_BETWEEN_MULTISELL_LIST_ITEMS = 10;
 			}
@@ -1513,14 +1513,14 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 							}
 
 						}
-						catch (Throwable t)
+						catch (Exception e)
 						{
 							continue;
 						}
 					}
 
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
 					continue;
 				}
@@ -1592,7 +1592,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 
 				items.add(item);
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				continue;
 			}
@@ -1626,7 +1626,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 				itemPrice.add(price);
 			}
 
-			catch (Throwable t)
+			catch (Exception e)
 			{
 				continue;
 			}
@@ -1648,7 +1648,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 						items.set(x, items.get(y));
 						items.set(y, tempItem);
 					}
-					catch (Throwable t)
+					catch (Exception e)
 					{
 						continue;
 					}
@@ -1686,7 +1686,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 					}
 
 				}
-				catch (Throwable t)
+				catch (Exception e)
 				{
 					continue;
 				}

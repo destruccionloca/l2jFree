@@ -18,9 +18,6 @@ import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.MerchantPriceConfigTable;
 import com.l2jfree.gameserver.datatables.TradeListTable;
@@ -43,8 +40,6 @@ import com.l2jfree.gameserver.templates.L2NpcTemplate;
  */
 public class L2MerchantInstance extends L2FolkInstance
 {
-    private final static Log _log = LogFactory.getLog(L2MerchantInstance.class.getName());
-
     private MerchantPriceConfig _mpc;
 
     /**

@@ -32,7 +32,6 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class TakeCastle implements ISkillHandler
 {
-	//private final static Log _log = LogFactory.getLog(TakeCastle.class.getName()); 
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.TAKECASTLE };
 

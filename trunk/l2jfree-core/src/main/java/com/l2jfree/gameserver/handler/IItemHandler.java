@@ -17,6 +17,9 @@ package com.l2jfree.gameserver.handler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Mother class of all itemHandlers.<BR><BR>
  * an IItemHandler implementation has to be stateless
@@ -26,6 +29,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 
 public interface IItemHandler
 {
+	public static Log	_log	= LogFactory.getLog(IItemHandler.class.getName());
+
 	/**
 	 * Launch task associated to the item.
 	 * @param activeChar : L2PlayableInstance designating the player

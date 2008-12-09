@@ -89,19 +89,14 @@ public class SiegeManager
 	/**
 	 * Return true if character can place a flag<BR><BR>
 	 * 
-	 * @param activeChar
-	 *            The L2Character of the character placing the flag
+	 * @param player
+	 *            The L2PcInstance of the character placing the flag
 	 * @param isCheckOnly
 	 *            if false, it will send a notification to the player telling
 	 *            him why it failed
 	 */
-	public static boolean checkIfOkToPlaceFlag(L2Character activeChar, boolean isCheckOnly)
+	public static boolean checkIfOkToPlaceFlag(L2PcInstance player, boolean isCheckOnly)
 	{
-		if (!(activeChar instanceof L2PcInstance))
-			return false;
-
-		L2PcInstance player = (L2PcInstance) activeChar;
-
 		// get siege battleground
 		L2Clan clan = player.getClan();
 		Siege siege = SiegeManager.getInstance().getSiege(player);
@@ -113,7 +108,7 @@ public class SiegeManager
 			sm.addString("You must be a clan leader to place a flag.");
 		else if (siege == null || !siege.getIsInProgress())
 			sm.addString("You can only place a flag during a siege.");
-		else if (castle == null || !castle.checkIfInZoneHeadQuarters(activeChar))
+		else if (castle == null || !castle.checkIfInZoneHeadQuarters(player))
 			sm.addString("You must be on castle ground to place a flag.");
 		else if (siege.getAttackerClan(clan) == null)
 			sm.addString("You must be an attacker to place a flag.");
@@ -130,16 +125,11 @@ public class SiegeManager
 	/**
 	 * Return true if character can summon<BR><BR>
 	 * 
-	 * @param activeChar
-	 *            The L2Character of the character can summon
+	 * @param player
+	 *            The L2PcInstance of the character can summon
 	 */
-	public final boolean checkIfOkToSummon(L2Character activeChar, boolean isCheckOnly)
+	public final boolean checkIfOkToSummon(L2PcInstance player, boolean isCheckOnly)
 	{
-		if (!(activeChar instanceof L2PcInstance))
-			return false;
-
-		L2PcInstance player = (L2PcInstance) activeChar;
-
 		// get siege battleground
 		Siege siege = SiegeManager.getInstance().getSiege(player);
 
@@ -168,13 +158,8 @@ public class SiegeManager
 	 *            if false, it will send a notification to the player telling
 	 *            him why it failed
 	 */
-	public static boolean checkIfOkToUseStriderSiegeAssault(L2Character activeChar, boolean isCheckOnly)
+	public static boolean checkIfOkToUseStriderSiegeAssault(L2PcInstance player, boolean isCheckOnly)
 	{
-		if (!(activeChar instanceof L2PcInstance))
-			return false;
-
-		L2PcInstance player = (L2PcInstance) activeChar;
-
 		// get siege battleground
 		Siege siege = SiegeManager.getInstance().getSiege(player);
 
@@ -186,7 +171,7 @@ public class SiegeManager
 			sm.addString("You can only use strider siege assault during a siege.");
 		else if (!(player.getTarget() instanceof L2DoorInstance))
 			sm.addString("You can only use strider siege assault on doors and walls.");
-		else if (!activeChar.isRidingStrider())
+		else if (!player.isRidingStrider())
 			sm.addString("You can only use strider siege assault when on strider.");
 		else
 			return true;

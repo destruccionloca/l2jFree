@@ -44,9 +44,9 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 			readImpl();
 			return true;
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("Client: "+getClient().toString()+" - Failed reading: "+getType()+" - L2J Server Version: "+GameServer.getVersionNumber(),t);
+			_log.fatal("Client: "+getClient().toString()+" - Failed reading: "+getType()+" - L2J Server Version: "+GameServer.getVersionNumber(), e);
 		}
 		return false;
 	}
@@ -91,9 +91,9 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 				}
 			}
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			_log.fatal("Client: "+getClient().toString()+" - Failed running: "+this.getType()+" - L2J Server Version: "+GameServer.getVersionNumber(),t);
+			_log.fatal("Client: "+getClient().toString()+" - Failed running: "+getType()+" - L2J Server Version: "+GameServer.getVersionNumber(), e);
 		}
 	}
 	

@@ -195,8 +195,9 @@ public class SummonItems implements IItemHandler
 				else
 					_petSummon.startFeed(false);
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -220,8 +221,9 @@ public class SummonItems implements IItemHandler
 				_petSummon.setFollowStatus(true);
 				_petSummon.setShowSummonAnimation(false);
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}

@@ -15,9 +15,6 @@
 
 package com.l2jfree.gameserver.handler.itemhandlers;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ExtractableItemsData;
 import com.l2jfree.gameserver.datatables.ItemTable;
@@ -39,8 +36,6 @@ import com.l2jfree.tools.random.Rnd;
 
 public class ExtractableItems implements IItemHandler
 {
-	protected static final Log	_log	= LogFactory.getLog(ExtractableItems.class.getName());;
-
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))

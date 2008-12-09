@@ -565,6 +565,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 					}
 					catch (Exception e2)
 					{
+						_log.error(e2.getMessage(), e2);
 					}
 
 					// notify the world about our disconnect

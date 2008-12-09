@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.usercommandhandlers;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -40,7 +36,6 @@ import com.l2jfree.gameserver.util.Broadcast;
  */
 public class Escape implements IUserCommandHandler
 {
-	static Log					_log		= LogFactory.getLog(Escape.class);
 	private static final int[]	COMMAND_IDS	=
 											{ 52 };
 
@@ -176,7 +171,7 @@ public class Escape implements IUserCommandHandler
 			{
 				_activeChar.teleToLocation(TeleportWhereType.Town);
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
 				_log.error(e.getMessage(), e);
 			}

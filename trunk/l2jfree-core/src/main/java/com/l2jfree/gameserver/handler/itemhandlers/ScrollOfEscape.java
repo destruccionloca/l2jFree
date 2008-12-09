@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -48,8 +44,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class ScrollOfEscape implements IItemHandler
 {
-	protected static Log		_log		= LogFactory.getLog(ScrollOfEscape.class);
-
 	// all the items IDs that this handler knows
 	private static final int[]	ITEM_IDS	=
 											{
@@ -357,7 +351,7 @@ public class ScrollOfEscape implements IItemHandler
 						break;
 				}
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
 				_log.error(e.getMessage(), e);
 			}

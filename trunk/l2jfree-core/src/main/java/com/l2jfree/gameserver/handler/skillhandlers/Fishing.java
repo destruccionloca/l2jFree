@@ -36,8 +36,6 @@ import com.l2jfree.tools.random.Rnd;
 
 public class Fishing implements ISkillHandler
 {
-	// private static Logger _log = Logger.getLogger(SiegeFlag.class.getName());
-	// protected L2SkillType[] _skillIds = {L2SkillType.FISHING};
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.FISHING };
 

@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class Hellbound implements IVoicedCommandHandler
 {
-	//protected static Log			_log			= LogFactory.getLog(Hellbound.class);
 	private static final String[]	VOICED_COMMANDS	=
 													{ "trust" };
 

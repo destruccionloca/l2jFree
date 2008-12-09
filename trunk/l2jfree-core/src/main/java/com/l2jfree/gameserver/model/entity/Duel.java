@@ -198,8 +198,9 @@ public class Duel
 				}
 				else ThreadPoolManager.getInstance().scheduleGeneral(this, 1000);
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -235,8 +236,9 @@ public class Duel
 				}
 				else _duel.startDuel();
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -258,8 +260,9 @@ public class Duel
 			{
 				_duel.endDuel(_result);
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
+				_log.error(e.getMessage(), e);
 			}
 		}
 	}

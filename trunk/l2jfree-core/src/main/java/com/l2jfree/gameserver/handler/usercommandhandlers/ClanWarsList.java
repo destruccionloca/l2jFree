@@ -110,7 +110,7 @@ public class ClanWarsList implements IUserCommandHandler
 		}
 		catch (Exception e)
 		{
-			//_log.warn( "Error in attackerlist ",e);
+			e.printStackTrace();
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 

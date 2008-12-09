@@ -19,8 +19,13 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.templates.L2SkillType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public interface ISkillHandler
 {
+	public static Log	_log	= LogFactory.getLog(ISkillHandler.class.getName());
+	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets);
 	
 	public L2SkillType[] getSkillIds();

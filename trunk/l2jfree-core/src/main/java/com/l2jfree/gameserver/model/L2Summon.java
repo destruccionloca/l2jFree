@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.model;
 
 import java.util.Collection;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
@@ -58,8 +55,6 @@ import com.l2jfree.gameserver.templates.L2Weapon;
 
 public abstract class L2Summon extends L2PlayableInstance
 {
-	private final static Log	_log					= LogFactory.getLog(L2Summon.class.getName());
-
 	public static final int		SIEGE_GOLEM_ID			= 14737;
 	public static final int		HOG_CANNON_ID			= 14768;
 	public static final int		SWOOP_CANNON_ID			= 14839;

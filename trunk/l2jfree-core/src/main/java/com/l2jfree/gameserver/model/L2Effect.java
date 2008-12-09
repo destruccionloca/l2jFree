@@ -125,9 +125,9 @@ public abstract class L2Effect
 					_periodfirsttime = 0;
 				L2Effect.this.scheduleEffect();
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
-				_log.fatal("", e);
+				_log.fatal(e.getMessage(), e);
 			}
 		}
 	}

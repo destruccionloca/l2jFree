@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.actor.stat;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
 import com.l2jfree.gameserver.model.base.Experience;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 
 public class PlayableStat extends CharStat
 {
@@ -178,4 +179,20 @@ public class PlayableStat extends CharStat
     // Property - Public
     @Override
     public L2PlayableInstance getActiveChar() { return (L2PlayableInstance)super.getActiveChar(); }
+
+	/**
+	 * Return the RunSpeed (base+modifier) of the L2Character in function of the
+	 * Armour Expertise Penalty.
+	 */
+	@Override
+	public int getRunSpeed()
+	{
+		int val = super.getRunSpeed();
+
+		// TODO: check if sharks/fish should be affected ;)
+		if (_activeChar.isInsideZone(L2Zone.FLAG_WATER))
+			val /= 2;
+
+		return val;
+	}
 }
