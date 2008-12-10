@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.model.zone.type.L2BossZone;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowScreenMessage;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import ai.group_template.L2AttackableAIScript;
 
 /**
