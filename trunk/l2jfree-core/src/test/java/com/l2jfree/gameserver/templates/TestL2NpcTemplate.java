@@ -14,9 +14,9 @@
  */
 package com.l2jfree.gameserver.templates;
 
-import com.l2jfree.gameserver.templates.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
-import com.l2jfree.gameserver.templates.L2NpcTemplate.Race;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate.Race;
 
 import junit.framework.TestCase;
 

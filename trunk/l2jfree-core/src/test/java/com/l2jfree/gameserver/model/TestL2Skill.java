@@ -18,10 +18,10 @@ import junit.framework.TestCase;
 
 import com.l2jfree.gameserver.model.L2Skill.SkillOpType;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
-import com.l2jfree.gameserver.templates.L2SkillType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.skills.conditions.ConditionItemId;
-import com.l2jfree.gameserver.templates.L2CharTemplate;
+import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
