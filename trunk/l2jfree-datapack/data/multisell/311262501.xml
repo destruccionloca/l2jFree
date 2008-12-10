@@ -256,21 +256,21 @@
   <!-- Basalt BattleHammer - Earth - HP DRAIN  -->
   <item id="37">
     <production id="11211" count="1" />
-    <ingredient id="12210" count="1" />
+    <ingredient id="11210" count="1" />
     <ingredient id="5908" count="1" />
     <ingredient id="2134" count="82" />
   </item>
   <!-- Basalt BattleHammer - Earth - Health  -->
   <item id="38">
     <production id="11212" count="1" />
-    <ingredient id="12210" count="1" />
+    <ingredient id="11210" count="1" />
     <ingredient id="5911" count="1" />
     <ingredient id="2134" count="82" />
   </item>
   <!-- Basalt BattleHammer - Earth - HP REGEN  -->
   <item id="39">
     <production id="11213" count="1" />
-    <ingredient id="12210" count="1" />
+    <ingredient id="11210" count="1" />
     <ingredient id="5914" count="1" />
     <ingredient id="2134" count="82" />
   </item>
