@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.RecipeController;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -49,7 +50,29 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-		L2PcInstance manufacturer = (L2PcInstance)L2World.getInstance().findObject(_id);
+
+		L2Object object = null;
+
+		// Get object from target
+		if (activeChar.getTargetId() == _id)
+			object = activeChar.getTarget();
+
+		// Get object from knownlist
+		if (object == null)
+			object = activeChar.getKnownList().getKnownObject(_id);
+
+		// Get object from world
+		if (object == null)
+		{
+			object = L2World.getInstance().getPlayer(_id);
+			_log.warn("Player "+activeChar.getName()+" requested private manufacture from outside of his knownlist.");
+		}
+
+		if (!(object instanceof L2PcInstance))
+			return;
+
+		L2PcInstance manufacturer = (L2PcInstance) object;
+
 		if (manufacturer == null)
 			return;
 		

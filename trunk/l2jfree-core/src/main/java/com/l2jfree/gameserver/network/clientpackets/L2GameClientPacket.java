@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
  */
 public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 {
-	private final static Log _log = LogFactory.getLog(L2GameClientPacket.class.getName());
+	protected final static Log _log = LogFactory.getLog(L2GameClientPacket.class.getName());
 	
 	@Override
 	protected boolean read()

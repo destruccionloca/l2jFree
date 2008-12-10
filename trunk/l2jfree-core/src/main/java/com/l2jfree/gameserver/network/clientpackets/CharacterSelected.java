@@ -30,8 +30,6 @@ import com.l2jfree.gameserver.network.serverpackets.CharSelected;
 public class CharacterSelected extends L2GameClientPacket
 {
 	private static final String _C__0D_CHARACTERSELECTED = "[C] 0D CharacterSelected";
-	private final static Log _log = LogFactory.getLog(CharacterSelected.class.getName());
-
 	// cd
 	private int _charSlot;
 	

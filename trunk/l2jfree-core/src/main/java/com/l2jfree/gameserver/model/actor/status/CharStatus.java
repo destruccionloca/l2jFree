@@ -21,14 +21,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Summon;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
@@ -137,10 +136,10 @@ public class CharStatus
 		{
 			if ((getActiveChar() instanceof L2PcInstance) && ((L2PcInstance) getActiveChar()).isInOlympiadMode())
 			{
-				L2Object obj = L2World.getInstance().findObject(((L2PcInstance) getActiveChar()).getOlympiadOpponentId());
-				if (obj != null && obj instanceof L2PcInstance)
+				L2PcInstance opp = Olympiad.getInstance().getParticipant(((L2PcInstance) getActiveChar()).getOlympiadOpponentId());
+				if (opp != null)
 				{
-					((L2PcInstance) obj).reduceOlyDamage((int) value);
+					opp.reduceOlyDamage((int) value);
 				}
 			}
 		}

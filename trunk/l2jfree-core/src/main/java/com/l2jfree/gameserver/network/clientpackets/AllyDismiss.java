@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class AllyDismiss extends L2GameClientPacket
 {
     private static final String _C__85_ALLYDISMISS = "[C] 85 AllyDismiss";
-    //private static Logger _log = Logger.getLogger(AllyDismiss.class.getName());
     
     private String _clanName;
     

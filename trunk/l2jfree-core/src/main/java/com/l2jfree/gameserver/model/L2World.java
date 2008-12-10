@@ -225,6 +225,21 @@ public final class L2World
 	}
 
 	/**
+	 * Return the player instance corresponding to the given objectId.<BR><BR>
+	 *
+	 * @param objectId ID of the player to get Instance
+	 */
+	public L2PcInstance getPlayer(int objectId)
+	{
+		for (L2PcInstance player : _allPlayers.values())
+		{
+			if (player != null && player.getObjectId() == objectId)
+				return player;
+		}
+		return null;
+	}
+
+	/**
 	 * Return a collection containing all pets in game.<BR><BR>
 	 *
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Read-only, please! </B></FONT><BR><BR>

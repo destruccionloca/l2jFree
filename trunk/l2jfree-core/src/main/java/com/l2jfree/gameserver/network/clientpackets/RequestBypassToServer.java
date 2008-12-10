@@ -131,8 +131,26 @@ public class RequestBypassToServer extends L2GameClientPacket
                     id = _command.substring(4);
                 try
                 {
-                    L2Object object = L2World.getInstance().findObject(Integer.parseInt(id));
-                    if (_command.substring(endOfId+1).startsWith("event_participate")) L2Event.inscribePlayer(activeChar);
+                    L2Object object = null;
+                    int objectId = Integer.parseInt(id);
+
+                    // Get object from target
+                    if (activeChar.getTargetId() == objectId)
+                        object = activeChar.getTarget();
+
+                    // Get object from knownlist
+                    if (object == null)
+                        object = activeChar.getKnownList().getKnownObject(objectId);
+
+                    // Get object from world
+                    if (object == null)
+                    {
+                        object = L2World.getInstance().findObject(objectId);
+                        _log.warn("Player "+activeChar.getName()+" bypassed command to NPC outside of his knownlist.");
+                    }
+
+                    if (_command.substring(endOfId+1).startsWith("event_participate"))
+                        L2Event.inscribePlayer(activeChar);
 
                     else if (_command.substring(endOfId+1).startsWith("vip_joinVIPTeam"))
                         VIP.addPlayerVIP(activeChar);

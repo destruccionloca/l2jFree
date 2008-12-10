@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -32,7 +28,6 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 public final class Action extends L2GameClientPacket
 {
 	private static final String ACTION__C__04 = "[C] 04 Action";
-	private final static Log _log = LogFactory.getLog(Action.class.getName());
 	
 	// cddddc
 	private int _objectId;
@@ -65,13 +60,23 @@ public final class Action extends L2GameClientPacket
 
 		if (activeChar == null)
 			return;
-		
-		L2Object obj;
-		
+
+		L2Object obj = null;
+
+		// Get object from target
 		if (activeChar.getTargetId() == _objectId)
 			obj = activeChar.getTarget();
-		else
+
+		// Get object from knownlist
+		if (obj == null)
+			obj = activeChar.getKnownList().getKnownObject(_objectId);
+
+		// Get object from world
+		if (obj == null)
+		{
 			obj = L2World.getInstance().findObject(_objectId);
+			_log.warn("Player "+activeChar.getName()+" clicked object from outside of his knownlist.");
+		}
 
 		// If object requested does not exist, add warn msg into logs
 		if (obj == null)
@@ -82,7 +87,7 @@ public final class Action extends L2GameClientPacket
 			return;
 		}
 		// Check if the target is valid, if the player haven't a shop or isn't the requester of a transaction (ex : FriendInvite, JoinAlly, JoinParty...)
-		if (activeChar.getPrivateStoreType()==0 && activeChar.getActiveRequester()==null)
+		if (activeChar.getPrivateStoreType() == 0 && activeChar.getActiveRequester() == null)
 		{
 			switch (_actionId)
 			{

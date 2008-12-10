@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExPutItemResultForVariationCancel;
@@ -48,16 +47,21 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		L2ItemInstance item = (L2ItemInstance)L2World.getInstance().findObject(_itemId);
-		
-		if (activeChar == null || item == null) return;
+		if (activeChar == null)
+			return;
+
+		L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_itemId);
+
+		if (item == null)
+			return;
+
 		if (!item.isAugmented())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTATION_REMOVAL_CAN_ONLY_BE_DONE_ON_AN_AUGMENTED_ITEM));
-		return;
+			return;
 		}
 		
-		int price=0;
+		int price = 0;
 		switch (item.getItem().getItemGrade())
 		{
 			case L2Item.CRYSTAL_C:

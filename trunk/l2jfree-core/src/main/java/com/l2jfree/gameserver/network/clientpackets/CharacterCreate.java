@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.TaskPriority;
 import com.l2jfree.gameserver.datatables.CharNameTable;
@@ -52,7 +49,6 @@ import com.l2jfree.gameserver.templates.chars.L2PcTemplate.PcTemplateItem;
 public class CharacterCreate extends L2GameClientPacket
 {
 	private static final String _C__0B_CHARACTERCREATE = "[C] 0B CharacterCreate";
-	private final static Log _log = LogFactory.getLog(CharacterCreate.class.getName());
 	
 	// cSdddddddddddd
 	private String _name;

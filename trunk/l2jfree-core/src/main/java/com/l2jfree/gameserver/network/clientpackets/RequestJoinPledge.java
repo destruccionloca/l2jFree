@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -31,13 +34,15 @@ public class RequestJoinPledge extends L2GameClientPacket
 {
 	private static final String _C__24_REQUESTJOINPLEDGE = "[C] 24 RequestJoinPledge";
 
-	private int _target;
+	private final static Log _log = LogFactory.getLog(RequestJoinPledge.class.getName());
+
+	private int _objectId;
 	private int _pledgeType;
 
 	@Override
 	protected void readImpl()
 	{
-		_target  = readD();
+		_objectId  = readD();
 		_pledgeType = readD();
 	}
 
@@ -46,16 +51,7 @@ public class RequestJoinPledge extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
-		{
 			return;
-		}
-
-		L2Object ob = L2World.getInstance().findObject(_target);
-		if (!(ob instanceof L2PcInstance))
-		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET));
-			return;
-		}
 
 		L2Clan clan = activeChar.getClan();
 		if (clan == null)
@@ -64,7 +60,30 @@ public class RequestJoinPledge extends L2GameClientPacket
 			return;
 		}
 
-		L2PcInstance target = (L2PcInstance) ob;
+		L2Object obj = null;
+
+		// Get object from target
+		if (activeChar.getTargetId() == _objectId)
+			obj = activeChar.getTarget();
+
+		// Get object from knownlist
+		if (obj == null)
+			obj = activeChar.getKnownList().getKnownObject(_objectId);
+
+		// Get object from world
+		if (obj == null)
+		{
+			obj = L2World.getInstance().getPlayer(_objectId);
+			_log.warn("Player "+activeChar.getName()+" clan-invited player from outside of his knownlist.");
+		}
+
+		if (!(obj instanceof L2PcInstance))
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET));
+			return;
+		}
+
+		L2PcInstance target = (L2PcInstance) obj;
 		if (!clan.checkClanJoinCondition(activeChar, target, _pledgeType))
 		{
 			return;

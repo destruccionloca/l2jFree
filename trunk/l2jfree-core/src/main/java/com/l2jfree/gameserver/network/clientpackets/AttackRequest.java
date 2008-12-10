@@ -53,14 +53,29 @@ public class AttackRequest extends L2GameClientPacket
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
-		// avoid using expensive operations if not needed
-		L2Object target;
+		if (activeChar == null)
+			return;
+
+		L2Object target = null;
+
+		// Get object from target
 		if (activeChar.getTargetId() == _objectId)
 			target = activeChar.getTarget();
-		else
+
+		// Get object from knownlist
+		if (target == null)
+			target = activeChar.getKnownList().getKnownObject(_objectId);
+
+		// Get object from world
+		if (target == null)
+		{
 			target = L2World.getInstance().findObject(_objectId);
-		if (target == null) return;
+			_log.warn("Player "+activeChar.getName()+" attacked object from outside of his knownlist.");
+		}
+
+		if (target == null)
+			return;
+
 		if (activeChar.getTarget() != target)
 		{
 			target.onAction(activeChar);

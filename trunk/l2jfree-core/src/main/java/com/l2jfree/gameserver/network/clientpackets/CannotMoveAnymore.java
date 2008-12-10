@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -30,7 +27,6 @@ import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 public class CannotMoveAnymore extends L2GameClientPacket
 {
 	private static final String	_C__36_STOPMOVE	= "[C] 36 CannotMoveAnymore";
-	private final static Log	_log			= LogFactory.getLog(CannotMoveAnymore.class.getName());
 
 	private int					_x;
 	private int					_y;

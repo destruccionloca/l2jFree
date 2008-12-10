@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import java.io.File;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.L2JfreeInfo;
@@ -91,7 +88,6 @@ import com.l2jfree.gameserver.util.FloodProtector;
 public class EnterWorld extends L2GameClientPacket
 {
 	private static final String	_C__03_ENTERWORLD	= "[C] 03 EnterWorld";
-	private final static Log	_log				= LogFactory.getLog(EnterWorld.class.getName());
 
 	public TaskPriority getPriority()
 	{
@@ -495,18 +491,10 @@ public class EnterWorld extends L2GameClientPacket
 		if (cha.getPartnerId() != 0)
 		{
 			int objId = cha.getPartnerId();
-			L2Object obj = L2World.getInstance().findObject(cha.getPartnerId());
-			try
+			L2PcInstance partner = L2World.getInstance().getPlayer(cha.getPartnerId());
+			if (partner != null)
 			{
-				if (obj != null)
-				{
-					L2PcInstance partner = (L2PcInstance) obj;
-					partner.sendMessage("Your Partner has logged in");
-				}
-			}
-			catch (ClassCastException cce)
-			{
-				_log.warn("Wedding mod error. This ID: " + objId + " is now owned by an " + obj.getClass().getSimpleName());
+				partner.sendMessage("Your Partner " + cha.getName() + " has logged in.");
 			}
 		}
 	}
@@ -563,7 +551,7 @@ public class EnterWorld extends L2GameClientPacket
 	{
 		if (activeChar.getSponsor() != 0)
 		{
-			L2PcInstance sponsor = (L2PcInstance) L2World.getInstance().findObject(activeChar.getSponsor());
+			L2PcInstance sponsor = L2World.getInstance().getPlayer(activeChar.getSponsor());
 
 			if (sponsor != null)
 			{
@@ -574,7 +562,7 @@ public class EnterWorld extends L2GameClientPacket
 		}
 		else if (activeChar.getApprentice() != 0)
 		{
-			L2PcInstance apprentice = (L2PcInstance) L2World.getInstance().findObject(activeChar.getApprentice());
+			L2PcInstance apprentice = L2World.getInstance().getPlayer(activeChar.getApprentice());
 
 			if (apprentice != null)
 			{

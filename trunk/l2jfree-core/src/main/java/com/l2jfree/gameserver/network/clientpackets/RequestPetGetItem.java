@@ -14,9 +14,13 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
@@ -31,7 +35,8 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 public class RequestPetGetItem extends L2GameClientPacket
 {
 
-	//private final static Log _log = LogFactory.getLog(RequestPetGetItem.class.getName());
+	private final static Log _log = LogFactory.getLog(RequestPetGetItem.class.getName());
+
 	private static final String _C__8f_REQUESTPETGETITEM= "[C] 8F RequestPetGetItem";
 
 	private int _objectId;
@@ -49,10 +54,20 @@ public class RequestPetGetItem extends L2GameClientPacket
 		if (player == null)
 			return;
 
-		L2World world = L2World.getInstance();
-		L2ItemInstance item = (L2ItemInstance)world.findObject(_objectId);
-		if (item == null)
+		// Get object from knownlist
+		L2Object obj = player.getKnownList().getKnownObject(_objectId);
+
+		// Get object from world
+		if (obj == null)
+		{
+			obj = L2World.getInstance().findObject(_objectId);
+			_log.warn("Player "+player.getName()+" requested pet to pickup item from outside of his knownlist.");
+		}
+
+		if (!(obj instanceof L2ItemInstance))
 			return;
+
+		L2ItemInstance item = (L2ItemInstance)obj;
 
 		if(player.getPet() == null || player.getPet() instanceof L2SummonInstance)
 		{

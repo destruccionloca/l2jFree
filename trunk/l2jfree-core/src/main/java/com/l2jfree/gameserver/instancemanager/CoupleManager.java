@@ -131,8 +131,8 @@ public class CoupleManager
 		Couple couple = getCouples().get(index);
 		if (couple != null)
 		{
-			L2PcInstance player1 = (L2PcInstance) L2World.getInstance().findObject(couple.getPlayer1Id());
-			L2PcInstance player2 = (L2PcInstance) L2World.getInstance().findObject(couple.getPlayer2Id());
+			L2PcInstance player1 = L2World.getInstance().getPlayer(couple.getPlayer1Id());
+			L2PcInstance player2 = L2World.getInstance().getPlayer(couple.getPlayer2Id());
 			L2ItemInstance item = null;
 			if (player1 != null)
 			{

@@ -1571,7 +1571,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (getLastQuestNpcObject() > 0)
 			{
-				L2Object object = L2World.getInstance().findObject(getLastQuestNpcObject());
+				L2Object object = getKnownList().getKnownObject(getLastQuestNpcObject());
 				if (object instanceof L2NpcInstance && isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
 				{
 					L2NpcInstance npc = (L2NpcInstance) object;
@@ -3528,14 +3528,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public L2ItemInstance checkItemManipulation(int objectId, int count, String action)
 	{
-		if (L2World.getInstance().findObject(objectId) == null)
-		{
-			_log.debug(getObjectId() + ": player tried to " + action + " item not available in L2World");
-			return null;
-		}
-
 		L2ItemInstance item = getInventory().getItemByObjectId(objectId);
-		if (item == null || item.getOwnerId() != getObjectId())
+		if (item == null)
 		{
 			_log.debug(getObjectId() + ": player tried to " + action + " item he is not owner of");
 			return null;
@@ -12045,10 +12039,11 @@ public final class L2PcInstance extends L2PlayableInstance
 			return;
 		else
 		{
-			L2PcInstance ptarget = (L2PcInstance) L2World.getInstance().findObject(_engageid);
+			L2Object obj = getKnownList().getKnownObject(_engageid);
 			setEngageRequest(false, 0);
-			if (ptarget != null)
+			if (obj instanceof L2PcInstance)
 			{
+				L2PcInstance ptarget = (L2PcInstance) obj;
 				if (answer == 1)
 				{
 					CoupleManager.getInstance().createCouple(ptarget, L2PcInstance.this);
@@ -12056,6 +12051,10 @@ public final class L2PcInstance extends L2PlayableInstance
 				}
 				else
 					ptarget.sendMessage("Engage declined.");
+			}
+			else
+			{
+				sendMessage("Too far away.");
 			}
 		}
 	}

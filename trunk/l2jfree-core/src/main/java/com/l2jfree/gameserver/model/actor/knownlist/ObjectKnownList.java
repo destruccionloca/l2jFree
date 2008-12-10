@@ -120,56 +120,61 @@ public class ObjectKnownList
 		getKnownObjects().clear();
 	}
 	
-    /**
-     * Remove a specific object of the known object for this active object
-     * @param object
-     * @return
-     */
-    public boolean removeKnownObject(L2Object object)
-    {
-        if (object == null)
-            return false;
-        return (getKnownObjects().remove(object.getObjectId()) != null);
-    }
+	/**
+	 * Remove a specific object of the known object for this active object
+	 * @param object
+	 * @return
+	 */
+	public boolean removeKnownObject(L2Object object)
+	{
+		if (object == null)
+			return false;
+		return (getKnownObjects().remove(object.getObjectId()) != null);
+	}
 
-    /**
-     * @return the active object
-     */
-    public L2Object getActiveObject()
-    {
-        return _activeObject;
-    }
+	/**
+	 * @return the active object
+	 */
+	public L2Object getActiveObject()
+	{
+		return _activeObject;
+	}
 
-    /**
-     * Return the distance to forget object
-     * @param object
-     * @return 0
-     */
-    public int getDistanceToForgetObject(L2Object object)
-    {
-        return 0;
-    }
-    
-    /**
-     * Return the distance to watch object
-     * @param object
-     * @return 0
-     */
-    public int getDistanceToWatchObject(L2Object object)
-    {
-        return 0;
-    }
+	/**
+	 * Return the distance to forget object
+	 * @param object
+	 * @return 0
+	 */
+	public int getDistanceToForgetObject(L2Object object)
+	{
+		return 0;
+	}
 
-    /**
-     * @return the _knownObjects containing all L2Object known by the active L2Object
-     */
-    public final Map<Integer, L2Object> getKnownObjects()
-    {
-        if (_knownObjects == null)
-            _knownObjects = new SingletonMap<Integer, L2Object>().setShared();
-        
-        return _knownObjects;
-    }
+	/**
+	 * Return the distance to watch object
+	 * @param object
+	 * @return 0
+	 */
+	public int getDistanceToWatchObject(L2Object object)
+	{
+		return 0;
+	}
+
+	/**
+	 * @return the _knownObjects containing all L2Object known by the active L2Object
+	 */
+	public final Map<Integer, L2Object> getKnownObjects()
+	{
+		if (_knownObjects == null)
+			_knownObjects = new SingletonMap<Integer, L2Object>().setShared();
+		
+		return _knownObjects;
+	}
+
+	public final L2Object getKnownObject(int objectId)
+	{
+		return getKnownObjects().get(objectId);
+	}
 	
 	public final void tryAddObjects(List<L2Object> addList)
 	{

@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.model.BlockList;
@@ -38,7 +34,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class TradeRequest extends L2GameClientPacket
 {
 	private static final String TRADEREQUEST__C__15 = "[C] 15 TradeRequest";
-	private final static Log _log = LogFactory.getLog(TradeRequest.class.getName());
 	
 	private int _objectId;
 	
@@ -70,16 +65,30 @@ public class TradeRequest extends L2GameClientPacket
 			return;
 		}
 
-		
-		L2Object target = L2World.getInstance().findObject(_objectId);
-		if (!(target instanceof L2PcInstance) || !player.getKnownList().knowsObject(target) 
-				|| (target.getObjectId() == player.getObjectId()))
+		L2Object obj = null;
+
+		// Get object from target
+		if (player.getTargetId() == _objectId)
+			obj = player.getTarget();
+
+		// Get object from knownlist
+		if (obj == null)
+			obj = player.getKnownList().getKnownObject(_objectId);
+
+		// Get object from world
+		if (obj == null)
+		{
+			obj = L2World.getInstance().getPlayer(_objectId);
+			_log.warn("Player "+player.getName()+" requested trade from player from outside of his knownlist.");
+		}
+
+		if (!(obj instanceof L2PcInstance) || obj.getObjectId() == player.getObjectId())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return;
 		}
 
-		L2PcInstance partner = (L2PcInstance)target;
+		L2PcInstance partner = (L2PcInstance)obj;
 
 		if (partner.isInOlympiadMode() || player.isInOlympiadMode())
 		{

@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.TaskPriority;
 import com.l2jfree.gameserver.geoeditorcon.GeoEditorListener;
@@ -35,7 +31,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class ValidatePosition extends L2GameClientPacket
 {
-    private final static Log _log = LogFactory.getLog(ValidatePosition.class.getName());
     private static final String _C__48_VALIDATEPOSITION = "[C] 48 ValidatePosition";
 
     /** urgent messages, execute immediately */

@@ -92,7 +92,8 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
+        if (player == null || player.isCursedWeaponEquipped())
+            return;
 
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
             && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
@@ -102,13 +103,30 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
             return;
         }
 
-        L2Object object = L2World.getInstance().findObject(_storePlayerId);
-        if (!(object instanceof L2PcInstance)) return;
-        L2PcInstance storePlayer = (L2PcInstance)object;
-        if (storePlayer.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_BUY) return;
+        L2Object object = null;
 
-        if(player.isCursedWeaponEquipped()) 
-            return; 
+        // Get object from target
+        if (player.getTargetId() == _storePlayerId)
+            object = player.getTarget();
+
+        // Get object from knownlist
+        if (object == null)
+            object = player.getKnownList().getKnownObject(_storePlayerId);
+
+        // Get object from world
+        if (object == null)
+        {
+            object = L2World.getInstance().getPlayer(_storePlayerId);
+            _log.warn("Player "+player.getName()+" requested private shop from outside of his knownlist.");
+        }
+
+        if (!(object instanceof L2PcInstance))
+            return;
+
+        L2PcInstance storePlayer = (L2PcInstance) object;
+
+        if (storePlayer.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_BUY)
+            return;
 
         TradeList storeList = storePlayer.getBuyList();
         if (storeList == null) return;

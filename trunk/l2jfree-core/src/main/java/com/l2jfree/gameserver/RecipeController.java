@@ -683,7 +683,7 @@ public class RecipeController
 			if (_target == _player)
 				_target.sendPacket(new RecipeItemMakeInfo(_recipeList.getId(), _target, success));
 			else
-				_target.sendPacket(new RecipeShopItemInfo(_player.getObjectId(), _recipeList.getId()));
+				_target.sendPacket(new RecipeShopItemInfo(_player, _recipeList.getId()));
 		}
 
 		private void updateCurLoad()

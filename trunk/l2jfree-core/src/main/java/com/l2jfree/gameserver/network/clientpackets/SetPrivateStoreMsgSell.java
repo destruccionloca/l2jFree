@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgSell;
 public class SetPrivateStoreMsgSell extends L2GameClientPacket
 {
 	private static final String _C__77_SETPRIVATESTOREMSGSELL = "[C] 77 SetPrivateStoreMsgSell";
-	//private final static Log _log = LogFactory.getLog(SetPrivateStoreMsgSell.class.getName());
 
 	private String _storeMsg;
 

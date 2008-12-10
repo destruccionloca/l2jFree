@@ -215,7 +215,7 @@ public class L2PetInstance extends L2Summon
     	if (pet != null)
     	{
     		L2World.getInstance().addPet(owner.getObjectId(), pet);
-    		ThreadPoolManager.getInstance().scheduleGeneral(new PetMountTimer(pet.getOwner().getObjectId()), 3000L);
+    		ThreadPoolManager.getInstance().scheduleGeneral(pet.new PetMountTimer(), 3000L);
     	}
     	
     	return pet;
@@ -1100,26 +1100,12 @@ public class L2PetInstance extends L2Summon
     {
     	_mountableOverTime = mountable;
     }
-    
-    private static final class PetMountTimer implements Runnable
-    {
-    	private final int _ownerObjId;
-    	
-    	PetMountTimer(final int ownerObjId)
-    	{
-    		_ownerObjId = ownerObjId;
-    	}
-    	
-        @Override
-        public void run()
-        {
-        	L2PcInstance player = (L2PcInstance)L2World.getInstance().findObject(_ownerObjId);
-        	if (player != null)
-        	{
-        		L2Summon pet = player.getPet();
-        		if (pet != null && pet instanceof L2PetInstance)
-        			((L2PetInstance)pet).setIsMountableOverTime(true);
-        	}
-        }
-    }
+
+	private final class PetMountTimer implements Runnable
+	{
+		public void run()
+		{
+			setIsMountableOverTime(true);
+		}
+	}
 }

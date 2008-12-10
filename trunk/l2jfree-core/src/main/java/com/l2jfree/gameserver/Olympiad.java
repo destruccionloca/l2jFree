@@ -867,20 +867,12 @@ public class Olympiad
 			}
 		}
 
-		for (L2OlympiadGame g : _manager.getOlympiadGames().values())
+		L2PcInstance participant = getParticipant(noble.getObjectId());
+		if (participant != null)
 		{
-			if (g == null || g.getPlayers() == null)
-				continue;
-
-			for (L2PcInstance player : g.getPlayers())
-			{
-				if (player.getObjectId() == noble.getObjectId())
-				{
-					sm = new SystemMessage(SystemMessageId.YOU_ARE_ALREADY_ON_THE_WAITING_LIST_FOR_ALL_CLASSES_WAITING_TO_PARTICIPATE_IN_THE_GAME);
-					noble.sendPacket(sm);
-					return false;
-				}
-			}
+			sm = new SystemMessage(SystemMessageId.YOU_ARE_ALREADY_ON_THE_WAITING_LIST_FOR_ALL_CLASSES_WAITING_TO_PARTICIPATE_IN_THE_GAME);
+			noble.sendPacket(sm);
+			return false;
 		}
 
 		if (getNoblePoints(noble.getObjectId()) < 3)
@@ -2819,5 +2811,23 @@ public class Olympiad
 				}
 			}
 		}
+	}
+
+	public L2PcInstance getParticipant(int objectId)
+	{
+		for (L2OlympiadGame g : _manager.getOlympiadGames().values())
+		{
+			if (g == null || g.getPlayers() == null)
+				continue;
+
+			for (L2PcInstance player : g.getPlayers())
+			{
+				if (player.getObjectId() == objectId)
+				{
+					return player;
+				}
+			}
+		}
+		return null;
 	}
 }

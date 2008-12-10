@@ -14,17 +14,12 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author zabbix
  * Lets drink to code!
  */
 public class DummyPacket extends L2GameClientPacket
 {
-	private final static Log _log = LogFactory.getLog(DummyPacket.class.getName());
-	
 	private int _packetId;
 	
     @Override

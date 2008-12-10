@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -47,7 +44,6 @@ import com.l2jfree.gameserver.util.FloodProtector;
  */
 public class UseItem extends L2GameClientPacket
 {
-	private final static Log	_log			= LogFactory.getLog(UseItem.class.getName());
 	private static final String	_C__14_USEITEM	= "[C] 14 UseItem";
 
 	private int					_objectId;

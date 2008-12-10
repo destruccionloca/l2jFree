@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.model.L2World;
@@ -37,7 +33,6 @@ import com.l2jfree.gameserver.network.serverpackets.TradeOwnAdd;
 public class AddTradeItem extends L2GameClientPacket
 {
     private static final String _C__16_ADDTRADEITEM = "[C] 16 AddTradeItem";
-    private final static Log _log = LogFactory.getLog(AddTradeItem.class.getName());
 
     private int _tradeId;
     private int _objectId;
@@ -74,7 +69,7 @@ public class AddTradeItem extends L2GameClientPacket
             return;
         }
 
-        if (trade.getPartner() == null || L2World.getInstance().findObject(trade.getPartner().getObjectId()) == null)
+        if (trade.getPartner() == null || L2World.getInstance().getPlayer(trade.getPartner().getObjectId()) == null)
         {
             // Trade partner not found, cancel trade
             if (trade.getPartner() != null)

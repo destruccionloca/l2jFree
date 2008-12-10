@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 public class CharacterRestore extends L2GameClientPacket
 {
 	private static final String _C__62_CHARACTERRESTORE = "[C] 62 CharacterRestore";
-	//private final static Log _log = LogFactory.getLog(CharacterRestore.class.getName());
 
 	// cd
 	@SuppressWarnings("unused")

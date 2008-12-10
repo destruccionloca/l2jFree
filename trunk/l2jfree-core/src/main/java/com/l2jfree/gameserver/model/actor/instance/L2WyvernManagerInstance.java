@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -53,47 +52,46 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                 return;
             }
 
-            int petItemId=0;
+            int petItemId = 0;
             L2ItemInstance petItem = null;
             
-            if(player.getPet()==null) 
+            if (player.getPet() == null) 
             {
-                if(player.isMounted())
+                if (player.isMounted())
                 {
-                    petItem = (L2ItemInstance)L2World.getInstance().findObject(player.getMountObjectID());
-                    
-                    if (petItem!=null)
-                    	petItemId=petItem.getItemId();
+                    petItem = player.getInventory().getItemByObjectId(player.getMountObjectID());
+                    if (petItem != null)
+                        petItemId = petItem.getItemId();
                 }
             }
             else 
                 petItemId = player.getPet().getControlItemId(); 
 
-            if  ( petItemId==0 || !player.isMounted() || 
+            if (petItemId == 0 || !player.isMounted() || 
                  !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)))
             {
                 player.sendPacket(SystemMessageId.YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER);
                 return;
             }
-            else if ( player.isMounted() &&  PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) &&
-                         petItem != null && petItem.getEnchantLevel() < 55 )
+            else if (player.isMounted() && PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) &&
+                         petItem != null && petItem.getEnchantLevel() < 55)
             {
                 player.sendMessage("Your Strider has not reached the required level.");
                 return; 
             }
             
             // Wyvern requires Config.MANAGER_CRYSTAL_COUNT crystal for ride...
-            if(player.getInventory().getItemByItemId(1460) != null &&
+            if (player.getInventory().getItemByItemId(1460) != null &&
                     player.getInventory().getItemByItemId(1460).getCount() >= Config.ALT_MANAGER_CRYSTAL_COUNT)
             {
                 if(!player.disarmWeapons())
-                	return;
+                    return;
                 
                 if (player.isMounted())
-                	player.dismount();
+                    player.dismount();
                 
                 if (player.getPet() != null)
-                	player.getPet().unSummon(player);
+                    player.getPet().unSummon(player);
 
                 if (player.mount(12621, 0))
                 {
@@ -103,7 +101,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                 }
             }
             else
-            	player.sendMessage("You need " + Config.ALT_MANAGER_CRYSTAL_COUNT + " Crystals: B Grade.");
+                player.sendMessage("You need " + Config.ALT_MANAGER_CRYSTAL_COUNT + " Crystals: B Grade.");
         }
     }
 

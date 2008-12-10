@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.network.serverpackets.TradeDone;
 public class AnswerTradeRequest extends L2GameClientPacket
 {
     private static final String _C__40_ANSWERTRADEREQUEST = "[C] 40 AnswerTradeRequest";
-    //private final static Log _log = LogFactory.getLog(AnswerTradeRequest.class.getName());
 
     private int _response;
 
@@ -64,7 +63,7 @@ public class AnswerTradeRequest extends L2GameClientPacket
 
         
         L2PcInstance partner = player.getActiveRequester();
-        if (partner == null || L2World.getInstance().findObject(partner.getObjectId()) == null)
+        if (partner == null || L2World.getInstance().getPlayer(partner.getObjectId()) == null)
         {
             // Trade partner not found, cancel trade
             player.sendPacket(new TradeDone(0));
@@ -75,7 +74,10 @@ public class AnswerTradeRequest extends L2GameClientPacket
             return;
         }
 
-		if (_response == 1) player.startTrade(partner);
+		if (_response == 1)
+		{
+			player.startTrade(partner);
+		}
 		else
 		{
 			SystemMessage msg = new SystemMessage(SystemMessageId.S1_DENIED_TRADE_REQUEST);

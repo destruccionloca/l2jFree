@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.entity.Couple;
@@ -94,7 +95,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
         String replace = "";
         
         // if player has no partner
-        if(player.getPartnerId()==0)
+        if(player.getPartnerId() == 0)
         {
             filename = "data/html/wedding/nopartner.htm";
             sendHtmlMessage(player, filename, replace);
@@ -102,9 +103,10 @@ public class L2WeddingManagerInstance extends L2NpcInstance
         }
         else
         {
-            L2PcInstance ptarget = (L2PcInstance)L2World.getInstance().findObject(player.getPartnerId());
+            L2Object obj = L2World.getInstance().findObject(player.getPartnerId());
+            L2PcInstance ptarget = obj instanceof L2PcInstance ? (L2PcInstance) obj : null;
             // partner online ?
-            if(ptarget==null || ptarget.isOnline()==0)
+            if(ptarget == null || ptarget.isOnline() == 0)
             {
                 filename = "data/html/wedding/notfound.htm";
                 sendHtmlMessage(player, filename, replace);

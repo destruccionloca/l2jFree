@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.Olympiad;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -40,7 +36,6 @@ import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 public class Logout extends L2GameClientPacket
 {
     private static final String _C__09_LOGOUT = "[C] 09 Logout";
-    private final static Log _log = LogFactory.getLog(Logout.class.getName());
     
     // c
 

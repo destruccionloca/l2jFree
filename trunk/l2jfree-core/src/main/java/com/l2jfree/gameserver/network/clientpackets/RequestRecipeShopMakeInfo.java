@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopItemInfo;
 
@@ -24,33 +26,51 @@ import com.l2jfree.gameserver.network.serverpackets.RecipeShopItemInfo;
  */
 public class RequestRecipeShopMakeInfo extends L2GameClientPacket
 {
-    private static final String _C__B5_RequestRecipeShopMakeInfo = "[C] b5 RequestRecipeShopMakeInfo";
-    
-    @SuppressWarnings("unused")
-    private int _playerObjectId;
-    private int _recipeId;
-    
-    @Override
-    protected void readImpl()
-    {
-        _playerObjectId = readD();
-        _recipeId = readD();
-    }
+	private static final String _C__B5_RequestRecipeShopMakeInfo = "[C] b5 RequestRecipeShopMakeInfo";
 
-    @Override
-    protected void runImpl()
+	private int _objectId;
+	private int _recipeId;
+
+	@Override
+	protected void readImpl()
 	{
-        L2PcInstance player = getClient().getActiveChar();
-	    if (player == null)
-	        return;
+		_objectId = readD();
+		_recipeId = readD();
+	}
 
-        player.sendPacket(new RecipeShopItemInfo(_playerObjectId,_recipeId));
-        
-    }
-    
-    @Override
-    public String getType()
-    {
-        return _C__B5_RequestRecipeShopMakeInfo;
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+
+		L2Object obj = null;
+
+		// Get object from target
+		if (activeChar.getTargetId() == _objectId)
+			obj = activeChar.getTarget();
+
+		// Get object from knownlist
+		if (obj == null)
+			obj = activeChar.getKnownList().getKnownObject(_objectId);
+
+		// Get object from world
+		if (obj == null)
+		{
+			obj = L2World.getInstance().getPlayer(_objectId);
+			_log.warn("Player "+activeChar.getName()+" requested recipe info from player from outside of his knownlist.");
+		}
+
+		if (!(obj instanceof L2PcInstance))
+			return;
+
+		activeChar.sendPacket(new RecipeShopItemInfo((L2PcInstance) obj, _recipeId));
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__B5_RequestRecipeShopMakeInfo;
+	}
 }

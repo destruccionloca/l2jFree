@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExPutItemResultForVariationMake;
@@ -48,9 +47,10 @@ public final class RequestConfirmTargetItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		L2ItemInstance item = (L2ItemInstance)L2World.getInstance().findObject(_itemObjId);
+		L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_itemObjId);
 		
-		if (item == null) return;
+		if (item == null)
+			return;
 		
 		if (activeChar.getLevel() < 46)
 		{

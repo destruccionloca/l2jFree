@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.TaskPriority;
 import com.l2jfree.gameserver.LoginServerThread.SessionKey;
@@ -31,8 +27,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
 public class AuthLogin extends L2GameClientPacket
 {
 	private static final String _C__08_AUTHLOGIN = "[C] 08 AuthLogin";
-	private final static Log _log = LogFactory.getLog(AuthLogin.class.getName());
-	
+
     // loginName + keys must match what the loginserver used.  
     private String _loginName;
     /*private final long _key1;

@@ -33,7 +33,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class SetPrivateStoreListSell extends L2GameClientPacket
 {
     private static final String _C__74_SETPRIVATESTORELISTSELL = "[C] 74 SetPrivateStoreListSell";
-    //private final static Log _log = LogFactory.getLog(SetPrivateStoreListSell.class.getName());
 
     private int _count;
     private boolean _packageSale;

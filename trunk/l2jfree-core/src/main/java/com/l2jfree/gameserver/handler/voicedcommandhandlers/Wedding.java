@@ -88,9 +88,7 @@ public class Wedding implements IVoicedCommandHandler
 		else
 			activeChar.sendMessage("You have broken up as a couple.");
 
-		L2PcInstance partner;
-		partner = (L2PcInstance) L2World.getInstance().findObject(_partnerId);
-
+		L2PcInstance partner = L2World.getInstance().getPlayer(_partnerId);
 		if (partner != null)
 		{
 			partner.setPartnerId(0);
@@ -289,8 +287,7 @@ public class Wedding implements IVoicedCommandHandler
 			return false;
 		}
 
-		L2PcInstance partner;
-		partner = (L2PcInstance) L2World.getInstance().findObject(activeChar.getPartnerId());
+		L2PcInstance partner = L2World.getInstance().getPlayer(activeChar.getPartnerId());
 		if (partner != null)
 		{
 			siege = SiegeManager.getInstance().getSiege(partner);

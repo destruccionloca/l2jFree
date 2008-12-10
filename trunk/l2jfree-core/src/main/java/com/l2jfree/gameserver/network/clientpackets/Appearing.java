@@ -30,9 +30,6 @@ import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 public class Appearing extends L2GameClientPacket
 {
 	private static final String _C__30_APPEARING = "[C] 30 Appearing";
-	//private final static Log _log = LogFactory.getLog(Appearing.class.getName());
-
-	// c
 
 	@Override
 	protected void readImpl()

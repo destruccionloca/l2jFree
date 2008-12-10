@@ -313,14 +313,12 @@ public class TradeList
             _log.warn(_owner.getName() + ": Attempt to modify locked TradeList!");
             return null;
         }
-        L2Object o = L2World.getInstance().findObject(objectId);
-        if (!(o instanceof L2ItemInstance))
+        L2ItemInstance item = _owner.getInventory().getItemByObjectId(objectId);
+        if (item == null)
         {
             _log.warn(_owner.getName() + ": Attempt to add invalid item to TradeList!");
             return null;
         }
-
-        L2ItemInstance item = (L2ItemInstance)o;
 
         if ((!item.isTradeable() && !_owner.isGM()) || item.getItemType() == L2EtcItemType.QUEST)
             return null;
@@ -521,7 +519,7 @@ public class TradeList
     private boolean validate()
     {
         // Check for Owner validity
-        if (_owner == null || L2World.getInstance().findObject(_owner.getObjectId()) == null)
+        if (_owner == null || L2World.getInstance().getPlayer(_owner.getObjectId()) == null)
         {
             _log.warn("Invalid owner of TradeList");
             return false;
