@@ -46,7 +46,7 @@ class Quest (JQuest) :
         st.takeItems(BROKEN_SWORD_HANDLE,-1)
         for item in range(4412,4417) :
             st.giveItems(item,10)   # Echo crystals
-        st.giveExpAndSp(25747,2171)
+        st.addExpAndSp(25747,2171)
         st.set("cond","0")
         st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")
