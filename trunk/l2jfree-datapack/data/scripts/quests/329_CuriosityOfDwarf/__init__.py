@@ -46,7 +46,7 @@ class Quest (JQuest) :
    else :
       heart=st.getQuestItemsCount(GOLEM_HEARTSTONE)
       broken=st.getQuestItemsCount(BROKEN_HEARTSTONE)
-	if broken+heart >= 10
+	if broken+heart >= 10 :
          bonus = 1183
       if broken+heart>0 :
          st.rewardItems(ADENA,50*broken+1000*heart+bonus )
