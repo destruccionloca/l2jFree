@@ -128,9 +128,9 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_accept")
    elif event == "31272-5.htm" :
      if cond == 20 :
+       st.set("cond","21")
        st.takeItems(LUNARGENT,5)
        st.takeItems(HELLFIRE_OIL,1)
-       st.set("cond","21")
        st.playSound("ItemSound.quest_accept")
    elif event == "31740-5.htm" :
      if cond == 21 :
