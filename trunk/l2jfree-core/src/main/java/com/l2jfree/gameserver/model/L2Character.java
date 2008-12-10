@@ -537,7 +537,7 @@ public abstract class L2Character extends L2Object
 		abortAttack();
 		abortCast();
 		isFalling(false, 0);
-		getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 		setIsTeleporting(true);
 
 		if (Config.RESPAWN_RANDOM_ENABLED && allowRandomOffset)
@@ -6261,21 +6261,21 @@ public abstract class L2Character extends L2Object
 		// Remove the skill from the L2Character _skills
 		L2Skill oldSkill = _skills.remove(skillId);
 
-		try
-		{
-			if (oldSkill.getElement() != 0)
-			{
-				getStat().removeElement(oldSkill);
-			}
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-		}
-
 		// Remove all its Func objects from the L2Character calculator set
 		if (oldSkill != null)
 		{
+			try
+			{
+				if (oldSkill.getElement() != 0)
+				{
+					getStat().removeElement(oldSkill);
+				}
+			}
+			catch (Exception e)
+			{
+				_log.error(e.getMessage(), e);
+			}
+
 			//this is just a fail-safe againts buggers and gm dummies...
 			if ((oldSkill.bestowTriggered() || oldSkill.triggerAnotherSkill()) && oldSkill.getTriggeredId() > 0)
 			{
