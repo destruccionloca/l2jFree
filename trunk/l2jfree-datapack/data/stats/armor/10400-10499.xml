@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "armors.dtd">
 <list>
-  <item id='10416' name="Red Talisman - Explosion">
+  <item id='10416' name="Blue Talisman - Explosion">
   </item>
-  <item id='10417' name="Red Talisman - Magic Explosion Power">
+  <item id='10417' name="Blue Talisman - Magic Explosion">
   </item>
   <item id='10418' name="White Talisman - Storm">
   </item>
@@ -34,21 +34,57 @@
   <item id='10490' name="Dynasty Jeweled Leather Armor - Summoner">
   </item>
   <item id='10491' name="Silk Shirt - HP">
+    <for>
+      <add val='17' order='0x10' stat='pDef'/>
+      <enchant val='0' order='0x0C' stat='pDef'/>
+    </for>
   </item>
   <item id='10492' name="Silk Shirt - MP">
+    <for>
+      <add val='17' order='0x10' stat='pDef'/>
+      <enchant val='0' order='0x0C' stat='pDef'/>
+    </for>
   </item>
   <item id='10493' name="Silk Shirt - CP">
+    <for>
+      <add val='17' order='0x10' stat='pDef'/>
+      <enchant val='0' order='0x0C' stat='pDef'/>
+    </for>
   </item>
   <item id='10494' name="Thin Leather Shirt - HP">
+    <for>
+      <add val='21' order='0x10' stat='pDef'/>
+      <enchant val='0' order='0x0C' stat='pDef'/>
+    </for>
   </item>
   <item id='10495' name="Thin Leather Shirt - MP">
+    <for>
+      <add val='21' order='0x10' stat='pDef'/>
+      <enchant val='0' order='0x0C' stat='pDef'/>
+    </for>
   </item>
   <item id='10496' name="Thin Leather Shirt - CP">
+    <for>
+      <add val='21' order='0x10' stat='pDef'/>
+      <enchant val='0' order='0x0C' stat='pDef'/>
+    </for>
   </item>
   <item id='10497' name="Scale Shirt - HP">
+    <for>
+      <add val='23' order='0x10' stat='pDef'/>
+      <enchant val='0' order='0x0C' stat='pDef'/>
+    </for>
   </item>
   <item id='10498' name="Scale Shirt - MP">
+    <for>
+      <add val='23' order='0x10' stat='pDef'/>
+      <enchant val='0' order='0x0C' stat='pDef'/>
+    </for>
   </item>
   <item id='10499' name="Scale Shirt - CP">
+    <for>
+      <add val='23' order='0x10' stat='pDef'/>
+      <enchant val='0' order='0x0C' stat='pDef'/>
+    </for>
   </item>
 </list>

@@ -604,12 +604,10 @@
   </skill>
   <skill id="317" levels="5" name="Focus Attack">
     <!--
-      has estimations for values based on L2P - needs to be
-      finished
+      has estimations for values based on L2P - needs to be finished
     -->
     <table name="#mpConsume">18 22 27 31 34</table>
-    <table name="#crit">1.1 1.12 1.13 1.14 1.15</table>
-    <!-- These are proper - 02/May/2008-->
+    <table name="#crit">1.05 1.1 1.15 1.2 1.3</table>
     <table name="#Accuracy">3 3 4 5 5</table>
     <table name="#atkCountMax">1 1 1 1 1</table>
     <set name="weaponsAllowed" val="64"/> <!-- Pole -->
@@ -701,8 +699,7 @@
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
     <!--
-      Skill does not work as intended.. probably doesn't do
-      much at all
+      Skill does not work as intended.. probably doesn't do much at all
     -->
     <!-- Missing CP decrease by percent -->
     <table name="#ench2MpConsume"> 74 73 72 71 70 69 68 67 66 65 64 63
@@ -746,6 +743,7 @@
     <set name="coolTime" val="720" />
     <set name="skillType" val="BLOW" />
     <set name="lethal1" val="5" />
+    <set name="overHit" val="true"/>
     <set name="isDebuff" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="40" />

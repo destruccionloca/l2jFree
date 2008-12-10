@@ -160,7 +160,7 @@
       <add val='30' order='0x10' stat='mDef' />
     </for>
   </item>
-  <item id='12334' name="Common Item - Mermaid Teardrop">
+  <item id='12334' name="Common Item - Necklace of Mermaid">
     <for>
       <add val='60' order='0x10' stat='mDef' />
     </for>

@@ -31,7 +31,7 @@
       <enchant val='0' order='0x0C' stat='mDef' />
     </for>
   </item>
-  <item id='10214' name="Dynasty Leather Armor">
+  <item id='10214' name="Dynasty Leather Armor Summoner">
     <for>
       <add val='170' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
@@ -43,25 +43,25 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='10228' name="Dynasty Platinum Plate">
+  <item id='10228' name="Dynasty Platinum Plate Shield Master">
     <for>
       <add val='220' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='10229' name="Dynasty Platinum Plate">
+  <item id='10229' name="Dynasty Platinum Plate Weapon Master">
     <for>
       <add val='220' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='10230' name="Dynasty Platinum Plate">
+  <item id='10230' name="Dynasty Platinum Plate Force Master">
     <for>
       <add val='220' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='10231' name="Dynasty Platinum Plate">
+  <item id='10231' name="Dynasty Platinum Plate Bard">
     <for>
       <add val='220' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
@@ -73,13 +73,13 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='10233' name="Dynasty Jewel Leather Mail">
+  <item id='10233' name="Dynasty Jewel Leather Mail Dagger Master">
     <for>
       <add val='166' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='10234' name="Dynasty Jewel Leather Mail">
+  <item id='10234' name="Dynasty Jewel Leather Mail Bow Master">
     <for>
       <add val='166' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
@@ -92,28 +92,28 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='10236' name="Dynasty Silver Satin Tunic">
+  <item id='10236' name="Dynasty Silver Satin Tunic Healer">
     <for>
       <add val='110' order='0x10' stat='pDef' />
       <add val='592' order='0x10' stat='maxMp' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='10237' name="Dynasty Silver Satin Tunic">
+  <item id='10237' name="Dynasty Silver Satin Tunic Enchanter">
     <for>
       <add val='110' order='0x10' stat='pDef' />
       <add val='592' order='0x10' stat='maxMp' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='10238' name="Dynasty Silver Satin Tunic">
+  <item id='10238' name="Dynasty Silver Satin Tunic Summoner">
     <for>
       <add val='110' order='0x10' stat='pDef' />
       <add val='592' order='0x10' stat='maxMp' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='10239' name="Dynasty Silver Satin Tunic">
+  <item id='10239' name="Dynasty Silver Satin Tunic Human Wizard">
     <for>
       <add val='110' order='0x10' stat='pDef' />
       <add val='592' order='0x10' stat='maxMp' />

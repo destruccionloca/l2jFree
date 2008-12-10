@@ -279,7 +279,7 @@
       <add val='73' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='12256' name="Common Item - Majestic\tPlate Armor">
+  <item id='12256' name="Common Item - Majestic Plate Armor">
     <for>
       <add val='293' order='0x10' stat='pDef' />
     </for>
@@ -366,7 +366,7 @@
       <add val='49' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='12274' name="Common Item - \tNightmarish Leather Armor">
+  <item id='12274' name="Common Item - Nightmarish Leather Armor">
     <for>
       <add val='220' order='0x10' stat='pDef' />
     </for>

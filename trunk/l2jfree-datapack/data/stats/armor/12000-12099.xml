@@ -32,7 +32,7 @@
       <add val='66' order='0x60' stat='maxMp' />
     </for>
   </item>
-  <item id='12012' name="Common Item - \tIron Plate Gaiters">
+  <item id='12012' name="Common Item - Iron Plate Gaiters">
     <for>
       <add val='48' order='0x10' stat='pDef' />
     </for>
@@ -86,12 +86,12 @@
       <add val='126' order='0x60' stat='maxMp' />
     </for>
   </item>
-  <item id='12023' name="Common Item - \tScale Gaiters">
+  <item id='12023' name="Common Item - Scale Gaiters">
     <for>
       <add val='54' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='12024' name="Common Item - \tScale Mail">
+  <item id='12024' name="Common Item - Scale Mail">
     <for>
       <add val='87' order='0x10' stat='pDef' />
     </for>
@@ -128,7 +128,7 @@
       <add val='95' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='12032' name="Common Item - \tCompound Scale Mail">
+  <item id='12032' name="Common Item - Compound Scale Mail">
     <for>
       <add val='95' order='0x10' stat='pDef' />
     </for>
@@ -163,7 +163,7 @@
       <add val='24' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='12039' name="Common Item - \tDwarven Scale Gaiters">
+  <item id='12039' name="Common Item - Dwarven Scale Gaiters">
     <for>
       <add val='61' order='0x10' stat='pDef' />
     </for>

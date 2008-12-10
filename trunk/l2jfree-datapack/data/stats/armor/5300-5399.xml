@@ -58,13 +58,13 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='5309' name="Sealed Phoenix Gloves's_gloves">
+  <item id='5309' name="Sealed Phoenix Gloves">
     <for>
       <add val='45' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='5310' name="Sealed Phoenix Boots's_boots">
+  <item id='5310' name="Sealed Phoenix Boots">
     <for>
       <add val='45' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />

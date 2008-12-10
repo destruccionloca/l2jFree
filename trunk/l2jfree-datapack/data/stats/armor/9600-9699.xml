@@ -23,7 +23,7 @@
   </item>
   <item id='9615' name="Agathion Seal Bracelet - Schuttgart">
   </item>
-  <item id='9662' name="Black Hair Wolf Scale Armor">
+  <item id='9662' name="Great Wolf Scale Armor">
     <for>
       <add val='112' order='0x10' stat='pDef' />
       <add val='14' order='0x10' stat='mDef' />
@@ -31,7 +31,7 @@
       <enchant val='0' order='0x0C' stat='mDef' />
     </for>
   </item>
-  <item id='9663' name="Black Hair Wolf Bronze Armor">
+  <item id='9663' name="Great Wolf Bronze Armor">
     <for>
       <add val='124' order='0x10' stat='pDef' />
       <add val='14' order='0x10' stat='mDef' />
@@ -39,7 +39,7 @@
       <enchant val='0' order='0x0C' stat='mDef' />
     </for>
   </item>
-  <item id='9664' name="Black Hair Wolf Plate Armor">
+  <item id='9664' name="Great Wolf Plate Armor">
     <for>
       <add val='136' order='0x10' stat='pDef' />
       <add val='14' order='0x10' stat='mDef' />
@@ -47,7 +47,7 @@
       <enchant val='0' order='0x0C' stat='mDef' />
     </for>
   </item>
-  <item id='9665' name="Black Hair Wolf Mithril Armor">
+  <item id='9665' name="Great Wolf Mithril Armor">
     <for>
       <add val='148' order='0x10' stat='pDef' />
       <add val='14' order='0x10' stat='mDef' />
@@ -55,7 +55,7 @@
       <enchant val='0' order='0x0C' stat='mDef' />
     </for>
   </item>
-  <item id='9666' name="Black Hair Wolf Oriharukon Armor">
+  <item id='9666' name="Great Wolf Oriharukon Armor">
     <for>
       <add val='160' order='0x10' stat='pDef' />
       <add val='14' order='0x10' stat='mDef' />
@@ -63,7 +63,7 @@
       <enchant val='0' order='0x0C' stat='mDef' />
     </for>
   </item>
-  <item id='9667' name="Black Hair Wolf Orichalcum Armor">
+  <item id='9667' name="Great Wolf Orichalcum Armor">
     <for>
       <add val='171' order='0x10' stat='pDef' />
       <add val='14' order='0x10' stat='mDef' />
@@ -71,19 +71,19 @@
       <enchant val='0' order='0x0C' stat='mDef' />
     </for>
   </item>
-  <item id='9669' name="Native Headdress">
+  <item id='9669' name="Native Helmet">
     <for>
       <add val='33' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='9670' name="Native Chestcloth">
+  <item id='9670' name="Native Tunic">
     <for>
       <add val='53' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='9671' name="Native Loincloth">
+  <item id='9671' name="Native Pants">
     <for>
       <add val='29' order='0x10' stat='pDef' />
       <enchant val='0' order='0x0C' stat='pDef' />

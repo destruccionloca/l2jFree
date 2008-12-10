@@ -21,7 +21,7 @@
       <add val='33' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='12105' name="Common Item - \tPlate Leather Armor">
+  <item id='12105' name="Common Item - Plate Leather Armor">
     <for>
       <add val='94' order='0x10' stat='pDef' />
     </for>
@@ -144,7 +144,7 @@
       <add val='37' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='12132' name="Common Item - \tTheca Leather Boots">
+  <item id='12132' name="Common Item - Theca Leather Boots">
     <for>
       <add val='37' order='0x10' stat='pDef' />
     </for>
@@ -154,7 +154,7 @@
       <add val='106' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='12134' name="Common Item - \tDrake Leather Gloves">
+  <item id='12134' name="Common Item - Drake Leather Gloves">
     <for>
       <add val='39' order='0x10' stat='pDef' />
     </for>
@@ -196,12 +196,12 @@
       <add val='39' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='12142' name="Common Item - Full\tPlate Boots">
+  <item id='12142' name="Common Item - Full Plate Boots">
     <for>
       <add val='39' order='0x10' stat='pDef' />
     </for>
   </item>
-  <item id='12144' name="Common Item - Full\tPlate Armor">
+  <item id='12144' name="Common Item - Full Plate Armor">
     <for>
       <add val='239' order='0x10' stat='pDef' />
     </for>

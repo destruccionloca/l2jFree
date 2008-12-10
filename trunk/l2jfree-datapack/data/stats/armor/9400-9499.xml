@@ -5,7 +5,7 @@
   </item>
   <item id='9401' name="Dagger Master Circlet">
   </item>
-  <item id='9402' name="Bow Master Circlet ">
+  <item id='9402' name="Bow Master Circlet">
   </item>
   <item id='9403' name="Wizard Circlet">
   </item>
@@ -157,7 +157,7 @@
       <enchant val='0' order='0x0C' stat='pDef' />
     </for>
   </item>
-  <item id='9436' name="Dynasty Tunic - Human Wizard">
+  <item id='9436' name="Dynasty Tunic - Wizard">
     <for>
       <add val='113' order='0x10' stat='pDef' />
       <add val='592' order='0x10' stat='maxMp' />
