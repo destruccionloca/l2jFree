@@ -97,7 +97,7 @@ public class PcInventory extends Inventory
                    break;
                }
             }
-            if (!isDuplicate && (!onlyAvailable || (item.getItem().isSellable() && item.isAvailable(getOwner(), false)))) list.add(item);
+            if (!isDuplicate && (!onlyAvailable || (item.isSellable() && item.isAvailable(getOwner(), false)))) list.add(item);
        }
 
        return list.toArray(new L2ItemInstance[list.size()]);
@@ -130,7 +130,7 @@ public class PcInventory extends Inventory
                    isDuplicate = true;
                    break;
                }
-           if (!isDuplicate && (!onlyAvailable || (item.getItem().isSellable() && item.isAvailable(getOwner(), false)))) list.add(item);
+           if (!isDuplicate && (!onlyAvailable || (item.isSellable() && item.isAvailable(getOwner(), false)))) list.add(item);
        }
 
        return list.toArray(new L2ItemInstance[list.size()]);

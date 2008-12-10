@@ -3652,7 +3652,7 @@ public abstract class L2Character extends L2Object
 		else
 		{
 			removeEffect(effect);
-			stopSkillEffects(effect.getSkill().cancelEffect());
+			stopSkillEffects(effect.getSkill().getNegateId());
 		}
 
 		setIsImmobileUntilAttacked(false);

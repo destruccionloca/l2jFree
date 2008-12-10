@@ -293,8 +293,13 @@ public class L2Skill
 	private final int				_castRange;
 	private final int				_effectRange;
 
-	// Remove Skill Effect
-	private final int				_cancelEffect;
+	// Abnormal levels for skills and their canceling, e.g. poison vs negate
+	private final int				_abnormalLvl;	// e.g. poison or bleed lvl 2 
+													// Note: see also _effectAbnormalLvl
+	private final int				_negateLvl;		// abnormalLvl is negated with negateLvl
+	private final int				_negateId;		// cancels the effect of skill ID
+	private final String[]			_negateStats;	// lists the effect types that are canceled
+	private final int				_maxNegatedEffects; // maximum number of effects to negate
 
 	// all times in milliseconds
 	private final int				_hitTime;
@@ -304,8 +309,8 @@ public class L2Skill
 
 	/** Target type of the skill : SELF, PARTY, CLAN, PET... */
 	private final SkillTargetType	_targetType;
+	// base success chance
 	private final double			_power;
-	private final int				_effectPoints;
 	private final int				_levelDepend;
 
 	// Kill by damage over time
@@ -317,10 +322,11 @@ public class L2Skill
 	private final int				_skillRadius;
 
 	private final L2SkillType		_skillType;
-	private final L2SkillType		_effectType;
+	private final L2SkillType		_effectType; // additional effect has a type
+	private final int				_effectAbnormalLvl; // abnormal level for the additional effect type, e.g. poison lvl 1
 	private final int				_effectPower;
 	private final int				_effectId;
-	private final float				_effectLvl;
+	private final float				_effectLvl; // normal effect level
 	private final int				_skill_landing_percent;
 
 	private final boolean			_ispotion;
@@ -330,10 +336,6 @@ public class L2Skill
 	private final int				_activateRate;
 	private final int				_levelModifier;
 	private final int				_magicLevel;
-	private final String[]			_negateStats;
-	private final float				_negatePower;
-	private final int				_negateId;
-	private final int				_maxNegatedEffect;
 
 	private final Stats				_stat;
 
@@ -459,7 +461,21 @@ public class L2Skill
 		_castRange = set.getInteger("castRange", 0);
 		_effectRange = set.getInteger("effectRange", -1);
 
-		_cancelEffect = set.getInteger("cancelEffect", 0);
+		_abnormalLvl = set.getInteger("abnormalLvl", -1);
+		_effectAbnormalLvl = set.getInteger("effectAbnormalLvl", -1); // support for a separate effect abnormal lvl, e.g. poison inside a different skill
+		_negateLvl = set.getInteger("negateLvl", -1);
+		String[] negateStats = set.getString("negateStats", "").split(" ");
+		if (negateStats.length > 0)
+		{
+			FastList<String> stats = new FastList<String>();
+			for (String stat : negateStats)
+				stats.add(stat.toLowerCase().intern());
+			_negateStats = stats.toArray(new String[stats.size()]);
+		}
+		else
+			_negateStats = negateStats;
+		_negateId = set.getInteger("negateId", 0);
+		_maxNegatedEffects = set.getInteger("maxNegated", 0);
 
 		_killByDOT = set.getBool("killByDOT", false);
 
@@ -482,20 +498,7 @@ public class L2Skill
 
 		_targetType = set.getEnum("target", SkillTargetType.class);
 		_power = set.getFloat("power", 0.f);
-		_effectPoints = set.getInteger("effectPoints", 0);
-		String[] negateStats = set.getString("negateStats", "").split(" ");
-		if (negateStats.length > 0)
-		{
-			FastList<String> stats = new FastList<String>();
-			for (String stat : negateStats)
-				stats.add(stat.toLowerCase().intern());
-			_negateStats = stats.toArray(new String[stats.size()]);
-		}
-		else
-			_negateStats = negateStats;
-		_negatePower = set.getFloat("negatePower", 0.f);
-		_negateId = set.getInteger("negateId", 0);
-		_maxNegatedEffect = set.getInteger("maxNegated", 0);
+
 		_levelDepend = set.getInteger("lvlDepend", 0);
 		_stat = set.getEnum("stat", Stats.class, null);
 
@@ -714,11 +717,6 @@ public class L2Skill
 		return _killByDOT;
 	}
 
-	public final int cancelEffect()
-	{
-		return _cancelEffect;
-	}
-
 	public final boolean isSuicideAttack()
 	{
 		return _isSuicideAttack;
@@ -750,19 +748,19 @@ public class L2Skill
 		return _power;
 	}
 
-	public final int getEffectPoints()
-	{
-		return _effectPoints;
-	}
-
 	public final String[] getNegateStats()
 	{
 		return _negateStats;
 	}
 
-	public final float getNegatePower()
+	public final int getAbnormalLvl()
 	{
-		return _negatePower;
+		return _abnormalLvl;
+	}
+
+	public final int getNegateLvl()
+	{
+		return _negateLvl;
 	}
 
 	public final int getNegateId()
@@ -772,12 +770,17 @@ public class L2Skill
 
 	public final int getMaxNegatedEffects()
 	{
-		return _maxNegatedEffect;
+		return _maxNegatedEffects;
 	}
 
 	public final int getMagicLvl()
 	{
 		return _magicLevel;
+	}
+
+	public final int getEffectAbnormalLvl()
+	{
+		return _effectAbnormalLvl;
 	}
 
 	public int getTriggeredId()
@@ -1484,8 +1487,6 @@ public class L2Skill
 		case COMBATPOINTHEAL:
 		case COMBATPOINTPERCENTHEAL:
 		case REFLECT:
-		case UNBLEED:
-		case UNPOISON:
 		case SHIFT_TARGET:
 			return true;
 		default:
@@ -1649,8 +1650,6 @@ public class L2Skill
 			case CANCEL:
 			case CANCEL_DEBUFF:
 			case REFLECT:
-			case UNBLEED:
-			case UNPOISON:
 			case COMBATPOINTHEAL:
 			case COMBATPOINTPERCENTHEAL:
 			case MAGE_BANE:

@@ -28,6 +28,8 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
 import com.l2jfree.gameserver.network.serverpackets.PetItemList;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.templates.item.L2ArmorType;
+import com.l2jfree.gameserver.templates.item.L2Item;
 
 public class RequestPetUseItem extends L2GameClientPacket
 {
@@ -85,18 +87,27 @@ public class RequestPetUseItem extends L2GameClientPacket
             return;
         }
         
+        if (item.getItem().getBodyPart() == L2Item.SLOT_NECK)
+        {
+            if (item.getItem().getItemType() == L2ArmorType.PET)
+            {
+                useItem(pet, item, activeChar);
+                return;
+            }
+        }
+        
         //check if the item matches the pet
         if ((PetDataTable.isWolf(pet.getNpcId()) && item.getItem().isForWolf()) ||
             (PetDataTable.isHatchling(pet.getNpcId()) && item.getItem().isForHatchling()) ||
             (PetDataTable.isBaby(pet.getNpcId()) && item.getItem().isForBabyPet()) ||
             (PetDataTable.isStrider(pet.getNpcId()) && item.getItem().isForStrider()) ||
-            (PetDataTable.isGreatWolf(pet.getNpcId()) && item.getItem().isForGreatWolf()) ||
-            (PetDataTable.isWGreatWolf(pet.getNpcId()) && item.getItem().isForGreatWolf()) ||
-            (PetDataTable.isBlackWolf(pet.getNpcId()) && item.getItem().isForGreatWolf()) ||
-            (PetDataTable.isFenrirWolf(pet.getNpcId()) && item.getItem().isForGreatWolf()) ||
-            (PetDataTable.isWFenrirWolf(pet.getNpcId()) && item.getItem().isForGreatWolf()) ||
+            (PetDataTable.isGreatWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf())) ||
+            (PetDataTable.isWGreatWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf())) ||
+            (PetDataTable.isBlackWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf())) ||
+            (PetDataTable.isFenrirWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf())) ||
+            (PetDataTable.isWFenrirWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf())) ||
             (PetDataTable.isImprovedBaby(pet.getNpcId()) && item.getItem().isForBabyPet())
-        	)
+            )
         {
             useItem(pet, item, activeChar);
             return;

@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.ShowCalculator;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
 import com.l2jfree.gameserver.templates.item.L2Equip;
 import com.l2jfree.gameserver.templates.item.L2Item;
@@ -267,8 +268,8 @@ public class UseItem extends L2GameClientPacket
 		}
 
 		// Char cannot use pet items
-		if (item.getItem().isForWolf() || item.getItem().isForGreatWolf() || item.getItem().isForHatchling() || item.getItem().isForStrider()
-				|| item.getItem().isForBabyPet())
+		if ((item.getItem() instanceof L2Armor && item.getItem().getItemType() == L2ArmorType.PET)
+			|| (item.getItem() instanceof L2Weapon && item.getItem().getItemType() == L2WeaponType.PET))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_EQUIP_PET_ITEM); // You cannot equip a pet item.
 			sm.addItemName(item);

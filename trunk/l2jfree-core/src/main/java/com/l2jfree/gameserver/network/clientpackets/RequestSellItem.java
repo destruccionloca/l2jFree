@@ -171,14 +171,15 @@ public class RequestSellItem extends L2GameClientPacket
 			}
 
 			L2ItemInstance item = player.checkItemManipulation(objectId, count, "sell");
-            if (item == null || (!item.getItem().isSellable())) continue;
+			if (item == null || !item.isSellable())
+				continue;
 
-            totalPrice += item.getReferencePrice() * count /2;
-            if (totalPrice >= Integer.MAX_VALUE)
-            {
-                Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+Integer.MAX_VALUE+" adena worth of goods.",  Config.DEFAULT_PUNISH);
-                return;
-            }
+			totalPrice += item.getReferencePrice() * count /2;
+			if (totalPrice >= Integer.MAX_VALUE)
+			{
+				Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+Integer.MAX_VALUE+" adena worth of goods.",  Config.DEFAULT_PUNISH);
+				return;
+			}
 
 			item = player.getInventory().destroyItem("Sell", objectId, count, player, null);
 		}
