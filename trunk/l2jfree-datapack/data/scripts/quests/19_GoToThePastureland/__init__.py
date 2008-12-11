@@ -14,6 +14,13 @@ TUNATUN = 31537
 #ITEMS
 BEAST_MEAT = 7547
 
+#REWARDS
+ADENA_ID = 57
+ADENA_REWARD = 50000
+EXP = 136766
+SP = 12688
+
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -29,8 +36,8 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_accept")
    if event == "31537-1.htm" :
      st.takeItems(BEAST_MEAT,1)
-     st.rewardItems(57,50000)
-     st.addExpAndSp(136766,12688)
+     st.rewardItems(ADENA_ID,ADENA_REWARD)
+     st.addExpAndSp(EXP,SP)
      st.unset("cond")
      st.exitQuest(False)
      st.playSound("ItemSound.quest_finish")

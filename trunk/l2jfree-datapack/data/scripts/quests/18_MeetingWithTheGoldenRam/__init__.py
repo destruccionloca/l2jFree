@@ -10,10 +10,19 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "18_MeetingWithTheGoldenRam"
 
+#NPC
 DONAL = 31314
 DAISY = 31315
 ABERCROMBIE = 31555
+
+#ITEM
 BOX = 7245
+
+#REWARDS
+ADENA_ID     = 57
+ADENA_REWARD = 40000
+EXP          = 126668
+SP           = 11731
 
 class Quest (JQuest) :
 
@@ -34,9 +43,9 @@ class Quest (JQuest) :
        htmltext = "31315-02.htm"
        st.giveItems(BOX,1)
      elif event == "31555-02.htm" :
-       st.rewardItems(57,40000)
+       st.rewardItems(ADENA_ID,ADENA_REWARD)
        st.takeItems(BOX,-1)
-       st.addExpAndSp(126668,11731)
+       st.addExpAndSp(EXP,SP)
        st.unset("cond")
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False) 

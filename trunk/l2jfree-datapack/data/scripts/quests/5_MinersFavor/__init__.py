@@ -23,7 +23,12 @@ REDSTONE_BEER        = 1551
 BOLTERS_SMELLY_SOCKS = 1552
 
 #REWARD
-NECKLACE = 906
+NECKLACE     = 906
+ADENA_ID     = 57
+ADENA_REWARD = 2466
+EXP          = 5762
+SP           = 446
+
 
 class Quest (JQuest) :
 
@@ -77,9 +82,9 @@ class Quest (JQuest) :
      st.takeItems(BOOMBOOM_POWDER,-1)
      st.takeItems(REDSTONE_BEER,-1)
      st.takeItems(BOLTERS_LIST,-1)
-     st.rewardItems(57,2466)
+     st.rewardItems(ADENA_ID,ADENA_REWARD)
      st.giveItems(NECKLACE,1)
-     st.addExpAndSp(5672,446)
+     st.addExpAndSp(EXP,SP)
      st.set("cond","0")
      st.set("onlyone","1")
      st.exitQuest(False)

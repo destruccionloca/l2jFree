@@ -21,6 +21,10 @@ SAINT_ALTAR_4 = 31511
 #ITEMS
 BLOOD_OF_SAINT = 7168
 
+#REWARDS
+EXP = 697040
+SP  = 54887
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
@@ -86,7 +90,7 @@ class Quest (JQuest) :
            st.exitQuest(1)
            st.playSound("ItemSound.quest_giveup")
      else :
-        st.addExpAndSp(697040,54887)
+        st.addExpAndSp(EXP,SP)
         st.unset("cond")
         st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")

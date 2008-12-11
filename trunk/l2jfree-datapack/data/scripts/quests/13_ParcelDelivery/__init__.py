@@ -14,6 +14,12 @@ VULCAN = 31539
 #QUEST ITEM
 PACKAGE = 7263
 
+#REWARDS
+ADENA_ID     = 57
+ADENA_REWARD = 157834
+EXP          = 589092
+SP           = 58794
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -31,9 +37,9 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_accept")
    if event == "31539-1.htm" :
      if cond == 1 and st.getQuestItemsCount(PACKAGE) == 1 :
-       st.rewardItems(57,157834)
+       st.rewardItems(ADENA_ID,ADENA_REWARD)
        st.takeItems(PACKAGE,1)
-       st.addExpAndSp(589092,58794)
+       st.addExpAndSp(EXP,SP)
        st.exitQuest(False)
        st.set("cond","0")
        st.playSound("ItemSound.quest_finish")
@@ -67,6 +73,6 @@ class Quest (JQuest) :
 
 QUEST       = Quest(13,qn,"Parcel Delivery")
 
-QUEST.addStartNpc(31274)
-QUEST.addTalkId(31274)
-QUEST.addTalkId(31539)
+QUEST.addStartNpc(FUNDIN)
+QUEST.addTalkId(FUNDIN)
+QUEST.addTalkId(VULCAN)

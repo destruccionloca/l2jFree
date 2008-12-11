@@ -18,6 +18,10 @@ EVIL_ALTAR_5 = 31516
 #ITEMS
 CRYSTAL_OF_SEAL = 7167
 
+#REWARDS
+EXP = 865187
+SP  = 69172
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
@@ -93,7 +97,7 @@ class Quest (JQuest) :
        if npcId == EVIL_ALTAR_5 and cond == 5 :
          htmltext = "31516-0.htm"
        if npcId == HIERARCH and cond == 6 :
-         st.addExpAndSp(865187,69172)
+         st.addExpAndSp(EXP,SP)
          st.set("cond","0")
          st.exitQuest(False)
          st.playSound("ItemSound.quest_finish")
@@ -103,8 +107,9 @@ class Quest (JQuest) :
 QUEST       = Quest(16,qn,"The Coming Darkness")
 
 
-QUEST.addStartNpc(31517)
-QUEST.addTalkId(31517)
+QUEST.addStartNpc(HIERARCH)
+
+QUEST.addTalkId(HIERARCH)
 
 for altars in range(31512,31517):
   QUEST.addTalkId(altars)

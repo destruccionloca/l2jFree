@@ -18,8 +18,13 @@ RAPUNZELS_KERCHIEF = 688
 DARINGS_RECEIPT    = 1079
 BAULS_POTION       = 1080
 
-#REWARD
-NECKLACE = 906
+
+#REWARDS
+NECKLACE     = 906
+ADENA_ID     = 57
+ADENA_REWARD = 2466
+EXP          = 5672
+SP           = 446
 
 class Quest (JQuest) :
 
@@ -101,9 +106,9 @@ class Quest (JQuest) :
          elif ItemsCount_BP > 0 :
            htmltext = "30048-10.htm"
            st.takeItems(BAULS_POTION,-1)
-           st.rewardItems(57,2466)
+           st.rewardItems(ADENA_ID,ADENA_REWARD)
            st.giveItems(NECKLACE,1)
-           st.addExpAndSp(5672,446)
+           st.addExpAndSp(EXP,SP)
            st.set("cond","0")
            st.set("onlyone","1")
            st.exitQuest(False)

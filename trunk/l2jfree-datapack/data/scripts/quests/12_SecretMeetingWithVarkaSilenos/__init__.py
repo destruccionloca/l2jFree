@@ -15,6 +15,10 @@ Naran = 31378
 #Item
 Box = 7232
 
+#REWARDS
+EXP = 79761
+SP  = 0
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
@@ -37,7 +41,7 @@ class Quest (JQuest) :
      elif event == "31378-02.htm" :
          htmltext = "31378-02.htm"
          st.takeItems(Box,-1)
-         st.addExpAndSp(79761,0)
+         st.addExpAndSp(EXP,SP)
          st.set("cond","0")
          st.set("onlyone","1")
          st.exitQuest(False)

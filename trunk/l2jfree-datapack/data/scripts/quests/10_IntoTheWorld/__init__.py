@@ -8,7 +8,10 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "10_IntoTheWorld"
 
+#ITEM
 VERY_EXPENSIVE_NECKLACE = 7574
+
+#REWARDS
 SCROLL_OF_ESCAPE_GIRAN = 7559
 MARK_OF_TRAVELER = 7570
 

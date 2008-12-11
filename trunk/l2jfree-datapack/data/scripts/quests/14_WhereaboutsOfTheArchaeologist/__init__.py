@@ -14,6 +14,12 @@ GHOST_OF_ADVENTURER = 31538
 #QUEST ITEM
 LETTER = 7253
 
+#REWARDS
+ADENA_ID     = 57
+ADENA_REWARD = 136928
+EXP          = 325881
+SP           =  32524
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -30,9 +36,9 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_accept")
    elif event == "31538-1.htm" :
      if cond == 1 and st.getQuestItemsCount(LETTER) == 1 :
-       st.rewardItems(57,136928)
+       st.rewardItems(ADENA_ID,ADENA_REWARD)
        st.takeItems(LETTER,1)
-       st.addExpAndSp(325881,32524)
+       st.addExpAndSp(EXP,SP)
        st.exitQuest(False)
        st.set("cond","0")
        st.playSound("ItemSound.quest_finish")

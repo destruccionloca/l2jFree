@@ -8,9 +8,13 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "15_SweetWhisper"
 
 #NPC
-VLADIMIR = 31302
-HIERARCH = 31517
+VLADIMIR      = 31302
+HIERARCH      = 31517
 M_NECROMANCER = 31518
+
+#REWARDS
+EXP = 350531
+SP  = 28204
 
 class Quest (JQuest) :
 
@@ -28,7 +32,7 @@ class Quest (JQuest) :
        st.set("cond","2")
    if event == "31517-1.htm" :
      if cond == 2 :
-       st.addExpAndSp(350531,28204)
+       st.addExpAndSp(EXP,SP)
        st.set("cond","0")
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False)
@@ -68,8 +72,8 @@ class Quest (JQuest) :
 QUEST       = Quest(15,qn,"Sweet Whisper")
 
 
-QUEST.addStartNpc(31302)
-QUEST.addTalkId(31302)
+QUEST.addStartNpc(VLADIMIR)
 
-QUEST.addTalkId(31517)
-QUEST.addTalkId(31518)
+QUEST.addTalkId(VLADIMIR)
+QUEST.addTalkId(HIERARCH)
+QUEST.addTalkId(M_NECROMANCER)

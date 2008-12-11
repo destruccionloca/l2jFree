@@ -6,10 +6,25 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "4_LongLiveLordOfFlame"
 
-HONEY_KHANDAR,BEAR_FUR_CLOAK,BLOODY_AXE,ANCESTOR_SKULL,SPIDER_DUST,DEEP_SEA_ORB = range(1541,1547)
-NPC_GIFTS = {30585:BEAR_FUR_CLOAK,30566:HONEY_KHANDAR,30562:BLOODY_AXE,30560:ANCESTOR_SKULL,30559:SPIDER_DUST,30587:DEEP_SEA_ORB}
+#NPC
+NAKUSIN          = 30578
+KUNAI            = 30559
+USKA             = 30560
+GR00KIN          = 30562
+VARKEES          = 30566
+TATARU_ZU_HESTUI = 30585
+GANTAKI_ZU_URUTU = 30587
 
-CLUB = 4
+#GIFTS
+HONEY_KHANDAR,BEAR_FUR_CLOAK,BLOODY_AXE,ANCESTOR_SKULL,SPIDER_DUST,DEEP_SEA_ORB = range(1541,1547)
+NPC_GIFTS = {TATARU_ZU_HESTUI:BEAR_FUR_CLOAK,VARKEES:HONEY_KHANDAR,GR00KIN:BLOODY_AXE,USKA:ANCESTOR_SKULL,KUNAI:SPIDER_DUST,GANTAKI_ZU_URUTU:DEEP_SEA_ORB}
+
+#REWARDS
+CLUB         = 4
+ADENA_ID     = 57
+ADENA_REWARD = 1850
+EXP          = 4254
+SP           = 335
 
 class Quest (JQuest) :
 
@@ -36,7 +51,7 @@ class Quest (JQuest) :
    cond = st.getInt("cond")
    if id == State.COMPLETED :
      htmltext = "<html><body>This quest has already been completed.</body></html>"
-   elif npcId == 30578 :
+   elif npcId == NAKUSIN :
      if cond == 0 :
        if player.getRace().ordinal() != 3 :
          htmltext = "30578-00.htm"
@@ -51,10 +66,10 @@ class Quest (JQuest) :
      elif cond == 2 :
        htmltext = "30578-06.htm"
        st.giveItems(CLUB, 1)
-       st.rewardItems(57,1850)
+       st.rewardItems(ADENA_ID,ADENA_REWARD)
        for item in NPC_GIFTS.values():
            st.takeItems(item,-1)
-       st.addExpAndSp(4254,335)
+       st.addExpAndSp(EXP,SP)
        st.unset("cond")
        st.exitQuest(False)
        st.playSound("ItemSound.quest_finish")
@@ -79,14 +94,14 @@ class Quest (JQuest) :
 
 QUEST     = Quest(4,qn,"Long Live the Paagrio Lord")
 
-QUEST.addStartNpc(30578)
+QUEST.addStartNpc(NAKUSIN)
 
-QUEST.addTalkId(30578)
+QUEST.addTalkId(NAKUSIN)
 
-QUEST.addTalkId(30559)
-QUEST.addTalkId(30560)
-QUEST.addTalkId(30562)
-QUEST.addTalkId(30566)
-QUEST.addTalkId(30578)
-QUEST.addTalkId(30585)
-QUEST.addTalkId(30587)
+QUEST.addTalkId(KUNAI)
+QUEST.addTalkId(USKA)
+QUEST.addTalkId(GR00KIN)
+QUEST.addTalkId(VARKEES)
+QUEST.addTalkId(NAKUSIN)
+QUEST.addTalkId(TATARU_ZU_HESTUI)
+QUEST.addTalkId(GANTAKI_ZU_URUTU)

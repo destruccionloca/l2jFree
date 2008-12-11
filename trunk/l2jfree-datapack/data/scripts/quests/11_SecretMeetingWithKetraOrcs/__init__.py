@@ -15,6 +15,10 @@ Wahkan = 31371
 #Item
 Box = 7231
 
+#REWARDS
+EXP = 22787
+SP  = 0
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
@@ -37,7 +41,7 @@ class Quest (JQuest) :
      elif event == "31371-02.htm" :
          htmltext = "31371-02.htm"
          st.takeItems(Box,-1)
-         st.addExpAndSp(22787,0) #Despite what stratics may say, this is the correct reward for this quest.
+         st.addExpAndSp(EXP,SP) #Despite what stratics may say, this is the correct reward for this quest.
          st.set("cond","0")
          st.set("onlyone","1")
          st.exitQuest(False)
