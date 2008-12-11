@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.instancemanager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,8 +33,9 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
-import com.l2jfree.gameserver.instancemanager.TownManager;
+import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.entity.Town;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.geoserver.model.Location;
 import com.l2jfree.tools.random.Rnd;
@@ -68,10 +69,10 @@ import com.l2jfree.tools.random.Rnd;
  * @author Tempy
  *
  */
-public class AutoSpawnHandler
+public class AutoSpawnManager
 {
-	protected static Log							_log					= LogFactory.getLog(AutoSpawnHandler.class.getName());
-	private static AutoSpawnHandler					_instance;
+	protected static Log							_log					= LogFactory.getLog(AutoSpawnManager.class.getName());
+	private static AutoSpawnManager					_instance;
 
 	private static final int						DEFAULT_INITIAL_SPAWN	= 30000;												// 30 seconds after registration
 	private static final int						DEFAULT_RESPAWN			= 3600000;												//1 hour in millisecs
@@ -81,7 +82,7 @@ public class AutoSpawnHandler
 	protected FastMap<Integer, ScheduledFuture<?>>	_runningSpawns;
 	protected boolean								_activeState			= true;
 
-	private AutoSpawnHandler()
+	private AutoSpawnManager()
 	{
 		_registeredSpawns = new FastMap<Integer, AutoSpawnInstance>();
 		_runningSpawns = new FastMap<Integer, ScheduledFuture<?>>();
@@ -89,10 +90,10 @@ public class AutoSpawnHandler
 		restoreSpawnData();
 	}
 
-	public static AutoSpawnHandler getInstance()
+	public static AutoSpawnManager getInstance()
 	{
 		if (_instance == null)
-			_instance = new AutoSpawnHandler();
+			_instance = new AutoSpawnManager();
 
 		return _instance;
 	}
@@ -496,7 +497,12 @@ public class AutoSpawnHandler
 					}
 				}
 
-				String nearestTown = TownManager.getInstance().getClosestTownName(npcInst);
+				Town town = TownManager.getInstance().getClosestTown(npcInst);
+				String nearestTown = "";
+				if (town != null)
+					nearestTown = TownManager.getInstance().getTownName(town.getTownId());
+				else
+					nearestTown = "None";
 
 				// Announce to all players that the spawn has taken place, with the nearest town location.
 				if (spawnInst.isBroadcasting() && npcInst != null)

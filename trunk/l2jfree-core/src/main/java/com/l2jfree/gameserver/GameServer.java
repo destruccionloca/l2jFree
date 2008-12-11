@@ -67,6 +67,7 @@ import com.l2jfree.gameserver.handler.UserCommandHandler;
 import com.l2jfree.gameserver.handler.VoicedCommandHandler;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.AuctionManager;
+import com.l2jfree.gameserver.instancemanager.AutoSpawnManager;
 import com.l2jfree.gameserver.instancemanager.BoatManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
@@ -106,7 +107,6 @@ import com.l2jfree.gameserver.instancemanager.lastimperialtomb.LastImperialTombM
 import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
 import com.l2jfree.gameserver.instancemanager.leaderboards.FishermanManager;
 import com.l2jfree.gameserver.model.AutoChatHandler;
-import com.l2jfree.gameserver.model.AutoSpawnHandler;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.entity.Castle;
@@ -300,7 +300,7 @@ public class GameServer
 		GrandBossSpawnManager.getInstance();
 		RaidPointsManager.getInstance();
 		AutoChatHandler.getInstance();
-		AutoSpawnHandler.getInstance();
+		AutoSpawnManager.getInstance();
 		Util.printSection("Economy");
 		TradeListTable.getInstance();
 		CastleManorManager.getInstance();

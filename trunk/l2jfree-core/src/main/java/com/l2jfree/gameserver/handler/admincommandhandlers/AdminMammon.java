@@ -22,8 +22,8 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
-import com.l2jfree.gameserver.model.AutoSpawnHandler;
-import com.l2jfree.gameserver.model.AutoSpawnHandler.AutoSpawnInstance;
+import com.l2jfree.gameserver.instancemanager.AutoSpawnManager;
+import com.l2jfree.gameserver.instancemanager.AutoSpawnManager.AutoSpawnInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -54,8 +54,8 @@ public class AdminMammon implements IAdminCommandHandler
 
 		int npcId = 0;
 		int teleportIndex = -1;
-		AutoSpawnInstance blackSpawnInst = AutoSpawnHandler.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_BLACKSMITH_ID, false);
-		AutoSpawnInstance merchSpawnInst = AutoSpawnHandler.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_MERCHANT_ID, false);
+		AutoSpawnInstance blackSpawnInst = AutoSpawnManager.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_BLACKSMITH_ID, false);
+		AutoSpawnInstance merchSpawnInst = AutoSpawnManager.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_MERCHANT_ID, false);
 
 		if (command.startsWith("admin_mammon_find"))
 		{
@@ -111,14 +111,14 @@ public class AdminMammon implements IAdminCommandHandler
 			}
 			if (merchSpawnInst != null)
 			{
-				long merchRespawn = AutoSpawnHandler.getInstance().getTimeToNextSpawn(merchSpawnInst);
+				long merchRespawn = AutoSpawnManager.getInstance().getTimeToNextSpawn(merchSpawnInst);
 				activeChar.sendMessage("The Merchant of Mammon will respawn in " + (merchRespawn / 60000) + " minute(s).");
 			}
 			else
 				activeChar.sendMessage("Merchant of Mammon isn't registered for spawn.");
 			if (blackSpawnInst != null)
 			{
-				long blackRespawn = AutoSpawnHandler.getInstance().getTimeToNextSpawn(blackSpawnInst);
+				long blackRespawn = AutoSpawnManager.getInstance().getTimeToNextSpawn(blackSpawnInst);
 				activeChar.sendMessage("The Blacksmith of Mammon will respawn in " + (blackRespawn / 60000) + " minute(s).");
 			}
 			else
