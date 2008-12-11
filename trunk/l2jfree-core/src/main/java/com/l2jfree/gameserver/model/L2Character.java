@@ -7679,6 +7679,11 @@ public abstract class L2Character extends L2Object
 		return _isMinion;
 	}
 
+	public boolean isRaidBoss()
+	{
+		return _isRaid && !_isMinion;
+	}
+
 	/**
 	 * Set this Npc as a Minion instance.<BR><BR>
 	 * @param val

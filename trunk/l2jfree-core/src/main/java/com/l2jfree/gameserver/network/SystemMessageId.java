@@ -13956,7 +13956,7 @@ public enum SystemMessageId
 	* ID: 2327<br>
 	* Message: You don't have enough reputation score.
 	*/
-	DONT_HAVE_ENOUGHT_REPUTATION_SCORE(2327),
+	NOT_ENOUGH_FAME_POINTS(2327),
 
 	/**
 	* ID: 2328<br>

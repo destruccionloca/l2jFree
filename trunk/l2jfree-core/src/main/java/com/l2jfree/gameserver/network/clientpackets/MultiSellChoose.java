@@ -35,6 +35,7 @@ import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
@@ -141,35 +142,48 @@ public class MultiSellChoose extends L2GameClientPacket
 				_ingredientsList = null;
 				return;
 			}
-			if (e.getItemId() != -200)
+			switch (e.getItemId())
 			{
-				// if this is not a list that maintains enchantment, check the count of all items that have the given id.
-				// otherwise, check only the count of items with exactly the needed enchantment level
-				if (inv.getInventoryItemCount(e.getItemId(), maintainEnchantment ? e.getEnchantmentLevel() : -1) < ((Config.ALT_BLACKSMITH_USE_RECIPES || !e
-						.getMantainIngredient()) ? (e.getItemCount() * _amount) : e.getItemCount()))
+				case -200: // Clan Reputation Score
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
-					_ingredientsList.clear();
-					_ingredientsList = null;
-					return;
+					if (player.getClan() == null)
+					{
+						player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER));
+						return;
+					}
+					if (!player.isClanLeader())
+					{
+						player.sendPacket(new SystemMessage(SystemMessageId.ONLY_THE_CLAN_LEADER_IS_ENABLED));
+						return;
+					}
+					if (player.getClan().getReputationScore() < e.getItemCount())
+					{
+						player.sendPacket(new SystemMessage(SystemMessageId.CLAN_REPUTATION_SCORE_IS_TOO_LOW));
+						return;
+					}
+					break;
 				}
-			}
-			else
-			{
-				if (player.getClan() == null)
+				case -300: // Player Fame
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER));
-					return;
+					if (player.getFame() < e.getItemCount())
+					{
+						player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_FAME_POINTS));
+						return;
+					}
+					break;
 				}
-				if (!player.isClanLeader())
+				default:
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.ONLY_THE_CLAN_LEADER_IS_ENABLED));
-					return;
-				}
-				if (player.getClan().getReputationScore() < e.getItemCount())
-				{
-					player.sendPacket(new SystemMessage(SystemMessageId.CLAN_REPUTATION_SCORE_IS_TOO_LOW));
-					return;
+					// if this is not a list that maintains enchantment, check the count of all items that have the given id.
+					// otherwise, check only the count of items with exactly the needed enchantment level
+					if (inv.getInventoryItemCount(e.getItemId(), maintainEnchantment ? e.getEnchantmentLevel() : -1) < ((Config.ALT_BLACKSMITH_USE_RECIPES || !e.getMantainIngredient()) ? (e.getItemCount() * _amount) : e.getItemCount()))
+					{
+						player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+						_ingredientsList.clear();
+						_ingredientsList = null;
+						return;
+					}
+					break;
 				}
 			}
 		}
@@ -181,122 +195,134 @@ public class MultiSellChoose extends L2GameClientPacket
 
 		for (MultiSellIngredient e : entry.getIngredients())
 		{
-			if (e.getItemId() != -200)
+			switch (e.getItemId())
 			{
-				L2ItemInstance itemToTake = inv.getItemByItemId(e.getItemId()); // initialize and initial guess for the item to take.
-				if (itemToTake == null)
-				{ //this is a cheat, transaction will be aborted and if any items already taken will not be returned back to inventory!
-					_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchant id:" + merchant.getNpcId());
-					return;
-				}
-
-				if (itemToTake.isWear())
-				{//Player trying to buy something from the Multisell store with an item that's just being used from the Wear option from merchants.
-					_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchant id:" + merchant.getNpcId());
-					return;
-				}
-
-				if (Config.ALT_BLACKSMITH_USE_RECIPES || !e.getMantainIngredient())
+				case -200: // Clan Reputation Score
 				{
-					// if it's a stackable item, just reduce the amount from the first (only) instance that is found in the inventory
-					if (itemToTake.isStackable())
-					{
-						if (!player.destroyItem("Multisell", itemToTake.getObjectId(), (e.getItemCount() * _amount), player.getTarget(), true))
-							return;
+					int repCost = player.getClan().getReputationScore() - e.getItemCount();
+					player.getClan().setReputationScore(repCost, true);
+					SystemMessage smsg = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
+					smsg.addNumber(e.getItemCount());
+					player.sendPacket(smsg);
+					player.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(player.getClan()));
+					break;
+				}
+				case -300: // Player Fame
+				{
+					int fameCost = player.getFame() - e.getItemCount();
+					player.setFame(fameCost);
+					player.sendPacket(new UserInfo(player));
+					break;
+				}
+				default:
+				{
+					L2ItemInstance itemToTake = inv.getItemByItemId(e.getItemId()); // initialize and initial guess for the item to take.
+					if (itemToTake == null)
+					{ //this is a cheat, transaction will be aborted and if any items already taken will not be returned back to inventory!
+						_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchatnt id:" + merchant.getNpcId());
+						return;
 					}
-					else
+					
+					if (itemToTake.isWear())
+					{//Player trying to buy something from the Multisell store with an item that's just being used from the Wear option from merchants.
+						_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchatnt id:" + merchant.getNpcId());
+						return;
+					}
+					
+					if (Config.ALT_BLACKSMITH_USE_RECIPES || !e.getMantainIngredient())
 					{
-						// for non-stackable items, one of two scenaria are possible:
-						// a) list maintains enchantment: get the instances that exactly match the requested enchantment level
-						// b) list does not maintain enchantment: get the instances with the LOWEST enchantment level
-
-						// a) if enchantment is maintained, then get a list of items that exactly match this enchantment
-						if (maintainEnchantment)
+						// if it's a stackable item, just reduce the amount from the first (only) instance that is found in the inventory
+						if (itemToTake.isStackable())
 						{
-							// loop through this list and remove (one by one) each item until the required amount is taken.
-							L2ItemInstance[] inventoryContents = inv.getAllItemsByItemId(e.getItemId(), e.getEnchantmentLevel());
-							for (int i = 0; i < (e.getItemCount() * _amount); i++)
-							{
-								if (inventoryContents[i].isAugmented())
-									augmentation.add(inventoryContents[i].getAugmentation());
-								if (!player.destroyItem("Multisell", inventoryContents[i].getObjectId(), 1, player.getTarget(), true))
-									return;
-							}
+							if (!player.destroyItem("Multisell", itemToTake.getObjectId(), (e.getItemCount() * _amount), player.getTarget(), true))
+								return;
 						}
 						else
-						// b) enchantment is not maintained.  Get the instances with the LOWEST enchantment level
 						{
-							/* NOTE: There are 2 ways to achieve the above goal.
-							 * 1) Get all items that have the correct itemId, loop through them until the lowest enchantment
-							 * 		level is found.  Repeat all this for the next item until proper count of items is reached.
-							 * 2) Get all items that have the correct itemId, sort them once based on enchantment level,
-							 * 		and get the range of items that is necessary.
-							 * Method 1 is faster for a small number of items to be exchanged.
-							 * Method 2 is faster for large amounts.
-							 *
-							 * EXPLANATION:
-							 *   Worst case scenario for algorithm 1 will make it run in a number of cycles given by:
-							 * m*(2n-m+1)/2 where m is the number of items to be exchanged and n is the total
-							 * number of inventory items that have a matching id.
-							 *   With algorithm 2 (sort), sorting takes n*log(n) time and the choice is done in a single cycle
-							 * for case b (just grab the m first items) or in linear time for case a (find the beginning of items
-							 * with correct enchantment, index x, and take all items from x to x+m).
-							 * Basically, whenever m > log(n) we have: m*(2n-m+1)/2 = (2nm-m*m+m)/2 >
-							 * (2nlogn-logn*logn+logn)/2 = nlog(n) - log(n*n) + log(n) = nlog(n) + log(n/n*n) =
-							 * nlog(n) + log(1/n) = nlog(n) - log(n) = (n-1)log(n)
-							 * So for m < log(n) then m*(2n-m+1)/2 > (n-1)log(n) and m*(2n-m+1)/2 > nlog(n)
-							 *
-							 * IDEALLY:
-							 * In order to best optimize the performance, choose which algorithm to run, based on whether 2^m > n
-							 * if ( (2<<(e.getItemCount() * _amount)) < inventoryContents.length )
-							 *   // do Algorithm 1, no sorting
-							 * else
-							 *   // do Algorithm 2, sorting
-							 *
-							 * CURRENT IMPLEMENTATION:
-							 * In general, it is going to be very rare for a person to do a massive exchange of non-stackable items
-							 * For this reason, we assume that algorithm 1 will always suffice and we keep things simple.
-							 * If, in the future, it becomes necessary that we optimize, the above discussion should make it clear
-							 * what optimization exactly is necessary (based on the comments under "IDEALLY").
-							 */
-
-							// choice 1.  Small number of items exchanged.  No sorting.
-							for (int i = 1; i <= (e.getItemCount() * _amount); i++)
+							// for non-stackable items, one of two scenaria are possible:
+							// a) list maintains enchantment: get the instances that exactly match the requested enchantment level
+							// b) list does not maintain enchantment: get the instances with the LOWEST enchantment level
+							
+							// a) if enchantment is maintained, then get a list of items that exactly match this enchantment
+							if (maintainEnchantment)
 							{
-								L2ItemInstance[] inventoryContents = inv.getAllItemsByItemId(e.getItemId());
-
-								itemToTake = inventoryContents[0];
-								// get item with the LOWEST enchantment level  from the inventory...
-								// +0 is lowest by default...
-								if (itemToTake.getEnchantLevel() > 0)
+								// loop through this list and remove (one by one) each item until the required amount is taken.
+								L2ItemInstance[] inventoryContents = inv.getAllItemsByItemId(e.getItemId(), e.getEnchantmentLevel());
+								for (int i = 0; i < (e.getItemCount() * _amount); i++)
 								{
-									for (L2ItemInstance element : inventoryContents)
+									if (inventoryContents[i].isAugmented())
+										augmentation.add(inventoryContents[i].getAugmentation());
+									if (!player.destroyItem("Multisell", inventoryContents[i].getObjectId(), 1, player.getTarget(), true))
+										return;
+								}
+							}
+							else
+							// b) enchantment is not maintained.  Get the instances with the LOWEST enchantment level
+							{
+								/* NOTE: There are 2 ways to achieve the above goal.
+								 * 1) Get all items that have the correct itemId, loop through them until the lowest enchantment
+								 * 		level is found.  Repeat all this for the next item until proper count of items is reached.
+								 * 2) Get all items that have the correct itemId, sort them once based on enchantment level,
+								 * 		and get the range of items that is necessary.
+								 * Method 1 is faster for a small number of items to be exchanged.
+								 * Method 2 is faster for large amounts.
+								 *
+								 * EXPLANATION:
+								 *   Worst case scenario for algorithm 1 will make it run in a number of cycles given by:
+								 * m*(2n-m+1)/2 where m is the number of items to be exchanged and n is the total
+								 * number of inventory items that have a matching id.
+								 *   With algorithm 2 (sort), sorting takes n*log(n) time and the choice is done in a single cycle
+								 * for case b (just grab the m first items) or in linear time for case a (find the beginning of items
+								 * with correct enchantment, index x, and take all items from x to x+m).
+								 * Basically, whenever m > log(n) we have: m*(2n-m+1)/2 = (2nm-m*m+m)/2 >
+								 * (2nlogn-logn*logn+logn)/2 = nlog(n) - log(n*n) + log(n) = nlog(n) + log(n/n*n) =
+								 * nlog(n) + log(1/n) = nlog(n) - log(n) = (n-1)log(n)
+								 * So for m < log(n) then m*(2n-m+1)/2 > (n-1)log(n) and m*(2n-m+1)/2 > nlog(n)
+								 *
+								 * IDEALLY:
+								 * In order to best optimize the performance, choose which algorithm to run, based on whether 2^m > n
+								 * if ( (2<<(e.getItemCount() * _amount)) < inventoryContents.length )
+								 *   // do Algorithm 1, no sorting
+								 * else
+								 *   // do Algorithm 2, sorting
+								 *
+								 * CURRENT IMPLEMENTATION:
+								 * In general, it is going to be very rare for a person to do a massive exchange of non-stackable items
+								 * For this reason, we assume that algorithm 1 will always suffice and we keep things simple.
+								 * If, in the future, it becomes necessary that we optimize, the above discussion should make it clear
+								 * what optimization exactly is necessary (based on the comments under "IDEALLY").
+								 */
+
+								// choice 1.  Small number of items exchanged.  No sorting.
+								for (int i = 1; i <= (e.getItemCount() * _amount); i++)
+								{
+									L2ItemInstance[] inventoryContents = inv.getAllItemsByItemId(e.getItemId());
+
+									itemToTake = inventoryContents[0];
+									// get item with the LOWEST enchantment level  from the inventory...
+									// +0 is lowest by default...
+									if (itemToTake.getEnchantLevel() > 0)
 									{
-										if (element.getEnchantLevel() < itemToTake.getEnchantLevel())
+										for (L2ItemInstance item : inventoryContents)
 										{
-											itemToTake = element;
-											// nothing will have enchantment less than 0. If a zero-enchanted
-											// item is found, just take it
-											if (itemToTake.getEnchantLevel() == 0)
-												break;
+											if (item.getEnchantLevel() < itemToTake.getEnchantLevel())
+											{
+												itemToTake = item;
+												// nothing will have enchantment less than 0. If a zero-enchanted
+												// item is found, just take it
+												if (itemToTake.getEnchantLevel() == 0)
+													break;
+											}
 										}
 									}
+									if (!player.destroyItem("Multisell", itemToTake.getObjectId(), 1, player.getTarget(), true))
+										return;
 								}
-								if (!player.destroyItem("Multisell", itemToTake.getObjectId(), 1, player.getTarget(), true))
-									return;
 							}
 						}
 					}
+					break;
 				}
-			}
-			else
-			{
-				int repCost = player.getClan().getReputationScore() - e.getItemCount();
-				player.getClan().setReputationScore(repCost, true);
-				SystemMessage smsg = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
-				smsg.addNumber(e.getItemCount());
-				player.sendPacket(smsg);
-				player.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(player.getClan()));
 			}
 		}
 
@@ -385,7 +411,7 @@ public class MultiSellChoose extends L2GameClientPacket
 
 			if (newIngredient.getItemId() == 57 && newIngredient.isTaxIngredient())
 			{
-				double taxRate = 0.;
+				double taxRate = 0.0;
 				if (applyTaxes)
 				{
 					if (merchant != null && merchant.getIsInTown())
