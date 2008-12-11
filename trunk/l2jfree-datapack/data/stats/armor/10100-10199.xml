@@ -32,6 +32,7 @@
     </for>
   </item>
   <item id='10139' name="Agathion Bracelet">
+    <for/>
   </item>
   <item id='10140' name="Blessed Ring of Escape">
     <for>
@@ -40,10 +41,13 @@
     </for>
   </item>
   <item id='10141' name="Grey Talisman - Yeti Transform">
+    <for/>
   </item>
   <item id='10142' name="Grey Talisman - Buffalo Transform">
+    <for/>
   </item>
   <item id='10158' name="Grey Talisman of Upper Grade Fishing">
+    <for/>
   </item>
   <item id='10168' name="Dynasty Leather Armor Enchanter">
     <for>
@@ -61,9 +65,12 @@
     </for>
   </item>
   <item id='10175' name="Gobblin Circlet (Event)">
+    <for/>
   </item>
   <item id='10176' name="Half Face Mask">
+    <for/>
   </item>
   <item id='10177' name="Black Half-Mask">
+    <for/>
   </item>
 </list>
