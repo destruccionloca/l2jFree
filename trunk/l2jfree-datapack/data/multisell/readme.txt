@@ -33,6 +33,9 @@ of this directory a little bit.
 3362.xml -> Quest 336: Coins of Magic, Rewards level 2
 3363.xml -> Quest 336: Coins of Magic, Rewards level 3
 
+3995.xml -> Melody Maestro
+3996.xml -> Christmas Echo Crystals
+
 6281.xml -> Swamp of Screams: Abercrombie, first list
 6282.xml -> Swamp of Screams: Abercrombie, second list
 
@@ -70,6 +73,9 @@ of this directory a little bit.
 311262511.xml -> Seven Signs - Blacksmith of Mammon - Weapon Upgrade
 311262512.xml -> Seven Signs - Blacksmith of Mammon - Weapon Exchange
 311262513.xml -> Seven Signs - Blacksmith of Mammon - Foundation Items
+311262514.xml -> Seven Signs - Blacksmith of Mammon - Unseal S80-Grade Armor.
+311262515.xml -> Seven Signs - Blacksmith of Mammon - Unseal S80-grade Accesories
+9987.xml  -> Blacksmith of Mammon AA Exchange
 
 306893001.xml -> Shadow weaponry system. D-grade coupons exchange
 306893002.xml -> Shadow weaponry system. C-grade coupons exchange
@@ -122,3 +128,7 @@ of this directory a little bit.
 
 32326001.xml -> Yang - Elemental potions
 32326002.xml -> Yang - Elemental stones
+
+364790001.xml -> Reputation Manager: PvP weapons, armors enhancement
+364790002.xml -> Reputation Manager: Removal of PvP enhancement
+364790003.xml -> Reputation Manager: Consumables

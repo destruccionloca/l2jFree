@@ -77,9 +77,9 @@ class Quest (JQuest) :
          st.giveItems(REWARDS[st.getRandom(len(REWARDS))],5)
          st.playSound("ItemSound.quest_finish")
          st.exitQuest(1)
-         htmletext = "31683-04.htm"
+         htmltext = "31683-04.htm"
       else:
-         htmletext = "31683-05.htm"
+         htmltext = "31683-05.htm"
          st.exitQuest(1)
    return htmltext
 
