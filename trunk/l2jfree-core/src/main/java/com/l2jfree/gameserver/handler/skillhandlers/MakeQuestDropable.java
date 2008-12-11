@@ -39,14 +39,7 @@ public class MakeQuestDropable implements ISkillHandler
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		L2Object[] targetList = skill.getTargetList(activeChar);
-
-		if (targetList == null)
-		{
-			return;
-		}
-
-		for (L2Object element : targetList)
+		for (L2Object element : targets)
 		{
 			if (element != null)
 			{
@@ -55,7 +48,7 @@ public class MakeQuestDropable implements ISkillHandler
 					activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				}
-				else if (element instanceof L2MonsterInstance)
+				else
 				{
 					((L2MonsterInstance) element).setQuestDropable(true);
 				}

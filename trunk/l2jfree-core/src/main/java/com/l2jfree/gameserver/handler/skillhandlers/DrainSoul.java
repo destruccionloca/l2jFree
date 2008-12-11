@@ -32,16 +32,6 @@ public class DrainSoul implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object... targets)
 	{
-		if (!(activeChar instanceof L2PcInstance))
-			return;
-
-		L2Object[] targetList = skill.getTargetList(activeChar);
-
-		if (targetList == null)
-		{
-			return;
-		}
-
 		if (_log.isDebugEnabled())
 			_log.debug("Soul Crystal casting succeded.");
 

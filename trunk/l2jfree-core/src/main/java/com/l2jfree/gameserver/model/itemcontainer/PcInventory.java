@@ -202,12 +202,14 @@ public class PcInventory extends Inventory
     {
         FastList<TradeList.TradeItem> list = new FastList<TradeList.TradeItem>();
         for (L2ItemInstance item : _items)
+        {
             if (item.isAvailable(getOwner(), false))
-                {
+            {
                 TradeList.TradeItem adjItem = tradeList.adjustAvailableItem(item);
-                    if (adjItem != null) list.add(adjItem);
-                }
-
+                if (adjItem != null)
+                    list.add(adjItem);
+            }
+        }
         return list.toArray(new TradeList.TradeItem[list.size()]);
     }
 

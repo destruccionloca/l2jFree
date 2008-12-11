@@ -231,12 +231,8 @@ public final class L2World
 	 */
 	public L2PcInstance getPlayer(int objectId)
 	{
-		for (L2PcInstance player : _allPlayers.values())
-		{
-			if (player != null && player.getObjectId() == objectId)
-				return player;
-		}
-		return null;
+		L2Object object = _objects.get(objectId);
+		return (object instanceof L2PcInstance) ? (L2PcInstance) object : null;
 	}
 
 	/**

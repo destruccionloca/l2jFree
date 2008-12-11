@@ -81,13 +81,15 @@ public class PcFreight extends ItemContainer
 	@Override
 	public L2ItemInstance getItemByItemId(int itemId)
 	{
-	    for (L2ItemInstance item : _items)
-	        if ((item.getItemId() == itemId)
-	        	&& (item.getLocationSlot() == 0 || _activeLocationId == 0 
-	        			|| item.getLocationSlot() == _activeLocationId)
-	        	) return item;
+		for (L2ItemInstance item : _items)
+		{
+			if ((item.getItemId() == itemId)
+				&& (item.getLocationSlot() == 0 || _activeLocationId == 0 
+					|| item.getLocationSlot() == _activeLocationId)
+				) return item;
+		}
 
-	    return null;
+		return null;
 	}
 
     /**

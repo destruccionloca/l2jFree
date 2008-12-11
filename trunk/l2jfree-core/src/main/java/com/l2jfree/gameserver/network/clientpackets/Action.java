@@ -67,15 +67,11 @@ public final class Action extends L2GameClientPacket
 		if (activeChar.getTargetId() == _objectId)
 			obj = activeChar.getTarget();
 
-		// Get object from knownlist
-		if (obj == null)
-			obj = activeChar.getKnownList().getKnownObject(_objectId);
-
 		// Get object from world
 		if (obj == null)
 		{
 			obj = L2World.getInstance().findObject(_objectId);
-			_log.warn("Player "+activeChar.getName()+" clicked object from outside of his knownlist.");
+			//_log.warn("Player "+activeChar.getName()+" clicked object from outside of his knownlist.");
 		}
 
 		// If object requested does not exist, add warn msg into logs

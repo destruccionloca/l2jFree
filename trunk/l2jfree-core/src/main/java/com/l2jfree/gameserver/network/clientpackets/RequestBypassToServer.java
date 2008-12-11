@@ -138,15 +138,11 @@ public class RequestBypassToServer extends L2GameClientPacket
                     if (activeChar.getTargetId() == objectId)
                         object = activeChar.getTarget();
 
-                    // Get object from knownlist
-                    if (object == null)
-                        object = activeChar.getKnownList().getKnownObject(objectId);
-
                     // Get object from world
                     if (object == null)
                     {
                         object = L2World.getInstance().findObject(objectId);
-                        _log.warn("Player "+activeChar.getName()+" bypassed command to NPC outside of his knownlist.");
+                        //_log.warn("Player "+activeChar.getName()+" bypassed command to NPC outside of his knownlist.");
                     }
 
                     if (_command.substring(endOfId+1).startsWith("event_participate"))
@@ -283,7 +279,6 @@ public class RequestBypassToServer extends L2GameClientPacket
     private void comeHere(L2PcInstance activeChar) 
     {
         L2Object obj = activeChar.getTarget();
-        if (obj == null) return;
         if (obj instanceof L2NpcInstance)
         {
             L2NpcInstance temp = (L2NpcInstance) obj;

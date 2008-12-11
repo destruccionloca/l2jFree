@@ -39,17 +39,9 @@ public class MakeKillable implements ISkillHandler
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		L2Object[] targetList = skill.getTargetList(activeChar);
-
-		if (targetList == null)
-		{
-			return;
-		}
-
 		for (L2Object element:  targets)
 		{
-			if (element == null || 
-					!(element instanceof L2MonsterInstance))
+			if (!(element instanceof L2MonsterInstance))
 				continue;
 			
 			L2MonsterInstance target = (L2MonsterInstance) element;

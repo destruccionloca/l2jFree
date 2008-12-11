@@ -109,15 +109,11 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         if (player.getTargetId() == _storePlayerId)
             object = player.getTarget();
 
-        // Get object from knownlist
-        if (object == null)
-            object = player.getKnownList().getKnownObject(_storePlayerId);
-
         // Get object from world
         if (object == null)
         {
             object = L2World.getInstance().getPlayer(_storePlayerId);
-            _log.warn("Player "+player.getName()+" requested private shop from outside of his knownlist.");
+            //_log.warn("Player "+player.getName()+" requested private shop from outside of his knownlist.");
         }
 
         if (!(object instanceof L2PcInstance))

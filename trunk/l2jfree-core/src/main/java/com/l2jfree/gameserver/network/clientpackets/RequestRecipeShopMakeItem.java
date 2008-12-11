@@ -57,15 +57,11 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 		if (activeChar.getTargetId() == _id)
 			object = activeChar.getTarget();
 
-		// Get object from knownlist
-		if (object == null)
-			object = activeChar.getKnownList().getKnownObject(_id);
-
 		// Get object from world
 		if (object == null)
 		{
 			object = L2World.getInstance().getPlayer(_id);
-			_log.warn("Player "+activeChar.getName()+" requested private manufacture from outside of his knownlist.");
+			//_log.warn("Player "+activeChar.getName()+" requested private manufacture from outside of his knownlist.");
 		}
 
 		if (!(object instanceof L2PcInstance))

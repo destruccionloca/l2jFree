@@ -39,9 +39,6 @@ public class Spoil implements ISkillHandler
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		if (targets == null)
-			return;
-
 		for (L2Object element: targets)
 		{
 			if (!(element instanceof L2MonsterInstance))

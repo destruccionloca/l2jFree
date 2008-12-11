@@ -51,15 +51,11 @@ public class RequestRecipeShopMakeInfo extends L2GameClientPacket
 		if (activeChar.getTargetId() == _objectId)
 			obj = activeChar.getTarget();
 
-		// Get object from knownlist
-		if (obj == null)
-			obj = activeChar.getKnownList().getKnownObject(_objectId);
-
 		// Get object from world
 		if (obj == null)
 		{
 			obj = L2World.getInstance().getPlayer(_objectId);
-			_log.warn("Player "+activeChar.getName()+" requested recipe info from player from outside of his knownlist.");
+			//_log.warn("Player "+activeChar.getName()+" requested recipe info from player from outside of his knownlist.");
 		}
 
 		if (!(obj instanceof L2PcInstance))

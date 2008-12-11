@@ -6832,7 +6832,7 @@ public abstract class L2Character extends L2Object
 	public void disableSkill(int skillId)
 	{
 		if (_disabledSkills == null)
-			_disabledSkills = Collections.synchronizedSet(new SingletonSet<Integer>());
+			_disabledSkills = new SingletonSet<Integer>();
 
 		_disabledSkills.add(skillId);
 	}

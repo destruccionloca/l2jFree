@@ -37,21 +37,16 @@ public class Unlock implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object... targets)
 	{
-		L2Object[] targetList = skill.getTargetList(activeChar);
+		//L2Object[] targetList = skill.getTargetList(activeChar);
 
-		if (targetList == null)
-			return;
+		//if (targetList == null)
+			//return;
 
-		for (L2Object element : targetList)
+		for (L2Object element : targets)
 		{
-			if (element == null)
-				continue;
-			
-			L2Object target = element;
-
-			if (target instanceof L2DoorInstance)
+			if (element instanceof L2DoorInstance)
 			{
-				L2DoorInstance door = (L2DoorInstance) target;
+				L2DoorInstance door = (L2DoorInstance) element;
 				if (!door.isUnlockable() || door.getFort() != null)
 				{
 					activeChar.sendPacket(SystemMessageId.UNABLE_TO_UNLOCK_DOOR);
@@ -70,7 +65,7 @@ public class Unlock implements ISkillHandler
 					activeChar.sendPacket(SystemMessageId.FAILED_TO_UNLOCK_DOOR);
 				}
 			}
-			else if (target instanceof L2ChestInstance)
+			else if (element instanceof L2ChestInstance)
 			{
 				L2ChestInstance chest = (L2ChestInstance) element;
 				if (chest.getStatus().getCurrentHp() <= 0 || chest.isInteracted())

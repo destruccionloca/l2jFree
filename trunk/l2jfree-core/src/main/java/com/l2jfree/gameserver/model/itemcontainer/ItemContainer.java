@@ -150,6 +150,7 @@ public abstract class ItemContainer
         int count = 0;
         
         for (L2ItemInstance item : _items)
+        {
             if (item.getItemId() == itemId && ((item.getEnchantLevel() == enchantLevel) || (enchantLevel<0)))
             {
                 //if (item.isAvailable((L2PcInstance)getOwner(), true) || item.getItem().getType2() == 3)//available or quest item
@@ -158,7 +159,7 @@ public abstract class ItemContainer
                 else
                     count++;
             }
-        
+        }
         return count;
     }
     
@@ -561,15 +562,19 @@ public abstract class ItemContainer
 	 */
 	public void deleteMe()
 	{
-		try {
+		try
+		{
 			updateDatabase();
-		} catch (Exception t) {
-			_log.fatal( "deletedMe()", t); 
 		}
+		catch (Exception e)
+		{
+			_log.fatal(e.getMessage(), e); 
+		}
+
 		FastList<L2Object> items = new FastList<L2Object>(_items);
-    	_items.clear();
+		_items.clear();
 		
-    	L2World.getInstance().removeObjects(items);
+		L2World.getInstance().removeObjects(items);
 	}
 	
 	/**

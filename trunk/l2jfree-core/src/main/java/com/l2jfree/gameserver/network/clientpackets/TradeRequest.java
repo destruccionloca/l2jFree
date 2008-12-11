@@ -71,15 +71,11 @@ public class TradeRequest extends L2GameClientPacket
 		if (player.getTargetId() == _objectId)
 			obj = player.getTarget();
 
-		// Get object from knownlist
-		if (obj == null)
-			obj = player.getKnownList().getKnownObject(_objectId);
-
 		// Get object from world
 		if (obj == null)
 		{
 			obj = L2World.getInstance().getPlayer(_objectId);
-			_log.warn("Player "+player.getName()+" requested trade from player from outside of his knownlist.");
+			//_log.warn("Player "+player.getName()+" requested trade from player from outside of his knownlist.");
 		}
 
 		if (!(obj instanceof L2PcInstance) || obj.getObjectId() == player.getObjectId())
