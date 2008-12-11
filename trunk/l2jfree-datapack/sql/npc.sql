@@ -9132,3 +9132,6 @@ INSERT INTO `npc` VALUES
 (29096, 29096, "Anais", 0, "Lord of Splendor", 0, "Monster3.solina_priest_120p", 16, 41.8, 87, "male", "L2RaidBoss", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (29097, 29097, "Splendor Disciple", 0, "Raid Fighter", 0, "Monster3.apostle_grail", 13, 47, 86, "male", "L2Minion", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (29098, 29098, "Splendor Worshiper", 0, "Raid Fighter", 0, "Monster3.apostle_grail_a", 13, 47, 86, "male", "L2Minion", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false");
+
+-- Four Sepulchers 
+UPDATE npc SET `type` = 'L2SepulcherNpc' WHERE id = 31928;
