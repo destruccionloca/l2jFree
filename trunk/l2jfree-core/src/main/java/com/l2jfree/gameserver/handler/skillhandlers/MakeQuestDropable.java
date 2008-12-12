@@ -38,27 +38,27 @@ public class MakeQuestDropable implements ISkillHandler
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
-
+		
+		// Can someone explain if this target list can differ from given targets?
 		L2Object[] targetList = skill.getTargetList(activeChar);
-
+		
+		// It can be null at this position!
+		// L2Skill.getTargetList can return null - whoever did this
+		// instead of returning a zero-sized list...
 		if (targetList == null)
-		{
 			return;
-		}
 
 		for (L2Object element : targetList)
 		{
-			if (element != null)
+			if (!(element instanceof L2MonsterInstance) || 
+					((L2MonsterInstance) element).getQuestDropable())
 			{
-				if (!(element instanceof L2MonsterInstance) || ((L2MonsterInstance) element).getQuestDropable())
-				{
-					activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-				}
-				else if (element instanceof L2MonsterInstance)
-				{
-					((L2MonsterInstance) element).setQuestDropable(true);
-				}
+				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			}
+			else if (element instanceof L2MonsterInstance)
+			{
+				((L2MonsterInstance) element).setQuestDropable(true);
 			}
 		}
 	}

@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Trap;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TrapInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -36,65 +35,55 @@ public class Trap implements ISkillHandler
 	 */
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
-		if (activeChar == null || skill == null)
+		if (skill == null)
 			return;
-
+		
 		switch (skill.getSkillType())
 		{
-		case DETECT_TRAP:
-		{
-			for (L2Object element:  targets)
+			case DETECT_TRAP:
 			{
-				if (element == null || 
-						!(element instanceof L2Character))
-					continue;
-				
-				L2Character target = (L2Character) element;
-				
-				if (!(target instanceof L2TrapInstance))
-					continue;
-
-				if (target.isAlikeDead())
-					continue;
-
-				if (((L2Trap) target).getLevel() <= skill.getPower())
+				for (L2Object element:  targets)
 				{
-					(((L2Trap) target)).setDetected();
+					if (!(element instanceof L2TrapInstance))
+						continue;
+	
+					L2TrapInstance target = (L2TrapInstance) element;
+	
+					if (target.isAlikeDead())
+						continue;
+	
+					if (target.getLevel() <= skill.getPower())
+					{
+						target.setDetected();
+						if (activeChar instanceof L2PcInstance)
+							((L2PcInstance) activeChar).sendMessage("A Trap has been detected!");
+					}
+				}
+				break;
+			}
+			case REMOVE_TRAP:
+			{
+				for (L2Object element:  targets)
+				{
+					if (!(element instanceof L2TrapInstance))
+						continue;
+	
+					L2TrapInstance target = (L2TrapInstance) element;
+	
+					if (!target.isDetected())
+						continue;
+	
+					if (target.getLevel() > skill.getPower())
+						continue;
+	
+					L2PcInstance trapOwner = null;
+					trapOwner = target.getOwner();
+	
+					target.unSummon(trapOwner);
 					if (activeChar instanceof L2PcInstance)
-						((L2PcInstance) activeChar).sendPacket(new SystemMessage(SystemMessageId.S1).addString("A Trap has been detected!"));
+						((L2PcInstance) activeChar).sendPacket(new SystemMessage(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_STOPPED));
 				}
 			}
-			break;
-		}
-		case REMOVE_TRAP:
-		{
-			for (L2Object element:  targets)
-			{
-				if (element == null || 
-						!(element instanceof L2Character))
-					continue;
-				
-				L2Character target = (L2Character) element;
-				
-				if (!(target instanceof L2Trap))
-					continue;
-
-				if (!((L2Trap) target).isDetected())
-					continue;
-
-				if (((L2Trap) target).getLevel() > skill.getPower())
-					continue;
-
-				L2PcInstance trapOwner = null;
-				L2Trap trap = null;
-				trapOwner = ((L2Trap) target).getOwner();
-				trap = trapOwner.getTrap();
-
-				trap.unSummon(trapOwner);
-				if (activeChar instanceof L2PcInstance)
-					((L2PcInstance) activeChar).sendPacket(new SystemMessage(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_STOPPED));
-			}
-		}
 		}
 	}
 

@@ -95,8 +95,7 @@ public class Continuous implements ICubicSkillHandler
 
 		for (L2Object element:  targets)
 		{
-			if (element == null || 
-					!(element instanceof L2Character))
+			if (!(element instanceof L2Character))
 				continue;
 			
 			L2Character target = (L2Character) element;
@@ -275,7 +274,7 @@ public class Continuous implements ICubicSkillHandler
 		skill.getEffectsSelf(activeChar);
 	}
 
-	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Object[] targets)
+	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Object... targets)
 	{
 		for (L2Object element : targets)
 		{

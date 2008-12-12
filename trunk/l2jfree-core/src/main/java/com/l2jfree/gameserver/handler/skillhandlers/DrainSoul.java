@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /** 
@@ -32,16 +31,6 @@ public class DrainSoul implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object... targets)
 	{
-		if (!(activeChar instanceof L2PcInstance))
-			return;
-
-		L2Object[] targetList = skill.getTargetList(activeChar);
-
-		if (targetList == null)
-		{
-			return;
-		}
-
 		if (_log.isDebugEnabled())
 			_log.debug("Soul Crystal casting succeded.");
 

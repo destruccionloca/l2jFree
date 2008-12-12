@@ -42,7 +42,8 @@ public class InstantJump implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
-		if (targets.length == 0)
+		if (targets.length == 0 ||
+				!(targets[0] instanceof L2Character))
 			return;
 		
 		L2Character target = (L2Character)targets[0];

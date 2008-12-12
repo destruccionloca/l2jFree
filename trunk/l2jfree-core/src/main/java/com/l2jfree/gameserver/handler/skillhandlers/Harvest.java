@@ -45,23 +45,24 @@ public class Harvest implements ISkillHandler
 			return;
 
 		L2PcInstance activePlayer = (L2PcInstance) activeChar;
-
-		L2Object[] targetList = skill.getTargetList(activeChar);
-
+		
 		InventoryUpdate iu = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 
+		// Can someone explain if this target list can differ from given targets?
+		L2Object[] targetList = skill.getTargetList(activeChar);
+		
+		// It can be null at this position!
+		// L2Skill.getTargetList can return null - whoever did this
+		// instead of returning a zero-sized list...
 		if (targetList == null)
-		{
 			return;
-		}
-
+		
 		if (_log.isDebugEnabled())
 			_log.info("Casting harvest");
 
 		for (L2Object element : targetList)
 		{
-			if (element == null ||
-					!(element instanceof L2MonsterInstance))
+			if (!(element instanceof L2MonsterInstance))
 				continue;
 
 			L2MonsterInstance target = (L2MonsterInstance) element;

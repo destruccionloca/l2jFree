@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -38,103 +37,88 @@ public class Sow implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.SOW };
 
-	private L2PcInstance				_activeChar;
-	private L2MonsterInstance			_target;
-	private int							_seedId;
-
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
+		
+		L2PcInstance activePlayer = (L2PcInstance) activeChar;
 
-		_activeChar = (L2PcInstance) activeChar;
-
+		// Can someone explain if this target list can differ from given targets?
 		L2Object[] targetList = skill.getTargetList(activeChar);
-
+		
+		// It can be null at this position!
+		// L2Skill.getTargetList can return null - whoever did this
+		// instead of returning a zero-sized list...
 		if (targetList == null)
-		{
 			return;
-		}
-
+		
 		if (_log.isDebugEnabled())
 			_log.info("Casting sow");
 
 		for (L2Object element : targetList)
 		{
-			if (element == null ||
-					!(element instanceof L2MonsterInstance))
+			if (!(element instanceof L2MonsterInstance))
 				continue;
 
-			_target = (L2MonsterInstance) element;
+			L2MonsterInstance target = (L2MonsterInstance) element;
 
-			if (_target.isSeeded())
-			{
-				_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			if (target.isSeeded())
 				continue;
-			}
 
-			if (_target.isDead())
-			{
-				_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			if (target.isDead())
 				continue;
-			}
 
-			if (_target.getSeeder() != _activeChar)
-			{
-				_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			if (target.getSeeder() != activeChar)
 				continue;
-			}
 
-			_seedId = _target.getSeedType();
-			if (_seedId == 0)
-			{
-				_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			int seedId = target.getSeedType();
+			if (seedId == 0)
 				continue;
-			}
 
-			L2ItemInstance item = _activeChar.getInventory().getItemByItemId(_seedId);
+			L2ItemInstance item = activePlayer.getInventory().getItemByItemId(seedId);
 			if (item == null)
 				return;
 
 			// Consuming used seed
-			_activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
+			activePlayer.destroyItem("Consume", item.getObjectId(), 1, null, false);
 
-			SystemMessage sm = null;
-			if (calcSuccess())
+			SystemMessage sm;
+			if (calcSuccess(activePlayer, target, seedId))
 			{
-				_activeChar.sendPacket(new PlaySound(0, "Itemsound.quest_itemget"));
-				_target.setSeeded();
+				activePlayer.sendPacket(new PlaySound(0, "Itemsound.quest_itemget"));
+				target.setSeeded();
 				sm = new SystemMessage(SystemMessageId.THE_SEED_WAS_SUCCESSFULLY_SOWN);
 			}
 			else
 			{
 				sm = new SystemMessage(SystemMessageId.THE_SEED_WAS_NOT_SOWN);
 			}
-			if (_activeChar.getParty() == null)
+			if (activePlayer.getParty() == null)
 			{
-				_activeChar.sendPacket(sm);
+				activePlayer.sendPacket(sm);
 			}
 			else
 			{
-				_activeChar.getParty().broadcastToPartyMembers(sm);
+				activePlayer.getParty().broadcastToPartyMembers(sm);
 			}
 			// FIXME: Mob should not become aggro against player, this way
 			// doesn't work really nice
-			_target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+			target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		}
 	}
 
-	private boolean calcSuccess()
+	private boolean calcSuccess(L2PcInstance activeChar, L2MonsterInstance target, int seedId)
 	{
-		int basicSuccess = (L2Manor.getInstance().isAlternative(_seedId) ? 20 : 90);
+		int basicSuccess = (L2Manor.getInstance().isAlternative(seedId) ? 20 : 90);
 		int minlevelSeed = 0;
 		int maxlevelSeed = 0;
-		minlevelSeed = L2Manor.getInstance().getSeedMinLevel(_seedId);
-		maxlevelSeed = L2Manor.getInstance().getSeedMaxLevel(_seedId);
+		minlevelSeed = L2Manor.getInstance().getSeedMinLevel(seedId);
+		maxlevelSeed = L2Manor.getInstance().getSeedMaxLevel(seedId);
 
-		int levelPlayer = _activeChar.getLevel(); // Attacker Level
-		int levelTarget = _target.getLevel(); // target Level
+		int levelPlayer = activeChar.getLevel(); // Attacker Level
+		int levelTarget = target.getLevel(); // target Level
 
 		// seed level
 		if (levelTarget < minlevelSeed)
@@ -154,7 +138,7 @@ public class Sow implements ISkillHandler
 		if (basicSuccess < 1)
 			basicSuccess = 1;
 
-		int rate = Rnd.nextInt(99);
+		int rate = Rnd.nextInt(100);
 
 		return (rate < basicSuccess);
 	}
