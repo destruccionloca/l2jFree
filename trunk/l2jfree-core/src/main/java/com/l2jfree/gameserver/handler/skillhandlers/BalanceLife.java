@@ -47,7 +47,7 @@ public class BalanceLife implements ISkillHandler
 		double fullHP = 0;
 		double currentHPs = 0;
 
-		for (L2Object element:  targets)
+		for (L2Object element : targets)
 		{
 			if (!(element instanceof L2Character))
 				continue;
@@ -73,7 +73,7 @@ public class BalanceLife implements ISkillHandler
 
 		double percentHP = currentHPs / fullHP;
 
-		for (L2Object element:  targets)
+		for (L2Object element : targets)
 		{
 			if (element == null || 
 					!(element instanceof L2Character))

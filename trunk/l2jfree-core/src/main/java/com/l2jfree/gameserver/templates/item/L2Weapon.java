@@ -18,6 +18,7 @@ import java.util.List;
 
 import javolution.util.FastList;
 
+import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -455,7 +456,12 @@ public final class L2Weapon extends L2Equip
 			try
 			{
 				// Launch the magic skill and calculate its effects
-				SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(caster, skill, targets);
+				ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
+				
+				if (handler == null)
+					continue;
+				
+				handler.useSkill(caster, skill, targets);
 				
 				// notify quests of a skill use
 				if (caster instanceof L2PcInstance)

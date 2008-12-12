@@ -57,7 +57,7 @@ public class Pdam implements ISkillHandler
 		if (_log.isDebugEnabled())
 			_log.info("Begin Skill processing in Pdam.java " + skill.getSkillType());
 
-		for (L2Object element:  targets)
+		for (L2Object element : targets)
 		{
 			if (!(element instanceof L2Character))
 				continue;

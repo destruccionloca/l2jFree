@@ -31,7 +31,7 @@ public class GiveSp implements ISkillHandler
 
 	public void useSkill(@SuppressWarnings("unused") L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
-		for (L2Object element:  targets)
+		for (L2Object element : targets)
 		{
 			if (!(element instanceof L2Character))
 				continue;

@@ -47,7 +47,7 @@ public class StrSiegeAssault implements ISkillHandler
 			//TODO: damage calculation below is crap - needs rewrite
 			int damage = 0;
 
-			for (L2Object element:  targets)
+			for (L2Object element : targets)
 			{
 				if (!(element instanceof L2Character))
 					continue;

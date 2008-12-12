@@ -69,6 +69,7 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.handler.IItemHandler;
+import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
@@ -7395,8 +7396,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		if (store)
 			return removeSkill(skill);
-		else
-			return super.removeSkill(skill, cancelEffect);
+
+		return super.removeSkill(skill, cancelEffect);
 	}
 
 	/**
@@ -7668,7 +7669,11 @@ public final class L2PcInstance extends L2PlayableInstance
 					continue;
 
 				L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
-				SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(this, skill, targets);
+				ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
+				if (handler == null)
+					return;
+				
+				handler.useSkill(this, skill, targets);
 				
 				if (remainingTime > 10)
 				{
@@ -8045,8 +8050,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (isInOlympiadMode() && isOlympiadStart() && ((L2PcInstance) attacker).getOlympiadGameId() == getOlympiadGameId())
 				return true;
-			else
-				return false;
+
+			return false;
 		}
 
 		// Check if the attacker is not in the same clan
@@ -12829,7 +12834,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				L2Skill skill = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, soulMasteryLevel);
 				if (Rnd.get(100) < skill.getCritChance())
 				{
-					absorbSoulFromNpc(skill, ((L2NpcInstance) target));
+					absorbSoulFromNpc(skill, target);
 				}
 			}
 		}

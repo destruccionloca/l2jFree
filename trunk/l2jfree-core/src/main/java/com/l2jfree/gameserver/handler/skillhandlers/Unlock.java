@@ -37,16 +37,7 @@ public class Unlock implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object... targets)
 	{
-		// Can someone explain if this target list can differ from given targets?
-		L2Object[] targetList = skill.getTargetList(activeChar);
-
-		// It can be null at this position!
-		// L2Skill.getTargetList can return null - whoever did this
-		// instead of returning a zero-sized list...
-		if (targetList == null)
-			return;
-
-		for (L2Object element : targetList)
+		for (L2Object element : targets)
 		{
 			if (element instanceof L2DoorInstance)
 			{

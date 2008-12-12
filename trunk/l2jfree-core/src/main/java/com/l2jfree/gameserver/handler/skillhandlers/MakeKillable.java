@@ -39,7 +39,7 @@ public class MakeKillable implements ISkillHandler
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		for (L2Object element:  targets)
+		for (L2Object element : targets)
 		{
 			if (!(element instanceof L2MonsterInstance))
 				continue;

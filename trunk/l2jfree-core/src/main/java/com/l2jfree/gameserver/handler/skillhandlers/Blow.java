@@ -53,7 +53,7 @@ public class Blow implements ISkillHandler
 		if (activeChar.isAlikeDead())
 			return;
 
-		for (L2Object element:  targets)
+		for (L2Object element : targets)
 		{
 			if (!(element instanceof L2Character))
 				continue;

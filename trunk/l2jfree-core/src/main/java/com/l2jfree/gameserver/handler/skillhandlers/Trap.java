@@ -42,7 +42,7 @@ public class Trap implements ISkillHandler
 		{
 			case DETECT_TRAP:
 			{
-				for (L2Object element:  targets)
+				for (L2Object element : targets)
 				{
 					if (!(element instanceof L2TrapInstance))
 						continue;
@@ -63,7 +63,7 @@ public class Trap implements ISkillHandler
 			}
 			case REMOVE_TRAP:
 			{
-				for (L2Object element:  targets)
+				for (L2Object element : targets)
 				{
 					if (!(element instanceof L2TrapInstance))
 						continue;

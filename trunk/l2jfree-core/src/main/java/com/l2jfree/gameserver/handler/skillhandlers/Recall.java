@@ -58,7 +58,7 @@ public class Recall implements ISkillHandler
 			}
 		}
 
-		for (L2Object element:  targets)
+		for (L2Object element : targets)
 		{
 			if (!(element instanceof L2Character))
 				continue;

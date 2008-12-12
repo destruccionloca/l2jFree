@@ -44,20 +44,10 @@ public class Sow implements ISkillHandler
 			return;
 		
 		L2PcInstance activePlayer = (L2PcInstance) activeChar;
-
-		// Can someone explain if this target list can differ from given targets?
-		L2Object[] targetList = skill.getTargetList(activeChar);
-		
-		// It can be null at this position!
-		// L2Skill.getTargetList can return null - whoever did this
-		// instead of returning a zero-sized list...
-		if (targetList == null)
-			return;
-		
 		if (_log.isDebugEnabled())
 			_log.info("Casting sow");
 
-		for (L2Object element : targetList)
+		for (L2Object element : targets)
 		{
 			if (!(element instanceof L2MonsterInstance))
 				continue;

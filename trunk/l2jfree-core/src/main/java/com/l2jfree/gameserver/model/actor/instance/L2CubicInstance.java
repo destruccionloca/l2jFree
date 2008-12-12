@@ -381,12 +381,10 @@ public class L2CubicInstance
 					_target = null;
 					return;
 				}
-				else
-				{
-					int choice = Rnd.nextInt(potentialTarget.size());
-					_target = potentialTarget.get(choice);
-					return;
-				}
+
+				int choice = Rnd.nextInt(potentialTarget.size());
+				_target = potentialTarget.get(choice);
+				return;
 			}
 			// Duel targeting
 			if (_owner.isInDuel())
@@ -437,11 +435,9 @@ public class L2CubicInstance
 					_target = PlayerA;
 					return;
 				}
-				else
-				{
-					_target = PlayerB;
-					return;
-				}
+
+				_target = PlayerB;
+				return;
 			}
 			// Olympiad targeting
 			if (_owner.isInOlympiadMode())
@@ -688,7 +684,7 @@ public class L2CubicInstance
 								((ICubicSkillHandler) handler).useCubicSkill(L2CubicInstance.this, skill, targets);
 							else if (skill instanceof L2SkillDrain)
 								((L2SkillDrain) skill).useCubicSkill(L2CubicInstance.this, targets);
-							else
+							else if (handler != null)
 								handler.useSkill(_owner, skill, targets);
 							
 							MagicSkillUse msu = new MagicSkillUse(_owner, _target, skill.getId(), skill.getLevel(), 0, 0);
@@ -875,7 +871,12 @@ public class L2CubicInstance
 						if (Rnd.get(1, 100) < chance)
 						{
 							L2Character[] targets = { target };
-							SkillHandler.getInstance().getSkillHandler(skill.getSkillType()).useSkill(_owner, skill, targets);
+							ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
+							
+							if (handler == null)
+								return;
+							
+							handler.useSkill(_owner, skill, targets);
 							
 							MagicSkillUse msu = new MagicSkillUse(_owner, _target, skill.getId(), skill.getLevel(), 0, 0);
 							_owner.broadcastPacket(msu);

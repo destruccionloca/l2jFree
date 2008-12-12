@@ -198,7 +198,7 @@ public class SummonFriend implements ISkillHandler
 		if (!checkSummonerStatus(activePlayer))
 			return;
 
-		for (L2Object element:  targets)
+		for (L2Object element : targets)
 		{
 			if (!(element instanceof L2PcInstance))
 				continue;

@@ -60,7 +60,7 @@ public class Heal implements ISkillHandler
 			player = (L2PcInstance) activeChar;
 		boolean clearSpiritShot = false;
 
-		for (L2Object element:  targets)
+		for (L2Object element : targets)
 		{
 			if (!(element instanceof L2Character))
 				continue;

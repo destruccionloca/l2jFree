@@ -198,7 +198,7 @@ public class L2SkillDrain extends L2Skill
 		if (_log.isDebugEnabled())
 			_log.info("L2SkillDrain: useCubicSkill()");
 
-		for (L2Object element:  targets)
+		for (L2Object element :  targets)
 		{
 			if (element == null || 
 					!(element instanceof L2Character))
