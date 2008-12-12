@@ -38,15 +38,23 @@ public class GetPlayer implements ISkillHandler
 		if (activeChar.isAlikeDead())
 			return;
 		
-		for (L2Object target : targets)
-		{
-			if (target instanceof L2PcInstance)
-			{
+		for (L2Object target : targets) {
+			if (target != null &&
+					target instanceof L2PcInstance) {
 				L2PcInstance trg = (L2PcInstance) target;
+
+				// GetPlayer is a handler for skills of mobs, eg "Zaken" or "Porta"
+
+        		/*if (trg == null || ObjectRestrictions.getInstance()
+        				.checkRestriction(trg, AvailableRestriction.PlayerSummonFriend)) {
+        			activeChar.sendMessage("You cannot summon your friend due to his restrictions.");
+        			trg.sendMessage("You cannot be summoned due to a restriction.");
+        			
+        			return;
+        		}*/
 
 				if (trg.isAlikeDead())
 					continue;
-				// GetPlayer is a handler for skills of mobs, eg "Zaken" or "Porta"
 				trg.getPosition().setXYZ(activeChar.getX() + Rnd.get(-10, 10), activeChar.getY() + Rnd.get(-10, 10), activeChar.getZ());
 				trg.stopMove(null);
 				trg.sendPacket(new ValidateLocation(trg));

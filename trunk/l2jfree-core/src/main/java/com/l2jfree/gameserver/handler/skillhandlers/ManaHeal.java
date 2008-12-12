@@ -47,7 +47,8 @@ public class ManaHeal implements ISkillHandler
 	{
 		for (L2Object element:  targets)
 		{
-			if (!(element instanceof L2Character))
+			if (element == null || 
+					!(element instanceof L2Character))
 				continue;
 			
 			L2Character target = (L2Character) element;

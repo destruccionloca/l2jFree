@@ -200,41 +200,47 @@ public class SummonFriend implements ISkillHandler
 
 		for (L2Object element:  targets)
 		{
-			if (!(element instanceof L2PcInstance))
+			if (element == null || 
+					!(element instanceof L2Character))
 				continue;
 			
-			if (activeChar == element)
+			L2Character target = (L2Character) element;
+			
+			if (activeChar == target)
 				continue;
 
-			L2PcInstance target = (L2PcInstance) element;
-
-			if (!checkTargetStatus(target, activePlayer))
-				continue;
-
-			if (!Util.checkIfInRange(0, activeChar, target, false))
+			if (target instanceof L2PcInstance)
 			{
-				if (!target.teleportRequest(activePlayer, skill))
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_ALREADY_SUMMONED);
-					sm.addString(target.getName());
-					activePlayer.sendPacket(sm);
-					continue;
-				}
+				L2PcInstance targetPlayer = (L2PcInstance) target;
 
-				if (skill.getId() == 1403) //summon friend
+				if (!checkTargetStatus(targetPlayer, activePlayer))
+					continue;
+
+				if (!Util.checkIfInRange(0, activeChar, target, false))
 				{
-					// Send message
-					ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId());
-					confirm.addCharName(activeChar);
-					confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-					confirm.addTime(30000);
-					confirm.addRequesterId(activePlayer.getCharId());
-					target.sendPacket(confirm);
-				}
-				else
-				{
-					teleToTarget(target, activePlayer, skill);
-					target.teleportRequest(null, null);
+					if (!targetPlayer.teleportRequest(activePlayer, skill))
+					{
+						SystemMessage sm = new SystemMessage(SystemMessageId.S1_ALREADY_SUMMONED);
+						sm.addString(target.getName());
+						activePlayer.sendPacket(sm);
+						continue;
+					}
+
+					if (skill.getId() == 1403) //summon friend
+					{
+						// Send message
+						ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId());
+						confirm.addCharName(activeChar);
+						confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+						confirm.addTime(30000);
+						confirm.addRequesterId(activePlayer.getCharId());
+						target.sendPacket(confirm);
+					}
+					else
+					{
+						teleToTarget(targetPlayer, activePlayer, skill);
+						targetPlayer.teleportRequest(null, null);
+					}
 				}
 			}
 		}

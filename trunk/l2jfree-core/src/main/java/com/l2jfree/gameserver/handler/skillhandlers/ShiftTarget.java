@@ -37,7 +37,7 @@ public class ShiftTarget implements ISkillHandler
 	{
 		L2Attackable attackerChar = null;
 		L2NpcInstance attacker = null;
-		L2PcInstance targetChar = null;
+		L2Character targetChar = null;
 
 		boolean targetShifted = false;
 
@@ -45,7 +45,7 @@ public class ShiftTarget implements ISkillHandler
 		{
 			if (target instanceof L2PcInstance)
 			{
-				targetChar = (L2PcInstance) target;
+				targetChar = (L2Character) target;
 				break;
 			}
 		}

@@ -35,6 +35,13 @@ public class BeastFeed implements ISkillHandler
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
+		L2Object[] targetList = skill.getTargetList(activeChar);
+
+		if (targetList == null)
+		{
+			return;
+		}
+
 		// This is just a dummy skill handler for the golden food and crystal food skills,
 		// since the AI responce onSkillUse handles the rest.
 	}

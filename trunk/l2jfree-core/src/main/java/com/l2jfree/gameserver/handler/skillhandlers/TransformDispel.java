@@ -36,7 +36,8 @@ public class TransformDispel implements ISkillHandler
 
 		for (L2Object element : targets)
 		{
-			if (!(element instanceof L2PcInstance))
+			if (element == null ||
+					!(element instanceof L2PcInstance))
 				continue;
 
 			L2PcInstance target = (L2PcInstance) element;

@@ -46,14 +46,22 @@ public class Harvest implements ISkillHandler
 
 		L2PcInstance activePlayer = (L2PcInstance) activeChar;
 
+		L2Object[] targetList = skill.getTargetList(activeChar);
+
 		InventoryUpdate iu = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
+
+		if (targetList == null)
+		{
+			return;
+		}
 
 		if (_log.isDebugEnabled())
 			_log.info("Casting harvest");
 
-		for (L2Object element : targets)
+		for (L2Object element : targetList)
 		{
-			if (!(element instanceof L2MonsterInstance))
+			if (element == null ||
+					!(element instanceof L2MonsterInstance))
 				continue;
 
 			L2MonsterInstance target = (L2MonsterInstance) element;

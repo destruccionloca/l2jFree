@@ -38,79 +38,103 @@ public class Sow implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.SOW };
 
+	private L2PcInstance				_activeChar;
+	private L2MonsterInstance			_target;
+	private int							_seedId;
+
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
 	L2Object... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		L2PcInstance activePlayer = (L2PcInstance) activeChar;
+		_activeChar = (L2PcInstance) activeChar;
+
+		L2Object[] targetList = skill.getTargetList(activeChar);
+
+		if (targetList == null)
+		{
+			return;
+		}
 
 		if (_log.isDebugEnabled())
 			_log.info("Casting sow");
 
-		for (L2Object element : targets)
+		for (L2Object element : targetList)
 		{
-			if (!(element instanceof L2MonsterInstance))
+			if (element == null ||
+					!(element instanceof L2MonsterInstance))
 				continue;
 
-			L2MonsterInstance target = (L2MonsterInstance) element;
+			_target = (L2MonsterInstance) element;
 
-			if (target.isSeeded())
+			if (_target.isSeeded())
+			{
+				_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				continue;
+			}
 
-			if (target.isDead())
+			if (_target.isDead())
+			{
+				_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				continue;
+			}
 
-			if (target.getSeeder() != activeChar)
+			if (_target.getSeeder() != _activeChar)
+			{
+				_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				continue;
+			}
 
-			int seedId = target.getSeedType();
-			if (seedId == 0)
+			_seedId = _target.getSeedType();
+			if (_seedId == 0)
+			{
+				_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				continue;
+			}
 
-			L2ItemInstance item = activePlayer.getInventory().getItemByItemId(seedId);
+			L2ItemInstance item = _activeChar.getInventory().getItemByItemId(_seedId);
 			if (item == null)
 				return;
 
 			// Consuming used seed
-			activePlayer.destroyItem("Consume", item.getObjectId(), 1, null, false);
+			_activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
 
-			SystemMessage sm;
-			if (calcSuccess(activePlayer, target, seedId))
+			SystemMessage sm = null;
+			if (calcSuccess())
 			{
-				activePlayer.sendPacket(new PlaySound(0, "Itemsound.quest_itemget"));
-				target.setSeeded();
+				_activeChar.sendPacket(new PlaySound(0, "Itemsound.quest_itemget"));
+				_target.setSeeded();
 				sm = new SystemMessage(SystemMessageId.THE_SEED_WAS_SUCCESSFULLY_SOWN);
 			}
 			else
 			{
 				sm = new SystemMessage(SystemMessageId.THE_SEED_WAS_NOT_SOWN);
 			}
-			if (activePlayer.getParty() == null)
+			if (_activeChar.getParty() == null)
 			{
-				activePlayer.sendPacket(sm);
+				_activeChar.sendPacket(sm);
 			}
 			else
 			{
-				activePlayer.getParty().broadcastToPartyMembers(sm);
+				_activeChar.getParty().broadcastToPartyMembers(sm);
 			}
 			// FIXME: Mob should not become aggro against player, this way
 			// doesn't work really nice
-			target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+			_target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		}
 	}
 
-	private boolean calcSuccess(L2PcInstance activeChar, L2MonsterInstance target, int seedId)
+	private boolean calcSuccess()
 	{
-		int basicSuccess = (L2Manor.getInstance().isAlternative(seedId) ? 20 : 90);
+		int basicSuccess = (L2Manor.getInstance().isAlternative(_seedId) ? 20 : 90);
 		int minlevelSeed = 0;
 		int maxlevelSeed = 0;
-		minlevelSeed = L2Manor.getInstance().getSeedMinLevel(seedId);
-		maxlevelSeed = L2Manor.getInstance().getSeedMaxLevel(seedId);
+		minlevelSeed = L2Manor.getInstance().getSeedMinLevel(_seedId);
+		maxlevelSeed = L2Manor.getInstance().getSeedMaxLevel(_seedId);
 
-		int levelPlayer = activeChar.getLevel(); // Attacker Level
-		int levelTarget = target.getLevel(); // target Level
+		int levelPlayer = _activeChar.getLevel(); // Attacker Level
+		int levelTarget = _target.getLevel(); // target Level
 
 		// seed level
 		if (levelTarget < minlevelSeed)
@@ -130,7 +154,7 @@ public class Sow implements ISkillHandler
 		if (basicSuccess < 1)
 			basicSuccess = 1;
 
-		int rate = Rnd.nextInt(100);
+		int rate = Rnd.nextInt(99);
 
 		return (rate < basicSuccess);
 	}
