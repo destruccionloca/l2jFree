@@ -6233,7 +6233,7 @@ public abstract class L2Character extends L2Object
 		return removeSkill(skill.getId(), true);
 	}
 
-	public L2Skill removeSkill(L2Skill skill, boolean cancelEffect)
+	public L2Skill removeSkill(L2Skill skill, @SuppressWarnings("unused") boolean cancelEffect)
 	{
 		if (skill == null)
 			return null;

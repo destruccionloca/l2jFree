@@ -262,10 +262,16 @@ public class PcKnownList extends PlayableKnownList
         // the same as the previous watch range, or it becomes possible that
         // extra charinfo packets are being sent (watch-forget-watch-forget)
         int knownlistSize = getKnownObjects().size(); 
-        if (knownlistSize <= 25) return 4000;
-        if (knownlistSize <= 35) return 3500;
-        if (knownlistSize <= 70) return 2910;
-        else return 2310;
+        if (knownlistSize <= 25)
+        	return 4000;
+        
+        if (knownlistSize <= 35)
+        	return 3500;
+        
+        if (knownlistSize <= 70)
+        	return 2910;
+        
+        return 2310;
     }
  
     @Override
@@ -273,9 +279,14 @@ public class PcKnownList extends PlayableKnownList
     { 
         int knownlistSize = getKnownObjects().size(); 
  
-        if (knownlistSize <= 25) return 3400; // empty field
-        if (knownlistSize <= 35) return 2900;
-        if (knownlistSize <= 70) return 2300;
-        else return 1700; // Siege, TOI, city
+        if (knownlistSize <= 25)
+        	return 3400; // empty field
+        
+        if (knownlistSize <= 35)
+        	return 2900;
+        if (knownlistSize <= 70)
+        	return 2300;
+        
+        return 1700; // Siege, TOI, city
     }
 }

@@ -244,8 +244,8 @@ public class L2DoormenInstance extends L2FolkInstance
 			{
 				if (player.getClanId() == getClanHall().getOwnerId())
 					return COND_HALL_OWNER;
-				else
-					return COND_ALL_FALSE;
+
+				return COND_ALL_FALSE;
 			}
 			else if (getCastle() != null && getCastle().getCastleId() > 0)
 			{

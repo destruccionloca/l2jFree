@@ -83,17 +83,12 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
     public int getAggroRange()
     {
 		if (_isArcher)
-		{
 			return Config.ALT_FESTIVAL_ARCHER_AGGRO;
-		}
+		
 		if (_isChest)
-		{
 			return Config.ALT_FESTIVAL_CHEST_AGGRO;
-		}
-		else
-		{
-			return Config.ALT_FESTIVAL_MONSTER_AGGRO;
-		}
+
+		return Config.ALT_FESTIVAL_MONSTER_AGGRO;
     }
     
     /**

@@ -203,11 +203,9 @@ public class AdminCommandHandler
 				{
 					return true;
 				}
-				else
-				{
-					player.sendMessage("Unsufficient privileges.");
-					return false;
-				}
+
+				player.sendMessage("Unsufficient privileges.");
+				return false;
 			}
 			_log.warn("Command \"" + cmd + "\" have no access level definition. Can't be used.");
 			return false;

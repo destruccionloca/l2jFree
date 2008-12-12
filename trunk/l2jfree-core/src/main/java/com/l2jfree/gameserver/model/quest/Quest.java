@@ -450,9 +450,10 @@ public class Quest extends ManagedScript
 		// if the quest returns text to display, display it.
 		if (res != null && res.length() > 0)
 			return showResult(player, res);
+
 		// else tell the player that
-		else 
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+
 		// note: if the default html for this npc needs to be shown, onFirstTalk should 
 		// call npc.showChatWindow(player) and then return null.
 		return true;
@@ -512,8 +513,8 @@ public class Quest extends ManagedScript
 	{
 		if (killer instanceof L2NpcInstance)
 			return onAdvEvent("", (L2NpcInstance) killer, qs.getPlayer());
-		else
-			return onAdvEvent("", null, qs.getPlayer());
+
+		return onAdvEvent("", null, qs.getPlayer());
 	}
 
 	@SuppressWarnings("unused")

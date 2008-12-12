@@ -642,8 +642,8 @@ public abstract class L2Summon extends L2PlayableInstance
 	{
 		if (_owner == null)
 			return null;
-		else
-			return _owner.getParty();
+
+		return _owner.getParty();
 	}
 
 	/**
@@ -654,8 +654,8 @@ public abstract class L2Summon extends L2PlayableInstance
 	{
 		if (_owner == null)
 			return false;
-		else
-			return _owner.getParty() != null;
+
+		return _owner.getParty() != null;
 	}
 
 	/**
@@ -869,7 +869,7 @@ public abstract class L2Summon extends L2PlayableInstance
 		}
 	}
 
-	public void reduceCurrentHp(int damage, L2Character attacker, boolean awake, boolean isDOT)
+	public void reduceCurrentHp(int damage, L2Character attacker, @SuppressWarnings("unused") boolean awake, boolean isDOT)
 	{
 		super.reduceCurrentHp(damage, attacker);
 

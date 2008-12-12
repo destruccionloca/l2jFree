@@ -131,12 +131,12 @@ public class L2DynamicZone extends L2DefaultZone
 		return false;
 	}
 
-	private synchronized void startZoneTask(L2Character character)
+	private synchronized void startZoneTask(@SuppressWarnings("unused") L2Character character)
 	{
 		_task = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new ZoneTask(), 0, 3300);
 	}
 
-	private synchronized void stopZoneTask(L2Character character)
+	private synchronized void stopZoneTask(@SuppressWarnings("unused") L2Character character)
 	{
 		if (_task != null)
 		{
@@ -161,7 +161,7 @@ public class L2DynamicZone extends L2DefaultZone
 		}
 	}
 
-	protected void checkForDamage(L2Character character)
+	protected void checkForDamage(@SuppressWarnings("unused") L2Character character)
 	{
 	}
 

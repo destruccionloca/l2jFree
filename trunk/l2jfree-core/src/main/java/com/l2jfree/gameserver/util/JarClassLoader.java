@@ -85,17 +85,21 @@ public class JarClassLoader extends ClassLoader
 			{
 				try
 				{
-					zipFile.close();
+					if (zipFile != null)
+						zipFile.close();
 				}
 				catch (Exception e)
 				{
+					e.printStackTrace();
 				}
 				try
 				{
-					zipStream.close();
+					if (zipStream != null)
+						zipStream.close();
 				}
 				catch (Exception e)
 				{
+					e.printStackTrace();
 				}
 			}
 		}

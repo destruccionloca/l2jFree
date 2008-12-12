@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -33,8 +30,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestJoinPledge extends L2GameClientPacket
 {
 	private static final String _C__24_REQUESTJOINPLEDGE = "[C] 24 RequestJoinPledge";
-
-	private final static Log _log = LogFactory.getLog(RequestJoinPledge.class.getName());
 
 	private int _objectId;
 	private int _pledgeType;

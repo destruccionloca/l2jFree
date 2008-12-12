@@ -85,7 +85,7 @@ public class ShowBoard extends L2GameServerPacket
 		if (!_id.equals("1002"))
 		{
 			// getBytes is a very costly operation, and should only be called once
-			byte[] htmlBytes = null;
+			byte[] htmlBytes = new byte[0];
 			if (_htmlCode != null)
 				htmlBytes = _htmlCode.getBytes();
 			

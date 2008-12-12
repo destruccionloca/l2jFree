@@ -375,31 +375,28 @@ public class Disablers implements ICubicSkillHandler
 					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) skill.getPower());
 					break;
 				}
-				else
+				if (target instanceof L2Attackable)
 				{
-					if (target instanceof L2Attackable)
 					{
+						if (skill.getId() == 368) //Vengeance
 						{
-							if (skill.getId() == 368) //Vengeance
+							if (target instanceof L2PcInstance)
 							{
-								if (target instanceof L2PcInstance)
+								L2PcInstance pc = ((L2PcInstance) target);
+								if (pc.getPvpFlag() != 0 || pc.isInOlympiadMode() || pc.isInCombat() || pc.isInsideZone(L2Zone.FLAG_PVP))
 								{
-									L2PcInstance pc = ((L2PcInstance) target);
-									if (pc.getPvpFlag() != 0 || pc.isInOlympiadMode() || pc.isInCombat() || pc.isInsideZone(L2Zone.FLAG_PVP))
+									target.setTarget(activeChar);
+									target.getAI().setAutoAttacking(true);
+									if (target instanceof L2PcInstance)
 									{
-										target.setTarget(activeChar);
-										target.getAI().setAutoAttacking(true);
-										if (target instanceof L2PcInstance)
-										{
-											target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, activeChar);
-										}
+										target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, activeChar);
 									}
 								}
-								target.setTarget(activeChar); //c5 hate PvP
-								activeChar.stopSkillEffects(skill.getId());
-								skill.getEffects(activeChar, activeChar);
-								target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) ((150 * skill.getPower()) / (target.getLevel() + 7)));
 							}
+							target.setTarget(activeChar); //c5 hate PvP
+							activeChar.stopSkillEffects(skill.getId());
+							skill.getEffects(activeChar, activeChar);
+							target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) ((150 * skill.getPower()) / (target.getLevel() + 7)));
 						}
 					}
 				}

@@ -407,7 +407,7 @@ public abstract class L2Zone
 		{
 			sum += sh.getMiddleX();
 		}
-		return (int)(sum / _shapes.length);
+		return (sum / _shapes.length);
 	}
 
 	public int getMiddleY()
@@ -423,7 +423,7 @@ public abstract class L2Zone
 		{
 			sum += sh.getMiddleY();
 		}
-		return (int)(sum / _shapes.length);
+		return (sum / _shapes.length);
 	}
 
 	public boolean intersectsRectangle(int ax, int bx, int ay, int by)

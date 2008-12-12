@@ -348,19 +348,15 @@ public class FrintezzaManager extends BossLair
 		if (_lastLocation == null || _lastLocation.isEmpty())
 			return;
 
-		else
+		for (L2PcInstance pc : getPlayersInside())
 		{
-
-			for (L2PcInstance pc : getPlayersInside())
+			if (_lastLocation.containsKey(pc.getObjectId()))
 			{
-				if (_lastLocation.containsKey(pc.getObjectId()))
-				{
-					Point3D loc = _lastLocation.get(pc.getObjectId());
-					pc.teleToLocation(loc.getX(), loc.getY(), loc.getZ());
-				}
+				Point3D loc = _lastLocation.get(pc.getObjectId());
+				pc.teleToLocation(loc.getX(), loc.getY(), loc.getZ());
 			}
-			_lastLocation.clear();
 		}
+		_lastLocation.clear();
 	}
 
 	/** ************************** Initialize a movie and spawn the monsters *********************** */
@@ -384,7 +380,7 @@ public class FrintezzaManager extends BossLair
 			{
 
 			case 1: // spawn.
-				frintezza = (L2NpcInstance) frintezzaSpawn.doSpawn();
+				frintezza = frintezzaSpawn.doSpawn();
 				frintezza.setIsImmobilized(true);
 				frintezza.disableAllSkills();
 
@@ -973,29 +969,26 @@ public class FrintezzaManager extends BossLair
 		// This is usually returned, unless _debuffPeriod needs initialization
 		if (_debuffPeriod != 0)
 			return _debuffPeriod;
-		else
+
 		// Initialize _debuffPeriod
+		if (skill == null || target == null)
 		{
+			_debuffPeriod = 15000;
 
-			if (skill == null || target == null)
-			{
-				_debuffPeriod = 15000;
-
-				return _debuffPeriod;
-			}
-
-			for (L2Effect effect : skill.getEffects(frintezza, target))
-			{
-				if (effect == null)
-					continue;
-
-				else
-					_debuffPeriod = effect.getPeriod() * 1000;
-			}
-
-			if (_debuffPeriod == 0)
-				_debuffPeriod = 15000;
+			return _debuffPeriod;
 		}
+
+		for (L2Effect effect : skill.getEffects(frintezza, target))
+		{
+			if (effect == null)
+				continue;
+
+			_debuffPeriod = effect.getPeriod() * 1000;
+		}
+
+		if (_debuffPeriod == 0)
+			_debuffPeriod = 15000;
+
 		// return _debuffPeriod which is now initialized
 		return _debuffPeriod;
 	}
@@ -1017,15 +1010,13 @@ public class FrintezzaManager extends BossLair
 			{
 				if (effect == null)
 					continue;
-				else
-				{
-					Func[] func = effect.getStatFuncs();
 
-					if (func.length > 5)
-						_DecreaseRegHp = func[5];
+				Func[] func = effect.getStatFuncs();
 
-					effect.exit(); // We don't want to leave the effect on frintezza
-				}
+				if (func.length > 5)
+					_DecreaseRegHp = func[5];
+
+				effect.exit(); // We don't want to leave the effect on frintezza
 			}
 		}
 		// Func _DecreaseRegHp is not null, so just return it ;]
@@ -1613,7 +1604,7 @@ public class FrintezzaManager extends BossLair
 
 		// delete the weakScarlet from the world
 		scarletSpawnWeak.stopRespawn();
-		scarletSpawnWeak.decreaseCount((L2NpcInstance)weakScarlet);
+		scarletSpawnWeak.decreaseCount(weakScarlet);
 		
 		weakScarlet.getPoly().setPolyInfo(null, "1");
 		weakScarlet.decayMe();

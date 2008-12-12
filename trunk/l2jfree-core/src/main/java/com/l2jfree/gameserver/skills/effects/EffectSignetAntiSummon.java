@@ -80,8 +80,8 @@ public final class EffectSignetAntiSummon extends L2Effect
 						getEffector().sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
 						return false;
 					}
-					else
-						getEffector().reduceCurrentMp(mpConsume);
+
+					getEffector().reduceCurrentMp(mpConsume);
 
 					owner.getPet().unSummon(owner);
 					owner.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, getEffector());

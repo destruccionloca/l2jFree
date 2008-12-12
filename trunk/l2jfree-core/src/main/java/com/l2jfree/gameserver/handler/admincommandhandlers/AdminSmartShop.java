@@ -705,8 +705,8 @@ public class AdminSmartShop implements IAdminCommandHandler
 		{
 			if (!gradeList.get(smartList.indexOf(itemId)).equals(getGradeValue(stringOfMark("_grade=", marks))))
 				return null;
-			else
-				returnItem = true;
+
+			returnItem = true;
 		}
 
 		if (marks.contains("_searchAll"))

@@ -228,12 +228,12 @@ public class DayNightSpawnManager
 					if (npc instanceof L2RaidBossInstance)
 					{
 						boss = (L2Boss) npc;
-						RaidBossSpawnManager.getInstance().notifySpawnNightBoss((L2Boss) boss);
+						RaidBossSpawnManager.getInstance().notifySpawnNightBoss(boss);
 					}
 					else if (npc instanceof L2GrandBossInstance)
 					{
 						boss = (L2Boss) npc;
-						GrandBossSpawnManager.getInstance().notifySpawnNightBoss((L2Boss) boss);
+						GrandBossSpawnManager.getInstance().notifySpawnNightBoss(boss);
 					}
 					else
 						continue;

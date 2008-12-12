@@ -287,12 +287,10 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
                 }
                 catch(Exception e) {return 0;}
             }
-            else
-            {
-                String s1 = o1.getItemName();
-                String s2 = o2.getItemName();
-                return (order == A2Z ? s1.compareTo(s2) : s2.compareTo(s1));
-            }
+
+            String s1 = o1.getItemName();
+            String s2 = o2.getItemName();
+            return (order == A2Z ? s1.compareTo(s2) : s2.compareTo(s1));
         }
     }
     

@@ -491,8 +491,8 @@ public class GeoClient extends UnicastRemoteObject implements GeoClientInterface
 		//return false;
 		if (cha.getZ() >= target.getZ())
 			return canSeeTarget(cha.getX(), cha.getY(), cha.getZ(), target.getX(), target.getY(), target.getZ());
-		else
-			return canSeeTarget(target.getX(), target.getY(), target.getZ(), cha.getX(), cha.getY(), cha.getZ());
+
+		return canSeeTarget(target.getX(), target.getY(), target.getZ(), cha.getX(), cha.getY(), cha.getZ());
 	}
 
 	public short getSpawnHeight(int x, int y, int zmin, int zmax, int spawnid)

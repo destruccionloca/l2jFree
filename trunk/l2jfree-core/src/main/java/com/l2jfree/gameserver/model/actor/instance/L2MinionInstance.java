@@ -16,11 +16,9 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.model.L2Character;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
  * This class manages all Minions. 

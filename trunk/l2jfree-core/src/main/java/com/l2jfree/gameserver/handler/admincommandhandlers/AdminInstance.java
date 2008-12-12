@@ -68,11 +68,9 @@ public class AdminInstance implements IAdminCommandHandler
 						activeChar.sendMessage("Instance created");
 						return true;
 					}
-					else
-					{
-						activeChar.sendMessage("Failed to create instance");
-						return true;
-					}
+
+					activeChar.sendMessage("Failed to create instance");
+					return true;
 				}
 				catch (Exception e)
 				{
@@ -98,32 +96,30 @@ public class AdminInstance implements IAdminCommandHandler
 					activeChar.sendMessage("Instance " + val + " doesnt exist.");
 					return false;
 				}
-				else
+
+				L2Object target = activeChar.getTarget();
+				if (target == null || target instanceof L2Summon) // Don't separate summons from masters
 				{
-					L2Object target = activeChar.getTarget();
-					if (target == null || target instanceof L2Summon) // Don't separate summons from masters
-					{
-						activeChar.sendMessage("Incorrect target.");
-						return false;
-					}
-					target.setInstanceId(val);
-					if (target instanceof L2PcInstance)
-					{
-						L2PcInstance player = (L2PcInstance) target;
-						player.sendMessage("Admin set your instance to:" + val);
-						InstanceManager.getInstance().getInstance(val).addPlayer(player.getObjectId());
-						player.teleToLocation(player.getX(), player.getY(), player.getZ());
-						L2Summon pet = player.getPet();
-						if (pet != null)
-						{
-							pet.setInstanceId(val);
-							pet.teleToLocation(pet.getX(), pet.getY(), pet.getZ());
-							player.sendMessage("Admin set " + pet.getName() + "'s instance to:" + val);
-						}
-					}
-					activeChar.sendMessage("Moved " + target.getName() + " to instance " + target.getInstanceId() + ".");
-					return true;
+					activeChar.sendMessage("Incorrect target.");
+					return false;
 				}
+				target.setInstanceId(val);
+				if (target instanceof L2PcInstance)
+				{
+					L2PcInstance player = (L2PcInstance) target;
+					player.sendMessage("Admin set your instance to:" + val);
+					InstanceManager.getInstance().getInstance(val).addPlayer(player.getObjectId());
+					player.teleToLocation(player.getX(), player.getY(), player.getZ());
+					L2Summon pet = player.getPet();
+					if (pet != null)
+					{
+						pet.setInstanceId(val);
+						pet.teleToLocation(pet.getX(), pet.getY(), pet.getZ());
+						player.sendMessage("Admin set " + pet.getName() + "'s instance to:" + val);
+					}
+				}
+				activeChar.sendMessage("Moved " + target.getName() + " to instance " + target.getInstanceId() + ".");
+				return true;
 			}
 			catch (Exception e)
 			{

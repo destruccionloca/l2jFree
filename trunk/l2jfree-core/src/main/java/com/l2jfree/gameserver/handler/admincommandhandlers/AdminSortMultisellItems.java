@@ -589,12 +589,10 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 				addXML(category, item.getItemId(), price);
 				return;
 			}
-			else
-			{
-				category = getXML(jewelry, "NO_GRADE");
-				addXML(category, item.getItemId(), price);
-				return;
-			}
+
+			category = getXML(jewelry, "NO_GRADE");
+			addXML(category, item.getItemId(), price);
+			return;
 		}
 
 		if (MULTISELL_GENERATE_JUNKLIST)
@@ -736,12 +734,10 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 				addXML(category, itemId, price);
 				return;
 			}
-			else
-			{
-				category = getXML(armor, "NO_GRADE");
-				addXML(category, itemId, price);
-				return;
-			}
+
+			category = getXML(armor, "NO_GRADE");
+			addXML(category, itemId, price);
+			return;
 		}
 		if (MULTISELL_GENERATE_JUNKLIST)
 			etc.addItem(item.getItemId(), price);
@@ -895,12 +891,10 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 				addXML(category, itemId, price);
 				return;
 			}
-			else
-			{
-				category = getXML(weapon, "NO_GRADE");
-				addXML(category, itemId, price);
-				return;
-			}
+
+			category = getXML(weapon, "NO_GRADE");
+			addXML(category, itemId, price);
+			return;
 		}
 		if (MULTISELL_GENERATE_JUNKLIST)
 			etc.addItem(item.getItemId(), price);

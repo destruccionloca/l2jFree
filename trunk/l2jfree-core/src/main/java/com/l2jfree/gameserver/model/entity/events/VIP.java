@@ -256,10 +256,9 @@ public class VIP {
 	{
 		if (id == 0)
 			return "";
-		else {
-			L2NpcTemplate npctmp = NpcTable.getInstance().getTemplate(id);
-			return npctmp.getName();
-		}
+
+		L2NpcTemplate npctmp = NpcTable.getInstance().getTemplate(id);
+		return npctmp.getName();
 	}
 
 	/**
@@ -270,10 +269,9 @@ public class VIP {
 	{
 		if (id == 0)
 			return "";
-		else {
-			L2Item itemtmp = ItemTable.getInstance().getTemplate(id);
-			return itemtmp.getName();
-		}
+
+		L2Item itemtmp = ItemTable.getInstance().getTemplate(id);
+		return itemtmp.getName();
 	}
 
 	public static void setJoinLOC(String x, String y, String z)

@@ -93,8 +93,8 @@ public class CharEffectList
 			{
 				if (e.getInUse())
 					return e;
-				else
-					eventNotInUse = e;
+
+				eventNotInUse = e;
 			}
 		}
 		return eventNotInUse;
@@ -116,8 +116,8 @@ public class CharEffectList
 			{
 				if (e.getInUse())
 					return e;
-				else
-					eventNotInUse = e;
+
+				eventNotInUse = e;
 			}
 		}
 		return eventNotInUse;
@@ -139,8 +139,8 @@ public class CharEffectList
 			{
 				if (e.getInUse())
 					return e;
-				else
-					eventNotInUse = e;
+
+				eventNotInUse = e;
 			}
 		}
 		return eventNotInUse;
@@ -450,8 +450,9 @@ public class CharEffectList
 		}
 
 		FastList<L2Effect> effectList = newEffect.getSkill().isDebuff() ? _debuffs : _buffs;
-		L2Effect tempEffect = null, tempEffect2 = null;
+		L2Effect tempEffect = null;
 		boolean stopNewEffect = false;
+		
 		synchronized (effectList)
 		{
 			// Check for same effects
@@ -468,12 +469,10 @@ public class CharEffectList
 						tempEffect = e; // exit this
 						break;
 					}
-					else
-					{
-						// Started scheduled timer needs to be canceled.
-						stopNewEffect = true;
-						break;
-					}
+
+					// Started scheduled timer needs to be canceled.
+					stopNewEffect = true;
+					break;
 				}
 			}
 		}
@@ -563,7 +562,7 @@ public class CharEffectList
 		_stackedEffects.put(newEffect.getStackType(), stackQueue);
 
 		// Get the first stacked effect of the Stack group selected
-		tempEffect2 = null;
+		L2Effect tempEffect2 = null;
 		for (L2Effect e : allEffects)
 		{
 			if (e == stackQueue.get(0))

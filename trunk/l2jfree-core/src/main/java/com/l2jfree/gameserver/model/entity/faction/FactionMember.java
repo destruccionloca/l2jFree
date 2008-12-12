@@ -176,8 +176,8 @@ public class FactionMember
             updateDb();            
             return true;
         }
-        else
-            return false;
+
+        return false;
     }
     
     public void setFactionPoints(int amount)

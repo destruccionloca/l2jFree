@@ -298,32 +298,32 @@ public class L2ClanMember
 	{
 		if (_player != null)
 			return _player.getSponsor();
-		else
-			return _sponsor;
+
+		return _sponsor;
 	}
 
 	public int getApprentice()
 	{
 		if (_player != null)
 			return _player.getApprentice();
-		else
-			return _apprentice;
+
+		return _apprentice;
 	}
 
 	public int getSex()
 	{
 		if (_player != null)
 			return _player.getAppearance().getSex() ? 1 : 0;
-		else
-			return _sex;
+
+		return _sex;
 	}
 
 	public int getRace()
 	{
 		if (_player != null)
 			return _player.getRace().ordinal();
-		else
-			return _race;
+
+		return _race;
 	}
 
 	public String getApprenticeOrSponsorName()
@@ -339,16 +339,16 @@ public class L2ClanMember
 			L2ClanMember apprentice = _clan.getClanMember(_apprentice);
 			if (apprentice != null)
 				return apprentice.getName();
-			else
-				return "Error";
+
+			return "Error";
 		}
 		if (_sponsor != 0)
 		{
 			L2ClanMember sponsor = _clan.getClanMember(_sponsor);
 			if (sponsor != null)
 				return sponsor.getName();
-			else
-				return "Error";
+
+			return "Error";
 		}
 		return "";
 	}

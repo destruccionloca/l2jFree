@@ -134,11 +134,9 @@ public class L2SignsPriestInstance extends L2FolkInstance
                         showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dawn_no.htm");
                         break;
                     }
-                    else
-                    {
-                        showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dawn.htm");
-                        break;
-                    }
+
+                    showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dawn.htm");
+                    break;
                 case 33: // "I want to participate" request
                     if (cabal == SevenSigns.CABAL_DUSK && Config.ALT_GAME_CASTLE_DUSK) //dusk
                     {
@@ -262,102 +260,101 @@ public class L2SignsPriestInstance extends L2FolkInstance
                         player.sendPacket(SystemMessageId.CONTRIB_SCORE_EXCEEDED);
                         break;
                     }
-                    else
+
+                    int redContribCount = 0;
+                    int greenContribCount = 0;
+                    int blueContribCount = 0;
+
+                    switch (stoneType)
                     {
-                        int redContribCount = 0;
-                        int greenContribCount = 0;
-                        int blueContribCount = 0;
-
-                        switch (stoneType)
-                        {
-                            case 1:
-                                blueContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - contribScore)
-                                    / SevenSigns.BLUE_CONTRIB_POINTS;
-                                if (blueContribCount > blueStoneCount)
-                                    blueContribCount = blueStoneCount;
-                                break;
-                            case 2:
-                                greenContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - contribScore)
-                                    / SevenSigns.GREEN_CONTRIB_POINTS;
-                                if (greenContribCount > greenStoneCount)
-                                    greenContribCount = greenStoneCount;
-                                break;
-                            case 3:
-                                redContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - contribScore)
-                                    / SevenSigns.RED_CONTRIB_POINTS;
-                                if (redContribCount > redStoneCount) redContribCount = redStoneCount;
-                                break;
-                            case 4:
-                                int tempContribScore = contribScore;
-                                redContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - tempContribScore)
-                                    / SevenSigns.RED_CONTRIB_POINTS;
-                                if (redContribCount > redStoneCount) redContribCount = redStoneCount;
-                                tempContribScore += redContribCount * SevenSigns.RED_CONTRIB_POINTS;
-                                greenContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - tempContribScore)
-                                    / SevenSigns.GREEN_CONTRIB_POINTS;
-                                if (greenContribCount > greenStoneCount)
-                                    greenContribCount = greenStoneCount;
-                                tempContribScore += greenContribCount * SevenSigns.GREEN_CONTRIB_POINTS;
-                                blueContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - tempContribScore)
-                                    / SevenSigns.BLUE_CONTRIB_POINTS;
-                                if (blueContribCount > blueStoneCount)
-                                    blueContribCount = blueStoneCount;
-                                break;
-                        }
-                        if (redContribCount > 0)
-                        {
-                            if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_RED_ID,
-                                                           redContribCount, this, false))
-                            {
-                                stonesFound = true;
-                                SystemMessage msg = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-                                msg.addItemName(SevenSigns.SEAL_STONE_RED_ID);
-                                msg.addNumber(redContribCount);
-                                player.sendPacket(msg);
-                            }
-                        }
-                        if (greenContribCount > 0)
-                        {
-                            if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_GREEN_ID,
-                                                           greenContribCount, this, false))
-                            {
-                                stonesFound = true;
-                                SystemMessage msg = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-                                msg.addItemName(SevenSigns.SEAL_STONE_GREEN_ID);
-                                msg.addNumber(greenContribCount);
-                                player.sendPacket(msg);
-                            }
-                        }
-                        if (blueContribCount > 0)
-                        {
-                            if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_BLUE_ID,
-                                                           blueContribCount, this, false))
-                            {
-                                stonesFound = true;
-                                SystemMessage msg = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-                                msg.addItemName(SevenSigns.SEAL_STONE_BLUE_ID);
-                                msg.addNumber(blueContribCount);
-                                player.sendPacket(msg);
-                            }
-                        }
-
-                        if (!stonesFound)
-                        {
-                            player.sendMessage("You do not have any seal stones of that type.");
+                        case 1:
+                            blueContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - contribScore)
+                                / SevenSigns.BLUE_CONTRIB_POINTS;
+                            if (blueContribCount > blueStoneCount)
+                                blueContribCount = blueStoneCount;
                             break;
-                        }
-                        else contribScore = SevenSigns.getInstance().addPlayerStoneContrib(
-                                                                                           player,
-                                                                                           blueContribCount,
-                                                                                           greenContribCount,
-                                                                                           redContribCount);
-
-                        sm = new SystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED);
-                        sm.addNumber(contribScore);
-                        player.sendPacket(sm);
-
-                        showChatWindow(player, 6, null, false);
+                        case 2:
+                            greenContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - contribScore)
+                                / SevenSigns.GREEN_CONTRIB_POINTS;
+                            if (greenContribCount > greenStoneCount)
+                                greenContribCount = greenStoneCount;
+                            break;
+                        case 3:
+                            redContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - contribScore)
+                                / SevenSigns.RED_CONTRIB_POINTS;
+                            if (redContribCount > redStoneCount) redContribCount = redStoneCount;
+                            break;
+                        case 4:
+                            int tempContribScore = contribScore;
+                            redContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - tempContribScore)
+                                / SevenSigns.RED_CONTRIB_POINTS;
+                            if (redContribCount > redStoneCount) redContribCount = redStoneCount;
+                            tempContribScore += redContribCount * SevenSigns.RED_CONTRIB_POINTS;
+                            greenContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - tempContribScore)
+                                / SevenSigns.GREEN_CONTRIB_POINTS;
+                            if (greenContribCount > greenStoneCount)
+                                greenContribCount = greenStoneCount;
+                            tempContribScore += greenContribCount * SevenSigns.GREEN_CONTRIB_POINTS;
+                            blueContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - tempContribScore)
+                                / SevenSigns.BLUE_CONTRIB_POINTS;
+                            if (blueContribCount > blueStoneCount)
+                                blueContribCount = blueStoneCount;
+                            break;
                     }
+                    if (redContribCount > 0)
+                    {
+                        if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_RED_ID,
+                                                       redContribCount, this, false))
+                        {
+                            stonesFound = true;
+                            SystemMessage msg = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+                            msg.addItemName(SevenSigns.SEAL_STONE_RED_ID);
+                            msg.addNumber(redContribCount);
+                            player.sendPacket(msg);
+                        }
+                    }
+                    if (greenContribCount > 0)
+                    {
+                        if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_GREEN_ID,
+                                                       greenContribCount, this, false))
+                        {
+                            stonesFound = true;
+                            SystemMessage msg = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+                            msg.addItemName(SevenSigns.SEAL_STONE_GREEN_ID);
+                            msg.addNumber(greenContribCount);
+                            player.sendPacket(msg);
+                        }
+                    }
+                    if (blueContribCount > 0)
+                    {
+                        if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_BLUE_ID,
+                                                       blueContribCount, this, false))
+                        {
+                            stonesFound = true;
+                            SystemMessage msg = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+                            msg.addItemName(SevenSigns.SEAL_STONE_BLUE_ID);
+                            msg.addNumber(blueContribCount);
+                            player.sendPacket(msg);
+                        }
+                    }
+
+                    if (!stonesFound)
+                    {
+                        player.sendMessage("You do not have any seal stones of that type.");
+                        break;
+                    }
+                    
+                    contribScore = SevenSigns.getInstance().addPlayerStoneContrib(
+                    		player,
+                    		blueContribCount,
+                    		greenContribCount,
+                    		redContribCount);
+
+                    sm = new SystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED);
+                    sm.addNumber(contribScore);
+                    player.sendPacket(sm);
+
+                    showChatWindow(player, 6, null, false);
                     break;
                 case 7: // Exchange Ancient Adena for Adena - SevenSigns 7 xxxxxxx
                     int ancientAdenaConvert = 0;

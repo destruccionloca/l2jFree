@@ -87,8 +87,8 @@ public final class DeadlockDetector implements Runnable
 	{
 		if (_mbean.isSynchronizerUsageSupported())
 			return _mbean.findDeadlockedThreads();
-		else
-			return _mbean.findMonitorDeadlockedThreads();
+
+		return _mbean.findMonitorDeadlockedThreads();
 	}
 	
 	private Thread findThreadById(long id)

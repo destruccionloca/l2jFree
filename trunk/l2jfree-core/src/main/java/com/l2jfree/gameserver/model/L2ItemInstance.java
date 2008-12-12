@@ -889,7 +889,10 @@ public final class L2ItemInstance extends L2Object
 		}
 		finally
 		{
-			try { con.close(); } catch (Exception e) {
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -928,7 +931,8 @@ public final class L2ItemInstance extends L2Object
 		{
 			try
 			{
-				con.close();
+				if (con != null)
+					con.close();
 			}
 			catch (Exception e)
 			{
@@ -983,7 +987,10 @@ public final class L2ItemInstance extends L2Object
 		}
 		finally
 		{
-			try { con.close(); } catch (Exception e) {
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -1060,7 +1067,10 @@ public final class L2ItemInstance extends L2Object
 		}
 		finally
 		{
-			try { con.close(); } catch (Exception e) {
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

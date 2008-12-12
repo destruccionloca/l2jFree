@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -41,7 +39,7 @@ public class RecipeShopItemInfo  extends L2GameServerPacket
 		writeD(_crafter.getObjectId());
 		writeD(_recipeId);
 		writeD((int)_crafter.getStatus().getCurrentMp());
-		writeD((int)_crafter.getMaxMp());
+		writeD(_crafter.getMaxMp());
 		writeD(0xffffffff);
 	}
 	

@@ -38,7 +38,6 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.L2FriendList;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -490,12 +489,11 @@ public class EnterWorld extends L2GameClientPacket
 	{
 		if (cha.getPartnerId() != 0)
 		{
-			int objId = cha.getPartnerId();
+
 			L2PcInstance partner = L2World.getInstance().getPlayer(cha.getPartnerId());
+			
 			if (partner != null)
-			{
 				partner.sendMessage("Your Partner " + cha.getName() + " has logged in.");
-			}
 		}
 	}
 

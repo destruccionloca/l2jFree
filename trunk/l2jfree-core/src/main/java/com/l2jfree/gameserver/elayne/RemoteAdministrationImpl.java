@@ -151,8 +151,8 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 			}
 			return 2;
 		}
-		else
-			return 3;
+
+		return 3;
 	}
 
 	/**
@@ -244,8 +244,8 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 			reciever.sendPacket(cs);
 			return 1;
 		}
-		else
-			return 2;
+
+		return 2;
 	}
 
 	/**

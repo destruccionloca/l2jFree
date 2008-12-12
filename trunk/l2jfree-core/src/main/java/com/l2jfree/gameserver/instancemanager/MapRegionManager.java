@@ -352,8 +352,8 @@ public class MapRegionManager
 				// prefer special regions
 				if (region.isSpecialRegion())
 					return region;
-				else
-					areaRegion = region;
+
+				areaRegion = region;
 			}
 		}
 
@@ -469,10 +469,8 @@ public class MapRegionManager
 							// Karma player respawns out of siege zone (only during sieges ? o.O )
 							return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
 						}
-						else
-						{
-							return zone.getRestartPoint(L2Zone.RestartType.OWNER);
-						}
+
+						return zone.getRestartPoint(L2Zone.RestartType.OWNER);
 					}
 				}
 				else if (fort != null && teleportWhere == TeleportWhereType.Fortress)
@@ -486,10 +484,8 @@ public class MapRegionManager
 							// Karma player respawns out of siege zone (only during sieges ? o.O )
 							return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
 						}
-						else
-						{
-							return zone.getRestartPoint(L2Zone.RestartType.OWNER);
-						}
+
+						return zone.getRestartPoint(L2Zone.RestartType.OWNER);
 					}
 				}
 				else if (teleportWhere == TeleportWhereType.SiegeFlag)

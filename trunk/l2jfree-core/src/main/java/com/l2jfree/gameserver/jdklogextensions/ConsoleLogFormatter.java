@@ -63,17 +63,21 @@ public class ConsoleLogFormatter extends Formatter
 			{
 				try
 				{
-					pw.close();
+					if (pw != null)
+						pw.close();
 				}
 				catch (Exception e)
 				{
+					e.printStackTrace();
 				}
 				try
 				{
-					sw.close();
+					if (sw != null)
+						sw.close();
 				}
 				catch (Exception e)
 				{
+					e.printStackTrace();
 				}
 			}
 		}

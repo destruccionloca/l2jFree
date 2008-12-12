@@ -657,9 +657,9 @@ public abstract class Inventory extends ItemContainer
 			refreshWeight();
 			return item;
 		}
+
 		// Directly drop entire item
-		else
-			return dropItem(process, item, actor, reference);
+		return dropItem(process, item, actor, reference);
 	}
 	
 	/**
@@ -815,17 +815,10 @@ public abstract class Inventory extends ItemContainer
 	public int getPaperdollAugmentationId(int slot)
 	{
 		L2ItemInstance item = _paperdoll[slot];
-		if (item != null)
-		{
-			if (item.getAugmentation() != null)
-			{
+		if (item != null &&
+				item.getAugmentation() != null)
 				return item.getAugmentation().getAugmentationId();
-			}
-			else
-			{
-				return 0;
-			}
-		}
+		
 		return 0;
 	}
 	

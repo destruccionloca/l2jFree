@@ -1290,6 +1290,6 @@ public class FortSiege
 
 	public final L2SiegeZone getZone()
 	{
-		return (L2SiegeZone) getFort().getBattlefield();
+		return getFort().getBattlefield();
 	}
 }

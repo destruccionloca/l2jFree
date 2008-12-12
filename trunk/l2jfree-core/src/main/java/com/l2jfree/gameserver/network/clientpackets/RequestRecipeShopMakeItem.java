@@ -68,9 +68,6 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 			return;
 
 		L2PcInstance manufacturer = (L2PcInstance) object;
-
-		if (manufacturer == null)
-			return;
 		
 		if (activeChar.getPrivateStoreType() != 0)
 		{

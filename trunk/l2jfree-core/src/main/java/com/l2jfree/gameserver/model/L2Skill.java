@@ -630,7 +630,7 @@ public class L2Skill
 		}
 	}
 	
-	public void useSkill(L2Character caster, L2Object... targets)
+	public void useSkill(L2Character caster, @SuppressWarnings("unused") L2Object... targets)
 	{
 		caster.sendPacket(ActionFailed.STATIC_PACKET);
 		
@@ -1510,17 +1510,15 @@ public class L2Skill
 		{
 			return true;
 		}
-		else
-		{
-			SystemMessage message = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-			message.addSkillName(this);
-			activeChar.sendPacket(message);
 
-			return false;
-		}
+		SystemMessage message = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+		message.addSkillName(this);
+		activeChar.sendPacket(message);
+
+		return false;
 	}
 
-	public final boolean getWeaponDependancy(L2Character activeChar, boolean chance)
+	public final boolean getWeaponDependancy(L2Character activeChar, @SuppressWarnings("unused") boolean chance)
 	{
 		int weaponsAllowed = getWeaponsAllowed();
 		L2WeaponType playerWeapon;
@@ -1626,7 +1624,7 @@ public class L2Skill
 
 		// Get the type of the skill
 		// (ex : PDAM, MDAM, DOT, BLEED, POISON, HEAL, HOT, MANAHEAL, MANARECHARGE, AGGDAMAGE, BUFF, DEBUFF, STUN, ROOT, RESURRECT, PASSIVE...)
-		L2SkillType L2SkillType = getSkillType();
+		L2SkillType skillType = getSkillType();
 
 		switch (targetType)
 		{
@@ -1638,7 +1636,7 @@ public class L2Skill
 				target = activeChar;
 
 			boolean canTargetSelf = false;
-			switch (L2SkillType)
+			switch (skillType)
 			{
 			case BUFF:
 			case HEAL:
@@ -2458,10 +2456,12 @@ public class L2Skill
 
 				for (L2PcInstance partyMember : partyList)
 				{
-					if (partyMember == null || partyMember == player)
+					if (player == null || partyMember == null || partyMember == player)
 						continue;
-					if (player != null && player.isInDuel() && player.getDuelId() != partyMember.getDuelId())
+					
+					if (player.isInDuel() && player.getDuelId() != partyMember.getDuelId())
 						continue;
+					
 					//check if allow interference is allowed if player is not on event but target is on event
 					if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
 							|| (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !player.isGM())
@@ -2479,9 +2479,7 @@ public class L2Skill
 						targetList.add(partyMember);
 
 						if (partyMember.getPet() != null && !partyMember.getPet().isDead())
-						{
 							targetList.add(partyMember.getPet());
-						}
 					}
 				}
 			}
@@ -2501,14 +2499,12 @@ public class L2Skill
 					return new L2Character[]
 					{ target };
 				}
-				else
-					return null;
-			}
-			else
-			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+
 				return null;
 			}
+
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			return null;
 		}
 		case TARGET_PARTY_OTHER:
 		{
@@ -2527,27 +2523,25 @@ public class L2Skill
 							if (!player.isMageClass())
 								return new L2Character[]
 								{ target };
-							else
-								return null;
+
+							return null;
 						case 427:
 							if (player.isMageClass())
 								return new L2Character[]
 								{ target };
-							else
-								return null;
+
+							return null;
 						}
 					}
 					return new L2Character[]
 					{ target };
 				}
-				else
-					return null;
-			}
-			else
-			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+
 				return null;
 			}
+
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			return null;
 		}
 		case TARGET_CORPSE_ALLY:
 		case TARGET_ALLY:
@@ -2565,16 +2559,16 @@ public class L2Skill
 				{
 					if (player.getPet() == null)
 						return new L2Character[] { player };
-					else
-						return new L2Character[] { player, player.getPet() };
+
+					return new L2Character[] { player, player.getPet() };
 				}
 
 				if (targetType != SkillTargetType.TARGET_CORPSE_ALLY)
 				{
 					if (onlyFirst == false)
 						targetList.add(player);
-					else
-						return new L2Character[] { player };
+
+					return new L2Character[] { player };
 				}
 
 				if (activeChar.getPet() != null)
@@ -2642,11 +2636,9 @@ public class L2Skill
 							continue;
 
 						if (onlyFirst == false)
-						{
 							targetList.add(newTarget);
-						}
-						else
-							return new L2Character[] { newTarget };
+
+						return new L2Character[] { newTarget };
 
 					}
 				}
@@ -2712,8 +2704,8 @@ public class L2Skill
 				{
 					if (player.getPet() == null)
 						return new L2Character[] { player };
-					else
-						return new L2Character[] { player, player.getPet() };
+
+					return new L2Character[] { player, player.getPet() };
 				}
 
 				if (targetType != SkillTargetType.TARGET_CORPSE_CLAN)
@@ -2853,7 +2845,9 @@ public class L2Skill
 						else if (targetPet != null)
 							siege = SiegeManager.getInstance().getSiege(targetPet);
 
-						if (siege != null && siege.getIsInProgress() && (!targetPlayer.getCharmOfCourage() || player.getSiegeState() == 0))
+						if (siege != null && siege.getIsInProgress() &&
+								targetPlayer != null &&
+								(!targetPlayer.getCharmOfCourage() || player.getSiegeState() == 0))
 						{
 							condGood = false;
 							player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));
@@ -2885,9 +2879,8 @@ public class L2Skill
 							targetList.add(target);
 							return targetList.toArray(new L2Object[targetList.size()]);
 						}
-						else
-							return new L2Character[]
-							{ target };
+
+						return new L2Character[] { target };
 
 					}
 				}
@@ -2923,9 +2916,8 @@ public class L2Skill
 				targetList.add(target);
 				return targetList.toArray(new L2Object[targetList.size()]);
 			}
-			else
-				return new L2Character[]
-				{ target };
+
+			return new L2Character[] { target };
 
 		}
 		case TARGET_AREA_CORPSE_MOB:
@@ -2939,8 +2931,7 @@ public class L2Skill
 			if (onlyFirst == false)
 				targetList.add(target);
 			else
-				return new L2Character[]
-				{ target };
+				return new L2Character[] { target };
 
 			boolean srcInArena = (activeChar.isInsideZone(L2Zone.FLAG_PVP) && !activeChar.isInsideZone(L2Zone.FLAG_SIEGE));
 			L2PcInstance src = null;
@@ -3070,9 +3061,8 @@ public class L2Skill
 				targetList.add(target);
 				return targetList.toArray(new L2Object[targetList.size()]);
 			}
-			else
-				return new L2Character[]
-				{ target };
+
+			return new L2Character[] { target };
 
 		}
 		case TARGET_ITEM:
@@ -3088,8 +3078,7 @@ public class L2Skill
 				if (activeChar instanceof L2PcInstance && activeChar.getPet() != targetSummon && !targetSummon.isDead()
 						&& (targetSummon.getOwner().getPvpFlag() != 0 || targetSummon.getOwner().getKarma() > 0)
 						|| (targetSummon.getOwner().isInsideZone(L2Zone.FLAG_PVP) && ((L2PcInstance) activeChar).isInsideZone(L2Zone.FLAG_PVP)))
-					return new L2Character[]
-					{ targetSummon };
+					return new L2Character[] { targetSummon };
 			}
 			return null;
 		}
@@ -3594,8 +3583,8 @@ public class L2Skill
 
 		if ((diffHeading > 90) && (diffHeading < 270))
 			return true;
-		else
-			return false;
+
+		return false;
 
 	}
 
@@ -3613,8 +3602,8 @@ public class L2Skill
 
 		if (targets == null || targets.length == 0)
 			return null;
-		else
-			return targets[0];
+
+		return targets[0];
 	}
 
 	public final Func[] getStatFuncs(@SuppressWarnings("unused")

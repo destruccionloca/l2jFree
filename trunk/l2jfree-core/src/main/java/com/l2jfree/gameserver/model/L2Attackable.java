@@ -54,7 +54,6 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
@@ -1037,15 +1036,13 @@ public class L2Attackable extends L2NpcInstance
 				((L2AttackableAI) getAI()).setGlobalAggro(-25);
 				return;
 			}
-			else
+
+			for (L2Character aggroed : getAggroListRP().keySet())
 			{
-				for (L2Character aggroed : getAggroListRP().keySet())
-				{
-					AggroInfo ai = getAggroListRP().get(aggroed);
-					if (ai == null)
-						return;
-					ai._hate -= amount;
-				}
+				AggroInfo ai = getAggroListRP().get(aggroed);
+				if (ai == null)
+					return;
+				ai._hate -= amount;
 			}
 
 			amount = getHating(mostHated);
@@ -2255,7 +2252,6 @@ public class L2Attackable extends L2NpcInstance
 
 		// ********
 		String[] crystalNFO = null;
-		String crystalNME = "";
 
 		int dice = Rnd.get(100);
 		int crystalQTY = 0;
@@ -2316,8 +2312,6 @@ public class L2Attackable extends L2NpcInstance
 									crystalNFO = item.getItem().getName().trim().replace(" Grade ", "-").split("-");
 									// Set Level to 13
 									crystalLVL = 13;
-									// Get Name
-									crystalNME = crystalNFO[0].toLowerCase();
 								}
 								else
 								{
@@ -2325,8 +2319,6 @@ public class L2Attackable extends L2NpcInstance
 									crystalNFO = item.getItem().getName().trim().replace(" Stage ", "").split("-");
 									// Get Level
 									crystalLVL = Integer.parseInt(crystalNFO[1].trim());
-									// Get Name
-									crystalNME = crystalNFO[0].toLowerCase();
 								}
 								// Allocate current and levelup ids' for higher level crystals
 								if (crystalLVL > 9)
@@ -2362,7 +2354,6 @@ public class L2Attackable extends L2NpcInstance
 						}
 						else
 						{
-							crystalNME = item.getItem().getName().toLowerCase().trim();
 							crystalNEW = id + 1;
 						}
 

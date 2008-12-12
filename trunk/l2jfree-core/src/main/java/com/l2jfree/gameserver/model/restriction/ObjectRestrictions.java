@@ -639,7 +639,7 @@ public class ObjectRestrictions
 	{
 		if (owner instanceof L2Object)
 			return ((L2Object)owner).getObjectId();
-		else
-			return owner.hashCode();
+
+		return owner.hashCode();
 	}
 }

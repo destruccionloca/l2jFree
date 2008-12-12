@@ -107,7 +107,7 @@ public class CharStat
 		// Launch the calculation
 		c.calc(env);
 		// avoid some troubles with negative stats (some stats should never be negative)
-		if (env.value <= 0 && stat != null)
+		if (env.value <= 0)
 		{
 			switch (stat)
 			{
@@ -701,10 +701,8 @@ public class CharStat
 		{
 			return (getRunSpeed() * 70) / 100;
 		}
-		else
-		{
-			return (int) calcStat(Stats.WALK_SPEED, _activeChar.getTemplate().getBaseWalkSpd(), null, null);
-		}
+
+		return (int) calcStat(Stats.WALK_SPEED, _activeChar.getTemplate().getBaseWalkSpd(), null, null);
 	}
 
 	/** Return the WIT of the L2Character (base+modifier). */

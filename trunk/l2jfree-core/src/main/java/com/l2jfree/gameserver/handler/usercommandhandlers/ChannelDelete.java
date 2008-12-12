@@ -50,8 +50,8 @@ public class ChannelDelete implements IUserCommandHandler
 				channel.disbandChannel();
 				return true;
 			}
-			else
-				activeChar.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_LEAVE_CHANNEL);
+
+			activeChar.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_LEAVE_CHANNEL);
 		}
 
 		return false;

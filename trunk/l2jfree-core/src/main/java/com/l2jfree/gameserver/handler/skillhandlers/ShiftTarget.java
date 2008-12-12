@@ -65,7 +65,7 @@ public class ShiftTarget implements ISkillHandler
 		
 		if (targetShifted && attackerChar != null && targetChar != null)
 		{
-			attacker = (L2NpcInstance) attackerChar;
+			attacker = attackerChar;
 			int aggro = attackerChar.getHating(activeChar);
 
 			if (aggro == 0)

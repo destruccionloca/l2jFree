@@ -777,8 +777,8 @@ public final class L2World
 
 		if (obj instanceof L2Character)
 			return (L2Character) obj;
-		else
-			return null;
+
+		return null;
 	}
 
 	public L2PcInstance findPlayer(int oId)
@@ -787,7 +787,7 @@ public final class L2World
 
 		if (obj instanceof L2PcInstance)
 			return (L2PcInstance) obj;
-		else
-			return null;
+
+		return null;
 	}
 }

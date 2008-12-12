@@ -72,8 +72,8 @@ public class L2Manor
 		L2Item seedItem = ItemTable.getInstance().getTemplate(seedId);
 		if (seedItem != null)
 			return seedItem.getReferencePrice();
-		else
-			return 0;
+
+		return 0;
 	}
 	
 	public int getSeedBasicPriceByCrop (int cropId)
@@ -91,8 +91,8 @@ public class L2Manor
 		L2Item cropItem = ItemTable.getInstance().getTemplate(cropId);
 		if (cropItem != null)
 			return cropItem.getReferencePrice();
-		else
-			return 0;
+
+		return 0;
 	}
 
 	public int getMatureCrop (int cropId)

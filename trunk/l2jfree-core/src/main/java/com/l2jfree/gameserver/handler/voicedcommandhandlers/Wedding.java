@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.handler.voicedcommandhandlers;
 
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.SevenSigns;

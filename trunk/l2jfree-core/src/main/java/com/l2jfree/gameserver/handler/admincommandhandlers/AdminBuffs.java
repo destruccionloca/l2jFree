@@ -51,12 +51,10 @@ public class AdminBuffs implements IAdminCommandHandler
 					showBuffs(player, activeChar);
 					return true;
 				}
-				else
-				{
-					activeChar.sendMessage("The player " + playername
-					        + " is not online");
-					return false;
-				}
+
+				activeChar.sendMessage("The player " + playername
+				        + " is not online");
+				return false;
 			}
 			else if ((activeChar.getTarget() != null)
 			        && (activeChar.getTarget() instanceof L2PcInstance))
@@ -99,9 +97,8 @@ public class AdminBuffs implements IAdminCommandHandler
 				removeAllBuffs(activeChar, playername);
 				return true;
 			}
-			else
-				return false;
-			
+
+			return false;		
 		}
 		else if (command.startsWith("admin_areacancel"))
 		{

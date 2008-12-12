@@ -114,8 +114,8 @@ public class RequestRestartPoint extends L2GameClientPacket
 					{
 						if (activeChar.getClan() == null || activeChar.getClan().getHasCastle() == 0)
 							return;
-						else
-							loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Castle);
+
+						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Castle);
 					}
 					if (CastleManager.getInstance().getCastleByOwner(activeChar.getClan())!= null &&
 							CastleManager.getInstance().getCastleByOwner(activeChar.getClan()).getFunction(Castle.FUNC_RESTORE_EXP) != null)
@@ -144,8 +144,8 @@ public class RequestRestartPoint extends L2GameClientPacket
 					{
 						if (activeChar.getClan() == null || activeChar.getClan().getHasFort() == 0)
 							return;
-						else
-							loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Fortress);
+
+						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Fortress);
 					}
 					break;
 

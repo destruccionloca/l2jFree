@@ -63,10 +63,8 @@ public class TransformationManager
 			player.transform(template);
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	public L2Transformation getTransformationById(int id)

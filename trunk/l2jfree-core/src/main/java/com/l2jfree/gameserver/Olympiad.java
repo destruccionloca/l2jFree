@@ -928,14 +928,10 @@ public class Olympiad
 			{
 				return false;
 			}
-			else
-			{
-				FastList<L2PcInstance> classed = _classBasedRegisters.get(getCompetitionClass(noble.getClassId().getId()));
-				if (!classed.contains(noble))
-				{
-					return false;
-				}
-			}
+
+			FastList<L2PcInstance> classed = _classBasedRegisters.get(getCompetitionClass(noble.getClassId().getId()));
+			if (!classed.contains(noble))
+				return false;
 		}
 		return true;
 	}
@@ -1922,8 +1918,8 @@ public class Olympiad
 
 			if (loopCount < 1)
 				return false;
-			else
-				return true;
+
+			return true;
 		}
 
 		protected String[] getAllTitles()

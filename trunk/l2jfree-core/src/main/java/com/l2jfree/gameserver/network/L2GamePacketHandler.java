@@ -934,10 +934,8 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			L2GameClient client = ((MMOConnection<L2GameClient>) key.attachment()).getClient();
 			return this.getHeaderInfoReturn().set(0, dataPending, false, client);
 		}
-		else
-		{
-			L2GameClient client = ((MMOConnection<L2GameClient>) key.attachment()).getClient();
-			return this.getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, client);
-		}
+
+		L2GameClient client = ((MMOConnection<L2GameClient>) key.attachment()).getClient();
+		return this.getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, client);
 	}
 }

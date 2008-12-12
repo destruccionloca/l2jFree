@@ -147,14 +147,12 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					getCastle().banishForeigners(); // Move non-clan members off castle area
 					return;
 				}
-				else
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);
-					return;
-				}
+
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				player.sendPacket(html);
+				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("list_siege_clans"))
 			{
@@ -163,14 +161,12 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					getCastle().getSiege().listRegisterClan(player); // List current register clan
 					return;
 				}
-				else
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);
-					return;
-				}
+
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				player.sendPacket(html);
+				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("receive_report"))
 			{
@@ -242,14 +238,12 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					player.sendPacket(html);
 					return;
 				}
-				else
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);
-					return;
-				}
+
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				player.sendPacket(html);
+				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("items"))
 			{
@@ -281,14 +275,12 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					getCastle().getSiege().listRegisterClan(player);
 					return;
 				}
-				else
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);
-					return;
-				}
+
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				player.sendPacket(html);
+				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("manage_vault"))
 			{
@@ -342,14 +334,12 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					player.sendPacket(html);
 					return;
 				}
-				else
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);
-					return;
-				}
+
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				player.sendPacket(html);
+				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("manor"))
 			{
@@ -386,14 +376,12 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					}
 					return;
 				}
-				else
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);
-					return;
-				}
+
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				player.sendPacket(html);
+				return;
 			}
 			else if (command.startsWith("manor_menu_select"))
 			{// input string format:
@@ -468,14 +456,12 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					player.sendPacket(html);
 					return;
 				}
-				else
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);
-					return;
-				}
+
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				player.sendPacket(html);
+				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("tax_set")) // tax rates
 			// control
@@ -502,15 +488,13 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					sendHtmlMessage(player, msg.toString());
 					return;
 				}
-				else
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/chamberlain/chamberlain-tax.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					html.replace("%tax%", String.valueOf(getCastle().getTaxPercent()));
-					player.sendPacket(html);
-					return;
-				}
+
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/chamberlain/chamberlain-tax.htm");
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				html.replace("%tax%", String.valueOf(getCastle().getTaxPercent()));
+				player.sendPacket(html);
+				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("manage_functions"))
 			{

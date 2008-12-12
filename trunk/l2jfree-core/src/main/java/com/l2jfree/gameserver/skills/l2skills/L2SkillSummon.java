@@ -135,30 +135,28 @@ public class L2SkillSummon extends L2Skill
 				}
 				return;
 			}
-			else
+
 			//normal cubic skill
+			int mastery = activeChar.getSkillLevel(L2Skill.SKILL_CUBIC_MASTERY);
+			if (mastery < 0)
+				mastery = 0;
+			if (activeChar.getCubics().size() > mastery)
 			{
-				int mastery = activeChar.getSkillLevel(L2Skill.SKILL_CUBIC_MASTERY);
-				if (mastery < 0)
-					mastery = 0;
-				if (activeChar.getCubics().size() > mastery)
-				{
-					if (_log.isDebugEnabled())
-						_log.debug("player can't summon any more cubics. ignore summon skill");
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED));
-					return;
-				}
-				if (activeChar.getCubics().containsKey(_npcId))
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED);
-					activeChar.sendPacket(sm);
-					sm = null;
-					return;
-				}
-				activeChar.addCubic(_npcId, getLevel(), getPower(), getActivationTime(), getActivationChance());
-				activeChar.broadcastUserInfo();
+				if (_log.isDebugEnabled())
+					_log.debug("player can't summon any more cubics. ignore summon skill");
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED));
 				return;
 			}
+			if (activeChar.getCubics().containsKey(_npcId))
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED);
+				activeChar.sendPacket(sm);
+				sm = null;
+				return;
+			}
+			activeChar.addCubic(_npcId, getLevel(), getPower(), getActivationTime(), getActivationChance());
+			activeChar.broadcastUserInfo();
+			return;
 		}
 
 		if (activeChar.getPet() != null || activeChar.isMounted())

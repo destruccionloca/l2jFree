@@ -164,6 +164,9 @@ public class AdminSiege implements IAdminCommandHandler
 			{
 				if (st.hasMoreTokens())
 				{
+					if (castle == null)
+						return false;
+					
 					Calendar newAdminSiegeDate = castle.getSiegeDate();
 					if (val.equalsIgnoreCase("day"))
 						newAdminSiegeDate.set(Calendar.DAY_OF_YEAR, Integer.parseInt(st.nextToken()));

@@ -35,12 +35,10 @@ public class WorldMap implements IItemHandler
 		{
 			return;
 		}
-		else
-		{
-			L2PcInstance activeChar = (L2PcInstance) playable;
-			activeChar.sendPacket(new ShowMiniMap(item.getItemId()));
-			return;
-		}
+
+		L2PcInstance activeChar = (L2PcInstance) playable;
+		activeChar.sendPacket(new ShowMiniMap(item.getItemId()));
+		return;
 	}
 
 	public int[] getItemIds()

@@ -218,14 +218,12 @@ public class UseItem extends L2GameClientPacket
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
 				return;
 			}
-			else
+
+			int circletId = CastleManager.getInstance().getCircletByCastleId(cl.getHasCastle());
+			if (activeChar.getSubPledgeType() == -1 || circletId != itemId)
 			{
-				int circletId = CastleManager.getInstance().getCircletByCastleId(cl.getHasCastle());
-				if (activeChar.getSubPledgeType() == -1 || circletId != itemId)
-				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
-					return;
-				}
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+				return;
 			}
 		}
 

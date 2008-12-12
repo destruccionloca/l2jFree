@@ -95,7 +95,8 @@ public class ArmorSetsTable
 		{
 			try
 			{
-				con.close();
+				if (con != null)
+					con.close();
 			}
 			catch (Exception e)
 			{

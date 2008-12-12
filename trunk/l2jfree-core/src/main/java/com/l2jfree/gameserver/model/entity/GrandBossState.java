@@ -188,7 +188,7 @@ public class GrandBossState
 
 		if (interval < 0)
 			return 0;
-		else
-			return interval;
+
+		return interval;
 	}
 }

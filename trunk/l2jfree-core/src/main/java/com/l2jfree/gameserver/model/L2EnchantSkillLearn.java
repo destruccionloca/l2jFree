@@ -65,18 +65,16 @@ public final class L2EnchantSkillLearn
         {
             throw new IllegalArgumentException("Skill enchantments should have level higher then 100");
         }
-        else
+
+        if (enchantType >= _enchantDetails.length)
         {
-            if (enchantType >= _enchantDetails.length)
-            {
-            	List<EnchantSkillDetail>[] newArray = new FastTable[enchantType+1];
-                System.arraycopy(_enchantDetails, 0, newArray, 0, _enchantDetails.length);
-                _enchantDetails = newArray;
-                _enchantDetails[enchantType] = new FastTable<EnchantSkillDetail>();
-            }
-            int index = L2EnchantSkillLearn.getEnchantIndex(esd.getLevel());
-            _enchantDetails[enchantType].add(index, esd);
+        	List<EnchantSkillDetail>[] newArray = new FastTable[enchantType+1];
+            System.arraycopy(_enchantDetails, 0, newArray, 0, _enchantDetails.length);
+            _enchantDetails = newArray;
+            _enchantDetails[enchantType] = new FastTable<EnchantSkillDetail>();
         }
+        int index = L2EnchantSkillLearn.getEnchantIndex(esd.getLevel());
+        _enchantDetails[enchantType].add(index, esd);
     }
     
     public List<EnchantSkillDetail>[] getEnchantRoutes()

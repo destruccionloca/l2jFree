@@ -191,8 +191,8 @@ public class RequestProcureCropList extends L2GameClientPacket
 			Castle castle = CastleManager.getInstance().getCastleById(manorId);
 			if (castle == null)
 				continue;
-			else
-				crop = castle.getCrop(cropId, CastleManorManager.PERIOD_CURRENT);
+
+			crop = castle.getCrop(cropId, CastleManorManager.PERIOD_CURRENT);
 
 			if (crop == null || crop.getId() == 0 || crop.getPrice() == 0)
 				continue;

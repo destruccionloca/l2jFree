@@ -112,10 +112,9 @@ public class MerchantPriceConfigTable
 			{
 				throw new IllegalStateException("merchantPriceConfig must define an 'defaultPriceConfig'");
 			}
-			else
-			{
-				defaultPriceConfigId = Integer.parseInt(dpcNode.getNodeValue());
-			}
+
+			defaultPriceConfigId = Integer.parseInt(dpcNode.getNodeValue());
+
 			MerchantPriceConfig mpc;
 			for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
 			{
@@ -148,30 +147,24 @@ public class MerchantPriceConfigTable
 			{
 				throw new IllegalStateException("Must define the priceConfig 'id'");
 			}
-			else
-			{
-				id = Integer.parseInt(node.getNodeValue());
-			}
+
+			id = Integer.parseInt(node.getNodeValue());
 
 			node = n.getAttributes().getNamedItem("name");
 			if (node == null)
 			{
 				throw new IllegalStateException("Must define the priceConfig 'name'");
 			}
-			else
-			{
-				name = node.getNodeValue();
-			}
+
+			name = node.getNodeValue();
 
 			node = n.getAttributes().getNamedItem("baseTax");
 			if (node == null)
 			{
 				throw new IllegalStateException("Must define the priceConfig 'baseTax'");
 			}
-			else
-			{
-				baseTax = Integer.parseInt(node.getNodeValue());
-			}
+
+			baseTax = Integer.parseInt(node.getNodeValue());
 
 			node = n.getAttributes().getNamedItem("castleId");
 			if (node != null)

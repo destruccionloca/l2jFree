@@ -647,8 +647,8 @@ public class RegionBBSManager extends BaseBBSManager
 	{
 		if (type.equalsIgnoreCase("gm"))
 			return _onlineCountGm;
-		else
-			return _onlineCount;
+
+		return _onlineCount;
 	}
 
 	private FastList<L2PcInstance> getOnlinePlayers(int page)
@@ -660,7 +660,7 @@ public class RegionBBSManager extends BaseBBSManager
 	{
 		if (_communityPages.get(page) != null)
 			return _communityPages.get(page).get(type);
-		else
-			return null;
+
+		return null;
 	}
 }

@@ -540,24 +540,23 @@ public class CTF
 							_player.sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_A_PET_OR_A_SERVITOR_IS_SUMMONED);
 							break;
 						}
-						else
-						{
-							_flagsTaken.set(indexEnemy, true);
-							unspawnFlag(team);
-							_player._teamNameHaveFlagCTF = team;
-							addFlagToPlayer(_player);
-							_player.broadcastUserInfo();
-							_player._haveFlagCTF = true;
-							AnnounceToPlayers(false, _eventName + "(CTF): " + team + " flag taken by " + _player.getName() + "...");
-							pointTeamTo(_player, team);
-							break;
-						}
+
+						_flagsTaken.set(indexEnemy, true);
+						unspawnFlag(team);
+						_player._teamNameHaveFlagCTF = team;
+						addFlagToPlayer(_player);
+						_player.broadcastUserInfo();
+						_player._haveFlagCTF = true;
+						AnnounceToPlayers(false, _eventName + "(CTF): " + team + " flag taken by " + _player.getName() + "...");
+						pointTeamTo(_player, team);
+						break;
 					}
 				}
 			}
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 		}
 	}
 
@@ -2241,11 +2240,11 @@ public class CTF
 		for (int x = 0; x < pos; x++)
 		{
 			if (maxX < 2 * Math.abs(centerX - locX[x]))
-				maxX = (int) (2 * Math.abs(centerX - locX[x]));
+				maxX = (2 * Math.abs(centerX - locX[x]));
 			if (maxY < 2 * Math.abs(centerY - locY[x]))
-				maxY = (int) (2 * Math.abs(centerY - locY[x]));
+				maxY = (2 * Math.abs(centerY - locY[x]));
 			if (maxZ < 2 * Math.abs(centerZ - locZ[x]))
-				maxZ = (int) (2 * Math.abs(centerZ - locZ[x]));
+				maxZ = (2 * Math.abs(centerZ - locZ[x]));
 		}
 
 		//centerX,centerY,centerZ are the coordinates of the "event center".

@@ -1447,8 +1447,8 @@ public class L2NpcInstance extends L2Character
 								player.sendPacket(new EtcStatusUpdate(player));
 								return;
 							}
-							else
-								replyMSG.append("The wound you have received from death's touch is too deep to be healed for the money you have to give me. Find more money if you wish death's mark to be fully removed from you.");
+
+							replyMSG.append("The wound you have received from death's touch is too deep to be healed for the money you have to give me. Find more money if you wish death's mark to be fully removed from you.");
 						}
 						else
 						{
@@ -2924,8 +2924,8 @@ public class L2NpcInstance extends L2Character
 				broadcastPacket(new MagicSkillUse(this, this, 2061, 1, 0, 0), 360000); // no grade
 				return true;
 			}
-			else
-				_inventory.bshotInUse = false;
+
+			_inventory.bshotInUse = false;
 		}
 		if (physical)
 		{
@@ -2941,8 +2941,8 @@ public class L2NpcInstance extends L2Character
 				broadcastPacket(new MagicSkillUse(this, this, 2039, 1, 0, 0), 360000); // no grade
 				return true;
 			}
-			else
-				_inventory.sshotInUse = false;
+
+			_inventory.sshotInUse = false;
 		}
 		return false;
 	}

@@ -137,7 +137,12 @@ public class RaidPointsManager
 		}
 		finally
 		{
-			try { con.close(); } catch (Exception e) { e.printStackTrace(); }
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -165,7 +170,12 @@ public class RaidPointsManager
 		}
 		finally
 		{
-			try { con.close(); } catch (Exception e) { e.printStackTrace(); }
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

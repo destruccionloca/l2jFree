@@ -104,12 +104,11 @@ public class PetStat extends SummonStat
     public final long getExpForLevel(int level) 
     {
     	L2PetData data = PetDataTable.getInstance().getPetData(getActiveChar().getNpcId(), level);
-        if (data != null) {
+        if (data != null)
             return data.getPetMaxExp();
-        } else {
-            _log.warn("Pet NPC ID "+getActiveChar().getNpcId()+", level "+level+" is missing data from pets_stats table!");
-            return 5000000L * level; // temp value calculated from lvl 81 wyvern, 395734658
-        }
+
+        _log.warn("Pet NPC ID "+getActiveChar().getNpcId()+", level "+level+" is missing data from pets_stats table!");
+        return 5000000L * level; // temp value calculated from lvl 81 wyvern, 395734658
     }
     
     // =========================================================

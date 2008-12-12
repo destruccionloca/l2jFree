@@ -67,10 +67,10 @@ public final class Util
 	
 	public static String[] getMemUsage()
 	{
-		double maxMem = ((long) (Runtime.getRuntime().maxMemory() / 1024)); // maxMemory is the upper limit the jvm can use
-		double allocatedMem = ((long) (Runtime.getRuntime().totalMemory() / 1024)); // totalMemory the size of the current allocation pool
+		double maxMem = (Runtime.getRuntime().maxMemory() / 1024); // maxMemory is the upper limit the jvm can use
+		double allocatedMem = (Runtime.getRuntime().totalMemory() / 1024); // totalMemory the size of the current allocation pool
 		double nonAllocatedMem = maxMem - allocatedMem; // non allocated memory till jvm limit
-		double cachedMem = ((long) (Runtime.getRuntime().freeMemory() / 1024)); // freeMemory the unused memory in the allocation pool
+		double cachedMem = (Runtime.getRuntime().freeMemory() / 1024); // freeMemory the unused memory in the allocation pool
 		double usedMem = allocatedMem - cachedMem; // really used memory
 		double useableMem = maxMem - usedMem; // allocated, but non-used and non-allocated memory
 		return new String[]
@@ -190,8 +190,8 @@ public final class Util
 			double dz = z1 - z2;
 			return Math.sqrt((dx * dx) + (dy * dy) + (dz * dz));
 		}
-		else
-			return Math.sqrt((dx * dx) + (dy * dy));
+
+		return Math.sqrt((dx * dx) + (dy * dy));
 	}
 
 	public final static double calculateDistance(L2Object obj1, L2Object obj2, boolean includeZAxis)
@@ -285,12 +285,10 @@ public final class Util
 
 			return d <= range * range + 2 * range * rad + rad * rad;
 		}
-		else
-		{
-			double d = dx * dx + dy * dy;
 
-			return d <= range * range + 2 * range * rad + rad * rad;
-		}
+		double d = dx * dx + dy * dy;
+		
+		return d <= range * range + 2 * range * rad + rad * rad;
 	}
 
 	/*
@@ -314,10 +312,8 @@ public final class Util
 			int dz = obj1.getZ() - obj2.getZ();
 			return dx * dx + dy * dy + dz * dz <= radius * radius;
 		}
-		else
-		{
-			return dx * dx + dy * dy <= radius * radius;
-		}
+
+		return dx * dx + dy * dy <= radius * radius;
 	}
 
 	/**

@@ -319,7 +319,8 @@ public class CharTemplateTable
 		{
 			try
 			{
-				con.close();
+				if (con != null)
+					con.close();
 			}
 			catch (Exception e)
 			{

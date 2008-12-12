@@ -200,7 +200,8 @@ public class Announcements
 		{
 			try
 			{
-				save.close();
+				if (save != null)
+					save.close();
 			}
 			catch (Exception e)
 			{

@@ -189,8 +189,8 @@ public class L2MapRegion
     	
     	if (_zMin == -999999999 && _zMax == 999999999) 
     		return true;
-    	else
-    		return z > _zMin && z < _zMax;
+
+   		return z > _zMin && z < _zMax;
     }
 
     public boolean isSpecialRegion()

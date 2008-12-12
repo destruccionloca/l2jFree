@@ -463,20 +463,19 @@ public abstract class ItemContainer
                 
                 return item;
             }
-            else
-            {
-                if (item.getCount() < count)
-                    return null;
-                
-                boolean removed = this.removeItem(item);
-                if (!removed)
-                    return null;
-                
-                ItemTable.getInstance().destroyItem(process, item, actor, reference);
-                item.updateDatabase();
-                refreshWeight();
-            }
+
+            if (item.getCount() < count)
+                return null;
+            
+            boolean removed = this.removeItem(item);
+            if (!removed)
+                return null;
+            
+            ItemTable.getInstance().destroyItem(process, item, actor, reference);
+            item.updateDatabase();
+            refreshWeight();
         }
+        
         return item;
     }
 

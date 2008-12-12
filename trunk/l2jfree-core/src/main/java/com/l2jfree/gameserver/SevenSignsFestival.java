@@ -866,8 +866,8 @@ public class SevenSignsFestival implements SpawnListener
 	{
 		if (npcId < 18109 || npcId > 18118)
 			return false;
-		else
-			return true;
+
+		return true;
 	}
 
 	/**

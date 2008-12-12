@@ -473,10 +473,8 @@ public class LastImperialTombManager extends BossLair
 
 			return;
 		}
-		else
-		{
-			_commander.destroyItemByItemId("Quest", SCROLL, 1, _commander, true);
-		}
+
+		_commander.destroyItemByItemId("Quest", SCROLL, 1, _commander, true);
 
 		for (L2Party pt : _commander.getParty().getCommandChannel().getPartys())
 		{

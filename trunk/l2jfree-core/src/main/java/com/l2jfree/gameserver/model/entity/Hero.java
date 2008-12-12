@@ -171,8 +171,11 @@ public class Hero
 		{
 			try
 			{
-				con.close();
-				con2.close();
+				if (con != null)
+					con.close();
+				
+				if (con2 != null)
+					con2.close();
 			}
 			catch (Exception e)
 			{

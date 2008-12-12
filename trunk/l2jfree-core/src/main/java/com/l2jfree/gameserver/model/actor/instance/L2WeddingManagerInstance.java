@@ -101,161 +101,158 @@ public class L2WeddingManagerInstance extends L2NpcInstance
             sendHtmlMessage(player, filename, replace);
             return;
         }
-        else
+
+        L2Object obj = L2World.getInstance().findObject(player.getPartnerId());
+        L2PcInstance ptarget = obj instanceof L2PcInstance ? (L2PcInstance) obj : null;
+        // partner online ?
+        if(ptarget == null || ptarget.isOnline() == 0)
         {
-            L2Object obj = L2World.getInstance().findObject(player.getPartnerId());
-            L2PcInstance ptarget = obj instanceof L2PcInstance ? (L2PcInstance) obj : null;
-            // partner online ?
-            if(ptarget == null || ptarget.isOnline() == 0)
+            filename = "data/html/wedding/notfound.htm";
+            sendHtmlMessage(player, filename, replace);
+            return;
+        }
+
+        // already married ?
+        if(player.isMaried())
+        {
+            filename = "data/html/wedding/already.htm";
+            sendHtmlMessage(player, filename, replace);
+            return;
+        }
+        else if (player.isMaryAccepted())
+        {
+            filename = "data/html/wedding/waitforpartner.htm";
+            sendHtmlMessage(player, filename, replace);
+            return;
+        }
+        else if (command.startsWith("AcceptWedding"))
+        {
+            // accept the wedding request
+            player.setMaryAccepted(true);
+            Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
+            couple.marry();
+
+            //messages to the couple
+            player.sendMessage("Congratulations, you are married!");
+            player.setMaried(true);
+            player.setMaryRequest(false);
+            ptarget.sendMessage("Congratulations, you are married!"); 
+            ptarget.setMaried(true);
+            ptarget.setMaryRequest(false);
+            
+            if(Config.WEDDING_GIVE_CUPID_BOW)
             {
-                filename = "data/html/wedding/notfound.htm";
+            	// give cupid's bows to couple's
+            	player.addItem("Cupids Bow", 9140, 1, player, true, true); // give cupids bow
+            	player.getInventory().updateDatabase(); // update database
+            	ptarget.addItem("Cupids Bow", 9140, 1, ptarget, true, true); // give cupids bow
+            	ptarget.getInventory().updateDatabase(); // update database
+                // Refresh client side skill lists
+                player.sendSkillList();
+                ptarget.sendSkillList();
+            }
+
+            //wedding march
+            MagicSkillUse MSU = new MagicSkillUse(player, player, 2230, 1, 1, 0);
+            player.broadcastPacket(MSU);
+            MSU = new MagicSkillUse(ptarget, ptarget, 2230, 1, 1, 0);
+            ptarget.broadcastPacket(MSU);
+            
+            // fireworks
+            L2Skill skill = SkillTable.getInstance().getInfo(2025,1);
+            if (skill != null) 
+            {
+                MSU = new MagicSkillUse(player, player, 2025, 1, 1, 0);
+                player.sendPacket(MSU);
+                player.broadcastPacket(MSU);
+                player.useMagic(skill, false, false);
+
+                MSU = new MagicSkillUse(ptarget, ptarget, 2025, 1, 1, 0);
+                ptarget.sendPacket(MSU);
+                ptarget.broadcastPacket(MSU);
+                ptarget.useMagic(skill, false, false);
+            }
+            
+            Announcements.getInstance().announceToAll("Congratulations, "+player.getName()+" and "+ptarget.getName()+" have married!");
+            
+            MSU = null;
+            
+            filename = "data/html/wedding/accepted.htm";
+            replace = ptarget.getName();
+            sendHtmlMessage(ptarget, filename, replace);
+
+            if(Config.WEDDING_HONEYMOON_PORT)
+            {
+            	try
+            	{
+            		// Wait a little for all effects, and then go on honeymoon
+            		wait(10000);
+            	}
+            	catch (InterruptedException e){}
+            	//port both players to disneyland for happy time
+            	player.teleToLocation(-56641, -56345, -2005);
+            	ptarget.teleToLocation(-56641, -56345, -2005);
+            }
+
+            return;
+        }                
+        else if (command.startsWith("DeclineWedding"))
+        {
+            player.setMaryRequest(false);
+            ptarget.setMaryRequest(false);
+            player.setMaryAccepted(false);
+            ptarget.setMaryAccepted(false);
+            player.sendMessage("You declined");
+            ptarget.sendMessage("Your partner declined");
+            replace = ptarget.getName();
+            filename = "data/html/wedding/declined.htm";
+            sendHtmlMessage(ptarget, filename, replace);
+            return;
+        }
+        else if (player.isMary())
+        {
+            // check for formalwear
+            if(Config.WEDDING_FORMALWEAR && !player.isWearingFormalWear())
+            {
+                filename = "data/html/wedding/noformal.htm";
+                sendHtmlMessage(player, filename, replace);
+                return;
+            }
+            filename = "data/html/wedding/ask.htm";
+            player.setMaryRequest(false);
+            ptarget.setMaryRequest(false);
+            replace = ptarget.getName();
+            sendHtmlMessage(player, filename, replace);
+            return;
+        }  
+        else if (command.startsWith("AskWedding"))
+        {
+            // check for formalwear
+            if(Config.WEDDING_FORMALWEAR && !player.isWearingFormalWear())
+            {
+                filename = "data/html/wedding/noformal.htm";
+                sendHtmlMessage(player, filename, replace);
+                return;
+            }
+            else if(player.getAdena()<Config.WEDDING_PRICE)
+            {
+                filename = "data/html/wedding/adena.htm";
+                replace = String.valueOf(Config.WEDDING_PRICE);
                 sendHtmlMessage(player, filename, replace);
                 return;
             }
             else
             {
-                // already married ?
-                if(player.isMaried())
-                {
-                    filename = "data/html/wedding/already.htm";
-                    sendHtmlMessage(player, filename, replace);
-                    return;
-                }
-                else if (player.isMaryAccepted())
-                {
-                    filename = "data/html/wedding/waitforpartner.htm";
-                    sendHtmlMessage(player, filename, replace);
-                    return;
-                }
-                else if (command.startsWith("AcceptWedding"))
-                {
-                    // accept the wedding request
-                    player.setMaryAccepted(true);
-                    Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
-                    couple.marry();
-
-                    //messages to the couple
-                    player.sendMessage("Congratulations, you are married!");
-                    player.setMaried(true);
-                    player.setMaryRequest(false);
-                    ptarget.sendMessage("Congratulations, you are married!"); 
-                    ptarget.setMaried(true);
-                    ptarget.setMaryRequest(false);
-                    
-                    if(Config.WEDDING_GIVE_CUPID_BOW)
-                    {
-                    	// give cupid's bows to couple's
-                    	player.addItem("Cupids Bow", 9140, 1, player, true, true); // give cupids bow
-                    	player.getInventory().updateDatabase(); // update database
-                    	ptarget.addItem("Cupids Bow", 9140, 1, ptarget, true, true); // give cupids bow
-                    	ptarget.getInventory().updateDatabase(); // update database
-                        // Refresh client side skill lists
-                        player.sendSkillList();
-                        ptarget.sendSkillList();
-                    }
-
-                    //wedding march
-                    MagicSkillUse MSU = new MagicSkillUse(player, player, 2230, 1, 1, 0);
-                    player.broadcastPacket(MSU);
-                    MSU = new MagicSkillUse(ptarget, ptarget, 2230, 1, 1, 0);
-                    ptarget.broadcastPacket(MSU);
-                    
-                    // fireworks
-                    L2Skill skill = SkillTable.getInstance().getInfo(2025,1);
-                    if (skill != null) 
-                    {
-                        MSU = new MagicSkillUse(player, player, 2025, 1, 1, 0);
-                        player.sendPacket(MSU);
-                        player.broadcastPacket(MSU);
-                        player.useMagic(skill, false, false);
-
-                        MSU = new MagicSkillUse(ptarget, ptarget, 2025, 1, 1, 0);
-                        ptarget.sendPacket(MSU);
-                        ptarget.broadcastPacket(MSU);
-                        ptarget.useMagic(skill, false, false);
-                    }
-                    
-                    Announcements.getInstance().announceToAll("Congratulations, "+player.getName()+" and "+ptarget.getName()+" have married!");
-                    
-                    MSU = null;
-                    
-                    filename = "data/html/wedding/accepted.htm";
-                    replace = ptarget.getName();
-                    sendHtmlMessage(ptarget, filename, replace);
-
-                    if(Config.WEDDING_HONEYMOON_PORT)
-                    {
-                    	try
-                    	{
-                    		// Wait a little for all effects, and then go on honeymoon
-                    		wait(10000);
-                    	}
-                    	catch (InterruptedException e){}
-                    	//port both players to disneyland for happy time
-                    	player.teleToLocation(-56641, -56345, -2005);
-                    	ptarget.teleToLocation(-56641, -56345, -2005);
-                    }
-
-                    return;
-                }                
-                else if (command.startsWith("DeclineWedding"))
-                {
-                    player.setMaryRequest(false);
-                    ptarget.setMaryRequest(false);
-                    player.setMaryAccepted(false);
-                    ptarget.setMaryAccepted(false);
-                    player.sendMessage("You declined");
-                    ptarget.sendMessage("Your partner declined");
-                    replace = ptarget.getName();
-                    filename = "data/html/wedding/declined.htm";
-                    sendHtmlMessage(ptarget, filename, replace);
-                    return;
-                }
-                else if (player.isMary())
-                {
-                    // check for formalwear
-                    if(Config.WEDDING_FORMALWEAR && !player.isWearingFormalWear())
-                    {
-                        filename = "data/html/wedding/noformal.htm";
-                        sendHtmlMessage(player, filename, replace);
-                        return;
-                    }
-                    filename = "data/html/wedding/ask.htm";
-                    player.setMaryRequest(false);
-                    ptarget.setMaryRequest(false);
-                    replace = ptarget.getName();
-                    sendHtmlMessage(player, filename, replace);
-                    return;
-                }  
-                else if (command.startsWith("AskWedding"))
-                {
-                    // check for formalwear
-                    if(Config.WEDDING_FORMALWEAR && !player.isWearingFormalWear())
-                    {
-                        filename = "data/html/wedding/noformal.htm";
-                        sendHtmlMessage(player, filename, replace);
-                        return;
-                    }
-                    else if(player.getAdena()<Config.WEDDING_PRICE)
-                    {
-                        filename = "data/html/wedding/adena.htm";
-                        replace = String.valueOf(Config.WEDDING_PRICE);
-                        sendHtmlMessage(player, filename, replace);
-                        return;
-                    }
-                    else
-                    {
-                        player.setMaryAccepted(true);
-                        ptarget.setMaryRequest(true);
-                        replace = ptarget.getName();
-                        filename = "data/html/wedding/requested.htm";
-                        player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());                       
-                        sendHtmlMessage(player, filename, replace);
-                        return;
-                    }
-                } 
+                player.setMaryAccepted(true);
+                ptarget.setMaryRequest(true);
+                replace = ptarget.getName();
+                filename = "data/html/wedding/requested.htm";
+                player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());                       
+                sendHtmlMessage(player, filename, replace);
+                return;
             }
-        }
+        } 
+
         sendHtmlMessage(player, filename, replace);
     } 
 

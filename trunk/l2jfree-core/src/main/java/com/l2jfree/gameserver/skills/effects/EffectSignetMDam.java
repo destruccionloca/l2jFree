@@ -145,8 +145,8 @@ public final class EffectSignetMDam extends L2Effect
 					caster.sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
 					return false;
 				}
-				else
-					caster.reduceCurrentMp(mpConsume);
+
+				caster.reduceCurrentMp(mpConsume);
 
 				if (cha instanceof L2PcInstance || cha instanceof L2Summon)
 					caster.updatePvPStatus(cha);

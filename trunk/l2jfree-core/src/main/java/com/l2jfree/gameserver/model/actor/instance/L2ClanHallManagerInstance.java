@@ -1295,18 +1295,16 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                             sendHtmlMessage(player, html);
                             return;
                         }
+
+                        //reduceCurrentMp(mpConsume);
+                        if (skill.getSkillType() == L2SkillType.SUMMON)
+                            player.doSimultaneousCast(skill);
                         else
-                        {
-                            //reduceCurrentMp(mpConsume);
-                            if (skill.getSkillType() == L2SkillType.SUMMON)
-                                player.doSimultaneousCast(skill);
-                            else
-                            {
-                                doCast(skill);
-                            }
-                            if (getClanHall().getFunction(ClanHall.FUNC_SUPPORT)== null)
-                                return;
-                        }
+                            doCast(skill);
+
+                        if (getClanHall().getFunction(ClanHall.FUNC_SUPPORT)== null)
+                            return;
+
                         NpcHtmlMessage html = new NpcHtmlMessage(1);
                         if(getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl() == 0)
                             return;
@@ -1432,8 +1430,8 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
         {
             if (getClanHall().getOwnerId() == player.getClanId())
                 return COND_OWNER;
-            else
-                return COND_OWNER_FALSE;
+
+            return COND_OWNER_FALSE;
         }
         return COND_ALL_FALSE;
     }

@@ -53,8 +53,8 @@ public class ChannelLeave implements IUserCommandHandler
 				channel.broadcastToChannelMembers(sm);
 				return true;
 			}
-			else
-				activeChar.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_LEAVE_CHANNEL);
+
+			activeChar.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_LEAVE_CHANNEL);
 		}
 
 		return false;

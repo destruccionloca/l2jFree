@@ -357,7 +357,6 @@ public class AugmentationData
 		// Note: lifeStoneGrade: (0 means low grade, 3 top grade)
 		// First: determine whether we will add a skill/baseStatModifier or not
 		//        because this determine which color could be the result 
-		int skill_Chance = 0;
 
 		int stat34 = 0;
 		boolean generateSkill = false;
