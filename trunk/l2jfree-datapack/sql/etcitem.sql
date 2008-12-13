@@ -72,8 +72,8 @@ INSERT INTO `etcitem` VALUES
 (728,'Mana Potion','false','potion',180,'stackable','liquid','none',-1,2000,0,'true','true','true','true','mana_potion','potion'),
 (729,'Scroll: Enchant Weapon (A)','false','scroll',120,'stackable','paper','none',-1,1800000,0,'true','true','true','true','scrl_of_ench_wp_a','scroll'),
 (730,'Scroll: Enchant Armor (A)','false','scroll',120,'stackable','paper','none',-1,240000,0,'true','true','true','true','scrl_of_ench_am_a','scroll'),
-(731,'Crystal Scroll: Enchant Weapon (A)','false','scroll',120,'normal','paper','none',-1,240000,0,'true','true','true','true','cry_scrl_of_ench_wp_a','scroll'),
-(732,'Crystal Scroll: Enchant Armor (A)','false','scroll',120,'normal','paper','none',-1,240000,0,'true','true','true','true','cry_scrl_of_ench_am_a','scroll'),
+(731,'Crystal Scroll: Enchant Weapon (A)','false','scroll',120,'stackable','paper','none',-1,240000,0,'true','true','true','true','cry_scrl_of_ench_wp_a','scroll'),
+(732,'Crystal Scroll: Enchant Armor (A)','false','scroll',120,'stackable','paper','none',-1,240000,0,'true','true','true','true','cry_scrl_of_ench_am_a','scroll'),
 (733,'Endeavor Potion','false','potion',180,'stackable','liquid','none',-1,500,0,'true','true','true','true','endeavor_potion','potion'),
 (734,'Haste Potion','false','potion',20,'stackable','liquid','none',-1,1200,0,'true','true','true','true','quick_step_potion','potion'),
 (735,'Potion of Alacrity','false','potion',20,'stackable','liquid','none',-1,2400,0,'true','true','true','true','swift_attack_potion','potion'),
@@ -189,20 +189,20 @@ INSERT INTO `etcitem` VALUES
 (944,'Deathknight Skull','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','deathknight_skull','none'),
 (947,'Scroll: Enchant Weapon (B)','false','scroll',120,'stackable','paper','none',-1,500000,0,'true','true','true','true','scrl_of_ench_wp_b','scroll'),
 (948,'Scroll: Enchant Armor (B)','false','scroll',120,'stackable','paper','none',-1,80000,0,'true','true','true','true','scrl_of_ench_am_b','scroll'),
-(949,'Crystal Scroll: Enchant Weapon (B)','false','scroll',120,'normal','paper','none',-1,80000,0,'true','true','true','true','cry_scrl_of_ench_wp_b','scroll'),
-(950,'Crystal Scroll: Enchant Armor (B)','false','scroll',120,'normal','paper','none',-1,80000,0,'true','true','true','true','cry_scrl_of_ench_am_b','scroll'),
+(949,'Crystal Scroll: Enchant Weapon (B)','false','scroll',120,'stackable','paper','none',-1,80000,0,'true','true','true','true','cry_scrl_of_ench_wp_b','scroll'),
+(950,'Crystal Scroll: Enchant Armor (B)','false','scroll',120,'stackable','paper','none',-1,80000,0,'true','true','true','true','cry_scrl_of_ench_am_b','scroll'),
 (951,'Scroll: Enchant Weapon (C)','false','scroll',120,'stackable','paper','none',-1,110000,0,'true','true','true','true','scrl_of_ench_wp_c','scroll'),
 (952,'Scroll: Enchant Armor (C)','false','scroll',120,'stackable','paper','none',-1,15000,0,'true','true','true','true','scrl_of_ench_am_c','scroll'),
-(953,'Crystal Scroll: Enchant Weapon (C)','false','scroll',120,'normal','paper','none',-1,15000,0,'true','true','true','true','cry_scrl_of_ench_wp_c','scroll'),
-(954,'Crystal Scroll: Enchant Armor (C)','false','scroll',120,'normal','paper','none',-1,15000,0,'true','true','true','true','cry_scrl_of_ench_am_c','scroll'),
+(953,'Crystal Scroll: Enchant Weapon (C)','false','scroll',120,'stackable','paper','none',-1,15000,0,'true','true','true','true','cry_scrl_of_ench_wp_c','scroll'),
+(954,'Crystal Scroll: Enchant Armor (C)','false','scroll',120,'stackable','paper','none',-1,15000,0,'true','true','true','true','cry_scrl_of_ench_am_c','scroll'),
 (955,'Scroll: Enchant Weapon (D)','false','scroll',120,'stackable','paper','none',-1,50000,0,'true','true','true','true','scrl_of_ench_wp_d','scroll'),
 (956,'Scroll: Enchant Armor (D)','false','scroll',120,'stackable','paper','none',-1,6000,0,'true','true','true','true','scrl_of_ench_am_d','scroll'),
-(957,'Crystal Scroll: Enchant Weapon (D)','false','scroll',120,'normal','paper','none',-1,6000,0,'true','true','true','true','cry_scrl_of_ench_wp_d','scroll'),
-(958,'Crystal Scroll: Enchant Armor (D)','false','scroll',120,'normal','paper','none',-1,6000,0,'true','true','true','true','cry_scrl_of_ench_am_d','scroll'),
+(957,'Crystal Scroll: Enchant Weapon (D)','false','scroll',120,'stackable','paper','none',-1,6000,0,'true','true','true','true','cry_scrl_of_ench_wp_d','scroll'),
+(958,'Crystal Scroll: Enchant Armor (D)','false','scroll',120,'stackable','paper','none',-1,6000,0,'true','true','true','true','cry_scrl_of_ench_am_d','scroll'),
 (959,'Scroll: Enchant Weapon (S)','false','scroll',120,'stackable','paper','none',-1,5000000,0,'true','true','true','true','scrl_of_ench_wp_s','scroll'),
 (960,'Scroll: Enchant Armor (S)','false','scroll',120,'stackable','paper','none',-1,500000,0,'true','true','true','true','scrl_of_ench_am_s','scroll'),
-(961,'Crystal Scroll: Enchant Weapon (S)','false','scroll',120,'normal','paper','none',-1,500000,0,'true','true','true','true','cry_scrl_of_ench_wp_s','scroll'),
-(962,'Crystal Scroll: Enchant Armor (S)','false','scroll',120,'normal','paper','none',-1,500000,0,'true','true','true','true','cry_scrl_of_ench_am_s','scroll'),
+(961,'Crystal Scroll: Enchant Weapon (S)','false','scroll',120,'stackable','paper','none',-1,500000,0,'true','true','true','true','cry_scrl_of_ench_wp_s','scroll'),
+(962,'Crystal Scroll: Enchant Armor (S)','false','scroll',120,'stackable','paper','none',-1,500000,0,'true','true','true','true','cry_scrl_of_ench_am_s','scroll'),
 (963,'Orcish Arrowhead','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','orcish_arrowhead','none'),
 (964,'Alberius\'s Letter','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','alberryus_letter','none'),
 (965,'Evergreen Amulet','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','evergreen_amulet','none'),
@@ -273,7 +273,7 @@ INSERT INTO `etcitem` VALUES
 (1044,'Kirunak Skull','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','kirunak_skull','none'),
 (1045,'Zombie\'s Skin','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','zombie_skin','none'),
 (1046,'Nightmare Crystal','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','nightmare_crystal','none'),
-(1047,'Spellbook: Light','false','spellbook',120,'normal','paper','none',-1,100,0,'true','true','true','true','sb_light','none'),
+(1047,'Spellbook: Light','false','spellbook',120,'stackable','paper','none',-1,100,0,'true','true','true','true','sb_light','none'),
 (1048,'Spellbook: Might','false','spellbook',120,'stackable','paper','none',-1,100,0,'true','true','true','true','sb_might1','none'),
 (1049,'Spellbook: Ice Bolt','false','spellbook',120,'stackable','paper','none',-1,100,0,'true','true','true','true','sb_ice_bolt1','none'),
 (1050,'Spellbook: Battle Heal','false','spellbook',120,'stackable','paper','none',-1,100,0,'true','true','true','true','sb_battle_heal1','none'),
@@ -283,9 +283,9 @@ INSERT INTO `etcitem` VALUES
 (1054,'Spellbook: Group Heal','false','spellbook',120,'stackable','paper','none',-1,500,0,'true','true','true','true','sb_group_heal1','none'),
 (1055,'Spellbook: Curse: Poison','false','spellbook',120,'stackable','paper','none',-1,500,0,'true','true','true','true','sb_curse:poison1','none'),
 (1056,'Spellbook: Curse: Weakness','false','spellbook',120,'stackable','paper','none',-1,500,0,'true','true','true','true','sb_curse:weakness','none'),
-(1057,'Spellbook: Summon Meal','false','spellbook',120,'normal','paper','none',-1,500,0,'true','true','true','true','sb_summon_meal','none'),
+(1057,'Spellbook: Summon Meal','false','spellbook',120,'stackable','paper','none',-1,500,0,'true','true','true','true','sb_summon_meal','none'),
 (1058,'Spellbook: Shield','false','spellbook',120,'stackable','paper','none',-1,500,0,'true','true','true','true','sb_shield1','none'),
-(1059,'Spellbook: Know Enemy','false','spellbook',120,'normal','paper','none',-1,500,0,'true','true','true','true','sb_know_enemy','none'),
+(1059,'Spellbook: Know Enemy','false','spellbook',120,'stackable','paper','none',-1,500,0,'true','true','true','true','sb_know_enemy','none'),
 (1060,'Lesser Healing Potion','false','potion',5,'stackable','liquid','none',-1,90,0,'true','true','true','true','lesser_healing_potion','potion'),
 (1061,'Healing Potion','false','potion',5,'stackable','liquid','none',-1,330,0,'true','true','true','true','healing_potion','potion'),
 (1062,'Haste Potion','false','potion',180,'stackable','liquid','none',-1,5000,0,'true','true','true','true','haste_potion','potion'),
@@ -354,8 +354,7 @@ INSERT INTO `etcitem` VALUES
 (1143,'Simplon\'s Letter','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','simplons_letter','none'),
 (1144,'Venomous Spider Leg','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','poison_spider_leg2','none'),
 (1145,'Medallion of Warrior','false','quest',0,'stackable','steel','none',-1,0,0,'true','false','true','true','medallion_of_warrior','none'),
-(1150,'Spellbook: Wind Strike','false','spellbook',120,'stackable','paper','none',-1,50,0,'true','true','true','true','sb_wind_strike1','none');
-INSERT INTO `etcitem` VALUES
+(1150,'Spellbook: Wind Strike','false','spellbook',120,'stackable','paper','none',-1,50,0,'true','true','true','true','sb_wind_strike1','none'),
 (1151,'Spellbook: Self Heal','false','spellbook',120,'stackable','paper','none',-1,50,0,'true','true','true','true','sb_self_heal','none'),
 (1152,'Spellbook: Heal','false','spellbook',120,'stackable','paper','none',-1,100,0,'true','true','true','true','sb_heal1','none'),
 (1153,'Jenna\'s Letter','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','jennies_letter','none'),
@@ -542,7 +541,7 @@ INSERT INTO `etcitem` VALUES
 (1377,'Spellbook: Poison Recovery','false','spellbook',120,'stackable','paper','none',-1,800,0,'true','true','true','true','sb_poison_recovery1','none'),
 (1378,'Spellbook: Divine Heal','false','spellbook',120,'stackable','paper','none',-1,1550,0,'true','true','true','true','sb_touch_of_god1','none'),
 (1379,'Spellbook: Cure Bleeding','false','spellbook',120,'stackable','paper','none',-1,1150,0,'true','true','true','true','sb_cure_bleeding1','none'),
-(1380,'Spellbook: Entangle','false','spellbook',120,'stackable','paper','none',-1,500,0,'true','true','true','true','sb_zero_g1','none'),
+(1380,'Spellbook: Entangle','false','spellbook',120,'stackable','paper','none',-1,2600,0,'true','true','true','true','sb_zero_g1','none'),
 (1381,'Spellbook: Freezing Strike','false','spellbook',120,'stackable','paper','none',-1,2600,0,'true','true','true','true','sb_freezing_strike1','none'),
 (1382,'Spellbook: Power Break','false','spellbook',120,'stackable','paper','none',-1,2600,0,'true','true','true','true','sb_power_break1','none'),
 (1383,'Spellbook: Poison','false','spellbook',120,'stackable','paper','none',-1,800,0,'true','true','true','true','sb_poison1','none'),
@@ -557,8 +556,8 @@ INSERT INTO `etcitem` VALUES
 (1392,'Spellbook: Berserker Spirit','false','spellbook',120,'stackable','paper','none',-1,2450,0,'true','true','true','true','sb_berserker_spirit1','none'),
 (1393,'Spellbook: Quickness','false','spellbook',120,'stackable','paper','none',-1,1250,0,'true','true','true','true','sb_quickness1','none'),
 (1394,'Spellbook: Sleep','false','spellbook',120,'stackable','paper','none',-1,1800,0,'true','true','true','true','sb_sleep1','none'),
-(1395,'Spellbook: Surrender to Water','false','spellbook',120,'normal','paper','none',-1,1250,0,'true','true','true','true','__sb_surrender_to_water1','none'),
-(1396,'Spellbook: Surrender to Wind','false','spellbook',120,'normal','paper','none',-1,1250,0,'true','true','true','true','__sb_surrender_to_wind1','none'),
+(1395,'Spellbook: Surrender to Water','false','spellbook',120,'stackable','paper','none',-1,1250,0,'true','true','true','true','__sb_surrender_to_water1','none'),
+(1396,'Spellbook: Surrender to Wind','false','spellbook',120,'stackable','paper','none',-1,1250,0,'true','true','true','true','__sb_surrender_to_wind1','none'),
 (1397,'Spellbook: Peace','false','spellbook',120,'stackable','paper','none',-1,2450,0,'true','true','true','true','sb_erase_hostility1','none'),
 (1398,'Spellbook: Focus','false','spellbook',120,'stackable','paper','none',-1,1250,0,'true','true','true','true','sb_focus1','none'),
 (1399,'Spellbook: Concentration','false','spellbook',120,'stackable','paper','none',-1,800,0,'true','true','true','true','sb_concentration1','none'),
@@ -635,7 +634,9 @@ INSERT INTO `etcitem` VALUES
 (1470,'Artemeter','false','quest',0,'stackable','paper','s',-1,0,0,'true','true','true','true','artemeter','none'),
 (1473,'Kasha Wolf Fang','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','kasha_wolf_fang','none'),
 (1474,'Grave Robber\'s Head','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','grave_robbers_head','none'),
-(1475,'Black Soulstone','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','black_soulstone','none'),
+(1475,'Black Soulstone','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','black_soulstone','none');
+
+INSERT INTO `etcitem` VALUES
 (1476,'Red Soulstone','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','red_soulstone','none'),
 (1477,'Maraku Werewolf Head','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','maraku_werewolf_head','none'),
 (1478,'Darkwing Bat Fang','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','darkwing_bat_fang','none'),
@@ -686,8 +687,7 @@ INSERT INTO `etcitem` VALUES
 (1529,'Amulet: Dreaming Spirit','false','spellbook',120,'stackable','paper','none',-1,100,0,'true','true','true','true','sb_night_murmur1','none'),
 (1530,'Amulet: Seal of Slow','false','spellbook',120,'stackable','paper','none',-1,2450,0,'true','true','true','true','sb_engrave_seal_of_lazy1','none'),
 (1531,'Amulet: Chill Flame','false','spellbook',120,'stackable','paper','none',-1,100,0,'true','true','true','true','sb_chill_flame1','none'),
-(1532,'Amulet: Blaze Quake','false','spellbook',120,'stackable','paper','none',-1,1250,0,'true','true','true','true','sb_eternal_flame1','none');
-INSERT INTO `etcitem` VALUES
+(1532,'Amulet: Blaze Quake','false','spellbook',120,'stackable','paper','none',-1,1250,0,'true','true','true','true','sb_eternal_flame1','none'),
 (1533,'Amulet: Aura Sink','false','spellbook',120,'stackable','paper','none',-1,1250,0,'true','true','true','true','sb_aura_sway1','none'),
 (1534,'Amulet: Madness','false','spellbook',120,'stackable','paper','none',-1,800,0,'true','true','true','true','sb_entice_madness1','none'),
 (1535,'Amulet: Frost Flame','false','spellbook',120,'stackable','paper','none',-1,800,0,'true','true','true','true','sb_blaze_quake1','none'),
@@ -989,7 +989,7 @@ INSERT INTO `etcitem` VALUES
 (1832,'Greater Antidote','false','potion',20,'stackable','liquid','none',-1,180,0,'true','true','true','true','advanced_antidote','potion'),
 (1833,'Bandage','false','potion',20,'stackable','liquid','none',-1,75,0,'true','true','true','true','bandage','potion'),
 (1834,'Emergency Dressing','false','potion',20,'stackable','liquid','none',-1,180,0,'true','true','true','true','emergency_dressing','potion'),
-(1835,'Soulshot: No Grade','false','shot',4,'stackable','paper','none',-1,7,0,'true','true','true','true','soulshot_none','none'),
+(1835,'Soulshot: No Grade','false','shot',4,'stackable','paper','none',-1,6,0,'true','true','true','true','soulshot_none','none'),
 (1836,'Kendell\'s 1st Order','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','kendnells_order1','none'),
 (1837,'Kendell\'s 2nd Order','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','kendnells_order2','none'),
 (1838,'Kendell\'s 3rd Order','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','kendnells_order3','none'),
@@ -1009,8 +1009,7 @@ INSERT INTO `etcitem` VALUES
 (1852,'Ancient Clay Urn','false','none',10,'stackable','liquid','none',-1,1200,0,'true','true','true','true','ancient_clay_urn','none'),
 (1853,'Ancient Brass Tiara','false','none',10,'stackable','liquid','none',-1,1400,0,'true','true','true','true','ancient_brass_tiara','none'),
 (1854,'Ancient Bronze Mirror','false','none',10,'stackable','liquid','none',-1,1400,0,'true','true','true','true','ancient_bronze_mirror','none'),
-(1855,'Ancient Jade Necklace','false','none',10,'stackable','liquid','none',-1,1700,0,'true','true','true','true','ancient_jade_necklace','none');
-INSERT INTO `etcitem` VALUES
+(1855,'Ancient Jade Necklace','false','none',10,'stackable','liquid','none',-1,1700,0,'true','true','true','true','ancient_jade_necklace','none'),
 (1856,'Amulet: Chant of Life','false','spellbook',120,'stackable','paper','none',-1,800,0,'true','true','true','true','sb_inspire_life_force1','none'),
 (1857,'Keltir Fang','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','fox_fang1','none'),
 (1858,'Keltir Fang','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','fox_fang2','none'),
@@ -1128,7 +1127,7 @@ INSERT INTO `etcitem` VALUES
 (1970,'Robe of Seal Fabric','false','material',60,'stackable','liquid','none',-1,8956,0,'true','true','true','true','robe_of_seal_fabric','material'),
 (1971,'Great Helmet Material','false','material',60,'stackable','liquid','none',-1,3267,0,'true','true','true','true','great_helmet_material','material'),
 (1972,'Knight\'s Shield Fragment','false','material',60,'stackable','liquid','none',-1,2500,0,'true','true','true','true','knight_shield_fragment','material'),
-(1973,'Pa''agrian Hand Design','false','material',60,'stackable','liquid','none',-1,2378,0,'true','true','true','true','paagrio_hand_design','material'),
+(1973,'Pa\'agrian Hand Design','false','material',60,'stackable','liquid','none',-1,2378,0,'true','true','true','true','paagrio_hand_design','material'),
 (1974,'Crimson Boot Fabric','false','material',60,'stackable','liquid','none',-1,2378,0,'true','true','true','true','crimson_boots_fabric','material'),
 (1975,'Rind Leather Armor Design','false','material',60,'stackable','liquid','none',-1,6089,0,'true','true','true','true','rind_leather_mail_design','material'),
 (1976,'Rind Leather Gaiters Material','false','material',60,'stackable','liquid','none',-1,3289,0,'true','true','true','true','rind_leather_gaiters_material','material'),
@@ -1156,7 +1155,7 @@ INSERT INTO `etcitem` VALUES
 (1998,'Hood of Aid Material','false','material',60,'stackable','liquid','none',-1,5782,0,'true','true','true','true','hood_of_assistance_material','material'),
 (1999,'Flame Helm Design','false','material',60,'stackable','liquid','none',-1,5782,0,'true','true','true','true','flame_bonnet_design','material'),
 (2000,'Tallum Helm Design','false','material',60,'stackable','liquid','none',-1,5782,0,'true','true','true','true','tallum_bonnet_design','material'),
-(2001,'Helm of Avadon Design','false','material',60,'stackable','liquid','none',-1,5782,0,'true','true','true','true','bonnet_o''_avadon_design','material'),
+(2001,'Helm of Avadon Design','false','material',60,'stackable','liquid','none',-1,5782,0,'true','true','true','true','bonnet_o\'_avadon_design','material'),
 (2002,'Helmet of Pledge Pattern','false','material',60,'stackable','liquid','none',-1,5782,0,'true','true','true','true','helmet_of_pledge_pattern','material'),
 (2003,'Gauntlets of Ghost Pattern','false','material',60,'stackable','liquid','none',-1,3673,0,'true','true','true','true','gauntlet_of_ghost_pattern','material'),
 (2004,'Adamantite Boots Design','false','material',60,'stackable','liquid','none',-1,3673,0,'true','true','true','true','adamantite_boots_design','material'),
@@ -1183,7 +1182,7 @@ INSERT INTO `etcitem` VALUES
 (2025,'Dwarven Trident Edge','false','material',60,'stackable','liquid','none',-1,14440,0,'true','true','true','true','dwarven_trident_edge','material'),
 (2026,'Two-Handed Sword Edge','false','material',60,'stackable','liquid','none',-1,16617,0,'true','true','true','true','two-handed_sword_edge','material'),
 (2027,'Spiked Club Head','false','material',60,'stackable','liquid','none',-1,15267,0,'true','true','true','true','spike_club_head','material'),
-(2028,'Shilen Knife Edge','false','material',60,'stackable','liquid','none',-1,16833,0,'true','true','true','true','knife_o''_silenus_edge','material'),
+(2028,'Shilen Knife Edge','false','material',60,'stackable','liquid','none',-1,16833,0,'true','true','true','true','knife_o\'_silenus_edge','material'),
 (2029,'Gastraphetes Shaft','false','material',60,'stackable','liquid','none',-1,16767,0,'true','true','true','true','gastraphetes_shaft','material'),
 (2030,'Tome of Blood Page','false','material',60,'stackable','liquid','none',-1,17100,0,'true','true','true','true','tome_of_blood_page','material'),
 (2031,'Morning Star Head','false','material',60,'stackable','liquid','none',-1,19757,0,'true','true','true','true','morning_star_head','material'),
@@ -1194,7 +1193,7 @@ INSERT INTO `etcitem` VALUES
 (2036,'Skull Breaker Head','false','material',60,'stackable','liquid','none',-1,19757,0,'true','true','true','true','skull_breaker_head','material'),
 (2037,'Heavy Bone Club Head','false','material',60,'stackable','liquid','none',-1,19757,0,'true','true','true','true','heavy_bone_club_head','material'),
 (2038,'Maingauche Edge','false','material',60,'stackable','liquid','none',-1,18929,0,'true','true','true','true','maingauche_edge','material'),
-(2039,'Bich''Hwa Edge','false','material',60,'stackable','liquid','none',-1,19757,0,'true','true','true','true','bich''hwa_edge','material'),
+(2039,'Bich\'Hwa Edge','false','material',60,'stackable','liquid','none',-1,19757,0,'true','true','true','true','bich\'hwa_edge','material'),
 (2040,'Strengthened Long Bow Shaft','false','material',60,'stackable','liquid','none',-1,17286,0,'true','true','true','true','strengthening_long_bow_shaft','material'),
 (2041,'War Pick Head','false','material',60,'stackable','liquid','none',-1,17929,0,'true','true','true','true','hammer_in_flames_head','material'),
 (2042,'Crucifix of Blood Piece','false','material',60,'stackable','liquid','none',-1,21643,0,'true','true','true','true','crucifix_of_blood_piece','material'),
@@ -1257,7 +1256,7 @@ INSERT INTO `etcitem` VALUES
 (2099,'Stick of Eternity Shaft','false','material',60,'stackable','liquid','none',-1,35900,0,'true','true','true','true','stick_of_eternity_shaft','material'),
 (2100,'Paradia Staff Head','false','material',60,'stackable','liquid','none',-1,35900,0,'true','true','true','true','paradia_staff_head','material'),
 (2101,'Inferno Staff Head','false','material',60,'stackable','liquid','none',-1,35900,0,'true','true','true','true','inferno_staff_head','material'),
-(2102,'Pa''agrian Hammer Head','false','material',60,'stackable','liquid','none',-1,34200,0,'true','true','true','true','paagrio_hammer_head','material'),
+(2102,'Pa\'agrian Hammer Head','false','material',60,'stackable','liquid','none',-1,34200,0,'true','true','true','true','paagrio_hammer_head','material'),
 (2103,'Sage\'s Staff Head','false','material',60,'stackable','liquid','none',-1,35900,0,'true','true','true','true','sage\'s_staff_head','material'),
 (2104,'Club of Nature Head','false','material',60,'stackable','liquid','none',-1,35900,0,'true','true','true','true','club_of_nature_head','material'),
 (2105,'Mace of The Underworld Head','false','material',60,'stackable','liquid','none',-1,37000,0,'true','true','true','true','mace_of_underworld_head','material'),
@@ -1267,7 +1266,7 @@ INSERT INTO `etcitem` VALUES
 (2109,'Akat Longbow Shaft','false','material',60,'stackable','liquid','none',-1,41130,0,'true','true','true','true','akat_long_bow_shaft','material'),
 (2110,'Heathen\'s Book Page','false','material',60,'stackable','liquid','none',-1,35900,0,'true','true','true','true','heathen\'s_book_page','material'),
 (2111,'Hex Doll Fragment','false','material',60,'stackable','liquid','none',-1,35900,0,'true','true','true','true','hex_doll_fragment','material'),
-(2112,'Pa''agrian Axe Blade','false','material',60,'stackable','liquid','none',-1,39900,0,'true','true','true','true','paagrio_axe_blade','material'),
+(2112,'Pa\'agrian Axe Blade','false','material',60,'stackable','liquid','none',-1,39900,0,'true','true','true','true','paagrio_axe_blade','material'),
 (2113,'Scorpion Blade','false','material',60,'stackable','liquid','none',-1,39900,0,'true','true','true','true','scorpion_blade','material'),
 (2114,'Widowmaker Head','false','material',60,'stackable','liquid','none',-1,39900,0,'true','true','true','true','widow_maker_head','material'),
 (2115,'Samurai Longsword Blade','false','material',60,'stackable','liquid','none',-1,46636,0,'true','true','true','true','samurai_longsword_blade','material'),
@@ -1313,8 +1312,7 @@ INSERT INTO `etcitem` VALUES
 (2155,'Recipe: Elven Ring','false','recipe',30,'stackable','liquid','none',-1,1246,0,'true','true','true','true','rp_elven_ring','recipe'),
 (2156,'Recipe: Elven Necklace','false','recipe',30,'stackable','liquid','none',-1,2500,0,'true','true','true','true','rp_elven_necklace','recipe'),
 (2157,'Recipe: Omen Beast\'s Eye Earring','false','recipe',30,'stackable','liquid','none',-1,2420,0,'true','true','true','true','rp_onyxbeast\'seye_earing','recipe'),
-(2158,'Recipe: Mithril Ring','false','recipe',30,'stackable','liquid','none',-1,1616,0,'true','true','true','true','rp_mithril_ring','recipe');
-INSERT INTO `etcitem` VALUES
+(2158,'Recipe: Mithril Ring','false','recipe',30,'stackable','liquid','none',-1,1616,0,'true','true','true','true','rp_mithril_ring','recipe'),
 (2159,'Recipe: Necklace of Darkness','false','recipe',30,'stackable','liquid','none',-1,3240,0,'true','true','true','true','rp_necklace_of_darkness','recipe'),
 (2160,'Recipe: Moonstone Earring','false','recipe',30,'stackable','liquid','none',-1,3100,0,'true','true','true','true','rp_moonstone_earing','recipe'),
 (2161,'Recipe: Aquastone Ring','false','recipe',30,'stackable','liquid','none',-1,2060,0,'true','true','true','true','rp_aquastone_ring','recipe'),
@@ -1374,7 +1372,7 @@ INSERT INTO `etcitem` VALUES
 (2215,'Recipe: Robe of Seal','false','recipe',30,'stackable','liquid','none',-1,15700,0,'true','true','true','true','rp_robe_of_seal','recipe'),
 (2216,'Recipe: Great Helmet','false','recipe',30,'stackable','liquid','none',-1,4840,0,'true','true','true','true','rp_great_helmet','recipe'),
 (2217,'Recipe: Knight\'s Shield','false','recipe',30,'stackable','liquid','none',-1,3380,0,'true','true','true','true','rp_knight_shield','recipe'),
-(2218,'Recipe: Pa''agrian Hand','false','recipe',30,'stackable','liquid','none',-1,3220,0,'true','true','true','true','rp_paagrio_hand','recipe'),
+(2218,'Recipe: Pa\'agrian Hand','false','recipe',30,'stackable','liquid','none',-1,3220,0,'true','true','true','true','rp_paagrio_hand','recipe'),
 (2219,'Recipe: Crimson Boots','false','recipe',30,'stackable','liquid','none',-1,3220,0,'true','true','true','true','rp_crimson_boots','recipe'),
 (2220,'Recipe: Rind Leather Armor','false','recipe',30,'stackable','liquid','none',-1,9660,0,'true','true','true','true','rp_rind_leather_mail','recipe'),
 (2221,'Recipe: Rind Leather Gaiters','false','recipe',30,'stackable','liquid','none',-1,6040,0,'true','true','true','true','rp_rind_leather_gaiters','recipe'),
@@ -1402,7 +1400,7 @@ INSERT INTO `etcitem` VALUES
 (2243,'Recipe: Hood of Aid','false','recipe',30,'stackable','liquid','none',-1,10720,0,'true','true','true','true','rp_hood_of_assistance','recipe'),
 (2244,'Recipe: Flame Helm','false','recipe',30,'stackable','liquid','none',-1,10720,0,'true','true','true','true','rp_flame_bonnet','recipe'),
 (2245,'Recipe: Tallum Helm','false','recipe',30,'stackable','liquid','none',-1,10720,0,'true','true','true','true','rp_tallum_bonnet','recipe'),
-(2246,'Recipe: Helm of Avadon','false','recipe',30,'stackable','liquid','none',-1,10720,0,'true','true','true','true','rp_bonnet_o''_avadon','recipe'),
+(2246,'Recipe: Helm of Avadon','false','recipe',30,'stackable','liquid','none',-1,10720,0,'true','true','true','true','rp_bonnet_o\'_avadon','recipe'),
 (2247,'Recipe: Helmet of Pledge','false','recipe',30,'stackable','liquid','none',-1,10720,0,'true','true','true','true','rp_helmet_of_pledge','recipe'),
 (2248,'Recipe: Gauntlets of Ghost','false','recipe',30,'stackable','liquid','none',-1,7160,0,'true','true','true','true','rp_gauntlet_of_ghost','recipe'),
 (2249,'Recipe: Adamantite Boots','false','recipe',30,'stackable','liquid','none',-1,7160,0,'true','true','true','true','rp_adamantite_boots','recipe'),
@@ -1422,7 +1420,7 @@ INSERT INTO `etcitem` VALUES
 (2263,'Recipe: Dwarven Trident','false','recipe',30,'stackable','liquid','none',-1,12880,0,'true','true','true','true','rp_dwarven_trident','recipe'),
 (2264,'Recipe: Two-handed Sword','false','recipe',30,'stackable','liquid','none',-1,19340,0,'true','true','true','true','rp_two-handed_sword','recipe'),
 (2265,'Recipe: Spiked Club','false','recipe',30,'stackable','liquid','none',-1,19340,0,'true','true','true','true','rp_spike_club','recipe'),
-(2266,'Recipe: Shilen Knife','false','recipe',30,'stackable','liquid','none',-1,19340,0,'true','true','true','true','rp_knife_o''_silenus','recipe'),
+(2266,'Recipe: Shilen Knife','false','recipe',30,'stackable','liquid','none',-1,19340,0,'true','true','true','true','rp_knife_o\'_silenus','recipe'),
 (2267,'Recipe: Gastraphetes','false','recipe',30,'stackable','liquid','none',-1,19340,0,'true','true','true','true','rp_gastraphetes','recipe'),
 (2268,'Recipe: Tome of Blood','false','recipe',30,'stackable','liquid','none',-1,19340,0,'true','true','true','true','rp_tome_of_blood','recipe'),
 (2269,'Recipe: Morning Star','false','recipe',30,'stackable','liquid','none',-1,28000,0,'true','true','true','true','rp_morning_star','recipe'),
@@ -1433,7 +1431,7 @@ INSERT INTO `etcitem` VALUES
 (2274,'Recipe: Skull Breaker','false','recipe',30,'stackable','liquid','none',-1,28000,0,'true','true','true','true','rp_skull_breaker','recipe'),
 (2275,'Recipe: Heavy Bone Club','false','recipe',30,'stackable','liquid','none',-1,28000,0,'true','true','true','true','rp_heavy_bone_club','recipe'),
 (2276,'Recipe: Maingauche','false','recipe',30,'stackable','liquid','none',-1,28000,0,'true','true','true','true','rp_maingauche','recipe'),
-(2277,'Recipe: Bich''hwa','false','recipe',30,'stackable','liquid','none',-1,28000,0,'true','true','true','true','rp_bich''hwa','recipe'),
+(2277,'Recipe: Bich\'hwa','false','recipe',30,'stackable','liquid','none',-1,28000,0,'true','true','true','true','rp_bich\'hwa','recipe'),
 (2278,'Recipe: Strengthened Long Bow','false','recipe',30,'stackable','liquid','none',-1,28000,0,'true','true','true','true','rp_strengthening_long_bow','recipe'),
 (2279,'Recipe: War Pick','false','recipe',30,'stackable','liquid','none',-1,28000,0,'true','true','true','true','rp_hammer_in_flames','recipe'),
 (2280,'Recipe: Crucifix of Blood','false','recipe',30,'stackable','liquid','none',-1,28000,0,'true','true','true','true','rp_crucifix_of_blood','recipe'),
@@ -1496,7 +1494,7 @@ INSERT INTO `etcitem` VALUES
 (2337,'Recipe: Stick of Eternity','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','rp_stick_of_eternity','recipe'),
 (2338,'Recipe: Paradia Staff','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','rp_paradia_staff','recipe'),
 (2339,'Recipe: Inferno Staff','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','rp_inferno_staff','recipe'),
-(2340,'Recipe: Pa''agrian Hammer','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','rp_paagrio_hammer','recipe'),
+(2340,'Recipe: Pa\'agrian Hammer','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','rp_paagrio_hammer','recipe'),
 (2341,'Recipe: Sage\'s Staff','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','rp_sage\'s_staff','recipe'),
 (2342,'Recipe: Club of Nature','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','rp_club_of_nature','recipe'),
 (2343,'Recipe: Mace of the Underworld','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','rp_mace_of_underworld','recipe'),
@@ -1506,7 +1504,7 @@ INSERT INTO `etcitem` VALUES
 (2347,'Recipe: Akat Long Bow','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','rp_akat_long_bow','recipe'),
 (2348,'Recipe: Heathen\'s Book','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','rp_heathen\'s_book','recipe'),
 (2349,'Recipe: Hex Doll','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','rp_hex_doll','recipe'),
-(2350,'Recipe: Pa''agrian Axe','false','recipe',30,'stackable','liquid','none',-1,95600,0,'true','true','true','true','rp_paagrio_axe','recipe'),
+(2350,'Recipe: Pa\'agrian Axe','false','recipe',30,'stackable','liquid','none',-1,95600,0,'true','true','true','true','rp_paagrio_axe','recipe'),
 (2351,'Recipe: Scorpion','false','recipe',30,'stackable','liquid','none',-1,95600,0,'true','true','true','true','rp_scorpion','recipe'),
 (2352,'Recipe: Widow Maker','false','recipe',30,'stackable','liquid','none',-1,95600,0,'true','true','true','true','rp_widow_maker','recipe'),
 (2353,'Recipe: Samurai Longsword','false','recipe',30,'stackable','liquid','none',-1,122600,0,'true','true','true','true','rp_samurai_longsword','recipe'),
@@ -1604,7 +1602,9 @@ INSERT INTO `etcitem` VALUES
 (2695,'Monster Eye Destroyer Skin','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','beamers_skin','none'),
 (2696,'Shaman\'s Necklace','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','shamans_necklace','none'),
 (2697,'Shackle\'s Scalp','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','shackles_scalp','none'),
-(2698,'Symbol of Jurek','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','symbol_of_jurek','none'),
+(2698,'Symbol of Jurek','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','symbol_of_jurek','none');
+
+INSERT INTO `etcitem` VALUES
 (2699,'Cronos Letter','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','cronos_letter','none'),
 (2700,'Dieter\'s Key','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','dieters_key','none'),
 (2701,'Creta\'s 2nd Letter','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','cretas_letter2','none'),
@@ -1629,8 +1629,7 @@ INSERT INTO `etcitem` VALUES
 (2720,'Symbol of Cronos','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','symbol_of_cronos','none'),
 (2721,'Mark of Pilgrim','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','mark_of_pilgrim','none'),
 (2722,'Book of Sage','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','book_of_sage','none'),
-(2723,'Voucher of Trial','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','voucher_of_trial','none');
-INSERT INTO `etcitem` VALUES
+(2723,'Voucher of Trial','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','voucher_of_trial','none'),
 (2724,'Spirit of Flame','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','spirit_of_flame','none'),
 (2725,'Essence of Flame','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','essense_of_flame','none'),
 (2726,'Book of Gerald','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','book_of_gerald','none'),
@@ -1948,8 +1947,7 @@ INSERT INTO `etcitem` VALUES
 (3043,'Spellbook: Holy Strike','false','spellbook',120,'stackable','paper','none',-1,4250,0,'true','true','true','true','sb_holy_strike1','none'),
 (3044,'Spellbook: Horror','false','spellbook',120,'stackable','paper','none',-1,4250,0,'true','true','true','true','sb_horror1','none'),
 (3045,'Spellbook: Summon Life Cubic','false','spellbook',120,'stackable','paper','none',-1,3700,0,'true','true','true','true','sb_summon_life_cubic1','none'),
-(3046,'Spellbook: Sacrifice','false','spellbook',120,'stackable','paper','none',-1,5400,0,'true','true','true','true','sb_sacrifice1','none');
-INSERT INTO `etcitem` VALUES
+(3046,'Spellbook: Sacrifice','false','spellbook',120,'stackable','paper','none',-1,5400,0,'true','true','true','true','sb_sacrifice1','none'),
 (3047,'Spellbook: Iron Will','false','spellbook',120,'stackable','paper','none',-1,3700,0,'true','true','true','true','sb_iron_will1','none'),
 (3048,'Spellbook: Reflect Damage','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_reflect_damage1','none'),
 (3049,'Spellbook: Corpse Plague','false','spellbook',120,'stackable','paper','none',-1,4250,0,'true','true','true','true','sb_corpse_plague1','none'),
@@ -2006,8 +2004,8 @@ INSERT INTO `etcitem` VALUES
 (3100,'Spellbook: Guidance','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_guidance1','none'),
 (3101,'Spellbook: Death Whisper','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_death_whisper1','none'),
 (3102,'Spellbook: Bless Shield','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_bless_shield1','none'),
-(3103,'Amulet: Pa''agrio\'s Wisdom','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_wisdom_of_paagrio1','none'),
-(3104,'Amulet: Pa''agrio\'s Glory','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_glory_of_paagrio1','none'),
+(3103,'Amulet: Pa\'agrio\'s Wisdom','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_wisdom_of_paagrio1','none'),
+(3104,'Amulet: Pa\'agrio\'s Glory','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_glory_of_paagrio1','none'),
 (3105,'Amulet: Seal of Winter','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_seal_of_winter1','none'),
 (3106,'Amulet: Seal of Flame','false','spellbook',120,'stackable','paper','none',-1,4600,0,'true','true','true','true','sb_seal_of_flame1','none'),
 (3107,'Amulet: Seal of Gloom','false','spellbook',120,'stackable','paper','none',-1,3850,0,'true','true','true','true','sb_seal_of_gloom1','none'),
@@ -2015,8 +2013,8 @@ INSERT INTO `etcitem` VALUES
 (3109,'Amulet: Seal of Silence','false','spellbook',120,'stackable','paper','none',-1,4600,0,'true','true','true','true','sb_seal_of_silence1','none'),
 (3110,'Amulet: Seal of Scourge','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_seal_of_scourge1','none'),
 (3111,'Amulet: Seal of Suspension','false','spellbook',120,'stackable','paper','none',-1,4600,0,'true','true','true','true','sb_seal_of_suspension1','none'),
-(3112,'Amulet: Pa''agrio\'s Vision','false','spellbook',120,'stackable','paper','none',-1,3850,0,'true','true','true','true','sb_sight_of_paagrio1','none'),
-(3113,'Amulet: Pa''agrio\'s Protection','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_shield_of_paagrio1','none'),
+(3112,'Amulet: Pa\'agrio\'s Vision','false','spellbook',120,'stackable','paper','none',-1,3850,0,'true','true','true','true','sb_sight_of_paagrio1','none'),
+(3113,'Amulet: Pa\'agrio\'s Protection','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_shield_of_paagrio1','none'),
 (3114,'Amulet: Steal Essence','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_steal_essence1','none'),
 (3115,'Amulet: Freezing Flame','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_freezing_flame1','none'),
 (3116,'Amulet: Chant of Fury','false','spellbook',120,'stackable','paper','none',-1,4600,0,'true','true','true','true','sb_chant_of_fury1','none'),
@@ -2125,7 +2123,7 @@ INSERT INTO `etcitem` VALUES
 (3219,'Timak Orc Head','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','timak_orc_head','none'),
 (3220,'Scepter Box','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','scepter_box','none'),
 (3221,'Pashika\'s Head','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','pashikas_head','none'),
-(3222,'Vultus'' Head','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','vultus_head','none'),
+(3222,'Vultus\' Head','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','vultus_head','none'),
 (3223,'Glove of Voltar','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','glove_of_voltar','none'),
 (3224,'Enku Overlord Head','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','enku_overlord_head','none'),
 (3225,'Glove of Kepra','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','glove_of_kepra','none'),
@@ -2175,7 +2173,7 @@ INSERT INTO `etcitem` VALUES
 (3269,'Parman\'s Letter','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','parmans_letter','none'),
 (3270,'Clay Dough','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','clay_dough','none'),
 (3271,'Pattern of Keyhole','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','pattern_of_keyhole','none'),
-(3272,'Nikolas'' List','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','nikolas_list','none'),
+(3272,'Nikolas\' List','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','nikolas_list','none'),
 (3273,'Stakato Shell','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','stakato_shell','none'),
 (3274,'Toad Lord Sac','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','inpicio_sac','none'),
 (3275,'Spider Thorn','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','spider_thorn','none'),
@@ -2274,8 +2272,7 @@ INSERT INTO `etcitem` VALUES
 (3368,'2nd Crystal of Defeat','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','crystal_of_defeat2','none'),
 (3369,'2nd Crystal of Victory','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','crystal_of_victory2','none'),
 (3370,'3rd Crystal of Starting','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','crystal_of_starting3','none'),
-(3371,'3rd Crystal of Inprogress','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','crystal_of_inprogress3','none');
-INSERT INTO `etcitem` VALUES
+(3371,'3rd Crystal of Inprogress','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','crystal_of_inprogress3','none'),
 (3372,'3rd Crystal of Foul','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','crystal_of_foul3','none'),
 (3373,'3rd Crystal of Defeat','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','crystal_of_defeat3','none'),
 (3374,'3rd Crystal of Victory','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','crystal_of_victory3','none'),
@@ -2595,8 +2592,7 @@ INSERT INTO `etcitem` VALUES
 (3690,'Tyrant\'s Chitin','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_tyrants_chitin','none'),
 (3691,'Bugbear Blood','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_bugbear_blood','none'),
 (3692,'1st Circle Hunter License','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_hunter_license_1','none'),
-(3693,'2nd Circle Hunter License','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_hunter_license_2','none');
-INSERT INTO `etcitem` VALUES
+(3693,'2nd Circle Hunter License','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_hunter_license_2','none'),
 (3694,'Laurel Leaf Pin','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_laurel_leaf_pin','none'),
 (3695,'1st Test Instructions','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_test_instructions_1','none'),
 (3696,'2nd Test Instructions','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_test_instructions_2','none'),
@@ -2615,7 +2611,7 @@ INSERT INTO `etcitem` VALUES
 (3709,'Guardian Basilisk Scale','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_g_basil_scale','none'),
 (3710,'Karut Weed','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_karut_weed','none'),
 (3711,'Haka\'s Head','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_hakas_head','none'),
-(3712,'Jakas'' Head','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_jakas_head','none'),
+(3712,'Jakas\' Head','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_jakas_head','none'),
 (3713,'Marka\'s Head','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_markas_head','none'),
 (3714,'Windsus Aleph Skin','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_windsus_aleph_skin','none'),
 (3715,'Indigo Runestone','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_indigo_runestone','none'),
@@ -2645,7 +2641,9 @@ INSERT INTO `etcitem` VALUES
 (3739,'1st Circle Request: 1B','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_request_1u_1','none'),
 (3740,'1st Circle Request: 2B','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_request_1u_2','none'),
 (3741,'1st Circle Request: 3B','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_request_1u_3','none'),
-(3742,'1st Circle Request: 4B','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_request_1u_4','none'),
+(3742,'1st Circle Request: 4B','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_request_1u_4','none');
+
+INSERT INTO `etcitem` VALUES
 (3743,'1st Circle Request: 5B','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_request_1u_5','none'),
 (3744,'1st Circle Request: 6B','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_request_1u_6','none'),
 (3745,'1st Circle Request: 1A','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','q_request_1r_1','none'),
@@ -2808,7 +2806,7 @@ INSERT INTO `etcitem` VALUES
 (3940,'Blueprint: Summon Siege Golem','false','spellbook',120,'stackable','paper','none',-1,4800,0,'true','true','true','true','sb_summon_siege_golem','none'),
 (3941,'Spellbook: Mass Resurrection','false','spellbook',120,'stackable','paper','none',-1,4600,0,'true','true','true','true','sb_mass_ressurection1','none'),
 (3942,'Spellbook: Party Return','false','spellbook',120,'stackable','paper','none',-1,4600,0,'true','true','true','true','sb_party_recall1','none'),
-(3943,'Amulet: Pa''agrio\'s Heart','false','spellbook',120,'stackable','paper','none',-1,3850,0,'true','true','true','true','sb_heart_of_paagrio1','none'),
+(3943,'Amulet: Pa\'agrio\'s Heart','false','spellbook',120,'stackable','paper','none',-1,3850,0,'true','true','true','true','sb_heart_of_paagrio1','none'),
 (3944,'Spellbook: Decrease Weight','false','spellbook',120,'stackable','paper','none',-1,2450,0,'true','true','true','true','sb_decrease_weight1','none'),
 (3945,'Boat Ticket: Talking Island to Giran','false','none',20,'stackable','paper','none',-1,8000,0,'true','true','true','true','boat_ticket_talk_kiran','none'),
 (3946,'Boat Ticket: Giran to Talking Island','false','none',20,'stackable','paper','none',-1,8000,0,'true','true','true','true','boat_ticket_kiran_talk','none'),
@@ -2902,8 +2900,7 @@ INSERT INTO `etcitem` VALUES
 (4036,'Black Paper','false','none',0,'stackable','paper','none',-1,1,0,'true','true','true','true','paper_black','none'),
 (4037,'Coin of Luck','false','none',0,'stackable','paper','none',-1,1,0,'false','false','true','false','coin_of_luck','none'),
 (4038,'Food For Hatchling','false','none',10,'stackable','liquid','none',-1,162,0,'true','true','true','true','food_for_hatchling','none'),
-(4039,'Mold Glue','false','material',2,'stackable','liquid','none',-1,6000,0,'true','true','true','true','mold_glue','material');
-INSERT INTO `etcitem` VALUES
+(4039,'Mold Glue','false','material',2,'stackable','liquid','none',-1,6000,0,'true','true','true','true','mold_glue','material'),
 (4040,'Mold Lubricant','false','material',2,'stackable','liquid','none',-1,10000,0,'true','true','true','true','mold_lubricant','material'),
 (4041,'Mold Hardener','false','material',2,'stackable','liquid','none',-1,23000,0,'true','true','true','true','mold_hardener','material'),
 (4042,'Enria','false','material',2,'stackable','liquid','none',-1,12000,0,'true','true','true','true','enria','material'),
@@ -2986,7 +2983,7 @@ INSERT INTO `etcitem` VALUES
 (4119,'Demon Dagger Edge','false','material',60,'stackable','liquid','none',-1,45692,0,'true','true','true','true','demon\'s_sword_edge','material'),
 (4120,'Bellion Cestus Edge','false','material',60,'stackable','liquid','none',-1,45769,0,'true','true','true','true','bellion_cestus_edge','material'),
 (4121,'Bow of Peril Shaft','false','material',60,'stackable','liquid','none',-1,45923,0,'true','true','true','true','hazard_bow_shaft','material'),
-(4122,'Recipe: Maestro Holder(100%)','false','recipe',30,'stackable','liquid','none',-1,4500,0,'true','true','true','true','rp_maestro_holder','recipe'),
+(4122,'Recipe: Maestro Holder (100%)','false','recipe',30,'stackable','liquid','none',-1,4500,0,'true','true','true','true','rp_maestro_holder','recipe'),
 (4123,'Recipe: Maestro Anvil Lock (100%)','false','recipe',30,'stackable','liquid','none',-1,4500,0,'true','true','true','true','rp_maestro_anvil_lock','recipe'),
 (4124,'Recipe: Craftsman Mold (100%)','false','recipe',30,'stackable','liquid','none',-1,4500,0,'true','true','true','true','rp_craftsman_mold','recipe'),
 (4125,'Recipe: Maestro Mold (100%)','false','recipe',30,'stackable','liquid','none',-1,4500,0,'true','true','true','true','rp_maestro_mold','recipe'),
@@ -3067,8 +3064,8 @@ INSERT INTO `etcitem` VALUES
 (4200,'Spellbook: Restore Life','false','spellbook',120,'stackable','paper','none',-1,3850,0,'true','true','true','true','sb_restore_life1','none'),
 (4201,'Spellbook: Resist Shock','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_resist_shock1','none'),
 (4203,'Spellbook: Life Leech','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_life_leech','none'),
-(4204,'Amulet: Pa''agrio\'s Tact','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_tact_of_paagrio','none'),
-(4205,'Amulet: Pa''agrio\'s Rage','false','spellbook',120,'stackable','paper','none',-1,3850,0,'true','true','true','true','sb_rage_of_paagrio','none'),
+(4204,'Amulet: Pa\'agrio\'s Tact','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_tact_of_paagrio','none'),
+(4205,'Amulet: Pa\'agrio\'s Rage','false','spellbook',120,'stackable','paper','none',-1,3850,0,'true','true','true','true','sb_rage_of_paagrio','none'),
 (4206,'Spellbook: Transfer Pain','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_transfer_pain','none'),
 (4207,'Spellbook: Mana Regeneration','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_mana_regeneration','none'),
 (4208,'Spellbook: Curse Gloom','false','spellbook',120,'stackable','paper','none',-1,3850,0,'true','true','true','true','sb_curse_gloom','none'),
@@ -3202,7 +3199,7 @@ INSERT INTO `etcitem` VALUES
 (4355,'Blue Eva','false','none',0,'stackable','steel','none',-1,0,0,'true','true','true','true','q_blue_eva','none'),
 (4356,'Gold Einhasad','false','none',0,'stackable','steel','none',-1,0,0,'true','true','true','true','q_gold_einhasad','none'),
 (4357,'Silver Shilen','false','none',0,'stackable','steel','none',-1,0,0,'true','true','true','true','q_silver_shilen','none'),
-(4358,'Bloody Pa''agrio','false','none',0,'stackable','steel','none',-1,0,0,'true','true','true','true','q_blood_paagrio','none'),
+(4358,'Bloody Pa\'agrio','false','none',0,'stackable','steel','none',-1,0,0,'true','true','true','true','q_blood_paagrio','none'),
 (4359,'Barrel of Liquor','false','none',2000,'normal','wood','none',-1,0,0,'true','true','true','true','barrel_of_liquor','none'),
 (4360,'Precious Scarab','false','none',0,'normal','crystal','none',-1,0,0,'true','true','true','true','precious_scarab','none'),
 (4361,'Simbelmyne','false','none',0,'normal','wood','none',-1,0,0,'true','true','true','true','simbelmyne','none'),
@@ -3212,8 +3209,7 @@ INSERT INTO `etcitem` VALUES
 (4365,'Ectoplasm Liqueur','false','none',10,'normal','crystal','none',-1,0,0,'true','true','true','true','q_ectoplasm_liqueur','none'),
 (4366,'Prince\'s Trophy','false','none',20,'stackable','steel','none',-1,0,0,'true','true','true','true','q_princes_trophy','none'),
 (4367,'Prince\'s Autobiography','false','none',10,'stackable','paper','none',-1,0,0,'true','true','true','true','q_princes_autobiography','none'),
-(4368,'Prince\'s Bust','false','none',20,'stackable','steel','none',-1,0,0,'true','true','true','true','q_princes_bust','none');
-INSERT INTO `etcitem` VALUES
+(4368,'Prince\'s Bust','false','none',20,'stackable','steel','none',-1,0,0,'true','true','true','true','q_princes_bust','none'),
 (4369,'Silk Handkerchief','false','none',5,'stackable','cloth','none',-1,0,0,'true','true','true','true','q_silk_handkerchief','none'),
 (4370,'Luxurious Goblet','false','none',10,'stackable','steel','none',-1,0,0,'true','true','true','true','q_luxurious_goblet','none'),
 (4371,'Scepter of Darkness','false','none',10,'stackable','steel','none',-1,0,0,'true','true','true','true','q_scepter_of_darkness','none'),
@@ -3529,8 +3525,7 @@ INSERT INTO `etcitem` VALUES
 (4907,'Spellbook: Solar Flare','false','spellbook',120,'stackable','paper','none',-1,900,0,'true','true','true','true','sb_solar_flare1','none'),
 (4908,'Spellbook: Shadow Spark','false','spellbook',120,'stackable','paper','none',-1,1250,0,'true','true','true','true','sb_shadow_spark1','none'),
 (4909,'Spellbook: Shadow Flare','false','spellbook',120,'stackable','paper','none',-1,900,0,'true','true','true','true','sb_shadow_flare1','none'),
-(4910,'Spellbook: Vampiric Rage','false','spellbook',120,'stackable','paper','none',-1,1800,0,'true','true','true','true','sb_vampiric_rage1','none');
-INSERT INTO `etcitem` VALUES
+(4910,'Spellbook: Vampiric Rage','false','spellbook',120,'stackable','paper','none',-1,1800,0,'true','true','true','true','sb_vampiric_rage1','none'),
 (4911,'Spellbook: Curse Disease','false','spellbook',120,'stackable','paper','none',-1,6750,0,'true','true','true','true','sb_curse_disease1','none'),
 (4912,'Spellbook: Benediction','false','spellbook',120,'stackable','paper','none',-1,8200,0,'true','true','true','true','sb_benediction','none'),
 (4913,'Spellbook: Word of Fear','false','spellbook',120,'stackable','paper','none',-1,3850,0,'true','true','true','true','sb_word_of_fear1','none'),
@@ -3545,7 +3540,7 @@ INSERT INTO `etcitem` VALUES
 (4922,'Spellbook: Summon Binding Cubic','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_summon_binding_cubic1','none'),
 (4923,'Spellbook: Summon Aqua Cubic','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_summon_aqua_cubic1','none'),
 (4924,'Spellbook: Summon Spark Cubic','false','spellbook',120,'stackable','paper','none',-1,3200,0,'true','true','true','true','sb_summon_spark_cubic1','none'),
-(4925,'Amulet: Pa''agrio\'s Haste','false','spellbook',120,'stackable','paper','none',-1,6750,0,'true','true','true','true','sb_speed_of_paagrio1','none'),
+(4925,'Amulet: Pa\'agrio\'s Haste','false','spellbook',120,'stackable','paper','none',-1,6750,0,'true','true','true','true','sb_speed_of_paagrio1','none'),
 (4926,'Amulet: Soul Guard','false','spellbook',120,'stackable','paper','none',-1,3850,0,'true','true','true','true','sb_soul_guard1','none'),
 (4927,'Amulet: Chant of Revenge','false','spellbook',120,'stackable','paper','none',-1,7700,0,'true','true','true','true','sb_chant_of_revenge1','none'),
 (4928,'Spellbook: Seed of Fire','false','spellbook',120,'stackable','paper','none',-1,7200,0,'true','true','true','true','sb_seed_of_fire','none'),
@@ -3660,7 +3655,7 @@ INSERT INTO `etcitem` VALUES
 (5037,'Seed: Golden Cobol','false','seed',1,'stackable','paper','none',-1,50,0,'true','true','true','true','C5Item','none'),
 (5038,'Seed: Great Cobol','false','seed',1,'stackable','paper','none',-1,50,0,'true','true','true','true','C5Item','none'),
 (5039,'Seed: Red Codran','false','seed',1,'stackable','paper','none',-1,40,0,'true','true','true','true','C5Item','none'),
-(5040,'Seed: Twin Codran','false','seed',1,'stackable','paper','none',-1,50,0,'true','true','true','true','C5Item','none'),
+(5040,'Seed: Twin Codra','false','seed',1,'stackable','paper','none',-1,50,0,'true','true','true','true','C5Item','none'),
 (5041,'Seed: Desert Codran','false','seed',1,'stackable','paper','none',-1,100,0,'true','true','true','true','C5Item','none'),
 (5042,'Seed: Dark Coda','false','seed',1,'stackable','paper','none',-1,5,0,'true','true','true','true','C5Item','none'),
 (5043,'Seed: Red Coda','false','seed',1,'stackable','paper','none',-1,5,0,'true','true','true','true','C5Item','none'),
@@ -3685,7 +3680,9 @@ INSERT INTO `etcitem` VALUES
 (5062,'Trash','false','none',20,'stackable','paper','none',-1,0,0,'true','true','true','true','__golden_coda_seed_5','seed'),
 (5063,'Trash','false','none',20,'stackable','paper','none',-1,0,0,'true','true','true','true','__golden_cobol_seed_5','seed'),
 (5064,'Trash','false','none',20,'stackable','paper','none',-1,0,0,'true','true','true','true','__desert_codran_seed_5','seed'),
-(5065,'Chilly Coda','false','none',2,'stackable','paper','none',-1,50,0,'true','true','true','true','C5Item','none'),
+(5065,'Chilly Coda','false','none',2,'stackable','paper','none',-1,50,0,'true','true','true','true','C5Item','none');
+
+INSERT INTO `etcitem` VALUES
 (5066,'Burning Coda','false','none',2,'stackable','paper','none',-1,0,0,'true','true','true','true','burning_coda','seed'),
 (5067,'Blue Coda','false','none',2,'stackable','paper','none',-1,100,0,'true','true','true','true','C5Item','none'),
 (5068,'Red Coda','false','none',2,'stackable','paper','none',-1,50,0,'true','true','true','true','C5Item','none'),
@@ -3842,8 +3839,7 @@ INSERT INTO `etcitem` VALUES
 (5251,'Greater Compressed Package of Soulshots: D-grade','false','shot',450,'normal','steel','none',-1,11000,0,'true','true','true','true','adv_comp_soulshot_d','none'),
 (5252,'Greater Compressed Package of Soulshots: C-grade','false','shot',450,'normal','steel','none',-1,16500,0,'true','true','true','true','adv_comp_soulshot_c','none'),
 (5253,'Greater Compressed Package of Soulshots: B-grade','false','shot',300,'normal','steel','none',-1,55000,0,'true','true','true','true','adv_comp_soulshot_b','none'),
-(5254,'Greater Compressed Package of Soulshots: A-grade','false','shot',300,'normal','steel','none',-1,88000,0,'true','true','true','true','adv_comp_soulshot_a','none');
-INSERT INTO `etcitem` VALUES
+(5254,'Greater Compressed Package of Soulshots: A-grade','false','shot',300,'normal','steel','none',-1,88000,0,'true','true','true','true','adv_comp_soulshot_a','none'),
 (5255,'Greater Compressed Package of Soulshots: S-grade','false','shot',300,'normal','steel','none',-1,120000,0,'true','true','true','true','adv_comp_soulshot_s','none'),
 (5256,'Greater Compressed Package of Spiritshots: No-grade','false','shot',750,'normal','steel','none',-1,16500,0,'true','true','true','true','adv_comp_spiritshot_none','none'),
 (5257,'Greater Compressed Package of Spiritshots: D-grade','false','shot',750,'normal','steel','none',-1,19800,0,'true','true','true','true','adv_comp_spiritshot_d','none'),
@@ -4122,8 +4118,7 @@ INSERT INTO `etcitem` VALUES
 (5579,'Blue Soul Crystal - Stage 11','false','scroll',20,'normal','crystal','none',-1,0,0,'true','true','true','true','blue_soul_crystal_11','scroll'),
 (5580,'Red Soul Crystal - Stage 12','false','scroll',20,'normal','crystal','none',-1,0,0,'true','true','true','true','red_soul_crystal_12','scroll'),
 (5581,'Green Soul Crystal - Stage 12','false','scroll',20,'normal','crystal','none',-1,0,0,'true','true','true','true','green_soul_crystal_12','scroll'),
-(5582,'Blue Soul Crystal - Stage 12','false','scroll',20,'normal','crystal','none',-1,0,0,'true','true','true','true','blue_soul_crystal_12','scroll');
-INSERT INTO `etcitem` VALUES
+(5582,'Blue Soul Crystal - Stage 12','false','scroll',20,'normal','crystal','none',-1,0,0,'true','true','true','true','blue_soul_crystal_12','scroll'),
 (5583,'Echo Crystal - 6th Carol','false','none',10,'stackable','paper','none',-1,0,0,'true','true','true','true','echo_crystal_carol6','none'),
 (5584,'Echo Crystal - 7th Carol','false','none',10,'stackable','paper','none',-1,0,0,'true','true','true','true','echo_crystal_carol7','none'),
 (5585,'Echo Crystal - 8th Carol','false','none',10,'stackable','paper','none',-1,0,0,'true','true','true','true','echo_crystal_carol8','none'),
@@ -4438,8 +4433,7 @@ INSERT INTO `etcitem` VALUES
 (6022,'Magma Dust','false','none',0,'stackable','liquid','none',-1,0,0,'true','true','true','true','magma_dust','none'),
 (6023,'Moon Dust','false','none',0,'stackable','liquid','none',-1,0,0,'true','true','true','true','moon_dust','none'),
 (6024,'Necroplasm','false','none',0,'stackable','liquid','none',-1,0,0,'true','true','true','true','necroplasm','none'),
-(6025,'Demonplasm','false','none',0,'stackable','liquid','none',-1,2500,0,'true','true','true','true','demonplasm','none');
-INSERT INTO `etcitem` VALUES
+(6025,'Demonplasm','false','none',0,'stackable','liquid','none',-1,2500,0,'true','true','true','true','demonplasm','none'),
 (6026,'Inferno Dust','false','none',0,'stackable','liquid','none',-1,0,0,'true','true','true','true','inferno_dust','none'),
 (6027,'Draconic Essence','false','none',0,'stackable','liquid','none',-1,0,0,'true','true','true','true','draconic_essence','none'),
 (6028,'Fire Essence','false','none',0,'stackable','liquid','none',-1,2500,0,'true','true','true','true','fire_essence','none'),
@@ -4689,8 +4683,7 @@ INSERT INTO `etcitem` VALUES
 (6272,'Recruit Posting Ticket (Bow/Mobile)','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','gloom_mticket_oren_bow_move','castle_guard'),
 (6273,'Recruit Posting Ticket (Cleric/Mobile)','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','gloom_mticket_oren_cleric_move','castle_guard'),
 (6274,'Recruit Posting Ticket (Wizard/Mobile)','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','gloom_mticket_oren_wizard_move','castle_guard'),
-(6275,'Recruit Posting Ticket (Sword/Stationary)','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','gloom_mticket_aden_sword_fix','castle_guard');
-INSERT INTO `etcitem` VALUES
+(6275,'Recruit Posting Ticket (Sword/Stationary)','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','gloom_mticket_aden_sword_fix','castle_guard'),
 (6276,'Recruit Posting Ticket (Spear/Stationary)','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','gloom_mticket_aden_pole_fix','castle_guard'),
 (6277,'Recruit Posting Ticket (Bow/Stationary)','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','gloom_mticket_aden_bow_fix','castle_guard'),
 (6278,'Recruit Posting Ticket (Cleric/Stationary)','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','gloom_mticket_aden_cleric_fix','castle_guard'),
@@ -4710,7 +4703,9 @@ INSERT INTO `etcitem` VALUES
 (6292,'Recruit Posting Ticket (Bow/Mobile)','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','gloom_mticket_innadrile_bow_move','castle_guard'),
 (6293,'Recruit Posting Ticket (Cleric/Mobile)','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','gloom_mticket_innadrile_cleric_move','castle_guard'),
 (6294,'Recruit Posting Ticket (Wizard/Mobile)','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','gloom_mticket_innadrile_wizard_move','castle_guard'),
-(6295,'Nephilim Warrior Posting Ticket','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','nephilim_mticket_gludio_sword_move','castle_guard'),
+(6295,'Nephilim Warrior Posting Ticket','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','nephilim_mticket_gludio_sword_move','castle_guard');
+
+INSERT INTO `etcitem` VALUES
 (6296,'Nephilim Shaman Posting Ticket','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','nephilim_mticket_gludio_wizard_move','castle_guard'),
 (6297,'Nephilim Warrior Posting Ticket','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','nephilim_mticket_dion_sword_move','castle_guard'),
 (6298,'Nephilim Shaman Posting Ticket','false','castle_guard',0,'stackable','paper','none',-1,0,0,'true','true','true','true','nephilim_mticket_dion_wizard_move','castle_guard'),
@@ -4747,7 +4742,7 @@ INSERT INTO `etcitem` VALUES
 (6344,'Sealed Majestic Necklace Beads','false','material',60,'stackable','liquid','none',-1,13643,0,'true','true','true','true','sealed_majestic_necklace_beads','material'),
 (6345,'Sealed Phoenix Ring Gemstone','false','material',60,'stackable','liquid','none',-1,5228,0,'true','true','true','true','sealed_phoenix\'s_ring_gemstone','material'),
 (6346,'Sealed Majestic Ring Gemstone','false','material',60,'stackable','liquid','none',-1,6143,0,'true','true','true','true','sealed_majestic_ring_gemstrone','material'),
-(6350,'Amulet: Pa''agrio\'s Honor','false','spellbook',120,'stackable','paper','none',-1,8700,0,'true','true','true','true','sb_honor_of_paagrio1','none'),
+(6350,'Amulet: Pa\'agrio\'s Honor','false','spellbook',120,'stackable','paper','none',-1,8700,0,'true','true','true','true','sb_honor_of_paagrio1','none'),
 (6351,'Amulet: Ritual of Life','false','spellbook',120,'stackable','paper','none',-1,8200,0,'true','true','true','true','sb_ritual_of_life1','none'),
 (6352,'Spellbook: Prayer','false','spellbook',120,'stackable','paper','none',-1,8700,0,'true','true','true','true','sb_prayer1','none'),
 (6353,'Blue Gemstone','false','none',0,'stackable','liquid','none',-1,0,0,'true','true','true','true','blue_gem','none'),
@@ -5005,8 +5000,7 @@ INSERT INTO `etcitem` VALUES
 (6706,'Sealed Imperial Crusader Helmet Pattern','false','material',60,'stackable','liquid','none',-1,12329,0,'true','true','true','true','C4Item','none'),
 (6707,'Sealed Draconic Leather Armor Part','false','material',60,'stackable','liquid','none',-1,40365,0,'true','true','true','true','C4Item','none'),
 (6708,'Sealed Draconic Leather Gloves Fabric','false','material',60,'stackable','liquid','none',-1,14047,0,'true','true','true','true','C4Item','none'),
-(6709,'Sealed Draconic Leather Boots Design','false','material',60,'stackable','liquid','none',-1,14047,0,'true','true','true','true','C4Item','none');
-INSERT INTO `etcitem` VALUES
+(6709,'Sealed Draconic Leather Boots Design','false','material',60,'stackable','liquid','none',-1,14047,0,'true','true','true','true','C4Item','none'),
 (6710,'Sealed Draconic Leather Helmet Pattern','false','material',60,'stackable','liquid','none',-1,12329,0,'true','true','true','true','C4Item','none'),
 (6711,'Sealed Major Arcana Robe Part','false','material',60,'stackable','liquid','none',-1,40365,0,'true','true','true','true','C4Item','none'),
 (6712,'Sealed Major Arcana Gloves fabric','false','material',60,'stackable','liquid','none',-1,14047,0,'true','true','true','true','C4Item','none'),
@@ -5318,8 +5312,7 @@ INSERT INTO `etcitem` VALUES
 (7049,'Seed: Alternative Sea Codran','false','seed',1,'stackable','paper','none',-1,50,0,'true','true','true','true','C5Item','none'),
 (7050,'Seed: Alternative Twin Codran','false','seed',1,'stackable','paper','none',-1,50,0,'true','true','true','true','C5Item','none'),
 (7051,'Seed: Red Cobol','false','seed',1,'stackable','paper','none',-1,20,0,'true','true','true','true','C5Item','none'),
-(7052,'Seed: Red Codran','false','seed',1,'stackable','paper','none',-1,40,0,'true','true','true','true','C5Item','none');
-INSERT INTO `etcitem` VALUES
+(7052,'Seed: Red Codran','false','seed',1,'stackable','paper','none',-1,40,0,'true','true','true','true','C5Item','none'),
 (7053,'Seed: Red Codran','false','seed',1,'stackable','paper','none',-1,40,0,'true','true','true','true','C5Item','none'),
 (7054,'Seed: Sea Codran','false','seed',1,'stackable','paper','none',-1,50,0,'true','true','true','true','C5Item','none'),
 (7055,'Seed: Sea Codran','false','seed',1,'stackable','paper','none',-1,50,0,'true','true','true','true','C5Item','none'),
@@ -5667,8 +5660,7 @@ INSERT INTO `etcitem` VALUES
 (7400,'Resonance Amulet - 5','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7401,'Resonance Amulet - 5','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7402,'Resonance Amulet - 5','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
-(7403,'Resonance Amulet - 5','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none');
-INSERT INTO `etcitem` VALUES
+(7403,'Resonance Amulet - 5','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7404,'Resonance Amulet - 5','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7405,'Resonance Amulet - 5','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7406,'Resonance Amulet - 5','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
@@ -5749,7 +5741,9 @@ INSERT INTO `etcitem` VALUES
 (7481,'Resonance Amulet - 7','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7482,'Resonance Amulet - 7','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7483,'Resonance Amulet - 7','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
-(7484,'Resonance Amulet - 7','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
+(7484,'Resonance Amulet - 7','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none');
+
+INSERT INTO `etcitem` VALUES
 (7485,'Halisha\'s Mark','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7486,'Halisha\'s Mark','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7487,'Halisha\'s Mark','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
@@ -5782,8 +5776,8 @@ INSERT INTO `etcitem` VALUES
 (7514,'Halisha\'s Mark','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7515,'Halisha\'s Mark','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7516,'Ice Wine','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
-(7517,'Donath\'s'' Dish','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
-(7518,'Donath\'s'' Note - Vol.1','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
+(7517,'Donath\'s\' Dish','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
+(7518,'Donath\'s\' Note - Vol.1','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7519,'Shaved Ice','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7520,'Ice Cream','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7521,'Ice Crystal Gemstone','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
@@ -5864,7 +5858,7 @@ INSERT INTO `etcitem` VALUES
 (7601,'Worn Tarot Card - Power','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7602,'Worn Tarot Card - Love','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7603,'Worn Tarot Card - Knowledge','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
-(7604,'Summoner Keats'' Letter','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
+(7604,'Summoner Keats\' Letter','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7605,'Miracle Potion of Transferred Life','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7606,'Kamilen\'s Antidote','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
 (7607,'Coolant of the Repaired Wilma #3','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C4Item','none'),
@@ -5934,8 +5928,8 @@ INSERT INTO `etcitem` VALUES
 (7671,'Spellbook - Mass Block Wind Walk','false','spellbook',120,'stackable','paper','none',-1,11600,0,'true','true','true','true','C4Item','none'),
 (7672,'Amulet - Chant of Spirit','false','spellbook',120,'stackable','paper','none',-1,11600,0,'true','true','true','true','C4Item','none'),
 (7673,'Amulet - Chant of Victory','false','spellbook',120,'stackable','paper','none',-1,11600,0,'true','true','true','true','C4Item','none'),
-(7674,'Amulet - Pa''agrio\'s Eye','false','spellbook',120,'stackable','paper','none',-1,11600,0,'true','true','true','true','C4Item','none'),
-(7675,'Amulet - Pa''agrio\'s Soul','false','spellbook',120,'stackable','paper','none',-1,11600,0,'true','true','true','true','C4Item','none'),
+(7674,'Amulet - Pa\'agrio\'s Eye','false','spellbook',120,'stackable','paper','none',-1,11600,0,'true','true','true','true','C4Item','none'),
+(7675,'Amulet - Pa\'agrio\'s Soul','false','spellbook',120,'stackable','paper','none',-1,11600,0,'true','true','true','true','C4Item','none'),
 (7676,'Amulet - Seal of Despair','false','spellbook',120,'stackable','paper','none',-1,11600,0,'true','true','true','true','C4Item','none'),
 (7677,'Virgil\'s Letter','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','false','false','C4Item','none'),
 (7678,'Caradine\'s Letter','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','false','false','C4Item','none'),
@@ -6005,8 +5999,7 @@ INSERT INTO `etcitem` VALUES
 (7773,'Small Purple Fat Fish - For Beginners','false','none',100,'stackable','paper','none',-1,455,0,'true','true','true','true','C4Item','none'),
 (7774,'Purple Nimble Fish - For Beginners','false','none',100,'stackable','paper','none',-1,0,0,'true','true','true','true','C4Item','none'),
 (7775,'Purple Ugly Fish - For Beginners','false','none',100,'stackable','paper','none',-1,0,0,'true','true','true','true','C4Item','none'),
-(7776,'Purple Fat Fish - For Beginners','false','none',100,'stackable','paper','none',-1,0,0,'true','true','true','true','C4Item','none');
-INSERT INTO `etcitem` VALUES
+(7776,'Purple Fat Fish - For Beginners','false','none',100,'stackable','paper','none',-1,0,0,'true','true','true','true','C4Item','none'),
 (7777,'Large Purple Nimble Fish - For Beginners','false','none',100,'stackable','paper','none',-1,0,0,'true','true','true','true','C4Item','none'),
 (7778,'Large Purple Ugly Fish - For Beginners','false','none',100,'stackable','paper','none',-1,0,0,'true','true','true','true','C4Item','none'),
 (7779,'Large Purple Fat Fish - For Beginners','false','none',100,'stackable','paper','none',-1,0,0,'true','true','true','true','C4Item','none'),
@@ -6204,10 +6197,10 @@ INSERT INTO `etcitem` VALUES
 (8061,'Scribbled Memo','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8062,'Blood of Maille Lizardman','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8063,'Leg of King Araneid','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
-(8064,'Visitor\'s Mark','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','false','true','C5Item','none'),
+(8064,'Visitor\'s Mark','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C5Item','none'),
 (8065,'Faded Visitor\'s Mark','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C5Item','none'),
 (8066,'Necromancer\'s Heart','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C5Item','none'),
-(8067,'Pagan\'s Mark','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','false','true','C5Item','none'),
+(8067,'Pagan\'s Mark','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','true','false','C5Item','none'),
 (8068,'Pagan Totem','false','quest',0,'stackable','paper','none',-1,0,0,'false','false','false','false','C5Item','none'),
 (8069,'Monk\'s Scripture','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8070,'Water Bottle','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
@@ -6330,9 +6323,8 @@ INSERT INTO `etcitem` VALUES
 (8273,'Anteroom Key','false','none',0,'stackable','steel','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8274,'Chapel Key','false','none',0,'stackable','steel','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8275,'Key of Darkness','false','none',0,'stackable','steel','none',-1,0,0,'true','true','true','true','C5Item','none'),
-(8276,'Sekina\'s Scale','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none');
-INSERT INTO `etcitem` VALUES
-(8277,'Themis'' Scale','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
+(8276,'Sekina\'s Scale','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
+(8277,'Themis\' Scale','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8278,'Vermilion Shard','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8279,'Nucleus of Hekaton Prime','false','none',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8280,'Tiphon Shard','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
@@ -6351,7 +6343,7 @@ INSERT INTO `etcitem` VALUES
 (8293,'Trainer License','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8294,'Recipe: Steel Sword (100%)','false','recipe',30,'stackable','liquid','none',-1,8180,0,'true','true','true','true','C5Item','none'),
 (8295,'Recipe: Titan Sword (100%)','false','recipe',30,'stackable','liquid','none',-1,28000,0,'true','true','true','true','C5Item','none'),
-(8296,'Recipe: Pa''agrian Sword (100%)','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','C5Item','none'),
+(8296,'Recipe: Pa\'agrian Sword (100%)','false','recipe',30,'stackable','liquid','none',-1,86000,0,'true','true','true','true','C5Item','none'),
 (8297,'Recipe: Guardian\'s Sword (100%)','false','recipe',30,'stackable','liquid','none',-1,262000,0,'true','true','true','true','C5Item','none'),
 (8298,'Recipe: Guardian\'s Sword (60%)','false','recipe',30,'stackable','liquid','none',-1,262000,0,'true','true','true','true','C5Item','none'),
 (8299,'Recipe: Infernal Master (100%)','false','recipe',30,'stackable','liquid','none',-1,366000,0,'true','true','true','true','C5Item','none'),
@@ -6384,7 +6376,7 @@ INSERT INTO `etcitem` VALUES
 (8326,'Recipe: Doom Crusher (60%)','false','recipe',30,'stackable','liquid','none',-1,540000,0,'true','true','true','true','C5Item','none'),
 (8327,'Steel Sword Blade','false','material',60,'stackable','liquid','none',-1,11912,0,'true','true','true','true','C5Item','none'),
 (8328,'Titan Sword Blade','false','material',60,'stackable','liquid','none',-1,20950,0,'true','true','true','true','C5Item','none'),
-(8329,'Pa''agrian Sword Blade','false','material',60,'stackable','liquid','none',-1,38420,0,'true','true','true','true','C5Item','none'),
+(8329,'Pa\'agrian Sword Blade','false','material',60,'stackable','liquid','none',-1,38420,0,'true','true','true','true','C5Item','none'),
 (8330,'Guardian Sword Blade','false','material',60,'stackable','liquid','none',-1,45769,0,'true','true','true','true','C5Item','none'),
 (8331,'Infernal Master Blade','false','material',60,'stackable','liquid','none',-1,58615,0,'true','true','true','true','C5Item','none'),
 (8332,'Priest Sword Blade','false','material',60,'stackable','liquid','none',-1,12037,0,'true','true','true','true','C5Item','none'),
@@ -6568,7 +6560,7 @@ INSERT INTO `etcitem` VALUES
 (8511,'Yellow Luminous Lure - Low Grade','false','lure',5,'stackable','liquid','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8512,'Yellow Luminous Lure','false','lure',4,'stackable','liquid','none',-1,150,0,'true','true','true','true','C5Item','none'),
 (8513,'Yellow Luminous Lure - High Grade','false','lure',3,'stackable','liquid','none',-1,0,0,'true','true','true','true','C5Item','none'),
-(8514,'Remnants of Old Dwarves'' Dreams','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
+(8514,'Remnants of Old Dwarves\' Dreams','false','quest',0,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8515,'Charm of Courage: No Grade','false','scroll',10,'stackable','paper','none',-1,2000,0,'true','true','true','true','C5Item','none'),
 (8516,'Charm of Courage: D-Grade','false','scroll',10,'stackable','paper','d',-1,6600,0,'true','true','true','true','C5Item','none'),
 (8517,'Charm of Courage: C-Grade','false','scroll',10,'stackable','paper','c',-1,13200,0,'true','true','true','true','C5Item','none'),
@@ -6661,8 +6653,7 @@ INSERT INTO `etcitem` VALUES
 (8642,'Recipe: Elixir of Life (C-Grade) (100%)','false','recipe',30,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8643,'Recipe: Elixir of Life (B-Grade) (100%)','false','recipe',30,'stackable','paper','none',-1,2000,0,'true','true','true','true','C5Item','none'),
 (8644,'Recipe: Elixir of Life (A-Grade) (100%)','false','recipe',30,'stackable','paper','none',-1,2500,0,'true','true','true','true','C5Item','none'),
-(8645,'Recipe: Elixir of Life (S-Grade) (100%)','false','recipe',30,'stackable','paper','none',-1,3000,0,'true','true','true','true','C5Item','none');
-INSERT INTO `etcitem` VALUES
+(8645,'Recipe: Elixir of Life (S-Grade) (100%)','false','recipe',30,'stackable','paper','none',-1,3000,0,'true','true','true','true','C5Item','none'),
 (8646,'Recipe: Elixir of Mental Strength (No Grade) (100%)','false','recipe',30,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8647,'Recipe: Elixir of Mental Strength (D-Grade) (100%)','false','recipe',30,'stackable','paper','none',-1,0,0,'true','true','true','true','C5Item','none'),
 (8648,'Recipe: Elixir of Mental Strength (C-Grade) (100%)','false','recipe',30,'stackable','paper','none',-1,1760,0,'true','true','true','true','C5Item','none'),
@@ -6708,8 +6699,8 @@ INSERT INTO `etcitem` VALUES
 (8703,'Recipe: Shyeed\'s Bow (100%)','false','recipe',30,'stackable','paper','none',-1,706000,0,'true','true','true','true','InterludeItem','none'),
 (8704,'Recipe: Sobekk\'s Hurricane (60%)','false','recipe',30,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
 (8705,'Recipe: Sobekk\'s Hurricane (100%)','false','recipe',30,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
-(8706,'Recipe: Themis'' Tongue (60%)','false','recipe',30,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
-(8707,'Recipe: Themis'' Tongue (100%)','false','recipe',30,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
+(8706,'Recipe: Themis\' Tongue (60%)','false','recipe',30,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
+(8707,'Recipe: Themis\' Tongue (100%)','false','recipe',30,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
 (8708,'Recipe: Cabrio\'s Hand (60%)','false','recipe',30,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
 (8709,'Recipe: Cabrio\'s Hand (100%)','false','recipe',30,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
 (8710,'Recipe: Daimon Crystal (60%)','false','recipe',30,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
@@ -6722,7 +6713,7 @@ INSERT INTO `etcitem` VALUES
 (8717,'Tiphon\'s Spear Edge','false','material',60,'stackable','liquid','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
 (8718,'Shyeed\'s Bow Shaft','false','material',60,'stackable','liquid','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
 (8719,'Sobekk\'s Hurricane Edge','false','material',60,'stackable','liquid','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
-(8720,'Themis'' Tongue Piece','false','material',60,'stackable','liquid','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
+(8720,'Themis\' Tongue Piece','false','material',60,'stackable','liquid','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
 (8721,'Cabrio\'s Hand Head','false','material',60,'stackable','liquid','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
 (8722,'Daimon Crystal Fragment','false','material',60,'stackable','liquid','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
 (8723,'Life Stone: level 46','false','none',2,'stackable','liquid','none',-1,5000,0,'true','true','true','true','InterludeItem','none'),
@@ -6734,7 +6725,9 @@ INSERT INTO `etcitem` VALUES
 (8729,'Life Stone: level 64','false','none',2,'stackable','liquid','none',-1,15000,0,'true','true','true','true','InterludeItem','none'),
 (8730,'Life Stone: level 67','false','none',2,'stackable','liquid','none',-1,18000,0,'true','true','true','true','InterludeItem','none'),
 (8731,'Life Stone: level 70','false','none',2,'stackable','liquid','none',-1,21600,0,'true','true','true','true','InterludeItem','none'),
-(8732,'Life Stone: level 76','false','none',2,'stackable','liquid','none',-1,24000,0,'true','true','true','true','InterludeItem','none'),
+(8732,'Life Stone: level 76','false','none',2,'stackable','liquid','none',-1,24000,0,'true','true','true','true','InterludeItem','none');
+
+INSERT INTO `etcitem` VALUES
 (8733,'Mid-Grade Life Stone: level 46','false','none',2,'stackable','liquid','none',-1,20000,0,'true','true','true','true','InterludeItem','none'),
 (8734,'Mid-Grade Life Stone: level 49','false','none',2,'stackable','liquid','none',-1,24000,0,'true','true','true','true','InterludeItem','none'),
 (8735,'Mid-Grade Life Stone: level 52','false','none',2,'stackable','liquid','none',-1,28800,0,'true','true','true','true','InterludeItem','none'),
@@ -6806,10 +6799,10 @@ INSERT INTO `etcitem` VALUES
 (8882,'Spellbook: Salvation','false','spellbook',120,'stackable','paper','none',-1,110000,0,'true','true','true','true','InterludeItem','none'),
 (8883,'Spellbook: Mystic Immunity','false','spellbook',120,'stackable','paper','none',-1,110000,0,'true','true','true','true','InterludeItem','none'),
 (8884,'Spellbook: Spell Turning','false','spellbook',120,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
-(8885,'Amulet: Magnus'' Chant','false','spellbook',120,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
-(8886,'Amulet: Victories of Pa''agrio','false','spellbook',120,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
-(8887,'Amulet: Pa''agrio\'s Emblem','false','spellbook',120,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
-(8888,'Amulet: Pa''agrio\'s Fist','false','spellbook',120,'stackable','paper','none',-1,110000,0,'true','true','true','true','InterludeItem','none'),
+(8885,'Amulet: Magnus\' Chant','false','spellbook',120,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
+(8886,'Amulet: Victories of Pa\'agrio','false','spellbook',120,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
+(8887,'Amulet: Pa\'agrio\'s Emblem','false','spellbook',120,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
+(8888,'Amulet: Pa\'agrio\'s Fist','false','spellbook',120,'stackable','paper','none',-1,110000,0,'true','true','true','true','InterludeItem','none'),
 (8889,'Amulet: Gate Chant','false','spellbook',120,'stackable','paper','none',-1,0,0,'true','true','true','true','InterludeItem','none'),
 (8890,'Spellbook: Summon Attractive Cubic','false','spellbook',120,'stackable','paper','none',-1,7700,0,'true','true','true','true','InterludeItem','none'),
 (8891,'Spellbook: Aura Flash','false','spellbook',120,'stackable','paper','none',-1,6750,0,'true','true','true','true','InterludeItem','none'),
@@ -6981,8 +6974,7 @@ INSERT INTO `etcitem` VALUES
 (9549,'Wind Stone','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9550,'Dark Stone','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9551,'Divine Stone','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
-(9552,'Fire Crystal','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none');
-INSERT INTO `etcitem` VALUES
+(9552,'Fire Crystal','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9553,'Water Crystal','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9554,'Earth Crystal','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9555,'Wind Crystal','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
@@ -7137,15 +7129,15 @@ INSERT INTO `etcitem` VALUES
 (9757,'Report - North','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9758,'Harkilgamed\'s Letter','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9759,'Tenain\'s Recommendation','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
-(9760,'Orkurus'' Recommendation','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
+(9760,'Orkurus\' Recommendation','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (9761,'Frozen Cell Samples','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9762,'Orders','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9763,'Organization Chart','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9764,'Gobie\'s Orders','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9765,'Letter to the Humans','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
-(9766,'Humans'' Reply','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
+(9766,'Humans\' Reply','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (9767,'Letter to the Dark Elves','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
-(9768,'Dark Elves'' Reply','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
+(9768,'Dark Elves\' Reply','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (9769,'Report to Sione','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9770,'Empty Soul Crystal','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9771,'Tak\'s Captured Soul','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
@@ -7156,7 +7148,7 @@ INSERT INTO `etcitem` VALUES
 (9776,'Encoded Page on the Ancient Race','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9777,'Kamael Inquisitor Trainee Mark','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9778,'Fragment of Attack Orders','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
-(9779,'Grandis'' Attack Orders','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
+(9779,'Grandis\' Attack Orders','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (9780,'Manashen\'s Talisman','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9781,'Research on the Giants and the Ancient Race','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9782,'Kamael Inquisitor Mark','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
@@ -7182,7 +7174,7 @@ INSERT INTO `etcitem` VALUES
 (9802,'Safe Key','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9803,'Sealed Document','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9804,'Wyrm Heart','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
-(9805,'Kekropus'' Recommendation','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
+(9805,'Kekropus\' Recommendation','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (9806,'Soul Breaker Certificate','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9807,'Wolf Tail','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (9808,'Muertos Claw','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
@@ -7334,8 +7326,10 @@ INSERT INTO `etcitem` VALUES
 (10109,'Spellbook - Wind Vortex Slug','false','spellbook',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (10110,'Spellbook - Meteor','false','spellbook',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (10111,'Spellbook - Star Fall','false','spellbook',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
-(10112,'Dark Seed','false','none',120,'stackable','wood','none',-1,0,NULL,'false','false','false','false','KamaelItem','none'),
-(10113,'Special Bolt','false','none',6,'stackable','wood','none',-1,0,NULL,'true','false','true','false','KamaelItem','none'),
+(10112,'Dark Seed','false','none',120,'stackable','wood','none',-1,0,NULL,'true','false','true','false','KamaelItem','none');
+
+INSERT INTO `etcitem` VALUES
+(10113,'Special Bolt','false','none',6,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (10114,'Sealed Dynasty Sickle Piece','false','none',5,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (10115,'Recipe: Sealed Dynasty Sickle (60%)','false','none',5,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (10116,'Recipe: Sealed Dynasty Sickle (100%)','false','none',5,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
@@ -7352,8 +7346,7 @@ INSERT INTO `etcitem` VALUES
 (10134,'Unicorn Transform Scroll','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (10135,'Lilim Knight Transform Scroll','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (10136,'Golem Guardian Transform Scroll','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
-(10137,'Inferno Drake Transform Scroll','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none');
-INSERT INTO `etcitem` VALUES
+(10137,'Inferno Drake Transform Scroll','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (10138,'Dragon Bomber Transform Scroll','false','none',120,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (10143,'Battleground Spell - Shield Master','false','none',5,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
 (10144,'Battleground Spell - Wizard','false','none',5,'stackable','wood','none',-1,0,NULL,'true','true','true','true','KamaelItem','none'),
@@ -7481,7 +7474,7 @@ INSERT INTO `etcitem` VALUES
 (10336,'Giants\' Experimental Tool','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (10337,'Giants\' Technology Report','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (10338,'Rouke\'s Report','false','quest',0,'stackable','paper','none',-1,0,NULL,'true','true','true','true','',''),
-(10339,'Badge - Temple Missionary','quest','none',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
+(10339,'Badge - Temple Missionary','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (10340,'Report Fragment','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (10341,'Temple Manifesto','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
 (10342,'Relics of the Dark Elf Trainee','false','quest',0,'stackable','wood','none',-1,0,NULL,'true','true','true','true','',''),
@@ -7785,7 +7778,9 @@ INSERT INTO `etcitem` VALUES
 (12430,'Foundation Elysian','false','none',1580,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (12431,'Foundation Soul Bow','false','none',1660,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (12432,'Foundation Tallum Glaive','false','none',1840,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
-(12433,'Foundation Naga Storm','false','none',930,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
+(12433,'Foundation Naga Storm','false','none',930,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none');
+
+INSERT INTO `etcitem` VALUES
 (12434,'Foundation Daimon Crystal','false','none',880,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (12435,'Foundation Barakiel\'s Axe','false','none',1550,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (12436,'Foundation Screaming Vengeance','false','none',1640,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
@@ -8459,5 +8454,9 @@ INSERT INTO `etcitem` VALUES
 --
 -- L2J-Free Add-ons
 --
--- Mammon's Varnish Enhancer consume_type fix
-UPDATE `etcitem` SET `consume_type` = 'stackable' WHERE `item_id` = 12374;
+
+-- Dark Seed cannot be exchanged or dropped according to client's description.
+UPDATE `etcitem` SET `sellable` = 'false', `tradeable` = 'false',`dropable` = 'false' WHERE `item_id` = 10112;
+
+-- Visitor's Mark and Pagan's Mark tradeable
+UPDATE `etcitem` SET `tradeable` = 'true' WHERE `item_id` IN (8064,8067);

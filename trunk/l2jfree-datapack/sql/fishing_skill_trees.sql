@@ -131,4 +131,4 @@ INSERT INTO fishing_skill_trees VALUES
 (1372,6,'Expand Inventory',0,60,7609,60000,0),
 (1372,7,'Expand Inventory',0,70,7609,100000,0),
 (1372,8,'Expand Inventory',0,76,7609,100000,0),
-(1312,1,'Fishing',0,10,57,1000,0); 
+(1312,1,'Fishing',0,10,57,1000,0);

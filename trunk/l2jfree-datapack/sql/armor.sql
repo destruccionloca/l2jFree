@@ -1728,7 +1728,7 @@ INSERT INTO `armor` VALUES
 (12037,'Common Item - Reinforced Leather Gloves','gloves','true','none',213,'wood','d',0,-1,24,0,0,1960,4,'true','true','true','true',''),
 (12038,'Common Item - Gauntlet','gloves','true','none',213,'wood','d',0,-1,24,0,0,1960,4,'true','true','true','true',''),
 (12039,'Common Item - Dwarven Scale Gaiters','legs','true','heavy',1280,'wood','d',0,-1,61,0,0,4910,9,'true','true','true','true',''),
-(12040,'Common Item - Linen Shirt','underwear','true','none',43,'wood','d',0,-1,12,0,0,0,39,'true','true','true','true',''),
+(12040,'Common Item - Linen Shirt','underwear','true','none',43,'wood','d',0,-1,12,0,0,0,0,'true','true','true','true',''),
 (12041,'Common Item - Mithril Gaiters','legs','true','heavy',1277,'wood','d',0,-1,61,0,0,4910,9,'true','true','true','true',''),
 (12042,'Common Item - Mithril Banded Gaiters','legs','true','light',527,'wood','d',0,-1,46,0,0,3680,7,'true','true','true','true',''),
 (12043,'Common Item - Mithril Banded Mail','chest','true','light',1523,'wood','d',0,-1,73,0,0,5890,11,'true','true','true','true',''),
@@ -1753,7 +1753,7 @@ INSERT INTO `armor` VALUES
 (12064,'Common Item - Brigandine Helmet','head','true','none',210,'wood','d',0,-1,41,0,0,4170,8,'true','true','true','true',''),
 (12065,'Common Item - Elven Mithril Gloves','gloves','true','none',213,'wood','d',0,-1,27,0,0,2780,5,'true','true','true','true',''),
 (12066,'Common Item - Elven Mithril Boots','feet','true','none',417,'wood','d',0,-1,27,0,0,2780,5,'true','true','true','true',''),
-(12067,'Common Item - Striped Linen Shirt','underwear','true','none',43,'wood','d',0,-1,14,0,0,0,75,'true','true','true','true',''),
+(12067,'Common Item - Striped Linen Shirt','underwear','true','none',43,'wood','d',0,-1,14,0,0,0,0,'true','true','true','true',''),
 (12068,'Common Item - Rip Gauntlet','gloves','true','none',210,'wood','d',0,-1,27,0,0,2780,5,'true','true','true','true',''),
 (12070,'Common Item - Boots of Power','feet','true','none',417,'wood','d',0,-1,27,0,0,2780,5,'true','true','true','true',''),
 (12071,'Common Item - Assault Boots','feet','true','none',413,'wood','d',0,-1,29,0,0,3560,6,'true','true','true','true',''),
@@ -1796,7 +1796,7 @@ INSERT INTO `armor` VALUES
 (12114,'Common Item - Rind Leather Boots','feet','true','none',407,'wood','c',0,-1,34,0,0,5620,2,'true','true','true','true',''),
 (12115,'Common Item - Robe of Seal','fullarmor','true','magic',833,'wood','c',0,-1,105,0,413,27400,11,'true','true','true','true',''),
 (12116,'Common Item - Gloves of Seal','gloves','true','none',207,'wood','c',0,-1,34,0,0,5620,2,'true','true','true','true',''),
-(12117,'Common Item - Silk Shirt','underwear','true','none',43,'wood','c',0,-1,17,0,0,0,27,'true','true','true','true',''),
+(12117,'Common Item - Silk Shirt','underwear','true','none',43,'wood','c',0,-1,17,0,0,0,0,'true','true','true','true',''),
 (12118,'Common Item - Crimson Boots','feet','true','none',403,'wood','c',0,-1,34,0,0,5620,2,'true','true','true','true',''),
 (12119,'Common Item - Mithril Gauntlet','gloves','true','none',200,'wood','c',0,-1,36,0,0,10400,4,'true','true','true','true',''),
 (12120,'Common Item - Shining Circlet','head','true','none',200,'wood','c',0,-1,54,0,0,15600,6,'true','true','true','true',''),
@@ -1817,7 +1817,7 @@ INSERT INTO `armor` VALUES
 (12137,'Common Item - Divine Gloves','gloves','true','none',203,'wood','c',0,-1,39,0,0,16300,7,'true','true','true','true',''),
 (12138,'Common Item - Divine Tunic','chest','true','magic',660,'wood','c',0,-1,74,0,314,48900,20,'true','true','true','true',''),
 (12139,'Common Item - Divine Stockings','legs','true','magic',320,'wood','c',0,-1,46,0,196,30600,12,'true','true','true','true',''),
-(12140,'Common Item - Stripe Silk Shirt','underwear','true','none',43,'wood','c',0,-1,19,0,0,0,60,'true','true','true','true',''),
+(12140,'Common Item - Stripe Silk Shirt','underwear','true','none',43,'wood','c',0,-1,19,0,0,0,0,'true','true','true','true',''),
 (12141,'Common Item - Full Plate Gauntlet','gloves','true','none',200,'wood','c',0,-1,39,0,0,16300,7,'true','true','true','true',''),
 (12142,'Common Item - Full Plate Boots','feet','true','none',400,'wood','c',0,-1,39,0,0,16300,7,'true','true','true','true',''),
 (12144,'Common Item - Full Plate Armor','fullarmor','true','heavy',3493,'wood','c',0,-1,239,0,0,106000,42,'true','true','true','true',''),
@@ -1848,7 +1848,7 @@ INSERT INTO `armor` VALUES
 (12170,'Common Item - Avadon Circlet','head','true','none',197,'wood','b',0,-1,62,0,0,31300,4,'true','true','true','true',''),
 (12172,'Common Item - Avadon Plate Gaiters','legs','true','heavy',1173,'wood','b',0,-1,98,0,0,52200,7,'true','true','true','true',''),
 (12173,'Common Item - Avadon Breastplate','chest','true','heavy',2640,'wood','b',0,-1,157,0,0,83500,11,'true','true','true','true',''),
-(12174,'Common Item - Thin Leather Shirt','underwear','true','none',43,'wood','b',0,-1,21,0,0,0,29,'true','true','true','true',''),
+(12174,'Common Item - Thin Leather Shirt','underwear','true','none',43,'wood','b',0,-1,21,0,0,0,0,'true','true','true','true',''),
 (12175,'Common Item - Tunic of Zubei','chest','true','magic',653,'wood','b',0,-1,78,0,345,62600,8,'true','true','true','true',''),
 (12176,'Common Item - Stockings of Zubei','legs','true','magic',313,'wood','b',0,-1,49,0,216,39100,5,'true','true','true','true',''),
 (12177,'Common Item - Doom Gloves','gloves','true','none',193,'wood','b',0,-1,44,0,0,37600,5,'true','true','true','true',''),
@@ -1864,7 +1864,7 @@ INSERT INTO `armor` VALUES
 (12188,'Common Item - Sealed Doom Boots','feet','true','none',377,'wood','b',0,-1,44,0,0,37600,5,'true','true','true','true',''),
 (12189,'Common Item - Sealed Blue Wolf Boots','feet','true','none',377,'wood','b',0,-1,44,0,0,37600,5,'true','true','true','true',''),
 (12190,'Common Item - Sealed Blue Wolf Gloves','gloves','true','none',197,'wood','b',0,-1,44,0,0,37600,5,'true','true','true','true',''),
-(12191,'Common Item - Thin Stripe Leather Shirt','underwear','true','none',43,'wood','b',0,-1,22,0,0,0,44,'true','true','true','true',''),
+(12191,'Common Item - Thin Stripe Leather Shirt','underwear','true','none',43,'wood','b',0,-1,22,0,0,0,0,'true','true','true','true',''),
 (12192,'Common Item - Tunic of Doom','chest','true','magic',633,'wood','b',0,-1,83,0,377,112700,15,'true','true','true','true',''),
 (12193,'Common Item - Blue Wolf Gaiters','legs','true','heavy',1123,'wood','b',0,-1,104,0,0,93900,13,'true','true','true','true',''),
 (12194,'Common Item - Blue Wolf Leather Armor','fullarmor','true','light',1833,'wood','b',0,-1,202,0,0,183000,24,'true','true','true','true',''),
@@ -1950,7 +1950,7 @@ INSERT INTO `armor` VALUES
 (12277,'Common Item - Boots of Nightmare','feet','true','none',370,'wood','a',0,-1,49,0,0,73500,6,'true','true','true','true',''),
 (12278,'Common Item - Boots of Nightmare','feet','true','none',370,'wood','a',0,-1,49,0,0,73500,6,'true','true','true','true',''),
 (12280,'Common Item - Helm of Nightmare','head','true','none',187,'wood','a',0,-1,73,0,0,110200,9,'true','true','true','true',''),
-(12281,'Common Item - Stripe Barbed Shirt','underwear','true','none',43,'wood','a',0,-1,26,0,0,0,59,'true','true','true','true',''),
+(12281,'Common Item - Stripe Barbed Shirt','underwear','true','none',43,'wood','a',0,-1,26,0,0,0,0,'true','true','true','true',''),
 (12282,'Common Item - Draconic Leather Gloves','gloves','true','none',180,'wood','s',0,-1,55,0,0,0,0,'true','true','true','true',''),
 (12283,'Common Item - Draconic Leather Boots','feet','true','none',370,'wood','s',0,-1,55,0,0,0,0,'true','true','true','true',''),
 (12284,'Common Item - Draconic Leather Armor','fullarmor','true','light',1650,'wood','s',0,-1,249,0,0,0,0,'true','true','true','true',''),
@@ -2144,10 +2144,10 @@ INSERT INTO armor VALUES
 (13332,'Feline King Hat (Event) - 7-day Limited Period','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
 (13333,'Kai the Cat Hat (Event) - 7-day Limited Period','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
 (13340,'Agathion of Love (Event) - 7-day Limited Period','underwear','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
-(13389,'Kratei Barbed Shirt - CP','chest','true','none',130, 'wood','a',0,-1,23,0,0,0,1,'true','true','true','true',''),
-(13390,'Kratei Mithril Shirt - CP','chest','true','none',130, 'wood','s',0,-1,28,0,0,0,1,'true','true','true','true',''),
-(13391,'Kratei Striped Barbed Shirt - CP','chest','true','none',130, 'wood','a',0,-1,26,0,0,0,1,'true','true','true','true',''),
-(13392,'Kratei Striped Mithril Shirt - CP','underwear','true','none',130, 'wood','s',0,-1,30,0,0,0,1,'true','true','true','true',''),
+(13389,'Kratei Barbed Shirt - CP','chest','true','none',130, 'wood','a',0,-1,23,0,0,0,0,'true','true','true','true',''),
+(13390,'Kratei Mithril Shirt - CP','chest','true','none',130, 'wood','s',0,-1,28,0,0,0,0,'true','true','true','true',''),
+(13391,'Kratei Striped Barbed Shirt - CP','chest','true','none',130, 'wood','a',0,-1,26,0,0,0,0,'true','true','true','true',''),
+(13392,'Kratei Striped Mithril Shirt - CP','underwear','true','none',130, 'wood','s',0,-1,30,0,0,0,0,'true','true','true','true',''),
 (13393,'Shadow Item - Monkey Hat','dhair','false','none',10, 'wood','none',0,100,0,0,0,0,0,'true','true','true','true',''),
 (13394,'Shadow Item - Pig Hat','dhair','false','none',10, 'wood','none',0,100,0,0,0,0,0,'true','true','true','true',''),
 (13415,'Frog Hat','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
@@ -2207,37 +2207,20 @@ UPDATE `armor` SET `classes` = '127,128,129,131,132,133' WHERE `item_id` = 9407;
 UPDATE `armor` SET `classes` = '130,134' WHERE `item_id` = 9408;
 UPDATE `armor` SET `classes` = '135,136' WHERE `item_id` = 10169;
 
--- Agathion Corrections (made on separate batch due decimal mysql syntaxis diff)
-DELETE FROM armor WHERE item_id = 9589;
-DELETE FROM armor WHERE item_id = 9590;
-DELETE FROM armor WHERE item_id = 9591;
-DELETE FROM armor WHERE item_id = 9592;
-DELETE FROM armor WHERE item_id = 9909;
-DELETE FROM armor WHERE item_id = 10018;
-DELETE FROM armor WHERE item_id = 10139;
-DELETE FROM armor WHERE item_id = 10209;
-DELETE FROM armor WHERE item_id = 10210;
-
-INSERT INTO `armor` VALUES
-(9589, 'Iron Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'c', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1),
-(9590, 'Bronze Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'b', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1),
-(9591, 'Steel Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'a', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1),
-(9592, 'Mithril Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 's', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1);
-
--- Agathion Seal Bracelet
-INSERT INTO `armor` VALUES
-('9909', 'Agathion Seal Bracelet', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '500', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3361-1;3267-1', '-1', '-1', '-1'),
-('10018', 'Agathion Seal Bracelet - Fortress', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3361-1;3267-1', '-1', '-1', '-1');
-
--- Agathion Bracelet
-INSERT INTO `armor` VALUES
-('10139', 'Agathion Bracelet', 'lbracelet', 'true', 'none', '150', 'wood', 'none', '0', '500', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '3269-1;3267-1', '-1', '-1', '-1');
-
--- Enchanced Bracelets
-INSERT INTO `armor` VALUES
-(10209, 'Enhanced Steel Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'a', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1),
-(10210, 'Enhanced Mithril Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 's', 0, -1, 0, 0, 120, 0, 0, 'true', 'true', 'true', 'true', '', -1, -1, -1);
+-- Skills Item update for Bracelets
+UPDATE `armor` SET `skills_item` = '3361-1;3267-1' WHERE `item_id` IN (9909,10018);
+UPDATE `armor` SET `skills_item` = '3269-1;3267-1' WHERE `item_id` = 10139;
 
 -- According to client and xml this line should be here (Needs confirmation on skills part)
 INSERT INTO `armor` (`item_id`, `name`, `bodypart`, `crystallizable`, `armor_type`, `weight`, `material`, `crystal_type`, `avoid_modify`, `duration`, `p_def`, `m_def`, `mp_bonus`, `price`, `crystal_count`, `sellable`, `dropable`, `destroyable`, `tradeable`, `skills_item`, `races`, `classes`, `sex`) VALUES
 (10607, 'Agathion Seal Bracelet - Rudolph', 'lbracelet', 'true', 'none', 150, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '3425-1;3267-1', '-1', '-1', -1);
+
+-- Moving crystal_count underwear fix to updates
+UPDATE `armor` SET `crystal_count` = 59 WHERE `item_id` = 12281;
+UPDATE `armor` SET `crystal_count` = 44 WHERE `item_id` = 12191;
+UPDATE `armor` SET `crystal_count` = 29 WHERE `item_id` = 12174;
+UPDATE `armor` SET `crystal_count` = 60 WHERE `item_id` = 12140;
+UPDATE `armor` SET `crystal_count` = 27 WHERE `item_id` = 12117;
+UPDATE `armor` SET `crystal_count` = 75 WHERE `item_id` = 12067;
+UPDATE `armor` SET `crystal_count` = 39 WHERE `item_id` = 12040;
+UPDATE `armor` SET `crystal_count` = 1 WHERE `item_id` IN (13389,13390,13391,13392);

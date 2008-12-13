@@ -2,7 +2,7 @@
 -- Table structure for grandboss_intervallist
 -- ----------------------------
 DROP TABLE IF EXISTS `grandboss_intervallist`;
-CREATE TABLE IF NOT EXISTS `grandboss_intervallist` (
+CREATE TABLE `grandboss_intervallist` (
   `bossId` int(11) NOT NULL,
   `respawnDate` decimal(20,0) NOT NULL,
   `state` int(11) NOT NULL,
