@@ -97,8 +97,8 @@ class Quest (JQuest) :
           st.giveItems(EINHASAD_CHURCH_MARK3,1)
         else:
           htmltext=default
-    elif event == "30417-13.htm" :
-        if squire and (coin1+coin2+coin3+coin4+coin5+coin6)>=3 :
+    elif event == "30417-12.htm" :
+        if squire and (coin1+coin2+coin3+coin4+coin5+coin6)==6 :
           for item in range(1162,1180) :
                st.takeItems(item,-1)
           st.rewardItems(57,81900)
@@ -150,17 +150,10 @@ class Quest (JQuest) :
            htmltext = "30417-09.htm"
         elif (coin1+coin2+coin3+coin4+coin5+coin6) == 3 :
            htmltext = "30417-10.htm"
-        elif 3<(coin1+coin2+coin3+coin4+coin5+coin6)<6 :
+        elif 3<(coin1+coin2+coin3+coin4+coin5+coin6) < 6 :
            htmltext = "30417-11.htm"
         elif (coin1+coin2+coin3+coin4+coin5+coin6) == 6 :
            htmltext = "30417-12.htm"
-           for item in range(1162,1180) :
-               st.takeItems(item,-1)
-           st.takeItems(MARK_OF_ESQUIRE,-1)
-           st.giveItems(SWORD_OF_RITUAL,1)
-           st.set("cond","0")
-           st.exitQuest(False)
-           st.playSound("ItemSound.quest_finish")
    elif npcId == 30332 and cond==1 and squire :
        if not guards_mark1 and not coin1 :
           htmltext = "30332-01.htm"
