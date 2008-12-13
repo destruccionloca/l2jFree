@@ -3,12 +3,13 @@
 <list>
   <skill id="3600" levels="9" name="Special Ability: Anger">
     <!--
-    Description(s):
-        Lvl 1-6: Decreases the character's Maximum HP but increases P. Atk. Allows the character to attack multiple opponents.
-        Lvl 7-9: Decreases the character's Maximum HP but increases P. Atk., and allows the character to attack multiple opponents and inflicts additional damage during PvP.
+      Description(s): 
+           Lvl 1-6: Decreases the character's Maximum HP but increases P. Atk. Allows the character
+                    to attack multiple opponents.
+           Lvl 7-9: Decreases the character's Maximum HP but increases P. Atk., and allows the character
+	            to attack multiple opponents and inflicts     additional damage during PvP.
     -->
-    <table name="#val"> 20.44 22.64 24.77 26.78 28.59 30.12
-      31.30 39.00 45.00 </table>
+    <table name="#val"> 20.44 22.64 24.77 26.78 28.59 30.12 31.30 39.00 45.00 </table>
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
@@ -21,9 +22,10 @@
   </skill>
   <skill id="3601" levels="9" name="Special Ability: Haste">
     <!--
-    Description(s):
-        Lvl 1-6: Increases Atk.Spd., and enables the character to attack multiple opponents.
-        Lvl 7-9: Increases Atk. Spd., and enables the character to attack multiple opponents and inflicts additional damage during PvP.
+      Description(s):
+            Lvl 1-6: Increases Atk.Spd., and enables the character to attack multiple opponents.
+	    Lvl 7-9: Increases Atk. Spd., and enables the character to attack multiple opponents
+	             and inflicts additional damage during PvP.
     -->
     <table name="#val"> 1.08 1.07 1.07 1.07 1.06 1.06 1.06 1.06 1.07 </table>
     <set name="target" val="TARGET_SELF" />
@@ -37,10 +39,10 @@
   </skill>
   <skill id="3602" levels="9" name="Special Ability: Guidance">
     <!--
- Description(s):
-      Lvl 1: Increases Atk. Spd., and enables the character to attack multiple opponents and inflicts additional damage during PvP.
-      Lvl 2-6: Increases Accuracy, and enables the character to attack multiple opponents.
-      Lvl 7-9: Increases Accuracy, and enables the character to attack multiple opponents and inflicts additional damage during PvP.
+      Description(s): Lvl 1: Increases Atk. Spd., and enables the character to attack multiple
+      opponents and inflicts additional damage during PvP. Lvl 2-6: Increases Accuracy, and enables
+      the character to attack multiple opponents. Lvl 7-9: Increases Accuracy, and enables the
+      character to attack multiple opponents and inflicts additional damage during PvP.
     -->
     <table name="#val"> 6.88 6.07 5.72 5.37 5.02 4.68 4.34 3.95 5.27 </table>
     <set name="target" val="TARGET_SELF" />
@@ -91,10 +93,7 @@
       <mul order="0x30" stat="bleedVuln" val="0.50" />
       <mul order="0x30" stat="paralyzeVuln" val="0.85" />
       <mul order="0x30" stat="stunVuln" val="0.85" />
-      <!--
-        Missing Sleep/Paralysis/Shock Attack Success Rate:
-        15%
-      -->
+      <!-- Missing Sleep/Paralysis/Shock Attack Success Rate: 15% -->
       <mul order="0x30" stat="darkVuln" val="0.85" />
       <add order="0x40" stat="reflectDam" val="5" />
       <mul order="0x30" stat="mReuse" val="0.90" />
@@ -149,18 +148,14 @@
       <mul order='0x30' stat='regCp' val='1.40' />
       <mul val='0.7' order='0x30' stat='lostExpPvp' />
       <!-- Retail value needed -->
-      <!--
-        TODO lvl1: There is a 10% probability that magic
-        defense power is increased by 5% and critical damage
-        is decreased by 3 if the damage inflicted by PC is
-        more than 50.
-      -->
-      <!--
-        TODO lvl2: when the PC receives more than 50 damage,
-        there is a 10% probability that magic defense power
-        is increased by 5%, the critical damage is decreased
-        by 3, and the critical strike probability is
-        increased by 2.621.
+      <!-- TODO lvl1:
+          There is a 10% probability that magic defense power is increased by 5% and critical damage
+	  is decreased by 3 if the damage inflicted by PC is more than 50.
+       -->
+      <!-- TODO lvl2:
+          when the PC receives more than 50 damage, there is a 10% probability that magic defense power
+	  is increased by 5%, the critical damage is decreased by 3, and the critical strike probability
+	  is increased by 2.621.
       -->
     </for>
   </skill>
@@ -178,15 +173,12 @@
       <mul val='0.7' order='0x30' stat='lostExpPvp' />
       <!-- Retail value needed -->
       <!--
-        TODO lvl1: There is a 10% probability that evasion
-        is increased by 2 and critical damage is decreased
-        by 86 if the damage inflicted by PC is more than 50.
+        TODO lvl1: There is a 10% probability that evasion is increased by 2 and critical damage is
+        decreased by 86 if the damage inflicted by PC is more than 50.
       -->
       <!--
-        TODO lvl2: when the PC receives more than 50 damage,
-        there is a 10% probability that evasion is increased
-        by 2 and critical damage is decreased by 86. Attack
-        speed is increased by 2.5%.
+        TODO lvl2: when the PC receives more than 50 damage, there is a 10% probability that evasion
+        is increased by 2 and critical damage is decreased by 86. Attack speed is increased by 2.5%.
       -->
     </for>
   </skill>
@@ -204,15 +196,12 @@
       <mul val='0.7' order='0x30' stat='lostExpPvp' />
       <!-- Retail value needed -->
       <!--
-        TODO lvl1: There is a 10% probability that moving
-        speed is increased by 10 and defense power is
-        increased by 5% if the damage inflicted by PC is
-        more than 50.
+        TODO lvl1: There is a 10% probability that moving speed is increased by 10 and defense power
+        is increased by 5% if the damage inflicted by PC is more than 50.
       -->
       <!--
-        TODO lvl2: Has a 10% chance to increase Speed by 10,
-        increase P. Def. by 5% and increase M. Atk. by 6 if
-        the damage inflicted by a PC is more than 50.
+        TODO lvl2: Has a 10% chance to increase Speed by 10, increase P. Def. by 5% and increase M.
+        Atk. by 6 if the damage inflicted by a PC is more than 50.
       -->
     </for>
   </skill>
@@ -383,11 +372,10 @@
   </skill>
   <skill id="3626" levels="1" name="Kabokula">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Used when trapping a roaring
-      Tyrannosaurus. Has no effect for other actions.
-      Consumes 1 Trap Stone.
+      Needs to be finished.
+      Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+      Description(s):
+         Used when trapping a roaring Tyrannosaurus. Has no effect for other actions. Consumes 1 Trap Stone.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -396,10 +384,9 @@
   </skill>
   <skill id="3627" levels="1" name="Tapirawa">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Used on a quivering Tyrannosaurus. Has
-      no effect for other actions. Consumes 1 Trap Stone.
+      Needs to be finished. Target is set to TARGET_NONE, skillType to NOTDONE for server
+      compatability. Description(s): Used on a quivering Tyrannosaurus. Has no effect for other
+      actions. Consumes 1 Trap Stone.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -408,10 +395,9 @@
   </skill>
   <skill id="3628" levels="1" name="Shabonoba">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Used on a struggling Tyrannosaurus.
-      Has no effect for other actions. Consumes 1 Trap Stone.
+      Needs to be finished. Target is set to TARGET_NONE, skillType to NOTDONE for server
+      compatability. Description(s): Used on a struggling Tyrannosaurus. Has no effect for other
+      actions. Consumes 1 Trap Stone.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -470,10 +456,9 @@
   </skill>
   <skill id="3632" levels="1" name="Clan Gate">
     <!--
-      Needs to be finished. Target is set to TARGET_NONE,
-      skillType to NOTDONE for server compatability.
-      Description(s): Active: Creates a gate that summons
-      clan members. You cannot move while this skill is active.
+      Needs to be finished. Target is set to TARGET_NONE, skillType to NOTDONE for server
+      compatability. Description(s): Active: Creates a gate that summons clan members. You cannot
+      move while this skill is active.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -490,8 +475,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <effect count="1" name="Buff" time="10" val="0"
-        stackOrder="#stack" stackType="ShockVuln">
+      <effect count="1" name="Buff" time="10" val="0" stackOrder="#stack" stackType="ShockVuln">
         <mul order="0x30" stat="stunVuln" val="#vuln" />
       </effect>
     </for>
@@ -556,221 +540,222 @@
   </skill>
   <skill id="3636" levels="1" name="Dynasty Platinum Plate - Shield Master">
     <!-- Done by Nitrozik -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="STR" val="2"/> <!-- Str -2 -->
-      <add order="0x10" stat="CON" val="2"/> <!-- Con +2 -->
-      <mul order="0x30" stat="pDef" val="1.066"/> <!-- P. Def. +6.6% -->
-      <add order="0x40" stat="maxHp" val="492"/> <!-- Max HP +492 -->
-      <mul order="0x30" stat="gainHp" val="1.04"/> <!-- Heal Capacity +4% -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Resistance +8 -->
-      <mul order="0x30" stat="stunVuln" val="0.85"/> <!-- Stun Resistance +15 -->
+      <sub order="0x10" stat="STR" val="2" /> <!-- Str -2 -->
+      <add order="0x10" stat="CON" val="2" /> <!-- Con +2 -->
+      <mul order="0x30" stat="pDef" val="1.066" /> <!-- P. Def. +6.6% -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- Max HP +492 -->
+      <mul order="0x30" stat="gainHp" val="1.04" /> <!-- Heal Capacity +4% -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Dark Resistance +8 -->
+      <mul order="0x30" stat="stunVuln" val="0.85" /> <!-- Stun Resistance +15 -->
     </for>
   </skill>
   <skill id="3637" levels="1" name="Dynasty Platinum Plate - Weapon Master">
     <!-- Done by Nitrozik -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="CON" val="2"/> <!-- Con -2 -->
-      <add order="0x10" stat="STR" val="2"/> <!-- Str +2 -->
-      <mul order="0x30" stat="pAtk" val="1.066"/> <!-- P. Atk. +6.6% -->
-      <add order="0x40" stat="maxHp" val="492"/> <!-- Max HP +492 -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Darkness Resistance +8 -->
-      <add order="0x40" stat="cAtkAdd" val="282"/> <!-- Critical Damage +282 -->
-      <basemul order="0x30" stat="rCrit" val="0.0295"/> <!-- Critical Rate +2.95% Increase -->
+      <sub order="0x10" stat="CON" val="2" /> <!-- Con -2 -->
+      <add order="0x10" stat="STR" val="2" /> <!-- Str +2 -->
+      <mul order="0x30" stat="pAtk" val="1.066" /> <!-- P. Atk. +6.6% -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- Max HP +492 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Darkness Resistance +8 -->
+      <add order="0x40" stat="cAtkAdd" val="282" /> <!-- Critical Damage +282 -->
+      <basemul order="0x30" stat="rCrit" val="0.0295" /> <!-- Critical Rate +2.95% Increase -->
     </for>
   </skill>
   <skill id="3638" levels="1" name="Dynasty Platinum Plate - Bard">
     <!-- Done by Nitrozik -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/> 
-    <set name="operateType" val="OP_PASSIVE"/> 
-    <set name="castRange" val="-1"/> 
-    <set name="effectRange" val="-1"/> 
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="CON" val="2"/> <!-- Con -2 -->
-      <add order="0x10" stat="STR" val="2"/> <!-- Str +2 -->
-      <mul order="0x30" stat="pDef" val="1.066"/> <!-- P. Def. +6.6% -->
-      <add order="0x40" stat="maxHp" val="492"/> <!-- Max HP +492 -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Resistance +8 -->
-      <mul order="0x30" stat="DanceMpConsumeRate" val="0.94"/> <!-- MP Consumption -6% Decrease for Song and Dance Skills  -->
+      <sub order="0x10" stat="CON" val="2" /> <!-- Con -2 -->
+      <add order="0x10" stat="STR" val="2" /> <!-- Str +2 -->
+      <mul order="0x30" stat="pDef" val="1.066" /> <!-- P. Def. +6.6% -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- Max HP +492 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Dark Resistance +8 -->
+      <mul order="0x30" stat="DanceMpConsumeRate" val="0.94" /> <!-- MP Consumption -6% Decrease for Song and Dance Skills  -->
     </for>
   </skill>
   <skill id="3639" levels="1" name="Dynasty Platinum Plate - Force Master">
     <!-- Done by Nitrozik -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="CON" val="2"/> <!-- Con -2 -->
-      <add order="0x10" stat="STR" val="2"/> <!-- Str +2 -->
-      <mul order="0x30" stat="pAtk" val="1.066"/> <!-- P. Atk. +6.6% -->
-      <add order="0x40" stat="maxHp" val="492"/> <!-- Max. HP +492 -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Resistance to Darkness attacks +8 -->
-      <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.94"/> <!-- Decreases MP consumption by 6% for active skills -->
+      <sub order="0x10" stat="CON" val="2" /> <!-- Con -2 -->
+      <add order="0x10" stat="STR" val="2" /> <!-- Str +2 -->
+      <mul order="0x30" stat="pAtk" val="1.066" /> <!-- P. Atk. +6.6% -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- Max. HP +492 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Resistance to Darkness attacks +8 -->
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.94" /> <!-- Decreases MP consumption by 6% for active skills -->
     </for>
   </skill>
   <skill id="3640" levels="1" name="Dynasty Jewel Leather Mail Dagger Master">
     <!-- Done by DJ MELERIX -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="CON" val="2"/> <!-- Con -2 -->
-      <add order="0x10" stat="DEX" val="2"/> <!-- Dex +2 -->
-      <add order="0x40" stat="rEvas" val="5.3"/> <!-- Evasion +5.3 -->
-      <add order="0x40" stat="maxHp" val="492"/> <!-- Max HP +492 -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Resistance +8 -->
-      <mul order="0x30" stat="rootVuln" val="0.85"/> <!-- Hold Resistance +15% -->
-      <mul order="0x30" stat="pAtkSpd" val="1.0324"/> <!-- Atk. Spd. +3.24% -->
+      <sub order="0x10" stat="CON" val="2" /> <!-- Con -2 -->
+      <add order="0x10" stat="DEX" val="2" /> <!-- Dex +2 -->
+      <add order="0x40" stat="rEvas" val="5.3" /> <!-- Evasion +5.3 -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- Max HP +492 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Dark Resistance +8 -->
+      <mul order="0x30" stat="rootVuln" val="0.85" /> <!-- Hold Resistance +15% -->
+      <mul order="0x30" stat="pAtkSpd" val="1.0324" /> <!-- Atk. Spd. +3.24% -->
     </for>
   </skill>
   <skill id="3641" levels="1" name="Dynasty Jewel Leather Mail Bow Master">
     <!-- Done by DJ MELERIX -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="CON" val="2"/> <!-- Con -2 -->
-      <add order="0x10" stat="DEX" val="2"/> <!-- Dex +2 -->
-      <add order="0x40" stat="accCombat" val="5.3"/> <!-- Accuracy +5.3 -->
-      <add order="0x40" stat="maxMp" val="321"/> <!-- Max MP +321 -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Resistance +8 -->
-      <mul order="0x30" stat="pAtkSpd" val="1.0324"/> <!-- Atk. Spd. +3.24% -->
-      <add order="0x40" stat="regMp" val="1.066"/> <!-- MP Recovery +6.6% -->
+      <sub order="0x10" stat="CON" val="2" /> <!-- Con -2 -->
+      <add order="0x10" stat="DEX" val="2" /> <!-- Dex +2 -->
+      <add order="0x40" stat="accCombat" val="5.3" /> <!-- Accuracy +5.3 -->
+      <add order="0x40" stat="maxMp" val="321" /> <!-- Max MP +321 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Dark Resistance +8 -->
+      <mul order="0x30" stat="pAtkSpd" val="1.0324" /> <!-- Atk. Spd. +3.24% -->
+      <add order="0x40" stat="regMp" val="1.066" /> <!-- MP Recovery +6.6% -->
     </for>
   </skill>
   <skill id="3642" levels="1" name="Dynasty Jeweled Leather Armor Force Master">
     <!-- Done by DJ MELERIX -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="CON" val="2"/> <!-- Con -2 -->
-      <add order="0x10" stat="STR" val="1"/> <!-- Str +1 -->
-      <add order="0x10" stat="DEX" val="1"/> <!-- Dex +1 -->
-      <mul order="0x30" stat="pAtk" val="1.066"/> <!-- P. Atk. +6.6% -->
-      <add order="0x40" stat="maxHp" val="492"/> <!-- Max HP +492 -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Resistance +8 -->
-      <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.94"/> <!-- MP Consumption -6% -->
+      <sub order="0x10" stat="CON" val="2" /> <!-- Con -2 -->
+      <add order="0x10" stat="STR" val="1" /> <!-- Str +1 -->
+      <add order="0x10" stat="DEX" val="1" /> <!-- Dex +1 -->
+      <mul order="0x30" stat="pAtk" val="1.066" /> <!-- P. Atk. +6.6% -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- Max HP +492 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Dark Resistance +8 -->
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.94" /> <!-- MP Consumption -6% -->
     </for>
   </skill>
   <skill id="3643" levels="1" name="Dynasty Jeweled Leather Armor Weapon Master">
     <!-- Done by DJ MELERIX -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="CON" val="2"/> <!-- Con -2 -->
-      <add order="0x10" stat="STR" val="2"/> <!-- Str +2 -->
-      <mul order="0x30" stat="pAtk" val="1.066"/> <!-- Physical Attack Power +6.6% -->
-      <add order="0x40" stat="maxHp" val="492"/> <!-- Maximum HP +492 effect -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Darkness Resistance +8 -->
-      <add order="0x40" stat="cAtkAdd" val="282"/> <!-- Critical Damage +282 -->
-      <basemul order="0x30" stat="rCrit" val="0.0295"/> <!-- Critical Rate +2.95% Increase -->
+      <sub order="0x10" stat="CON" val="2" /> <!-- Con -2 -->
+      <add order="0x10" stat="STR" val="1" /> <!-- Str +1 -->
+      <add order="0x10" stat="DEX" val="1" /> <!-- Dex +1 -->
+      <mul order="0x30" stat="pAtk" val="1.066" /> <!-- Physical Attack Power +6.6% -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- Maximum HP +492 effect -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Darkness Resistance +8 -->
+      <add order="0x40" stat="cAtkAdd" val="282" /> <!-- Critical Damage +282 -->
+      <basemul order="0x30" stat="rCrit" val="0.0295" /> <!-- Critical Rate +2.95% Increase -->
     </for>
   </skill>
   <skill id="3644" levels="1" name="Dynasty Jeweled Leather Armor Summoner">
     <!-- Done by DJ MELERIX -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="STR" val="2"/> <!-- Str -2 -->
-      <add order="0x10" stat="CON" val="2"/> <!-- Con +2 -->
-      <mul order="0x30" stat="pAtkSpd" val="1.066"/> <!-- Atk. Spd. +6.6% -->
-      <add order="0x40" stat="maxHp" val="492"/> <!-- Max HP +492 -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Resistance +8 -->
-      <mul order="0x30" stat="pAtk" val="1.0266"/> <!-- P. Atk. +2.66% -->
-      <mul order="0x30" stat="pDef" val="1.0266"/> <!-- P. Def. +2.66% -->
+      <sub order="0x10" stat="STR" val="2" /> <!-- Str -2 -->
+      <add order="0x10" stat="CON" val="2" /> <!-- Con +2 -->
+      <mul order="0x30" stat="pAtkSpd" val="1.066" /> <!-- Atk. Spd. +6.6% -->
+      <add order="0x40" stat="maxHp" val="492" /> <!-- Max HP +492 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Dark Resistance +8 -->
+      <mul order="0x30" stat="pAtk" val="1.0266" /> <!-- P. Atk. +2.66% -->
+      <mul order="0x30" stat="pDef" val="1.0266" /> <!-- P. Def. +2.66% -->
     </for>
   </skill>
   <skill id="3645" levels="1" name="Dynasty Silver Satin Tunic Healer">
     <!-- Done by DJ MELERIX -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="INT" val="2"/> <!-- Int -2 -->
-      <add order="0x10" stat="MEN" val="2"/> <!-- Men +2 -->
-      <mul order="0x30" stat="mAtkSpd" val="1.15"/> <!-- Casting Spd. +15% -->
-      <add order="0x40" stat="maxMp" val="321"/> <!-- Max MP +321 -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Resistance +8 -->
-      <mul order="0x30" stat="giveHp" val="1.22"/> <!-- Heal Capacity +22 -->
-      <sub order="0x40" stat="cancel" val="15"/> <!-- Magic Cancel Rate -15 -->
+      <sub order="0x10" stat="INT" val="2" /> <!-- Int -2 -->
+      <add order="0x10" stat="MEN" val="2" /> <!-- Men +2 -->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /> <!-- Casting Spd. +15% -->
+      <add order="0x40" stat="maxMp" val="321" /> <!-- Max MP +321 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Dark Resistance +8 -->
+      <mul order="0x30" stat="giveHp" val="1.22" /> <!-- Heal Capacity +22 -->
+      <sub order="0x40" stat="cancel" val="15" /> <!-- Magic Cancel Rate -15 -->
     </for>
   </skill>
   <skill id="3646" levels="1" name="Dynasty Silver Satin Tunic Enchanter">
     <!-- Done by DJ MELERIX -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="INT" val="2"/> <!-- Int -2 -->
-      <add order="0x10" stat="MEN" val="2"/> <!-- Men +2 -->
-      <mul order="0x30" stat="mAtkSpd" val="1.15"/> <!-- Casting Spd. +15% -->
-      <add order="0x40" stat="maxMp" val="321"/> <!-- Max MP +321 -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Resistance +8 -->
-      <mul order="0x30" stat="MagicalMpConsumeRate" val="0.94"/> <!-- MP Consumption -6% -->
-      <sub order="0x40" stat="cancel" val="15"/> <!-- Magic Cancel Rate -15 -->
+      <sub order="0x10" stat="INT" val="2" /> <!-- Int -2 -->
+      <add order="0x10" stat="MEN" val="2" /> <!-- Men +2 -->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /> <!-- Casting Spd. +15% -->
+      <add order="0x40" stat="maxMp" val="321" /> <!-- Max MP +321 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Dark Resistance +8 -->
+      <mul order="0x30" stat="MagicalMpConsumeRate" val="0.94" /> <!-- MP Consumption -6% -->
+      <sub order="0x40" stat="cancel" val="15" /> <!-- Magic Cancel Rate -15 -->
     </for>
   </skill>
   <skill id="3647" levels="1" name="Dynasty Silver Satin Tunic Summoner">
     <!-- Done by DJ MELERIX -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <sub order="0x10" stat="INT" val="2"/> <!-- Int -2 -->
-      <add order="0x10" stat="MEN" val="2"/> <!-- Men +2 -->
-      <mul order="0x30" stat="mAtkSpd" val="1.15"/> <!-- Casting Spd. +15% -->
-      <add order="0x40" stat="maxMp" val="321"/> <!-- Max MP +321 -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Resistance +8 -->
-      <mul order="0x30" stat="pAtk" val="1.033"/> <!-- P. Atk. +3.3% -->
-      <mul order="0x30" stat="pDef" val="1.033"/> <!-- P. Def. +3.3% -->
+      <sub order="0x10" stat="INT" val="2" /> <!-- Int -2 -->
+      <add order="0x10" stat="MEN" val="2" /> <!-- Men +2 -->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /> <!-- Casting Spd. +15% -->
+      <add order="0x40" stat="maxMp" val="321" /> <!-- Max MP +321 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Dark Resistance +8 -->
+      <mul order="0x30" stat="pAtk" val="1.033" /> <!-- P. Atk. +3.3% -->
+      <mul order="0x30" stat="pDef" val="1.033" /> <!-- P. Def. +3.3% -->
     </for>
   </skill>
   <skill id="3648" levels="1" name="Dynasty Silver Satin Tunic Human Wizard">
     <!-- Done by DJ MELERIX -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="-1"/>
-    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="BUFF" />
+    <set name="operateType" val="OP_PASSIVE" />
+    <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
     <for>
-      <add order="0x10" stat="INT" val="1"/> <!-- Int +1 -->
-      <add order="0x10" stat="WIT" val="1"/> <!-- Wit +1 -->
-      <sub order="0x10" stat="MEN" val="2"/> <!-- Men -2 -->
-      <mul order="0x30" stat="mAtkSpd" val="1.15"/> <!-- Casting Spd. +15% -->
-      <add order="0x40" stat="maxMp" val="321"/> <!-- Max MP +321 -->
-      <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Resistance +8 -->
-      <mul order="0x30" stat="mAtk" val="1.066"/> <!-- M. Atk. +6.6% -->
+      <add order="0x10" stat="INT" val="1" /> <!-- Int +1 -->
+      <add order="0x10" stat="WIT" val="1" /> <!-- Wit +1 -->
+      <sub order="0x10" stat="MEN" val="2" /> <!-- Men -2 -->
+      <mul order="0x30" stat="mAtkSpd" val="1.15" /> <!-- Casting Spd. +15% -->
+      <add order="0x40" stat="maxMp" val="321" /> <!-- Max MP +321 -->
+      <mul order="0x30" stat="darkVuln" val="0.92" /> <!-- Dark Resistance +8 -->
+      <mul order="0x30" stat="mAtk" val="1.066" /> <!-- M. Atk. +6.6% -->
     </for>
   </skill>
   <skill id="3649" levels="1" name="Beleth's Ring">
