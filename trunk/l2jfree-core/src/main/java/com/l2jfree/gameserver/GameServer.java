@@ -118,7 +118,10 @@ import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
 import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
 import com.l2jfree.gameserver.skills.SkillsEngine;
+import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
+import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.taskmanager.KnownListUpdateTaskManager;
+import com.l2jfree.gameserver.taskmanager.PacketBroadcaster;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
@@ -174,6 +177,13 @@ public class GameServer
 		TeleportLocationTable.getInstance();
 		BoatManager.getInstance();
 		InstanceManager.getInstance();
+		
+		Util.printSection("TaskManagers");
+		AttackStanceTaskManager.getInstance();
+		DecayTaskManager.getInstance();
+		KnownListUpdateTaskManager.getInstance();
+		PacketBroadcaster.getInstance();
+		
 		Util.printSection("Skills");
 		SkillTreeTable.getInstance();
 		SkillsEngine.getInstance();
@@ -357,7 +367,6 @@ public class GameServer
 		}
 		FloodProtector.getInstance();
 		ForumsBBSManager.getInstance();
-		KnownListUpdateTaskManager.getInstance();
 
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 

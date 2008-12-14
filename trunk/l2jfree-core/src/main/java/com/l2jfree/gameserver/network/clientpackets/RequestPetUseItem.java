@@ -142,8 +142,6 @@ public class RequestPetUseItem extends L2GameClientPacket
             
             PetInfo pi = new PetInfo(pet);
             activeChar.sendPacket(pi);
-            // The PetInfo packet wipes the PartySpelled (list of active spells' icons).  Re-add them
-            pet.updateEffectIcons(true);
         }
         else
         {

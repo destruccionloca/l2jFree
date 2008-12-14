@@ -31,8 +31,8 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2CharPosition;
+import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.BoatKnownList;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
@@ -809,18 +809,6 @@ public class L2BoatInstance extends L2Character
 			String sysmess1_1, String sysmess0_1, String sysmessb_1)
 	{
 		_t2 = new L2BoatTrajet(idWaypoint1, idWTicket1, ntx1, nty1, ntz1, idnpc1, sysmess10_1, sysmess5_1, sysmess1_1, sysmess0_1, sysmessb_1, _name);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Character#updateAbnormalEffect()
-	 */
-	@Override
-	public void updateAbnormalEffect()
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	/*

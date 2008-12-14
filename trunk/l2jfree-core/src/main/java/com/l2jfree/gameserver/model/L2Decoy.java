@@ -54,10 +54,9 @@ public abstract class L2Decoy extends L2Character
     }
     
     @Override
-    public void updateAbnormalEffect()
+    public final void updateAbnormalEffectImpl()
     {
-        for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-            player.sendPacket(new NpcInfo(this));
+        broadcastPacket(new NpcInfo(this));
     }
     
     public void stopDecay()

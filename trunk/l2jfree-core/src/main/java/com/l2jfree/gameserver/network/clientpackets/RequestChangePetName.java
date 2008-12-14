@@ -79,8 +79,6 @@ public class RequestChangePetName extends L2GameClientPacket
 		pet.setName(_name);
 		pet.broadcastPacket(new NpcInfo(pet, activeChar));
 		activeChar.sendPacket(new PetInfo(pet));
-		// The PetInfo packet wipes the PartySpelled (list of active spells' icons).  Re-add them
-		pet.updateEffectIcons(true);
 		
 		// set the flag on the control item to say that the pet has a name
 		if (pet instanceof L2PetInstance)

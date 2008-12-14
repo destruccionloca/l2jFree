@@ -96,11 +96,11 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
-import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.skills.L2BuffTemplate;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -417,12 +417,10 @@ public class L2NpcInstance extends L2Character
 	 * Send a packet NpcInfo with state of abnormal effect to all L2PcInstance in the _knownPlayers of the L2NpcInstance.<BR><BR>
 	 */
 	@Override
-	public void updateAbnormalEffect()
+	public void updateAbnormalEffectImpl()
 	{
-		// Send a Server->Client packet NpcInfo with state of abnormal effect to all L2PcInstance in the _knownPlayers of the L2NpcInstance
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-			if (player != null && this != null)
-				player.sendPacket(new NpcInfo(this, player));
+			player.sendPacket(new NpcInfo(this, player));
 	}
 
 	/**

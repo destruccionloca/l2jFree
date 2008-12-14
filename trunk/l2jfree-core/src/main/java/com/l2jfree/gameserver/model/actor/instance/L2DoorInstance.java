@@ -37,7 +37,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.geoserver.model.L2Territory;
 import com.l2jfree.gameserver.model.actor.knownlist.DoorKnownList;
 import com.l2jfree.gameserver.model.actor.stat.DoorStat;
 import com.l2jfree.gameserver.model.actor.status.DoorStatus;
@@ -55,6 +54,7 @@ import com.l2jfree.gameserver.network.serverpackets.StaticObject;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
+import com.l2jfree.geoserver.model.L2Territory;
 
 /**
  * This class ...
@@ -381,11 +381,6 @@ public class L2DoorInstance extends L2Character
 		return isAutoAttackable(attacker);
 	}
 
-	@Override
-	public void updateAbnormalEffect()
-	{
-	}
-
 	public int getDistanceToWatchObject(L2Object object)
 	{
 		if (!(object instanceof L2PcInstance))
@@ -500,8 +495,7 @@ public class L2DoorInstance extends L2Character
 
 			// send HP amount if doors are inside castle/fortress zone
 			// TODO: needed to be added here doors from conquerable clanhalls
-			StaticObject su = new StaticObject(this, (getCastle() != null || getFort() != null));
-			player.sendPacket(su);
+			player.sendPacket(new StaticObject(this));
 
 			// Send a Server->Client packet ValidateLocation to correct the
 			// L2NpcInstance position and heading on the client
@@ -574,8 +568,7 @@ public class L2DoorInstance extends L2Character
 
 			// send HP amount if doors are inside castle/fortress zone
 			// TODO: needed to be added here doors from conquerable clanhalls
-			StaticObject su = new StaticObject(this, (getCastle() != null || getFort() != null));
-			player.sendPacket(su);
+			player.sendPacket(new StaticObject(this));
 
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder html1 = new TextBuilder("<html><body><table border=0>");
@@ -614,16 +607,15 @@ public class L2DoorInstance extends L2Character
 	}
 
 	@Override
-	public void broadcastStatusUpdate()
+	public final void broadcastStatusUpdateImpl()
 	{
-		Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();
-		if (knownPlayers == null || knownPlayers.isEmpty())
+		if (getKnownList().getKnownPlayers().values().isEmpty())
 			return;
-
-		StaticObject su = new StaticObject(this, (getCastle() != null || getFort() != null));
+		
+		StaticObject su = new StaticObject(this);
 		DoorStatusUpdate dsu = new DoorStatusUpdate(this);
-
-		for (L2PcInstance player : knownPlayers)
+		
+		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
 			player.sendPacket(su);
 			player.sendPacket(dsu);

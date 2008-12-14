@@ -89,9 +89,6 @@ public final class Config
 	public static boolean		SAFE_REBOOT_DISABLE_TRANSACTION		= false;
 	public static boolean		SAFE_REBOOT_DISABLE_PC_ITERACTION	= false;
 	public static boolean		SAFE_REBOOT_DISABLE_NPC_ITERACTION	= false;
-	public static boolean		NETWORK_TRAFFIC_OPTIMIZATION;
-	public static int			NETWORK_TRAFFIC_OPTIMIZATION_STATUS_MS;
-	public static int			NETWORK_TRAFFIC_OPTIMIZATION_BROADCAST_MS;
 	public static int			MIN_PROTOCOL_REVISION;																// protocol revision
 	public static int			MAX_PROTOCOL_REVISION;
 	public static boolean		FLOOD_PROTECTION					= false;
@@ -185,9 +182,6 @@ public final class Config
 			SAFE_REBOOT_DISABLE_PC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisablePcIteraction", "False"));
 			SAFE_REBOOT_DISABLE_NPC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableNpcIteraction", "False"));
 
-			NETWORK_TRAFFIC_OPTIMIZATION = Boolean.parseBoolean(serverSettings.getProperty("NetworkTrafficOptimization", "False"));
-			NETWORK_TRAFFIC_OPTIMIZATION_STATUS_MS = Integer.parseInt(serverSettings.getProperty("NetworkTrafficOptimizationStatusMs", "400"));
-			NETWORK_TRAFFIC_OPTIMIZATION_BROADCAST_MS = Integer.parseInt(serverSettings.getProperty("NetworkTrafficOptimizationBroadcastMs", "800"));
 			FLOOD_PROTECTION = Boolean.parseBoolean(serverSettings.getProperty("FloodProtection", "False"));
 			PACKET_LIMIT = Integer.parseInt(serverSettings.getProperty("PacketLimit", "500"));
 			PACKET_TIME_LIMIT = Integer.parseInt(serverSettings.getProperty("PacketTimeLimit", "1100"));

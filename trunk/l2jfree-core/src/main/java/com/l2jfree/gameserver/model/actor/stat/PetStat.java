@@ -48,8 +48,6 @@ public class PetStat extends SummonStat
 
         // PetInfo packet is only for the pet owner
         getActiveChar().getOwner().sendPacket(new PetInfo(getActiveChar()));
-        // The PetInfo packet wipes the PartySpelled (list of active  spells' icons).  Re-add them
-        getActiveChar().updateEffectIcons(true);
 
         return true;
     }
@@ -91,8 +89,6 @@ public class PetStat extends SummonStat
 
         // Send a Server->Client packet PetInfo to the L2PcInstance
         getActiveChar().getOwner().sendPacket(new PetInfo(getActiveChar()));
-        // The PetInfo packet wipes the PartySpelled (list of active  spells' icons).  Re-add them
-        getActiveChar().updateEffectIcons(true);
         
         if (getActiveChar().getControlItem() != null)
             getActiveChar().getControlItem().setEnchantLevel(getLevel());

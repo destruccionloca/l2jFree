@@ -42,6 +42,8 @@ public class PetInfo extends L2GameServerPacket
 	 */
 	public PetInfo(L2Summon summon)
 	{
+		summon.updateEffectIcons();
+		
 		_summon = summon;
 		_isSummoned = _summon.isShowSummonAnimation();
 		_x = _summon.getX();

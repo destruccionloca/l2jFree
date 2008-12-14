@@ -206,16 +206,6 @@ public class L2Trap extends L2Character
 
 	/**
 	 *
-	 * @see com.l2jfree.gameserver.model.L2Character#updateAbnormalEffect()
-	 */
-	@Override
-	public void updateAbnormalEffect()
-	{
-
-	}
-
-	/**
-	 *
 	 * @return
 	 */
 	public boolean isDetected()

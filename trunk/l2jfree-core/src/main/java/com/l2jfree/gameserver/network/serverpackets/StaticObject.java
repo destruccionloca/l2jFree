@@ -46,7 +46,12 @@ public class StaticObject extends L2GameServerPacket
 		_showHp = false;
 		_damageGrade = 0;
 	}
-
+	
+	public StaticObject(L2DoorInstance door)
+	{
+		this(door, door.getCastle() != null || door.getFort() != null);
+	}
+	
 	public StaticObject(L2DoorInstance door, boolean showHp)
 	{
 		_staticObjectId = door.getDoorId();

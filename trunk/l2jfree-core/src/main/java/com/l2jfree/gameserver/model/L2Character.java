@@ -96,12 +96,14 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeDmg;
+import com.l2jfree.gameserver.taskmanager.PacketBroadcaster;
+import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
+import com.l2jfree.gameserver.templates.skills.L2EffectType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.geoserver.model.Location;
 import com.l2jfree.tools.geometry.Point3D;
@@ -174,7 +176,6 @@ public abstract class L2Character extends L2Object
 																		{ 0, 0, 0 };
 	protected CharStat				_stat;
 	protected CharStatus			_status;
-	private long					_timePreviousBroadcastStatusUpdate	= 0;
 	private L2CharTemplate			_template;																				// The link on the L2CharTemplate
 	protected boolean				_showSummonAnimation				= false;
 	// object containing generic and
@@ -465,16 +466,15 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public void broadcastStatusUpdate()
+	public final void broadcastStatusUpdate()
+	{
+		addPacketBroadcastMask(BroadcastMode.BROADCAST_STATUS_UPDATE);
+	}
+	
+	public void broadcastStatusUpdateImpl()
 	{
 		if (getStatus().getStatusListeners().isEmpty() || !needHpUpdate(352))
 			return;
-		
-		if (Config.NETWORK_TRAFFIC_OPTIMIZATION && getStatus().getCurrentHp() > 1)
-		{
-			if (System.currentTimeMillis() - _timePreviousBroadcastStatusUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_STATUS_MS)
-				return;
-		}
 		
 		StatusUpdate su = new StatusUpdate(getObjectId());
 		su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
@@ -485,8 +485,6 @@ public abstract class L2Character extends L2Object
 			for (L2PcInstance player : getStatus().getStatusListeners())
 				player.sendPacket(su);
 		}
-		
-		_timePreviousBroadcastStatusUpdate = System.currentTimeMillis();
 	}
 
 	/**
@@ -3745,8 +3743,15 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public abstract void updateAbnormalEffect();
-
+	public final void updateAbnormalEffect()
+	{
+		addPacketBroadcastMask(BroadcastMode.UPDATE_ABNORMAL_EFFECT);
+	}
+	
+	public void updateAbnormalEffectImpl()
+	{
+	}
+	
 	/**
 	 * Update active skills in progress (In Use and Not In Use because stacked) icons on client.<BR>
 	 * <BR>
@@ -3759,21 +3764,11 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void updateEffectIcons()
 	{
-		updateEffectIcons(false);
+		addPacketBroadcastMask(BroadcastMode.UPDATE_EFFECT_ICONS);
 	}
-
-	/**
-	* Updates Effect Icons for this character(palyer/summon) and his party if any<BR>
-	*
-	* Overridden in:<BR>
-	* L2PcInstance<BR>
-	* L2Summon<BR>
-	*
-	* @param partyOnly
-	*/
-	public void updateEffectIcons(boolean partyOnly)
+	
+	public void updateEffectIconsImpl()
 	{
-		// overridden
 	}
 
 	// Property - Public
@@ -6578,9 +6573,6 @@ public abstract class L2Character extends L2Object
 					{
 						((L2Summon) target).getOwner().sendPacket(new PetInfo((L2Summon) target));
 						sendPacket(new NpcInfo((L2Summon) target, this));
-
-						// The PetInfo packet wipes the PartySpelled (list of active spells' icons). Re-add them
-						((L2Summon) target).updateEffectIcons(true);
 					}
 				}
 			}
@@ -7678,5 +7670,29 @@ public abstract class L2Character extends L2Object
 	{
 		_isRaid = val;
 		_isMinion = val;
+	}
+	
+	private byte _packetBroadcastMask;
+	
+	public final void addPacketBroadcastMask(BroadcastMode mode)
+	{
+		synchronized (PacketBroadcaster.getInstance())
+		{
+			_packetBroadcastMask |= mode.mask();
+			
+			PacketBroadcaster.getInstance().add(this);
+		}
+	}
+	
+	public final byte clearPacketBroadcastMask()
+	{
+		synchronized (PacketBroadcaster.getInstance())
+		{
+			final byte mask = _packetBroadcastMask;
+			
+			_packetBroadcastMask = 0;
+			
+			return mask;
+		}
 	}
 }

@@ -187,7 +187,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	public abstract int getSummonType();
 
 	@Override
-	public void updateAbnormalEffect()
+	public void updateAbnormalEffectImpl()
 	{
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 			player.sendPacket(new NpcInfo(this, player));
@@ -398,56 +398,47 @@ public abstract class L2Summon extends L2PlayableInstance
 	}
 
 	@Override
-	public void broadcastStatusUpdate()
+	public final void broadcastStatusUpdateImpl()
 	{
-		super.broadcastStatusUpdate();
-
+		super.broadcastStatusUpdateImpl();
+		
 		if (isVisible())
 		{
 			getOwner().sendPacket(new PetStatusUpdate(this));
-
-			L2Party party = this.getOwner().getParty();
+			
+			L2Party party = getOwner().getParty();
 			if (party != null)
-			{
-				party.broadcastToPartyMembers(this.getOwner(), new ExPartyPetWindowUpdate(this));
-			}
+				party.broadcastToPartyMembers(getOwner(), new ExPartyPetWindowUpdate(this));
 		}
 	}
 
 	@Override
-	public void updateEffectIcons(boolean partyOnly)
+	public final void updateEffectIconsImpl()
 	{
 		PartySpelled ps = new PartySpelled(this);
-
-		// Go through all effects if any
-		L2Effect[] effects = getAllEffects();
-		if (effects != null && effects.length > 0)
+		
+		for (L2Effect effect: getAllEffects())
 		{
-			for (L2Effect effect: effects)
+			if (!effect.getShowIcon())
+				continue;
+			
+			switch (effect.getEffectType())
 			{
-				if (effect == null)
+				case SIGNET_GROUND:
 					continue;
-
-				if (effect.getInUse())
-				{
-					effect.addPartySpelledIcon(ps);
-				}
 			}
+			
+			if (effect.getInUse())
+				effect.addPartySpelledIcon(ps);
 		}
-
-		L2Party party = this.getOwner().getParty();
+		
+		L2Party party = getOwner().getParty();
 		if (party != null)
-		{
-			// tell everyone about the summon effect
 			party.broadcastToPartyMembers(ps);
-		}
 		else
-		{
-			// tell only the owner
-			this.getOwner().sendPacket(ps);
-		}
+			getOwner().sendPacket(ps);
 	}
-
+	
 	public void onSummon()
 	{
 

@@ -16,6 +16,8 @@ package com.l2jfree.gameserver.model;
 
 import java.util.List;
 
+import javolution.util.FastList;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.datatables.ItemTable;
@@ -44,8 +46,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
-
-import javolution.util.FastList;
 
 /**
  * This class ...
@@ -330,7 +330,7 @@ public class L2Party
 		//update partySpelled 
 		for (L2PcInstance member : getPartyMembers())
 		{
-			member.updateEffectIcons(true); // update party icons only
+			member.updateEffectIcons();
 			summon = member.getPet();
 			if (summon != null)
 			{

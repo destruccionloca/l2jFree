@@ -36,6 +36,11 @@ public class ExOlympiadUserInfoSpectator extends L2GameServerPacket
 	 * @param _player
 	 * @param _side (1 = right, 2 = left)
 	 */
+	public ExOlympiadUserInfoSpectator(L2PcInstance player)
+	{
+		this(player, player.getOlympiadSide());
+	}
+	
 	public ExOlympiadUserInfoSpectator(L2PcInstance player, int side)
 	{
 		_player = player;

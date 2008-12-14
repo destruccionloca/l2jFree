@@ -230,16 +230,17 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.effects.EffectForce;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
+import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
+import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Henna;
 import com.l2jfree.gameserver.templates.item.L2Item;
-import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
+import com.l2jfree.gameserver.templates.skills.L2EffectType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.tools.geometry.Point3D;
@@ -783,8 +784,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	// WorldPosition used by TARGET_SIGNET_GROUND
 	private Point3D							_currentSkillWorldPosition;
-	private long							_timePreviousBroadcastStatusUpdate	= 0;
-	private long							_timePreviousCharInfoUpdate = 0;
 	
 	public int								_fame = 0;								// The Fame of this L2PcInstance
 	public int								_vitalityLevel = 5;						// Vitality Level of this L2PcInstance
@@ -3955,135 +3954,88 @@ public final class L2PcInstance extends L2PlayableInstance
 	 *
 	 */
 	@Override
-	public void broadcastStatusUpdate()
+	public final void broadcastStatusUpdateImpl()
 	{
-		// Send the Server->Client packet StatusUpdate with current HP, MP and CP to this L2PcInstance
 		StatusUpdate su = new StatusUpdate(getObjectId());
-		su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
-		su.addAttribute(StatusUpdate.CUR_MP, (int) getStatus().getCurrentMp());
-		su.addAttribute(StatusUpdate.CUR_CP, (int) getStatus().getCurrentCp());
-		su.addAttribute(StatusUpdate.MAX_CP, getMaxCp());
+		su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
+		su.addAttribute(StatusUpdate.CUR_MP, (int)getStatus().getCurrentMp());
+		su.addAttribute(StatusUpdate.CUR_CP, (int)getStatus().getCurrentCp());
 		sendPacket(su);
-
-		// Check if a party is in progress and party window update is usefull
-		if (isInParty() && (needCpUpdate(352) || super.needHpUpdate(352) || needMpUpdate(352)))
-		{
-			if (_log.isDebugEnabled())
-				_log.info("Send status for party window of " + getObjectId() + "(" + getName() + ") to his party. CP: " + getStatus().getCurrentCp() + " HP: "
-						+ getStatus().getCurrentHp() + " MP: " + getStatus().getCurrentMp());
-			// Send the Server->Client packet PartySmallWindowUpdate with current HP, MP and Level to all other L2PcInstance of the Party
-			PartySmallWindowUpdate update = new PartySmallWindowUpdate(this);
-			getParty().broadcastToPartyMembers(this, update);
-		}
-
+		
+		if (isInParty() && (needHpUpdate(352) || needMpUpdate(352) || needCpUpdate(352)))
+			getParty().broadcastToPartyMembers(this, new PartySmallWindowUpdate(this));
+		
 		if (isInOlympiadMode())
 		{
 			for (L2PcInstance player : getKnownList().getKnownPlayers().values())
-			{
 				if (player.getOlympiadGameId() == getOlympiadGameId() && player.isOlympiadStart())
-				{
-					if (_log.isDebugEnabled())
-						_log.info("Send status for Olympia window of " + getObjectId() + "(" + getName() + ") to " + player.getObjectId() + "("
-								+ player.getName() + "). CP: " + getStatus().getCurrentCp() + " HP: " + getStatus().getCurrentHp() + " MP: "
-								+ getStatus().getCurrentMp());
 					player.sendPacket(new ExOlympiadUserInfoSpectator(this, 1));
-				}
-			}
-			if (Olympiad.getInstance().getSpectators(_olympiadGameId) != null && this.isOlympiadStart())
+			
+			if (isOlympiadStart())
 			{
-				for (L2PcInstance spectator : Olympiad.getInstance().getSpectators(_olympiadGameId))
+				List<L2PcInstance> spectators = Olympiad.getInstance().getSpectators(_olympiadGameId);
+				
+				if (spectators != null)
 				{
-					if (spectator == null)
-						continue;
-					spectator.sendPacket(new ExOlympiadUserInfoSpectator(this, getOlympiadSide()));
+					ExOlympiadUserInfoSpectator eouis = new ExOlympiadUserInfoSpectator(this);
+					
+					for (L2PcInstance spectator : spectators)
+						spectator.sendPacket(eouis);
 				}
 			}
 		}
+		
 		if (isInDuel())
-		{
-			ExDuelUpdateUserInfo update = new ExDuelUpdateUserInfo(this);
-			DuelManager.getInstance().broadcastToOppositTeam(this, update);
-		}
+			DuelManager.getInstance().broadcastToOppositTeam(this, new ExDuelUpdateUserInfo(this));
 	}
-
+	
 	@Override
-	public final void updateEffectIcons(boolean partyOnly)
+	public final void updateEffectIconsImpl()
 	{
-		// Create the main packet if needed
-		AbnormalStatusUpdate mi = null;
-		if (!partyOnly)
-		{
-			mi = new AbnormalStatusUpdate();
-		}
+		AbnormalStatusUpdate mi = new AbnormalStatusUpdate();
 
 		PartySpelled ps = null;
-		if (this.isInParty())
-		{
+		if (isInParty())
 			ps = new PartySpelled(this);
-		}
-
-		// Create the olympiad spectator packet if needed
+		
 		ExOlympiadSpelledInfo os = null;
-		if (this.isInOlympiadMode() && this.isOlympiadStart())
-		{
+		if (isInOlympiadMode() && isOlympiadStart())
 			os = new ExOlympiadSpelledInfo(this);
-		}
-
-		// Go through all effects if any
-		L2Effect[] effects = getAllEffects();
-		if (effects != null && effects.length > 0)
+		
+		for (L2Effect effect : getAllEffects())
 		{
-			for (L2Effect effect : effects)
+			if (!effect.getShowIcon())
+				continue;
+			
+			switch (effect.getEffectType())
 			{
-				if (effect == null || !effect.getShowIcon())
-				{
-					continue;
-				}
-
-				switch (effect.getEffectType())
-				{
 				case SIGNET_GROUND:
 					continue;
-				}
-
-				if (effect.getInUse())
-				{
-					if (mi != null)
-						effect.addIcon(mi);
-					if (ps != null)
-						effect.addPartySpelledIcon(ps);
-					if (os != null)
-						effect.addOlympiadSpelledIcon(os);
-				}
 			}
-		}
-
-		// Send the packets if needed
-		if (mi != null)
-			sendPacket(mi);
-		if (ps != null)
-		{
-			// summon info only needs to go to the owner, not to the whole party
-			// player info: if in party, send to all party members except one's self.
-			//			  if not in party, send to self.
-			if (this.isInParty())
+			
+			if (effect.getInUse())
 			{
-				this.getParty().broadcastToPartyMembers(this, ps);
+				if (mi != null)
+					effect.addIcon(mi);
+				if (ps != null)
+					effect.addPartySpelledIcon(ps);
+				if (os != null)
+					effect.addOlympiadSpelledIcon(os);
 			}
 		}
-
+		
+		sendPacket(mi);
+		
+		if (ps != null)
+			getParty().broadcastToPartyMembers(this, ps);
+		
 		if (os != null)
 		{
-			if (Olympiad.getInstance().getSpectators(this.getOlympiadGameId()) != null)
-			{
-				for (L2PcInstance spectator : Olympiad.getInstance().getSpectators(this.getOlympiadGameId()))
-				{
-					if (spectator != null)
-					{
-						spectator.sendPacket(os);
-					}
-				}
-			}
+			List<L2PcInstance> list = Olympiad.getInstance().getSpectators(getOlympiadGameId());
+			
+			if (list != null)
+				for (L2PcInstance spectator : list)
+					spectator.sendPacket(os);
 		}
 	}
 
@@ -4104,24 +4056,16 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public final void broadcastUserInfo()
 	{
-		if (Config.NETWORK_TRAFFIC_OPTIMIZATION)
-		{
-			long currTimeMillis = System.currentTimeMillis();
-			if (currTimeMillis - _timePreviousBroadcastStatusUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_BROADCAST_MS)
-				return;
-			_timePreviousBroadcastStatusUpdate = currTimeMillis;
-		}
-		
-		// Send a Server->Client packet UserInfo to this L2PcInstance
+		addPacketBroadcastMask(BroadcastMode.BROADCAST_USER_INFO);
+	}
+	
+	public final void broadcastUserInfoImpl()
+	{
 		sendPacket(new UserInfo(this));
-
-		// Send a Server->Client packet CharInfo to all L2PcInstance in _knownPlayers of the L2PcInstance
-		if (_log.isDebugEnabled())
-			_log.debug("players to notify:" + getKnownList().getKnownPlayers().size() + " packet: [S] 03 CharInfo");
-
+		
 		Broadcast.toKnownPlayers(this, new CharInfo(this));
 	}
-
+	
 	public final void broadcastTitleInfo()
 	{
 		// Send a Server->Client packet UserInfo to this L2PcInstance
@@ -4137,23 +4081,15 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public final void broadcastPacket(L2GameServerPacket mov)
 	{
-		
 		if (!(mov instanceof CharInfo))
 			sendPacket(mov);
-
+		
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
+			player.sendPacket(mov);
+			
 			if (mov instanceof CharInfo)
 			{
-				if (Config.NETWORK_TRAFFIC_OPTIMIZATION)
-				{
-					long currTimeMillis = System.currentTimeMillis();
-					if (currTimeMillis - _timePreviousCharInfoUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_BROADCAST_MS)
-						return;
-					_timePreviousCharInfoUpdate = currTimeMillis;
-				}
-				player.sendPacket(mov);
-				
 				int relation = getRelation(player);
 				if (getKnownList().getKnownRelations().get(player.getObjectId()) != null
 						&& getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
@@ -4162,10 +4098,6 @@ public final class L2PcInstance extends L2PlayableInstance
 					if (getPet() != null)
 						player.sendPacket(new RelationChanged(getPet(), relation, player.isAutoAttackable(this)));
 				}
-			}
-			else
-			{
-				player.sendPacket(mov);
 			}
 		}
 	}
@@ -8906,7 +8838,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 *
 	 */
 	@Override
-	public void updateAbnormalEffect()
+	public void updateAbnormalEffectImpl()
 	{
 		broadcastUserInfo();
 	}
@@ -10893,7 +10825,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			((L2SummonAI)getPet().getAI()).setStartFollowController(true);
 			pet.setFollowStatus(true);
 			sendPacket(new PetInfo(pet));
-			pet.updateEffectIcons(true);
 		}
 	}
 
