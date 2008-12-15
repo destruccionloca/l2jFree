@@ -3002,6 +3002,10 @@ ALTER TABLE `weapon` ADD `sex` INT (1) NOT NULL DEFAULT -1;
 -- Wedding System part
 UPDATE `weapon` SET `skills_item` = '3260-1;3261-1;3262-1' WHERE `item_id` IN (9140,9141);
 
+-- Fix for SEVERE Cannot find onCast skill (0,0) for weapon item 8143
+UPDATE `weapon` SET `skills_item` = '',`skills_onCast` = '3577-1-10' WHERE `item_id` = 8143;
+
+
 -- Add Skills to Kamael Hero Weapons by DrunkenDave
 UPDATE `weapon` SET `skills_onCrit` = '3594-1-7' WHERE `item_id` = 9390;
 
