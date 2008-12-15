@@ -137,7 +137,9 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 			L2ItemInstance item = warehouse.getItemByObjectId(objectId);
 			if (item == null)
 				continue;
-			weight += weight * item.getItem().getWeight();
+			
+			weight += count * item.getItem().getWeight();
+			
 			if (!item.isStackable())
 				slots += count;
 			else if (player.getInventory().getItemByItemId(item.getItemId()) == null)
