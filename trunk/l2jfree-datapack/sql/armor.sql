@@ -2224,3 +2224,13 @@ UPDATE `armor` SET `crystal_count` = 27 WHERE `item_id` = 12117;
 UPDATE `armor` SET `crystal_count` = 75 WHERE `item_id` = 12067;
 UPDATE `armor` SET `crystal_count` = 39 WHERE `item_id` = 12040;
 UPDATE `armor` SET `crystal_count` = 1 WHERE `item_id` IN (13389,13390,13391,13392);
+
+-- -------------------------
+-- Light Purple-Maned Horse
+-- -------------------------
+REPLACE INTO `armor` VALUES
+(13022, 'Light Purple-Maned Horse Mounting Bracelet - 7 day limited period', 'lbracelet', 'false', 'none', 30, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '8247-1', '-1', '-1', -1),
+(13308, 'Light Purple-Maned Horse Mounting Bracelet (Event) - 7-day Limited Period', 'lbracelet', 'false', 'none', 30, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '8247-1', '-1', '-1', -1),
+(20029, 'Light Purple-Maned Horse Mounting Bracelet', 'lbracelet', 'false', 'none', 30, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '8247-1', '-1', '-1', -1),
+(20030, 'Light Purple-Maned Horse Mounting Bracelet - 30 day limited period', 'lbracelet', 'false', 'none', 30, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '8247-1', '-1', '-1', -1);
+

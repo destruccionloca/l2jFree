@@ -9096,3 +9096,9 @@ UPDATE npc SET `type` = 'L2SepulcherNpc' WHERE id = 31928;
 
 -- Stop Moving chests...
 UPDATE `npc` SET `walkspd` = 0, `runspd` = 0 WHERE `id` IN (18265,18266,18267,18268,18269,18270,18271,18272,18273,18274,18275,18276,18277,18278,18279,18280,18281,18282,18283,18284,18285,18286);
+
+-- -------------------------
+-- Light Purple-Maned Horse
+-- -------------------------
+REPLACE INTO `npc` VALUES
+(13130, 13130, "Light Purple Maned Horse", 0, "", 0, "Monster.horse", 8, 24, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 278, 0, 333, 0, 0, NULL, 60, 60, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false");

@@ -128,4 +128,25 @@
     <npcid val="12621" />
     <summonType val="2" />
   </item>
+  <!-- Light Purple Maned Horse -->
+  <item id="13022">
+    <npcid val="13130" />
+    <summonType val="2" />
+  </item>
+  <!-- Light Purple Maned Horse -->
+  <item id="13308">
+    <npcid val="13130" />
+    <summonType val="2" />
+  </item>
+  <!-- Light Purple Maned Horse -->
+  <item id="20029">
+    <npcid val="13130" />
+    <summonType val="2" />
+  </item>
+  <!-- Light Purple Maned Horse -->
+  <item id="20030">
+    <npcid val="13130" />
+    <summonType val="2" />
+  </item>
+  
 </list>
