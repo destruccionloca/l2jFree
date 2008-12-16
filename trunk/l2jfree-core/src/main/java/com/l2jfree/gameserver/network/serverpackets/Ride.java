@@ -50,6 +50,8 @@ public class Ride extends L2GameServerPacket
             _rideType = 2;
         else if (PetDataTable.isWGreatWolf(npcId) || PetDataTable.isFenrirWolf(npcId) || PetDataTable.isWFenrirWolf(npcId))
             _rideType = 3;
+        else if (PetDataTable.isHorse(npcId))
+            _rideType = 4;
         else
             _rideType = 0;
     }

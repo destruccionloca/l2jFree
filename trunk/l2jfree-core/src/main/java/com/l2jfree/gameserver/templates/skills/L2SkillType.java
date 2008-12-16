@@ -133,6 +133,7 @@ public enum L2SkillType
 	CHARGE_NEGATE(L2SkillChargeNegate.class),
 	CREATE_ITEM(L2SkillCreateItem.class),
 	DECOY(L2SkillDecoy.class),
+	SUMMON_HORSE,
 	DRAIN(L2SkillDrain.class),
 	LUCKNOBLESSE(L2SkillCreateItem.class),
 	SIGNET(L2SkillSignet.class),

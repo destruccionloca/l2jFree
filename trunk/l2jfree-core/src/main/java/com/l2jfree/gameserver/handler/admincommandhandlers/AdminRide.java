@@ -32,6 +32,8 @@ public class AdminRide implements IAdminCommandHandler
 			"admin_unride_wyvern",
 			"admin_unride_strider",
 			"admin_unride_wolf",
+			"admin_ride_horse",
+			"admin_unride_horse",
 			"admin_unride",						};
 	private static final int		REQUIRED_LEVEL	= Config.GM_RIDER;
 	private int						_petRideId;
@@ -61,6 +63,10 @@ public class AdminRide implements IAdminCommandHandler
 			else if (command.startsWith("admin_ride_wolf"))
 			{
 				_petRideId = 16041;
+			}
+			else if (command.startsWith("admin_ride_horse"))
+			{
+				_petRideId = 13130;
 			}
 			else
 			{

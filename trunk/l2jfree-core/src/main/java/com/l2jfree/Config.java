@@ -791,6 +791,7 @@ public final class Config
 	public static int				FENRIR_SPEED;
 	public static int				GREAT_SNOW_WOLF_SPEED;
 	public static int				SNOW_FENRIR_SPEED;
+	public static int				HORSE_SPEED;
 	public static int				GREAT_WOLF_MOUNT_LEVEL;
 	public static boolean			ALLOW_WYVERN_UPGRADER;
 	public static boolean			PETITIONING_ALLOWED;
@@ -872,6 +873,7 @@ public final class Config
 			FENRIR_SPEED = Integer.parseInt(otherSettings.getProperty("FenrirSpeed", "80"));
 			SNOW_FENRIR_SPEED = Integer.parseInt(otherSettings.getProperty("SnowFenrirSpeed", "80"));
 			GREAT_SNOW_WOLF_SPEED = Integer.parseInt(otherSettings.getProperty("GreatSnowWolfSpeed", "80"));
+	                HORSE_SPEED = Integer.parseInt(otherSettings.getProperty("HorseSpeed", "80"));
 
 			GREAT_WOLF_MOUNT_LEVEL = Integer.parseInt(otherSettings.getProperty("GreatWolfMountLevel", "70"));
 

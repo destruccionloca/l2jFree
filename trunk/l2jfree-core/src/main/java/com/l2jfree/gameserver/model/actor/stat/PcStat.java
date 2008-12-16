@@ -373,6 +373,11 @@ public class PcStat extends PlayableStat
 			val += Config.GREAT_SNOW_WOLF_SPEED;
 			return val;
 		}
+		if (getActiveChar().isRidingHorse())
+		{
+			val += Config.HORSE_SPEED;
+			return val;
+		}
 
 		val /= _activeChar.getArmourExpertisePenalty();
 

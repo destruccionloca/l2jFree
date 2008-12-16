@@ -198,6 +198,12 @@ public class PcKnownList extends PlayableKnownList
                         if (getActiveChar().getPet() != null)
                             otherPlayer.sendPacket(new RelationChanged(getActiveChar().getPet(), relation2, otherPlayer.isAutoAttackable(getActiveChar())));
                     }
+                    if(otherPlayer.isRidingHorse())
+                    {
+                    	//FIXME remove this when found better solution. horse bug display
+                    	otherPlayer.remount(getActiveChar());
+                    	getActiveChar().sendPacket(new CharInfo(otherPlayer));
+                    }
                 }
 
                 if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL)

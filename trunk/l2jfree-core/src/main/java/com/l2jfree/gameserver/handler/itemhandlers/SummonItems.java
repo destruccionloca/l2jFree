@@ -172,6 +172,9 @@ public class SummonItems implements IItemHandler
 		case 3: // Great Wolf
 			activeChar.mount(sitem.getNpcId(), item.getObjectId());
 			break;
+		case 4: // Light Purple Maned Horse
+			activeChar.mount(sitem.getNpcId(), item.getObjectId());
+			break;
 		}
 	}
 

@@ -64,6 +64,7 @@ public class PetDataTable
 	public final static int											BLACK_WOLF_ID				= 16025;
 	public final static int											FENRIR_WOLF_ID				= 16041;
 	public final static int											WFENRIR_WOLF_ID				= 16042;
+	public final static int											PURPLE_HORSE_ID				= 13130;
 
 	private static FastMap<Integer, FastMap<Integer, L2PetData>>	petTable;
 
@@ -280,6 +281,11 @@ public class PetDataTable
 	public static boolean isSinEater(int npcId)
 	{
 		return npcId == SIN_EATER_ID;
+	}
+
+	public static boolean isHorse(int npcId)
+	{
+		return npcId == PURPLE_HORSE_ID;
 	}
 
 	/**

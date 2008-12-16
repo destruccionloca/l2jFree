@@ -83,6 +83,7 @@ public final class SkillHandler implements ISkillHandler
 		registerSkillHandler(new TakeFort());
 		registerSkillHandler(new TransformDispel());
 		registerSkillHandler(new Trap());
+		registerSkillHandler(new SummonHorse());
 		registerSkillHandler(new Unlock());
 
 		_log.info("SkillHandler: Loaded " + _handlers.size() + " handlers.");

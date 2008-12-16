@@ -498,6 +498,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private boolean					_isRidingWFenrirWolf				= false;
 	private boolean					_isRidingGreatSnowWolf				= false;
 	private boolean					_isRidingStrider					= false;
+	private boolean					_isRidingHorse					= false;
 	private boolean					_isFlyingWyvern						= false;
 
 	/** The L2Summon of the L2PcInstance */
@@ -3254,6 +3255,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		return true;
 	}
+
+
 
 	/**
 	 * Destroys item from inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
@@ -6183,6 +6186,18 @@ public final class L2PcInstance extends L2PlayableInstance
 		return true;
 	}
 
+	public boolean remount(L2PcInstance player){
+    	
+    	  Ride dismount = new Ride(this, false, 0);
+    	  Ride mount = new Ride(this, true, this.getMountNpcId());    	        
+	   
+			player.sendPacket(dismount);
+			player.sendPacket(mount);
+		  	return true;
+        
+    }
+    
+  
 	public boolean mount(int npcId, int controlItemObjId)
 	{
 		if (!disarmWeapons())
@@ -8787,6 +8802,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			setIsRidingWFenrirWolf(false);
 			setIsRidingGreatSnowWolf(false);
 			setIsRidingStrider(false);
+			setIsRidingHorse(false);
 			setIsFlying(false);
 			isFalling(false, 0); // Initialize the fall just incase dismount was made while in-air
 			break; //Dismounted
@@ -8806,6 +8822,9 @@ public final class L2PcInstance extends L2PlayableInstance
 			setIsRidingWFenrirWolf(true);
 			setIsRidingGreatSnowWolf(true);
 			break;
+		case 4:
+			setIsRidingHorse(true);
+			break;	
 		}
 
 		_mountType = mountType;
@@ -12258,6 +12277,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		return _isRidingStrider;
 	}
 
+	public final boolean isRidingHorse()
+	{ 
+		return _isRidingHorse;
+	}
 	/**
 	 * PcInstance flying wyvern 
 	 * @return
@@ -12289,6 +12312,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		_isRidingStrider = mode;
 	}
 
+	public final void setIsRidingHorse(boolean mode)
+	{
+		_isRidingHorse = mode;
+	}
+	
 	public final void setIsFlying(boolean mode)
 	{ 
 		_isFlyingWyvern = mode;
