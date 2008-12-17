@@ -8519,6 +8519,14 @@ INSERT INTO `npc` VALUES
 (36479, 36479, "Rapidus", 0, "Reputation Manager", 0, "LineageNPC.a_fighterguild_master_Mhuman", 8, 23.5, 70, "male", "L2FameManager", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 278, 0, 333, 0, 0, NULL, 50, 120, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (36480, 36480, "Scipio", 0, "Reputation Manager", 0, "LineageNPC.a_fighterguild_master_Mhuman", 8, 23.5, 70, "male", "L2FameManager", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 278, 0, 333, 0, 0, NULL, 50, 120, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false");
 
+-- Stats Needs To Be Verified in the Future.
+INSERT INTO `npc` VALUES
+(1, 1, "Thomas D. Turkey", 0, "Misguided Holiday Scrooge", 0, "Branch.br_crazy_turkey", 22, 32, 85, "male", "L2Npc", 40, 751, 331, 2.37, 1.53, 80, 80, 80, 80, 80, 80, 0, 0, 88, 119, 37, 112, 282, 0, 5000, 0, 0, 0, 30, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
+(3, 3, "Santa\'s Helper", 0, "", 0, "LineageNPCs.e_smith_master_MDwarf_m00", 13, 17, 85, "male", "L2Npc", 40, 751, 331, 2.37, 1.53, 80, 80, 80, 80, 80, 80, 0, 0, 88, 119, 37, 112, 282, 0, 5000, 0, 0, 0, 30, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
+(4, 4, "Holiday Santa", 0, "Happy Holidays!", 0, "Branch.br_xmas08_santa", 13, 21, 85, "male", "L2Npc", 40, 751, 331, 2.37, 1.53, 80, 80, 80, 80, 80, 80, 0, 0, 88, 119, 37, 112, 282, 0, 5000, 0, 0, 0, 30, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
+(5, 5, "Holiday Santa", 0, "Happy Holidays!", 0, "Branch.br_xmas08_santa", 13, 21, 85, "male", "L2Npc", 40, 751, 331, 2.37, 1.53, 80, 80, 80, 80, 80, 80, 0, 0, 88, 119, 37, 112, 282, 0, 5000, 0, 0, 0, 30, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
+(6, 6, "Holiday Sled", 0, "Happy Holidays!", 0, "Branch.br_xmas08_sled", 13, 13, 85, "male", "L2Npc", 40, 751, 331, 2.37, 1.53, 80, 80, 80, 80, 80, 80, 0, 0, 88, 119, 37, 112, 282, 0, 5000, 0, 0, 0, 30, 132, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false");
+
 --
 -- L2J-Free Add-ons
 --
