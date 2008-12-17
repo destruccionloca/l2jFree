@@ -20,11 +20,30 @@ ROUTES={
 5:[52143,-51418,-3085,0]
 }
 
+#NPC
+MYSTERIOUS_WIZ = 31522
+TOMBSTONE = 31523
+VH_GHOST = 31524
+VH_GHOST_P = 31525
+BROKEN_BOOKSHELF = 31526
+AGRIPEL = 31348
+BENEDICT = 31349
+DOMINIC = 31350
+INNOCENTIN = 31328
+
+#ITEM
+CROSS_A = 7140
+
+#REWARDS
+CROSS_B = 7141
+EXP = 131228
+SP = 11978
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
      JQuest.__init__(self,id,name,descr)
-     self.questItemIds = [7140]
+     self.questItemIds = [CROSS_A]
 
  def onAdvEvent (self,event,npc,player):
         st = player.getQuestState(qn)
@@ -41,21 +60,21 @@ class Quest (JQuest) :
             st.unset("DOMINIC")
             st.unset("BENEDICT")
             st.exitQuest(False)
-            st.takeItems(7140,-1)
-            if st.getQuestItemsCount(7141) == 0 :
-                st.giveItems(7141,1)
-            st.addExpAndSp(131228, 11978)
+            st.takeItems(CROSS_A,-1)
+            if st.getQuestItemsCount(CROSS_B) == 0 :
+                st.giveItems(CROSS_B,1)
+            st.addExpAndSp(EXP,SP)
             st.playSound("ItemSound.quest_finish")
             htmltext = "31328-05.htm"
         elif event == "31523-03.htm" :
             st.playSound("SkillSound5.horror_02")
             st.set("cond","2")
-            ghost = st.addSpawn(31524,51432,-54570,-3136,1800000)
+            ghost = st.addSpawn(VH_GHOST,51432,-54570,-3136,1800000)
             ghost.broadcastPacket(NpcSay(ghost.getObjectId(),0,ghost.getNpcId(),"Who awoke me?"))
         elif event == "31524-06.htm" :
             st.set("cond","3")
             st.playSound("ItemSound.quest_middle")
-            ghost = self.addSpawn(31525,npc)
+            ghost = self.addSpawn(VH_GHOST_P,npc)
             ghost.broadcastPacket(NpcSay(ghost.getObjectId(),0,ghost.getNpcId(),"My master has instructed me to be your guide, "+ player.getName()))
             self.startQuestTimer("1",1,ghost,player)
             self.startQuestTimer("despawn",1800000,ghost,player)
@@ -66,7 +85,7 @@ class Quest (JQuest) :
             st.set("cond","5")
             st.playSound("ItemSound.quest_middle")
         elif event == "31526-14.htm" :
-            st.giveItems(7140,1)
+            st.giveItems(CROSS_A,1)
             st.set("cond","6")
             st.playSound("ItemSound.quest_middle")
         elif event == "despawn" :
@@ -103,7 +122,7 @@ class Quest (JQuest) :
    if state == State.CREATED :
      st.setState(State.STARTED)
      st.set("cond","0")
-   if npcId == 31522:
+   if npcId == MYSTERIOUS_WIZ:
      if cond == 0:
        if onlyone == 0:
          if st.getPlayer().getLevel() >= 63 :
@@ -115,13 +134,13 @@ class Quest (JQuest) :
          htmltext = "This quest has already been completed."
      elif cond == 1:
        htmltext = "31522-05.htm"       
-   elif npcId == 31523 :
+   elif npcId == TOMBSTONE :
      if cond == 1 :
        htmltext = "31523-01.htm"
      elif cond == 2 :
        htmltext = "31523-04.htm"
        st.playSound("SkillSound5.horror_02")
-   elif npcId == 31524 :
+   elif npcId == VH_GHOST :
      if cond == 2 :
        htmltext = "31524-01.htm"
      elif cond == 3 :
@@ -130,12 +149,12 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_middle")
      elif cond == 4 :
        htmltext = "31524-07c.htm"
-   elif npcId == 31525 :
+   elif npcId == VH_GHOST_P :
      if cond == 3 :
        htmltext = "31525-01.htm"
      elif cond == 4 and id == 1 :
        htmltext = "31525-02.htm"
-   elif npcId == 31526 :
+   elif npcId == BROKEN_BOOKSHELF :
      if cond in [3,4] :
        htmltext = "31526-01.htm"
      elif cond == 5 :
@@ -143,7 +162,7 @@ class Quest (JQuest) :
        st.playSound("AmdSound.ed_chimes_05")
      elif cond == 6 :
        htmltext = "31526-15.htm"
-   elif npcId == 31348 and st.getQuestItemsCount(7140) == 1 :
+   elif npcId == AGRIPEL and st.getQuestItemsCount(CROSS_A) == 1 :
      if cond == 6 :
        st.set("AGRIPEL","1")
        if st.getInt("AGRIPEL") == 1 and st.getInt("DOMINIC") == 1 and st.getInt("BENEDICT") == 1 :
@@ -154,7 +173,7 @@ class Quest (JQuest) :
        htmltext = "31348-0"+str(st.getRandom(3))+".htm"
      elif cond == 7 :
        htmltext = "31348-03.htm"
-   elif npcId == 31350 and st.getQuestItemsCount(7140) == 1 :
+   elif npcId == DOMINIC and st.getQuestItemsCount(CROSS_A) == 1 :
      if cond == 6 :
        st.set("DOMINIC","1")
        if st.getInt("AGRIPEL") == 1 and st.getInt("DOMINIC") == 1 and st.getInt("BENEDICT") == 1 :
@@ -165,7 +184,7 @@ class Quest (JQuest) :
        htmltext = "31350-0"+str(st.getRandom(3))+".htm"
      elif cond == 7 :
        htmltext = "31350-03.htm"
-   elif npcId == 31349 and st.getQuestItemsCount(7140) == 1 :
+   elif npcId == BENEDICT and st.getQuestItemsCount(CROSS_A) == 1 :
      if cond == 6 :
        st.set("BENEDICT","1")
        if st.getInt("AGRIPEL") == 1 and st.getInt("DOMINIC") == 1 and st.getInt("BENEDICT") == 1 :
@@ -176,9 +195,9 @@ class Quest (JQuest) :
        htmltext = "31349-0"+str(st.getRandom(3))+".htm"
      elif cond == 7 :
        htmltext = "31349-03.htm"
-   elif npcId == 31328:
+   elif npcId == INNOCENTIN:
      if cond == 7:
-       if st.getQuestItemsCount(7140) == 1:
+       if st.getQuestItemsCount(CROSS_A) == 1:
          htmltext = "31328-01.htm"
      elif cond == 0 and onlyone == 1:
        htmltext = "31328-06.htm"
@@ -186,7 +205,7 @@ class Quest (JQuest) :
 
 QUEST     = Quest(21,qn,"Hidden Truth")
 
-QUEST.addStartNpc(31522)
+QUEST.addStartNpc(MYSTERIOUS_WIZ)
 
-for NPC in [31522,31523,31524,31525,31526,31348,31349,31350,31328]:
+for NPC in [MYSTERIOUS_WIZ,TOMBSTONE,VH_GHOST,VH_GHOST_P,BROKEN_BOOKSHELF,AGRIPEL,BENEDICT,DOMINIC,INNOCENTIN]:
   QUEST.addTalkId(NPC)

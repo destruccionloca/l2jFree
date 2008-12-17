@@ -132,9 +132,8 @@ class Quest (JQuest) :
 
 QUEST       = Quest(17,qn,"Light and Darkness")
 
-
 QUEST.addStartNpc(HIERARCH)
 QUEST.addTalkId(HIERARCH)
 
-for altars in range(31508,31512):
+for altars in [SAINT_ALTAR_1,SAINT_ALTAR_2,SAINT_ALTAR_3,SAINT_ALTAR_4]:
   QUEST.addTalkId(altars)
