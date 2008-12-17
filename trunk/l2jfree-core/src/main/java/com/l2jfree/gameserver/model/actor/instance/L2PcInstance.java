@@ -8792,7 +8792,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean setMount(int npcId, int mountType)
 	{
-		if (mountType == 2 && !checkCanLand())
+		if (mountType == 0 && isFlying() && !checkCanLand())
 			return false;
 
 		switch (mountType)

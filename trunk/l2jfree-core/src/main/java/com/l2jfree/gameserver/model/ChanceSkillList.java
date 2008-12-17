@@ -93,6 +93,11 @@ public class ChanceSkillList extends FastMap<L2Skill, ChanceCondition>
 		onEvent(event, target);
 	}
 
+	public void onEvadedHit(L2Character attacker)
+	{
+		onEvent(ChanceCondition.EVT_EVADED_HIT, attacker);
+	}
+
 	public void onEvent(int event, L2Character target)
 	{
 		for (FastMap.Entry<L2Skill, ChanceCondition> e = head(), end = tail(); (e = e.getNext()) != end;)

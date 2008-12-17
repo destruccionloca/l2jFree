@@ -5693,6 +5693,10 @@ public abstract class L2Character extends L2Object
 
 		if (miss)
 		{
+			// ON_EVADED_HIT
+			if (target.getChanceSkills() != null)
+				target.getChanceSkills().onEvadedHit(this);
+
 			if (target instanceof L2PcInstance)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1S_ATTACK);
