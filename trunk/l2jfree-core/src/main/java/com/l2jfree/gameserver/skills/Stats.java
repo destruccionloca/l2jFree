@@ -154,6 +154,7 @@ public enum Stats
 	ABSORB_DAMAGE_PERCENT("absorbDam"),
 	TRANSFER_DAMAGE_PERCENT("transDam"),
 	ABSORB_CP_PERCENT("absorbCpPercent"),
+	SKILL_MASTERY("skillMastery"),
 
 	MAX_LOAD("maxLoad"),
 

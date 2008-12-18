@@ -160,7 +160,8 @@ public abstract class L2Effect
 		// TODO DrHouse: This should be reworked, we need to be able to change effect time out of Effect Constructor
 		// maybe using a child class
 		// Support for retail herbs duration when _effected has a Summon 
-		int temp = template.period, id = _skill.getId();
+		int id = _skill.getId();
+		int temp = template.period;
 		if ((id > 2277 && id < 2286) || (id >= 2512 && id <= 2514))
 		{
 			if (_effected instanceof L2SummonInstance 
@@ -169,6 +170,10 @@ public abstract class L2Effect
 				temp /= 2;
 			}
 		}
+		
+		if (env.skillMastery)
+			temp *= 2;
+		
 		_period = temp; 
 
 		_abnormalEffect = template.abnormalEffect;

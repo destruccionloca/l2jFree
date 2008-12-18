@@ -52,6 +52,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.skills.effects.EffectTemplate;
@@ -3659,12 +3660,18 @@ public class L2Skill
 
 		FastList<L2Effect> effects = new FastList<L2Effect>();
 
+		boolean skillMastery = false;
+
+		if (!isToggle() && effector.getActingPlayer() != null && Formulas.getInstance().calcSkillMastery(effector))
+			skillMastery = true;
+
 		for (EffectTemplate et : _effectTemplates)
 		{
 			Env env = new Env();
 			env.player = effector;
 			env.target = effected;
 			env.skill = this;
+			env.skillMastery = skillMastery;
 			L2Effect e = et.getEffect(env);
 			if (e != null)
 				effects.add(e);

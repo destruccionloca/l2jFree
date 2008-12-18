@@ -2729,6 +2729,11 @@ public final class Formulas
 		return restorePercent;
 	}
 
+	public double getINTBonus(L2Character activeChar)
+	{
+		return INTbonus[activeChar.getStat().getINT()];
+	}
+
 	public double getSTRBonus(L2Character activeChar)
 	{
 		return STRbonus[activeChar.getStat().getSTR()];
@@ -2740,5 +2745,15 @@ public final class Formulas
 			return false;
 
 		return Rnd.get(100) < target.calcStat(Stats.P_SKILL_EVASION, 0, null, skill);
+	}
+
+	public boolean calcSkillMastery(L2Character actor)
+	{
+		double val = actor.getStat().calcStat(Stats.SKILL_MASTERY, 0, null, null);
+		if (actor instanceof L2PcInstance && ((L2PcInstance)actor).isMageClass())
+			val *= getINTBonus(actor);
+		else
+			val*= getSTRBonus(actor);
+		return Rnd.get(100) < val;
 	}
 }

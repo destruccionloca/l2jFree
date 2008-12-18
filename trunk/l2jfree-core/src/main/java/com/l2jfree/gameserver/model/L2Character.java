@@ -1782,36 +1782,7 @@ public abstract class L2Character extends L2Object
 		}
 		else
 		{
-			// TODO: Duration doubled by chance for effects when Skill Mastery (330/331) is active.
-			if (skill.getSkillType() == L2SkillType.PDAM && getSkillLevel(330) >= 1)
-			{
-				int chance = (int) ((100 + getStat().getSTR()) * 1.5) - 200;
-				int finalchance = Rnd.get(100);
-				if (finalchance < chance)
-				{
-					sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
-					reuseDelay = 0;
-				}
-				else
-				{
-					reuseDelay = (int) (skill.getReuseDelay() * getStat().getPReuseRate(skill));
-				}
-			}
-			else if (skill.getSkillType() == L2SkillType.MDAM && getSkillLevel(331) >= 1)
-			{
-				int chance = (int) ((100 + getStat().getINT()) * 1.5) - 200;
-				int finalchance = Rnd.get(100);
-				if (finalchance < chance)
-				{
-					sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
-					reuseDelay = 0;
-				}
-				else
-				{
-					reuseDelay = (int) (skill.getReuseDelay() * getStat().getMReuseRate(skill));
-				}
-			}
-			else if (skill.isMagic())
+			if (skill.isMagic())
 			{
 				reuseDelay = (int) (skill.getReuseDelay() * getStat().getMReuseRate(skill));
 			}
@@ -1823,8 +1794,10 @@ public abstract class L2Character extends L2Object
 				reuseDelay *= 333.0 / (skill.isMagic() ? getMAtkSpd() : getPAtkSpd());
 		}
 
+		boolean skillMastery = Formulas.getInstance().calcSkillMastery(this);
+
 		// Skill reuse check
-		if (reuseDelay > 30000)
+		if (reuseDelay > 30000 && !skillMastery)
 			addTimeStamp(skill.getId(), reuseDelay);
 
 		// Check if this skill consume mp on start casting
@@ -1849,9 +1822,14 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Disable the skill during the re-use delay and create a task EnableSkill with Medium priority to enable it at the end of the re-use delay
-		if (reuseDelay > 10)
+		if (reuseDelay > 10 && !skillMastery)
 		{
 			disableSkill(skill.getId(), reuseDelay);
+		}
+
+		if (skillMastery && getActingPlayer() != null)
+		{
+			getActingPlayer().sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
 		}
 
 		// Make sure that char is facing selected target
