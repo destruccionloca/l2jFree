@@ -5193,7 +5193,8 @@ public abstract class L2Character extends L2Object
 				}
 			}
 			// If no distance to go through, the movement is canceled
-			if (distance < 2
+			// Don't uncomment to keep pathfinding working
+			/*if (distance < 2
 					&& (Config.GEO_PATH_FINDING || this instanceof L2PcInstance || (this instanceof L2Summon && !((L2Summon) this).getFollowStatus())
 							|| isAfraid() || this instanceof L2RiftInvaderInstance))
 			{
@@ -5201,7 +5202,7 @@ public abstract class L2Character extends L2Object
 					((L2Summon) this).setFollowStatus(false);
 				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE); // needed?
 				return;
-			}
+			}*/
 		}
 
 		// Caclulate the Nb of ticks between the current position and the destination
