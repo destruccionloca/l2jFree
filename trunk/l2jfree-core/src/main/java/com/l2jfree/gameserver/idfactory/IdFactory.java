@@ -215,6 +215,7 @@ public abstract class IdFactory
 			cleanCount += stmt.executeUpdate("DELETE FROM siege_clans WHERE siege_clans.clan_id NOT IN (SELECT clan_id FROM clan_data);");
 
 			stmt.executeUpdate("UPDATE characters SET `clanid`='0', `clan_privs`='0', `clan_join_expiry_time`='0', `clan_create_expiry_time`='0' WHERE characters.clanid NOT IN (SELECT clan_id FROM clan_data);");
+			stmt.executeUpdate("UPDATE clan_subpledges SET leader_id=0 WHERE clan_subpledges.leader_id NOT IN (SELECT charId FROM characters) AND leader_id > 0;");
 			stmt.executeUpdate("UPDATE clan_data SET ally_id=0 WHERE clan_data.ally_id NOT IN (SELECT clanid FROM characters WHERE clanid!=0 GROUP BY clanid);");
 			stmt.executeUpdate("UPDATE clanhall SET ownerId=0, paidUntil=0, paid=0 WHERE clanhall.ownerId NOT IN (SELECT clan_id FROM clan_data);");
 

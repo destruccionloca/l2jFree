@@ -123,6 +123,8 @@ public class L2FameManagerInstance extends L2NpcInstance
 			}
 			sendHtmlMessage(player, html);
 		}
+		else
+			super.onBypassFeedback(player, command);
 	}
 
 	private void sendHtmlMessage(L2PcInstance player, NpcHtmlMessage html)
