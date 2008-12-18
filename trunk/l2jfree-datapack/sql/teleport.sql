@@ -426,15 +426,15 @@ INSERT INTO teleport VALUES
 ('Clan Hall -> Giran Arena',526,73890,142656,-3778,500,0),
  -- 527
 ('Clan Hall -> Breka\'s Stronghold',528,79798,130624,-3677,500,0),
-('Clan Hall -> Gorgon Flower Garden',529,113553,134813,-3640,500,0),  -- needs confirming
+('Clan Hall -> Gorgon Flower Garden',529,113553,134813,-3640,500,0), -- needs confirming
  -- -----------------
 ('Clan Hall -> Ivory Tower',581,85348,16142,-3699,500,0),
 ('Clan Hall -> Town of Oren',582,82956,53162,-1495,500,0),
  -- 583
 ('Clan Hall -> Plains of Lizardmen',584,87252,85514,-3056,500,0),
 ('Clan Hall -> Skyshadow Meadow',585,82764,61145,-3502,500,0),
- -- ('Clan Hall -> Shilen\'s Garden',586,82764,61145,-3502,500,0),-- dunno coords !
- -- ('Clan Hall -> Black Rock Hill',587,82764,61145,-3502,500,0),-- dunno coords !
+ -- ('Clan Hall -> Shilen\'s Garden',586,82764,61145,-3502,500,0), -- dunno coords !
+ -- ('Clan Hall -> Black Rock Hill',587,82764,61145,-3502,500,0), -- dunno coords !
 ('Clan Hall -> Spider Nest',588,-56532,78321,-2960,500,0),
 ('Clan Hall -> Timak Outpost',589,67097,68815,-3648,500,0),-- needs confirming
  -- ('Clan Hall -> Ivory Tower Crater',590,-56532,78321,-2960,500,0),-- dunno coords !
@@ -443,7 +443,7 @@ INSERT INTO teleport VALUES
  -- ('Clan Hall -> Misty Mountains',593,85995,-2433,-3528,500,0),-- dunno coords !
  -- ('Clan Hall -> Starlight Waterfall',594,85995,-2433,-3528,500,0),-- dunno coords !
  -- ('Clan Hall -> Undine Waterfall',595,85995,-2433,-3528,500,0),-- dunno coords !
- -- ('Clan Hall -> The Gods\' Falls',596,85995,-2433,-3528,500,0),-- dunno coords !
+ -- ('Clan Hall -> The Gods\' Falls',596,85995,-2433,-3528,500,0), -- dunno coords !
  -- 597
 ('Clan Hall -> Tower of Insolence',598,114649,11115,-5120,500,0),
 ('Clan Hall -> The Blazing Swamp',599,146828,-12859,-4455,500,0),
@@ -589,16 +589,6 @@ INSERT INTO teleport VALUES
 ('Garden of Eva,3rd level - 1000 adena',9125,77868,250400,-9328,1000,0),
 ('Garden of Eva,4th level - 1000 adena',9126,78721,253309,-9840,1000,0),
 ('Garden of Eva,5th level - 1000 adena',9127,82951,252354,-10592,1000,0),
-('Ketra teleport - Goddard Castle Town',10028,147978,-55408,-2728,4900,0),
-('Ketra teleport - Rune Castle Town',10029,43849,-47877,-792,22000,0),
-('Ketra teleport - Aden Castle Town',10030,146705,25840,-2000,21000,0),
-('Ketra teleport - Wall of Argos',10031,164564,-48145,-3536,7000,0),
-('Ketra teleport - Hot Springs',10032,144880,-113468,-2560,6700,0),
-('Varka teleport - Goddard Castle Town',10033,147978,-55408,-2728,8000,0),
-('Varka teleport - Rune Castle Town',10034,43849,-47877,-792,12000,0),
-('Varka teleport - Aden Castle Town',10035,146705,25840,-2000,17000,0),
-('Varka teleport - Wall of Argos',10036,164564,-48145,-3536,11000,0),
-('Varka teleport - Hot Springs',10037,144880,-113468,-2560,14000,0),
 -- Noble Gate Pass
 ('Gludin Arena - 1 Noble Gate Pass',9900,-87328,142266,-3640,1,1),
 ('Coliseum - 1 Noble Gate Pass',9901,146440,46723,-3432,1,1),
@@ -666,7 +656,17 @@ INSERT INTO teleport VALUES
 ('Garden of Eva,2nd ring - 1 Noble Gate Pass',10024,79248,247390,-8816,1,1),
 ('Garden of Eva,3rd ring - 1 Noble Gate Pass',10025,77868,250400,-9328,1,1),
 ('Garden of Eva,4th ring - 1 Noble Gate Pass',10026,78721,253309,-9840,1,1),
-('Garden of Eva,5th level - 1 Noble Gate Pass',10027,82951,252354,-10592,1,1);
+('Garden of Eva,5th level - 1 Noble Gate Pass',10027,82951,252354,-10592,1,1),
+('Ketra teleport - Goddard Castle Town',10028,147978,-55408,-2728,4900,0),
+('Ketra teleport - Rune Castle Town',10029,43849,-47877,-792,22000,0),
+('Ketra teleport - Aden Castle Town',10030,146705,25840,-2000,21000,0),
+('Ketra teleport - Wall of Argos',10031,164564,-48145,-3536,7000,0),
+('Ketra teleport - Hot Springs',10032,144880,-113468,-2560,6700,0),
+('Varka teleport - Goddard Castle Town',10033,147978,-55408,-2728,8000,0),
+('Varka teleport - Rune Castle Town',10034,43849,-47877,-792,12000,0),
+('Varka teleport - Aden Castle Town',10035,146705,25840,-2000,17000,0),
+('Varka teleport - Wall of Argos',10036,164564,-48145,-3536,11000,0),
+('Varka teleport - Hot Springs',10037,144880,-113468,-2560,14000,0);
 
 INSERT INTO teleport VALUES
 ('Clan Hall -> Center Town of Aden',12000,147450,28081,-2294,0,0),
@@ -744,7 +744,15 @@ INSERT INTO teleport VALUES
 ('Gludio Castle -> Ruins of Agony',13004,-41248,122848,-2904,500,0),
 ('Gludio Castle -> Ruins of Despair',13005,-19120,136816,-3752,500,0),
 ('Gludio Castle -> The Ant Nest',13006,-9959,176184,-4160,500,0),
-('Gludio Castle -> Windawood Manor',13007,-28327,155125,-3496,500,0);
+('Gludio Castle -> Windawood Manor',13007,-28327,155125,-3496,500,0),
+('Dragonspine Fort -> Fort North Gate', 12100, 12497, 93855, -3425, 0, 0),
+('Dragonspine Fort -> Fort South Gate', 12101, 10486, 96307, -3425, 0, 0),
+('Dragonspine Fort -> Dion Town Square', 12102, 18748, 145437, -3127, 0, 0),
+('Dragonspine Fort -> Oren Town Square', 12103, 82321, 55139, -1524, 0, 0),
+('Dragonspine Fort -> The Ant Nest', 12104, -25832, 173118, -4154, 500, 0),
+('Dragonspine Fort -> Windawood Manor', 12105, -25791, 162013, -2528, 500, 0),
+('Dragonspine Fort -> Sea of Spores', 12106, 62425, 30856, -3774, 500, 0),
+('Dragonspine Fort -> Ancient Battleground', 12107, 108264, -2846, -3428, 500, 0);
 
 --
 -- L2J-Free Add-ons
