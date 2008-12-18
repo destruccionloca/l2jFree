@@ -910,10 +910,14 @@
       able to re-use skills without delay or doubles the
       duration. Influenced by STR.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <add order="0x30" stat="skillMastery" val="30"/> <!-- Guessing -->
+    </for>
   </skill>
   <skill id="331" levels="1" name="Skill Mastery">
     <!--
@@ -921,10 +925,14 @@
       able to re-use skills without delay or doubles the
       duration. Influenced by INT.
     -->
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <add order="0x30" stat="skillMastery" val="30"/> <!-- Guessing -->
+    </for>
   </skill>
   <skill id="332" levels="1" name="Extra Inventory">
     <!-- Increases size of inventory. -->
@@ -941,10 +949,7 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="334" levels="1" name="Focus Skill Mastery">
-    <!--
-      Skill for dagger and archer Need to be
-      chance/corrected
-    -->
+    <!-- Skill for Daggers & Archers -->
     <set name="mpConsume" val="36" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="CONT" />
@@ -954,6 +959,7 @@
     <for>
       <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="1.5">
         <mul order="0x30" stat="blowRate" val="1.3" />
+        <add order="0x30" stat="skillMastery" val="30"/> <!-- Guessing -->
       </effect>
     </for>
   </skill>
@@ -982,8 +988,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <!--
-        retail value: 50HP/sec; stat update every 5 units (3
-        1/3 sec)
+        retail value: 50HP/sec; stat update every 5 units (3 1/3 sec)
       -->
       <effect count="0x7fffffff" name="DamOverTime" time="3" val="150">
         <mul order="0x30" stat="mAtkSpd" val="0.9" />
@@ -1001,8 +1006,7 @@
     <set name="effectRange" val="-1" />
     <for>
       <!--
-        retail value: 50HP/sec; stat update every 5 units (3
-        1/3 sec)
+        retail value: 50HP/sec; stat update every 5 units (3 1/3 sec)
       -->
       <effect count="0x7fffffff" name="DamOverTime" time="3" val="150">
         <mul order="0x30" stat="MagicalMpConsumeRate" val="1.1" />
