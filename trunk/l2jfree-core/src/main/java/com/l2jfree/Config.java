@@ -1028,6 +1028,7 @@ public final class Config
 	 */
 	public static int				COORD_SYNCHRONIZE;
 	public static boolean			RESTORE_PLAYER_INSTANCE;
+	public static boolean			ALLOW_SUMMON_TO_INSTANCE;
 	public static int				DELETE_DAYS;
 	public static int				MAX_DRIFT_RANGE;											// Maximum range mobs can randomly go from spawn point
 	public static boolean			ALLOW_FISHING;
@@ -1151,7 +1152,9 @@ public final class Config
 			MULTIPLE_ITEM_DROP = Boolean.parseBoolean(optionsSettings.getProperty("MultipleItemDrop", "True"));
 
 			COORD_SYNCHRONIZE = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
+
 			RESTORE_PLAYER_INSTANCE = Boolean.parseBoolean(optionsSettings.getProperty("RestorePlayerInstance", "False"));
+			ALLOW_SUMMON_TO_INSTANCE = Boolean.parseBoolean(optionsSettings.getProperty("AllowSummonToInstance", "True"));
 
 			ALLOW_WAREHOUSE = Boolean.parseBoolean(optionsSettings.getProperty("AllowWarehouse", "True"));
 			ENABLE_WAREHOUSESORTING_CLAN = Boolean.parseBoolean(optionsSettings.getProperty("EnableWarehouseSortingClan", "False"));

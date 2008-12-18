@@ -1795,9 +1795,15 @@ public abstract class L2Character extends L2Object
 		}
 
 		boolean skillMastery = Formulas.getInstance().calcSkillMastery(this);
+		if (skillMastery)
+		{
+			reuseDelay = 0;
+			if (getActingPlayer() != null)
+				getActingPlayer().sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
+		}
 
 		// Skill reuse check
-		if (reuseDelay > 30000 && !skillMastery)
+		if (reuseDelay > 30000)
 			addTimeStamp(skill.getId(), reuseDelay);
 
 		// Check if this skill consume mp on start casting
@@ -1822,14 +1828,9 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Disable the skill during the re-use delay and create a task EnableSkill with Medium priority to enable it at the end of the re-use delay
-		if (reuseDelay > 10 && !skillMastery)
+		if (reuseDelay > 10)
 		{
 			disableSkill(skill.getId(), reuseDelay);
-		}
-
-		if (skillMastery && getActingPlayer() != null)
-		{
-			getActingPlayer().sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
 		}
 
 		// Make sure that char is facing selected target

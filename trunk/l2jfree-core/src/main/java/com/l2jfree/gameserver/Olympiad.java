@@ -2299,6 +2299,7 @@ public class Olympiad
 					if (_playerOne.isSitting())
 						_playerOne.standUp();
 
+					_playerOne.setInstanceId(0);
 					_playerOne.setTarget(null);
 					_playerOne.teleToLocation(_stadiumPort[0] + 1200, _stadiumPort[1], _stadiumPort[2], false);
 
@@ -2320,6 +2321,7 @@ public class Olympiad
 					if (_playerTwo.isSitting())
 						_playerTwo.standUp();
 
+					_playerTwo.setInstanceId(0);
 					_playerTwo.setTarget(null);
 					_playerTwo.teleToLocation(_stadiumPort[0] - 1200, _stadiumPort[1], _stadiumPort[2], false);
 

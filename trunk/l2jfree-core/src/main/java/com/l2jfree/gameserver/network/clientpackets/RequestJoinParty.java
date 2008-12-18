@@ -95,7 +95,7 @@ public class RequestJoinParty extends L2GameClientPacket
 			return;
 		}
 
-		if (target.getInstanceId() != requestor.getInstanceId()) 
+		if (!requestor.isGM() && target.getInstanceId() != requestor.getInstanceId())
 		{
 			requestor.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;

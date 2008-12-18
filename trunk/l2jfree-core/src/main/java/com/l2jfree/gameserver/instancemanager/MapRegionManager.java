@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
+import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.entity.Town;
 import com.l2jfree.gameserver.model.mapregion.L2MapArea;
@@ -401,6 +402,17 @@ public class MapRegionManager
 				}
 
 				return DimensionalRiftManager.getInstance().getWaitingRoomTeleport();
+			}
+
+			// Checking if in an instance
+			if (player.getInstanceId() > 0)
+			{
+				Instance playerInstance = InstanceManager.getInstance().getInstance(player.getInstanceId());
+				if (playerInstance.getSpawnLoc() != null)
+				{
+					int[] coord = playerInstance.getSpawnLoc();
+					return new Location(coord[0], coord[1], coord[2]);
+				}
 			}
 
 			// Checking if in arena

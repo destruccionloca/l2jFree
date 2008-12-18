@@ -454,11 +454,11 @@ public class AdminSpawn implements IAdminCommandHandler
 				spawn.setRespawnDelay(Config.STANDARD_RESPAWN_DELAY);
 				spawn.setInstanceId(activeChar.getInstanceId());
 
-				if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcId()) && respawn && !Config.ALT_DEV_NO_SPAWNS && spawn.getInstanceId()==0)
+				if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcId()) && respawn && !Config.ALT_DEV_NO_SPAWNS && spawn.getInstanceId() == 0)
 				{
 					activeChar.sendMessage("You cannot spawn another instance of " + template.getName() + ".");
 				}
-				else if (GrandBossSpawnManager.getInstance().isDefined(spawn.getNpcId()) && respawn && !Config.ALT_DEV_NO_SPAWNS && spawn.getInstanceId()==0)
+				else if (GrandBossSpawnManager.getInstance().isDefined(spawn.getNpcId()) && respawn && !Config.ALT_DEV_NO_SPAWNS && spawn.getInstanceId() == 0)
 				{
 					activeChar.sendMessage("You cannot spawn another instance of " + template.getName() + ".");
 				}

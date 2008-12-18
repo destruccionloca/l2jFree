@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -47,8 +48,9 @@ public class Instance
 	private FastSet<Integer>			_players			= new FastSet<Integer>();
 	private FastList<L2NpcInstance>		_npcs				= new FastList<L2NpcInstance>();
 	private FastList<L2DoorInstance>	_doors				= new FastList<L2DoorInstance>();
-
-	protected ScheduledFuture<?>		_CheckTimeUpTask	= null;
+	private int[]						_spawnLoc;
+	private boolean						_allowSummon		= true;
+	protected ScheduledFuture<?>		_checkTimeUpTask	= null;
 
 	public Instance(int id)
 	{
@@ -70,6 +72,33 @@ public class Instance
 		_name = name;
 	}
 
+	/**
+	 * Returns whether summon friend type skills are allowed for this instance
+	 */
+	public boolean isSummonAllowed()
+	{
+		return _allowSummon;
+	}
+
+	/**
+	 * Sets the status for the instance for summon friend type skills
+	 */
+	public void setAllowSummon(boolean b)
+	{
+		_allowSummon = b;
+	}
+
+	/**
+	 * Set the instance duration task
+	 * @param duration in minutes
+	 */
+	public void setDuration(int duration)
+	{
+		if (_checkTimeUpTask != null)
+			_checkTimeUpTask.cancel(true);
+		_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(duration * 60000), 15000);
+	}
+
 	public boolean containsPlayer(int objectId)
 	{
 		if (_players.contains(objectId))
@@ -85,6 +114,12 @@ public class Instance
 
 	public void removePlayer(int objectId)
 	{
+		if (_players.contains(objectId))
+			_players.remove(objectId);
+	}
+
+	public void ejectPlayer(int objectId)
+	{
 		L2PcInstance player = L2World.getInstance().findPlayer(objectId);
 		if (player != null && player.getInstanceId() == this.getId())
 		{
@@ -92,7 +127,6 @@ public class Instance
 			player.sendMessage("You were removed from the instance");
 			player.teleToLocation(TeleportWhereType.Town);
 		}
-		_players.remove(objectId);
 	}
 
 	public void removeNpc(L2Spawn spawn)
@@ -103,6 +137,42 @@ public class Instance
 	public void removeDoor(L2DoorInstance door)
 	{
 		_doors.remove(door);
+	}
+
+	/**
+	 * Adds a door into the instance
+	 * @param doorId - from doors.csv
+	 * @param open - initial state of the door 
+	 */
+	public void addDoor(int doorId, boolean open)
+	{
+		for (L2DoorInstance door: _doors)
+		{
+			if (door.getDoorId() == doorId)
+			{
+				_log.warn("Door ID " + doorId + " already exists in instance " + this.getId());
+				return;
+			}
+		}
+		
+		L2DoorInstance temp = DoorTable.getInstance().getDoor(doorId);
+		L2DoorInstance newdoor = new L2DoorInstance(IdFactory.getInstance().getNextId(), temp.getTemplate(), temp.getDoorId(), temp.getName(), temp.isUnlockable());
+		newdoor.setInstanceId(getId());
+		newdoor.setPos(temp.getPos());
+		try
+		{
+			newdoor.setMapRegion(MapRegionManager.getInstance().getRegion(temp.getX(), temp.getY(), temp.getZ()));
+		}
+		catch (Exception e)
+		{
+			_log.fatal("Error in door data, ID:" + temp.getDoorId(), e);
+		}
+		newdoor.getStatus().setCurrentHpMp(newdoor.getMaxHp(), newdoor.getMaxMp());
+		newdoor.setOpen(open);
+		newdoor.getPosition().setXYZInvisible(temp.getX(), temp.getY(), temp.getZ());
+		newdoor.spawnMe(newdoor.getX(), newdoor.getY(), newdoor.getZ());
+
+		_doors.add(newdoor);
 	}
 
 	public FastSet<Integer> getPlayers()
@@ -118,6 +188,25 @@ public class Instance
 	public FastList<L2DoorInstance> getDoors()
 	{
 		return _doors;
+	}
+
+	public L2DoorInstance getDoor(int id)
+	{
+		for (L2DoorInstance temp: getDoors())
+		{
+			if (temp.getDoorId() == id)
+				return temp;
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the spawn location for this instance to be used when leaving the instance
+	 * @return int[3]
+	 */
+	public int[] getSpawnLoc()
+	{
+		return _spawnLoc;
 	}
 
 	public void removePlayers()
@@ -141,6 +230,25 @@ public class Instance
 		}
 		_doors.clear();
 		_npcs.clear();
+	}
+
+	public void removeDoors()
+	{
+		for (L2DoorInstance door: _doors)
+		{
+			if (door != null)
+			{
+				L2WorldRegion region = door.getWorldRegion();
+				door.decayMe();
+				
+				if (region != null)
+					region.removeVisibleObject(door);
+				
+				door.getKnownList().removeAllKnownObjects();
+				L2World.getInstance().removeObject(door);
+			}
+		}
+		_doors.clear();
 	}
 
 	public void loadInstanceTemplate(String filename) throws FileNotFoundException
@@ -189,7 +297,7 @@ public class Instance
 			{
 				a = n.getAttributes().getNamedItem("val");
 				if (a != null)
-					_CheckTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(Integer.parseInt(a.getNodeValue()) * 60000), 15000);
+					_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(Integer.parseInt(a.getNodeValue()) * 60000), 15000);
 			}
 			/*			else if ("timeDelay".equalsIgnoreCase(n.getNodeName()))
 						{
@@ -197,33 +305,24 @@ public class Instance
 							if (a != null)
 								instance.setTimeDelay(Integer.parseInt(a.getNodeValue()));
 						}*/
+			else if ("allowSummon".equalsIgnoreCase(n.getNodeName()))
+			{
+				a = n.getAttributes().getNamedItem("val");
+				if (a != null)
+					setAllowSummon(Boolean.parseBoolean(a.getNodeValue()));
+			}
 			else if ("doorlist".equalsIgnoreCase(n.getNodeName()))
 			{
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 				{
 					int doorId = 0;
+					boolean doorState = false;
 					if ("door".equalsIgnoreCase(d.getNodeName()))
 					{
 						doorId = Integer.parseInt(d.getAttributes().getNamedItem("doorId").getNodeValue());
-						L2DoorInstance temp = DoorTable.getInstance().getDoor(doorId);
-						L2DoorInstance newdoor = new L2DoorInstance(IdFactory.getInstance().getNextId(), temp.getTemplate(), temp.getDoorId(), temp.getName(),
-								temp.isUnlockable());
-						newdoor.setInstanceId(getId());
-						newdoor.setPos(temp.getPos());
-						try
-						{
-							newdoor.setMapRegion(MapRegionManager.getInstance().getRegion(temp.getX(), temp.getY(), temp.getZ()));
-						}
-						catch (Exception e)
-						{
-							_log.fatal("Error in door data, ID:" + temp.getDoorId());
-						}
-						newdoor.getStatus().setCurrentHpMp(newdoor.getMaxHp(), newdoor.getMaxMp());
-						newdoor.setOpen(false);
-						newdoor.getPosition().setXYZInvisible(temp.getX(), temp.getY(), temp.getZ());
-						newdoor.spawnMe(newdoor.getX(), newdoor.getY(), newdoor.getZ());
-
-						_doors.add(newdoor);
+						if (d.getAttributes().getNamedItem("open") != null)
+							doorState = Boolean.parseBoolean(d.getAttributes().getNamedItem("open").getNodeValue());
+						addDoor(doorId, doorState);
 					}
 				}
 			}
@@ -235,7 +334,6 @@ public class Instance
 
 					if ("spawn".equalsIgnoreCase(d.getNodeName()))
 					{
-
 						npcId = Integer.parseInt(d.getAttributes().getNamedItem("npcId").getNodeValue());
 						x = Integer.parseInt(d.getAttributes().getNamedItem("x").getNodeValue());
 						y = Integer.parseInt(d.getAttributes().getNamedItem("y").getNodeValue());
@@ -256,7 +354,7 @@ public class Instance
 							if (respawn == 0)
 								spawnDat.stopRespawn();
 							else
-								spawnDat.startRespawn();							
+								spawnDat.startRespawn();
 							spawnDat.setInstanceId(getId());
 							L2NpcInstance newmob = spawnDat.doSpawn();
 							_npcs.add(newmob);
@@ -266,6 +364,20 @@ public class Instance
 							_log.warn("Instance: Data missing in NPC table for ID: " + npcTemplate + " in Instance " + getId());
 						}
 					}
+				}
+			}
+			else if ("spawnpoint".equalsIgnoreCase(n.getNodeName()))
+			{
+				try
+				{
+					_spawnLoc = new int[3];
+					_spawnLoc[0] = Integer.parseInt(n.getAttributes().getNamedItem("spawnX").getNodeValue());
+					_spawnLoc[1] = Integer.parseInt(n.getAttributes().getNamedItem("spawnY").getNodeValue());
+					_spawnLoc[2] = Integer.parseInt(n.getAttributes().getNamedItem("spawnZ").getNodeValue());
+				}
+				catch (Exception e)
+				{
+					_log.warn("Error parsing instance xml: " + e);
 				}
 			}
 		}
@@ -322,12 +434,12 @@ public class Instance
 				}
 			}
 		}
-		if (_CheckTimeUpTask != null)
-			_CheckTimeUpTask.cancel(true);
+		if (_checkTimeUpTask != null)
+			_checkTimeUpTask.cancel(true);
 		if (remaining >= 10000)
-			_CheckTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(remaining), interval);
+			_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(remaining), interval);
 		else
-			_CheckTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), interval);
+			_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), interval);
 	}
 
 	private class CheckTimeUp implements Runnable

@@ -147,7 +147,7 @@ public class MinionList
 				double delay = Config.RAID_MINION_RESPAWN_TIMER;
 				if ((current - deathTime) > delay)
 				{
-					spawnSingleMinion(_respawnTasks.get(deathTime),master.getInstanceId());
+					spawnSingleMinion(_respawnTasks.get(deathTime), master.getInstanceId());
 					_respawnTasks.remove(deathTime);
 				}
 			}
@@ -183,7 +183,7 @@ public class MinionList
 
 				for (int i = 0; i < minionsToSpawn; i++)
 				{
-					spawnSingleMinion(minionId,master.getInstanceId());
+					spawnSingleMinion(minionId, master.getInstanceId());
 				}
 			}
 		}
@@ -202,7 +202,7 @@ public class MinionList
 	 * @param minionid The I2NpcTemplate Identifier of the Minion to spawn
 	 * 
 	 */
-	private void spawnSingleMinion(int minionid,int instanceId)
+	private void spawnSingleMinion(int minionid, int instanceId)
 	{
 		// Get the template of the Minion to spawn
 		L2NpcTemplate minionTemplate = NpcTable.getInstance().getTemplate(minionid);

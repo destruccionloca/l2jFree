@@ -67,6 +67,7 @@ public class InstanceManager
 		{
 			temp.removeNpcs();
 			temp.removePlayers();
+			temp.removeDoors();
 			_instanceList.remove(instanceid);
 		}
 	}
@@ -116,7 +117,6 @@ public class InstanceManager
 
 	public int createDynamicInstance(String template) throws FileNotFoundException
 	{
-
 		while (getInstance(_dynamic) != null)
 		{
 			_dynamic++;
@@ -127,7 +127,18 @@ public class InstanceManager
 			}
 		}
 		Instance instance = new Instance(_dynamic);
-		instance.loadInstanceTemplate(template);
+		if (template != null)
+		{
+			try
+			{
+				instance.loadInstanceTemplate(template);
+			}
+			catch (FileNotFoundException e)
+			{
+				_log.warn("InstanceManager: Failed creating instance from template " + template + ", " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
 		_instanceList.put(_dynamic, instance);
 		return _dynamic;
 	}

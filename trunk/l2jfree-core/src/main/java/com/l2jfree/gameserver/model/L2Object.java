@@ -17,12 +17,14 @@ package com.l2jfree.gameserver.model;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.cache.L2Integer;
 import com.l2jfree.gameserver.idfactory.IdFactory;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList;
 import com.l2jfree.gameserver.model.actor.poly.ObjectPoly;
 import com.l2jfree.gameserver.model.actor.position.ObjectPosition;
+import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.GetItem;
@@ -518,6 +520,27 @@ public abstract class L2Object
 	*/
 	public void setInstanceId(int instanceId)
 	{
+		if (_instanceId == instanceId)
+			return;
+
+		if (this instanceof L2PcInstance)
+		{
+			if (_instanceId > 0)
+			{
+				Instance inst = InstanceManager.getInstance().getInstance(_instanceId);
+				if (inst != null)
+					inst.removePlayer(getObjectId());
+			}
+			if (instanceId > 0)
+			{
+				Instance inst = InstanceManager.getInstance().getInstance(instanceId);
+				if (inst != null)
+					inst.addPlayer(getObjectId());
+			}
+			if (((L2PcInstance)this).getPet() != null)
+				((L2PcInstance)this).getPet().setInstanceId(instanceId);
+		}
+
 		_instanceId = instanceId;
 
 		// If we change it for visible objects, me must clear & revalidate knownlists

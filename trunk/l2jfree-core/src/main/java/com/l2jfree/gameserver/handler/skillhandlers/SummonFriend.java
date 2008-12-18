@@ -14,12 +14,15 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
@@ -59,6 +62,18 @@ public class SummonFriend implements ISkillHandler
 			summonerChar.sendPacket(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING);
 			return false;
 		}
+
+		if (summonerChar.getInstanceId() > 0)
+		{
+			Instance summonerInstance = InstanceManager.getInstance().getInstance(summonerChar.getInstanceId());
+			if (summonerInstance != null && (!Config.ALLOW_SUMMON_TO_INSTANCE || !summonerInstance.isSummonAllowed()))
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_MAY_NOT_SUMMON_FROM_YOUR_CURRENT_LOCATION);
+				summonerChar.sendPacket(sm);
+				return false;
+			}
+		}
+
 		return true;
 	}
 
@@ -186,6 +201,8 @@ public class SummonFriend implements ISkillHandler
 			sm.addItemName(itemConsumeId);
 			targetChar.sendPacket(sm);
 		}
+		// set correct instance id
+		targetChar.setInstanceId(summonerChar.getInstanceId());
 		targetChar.teleToLocation(summonerChar.getX(), summonerChar.getY(), summonerChar.getZ(), true);
 	}
 

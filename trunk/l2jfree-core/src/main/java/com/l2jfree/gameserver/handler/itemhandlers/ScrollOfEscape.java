@@ -177,7 +177,7 @@ public class ScrollOfEscape implements IItemHandler
 				if (activeChar.getClan() != null && ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) == null)
 					ret = true;
 				break;
-		}		
+		}
 		if (ret)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
@@ -236,6 +236,7 @@ public class ScrollOfEscape implements IItemHandler
 			_activeChar.enableAllSkills();
 			_activeChar.setIsCastingNow(false);
 			_activeChar.setIsIn7sDungeon(false);
+			_activeChar.setInstanceId(0);
 			
 			try
 			{
