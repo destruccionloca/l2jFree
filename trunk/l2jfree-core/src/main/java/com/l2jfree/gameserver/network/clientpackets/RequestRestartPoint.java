@@ -21,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
+import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -28,6 +29,7 @@ import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
+import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
@@ -117,10 +119,10 @@ public class RequestRestartPoint extends L2GameClientPacket
 
 						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Castle);
 					}
-					if (CastleManager.getInstance().getCastleByOwner(activeChar.getClan())!= null &&
-							CastleManager.getInstance().getCastleByOwner(activeChar.getClan()).getFunction(Castle.FUNC_RESTORE_EXP) != null)
+					Castle castle = CastleManager.getInstance().getCastleByOwner(activeChar.getClan());
+					if (castle != null && castle.getFunction(Castle.FUNC_RESTORE_EXP) != null)
 					{
-						activeChar.restoreExp(CastleManager.getInstance().getCastleByOwner(activeChar.getClan()).getFunction(Castle.FUNC_RESTORE_EXP).getLvl());
+						activeChar.restoreExp(castle.getFunction(Castle.FUNC_RESTORE_EXP).getLvl());
 					}
 					break;
 
@@ -146,6 +148,11 @@ public class RequestRestartPoint extends L2GameClientPacket
 							return;
 
 						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Fortress);
+					}
+					Fort fort = FortManager.getInstance().getFortByOwner(activeChar.getClan());
+					if (fort != null && fort.getFunction(Fort.FUNC_RESTORE_EXP) != null)
+					{
+						activeChar.restoreExp(fort.getFunction(Fort.FUNC_RESTORE_EXP).getLvl());
 					}
 					break;
 

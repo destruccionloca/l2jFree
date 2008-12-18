@@ -37,11 +37,13 @@ public class L2FortZone extends EntityZone
 	protected void onEnter(L2Character character)
 	{
 		super.onEnter(character);
+		character.setInsideZone(FLAG_FORT, true);
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
 		super.onExit(character);
+		character.setInsideZone(FLAG_FORT, false);
 	}
 }

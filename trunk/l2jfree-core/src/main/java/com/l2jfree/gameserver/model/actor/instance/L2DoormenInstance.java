@@ -83,27 +83,27 @@ public class L2DoormenInstance extends L2FolkInstance
 											+ getObjectId()
 											+ "_close_doors\" width=80 height=27 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_CT1.Button_DF\"></center></body></html>"));
 				}
-				else
+				else if (condition == COND_CASTLE_OWNER)
 				{
 					StringTokenizer st = new StringTokenizer(command.substring(10), ", ");
-					st.nextToken(); // Bypass first value since its castleid/hallid
+					st.nextToken(); // Bypass first value since its castleid/hallid/fortid
 
-					if (condition == 2)
+					while (st.hasMoreTokens())
 					{
-						while (st.hasMoreTokens())
-						{
-							getCastle().openDoor(player, Integer.parseInt(st.nextToken()));
-						}
-						return;
+						getCastle().openDoor(player, Integer.parseInt(st.nextToken()));
 					}
-					else if (condition == 4)
+					return;
+				}
+				else if (condition == COND_FORT_OWNER)
+				{
+					StringTokenizer st = new StringTokenizer(command.substring(10), ", ");
+					st.nextToken(); // Bypass first value since its castleid/hallid/fortid
+
+					while (st.hasMoreTokens())
 					{
-						while (st.hasMoreTokens())
-						{
-							getFort().openDoor(player, Integer.parseInt(st.nextToken()));
-						}
-						return;
+						getFort().openDoor(Integer.parseInt(st.nextToken()));
 					}
+					return;
 				}
 			}
 			else if (command.startsWith("close_doors"))
@@ -116,27 +116,27 @@ public class L2DoormenInstance extends L2FolkInstance
 									+ getObjectId()
 									+ "_Chat\" width=80 height=27 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_CT1.Button_DF\"></center></body></html>"));
 				}
-				else
+				else if (condition == COND_CASTLE_OWNER)
 				{
-					StringTokenizer st = new StringTokenizer(command.substring(11), ", ");
-					st.nextToken(); // Bypass first value since its
+					StringTokenizer st = new StringTokenizer(command.substring(10), ", ");
+					st.nextToken(); // Bypass first value since its castleid/hallid/fortid
 
-					if (condition == 2)
+					while (st.hasMoreTokens())
 					{
-						while (st.hasMoreTokens())
-						{
-							getCastle().closeDoor(player, Integer.parseInt(st.nextToken()));
-						}
-						return;
+						getCastle().closeDoor(player, Integer.parseInt(st.nextToken()));
 					}
-					else if (condition == 4)
+					return;
+				}
+				else if (condition == COND_FORT_OWNER)
+				{
+					StringTokenizer st = new StringTokenizer(command.substring(10), ", ");
+					st.nextToken(); // Bypass first value since its castleid/hallid/fortid
+
+					while (st.hasMoreTokens())
 					{
-						while (st.hasMoreTokens())
-						{
-							getFort().closeDoor(player, Integer.parseInt(st.nextToken()));
-						}
-						return;
+						getFort().closeDoor(Integer.parseInt(st.nextToken()));
 					}
+					return;
 				}
 			}
 		}
@@ -239,22 +239,21 @@ public class L2DoormenInstance extends L2FolkInstance
 	{
 		if (player.getClan() != null)
 		{
+			int clanId = player.getClanId();
 			// Prepare doormen for clan hall
 			if (getClanHall() != null)
 			{
-				if (player.getClanId() == getClanHall().getOwnerId())
+				if (getClanHall().getOwnerId() == clanId)
 					return COND_HALL_OWNER;
-
-				return COND_ALL_FALSE;
 			}
-			else if (getCastle() != null && getCastle().getCastleId() > 0)
+			if (getCastle() != null && getCastle().getCastleId() > 0)
 			{
-				if (getCastle().getOwnerId() == player.getClanId()) // Clan owns castle
+				if (getCastle().getOwnerId() == clanId) // Clan owns castle
 					return COND_CASTLE_OWNER;
 			}
-			else if (getFort() != null && getFort().getFortId() > 0)
+			if (getFort() != null && getFort().getFortId() > 0)
 			{
-				if (getFort().getOwnerId() == player.getClanId()) // Clan owns fort
+				if (getFort().getOwnerId() == clanId) // Clan owns fort
 					return COND_FORT_OWNER;
 			}
 		}

@@ -1994,6 +1994,22 @@ public final class Config
 	public static int			FORTSIEGE_CLAN_MIN_LEVEL;
 	public static int			FORTSIEGE_LENGTH_MINUTES;
 
+	public static long			FS_TELE_FEE_RATIO;
+	public static int			FS_TELE1_FEE;
+	public static int			FS_TELE2_FEE;
+	public static long			FS_MPREG_FEE_RATIO;
+	public static int			FS_MPREG1_FEE;
+	public static int			FS_MPREG2_FEE;
+	public static long			FS_HPREG_FEE_RATIO;
+	public static int			FS_HPREG1_FEE;
+	public static int			FS_HPREG2_FEE;
+	public static long			FS_EXPREG_FEE_RATIO;
+	public static int			FS_EXPREG1_FEE;
+	public static int			FS_EXPREG2_FEE;
+	public static long			FS_SUPPORT_FEE_RATIO;
+	public static int			FS_SUPPORT1_FEE;
+	public static int			FS_SUPPORT2_FEE;
+
 	public static void loadFortSiegeConfig()
 	{
 		_log.info("loading " + FORTSIEGE_CONFIGURATION_FILE);
@@ -2010,6 +2026,22 @@ public final class Config
 			FORTSIEGE_FLAG_MAX_COUNT = Integer.parseInt(fortSiegeSettings.getProperty("MaxFlags", "1"));
 			FORTSIEGE_CLAN_MIN_LEVEL = Integer.parseInt(fortSiegeSettings.getProperty("SiegeClanMinLevel", "4"));
 			FORTSIEGE_LENGTH_MINUTES = Integer.parseInt(fortSiegeSettings.getProperty("SiegeLength", "120"));
+
+			FS_TELE_FEE_RATIO           = Long.parseLong(fortSiegeSettings.getProperty("FortressTeleportFunctionFeeRatio", "604800000"));
+			FS_TELE1_FEE                = Integer.parseInt(fortSiegeSettings.getProperty("FortressTeleportFunctionFeeLvl1", "1000"));
+			FS_TELE2_FEE                = Integer.parseInt(fortSiegeSettings.getProperty("FortressTeleportFunctionFeeLvl2", "10000"));
+			FS_SUPPORT_FEE_RATIO        = Long.parseLong(fortSiegeSettings.getProperty("FortressSupportFunctionFeeRatio", "86400000"));
+			FS_SUPPORT1_FEE             = Integer.parseInt(fortSiegeSettings.getProperty("FortressSupportFeeLvl1", "7000"));
+			FS_SUPPORT2_FEE             = Integer.parseInt(fortSiegeSettings.getProperty("FortressSupportFeeLvl2", "17000"));
+			FS_MPREG_FEE_RATIO          = Long.parseLong(fortSiegeSettings.getProperty("FortressMpRegenerationFunctionFeeRatio", "86400000"));
+			FS_MPREG1_FEE               = Integer.parseInt(fortSiegeSettings.getProperty("FortressMpRegenerationFeeLvl1", "6500"));
+			FS_MPREG2_FEE               = Integer.parseInt(fortSiegeSettings.getProperty("FortressMpRegenerationFeeLvl2", "9300"));
+			FS_HPREG_FEE_RATIO          = Long.parseLong(fortSiegeSettings.getProperty("FortressHpRegenerationFunctionFeeRatio", "86400000"));
+			FS_HPREG1_FEE               = Integer.parseInt(fortSiegeSettings.getProperty("FortressHpRegenerationFeeLvl1", "2000"));
+			FS_HPREG2_FEE               = Integer.parseInt(fortSiegeSettings.getProperty("FortressHpRegenerationFeeLvl2", "3500"));
+			FS_EXPREG_FEE_RATIO         = Long.parseLong(fortSiegeSettings.getProperty("FortressExpRegenerationFunctionFeeRatio", "86400000"));
+			FS_EXPREG1_FEE              = Integer.parseInt(fortSiegeSettings.getProperty("FortressExpRegenerationFeeLvl1", "9000"));
+			FS_EXPREG2_FEE              = Integer.parseInt(fortSiegeSettings.getProperty("FortressExpRegenerationFeeLvl2", "10000"));
 		}
 		catch (Exception e)
 		{

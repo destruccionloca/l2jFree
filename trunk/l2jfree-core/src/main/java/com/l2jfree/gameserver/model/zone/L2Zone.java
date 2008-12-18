@@ -122,6 +122,7 @@ public abstract class L2Zone
 	public static final byte FLAG_DANGER		= 13;
 	public static final byte FLAG_CASTLE		= 14;
 	public static final byte FLAG_NOSUMMON		= 15;
+	public static final byte FLAG_FORT			= 16;
 
 	protected int _id;
 	protected String _name;

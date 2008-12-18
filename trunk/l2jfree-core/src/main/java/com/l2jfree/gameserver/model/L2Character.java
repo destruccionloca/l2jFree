@@ -275,7 +275,7 @@ public abstract class L2Character extends L2Object
 			setIsInvul(true);
 	}
 
-	private byte[]	_currentZones	= new byte[16];
+	private byte[]	_currentZones	= new byte[17];
 
 	public boolean isInsideZone(byte zone)
 	{
