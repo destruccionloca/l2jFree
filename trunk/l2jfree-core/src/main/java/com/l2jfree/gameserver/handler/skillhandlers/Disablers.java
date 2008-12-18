@@ -87,6 +87,7 @@ public class Disablers implements ICubicSkillHandler
 	{
 		L2SkillType type = skill.getSkillType();
 
+		byte shld = 0;
 		boolean ss = false;
 		boolean sps = false;
 		boolean bss = false;
@@ -170,6 +171,8 @@ public class Disablers implements ICubicSkillHandler
 			if (target.isPreventedFromReceivingBuffs())
 				continue;
 
+			shld = Formulas.getInstance().calcShldUse(activeChar, target);
+
 			switch (type)
 			{
 			case CANCEL_TARGET:
@@ -201,7 +204,7 @@ public class Disablers implements ICubicSkillHandler
 			}
 			case BETRAY:
 			{
-				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 					skill.getEffects(activeChar, target);
 				else
 				{
@@ -237,7 +240,7 @@ public class Disablers implements ICubicSkillHandler
 				if (target.reflectSkill(skill))
 					target = activeChar;
 
-				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
 					skill.getEffects(activeChar, target);
 				}
@@ -263,7 +266,7 @@ public class Disablers implements ICubicSkillHandler
 				{
 					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, 50);
 				}
-				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
 					skill.getEffects(activeChar, target);
 				}
@@ -289,7 +292,7 @@ public class Disablers implements ICubicSkillHandler
 				{
 					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, 50);
 				}
-				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
 					// stop same type effect if avaiable
 					L2Effect[] effects = target.getAllEffects();
@@ -300,8 +303,7 @@ public class Disablers implements ICubicSkillHandler
 					}
 					// then restart
 					// Make above skills mdef dependant
-					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
-					//if(Formulas.getInstance().calcMagicAffected(activeChar, target, skill))
+					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 					{
 						skill.getEffects(activeChar, target);
 					}
@@ -333,7 +335,7 @@ public class Disablers implements ICubicSkillHandler
 				// do nothing if not on mob
 				if (target instanceof L2Attackable)
 				{
-					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 					{
 						L2Effect[] effects = target.getAllEffects();
 						for (L2Effect e : effects)
@@ -423,7 +425,7 @@ public class Disablers implements ICubicSkillHandler
 			case AGGREDUCE_CHAR:
 			{
 				//these skills needs to be rechecked
-				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
 					if (target instanceof L2Attackable)
 					{
@@ -459,7 +461,7 @@ public class Disablers implements ICubicSkillHandler
 				//these skills needs to be rechecked
 				if (target instanceof L2Attackable && !target.isRaid())
 				{
-					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 					{
 						((L2Attackable) target).reduceHate(null, ((L2Attackable) target).getHating(((L2Attackable) target).getMostHated()));
 					}
@@ -481,7 +483,7 @@ public class Disablers implements ICubicSkillHandler
 			}
 			case ERASE: // Doesn't affect siege golem, wild hog cannon or swoop cannon
 			{
-				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss) && !(target instanceof L2SiegeSummonInstance))
+				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss) && !(target instanceof L2SiegeSummonInstance))
 				{
 					L2PcInstance summonOwner = null;
 					L2Summon summonPet = null;
@@ -511,7 +513,7 @@ public class Disablers implements ICubicSkillHandler
 				if (target.reflectSkill(skill))
 					target = activeChar;
 
-				if (!Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+				if (!Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
 					if (activeChar instanceof L2PcInstance)
 					{
@@ -539,7 +541,7 @@ public class Disablers implements ICubicSkillHandler
 				if (target.reflectSkill(skill))
 					target = activeChar;
 
-				if (!Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+				if (!Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
 					if (activeChar instanceof L2PcInstance)
 					{
@@ -633,7 +635,7 @@ public class Disablers implements ICubicSkillHandler
 				if (target.reflectSkill(skill))
 					target = activeChar;
 
-				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
 					L2Effect[] effects = target.getAllEffects();
 					int maxfive = skill.getMaxNegatedEffects();
@@ -719,7 +721,7 @@ public class Disablers implements ICubicSkillHandler
 				// Touch of Death
 				else if (skill.getId() == 342 && target != activeChar)//can't cancel your self
 				{
-					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 					{
 						L2Effect[] effects = target.getAllEffects();
 						int maxfive = skill.getMaxNegatedEffects();
@@ -846,12 +848,13 @@ public class Disablers implements ICubicSkillHandler
 			if (target.isDead()) //bypass if target is null or dead
 				continue;
 
+			byte shld = Formulas.getInstance().calcShldUse(activeCubic.getOwner(), target);
 			switch (type)
 			{
 				case STUN:
 				case PARALYZE:
 				case ROOT:
-					if (Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill))
+					if (Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill, shld))
 					{
 						// if this is a debuff let the duel manager know about it
 						// so the debuff can be removed after the duel

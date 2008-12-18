@@ -400,7 +400,8 @@ public final class L2Weapon extends L2Equip
 			if (!_onCritConditions[i].test(env))
 				continue;
 
-			if (!Formulas.getInstance().calcSkillSuccess(caster, target, skill, false, false, false))
+			byte shld = Formulas.getInstance().calcShldUse(caster, target);
+			if (!Formulas.getInstance().calcSkillSuccess(caster, target, skill, shld, false, false, false))
 				continue;
 
 			L2Effect effect = target.getFirstEffect(skill.getId());
@@ -448,8 +449,13 @@ public final class L2Weapon extends L2Equip
 			if (!_onCastConditions[i].test(env))
 				continue;
 
-			if (skill.isOffensive() && !Formulas.getInstance().calcSkillSuccess(caster, target, skill, false, false, false))
-				continue;
+			
+			if (skill.isOffensive())
+			{
+				byte shld = Formulas.getInstance().calcShldUse(caster, target);
+				if (!Formulas.getInstance().calcSkillSuccess(caster, target, skill, shld, false, false, false))
+					continue;
+			}
 
 			L2Character[] targets = new L2Character[] { target };
 

@@ -90,7 +90,7 @@ public class Pdam implements ISkillHandler
 				continue;
 
 			boolean dual = activeChar.isUsingDualWeapon();
-			boolean shld = f.calcShldUse(activeChar, target);
+			byte shld = f.calcShldUse(activeChar, target);
 			// PDAM critical chance not affected by buffs, only by STR. Only some skills are meant to crit.
 			boolean crit = false;
 			if (skill.getBaseCritRate() > 0)
@@ -99,7 +99,7 @@ public class Pdam implements ISkillHandler
 			boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER);
 
 			if (skill.ignoreShld())
-				shld = false;
+				shld = 0;
 
 			if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
 				damage = 0;
@@ -157,7 +157,7 @@ public class Pdam implements ISkillHandler
 						{
 							// activate attacked effects, if any
 							target.stopSkillEffects(skill.getId());
-							if (f.calcSkillSuccess(activeChar, target, skill, false, false, false))
+							if (f.calcSkillSuccess(activeChar, target, skill, shld, false, false, false))
 							{
 								skill.getEffects(activeChar, target);
 									

@@ -61,6 +61,29 @@ public class RequestExTryToPutEnchantTargetItem extends L2GameClientPacket
 				return;
 			}
 
+			switch (targetItem.getLocation())
+			{
+				case INVENTORY:
+				case PAPERDOLL:
+				{
+					if (targetItem.getOwnerId() != activeChar.getObjectId())
+					{
+						activeChar.sendPacket(new SystemMessage(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS));
+						activeChar.setActiveEnchantItem(null);
+						activeChar.sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
+						return;
+					}
+					break;
+				}
+				default:
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS));
+					activeChar.setActiveEnchantItem(null);
+					activeChar.sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
+					return;
+				}
+			}
+
 			int itemType2 = targetItem.getItem().getType2();
 			boolean enchantItem = false;
 

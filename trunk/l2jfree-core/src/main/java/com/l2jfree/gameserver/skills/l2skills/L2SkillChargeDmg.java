@@ -53,7 +53,7 @@ public class L2SkillChargeDmg extends L2Skill
 			if (target.isAlikeDead())
 				continue;
 
-			boolean shld = f.calcShldUse(activeChar, target);
+			byte shld = f.calcShldUse(activeChar, target);
 			boolean crit = false;
 			if (getBaseCritRate() > 0)
 				crit = f.calcCrit(getBaseCritRate() * 10 * f.getSTRBonus(activeChar));
