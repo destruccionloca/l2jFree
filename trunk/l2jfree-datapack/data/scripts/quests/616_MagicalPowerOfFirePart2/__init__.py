@@ -4,6 +4,7 @@ from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.gameserver.datatables import SpawnTable
+from com.l2jfree.gameserver.network import SystemChatChannelId
 from com.l2jfree.gameserver.network.serverpackets import CreatureSay
 from com.l2jfree.tools.random import Rnd
 
@@ -35,7 +36,7 @@ def AutoChat(npc,text) :
     chars = npc.getKnownList().getKnownPlayers().values().toArray()
     if chars != None:
        for pc in chars :
-          sm = CreatureSay(npc.getObjectId(), 0, npc.getName(), text)
+          sm = CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Normal, npc.getName(), text)
           pc.sendPacket(sm)
 
 class Quest (JQuest) :
