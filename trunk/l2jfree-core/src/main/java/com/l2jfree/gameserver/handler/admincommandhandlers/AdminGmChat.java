@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 
@@ -108,7 +109,7 @@ public class AdminGmChat implements IAdminCommandHandler
 			else
 				offset = 13;
 			text = command.substring(offset);
-			CreatureSay cs = new CreatureSay(0, 9, activeChar.getName(), text);
+			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, activeChar.getName(), text);
 			GmListTable.broadcastToGMs(cs);
 		}
 		catch (StringIndexOutOfBoundsException e)

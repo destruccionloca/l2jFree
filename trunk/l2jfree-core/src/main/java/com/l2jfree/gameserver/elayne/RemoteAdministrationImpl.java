@@ -225,7 +225,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	{
 		if (!password.equals(pass))
 			return 0;
-		CreatureSay cs = new CreatureSay(0, 9, "Message From Elayne GM Tool", message);
+		CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Message From Elayne GM Tool", message);
 		GmListTable.broadcastToGMs(cs);
 		return GmListTable.getInstance().getAllGms(true).size();
 	}
@@ -238,7 +238,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 		if (!password.equals(pass))
 			return 2;
 		L2PcInstance reciever = L2World.getInstance().getPlayer(player);
-		CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell.getId(), "Elayne GM Tool MSG", message);
+		CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell, "Elayne GM Tool MSG", message);
 		if (reciever != null)
 		{
 			reciever.sendPacket(cs);

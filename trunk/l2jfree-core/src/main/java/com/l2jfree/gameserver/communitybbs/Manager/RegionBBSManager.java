@@ -233,13 +233,13 @@ public class RegionBBSManager extends BaseBBSManager
 					{ "TELL", "[" + activeChar.getName() + " to " + receiver.getName() + "]" });
 					_logChat.log(record);
 				}
-				CreatureSay cs = new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell.getId(), activeChar.getName(), ar3);
+				CreatureSay cs = new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell, activeChar.getName(), ar3);
 				if (!BlockList.isBlocked(receiver, activeChar))
 				{
 					if (!receiver.getMessageRefusal())
 					{
 						receiver.sendPacket(cs);
-						activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell.getId(), "->" + receiver.getName(), ar3));
+						activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell, "->" + receiver.getName(), ar3));
 						htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;" + receiver.getName()
 								+ "\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 						htmlCode.append("</td></tr></table></body></html>");

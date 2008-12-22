@@ -61,7 +61,7 @@ public class ChatTrade implements IChatHandler
 			IrcManager.getInstance().getConnection().sendChan("13+" + activeChar.getName() + ": " + text);
 		}
 
-		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
+		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType, activeChar.getName(), text);
 
 		if (Config.DEFAULT_TRADE_CHAT == ChatMode.REGION)
 		{

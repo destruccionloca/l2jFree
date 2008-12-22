@@ -54,7 +54,7 @@ public class ChatAnnounce implements IChatHandler
 		if (chatType == SystemChatChannelId.Chat_Critical_Announce)
 			text = "** " + text;
 
-		CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
+		CreatureSay cs = new CreatureSay(charObjId, chatType, charName, text);
 
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{

@@ -46,6 +46,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -1711,10 +1712,10 @@ public class SevenSignsFestival implements SpawnListener
 		if (_dawnChatGuide == null || _duskChatGuide == null)
 			return;
 
-		CreatureSay cs = new CreatureSay(_dawnChatGuide.getObjectId(), 1, senderName, message);
+		CreatureSay cs = new CreatureSay(_dawnChatGuide.getObjectId(), SystemChatChannelId.Chat_Shout, senderName, message);
 		_dawnChatGuide.broadcastPacket(cs);
 
-		cs = new CreatureSay(_duskChatGuide.getObjectId(), 1, senderName, message);
+		cs = new CreatureSay(_duskChatGuide.getObjectId(), SystemChatChannelId.Chat_Shout, senderName, message);
 		_duskChatGuide.broadcastPacket(cs);
 	}
 
@@ -2332,7 +2333,7 @@ public class SevenSignsFestival implements SpawnListener
 		{
 			if (_participants.size() > 0)
 			{
-				CreatureSay cs = new CreatureSay(_witchInst.getObjectId(), 0, "Festival Witch", message);
+				CreatureSay cs = new CreatureSay(_witchInst.getObjectId(), SystemChatChannelId.Chat_Normal, "Festival Witch", message);
 
 				for (L2PcInstance participant : _participants)
 				{

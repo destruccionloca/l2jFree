@@ -44,7 +44,7 @@ public class ChatSystem implements IChatHandler
 		//TODO: Find out what this channel is original intended for
 		//      For me it is my emotechannel, because normal all-chan is affected
 		//      by a language skill system. This one is readable by everyone.
-		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName() + "'s Emote", text);
+		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType, activeChar.getName() + "'s Emote", text);
 
 		for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
 		{

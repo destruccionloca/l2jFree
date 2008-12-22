@@ -47,6 +47,7 @@ import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -228,7 +229,7 @@ public class CTF
 			Announcements.getInstance().announceToAll(announce);
 		else
 		{
-			CreatureSay cs = new CreatureSay(0, 2, "", "Announcements : " + announce);
+			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce, "", announce);
 			if (_players != null && !_players.isEmpty())
 			{
 				for (L2PcInstance player : _players)
@@ -282,7 +283,7 @@ public class CTF
 		_player.broadcastPacket(new SocialAction(_player.getObjectId(), 16)); //amazing glow
 		_player._haveFlagCTF = true;
 		_player.broadcastUserInfo();
-		CreatureSay cs = new CreatureSay(_player.getObjectId(), 15, ":", "You got it! Run back! ::"); // 8D
+		CreatureSay cs = new CreatureSay(_player.getObjectId(), SystemChatChannelId.Chat_Commander, ":", "You got it! Run back! ::"); // 8D
 		_player.sendPacket(cs);
 	}
 

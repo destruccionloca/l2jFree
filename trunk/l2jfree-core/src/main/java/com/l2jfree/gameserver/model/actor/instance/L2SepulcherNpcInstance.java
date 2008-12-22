@@ -435,7 +435,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 		Collection<L2PcInstance> knownPlayers = L2World.getInstance().getAllPlayers();
 		if (knownPlayers == null || knownPlayers.isEmpty())
 			return;
-		CreatureSay sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), getName(), msg);
+		CreatureSay sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, getName(), msg);
 		for (L2PcInstance player : knownPlayers)
 		{
 			if(player == null)

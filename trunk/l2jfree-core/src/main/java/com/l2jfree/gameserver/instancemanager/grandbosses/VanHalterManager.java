@@ -39,6 +39,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
@@ -993,7 +994,7 @@ public class VanHalterManager extends BossLair
 		spawnGuardOfAltar();
 		openDoorOfSacrifice();
 
-		CreatureSay cs = new CreatureSay(0, 1, "Altar's Gatekeeper", "The door of the 3rd floor in the altar was opened.");
+		CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Altar's Gatekeeper", "The door of the 3rd floor in the altar was opened.");
 		for (L2PcInstance pc : getPlayersInside())
 		{
 			pc.sendPacket(cs);

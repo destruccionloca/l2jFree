@@ -212,7 +212,7 @@ public class L2Event
 
     public static void announceAllPlayers(String text)
     {
-        CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), "", text);
+        CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce, "", text);
 
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {

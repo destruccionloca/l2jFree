@@ -457,7 +457,7 @@ public final class PetitionManager
 
 			if (currPetition.getPetitioner() != null && currPetition.getPetitioner().getObjectId() == player.getObjectId())
 			{
-				cs = new CreatureSay(player.getObjectId(), SystemChatChannelId.Chat_User_Pet.getId(), player.getName(), messageText);
+				cs = new CreatureSay(player.getObjectId(), SystemChatChannelId.Chat_User_Pet, player.getName(), messageText);
 				currPetition.addLogMessage(cs);
 
 				currPetition.sendResponderPacket(cs);
@@ -467,7 +467,7 @@ public final class PetitionManager
 
 			if (currPetition.getResponder() != null && currPetition.getResponder().getObjectId() == player.getObjectId())
 			{
-				cs = new CreatureSay(player.getObjectId(), SystemChatChannelId.Chat_GM_Pet.getId(), player.getName(), messageText);
+				cs = new CreatureSay(player.getObjectId(), SystemChatChannelId.Chat_GM_Pet, player.getName(), messageText);
 				currPetition.addLogMessage(cs);
 
 				currPetition.sendResponderPacket(cs);
@@ -525,7 +525,7 @@ public final class PetitionManager
 
 		// Notify all GMs that a new petition has been submitted.
 		String msgContent = petitioner.getName() + " has submitted a new petition."; //(ID: " + newPetitionId + ")."; 
-		GmListTable.broadcastToGMs(new CreatureSay(petitioner.getObjectId(), 17, "Petition System", msgContent));
+		GmListTable.broadcastToGMs(new CreatureSay(petitioner.getObjectId(), SystemChatChannelId.Chat_Hero, "Petition System", msgContent));
 
 		return newPetitionId;
 	}

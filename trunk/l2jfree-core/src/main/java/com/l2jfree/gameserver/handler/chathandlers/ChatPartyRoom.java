@@ -59,7 +59,7 @@ public class ChatPartyRoom implements IChatHandler
 			L2CommandChannel chan = party.getCommandChannel();
 			if (chan != null && party.isLeader(activeChar))
 			{
-				CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
+				CreatureSay cs = new CreatureSay(charObjId, chatType, charName, text);
 				//activeChar.getParty().getCommandChannel().broadcastToChannelMembers(cs);
 				chan.broadcastCSToChannelMembers(cs, activeChar);
 			}

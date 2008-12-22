@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -413,14 +414,14 @@ public class Instance
 		{
 			timeLeft = remaining / 1000;
 			interval = 30000;
-			cs = new CreatureSay(0, 9, "Notice", timeLeft + " seconds left.");
+			cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Notice", timeLeft + " seconds left.");
 			remaining = remaining - 30000;
 		}
 		else
 		{
 			timeLeft = remaining / 1000;
 			interval = 10000;
-			cs = new CreatureSay(0, 9, "Notice", timeLeft + " seconds left.");
+			cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Notice", timeLeft + " seconds left.");
 			remaining = remaining - 10000;
 		}
 		if (cs != null)

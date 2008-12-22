@@ -678,15 +678,15 @@ public class L2BoatInstance extends L2Character
 			case 10:
 				if (_cycle == 1)
 				{
-					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), _t1.npc1, _t1.sysmess10_1);
+					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t1.npc1, _t1.sysmess10_1);
 					if (getId() == 5)
-						sm2 = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), _t1.npc1, _t1.sysmess5_1);
+						sm2 = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t1.npc1, _t1.sysmess5_1);
 				}
 				else
 				{
-					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), _t2.npc1, _t2.sysmess10_1);
+					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t2.npc1, _t2.sysmess10_1);
 					if (getId() == 5)
-						sm2 = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), _t2.npc1, _t2.sysmess5_1);
+						sm2 = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t2.npc1, _t2.sysmess5_1);
 				}
 				ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
 				if (knownPlayers == null || knownPlayers.isEmpty())
@@ -703,11 +703,11 @@ public class L2BoatInstance extends L2Character
 			case 5:
 				if (_cycle == 1)
 				{
-					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), _t1.npc1, _t1.sysmess5_1);
+					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t1.npc1, _t1.sysmess5_1);
 				}
 				else
 				{
-					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), _t2.npc1, _t2.sysmess5_1);
+					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t2.npc1, _t2.sysmess5_1);
 				}
 				ps = new PlaySound(0, "itemsound.ship_5min", 1, getObjectId(), getX(), getY(), getZ());
 				if (knownPlayers == null || knownPlayers.isEmpty())
@@ -721,11 +721,11 @@ public class L2BoatInstance extends L2Character
 			case 1:
 				if (_cycle == 1)
 				{
-					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), _t1.npc1, _t1.sysmess1_1);
+					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t1.npc1, _t1.sysmess1_1);
 				}
 				else
 				{
-					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), _t2.npc1, _t2.sysmess1_1);
+					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t2.npc1, _t2.sysmess1_1);
 				}
 				ps = new PlaySound(0, "itemsound.ship_1min", 1, getObjectId(), getX(), getY(), getZ());
 				if (knownPlayers == null || knownPlayers.isEmpty())
@@ -739,11 +739,11 @@ public class L2BoatInstance extends L2Character
 			case 0:
 				if (_cycle == 1)
 				{
-					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), _t1.npc1, _t1.sysmess0_1);
+					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t1.npc1, _t1.sysmess0_1);
 				}
 				else
 				{
-					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), _t2.npc1, _t2.sysmess0_1);
+					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t2.npc1, _t2.sysmess0_1);
 				}
 				if (knownPlayers == null || knownPlayers.isEmpty())
 					return;
@@ -756,11 +756,11 @@ public class L2BoatInstance extends L2Character
 			case -1:
 				if (_cycle == 1)
 				{
-					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), _t1.npc1, _t1.sysmessb_1);
+					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t1.npc1, _t1.sysmessb_1);
 				}
 				else
 				{
-					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(), _t2.npc1, _t2.sysmessb_1);
+					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t2.npc1, _t2.sysmessb_1);
 				}
 				ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
 				for (L2PcInstance player : knownPlayers)

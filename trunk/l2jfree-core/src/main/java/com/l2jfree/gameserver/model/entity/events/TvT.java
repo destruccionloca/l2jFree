@@ -43,6 +43,7 @@ import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -103,7 +104,7 @@ public class TvT
 			Announcements.getInstance().announceToAll(announce);
 		else
 		{
-			CreatureSay cs = new CreatureSay(0, 2, "", "Announcements : " + announce);
+			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce, "", announce);
 			if (_players != null && !_players.isEmpty())
 			{
 				for (L2PcInstance player : _players)

@@ -57,7 +57,7 @@ public class L2PenaltyMonsterInstance extends L2MonsterInstance
 	{
 		if (Rnd.nextInt(100) <= 80)
 		{
-			CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal.getId(), getName(), "Mmm, your bait was delicious!");
+			CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal, getName(), "Mmm, your bait was delicious!");
 			broadcastPacket(cs);
 		}
 		_ptk = ptk;
@@ -74,7 +74,7 @@ public class L2PenaltyMonsterInstance extends L2MonsterInstance
 
 		if (Rnd.nextInt(100) <= 75)
 		{
-			CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal.getId(), getName(), "I will tell fishes not to take your bait!");
+			CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal, getName(), "I will tell fishes not to take your bait!");
 			broadcastPacket(cs);
 		}
 		return true;

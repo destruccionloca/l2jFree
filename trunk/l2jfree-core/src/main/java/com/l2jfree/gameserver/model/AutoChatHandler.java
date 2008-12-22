@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.tools.random.Rnd;
 
@@ -845,7 +846,7 @@ public class AutoChatHandler implements SpawnListener
 
                         if (text.contains("%player_")) return;
 
-                        chatNpc.broadcastPacket(new CreatureSay(chatNpc.getObjectId(), 0, creatureName, text));
+                        chatNpc.broadcastPacket(new CreatureSay(chatNpc.getObjectId(), SystemChatChannelId.Chat_Normal, creatureName, text));
 
                         if (_log.isDebugEnabled())
                             _log.info("AutoChatHandler: Chat propogation for object ID "

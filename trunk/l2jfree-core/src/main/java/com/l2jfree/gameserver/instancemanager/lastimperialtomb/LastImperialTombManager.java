@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -327,7 +328,7 @@ public class LastImperialTombManager extends BossLair
 
 		if (remaining == (Config.LIT_REGISTRATION_TIME * 60000))
 		{
-			cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "Entrance is now possible.");
+			cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), "Entrance is now possible.");
 			npc.broadcastPacket(cs);
 		}
 
@@ -335,26 +336,26 @@ public class LastImperialTombManager extends BossLair
 		{
 			if (remaining > 60000)
 			{
-				cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), (remaining / 60000) + " minute(s) left for entrance.");
+				cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), (remaining / 60000) + " minute(s) left for entrance.");
 				npc.broadcastPacket(cs);
 				remaining = remaining - 60000;
 
 				switch (Config.LIT_REGISTRATION_MODE)
 				{
 				case 1:
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "For entrance, at least " + Config.LIT_MIN_PARTY_CNT + " parties are needed.");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), "For entrance, at least " + Config.LIT_MIN_PARTY_CNT + " parties are needed.");
 					npc.broadcastPacket(cs);
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), Config.LIT_MAX_PARTY_CNT + " is the maximum party count.");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), Config.LIT_MAX_PARTY_CNT + " is the maximum party count.");
 					npc.broadcastPacket(cs);
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "The current number of registered parties is " + _partyLeaders.size() + ".");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), "The current number of registered parties is " + _partyLeaders.size() + ".");
 					npc.broadcastPacket(cs);
 					break;
 				case 2:
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "For entrance, at least " + Config.LIT_MIN_PLAYER_CNT + " people are needed.");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), "For entrance, at least " + Config.LIT_MIN_PLAYER_CNT + " people are needed.");
 					npc.broadcastPacket(cs);
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), Config.LIT_MAX_PLAYER_CNT + " is the capacity.");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), Config.LIT_MAX_PLAYER_CNT + " is the capacity.");
 					npc.broadcastPacket(cs);
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), _registedPlayers.size() + " people are currently registered.");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), _registedPlayers.size() + " people are currently registered.");
 					npc.broadcastPacket(cs);
 					break;
 				}
@@ -365,26 +366,26 @@ public class LastImperialTombManager extends BossLair
 			}
 			else
 			{
-				cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), (remaining / 60000) + " minute(s) left for entrance.");
+				cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), (remaining / 60000) + " minute(s) left for entrance.");
 				npc.broadcastPacket(cs);
 				remaining = remaining - 10000;
 
 				switch (Config.LIT_REGISTRATION_MODE)
 				{
 				case 1:
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "For entrance, at least " + Config.LIT_MIN_PARTY_CNT + " parties are needed.");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), "For entrance, at least " + Config.LIT_MIN_PARTY_CNT + " parties are needed.");
 					npc.broadcastPacket(cs);
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), Config.LIT_MAX_PARTY_CNT + " is the maximum party count.");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), Config.LIT_MAX_PARTY_CNT + " is the maximum party count.");
 					npc.broadcastPacket(cs);
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "The current number of registered parties is " + _partyLeaders.size() + ".");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), "The current number of registered parties is " + _partyLeaders.size() + ".");
 					npc.broadcastPacket(cs);
 					break;
 				case 2:
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "For entrance, at least " + Config.LIT_MIN_PLAYER_CNT + " people are needed.");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), "For entrance, at least " + Config.LIT_MIN_PLAYER_CNT + " people are needed.");
 					npc.broadcastPacket(cs);
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), Config.LIT_MAX_PLAYER_CNT + " is the capacity.");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), Config.LIT_MAX_PLAYER_CNT + " is the capacity.");
 					npc.broadcastPacket(cs);
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), _registedPlayers.size() + " people are currently registered.");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), _registedPlayers.size() + " people are currently registered.");
 					npc.broadcastPacket(cs);
 					break;
 				}
@@ -396,7 +397,7 @@ public class LastImperialTombManager extends BossLair
 		}
 		else
 		{
-			cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "Entrance period ended.");
+			cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), "Entrance period ended.");
 			npc.broadcastPacket(cs);
 
 			switch (Config.LIT_REGISTRATION_MODE)
@@ -404,7 +405,7 @@ public class LastImperialTombManager extends BossLair
 			case 1:
 				if ((_partyLeaders.size() < Config.LIT_MIN_PARTY_CNT) || (_partyLeaders.size() > Config.LIT_MAX_PARTY_CNT))
 				{
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "Since the conditions were not met, the entrance was refused.");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), "Since the conditions were not met, the entrance was refused.");
 					npc.broadcastPacket(cs);
 					return;
 				}
@@ -412,7 +413,7 @@ public class LastImperialTombManager extends BossLair
 			case 2:
 				if ((_registedPlayers.size() < Config.LIT_MIN_PLAYER_CNT) || (_registedPlayers.size() > Config.LIT_MAX_PLAYER_CNT))
 				{
-					cs = new CreatureSay(npc.getObjectId(), 1, npc.getName(), "Since the conditions were not met, the entrance was refused.");
+					cs = new CreatureSay(npc.getObjectId(), SystemChatChannelId.Chat_Shout, npc.getName(), "Since the conditions were not met, the entrance was refused.");
 					npc.broadcastPacket(cs);
 					return;
 				}
@@ -782,28 +783,28 @@ public class LastImperialTombManager extends BossLair
 		{
 			timeLeft = remaining / 60000;
 			interval = 300000;
-			cs = new CreatureSay(0, 9, "Notice", timeLeft + " minutes left.");
+			cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Notice", timeLeft + " minutes left.");
 			remaining = remaining - 300000;
 		}
 		else if (remaining > 60000)
 		{
 			timeLeft = remaining / 60000;
 			interval = 60000;
-			cs = new CreatureSay(0, 9, "Notice", timeLeft + " minutes left.");
+			cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Notice", timeLeft + " minutes left.");
 			remaining = remaining - 60000;
 		}
 		else if (remaining > 30000)
 		{
 			timeLeft = remaining / 1000;
 			interval = 30000;
-			cs = new CreatureSay(0, 9, "Notice", timeLeft + " seconds left.");
+			cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Notice", timeLeft + " seconds left.");
 			remaining = remaining - 30000;
 		}
 		else
 		{
 			timeLeft = remaining / 1000;
 			interval = 10000;
-			cs = new CreatureSay(0, 9, "Notice", timeLeft + " seconds left.");
+			cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Notice", timeLeft + " seconds left.");
 			remaining = remaining - 10000;
 		}
 

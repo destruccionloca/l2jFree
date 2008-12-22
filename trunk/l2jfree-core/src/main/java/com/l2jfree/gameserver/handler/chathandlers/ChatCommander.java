@@ -60,7 +60,7 @@ public class ChatCommander implements IChatHandler
 			{
 				if (party.getCommandChannel().getChannelLeader() == activeChar)
 				{
-					CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
+					CreatureSay cs = new CreatureSay(charObjId, chatType, charName, text);
 					party.getCommandChannel().broadcastToChannelMembers(cs);
 				}
 				else
@@ -70,7 +70,7 @@ public class ChatCommander implements IChatHandler
 			{
 				if (party.getLeader() == activeChar)
 				{
-					CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
+					CreatureSay cs = new CreatureSay(charObjId, chatType, charName, text);
 					//party.getCommandChannel().broadcastToChannelMembers(cs);
 					party.getCommandChannel().broadcastCSToChannelMembers(cs, activeChar);
 				}

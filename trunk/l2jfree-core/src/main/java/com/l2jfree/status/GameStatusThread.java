@@ -473,9 +473,9 @@ public class GameStatusThread extends Thread
 						String name = st.nextToken();
 						String message = val.substring(name.length() + 1);
 						L2PcInstance reciever = L2World.getInstance().getPlayer(name);
-						CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell.getId(), "Telnet Priv", message);
+						CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell, "Telnet Priv", message);
 						if (Config.ALT_TELNET)
-							cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell.getId(), gmname + "(offline)", message);
+							cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell, gmname + "(offline)", message);
 						if (reciever != null)
 						{
 							reciever.sendPacket(cs);
@@ -499,7 +499,7 @@ public class GameStatusThread extends Thread
 					try
 					{
 						_usrCommand = _usrCommand.substring(7);
-						CreatureSay cs = new CreatureSay(0, 9, "Telnet GM Broadcast from " + _cSocket.getInetAddress().getHostAddress(), _usrCommand);
+						CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Alliance, "Telnet GM Broadcast from " + _cSocket.getInetAddress().getHostAddress(), _usrCommand);
 						GmListTable.broadcastToGMs(cs);
 						_print.println("Your Message Has Been Sent To " + getOnlineGMS() + " GM(s).");
 					}

@@ -88,7 +88,7 @@ public class Announcements
 	{
 		for (int i = 0; i < _announcements.size(); i++)
 		{
-			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), activeChar.getName(), _announcements.get(i).replace("%name%",
+			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce, activeChar.getName(), _announcements.get(i).replace("%name%",
 					activeChar.getName()));
 			activeChar.sendPacket(cs);
 		}
@@ -211,7 +211,7 @@ public class Announcements
 
 	public void announceToAll(String text)
 	{
-		CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), "", text);
+		CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce, "", text);
 
 		if (Config.IRC_ENABLED && Config.IRC_ANNOUNCE)
 			IrcManager.getInstance().getConnection().sendChan("10Announce: " + text);

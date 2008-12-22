@@ -467,7 +467,7 @@ public class L2Attackable extends L2NpcInstance
 			_firstCommandChannelAttacked = attacker.getParty().getCommandChannel();
 			_commandChannelTimer = new CommandChannelTimer(this, attacker.getParty().getCommandChannel());
 			ThreadPoolManager.getInstance().scheduleGeneral(_commandChannelTimer, 300000); // 5 min
-			_firstCommandChannelAttacked.broadcastToChannelMembers(new CreatureSay(0, SystemChatChannelId.Chat_Party_Room.getId(), "",
+			_firstCommandChannelAttacked.broadcastToChannelMembers(new CreatureSay(0, SystemChatChannelId.Chat_Party_Room, "",
 					"You have looting rights!"));
 		}
 

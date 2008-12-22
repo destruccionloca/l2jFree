@@ -18,6 +18,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.instancemanager.PetitionManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -71,7 +72,7 @@ public class RequestPetitionCancel extends L2GameClientPacket
                     
                     // Notify all GMs that the player's pending petition has been cancelled.
                     String msgContent = activeChar.getName() + " has canceled a pending petition."; 
-                    GmListTable.broadcastToGMs(new CreatureSay(activeChar.getObjectId(), 17, "Petition System", msgContent));
+                    GmListTable.broadcastToGMs(new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Hero, "Petition System", msgContent));
 				}
 				else 
 				{

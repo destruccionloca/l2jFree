@@ -62,9 +62,9 @@ public class ChatWhisper implements IChatHandler
 					activeChar.sendMessage(receiver.getName()+" is currently muted.");
 					return;
 				}
-				receiver.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text));
+				receiver.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType, activeChar.getName(), text));
 				receiver.broadcastSnoop(chatType.getId(), activeChar.getName(), text);
-				activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType.getId(), "->" + receiver.getName(), text));
+				activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType, "->" + receiver.getName(), text));
 				activeChar.broadcastSnoop(chatType.getId(), "->" + receiver.getName(), text);
 			}
 			else

@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2NpcWalkerAI;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Character;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -84,7 +85,7 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
 		//we send message to known players only!
 		if (_knownPlayers.size() > 0)
 		{
-			CreatureSay cs = new CreatureSay(getObjectId(), 0, getName(), chat);
+			CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal, getName(), chat);
 
 			//we interact and list players here
 			for (L2PcInstance players : _knownPlayers.values())

@@ -260,15 +260,15 @@ public class L2IrcClient extends Thread
 
 			if (msg.startsWith("ACTION") && Config.IRC_ME_SUPPORT)
 			{
-				Integer MeType = 1;
+				SystemChatChannelId channel = SystemChatChannelId.Chat_Shout;
 				if (Config.IRC_TO_GAME_ME_DISPLAY.equals("trade"))
-					MeType = 8;
+					channel = SystemChatChannelId.Chat_Market;
 				if (Config.IRC_TO_GAME_ME_DISPLAY.equals("hero"))
-					MeType = 17;
+					channel = SystemChatChannelId.Chat_Hero;
 
 				String me;
 				me = " * " + u.getNick() + msg.substring(6);
-				CreatureSay cs = new CreatureSay(0, MeType, "[IRC]", me);
+				CreatureSay cs = new CreatureSay(0, channel, "[IRC]", me);
 
 				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 				{
@@ -289,14 +289,14 @@ public class L2IrcClient extends Thread
 						else
 							sendmsg = msg;
 
-						Integer ChatType = 1;
+						SystemChatChannelId channel = SystemChatChannelId.Chat_Shout;
 
 						if (Config.IRC_TO_GAME_DISPLAY.equals("trade"))
-							ChatType = 8;
+							channel = SystemChatChannelId.Chat_Market;
 						if (Config.IRC_TO_GAME_DISPLAY.equals("hero"))
-							ChatType = 17;
+							channel = SystemChatChannelId.Chat_Hero;
 
-						CreatureSay cs = new CreatureSay(0, ChatType, "[IRC] " + u.getNick(), sendmsg);
+						CreatureSay cs = new CreatureSay(0, channel, "[IRC] " + u.getNick(), sendmsg);
 
 						for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 						{
