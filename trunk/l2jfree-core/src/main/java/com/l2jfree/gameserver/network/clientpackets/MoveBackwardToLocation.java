@@ -23,6 +23,8 @@ import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
+import com.l2jfree.gameserver.util.IllegalPlayerAction;
+import com.l2jfree.gameserver.util.Util;
 
 
 /**
@@ -101,6 +103,7 @@ public class MoveBackwardToLocation extends L2GameClientPacket
         {
             activeChar.setInBoat(false);
         }
+        
         if (activeChar.getTeleMode() > 0)
         {
             if (activeChar.getTeleMode() == 1)
@@ -108,6 +111,13 @@ public class MoveBackwardToLocation extends L2GameClientPacket
             activeChar.sendPacket(ActionFailed.STATIC_PACKET);
             activeChar.teleToLocation(_targetX, _targetY, _targetZ, false);
             return;
+        }
+        
+        if (activeChar.isDead() || activeChar.isAlikeDead())
+        {
+        	Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + 
+        			" tried to move while being dead. L2Walker protection.", 
+        			IllegalPlayerAction.PUNISH_KICKBAN);
         }
         
         if (_moveMovement == 0 && !Config.GEO_MOVE_PC) // cursor movement without geodata movement check is disabled
@@ -118,12 +128,14 @@ public class MoveBackwardToLocation extends L2GameClientPacket
         {
             double dx = _targetX-_curX;
             double dy = _targetY-_curY;
+            
             // Can't move if character is confused, or trying to move a huge distance
             if (activeChar.isOutOfControl() || ((dx*dx+dy*dy) > 98010000)) // 9900*9900
             {
                 activeChar.sendPacket(ActionFailed.STATIC_PACKET);
                 return;
             }
+            
             activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
                     new L2CharPosition(_targetX, _targetY, _targetZ, 0));
             
