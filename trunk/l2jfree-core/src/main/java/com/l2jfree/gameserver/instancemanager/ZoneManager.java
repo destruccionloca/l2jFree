@@ -37,7 +37,7 @@ public class ZoneManager
 
 	private static ZoneManager					_instance;
 
-	private FastMap<ZoneType, FastMap<Integer, L2Zone>> _zones;
+	private FastMap<ZoneType, FastMap<String, L2Zone>> _zones;
 
 	public static final ZoneManager getInstance()
 	{
@@ -147,24 +147,24 @@ public class ZoneManager
 		return (short) ((rx << 8) + ry);
 	}
 
-	public FastMap<L2Zone.ZoneType, FastMap<Integer, L2Zone>> getZoneMap()
+	public FastMap<L2Zone.ZoneType, FastMap<String, L2Zone>> getZoneMap()
 	{
 		if (_zones == null)
-			_zones = new FastMap<L2Zone.ZoneType, FastMap<Integer, L2Zone>>();
+			_zones = new FastMap<L2Zone.ZoneType, FastMap<String, L2Zone>>();
 		return _zones;
 	}
 
-	public FastMap<Integer, L2Zone> getZones(L2Zone.ZoneType type)
+	public FastMap<String, L2Zone> getZones(L2Zone.ZoneType type)
 	{
 		if (!getZoneMap().containsKey(type))
-			getZoneMap().put(type, new FastMap<Integer, L2Zone>());
+			getZoneMap().put(type, new FastMap<String, L2Zone>());
 
 		return getZoneMap().get(type);
 	}
 
-	public L2Zone getZone(L2Zone.ZoneType type, int id)
+	public L2Zone getZone(L2Zone.ZoneType type, String name)
 	{
-		return getZones(type).get(id);
+		return getZones(type).get(name);
 	}
 
 	public final L2Zone isInsideZone(L2Zone.ZoneType zt, int x, int y)
