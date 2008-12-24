@@ -2568,8 +2568,8 @@ public class L2Skill
 				{
 					if (onlyFirst == false)
 						targetList.add(player);
-
-					return new L2Character[] { player };
+					else
+						return new L2Character[] { player };
 				}
 
 				if (activeChar.getPet() != null)
