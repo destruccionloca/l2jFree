@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
-import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -22,13 +21,6 @@ import com.l2jfree.gameserver.network.serverpackets.NpcInfo;
 
 public class L2WaterZone extends L2DefaultZone
 {
-	@Override
-	protected void register()
-	{
-		// Required for fishing
-		ZoneManager.getInstance().getZones(ZoneType.Water).add(this);
-	}
-
 	@Override
 	protected void onEnter(L2Character character)
 	{

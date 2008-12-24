@@ -80,7 +80,7 @@ public class L2DynamicZone extends L2DefaultZone
 	@Override
 	public void revalidateInZone(L2Character character)
 	{
-		if (checkCondition(character) && isCorrectType(character) && isInsideZone(character))
+		if (_enabled && checkCondition(character) && isCorrectType(character) && isInsideZone(character))
 		{
 			if (!_characterList.containsKey(character.getObjectId()))
 			{

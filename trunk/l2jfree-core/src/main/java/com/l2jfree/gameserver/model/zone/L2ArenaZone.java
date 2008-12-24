@@ -20,12 +20,6 @@ import com.l2jfree.gameserver.model.L2Character;
 public class L2ArenaZone extends L2DefaultZone
 {
 	@Override
-	protected void register()
-	{
-		ZoneManager.getInstance().getZones(ZoneType.Arena).add(this);
-	}
-
-	@Override
 	protected void onEnter(L2Character character)
 	{
 		super.onEnter(character);

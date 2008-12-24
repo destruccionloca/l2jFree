@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -127,6 +128,8 @@ public abstract class L2Zone
 	protected int _id;
 	protected String _name;
 
+	protected boolean _enabled;
+
 	protected Shape[] _shapes;
 	protected Shape[] _exShapes;
 	protected FastMap<Integer, L2Character> _characterList;
@@ -185,6 +188,11 @@ public abstract class L2Zone
 		return _name;
 	}
 
+	public ZoneType getType()
+	{
+		return _type;
+	}
+
 	public String getClassName()
 	{
 		String[] parts = this.getClass().toString().split("\\.");
@@ -226,6 +234,11 @@ public abstract class L2Zone
 		return _pvp == PvpSettings.PEACE;
 	}
 
+	public void setEnabled(boolean val)
+	{
+		_enabled = val;
+	}
+
 	public FastMap<RestartType, FastList<Location>> getRestartMap()
 	{
 		if (_restarts == null)
@@ -248,7 +261,7 @@ public abstract class L2Zone
 
 	public void revalidateInZone(L2Character character)
 	{
-		if (isCorrectType(character) && isInsideZone(character))
+		if (_enabled && isCorrectType(character) && isInsideZone(character))
 		{
 			if (!_characterList.containsKey(character.getObjectId()))
 			{
@@ -657,6 +670,7 @@ public abstract class L2Zone
 		exShapes.clear();
 
 		zone.register();
+		ZoneManager.getInstance().getZones(zone.getType()).put(zone.getId(), zone);
 
 		return zone;
 	}
