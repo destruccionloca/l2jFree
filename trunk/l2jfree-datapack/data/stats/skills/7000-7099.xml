@@ -78,7 +78,7 @@
     Greatly enhances alliance members' HP restoration.
     Effect 6.
   -->
-  <skill id="7006" levels="1" name="The Love of Pa'agrio">
+  <skill id="7006" levels="13" name="The Love of Pa'agrio">
     <!-- Needs to be done -->
     <set name="mpConsume" val="272" />
     <set name="target" val="TARGET_CLAN" />
@@ -447,7 +447,7 @@
       A GM is always by your side. Increases critical attack
       rate temporarily. Effect 3.
     -->
-    <table name="#Tab-cAtk">1.5</table>
+    <table name="#Tab-cAtk">1.35</table>
     <set name="mpConsume" val="2" />
     <set name="magicLvl" val="1" />
     <set name="target" val="TARGET_ONE" />

@@ -7,25 +7,18 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
-  <!-- NPC Short-Range Physical Resistance -->
   <skill id="5601" levels="12" name="Short-Range Physical Attack Resistance">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
-  <!-- Sacrifice. A state in which HP cannot be recovered. -->
   <skill id="5602" levels="1" name="Transform Sacrifice">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
-  <!--
-    A state in which MP consumption of skills is greatly
-    decreased, and the probability of a vital spot jab is
-    increased.
-  -->
   <skill id="5603" levels="1" name="Dagger Mastery">
     <set name="activationChance" val="25"/>
     <set name="castRange" val="-1"/>
@@ -47,11 +40,6 @@
       </effect>
     </for>
   </skill>
-  <!--
-    A state in which MP consumption of skills is greatly
-    decreased, and the success rate of stun attack is
-    increased.
-  -->
   <skill id="5604" levels="1" name="Blunt Mastery">
     <set name="activationChance" val="25"/>
     <set name="castRange" val="-1"/>
@@ -70,30 +58,18 @@
       </effect>
     </for>
   </skill>
-  <!--
-    Power of Apella. Increased M. Def., increased critical
-    rate, and decreased critical power.
-  -->
   <skill id="5605" levels="2" name="Power of Apella">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
-  <!--
-    Power of Apella. Increased Dodge, increased Atk. Spd.,
-    and decreased critical power.
-  -->
   <skill id="5607" levels="2" name="Power of Apella">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
-  <!--
-    Power of Apella. Increased P. Def., increased M. Atk.,
-    and decreased Speed.
-  -->
   <skill id="5608" levels="2" name="Power of Apella">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -124,81 +100,41 @@
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
-  <!--
-    Provides the ability to recover HP temporarily by
-    damaging the enemy. Excludes damage caused by skills and
-    long-range attacks. Effect 4.
-  -->
   <skill id="5613" levels="4" name="Vampiric Rage">
+    <!--
+      Provides the ability to recover HP temporarily by
+      damaging the enemy. Excludes damage caused by skills and
+      long-range attacks. Effect 4.
+    -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
-  <!--
-    He was one of the Devil's retainers from Asmodae, and
-    Beleth placed him among the people in order to rule
-    Hellbound. Although he took over the power and turned
-    Hellbound into the devil's territory after Beleth
-    disappeared for magic experiments. Beleth does not
-    really care about it.
-  -->
   <skill id="5614" levels="1" name="Raid Boss - Level 87">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
-  <!--
-    He was created when a large number of elemental spirits
-    that were constrained in the basement of Tower of Naia
-    were transformed after being affected by Beleth's magic
-    and Core Naia. Although it is a monster with an unstable
-    shape and mind, which is about to be destroyed, it is
-    still slightly conscious as a nature spirit.
-  -->
   <skill id="5615" levels="1" name="Raid Boss - Level 87">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
-  <!--
-    He was created when a large number of elemental spirits
-    that were constrained in the basement of Tower of Naia
-    were transformed after being affected by Beleth's magic
-    and Core Naia. Although it is a monster with an unstable
-    shape and mind, which is about to be destroyed, it is
-    still slightly conscious as a nature spirit.
-  -->
   <skill id="5616" levels="1" name="Raid Boss - Level 87">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
-  <!--
-    He was created when a large number of elemental spirits
-    that were constrained in the basement of Tower of Naia
-    were transformed after being affected by Beleth's magic
-    and Core Naia. Although it is a monster with an unstable
-    shape and mind, which is about to be destroyed, it is
-    still slightly conscious as a nature spirit.
-  -->
   <skill id="5617" levels="1" name="Raid Boss - Level 87">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
     <set name="operateType" val="OP_PASSIVE" />
     <set name="castRange" val="-1" />
   </skill>
-  <!--
-    He was created when a large number of elemental spirits
-    that were constrained in the basement of Tower of Naia
-    were transformed after being affected by Beleth's magic
-    and Core Naia. Although it is a monster with an unstable
-    shape and mind, which is about to be destroyed, it is
-    still slightly conscious as a nature spirit.
-  -->
   <skill id="5618" levels="1" name="Raid Boss - Level 87">
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -616,7 +552,7 @@
   <skill id="5652" levels="3" name="Nightshade - Death Whisper">
     <!-- Done by DJ MELERIX -->
     <table name="#aggro"> 379 457 532 </table>
-    <table name="#cAtk"> 1.30 1.40 1.50 </table>
+    <table name="#cAtk"> 1.30 1.32 1.35 </table>
     <table name="#mpConsume"> 35 44 52 </table>
     <set name="aggroPoints" val="#aggro" />
     <set name="castRange" val="400" />
@@ -710,10 +646,37 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5660" levels="5" name="Battlefield Death After-effect">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <table name="#power"> 1 2 3 4 5 </table>
+    <table name="#pAtk"> 0.958 0.907 0.856 0.805 0.754 </table> 
+    <table name="#mAtk"> 0.949 0.898 0.847 0.796 0.745 </table> 
+    <table name="#pDef"> 0.969 0.942 0.915 0.888 0.861 </table> 
+    <table name="#mDef"> 0.965 0.929 0.893 0.857 0.821 </table> 
+    <table name="#pAtkSpd"> 0.949 0.898 0.847 0.796 0.745 </table> 
+    <table name="#mAtkSpd"> 0.949 0.898 0.847 0.796 0.745 </table> 
+    <table name="#runSpd"> 0.949 0.898 0.847 0.796 0.745 </table> 
+    <table name="#rEvas"> 0.949 0.898 0.847 0.796 0.745 </table> 
+    <table name="#cAtk"> 0.949 0.898 0.847 0.796 0.745 </table> 
+    <table name="#accCombat"> 0.949 0.898 0.847 0.796 0.745 </table> 
+    <set name="power" val="#power"/> 
+    <set name="target" val="TARGET_SELF"/> 
+    <set name="skillType" val="DEBUFF"/> 
+    <set name="isDebuff" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/> 
+    <set name="castRange" val="-1"/>
+    <for> 
+      <effect name="Debuff" time="300" count="1" val="0" stackOrder="#power" stackType="DeathPenalty">
+         <mul order="0x30" stat="pAtk" val="#pAtk"/> 
+         <mul order="0x30" stat="mAtk" val="#mAtk"/> 
+         <mul order="0x30" stat="pDef" val="#pDef"/> 
+         <mul order="0x30" stat="mDef" val="#mDef"/> 
+         <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/> 
+         <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/> 
+         <mul order="0x30" stat="runSpd" val="#runSpd"/> 
+         <mul order="0x30" stat="rEvas" val="#rEvas"/> 
+         <mul order="0x30" stat="cAtk" val="#cAtk"/> 
+         <mul order="0x30" stat="accCombat" val="#accCombat"/> 
+      </effect>
+    </for>
   </skill>
   <skill id="5661" levels="1" name="Match Participation">
     <set name="target" val="TARGET_NONE" />
@@ -782,22 +745,53 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="5673" levels="1" name="Evasion Counter">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="activationChance" val="15"/>
+    <set name="chanceType" val="ON_EVADED_HIT"/>
+    <set name="magicLvl" val="74"/>
+    <set name="power" val="50"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="STUN"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="isDebuff" val="true"/>
+    <set name="bestowed" val="true"/>
+    <for>
+      <effect count="1" name="Stun" time="5" val="0" stackOrder="1" stackType="Stun"/>
+    </for>
   </skill>
   <skill id="5674" levels="1" name="Evasion Chance">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="activationChance" val="15"/>
+    <set name="castRange" val="-1"/>
+    <set name="chanceType" val="ON_EVADED_HIT"/>
+    <set name="magicLvl" val="74"/>
+    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="bestowed" val="true"/>
+    <for>
+      <effect count="1" name="Buff" time="120" val="0">
+        <basemul order="0x30" stat="rCrit" val="0.15"/>
+      </effect>
+    </for>
   </skill>
   <skill id="5675" levels="1" name="Evasion Haste">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="activationChance" val="15"/>
+    <set name="castRange" val="-1"/>
+    <set name="chanceType" val="ON_EVADED_HIT"/>
+    <set name="magicLvl" val="74"/>
+    <set name="effectRange" val="-1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_CHANCE"/>
+    <set name="bestowed" val="true"/>
+    <for>
+      <effect count="1" name="Buff" time="10" val="0">
+        <mul order="0x30" stat="pAtkSpd" val="1.15"/>
+      </effect>
+    </for>
   </skill>
   <skill id="5676" levels="1" name="Steal Mana">
     <set name="activationChance" val="5"/>

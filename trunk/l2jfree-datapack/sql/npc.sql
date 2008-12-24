@@ -9101,9 +9101,6 @@ INSERT INTO `npc` VALUES
 -- Four Sepulchers 
 UPDATE npc SET `type` = 'L2SepulcherNpc' WHERE id = 31928;
 
--- Stop Moving chests...
-UPDATE `npc` SET `walkspd` = 0, `runspd` = 0 WHERE `id` IN (18265,18266,18267,18268,18269,18270,18271,18272,18273,18274,18275,18276,18277,18278,18279,18280,18281,18282,18283,18284,18285,18286);
-
 -- -------------------------
 -- Light Purple-Maned Horse
 -- -------------------------
