@@ -522,6 +522,7 @@ public abstract class L2Zone
 		String type = "Default";
 		String name = "";
 		int id = 0;
+		boolean enabled = true;
 		L2Zone zone = null;
 		Class<?> clazz;
 		Constructor<?> constructor;
@@ -530,8 +531,11 @@ public abstract class L2Zone
 			id = Integer.parseInt(zn.getAttributes().getNamedItem("id").getNodeValue());
 			Node tn = zn.getAttributes().getNamedItem("type");
 			Node nn = zn.getAttributes().getNamedItem("name");
-			if(tn != null)
+			Node en = zn.getAttributes().getNamedItem("enabled");
+			if (tn != null)
 				type = tn.getNodeValue();
+			if (en != null)
+				enabled = Boolean.parseBoolean(en.getNodeValue());
 
 			name = (nn != null) ? nn.getNodeValue() : Integer.valueOf(id).toString();
 
@@ -541,13 +545,14 @@ public abstract class L2Zone
 		}
 		catch (Exception e)
 		{
-			_log.error("Cannot create a L2"+type+"Zone for id "+id);
+			_log.error("Cannot create a L2"+type+"Zone for id "+id, e);
 			return null;
 		}
 
 		zone._id = id;
 		zone._type = ZoneType.valueOf(type);
 		zone._name = name;
+		zone._enabled = enabled;
 
 		FastList<Shape> shapes = new FastList<Shape>();
 		FastList<Shape> exShapes = new FastList<Shape>();
@@ -574,7 +579,7 @@ public abstract class L2Zone
 				}
 				catch(Exception e)
 				{
-					_log.error("Cannot parse entity for zone "+zone.getName()+" ("+zone.getId()+")");
+					_log.error("Cannot parse entity for zone "+zone.getName()+" ("+zone.getId()+")", e);
 					return null;
 				}
 			}
@@ -586,7 +591,7 @@ public abstract class L2Zone
 				}
 				catch(Exception e)
 				{
-					_log.error("Cannot parse instance for zone "+zone.getName()+" ("+zone.getId()+")");
+					_log.error("Cannot parse instance for zone "+zone.getName()+" ("+zone.getId()+")", e);
 					return null;
 				}
 			}
@@ -598,7 +603,7 @@ public abstract class L2Zone
 				}
 				catch(Exception e)
 				{
-					_log.error("Cannot parse settings for zone "+zone.getName()+" ("+zone.getId()+")");
+					_log.error("Cannot parse settings for zone "+zone.getName()+" ("+zone.getId()+")", e);
 					return null;
 				}
 			}
@@ -610,7 +615,7 @@ public abstract class L2Zone
 				}
 				catch(Exception e)
 				{
-					_log.error("Cannot parse messages for zone "+zone.getName()+" ("+zone.getId()+")");
+					_log.error("Cannot parse messages for zone "+zone.getName()+" ("+zone.getId()+")", e);
 					return null;
 				}
 			}
@@ -622,7 +627,7 @@ public abstract class L2Zone
 				}
 				catch(Exception e)
 				{
-					_log.error("Cannot parse skills for zone "+zone.getName()+" ("+zone.getId()+")");
+					_log.error("Cannot parse skills for zone "+zone.getName()+" ("+zone.getId()+")", e);
 					return null;
 				}
 			}
@@ -634,7 +639,7 @@ public abstract class L2Zone
 				}
 				catch(Exception e)
 				{
-					_log.error("Cannot parse skills for zone "+zone.getName()+" ("+zone.getId()+")");
+					_log.error("Cannot parse skills for zone "+zone.getName()+" ("+zone.getId()+")", e);
 					return null;
 				}
 			}
@@ -646,7 +651,7 @@ public abstract class L2Zone
 				}
 				catch(Exception e)
 				{
-					_log.error("Cannot parse chaotic restart point for zone "+zone.getName()+" ("+zone.getId()+")");
+					_log.error("Cannot parse chaotic restart point for zone "+zone.getName()+" ("+zone.getId()+")", e);
 					return null;
 				}
 			}
@@ -658,7 +663,7 @@ public abstract class L2Zone
 				}
 				catch(Exception e)
 				{
-					_log.error("Cannot parse owner restart point for zone "+zone.getName()+" ("+zone.getId()+")");
+					_log.error("Cannot parse owner restart point for zone "+zone.getName()+" ("+zone.getId()+")", e);
 					return null;
 				}
 			}
