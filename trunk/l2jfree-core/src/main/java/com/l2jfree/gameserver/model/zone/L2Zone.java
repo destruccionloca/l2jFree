@@ -670,7 +670,7 @@ public abstract class L2Zone
 		exShapes.clear();
 
 		zone.register();
-		ZoneManager.getInstance().getZones(zone.getType()).put(zone.getId(), zone);
+		ZoneManager.getInstance().getZones(zone.getType()).put(zone.getName(), zone);
 
 		return zone;
 	}
