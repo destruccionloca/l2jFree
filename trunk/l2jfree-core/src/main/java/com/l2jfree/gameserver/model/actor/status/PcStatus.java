@@ -50,12 +50,12 @@ public class PcStatus extends PlayableStatus
 
         if (cha.isInDuel())
         {
-            L2PcInstance pcInst = (L2PcInstance)attacker;
-            if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
-                return;
-
             if (attacker instanceof L2PcInstance)
             {
+                L2PcInstance pcInst = (L2PcInstance)attacker;
+                if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+                    return;
+
                 // the duel is finishing - players do not receive damage
                 if (cha.getDuelState() == Duel.DUELSTATE_DEAD)
                     return;
