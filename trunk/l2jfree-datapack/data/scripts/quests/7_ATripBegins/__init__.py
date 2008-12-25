@@ -8,7 +8,8 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "7_ATripBegins"
 
-#QUEST LVL = 3
+#QUEST LVL
+QLVL = 3
 
 #NPCs
 MIRABEL  = 30146
