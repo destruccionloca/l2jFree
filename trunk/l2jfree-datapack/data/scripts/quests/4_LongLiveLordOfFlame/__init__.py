@@ -6,6 +6,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "4_LongLiveLordOfFlame"
 
+#QUEST LVL
+QLVL = 2
+
 #NPC
 NAKUSIN          = 30578
 KUNAI            = 30559
@@ -25,6 +28,9 @@ ADENA_ID     = 57
 ADENA_REWARD = 1850
 EXP          = 4254
 SP           = 335
+
+#RACE
+ORC = 3
 
 class Quest (JQuest) :
 
@@ -53,10 +59,10 @@ class Quest (JQuest) :
      htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif npcId == NAKUSIN :
      if cond == 0 :
-       if player.getRace().ordinal() != 3 :
+       if player.getRace().ordinal() != ORC :
          htmltext = "30578-00.htm"
          st.exitQuest(1)
-       elif player.getLevel() >= 2 :
+       elif player.getLevel() >= QLVL :
          htmltext = "30578-02.htm"
        else:
          htmltext = "30578-01.htm"

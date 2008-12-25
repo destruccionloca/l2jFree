@@ -24,6 +24,9 @@ LESSER_SUCCUBUS_TILFO = 20057
 #REWARDS
 EAD = 956
 
+#RACE
+DARKELF = 2
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -49,7 +52,7 @@ class Quest (JQuest) :
    if id == State.COMPLETED :
       htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif cond == 0 :
-      if player.getRace().ordinal() != 2 :
+      if player.getRace().ordinal() != DARKELF :
          htmltext = "30141-00.htm"
          st.exitQuest(1)
       elif player.getLevel() >= 16 :

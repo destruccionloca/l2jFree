@@ -7,6 +7,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "12_SecretMeetingWithVarkaSilenos"
 
+#QUEST LEVEL
+QLVL = 74
+
 #NPCs
 Cadmon = 31296
 Helmut = 31258
@@ -26,7 +29,7 @@ class Quest (JQuest) :
  def onEvent (self,event,st) :
      htmltext = event
      if event == "31296-03.htm" :
-       if st.getPlayer().getLevel() >= 74 :
+       if st.getPlayer().getLevel() >= QLVL :
             st.set("cond","1")
             st.setState(State.STARTED)
             st.playSound("ItemSound.quest_accept")

@@ -7,6 +7,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "2_WhatWomenWant1"
 
+#QUEST LEVEL
+QLVL = 2
+
 #NPCs
 ARUJIEN = 30223
 MIRABEL = 30146
@@ -27,6 +30,10 @@ BEGINNERS_POTION = 1073
 MYSTICS_EARRING  = 113
 EXP              = 4254
 SP               = 335
+
+#RACE
+ELF   = 1
+HUMAN = 0
  
 class Quest (JQuest) :
 
@@ -51,7 +58,7 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_middle")
    elif event == "30223-10.htm" :
      st.takeItems(ARUJIENS_LETTER3,-1)
-     st.giveItems(113,1)
+     st.giveItems(MYSTICS_EARRING,1)
      st.set("cond","0")
      st.exitQuest(False)
      st.playSound("ItemSound.quest_finish")
@@ -72,9 +79,9 @@ class Quest (JQuest) :
    cond = st.getInt("cond")
  
    if npcId == ARUJIEN and id == State.CREATED :
-     if player.getRace().ordinal() != 1 and player.getRace().ordinal() != 0 :
+     if player.getRace().ordinal() != ELF and player.getRace().ordinal() != HUMAN :
        htmltext = "30223-00.htm"
-     elif player.getLevel() >= 2 :
+     elif player.getLevel() >= QLVL :
        htmltext = "30223-02.htm"
      else:
        htmltext = "30223-01.htm"

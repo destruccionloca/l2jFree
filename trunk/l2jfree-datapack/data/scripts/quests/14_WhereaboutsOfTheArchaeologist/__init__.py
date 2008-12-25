@@ -7,6 +7,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "14_WhereaboutsOfTheArchaeologist"
 
+#QUEST LEVEL
+QLVL = 74
+
 #NPC
 LIESEL = 31263
 GHOST_OF_ADVENTURER = 31538
@@ -56,10 +59,10 @@ class Quest (JQuest) :
    if npcId == LIESEL and cond == 0 :
      if id == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
-     elif player.getLevel() < 74 : 
+     elif player.getLevel() < QLVL : 
        htmltext = "31263-1.htm"
        st.exitQuest(1)
-     elif player.getLevel() >= 74 : 
+     elif player.getLevel() >= QLVL : 
        htmltext = "31263-0.htm"
    elif npcId == LIESEL and cond == 1 :
      htmltext = "31263-2.htm"

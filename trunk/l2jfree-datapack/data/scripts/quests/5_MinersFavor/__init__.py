@@ -7,6 +7,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "5_MinersFavor"
 
+#QUEST LEVEL
+QLVL = 2
+
 #NPCs
 BOLTER = 30554
 SHARI  = 30517
@@ -68,7 +71,7 @@ class Quest (JQuest) :
    if npcId == BOLTER and cond == 0 :
      if onlyone == 1 :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
-     elif player.getLevel() >= 2 :
+     elif player.getLevel() >= QLVL :
        htmltext = "30554-02.htm"
      else:
        htmltext = "30554-01.htm"

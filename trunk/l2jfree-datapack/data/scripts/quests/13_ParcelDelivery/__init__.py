@@ -7,6 +7,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "13_ParcelDelivery"
 
+#QUEST LEVEL
+QLVL = 74
+
 #NPC
 FUNDIN = 31274
 VULCAN = 31539
@@ -60,10 +63,10 @@ class Quest (JQuest) :
    if npcId == FUNDIN and cond == 0 :
      if id == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
-     elif player.getLevel() < 74 :
+     elif player.getLevel() < QLVL :
        htmltext = "31274-1.htm"
        st.exitQuest(1)
-     elif player.getLevel() >= 74 :
+     elif player.getLevel() >= QLVL :
        htmltext = "31274-0.htm"
    elif npcId == FUNDIN and cond == 1 :
      htmltext = "31274-2.htm"

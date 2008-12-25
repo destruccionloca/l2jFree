@@ -8,6 +8,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "8_AnAdventureBegins"
 
+#QUEST LEVEL
+QLVL = 3
+
 #NPCs
 JASMINE = 30134
 ROSELYN = 30355
@@ -19,6 +22,9 @@ ROSELYNS_NOTE = 7573
 #REWARDS
 SCROLL_OF_ESCAPE_GIRAN = 7559
 MARK_OF_TRAVELER       = 7570
+
+#RACE
+DARKELF = 2
 
 class Quest (JQuest) :
 
@@ -60,8 +66,8 @@ class Quest (JQuest) :
 
    if id == State.CREATED :
      st.set("cond","0")
-     if player.getRace().ordinal() == 2 :
-       if player.getLevel() >= 3 :
+     if player.getRace().ordinal() == DARKELF :
+       if player.getLevel() >= QLVL :
          htmltext = "30134-02.htm"
        else :
          htmltext = "<html><body>Quest for characters level 3 and above.</body></html>"

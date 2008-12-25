@@ -15,6 +15,9 @@ VERY_EXPENSIVE_NECKLACE = 7574
 SCROLL_OF_ESCAPE_GIRAN = 7559
 MARK_OF_TRAVELER = 7570
 
+#RACE
+DWARF = 4
+
 class Quest (JQuest) :
 
     def __init__(self,id,name,descr):
@@ -49,7 +52,7 @@ class Quest (JQuest) :
         id = st.getState()
         if id == State.CREATED :
             st.set("cond","0")
-            if player.getRace().ordinal() == 4 :
+            if player.getRace().ordinal() == DWARF :
                 htmltext = "30533-02.htm"
             else :
                 htmltext = "30533-01.htm"
@@ -57,7 +60,7 @@ class Quest (JQuest) :
         elif npcId == 30533 and id == State.COMPLETED :
             htmltext = "<html><body>I can't supply you with another Giran Scroll of Escape. Sorry traveller.</body></html>"
         elif id == State.STARTED:
-            if npcId == 30533 and st.getInt("cond")==1 :
+            if npcId == 30533 and st.getInt("cond") == 1 :
                 htmltext = "30533-04.htm"
             elif npcId == 30520 and st.getInt("cond") == 3 :
                 htmltext = "30520-04.htm"
@@ -67,10 +70,10 @@ class Quest (JQuest) :
                     htmltext = "30520-01.htm"
                 else :
                     htmltext = "30520-03.htm"
-            elif npcId == 30650 and st.getInt("cond")==2 :
+            elif npcId == 30650 and st.getInt("cond")== 2 :
                 if st.getQuestItemsCount(VERY_EXPENSIVE_NECKLACE) :
                     htmltext = "30650-01.htm"
-            elif npcId == 30533 and st.getInt("cond")==4 :
+            elif npcId == 30533 and st.getInt("cond")== 4 :
                 htmltext = "30533-05.htm"
         return htmltext
 

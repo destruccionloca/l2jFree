@@ -7,6 +7,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "1_LettersOfLove1"
 
+#QUEST LVL
+QLVL = 2
+
 #NPCs
 DARIN  = 30048
 ROXXY  = 30006
@@ -59,7 +62,7 @@ class Quest (JQuest) :
    ItemsCount_BP = st.getQuestItemsCount(BAULS_POTION)
  
    if npcId == DARIN and cond == 0 and onlyone == 0 :
-     if player.getLevel() >= 2 :
+     if player.getLevel() >= QLVL :
        if cond < 15 :
          htmltext = "30048-02.htm"
        else:

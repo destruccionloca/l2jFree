@@ -7,6 +7,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "15_SweetWhisper"
 
+#QUEST LEVEL
+QLVL = 60
+
 #NPC
 VLADIMIR      = 31302
 HIERARCH      = 31517
@@ -52,7 +55,7 @@ class Quest (JQuest) :
      if id == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
        return htmltext
-     elif player.getLevel() >= 60 :
+     elif player.getLevel() >= QLVL :
        htmltext = "31302-0.htm"
        return htmltext
      else:
