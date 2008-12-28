@@ -9,20 +9,33 @@ from com.l2jfree.gameserver.network.serverpackets import NpcSay
 
 qn = "24_InhabitantsOfTheForrestOfTheDead"
 
+#QUEST LEVEL
+QLVL = 65
+
+#QUEST ITEM
+DROP_CHANCE = 30*Config.RATE_DROP_QUEST
+
 # Npcs
-Dorian = 31389
-Wizard = 31522
-Tombstone = 31531
+Dorian     = 31389
+Wizard     = 31522
+Tombstone  = 31531
 MaidOfLidia = 31532
 
+#MOB
+DORIAN_MOB = 25332
+
 #Items
-Letter = 7065
-Hairpin = 7148
-Totem = 7151
-Flower = 7152
-SilverCross = 7153
+Letter            = 7065
+Hairpin           = 7148
+Totem             = 7151
+Flower            = 7152
+SilverCross       = 7153
 BrokenSilverCross = 7154
-SuspiciousTotem = 7156
+SuspiciousTotem   = 7156
+
+#REWARD
+EXP = 242105
+SP  = 22529
 
 def FindTemplate (npcId) :
     npcinstance = 0
@@ -71,7 +84,7 @@ class Quest (JQuest) :
             st.set("cond","11")
         elif event == "31522-19.htm":
             st.giveItems(SuspiciousTotem,1)
-            st.addExpAndSp(242105, 22529)
+            st.addExpAndSp(EXP, SP)
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
         elif event == "31531-02.htm":
@@ -106,7 +119,7 @@ class Quest (JQuest) :
             if state == State.CREATED :
                 st2 = st.getPlayer().getQuestState("23_LidiasHeart")
                 if st2 :
-                    if st2.getState() == State.COMPLETED and player.getLevel() >= 65 :
+                    if st2.getState() == State.COMPLETED and player.getLevel() >= QLVL :
                         htmltext = "31389-01.htm"
                     else:
                         htmltext = "31389-00.htm"
@@ -151,14 +164,14 @@ class Quest (JQuest) :
         if st.getState() != State.STARTED : return 
         npcId = npc.getNpcId()
         if not st.getQuestItemsCount(Totem) and st.getInt("cond") == 9:
-            if npcId in [21557,21558,21560,21563,21564,21565,21566,21567] and st.getRandom(100) <=30:
+            if npcId in [21557,21558,21560,21563,21564,21565,21566,21567] and st.getRandom(100) <= DROP_CHANCE:
                 st.giveItems(Totem,1)
                 st.set("cond","10")
                 st.playSound("ItemSound.quest_middle")
         return
 
     def onSpawn(self, npc) : 
-       if npc.getNpcId() == 25332 : 
+       if npc.getNpcId() == DORIAN_MOB : 
           if GameTimeController.getInstance().isNowNight() : 
              for player in npc.getKnownList().getKnownPlayers().values() : 
                 st = player.getQuestState(qn) 
@@ -177,7 +190,8 @@ QUEST.addTalkId(Dorian)
 QUEST.addTalkId(Tombstone)
 QUEST.addTalkId(MaidOfLidia)
 QUEST.addTalkId(Wizard)
-QUEST.addSpawnId(25332)
+
+QUEST.addSpawnId(DORIAN_MOB)
 
 for mob in [21557,21558,21560,21563,21564,21565,21566,21567]:
     QUEST.addKillId(mob)

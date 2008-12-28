@@ -10,9 +10,12 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "18_MeetingWithTheGoldenRam"
 
+#QUEST LEVEL
+QLVL = 66
+
 #NPC
-DONAL = 31314
-DAISY = 31315
+DONAL       = 31314
+DAISY       = 31315
 ABERCROMBIE = 31555
 
 #ITEM
@@ -31,7 +34,7 @@ class Quest (JQuest) :
  def onEvent (self,event,st) :
      htmltext = event
      if event == "31314-03.htm" :
-       if st.getPlayer().getLevel() >= 66 :
+       if st.getPlayer().getLevel() >= QLVL :
          st.set("cond","1")
          st.setState(State.STARTED)
          st.playSound("ItemSound.quest_accept")

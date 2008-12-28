@@ -9,14 +9,17 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "29_ChestCaughtWithABaitOfEarth"
 
+#QUEST LEVEL
+QLVL = 48
+
 # NPC List
-Willie =31574
-Anabel =30909
+Willie = 31574
+Anabel = 30909
 # ~~~
 # Item List
-SmallPurpleTreasureChest =6507
-SmallGlassBox =7627
-PlatedLeatherGloves =2455
+SmallPurpleTreasureChest = 6507
+SmallGlassBox            = 7627
+PlatedLeatherGloves      = 2455
 # ~~~
 class Quest (JQuest) :
     def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
@@ -57,7 +60,7 @@ class Quest (JQuest) :
         if npcId ==Willie :
             if cond==0 and id==State.STARTED :
                 PlayerLevel = player.getLevel()
-                if PlayerLevel >= 48 :
+                if PlayerLevel >= QLVL :
                     WilliesSpecialBait = player.getQuestState("52_WilliesSpecialBait")
                     if WilliesSpecialBait:
                         if WilliesSpecialBait.getState() == State.COMPLETED :

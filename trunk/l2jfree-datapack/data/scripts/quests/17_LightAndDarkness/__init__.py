@@ -11,6 +11,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "17_LightAndDarkness"
 
+#QUEST LEVEL
+QLVL = 61
+
 #NPC
 HIERARCH = 31517
 SAINT_ALTAR_1 = 31508
@@ -34,7 +37,7 @@ class Quest (JQuest) :
    cond = st.getInt("cond")
    blood = st.getQuestItemsCount(BLOOD_OF_SAINT)
    if event == "31517-02.htm" :
-     if st.getPlayer().getLevel() >= 61 :
+     if st.getPlayer().getLevel() >= QLVL :
        st.giveItems(BLOOD_OF_SAINT,4)
        st.set("cond","1")
        st.setState(State.STARTED)

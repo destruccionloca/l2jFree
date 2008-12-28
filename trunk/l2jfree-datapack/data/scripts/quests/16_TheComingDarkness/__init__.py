@@ -7,6 +7,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "16_TheComingDarkness"
 
+#QUEST LEVEL
+QLVL = 62
+
 #NPC
 HIERARCH = 31517
 EVIL_ALTAR_1 = 31512
@@ -78,7 +81,7 @@ class Quest (JQuest) :
      if st2 :
        if st2.getState() == 'State.COMPLETED' :
          htmltext = "<html><body>Quest Light and Darkness need to be finished first.</body></html>"
-     elif player.getLevel() >= 62 :
+     elif player.getLevel() >= QLVL :
        htmltext = "31517-0.htm"
      elif id == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"

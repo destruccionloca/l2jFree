@@ -7,18 +7,21 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "19_GoToThePastureland"
 
+#QUEST LEVEL
+QLVL = 63
+
 #NPC
 VLADIMIR = 31302
-TUNATUN = 31537
+TUNATUN  = 31537
 
 #ITEMS
 BEAST_MEAT = 7547
 
 #REWARDS
-ADENA_ID = 57
+ADENA_ID     = 57
 ADENA_REWARD = 50000
-EXP = 136766
-SP = 12688
+EXP          = 136766
+SP           = 12688
 
 
 class Quest (JQuest) :
@@ -55,7 +58,7 @@ class Quest (JQuest) :
      if cond == 0 :
        if id == State.COMPLETED :
          htmltext = "<html><body>This quest has already been completed.</body></html>"
-       elif player.getLevel() >= 63 :
+       elif player.getLevel() >= QLVL :
          htmltext = "31302-0.htm"
        else:
          htmltext = "<html><body>Quest for characters level 63 or above.</body></html>"

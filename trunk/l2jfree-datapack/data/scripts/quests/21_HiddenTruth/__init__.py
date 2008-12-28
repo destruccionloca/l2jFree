@@ -12,6 +12,9 @@ from com.l2jfree.gameserver.network.serverpackets import NpcSay
 
 qn = "21_HiddenTruth"
 
+#QUEST LEVEL
+QLVL = 63
+
 ROUTES={
 1:[52373,-54296,-3136,0],
 2:[52451,-52921,-3152,0],
@@ -21,23 +24,23 @@ ROUTES={
 }
 
 #NPC
-MYSTERIOUS_WIZ = 31522
-TOMBSTONE = 31523
-VH_GHOST = 31524
-VH_GHOST_P = 31525
+MYSTERIOUS_WIZ   = 31522
+TOMBSTONE        = 31523
+VH_GHOST         = 31524
+VH_GHOST_P       = 31525
 BROKEN_BOOKSHELF = 31526
-AGRIPEL = 31348
-BENEDICT = 31349
-DOMINIC = 31350
-INNOCENTIN = 31328
+AGRIPEL          = 31348
+BENEDICT         = 31349
+DOMINIC          = 31350
+INNOCENTIN       = 31328
 
 #ITEM
 CROSS_A = 7140
 
 #REWARDS
 CROSS_B = 7141
-EXP = 131228
-SP = 11978
+EXP     = 131228
+SP      = 11978
 
 class Quest (JQuest) :
 
@@ -125,7 +128,7 @@ class Quest (JQuest) :
    if npcId == MYSTERIOUS_WIZ:
      if cond == 0:
        if onlyone == 0:
-         if st.getPlayer().getLevel() >= 63 :
+         if st.getPlayer().getLevel() >= QLVL :
            htmltext = "31522-01.htm"
          else:
            htmltext = "31522-03.htm"

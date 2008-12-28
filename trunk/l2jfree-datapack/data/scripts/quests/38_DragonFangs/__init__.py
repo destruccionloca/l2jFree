@@ -10,17 +10,29 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "38_DragonFangs"
 
+#QUEST LVL
+QLVL = 19
+
 #Quest items
 FEATHER_ORNAMENT,TOOTH_OF_TOTEM,TOOTH_OF_DRAGON,LETTER_OF_IRIS,LETTER_OF_ROHMER = range(7173,7178)
 
 #Drop info:
 DROPLIST={21100:[1,FEATHER_ORNAMENT,100,100],20357:[1,FEATHER_ORNAMENT,100,100],21101:[6,TOOTH_OF_DRAGON,50,50],20356:[6,TOOTH_OF_DRAGON,50,50]}
-#Rewards: item,adena
-REWARDS=[[45,5200],[627,1500],[1123,3200],[605,3200]]
+
+#ITEM
+ADENA               = 57
+BONE_HELMET         = 45
+ASPIS               = 627
+BLUE_BUCKSKIN_BOOTS = 1123
+LEATHER_GAUNTLETS   = 605
+
+#Rewards: ITEM,ADENA
+REWARDS=[[BONE_HELMET,5200],[ASPIS,1500],[BLUE_BUCKSKIN_BOOTS,3200],[LEATHER_GAUNTLETS,3200]]
+
 #NPC
-LUIS=30386
-IRIS=30034
-ROHMER=30344
+LUIS   = 30386
+IRIS   = 30034
+ROHMER = 30344
 
 class Quest (JQuest) :
 
@@ -61,9 +73,9 @@ class Quest (JQuest) :
        st.unset("cond")
        st.takeItems(TOOTH_OF_DRAGON,50)
        st.playSound("ItemSound.quest_finish")
-       item,adena=REWARDS[st.getRandom(len(REWARDS))]
-       st.giveItems(item,1)
-       st.rewardItems(57,adena)
+       ITEM_REWARD,ADENA_REWARD=REWARDS[st.getRandom(len(REWARDS))]
+       st.giveItems(ITEM_REWARD,1)
+       st.rewardItems(ADENA,ADENA_REWARD)
        st.exitQuest(False) 
     return htmltext
 
@@ -79,7 +91,7 @@ class Quest (JQuest) :
       htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif npcId == LUIS :
       if cond == 0 :
-        if player.getLevel() >= 19 :
+        if player.getLevel() >= QLVL :
            htmltext = "30386-01.htm"
         else :
            st.exitQuest(1)

@@ -7,6 +7,16 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "37_PleaseMakeMeFormalWear"
 
+#QUEST LEVEL
+QLVL = 60
+
+#NPC
+ALEXIS = 30842
+LEIKAR = 31520
+JEREMY = 31521
+MIST   = 31627
+
+#ITEM
 MYSTERIOUS_CLOTH = 7076
 JEWEL_BOX = 7077
 SEWING_KIT = 7078
@@ -71,40 +81,39 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    id = st.getState()
    cond = st.getInt("cond")
-   if npcId == 30842 and cond == 0 :
+   if npcId == ALEXIS and cond == 0 :
      if id == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
-     elif player.getLevel() >= 60 :
+     elif player.getLevel() >= QLVL :
        htmltext = "30842-0.htm"
        return htmltext
      else:
        htmltext = "30842-2.htm"
        st.exitQuest(1)
    elif id == State.STARTED :    
-       if npcId == 31520 and cond == 1 :
+       if npcId == LEIKAR and cond == 1 :
          htmltext = "31520-0.htm"
-       elif npcId == 31521 and st.getQuestItemsCount(SIGNET_RING) :
+       elif npcId == JEREMY and st.getQuestItemsCount(SIGNET_RING) :
          st.takeItems(SIGNET_RING,1)
          htmltext = "31521-0.htm"
-       elif npcId == 31627 and st.getQuestItemsCount(ICE_WINE) :
+       elif npcId == MIST and st.getQuestItemsCount(ICE_WINE) :
          htmltext = "31627-0.htm"
-       elif npcId == 31521 and cond == 4 :
+       elif npcId == JEREMY and cond == 4 :
          htmltext = "31521-2.htm"
-       elif npcId == 31520 and st.getQuestItemsCount(BOX_OF_COOKIES) :
+       elif npcId == LEIKAR and st.getQuestItemsCount(BOX_OF_COOKIES) :
          st.takeItems(BOX_OF_COOKIES,1)
          htmltext = "31520-2.htm"
-       elif npcId == 31520 and st.getQuestItemsCount(MYSTERIOUS_CLOTH) and st.getQuestItemsCount(JEWEL_BOX) and st.getQuestItemsCount(SEWING_KIT) :
+       elif npcId == LEIKAR and st.getQuestItemsCount(MYSTERIOUS_CLOTH) and st.getQuestItemsCount(JEWEL_BOX) and st.getQuestItemsCount(SEWING_KIT) :
          htmltext = "31520-4.htm"
-       elif npcId == 31520 and st.getQuestItemsCount(DRESS_SHOES_BOX) :
+       elif npcId == LEIKAR and st.getQuestItemsCount(DRESS_SHOES_BOX) :
          htmltext = "31520-6.htm"
    return htmltext
 
 QUEST       = Quest(37,qn,"Please Make Me Formal Wear")
 
+QUEST.addStartNpc(ALEXIS)
 
-QUEST.addStartNpc(30842)
-QUEST.addTalkId(30842)
-
-QUEST.addTalkId(31520)
-QUEST.addTalkId(31521)
-QUEST.addTalkId(31627)
+QUEST.addTalkId(ALEXIS)
+QUEST.addTalkId(LEIKAR)
+QUEST.addTalkId(JEREMY)
+QUEST.addTalkId(MIST)

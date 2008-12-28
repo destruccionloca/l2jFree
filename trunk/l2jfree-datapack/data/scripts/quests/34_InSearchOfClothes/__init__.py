@@ -8,10 +8,27 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "34_InSearchOfClothes"
 
-SPINNERET = 7528
-SUEDE = 1866
-THREAD = 1868
+#ITEM
+SPINNERET  = 7528
 SPIDERSILK = 1493
+SUEDE      = 1866
+THREAD     = 1868
+
+#NEEDED
+RALFORD_SPINNERET = 10
+RADIA_SUEDE       = 3000
+RADIA_THREAD      = 5000
+
+#QUEST MONSTER
+TRISALIM_SPIDER    = 20560
+TRISALIM_TARANTULA = 20561
+
+#NPC
+RADIA   = 30088
+VARAN   = 30294
+RALFORD = 30165
+
+#REWARD
 MYSTERIOUS_CLOTH = 7076
 
 class Quest (JQuest) :
@@ -34,16 +51,16 @@ class Quest (JQuest) :
    if event == "30165-1.htm" and cond == 3:
      st.set("cond","4")
    if event == "30165-3.htm" and cond == 5:
-     if st.getQuestItemsCount(SPINNERET) == 10 :
-       st.takeItems(SPINNERET,10)
+     if st.getQuestItemsCount(SPINNERET) == RALFORD_SPINNERET :
+       st.takeItems(SPINNERET,RALFORD_SPINNERET)
        st.giveItems(SPIDERSILK,1)
        st.set("cond","6")
      else :
        htmltext = "You don't have enough materials"
    if event == "30088-5.htm" and cond == 6 :
-     if st.getQuestItemsCount(SUEDE) >= 3000 and st.getQuestItemsCount(THREAD) >= 5000 and st.getQuestItemsCount(SPIDERSILK) == 1 :
-       st.takeItems(SUEDE,3000)
-       st.takeItems(THREAD,5000)
+     if st.getQuestItemsCount(SUEDE) >= RADIA_SUEDE and st.getQuestItemsCount(THREAD) >= RADIA_THREAD and st.getQuestItemsCount(SPIDERSILK) == 1 :
+       st.takeItems(SUEDE,RADIA_SUEDE)
+       st.takeItems(THREAD,RADIA_THREAD)
        st.takeItems(SPIDERSILK,1)
        st.giveItems(MYSTERIOUS_CLOTH,1)
        st.playSound("ItemSound.quest_finish")
@@ -59,7 +76,7 @@ class Quest (JQuest) :
    npcId = npc.getNpcId()
    id = st.getState()
    cond = st.getInt("cond")
-   if npcId == 30088 and cond == 0 and st.getQuestItemsCount(MYSTERIOUS_CLOTH) == 0 :
+   if npcId == RADIA and cond == 0 and st.getQuestItemsCount(MYSTERIOUS_CLOTH) == 0 :
      fwear=player.getQuestState("37_PleaseMakeMeFormalWear")
      if fwear :
        if fwear.get("cond") == "6" :
@@ -69,15 +86,15 @@ class Quest (JQuest) :
      else :
        st.exitQuest(1)
    elif id == State.STARTED :    
-       if npcId == 30294 and cond == 1 :
+       if npcId == VARAN and cond == 1 :
          htmltext = "30294-0.htm"
-       elif npcId == 30088 and cond == 2 :
+       elif npcId == RADIA and cond == 2 :
          htmltext = "30088-2.htm"
-       elif npcId == 30165 and cond == 3 :
+       elif npcId == RALFORD and cond == 3 :
          htmltext = "30165-0.htm"
-       elif npcId == 30165 and cond == 5 :
+       elif npcId == RALFORD and cond == 5 :
          htmltext = "30165-2.htm"
-       elif npcId == 30088 and cond == 6 :
+       elif npcId == RADIA and cond == 6 :
           htmltext = "30088-4.htm"
    return htmltext
 
@@ -90,9 +107,9 @@ class Quest (JQuest) :
    if st.getState() != State.STARTED : return
 
    count = st.getQuestItemsCount(SPINNERET)
-   if count < 10 :
+   if count < RALFORD_SPINNERET :
      st.giveItems(SPINNERET,int(1))
-     if count == 9 :
+     if count == (RALFORD_SPINNERET - 1) :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","5")
      else :
@@ -101,10 +118,11 @@ class Quest (JQuest) :
 
 QUEST = Quest(34,qn,"In Search of Clothes")
 
-QUEST.addStartNpc(30088)
-QUEST.addTalkId(30088)
+QUEST.addStartNpc(RADIA)
 
-QUEST.addTalkId(30165)
-QUEST.addTalkId(30294)
-QUEST.addKillId(20560)
-QUEST.addKillId(20561)
+QUEST.addTalkId(RADIA)
+QUEST.addTalkId(RALFORD)
+QUEST.addTalkId(VARAN)
+
+QUEST.addKillId(TRISALIM_SPIDER)
+QUEST.addKillId(TRISALIM_TARANTULA)

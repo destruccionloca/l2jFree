@@ -7,6 +7,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "20_BringUpWithLove"
 
+#QUEST LEVEL
+QLVL = 65
+
 #NPCs
 TUNATUN = 31537
 
@@ -14,7 +17,7 @@ TUNATUN = 31537
 GEM = 7185
 
 #REWARDS
-ADENA_ID = 57
+ADENA_ID     = 57
 ADENA_REWARD = 68500
 
 #NOTE: This quest requires the giving of item GEM upon successful growth and taming of a wild beast, so the rewarding of
@@ -50,7 +53,7 @@ class Quest (JQuest) :
    if id == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif id == State.CREATED and onlyone == 0 : 
-     if player.getLevel() >= 65 :
+     if player.getLevel() >= QLVL :
          htmltext = "31537-01.htm" 
      else: 
          htmltext = "31537-02.htm" 

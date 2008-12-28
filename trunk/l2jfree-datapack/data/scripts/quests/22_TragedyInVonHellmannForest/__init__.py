@@ -9,20 +9,28 @@ from com.l2jfree.gameserver.network.serverpackets import NpcSay
 
 qn = "22_TragedyInVonHellmannForest"
 
+#QUEST LEVEL
+QLVL          = 63
+QLVL_NEXTPART = 64
+
 #NPCS
-INNOCENTIN = 31328
-TIFAREN = 31334
-WELL = 31527
-GHOST_PRIEST = 31528
+INNOCENTIN       = 31328
+TIFAREN          = 31334
+WELL             = 31527
+GHOST_PRIEST     = 31528
 GHOST_ADVENTURER = 31529
-NPCS = range(31527,31530) + [31328, 31334]
+NPCS             = range(31527,31530) + [31328, 31334]
 
 #MOBS
 SOUL_OF_WELL = 27217
-MOBS = range(21553,21557) + [21561]
+MOBS         = range(21553,21557) + [21561]
 
 #ITEMS 
 CROSS, SKULL, LETTER, JEWEL1, JEWEL2, SEALED_BOX, BOX = range(7141,7148)
+
+#REWARDS
+EXP = 345966
+SP  = 31578
 
 def AutoChat(npc,text) :
     chars = npc.getKnownList().getKnownPlayers().values().toArray()
@@ -48,7 +56,7 @@ class Quest (JQuest) :
    if event == "31334-02.htm" :
        st2 = player.getQuestState("21_HiddenTruth")
        if st2 :
-           if not (st2.getState() == State.COMPLETED and player.getLevel() >= 63) :
+           if not (st2.getState() == State.COMPLETED and player.getLevel() >= QLVL) :
                htmltext = "31334-03.htm"
                st.exitQuest(1)
        else :
@@ -194,8 +202,8 @@ class Quest (JQuest) :
            st.playSound("ItemSound.quest_finish")
            st.exitQuest(False) 
            st.unset("id")
-           st.addExpAndSp(345966,31578)
-           if player.getLevel() < 64 :
+           st.addExpAndSp(EXP,SP)
+           if player.getLevel() < QLVL_NEXTPART :
                htmltext = "31328-23.htm"
            else :
                htmltext = "31328-22.htm"

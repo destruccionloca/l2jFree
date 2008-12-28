@@ -9,14 +9,17 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "28_ChestCaughtWithABaitOfIcyAir"
 
+#QUEST LEVEL
+QLVL = 36
+
 # NPC List
-OFulle=31572
-Kiki=31442
+OFulle = 31572
+Kiki   = 31442
 # ~~~
 # Item List
-BigYellowTreasureChest=6503
-KikisLetter=7626
-ElvenRing=881
+BigYellowTreasureChest = 6503
+KikisLetter            = 7626
+ElvenRing              = 881
 # ~~~
 class Quest (JQuest) :
     def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
@@ -58,7 +61,7 @@ class Quest (JQuest) :
         if npcId==OFulle :
             if cond==0 and id==State.STARTED:
                 PlayerLevel = player.getLevel()
-                if PlayerLevel >= 36 :
+                if PlayerLevel >= QLVL :
                     OFullesSpecialBait= player.getQuestState("51_OFullesSpecialBait")
                     if OFullesSpecialBait :
                         if OFullesSpecialBait.getState() == State.COMPLETED :

@@ -7,11 +7,26 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "31_SecretBuriedInTheSwamp"
 
+#QUEST LEVEL
+QLVL = 66
+
 #NPC
-ABERCROMBIE = 31555
-FORGOTTEN_MONUMENT_1,FORGOTTEN_MONUMENT_2,FORGOTTEN_MONUMENT_3,FORGOTTEN_MONUMENT_4,CORPSE_OF_DWARF = range(31661,31666)
+ABERCROMBIE          = 31555
+FORGOTTEN_MONUMENT_1 = 31661
+FORGOTTEN_MONUMENT_2 = 31662
+FORGOTTEN_MONUMENT_3 = 31663
+FORGOTTEN_MONUMENT_4 = 31664
+CORPSE_OF_DWARF      = 31665
+
 #ITEMS
 KRORINS_JOURNAL = 7252
+
+#REWARD
+ADENA        = 57
+ADENA_REWARD = 120000
+EXP          = 490000
+SP           = 45880
+
 #MESSAGES
 default = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
 class Quest (JQuest) :
@@ -45,8 +60,8 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_middle")
    elif event == "31555-7.htm" and cond == 7:
      st.takeItems(KRORINS_JOURNAL,-1)
-     st.rewardItems(57,120000)
-     st.addExpAndSp(490000,45880)
+     st.rewardItems(ADENA,ADENA_REWARD)
+     st.addExpAndSp(EXP,SP)
      st.playSound("ItemSound.quest_finish")
      st.exitQuest(False) 
    elif event != "31663-0a.htm":
@@ -65,7 +80,7 @@ class Quest (JQuest) :
      htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif npcId == ABERCROMBIE :
      if cond == 0 :
-       if player.getLevel() >= 66 :
+       if player.getLevel() >= QLVL :
          htmltext = "31555-0.htm"
        else :
          htmltext = "31555-0a.htm"
@@ -111,6 +126,8 @@ QUEST       = Quest(31,qn,"Secret Buried In The Swamp")
 QUEST.addStartNpc(ABERCROMBIE)
 
 QUEST.addTalkId(ABERCROMBIE)
-
-for i in range(31661,31666):
-    QUEST.addTalkId(i)
+QUEST.addTalkId(FORGOTTEN_MONUMENT_1)
+QUEST.addTalkId(FORGOTTEN_MONUMENT_2)
+QUEST.addTalkId(FORGOTTEN_MONUMENT_3)
+QUEST.addTalkId(FORGOTTEN_MONUMENT_4)
+QUEST.addTalkId(CORPSE_OF_DWARF)

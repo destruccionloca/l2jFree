@@ -8,6 +8,9 @@ from com.l2jfree.gameserver.network.serverpackets import NpcSay
 
 qn = "23_LidiasHeart"
 
+#QUEST LEVEL
+QLVL = 64
+
 # ~~~~~~ npcId list: ~~~~~~
 Innocentin          = 31328
 BrokenBookshelf     = 31526
@@ -25,6 +28,14 @@ LidiaDiary         = 7064
 SilverSpear        = 7150
 Adena              = 57
 # ~~~~~~~~~~~~~~~~~~~~~~~
+
+#GHOST TIMER
+GHOST_TIMER = 10000
+
+#REWARDS
+ADENA_REWARD = 350000
+EXP          = 456893
+SP           = 42112
 
 class Quest (JQuest) : 
 
@@ -65,10 +76,10 @@ class Quest (JQuest) :
             st.takeItems(LidiaDiary,-1)
         elif event == "31523-02.htm":
             st.playSound("SkillSound5.horror_02")
-            ghost = st.addSpawn(31524,51432,-54570,-3136,1800000)
+            ghost = st.addSpawn(GhostofvonHellmann,51432,-54570,-3136,1800000)
             ghost.broadcastPacket(NpcSay(ghost.getObjectId(),0,ghost.getNpcId(),"Who awoke me?"))
         elif event == "31523-05.htm":
-            st.startQuestTimer("ghost_timer",10000)
+            st.startQuestTimer("ghost_timer",GHOST_TIMER)
         elif event == "ghost_timer":
             st.set("cond","8")
             htmltext = "31523-06.htm"
@@ -93,7 +104,7 @@ class Quest (JQuest) :
             if state == State.CREATED :
                 st2 = st.getPlayer().getQuestState("22_TragedyInVonHellmannForest")
                 if st2 :
-                    if st2.getState() == State.COMPLETED and player.getLevel() >= 64:
+                    if st2.getState() == State.COMPLETED and player.getLevel() >= QLVL:
                         htmltext = "31328-01.htm" # previous quest finished, call 31328-02.htm
                     else:
                         htmltext = "31328-00.htm" # requirements not met
@@ -149,9 +160,9 @@ class Quest (JQuest) :
             elif cond == 10 :
                 if st.getQuestItemsCount(SilverSpear) != 0:
                     htmltext = "31386-03.htm"
-                    st.rewardItems(Adena,350000)
+                    st.rewardItems(Adena,ADENA_REWARD)
                     st.takeItems(SilverSpear,-1)
-                    st.addExpAndSp(456893,42112)
+                    st.addExpAndSp(EXP,SP)
                     st.exitQuest(False)
                     st.playSound("ItemSound.quest_finish")
                 else:
