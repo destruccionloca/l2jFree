@@ -358,6 +358,11 @@ public class PcStat extends PlayableStat
 			val += Config.STRIDER_SPEED;
 			return val;
 		}
+		if (activeChar.isRidingRedStrider())
+		{
+			val += Config.RED_STRIDER_SPEED;
+			return val;
+		}
 		if (activeChar.isRidingFenrirWolf())
 		{
 			val += Config.FENRIR_SPEED;

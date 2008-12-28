@@ -44,7 +44,7 @@ public class Ride extends L2GameServerPacket
         _z = cha.getZ();
 
         // 1 for Strider ; 2 for wyvern
-        if (PetDataTable.isStrider(npcId))
+        if (PetDataTable.isStrider(npcId) || PetDataTable.isRedStrider(npcId))
             _rideType = 1;
         else if (PetDataTable.isWyvern(npcId))
             _rideType = 2;

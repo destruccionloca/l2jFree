@@ -101,6 +101,7 @@ public class RequestPetUseItem extends L2GameClientPacket
             (PetDataTable.isHatchling(pet.getNpcId()) && item.getItem().isForHatchling()) ||
             (PetDataTable.isBaby(pet.getNpcId()) && item.getItem().isForBabyPet()) ||
             (PetDataTable.isStrider(pet.getNpcId()) && item.getItem().isForStrider()) ||
+            (PetDataTable.isRedStrider(pet.getNpcId()) && item.getItem().isForStrider()) ||
             (PetDataTable.isGreatWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf())) ||
             (PetDataTable.isWGreatWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf())) ||
             (PetDataTable.isBlackWolf(pet.getNpcId()) && (item.getItem().isForGreatWolf() || item.getItem().isForWolf())) ||

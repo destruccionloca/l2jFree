@@ -788,6 +788,7 @@ public final class Config
 	public static boolean			JAIL_DISABLE_CHAT;										// Jail config
 	public static int				WYVERN_SPEED;
 	public static int				STRIDER_SPEED;
+	public static int				RED_STRIDER_SPEED;
 	public static int				FENRIR_SPEED;
 	public static int				GREAT_SNOW_WOLF_SPEED;
 	public static int				SNOW_FENRIR_SPEED;
@@ -870,6 +871,7 @@ public final class Config
 			EFFECT_CANCELING = Boolean.parseBoolean(otherSettings.getProperty("CancelLesserEffect", "True"));
 			WYVERN_SPEED = Integer.parseInt(otherSettings.getProperty("WyvernSpeed", "100"));
 			STRIDER_SPEED = Integer.parseInt(otherSettings.getProperty("StriderSpeed", "80"));
+			RED_STRIDER_SPEED = Integer.parseInt(otherSettings.getProperty("RedStriderSpeed", "90"));
 			FENRIR_SPEED = Integer.parseInt(otherSettings.getProperty("FenrirSpeed", "80"));
 			SNOW_FENRIR_SPEED = Integer.parseInt(otherSettings.getProperty("SnowFenrirSpeed", "80"));
 			GREAT_SNOW_WOLF_SPEED = Integer.parseInt(otherSettings.getProperty("GreatSnowWolfSpeed", "80"));
@@ -3387,6 +3389,8 @@ public final class Config
 			WYVERN_SPEED = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("StriderSpeed"))
 			STRIDER_SPEED = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("RedStriderSpeed"))
+			RED_STRIDER_SPEED = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("FenrirSpeed"))
 			FENRIR_SPEED = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("SnowFenrirSpeed"))

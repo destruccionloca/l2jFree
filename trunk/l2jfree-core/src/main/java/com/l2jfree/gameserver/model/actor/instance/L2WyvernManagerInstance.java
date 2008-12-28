@@ -68,12 +68,14 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                 petItemId = player.getPet().getControlItemId(); 
 
             if (petItemId == 0 || !player.isMounted() || 
-                 !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)))
+                 !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) ||
+                 !PetDataTable.isRedStrider(PetDataTable.getPetIdByItemId(petItemId)))
             {
                 player.sendPacket(SystemMessageId.YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER);
                 return;
             }
-            else if (player.isMounted() && PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) &&
+            else if (player.isMounted() && (PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) ||
+            			 PetDataTable.isRedStrider(PetDataTable.getPetIdByItemId(petItemId))) &&
                          petItem != null && petItem.getEnchantLevel() < 55)
             {
                 player.sendMessage("Your Strider has not reached the required level.");

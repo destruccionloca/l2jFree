@@ -234,8 +234,12 @@ public class PetDataTable
 
 	public static boolean isStrider(int npcId)
 	{
-		return (STRIDER_WIND_ID == npcId || STRIDER_STAR_ID == npcId || STRIDER_TWILIGHT_ID == npcId || RED_STRIDER_WIND_ID == npcId
-				|| RED_STRIDER_STAR_ID == npcId || RED_STRIDER_TWILIGHT_ID == npcId);
+		return (STRIDER_WIND_ID == npcId || STRIDER_STAR_ID == npcId || STRIDER_TWILIGHT_ID == npcId);
+	}
+	
+	public static boolean isRedStrider(int npcId)
+	{
+		return (RED_STRIDER_WIND_ID == npcId || RED_STRIDER_STAR_ID == npcId || RED_STRIDER_TWILIGHT_ID == npcId);
 	}
 
 	public static boolean isWyvern(int npcId)

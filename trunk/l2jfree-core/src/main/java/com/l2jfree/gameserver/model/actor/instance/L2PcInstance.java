@@ -498,7 +498,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	private boolean					_isRidingWFenrirWolf				= false;
 	private boolean					_isRidingGreatSnowWolf				= false;
 	private boolean					_isRidingStrider					= false;
-	private boolean					_isRidingHorse					= false;
+	private boolean					_isRidingRedStrider					= false;
+	private boolean					_isRidingHorse						= false;
 	private boolean					_isFlyingWyvern						= false;
 
 	/** The L2Summon of the L2PcInstance */
@@ -8372,7 +8373,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 	 		// unsummon pets
 	 	 		getPet().unSummon(this);
 	 	 	}
-			if (found || getPet() != null || isRidingStrider() || isRidingFenrirWolf() || isRidingGreatSnowWolf() || isRidingWFenrirWolf() || isFlying())
+			if (found || getPet() != null || isRidingStrider() || isRidingRedStrider() || isRidingFenrirWolf() || isRidingGreatSnowWolf() || isRidingWFenrirWolf() || isFlying())
 			{
 				sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill));
 				return false;
@@ -8802,12 +8803,20 @@ public final class L2PcInstance extends L2PlayableInstance
 			setIsRidingWFenrirWolf(false);
 			setIsRidingGreatSnowWolf(false);
 			setIsRidingStrider(false);
+			setIsRidingRedStrider(false);
 			setIsRidingHorse(false);
 			setIsFlying(false);
 			isFalling(false, 0); // Initialize the fall just incase dismount was made while in-air
 			break; //Dismounted
 		case 1:
-			setIsRidingStrider(true);
+			if (npcId >= 12526 && npcId <= 12528)
+			{
+				setIsRidingStrider(true);
+			}
+			else if (npcId >= 16038 && npcId <= 16040)
+			{
+				setIsRidingRedStrider(true);
+			}
 			if (isNoble())
 			{
 				L2Skill striderAssaultSkill = SkillTable.getInstance().getInfo(325, 1);
@@ -12286,6 +12295,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		return _isRidingStrider;
 	}
+	
+	public final boolean isRidingRedStrider()
+	{
+		return _isRidingRedStrider;
+	}
 
 	public final boolean isRidingHorse()
 	{ 
@@ -12320,6 +12334,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	public final void setIsRidingStrider(boolean mode)
 	{
 		_isRidingStrider = mode;
+	}
+	
+	public final void setIsRidingRedStrider(boolean mode)
+	{
+		_isRidingRedStrider = mode;
 	}
 
 	public final void setIsRidingHorse(boolean mode)
