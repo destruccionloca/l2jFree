@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
-import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
 
 
@@ -119,6 +118,9 @@ public class MoveBackwardToLocation extends L2GameClientPacket
         			" tried to move while being dead. L2Walker protection.", 
         			Config.DEFAULT_PUNISH);
         }
+        
+        if (activeChar.isAlikeDead())
+        	return;
         
         if (_moveMovement == 0 && !Config.GEO_MOVE_PC) // cursor movement without geodata movement check is disabled
         {
