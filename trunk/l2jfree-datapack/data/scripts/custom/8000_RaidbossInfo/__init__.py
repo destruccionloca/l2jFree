@@ -201,9 +201,9 @@ RADAR={
 25447:[113200,17552,-1424],   #Immortal Savior Mardil (lv71)
 25450:[113600,15104,9559],    #Cherub Galaxia (lv79)
 25453:[156704,-6096,-4185],   #Minas Anor (lv70)
-#25523:[,,,],                 #Plague Golem (lvl73) - not spawned yet
+25523:[168641,-60417,-3888],  #Plague Golem (lvl73)
 25524:[144143,-5731,-4722],   #Flamestone Giant (lvl76)
-#25296:[,,,],                 #Icicle Emperor Bumpalump (lvl74) - quest spawn - not spawned yet
+#25296:[,,,],                 #Icicle Emperor Bumpalump (lvl74) - quest spawn
 #25290:[,,,],                 #Daimon The White-Eyed (lvl78) - quest spawn - not spawned yet
 
 #lvl80 list
@@ -215,7 +215,7 @@ RADAR={
 25315:[105654,-42995,-1240],  #Varka's Chief Horus (lv87)
 25319:[185700,-106066,-6184], #Ember (lv85)
 25514:[79635,-55612,-5980],   #Spiked stakato Queen Shyeed (lvl80)
-25517:[112793,-76080,286],     #Master Anays (lvl87)
+25517:[112793,-76080,286],    #Master Anays (lvl87)
 29062:[-16373,-53562,-10197], #High Priestess van Halter (lvl87)
 25283:[185060,-9622,-5104],   #Lilith (lvl80)
 25286:[185065,-12612,-5104],  #Anakim (lvl80)

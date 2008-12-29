@@ -4,7 +4,20 @@ import sys
 from com.l2jfree.gameserver.model.quest import Quest as JQuest
 from com.l2jfree.gameserver.network.serverpackets import ActionFailed
 
-NPCs = [31557,31606,31671,31672,31673,31674,32026,32030,32031,32032]
+#NPC
+MERCENARY_CENTRY    = 31557
+ALICE_DE_CATRINA    = 31606
+PATROL_1            = 31671
+PATROL_2            = 31672
+PATROL_3            = 31673
+PATROL_4            = 31674
+HESTUI_GUARD        = 32026
+GARDEN_SCULPTURE    = 32030
+ICE_FAIRY_SCULPTURE = 32031
+STRANGE_MACHINE     = 32032
+
+
+NPCs = [MERCENARY_CENTRY, ALICE_DE_CATRINA, PATROL_1, PATROL_2, PATROL_3, PATROL_4, HESTUI_GUARD, GARDEN_SCULPTURE, ICE_FAIRY_SCULPTURE, STRANGE_MACHINE]
 
 class Quest (JQuest) :
     def __init__(self,id,name,descr):
