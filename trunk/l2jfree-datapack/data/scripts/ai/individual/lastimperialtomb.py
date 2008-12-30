@@ -6,8 +6,15 @@ from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.gameserver.instancemanager.lastimperialtomb import LastImperialTombManager
 
-GUIDE = 32011
 qn = "lastimperialtomb"
+
+#NPC
+GUIDE         = 32011
+ALARM_DEVICE  = 18328
+CHOIR_PRAYER  = 18339
+CHOIR_CAPTAIN = 18334
+FRINTEZZA     = 29045
+
 
 class lastimperialtomb (JQuest):
   def __init__(self,id,name,descr) :
@@ -34,11 +41,11 @@ class lastimperialtomb (JQuest):
   def onKill (self,npc,player,isPet):
     st = player.getQuestState(qn)
     npcId = npc.getNpcId()
-    if npcId == 18328 :
+    if npcId == ALARM_DEVICE :
       LastImperialTombManager.getInstance().onKillHallAlarmDevice()
-    elif npcId == 18339 :
+    elif npcId == CHOIR_PRAYER :
       LastImperialTombManager.getInstance().onKillDarkChoirPlayer()
-    elif npcId == 18334 :
+    elif npcId == CHOIR_CAPTAIN :
       LastImperialTombManager.getInstance().onKillDarkChoirCaptain()
     return
 
@@ -49,8 +56,11 @@ class lastimperialtomb (JQuest):
 QUEST = lastimperialtomb(-1, qn, "ai")
 # Quest NPC starter initialization
 QUEST.addStartNpc(GUIDE)
+
 QUEST.addTalkId(GUIDE)
-QUEST.addKillId(18328)
-QUEST.addKillId(18339)
-QUEST.addKillId(18334)
-QUEST.addFirstTalkId(29045)
+
+QUEST.addKillId(ALARM_DEVICE)
+QUEST.addKillId(CHOIR_PRAYER)
+QUEST.addKillId(CHOIR_CAPTAIN)
+
+QUEST.addFirstTalkId(FRINTEZZA)

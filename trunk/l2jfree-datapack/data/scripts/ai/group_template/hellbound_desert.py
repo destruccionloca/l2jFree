@@ -4,24 +4,39 @@ from com.l2jfree.gameserver.ai import CtrlIntention
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.gameserver.network.serverpackets import MagicSkillUse
 
+#NPC BELETH_CLAN
+JUNIOR_WATCHMAN = 22320
+JUNIOR_SUMMONER = 22321
+BLIND_HUNTSMAN  = 22324
+BLIND_WATCHMAN  = 22325
+ARCANE_SCOUT    = 22327
+ARCANE_GUARDIAN = 22328
+ARCANE_WATCHMAN = 22329
+
+#NPC NATIVES_CLAN
+SUBJUGATED_NATIVE = 22322
+CHARMED_NATIVE    = 22323
+NATIVE_SLAVE      = 32357
+NATIVE_PRISONER   = 32358
+
 class hellbound_desert(JQuest):
 	def __init__(self,id,name,descr):
 		#npcid,trustpoints+
 		self.BelethClan ={
-			22320:10,
-			22321:10,
-			22324:1,
-			22325:1,
-			22327:3,
-			22328:3,
-			22329:3
+			JUNIOR_WATCHMAN:10,
+			JUNIOR_SUMMONER:10,
+			BLIND_HUNTSMAN:1,
+			BLIND_WATCHMAN:1,
+			ARCANE_SCOUT:3,
+			ARCANE_GUARDIAN:3,
+			ARCANE_WATCHMAN:3
 			}
 		#npcid,trustpoints-
 		self.NativeClan ={
-			22322:10,
-			22323:10,
-			32357:10,
-			32358:10
+			SUBJUGATED_NATIVE:10,
+			CHARMED_NATIVE:10,
+			NATIVE_SLAVE:10,
+			NATIVE_PRISONER:10
 			}
 		JQuest.__init__(self,id,name,descr)
 

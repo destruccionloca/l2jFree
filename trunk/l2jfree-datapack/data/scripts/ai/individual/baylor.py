@@ -14,8 +14,8 @@ from com.l2jfree.gameserver.network.serverpackets import SocialAction
 
 #NPC
 STATUE          =   32109
-CRYSTALINE   =   29100
-BAYLOR         =   29099
+CRYSTALINE      =   29100
+BAYLOR          =   29099
 
 # Boss: baylor
 class baylor (JQuest):
@@ -57,6 +57,8 @@ QUEST = baylor(-1, "baylor", "ai")
 
 # Quest NPC starter initialization
 QUEST.addStartNpc(STATUE)
+
 QUEST.addTalkId(STATUE)
+
 QUEST.addKillId(CRYSTALINE)
 QUEST.addKillId(BAYLOR)

@@ -6,6 +6,12 @@ from com.l2jfree.gameserver.model.quest import Quest as JQuest
 from com.l2jfree.gameserver.network.serverpackets import NpcSay
 from com.l2jfree.tools.random import Rnd
 
+#SOUL OF TREE GUARDIAN
+TREE_GUARDIAN = 27189
+
+#SKILL
+VENOMOUS_POISON = 4243
+
 class trees(JQuest) :
 
     def __init__(self,id,name,descr):
@@ -20,7 +26,7 @@ class trees(JQuest) :
         npcId = npc.getNpcId()
         if npcId in range(27185,27189) :
            for x in xrange(20):
-               newNpc = self.addSpawn(27189,npc)
+               newNpc = self.addSpawn(TREE_GUARDIAN,npc)
                killer = player
                if isPet :
                    killer = player.getPet()
@@ -29,7 +35,7 @@ class trees(JQuest) :
                newNpc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, killer)
                self.startQuestTimer("despawn",300000, newNpc, None)
                if Rnd.get(2) :
-                  skill = SkillTable.getInstance().getInfo(4243,1)
+                  skill = SkillTable.getInstance().getInfo(VENOMOUS_POISON,1)
                   if skill != None and killer:
                      skill.getEffects(newNpc, killer)
         return 
@@ -39,4 +45,5 @@ QUEST        = trees(-2,"fairy trees","ai")
 
 for i in range(27185,27189):
     QUEST.addKillId(i)
-QUEST.addSpawnId(27189)
+
+QUEST.addSpawnId(TREE_GUARDIAN)

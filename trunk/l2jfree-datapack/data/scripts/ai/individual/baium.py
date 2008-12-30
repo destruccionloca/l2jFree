@@ -10,12 +10,18 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.gameserver.instancemanager.grandbosses import BaiumManager
 from com.l2jfree.tools.random import Rnd
 
-BAIUM = 29020
+#NPC
+BAIUM     = 29020
 ARCHANGEL = 29021
-STATUE = 29025
-VORTEX = 31862
+STATUE    = 29025
+VORTEX    = 31862
 
+#ITEM
 FABRIC = 4295
+
+#SKILL
+SPEAR_POUND = 4132
+ANGEL_HEAL  = 4133
 
 # Boss: Baium
 class baium (JQuest):
@@ -52,12 +58,12 @@ class baium (JQuest):
   def onAttack(self, npc, player, damage, isPet) :
     if npc.getNpcId() == ARCHANGEL:
       if Rnd.get(100) < 10 :
-        skill = SkillTable.getInstance().getInfo(4132,1)
+        skill = SkillTable.getInstance().getInfo(SPEAR_POUND,1)
         if skill != None :
           npc.setTarget(player)
           npc.doCast(skill)
       if Rnd.get(100) < 5 and ((npc.getCurrentHp() / npc.getMaxHp())*100) < 50:
-        skill = SkillTable.getInstance().getInfo(4133,1)
+        skill = SkillTable.getInstance().getInfo(ANGEL_HEAL,1)
         if skill != None :
           npc.setTarget(npc)
           npc.doCast(skill)
@@ -80,8 +86,11 @@ QUEST = baium(-1, "baium", "ai")
 # Quest NPC starter initialization
 QUEST.addStartNpc(STATUE)
 QUEST.addStartNpc(VORTEX)
+
 QUEST.addTalkId(STATUE)
 QUEST.addTalkId(VORTEX)
+
 QUEST.addKillId(BAIUM)
+
 QUEST.addAttackId(BAIUM)
 QUEST.addAttackId(ARCHANGEL)

@@ -5,17 +5,21 @@ from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.gameserver.instancemanager.grandbosses import AntharasManager
 
-PORTAL_STONE    = 3865
-HEART           = 13001
+
 ANTHARAS_OLD    = 29019
 ANTHARAS_WEAK   = 29066
 ANTHARAS_NORMAL = 29067
 ANTHARAS_STRONG = 29068
 
+#ITEM
+ANTHARAS_CIRCLET = 8568
+PORTAL_STONE     = 3865
+HEART            = 13001
+
 # Boss: Antharas
 class antharas(JQuest):
   def __init__(self,id,name,descr):
-    self.antharas = 29019
+    self.antharas = ANTHARAS_OLD
     JQuest.__init__(self,id,name,descr)
 
   def onTalk (self,npc,player):
@@ -46,14 +50,14 @@ class antharas(JQuest):
        for partyMember in party.getPartyMembers().toArray() :
            pst = partyMember.getQuestState("antharas")
            if pst :
-               if pst.getQuestItemsCount(8568) < 1 :
-                   pst.giveItems(8568,1)
+               if pst.getQuestItemsCount(ANTHARAS_CIRCLET) < 1 :
+                   pst.giveItems(ANTHARAS_CIRCLET,1)
                    pst.exitQuest(1)
     else :
        pst = player.getQuestState("antharas")
        if pst :
-           if pst.getQuestItemsCount(8568) < 1 :
-               pst.giveItems(8568,1)
+           if pst.getQuestItemsCount(ANTHARAS_CIRCLET) < 1 :
+               pst.giveItems(ANTHARAS_CIRCLET,1)
                pst.exitQuest(1)
     AntharasManager.getInstance().setCubeSpawn()
     if not st: return
@@ -63,7 +67,9 @@ class antharas(JQuest):
 QUEST = antharas(-1, "antharas", "ai")
 # Quest NPC starter initialization
 QUEST.addStartNpc(HEART)
+
 QUEST.addTalkId(HEART)
+
 QUEST.addKillId(ANTHARAS_OLD)
 QUEST.addKillId(ANTHARAS_WEAK)
 QUEST.addKillId(ANTHARAS_NORMAL)

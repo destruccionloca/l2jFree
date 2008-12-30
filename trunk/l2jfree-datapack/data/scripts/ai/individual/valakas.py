@@ -5,6 +5,15 @@ from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.gameserver.instancemanager.grandbosses import ValakasManager
 
+#NPC
+HEART_OF_VOLCANO = 31385
+KLEIN            = 31540
+VALAKAS          = 29028
+
+#ITEM
+FLOATING_STONE  = 7267
+VALAKAS_CIRCLET = 8567
+
 # Main Quest Code
 class valakas(JQuest):
 
@@ -14,7 +23,7 @@ class valakas(JQuest):
     st = player.getQuestState("valakas")
     if not st : return "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     npcId = npc.getNpcId()
-    if npcId == 31385 :    # Heart of Volcano
+    if npcId == HEART_OF_VOLCANO :
       if st.getInt("ok"):
         if ValakasManager.getInstance().isEnableEnterToLair():
           ValakasManager.getInstance().setValakasSpawnTask()
@@ -26,10 +35,10 @@ class valakas(JQuest):
       else:
         st.exitQuest(1)
         return "Conditions are not right to enter to Lair of Valakas."
-    elif npcId == 31540 :    # Klein
+    elif npcId == KLEIN :
       if ValakasManager.getInstance().isEnableEnterToLair():
-        if st.getQuestItemsCount(7267) > 0 :    # Check Floating Stone
-          st.takeItems(7267,1)
+        if st.getQuestItemsCount(FLOATING_STONE) > 0 :
+          st.takeItems(FLOATING_STONE,1)
           player.teleToLocation(183831,-115457,-3296)
           st.set("ok","1")
         else :
@@ -48,14 +57,14 @@ class valakas(JQuest):
        for partyMember in party.getPartyMembers().toArray() :
            pst = partyMember.getQuestState("valakas")
            if pst :
-               if pst.getQuestItemsCount(8567) < 1 :
-                   pst.giveItems(8567,1)
+               if pst.getQuestItemsCount(VALAKAS_CIRCLET) < 1 :
+                   pst.giveItems(VALAKAS_CIRCLET,1)
                    pst.exitQuest(1)
     else :
        pst = player.getQuestState("valakas")
        if pst :
-           if pst.getQuestItemsCount(8567) < 1 :
-               pst.giveItems(8567,1)
+           if pst.getQuestItemsCount(VALAKAS_CIRCLET) < 1 :
+               pst.giveItems(VALAKAS_CIRCLET,1)
                pst.exitQuest(1)
     ValakasManager.getInstance().setCubeSpawn()
     if not st: return
@@ -65,8 +74,10 @@ class valakas(JQuest):
 QUEST = valakas(-1,"valakas","ai")
 
 # Quest NPC starter initialization
-QUEST.addStartNpc(31540)
-QUEST.addStartNpc(31385)
-QUEST.addTalkId(31540)
-QUEST.addTalkId(31385)
-QUEST.addKillId(29028)
+QUEST.addStartNpc(KLEIN)
+QUEST.addStartNpc(HEART_OF_VOLCANO)
+
+QUEST.addTalkId(KLEIN)
+QUEST.addTalkId(HEART_OF_VOLCANO)
+
+QUEST.addKillId(VALAKAS)
