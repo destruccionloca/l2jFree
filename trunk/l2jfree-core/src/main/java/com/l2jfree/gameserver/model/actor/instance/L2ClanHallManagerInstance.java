@@ -1418,6 +1418,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
         NpcHtmlMessage html = new NpcHtmlMessage(1);
         html.setFile(filename);
         html.replace("%objectId%", String.valueOf(getObjectId()));
+        html.replace("%npcname%", getName());
         html.replace("%npcId%", String.valueOf(getNpcId()));
         player.sendPacket(html);
     }
