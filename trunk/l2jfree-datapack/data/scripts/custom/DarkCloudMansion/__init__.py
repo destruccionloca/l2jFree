@@ -1,6 +1,6 @@
-'''''''''''''''''''''''''''''''''''
-'''    By: evill33t & vital     '''
-'''''''''''''''''''''''''''''''''''
+# '''''''''''''''''''''''''''''''''''
+# '''    By: evill33t & vital     '''
+# '''''''''''''''''''''''''''''''''''
 from com.l2jfree.gameserver.instancemanager        import InstanceManager
 from com.l2jfree.gameserver.model.entity           import Instance
 from com.l2jfree.gameserver.model                  import L2Summon
