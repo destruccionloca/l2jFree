@@ -68,9 +68,14 @@ public class AugmentationData
 	//private static final int STAT_NUMBEROF_SUBBLOCKS = 40;
 
 	// skills
-	// private static final int BLUE_START = 14561;
-	private static final int PURPLE_START = 14578;
-	private static final int RED_START = 14685;
+	private static final int START = 14561;
+	private static final int SKILLS_BLOCKSIZE = 178;
+	private static final int BLUE_START = 0;
+	private static final int BLUE_END = 16;
+	private static final int PURPLE_START = 17;
+	private static final int PURPLE_END = 123;
+	private static final int RED_START = 124;
+	private static final int RED_END = 177;
 
 	// basestats
 	private static final int			BASESTAT_STR		= 16341;
@@ -78,11 +83,8 @@ public class AugmentationData
 	private static final int			BASESTAT_INT		= 16343;
 	private static final int			BASESTAT_MEN		= 16344;
 
-	private FastList<?>					_augmentationStats[];
-	private FastList<AugmentationSkill> _blueSkills;
-	private FastList<AugmentationSkill> _purpleSkills;
-	private FastList<AugmentationSkill> _redSkills;
-	private int _skillsCount;
+	private FastList<?>[]				_augmentationStats;
+	private AugmentationSkill[]			_augmentationSkills;
 
 	// =========================================================
 	// Constructor
@@ -94,17 +96,11 @@ public class AugmentationData
 		_augmentationStats[2] = new FastList<AugmentationStat>();
 		_augmentationStats[3] = new FastList<AugmentationStat>();
 
-		_blueSkills = new FastList<AugmentationSkill>();
-		_purpleSkills = new FastList<AugmentationSkill>();
-		_redSkills = new FastList<AugmentationSkill>();
-
 		load();
-
-		_skillsCount = _blueSkills.size() + _purpleSkills.size() + _redSkills.size();
 
 		// Use size*4: since theres 4 blocks of stat-data with equivalent size
 		_log.info("AugmentationData: Loaded: " + (_augmentationStats[0].size() * 4) + " augmentation stats.");
-		_log.info("AugmentationData: Loaded: " + _blueSkills.size() + " blue, " + _purpleSkills.size() + " purple and " + _redSkills.size() + " red skills.");
+		_log.info("AugmentationData: Loaded: " + _augmentationSkills.length + " skills.");
 	}
 
 	// =========================================================
@@ -123,11 +119,9 @@ public class AugmentationData
 			_augmentationSkillId = augmentationSkillId;
 		}
 
-		public L2Skill getSkill(int level)
+		public L2Skill getSkill()
 		{
-			if (level > _maxSkillLevel)
-				return SkillTable.getInstance().getInfo(_skillId, _maxSkillLevel);
-			return SkillTable.getInstance().getInfo(_skillId, level);
+			return SkillTable.getInstance().getInfo(_skillId, _maxSkillLevel);
 		}
 
 		public int getAugmentationSkillId()
@@ -208,8 +202,9 @@ public class AugmentationData
 				return;
 			}
 
-			Document doc = factory.newDocumentBuilder().parse(file);
+			FastList<AugmentationSkill> list = new FastList<AugmentationSkill>();
 
+			Document doc = factory.newDocumentBuilder().parse(file);
 			for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
 			{
 				if ("list".equalsIgnoreCase(n.getNodeName()))
@@ -219,10 +214,10 @@ public class AugmentationData
 						if ("augmentation".equalsIgnoreCase(d.getNodeName()))
 						{
 							NamedNodeMap attrs = d.getAttributes();
-							int skillId = 0, augmentationId = Integer.parseInt(attrs.getNamedItem("id").getNodeValue());
+							int skillId = 0, skillLevel = 0, augmentationId = Integer.parseInt(attrs.getNamedItem("id").getNodeValue());
 							// type of the skill is not needed anymore but I do not erase the code.
 							// maybe someone can use it for something
-							// String type = "passive";
+							String type = null;
 
 							for (Node cd = d.getFirstChild(); cd != null; cd = cd.getNextSibling())
 							{
@@ -231,30 +226,23 @@ public class AugmentationData
 									attrs = cd.getAttributes();
 									skillId = Integer.parseInt(attrs.getNamedItem("val").getNodeValue());
 								}
+								else if ("skillLevel".equalsIgnoreCase(cd.getNodeName()))
+								{
+									attrs = cd.getAttributes();
+									skillLevel = Integer.parseInt(attrs.getNamedItem("val").getNodeValue());
+								}
 								/*else if ("type".equalsIgnoreCase(cd.getNodeName()))
 								{
 									attrs = cd.getAttributes();
 									type = attrs.getNamedItem("val").getNodeValue();
 								}*/
 							}
-
-							AugmentationSkill temp = new AugmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId);
-
-							//added by Alex - check if NOTDONE and exclude from list
-							if (temp.getSkill(1) == null
-									|| (Config.AUGMENT_EXCLUDE_NOTDONE && (temp.getSkill(1).getSkillType() == L2SkillType.NOTDONE) && (temp.getSkill(1)
-											.getTargetType() == L2Skill.SkillTargetType.TARGET_NONE)))
-								continue;
-							if (augmentationId < PURPLE_START)
-								_blueSkills.add(new AugmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId));
-							else if (augmentationId < RED_START)
-								_purpleSkills.add(new AugmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId));
-							else
-								_redSkills.add(new AugmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId));
+							list.add(new AugmentationSkill(skillId, skillLevel, augmentationId));
 						}
 					}
 				}
 			}
+			_augmentationSkills = list.toArray(new AugmentationSkill[list.size()]);
 		}
 		catch (Exception e)
 		{
@@ -461,38 +449,34 @@ public class AugmentationData
 		L2Skill skill = null;
 		if (generateSkill)
 		{
+			int skillOffset = (lifeStoneLevel - 1) * SKILLS_BLOCKSIZE;
 			AugmentationSkill temp = null;
 			switch (resultColor)
 			{
 				case 1: // blue skill
 				{
-					if (_blueSkills.size() > 0)
-					{
-						temp = _blueSkills.get(Rnd.get(0, _blueSkills.size() - 1));
-						skill = temp.getSkill(lifeStoneLevel);
-						stat34 = temp.getAugmentationSkillId() + (lifeStoneLevel - 1) * _skillsCount;
-						break;
-					}
+					//temp = _blueSkills.get(Rnd.get(0, _blueSkills.size() - 1));
+					temp = _augmentationSkills[skillOffset + Rnd.get(BLUE_START, BLUE_END)];
+					skill = temp.getSkill();
+					stat34 = temp.getAugmentationSkillId();
+					break;
 				}
-				//fall to an active
 				case 2: // purple skill
 				{
-					if (_purpleSkills.size() > 0)
-					{
-						temp = _purpleSkills.get(Rnd.get(0, _purpleSkills.size() - 1));
-						skill = temp.getSkill(lifeStoneLevel);
-						stat34 = temp.getAugmentationSkillId() + (lifeStoneLevel - 1) * _skillsCount;
-						break;
-					}
+					//temp = _purpleSkills.get(Rnd.get(0, _purpleSkills.size() - 1));
+					temp = _augmentationSkills[skillOffset + Rnd.get(PURPLE_START, PURPLE_END)];
+					skill = temp.getSkill();
+					stat34 = temp.getAugmentationSkillId();
+					break;
 				}
 				case 3: // red skill
-					if (_redSkills.size() > 0)
-					{
-						temp = _redSkills.get(Rnd.get(0, _redSkills.size() - 1));
-						skill = temp.getSkill(lifeStoneLevel);
-						stat34 = temp.getAugmentationSkillId() + (lifeStoneLevel - 1) * _skillsCount;
-						break;
-					}
+				{
+					//temp = _redSkills.get(Rnd.get(0, _redSkills.size() - 1));
+					temp = _augmentationSkills[skillOffset + Rnd.get(RED_START, RED_END)];
+					skill = temp.getSkill();
+					stat34 = temp.getAugmentationSkillId();
+					break;
+				}
 			}
 		}
 
