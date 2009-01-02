@@ -572,10 +572,10 @@
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1 - Instantly reduces Casting
-      Speed. Effect 1. Lvl 2 - Instantly reduces Casting
-      Speed. Effect 2. Lvl 3 - Instantly reduces Casting
-      Speed. Effect 3.
+      Description(s):
+          Lvl 1 - Instantly reduces Casting Speed. Effect 1.
+          Lvl 2 - Instantly reduces Casting Speed. Effect 2.
+	  Lvl 3 - Instantly reduces Casting Speed. Effect 3.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -758,7 +758,6 @@
     <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="element" val="3"/> <!-- Water -->
@@ -897,7 +896,6 @@
     <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="element" val="6"/> <!-- Unholy -->
@@ -936,17 +934,19 @@
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1 - Instantly reduces Speed.
-      Effect 3. Lvl 2 - Instantly reduces Speed. Effect 3.
-      Lvl 3 - Instantly reduces Speed. Effect 3. Lvl 4 -
-      Instantly reduces Speed. Effect 3. Lvl 5 - Instantly
-      reduces Speed. Effect 3. Lvl 6 - Instantly reduces
-      Speed. Effect 3. Lvl 7 - Instantly reduces Speed.
-      Effect 3. Lvl 8 - Instantly reduces Speed. Effect 3.
-      Lvl 9 - Instantly reduces Speed. Effect 3. Lvl 10 -
-      Instantly reduces Speed. Effect 3. Lvl 11 - Instantly
-      reduces Speed. Effect 3. Lvl 12 - Instantly reduces
-      Speed. Effect 3.
+      Description(s):
+          Lvl 1 - Instantly reduces Speed. Effect 3.
+          Lvl 2 - Instantly reduces Speed. Effect 3.
+          Lvl 3 - Instantly reduces Speed. Effect 3.
+          Lvl 4 - Instantly reduces Speed. Effect 3.
+          Lvl 5 - Instantly reduces Speed. Effect 3.
+          Lvl 6 - Instantly reduces Speed. Effect 3.
+          Lvl 7 - Instantly reduces Speed. Effect 3.
+          Lvl 8 - Instantly reduces Speed. Effect 3.
+          Lvl 9 - Instantly reduces Speed. Effect 3.
+          Lvl 10 - Instantly reduces Speed. Effect 3.
+          Lvl 11 - Instantly reduces Speed. Effect 3.
+          Lvl 12 - Instantly reduces Speed. Effect 3.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -957,18 +957,19 @@
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1 - Instantly reduces Atk. Spd.
-      Effect 3. Lvl 2 - Instantly reduces Atk. Spd. Effect
-      3. Lvl 3 - Instantly reduces Atk. Spd. Effect 3. Lvl 4
-      - Instantly reduces Atk. Spd. Effect 3. Lvl 5 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 6 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 7 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 8 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 9 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 10 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 11 -
-      Instantly reduces Atk. Spd. Effect 3. Lvl 12 -
-      Instantly reduces Atk. Spd. Effect 3.
+      Description(s):
+          Lvl 1 - Instantly reduces Atk. Spd. Effect 3.
+          Lvl 2 - Instantly reduces Atk. Spd. Effect 3.
+          Lvl 3 - Instantly reduces Atk. Spd. Effect 3.
+          Lvl 4 - Instantly reduces Atk. Spd. Effect 3.
+          Lvl 5 - Instantly reduces Atk. Spd. Effect 3.
+          Lvl 6 - Instantly reduces Atk. Spd. Effect 3.
+          Lvl 7 - Instantly reduces Atk. Spd. Effect 3.
+          Lvl 8 - Instantly reduces Atk. Spd. Effect 3.
+          Lvl 9 - Instantly reduces Atk. Spd. Effect 3.
+          Lvl 10 - Instantly reduces Atk. Spd. Effect 3.
+          Lvl 11 - Instantly reduces Atk. Spd. Effect 3.
+          Lvl 12 - Instantly reduces Atk. Spd. Effect 3.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -979,19 +980,19 @@
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1 - Instantly reduces Casting Spd.
-      Effect 3. Lvl 2 - Instantly reduces Casting Spd.
-      Effect 3. Lvl 3 - Instantly reduces Casting Spd.
-      Effect 3. Lvl 4 - Instantly reduces Casting Spd.
-      Effect 3. Lvl 5 - Instantly reduces Casting Spd.
-      Effect 3. Lvl 6 - Instantly reduces Casting Spd.
-      Effect 3. Lvl 7 - Instantly reduces Casting Spd.
-      Effect 3. Lvl 8 - Instantly reduces Casting Spd.
-      Effect 3. Lvl 9 - Instantly reduces Casting Spd.
-      Effect 3. Lvl 10 - Instantly reduces Casting Spd.
-      Effect 3. Lvl 11 - Instantly reduces Casting Spd.
-      Effect 3. Lvl 12 - Instantly reduces Casting Spd.
-      Effect 3.
+      Description(s):
+          Lvl 1 - Instantly reduces Casting Spd. Effect 3.
+          Lvl 2 - Instantly reduces Casting Spd. Effect 3.
+          Lvl 3 - Instantly reduces Casting Spd. Effect 3.
+          Lvl 4 - Instantly reduces Casting Spd. Effect 3.
+          Lvl 5 - Instantly reduces Casting Spd. Effect 3.
+          Lvl 6 - Instantly reduces Casting Spd. Effect 3.
+          Lvl 7 - Instantly reduces Casting Spd. Effect 3.
+          Lvl 8 - Instantly reduces Casting Spd. Effect 3.
+          Lvl 9 - Instantly reduces Casting Spd. Effect 3.
+          Lvl 10 - Instantly reduces Casting Spd. Effect 3.
+          Lvl 11 - Instantly reduces Casting Spd. Effect 3.
+          Lvl 12 - Instantly reduces Casting Spd. Effect 3.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1002,17 +1003,19 @@
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1 - Instantly reduces P. Atk.
-      Effect 3. Lvl 2 - Instantly reduces P. Atk. Effect 3.
-      Lvl 3 - Instantly reduces P. Atk. Effect 3. Lvl 4 -
-      Instantly reduces P. Atk. Effect 3. Lvl 5 - Instantly
-      reduces P. Atk. Effect 3. Lvl 6 - Instantly reduces P.
-      Atk. Effect 3. Lvl 7 - Instantly reduces P. Atk.
-      Effect 3. Lvl 8 - Instantly reduces P. Atk. Effect 3.
-      Lvl 9 - Instantly reduces P. Atk. Effect 3. Lvl 10 -
-      Instantly reduces P. Atk. Effect 3. Lvl 11 - Instantly
-      reduces P. Atk. Effect 3. Lvl 12 - Instantly reduces
-      P. Atk. Effect 3.
+      Description(s):
+          Lvl 1 - Instantly reduces P. Atk. Effect 3.
+          Lvl 2 - Instantly reduces P. Atk. Effect 3.
+          Lvl 3 - Instantly reduces P. Atk. Effect 3.
+          Lvl 4 - Instantly reduces P. Atk. Effect 3.
+          Lvl 5 - Instantly reduces P. Atk. Effect 3.
+          Lvl 6 - Instantly reduces P. Atk. Effect 3.
+          Lvl 7 - Instantly reduces P. Atk. Effect 3.
+          Lvl 8 - Instantly reduces P. Atk. Effect 3.
+          Lvl 9 - Instantly reduces P. Atk. Effect 3.
+          Lvl 10 - Instantly reduces P. Atk. Effect 3.
+          Lvl 11 - Instantly reduces P. Atk. Effect 3.
+          Lvl 12 - Instantly reduces P. Atk. Effect 3.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1023,17 +1026,19 @@
     <!--
       Needs to be finished. Target is set to TARGET_NONE,
       skillType to NOTDONE for server compatability.
-      Description(s): Lvl 1 - Instantly reduces M. Atk.
-      Effect 3. Lvl 2 - Instantly reduces M. Atk. Effect 3.
-      Lvl 3 - Instantly reduces M. Atk. Effect 3. Lvl 4 -
-      Instantly reduces M. Atk. Effect 3. Lvl 5 - Instantly
-      reduces M. Atk. Effect 3. Lvl 6 - Instantly reduces M.
-      Atk. Effect 3. Lvl 7 - Instantly reduces M. Atk.
-      Effect 3. Lvl 8 - Instantly reduces M. Atk. Effect 3.
-      Lvl 9 - Instantly reduces M. Atk. Effect 3. Lvl 10 -
-      Instantly reduces M. Atk. Effect 3. Lvl 11 - Instantly
-      reduces M. Atk. Effect 3. Lvl 12 - Instantly reduces
-      M. Atk. Effect 3.
+      Description(s):
+          Lvl 1 - Instantly reduces M. Atk. Effect 3.
+          Lvl 2 - Instantly reduces M. Atk. Effect 3.
+          Lvl 3 - Instantly reduces M. Atk. Effect 3.
+          Lvl 4 - Instantly reduces M. Atk. Effect 3.
+          Lvl 5 - Instantly reduces M. Atk. Effect 3.
+          Lvl 6 - Instantly reduces M. Atk. Effect 3.
+          Lvl 7 - Instantly reduces M. Atk. Effect 3.
+          Lvl 8 - Instantly reduces M. Atk. Effect 3.
+          Lvl 9 - Instantly reduces M. Atk. Effect 3.
+          Lvl 10 - Instantly reduces M. Atk. Effect 3.
+          Lvl 11 - Instantly reduces M. Atk. Effect 3.
+          Lvl 12 - Instantly reduces M. Atk. Effect 3.
     -->
     <set name="target" val="TARGET_NONE" />
     <set name="skillType" val="NOTDONE" />
@@ -1044,10 +1049,8 @@
     <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="magicLvl" val="#magicLvl" />
-    <set name="lvlDepend" val="1" />
     <set name="power" val="#power" />
-    <set name="element" val="1" />
-    <!-- Wind -->
+    <set name="element" val="1" /> <!-- Wind -->
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="1500" />
     <set name="skillType" val="MDAM" />
@@ -1186,7 +1189,6 @@
   <skill id="5082" levels="4" name="NPC Spinning, Slashing Trick">
     <table name="#mpConsume"> 60 60 60 5 </table>
     <set name="magicLvl" val="80"/>
-    <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="2112"/>
     <set name="target" val="TARGET_AURA"/>
@@ -1220,7 +1222,6 @@
   </skill>
   <skill id="5084" levels="4" name="NPC Blinding Blow">
     <set name="magicLvl" val="80"/>
-    <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="83"/>
     <set name="power" val="6335"/>
     <set name="target" val="TARGET_ONE"/>

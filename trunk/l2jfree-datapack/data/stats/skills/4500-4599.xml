@@ -120,13 +120,6 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="4515" levels="1" name="Raid Curse">
-    <!--
-      Curse of the guardian spirit of a Raid Boss. It's a
-      state in which one's body is temporarily petrified
-      like a stone. One can receive this curse when trying
-      to kill a raid monster whose level is lower than one's
-      level by 9 or more. This curse cannot be undone.
-    -->
     <set name="target" val="TARGET_ONE" />
     <set name="skillType" val="PARALYZE" />
     <set name="isDebuff" val="true" />
@@ -683,9 +676,8 @@
     <set name="castRange" val="600" />
     <set name="effectRange" val="1100" />
     <for>
-      <effect count="1" name="BigHead" time="600"
-        val="0" abnormal="bighead" stackOrder="600"
-        stackType="big_head" />
+      <effect count="1" name="BigHead" time="600" val="0"
+        abnormal="bighead" stackOrder="600" stackType="big_head" />
     </for>
   </skill>
   <skill id="4560" levels="12" name="NPC Fire Burn">
@@ -998,10 +990,11 @@
     <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
     <table name="#Tab-accCombat"> 1 2 3 4 5 6 7 8 9 10 11 12 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#time"> 5 10 10 15 15 15 15 15 15 15 15 15 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="lvlDepend" val="2"/>
+    <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="80"/>
+    <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1500"/>
@@ -1012,7 +1005,7 @@
     <set name="castRange" val="500"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Debuff" time="120" count="1" val="0" stackOrder="#Tab-accCombat" stackType="accuracyDown">
+      <effect name="Debuff" time="#time" count="1" val="0" stackOrder="#Tab-accCombat" stackType="accuracyDown">
         <sub order="0x40" stat="accCombat" val="#Tab-accCombat"/>
       </effect>
     </for>
@@ -1050,22 +1043,24 @@
     <set name="hitTime" val="1800"/>
     <set name="skillType" val="BLEED"/>
     <set name="isDebuff" val="true"/>
-    <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleeding"/>
+      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleeding">
+        <sub order="0x40" stat="runSpd" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="4580" levels="12" name="Decrease P.Atk">
     <table name="#Tab-pAtk"> 0.83 0.80 0.80 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 </table>
     <table name="#mpConsume"> 24 39 54 73 94 116 136 144 152 158 161 163 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#time"> 5 10 10 15 15 15 15 15 15 15 15 15 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="lvlDepend" val="1"/>
+    <set name="lvlDepend" val="2"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="70"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1800"/>
@@ -1076,7 +1071,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
     <for>
-      <effect count="1" name="Debuff" time="15" val="0" stackOrder="#Tab-pAtk" stackType="pAtkDown">
+      <effect count="1" name="Debuff" time="#time" val="0" stackOrder="#Tab-pAtk" stackType="pAtkDown">
         <mul order="0x30" stat="pAtk" val="#Tab-pAtk"/>
       </effect>
     </for>
@@ -1087,7 +1082,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="2"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="80"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1800"/>
@@ -1108,7 +1103,7 @@
     <table name="#abnormalLvl"> 2 3 4 5 6 7 8 8 9 9 10 10 </table>
     <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="lvlDepend" val="1"/>
+    <set name="lvlDepend" val="2"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
@@ -1129,9 +1124,9 @@
     <table name="#Tab-runSpd"> 0.83 0.80 0.80 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="lvlDepend" val="1"/>
+    <set name="lvlDepend" val="2"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="60"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
@@ -1157,15 +1152,15 @@
     <set name="skillType" val="PDAM"/>
     <set name="hitTime" val="1800"/>
     <set name="isDebuff" val="true"/>
-    <set name="lvlDepend" val="1"/>
+    <set name="lvlDepend" val="2"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
     <set name="effectType" val="STUN"/>
-    <set name="effectPower" val="40"/>
+    <set name="effectPower" val="80"/> <!-- Base Land Rate -->
     <for>
      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun">
-      <mul order="0x30" stat="pDef" val="#pDef"/>
+       <mul order="0x30" stat="pDef" val="#pDef"/>
      </effect>
     </for>
   </skill>
@@ -1214,7 +1209,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="2"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="80"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1500"/>
@@ -1225,7 +1220,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Debuff" time="120" count="1" val="0">
+      <effect name="Debuff" time="30" count="1" val="0">
         <sub order="0x40" stat="rEvas" val="#Tab-rEvas"/>
       </effect>
     </for>
@@ -1234,10 +1229,11 @@
     <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#Tab-pAtk"> 0.83 0.80 0.80 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 </table>
+    <table name="#time"> 5 10 10 15 15 15 15 15 15 15 15 15 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="70"/>
+    <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1500"/>
@@ -1248,7 +1244,7 @@
     <set name="castRange" val="500"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Debuff" time="15" val="0" stackOrder="#Tab-pAtk" stackType="pAtkDown">
+      <effect count="1" name="Debuff" time="#time" val="0" stackOrder="#Tab-pAtk" stackType="pAtkDown">
         <mul order="0x30" stat="pAtk" val="#Tab-pAtk"/>
       </effect>
     </for>
@@ -1298,7 +1294,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="60"/>
+    <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
@@ -1321,7 +1317,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="60"/>
+    <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
@@ -1344,7 +1340,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="60"/>
+    <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
@@ -1364,10 +1360,11 @@
     <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
     <table name="#Tab-pDef"> 0.83 0.80 0.80 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#time"> 5 10 10 15 15 15 15 15 15 15 15 15 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="lvlDepend" val="1"/>
+    <set name="lvlDepend" val="2"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="60"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
@@ -1378,7 +1375,7 @@
     <set name="isDebuff" val="true"/>
     <set name="effectRange" val="900"/>
     <for>
-     <effect name="Debuff" time="5" count="1" val="0" stackOrder="#Tab-pDef" stackType="pDefDown">
+     <effect name="Debuff" time="#time" count="1" val="0" stackOrder="#Tab-pDef" stackType="pDefDown">
        <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
       </effect>
     </for>
@@ -1387,10 +1384,11 @@
     <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
     <table name="#Tab-pDef"> 0.83 0.80 0.80 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#time"> 5 10 10 15 15 15 15 15 15 15 15 15 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="lvlDepend" val="1"/>
+    <set name="lvlDepend" val="2"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="60"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
@@ -1401,7 +1399,7 @@
     <set name="isDebuff" val="true"/>
     <set name="effectRange" val="900"/>
     <for>
-     <effect name="Debuff" time="5" count="1" val="0" stackOrder="#Tab-pDef" stackType="pDefDown">
+     <effect name="Debuff" time="#time" count="1" val="0" stackOrder="#Tab-pDef" stackType="pDefDown">
        <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
      </effect>
     </for>
@@ -1410,10 +1408,11 @@
     <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
     <table name="#Tab-pDef"> 0.83 0.80 0.80 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <table name="#time"> 5 10 10 15 15 15 15 15 15 15 15 15 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="lvlDepend" val="1"/>
+    <set name="lvlDepend" val="2"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="60"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
@@ -1424,7 +1423,7 @@
     <set name="isDebuff" val="true"/>
     <set name="effectRange" val="1300"/>
     <for>
-     <effect name="Debuff" time="5" count="1" val="0" stackOrder="#Tab-pDef" stackType="pDefDown">
+     <effect name="Debuff" time="#time" count="1" val="0" stackOrder="#Tab-pDef" stackType="pDefDown">
        <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
      </effect>
     </for>
@@ -1477,7 +1476,9 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleeding"/>
+      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleeding">
+        <sub order="0x40" stat="runSpd" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="4597" levels="12" name="Bleed">
@@ -1500,7 +1501,9 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleeding"/>
+      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleeding">
+        <sub order="0x40" stat="runSpd" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="4598" levels="12" name="Bleed">
@@ -1523,7 +1526,9 @@
     <set name="castRange" val="1000"/>
     <set name="effectRange" val="1300"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleeding"/>
+      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleeding">
+        <sub order="0x40" stat="runSpd" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="4599" levels="12" name="Decrease Speed">
@@ -1533,7 +1538,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="1"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="60"/>
+    <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1800"/>

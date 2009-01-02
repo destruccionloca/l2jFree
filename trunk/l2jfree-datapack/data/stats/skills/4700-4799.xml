@@ -126,7 +126,7 @@
       0.90 0.90 0.90 0.90 0.90 0.90 </table>
     <table name="#Tab-mDef"> 0.95 0.92 0.90 0.90 0.90 0.90 0.90
       0.90 0.90 0.90 0.90 0.90 0.90 </table>
-    <table name="#power"> 40 40 40 41 42 43 44 45 46 47 48 49 50 </table>
+    <table name="#power"> 40 40 40 41 42 43 44 45 46 47 48 49 50 </table> <!-- Base Land Rate -->
     <table name="#stackOrder"> 1 2 3 3 3 3 3 3 3 3 3 3 3 </table>
     <table name="#magicLvl"> 57 66 75 77 78 79 80 81 82 83 84 85 86 </table>
     <set name="mpConsume" val="#mpConsume" />
@@ -134,7 +134,7 @@
     <set name="target" val="TARGET_ONE" />
     <set name="reuseDelay" val="8000" />
     <set name="element" val="6" /><!-- Dark -->
-    <set name="skillType" val="AGGDEBUFF" />
+    <set name="skillType" val="DEBUFF" />
     <set name="hitTime" val="2000" />
     <set name="isDebuff" val="true" />
     <set name="lvlDepend" val="1" />
@@ -159,7 +159,7 @@
       0.90 0.90 0.90 0.90 0.90 0.90 </table>
     <table name="#Tab-mDef"> 0.95 0.92 0.90 0.90 0.90 0.90 0.90
       0.90 0.90 0.90 0.90 0.90 0.90 </table>
-    <table name="#power"> 40 40 40 41 42 43 44 45 46 47 48 49 50 </table>
+    <table name="#power"> 40 40 40 41 42 43 44 45 46 47 48 49 50 </table> <!-- Base Land Rate -->
     <table name="#stackOrder"> 1 2 3 3 3 3 3 3 3 3 3 3 3 </table>
     <table name="#magicLvl"> 57 66 75 77 78 79 80 81 82 83 84 85 86 </table>
     <set name="mpConsume" val="#mpConsume" />
@@ -168,7 +168,7 @@
     <set name="skillRadius" val="200" />
     <set name="reuseDelay" val="8000" />
     <set name="element" val="6" /><!-- Dark -->
-    <set name="skillType" val="AGGDEBUFF" />
+    <set name="skillType" val="DEBUFF" />
     <set name="hitTime" val="2000" />
     <set name="isDebuff" val="true" />
     <set name="lvlDepend" val="1" />
@@ -221,7 +221,7 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
     <set name="effectType" val="STUN" />
-    <set name="effectPower" val="50" />
+    <set name="effectPower" val="50" /> <!-- Base Land Rate -->
     <for>
       <effect count="1" name="Stun" time="9" val="0"
         stackOrder="1" stackType="Stun" />
@@ -260,7 +260,7 @@
     <set name="castRange" val="40" />
     <set name="effectRange" val="200" />
     <set name="effectType" val="STUN" />
-    <set name="effectPower" val="15" />
+    <set name="effectPower" val="15" /> <!-- Base Land Rate -->
     <for>
       <effect count="1" name="Stun" time="9" val="0"
         stackOrder="1" stackType="Stun" />
