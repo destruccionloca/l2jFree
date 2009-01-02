@@ -300,7 +300,9 @@
       -->
       <!-- Verified by slyce -  Interlude - Aug 2007 -->
       <effect count="7" name="DamOverTime" time="3"
-        val="#bleedpower" abnormal="bleeding" />
+        val="#bleedpower" abnormal="bleeding">
+        <sub order="0x40" stat="runSpd" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="225" levels="3" name="Acrobatic Move">

@@ -16,8 +16,7 @@
     <set name="effectRange" val="-1" />
     <set name="soulMaxConsumeCount" val="5" />
     <for>
-      <effect count="0x7fffffff" name="ManaDamOverTime"
-        time="3" val="#dmg">
+      <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="#dmg">
         <mul order="0x30" stat="pAtk" val="#pAtk" />
         <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd" />
         <add order="0x40" stat="accCombat" val="#accCombat" />
@@ -179,7 +178,7 @@
     <set name="soulMaxConsumeCount" val="5" />
     <set name="baseCritRate" val="15" />
     <cond msg="Checkmate cannot be used due to unsuitable terms.">
-      <target active_effect_id="1435" />
+      <target active_effect_id="5264" />
     </cond>
     <enchant1 name="magicLvl" val="#enchantMagicLvl" />
     <enchant2 name="magicLvl" val="#enchantMagicLvl" />
@@ -306,8 +305,9 @@
     <enchant1 name="power" val="#ench1Power" />
     <enchant2 name="mpConsume" val="#ench2MpConsume" />
     <for>
-      <effect count="7" name="DamOverTime" time="3"
-        val="74" abnormal="bleeding" />
+      <effect count="7" name="DamOverTime" time="3" val="74" abnormal="bleeding">
+        <sub order="0x40" stat="runSpd" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="510" levels="5" name="Deadly Roulette" enchantLevels1="30" enchantLevels2="30">
@@ -1441,7 +1441,6 @@
     <table name="#mpConsume">23 27 29 33</table>
     <table name="#effectLevel">6.0 6.0 7.0 7.0</table>
     <set name="hitTime" val="3000" />
-    <set name="power" val="0.0" />
     <set name="lvlDepend" val="1" />
     <set name="reuseDelay" val="18000" />
     <set name="mpConsume" val="#mpConsume" />
@@ -1695,7 +1694,9 @@
     <set name="effectPower" val="40" /> <!-- Base Land Rate --> <!-- Guessing -->
     <set name="nextAction" val="attack" /> <!-- To prevent character stop from attacking -->
     <for>
-      <effect count="5" name="DamOverTime" time="3" val="#bleeddmg" abnormal="bleeding" />
+      <effect count="5" name="DamOverTime" time="3" val="#bleeddmg" abnormal="bleeding">
+        <sub order="0x40" stat="runSpd" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="583" levels="4" name="Assimilation">

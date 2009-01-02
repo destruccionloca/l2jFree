@@ -35,8 +35,9 @@
     <set name="isDebuff" val="true" />
     <set name="castRange" val="-1" />
     <for>
-      <effect count="7" name="DamOverTime" time="3"
-        val="66" abnormal="bleeding" />
+      <effect count="7" name="DamOverTime" time="3" val="66" abnormal="bleeding">
+        <sub order="0x40" stat="runSpd" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="3006" levels="1" name="Equip Set Items">
@@ -163,10 +164,9 @@
   </skill>
   <skill id="3014" levels="3" name="Special Ability: Mana Up">
     <!--
-      Lvl 1: Increases Max MP. Lvl 2: Increases maximum MP.
-      Inflicts additional damage during PvP. Lvl 3:
-      Increases maximum MP. Increases damage inflicted
-      during PvP.
+      Lvl 1: Increases Max MP.
+      Lvl 2: Increases maximum MP. Inflicts additional damage during PvP.
+      Lvl 3: Increases maximum MP. Increases damage inflicted during PvP.
     -->
     <!-- Guessing Lvl 3 -->
     <table name="#magicLvl"> 1 64 64 </table>
@@ -253,8 +253,9 @@
     <set name="effectType" val="BLEED" />
     <set name="effectPower" val="100" />
     <for>
-      <effect count="7" name="DamOverTime" time="3"
-        val="#dmg" abnormal="bleeding" />
+      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding">
+        <sub order="0x40" stat="runSpd" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="3021" levels="6" name="Special Ability: Critical Bleed">
@@ -271,8 +272,9 @@
     <set name="effectType" val="BLEED" />
     <set name="effectPower" val="100" />
     <for>
-      <effect count="7" name="DamOverTime" time="3"
-        val="#dmg" abnormal="bleeding" />
+      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding">
+        <sub order="0x40" stat="runSpd" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="3022" levels="6" name="Special Ability: Critical Drain">
@@ -779,7 +781,9 @@
     <set name="effectType" val="BLEED"/>
     <set name="effectPower" val="100"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding"/>
+      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding">
+        <sub order="0x40" stat="runSpd" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="3053" levels="2" name="Special Ability: Critical Bleed">
@@ -829,8 +833,9 @@
     <set name="effectType" val="BLEED" />
     <set name="effectPower" val="100" />
     <for>
-      <effect count="7" name="DamOverTime" time="3"
-        val="#dmg" abnormal="bleeding" />
+      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding">
+        <sub order="0x40" stat="runSpd" val="25"/>
+      </effect>
     </for>
   </skill>
   <skill id="3056" levels="3" name="Special Ability: Rsk. Haste">
@@ -841,7 +846,7 @@
       3: Increases Atk. Spd. during a crisis. Increases damage inflicted during PvP.
       (Descriptions Updated to CT2 Part 2) Needs to be fixed
     -->
-    <table name="#val">1.11 1.13 1.15</table> (Custom Lvl 3. Needs to be fixed)
+    <table name="#val">1.11 1.13 1.15</table> <!-- Custom Lvl 3. Needs to be fixed -->
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_PASSIVE" />
