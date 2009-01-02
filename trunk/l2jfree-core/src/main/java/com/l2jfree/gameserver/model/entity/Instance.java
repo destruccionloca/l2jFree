@@ -45,6 +45,9 @@ public class Instance
 	private final static Log			_log				= LogFactory.getLog(Instance.class.getName());
 
 	private int							_id;
+	private int							_tpx;
+	private int							_tpy;
+	private int							_tpz;
 	private String						_name;
 	private FastSet<Integer>			_players			= new FastSet<Integer>();
 	private FastList<L2NpcInstance>		_npcs				= new FastList<L2NpcInstance>();
@@ -73,6 +76,13 @@ public class Instance
 		_name = name;
 	}
 
+	public void setReturnTeleport(int tpx, int tpy, int tpz)
+	{
+		_tpx = tpx;
+		_tpy = tpy;
+		_tpz = tpz;
+	}
+	
 	/**
 	 * Returns whether summon friend type skills are allowed for this instance
 	 */
@@ -126,7 +136,10 @@ public class Instance
 		{
 			player.setInstanceId(0);
 			player.sendMessage("You were removed from the instance");
-			player.teleToLocation(TeleportWhereType.Town);
+			if (_tpx == 0 || _tpy == 0 || _tpz == 0)
+				player.teleToLocation(TeleportWhereType.Town);
+			else
+				player.teleToLocation(_tpx, _tpy, _tpz);
 		}
 	}
 
@@ -215,6 +228,7 @@ public class Instance
 		for (int objectId : _players)
 		{
 			removePlayer(objectId);
+			ejectPlayer(objectId);
 		}
 		_players.clear();
 	}
@@ -311,6 +325,16 @@ public class Instance
 				a = n.getAttributes().getNamedItem("val");
 				if (a != null)
 					setAllowSummon(Boolean.parseBoolean(a.getNodeValue()));
+			}
+			else if ("returnteleport".equalsIgnoreCase(n.getNodeName()))
+			{
+					int tpx = 0, tpy = 0, tpz = 0;
+
+					tpx = Integer.parseInt(n.getAttributes().getNamedItem("x").getNodeValue());
+					tpy = Integer.parseInt(n.getAttributes().getNamedItem("y").getNodeValue());
+					tpz = Integer.parseInt(n.getAttributes().getNamedItem("z").getNodeValue());
+					
+					setReturnTeleport(tpx, tpy, tpz);
 			}
 			else if ("doorlist".equalsIgnoreCase(n.getNodeName()))
 			{
