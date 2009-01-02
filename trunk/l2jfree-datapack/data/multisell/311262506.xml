@@ -503,7 +503,7 @@
   <!-- Dark Crystal Helmet Robe  -->
   <item id="84">
     <production id="12987" count="1" />
-    <ingredient id="12997" count="1" />
+    <ingredient id="12995" count="1" />
     <ingredient id="5575" count="130500" />
   </item>
   <!-- Dark Crystal Robe -->
@@ -615,25 +615,25 @@
     <ingredient id="5575" count="198000" />
   </item>
   <!-- Majestic Circlet Light -->
-  <item id="102">
+  <item id="103">
     <production id="12990" count="1" />
     <ingredient id="12998" count="1" />
     <ingredient id="5575" count="198000" />
   </item>
   <!-- Majestic Circlet  Robe -->
-  <item id="102">
+  <item id="104">
     <production id="12991" count="1" />
     <ingredient id="12999" count="1" />
     <ingredient id="5575" count="198000" />
   </item>
   <!-- Majestic Leather Armor -->
-  <item id="103">
+  <item id="105">
     <production id="11451" count="1" />
     <ingredient id="11459" count="1" />
     <ingredient id="5575" count="579750" />
   </item>
   <!-- Majestic Robe -->
-  <item id="104">
+  <item id="106">
     <production id="11452" count="1" />
     <ingredient id="11460" count="1" />
     <ingredient id="5575" count="579750" />
