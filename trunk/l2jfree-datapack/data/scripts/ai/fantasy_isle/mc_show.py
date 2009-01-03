@@ -13,7 +13,7 @@ from com.l2jfree.gameserver.network.serverpackets import SocialAction
 
 TEXT = ["How come people are not here... We are about to start the show.. Hmm", \
         "Ugh, I have butterflies in my stomach.. The show starts soon...", \
-        "Thank you all for comming here tonight.", \
+        "Thank you all for coming here tonight.", \
         "It is an honor to have the special show today.", \
         "Our Fantasy Isle is fully committed to your happiness.", \
         "Now I'd like to introduce the most beautiful singer in Aden. Please welcome Leyla Mira!", \
@@ -24,7 +24,7 @@ TEXT = ["How come people are not here... We are about to start the show.. Hmm", 
         ";;;;;;Oh","Okay, now here comes the next person. Come on up please.", \
         "Oh, it looks like something great is going to happen, right?", "Oh, my ;;;;", \
         "That's g- .. great. Now, here comes the last person.","Now this is the end of today's show.", \
-        "How was it? I am not sure if you really enjoyned it.", \
+        "How was it? I am not sure if you really enjoyed it.", \
         "Please remember that Fantasy Isle is always planning a lot of great shows for you.", \
         "Well, I wish I could continue all night long, but this is it for today. Thank you."]
 
@@ -260,7 +260,7 @@ class MC_Show(JQuest) :
        npc5 = self.addSpawn(self.showstuff[4],-56672,-56272,-2000,32768,False,0)
        for j in [npc1,npc2,npc3,npc4,npc5]:
           self.startQuestTimer("social1",5500, j, None)
-          self.startQuestTimer("social_1",12500, j, None)
+          self.startQuestTimer("social1_1",12500, j, None)
           self.startQuestTimer("28",19700, j, None)
     elif event == "28" and npc :
        self.AutoChat(npc,"We love you.",0)
