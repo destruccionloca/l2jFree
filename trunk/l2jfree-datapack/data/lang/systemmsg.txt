@@ -1,4 +1,4 @@
-﻿// please leave all $s1,$s2,$s3,$s4 and $c1 intact (these will be replaced by corresponding strings)
+// please leave all $s1,$s2,$s3,$s4 and $c1 intact (these will be replaced by corresponding strings)
 0	You have been disconnected from the server.
 1	The server will be coming down in $s1 second(s).  Please find a safe place to log out.
 3	$s1 is not currently logged in.
@@ -76,13 +76,13 @@
 120	You begin trading with $c1.
 121	$c1 has confirmed the trade.
 123	Your trade is successful.
-124	$c1 has cancelled the trade.
+124	$c1 has canceled the trade.
 129	Your inventory is full.
 132	$s1 has been added to your friends list.
 133	$s1 has been removed from your friends list.
 134	Please check your friends list again.
-135	$c1 did not reply to your invitation. Your invitation has been cancelled.
-136	You have not replied to $c1's invitation. The offer has been cancelled.
+135	$c1 did not reply to your invitation. Your invitation has been canceled.
+136	You have not replied to $c1's invitation. The offer has been canceled.
 139	$c1 has resisted your $s2.
 140	Your skill was removed due to a lack of MP.
 142	You are already trading with someone.
@@ -132,10 +132,10 @@
 218	You have surrendered to the $s1 clan.
 222	$s1 has joined the clan.
 223	$s1 has withdrawn from the clan.
-224	$s1 did not respond: Invitation to the clan has been cancelled.
-225	You didn't respond to $s1's invitation: joining has been cancelled.
+224	$s1 did not respond: Invitation to the clan has been canceled.
+225	You didn't respond to $s1's invitation: joining has been canceled.
 228	Request to end war has been denied.
-229	You do not meet the criteria ir order to create a clan.
+229	You do not meet the criteria in order to create a clan.
 230	You must wait 10 days before creating a new clan.
 231	After a clan member is dismissed from a clan, the clan must wait at least a day before accepting a new member.
 232	After leaving or having been dismissed from a clan, you must wait at least a day before joining another clan.
@@ -200,7 +200,7 @@
 388	Not under petition consultation.
 389	Your petition application has been accepted. \n - Receipt No. is $s1.
 390	You may only submit one petition (active) at a time.
-391	Receipt No. $s1: petition cancelled.
+391	Receipt No. $s1: petition canceled.
 393	Failed to cancel petition. Please try again later.
 394	Starting petition consultation with $c1.
 395	Ending petition consultation with $c1.
@@ -209,7 +209,7 @@
 407	Petition under process.
 417	$s1  has been disarmed.
 422	You have exceeded the weight limit.
-423	You have cancelled the enchanting process.
+423	You have canceled the enchanting process.
 464	This feature is only available alliance leaders.
 465	You are not currently allied with any clans.
 466	You have exceeded the limit.
@@ -220,8 +220,8 @@
 471	Alliance leaders cannot withdraw.
 473	Different alliance.
 474	That clan does not exist.
-477	No response. Invitation to join an alliance has been cancelled.
-478	No response. Your entrance to the alliance has been cancelled.
+477	No response. Invitation to join an alliance has been canceled.
+478	No response. Your entrance to the alliance has been canceled.
 479	$s1  has joined as a friend.
 481	$s1  has been deleted from your friends list.
 482	You cannot add yourself to your own friend list.
@@ -281,7 +281,7 @@
 541	You may not delete a clan member. Withdraw from the clan first and try again.
 543	You already have a pet.
 544	Your pet cannot carry this item.
-547	Summoning your pet…
+547	Summoning your pet�
 548	Your pet's name can be up to 8 characters in length.
 549	To create an alliance, your clan must be Level 5 or higher.
 550	You may not create an alliance during the term of dissolution postponement.
@@ -485,7 +485,7 @@
 1177	This is the seal validation period.
 1178	This seal permits the group that holds it to exclusively enter the dungeon opened by the Seal of Avarice during the seal validation period.  It also permits trading with the Merchant of Mammon who appears in special dungeons and permits meetings with Anakim or Lilith in the Disciple's Necropolis.
 1179	This seal permits the group that holds it to enter the dungeon opened by the Seal of Gnosis, use the teleportation service offered by the priest in the village, and do business with the Blacksmith of Mammon. The Orator of Revelations appears and casts good magic on the winners, and the Preacher of Doom appears and casts bad magic on the losers.
-1180	"During the Seal Validation period, the cabal's maximum CP amount increases. In addition, the cabal posessing the seal will benefit from favorable changes in the cost to upgrade castle defense mercenaries, castle gates and walls; basic P. Def. of castle gates and walls; and the limit imposed on the castle tax rate. The use of siege war weapons will also be limited. If the Revolutionary Army of Dusk takes possession of this seal during the castle siege war, only the allies of the clan that owns the castle can come to the aid of the defenders."
+1180	"During the Seal Validation period, the cabal's maximum CP amount increases. In addition, the cabal possessing the seal will benefit from favorable changes in the cost to upgrade castle defense mercenaries, castle gates and walls; basic P. Def. of castle gates and walls; and the limit imposed on the castle tax rate. The use of siege war weapons will also be limited. If the Revolutionary Army of Dusk takes possession of this seal during the castle siege war, only the allies of the clan that owns the castle can come to the aid of the defenders."
 1183	This is the initial period.
 1184	This is a period of calculating statistics in the server.
 1188	Your selected target can no longer receive a recommendation.
@@ -561,7 +561,7 @@
 1455	You cannot fish while under water.
 1456	You cannot fish while riding as a passenger of a boat - it's against the rules.
 1457	You can't fish here.
-1458	Your attempt at fishing has been cancelled.
+1458	Your attempt at fishing has been canceled.
 1459	You do not have enough bait.
 1460	You reel your line in and stop fishing.
 1461	You cast your line and start to fish.
@@ -580,8 +580,8 @@
 1490	Traded $s2 of crop $s1.
 1491	Failed in trading $s2 of crop $s1.
 1492	You will be moved to the Olympiad Stadium in $s1 second(s).
-1493	"Your opponent made haste with their tail between their legs; the match has been cancelled."
-1494	"Your opponent does not meet the requirements to do battle; the match has been cancelled."
+1493	"Your opponent made haste with their tail between their legs; the match has been canceled."
+1494	"Your opponent does not meet the requirements to do battle; the match has been canceled."
 1495	The Grand Olympiad match will start in $s1 second(s).
 1496	The match has started, fight!
 1497	Congratulations, $c1! You win the match!
