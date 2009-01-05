@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
  *
- * @author  evill33t
+ * @author evill33t
  */
 public class MakeKillable implements ISkillHandler
 {

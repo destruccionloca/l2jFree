@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class MysteryPotion implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS				=
 														{ 5234 };
 	private static final int	MYSTERY_POTION_SKILL	= 2103;

@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -46,9 +49,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 /**
  * This class ...
  * control for sequence of fight against "High Priestess van Halter".
@@ -60,10 +60,10 @@ public class VanHalterManager extends BossLair
 {
 	private static VanHalterManager			_instance;
 
-	// list of intruders.
+	// List of intruders.
 	protected Map<Integer, List<L2PcInstance>>	_bleedingPlayers		= new FastMap<Integer, List<L2PcInstance>>();
 
-	// spawn data of monsters.
+	// Spawn data of monsters.
 	protected Map<Integer, L2Spawn>			_monsterSpawn				= new FastMap<Integer, L2Spawn>();
 	protected List<L2Spawn>					_royalGuardSpawn			= new FastList<L2Spawn>();
 	protected List<L2Spawn>					_royalGuardCaptainSpawn		= new FastList<L2Spawn>();
@@ -76,7 +76,7 @@ public class VanHalterManager extends BossLair
 	protected L2Spawn						_ritualSacrificeSpawn		= null;
 	protected L2Spawn						_vanHalterSpawn				= null;
 
-	// instance of monsters.
+	// Instance of monsters.
 	protected List<L2NpcInstance>			_monsters					= new FastList<L2NpcInstance>();
 	protected List<L2NpcInstance>			_royalGuard					= new FastList<L2NpcInstance>();
 	protected List<L2NpcInstance>			_royalGuardCaptain			= new FastList<L2NpcInstance>();
@@ -101,7 +101,7 @@ public class VanHalterManager extends BossLair
 	protected ScheduledFuture<?>			_halterEscapeTask			= null;
 	protected ScheduledFuture<?>			_setBleedTask				= null;
 
-	// state of High Priestess van Halter
+	// State of High Priestess van Halter
 	boolean									_isLocked					= false;
 	boolean									_isHalterSpawned			= false;
 	boolean									_isSacrificeSpawned			= false;
@@ -126,17 +126,17 @@ public class VanHalterManager extends BossLair
 	{
 	}
 
-	// initialize
+	// Initialize
 	@Override
 	public void init()
 	{
-		// clear flag.
+		// Clear flag.
 		_isLocked = false;
 		_isCaptainSpawned = false;
 		_isHelperCalled = false;
 		_isHalterSpawned = false;
 
-		// setting door state.
+		// Setting door state.
 		_doorOfAltar.add(DoorTable.getInstance().getDoor(19160014));
 		_doorOfAltar.add(DoorTable.getInstance().getDoor(19160015));
 		openDoorOfAltar(true);
@@ -144,7 +144,7 @@ public class VanHalterManager extends BossLair
 		_doorOfSacrifice.add(DoorTable.getInstance().getDoor(19160017));
 		closeDoorOfSacrifice();
 
-		// load spawn data of monsters.
+		// Load spawn data of monsters.
 		loadRoyalGuard();
 		loadTriolRevelation();
 		loadRoyalGuardCaptain();
@@ -154,13 +154,13 @@ public class VanHalterManager extends BossLair
 		loadRitualOffering();
 		loadRitualSacrifice();
 
-		// spawn monsters.
+		// Spawn monsters.
 		spawnRoyalGuard();
 		spawnTriolRevelation();
 		spawnVanHalter();
 		spawnRitualOffering();
 
-		// setting spawn data of Dummy camera marker.
+		// Setting spawn data of Dummy camera marker.
 		_cameraMarkerSpawn.clear();
 		try
 		{
@@ -223,17 +223,17 @@ public class VanHalterManager extends BossLair
 			_log.warn("VanHalterManager : " + e.getMessage());
 		}
 
-		// set time up.
+		// Set time up.
 		if (_timeUpTask != null)
 			_timeUpTask.cancel(false);
 		_timeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), Config.HPH_ACTIVITYTIMEOFHALTER);
 
-		// set bleeding to palyers.
+		// Set bleeding to palyers.
 		if (_setBleedTask != null)
 			_setBleedTask.cancel(false);
 		_setBleedTask = ThreadPoolManager.getInstance().scheduleGeneral(new Bleeding(), 2000);
 
-		// check state of High Priestess van Halter.
+		// Check state of High Priestess van Halter.
 		_log.info("VanHalterManager : State of High Priestess van Halter is " + _state.getState() + ".");
 		if (_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
 			enterInterval();
@@ -245,7 +245,7 @@ public class VanHalterManager extends BossLair
 		_log.info("VanHalterManager : init VanHalterManager.");
 	}
 
-	// load Royal Guard.
+	// Load Royal Guard.
 	protected void loadRoyalGuard()
 	{
 		_royalGuardSpawn.clear();
@@ -291,7 +291,7 @@ public class VanHalterManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			// problem with initializing spawn, go to next one
+			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadRoyalGuard: Spawn could not be initialized: " + e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
@@ -320,7 +320,7 @@ public class VanHalterManager extends BossLair
 		_royalGuard.clear();
 	}
 
-	// load Triol's Revelation.
+	// Load Triol's Revelation.
 	protected void loadTriolRevelation()
 	{
 		_triolRevelationSpawn.clear();
@@ -366,7 +366,7 @@ public class VanHalterManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			// problem with initializing spawn, go to next one
+			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadTriolRevelation: Spawn could not be initialized: " + e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
@@ -397,7 +397,7 @@ public class VanHalterManager extends BossLair
 		_bleedingPlayers.clear();
 	}
 
-	// load Royal Guard Captain.
+	// Load Royal Guard Captain.
 	protected void loadRoyalGuardCaptain()
 	{
 		_royalGuardCaptainSpawn.clear();
@@ -442,7 +442,7 @@ public class VanHalterManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			// problem with initializing spawn, go to next one
+			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadRoyalGuardCaptain: Spawn could not be initialized: " + e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
@@ -472,7 +472,7 @@ public class VanHalterManager extends BossLair
 		_royalGuardCaptain.clear();
 	}
 
-	// load Royal Guard Helper.
+	// Load Royal Guard Helper.
 	protected void loadRoyalGuardHelper()
 	{
 		_royalGuardHelperSpawn.clear();
@@ -517,7 +517,7 @@ public class VanHalterManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			// problem with initializing spawn, go to next one
+			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadRoyalGuardHelper: Spawn could not be initialized: " + e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
@@ -542,7 +542,7 @@ public class VanHalterManager extends BossLair
 		_royalGuardHepler.clear();
 	}
 
-	// load Guard Of Altar
+	// Load Guard Of Altar
 	protected void loadGuardOfAltar()
 	{
 		_guardOfAltarSpawn.clear();
@@ -587,7 +587,7 @@ public class VanHalterManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			// problem with initializing spawn, go to next one
+			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadGuardOfAltar: Spawn could not be initialized: " + e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
@@ -617,7 +617,7 @@ public class VanHalterManager extends BossLair
 		_guardOfAltar.clear();
 	}
 
-	// load High Priestess van Halter.
+	// Load High Priestess van Halter.
 	protected void loadVanHalter()
 	{
 		_vanHalterSpawn = null;
@@ -662,7 +662,7 @@ public class VanHalterManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			// problem with initializing spawn, go to next one
+			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadVanHalter: Spawn could not be initialized: " + e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
@@ -684,7 +684,7 @@ public class VanHalterManager extends BossLair
 		_vanHalter.deleteMe();
 	}
 
-	// load Ritual Offering.
+	// Load Ritual Offering.
 	protected void loadRitualOffering()
 	{
 		_ritualOfferingSpawn = null;
@@ -729,7 +729,7 @@ public class VanHalterManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			// problem with initializing spawn, go to next one
+			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadRitualOffering: Spawn could not be initialized: " + e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
@@ -797,7 +797,7 @@ public class VanHalterManager extends BossLair
 		}
 		catch (Exception e)
 		{
-			// problem with initializing spawn, go to next one
+			// Problem with initializing spawn, go to next one
 			_log.warn("VanHalterManager.loadRitualSacrifice: Spawn could not be initialized: " + e);
 		}
 		finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
@@ -844,7 +844,7 @@ public class VanHalterManager extends BossLair
 		_cameraMarker.clear();
 	}
 
-	// door control.
+	// Door control.
 	/**
 	 * @param intruder  
 	 */
@@ -1011,7 +1011,7 @@ public class VanHalterManager extends BossLair
 		_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(1), Config.HPH_APPTIMEOFHALTER);
 	}
 
-	// start fight against High Priestess van Halter.
+	// Start fight against High Priestess van Halter.
 	protected void combatBeginning()
 	{
 		if (_timeUpTask != null)
@@ -1030,7 +1030,7 @@ public class VanHalterManager extends BossLair
 		_vanHalter.reduceCurrentHp(1, _targets.get(Rnd.get(1, i)));
 	}
 
-	// call Royal Guard Helper and escape from player.
+	// Call Royal Guard Helper and escape from player.
 	public void callRoyalGuardHelper()
 	{
 		if (!_isHelperCalled)
@@ -1113,7 +1113,7 @@ public class VanHalterManager extends BossLair
 		}
 	}
 
-	// check bleeding player.
+	// Check bleeding player.
 	protected void addBleeding()
 	{
 		L2Skill bleed = SkillTable.getInstance().getInfo(4615, 12);
@@ -1167,7 +1167,7 @@ public class VanHalterManager extends BossLair
 	// High Priestess van Halter dead or time up.
 	public void enterInterval()
 	{
-		// cancel all task
+		// Cancel all task
 		if (_callRoyalGuardHelperTask != null)
 			_callRoyalGuardHelperTask.cancel(false);
 		_callRoyalGuardHelperTask = null;
@@ -1200,7 +1200,7 @@ public class VanHalterManager extends BossLair
 			_timeUpTask.cancel(false);
 		_timeUpTask = null;
 
-		// delete monsters
+		// Delete monsters
 		if (_vanHalter.isDead())
 		{
 			_vanHalter.getSpawn().stopRespawn();
@@ -1216,7 +1216,7 @@ public class VanHalterManager extends BossLair
 		deleteRitualSacrifice();
 		deleteGuardOfAltar();
 
-		// set interval end.
+		// Set interval end.
 		if (_intervalTask != null)
 			_intervalTask.cancel(false);
 
@@ -1231,7 +1231,7 @@ public class VanHalterManager extends BossLair
 		_intervalTask = ThreadPoolManager.getInstance().scheduleGeneral(new Interval(), _state.getInterval());
 	}
 
-	// interval.
+	// Interval.
 	private class Interval implements Runnable
 	{
 		public void run()
@@ -1240,10 +1240,10 @@ public class VanHalterManager extends BossLair
 		}
 	}
 
-	// interval end.
+	// Interval end.
 	public void setupAltar()
 	{
-		// cancel all task
+		// Cancel all task
 		if (_callRoyalGuardHelperTask != null)
 			_callRoyalGuardHelperTask.cancel(false);
 		_callRoyalGuardHelperTask = null;
@@ -1276,7 +1276,7 @@ public class VanHalterManager extends BossLair
 			_timeUpTask.cancel(false);
 		_timeUpTask = null;
 
-		// delete all monsters
+		// Delete all monsters
 		deleteVanHalter();
 		deleteTriolRevelation();
 		deleteRoyalGuardHepler();
@@ -1287,17 +1287,17 @@ public class VanHalterManager extends BossLair
 		deleteGuardOfAltar();
 		deleteCameraMarker();
 
-		// clear flag.
+		// Clear flag.
 		_isLocked = false;
 		_isCaptainSpawned = false;
 		_isHelperCalled = false;
 		_isHalterSpawned = false;
 
-		// set door state
+		// Set door state
 		closeDoorOfSacrifice();
 		openDoorOfAltar(true);
 
-		// respawn monsters.
+		// Respawn monsters.
 		spawnTriolRevelation();
 		spawnRoyalGuard();
 		spawnRitualOffering();
@@ -1306,13 +1306,13 @@ public class VanHalterManager extends BossLair
 		_state.setState(GrandBossState.StateEnum.NOTSPAWN);
 		_state.update();
 
-		// set time up.
+		// Set time up.
 		if (_timeUpTask != null)
 			_timeUpTask.cancel(false);
 		_timeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), Config.HPH_ACTIVITYTIMEOFHALTER);
 	}
 
-	// time up.
+	// Time up.
 	private class TimeUp implements Runnable
 	{
 		public void run()
@@ -1321,7 +1321,7 @@ public class VanHalterManager extends BossLair
 		}
 	}
 
-	// appearance movie.
+	// Appearance movie.
 	private class Movie implements Runnable
 	{
 		private int					_distance	= 6502500;
@@ -1344,7 +1344,7 @@ public class VanHalterManager extends BossLair
 				_state.setState(GrandBossState.StateEnum.ALIVE);
 				_state.update();
 
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_vanHalter) <= _distance)
@@ -1358,7 +1358,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1367,7 +1367,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 2:
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_cameraMarker.get(5)) <= _distance)
@@ -1381,7 +1381,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1390,7 +1390,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 3:
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_cameraMarker.get(5)) <= _distance)
@@ -1404,7 +1404,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1413,7 +1413,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 4:
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_cameraMarker.get(4)) <= _distance)
@@ -1427,7 +1427,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1436,7 +1436,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 5:
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_cameraMarker.get(4)) <= _distance)
@@ -1450,7 +1450,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1459,7 +1459,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 6:
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_cameraMarker.get(3)) <= _distance)
@@ -1473,7 +1473,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1482,7 +1482,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 7:
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_cameraMarker.get(3)) <= _distance)
@@ -1496,7 +1496,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1505,7 +1505,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 8:
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_cameraMarker.get(2)) <= _distance)
@@ -1519,7 +1519,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1528,7 +1528,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 9:
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_cameraMarker.get(2)) <= _distance)
@@ -1542,7 +1542,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1551,7 +1551,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 10:
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_cameraMarker.get(1)) <= _distance)
@@ -1565,7 +1565,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1574,7 +1574,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 11:
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_cameraMarker.get(1)) <= _distance)
@@ -1588,7 +1588,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1597,7 +1597,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 12:
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_vanHalter) <= _distance)
@@ -1611,7 +1611,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1628,7 +1628,7 @@ public class VanHalterManager extends BossLair
 				_vanHalter.doCast(skill);
 				_vanHalter.setIsImmobilized(true);
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1640,7 +1640,7 @@ public class VanHalterManager extends BossLair
 				_ritualOffering.setIsInvul(false);
 				_ritualOffering.reduceCurrentHp(_ritualOffering.getMaxHp() + 1, _vanHalter);
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1652,7 +1652,7 @@ public class VanHalterManager extends BossLair
 				spawnRitualSacrifice();
 				deleteRitualOffering();
 
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_vanHalter) <= _distance)
@@ -1666,7 +1666,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1675,7 +1675,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 16:
-				// set camera.
+				// Set camera.
 				for (L2PcInstance pc : _players)
 				{
 					if (pc.getPlanDistanceSq(_vanHalter) <= _distance)
@@ -1689,7 +1689,7 @@ public class VanHalterManager extends BossLair
 					}
 				}
 
-				// set next task.
+				// Set next task.
 				if (_movieTask != null)
 					_movieTask.cancel(false);
 				_movieTask = null;
@@ -1698,7 +1698,7 @@ public class VanHalterManager extends BossLair
 				break;
 
 			case 17:
-				// reset camera.
+				// Reset camera.
 				for (L2PcInstance pc : _players)
 				{
 					pc.leaveMovieMode();

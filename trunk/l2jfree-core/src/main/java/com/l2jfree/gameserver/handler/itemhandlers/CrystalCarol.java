@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 
 public class CrystalCarol implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{
 			5562,
@@ -57,147 +58,87 @@ public class CrystalCarol implements IItemHandler
 	{
 		if (!(playable instanceof L2PcInstance))
 			return;
+
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		int itemId = item.getItemId();
-		if (itemId == 5562)
-		{ //crystal_carol_01
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2140, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_carol_01");
+		int skillId = -1;
+
+		// TODO : Add a FloodProtector ?
+
+		switch (itemId)
+		{
+		case 5562: // Crystal Carol 1
+			skillId = 2140; // sndRef = SkillSound2.crystal_carol_01
+			break;
+		case 5563: // Crystal Carol 2
+			skillId = 2141; // sndRef = SkillSound2.crystal_carol_02
+			break;
+		case 5564: // Crystal Carol 3
+			skillId = 2142; // sndRef = SkillSound2.crystal_carol_03
+			break;
+		case 5565: // Crystal Carol 4
+			skillId = 2143; // sndRef = SkillSound2.crystal_carol_04
+			break;
+		case 5566: // Crystal Carol 5
+			skillId = 2144; // sndRef = SkillSound2.crystal_carol_05
+			break;
+		case 5583: // Crystal Carol 6
+			skillId = 2145; // sndRef = SkillSound2.crystal_carol_06
+			break;
+		case 5584: // Crystal Carol 7
+			skillId = 2146; // sndRef = SkillSound2.crystal_carol_07
+			break;
+		case 5585: // Crystal Carol 8
+			skillId = 2147; // sndRef = SkillSound2.crystal_carol_08
+			break;
+		case 5586: // Crystal Carol 9
+			skillId = 2148; // sndRef = SkillSound2.crystal_carol_09
+			break;
+		case 5587: // Crystal Carol 10
+			skillId = 2149; // sndRef = SkillSound2.crystal_carol_10
+			break;
+		case 4411: // Crystal Journey
+			skillId = 2069; // sndRef = SkillSound2.crystal_journey
+			break;
+		case 4412: // Crystal Battle
+			skillId = 2068; // sndRef = SkillSound2.crystal_battle
+			break;
+		case 4413: // Crystal Love
+			skillId = 2070; // sndRef = SkillSound2.crystal_love
+			break;
+		case 4414: // Crystal Solitude
+			skillId = 2072; // sndRef = SkillSound2.crystal_solitude
+			break;
+		case 4415: // Crystal Festival
+			skillId = 2071; // sndRef = SkillSound2.crystal_festival
+			break;
+		case 4416: // Crystal Celebration
+			skillId = 2073; // sndRef = SkillSound2.crystal_celebration
+			break;
+		case 4417: // Crystal Comedy
+			skillId = 2067; // sndRef = SkillSound2.crystal_comedy
+			break;
+		case 5010: // Crystal Victory
+			skillId = 2066; // sndRef = SkillSound2.crystal_victory
+			break;
+		case 6903: // Crystal Music Box M
+			skillId = 2187; // sndRef = EtcSound.battle
+			break;
+		case 7061: // Crystal Birthday
+			skillId = 2073; // sndRef = SkillSound2.crystal_celebration
+			break;
+		case 7062: // Crystal Wedding
+			skillId = 2230; // sndRef = SkillSound5.wedding
+			break;
+		case 8555: // Crystal Viva Victory Korea
+			skillId = 2272; // sndRef = EtcSound.VVKorea
+			break;
 		}
-		else if (itemId == 5563)
-		{ //crystal_carol_02
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2141, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_carol_02");
-		}
-		else if (itemId == 5564)
-		{ //crystal_carol_03
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2142, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_carol_03");
-		}
-		else if (itemId == 5565)
-		{ //crystal_carol_04
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2143, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_carol_04");
-		}
-		else if (itemId == 5566)
-		{ //crystal_carol_05
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2144, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_carol_05");
-		}
-		else if (itemId == 5583)
-		{ //crystal_carol_06
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2145, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_carol_06");
-		}
-		else if (itemId == 5584)
-		{ //crystal_carol_07
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2146, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_carol_07");
-		}
-		else if (itemId == 5585)
-		{ //crystal_carol_08
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2147, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_carol_08");
-		}
-		else if (itemId == 5586)
-		{ //crystal_carol_09
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2148, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_carol_09");
-		}
-		else if (itemId == 5587)
-		{ //crystal_carol_10
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2149, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_carol_10");
-		}
-		else if (itemId == 4411)
-		{ //crystal_journey
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2069, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_journey");
-		}
-		else if (itemId == 4412)
-		{ //crystal_battle
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2068, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_battle");
-		}
-		else if (itemId == 4413)
-		{ //crystal_love
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2070, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_love");
-		}
-		else if (itemId == 4414)
-		{ //crystal_solitude
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2072, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_solitude");
-		}
-		else if (itemId == 4415)
-		{ //crystal_festival
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2071, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_festival");
-		}
-		else if (itemId == 4416)
-		{ //crystal_celebration
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2073, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_celebration");
-		}
-		else if (itemId == 4417)
-		{ //crystal_comedy
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2067, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_comedy");
-		}
-		else if (itemId == 5010)
-		{ //crystal_victory
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2066, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_victory");
-		}
-		else if (itemId == 7589)
-		{ //crystal_forgotten_song
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2187, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//			 playCrystalSound(activeChar,"SkillSound2.crystal_forgotten_song");
-		}
-		else if (itemId == 6903)
-		{ //music_box_m
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2187, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"EtcSound.battle");
-		}
-		else if (itemId == 7061)
-		{ //crystal_birthday
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2073, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound2.crystal_celebration");
-		}
-		else if (itemId == 7062)
-		{ //crystal_wedding
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2230, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"SkillSound5.wedding");
-		}
-		else if (itemId == 8555)
-		{ //VVKorea
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2272, 1, 1, 0);
-			activeChar.broadcastPacket(MSU);
-			//playCrystalSound(activeChar,"EtcSound.VVKorea");
-		}
+
+		MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, skillId, 1, 1, 0);
+
 		activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
+		activeChar.broadcastPacket(MSU);
 	}
 
 	public int[] getItemIds()

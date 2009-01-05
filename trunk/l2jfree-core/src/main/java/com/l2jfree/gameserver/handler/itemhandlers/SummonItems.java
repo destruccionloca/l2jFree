@@ -14,12 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
-/**
- * 
- * @author FBIagent
- * 
- */
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.NpcTable;
@@ -43,6 +37,11 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.FloodProtector;
 
+/**
+ * 
+ * @author FBIagent
+ * 
+ */
 public class SummonItems implements IItemHandler
 {
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
@@ -109,7 +108,7 @@ public class SummonItems implements IItemHandler
 
 		switch (sitem.getType())
 		{
-		case 0: // static summons (like christmas tree)
+		case 0: // Static Summons (like christmas tree)
 			try
 			{
 				L2Spawn spawn = new L2Spawn(npcTemplate);
@@ -128,7 +127,7 @@ public class SummonItems implements IItemHandler
 			}
 
 			break;
-		case 1: // pet summons
+		case 1: // Pet Summons
 			L2PetInstance petSummon = L2PetInstance.spawnPet(npcTemplate, activeChar, item);
 
 			if (petSummon == null)
@@ -166,7 +165,7 @@ public class SummonItems implements IItemHandler
 				petSummon.startFeed(false);
 
 			break;
-		case 2: // wyvern
+		case 2: // Wyvern
 			activeChar.mount(sitem.getNpcId(), item.getObjectId());
 			break;
 		case 3: // Great Wolf

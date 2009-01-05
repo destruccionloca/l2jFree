@@ -41,8 +41,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  *
- * @author  Cromir
- * @author Kreastr
+ * @author Cromir, Kreastr
  * 
  */
 public class ForgottenScroll implements IItemHandler

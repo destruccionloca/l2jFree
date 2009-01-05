@@ -14,12 +14,6 @@
  */
 package com.l2jfree.gameserver.idfactory;
 
-/**
- * 
- * @author luisantonioa
- * 
- */
-
 import java.util.BitSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -33,6 +27,7 @@ import com.l2jfree.tools.util.PrimeFinder;
 /**
  * This class ...
  * 
+ * @author luisantonioa
  * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
  */
 

@@ -20,10 +20,8 @@ import com.l2jfree.gameserver.network.serverpackets.ExMultiPartyCommandChannelIn
 
 /**
  *
- * @author  chris_00
- * 
+ * @author chris_00
  * when User press the "List Update" button in CCInfo window
- * 
  */
 public class ChannelListUpdate implements IUserCommandHandler
 {

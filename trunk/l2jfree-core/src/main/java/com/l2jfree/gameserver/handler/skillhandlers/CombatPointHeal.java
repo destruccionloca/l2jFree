@@ -55,7 +55,7 @@ public class CombatPointHeal implements ISkillHandler
 			
 			double cp = skill.getPower();
 
-			//from CT2 u will receive exact CP, u can't go over it, if u have full CP and u get CP buff, u will receive 0CP restored message
+			// From CT2 u will receive exact CP, you can't go over it, if you have full CP and you get CP buff, you will receive 0CP restored message
 			if ((target.getStatus().getCurrentCp() + cp) >= target.getMaxCp())
 			{
 				cp = target.getMaxCp() - target.getStatus().getCurrentCp();

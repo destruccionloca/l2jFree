@@ -29,7 +29,7 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.tools.util.PrimeFinder;
 
 /*
- * author: evill33t
+ * @author evill33t
  */
 public class BitSetRebuildFactory extends IdFactory
 {

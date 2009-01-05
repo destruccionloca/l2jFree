@@ -14,14 +14,13 @@
  */
 package com.l2jfree.gameserver.instancemanager.grandbosses;
 
-/**
- * @author Darki699
- */
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -52,9 +51,6 @@ import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 /** *************************- main class + global class values -*********************************** */
 

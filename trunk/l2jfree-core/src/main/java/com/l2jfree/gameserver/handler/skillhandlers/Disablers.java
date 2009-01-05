@@ -332,7 +332,7 @@ public class Disablers implements ICubicSkillHandler
 			}
 			case CONFUSE_MOB_ONLY:
 			{
-				// do nothing if not on mob
+				// Do nothing if not on mob
 				if (target instanceof L2Attackable)
 				{
 					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
@@ -406,7 +406,7 @@ public class Disablers implements ICubicSkillHandler
 			}
 			case AGGREDUCE:
 			{
-				//these skills needs to be rechecked
+				// These skills needs to be rechecked
 				if (target instanceof L2Attackable)
 				{
 					skill.getEffects(activeChar, target);
@@ -424,7 +424,7 @@ public class Disablers implements ICubicSkillHandler
 			}
 			case AGGREDUCE_CHAR:
 			{
-				//these skills needs to be rechecked
+				// These skills needs to be rechecked
 				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
 					if (target instanceof L2Attackable)
@@ -458,7 +458,7 @@ public class Disablers implements ICubicSkillHandler
 			case AGGREMOVE:
 			{
 				// 1034 = repose, 1049 = requiem
-				//these skills needs to be rechecked
+				// These skills needs to be rechecked
 				if (target instanceof L2Attackable && !target.isRaid())
 				{
 					if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
@@ -712,7 +712,7 @@ public class Disablers implements ICubicSkillHandler
 							e.exit();
 					}
 				}
-				// fishing potion
+				// Fishing potion
 				else if (skill.getId() == 2275)
 				{
 					negateEffect(target, L2SkillType.BUFF, skill.getNegateLvl(), skill.getNegateId(), -1);
@@ -759,8 +759,8 @@ public class Disablers implements ICubicSkillHandler
 					break;
 				}
 
-				// purify
-				//  all others negate type skills
+				// Purify
+				// All others negate type skills
 				else
 				{
 					int removedBuffs = (skill.getMaxNegatedEffects() > 0) ? 0 : -2;
@@ -811,16 +811,16 @@ public class Disablers implements ICubicSkillHandler
 							removedBuffs += negateEffect(target, L2SkillType.DEATH_MARK,  skill.getNegateLvl(), skill.getMaxNegatedEffects());
 						else if (stat == "heal" && removedBuffs < skill.getMaxNegatedEffects())
 							SkillHandler.getInstance().getSkillHandler(L2SkillType.HEAL).useSkill(activeChar, skill, target);
-					}//end for
-				}//end else
-			}// end case
-			}//end switch
+					}
+				}
+			}
+			}
 
-			//Possibility of a lethal strike
+			// Possibility of a lethal strike
 			Formulas.getInstance().calcLethalHit(activeChar, target, skill);
 
-		}//end for
-		// self Effect :]
+		}
+		// Self Effect :]
 		L2Effect effect = activeChar.getFirstEffect(skill.getId());
 		if (effect != null && effect.isSelfEffect())
 		{
@@ -828,7 +828,7 @@ public class Disablers implements ICubicSkillHandler
 			effect.exit();
 		}
 		skill.getEffectsSelf(activeChar);
-	} //end void
+	}
 
 	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Object... targets)
 	{
@@ -845,7 +845,7 @@ public class Disablers implements ICubicSkillHandler
 			
 			L2Character target = (L2Character) element;
 			
-			if (target.isDead()) //bypass if target is null or dead
+			if (target.isDead()) // Bypass if target is null or dead
 				continue;
 
 			byte shld = Formulas.getInstance().calcShldUse(activeCubic.getOwner(), target);
@@ -856,7 +856,7 @@ public class Disablers implements ICubicSkillHandler
 				case ROOT:
 					if (Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill, shld))
 					{
-						// if this is a debuff let the duel manager know about it
+						// If this is a debuff let the duel manager know about it
 						// so the debuff can be removed after the duel
 						// (player & target must be in the same duel)
 						if (target instanceof L2PcInstance && ((L2PcInstance)target).isInDuel() &&
@@ -919,7 +919,7 @@ public class Disablers implements ICubicSkillHandler
 		int count = (maxRemoved <= 0 )? -2 : 0;
 		for (L2Effect e : effects)
 		{
-			if (negateLvl == -1) // if power is -1 the effect is always removed without power/lvl check ^^
+			if (negateLvl == -1) // If power is -1 the effect is always removed without power/lvl check ^^
 			{
 				if (e.getSkill().getSkillType() == type || (e.getSkill().getEffectType() != null && e.getSkill().getEffectType() == type))
 				{
@@ -979,7 +979,7 @@ public class Disablers implements ICubicSkillHandler
 	{
 		for (L2Effect eff : stolenEffects)
 		{
-			// if eff time is smaller than 1 sec, will not be stolen, just to save CPU,
+			// If eff time is smaller than 1 sec, will not be stolen, just to save CPU,
 			// avoid synchronization(?) problems and NPEs
 			if (eff.getPeriod() - eff.getTime() < 1)
 				continue;

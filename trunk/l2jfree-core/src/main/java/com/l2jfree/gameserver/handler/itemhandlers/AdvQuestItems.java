@@ -26,33 +26,12 @@ import com.l2jfree.tools.random.Rnd;
 
 public class AdvQuestItems implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int	ITEM_IDS[]		=
 												{ 5944, 5955, 5966, 5967, 5968, 5969, 6007, 6008, 6009, 6010 };
 
 	private static final int	AWARD_PARCH[]	=
-												{
-			5922,
-			5923,
-			5924,
-			5925,
-			5926,
-			5927,
-			5928,
-			5929,
-			5930,
-			5931,
-			5932,
-			5933,
-			5934,
-			5935,
-			5936,
-			5937,
-			5938,
-			5939,
-			5940,
-			5941,
-			5942,
-			5943								};
+												{ 5922, 5923, 5924, 5925, 5926, 5927, 5928, 5929, 5930, 5931, 5932, 5933, 5934, 5935, 5936, 5937, 5938, 5939, 5940, 5941, 5942, 5943 };
 
 	private static final int	AWARD_GBOOK[]	=
 												{ 5942, 5943, 5945, 5946, 5947, 5948, 5949, 5950, 5951, 5952, 5953, 5954 };

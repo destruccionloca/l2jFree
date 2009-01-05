@@ -155,7 +155,7 @@ public class Pdam implements ISkillHandler
 						}
 						else
 						{
-							// activate attacked effects, if any
+							// Activate attacked effects, if any
 							target.stopSkillEffects(skill.getId());
 							if (f.calcSkillSuccess(activeChar, target, skill, shld, false, false, false))
 							{
@@ -239,7 +239,7 @@ public class Pdam implements ISkillHandler
 					}
 				}
 				else
-				// No - damage
+				// No damage
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
 				}
@@ -269,7 +269,7 @@ public class Pdam implements ISkillHandler
 				((L2PcInstance)activeChar).increaseCharges(skill.getGiveCharges(), skill.getMaxCharges());
 			}
 
-			//self Effect :]
+			// Self Effect :]
 			L2Effect effect = activeChar.getFirstEffect(skill.getId());
 			if (effect != null && effect.isSelfEffect())
 			{

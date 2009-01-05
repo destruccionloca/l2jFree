@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.instancemanager.grandbosses;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

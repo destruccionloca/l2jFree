@@ -220,7 +220,7 @@ public class Continuous implements ICubicSkillHandler
 					}
 				}
 
-				// if this is a debuff let the duel manager know about it
+				// If this is a debuff let the duel manager know about it
 				// so the debuff can be removed after the duel
 				// (player & target must be in the same duel)
 				if (target instanceof L2PcInstance && ((L2PcInstance) target).isInDuel()
@@ -265,7 +265,7 @@ public class Continuous implements ICubicSkillHandler
 			((L2PcInstance)activeChar).increaseCharges(skill.getGiveCharges(), skill.getMaxCharges());
 		}
 
-		// self Effect :]
+		// Self Effect :]
 		L2Effect effect = activeChar.getFirstEffect(skill.getId());
 		if (effect != null && effect.isSelfEffect())
 		{
@@ -296,7 +296,7 @@ public class Continuous implements ICubicSkillHandler
 				}
 			}
 
-			// if this is a debuff let the duel manager know about it
+			// If this is a debuff let the duel manager know about it
 			// so the debuff can be removed after the duel
 			// (player & target must be in the same duel)
 			if (target instanceof L2PcInstance && ((L2PcInstance)target).isInDuel() &&

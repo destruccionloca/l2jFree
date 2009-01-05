@@ -148,7 +148,7 @@ public class SummonFriend implements ISkillHandler
 			return false;
 		}
 
-		// on retail character can enter 7s dungeon with summon friend,
+		// On retail character can enter 7s dungeon with summon friend,
 		// but will be teleported away by mobs
 		// because currently this is not working in L2J we do not allowing summoning
 		if (summonerChar.isIn7sDungeon())
@@ -201,7 +201,7 @@ public class SummonFriend implements ISkillHandler
 			sm.addItemName(itemConsumeId);
 			targetChar.sendPacket(sm);
 		}
-		// set correct instance id
+		// Set correct instance id
 		targetChar.setInstanceId(summonerChar.getInstanceId());
 		targetChar.teleToLocation(summonerChar.getX(), summonerChar.getY(), summonerChar.getZ(), true);
 	}

@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExChooseInventoryAttributeIt
 
 public class EnchantAttr implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int	ITEM_IDS[]	=
 											{
 			9546,

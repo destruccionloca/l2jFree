@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 
 public class Book implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{
 			5588,
@@ -69,6 +70,7 @@ public class Book implements IItemHandler
 	{
 		if (!(playable instanceof L2PcInstance))
 			return;
+
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		final int itemId = item.getItemId();
 

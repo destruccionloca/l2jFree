@@ -44,7 +44,7 @@ public class IncrementIDFactory extends IdFactory
 	@Override
 	public synchronized void releaseId(int id)
 	{
-		// do nothing
+		// Do nothing
 	}
 
 	/* (non-Javadoc)

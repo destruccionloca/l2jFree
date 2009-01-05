@@ -30,7 +30,7 @@ import com.l2jfree.tools.random.Rnd;
 
 /**
  *
- * @author  Didldak
+ * @author Didldak
  * Some parts taken from EffectWarp, which cannot be used for this case.
  */
 public class InstantJump implements ISkillHandler
@@ -52,7 +52,7 @@ public class InstantJump implements ISkillHandler
 		
 		int x = 0, y = 0, z = 0;
 		
-		// Gracia Final support = it ports u behind ur target, uncomment these lines when Gracia Final! is out.
+		// Gracia Final support = it ports you behind your target, uncomment these lines when Gracia Final! is out.
 		/*
 		int px = target.getX();
 		int py = target.getY();
@@ -71,7 +71,7 @@ public class InstantJump implements ISkillHandler
 		*/
 		
 		// Gracia Part I+II pozitioning - comment these lines when gracia final is out
-		//  a little random location around player... not directly "into him"
+		// a little random location around player... not directly "into him"
 		x = target.getX() + Rnd.nextInt(5);
 		y = target.getY() + Rnd.nextInt(5);
 		z = target.getZ();

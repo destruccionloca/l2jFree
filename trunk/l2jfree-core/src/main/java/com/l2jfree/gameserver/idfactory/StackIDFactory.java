@@ -20,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Stack;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -85,7 +84,7 @@ public class StackIDFactory extends IdFactory
 			_tempOID++;
 			return N;
 		}
-		// check these IDs not present in DB
+		// Check these IDs not present in DB
 		if (Config.BAD_ID_CHECKING)
 		{
 			for (String check : ID_CHECKS)

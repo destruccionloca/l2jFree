@@ -20,10 +20,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-/**
- * 
- *
- */
 public class Time implements IUserCommandHandler
 {
 	private static final int[]	COMMAND_IDS	=

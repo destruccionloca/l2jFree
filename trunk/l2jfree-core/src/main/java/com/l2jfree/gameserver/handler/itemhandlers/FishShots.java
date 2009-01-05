@@ -57,7 +57,7 @@ public class FishShots implements IItemHandler
 
 		if (weaponInst.getChargedFishshot())
 		{
-			// spiritshot is already active
+			// Spiritshot is already active
 			return;
 		}
 
@@ -70,7 +70,7 @@ public class FishShots implements IItemHandler
 				|| (grade == L2Item.CRYSTAL_A && FishshotId != 6539) || (grade == L2Item.CRYSTAL_S && FishshotId != 6540)
 				|| (grade == L2Item.CRYSTAL_S80 && FishshotId != 6540))
 		{
-			//1479 - This fishing shot is not fit for the fishing pole crystal.             
+			// 1479 - This fishing shot is not fit for the fishing pole crystal.             
 			activeChar.sendPacket(SystemMessageId.WRONG_FISHINGSHOT_GRADE);
 			return;
 		}

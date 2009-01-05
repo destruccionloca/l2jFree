@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class TransformationItems implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int	ITEM_IDS[]	=
 											{ 9897, 10131, 10132, 10133, 10134, 10135, 10136, 10137, 10138, 10151, 10274 };
 
@@ -33,13 +34,16 @@ public class TransformationItems implements IItemHandler
 	{
 		if (!(playable instanceof L2PcInstance))
 			return;
+
 		L2PcInstance client = (L2PcInstance) playable;
 		int itemId = item.getItemId();
+
 		if (client.getPet() != null || client.isTransformed() || client.isRidingStrider() || client.isRidingFenrirWolf() || client.isRidingGreatSnowWolf() || client.isRidingWFenrirWolf() || client.isFlying())
 		{
 			client.sendPacket((new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED)).addItemName(item));
 			return;
 		}
+
 		int skillId = 0;
 
 		switch (itemId)

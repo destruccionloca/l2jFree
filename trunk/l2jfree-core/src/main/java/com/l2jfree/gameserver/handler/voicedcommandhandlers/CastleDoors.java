@@ -20,10 +20,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 
-/**
- * 
- *
- */
 public class CastleDoors implements IVoicedCommandHandler
 {
 	private static final String[]	VOICED_COMMANDS	=

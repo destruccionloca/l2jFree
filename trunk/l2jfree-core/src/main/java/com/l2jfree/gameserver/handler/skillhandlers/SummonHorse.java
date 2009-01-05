@@ -66,8 +66,6 @@ public class SummonHorse implements ISkillHandler
 			return;
 		}
 		
-		
-		
 		if ((activeChar.getPet() != null || activeChar.isMounted()))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ALREADY_HAVE_A_PET));

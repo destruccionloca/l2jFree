@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public class Remedy implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{ 1831, 1832, 1833, 1834, 3889 };
 
@@ -53,7 +54,7 @@ public class Remedy implements IItemHandler
 		}
 
 		int itemId = item.getItemId();
-		if (itemId == 1831) // antidote
+		if (itemId == 1831) // Antidote
 		{
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
@@ -69,7 +70,7 @@ public class Remedy implements IItemHandler
 			activeChar.broadcastPacket(MSU);
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
 		}
-		else if (itemId == 1832) // advanced antidote
+		else if (itemId == 1832) // Advanced Antidote
 		{
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
@@ -85,7 +86,7 @@ public class Remedy implements IItemHandler
 			activeChar.broadcastPacket(MSU);
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
 		}
-		else if (itemId == 1833) // bandage
+		else if (itemId == 1833) // Bandage
 		{
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
@@ -101,7 +102,7 @@ public class Remedy implements IItemHandler
 			activeChar.broadcastPacket(MSU);
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
 		}
-		else if (itemId == 1834) // emergency dressing
+		else if (itemId == 1834) // Emergency Dressing
 		{
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
@@ -117,7 +118,7 @@ public class Remedy implements IItemHandler
 			activeChar.broadcastPacket(MSU);
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
 		}
-		else if (itemId == 3889) // potion of recovery
+		else if (itemId == 3889) // Potion of Recovery
 		{
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)

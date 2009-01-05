@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.voicedcommandhandlers;
 
-
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.SevenSigns;
@@ -105,14 +103,14 @@ public class Wedding implements IVoicedCommandHandler
 
 	public boolean engage(L2PcInstance activeChar)
 	{
-		// check target
+		// Check target
 		if (activeChar.getTarget() == null)
 		{
 			activeChar.sendMessage("You have no one targeted.");
 			return false;
 		}
 
-		// check if target is a l2pcinstance
+		// Check if target is a L2PcInstance
 		if (!(activeChar.getTarget() instanceof L2PcInstance))
 		{
 			activeChar.sendMessage("You can only ask another player for engagement");
@@ -120,7 +118,7 @@ public class Wedding implements IVoicedCommandHandler
 			return false;
 		}
 
-		// check if player is already engaged
+		// Check if player is already engaged
 		if (activeChar.getPartnerId() != 0)
 		{
 			activeChar.sendMessage("You are already engaged.");
@@ -155,7 +153,7 @@ public class Wedding implements IVoicedCommandHandler
 
 		L2PcInstance ptarget = (L2PcInstance) activeChar.getTarget();
 
-		// check if player target himself
+		// Check if player target himself
 		if (ptarget.getObjectId() == activeChar.getObjectId())
 		{
 			activeChar.sendMessage("Is there something wrong with you, are you trying to go out with yourself?");
@@ -384,7 +382,7 @@ public class Wedding implements IVoicedCommandHandler
 		activeChar.getInventory().reduceAdena("Wedding", Config.WEDDING_TELEPORT_PRICE, activeChar, null);
 
 		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-		//SoE Animation section
+		// SoE Animation section
 		activeChar.setTarget(activeChar);
 		activeChar.disableAllSkills();
 
@@ -392,10 +390,10 @@ public class Wedding implements IVoicedCommandHandler
 		Broadcast.toSelfAndKnownPlayersInRadius(activeChar, msk, 810000/*900*/);
 		SetupGauge sg = new SetupGauge(0, teleportTimer);
 		activeChar.sendPacket(sg);
-		//End SoE Animation section
+		// End SoE Animation section
 
 		EscapeFinalizer ef = new EscapeFinalizer(activeChar, partner.getX(), partner.getY(), partner.getZ(), partner.isIn7sDungeon());
-		// continue execution later
+		// Continue execution later
 		activeChar.setSkillCast(ThreadPoolManager.getInstance().scheduleGeneral(ef, teleportTimer));
 		activeChar.forceIsCasting(GameTimeController.getGameTicks() + teleportTimer / GameTimeController.MILLIS_IN_TICK);
 

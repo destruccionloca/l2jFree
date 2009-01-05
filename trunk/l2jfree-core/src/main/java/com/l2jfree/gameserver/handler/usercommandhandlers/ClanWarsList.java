@@ -26,10 +26,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-
 /**
  * Support for /ClanWarsList command  
- * Added by Tempy - 28 Jul 05
+ * @author Tempy - 28 Jul 05
  */
 public class ClanWarsList implements IUserCommandHandler
 {
@@ -58,7 +57,7 @@ public class ClanWarsList implements IUserCommandHandler
 			PreparedStatement statement;
 			if (id == 88)
 			{
-				//attack list
+				// Attack list
 				activeChar.sendPacket(SystemMessageId.CLANS_YOU_DECLARED_WAR_ON);
 				statement = con
 						.prepareStatement("select clan_name,clan_id,ally_id,ally_name from clan_data,clan_wars where clan1=? and clan_id=clan2 and clan2 not in (select clan1 from clan_wars where clan2=?)");
@@ -67,17 +66,16 @@ public class ClanWarsList implements IUserCommandHandler
 			}
 			else if (id == 89)
 			{
-				//under attack list
+				// Under attack list
 				activeChar.sendPacket(SystemMessageId.CLANS_THAT_HAVE_DECLARED_WAR_ON_YOU);
 				statement = con
 						.prepareStatement("select clan_name,clan_id,ally_id,ally_name from clan_data,clan_wars where clan2=? and clan_id=clan1 and clan1 not in (select clan2 from clan_wars where clan1=?)");
 				statement.setInt(1, clan.getClanId());
 				statement.setInt(2, clan.getClanId());
 			}
-			else
-			// id = 90
+			else // id = 90
 			{
-				//war list
+				// War list
 				activeChar.sendPacket(SystemMessageId.WAR_LIST);
 				statement = con
 						.prepareStatement("select clan_name,clan_id,ally_id,ally_name from clan_data,clan_wars where clan1=? and clan_id=clan2 and clan2 in (select clan1 from clan_wars where clan2=?)");

@@ -178,7 +178,7 @@ public class AdminCommandHandler
 		if (Config.EVERYBODY_HAS_ADMIN_RIGHTS)
 			return true;
 
-		//Only a GM can execute a admin command
+		// Only a GM can execute a admin command
 		if (!player.isGM())
 			return false;
 
@@ -186,7 +186,7 @@ public class AdminCommandHandler
 
 		String cmd = st.nextToken(); // get command
 
-		//Check command existance
+		// Check command existance
 		if (!_datatable.containsKey(cmd))
 		{
 			player.sendMessage("Command doesn't exist.");
@@ -194,7 +194,7 @@ public class AdminCommandHandler
 			return false;
 		}
 
-		//Check command privileges
+		// Check command privileges
 		if (Config.ALT_PRIVILEGES_ADMIN)
 		{
 			if (Config.GM_COMMAND_PRIVILEGES.containsKey(cmd))
@@ -210,11 +210,7 @@ public class AdminCommandHandler
 			_log.warn("Command \"" + cmd + "\" have no access level definition. Can't be used.");
 			return false;
 		}
-		/*
-		else
-			if (!_datatable.get(cmd).checkLevel(player.getAccessLevel()))
-				return false;
-		*/
+
 		if (player.getAccessLevel() > 0)
 			return true;
 		_log.warn("GM " + player.getName() + "(" + player.getObjectId() + ") have no access level.");

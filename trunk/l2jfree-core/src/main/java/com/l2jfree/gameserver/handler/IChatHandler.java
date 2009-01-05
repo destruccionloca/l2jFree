@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.network.SystemChatChannelId;
 
 /**
  *
- * @author  Noctarius
+ * @author Noctarius
  */
 public interface IChatHandler
 {

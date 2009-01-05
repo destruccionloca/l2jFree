@@ -31,7 +31,9 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
  */
 public class Harvester implements IItemHandler
 {
-	private static final int[] ITEM_IDS = { /* Harvester */5125 };
+	// All the item IDs that this handler knows.
+	private static final int[]	ITEM_IDS	=
+											{ 5125 };
 	
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
@@ -44,11 +46,9 @@ public class Harvester implements IItemHandler
 		L2PcInstance activeChar = (L2PcInstance)playable;
 		L2Object target = activeChar.getTarget();
 		
-		if (target instanceof L2MonsterInstance
-			&& ((L2Character)target).isDead())
+		if (target instanceof L2MonsterInstance && ((L2Character)target).isDead())
 		{
-			activeChar.useMagic(SkillTable.getInstance().getInfo(2098, 1),
-				false, false);
+			activeChar.useMagic(SkillTable.getInstance().getInfo(2098, 1), false, false);
 		}
 		else
 		{

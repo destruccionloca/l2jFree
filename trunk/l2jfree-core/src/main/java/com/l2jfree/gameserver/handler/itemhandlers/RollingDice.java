@@ -35,6 +35,7 @@ import com.l2jfree.tools.random.Rnd;
 
 public class RollingDice implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{ 4625, 4626, 4627, 4628 };
 

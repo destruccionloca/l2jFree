@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
  */
 public class Seed implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static int[]	ITEM_IDS	=
 										{
 			5016,
@@ -306,6 +307,7 @@ public class Seed implements IItemHandler
 
 		if (CastleManorManager.getInstance().isDisabled())
 			return;
+
 		_activeChar = (L2PcInstance) playable;
 
 		L2Object target = _activeChar.getTarget();

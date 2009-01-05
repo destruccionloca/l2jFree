@@ -51,12 +51,12 @@ public class MercTicket implements IItemHandler
 		if (castle != null)
 			castleId = castle.getCastleId();
 
-		//add check that certain tickets can only be placed in certain castles
+		// Add check that certain tickets can only be placed in certain castles
 		if (MercTicketManager.getInstance().getTicketCastleId(itemId) != castleId)
 		{
 			if (castleId == -1)
 			{
-				// player is not in a castle
+				// Player is not in a castle
 				activeChar.sendMessage("Mercenary Tickets can only be used in a castle.");
 				return;
 			}
@@ -105,14 +105,14 @@ public class MercTicket implements IItemHandler
 			return;
 		 }
 
-		//Checking Seven Signs Quest Period
+		// Checking Seven Signs Quest Period
 		if (SevenSigns.getInstance().getCurrentPeriod() != SevenSigns.PERIOD_SEAL_VALIDATION) 
 		{
 			//_log.warning("Someone has tried to spawn a guardian during Quest Event Period of The Seven Signs.");
 			activeChar.sendMessage("You cannot position any Mercenaries during Quest Period.");
 			return;
 		}
-		//Checking the Seal of Strife status
+		// Checking the Seal of Strife status
 		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
 		{
 			case SevenSigns.CABAL_NULL:
@@ -155,7 +155,7 @@ public class MercTicket implements IItemHandler
 		activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false); // Remove item from char's inventory
 	}
 
-	// left in here for backward compatibility
+	// Left in here for backward compatibility
 	public int[] getItemIds()
 	{
 		return MercTicketManager.getInstance().getItemIds();

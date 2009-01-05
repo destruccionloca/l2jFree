@@ -16,15 +16,13 @@ package com.l2jfree.gameserver.handler;
 
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.handler.chathandlers.*;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
-
-
-import javolution.util.FastMap;
-
 
 /**
  *

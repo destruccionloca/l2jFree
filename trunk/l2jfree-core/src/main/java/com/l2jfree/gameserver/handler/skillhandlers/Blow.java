@@ -36,7 +36,7 @@ import com.l2jfree.gameserver.util.Util;
 
 /**
  *
- * @author  Steuf
+ * @author Steuf
  */
 public class Blow implements ISkillHandler
 {
@@ -88,8 +88,8 @@ public class Blow implements ISkillHandler
 				_successChance = FRONT;
 			else
 				_successChance = SIDE;
-			//If skill requires Crit or skill requires behind, 
-			//calculate chance based on DEX, Position and on self BUFF
+			// If skill requires Crit or skill requires behind, 
+			// Calculate chance based on DEX, Position and on self BUFF
 			boolean success = true;
 			if ((skill.getCondition() & L2Skill.COND_BEHIND) != 0)
 				success = (_successChance == BEHIND);
@@ -184,7 +184,7 @@ public class Blow implements ISkillHandler
 						else
 						{
 							player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);
-							// add olympiad damage
+							// Add Olympiad damage
 							if (activeChar instanceof L2PcInstance && ((L2PcInstance) activeChar).isInOlympiadMode())
 								((L2PcInstance) activeChar).addOlyDamage((int) damage);
 							else if (activeChar instanceof L2Summon && ((L2Summon) activeChar).getOwner().isInOlympiadMode()
@@ -237,11 +237,11 @@ public class Blow implements ISkillHandler
 				}
 			}
 
-			//Possibility of a lethal strike
+			// Possibility of a lethal strike
 			Formulas.getInstance().calcLethalHit(activeChar, target, skill);
 
 			L2Effect effect = activeChar.getFirstEffect(skill.getId());
-			//Self Effect
+			// Self Effect
 			if (effect != null && effect.isSelfEffect())
 				effect.exit();
 			skill.getEffectsSelf(activeChar);

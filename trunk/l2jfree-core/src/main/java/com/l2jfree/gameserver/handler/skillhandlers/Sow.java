@@ -124,7 +124,7 @@ public class Sow implements ISkillHandler
 		if (diff > 5)
 			basicSuccess -= 5 * (diff - 5);
 
-		// chance can't be less than 1%
+		// Chance can't be less than 1%
 		if (basicSuccess < 1)
 			basicSuccess = 1;
 

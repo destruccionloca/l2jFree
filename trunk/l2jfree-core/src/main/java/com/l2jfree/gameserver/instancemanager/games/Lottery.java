@@ -20,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -140,9 +139,6 @@ public class Lottery
 			}
 		}
 
-		/**
-		 * 
-		 */
 		private boolean restoreLotteryData()
 		{
 			Connection con = null;
@@ -203,9 +199,6 @@ public class Lottery
             return true;
 		}
 
-		/**
-		 * 
-		 */
 		private void announceLottery()
 		{
 			if (_log.isDebugEnabled())
@@ -216,9 +209,6 @@ public class Lottery
 			Announcements.getInstance().announceToAll("Lottery tickets are now available for Lucky Lottery #" + getId() + ".");
 		}
 
-		/**
-		 * 
-		 */
 		private void scheduleEndOfLottery()
 		{
 			Calendar finishtime = Calendar.getInstance();

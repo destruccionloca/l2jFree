@@ -36,7 +36,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class ScrollOfResurrection implements IItemHandler
 {
-	// all the items ids that this handler knows 
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{ 737, 3936, 3959, 6387 };
 
@@ -49,6 +49,7 @@ public class ScrollOfResurrection implements IItemHandler
 			return;
 
 		L2PcInstance activeChar = (L2PcInstance) playable;
+
 		if (activeChar.isSitting())
 		{
 			activeChar.sendPacket(SystemMessageId.CANT_MOVE_SITTING);
@@ -58,7 +59,6 @@ public class ScrollOfResurrection implements IItemHandler
 			return;
 
 		int itemId = item.getItemId();
-		//boolean blessedScroll = (itemId != 737);
 		boolean humanScroll = (itemId == 3936 || itemId == 3959 || itemId == 737);
 		boolean petScroll = (itemId == 6387 || itemId == 737);
 
@@ -84,7 +84,7 @@ public class ScrollOfResurrection implements IItemHandler
 				{
 					boolean condGood = true;
 
-					//check target is not in a active siege zone
+					// Check target is not in a active siege zone
 					Siege siege = null;
 
 					if (targetPlayer != null)

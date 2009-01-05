@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -36,9 +39,6 @@ import com.l2jfree.gameserver.network.serverpackets.Earthquake;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 /**
  * 
@@ -59,7 +59,7 @@ public class BaiumManager extends BossLair
 	public final static int			STATUE_LOCATION[]		=	{ 115996, 17417, 10106, 41740 };
 	protected L2Spawn				_statueSpawn			= null;
 
-	// location of arcangels.
+	// Location of arcangels.
 	public final static int			ANGEL_LOCATION[][]			=
 																{
 																{ 113004, 16209, 10076, 60242 },
@@ -75,21 +75,21 @@ public class BaiumManager extends BossLair
 	protected List<L2Spawn>					_angelSpawns				= new FastList<L2Spawn>();
 	protected List<L2NpcInstance>			_angels						= new FastList<L2NpcInstance>();
 
-	// location of teleport cube.
+	// Location of teleport cube.
 	public final static int			CUBE_LOCATION[]				= { 115203, 16620, 10078, 0 };
 	protected L2Spawn				_teleportCubeSpawn			= null;
 	protected L2NpcInstance			_teleportCube				= null;
 
-	// instance of statue of Baium.
+	// Instance of statue of Baium.
 	protected L2NpcInstance			_npcBaium;
 
-	// spawn data of monsters.
+	// Spawn data of monsters.
 	protected Map<Integer, L2Spawn>	_monsterSpawn				= new FastMap<Integer, L2Spawn>();
 
-	// instance of monsters.
+	// Instance of monsters.
 	protected List<L2NpcInstance>	_monsters					= new FastList<L2NpcInstance>();
 
-	// tasks.
+	// Tasks.
 	protected ScheduledFuture<?>	_cubeSpawnTask				= null;
 	protected ScheduledFuture<?>	_monsterSpawnTask			= null;
 	protected ScheduledFuture<?>	_intervalEndTask			= null;
@@ -103,7 +103,7 @@ public class BaiumManager extends BossLair
 	protected ScheduledFuture<?>	_sleepCheckTask				= null;
 	protected ScheduledFuture<?>	_speakTask					= null;
 
-	// status in lair.
+	// Status in lair.
 	protected long					_lastAttackTime				= 0;
 	protected String				_words						= "Don't obstruct my sleep! Die!";
 
@@ -120,17 +120,17 @@ public class BaiumManager extends BossLair
 		return _instance;
 	}
 
-	// initialize
+	// Initialize
 	@Override
 	public void init()
 	{
-		// setting spawn data of monsters.
+		// Setting spawn data of monsters.
 		try
 		{
 			L2NpcTemplate template1;
 			L2Spawn tempSpawn;
 
-			//Statue of Baium  
+			// Statue of Baium  
 			template1 = NpcTable.getInstance().getTemplate(BAIUM_NPC);
 			_statueSpawn = new L2Spawn(template1);
 			_statueSpawn.setAmount(1);
@@ -155,7 +155,7 @@ public class BaiumManager extends BossLair
 			_log.warn(e.getMessage());
 		}
 
-		// setting spawn data of teleport cube.
+		// Setting spawn data of teleport cube.
 		try
 		{
 			L2NpcTemplate Cube = NpcTable.getInstance().getTemplate(TELEPORT_CUBE);
@@ -175,7 +175,7 @@ public class BaiumManager extends BossLair
 			_log.warn(e.getMessage());
 		}
 
-		// setting spawn data of archangels.
+		// Setting spawn data of archangels.
 		try
 		{
 			L2NpcTemplate angel = NpcTable.getInstance().getTemplate(ARCHANGEL);
@@ -248,22 +248,22 @@ public class BaiumManager extends BossLair
 		_angels.clear();
 	}
 
-	// do spawn Baium.
+	// Do spawn Baium.
 	public void spawnBaium(L2NpcInstance NpcBaium)
 	{
 		_npcBaium = NpcBaium;
 
-		// get target from statue,to kill a player of make Baium awake.
+		// Get target from statue,to kill a player of make Baium awake.
 		L2PcInstance target = (L2PcInstance) _npcBaium.getTarget();
 
-		// do spawn.
+		// Do spawn.
 		L2Spawn baiumSpawn = _monsterSpawn.get(BAIUM);
 		baiumSpawn.setLocx(_npcBaium.getX());
 		baiumSpawn.setLocy(_npcBaium.getY());
 		baiumSpawn.setLocz(_npcBaium.getZ());
 		baiumSpawn.setHeading(_npcBaium.getHeading());
 
-		//delete statue.  
+		// Delete statue.  
 		_npcBaium.deleteMe();
 
 		final L2GrandBossInstance baium = (L2GrandBossInstance) baiumSpawn.doSpawn();
@@ -274,13 +274,13 @@ public class BaiumManager extends BossLair
 		_state.setState(GrandBossState.StateEnum.ALIVE);
 		_state.update();
 
-		// set last attack time.
+		// Set last attack time.
 		setLastAttackTime();
 
-		// stop respawn of statue.
+		// Stop respawn of statue.
 		_npcBaium.getSpawn().stopRespawn();
 
-		// do social.
+		// Do social.
 		baium.setIsImmobilized(true);
 		baium.setIsInSocialAction(true);
 
@@ -308,19 +308,19 @@ public class BaiumManager extends BossLair
 
 		_mobiliseTask = ThreadPoolManager.getInstance().scheduleGeneral(new SetMobilised(baium), 35500);
 
-		// move at random.
+		// Move at random.
 		if (Config.FWB_MOVEATRANDOM)
 		{
 			L2CharPosition pos = new L2CharPosition(Rnd.get(112826, 116241), Rnd.get(15575, 16375), 10078, 0);
 			_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleGeneral(new MoveAtRandom(baium, pos), 36000);
 		}
 
-		// set delete task.
+		// Set delete task.
 		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(), Config.FWB_ACTIVITYTIMEOFBAIUM);
 		_sleepCheckTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckLastAttack(), 60000);
 	}
 
-	// at end of activity time.
+	// At end of activity time.
 	private class ActivityTimeEnd implements Runnable
 	{
 		public void run()
@@ -332,14 +332,14 @@ public class BaiumManager extends BossLair
 		}
 	}
 
-	// clean Baium's lair.
+	// Clean Baium's lair.
 	@Override
 	public void setUnspawn()
 	{
-		// eliminate players.
+		// Eliminate players.
 		banishForeigners();
 
-		// delete monsters.
+		// Delete monsters.
 		deleteArchangels();
 		for (L2NpcInstance mob : _monsters)
 		{
@@ -348,7 +348,7 @@ public class BaiumManager extends BossLair
 		}
 		_monsters.clear();
 
-		// delete teleport cube.
+		// Delete teleport cube.
 		if (_teleportCube != null)
 		{
 			_teleportCube.getSpawn().stopRespawn();
@@ -356,7 +356,7 @@ public class BaiumManager extends BossLair
 			_teleportCube = null;
 		}
 
-		// not executed tasks is canceled.
+		// Not executed tasks is canceled.
 		if (_cubeSpawnTask != null)
 		{
 			_cubeSpawnTask.cancel(true);
@@ -419,13 +419,13 @@ public class BaiumManager extends BossLair
 		}
 	}
 
-	// do spawn teleport cube.
+	// Do spawn teleport cube.
 	public void spawnCube()
 	{
 		_teleportCube = _teleportCubeSpawn.doSpawn();
 	}
 
-	// start interval.
+	// Start interval.
 	public void setIntervalEndTask()
 	{
 		setUnspawn();
@@ -441,7 +441,7 @@ public class BaiumManager extends BossLair
 		_intervalEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new IntervalEnd(), _state.getInterval());
 	}
 
-	// at end of interval.
+	// At end of interval.
 	private class IntervalEnd implements Runnable
 	{
 		public void run()
@@ -454,7 +454,7 @@ public class BaiumManager extends BossLair
 		}
 	}
 
-	// setting teleport cube spawn task.
+	// Setting teleport cube spawn task.
 	public void setCubeSpawn()
 	{
 		_state.setState(GrandBossState.StateEnum.DEAD);
@@ -465,7 +465,7 @@ public class BaiumManager extends BossLair
 		_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new CubeSpawn(), 10000);
 	}
 
-	// do spawn teleport cube.
+	// Do spawn teleport cube.
 	private class CubeSpawn implements Runnable
 	{
 		public void run()
@@ -474,7 +474,7 @@ public class BaiumManager extends BossLair
 		}
 	}
 
-	// do social.
+	// Do social.
 	private class Social implements Runnable
 	{
 		private int				_action;
@@ -493,7 +493,7 @@ public class BaiumManager extends BossLair
 		}
 	}
 
-	// action is enabled the boss.
+	// Action is enabled the boss.
 	private class SetMobilised implements Runnable
 	{
 		private L2GrandBossInstance	_boss;
@@ -535,7 +535,7 @@ public class BaiumManager extends BossLair
 		}
 	}
 
-	// call Arcangels
+	// Call Arcangels
 	private class CallArchAngel implements Runnable
 	{
 		public void run()
@@ -544,7 +544,7 @@ public class BaiumManager extends BossLair
 		}
 	}
 
-	// kill pc
+	// Kill pc
 	private class KillPc implements Runnable
 	{
 		private L2PcInstance		_target;

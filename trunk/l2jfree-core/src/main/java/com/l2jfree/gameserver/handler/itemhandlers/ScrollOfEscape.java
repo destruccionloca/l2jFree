@@ -44,7 +44,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class ScrollOfEscape implements IItemHandler
 {
-	// all the items IDs that this handler knows
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{
 			736,
@@ -161,7 +161,7 @@ public class ScrollOfEscape implements IItemHandler
 			return;
 		}
 		
-		// blessed scrolls don't do anything if hideout target it is null
+		// Blessed Scrolls don't do anything if hideout target it is null
 		boolean ret = false;
 		switch(item.getItemId())
 		{
@@ -188,7 +188,7 @@ public class ScrollOfEscape implements IItemHandler
 		
 		//activeChar.abortCast();
 		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-		//SoE Animation section
+		// SoE Animation section
 		activeChar.setTarget(activeChar);
 		
 		// Modified by Tempy - 28 Jul 05 \\
@@ -206,14 +206,14 @@ public class ScrollOfEscape implements IItemHandler
 		activeChar.broadcastPacket(msu);
 		SetupGauge sg = new SetupGauge(0, skill.getHitTime());
 		activeChar.sendPacket(sg);
-		//End SoE Animation section
+		// End SoE Animation section
 		
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
 		sm.addItemName(item);
 		activeChar.sendPacket(sm);
 		
 		EscapeFinalizer ef = new EscapeFinalizer(activeChar, itemId);
-		// continue execution later
+		// Continue execution later
 		activeChar.setSkillCast(ThreadPoolManager.getInstance().scheduleEffect(ef, skill.getHitTime()));
 		activeChar.forceIsCasting(GameTimeController.getGameTicks() + skill.getHitTime() / GameTimeController.MILLIS_IN_TICK);
 	}

@@ -29,13 +29,14 @@ import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.tools.random.Rnd;
 
 /**
- * @author  chris
+ * @author chris
  */
 public class DoorKey implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS				=
 														{
-														// Pagan temple
+			// Pagan temple
 			8273,
 			8274,
 			8275,
@@ -43,12 +44,13 @@ public class DoorKey implements IItemHandler
 			8056,
 			// Key of Enigma
 			8060,
-			// blue coral key
+			// Blue Coral Key
 			9698,
-			// red coral key
+			// Red Coral Key
 			9699,
-			// Secret race key
+			// Secret Race Key
 			9694										};
+
 	public static final int		INTERACTION_DISTANCE	= 100;
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
@@ -95,7 +97,7 @@ public class DoorKey implements IItemHandler
 
 		switch (itemId)
 		{
-		case 8273: //AnteroomKey
+		case 8273: // Anteroom Key
 		{
 			if (door.getDoorName().startsWith("Anteroom"))
 			{
@@ -125,7 +127,7 @@ public class DoorKey implements IItemHandler
 			break;
 		}
 
-		case 8274: //Chapelkey, Capel Door has a Gatekeeper?? I use this key for Altar Entrance
+		case 8274: // Chapel Key, Capel Door has a Gatekeeper?? I use this key for Altar Entrance
 		{
 			if (door.getDoorName().startsWith("Altar_Entrance"))
 			{
@@ -154,7 +156,7 @@ public class DoorKey implements IItemHandler
 			break;
 		}
 
-		case 8275: //Key of Darkness
+		case 8275: // Key of Darkness
 		{
 			if (door.getDoorName().startsWith("Door_of_Darkness"))
 			{
@@ -183,7 +185,7 @@ public class DoorKey implements IItemHandler
 		}
 			break;
 
-		case 8056: //Splendor room
+		case 8056: // Splendor room
 		{
 			if ((door.getDoorId() != 23150003 && door.getDoorId() != 23150004) || door.getOpen())
 			{
@@ -199,7 +201,7 @@ public class DoorKey implements IItemHandler
 			break;
 		}
 
-		case 9698: //Sapphire Gate
+		case 9698: // Sapphire Gate
 		{
 			if ((door.getDoorId() != 24220020) || door.getOpen())
 			{
@@ -213,7 +215,7 @@ public class DoorKey implements IItemHandler
 			door.openMe();
 			break;
 		}
-		case 9699: //Corridor Gate
+		case 9699: // Corridor Gate
 		{
 			if ((door.getDoorId() != 24220022) || door.getOpen())
 			{
@@ -227,7 +229,7 @@ public class DoorKey implements IItemHandler
 			door.openMe();
 			break;
 		}
-		case 9694: //secret garden key
+		case 9694: // Secret Garden Key
 		{
 			if ((door.getDoorId() != 24220001 && door.getDoorId() != 24220002 && door.getDoorId() != 24220003 && door.getDoorId() != 24220004)
 					|| door.getOpen())
@@ -236,6 +238,7 @@ public class DoorKey implements IItemHandler
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
+
 			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
 				return;
 

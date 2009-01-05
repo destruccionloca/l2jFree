@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class Scrolls implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{
 			3926,
@@ -56,22 +57,22 @@ public class Scrolls implements IItemHandler
 			5804,
 			5805,
 			5806,
-			5807, // lucky charm
+			5807, // Lucky Charm
 			8515,
 			8516,
 			8517,
 			8518,
 			8519,
-			8520, // charm of courage
+			8520, // Charm of Courage
 			8594,
 			8595,
 			8596,
 			8597,
 			8598,
-			8599, // scrolls of recovery
+			8599, // Scrolls of Recovery
 			8954,
 			8955,
-			8956, // primeval crystal
+			8956, // Primeval Crystal
 			9146,
 			9147,
 			9148,
@@ -107,12 +108,12 @@ public class Scrolls implements IItemHandler
 
 		int itemId = item.getItemId();
 
-		if (itemId >= 8594 && itemId <= 8599) //Scrolls of recovery XML: 2286
+		if (itemId >= 8594 && itemId <= 8599) //Scrolls of Recovery XML: 2286
 		{
 			if (activeChar.getKarma() > 0)
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(item));
-				return; // Chaotic can not use it
+				return; // Chaotic cannot use it
 			}
 
 			byte expIndex = (byte) activeChar.getExpertiseIndex();
@@ -191,7 +192,7 @@ public class Scrolls implements IItemHandler
 			return;
 		}
 
-		// for the rest, there are no extra conditions
+		// For the rest, there are no extra conditions
 		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
 			return;
 

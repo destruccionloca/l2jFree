@@ -25,10 +25,6 @@ import com.l2jfree.gameserver.model.mapregion.L2MapRegionRestart;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-/**
- * 
- *
- */
 public class Loc implements IUserCommandHandler
 {
 	private static final int[]	COMMAND_IDS	=
@@ -43,7 +39,7 @@ public class Loc implements IUserCommandHandler
 		L2MapRegionRestart restart = null;
 		SystemMessageId msg = SystemMessageId.LOC_ADEN_S1_S2_S3;
 
-		//Standard Town
+		// Standard Town
 		Town town = TownManager.getInstance().getTown(Config.ALT_DEFAULT_RESTARTTOWN);
 		if (town != null && town.getMapRegion() != null)
 		{

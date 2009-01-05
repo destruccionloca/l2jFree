@@ -19,16 +19,16 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class SiegeStatus implements IUserCommandHandler
 {
-    private static final int[] COMMAND_IDS = { 99 }; 
+	private static final int[] COMMAND_IDS = { 99 }; 
 
-    public boolean useUserCommand(int id, L2PcInstance activeChar)
-    {
-        activeChar.sendMessage("Command /siegestatus not implemented yet.");
-        return true;
-    }
+	public boolean useUserCommand(int id, L2PcInstance activeChar)
+	{
+		activeChar.sendMessage("Command /siegestatus not implemented yet.");
+		return true;
+	}
 
-    public int[] getUserCommandList()
-    {
-        return COMMAND_IDS;
-    }
+	public int[] getUserCommandList()
+	{
+		return COMMAND_IDS;
+	}
 }

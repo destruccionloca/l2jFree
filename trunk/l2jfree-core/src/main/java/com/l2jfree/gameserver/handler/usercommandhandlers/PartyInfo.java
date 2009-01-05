@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Support for /partyinfo command  
- * Added by Tempy - 28 Jul 05
+ * @author Tempy - 28 Jul 05
  */
 public class PartyInfo implements IUserCommandHandler
 {

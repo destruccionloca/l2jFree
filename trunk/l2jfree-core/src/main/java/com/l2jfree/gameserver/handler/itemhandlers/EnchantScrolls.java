@@ -25,32 +25,44 @@ import com.l2jfree.gameserver.network.serverpackets.ChooseInventoryItem;
 
 public class EnchantScrolls implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
-											{ 729, 730, 731, 732, 6569, 6570, // a grade
+											{ 
+			// A grade
+			729,
+			730,
+			731,
+			732,
+			6569,
+			6570,
+			// B grade
 			947,
 			948,
 			949,
 			950,
 			6571,
-			6572, // b grade
+			6572,
+			// C grade
 			951,
 			952,
 			953,
 			954,
 			6573,
-			6574, // c grade
+			6574,
+			// D grade
 			955,
 			956,
 			957,
 			958,
 			6575,
-			6576, // d grade
+			6576,
+			// S grade
 			959,
 			960,
 			961,
 			962,
 			6577,
-			6578							// s grade
+			6578
 											};
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)

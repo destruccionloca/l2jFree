@@ -39,8 +39,6 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public class Heal implements ISkillHandler
 {
-	// all the items ids that this handler knowns
-
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
@@ -67,7 +65,7 @@ public class Heal implements ISkillHandler
 			
 			L2Character target = (L2Character) element;
 						
-			//We should not heal if char is dead
+			// We should not heal if char is dead
 			if (target.isDead())
 				continue;
 
@@ -88,7 +86,7 @@ public class Heal implements ISkillHandler
 			}
 			else
 			{
-				//Added effect of SpS and Bsps
+				// Added effect of SpS and Bsps
 				if (weaponInst != null)
 				{
 					if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
@@ -145,7 +143,7 @@ public class Heal implements ISkillHandler
 				}
 			}
 
-			//from CT2 u will receive exact HP, u can't go over it, if u have full HP and u get HP buff, u will receive 0HP restored message
+			// From CT2 you will receive exact HP, you can't go over it, if you have full HP and you get HP buff, you will receive 0HP restored message
 			if ((target.getStatus().getCurrentHp() + hp) >= target.getMaxHp())
 				hp = target.getMaxHp() - target.getStatus().getCurrentHp();
 	

@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
+import javolution.util.FastList;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -33,8 +35,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 
-import javolution.util.FastList;
-
 /**
  * 
  * This class ...
@@ -46,14 +46,14 @@ public class SailrenManager extends BossLair
 {
 	private static SailrenManager	_instance;
 
-	// teleport cube location.
+	// Teleport cube location.
 	private final int				_sailrenCubeLocation[][]	=
 																{
 																{ 27734, -6838, -1982, 0 } };
 	protected List<L2Spawn>			_sailrenCubeSpawn			= new FastList<L2Spawn>();
 	protected List<L2NpcInstance>	_sailrenCube				= new FastList<L2NpcInstance>();
 
-	// spawn data of monsters
+	// Spawn data of monsters
 	protected L2Spawn				_velociraptorSpawn;											// Velociraptor
 	protected L2Spawn				_pterosaurSpawn;												// Pterosaur
 	protected L2Spawn				_tyrannoSpawn;													// Tyrannosaurus
@@ -73,7 +73,7 @@ public class SailrenManager extends BossLair
 	protected ScheduledFuture<?>	_onPartyAnnihilatedTask		= null;
 	protected ScheduledFuture<?>	_socialTask					= null;
 
-	// State of sailren's lair.
+	// State of Sailren's lair.
 	protected boolean				_isAlreadyEnteredOtherParty	= false;
 
 	public static SailrenManager getInstance()
@@ -89,14 +89,14 @@ public class SailrenManager extends BossLair
 		_state = new GrandBossState(29065);
 	}
 
-	// init.
+	// Init.
 	@Override
 	public void init()
 	{
-		// init state.
+		// Init state.
 		_isAlreadyEnteredOtherParty = false;
 
-		// setting spawn data of monsters.
+		// Setting spawn data of monsters.
 		try
 		{
 			L2NpcTemplate template1;
@@ -151,7 +151,7 @@ public class SailrenManager extends BossLair
 			_log.warn(e.getMessage());
 		}
 
-		// setting spawn data of teleporte cube.
+		// Setting spawn data of teleporte cube.
 		try
 		{
 			L2NpcTemplate cube = NpcTable.getInstance().getTemplate(32107);
@@ -185,7 +185,7 @@ public class SailrenManager extends BossLair
 		_log.info("SailrenManager : Init SailrenManager.");
 	}
 
-	// whether it is permitted to enter the sailren's lair is confirmed. 
+	// Whether it is permitted to enter the sailren's lair is confirmed. 
 	public int canIntoSailrenLair(L2PcInstance pc)
 	{
 		if ((Config.FWS_ENABLESINGLEPLAYER == false) && (pc.getParty() == null))
@@ -203,7 +203,7 @@ public class SailrenManager extends BossLair
 
 	}
 
-	// set sailren spawn task.
+	// Set Sailren spawn task.
 	public void setSailrenSpawnTask(int npcId)
 	{
 		if ((npcId == 22218) && (getPlayersInside().size() >= 1))
@@ -215,7 +215,7 @@ public class SailrenManager extends BossLair
 		}
 	}
 
-	// teleporting player to sailren's lair.
+	// Teleporting player to sailren's lair.
 	public void entryToSailrenLair(L2PcInstance pc)
 	{
 		int driftx;
@@ -255,7 +255,7 @@ public class SailrenManager extends BossLair
 		_isAlreadyEnteredOtherParty = true;
 	}
 
-	// when annihilating or limit of time coming, the compulsion movement players from the sailren's lair.
+	// When annihilating or limit of time coming, the compulsion movement players from the sailren's lair.
 	@Override
 	public void banishForeigners()
 	{
@@ -263,14 +263,14 @@ public class SailrenManager extends BossLair
 		_isAlreadyEnteredOtherParty = false;
 	}
 
-	// clean up sailren's lair.
+	// Clean up Sailren's lair.
 	@Override
 	public void setUnspawn()
 	{
-		// eliminate players.
+		// Eliminate players.
 		banishForeigners();
 
-		// delete teleport cube.
+		// Delete teleport cube.
 		for (L2NpcInstance cube : _sailrenCube)
 		{
 			cube.getSpawn().stopRespawn();
@@ -278,7 +278,7 @@ public class SailrenManager extends BossLair
 		}
 		_sailrenCube.clear();
 
-		// not executed tasks is canceled.
+		// Not executed tasks is canceled.
 		if (_cubeSpawnTask != null)
 		{
 			_cubeSpawnTask.cancel(true);
@@ -300,17 +300,17 @@ public class SailrenManager extends BossLair
 			_activityTimeEndTask = null;
 		}
 
-		// init state of sailren's lair.
+		// Init state of sailren's lair.
 		_velociraptor = null;
 		_pterosaur = null;
 		_tyranno = null;
 		_sailren = null;
 
-		// interval begin.
+		// Interval begin.
 		setIntervalEndTask();
 	}
 
-	// spawn teleport cube.
+	// Spawn teleport cube.
 	public void spawnCube()
 	{
 		for (L2Spawn spawnDat : _sailrenCubeSpawn)
@@ -319,7 +319,7 @@ public class SailrenManager extends BossLair
 		}
 	}
 
-	// task of teleport cube spawn.
+	// Task of teleport cube spawn.
 	public void setCubeSpawn()
 	{
 		_state.setState(GrandBossState.StateEnum.DEAD);
@@ -329,7 +329,7 @@ public class SailrenManager extends BossLair
 
 	}
 
-	// task of interval of sailren spawn.
+	// Task of interval of sailren spawn.
 	public void setIntervalEndTask()
 	{
 		if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
@@ -344,7 +344,7 @@ public class SailrenManager extends BossLair
 		_intervalEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new IntervalEnd(), _state.getInterval());
 	}
 
-	// spawn monster.
+	// Spawn monster.
 	private class SailrenSpawn implements Runnable
 	{
 		private int				_npcId;
@@ -443,7 +443,7 @@ public class SailrenManager extends BossLair
 		}
 	}
 
-	// spawn teleport cube.
+	// Spawn teleport cube.
 	private class CubeSpawn implements Runnable
 	{
 		public void run()
@@ -452,7 +452,7 @@ public class SailrenManager extends BossLair
 		}
 	}
 
-	// limit of time coming.
+	// Limit of time coming.
 	private class ActivityTimeEnd implements Runnable
 	{
 		private L2NpcInstance	_mob;
@@ -475,7 +475,7 @@ public class SailrenManager extends BossLair
 		}
 	}
 
-	// interval end.
+	// Interval end.
 	private class IntervalEnd implements Runnable
 	{
 		public void run()
@@ -485,7 +485,7 @@ public class SailrenManager extends BossLair
 		}
 	}
 
-	// social.
+	// Social.
 	private class Social implements Runnable
 	{
 		private int				_action;

@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.network.serverpackets.SSQStatus;
  */
 public class SevenSignsRecord implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{ 5707 };
 

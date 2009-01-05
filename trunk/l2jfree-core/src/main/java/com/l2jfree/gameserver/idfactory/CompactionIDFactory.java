@@ -14,17 +14,10 @@
  */
 package com.l2jfree.gameserver.idfactory;
 
-/**
- * 
- * @author luisantonioa
- * 
- */
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,6 +28,7 @@ import com.l2jfree.L2DatabaseFactory;
 /**
  * This class ...
  * 
+ * @author luisantonioa
  * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
  */
 
@@ -82,7 +76,7 @@ public class CompactionIDFactory extends IdFactory
 			_curOID++;
 			return N;
 		}
-		// check these IDs not present in DB
+		// Check these IDs not present in DB
 		if (Config.BAD_ID_CHECKING)
 		{
 			for (String check : ID_CHECKS)
@@ -127,23 +121,14 @@ public class CompactionIDFactory extends IdFactory
 	@Override
 	public synchronized int getNextId()
 	{
-		/*if (_freeSize == 0)*/return _curOID++;
-		/* else
-		 	return _freeOIDs[--_freeSize];*/
+		return _curOID++;
 	}
 
 	@Override
 	public synchronized void releaseId(@SuppressWarnings("unused")
 	int id)
 	{
-		//dont release ids until we are sure it isnt messing up
-		/* if (_freeSize >= _freeOIDs.length)
-		 {
-		     int[] tmp = new int[_freeSize + STACK_SIZE_INCREMENT];
-		     System.arraycopy(_freeOIDs, 0, tmp, 0, _freeSize);
-		     _freeOIDs = tmp;
-		 }
-		 _freeOIDs[_freeSize++] = id;*/
+
 	}
 
 	@Override

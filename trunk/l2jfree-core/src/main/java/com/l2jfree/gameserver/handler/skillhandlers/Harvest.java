@@ -134,7 +134,7 @@ public class Harvest implements ISkillHandler
 		if (diff < 0)
 			diff = -diff;
 
-		// apply penalty, target <=> player levels
+		// Apply penalty, target <=> player levels
 		// 5% penalty for each level
 		if (diff > 5)
 		{

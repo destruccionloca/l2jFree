@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  *
- * @author  Chris
+ * @author Chris
  */
 public class ChannelLeave implements IUserCommandHandler
 {

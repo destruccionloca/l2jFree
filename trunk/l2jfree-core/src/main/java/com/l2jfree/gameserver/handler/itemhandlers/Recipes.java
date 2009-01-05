@@ -31,6 +31,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class Recipes implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private final int[]	ITEM_IDS;
 
 	public Recipes()
@@ -61,12 +62,12 @@ public class Recipes implements IItemHandler
 				{
 					if (rp.getLevel() > activeChar.getDwarvenCraft())
 					{
-						//can't add recipe, becouse create item level too low
+						// Can't add recipe, becouse create item level too low
 						activeChar.sendPacket(SystemMessageId.CREATE_LVL_TOO_LOW_TO_REGISTER);
 					}
 					else if (activeChar.getDwarvenRecipeBook().length >= activeChar.getDwarfRecipeLimit())
 					{
-						//Up to $s1 recipes can be registered.
+						// Up to $s1 recipes can be registered.
 						SystemMessage sm = new SystemMessage(SystemMessageId.UP_TO_S1_RECIPES_CAN_REGISTER);
 						sm.addNumber(activeChar.getDwarfRecipeLimit());
 						activeChar.sendPacket(sm);
@@ -89,12 +90,12 @@ public class Recipes implements IItemHandler
 				{
 					if (rp.getLevel() > activeChar.getCommonCraft())
 					{
-						//can't add recipe, becouse create item level too low
+						// Can't add recipe, becouse create item level too low
 						activeChar.sendPacket(SystemMessageId.CREATE_LVL_TOO_LOW_TO_REGISTER);
 					}
 					else if (activeChar.getCommonRecipeBook().length >= activeChar.getCommonRecipeLimit())
 					{
-						//Up to $s1 recipes can be registered.
+						// Up to $s1 recipes can be registered.
 						SystemMessage sm = new SystemMessage(SystemMessageId.UP_TO_S1_RECIPES_CAN_REGISTER);
 						sm.addNumber(activeChar.getCommonRecipeLimit());
 						activeChar.sendPacket(sm);

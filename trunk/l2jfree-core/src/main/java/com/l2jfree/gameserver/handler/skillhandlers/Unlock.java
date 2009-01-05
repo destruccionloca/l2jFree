@@ -28,7 +28,6 @@ import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
-
 public class Unlock implements ISkillHandler
 {
 	private static final L2SkillType[]	SKILL_IDS	=
@@ -149,7 +148,7 @@ public class Unlock implements ISkillHandler
 					chest.setSpecialDrop();
 					chest.setMustRewardExpSp(false);
 					chest.setInteracted();
-					chest.reduceCurrentHp(99999999, activeChar);
+					chest.reduceCurrentHp(chest.getMaxHp(), activeChar);
 				}
 				else
 				{

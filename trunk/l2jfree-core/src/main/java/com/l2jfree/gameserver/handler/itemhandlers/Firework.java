@@ -33,7 +33,8 @@ import com.l2jfree.gameserver.util.FloodProtector;
 
 public class Firework implements IItemHandler
 {
-	//Modified by Baghak (Prograsso): Added Firework support
+	// Modified by Baghak (Prograsso): Added Firework support, Optimised by Skatershi
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{ 6403, 6406, 6407 };
 
@@ -42,6 +43,7 @@ public class Firework implements IItemHandler
 		L2PcInstance activeChar;
 		activeChar = (L2PcInstance) playable;
 		int itemId = item.getItemId();
+		int skillId = -1;
 
 		if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_FIREWORK))
 		{
@@ -51,48 +53,29 @@ public class Firework implements IItemHandler
 			return;
 		}
 
-		/*
-		 * Elven Firecracker
-		 */
-		if (itemId == 6403) // elven_firecracker, xml: 2023
+		switch (itemId)
 		{
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2023, 1, 1, 0);
-			activeChar.sendPacket(MSU);
-			activeChar.broadcastPacket(MSU);
-			useFw(activeChar, 2023, 1);
-			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
+		case 6403: // Elven Firecracker
+			skillId = 2023; // elven_firecracker, xml: 2023
+			break;
+		case 6406: // Firework
+			skillId = 2024; // firework, xml: 2024
+			break;
+		case 6407: // Large Firework
+			skillId = 2025; // large_firework, xml: 2025
+			break;
 		}
-		/*
-		* Firework
-		*/
-		else if (itemId == 6406) // firework, xml: 2024
-		{
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2024, 1, 1, 0);
-			activeChar.sendPacket(MSU);
-			activeChar.broadcastPacket(MSU);
-			useFw(activeChar, 2024, 1);
-			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-		}
-		/*
-		 * Lage Firework
-		 */
-		else if (itemId == 6407) // large_firework, xml: 2025
-		{
-			MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2025, 1, 1, 0);
-			activeChar.sendPacket(MSU);
-			activeChar.broadcastPacket(MSU);
-			useFw(activeChar, 2025, 1);
-			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-		}
-	}
 
-	public void useFw(L2PcInstance activeChar, int magicId, int level)
-	{
-		L2Skill skill = SkillTable.getInstance().getInfo(magicId, level);
+		L2Skill skill = SkillTable.getInstance().getInfo(skillId, 1);
+		MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, skillId, 1, 1, 0);
+
+		playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
+
+		activeChar.sendPacket(MSU);
+		activeChar.broadcastPacket(MSU);
+
 		if (skill != null)
-		{
 			activeChar.useMagic(skill, false, false);
-		}
 	}
 
 	public int[] getItemIds()

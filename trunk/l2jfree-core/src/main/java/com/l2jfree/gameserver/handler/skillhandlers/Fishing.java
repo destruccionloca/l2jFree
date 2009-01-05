@@ -59,30 +59,30 @@ public class Fishing implements ISkillHandler
 				player.getFishCombat().doDie(false);
 			else
 				player.endFishing(false);
-			//Cancels fishing
+			// Cancel fishing
 			player.sendPacket(SystemMessageId.FISHING_ATTEMPT_CANCELLED);
 			return;
 		}
 		if (player.isInBoat())
 		{
-			//You can't fish while you are on boat
+			// You can't fish while you are on boat
 			player.sendPacket(SystemMessageId.CANNOT_FISH_ON_BOAT);
 			return;
 		}
 		if (!player.isInsideZone(L2Zone.FLAG_FISHING) || player.isInsideZone(L2Zone.FLAG_PEACE))
 		{
-			//You can't fish here
+			// You can't fish here
 			player.sendPacket(SystemMessageId.CANNOT_FISH_HERE);
 			return;
 		}
 		if (player.isInsideZone(L2Zone.FLAG_WATER))
 		{
-			//You can't fish in water
+			// You can't fish in water
 			player.sendPacket(SystemMessageId.CANNOT_FISH_UNDER_WATER);
 			return;
 		}
 
-		// calculate point of a float
+		// Calculate point of a float
 		int d = Rnd.get(50) + 150;
 		double angle = Util.convertHeadingToDegree(player.getHeading());
 		double radian = Math.toRadians(angle);
@@ -95,7 +95,7 @@ public class Fishing implements ISkillHandler
 
 		L2Zone water = ZoneManager.getInstance().isInsideZone(L2Zone.ZoneType.Water, x, y);
 
-		// float must be in water
+		// Float must be in water
 		if (water == null)
 		{
 			player.sendPacket(SystemMessageId.CANNOT_FISH_HERE);
@@ -138,7 +138,7 @@ public class Fishing implements ISkillHandler
 			player.sendPacket(new ItemList(player, false));
 		}
 		else
-		//Has enough bait, consume 1 and update inventory. Start fishing follows.
+		// Has enough bait, consume 1 and update inventory. Start fishing follows.
 		{
 			lure2 = player.getInventory().destroyItem("Consume", player.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LHAND), 1, player, null);
 			InventoryUpdate iu = new InventoryUpdate();
@@ -146,7 +146,7 @@ public class Fishing implements ISkillHandler
 			player.sendPacket(iu);
 		}
 
-		// client itself find z coord of a float
+		// Client itself find z coord of a float
 		player.startFishing(x, y, z + 10);
 	}
 

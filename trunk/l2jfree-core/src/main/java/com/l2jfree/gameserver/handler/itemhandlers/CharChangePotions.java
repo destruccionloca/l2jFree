@@ -24,25 +24,32 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 /**
- * Itemhhandler for Character Appearance Change Potions
+ * ItemHandler for Character Appearance Change Potions
  * 
  * @author Tempy
   */
 public class CharChangePotions implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
-											{ 5235, 5236, 5237, // Face
+											{ 
+			// Face
+			5235,
+			5236,
+			5237,
+			// Hair Color
 			5238,
 			5239,
 			5240,
-			5241, // Hair Color
+			5241,
+			// Hair Style
 			5242,
 			5243,
 			5244,
 			5245,
 			5246,
 			5247,
-			5248							// Hair Style
+			5248
 											};
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)

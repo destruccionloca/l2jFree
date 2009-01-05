@@ -28,7 +28,7 @@ import com.l2jfree.gameserver.network.serverpackets.ShowMiniMap;
 
 public class Maps implements IItemHandler
 {
-	// all the items ids that this handler knowns
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{ 1665, 1863 };
 

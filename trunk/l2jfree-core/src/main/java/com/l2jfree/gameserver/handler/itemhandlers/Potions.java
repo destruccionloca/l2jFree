@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 public class Potions implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{
 			65,
@@ -94,28 +95,28 @@ public class Potions implements IItemHandler
 			8614,
 			10155,
 			10157,
-			//Attribute Potion
+			// Attribute Potion
 			9997,
 			9998,
 			9999,
 			10000,
 			10001,
 			10002,
-			//elixir of life
+			// Elixir of life
 			8622,
 			8623,
 			8624,
 			8625,
 			8626,
 			8627,
-			//elixir of Strength
+			// Elixir of Strength
 			8628,
 			8629,
 			8630,
 			8631,
 			8632,
 			8633,
-			//elixir of cp 
+			// Elixir of cp 
 			8634,
 			8635,
 			8636,
@@ -328,7 +329,7 @@ public class Potions implements IItemHandler
 		case 8626:
 		case 8627:
 		{
-			// elixir of Life
+			// Elixir of Life
 			if (!isUseable(activeChar, item, 2287))
 				return;
 			byte expIndex = (byte) activeChar.getExpertiseIndex();
@@ -351,11 +352,11 @@ public class Potions implements IItemHandler
 		case 8632:
 		case 8633:
 		{
-			// elixir of Strength
+			// Elixir of Strength
 			if (!isUseable(activeChar, item, 2288))
 				return;
 			byte expIndex = (byte) activeChar.getExpertiseIndex();
-			// elixir of Strength
+			// Elixir of Strength
 			if ((itemId == 8628 && expIndex == 0) || (itemId == 8629 && expIndex == 1) || (itemId == 8630 && expIndex == 2)
 					|| (itemId == 8631 && expIndex == 3) || (itemId == 8632 && expIndex == 4) || (itemId == 8633 && (expIndex == 5 || expIndex == 6)))
 				res = usePotion(activeChar, 2288, (expIndex > 5 ? expIndex : expIndex + 1));
@@ -375,11 +376,11 @@ public class Potions implements IItemHandler
 		case 8638:
 		case 8639:
 		{
-			// elixir of cp
+			// Elixir of cp
 			if (!isUseable(activeChar, item, 2289))
 				return;
 			byte expIndex = (byte) activeChar.getExpertiseIndex();
-			// elixir of cp
+			// Elixir of cp
 			if ((itemId == 8634 && expIndex == 0) || (itemId == 8635 && expIndex == 1) || (itemId == 8636 && expIndex == 2)
 					|| (itemId == 8637 && expIndex == 3) || (itemId == 8638 && expIndex == 4) || (itemId == 8639 && (expIndex == 5 || expIndex == 6)))
 				res = usePotion(activeChar, 2289, (expIndex > 5 ? expIndex : expIndex + 1));
@@ -724,7 +725,7 @@ public class Potions implements IItemHandler
 			if (activeChar instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance) activeChar;
-				//only for Heal potions
+				// Only for Heal potions
 				if (magicId == 2031 || magicId == 2032 || magicId == 2037)
 				{
 					player.shortBuffStatusUpdate(magicId, level, 15);

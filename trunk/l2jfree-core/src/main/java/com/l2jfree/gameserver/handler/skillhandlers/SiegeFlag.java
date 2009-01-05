@@ -51,7 +51,7 @@ public class SiegeFlag implements ISkillHandler
 		// In a siege zone
 		if (siege != null)
 		{
-			if (SiegeManager.checkIfOkToPlaceFlag(player, false)) // checkonly = false to send message to player if check fails
+			if (SiegeManager.checkIfOkToPlaceFlag(player, false)) // Checkonly = false to send message to player if check fails
 			{
 				L2NpcTemplate template = NpcTable.getInstance().getTemplate(35062);
 				if (skill != null && template != null) {

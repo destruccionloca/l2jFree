@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class EnergyStone implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=	{ 5589 };
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)

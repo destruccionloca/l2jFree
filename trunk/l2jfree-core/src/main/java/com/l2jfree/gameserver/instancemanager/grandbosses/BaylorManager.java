@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
+import javolution.util.FastList;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -34,8 +36,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 
-import javolution.util.FastList;
-
 /**
  * 
  * This class ...
@@ -47,7 +47,7 @@ public class BaylorManager extends BossLair
 {
 	private static BaylorManager	_instance;
 
-	// teleport cube location.
+	// Teleport cube location.
 	private final int				_baylorCubeLocation[][]		= {
 			{ 153569, 142075, -12732, 0 }
 	};
@@ -63,7 +63,7 @@ public class BaylorManager extends BossLair
 	protected List<L2Spawn>			_baylorCubeSpawn			= new FastList<L2Spawn>();
 	protected List<L2NpcInstance>	_baylorCube					= new FastList<L2NpcInstance>();
 
-	// spawn data of monsters
+	// Spawn data of monsters
 	protected L2Spawn				_crystalineSpawn1;												// Crystaline1
 	protected L2Spawn				_crystalineSpawn2;												// Crystaline2
 	protected L2Spawn				_crystalineSpawn3;												// Crystaline3
@@ -116,14 +116,14 @@ public class BaylorManager extends BossLair
 		_state = new GrandBossState(29099);
 	}
 
-	// init.
+	// Init.
 	@Override
 	public void init()
 	{
-		// init state.
+		// Init state.
 		_isAlreadyEnteredOtherParty = false;
 
-		// setting spawn data of monsters.
+		// Setting spawn data of monsters.
 		try
 		{
 			L2NpcTemplate template1;
@@ -233,7 +233,7 @@ public class BaylorManager extends BossLair
 			_log.warn(e.getMessage());
 		}
 
-		// setting spawn data of teleporte cube.
+		// Setting spawn data of teleporte cube.
 		try
 		{
 			L2NpcTemplate cube = NpcTable.getInstance().getTemplate(32273);
@@ -267,7 +267,7 @@ public class BaylorManager extends BossLair
 		_log.info("BaylorManager : Init BaylorManager.");
 	}
 
-	// whether it is permitted to enter the baylor's lair is confirmed. 
+	// Whether it is permitted to enter the baylor's lair is confirmed. 
 	public int canIntoBaylorLair(L2PcInstance pc)
 	{
 		if ((Config.FWBA_ENABLESINGLEPLAYER == false) && (pc.getParty() == null))
@@ -284,7 +284,7 @@ public class BaylorManager extends BossLair
 			return 0;
 	}
 
-	// set baylor spawn task.
+	// Set baylor spawn task.
 	public void setBaylorSpawnTask(int NpcId)
 	{
 		if (_baylorSpawnTask == null)
@@ -303,7 +303,7 @@ public class BaylorManager extends BossLair
 		}
 	}
 
-	// teleporting player to baylor's lair.
+	// Teleporting player to baylor's lair.
 	public void entryToBaylorLair(L2PcInstance pc)
 	{
 		int driftx;
@@ -343,7 +343,7 @@ public class BaylorManager extends BossLair
 		_isAlreadyEnteredOtherParty = true;
 	}
 
-	// when annihilating or limit of time coming, the compulsion movement players from the baylor's lair.
+	// When annihilating or limit of time coming, the compulsion movement players from the baylor's lair.
 	@Override
 	public void banishForeigners()
 	{
@@ -351,14 +351,14 @@ public class BaylorManager extends BossLair
 		_isAlreadyEnteredOtherParty = false;
 	}
 
-	// clean up baylor's lair.
+	// Clean up Baylor's lair.
 	@Override
 	public void setUnspawn()
 	{
-		// eliminate players.
+		// Eliminate players.
 		banishForeigners();
 
-		// delete teleport cube.
+		// Delete teleport cube.
 		for (L2NpcInstance cube : _baylorCube)
 		{
 			cube.getSpawn().stopRespawn();
@@ -366,7 +366,7 @@ public class BaylorManager extends BossLair
 		}
 		_baylorCube.clear();
 
-		// not executed tasks is canceled.
+		// Not executed tasks is canceled.
 		if (_cubeSpawnTask != null)
 		{
 			_cubeSpawnTask.cancel(true);
@@ -388,7 +388,7 @@ public class BaylorManager extends BossLair
 			_activityTimeEndTask = null;
 		}
 
-		// init state of baylor's lair.
+		// Init state of baylor's lair.
 		_crystaline1 = null;
 		_crystaline2 = null;
 		_crystaline3 = null;
@@ -399,11 +399,11 @@ public class BaylorManager extends BossLair
 		_crystaline8 = null;
 		_baylor = null;
 
-		// interval begin.
+		// Interval begin.
 		setIntervalEndTask();
 	}
 
-	// spawn teleport cube.
+	// Spawn teleport cube.
 	public void spawnCube()
 	{
 		for (L2Spawn spawnDat : _baylorCubeSpawn)
@@ -412,7 +412,7 @@ public class BaylorManager extends BossLair
 		}
 	}
 
-	// task of teleport cube spawn.
+	// Task of teleport cube spawn.
 	public void setCubeSpawn()
 	{
 		_state.setState(GrandBossState.StateEnum.DEAD);
@@ -421,7 +421,7 @@ public class BaylorManager extends BossLair
 		_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new CubeSpawn(), 10000);
 	}
 
-	// task of interval of baylor spawn.
+	// Task of interval of baylor spawn.
 	public void setIntervalEndTask()
 	{
 		if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
@@ -436,7 +436,7 @@ public class BaylorManager extends BossLair
 		_intervalEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new IntervalEnd(), _state.getInterval());
 	}
 
-	// spawn monster.
+	// Spawn monster.
 	private class BaylorSpawn implements Runnable
 	{
 		private int				_npcId;
@@ -525,7 +525,7 @@ public class BaylorManager extends BossLair
 		}
 	}
 
-	// spawn teleport cube.
+	// Spawn teleport cube.
 	private class CubeSpawn implements Runnable
 	{
 		public void run()
@@ -534,7 +534,7 @@ public class BaylorManager extends BossLair
 		}
 	}
 
-	// limit of time coming.
+	// Limit of time coming.
 	private class ActivityTimeEnd implements Runnable
 	{
 		private L2NpcInstance	_mob;
@@ -557,7 +557,7 @@ public class BaylorManager extends BossLair
 		}
 	}
 
-	// interval end.
+	// Interval end.
 	private class IntervalEnd implements Runnable
 	{
 		public void run()
@@ -567,7 +567,7 @@ public class BaylorManager extends BossLair
 		}
 	}
 
-	// social.
+	// Social.
 	private class Social implements Runnable
 	{
 		private int				_action;

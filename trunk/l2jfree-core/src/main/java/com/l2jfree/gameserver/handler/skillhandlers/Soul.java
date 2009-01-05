@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
  * 
  * @author nBd
  */
-
 public class Soul implements ISkillHandler
 {
 	private static final L2SkillType[]	SKILL_IDS	=

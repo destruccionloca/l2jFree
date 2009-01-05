@@ -58,16 +58,6 @@ public class Mdam implements ICubicSkillHandler
 
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 
-		/*if (activeChar instanceof L2PcInstance)
-		{
-		    if (weaponInst == null)
-		    {
-		        SystemMessage sm2 = new SystemMessage(SystemMessageId.S1_S2);
-		        sm2.addString("You must equip a weapon before casting a spell.");
-		        activeChar.sendPacket(sm2);
-		        return;
-		    }
-		}*/
 		if (weaponInst != null)
 		{
 			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
@@ -169,10 +159,8 @@ public class Mdam implements ICubicSkillHandler
 
 				if (activeChar instanceof L2SummonInstance)
 					((L2SummonInstance) activeChar).getOwner().sendPacket(new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1).addNumber(damage));
-				//if (activeChar instanceof L2PetInstance)
-				//    ((L2PetInstance)activeChar).getOwner().sendPacket(new SystemMessage(SystemMessageId.PET_GAVE_DAMAGE_OF_S1).addNumber(damage));
 
-				// activate attacked effects, if any
+				// Activate attacked effects, if any
 				if (skill.getId() == 4139 && activeChar instanceof L2Summon) //big boom unsummon-destroy
 				{
 					L2PcInstance Owner = null;
@@ -228,7 +216,7 @@ public class Mdam implements ICubicSkillHandler
 			// Possibility of a lethal strike
 			Formulas.getInstance().calcLethalHit(activeChar, target, skill);
 		}
-		// self Effect :]
+		// Self Effect :]
 		L2Effect effect = activeChar.getFirstEffect(skill.getId());
 		if (effect != null && effect.isSelfEffect())
 		{
@@ -265,7 +253,7 @@ public class Mdam implements ICubicSkillHandler
 			byte shld = Formulas.getInstance().calcShldUse(activeCubic.getOwner(), target);
 			int damage = (int) Formulas.getInstance().calcMagicDam(activeCubic, target, skill, mcrit, shld);
 
-			// if target is reflecting the skill then no damage is done
+			// If target is reflecting the skill then no damage is done
 			if (target.reflectSkill(skill))
 				damage = 0;
 

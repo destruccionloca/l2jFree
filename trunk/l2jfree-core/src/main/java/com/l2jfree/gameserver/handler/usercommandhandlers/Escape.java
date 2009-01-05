@@ -30,10 +30,6 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
 import com.l2jfree.gameserver.util.Broadcast;
 
-/**
- * 
- *
- */
 public class Escape implements IUserCommandHandler
 {
 	private static final int[]	COMMAND_IDS	=
@@ -132,7 +128,7 @@ public class Escape implements IUserCommandHandler
 		}
 
 		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-		//SoE Animation section
+		// SoE Animation section
 		activeChar.setTarget(activeChar);
 		activeChar.disableAllSkills();
 
@@ -140,10 +136,10 @@ public class Escape implements IUserCommandHandler
 		Broadcast.toSelfAndKnownPlayersInRadius(activeChar, msk, 810000/*900*/);
 		SetupGauge sg = new SetupGauge(0, unstuckTimer);
 		activeChar.sendPacket(sg);
-		//End SoE Animation section
+		// End SoE Animation section
 
 		EscapeFinalizer ef = new EscapeFinalizer(activeChar);
-		// continue execution later
+		// Continue execution later
 		activeChar.setSkillCast(ThreadPoolManager.getInstance().scheduleGeneral(ef, unstuckTimer));
 
 		return true;

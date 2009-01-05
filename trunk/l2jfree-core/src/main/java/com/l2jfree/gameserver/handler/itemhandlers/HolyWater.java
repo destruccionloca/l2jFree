@@ -31,10 +31,10 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
  */
 public class HolyWater implements IItemHandler
 {
-	public static final int		INTERACTION_DISTANCE	= 1000;
-
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS				=
 														{ 9673 };
+	public static final int		INTERACTION_DISTANCE	= 1000;
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{

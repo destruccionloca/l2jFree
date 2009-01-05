@@ -38,8 +38,7 @@ public class Recall implements ISkillHandler
 	L2Skill skill, L2Object... targets)
 	{
 		// [L2J_JP ADD SANDMAN]
-		// <!--- Zaken skills - teleport PC --> or <!--- Zaken skills - teleport
-		// -->
+		// <!--- Zaken skills - teleport PC --> or <!--- Zaken skills - teleport -->
 		if (skill.getId() == 4216 || skill.getId() == 4217 || skill.getId() == 4222)
 		{
 			doZakenTeleport(targets);

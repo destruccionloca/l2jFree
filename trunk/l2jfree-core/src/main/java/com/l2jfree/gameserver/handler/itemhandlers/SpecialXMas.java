@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.ShowXMasSeal;
  */
 public class SpecialXMas implements IItemHandler
 {
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{ 5555 };
 

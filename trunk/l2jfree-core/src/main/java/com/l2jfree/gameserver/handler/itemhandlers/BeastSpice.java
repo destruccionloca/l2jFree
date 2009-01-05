@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class BeastSpice implements IItemHandler
 {
-	// Golden Spice, Crystal Spice
+	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{ 6643, 6644 };
 

@@ -19,7 +19,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -57,7 +56,7 @@ public abstract class IdFactory
 			"UPDATE clan_data             SET ally_id = ?     WHERE ally_id = ?",
 			"UPDATE clan_data             SET leader_id = ?   WHERE leader_id = ?",
 			"UPDATE pets                  SET item_obj_id = ? WHERE item_obj_id = ?",
-			// added by DaDummy
+			// Added by DaDummy
 			"UPDATE auction_bid          SET bidderId = ?      WHERE bidderId = ?",
 			"UPDATE auction_watch        SET charId = ?        WHERE charId = ?",
 			"UPDATE character_hennas     SET charId = ?        WHERE charId = ?",
@@ -69,7 +68,7 @@ public abstract class IdFactory
 			"UPDATE seven_signs          SET charId = ?        WHERE charId = ?",
 			"UPDATE topic                SET topic_ownerid = ? WHERE topic_ownerid = ?",
 			"UPDATE itemsonground        SET object_id = ?     WHERE object_id = ?",
-			// added by GDL
+			// Added by GDL
 			"UPDATE olympiad_nobles          SET charId = ?         WHERE charId = ?",
 			"UPDATE clan_privs               SET clan_id = ?        WHERE clan_id = ?",
 			"UPDATE clan_skills              SET clan_id = ?        WHERE clan_id = ?",
@@ -105,7 +104,7 @@ public abstract class IdFactory
 			"SELECT ally_id     FROM clan_data             WHERE ally_id >= ?     AND ally_id < ?",
 			"SELECT leader_id   FROM clan_data             WHERE leader_id >= ?   AND leader_id < ?",
 			"SELECT item_obj_id FROM pets                  WHERE item_obj_id >= ? AND item_obj_id < ?",
-			// added by DaDummy
+			// Added by DaDummy
 			"SELECT friendId    FROM character_friends     WHERE friendId >= ?    AND friendId < ?",
 			"SELECT charId      FROM seven_signs           WHERE charId >= ?      AND charId < ?",
 			"SELECT object_id   FROM itemsonground         WHERE object_id >= ?   AND object_id < ?" };
