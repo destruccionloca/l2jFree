@@ -112,15 +112,15 @@ public class MoveBackwardToLocation extends L2GameClientPacket
             return;
         }
         
+        if (activeChar.isFakeDeath())
+        	return;
+
         if (activeChar.isDead())
         {
         	Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + 
         			" tried to move while being dead. L2Walker protection.", 
         			Config.DEFAULT_PUNISH);
         }
-        
-        if (activeChar.isAlikeDead())
-        	return;
         
         if (_moveMovement == 0 && !Config.GEO_MOVE_PC) // cursor movement without geodata movement check is disabled
         {
