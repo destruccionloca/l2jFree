@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
 
 /**
- * @author  l3x
+ * @author l3x
  */
 public class L2CastleWarehouseInstance extends L2FolkInstance
 {
@@ -157,10 +157,12 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 		String filename = "data/html/castlewarehouse/castlewarehouse-no.htm";
 		
 		int condition = validateCondition(player);
-		if (condition > COND_ALL_FALSE) {
+		if (condition > COND_ALL_FALSE) 
+		{
 			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 				filename = "data/html/castlewarehouse/castlewarehouse-busy.htm"; // Busy because of siege
-			else if (condition == COND_OWNER) {                                  // Clan owns castle
+			else if (condition == COND_OWNER) 									 // Clan owns castle
+			{
 				if (val == 0) 
 					filename = "data/html/castlewarehouse/castlewarehouse.htm";
 				else
@@ -178,8 +180,10 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 	protected int validateCondition(L2PcInstance player)
 	{
 		if (player.isGM()) return COND_OWNER;
-		if (getCastle() != null && getCastle().getCastleId() > 0) {
-			if (player.getClan() != null) {
+		if (getCastle() != null && getCastle().getCastleId() > 0) 
+		{
+			if (player.getClan() != null) 
+			{
 				if (getCastle().getSiege().getIsInProgress())
 					return COND_BUSY_BECAUSE_OF_SIEGE;                   // Busy because of siege
 				else if (getCastle().getOwnerId() == player.getClanId()) // Clan owns castle

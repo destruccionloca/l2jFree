@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -32,7 +31,7 @@ import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ShowTownMap;
 /**
- * GODSON ROX!
+ * @author godson
  */
 public class L2StaticObjectInstance extends L2Object
 {
@@ -42,7 +41,7 @@ public class L2StaticObjectInstance extends L2Object
     public static final int INTERACTION_DISTANCE = 150;
 
     private int _staticObjectId;
-    private int _type = -1;         // 0 - map signs, 1 - throne , 2 - arena signs
+    private int _type = -1;         // 0 - Map signs, 1 - Throne , 2 - Arena signs
     private int _x;
     private int _y;
     private String _texture;
@@ -118,7 +117,7 @@ public class L2StaticObjectInstance extends L2Object
     }
     
     /**
-     * this is called when a player interacts with this NPC
+     * This is called when a player interacts with this NPC
      * @param player
      */
     @Override

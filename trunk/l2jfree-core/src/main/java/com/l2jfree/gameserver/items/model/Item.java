@@ -13,11 +13,6 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.l2jfree.gameserver.items.model;
- /**
-  * 
-  * @author luisantonioa
-  * 
-  */
 
 import com.l2jfree.gameserver.templates.item.AbstractL2ItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
@@ -27,6 +22,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
  * This class ...
  * 
  * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
+ * @author luisantonioa
  */
 public class Item
 {

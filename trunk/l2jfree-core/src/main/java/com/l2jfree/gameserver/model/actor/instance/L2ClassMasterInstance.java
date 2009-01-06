@@ -192,29 +192,29 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 			int jobLevel = classId.level();
 			int newJobLevel = newClassId.level();
 
-			// -- exploit prevention
-			// prevents changing if config option disabled
+			// -- Exploit prevention
+			// Prevents changing if config option disabled
 			if (!Config.ALT_CLASS_MASTER_SETTINGS.isAllowed(newJobLevel))
 				return;
 
-			// prevents changing to class not in same class tree
+			// Prevents changing to class not in same class tree
 			if (!newClassId.childOf(classId))
 				return;
 
-			// prevents changing between same level jobs
+			// Prevents changing between same level jobs
 			if (newJobLevel != jobLevel + 1)
 				return;
 
-			// check for player level
+			// Check for player level
 			if (level < 20 && newJobLevel > 1)
 				return;
 			if (level < 40 && newJobLevel > 2)
 				return;
 			if (level < 76 && newJobLevel > 3)
 				return;
-			// -- prevention ends
+			// -- Prevention ends
 
-			// check if player have all required items for class transfer
+			// Check if player have all required items for class transfer
 			for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
 			{
 				int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
@@ -225,14 +225,14 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 				}
 			}
 
-			// get all required items for class transfer
+			// Get all required items for class transfer
 			for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
 			{
 				int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
 				player.destroyItemByItemId("ClassMaster", _itemId, _count, player, true);
 			}
 
-			// reward player with items
+			// Reward player with items
 			for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).keySet())
 			{
 				int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).get(_itemId);
@@ -244,10 +244,10 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 			player.rewardSkills();
 
 			if (newJobLevel == 3)
-				// system sound 3rd occupation
+				// System sound 3rd occupation
 				player.sendPacket(SystemMessageId.THIRD_CLASS_TRANSFER);
 			else
-				// system sound for 1st and 2nd occupation
+				// System sound for 1st and 2nd occupation
 				player.sendPacket(SystemMessageId.CLASS_TRANSFER);
 
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());

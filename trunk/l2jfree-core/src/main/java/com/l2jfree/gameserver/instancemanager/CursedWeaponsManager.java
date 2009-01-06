@@ -260,7 +260,7 @@ public class CursedWeaponsManager
 				catch (SQLException sqlE)
 				{
 				}
-				// close the statement to avoid multiply prepared statement errors in following iterations.
+				// Close the statement to avoid multiply prepared statement errors in following iterations.
 				try
 				{
 					con.close();
@@ -311,7 +311,7 @@ public class CursedWeaponsManager
 				cw2.setNbKills(cw2.getStageKills() - 1);
 				cw2.increaseKills();
 
-				// erase the newly obtained cursed weapon
+				// Erase the newly obtained cursed weapon
 				cw.setPlayer(player); // NECESSARY in order to find which inventory the weapon is in!
 				cw.endOfLife(); // expire the weapon and clean up.
 			}
@@ -450,7 +450,6 @@ public class CursedWeaponsManager
 		}
 		catch (Exception e)
 		{
-			/***/
 		}
 	}
 }

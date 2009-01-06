@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
-/**
-@author Crion/kombat
-**/
-
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastMap;
@@ -35,6 +31,10 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.tools.random.Rnd;
 
+/**
+ * 
+ * @author Crion, kombat
+ */
 public abstract class BossSpawnManager
 {
 	protected final static Log						_log	= LogFactory.getLog(BossSpawnManager.class.getName());
@@ -126,7 +126,7 @@ public abstract class BossSpawnManager
 				ScheduledFuture<?> futureSpawn = ThreadPoolManager.getInstance().scheduleGeneral(new SpawnTask(boss.getNpcId()), respawn_delay);
 
 				_schedules.put(boss.getNpcId(), futureSpawn);
-				//To update immediately Database uncomment on the following line, to post the hour of respawn raid boss on your site for example or to envisage a crash landing of the waiter.
+				// To update immediately Database uncomment on the following line, to post the hour of respawn raid boss on your site for example or to envisage a crash landing of the waiter.
 				updateDb();
 			}
 		}

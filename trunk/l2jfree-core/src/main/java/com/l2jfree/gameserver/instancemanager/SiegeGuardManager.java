@@ -272,7 +272,7 @@ public class SiegeGuardManager
 	}
 
 	// =========================================================
-	// Proeprty
+	// Property - Public
 
 	public final Castle getCastle()
 	{

@@ -36,7 +36,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * code parts from L2_Fortress
  * author DiezelMax
  */
-
 public class RaidPointsManager
 {
 	private static final Log									_log	= LogFactory.getLog(RaidPointsManager.class.getName());
@@ -59,7 +58,7 @@ public class RaidPointsManager
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 
-			//read raidboss points
+			// Read raidboss points
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM `character_raid_points`");
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
@@ -184,7 +183,7 @@ public class RaidPointsManager
 		List<PointList> lists = new FastList<PointList>();
 		lists.addAll(_points.values());
 
-		// Calculate sum
+		//  Calculate sum
 		for (PointList pl : lists)
 		{
 			pl.scoreSum = 0;

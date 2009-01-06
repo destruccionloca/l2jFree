@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -25,9 +24,8 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 
-/** 
- * @author evill33t
- * Reworked by NB4L1
+/**
+ * @author evill33t, NB4L1
  */
 public class CrownManager
 {

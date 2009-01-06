@@ -33,7 +33,6 @@ import com.l2jfree.gameserver.model.entity.Fort;
 public class FortManager
 {
 	protected static final Log	_log	= LogFactory.getLog(FortManager.class.getName());
-	// =========================================================
 	private static FortManager	_instance;
 
 	public static final FortManager getInstance()

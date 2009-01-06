@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.concurrent.Future;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -111,7 +110,6 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 
 			break;
 		case 18256:
-			//
 			break;
 		case 25339:
 		case 25342:

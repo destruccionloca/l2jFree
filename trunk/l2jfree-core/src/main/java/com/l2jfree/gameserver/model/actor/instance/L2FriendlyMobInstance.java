@@ -34,14 +34,14 @@ public class L2FriendlyMobInstance extends L2Attackable
 		getKnownList();	// init knownlist
 	}	
 
-    @Override
-    public final FriendlyMobKnownList getKnownList()
-    {
-        if (_knownList == null)
-            _knownList = new FriendlyMobKnownList(this);
+	@Override
+	public final FriendlyMobKnownList getKnownList()
+	{
+		if (_knownList == null)
+            	_knownList = new FriendlyMobKnownList(this);
         
-        return (FriendlyMobKnownList)_knownList;
-    }
+		return (FriendlyMobKnownList)_knownList;
+	}
 
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)

@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-
 /**
  * This class manages some npcs can walk in the city. <br>
  * It inherits all methods from L2NpcInstance. <br><br>
@@ -78,12 +77,12 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 			return;
 		}
 
-		//we send message to known players only!
+		// We send message to known players only!
 		if (_knownPlayers.size() > 0)
 		{
 			CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal, getName(), chat);
 
-			//we interact and list players here
+			// We interact and list players here
 			for (L2PcInstance players : _knownPlayers.values())
 				//finally send packet :D
 				players.sendPacket(cs);
@@ -125,6 +124,7 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 		 */
 		@Override
 		public void detachAI()
-		{}
+		{
+		}
 	}
 }

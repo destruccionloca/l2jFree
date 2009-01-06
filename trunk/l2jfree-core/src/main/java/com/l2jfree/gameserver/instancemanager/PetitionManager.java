@@ -34,7 +34,6 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-
 /**
  * Petition Manager
  * 
@@ -192,9 +191,7 @@ public final class PetitionManager
 		{
 			if (getPetitioner() == null || getPetitioner().isOnline() == 0)
 			{
-				// Allows petitioners to see the results of their petition when 
-				// they log back into the game.
-
+				// Allows petitioners to see the results of their petition when they log back into the game.
 				//endPetitionConsultation(PetitionState.Petitioner_Missing);
 				return;
 			}

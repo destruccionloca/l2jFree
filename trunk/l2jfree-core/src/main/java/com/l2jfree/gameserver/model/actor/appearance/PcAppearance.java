@@ -16,7 +16,8 @@ package com.l2jfree.gameserver.model.actor.appearance;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-public class PcAppearance {
+public class PcAppearance 
+{
 	// =========================================================
 	// Data Field
 	private L2PcInstance _owner;
@@ -56,15 +57,18 @@ public class PcAppearance {
 	 * @param visibleName
 	 *            The visibleName to set.
 	 */
-	public final void setVisibleName(String visibleName) {
+	public final void setVisibleName(String visibleName) 
+	{
 		_visibleName = visibleName;
 	}
 
 	/**
 	 * @return Returns the visibleName.
 	 */
-	public final String getVisibleName() {
-		if (_visibleName == null) {
+	public final String getVisibleName() 
+	{
+		if (_visibleName == null) 
+		{
 			return this.getOwner().getName();
 		}
 		if (_displayName)
@@ -77,15 +81,18 @@ public class PcAppearance {
 	 * @param visibleTitle
 	 *            The visibleTitle to set.
 	 */
-	public final void setVisibleTitle(String visibleTitle) {
+	public final void setVisibleTitle(String visibleTitle) 
+	{
 		_visibleTitle = visibleTitle;
 	}
 
 	/**
 	 * @return Returns the visibleTitle.
 	 */
-	public final String getVisibleTitle() {
-		if (_visibleTitle == null) {
+	public final String getVisibleTitle()
+	{
+		if (_visibleTitle == null)
+		{
 			return this.getOwner().getTitle();
 		}
 		if (_displayName)
@@ -96,92 +103,111 @@ public class PcAppearance {
 
 	// =========================================================
 	// Property - Public
-	public final byte getFace() {
+	public final byte getFace()
+	{
 		return _face;
 	}
 
 	/**
 	 * @param byte value
 	 */
-	public final void setFace(int value) {
+	public final void setFace(int value)
+	{
 		_face = (byte) value;
 	}
 
-	public final byte getHairColor() {
+	public final byte getHairColor()
+	{
 		return _hairColor;
 	}
 
 	/**
 	 * @param byte value
 	 */
-	public final void setHairColor(int value) {
+	public final void setHairColor(int value)
+	{
 		_hairColor = (byte) value;
 	}
 
-	public final byte getHairStyle() {
+	public final byte getHairStyle()
+	{
 		return _hairStyle;
 	}
 
 	/**
 	 * @param byte value
 	 */
-	public final void setHairStyle(int value) {
+	public final void setHairStyle(int value)
+	{
 		_hairStyle = (byte) value;
 	}
 
-	public final boolean getSex() {
+	public final boolean getSex()
+	{
 		return _sex;
 	}
 
 	/**
 	 * @param boolean isfemale
 	 */
-	public final void setSex(boolean isfemale) {
+	public final void setSex(boolean isfemale)
+	{
 		_sex = isfemale;
 	}
 
-	public void setInvisible() {
+	public void setInvisible()
+	{
 		_invisible = true;
 	}
 
-	public void setVisible() {
+	public void setVisible()
+	{
 		_invisible = false;
 	}
 
-	public boolean getInvisible() {
+	public boolean getInvisible()
+	{
 		return _invisible;
 	}
 
-	public void setGhostMode(boolean b) {
+	public void setGhostMode(boolean b)
+	{
 		_ghostmode = b;
 	}
 
-	public boolean isGhost() {
+	public boolean isGhost()
+	{
 		return _ghostmode;
 	}
 
-	public int getNameColor() {
+	public int getNameColor()
+	{
 		return _nameColor;
 	}
 
-	public void setNameColor(int nameColor) {
+	public void setNameColor(int nameColor)
+	{
 		_nameColor = nameColor;
 	}
 
-	public void setNameColor(int red, int green, int blue) {
+	public void setNameColor(int red, int green, int blue)
+	{
 		_nameColor = (red & 0xFF) + ((green & 0xFF) << 8)
 				+ ((blue & 0xFF) << 16);
 	}
 
-	public int getTitleColor() {
+	public int getTitleColor()
+	{
 		return _titleColor;
 	}
 
-	public void setTitleColor(int titleColor) {
+	public void setTitleColor(int titleColor)
+	{
 		_titleColor = titleColor;
 	}
 
-	public void setTitleColor(int red, int green, int blue) {
+	public void setTitleColor(int red, int green, int blue)
+	{
 		_titleColor = (red & 0xFF) + ((green & 0xFF) << 8)
 				+ ((blue & 0xFF) << 16);
 	}
@@ -190,22 +216,26 @@ public class PcAppearance {
 	 * @param owner
 	 *            The owner to set.
 	 */
-	public void setOwner(L2PcInstance owner) {
+	public void setOwner(L2PcInstance owner)
+	{
 		_owner = owner;
 	}
 
 	/**
 	 * @return Returns the owner.
 	 */
-	public L2PcInstance getOwner() {
+	public L2PcInstance getOwner()
+	{
 		return _owner;
 	}
 
-	public boolean getDisplayName() {
+	public boolean getDisplayName()
+	{
 		return _displayName;
 	}
 
-	public void setDisplayName(boolean b) {
+	public void setDisplayName(boolean b)
+	{
 		_displayName = b;
 	}
 

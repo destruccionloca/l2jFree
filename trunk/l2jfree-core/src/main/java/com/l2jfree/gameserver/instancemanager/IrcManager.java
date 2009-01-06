@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,8 +27,6 @@ import com.l2jfree.gameserver.network.L2IrcClient;
 public class IrcManager
 {
 	private static final Log	_log	= LogFactory.getLog(IrcManager.class.getName());
-
-	// =========================================================
 	private static IrcManager	_instance;
 	private static L2IrcClient	_ircConnection;
 
@@ -43,8 +40,6 @@ public class IrcManager
 		}
 		return _instance;
 	}
-
-	// =========================================================
 
 	// =========================================================
 	// Method - Public

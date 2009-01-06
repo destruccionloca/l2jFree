@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -69,7 +68,7 @@ public final class L2GuardInstance extends L2Attackable
     public L2GuardInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-		getKnownList();	// init knownlist
+		getKnownList();	// Init knownlist
         
         ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new ReturnTask(),RETURN_INTERVAL,RETURN_INTERVAL+Rnd.nextInt(60000));
     }
@@ -112,7 +111,7 @@ public final class L2GuardInstance extends L2Attackable
     public void onSpawn()
     {
         super.onSpawn();
-        // check the region where this mob is, do not activate the AI if region is inactive.
+        // Check the region where this mob is, do not activate the AI if region is inactive.
         L2WorldRegion region = L2World.getInstance().getRegion(getX(),getY());
         if ((region !=null) && (!region.isActive()))
             ((L2AttackableAI) getAI()).stopAITask();        
@@ -145,7 +144,6 @@ public final class L2GuardInstance extends L2Attackable
         return "data/html/guard/" + pom + ".htm";
     }
 
-    
     /**
      * Manage actions when a player click on the L2GuardInstance.<BR><BR>
      * 

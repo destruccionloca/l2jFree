@@ -37,8 +37,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class L2MonsterInstance extends L2Attackable
 {
-	//private static Logger _log = Logger.getLogger(L2MonsterInstance.class.getName());
-
 	protected final MinionList		_minionList;
 
 	protected ScheduledFuture<?>	_minionMaintainTask				= null;

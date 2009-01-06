@@ -191,8 +191,8 @@ public class CastleManorManager
 
 	private CastleManorManager()
 	{
-		load(); // load data from database
-		init(); // schedule all manor related events
+		load(); // Load data from database
+		init(); // Schedule all manor related events
 		_underMaintenance = false;
 		_disabled = !Config.ALLOW_MANOR;
 		boolean isApproved = (_periodApprove.getTimeInMillis() < System.currentTimeMillis() && _manorRefresh.getTimeInMillis() > Calendar
@@ -219,7 +219,7 @@ public class CastleManorManager
 				FastList<CropProcure> procure = new FastList<CropProcure>();
 				FastList<CropProcure> procureNext = new FastList<CropProcure>();
 
-				// restore seed production info
+				// Restore seed production info
 				statement = con.prepareStatement(CASTLE_MANOR_LOAD_PRODUCTION);
 				statement.setInt(1, castle.getCastleId());
 				rs = statement.executeQuery();
@@ -241,7 +241,7 @@ public class CastleManorManager
 				castle.setSeedProduction(production, PERIOD_CURRENT);
 				castle.setSeedProduction(productionNext, PERIOD_NEXT);
 
-				// restore procure info
+				// Restore procure info
 				statement = con.prepareStatement(CASTLE_MANOR_LOAD_PROCURE);
 				statement.setInt(1, castle.getCastleId());
 				rs = statement.executeQuery();
@@ -403,7 +403,7 @@ public class CastleManorManager
 			{
 				if (crop.getStartAmount() == 0)
 					continue;
-				// adding bought crops to clan warehouse
+				// Adding bought crops to clan warehouse
 				if (crop.getStartAmount() - crop.getAmount() > 0)
 				{
 					int count = crop.getStartAmount() - crop.getAmount();
@@ -418,7 +418,7 @@ public class CastleManorManager
 						cwh.addItem("Manor", L2Manor.getInstance().getMatureCrop(crop.getId()), count, null, null);
 					}
 				}
-				// reserved and not used money giving back to treasury
+				// Reserved and not used money giving back to treasury
 				if (crop.getAmount() > 0)
 				{
 					c.addToTreasuryNoTax(crop.getAmount() * crop.getPrice());

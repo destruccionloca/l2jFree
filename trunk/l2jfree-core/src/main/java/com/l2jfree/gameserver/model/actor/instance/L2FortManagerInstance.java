@@ -97,18 +97,15 @@ public class L2FortManagerInstance extends L2MerchantInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		int condition = validateCondition(player);
+
 		// BypassValidation Exploit plug.
 		if (player.getLastFolkNPC().getObjectId() != this.getObjectId())
 			return;
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		int condition = validateCondition(player);
-		if (condition <= COND_ALL_FALSE)
-			return;
 
-		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
-		{
+		if (condition <= COND_ALL_FALSE || condition == COND_BUSY_BECAUSE_OF_SIEGE)
 			return;
-		}
 		else if (condition == COND_OWNER)
 		{
 			StringTokenizer st = new StringTokenizer(command, " ");
@@ -191,8 +188,8 @@ public class L2FortManagerInstance extends L2MerchantInstance
 					return;
 				}
 			}
-			else if (actualCommand.equalsIgnoreCase("operate_door")) // door
-			// control
+			else if (actualCommand.equalsIgnoreCase("operate_door")) // Door
+			// Control
 			{
 				if ((player.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) == L2Clan.CP_CS_OPEN_DOOR)
 				{

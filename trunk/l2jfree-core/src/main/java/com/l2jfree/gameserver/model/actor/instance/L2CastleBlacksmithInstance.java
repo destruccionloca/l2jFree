@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
- * @author  l3x
+ * @author l3x
  */
 public class L2CastleBlacksmithInstance extends L2FolkInstance
 {
@@ -134,7 +134,8 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 		{
 			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 				filename = "data/html/castleblacksmith/castleblacksmith-busy.htm";			// Busy because of siege
-			else if (condition == COND_OWNER) {												// Clan owns castle
+			else if (condition == COND_OWNER) 
+			{																				// Clan owns castle
 				if (val == 0) 
 					filename = "data/html/castleblacksmith/castleblacksmith.htm";
 				else

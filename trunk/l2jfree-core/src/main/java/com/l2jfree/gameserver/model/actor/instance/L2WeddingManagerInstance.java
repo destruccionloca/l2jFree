@@ -30,11 +30,11 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
+/**
+ * @author evill33t & squeezed
+ */
 public class L2WeddingManagerInstance extends L2NpcInstance
 {
-	/**
-	* @author evill33t & squeezed
-	*/
 	public L2WeddingManagerInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
@@ -90,11 +90,11 @@ public class L2WeddingManagerInstance extends L2NpcInstance
     @Override
     public synchronized void onBypassFeedback(L2PcInstance player, String command)
     {
-        // standard msg
+        // Standard msg
         String filename = "data/html/wedding/start.htm";
         String replace = "";
         
-        // if player has no partner
+        // If player has no partner
         if(player.getPartnerId() == 0)
         {
             filename = "data/html/wedding/nopartner.htm";
@@ -104,7 +104,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
 
         L2Object obj = L2World.getInstance().findObject(player.getPartnerId());
         L2PcInstance ptarget = obj instanceof L2PcInstance ? (L2PcInstance) obj : null;
-        // partner online ?
+        // Partner online ?
         if(ptarget == null || ptarget.isOnline() == 0)
         {
             filename = "data/html/wedding/notfound.htm";
@@ -112,7 +112,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
             return;
         }
 
-        // already married ?
+        // Already married ?
         if(player.isMaried())
         {
             filename = "data/html/wedding/already.htm";
@@ -127,12 +127,12 @@ public class L2WeddingManagerInstance extends L2NpcInstance
         }
         else if (command.startsWith("AcceptWedding"))
         {
-            // accept the wedding request
+            // Accept the wedding request
             player.setMaryAccepted(true);
             Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
             couple.marry();
 
-            //messages to the couple
+            // Messages to the couple
             player.sendMessage("Congratulations, you are married!");
             player.setMaried(true);
             player.setMaryRequest(false);
@@ -152,13 +152,13 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                 ptarget.sendSkillList();
             }
 
-            //wedding march
+            // Wedding march
             MagicSkillUse MSU = new MagicSkillUse(player, player, 2230, 1, 1, 0);
             player.broadcastPacket(MSU);
             MSU = new MagicSkillUse(ptarget, ptarget, 2230, 1, 1, 0);
             ptarget.broadcastPacket(MSU);
             
-            // fireworks
+            // Fireworks
             L2Skill skill = SkillTable.getInstance().getInfo(2025,1);
             if (skill != null) 
             {
@@ -189,7 +189,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
             		wait(10000);
             	}
             	catch (InterruptedException e){}
-            	//port both players to disneyland for happy time
+            	// Port both players to Fantasy Isle for happy time
             	player.teleToLocation(-56641, -56345, -2005);
             	ptarget.teleToLocation(-56641, -56345, -2005);
             }
@@ -211,7 +211,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
         }
         else if (player.isMary())
         {
-            // check for formalwear
+            // Check for formalwear
             if(Config.WEDDING_FORMALWEAR && !player.isWearingFormalWear())
             {
                 filename = "data/html/wedding/noformal.htm";
@@ -227,7 +227,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
         }  
         else if (command.startsWith("AskWedding"))
         {
-            // check for formalwear
+            // Check for formalwear
             if(Config.WEDDING_FORMALWEAR && !player.isWearingFormalWear())
             {
                 filename = "data/html/wedding/noformal.htm";

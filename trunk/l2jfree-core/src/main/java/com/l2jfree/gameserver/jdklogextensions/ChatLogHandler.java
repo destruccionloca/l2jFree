@@ -16,9 +16,10 @@ package com.l2jfree.gameserver.jdklogextensions;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 
-public class ChatLogHandler extends FileHandler {
-
-    public ChatLogHandler() throws IOException, SecurityException {
-        super();
-    }
+public class ChatLogHandler extends FileHandler
+{
+	public ChatLogHandler() throws IOException, SecurityException
+	{
+		super();
+	}
 }

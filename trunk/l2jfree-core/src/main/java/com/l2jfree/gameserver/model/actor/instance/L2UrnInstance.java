@@ -16,6 +16,8 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
+import javolution.text.TextBuilder;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -28,8 +30,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
-
-import javolution.text.TextBuilder;
 
 public final class L2UrnInstance extends L2FolkInstance
 {
@@ -211,7 +211,7 @@ public final class L2UrnInstance extends L2FolkInstance
         // See if they have the correct components, first ing1 then ing2
         if (ingHas1 >= ingCount1)
         {
-            // take the items and return true
+            // Take the items and return true
             takeUrnItems(player, ingId1, ingCount1);
             correctMix1 = true;
         }
@@ -221,7 +221,7 @@ public final class L2UrnInstance extends L2FolkInstance
         }
         if (ingHas2 >= ingCount2)
         {
-            // take the items and return true
+            // Take the items and return true
             takeUrnItems(player, ingId2, ingCount2);
             correctMix2 = true;
         }
@@ -230,7 +230,7 @@ public final class L2UrnInstance extends L2FolkInstance
             takeUrnItems(player, ingId2, ingHas2);
         }
 
-        // check if mix is successful
+        // Check if mix is successful
         if (checkUrnSuccess(tempSet) && correctMix1 && correctMix2)
         {
             giveUrnItems(player, prodId, tempSet, 0);

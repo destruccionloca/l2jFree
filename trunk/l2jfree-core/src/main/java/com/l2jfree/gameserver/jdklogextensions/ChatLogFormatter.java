@@ -13,6 +13,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.l2jfree.gameserver.jdklogextensions;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Formatter;
@@ -28,28 +29,32 @@ import javolution.text.TextBuilder;
 
 public class ChatLogFormatter extends Formatter
 {
-    private static final String CRLF = "\r\n";
+	private static final String CRLF = "\r\n";
+	private SimpleDateFormat dateFmt = new SimpleDateFormat("dd MMM H:mm:ss");
     
-    private SimpleDateFormat dateFmt = new SimpleDateFormat("dd MMM H:mm:ss");
-    
-    @Override
-    public String format(LogRecord record)
-    {
-        Object[] params = record.getParameters();
-        TextBuilder output = new TextBuilder();
-        output.append('[');
-        output.append(dateFmt.format(new Date(record.getMillis())));
-        output.append(']');
-        output.append(' ');
-        if (params != null) {
-            for (Object p : params) {
-                output.append(p);
-                output.append(' ');
-            }
-        }
-        output.append(record.getMessage());
-        output.append(CRLF);
+	@Override
+	public String format(LogRecord record)
+	{
+		TextBuilder output = new TextBuilder();
 
-        return output.toString();
-    }
+		output.append('[');
+		output.append(dateFmt.format(new Date(record.getMillis())));
+		output.append(']');
+		output.append(' ');
+
+		Object[] params = record.getParameters();
+
+		if (params != null)
+		{
+			for (Object p : params)
+			{
+				output.append(p);
+				output.append(' ');
+			}
+		}
+		output.append(record.getMessage());
+		output.append(CRLF);
+
+		return output.toString();
+	}
 }

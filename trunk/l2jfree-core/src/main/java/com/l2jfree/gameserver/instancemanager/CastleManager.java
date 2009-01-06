@@ -21,7 +21,6 @@ import java.sql.SQLException;
 
 import javolution.util.FastMap;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -184,7 +183,7 @@ public class CastleManager
 		case SevenSigns.CABAL_DAWN:
 			maxTax = 25;
 			break;
-		default: // no owner
+		default: // No owner
 			maxTax = 15;
 			break;
 		}
@@ -209,7 +208,7 @@ public class CastleManager
 		return 0;
 	}
 
-	// remove this castle's circlets from the clan
+	// Remove this castle's circlets from the clan
 	public void removeCirclet(L2Clan clan, int castleId)
 	{
 		for (L2ClanMember member : clan.getMembers())
@@ -225,7 +224,7 @@ public class CastleManager
 
 		if (circletId != 0)
 		{
-			// online-player circlet removal
+			// Online Player circlet removal
 			if (player != null &&
 					player.getInventory() != null)
 			{
@@ -238,7 +237,7 @@ public class CastleManager
 				}
 				return;
 			}
-			// else offline-player circlet removal
+			// Else Offline Player circlet removal
 			Connection con = null;
 			try
 			{

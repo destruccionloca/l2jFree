@@ -24,11 +24,9 @@ import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
-
 /**
  * @author Kerberos
  */
-
 public class L2TownPetInstance extends L2NpcInstance
 {
     private int _spawnX, _spawnY, _spawnZ;

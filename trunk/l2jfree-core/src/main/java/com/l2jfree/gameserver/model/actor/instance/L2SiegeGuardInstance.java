@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -52,7 +51,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	public L2SiegeGuardInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
-		getKnownList(); // inits the knownlist
+		getKnownList(); // Inits the knownlist
 	}
 
 	@Override
@@ -67,7 +66,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	@Override
 	public L2CharacterAI getAI()
 	{
-		 L2CharacterAI ai = _ai; // copy handle
+		 L2CharacterAI ai = _ai; // Copy handle
 		 if (ai == null)
 		 {
 			 synchronized(this)

@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-
 /**
  * This class manages all Bosses. 
  * 
@@ -39,8 +38,6 @@ public class L2GrandBossInstance extends L2Boss
 	{
 		_isInSocialAction = value;
 	}
-
-	// [L2J_JP ADD END SANDMAN]
 
 	/**
 	 * Constructor for L2GrandBossInstance. This represent all grandbosses:
@@ -82,7 +79,6 @@ public class L2GrandBossInstance extends L2Boss
 
 	/**
 	 * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR> 
-	 * 
 	 */
 	@Override
 	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake, boolean isDOT)
@@ -109,7 +105,6 @@ public class L2GrandBossInstance extends L2Boss
 			return;
 		super.doCast(skill);
 	}
-	// [L2J_JP ADD END SANDMAN]
 
 	@Override
 	public void onSpawn()

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -1456,7 +1455,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
     {
         player.sendPacket(ActionFailed.STATIC_PACKET);
         player.setActiveWarehouse(player.getClan().getWarehouse());
-        player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.CLAN)); //Or Clan Hall??
+        player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.CLAN)); // Or Clan Hall??
     }
 
     private void showVaultWindowWithdraw(L2PcInstance player)

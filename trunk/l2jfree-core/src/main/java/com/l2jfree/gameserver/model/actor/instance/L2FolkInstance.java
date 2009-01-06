@@ -188,7 +188,7 @@ public class L2FolkInstance extends L2NpcInstance
 			return;
 		}
 
-		if (player.getClassId().level() < 3) // requires to have 3rd class quest completed
+		if (player.getClassId().level() < 3) // Requires to have 3rd class quest completed
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder sb = new TextBuilder();
@@ -276,7 +276,7 @@ public class L2FolkInstance extends L2NpcInstance
 			return;
 		}
 
-		if (player.getClassId().level() < 3) // requires to have 3rd class quest completed
+		if (player.getClassId().level() < 3) // Requires to have 3rd class quest completed
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder sb = new TextBuilder();
@@ -357,7 +357,7 @@ public class L2FolkInstance extends L2NpcInstance
 			return;
 		}
 
-		if (player.getClassId().level() < 3) // requires to have 3rd class quest completed
+		if (player.getClassId().level() < 3) // Requires to have 3rd class quest completed
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder sb = new TextBuilder();
@@ -437,7 +437,7 @@ public class L2FolkInstance extends L2NpcInstance
 								+ " skills!<br>";
 					}
 
-					// make a list of classes
+					// Make a list of classes
 					if (_classesToTeach != null)
 					{
 						int count = 0;
@@ -495,9 +495,7 @@ public class L2FolkInstance extends L2NpcInstance
 		}
 		else
 		{
-			// this class dont know any other commands, let forward
-			// the command to the parent class
-
+			// This class dont know any other commands, let forward the command to the parent class
 			super.onBypassFeedback(player, command);
 		}
 	}

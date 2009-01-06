@@ -353,8 +353,8 @@ public class FortSiegeManager
 			return false;
 		}
 
-		// here check if is siege is in progress
-		// here check if is siege is attacker
+		// Here check if is siege is in progress
+		// Here check if is siege is attacker
 		Fort fort = FortManager.getInstance().getFort(player);
 
 		if (fort == null || fort.getFortId() <= 0)
@@ -384,7 +384,7 @@ public class FortSiegeManager
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
 		L2PcInstance player = (L2PcInstance) activeChar;
 
-		// get siege battleground
+		// Get siege battleground
 		FortSiege siege = FortSiegeManager.getInstance().getSiege(player);
 
 		if (siege == null)
@@ -411,7 +411,7 @@ public class FortSiegeManager
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
 		L2PcInstance player = (L2PcInstance) activeChar;
 
-		// get siege battleground
+		// Get siege battleground
 		FortSiege siege = FortSiegeManager.getInstance().getSiege(player);
 
 		if (siege == null)

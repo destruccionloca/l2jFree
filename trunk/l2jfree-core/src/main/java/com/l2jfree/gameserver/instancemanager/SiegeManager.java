@@ -46,7 +46,6 @@ import com.l2jfree.geoserver.model.Location;
 public class SiegeManager
 {
 	protected static Log		_log	= LogFactory.getLog(SiegeManager.class.getName());
-
 	private static SiegeManager	_instance;
 
 	public static final SiegeManager getInstance()
@@ -96,7 +95,7 @@ public class SiegeManager
 	 */
 	public static boolean checkIfOkToPlaceFlag(L2PcInstance player, boolean isCheckOnly)
 	{
-		// get siege battleground
+		// Get siege battleground
 		L2Clan clan = player.getClan();
 		Siege siege = SiegeManager.getInstance().getSiege(player);
 		Castle castle = (siege == null) ? null : siege.getCastle();
@@ -129,7 +128,7 @@ public class SiegeManager
 	 */
 	public final boolean checkIfOkToSummon(L2PcInstance player, boolean isCheckOnly)
 	{
-		// get siege battleground
+		// Get siege battleground
 		Siege siege = SiegeManager.getInstance().getSiege(player);
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
@@ -159,7 +158,7 @@ public class SiegeManager
 	 */
 	public static boolean checkIfOkToUseStriderSiegeAssault(L2PcInstance player, boolean isCheckOnly)
 	{
-		// get siege battleground
+		// Get siege battleground
 		Siege siege = SiegeManager.getInstance().getSiege(player);
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1);
@@ -371,13 +370,9 @@ public class SiegeManager
 	public class SiegeSpawn
 	{
 		Location	_location;
-
 		private int	_npcId;
-
 		private int	_heading;
-
 		private int	_castleId;
-
 		private int	_hp;
 
 		public SiegeSpawn(int castle_id, int x, int y, int z, int heading, int npc_id)

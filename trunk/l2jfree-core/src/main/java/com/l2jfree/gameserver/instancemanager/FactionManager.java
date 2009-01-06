@@ -35,8 +35,6 @@ import com.l2jfree.gameserver.model.entity.faction.Faction;
 public class FactionManager
 {
 	private static final Log		_log	= LogFactory.getLog(FactionManager.class.getName());
-
-	// =========================================================
 	private static FactionManager	_instance;
 
 	public static final FactionManager getInstance()
@@ -49,8 +47,6 @@ public class FactionManager
 		}
 		return _instance;
 	}
-
-	// =========================================================
 
 	// =========================================================
 	// Data Field

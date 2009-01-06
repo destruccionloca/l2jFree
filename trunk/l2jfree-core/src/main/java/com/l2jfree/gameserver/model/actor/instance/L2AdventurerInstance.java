@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -96,7 +95,7 @@ public class L2AdventurerInstance extends L2FolkInstance
         return "data/html/adventurer_guildsman/" + pom + ".htm";
     }
 
-    /**
+	/**
 	 * @param player  
 	 * @param bossLevel  
 	 * @param filename  

@@ -14,12 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-/**
- * @author NightMarez
- * @version $Revision: 1.3.2.2.2.5 $ $Date: 2005/03/27 15:29:32 $
- *
- */
-
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
@@ -39,6 +33,11 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
+/**
+ * @author NightMarez
+ * @version $Revision: 1.3.2.2.2.5 $ $Date: 2005/03/27 15:29:32 $
+ *
+ */
 public final class L2TeleporterInstance extends L2FolkInstance
 {
 	private final static Log	_log						= LogFactory.getLog(L2TeleporterInstance.class.getName());
@@ -188,7 +187,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
 		if (list != null)
 		{
-			//you cannot teleport to village that is in siege
+			// You cannot teleport to village that is in siege
 			if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY(), list.getLocZ()))
 			{
 				player.sendPacket(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE);
@@ -216,7 +215,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 
 			Calendar cal = Calendar.getInstance();
 			int price = list.getPrice();
-			// from CT2 all players below lvl 40 have all ports for free
+			// From CT2 all players below lvl 40 have all ports for free
 			if (player.getLevel() < 40 && !Config.CT1_LEGACY && !this.getTemplate().isCustom())
 			{
 				price = 0;

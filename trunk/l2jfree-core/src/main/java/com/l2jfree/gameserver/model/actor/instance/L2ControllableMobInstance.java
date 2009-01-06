@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -33,14 +32,14 @@ public class L2ControllableMobInstance extends L2MonsterInstance
     private final static Log _log = LogFactory.getLog(L2ControllableMobInstance.class.getName());
     
 	private boolean _isInvul;
-	private L2ControllableMobAI _aiBackup;	// to save ai, avoiding beeing detached
+	private L2ControllableMobAI _aiBackup;	// To save ai, avoiding beeing detached
 	
 	protected class ControllableAIAcessor extends AIAccessor 
     {
 		@Override
 		public void detachAI() 
         {
-			// do nothing, AI of controllable mobs can't be detached automatically
+			// Do nothing, AI of controllable mobs can't be detached automatically
 		}
 	}
 	
@@ -54,7 +53,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 	@Override
 	public int getAggroRange() 
     {
-		// force mobs to be aggro
+		// Force mobs to be aggro
 		return 500;
 	}
 
@@ -66,7 +65,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 	@Override
 	public L2CharacterAI getAI() 
 	{
-		L2CharacterAI ai = _ai; // copy handle
+		L2CharacterAI ai = _ai; // Copy handle
 		if (ai == null)
 		{
 			synchronized(this)
@@ -120,8 +119,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 		
 		if (getStatus().getCurrentHp() < 0.5) // Die
 		{
-			// first die (and calculate rewards), if currentHp < 0,
-			// then overhit may be calculated
+			// First die (and calculate rewards), if currentHp < 0,  then overhit may be calculated
 			if (_log.isDebugEnabled()) _log.debug("char is dead.");
 			
 			stopMove(null);
@@ -129,7 +127,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 			// Start the doDie process
 			doDie(attacker);
 			
-			// now reset currentHp to zero
+			// Now reset currentHp to zero
 			getStatus().setCurrentHp(0);
 		}
 	}

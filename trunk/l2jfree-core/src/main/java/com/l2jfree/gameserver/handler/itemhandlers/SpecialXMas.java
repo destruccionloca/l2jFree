@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.network.serverpackets.ShowXMasSeal;
 
 /**
  *
- * @author  devScarlet & mrTJO
+ * @author devScarlet & mrTJO
  */
 public class SpecialXMas implements IItemHandler
 {

@@ -28,11 +28,8 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 public class L2DecoyInstance extends L2Decoy
 {
     private int _totalLifeTime;
-    
     private int _timeRemaining;
-    
     private Future<?> _DecoyLifeTask;
-    
     private Future<?> _HateSpam;
     
     public L2DecoyInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2Skill skill)
@@ -46,9 +43,9 @@ public class L2DecoyInstance extends L2Decoy
         {
             _totalLifeTime = 20000;
         }
-        _timeRemaining = _totalLifeTime;
         int delay = 1000;
         int skilllevel = getTemplate().getIdTemplate() - 13070;
+        _timeRemaining = _totalLifeTime;
         _DecoyLifeTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new DecoyLifetime(getOwner(), this), delay, delay);
         _HateSpam = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new HateSpam(this, SkillTable.getInstance().getInfo(5272, skilllevel)), 2000, 5000);
     }
@@ -80,7 +77,6 @@ public class L2DecoyInstance extends L2Decoy
     static class DecoyLifetime implements Runnable
     {
         private L2PcInstance _activeChar;
-        
         private L2DecoyInstance _Decoy;
         
         DecoyLifetime(L2PcInstance activeChar, L2DecoyInstance Decoy)
@@ -111,7 +107,6 @@ public class L2DecoyInstance extends L2Decoy
     static class HateSpam implements Runnable
     {
         private L2DecoyInstance _activeChar;
-        
         private L2Skill _skill;
         
         HateSpam(L2DecoyInstance activeChar, L2Skill Hate)

@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
  * This class ...
  * 
  * @version $Revision: $ $Date: $
- * @author  godson
+ * @author godson
  */
 
 public class DayNightSpawnManager
@@ -41,8 +41,6 @@ public class DayNightSpawnManager
 	private static FastMap<L2Spawn, L2NpcInstance>	_dayCreatures;
 	private static FastMap<L2Spawn, L2NpcInstance>	_nightCreatures;
 	private static FastMap<L2Spawn, L2Boss>			_bosses;
-
-	//private static int _currentState;  // 0 = Day, 1 = Night
 
 	public static DayNightSpawnManager getInstance()
 	{

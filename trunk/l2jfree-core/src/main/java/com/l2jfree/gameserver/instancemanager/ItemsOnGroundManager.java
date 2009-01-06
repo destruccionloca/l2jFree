@@ -83,9 +83,9 @@ public class ItemsOnGroundManager
 			try
 			{
 				String str = null;
-				if (!Config.DESTROY_EQUIPABLE_PLAYER_ITEM) //Recycle misc. items only
+				if (!Config.DESTROY_EQUIPABLE_PLAYER_ITEM) // Recycle misc. items only
 					str = "update itemsonground set drop_time=? where drop_time=-1 and equipable=0";
-				else if (Config.DESTROY_EQUIPABLE_PLAYER_ITEM) //Recycle all items including equipable
+				else if (Config.DESTROY_EQUIPABLE_PLAYER_ITEM) // Recycle all items including equipable
 					str = "update itemsonground set drop_time=? where drop_time=-1";
 				con = L2DatabaseFactory.getInstance().getConnection(con);
 				PreparedStatement statement = con.prepareStatement(str);
@@ -100,7 +100,7 @@ public class ItemsOnGroundManager
             finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 		}
 
-		//Add items to world
+		// Add items to world
 		Connection con = null;
 		try
 		{
@@ -115,9 +115,9 @@ public class ItemsOnGroundManager
 				{
 					L2ItemInstance item = new L2ItemInstance(result.getInt(1), result.getInt(2));
 					L2World.getInstance().storeObject(item);
-					if (item.isStackable() && result.getInt(3) > 1) //this check and..
+					if (item.isStackable() && result.getInt(3) > 1) // This check and..
 						item.setCount(result.getInt(3));
-					if (result.getInt(4) > 0) // this, are really necessary?
+					if (result.getInt(4) > 0) // This, are really necessary?
 						item.setEnchantLevel(result.getInt(4));
 					item.getPosition().setWorldPosition(result.getInt(5), result.getInt(6), result.getInt(7));
 					item.getPosition().setWorldRegion(L2World.getInstance().getRegion(item.getPosition().getWorldPosition()));
@@ -131,7 +131,7 @@ public class ItemsOnGroundManager
 					L2World.getInstance().addVisibleObject(item, item.getPosition().getWorldRegion(), null);
 					_items.add(item);
 					count++;
-					// add to ItemsAutoDestroy only items not protected
+					// Add to ItemsAutoDestroy only items not protected
 					if (!Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
 					{
 						if (result.getLong(8) > -1)
@@ -240,11 +240,11 @@ public class ItemsOnGroundManager
 					statement.setInt(7, item.getZ());
 
 					if (item.isProtected())
-						statement.setLong(8, -1); //item will be protected
+						statement.setLong(8, -1); // Item will be protected
 					else
-						statement.setLong(8, item.getDropTime()); //item will be added to ItemsAutoDestroy          
+						statement.setLong(8, item.getDropTime()); // Item will be added to ItemsAutoDestroy          
 					if (item.isEquipable())
-						statement.setLong(9, 1); //set equipable
+						statement.setLong(9, 1); // Set equipable
 					else
 						statement.setLong(9, 0);
 					statement.execute();

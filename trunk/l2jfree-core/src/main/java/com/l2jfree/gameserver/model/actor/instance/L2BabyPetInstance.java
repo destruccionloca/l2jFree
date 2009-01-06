@@ -16,6 +16,8 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.concurrent.Future;
 
+import javolution.util.FastMap;
+
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -23,8 +25,6 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
-
-import javolution.util.FastMap;
 
 /**
  * 
@@ -42,7 +42,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 	{
 		super(objectId, template, owner, control);
 		
-		// look through the skills that this template has and find the weak and strong heal.
+		// Look through the skills that this template has and find the weak and strong heal.
 		FastMap<Integer, L2Skill> skills = (FastMap<Integer, L2Skill>) getTemplate().getSkills();
 		L2Skill skill1 = null;
 		L2Skill skill2 = null;
@@ -65,8 +65,8 @@ public final class L2BabyPetInstance extends L2PetInstance
 					(skill.getSkillType() == L2SkillType.MPHOT) )
 				)
 			{
-				// only consider two skills.  If the pet has more, too bad...they won't be used by its AI.
-				// for now assign the first two skills in the order they come.  Once we have both skills, re-arrange them  
+				// Only consider two skills.  If the pet has more, too bad...they won't be used by its AI.
+				// For now assign the first two skills in the order they come.  Once we have both skills, re-arrange them  
 				if (skill1 == null)
 					skill1 = skill;
 				else
@@ -76,18 +76,18 @@ public final class L2BabyPetInstance extends L2PetInstance
 				}
 			}
 		}
-		// process the results.  Only store the ID of the skills.  The levels are generated on the fly, based on the pet's level!
+		// Process the results.  Only store the ID of the skills.  The levels are generated on the fly, based on the pet's level!
 		if (skill1 != null)
 		{
 			if (skill2 == null)
 			{
-				 // duplicate so that the same skill will be used in both normal and emergency situations
+				 // Duplicate so that the same skill will be used in both normal and emergency situations
 				_weakHeal = skill1;
 				_strongHeal = skill1;
 			}
 			else
 			{
-				// arrange the weak and strong skills appropriately
+				// Arrange the weak and strong skills appropriately
 				if(skill1.getPower() > skill2.getPower())
 				{
 					_weakHeal = skill2;
@@ -100,7 +100,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 				}
 			}
 
-			// start the healing task
+			// Start the healing task
 			_healingTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Heal(this), 0, 1000);
 		}
 	}
@@ -132,7 +132,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 	}
 
 	@Override
-    public void doRevive()
+	public void doRevive()
 	{
 		super.doRevive();
 		if (_healingTask == null)
@@ -151,28 +151,28 @@ public final class L2BabyPetInstance extends L2PetInstance
 		{
 			L2PcInstance owner = _baby.getOwner();
 			
-			// if the owner is dead, merely wait for the owner to be resurrected
-			// if the pet is still casting from the previous iteration, allow the cast to complete...
+			// If the owner is dead, merely wait for the owner to be resurrected
+			// If the pet is still casting from the previous iteration, allow the cast to complete...
 			if (!owner.isDead() && !_baby.isCastingNow() && !_baby.isBetrayed()) 
 			{
-				// casting automatically stops any other action (such as autofollow or a move-to).  
+				// Casting automatically stops any other action (such as autofollow or a move-to).  
 				// We need to gather the necessary info to restore the previous state.
 				boolean previousFollowStatus = _baby.getFollowStatus();
 				
-				// if the owner's HP is more than 80%, do nothing.  
-				// if the owner's HP is very low (less than 20%) have a high chance for strong heal
+				// If the owner's HP is more than 80%, do nothing.  
+				// If the owner's HP is very low (less than 20%) have a high chance for strong heal
 				// otherwise, have a low chance for weak heal
 				if ((owner.getStatus().getCurrentHp()/owner.getMaxHp() < 0.2) && Rnd.get(4) < 3)
 					_baby.useMagic(_strongHeal, false, false);
 				else if ((owner.getStatus().getCurrentHp()/owner.getMaxHp() < 0.8) && Rnd.get(4) < 1)
 					_baby.useMagic(_weakHeal,false,false);
 
-				// calling useMagic changes the follow status, if the babypet actually casts 
+				// Calling useMagic changes the follow status, if the babypet actually casts 
 				// (as opposed to failing due some factors, such as too low MP, etc).
-				// if the status has actually been changed, revert it.  Else, allow the pet to 
+				// If the status has actually been changed, revert it.  Else, allow the pet to 
 				// continue whatever it was trying to do.
 				// NOTE: This is important since the pet may have been told to attack a target.
-				// reverting the follow status will abort this attack!  While aborting the attack 
+				// Reverting the follow status will abort this attack!  While aborting the attack 
 				// in order to heal is natural, it is not acceptable to abort the attack on its own, 
 				// merely because the timer stroke and without taking any other action...
 				if(previousFollowStatus != _baby.getFollowStatus())

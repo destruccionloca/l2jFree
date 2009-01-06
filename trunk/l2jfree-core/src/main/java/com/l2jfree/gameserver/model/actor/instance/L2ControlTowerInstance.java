@@ -28,8 +28,8 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 import javolution.util.FastList;
 
-public class L2ControlTowerInstance extends L2NpcInstance {
-
+public class L2ControlTowerInstance extends L2NpcInstance
+{
     private List<L2Spawn> _guards; 
 	
 	public L2ControlTowerInstance(int objectId, L2NpcTemplate template)
@@ -91,8 +91,7 @@ public class L2ControlTowerInstance extends L2NpcInstance {
 		else
 		{
 			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100 // Less then max height difference, delete check when geo
-					&& GeoClient.getInstance().canSeeTarget(player, this)
-				)
+					&& GeoClient.getInstance().canSeeTarget(player, this))
 			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);

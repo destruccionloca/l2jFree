@@ -100,7 +100,7 @@ public class L2MerchantInstance extends L2FolkInstance
     {
         double taxRate = 1.;
 
-        // not ready yet
+        // Not ready yet
         //taxRate = getMpc().getTotalTaxRate(); 
         //instead: 
         if (getIsInTown()) taxRate = getCastle().getTaxRate();

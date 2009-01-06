@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2SummonInstance extends L2Summon
 {
-    private float _expPenalty = 0; // exp decrease multiplier (i.e. 0.3 (= 30%) for shadow)
+    private float _expPenalty = 0; // Exp decrease multiplier (i.e. 0.3 (= 30%) for shadow)
 	private int _itemConsumeId;
 	private int _itemConsumeCount;
 	private int _itemConsumeSteps;
@@ -36,15 +36,14 @@ public class L2SummonInstance extends L2Summon
     private int _timeLostActive;
     private int _timeRemaining;
     private int _nextItemConsumeTime;
+
     public int lastShowntimeRemaining;  // Following FbiAgent's example to avoid sending useless packets
 
     private static final int SUMMON_LIFETIME_INTERVAL = 1200000; // 20 minutes
-    
     private Future<?> _summonConsumeTask;
-    
     private static int _lifeTime = SUMMON_LIFETIME_INTERVAL; // summon life time for life scale bar
     
-	public L2SummonInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2Skill skill)
+    public L2SummonInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2Skill skill)
     {
 		super(objectId, template, owner);
         setShowSummonAnimation(true);
@@ -74,9 +73,9 @@ public class L2SummonInstance extends L2Summon
         lastShowntimeRemaining = _totalLifeTime;
         
         if (_itemConsumeId == 0)
-        	_nextItemConsumeTime = -1;	// do not consume
+        	_nextItemConsumeTime = -1;	// Don't consume
         else if (_itemConsumeSteps == 0)
-        	_nextItemConsumeTime = -1;	// do not consume
+        	_nextItemConsumeTime = -1;	// Don't consume
         else
         	_nextItemConsumeTime = _totalLifeTime - _totalLifeTime/(_itemConsumeSteps+1);
 
@@ -98,36 +97,37 @@ public class L2SummonInstance extends L2Summon
 		return (getTemplate() != null ? getTemplate().getLevel() : 0);
 	}
 	
-    @Override
-    public int getSummonType()
+	@Override
+	public int getSummonType()
 	{
 		return 1;
 	}
 	
 	public void setExpPenalty(float expPenalty)
 	{
-        float ratePenalty = Config.ALT_GAME_SUMMON_PENALTY_RATE;
-        _expPenalty = (expPenalty* ratePenalty);
+		float ratePenalty = Config.ALT_GAME_SUMMON_PENALTY_RATE;
+		_expPenalty = (expPenalty* ratePenalty);
 	}
-    public float getExpPenalty()
-    {
-        return _expPenalty;
-    }
+
+	public float getExpPenalty()
+	{
+		return _expPenalty;
+	}
     
 	public int getItemConsumeCount()
-    {
-        return _itemConsumeCount;
-    }
+	{
+		return _itemConsumeCount;
+	}
 
 	public int getItemConsumeId()
-    {
-        return _itemConsumeId;
-    }
+	{
+		return _itemConsumeId;
+	}
 
 	public int getItemConsumeSteps()
-    {
-        return _itemConsumeSteps;
-    }
+	{
+		return _itemConsumeSteps;
+	}
 
     public int getNextItemConsumeTime()
     {
@@ -214,7 +214,7 @@ public class L2SummonInstance extends L2Summon
 				int maxTime = _summon.getTotalLifeTime();
 				double newTimeRemaining;
 				
-				// if pet is attacking
+				// If pet is attacking
 				if (_summon.isAttackingNow())
 				{
 				    _summon.decTimeRemaining(_summon.getTimeLostActive());
@@ -224,28 +224,26 @@ public class L2SummonInstance extends L2Summon
 					_summon.decTimeRemaining(_summon.getTimeLostIdle());
 				}
 				newTimeRemaining = _summon.getTimeRemaining();
-				// check if the summon's lifetime has ran out
+				// Check if the summon's lifetime has ran out
 				if (newTimeRemaining < 0 )
 				{
-	                _summon.unSummon(_activeChar);
+					_summon.unSummon(_activeChar);
 				}
 				// check if it is time to consume another item
 				else if ( (newTimeRemaining <= _summon.getNextItemConsumeTime()) && (oldTimeRemaining > _summon.getNextItemConsumeTime()) )
 				{
 					_summon.decNextItemConsumeTime(maxTime/(_summon.getItemConsumeSteps()+1));
-					
-		            // check if owner has enought itemConsume, if requested
-		            if (_summon.getItemConsumeCount() > 0
-		                && _summon.getItemConsumeId() != 0
-		                && !_summon.isDead()
-		                && !_summon.destroyItemByItemId("Consume", _summon.getItemConsumeId(),
-		                                                _summon.getItemConsumeCount(), _activeChar, true))
-		            {
-		                _summon.unSummon(_activeChar);
-		            }
+					// Check if owner has enought itemConsume, if requested
+					if (_summon.getItemConsumeCount() > 0
+					&& _summon.getItemConsumeId() != 0
+					&& !_summon.isDead()
+					&& !_summon.destroyItemByItemId("Consume", _summon.getItemConsumeId(),_summon.getItemConsumeCount(), _activeChar, true))
+					{
+						_summon.unSummon(_activeChar);
+					}
 				}
 				
-				// prevent useless packet-sending when the difference isn't visible.
+				// Prevent useless packet-sending when the difference isn't visible.
 				if ((_summon.lastShowntimeRemaining - newTimeRemaining) > maxTime/352)
 				{
 					_summon.getOwner().sendPacket(new SetSummonRemainTime(maxTime,(int) newTimeRemaining));
@@ -259,8 +257,8 @@ public class L2SummonInstance extends L2Summon
 		}
 	}
 
-    @Override
-    public int getCurrentFed() { return _lifeTime; }
+	@Override
+	public int getCurrentFed() { return _lifeTime; }
     
 	@Override
 	public int getMaxFed() { return SUMMON_LIFETIME_INTERVAL; }

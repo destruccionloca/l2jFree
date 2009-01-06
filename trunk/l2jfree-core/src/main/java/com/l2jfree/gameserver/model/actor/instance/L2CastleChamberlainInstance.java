@@ -464,7 +464,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("tax_set")) // tax rates
-			// control
+			// Control
 			{
 				if ((player.getClanPrivileges() & L2Clan.CP_CS_TAXES) == L2Clan.CP_CS_TAXES)
 				{
@@ -1260,7 +1260,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						getCastle().getSiegeDate().set(Calendar.HOUR_OF_DAY, _preHour);
 					if (Config.CL_SET_SIEGE_TIME_LIST.contains("minute"))
 						getCastle().getSiegeDate().set(Calendar.MINUTE, Integer.parseInt(st.nextToken()));
-					// now store the changed time and finished next Siege Time registration
+					// Now store the changed time and finished next Siege Time registration
 					getCastle().getSiege().endTimeRegistration(false);
 
 					html = new NpcHtmlMessage(1);

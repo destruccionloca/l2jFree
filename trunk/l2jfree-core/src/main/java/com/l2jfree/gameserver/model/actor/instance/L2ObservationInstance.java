@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -91,7 +90,7 @@ public final class L2ObservationInstance extends L2FolkInstance
         int z = Integer.parseInt(st.nextToken());
         if (player.reduceAdena("Broadcast", cost, this, true))
         {
-            // enter mode
+            // Enter mode
             player.enterObserverMode(x, y, z);
             ItemList il = new ItemList(player, false);
             player.sendPacket(il);

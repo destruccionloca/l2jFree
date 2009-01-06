@@ -20,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.Future;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -115,13 +114,13 @@ public class L2PetInstance extends L2Summon
         {
             try
             {
-                // if pet is attacking
+                // If pet is attacking
                 if (isAttackingNow())
-                    // if its not already on battleFeed mode
+                    // If its not already on battleFeed mode
                     if (!_feedMode)
                         startFeed(true); //switching to battle feed
                 else
-                    // if its on battleFeed mode
+                    // If its on battleFeed mode
                     if (_feedMode)
                         startFeed(false); // normal feed
                 
@@ -133,7 +132,7 @@ public class L2PetInstance extends L2Summon
                 
                 boolean _ownerInventory = false;
                 
-                // search for food in owner's inventory
+                // Search for food in owner's inventory
                 if (food == null && getOwner()!=null)
                 {
                 	food = getOwner().getInventory().getItemByItemId(foodId);
@@ -164,7 +163,7 @@ public class L2PetInstance extends L2Summon
 
                 if (getCurrentFed() > FOOD_ITEM_CONSUME_COUNT)
                 {
-                    // eat
+                    // Eat
                     setCurrentFed(getCurrentFed() - FOOD_ITEM_CONSUME_COUNT);
                 }
                 else
@@ -186,7 +185,7 @@ public class L2PetInstance extends L2Summon
                 			getOwner().sendPacket(SystemMessageId.YOUR_PET_IS_VERY_HUNGRY_PLEASE_BE_CAREFULL);
                 		}
                 	}
-                	// send pet food bar info
+                	// Send pet food bar info
                 	getOwner().sendPacket(new SetSummonRemainTime(getMaxFed(),getCurrentFed()));
                 }
                 
@@ -195,7 +194,7 @@ public class L2PetInstance extends L2Summon
                 if(getCurrentFed() == 0)
                 {
                 	getOwner().sendPacket(SystemMessageId.STARVING_GRUMPY_AND_FED_UP_YOUR_PET_HAS_LEFT);
-                	unSummon(getOwner()); // unsummon or die?
+                	unSummon(getOwner()); // Unsummon or die?
                 }
             }
             catch (Exception e) 
@@ -208,10 +207,10 @@ public class L2PetInstance extends L2Summon
     public synchronized static L2PetInstance spawnPet(L2NpcTemplate template, L2PcInstance owner, L2ItemInstance control)
     {
     	if (L2World.getInstance().getPet(owner.getObjectId()) != null)
-    		return null; // owner has a pet listed in world
+    		return null; // Owner has a pet listed in world
     	
     	L2PetInstance pet = restore(control, template, owner);
-    	// add the pet instance to world
+    	// Add the pet instance to world
     	if (pet != null)
     	{
     		L2World.getInstance().addPet(owner.getObjectId(), pet);
@@ -272,7 +271,7 @@ public class L2PetInstance extends L2Summon
         {
             if(isOwner && player != getOwner())
             {
-                // update owner
+                // Update owner
                 updateRefOwner(player);
             }
             player.sendPacket(new PetStatusShow(this));
@@ -336,14 +335,14 @@ public class L2PetInstance extends L2Summon
     @Override
     public L2ItemInstance getSecondaryWeaponInstance()
     {
-        // temporary? unavailable
+        // Temporary? unavailable
         return null;
     }
     
     @Override
     public L2Weapon getSecondaryWeaponItem()
     {
-        // temporary? unavailable
+        // Temporary? unavailable
         return null;
     }
     
@@ -436,7 +435,7 @@ public class L2PetInstance extends L2Summon
 
 		if (!(object instanceof L2ItemInstance))
 		{
-			// dont try to pickup anything that is not an item :)
+			// Dont try to pickup anything that is not an item :)
 			_log.warn("trying to pickup wrong target."+object);
 			getOwner().sendPacket(ActionFailed.STATIC_PACKET);
 			return;
@@ -500,7 +499,7 @@ public class L2PetInstance extends L2Summon
 
 			target.pickupMe(this);
 
-			if(Config.SAVE_DROPPED_ITEM) // item must be removed from ItemsOnGroundManager if is active
+			if(Config.SAVE_DROPPED_ITEM) // Item must be removed from ItemsOnGroundManager if is active
 				ItemsOnGroundManager.getInstance().removeObject(target);
 		}
 
@@ -532,7 +531,7 @@ public class L2PetInstance extends L2Summon
 		else
 		{
 			getInventory().addItem("Pickup", target, getOwner(), this);
-			//FIXME Just send the updates if possible (old way wasn't working though)
+			// FIXME Just send the updates if possible (old way wasn't working though)
 			PetItemList iu = new PetItemList(this);
 			getOwner().sendPacket(iu);
 			if (target.getItemId() == 57)
@@ -575,7 +574,7 @@ public class L2PetInstance extends L2Summon
         getOwner().removeReviving();
         getOwner().sendPacket(SystemMessageId.YOUR_PETS_CORPSE_HAS_DECAYED);
         super.deleteMe(owner);
-        destroyControlItem(owner); //this should also delete the pet from the db
+        destroyControlItem(owner); // This should also delete the pet from the db
     }
     
     @Override
@@ -710,10 +709,10 @@ public class L2PetInstance extends L2Summon
      */
     public void destroyControlItem(L2PcInstance owner)
     {
-        // remove the pet instance from world
+        // Remove the pet instance from world
         L2World.getInstance().removePet(owner.getObjectId());
 
-        // delete from inventory
+        // Delete from inventory
         try 
         {
             L2ItemInstance removedItem = owner.getInventory().destroyItem("PetDestroy", getControlItemId(), 1, getOwner(), this);
@@ -737,7 +736,7 @@ public class L2PetInstance extends L2Summon
             _log.error("Error while destroying control item: ", e);
         }
         
-        // pet control item no longer exists, delete the pet from the db
+        // Pet control item no longer exists, delete the pet from the db
         Connection con = null;
         try
         {
@@ -806,7 +805,7 @@ public class L2PetInstance extends L2Summon
             if (_curWeightPenalty != newWeightPenalty)
             {
                 _curWeightPenalty = newWeightPenalty;
-                //TODO: weight penalty for pets
+                // TODO: weight penalty for pets
             }
         }
     }
@@ -859,7 +858,7 @@ public class L2PetInstance extends L2Summon
 
 
 
-            // hack for zero food
+            // Hack for zero food
         	if (curFed == 0)
         	{
         		int foodId = PetDataTable.getFoodItemId(pet.getTemplate().getNpcId());
@@ -903,7 +902,7 @@ public class L2PetInstance extends L2Summon
     {
         if (getControlItemId() == 0)
         {
-            // this is a summon, not a pet, don't store anything
+            // This is a summon, not a pet, don't store anything
             return;
         }
         
@@ -961,7 +960,7 @@ public class L2PetInstance extends L2Summon
     
     public synchronized void startFeed( boolean battleFeed )
     {
-        // stop feeding task if its active
+        // Stop feeding task if its active
        
         stopFeed();
         if (!isDead())
@@ -976,7 +975,7 @@ public class L2PetInstance extends L2Summon
                 _feedMode = false;
                 _feedTime = _data.getPetFeedNormal();
             }
-            //  pet feed time must be different than 0. Changing time to bypass divide by 0
+            // Pet feed time must be different than 0. Changing time to bypass divide by 0
             if (_feedTime <= 0)
                 _feedTime = 1;
             
@@ -1020,7 +1019,7 @@ public class L2PetInstance extends L2Summon
 
     private void deathPenalty()
     {
-        //FIXME: Need Correct Penalty
+        // FIXME: Need Correct Penalty
 
         int lvl = getStat().getLevel();
         double percentLost = -0.07 * lvl + 6.5;
@@ -1038,7 +1037,7 @@ public class L2PetInstance extends L2Summon
     @Override
     public void addExpAndSp(long addToExp, int addToSp) 
     {
-        if (getNpcId() == 12564) //SinEater
+        if (getNpcId() == 12564) // SinEater
             getStat().addExpAndSp(Math.round(addToExp * Config.SINEATER_XP_RATE), addToSp);
         else
             getStat().addExpAndSp(Math.round(addToExp * Config.PET_XP_RATE), addToSp);

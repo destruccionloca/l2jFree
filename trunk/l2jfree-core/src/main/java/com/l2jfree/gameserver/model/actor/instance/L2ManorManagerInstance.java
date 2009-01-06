@@ -120,9 +120,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 
 		if (command.startsWith("manor_menu_select"))
 		{
-			// input string format:
-			// manor_menu_select?ask=X&state=Y&time=X
-
+			// Input string format: manor_menu_select?ask=X&state=Y&time=X
 			if (CastleManorManager.getInstance().isUnderMaintenance())
 			{
 				player.sendPacket(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE);
@@ -205,7 +203,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 		}
 	}
 
-	public String getHtmlPath ()
+	public String getHtmlPath()
 	{
 		return "data/html/manormanager/";
 	}

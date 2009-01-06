@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
-
 public class L2PenaltyMonsterInstance extends L2MonsterInstance
 {
 	private L2PcInstance	_ptk;

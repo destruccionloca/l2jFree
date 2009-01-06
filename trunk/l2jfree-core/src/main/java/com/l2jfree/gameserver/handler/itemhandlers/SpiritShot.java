@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.util.Broadcast;
  *  
  * @version $Revision: 1.1.2.1.2.5 $ $Date: 2005/03/27 15:30:07 $ 
  */
-
 public class SpiritShot implements IItemHandler
 {
 	// All the item IDs that this handler knows.

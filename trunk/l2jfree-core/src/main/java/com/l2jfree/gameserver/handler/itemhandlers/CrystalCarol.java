@@ -18,14 +18,17 @@ import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.util.FloodProtector;
 
 /**
  * This class ...
  * 
  * @version $Revision: 1.2.4.4 $ $Date: 2005/03/27 15:30:07 $
+ * @author Skatershi (Optimisations)
  */
-
 public class CrystalCarol implements IItemHandler
 {
 	// All the item IDs that this handler knows.
@@ -63,7 +66,13 @@ public class CrystalCarol implements IItemHandler
 		int itemId = item.getItemId();
 		int skillId = -1;
 
-		// TODO : Add a FloodProtector ?
+		if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_USEITEM))
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+			sm.addItemName(item);
+			activeChar.sendPacket(sm);
+			return;
+		}
 
 		switch (itemId)
 		{

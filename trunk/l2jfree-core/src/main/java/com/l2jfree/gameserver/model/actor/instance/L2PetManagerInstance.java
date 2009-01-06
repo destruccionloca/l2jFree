@@ -1,8 +1,5 @@
 /*
- * $Header$
- *
- *
-* This program is free software: you can redistribute it and/or modify it under
+ * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
@@ -122,8 +119,8 @@ public class L2PetManagerInstance extends L2MerchantInstance
 			int val = Integer.parseInt(params[1]);
 			switch (val)
 			{
-			//Info evolve(player, "curent pet summon item", "new pet summon item", "lvl required to evolve")
-			//To ignore evolve just put value 0 where do you like example: evolve(player, 0, 9882, 55);
+			// Info evolve(player, "curent pet summon item", "new pet summon item", "lvl required to evolve")
+			// To ignore evolve just put value 0 where do you like example: evolve(player, 0, 9882, 55);
 			case 1:
 				evolve(player, 2375, 9882, 55);
 				break;
@@ -147,7 +144,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 			int val = Integer.parseInt(params[1]);
 			switch (val)
 			{
-			//Info evolve(player, "curent pet summon item", "new pet summon item", "lvl required to evolve")
+			// Info evolve(player, "curent pet summon item", "new pet summon item", "lvl required to evolve")
 			case 1:
 				evolve(player, 9882, 2375, 55);
 				break;
@@ -229,13 +226,13 @@ public class L2PetManagerInstance extends L2MerchantInstance
 
 		curpet.unSummon(player);
 
-		//Summoning new pet
+		// Summoning new pet
 		L2PetInstance petSummon = L2PetInstance.spawnPet(npcTemplate, player, item);
 
 		if (petSummon == null)
 			return;
 
-		//If new pet ok, deleting old pet item
+		// If new pet ok, deleting old pet item
 		player.destroyItem("", curpet.getControlItemId(), 1, this, true);
 
 		petSummon.getStat().addExp(petexp);

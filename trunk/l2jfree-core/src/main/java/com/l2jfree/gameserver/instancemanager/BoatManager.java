@@ -36,7 +36,6 @@ import com.l2jfree.gameserver.templates.StatsSet;
 public class BoatManager
 {
 	private final static Log	_log	= LogFactory.getLog(BoatManager.class.getName());
-	// =========================================================
 	private static BoatManager	_instance;
 
 	public static final BoatManager getInstance()
@@ -49,8 +48,6 @@ public class BoatManager
 		}
 		return _instance;
 	}
-
-	// =========================================================
 
 	// =========================================================
 	// Data Field
@@ -141,7 +138,6 @@ public class BoatManager
 		npcDat.set("baseEvasRate", 38);
 		npcDat.set("baseCritRate", 38);
 
-		//npcDat.set("name", "");
 		npcDat.set("collision_radius", 0);
 		npcDat.set("collision_height", 0);
 		npcDat.set("fcollision_radius", 0);

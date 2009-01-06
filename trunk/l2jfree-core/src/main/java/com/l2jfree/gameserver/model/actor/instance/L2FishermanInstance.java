@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

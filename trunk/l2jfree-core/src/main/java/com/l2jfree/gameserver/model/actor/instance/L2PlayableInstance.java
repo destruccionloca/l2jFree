@@ -33,13 +33,12 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
  * <li>L2Summon</li><BR><BR>
  * 
  */
-
 public abstract class L2PlayableInstance extends L2Character
 {
 
-	private boolean	_isNoblesseBlessed	= false;	// for Noblesse Blessing skill, restores buffs after death
+	private boolean	_isNoblesseBlessed	= false;	// For Noblesse Blessing skill, restores buffs after death
 	private boolean	_getCharmOfLuck		= false;	// Charm of Luck - During a Raid/Boss war, decreased chance for death penalty
-	private boolean	_isPhoenixBlessed	= false;	// for Soul of The Phoenix or Salvation buffs
+	private boolean	_isPhoenixBlessed	= false;	// For Soul of The Phoenix or Salvation buffs
 	private boolean	_isSilentMoving		= false;	// Silent Move
 	private boolean	_protectionBlessing	= false;	// Blessed by Blessing of Protection
 
@@ -56,9 +55,9 @@ public abstract class L2PlayableInstance extends L2Character
 	public L2PlayableInstance(int objectId, L2CharTemplate template)
 	{
 		super(objectId, template);
-		getKnownList(); // init knownlist
-		getStat(); // init stats
-		getStatus(); // init status
+		getKnownList(); // Init knownlist
+		getStat(); // Init stats
+		getStatus(); // Init status
 	}
 
 	@Override
@@ -137,15 +136,10 @@ public abstract class L2PlayableInstance extends L2Character
 
 		return true;
 		/*  Even at war, there should be PvP flag
-		if(
-		        player.getClan() == null ||
-		        targetPlayer.getClan() == null ||
-		        (
-		                !targetPlayer.getClan().isAtWarWith(player.getClanId()) &&
+		if (player.getClan() == null || targetPlayer.getClan() == null ||
+				(!targetPlayer.getClan().isAtWarWith(player.getClanId()) &&
 		                targetPlayer.getWantsPeace() == 0 &&
-		                player.getWantsPeace() == 0
-		        )
-		    )
+		                player.getWantsPeace() == 0))
 		{
 		    return true;
 		}
@@ -163,8 +157,7 @@ public abstract class L2PlayableInstance extends L2Character
 		return true;
 	}
 
-	// Support for Noblesse Blessing skill, where buffs are retained
-	// after resurrect
+	// Support for Noblesse Blessing skill, where buffs are retained after resurrect
 	public final boolean isNoblesseBlessed()
 	{
 		return _isNoblesseBlessed;
@@ -236,7 +229,7 @@ public abstract class L2PlayableInstance extends L2Character
 		return _isSilentMoving;
 	}
 
-	// for Newbie Protection Blessing skill, keeps you safe from an attack by a chaotic character >= 10 levels apart from you 
+	// For Newbie Protection Blessing skill, keeps you safe from an attack by a chaotic character >= 10 levels apart from you 
 	public final boolean getProtectionBlessing()
 	{
 		return _protectionBlessing;
@@ -267,7 +260,7 @@ public abstract class L2PlayableInstance extends L2Character
 		updateAbnormalEffect();
 	}
 
-	//Charm of Luck - During a Raid/Boss war, decreased chance for death penalty
+	// Charm of Luck - During a Raid/Boss war, decreased chance for death penalty
 	public final boolean getCharmOfLuck()
 	{
 		return _getCharmOfLuck;

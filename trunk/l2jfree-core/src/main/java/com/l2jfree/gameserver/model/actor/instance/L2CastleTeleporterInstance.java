@@ -14,11 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-/**
- * @author Kerberos
- *
- */
-
 import java.util.StringTokenizer;
 
 import com.l2jfree.Config;
@@ -36,6 +31,10 @@ import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
+/**
+ * @author Kerberos
+ *
+ */
 public final class L2CastleTeleporterInstance extends L2FolkInstance
 {
 	private boolean _currentTask = false;

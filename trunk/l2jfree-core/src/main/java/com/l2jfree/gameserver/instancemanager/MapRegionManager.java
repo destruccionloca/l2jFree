@@ -350,7 +350,7 @@ public class MapRegionManager
 		{
 			if (region.checkIfInRegion(x, y, z))
 			{
-				// prefer special regions
+				// Prefer special regions
 				if (region.isSpecialRegion())
 					return region;
 
@@ -516,9 +516,9 @@ public class MapRegionManager
 								return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
 							}
 						}
-						// get nearest flag
+						// Get nearest flag
 						L2NpcInstance flag = siege.getClosestFlag(player);
-						// spawn to flag
+						// Spawn to flag
 						if (flag != null)
 							return new Location(flag.getX(), flag.getY(), flag.getZ());
 					}
@@ -538,9 +538,9 @@ public class MapRegionManager
 									return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
 								}
 							}
-							// get nearest flag
+							// Get nearest flag
 							L2NpcInstance flag = siege.getClosestFlag(player);
-							// spawn to flag
+							// Spawn to flag
 							if (flag != null)
 								return new Location(flag.getX(), flag.getY(), flag.getZ());
 						}
@@ -549,7 +549,7 @@ public class MapRegionManager
 			}
 		}
 
-		// teleport to default town if nothing else will work
+		// Teleport to default town if nothing else will work
 		return getLocationFromPoint3D(getRestartPoint(Config.ALT_DEFAULT_RESTARTTOWN));
 	}
 

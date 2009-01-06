@@ -43,13 +43,13 @@ public class L2RaceManagerInstance extends L2NpcInstance
     private static FastList<L2RaceManagerInstance> _managers;
     protected static int _raceNumber = 4;
 
-    //Time Constants
+    // Time Constants
     private final static long SECOND = 1000;
     private final static long MINUTE = 60 * SECOND;
 
     private static int _minutes = 5;
 
-    //States
+    // States
     private static final int ACCEPTING_BETS = 0;
     private static final int WAITING = 1;
     private static final int STARTING_RACE = 2;
@@ -64,11 +64,10 @@ public class L2RaceManagerInstance extends L2NpcInstance
     public L2RaceManagerInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-        getKnownList();	// init knownlist
+        getKnownList();	// Init knownlist
         if (_notInitialized)
         {
             _notInitialized = false;
-            //*
             _history = new FastList<Race>();
             _managers = new FastList<L2RaceManagerInstance>();
 
@@ -113,7 +112,6 @@ public class L2RaceManagerInstance extends L2NpcInstance
                                          8 * MINUTE + 59 * SECOND, 10 * MINUTE);
             s.scheduleGeneralAtFixedRate(new Announcement(SystemMessageId.MONSRACE_RACE_START),
                                          9 * MINUTE, 10 * MINUTE);
-            //*/
         }
         _managers.add(this);
     }

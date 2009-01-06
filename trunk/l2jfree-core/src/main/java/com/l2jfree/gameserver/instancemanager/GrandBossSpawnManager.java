@@ -14,10 +14,6 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
-/**
-@author Crion/kombat
-**/
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +26,10 @@ import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
 
-
+/**
+ * 
+ * @author Crion, kombat
+ */
 public class GrandBossSpawnManager extends BossSpawnManager
 {
 	private static GrandBossSpawnManager	_instance;
@@ -119,7 +118,7 @@ public class GrandBossSpawnManager extends BossSpawnManager
 		}
 		catch (Exception e)
 		{
-			// problem with storing spawn
+			// Problem with storing spawn
 			_log.warn("GrandBossSpawnManager: Could not store grand boss #" + spawnDat.getNpcId() + " in the DB:" + e);
 		}
         finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
@@ -141,7 +140,7 @@ public class GrandBossSpawnManager extends BossSpawnManager
 		}
 		catch (Exception e)
 		{
-			// problem with deleting spawn
+			// Problem with deleting spawn
 			_log.warn("GrandBossSpawnManager: Could not remove grand boss #" + bossId + " from DB: " + e);
 		}
         finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }

@@ -28,12 +28,11 @@ import com.l2jfree.gameserver.util.FloodProtector;
 /** 
  * This class ... 
  * 
- * @version $Revision: 1.0.0.0.0.0 $ $Date: 2005/09/02 19:41:13 $ 
+ * @version $Revision: 1.0.0.0.0.0 $ $Date: 2005/09/02 19:41:13 $
+ * @author Baghak, Skatershi
  */
-
 public class Firework implements IItemHandler
 {
-	// Modified by Baghak (Prograsso): Added Firework support, Optimised by Skatershi
 	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
 											{ 6403, 6406, 6407 };

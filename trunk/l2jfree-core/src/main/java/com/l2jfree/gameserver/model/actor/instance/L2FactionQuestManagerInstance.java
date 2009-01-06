@@ -23,11 +23,11 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
+/**
+ * @author evill33t
+ */
 public class L2FactionQuestManagerInstance extends L2NpcInstance
 {
-    /**
-     * @author evill33t
-     */
     public L2FactionQuestManagerInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
@@ -70,12 +70,12 @@ public class L2FactionQuestManagerInstance extends L2NpcInstance
     
     private void showMessageWindow(L2PcInstance player)
     {
-        String filename = "data/html/npcdefault.htm";
-        String replace = "";
- 
         int factionId = getTemplate().getNpcFaction();
         String factionName = getTemplate().getNpcFactionName();
-        if(factionId!=0)
+        String filename = "data/html/npcdefault.htm";
+        String replace = null;
+
+        if (factionId != 0)
         {
             filename = "data/html/faction/" + String.valueOf(factionId)  +  "/start.htm";
             replace = getName();
@@ -86,21 +86,22 @@ public class L2FactionQuestManagerInstance extends L2NpcInstance
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
-        // standard msg
-        String filename = "data/html/npcdefault.htm";
-        String factionName = getTemplate().getNpcFactionName();
+        // Standard msg
         int factionId = getTemplate().getNpcFaction();
         Faction faction = FactionManager.getInstance().getFactions(factionId);
         int factionPrice = faction.getPrice();
-        String replace = "";
-        if(factionId!=0)
+        String filename = "data/html/npcdefault.htm";
+        String factionName = getTemplate().getNpcFactionName();
+        String replace = null;
+
+        if (factionId != 0)
         {
             String path = "data/html/faction" + String.valueOf(factionId) + "/";
             replace = String.valueOf(factionPrice);
             
-            if(player.getNPCFaction()!=null)
+            if (player.getNPCFaction() != null)
             {
-                //quest stuff here
+                // Quest stuff here
             }
             else if (command.startsWith("Join"))
                 filename = path + "wrong.htm";

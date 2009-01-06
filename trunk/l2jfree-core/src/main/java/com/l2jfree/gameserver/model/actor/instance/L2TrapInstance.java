@@ -28,7 +28,6 @@ import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 
-
 public class L2TrapInstance extends L2Trap
 {
 	private int _totalLifeTime;
@@ -43,8 +42,7 @@ public class L2TrapInstance extends L2Trap
 	 * @param template
 	 * @param owner
 	 */
-	public L2TrapInstance(int objectId, L2CharTemplate template,
-	        L2PcInstance owner, int lifeTime, L2Skill skill)
+	public L2TrapInstance(int objectId, L2CharTemplate template, L2PcInstance owner, int lifeTime, L2Skill skill)
 	{
 		super(objectId, template, owner);
 		if (lifeTime != 0)

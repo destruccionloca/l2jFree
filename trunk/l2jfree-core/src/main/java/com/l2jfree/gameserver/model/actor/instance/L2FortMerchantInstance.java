@@ -35,17 +35,16 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-
 /**
  * @author Vice 
  */
 public class L2FortMerchantInstance extends L2NpcWalkerInstance
 {
-    public L2FortMerchantInstance(int objectID, L2NpcTemplate template)
-    {
-        super(objectID, template);
-		setAI(new L2NpcWalkerAI(new L2NpcWalkerAIAccessor()));
-    }
+	public L2FortMerchantInstance(int objectID, L2NpcTemplate template)
+	{
+		super(objectID, template);
+			setAI(new L2NpcWalkerAI(new L2NpcWalkerAIAccessor()));
+	}
 
 	/**
 	 * AI can't be deattached, npc must move always with the same AI instance.
@@ -82,7 +81,7 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
 			return;
 		}
 
-		//we send message to known players only!
+		// We send message to known players only!
 		if (_knownPlayers.size() > 0)
 		{
 			CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal, getName(), chat);
@@ -122,102 +121,100 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
 		return (L2NpcWalkerAI)_ai;
 	}
 	
-    @Override
+	@Override
 	public void onAction(L2PcInstance player)
-    {
-        if (!canTarget(player)) return;
+	{
+		if (!canTarget(player)) return;
         
-        // Check if the L2PcInstance already target the L2NpcInstance
-        if (this != player.getTarget())
-        {
-            // Set the target of the L2PcInstance player
-            player.setTarget(this);
+		// Check if the L2PcInstance already target the L2NpcInstance
+		if (this != player.getTarget())
+		{
+			// Set the target of the L2PcInstance player
+			player.setTarget(this);
 
-            // Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-            MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-            player.sendPacket(my);
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
+			player.sendPacket(my);
 
-            // Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-            player.sendPacket(new ValidateLocation(this));
-        }
-        else
-        {
-            // Calculate the distance between the L2PcInstance and the L2NpcInstance
-            if (!canInteract(player))
-            {
-                // Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-                player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-            }
-            else
-            {
-                showMessageWindow(player);
-            }
-        }
-        // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-        player.sendPacket(ActionFailed.STATIC_PACKET);
-    }
+			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
+			player.sendPacket(new ValidateLocation(this));
+		}
+		else
+		{
+			// Calculate the distance between the L2PcInstance and the L2NpcInstance
+			if (!canInteract(player))
+			{
+				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
+			}
+			else
+			{
+				showMessageWindow(player);
+			}
+		}
+		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+	}
 
-    @Override
+	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
-    {
-        StringTokenizer st = new StringTokenizer(command, " ");
-        String actualCommand = st.nextToken(); // Get actual command
+	{
+		StringTokenizer st = new StringTokenizer(command, " ");
+		String actualCommand = st.nextToken(); // Get actual command
+		String par = null;
 
-        String par = "";
-        if (st.countTokens() >= 1) {par = st.nextToken();}
+		if (st.countTokens() >= 1)
+			par = st.nextToken();
 
-        if (actualCommand.equalsIgnoreCase("Chat"))
-        {
-            int val = 0;
-            try
-            {
-                val = Integer.parseInt(par);
-            }
-            catch (IndexOutOfBoundsException ioobe){}
-            catch (NumberFormatException nfe){}
-            showMessageWindow(player, val);
-        }
-        else if (actualCommand.equalsIgnoreCase("showSiegeInfo"))
-        {
-            showSiegeInfoWindow(player);
-        }
-        else
-        {
-            super.onBypassFeedback(player, command);
-        }
-        
-
-    }
+		if (actualCommand.equalsIgnoreCase("Chat"))
+		{
+			int val = 0;
+			try
+			{
+				val = Integer.parseInt(par);
+			}
+			catch (IndexOutOfBoundsException ioobe){}
+			catch (NumberFormatException nfe){}
+			showMessageWindow(player, val);
+		}
+		else if (actualCommand.equalsIgnoreCase("showSiegeInfo"))
+		{
+			showSiegeInfoWindow(player);
+		}
+		else
+		{
+			super.onBypassFeedback(player, command);
+		}
+	}
     
-    
-    private void showMessageWindow(L2PcInstance player)
-    {
-        showMessageWindow(player, 0);
-    }
+	private void showMessageWindow(L2PcInstance player)
+	{
+		showMessageWindow(player, 0);
+	}
 
-    private void showMessageWindow(L2PcInstance player, int val)
-    {
-        player.sendPacket(ActionFailed.STATIC_PACKET);
+	private void showMessageWindow(L2PcInstance player, int val)
+	{
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 
-        String filename;
+		String filename;
 
-        if (val == 0)
-            filename = "data/html/fortress/merchant.htm";
-        else
-            filename = "data/html/fortress/merchant-" + val + ".htm";
+		if (val == 0)
+			filename = "data/html/fortress/merchant.htm";
+		else
+			filename = "data/html/fortress/merchant-" + val + ".htm";
 
-        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-        html.setFile(filename);
-        html.replace("%objectId%", String.valueOf(getObjectId()));
-        html.replace("%npcId%", String.valueOf(getNpcId()));
-        if ( getFort().getOwnerId() > 0 ) 
-            html.replace("%clanname%", ClanTable.getInstance().getClan(getFort().getOwnerId()).getName());
-        else
-            html.replace("%clanname%", "NPC");
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		html.setFile(filename);
+		html.replace("%objectId%", String.valueOf(getObjectId()));
+		html.replace("%npcId%", String.valueOf(getNpcId()));
+		if ( getFort().getOwnerId() > 0 ) 
+			html.replace("%clanname%", ClanTable.getInstance().getClan(getFort().getOwnerId()).getName());
+		else
+			html.replace("%clanname%", "NPC");
         
-        html.replace("%castleid%", Integer.toString(getFort().getFortId()));
-        player.sendPacket(html);
-    }
+		html.replace("%castleid%", Integer.toString(getFort().getFortId()));
+		player.sendPacket(html);
+	}
     
     /**
      * If siege is in progress shows the Busy HTML<BR>
@@ -225,29 +222,28 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
      * 
      * @param player
      */
-    public void showSiegeInfoWindow(L2PcInstance player)
-    {
-        if (validateCondition(player))
-            getFort().getSiege().listRegisterClan(player);
-        else
-        {
-            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-            html.setFile("data/html/fortress/merchant-busy.htm");
-            html.replace("%fortname%", getFort().getName());
-            html.replace("%objectId%", String.valueOf(getObjectId()));
-            player.sendPacket(html);
-            player.sendPacket(ActionFailed.STATIC_PACKET);
-        }
-    }
+	public void showSiegeInfoWindow(L2PcInstance player)
+	{
+		if (validateCondition(player))
+			getFort().getSiege().listRegisterClan(player);
+		else
+		{
+			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+			html.setFile("data/html/fortress/merchant-busy.htm");
+			html.replace("%fortname%", getFort().getName());
+			html.replace("%objectId%", String.valueOf(getObjectId()));
+			player.sendPacket(html);
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+		}
+	}
 
     /**
-	 * @param player  
-	 */
-    private boolean validateCondition(L2PcInstance player)
-    {
-        if (getFort().getSiege().getIsInProgress())
-            return false; // Busy because of siege
-        return true;
-    }    
-
+     * @param player
+     */
+	private boolean validateCondition(L2PcInstance player)
+	{
+		if (getFort().getSiege().getIsInProgress())
+			return false; // Busy because of siege
+		return true;
+	}    
 }

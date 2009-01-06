@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.instancemanager;
 
 import javolution.util.FastList;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,8 +27,6 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 public class DuelManager
 {
 	private final static Log	_log	= LogFactory.getLog(DuelManager.class.getName());
-
-	// =========================================================
 	private static DuelManager	_instance;
 
 	public static final DuelManager getInstance()
@@ -83,7 +80,7 @@ public class DuelManager
 		if (playerA == null || playerB == null)
 			return;
 
-		// return if a player has PvPFlag
+		// Return if a player has PvPFlag
 		String engagedInPvP = "The duel was canceled because a duelist engaged in PvP combat.";
 		if (partyDuel == 1)
 		{

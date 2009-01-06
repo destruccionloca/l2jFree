@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import javolution.text.TextBuilder;
+
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2Multisell;
@@ -27,8 +29,6 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-
-import javolution.text.TextBuilder;
 
 public class L2TransformManagerInstance extends L2MerchantInstance
 {
@@ -82,56 +82,56 @@ public class L2TransformManagerInstance extends L2MerchantInstance
      * this displays TransformationSkillList to the player.
      * @param player
      */
-    public void showTransformSkillList(L2PcInstance player)
-    {        
-        if (player.isTransformed())
-        	return;
+	public void showTransformSkillList(L2PcInstance player)
+	{        
+		if (player.isTransformed())
+			return;
 
-        L2TransformSkillLearn[] skills = SkillTreeTable.getInstance().getAvailableTransformSkills(player);
-        AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.SkillType.Usual);
-        int counts = 0;
+		L2TransformSkillLearn[] skills = SkillTreeTable.getInstance().getAvailableTransformSkills(player);
+		AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.SkillType.Usual);
+		int counts = 0;
 
-        for (L2TransformSkillLearn s: skills)
-        {
-            L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-            if (sk == null)
-                continue;
+		for (L2TransformSkillLearn s: skills)
+		{
+			L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
+			if (sk == null)
+				continue;
 
-            counts++;
+			counts++;
 
-            asl.addSkill(s.getId(), s.getLevel(), s.getLevel(), s.getSpCost(), 0);
-        }
+			asl.addSkill(s.getId(), s.getLevel(), s.getLevel(), s.getSpCost(), 0);
+		}
 
-        if (counts == 0)
-        {
-        	NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		    int minlevel = SkillTreeTable.getInstance().getMinLevelForNewTransformSkill(player);
+		if (counts == 0)
+		{
+			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+			int minlevel = SkillTreeTable.getInstance().getMinLevelForNewTransformSkill(player);
 
-		    if (minlevel > 0)
-            {
-                // No more skills to learn, come back when you level.
-		        SystemMessage sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN);
-		        sm.addNumber(minlevel);
-		        player.sendPacket(sm);
-		    }
-            else
-            {
-                TextBuilder sb = new TextBuilder();
-                sb.append("<html><head><body>");
-                sb.append("You've learned all skills.<br>");
-                sb.append("</body></html>");
-                html.setHtml(sb.toString());
-                player.sendPacket(html);
+			if (minlevel > 0)
+			{
+				// No more skills to learn, come back when you level.
+				SystemMessage sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN);
+				sm.addNumber(minlevel);
+				player.sendPacket(sm);
+			}
+			else
+			{
+				TextBuilder sb = new TextBuilder();
+				sb.append("<html><head><body>");
+				sb.append("You've learned all skills.<br>");
+				sb.append("</body></html>");
+				html.setHtml(sb.toString());
+				player.sendPacket(html);
 
-            }
-        }
-        else
-        {
-            player.sendPacket(asl);
-        }
+			}
+		}
+		else
+		{
+			player.sendPacket(asl);
+		}
 
-        player.sendPacket(ActionFailed.STATIC_PACKET);
-    }
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+	}
 
 	public void showHtmlFile(L2PcInstance player, String file)
 	{
@@ -142,18 +142,18 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 
 	public boolean testQuestTransformation(L2PcInstance player)
 	{
-		// preventif NPE
+		// Preventif NPE
 		if (player == null)
 			return false;
 		
 		String _questName = "136_MoreThanMeetsTheEye";
-    	QuestState qs = player.getQuestState(_questName);
+		QuestState qs = player.getQuestState(_questName);
     	
-    	if (qs == null || State.getStateName(qs.getState()) != "Completed")
-    		return false;
-    	else if (State.getStateName(qs.getState()) == "Completed")
-    		return true;
-    	else
-    		return false;
+		if (qs == null || State.getStateName(qs.getState()) != "Completed")
+			return false;
+		else if (State.getStateName(qs.getState()) == "Completed")
+			return true;
+		else
+			return false;
 	}
 }

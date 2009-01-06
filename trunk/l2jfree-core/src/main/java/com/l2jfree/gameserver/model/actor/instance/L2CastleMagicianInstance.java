@@ -18,11 +18,9 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-
 /**
  * @author  Kerberos
  */
-
 public class L2CastleMagicianInstance extends L2FolkInstance
 {
 	protected static final int COND_ALL_FALSE = 0;
@@ -38,12 +36,14 @@ public class L2CastleMagicianInstance extends L2FolkInstance
 	}
 
 	@Override
-	public void showChatWindow(L2PcInstance player, int val) {
+	public void showChatWindow(L2PcInstance player, int val)
+	{
 		player.sendPacket( ActionFailed.STATIC_PACKET );
 		String filename = "data/html/castlemagician/magician-no.htm";
 
 		int condition = validateCondition(player);
-		if (condition > COND_ALL_FALSE) {
+		if (condition > COND_ALL_FALSE) 
+		{
 			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 				filename = "data/html/castlemagician/magician-busy.htm"; // Busy because of siege
 			else if (condition == COND_OWNER)                                    // Clan owns castle
@@ -63,7 +63,8 @@ public class L2CastleMagicianInstance extends L2FolkInstance
 	}
 
 	@Override
-	public void onBypassFeedback(L2PcInstance player, String command) {
+	public void onBypassFeedback(L2PcInstance player, String command)
+	{
 		if (command.startsWith("Chat"))
 		{
 			int val = 0;

@@ -265,10 +265,8 @@ public class L2BoatInstance extends L2Character
 	{
 		super(objectId, template);
 		getKnownList();
-		/*
-		 * super.setStat(new DoorStat(new L2DoorInstance[] {this}));
-		 * super.setStatus(new DoorStatus(new L2DoorInstance[] {this}));
-		 */
+		//super.setStat(new DoorStat(new L2DoorInstance[] {this}));
+		//super.setStatus(new DoorStatus(new L2DoorInstance[] {this}));
 		_name = name;
 	}
 	
@@ -316,8 +314,7 @@ public class L2BoatInstance extends L2Character
 		// Create and Init a MoveData object
 		MoveData m = new MoveData();
 
-		// Caclulate the Nb of ticks between the current position and the
-		// destination
+		// Calculate the Nb of ticks between the current position and the destination
 		int ticksToMove = (int) (GameTimeController.TICKS_PER_SECOND * distance / speed);
 
 		// Calculate and set the heading of the L2Character

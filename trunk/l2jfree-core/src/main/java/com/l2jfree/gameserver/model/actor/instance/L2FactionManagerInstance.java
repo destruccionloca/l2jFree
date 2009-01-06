@@ -24,11 +24,11 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
+/**
+ * @author evill33t
+ */
 public class L2FactionManagerInstance extends L2NpcInstance
 {
-    /**
-     * @author evill33t
-     */
     public L2FactionManagerInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
@@ -71,12 +71,12 @@ public class L2FactionManagerInstance extends L2NpcInstance
 
     private void showMessageWindow(L2PcInstance player)
     {
-        String filename = "data/html/npcdefault.htm";
-        String replace = "";
- 
         int factionId = getTemplate().getNpcFaction();
+        String filename = "data/html/npcdefault.htm";
         String factionName = getTemplate().getNpcFactionName();
-        if(factionId!=0)
+        String replace = null;
+
+        if (factionId != 0)
         {
             filename = "data/html/custom/faction/" + String.valueOf(factionId)  +  "/start.htm";
             replace = getName();
@@ -87,19 +87,20 @@ public class L2FactionManagerInstance extends L2NpcInstance
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
-        // standard msg
+        // Standard msg
         String filename = "data/html/npcdefault.htm";
         String factionName = getTemplate().getNpcFactionName();
         int factionId = getTemplate().getNpcFaction();
         Faction faction = FactionManager.getInstance().getFactions(factionId);
         int factionPrice = faction.getPrice();
-        String replace = "";
-        if(factionId!=0)
+        String replace = null;
+
+        if (factionId != 0)
         {
             String path = "data/html/custom/faction/" + String.valueOf(factionId) + "/";
             replace = String.valueOf(factionPrice);
             
-            if(player.getNPCFaction()!=null)
+            if (player.getNPCFaction() != null)
             {
                 if(player.getNPCFaction().getSide()!=faction.getSide())
                     filename = path + "already.htm";
@@ -110,9 +111,9 @@ public class L2FactionManagerInstance extends L2NpcInstance
                 filename = path + "join.htm";
             else if (command.startsWith("Accept"))
             {
-                if(player.getNPCFaction()==null)
+                if (player.getNPCFaction() == null)
                 {
-                    if(player.getAdena()<factionPrice)
+                    if (player.getAdena() < factionPrice)
                         filename = path + "noadena.htm";                    
                     else
                     {

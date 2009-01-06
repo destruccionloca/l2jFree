@@ -290,7 +290,7 @@ public class L2NpcInstance extends L2Character
 		getStatus(); // init status
 		super.initCharStatusUpdateValues(); // init status upadte values
 
-		// initialize the "current" equipment
+		// Initialize the "current" equipment
 		_currentLHandId = getTemplate().getLhand();
 		_currentRHandId = getTemplate().getRhand();
 		// initialize the "current" collisions
@@ -834,7 +834,7 @@ public class L2NpcInstance extends L2Character
 			html.setHtml(html1.toString());
 			player.sendPacket(html);
 		}
-		// allow to see the stats of npc if option is activated and if not a box
+		// Allow to see the stats of npc if option is activated and if not a box
 		else if (Config.ALT_GAME_VIEWNPC && !(this instanceof L2ChestInstance))
 		{
 			// Set the target of the L2PcInstance player
@@ -1388,7 +1388,7 @@ public class L2NpcInstance extends L2Character
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				player.sendPacket(html);
 			}
-			// [J2J_JP ADD START]
+			// [L2J_JP ADD START]
 			else if (command.startsWith("open_gate"))
 			{
 				final DoorTable _doorTable = DoorTable.getInstance();
@@ -1414,7 +1414,7 @@ public class L2NpcInstance extends L2Character
 				setTarget(player);
 				BaiumManager.getInstance().spawnBaium(this);
 			}
-			// [J2J_JP ADD END]
+			// [L2J_JP ADD END]
 			else if (command.startsWith("remove_dp"))
 			{
 				int cmdChoice = Integer.parseInt(command.substring(10, 11).trim());
@@ -1581,7 +1581,7 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public L2ItemInstance getActiveWeaponInstance()
 	{
-		// regular NPCs dont have weapons instancies
+		// Regular NPCs dont have weapons instancies
 		return null;
 	}
 
@@ -1612,7 +1612,7 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public L2ItemInstance getSecondaryWeaponInstance()
 	{
-		// regular NPCs dont have weapons instancies
+		// Regular NPCs dont have weapons instancies
 		return null;
 	}
 
@@ -1757,7 +1757,7 @@ public class L2NpcInstance extends L2Character
 
 		if (q == null)
 		{
-			// no quests found
+			// No quests found
 			content = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>";
 		}
 		else
@@ -1780,7 +1780,7 @@ public class L2NpcInstance extends L2Character
 						return;
 					}
 				}
-				// check for start point
+				// Check for start point
 				Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.QUEST_START);
 
 				if (qlst != null && qlst.length > 0)
@@ -1837,7 +1837,7 @@ public class L2NpcInstance extends L2Character
 	 */
 	public void showQuestWindow(L2PcInstance player)
 	{
-		// collect awaiting quests and start points
+		// Collect awaiting quests and start points
 		FastList<Quest> options = new FastList<Quest>();
 
 		QuestState[] awaits = player.getQuestsForTalk(getTemplate().getNpcId());
@@ -1944,7 +1944,7 @@ public class L2NpcInstance extends L2Character
 
 			int count = 0;
 			int found = 0;
-			// counting buttons and unsetting button if found
+			// Counting buttons and unsetting button if found
 			for (int i = 0; i < 5; i++)
 			{
 				if (player.getLoto(i) == val)
@@ -1959,7 +1959,7 @@ public class L2NpcInstance extends L2Character
 				}
 			}
 
-			//if not rearched limit 5 and not unseted value
+			// If not rearched limit 5 and not unseted value
 			if (count < 5 && found == 0 && val <= 20)
 				for (int i = 0; i < 5; i++)
 					if (player.getLoto(i) == 0)
@@ -1968,7 +1968,7 @@ public class L2NpcInstance extends L2Character
 						break;
 					}
 
-			//setting pusshed buttons
+			// Setting pusshed buttons
 			count = 0;
 			for (int i = 0; i < 5; i++)
 				if (player.getLoto(i) > 0)
@@ -1989,17 +1989,17 @@ public class L2NpcInstance extends L2Character
 				html.replace(search, replace);
 			}
 		}
-		else if (val == 22) //22 - selected ticket with 5 numbers
+		else if (val == 22) //22 - Selected ticket with 5 numbers
 		{
 			if (!Lottery.getInstance().isStarted())
 			{
-				//tickets can't be sold
+				// Tickets can't be sold
 				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD);
 				return;
 			}
 			if (!Lottery.getInstance().isSellableTickets())
 			{
-				//tickets can't be sold
+				// Tickets can't be sold
 				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_AVAILABLE);
 				return;
 			}
@@ -2050,7 +2050,7 @@ public class L2NpcInstance extends L2Character
 			filename = (getHtmlPath(npcId, 3));
 			html.setFile(filename);
 		}
-		else if (val == 23) //23 - current lottery jackpot
+		else if (val == 23) //23 - Current lottery jackpot
 		{
 			filename = (getHtmlPath(npcId, 3));
 			html.setFile(filename);
@@ -2103,7 +2103,7 @@ public class L2NpcInstance extends L2Character
 			}
 			html.replace("%result%", message);
 		}
-		else if (val > 24) // >24 - check lottery ticket by item object id
+		else if (val > 24) // >24 - Check lottery ticket by item object id
 		{
 			int lotonumber = Lottery.getInstance().getId();
 			L2ItemInstance item = player.getInventory().getItemByObjectId(val);
@@ -2713,8 +2713,8 @@ public class L2NpcInstance extends L2Character
 		if (!super.doDie(killer))
 			return false;
 
-		// normally this wouldn't really be needed, but for those few exceptions,
-		// we do need to reset the weapons back to the initial templated weapon.
+		// Normally this wouldn't really be needed, but for those few exceptions,
+		// We do need to reset the weapons back to the initial templated weapon.
 		_currentLHandId = getTemplate().getLhand();
 		_currentRHandId = getTemplate().getRhand();
 		_currentCollisionHeight = getTemplate().getCollisionHeight();
@@ -2767,7 +2767,7 @@ public class L2NpcInstance extends L2Character
 			return;
 		setDecayed(true);
 
-		// reset champion status if the thing is a mob
+		// Reset champion status if the thing is a mob
 		setChampion(false);
 
 		// Remove the L2NpcInstance from the world when the decay task is launched
@@ -2852,7 +2852,7 @@ public class L2NpcInstance extends L2Character
 		}
 	}
 
-	public boolean isMob() // rather delete this check
+	public boolean isMob() // Rather delete this check
 	{
 		return false; // This means we use MAX_NPC_ANIMATION instead of MAX_MONSTER_ANIMATION
 	}
@@ -2919,7 +2919,7 @@ public class L2NpcInstance extends L2Character
 			if (null != _inventory.destroyItemByItemId("Consume", 3947, weaponItem.getSpiritShotCount(), null, null))
 			{
 				_inventory.bshotInUse = true;
-				broadcastPacket(new MagicSkillUse(this, this, 2061, 1, 0, 0), 360000); // no grade
+				broadcastPacket(new MagicSkillUse(this, this, 2061, 1, 0, 0), 360000); // No Grade
 				return true;
 			}
 
@@ -2936,7 +2936,7 @@ public class L2NpcInstance extends L2Character
 			if (null != _inventory.destroyItemByItemId("Consume", 1835, weaponItem.getSoulShotCount(), null, null))
 			{
 				_inventory.sshotInUse = true;
-				broadcastPacket(new MagicSkillUse(this, this, 2039, 1, 0, 0), 360000); // no grade
+				broadcastPacket(new MagicSkillUse(this, this, 2039, 1, 0, 0), 360000); // No Grade
 				return true;
 			}
 

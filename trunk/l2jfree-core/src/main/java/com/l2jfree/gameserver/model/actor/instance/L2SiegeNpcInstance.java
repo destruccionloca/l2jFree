@@ -28,8 +28,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class L2SiegeNpcInstance extends L2FolkInstance
 {
-	//private final static Log _log = LogFactory.getLog(L2SiegeNpcInstance.class.getName());
-    
 	public L2SiegeNpcInstance(int objectID, L2NpcTemplate template)
 	{
 		super(objectID, template);
@@ -82,16 +80,16 @@ public class L2SiegeNpcInstance extends L2FolkInstance
 	public void showSiegeInfoWindow(L2PcInstance player)
 	{
 		if (validateCondition(player))
-            getCastle().getSiege().listRegisterClan(player);
-        else
-        {
-            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-            html.setFile("data/html/siege/" + getTemplate().getNpcId() + "-busy.htm");
-            html.replace("%castlename%",getCastle().getName());
-            html.replace("%objectId%",String.valueOf(getObjectId()));
-            player.sendPacket(html);
-            player.sendPacket(ActionFailed.STATIC_PACKET);
-        }
+			getCastle().getSiege().listRegisterClan(player);
+		else
+		{
+			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+			html.setFile("data/html/siege/" + getTemplate().getNpcId() + "-busy.htm");
+			html.replace("%castlename%",getCastle().getName());
+			html.replace("%objectId%",String.valueOf(getObjectId()));
+			player.sendPacket(html);
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+		}
 	}
     
 	/**
@@ -99,9 +97,8 @@ public class L2SiegeNpcInstance extends L2FolkInstance
 	 */
 	private boolean validateCondition(L2PcInstance player)
 	{
-        if (getCastle().getSiege().getIsInProgress())
-            return false;       // Busy because of siege
-		
+		if (getCastle().getSiege().getIsInProgress())
+			return false;       // Busy because of siege
 		return true;
 	}
 }

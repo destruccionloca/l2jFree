@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
-
 /**
  * @author Drunkard Zabb0x Lets drink2code!
  */

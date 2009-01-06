@@ -28,8 +28,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public final class L2MinionInstance extends L2MonsterInstance
 {
-	//private final static Log _log = LogFactory.getLog(L2RaidMinionInstance.class.getName());
-	
 	/** The master L2Character whose depends this L2MinionInstance on */
 	private L2MonsterInstance _master;
 	
@@ -67,7 +65,7 @@ public final class L2MinionInstance extends L2MonsterInstance
 		if (getLeader().isRaid())
 			setIsRaidMinion(true);
 
-		// check the region where this mob is, do not activate the AI if region is inactive.
+		// Check the region where this mob is, do not activate the AI if region is inactive.
 		L2WorldRegion region = L2World.getInstance().getRegion(getX(),getY());
 		if (region != null && !region.isActive())
 			((L2AttackableAI) getAI()).stopAITask();
@@ -77,24 +75,23 @@ public final class L2MinionInstance extends L2MonsterInstance
 	 * Set the master of this L2MinionInstance.<BR><BR>
 	 * 
 	 * @param leader The L2Character that leads this L2MinionInstance
-	 * 
 	 */
 	public void setLeader(L2MonsterInstance leader)
 	{
 		_master = leader;
 	}
     
-    /**
-     * Manages the doDie event for this L2MinionInstance.<BR><BR>
-     * 
-     * @param killer The L2Character that killed this L2MinionInstance.<BR><BR>
-     */
-    @Override
-    public boolean doDie(L2Character killer)
-    {
-        if (!super.doDie(killer))
-            return false;
-        _master.notifyMinionDied(this);
-        return true;
-    }
+	/**
+	 * Manages the doDie event for this L2MinionInstance.<BR><BR>
+	 *
+	 * @param killer The L2Character that killed this L2MinionInstance.<BR><BR>
+	 */
+	@Override
+	public boolean doDie(L2Character killer)
+	{
+		if (!super.doDie(killer))
+			return false;
+		_master.notifyMinionDied(this);
+		return true;
+	}
 }

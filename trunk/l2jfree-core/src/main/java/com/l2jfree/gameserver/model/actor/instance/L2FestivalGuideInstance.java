@@ -15,9 +15,9 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javolution.text.TextBuilder;
-import java.util.List;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;

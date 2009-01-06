@@ -13,6 +13,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.l2jfree.gameserver.model.actor.instance;
+
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -39,11 +40,10 @@ import javolution.text.TextBuilder;
  * @author G1ta0
  * Made in USSR
  */
-
 public class L2CraftManagerInstance extends L2FolkInstance
 {
 	public static final int ADENA_ID = 57;
-	public static final int ITEMS_PER_PAGE = 5;	// items list size in craft and crystallize pages
+	public static final int ITEMS_PER_PAGE = 5;	// Items list size in craft and crystallize pages
 
 	public L2CraftManagerInstance(int objectId, L2NpcTemplate template)
 	{

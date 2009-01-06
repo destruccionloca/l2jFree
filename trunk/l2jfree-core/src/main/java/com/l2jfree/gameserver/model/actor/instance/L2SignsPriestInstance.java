@@ -50,7 +50,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (player.getLastFolkNPC() == null || player.getLastFolkNPC().getObjectId() != this.getObjectId())
-            return;
+		return;
 
         if (command.startsWith("SevenSignsDesc"))
         {
@@ -125,8 +125,8 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     break;
                 case 34: // Pay the participation fee request
                     boolean fee = true;
-                    L2ItemInstance adena = player.getInventory().getItemByItemId(57); //adena
-                    L2ItemInstance certif = player.getInventory().getItemByItemId(5708); //Lord of the Manor's Certificate of Approval
+                    L2ItemInstance adena = player.getInventory().getItemByItemId(57); // Adena
+                    L2ItemInstance certif = player.getInventory().getItemByItemId(5708); // Lord of the Manor's Certificate of Approval
                     if ((adena != null && adena.getCount() >= Config.ALT_DAWN_JOIN_COST) || (certif != null && certif.getCount() >= 1))
                         fee = false;
                     if (fee)
@@ -138,18 +138,18 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dawn.htm");
                     break;
                 case 33: // "I want to participate" request
-                    if (cabal == SevenSigns.CABAL_DUSK && Config.ALT_GAME_CASTLE_DUSK) //dusk
+                    if (cabal == SevenSigns.CABAL_DUSK && Config.ALT_GAME_CASTLE_DUSK) // Dusk
                     {
-                        // castle owners cannot participate with dusk side
+                        // Castle owners cannot participate with dusk side
                         if (player.getClan() != null && player.getClan().getHasCastle() > 0)
                         {
                             showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dusk_no.htm");
                             break;
                         }
                     }
-                    else if(cabal == SevenSigns.CABAL_DAWN && Config.ALT_GAME_CASTLE_DAWN) //dawn
+                    else if(cabal == SevenSigns.CABAL_DAWN && Config.ALT_GAME_CASTLE_DAWN) // Dawn
                     {
-                        // clans without castle need to pay participation fee
+                        // Clans without castle need to pay participation fee
                         if (player.getClan() == null || player.getClan().getHasCastle() == 0)
                         {
                             showChatWindow(player, SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_33_dawn_fee.htm");
@@ -196,7 +196,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                          */
                         if (Config.ALT_GAME_CASTLE_DAWN && cabal == SevenSigns.CABAL_DAWN)
                         {
-                            if (player.getClan() != null && player.getClan().getHasCastle() >= 0) // castle owner don't need to pay anything
+                            if (player.getClan() != null && player.getClan().getHasCastle() >= 0) // Castle owner don't need to pay anything
                             {
                                 // No additional fees
                             }

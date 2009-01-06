@@ -54,8 +54,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 public class MercTicketManager
 {
 	protected static final Log			_log	= LogFactory.getLog(CastleManager.class.getName());
-
-	// =========================================================
 	private static MercTicketManager	_instance;
 
 	public static final MercTicketManager getInstance()
@@ -70,14 +68,12 @@ public class MercTicketManager
 	}
 
 	// =========================================================
-
-	// =========================================================
 	// Data Field
-	private FastList<L2ItemInstance>	_droppedTickets;			// to keep track of items on the ground
+	private FastList<L2ItemInstance>	_droppedTickets;			// To keep track of items on the ground
 
 	//FIXME: move all these values into siege.properties
-	// max tickets per merc type = 10 + (castleid * 2)?
-	// max ticker per castle = 40 + (castleid * 20)?
+	// Max tickets per merc type = 10 + (castleid * 2)?
+	// Max ticker per castle = 40 + (castleid * 20)?
 	private static final int[] MAX_MERC_PER_TYPE =
 	{
 		10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // Gludio
@@ -100,7 +96,7 @@ public class MercTicketManager
 			400, // Innadril
 			400, // Goddard
 			400, // Rune
-			400												// Schuttgart
+			400 // Schuttgart
 																};
 
 	private static final int[]			ITEM_IDS				=
@@ -141,9 +137,9 @@ public class MercTicketManager
 	public int getTicketCastleId(int itemId)
 	{
 		int GUARDIAN_TYPES_COUNT = 52; 
-		for (int i = 0; i < 9; i++) //CastleID`s from 1 to 9 minus;
+		for (int i = 0; i < 9; i++) // CastleID`s from 1 to 9 minus;
 		{
-			for (int i2 = 0; i2 < 50; i2 += 10) //Simplified if statement;
+			for (int i2 = 0; i2 < 50; i2 += 10) // Simplified if statement;
 				if ((itemId >= ITEM_IDS[i2 + i * GUARDIAN_TYPES_COUNT] &&  itemId <= ITEM_IDS[i2 + 9 + i * GUARDIAN_TYPES_COUNT]))
 					return i + 1;
 			if (itemId >= ITEM_IDS[50] && itemId <= ITEM_IDS[51])
@@ -163,7 +159,7 @@ public class MercTicketManager
 	private final void load()
 	{
 		Connection con = null;
-		// load merc tickets into the world
+		// Load merc tickets into the world
 		try
 		{
 			PreparedStatement statement;
@@ -177,10 +173,9 @@ public class MercTicketManager
 			int itemId;
 			int x, y, z;
 			int mercPlaced[] = new int[20];
-			// start index to begin the search for the itemId corresponding to this NPC
-			// this will help with: 
-			//    a) skip unnecessary iterations in the search loop
-			//    b) avoid finding the wrong itemId whenever tickets of different spawn the same npc!  
+			// Start index to begin the search for the itemId corresponding to this NPCthis will help with: 
+			//    a) Skip unnecessary iterations in the search loop
+			//    b) Avoid finding the wrong itemId whenever tickets of different spawn the same npc!  
 			int startindex = 0;
 
 			while (rs.next())
@@ -200,20 +195,20 @@ public class MercTicketManager
 						break;
 				}
 
-				// find the FIRST ticket itemId with spawns the saved NPC in the saved location 
+				// Find the FIRST ticket itemId with spawns the saved NPC in the saved location 
 				for (int i = startindex; i < NPC_IDS.length; i++)
 					if (NPC_IDS[i] == npcId) // Find the index of the item used
 					{
-						// only handle tickets if a siege is not ongoing in this npc's castle
+						// Only handle tickets if a siege is not ongoing in this npc's castle
 
 						if ((castle != null) && !(castle.getSiege().getIsInProgress()))
 						{
 							itemId = ITEM_IDS[i];
-							// create the ticket in the gameworld
+							// Create the ticket in the gameworld
 							L2ItemInstance dropticket = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
 							dropticket.setLocation(L2ItemInstance.ItemLocation.INVENTORY);
 							dropticket.dropMe(null, x, y, z);
-							dropticket.setDropTime(0); //avoids it from beeing removed by the auto item destroyer
+							dropticket.setDropTime(0); // Avoids it from beeing removed by the auto item destroyer
 							L2World.getInstance().storeObject(dropticket);
 							getDroppedTickets().add(dropticket);
 						}
@@ -240,7 +235,7 @@ public class MercTicketManager
 	public boolean isAtTypeLimit(int itemId)
 	{
 		int limit = -1;
-		// find the max value for this item 
+		// Find the max value for this item 
 		for (int i = 0; i < ITEM_IDS.length; i++)
 			if (ITEM_IDS[i] == itemId) // Find the index of the item used
 			{
@@ -327,7 +322,7 @@ public class MercTicketManager
 		int heading = activeChar.getHeading();
 
 		Castle castle = CastleManager.getInstance().getClosestCastle(activeChar);
-		if (castle == null) //this should never happen at this point
+		if (castle == null) // This should never happen at this point
 			return -1;
 
 		for (int i = 0; i < ITEM_IDS.length; i++)
@@ -339,13 +334,13 @@ public class MercTicketManager
 				// Hire merc for this castle.  NpcId is at the same index as the item used.
 				castle.getSiege().getSiegeGuardManager().hireMerc(x, y, z, heading, NPC_IDS[i]);
 
-				// create the ticket in the gameworld
+				// Create the ticket in the gameworld
 				L2ItemInstance dropticket = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
 				dropticket.setLocation(L2ItemInstance.ItemLocation.INVENTORY);
 				dropticket.dropMe(null, x, y, z);
-				dropticket.setDropTime(0); //avoids it from beeing removed by the auto item destroyer
-				L2World.getInstance().storeObject(dropticket); //add to the world
-				// and keep track of this ticket in the list
+				dropticket.setDropTime(0); // Avoids it from beeing removed by the auto item destroyer
+				L2World.getInstance().storeObject(dropticket); // Add to the world
+				// And keep track of this ticket in the list
 				_droppedTickets.add(dropticket);
 
 				return NPC_IDS[i];
@@ -393,7 +388,7 @@ public class MercTicketManager
 				item.decayMe();
 				L2World.getInstance().removeObject(item);
 
-				// remove from the list
+				// Remove from the list
 				getDroppedTickets().remove(item);
 			}
 		}
@@ -408,14 +403,14 @@ public class MercTicketManager
 		int itemId = item.getItemId();
 		int npcId = -1;
 
-		// find the FIRST ticket itemId with spawns the saved NPC in the saved location 
+		// Find the FIRST ticket itemId with spawns the saved NPC in the saved location 
 		for (int i = 0; i < ITEM_IDS.length; i++)
 			if (ITEM_IDS[i] == itemId) // Find the index of the item used
 			{
 				npcId = NPC_IDS[i];
 				break;
 			}
-		// find the castle where this item is
+		// Find the castle where this item is
 		Castle castle = CastleManager.getInstance().getCastleById(getTicketCastleId(itemId));
 
 		if (npcId > 0 && castle != null)

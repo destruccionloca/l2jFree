@@ -22,7 +22,8 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
  * class contains itemId, quantity, ownerId, referencePrice, but not objectId 
  */
 public class TempItem
-{ // no object id stored, this will be only "list" of items with it's owner
+{ 
+    // 	No object id stored, this will be only "list" of items with it's owner
     private int _itemId;
     private int _quantity;
     private int _ownerId;

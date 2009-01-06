@@ -14,8 +14,9 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import javolution.text.TextBuilder;
 import java.util.HashMap;
+
+import javolution.text.TextBuilder;
 import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
@@ -28,12 +29,12 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.network.serverpackets.ExHeroList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+
 /**
  * Olympiad Npc's Instance
  * 
  * @author godson
  */
-
 public class L2OlympiadManagerInstance extends L2FolkInstance
 {
 	private final static Log	_log		= LogFactory.getLog(L2OlympiadManagerInstance.class.getName());
@@ -143,24 +144,24 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
 			int skillId = Integer.parseInt(params[1]);
 			int skillLvl;
 			
-			// oly buff whitelist prevents bypass exploiters -.-
+			// Oly buff whitelist prevents bypass exploiters -.-
 			HashMap<Integer,Integer> buffList = new HashMap<Integer,Integer>();
-			buffList.put(1086,2); //Haste Lv2
-			buffList.put(1204,2); //Wind Walk Lv2
-			buffList.put(1059,3); //Empower Lv3
-			buffList.put(1085,3); //Acumen Lv3
-			buffList.put(1078,6); //Concentration Lv6
-			buffList.put(1068,3); //Might Lv3
-			buffList.put(1240,3); //Guidance Lv3
-			buffList.put(1077,3); //Focus Lv3 
-			buffList.put(1242,3); //Death Whisper Lv3
-			buffList.put(1062,2); //Berserk Spirit Lv2
+			buffList.put(1086,2); // Haste Lv2
+			buffList.put(1204,2); // Wind Walk Lv2
+			buffList.put(1059,3); // Empower Lv3
+			buffList.put(1085,3); // Acumen Lv3
+			buffList.put(1078,6); // Concentration Lv6
+			buffList.put(1068,3); // Might Lv3
+			buffList.put(1240,3); // Guidance Lv3
+			buffList.put(1077,3); // Focus Lv3 
+			buffList.put(1242,3); // Death Whisper Lv3
+			buffList.put(1062,2); // Berserk Spirit Lv2
 			
-			// lets check on our oly buff whitelist
+			// Lets check on our oly buff whitelist
 			if(!buffList.containsKey(skillId))
 				return;
 			
-			// get skilllevel from the hashmap
+			// Get skilllevel from the hashmap
 			skillLvl = buffList.get(skillId);
 
 			L2Skill skill;
@@ -227,7 +228,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
 				player.sendPacket(reply);
 				break;
 			case 2:
-				// for example >> Olympiad 1_88
+				// For example >> Olympiad 1_88
 				int classId = Integer.parseInt(command.substring(11));
 				if ((classId >= 88 && classId <= 118) || (classId >= 131 && classId <= 134) || classId == 136)
 				{

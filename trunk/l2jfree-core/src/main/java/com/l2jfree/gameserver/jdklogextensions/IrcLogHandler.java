@@ -13,12 +13,14 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.l2jfree.gameserver.jdklogextensions;
+
 import java.io.IOException;
 import java.util.logging.FileHandler;
 
-public class IrcLogHandler extends FileHandler {
-
-    public IrcLogHandler() throws IOException, SecurityException {
-        super();
-    }
+public class IrcLogHandler extends FileHandler
+{
+	public IrcLogHandler() throws IOException, SecurityException
+	{
+		super();
+	}
 }

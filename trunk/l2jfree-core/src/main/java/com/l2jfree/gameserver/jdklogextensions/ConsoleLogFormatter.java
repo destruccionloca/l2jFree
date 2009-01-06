@@ -38,12 +38,14 @@ public class ConsoleLogFormatter extends Formatter
 	public String format(LogRecord record)
 	{
 		TextBuilder output = new TextBuilder();
+
 		output.append(record.getLevel().getName());
 		output.append(" ");
 		// output.append(record.getLoggerName());
 		// output.append(_);
 		output.append(record.getMessage());
 		output.append(CRLF);
+
 		if (record.getThrown() != null)
 		{
 			StringWriter sw = null;

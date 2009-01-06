@@ -1,3 +1,17 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.l2jfree.gameserver.instancemanager.leaderboards;
 
 import java.io.BufferedReader;
@@ -214,7 +228,7 @@ public class ArenaManager
 
 	private String tx(int counter, String name, int kills, int deaths, boolean mi)
 	{
-		String t = "";
+		String t = null;
 
 		t += "	<tr>" + "<td align=center>" + (mi ? "<font color=\"LEVEL\">" : "") + (counter + 1) + ".</td>" + "<td align=center>" + name + "</td>"
 				+ "<td align=center>" + kills + "</td>" + "<td align=center>" + deaths + "" + (mi ? "</font>" : "") + " </td>" + "</tr>";
@@ -227,7 +241,7 @@ public class ArenaManager
 		_ranks = new FastMap<Integer, ArenaRank>();
 		String line = null;
 		LineNumberReader lnr = null;
-		String lineId = "";
+		String lineId = null;
 		ArenaRank rank = null;
 		try
 		{
@@ -266,7 +280,7 @@ public class ArenaManager
 
 	public void saveData()
 	{
-		String pattern = "";
+		String pattern = null;
 
 		for (Iterator<Integer> iter = this._ranks.keySet().iterator(); iter.hasNext();)
 		{

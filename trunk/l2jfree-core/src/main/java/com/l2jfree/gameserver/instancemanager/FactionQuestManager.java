@@ -34,8 +34,6 @@ import com.l2jfree.gameserver.model.entity.faction.FactionQuest;
 public class FactionQuestManager
 {
 	protected static Log				_log	= LogFactory.getLog(FactionQuestManager.class.getName());
-
-	// =========================================================
 	private static FactionQuestManager	_instance;
 
 	public static final FactionQuestManager getInstance()
@@ -49,8 +47,6 @@ public class FactionQuestManager
 		}
 		return _instance;
 	}
-
-	// =========================================================
 
 	// =========================================================
 	// Data Field

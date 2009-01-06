@@ -16,8 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.Map;
 
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -207,7 +205,6 @@ public final class L2WarehouseInstance extends L2FolkInstance
             if (_log.isDebugEnabled()) _log.debug("no items freightened");
         }
     }
-    
 
     private void showWithdrawWindowFreight(L2PcInstance player)
     {
@@ -298,7 +295,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
-        // lil check to prevent enchant exploit
+        // Lil check to prevent enchant exploit
         if (player.getActiveEnchantItem() != null)
         {
             Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " trying to use enchant exploit, ban this player!", IllegalPlayerAction.PUNISH_KICK);
@@ -425,7 +422,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         }
         else
         {
-            // this class dont know any other commands, let forward
+            // This class dont know any other commands, let forward
             // the command to the parent class
             super.onBypassFeedback(player, command);
         }

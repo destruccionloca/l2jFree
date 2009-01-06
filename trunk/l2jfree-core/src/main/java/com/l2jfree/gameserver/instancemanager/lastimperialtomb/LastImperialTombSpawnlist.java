@@ -25,7 +25,6 @@ import java.util.List;
 
 import javolution.util.FastList;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -54,7 +53,6 @@ public class LastImperialTombSpawnlist
     
     public LastImperialTombSpawnlist()
     {
-    	
     }
     
     public static LastImperialTombSpawnlist getInstance()

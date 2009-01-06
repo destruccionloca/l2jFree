@@ -20,6 +20,8 @@ package com.l2jfree.gameserver.instancemanager.lastimperialtomb;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
+import javolution.util.FastList;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.DoorTable;
@@ -36,8 +38,6 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.tools.random.Rnd;
 
-import javolution.util.FastList;
-
 /**
  * 
  * @author L2J_JP SANDMAN
@@ -48,7 +48,7 @@ public class LastImperialTombManager extends BossLair
 
 	private static boolean					_isInvaded					= false;
 
-	// instance list of monsters.
+	// Instance list of monsters.
 	protected static List<L2NpcInstance>	_hallAlarmDevices			= new FastList<L2NpcInstance>();
 	protected static List<L2NpcInstance>	_darkChoirPlayers			= new FastList<L2NpcInstance>();
 	protected static List<L2NpcInstance>	_darkChoirCaptains			= new FastList<L2NpcInstance>();
@@ -56,13 +56,13 @@ public class LastImperialTombManager extends BossLair
 	protected static List<L2NpcInstance>	_room2InsideMonsters		= new FastList<L2NpcInstance>();
 	protected static List<L2NpcInstance>	_room2OutsideMonsters		= new FastList<L2NpcInstance>();
 
-	// instance list of doors.
+	// Instance list of doors.
 	protected static List<L2DoorInstance>	_room1Doors					= new FastList<L2DoorInstance>();
 	protected static List<L2DoorInstance>	_room2InsideDoors			= new FastList<L2DoorInstance>();
 	protected static List<L2DoorInstance>	_room2OutsideDoors			= new FastList<L2DoorInstance>();
 	protected static L2DoorInstance			_room3Door					= null;
 
-	// instance list of players.
+	// Instance list of players.
 	protected static List<L2PcInstance>		_partyLeaders				= new FastList<L2PcInstance>();
 	protected static List<L2PcInstance>		_registedPlayers			= new FastList<L2PcInstance>();
 	protected static L2PcInstance			_commander					= null;
@@ -70,10 +70,10 @@ public class LastImperialTombManager extends BossLair
 	// Frintezza's Magic Force Field Removal Scroll.
 	private final int						SCROLL						= 8073;
 
-	// player does reach to HallofFrintezza
+	// Player does reach to HallofFrintezza
 	private boolean							_isReachToHall				= false;
 
-	// location of invade.
+	// Location of invade.
 	private final int[][]					_invadeLoc					=
 																		{
 																		{ 173235, -76884, -5107 },
@@ -82,7 +82,7 @@ public class LastImperialTombManager extends BossLair
 																		{ 174013, -76120, -5107 },
 																		{ 173263, -75161, -5107 } };
 
-	// task
+	// Task
 	protected ScheduledFuture<?>			_InvadeTask					= null;
 	protected ScheduledFuture<?>			_RegistrationTimeInfoTask	= null;
 	protected ScheduledFuture<?>			_Room1SpawnTask				= null;
@@ -95,7 +95,7 @@ public class LastImperialTombManager extends BossLair
 	{
 	}
 
-	// instance.
+	// Instance.
 	public static LastImperialTombManager getInstance()
 	{
 		if (_instance == null)
@@ -114,7 +114,7 @@ public class LastImperialTombManager extends BossLair
 	{
 	}
 
-	// load monsters and close doors.
+	// Load monsters and close doors.
 	@Override
 	public void init()
 	{
@@ -125,7 +125,7 @@ public class LastImperialTombManager extends BossLair
 		_log.info("LastImperialTombManager: Init The Last Imperial Tomb.");
 	}
 
-	// setting list of doors and close doors.
+	// Setting list of doors and close doors.
 	private void initDoors()
 	{
 		_room1Doors.clear();
@@ -165,7 +165,7 @@ public class LastImperialTombManager extends BossLair
 		_room3Door.closeMe();
 	}
 
-	// return true,tomb was already invaded by players.
+	// Return true,tomb was already invaded by players.
 	public boolean isInvaded()
 	{
 		return _isInvaded;
@@ -285,7 +285,7 @@ public class LastImperialTombManager extends BossLair
 		return false;
 	}
 
-	// registration to enter to tomb.
+	// Registration to enter to tomb.
 	public synchronized void registration(L2PcInstance pc, L2NpcInstance npc)
 	{
 		switch (Config.LIT_REGISTRATION_MODE)
@@ -321,7 +321,7 @@ public class LastImperialTombManager extends BossLair
 		}
 	}
 
-	// announcement of remaining time of registration to players.
+	// Announcement of remaining time of registration to players.
 	protected void doAnnouncementRegstrationInfo(L2NpcInstance npc, int remaining)
 	{
 		CreatureSay cs = null;
@@ -429,7 +429,7 @@ public class LastImperialTombManager extends BossLair
 		}
 	}
 
-	// invade to tomb.
+	// Invade to tomb.
 	public void doInvade()
 	{
 		initDoors();
@@ -461,7 +461,7 @@ public class LastImperialTombManager extends BossLair
 		_CheckTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(Config.LIT_TIME_LIMIT * 60000), 15000);
 	}
 
-	// invade to tomb. when registration mode is command channel.
+	// Invade to tomb. when registration mode is command channel.
 	private void doInvadeCc()
 	{
 		int locId = 0;
@@ -491,7 +491,7 @@ public class LastImperialTombManager extends BossLair
 		}
 	}
 
-	// invade to tomb. when registration mode is party.
+	// Invade to tomb. when registration mode is party.
 	private void doInvadePt()
 	{
 		int locId = 0;
@@ -539,7 +539,7 @@ public class LastImperialTombManager extends BossLair
 		}
 	}
 
-	// invade to tomb. when registration mode is single.
+	// Invade to tomb. when registration mode is single.
 	private void doInvadePc()
 	{
 		int locId = 0;
@@ -851,7 +851,7 @@ public class LastImperialTombManager extends BossLair
 		_CheckTimeUpTask = null;
 	}
 
-	// delete all mobs from tomb.
+	// Delete all mobs from tomb.
 	private void cleanUpMobs()
 	{
 		for (L2NpcInstance mob : _hallAlarmDevices)

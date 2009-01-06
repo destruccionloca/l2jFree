@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
-
 /**
  * This class manages all chest.
  */
@@ -93,7 +92,7 @@ public final class L2ChestInstance extends L2MonsterInstance
 		}
 		super.doItemDrop(NpcTable.getInstance().getTemplate(id),lastAttacker);
 	}
-	//cast - trap chest
+	// Cast - Trap Chest
 	public void chestTrap(L2Character player)
 	{
 		int trapSkillId = 0;

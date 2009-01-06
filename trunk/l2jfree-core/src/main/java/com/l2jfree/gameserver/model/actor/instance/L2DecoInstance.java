@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  /**
  * @author squeezed
  */
-
 public final class L2DecoInstance extends L2NpcInstance
 {
     /**
@@ -57,7 +56,6 @@ public final class L2DecoInstance extends L2NpcInstance
     {
         return false;
     }
-    
 
     /**
      * Manage actions when a player click on the L2DecoInstance.<BR><BR>
