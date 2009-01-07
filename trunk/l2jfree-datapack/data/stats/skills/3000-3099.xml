@@ -623,7 +623,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add val='#val' order='0x40' stat='cAtk' />
+      <add val='#val' order='0x40' stat='cAtkAdd' />
     </for>
   </skill>
   <skill id="3044" levels="20" name="Special Ability: Focus">
@@ -1022,7 +1022,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add val='#val' order='0x40' stat='cAtk' />
+      <add val='#val' order='0x40' stat='cAtkAdd' />
     </for>
   </skill>
   <skill id="3067" levels="2" name="Special Ability: Critical Damage">
@@ -1039,7 +1039,7 @@
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <for>
-      <add val='#val' order='0x40' stat='cAtk' />
+      <add val='#val' order='0x40' stat='cAtkAdd' />
     </for>
   </skill>
   <skill id="3068" levels="3" name="Special Ability: Haste">
