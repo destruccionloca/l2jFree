@@ -815,9 +815,7 @@ public abstract class L2Character extends L2Object
 			_log.debug(getName() + " doAttack: target=" + target);
 
 		if (isAlikeDead() || target == null || (this instanceof L2NpcInstance && target.isAlikeDead())
-				|| (this instanceof L2PcInstance && target.isDead() && !target.isFakeDeath()) || !getKnownList().knowsObject(target)
-				|| (this instanceof L2PcInstance && isDead())
-				|| (target instanceof L2PcInstance && ((L2PcInstance) target).getDuelState() == Duel.DUELSTATE_DEAD))
+				|| (this instanceof L2PcInstance && target.isDead() && !target.isFakeDeath()))
 		{
 			// If L2PcInstance is dead or the target is dead, the action is stoped
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
@@ -1794,7 +1792,7 @@ public abstract class L2Character extends L2Object
 				reuseDelay *= 333.0 / (skill.isMagic() ? getMAtkSpd() : getPAtkSpd());
 		}
 
-		boolean skillMastery = Formulas.getInstance().calcSkillMastery(this);
+		boolean skillMastery = Formulas.getInstance().calcSkillMastery(this, skill);
 		if (skillMastery)
 		{
 			reuseDelay = 0;

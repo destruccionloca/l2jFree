@@ -3662,7 +3662,7 @@ public class L2Skill
 
 		boolean skillMastery = false;
 
-		if (!isToggle() && effector.getActingPlayer() != null && Formulas.getInstance().calcSkillMastery(effector))
+		if (!isToggle() && effector.getActingPlayer() != null && Formulas.getInstance().calcSkillMastery(effector, this))
 			skillMastery = true;
 
 		for (EffectTemplate et : _effectTemplates)

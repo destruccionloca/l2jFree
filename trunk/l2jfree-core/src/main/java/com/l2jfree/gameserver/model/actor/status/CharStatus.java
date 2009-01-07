@@ -222,6 +222,11 @@ public class CharStatus
 			if (getActiveChar().isStunned() && Rnd.get(10) == 0)
 				getActiveChar().stopStunning(null);
 		}
+		else if (awake && getActiveChar() instanceof L2PcInstance)
+		{
+			if (getActiveChar().isSleeping())
+				getActiveChar().stopSleeping(null);
+		}
 
 		// Add attackers to npc's attacker list
 		if (getActiveChar() instanceof L2NpcInstance)

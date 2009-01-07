@@ -638,17 +638,19 @@ public class Disablers implements ICubicSkillHandler
 				if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
 					L2Effect[] effects = target.getAllEffects();
-					int maxfive = skill.getMaxNegatedEffects();
+
+					double max = skill.getMaxNegatedEffects();
+					if (max == 0)
+						max = 24; //this is for RBcancells and stuff...
+
+					if (effects.length >= max)
+						effects = sortEffects(effects);
+
+					double count = 1;
+
 					for (L2Effect e : effects)
 					{
 						// do not delete signet effects!
-						switch (e.getEffectType())
-						{
-							case SIGNET_GROUND:
-							case SIGNET_EFFECT:
-								continue;
-						}
-						
 						switch (e.getSkill().getId())
 						{
 							case 110:
@@ -662,27 +664,21 @@ public class Disablers implements ICubicSkillHandler
 								continue;
 						}
 						
-						if (e.getSkill().getSkillType() != L2SkillType.BUFF) //sleep, slow, surrenders etc
+						switch (e.getSkill().getSkillType())
 						{
-							e.exit();
-						}
-						else
-						{
-							int rate = 100;
-							int level = e.getLevel();
-							if (level > 0)
-								rate = Integer.valueOf(150 / (1 + level));
-							if (rate > 95)
-								rate = 95;
-							else if (rate < 5)
-								rate = 5;
-							if (Rnd.get(100) < rate)
-							{
-								e.exit();
-								maxfive--;
-								if (maxfive == 0)
+							case BUFF:
+							case HEAL_PERCENT:
+							case REFLECT:
+							case COMBATPOINTHEAL:
+								double rate = 1 - (count / max);
+								if (rate < 0.33)
+									rate = 0.33;
+								else if (rate > 0.95)
+									rate = 0.95;
+								if (Rnd.get(1000) < (rate * 1000))
+									e.exit();
+								if (count == max)
 									break;
-							}
 						}
 					}
 				}
@@ -1001,6 +997,30 @@ public class Disablers implements ICubicSkillHandler
 			// Finishing stolen effect
 			eff.exit();
 		}
+	}
+
+	private L2Effect[] sortEffects(L2Effect[] initial)
+	{
+		//this is just classic insert sort
+		//If u can find better sort for max 20-30 units, rewrite this... :)
+		int min, index = 0;
+		L2Effect pom;
+		for (int i = 0; i < initial.length; i++)
+		{
+			min = initial[i].getSkill().getMagicLevel();
+			for (int j = i; j < initial.length; j++)
+			{
+				if (initial[j].getSkill().getMagicLevel() <= min)
+				{
+					min = initial[j].getSkill().getMagicLevel();
+					index = j;
+				}
+			}
+			pom = initial[i];
+			initial[i] = initial[index];
+			initial[index] = pom;
+		}
+		return initial;
 	}
 
 	public L2SkillType[] getSkillIds()
