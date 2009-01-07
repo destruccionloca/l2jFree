@@ -283,13 +283,6 @@ public class Mdam implements ICubicSkillHandler
 					{
 						skill.getEffects(activeCubic, target);
 					}
-					else
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-						sm.addCharName(target);
-						sm.addSkillName(skill);
-						activeCubic.getOwner().sendPacket(sm);
-					}
 				}
 
 				target.reduceCurrentHp(damage, activeCubic.getOwner());

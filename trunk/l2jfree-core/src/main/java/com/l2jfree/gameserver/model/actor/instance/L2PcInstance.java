@@ -7548,7 +7548,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				int id = rset.getInt("skill_id");
 				int level = rset.getInt("skill_level");
 
-				if (id > 9000)
+				if (id > 9000 && id < 9007)
 					continue; // Fake skills for base stats
 
 				// Create a L2Skill object for each record
@@ -8915,11 +8915,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	/**
 	 * Add a L2CubicInstance to the L2PcInstance _cubics.<BR><BR>
 	 */
-	public void addCubic(int id, int level, double matk, int activationtime, int activationchance)
+	public void addCubic(int id, int level, double matk, int activationtime, int activationchance, int totalLifeTime)
 	{
 		if (_log.isDebugEnabled())
 			_log.info("L2PcInstance(" + getName() + "): addCubic(" + id + "|" + level + "|" + matk + ")");
-		L2CubicInstance cubic = new L2CubicInstance(this, id, level, (int) matk, activationtime, activationchance);
+		L2CubicInstance cubic = new L2CubicInstance(this, id, level, (int) matk, activationtime, activationchance, totalLifeTime);
 		_cubics.put(id, cubic);
 	}
 
@@ -9888,7 +9888,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (s == null)
 				continue;
-			if (s.getId() > 9000)
+			if (s.getId() > 9000 && s.getId() < 9007)
 				continue; // Fake skills to change base stats
 			if (s.bestowed())
 				continue;

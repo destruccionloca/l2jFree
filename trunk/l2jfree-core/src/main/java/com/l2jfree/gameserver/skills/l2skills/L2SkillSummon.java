@@ -119,19 +119,18 @@ public class L2SkillSummon extends L2Skill
 						}
 						player.getCubics().clear();
 					}
-					if (player.getCubics().size() > mastery)
-						continue;
+					//TODO: Should remove first cubic summoned and replace with new cubic
 					if (player.getCubics().containsKey(_npcId))
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED);
-						activeChar.sendPacket(sm);
-						sm = null;
+						L2CubicInstance cubic = player.getCubic(_npcId);
+						cubic.stopAction();
+						cubic.cancelDisappear();
+						player.delCubic(_npcId);
 					}
-					else
-					{
-						player.addCubic(_npcId, getLevel(), getPower(), getActivationTime(), getActivationChance());
-						player.broadcastUserInfo();
-					}
+					if (player.getCubics().size() > mastery)
+						continue;
+					player.addCubic(_npcId, getLevel(), getPower(), getActivationTime(), getActivationChance(), getTotalLifeTime());
+					player.broadcastUserInfo();
 				}
 				return;
 			}
@@ -140,6 +139,13 @@ public class L2SkillSummon extends L2Skill
 			int mastery = activeChar.getSkillLevel(L2Skill.SKILL_CUBIC_MASTERY);
 			if (mastery < 0)
 				mastery = 0;
+			if (activeChar.getCubics().containsKey(_npcId))
+			{
+				L2CubicInstance cubic = activeChar.getCubic(_npcId);
+				cubic.stopAction();
+				cubic.cancelDisappear();
+				activeChar.delCubic(_npcId);
+			}
 			if (activeChar.getCubics().size() > mastery)
 			{
 				if (_log.isDebugEnabled())
@@ -147,14 +153,7 @@ public class L2SkillSummon extends L2Skill
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED));
 				return;
 			}
-			if (activeChar.getCubics().containsKey(_npcId))
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED);
-				activeChar.sendPacket(sm);
-				sm = null;
-				return;
-			}
-			activeChar.addCubic(_npcId, getLevel(), getPower(), getActivationTime(), getActivationChance());
+			activeChar.addCubic(_npcId, getLevel(), getPower(), getActivationTime(), getActivationChance(), getTotalLifeTime());
 			activeChar.broadcastUserInfo();
 			return;
 		}

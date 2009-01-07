@@ -570,14 +570,18 @@ public class Disablers implements ICubicSkillHandler
 				if (effects.length == 0)
 					break;
 
-				int count = (skill.getMaxNegatedEffects() > 0) ? skill.getMaxNegatedEffects() : -2;
+				int count = (skill.getMaxNegatedEffects() > 0) ? 0 : -2;
 				for (L2Effect e : effects)
 				{
 					if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
 					{
-						if (count > -1)
-							count++;
-						e.exit();
+						//Do not remove raid curse skills
+						if (e.getSkill().getId() != 4215 && e.getSkill().getId() != 4515 && e.getSkill().getId() != 4082)
+						{
+							e.exit();
+							if (count > -1)
+								count++;
+						}
 					}
 				}
 
@@ -867,18 +871,11 @@ public class Disablers implements ICubicSkillHandler
 						else
 							skill.getEffects(activeCubic, target);
 
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_SUCCEEDED);
-						sm.addSkillName(skill);
-						activeCubic.getOwner().sendPacket(sm);
 						if (_log.isDebugEnabled())
 							_log.info("Disablers: useCubicSkill() -> success");
 					}
 					else
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-						sm.addCharName(target);
-						sm.addSkillName(skill);
-						activeCubic.getOwner().sendPacket(sm);
 						if (_log.isDebugEnabled())
 							_log.info("Disablers: useCubicSkill() -> failed");
 					}
@@ -889,15 +886,34 @@ public class Disablers implements ICubicSkillHandler
 					if (effects.length == 0)
 						break;
 
-					int count = (skill.getMaxNegatedEffects() > 0) ? skill.getMaxNegatedEffects() : -2;
+					int count = (skill.getMaxNegatedEffects() > 0) ? 0 : -2;
 					for (L2Effect e : effects)
 					{
 						if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
 						{
-							e.exit();
-							if (count > -1)
-								count++;
+							//Do not remove raid curse skills
+							if (e.getSkill().getId() != 4215 && e.getSkill().getId() != 4515 && e.getSkill().getId() != 4082)
+							{
+								e.exit();
+								if (count > -1)
+									count++;
+							}
 						}
+					}
+					break;
+				case AGGDAMAGE:
+					if (Formulas.getInstance().calcCubicSkillSuccess(activeCubic, target, skill, shld))
+					{
+						if (target instanceof L2Attackable)
+							target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeCubic.getOwner(), (int) ((150 * skill.getPower()) / (target.getLevel() + 7)));
+						skill.getEffects(activeCubic, target);
+						if (_log.isDebugEnabled())
+							_log.info("Disablers: useCubicSkill() -> success");
+					}
+					else
+					{
+						if (_log.isDebugEnabled())
+							_log.info("Disablers: useCubicSkill() -> failed");
 					}
 					break;
 			}
