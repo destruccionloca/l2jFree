@@ -56,7 +56,7 @@ class Quest (JQuest) :
 
    Race    = st.getPlayer().getRace()
    ClassId = st.getPlayer().getClassId()
-   
+
    # Orcs got accepted
    if npcId == KAKAI_LORD_OF_FLAME and Race in [Race.Orc]:
      if ClassId in [ClassId.orcFighter]:

@@ -44,7 +44,7 @@ class Quest (JQuest) :
 
    Race    = st.getPlayer().getRace()
    ClassId = st.getPlayer().getClassId()
-   
+
    # Dwarfs got accepted
    if npcId == WAREHOUSE_CHIEF_REED and Race in [Race.Dwarf]:
      if ClassId in [ClassId.dwarvenFighter]:

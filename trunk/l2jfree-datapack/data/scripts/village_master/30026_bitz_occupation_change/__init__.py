@@ -20,7 +20,7 @@ class Quest (JQuest) :
    if event in ["30026-01.htm","30026-02.htm","30026-03.htm","30026-04.htm","30026-05.htm","30026-06.htm","30026-07.htm"]:
      htmltext = event
    else :
-     htmltext = "No Quest"
+     htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
      st.exitQuest(1)
    return htmltext
 

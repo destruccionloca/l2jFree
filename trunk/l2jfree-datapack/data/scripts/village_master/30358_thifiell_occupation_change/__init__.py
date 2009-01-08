@@ -55,7 +55,7 @@ class Quest (JQuest) :
    Race    = st.getPlayer().getRace()
    ClassId = st.getPlayer().getClassId()
 
-   # Darkelfs got accepted
+   # DarkElfs got accepted
    if npcId == TETRARCH_THIFIELL and Race in [Race.Darkelf]:
      if ClassId in [ClassId.darkFighter]:
        st.setState(State.STARTED)

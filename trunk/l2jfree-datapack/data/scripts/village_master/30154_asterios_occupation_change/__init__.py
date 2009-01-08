@@ -15,8 +15,8 @@ class Quest (JQuest) :
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
  def onEvent (self,event,st):
-   
-   htmltext = "No Quest"
+
+   htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
 
    if event == "30154-01.htm":
      htmltext = event
@@ -52,10 +52,10 @@ class Quest (JQuest) :
  def onTalk (Self,npc,player):
    st = player.getQuestState(qn)
    npcId = npc.getNpcId()
-   
+
    Race    = st.getPlayer().getRace()
    ClassId = st.getPlayer().getClassId()
-   
+
    # Elfs got accepted
    if npcId == HIERARCH_ASTERIOS and Race in [Race.Elf]:
      if ClassId in [ClassId.elvenFighter]: 
@@ -65,17 +65,17 @@ class Quest (JQuest) :
        st.setState(State.STARTED)
        return "30154-02.htm"
      if ClassId in [ClassId.elvenWizard, ClassId.oracle, ClassId.elvenKnight, ClassId.elvenScout]:
-       st.exitQuest(False) 
+       st.exitQuest(False)
        st.exitQuest(1)
        return "30154-12.htm"
      else:
-       st.exitQuest(False) 
+       st.exitQuest(False)
        st.exitQuest(1)
        return "30154-13.htm"
 
    # All other Races must be out
    if npcId == HIERARCH_ASTERIOS and Race in [Race.Dwarf, Race.Human, Race.Darkelf, Race.Orc, Race.Kamael]:
-     st.exitQuest(False) 
+     st.exitQuest(False)
      st.exitQuest(1)
      return "30154-11.htm"
 

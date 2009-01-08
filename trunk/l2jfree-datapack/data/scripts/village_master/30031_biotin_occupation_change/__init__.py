@@ -16,7 +16,7 @@ class Quest (JQuest) :
 
  def onEvent (self,event,st):
    
-   htmltext = "No Quest"
+   htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
 
    if event == "30031-01.htm":
      htmltext = event
@@ -63,7 +63,7 @@ class Quest (JQuest) :
 
    # All other Races must be out
    if npcId == HIGH_PRIEST_BIOTIN and Race in [Race.Dwarf, Race.Darkelf, Race.Elf, Race.Orc, Race.Kamael]:
-     st.exitQuest(False) 
+     st.exitQuest(False)
      st.exitQuest(1)
      return "30031-08.htm"
 
