@@ -78,19 +78,19 @@ public class FeedableBeasts extends L2AttackableAIScript
 			"What did you just do to me?","You want to tame me, huh?",
 			"Do not give me this. Perhaps you will be in danger.",
 			"Bah bah. What is this unpalatable thing?",
-			"My belly has been complaining.  This hit the spot.",
+			"My belly has been complaining. This hit the spot.",
 			"What is this? Can I eat it?","You don't need to worry about me.",
 			"Delicious food, thanks.","I am starting to like you!","Gulp"
 		},
 		{
 			"I do not think you have given up on the idea of taming me.",
-			"That is just food to me.  Perhaps I can eat your hand too.",
+			"That is just food to me. Perhaps I can eat your hand too.",
 			"Will eating this make me fat? Ha ha","Why do you always feed me?",
-			"Do not trust me.  I may betray you"
+			"Do not trust me. I may betray you"
 		},
 		{
 			"Destroy","Look what you have done!",
-			"Strange feeling...!  Evil intentions grow in my heart...!",
+			"Strange feeling...! Evil intentions grow in my heart...!",
 			"It is happening!","This is sad...Good is sad...!"
 		}
 	};
@@ -114,20 +114,20 @@ public class FeedableBeasts extends L2AttackableAIScript
 	{
 		private int _growthLevel;
 		private int _chance;
-		
+
 		private Map<Integer, int[][]> _spiceToMob = new FastMap<Integer,int[][]>();
-		
+
 		public GrowthCapableMob(int growthLevel, int chance)
 		{
 			_growthLevel = growthLevel;
 			_chance = chance;
 		}
-		
+
 		public void addMobs(int spice, int[][] Mobs)
 		{
 			_spiceToMob.put(spice, Mobs);
 		}
-		
+
 		public Integer getMob(int spice,int mobType, int classType)
 		{
 			if (_spiceToMob.containsKey(spice))
@@ -136,7 +136,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 			}
 			return null;
 		}
-		
+
 		public Integer getRandomMob(int spice)
 		{
 			int[][] temp;
@@ -144,12 +144,12 @@ public class FeedableBeasts extends L2AttackableAIScript
 			int rand = Rnd.get(temp[0].length);
 			return temp[0][rand];
 		}
-		
+
 		public Integer getChance()
 		{
 			return _chance;
 		}
-		
+
 		public Integer getGrowthLevel()
 		{
 			return _growthLevel;
@@ -171,7 +171,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		final int[][] Kookabura_1_Crystal_2 = {{21465,21467}};
 		final int[][] Kookabura_2_1 = {{21468,21824},{16017,16018}};
 		final int[][] Kookabura_2_2 = {{21469,21825},{16017,16018}};
-		
+
 		final int[][] Buffalo_0_Gold = {{21471,21472, 21473, 21474}};
 		final int[][] Buffalo_0_Crystal = {{21475,21476, 21477, 21478}};
 		final int[][] Buffalo_1_Gold_1 = {{21479,21481}};
@@ -368,7 +368,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 			// all other levels of growth are straight-forward
 			nextNpcId = _GrowthCapableMobs.get(npcId).getRandomMob(food);
 		}
-		
+
 		// remove the feedinfo of the mob that got despawned, if any
 		if (_FeedInfo.containsKey(npc.getObjectId())) 
 		{
@@ -385,7 +385,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		{
 			npc.deleteMe();
 		}
-		
+
 		// if this is finally a trained mob, then despawn any other trained mobs that the
 		// player might have and initialize the Tamed Beast.
 		if (contains(TAMED_BEASTS,nextNpcId))
@@ -401,7 +401,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 			nextNpc.setRunning();
 
 			int objectId = nextNpc.getObjectId();
-			
+
 			QuestState st = player.getQuestState("20_BringUpWithLove");
 			if (st != null)
 			{
@@ -446,7 +446,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 			{
 				this.startQuestTimer("polymorph Mad Cow", 10000, nextNpc, player);
 			}
-			
+
 			// register the player in the feedinfo for the mob that just spawned
 			_FeedInfo.put(nextNpc.getObjectId(),player.getObjectId());
 			nextNpc.setRunning();
@@ -470,7 +470,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 				npc.deleteMe();
 				// spawn the new mob 
 				L2Attackable nextNpc = (L2Attackable) this.addSpawn(MAD_COW_POLYMORPH.get(npc.getNpcId()),npc);
-				
+
 				// register the player in the feedinfo for the mob that just spawned
 				_FeedInfo.put(nextNpc.getObjectId(), player.getObjectId());
 				nextNpc.setRunning();

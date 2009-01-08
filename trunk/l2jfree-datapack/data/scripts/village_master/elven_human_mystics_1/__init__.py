@@ -15,8 +15,8 @@ MARK_OF_FAITH    = 1201
 ETERNITY_DIAMOND = 1230
 LEAF_OF_ORACLE   = 1235
 BEAD_OF_SEASON   = 1292
-#SYLVAIN,RAYMOND,LEVIAN,PRANA
-NPCS=[30070,30289,30037,32153,32147]
+#SYLVAIN,RAYMOND,LEVIAN,RIVIAN,PRANA
+NPCS=[30070,30289,30037,32147,32153]
 #Reward Item
 SHADOW_WEAPON_COUPON_DGRADE = 8869
 #event:[newclass,req_class,req_race,low_ni,low_i,ok_ni,ok_i,req_item]
@@ -31,7 +31,7 @@ CLASSES = {
     "HC":[15,10,0,"27","28","29","30",MARK_OF_FAITH]
     }
 #Messages
-default = "No Quest"
+default = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
 
 def change(st,player,newclass,item) :
    st.takeItems(item,1)
@@ -106,8 +106,6 @@ class Quest (JQuest) :
    return htmltext
 
 QUEST   = Quest(99998,qn,"village_master")
-
-
 
 for npc in NPCS :
     QUEST.addStartNpc(npc)

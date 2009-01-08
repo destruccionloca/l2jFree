@@ -281,7 +281,7 @@
 541	You may not delete a clan member. Withdraw from the clan first and try again.
 543	You already have a pet.
 544	Your pet cannot carry this item.
-547	Summoning your pet…
+547	Summoning your pet...
 548	Your pet's name can be up to 8 characters in length.
 549	To create an alliance, your clan must be Level 5 or higher.
 550	You may not create an alliance during the term of dissolution postponement.
@@ -485,7 +485,7 @@
 1177	This is the seal validation period.
 1178	This seal permits the group that holds it to exclusively enter the dungeon opened by the Seal of Avarice during the seal validation period.  It also permits trading with the Merchant of Mammon who appears in special dungeons and permits meetings with Anakim or Lilith in the Disciple's Necropolis.
 1179	This seal permits the group that holds it to enter the dungeon opened by the Seal of Gnosis, use the teleportation service offered by the priest in the village, and do business with the Blacksmith of Mammon. The Orator of Revelations appears and casts good magic on the winners, and the Preacher of Doom appears and casts bad magic on the losers.
-1180	"During the Seal Validation period, the cabal's maximum CP amount increases. In addition, the cabal possessing the seal will benefit from favorable changes in the cost to upgrade castle defense mercenaries, castle gates and walls; basic P. Def. of castle gates and walls; and the limit imposed on the castle tax rate. The use of siege war weapons will also be limited. If the Revolutionary Army of Dusk takes possession of this seal during the castle siege war, only the allies of the clan that owns the castle can come to the aid of the defenders."
+1180	"During the Seal Validation period, the cabal's maximum CP amount increases. In addition, the cabal posessing the seal will benefit from favorable changes in the cost to upgrade castle defense mercenaries, castle gates and walls; basic P. Def. of castle gates and walls; and the limit imposed on the castle tax rate. The use of siege war weapons will also be limited. If the Revolutionary Army of Dusk takes possession of this seal during the castle siege war, only the allies of the clan that owns the castle can come to the aid of the defenders."
 1183	This is the initial period.
 1184	This is a period of calculating statistics in the server.
 1188	Your selected target can no longer receive a recommendation.

@@ -16,7 +16,7 @@ class Quest (JQuest) :
 
  def onEvent (self,event,st):
 
-   htmltext = "No Quest"
+   htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
 
    Race     = st.getPlayer().getRace()
    ClassId  = st.getPlayer().getClassId()
@@ -46,7 +46,7 @@ class Quest (JQuest) :
    if event == "30565-08.htm":
      return "30565-08.htm"
 
-   st.exitQuest(False) 
+   st.exitQuest(False)
    st.exitQuest(1)
    return htmltext
 
@@ -65,12 +65,12 @@ class Quest (JQuest) :
        return htmltext
      if ClassId in [ClassId.orcRaider, ClassId.orcMonk, ClassId.orcShaman]:
        htmltext = "30565-09.htm"
-       st.exitQuest(False) 
+       st.exitQuest(False)
        st.exitQuest(1)
        return htmltext
      if ClassId in [ClassId.destroyer, ClassId.tyrant, ClassId.overlord, ClassId.warcryer]:
        htmltext = "30565-10.htm"
-       st.exitQuest(False) 
+       st.exitQuest(False)
        st.exitQuest(1)
        return htmltext
      if ClassId in [ClassId.orcMage]:
@@ -80,13 +80,11 @@ class Quest (JQuest) :
 
    # All other Races must be out
    if npcId == KAKAI_LORD_OF_FLAME and Race in [Race.Dwarf, Race.Darkelf, Race.Elf, Race.Human, Race.Kamael]:
-     st.exitQuest(False) 
+     st.exitQuest(False)
      st.exitQuest(1)
      return "30565-11.htm"
 
 QUEST   = Quest(30565,qn,"village_master")
-
-
 
 QUEST.addStartNpc(30565)
 

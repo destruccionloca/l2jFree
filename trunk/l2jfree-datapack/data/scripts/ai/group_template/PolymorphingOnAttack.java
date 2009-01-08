@@ -26,13 +26,13 @@ import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.tools.random.Rnd;
 
-
 /**
  * @author Slyce
  */
 public class PolymorphingOnAttack extends L2AttackableAIScript
 {
     private static final Map<Integer,Integer[]> MOBSPAWNS = new FastMap<Integer,Integer[]>();
+
     static
     {
         MOBSPAWNS.put(21258,new Integer[]{21259,100,100,-1}); //Fallen Orc Shaman -> Sharp Talon Tiger (always polymorphs)
@@ -53,7 +53,7 @@ public class PolymorphingOnAttack extends L2AttackableAIScript
     {
         new String[]{"Enough fooling around. Get ready to die!", "You idiot! I've just been toying with you!", "Now the fun starts!"},
         new String[]{"I must admit, no one makes my blood boil quite like you do!", "Now the battle begins!", "Witness my true power!"},
-        new String[]{"Prepare to die!", "I'll double my strength!", "You have more skill than I thought"}
+        new String[]{"Prepare to die!", "I'll double my strength!", "You have more skill than I thought."}
     };
 
     public PolymorphingOnAttack(int questId, String name, String descr)

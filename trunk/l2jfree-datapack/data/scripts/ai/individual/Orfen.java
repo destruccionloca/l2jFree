@@ -76,7 +76,6 @@ public class Orfen extends L2AttackableAIScript
 		npc.teleToLocation(Pos[index][0],Pos[index][1],Pos[index][2]);
 	}
 
-
 	public String onSpawn(L2NpcInstance npc)
 	{
 		if (npc.getNpcId() == ORFEN)

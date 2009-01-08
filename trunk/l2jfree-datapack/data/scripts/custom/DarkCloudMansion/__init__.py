@@ -73,7 +73,7 @@ order = [
          [3,2,4,5,1,6],
          [5,4,3,1,6,2]
         ]
-         
+
 #Second room - golem spawn locatons - random    
 golems = [
           [CCG[0],148060,181389],
@@ -106,7 +106,7 @@ beleths = [
            [1,0,1,0,0,1,0],
            [0,1,1,0,0,0,1]
           ]
-		  
+
 class PyObject:
 	pass
 
@@ -211,12 +211,12 @@ def spawnHall(self,world):
 	newNpc = self.addSpawn(BM[2],147242,180819,-6117,0,False,0,False, world.instanceId)
 	world.Hall.npclist[newNpc]=False
 	if debug: print "DarkCloudMansion: hall spawned"	
-	
+
 def runHall(self,world):
 	world.status=1
 	openDoor(D1,world.instanceId)
 	spawnHall(self,world)
-  
+
 def runFirstRoom(self,world):
 	world.status=2
 	openDoor(D2,world.instanceId)
@@ -235,7 +235,7 @@ def runFirstRoom(self,world):
 def runHall2(self,world):
 	world.status=3
 	spawnHall(self,world)
-	
+
 def runSecondRoom(self,world):
 	newNpc = self.addSpawn(SOFaith,147818,179643,-6117,0,False,0,False,world.instanceId)
 	world.status=4
@@ -327,7 +327,7 @@ def runFifthRoom(self,world):
 		world.FifthRoom.npclist.append([newNpc,idx,temp[idx],0])
 		idx += 1
 	if debug: print "DarkCloudMansion: spawned fifth room"  	
-	
+
 def checkKillProgress(npc,room):
 	cont = True
 	if room.npclist.has_key(npc):
@@ -352,7 +352,7 @@ def checkStone(self,npc,order,npcObj,world) :
 				npc.broadcastPacket(MagicSkillUse(npc, npc, 5441, 1, 1, 0))
 				return
 	spawnRndGolem(self,world)
-	
+
 def endInstance(self,world):
 	world.status = 9
 	newNpc = self.addSpawn(SOTruth,148911,181940,-6117,16383,False,0,False,world.instanceId)
@@ -363,7 +363,7 @@ def endInstance(self,world):
 	world.ForthRoom = None
 	world.FifthRoom = None
 	if debug: print "DarkCloudMansion: finished"
-	
+
 def checkBelethSample(self,world,npc,player,BS):
 	for mob in world.FifthRoom.npclist:
 		for order in world.FifthRoom.belethOrder :
@@ -378,7 +378,7 @@ def checkBelethSample(self,world,npc,player,BS):
 	for mob in world.FifthRoom.npclist:
 		mob[0].decayMe()
 	endInstance(self,world)
-	
+
 def allStonesDone(self,world) :
 	for npc in world.SecondRoom.monolith :
 		if npc[2] == 1 :
@@ -400,7 +400,7 @@ def chkShadowColumn(self,world,npc):
 					world.ForthRoom.counter += 1 
 					if world.ForthRoom.counter == 7:
 						runFifthRoom(self,world)
-						
+
 class DarkCloudMansion(JQuest):
 	def __init__(self,id,name,descr):
 		JQuest.__init__(self,id,name,descr)
@@ -442,7 +442,7 @@ class DarkCloudMansion(JQuest):
 					world.rewarded.append(player.getObjectId())
 				return
 		return
-   
+
 	def onKill(self,npc,player,isPet):
 		npcId = npc.getNpcId()
 		if self.worlds.has_key(npc.getInstanceId()):
@@ -470,7 +470,7 @@ class DarkCloudMansion(JQuest):
 			if world.status==8:
 					checkBelethSample(self,world,npc,player,BS) 
 		return
-		
+
 	def onAttack(self,npc,player,damage,isPet):
 		npcId = npc.getNpcId()
 		world = self.worlds[player.getInstanceId()]
@@ -480,7 +480,7 @@ class DarkCloudMansion(JQuest):
 					if mob[0].isInvul() and Rnd.get(100) < 12 :
 						if debug: print "DarkCloudMansion: spawn room 4 guard"
 						newNpc = self.addSpawn(BM[Rnd.get(len(BM))],player.getX(),player.getY(),player.getZ(),0,False,0,False,world.instanceId)
-	
+
 	def onFirstTalk (self,npc,player):
 		npcId = npc.getNpcId()
 		world = self.worlds[player.getInstanceId()]
@@ -499,5 +499,5 @@ QUEST.addStartNpc(YIYEN)
 QUEST.addTalkId(YIYEN)
 QUEST.addTalkId(SOTruth)
 QUEST.addAttackId(SC)
-for mob in [18371,18372,18373,18374,18375,18376,18377,22318,22319,22272,22273,22274,18369,18370,22402,   22264]:
+for mob in [18371,18372,18373,18374,18375,18376,18377,22318,22319,22272,22273,22274,18369,18370,22402,22264]:
   QUEST.addKillId(mob)

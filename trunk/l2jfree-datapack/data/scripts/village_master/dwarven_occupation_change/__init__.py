@@ -39,7 +39,7 @@ CLASSES={
 
 UNIQUE_DIALOGS=[30594,30595,30498,30499]
 
-default = "No Quest"
+default = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
 
 class Quest (JQuest) :
 
@@ -118,8 +118,6 @@ class Quest (JQuest) :
    return htmltext
 
 QUEST   = Quest(99999,qn,"village_master")
-
-
 
 for npc in SCAV_NPCS :
     QUEST.addStartNpc(npc)

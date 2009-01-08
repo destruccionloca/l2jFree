@@ -29,7 +29,7 @@ CLASSES = {
     "EE":[30,29,1,"12","13","14","15",[MARK_OF_PILGRIM,MARK_OF_LIFE,MARK_OF_HEALER]],
     }
 #Messages
-default = "No Quest"
+default = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
 
 def change(st,player,newclass,items) :
    for item in items :
@@ -107,7 +107,6 @@ class Quest (JQuest) :
    return htmltext
 
 QUEST   = Quest(99992,qn,"village_master")
-
 
 for npc in NPCS:
     QUEST.addStartNpc(npc)

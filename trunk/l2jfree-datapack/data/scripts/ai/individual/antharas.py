@@ -24,11 +24,11 @@ class antharas(JQuest):
 
   def onTalk (self,npc,player):
     st = player.getQuestState("antharas")
-    if not st : return "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
+    if not st : return "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     npcId = npc.getNpcId()
     if npcId == HEART:
       if player.isFlying() :
-        return '<html><body>Heart of Muscai:<br>You may not enter while flying a wyvern</body></html>'
+        return '<html><body>Heart of Warding:<br>You may not enter while flying a wyvern</body></html>'
       if AntharasManager.getInstance().isEnableEnterToLair():
         if st.getQuestItemsCount(PORTAL_STONE) >= 1:
           st.takeItems(PORTAL_STONE,1)
@@ -37,14 +37,14 @@ class antharas(JQuest):
           return
         else:
           st.exitQuest(1)
-          return '<html><body>Heart of Muscai:<br><br>You do not have the proper stones needed for teleport.<br>It is for the teleport where does 1 stone to you need.<br></body></html>'
+          return '<html><body>Heart of Warding:<br>You do not have the proper stones needed for teleport.<br>It is for the teleport where does 1 stone to you need.</body></html>'
       else:
         st.exitQuest(1)
-        return '<html><body>Heart of Muscai:<br><br>Antharas has already awoke!<br>You are not allowed to enter into Lair of Antharas.<br></body></html>'
+        return '<html><body>Heart of Warding:<br>Antharas has already awoke!<br>You are not allowed to enter into Lair of Antharas.</body></html>'
 
   def onKill (self,npc,player,isPet):
     st = player.getQuestState("antharas")
-    #give the antharas slayer circlet to ALL PARTY MEMBERS who help kill anthy,
+    #give the antharas slayer circlet to ALL PARTY MEMBERS who help kill antharas,
     party = player.getParty()
     if party :
        for partyMember in party.getPartyMembers().toArray() :

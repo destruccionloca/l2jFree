@@ -19,7 +19,7 @@ MARK_OF_GLORY        = 3203
 MARK_OF_CHAMPION     = 3276
 MARK_OF_LORD         = 3390
 #PENATUS, KARIA, GARVARENTZ, LADANZA, TUSHKU, AKLAN, LAMBAC, SHAKA
-NPCS=[30513,30681,30704,30865,30913,31288,31326,31977]
+NPCS=[30513,30681,30704,30865,30913,31288,31326,31977,32097]
 
 #event:[newclass,req_class,req_race,low_ni,low_i,ok_ni,ok_i,[req_items]]
 #low_ni : level too low, and you dont have quest item
@@ -33,7 +33,7 @@ CLASSES = {
     "WC":[52,50,3,"28","29","30","31",[MARK_OF_PILGRIM,MARK_OF_GLORY,MARK_OF_WARSPIRIT]],
     }
 #Messages
-default = "No Quest"
+default = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
 
 def change(st,player,newclass,items) :
    for item in items :
@@ -111,8 +111,6 @@ class Quest (JQuest) :
    return htmltext
 
 QUEST   = Quest(99993,qn,"village_master")
-
-
 
 for npc in NPCS :
     QUEST.addStartNpc(npc)

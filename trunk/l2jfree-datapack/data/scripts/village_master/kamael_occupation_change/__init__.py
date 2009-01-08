@@ -43,7 +43,7 @@ CLASSES = {
     "SBM":[128,125,5,40,"40","41","42","43",[SOUL_BREAKER_CERTIFICATE],SHADOW_WEAPON_COUPON_CGRADE]  #m_trooper -> m_soulbreaker
     }
 #Messages
-default = "No Quest"
+default = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
 
 def change(st,player,newclass,items) :
    for item in items :

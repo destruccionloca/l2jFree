@@ -38,7 +38,7 @@ public class DarkWaterDragon extends L2AttackableAIScript
     private static FastSet<Integer> secondSpawn = new FastSet<Integer>(); //Used to track if second Shades were already spawned
     private static FastSet<Integer> myTrackingSet = new FastSet<Integer>(); //Used to track instances of npcs
     private static FastMap<Integer, L2PcInstance> _idmap = new FastMap<Integer, L2PcInstance>(); //Used to track instances of npcs
-    
+
     public DarkWaterDragon(int id, String name, String descr)
     {
         super(id,name,descr);
@@ -91,7 +91,7 @@ public class DarkWaterDragon extends L2AttackableAIScript
                 this.cancelQuestTimer("2", npc, null);
                 this.cancelQuestTimer("3", npc, null);
                 this.cancelQuestTimer("4", npc, null);
-                
+
                 L2Attackable temp = (L2Attackable) npc;
                 player = _idmap.get(temp.getObjectId());
                 if(player!=null) //You never know ...
@@ -122,7 +122,7 @@ public class DarkWaterDragon extends L2AttackableAIScript
         }
         return super.onAdvEvent(event,npc,player);
     }
-    
+
     public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
     {    
         int npcId = npc.getNpcId();
