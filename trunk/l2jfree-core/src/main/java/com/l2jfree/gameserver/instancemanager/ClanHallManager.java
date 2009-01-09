@@ -240,10 +240,20 @@ public class ClanHallManager
 
 	public final ClanHall getNearbyClanHall(int x, int y, int maxDist)
 	{
-		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
-			if (ch.getValue().getDistanceToZone(x, y) < maxDist)
-				return ch.getValue();
-
-		return null;
+		ClanHall clanH = null;
+		double distance;
+		
+		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet()) {
+			distance = ch.getValue().getDistanceToZone(x, y);
+		
+			if (distance < maxDist) {
+				if(clanH == null)
+					clanH = ch.getValue();
+				else if(distance < clanH.getDistanceToZone(x, y))
+					clanH = ch.getValue();
+			}
+		}
+		
+		return clanH;
 	}
 }
