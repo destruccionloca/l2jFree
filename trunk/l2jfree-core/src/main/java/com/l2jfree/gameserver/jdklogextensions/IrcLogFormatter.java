@@ -35,23 +35,23 @@ public class IrcLogFormatter extends Formatter
     @Override
     public String format(LogRecord record)
     {
-        TextBuilder output = new TextBuilder();
+	TextBuilder output = new TextBuilder();
+	
+	output.append('[');
+	output.append(dateFmt.format(new Date(record.getMillis())));
+	output.append(']');
+	output.append(' ');
 
-        output.append('[');
-        output.append(dateFmt.format(new Date(record.getMillis())));
-        output.append(']');
-        output.append(' ');
+	Object[] params = record.getParameters();
 
-        Object[] params = record.getParameters();
-
-        if (params != null)
+	if (params != null)
 	{
 		for (Object p : params)
 		{
 			output.append(p);
 			output.append(' ');
 		}
-        }
+	}
 	output.append(record.getMessage());
 	output.append(CRLF);
 

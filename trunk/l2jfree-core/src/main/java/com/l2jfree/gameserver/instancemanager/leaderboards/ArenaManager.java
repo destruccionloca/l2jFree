@@ -228,7 +228,7 @@ public class ArenaManager
 
 	private String tx(int counter, String name, int kills, int deaths, boolean mi)
 	{
-		String t = null;
+		String t = "";
 
 		t += "	<tr>" + "<td align=center>" + (mi ? "<font color=\"LEVEL\">" : "") + (counter + 1) + ".</td>" + "<td align=center>" + name + "</td>"
 				+ "<td align=center>" + kills + "</td>" + "<td align=center>" + deaths + "" + (mi ? "</font>" : "") + " </td>" + "</tr>";
@@ -241,7 +241,7 @@ public class ArenaManager
 		_ranks = new FastMap<Integer, ArenaRank>();
 		String line = null;
 		LineNumberReader lnr = null;
-		String lineId = null;
+		String lineId = "";
 		ArenaRank rank = null;
 		try
 		{
@@ -280,7 +280,7 @@ public class ArenaManager
 
 	public void saveData()
 	{
-		String pattern = null;
+		String pattern = "";
 
 		for (Iterator<Integer> iter = this._ranks.keySet().iterator(); iter.hasNext();)
 		{
