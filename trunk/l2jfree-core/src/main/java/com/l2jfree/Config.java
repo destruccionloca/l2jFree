@@ -1475,6 +1475,7 @@ public final class Config
 	public static boolean				ALT_ITEM_SKILLS_NOT_INFLUENCED;
 	public static boolean				ALT_MANA_POTIONS;
 	public static int					ALT_AUTOCHAT_DELAY;
+	public static boolean				ALT_SPECIAL_PETS_FOR_ALL;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1688,6 +1689,7 @@ public final class Config
 
 			ALT_MANA_POTIONS = Boolean.parseBoolean(altSettings.getProperty("AllowManaPotions", "false"));
 			ALT_AUTOCHAT_DELAY = Integer.parseInt(altSettings.getProperty("AutoChatDelay", "30000"));
+			ALT_SPECIAL_PETS_FOR_ALL = Boolean.parseBoolean(altSettings.getProperty("EverybodyCanUseSpecPets", "false"));
 		}
 		catch (Exception e)
 		{

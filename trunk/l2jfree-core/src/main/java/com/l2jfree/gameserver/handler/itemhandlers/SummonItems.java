@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SummonItemsData;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.idfactory.IdFactory;
+import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2SummonItem;
@@ -27,6 +28,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PlayableInstance;
+import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
@@ -105,6 +107,31 @@ public class SummonItems implements IItemHandler
 
 		if (npcTemplate == null)
 			return;
+		
+		// Restricting Red Striders/Snow Wolves/Snow Fenrir
+		if (!Config.ALT_SPECIAL_PETS_FOR_ALL)
+		{
+			int _itemId = item.getItemId();
+			if ((_itemId == 10307 || _itemId == 10611 || _itemId == 10308 || _itemId == 10309 || _itemId == 10310) && !activeChar.isGM())
+			{
+				if (activeChar.getClan() != null && ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) != null)
+				{
+					ClanHall clanHall = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
+					
+					int clanHallId = clanHall.getId();
+					if ( (clanHallId < 36 || clanHallId > 41) && (clanHallId < 51 || clanHallId > 57) )
+					{
+						activeChar.sendMessage("Cannot use special pets if you're not member of a clan that is owning a clanhall in Aden or Rune");
+						return;
+					}
+				}
+				else
+				{
+					activeChar.sendMessage("Cannot use special pets if you're not member of a clan that is owning a clanhall in Aden or Rune");
+					return;
+				}
+			}
+		}
 
 		switch (sitem.getType())
 		{
