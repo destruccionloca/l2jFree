@@ -54,6 +54,7 @@ import com.l2jfree.gameserver.ai.L2SummonAI;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.cache.WarehouseCacheManager;
 import com.l2jfree.gameserver.communitybbs.Manager.ForumsBBSManager;
+import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.communitybbs.bb.Forum;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
@@ -245,6 +246,7 @@ import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.EventData;
 
 /**
  * This class represents all player characters in the world.
@@ -5602,9 +5604,14 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		getStatus().stopHpMpRegeneration();
 		stopWarnUserTakeBreak();
+		stopAutoSaveTask();
 		stopWaterTask();
+		
 		stopSoulTask();
 		stopChargeTask();
+		
+		stopPvPFlag();
+		stopJailTask(true);
 	}
 
 	/**
@@ -7065,12 +7072,16 @@ public final class L2PcInstance extends L2PlayableInstance
 	/**
 	 * Update L2PcInstance stats in the characters table of the database.<BR><BR>
 	 */
+	private long _lastStore;
+	
 	public synchronized void store()
 	{
+		_lastStore = System.currentTimeMillis();
+		
 		// Update client coords, if these look like true
 		if (isInsideRadius(getClientX(), getClientY(), 1000, true))
 			getPosition().setXYZ(getClientX(), getClientY(), getClientZ());
-
+		
 		storeCharBase();
 		storeCharSub();
 		storeEffect();
@@ -10408,7 +10419,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void onPlayerEnter()
 	{
 		startWarnUserTakeBreak();
-
+		startAutoSaveTask();
+		
 		if (SevenSigns.getInstance().isSealValidationPeriod() || SevenSigns.getInstance().isCompResultsPeriod())
 		{
 			if (!isGM() && isIn7sDungeon() && Config.ALT_STRICT_SEVENSIGNS
@@ -11182,11 +11194,18 @@ public final class L2PcInstance extends L2PlayableInstance
 				_log.error(e.getMessage(), e);
 			}// Return pet to the control item
 		}
-
+		
 		// Cancel trade
 		if (getActiveRequester() != null)
+		{
+			getActiveRequester().onTradeCancel(this);
+			onTradeCancel(getActiveRequester());
+			
 			cancelActiveTrade();
-
+			
+			setActiveRequester(null);
+		}
+		
 		// Check if the L2PcInstance is in observer mode to set its position to its position before entering in observer mode
 		if (inObserverMode())
 			getPosition().setXYZ(_obsX, _obsY, _obsZ);
@@ -11430,14 +11449,91 @@ public final class L2PcInstance extends L2PlayableInstance
 			_chanceSkills.setOwner(null);
 			_chanceSkills = null;
 		}
-
-		// Remove L2Object object from _allObjects of L2World
+		
+		// we store all data from players who are disconnected while
+		// in an event in order to restore it in the next login
+		if (atEvent)
+		{
+			L2Event.connectionLossData.put(getName(), new EventData(
+				eventX, eventY, eventZ, eventKarma, eventPvpKills, eventPkKills, eventTitle, kills, eventSitForced));
+		}
+		
+		// Remove L2Object object from _allObjects of L2World, if still in it
 		L2World.getInstance().removeObject(this);
+		
+		try
+		{
+			// To delete the player from L2World on crit during teleport ;)
+			setIsTeleporting(false);
+			
+			L2World.getInstance().removeFromAllPlayers(this);
+		}
+		catch (Throwable t) { _log.fatal( "deleteMe()", t); }
+		
+		RegionBBSManager.getInstance().changeCommunityBoard();
 		
 		//getClearableReference().clear();
 		//LeakTaskManager.getInstance().add(getImmutableReference());
 		
 		SQLQueue.getInstance().run();
+	}
+	
+	public boolean canLogout()
+	{
+		if (!isGM())
+		{
+			if (isInsideZone(L2Zone.FLAG_NOESCAPE))
+			{
+				sendPacket(SystemMessageId.NO_LOGOUT_HERE);
+				return false;
+			}
+			
+			if (AttackStanceTaskManager.getInstance().getAttackStanceTask(this))
+			{
+				sendPacket(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING);
+				return false;
+			}
+		}
+		
+		if (isFlying())
+		{
+			sendMessage("You can't log out while flying.");
+			return false;
+		}
+		
+		L2Summon summon = getPet();
+		
+		if (summon != null && summon instanceof L2PetInstance && !summon.isBetrayed() && summon.isAttackingNow())
+		{
+			sendPacket(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE);
+			return false;
+		}
+		
+		if (atEvent || isInFunEvent())
+		{
+			sendMessage("A superior power doesn't allow you to leave the event.");
+			return false;
+		}
+		
+		if (isInOlympiadMode() || Olympiad.getInstance().isRegistered(this) || getOlympiadGameId() != -1)
+		{
+			sendMessage("You can't logout while you are at Olympiad.");
+			return false;
+		}
+		
+		if (isFestivalParticipant())
+		{
+			sendMessage("You can't logout while you are a participant in a festival.");
+			return false;
+		}
+		
+		if (getPrivateStoreType() != 0)
+		{
+			sendMessage("You can't logout while trading.");
+			return false;
+		}
+		
+		return true;
 	}
 
 	private FishData	_fish;
@@ -13238,5 +13334,41 @@ public final class L2PcInstance extends L2PlayableInstance
 			_gatesRequest.getDoor().closeMe();
 		}
 		_gatesRequest.setTarget(null);
+	}
+	
+	private ScheduledFuture<?> _autoSaveTask;
+	
+	private void startAutoSaveTask()
+	{
+		if (_autoSaveTask == null && Config.CHAR_STORE_INTERVAL > 0)
+			_autoSaveTask = ThreadPoolManager.getInstance().schedule(new AutoSave(), 300000);
+	}
+	
+	private void stopAutoSaveTask()
+	{
+		if (_autoSaveTask != null)
+		{
+			_autoSaveTask.cancel(false);
+			_autoSaveTask = null;
+		}
+	}
+	
+	private final class AutoSave implements Runnable
+	{
+		public void run()
+		{
+			long period = Config.CHAR_STORE_INTERVAL * 60000L;
+			long delay = _lastStore + period - System.currentTimeMillis();
+				
+			if (delay <= 0)
+			{
+				L2GameClient.saveCharToDisk(L2PcInstance.this);
+				
+				delay = period;
+			}
+			
+			if (Config.CHAR_STORE_INTERVAL > 0)
+				_autoSaveTask = ThreadPoolManager.getInstance().schedule(this, delay);
+		}
 	}
 }

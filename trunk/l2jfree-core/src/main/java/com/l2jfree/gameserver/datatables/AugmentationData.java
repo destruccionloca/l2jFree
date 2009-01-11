@@ -31,7 +31,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Augmentation;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.Stats;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -68,7 +67,7 @@ public class AugmentationData
 	//private static final int STAT_NUMBEROF_SUBBLOCKS = 40;
 
 	// skills
-	private static final int START = 14561;
+	// private static final int START = 14561;
 	private static final int SKILLS_BLOCKSIZE = 178;
 	private static final int BLUE_START = 0;
 	private static final int BLUE_END = 16;
@@ -189,7 +188,6 @@ public class AugmentationData
 		// items description...
 		try
 		{
-			SkillTable st = SkillTable.getInstance();
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			factory.setValidating(false);
 			factory.setIgnoringComments(true);
@@ -217,8 +215,7 @@ public class AugmentationData
 							int skillId = 0, skillLevel = 0, augmentationId = Integer.parseInt(attrs.getNamedItem("id").getNodeValue());
 							// type of the skill is not needed anymore but I do not erase the code.
 							// maybe someone can use it for something
-							String type = null;
-
+							
 							for (Node cd = d.getFirstChild(); cd != null; cd = cd.getNextSibling())
 							{
 								if ("skillId".equalsIgnoreCase(cd.getNodeName()))

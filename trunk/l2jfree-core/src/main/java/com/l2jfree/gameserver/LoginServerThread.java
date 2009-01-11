@@ -121,7 +121,7 @@ public class LoginServerThread extends Thread
 		_gameExternalHost = Config.EXTERNAL_HOSTNAME;
 		_gameInternalHost = Config.INTERNAL_HOSTNAME;
 		_waitingClients = new FastList<WaitingClient>();
-		_accountsInGameServer = new FastMap<String, L2GameClient>();
+		_accountsInGameServer = new FastMap<String, L2GameClient>().setShared(true);
 		_maxPlayer = Config.MAXIMUM_ONLINE_USERS;
 
         if (Config.SUBNETWORKS != null && Config.SUBNETWORKS.length() > 0)  
@@ -422,17 +422,18 @@ public class LoginServerThread extends Thread
 
 	public void sendLogout(String account)
 	{
-		PlayerLogout pl = new PlayerLogout(account);
-
+		if (account == null || account.isEmpty())
+			return;
+		
+		_accountsInGameServer.remove(account);
+		
 		try
 		{
-			sendPacket(pl);
+			sendPacket(new PlayerLogout(account));
 		}
 		catch (IOException e)
 		{
-			_log.warn("Error while sending logout packet to login");
-			if (_log.isDebugEnabled())
-				_log.debug(e.getMessage(), e);
+			_log.warn("Error while sending logout packet to login", e);
 		}
 	}
 
@@ -463,10 +464,7 @@ public class LoginServerThread extends Thread
 	public void doKickPlayer(String account)
 	{
 		if (_accountsInGameServer.get(account) != null)
-		{
 			_accountsInGameServer.get(account).closeNow();
-			LoginServerThread.getInstance().sendLogout(account); // mieux vaux 2 fois q'une...
-		}
 	}
 
 	public static byte[] generateHex(int size)

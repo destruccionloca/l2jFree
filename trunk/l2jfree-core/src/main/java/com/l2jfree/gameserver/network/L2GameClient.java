@@ -20,7 +20,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javolution.util.FastList;
@@ -35,16 +34,12 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.LoginServerThread.SessionKey;
-import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.model.CharSelectInfoPackage;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.entity.L2Event;
-import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.tools.security.BlowFishKeygen;
 import com.l2jfree.tools.security.GameCrypt;
-import com.l2jfree.util.EventData;
 
 /**
  * Represents a client connected on Game Server
@@ -79,9 +74,6 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	private long						_connectionStartTime;
 	private List<Integer>				_charSlotMapping		= new FastList<Integer>();
 
-	// Task
-	protected final ScheduledFuture<?>	_autoSaveInDB;
-
 	// Crypt
 	private GameCrypt					_crypt;
 
@@ -97,15 +89,6 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		state = GameClientState.CONNECTED;
 		_connectionStartTime = System.currentTimeMillis();
 		_crypt = new GameCrypt();
-
-		if (Config.CHAR_STORE_INTERVAL > 0)
-		{
-			_autoSaveInDB = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new AutoSaveTask(), 300000L, (Config.CHAR_STORE_INTERVAL * 60000L));
-		}
-		else
-		{
-			_autoSaveInDB = null;
-		}
 	}
 
 	public byte[] enableCrypt()
@@ -496,7 +479,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	@Override
 	protected void onDisconnection()
 	{
-		ThreadPoolManager.getInstance().executeTask(new DisconnectTask());
+		ThreadPoolManager.getInstance().execute(new DisconnectTask());
 	}
 
 	/**
@@ -527,88 +510,29 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		}
 	}
 
-	private class DisconnectTask implements Runnable
-	{
-		/**
-		 * @see java.lang.Runnable#run()
-		 */
-		public void run()
-		{
-			if (_disconnected)
-				return;
-			_disconnected = true;
-
-			try
-			{
-				// we are going to mannually save the char bellow thus we can force the cancel
-				if (_autoSaveInDB != null)
-				{
-					_autoSaveInDB.cancel(true);
-				}
-
-				L2PcInstance player = L2GameClient.this.getActiveChar();
-				if (player != null) // this should only happen on connection loss
-				{
-					// we store all data from players who are disconnected while
-					// in an event in order to restore it in the next login
-					if (player.atEvent)
-					{
-						EventData data = new EventData(player.eventX, player.eventY, player.eventZ, player.eventKarma, player.eventPvpKills,
-								player.eventPkKills, player.eventTitle, player.kills, player.eventSitForced);
-						L2Event.connectionLossData.put(player.getName(), data);
-					}
-
-					try
-					{
-						saveCharToDisk(player);
-						player.getInventory().updateDatabase(); // Force item update in db
-					}
-					catch (Exception e2)
-					{
-						_log.error(e2.getMessage(), e2);
-					}
-
-					// notify the world about our disconnect
-					player.deleteMe();
-				}
-				L2GameClient.this.setActiveChar(null);
-			}
-			catch (Exception e1)
-			{
-				_log.warn("error while disconnecting client", e1);
-			}
-			finally
-			{
-				LoginServerThread.getInstance().sendLogout(L2GameClient.this.getAccountName());
-			}
-
-			// Update BBS
-			try
-			{
-				RegionBBSManager.getInstance().changeCommunityBoard();
-			}
-			catch (Exception e)
-			{
-				_log.error(e.getMessage(), e);
-			}
-		}
-	}
-
-	private class AutoSaveTask implements Runnable
+	private final class DisconnectTask implements Runnable
 	{
 		public void run()
 		{
-			try
+			synchronized (L2GameClient.this)
 			{
-				L2PcInstance player = L2GameClient.this.getActiveChar();
-				if (player != null)
-				{
-					saveCharToDisk(player);
-				}
+				if (_disconnected)
+					return;
+				
+				_disconnected = true;
 			}
-			catch (Throwable e)
+			
+			LoginServerThread.getInstance().sendLogout(getAccountName());
+			
+			L2PcInstance player = getActiveChar();
+			setActiveChar(null);
+			
+			if (player != null) // this should only happen on connection loss
 			{
-				_log.error("Error on AutoSaveTask.", e);
+				player.setClient(null);
+				
+				saveCharToDisk(player, true);
+				player.deleteMe();
 			}
 		}
 	}

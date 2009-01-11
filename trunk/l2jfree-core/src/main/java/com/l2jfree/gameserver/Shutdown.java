@@ -464,40 +464,33 @@ public class Shutdown extends Thread
 	{
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
-			// Logout Character
 			try
 			{
+				L2GameClient client = player.getClient();
+				
+				player.setClient(null);
+				client.setActiveChar(null);
+				
 				// save player's stats and effects
-				L2GameClient.saveCharToDisk(player);
-
-				// close server
-				player.sendPacket(ServerClose.STATIC_PACKET);
-
-				// make sure to save ALL data
+				L2GameClient.saveCharToDisk(player, true);
 				player.deleteMe();
+				
+				// close server
+				client.close(ServerClose.STATIC_PACKET);
 			}
 			catch (Throwable t)
 			{
+				t.printStackTrace();
 			}
 		}
+		
 		try
 		{
-			Thread.sleep(1000);
+			sleep(1000);
 		}
 		catch (Throwable t)
 		{
-		}
-
-		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-		{
-			try
-			{
-				player.closeNetConnection();
-			}
-			catch (Throwable t)
-			{
-				// just to make sure we try to kill the connection
-			}
+			t.printStackTrace();
 		}
 	}
 }

@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Flood protector
@@ -134,5 +135,10 @@ public class FloodProtector
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean tryPerformAction(L2PcInstance player, int action)
+	{
+		return tryPerformAction(player.getObjectId(), action);
 	}
 }

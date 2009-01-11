@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
-import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.L2Character;
 
 public class L2FishingZone extends L2DefaultZone
