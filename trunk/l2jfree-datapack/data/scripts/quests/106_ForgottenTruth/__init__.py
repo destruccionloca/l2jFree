@@ -65,7 +65,7 @@ class Quest (JQuest) :
      if cond == 1 :
        if npcId == 30358 :
          htmltext = "30358-06.htm"
-       elif npcId == 30133 and st.getQuestItemsCount(ONYX_TALISMAN1) and id == State.STARTED : 
+       elif npcId == 30133 and st.getQuestItemsCount(ONYX_TALISMAN1) and id == State.STARTED :
          htmltext = "30133-01.htm"
          st.takeItems(ONYX_TALISMAN1,1)
          st.giveItems(ONYX_TALISMAN2,1)

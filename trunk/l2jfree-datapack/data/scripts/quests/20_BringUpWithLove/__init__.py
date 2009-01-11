@@ -28,10 +28,10 @@ class Quest (JQuest) :
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
  def onEvent (self,event,st) :
-   htmltext = event 
-   if event == "31537-09.htm" : 
-     st.set("cond","1") 
-     st.setState(State.STARTED) 
+   htmltext = event
+   if event == "31537-09.htm" :
+     st.set("cond","1")
+     st.setState(State.STARTED)
      st.playSound("ItemSound.quest_accept")
    elif event == "31537-12.htm" :
        st.rewardItems(ADENA_ID,ADENA_REWARD)
@@ -39,7 +39,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(False)
        st.set("onlyone","1")
-   return htmltext 
+   return htmltext
 
  def onTalk (self,npc,player):
    st = player.getQuestState(qn)
@@ -47,17 +47,17 @@ class Quest (JQuest) :
    if not st: return htmltext
    npcId = npc.getNpcId()
    id = st.getState()
-   cond = st.getInt("cond") 
+   cond = st.getInt("cond")
    onlyone = st.getInt("onlyone")
    GEM_COUNT = st.getQuestItemsCount(GEM)
    if id == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
-   elif id == State.CREATED and onlyone == 0 : 
+   elif id == State.CREATED and onlyone == 0 :
      if player.getLevel() >= QLVL :
-         htmltext = "31537-01.htm" 
-     else: 
-         htmltext = "31537-02.htm" 
-         st.exitQuest(1) 
+         htmltext = "31537-01.htm"
+     else:
+         htmltext = "31537-02.htm"
+         st.exitQuest(1)
    elif id == State.STARTED :
        if GEM_COUNT < 1 :
            htmltext = "31537-10.htm"
@@ -65,8 +65,8 @@ class Quest (JQuest) :
            htmltext = "31537-11.htm"
    return htmltext
 
-QUEST     = Quest(20,qn,"Bring up with Love") 
+QUEST     = Quest(20,qn,"Bring up with Love")
 
 
-QUEST.addStartNpc(TUNATUN) 
+QUEST.addStartNpc(TUNATUN)
 QUEST.addTalkId(TUNATUN)

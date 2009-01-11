@@ -86,7 +86,7 @@ class Quest (JQuest) :
        st.addExpAndSp(62366,2783)
        st.unset("cond")
        st.playSound("ItemSound.quest_finish")
-       st.exitQuest(False) 
+       st.exitQuest(False)
      else :
        htmltext = "You don't have required items"
    return htmltext

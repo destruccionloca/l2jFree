@@ -63,7 +63,7 @@ class Quest (JQuest) :
      st.rewardItems(ADENA,ADENA_REWARD)
      st.addExpAndSp(EXP,SP)
      st.playSound("ItemSound.quest_finish")
-     st.exitQuest(False) 
+     st.exitQuest(False)
    elif event != "31663-0a.htm":
      htmltext = default
    return htmltext

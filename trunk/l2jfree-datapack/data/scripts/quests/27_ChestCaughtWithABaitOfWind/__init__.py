@@ -34,7 +34,7 @@ class Quest (JQuest) :
     elif event == "31570-05.htm" and st.getQuestItemsCount(BLUE_TREASURE_BOX) :
       htmltext="31570-06.htm"
       st.playSound("ItemSound.quest_middle")
-      st.giveItems(STRANGE_BLUESPRINT, 1)
+      st.giveItems(STRANGE_BLUESPRINT,1)
       st.takeItems(BLUE_TREASURE_BOX,-1)
       st.set("cond","2")
     elif event == "31434-02.htm" and st.getQuestItemsCount(BLACK_PEARL_RING) :
@@ -43,11 +43,11 @@ class Quest (JQuest) :
       st.giveItems(BLACK_PEARL_RING,1)
       st.takeItems(STRANGE_BLUESPRINT,-1)
       st.unset("cond")
-      st.exitQuest(False) 
+      st.exitQuest(False)
     return htmltext
 
   def onTalk(self, npc, player):
-    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+    htmltext="<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     st = player.getQuestState(qn)
     if not st : return htmltext
     npcId=npc.getNpcId()

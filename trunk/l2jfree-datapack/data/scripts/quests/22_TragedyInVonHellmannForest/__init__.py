@@ -49,10 +49,10 @@ class Quest (JQuest) :
      self.soul = 0
      self.well = 0
 
- def onAdvEvent (self,event,npc, player) :
+ def onAdvEvent (self,event,npc,player) :
    st = player.getQuestState(qn)
    if not st: return
-   htmltext = event 
+   htmltext = event
    if event == "31334-02.htm" :
        st2 = player.getQuestState("21_HiddenTruth")
        if st2 :
@@ -161,7 +161,7 @@ class Quest (JQuest) :
        npc.reduceCurrentHp(9999999,npc)
        self.well = 0
        return
-   return htmltext 
+   return htmltext
 
  def onTalk (self,npc,player):
    st = player.getQuestState(qn)
@@ -171,7 +171,7 @@ class Quest (JQuest) :
    state = st.getState()
    id = st.getInt("id")
    ex = st.getInt("ex")
-   cond = st.getInt("cond") 
+   cond = st.getInt("cond")
    onlyone = st.getInt("onlyone")
    if state == State.COMPLETED :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
@@ -200,7 +200,7 @@ class Quest (JQuest) :
            htmltext = "31328-14.htm"
        elif id == 14 :
            st.playSound("ItemSound.quest_finish")
-           st.exitQuest(False) 
+           st.exitQuest(False)
            st.unset("id")
            st.addExpAndSp(EXP,SP)
            if player.getLevel() < QLVL_NEXTPART :
@@ -304,7 +304,7 @@ class Quest (JQuest) :
                st.set("cond","5")
    return
 
-QUEST     = Quest(22,qn,"Tragedy In Von Hellmann Forest") 
+QUEST     = Quest(22,qn,"Tragedy In Von Hellmann Forest")
 
 QUEST.addStartNpc(INNOCENTIN)
 QUEST.addStartNpc(TIFAREN)

@@ -51,7 +51,7 @@ class Quest (JQuest) :
        st.addExpAndSp(EXP,SP)
        st.unset("cond")
        st.playSound("ItemSound.quest_finish")
-       st.exitQuest(False) 
+       st.exitQuest(False)
      return htmltext
 
  def onTalk (self,npc,player):
@@ -66,7 +66,7 @@ class Quest (JQuest) :
      elif id == State.CREATED and npcId == DONAL :
        htmltext = "31314-01.htm"
      elif id == State.STARTED :
-       if npcId == DONAL : 
+       if npcId == DONAL :
          htmltext = "31314-04.htm"
        elif npcId == DAISY :
          if cond < 2 :

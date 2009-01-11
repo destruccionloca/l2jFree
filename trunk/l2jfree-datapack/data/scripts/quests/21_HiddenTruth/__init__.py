@@ -54,7 +54,7 @@ class Quest (JQuest) :
         htmltext = event
         if event == "31522-02.htm":
             st.setState(State.STARTED)
-            st.playSound("ItemSound.quest_accept") 
+            st.playSound("ItemSound.quest_accept")
             st.set("cond","1")
         elif event == "31328-05.htm":
             st.set("cond","0")
@@ -136,7 +136,7 @@ class Quest (JQuest) :
        else:
          htmltext = "This quest has already been completed."
      elif cond == 1:
-       htmltext = "31522-05.htm"       
+       htmltext = "31522-05.htm"
    elif npcId == TOMBSTONE :
      if cond == 1 :
        htmltext = "31523-01.htm"

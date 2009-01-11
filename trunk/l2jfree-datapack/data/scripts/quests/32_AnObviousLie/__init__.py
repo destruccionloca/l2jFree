@@ -88,7 +88,7 @@ class Quest (JQuest) :
        elif event=="rabbit":
          item=RABBIT_EAR
        st.giveItems(item,1)
-       st.exitQuest(False) 
+       st.exitQuest(False)
        st.unset("cond")
        st.playSound("ItemSound.quest_finish")
        htmltext = "30094-14.htm"

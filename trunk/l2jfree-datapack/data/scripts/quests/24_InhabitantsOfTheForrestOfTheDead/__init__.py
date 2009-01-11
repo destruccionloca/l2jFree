@@ -170,11 +170,11 @@ class Quest (JQuest) :
                 st.playSound("ItemSound.quest_middle")
         return
 
-    def onSpawn(self, npc) : 
-       if npc.getNpcId() == DORIAN_MOB : 
-          if GameTimeController.getInstance().isNowNight() : 
-             for player in npc.getKnownList().getKnownPlayers().values() : 
-                st = player.getQuestState(qn) 
+    def onSpawn(self, npc) :
+       if npc.getNpcId() == DORIAN_MOB :
+          if GameTimeController.getInstance().isNowNight() :
+             for player in npc.getKnownList().getKnownPlayers().values() :
+                st = player.getQuestState(qn)
                 if st:
                    st.takeItems(SilverCross,-1)
                    st.giveItems(BrokenSilverCross,1)

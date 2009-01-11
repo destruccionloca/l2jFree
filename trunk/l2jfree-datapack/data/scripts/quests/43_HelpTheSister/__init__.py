@@ -45,7 +45,7 @@ class Quest (JQuest) :
     elif event=="7":
       htmltext="30829-07.htm"
       st.giveItems(PET_TICKET,1)
-      st.exitQuest(False) 
+      st.exitQuest(False)
       st.exitQuest(0)
     return htmltext
 

@@ -50,7 +50,7 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_middle")
    elif event == "30146-06.htm" :
      st.giveItems(SCROLL_OF_ESCAPE_GIRAN,1)
-     st.giveItems(MARK_OF_TRAVELER, 1)
+     st.giveItems(MARK_OF_TRAVELER,1)
      st.set("cond","0")
      st.exitQuest(False)
      st.playSound("ItemSound.quest_finish")

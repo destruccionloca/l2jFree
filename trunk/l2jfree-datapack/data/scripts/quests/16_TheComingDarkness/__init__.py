@@ -88,7 +88,7 @@ class Quest (JQuest) :
      else:
        return htmltext
        st.exitQuest(1)
-   if id == State.STARTED :    
+   if id == State.STARTED :
        if npcId == EVIL_ALTAR_1 and cond == 1 :
          htmltext = "31512-0.htm"
        if npcId == EVIL_ALTAR_2 and cond == 2 :
