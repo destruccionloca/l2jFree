@@ -10,13 +10,12 @@ from com.l2jfree.gameserver.model.quest.jython     import QuestJython as JQuest
 from com.l2jfree.gameserver.network.serverpackets  import CreatureSay
 from com.l2jfree.gameserver.network.serverpackets  import MagicSkillUse
 from com.l2jfree.gameserver.network.serverpackets  import SystemMessage
-from com.l2jfree.tools.random                      import Rnd
 from com.l2jfree.gameserver.model.itemcontainer import PcInventory
 from com.l2jfree.gameserver.model import L2ItemInstance
 from com.l2jfree.gameserver.network.serverpackets import InventoryUpdate
 from com.l2jfree.gameserver.network.serverpackets import SystemMessage
 from com.l2jfree.gameserver.network import SystemMessageId
-
+from com.l2jfree.tools.random                      import Rnd
 
 qn = "DarkCloudMansion"
 
@@ -438,7 +437,7 @@ class DarkCloudMansion(JQuest):
 					sm.addItemName(item)
 					sm.addNumber(1)
 					player.sendPacket(sm)
-					if debug: print "DarkCloudMansion - id"+str(player.getObjectId())+" added to rewardist"
+					if debug: print "DarkCloudMansion - id"+str(player.getObjectId())+" added to reward list"
 					world.rewarded.append(player.getObjectId())
 				return
 		return
