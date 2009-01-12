@@ -144,6 +144,8 @@ public class Potions implements IItemHandler
 			10655,
 			10656,
 			10657,
+			// CT2.2 Herb
+			13028,
 			// Caravaners Remedy
 			9702,
 			// Bless of Eva
@@ -465,6 +467,9 @@ public class Potions implements IItemHandler
 			break;
 		case 10657:
 			res = usePotion(playable, 2513, 1);
+			break;
+		case 13028:
+			res = usePotion(playable, 2580, 1);
 			break;
 		case 8193: // Fisherman's Potion - Green
 			if (activeChar.getSkillLevel(1315) <= 3)

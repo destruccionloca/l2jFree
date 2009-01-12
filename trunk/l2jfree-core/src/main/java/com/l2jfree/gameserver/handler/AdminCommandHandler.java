@@ -116,6 +116,7 @@ public class AdminCommandHandler
 		registerAdminCommandHandler(new AdminUnblockIp());
 		registerAdminCommandHandler(new AdminVIPEngine());
 		registerAdminCommandHandler(new AdminZone());
+		registerAdminCommandHandler(new AdminVitality());
 		if (Config.IRC_ENABLED)
 			registerAdminCommandHandler(new AdminIRC());
 		_log.info("AdminCommandHandler: Loaded " + _datatable.size() + " handlers.");

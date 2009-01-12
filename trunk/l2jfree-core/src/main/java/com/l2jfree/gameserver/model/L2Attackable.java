@@ -764,7 +764,18 @@ public class L2Attackable extends L2NpcInstance
 										}
 									}
 								}
-								attacker.addExpAndSp(addexp, addsp);
+								if (Config.ENABLE_VITALITY)
+								{
+									if (attacker instanceof L2PcInstance)
+									{
+										((L2PcInstance)attacker).addVitExpAndSp(addexp, addsp, this);
+										((L2PcInstance)attacker).calculateVitalityPointsAddRed(this, reward._dmg, 1, 1f);
+									}
+									else
+										attacker.addExpAndSp(addexp, addsp);
+								}
+								else
+									attacker.addExpAndSp(addexp, addsp);
 							}
 						}
 					}
@@ -891,7 +902,7 @@ public class L2Attackable extends L2NpcInstance
 
 						// Distribute Experience and SP rewards to L2PcInstance Party members in the known area of the last attacker
 						if (partyDmg > 0)
-							attackerParty.distributeXpAndSp(exp, sp, rewardedMembers, partyLvl, this);
+							attackerParty.distributeXpAndSp(exp, sp, rewardedMembers, partyLvl, this, partyDmg);
 					}
 				}
 			}
@@ -1862,6 +1873,19 @@ public class L2Attackable extends L2NpcInstance
 					player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
 				else
 					dropItem(player, item);
+			}
+			// Vitality Herb
+			if (Config.ENABLE_VITALITY)
+			{
+				random = Rnd.get(100);
+				if (random < Config.RATE_DROP_VITALITY_HERBS)
+				{
+					RewardItem item = new RewardItem(13028, 1); // Vitality Replenishing Herb
+					if (Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS)
+						player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
+					else
+						dropItem(player, item);
+				}
 			}
 		}
 	}

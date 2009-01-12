@@ -233,6 +233,7 @@ import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
@@ -271,8 +272,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	private static final String	DELETE_SKILL_SAVE				= "DELETE FROM character_skills_save WHERE charId=? AND class_index=?";
 
 	// Character Character SQL String Definitions:
-	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=?,trust_level=? WHERE charId=?";
-	private static final String	RESTORE_CHARACTER				= "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level,trust_level FROM characters WHERE charId=?";
+	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=?,trust_level=?,vitality_points=? WHERE charId=?";
+	private static final String	RESTORE_CHARACTER				= "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level,trust_level,vitality_points FROM characters WHERE charId=?";
     
 	// Character Subclass SQL String Definitions:
 	private static final String	RESTORE_CHAR_SUBCLASSES			= "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE charId=? ORDER BY class_index ASC";
@@ -738,6 +739,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	/** List with the recommendations that I've given */
 	private List<Integer>					_recomChars				= new FastList<Integer>();
 
+	private double _vitalityPoints = 1.0;
+	private int _vitalityLevel = 0;
+	private Future<?> _VitalityResTask;
+
 	private boolean							_inCrystallize;
 
 	private boolean							_inCraftMode;
@@ -790,8 +795,32 @@ public final class L2PcInstance extends L2PlayableInstance
 	// WorldPosition used by TARGET_SIGNET_GROUND
 	private Point3D							_currentSkillWorldPosition;
 	
-	public int								_fame = 0;								// The Fame of this L2PcInstance
-	public int								_vitalityLevel = 5;						// Vitality Level of this L2PcInstance
+	public int								_fame = 0;					// The Fame of this L2PcInstance
+	
+	static class VitalityResTask implements Runnable
+	{
+		private L2PcInstance _activechar;
+ 
+	    VitalityResTask(L2PcInstance activeChar)
+	    {
+	      this._activechar = activeChar;
+	    }
+
+	    public void run()
+	    {
+	    	try
+	    	{
+	    		if ((this._activechar.isInsideZone((byte) 1)) && (this._activechar.getVitalityPoints() < 300000.0))
+	    		{
+	    			double incPointsInPeaceZone = Config.RATE_RECOVERY_VITALITY_PEACE_ZONE;
+	    			this._activechar.incVitalityPointsBy(incPointsInPeaceZone, true);
+	    		}
+	    	}
+	    	catch (Exception e)
+	    	{
+	    	}
+	    }
+	}
 
 	/** Skill casting information (used to queue when several skills are cast in a short time) **/
 	public class SkillDat
@@ -1072,6 +1101,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (!Config.WAREHOUSE_CACHE)
 			getWarehouse();
 		getFreight().restore();
+		
+		if (Config.ENABLE_VITALITY)
+			startVitalityTask();
 	}
 
 	private L2PcInstance(int objectId)
@@ -5612,6 +5644,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		
 		stopPvPFlag();
 		stopJailTask(true);
+		
+		if (Config.ENABLE_VITALITY)
+			stopVitalityResTask();
 	}
 
 	/**
@@ -6750,6 +6785,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				player.setAllianceWithVarkaKetra(rset.getInt("varka_ketra_ally"));
 				player.setDeathPenaltyBuffLevel(rset.getInt("death_penalty_level"));
 				player.setTrustLevel(rset.getInt("trust_level"));
+				player.setVitalityPoints(rset.getDouble("vitality_points"), false);
 
 				// Add the L2PcInstance object in _allObjects
 				// L2World.getInstance().storeObject(player);
@@ -7163,7 +7199,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			statement.setString(49, getName());
 			statement.setLong(50, getDeathPenaltyBuffLevel());
 			statement.setLong(51, getTrustLevel());
-			statement.setInt(52, getObjectId());
+			statement.setDouble(52, getVitalityPoints());
+		    statement.setInt(53, getObjectId());
 			statement.execute();
 			statement.close();
 		}
@@ -10920,6 +10957,41 @@ public final class L2PcInstance extends L2PlayableInstance
 		getStat().addExpAndSp(addToExp, addToSp);
 	}
 
+	public void addVitExpAndSp(long addToExp, int addToSp, L2NpcInstance target)
+	{
+		if (target == null)
+			return;
+
+		long addToExpVit = addToExp;
+		int addToSpVit = addToSp;
+
+		if (!target.isRaid())
+		{
+			switch (getVitalityLevel())
+			{
+			case 0:
+				break;
+			case 1:
+				addToExpVit = (long)(addToExpVit * Config.RATE_VITALITY_LEVEL_1);
+				addToSpVit = (int)(addToSpVit * Config.RATE_VITALITY_LEVEL_1);
+				break;
+			case 2:
+				addToExpVit = (long)(addToExpVit * Config.RATE_VITALITY_LEVEL_2);
+				addToSpVit = (int)(addToSpVit * Config.RATE_VITALITY_LEVEL_2);
+				break;
+			case 3:
+				addToExpVit = (long)(addToExpVit * Config.RATE_VITALITY_LEVEL_3);
+				addToSpVit = (int)(addToSpVit * Config.RATE_VITALITY_LEVEL_3);
+				break;
+			case 4:
+				addToExpVit = (long)(addToExpVit * Config.RATE_VITALITY_LEVEL_4);
+				addToSpVit = (int)(addToSpVit * Config.RATE_VITALITY_LEVEL_4);
+			}		
+			getStat().addExpAndSp(addToExpVit, addToSpVit); 
+		}
+	}
+	
+	
 	public void removeExpAndSp(long removeExp, int removeSp)
 	{
 		getStat().removeExpAndSp(removeExp, removeSp);
@@ -13174,6 +13246,217 @@ public final class L2PcInstance extends L2PlayableInstance
 		return _agathionId;
 	}
 
+	private void startVitalityTask()
+	{
+		stopVitalityResTask();
+		this._VitalityResTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new VitalityResTask(this), 1000, 1000);
+	}
+	
+	private void stopVitalityResTask()
+	{
+		if (this._VitalityResTask != null)
+		{
+			this._VitalityResTask.cancel(true);
+			this._VitalityResTask = null;
+		}
+	}
+	
+    public synchronized void setVitalityPoints(double val, boolean sendMessage)
+    {
+    	if (val >= 300000.0)
+    		this._vitalityPoints = 300000.0;
+    	else if (val <= 1D)
+    		this._vitalityPoints = 1.0;
+    	else
+    		this._vitalityPoints = val;
+
+    	updateVitalityLevel(sendMessage);
+     }
+ 
+    public double getVitalityPoints()
+    {
+    	return this._vitalityPoints;
+    }
+
+    public void setVitalityLevel(int val, boolean sendMessage)
+    {
+    	int oldVitalityLVL = getVitalityLevel();
+
+    	this._vitalityLevel = val;
+
+    	int curVitalityLVL = getVitalityLevel();
+
+    	sendPacket(new UserInfo(this));
+
+    	if (sendMessage)
+    	{
+    		if (oldVitalityLVL < curVitalityLVL)
+    			sendPacket(new SystemMessage(SystemMessageId.VITALITY_HAS_INCREASED));
+
+    		if (oldVitalityLVL > curVitalityLVL)
+    			sendPacket(new SystemMessage(SystemMessageId.VITALITY_HAS_DECREASED));
+
+    		if (curVitalityLVL == 4)
+    			sendPacket(new SystemMessage(SystemMessageId.VITALITY_IS_AT_MAXIMUM));
+
+    		if (curVitalityLVL == 0)
+    			sendPacket(new SystemMessage(SystemMessageId.VITALITY_IS_FULLY_EXHAUSTED));
+    	}
+    }
+
+    public int getVitalityLevel()
+    {
+    	return this._vitalityLevel;
+    }
+
+    public void updateVitalityLevel(boolean sendMessage)
+    {
+    	int curVitalityLVL = getVitalityLevel();
+    	double curVitalityPoints = getVitalityPoints();
+
+    	if ((curVitalityPoints >= 273000.0) && (curVitalityPoints <= 300000.0) && 
+    			(curVitalityLVL < 4))
+    		setVitalityLevel(4, sendMessage);
+    	if ((curVitalityPoints > 219000.0) && (curVitalityPoints <= 273000.0) && ((
+    			(curVitalityLVL > 3) || (curVitalityLVL < 3))))
+    		setVitalityLevel(3, sendMessage);
+    	if ((curVitalityPoints > 27000.0) && (curVitalityPoints <= 219000.0) && ((
+    			(curVitalityLVL > 2) || (curVitalityLVL < 2))))
+    		setVitalityLevel(2, sendMessage);
+    	if ((curVitalityPoints > 3600.0) && (curVitalityPoints <= 27000.0) && ((
+    			(curVitalityLVL > 1) || (curVitalityLVL < 1))))
+    		setVitalityLevel(1, sendMessage);
+    	if ((curVitalityPoints <= 3600.0) && 
+    			(curVitalityLVL > 0))
+    		setVitalityLevel(0, sendMessage);
+    }
+
+    public synchronized void incVitalityPointsBy(double val, boolean sendMessage)
+    {
+    	double curVitalPoints = this._vitalityPoints;
+
+    	if (curVitalPoints + val >= 300000.0)
+    		this._vitalityPoints = 300000.0;
+    	else
+    		this._vitalityPoints += val;
+
+    	updateVitalityLevel(sendMessage);
+    }
+
+    public synchronized void decVitalityPointsBy(double val, boolean sendMessage)
+    {
+    	double curVitalPoints = this._vitalityPoints;
+	
+    	if (curVitalPoints - val <= 1D)
+    		this._vitalityPoints = 1;
+    	else
+    		this._vitalityPoints -= val;
+	
+    	updateVitalityLevel(sendMessage);
+    }
+
+    public void calculateVitalityPointsAddRed(L2NpcInstance target, int Dmg, int partyMembers, float partyExpRate)
+    {
+    	double calculatedVitPointLos;
+    	if (target == null)
+    		return;
+
+    	L2NpcTemplate template = target.getTemplate();
+    	int targetExp = template._rewardExp;
+    	int playerLVL = getLevel();
+    	int targetLVL = target.getLevel();
+    	int lvlDiff = targetLVL - playerLVL;
+    	long playerExpDiff = com.l2jfree.gameserver.model.base.Experience.LEVEL[(playerLVL + 1)] - com.l2jfree.gameserver.model.base.Experience.LEVEL[playerLVL];
+    	double hpRate = target.getStat().calcStat(Stats.MAX_HP, 1D, this, null);
+    	double baseVitLostGet = 1000.0;
+    	double basePartyExpRate = 1.0;
+    	double lvlDiffRate = 1.0;
+    	double dmgRate = 1.0;
+
+    	if (targetExp == 0)
+    		return;
+
+    	if (playerLVL < 10)
+    		return;
+
+    	if (Dmg >= target.getMaxHp())
+    		Dmg = target.getMaxHp();
+    	else if ((Dmg < target.getMaxHp()) && (Dmg != 0))
+    		dmgRate = 100.0 / target.getMaxHp() * Dmg / 100.0;
+
+    	if (hpRate > 1D)
+    		hpRate = 1D + hpRate / 10.0;
+
+    	if (partyMembers < 2)
+    		partyMembers = 1;
+
+    	if ((partyExpRate > 1F) && (partyMembers > 1))
+    		basePartyExpRate += partyExpRate / 10.0;
+
+    	double preCalc = playerLVL * playerLVL * targetExp * hpRate * basePartyExpRate / playerExpDiff * baseVitLostGet;
+
+    	boolean isVitalityBuffed = false;
+    	
+    	L2Effect[] effects = getAllEffects();
+		for (L2Effect e : effects)
+		{
+			if (e.getSkill().getId() == 2580)
+				isVitalityBuffed = true;
+		}
+    	
+    	if (target.isRaid() || isVitalityBuffed)
+    	{
+    		if (lvlDiff > 0)
+    			lvlDiffRate += lvlDiff / 10.0;
+    		else if (lvlDiff < 0)
+    			lvlDiffRate -= Math.abs(lvlDiff) / 10.0;
+
+    		if (lvlDiffRate > 2.0)
+    			lvlDiffRate = 2.0;
+
+    		if (lvlDiffRate <= 0)
+    			lvlDiffRate = 0.10000000000000001;
+
+    		calculatedVitPointLos = (preCalc * lvlDiffRate * dmgRate / partyMembers / 2.0) * Config.RATE_VITALITY_GAIN;
+
+    		if (calculatedVitPointLos > 0)
+    			sendPacket(new SystemMessage(SystemMessageId.GAINED_VITALITY_POINTS));
+
+    		incVitalityPointsBy(calculatedVitPointLos, true);
+    	}
+    	else
+    	{
+    		if (lvlDiff > 0)
+    			lvlDiffRate -= lvlDiff / 10;
+    		else if (lvlDiff < 0)
+    			lvlDiffRate += Math.abs(lvlDiff) / 10;
+
+    		if (lvlDiffRate <= 0)
+    			lvlDiffRate = 0.10000000000000001;
+
+    		if (lvlDiffRate > 2.0)
+    			lvlDiffRate = 2.0;
+
+    		calculatedVitPointLos = (preCalc * lvlDiffRate * dmgRate / partyMembers) * Config.RATE_VITALITY_LOST;
+    		decVitalityPointsBy(calculatedVitPointLos, true);
+    	}
+    }
+
+    public void restoreVitality()
+    {
+		long lastAccessTime = getLastAccess();
+		long curTime = System.currentTimeMillis();
+		double vitalityPointsRest = getVitalityPoints();
+		double vitalityPointsToAdd = ((curTime - lastAccessTime) / 1000.0) * Config.RATE_RECOVERY_ON_RECONNECT;
+		
+		if (vitalityPointsToAdd <= 0)
+		vitalityPointsToAdd = 0;
+		
+		if(Config.RECOVER_VITALITY_ON_RECONNECT)
+			setVitalityPoints(vitalityPointsRest + vitalityPointsToAdd, false);
+	}
+
+	
 	public L2StaticObjectInstance getObjectSittingOn()
 	{
 		return _objectSittingOn;
@@ -13270,18 +13553,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	/**
-	* Returns the VL <BR><BR>
-	* @return
-	*/
-	public int getVitalityLevel()
-	{
-		return _vitalityLevel;
-	}
-
-	/**
 	* Sets VL of this L2PcInstance<BR><BR>
 	* @param level
 	*/
+	/*
 	public void setVitalityLevel(int level)
 	{
 		if (level > 5)
@@ -13290,7 +13565,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			level = 0;
 
 		_vitalityLevel = level;
-	}
+	}*/
 
 	/*
 	 * Function for skill Summon Friend or Gate Chant.

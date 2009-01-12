@@ -140,6 +140,9 @@ public class CharacterCreate extends L2GameClientPacket
 			newChar.getStatus().setCurrentMp(template.getBaseMpMax());
 			//newChar.setMaxLoad(template.baseLoad);
 			
+			//vit sys
+			newChar.setVitalityPoints(300000.0D, false);
+			
 			// send acknowledgement
 			CharCreateOk cco = new CharCreateOk();
 			sendPacket(cco);

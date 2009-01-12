@@ -485,11 +485,20 @@ public final class Config
 	public static float			RATE_DROP_GREATER_HERBS;
 	public static float			RATE_DROP_SUPERIOR_HERBS;
 	public static float			RATE_DROP_SPECIAL_HERBS;
+	public static float			RATE_DROP_VITALITY_HERBS;
 	public static int			KARMA_DROP_LIMIT;
 	public static int			KARMA_RATE_DROP;
 	public static int			KARMA_RATE_DROP_ITEM;
 	public static int			KARMA_RATE_DROP_EQUIP;
 	public static int			KARMA_RATE_DROP_EQUIP_WEAPON;
+	public static float			RATE_VITALITY_LEVEL_1;
+	public static float			RATE_VITALITY_LEVEL_2;
+	public static float			RATE_VITALITY_LEVEL_3;
+	public static float			RATE_VITALITY_LEVEL_4;
+	public static float			RATE_RECOVERY_VITALITY_PEACE_ZONE;
+	public static float			RATE_VITALITY_LOST;
+	public static float			RATE_VITALITY_GAIN;
+	public static float			RATE_RECOVERY_ON_RECONNECT;
 
 	// *******************************************************************************************
 	public static void loadRatesConfig()
@@ -528,6 +537,7 @@ public final class Config
 			RATE_DROP_GREATER_HERBS = Float.parseFloat(ratesSettings.getProperty("RateGreaterHerbs", "4."));
 			RATE_DROP_SUPERIOR_HERBS = Float.parseFloat(ratesSettings.getProperty("RateSuperiorHerbs", "0.8")) * 10;
 			RATE_DROP_SPECIAL_HERBS = Float.parseFloat(ratesSettings.getProperty("RateSpecialHerbs", "0.2")) * 10;
+			RATE_DROP_VITALITY_HERBS = Float.parseFloat(ratesSettings.getProperty("RateVitalityHerbs", "5."));
 
 			PLAYER_DROP_LIMIT = Integer.parseInt(ratesSettings.getProperty("PlayerDropLimit", "3"));
 			PLAYER_RATE_DROP = Integer.parseInt(ratesSettings.getProperty("PlayerRateDrop", "5"));
@@ -544,6 +554,15 @@ public final class Config
 			KARMA_RATE_DROP_ITEM = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropItem", "50"));
 			KARMA_RATE_DROP_EQUIP = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquip", "40"));
 			KARMA_RATE_DROP_EQUIP_WEAPON = Integer.parseInt(ratesSettings.getProperty("KarmaRateDropEquipWeapon", "10"));
+			
+			RATE_VITALITY_LEVEL_1 = Float.parseFloat(ratesSettings.getProperty("RateVitalityLevel1", "1.5"));
+			RATE_VITALITY_LEVEL_2 = Float.parseFloat(ratesSettings.getProperty("RateVitalityLevel2", "2."));
+			RATE_VITALITY_LEVEL_3 = Float.parseFloat(ratesSettings.getProperty("RateVitalityLevel3", "2.5"));
+			RATE_VITALITY_LEVEL_4 = Float.parseFloat(ratesSettings.getProperty("RateVitalityLevel4", "3."));
+			RATE_RECOVERY_VITALITY_PEACE_ZONE = Float.parseFloat(ratesSettings.getProperty("RateRecoveryPeaceZone", "0.25"));
+			RATE_RECOVERY_ON_RECONNECT = Float.parseFloat(ratesSettings.getProperty("RateRecoveryOnReconnect", "1."));
+			RATE_VITALITY_LOST = Float.parseFloat(ratesSettings.getProperty("RateVitalityLost", "1."));
+			RATE_VITALITY_GAIN = Float.parseFloat(ratesSettings.getProperty("RateVitalityGain", "1."));
 		}
 		catch (Exception e)
 		{
@@ -1114,6 +1133,8 @@ public final class Config
 	public static boolean			ALLOW_MASTERWORK;
 	public static boolean			ALLOW_CRITICAL_CRAFT;
 
+	public static boolean			ENABLE_VITALITY;							// Vitality system
+	public static boolean			RECOVER_VITALITY_ON_RECONNECT;
 	// *******************************************************************************************
 	public static void loadOptionsConfig()
 	{
@@ -1259,12 +1280,15 @@ public final class Config
 
 			ONLY_GM_ITEMS_FREE = Boolean.parseBoolean(optionsSettings.getProperty("OnlyGMItemsFree", "True"));
 
+			ENABLE_VITALITY = Boolean.parseBoolean(optionsSettings.getProperty("EnableVitality", "False"));
+			RECOVER_VITALITY_ON_RECONNECT = Boolean.parseBoolean(optionsSettings.getProperty("RecoverVitalityOnReconnect", "True"));
+
 			// ---------------------------------------------------
 			// Configuration values not found in config files
 			// ---------------------------------------------------
 
 			CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(optionsSettings.getProperty("CheckSkillsOnEnter", "false"));
-
+			
 			ALLOWED_SKILLS = optionsSettings
 					.getProperty("AllowedSkills", "541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,617,618,619");
 			ALLOWED_SKILLS_LIST = new FastList<Integer>();

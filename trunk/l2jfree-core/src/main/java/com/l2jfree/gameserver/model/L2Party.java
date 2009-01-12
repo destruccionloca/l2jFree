@@ -753,7 +753,7 @@ public class L2Party
 	 * @param rewardedMembers The list of L2PcInstance to reward
 	 * 
 	 */
-    public void distributeXpAndSp(long xpReward, int spReward, List<L2PlayableInstance> rewardedMembers, int topLvl, L2NpcInstance target)
+    public void distributeXpAndSp(long xpReward, int spReward, List<L2PlayableInstance> rewardedMembers, int topLvl, L2NpcInstance target, int partyDmg)
     {
         L2SummonInstance summon = null;
         List<L2PlayableInstance> validMembers = getValidMembers(rewardedMembers, topLvl);
@@ -817,7 +817,19 @@ public class L2Party
 									((L2PcInstance)member).absorbSoulFromNpc(skill,target);
 							}
 						}
-						member.addExpAndSp(addexp,addsp);
+						
+						if (Config.ENABLE_VITALITY)
+						{
+							if (member instanceof L2PcInstance)
+							{
+								((L2PcInstance) member).addVitExpAndSp(addexp, addsp, target);
+								((L2PcInstance) member).calculateVitalityPointsAddRed(target, partyDmg, rewardedMembers.size(), Config.RATE_PARTY_XP);
+							}
+							else
+								member.addExpAndSp(addexp,addsp);
+						}
+						else
+							member.addExpAndSp(addexp,addsp);
 					}
 				}
 				else

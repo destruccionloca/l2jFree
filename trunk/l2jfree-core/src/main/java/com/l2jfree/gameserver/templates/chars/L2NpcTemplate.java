@@ -66,14 +66,14 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	private int									_npcId;
 	private int									_idTemplate;
-	private String								_type;
+	public String								_type;
 	private String								_name;
 	private boolean								_serverSideName;
 	private String								_title;
 	private boolean								_serverSideTitle;
 	private String								_sex;
 	private byte								_level;
-	private int									_rewardExp;
+	public int									_rewardExp;
 	private int									_rewardSp;
 	private int									_aggroRange;
 	private int									_rhand;
