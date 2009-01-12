@@ -507,8 +507,7 @@
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
     <for>
-		<effect name="Buff" time="300" val="0" stackOrder="1" stackType="none">
-		</effect>
+      <effect name="Buff" time="300" val="0" stackOrder="1" stackType="none" />
     </for>
   </skill>
   <skill id="2581" levels="1" name="not_used">
