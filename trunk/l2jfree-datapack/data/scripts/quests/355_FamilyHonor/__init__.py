@@ -84,7 +84,7 @@ class Quest (JQuest) :
    cond = st.getInt("cond")
    count = st.getQuestItemsCount(GALFREDOS_BUST)
    bonus1 = 2800
-   bonus2 = 5000 
+   bonus2 = 5000
    if npcId == GALIBREDO :
      if cond == 0 :
        if player.getLevel() >= 36 : 
@@ -94,7 +94,7 @@ class Quest (JQuest) :
          st.exitQuest(1)
      elif cond == 1 :
        if count :
-         reward = count * 232 + bonus
+         reward = count * 232 + bonus1
          if count >= 100 :
            reward = reward + bonus2
          st.takeItems(GALFREDOS_BUST,count)
@@ -130,6 +130,6 @@ QUEST.addStartNpc(GALIBREDO)
 QUEST.addTalkId(GALIBREDO)
 QUEST.addTalkId(PATRIN)
 
-#MOBS TIMAK ORC TROOPS
+# MOBS TIMAK ORC TROOPS
 for MOBS in range(20767,20771) :
   QUEST.addKillId(MOBS)

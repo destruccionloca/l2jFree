@@ -18,8 +18,9 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-import com.l2jfree.util.FastList;
-import com.l2jfree.util.FastMap;
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.L2Attackable;
@@ -39,6 +40,8 @@ import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 
 public class SagasSuperClass extends QuestJython
 {
+	private static Logger _log = Logger.getLogger("SagasSuperClass");
+
 	private static FastList<Quest> _scripts = new FastList<Quest>();
 	public String qn = "SagasSuperClass";
 	public int[] NPC = {};
@@ -145,10 +148,9 @@ public class SagasSuperClass extends QuestJython
 	{
 		L2PcInstance player = null;
 		QuestState st = null;
-		LogRecord record;
 		if (!_SpawnList.containsKey(npc))
 		{
-			record = new LogRecord(Level.WARNING, "Founded NPE at findRightState() - npcId: "+ String.valueOf(npc.getNpcId()));
+			LogRecord record = new LogRecord(Level.WARNING, "Founded NPE at findRightState() - npcId: " + String.valueOf(npc.getNpcId()));
 			record.setLoggerName("SagasSuperClass");
 			_log.log(record);
 			return null;
