@@ -112,7 +112,7 @@ class Quest (JQuest) :
             if mage :
                st.giveItems(SPIRITSHOT_NO_GRADE,500)
             else : 
-            st.giveItems(SOULSHOT_NOGRADE,1000)
+               st.giveItems(SOULSHOT_NOGRADE,1000)
             for item in range(4412,4417) : 
                st.giveItems(item,int(10))   # Echo crystals 
             st.set("cond","0")

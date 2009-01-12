@@ -77,7 +77,7 @@ class Quest (JQuest) :
         st.takeItems(LETTER_OF_ORDER2,1)
         st.takeItems(LEMONIELLS_COVENANT,1)
         st.giveItems(MARK_OF_FAITH,1)
-        // st.rewardItems(57,81900) 	This quest should give adena rewards 2 times each time??  not sure, uncomment if that's the case
+        # st.rewardItems(57,81900) 	This quest should give adena rewards 2 times each time??  not sure, uncomment if that's the case
         st.addExpAndSp(295862,17664)
         st.set("cond","0")
         st.exitQuest(False)
