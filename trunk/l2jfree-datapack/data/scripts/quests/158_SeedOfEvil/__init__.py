@@ -52,7 +52,7 @@ class Quest (JQuest) :
           st.takeItems(CLAY_TABLET_ID,st.getQuestItemsCount(CLAY_TABLET_ID))
           st.addExpAndSp(17818, 927)
           st.set("cond","0")
-          st.exitQuest(False) 
+          st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")
           st.set("onlyone","1")
           htmltext = "30031-06.htm"

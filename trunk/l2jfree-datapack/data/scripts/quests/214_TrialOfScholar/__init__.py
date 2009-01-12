@@ -281,12 +281,13 @@ class Quest (JQuest) :
             htmltext = "30461-14.htm"
             st.takeItems(MIRIENS_SIGIL3_ID,-1)
             st.takeItems(SYMBOL_OF_CRONOS_ID,-1)
-            st.addExpAndSp(80265,30000)
+            st.addExpAndSp(876963,56877)
+            st.rewardItems(57,159814)
             st.rewardItems(7562,8)
             st.giveItems(MARK_OF_SCHOLAR_ID,1)
             st.set("cond","0")
             st.set("onlyone","1")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
    elif npcId == 30070 and cond == 1 :
         htmltext = "30070-01.htm"

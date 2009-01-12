@@ -6,6 +6,7 @@ from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets import SocialAction
 
 qn = "405_PathToCleric"
 
@@ -76,10 +77,12 @@ class Quest (JQuest) :
         st.takeItems(LETTER_OF_ORDER2,1)
         st.takeItems(LEMONIELLS_COVENANT,1)
         st.giveItems(MARK_OF_FAITH,1)
+        // st.rewardItems(57,81900) 	This quest should give adena rewards 2 times each time??  not sure, uncomment if that's the case
         st.addExpAndSp(295862,17664)
         st.set("cond","0")
         st.exitQuest(False)
         st.playSound("ItemSound.quest_finish")
+        player.sendPacket(SocialAction(player.getObjectId(),3))
    elif npcId == 30022 and st.getInt("cond") and st.getQuestItemsCount(LETTER_OF_ORDER1)==1 :
         if st.getQuestItemsCount(BOOK_OF_VIVI) == 1 and st.getQuestItemsCount(BOOK_OF_SIMLON)>0 and st.getQuestItemsCount(BOOK_OF_PRAGA) == 1 :
             htmltext = "30022-08.htm"

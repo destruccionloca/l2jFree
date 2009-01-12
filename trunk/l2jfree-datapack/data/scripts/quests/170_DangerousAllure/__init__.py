@@ -49,7 +49,7 @@ class Quest (JQuest) :
          st.rewardItems(57,102680)
          st.takeItems(NIGHTMARE_CRYSTAL,-1)
          st.addExpAndSp(38607,4018)
-         st.exitQuest(False) 
+         st.exitQuest(False)
          st.playSound("ItemSound.quest_finish")
       else :
          htmltext = "30305-05.htm"

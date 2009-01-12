@@ -9,10 +9,10 @@ from com.l2jfree.gameserver.network.serverpackets import NpcSay
 
 qn = "24_InhabitantsOfTheForrestOfTheDead"
 
-#QUEST LEVEL
+# Quest Level
 QLVL = 65
 
-#QUEST ITEM
+# Quest Item
 DROP_CHANCE = 30*Config.RATE_DROP_QUEST
 
 # Npcs
@@ -21,7 +21,7 @@ Wizard     = 31522
 Tombstone  = 31531
 MaidOfLidia = 31532
 
-#MOB
+# Mob
 DORIAN_MOB = 25332
 
 #Items
@@ -32,10 +32,6 @@ Flower            = 7152
 SilverCross       = 7153
 BrokenSilverCross = 7154
 SuspiciousTotem   = 7156
-
-#REWARD
-EXP = 242105
-SP  = 22529
 
 def FindTemplate (npcId) :
     npcinstance = 0
@@ -84,7 +80,7 @@ class Quest (JQuest) :
             st.set("cond","11")
         elif event == "31522-19.htm":
             st.giveItems(SuspiciousTotem,1)
-            st.addExpAndSp(EXP, SP)
+            st.addExpAndSp(242105,22529)
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
         elif event == "31531-02.htm":

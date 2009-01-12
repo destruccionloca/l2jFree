@@ -116,14 +116,14 @@ class Quest (JQuest) :
        htmltext = "30531-05.htm"
      elif progress==17 :
        htmltext = "30531-06.htm"
-       st.rewardItems(57,186077)
+       st.rewardItems(57,186977)
        st.takeItems(RECOMMENDATION_OF_BALANKI,1)
        st.takeItems(RECOMMENDATION_OF_FILAUR,1)
        st.takeItems(RECOMMENDATION_OF_ARIN,1)
        st.giveItems(MARK_OF_MAESTRO,1)
        st.addExpAndSp(1029122,70620)
        st.unset("progress")
-       st.exitQuest(False) 
+       st.exitQuest(False)
        st.playSound("ItemSound.quest_finish")
    elif npcId == 30533:
      if progress in [1,11,16] and not st.getQuestItemsCount(RECOMMENDATION_OF_BALANKI):

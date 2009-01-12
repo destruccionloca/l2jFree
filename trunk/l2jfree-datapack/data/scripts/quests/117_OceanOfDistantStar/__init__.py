@@ -62,14 +62,14 @@ class Quest (JQuest) :
       st.rewardItems(57,17647)
       st.addExpAndSp(107387,7369)
       st.playSound("ItemSound.quest_finish")
-      st.exitQuest(False) 
+      st.exitQuest(False)
     return htmltext
 
   def onTalk(self, npc, player):
     st = player.getQuestState(qn)
     if not st : return htmltext    
     npcId=npc.getNpcId()
-    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+    htmltext="<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     id = st.getState()
     if id == State.CREATED and npcId == ABEY :
       if st.getPlayer().getLevel() >= 39 :

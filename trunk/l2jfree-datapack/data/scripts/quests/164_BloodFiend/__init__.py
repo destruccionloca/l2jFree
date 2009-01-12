@@ -55,7 +55,7 @@ class Quest (JQuest) :
             st.takeItems(KIRUNAK_SKULL_ID,1)
             st.addExpAndSp(35637,1854)
             st.set("cond","0")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
             st.set("onlyone","1")
    return htmltext

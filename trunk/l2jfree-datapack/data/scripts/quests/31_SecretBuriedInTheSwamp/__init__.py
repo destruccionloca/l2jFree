@@ -23,9 +23,6 @@ KRORINS_JOURNAL = 7252
 
 #REWARD
 ADENA        = 57
-ADENA_REWARD = 120000
-EXP          = 490000
-SP           = 45880
 
 #MESSAGES
 default = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
@@ -60,8 +57,8 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_middle")
    elif event == "31555-7.htm" and cond == 7:
      st.takeItems(KRORINS_JOURNAL,-1)
-     st.rewardItems(ADENA,ADENA_REWARD)
-     st.addExpAndSp(EXP,SP)
+     st.rewardItems(ADENA,120000)
+     st.addExpAndSp(490000,45880)
      st.playSound("ItemSound.quest_finish")
      st.exitQuest(False)
    elif event != "31663-0a.htm":

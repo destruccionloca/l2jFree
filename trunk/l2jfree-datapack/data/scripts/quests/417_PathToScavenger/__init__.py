@@ -261,7 +261,7 @@ class Quest (JQuest) :
           st.rewardItems(57,81900)
           st.giveItems(RING_OF_RAVEN,1)
           st.takeItems(SUCCUBUS_UNDIES,1)
-          st.addExpAndSp(228064,21055)
+          st.addExpAndSp(295862,24404)
           st.set("cond","0")
           st.exitQuest(False)
           st.playSound("ItemSound.quest_finish")

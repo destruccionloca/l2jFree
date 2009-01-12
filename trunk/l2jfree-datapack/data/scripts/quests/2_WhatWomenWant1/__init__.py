@@ -24,12 +24,9 @@ POETRY_BOOK      = 689
 GREENIS_LETTER   = 693
  
 #REWARDS
-ADENA_ID         = 57
-ADENA_REWARD     = 1850
+ADENA            = 57
 BEGINNERS_POTION = 1073
 MYSTICS_EARRING  = 113
-EXP              = 4254
-SP               = 335
 
 #RACE
 ELF   = 1
@@ -58,7 +55,8 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_middle")
    elif event == "30223-10.htm" :
      st.takeItems(ARUJIENS_LETTER3,-1)
-     st.giveItems(MYSTICS_EARRING,1)
+     st.rewardItems(ADENA,2300) 
+     st.addExpAndSp(4254,335) 
      st.set("cond","0")
      st.exitQuest(False)
      st.playSound("ItemSound.quest_finish")
@@ -100,9 +98,9 @@ class Quest (JQuest) :
      elif st.getQuestItemsCount(GREENIS_LETTER) :
        htmltext = "30223-10.htm"
        st.takeItems(GREENIS_LETTER,-1)
-       st.rewardItems(ADENA_ID,ADENA_REWARD)
+       st.rewardItems(ADENA,1850)
        st.giveItems(MYSTICS_EARRING,1)
-       st.addExpAndSp(EXP,SP)
+       st.addExpAndSp(4254,335)
        st.set("cond","0")
        st.exitQuest(False)
        st.playSound("ItemSound.quest_finish")

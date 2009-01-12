@@ -91,8 +91,8 @@ class Quest (JQuest) :
            if player.getClassId().isMage() :
               st.giveItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
               st.playTutorialVoice("tutorial_voice_027")
-        st.giveItems(WAND_OF_ADEPT,1)
         st.rewardItems(1060,100)     # Lesser Healing Potions
+        st.giveItems(WAND_OF_ADEPT,1)
         for item in range(4412,4417) :
             st.giveItems(item,10)   # Echo crystals
 	st.addExpAndSp(39750,3407)

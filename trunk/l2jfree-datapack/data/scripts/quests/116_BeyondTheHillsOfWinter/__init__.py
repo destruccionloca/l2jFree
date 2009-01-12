@@ -52,18 +52,18 @@ class Quest (JQuest) :
 		elif event == "32052-01.htm" :
 			htmltext = "32052-01.htm"
 		elif event == "materials" :
-			st.giveItems(SS, 1740)
+			st.giveItems(SS,1740)
 			st.takeItems(SGOODS, -1)
 			st.playSound("ItemSound.quest_itemget")
-			st.addExpAndSp(82792, 4981)
+			st.addExpAndSp(82792,4981)
 			htmltext = "32052-02.htm"
 			st.playSound("ItemSound.quest_finish")
 			st.exitQuest(False)
 		elif event == "adena" :
-			st.rewardItems(ADENA, 16500)
+			st.rewardItems(ADENA,16500)
 			st.takeItems(SGOODS, -1)
 			st.playSound("ItemSound.quest_itemget")
-			st.addExpAndSp(82792, 4981)
+			st.addExpAndSp(82792,4981)
 			htmltext = "32052-02.htm"
 			st.playSound("ItemSound.quest_finish")
 			st.exitQuest(False)

@@ -24,10 +24,7 @@ NPC_GIFTS = {TATARU_ZU_HESTUI:BEAR_FUR_CLOAK,VARKEES:HONEY_KHANDAR,GR00KIN:BLOOD
 
 #REWARDS
 CLUB         = 4
-ADENA_ID     = 57
-ADENA_REWARD = 1850
-EXP          = 4254
-SP           = 335
+ADENA        = 57
 
 #RACE
 ORC = 3
@@ -71,11 +68,11 @@ class Quest (JQuest) :
        htmltext = "30578-04.htm"
      elif cond == 2 :
        htmltext = "30578-06.htm"
-       st.giveItems(CLUB, 1)
-       st.rewardItems(ADENA_ID,ADENA_REWARD)
+       st.giveItems(CLUB,1)
+       st.rewardItems(ADENA,1850)
        for item in NPC_GIFTS.values():
            st.takeItems(item,-1)
-       st.addExpAndSp(EXP,SP)
+       st.addExpAndSp(4254,335)
        st.unset("cond")
        st.exitQuest(False)
        st.playSound("ItemSound.quest_finish")
