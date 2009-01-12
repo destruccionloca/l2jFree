@@ -7,27 +7,21 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "1_LettersOfLove1"
 
-#QUEST LVL
-QLVL = 2
-
 #NPCs
 DARIN  = 30048
 ROXXY  = 30006
 BAULRO = 30033
 
-#ITEMS
+#QUEST ITEMS
 DARINGS_LETTER     = 687
 RAPUNZELS_KERCHIEF = 688
 DARINGS_RECEIPT    = 1079
 BAULS_POTION       = 1080
 
-
 #REWARDS
-NECKLACE     = 906
-ADENA_ID     = 57
-ADENA_REWARD = 2466
-EXP          = 5672
-SP           = 446
+NECKLACE  = 906
+ADENA_ID  = 57
+
 
 class Quest (JQuest) :
 
@@ -62,7 +56,7 @@ class Quest (JQuest) :
    ItemsCount_BP = st.getQuestItemsCount(BAULS_POTION)
  
    if npcId == DARIN and cond == 0 and onlyone == 0 :
-     if player.getLevel() >= QLVL :
+     if player.getLevel() >= 2 and player.getLevel() <= 5 :
        if cond < 15 :
          htmltext = "30048-02.htm"
        else:
@@ -109,9 +103,9 @@ class Quest (JQuest) :
          elif ItemsCount_BP > 0 :
            htmltext = "30048-10.htm"
            st.takeItems(BAULS_POTION,-1)
-           st.rewardItems(ADENA_ID,ADENA_REWARD)
+           st.rewardItems(ADENA_ID, 2466)
            st.giveItems(NECKLACE,1)
-           st.addExpAndSp(EXP,SP)
+           st.addExpAndSp(5672,446)
            st.set("cond","0")
            st.set("onlyone","1")
            st.exitQuest(False)

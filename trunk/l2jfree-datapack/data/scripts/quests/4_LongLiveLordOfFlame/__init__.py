@@ -6,9 +6,6 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "4_LongLiveLordOfFlame"
 
-#QUEST LVL
-QLVL = 2
-
 #NPC
 NAKUSIN          = 30578
 KUNAI            = 30559
@@ -19,15 +16,18 @@ TATARU_ZU_HESTUI = 30585
 GANTAKI_ZU_URUTU = 30587
 
 #GIFTS
-HONEY_KHANDAR,BEAR_FUR_CLOAK,BLOODY_AXE,ANCESTOR_SKULL,SPIDER_DUST,DEEP_SEA_ORB = range(1541,1547)
+HONEY_KHANDAR  = 1541
+BEAR_FUR_CLOAK = 1542
+BLOODY_AXE     = 1543
+ANCESTOR_SKULL = 1544
+SPIDER_DUST    = 1545
+DEEP_SEA_ORB   = 1546
 NPC_GIFTS = {TATARU_ZU_HESTUI:BEAR_FUR_CLOAK,VARKEES:HONEY_KHANDAR,GR00KIN:BLOODY_AXE,USKA:ANCESTOR_SKULL,KUNAI:SPIDER_DUST,GANTAKI_ZU_URUTU:DEEP_SEA_ORB}
 
 #REWARDS
-CLUB         = 4
-ADENA        = 57
+CLUB     = 4
+ADENA_ID = 57
 
-#RACE
-ORC = 3
 
 class Quest (JQuest) :
 
@@ -56,10 +56,10 @@ class Quest (JQuest) :
      htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif npcId == NAKUSIN :
      if cond == 0 :
-       if player.getRace().ordinal() != ORC :
+       if player.getRace().ordinal() != 3 :
          htmltext = "30578-00.htm"
          st.exitQuest(1)
-       elif player.getLevel() >= QLVL :
+       elif player.getLevel() >= 2 and player.getLevel() <= 5 :
          htmltext = "30578-02.htm"
        else:
          htmltext = "30578-01.htm"
@@ -69,7 +69,7 @@ class Quest (JQuest) :
      elif cond == 2 :
        htmltext = "30578-06.htm"
        st.giveItems(CLUB,1)
-       st.rewardItems(ADENA,1850)
+       st.rewardItems(ADENA_ID,1850)
        for item in NPC_GIFTS.values():
            st.takeItems(item,-1)
        st.addExpAndSp(4254,335)

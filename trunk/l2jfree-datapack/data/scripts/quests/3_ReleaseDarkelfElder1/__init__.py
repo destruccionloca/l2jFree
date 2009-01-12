@@ -10,10 +10,12 @@ qn = "3_ReleaseDarkelfElder1"
 #NPC
 TALLOTH = 30141
 
-#ITEMS
-ONYX_BEAST_EYE,TAINT_STONE,SUCCUBUS_BLOOD = range(1081,1084)
+#QUEST ITEMS
+ONYX_BEAST_EYE = 1081
+TAINT_STONE    = 1082
+SUCCUBUS_BLOOD = 1083
 
-#MOBS
+#MOBs
 OMEN_BEAST            = 20031
 TAINTED_ZOMBIE        = 20041
 STINK_ZOMBIE          = 20046
@@ -21,11 +23,9 @@ LESSER_SUCCUBUS       = 20048
 LESSER_SUCCUBUS_TUREN = 20052
 LESSER_SUCCUBUS_TILFO = 20057
 
-#REWARDS
+#REWARD
 EAD = 956
 
-#RACE
-DARKELF = 2
 
 class Quest (JQuest) :
 
@@ -52,10 +52,10 @@ class Quest (JQuest) :
    if id == State.COMPLETED :
       htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif cond == 0 :
-      if player.getRace().ordinal() != DARKELF :
+      if player.getRace().ordinal() != 2 :
          htmltext = "30141-00.htm"
          st.exitQuest(1)
-      elif player.getLevel() >= 16 :
+      elif player.getLevel() >= 16 and player.getLevel() <= 26 :
          htmltext = "30141-02.htm"
       else :
          htmltext = "30141-01.htm"

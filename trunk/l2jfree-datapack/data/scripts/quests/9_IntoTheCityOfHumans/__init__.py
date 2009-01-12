@@ -8,9 +8,6 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "9_IntoTheCityOfHumans"
 
-#QUEST LEVEL
-QLVL = 3
-
 #NPCs
 PETUKAI = 30583
 TANAPI  = 30571
@@ -20,8 +17,6 @@ TAMIL   = 30576
 SCROLL_OF_ESCAPE_GIRAN = 7559
 MARK_OF_TRAVELER = 7570
 
-#RACE
-ORC = 3
 
 class Quest (JQuest) :
 
@@ -56,8 +51,8 @@ class Quest (JQuest) :
 
    if id == State.CREATED :
      st.set("cond","0")
-     if player.getRace().ordinal() == ORC :
-       if player.getLevel() >= QLVL :
+     if player.getRace().ordinal() == 3 :
+       if player.getLevel() >= 3 and player.getLevel() <= 10:
          htmltext = "30583-02.htm"
        else:
          htmltext = "<html><body>Quest for characters level 3 and above.</body></html>"

@@ -8,6 +8,11 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "10_IntoTheWorld"
 
+#NPCs
+BALANKI = 30533
+REED    = 30520
+GERALD  = 30650
+
 #ITEM
 VERY_EXPENSIVE_NECKLACE = 7574
 
@@ -15,8 +20,6 @@ VERY_EXPENSIVE_NECKLACE = 7574
 SCROLL_OF_ESCAPE_GIRAN = 7559
 MARK_OF_TRAVELER = 7570
 
-#RACE
-DWARF = 4
 
 class Quest (JQuest) :
 
@@ -52,35 +55,36 @@ class Quest (JQuest) :
         id = st.getState()
         if id == State.CREATED :
             st.set("cond","0")
-            if player.getRace().ordinal() == DWARF :
-                htmltext = "30533-02.htm"
-            else :
-                htmltext = "30533-01.htm"
-                st.exitQuest(1)
-        elif npcId == 30533 and id == State.COMPLETED :
+            if player.getRace().ordinal() == 4 :
+				if player.getLevel() >= 3 and player.getLevel() <= 10 :
+					htmltext = "30533-02.htm"
+				else :
+					htmltext = "30533-01.htm"
+					st.exitQuest(1)
+        elif npcId == BALANKI and id == State.COMPLETED :
             htmltext = "<html><body>I can't supply you with another Giran Scroll of Escape. Sorry traveller.</body></html>"
         elif id == State.STARTED:
-            if npcId == 30533 and st.getInt("cond") == 1 :
+            if npcId == BALANKI and st.getInt("cond") == 1 :
                 htmltext = "30533-04.htm"
-            elif npcId == 30520 and st.getInt("cond") == 3 :
+            elif npcId == REED and st.getInt("cond") == 3 :
                 htmltext = "30520-04.htm"
                 st.set("cond","4")
-            elif npcId == 30520 and st.getInt("cond") :
+            elif npcId == REED and st.getInt("cond") :
                 if st.getQuestItemsCount(VERY_EXPENSIVE_NECKLACE) == 0 :
                     htmltext = "30520-01.htm"
                 else :
                     htmltext = "30520-03.htm"
-            elif npcId == 30650 and st.getInt("cond")== 2 :
+            elif npcId == GERALD and st.getInt("cond")== 2 :
                 if st.getQuestItemsCount(VERY_EXPENSIVE_NECKLACE) :
                     htmltext = "30650-01.htm"
-            elif npcId == 30533 and st.getInt("cond")== 4 :
+            elif npcId == BALANKI and st.getInt("cond")== 4 :
                 htmltext = "30533-05.htm"
         return htmltext
 
 QUEST       = Quest(10,qn,"Into The World")
 
-QUEST.addStartNpc(30533)
+QUEST.addStartNpc(BALANKI)
 
-QUEST.addTalkId(30533)
-QUEST.addTalkId(30520)
-QUEST.addTalkId(30650)
+QUEST.addTalkId(BALANKI)
+QUEST.addTalkId(REED)
+QUEST.addTalkId(GERALD)

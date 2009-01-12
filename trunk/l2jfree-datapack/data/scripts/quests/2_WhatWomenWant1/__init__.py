@@ -7,16 +7,13 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "2_WhatWomenWant1"
 
-#QUEST LEVEL
-QLVL = 2
-
 #NPCs
 ARUJIEN = 30223
 MIRABEL = 30146
 HERBIEL = 30150
 GREENIS = 30157
 
-#ITEMS
+#QUEST ITEMS
 ARUJIENS_LETTER1 = 1092
 ARUJIENS_LETTER2 = 1093
 ARUJIENS_LETTER3 = 1094
@@ -24,14 +21,11 @@ POETRY_BOOK      = 689
 GREENIS_LETTER   = 693
  
 #REWARDS
-ADENA            = 57
+ADENA_ID         = 57
 BEGINNERS_POTION = 1073
 MYSTICS_EARRING  = 113
 
-#RACE
-ELF   = 1
-HUMAN = 0
- 
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -55,7 +49,7 @@ class Quest (JQuest) :
      st.playSound("ItemSound.quest_middle")
    elif event == "30223-10.htm" :
      st.takeItems(ARUJIENS_LETTER3,-1)
-     st.rewardItems(ADENA,2300) 
+     st.rewardItems(ADENA_ID,2300) 
      st.addExpAndSp(4254,335) 
      st.set("cond","0")
      st.exitQuest(False)
@@ -77,9 +71,9 @@ class Quest (JQuest) :
    cond = st.getInt("cond")
  
    if npcId == ARUJIEN and id == State.CREATED :
-     if player.getRace().ordinal() != ELF and player.getRace().ordinal() != HUMAN :
+     if player.getRace().ordinal() != 1 and player.getRace().ordinal() != 0 :
        htmltext = "30223-00.htm"
-     elif player.getLevel() >= QLVL :
+     elif player.getLevel() >= 2 and player.getLevel() >= 5 :
        htmltext = "30223-02.htm"
      else:
        htmltext = "30223-01.htm"
@@ -98,7 +92,7 @@ class Quest (JQuest) :
      elif st.getQuestItemsCount(GREENIS_LETTER) :
        htmltext = "30223-10.htm"
        st.takeItems(GREENIS_LETTER,-1)
-       st.rewardItems(ADENA,1850)
+       st.rewardItems(ADENA_ID,1850)
        st.giveItems(MYSTICS_EARRING,1)
        st.addExpAndSp(4254,335)
        st.set("cond","0")

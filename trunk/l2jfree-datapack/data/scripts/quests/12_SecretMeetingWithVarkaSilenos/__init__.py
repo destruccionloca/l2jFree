@@ -7,20 +7,14 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "12_SecretMeetingWithVarkaSilenos"
 
-#QUEST LEVEL
-QLVL = 74
-
 #NPCs
 Cadmon = 31296
 Helmut = 31258
-Naran = 31378
+Naran  = 31378
 
 #Item
 Box = 7232
 
-#REWARDS
-EXP = 79761
-SP  = 0
 
 class Quest (JQuest) :
 
@@ -29,7 +23,7 @@ class Quest (JQuest) :
  def onEvent (self,event,st) :
      htmltext = event
      if event == "31296-03.htm" :
-       if st.getPlayer().getLevel() >= QLVL :
+       if st.getPlayer().getLevel() >= 74 and st.getPlayer().getLevel() <= 80:
             st.set("cond","1")
             st.setState(State.STARTED)
             st.playSound("ItemSound.quest_accept")
@@ -44,7 +38,7 @@ class Quest (JQuest) :
      elif event == "31378-02.htm" :
          htmltext = "31378-02.htm"
          st.takeItems(Box,-1)
-         st.addExpAndSp(EXP,SP)
+         st.addExpAndSp(79761,0)
          st.set("cond","0")
          st.set("onlyone","1")
          st.exitQuest(False)

@@ -8,23 +8,18 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "6_StepIntoTheFuture"
 
-#QUEST LEVEL
-QLVL = 3
-
 #NPCs
 ROXXY      = 30006
 BAULRO     = 30033
 SIR_COLLIN = 30311
 
-#ITEM
+#QUEST ITEM
 BAULRO_LETTER = 7571
 
 #REWARDS
 SCROLL_OF_ESCAPE_GIRAN = 7559
 MARK_OF_TRAVELER       = 7570
 
-#RACE
-HUMAN = 0
 
 class Quest (JQuest) :
 
@@ -68,8 +63,8 @@ class Quest (JQuest) :
    if id == State.CREATED :
      st.set("cond","0")
      st.set("id","0")
-     if player.getRace().ordinal() == HUMAN :
-       if player.getLevel() >= QLVL :
+     if player.getRace().ordinal() == 0 :
+       if player.getLevel() >= 3 and player.getLevel() <= 10 :
          htmltext = "30006-02.htm"
        else :
          htmltext = "<html><body>Quest for characters level 3 and above.</body></html>"

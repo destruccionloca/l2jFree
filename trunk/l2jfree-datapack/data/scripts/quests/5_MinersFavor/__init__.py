@@ -7,9 +7,6 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "5_MinersFavor"
 
-#QUEST LEVEL
-QLVL = 2
-
 #NPCs
 BOLTER = 30554
 SHARI  = 30517
@@ -17,7 +14,7 @@ GARITA = 30518
 REED   = 30520
 BRUNON = 30526
 
-#ITEMS
+#QUEST ITEMS
 BOLTERS_LIST         = 1547
 MINING_BOOTS         = 1548
 MINERS_PICK          = 1549
@@ -25,12 +22,9 @@ BOOMBOOM_POWDER      = 1550
 REDSTONE_BEER        = 1551
 BOLTERS_SMELLY_SOCKS = 1552
 
-#REWARD
-NECKLACE     = 906
-ADENA_ID     = 57
-ADENA_REWARD = 2466
-EXP          = 5762
-SP           = 446
+#REWARDS
+NECKLACE = 906
+ADENA_ID = 57
 
 
 class Quest (JQuest) :
@@ -71,7 +65,7 @@ class Quest (JQuest) :
    if npcId == BOLTER and cond == 0 :
      if onlyone == 1 :
        htmltext = "<html><body>This quest has already been completed.</body></html>"
-     elif player.getLevel() >= QLVL :
+     elif player.getLevel() >= 2 and player.getLevel() <= 5 :
        htmltext = "30554-02.htm"
      else:
        htmltext = "30554-01.htm"
@@ -85,9 +79,9 @@ class Quest (JQuest) :
      st.takeItems(BOOMBOOM_POWDER,-1)
      st.takeItems(REDSTONE_BEER,-1)
      st.takeItems(BOLTERS_LIST,-1)
-     st.rewardItems(ADENA_ID,ADENA_REWARD)
+     st.rewardItems(ADENA_ID,2466)
      st.giveItems(NECKLACE,1)
-     st.addExpAndSp(EXP,SP)
+     st.addExpAndSp(5762,446)
      st.set("cond","0")
      st.set("onlyone","1")
      st.exitQuest(False)

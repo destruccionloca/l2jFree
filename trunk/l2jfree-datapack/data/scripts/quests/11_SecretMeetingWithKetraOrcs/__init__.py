@@ -7,20 +7,14 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "11_SecretMeetingWithKetraOrcs"
 
-#QUEST LVL
-QLVL = 74
-
 #NPCs
 Cadmon = 31296
-Leon = 31256
+Leon   = 31256
 Wahkan = 31371
 
-#Item
+#QUEST ITEM
 Box = 7231
 
-#REWARDS
-EXP = 22787
-SP  = 0
 
 class Quest (JQuest) :
 
@@ -29,7 +23,7 @@ class Quest (JQuest) :
  def onEvent (self,event,st) :
      htmltext = event
      if event == "31296-03.htm" :
-       if st.getPlayer().getLevel() >= QLVL :
+       if st.getPlayer().getLevel() >= 74 and st.getPlayer().getLevel() <= 80:
             st.set("cond","1")
             htmltext = "31296-03.htm"
             st.setState(State.STARTED)
@@ -44,7 +38,7 @@ class Quest (JQuest) :
      elif event == "31371-02.htm" :
          htmltext = "31371-02.htm"
          st.takeItems(Box,-1)
-         st.addExpAndSp(EXP,SP) #Despite what stratics may say, this is the correct reward for this quest.
+         st.addExpAndSp(22787,0) #Despite what stratics may say, this is the correct reward for this quest.
          st.set("cond","0")
          st.set("onlyone","1")
          st.exitQuest(False)
