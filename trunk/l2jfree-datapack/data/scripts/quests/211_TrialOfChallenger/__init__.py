@@ -7,6 +7,18 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "211_TrialOfChallenger"
 
+# NPCS
+FILAUR = 30535
+KASH = 30644
+MARTIEN = 30645
+RALDO = 30646
+CHEST_OF_SHYSLASSYS = 30647
+SHYSLASSYS = 27110
+GORR = 27112
+BARAHAM = 27113
+SUCCUBUS_QUEEN = 27114
+
+# ITEMS
 LETTER_OF_KASH = 2628
 SCROLL_OF_SHYSLASSY = 2631
 WATCHERS_EYE1 = 2629
@@ -22,6 +34,7 @@ WHITE_TUNIC_PATTERN = 1936
 ADENA = 57
 MARK_OF_CHALLENGER = 2627
 WATCHERS_EYE2 = 2630
+DIMENSIONAL_DIAMOND = 7562
 
 class Quest (JQuest) :
 
@@ -99,10 +112,10 @@ class Quest (JQuest) :
    if not st : return htmltext
    npcId = npc.getNpcId()
    id = st.getState()
-   if npcId != 30644 and id != State.STARTED : return htmltext
+   if npcId != KASH and id != State.STARTED : return htmltext
    cond=st.getInt("cond")
    if id == State.CREATED :
-     if npcId == 30644 :
+     if npcId == KASH :
         if player.getClassId().ordinal() in [0x01,0x13,0x20,0x2d,0x2f] :
            if player.getLevel() >= 35 :
               htmltext = "30644-03.htm"
@@ -112,49 +125,50 @@ class Quest (JQuest) :
         else :
            htmltext = "30644-02.htm"
            st.exitQuest(1)
-   elif npcId == 30644 and id == State.COMPLETED :
+   elif npcId == KASH and id == State.COMPLETED :
       htmltext = "<html><body>This quest has already been completed.</body></html>"
-   elif npcId == 30644 and cond == 1 :
+   elif npcId == KASH and cond == 1 :
       htmltext = "30644-06.htm"
-   elif npcId == 30644 and cond == 2 and st.getQuestItemsCount(SCROLL_OF_SHYSLASSY) == 1 :
+   elif npcId == KASH and cond == 2 and st.getQuestItemsCount(SCROLL_OF_SHYSLASSY) == 1 :
       htmltext = "30644-07.htm"
       st.takeItems(SCROLL_OF_SHYSLASSY,1)
       st.giveItems(LETTER_OF_KASH,1)
       st.set("cond","3")
       st.playSound("Itemsound.quest_middle")
-   elif npcId == 30644 and cond == 1 and st.getQuestItemsCount(LETTER_OF_KASH) == 1 :
+   elif npcId == KASH and cond == 1 and st.getQuestItemsCount(LETTER_OF_KASH) == 1 :
       htmltext = "30644-08.htm"
-   elif npcId == 30644 and cond >= 7 :
+   elif npcId == KASH and cond >= 7 :
       htmltext = "30644-09.htm"
-   elif npcId == 30645 and cond == 3 and st.getQuestItemsCount(LETTER_OF_KASH) == 1 :
+   elif npcId == MARTIEN and cond == 3 and st.getQuestItemsCount(LETTER_OF_KASH) == 1 :
       htmltext = "30645-01.htm"
-   elif npcId == 30645 and cond == 4 and st.getQuestItemsCount(WATCHERS_EYE1) == 0 :
+   elif npcId == MARTIEN and cond == 4 and st.getQuestItemsCount(WATCHERS_EYE1) == 0 :
       htmltext = "30645-03.htm"
-   elif npcId == 30645 and cond == 5 and st.getQuestItemsCount(WATCHERS_EYE1) :
+   elif npcId == MARTIEN and cond == 5 and st.getQuestItemsCount(WATCHERS_EYE1) :
       htmltext = "30645-04.htm"
       st.takeItems(WATCHERS_EYE1,1)
       st.set("cond","6")
       st.playSound("Itemsound.quest_middle")
-   elif npcId == 30645 and cond == 6 :
+   elif npcId == MARTIEN and cond == 6 :
       htmltext = "30645-05.htm"
-   elif npcId == 30645 and cond >= 7 :
+   elif npcId == MARTIEN and cond >= 7 :
       htmltext = "30645-06.htm"
-   elif npcId == 30647 and cond == 2 :
+   elif npcId == CHEST_OF_SHYSLASSYS and cond == 2 :
       htmltext = "30647-01.htm"
-   elif npcId == 30646 and cond == 7 and st.getQuestItemsCount(WATCHERS_EYE2) :
+   elif npcId == RALDO and cond == 7 and st.getQuestItemsCount(WATCHERS_EYE2) :
       htmltext = "30646-01.htm"
-   elif npcId == 30646 and cond == 7 :
+   elif npcId == RALDO and cond == 7 :
       htmltext = "30646-06a.htm"
-   elif npcId == 30646 and cond == 10 :
+   elif npcId == RALDO and cond == 10 :
       st.addExpAndSp(72394,11250)
-      st.rewardItems(7562,8)
+      st.rewardItems(ADENA,97278)
+      st.rewardItems(DIMENSIONAL_DIAMOND,8)
       htmltext = "30646-07.htm"
       st.takeItems(BROKEN_KEY,1)
       st.giveItems(MARK_OF_CHALLENGER,1)
-      st.exitQuest(False) 
+      st.exitQuest(False)
       st.playSound("ItemSound.quest_finish")
       st.set("cond","0")
-   elif npcId == 30535 and cond == 7 :
+   elif npcId == FILAUR and cond == 7 :
       if player.getLevel() >= 36 :
         htmltext = "30535-01.htm"
         st.addRadar(176560,-184969,-3729);
@@ -162,7 +176,7 @@ class Quest (JQuest) :
         st.playSound("Itemsound.quest_middle")
       else:
         htmltext = "30535-03.htm"
-   elif npcId == 30535 and cond == 8 :
+   elif npcId == FILAUR and cond == 8 :
       htmltext = "30535-02.htm"
       st.addRadar(176560,-184969,-3729);
       st.set("cond","9")
@@ -175,37 +189,37 @@ class Quest (JQuest) :
    if st.getState() != State.STARTED : return
    cond = st.getInt("cond")
    npcId = npc.getNpcId()
-   if npcId == 27110 and cond == 1 and not st.getQuestItemsCount(BROKEN_KEY) :
+   if npcId == SHYSLASSYS and cond == 1 and not st.getQuestItemsCount(BROKEN_KEY) :
       st.giveItems(BROKEN_KEY,1)
-      st.addSpawn(30647,npc,True,0)
+      st.addSpawn(CHEST_OF_SHYSLASSYS,npc,True,0)
       st.playSound("ItemSound.quest_middle")
       st.set("cond","2")
-   elif npcId == 27112 and cond == 4 and not st.getQuestItemsCount(WATCHERS_EYE1) :
+   elif npcId == GORR and cond == 4 and not st.getQuestItemsCount(WATCHERS_EYE1) :
       st.giveItems(WATCHERS_EYE1,1)
       st.set("cond","5")
       st.playSound("ItemSound.quest_middle")
-   elif npcId == 27113 and cond == 6 and not st.getQuestItemsCount(WATCHERS_EYE2) :
+   elif npcId == BARAHAM and cond == 6 and not st.getQuestItemsCount(WATCHERS_EYE2) :
       st.giveItems(WATCHERS_EYE2,1)
       st.playSound("ItemSound.quest_middle")
       st.set("cond","7")
-      st.addSpawn(30646,npc,0,300000)
-   elif npcId == 27114 and cond == 9 :
+      st.addSpawn(RALDO,npc,0,300000)
+   elif npcId == SUCCUBUS_QUEEN and cond == 9 :
       st.set("cond","10")
       st.playSound("ItemSound.quest_middle")
-      st.addSpawn(30646,npc,0,300000)
+      st.addSpawn(RALDO,npc,0,300000)
    return
 
 QUEST       = Quest(211,qn,"Trial Of Challenger")
 
-QUEST.addStartNpc(30644)
+QUEST.addStartNpc(KASH)
 
-QUEST.addTalkId(30535)
-QUEST.addTalkId(30644)
-QUEST.addTalkId(30645)
-QUEST.addTalkId(30646)
-QUEST.addTalkId(30647)
+QUEST.addTalkId(FILAUR)
+QUEST.addTalkId(KASH)
+QUEST.addTalkId(MARTIEN)
+QUEST.addTalkId(RALDO)
+QUEST.addTalkId(CHEST_OF_SHYSLASSYS)
 
-QUEST.addKillId(27110)
-QUEST.addKillId(27112)
-QUEST.addKillId(27113)
-QUEST.addKillId(27114)
+QUEST.addKillId(SHYSLASSYS)
+QUEST.addKillId(GORR)
+QUEST.addKillId(BARAHAM)
+QUEST.addKillId(SUCCUBUS_QUEEN)
