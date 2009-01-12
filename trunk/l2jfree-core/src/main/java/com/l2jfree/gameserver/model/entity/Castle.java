@@ -413,6 +413,8 @@ public class Castle extends Siegeable
 
 		if (getSiege().getIsInProgress()) // If siege in progress
 			getSiege().midVictory(); // Mid victory phase of siege
+
+		updateClansReputation()		
 	}
 
 	// This method updates the castle tax rate
