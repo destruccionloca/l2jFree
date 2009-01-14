@@ -243,10 +243,12 @@ public class ClanHallManager
 		ClanHall clanH = null;
 		double distance;
 		
-		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet()) {
+		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
+		{
 			distance = ch.getValue().getDistanceToZone(x, y);
 		
-			if (distance < maxDist) {
+			if (distance < maxDist)
+			{
 				if(clanH == null)
 					clanH = ch.getValue();
 				else if(distance < clanH.getDistanceToZone(x, y))

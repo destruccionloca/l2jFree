@@ -129,7 +129,7 @@ public class PcStat extends PlayableStat
 			sm.addNumber(addToSp);
 			activeChar.sendPacket(sm);
 		}
-		else if (addToExp > 0 && addToSp > 0)
+		else if (addToExp > 0)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_EARNED_S1_EXP_AND_S2_SP);
 			sm.addNumber((int) addToExp);
