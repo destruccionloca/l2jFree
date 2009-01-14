@@ -23,12 +23,14 @@ import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2SiegeGuardAI;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
+import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2Attackable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.actor.knownlist.SiegeGuardKnownList;
+import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -145,31 +147,59 @@ public final class L2SiegeGuardInstance extends L2Attackable
 		{
 			boolean opp = false;
 			Siege siege = SiegeManager.getInstance().getSiege(player);
+			FortSiege fortSiege = FortSiegeManager.getInstance().getSiege(player);
 			L2Clan oppClan = player.getClan();
+			//Castle Sieges
 			if (siege != null && siege.getIsInProgress() && oppClan != null)
 			{
 				for (L2SiegeClan clan : siege.getAttackerClans())
 				{
 					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
-
+	
 					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
 					{
 						opp = true;
 						break;
 					}
 				}
-
+	
 				for (L2SiegeClan clan : siege.getDefenderClans())
 				{
 					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
-
+	
 					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
 					{
 						opp = true;
 						break;
 					}
-				}				
+				}
 			}
+			//Fort Sieges
+			else if (fortSiege != null && fortSiege.getIsInProgress() && oppClan != null)
+			{
+				for (L2SiegeClan clan : fortSiege.getAttackerClans())
+				{
+					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
+	
+					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
+					{
+						opp = true;
+						break;
+					}
+				}
+	
+				for (L2SiegeClan clan : fortSiege.getDefenderClans())
+				{
+					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
+	
+					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
+					{
+						opp = true;
+						break;
+					}
+				}
+			}
+			
 			if(!opp)
 				return;
 		}
