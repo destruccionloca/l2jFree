@@ -306,7 +306,7 @@
     <set name="mpInitialConsume" val="57" />
     <set name="mpConsume" val="227" />
     <set name="target" val="TARGET_CLAN" />
-    <set name="skillRadius" val="400" />
+    <set name="skillRadius" val="900" />
     <set name="reuseDelay" val="1200000" />
     <set name="hitTime" val="2500" />
     <set name="skillType" val="BUFF" />
@@ -337,7 +337,7 @@
     <set name="mpInitialConsume" val="56" />
     <set name="mpConsume" val="172" />
     <set name="target" val="TARGET_CLAN" />
-    <set name="skillRadius" val="400" />
+    <set name="skillRadius" val="900" />
     <set name="reuseDelay" val="20000" />
     <set name="hitTime" val="2500" />
     <set name="skillType" val="BUFF" />
@@ -361,7 +361,7 @@
     <set name="itemConsumeCount" val="20" />
     <set name="power" val="100" />
     <set name="target" val="TARGET_CLAN" />
-    <set name="skillRadius" val="400" />
+    <set name="skillRadius" val="900" />
     <set name="reuseDelay" val="200000" /> <!-- Guessing -->
     <set name="hitTime" val="2500" />
     <set name="skillType" val="COMBATPOINTPERCENTHEAL" />
@@ -498,19 +498,9 @@
   </skill>
   <skill id="1422" levels="1" name="Day of Doom">
     <!--
-      Done by BoDiE (Should I add my credits?? =/ Just don't
-      steal and say you did it, L2JFree did, ok?)
-    -->
-    <!--
+      Done by BoDiE
       Initial implementation, YET for testing proposes
       (seems most retail like, need further testing)
-    -->
-    <!--
-      Description: Generates a symbol that produces a strong
-      curse that decreases all abilities. Applies to all
-      targets within the affected area. The effect
-      disappears if you leave the area. Level 3 or higher
-      Spell Force required. Consumes 1 Magic Symbol.
     -->
     <set name="mpConsume" val="89" />
     <set name="target" val="TARGET_SELF" />
@@ -646,7 +636,7 @@
     <set name="mpInitialConsume" val="36" />
     <set name="mpConsume" val="37" />
     <set name="target" val="TARGET_CLAN" />
-    <set name="skillRadius" val="400" />
+    <set name="skillRadius" val="900" />
     <set name="staticReuse" val="true" />
     <set name="reuseDelay" val="2700000" />
     <set name="hitTime" val="5000" />
@@ -709,7 +699,6 @@
     <set name="skillType" val="BUFF" />
     <set name="staticReuse" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="25000" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="negateId" val="1430" />

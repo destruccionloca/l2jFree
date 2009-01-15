@@ -316,9 +316,9 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="120000" />
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
+    <set name="buffDuration" val="300000" />
     <for>
       <effect name="Buff" time="300" val="0"
         stackOrder="1.14" stackType="pa_up">
@@ -332,9 +332,9 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="120000" />
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
+    <set name="buffDuration" val="300000" />
     <for>
       <effect name="Buff" time="300" val="0"
         stackOrder="1.74" stackType="ma_up">
@@ -510,9 +510,9 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="3600000" />
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
+    <set name="buffDuration" val="3600000" />
     <for>
       <effect name="Buff" time="3600" count="1" val="0"
         stackOrder="20" stackType="fishPot" />
@@ -563,9 +563,9 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="300000" />
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
+    <set name="buffDuration" val="300000" />
     <for>
       <effect name="Buff" time="300" val="0"
         stackOrder="1.14" stackType="pa_up">
@@ -578,9 +578,9 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="300000" />
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
+    <set name="buffDuration" val="300000" />
     <for>
       <effect name="Buff" time="300" val="0"
         stackOrder="1.74" stackType="ma_up">
@@ -593,9 +593,9 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="300000" />
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
+    <set name="buffDuration" val="300000" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="1.32" stackType="attack_time_down">
@@ -608,9 +608,9 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="300000" />
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
+    <set name="buffDuration" val="300000" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="1.29" stackType="casting_time_down">
@@ -623,9 +623,9 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="300000" />
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
+    <set name="buffDuration" val="300000" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="1.29" stackType="critical_prob_up">
@@ -638,9 +638,9 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="300000" />
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
+    <set name="buffDuration" val="300000" />
     <for>
       <effect count="1" name="Buff" time="300" val="0"
         stackOrder="32" stackType="speed_up">
@@ -661,10 +661,11 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="HEAL_STATIC" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="300000" />
     <set name="reuseDelay" val="300000" />
+    <set name="staticReuse" val="true"/>
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
+    <set name="buffDuration" val="300000" />
   </skill>
   <skill id="2288" levels="6" name="Elixir of Mental Strength">
     <table name="#power">75 125 175 250 350 420</table>
@@ -672,10 +673,11 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="MANAHEAL" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="300000" />
     <set name="reuseDelay" val="300000" />
+    <set name="staticReuse" val="true"/>
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
+    <set name="buffDuration" val="300000" />
   </skill>
   <skill id="2289" levels="6" name="Elixir of CP">
     <table name="#power">250 400 600 800 1000 1200</table>
@@ -683,10 +685,11 @@
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="COMBATPOINTHEAL" />
     <set name="operateType" val="OP_ACTIVE" />
-    <set name="buffDuration" val="300000" />
     <set name="reuseDelay" val="300000" />
+    <set name="staticReuse" val="true"/>
     <set name="castRange" val="-1" />
     <set name="isPotion" val="true" />
+    <set name="buffDuration" val="300000" />
   </skill>
   <skill id="2290" levels="1" name="Halloween Box">
     <set name="target" val="TARGET_NONE" />
