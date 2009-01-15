@@ -10987,8 +10987,8 @@ public final class L2PcInstance extends L2PlayableInstance
 				addToExpVit = (long)(addToExpVit * Config.RATE_VITALITY_LEVEL_4);
 				addToSpVit = (int)(addToSpVit * Config.RATE_VITALITY_LEVEL_4);
 			}		
-			getStat().addExpAndSp(addToExpVit, addToSpVit); 
 		}
+		getStat().addExpAndSp(addToExpVit, addToSpVit);
 	}
 	
 	
