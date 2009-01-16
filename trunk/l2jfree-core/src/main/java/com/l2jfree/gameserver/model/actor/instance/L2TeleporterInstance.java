@@ -216,7 +216,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 			Calendar cal = Calendar.getInstance();
 			int price = list.getPrice();
 			// From CT2 all players below lvl 40 have all ports for free
-			if (player.getLevel() < 40 && !Config.CT1_LEGACY && !this.getTemplate().isCustom())
+			if (player.getLevel() < 40 && !this.getTemplate().isCustom())
 			{
 				price = 0;
 			}

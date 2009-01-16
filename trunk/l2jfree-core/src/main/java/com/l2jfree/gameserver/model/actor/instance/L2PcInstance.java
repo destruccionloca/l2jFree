@@ -711,6 +711,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private ScheduledFuture<?>				_taskWater;
 	private L2BoatInstance					_boat;
 	private Point3D							_inBoatPosition;
+	private long							_timePreviousBroadcastStatusUpdate	= 0;
 
 	/** Bypass validations */
 	private List<String>					_validBypass			= new FastList<String>();
@@ -4095,7 +4096,22 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public final void broadcastUserInfo()
 	{
-		addPacketBroadcastMask(BroadcastMode.BROADCAST_USER_INFO);
+		if (Config.NETWORK_TRAFFIC_OPTIMIZATION)
+		{
+			long currTimeMillis = System.currentTimeMillis();
+			if (currTimeMillis - _timePreviousBroadcastStatusUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_BROADCAST_MS)
+				return;
+			_timePreviousBroadcastStatusUpdate = currTimeMillis;
+		}
+		
+		// Send a Server->Client packet UserInfo to this L2PcInstance
+		sendPacket(new UserInfo(this));
+
+		// Send a Server->Client packet CharInfo to all L2PcInstance in _knownPlayers of the L2PcInstance
+		if (_log.isDebugEnabled())
+			_log.debug("players to notify:" + getKnownList().getKnownPlayers().size() + " packet: [S] 03 CharInfo");
+		
+		Broadcast.toKnownPlayers(this, new CharInfo(this));
 	}
 	
 	public final void broadcastUserInfoImpl()
