@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.PetitionManager;
+import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
@@ -46,6 +47,7 @@ import com.l2jfree.gameserver.model.entity.Couple;
 import com.l2jfree.gameserver.model.entity.Hero;
 import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
@@ -191,6 +193,7 @@ public class EnterWorld extends L2GameClientPacket
 		if (activeChar.getStatus().getCurrentHp() < 0.5) // is dead
 			activeChar.setIsDead(true);
 
+		// Restore character's siege state
 		if (activeChar.getClan() != null)
 		{
 			for (Siege siege : SiegeManager.getInstance().getSieges())
@@ -202,6 +205,16 @@ public class EnterWorld extends L2GameClientPacket
 				else if (siege.checkIsDefender(activeChar.getClan()))
 					activeChar.setSiegeState((byte) 2);
 			}
+			
+			for (FortSiege fsiege : FortSiegeManager.getInstance().getSieges())
+			{
+				if (!fsiege.getIsInProgress())
+					continue;
+				if (fsiege.checkIsAttacker(activeChar.getClan()))
+					activeChar.setSiegeState((byte) 1);
+				else if (fsiege.checkIsDefender(activeChar.getClan()))
+					activeChar.setSiegeState((byte) 2);
+			}	
 		}
 
 		if (Hero.getInstance().getHeroes() != null && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
