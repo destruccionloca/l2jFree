@@ -1278,6 +1278,19 @@ public class FortSiege
 		}
 		return null;
 	}
+	
+	public L2NpcInstance getClosestFlag(L2Object obj)  
+	{  
+		if (( obj != null) && (obj instanceof L2PcInstance))  
+		{  
+			if (((L2PcInstance)obj).getClan() != null)  
+			{  
+				L2SiegeClan sc = getAttackerClan(((L2PcInstance)obj).getClan());  
+				if (sc != null) return sc.getClosestFlag(obj);  
+			}  
+		}  
+		return null;  
+	}  
 
 	public final FortSiegeGuardManager getSiegeGuardManager()
 	{

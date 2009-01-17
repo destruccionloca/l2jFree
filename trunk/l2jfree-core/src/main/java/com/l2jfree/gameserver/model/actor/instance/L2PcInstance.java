@@ -8726,8 +8726,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		if ((sklTargetType == SkillTargetType.TARGET_HOLY && (!TakeCastle.checkIfOkToCastSealOfRule(this, false)))
 			|| (sklTargetType == SkillTargetType.TARGET_FLAGPOLE && !TakeFort.checkIfOkToCastFlagDisplay(this, false))
-			|| (sklType == L2SkillType.SIEGEFLAG && !SiegeManager.checkIfOkToPlaceFlag(this, false))
-			|| (sklType == L2SkillType.STRSIEGEASSAULT && !SiegeManager.checkIfOkToUseStriderSiegeAssault(this, false)))
+			|| (sklType == L2SkillType.SIEGEFLAG && (!SiegeManager.checkIfOkToPlaceFlag(this, false) && !FortSiegeManager.checkIfOkToPlaceFlag(this, false)))
+			|| (sklType == L2SkillType.STRSIEGEASSAULT && (!SiegeManager.checkIfOkToUseStriderSiegeAssault(this, false) && !FortSiegeManager.checkIfOkToUseStriderSiegeAssault(this, false))))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			abortCast();

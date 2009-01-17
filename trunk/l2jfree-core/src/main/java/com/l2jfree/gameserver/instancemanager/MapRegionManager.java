@@ -503,9 +503,10 @@ public class MapRegionManager
 				else if (teleportWhere == TeleportWhereType.SiegeFlag)
 				{
 					Siege siege = SiegeManager.getInstance().getSiege(clan);
-
+					FortSiege fsiege = FortSiegeManager.getInstance().getSiege(clan);
+					
 					// Check if player's clan is attacker
-					if (siege != null && siege.checkIsAttacker(clan) && siege.checkIfInZone(player))
+					if (siege != null && fsiege == null && siege.checkIsAttacker(clan) && siege.checkIfInZone(player))
 					{
 						// Karma player respawns out of siege zone
 						if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
@@ -522,28 +523,22 @@ public class MapRegionManager
 						if (flag != null)
 							return new Location(flag.getX(), flag.getY(), flag.getZ());
 					}
-					else
+					else if (siege == null && fsiege != null && fsiege.checkIsAttacker(clan) && fsiege.checkIfInZone(player))
 					{
-						FortSiege fsiege = FortSiegeManager.getInstance().getSiege(clan);
-
-						// Check if player's clan is attacker
-						if (siege != null && fsiege != null && fsiege.checkIsAttacker(clan) && fsiege.checkIfInZone(player))
+						// Karma player respawns out of siege zone
+						if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
 						{
-							// Karma player respawns out of siege zone
-							if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
+							L2Zone zone = fsiege.getFort().getZone();
+							if (zone != null)
 							{
-								L2Zone zone = fsiege.getFort().getZone();
-								if (zone != null)
-								{
-									return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
-								}
+								return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
 							}
-							// Get nearest flag
-							L2NpcInstance flag = siege.getClosestFlag(player);
-							// Spawn to flag
-							if (flag != null)
-								return new Location(flag.getX(), flag.getY(), flag.getZ());
 						}
+						// Get nearest flag
+						L2NpcInstance flag = fsiege.getClosestFlag(player);
+						// Spawn to flag
+						if (flag != null)
+							return new Location(flag.getX(), flag.getY(), flag.getZ());
 					}
 				}
 			}

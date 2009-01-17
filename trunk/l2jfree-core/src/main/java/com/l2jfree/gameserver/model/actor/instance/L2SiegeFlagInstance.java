@@ -17,9 +17,11 @@ package com.l2jfree.gameserver.model.actor.instance;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
+import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
@@ -30,6 +32,7 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 {
     private L2PcInstance _player;
     private Siege _siege;
+    private FortSiege _fortSiege;
     private boolean _advanced;
 
     public L2SiegeFlagInstance(L2PcInstance player, int objectId, L2NpcTemplate template, boolean advanced)
@@ -38,12 +41,13 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 
         _player = player;
         _siege = SiegeManager.getInstance().getSiege(_player);
+        _fortSiege = FortSiegeManager.getInstance().getSiege(_player);
         _advanced = advanced;
-        if (_player.getClan() == null || _siege == null)
+        if (_player.getClan() == null || (_siege == null && _fortSiege == null))
         {
             deleteMe();
         }
-        else
+        else if (_siege != null && _fortSiege == null)
         {
             L2SiegeClan sc = _siege.getAttackerClan(_player.getClan());
             if (sc == null)
@@ -51,15 +55,22 @@ public class L2SiegeFlagInstance extends L2NpcInstance
             else
                 sc.addFlag(this);
         }
+        else if (_siege == null && _fortSiege != null)
+        {
+            L2SiegeClan fsc = _fortSiege.getAttackerClan(_player.getClan());
+            if (fsc == null)
+                deleteMe();
+            else
+            	fsc.addFlag(this);
+        }
     }
 
     @Override
     public boolean isAttackable()
     {
         // Attackable during siege by attacker only
-        return (getCastle() != null
-                && getCastle().getCastleId() > 0
-                && getCastle().getSiege().getIsInProgress());
+        return ((getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress())
+        		|| (getFort() != null && getFort().getFortId() > 0 && getFort().getSiege().getIsInProgress()));
     }
 
     @Override
@@ -68,9 +79,8 @@ public class L2SiegeFlagInstance extends L2NpcInstance
         // Attackable during siege by attacker only
         return (attacker != null 
             && attacker instanceof L2PcInstance 
-            && getCastle() != null
-            && getCastle().getCastleId() > 0
-            && getCastle().getSiege().getIsInProgress());
+            && ((getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress())
+            		|| (getFort() != null && getFort().getFortId() > 0 && getFort().getSiege().getIsInProgress())));
     }
 
     @Override

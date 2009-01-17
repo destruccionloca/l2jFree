@@ -48,40 +48,34 @@ public class SiegeFlag implements ISkillHandler
 		L2PcInstance player = (L2PcInstance) activeChar;
 
 		Siege siege = SiegeManager.getInstance().getSiege(player);
+		FortSiege fsiege = FortSiegeManager.getInstance().getSiege(player);
 		// In a siege zone
-		if (siege != null)
+		if (siege != null && SiegeManager.checkIfOkToPlaceFlag(player, false))
 		{
-			if (SiegeManager.checkIfOkToPlaceFlag(player, false)) // Checkonly = false to send message to player if check fails
+			L2NpcTemplate template = NpcTable.getInstance().getTemplate(35062);
+			if (skill != null && template != null)
 			{
-				L2NpcTemplate template = NpcTable.getInstance().getTemplate(35062);
-				if (skill != null && template != null) {
-					// spawn a new flag
-					L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), template,
-							skill.isAdvanced());
-					flag.setTitle(player.getClan().getName());
-					flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
-					flag.setHeading(player.getHeading());
-					flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-					siege.getFlag(player.getClan()).add(flag);
-				}
+				// spawn a new flag
+				L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), template, skill.isAdvanced());
+				flag.setTitle(player.getClan().getName());
+				flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
+				flag.setHeading(player.getHeading());
+				flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
+				siege.getFlag(player.getClan()).add(flag);
 			}
 		}
-		else
+		else if (fsiege != null && FortSiegeManager.checkIfOkToPlaceFlag(activeChar, false))
 		{
-			FortSiege fsiege = FortSiegeManager.getInstance().getSiege(player);
-			if (fsiege != null && FortSiegeManager.checkIfOkToPlaceFlag(activeChar, false))
+			L2NpcTemplate template = NpcTable.getInstance().getTemplate(35062);
+			if (skill != null && template != null)
 			{
-				L2NpcTemplate template = NpcTable.getInstance().getTemplate(35062);
-				if (skill != null && template != null) {
-					// spawn a new flag
-					L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), template,
-							skill.isAdvanced());
-					flag.setTitle(player.getClan().getName());
-					flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
-					flag.setHeading(player.getHeading());
-					flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-					fsiege.getFlag(player.getClan()).add(flag);
-				}
+				// spawn a new flag
+				L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), template, skill.isAdvanced());
+				flag.setTitle(player.getClan().getName());
+				flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
+				flag.setHeading(player.getHeading());
+				flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
+				fsiege.getFlag(player.getClan()).add(flag);
 			}
 		}
 	}
