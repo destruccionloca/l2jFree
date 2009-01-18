@@ -1617,6 +1617,7 @@
     <table name="#mpConsume"> 70 88 107 </table>
     <table name="#pAtk"> 196 246 296 </table> <!-- Guessing Lvl 1 & 2 -->
     <table name="#rCrit"> 38 48 58 </table> <!-- Guessing Lvl 1 & 2 -->
+    <table name="#cAtk"> 302 399 473 </table>
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
     <set name="hitTime" val="2500" />
@@ -1632,7 +1633,7 @@
       <effect name="Buff" time="10" count="1" val="0">
         <add order="0x40" stat="pAtk" val="#pAtk" />
         <add order="0x40" stat="rCrit" val="#rCrit" />
-        <!-- Missing Critical Damage +? -->
+        <add order="0x40" stat="cAtkAdd" val="#cAtk"/>
       </effect>
     </for>
   </skill>
