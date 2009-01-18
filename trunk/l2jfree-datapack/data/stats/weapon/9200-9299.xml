@@ -421,8 +421,6 @@
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Haste -->
-      <mul val='1.07' order='0x30' stat='pAtkSpd' />
     </for>
   </item>
   <item id='9248' name="Chevalier Rapier">
@@ -465,8 +463,6 @@
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Haste -->
-      <mul val='1.07' order='0x30' stat='pAtkSpd' />
     </for>
   </item>
   <item id='9252' name="Chevalier Rapier">
@@ -751,8 +747,6 @@
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Haste -->
-      <mul val='1.07' order='0x30' stat='pAtkSpd' />
     </for>
   </item>
   <item id='9276' name="Blinzlasher">
@@ -975,8 +969,6 @@
       <set val='406' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Haste -->
-      <mul val='1.07' order='0x30' stat='pAtkSpd' />
     </for>
   </item>
   <item id='9296' name="Saber Tooth">
@@ -1023,8 +1015,6 @@
       <set val='350' order='0x08' stat='pAtkSpd' />
       <enchant val='0' order='0x0C' stat='pAtk' />
       <enchant val='0' order='0x0C' stat='mAtk' />
-      <!-- SA: Haste -->
-      <mul val='1.07' order='0x30' stat='pAtkSpd' />
     </for>
   </item>
 </list>

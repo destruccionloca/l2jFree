@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <list>
-  <item id='10700' name="Éclair Bijou - PvP - Haste">
+  <item id='10700' name="Eclair Bijou - PvP - Haste">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -11,7 +11,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10701' name="Éclair Bijou - PvP - Health">
+  <item id='10701' name="Eclair Bijou - PvP - Health">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -22,8 +22,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10702'
-    name="Éclair Bijou - PvP - Critical Poison">
+  <item id='10702' name="Eclair Bijou - PvP - Critical Poison">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -67,8 +66,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10706'
-    name="Screaming Vengeance - PvP - Cheap Shot">
+  <item id='10706' name="Screaming Vengeance - PvP - Cheap Shot">
     <for>
       <set val='318' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -79,8 +77,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10707'
-    name="Screaming Vengeance - PvP - Focus">
+  <item id='10707' name="Screaming Vengeance - PvP - Focus">
     <for>
       <set val='318' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -91,8 +88,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10708'
-    name="Screaming Vengeance - PvP - Quick Recovery">
+  <item id='10708' name="Screaming Vengeance - PvP - Quick Recovery">
     <for>
       <set val='318' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -180,8 +176,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10716'
-    name="Basalt Battlehammer - PvP - HP Drain">
+  <item id='10716' name="Basalt Battlehammer - PvP - HP Drain">
     <for>
       <set val='281' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -192,8 +187,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10717'
-    name="Basalt Battlehammer - PvP - Health">
+  <item id='10717' name="Basalt Battlehammer - PvP - Health">
     <for>
       <set val='281' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -204,8 +198,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10718'
-    name="Basalt Battlehammer - PvP - HP Regeneration">
+  <item id='10718' name="Basalt Battlehammer - PvP - HP Regeneration">
     <for>
       <set val='281' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -216,8 +209,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10719'
-    name="Dragon Hunter Axe - PvP - HP Regeneration">
+  <item id='10719' name="Dragon Hunter Axe - PvP - HP Regeneration">
     <for>
       <set val='342' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -228,8 +220,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10720'
-    name="Dragon Hunter Axe - PvP - Health">
+  <item id='10720' name="Dragon Hunter Axe - PvP - Health">
     <for>
       <set val='342' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -240,8 +231,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10721'
-    name="Dragon Hunter Axe - PvP - HP Drain">
+  <item id='10721' name="Dragon Hunter Axe - PvP - HP Drain">
     <for>
       <set val='342' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -252,8 +242,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10722'
-    name="Angel Slayer - PvP - Critical Damage">
+  <item id='10722' name="Angel Slayer - PvP - Critical Damage">
     <for>
       <set val='246' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -341,8 +330,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10730'
-    name="Demon Splinter - PvP - Critical Stun">
+  <item id='10730' name="Demon Splinter - PvP - Critical Stun">
     <for>
       <set val='342' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -364,8 +352,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10732'
-    name="Arcana Mace - PvP - MP Regeneration">
+  <item id='10732' name="Arcana Mace - PvP - MP Regeneration">
     <for>
       <set val='225' order='0x08' stat='pAtk' />
       <set val='175' order='0x08' stat='mAtk' />
@@ -398,8 +385,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10735'
-    name="Imperial Staff - PvP - MP Regeneration">
+  <item id='10735' name="Imperial Staff - PvP - MP Regeneration">
     <for>
       <set val='274' order='0x08' stat='pAtk' />
       <set val='175' order='0x08' stat='mAtk' />
@@ -410,8 +396,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10736'
-    name="Imperial Staff - PvP - Magic Hold">
+  <item id='10736' name="Imperial Staff - PvP - Magic Hold">
     <for>
       <set val='274' order='0x08' stat='pAtk' />
       <set val='175' order='0x08' stat='mAtk' />
@@ -444,8 +429,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10739'
-    name="Draconic Bow - PvP - Critical Slow">
+  <item id='10739' name="Draconic Bow - PvP - Critical Slow">
     <for>
       <set val='581' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -654,8 +638,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10758'
-    name="Dynasty Cudgel - PvP - Rsk. Focus">
+  <item id='10758' name="Dynasty Cudgel - PvP - Rsk. Focus">
     <for>
       <set val='333' order='0x08' stat='pAtk' />
       <set val='151' order='0x08' stat='mAtk' />
@@ -688,8 +671,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10761'
-    name="Dynasty Crusher - PvP - Rsk. Focus">
+  <item id='10761' name="Dynasty Crusher - PvP - Rsk. Focus">
     <for>
       <set val='405' order='0x08' stat='pAtk' />
       <set val='151' order='0x08' stat='mAtk' />
@@ -722,8 +704,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10764'
-    name="Dynasty Knife - PvP - Critical Damage">
+  <item id='10764' name="Dynasty Knife - PvP - Critical Damage">
     <for>
       <set val='291' order='0x08' stat='pAtk' />
       <set val='151' order='0x08' stat='mAtk' />
@@ -745,8 +726,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10766'
-    name="Dynasty Halberd - PvP - Critical Stun">
+  <item id='10766' name="Dynasty Halberd - PvP - Critical Stun">
     <for>
       <set val='333' order='0x08' stat='pAtk' />
       <set val='151' order='0x08' stat='mAtk' />
@@ -768,8 +748,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10768'
-    name="Dynasty Bagh-Nakh - PvP - Rsk. Evasion">
+  <item id='10768' name="Dynasty Bagh-Nakh - PvP - Rsk. Evasion">
     <for>
       <set val='405' order='0x08' stat='pAtk' />
       <set val='151' order='0x08' stat='mAtk' />
@@ -967,8 +946,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10786'
-    name="Dynasty Ancient Sword - PvP - Focus">
+  <item id='10786' name="Dynasty Ancient Sword - PvP - Focus">
     <for>
       <set val='361' order='0x08' stat='pAtk' />
       <set val='151' order='0x08' stat='mAtk' />
@@ -979,8 +957,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10787'
-    name="Dynasty Ancient Sword - PvP - Health">
+  <item id='10787' name="Dynasty Ancient Sword - PvP - Health">
     <for>
       <set val='361' order='0x08' stat='pAtk' />
       <set val='151' order='0x08' stat='mAtk' />
@@ -991,8 +968,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10788'
-    name="Dynasty Ancient Sword - PvP - Light">
+  <item id='10788' name="Dynasty Ancient Sword - PvP - Light">
     <for>
       <set val='361' order='0x08' stat='pAtk' />
       <set val='151' order='0x08' stat='mAtk' />
@@ -1003,8 +979,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10789'
-    name="Dynasty Crossbow - PvP - Cheap Shot">
+  <item id='10789' name="Dynasty Crossbow - PvP - Cheap Shot">
     <for>
       <set val='401' order='0x08' stat='pAtk' />
       <set val='151' order='0x08' stat='mAtk' />
@@ -1015,8 +990,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10790'
-    name="Dynasty Crossbow - PvP - Guidance">
+  <item id='10790' name="Dynasty Crossbow - PvP - Guidance">
     <for>
       <set val='401' order='0x08' stat='pAtk' />
       <set val='151' order='0x08' stat='mAtk' />

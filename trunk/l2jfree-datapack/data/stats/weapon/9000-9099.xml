@@ -1,17 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
-<!-- Lineage2: Interlude Weapons by SqueezeD -->
 <list>
-  <item id='9000'
-    name="Shadow Item: Stormbringer*Stormbringer">
+  <item id='9000' name="Shadow Item: Stormbringer*Stormbringer">
     <for>
       <set val='175' order='0x08' stat='pAtk' />
       <set val='78' order='0x08' stat='mAtk' />
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9001' name="Shadow Item: Great Sword">
@@ -21,8 +17,6 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9002' name="Shadow Item: Heavy War Axe">
@@ -32,8 +26,6 @@
       <set val='4' order='0x08' stat='rCrit' />
       <add val='4' order='0x10' stat='accCombat' />
       <set val='379' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9003' name="Shadow Item: Sprite\'s Staff">
@@ -43,8 +35,6 @@
       <set val='4' order='0x08' stat='rCrit' />
       <add val='4' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9004' name="Shadow Item: Keshanberk">
@@ -54,8 +44,6 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='379' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9005' name="Shadow Item: Sword of Valhalla">
@@ -65,8 +53,6 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='379' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9006' name="Shadow Item: Kris">
@@ -76,8 +62,6 @@
       <set val='12' order='0x08' stat='rCrit' />
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='433' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9007' name="Shadow Item: Arthro Nail">
@@ -87,8 +71,6 @@
       <set val='4' order='0x08' stat='rCrit' />
       <add val='4' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9008' name="Shadow Item: Dark Elven Long Bow">
@@ -98,20 +80,15 @@
       <set val='12' order='0x08' stat='rCrit' />
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='227' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='9009'
-    name="Shadow Item: Sword of Delusion*Sword of Delusion">
+  <item id='9009' name="Shadow Item: Sword of Delusion*Sword of Delusion">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9010' name="Shadow Item: Great Axe">
@@ -122,8 +99,6 @@
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
       <set val='66' order='0x08' stat='pAtkRange' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9011' name="Shadow Item: Tallum Blade">
@@ -133,8 +108,6 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='379' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9012' name="Shadow Item: Halberd">
@@ -144,8 +117,6 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9013' name="Shadow Item: Dasparion\'s Staff">
@@ -155,8 +126,6 @@
       <set val='4' order='0x08' stat='rCrit' />
       <add val='4' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9014' name="Shadow Item: Bloody Orchid">
@@ -166,8 +135,6 @@
       <set val='12' order='0x08' stat='rCrit' />
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='433' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9015' name="Shadow Item: Blood Tornado">
@@ -177,8 +144,6 @@
       <set val='4' order='0x08' stat='rCrit' />
       <add val='4' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9016' name="Shadow Item: Carnage Bow">
@@ -188,20 +153,15 @@
       <set val='12' order='0x08' stat='rCrit' />
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='293' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='9017'
-    name="Shadow Item: Keshanberk*Keshanberk">
+  <item id='9017' name="Shadow Item: Keshanberk*Keshanberk">
     <for>
       <set val='259' order='0x08' stat='pAtk' />
       <set val='107' order='0x08' stat='mAtk' />
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9018' name="Shadow Item: Meteor Shower">
@@ -211,8 +171,6 @@
       <set val='4' order='0x08' stat='rCrit' />
       <add val='4' order='0x10' stat='accCombat' />
       <set val='379' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9019' name="Shadow Item: Inferno Master">
@@ -222,8 +180,6 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9020' name="Shadow Item: Keshanberk*Damascus">
@@ -233,8 +189,6 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9021' name="Shadow Item: Dragon Slayer">
@@ -244,8 +198,6 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9022' name="Shadow Item: Sword of Miracles">
@@ -255,8 +207,6 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='379' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9023' name="Shadow Item: Elysian">
@@ -266,20 +216,15 @@
       <set val='4' order='0x08' stat='rCrit' />
       <add val='4' order='0x10' stat='accCombat' />
       <set val='379' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='9024'
-    name="Shadow Item: Branch of the Mother Tree">
+  <item id='9024' name="Shadow Item: Branch of the Mother Tree">
     <for>
       <set val='226' order='0x08' stat='pAtk' />
       <set val='152' order='0x08' stat='mAtk' />
       <set val='4' order='0x08' stat='rCrit' />
       <add val='4' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9025' name="Shadow Item: Soul Separator">
@@ -289,8 +234,6 @@
       <set val='12' order='0x08' stat='rCrit' />
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='433' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9026' name="Shadow Item: Dragon Grinder">
@@ -300,8 +243,6 @@
       <set val='4' order='0x08' stat='rCrit' />
       <add val='4' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9027' name="Shadow Item: Soul Bow">
@@ -311,8 +252,6 @@
       <set val='12' order='0x08' stat='rCrit' />
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='227' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9028' name="Shadow Item: Tallum Glaive">
@@ -323,8 +262,6 @@
       <add val='-3' order='0x10' stat='accCombat' />
       <set val='325' order='0x08' stat='pAtkSpd' />
       <set val='66' order='0x08' stat='pAtkRange' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9029' name="Shadow Item: Dark Legion">
@@ -334,8 +271,6 @@
       <set val='8' order='0x08' stat='rCrit' />
       <add val='0' order='0x10' stat='accCombat' />
       <set val='379' order='0x08' stat='pAtkSpd' />
-      <enchant val='0' order='0x0C' stat='pAtk' />
-      <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
   <item id='9036' name="Shadow Item: Bone Shield">
@@ -343,7 +278,6 @@
       <sub val='8' order='0x10' stat='rEvas' />
       <set val='90' order='0x08' stat='sDef' />
       <set val='20' order='0x08' stat='rShld' />
-      <enchant val='0' order='0x0C' stat='sDef' />
     </for>
   </item>
   <item id='9044' name="Shadow Item: Hoplon">
@@ -351,7 +285,6 @@
       <sub val='8' order='0x10' stat='rEvas' />
       <set val='128' order='0x08' stat='sDef' />
       <set val='20' order='0x08' stat='rShld' />
-      <enchant val='0' order='0x0C' stat='sDef' />
     </for>
   </item>
   <item id='9056' name="Shadow Item: Composite Shield">
@@ -359,7 +292,6 @@
       <sub val='8' order='0x10' stat='rEvas' />
       <set val='190' order='0x08' stat='sDef' />
       <set val='20' order='0x08' stat='rShld' />
-      <enchant val='0' order='0x0C' stat='sDef' />
     </for>
   </item>
   <item id='9070' name="Shadow Item: Zubei\'s Shield">
@@ -367,7 +299,6 @@
       <sub val='8' order='0x10' stat='rEvas' />
       <set val='216' order='0x08' stat='sDef' />
       <set val='20' order='0x08' stat='rShld' />
-      <enchant val='0' order='0x0C' stat='sDef' />
     </for>
   </item>
   <item id='9084' name="Shadow Item: Dark Crystal Shield">
@@ -375,7 +306,6 @@
       <sub val='8' order='0x10' stat='rEvas' />
       <set val='243' order='0x08' stat='sDef' />
       <set val='20' order='0x08' stat='rShld' />
-      <enchant val='0' order='0x0C' stat='sDef' />
     </for>
   </item>
 </list>

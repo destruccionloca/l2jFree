@@ -22,8 +22,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10669'
-    name="Sirra's Blade - PvP - Critical Poison">
+  <item id='10669' name="Sirra's Blade - PvP - Critical Poison">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -100,8 +99,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10676'
-    name="Behemoth's Tuning Fork - PvP - Focus">
+  <item id='10676' name="Behemoth's Tuning Fork - PvP - Focus">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -112,8 +110,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10677'
-    name="Behemoth's Tuning Fork - PvP - Health">
+  <item id='10677' name="Behemoth's Tuning Fork - PvP - Health">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -124,8 +121,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10678'
-    name="Behemoth's Tuning Fork - PvP - Anger">
+  <item id='10678' name="Behemoth's Tuning Fork - PvP - Anger">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -147,8 +143,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10680'
-    name="Naga Storm - PvP - Critical Damage">
+  <item id='10680' name="Naga Storm - PvP - Critical Damage">
     <for>
       <set val='220' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -170,8 +165,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10682'
-    name="Tiphon's Spear - PvP - Critical Stun">
+  <item id='10682' name="Tiphon's Spear - PvP - Critical Stun">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -182,8 +176,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10683'
-    name="Tiphon's Spear - PvP - Long Blow">
+  <item id='10683' name="Tiphon's Spear - PvP - Long Blow">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -194,8 +187,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10684'
-    name="Tiphon's Spear - PvP - Wild Blow">
+  <item id='10684' name="Tiphon's Spear - PvP - Wild Blow">
     <for>
       <set val='251' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -228,8 +220,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10687'
-    name="Shyeed's Bow - PvP - Quick Recovery">
+  <item id='10687' name="Shyeed's Bow - PvP - Quick Recovery">
     <for>
       <set val='571' order='0x08' stat='pAtk' />
       <set val='133' order='0x08' stat='mAtk' />
@@ -240,8 +231,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10688'
-    name="Sobekk's Hurricane - PvP - Rsk. Haste">
+  <item id='10688' name="Sobekk's Hurricane - PvP - Rsk. Haste">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -252,8 +242,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10689'
-    name="Sobekk's Hurricane - PvP - Haste">
+  <item id='10689' name="Sobekk's Hurricane - PvP - Haste">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -264,8 +253,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10690'
-    name="Sobekk's Hurricane - PvP - Critical Drain">
+  <item id='10690' name="Sobekk's Hurricane - PvP - Critical Drain">
     <for>
       <set val='305' order='0x08' stat='pAtk' />
       <set val='121' order='0x08' stat='mAtk' />
@@ -287,8 +275,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10692'
-    name="Themis' Tongue - PvP - Magic Mental Shield">
+  <item id='10692' name="Themis' Tongue - PvP - Magic Mental Shield">
     <for>
       <set val='201' order='0x08' stat='pAtk' />
       <set val='162' order='0x08' stat='mAtk' />
@@ -299,8 +286,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10693'
-    name="Themis' Tongue - PvP - Magic Focus">
+  <item id='10693' name="Themis' Tongue - PvP - Magic Focus">
     <for>
       <set val='201' order='0x08' stat='pAtk' />
       <set val='162' order='0x08' stat='mAtk' />
@@ -333,8 +319,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10696'
-    name="Cabrio's Hand - PvP - Magic Silence">
+  <item id='10696' name="Cabrio's Hand - PvP - Magic Silence">
     <for>
       <set val='201' order='0x08' stat='pAtk' />
       <set val='162' order='0x08' stat='mAtk' />
@@ -367,8 +352,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10699'
-    name="Daimon Crystal - PvP - Magic Mental Shield">
+  <item id='10699' name="Daimon Crystal - PvP - Magic Mental Shield">
     <for>
       <set val='245' order='0x08' stat='pAtk' />
       <set val='162' order='0x08' stat='mAtk' />

@@ -77,6 +77,13 @@ public class SagasSuperClass extends QuestJython
 	    for (int mobid : Mob)
 	    	addKillId(mobid);
 	    questItemIds = Items;
+		for (int Archon_Minion = 21646; Archon_Minion < 21652; Archon_Minion++)
+			addKillId(Archon_Minion);
+		int[] Archon_Hellisha_Norm = {18212, 18214, 18215, 18216, 18218};
+		for (int i = 0; i < Archon_Hellisha_Norm.length;i++)
+			addKillId(Archon_Hellisha_Norm[i]);
+		for (int Guardian_Angel = 27214; Guardian_Angel < 27217; Guardian_Angel++)
+			addKillId(Guardian_Angel);
 	}
 
 	public void Cast(L2NpcInstance npc, L2Character target, int skillId, int level)
@@ -126,7 +133,6 @@ public class SagasSuperClass extends QuestJython
 		player = (L2PcInstance) L2World.getInstance().findObject(_SpawnList.get(npc));
 		if (player != null) 
 			st = player.getQuestState(qn);
-
 		return st;
 	}
 
@@ -172,7 +178,6 @@ public class SagasSuperClass extends QuestJython
 				}
 			}
 		}
-
 		return null;
 	}
 
@@ -491,7 +496,6 @@ public class SagasSuperClass extends QuestJython
 		}
 		else
 			return null;
-
 		return htmltext;
 	}
 
@@ -664,7 +668,6 @@ public class SagasSuperClass extends QuestJython
 				}
 			}
 		}
-
 		return htmltext;
 	}
 
@@ -724,7 +727,6 @@ public class SagasSuperClass extends QuestJython
 		}
 		if (htmltext == "")
 			npc.showChatWindow(player);
-
 		return htmltext;
 	}
 
@@ -778,7 +780,6 @@ public class SagasSuperClass extends QuestJython
 					{
 						QuestState st2 = findRightState(npc);
 						if (st2 == null) return null;
-
 						AutoChat(npc,Text[5].replace("PLAYERNAME",player.getName()));
 						cancelQuestTimer("Archon Hellisha has despawned",npc,st2.getPlayer());
 						st2.set("spawned","0");
@@ -787,7 +788,6 @@ public class SagasSuperClass extends QuestJython
 				}
 			}
 		}
-
 		return super.onSkillSee(npc, player, skill, targets, isPet);
 	}
 
@@ -941,7 +941,6 @@ public class SagasSuperClass extends QuestJython
 	            }
 			}
 	    }
-
 		return super.onKill(npc, player, isPet);
 	}
 
@@ -964,18 +963,11 @@ public class SagasSuperClass extends QuestJython
 		// now unload superclass
 		return super.unload();
 	}
-	
+
 	public static void main(String[] args)
 	{
 		// initialize superclass
-		Quest saga = new SagasSuperClass(-1,"SagasSuperClass","Saga's SuperClass");
-	    for (int Archon_Minion = 21646; Archon_Minion < 21652; Archon_Minion++)
-	    	saga.addKillId(Archon_Minion);
-		int[] Archon_Hellisha_Norm = {18212, 18214, 18215, 18216, 18218};
-		for (int i = 0; i < Archon_Hellisha_Norm.length;i++)
-			saga.addKillId(Archon_Hellisha_Norm[i]);
-		for (int Guardian_Angel = 27214; Guardian_Angel < 27217; Guardian_Angel++)
-			saga.addKillId(Guardian_Angel);
+		new SagasSuperClass(-1,"SagasSuperClass","Saga's SuperClass");
 
 		// initialize subclasses
 		_scripts.add(new SagaOfEvasSaint());

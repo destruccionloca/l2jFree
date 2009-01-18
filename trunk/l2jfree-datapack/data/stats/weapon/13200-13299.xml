@@ -12,8 +12,7 @@
       <enchant val='0' order='0x0C' stat='mAtk'/>
     </for>
   </item>
-  <item id='13201'
-    name="Limited time - Bow of Peril - 60 minutes limited period">
+  <item id='13201' name="Limited time - Bow of Peril - 60 minutes limited period">
     <for>
       <set val='400' order='0x08' stat='pAtk'/>
       <set val='99' order='0x08' stat='mAtk'/>

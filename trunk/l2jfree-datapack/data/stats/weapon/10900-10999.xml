@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <list>
-  <item id='10900'
-    name="Spell Breaker - Hail - Magic Mental Shield">
+  <item id='10900' name="Spell Breaker - Hail - Magic Mental Shield">
     <for>
       <set val='140' order='0x08' stat='pAtk' />
       <set val='122' order='0x08' stat='mAtk' />
@@ -12,8 +11,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10901'
-    name="Spell Breaker - Hail - Magic Hold">
+  <item id='10901' name="Spell Breaker - Hail - Magic Hold">
     <for>
       <set val='140' order='0x08' stat='pAtk' />
       <set val='122' order='0x08' stat='mAtk' />
@@ -35,8 +33,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10903'
-    name="Arthro Nail - Destruction - Critical Poison">
+  <item id='10903' name="Arthro Nail - Destruction - Critical Poison">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -47,8 +44,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10904'
-    name="Arthro Nail - Destruction - Rsk. Evasion">
+  <item id='10904' name="Arthro Nail - Destruction - Rsk. Evasion">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -59,8 +55,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10905'
-    name="Arthro Nail - Destruction - Rsk. Haste">
+  <item id='10905' name="Arthro Nail - Destruction - Rsk. Haste">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -82,8 +77,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10907'
-    name="Ice Storm Hammer - Thunder - Focus">
+  <item id='10907' name="Ice Storm Hammer - Thunder - Focus">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -94,8 +88,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10908'
-    name="Ice Storm Hammer - Thunder - Anger">
+  <item id='10908' name="Ice Storm Hammer - Thunder - Anger">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -106,8 +99,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10909'
-    name="Ice Storm Hammer - Thunder - Critical Bleed">
+  <item id='10909' name="Ice Storm Hammer - Thunder - Critical Bleed">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -118,8 +110,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10910'
-    name="Sword of Nightmare*Sword of Nightmare - Destruction">
+  <item id='10910' name="Sword of Nightmare*Sword of Nightmare - Destruction">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -130,8 +121,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10911'
-    name="Sword of Nightmare*Tsurugi - Destruction">
+  <item id='10911' name="Sword of Nightmare*Tsurugi - Destruction">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -153,8 +143,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10913'
-    name="Military Fleuret - Destruction - Guidance">
+  <item id='10913' name="Military Fleuret - Destruction - Guidance">
     <for>
       <set val='159' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -165,8 +154,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10914'
-    name="Military Fleuret - Destruction - Focus">
+  <item id='10914' name="Military Fleuret - Destruction - Focus">
     <for>
       <set val='159' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -177,8 +165,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10915'
-    name="Military Fleuret - Destruction - Back Blow">
+  <item id='10915' name="Military Fleuret - Destruction - Back Blow">
     <for>
       <set val='159' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -200,8 +187,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10917'
-    name="Sprite's Staff - Hail - Magic Regeneration">
+  <item id='10917' name="Sprite's Staff - Hail - Magic Regeneration">
     <for>
       <set val='170' order='0x08' stat='pAtk' />
       <set val='122' order='0x08' stat='mAtk' />
@@ -212,8 +198,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10918'
-    name="Sprite's Staff - Hail - Magic Mental Shield">
+  <item id='10918' name="Sprite's Staff - Hail - Magic Mental Shield">
     <for>
       <set val='170' order='0x08' stat='pAtk' />
       <set val='122' order='0x08' stat='mAtk' />
@@ -224,8 +209,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10919'
-    name="Sprite's Staff - Hail - Magic Hold">
+  <item id='10919' name="Sprite's Staff - Hail - Magic Hold">
     <for>
       <set val='170' order='0x08' stat='pAtk' />
       <set val='122' order='0x08' stat='mAtk' />
@@ -247,8 +231,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10921'
-    name="Caliburs*Sword of Limit - Destruction">
+  <item id='10921' name="Caliburs*Sword of Limit - Destruction">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -259,8 +242,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10922'
-    name="Caliburs*Sword of Delusion - Destruction">
+  <item id='10922' name="Caliburs*Sword of Delusion - Destruction">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -271,8 +253,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10923'
-    name="Caliburs*Sword of Nightmare - Destruction">
+  <item id='10923' name="Caliburs*Sword of Nightmare - Destruction">
     <for>
       <set val='213' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -360,8 +341,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10931'
-    name="Keshanberk - Destruction - Guidance">
+  <item id='10931' name="Keshanberk - Destruction - Guidance">
     <for>
       <set val='175' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -372,8 +352,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10932'
-    name="Keshanberk - Destruction - Focus">
+  <item id='10932' name="Keshanberk - Destruction - Focus">
     <for>
       <set val='175' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -384,8 +363,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10933'
-    name="Keshanberk - Destruction - Back Blow">
+  <item id='10933' name="Keshanberk - Destruction - Back Blow">
     <for>
       <set val='175' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -407,8 +385,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10935'
-    name="Peacemaker - Concentration - Evasion">
+  <item id='10935' name="Peacemaker - Concentration - Evasion">
     <for>
       <set val='221' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -419,8 +396,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10936'
-    name="Peacemaker - Concentration - Critical Bleed">
+  <item id='10936' name="Peacemaker - Concentration - Critical Bleed">
     <for>
       <set val='221' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -431,8 +407,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10937'
-    name="Peacemaker - Concentration - Miser">
+  <item id='10937' name="Peacemaker - Concentration - Miser">
     <for>
       <set val='221' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -476,8 +451,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10941'
-    name="Heavy War Axe - Earth - Rsk. Focus">
+  <item id='10941' name="Heavy War Axe - Earth - Rsk. Focus">
     <for>
       <set val='175' order='0x08' stat='pAtk' />
       <set val='91' order='0x08' stat='mAtk' />
@@ -499,8 +473,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10943'
-    name="Hell Knife - Confusion - Magic Regeneration">
+  <item id='10943' name="Hell Knife - Confusion - Magic Regeneration">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='122' order='0x08' stat='mAtk' />
@@ -511,8 +484,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10944'
-    name="Hell Knife - Confusion - Magic Mental Shield">
+  <item id='10944' name="Hell Knife - Confusion - Magic Mental Shield">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='122' order='0x08' stat='mAtk' />
@@ -523,8 +495,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10945'
-    name="Hell Knife - Confusion - Magic Weakness">
+  <item id='10945' name="Hell Knife - Confusion - Magic Weakness">
     <for>
       <set val='122' order='0x08' stat='pAtk' />
       <set val='122' order='0x08' stat='mAtk' />
@@ -535,8 +506,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10946'
-    name="Raid Sword*Samurai Long Sword - Destruction">
+  <item id='10946' name="Raid Sword*Samurai Long Sword - Destruction">
     <for>
       <set val='220' order='0x08' stat='pAtk' />
       <set val='94' order='0x08' stat='mAtk' />
@@ -547,8 +517,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10947'
-    name="Shamshir*Samurai Long Sword - Destruction">
+  <item id='10947' name="Shamshir*Samurai Long Sword - Destruction">
     <for>
       <set val='220' order='0x08' stat='pAtk' />
       <set val='94' order='0x08' stat='mAtk' />
@@ -559,8 +528,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10948'
-    name="Spirit Sword*Samurai Long Sword - Destruction">
+  <item id='10948' name="Spirit Sword*Samurai Long Sword - Destruction">
     <for>
       <set val='220' order='0x08' stat='pAtk' />
       <set val='94' order='0x08' stat='mAtk' />
@@ -571,8 +539,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10949'
-    name="Katana*Samurai Long Sword - Destruction">
+  <item id='10949' name="Katana*Samurai Long Sword - Destruction">
     <for>
       <set val='220' order='0x08' stat='pAtk' />
       <set val='94' order='0x08' stat='mAtk' />
@@ -583,8 +550,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10950'
-    name="Sword of Limit*Samurai Long Sword - Destruction">
+  <item id='10950' name="Sword of Limit*Samurai Long Sword - Destruction">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='97' order='0x08' stat='mAtk' />
@@ -595,8 +561,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10951'
-    name="Sword of Delusion*Samurai Long Sword - Destruction">
+  <item id='10951' name="Sword of Delusion*Samurai Long Sword - Destruction">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='97' order='0x08' stat='mAtk' />
@@ -607,8 +572,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10952'
-    name="Sword of Nightmare*Samurai Long Sword - Destruction">
+  <item id='10952' name="Sword of Nightmare*Samurai Long Sword - Destruction">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='97' order='0x08' stat='mAtk' />
@@ -619,8 +583,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10953'
-    name="Tsurugi*Samurai Long Sword - Destruction">
+  <item id='10953' name="Tsurugi*Samurai Long Sword - Destruction">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='97' order='0x08' stat='mAtk' />
@@ -631,8 +594,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10954'
-    name="Caliburs*Samurai Long Sword - Destruction">
+  <item id='10954' name="Caliburs*Samurai Long Sword - Destruction">
     <for>
       <set val='228' order='0x08' stat='pAtk' />
       <set val='97' order='0x08' stat='mAtk' />
@@ -654,8 +616,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10956'
-    name="Guardian Sword - Great Gale - Critical Drain">
+  <item id='10956' name="Guardian Sword - Great Gale - Critical Drain">
     <for>
       <set val='236' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -666,8 +627,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10957'
-    name="Guardian Sword - Great Gale - Health">
+  <item id='10957' name="Guardian Sword - Great Gale - Health">
     <for>
       <set val='236' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -678,8 +638,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10958'
-    name="Guardian Sword - Great Gale - Critical Bleed">
+  <item id='10958' name="Guardian Sword - Great Gale - Critical Bleed">
     <for>
       <set val='236' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -701,8 +660,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10960'
-    name="Sword of Damascus - Earth - Focus">
+  <item id='10960' name="Sword of Damascus - Earth - Focus">
     <for>
       <set val='194' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -713,8 +671,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10961'
-    name="Sword of Damascus - Earth - Critical Damage">
+  <item id='10961' name="Sword of Damascus - Earth - Critical Damage">
     <for>
       <set val='194' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -725,8 +682,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10962'
-    name="Sword of Damascus - Earth - Haste">
+  <item id='10962' name="Sword of Damascus - Earth - Haste">
     <for>
       <set val='194' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -748,8 +704,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10964'
-    name="Dismantler - Great Gale - Critical Drain">
+  <item id='10964' name="Dismantler - Great Gale - Critical Drain">
     <for>
       <set val='210' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -760,8 +715,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10965'
-    name="Dismantler - Great Gale - Health">
+  <item id='10965' name="Dismantler - Great Gale - Health">
     <for>
       <set val='210' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -772,8 +726,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10966'
-    name="Dismantler - Great Gale - Critical Bleed">
+  <item id='10966' name="Dismantler - Great Gale - Critical Bleed">
     <for>
       <set val='210' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -839,8 +792,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10972'
-    name="Bellion Cestus - Great Gale - Critical Drain">
+  <item id='10972' name="Bellion Cestus - Great Gale - Critical Drain">
     <for>
       <set val='236' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -851,8 +803,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10973'
-    name="Bellion Cestus - Great Gale - Critical Poison">
+  <item id='10973' name="Bellion Cestus - Great Gale - Critical Poison">
     <for>
       <set val='236' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -863,8 +814,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10974'
-    name="Bellion Cestus - Great Gale - Rsk. Haste">
+  <item id='10974' name="Bellion Cestus - Great Gale - Rsk. Haste">
     <for>
       <set val='236' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -875,8 +825,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10975'
-    name="Staff of Evil Spirits - Holy Spirit">
+  <item id='10975' name="Staff of Evil Spirits - Holy Spirit">
     <for>
       <set val='189' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -887,8 +836,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10976'
-    name="Staff of Evil Spirits - Holy Spirit - Magic Focus">
+  <item id='10976' name="Staff of Evil Spirits - Holy Spirit - Magic Focus">
     <for>
       <set val='189' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -899,8 +847,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10977'
-    name="Staff of Evil Spirits - Holy Spirit - Blessed Body">
+  <item id='10977' name="Staff of Evil Spirits - Holy Spirit - Blessed Body">
     <for>
       <set val='189' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -911,8 +858,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10978'
-    name="Staff of Evil Spirits - Holy Spirit - Magic Poison">
+  <item id='10978' name="Staff of Evil Spirits - Holy Spirit - Magic Poison">
     <for>
       <set val='189' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -934,8 +880,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10980'
-    name="Deadman's Glory - Landslide - Anger">
+  <item id='10980' name="Deadman's Glory - Landslide - Anger">
     <for>
       <set val='194' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -946,8 +891,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10981'
-    name="Deadman's Glory - Landslide - Health">
+  <item id='10981' name="Deadman's Glory - Landslide - Health">
     <for>
       <set val='194' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -958,8 +902,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10982'
-    name="Deadman's Glory - Landslide - Haste">
+  <item id='10982' name="Deadman's Glory - Landslide - Haste">
     <for>
       <set val='194' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -981,8 +924,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10984'
-    name="Star Buster - Great Gale - Health">
+  <item id='10984' name="Star Buster - Great Gale - Health">
     <for>
       <set val='236' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -993,8 +935,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10985'
-    name="Star Buster - Great Gale - Haste">
+  <item id='10985' name="Star Buster - Great Gale - Haste">
     <for>
       <set val='236' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -1005,8 +946,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10986'
-    name="Star Buster - Great Gale - Rsk. Focus">
+  <item id='10986' name="Star Buster - Great Gale - Rsk. Focus">
     <for>
       <set val='236' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -1017,8 +957,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10987'
-    name="Samurai Long Sword*Samurai Long Sword - Landslide">
+  <item id='10987' name="Samurai Long Sword*Samurai Long Sword - Landslide">
     <for>
       <set val='236' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -1040,8 +979,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10989'
-    name="Art of Battle Axe - Landslide - Health">
+  <item id='10989' name="Art of Battle Axe - Landslide - Health">
     <for>
       <set val='194' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -1052,8 +990,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10990'
-    name="Art of Battle Axe - Landslide - Rsk. Focus">
+  <item id='10990' name="Art of Battle Axe - Landslide - Rsk. Focus">
     <for>
       <set val='194' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -1064,8 +1001,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10991'
-    name="Art of Battle Axe - Landslide - Haste">
+  <item id='10991' name="Art of Battle Axe - Landslide - Haste">
     <for>
       <set val='194' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -1087,8 +1023,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10993'
-    name="Demon Dagger - Great Gale - Critical Bleed">
+  <item id='10993' name="Demon Dagger - Great Gale - Critical Bleed">
     <for>
       <set val='170' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -1099,8 +1034,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10994'
-    name="Demon Dagger - Great Gale - Critical Poison">
+  <item id='10994' name="Demon Dagger - Great Gale - Critical Poison">
     <for>
       <set val='170' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -1111,8 +1045,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10995'
-    name="Demon Dagger - Great Gale - Mortal Strike">
+  <item id='10995' name="Demon Dagger - Great Gale - Mortal Strike">
     <for>
       <set val='170' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -1123,8 +1056,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10996'
-    name="Demon Dagger - Great Gale - Critical Damage">
+  <item id='10996' name="Demon Dagger - Great Gale - Critical Damage">
     <for>
       <set val='170' order='0x08' stat='pAtk' />
       <set val='99' order='0x08' stat='mAtk' />
@@ -1146,8 +1078,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10998'
-    name="Kaim Vanul's Bones - Earth - Mana Up">
+  <item id='10998' name="Kaim Vanul's Bones - Earth - Mana Up">
     <for>
       <set val='155' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />
@@ -1158,8 +1089,7 @@
       <enchant val='0' order='0x0C' stat='mAtk' />
     </for>
   </item>
-  <item id='10999'
-    name="Kaim Vanul's Bones - Earth - Magic Silence">
+  <item id='10999' name="Kaim Vanul's Bones - Earth - Magic Silence">
     <for>
       <set val='155' order='0x08' stat='pAtk' />
       <set val='132' order='0x08' stat='mAtk' />

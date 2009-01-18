@@ -44,9 +44,9 @@ class Quest (JQuest) :
         st.rewardItems(57,10981)
         st.takeItems(BROKEN_SWORD_HANDLE,-1)
         st.giveItems(SWORD_OF_SOLIDARITY,1)
-        st.giveItems(1060,int(100))     # Lesser Healing Potions 
+        st.rewardItems(1060,int(100))     # Lesser Healing Potions 
         for item in range(4412,4417) :
-            st.giveItems(item,10)   # Echo crystals
+            st.rewardItems(item,10)   # Echo crystals
         st.addExpAndSp(25747,2171)
         st.set("cond","0")
         st.exitQuest(False)
