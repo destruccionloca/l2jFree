@@ -28,7 +28,11 @@ class Quest (JQuest) :
             st.giveItems(item, 1)
             htmltext = "<html><body>Very well. Here you go!</body></html>"
         else :
-            htmltext = "no-KE.htm"
+            npcId = npc.getNpcId()
+            if npcId >= 35648 and npcId <= 35656:
+                htmltext = st.showHtmlFile("no-KE.htm").replace("LINKBACK", "castlemagician/magician.htm")
+            else:
+                htmltext = st.showHtmlFile("no-KE.htm").replace("LINKBACK", "fortress/support_unit_captain.htm")
         st.exitQuest(1)
         return htmltext
 
