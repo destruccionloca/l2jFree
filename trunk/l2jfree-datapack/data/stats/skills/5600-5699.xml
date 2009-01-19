@@ -616,20 +616,20 @@
     </for>
   </skill>
   <skill id="5655" levels="1" name="Transform Gatekeeper">
-    <set name="target" val="TARGET_SELF"/>  
-    <set name="skillType" val="BUFF"/>  
-    <set name="isMagic" val="true"/>  
-    <set name="operateType" val="OP_ACTIVE"/>  
-    <set name="hitTime" val="2500"/>  
-    <set name="reuseDelay" val="10000"/>  
-    <set name="staticReuse" val="true"/>  
-    <set name="staticHitTime" val="true"/>  
-    <set name="transformId" val="319"/>  
-    <set name="castRange" val="-1"/>  
-    <set name="effectRange" val="-1"/>  
-    <for>  
-       <effect count="1" name="Transformation" time="3600" val="0"/>
-    </for> 
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/>
+    <set name="reuseDelay" val="10000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="transformId" val="319"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="3600" val="0"/>
+    </for>
   </skill>
   <skill id="5656" levels="85" name="Gatekeeper Aura Flare">
     <!-- Skill added by Psychokiller1888 || All stats are custom for the skill to work -->
