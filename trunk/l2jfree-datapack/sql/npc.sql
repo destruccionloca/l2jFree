@@ -9134,6 +9134,10 @@ REPLACE INTO `npc` VALUES ('18375', '18375', 'Beleth Sample', '0', '', '0', 'Lin
 REPLACE INTO `npc` VALUES ('18376', '18376', 'Beleth Sample', '0', '', '0', 'LineageMonster.vale_master', '16.00', '47.00', '82', 'male', 'L2Monster', '40', '2332', '2664', '0.00', '0.00', '55', '40', '55', '40', '40', '40', '3848', '420', '2554', '760', '1355', '825', '333', '0', '333', '205', '0', '0', '0', '120', '', '0', '1', '0', 'LAST_HIT', '0', '0', '0', 'balanced', 'false');
 REPLACE INTO `npc` VALUES ('18377', '18377', 'Beleth Sample', '0', '', '0', 'LineageMonster.skeleton_knight', '10.00', '25.00', '82', 'male', 'L2Monster', '40', '2332', '2664', '0.00', '0.00', '40', '40', '40', '20', '20', '20', '3848', '420', '2554', '760', '1220', '825', '278', '0', '333', '150', '103', '0', '0', '120', '', '0', '1', '0', 'LAST_HIT', '0', '0', '0', 'balanced', 'false');
 
+INSERT INTO `npc` (`id`, `idTemplate`, `name`, `serverSideName`, `title`, `serverSideTitle`, `class`, `collision_radius`, `collision_height`, `level`, `sex`, `type`, `attackrange`, `hp`, `mp`, `hpreg`, `mpreg`, `str`, `con`, `dex`, `int`, `wit`, `men`, `exp`, `sp`, `patk`, `pdef`, `matk`, `mdef`, `atkspd`, `aggro`, `matkspd`, `rhand`, `lhand`, `armor`, `walkspd`, `runspd`, `faction_id`, `faction_range`, `isUndead`, `absorb_level`, `absorb_type`, `ss`, `bss`, `ss_rate`, `AI`, `drop_herbs`) VALUES 
+(14916, 14916, 'Tigress', 0, '', 0, 'LineageMonster.saber_toothed_tiger_070p', 8.00, 20.00, 63, 'female', 'L2Monster', 40, 3862, 1722, 11.85, 2.78, 40, 43, 30, 21, 20, 25, 0, 0, 1335, 470, 780, 440, 282, 0, 333, 0, 0, 0, 88, 187, 'NULL', 0, 0, 0, 'LAST_HIT', 4, 4, 0, 'fighter', 'false'),
+(14917, 14917, 'Tigress', 0, '', 0, 'LineageMonster.saber_toothed_tiger_070p', 8.00, 20.00, 67, 'female', 'L2Monster', 40, 3862, 1722, 11.85, 2.78, 40, 43, 30, 21, 20, 25, 0, 0, 1335, 470, 780, 440, 282, 0, 333, 0, 0, 0, 88, 187, 'NULL', 0, 0, 0, 'LAST_HIT', 4, 4, 0, 'fighter', 'false');
+
 -- -------------------------
 -- Halloween Pumpkin
 -- -------------------------
