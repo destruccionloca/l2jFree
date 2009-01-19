@@ -2758,7 +2758,7 @@ INSERT INTO `weapon` VALUES
 (12811,'Arcana Sigil','lhand','false',1430,0,0,'fine_steel','none',0,0,'sword',0,0,-8,47,20,0,0,0,-1,0,0,'true','true','true','true','','','','',0),
 (12812,'Dynasty Sigil','lhand','false',1430,0,0,'fine_steel','none',0,0,'sword',0,0,-8,47,20,0,0,0,-1,0,0,'true','true','true','true','','','','',0),
 (12813,'Vesper Sigil','lhand','false',1430,0,0,'fine_steel','none',0,0,'sword',0,0,-8,47,20,0,0,0,-1,0,0,'true','true','true','true','','','','',0),
-(12814,'Gatekeeper Transformation Stick','rhand','false',0,0,0,'fine_steel','none',1,10,'sword',8,0,0,0,0,379,0,1,-1,0,0,'true','true','true','true','','','','',0),
+(12814,'Gatekeeper Transformation Stick','rhand','false',0,0,0,'fine_steel','none',1,10,'sword',8,0,0,0,0,379,0,1,60,0,0,'false','false','true','false','8244-1','','','',0),
 (12852,'Naga Storm - Molar - Focus','lrhand','true',930,1,1,'fine_steel','a',220,5,'dagger',12,-3,0,0,0,433,0,121,-1,26970000,2157,'true','true','true','true','','','','',0),
 (12853,'Naga Storm - Molar - Crt. Damage','lrhand','true',930,1,1,'fine_steel','a',220,5,'dagger',12,-3,0,0,0,433,0,121,-1,26970000,2157,'true','true','true','true','','','','',0),
 (12854,'Naga Storm - Molar - Backblow','lrhand','true',930,1,1,'fine_steel','a',220,5,'dagger',12,-3,0,0,0,433,0,121,-1,26970000,2157,'true','true','true','true','','','','',0),

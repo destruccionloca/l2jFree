@@ -13416,7 +13416,7 @@ public final class L2PcInstance extends L2PlayableInstance
     	L2Effect[] effects = getAllEffects();
 		for (L2Effect e : effects)
 		{
-			if (e.getSkill().getId() == 2580)
+			if (e.getSkill().getId() == 2580 || e.getSkill().getId() == 8244 || e.getSkill().getId() == 5655)
 				isVitalityBuffed = true;
 		}
     	
