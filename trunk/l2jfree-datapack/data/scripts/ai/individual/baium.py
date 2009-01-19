@@ -62,7 +62,7 @@ class baium (JQuest):
         if skill != None :
           npc.setTarget(player)
           npc.doCast(skill)
-      if Rnd.get(100) < 5 and ((npc.getStatus().getCurrentHp() / npc.getStatus().getMaxHp())*100) < 50:
+      if Rnd.get(100) < 5 and ((npc.getStatus().getCurrentHp() / npc.getStat().getMaxHp())*100) < 50:
         skill = SkillTable.getInstance().getInfo(ANGEL_HEAL,1)
         if skill != None :
           npc.setTarget(npc)
