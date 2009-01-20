@@ -1,7 +1,7 @@
--- ---------------------------
+-- ------------------------------
 -- Table structure for class_list
--- ---------------------------
-DROP TABLE IF EXISTS class_list;
+-- ------------------------------
+DROP TABLE IF EXISTS `class_list`;
 CREATE TABLE `class_list` (
   `class_name` varchar(20) NOT NULL DEFAULT '',
   `id` int(10) unsigned NOT NULL DEFAULT '0',
@@ -99,17 +99,17 @@ INSERT INTO `class_list` VALUES
 ('D_Artisan', 56, 53), 
 ('D_Warsmith', 57, 56), 
 ('D_Maestro', 118, 57),
-('K_SoldierM', '123', '-1'),
-('K_SoldierF', '124', '-1'),
-('K_Trooper', '125', '123'),
-('K_Warder', '126', '124'),
-('K_Berserker', '127', '125'),
-('K_SoulbreakerM', '128', '125'),
-('K_SoulbreakerF', '129', '126'),
-('K_Arbalester', '130', '126'),
-('K_Doombringer', '131', '127'),
-('K_SoulhoundM', '132', '128'),
-('K_SoulhoundF', '133', '129'),
-('K_Trickster', '134', '130'),
-('K_Inspector', '135', '126'),
-('K_Judicator', '136', '135');
+('K_SoldierM', 123, -1),
+('K_SoldierF', 124, -1),
+('K_Trooper', 125, 123),
+('K_Warder', 126, 124),
+('K_Berserker', 127, 125),
+('K_SoulbreakerM', 128, 125),
+('K_SoulbreakerF', 129, 126),
+('K_Arbalester', 130, 126),
+('K_Doombringer', 131, 127),
+('K_SoulhoundM', 132, 128),
+('K_SoulhoundF', 133, 129),
+('K_Trickster', 134, 130),
+('K_Inspector', 135, 126),
+('K_Judicator', 136, 135);

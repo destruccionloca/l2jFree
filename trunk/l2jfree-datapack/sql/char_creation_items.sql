@@ -4,23 +4,17 @@
 --
 -- A value of -1 in the classId field means "Any class"
 
---
--- Table structure for table `char_creation_items`
---
-
+-- ---------------------------------------
+-- Table structure for char_creation_items
+-- ---------------------------------------
 DROP TABLE IF EXISTS `char_creation_items`;
-
-CREATE TABLE IF NOT EXISTS `char_creation_items` (
+CREATE TABLE `char_creation_items` (
   `classId` smallint(6) NOT NULL,
   `itemId` smallint(6) unsigned NOT NULL,
-  `amount` int(10) unsigned NOT NULL default '1',
-  `equipped` enum('true','false') NOT NULL default 'false',
+  `amount` int(10) unsigned NOT NULL DEFAULT '1',
+  `equipped` enum('true','false') NOT NULL DEFAULT 'false',
   PRIMARY KEY (`classId`,`itemId`)
 ) DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `char_creation_items`
---
 
 INSERT INTO `char_creation_items` VALUES
 (-1,5588,1,'false'), -- All classes - Tutorial Guide

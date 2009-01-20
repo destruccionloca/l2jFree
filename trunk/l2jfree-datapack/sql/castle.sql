@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `castle` (
   `treasury` INT NOT NULL DEFAULT 0,
   `siegeDate` DECIMAL(20,0) NOT NULL DEFAULT 0,
   `regTimeOver` enum('true','false') DEFAULT 'true' NOT NULL,
-  `regTimeEnd` DECIMAL(20,0) NOT NULL default 0,
+  `regTimeEnd` DECIMAL(20,0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`name`),
   KEY `id` (`id`)
 ) DEFAULT CHARSET=utf8;

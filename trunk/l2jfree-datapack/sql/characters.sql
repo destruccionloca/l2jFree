@@ -1,6 +1,6 @@
--- ---------------------------
--- Table structure for `characters`
--- ---------------------------
+-- ------------------------------
+-- Table structure for characters
+-- ------------------------------
 CREATE TABLE IF NOT EXISTS `characters` (
   `account_name` VARCHAR(45) DEFAULT NULL,
   `charId` INT UNSIGNED NOT NULL DEFAULT 0,
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `charViP` TINYINT UNSIGNED NOT NULL DEFAULT 0,
   `death_penalty_level` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
   `trust_level` INT UNSIGNED NOT NULL DEFAULT 0,
-  `vitality_points` DOUBLE(7,1) NOT NULL default '0.0',
+  `vitality_points` DOUBLE(7,1) NOT NULL DEFAULT '0.0',
   PRIMARY KEY (`charId`),
   KEY `clanid` (`clanid`)
 ) DEFAULT CHARSET=utf8;

@@ -10,7 +10,7 @@ In general, and unless otherwise stated by specific conventions or guidelines th
 
 - Further, when specifying a numeric type, INTEGER or its variations should be chosen instead of DECIMAL(M,0).
 
-- Since L2J supports MySQL as its one and only data management backend, we should not hesitate to introduce any standards extension or column type MySQL provides as a non-portable feature. This statement applies particularly when we could obtain any gain either from a readability, code maintenance or system performance perspective.
+- Since L2JFree supports MySQL as its one and only data management backend, we should not hesitate to introduce any standards extension or column type MySQL provides as a non-portable feature. This statement applies particularly when we could obtain any gain either from a readability, code maintenance or system performance perspective.
 
 - During data dump queries, no quotes should be used for numeric values and spaces after field separation commas should be ommited. This is in order to reduce file sizes.
 

@@ -2,6 +2,7 @@
 # Shadow Weapon Coupons contributed by BiTi for the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details
 import sys
+from com.l2jfree.gameserver.model import L2Attackable
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -230,7 +231,7 @@ class Quest (JQuest) :
                   st.addExpAndSp(148409,30000)
                   for var in STATS:
                      st.unset(var)
-                  st.exitQuest(False) 
+                  st.exitQuest(False)
                   st.playSound("ItemSound.quest_finish")
                   st.giveItems(MARK_OF_SUMMONER,1)
                   st.giveItems(SHADOW_WEAPON_COUPON_CGRADE,15)
@@ -283,7 +284,8 @@ class Quest (JQuest) :
                   htmltext = str(npcId)+"-10.htm"
       return htmltext
 
-   def onDeath(self,killer,deadperson,st) :               # if players summon dies, the crystal of defeat is given to the player and set stat to lose
+   def onDeath(self,killer,deadPerson,st) :               # if players summon dies, the crystal of defeat is given to the player and set stat to lose
+      if not isinstance(killer, L2Attackable): return
       npcId = killer.getNpcId()
 ##      if (deadPerson == st.getPlayer() or deadPerson = st.getPlayer().getPet()) and npcId in DROPLIST_SUMMON.keys() :
       if npcId in DROPLIST_SUMMON.keys() :

@@ -1,28 +1,28 @@
--- ---------------------------
--- Table structure for `castle_door`
--- ---------------------------
+-- -------------------------------
+-- Table structure for castle_door
+-- -------------------------------
 DROP TABLE IF EXISTS `castle_door`;
 CREATE TABLE `castle_door` (
   `castleId` tinyint(4) NOT NULL,
-  `id` int(10) unsigned NOT NULL default '0',
-  `name` varchar(128) NOT NULL default '',
-  `hp` int(10) unsigned NOT NULL default '0',
-  `pdef` int(10) unsigned NOT NULL default '0',
-  `mdef` int(10) unsigned NOT NULL default '0',
-  `posx` int(11) NOT NULL default '0',
-  `posy` int(11) NOT NULL default '0',
-  `posz` int(11) NOT NULL default '0',
-  `ax` int(11) NOT NULL default '0',
-  `ay` int(11) NOT NULL default '0',
-  `bx` int(11) NOT NULL default '0',
-  `by` int(11) NOT NULL default '0',
-  `cx` int(11) NOT NULL default '0',
-  `cy` int(11) NOT NULL default '0',
-  `dx` int(11) NOT NULL default '0',
-  `dy` int(11) NOT NULL default '0',
-  `minz` int(11) NOT NULL default '0',
-  `maxz` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
+  `id` int(10) unsigned NOT NULL DEFAULT '0',
+  `name` varchar(128) NOT NULL DEFAULT '',
+  `hp` int(10) unsigned NOT NULL DEFAULT '0',
+  `pdef` int(10) unsigned NOT NULL DEFAULT '0',
+  `mdef` int(10) unsigned NOT NULL DEFAULT '0',
+  `posx` int(11) NOT NULL DEFAULT '0',
+  `posy` int(11) NOT NULL DEFAULT '0',
+  `posz` int(11) NOT NULL DEFAULT '0',
+  `ax` int(11) NOT NULL DEFAULT '0',
+  `ay` int(11) NOT NULL DEFAULT '0',
+  `bx` int(11) NOT NULL DEFAULT '0',
+  `by` int(11) NOT NULL DEFAULT '0',
+  `cx` int(11) NOT NULL DEFAULT '0',
+  `cy` int(11) NOT NULL DEFAULT '0',
+  `dx` int(11) NOT NULL DEFAULT '0',
+  `dy` int(11) NOT NULL DEFAULT '0',
+  `minz` int(11) NOT NULL DEFAULT '0',
+  `maxz` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
 INSERT INTO `castle_door` (`castleId`, `id`, `name`, `hp`, `pdef`, `mdef`, `posx`, `posy`, `posz`, `ax`, `ay`, `bx`, `by`, `cx`, `cy`, `dx`, `dy`, `minz`, `maxz`) VALUES

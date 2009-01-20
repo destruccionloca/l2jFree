@@ -24,8 +24,8 @@ BLOODSABER_ID = 975
 #Bit #1 isn't used for backwards compatibility.
 NEWBIE_REWARD = 8
 SOULSHOT_FOR_BEGINNERS = 5789
+SOULSHOT_NO_GRADE = 1835
 SPIRITSHOT_NO_GRADE = 2509
-SOULSHOT_NOGRADE = 1835
 LESSER_HEALING_POTION = 1060
 class Quest (JQuest) :
 
@@ -107,14 +107,14 @@ class Quest (JQuest) :
             st.rewardItems(57,19799)
             st.takeItems(STEELBENDERS_HEAD_ID,1)
             st.giveItems(BLOODSABER_ID,1)
-            st.giveItems(LESSER_HEALING_POTION,100)
+            st.rewardItems(LESSER_HEALING_POTION,100)
             mage = player.getClassId().isMage()
             if mage :
                st.giveItems(SPIRITSHOT_NO_GRADE,500)
             else : 
-               st.giveItems(SOULSHOT_NOGRADE,1000)
+               st.giveItems(SOULSHOT_NO_GRADE,1000)
             for item in range(4412,4417) : 
-               st.giveItems(item,int(10))   # Echo crystals 
+               st.rewardItems(item,int(10))   # Echo crystals 
             st.set("cond","0")
             st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")

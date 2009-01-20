@@ -1,8 +1,8 @@
 -- ---------------------------
--- Table structure for table `etcitem`
+-- Table structure for etcitem
 -- ---------------------------
 DROP TABLE IF EXISTS `etcitem`;
-CREATE TABLE IF NOT EXISTS `etcitem` (
+CREATE TABLE `etcitem` (
   `item_id` decimal(11,0) NOT NULL DEFAULT '0',
   `name` varchar(100) DEFAULT NULL,
   `crystallizable` varchar(5) DEFAULT NULL,

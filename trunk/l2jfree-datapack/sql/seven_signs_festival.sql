@@ -1,6 +1,6 @@
--- ----------------------------
--- Table structure for `seven_signs_festival`
--- ----------------------------
+-- ----------------------------------------
+-- Table structure for seven_signs_festival
+-- ----------------------------------------
 CREATE TABLE IF NOT EXISTS `seven_signs_festival` (
   `festivalId` int(1) NOT NULL DEFAULT '0',
   `cabal` varchar(4) NOT NULL DEFAULT '',
@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS `seven_signs_festival` (
   `date` bigint(50) DEFAULT '0',
   `score` int(5) NOT NULL DEFAULT '0',
   `members` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`festivalId`,`cabal`,`cycle`))
-DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`festivalId`,`cabal`,`cycle`)
+) DEFAULT CHARSET=utf8;
 
 INSERT IGNORE INTO `seven_signs_festival` VALUES 
 (0, "dawn", 1, 0, 0, ""),

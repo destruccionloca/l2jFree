@@ -1,6 +1,6 @@
--- ---------------------------
--- Table structure for `raidboss_spawnlist`
--- ---------------------------
+-- --------------------------------------
+-- Table structure for raidboss_spawnlist
+-- --------------------------------------
 DROP TABLE IF EXISTS `raidboss_spawnlist`;
 CREATE TABLE `raidboss_spawnlist` (
   `boss_id` INT NOT NULL DEFAULT 0,
@@ -261,8 +261,8 @@ INSERT INTO `raidboss_spawnlist` VALUES
 -- L2J-Free Add-ons
 --
 
-DELETE FROM raidboss_spawnlist WHERE `boss_id` IN (29096,25280);
-INSERT INTO raidboss_spawnlist VALUES
+DELETE FROM `raidboss_spawnlist` WHERE `boss_id` IN (29096,25280);
+INSERT INTO `raidboss_spawnlist` VALUES
 (25523,1,168641,-60417,-3888,0,43200,129600,0,750000,9999), -- Plague Golem (73)
 (29096,1,113000,-76000,200,0,43200,129600,0,1069643,9999), -- Master Anays (87)
 (25280,1,85622,88766,-2717,0,43200,129600,0,1248928,2039); -- Pagan Watcher Cerberon (55)

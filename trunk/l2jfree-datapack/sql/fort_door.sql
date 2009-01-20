@@ -1,28 +1,28 @@
--- ---------------------------
+-- -----------------------------
 -- Table structure for fort_door
--- ---------------------------
+-- -----------------------------
 DROP TABLE IF EXISTS `fort_door`;
 CREATE TABLE `fort_door` (
   `fortId` int(11) NOT NULL,
-  `id` int(10) unsigned NOT NULL default 0,
-  `name` varchar(128) collate utf8_unicode_ci NOT NULL default '',
-  `hp` int(10) unsigned NOT NULL default 0,
-  `pdef` int(10) unsigned NOT NULL default 0,
-  `mdef` int(10) unsigned NOT NULL default 0,
-  `posx` int(11) NOT NULL default 0,
-  `posy` int(11) NOT NULL default 0,
-  `posz` int(11) NOT NULL default 0,
-  `ax` int(11) NOT NULL default 0,
-  `ay` int(11) NOT NULL default 0,
-  `bx` int(11) NOT NULL default 0,
-  `by` int(11) NOT NULL default 0,
-  `cx` int(11) NOT NULL default 0,
-  `cy` int(11) NOT NULL default 0,
-  `dx` int(11) NOT NULL default 0,
-  `dy` int(11) NOT NULL default 0,
-  `minz` int(11) NOT NULL default 0,
-  `maxz` int(11) NOT NULL default 0,
-  `openType` varchar(5) NOT NULL default 'false', -- used for tracking doors that can be opened by double clicking on them
+  `id` int(10) unsigned NOT NULL DEFAULT 0,
+  `name` varchar(128) collate utf8_unicode_ci NOT NULL DEFAULT '',
+  `hp` int(10) unsigned NOT NULL DEFAULT 0,
+  `pdef` int(10) unsigned NOT NULL DEFAULT 0,
+  `mdef` int(10) unsigned NOT NULL DEFAULT 0,
+  `posx` int(11) NOT NULL DEFAULT 0,
+  `posy` int(11) NOT NULL DEFAULT 0,
+  `posz` int(11) NOT NULL DEFAULT 0,
+  `ax` int(11) NOT NULL DEFAULT 0,
+  `ay` int(11) NOT NULL DEFAULT 0,
+  `bx` int(11) NOT NULL DEFAULT 0,
+  `by` int(11) NOT NULL DEFAULT 0,
+  `cx` int(11) NOT NULL DEFAULT 0,
+  `cy` int(11) NOT NULL DEFAULT 0,
+  `dx` int(11) NOT NULL DEFAULT 0,
+  `dy` int(11) NOT NULL DEFAULT 0,
+  `minz` int(11) NOT NULL DEFAULT 0,
+  `maxz` int(11) NOT NULL DEFAULT 0,
+  `openType` varchar(5) NOT NULL DEFAULT 'false', -- used for tracking doors that can be opened by double clicking on them
   PRIMARY KEY  (`id`)
 ) DEFAULT CHARSET=utf8;
 
@@ -254,4 +254,4 @@ INSERT INTO `fort_door` VALUES
 (121, 22150005, 'Gate_of_fort_Monastic', 158250, 644, 518, 70906, -94139, -1401, 70884, -94210, 70866, -94202, 70899, -94121, 70918, -94130, -1428, -1428, 'true'),
 (121, 22150006, 'Gate_of_fort_Monastic', 158250, 644, 518, 72335, -94184, -1428, 71945, -95316, 71939, -95331, 71859, -95297, 71865, -95282, -1456, -1456, 'true'),
 (121, 22150007, 'Gate_of_fort_Monastic', 158250, 644, 518, 72457, -94244, -1428, 71934, -95311, 71928, -95326, 72011, -95359, 72016, -95346, -1456, -1456, 'true'),
-(121, 22150008, 'Gate_of_fort_Monastic', 158250, 644, 518, 71786, -92914, -1431, 71720, -92818, 71680, -92912, 71872, -92996, 71913, -92897, -1477, -1477, 'true'); 
+(121, 22150008, 'Gate_of_fort_Monastic', 158250, 644, 518, 71786, -92914, -1431, 71720, -92818, 71680, -92912, 71872, -92996, 71913, -92897, -1477, -1477, 'true');

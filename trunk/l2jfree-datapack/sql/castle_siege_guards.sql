@@ -1,8 +1,8 @@
--- ---------------------------
--- Table structure for `castle_siege_guards`
--- ---------------------------
+-- ---------------------------------------
+-- Table structure for castle_siege_guards
+-- ---------------------------------------
 DROP TABLE IF EXISTS `castle_siege_guards`;
-CREATE TABLE IF NOT EXISTS `castle_siege_guards` (
+CREATE TABLE `castle_siege_guards` (
   `castleId` INT NOT NULL DEFAULT 0,
   `id` int(11) NOT NULL auto_increment,
   `npcId` INT NOT NULL DEFAULT 0,
