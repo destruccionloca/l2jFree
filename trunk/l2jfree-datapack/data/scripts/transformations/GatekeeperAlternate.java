@@ -36,6 +36,6 @@ public class GatekeeperAlternate extends L2DefaultTransformation
 
 	public static void main(String[] args)
 	{
-		TransformationManager.getInstance().registerTransformation(new Gatekeeper());
+		TransformationManager.getInstance().registerTransformation(new GatekeeperAlternate());
 	}
 }
