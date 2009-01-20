@@ -6,8 +6,20 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "8004_PurchaseBracelet"
 
-Angel_Bracelet = 10320
-Devil_Bracelet = 10326
+# NPCs
+TRADER_ALEXANDRIA = 30098
+
+# QUEST ITEMS
+ANGEL_BRACELET      = 10320
+DEVIL_BRACELET      = 10326
+BIG_RED_NIMBLE_FISH = 6471
+GREAT_CODRAN        = 5094
+MEMENTO_MORI        = 9814
+DRAGON_HEART        = 9815
+EARTH_EGG           = 9816
+NONLIVING_NUCLEUS   = 9817
+ADENA_ID            = 57
+
 
 class Quest (JQuest) :
 
@@ -16,31 +28,31 @@ class Quest (JQuest) :
  def onEvent(self,event,st):
     htmltext = event
     if event == "Little_Angel" :
-      if st.getQuestItemsCount(6471) >= 20 and st.getQuestItemsCount(5094) >= 50 and st.getQuestItemsCount(9814) >= 4 and st.getQuestItemsCount(9816) >= 5 and st.getQuestItemsCount(9817) >= 5 and st.getQuestItemsCount(9815) >= 3 and st.getQuestItemsCount(57) >= 7500000 :
-        st.takeItems(6471,25)
-        st.takeItems(5094,50)
-        st.takeItems(9814,4)
-        st.takeItems(9816,5)
-        st.takeItems(9817,5)
-        st.takeItems(9815,3)
-        st.takeItems(57,7500000)
+      if st.getQuestItemsCount(BIG_RED_NIMBLE_FISH) >= 20 and st.getQuestItemsCount(GREAT_CODRAN) >= 50 and st.getQuestItemsCount(MEMENTO_MORI) >= 4 and st.getQuestItemsCount(DRAGON_HEART) >= 3 and st.getQuestItemsCount(EARTH_EGG) >= 5 and st.getQuestItemsCount(NONLIVING_NUCLEUS) >= 5 and st.getQuestItemsCount(ADENA_ID) >= 7500000 :
+        st.takeItems(BIG_RED_NIMBLE_FISH,25)
+        st.takeItems(GREAT_CODRAN,50)
+        st.takeItems(MEMENTO_MORI,4)
+		st.takeItems(DRAGON_HEART,3)
+        st.takeItems(EARTH_EGG,5)
+        st.takeItems(NONLIVING_NUCLEUS,5)
+        st.takeItems(ADENA_ID,7500000)
         htmltext = ""
-        st.giveItems(Angel_Bracelet,1)
+        st.giveItems(ANGEL_BRACELET,1)
         st.exitQuest(1)
       else :
         htmltext = "30098-no.htm"
         st.exitQuest(1)
     if event == "Little_Devil" :
-      if st.getQuestItemsCount(6471) >= 20 and st.getQuestItemsCount(5094) >= 50 and st.getQuestItemsCount(9814) >= 4 and st.getQuestItemsCount(9816) >= 5 and st.getQuestItemsCount(9817) >= 5 and st.getQuestItemsCount(9815) >= 3 and st.getQuestItemsCount(57) >= 7500000 :
-        st.takeItems(6471,25)
-        st.takeItems(5094,50)
-        st.takeItems(9814,4)
-        st.takeItems(9816,5)
-        st.takeItems(9817,5)
-        st.takeItems(9815,3)
-        st.takeItems(57,7500000)
+      if st.getQuestItemsCount(BIG_RED_NIMBLE_FISH) >= 20 and st.getQuestItemsCount(GREAT_CODRAN) >= 50 and st.getQuestItemsCount(MEMENTO_MORI) >= 4 and st.getQuestItemsCount(DRAGON_HEART) >= 3 and st.getQuestItemsCount(EARTH_EGG) >= 5 and st.getQuestItemsCount(NONLIVING_NUCLEUS) >= 5 and st.getQuestItemsCount(ADENA_ID) >= 7500000 :
+        st.takeItems(BIG_RED_NIMBLE_FISH,25)
+        st.takeItems(GREAT_CODRAN,50)
+        st.takeItems(MEMENTO_MORI,4)
+		st.takeItems(DRAGON_HEART,3)
+        st.takeItems(EARTH_EGG,5)
+        st.takeItems(NONLIVING_NUCLEUS,5)
+        st.takeItems(ADENA_ID,7500000)
         htmltext = ""
-        st.giveItems(Devil_Bracelet,1)
+        st.giveItems(DEVIL_BRACELET,1)
         st.exitQuest(1)
       else :
         htmltext = "30098-no.htm"
@@ -57,6 +69,6 @@ class Quest (JQuest) :
 
 QUEST = Quest(8004,qn,"custom")
 
-QUEST.addStartNpc(30098)
+QUEST.addStartNpc(TRADER_ALEXANDRIA)
 
-QUEST.addTalkId(30098)
+QUEST.addTalkId(TRADER_ALEXANDRIA)
