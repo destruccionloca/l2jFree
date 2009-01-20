@@ -334,147 +334,147 @@
   </item>
   <!-- Dark Crystal Gloves Light Armor Use--> 
   <item id="56"> 
-    <production id="11408" count="1"/> 
-    <ingredient id="11421" count="1"/> 
-    <ingredient id="5575" count="87000"/> 
+    <production id="11408" count="1" /> 
+    <ingredient id="11421" count="1" /> 
+    <ingredient id="5575" count="87000" /> 
   </item> 
   <!-- Dark Crystal Gloves Light Armor Use--> 
   <item id="57"> 
-    <production id="11409" count="1"/> 
-    <ingredient id="11421" count="1"/> 
-    <ingredient id="5575" count="87000"/> 
+    <production id="11409" count="1" /> 
+    <ingredient id="11421" count="1" /> 
+    <ingredient id="5575" count="87000" /> 
   </item>   
   <!-- Dark Crystal Gloves Robe Use --> 
   <item id="58"> 
-    <production id="11410" count="1"/> 
-    <ingredient id="11421" count="1"/> 
-    <ingredient id="5575" count="87000"/> 
+    <production id="11410" count="1" /> 
+    <ingredient id="11421" count="1" /> 
+    <ingredient id="5575" count="87000" /> 
   </item> 
   <!-- Dark Crystal Boots Heavy Armor Use --> 
   <item id="59"> 
-    <production id="11413" count="1"/> 
-    <ingredient id="11424" count="1"/> 
-    <ingredient id="5575" count="87000"/> 
+    <production id="11413" count="1" /> 
+    <ingredient id="11424" count="1" /> 
+    <ingredient id="5575" count="87000" /> 
   </item> 
   <!-- Dark Crystal Boots Light Armor Use --> 
   <item id="60"> 
-    <production id="11414" count="1"/> 
-    <ingredient id="11424" count="1"/> 
-    <ingredient id="5575" count="87000"/> 
+    <production id="11414" count="1" /> 
+    <ingredient id="11424" count="1" /> 
+    <ingredient id="5575" count="87000" /> 
   </item> 
   <!-- Dark Crystal Boots Robe  Use --> 
   <item id="61"> 
-    <production id="11415" count="1"/> 
-    <ingredient id="11424" count="1"/> 
-    <ingredient id="5575" count="87000"/> 
+    <production id="11415" count="1" /> 
+    <ingredient id="11424" count="1" /> 
+    <ingredient id="5575" count="87000" /> 
   </item> 
   <!-- Tallum Gloves Heavy  Armor Use --> 
   <item id="62"> 
-    <production id="11437" count="1"/> 
-    <ingredient id="11429" count="1"/> 
-    <ingredient id="5575" count="87000"/> 
+    <production id="11437" count="1" /> 
+    <ingredient id="11429" count="1" /> 
+    <ingredient id="5575" count="87000" /> 
   </item> 
   <!-- Tallum Gloves Light  Armor Use --> 
   <item id="63"> 
-    <production id="11438" count="1"/> 
-    <ingredient id="11429" count="1"/> 
-    <ingredient id="5575" count="87000"/> 
+    <production id="11438" count="1" /> 
+    <ingredient id="11429" count="1" /> 
+    <ingredient id="5575" count="87000" /> 
   </item> 
   <!-- Tallum Gloves Robe Use --> 
   <item id="64"> 
-    <production id="11439" count="1"/> 
-    <ingredient id="11429" count="1"/> 
-    <ingredient id="5575" count="87000"/> 
+    <production id="11439" count="1" /> 
+    <ingredient id="11429" count="1" /> 
+    <ingredient id="5575" count="87000" /> 
   </item> 
   <!-- Tallum Boots Heavy  Armor Use --> 
   <item id="65"> 
-    <production id="11441" count="1"/> 
-    <ingredient id="11431" count="1"/> 
-    <ingredient id="5575" count="87000"/> 
+    <production id="11441" count="1" /> 
+    <ingredient id="11431" count="1" /> 
+    <ingredient id="5575" count="87000" /> 
   </item> 
   <!-- Tallum Boots Light  Armor Use --> 
   <item id="66"> 
-    <production id="11442" count="1"/> 
-    <ingredient id="11431" count="1"/> 
-    <ingredient id="5575" count="87000"/> 
+    <production id="11442" count="1" /> 
+    <ingredient id="11431" count="1" /> 
+    <ingredient id="5575" count="87000" /> 
   </item> 
   <!-- Tallum Boots Robe Use --> 
   <item id="67"> 
-    <production id="11443" count="1"/> 
-    <ingredient id="11431" count="1"/> 
-    <ingredient id="5575" count="87000"/> 
+    <production id="11443" count="1" /> 
+    <ingredient id="11431" count="1" /> 
+    <ingredient id="5575" count="87000" /> 
   </item> 
   <!-- Nightmare Gloves Heavy  Armor Use --> 
   <item id="68"> 
-    <production id="11472" count="1"/> 
-    <ingredient id="11465" count="1"/> 
-    <ingredient id="5575" count="132000"/> 
+    <production id="11472" count="1" /> 
+    <ingredient id="11465" count="1" /> 
+    <ingredient id="5575" count="132000" /> 
   </item> 
   <!-- Nightmare Gloves Light  Armor Use --> 
   <item id="69"> 
-    <production id="11473" count="1"/> 
-    <ingredient id="11465" count="1"/> 
-    <ingredient id="5575" count="132000"/> 
+    <production id="11473" count="1" /> 
+    <ingredient id="11465" count="1" /> 
+    <ingredient id="5575" count="132000" /> 
   </item> 
   <!-- Nightmare Gloves Robe Use --> 
   <item id="70"> 
-    <production id="11474" count="1"/> 
-    <ingredient id="11465" count="1"/> 
-    <ingredient id="5575" count="132000"/> 
+    <production id="11474" count="1" /> 
+    <ingredient id="11465" count="1" /> 
+    <ingredient id="5575" count="132000" /> 
   </item> 
   <!-- Nightmare Boots Heavy  Armor Use  --> 
   <item id="71"> 
-    <production id="11477" count="1"/> 
-    <ingredient id="11468" count="1"/> 
-    <ingredient id="5575" count="132000"/> 
+    <production id="11477" count="1" /> 
+    <ingredient id="11468" count="1" /> 
+    <ingredient id="5575" count="132000" /> 
   </item> 
   <!-- Nightmare Boots Light  Armor Use --> 
   <item id="72"> 
-    <production id="11478" count="1"/> 
-    <ingredient id="11468" count="1"/> 
-    <ingredient id="5575" count="132000"/> 
+    <production id="11478" count="1" /> 
+    <ingredient id="11468" count="1" /> 
+    <ingredient id="5575" count="132000" /> 
   </item> 
   <!-- Nightmare Boots Robe Use --> 
   <item id="73"> 
-    <production id="11479" count="1"/> 
-    <ingredient id="11468" count="1"/> 
-    <ingredient id="5575" count="132000"/> 
+    <production id="11479" count="1" /> 
+    <ingredient id="11468" count="1" /> 
+    <ingredient id="5575" count="132000" /> 
   </item> 
   <!-- Majestic Gloves Heavy  Armor Use --> 
   <item id="74"> 
-    <production id="11448" count="1"/> 
-    <ingredient id="11458" count="1"/> 
-    <ingredient id="5575" count="132000"/> 
+    <production id="11448" count="1" /> 
+    <ingredient id="11458" count="1" /> 
+    <ingredient id="5575" count="132000" /> 
   </item> 
   <!-- Majestic Gloves Light  Armor Use --> 
   <item id="75"> 
-    <production id="11449" count="1"/> 
-    <ingredient id="11458" count="1"/> 
-    <ingredient id="5575" count="132000"/> 
+    <production id="11449" count="1" /> 
+    <ingredient id="11458" count="1" /> 
+    <ingredient id="5575" count="132000" /> 
   </item> 
   <!-- Majestic Gloves Robe Use --> 
   <item id="76"> 
-    <production id="11450" count="1"/> 
-    <ingredient id="11458" count="1"/> 
-    <ingredient id="5575" count="132000"/> 
+    <production id="11450" count="1" /> 
+    <ingredient id="11458" count="1" /> 
+    <ingredient id="5575" count="132000" /> 
   </item> 
   <!-- Majestic Boots Heavy  Armor Use --> 
   <item id="77"> 
-    <production id="11453" count="1"/> 
-    <ingredient id="11461" count="1"/> 
-    <ingredient id="5575" count="13200"/> 
+    <production id="11453" count="1" /> 
+    <ingredient id="11461" count="1" /> 
+    <ingredient id="5575" count="13200" /> 
   </item> 
   <!-- Majestic Boots Light  Armor Use --> 
   <item id="78"> 
-    <production id="11454" count="1"/> 
-    <ingredient id="11461" count="1"/> 
-    <ingredient id="5575" count="132000"/> 
+    <production id="11454" count="1" /> 
+    <ingredient id="11461" count="1" /> 
+    <ingredient id="5575" count="132000" /> 
   </item> 
   <!-- Majestic Boots Robe Use --> 
   <item id="79"> 
-    <production id="11455" count="1"/> 
-    <ingredient id="11461" count="1"/> 
-    <ingredient id="5575" count="132000"/> 
+    <production id="11455" count="1" /> 
+    <ingredient id="11461" count="1" /> 
+    <ingredient id="5575" count="132000" /> 
   </item> 
   <!-- Dark Crystal breastplate -->
   <item id="80">
