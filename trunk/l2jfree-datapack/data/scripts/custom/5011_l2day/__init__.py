@@ -1,34 +1,58 @@
-### ----------------------------------------------------------------------------------
-### <history>
-###	        Created by DJ_WEST. (C) Reallite Labs (www.reallite.cs2.ru)  1.11.2005
-###	        Official idea - NCSoft. Version: 1.0
-### </history>
-### ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------
+#	        Created by DJ_WEST. (C) Reallite Labs (www.reallite.cs2.ru)  1.11.2005
+#	        Official idea - NCSoft. Version: 1.0
+# ----------------------------------------------------------------------------------
 
-### Settings
+# Settings
 qn = "5011_l2day"
 QuestId     = 5011
 QuestName   = "l2day"
 QuestDesc   = "custom"
 InitialHtml = "1.htm"
 
-### Items - Format [name, giveItemId, giveItemQty, giveItem1Id, giveItem1Qty, giveItem2Id, giveItem2Qty, giveItem3Id, giveItem3Qty, giveItem4Id, giveItem4Qty, takeItem1Id, takeItem1Qty, takeItem2Id, takeItem2Qty, takeItem3Id, takeItem3Qty, takeItem4Id, takeItem4Qty, takeItem5Id, takeItem5Qty, takeItem6Id, takeItem6Qty, takeItem7Id, takeItem7Qty, takeItem8Id, takeItem8Qty, takeItem9Id, takeItem9Qty]
-Items       = [
-["Lineage II", 3959, 3, 3958, 3, 3929, 3, 3932, 3, 3882, 1, 3881, 1, 3883, 1, 3877, 2, 3875, 1, 3879, 1, 3888, 1, 3876, 0, 3878, 0],
-["NCSOFT", 3958, 1, 3959, 1, 3926, 1, 3927, 1, 3883, 1, 3876, 1, 3886, 1, 3884, 1, 3878, 1, 3887, 1, 3875, 0, 3877, 0, 3879, 0],
-["CHRONICLE", 3934, 2, 3959, 2, 3958, 2, 3928, 2, 3876, 2, 3880, 1, 3885, 1, 3884, 1, 3883, 1, 3881, 1, 3882, 1, 3877, 1, 3887, 0]
-]
+# NPCs
+BERYL_THE_CAT = 31774
 
-### ---------------------------------------------------------------------------
-### DO NOT MODIFY BELOW THIS LINE
-### ---------------------------------------------------------------------------
+# REWARDS : L2day Scrolls
+GUIDANCE       = 3926
+DEATH_WHISPER  = 3927
+FOCUS          = 3928
+GREATER_ACUMEN = 3929
+EMPOWER        = 3932
+WWALK          = 3934
+SHIELD         = 3935
+BSOE           = 3958
+BRES           = 3959
+
+# QUEST ITEMS : Letters to form words
+A  = 3875
+C  = 3876
+E  = 3877
+F  = 3878
+G  = 3879
+H  = 3880
+I  = 3881
+L  = 3882
+N  = 3883
+O  = 3884
+R  = 3885
+S  = 3886
+T  = 3887
+II = 3888
+
+# Items - Format [name, giveItemId, giveItemQty, giveItem1Id, giveItem1Qty, giveItem2Id, giveItem2Qty, giveItem3Id, giveItem3Qty, giveItem4Id, giveItem4Qty, takeItem1Id, takeItem1Qty, takeItem2Id, takeItem2Qty, takeItem3Id, takeItem3Qty, takeItem4Id, takeItem4Qty, takeItem5Id, takeItem5Qty, takeItem6Id, takeItem6Qty, takeItem7Id, takeItem7Qty, takeItem8Id, takeItem8Qty, takeItem9Id, takeItem9Qty]
+Items       = [
+["LINEAGEII", BRES, 3, BSOE, 3, GREATER_ACUMEN, 3, EMPOWER, 3, L, 1, I, 1, N, 1, E, 2, A, 1, G, 1, E, 1, II, 1, C, 0],
+["NCSOFT", BSOE, 1, BRES, 1, GUIDANCE, 1, DEATH_WHISPER, 1, N, 1, C, 1, S, 1, O, 1, F, 1, T, 1, A, 0, E, 0, G, 0],
+["CHRONICLE", WWALK, 2, BRES, 2, BSOE, 2, FOCUS, 2, C, 2, H, 1, R, 1, O, 1, N, 1, I, 1, C, 1, L, 1, E, 1]
+]
 
 import sys
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
-### doRequestedEvent
+# doRequestedEvent
 def do_RequestedEvent(event, st, giveItem1Id, giveItem1Qty, giveItem2Id, giveItem2Qty, giveItem3Id, giveItem3Qty, giveItem4Id, giveItem4Qty, takeItem1Id, takeItem1Qty, takeItem2Id, takeItem2Qty, takeItem3Id, takeItem3Qty, takeItem4Id, takeItem4Qty, takeItem5Id, takeItem5Qty, takeItem6Id, takeItem6Qty, takeItem7Id, takeItem7Qty, takeItem8Id, takeItem8Qty, takeItem9Id, takeItem9Qty) :
     if st.getQuestItemsCount(takeItem1Id) >= takeItem1Qty and st.getQuestItemsCount(takeItem2Id) >= takeItem2Qty and st.getQuestItemsCount(takeItem3Id) >= takeItem3Qty and st.getQuestItemsCount(takeItem4Id) >= takeItem4Qty and st.getQuestItemsCount(takeItem5Id) >= takeItem5Qty and st.getQuestItemsCount(takeItem6Id) >= takeItem6Qty and st.getQuestItemsCount(takeItem7Id) >= takeItem7Qty and st.getQuestItemsCount(takeItem8Id) >= takeItem8Qty and st.getQuestItemsCount(takeItem9Id) >= takeItem9Qty :
         st.takeItems(takeItem1Id, takeItem1Qty)
@@ -48,7 +72,7 @@ def do_RequestedEvent(event, st, giveItem1Id, giveItem1Qty, giveItem2Id, giveIte
     else :
         return "You do not have enough materials."
 
-### main code
+# main code
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -77,9 +101,9 @@ class Quest (JQuest) :
    st.setState(State.STARTED)
    return InitialHtml
 
-### Quest class and state definition
+# Quest class and state definition
 QUEST       = Quest(QuestId,str(QuestId) + "_" + QuestName,QuestDesc)
 
-QUEST.addStartNpc(31774)
-# Beryl the Cat
-QUEST.addTalkId(31774)
+QUEST.addStartNpc(BERYL_THE_CAT)
+
+QUEST.addTalkId(BERYL_THE_CAT)
