@@ -62,7 +62,7 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 def do_RequestedEvent(event, st, item1, Iqty1, item2, Iqty2, item3, Iqty3, item4, Iqty4, Letter1, Lqty1, Letter2, Lqty2, Letter3, Lqty3, Letter4, Lqty4, Letter5, Lqty5, Letter6, Lqty6, Letter7, Lqty7, Letter8, Lqty8, Letter9, Lqty9) :
     if  st.getQuestItemsCount(letter1) >= Lqty1 and st.getQuestItemsCount(letter2) >= Lqty2 and st.getQuestItemsCount(Letter3) >= Lqty3 \
 	and st.getQuestItemsCount(Letter4) >= Lqty4 and st.getQuestItemsCount(Letter5) >= Lqty5 and st.getQuestItemsCount(Letter6) >= Lqty6 \
-	and st.getQuestItemsCount(Letter7) >= Lqty7 and st.getQuestItemsCount(Letter8) >= Lqty8 and st.getQuestItemsCount(Letter9) >= Lqt9 :
+	and st.getQuestItemsCount(Letter7) >= Lqty7 and st.getQuestItemsCount(Letter8) >= Lqty8 and st.getQuestItemsCount(Letter9) >= Lqty9 :
 	
         st.takeItems(Letter1, 	Lqty1)
         st.takeItems(Letter2, 	Lqty2)
