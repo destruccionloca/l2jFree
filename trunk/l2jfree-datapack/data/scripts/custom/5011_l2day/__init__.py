@@ -46,9 +46,9 @@ II = 3888
 #		 Letter6, Lqty6, Letter7, Lqty7, Letter8, Lqty8, Letter9, Lqty9]
 
 Items       = [
-["LINEAGEII",	BRES,	3,	BSOE,	3,	GREATER_ACUMEN, 3,	EMPOWER,		3,		L,	1,	I,	1,	N,	1,	E,	2, A,	1,	G,	1,	E, 1,	II, 1,	C,	0],
+["LINEAGEII",	BRES,	3,	BSOE,	3,	GREATER_ACUMEN, 3,	EMPOWER,		3,		L,	1,	I,	1,	N,	1,	E,	1, A,	1,	G,	1,	E, 1,	II, 1,	C,	0],
 ["NCSOFT",		BSOE,	1,	BRES,	1,	GUIDANCE,		1,	DEATH_WHISPER,	1,		N,	1,	C,	1,	S,	1,	O,	1, F,	1,	T,	1,	A, 0,	E,	0,	G,	0],
-["CHRONICLE",	WWALK,	2,	BRES,	2,	BSOE,			2,	FOCUS,			2,		C,	2,	H,	1,	R,	1,	O,	1, N,	1,	I,	1,	C,	1,	L,	1,	E,	1]
+["CHRONICLE",	WWALK,	2,	BRES,	2,	BSOE,			2,	FOCUS,			2,		C,	1,	H,	1,	R,	1,	O,	1, N,	1,	I,	1,	C,	1,	L,	1,	E,	1]
 ]
 
 
