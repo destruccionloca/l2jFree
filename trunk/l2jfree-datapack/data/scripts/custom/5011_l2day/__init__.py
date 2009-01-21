@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------
 #	        Created by DJ_WEST. (C) Reallite Labs (www.reallite.cs2.ru)  1.11.2005
 #	        Official idea - NCSoft. Version: 1.0
-	        Beautified by Lizard
+#	        Beautified by Lizard
 # ----------------------------------------------------------------------------------
 
 # Settings
