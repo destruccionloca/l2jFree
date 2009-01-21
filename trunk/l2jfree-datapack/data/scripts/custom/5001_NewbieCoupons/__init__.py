@@ -1,5 +1,5 @@
-#Newbie Weapon/Accesories Coupons for the Hellbound opening event.
-#written by Vice, based in the Miss Queen script.
+# Newbie Weapon/Accesories Coupons for the Hellbound opening event.
+# written by Vice, based in the Miss Queen script.
 import sys
 from com.l2jfree.gameserver.model import L2Multisell
 from com.l2jfree.gameserver.model.quest import State
@@ -8,13 +8,25 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "5001_NewbieCoupons"
 
+# NPCs
+NG_HUMAN          = 30598
+NG_ELF            = 30599
+NG_DARKELF        = 30600
+NG_DWARF          = 30601
+NG_ORC            = 30602
+NG_KAMAEL         = 32135
+NG_COMMON_HUMAN_A = 31076
+NG_COMMON_HUMAN_B = 31077
+
+NEWBIE_GUIDES = [NG_HUMAN, NG_ELF, NG_DARKELF, NG_DWARF,
+				NG_ORC, NG_COMMON_HUMAN_A, NG_COMMON_HUMAN_B, NG_KAMAEL]
+
+# QUEST ITEMS
 COUPON_ONE = 7832
 COUPON_TWO = 7833
 
-NPCs = range(30598,30603)+[31076,31077,32135]
-
 # Multisell
-WEAPON_MULTISELL = 305986001
+WEAPON_MULTISELL     = 305986001
 ACCESORIES_MULTISELL = 305986002
 
 #enable/disable coupon give
@@ -85,6 +97,6 @@ class Quest (JQuest) :
 
 QUEST = Quest(5001,qn,"custom")
 
-for i in NPCs :
+for i in NEWBIE_GUIDES :
     QUEST.addStartNpc(i)
     QUEST.addTalkId(i)

@@ -1,5 +1,5 @@
-#Jython-based miss queen implementation v0.1
-#written by DrLecter, based in Eduu, biti and Newbie contributions.
+# Jython-based miss queen implementation v0.1
+# written by DrLecter, based in Eduu, biti and Newbie contributions.
 import sys
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
@@ -7,10 +7,25 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "5000_MissQueen"
 
+# NPCs
+MISS_QUEEN_A = 31760
+MISS_QUEEN_B = 31760
+MISS_QUEEN_C = 31760
+MISS_QUEEN_D = 31760
+MISS_QUEEN_E = 31760
+MISS_QUEEN_F = 31760
+MISS_QUEEN_G = 31766
+
+MISS_QUEENs = [MISS_QUEEN_A, MISS_QUEEN_B,
+			   MISS_QUEEN_C, MISS_QUEEN_D,
+			   MISS_QUEEN_E, MISS_QUEEN_F,
+			   MISS_QUEEN_G]
+
+# QUEST ITEMS
 COUPON_ONE = 7832
 COUPON_TWO = 7833
 
-NPCs = range(31760,31767)
+
 
 #enable/disable coupon give
 QUEEN_ENABLED=0
@@ -69,7 +84,7 @@ class Quest (JQuest) :
 
 QUEST = Quest(5000,qn,"custom")
 
-for i in NPCs :
+for i in MISS_QUEENs :
     QUEST.addStartNpc(i)
     QUEST.addFirstTalkId(i)
     QUEST.addTalkId(i)
