@@ -224,6 +224,7 @@ public class Hero
 				hero.set(ALLY_NAME, allyName);
 			} else if (hero.getInteger(PLAYED, 1)==1){
 				_log.warn("Hero: initRelationBetweenHeroAndClan ");
+				_log.warn(hero.getString(Olympiad.CHAR_NAME));
 			}
 		}
 	}
