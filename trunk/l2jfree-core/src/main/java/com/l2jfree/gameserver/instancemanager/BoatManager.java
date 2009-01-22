@@ -158,7 +158,7 @@ public class BoatManager
 		npcDat.set("lhand", 0);
 		npcDat.set("armor", 0);
 		npcDat.set("baseWalkSpd", 0);
-		npcDat.set("baseRunSpd", 0);
+		npcDat.set("baseRunSpd", 800);
 		npcDat.set("name", name);
 		npcDat.set("baseHpMax", 50000);
 		npcDat.set("baseHpReg", 3.e-3f);

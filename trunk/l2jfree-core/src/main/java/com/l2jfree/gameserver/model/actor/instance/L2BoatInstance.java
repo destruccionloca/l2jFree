@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,7 +49,6 @@ import com.l2jfree.gameserver.util.Util;
 
 /**
  * @author Maktakien
- * 
  */
 public class L2BoatInstance extends L2Character
 {
@@ -139,7 +138,7 @@ public class L2BoatInstance extends L2Character
 		}
 
 		/**
-		 * 
+		 *
 		 */
 		private void loadBoatPath()
 		{
@@ -193,11 +192,11 @@ public class L2BoatInstance extends L2Character
 				// _boat.getTemplate().baseRunSpd = bp.speed1;
 				_boat.moveToLocation(bp.x, bp.y, bp.z, (float) bp.speed1);
 				Collection<L2PcInstance> knownPlayers = _boat.getKnownList().getKnownPlayers().values();
-				if (knownPlayers == null || knownPlayers.isEmpty())
-					return bp.time;
-				for (L2PcInstance player : knownPlayers)
-				{
-					player.sendPacket(_boat._vd);
+				if (knownPlayers != null && !knownPlayers.isEmpty()) {
+					for (L2PcInstance player : knownPlayers)
+					{
+						player.sendPacket(_boat._vd);
+					}
 				}
 				if (bp.time == 0)
 				{
@@ -208,7 +207,6 @@ public class L2BoatInstance extends L2Character
 
 			return 0;
 		}
-
 	}
 
 	private String						_name;
@@ -269,16 +267,16 @@ public class L2BoatInstance extends L2Character
 		//super.setStatus(new DoorStatus(new L2DoorInstance[] {this}));
 		_name = name;
 	}
-	
+
 	@Override
 	public BoatKnownList getKnownList()
 	{
 		if (_knownList == null)
 			_knownList = new BoatKnownList(this);
-		
+
 		return (BoatKnownList)_knownList;
 	}
-	
+
 	/**
 	 * @param x
 	 * @param y
@@ -476,7 +474,7 @@ public class L2BoatInstance extends L2Character
 	public int	_runstate	= 0;
 
 	/**
-	 * 
+	 *
 	 */
 	public void evtArrived()
 	{
@@ -516,6 +514,7 @@ public class L2BoatInstance extends L2Character
 
 	public void beginCycle()
 	{
+		_inCycle = true;
 		say(10);
 		BoatCaptain bc = new BoatCaptain(1, this);
 		if (getId() == 5)
@@ -536,7 +535,6 @@ public class L2BoatInstance extends L2Character
 
 	public void updatePeopleInTheBoat(int x, int y, int z)
 	{
-
 		if (_inboat != null)
 		{
 			boolean check = false;
@@ -770,7 +768,7 @@ public class L2BoatInstance extends L2Character
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void spawn()
 	{
@@ -810,7 +808,7 @@ public class L2BoatInstance extends L2Character
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.l2jfree.gameserver.model.L2Character#getActiveWeaponInstance()
 	 */
 	@Override
@@ -822,7 +820,7 @@ public class L2BoatInstance extends L2Character
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.l2jfree.gameserver.model.L2Character#getActiveWeaponItem()
 	 */
 	@Override
@@ -834,7 +832,7 @@ public class L2BoatInstance extends L2Character
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.l2jfree.gameserver.model.L2Character#getSecondaryWeaponInstance()
 	 */
 	@Override
@@ -846,7 +844,7 @@ public class L2BoatInstance extends L2Character
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.l2jfree.gameserver.model.L2Character#getSecondaryWeaponItem()
 	 */
 	@Override
@@ -858,7 +856,7 @@ public class L2BoatInstance extends L2Character
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.l2jfree.gameserver.model.L2Character#getLevel()
 	 */
 	@Override
@@ -870,7 +868,7 @@ public class L2BoatInstance extends L2Character
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.l2jfree.gameserver.model.L2Object#isAutoAttackable(com.l2jfree.gameserver.model.L2Character)
 	 */
 	@Override
