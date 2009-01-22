@@ -203,7 +203,7 @@ public class HtmCache
 	 * */
 	public boolean isLoadable(String path)
 	{
-		File file = new File(path);
+		File file = new File(Config.DATAPACK_ROOT, path);
 		HtmFilter filter = new HtmFilter();
 
 		if (file.exists() && filter.accept(file) && !file.isDirectory())
