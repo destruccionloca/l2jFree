@@ -2662,10 +2662,7 @@
     <for>
       <effect count="1" name="Buff" time="600" val="0"
         stackOrder="2" stackType="ElmentPatk">
-        <!--
-          require core support <mul order="0x30"
-          stat="firePower" val="1.2"/>
-        -->
+        <mul order="0x30" stat="fire" val="1.2" />
       </effect>
     </for>
   </skill>
@@ -2685,10 +2682,7 @@
     <for>
       <effect count="1" name="Buff" time="600" val="0"
         stackOrder="2" stackType="ElmentPatk">
-        <!--
-          require core support <mul order="0x30"
-          stat="waterPower" val="1.2"/>
-        -->
+        <mul order="0x30" stat="water" val="1.2" />
       </effect>
     </for>
   </skill>
@@ -2708,10 +2702,7 @@
     <for>
       <effect count="1" name="Buff" time="600" val="0"
         stackOrder="2" stackType="ElmentPatk">
-        <!--
-          require core support <mul order="0x30"
-          stat="windPower" val="1.2"/>
-        -->
+        <mul order="0x30" stat="wind" val="1.2" />
       </effect>
     </for>
   </skill>
@@ -2747,9 +2738,7 @@
     <set name="effectType" val="DOT" />
     <set name="effectPower" val="80" />
     <for>
-      <!--
-        retail value: 118/sec; stat update every time unit (2/3 sec)
-      -->
+      <!-- retail value: 118/sec; stat update every time unit (2/3 sec) -->
       <effect count="15" name="DamOverTime" time="1" val="118" />
     </for>
   </skill>
