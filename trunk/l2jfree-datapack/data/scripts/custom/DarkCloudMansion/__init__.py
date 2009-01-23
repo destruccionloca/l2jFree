@@ -116,11 +116,14 @@ def openDoor(doorId,instanceId):
 
 def checkCondition(player):
 	if not player.getLevel() >= 78:
-		player.sendPacket(SystemMessage.sendString("You must be level 78 to enter Crystal Caverns."))
+		player.sendPacket(SystemMessage.sendString("You must be level 78 to enter Dark Cloud Mansion."))
 		return False
 	party = player.getParty()
 	if not party:
-		player.sendPacket(SystemMessage.sendString("You must be in a party with atleast one other person."))	
+		player.sendPacket(SystemMessage.sendString("You must be in a party with at least one other person."))	
+		return False
+	if party and party.getMemberCount() > 2:
+		player.sendPacket(SystemMessage.sendString("Dark Cloud Mansion for max 2 players in party."))
 		return False
 	return True
 
