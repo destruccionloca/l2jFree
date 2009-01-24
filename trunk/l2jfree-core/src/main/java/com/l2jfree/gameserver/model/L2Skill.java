@@ -3098,7 +3098,7 @@ public class L2Skill
 		case TARGET_MOB:
 		{
 			// Check for null target or any other invalid target
-			if (target == null || target.isDead() || !(target instanceof L2NpcInstance))
+			if (target == null || target.isDead() || !(target instanceof L2Attackable))
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				return null;
