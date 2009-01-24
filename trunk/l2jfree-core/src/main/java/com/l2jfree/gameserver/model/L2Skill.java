@@ -3095,6 +3095,18 @@ public class L2Skill
 			return new L2Character[]
 			{ target };
 		}
+		case TARGET_MOB:
+		{
+			// Check for null target or any other invalid target
+			if (target == null || target.isDead() || !(target instanceof L2NpcInstance))
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				return null;
+			}
+			// If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
+			return new L2Character[]
+			{ target };
+		}
 		case TARGET_KNOWNLIST:
 		{
 			if (target != null && target.getKnownList() != null)
