@@ -16078,7 +16078,7 @@ INSERT INTO skill_trees VALUES
 
 -- Custom Kamaels "Skill Trees" (From the Forums), values needs to be verified in the future.
 
-(127,625,1,'Soul Gathering',50000,46),
+(127,625,1,'Soul Gathering',75000,46),
 (128,625,1,'Soul Gathering',50000,46),
 (129,625,1,'Soul Gathering',50000,46),
 (130,625,1,'Soul Gathering',50000,46),
