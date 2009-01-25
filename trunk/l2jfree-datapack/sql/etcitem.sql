@@ -8421,7 +8421,7 @@ INSERT INTO `etcitem` VALUES
 (20027,'Extra Entrance Pass - Near Kamaloka','false','none',5,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (20028,'Extra Entrance Pass - Kamaloka (Labyrinth of the Abyss)','false','none',5,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (20033,'My Teleport Flag','false','none',5,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
-(20034,'Revita-Pop','false','none',5,'assert','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
+(20034,'Revita-Pop','false','none',5,'assert','paper','none',-1,0,0,'false','false','true','false','CT2Item','none'),
 (20035,'Majo Agathion Pack','false','none',100,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (20036,'Gold Crown Majo Agathion Pack','false','none',100,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
 (20037,'Black Crown Majo Agathion Pack','false','none',100,'normal','paper','none',-1,0,0,'true','true','true','true','CT2Item','none'),
