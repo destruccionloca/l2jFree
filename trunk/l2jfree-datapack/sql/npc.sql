@@ -7480,7 +7480,7 @@ INSERT INTO `npc` VALUES
 (35437, 35437, "Messenger", 0, "", 0, "Monster.oel_mahum", 20, 37, 56, "male", "L2Npc", 40, 2725, 1019, 10.27, 2.45, 40, 43, 30, 21, 20, 10, 313, 10, 706, 331, 382, 268, 282, 0, 333, 0, 0, 0, 77, 132, "dion_siege_clan", 600, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
 (35438, 35438, "Chamberlain", 0, "", 0, "Monster.oel_mahum", 20, 37, 56, "male", "L2ClanHallManager", 40, 2725, 152641, 10.27, 255.96, 40, 43, 30, 21, 20, 10, 313, 10, 706, 331, 382, 268, 282, 0, 333, 0, 0, 0, 77, 132, "dion_siege_clan", 600, 0, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
 (35439, 35439, "Carey", 0, "Clan Hall Manager", 0, "NPC.a_maidB_FHuman", 8, 22, 70, "female", "L2ClanHallManager", 40, 3862, 152641, 11.85, 255.96, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 50, 1, "NULL", 0, 1, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
-(35440, 35440, "Daniel", 0, "Clan Hall Gatekeeper", 0, "NPC.a_common_peopleB_MHuman", 8, 22, 70, "male", "L2Doormen", 40, 350000, 44, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 30, 2, 4, 40, 3, 31, 278, 0, 333, 0, 0, 0, 50, 120, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
+(35440, 35440, "Daniel", 0, "Clan Hall Gatekeeper", 0, "NPC.a_common_peopleB_MHuman", 8, 22, 70, "male", "L2Npc", 40, 350000, 44, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 30, 2, 4, 40, 3, 31, 278, 0, 333, 0, 0, 0, 50, 120, "NULL", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (35441, 35441, "Dianne", 0, "Clan Hall Manager", 0, "NPC.a_maidA_FHuman", 8, 20.5, 70, "female", "L2ClanHallManager", 40, 3862, 152641, 11.85, 255.96, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 50, 1, "NULL", 0, 1, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
 (35442, 35442, "Jacques", 0, "Clan Hall Gatekeeper", 0, "NPC.a_casino_MHuman", 8, 23, 70, "male", "L2Doormen", 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 50, 120, "NULL", 0, 1, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
 (35443, 35443, "Crissy", 0, "Clan Hall Manager", 0, "NPC.a_common_peopleB_FHuman", 8, 20.5, 70, "female", "L2ClanHallManager", 40, 3862, 152641, 11.85, 255.96, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 50, 1, "NULL", 0, 1, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
@@ -9113,7 +9113,7 @@ REPLACE INTO `npc` VALUES
 (13130, 13130, "Light Purple Maned Horse", 0, "", 0, "Monster.horse", 8, 24, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 278, 0, 333, 0, 0, NULL, 60, 60, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false");
 
 
--- dcm updates
+-- DCM Updates
 REPLACE INTO `npc` VALUES ('32282', '32282', 'Yiyen', '0', 'Archaeologist', '0', 'LineageNPC.e_teleporter_FDwarf', '8.00', '21.30', '70', 'male', 'L2Npc', '40', '2444', '2444', '0.00', '0.00', '10', '10', '10', '10', '10', '10', '0', '0', '500', '500', '500', '500', '253', '0', '253', '0', '0', null, '80', '120', '', '0', '0', '0', 'LAST_HIT', '0', '0', '0', 'balanced', 'false');
 REPLACE INTO `npc` VALUES ('32288', '32288', 'Symbol of Faith', '0', '', '0', 'LineageNpcEV.dark_clouds_crystal', '23.00', '37.00', '70', 'male', 'L2Npc', '40', '2444', '2444', '0.00', '0.00', '10', '10', '10', '10', '10', '10', '0', '0', '500', '500', '500', '500', '253', '0', '253', '0', '0', null, '80', '120', '', '0', '0', '0', 'LAST_HIT', '0', '0', '0', 'balanced', 'false');
 REPLACE INTO `npc` VALUES ('32289', '32289', 'Symbol of Adversity', '0', '', '0', 'LineageNpcEV.dark_clouds_crystal', '23.00', '37.00', '70', 'male', 'L2Npc', '40', '2444', '2444', '0.00', '0.00', '10', '10', '10', '10', '10', '10', '0', '0', '500', '500', '500', '500', '253', '0', '253', '0', '0', null, '80', '120', '', '0', '0', '0', 'LAST_HIT', '0', '0', '0', 'balanced', 'false');
@@ -9143,3 +9143,6 @@ INSERT INTO `npc` (`id`, `idTemplate`, `name`, `serverSideName`, `title`, `serve
 -- -------------------------
 REPLACE INTO `npc` VALUES
 (13135, 13135, 'Pumpkin Ghost', 0, '', 0, 'Npc2.Pumpkin_Head_man', 8.00, 25.00, 70, 'etc', 'L2Npc', 40, 3862, 1493, 11.85, 2.78, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 333, 0, 0, 0, 50, 120, 'NULL', 0, 1, 0, 'LAST_HIT', 0, 0, 0, 'balanced', 'false');
+
+-- Daniel - Clan Hall Gatekeeper Type fix
+UPDATE `npc` SET `type` = 'L2Doormen' WHERE id = 35440;
