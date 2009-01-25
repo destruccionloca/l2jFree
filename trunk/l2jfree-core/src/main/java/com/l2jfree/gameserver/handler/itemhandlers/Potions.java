@@ -146,6 +146,7 @@ public class Potions implements IItemHandler
 			10657,
 			// CT2.2 Herb
 			13028,
+			20034,
 			// Caravaners Remedy
 			9702,
 			// Bless of Eva
@@ -470,6 +471,12 @@ public class Potions implements IItemHandler
 			break;
 		case 13028:
 			res = usePotion(playable, 2580, 1);
+			break;
+		case 20034: //Revita-Pop
+			activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
+			activeChar.setVitalityPoints(300000.0, true);
+			activeChar.updateVitalityLevel(false);
+			activeChar.sendMessage("Your Vitality Level is set to 4");
 			break;
 		case 8193: // Fisherman's Potion - Green
 			if (activeChar.getSkillLevel(1315) <= 3)
