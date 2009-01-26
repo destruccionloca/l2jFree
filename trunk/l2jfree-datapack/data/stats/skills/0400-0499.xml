@@ -997,9 +997,9 @@
   <skill id="448" levels="1" name="Summon Swoop Cannon">
     <!--
       Needs to be verified. Is enchantable but no stats for
-      the +Power versions. Description(s): Summons a Swoop
-      Cannon. Requires 46 Crystals: A-Grade. Consumes 21
-      Gemstones: B-Grade per minute.
+      the +Power versions.
+      Description(s): Summons a Swoop Cannon. Requires 46 Crystals:
+      A-Grade. Consumes 21 Gemstones: B-Grade per minute.
     -->
     <set name="mpInitialConsume" val="530" />
     <set name="itemConsumeIdOT" val="2132" />
@@ -1020,7 +1020,6 @@
     <!-- Summon-specific -->
     <set name="npcId" val="14839" />
     <set name="expPenalty" val="0.0" />
-    <set name="isCubic" val="false" />
   </skill>
   <skill id="449" levels="4" name="Summon Attractive Cubic">
     <table name="#mpConsume">58 62 65 69</table>

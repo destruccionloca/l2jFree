@@ -242,7 +242,6 @@
       0.27 0.26 0.25 0.24 0.23 0.22 0.21 0.2 0.18 </table>
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
-    <set name="isCubic" val="false" />
   </skill>
   <skill id="1126" levels="34" name="Servitor Recharge" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
@@ -362,7 +361,6 @@
       0.27 0.26 0.25 0.24 0.23 0.22 0.21 0.2 0.18 </table>
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
-    <set name="isCubic" val="false" />
   </skill>
   <skill id="1129" levels="7" name="Summon Reanimated Man" enchantLevels1="30">
     <table name="#enchantNpcId"> 14008 14009 14010 14011 14012 14013
@@ -396,7 +394,6 @@
     <table name="#npcIds"> 14001 14002 14003 14004 14005 14006 14007 </table>
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="0.15" />
-    <set name="isCubic" val="false" />
   </skill>
   <skill id="1139" levels="2" name="Servitor Magic Shield" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
@@ -775,7 +772,6 @@
     <table name="#npcIds"> 14038 14039 14040 14041 14042 14043 </table>
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="0.9" />
-    <set name="isCubic" val="false" />
   </skill>
   <skill id="1155" levels="15" name="Corpse Burst" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79

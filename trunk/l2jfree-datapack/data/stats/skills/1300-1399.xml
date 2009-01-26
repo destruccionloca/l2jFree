@@ -698,7 +698,6 @@
       0.0 0.0 0.0 0.0 0.0 0.0 </table>
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
-    <set name="isCubic" val="false" />
   </skill>
   <skill id="1332" levels="10" name="Summon Unicorn Seraphim" enchantLevels1="30">
     <table name="#enchantNpcId"> 14449 14450 14451 14452 14453 14454
@@ -736,7 +735,6 @@
       0.0 0.0 0.0 0.0 0.0 0.0 </table>
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
-    <set name="isCubic" val="false" />
   </skill>
   <skill id="1333" levels="10" name="Summon Nightshade" enchantLevels1="30">
     <table name="#enchantNpcId"> 14633 14634 14635 14636 14637 14638
@@ -774,7 +772,6 @@
       0.0 0.0 0.0 0.0 0.0 0.0 </table>
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="#expPenalty" />
-    <set name="isCubic" val="false" />
   </skill>
   <skill id="1334" levels="7" name="Summon Cursed Man" enchantLevels1="30">
     <table name="#enchantNpcId"> 14081 14082 14083 14084 14085 14086
@@ -809,7 +806,6 @@
     <table name="#npcIds"> 14074 14075 14076 14077 14078 14079 14080 </table>
     <set name="npcId" val="#npcIds" />
     <set name="expPenalty" val="0.15" />
-    <set name="isCubic" val="false" />
   </skill>
   <skill id="1335" levels="1" name="Balance Life">
     <set name="mpInitialConsume" val="25" />
