@@ -402,7 +402,7 @@
     <set name="mpConsume" val="60" />
     <set name="target" val="TARGET_ONE" />
     <set name="hitTime" val="4000" />
-    <set name="reuseDelay" val="2600000" />
+    <set name="reuseDelay" val="600000" />
     <set name="skillType" val="BUFF" />
     <set name="staticReuse" val="true" />
     <set name="operateType" val="OP_ACTIVE" />
