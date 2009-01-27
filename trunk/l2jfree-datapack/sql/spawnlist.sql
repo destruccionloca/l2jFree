@@ -40424,3 +40424,6 @@ INSERT INTO `spawnlist` (`location`, `count`, `npc_templateid`, `locx`, `locy`, 
 
 -- Clan Hall Doormen Fix
 UPDATE `spawnlist` SET `npc_templateid` = 35440 WHERE `id` = 33771;
+
+-- Oren Castle Holy Artifact heading fix
+UPDATE `spawnlist` SET `heading` = 32768 WHERE `npc_templateid` = 35189;
