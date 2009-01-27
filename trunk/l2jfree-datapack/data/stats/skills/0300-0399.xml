@@ -2128,7 +2128,6 @@
     <set name="reuseDelay" val="1200000" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
-    <set name="isMagic" val="false" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -2151,7 +2150,6 @@
     <set name="reuseDelay" val="1200000" />
     <set name="target" val="TARGET_SELF" />
     <set name="skillType" val="BUFF" />
-    <set name="isMagic" val="false" />
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
