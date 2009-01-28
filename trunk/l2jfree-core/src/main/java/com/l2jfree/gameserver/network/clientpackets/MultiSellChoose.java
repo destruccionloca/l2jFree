@@ -183,6 +183,8 @@ public class MultiSellChoose extends L2GameClientPacket
 						_ingredientsList = null;
 						return;
 					}
+					if (ItemTable.getInstance().createDummyItem(e.getItemId()).isStackable())
+						enchantment = 0;
 					break;
 				}
 			}
@@ -219,13 +221,13 @@ public class MultiSellChoose extends L2GameClientPacket
 					L2ItemInstance itemToTake = inv.getItemByItemId(e.getItemId()); // initialize and initial guess for the item to take.
 					if (itemToTake == null)
 					{ //this is a cheat, transaction will be aborted and if any items already taken will not be returned back to inventory!
-						_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchatnt id:" + merchant.getNpcId());
+						_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchant id:" + merchant.getNpcId());
 						return;
 					}
 					
 					if (itemToTake.isWear())
 					{//Player trying to buy something from the Multisell store with an item that's just being used from the Wear option from merchants.
-						_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchatnt id:" + merchant.getNpcId());
+						_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchant id:" + merchant.getNpcId());
 						return;
 					}
 					
@@ -345,7 +347,7 @@ public class MultiSellChoose extends L2GameClientPacket
 						{
 							product.setAugmentation(new L2Augmentation(augmentation.get(i).getAugmentationId(), augmentation.get(i).getSkill()));
 						}
-						product.setEnchantLevel(e.getEnchantmentLevel());
+						product.setEnchantLevel(enchantment);
 					}
 				}
 			}
