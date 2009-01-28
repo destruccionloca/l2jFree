@@ -184,7 +184,7 @@ public class MultiSellChoose extends L2GameClientPacket
 						return;
 					}
 					if (ItemTable.getInstance().createDummyItem(e.getItemId()).isStackable())
-						enchantment = 0;
+						_enchantment = 0;
 					break;
 				}
 			}
@@ -347,7 +347,7 @@ public class MultiSellChoose extends L2GameClientPacket
 						{
 							product.setAugmentation(new L2Augmentation(augmentation.get(i).getAugmentationId(), augmentation.get(i).getSkill()));
 						}
-						product.setEnchantLevel(enchantment);
+						product.setEnchantLevel(_enchantment);
 					}
 				}
 			}
