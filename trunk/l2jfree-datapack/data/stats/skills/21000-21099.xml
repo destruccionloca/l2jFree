@@ -66,22 +66,34 @@
     <set name="castRange" val="-1" />
   </skill>
   <skill id="21008" levels="1" name="Release Seal on Agathion - Baby Panda">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="AGATHION" />
+    <set name="hitTime" val="3000" />
+    <set name="staticHitTime" val="true" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="npcId" val="1505" />
     <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
   </skill>
   <skill id="21009" levels="1" name="Release Seal on Agathion - Bamboo Panda">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="AGATHION" />
+    <set name="hitTime" val="3000" />
+    <set name="staticHitTime" val="true" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="npcId" val="1506" />
     <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
   </skill>
   <skill id="21010" levels="1" name="Release Seal on Agathion - Sexy Panda">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
+    <set name="target" val="TARGET_SELF" />
+    <set name="skillType" val="AGATHION" />
+    <set name="hitTime" val="3000" />
+    <set name="staticHitTime" val="true" />
+    <set name="operateType" val="OP_ACTIVE" />
+    <set name="npcId" val="1507" />
     <set name="castRange" val="-1" />
+    <set name="effectRange" val="-1" />
   </skill>
   <skill id="21011" levels="1" name="Energy Recovery">
     <set name="target" val="TARGET_NONE" />
