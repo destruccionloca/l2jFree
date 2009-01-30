@@ -20,6 +20,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2SummonAI;
+import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.model.L2Attackable.AggroInfo;
@@ -32,6 +33,7 @@ import com.l2jfree.gameserver.model.actor.knownlist.SummonKnownList;
 import com.l2jfree.gameserver.model.actor.stat.SummonStat;
 import com.l2jfree.gameserver.model.actor.status.SummonStatus;
 import com.l2jfree.gameserver.model.base.Experience;
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -733,6 +735,17 @@ public abstract class L2Summon extends L2PlayableInstance
 		}
 
 		//************************************* Check Consumables *******************************************
+		if (skill.getItemConsume() > 0 && getOwner().getInventory() != null)
+		{
+			L2ItemInstance requiredItems = getOwner().getInventory().getItemByItemId(skill.getItemConsumeId());
+			// Check if the caster owns enough consumed Item to cast
+			if (requiredItems == null || requiredItems.getCount() < skill.getItemConsume())
+			{
+				// Send a System Message to the caster
+				getOwner().sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+				return;
+			}
+		}
 
 		// Check if the summon has enough MP
 		if (getStatus().getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
