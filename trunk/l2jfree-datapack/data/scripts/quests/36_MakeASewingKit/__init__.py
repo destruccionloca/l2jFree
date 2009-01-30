@@ -7,19 +7,19 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "36_MakeASewingKit"
 
-#ITEM
+# ITEM
 REINFORCED_STEEL = 7163
 ARTISANS_FRAME   = 1891
 ORIHARUKON       = 1893
 SEWING_KIT       = 7078
 
-#NEEDED
+# NEEDED
 FERRIS_STEEL            = 5
 FERRIS_FRAME            = 10
 FERRIS_ORIHARUKON       = 10
 FERRIS_REINFORCED_STEEL = 10
 
-#NPC
+# NPC
 FERRIS = 30847
 ENCHANTED_IRON_GOLEM = 20566
 
