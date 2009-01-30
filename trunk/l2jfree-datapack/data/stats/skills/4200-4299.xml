@@ -199,11 +199,9 @@
     <!-- SHOULD BUFF MINIONS -->
     <table name="#hot"> 127 217 345 508 697 860 942 965 974 968 951 940 </table>
     <table name="#mpConsume"> 43 49 99 134 173 207 139 250 258 262 262 263 </table>
-    <table name="#power"> 1 2 3 4 5 6 7 8 9 10 11 12 </table>
     <table name="#magicLvl"> 14 24 34 44 54 64 74 79 84 89 94 99 </table>
     <set name="magicLvl" val="#magicLvl" />
     <set name="mpConsume" val="#mpConsume" />
-    <set name="power" val="#power" />
     <set name="target" val="TARGET_SELF" />
     <set name="reuseDelay" val="8000" />
     <set name="hitTime" val="2000" />
@@ -395,7 +393,7 @@
     <set name="magicLvl" val="60" />
     <set name="target" val="TARGET_SELF" />
     <set name="hitTime" val="500" />
-    <set name="skillType" val="BUFF"/>   <!-- skill used only to get targets and bradcast animation -->
+    <set name="skillType" val="BUFF"/> <!-- Just Broadcast -->
     <set name="operateType" val="OP_ACTIVE" />
     <set name="castRange" val="-1" />
     <set name="effectRange" val="-1" />
@@ -561,11 +559,14 @@
   </skill>
   <skill id="4235" levels="1" name="none">
     <!-- Dietrich/Mikhail/Gustav Recall Skill -->
-    <set name="target" val="TARGET_SELF" />
-    <set name="skillType" val="WEAKNESS" />
-    <set name="hitTime" val="15000" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <!-- Done by DJ MELERIX -->
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="15000"/>
+    <set name="magicLvl" val="70"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="BUFF"/> <!-- Just Boadcast -->
+    <set name="target" val="TARGET_SELF"/>
   </skill>
   <skill id="4236" levels="1" name="Decrease Heal">
     <!-- Gustav Skill -->
@@ -613,12 +614,25 @@
     </for>
   </skill>
   <skill id="4238" levels="1" name="Increase Re-use Time">
-    <!-- Dietrich Skill pReuse needed-->
-    <set name="target" val="TARGET_NONE" />
-    <set name="hitTime" val="4000" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_ACTIVE" />
-    <set name="castRange" val="-1" />
+    <!-- Dietrich Skill -->
+    <!-- Done by DJ MELERIX -->
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="hitTime" val="4000"/>
+    <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="70"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="power" val="100"/> <!-- Base Land Rate -->
+    <set name="reuseDelay" val="75000"/>
+    <set name="skillRadius" val="200"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="target" val="TARGET_AURA"/>
+    <for>
+      <effect count="1" name="Debuff" time="120" val="0" stackOrder="1" stackType="reuse_delay_up">
+        <mul stat="pReuse" order="0x30" val="3.0"/>
+        <mul stat="mReuse" order="0x30" val="3.0"/>
+      </effect>
+    </for>
   </skill>
   <skill id="4239" levels="1" name="Antharas Regeneration">
     <!-- Done by DJ MELERIX -->
@@ -1140,10 +1154,11 @@
     </for>
   </skill>
   <skill id="4271" levels="8" name="Increase Force">
-    <set name="target" val="TARGET_NONE" />
-    <set name="skillType" val="NOTDONE" />
-    <set name="operateType" val="OP_PASSIVE" />
-    <set name="castRange" val="-1" />
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/> <!-- Just Broadcast -->
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="4272" levels="1" name="Greater Resist Archery Attack">
     <set name="target" val="TARGET_SELF" />
