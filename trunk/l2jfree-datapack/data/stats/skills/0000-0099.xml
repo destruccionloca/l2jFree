@@ -1749,7 +1749,7 @@
     <enchant1for>
       <effect count="1" name="Buff" time="#ench1time"
         val="0" stackOrder="20.0" stackType="DmgShield">
-        <add order="0x40" stat="reflectDam" val="#reflectDam" />
+        <add order="0x40" stat="reflectDam" val="20" />
       </effect>
     </enchant1for>
   </skill>
