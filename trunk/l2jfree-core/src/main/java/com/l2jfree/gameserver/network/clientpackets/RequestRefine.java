@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExVariationResult;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
+import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.util.Util;
@@ -31,11 +32,11 @@ import com.l2jfree.gameserver.util.Util;
  */
 public final class RequestRefine extends L2GameClientPacket
 {
-	private static final String _C__D0_2C_REQUESTREFINE = "[C] D0:2C RequestRefine";
-	private int _targetItemObjId;
-	private int _refinerItemObjId;
-	private int _gemstoneItemObjId;
-	private int _gemstoneCount;
+	private static final String	_C__D0_2C_REQUESTREFINE	= "[C] D0:2C RequestRefine";
+	private int					_targetItemObjId;
+	private int					_refinerItemObjId;
+	private int					_gemstoneItemObjId;
+	private int					_gemstoneCount;
 
 	@Override
 	protected void readImpl()
@@ -58,14 +59,11 @@ public final class RequestRefine extends L2GameClientPacket
 		L2ItemInstance targetItem = activeChar.getInventory().getItemByObjectId(_targetItemObjId);
 		L2ItemInstance refinerItem = activeChar.getInventory().getItemByObjectId(_refinerItemObjId);
 		L2ItemInstance gemstoneItem = activeChar.getInventory().getItemByObjectId(_gemstoneItemObjId);
-		
-		if (targetItem == null || refinerItem == null || gemstoneItem == null ||
-				targetItem.getOwnerId() != activeChar.getObjectId() ||
-				refinerItem.getOwnerId() != activeChar.getObjectId() ||
-				gemstoneItem.getOwnerId() != activeChar.getObjectId() ||
-				activeChar.getLevel() < 46) // must be lvl 46
+
+		if (targetItem == null || refinerItem == null || gemstoneItem == null || targetItem.getOwnerId() != activeChar.getObjectId()
+				|| refinerItem.getOwnerId() != activeChar.getObjectId() || gemstoneItem.getOwnerId() != activeChar.getObjectId() || activeChar.getLevel() < 46) // must be lvl 46
 		{
-			activeChar.sendPacket(new ExVariationResult(0,0,0));
+			activeChar.sendPacket(new ExVariationResult(0, 0, 0));
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS));
 			return;
 		}
@@ -76,14 +74,14 @@ public final class RequestRefine extends L2GameClientPacket
 
 		if (tryAugmentItem(activeChar, targetItem, refinerItem, gemstoneItem))
 		{
-			int stat12 = 0x0000FFFF&targetItem.getAugmentation().getAugmentationId();
-			int stat34 = targetItem.getAugmentation().getAugmentationId()>>16;
-			activeChar.sendPacket(new ExVariationResult(stat12,stat34,1));
+			int stat12 = 0x0000FFFF & targetItem.getAugmentation().getAugmentationId();
+			int stat34 = targetItem.getAugmentation().getAugmentationId() >> 16;
+			activeChar.sendPacket(new ExVariationResult(stat12, stat34, 1));
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_ITEM_WAS_SUCCESSFULLY_AUGMENTED));
 		}
 		else
 		{
-			activeChar.sendPacket(new ExVariationResult(0,0,0));
+			activeChar.sendPacket(new ExVariationResult(0, 0, 0));
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS));
 		}
 	}
@@ -125,26 +123,20 @@ public final class RequestRefine extends L2GameClientPacket
 		}
 		if (player.getInventory().getItemByObjectId(refinerItem.getObjectId()) == null)
 		{
-			Util.handleIllegalPlayerAction(player, "Warning!! Character "
-			        + player.getName() + " of account "
-			        + player.getAccountName()
-			        + " tried to refine an item with wrong LifeStone-id.", Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
+					+ " tried to refine an item with wrong LifeStone-id.", Config.DEFAULT_PUNISH);
 			return false;
 		}
 		if (player.getInventory().getItemByObjectId(targetItem.getObjectId()) == null)
 		{
-			Util.handleIllegalPlayerAction(player, "Warning!! Character "
-			        + player.getName() + " of account "
-			        + player.getAccountName()
-			        + " tried to refine an item with wrong Weapon-id.", Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
+					+ " tried to refine an item with wrong Weapon-id.", Config.DEFAULT_PUNISH);
 			return false;
 		}
 		if (player.getInventory().getItemByObjectId(gemstoneItem.getObjectId()) == null)
 		{
-			Util.handleIllegalPlayerAction(player, "Warning!! Character "
-			        + player.getName() + " of account "
-			        + player.getAccountName()
-			        + " tried to refine an item with wrong Gemstone-id.", Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
+					+ " tried to refine an item with wrong Gemstone-id.", Config.DEFAULT_PUNISH);
 			return false;
 		}
 
@@ -152,7 +144,7 @@ public final class RequestRefine extends L2GameClientPacket
 		int itemType = targetItem.getItem().getType2();
 		int lifeStoneId = refinerItem.getItemId();
 		int gemstoneItemId = gemstoneItem.getItemId();
-		
+
 		// is the refiner Item a life stone?
 		if (!refinerItem.getItem().isLifeStone())
 			return false;
@@ -166,105 +158,105 @@ public final class RequestRefine extends L2GameClientPacket
 		int lifeStoneGrade = getLifeStoneGrade(lifeStoneId);
 		switch (itemGrade)
 		{
-			case L2Item.CRYSTAL_C:
-				if (player.getLevel() < 46 || gemstoneItemId != 2130)
-					return false;
-				modifyGemstoneCount = 20;
-				break;
-			case L2Item.CRYSTAL_B:
-				if (player.getLevel() < 52 || gemstoneItemId != 2130)
-					return false;
-				modifyGemstoneCount = 30;
-				break;
-			case L2Item.CRYSTAL_A:
-				if (player.getLevel() < 61 || gemstoneItemId != 2131)
-					return false;
-				modifyGemstoneCount = 20;
-				break;
-			case L2Item.CRYSTAL_S:
-			case L2Item.CRYSTAL_S80:
-				if (player.getLevel() < 76 || gemstoneItemId != 2131)
-					return false;
-				modifyGemstoneCount = 25;
-				break;
+		case L2Item.CRYSTAL_C:
+			if (player.getLevel() < 46 || gemstoneItemId != 2130)
+				return false;
+			modifyGemstoneCount = 20;
+			break;
+		case L2Item.CRYSTAL_B:
+			if (player.getLevel() < 52 || gemstoneItemId != 2130)
+				return false;
+			modifyGemstoneCount = 30;
+			break;
+		case L2Item.CRYSTAL_A:
+			if (player.getLevel() < 61 || gemstoneItemId != 2131)
+				return false;
+			modifyGemstoneCount = 20;
+			break;
+		case L2Item.CRYSTAL_S:
+		case L2Item.CRYSTAL_S80:
+			if (player.getLevel() < 76 || gemstoneItemId != 2131)
+				return false;
+			modifyGemstoneCount = 25;
+			break;
 		}
-		
+
 		// check if the lifestone is appropriate for this player
 		switch (lifeStoneLevel)
 		{
-			case 1:
-				if (player.getLevel() < 46) return false;
-				break;
-			case 2:
-				if (player.getLevel() < 49) return false;
-				break;
-			case 3:
-				if (player.getLevel() < 52) return false;
-				break;
-			case 4:
-				if (player.getLevel() < 55) return false;
-				break;
-			case 5:
-				if (player.getLevel() < 58) return false;
-				break;
-			case 6:
-				if (player.getLevel() < 61) return false;
-				break;
-			case 7:
-				if (player.getLevel() < 64) return false;
-				break;
-			case 8:
-				if (player.getLevel() < 67) return false;
-				break;
-			case 9:
-				if (player.getLevel() < 70) return false;
-				break;
-			case 10:
-				if (player.getLevel() < 76) return false;
-				break;
-			case 11:
-				if (player.getLevel() < 80) return false;
-				break;
-			case 12:
-				if (player.getLevel() < 82) return false;
-				break;
+		case 1:
+			if (player.getLevel() < 46)
+				return false;
+			break;
+		case 2:
+			if (player.getLevel() < 49)
+				return false;
+			break;
+		case 3:
+			if (player.getLevel() < 52)
+				return false;
+			break;
+		case 4:
+			if (player.getLevel() < 55)
+				return false;
+			break;
+		case 5:
+			if (player.getLevel() < 58)
+				return false;
+			break;
+		case 6:
+			if (player.getLevel() < 61)
+				return false;
+			break;
+		case 7:
+			if (player.getLevel() < 64)
+				return false;
+			break;
+		case 8:
+			if (player.getLevel() < 67)
+				return false;
+			break;
+		case 9:
+			if (player.getLevel() < 70)
+				return false;
+			break;
+		case 10:
+			if (player.getLevel() < 76)
+				return false;
+			break;
+		case 11:
+			if (player.getLevel() < 80)
+				return false;
+			break;
+		case 12:
+			if (player.getLevel() < 82)
+				return false;
+			break;
 		}
 
-		// Prepare inventory update
-		InventoryUpdate iu = new InventoryUpdate();
-
-		if (refinerItem.getCount() == 1)
+		// consume the life stone
+		if (!player.destroyItem("RequestRefine", refinerItem, 1, null, false))
 		{
-			player.destroyItem("RequestRefine", refinerItem, null, false);
-			iu.addRemovedItem(refinerItem);
-		}
-		else if (refinerItem.getCount() > 1)
-		{
-			player.destroyItem("RequestRefine", refinerItem, 1, null, false);
-			iu.addModifiedItem(refinerItem);
-		}
-		else
 			return false;
+		}
 
-		if (gemstoneItem.getCount() == modifyGemstoneCount)
+		// consume the gemstones
+		if (!player.destroyItem("RequestRefine", gemstoneItem, modifyGemstoneCount, null, false))
 		{
-			player.destroyItem("RequestRefine", gemstoneItem, null, false);
-			iu.addRemovedItem(gemstoneItem);
-		}
-		else if (gemstoneItem.getCount() > modifyGemstoneCount)
-		{
-			player.destroyItem("RequestRefine", gemstoneItem, modifyGemstoneCount, null, false);
-			iu.addModifiedItem(gemstoneItem);
-		}
-		else
 			return false;
+		}
 
 		// generate augmentation
 		targetItem.setAugmentation(AugmentationData.getInstance().generateRandomAugmentation(lifeStoneLevel, lifeStoneGrade));
 
 		// finish and send the inventory update packet
+		InventoryUpdate iu = new InventoryUpdate();
 		iu.addModifiedItem(targetItem);
 		player.sendPacket(iu);
+
+		StatusUpdate su = new StatusUpdate(player.getObjectId());
+		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
+		player.sendPacket(su);
 
 		return true;
 	}
@@ -272,9 +264,12 @@ public final class RequestRefine extends L2GameClientPacket
 	private int getLifeStoneGrade(int itemId)
 	{
 		itemId -= 8723;
-		if (itemId < 10 || itemId == 850 || itemId == 1760) return 0; // normal grade
-		if (itemId < 20 || itemId == 851 || itemId == 1761) return 1; // mid grade
-		if (itemId < 30 || itemId == 852 || itemId == 1762) return 2; // high grade
+		if (itemId < 10 || itemId == 850 || itemId == 1760)
+			return 0; // normal grade
+		if (itemId < 20 || itemId == 851 || itemId == 1761)
+			return 1; // mid grade
+		if (itemId < 30 || itemId == 852 || itemId == 1762)
+			return 2; // high grade
 		return 3; // top grade
 	}
 
@@ -282,8 +277,10 @@ public final class RequestRefine extends L2GameClientPacket
 	{
 		itemId -= 10 * getLifeStoneGrade(itemId);
 		itemId -= 8722;
-		if (itemId > 823 && itemId < 852) return 11;
-		if (itemId > 833 && itemId < 1762) return 12;
+		if (itemId > 823 && itemId < 852)
+			return 11;
+		if (itemId > 833 && itemId < 1762)
+			return 12;
 		return itemId;
 	}
 

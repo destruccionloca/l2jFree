@@ -373,7 +373,6 @@ public class GameServer
 		{
 			OnlinePlayers.getInstance();
 		}
-		FloodProtector.getInstance();
 		ForumsBBSManager.getInstance();
 
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());

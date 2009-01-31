@@ -14,15 +14,13 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import java.util.Collection;
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
-import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
@@ -35,9 +33,10 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * @author Kerberos
  *
  */
+
 public final class L2CastleTeleporterInstance extends L2FolkInstance
 {
-	private boolean _currentTask = false;
+	private boolean	_currentTask	= false;
 
 	/**
 	* @param template
@@ -55,64 +54,76 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 
 		if (actualCommand.equalsIgnoreCase("tele"))
 		{
-			doTeleport(player);
+			int delay;
+			if (!getTask())
+			{
+				if (getCastle().getSiege().getIsInProgress() && getCastle().getSiege().getControlTowerCount() == 0)
+					delay = 480000;
+				else
+					delay = 30000;
+
+				setTask(true);
+				ThreadPoolManager.getInstance().scheduleGeneral(new oustAllPlayers(), delay);
+			}
+
 			String filename = "data/html/castleteleporter/MassGK-1.htm";
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile(filename);
 			player.sendPacket(html);
 			return;
 		}
-
-		super.onBypassFeedback(player, command);
+		else
+			super.onBypassFeedback(player, command);
 	}
 
 	@Override
 	public void showChatWindow(L2PcInstance player)
 	{
-		String filename = "data/html/castleteleporter/MassGK-1.htm";
+		String filename;
 		if (!getTask())
 		{
-			filename = "data/html/castleteleporter/MassGK.htm";
+			if (getCastle().getSiege().getIsInProgress() && getCastle().getSiege().getControlTowerCount() == 0)
+				filename = "data/html/castleteleporter/MassGK-2.htm";
+			else
+				filename = "data/html/castleteleporter/MassGK.htm";
 		}
+		else
+			filename = "data/html/castleteleporter/MassGK-1.htm";
+
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}
 
-	private void doTeleport(L2PcInstance player)
-	{
-		Castle castle = CastleManager.getInstance().getCastle(player.getX(), player.getY(), player.getZ());
-		long delay = Config.SIEGE_RESPAWN_DELAY_DEFENDER;
-		if (castle != null && castle.getSiege().getIsInProgress())
-			delay = castle.getSiege().getDefenderRespawnDelay();
-		if (delay > 480000)
-			delay = 480000;
-		setTask(true);
-
-		ThreadPoolManager.getInstance().scheduleGeneral(new OustTask(), delay );
-	}
-
-	private void oustAllPlayers()
+	void oustAllPlayers()
 	{
 		getCastle().oustAllPlayers();
 	}
 
-	private class OustTask implements Runnable
+	class oustAllPlayers implements Runnable
 	{
 		public void run()
 		{
-			NpcSay cs = new NpcSay(getObjectId(), 1, getNpcId(), "The defenders of "+ getCastle().getName()+" castle will be teleported to the inner castle.");
-			L2MapRegion region = MapRegionManager.getInstance().getRegion(getX(), getY(), getZ());
-			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+			try
 			{
-				if (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY(), player.getZ()))
+				NpcSay cs = new NpcSay(getObjectId(), 1, getNpcId(), "The defenders of " + getCastle().getName()
+						+ " castle will be teleported to the inner castle.");
+				L2MapRegion region = MapRegionManager.getInstance().getRegion(getX(), getY());
+				Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers();
+				//synchronized (L2World.getInstance().getAllPlayers())
 				{
-					player.sendPacket(cs);
+					for (L2PcInstance player : pls)
+						if (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY()))
+							player.sendPacket(cs);
 				}
+				oustAllPlayers();
+				setTask(false);
 			}
-			oustAllPlayers();
-			setTask(false);
+			catch (NullPointerException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -123,7 +134,8 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) return;
+		if (!canTarget(player))
+			return;
 
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())

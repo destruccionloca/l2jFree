@@ -53,7 +53,7 @@ public class SummonItems implements IItemHandler
 
 		L2PcInstance activeChar = (L2PcInstance) playable;
 
-		if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_ITEMPETSUMMON))
+		if (!FloodProtector.tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_ITEMPETSUMMON))
 			return;
 
 		if ((activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_SUMMON) || (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_SUMMON)

@@ -51,7 +51,7 @@ public class ChatHero implements IChatHandler
 		{
 			if (activeChar.isHero())
 			{
-				if (FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_HEROVOICE))
+				if (FloodProtector.tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_HEROVOICE))
 				{
 					canSpeak = true;
 				}

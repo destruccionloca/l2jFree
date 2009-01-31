@@ -49,7 +49,7 @@ public class ChatTrade implements IChatHandler
 	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
-		if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_TRADE_CHAT) && !activeChar.isGM())
+		if (!FloodProtector.tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_TRADE_CHAT) && !activeChar.isGM())
 		{
 			activeChar.sendMessage("Flood protection: Using trade chat failed.");
 			return;

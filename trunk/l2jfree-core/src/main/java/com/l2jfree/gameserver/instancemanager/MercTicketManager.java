@@ -206,7 +206,7 @@ public class MercTicketManager
 							itemId = ITEM_IDS[i];
 							// Create the ticket in the gameworld
 							L2ItemInstance dropticket = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
-							dropticket.setLocation(L2ItemInstance.ItemLocation.INVENTORY);
+							dropticket.setLocation(L2ItemInstance.ItemLocation.VOID);
 							dropticket.dropMe(null, x, y, z);
 							dropticket.setDropTime(0); // Avoids it from beeing removed by the auto item destroyer
 							L2World.getInstance().storeObject(dropticket);

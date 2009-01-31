@@ -39,7 +39,7 @@ public final class SummonHorse implements ISkillHandler
 		
 		L2PcInstance activeChar = (L2PcInstance)playable;
 		
-		if (!FloodProtector.getInstance().tryPerformAction(activeChar, FloodProtector.PROTECTED_ITEMPETSUMMON))
+		if (!FloodProtector.tryPerformAction(activeChar, FloodProtector.PROTECTED_ITEMPETSUMMON))
 			return;
 		
 		if (activeChar.isSitting())

@@ -92,6 +92,7 @@ public final class Config
 	public static int			MIN_PROTOCOL_REVISION;																// protocol revision
 	public static int			MAX_PROTOCOL_REVISION;
 	public static boolean		FLOOD_PROTECTION					= false;
+	public static int			FLOODPROTECTOR_INITIALSIZE;
 	public static int			PACKET_LIMIT;
 	public static int			PACKET_TIME_LIMIT;
 	public static File			DATAPACK_ROOT;																		// Datapack root directory
@@ -185,6 +186,7 @@ public final class Config
 			SAFE_REBOOT_DISABLE_NPC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableNpcIteraction", "False"));
 
 			FLOOD_PROTECTION = Boolean.parseBoolean(serverSettings.getProperty("FloodProtection", "False"));
+			FLOODPROTECTOR_INITIALSIZE = Integer.parseInt(serverSettings.getProperty("FloodProtectorInitialSize", "50"));
 			PACKET_LIMIT = Integer.parseInt(serverSettings.getProperty("PacketLimit", "500"));
 			PACKET_TIME_LIMIT = Integer.parseInt(serverSettings.getProperty("PacketTimeLimit", "1100"));
 			NETWORK_TRAFFIC_OPTIMIZATION = Boolean.parseBoolean(serverSettings.getProperty("NetworkTrafficOptimization", "False"));
@@ -868,6 +870,9 @@ public final class Config
 	public static int				INVENTORY_MAXIMUM_DWARF;								// Inventory slots limits
 	public static int				INVENTORY_MAXIMUM_GM;									// Inventory slots limits
 	public static int				DEATH_PENALTY_CHANCE;									// Death Penalty chance
+    public static boolean			BANKING_SYSTEM_ENABLED;
+    public static int				BANKING_SYSTEM_GOLDBARS;
+    public static int				BANKING_SYSTEM_ADENA;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -981,7 +986,10 @@ public final class Config
 			JAIL_IS_PVP = Boolean.parseBoolean(otherSettings.getProperty("JailIsPvp", "True"));
 			JAIL_DISABLE_CHAT = Boolean.parseBoolean(otherSettings.getProperty("JailDisableChat", "True"));
 			DEATH_PENALTY_CHANCE = Integer.parseInt(otherSettings.getProperty("DeathPenaltyChance", "20"));
-
+			
+            BANKING_SYSTEM_ENABLED	= Boolean.parseBoolean(otherSettings.getProperty("BankingEnabled", "false"));
+            BANKING_SYSTEM_GOLDBARS	= Integer.parseInt(otherSettings.getProperty("BankingGoldbarCount", "1"));
+            BANKING_SYSTEM_ADENA	= Integer.parseInt(otherSettings.getProperty("BankingAdenaCount", "500000000"));
 		}
 		catch (Exception e)
 		{

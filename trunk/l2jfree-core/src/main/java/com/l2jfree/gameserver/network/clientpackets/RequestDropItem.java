@@ -81,7 +81,7 @@ public class RequestDropItem extends L2GameClientPacket
             return;
         
         // Flood protect drop to avoid packet lag
-        if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_DROPITEM))
+        if (!FloodProtector.tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_DROPITEM))
             return;
         
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 

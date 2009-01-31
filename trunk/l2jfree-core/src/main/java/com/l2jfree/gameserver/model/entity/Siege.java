@@ -250,7 +250,6 @@ public class Siege
 
     private FastList<L2SiegeClan> _defenderClans = new FastList<L2SiegeClan>(); // L2SiegeClan
     private FastList<L2SiegeClan> _defenderWaitingClans = new FastList<L2SiegeClan>(); // L2SiegeClan
-    private int _defenderRespawnDelayPenalty;
 
     // Castle setting
     private FastList<L2ControlTowerInstance> _controlTowers = new FastList<L2ControlTowerInstance>();
@@ -452,7 +451,6 @@ public class Siege
             getCastle().spawnDoor(); // Spawn door
             spawnSiegeGuard(); // Spawn siege guard
             MercTicketManager.getInstance().deleteTickets(getCastle().getCastleId()); // remove the tickets from the ground
-            _defenderRespawnDelayPenalty = 0; // Reset respawn delay
             getZone().updateSiegeStatus();
 
             // Schedule a task to prepare auto siege end
@@ -713,11 +711,6 @@ public class Siege
         _controlTowerCount--;
         if (_controlTowerCount < 0)
             _controlTowerCount = 0;
-        if (_controlTowerMaxCount > 0)
-            _defenderRespawnDelayPenalty = (_controlTowerMaxCount - _controlTowerCount)/_controlTowerCount * Config.SIEGE_CT_LOSS_PENALTY; // Add respawn penalty to defenders for each control tower lose
-        else
-            _defenderRespawnDelayPenalty = 0;
-
     }
 
     /** Remove the flag that was killed */
@@ -1366,11 +1359,6 @@ public class Siege
         return _defenderWaitingClans;
     }
 
-    public final int getDefenderRespawnDelay()
-    {
-        return (Config.SIEGE_RESPAWN_DELAY_DEFENDER + _defenderRespawnDelayPenalty);
-    }
-
     public final boolean getIsInProgress()
     {
         return _isInProgress;
@@ -1439,4 +1427,9 @@ public class Siege
     {
         return getCastle().getBattlefield();
     }
+    
+	public int getControlTowerCount()
+	{
+		return _controlTowerCount;
+	}
 }

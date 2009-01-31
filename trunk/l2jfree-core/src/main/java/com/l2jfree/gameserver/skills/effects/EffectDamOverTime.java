@@ -56,7 +56,7 @@ public final class EffectDamOverTime extends L2Effect
 			if (damage > 300)
 				damage = 300;
 		}
-		if (damage >= getEffected().getStatus().getCurrentHp())
+		if (damage >= getEffected().getStatus().getCurrentHp() - 1)
 		{
 			if (getSkill().isToggle())
 			{
@@ -67,7 +67,12 @@ public final class EffectDamOverTime extends L2Effect
 
 			// For DOT skills that will not kill effected player.
 			if (!getSkill().killByDOT())
+			{
+				// Fix for players dying by DOTs if HP < 1 since reduceCurrentHP method will kill them 
+				if (getEffected().getStatus().getCurrentHp() <= 1)
+					return true;
 				damage = getEffected().getStatus().getCurrentHp() - 1;
+			}
 		}
 
 		boolean awake = !(getEffected() instanceof L2Attackable) && !(getSkill().getTargetType() == SkillTargetType.TARGET_SELF && getSkill().isToggle());
