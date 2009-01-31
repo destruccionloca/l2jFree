@@ -105,6 +105,7 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
@@ -395,10 +396,7 @@ public abstract class L2Character extends L2Object
 	{
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
-			if (this instanceof L2PcInstance && 
-					((L2PcInstance) this).isGM() &&
-					((L2PcInstance) this).getAppearance().isInvisible() &&
-					!player.isGM())
+			if (Broadcast.canReceivePacket(this, player))
 				continue;
 
 			player.sendPacket(mov);
@@ -418,10 +416,7 @@ public abstract class L2Character extends L2Object
 	{
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
-			if (this instanceof L2PcInstance && 
-					((L2PcInstance) this).isGM() &&
-					((L2PcInstance) this).getAppearance().isInvisible() &&
-					!player.isGM())
+			if (Broadcast.canReceivePacket(this, player))
 				continue;
 
 			if (isInsideRadius(player, radiusInKnownlist, false, false))

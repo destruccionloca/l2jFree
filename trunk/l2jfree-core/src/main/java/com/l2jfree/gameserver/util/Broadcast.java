@@ -67,7 +67,7 @@ public final class Broadcast
 
 		for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
 		{
-			if (player == null || player.getTarget() != character)
+			if (canReceivePacket(character, player))
 				continue;
 
 			player.sendPacket(mov);
@@ -100,17 +100,18 @@ public final class Broadcast
 
 		for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
 		{
-			if (player != null) {
-				player.sendPacket(mov);
-				if (mov instanceof CharInfo && character instanceof L2PcInstance)
+			if (canReceivePacket(character, player))
+				continue;
+
+			player.sendPacket(mov);
+			if (mov instanceof CharInfo && character instanceof L2PcInstance)
+			{
+				int relation = ((L2PcInstance) character).getRelation(player);
+				if (character.getKnownList().getKnownRelations().get(player.getObjectId()) != null && character.getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
 				{
-					int relation = ((L2PcInstance) character).getRelation(player);
-					if (character.getKnownList().getKnownRelations().get(player.getObjectId()) != null && character.getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
-					{
-						player.sendPacket(new RelationChanged((L2PcInstance) character, relation, player.isAutoAttackable(character)));
-						if (((L2PcInstance) character).getPet() != null)
-							player.sendPacket(new RelationChanged(((L2PcInstance) character).getPet(), relation, player.isAutoAttackable(character)));
-					}
+					player.sendPacket(new RelationChanged((L2PcInstance) character, relation, player.isAutoAttackable(character)));
+					if (((L2PcInstance) character).getPet() != null)
+						player.sendPacket(new RelationChanged(((L2PcInstance) character).getPet(), relation, player.isAutoAttackable(character)));
 				}
 			}
 		}
@@ -142,7 +143,7 @@ public final class Broadcast
 
 		for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
 		{
-			if (player == null)
+			if (canReceivePacket(character, player))
 				continue;
 
 			if (character.isInsideRadius(player, radius, false, false))
@@ -184,7 +185,10 @@ public final class Broadcast
 
 		for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
 		{
-			if (player != null && character.getDistanceSq(player) <= radiusSq)
+			if (canReceivePacket(character, player))
+				continue;
+			
+			if (character.getDistanceSq(player) <= radiusSq)
 				player.sendPacket(mov);
 		}
 	}
@@ -217,5 +221,35 @@ public final class Broadcast
 
 			onlinePlayer.sendPacket(mov);
 		}
+	}
+	
+	/**
+	 * Returns if packets should be send to a target to avoid 
+	 * gamemasters to be seen while being invisible
+	 * 
+	 * @param activeChar
+	 * @param target
+	 * @return boolean
+	 */
+	public static final boolean canReceivePacket(L2Character activeChar, L2Character target) {
+		if (activeChar == null || target == null)
+			return false;
+		
+		if (activeChar == target)
+			return false;
+		
+		if (!(activeChar instanceof L2PcInstance) ||
+				!(target instanceof L2PcInstance))
+			return true;
+		
+		L2PcInstance a = (L2PcInstance) activeChar;
+		L2PcInstance t = (L2PcInstance) target;
+		
+		if (a.getAppearance().isInvisible() &&
+				a.isGM() &&
+				!t.isGM())
+			return false;
+		
+		return true;
 	}
 }
