@@ -185,7 +185,7 @@ public final class Broadcast
 
 		for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
 		{
-			if (canReceivePacket(character, player))
+			if (!canReceivePacket(character, player))
 				continue;
 			
 			if (character.getDistanceSq(player) <= radiusSq)
