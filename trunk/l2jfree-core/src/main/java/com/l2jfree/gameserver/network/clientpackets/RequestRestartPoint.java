@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.geoserver.model.Location;
+import com.l2jfree.gameserver.model.Location;
 
 public class RequestRestartPoint extends L2GameClientPacket
 {

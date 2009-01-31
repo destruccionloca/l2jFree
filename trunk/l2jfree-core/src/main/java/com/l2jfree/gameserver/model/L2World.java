@@ -40,8 +40,9 @@ import com.l2jfree.util.L2ReadWriteCollection;
 public final class L2World
 {
 	private final static Log				_log		= LogFactory.getLog(L2World.class.getName());
+    public static final int SHIFT_BY = 12;
 
-	/** Map dimensions */
+    /** Map dimensions */
 	public static final int MAP_MIN_X = -163840;
 	public static final int MAP_MAX_X = 229375;
 	public static final int MAP_MIN_Y = -262144;
@@ -49,10 +50,9 @@ public final class L2World
 	public static final int MAP_MIN_Z = -32768;
 	public static final int MAP_MAX_Z = 32767;
 
-	public static final int WORLD_SIZE_X = L2World.MAP_MAX_X - L2World.MAP_MIN_X + 1 >> 15;
-	public static final int WORLD_SIZE_Y = L2World.MAP_MAX_Y - L2World.MAP_MIN_Y + 1 >> 15;
+	public static final int WORLD_SIZE_X = L2World.MAP_MAX_X - L2World.MAP_MIN_X + 1 >> SHIFT_BY;
+	public static final int WORLD_SIZE_Y = L2World.MAP_MAX_Y - L2World.MAP_MIN_Y + 1 >> SHIFT_BY;
 
-	public static final int SHIFT_BY = 11;
 	public static final int SHIFT_BY_FOR_Z = 9;
     
 	/** calculated offset used so top left region is 0,0 */
@@ -337,7 +337,8 @@ public final class L2World
 				client = tmp.getClient();
 				L2GameClient.saveCharToDisk(tmp, true); // Store character and items
 				tmp.deleteMe();
-				client.setActiveChar(null); // prevent deleteMe from being called a second time on disconnection
+				if(client!=null)
+					client.setActiveChar(null); // prevent deleteMe from being called a second time on disconnection
 
 				return;
 			}

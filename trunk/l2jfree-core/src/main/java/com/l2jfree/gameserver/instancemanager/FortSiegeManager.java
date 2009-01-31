@@ -43,7 +43,7 @@ import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.geoserver.model.Location;
+import com.l2jfree.gameserver.model.Location;
 
 public class FortSiegeManager
 {

@@ -45,7 +45,7 @@ import com.l2jfree.gameserver.model.mapregion.L2MapRegionRestart;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.geoserver.model.Location;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.tools.geometry.Point3D;
 
 /**
@@ -350,7 +350,7 @@ public class MapRegionManager
 		{
 			if (region.checkIfInRegion(x, y, z))
 			{
-				// Prefer special regions
+				// prefer special regions
 				if (region.isSpecialRegion())
 					return region;
 
@@ -408,10 +408,13 @@ public class MapRegionManager
 			if (player.getInstanceId() > 0)
 			{
 				Instance playerInstance = InstanceManager.getInstance().getInstance(player.getInstanceId());
-				if (playerInstance.getSpawnLoc() != null)
+				if(playerInstance!=null)
 				{
-					int[] coord = playerInstance.getSpawnLoc();
-					return new Location(coord[0], coord[1], coord[2]);
+					if (playerInstance.getSpawnLoc() != null)
+					{
+						int[] coord = playerInstance.getSpawnLoc();
+						return new Location(coord[0], coord[1], coord[2]);
+					}
 				}
 			}
 
@@ -517,9 +520,9 @@ public class MapRegionManager
 								return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
 							}
 						}
-						// Get nearest flag
+						// get nearest flag
 						L2NpcInstance flag = siege.getClosestFlag(player);
-						// Spawn to flag
+						// spawn to flag
 						if (flag != null)
 							return new Location(flag.getX(), flag.getY(), flag.getZ());
 					}
@@ -544,7 +547,7 @@ public class MapRegionManager
 			}
 		}
 
-		// Teleport to default town if nothing else will work
+		// teleport to default town if nothing else will work
 		return getLocationFromPoint3D(getRestartPoint(Config.ALT_DEFAULT_RESTARTTOWN));
 	}
 

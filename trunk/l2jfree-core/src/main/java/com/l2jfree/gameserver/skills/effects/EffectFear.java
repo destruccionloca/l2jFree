@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.skills.effects;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.geodata.GeoClient;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
-import com.l2jfree.geoserver.model.Location;
+import com.l2jfree.gameserver.model.Location;
 
 /**
  * @author littlecrow
@@ -109,7 +109,7 @@ public final class EffectFear extends L2Effect
 		posX += _dX * FEAR_RANGE;
 		posY += _dY * FEAR_RANGE;
 
-		Location destiny = GeoClient.getInstance().moveCheck(getEffected().getX(), getEffected().getY(), getEffected().getZ(), posX, posY, posZ);
+		Location destiny = GeoData.getInstance().moveCheck(getEffected().getX(), getEffected().getY(), getEffected().getZ(), posX, posY, posZ);
 		getEffected().setRunning();
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(destiny.getX(), destiny.getY(), destiny.getZ(), 0));
 		return true;

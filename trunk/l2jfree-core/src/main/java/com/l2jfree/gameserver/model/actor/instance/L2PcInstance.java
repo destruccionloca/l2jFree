@@ -68,7 +68,7 @@ import com.l2jfree.gameserver.datatables.NobleSkillTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
-import com.l2jfree.gameserver.geodata.GeoClient;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
@@ -3862,7 +3862,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					{
 						if (Config.GEO_CHECK_LOS)
 						{
-							if (GeoClient.getInstance().canSeeTarget(player, this))
+							if (GeoData.getInstance().canSeeTarget(player, this))
 							{
 								player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 								player.onActionRequest();
@@ -3881,7 +3881,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					player.sendPacket(ActionFailed.STATIC_PACKET);
 					if (Config.GEO_CHECK_LOS)
 					{
-						if (GeoClient.getInstance().canSeeTarget(player, this))
+						if (GeoData.getInstance().canSeeTarget(player, this))
 							player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 					}
 					else
@@ -6222,7 +6222,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendPacket(SystemMessageId.TOO_FAR_AWAY_FROM_STRIDER_TO_MOUNT);
 			return false;
 		}
-		else if (!GeoClient.getInstance().canSeeTarget(this, pet))
+		else if (!GeoData.getInstance().canSeeTarget(this, pet))
 		{
 			sendPacket(SystemMessageId.CANT_SEE_TARGET);
 			return false;
@@ -8739,14 +8739,14 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (sklTargetType == SkillTargetType.TARGET_GROUND)
 			{
-				if (!GeoClient.getInstance().canSeeTarget(this, worldPosition))
+				if (!GeoData.getInstance().canSeeTarget(this, worldPosition))
 				{
 					sendPacket(SystemMessageId.CANT_SEE_TARGET);
 					sendPacket(ActionFailed.STATIC_PACKET);
 					return false;
 				}
 			}
-			else if (!GeoClient.getInstance().canSeeTarget(this, target))
+			else if (!GeoData.getInstance().canSeeTarget(this, target))
 			{
 				sendPacket(SystemMessageId.CANT_SEE_TARGET);
 				sendPacket(ActionFailed.STATIC_PACKET);

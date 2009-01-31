@@ -154,7 +154,7 @@ public class ValidatePosition extends L2GameClientPacket
             // when too far from server calculated true coordinate.
             // Due to geodata/zone errors, some Z axis checks are made. (maybe a temporary solution)
             // Important: this code part must work together with L2Character.updatePosition
-            if (Config.GEODATA
+            if (Config.GEODATA > 0
                 && (diffSq > 10000 || Math.abs(dz) > 200))
             {
                 if (Math.abs(dz) > 200 && Math.abs(dz) < 1500 && Math.abs(_z - activeChar.getClientZ()) < 800)

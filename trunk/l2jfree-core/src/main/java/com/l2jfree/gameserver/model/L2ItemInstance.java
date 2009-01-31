@@ -30,7 +30,7 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.ItemTable;
-import com.l2jfree.gameserver.geodata.GeoClient;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -49,7 +49,6 @@ import com.l2jfree.gameserver.templates.item.L2Equip;
 import com.l2jfree.gameserver.templates.item.L2EtcItem;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
-import com.l2jfree.geoserver.model.Location;
 
 /**
  * This class manages items.
@@ -1522,9 +1521,9 @@ public final class L2ItemInstance extends L2Object
 		if (Config.ASSERT)
 			assert getPosition().getWorldRegion() == null;
 
-		if (Config.GEODATA && dropper != null)
+		if (Config.GEODATA > 0 && dropper != null)
 		{
-			Location dropDest = GeoClient.getInstance().moveCheck(dropper.getX(), dropper.getY(), dropper.getZ(), x, y, z);
+			Location dropDest = GeoData.getInstance().moveCheck(dropper.getX(), dropper.getY(), dropper.getZ(), x, y, z);
 			x = dropDest.getX();
 			y = dropDest.getY();
 			z = dropDest.getZ();

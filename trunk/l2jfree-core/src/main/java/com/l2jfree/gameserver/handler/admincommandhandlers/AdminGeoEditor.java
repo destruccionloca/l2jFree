@@ -21,23 +21,21 @@ import com.l2jfree.gameserver.geoeditorcon.GeoEditorListener;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-
 /**
  * @author  Luno, Dezmond
  */
 public class AdminGeoEditor implements IAdminCommandHandler
 {
-	private static final String[]	ADMIN_COMMANDS	=
-													{ "admin_ge_status", "admin_ge_mode", "admin_ge_join", "admin_ge_leave" };
-
-	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
-
+	private static final String[] ADMIN_COMMANDS =
+	{
+		"admin_ge_status",
+		"admin_ge_mode",
+		"admin_ge_join",
+		"admin_ge_leave"
+	};
+	
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-				return false;
-
 		if (!Config.ACCEPT_GEOEDITOR_CONN)
 		{
 			activeChar.sendMessage("Server do not accepts geoeditor connections now.");
@@ -58,7 +56,7 @@ public class AdminGeoEditor implements IAdminCommandHandler
 			{
 				String val = command.substring("admin_ge_mode".length());
 				StringTokenizer st = new StringTokenizer(val);
-
+				
 				if (st.countTokens() < 1)
 				{
 					activeChar.sendMessage("Usage: //ge_mode X");
@@ -90,7 +88,7 @@ public class AdminGeoEditor implements IAdminCommandHandler
 				return true;
 			}
 			GeoEditorListener.getInstance().getThread().addGM(activeChar);
-			activeChar.sendMessage("You are added to list for geoeditor.");
+			activeChar.sendMessage("You added to list for geoeditor.");
 		}
 		else if (command.equals("admin_ge_leave"))
 		{
@@ -104,14 +102,9 @@ public class AdminGeoEditor implements IAdminCommandHandler
 		}
 		return true;
 	}
-
+	
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
 	}
 }

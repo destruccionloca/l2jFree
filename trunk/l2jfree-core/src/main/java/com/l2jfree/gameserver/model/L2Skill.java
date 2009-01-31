@@ -23,7 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.geodata.GeoClient;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.cache.L2Integer;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
@@ -1666,7 +1666,7 @@ public class L2Skill
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				return null;
 			}
-			if (!GeoClient.getInstance().canSeeTarget(activeChar, target))
+			if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 				return null;
 			return new L2Character[]
 			{ target };
@@ -1782,7 +1782,7 @@ public class L2Skill
 						continue;
 					if (src != null)
 					{
-						if (!GeoClient.getInstance().canSeeTarget(activeChar, obj))
+						if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
 							continue;
 						// check if both attacker and target are L2PcInstances and if they are in same party
 						if (obj instanceof L2PcInstance)
@@ -1868,7 +1868,7 @@ public class L2Skill
 						if (!cha.isInFrontOf(activeChar))
 							continue;
 
-						if (!GeoClient.getInstance().canSeeTarget(activeChar, obj))
+						if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
 							continue;
 
 						boolean objInPvpZone = cha.isInsideZone(L2Zone.FLAG_PVP) && !cha.isInsideZone(L2Zone.FLAG_SIEGE);
@@ -1947,7 +1947,7 @@ public class L2Skill
 						if (!cha.isBehind(activeChar))
 							continue;
 
-						if (!GeoClient.getInstance().canSeeTarget(activeChar, obj))
+						if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
 							continue;
 
 						boolean objInPvpZone = cha.isInsideZone(L2Zone.FLAG_PVP) && !cha.isInsideZone(L2Zone.FLAG_SIEGE);
@@ -2045,7 +2045,7 @@ public class L2Skill
 				target = (L2Character) obj;
 				boolean targetInPvP = target.isInsideZone(L2Zone.FLAG_PVP) && !target.isInsideZone(L2Zone.FLAG_SIEGE);
 
-				if (!GeoClient.getInstance().canSeeTarget(activeChar, target))
+				if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 					continue;
 
 				if (!target.isDead() && (target != activeChar))
@@ -2176,7 +2176,7 @@ public class L2Skill
 					if (!target.isInFrontOf(activeChar))
 						continue;
 
-					if (!GeoClient.getInstance().canSeeTarget(activeChar, target))
+					if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 						continue;
 
 					if (src != null) // caster is l2playableinstance and exists
@@ -2301,7 +2301,7 @@ public class L2Skill
 					if (!target.isBehind(activeChar))
 						continue;
 
-					if (!GeoClient.getInstance().canSeeTarget(activeChar, target))
+					if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 						continue;
 
 					if (src != null) // caster is l2playableinstance and exists
@@ -2405,7 +2405,7 @@ public class L2Skill
 				else
 					continue;
 
-				if (!GeoClient.getInstance().canSeeTarget(activeChar, target))
+				if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 					continue;
 
 				if (!target.isAlikeDead()) // If target is not dead/fake death and not self
@@ -2951,7 +2951,7 @@ public class L2Skill
 				if (!Util.checkIfInRange(radius, target, obj, true))
 					continue;
 
-				if (!GeoClient.getInstance().canSeeTarget(activeChar, obj))
+				if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
 					continue;
 
 				if (obj instanceof L2PcInstance && src != null)
@@ -3038,7 +3038,7 @@ public class L2Skill
 					if (!cha.isDead() || !Util.checkIfInRange(radius, target, cha, true))
 						continue;
 
-					if (!GeoClient.getInstance().canSeeTarget(activeChar, cha))
+					if (!GeoData.getInstance().canSeeTarget(activeChar, cha))
 						continue;
 
 					targetList.add(cha);

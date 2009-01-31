@@ -22,11 +22,13 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 import java.util.List;
 import java.util.concurrent.Future;
 
+import javolution.util.FastList;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
-import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager.DimensionalRiftRoom;
 import com.l2jfree.gameserver.model.L2Attackable;
@@ -52,8 +54,6 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
-
-import javolution.util.FastList;
 
 /**
  * This class manages AI of L2Attackable.<BR><BR>
@@ -227,14 +227,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			// Check if the L2PcInstance target has karma (=PK)
 			if (target instanceof L2PcInstance && ((L2PcInstance) target).getKarma() > 0)
 				// Los Check
-				return GeoClient.getInstance().canSeeTarget(me, target);
+				return GeoData.getInstance().canSeeTarget(me, target);
 
 			//if (target instanceof L2Summon)
 			//  return ((L2Summon)target).getKarma() > 0;
 
 			// Check if the L2MonsterInstance target is aggressive
 			if (target instanceof L2MonsterInstance)
-				return (((L2MonsterInstance) target).isAggressive() && GeoClient.getInstance().canSeeTarget(me, target));
+				return (((L2MonsterInstance) target).isAggressive() && GeoData.getInstance().canSeeTarget(me, target));
 
 			return false;
 		}
@@ -250,7 +250,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			// Check if the L2PcInstance target has karma (=PK)
 			if (target instanceof L2PcInstance && ((L2PcInstance) target).getKarma() > 0)
 				// Los Check
-				return GeoClient.getInstance().canSeeTarget(me, target);
+				return GeoData.getInstance().canSeeTarget(me, target);
 			return false;
 		}
 		else
@@ -269,7 +269,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				return false;
 
 			// Check if the actor is Aggressive
-			return (me.isAggressive() && GeoClient.getInstance().canSeeTarget(me, target));
+			return (me.isAggressive() && GeoData.getInstance().canSeeTarget(me, target));
 		}
 	}
 
@@ -739,7 +739,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					{
 						if (Math.abs(originalAttackTarget.getZ() - npc.getZ()) < 600 && _actor.getAttackByList().contains(originalAttackTarget)
 								&& (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)
-								&& GeoClient.getInstance().canSeeTarget(_actor, npc))
+								&& GeoData.getInstance().canSeeTarget(_actor, npc))
 						{
 							if (originalAttackTarget instanceof L2PcInstance && originalAttackTarget.isInParty()
 									&& originalAttackTarget.getParty().isInDimensionalRift())
@@ -790,7 +790,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 										if (10 >= Rnd.get(100)) // chance
 											continue;
-										if (!GeoClient.getInstance().canSeeTarget(_actor, npc))
+										if (!GeoData.getInstance().canSeeTarget(_actor, npc))
 											break;
 
 										L2Object OldTarget = _actor.getTarget();
@@ -830,7 +830,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 										chance = 6;
 									if (chance >= Rnd.get(100)) // chance
 										continue;
-									if (!GeoClient.getInstance().canSeeTarget(_actor, npc))
+									if (!GeoData.getInstance().canSeeTarget(_actor, npc))
 										break;
 
 									L2Object OldTarget = _actor.getTarget();
@@ -920,7 +920,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				&& (_selfAnalysis.hasLongRangeSkills || _selfAnalysis.isArcher || _selfAnalysis.isHealer)
 				&& (_mostHatedAnalysis.isBalanced || _mostHatedAnalysis.isFighter) 
 				&& (_mostHatedAnalysis.character.isRooted() || _mostHatedAnalysis.isSlower) 
-				&& (Config.GEO_PATH_FINDING ? 20 : 12) >= Rnd.get(100) // chance
+				&& (Config.GEODATA==2 ? 20 : 12) >= Rnd.get(100) // chance
 		)
 		{
 			int posX = _actor.getX();
@@ -943,7 +943,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		// Cannot see target, needs to go closer, currently just goes to range 300 if mage
 		if ((dist2 > 96100 + combinedCollision * combinedCollision) // 310
 				&& this._selfAnalysis.hasLongRangeSkills 
-				&& !GeoClient.getInstance().canSeeTarget(_actor, _mostHatedAnalysis.character))
+				&& !GeoData.getInstance().canSeeTarget(_actor, _mostHatedAnalysis.character))
 		{
 			if (!(_selfAnalysis.isMage && _actor.isMuted()))
 			{

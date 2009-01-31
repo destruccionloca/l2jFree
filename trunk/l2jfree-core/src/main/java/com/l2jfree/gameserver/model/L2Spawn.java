@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.geodata.GeoClient;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2FolkInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
@@ -541,7 +541,7 @@ public class L2Spawn
 		int newlocx, newlocy, newlocz;
 
 		boolean doCorrect = false;
-		if (Config.GEODATA)
+		if (Config.GEODATA > 0 )
 		{
 			switch (Config.GEO_CORRECT_Z)
 			{
@@ -562,7 +562,7 @@ public class L2Spawn
 		// The L2NpcInstance is spawned at the exact position (Lox, Locy, Locz)
 		newlocx = getLocx();
 		newlocy = getLocy();
-		newlocz = doCorrect ? GeoClient.getInstance().getSpawnHeight(newlocx, newlocy, getLocz(), getLocz(), _id) : getLocz();
+		newlocz = doCorrect ? GeoData.getInstance().getSpawnHeight(newlocx, newlocy, getLocz(), getLocz(), _id) : getLocz();
 
 		for (L2Effect f : mob.getAllEffects())
 		{

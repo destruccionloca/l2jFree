@@ -26,7 +26,6 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2DoorAI;
 import com.l2jfree.gameserver.datatables.ClanTable;
-import com.l2jfree.gameserver.geodata.GeoClient;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -54,7 +53,6 @@ import com.l2jfree.gameserver.network.serverpackets.StaticObject;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
-import com.l2jfree.geoserver.model.L2Territory;
 
 /**
  * This class ...
@@ -67,7 +65,7 @@ public class L2DoorInstance extends L2Character
 	private int					_castleIndex		= -2;
 	private Castle				_castle;
 	/** The fort index in the array of L2Fort this L2DoorInstance belongs to */
-	private int					_fortIndex			= -2;
+	private int					_fortId				= -2;
 	private Fort				_fort;
 
 	private L2MapRegion			_mapRegion			= null;
@@ -75,9 +73,21 @@ public class L2DoorInstance extends L2Character
 	protected final int			_doorId;
 	protected final String		_name;
 	private boolean				_open;
-	public boolean				_geoOpen;
 	private boolean				_unlockable;
-	private L2Territory	_pos;
+
+	// when door is closed, the dimensions are
+	private int					_rangeXMin			= 0;
+	private int					_rangeYMin			= 0;
+	private int					_rangeZMin			= 0;
+	private int					_rangeXMax			= 0;
+	private int					_rangeYMax			= 0;
+	private int					_rangeZMax			= 0;
+
+	// these variables assist in see-through calculation only
+	private int					_A					= 0;
+	private int					_B					= 0;
+	private int					_C					= 0;
+	private int					_D					= 0;
 
 	private ClanHall			_clanHall;
 
@@ -129,12 +139,12 @@ public class L2DoorInstance extends L2Character
 	}
 
 	@Override
-	public L2CharacterAI getAI() 
+	public L2CharacterAI getAI()
 	{
 		L2CharacterAI ai = _ai; // copy handle
 		if (ai == null)
 		{
-			synchronized(this)
+			synchronized (this)
 			{
 				if (_ai == null)
 					_ai = new L2DoorAI(new AIAccessor());
@@ -203,8 +213,6 @@ public class L2DoorInstance extends L2Character
 		_doorId = doorId;
 		_name = name;
 		_unlockable = unlockable;
-		_geoOpen = true;
-		_pos = new L2Territory("door_" + doorId);
 	}
 
 	@Override
@@ -330,11 +338,17 @@ public class L2DoorInstance extends L2Character
 	{
 		if (_fort == null)
 		{
-			if (_fortIndex < 0)
-				_fortIndex = FortManager.getInstance().getFortIndex(this);
-			if (_fortIndex < 0)
-				return null;
-			_fort = FortManager.getInstance().getForts().get(_fortIndex);
+			Fort fort = null;
+
+			if (_fortId < 0)
+			{
+				fort = FortManager.getInstance().getFort(this);
+				if (fort != null)
+					_fortId = fort.getCastleId();
+			}
+			if (_fortId > 0)
+				fort = FortManager.getInstance().getFortById(_fortId);
+			_fort = fort;
 		}
 		return _fort;
 	}
@@ -528,7 +542,8 @@ public class L2DoorInstance extends L2Character
 					}
 					else
 					{
-						player.sendPacket(new ConfirmDlg(1141));;
+						player.sendPacket(new ConfirmDlg(1141));
+						;
 					}
 				}
 			}
@@ -547,7 +562,8 @@ public class L2DoorInstance extends L2Character
 					}
 					else
 					{
-						player.sendPacket(new ConfirmDlg(1141));;
+						player.sendPacket(new ConfirmDlg(1141));
+						;
 					}
 				}
 			}
@@ -575,6 +591,12 @@ public class L2DoorInstance extends L2Character
 			html1.append("<tr><td>S.Y.L. Says:</td></tr>");
 			html1.append("<tr><td>Current HP  " + getStatus().getCurrentHp() + "</td></tr>");
 			html1.append("<tr><td>Max HP      " + getMaxHp() + "</td></tr>");
+			html1.append("<tr><td>Max X      " + getXMax() + "</td></tr>");
+			html1.append("<tr><td>Max Y      " + getYMax() + "</td></tr>");
+			html1.append("<tr><td>Max Z      " + getZMax() + "</td></tr>");
+			html1.append("<tr><td>Min X      " + getXMin() + "</td></tr>");
+			html1.append("<tr><td>Min Y      " + getYMin() + "</td></tr>");
+			html1.append("<tr><td>Min Z      " + getZMin() + "</td></tr>");
 
 			html1.append("<tr><td>Object ID: " + getObjectId() + "</td></tr>");
 			html1.append("<tr><td>Door ID:<br>" + getDoorId() + "</td></tr>");
@@ -620,8 +642,7 @@ public class L2DoorInstance extends L2Character
 			player.sendPacket(su);
 			player.sendPacket(dsu);
 		}
-	}
-
+}
 	public void onOpen()
 	{
 		ThreadPoolManager.getInstance().scheduleGeneral(new CloseTask(), 60000);
@@ -635,14 +656,12 @@ public class L2DoorInstance extends L2Character
 	public final void closeMe()
 	{
 		setOpen(false);
-		setGeoOpen(false);
 		broadcastStatusUpdate();
 	}
 
 	public final void openMe()
 	{
 		setOpen(true);
-		setGeoOpen(true);
 		broadcastStatusUpdate();
 	}
 
@@ -650,6 +669,54 @@ public class L2DoorInstance extends L2Character
 	public String toString()
 	{
 		return "door " + _doorId;
+	}
+
+	public int getXMin()
+	{
+		return _rangeXMin;
+	}
+
+	public int getYMin()
+	{
+		return _rangeYMin;
+	}
+
+	public int getZMin()
+	{
+		return _rangeZMin;
+	}
+
+	public int getXMax()
+	{
+		return _rangeXMax;
+	}
+
+	public int getYMax()
+	{
+		return _rangeYMax;
+	}
+
+	public int getZMax()
+	{
+		return _rangeZMax;
+	}
+
+	public void setRange(int xMin, int yMin, int zMin, int xMax, int yMax, int zMax)
+	{
+		_rangeXMin = xMin;
+		_rangeYMin = yMin;
+		_rangeZMin = zMin;
+
+		_rangeXMax = xMax;
+		_rangeYMax = yMax;
+		_rangeZMax = zMax;
+
+		_A = _rangeYMax * (_rangeZMax - _rangeZMin) + _rangeYMin * (_rangeZMin - _rangeZMax);
+		_B = _rangeZMin * (_rangeXMax - _rangeXMin) + _rangeZMax * (_rangeXMin - _rangeXMax);
+		_C = _rangeXMin * (_rangeYMax - _rangeYMin) + _rangeXMin * (_rangeYMin - _rangeYMax);
+		_D = -1
+				* (_rangeXMin * (_rangeYMax * _rangeZMax - _rangeYMin * _rangeZMax) + _rangeXMax * (_rangeYMin * _rangeZMin - _rangeYMin * _rangeZMax) + _rangeXMin
+						* (_rangeYMin * _rangeZMax - _rangeYMax * _rangeZMin));
 	}
 
 	public String getDoorName()
@@ -680,40 +747,24 @@ public class L2DoorInstance extends L2Character
 		return result;
 	}
 
-	public void setGeoOpen(boolean val)
+	public int getA()
 	{
-		if (_geoOpen == val)
-			return;
-
-		_geoOpen = val;
-		if (val)
-			GeoClient.getInstance().openDoor(_pos);
-		else
-			GeoClient.getInstance().closeDoor(_pos);
+		return _A;
 	}
 
-	public L2Territory getPos()
+	public int getB()
 	{
-		return _pos;
+		return _B;
 	}
 
-	public void setPos(L2Territory pos)
+	public int getC()
 	{
-		_pos = pos;
+		return _C;
 	}
 
-	public boolean getGeoOpen()
+	public int getD()
 	{
-		return _geoOpen;
+		return _D;
 	}
-	
-	@Override
-	public boolean doDie(L2Character killer)
-	{
-		if (!super.doDie(killer))
-			return false;
 
-		setGeoOpen(true);
-		return true;
-	}	
 }

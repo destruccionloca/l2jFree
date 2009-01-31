@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.model;
 
 import java.util.concurrent.Future;
 
-import com.l2jfree.gameserver.geodata.GeoClient;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Character;
@@ -96,7 +96,7 @@ public final class ForceBuff
 				if (!Util.checkIfInRange(_skillCastRange, _caster, _target, true))
 					_caster.abortCast();
 
-				if (!GeoClient.getInstance().canSeeTarget(_caster, _target))
+				if (!GeoData.getInstance().canSeeTarget(_caster, _target))
 					_caster.abortCast();
 			}
 			catch (Exception e)

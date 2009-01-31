@@ -172,7 +172,7 @@ public class Instance
 		L2DoorInstance temp = DoorTable.getInstance().getDoor(doorId);
 		L2DoorInstance newdoor = new L2DoorInstance(IdFactory.getInstance().getNextId(), temp.getTemplate(), temp.getDoorId(), temp.getName(), temp.isUnlockable());
 		newdoor.setInstanceId(getId());
-		newdoor.setPos(temp.getPos());
+		newdoor.setRange(temp.getXMin(), temp.getYMin(), temp.getZMin(), temp.getXMax(), temp.getYMax(), temp.getZMax());
 		try
 		{
 			newdoor.setMapRegion(MapRegionManager.getInstance().getRegion(temp.getX(), temp.getY(), temp.getZ()));

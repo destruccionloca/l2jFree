@@ -27,14 +27,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.geodata.pathfinding.AbstractNodeLoc;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.entity.ClanHall;
-import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
+import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.templates.StatsSet;
-import com.l2jfree.geoserver.model.L2Territory;
+import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 
 public class DoorTable
 {
@@ -145,6 +146,7 @@ public class DoorTable
 		int x = Integer.parseInt(st.nextToken());
 		int y = Integer.parseInt(st.nextToken());
 		int z = Integer.parseInt(st.nextToken());
+
 		int ax = Integer.parseInt(st.nextToken());
 		int ay = Integer.parseInt(st.nextToken());
 		int bx = Integer.parseInt(st.nextToken());
@@ -153,8 +155,10 @@ public class DoorTable
 		int cy = Integer.parseInt(st.nextToken());
 		int dx = Integer.parseInt(st.nextToken());
 		int dy = Integer.parseInt(st.nextToken());
+
 		int zmin = Integer.parseInt(st.nextToken());
 		int zmax = Integer.parseInt(st.nextToken());
+
 		int hp = Integer.parseInt(st.nextToken());
 		int pdef = Integer.parseInt(st.nextToken());
 		int mdef = Integer.parseInt(st.nextToken());
@@ -166,7 +170,7 @@ public class DoorTable
 		boolean startOpen = false;
 		if (st.hasMoreTokens())
 			startOpen = Boolean.parseBoolean(st.nextToken());
-
+		
 		StatsSet npcDat = new StatsSet();
 		npcDat.set("npcId", id);
 		npcDat.set("level", 0);
@@ -216,11 +220,7 @@ public class DoorTable
 
 		L2CharTemplate template = new L2CharTemplate(npcDat);
 		L2DoorInstance door = new L2DoorInstance(IdFactory.getInstance().getNextId(), template, id, name, unlockable);
-		L2Territory pos = door.getPos();
-		pos.add(ax, ay, zmin, zmax);
-		pos.add(bx, by, zmin, zmax);
-		pos.add(cx, cy, zmin, zmax);
-		pos.add(dx, dy, zmin, zmax);
+		door.setRange(ax, ay, zmin, bx, by, zmax);
 		try
 		{
 			door.setMapRegion(MapRegionManager.getInstance().getRegion(x, y, z));
@@ -229,10 +229,10 @@ public class DoorTable
 		{
 			_log.fatal("Error in door data, ID:" + id);
 		}
-		template.setCollisionRadius(Math.min(x - pos.getXmin(), y - pos.getYmin()));
+		template.setCollisionRadius(Math.min(x - ax, y - ay));
 		door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
 		door.setOpen(startOpen);
-		door.getPosition().setXYZInvisible(x, y, (zmax + zmin) / 2);
+		door.getPosition().setXYZInvisible(x, y, z);
 
 		return door;
 	}
@@ -293,8 +293,12 @@ public class DoorTable
 		    doorInst.setAutoActionDelay(900000);
 		*/
 	}
-
-	/*public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz)
+	public boolean checkIfDoorsBetween(AbstractNodeLoc start, AbstractNodeLoc end)
+	{
+		return checkIfDoorsBetween(start.getX(), start.getY(), start.getZ(), end.getX(), end.getY(), end.getZ());
+	}
+	
+	public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz)
 	{
 		L2MapRegion region;
 		try
@@ -305,31 +309,64 @@ public class DoorTable
 		{
 			return false;
 		}
-		for (L2DoorInstance doorInst : getDoors())
+		
+		// there are quite many doors, maybe they should be splitted
+		for (L2DoorInstance doorInst : _staticItems.values())
 		{
-			if (doorInst.getMapRegion() != region)
+			if (doorInst.getMapRegion() != region) 
 				continue;
 			if (doorInst.getXMax() == 0)
 				continue;
-
+			
 			// line segment goes through box
-			// heavy approximation disabling some shooting angles especially near 2-piece doors
-			// but most calculations should stop short
+			// first basic checks to stop most calculations short
 			// phase 1, x
 			if (x <= doorInst.getXMax() && tx >= doorInst.getXMin() || tx <= doorInst.getXMax() && x >= doorInst.getXMin())
 			{
 				//phase 2, y
 				if (y <= doorInst.getYMax() && ty >= doorInst.getYMin() || ty <= doorInst.getYMax() && y >= doorInst.getYMin())
 				{
-					// phase 3, z (there's a small problem when the other is above/under door level..)
-					if (z >= doorInst.getZMin() && z <= doorInst.getZMax() && tz >= doorInst.getZMin() && tz <= doorInst.getZMax())
+					// phase 3, basically only z remains but now we calculate it with another formula (by rage)
+					// in some cases the direct line check (only) in the beginning isn't sufficient, 
+					// when char z changes a lot along the path
+					if (doorInst.getStatus().getCurrentHp() > 0 && !doorInst.getOpen()) 
 					{
-						if (!(doorInst.getStatus().getCurrentHp() <= 0 || doorInst.getOpen() == 0))
-							return true;
+						int px1 = doorInst.getXMin();
+						int py1 = doorInst.getYMin();
+						int pz1 = doorInst.getZMin();
+						int px2 = doorInst.getXMax();
+						int py2 = doorInst.getYMax();
+						int pz2 = doorInst.getZMax();
+						
+						int l = tx - x;
+						int m = ty - y;
+						int n = tz - z;
+						
+						int dk;
+						
+						if ((dk = (doorInst.getA() * l + doorInst.getB() * m + doorInst.getC() * n)) == 0) continue; // Parallel
+						
+						float p = (float)(doorInst.getA() * x + doorInst.getB() * y + doorInst.getC() * z + doorInst.getD()) / (float)dk;
+						
+						int fx = (int)(x - l * p);
+						int fy = (int)(y - m * p);
+						int fz = (int)(z - n * p);
+						
+						if((Math.min(x,tx) <= fx && fx <= Math.max(x,tx)) &&
+								(Math.min(y,ty) <= fy && fy <= Math.max(y,ty)) &&
+								(Math.min(z,tz) <= fz && fz <= Math.max(z,tz)))
+						{
+
+							if (((fx >= px1 && fx <= px2) || (fx >= px2 && fx <= px1)) &&
+									((fy >= py1 && fy <= py2) || (fy >= py2 && fy <= py1)) &&
+									((fz >= pz1 && fz <= pz2) || (fz >= pz2 && fz <= pz1)))
+								return true; // Door between
+						}
 					}
 				}
 			}
 		}
 		return false;
-	}*/
+	}
+
 }

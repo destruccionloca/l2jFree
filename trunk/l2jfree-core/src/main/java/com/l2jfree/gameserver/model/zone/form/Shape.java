@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.geoserver.model.Location;
+import com.l2jfree.gameserver.model.Location;
 
 /**
  * @author  Crion

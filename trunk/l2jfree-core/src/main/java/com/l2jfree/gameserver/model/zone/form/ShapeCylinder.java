@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.model.zone.form;
 
-import com.l2jfree.geoserver.model.Location;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.tools.random.Rnd;
 
 

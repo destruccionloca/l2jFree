@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2SummonAI;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.geodata.GeoClient;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2Attackable.AggroInfo;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -234,9 +234,9 @@ public abstract class L2Summon extends L2PlayableInstance
 		{
 			if (isAutoAttackable(player))
 			{
-				if (Config.GEODATA)
+				if (Config.GEODATA > 0)
 				{
-					if (GeoClient.getInstance().canSeeTarget(player, this))
+					if (GeoData.getInstance().canSeeTarget(player, this))
 					{
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 						player.onActionRequest();
@@ -252,9 +252,9 @@ public abstract class L2Summon extends L2PlayableInstance
 			{
 				// This Action Failed packet avoids player getting stuck when clicking three or more times
 				player.sendPacket(ActionFailed.STATIC_PACKET);
-				if (Config.GEODATA)
+				if (Config.GEODATA > 0)
 				{
-					if (GeoClient.getInstance().canSeeTarget(player, this))
+					if (GeoData.getInstance().canSeeTarget(player, this))
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 				}
 				else

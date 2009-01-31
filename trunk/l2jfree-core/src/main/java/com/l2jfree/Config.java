@@ -201,15 +201,12 @@ public final class Config
 	// *******************************************************************************************
 	public static final String	GEO_FILE	= "./config/geodata.properties";
 	// *******************************************************************************************
-	public static int			GEODATA_MODE;									//TODO: GEO CONFIG
-	public static String		GEO_SERVER;
-	public static int			GEO_PORT;
-	public static boolean		GEODATA;										// Load geodata files
-	public static boolean		GEO_DOORS;										// Enable GeoData for doors
+	public static int			GEODATA=0;
+    public static boolean		GEODATA_CELLFINDING;
+    public static boolean		FORCE_GEODATA;
 	public static boolean		GEO_CHECK_LOS;									// Enable Line Of Sight check for skills and aggro
 	public static boolean		GEO_MOVE_PC;									// Movement check for playable instances
 	public static boolean		GEO_MOVE_NPC;									// Movement check for NPCs
-	public static boolean		GEO_PATH_FINDING;								// Enable Path Finding [ EXPERIMENTAL]
 
 	public static enum CorrectSpawnsZ
 	{
@@ -217,7 +214,6 @@ public final class Config
 	}
 
 	public static CorrectSpawnsZ	GEO_CORRECT_Z;			// Enable spawns' z-correction
-	public static boolean			FORCE_GEODATA;			// Force loading GeoData to psychical memory
 	public static boolean			ACCEPT_GEOEDITOR_CONN;	// Accept connection from geodata editor
 
 	// *******************************************************************************************
@@ -227,20 +223,12 @@ public final class Config
 		try
 		{
 			Properties geoSettings = new L2Properties(GEO_FILE);
-			GEODATA_MODE = Integer.parseInt(geoSettings.getProperty("GeoMode", "0"));
-			GEO_SERVER = geoSettings.getProperty("GeoServer", "127.0.0.1");
-			GEO_PORT = Integer.parseInt(geoSettings.getProperty("GeoPort", "9013"));
-			GEODATA = (GEODATA_MODE == 0) ? false : true;
-			GEO_DOORS = Boolean.parseBoolean(geoSettings.getProperty("GeoDoors", "False"));
-			GEO_CHECK_LOS = Boolean.parseBoolean(geoSettings.getProperty("GeoCheckLoS", "False")) && GEODATA;
-			GEO_MOVE_PC = Boolean.parseBoolean(geoSettings.getProperty("GeoCheckMovePlayable", "False")) && GEODATA;
-			GEO_MOVE_NPC = Boolean.parseBoolean(geoSettings.getProperty("GeoCheckMoveNpc", "False")) && GEODATA;
-			GEO_PATH_FINDING = Boolean.parseBoolean(geoSettings.getProperty("GeoPathFinding", "False")) && GEODATA;
-			FORCE_GEODATA = Boolean.parseBoolean(geoSettings.getProperty("ForceGeoData", "True")) && GEODATA;
-			String correctZ = GEODATA ? geoSettings.getProperty("GeoCorrectZ", "ALL") : "NONE";
-			GEO_CORRECT_Z = CorrectSpawnsZ.valueOf(correctZ.toUpperCase());
-			ACCEPT_GEOEDITOR_CONN = Boolean.parseBoolean(geoSettings.getProperty("AcceptGeoeditorConn", "False"));
-
+            GEODATA										= Integer.parseInt(geoSettings.getProperty("GeoData", "0"));
+            GEODATA_CELLFINDING							= Boolean.parseBoolean(geoSettings.getProperty("CellPathFinding", "False"));
+            FORCE_GEODATA								= Boolean.parseBoolean(geoSettings.getProperty("ForceGeoData", "True"));
+			String correctZ 							= geoSettings.getProperty("GeoCorrectZ", "ALL");
+			GEO_CORRECT_Z 								= CorrectSpawnsZ.valueOf(correctZ.toUpperCase());
+			ACCEPT_GEOEDITOR_CONN 						= Boolean.parseBoolean(geoSettings.getProperty("AcceptGeoeditorConn", "False"));
 		}
 		catch (Exception e)
 		{

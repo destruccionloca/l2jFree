@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.List;
 
-import com.l2jfree.gameserver.geodata.GeoClient;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2Spawn;
@@ -91,7 +91,7 @@ public class L2ControlTowerInstance extends L2NpcInstance
 		else
 		{
 			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100 // Less then max height difference, delete check when geo
-					&& GeoClient.getInstance().canSeeTarget(player, this))
+					&& GeoData.getInstance().canSeeTarget(player, this))
 			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);

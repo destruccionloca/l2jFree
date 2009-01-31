@@ -128,11 +128,6 @@
     </dependency>
     <dependency>
       <groupId>l2jfree</groupId>
-      <artifactId>l2jfree-geoserver</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>l2jfree</groupId>
       <artifactId>l2j-mmocore</artifactId>
       <version>1.1.0</version>
     </dependency>

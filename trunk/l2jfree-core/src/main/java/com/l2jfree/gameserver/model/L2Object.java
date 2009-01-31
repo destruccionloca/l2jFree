@@ -28,7 +28,7 @@ import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.GetItem;
-import com.l2jfree.geoserver.model.Location;
+import com.l2jfree.gameserver.model.Location;
 
 /**
  * Mother class of all objects in the world wich ones is it possible 
