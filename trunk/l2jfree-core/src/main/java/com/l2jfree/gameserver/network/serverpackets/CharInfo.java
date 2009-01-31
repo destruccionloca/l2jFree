@@ -72,7 +72,7 @@ public class CharInfo extends L2GameServerPacket
 
 		boolean gmSeeInvis = false;
 
-		if (_appearance.getInvisible())
+		if (_appearance.isInvisible())
 		{
 			L2PcInstance tmp = getClient().getActiveChar();
 			if (tmp != null && tmp.isGM())
@@ -124,7 +124,7 @@ public class CharInfo extends L2GameServerPacket
 				}
 				else
 				{
-					writeC(_appearance.getInvisible()? 1 : 0); // invisible ?? 0=false  1=true   2=summoned (only works if model has a summon animation)
+					writeC(_appearance.isInvisible()? 1 : 0); // invisible ?? 0=false  1=true   2=summoned (only works if model has a summon animation)
 				}
 				
 				writeS(_appearance.getVisibleName());
@@ -309,7 +309,7 @@ public class CharInfo extends L2GameServerPacket
 			}
 			else
 			{
-				writeC(_appearance.getInvisible() ? 1 : 0);	// invisible = 1  visible =0
+				writeC(_appearance.isInvisible() ? 1 : 0);	// invisible = 1  visible =0
 			}
 			
 			writeC(_activeChar.getMountType()); // 1-on Strider, 2-on Wyvern, 3-on Great Wolf, 0-no mount

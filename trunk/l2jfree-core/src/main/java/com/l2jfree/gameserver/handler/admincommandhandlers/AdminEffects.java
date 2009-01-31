@@ -119,7 +119,7 @@ public class AdminEffects implements IAdminCommandHandler
 
 		if (command.equals("admin_invis_menu"))
 		{
-			if (!activeChar.getAppearance().getInvisible())
+			if (!activeChar.getAppearance().isInvisible())
 			{
 				activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 				activeChar.setTarget(activeChar);

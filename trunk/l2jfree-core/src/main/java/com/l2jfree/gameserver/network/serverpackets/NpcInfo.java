@@ -307,7 +307,7 @@ public class NpcInfo extends L2GameServerPacket
 			writeC(owner.isInCombat() ? 1 : 0);
 			writeC(owner.isAlikeDead() ? 1 : 0);
 
-			writeC(owner.getAppearance().getInvisible() ? 1 : 0); // invisible = 1  visible =0
+			writeC(owner.getAppearance().isInvisible() ? 1 : 0); // invisible = 1  visible =0
 
 			writeC(owner.getMountType()); // 1 on strider   2 on wyvern  3 on Great Wolf  0 no mount
 			writeC(owner.getPrivateStoreType()); //  1 - sellshop
@@ -371,7 +371,7 @@ public class NpcInfo extends L2GameServerPacket
 		else
 		{
 			if (_activeChar instanceof L2Summon)
-				if (((L2Summon) _activeChar).getOwner() != null && ((L2Summon) _activeChar).getOwner().getAppearance().getInvisible())
+				if (((L2Summon) _activeChar).getOwner() != null && ((L2Summon) _activeChar).getOwner().getAppearance().isInvisible())
 					return;
 			writeC(0x0c);
 			writeD(_activeChar.getObjectId());

@@ -394,7 +394,15 @@ public abstract class L2Character extends L2Object
 	public void broadcastPacket(L2GameServerPacket mov)
 	{
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
+		{
+			if (this instanceof L2PcInstance && 
+					((L2PcInstance) this).isGM() &&
+					((L2PcInstance) this).getAppearance().isInvisible() &&
+					!player.isGM())
+				continue;
+
 			player.sendPacket(mov);
+		}
 	}
 
 	/**
@@ -410,6 +418,12 @@ public abstract class L2Character extends L2Object
 	{
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
+			if (this instanceof L2PcInstance && 
+					((L2PcInstance) this).isGM() &&
+					((L2PcInstance) this).getAppearance().isInvisible() &&
+					!player.isGM())
+				continue;
+
 			if (isInsideRadius(player, radiusInKnownlist, false, false))
 				player.sendPacket(mov);
 		}

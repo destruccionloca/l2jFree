@@ -231,7 +231,6 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.effects.EffectForce;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
-import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Armor;
@@ -4141,6 +4140,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
+			if (this.isGM() &&
+					this.getAppearance().isInvisible() &&
+					!player.isGM())
+				continue;
+
 			player.sendPacket(mov);
 			
 			if (mov instanceof CharInfo)
@@ -4165,6 +4169,11 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
+			if (this.isGM() &&
+					this.getAppearance().isInvisible() &&
+					!player.isGM())
+				continue;
+
 			if (isInsideRadius(player, radiusInKnownlist, false, false))
 			{
 				player.sendPacket(mov);
@@ -10499,7 +10508,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		if (_isInvul) // isInvul() is always true on login if login protection is activated...
 			sendMessage("Entering world in Invulnerable mode.");
-		if (getAppearance().getInvisible())
+		if (getAppearance().isInvisible())
 			sendMessage("Entering world in Invisible mode.");
 		if (getMessageRefusal())
 			sendMessage("Entering world in Message Refusal mode.");

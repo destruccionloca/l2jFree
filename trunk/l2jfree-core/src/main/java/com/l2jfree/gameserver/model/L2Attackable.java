@@ -1186,7 +1186,7 @@ public class L2Attackable extends L2NpcInstance
 		AggroInfo ai = getAggroListRP().get(target);
 		if (ai == null)
 			return 0;
-		if (ai._attacker instanceof L2PcInstance && (((L2PcInstance) ai._attacker).getAppearance().getInvisible() || ai._attacker.isInvul()))
+		if (ai._attacker instanceof L2PcInstance && (((L2PcInstance) ai._attacker).getAppearance().isInvisible() || ai._attacker.isInvul()))
 		{
 			//Remove Object Should Use This Method and Can be Blocked While Interating
 			getAggroList().remove(target);

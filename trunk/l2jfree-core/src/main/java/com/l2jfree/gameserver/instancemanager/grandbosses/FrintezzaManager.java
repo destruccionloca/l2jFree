@@ -1079,7 +1079,7 @@ public class FrintezzaManager extends BossLair
 					return;
 
 				L2PcInstance effected = (L2PcInstance) _effected;
-				if (effected.isInvul() || effected.getAppearance().getInvisible())
+				if (effected.isInvul() || effected.getAppearance().isInvisible())
 					return;
 
 				// stop all actions

@@ -61,7 +61,7 @@ public class RequestJoinParty extends L2GameClientPacket
 		if (requestor == null)
 			return;
 
-		if (target == null || (target.isGM() && target.getAppearance().getInvisible() && !requestor.isGM()))
+		if (target == null || (target.isGM() && target.getAppearance().isInvisible() && !requestor.isGM()))
 		{
 			requestor.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return;

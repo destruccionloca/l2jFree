@@ -165,7 +165,7 @@ public class PcAppearance
 		_invisible = false;
 	}
 
-	public boolean getInvisible()
+	public boolean isInvisible()
 	{
 		return _invisible;
 	}

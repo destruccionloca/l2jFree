@@ -268,7 +268,7 @@ public class UserInfo extends L2GameServerPacket
 		writeD((_activeChar.getAccessLevel() >= Config.GM_ALTG_MIN_LEVEL) ? 1 : 0); // builder level
 
 		String title = _appearance.getVisibleTitle();
-		if (_appearance.getInvisible() && _activeChar.isGM())
+		if (_appearance.isInvisible() && _activeChar.isGM())
 			title = "Invisible";
 		if (_activeChar.getPoly().isMorphed())
 		{
@@ -297,7 +297,7 @@ public class UserInfo extends L2GameServerPacket
 
 		writeC(0x00); //1-find party members
 
-		if (_appearance.getInvisible())
+		if (_appearance.isInvisible())
 		{
 			writeD((_activeChar.getAbnormalEffect() | L2Character.ABNORMAL_EFFECT_STEALTH));
 		}
