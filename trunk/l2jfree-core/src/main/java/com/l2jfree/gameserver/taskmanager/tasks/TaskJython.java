@@ -14,7 +14,8 @@
  */
 package com.l2jfree.gameserver.taskmanager.tasks;
 
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.python.util.PythonInterpreter;
 
 import com.l2jfree.gameserver.taskmanager.Task;
@@ -27,6 +28,7 @@ import com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask;
 public class TaskJython extends Task
 {
 	public static final String		NAME	= "jython";
+	protected static final Log		_log	= LogFactory.getLog(TaskJython.class.getName());
 
 	private final PythonInterpreter	_python	= new PythonInterpreter();
 
@@ -45,6 +47,7 @@ public class TaskJython extends Task
 	@Override
 	public void onTimeElapsed(ExecutedTask task)
 	{
+		_log.info("executing cron: data/scripts/cron/" + task.getParams()[2]);
 		_python.cleanup();
 		_python.exec("import sys");
 		_python.execfile("data/scripts/cron/" + task.getParams()[2]);

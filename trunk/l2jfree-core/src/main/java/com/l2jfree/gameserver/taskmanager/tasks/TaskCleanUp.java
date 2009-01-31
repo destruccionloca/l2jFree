@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.taskmanager.tasks;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.gameserver.taskmanager.Task;
 import com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask;
 
@@ -24,6 +27,7 @@ import com.l2jfree.gameserver.taskmanager.TaskManager.ExecutedTask;
 public final class TaskCleanUp extends Task
 {
 	public static final String	NAME	= "clean_up";
+	protected static final Log	_log	= LogFactory.getLog(TaskCleanUp.class.getName());
 
 	@Override
 	public String getName()
@@ -34,7 +38,9 @@ public final class TaskCleanUp extends Task
 	@Override
 	public void onTimeElapsed(ExecutedTask task)
 	{
+		_log.info("executing clean up task");
 		System.runFinalization();
 		System.gc();
+		_log.info("RAM Used: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576));
 	}
 }
