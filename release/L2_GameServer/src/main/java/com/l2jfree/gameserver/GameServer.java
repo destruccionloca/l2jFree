@@ -57,7 +57,8 @@ import com.l2jfree.gameserver.datatables.SummonItemsData;
 import com.l2jfree.gameserver.datatables.TeleportLocationTable;
 import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.elayne.RemoteAdministrationImpl;
-import com.l2jfree.gameserver.geodata.GeoClient;
+import com.l2jfree.gameserver.geodata.GeoData;
+import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
 import com.l2jfree.gameserver.geoeditorcon.GeoEditorListener;
 import com.l2jfree.gameserver.handler.AdminCommandHandler;
 import com.l2jfree.gameserver.handler.ChatHandler;
@@ -170,7 +171,14 @@ public class GameServer
 			DeadlockDetector.getInstance();
 		SQLQueue.getInstance();
 
-		GeoClient.getInstance();
+		if (Config.GEODATA>0)
+		{
+			GeoData.getInstance();
+			if (Config.GEODATA>=2)
+			{
+				PathFinding.getInstance();
+			}
+		}
 
 		StaticObjects.getInstance();
 		GameTimeController.getInstance();
@@ -365,7 +373,6 @@ public class GameServer
 		{
 			OnlinePlayers.getInstance();
 		}
-		FloodProtector.getInstance();
 		ForumsBBSManager.getInstance();
 
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
