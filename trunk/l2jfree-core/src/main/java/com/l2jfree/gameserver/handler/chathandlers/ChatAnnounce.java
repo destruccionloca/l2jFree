@@ -49,8 +49,11 @@ public class ChatAnnounce implements IChatHandler
 		{
 			charName = activeChar.getName();
 			charObjId = activeChar.getObjectId();
-		}
 
+			if (!activeChar.isGM())
+				return;
+		}
+		
 		if (chatType == SystemChatChannelId.Chat_Critical_Announce)
 			text = "** " + text;
 
