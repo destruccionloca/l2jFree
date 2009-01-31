@@ -4140,7 +4140,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
-			if (Broadcast.canReceivePacket(this, player))
+			if (!Broadcast.canReceivePacket(this, player))
 				continue;
 
 			player.sendPacket(mov);
@@ -4167,7 +4167,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
-			if (Broadcast.canReceivePacket(this, player))
+			if (!Broadcast.canReceivePacket(this, player))
 				continue;
 
 			if (isInsideRadius(player, radiusInKnownlist, false, false))

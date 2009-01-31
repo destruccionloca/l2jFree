@@ -396,7 +396,7 @@ public abstract class L2Character extends L2Object
 	{
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
-			if (Broadcast.canReceivePacket(this, player))
+			if (!Broadcast.canReceivePacket(this, player))
 				continue;
 
 			player.sendPacket(mov);
@@ -416,7 +416,7 @@ public abstract class L2Character extends L2Object
 	{
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
-			if (Broadcast.canReceivePacket(this, player))
+			if (!Broadcast.canReceivePacket(this, player))
 				continue;
 
 			if (isInsideRadius(player, radiusInKnownlist, false, false))
