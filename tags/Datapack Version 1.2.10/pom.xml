@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>l2jfree</groupId>
+  <artifactId>datapack</artifactId>
+  <name>L2JFree Datapack</name>
+  <version>1.2.10</version>
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-webdav</artifactId>
+        <version>1.0-beta-2</version>
+      </extension>
+    </extensions>
+    <resources>
+      <resource>
+        <directory>data</directory>
+        <targetPath>dist/gameserver/data</targetPath>
+      </resource>
+      <resource>
+        <directory>optional</directory>
+        <targetPath>dist/gameserver/optional</targetPath>
+      </resource>
+      <resource>
+        <directory>sql</directory>
+        <targetPath>sql</targetPath>
+      </resource>
+      <resource>
+        <directory>tools</directory>
+        <targetPath>tools</targetPath>
+      </resource>
+    </resources>
+  </build>
+  <distributionManagement>
+    <repository>
+      <id>l2jfree.internal</id>
+      <url>
+        dav:http://www.l2jfree.com:8080/archiva/repository/internal/
+      </url>
+    </repository>
+  </distributionManagement>
+</project>
