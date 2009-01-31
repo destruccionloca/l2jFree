@@ -109,6 +109,7 @@ public class AdminCommandHandler
 		registerAdminCommandHandler(new AdminSkill());
 		registerAdminCommandHandler(new AdminSmartShop());
 		registerAdminCommandHandler(new AdminSpawn());
+		registerAdminCommandHandler(new AdminSummon());
 		registerAdminCommandHandler(new AdminTarget());
 		registerAdminCommandHandler(new AdminTeleport());
 		registerAdminCommandHandler(new AdminTvTEngine());

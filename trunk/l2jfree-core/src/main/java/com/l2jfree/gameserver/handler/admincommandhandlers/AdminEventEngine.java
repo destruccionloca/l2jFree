@@ -220,6 +220,10 @@ public class AdminEventEngine implements IAdminCommandHandler
 						L2Event.players.get(i + 1).add(target);
 						i = (i + 1) % L2Event.teamsNumber;
 					}
+					else
+					{
+						break;
+					}
 
 				}
 
@@ -564,31 +568,23 @@ public class AdminEventEngine implements IAdminCommandHandler
 
 	String getMaxLeveledPlayer()
 	{
-		Iterator<String> it = L2Event.participatingPlayers.iterator();
 		L2PcInstance pc = null;
 		int max = 0;
 		String name = "";
-		while (it.hasNext())
+		for (String tempName2: L2Event.participatingPlayers)
 		{
 			try
 			{
-				tempName2 = it.next();
 				pc = L2World.getInstance().getPlayer(tempName2);
 				if (max < pc.getLevel())
 				{
 					max = pc.getLevel();
-					name = pc.getName();
+					name = tempName2; 
 				}
 			}
 			catch (Exception e)
 			{
-				try
-				{
-					L2Event.participatingPlayers.remove(tempName2);
-				}
-				catch (Exception e2)
-				{
-				}
+				L2Event.participatingPlayers.remove(tempName2); 
 			}
 		}
 		L2Event.participatingPlayers.remove(name);

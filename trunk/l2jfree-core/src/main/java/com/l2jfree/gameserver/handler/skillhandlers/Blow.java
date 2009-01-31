@@ -30,8 +30,8 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -43,10 +43,9 @@ public class Blow implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.BLOW };
 
-	private int							_successChance;
-	public final static int				FRONT		= 50;
-	public final static int				SIDE		= 60;
-	public final static int				BEHIND		= 70;
+	public final static byte			FRONT		= 50;
+	public final static byte			SIDE		= 60;
+	public final static byte			BEHIND		= 70;
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object... targets)
 	{
@@ -57,9 +56,9 @@ public class Blow implements ISkillHandler
 		{
 			if (!(element instanceof L2Character))
 				continue;
-			
+
 			L2Character target = (L2Character) element;
-			
+
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance)
 			{
 				if (((L2PcInstance) activeChar).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
@@ -81,13 +80,14 @@ public class Blow implements ISkillHandler
 
 			// Check firstly if target dodges skill
 			boolean skillIsEvaded = Formulas.getInstance().calcPhysicalSkillEvasion(target, skill);
-			
+
+			byte _successChance = SIDE;
+
 			if (activeChar.isBehindTarget())
 				_successChance = BEHIND;
 			else if (activeChar.isInFrontOfTarget())
 				_successChance = FRONT;
-			else
-				_successChance = SIDE;
+
 			// If skill requires Crit or skill requires behind, 
 			// Calculate chance based on DEX, Position and on self BUFF
 			boolean success = true;
@@ -140,7 +140,7 @@ public class Blow implements ISkillHandler
 
 				if (soul && weapon != null)
 					weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
-				
+
 				if (skill.getDmgDirectlyToHP() && target instanceof L2PcInstance)
 				{
 					L2PcInstance player = (L2PcInstance) target;
@@ -150,14 +150,14 @@ public class Blow implements ISkillHandler
 						L2Summon summon = player.getPet();
 						if (summon != null && summon instanceof L2SummonInstance && Util.checkIfInRange(900, player, summon, true))
 						{
-							int tDmg = (int)damage * (int)player.getStat().calcStat(Stats.TRANSFER_DAMAGE_PERCENT, 0, null, null) /100;
+							int tDmg = (int) damage * (int) player.getStat().calcStat(Stats.TRANSFER_DAMAGE_PERCENT, 0, null, null) / 100;
 
 							// Only transfer dmg up to current HP, it should not be killed
 							if (summon.getStatus().getCurrentHp() < tDmg)
-								tDmg = (int)summon.getStatus().getCurrentHp() - 1;
+								tDmg = (int) summon.getStatus().getCurrentHp() - 1;
 							if (tDmg > 0)
 							{
-								summon.reduceCurrentHp(tDmg, activeChar );
+								summon.reduceCurrentHp(tDmg, activeChar);
 								damage -= tDmg;
 							}
 						}
@@ -212,14 +212,14 @@ public class Blow implements ISkillHandler
 				{
 					activeChar.sendPacket(SystemMessageId.CRITICAL_HIT);
 					if (target instanceof L2PcInstance)
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_HAD_CRITICAL_HIT).addPcName((L2PcInstance)activeChar));
+						activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_HAD_CRITICAL_HIT).addPcName((L2PcInstance) activeChar));
 				}
 
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
 				sm.addNumber((int) damage);
 				activeChar.sendPacket(sm);
 			}
-			
+
 			// Sending system messages
 			if (skillIsEvaded)
 			{

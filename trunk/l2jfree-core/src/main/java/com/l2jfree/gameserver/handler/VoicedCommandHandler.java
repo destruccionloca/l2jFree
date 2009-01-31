@@ -47,6 +47,7 @@ public class VoicedCommandHandler
 		_datatable = new FastMap<String, IVoicedCommandHandler>();
 		registerVoicedCommandHandler(new CastleDoors());
 		registerVoicedCommandHandler(new Hellbound());
+		registerVoicedCommandHandler(new Banking());
 		registerVoicedCommandHandler(new VersionInfo());
 		if (Config.ALLOW_WEDDING)
 		{

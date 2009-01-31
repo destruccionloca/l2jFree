@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.templates.item.L2Item;
 
-
 /**
  * This class handles following admin commands:
  * - itemcreate = show menu
@@ -124,9 +123,9 @@ public class AdminCreateItem implements IAdminCommandHandler
 	{
 		for (L2ItemInstance item : activeChar.getInventory().getItems())
 		{
-			if(item.getLocation() == L2ItemInstance.ItemLocation.INVENTORY)
+			if (item.getLocation() == L2ItemInstance.ItemLocation.INVENTORY)
 				activeChar.getInventory().destroyItem("Destroy", item.getObjectId(), item.getCount(), activeChar, null);
 		}
 		activeChar.sendPacket(new ItemList(activeChar, false));
- 	}
+	}
 }
