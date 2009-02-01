@@ -1355,7 +1355,7 @@ public final class L2ItemInstance extends L2Object
 	}
 	
 	private final SQLQuery UPDATE_DATABASE_QUERY = new SQLQuery() {
-		public void execute(Connection con)
+		public synchronized void execute(Connection con)
 		{
 			switch (getUpdateMode(true))
 			{
