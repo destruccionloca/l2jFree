@@ -747,6 +747,7 @@ public class L2Attackable extends L2NpcInstance
 								exp *= Config.CHAMPION_EXP_SP;
 								sp *= Config.CHAMPION_EXP_SP;
 							}
+							
 							if (!attacker.isDead())
 							{
 								long addexp = Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null));
@@ -764,12 +765,18 @@ public class L2Attackable extends L2NpcInstance
 										}
 									}
 								}
+
 								if (Config.ENABLE_VITALITY)
 								{
 									if (attacker instanceof L2PcInstance)
 									{
-										((L2PcInstance)attacker).addVitExpAndSp(addexp, addsp, this);
-										((L2PcInstance)attacker).calculateVitalityPointsAddRed(this, reward._dmg, 1, 1f);
+										if (!isChampion() || (isChampion() && Config.ENABLE_VITALITY_CHAMPION)) 
+										{
+											((L2PcInstance)attacker).addVitExpAndSp(addexp, addsp, this);
+											((L2PcInstance)attacker).calculateVitalityPoints(this, damage);
+										}
+										else
+											attacker.addExpAndSp(addexp, addsp); 
 									}
 									else
 										attacker.addExpAndSp(addexp, addsp);
@@ -902,7 +909,7 @@ public class L2Attackable extends L2NpcInstance
 
 						// Distribute Experience and SP rewards to L2PcInstance Party members in the known area of the last attacker
 						if (partyDmg > 0)
-							attackerParty.distributeXpAndSp(exp, sp, rewardedMembers, partyLvl, this, partyDmg);
+							attackerParty.distributeXpAndSp(exp, sp, rewardedMembers, partyLvl, this, partyDmg, isChampion());
 					}
 				}
 			}
@@ -1875,7 +1882,7 @@ public class L2Attackable extends L2NpcInstance
 					dropItem(player, item);
 			}
 			// Vitality Herb
-			if (Config.ENABLE_VITALITY)
+			if (Config.ENABLE_VITALITY && Config.ENABLE_DROP_VITALITY_HERBS)
 			{
 				random = Rnd.get(100);
 				if (random < Config.RATE_DROP_VITALITY_HERBS)

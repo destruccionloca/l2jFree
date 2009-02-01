@@ -753,7 +753,7 @@ public class L2Party
 	 * @param rewardedMembers The list of L2PcInstance to reward
 	 * 
 	 */
-    public void distributeXpAndSp(long xpReward, int spReward, List<L2PlayableInstance> rewardedMembers, int topLvl, L2NpcInstance target, int partyDmg)
+    public void distributeXpAndSp(long xpReward, int spReward, List<L2PlayableInstance> rewardedMembers, int topLvl, L2NpcInstance target, int partyDmg, boolean isChampion)
     {
         L2SummonInstance summon = null;
         List<L2PlayableInstance> validMembers = getValidMembers(rewardedMembers, topLvl);
@@ -822,8 +822,13 @@ public class L2Party
 						{
 							if (member instanceof L2PcInstance)
 							{
-								((L2PcInstance) member).addVitExpAndSp(addexp, addsp, target);
-								((L2PcInstance) member).calculateVitalityPointsAddRed(target, partyDmg, rewardedMembers.size(), Config.RATE_PARTY_XP);
+								if (!isChampion || (isChampion && Config.ENABLE_VITALITY_CHAMPION))
+								{
+									((L2PcInstance) member).addVitExpAndSp(addexp, addsp, target);
+									((L2PcInstance) member).calculateVitalityPoints(target, partyDmg, rewardedMembers.size(), Config.RATE_PARTY_XP);
+								}
+								else
+									member.addExpAndSp(addexp, addsp);
 							}
 							else
 								member.addExpAndSp(addexp,addsp);

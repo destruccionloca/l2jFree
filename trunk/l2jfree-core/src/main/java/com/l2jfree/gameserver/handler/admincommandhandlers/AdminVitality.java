@@ -54,14 +54,14 @@ public class AdminVitality implements IAdminCommandHandler
 		if (!Config.ENABLE_VITALITY)
 			activeChar.sendMessage("Vitality is not enabled on the server!");
 
-		L2PcInstance target;
-		target = (L2PcInstance) activeChar.getTarget();
-		
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String cmd = st.nextToken();
 
 		if (activeChar.getTarget() instanceof L2PcInstance)
 		{
+			L2PcInstance target;
+			target = (L2PcInstance) activeChar.getTarget();
+			
 			if (cmd.equals("admin_set_vitality"))
 			{
 				try
@@ -74,7 +74,6 @@ public class AdminVitality implements IAdminCommandHandler
 				}
 				
 				target.setVitalityPoints(vitality, true);
-				target.updateVitalityLevel(false);
 				target.sendMessage("Admin set your Vitality points to " + vitality);
 			}
 			else if (cmd.equals("admin_set_vitality_level"))
@@ -109,7 +108,6 @@ public class AdminVitality implements IAdminCommandHandler
 						break;
 					}
 					target.setVitalityPoints(vitality, true);
-					target.updateVitalityLevel(false);
 					target.sendMessage("Admin set your Vitality level to " + level);
 				}
 				else
@@ -118,21 +116,17 @@ public class AdminVitality implements IAdminCommandHandler
 			else if (cmd.equals("admin_full_vitality"))
 			{
 				target.setVitalityPoints(300000.0, true);
-				target.updateVitalityLevel(false);
 				target.sendMessage("Admin completly recharged your Vitality");
 			}
 			else if (cmd.equals("admin_empty_vitality"))
 			{
 				target.setVitalityPoints(1, true);
-				target.updateVitalityLevel(false);
 				target.sendMessage("Admin completly emptied your Vitality");
 			}
 			else if (cmd.equals("admin_get_vitality"))
 			{
 				int playerVitalityLevel = target.getVitalityLevel();
 				double playerVitalityPoints = target.getVitalityPoints();
-				
-				target.updateVitalityLevel(false);
 				
 				activeChar.sendMessage("Player vitality level: " + playerVitalityLevel);
 				activeChar.sendMessage("Player vitality points: " + playerVitalityPoints);

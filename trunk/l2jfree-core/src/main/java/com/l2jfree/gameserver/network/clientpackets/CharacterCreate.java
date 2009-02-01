@@ -140,8 +140,6 @@ public class CharacterCreate extends L2GameClientPacket
 			newChar.getStatus().setCurrentMp(template.getBaseMpMax());
 			//newChar.setMaxLoad(template.baseLoad);
 			
-			//vit sys
-			newChar.setVitalityPoints(300000.0D, false);
 			
 			// send acknowledgement
 			CharCreateOk cco = new CharCreateOk();
@@ -162,7 +160,9 @@ public class CharacterCreate extends L2GameClientPacket
 		
 		newChar.getPosition().setXYZInvisible(template.getSpawnX(), template.getSpawnY(), template.getSpawnZ());
 		newChar.setTitle("");
-		
+
+		newChar.setVitalityPoints(300000.0, false);
+
 		L2ShortCut shortcut;
 		//add attack shortcut
 		shortcut = new L2ShortCut(0,0,3,2,-1,1);

@@ -13769,9 +13769,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2296<br>
-	 * Message: 
+	 * Message: You have gained Vitality Points
 	 */
-	EMPTY1(2296),
+	GAINED_VITALITY_POINTS(2296),
 
 	/**
 	 * ID: 2297<br>
@@ -13876,12 +13876,6 @@ public enum SystemMessageId
 
 	/**
 	* ID: 2314<br>
-	* Message: GAINED VITALITY POINTS
-	*/
-	GAINED_VITALITY_POINTS(2296),
-	
-	/**
-	* ID: 2314<br>
 	* Message: Your Vitality is at maximum.
 	*/
 	VITALITY_IS_AT_MAXIMUM(2314),
@@ -13902,7 +13896,7 @@ public enum SystemMessageId
 	* ID: 2317<br>
 	* Message: Your Vitality is fully exhausted.
 	*/
-	VITALITY_IS_FULLY_EXHAUSTED(2317),
+	VITALITY_IS_EXHAUSTED(2317),
 
 	/**
 	* ID: 2318<br>

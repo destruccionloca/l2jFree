@@ -262,16 +262,21 @@ public class AdminAdmin implements IAdminCommandHandler
 					Config.loadGeoConfig();
 					activeChar.sendMessage("Geodata config reloaded");
 				}
+				else if (type.equals("vitality"))
+				{
+					Config.loadVitalityConfig();
+					activeChar.sendMessage("Vitality config reloaded");
+				}
 				else
 				{
 					activeChar
-							.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne|geodata>");
+						.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne|geodata|vitality>");
 				}
 			}
 			catch (Exception e)
 			{
 				activeChar
-						.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne|geodata>");
+					.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|elayne|geodata|vitality>");
 			}
 		}
 		else if (command.startsWith("admin_summon_npc"))
