@@ -29,7 +29,7 @@ SET CLASSPATH=%CLASSPATH%;javolution-1.5.5.2.6.jar
 
 REM main jar
 SET CLASSPATH=%CLASSPATH%;l2j-commons-1.1.8.jar
-SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.2.9.jar
+SET CLASSPATH=%CLASSPATH%;l2jfree-core-1.2.10.jar
 
 REM For SQL use
 SET CLASSPATH=%CLASSPATH%;mysql-connector-java-5.1.5.jar
