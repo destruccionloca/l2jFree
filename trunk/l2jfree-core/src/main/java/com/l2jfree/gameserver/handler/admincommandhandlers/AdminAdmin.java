@@ -89,7 +89,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			// L2J-FREE
 			"admin_reload_config",
 			"admin_config_server",
-			"admin_summon",
+			//"admin_summon",
 			"admin_summon_npc",
 			"admin_unsummon",
 			"admin_memusage"						};
@@ -294,6 +294,7 @@ public class AdminAdmin implements IAdminCommandHandler
 				activeChar.sendMessage("Usage: //summon <npcid>");
 			}
 		}
+		/*
 		else if(command.startsWith("admin_summon"))
 		{
 			StringTokenizer st = new StringTokenizer(command);
@@ -332,7 +333,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			{
 				activeChar.sendMessage("Usage: //summon <npcid/itemid>");
 			}
-		}
+		}*/
 		else if (command.startsWith("admin_memsuage"))
 		{
 			for (String line : Util.getMemUsage())
