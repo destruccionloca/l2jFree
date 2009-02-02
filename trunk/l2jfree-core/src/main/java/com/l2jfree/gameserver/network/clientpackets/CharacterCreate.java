@@ -14,13 +14,10 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import java.util.List;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.TaskPriority;
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
-import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
@@ -36,7 +33,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.serverpackets.CharCreateFail;
 import com.l2jfree.gameserver.network.serverpackets.CharCreateOk;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
-import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate.PcTemplateItem;
 
@@ -177,7 +174,6 @@ public class CharacterCreate extends L2GameClientPacket
 		for (PcTemplateItem ia : template.getItems())
 		{
 			L2ItemInstance item = newChar.getInventory().addItem("Init", ia.getItemId(), ia.getAmount(), newChar, null);
-			item.instantInsert();
 
 			// add tutbook shortcut
 			if (item.getItemId() == 5588)
@@ -191,6 +187,8 @@ public class CharacterCreate extends L2GameClientPacket
 				newChar.getInventory().equipItemAndRecord(item);
 			}
 		}
+		
+		SQLQueue.getInstance().run();
 
 		for (L2SkillLearn skill: SkillTreeTable.getInstance().getAvailableSkills(newChar, newChar.getClassId()))
 		{

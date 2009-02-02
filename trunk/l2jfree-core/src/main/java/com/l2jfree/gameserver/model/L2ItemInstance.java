@@ -1336,26 +1336,8 @@ public final class L2ItemInstance extends L2Object
 			SQLQueue.getInstance().add(UPDATE_DATABASE_QUERY);
 	}
 	
-	public void instantInsert()
-	{
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-			insertIntoDb(con);
-		}
-		catch (SQLException e)
-		{
-			_log.warn("", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
-	}
-	
 	private final SQLQuery UPDATE_DATABASE_QUERY = new SQLQuery() {
-		public synchronized void execute(Connection con)
+		public void execute(Connection con)
 		{
 			switch (getUpdateMode(true))
 			{
