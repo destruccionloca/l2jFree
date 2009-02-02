@@ -83,7 +83,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 	private static final int		REQUIRED_LEVEL	= Config.GM_MENU;
 	private static String			tempBuffer		= "";
 	private static String			tempName		= "";
-	private static String			tempName2		= "";
+	//private static String			tempName2		= "";
 	private static boolean			npcsDeleted		= false;
 	private final static Log		_log			= LogFactory.getLog(AdminEventEngine.class);
 

@@ -17,9 +17,6 @@ package com.l2jfree.gameserver.util;
 import javolution.util.FastMap;
 import javolution.util.FastMap.Entry;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;

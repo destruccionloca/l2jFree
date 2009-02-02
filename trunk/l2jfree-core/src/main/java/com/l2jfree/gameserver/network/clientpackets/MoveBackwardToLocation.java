@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
-import com.l2jfree.gameserver.util.Util;
 
 
 /**

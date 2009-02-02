@@ -29,15 +29,12 @@ import java.nio.channels.FileChannel;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
@@ -46,16 +43,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.geodata.pathfinding.cellnodes.CellPathFinding;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.geodata.GeoEngine;
 import com.l2jfree.gameserver.model.Location;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.geodata.pathfinding.Node;
-import com.l2jfree.gameserver.handler.itemhandlers.ForgottenScroll;
 import com.l2jfree.tools.geometry.Point3D;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  *

@@ -151,9 +151,13 @@ public class DoorTable
 		int ay = Integer.parseInt(st.nextToken());
 		int bx = Integer.parseInt(st.nextToken());
 		int by = Integer.parseInt(st.nextToken());
+		@SuppressWarnings("unused")
 		int cx = Integer.parseInt(st.nextToken());
+		@SuppressWarnings("unused")
 		int cy = Integer.parseInt(st.nextToken());
+		@SuppressWarnings("unused")
 		int dx = Integer.parseInt(st.nextToken());
+		@SuppressWarnings("unused")
 		int dy = Integer.parseInt(st.nextToken());
 
 		int zmin = Integer.parseInt(st.nextToken());

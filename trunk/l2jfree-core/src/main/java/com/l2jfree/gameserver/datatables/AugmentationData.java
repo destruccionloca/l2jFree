@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.datatables;
 
 import java.io.File;
-import java.util.Map;
-import javolution.util.FastMap;
-
 import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilderFactory;

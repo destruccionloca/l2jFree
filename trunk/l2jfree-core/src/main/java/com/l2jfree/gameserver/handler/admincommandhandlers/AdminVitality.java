@@ -144,9 +144,4 @@ public class AdminVitality implements IAdminCommandHandler
 	{
 		return ADMIN_COMMANDS;
 	}
-
-	private boolean checkLevel(int level)
-	{
-		return (level >= REQUIRED_LEVEL);
-	}
 }

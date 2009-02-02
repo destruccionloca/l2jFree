@@ -128,7 +128,6 @@ import com.l2jfree.gameserver.taskmanager.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
 import com.l2jfree.gameserver.threadmanager.RunnableStatsManager;
 import com.l2jfree.gameserver.util.DynamicExtension;
-import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.PathCreator;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.status.Status;
