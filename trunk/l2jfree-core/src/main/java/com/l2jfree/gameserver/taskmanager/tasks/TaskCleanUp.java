@@ -39,8 +39,8 @@ public final class TaskCleanUp extends Task
 	public void onTimeElapsed(ExecutedTask task)
 	{
 		_log.info("executing clean up task");
-		System.runFinalization();
 		System.gc();
+		System.runFinalization();
 		_log.info("RAM Used: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576));
 	}
 }
