@@ -32,10 +32,6 @@ Adena              = 57
 #GHOST TIMER
 GHOST_TIMER = 10000
 
-#REWARDS
-ADENA_REWARD = 350000
-EXP          = 456893
-SP           = 42112
 
 class Quest (JQuest) : 
 
@@ -160,9 +156,9 @@ class Quest (JQuest) :
             elif cond == 10 :
                 if st.getQuestItemsCount(SilverSpear) != 0:
                     htmltext = "31386-03.htm"
-                    st.rewardItems(Adena,ADENA_REWARD)
+                    st.rewardItems(Adena,350000)
                     st.takeItems(SilverSpear,-1)
-                    st.addExpAndSp(EXP,SP)
+                    st.addExpAndSp(456893,42112)
                     st.exitQuest(False)
                     st.playSound("ItemSound.quest_finish")
                 else:

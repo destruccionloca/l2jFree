@@ -28,10 +28,6 @@ MOBS         = range(21553,21557) + [21561]
 #ITEMS 
 CROSS, SKULL, LETTER, JEWEL1, JEWEL2, SEALED_BOX, BOX = range(7141,7148)
 
-#REWARDS
-EXP = 345966
-SP  = 31578
-
 def AutoChat(npc,text) :
     chars = npc.getKnownList().getKnownPlayers().values().toArray()
     if chars != None:
@@ -202,7 +198,7 @@ class Quest (JQuest) :
            st.playSound("ItemSound.quest_finish")
            st.exitQuest(False)
            st.unset("id")
-           st.addExpAndSp(EXP,SP)
+           st.addExpAndSp(345966,31578)
            if player.getLevel() < QLVL_NEXTPART :
                htmltext = "31328-23.htm"
            else :

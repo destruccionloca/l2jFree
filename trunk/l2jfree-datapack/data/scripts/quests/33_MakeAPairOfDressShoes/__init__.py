@@ -18,12 +18,6 @@ LEATHER         = 1882
 THREAD          = 1868
 DRESS_SHOES_BOX = 7113
 
-#NEEDED
-WOODLEY_LEATHER = 200
-WOODLEY_THREAD  = 600
-WOODLEY_PRICE   = 200000
-IAN_PRICE       = 300000
-
 
 class Quest (JQuest) :
 
@@ -40,16 +34,16 @@ class Quest (JQuest) :
    if event == "30838-3.htm" :
      st.set("cond","3")
    if event == "30838-5.htm" :
-     if st.getQuestItemsCount(LEATHER) >= WOODLEY_LEATHER and st.getQuestItemsCount(THREAD) >= WOODLEY_THREAD and st.getQuestItemsCount(ADENA) >= WOODLEY_PRICE :
-       st.takeItems(LEATHER,WOODLEY_LEATHER)
-       st.takeItems(THREAD,WOODLEY_THREAD)
-       st.takeItems(ADENA,WOODLEY_PRICE)
+     if st.getQuestItemsCount(LEATHER) >= 200 and st.getQuestItemsCount(THREAD) >= 600 and st.getQuestItemsCount(ADENA) >= 200000 :
+       st.takeItems(LEATHER,200)
+       st.takeItems(THREAD,600)
+       st.takeItems(ADENA,200000)
        st.set("cond","4")
      else :
        htmltext = "You don't have enough materials"
    if event == "30164-1.htm" :
-     if st.getQuestItemsCount(ADENA) >= IAN_PRICE :
-       st.takeItems(ADENA,IAN_PRICE)
+     if st.getQuestItemsCount(ADENA) >= 300000 :
+       st.takeItems(ADENA,300000)
        st.set("cond","5")
      else :
        htmltext = "You don't have enough materials"

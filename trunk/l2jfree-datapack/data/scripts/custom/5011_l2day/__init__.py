@@ -51,8 +51,6 @@ Items       = [
 ["CHRONICLE",	WWALK,	2,	BRES,	2,	BSOE,			2,	FOCUS,			2,		C,	1,	H,	1,	R,	1,	O,	1, N,	1,	I,	1,	C,	1,	L,	1,	E,	1]
 ]
 
-
-
 import sys
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
@@ -60,24 +58,24 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 # doRequestedEvent
 def do_RequestedEvent(event, st, item1, Iqty1, item2, Iqty2, item3, Iqty3, item4, Iqty4, Letter1, Lqty1, Letter2, Lqty2, Letter3, Lqty3, Letter4, Lqty4, Letter5, Lqty5, Letter6, Lqty6, Letter7, Lqty7, Letter8, Lqty8, Letter9, Lqty9) :
-    if  st.getQuestItemsCount(letter1) >= Lqty1 and st.getQuestItemsCount(letter2) >= Lqty2 and st.getQuestItemsCount(Letter3) >= Lqty3 \
+    if  st.getQuestItemsCount(Letter1) >= Lqty1 and st.getQuestItemsCount(Letter2) >= Lqty2 and st.getQuestItemsCount(Letter3) >= Lqty3 \
 	and st.getQuestItemsCount(Letter4) >= Lqty4 and st.getQuestItemsCount(Letter5) >= Lqty5 and st.getQuestItemsCount(Letter6) >= Lqty6 \
 	and st.getQuestItemsCount(Letter7) >= Lqty7 and st.getQuestItemsCount(Letter8) >= Lqty8 and st.getQuestItemsCount(Letter9) >= Lqty9 :
-	
-        st.takeItems(Letter1, 	Lqty1)
-        st.takeItems(Letter2, 	Lqty2)
-        st.takeItems(Letter3, 	Lqty3)
-        st.takeItems(Letter4, 	Lqty4)
-        st.takeItems(Letter5, 	Lqty5)
-        st.takeItems(Letter6, 	Lqty6)
-        st.takeItems(Letter7, 	Lqty7)
-        st.takeItems(Letter8, 	Lqty8)
-        st.takeItems(Letter9,	Lqty9)
-		
-        st.giveItems(item1, 	Iqty1)
-        st.giveItems(item2, 	Iqty2)
-        st.giveItems(item3, 	Iqty3)
-        st.giveItems(item4, 	Iqty4)
+
+        st.takeItems(Letter1,Lqty1)
+        st.takeItems(Letter2,Lqty2)
+        st.takeItems(Letter3,Lqty3)
+        st.takeItems(Letter4,Lqty4)
+        st.takeItems(Letter5,Lqty5)
+        st.takeItems(Letter6,Lqty6)
+        st.takeItems(Letter7,Lqty7)
+        st.takeItems(Letter8,Lqty8)
+        st.takeItems(Letter9,Lqty9)
+
+        st.giveItems(item1,Iqty1)
+        st.giveItems(item2,Iqty2)
+        st.giveItems(item3,Iqty3)
+        st.giveItems(item4,Iqty4)
         return "2.htm"
     else :
         return "You do not have enough materials."
@@ -103,9 +101,9 @@ class Quest (JQuest) :
 										item[16], item[17], item[18], item[19], item[20],
 										item[21], item[22], item[23], item[24], item[25],
 										item[26])
-    
+
     if htmltext != event:
-      st.exitQuest(False) 
+      st.exitQuest(False)
       st.exitQuest(1)
 
     return htmltext

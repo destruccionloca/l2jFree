@@ -39,8 +39,7 @@ CROSS_A = 7140
 
 #REWARDS
 CROSS_B = 7141
-EXP     = 131228
-SP      = 11978
+
 
 class Quest (JQuest) :
 
@@ -66,7 +65,7 @@ class Quest (JQuest) :
             st.takeItems(CROSS_A,-1)
             if st.getQuestItemsCount(CROSS_B) == 0 :
                 st.giveItems(CROSS_B,1)
-            st.addExpAndSp(EXP,SP)
+            st.addExpAndSp(131228,11978)
             st.playSound("ItemSound.quest_finish")
             htmltext = "31328-05.htm"
         elif event == "31523-03.htm" :
