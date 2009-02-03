@@ -50,7 +50,7 @@ public class AdminVitality implements IAdminCommandHandler
 		if (!Config.ALT_PRIVILEGES_ADMIN)
 			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
 				return false;
-		
+
 		if (!Config.ENABLE_VITALITY)
 			activeChar.sendMessage("Vitality is not enabled on the server!");
 
@@ -61,7 +61,7 @@ public class AdminVitality implements IAdminCommandHandler
 		{
 			L2PcInstance target;
 			target = (L2PcInstance) activeChar.getTarget();
-			
+
 			if (cmd.equals("admin_set_vitality"))
 			{
 				try
@@ -72,7 +72,7 @@ public class AdminVitality implements IAdminCommandHandler
 				{
 					activeChar.sendMessage("Incorrect vitality");
 				}
-				
+
 				target.setVitalityPoints(vitality, true);
 				target.sendMessage("Admin set your Vitality points to " + vitality);
 			}
@@ -86,7 +86,7 @@ public class AdminVitality implements IAdminCommandHandler
 				{
 					activeChar.sendMessage("Incorrect vitality level (0-4)");
 				}
-				
+
 				if (level >= 0 && level <= 4)
 				{
 					switch (level)
@@ -127,7 +127,7 @@ public class AdminVitality implements IAdminCommandHandler
 			{
 				int playerVitalityLevel = target.getVitalityLevel();
 				double playerVitalityPoints = target.getVitalityPoints();
-				
+
 				activeChar.sendMessage("Player vitality level: " + playerVitalityLevel);
 				activeChar.sendMessage("Player vitality points: " + playerVitalityPoints);
 			}
@@ -139,7 +139,7 @@ public class AdminVitality implements IAdminCommandHandler
 			return false;
 		}
 	}
-	
+
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

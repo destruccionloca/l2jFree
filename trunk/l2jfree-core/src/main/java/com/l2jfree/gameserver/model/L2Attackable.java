@@ -747,7 +747,7 @@ public class L2Attackable extends L2NpcInstance
 								exp *= Config.CHAMPION_EXP_SP;
 								sp *= Config.CHAMPION_EXP_SP;
 							}
-							
+
 							if (!attacker.isDead())
 							{
 								long addexp = Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null));
@@ -776,7 +776,7 @@ public class L2Attackable extends L2NpcInstance
 											((L2PcInstance)attacker).calculateVitalityPoints(this, damage);
 										}
 										else
-											attacker.addExpAndSp(addexp, addsp); 
+											attacker.addExpAndSp(addexp, addsp);
 									}
 									else
 										attacker.addExpAndSp(addexp, addsp);

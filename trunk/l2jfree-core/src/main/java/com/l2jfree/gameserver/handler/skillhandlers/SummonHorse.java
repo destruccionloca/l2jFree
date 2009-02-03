@@ -29,56 +29,56 @@ import com.l2jfree.gameserver.util.FloodProtector;
 public final class SummonHorse implements ISkillHandler
 {
 	private static final int HORSE_ID = 13130;
-	
+
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.SUMMON_HORSE };
-	
+
 	public void useSkill(L2Character playable, L2Skill skill, L2Object... targets)
 	{
 		if (!(playable instanceof L2PcInstance))
 			return;
-		
+
 		L2PcInstance activeChar = (L2PcInstance)playable;
-		
+
 		if (!FloodProtector.tryPerformAction(activeChar, FloodProtector.PROTECTED_ITEMPETSUMMON))
 			return;
-		
+
 		if (activeChar.isSitting())
 		{
 			activeChar.sendPacket(SystemMessageId.CANT_MOVE_SITTING);
 			return;
 		}
-		
+
 		if (activeChar.inObserverMode())
 			return;
-		
+
 		if (activeChar.isInOlympiadMode())
 		{
 			activeChar.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
 			return;
 		}
-		
+
 		if (activeChar.getPet() != null || activeChar.isMounted())
 		{
 			activeChar.sendPacket(SystemMessageId.YOU_ALREADY_HAVE_A_PET);
 			return;
 		}
-		
+
 		if (activeChar.isAttackingNow())
 		{
 			activeChar.sendPacket(SystemMessageId.YOU_CANNOT_SUMMON_IN_COMBAT);
 			return;
 		}
-		
+
 		if (activeChar.isCursedWeaponEquipped())
 		{
 			// TODO Get Correct MessageID
 			activeChar.sendPacket(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE);
 			return;
 		}
-		
+
 		activeChar.mount(HORSE_ID, 0);
 	}
-	
+
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

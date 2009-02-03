@@ -39,14 +39,14 @@ import com.l2jfree.gameserver.templates.chars.L2PcTemplate.PcTemplateItem;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.9.2.3.2.8 $ $Date: 2005/03/27 15:29:30 $
  */
 @SuppressWarnings("unused")
 public class CharacterCreate extends L2GameClientPacket
 {
 	private static final String _C__0B_CHARACTERCREATE = "[C] 0B CharacterCreate";
-	
+
 	// cSdddddddddddd
 	private String _name;
 	private int _race;
@@ -61,9 +61,9 @@ public class CharacterCreate extends L2GameClientPacket
 	private byte _hairStyle;
 	private byte _hairColor;
 	private byte _face;
-	
+
 	private static Object _lock = new Object();
-	
+
 	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 	
 	/**
@@ -72,7 +72,7 @@ public class CharacterCreate extends L2GameClientPacket
 	@Override
 	protected void readImpl()
 	{
-		
+
 		_name      = readS();
 		_race      = readD();
 		_sex       = (byte)readD();
@@ -121,7 +121,7 @@ public class CharacterCreate extends L2GameClientPacket
 
 			if (_log.isDebugEnabled())
 				_log.debug("charname: " + _name + " classId: " + _classId);
-			
+
 			L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(_classId);
 			if(template == null || template.getClassBaseLevel() > 1) 
 			{
@@ -129,15 +129,15 @@ public class CharacterCreate extends L2GameClientPacket
 				sendPacket(ccf);
 				return;
 			}
-			
+
 			int objectId = IdFactory.getInstance().getNextId();
 			L2PcInstance newChar = L2PcInstance.create(objectId, template, getClient().getAccountName(),_name, _hairStyle, _hairColor, _face, _sex!=0);
 			newChar.getStatus().setCurrentHp(template.getBaseHpMax());
 			newChar.getStatus().setCurrentCp(template.getBaseCpMax());
 			newChar.getStatus().setCurrentMp(template.getBaseMpMax());
 			//newChar.setMaxLoad(template.baseLoad);
-			
-			
+
+
 			// send acknowledgement
 			CharCreateOk cco = new CharCreateOk();
 			sendPacket(cco);
@@ -145,16 +145,16 @@ public class CharacterCreate extends L2GameClientPacket
 			initNewChar(getClient(), newChar);
 		}
 	}
-	
+
 	private void initNewChar(L2GameClient client, L2PcInstance newChar)
 	{
 		if (_log.isDebugEnabled()) _log.debug("Character init start");
 		L2World.getInstance().storeObject(newChar);
-		
+
 		L2PcTemplate template = newChar.getTemplate();
-		
+
 		newChar.addAdena("Init", Config.STARTING_ADENA, null, false);
-		
+
 		newChar.getPosition().setXYZInvisible(template.getSpawnX(), template.getSpawnY(), template.getSpawnZ());
 		newChar.setTitle("");
 
@@ -170,7 +170,7 @@ public class CharacterCreate extends L2GameClientPacket
 		//add sit shortcut
 		shortcut = new L2ShortCut(10,0,3,0,-1,1);
 		newChar.registerShortCut(shortcut);
-		
+
 		for (PcTemplateItem ia : template.getItems())
 		{
 			L2ItemInstance item = newChar.getInventory().addItem("Init", ia.getItemId(), ia.getAmount(), newChar, null);
@@ -209,9 +209,9 @@ public class CharacterCreate extends L2GameClientPacket
 		startTutorialQuest(newChar);
 		L2GameClient.saveCharToDisk(newChar);
 		newChar.deleteMe(); // release the world of this character and it's inventory
-		
+
 		// send char list
-		
+
 		CharSelectionInfo cl = new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
 		client.getConnection().sendPacket(cl);
 		client.setCharSelection(cl.getCharInfo());
@@ -228,7 +228,7 @@ public class CharacterCreate extends L2GameClientPacket
 			q.newQuestState(player);
 	}
 
-	
+
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
 	 */

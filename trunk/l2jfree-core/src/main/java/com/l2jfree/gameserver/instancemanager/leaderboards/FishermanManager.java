@@ -155,6 +155,7 @@ public class FishermanManager
 				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_ITEM).addItemName(Config.FISHERMAN_REWARD_ID));
 			winner.sendPacket(new ItemList(winner, false));
 		}
+		_ranks.clear();
 	}
 
 	public String showHtm(int owner)

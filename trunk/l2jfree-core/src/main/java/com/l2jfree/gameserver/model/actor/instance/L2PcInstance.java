@@ -273,7 +273,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	// Character Character SQL String Definitions:
 	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=?,trust_level=?,vitality_points=? WHERE charId=?";
 	private static final String	RESTORE_CHARACTER				= "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level,trust_level,vitality_points FROM characters WHERE charId=?";
-    
+
 	// Character Subclass SQL String Definitions:
 	private static final String	RESTORE_CHAR_SUBCLASSES			= "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE charId=? ORDER BY class_index ASC";
 	private static final String	ADD_CHAR_SUBCLASS				= "INSERT INTO character_subclasses (charId,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
@@ -790,9 +790,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	// WorldPosition used by TARGET_SIGNET_GROUND
 	private Point3D							_currentSkillWorldPosition;
-	
+
 	public int								_fame = 0;					// The Fame of this L2PcInstance
-	
+
 	/** Vitality Level of this L2PcInstance */
 	private double 							_vitalityPoints = 1.0;
 	private int								_vitalityLevel = 0;
@@ -819,7 +819,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				_player.addVitalityPoints(vitalityAdd, true);
 		}
 	}
-	
+
 	/** Skill casting information (used to queue when several skills are cast in a short time) **/
 	public class SkillDat
 	{
@@ -1099,7 +1099,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (!Config.WAREHOUSE_CACHE)
 			getWarehouse();
 		getFreight().restore();
-		
+
 		if (Config.ENABLE_VITALITY)
 			startVitalityTask();
 	}
@@ -1119,7 +1119,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		if (_knownList == null)
 			_knownList = new PcKnownList(this);
-		
+
 		return (PcKnownList)_knownList;
 	}
 
@@ -1128,7 +1128,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		if (_stat == null)
 			_stat = new PcStat(this);
-		
+
 		return (PcStat)_stat;
 	}
 
@@ -1137,7 +1137,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		if (_status == null)
 			_status = new PcStatus(this);
-		
+
 		return (PcStatus)_status;
 	}
 
@@ -1255,7 +1255,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
     	// Pause restrictions
         ObjectRestrictions.getInstance().pauseTasks(getObjectId());
-    	
+
 		// [L2J_JP ADD START]
 		if (isInsideZone(L2Zone.FLAG_NOESCAPE))
 		{
@@ -11009,7 +11009,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		getStat().addExpAndSp(addToExpVit, addToSpVit);
 	}
-	
+
 	public void removeExpAndSp(long removeExp, int removeSp)
 	{
 		getStat().removeExpAndSp(removeExp, removeSp);

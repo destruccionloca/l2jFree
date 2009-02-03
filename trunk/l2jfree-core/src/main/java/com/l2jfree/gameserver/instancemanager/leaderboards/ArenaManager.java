@@ -136,7 +136,7 @@ public class ArenaManager
 
 		if (arTop == null)
 		{
-			Announcements.getInstance().announceToAll("PvP Arena Manager: No winners at this time! Please check out our Arenas!");
+			Announcements.getInstance().announceToAll("PvP Arena Manager: A new round begins! Please check out our Arenas!");
 			return;
 		}
 
@@ -155,6 +155,7 @@ public class ArenaManager
 				winner.sendPacket(new SystemMessage(SystemMessageId.EARNED_ITEM).addItemName(Config.ARENA_REWARD_ID));
 			winner.sendPacket(new ItemList(winner, false));
 		}
+		_ranks.clear();
 	}
 
 	public String showHtm(int owner)

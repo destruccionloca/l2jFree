@@ -967,7 +967,7 @@ public final class Config
 			JAIL_IS_PVP = Boolean.parseBoolean(otherSettings.getProperty("JailIsPvp", "True"));
 			JAIL_DISABLE_CHAT = Boolean.parseBoolean(otherSettings.getProperty("JailDisableChat", "True"));
 			DEATH_PENALTY_CHANCE = Integer.parseInt(otherSettings.getProperty("DeathPenaltyChance", "20"));
-			
+
             BANKING_SYSTEM_ENABLED	= Boolean.parseBoolean(otherSettings.getProperty("BankingEnabled", "false"));
             BANKING_SYSTEM_GOLDBARS	= Integer.parseInt(otherSettings.getProperty("BankingGoldbarCount", "1"));
             BANKING_SYSTEM_ADENA	= Integer.parseInt(otherSettings.getProperty("BankingAdenaCount", "500000000"));
@@ -3064,7 +3064,7 @@ public final class Config
 	}
 
 	// *******************************************************************************************
-	
+
 	// *******************************************************************************************
 	public static final String	VITALITY_FILE	= "./config/vitality.properties";
 	// *******************************************************************************************

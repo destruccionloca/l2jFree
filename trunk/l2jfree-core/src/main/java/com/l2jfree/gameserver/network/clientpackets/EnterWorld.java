@@ -209,7 +209,7 @@ public class EnterWorld extends L2GameClientPacket
 				else if (siege.checkIsDefender(activeChar.getClan()))
 					activeChar.setSiegeState((byte) 2);
 			}
-			
+
 			for (FortSiege fsiege : FortSiegeManager.getInstance().getSieges())
 			{
 				if (!fsiege.getIsInProgress())
@@ -218,7 +218,7 @@ public class EnterWorld extends L2GameClientPacket
 					activeChar.setSiegeState((byte) 1);
 				else if (fsiege.checkIsDefender(activeChar.getClan()))
 					activeChar.setSiegeState((byte) 2);
-			}	
+			}
 		}
 
 		if (Hero.getInstance().getHeroes() != null && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
