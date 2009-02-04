@@ -48,7 +48,7 @@ class Quest (JQuest) :
                 htmltext="100.htm"
                 st.exitQuest(1)
             elif Ocean:
-                if Ocean.getState() == 'State.COMPLETED':
+                if Ocean.getState() == State.COMPLETED:
                     htmltext="200.htm"
 
                 else :

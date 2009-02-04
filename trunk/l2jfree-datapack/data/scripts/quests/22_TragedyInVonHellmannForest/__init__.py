@@ -175,7 +175,7 @@ class Quest (JQuest) :
        if state == State.CREATED :
            st2 = player.getQuestState("21_HiddenTruth")
            if st2 :
-               if st2.getState() == 'State.COMPLETED' :
+               if st2.getState() == State.COMPLETED :
                    htmltext = "31328-00.htm"
        if id < 5 :
            if st.getQuestItemsCount(CROSS) == 0 :

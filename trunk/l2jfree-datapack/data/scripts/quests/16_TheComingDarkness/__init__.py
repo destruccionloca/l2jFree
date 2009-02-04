@@ -79,7 +79,7 @@ class Quest (JQuest) :
    if npcId == HIERARCH and st.getInt("cond") == 0 :
      st2 = player.getQuestState("17_LightAndDarkness")
      if st2 :
-       if st2.getState() == 'State.COMPLETED' :
+       if st2.getState() == State.COMPLETED :
          htmltext = "<html><body>Quest Light and Darkness need to be finished first.</body></html>"
      elif player.getLevel() >= QLVL :
        htmltext = "31517-0.htm"
