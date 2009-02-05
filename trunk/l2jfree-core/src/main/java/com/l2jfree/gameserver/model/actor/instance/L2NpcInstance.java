@@ -1418,7 +1418,7 @@ public class L2NpcInstance extends L2Character
 			else if (command.startsWith("remove_dp"))
 			{
 				int cmdChoice = Integer.parseInt(command.substring(10, 11).trim());
-				int[] pen_clear_price = { 3600, 8640, 25200, 50400, 86400, 144000 };
+				int[] pen_clear_price = { 3600, 8640, 25200, 50400, 86400, 144000, 288000 }; //TODO: Find a retail value for S80
 				int price = pen_clear_price[player.getExpertiseIndex()] * (int)Config.RATE_DROP_ADENA;
 				switch (cmdChoice)
 				{
