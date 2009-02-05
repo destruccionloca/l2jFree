@@ -570,8 +570,8 @@
     <!--<restart_owner x="77524" y="-152709" z="-545"/>-->
     <restart_chaotic x="142656" y="-55008" z="-3024" />
     <shape type="Rect">
-      <point x="75500" y="-145250" />
-      <point x="76000" y="-144750" />
+      <point x="73694" y="-156000" />
+      <point x="81286" y="-149400" />
     </shape>
   </zone>
   <zone id="42" name="Schuttgart HQ" type="HeadQuarters">
