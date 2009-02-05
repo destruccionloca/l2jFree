@@ -2339,6 +2339,9 @@ public final class Formulas
 				case DARK:
 					multiplier *= target.getTemplate().baseDarkVuln;
 					break;
+				case CANCEL:
+					multiplier *= target.getTemplate().baseCancelVuln;
+					break;
 				}
 			}
 
@@ -2401,6 +2404,9 @@ public final class Formulas
 				case DEBUFF:
 				case WEAKNESS:
 					multiplier = target.calcStat(Stats.DEBUFF_VULN, multiplier, target, null);
+					break;
+				case CANCEL:
+					multiplier = target.calcStat(Stats.CANCEL_VULN, multiplier, target, null);
 					break;
 				}
 			}
@@ -2577,7 +2583,7 @@ public final class Formulas
 
 		if (_log.isDebugEnabled())
 			_log.debug(skill.getName() + ": " + value + ", " + statmodifier + ", " + resmodifier + ", "
-					+ ((int) (Math.pow((double) attacker.getMAtk(target, skill) / target.getMDef(attacker, skill), 0.2) * 100) - 100) + ", " + ssmodifier
+					+ ((int) (Math.pow((double) attacker.getMAtk(target, skill) / target.getMDef(attacker, skill), 0.1) * 100) - 100) + ", " + ssmodifier
 					+ " ==> " + rate);
 		return (Rnd.get(100) <= rate);
 	}

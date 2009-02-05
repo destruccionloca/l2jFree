@@ -668,6 +668,12 @@ public class Disablers implements ICubicSkillHandler
 								continue;
 						}
 						
+						//do note delete songs / dances
+						if (e.getSkill().isSong() || e.getSkill().isDance())
+						{
+							continue;
+						}
+						
 						switch (e.getSkill().getSkillType())
 						{
 							case BUFF:
@@ -680,9 +686,14 @@ public class Disablers implements ICubicSkillHandler
 								else if (rate > 0.95)
 									rate = 0.95;
 								if (Rnd.get(1000) < (rate * 1000))
+								{
 									e.exit();
-								if (count == max)
+									count++;
+								}
+								if (count > max)
+								{
 									break;
+								}
 						}
 					}
 				}

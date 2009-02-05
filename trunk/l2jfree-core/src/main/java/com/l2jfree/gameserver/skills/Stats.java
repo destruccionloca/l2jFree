@@ -112,6 +112,7 @@ public enum Stats
 	HOLY("holy"),
 	DARK("dark"),
 	SACRED("sacred"),
+	CANCEL("cancel"),
 	//
 	AGGRESSION_VULN("aggressionVuln"),
 	BLEED_VULN("bleedVuln"),

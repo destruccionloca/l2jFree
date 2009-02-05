@@ -92,6 +92,8 @@ public class L2CharTemplate
 	public double	baseDarkVuln;
 	public double	baseCritVuln;
 
+	public double	baseCancelVuln;
+
 	private boolean	isUndead;
 
 	private int		baseMpConsumeRate;
@@ -173,6 +175,7 @@ public class L2CharTemplate
 		baseHolyVuln = set.getInteger("baseHolyVuln", 1);
 		baseDarkVuln = set.getInteger("baseDarkVuln", 1);
 		baseCritVuln = set.getInteger("baseCritVuln", 1);
+		baseCancelVuln = set.getInteger("baseCancelVuln", 1);
 
 		isUndead = (set.getInteger("isUndead", 0) == 1);
 
