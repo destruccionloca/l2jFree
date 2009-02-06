@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.model;
 
-import java.util.List;
+import java.util.List;import java.util.Arrays;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -62,10 +62,7 @@ public final class L2WorldRegion
         _tileY = pTileY;
         
         // default a newly initialized region to inactive, unless always on is specified
-        if (Config.GRIDS_ALWAYS_ON)
-            _active = true;
-        else
-            _active = false;
+        _active = Config.GRIDS_ALWAYS_ON;
 
         _zones = new FastList<L2Zone>();
     }
@@ -446,8 +443,7 @@ public final class L2WorldRegion
 		List<L2Object> result = new FastList<L2Object>();
 		
 		for (L2WorldRegion region : getSurroundingRegions())
-			for (L2Object obj : region.getVisibleObjects())
-				result.add(obj);
+            result.addAll(Arrays.asList(region.getVisibleObjects()));
 		
 		return result;
 	}

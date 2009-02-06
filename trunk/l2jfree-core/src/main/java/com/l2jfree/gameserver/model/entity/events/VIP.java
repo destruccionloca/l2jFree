@@ -292,13 +292,13 @@ public class VIP {
 			return;
 		}
 		
-		if (_joining == true)
+		if (_joining)
 		{
 			activeChar.sendMessage("Players are already allowed to join the event");
 			return;
 		}
 		
-		if (_started == true)
+		if (_started)
 		{
 			activeChar.sendMessage("Event already started. Please wait for it to finish or finish it manually");
 			return;
@@ -614,10 +614,7 @@ public class VIP {
 	
 	public static void sit()
 	{
-		if (_sitForced)
-			_sitForced = false;
-		else
-			_sitForced = true;
+        _sitForced = !_sitForced;
 		
 		for (L2PcInstance player : _playersVIP)
 		{

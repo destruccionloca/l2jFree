@@ -41,7 +41,7 @@ public class L2ClanhallZone extends L2DefaultZone
 
 			// Send decoration packet
 			AgitDecoInfo deco = new AgitDecoInfo(_clanhall);
-			((L2PcInstance)character).sendPacket(deco);
+			character.sendPacket(deco);
 		}
 
 		super.onEnter(character);

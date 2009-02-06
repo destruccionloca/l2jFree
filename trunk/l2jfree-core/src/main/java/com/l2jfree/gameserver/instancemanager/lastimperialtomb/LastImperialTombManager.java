@@ -317,7 +317,6 @@ public class LastImperialTombManager extends BossLair
 			break;
 		default:
 			_log.warn("LastImperialTombManager: Invalid Registration Mode!");
-			return;
 		}
 	}
 

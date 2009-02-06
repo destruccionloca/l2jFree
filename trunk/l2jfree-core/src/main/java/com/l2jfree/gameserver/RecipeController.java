@@ -100,7 +100,7 @@ public class RecipeController
 	{
 		for (int i = 0; i < _lists.size(); i++)
 		{
-			L2RecipeList find = _lists.get(Integer.valueOf(i));
+			L2RecipeList find = _lists.get(i);
 			if (find.getRecipeId() == itemId)
 			{
 				return find;
@@ -113,7 +113,7 @@ public class RecipeController
 	{
 		for (int i = 0; i < _lists.size(); i++)
 		{
-			L2RecipeList find = _lists.get(Integer.valueOf(i));
+			L2RecipeList find = _lists.get(i);
 			if (find.getId() == recId)
 			{
 				return find;
@@ -138,7 +138,6 @@ public class RecipeController
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.CANT_ALTER_RECIPEBOOK_WHILE_CRAFTING);
 		player.sendPacket(sm);
-		return;
 	}
 
 	public synchronized void requestMakeItemAbort(L2PcInstance player)
@@ -758,7 +757,7 @@ public class RecipeController
 
 			for (L2RecipeInstance recipe : recipes)
 			{
-				int quantity = _recipeList.isConsumable() ? (int) (recipe.getQuantity() * Config.RATE_CONSUMABLE_COST) : (int) recipe.getQuantity();
+				int quantity = _recipeList.isConsumable() ? (int) (recipe.getQuantity() * Config.RATE_CONSUMABLE_COST) : recipe.getQuantity();
 
 				if (quantity > 0)
 				{

@@ -138,7 +138,7 @@ public class DimensionalRiftManager
 									attrs = room.getAttributes();
 									roomId = Byte.parseByte(attrs.getNamedItem("id").getNodeValue());
 									Node boss = attrs.getNamedItem("isBossRoom");
-									isBossRoom = boss != null ? Boolean.parseBoolean(boss.getNodeValue()) : false;
+									isBossRoom = boss != null && Boolean.parseBoolean(boss.getNodeValue());
 
 									for (Node coord = room.getFirstChild(); coord != null; coord = coord.getNextSibling())
 									{
@@ -339,7 +339,7 @@ public class DimensionalRiftManager
 			NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
 			html.setFile("data/html/seven_signs/rift/NoFragments.htm");
 			html.replace("%npc_name%", npc.getName());
-			html.replace("%count%", new Integer(getNeededItems(type)).toString());
+			html.replace("%count%", Integer.toString(getNeededItems(type)));
 			player.sendPacket(html);
 			return;
 		}

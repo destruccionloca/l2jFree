@@ -43,7 +43,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.geodata.pathfinding.cellnodes.CellPathFinding;
-import com.l2jfree.gameserver.geodata.GeoEngine;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.tools.geometry.Point3D;
 
@@ -75,34 +74,24 @@ public class GeoEngine extends GeoData
         nInitGeodata();
     }
 
-    //Public Methods
-    /**
-     * @see net.sf.l2j.gameserver.GeoData#getType(int, int)
-     */
     @Override
     public short getType(int x, int y)
     {
         return nGetType((x - L2World.MAP_MIN_X) >> 4, (y - L2World.MAP_MIN_Y) >> 4);
     }
-    /**
-     * @see net.sf.l2j.gameserver.GeoData#getHeight(int, int, int)
-     */
+
     @Override
     public short getHeight(int x, int y, int z)
     {
         return nGetHeight((x - L2World.MAP_MIN_X) >> 4,(y - L2World.MAP_MIN_Y) >> 4,z);
     }
-    /**
-     * @see net.sf.l2j.gameserver.GeoData#getSpawnHeight(int, int, int, int, int)
-     */
+
     @Override
     public short getSpawnHeight(int x, int y, int zmin, int zmax, int spawnid)
     {
     	return nGetSpawnHeight((x - L2World.MAP_MIN_X) >> 4,(y - L2World.MAP_MIN_Y) >> 4,zmin,zmax,spawnid);
     }
-    /**
-     * @see net.sf.l2j.gameserver.GeoData#geoPosition(int, int)
-     */
+
     @Override
     public String geoPosition(int x, int y)
     {
@@ -110,9 +99,7 @@ public class GeoEngine extends GeoData
     	int gy = (y - L2World.MAP_MIN_Y) >> 4;
     	return "bx: "+getBlock(gx)+" by: "+getBlock(gy)+" cx: "+getCell(gx)+" cy: "+getCell(gy)+"  region offset: "+getRegionOffset(gx,gy);
     }
-    /**
-     * @see net.sf.l2j.gameserver.GeoData#canSeeTarget(L2Object, Point3D)
-     */
+
     @Override
     public boolean canSeeTarget(L2Object cha, Point3D target)
     {
@@ -124,9 +111,7 @@ public class GeoEngine extends GeoData
     		return canSeeTarget(target.getX(),target.getY(),target.getZ(), cha.getX(),cha.getY(),cha.getZ());
 
     }
-    /**
-     * @see net.sf.l2j.gameserver.GeoData#canSeeTarget(net.sf.l2j.gameserver.model.L2Object, net.sf.l2j.gameserver.model.L2Object)
-     */
+
     @Override
     public boolean canSeeTarget(L2Object cha, L2Object target)
     {
@@ -152,9 +137,7 @@ public class GeoEngine extends GeoData
     	else
     		return canSeeTarget(target.getX(),target.getY(),z2, cha.getX(),cha.getY(),z);
     }
-    /**
-     * @see net.sf.l2j.gameserver.GeoData#canSeeTargetDebug(net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, net.sf.l2j.gameserver.model.L2Object)
-     */
+
     @Override
     public boolean canSeeTargetDebug(L2PcInstance gm, L2Object target)
     {
@@ -172,9 +155,7 @@ public class GeoEngine extends GeoData
     	else
     		return canSeeDebug(gm,(target.getX() - L2World.MAP_MIN_X) >> 4,(target.getY() - L2World.MAP_MIN_Y) >> 4,z2,(gm.getX() - L2World.MAP_MIN_X) >> 4,(gm.getY() - L2World.MAP_MIN_Y) >> 4,z);
     }
-    /**
-     * @see net.sf.l2j.gameserver.GeoData#getNSWE(int, int, int)
-     */
+
     @Override
     public short getNSWE(int x, int y, int z)
     {
@@ -186,9 +167,7 @@ public class GeoEngine extends GeoData
     	Location destiny = moveCheck(x,y,z,tx,ty,tz);
     	return (destiny.getX() == tx && destiny.getY() == ty && destiny.getZ() == tz);
     }
-    /**
-     * @see net.sf.l2j.gameserver.GeoData#moveCheck(int, int, int, int, int, int)
-     */
+
     @Override
     public Location moveCheck(int x, int y, int z, int tx, int ty, int tz)
     {
@@ -199,9 +178,7 @@ public class GeoEngine extends GeoData
     	Location destiny = new Location(tx,ty,tz);
         return moveCheck(startpoint, destiny,(x - L2World.MAP_MIN_X) >> 4,(y - L2World.MAP_MIN_Y) >> 4,z,(tx - L2World.MAP_MIN_X) >> 4,(ty - L2World.MAP_MIN_Y) >> 4,tz);
     }
-    /**
-     * @see net.sf.l2j.gameserver.GeoData#addGeoDataBug(net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
-     */
+
     @Override
     public void addGeoDataBug(L2PcInstance gm, String comment)
     {
@@ -236,9 +213,8 @@ public class GeoEngine extends GeoData
     	int gx = (x - L2World.MAP_MIN_X) >> 4;
     	int gy = (y - L2World.MAP_MIN_Y) >> 4;
         short region = getRegionOffset(gx,gy);
-        if (_geodata.get(region) != null)
-			return true;
-        return false;
+
+        return _geodata.get(region) != null;
     }
     
     private static boolean canSee(int x, int y, double z, int tx, int ty, int tz)
@@ -752,7 +728,7 @@ public class GeoEngine extends GeoData
 	}
 
 	/**
-	 * @param pos
+	 * @param geo_pos
 	 * @return Block Index: 0-255
 	 */
 	private  static int getBlock(int geo_pos)
@@ -761,7 +737,7 @@ public class GeoEngine extends GeoData
 	}
 
 	/**
-	 * @param pos
+	 * @param geo_pos
 	 * @return Cell Index: 0-7
 	 */
 	private static int getCell(int geo_pos)
@@ -797,8 +773,8 @@ public class GeoEngine extends GeoData
 		return geo.get(index);
 	}
 	/**
-	 * @param x
-	 * @param y
+	 * @param geox
+	 * @param geoy
 	 * @param z
 	 * @return Nearest Z
 	 */
@@ -869,8 +845,8 @@ public class GeoEngine extends GeoData
 	    }
 	}
 	/**
-	 * @param x
-	 * @param y
+	 * @param geox
+	 * @param geoy
 	 * @param z
 	 * @return One layer higher Z than parameter Z
 	 */
@@ -942,8 +918,8 @@ public class GeoEngine extends GeoData
 	}
 	
 	/**
-	 * @param x
-	 * @param y
+	 * @param geox
+	 * @param geoy
 	 * @param zmin
 	 * @param zmax
 	 * @return Z betwen zmin and zmax
@@ -1163,15 +1139,12 @@ public class GeoEngine extends GeoData
 	        NSWE = (short)(height&0x0F);
 	        height = (short)(height&0x0fff0);
 			height = (short)(height >> 1); //height / 2
-			if (!checkNSWE(NSWE,x,y,x+inc_x,y+inc_y))
+			if (!checkNSWE(NSWE, x, y, x + inc_x, y + inc_y))
 			{
-				if(debug) _log.warn("height:"+height+" z"+z);	
-				if(z < nGetUpperHeight(x+inc_x,y+inc_y,height)) 
-					return false; // an obstacle high enough
-				return true;
-			}
-			else
-				return true;
+				if(debug) _log.warn("height:"+height+" z"+z);
+
+                return z >= nGetUpperHeight(x + inc_x, y + inc_y, height);
+			} else return true;
 	    }
 	    else //multilevel, type == 2
 	    {
@@ -1236,19 +1209,14 @@ public class GeoEngine extends GeoData
 	        	{
 	        		if(debug) _log.warn("block and next in x"+inc_x+" y"+inc_y+" is:"+nGetUpperHeight(x+inc_x,y+inc_y,lowerHeight));
 	        		// check one inc_x inc_y further, for the height there
-	        		if(z < nGetUpperHeight(x+inc_x,y+inc_y,lowerHeight)) 
-	        			return false; // a wall
-	        		return true; // we see over it, e.g. a fence 
-	        	}
-	        	else return true;
+                    return z >= nGetUpperHeight(x + inc_x, y + inc_y, lowerHeight);
+	        	} else return true;
 	        }
 	        if (!checkNSWE(NSWE,x,y,x+inc_x,y+inc_y))
 			{
 				// check one inc_x inc_y further, for the height there
-	        	if(z < nGetUpperHeight(x+inc_x,y+inc_y,lowerHeight)) 
-					return false; // we hit an obstacle high enough
-				return true;
-			}
+                return z >= nGetUpperHeight(x + inc_x, y + inc_y, lowerHeight);
+				}
 			else
 				return true;
 	    }
@@ -1333,9 +1301,7 @@ public class GeoEngine extends GeoData
 	}
 	
 	/**
-	 * @param x
-	 * @param y
-	 * @param z
+	 * @param n
 	 * @return NSWE: 0-15
 	 */
 	@Override

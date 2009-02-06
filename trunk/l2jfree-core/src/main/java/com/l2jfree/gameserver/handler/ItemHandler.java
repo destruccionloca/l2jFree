@@ -120,7 +120,7 @@ public class ItemHandler
 		int[] ids = handler.getItemIds();
 		for (int element : ids)
 		{
-			_datatable.put(Integer.valueOf(element), handler);
+			_datatable.put(element, handler);
 		}
 	}
 
@@ -133,6 +133,6 @@ public class ItemHandler
 	 */
 	public IItemHandler getItemHandler(int itemId)
 	{
-		return _datatable.get(Integer.valueOf(itemId));
+		return _datatable.get(itemId);
 	}
 }

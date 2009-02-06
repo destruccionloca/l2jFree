@@ -334,10 +334,7 @@ public class L2Clan
 			insertNotice();
 			return false;
 		}
-		else if (result.compareToIgnoreCase("true") == 0)
-			return true;
-		else
-			return false;
+		else return result.compareToIgnoreCase("true") == 0;
 	}
 
 	/**
@@ -405,7 +402,7 @@ public class L2Clan
 	}
 
 	/**
-	 * @param leaderId The leaderId to set.
+	 * @param leader The leaderId to set.
 	 */
 	public void setLeader(L2ClanMember leader)
 	{
@@ -848,7 +845,7 @@ public class L2Clan
 	}
 
 	/**
-	 * @param has Fortress The hasFortress to set.
+	 * @param hasFort Fortress The hasFortress to set.
 	 */
 	public void setHasFort(int hasFort)
 	{
@@ -876,12 +873,12 @@ public class L2Clan
 	}
 
 	/**
-	 * @param player name
+	 * @param id name
 	 * @return
 	 */
 	public boolean isMember(int id)
 	{
-		return (id == 0 ? false : _members.containsKey(id));
+		return (id != 0 && _members.containsKey(id));
 	}
 
 	public void updateClanInDB()
@@ -1479,10 +1476,8 @@ public class L2Clan
 
 	public boolean isAtWar()
 	{
-		if ((_atWarWith != null) && (_atWarWith.size() > 0))
-			return true;
-		return false;
-	}
+        return (_atWarWith != null) && (_atWarWith.size() > 0);
+    }
 
 	public List<Integer> getWarList()
 	{

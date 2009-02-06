@@ -66,15 +66,15 @@ public class Pdam implements ISkillHandler
 			
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance)
 			{
-				if (((L2PcInstance) activeChar).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
+				if (activeChar.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
 				{
-					((L2PcInstance) activeChar).sendMessage("You are unable to attack players until level "
+					activeChar.sendMessage("You are unable to attack players until level "
 							+ String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL) + ".");
 					continue;
 				}
-				else if (((L2PcInstance) target).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
+				else if (target.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
 				{
-					((L2PcInstance) target).sendMessage("Player's level is below " + String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)
+					target.sendMessage("Player's level is below " + String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)
 							+ ", so he cannot be attacked.");
 					continue;
 				}
@@ -250,13 +250,13 @@ public class Pdam implements ISkillHandler
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
 					sm.addCharName(target);
-					((L2PcInstance) activeChar).sendPacket(sm);
+					activeChar.sendPacket(sm);
 				}
 				if (target instanceof L2PcInstance)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
 					sm.addCharName(activeChar);
-					((L2PcInstance) target).sendPacket(sm);
+					target.sendPacket(sm);
 				}
 
 				// Possibility of a lethal strike despite skill is evaded

@@ -507,7 +507,6 @@ public class AdminSkill implements IAdminCommandHandler
 		}
 
 		activeChar.sendMessage("Error: there is no such skill.");
-		return;
 	}
 
 	public void castSkill(L2PcInstance activeChar, String val)

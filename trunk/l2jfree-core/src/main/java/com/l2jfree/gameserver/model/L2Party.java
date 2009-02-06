@@ -75,7 +75,7 @@ public class L2Party
 	/**
 	 * constructor ensures party has always one member - leader
 	 * @param leader
-	 * @param itemDistributionMode
+	 * @param itemDistribution
 	 */
 	public L2Party(L2PcInstance leader, int itemDistribution) 
 	{
@@ -235,7 +235,9 @@ public class L2Party
 
 	/**
 	 * Broadcasts packet to every party member 
-	 * @param msg
+	 * @param type
+     * @param name
+     * @param text
 	 */
 	public void broadcastSnoopToPartyMembers(int type, String name, String text)
 	{
@@ -507,8 +509,8 @@ public class L2Party
 	
 	/**
 	 * returns all party members except for player
-	 * @param receives the L2PcInstance player that needs the view
-	 * @param receives boolean is the player a party leader
+	 * @param player the L2PcInstance player that needs the view
+	 * @param leader boolean is the player a party leader
 	 * @return List<L2PcInstance> of the party members that need to be shown
 	 */
 	public FastList<L2PcInstance> getPartyMembers(L2PcInstance player, boolean leader)
@@ -808,7 +810,7 @@ public class L2Party
 						int addsp = (int)member.calcStat(Stats.EXPSP_RATE, spReward * preCalculationSp, null, null);
 						if (target != null && member instanceof L2PcInstance)
 						{
-							int soulMasteryLevel = ((L2PcInstance)member).getSkillLevel(L2Skill.SKILL_SOUL_MASTERY);
+							int soulMasteryLevel = member.getSkillLevel(L2Skill.SKILL_SOUL_MASTERY);
 							// Soul Mastery skill
 							if (soulMasteryLevel > 0)
 							{

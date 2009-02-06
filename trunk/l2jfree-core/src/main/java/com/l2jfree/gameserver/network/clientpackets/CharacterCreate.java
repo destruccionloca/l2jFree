@@ -62,13 +62,10 @@ public class CharacterCreate extends L2GameClientPacket
 	private byte _hairColor;
 	private byte _face;
 
-	private static Object _lock = new Object();
+	private static final Object _lock = new Object();
 
 	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
-	
-	/**
-	 * @param decrypt
-	 */
+
 	@Override
 	protected void readImpl()
 	{

@@ -581,11 +581,8 @@ public class L2NpcInstance extends L2Character
 	protected boolean canInteract(L2PcInstance player)
 	{
 		// TODO: NPC busy check etc...
-		if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
-			return false;
-
-		return true;
-	}
+        return isInsideRadius(player, INTERACTION_DISTANCE, false, false);
+    }
 
 	/**
 	 * Manage actions when a player click on the L2NpcInstance.<BR><BR>
@@ -726,7 +723,6 @@ public class L2NpcInstance extends L2Character
 		{
 			_log.error("Error: L2NpcInstance--> onAction(){" + e.toString() + "}\n\n", e);
 			player.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
 		}
 	}
 
@@ -745,7 +741,7 @@ public class L2NpcInstance extends L2Character
 	 * <B><U> Example of use </U> :</B><BR><BR>
 	 * <li> Client packet : Action</li><BR><BR>
 	 *
-	 * @param client The thread that manage the player that pessed Shift and click on the L2NpcInstance
+	 * @param player The thread that manage the player that pessed Shift and click on the L2NpcInstance
 	 *
 	 */
 	@Override
@@ -791,7 +787,7 @@ public class L2NpcInstance extends L2Character
 			html1.append("<tr><td>Castle</td><td>" + getCastle().getCastleId() + "</td><td>Coords</td><td>" + getX() + "," + getY() + "," + getZ()
 					+ "</td></tr>");
 			html1.append("<tr><td>Level</td><td>" + getLevel() + "</td><td>Aggro</td><td>"
-					+ ((this instanceof L2Attackable) ? ((L2Attackable) this).getAggroRange() : 0) + "</td></tr>");
+					+ ((this instanceof L2Attackable) ? this.getAggroRange() : 0) + "</td></tr>");
 			html1.append("</table><br>");
 
 			html1.append("<font color=\"LEVEL\">Combat</font>");
@@ -2949,12 +2945,12 @@ public class L2NpcInstance extends L2Character
 	{
 		if (_inventory == null)
 			return false;
+
 		if (physical && _inventory.sshotInUse)
 			return true;
-		if (!physical && _inventory.bshotInUse)
-			return true;
-		return false;
-	}
+
+        return !physical && _inventory.bshotInUse;
+    }
 
 	@Override
 	public NpcInventory getInventory()

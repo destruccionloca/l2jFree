@@ -40,7 +40,7 @@ public class ValueSortMap
 	 */
 	public static LinkedHashMap sortMapByValue(Map inMap, boolean ascendingOrder)
 	{
-		return sortMapByValue(inMap, null, new Boolean(ascendingOrder));
+		return sortMapByValue(inMap, null, ascendingOrder);
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class ValueSortMap
 			// If Boolean ascendingOrder is null, use passed comparator for order of sorting values
 			Collections.sort(valueList, comparator);
 		}
-		else if (ascendingOrder.booleanValue())
+		else if (ascendingOrder)
 		{
 			// If Boolean ascendingOrder is not null and is true, sort values in ascending order  
 			Collections.sort(valueList);
@@ -142,7 +142,7 @@ public class ValueSortMap
 					hmNullValueMap.put(key, value); // Keep all null values in a new temp Map
 			}
 
-			if (ascendingOrder != null && !ascendingOrder.booleanValue())
+			if (ascendingOrder != null && !ascendingOrder)
 			{
 				// As it is descending order, Add Null Values in first place of the LinkedHasMap
 				sortedMap.putAll(hmNullValueMap);
@@ -157,7 +157,7 @@ public class ValueSortMap
 				sortedMap.put(key, value);
 			}
 
-			if (ascendingOrder == null || ascendingOrder.booleanValue())
+			if (ascendingOrder == null || ascendingOrder)
 			{
 				// Add Null Values in the last of the LinkedHasMap
 				sortedMap.putAll(hmNullValueMap);
@@ -179,7 +179,7 @@ public class ValueSortMap
 					hmNullValueMap.put(key, value); // Keep all null values in a new temp Map
 			}
 
-			if (ascendingOrder != null && !ascendingOrder.booleanValue())
+			if (ascendingOrder != null && !ascendingOrder)
 			{
 				// As it is descending order, Add Null Values in first place of the LinkedHasMap
 				sortedMap.putAll(hmNullValueMap);
@@ -206,7 +206,7 @@ public class ValueSortMap
 				}
 			}
 
-			if (ascendingOrder == null || ascendingOrder.booleanValue())
+			if (ascendingOrder == null || ascendingOrder)
 			{
 				// Add Null Values in the last of the LinkedHasMap
 				sortedMap.putAll(hmNullValueMap);

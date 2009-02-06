@@ -130,7 +130,7 @@ public class DynamicExtension
 		{
 			Class<?> extension = Class.forName(className, true, classLoader);
 			Object obj = extension.newInstance();
-			extension.getMethod("init", new Class[0]).invoke(obj, new Object[0]);
+			extension.getMethod("init", new Class[0]).invoke(obj);
 			_log.info("Extension " + className + " loaded.");
 			_loadedExtensions.put(className, obj);
 		}
@@ -179,7 +179,7 @@ public class DynamicExtension
 			Object obj = _loadedExtensions.get(className);
 			Class<?> extension = obj.getClass();
 			_loadedExtensions.remove(className);
-			extension.getMethod("unload", new Class[0]).invoke(obj, new Object[0]);
+			extension.getMethod("unload", new Class[0]).invoke(obj);
 			_log.info("Extension " + className + " unloaded.");
 		}
 		catch (Exception ex)

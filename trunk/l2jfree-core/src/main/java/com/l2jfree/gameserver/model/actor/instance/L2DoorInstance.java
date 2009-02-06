@@ -283,7 +283,7 @@ public class L2DoorInstance extends L2Character
 	 * instance. <BR>
 	 * <B>Note:</B> A value of -1 cancels the auto open/close task.
 	 * 
-	 * @param int
+	 * @param actionDelay
 	 *            actionDelay
 	 */
 	public void setAutoActionDelay(int actionDelay)
@@ -367,10 +367,8 @@ public class L2DoorInstance extends L2Character
 	{
 		if (getCastle() != null && getCastle().getSiege().getIsInProgress())
 			return true;
-		if (getFort() != null && getFort().getSiege().getIsInProgress())
-			return true;
-		return false;
-	}
+        return getFort() != null && getFort().getSiege().getIsInProgress();
+    }
 
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)
@@ -543,7 +541,6 @@ public class L2DoorInstance extends L2Character
 					else
 					{
 						player.sendPacket(new ConfirmDlg(1141));
-						;
 					}
 				}
 			}
@@ -563,7 +560,6 @@ public class L2DoorInstance extends L2Character
 					else
 					{
 						player.sendPacket(new ConfirmDlg(1141));
-						;
 					}
 				}
 			}

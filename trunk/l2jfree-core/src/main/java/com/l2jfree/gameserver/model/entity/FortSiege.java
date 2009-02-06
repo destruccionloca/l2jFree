@@ -301,7 +301,6 @@ public class FortSiege
 				addDefender(sc_newowner, SiegeClanType.OWNER);
 			}
 			endSiege();
-			return;
 		}
 	}
 
@@ -731,7 +730,7 @@ public class FortSiege
 
 	/**
 	 * Remove clan from siege<BR><BR>
-	 * @param player The L2PcInstance of player/clan being removed
+	 * @param clan
 	 */
 	public void removeSiegeClan(L2Clan clan)
 	{
@@ -807,7 +806,6 @@ public class FortSiege
 		default:
 			players = getPlayersInZone();
 		}
-		;
 
 		for (L2PcInstance player : players)
 		{

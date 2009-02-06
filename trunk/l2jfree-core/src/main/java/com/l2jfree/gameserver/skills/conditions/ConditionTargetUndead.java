@@ -36,9 +36,9 @@ public class ConditionTargetUndead extends Condition
 		if (target == null)
 			return false;
 		if (target instanceof L2MonsterInstance)
-			return ((L2MonsterInstance) target).isUndead() == _isUndead;
+			return target.isUndead() == _isUndead;
 		if (target instanceof L2SummonInstance)
-			return ((L2SummonInstance) target).isUndead() == _isUndead;
+			return target.isUndead() == _isUndead;
 
 		return false;
 	}

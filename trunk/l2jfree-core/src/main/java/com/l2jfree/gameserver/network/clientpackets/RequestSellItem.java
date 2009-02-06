@@ -63,7 +63,6 @@ public class RequestSellItem extends L2GameClientPacket
 	 * 01 00 00 00		// item count
 	 * 
 	 * format:		cdd (ddd)
-	 * @param decrypt
 	 */
     @Override
     protected void readImpl()
@@ -78,7 +77,7 @@ public class RequestSellItem extends L2GameClientPacket
         _items = new int[_count * 3];
         for (int i = 0; i < _count; i++)
         {
-            int objectId = readD(); _items[i * 3 + 0] = objectId;
+            int objectId = readD(); _items[(i * 3)] = objectId;
             int itemId   = readD(); _items[i * 3 + 1] = itemId;
             long cnt      = readD(); 
             if (cnt >= Integer.MAX_VALUE || cnt <= 0)
@@ -156,7 +155,7 @@ public class RequestSellItem extends L2GameClientPacket
 		// Proceed the sell
 		for (int i = 0; i < _count; i++)
 		{
-			int objectId = _items[i * 3 + 0];
+			int objectId = _items[(i * 3)];
 			@SuppressWarnings("unused")
 			int itemId   = _items[i * 3 + 1];
 			int count   = _items[i * 3 + 2];

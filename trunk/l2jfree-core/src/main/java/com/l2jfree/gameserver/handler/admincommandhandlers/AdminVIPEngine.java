@@ -59,7 +59,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_setteam "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -80,7 +80,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_randomteam"))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -92,7 +92,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_settime "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -113,7 +113,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_endnpc "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -134,7 +134,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_joinnpc "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -155,7 +155,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_setdelay "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -179,7 +179,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_joinlocxyz "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -200,7 +200,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_joinnpc "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -221,7 +221,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_setarea "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -241,7 +241,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_vipreward "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -262,7 +262,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_viprewardamount "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -283,7 +283,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_notvipreward "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -304,7 +304,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_notviprewardamount "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -325,7 +325,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_thevipreward "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;
@@ -346,7 +346,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 
 		else if (command.startsWith("admin_vip_theviprewardamount "))
 		{
-			if (VIP._started == true || VIP._joining == true)
+			if (VIP._started || VIP._joining)
 			{
 				activeChar.sendMessage("Cannot change variables when event has already started");
 				return false;

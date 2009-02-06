@@ -739,7 +739,7 @@ abstract class DocumentBase
 			if (template instanceof L2Skill)
 				return getTableValue(value);
 			else if (template instanceof Integer)
-				return getTableValue(value, ((Integer) template).intValue());
+				return getTableValue(value, (Integer) template);
 			else
 				throw new IllegalStateException();
 		}

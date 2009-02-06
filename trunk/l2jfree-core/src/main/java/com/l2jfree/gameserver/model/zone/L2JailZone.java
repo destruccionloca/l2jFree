@@ -33,7 +33,7 @@ public class L2JailZone extends L2DefaultZone
 			if (Config.JAIL_IS_PVP)
 			{
 				character.setInsideZone(FLAG_PVP, true);
-				((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
+				character.sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 			}
 		}
 
@@ -50,13 +50,13 @@ public class L2JailZone extends L2DefaultZone
 			if (Config.JAIL_IS_PVP)
 			{
 				character.setInsideZone(FLAG_PVP, false);
-				((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+				character.sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 			}
 			if (((L2PcInstance) character).isInJail())
 			{// This is for when a player tries to bug his way out of jail
-				((L2PcInstance) character).teleToLocation(-114356, -249645, -2984, false); // Jail
-				((L2PcInstance) character).sendMessage("You dare try and escape from jail before your time is up? Think again!");
-				String msg = "Player: " + ((L2PcInstance) character).getName() + " tried to escape from jail.";
+				character.teleToLocation(-114356, -249645, -2984, false); // Jail
+				character.sendMessage("You dare try and escape from jail before your time is up? Think again!");
+				String msg = "Player: " + character.getName() + " tried to escape from jail.";
 				_log.warn(msg);
 				GmListTable.broadcastMessageToGMs(msg);
 			}

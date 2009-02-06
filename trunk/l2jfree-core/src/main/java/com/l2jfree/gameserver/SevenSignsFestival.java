@@ -783,7 +783,7 @@ public class SevenSignsFestival implements SpawnListener
 	/**
 	 * Returns the associated name (level range) to a given festival ID.
 	 * 
-	 * @param int
+	 * @param festivalID
 	 *            festivalID
 	 * @return String festivalName
 	 */
@@ -865,11 +865,8 @@ public class SevenSignsFestival implements SpawnListener
 	 */
 	public static final boolean isFestivalChest(int npcId)
 	{
-		if (npcId < 18109 || npcId > 18118)
-			return false;
-
-		return true;
-	}
+        return !(npcId < 18109 || npcId > 18118);
+    }
 
 	/**
 	 * Primarily used to terminate the Festival Manager, when the Seven Signs period changes.

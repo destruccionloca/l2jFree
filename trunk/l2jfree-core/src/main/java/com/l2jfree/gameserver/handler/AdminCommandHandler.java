@@ -131,7 +131,7 @@ public class AdminCommandHandler
 			if (_log.isDebugEnabled())
 				_log.debug("Adding handler for command " + element);
 
-			if (_datatable.keySet().contains(new String(element)))
+			if (_datatable.keySet().contains(element))
 			{
 				_log.warn("Duplicated command \"" + element + "\" definition in " + handler.getClass().getName() + ".");
 			}

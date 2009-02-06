@@ -112,9 +112,7 @@ public class Instance
 
 	public boolean containsPlayer(int objectId)
 	{
-		if (_players.contains(objectId))
-			return true;
-		return false;
+        return _players.contains(objectId);
 	}
 
 	public void addPlayer(int objectId)

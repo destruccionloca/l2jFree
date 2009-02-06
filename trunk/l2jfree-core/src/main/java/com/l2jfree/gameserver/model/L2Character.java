@@ -598,10 +598,8 @@ public abstract class L2Character extends L2Object
 
 	/**
 	 * @author Darki699 Calculates if a L2Character is falling or not. If the character falls, it returns the fall height.
-	 * @param boolean
-	 *            falling: if false no checks are made, but last position is set to the current one
-	 * @param int
-	 *            fallHeight: an integer value of the fall already calculated before.
+	 * @param  falling: if false no checks are made, but last position is set to the current one
+	 * @param  fallHeight: an integer value of the fall already calculated before.
 	 * @return A positive integer of the fall height, if not falling returns -1
 	 */
 	public int isFalling(boolean falling, int fallHeight)
@@ -667,7 +665,6 @@ public abstract class L2Character extends L2Object
 	 * <font color="ff0000"><b>Needs to be completed!</b></font> Add to safeFallHeight the buff resist values which increase the fall resistance.
 	 *
 	 * @author Darki699
-	 * @see Returns the integer representation of the height from which above it this L2Character suffers fall damage.
 	 * @return integer safeFallHeight is the value from which above it this L2Character suffers a fall damage.
 	 */
 	private int fallSafeHeight()
@@ -725,15 +722,13 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Receives a integer fallHeight and finalizes the damage effect from the fall.
 	 *
-	 * @param integer
-	 *            fallHeight representation of the fall
 	 * @author Darki699
 	 */
 	private void doFallDamage(int fallHeight)
 	{
 		isFalling(false, 0);
 
-		if (isInvul() || (this instanceof L2PcInstance && ((L2PcInstance) this).isInFunEvent()))
+		if (isInvul() || (this instanceof L2PcInstance && this.isInFunEvent()))
 		{
 			setIsFallsdown(false);
 			return;
@@ -858,13 +853,13 @@ public abstract class L2Character extends L2Object
 
 			if (target instanceof L2PcInstance)
 			{
-				if (((L2PcInstance) target).isCursedWeaponEquipped() && ((L2PcInstance) this).getLevel() <= 20)
+				if (((L2PcInstance) target).isCursedWeaponEquipped() && this.getLevel() <= 20)
 				{
 					sendMessage("Can't attack a cursed player when under level 21.");
 					sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
-				if (((L2PcInstance) this).isCursedWeaponEquipped() && ((L2PcInstance) target).getLevel() <= 20)
+				if (((L2PcInstance) this).isCursedWeaponEquipped() && target.getLevel() <= 20)
 				{
 					sendMessage("Can't attack a newbie player using a cursed weapon.");
 					sendPacket(ActionFailed.STATIC_PACKET);
@@ -2039,7 +2034,7 @@ public abstract class L2Character extends L2Object
 		}
 		case SUMMON:
 		{
-			if (!skill.isCubic() && this instanceof L2PcInstance && (((L2PcInstance) this).getPet() != null || ((L2PcInstance) this).isMounted()))
+			if (!skill.isCubic() && this instanceof L2PcInstance && (this.getPet() != null || ((L2PcInstance) this).isMounted()))
 			{
 				if (_log.isDebugEnabled())
 					_log.info("player has a pet already. ignore summon skill");
@@ -2378,7 +2373,7 @@ public abstract class L2Character extends L2Object
 	{
 		L2CharacterAI oldAI = getAI();
 		if (oldAI != null && oldAI != newAI && oldAI instanceof L2AttackableAI)
-			((L2AttackableAI) oldAI).stopAITask();
+			oldAI.stopAITask();
 		_ai = newAI;
 	}
 
@@ -3454,7 +3449,7 @@ public abstract class L2Character extends L2Object
 	 * _effects is the L2Skill Identifier that has created the L2Effect.<BR>
 	 * <BR>
 	 *
-	 * @param effectId
+	 * @param skillId
 	 *            The L2Skill Identifier of the L2Effect to remove from _effects
 	 */
 	public final void stopSkillEffects(int skillId)
@@ -4066,12 +4061,12 @@ public abstract class L2Character extends L2Object
 		MoveData m = _move;
 		if (m == null)
 			return false;
+
 		if (m.onGeodataPathIndex == -1)
 			return false;
-		if (m.onGeodataPathIndex == m.geoPath.size() - 1)
-			return false;
-		return true;
-	}
+
+        return m.onGeodataPathIndex != m.geoPath.size() - 1;
+    }
 
 	/**
 	 * Add a Func to the Calculator set of the L2Character.<BR>
@@ -4718,8 +4713,8 @@ public abstract class L2Character extends L2Object
 			short geoHeight = GeoData.getInstance().getSpawnHeight(xPrev, yPrev, zPrev-30, zPrev+30, getObjectId());
 			dz = m._zDestination - geoHeight;
 			// quite a big difference, compare to validatePosition packet
-			if (this instanceof L2PcInstance && Math.abs(((L2PcInstance)this).getClientZ() - geoHeight) > 200
-					&& Math.abs(((L2PcInstance)this).getClientZ() - geoHeight) < 1500)
+			if (this instanceof L2PcInstance && Math.abs(this.getClientZ() - geoHeight) > 200
+					&& Math.abs(this.getClientZ() - geoHeight) < 1500)
 			{
 				dz = m._zDestination - zPrev; // allow diff 
 			}
@@ -5442,7 +5437,6 @@ public abstract class L2Character extends L2Object
 	 * @param strictCheck
 	 *            true if (distance < radius), false if (distance <= radius)
 	 * @return true is the L2Character is inside the radius.
-	 * @see com.l2jfree.gameserver.model.L2Character.isInsideRadius(int x, int y, int z, int radius, boolean checkZ, boolean strictCheck)
 	 */
 	public final boolean isInsideRadius(L2Object object, int radius, boolean checkZ, boolean strictCheck)
 	{

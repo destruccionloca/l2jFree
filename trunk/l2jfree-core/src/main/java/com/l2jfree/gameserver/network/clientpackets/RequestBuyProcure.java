@@ -61,7 +61,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
 		for (int i = 0; i < _count; i++)
 		{
 			long servise = readD();
-			int itemId   = readD(); _items[i * 2 + 0] = itemId;
+			int itemId   = readD(); _items[(i * 2)] = itemId;
 			long cnt      = readD(); 
 			if (cnt >= Integer.MAX_VALUE || cnt < 1)
 			{
@@ -101,7 +101,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
 
 		for (int i = 0; i < _count; i++)
 		{
-			int itemId = _items[i * 2 + 0];
+			int itemId = _items[(i * 2)];
 			int count  = _items[i * 2 + 1];
 			int price = 0;
 			
@@ -140,7 +140,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
 
 		for (int i=0; i < _count; i++)
 		{
-			int itemId = _items[i * 2 + 0];
+			int itemId = _items[(i * 2)];
 			int count  = _items[i * 2 + 1];
 			if (count < 0) count = 0;
                         

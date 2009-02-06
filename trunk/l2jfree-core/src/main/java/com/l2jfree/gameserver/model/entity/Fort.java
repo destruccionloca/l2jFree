@@ -398,7 +398,6 @@ public class Fort extends Siegeable
 			door.getStatus().setCurrentHp(door.getMaxHp() + hp);
 
 			saveDoorUpgrade(doorId, hp, pDef, mDef);
-			return;
 		}
 	}
 

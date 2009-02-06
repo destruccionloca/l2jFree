@@ -82,7 +82,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 		_attackTimeout = Integer.MAX_VALUE;
 		_globalAggro = -10; // 10 seconds timeout of ATTACK after respawn
 
-		_attackRange = ((L2Attackable) _actor).getPhysicalAttackRange();
+		_attackRange = _actor.getPhysicalAttackRange();
 	}
 
 	public void run()
@@ -311,7 +311,6 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 		}
 		// Order to the L2SiegeGuardInstance to return to its home location because there's no target to attack
 		((L2SiegeGuardInstance) _actor).returnHome();
-		return;
 	}
 
 	/**
@@ -607,9 +606,6 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 					}
 				}
 			}
-
-			return;
-
 		}
 		// Else, if the actor is muted and far from target, just "move to pawn"
 		else if (_actor.isMuted() && dist_2 > range * range && !_selfAnalysis.isHealer)
@@ -626,7 +622,6 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				else
 					moveToPawn(attackTarget, range);
 			}
-			return;
 		}
 		// Else, if this is close enough to attack
 		else if (dist_2 <= range * range)
@@ -769,7 +764,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	 * <li>Add the target to the actor _aggroList or update hate if already present </li>
 	 * <li>Set the actor Intention to AI_INTENTION_ATTACK (if actor is L2GuardInstance check if it isn't too far from its home location)</li><BR><BR>
 	 * 
-	 * @param attacker The L2Character that attacks
+	 * @param target The L2Character that attacks
 	 * @param aggro The value of hate to add to the actor against the target
 	 * 
 	 */

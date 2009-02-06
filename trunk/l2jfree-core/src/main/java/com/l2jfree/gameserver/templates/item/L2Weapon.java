@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.templates.item;
 
-import java.util.List;
+import java.util.List;import java.util.Arrays;
 
 import javolution.util.FastList;
 
@@ -407,8 +407,7 @@ public final class L2Weapon extends L2Equip
 			L2Effect effect = target.getFirstEffect(skill.getId());
 			if (effect != null)
 				effect.exit();
-			for (L2Effect e : skill.getEffects(caster, target))
-				effects.add(e);
+            effects.addAll(Arrays.asList(skill.getEffects(caster, target)));
 		}
 		if (effects.size() == 0)
 			return L2Equip.EMPTY_EFFECT_SET;

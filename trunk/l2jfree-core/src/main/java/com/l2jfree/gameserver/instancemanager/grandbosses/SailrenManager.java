@@ -188,7 +188,7 @@ public class SailrenManager extends BossLair
 	// Whether it is permitted to enter the sailren's lair is confirmed. 
 	public int canIntoSailrenLair(L2PcInstance pc)
 	{
-		if ((Config.FWS_ENABLESINGLEPLAYER == false) && (pc.getParty() == null))
+		if ((!Config.FWS_ENABLESINGLEPLAYER) && (pc.getParty() == null))
 			return 4;
 		else if (_isAlreadyEnteredOtherParty)
 			return 2;

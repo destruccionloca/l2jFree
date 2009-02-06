@@ -43,7 +43,7 @@ public final class L2Henna
 		_statDEX	= set.getInteger("stat_DEX");
 		_statWIT	= set.getInteger("stat_WIT");
 		
-		String name = new String();
+		String name = "";
 		
 		if (_statINT > 0) name += "INT +"+_statINT;
 		if (_statSTR > 0) name += "STR +"+_statSTR;

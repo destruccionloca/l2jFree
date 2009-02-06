@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.gameserver.templates.item.L2Item;import java.util.Arrays;
 
 /**
  * 0x53 WareHouseDepositList  dh (h dddhh dhhh d)
@@ -49,9 +49,8 @@ public class WareHouseDepositList extends L2GameServerPacket
 		_whType = type;
 		_activeCharAdena = _activeChar.getAdena();
 		_items = new FastList<L2ItemInstance>();
-		
-		for (L2ItemInstance temp : _activeChar.getInventory().getAvailableItems(true))
-			_items.add(temp);
+
+        _items.addAll(Arrays.asList(_activeChar.getInventory().getAvailableItems(true)));
 		
 		// non-tradeable, augmented and shadow items can be stored in private wh
 		if (_whType == PRIVATE)

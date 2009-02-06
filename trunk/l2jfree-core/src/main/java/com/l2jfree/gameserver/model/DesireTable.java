@@ -33,7 +33,7 @@ public class DesireTable
                                                         DesireType.HATE, DesireType.DAMAGE};
 
     public enum DesireType {
-        FEAR, DISLIKE, HATE, DAMAGE;
+        FEAR, DISLIKE, HATE, DAMAGE
     }
 
     class DesireValue

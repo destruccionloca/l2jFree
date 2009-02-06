@@ -238,7 +238,6 @@ public class L2FolkInstance extends L2NpcInstance
 	 * Show the list of enchanted skills for changing enchantment route
 	 * 
 	 * @param player
-	 * @param classId
 	 */
 	public void showEnchantChangeSkillList(L2PcInstance player)
 	{
@@ -328,7 +327,6 @@ public class L2FolkInstance extends L2NpcInstance
 		}
 
 		int npcId = getTemplate().getNpcId();
-		;
 
 		if (_classesToTeach == null)
 		{

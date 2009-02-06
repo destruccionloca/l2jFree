@@ -445,7 +445,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		for (CharSelectInfoPackage element : chars)
 		{
 			int objectId = element.getObjectId();
-			_charSlotMapping.add(Integer.valueOf(objectId));
+			_charSlotMapping.add(objectId);
 		}
 	}
 
@@ -466,7 +466,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 			return -1;
 		}
 		Integer objectId = _charSlotMapping.get(charslot);
-		return objectId.intValue();
+		return objectId;
 	}
 
 	@Override

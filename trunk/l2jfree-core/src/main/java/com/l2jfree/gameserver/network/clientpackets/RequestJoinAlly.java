@@ -94,7 +94,6 @@ public class RequestJoinAlly extends L2GameClientPacket
 
 		sm = new SystemMessage(SystemMessageId.YOU_INVITED_FOR_ALLIANCE);
 		activeChar.sendPacket(sm);
-		return;
 	}
 	
 	

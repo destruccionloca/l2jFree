@@ -744,7 +744,7 @@ public class Disablers implements ICubicSkillHandler
 								int skillrate = 100;
 								int level = e.getLevel();
 								if (level > 0)
-									skillrate = Integer.valueOf(200 / (1 + level));
+									skillrate = 200 / (1 + level);
 								if (skillrate > 95)
 									skillrate = 95;
 								else if (skillrate < 5)

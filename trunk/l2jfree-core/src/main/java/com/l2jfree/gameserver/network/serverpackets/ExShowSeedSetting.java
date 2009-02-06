@@ -68,7 +68,7 @@ public class ExShowSeedSetting extends L2GameServerPacket
 		int i=0;
 		for (int s : seeds)
 		{
-			_seedData[i*12 + 0] = s;
+			_seedData[(i * 12)] = s;
 			_seedData[i*12 + 1] = L2Manor.getInstance().getSeedLevel(s);
 			_seedData[i*12 + 2] = L2Manor.getInstance().getRewardItemBySeed(s, 1);
 			_seedData[i*12 + 3] = L2Manor.getInstance().getRewardItemBySeed(s, 2);
@@ -113,7 +113,7 @@ public class ExShowSeedSetting extends L2GameServerPacket
 
 		for (int i=0; i< _count; i++)
 		{
-			writeD(_seedData[i*12 + 0]);  // seed id
+			writeD(_seedData[(i * 12)]);  // seed id
 			writeD(_seedData[i*12 + 1]);  // level
 			writeC(1);
 			writeD(_seedData[i*12 + 2]);  // reward 1 id

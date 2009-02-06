@@ -52,7 +52,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         for (int x = 0; x < _count ; x++)
         {
             int objectId = readD();
-            _items[x * 3 + 0] = objectId; 
+            _items[(x * 3)] = objectId;
             long cnt      = readD(); 
             if (cnt >= Integer.MAX_VALUE || cnt < 0)
             {
@@ -93,7 +93,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 
         for (int i = 0; i < _count; i++)
         {
-            int objectId = _items[i * 3 + 0];
+            int objectId = _items[(i * 3)];
             int count    = _items[i * 3 + 1];
             int price    = _items[i * 3 + 2];
 

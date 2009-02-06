@@ -91,7 +91,7 @@ public class LevelUpData
 				lvlDat.setClassMpAdd(rset.getFloat(MP_ADD));
 				lvlDat.setClassMpModifier(rset.getFloat(MP_MOD));
 
-				_lvlTable.put(Integer.valueOf(lvlDat.getClassid()), lvlDat);
+				_lvlTable.put(lvlDat.getClassid(), lvlDat);
 			}
 
 			rset.close();
@@ -107,7 +107,7 @@ public class LevelUpData
 	}
 
 	/**
-	 * @param template id
+	 * @param classId
 	 * @return
 	 */
 	public L2LvlupData getTemplate(int classId)

@@ -79,7 +79,7 @@ public final class L2Augmentation
 				return;
 
 			for (int i = 0; i < _stats.length; i++)
-				((L2Character) player).addStatFunc(new FuncAdd(_stats[i], 0x40, this, new LambdaConst(_values[i])));
+				player.addStatFunc(new FuncAdd(_stats[i], 0x40, this, new LambdaConst(_values[i])));
 
 			_active = true;
 		}
@@ -90,7 +90,7 @@ public final class L2Augmentation
 			if (!_active)
 				return;
 
-			((L2Character) player).removeStatsOwner(this);
+			player.removeStatsOwner(this);
 
 			_active = false;
 		}

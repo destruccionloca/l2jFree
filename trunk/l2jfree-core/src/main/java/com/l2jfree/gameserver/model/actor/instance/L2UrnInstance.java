@@ -114,8 +114,6 @@ public final class L2UrnInstance extends L2FolkInstance
             html.replace("%objectId%", String.valueOf(getObjectId()));
             html.replace("%npcname%", getName());
             player.sendPacket(html);
-
-            return;
         }
         else if (actualCommand.equalsIgnoreCase("make_high"))
         {
@@ -137,8 +135,6 @@ public final class L2UrnInstance extends L2FolkInstance
             html.replace("%objectId%", String.valueOf(getObjectId()));
             html.replace("%npcname%", getName());
             player.sendPacket(html);
-
-            return;
         }
         else if (actualCommand.equalsIgnoreCase("urn_stone"))
         {
@@ -162,8 +158,6 @@ public final class L2UrnInstance extends L2FolkInstance
             html.replace("%objectId%", String.valueOf(getObjectId()));
             html.replace("%npcname%", getName());
             player.sendPacket(html);
-            
-            return;
         }
         else if (actualCommand.equalsIgnoreCase("urn_mix"))
         {
@@ -240,7 +234,6 @@ public final class L2UrnInstance extends L2FolkInstance
         {
             showFailureWindow(player);
         }
-        return;
     }
     
     public void takeUrnItems(L2PcInstance player, int itemId, int count) 

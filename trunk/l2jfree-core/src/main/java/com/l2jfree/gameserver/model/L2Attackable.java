@@ -694,14 +694,14 @@ public class L2Attackable extends L2NpcInstance
 
 					// If the attacker is a Pet, get the party of the owner
 					if (attacker instanceof L2PetInstance)
-						attackerParty = ((L2PetInstance) attacker).getParty();
+						attackerParty = attacker.getParty();
 					else if (attacker instanceof L2PcInstance)
-						attackerParty = ((L2PcInstance) attacker).getParty();
+						attackerParty = attacker.getParty();
 					else
 						return;
 
 					// If this attacker is a L2PcInstance with a summoned L2SummonInstance, get Exp Penalty applied for the current summoned L2SummonInstance
-					if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getPet() instanceof L2SummonInstance)
+					if (attacker instanceof L2PcInstance && attacker.getPet() instanceof L2SummonInstance)
 					{
 						penalty = ((L2SummonInstance) ((L2PcInstance) attacker).getPet()).getExpPenalty();
 					}
@@ -755,7 +755,7 @@ public class L2Attackable extends L2NpcInstance
 								if (attacker instanceof L2PcInstance && !(this instanceof L2ChestInstance))
 								{
 									// Soul Mastery skill
-									int soulMasteryLevel = ((L2PcInstance) attacker).getSkillLevel(L2Skill.SKILL_SOUL_MASTERY);
+									int soulMasteryLevel = attacker.getSkillLevel(L2Skill.SKILL_SOUL_MASTERY);
 									if (soulMasteryLevel > 0)
 									{
 										L2Skill skill = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, soulMasteryLevel);
@@ -2249,7 +2249,7 @@ public class L2Attackable extends L2NpcInstance
 		//Init some useful vars  
 		boolean isSuccess = true;
 		boolean doLevelup = true;
-		boolean isBossMob = maxAbsorbLevel > 10 ? true : false;
+		boolean isBossMob = maxAbsorbLevel > 10;
 
 		L2NpcTemplate.AbsorbCrystalType absorbType = getTemplate().getAbsorbType();
 
@@ -2575,9 +2575,9 @@ public class L2Attackable extends L2NpcInstance
 		if (!isInActiveRegion())
 		{
 			if (this instanceof L2SiegeGuardInstance)
-				((L2SiegeGuardAI) getAI()).stopAITask();
+				getAI().stopAITask();
 			else
-				((L2AttackableAI) getAI()).stopAITask();
+				getAI().stopAITask();
 		}
 	}
 

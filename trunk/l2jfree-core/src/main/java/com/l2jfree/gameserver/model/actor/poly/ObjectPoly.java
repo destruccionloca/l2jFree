@@ -71,7 +71,7 @@ public class ObjectPoly
     public final void setPolyType(String value) { _polyType = value; }
     
     public final void setNotMorphed(){_polyType = null;}
-    public final boolean isFirstMorph(){return getFirstMorph();};
+    public final boolean isFirstMorph(){return getFirstMorph();}
              
     public final int getBaseId() { return _baseId; }
     public final void setBaseId(int value) { _baseId = value; }

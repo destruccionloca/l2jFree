@@ -63,7 +63,7 @@ public final class StatsSet
 		if (val == null)
 			throw new IllegalArgumentException("Boolean value required, but not specified");
 		if (val instanceof Boolean)
-			return ((Boolean) val).booleanValue();
+			return (Boolean) val;
 		try
 		{
 			return Boolean.parseBoolean((String) val);
@@ -87,7 +87,7 @@ public final class StatsSet
 		if (val == null)
 			return deflt;
 		if (val instanceof Boolean)
-			return ((Boolean) val).booleanValue();
+			return (Boolean) val;
 		try
 		{
 			return Boolean.parseBoolean((String) val);

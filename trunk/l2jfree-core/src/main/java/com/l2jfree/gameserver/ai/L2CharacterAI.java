@@ -80,7 +80,7 @@ public class L2CharacterAI extends AbstractAI
 	@Override
 	protected void onEvtAttacked(L2Character attacker)
 	{
-		if (!(attacker instanceof L2Attackable) || !((L2Attackable) attacker).isCoreAIDisabled())
+		if (!(attacker instanceof L2Attackable) || !attacker.isCoreAIDisabled())
 			clientStartAutoAttack();
 	}
 
@@ -1331,14 +1331,10 @@ public class L2CharacterAI extends AbstractAI
 				else
 					isFighter = true;
 			}
-			if (target.getRunSpeed() < _actor.getRunSpeed() - 3)
-				isSlower = true;
-			else
-				isSlower = false;
-			if (target.getMDef(null, null) * 1.2 > _actor.getMAtk(null, null))
-				isMagicResistant = true;
-			else
-				isMagicResistant = false;
+            isSlower = target.getRunSpeed() < _actor.getRunSpeed() - 3;
+
+            isMagicResistant = target.getMDef(null, null) * 1.2 > _actor.getMAtk(null, null);
+
 			if (target.getBuffCount() < 4)
 				isCanceled = true;
 		}

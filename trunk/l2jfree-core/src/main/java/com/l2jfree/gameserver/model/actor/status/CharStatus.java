@@ -84,7 +84,7 @@ public class CharStatus
 	 * <B><U> Example of use </U> :</B><BR><BR>
 	 * <li> Target a PC or NPC</li><BR><BR>
 	 *
-	 * @param object L2Character to add to the listener
+	 * @param player L2Character to add to the listener
 	 *
 	 */
 	public final void addStatusListener(L2PcInstance player)
@@ -115,7 +115,7 @@ public class CharStatus
 	 * <B><U> Overridden in </U> :</B><BR><BR>
 	 * <li> L2Attackable : Update the attacker AggroInfo of the L2Attackable _aggroList</li><BR><BR>
 	 *
-	 * @param i The HP decrease value
+	 * @param value The HP decrease value
 	 * @param attacker The L2Character who attacks
 	 *
 	 */
@@ -151,9 +151,10 @@ public class CharStatus
 	 * <B><U> Overridden in </U> :</B><BR><BR>
 	 * <li> L2Attackable : Update the attacker AggroInfo of the L2Attackable _aggroList</li><BR><BR>
 	 *
-	 * @param i The HP decrease value
+	 * @param value The HP decrease value
 	 * @param attacker The L2Character who attacks
 	 * @param awake The awake state (If True : stop sleeping)
+     * @param isDOT
 	 *
 	 */
 	public void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
@@ -345,7 +346,7 @@ public class CharStatus
 	 * <B><U> Example of use </U> :</B><BR><BR>
 	 * <li> Untarget a PC or NPC</li><BR><BR>
 	 *
-	 * @param object L2Character to add to the listener
+	 * @param player L2Character to add to the listener
 	 *
 	 */
 	public final void removeStatusListener(L2PcInstance player)
@@ -496,7 +497,7 @@ public class CharStatus
 	public final void setCurrentHp(double newHp, boolean broadcastPacket)
 	{
 		// Get the Max HP of the L2Character
-		double maxHp = getActiveChar().getStat().getMaxHp();;
+		double maxHp = getActiveChar().getStat().getMaxHp();
 		synchronized (this)
 		{
 			if (getActiveChar().isDead())

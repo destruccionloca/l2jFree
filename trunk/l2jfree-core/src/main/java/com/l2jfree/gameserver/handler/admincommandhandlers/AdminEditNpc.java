@@ -1677,8 +1677,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 
 			npcData.clearAllDropData();
 
-			PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[]
-			{ "mobId", "itemId", "min", "max", "category", "chance" }) + " FROM droplist WHERE mobId=?");
+			PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString("mobId", "itemId", "min", "max", "category", "chance") + " FROM droplist WHERE mobId=?");
 			statement.setInt(1, npcId);
 			ResultSet dropDataList = statement.executeQuery();
 
@@ -1720,7 +1719,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			skills = npcData.getSkills();
 		}
 
-		int _skillsize = Integer.valueOf(skills.size());
+		int _skillsize = skills.size();
 
 		int MaxSkillsPerPage = 10;
 		int MaxPages = _skillsize / MaxSkillsPerPage;
@@ -1739,7 +1738,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 
 		StringBuffer replyMSG = new StringBuffer("");
 		replyMSG.append("<html><title>" + npcData.getName() + " Skillist");
-		replyMSG.append("&nbsp;(ID:" + npcData.getNpcId() + "&nbsp;Skills " + Integer.valueOf(_skillsize) + ")</title>");
+		replyMSG.append("&nbsp;(ID:" + npcData.getNpcId() + "&nbsp;Skills " + _skillsize + ")</title>");
 		replyMSG.append("<body>");
 		String pages = "<center><table width=270><tr>";
 		for (int x = 0; x < MaxPages; x++)

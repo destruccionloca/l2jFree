@@ -69,7 +69,6 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 			else
 			{
 				showHtmlFile(player, getTemplate().getNpcId()+"-cantbuy.htm");
-				return;
 			}
 		}
 		else
@@ -151,9 +150,6 @@ public class L2TransformManagerInstance extends L2MerchantInstance
     	
 		if (qs == null || State.getStateName(qs.getState()) != "Completed")
 			return false;
-		else if (State.getStateName(qs.getState()) == "Completed")
-			return true;
-		else
-			return false;
+		else return State.getStateName(qs.getState()) == "Completed";
 	}
 }

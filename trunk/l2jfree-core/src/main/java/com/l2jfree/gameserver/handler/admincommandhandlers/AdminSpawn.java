@@ -610,7 +610,8 @@ public class AdminSpawn implements IAdminCommandHandler
 	}
 
 	/**
-	 * List all spawns of NPC. 
+	 * List all spawns of NPC.
+     * @param activeChar
 	 * @param npc name
 	 */
 	private void showSpawns(L2PcInstance activeChar, String npcName)
@@ -670,7 +671,7 @@ public class AdminSpawn implements IAdminCommandHandler
 
 		L2Spawn[] result = list.toArray(new L2Spawn[list.size()]);
 
-		if (html == true)
+		if (html)
 		{
 			int maxPerPage = 20;
 
@@ -755,7 +756,7 @@ public class AdminSpawn implements IAdminCommandHandler
 
 	/**
 	 * Search for NPC ID by NPC name. 
-	 * @param npc name (use underscope to separate words in npc name)
+	 * @param npcName (use underscope to separate words in npc name)
 	 * @return NPC ID or 0 if no template found
 	 */
 	private int getNpcIdByName(String npcName)

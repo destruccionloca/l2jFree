@@ -360,7 +360,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 
 	public void openNextDoor(int npcId)
 	{
-		int doorId = FourSepulchersManager.getInstance().getHallGateKeepers().get(npcId).intValue();
+		int doorId = FourSepulchersManager.getInstance().getHallGateKeepers().get(npcId);
 		DoorTable _doorTable = DoorTable.getInstance();
 		_doorTable.getDoor(doorId).openMe();
 

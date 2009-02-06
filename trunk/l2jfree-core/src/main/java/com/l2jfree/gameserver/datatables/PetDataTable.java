@@ -196,21 +196,27 @@ public class PetDataTable
 	public static boolean isPet(int npcId)
 	{
 		for (L2Pet pet : L2Pet.values())
-			return (pet.getNpcId() == npcId);
+            if (pet.getNpcId() == npcId)
+                return true;
+
 		return false;
 	}
 
 	public static boolean isPetFood(int itemId)
 	{
 		for (L2Pet pet : L2Pet.values())
-			return (pet.getFoodId() == itemId);
+            if (pet.getFoodId() == itemId)
+			    return true;
+        
 		return false;
 	}
 
 	public static boolean isPetItem(int itemId)
 	{
 		for (L2Pet pet : L2Pet.values())
-			return (pet.getControlItemId() == itemId);
+            if (pet.getControlItemId() == itemId)
+			    return true;
+        
 		return false;
 	}
 

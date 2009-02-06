@@ -166,12 +166,9 @@ public class Olympiad
 		{
 			boolean _pOneCrash = (_game._playerOne == null || _game._playerOneDisconnected);
 			boolean _pTwoCrash = (_game._playerTwo == null || _game._playerTwoDisconnected);
-			if (_pOneCrash || _pTwoCrash || _game._aborted)
-			{
-				return false;
-			}
-			return true;
-		}
+
+            return !(_pOneCrash || _pTwoCrash || _game._aborted);
+        }
 
 		protected boolean checkStatus()
 		{
@@ -1932,11 +1929,8 @@ public class Olympiad
 				return false;
 			int loopCount = list.size() >> 1;
 
-			if (loopCount < 1)
-				return false;
-
-			return true;
-		}
+            return loopCount >= 1;
+        }
 
 		protected String[] getAllTitles()
 		{
@@ -1950,7 +1944,7 @@ public class Olympiad
 
 			for (L2OlympiadGame instance : _olympiadInstances.values())
 			{
-				if (instance._gamestarted == true)
+				if (instance._gamestarted)
 				{
 					showbattle = 1;
 				}
@@ -2038,7 +2032,6 @@ public class Olympiad
 			{
 				_aborted = true;
 				clearPlayers();
-				return;
 			}
 		}
 

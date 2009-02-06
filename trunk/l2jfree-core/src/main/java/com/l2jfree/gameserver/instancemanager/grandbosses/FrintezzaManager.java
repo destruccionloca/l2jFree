@@ -1354,10 +1354,8 @@ public class FrintezzaManager extends BossLair
 	 * controls the assistance for all 3 bosses: 1. if Frintezza needs help, all (including Scarlet van Halisha) help him 2. if Scarlet needs help, all
 	 * (including Frintezza) come to his help 3. if Strong Scarlet is already spawned, then he teleports to help Frintezza
 	 * 
-	 * @param L2Character
-	 *            attacker - The player that attacked the boss
-	 * @param int
-	 *            hate - Damage hate to add to the attacker 1. Frintezza adds 200 hate 2. Weak Scarlet adds 100 hate 3. Stronger Scarlet adds 125 hate 4.
+	 * @param attacker - The player that attacked the boss
+	 * @param hate - Damage hate to add to the attacker 1. Frintezza adds 200 hate 2. Weak Scarlet adds 100 hate 3. Stronger Scarlet adds 125 hate 4.
 	 *            Strongest Scarlet adds 150 hate 5. Portraits adds 50 hate 6. Demons adds 1 hate
 	 */
 	public void callMinionsToAssist(L2Character attacker, int hate)
@@ -1672,10 +1670,7 @@ public class FrintezzaManager extends BossLair
 		// get the players that targeted this _caster
 		for (L2PcInstance pc : getPlayersInside())
 		{
-			if (pc == null || pc.getTarget() != target)
-				targeted[count] = false;
-			else
-				targeted[count] = true;
+            targeted[count] = !(pc == null || pc.getTarget() != target);
 			count++;
 		}
 		return targeted;
@@ -1798,7 +1793,7 @@ public class FrintezzaManager extends BossLair
 				if (tempTarget == null || !(tempTarget instanceof L2Character))
 					tempTarget = _caster;
 
-				int x = ((L2Character) tempTarget).getX() + Rnd.get(_range) - _range / 2, y = ((L2Character) tempTarget).getY() + Rnd.get(_range) - _range / 2, z = ((L2Character) tempTarget)
+				int x = tempTarget.getX() + Rnd.get(_range) - _range / 2, y = tempTarget.getY() + Rnd.get(_range) - _range / 2, z = tempTarget
 						.getZ();
 
 				if (!_caster.isInsideRadius(x, y, _range, false) && tempTarget instanceof L2PcInstance && checkIfInZone((L2PcInstance) tempTarget))
@@ -1909,12 +1904,7 @@ public class FrintezzaManager extends BossLair
 		if ((strongScarlet != null && strongScarlet.isDead()) || strongScarlet == null)
 			deadCount++;
 
-		if (deadCount == 2)
-		{
-			return true;
-		}
-
-		return false;
+        return deadCount == 2;
 	}
 
 	/**

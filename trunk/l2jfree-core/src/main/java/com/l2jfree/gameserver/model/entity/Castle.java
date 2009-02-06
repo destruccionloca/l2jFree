@@ -509,7 +509,6 @@ public class Castle extends Siegeable
 			door.getStatus().setCurrentHp(door.getMaxHp() + hp);
 
 			saveDoorUpgrade(doorId, hp, pDef, mDef);
-			return;
 		}
 	}
 
@@ -771,7 +770,6 @@ public class Castle extends Siegeable
 	public void setIsTimeRegistrationOver(boolean val)
 	{
 		_isTimeRegistrationOver = val;
-		return;
 	}
 
 	public Calendar getTimeRegistrationOverDate()

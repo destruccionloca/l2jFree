@@ -150,7 +150,7 @@ public class SiegeManager
 	/**
 	 * Return true if character can use Strider Siege Assault skill <BR><BR>
 	 * 
-	 * @param activeChar
+	 * @param player
 	 *            The L2Character of the character placing the flag
 	 * @param isCheckOnly
 	 *            if false, it will send a notification to the player telling
@@ -206,10 +206,9 @@ public class SiegeManager
 			statement.setInt(2, castleid);
 			ResultSet rs = statement.executeQuery();
 
-			while (rs.next())
+			if (rs.next())
 			{
 				register = true;
-				break;
 			}
 
 			rs.close();

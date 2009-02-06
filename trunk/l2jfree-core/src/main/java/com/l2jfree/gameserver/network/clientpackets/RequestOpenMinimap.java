@@ -37,7 +37,6 @@ public final class RequestOpenMinimap extends L2GameClientPacket
 			return;
 
 		client.sendPacket(new ShowMiniMap(1665));
-		return;
 	}
 	
 	@Override

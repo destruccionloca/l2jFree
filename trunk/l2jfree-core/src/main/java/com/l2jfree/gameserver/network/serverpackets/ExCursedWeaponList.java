@@ -29,9 +29,6 @@ public class ExCursedWeaponList extends L2GameServerPacket
 		_cursedWeaponIds = cursedWeaponIds;
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
-	 */
 	@Override
 	protected void writeImpl()
 	{
@@ -41,13 +38,10 @@ public class ExCursedWeaponList extends L2GameServerPacket
 		writeD(_cursedWeaponIds.size());
 		for (Integer i : _cursedWeaponIds)
 		{
-			writeD(i.intValue());
+			writeD(i);
 		}
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

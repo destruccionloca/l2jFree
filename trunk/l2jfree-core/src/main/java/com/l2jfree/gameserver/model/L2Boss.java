@@ -87,10 +87,7 @@ public abstract class L2Boss extends L2MonsterInstance
     protected boolean canInteract(L2PcInstance player)
     {
         // TODO: NPC busy check etc...
-        if (!isInsideRadius(player, BOSS_INTERACTION_DISTANCE, false, false))
-            return false;
-
-        return true;
+        return isInsideRadius(player, BOSS_INTERACTION_DISTANCE, false, false);
     }
 
     public void setRaidStatus (BossSpawnManager.StatusEnum status)

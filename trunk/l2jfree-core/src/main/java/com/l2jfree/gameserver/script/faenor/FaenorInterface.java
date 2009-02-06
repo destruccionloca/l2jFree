@@ -59,8 +59,6 @@ public class FaenorInterface implements EngineInterface
 	/**
 	 * 
 	 * Adds a new Quest Drop to an NPC
-	 * 
-	 * @see com.l2jfree.gameserver.script.EngineInterface#addQuestDrop(int)
 	 */
 	public void addQuestDrop(int npcID, int itemID, int min, int max, int chance, String questID, String[] states)
 	{
@@ -113,7 +111,7 @@ public class FaenorInterface implements EngineInterface
 	 *  
 	 * @param npc
 	 * @param drop
-	 * @param sweep
+	 * @param category
 	 */
 	public void addDrop(L2NpcTemplate npc, L2DropData drop, int category)
 	{
@@ -147,7 +145,7 @@ public class FaenorInterface implements EngineInterface
 				petData[level - 1].setPetID(petID);
 				petData[level - 1].setPetLevel(level);
 
-				context.declareBean("level", new Double(level), Double.TYPE);
+				context.declareBean("level", (double) level, Double.TYPE);
 				for (String stat : stats.keySet())
 				{
 					value = ((Number) Expression.eval(context, "beanshell", stats.get(stat))).intValue();

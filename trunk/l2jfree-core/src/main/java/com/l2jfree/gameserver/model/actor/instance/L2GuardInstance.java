@@ -63,7 +63,7 @@ public final class L2GuardInstance extends L2Attackable
      * <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it </li><BR><BR>
      * 
      * @param objectId Identifier of the object to initialized
-     * @param L2NpcTemplate Template to apply to the NPC
+     * @param template Template to apply to the NPC
      */
     public L2GuardInstance(int objectId, L2NpcTemplate template)
     {
@@ -114,7 +114,7 @@ public final class L2GuardInstance extends L2Attackable
         // Check the region where this mob is, do not activate the AI if region is inactive.
         L2WorldRegion region = L2World.getInstance().getRegion(getX(),getY());
         if ((region !=null) && (!region.isActive()))
-            ((L2AttackableAI) getAI()).stopAITask();        
+            getAI().stopAITask();
     }
     
     

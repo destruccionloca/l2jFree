@@ -856,7 +856,7 @@ public class FourSepulchersManager extends BossLair
 			return;
 		}
 
-		if (_hallInUse.get(npcId).booleanValue())
+		if (_hallInUse.get(npcId))
 		{
 			showHtmlFile(player, npcId + "-FULL.htm", npc, null);
 			return;
@@ -1459,7 +1459,7 @@ public class FourSepulchersManager extends BossLair
 				}
 				// Hall not used right now, so its manager will not tell you anything :)
 				// If you don't need this - delete next two lines.
-				if(!_hallInUse.get(temp.getNpcId()).booleanValue())
+				if(!_hallInUse.get(temp.getNpcId()))
 					continue;
 
 				((L2SepulcherNpcInstance)temp.getLastSpawn()).sayInShout(msg);

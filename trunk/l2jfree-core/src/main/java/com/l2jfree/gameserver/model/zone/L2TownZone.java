@@ -51,7 +51,7 @@ public class L2TownZone extends L2DefaultZone
 			character.setInsideZone(FLAG_PVP, true);
 		}
 
-		if (peace == true)
+		if (peace)
 			character.setInsideZone(FLAG_PEACE, true);
 
 		super.onEnter(character);

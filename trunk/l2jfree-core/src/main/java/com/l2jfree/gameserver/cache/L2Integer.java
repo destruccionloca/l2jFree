@@ -34,7 +34,7 @@ public final class L2Integer
 	static
 	{
 		for (int i = 0; i < TOTAL; i++)
-			ARRAY[i] = Integer.valueOf(MIN + i);
+			ARRAY[i] = MIN + i;
 	}
 	
 	public static Integer valueOf(String s)
@@ -47,7 +47,7 @@ public final class L2Integer
 		if (MIN <= intValue && intValue <= MAX)
 			return ARRAY[intValue - MIN];
 		
-		Integer integerValue = new Integer(intValue);
+		Integer integerValue = intValue;
 		
 		synchronized (MAP)
 		{

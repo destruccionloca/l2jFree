@@ -242,8 +242,6 @@ public class L2FortMerchantInstance extends L2NpcWalkerInstance
      */
 	private boolean validateCondition(L2PcInstance player)
 	{
-		if (getFort().getSiege().getIsInProgress())
-			return false; // Busy because of siege
-		return true;
-	}    
+        return !getFort().getSiege().getIsInProgress();
+    }
 }

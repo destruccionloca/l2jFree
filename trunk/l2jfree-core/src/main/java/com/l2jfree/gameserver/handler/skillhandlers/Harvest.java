@@ -147,9 +147,7 @@ public class Harvest implements ISkillHandler
 
 		int rate = Rnd.nextInt(99);
 
-		if (rate < basicSuccess)
-			return true;
-		return false;
+        return rate < basicSuccess;
 	}
 
 	public L2SkillType[] getSkillIds()

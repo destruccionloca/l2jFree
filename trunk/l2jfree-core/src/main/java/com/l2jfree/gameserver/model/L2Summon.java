@@ -360,7 +360,7 @@ public abstract class L2Summon extends L2PlayableInstance
 				// get the mobs which have aggro on the this instance
 				if (TgMob instanceof L2Attackable)
 				{
-					if (((L2Attackable) TgMob).isDead())
+					if (TgMob.isDead())
 						continue;
 					
 					AggroInfo info = ((L2Attackable) TgMob).getAggroListRP().get(this);
@@ -575,17 +575,14 @@ public abstract class L2Summon extends L2PlayableInstance
 	 */
 	protected void doPickupItem(L2Object object)
 	{
-		return;
 	}
 
 	public void giveAllToOwner()
 	{
-		return;
 	}
 
 	public void store()
 	{
-		return;
 	}
 
 	@Override

@@ -432,7 +432,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 			try
 			{
-				L2Item item = ItemTable.getInstance().getTemplate(x.intValue());
+				L2Item item = ItemTable.getInstance().getTemplate(x);
 
 				if (item == null)
 				{
@@ -538,9 +538,9 @@ public class AdminSmartShop implements IAdminCommandHandler
 			if (marks.contains("_gradeShow"))
 			{
 
-				itemName1 += ("<br1>Grade-" + getGradeString(gradeList.get(smartList.indexOf(itemId[x])).intValue()) + "<br1>");
-				itemName2 += (!itemName2.equals("")) ? ("<br1>Grade-" + getGradeString(gradeList.get(smartList.indexOf(itemId[x + 1])).intValue()) + "<br1>") : "";
-				itemName3 += (!itemName3.equals("")) ? ("<br1>Grade-" + getGradeString(gradeList.get(smartList.indexOf(itemId[x + 2])).intValue()) + "<br1>") : "";
+				itemName1 += ("<br1>Grade-" + getGradeString(gradeList.get(smartList.indexOf(itemId[x]))) + "<br1>");
+				itemName2 += (!itemName2.equals("")) ? ("<br1>Grade-" + getGradeString(gradeList.get(smartList.indexOf(itemId[x + 1]))) + "<br1>") : "";
+				itemName3 += (!itemName3.equals("")) ? ("<br1>Grade-" + getGradeString(gradeList.get(smartList.indexOf(itemId[x + 2]))) + "<br1>") : "";
 
 			}
 
@@ -638,7 +638,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		int[] returnList = new int[list.size()];
 
 		for (Integer iter : list)
-			returnList[list.indexOf(iter)] = iter.intValue();
+			returnList[list.indexOf(iter)] = iter;
 
 		return returnList;
 
@@ -1136,7 +1136,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			int changeVal = 1;
 			try
 			{
-				changeVal = Integer.valueOf(newMark.substring(6)).intValue();
+				changeVal = Integer.valueOf(newMark.substring(6));
 			}
 			catch (Exception e)
 			{
@@ -1147,7 +1147,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 				if (mark[iter].startsWith(lookFor))
 				{
-					int size = (Integer.valueOf(mark[iter].substring(6)).intValue() - changeVal);
+					int size = (Integer.valueOf(mark[iter].substring(6)) - changeVal);
 					if (size > 0)
 						mark[iter] = lookFor + size;
 					else if (size == 0)
@@ -1177,7 +1177,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			int changeVal = 1;
 			try
 			{
-				changeVal = Integer.valueOf(newMark.substring(6)).intValue();
+				changeVal = Integer.valueOf(newMark.substring(6));
 			}
 			catch (Exception e)
 			{
@@ -1188,7 +1188,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 				if (mark[iter].startsWith(lookFor))
 				{
-					int size = (Integer.valueOf(mark[iter].substring(6)).intValue() + changeVal);
+					int size = (Integer.valueOf(mark[iter].substring(6)) + changeVal);
 					size = getMaxMove(size, marks);
 					mark[iter] = lookFor + size;
 					newMark = "";
@@ -1205,7 +1205,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 			int changeVal = 1;
 			try
 			{
-				changeVal = Integer.valueOf(newMark.substring(6)).intValue();
+				changeVal = Integer.valueOf(newMark.substring(6));
 				changeVal = getMaxMove(changeVal, marks);
 			}
 			catch (Exception e)
@@ -1510,7 +1510,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		{
 			try
 			{
-				int count = Integer.valueOf(first.substring(1)).intValue();
+				int count = Integer.valueOf(first.substring(1));
 				if (count > 0)
 				{
 					int itemId = valueOfMark("_get=", opCommand);
@@ -1898,8 +1898,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 				}
 				catch (Exception e)
 				{
-					continue;
-				}
+					}
 			}
 		}
 
@@ -2276,7 +2275,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 		try
 		{
 			L2Item item = ItemTable.getInstance().getTemplate(itemId);
-			boolean questItem = (item.getItemType() == L2EtcItemType.QUEST) ? true : false;
+			boolean questItem = (item.getItemType() == L2EtcItemType.QUEST);
 
 			message += (item.getItemType() == L2EtcItemType.QUEST) ? "<br1>This is a QUEST item" : "";
 
@@ -2365,7 +2364,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 					{
 						if (spawn.getLastSpawn() != null)
 						{
-							if (spawn.getLastSpawn().getNpcId() == npc.intValue())
+							if (spawn.getLastSpawn().getNpcId() == npc)
 							{
 								x = spawn.getLastSpawn().getX();
 								y = spawn.getLastSpawn().getY();
@@ -2375,7 +2374,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 						}
 					}
 					String coord = (x == 0 && y == 0 && z == 0) ? "Not Spawned" : ("(" + x + " , " + y + " , " + z + ")");
-					message += "<tr><td>" + NpcTable.getInstance().getTemplate(npc.intValue()).getName() + "</td><td>" + npc.intValue() + "</td><td>" + coord
+					message += "<tr><td>" + NpcTable.getInstance().getTemplate(npc).getName() + "</td><td>" + npc + "</td><td>" + coord
 							+ "</td></tr>";
 				}
 				catch (Exception e)

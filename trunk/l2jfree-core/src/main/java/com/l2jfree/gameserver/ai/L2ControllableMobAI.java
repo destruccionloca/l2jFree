@@ -157,8 +157,6 @@ public class L2ControllableMobAI extends L2AttackableAI
 
 			if (!isNotMoving())
 				moveToPawn(getAttackTarget(), max_range);
-
-			return;
 		}
 	}
 
@@ -393,8 +391,6 @@ public class L2ControllableMobAI extends L2AttackableAI
 			_actor.setRunning();
 			setIntention(CtrlIntention.AI_INTENTION_ATTACK, hated);
 		}
-
-		return;
 	}
 
 	private boolean autoAttackCondition(L2Character target)

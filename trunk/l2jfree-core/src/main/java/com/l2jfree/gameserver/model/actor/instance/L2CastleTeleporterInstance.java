@@ -70,7 +70,6 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile(filename);
 			player.sendPacket(html);
-			return;
 		}
 		else
 			super.onBypassFeedback(player, command);

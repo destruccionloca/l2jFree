@@ -98,16 +98,17 @@ public final class L2ArmorSet
     {
         if(_chest != 0 && (_chest != chest && chest != _mwork_chest))
             return false;
+
         if(_legs != 0 && (_legs != legs && legs != _mwork_legs))
             return false;
+
         if(_head != 0 && (_head != head && head != _mwork_head))
             return false;
+
         if(_gloves != 0 && (_gloves != gloves && gloves != _mwork_gloves))
             return false;
-        if(_feet != 0 && (_feet != feet && feet != _mwork_feet))
-            return false;
-    
-        return true;
+
+        return !(_feet != 0 && (_feet != feet && feet != _mwork_feet));
     }
 
     public boolean containItem(int slot, int itemId)
@@ -116,14 +117,19 @@ public final class L2ArmorSet
         {
         case Inventory.PAPERDOLL_CHEST:
             return (_chest == itemId || _mwork_chest == itemId);
+
         case Inventory.PAPERDOLL_LEGS:
             return (_legs == itemId || _mwork_legs == itemId);
+
         case Inventory.PAPERDOLL_HEAD:
             return (_head == itemId || _mwork_head == itemId);
+
         case Inventory.PAPERDOLL_GLOVES:
             return (_gloves == itemId || _mwork_gloves == itemId);
+
         case Inventory.PAPERDOLL_FEET:
             return (_feet == itemId || _mwork_feet == itemId);
+        
         default:
             return false;
         }
@@ -144,15 +150,12 @@ public final class L2ArmorSet
         Inventory inv = player.getInventory();
         
         L2ItemInstance shieldItem   = inv.getPaperdollItem(Inventory.PAPERDOLL_LHAND);
-        if(shieldItem!= null && shieldItem.getItemId() == _shield)
-            return true;
-    
-        return false;
+        return shieldItem != null && shieldItem.getItemId() == _shield;
     }
 
     public boolean containShield(int shield_id)
     {
-        return _shield == 0 ? false : ((_shield == shield_id || _mwork_shield == shield_id));
+        return _shield != 0 && ((_shield == shield_id || _mwork_shield == shield_id));
     }
 
     public int getShieldSkillId()
@@ -186,15 +189,16 @@ public final class L2ArmorSet
 
         if(chestItem != null && chestItem.getEnchantLevel() < 6)
             return false;
+
         if(_legs != 0 && legsItem != null && legsItem.getEnchantLevel() < 6)
             return false;
+
         if(_gloves != 0 && glovesItem != null && glovesItem.getEnchantLevel() < 6)
             return false;
+
         if(_head != 0 && headItem != null && headItem.getEnchantLevel() < 6)
             return false;
-        if(_feet != 0 && feetItem != null && feetItem.getEnchantLevel() < 6)
-            return false;
-        
-        return true;
+
+        return !(_feet != 0 && feetItem != null && feetItem.getEnchantLevel() < 6);
     }
 }

@@ -112,7 +112,7 @@ public class ClanTable
 	 */
 	public L2Clan getClan(int clanId)
 	{
-		L2Clan clan = _clans.get(Integer.valueOf(clanId));
+		L2Clan clan = _clans.get(clanId);
 		return clan;
 	}
 
@@ -191,7 +191,7 @@ public class ClanTable
 		if (_log.isDebugEnabled())
 			_log.info("New clan created: " + clan.getClanId() + " " + clan.getName());
 
-		_clans.put(Integer.valueOf(clan.getClanId()), clan);
+		_clans.put(clan.getClanId(), clan);
 
 		//should be update packet only
 		player.sendPacket(new PledgeShowInfoUpdate(clan));

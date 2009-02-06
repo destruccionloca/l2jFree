@@ -323,7 +323,6 @@ public abstract class L2Zone
 	 * Checks if the given coordinates are within the zone
 	 * @param x
 	 * @param y
-	 * @param z
 	 */
 	public boolean isInsideZone(int x, int y)
 	{
@@ -738,15 +737,15 @@ public abstract class L2Zone
 		Node mpDamage = n.getAttributes().getNamedItem("mpDamage");
 
 		_pvp = (pvp != null) ? PvpSettings.valueOf(pvp.getNodeValue().toUpperCase()) : PvpSettings.GENERAL;
-		_noLanding = (noLanding != null) ? Boolean.parseBoolean(noLanding.getNodeValue()) : false;
-		_noEscape = (noEscape != null) ? Boolean.parseBoolean(noEscape.getNodeValue()) : false;
-		_noPrivateStore = (noPrivateStore != null) ? Boolean.parseBoolean(noPrivateStore.getNodeValue()) : false;
-		_noSummon = (noSummon != null) ? Boolean.parseBoolean(noSummon.getNodeValue()) : false;
+		_noLanding = (noLanding != null) && Boolean.parseBoolean(noLanding.getNodeValue());
+		_noEscape = (noEscape != null) && Boolean.parseBoolean(noEscape.getNodeValue());
+		_noPrivateStore = (noPrivateStore != null) && Boolean.parseBoolean(noPrivateStore.getNodeValue());
+		_noSummon = (noSummon != null) && Boolean.parseBoolean(noSummon.getNodeValue());
 		_abnormal = (abnorm != null) ? Integer.decode("0x"+abnorm.getNodeValue()) : 0;
-		_exitOnDeath = (exitOnDeath != null) ? Boolean.parseBoolean(exitOnDeath.getNodeValue()) : false;
+		_exitOnDeath = (exitOnDeath != null) && Boolean.parseBoolean(exitOnDeath.getNodeValue());
 		_hpDamage = (hpDamage != null) ? Integer.parseInt(hpDamage.getNodeValue()) : 0;
 		_mpDamage = (mpDamage != null) ? Integer.parseInt(mpDamage.getNodeValue()) : 0;
-		_buffRepeat = (buffRepeat != null) ? Boolean.parseBoolean(buffRepeat.getNodeValue()) : false;
+		_buffRepeat = (buffRepeat != null) && Boolean.parseBoolean(buffRepeat.getNodeValue());
 		if (boss != null)
 			_boss = Boss.valueOf(boss.getNodeValue().toUpperCase());
 		if (affected != null)

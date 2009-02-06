@@ -165,7 +165,7 @@ public class ItemTable
 		_slots.put("none", L2Item.SLOT_NONE);
 	}
 
-	private static ItemTable						_instance;
+	private static ItemTable						_instance = new ItemTable();
 
 	/** Table of SQL request in order to obtain items from tables [etcitem], [armor], [weapon] */
 	private static final String[]					SQL_ITEM_SELECTS		=
@@ -208,10 +208,6 @@ public class ItemTable
 	 */
 	public static ItemTable getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new ItemTable();
-		}
 		return _instance;
 	}
 
@@ -363,7 +359,7 @@ public class ItemTable
 		item.set.set("bodypart", _slots.get(rset.getString("bodypart")));
 		item.set.set("material", _materials.get(rset.getString("material")));
 		item.set.set("crystal_type", _crystalTypes.get(rset.getString("crystal_type")));
-		item.set.set("crystallizable", Boolean.valueOf(rset.getString("crystallizable")).booleanValue());
+		item.set.set("crystallizable", Boolean.valueOf(rset.getString("crystallizable")));
 		item.set.set("weight", rset.getInt("weight"));
 		item.set.set("soulshots", rset.getInt("soulshots"));
 		item.set.set("spiritshots", rset.getInt("spiritshots"));
@@ -804,7 +800,7 @@ public class ItemTable
 	 * <li>Logs Item delettion according to log settings</li><BR><BR>
 	 * 
 	 * @param process : String Identifier of process triggering this action
-	 * @param itemId : int Item Identifier of the item to be created
+	 * @param item : L2ItemInstance Item Identifier of the item to be created
 	 * @param actor : L2PcInstance Player requesting the item destroy
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
 	 */
@@ -857,11 +853,8 @@ public class ItemTable
 
 	public void reload()
 	{
-		synchronized (_instance)
-		{
-			_instance = null;
-			_instance = new ItemTable();
-		}
+        ItemTable reload = new ItemTable();
+        _instance = reload;
 	}
 
 	protected class ResetOwner implements Runnable

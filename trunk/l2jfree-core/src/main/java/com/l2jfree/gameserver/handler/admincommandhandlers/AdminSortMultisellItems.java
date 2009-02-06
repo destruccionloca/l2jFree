@@ -213,7 +213,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 
 				try
 				{
-					itemId = (param.length > 1) ? Integer.valueOf((MULTISELL_ID_SORT) ? param[0] : param[1]).intValue() : 0;
+					itemId = (param.length > 1) ? Integer.valueOf((MULTISELL_ID_SORT) ? param[0] : param[1]) : 0;
 				}
 				catch (Exception e)
 				{
@@ -222,7 +222,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 
 				try
 				{
-					price = (param.length > 2) ? Integer.valueOf(param[2]).intValue() : 0;
+					price = (param.length > 2) ? Integer.valueOf(param[2]) : 0;
 				}
 				catch (Exception e)
 				{
@@ -377,10 +377,10 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 					}
 
 					Integer i = rset.getInt("item_id");
-					int itemId = i.intValue();
+					int itemId = i;
 
 					Integer p = rset.getInt("price");
-					int price = p.intValue();
+					int price = p;
 
 					price = getGMShopPrice(itemId, price);
 
@@ -453,9 +453,9 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 				{
 					Integer i = rset.getInt("item_id");
 					Integer p = rset.getInt("price");
-					if (itemId == i.intValue() && p.intValue() > priceGm)
+					if (itemId == i && p > priceGm)
 					{
-						priceGm = p.intValue();
+						priceGm = p;
 					}
 				}
 				rset.close();
@@ -919,35 +919,30 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 		if (item == null)
 		{
 			addEtc(itemId, price);
-			return;
 		}
 
 		else if (item.getName().toLowerCase().contains("echo crystal"))
 		{
 			category = getXML(misc, "EchoCrystal");
 			addXML(category, itemId, price);
-			return;
 		}
 
 		else if (item.getItemType() == L2EtcItemType.RECEIPE)
 		{
 			category = getXML(misc, "Recipe");
 			addXML(category, itemId, price);
-			return;
 		}
 
 		else if (item.getName().contains("+") && item.getName().contains("-") && item.getName().toLowerCase().contains("dye"))
 		{
 			category = getXML(misc, "Dyes");
 			addXML(category, itemId, price);
-			return;
 		}
 
 		else if (item.getItemType() == L2EtcItemType.SPELLBOOK)
 		{
 			category = getXML(misc, "SpellBook");
 			addXML(category, itemId, price);
-			return;
 		}
 
 		else if (item.getItemType() == L2EtcItemType.SCROLL)
@@ -977,41 +972,35 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 
 			category = getXML(misc, "Scroll");
 			addXML(category, itemId, price);
-			return;
 		}
 
 		else if (item.getItemType() == L2EtcItemType.PET_COLLAR)
 		{
 			category = getXML(misc, "Pet");
 			addXML(category, itemId, price);
-			return;
 		}
 
 		else if (item.getItemType() == L2EtcItemType.POTION)
 		{
 			category = getXML(misc, "Potions");
 			addXML(category, itemId, price);
-			return;
 		}
 
 		else if (item.getItemType() == L2EtcItemType.QUEST)
 		{
 			category = getXML(misc, "Quest");
 			addXML(category, itemId, price);
-			return;
 		}
 
 		else if (item.getItemType() == L2EtcItemType.SHOT)
 		{
 			category = getXML(weapon, "SS");
 			addXML(category, itemId, price);
-			return;
 		}
 
 		else if (item.getItemType() == L2EtcItemType.ARROW || item.getItemType() == L2EtcItemType.BOLT)
 		{
 			addWeapon(itemId, price);
-			return;
 		}
 
 		//Hair taken care of in addArmor.
@@ -1233,62 +1222,52 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			if (item == null)
 			{
 				etc.addItem(itemId, price);
-				return;
 			}
 			else if (item.getItemType() == L2EtcItemType.QUEST)
 			{
 				etcQuest.addItem(itemId, price);
-				return;
 			}
 			else if (item.getName().toLowerCase().contains("event"))
 			{
 				etcEvent.addItem(itemId, price);
-				return;
 			}
 			else if (item.getName().toLowerCase().contains("mercenary") || item.getName().toLowerCase().contains("posting ticket"))
 			{
 				if (MULTISELL_GENERATE_MERCENARYLIST)
 					etcMerc.addItem(itemId, price);
-				return;
 			}
 			else if (item.getItemType() == L2EtcItemType.HERB)
 			{
 				//May add a Herb list
 				if (MULTISELL_GENERATE_HERBLIST)
 					etcHerb.addItem(itemId, price);
-				return;
 			}
 			else if (item.getName().toLowerCase().contains("fish"))
 			{
 				//May add a fish list
 				if (MULTISELL_GENERATE_FISHLIST)
 					etcFish.addItem(itemId, price);
-				return;
 			}
 			else if (item.getName().toLowerCase().contains("seed"))
 			{
 				//May add a seed list
 				if (MULTISELL_GENERATE_SEEDLIST)
 					etcSeed.addItem(itemId, price);
-				return;
 			}
 			else if (item.getName().toLowerCase().contains("monster only"))
 			{
 				//May add a monster-only list
 				if (MULTISELL_GENERATE_MONSTERONLY)
 					etcMonster.addItem(itemId, price);
-				return;
 			}
 			else
 			{
 				etc.addItem(itemId, price);
-				return;
 			}
 		}
 		catch (Exception e)
 		{
 			etc.addItem(itemId, price);
-			return;
 		}
 
 	}
@@ -1431,7 +1410,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 		{
 			try
 			{
-				DEFAULT_GM_SHOP_PRICE_MULTIPLIER = Integer.valueOf(cmd.substring(7)).intValue();
+				DEFAULT_GM_SHOP_PRICE_MULTIPLIER = Integer.valueOf(cmd.substring(7));
 			}
 			catch (Exception e)
 			{
@@ -1443,7 +1422,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 		{
 			try
 			{
-				DEFAULT_SPACES_BETWEEN_MULTISELL_LIST_ITEMS = Integer.valueOf(cmd.substring(6)).intValue();
+				DEFAULT_SPACES_BETWEEN_MULTISELL_LIST_ITEMS = Integer.valueOf(cmd.substring(6));
 			}
 			catch (Exception e)
 			{
@@ -1500,7 +1479,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 							L2Skill s = SkillTable.getInstance().getInfo(skill.getId(), skill.getLevel());
 							if (s.getItemConsumeId() == 0)
 								continue;
-							Integer spellItemId = Integer.valueOf(s.getItemConsumeId());
+							Integer spellItemId = s.getItemConsumeId();
 							if (!spellItemList.contains(spellItemId))
 							{
 								spellItemList.add(spellItemId);
@@ -1509,8 +1488,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 						}
 						catch (Exception e)
 						{
-							continue;
-						}
+							}
 					}
 
 				}
@@ -1528,7 +1506,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			}
 		}
 
-		return (spellItemList.contains(new Integer(itemId))) ? true : false;
+		return (spellItemList.contains(new Integer(itemId)));
 	}
 
 	private String[] sortArrayByTypeAndPrice(String[] array)
@@ -1552,7 +1530,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 					continue;
 
 				String temp = (MULTISELL_ID_SORT) ? param[0] : param[1];
-				int id = Integer.valueOf(temp).intValue();
+				int id = Integer.valueOf(temp);
 
 				if (itemId == id)
 				{
@@ -1579,7 +1557,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 
 			try
 			{
-				L2Item item = ItemTable.getInstance().getTemplate(Integer.valueOf(itemID).intValue());
+				L2Item item = ItemTable.getInstance().getTemplate(Integer.valueOf(itemID));
 
 				if (item == null)
 					continue;
@@ -1611,7 +1589,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 
 			try
 			{
-				L2Item item = ItemTable.getInstance().getTemplate(Integer.valueOf(itemID).intValue());
+				L2Item item = ItemTable.getInstance().getTemplate(Integer.valueOf(itemID));
 				Integer price = Integer.valueOf(param[2]);
 
 				if (item == null)
@@ -1629,7 +1607,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 		for (int x = 0; x < itemPrice.size() - 1; x++)
 			for (int y = x + 1; y < itemPrice.size(); y++)
 			{
-				if (itemPrice.get(x).intValue() > itemPrice.get(y).intValue())
+				if (itemPrice.get(x) > itemPrice.get(y))
 				{
 					try
 					{

@@ -71,7 +71,7 @@ public class UserCommandHandler
 		{
 			if (_log.isDebugEnabled())
 				_log.debug("Adding handler for user command " + element);
-			_datatable.put(Integer.valueOf(element), handler);
+			_datatable.put(element, handler);
 		}
 	}
 

@@ -89,16 +89,13 @@ public class TradeListTable
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement1 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[]
-			{ "shop_id", "npc_id" }) + " FROM " + (custom ? "custom_merchant_shopids" : "merchant_shopids"));
+			PreparedStatement statement1 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString("shop_id", "npc_id") + " FROM " + (custom ? "custom_merchant_shopids" : "merchant_shopids"));
 			ResultSet rset1 = statement1.executeQuery();
 			while (rset1.next())
 			{
-				PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[]
-				{ "item_id", "price", "shop_id", "order", "count", "time", "currentCount" }) + " FROM "
+				PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString("item_id", "price", "shop_id", "order", "count", "time", "currentCount") + " FROM "
 						+ (custom ? "custom_merchant_buylists" : "merchant_buylists") + " WHERE shop_id=? ORDER BY "
-						+ L2DatabaseFactory.getInstance().safetyString(new String[]
-						{ "order" }) + " ASC");
+						+ L2DatabaseFactory.getInstance().safetyString("order") + " ASC");
 				statement.setString(1, String.valueOf(rset1.getInt("shop_id")));
 				ResultSet rset = statement.executeQuery();
 
@@ -154,7 +151,7 @@ public class TradeListTable
 
 				if (_itemCount > 0)
 				{
-					_lists.put(Integer.valueOf(buylist.getListId()), buylist);
+					_lists.put(buylist.getListId(), buylist);
 					_nextListId = Math.max(_nextListId, buylist.getListId() + 1);
 				}
 				else

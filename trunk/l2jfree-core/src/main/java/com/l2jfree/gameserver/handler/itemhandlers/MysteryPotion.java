@@ -77,7 +77,7 @@ public class MysteryPotion implements IItemHandler
 				if (!(_playable instanceof L2PcInstance))
 					return;
 
-				((L2PcInstance) _playable).stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
+				_playable.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
 			}
 			catch (Exception e)
 			{

@@ -59,7 +59,8 @@ public class Forum
 	private boolean				_loaded			= false;
 
 	/**
-	 * @param i
+	 * @param Forumid
+     * @param FParent
 	 */
 	public Forum(int Forumid, Forum FParent)
 	{
@@ -284,7 +285,7 @@ public class Forum
 	 */
 	public void vload()
 	{
-		if (_loaded == false)
+		if (!_loaded)
 		{
 			load();
 			getChildren();

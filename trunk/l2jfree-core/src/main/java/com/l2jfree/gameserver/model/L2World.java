@@ -263,7 +263,7 @@ public final class L2World
 	 */
 	public L2PetInstance addPet(int ownerId, L2PetInstance pet)
 	{
-		return _petsInstance.put(Integer.valueOf(ownerId), pet);
+		return _petsInstance.put(ownerId, pet);
 	}
 
 	/**
@@ -312,7 +312,7 @@ public final class L2World
 	 * <li> Apply Death Penalty of a L2PcInstance </li><BR><BR>
 	 *
 	 * @param object L2object to add in the world
-	 * @param newregion L2WorldRegion in wich the object will be add (not used)
+	 * @param newRegion L2WorldRegion in wich the object will be add (not used)
 	 * @param dropper L2Character who has dropped the object (if necessary)
 	 *
 	 */
@@ -417,7 +417,7 @@ public final class L2World
 	 * <li> Decay a L2Character</li><BR><BR>
 	 *
 	 * @param object L2object to remove from the world
-	 * @param oldregion L2WorldRegion in wich the object was before removing
+	 * @param oldRegion L2WorldRegion in wich the object was before removing
 	 *
 	 */
 	public void removeVisibleObject(L2Object object, L2WorldRegion oldRegion)
@@ -676,7 +676,7 @@ public final class L2World
 	 * <li> Set position of a new L2Object (drop, spawn...) </li>
 	 * <li> Update position of a L2Object after a mouvement </li><BR>
 	 *
-	 * @param Point3D point position of the object
+	 * @param point position of the object
 	 */
 	public L2WorldRegion getRegion(Point3D point)
 	{

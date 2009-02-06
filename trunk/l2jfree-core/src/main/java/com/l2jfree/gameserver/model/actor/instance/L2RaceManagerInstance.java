@@ -272,7 +272,6 @@ public class L2RaceManagerInstance extends L2NpcInstance
         {
             //getKnownList().removeKnownObject(player);
             super.onBypassFeedback(player, command);
-            return;
         }
     }
 

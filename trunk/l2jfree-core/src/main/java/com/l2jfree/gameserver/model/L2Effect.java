@@ -165,7 +165,7 @@ public abstract class L2Effect
 		if ((id > 2277 && id < 2286) || (id >= 2512 && id <= 2514))
 		{
 			if (_effected instanceof L2SummonInstance 
-				|| (_effected instanceof L2PcInstance && ((L2PcInstance)_effected).getPet() instanceof L2SummonInstance))
+				|| (_effected instanceof L2PcInstance && _effected.getPet() instanceof L2SummonInstance))
 			{
 				temp /= 2;
 			}
@@ -345,11 +345,8 @@ public abstract class L2Effect
 	
 	public boolean isHerbEffect()
 	{
-		if (getSkill().getName().contains("Herb"))
-			return true;
-		
-		return false;
-	}
+        return getSkill().getName().contains("Herb");
+    }
 	
 	public final double calc()
 	{
@@ -466,7 +463,6 @@ public abstract class L2Effect
 			if (_period > 0)
 			{
 				startEffectTask(_period * 1000);
-				return;
 			}
 		}
 	}

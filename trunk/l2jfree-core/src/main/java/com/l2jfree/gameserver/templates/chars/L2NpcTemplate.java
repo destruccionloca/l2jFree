@@ -168,10 +168,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 		_name = set.getString("name");
 		_serverSideName = set.getBool("serverSideName");
 		_title = set.getString("title");
-		if (_title.equalsIgnoreCase("Quest Monster"))
-			_isQuestMonster = true;
-		else
-			_isQuestMonster = false;
+        _isQuestMonster = _title.equalsIgnoreCase("Quest Monster");
 		_serverSideTitle = set.getBool("serverSideTitle");
 		_sex = set.getString("sex");
 		_level = set.getByte("level");
@@ -304,7 +301,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 	{
 		if (_vulnerabilities == null)
 			_vulnerabilities = new FastMap<Stats, Double>();
-		_vulnerabilities.put(id, new Double(vuln));
+		_vulnerabilities.put(id, vuln);
 	}
 
 	public double getVulnerability(Stats id)

@@ -62,7 +62,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		for (int i = 0; i < _count; i++)
 		{
 			int objectId = readD();
-			_items[i * 2 + 0] = objectId;
+			_items[(i * 2)] = objectId;
 			long cnt = readD();
 			if (cnt >= Integer.MAX_VALUE || cnt < 0)
 			{
@@ -130,7 +130,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 
 		for (int i = 0; i < _count; i++)
 		{
-			int objectId = _items[i * 2 + 0];
+			int objectId = _items[(i * 2)];
 			int count = _items[i * 2 + 1];
 
 			// Calculate needed slots
@@ -164,7 +164,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		InventoryUpdate playerIU = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 		for (int i = 0; i < _count; i++)
 		{
-			int objectId = _items[i * 2 + 0];
+			int objectId = _items[(i * 2)];
 			int count = _items[i * 2 + 1];
 
 			L2ItemInstance oldItem = warehouse.getItemByObjectId(objectId);

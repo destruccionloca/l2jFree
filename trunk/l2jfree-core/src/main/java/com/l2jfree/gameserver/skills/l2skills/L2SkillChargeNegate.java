@@ -96,7 +96,7 @@ public class L2SkillChargeNegate extends L2Skill
 							{
 								SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
 								sm.addSkillName(e.getSkill().getId());
-								((L2PcInstance) target).sendPacket(sm);
+								target.sendPacket(sm);
 							}
 							e.exit();
 							break;
@@ -110,7 +110,7 @@ public class L2SkillChargeNegate extends L2Skill
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
 					sm.addSkillName(e.getSkill().getId());
-					((L2PcInstance) target).sendPacket(sm);
+					target.sendPacket(sm);
 				}
 				e.exit();
 			}

@@ -111,7 +111,7 @@ public class RaidPointsManager
 		else
 		{
 			if (list.containsKey(bossId))
-				currentPoints = list.get(bossId).intValue();
+				currentPoints = list.get(bossId);
 			list.put(bossId, currentPoints + points);
 		}
 		updatePointsInDB(player, bossId, currentPoints + points);

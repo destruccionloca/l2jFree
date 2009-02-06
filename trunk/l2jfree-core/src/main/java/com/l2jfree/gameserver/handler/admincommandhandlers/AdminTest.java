@@ -182,11 +182,11 @@ public class AdminTest implements IAdminCommandHandler
 						for (L2Object target : targetList)
 						{
 							if (target instanceof L2NpcInstance)
-								activeChar.sendMessage("NPC: " + ((L2NpcInstance) target).getName());
+								activeChar.sendMessage("NPC: " + target.getName());
 							if (target instanceof L2PcInstance)
-								activeChar.sendMessage("PC : " + ((L2PcInstance) target).getName());
+								activeChar.sendMessage("PC : " + target.getName());
 							if (target instanceof L2Summon)
-								activeChar.sendMessage("PET: " + ((L2Summon) target).getName());
+								activeChar.sendMessage("PET: " + target.getName());
 						}
 
 						activeChar.sendMessage("Total targets: " + targetList.length);
@@ -239,7 +239,7 @@ public class AdminTest implements IAdminCommandHandler
 	/**
 	 * Test social action or NPC animation
 	 * @param activeChar
-	 * @param skill
+	 * @param socId
 	 */
 	public void adminTestSocial(L2PcInstance activeChar, int socId)
 	{

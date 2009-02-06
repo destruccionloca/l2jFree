@@ -65,7 +65,7 @@ public class CTF
 {
 	private final static Log	_log	= LogFactory.getLog(CTF.class.getName());
 	private static int			_FlagNPC	= 35062, _FLAG_IN_HAND_ITEM_ID = 6718;
-	public static String		_eventName	= new String(), _eventDesc = new String(), _topTeam = new String(), _joiningLocationName = new String();
+	public static String		_eventName	= "", _eventDesc = "", _topTeam = "", _joiningLocationName = "";
 	public static Vector<String>	_teams	= new Vector<String>(), _savePlayers = new Vector<String>(), _savePlayerTeams = new Vector<String>();
 	public static Vector<L2PcInstance>	_players	= new Vector<L2PcInstance>(), _playersShuffle = new Vector<L2PcInstance>();
 	public static Vector<Integer>		_teamPlayersCount	= new Vector<Integer>(), _teamColors = new Vector<Integer>(), _teamsX = new Vector<Integer>(),
@@ -204,7 +204,7 @@ public class CTF
 			_playersShuffle.remove(playerToKick);
 			_players.remove(playerToKick);
 			playerToKick._inEventCTF = false;
-			playerToKick._teamNameCTF = new String();
+			playerToKick._teamNameCTF = "";
 		}
 		if (_started || _teleport)
 		{
@@ -492,12 +492,10 @@ public class CTF
 
 	public static boolean InRangeOfFlag(L2PcInstance _player, int flagIndex, int offset)
 	{
-		if (_player.getX() > CTF._flagsX.get(flagIndex) - offset && _player.getX() < CTF._flagsX.get(flagIndex) + offset
-				&& _player.getY() > CTF._flagsY.get(flagIndex) - offset && _player.getY() < CTF._flagsY.get(flagIndex) + offset
-				&& _player.getZ() > CTF._flagsZ.get(flagIndex) - offset && _player.getZ() < CTF._flagsZ.get(flagIndex) + offset)
-			return true;
-		return false;
-	}
+        return _player.getX() > CTF._flagsX.get(flagIndex) - offset && _player.getX() < CTF._flagsX.get(flagIndex) + offset
+                && _player.getY() > CTF._flagsY.get(flagIndex) - offset && _player.getY() < CTF._flagsY.get(flagIndex) + offset
+                && _player.getZ() > CTF._flagsZ.get(flagIndex) - offset && _player.getZ() < CTF._flagsZ.get(flagIndex) + offset;
+		}
 
 	public static void processInFlagRange(L2PcInstance _player)
 	{
@@ -691,36 +689,24 @@ public class CTF
 
 	public static boolean checkMaxLevel(int maxlvl)
 	{
-		if (_minlvl >= maxlvl)
-			return false;
-
-		return true;
+        return _minlvl < maxlvl;
 	}
 
 	public static boolean checkMinLevel(int minlvl)
 	{
-		if (_maxlvl <= minlvl)
-			return false;
-
-		return true;
+        return _maxlvl > minlvl;
 	}
 
 	/** returns true if participated players is higher or equal then minimum needed players */
 	public static boolean checkMinPlayers(int players)
 	{
-		if (_minPlayers <= players)
-			return true;
-
-		return false;
+        return _minPlayers <= players;
 	}
 
 	/** returns true if max players is higher or equal then participated players */
 	public static boolean checkMaxPlayers(int players)
 	{
-		if (_maxPlayers > players)
-			return true;
-
-		return false;
+        return _maxPlayers > players;
 	}
 
 	public static void removeTeam(String teamName)
@@ -798,10 +784,7 @@ public class CTF
 
 	public static boolean checkTeamOk()
 	{
-		if (_started || _teleport || _joining)
-			return false;
-
-		return true;
+        return !(_started || _teleport || _joining);
 	}
 
 	public static void startJoin(L2PcInstance activeChar)
@@ -1141,7 +1124,7 @@ public class CTF
 			}
 			if (teleportAutoStart())
 			{
-				waiter(1 * 30 * 1000); // 30 seconds wait time untill start fight after teleported
+				waiter(30 * 1000); // 30 seconds wait time untill start fight after teleported
 				if (startAutoEvent())
 				{
 					waiter(_eventTime * 60 * 1000); // minutes for event time
@@ -1334,7 +1317,7 @@ public class CTF
 	{
 		for (L2PcInstance player : _players)
 		{
-			if (player != null && player.isOnline() != 0 && player._inEventCTF == true)
+			if (player != null && player.isOnline() != 0 && player._inEventCTF)
 			{
 				if (!player._teamNameCTF.equals(teamName))
 				{
@@ -1350,10 +1333,7 @@ public class CTF
 
 	private static boolean finishEventOk()
 	{
-		if (!_started)
-			return false;
-
-		return true;
+        return _started;
 	}
 
 	public static void rewardTeam(String teamName)
@@ -1404,10 +1384,7 @@ public class CTF
 
 	public static void sit()
 	{
-		if (_sitForced)
-			_sitForced = false;
-		else
-			_sitForced = true;
+        _sitForced = !_sitForced;
 
 		for (L2PcInstance player : _players)
 		{
@@ -1524,10 +1501,10 @@ public class CTF
 
 	public static void loadData()
 	{
-		_eventName = new String();
-		_eventDesc = new String();
-		_topTeam = new String();
-		_joiningLocationName = new String();
+		_eventName = "";
+		_eventDesc = "";
+		_topTeam = "";
+		_joiningLocationName = "";
 		_teams = new Vector<String>();
 		_savePlayers = new Vector<String>();
 		_savePlayerTeams = new Vector<String>();
@@ -1844,11 +1821,9 @@ public class CTF
 	{
 		try
 		{
-			if (_playersShuffle == null)
-				return;
-			else if (_playersShuffle.isEmpty())
-				return;
-			else if (_playersShuffle.size() > 0)
+            if (_playersShuffle != null &&
+                   !_playersShuffle.isEmpty() &&
+                    _playersShuffle.size() > 0)
 			{
 				for (L2PcInstance player : _playersShuffle)
 				{
@@ -1864,7 +1839,6 @@ public class CTF
 		catch (Exception e)
 		{
 			_log.error(e.getMessage(), e);
-			return;
 		}
 	}
 
@@ -2056,7 +2030,7 @@ public class CTF
 				player.setKarma(player._originalKarmaCTF);
 				player.broadcastUserInfo();
 			}
-			player._teamNameCTF = new String();
+			player._teamNameCTF = "";
 			player._countCTFflags = 0;
 			player._inEventCTF = false;
 
@@ -2107,7 +2081,7 @@ public class CTF
 			_teamPointsCount.set(index, 0);
 		}
 		_topScore = 0;
-		_topTeam = new String();
+		_topTeam = "";
 		_players = new Vector<L2PcInstance>();
 		_playersShuffle = new Vector<L2PcInstance>();
 		_savePlayers = new Vector<String>();
@@ -2264,9 +2238,7 @@ public class CTF
 	{
 		if (_player == null || _player.isOnline() == 0)
 			return true;
-		if (!(_player.getX() > eventCenterX - eventOffset && _player.getX() < eventCenterX + eventOffset && _player.getY() > eventCenterY - eventOffset
-				&& _player.getY() < eventCenterY + eventOffset && _player.getZ() > eventCenterZ - eventOffset && _player.getZ() < eventCenterZ + eventOffset))
-			return true;
-		return false;
-	}
+        return !(_player.getX() > eventCenterX - eventOffset && _player.getX() < eventCenterX + eventOffset && _player.getY() > eventCenterY - eventOffset
+                && _player.getY() < eventCenterY + eventOffset && _player.getZ() > eventCenterZ - eventOffset && _player.getZ() < eventCenterZ + eventOffset);
+		}
 }

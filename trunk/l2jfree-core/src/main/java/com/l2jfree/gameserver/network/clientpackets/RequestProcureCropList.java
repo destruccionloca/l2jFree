@@ -68,7 +68,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 		for (int i = 0; i < _size; i++)
 		{
 			int objId = readD();
-			_items[i * 4 + 0] = objId;
+			_items[(i * 4)] = objId;
 			int itemId = readD();
 			_items[i * 4 + 1] = itemId;
 			int manorId = readD();
@@ -175,7 +175,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 
 		for (int i = 0; i < _size; i++)
 		{
-			int objId   = _items[i * 4 + 0];
+			int objId   = _items[(i * 4)];
 			int cropId  = _items[i * 4 + 1];
 			int manorId = _items[i * 4 + 2];
 			int count   = _items[i * 4 + 3];

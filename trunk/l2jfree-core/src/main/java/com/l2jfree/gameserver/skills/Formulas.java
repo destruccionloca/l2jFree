@@ -1412,7 +1412,8 @@ public final class Formulas
 	 *
 	 * @param attacker player or NPC that makes ATTACK
 	 * @param target player or NPC, target of ATTACK
-	 * @param miss one of ATTACK_XXX constants
+     * @param skill
+	 * @param shld one of ATTACK_XXX constants
 	 * @param crit if the ATTACK have critical success
 	 * @param dual if dual weapon is used
 	 * @param ss if weapon item was charged by soulshot
@@ -2004,7 +2005,7 @@ public final class Formulas
 
 		if (target instanceof L2PcInstance)
 		{
-			if (((L2PcInstance) target).getForceBuff() != null)
+			if (target.getForceBuff() != null)
 				return true;
 		}
 
@@ -2730,12 +2731,8 @@ public final class Formulas
 			chance = 100;
 			break;
 		}
-		if (Rnd.get(120) > chance)
-		{
-			return false;
-		}
 
-		return true;
+        return Rnd.get(120) <= chance;
 	}
 
 	public double calcManaDam(L2Character attacker, L2Character target, L2Skill skill, boolean ss, boolean bss)

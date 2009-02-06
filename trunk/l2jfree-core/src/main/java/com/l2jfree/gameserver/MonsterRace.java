@@ -61,18 +61,16 @@ public class MonsterRace
 		{
 			int id = 31003;
 			random = Rnd.get(24);
-			while (true)
-			{
-				for (int j = i - 1; j >= 0; j--)
-				{
-					if (_monsters[j].getTemplate().getNpcId() == (id + random))
-					{
-						random = Rnd.get(24);
-						continue;
-					}
-				}
-				break;
-			}
+
+            for (int j = i - 1; j >= 0; j--)
+            {
+                if (_monsters[j].getTemplate().getNpcId() == (id + random))
+                {
+                    random = Rnd.get(24);
+                    continue;
+                }
+            }
+
 			try
 			{
 				L2NpcTemplate template = NpcTable.getInstance().getTemplate(id + random);

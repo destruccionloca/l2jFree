@@ -40,7 +40,6 @@ public class RequestPetUseItem extends L2GameClientPacket
     /**
      * packet type id 0x8a
      * format:      cd
-     * @param decrypt
      */
     @Override
     protected void readImpl()
@@ -125,8 +124,6 @@ public class RequestPetUseItem extends L2GameClientPacket
             SystemMessage sm = new SystemMessage(SystemMessageId.ITEM_NOT_FOR_PETS);
             activeChar.sendPacket(sm);
         }
-        
-        return;
     }
     
     private synchronized void useItem(L2PetInstance pet, L2ItemInstance item, L2PcInstance activeChar)

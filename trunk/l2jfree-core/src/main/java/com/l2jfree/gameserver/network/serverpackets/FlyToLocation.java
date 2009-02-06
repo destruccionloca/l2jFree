@@ -32,7 +32,7 @@ public final class FlyToLocation extends L2GameServerPacket
         THROW_UP,
         THROW_HORIZONTAL,
         DUMMY, // no effect
-        CHARGE;
+        CHARGE
     }
 
     public FlyToLocation(L2Character cha, int destX, int destY, int destZ, FlyType type)
@@ -49,18 +49,12 @@ public final class FlyToLocation extends L2GameServerPacket
         this(cha, dest.getX(), dest.getY(), dest.getZ(), type);
     }
 
-    /**
-     * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#getType()
-     */
     @Override
     public String getType()
     {
         return "[S] 0xd4 FlyToLocation";
     }
 
-    /**
-     * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#writeImpl()
-     */
     @Override
     protected void writeImpl()
     {

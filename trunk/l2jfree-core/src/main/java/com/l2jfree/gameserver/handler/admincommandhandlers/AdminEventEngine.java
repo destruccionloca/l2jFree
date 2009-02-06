@@ -621,130 +621,106 @@ public class AdminEventEngine implements IAdminCommandHandler
 	void teleportTeam(L2PcInstance activeChar, int team)
 	{
 		LinkedList<String> linked = L2Event.players.get(team);
-		Iterator<String> it = linked.iterator();
-		while (it.hasNext())
-		{
-			try
-			{
-				L2PcInstance pc = L2World.getInstance().getPlayer(it.next());
-				pc.setTitle(L2Event.names.get(team));
-				pc.teleToLocation(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        for (String aLinked : linked) {
+            try {
+                L2PcInstance pc = L2World.getInstance().getPlayer(aLinked);
+                pc.setTitle(L2Event.names.get(team));
+                pc.teleToLocation(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+            }
+            catch (Exception e) {
+            }
+        }
 
 	}
 
 	void sitTeam(int team)
 	{
 		LinkedList<String> linked = L2Event.players.get(team);
-		Iterator<String> it = linked.iterator();
-		while (it.hasNext())
-		{
-			try
-			{
-				L2PcInstance pc = L2World.getInstance().getPlayer(it.next());
-				pc.eventSitForced = !pc.eventSitForced;
-				if (pc.eventSitForced)
-					pc.sitDown();
-				else
-					pc.standUp();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        for (String aLinked : linked) {
+            try {
+                L2PcInstance pc = L2World.getInstance().getPlayer(aLinked);
+                pc.eventSitForced = !pc.eventSitForced;
+                if (pc.eventSitForced)
+                    pc.sitDown();
+                else
+                    pc.standUp();
+            }
+            catch (Exception e) {
+            }
+        }
 
 	}
 
 	void killTeam(L2PcInstance activeChar, int team)
 	{
 		LinkedList<String> linked = L2Event.players.get(team);
-		Iterator<String> it = linked.iterator();
-		while (it.hasNext())
-		{
-			try
-			{
-				L2PcInstance target = L2World.getInstance().getPlayer(it.next());
-				target.reduceCurrentHp(target.getMaxHp() + target.getMaxCp() + 1, activeChar);
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        for (String aLinked : linked) {
+            try {
+                L2PcInstance target = L2World.getInstance().getPlayer(aLinked);
+                target.reduceCurrentHp(target.getMaxHp() + target.getMaxCp() + 1, activeChar);
+            }
+            catch (Exception e) {
+            }
+        }
 
 	}
 
 	void resTeam(int team)
 	{
 		LinkedList<String> linked = L2Event.players.get(team);
-		Iterator<String> it = linked.iterator();
-		while (it.hasNext())
-		{
-			try
-			{
-				L2PcInstance character = L2World.getInstance().getPlayer(it.next());
-				character.getStatus().setCurrentHpMp(character.getMaxHp(), character.getMaxMp());
-				character.getStatus().setCurrentCp(character.getMaxCp());
-				Revive revive = new Revive(character);
-				SocialAction sa = new SocialAction(character.getObjectId(), 15);
-				character.broadcastPacket(sa);
-				character.sendPacket(sa);
-				character.sendPacket(revive);
-				character.broadcastPacket(revive);
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        for (String aLinked : linked) {
+            try {
+                L2PcInstance character = L2World.getInstance().getPlayer(aLinked);
+                character.getStatus().setCurrentHpMp(character.getMaxHp(), character.getMaxMp());
+                character.getStatus().setCurrentCp(character.getMaxCp());
+                Revive revive = new Revive(character);
+                SocialAction sa = new SocialAction(character.getObjectId(), 15);
+                character.broadcastPacket(sa);
+                character.sendPacket(sa);
+                character.sendPacket(revive);
+                character.broadcastPacket(revive);
+            }
+            catch (Exception e) {
+            }
+        }
 
 	}
 
 	void polyTeam(int team, String id)
 	{
 		LinkedList<String> linked = L2Event.players.get(team);
-		Iterator<String> it = linked.iterator();
-		while (it.hasNext())
-		{
-			try
-			{
-				L2PcInstance target = L2World.getInstance().getPlayer(it.next());
-				target.getPoly().setPolyInfo("npc", id);
-				target.teleToLocation(target.getX(), target.getY(), target.getZ());
-				CharInfo info1 = new CharInfo(target);
-				target.broadcastPacket(info1);
-				UserInfo info2 = new UserInfo(target);
-				target.sendPacket(info2);
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        for (String aLinked : linked) {
+            try {
+                L2PcInstance target = L2World.getInstance().getPlayer(aLinked);
+                target.getPoly().setPolyInfo("npc", id);
+                target.teleToLocation(target.getX(), target.getY(), target.getZ());
+                CharInfo info1 = new CharInfo(target);
+                target.broadcastPacket(info1);
+                UserInfo info2 = new UserInfo(target);
+                target.sendPacket(info2);
+            }
+            catch (Exception e) {
+            }
+        }
 	}
 
 	void unpolyTeam(int team)
 	{
 		LinkedList<String> linked = L2Event.players.get(team);
-		Iterator<String> it = linked.iterator();
-		while (it.hasNext())
-		{
-			try
-			{
-				L2PcInstance target = L2World.getInstance().getPlayer(it.next());
-				target.getPoly().setPolyInfo(null, "1");
-				target.decayMe();
-				target.spawnMe(target.getX(), target.getY(), target.getZ());
-				CharInfo info1 = new CharInfo(target);
-				target.broadcastPacket(info1);
-				UserInfo info2 = new UserInfo(target);
-				target.sendPacket(info2);
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        for (String aLinked : linked) {
+            try {
+                L2PcInstance target = L2World.getInstance().getPlayer(aLinked);
+                target.getPoly().setPolyInfo(null, "1");
+                target.decayMe();
+                target.spawnMe(target.getX(), target.getY(), target.getZ());
+                CharInfo info1 = new CharInfo(target);
+                target.broadcastPacket(info1);
+                UserInfo info2 = new UserInfo(target);
+                target.sendPacket(info2);
+            }
+            catch (Exception e) {
+            }
+        }
 
 	}
 
@@ -772,24 +748,20 @@ public class AdminEventEngine implements IAdminCommandHandler
 	{
 		LinkedList<String> linked = L2Event.players.get(team);
 		int temp = n;
-		Iterator<String> it = linked.iterator();
-		while (it.hasNext())
-		{
-			try
-			{
-				L2PcInstance target = L2World.getInstance().getPlayer(it.next());
-				if (type.equalsIgnoreCase("level"))
-					temp = n * target.getLevel();
-				else if (type.equalsIgnoreCase("kills"))
-					temp = n * target.kills.size();
-				else
-					temp = n;
-				createItem(activeChar, target, id, temp);
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        for (String aLinked : linked) {
+            try {
+                L2PcInstance target = L2World.getInstance().getPlayer(aLinked);
+                if (type.equalsIgnoreCase("level"))
+                    temp = n * target.getLevel();
+                else if (type.equalsIgnoreCase("kills"))
+                    temp = n * target.kills.size();
+                else
+                    temp = n;
+                createItem(activeChar, target, id, temp);
+            }
+            catch (Exception e) {
+            }
+        }
 	}
 
 	void telePlayersBack(int team)
@@ -797,24 +769,20 @@ public class AdminEventEngine implements IAdminCommandHandler
 		resTeam(team);
 		unpolyTeam(team);
 		LinkedList<String> linked = L2Event.players.get(team);
-		Iterator<String> it = linked.iterator();
-		while (it.hasNext())
-		{
-			try
-			{
-				L2PcInstance target = L2World.getInstance().getPlayer(it.next());
-				target.setTitle(target.eventTitle);
-				target.setKarma(target.eventKarma);
-				target.setPvpKills(target.eventPvpKills);
-				target.setPkKills(target.eventPkKills);
-				target.teleToLocation(target.eventX, target.eventY, target.eventZ);
-				target.kills.clear();
-				target.eventSitForced = false;
-				target.atEvent = false;
-			}
-			catch (Exception e)
-			{
-			}
-		}
+        for (String aLinked : linked) {
+            try {
+                L2PcInstance target = L2World.getInstance().getPlayer(aLinked);
+                target.setTitle(target.eventTitle);
+                target.setKarma(target.eventKarma);
+                target.setPvpKills(target.eventPvpKills);
+                target.setPkKills(target.eventPkKills);
+                target.teleToLocation(target.eventX, target.eventY, target.eventZ);
+                target.kills.clear();
+                target.eventSitForced = false;
+                target.atEvent = false;
+            }
+            catch (Exception e) {
+            }
+        }
 	}
 }

@@ -92,8 +92,6 @@ public class EnchantScrolls implements IItemHandler
 			activeChar.sendPacket(new ChooseInventoryItem(itemId - 2));
 		else
 			activeChar.sendPacket(new ChooseInventoryItem(itemId));
-
-		return;
 	}
 
 	public int[] getItemIds()

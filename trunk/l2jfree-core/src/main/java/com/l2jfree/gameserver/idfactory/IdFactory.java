@@ -127,9 +127,6 @@ public abstract class IdFactory
 	{
 		switch (Config.IDFACTORY_TYPE)
 		{
-		case Compaction:
-			_instance = new CompactionIDFactory();
-			break;
 		case BitSet:
 			_instance = new BitSetIDFactory();
 			break;
@@ -240,7 +237,6 @@ public abstract class IdFactory
 	}
 
 	/**
-	 * @param con
 	 * @return
 	 * @throws SQLException
 	 */
@@ -307,7 +303,7 @@ public abstract class IdFactory
 
 	/**
 	 * return a used Object ID back to the pool
-	 * @param object ID
+	 * @param id ID
 	 */
 	public abstract void releaseId(int id);
 

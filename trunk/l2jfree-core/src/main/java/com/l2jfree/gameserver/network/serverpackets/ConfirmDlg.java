@@ -57,15 +57,15 @@ public class ConfirmDlg extends L2GameServerPacket
 
 	public ConfirmDlg addString(String text)
 	{
-		_types.add(Integer.valueOf(TYPE_TEXT));
+		_types.add(TYPE_TEXT);
 		_values.add(text);
 		return this;
 	}
 
 	public ConfirmDlg addNumber(int number)
 	{
-		_types.add(Integer.valueOf(TYPE_NUMBER));
-		_values.add(Integer.valueOf(number));
+		_types.add(TYPE_NUMBER);
+		_values.add(number);
 		return this;
 	}
 
@@ -104,8 +104,8 @@ public class ConfirmDlg extends L2GameServerPacket
 
 	public ConfirmDlg addNpcName(int id)
 	{
-		_types.add(Integer.valueOf(TYPE_NPC_NAME));
-		_values.add(Integer.valueOf(1000000 + id));
+		_types.add(TYPE_NPC_NAME);
+		_values.add(1000000 + id);
 		return this;
 	}
 
@@ -118,13 +118,13 @@ public class ConfirmDlg extends L2GameServerPacket
 	{
 		if(item.getItemDisplayId() == item.getItemId())
 		{
-			_types.add(Integer.valueOf(TYPE_ITEM_NAME));
-			_values.add(Integer.valueOf(item.getItemId()));
+			_types.add(TYPE_ITEM_NAME);
+			_values.add(item.getItemId());
 		}
 		else
 		{
 			// Custom item - send custom name
-			_types.add(Integer.valueOf(TYPE_TEXT));
+			_types.add(TYPE_TEXT);
 			_values.add(item.getName());
 		}
 		return this;
@@ -132,14 +132,14 @@ public class ConfirmDlg extends L2GameServerPacket
 
 	public ConfirmDlg addItemName(int id)
 	{
-		_types.add(Integer.valueOf(TYPE_ITEM_NAME));
-		_values.add(Integer.valueOf(id));
+		_types.add(TYPE_ITEM_NAME);
+		_values.add(id);
 		return this;
 	}
 
 	public ConfirmDlg addZoneName(int x, int y, int z)
 	{
-		_types.add(Integer.valueOf(TYPE_ZONE_NAME));
+		_types.add(TYPE_ZONE_NAME);
 		int[] coord = {x, y, z};
 		_values.add(coord);
 		return this;
@@ -164,8 +164,8 @@ public class ConfirmDlg extends L2GameServerPacket
 
 	public ConfirmDlg addSkillName(int id, int lvl)
 	{
-		_types.add(Integer.valueOf(TYPE_SKILL_NAME));
-		_values.add(Integer.valueOf(id));
+		_types.add(TYPE_SKILL_NAME);
+		_values.add(id);
 		_skillLvL = lvl;
 		return this;
 	}
@@ -193,7 +193,7 @@ public class ConfirmDlg extends L2GameServerPacket
 			writeD(_types.size());
 			for (int i = 0; i < _types.size(); i++)
 			{
-				int t = _types.get(i).intValue();
+				int t = _types.get(i);
 
 				writeD(t);
 
@@ -208,13 +208,13 @@ public class ConfirmDlg extends L2GameServerPacket
 					case TYPE_NPC_NAME:
 					case TYPE_ITEM_NAME:
 					{
-						int t1 = ((Integer)_values.get(i)).intValue();
+						int t1 = (Integer) _values.get(i);
 						writeD(t1);
 						break;
 					}
 					case TYPE_SKILL_NAME:
 					{
-						int t1 = ((Integer)_values.get(i)).intValue();
+						int t1 = (Integer) _values.get(i);
 						writeD(t1); // Skill Id
 						writeD(_skillLvL); // Skill lvl
 						break;

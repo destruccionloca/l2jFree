@@ -577,7 +577,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				z1 = ((L2MinionInstance) _actor).getLeader().getZ();
 				// Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet MoveToLocation (broadcast)
 				moveTo(x1, y1, z1);
-				return;
 			}
 			else if (Rnd.nextInt(RANDOM_WALK_RATE) == 0)
 			{
@@ -1529,7 +1528,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			_globalAggro = 0;
 
 		// Add the attacker to the _aggroList of the actor
-		if (!((L2Attackable) _actor).isCoreAIDisabled())
+		if (!_actor.isCoreAIDisabled())
 			((L2Attackable) _actor).addDamageHate(attacker, 0, 1);
 
 		// Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
@@ -1537,15 +1536,15 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			_actor.setRunning();
 
 		// Set the Intention to AI_INTENTION_ATTACK
-		if (getIntention() != AI_INTENTION_ATTACK && !((L2Attackable) _actor).isCoreAIDisabled())
+		if (getIntention() != AI_INTENTION_ATTACK && !_actor.isCoreAIDisabled())
 		{
 			setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
 		}
-		else if (((L2Attackable) _actor).getMostHated() != getAttackTarget() && !((L2Attackable) _actor).isCoreAIDisabled())
+		else if (((L2Attackable) _actor).getMostHated() != getAttackTarget() && !_actor.isCoreAIDisabled())
 		{
 			setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
 		}
-		else if (getIntention() != AI_INTENTION_INTERACT && ((L2Attackable) _actor).isCoreAIDisabled())
+		else if (getIntention() != AI_INTENTION_INTERACT && _actor.isCoreAIDisabled())
 			setIntention(CtrlIntention.AI_INTENTION_INTERACT, attacker);
 
 		super.onEvtAttacked(attacker);
@@ -1558,7 +1557,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	 * <li>Add the target to the actor _aggroList or update hate if already present </li>
 	 * <li>Set the actor Intention to AI_INTENTION_ATTACK (if actor is L2GuardInstance check if it isn't too far from its home location)</li><BR><BR>
 	 * 
-	 * @param attacker The L2Character that attacks
+	 * @param target The L2Character that attacks
 	 * @param aggro The value of hate to add to the actor against the target
 	 * 
 	 */

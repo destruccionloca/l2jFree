@@ -146,7 +146,7 @@ public class AdminPForge implements IAdminCommandHandler
 
 					sp.addPart(bytes[i], val);
 				}
-				if (broadcast == true)
+				if (broadcast)
 				{
 					activeChar.broadcastPacket(sp);
 				}

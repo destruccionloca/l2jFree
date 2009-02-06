@@ -51,9 +51,9 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 public class DM
 {   
 	private final static Log _log = LogFactory.getLog(DM.class.getName());
-	public static String _eventName = new String(),
-						 _eventDesc = new String(),
-						 _joiningLocationName = new String();
+	public static String _eventName = "",
+						 _eventDesc = "",
+						 _joiningLocationName = "";
 	public static Vector<String> _savePlayers = new Vector<String>();
 	public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>();
 	public static boolean _joining = false,
@@ -85,18 +85,12 @@ public class DM
 
 	public static boolean checkMaxLevel(int maxlvl)
 	{
-		if (_minlvl >= maxlvl)
-			return false;
-		
-		return true;
+        return _minlvl < maxlvl;
 	}
 
 	public static boolean checkMinLevel(int minlvl)
 	{
-		if (_maxlvl <= minlvl)
-			return false;
-		
-		return true;
+        return _maxlvl > minlvl;
 	}
 
 	public static void setPlayersPos(L2PcInstance activeChar)
@@ -108,10 +102,7 @@ public class DM
 
 	public static boolean checkPlayerOk()
 	{
-		if (_started || _teleport || _joining)
-			return false;
-		
-		return true;
+        return !(_started || _teleport || _joining);
 	}
 
 	public static void startJoin(L2PcInstance activeChar)
@@ -129,13 +120,10 @@ public class DM
 
 	private static boolean startJoinOk()
 	{
-		if (_started || _teleport || _joining || _eventName.equals("") ||
-			_joiningLocationName.equals("") || _eventDesc.equals("") || _npcId == 0 ||
-			_npcX == 0 || _npcY == 0 || _npcZ == 0 || _rewardId == 0 || _rewardAmount == 0 ||
-			_playerX == 0 || _playerY == 0 || _playerZ == 0)
-			return false;
-		
-		return true;
+        return !(_started || _teleport || _joining || _eventName.equals("") ||
+                _joiningLocationName.equals("") || _eventDesc.equals("") || _npcId == 0 ||
+                _npcX == 0 || _npcY == 0 || _npcZ == 0 || _rewardId == 0 || _rewardAmount == 0 ||
+                _playerX == 0 || _playerY == 0 || _playerZ == 0);
 	}
 
 	private static void spawnEventNpc(L2PcInstance activeChar)
@@ -242,10 +230,7 @@ public class DM
 
 	private static boolean startEventOk()
 	{
-		if (_joining || !_teleport || _started)
-			return false;
-		
-		return true;
+        return !(_joining || !_teleport || _started);
 	}
 
 	public static void setUserData()
@@ -299,10 +284,7 @@ public class DM
 
 	private static boolean finishEventOk()
 	{
-		if (!_started)
-			return false;
-		
-		return true;
+        return _started;
 	}
 
 	public static void processTopPlayer()
@@ -358,10 +340,7 @@ public class DM
 
 	public static void sit()
 	{
-		if (_sitForced)
-			_sitForced = false;
-		else
-			_sitForced = true;
+        _sitForced = !_sitForced;
 		
 		for (L2PcInstance player : _players)
 		{
@@ -448,9 +427,9 @@ public class DM
 
 	public static void loadData()
 	{
-		_eventName = new String();
-		_eventDesc = new String();
-		_joiningLocationName = new String();
+		_eventName = "";
+		_eventDesc = "";
+		_joiningLocationName = "";
 		_savePlayers = new Vector<String>();
 		_players = new Vector<L2PcInstance>();
 		_topPlayer = null;

@@ -52,7 +52,7 @@ public class L2MothertreeZone extends L2DefaultZone
 		if (character instanceof L2PcInstance && character.isInsideZone(L2Zone.FLAG_MOTHERTREE))
 		{
 			character.setInsideZone(FLAG_MOTHERTREE, false);
-			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.EXIT_SHADOW_MOTHER_TREE));
+			character.sendPacket(new SystemMessage(SystemMessageId.EXIT_SHADOW_MOTHER_TREE));
 		}
 
 		super.onExit(character);

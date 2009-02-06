@@ -252,10 +252,8 @@ public class MercTicketManager
 			if (ticket != null && ticket.getItemId() == itemId)
 				count++;
 		}
-		if (count >= limit)
-			return true;
-		return false;
-	}
+        return count >= limit;
+    }
 
 	/**
 	 * Checks if the passed item belongs to a castle which has reached its limit 
@@ -276,15 +274,13 @@ public class MercTicketManager
 			if ((ticket != null) && (getTicketCastleId(ticket.getItemId()) == castleId))
 				count++;
 		}
-		if (count >= limit)
-			return true;
-		return false;
-	}
+        return count >= limit;
+    }
 
 	/**
 	 * Added to prevent multiple mercenaries spawns on siege time.
 	 * Function is called from SiegeGuardManager.spawnSiegeGuard() during siege time
-	 * @param int of castleId
+	 * @param castleId
 	 * @return int representation of max allowed guards
 	 */
 	public int getMaxAllowedMerc(int castleId)

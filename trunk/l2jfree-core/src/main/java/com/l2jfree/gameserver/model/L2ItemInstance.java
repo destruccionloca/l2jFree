@@ -672,7 +672,7 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public boolean isDropable()
 	{
-		return isAugmented() ? false : _item.isDropable();
+		return !isAugmented() && _item.isDropable();
 	}
 	
 	/**
@@ -692,7 +692,7 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public boolean isTradeable()
 	{
-		return isAugmented() ? false : _item.isTradeable();
+		return !isAugmented() && _item.isTradeable();
 	}
 	
 	/**
@@ -701,7 +701,7 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public boolean isSellable()
 	{
-		return isAugmented() ? false : _item.isSellable();
+		return !isAugmented() && _item.isSellable();
 	}
 	
 	/**
@@ -758,7 +758,7 @@ public final class L2ItemInstance extends L2Object
 		if (_castleId > 0)
 		{
 			boolean privMatch = (player.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) == L2Clan.CP_CS_MERCENARIES;
-			boolean castleMatch = ((player.getClan() == null) ? false : player.getClan().getHasCastle() == _castleId);
+			boolean castleMatch = ((player.getClan() != null) && player.getClan().getHasCastle() == _castleId);
 			if (privMatch && castleMatch)
 			{
 				if (player.isInParty())
@@ -796,7 +796,7 @@ public final class L2ItemInstance extends L2Object
 	/**
 	 * Sets the level of enchantment of the item
 	 * 
-	 * @param int
+	 * @param enchantLevel
 	 */
 	public void setEnchantLevel(int enchantLevel)
 	{
@@ -825,7 +825,7 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public boolean isAugmented()
 	{
-		return _augmentation == null ? false : true;
+		return _augmentation != null;
 	}
 	
 	/**
@@ -1135,7 +1135,7 @@ public final class L2ItemInstance extends L2Object
 	/**
 	 * Decreases the mana of this shadow item, sends a inventory update schedules a new consumption task if non is running optionally one could force a new task
 	 * 
-	 * @param forces
+	 * @param resetConsumingMana
 	 *            a new consumption task if item is equipped
 	 */
 	public void decreaseMana(boolean resetConsumingMana)
@@ -1388,14 +1388,15 @@ public final class L2ItemInstance extends L2Object
 		INSERT,
 		UPDATE,
 		REMOVE,
-		NONE;
+		NONE
 	}
 	
 	/**
 	 * Returns a L2ItemInstance stored in database from its objectID
 	 * 
-	 * @param objectId :
+	 * @param ownerId :
 	 *            int designating the objectID of the item
+     * @param rs
 	 * @return L2ItemInstance
 	 */
 	public static L2ItemInstance restoreFromDb(int ownerId, ResultSet rs)

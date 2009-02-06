@@ -49,8 +49,6 @@ public class RequestSetCrop extends L2GameClientPacket
 
 	
 	/**
-	 * @param buf
-	 * @param client
 	 */
 	@Override
 	protected void readImpl()
@@ -67,7 +65,7 @@ public class RequestSetCrop extends L2GameClientPacket
 		for (int i = 0; i < _size; i++)
 		{
 			int itemId = readD();
-			_items[i * 4 + 0] = itemId;
+			_items[(i * 4)] = itemId;
 			int sales = readD();
 			_items[i * 4 + 1] = sales;
 			int price = readD();
@@ -86,7 +84,7 @@ public class RequestSetCrop extends L2GameClientPacket
 		FastList<CropProcure> crops = new FastList<CropProcure>();
 		for (int i = 0; i < _size; i++)
 		{
-			int id = _items[i * 4 + 0];
+			int id = _items[(i * 4)];
 			int sales = _items[i * 4 + 1];
 			int price = _items[i * 4 + 2];
 			int type = _items[i * 4 + 3];

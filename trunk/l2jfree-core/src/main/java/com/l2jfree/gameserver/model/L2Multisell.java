@@ -41,7 +41,7 @@ import com.l2jfree.gameserver.util.Util;
 public class L2Multisell
 {
     private final static Log _log = LogFactory.getLog(L2Multisell.class.getName());
-    private List<MultiSellListContainer> _entries = new FastList<MultiSellListContainer>();
+    private final List<MultiSellListContainer> _entries = new FastList<MultiSellListContainer>();
     private static L2Multisell _instance = new L2Multisell();
 
     public MultiSellListContainer getList(int id)
@@ -99,8 +99,6 @@ public class L2Multisell
      * 		* If false, then any level ingredient will be considered equal and product will always
      * 		  be at +0 		
      * 3) apply taxes: Uses the "taxIngredient" entry in order to add a certain amount of adena to the ingredients
-     *
-     * @see com.l2jfree.gameserver.network.serverpackets.ServerBasePacket#runImpl()
      */
     private MultiSellListContainer generateMultiSell(int listId, boolean inventoryOnly, L2PcInstance player, double taxRate)
     {
@@ -301,7 +299,7 @@ public class L2Multisell
         }
         
         /**
-         * @param ingredients The ingredients to set.
+         * @param ingredient The ingredients to set.
          */
         public void addIngredient(MultiSellIngredient ingredient)
         {
@@ -387,7 +385,7 @@ public class L2Multisell
         }
         
         /**
-         * @param itemCount The itemCount to set.
+         * @param enchantmentLevel The itemCount to set.
          */
         public void setEnchantmentLevel(int enchantmentLevel)
         {

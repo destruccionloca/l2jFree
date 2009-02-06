@@ -71,8 +71,6 @@ public class UseItem extends L2GameClientPacket
 
 	/**
 	 * packet type id 0x14 format: cd
-	 * 
-	 * @param decrypt
 	 */
 	@Override
 	protected void readImpl()
@@ -412,7 +410,6 @@ public class UseItem extends L2GameClientPacket
 				// Send a Server->Client packet ItemList to this L2PcINstance to update left hand equipement
 				ItemList il = new ItemList(activeChar, false);
 				sendPacket(il);
-				return;
 			}
 			else
 			{

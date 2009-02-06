@@ -44,7 +44,7 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
      * <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it </li><BR><BR>
      * 
      * @param objectId Identifier of the object to initialized
-     * @param L2NpcTemplate Template to apply to the NPC
+     * @param template Template to apply to the NPC
      */
     public L2FestivalMonsterInstance(int objectId, L2NpcTemplate template)
     {
@@ -64,10 +64,7 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
     @Override
     public boolean isAutoAttackable(L2Character attacker)
     {
-        if (attacker instanceof L2FestivalMonsterInstance)
-            return false;
-        
-        return true;
+        return !(attacker instanceof L2FestivalMonsterInstance);
     }
     
     /**

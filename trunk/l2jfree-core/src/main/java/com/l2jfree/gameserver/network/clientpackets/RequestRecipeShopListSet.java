@@ -44,7 +44,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
         _items = new int[_count * 2];
         for (int x = 0; x < _count ; x++)
         {
-            int recipeID = readD(); _items[x*2 + 0] = recipeID;
+            int recipeID = readD(); _items[(x * 2)] = recipeID;
             int cost     = readD(); _items[x*2 + 1] = cost;
         }
     }
@@ -74,7 +74,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
             
             for (int x = 0; x < _count ; x++)
             {
-                int recipeID = _items[x*2 + 0];
+                int recipeID = _items[(x * 2)];
                 int cost     = _items[x*2 + 1];
                 createList.add(new L2ManufactureItem(recipeID, cost));
             }

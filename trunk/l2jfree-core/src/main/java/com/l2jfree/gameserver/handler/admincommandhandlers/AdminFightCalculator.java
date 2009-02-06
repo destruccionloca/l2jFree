@@ -102,8 +102,7 @@ public class AdminFightCalculator implements IAdminCommandHandler
 			if (s.equals("mid2"))
 			{
 				mid2 = Integer.parseInt(st.nextToken());
-				continue;
-			}
+				}
 		}
 
 		L2NpcTemplate npc1 = null;

@@ -72,8 +72,6 @@ public class RequestBuyItem extends L2GameClientPacket
 	 * 01 00 00 00<br>
 	 * <br>
 	 * format: cdd (dd)
-	 * 
-	 * @param decrypt
 	 */
 	@Override
 	protected void readImpl()
@@ -317,7 +315,7 @@ public class RequestBuyItem extends L2GameClientPacket
 		// Proceed the purchase
 		for (int i = 0; i < _count; i++)
 		{
-			int itemId = _items[i * 2 + 0];
+			int itemId = _items[(i * 2)];
 			int count = _items[i * 2 + 1];
 			if (count < 0)
 				count = 0;

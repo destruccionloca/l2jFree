@@ -49,7 +49,7 @@ public class CompiledScriptCache implements Serializable
 
 	private static final Log _log = LogFactory.getLog(CompiledScriptCache.class);
 
-	private Map<String, CompiledScriptHolder>  _compiledScriptCache = new FastMap<String, CompiledScriptHolder>();
+	private final Map<String, CompiledScriptHolder>  _compiledScriptCache = new FastMap<String, CompiledScriptHolder>();
 	private transient boolean _modified = false;
 
 	public CompiledScript loadCompiledScript(ScriptEngine engine, File file) throws FileNotFoundException, ScriptException
@@ -104,7 +104,7 @@ public class CompiledScriptCache implements Serializable
 		}
 	}
 
-	public void save() throws FileNotFoundException, IOException
+	public void save() throws IOException
 	{
 		synchronized (_compiledScriptCache)
 		{

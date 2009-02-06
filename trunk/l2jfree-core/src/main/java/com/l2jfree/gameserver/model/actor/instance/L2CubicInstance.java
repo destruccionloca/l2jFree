@@ -704,7 +704,6 @@ public class L2CubicInstance
 			}
 		}
 		_target = target;
-		return;
 	}
 
 	private class Heal implements Runnable

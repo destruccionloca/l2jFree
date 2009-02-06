@@ -130,8 +130,9 @@ public class FishermanManager
 		for (int id : scores.keySet())
 		{
 			arTop = _ranks.get(id);
-			idTop = id;
-			break;
+
+            if (id > idTop)
+			    idTop = id;
 		}
 
 		if (arTop == null)

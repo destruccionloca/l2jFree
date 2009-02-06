@@ -65,10 +65,8 @@ public class L2Event
         for (int i = 1; i <= players.size(); i++)
         {
             LinkedList<String> temp = players.get(i);
-            Iterator<String> it = temp.iterator();
-            while (it.hasNext())
-            {
-                if (it.next().equals(name)) return i;
+            for (String aTemp : temp) {
+                if (aTemp.equals(name)) return i;
             }
         }
         return 0;
@@ -87,23 +85,17 @@ public class L2Event
             for (int i = 1; i <= teamsNumber; i++)
             {
                 LinkedList<String> temp = players.get(i);
-                Iterator<String> it = temp.iterator();
-                while (it.hasNext())
-                {
-                    try
-                    {
-                        L2PcInstance player = L2World.getInstance().getPlayer(it.next());
-                        if (!killersTemp.contains(player.getName()))
-                        {
-                            if (player.kills.size() > kills)
-                            {
+                for (String aTemp : temp) {
+                    try {
+                        L2PcInstance player = L2World.getInstance().getPlayer(aTemp);
+                        if (!killersTemp.contains(player.getName())) {
+                            if (player.kills.size() > kills) {
                                 kills = player.kills.size();
                                 playerTemp = player.getName();
                             }
                         }
                     }
-                    catch (Exception e)
-                    {
+                    catch (Exception e) {
                     }
                 }
             }
@@ -113,20 +105,15 @@ public class L2Event
         for (int i = 0; i < N; i++)
         {
             kills = 0;
-            Iterator<String> it = killersTemp.iterator();
-            while (it.hasNext())
-            {
-                try
-                {
-                    L2PcInstance player = L2World.getInstance().getPlayer(it.next());
-                    if (player.kills.size() > kills)
-                    {
+            for (String aKillersTemp : killersTemp) {
+                try {
+                    L2PcInstance player = L2World.getInstance().getPlayer(aKillersTemp);
+                    if (player.kills.size() > kills) {
                         kills = player.kills.size();
                         playerTemp = player.getName();
                     }
                 }
-                catch (Exception e)
-                {
+                catch (Exception e) {
                 }
             }
             killers[i] = playerTemp;

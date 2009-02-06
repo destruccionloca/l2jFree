@@ -69,10 +69,8 @@ public class ShapeRect extends Shape
 		if (lineSegmentsIntersect(_xMin, _yMin, _xMin, _yMax, axMin, ayMin, axMax, ayMin)) return true;
 		if (lineSegmentsIntersect(_xMin, _yMin, _xMin, _yMax, axMin, ayMax, axMax, ayMax)) return true;
 		if (lineSegmentsIntersect(_xMax, _yMin, _xMax, _yMax, axMin, ayMin, axMax, ayMin)) return true;
-		if (lineSegmentsIntersect(_xMax, _yMin, _xMax, _yMax, axMin, ayMax, axMax, ayMax)) return true;
-		
-		return false;
-	}
+        return lineSegmentsIntersect(_xMax, _yMin, _xMax, _yMax, axMin, ayMax, axMax, ayMax);
+    }
 	
 	@Override
 	public double getDistanceToZone(int x, int y)

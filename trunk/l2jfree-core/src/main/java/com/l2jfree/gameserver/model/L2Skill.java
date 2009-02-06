@@ -636,7 +636,7 @@ public class L2Skill
 		caster.sendPacket(ActionFailed.STATIC_PACKET);
 		
 		if (caster instanceof L2PcInstance)
-			((L2PcInstance)caster).sendMessage("Skill not implemented. Skill ID: " + getId() + " " + getSkillType());
+			caster.sendMessage("Skill not implemented. Skill ID: " + getId() + " " + getSkillType());
 	}
 	
 	public final boolean isPotion()
@@ -1828,7 +1828,7 @@ public class L2Skill
 					if (!Util.checkIfInRange(radius, activeChar, obj, true))
 						continue;
 
-					if (onlyFirst == false)
+					if (onlyFirst)
 						targetList.add((L2Character) obj);
 					else
 						return new L2Character[]
@@ -1916,7 +1916,7 @@ public class L2Skill
 					if (!Util.checkIfInRange(radius, activeChar, obj, true))
 						continue;
 
-					if (onlyFirst == false)
+					if (!onlyFirst)
 						targetList.add((L2Character) obj);
 					else
 						return new L2Character[]
@@ -1995,7 +1995,7 @@ public class L2Skill
 					if (!Util.checkIfInRange(radius, activeChar, obj, true))
 						continue;
 
-					if (onlyFirst == false)
+					if (!onlyFirst)
 						targetList.add((L2Character) obj);
 					else
 						return new L2Character[]
@@ -2387,7 +2387,7 @@ public class L2Skill
 			{
 				cha = target;
 
-				if (onlyFirst == false)
+				if (!onlyFirst)
 					targetList.add(cha); // Add target to target list
 				else
 					return new L2Character[]
@@ -2415,7 +2415,7 @@ public class L2Skill
 					if (!Util.checkIfInRange(radius, cha, obj, true)) // Go to next obj if obj isn't in range
 						continue;
 
-					if (onlyFirst == false)
+					if (!onlyFirst)
 						targetList.add((L2Character) obj); // Add obj to target lists
 					else
 						return new L2Character[]
@@ -2566,7 +2566,7 @@ public class L2Skill
 
 				if (targetType != SkillTargetType.TARGET_CORPSE_ALLY)
 				{
-					if (onlyFirst == false)
+					if (!onlyFirst)
 						targetList.add(player);
 					else
 						return new L2Character[] { player };
@@ -2636,7 +2636,7 @@ public class L2Skill
 						if (!player.checkPvpSkill(newTarget, this))
 							continue;
 
-						if (onlyFirst == false)
+						if (!onlyFirst)
 							targetList.add(newTarget);
 
 						return new L2Character[] { newTarget };
@@ -2678,8 +2678,8 @@ public class L2Skill
 						// check if both attacker and target are L2PcInstances and if they are in same party or clan
 						if ((activeChar instanceof L2PcInstance && obj instanceof L2PcInstance)
 								&& (((L2PcInstance) activeChar).getClanId() != ((L2PcInstance) obj).getClanId() || (((L2PcInstance) activeChar).getAllyId() != ((L2PcInstance) obj)
-										.getAllyId() && ((((L2PcInstance) activeChar).getParty() != null && ((L2PcInstance) obj).getParty() != null) && ((L2PcInstance) activeChar)
-										.getParty().getPartyLeaderOID() != ((L2PcInstance) obj).getParty().getPartyLeaderOID()))))
+										.getAllyId() && ((activeChar.getParty() != null && obj.getParty() != null) && activeChar
+										.getParty().getPartyLeaderOID() != obj.getParty().getPartyLeaderOID()))))
 							continue;
 
 						targetList.add(obj);
@@ -2875,7 +2875,7 @@ public class L2Skill
 
 					if (condGood)
 					{
-						if (onlyFirst == false)
+						if (!onlyFirst)
 						{
 							targetList.add(target);
 							return targetList.toArray(new L2Object[targetList.size()]);
@@ -2912,7 +2912,7 @@ public class L2Skill
 				}
 			}
 
-			if (onlyFirst == false)
+			if (!onlyFirst)
 			{
 				targetList.add(target);
 				return targetList.toArray(new L2Object[targetList.size()]);
@@ -2929,7 +2929,7 @@ public class L2Skill
 				return null;
 			}
 
-			if (onlyFirst == false)
+			if (!onlyFirst)
 				targetList.add(target);
 			else
 				return new L2Character[] { target };
@@ -2943,7 +2943,7 @@ public class L2Skill
 			int radius = getSkillRadius();
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
-				if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance) || ((L2Character) obj).isDead() || ((L2Character) obj) == activeChar)
+				if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance) || ((L2Character) obj).isDead() || obj == activeChar)
 					continue;
 
 				boolean targetInPvP = ((L2Character) obj).isInsideZone(L2Zone.FLAG_PVP) && !((L2Character) obj).isInsideZone(L2Zone.FLAG_SIEGE);
@@ -3020,7 +3020,7 @@ public class L2Skill
 				return null;
 			}
 
-			if (onlyFirst == false)
+			if (!onlyFirst)
 				targetList.add(target);
 			else
 				return new L2Character[]
@@ -3057,7 +3057,7 @@ public class L2Skill
 				return null;
 			}
 
-			if (onlyFirst == false)
+			if (!onlyFirst)
 			{
 				targetList.add(target);
 				return targetList.toArray(new L2Object[targetList.size()]);
@@ -3078,7 +3078,7 @@ public class L2Skill
 				L2Summon targetSummon = (L2Summon) target;
 				if (activeChar instanceof L2PcInstance && activeChar.getPet() != targetSummon && !targetSummon.isDead()
 						&& (targetSummon.getOwner().getPvpFlag() != 0 || targetSummon.getOwner().getKarma() > 0)
-						|| (targetSummon.getOwner().isInsideZone(L2Zone.FLAG_PVP) && ((L2PcInstance) activeChar).isInsideZone(L2Zone.FLAG_PVP)))
+						|| (targetSummon.getOwner().isInsideZone(L2Zone.FLAG_PVP) && activeChar.isInsideZone(L2Zone.FLAG_PVP)))
 					return new L2Character[] { targetSummon };
 			}
 			return null;
@@ -3594,12 +3594,8 @@ public class L2Skill
 		else if (diffHeading < 0)
 			diffHeading += 360;
 
-		if ((diffHeading > 90) && (diffHeading < 270))
-			return true;
-
-		return false;
-
-	}
+        return (diffHeading > 90) && (diffHeading < 270);
+    }
 
 	// [L2J_JP ADD SANDMAN END]
 	public final L2Object[] getTargetList(L2Character activeChar)

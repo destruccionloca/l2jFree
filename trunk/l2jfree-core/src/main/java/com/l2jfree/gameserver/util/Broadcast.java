@@ -110,8 +110,8 @@ public final class Broadcast
 				if (character.getKnownList().getKnownRelations().get(player.getObjectId()) != null && character.getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
 				{
 					player.sendPacket(new RelationChanged((L2PcInstance) character, relation, player.isAutoAttackable(character)));
-					if (((L2PcInstance) character).getPet() != null)
-						player.sendPacket(new RelationChanged(((L2PcInstance) character).getPet(), relation, player.isAutoAttackable(character)));
+					if (character.getPet() != null)
+						player.sendPacket(new RelationChanged(character.getPet(), relation, player.isAutoAttackable(character)));
 				}
 			}
 		}
@@ -244,12 +244,9 @@ public final class Broadcast
 		
 		L2PcInstance a = (L2PcInstance) activeChar;
 		L2PcInstance t = (L2PcInstance) target;
-		
-		if (a.getAppearance().isInvisible() &&
-				a.isGM() &&
-				!t.isGM())
-			return false;
-		
-		return true;
-	}
+
+        return !(a.getAppearance().isInvisible() &&
+                a.isGM() &&
+                !t.isGM());
+		}
 }

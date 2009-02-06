@@ -96,12 +96,9 @@ public final class L2Radar
             try
             {
                 RadarMarker temp = (RadarMarker) obj;
-                
-                if ((temp._x == this._x) && (temp._y == this._y) 
-                        && (temp._z == this._z) && (temp._type == this._type))
-                    return true;
 
-                return false;
+                return (temp._x == this._x) && (temp._y == this._y)
+                        && (temp._z == this._z) && (temp._type == this._type);
             }
             catch (Exception e)
             {

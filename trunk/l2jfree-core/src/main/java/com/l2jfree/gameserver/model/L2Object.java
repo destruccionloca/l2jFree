@@ -94,7 +94,7 @@ public abstract class L2Object
 
 	/**
 	 * 
-	 * @param client
+	 * @param player
 	 */
 	public void onActionShift(L2PcInstance player)
 	{
@@ -593,7 +593,7 @@ public abstract class L2Object
 	{
 		L2PcInstance player = getActingPlayer();
 
-		return (player == null ? false : player.isInFunEvent());
+		return (player != null && player.isInFunEvent());
 	}
 
 	public Location getLoc()

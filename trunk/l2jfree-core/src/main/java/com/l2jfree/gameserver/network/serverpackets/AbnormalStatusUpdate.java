@@ -31,9 +31,9 @@ public class AbnormalStatusUpdate extends L2GameServerPacket
 
 	private class Effect
 	{
-		protected int _skillId;
-		protected int _level;
-		protected int _duration;
+		int _skillId;
+		int _level;
+		int _duration;
 
 		public Effect(int pSkillId, int pLevel, int pDuration)
 		{

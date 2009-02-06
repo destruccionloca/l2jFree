@@ -36,7 +36,6 @@ public class RequestPledgeCrest extends L2GameClientPacket
 	/**
 	 * packet type id 0x68 format: cd
 	 * 
-	 * @param rawPacket
 	 */
     @Override
     protected void readImpl()
@@ -46,7 +45,7 @@ public class RequestPledgeCrest extends L2GameClientPacket
 		    _crestId = readD();
 		} catch (Exception e) {
 			e.printStackTrace();
-		};
+		}
 	}
 
     @Override

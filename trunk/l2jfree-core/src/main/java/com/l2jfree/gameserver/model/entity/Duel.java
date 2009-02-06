@@ -77,7 +77,7 @@ public class Duel
 		_duelId = duelId;
 		_playerA = playerA;
 		_playerB = playerB;
-		_partyDuel = partyDuel == 1 ? true : false;
+		_partyDuel = partyDuel == 1;
 		
 		_duelEndTime = System.currentTimeMillis();
 		if (_partyDuel) _duelEndTime += 300*1000;
@@ -441,7 +441,7 @@ public class Duel
 
 	/**
 	 * Restore player conditions
-	 * @param was the duel canceled?
+	 * @param abnormalDuelEnd
 	 */
 	public void restorePlayerConditions(boolean abnormalDuelEnd)
 	{
@@ -662,7 +662,7 @@ public class Duel
 
 	/**
 	 * The duel has reached a state in which it can no longer continue
-	 * @param duel result
+	 * @param result result
 	 */
 	public void endDuel(DuelResultEnum result)
 	{
@@ -818,7 +818,7 @@ public class Duel
 
 	/**
 	 * Register a surrender request
-	 * @param surrendering player
+	 * @param player
 	 */
 	public void doSurrender(L2PcInstance player)
 	{
@@ -875,7 +875,7 @@ public class Duel
 	
 	/**
 	 * This function is called whenever a player was defeated in a duel
-	 * @param dieing player
+	 * @param player
 	 */
 	public void onPlayerDefeat(L2PcInstance player)
 	{
@@ -916,7 +916,7 @@ public class Duel
 	
 	/**
 	 * This function is called whenever a player leaves a party
-	 * @param leaving player
+	 * @param player
 	 */
 	public void onRemoveFromParty(L2PcInstance player)
 	{

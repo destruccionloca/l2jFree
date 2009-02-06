@@ -129,23 +129,11 @@ public abstract class L2PlayableInstance extends L2Character
 
 		if (targetPlayer == null)
 			return false; // Target player is null
+
 		if (targetPlayer == this)
 			return false; // Target player is self
-		if (targetPlayer.getKarma() != 0)
-			return false; // Target player has karma
 
-		return true;
-		/*  Even at war, there should be PvP flag
-		if (player.getClan() == null || targetPlayer.getClan() == null ||
-				(!targetPlayer.getClan().isAtWarWith(player.getClanId()) &&
-		                targetPlayer.getWantsPeace() == 0 &&
-		                player.getWantsPeace() == 0))
-		{
-		    return true;
-		}
-
-		return false;
-		*/
+        return targetPlayer.getKarma() == 0;
 	}
 
 	/**
@@ -247,7 +235,7 @@ public abstract class L2PlayableInstance extends L2Character
 	}
 
 	 /** 
-	 * @param blessing 
+	 * @param effect 
 	 */ 
 	public void stopProtectionBlessing(L2Effect effect)
 	{

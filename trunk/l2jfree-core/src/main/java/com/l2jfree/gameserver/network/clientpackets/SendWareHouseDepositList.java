@@ -66,7 +66,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		for (int i=0; i < _count; i++)
 		{
 			int objectId = readD();
-			_items[i * 2 + 0] = objectId;
+			_items[(i * 2)] = objectId;
 			long cnt = readD(); 
 			if (cnt >= Integer.MAX_VALUE || cnt < 0)
 			{
@@ -124,7 +124,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 
 		for (int i = 0; i < _count; i++)
 		{
-			int objectId = _items[i * 2 + 0];
+			int objectId = _items[(i * 2)];
 			int count = _items[i * 2 + 1];
 
 			// Check validity of requested item
@@ -132,7 +132,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			if (item == null)
 			{
 				_log.warn("Error depositing a warehouse object for char "+player.getName()+" (validity check)");
-				_items[i * 2 + 0] = 0;
+				_items[(i * 2)] = 0;
 				_items[i * 2 + 1] = 0;
 				continue;
 			}
@@ -172,7 +172,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		InventoryUpdate playerIU = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 		for (int i = 0; i < _count; i++)
 		{
-			int objectId = _items[i * 2 + 0];
+			int objectId = _items[(i * 2)];
 			int count = _items[i * 2 + 1];
 
 			// check for an invalid item
