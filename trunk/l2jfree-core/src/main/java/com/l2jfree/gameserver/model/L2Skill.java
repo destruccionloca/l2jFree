@@ -23,10 +23,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.cache.L2Integer;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -59,9 +59,9 @@ import com.l2jfree.gameserver.skills.effects.EffectTemplate;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
-import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 
 public class L2Skill
@@ -1828,8 +1828,8 @@ public class L2Skill
 					if (!Util.checkIfInRange(radius, activeChar, obj, true))
 						continue;
 
-					if (onlyFirst)
-						targetList.add((L2Character) obj);
+					if (!onlyFirst)
+						targetList.add((L2Character)obj);
 					else
 						return new L2Character[]
 						{ (L2Character) obj };

@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.SkillsEngine;
+import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
 import com.l2jfree.gameserver.templates.item.L2EtcItem;
@@ -48,7 +49,6 @@ import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
-import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
  * This class ...
@@ -165,7 +165,7 @@ public class ItemTable
 		_slots.put("none", L2Item.SLOT_NONE);
 	}
 
-	private static ItemTable						_instance = new ItemTable();
+	private static ItemTable						_instance;
 
 	/** Table of SQL request in order to obtain items from tables [etcitem], [armor], [weapon] */
 	private static final String[]					SQL_ITEM_SELECTS		=
@@ -208,6 +208,9 @@ public class ItemTable
 	 */
 	public static ItemTable getInstance()
 	{
+		if (_instance == null)
+			_instance = new ItemTable();
+		
 		return _instance;
 	}
 

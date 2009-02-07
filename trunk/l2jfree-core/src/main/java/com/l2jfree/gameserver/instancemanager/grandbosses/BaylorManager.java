@@ -270,7 +270,7 @@ public class BaylorManager extends BossLair
 	// Whether it is permitted to enter the baylor's lair is confirmed. 
 	public int canIntoBaylorLair(L2PcInstance pc)
 	{
-		if ((Config.FWBA_ENABLESINGLEPLAYER) && (pc.getParty() == null))
+		if ((!Config.FWBA_ENABLESINGLEPLAYER) && !pc.isInParty())
 			return 4;
 		else if (_isAlreadyEnteredOtherParty)
 			return 2;
