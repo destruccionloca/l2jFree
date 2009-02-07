@@ -22,7 +22,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 

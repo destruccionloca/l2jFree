@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.model.L2Character;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
