@@ -548,8 +548,8 @@ public final class PetitionManager
 				+ "width=\"50\" height=\"15\" back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br1>");
 		htmlContent.append("<button value=\"Reject\" action=\"bypass -h admin_reject_petition " + currPetition.getId() + "\" "
 				+ "width=\"50\" height=\"15\" back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br>");
-		htmlContent.append("<button value=\"Back\" action=\"bypass -h admin_view_petitions\" width=\"40\" height=\"15\" back=\"sek.cbui94\" "
-				+ "fore=\"sek.cbui92\"></center>");
+		htmlContent.append("<button value=\"Back\" action=\"bypass -h admin_view_petitions\" width=\"40\" height=\"15\" back=\"L2UI_ct1.button_df\" "
+				+ "fore=\"L2UI_ct1.button_df\"></center>");
 		htmlContent.append("</body></html>");
 
 		NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);

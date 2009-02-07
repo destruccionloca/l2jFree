@@ -24,22 +24,22 @@ import com.l2jfree.gameserver.model.L2World;
 public final class KnownListUpdateTaskManager implements Runnable
 {
 	private static KnownListUpdateTaskManager _instance;
-	
+
 	public static KnownListUpdateTaskManager getInstance()
 	{
 		if (_instance == null)
 			_instance = new KnownListUpdateTaskManager();
-		
+
 		return _instance;
 	}
-	
+
 	public KnownListUpdateTaskManager()
 	{
 		long delay = 10*60*1000; // 10 min
-		
+
 		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, delay, delay);
 	}
-	
+
 	@Override
 	public void run()
 	{

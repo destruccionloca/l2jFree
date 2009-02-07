@@ -1209,7 +1209,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						html.setFile("data/html/chamberlain/siegetime1.htm");
 						sendHtmlMessage(player, html);
 					}
-					else if (getCastle().getSiege().getIsTimeRegistrationOver()) 
+					else if (getCastle().getSiege().getIsTimeRegistrationOver())
 					{
 						NpcHtmlMessage html = new NpcHtmlMessage(1);
 						html.setFile("data/html/chamberlain/siegetime2.htm");
@@ -1220,7 +1220,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						NpcHtmlMessage html = new NpcHtmlMessage(1);
 						html.setFile("data/html/chamberlain/siegetime3.htm");
 						html.replace("%time%", String.valueOf(getCastle().getSiegeDate().getTime()));
-						sendHtmlMessage(player, html);						
+						sendHtmlMessage(player, html);
 					}
 				}
 				else
@@ -1344,7 +1344,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					TextBuilder tList = new TextBuilder();
 					for (Integer hour : list)
 					{
-						if (hour == 0) 
+						if (hour == 0)
 							tList.append("<a action=\"bypass -h npc_%objectId%_siege_time_set 3 " + String.valueOf(hour + inc) + "\">" + String.valueOf(hour + 12) + ":00 " + ampm + "</a><br>");
 						else
 							tList.append("<a action=\"bypass -h npc_%objectId%_siege_time_set 3 " + String.valueOf(hour + inc) + "\">" + String.valueOf(hour) + ":00 " + ampm + "</a><br>");

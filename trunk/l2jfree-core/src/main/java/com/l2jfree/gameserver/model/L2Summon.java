@@ -362,7 +362,7 @@ public abstract class L2Summon extends L2PlayableInstance
 				{
 					if (TgMob.isDead())
 						continue;
-					
+
 					AggroInfo info = ((L2Attackable) TgMob).getAggroListRP().get(this);
 					if (info != null)
 						((L2Attackable) TgMob).addDamageHate(owner, info._damage, info._hate);
@@ -401,11 +401,11 @@ public abstract class L2Summon extends L2PlayableInstance
 	public final void broadcastStatusUpdateImpl()
 	{
 		super.broadcastStatusUpdateImpl();
-		
+
 		if (isVisible())
 		{
 			getOwner().sendPacket(new PetStatusUpdate(this));
-			
+
 			L2Party party = getOwner().getParty();
 			if (party != null)
 				party.broadcastToPartyMembers(getOwner(), new ExPartyPetWindowUpdate(this));
@@ -416,29 +416,29 @@ public abstract class L2Summon extends L2PlayableInstance
 	public final void updateEffectIconsImpl()
 	{
 		PartySpelled ps = new PartySpelled(this);
-		
+
 		for (L2Effect effect: getAllEffects())
 		{
 			if (!effect.getShowIcon())
 				continue;
-			
+
 			switch (effect.getEffectType())
 			{
 				case SIGNET_GROUND:
 					continue;
 			}
-			
+
 			if (effect.getInUse())
 				effect.addPartySpelledIcon(ps);
 		}
-		
+
 		L2Party party = getOwner().getParty();
 		if (party != null)
 			party.broadcastToPartyMembers(ps);
 		else
 			getOwner().sendPacket(ps);
 	}
-	
+
 	public void onSummon()
 	{
 
@@ -483,7 +483,7 @@ public abstract class L2Summon extends L2PlayableInstance
 
 			giveAllToOwner();
 			SQLQueue.getInstance().run();
-			
+
 			stopAllEffects();
 
 			L2WorldRegion oldRegion = getWorldRegion();
@@ -571,7 +571,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	}
 
 	/**
-	 * @param object  
+	 * @param object
 	 */
 	protected void doPickupItem(L2Object object)
 	{
@@ -720,7 +720,7 @@ public abstract class L2Summon extends L2PlayableInstance
 		// Check if this skill is enabled (e.g. reuse time)
 		if (isSkillDisabled(skill.getId()))
 		{
-			if (getOwner() != null) 
+			if (getOwner() != null)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
 				sm.addSkillName(skill);
@@ -919,13 +919,13 @@ public abstract class L2Summon extends L2PlayableInstance
 		else
 			super.doCast(skill);
 	}
-	
+
 	@Override
 	public final L2PcInstance getActingPlayer()
 	{
 		return getOwner();
 	}
-	
+
 	@Override
 	public final L2Summon getActingSummon()
 	{

@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -27,9 +27,9 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
 /**
- * 
+ *
  * This class ...
- * 
+ *
  * @version $Revision: 1.15.2.10.2.16 $ $Date: 2005/04/06 16:13:40 $
  */
 public final class L2BabyPetInstance extends L2PetInstance
@@ -37,16 +37,16 @@ public final class L2BabyPetInstance extends L2PetInstance
 	protected L2Skill _weakHeal;
 	protected L2Skill _strongHeal;
 	private Future<?> _healingTask;
-	
+
 	public L2BabyPetInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2ItemInstance control)
 	{
 		super(objectId, template, owner, control);
-		
+
 		// Look through the skills that this template has and find the weak and strong heal.
 		FastMap<Integer, L2Skill> skills = (FastMap<Integer, L2Skill>) getTemplate().getSkills();
 		L2Skill skill1 = null;
 		L2Skill skill2 = null;
-		
+
 		for (L2Skill skill: skills.values())
 		{
 			// just in case, also allow cp heal and mp recharges to be considered here...you never know ;)
@@ -104,13 +104,13 @@ public final class L2BabyPetInstance extends L2PetInstance
 			_healingTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Heal(this), 0, 1000);
 		}
 	}
-	
+
 	@Override
 	public boolean doDie(L2Character killer)
 	{
 		if (!super.doDie(killer))
 			return false;
-		
+
 		if (_healingTask != null)
 		{
 			_healingTask.cancel(false);
@@ -123,7 +123,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 	public synchronized void unSummon(L2PcInstance owner)
 	{
 		super.unSummon(owner);
-		
+
 		if (_healingTask != null)
 		{
 			_healingTask.cancel(false);
@@ -138,7 +138,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 		if (_healingTask == null)
 			_healingTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Heal(this), 0, 1000);
 	}
-	
+
 	private class Heal implements Runnable
 	{
 		private L2BabyPetInstance _baby;
@@ -146,20 +146,20 @@ public final class L2BabyPetInstance extends L2PetInstance
 		{
 			_baby = baby;
 		}
-		
+
 		public void run()
 		{
 			L2PcInstance owner = _baby.getOwner();
-			
+
 			// If the owner is dead, merely wait for the owner to be resurrected
 			// If the pet is still casting from the previous iteration, allow the cast to complete...
-			if (!owner.isDead() && !_baby.isCastingNow() && !_baby.isBetrayed()) 
+			if (!owner.isDead() && !_baby.isCastingNow() && !_baby.isBetrayed())
 			{
-				// Casting automatically stops any other action (such as autofollow or a move-to).  
+				// Casting automatically stops any other action (such as autofollow or a move-to).
 				// We need to gather the necessary info to restore the previous state.
 				boolean previousFollowStatus = _baby.getFollowStatus();
-				
-				// If the owner's HP is more than 80%, do nothing.  
+
+				// If the owner's HP is more than 80%, do nothing.
 				// If the owner's HP is very low (less than 20%) have a high chance for strong heal
 				// otherwise, have a low chance for weak heal
 				if ((owner.getStatus().getCurrentHp()/owner.getMaxHp() < 0.2) && Rnd.get(4) < 3)
@@ -167,13 +167,13 @@ public final class L2BabyPetInstance extends L2PetInstance
 				else if ((owner.getStatus().getCurrentHp()/owner.getMaxHp() < 0.8) && Rnd.get(4) < 1)
 					_baby.useMagic(_weakHeal,false,false);
 
-				// Calling useMagic changes the follow status, if the babypet actually casts 
+				// Calling useMagic changes the follow status, if the babypet actually casts
 				// (as opposed to failing due some factors, such as too low MP, etc).
-				// If the status has actually been changed, revert it.  Else, allow the pet to 
+				// If the status has actually been changed, revert it.  Else, allow the pet to
 				// continue whatever it was trying to do.
 				// NOTE: This is important since the pet may have been told to attack a target.
-				// Reverting the follow status will abort this attack!  While aborting the attack 
-				// in order to heal is natural, it is not acceptable to abort the attack on its own, 
+				// Reverting the follow status will abort this attack!  While aborting the attack
+				// in order to heal is natural, it is not acceptable to abort the attack on its own,
 				// merely because the timer stroke and without taking any other action...
 				if(previousFollowStatus != _baby.getFollowStatus())
 					setFollowStatus(previousFollowStatus);

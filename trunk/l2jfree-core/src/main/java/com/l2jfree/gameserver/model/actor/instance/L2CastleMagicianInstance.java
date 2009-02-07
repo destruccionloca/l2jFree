@@ -42,7 +42,7 @@ public class L2CastleMagicianInstance extends L2FolkInstance
 		String filename = "data/html/castlemagician/magician-no.htm";
 
 		int condition = validateCondition(player);
-		if (condition > COND_ALL_FALSE) 
+		if (condition > COND_ALL_FALSE)
 		{
 			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 				filename = "data/html/castlemagician/magician-busy.htm"; // Busy because of siege

@@ -60,7 +60,7 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
  *   <li> effect = forces an L2Character instance to broadcast MSU packets.
  *   <li> abnormal = force changes over an L2Character instance's abnormal state.
  *   <li> play_sound/play_sounds = Music broadcasting related commands 
- *   <li> atmosphere = sky change related commands. 
+ *   <li> atmosphere = sky change related commands.
  */
 
 public class AdminEffects implements IAdminCommandHandler

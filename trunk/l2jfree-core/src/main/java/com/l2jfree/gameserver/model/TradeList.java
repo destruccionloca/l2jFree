@@ -370,13 +370,13 @@ public class TradeList
             _log.warn(_owner.getName() + ": Attempt to add invalid item to TradeList!");
             return null;
         }
-        
+
         if (Config.ALT_STRICT_HERO_SYSTEM)
         {
             if (item.isHeroItem())
                 return null;
         }
-        
+
         if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST) return null;
         
         if (!item.isStackable() && count > 1)
@@ -791,7 +791,7 @@ public class TradeList
 
         PcInventory ownerInventory = _owner.getInventory();
         PcInventory playerInventory = player.getInventory();
-        
+
         //we must check item are available before begining transaction,
         // also check if augmented items are traded. If so, cancel it...
         for (ItemRequest item : items)
@@ -863,7 +863,7 @@ public class TradeList
                 player.sendPacket(msg);
             }
         }
-        
+
         // Transfer adena
         if (price > ownerInventory.getAdena()) return false;
         L2ItemInstance adenaItem = ownerInventory.getAdenaInstance();

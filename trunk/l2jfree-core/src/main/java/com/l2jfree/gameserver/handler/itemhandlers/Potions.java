@@ -231,7 +231,7 @@ public class Potions implements IItemHandler
 			res = usePotion(activeChar, 2012, 1);
 			break;
 		case 1060: // lesser_healing_potion,
-		case 1073: // beginner's potion, xml:
+		case 1073: // beginner's potion, xml: 2031
 			if (!isUseable(activeChar, L2EffectType.HEAL_OVER_TIME, item, 2031))
 				return;
 			res = usePotion(activeChar, 2031, 1);

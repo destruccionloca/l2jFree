@@ -52,7 +52,7 @@ public class VoicedCommandHandler
 		if (Config.ALLOW_WEDDING)
 		{
 			registerVoicedCommandHandler(new Wedding());
-			
+
 		}
 		_log.info("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}

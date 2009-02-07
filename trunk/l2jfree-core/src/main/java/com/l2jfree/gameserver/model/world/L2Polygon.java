@@ -25,15 +25,15 @@ public class L2Polygon implements Serializable
 	private int _nPoints;
 	private int _xPoints[];
 	private int _yPoints[];
-	
+
 	private static final long serialVersionUID = -6460061437900069969L;
-	
+
 	public L2Polygon()
 	{
 		_xPoints = new int[3];
 		_yPoints = new int[3];
 	}
-	
+
     public void addPoint(int x, int y)
     {
     	if (_nPoints == _xPoints.length)
@@ -52,7 +52,7 @@ public class L2Polygon implements Serializable
     	_yPoints[_nPoints] = y;
     	_nPoints++;
     }
-    
+
     public boolean contains(int x, int y)
     {
     	//return contains((double) x, (double) y);
@@ -85,12 +85,12 @@ public class L2Polygon implements Serializable
     {
     	return _yPoints;
     }
-    
+
     public int[] getXPoints()
     {
     	return _xPoints;
     }
-    
+
     public int size()
     {
     	return _nPoints;

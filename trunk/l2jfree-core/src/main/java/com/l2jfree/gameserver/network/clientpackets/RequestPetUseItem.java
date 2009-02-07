@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,7 +35,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 {
     private final static Log _log = LogFactory.getLog(RequestPetUseItem.class.getName());
     private static final String _C__8A_REQUESTPETUSEITEM = "[C] 8a RequestPetUseItem";
-    
+
     private int _objectId;
     /**
      * packet type id 0x8a
@@ -51,32 +51,32 @@ public class RequestPetUseItem extends L2GameClientPacket
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
-        
+
         if (activeChar == null)
             return;
-        
+
         L2PetInstance pet = (L2PetInstance)activeChar.getPet();
-        
+
         if (pet == null)
             return;
-        
+
         L2ItemInstance item = pet.getInventory().getItemByObjectId(_objectId);
-        
+
         if (item == null)
             return;
-        
+
         if (item.isWear())
             return;
 
-        if (activeChar.isAlikeDead() || pet.isDead()) 
+        if (activeChar.isAlikeDead() || pet.isDead())
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
             sm.addItemName(item);
             activeChar.sendPacket(sm);
             return;
         }
-        
-        if (_log.isDebugEnabled()) 
+
+        if (_log.isDebugEnabled())
             _log.debug(activeChar.getObjectId()+": pet use item " + _objectId);
 
         // check if the food matches the pet
@@ -85,7 +85,7 @@ public class RequestPetUseItem extends L2GameClientPacket
             feed(pet, item);
             return;
         }
-        
+
         if (item.getItem().getBodyPart() == L2Item.SLOT_NECK)
         {
             if (item.getItem().getItemType() == L2ArmorType.PET)
@@ -94,7 +94,7 @@ public class RequestPetUseItem extends L2GameClientPacket
                 return;
             }
         }
-        
+
         //check if the item matches the pet
         if ((PetDataTable.isWolf(pet.getNpcId()) && item.getItem().isForWolf()) ||
             (PetDataTable.isHatchling(pet.getNpcId()) && item.getItem().isForHatchling()) ||
@@ -114,7 +114,7 @@ public class RequestPetUseItem extends L2GameClientPacket
         }
 
         IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
-        
+
         if (handler != null)
         {
             useItem(pet, item, activeChar);
@@ -125,7 +125,7 @@ public class RequestPetUseItem extends L2GameClientPacket
             activeChar.sendPacket(sm);
         }
     }
-    
+
     private synchronized void useItem(L2PetInstance pet, L2ItemInstance item, L2PcInstance activeChar)
     {
         if (item.isEquipable())
@@ -134,10 +134,10 @@ public class RequestPetUseItem extends L2GameClientPacket
                 pet.getInventory().unEquipItemInSlot(item.getLocationSlot());
             else
                 pet.getInventory().equipItem(item);
-            
+
             PetItemList pil = new PetItemList(pet);
             activeChar.sendPacket(pil);
-            
+
             PetInfo pi = new PetInfo(pet);
             activeChar.sendPacket(pi);
         }
@@ -145,7 +145,7 @@ public class RequestPetUseItem extends L2GameClientPacket
         {
             //_log.debug("item not equipable id:"+ item.getItemId());
             IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
-            
+
             if (handler == null)
                 _log.warn("no itemhandler registered for itemId:" + item.getItemId());
             else
@@ -165,7 +165,7 @@ public class RequestPetUseItem extends L2GameClientPacket
             pet.setCurrentFed(pet.getCurrentFed() + 100);
 		pet.broadcastStatusUpdate();
     }
-    
+
     /* (non-Javadoc)
      * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
      */

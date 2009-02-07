@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.model.actor.appearance;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-public class PcAppearance 
+public class PcAppearance
 {
 	// =========================================================
 	// Data Field
@@ -57,7 +57,7 @@ public class PcAppearance
 	 * @param visibleName
 	 *            The visibleName to set.
 	 */
-	public final void setVisibleName(String visibleName) 
+	public final void setVisibleName(String visibleName)
 	{
 		_visibleName = visibleName;
 	}
@@ -65,9 +65,9 @@ public class PcAppearance
 	/**
 	 * @return Returns the visibleName.
 	 */
-	public final String getVisibleName() 
+	public final String getVisibleName()
 	{
-		if (_visibleName == null) 
+		if (_visibleName == null)
 		{
 			return this.getOwner().getName();
 		}
@@ -81,7 +81,7 @@ public class PcAppearance
 	 * @param visibleTitle
 	 *            The visibleTitle to set.
 	 */
-	public final void setVisibleTitle(String visibleTitle) 
+	public final void setVisibleTitle(String visibleTitle)
 	{
 		_visibleTitle = visibleTitle;
 	}
@@ -238,5 +238,4 @@ public class PcAppearance
 	{
 		_displayName = b;
 	}
-
 }

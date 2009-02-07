@@ -156,7 +156,7 @@ public final class L2ChestInstance extends L2MonsterInstance
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean isMovementDisabled()
 	{

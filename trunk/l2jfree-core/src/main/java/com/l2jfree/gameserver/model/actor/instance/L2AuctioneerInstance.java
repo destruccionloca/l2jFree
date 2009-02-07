@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,7 +45,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 	private static final int COND_ALL_FALSE = 0;
 	private static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
 	private static final int COND_REGULAR = 3;
-	
+
 	private Map<Integer, Auction> _pendingAuctions = new FastMap<Integer, Auction>();
 
 	public L2AuctioneerInstance(int objectId, L2NpcTemplate template)
@@ -132,9 +132,9 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 						Auction a = new Auction(player.getClan().getHasHideout(), player.getClan(), days*86400000L, bid, ClanHallManager.getInstance().getClanHallByOwner(player.getClan()).getName());
 						if (_pendingAuctions.get(a.getId()) != null)
 							_pendingAuctions.remove(a.getId());
-						
+
 						_pendingAuctions.put(a.getId(), a);
-						
+
 						String filename = "data/html/auction/AgitSale3.htm";
 						NpcHtmlMessage html = new NpcHtmlMessage(1);
 						html.setFile(filename);
@@ -269,7 +269,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 
 					int minimumBid = AuctionManager.getInstance().getAuction(Integer.parseInt(val)).getHighestBidderMaxBid();
 					if (minimumBid == 0) minimumBid = AuctionManager.getInstance().getAuction(Integer.parseInt(val)).getStartingBid(); 
-					
+
 					NpcHtmlMessage html = new NpcHtmlMessage(1);
 					html.setFile(filename);
 					html.replace("%AGIT_LINK_BACK%", "bypass -h npc_"+getObjectId()+"_bidding "+val);
@@ -627,10 +627,10 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 	private String getPictureName(L2PcInstance activeChar)
 	{
 		Town town = TownManager.getInstance().getClosestTown(activeChar);
-		
+
 		int nearestTownId = town.getTownId();
 		String nearestTown;
-		
+
 		switch (nearestTownId)
 		{
 			case 5: nearestTown = "GLUDIO"; break;
@@ -642,7 +642,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 			case 16: nearestTown = "SCHUTTGART"; break;
 			default: nearestTown = "ADEN"; break;
 		}
-		
+
 		return nearestTown;
 	}
 }

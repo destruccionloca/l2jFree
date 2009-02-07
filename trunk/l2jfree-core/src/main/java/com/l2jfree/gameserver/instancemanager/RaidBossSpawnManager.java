@@ -51,7 +51,7 @@ public class RaidBossSpawnManager extends BossSpawnManager
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 
-			PreparedStatement statement = con.prepareStatement("SELECT * from raidboss_spawnlist ORDER BY boss_id");
+			PreparedStatement statement = con.prepareStatement("SELECT * FROM raidboss_spawnlist ORDER BY boss_id");
 			ResultSet rset = statement.executeQuery();
 
 			L2Spawn spawnDat;
@@ -104,7 +104,7 @@ public class RaidBossSpawnManager extends BossSpawnManager
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
-					.prepareStatement("INSERT INTO raidboss_spawnlist (boss_id,amount,loc_x,loc_y,loc_z,heading,respawn_time,currentHp,currentMp) values(?,?,?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO raidboss_spawnlist (boss_id,amount,loc_x,loc_y,loc_z,heading,respawn_time,currentHp,currentMp) VALUES(?,?,?,?,?,?,?,?,?)");
 			statement.setInt(1, spawnDat.getNpcId());
 			statement.setInt(2, spawnDat.getAmount());
 			statement.setInt(3, spawnDat.getLocx());
@@ -166,7 +166,7 @@ public class RaidBossSpawnManager extends BossSpawnManager
 					continue;
 
 				PreparedStatement statement = con
-						.prepareStatement("UPDATE raidboss_spawnlist set respawn_time = ?, currentHp = ?, currentMp = ? where boss_id = ?");
+						.prepareStatement("UPDATE raidboss_spawnlist SET respawn_time = ?, currentHp = ?, currentMp = ? WHERE boss_id = ?");
 				statement.setLong(1, info.getLong("respawnTime"));
 				statement.setDouble(2, info.getDouble("currentHp"));
 				statement.setDouble(3, info.getDouble("currentMp"));

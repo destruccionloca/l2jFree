@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -44,20 +44,20 @@ public class L2CommanderInstance extends L2Attackable
         boolean isFort = (getFort() != null && getFort().getFortId() > 0 
             && getFort().getSiege().getIsInProgress() &&
                 !getFort().getSiege().checkIsDefender(((L2PcInstance)attacker).getClan()));
-        
+
         // Attackable during siege by all except defenders
         return isFort;
     }
-    
+
     @Override
     public final CommanderKnownList getKnownList()
     {
         if (_knownList == null)
             _knownList = new CommanderKnownList(this);
-        
+
         return (CommanderKnownList)_knownList;
     }
-    
+
     @Override
     public void addDamageHate(L2Character attacker, int damage, int aggro)
     {
@@ -69,13 +69,13 @@ public class L2CommanderInstance extends L2Attackable
             super.addDamageHate(attacker, damage, aggro);
         }
     }
-    
+
     @Override
     public boolean doDie(L2Character killer)
     {
         if (!super.doDie(killer))
             return false;
-        
+
         if (getFort().getSiege().getIsInProgress())
         {
             getFort().getSiege().killedCommander(this);
@@ -96,10 +96,10 @@ public class L2CommanderInstance extends L2Attackable
             if (_log.isDebugEnabled()) _log.info(getObjectId()+": moving home");
             setisReturningToSpawnPoint(true);    
             clearAggroList();
-            
+
             if (hasAI())
                 getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
         }
     }
-    
+
 }

@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,24 +36,24 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 	{
 		super(objectId, template);
 	}
-	
+
 	@Override
 	public void onAction(L2PcInstance player)
 	{
 		if (!canTarget(player)) return;
 
 		player.setLastFolkNPC(this);
-		
+
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-			
+
 			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
 			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
 			player.sendPacket(my);
-			
+
 			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
 		}
@@ -84,7 +84,7 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
-	
+
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
@@ -128,15 +128,15 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/castleblacksmith/castleblacksmith-no.htm";
-		
+
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE)
 		{
 			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 				filename = "data/html/castleblacksmith/castleblacksmith-busy.htm";			// Busy because of siege
-			else if (condition == COND_OWNER) 
+			else if (condition == COND_OWNER)
 			{																				// Clan owns castle
-				if (val == 0) 
+				if (val == 0)
 					filename = "data/html/castleblacksmith/castleblacksmith.htm";
 				else
 					filename = "data/html/castleblacksmith/castleblacksmith-" + val + ".htm";
@@ -150,7 +150,7 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 		html.replace("%castleid%", Integer.toString(getCastle().getCastleId()));
 		player.sendPacket(html);
 	}
-	
+
 	protected int validateCondition(L2PcInstance player)
 	{
 		if (player.isGM()) return COND_OWNER;

@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -3024,7 +3024,7 @@ public final class Config
 		_log.info("loading " + ELAYNE_FILE);
 		try
 		{
-			Properties elayneSettings = new L2Properties(BOSS_FILE);
+			Properties elayneSettings = new L2Properties(ELAYNE_FILE);
 
 			ALLOW_RMI_SERVER = Boolean.valueOf(elayneSettings.getProperty("AllowRMIServer", "False"));
 			RMI_SERVER_PASSWORD = elayneSettings.getProperty("RMIServerPassword", "******");
@@ -3964,7 +3964,7 @@ public final class Config
 
 	/**
 	 * Save hexadecimal ID of the server in the properties file.
-	 * 
+	 *
 	 * @param string (String) : hexadecimal ID of the server to store
 	 * @see HEXID_FILE
 	 * @see saveHexid(String string, String fileName)
@@ -3977,7 +3977,7 @@ public final class Config
 
 	/**
 	 * Save hexadecimal ID of the server in the properties file.
-	 * 
+	 *
 	 * @param hexId (String) : hexadecimal ID of the server to store
 	 * @param fileName (String) : name of the properties file
 	 */

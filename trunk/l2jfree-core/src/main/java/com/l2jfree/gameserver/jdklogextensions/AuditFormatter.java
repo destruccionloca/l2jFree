@@ -43,11 +43,11 @@ public class AuditFormatter extends Formatter
 
 		Object[] params = record.getParameters();
 
-		if (params != null) 
+		if (params != null)
 		{
-			for (Object p : params) 
+			for (Object p : params)
 			{
-				if (p == null) 
+				if (p == null)
 					continue;
 				output.append(',');
 				output.append(' ');

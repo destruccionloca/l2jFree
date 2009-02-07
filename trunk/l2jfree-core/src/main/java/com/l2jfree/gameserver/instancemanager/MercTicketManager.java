@@ -166,7 +166,7 @@ public class MercTicketManager
 			ResultSet rs;
 
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			statement = con.prepareStatement("SELECT * FROM castle_siege_guards Where isHired = 1");
+			statement = con.prepareStatement("SELECT * FROM castle_siege_guards WHERE isHired = 1");
 			rs = statement.executeQuery();
 
 			int npcId;

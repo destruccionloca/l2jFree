@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,7 +31,7 @@ import javolution.util.FastList;
 public class L2ControlTowerInstance extends L2NpcInstance
 {
     private List<L2Spawn> _guards; 
-	
+
 	public L2ControlTowerInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
@@ -47,7 +47,7 @@ public class L2ControlTowerInstance extends L2NpcInstance
     }
 
     @Override
-    public boolean isAutoAttackable(L2Character attacker) 
+    public boolean isAutoAttackable(L2Character attacker)
 	{
 		// Attackable during siege by attacker only
 		return (attacker != null 
@@ -57,13 +57,13 @@ public class L2ControlTowerInstance extends L2NpcInstance
 		        && getCastle().getSiege().getIsInProgress()
 		        && getCastle().getSiege().checkIsAttacker(((L2PcInstance)attacker).getClan()));
 	}
-	
+
 	@Override
 	public void onForcedAttack(L2PcInstance player)
 	{
 		onAction(player);
 	}
-	
+
 	@Override
 	public void onAction(L2PcInstance player)
 	{
@@ -95,7 +95,7 @@ public class L2ControlTowerInstance extends L2NpcInstance
 			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-				
+
 				// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
@@ -104,16 +104,16 @@ public class L2ControlTowerInstance extends L2NpcInstance
 
     /**
      * Remove the L2ControlTowerInstance from the world.<BR><BR>
-     * 
+     *
      * <B><U> Actions</U> :</B><BR><BR>
      * <li>Manage Siege task (killFlag, killCT) </li><BR><BR>
-     * 
+     *
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T REMOVE the object from _allObjects of L2World </B></FONT><BR>
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T SEND Server->Client packets to players</B></FONT><BR><BR>
-     * 
+     *
      * @see com.l2jfree.gameserver.model.actor.instance.L2NpcInstance#decayMe()
      */
-    @Override    
+    @Override
     public final void decayMe()
     {
         if (getCastle().getSiege().getIsInProgress())
@@ -131,12 +131,12 @@ public class L2ControlTowerInstance extends L2NpcInstance
         }
         super.decayMe();
     }
-    
+
     public void registerGuard(L2Spawn guard)
     {
         getGuards().add(guard);
     }
-    
+
     public final List<L2Spawn> getGuards()
     {
         if (_guards == null) _guards = new FastList<L2Spawn>();
