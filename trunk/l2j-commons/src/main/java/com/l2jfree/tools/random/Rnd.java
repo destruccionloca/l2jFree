@@ -16,35 +16,48 @@ package com.l2jfree.tools.random;
 
 import java.util.Random;
 
-public class Rnd
+public final class Rnd
 {
-	private static final Random _random = new Random();
+	private static final Random[] RANDOMS = new Random[1 << 4];
+	
+	static
+	{
+		for (int i = 0; i < RANDOMS.length; i++)
+			RANDOMS[i] = new Random();
+	}
+	
+	private static int randomizer;
+	
+	private static Random rnd()
+	{
+		return RANDOMS[randomizer++ & (RANDOMS.length - 1)];
+	}
 	
 	/**
 	 * Get random number from 0.0 to 1.0
 	 */
-	public static final double nextDouble()
+	public static double nextDouble()
 	{
-		return _random.nextDouble();
+		return rnd().nextDouble();
 	}
 	
 	/**
 	 * Get random number from 0 to n-1
 	 */
-	public static final int nextInt(int n)
+	public static int nextInt(int n)
 	{
 		if (n < 0)
-			return _random.nextInt(-n) * -1;
+			return rnd().nextInt(-n) * -1;
 		else if (n == 0)
 			return 0;
 		
-		return _random.nextInt(n);
+		return rnd().nextInt(n);
 	}
 	
 	/**
 	 * Get random number from 0 to n-1
 	 */
-	public static final int get(int n)
+	public static int get(int n)
 	{
 		return nextInt(n);
 	}
@@ -52,7 +65,7 @@ public class Rnd
 	/**
 	 * Get random number from min to max <b>(not max-1)</b>
 	 */
-	public static final int get(int min_, int max_)
+	public static int get(int min_, int max_)
 	{
 		int min = Math.min(min_, max_);
 		int max = Math.max(min_, max_);
@@ -60,18 +73,20 @@ public class Rnd
 		return min + nextInt(max - min + 1);
 	}
 	
-	public static final double nextGaussian()
+	public static double nextGaussian()
 	{
-		return _random.nextGaussian();
+		return rnd().nextGaussian();
 	}
 	
-	public static final boolean nextBoolean()
+	public static boolean nextBoolean()
 	{
-		return _random.nextBoolean();
+		return rnd().nextBoolean();
 	}
 	
-	public static final void nextBytes(byte[] array)
+	public static byte[] nextBytes(byte[] array)
 	{
-		_random.nextBytes(array);
+		rnd().nextBytes(array);
+		
+		return array;
 	}
 }
