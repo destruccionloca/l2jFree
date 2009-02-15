@@ -19,27 +19,30 @@ package org.mmocore.network;
 
 /**
  * @author KenM
- *
  */
-public abstract class HeaderHandler<T extends MMOClient, H extends HeaderHandler<T, H>>
+abstract class HeaderHandler<T extends MMOConnection<T>, H extends HeaderHandler<T, H>>
 {
-	private final H	_subHeaderHandler;
-
-	public HeaderHandler(H subHeaderHandler)
+	private final H _subHeaderHandler;
+	
+	HeaderHandler(H subHeaderHandler)
 	{
 		_subHeaderHandler = subHeaderHandler;
 	}
-
-	/**
-	 * @return the subHeaderHandler
-	 */
-	public final H getSubHeaderHandler()
+	
+	final H getSubHeaderHandler()
 	{
 		return _subHeaderHandler;
 	}
-
-	public final boolean isChildHeaderHandler()
+	
+	final boolean isChildHeaderHandler()
 	{
-		return this.getSubHeaderHandler() == null;
+		return getSubHeaderHandler() == null;
+	}
+	
+	private final HeaderInfo<T> _headerInfoReturn = new HeaderInfo<T>();
+	
+	protected final HeaderInfo<T> getHeaderInfoReturn()
+	{
+		return _headerInfoReturn;
 	}
 }

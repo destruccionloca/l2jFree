@@ -24,16 +24,15 @@ import java.nio.channels.WritableByteChannel;
 
 /**
  * @author KenM
- *
  */
 public interface ISocket
 {
 	public void close() throws IOException;
-
+	
 	public WritableByteChannel getWritableByteChannel();
-
+	
 	public ReadableByteChannel getReadableByteChannel();
-
+	
 	public InetAddress getInetAddress();
 	
 	public int getPort();
