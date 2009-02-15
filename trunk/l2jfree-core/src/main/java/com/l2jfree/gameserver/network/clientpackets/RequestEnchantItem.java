@@ -357,12 +357,29 @@ public class RequestEnchantItem extends L2GameClientPacket
 			else if (_charlevel >= 76 && _itemlevel <= Config.ENCHANT_DWARF_3_ENCHANTLEVEL)
 				chance = chance + Config.ENCHANT_DWARF_3_CHANCE;
 		}
-
+		boolean exploit = false;
 		switch (item.getLocation())
 		{
 		case INVENTORY:
 		case PAPERDOLL:
 		{
+			switch (item.getLocation())
+			{
+				case VOID:
+				case PET:
+				case WAREHOUSE:
+				case CLANWH:
+				case LEASE:
+				case FREIGHT:
+				case NPC:
+				{
+					chance = 0;
+					activeChar.setActiveEnchantItem(null);
+					Util.handleIllegalPlayerAction(activeChar, "Warning!! Character " + activeChar.getName() + " of account " + activeChar.getAccountName()
+							+ " tried to use enchant Exploit!", Config.DEFAULT_PUNISH);
+					return;
+				}
+			}
 			if (item.getOwnerId() != activeChar.getObjectId())
 			{
 				activeChar.setActiveEnchantItem(null);

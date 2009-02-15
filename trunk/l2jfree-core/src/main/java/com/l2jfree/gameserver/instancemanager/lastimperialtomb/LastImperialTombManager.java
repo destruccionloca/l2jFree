@@ -191,7 +191,7 @@ public class LastImperialTombManager extends BossLair
 			return false;
 		}
 
-		if (_commander == null)
+		if (_commander != null)
 		{
 			if (pc.getParty() != null)
 			{

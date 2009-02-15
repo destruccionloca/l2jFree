@@ -66,6 +66,22 @@ public class RequestExTryToPutEnchantTargetItem extends L2GameClientPacket
 				case INVENTORY:
 				case PAPERDOLL:
 				{
+					switch (targetItem.getLocation())
+					{
+						case VOID:
+						case PET:
+						case WAREHOUSE:
+						case CLANWH:
+						case LEASE:
+						case FREIGHT:
+						case NPC:
+						{
+							activeChar.sendPacket(new SystemMessage(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS));
+							activeChar.setActiveEnchantItem(null);
+							activeChar.sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));
+							return;
+						}
+					}					
 					if (targetItem.getOwnerId() != activeChar.getObjectId())
 					{
 						activeChar.sendPacket(new SystemMessage(SystemMessageId.DOES_NOT_FIT_SCROLL_CONDITIONS));
