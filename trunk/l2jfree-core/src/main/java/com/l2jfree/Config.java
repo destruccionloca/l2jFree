@@ -1228,7 +1228,10 @@ public final class Config
 
 			AUTODELETE_INVALID_QUEST_DATA = Boolean.parseBoolean(optionsSettings.getProperty("AutoDeleteInvalidQuestData", "False"));
 
-			THREAD_POOL_SIZE = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSize", "50"));
+			final int baseThreadPoolSize = Integer.parseInt(optionsSettings.getProperty("BaseThreadPoolSize", "2"));
+			final int extraThreadPerCore = Integer.parseInt(optionsSettings.getProperty("ExtraThreadPerCore", "4"));
+			
+			THREAD_POOL_SIZE = baseThreadPoolSize + Runtime.getRuntime().availableProcessors() * extraThreadPerCore;
 
 			DELETE_DAYS = Integer.parseInt(optionsSettings.getProperty("DeleteCharAfterDays", "7"));
 
