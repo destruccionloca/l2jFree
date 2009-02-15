@@ -183,6 +183,7 @@ public class L2Registry
 	 * @deprecated unused
 	 *
 	 */
+	@Deprecated
 	public void shutdown()
 	{
 

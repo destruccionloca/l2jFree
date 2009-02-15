@@ -240,6 +240,7 @@ public class LoginStatusThread extends Thread
 		}
 	}
 
+	@Override
 	public void run()
 	{
 		String _usrCommand = "";

@@ -184,6 +184,7 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
 	 *            the session to set
 	 * @deprecated only for test purpose
 	 */
+	@Deprecated
 	public void setCurrentSession(Session _session)
 	{
 		__session = _session;
@@ -192,6 +193,7 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
 	/**
 	 * @deprecated only for test purpose
 	 */
+	@Deprecated
 	public void closeCurrentSession()
 	{
 		if (__session != null && __session.isOpen())

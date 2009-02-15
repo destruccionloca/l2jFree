@@ -57,6 +57,7 @@ public class RequestServerList extends L2LoginClientPacket
 		return _data3;
 	}
 
+	@Override
 	public boolean readImpl()
 	{
 		if (this.getAvaliableBytes() >= 8)

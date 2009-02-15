@@ -170,17 +170,9 @@ public class L2LoginServer
 	 */
 	private void initGSListener()
 	{
-		try
-		{
-			_gameServerListener = new GameServerListener();
-			_gameServerListener.start();
-			_log.info("Listening for GameServers on " + Config.LOGIN_HOSTNAME + ":" + Config.LOGIN_PORT);
-		}
-		catch (IOException e)
-		{
-			_log.fatal("FATAL: Failed to start the Game Server Listener. Reason: " + e.getMessage(), e);
-			System.exit(1);
-		}
+		_gameServerListener = new GameServerListener();
+		_gameServerListener.start();
+		_log.info("Listening for GameServers on " + Config.LOGIN_HOSTNAME + ":" + Config.LOGIN_PORT);
 	}
 
 	/**

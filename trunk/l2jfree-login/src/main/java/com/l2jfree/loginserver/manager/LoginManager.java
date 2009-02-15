@@ -36,10 +36,6 @@ import javax.crypto.Cipher;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
-import com.l2jfree.tools.codec.Base64;
-import com.l2jfree.tools.math.ScrambledKeyPair;
-import com.l2jfree.tools.random.Rnd;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -58,6 +54,9 @@ import com.l2jfree.loginserver.services.exception.AccountModificationException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
 import com.l2jfree.loginserver.services.exception.HackingException;
 import com.l2jfree.loginserver.thread.GameServerThread;
+import com.l2jfree.tools.codec.Base64;
+import com.l2jfree.tools.math.ScrambledKeyPair;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class handles login on loginserver.
@@ -97,13 +96,13 @@ public class LoginManager
 	public static enum AuthLoginResult
 	{
 		INVALID_PASSWORD, ACCOUNT_BANNED, ALREADY_ON_LS, ALREADY_ON_GS, AUTH_SUCCESS, SYSTEM_ERROR
-	};
+	}
 
 	/**
 	 * Load the LoginManager
 	 * @throws GeneralSecurityException
 	 */
-	public static void load() throws GeneralSecurityException
+	public static void load()
 	{
 		if (_instance == null)
 		{
@@ -116,7 +115,7 @@ public class LoginManager
 	}
 
 	/**
-	 * Private constructor to avoid direct instantiation. 
+	 * Private constructor to avoid direct instantiation.
 	 * Initialize a key generator.
 	 */
 	private LoginManager()
@@ -153,10 +152,10 @@ public class LoginManager
 			}
 			_log.info("Cached 10 KeyPairs for RSA communication");
 
-			this.testCipher((RSAPrivateKey) _keyPairs[0].getPair().getPrivate());
+			testCipher((RSAPrivateKey) _keyPairs[0].getPair().getPrivate());
 
 			// Store keys for blowfish communication
-			this.generateBlowFishKeys();
+			generateBlowFishKeys();
 		}
 		catch (GeneralSecurityException e)
 		{
@@ -285,7 +284,7 @@ public class LoginManager
 	 * @throws AccountBannedException if the use was banned
 	 * @throws AccountWrongPasswordException if the password was wrong
 	 */
-	public AuthLoginResult tryAuthLogin(String account, String password, L2LoginClient client) throws HackingException, AccountBannedException,
+	public AuthLoginResult tryAuthLogin(String account, String password, L2LoginClient client) throws AccountBannedException,
 			AccountWrongPasswordException
 	{
 		AuthLoginResult ret = AuthLoginResult.INVALID_PASSWORD;
@@ -297,7 +296,7 @@ public class LoginManager
 			{
 				// login was successful, verify presence on Gameservers
 				ret = AuthLoginResult.ALREADY_ON_GS;
-				if (!this.isAccountInAnyGameServer(account))
+				if (!isAccountInAnyGameServer(account))
 				{
 					// account isnt on any GS, verify LS itself
 					ret = AuthLoginResult.ALREADY_ON_LS;
@@ -484,7 +483,7 @@ public class LoginManager
 			AccountModificationException, AccountBannedException, AccountWrongPasswordException
 	{
 		InetAddress address = client.getInetAddress();
-		// player disconnected meanwhile 
+		// player disconnected meanwhile
 		if (address == null)
 		{
 			return false;
@@ -567,7 +566,7 @@ public class LoginManager
 	 */
 	private void handleGoodLogin(String user, InetAddress address)
 	{
-		// for long running servers, this should prevent blocking 
+		// for long running servers, this should prevent blocking
 		// of users that mistype their passwords once every day :)
 		if (address != null)
 		{
@@ -616,8 +615,8 @@ public class LoginManager
 
 	/**
 	 * @param hash
-	 * @param acc 
-	 * @throws AccountWrongPasswordException if password is wrong 
+	 * @param acc
+	 * @throws AccountWrongPasswordException if password is wrong
 	 */
 	private void checkPassword(byte[] hash, Accounts acc) throws AccountWrongPasswordException
 	{

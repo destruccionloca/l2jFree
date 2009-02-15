@@ -60,12 +60,14 @@ public class TestGameserversDAOHib extends ADAOTestCase
 		this.dao = _dao;
 	}
 
+	@Override
 	public String[] getMappings()
 	{
 		return new String[]
 		{ "Gameservers.hbm.xml" };
 	}
 
+	@Override
 	protected List<IDataSet> getDataSet() throws Exception
 	{
 		String[] dataSetNameList =
@@ -84,6 +86,7 @@ public class TestGameserversDAOHib extends ADAOTestCase
 		return dataSetList;
 	}
 
+	@Override
 	@SuppressWarnings("deprecation")
 	public void setUp() throws Exception
 	{

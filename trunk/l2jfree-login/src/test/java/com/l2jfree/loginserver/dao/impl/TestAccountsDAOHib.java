@@ -55,6 +55,7 @@ public class TestAccountsDAOHib extends ADAOTestCase
 		super(name);
 	}
 
+	@Override
 	public String[] getMappings()
 	{
 		return new String[]
@@ -66,6 +67,7 @@ public class TestAccountsDAOHib extends ADAOTestCase
 		this.dao = _dao;
 	}
 
+	@Override
 	protected List<IDataSet> getDataSet() throws Exception
 	{
 		String[] dataSetNameList =

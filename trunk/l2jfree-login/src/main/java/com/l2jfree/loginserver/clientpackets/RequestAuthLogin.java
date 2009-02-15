@@ -18,19 +18,14 @@
  */
 package com.l2jfree.loginserver.clientpackets;
 
-import java.net.InetAddress;
 import java.security.GeneralSecurityException;
 
 import javax.crypto.Cipher;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.loginserver.L2LoginClient;
 import com.l2jfree.loginserver.L2LoginClient.LoginClientState;
 import com.l2jfree.loginserver.beans.GameServerInfo;
-import com.l2jfree.loginserver.manager.BanManager;
 import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.loginserver.manager.LoginManager.AuthLoginResult;
 import com.l2jfree.loginserver.serverpackets.LoginFailReason;
@@ -38,7 +33,6 @@ import com.l2jfree.loginserver.serverpackets.LoginOk;
 import com.l2jfree.loginserver.serverpackets.ServerList;
 import com.l2jfree.loginserver.services.exception.AccountBannedException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
-import com.l2jfree.loginserver.services.exception.HackingException;
 
 /**
  * Format: x
@@ -47,8 +41,6 @@ import com.l2jfree.loginserver.services.exception.HackingException;
  */
 public class RequestAuthLogin extends L2LoginClientPacket
 {
-	private final static Log	_log	= LogFactory.getLog(RequestAuthLogin.class);
-
 	private byte[]				_raw	= new byte[128];
 
 	private String				_user;
@@ -162,12 +154,12 @@ public class RequestAuthLogin extends L2LoginClientPacket
 
 			}
 		}
-		catch (HackingException e)
-		{
-			InetAddress address = getClient().getSocket().getInetAddress();
-			BanManager.getInstance().addBanForAddress(address, Config.LOGIN_BLOCK_AFTER_BAN * 1000);
-			_log.info("Banned (" + address + ") for " + Config.LOGIN_BLOCK_AFTER_BAN + " seconds, due to " + e.getConnects() + " incorrect login attempts.");
-		}
+//		catch (HackingException e)
+//		{
+//			InetAddress address = getClient().getSocket().getInetAddress();
+//			BanManager.getInstance().addBanForAddress(address, Config.LOGIN_BLOCK_AFTER_BAN * 1000);
+//			_log.info("Banned (" + address + ") for " + Config.LOGIN_BLOCK_AFTER_BAN + " seconds, due to " + e.getConnects() + " incorrect login attempts.");
+//		}
 		catch (AccountBannedException e)
 		{
 			client.close(LoginFailReason.REASON_ACCOUNT_BANNED);
