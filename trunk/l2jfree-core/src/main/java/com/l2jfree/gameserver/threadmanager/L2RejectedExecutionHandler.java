@@ -32,5 +32,10 @@ public final class L2RejectedExecutionHandler implements RejectedExecutionHandle
 	public void rejectedExecution(Runnable r, ThreadPoolExecutor executor)
 	{
 		_log.warn(r + " from " + executor, new RejectedExecutionException());
+		
+		if (Thread.currentThread().getPriority() > Thread.NORM_PRIORITY)
+			new Thread(r).start();
+		else
+			r.run();
 	}
 }

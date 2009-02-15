@@ -33,13 +33,18 @@ public final class ExecuteWrapper implements Runnable
 	
 	public void run()
 	{
+		ExecuteWrapper.execute(_runnable);
+	}
+	
+	public static void execute(Runnable runnable)
+	{
 		long begin = System.nanoTime();
 		
 		try
 		{
-			_runnable.run();
+			runnable.run();
 			
-			RunnableStatsManager.getInstance().handleStats(_runnable.getClass(), System.nanoTime() - begin);
+			RunnableStatsManager.getInstance().handleStats(runnable.getClass(), System.nanoTime() - begin);
 		}
 		catch (Exception e)
 		{
