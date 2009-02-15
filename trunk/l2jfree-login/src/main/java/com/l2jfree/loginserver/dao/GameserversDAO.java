@@ -80,7 +80,7 @@ public interface GameserversDAO
 	/**
 	 * Delete a collection of object
 	 */
-	public void removeAll(Collection entities);
+	public void removeAll(Collection<?> entities);
 
 	/**
 	 * Delete all gameserver
@@ -90,6 +90,6 @@ public interface GameserversDAO
 	/**
 	 * Persist an entire collection
 	 */
-	public void createOrUpdateAll(Collection entities);
+	public void createOrUpdateAll(Collection<?> entities);
 
 }

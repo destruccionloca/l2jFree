@@ -85,9 +85,9 @@ public class GameserversDAOMock implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdateAll(java.util.Collection)
 	 */
-	public void createOrUpdateAll(Collection entities)
+	public void createOrUpdateAll(Collection<?> entities)
 	{
-		Iterator it = entities.iterator();
+		Iterator<?> it = entities.iterator();
 		while (it.hasNext())
 		{
 			createGameserver((Gameservers) it.next());
@@ -122,9 +122,9 @@ public class GameserversDAOMock implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeAll(java.util.Collection)
 	 */
-	public void removeAll(Collection entities)
+	public void removeAll(Collection<?> entities)
 	{
-		Iterator it = entities.iterator();
+		Iterator<?> it = entities.iterator();
 		while (it.hasNext())
 		{
 			removeGameserver((Gameservers) it.next());

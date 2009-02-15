@@ -83,13 +83,13 @@ public class GameserversDAOXml implements GameserversDAO
 			Element root = document.getRootElement();
 
 			// Find all servers_list (should have only one)
-			for (Iterator i = root.elementIterator("server"); i.hasNext();)
+			for (Iterator<?> i = root.elementIterator("server"); i.hasNext();)
 			{
 				Element server = (Element) i.next();
 				Integer id = null;
 				String name = null;
 				// For each server, read the attributes
-				for (Iterator iAttr = server.attributeIterator(); iAttr.hasNext();)
+				for (Iterator<?> iAttr = server.attributeIterator(); iAttr.hasNext();)
 				{
 					Attribute attribute = (Attribute) iAttr.next();
 					if (attribute.getName().equals("id"))
@@ -162,9 +162,9 @@ public class GameserversDAOXml implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdateAll(java.util.Collection)
 	 */
-	public void createOrUpdateAll(Collection entities)
+	public void createOrUpdateAll(Collection<?> entities)
 	{
-		Iterator it = entities.iterator();
+		Iterator<?> it = entities.iterator();
 		while (it.hasNext())
 		{
 			createGameserver((Gameservers) it.next());
@@ -201,9 +201,9 @@ public class GameserversDAOXml implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeAll(java.util.Collection)
 	 */
-	public void removeAll(Collection entities)
+	public void removeAll(Collection<?> entities)
 	{
-		Iterator it = entities.iterator();
+		Iterator<?> it = entities.iterator();
 		while (it.hasNext())
 		{
 			removeGameserver((Gameservers) it.next());

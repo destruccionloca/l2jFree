@@ -48,7 +48,7 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
 	/**
 	 * Load object matching the given key and return it.
 	 */
-	public Object load(Class refClass, Serializable key)
+	public Object load(Class<?> refClass, Serializable key)
 	{
 		Object obj = getCurrentSession().load(refClass, key);
 		if (obj == null)
@@ -61,7 +61,7 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
 	/**
 	 * Return all objects related to the implementation of this DAO with no filter.
 	 */
-	public List findAll(Class refClass)
+	public List<?> findAll(Class<?> refClass)
 	{
 		return getCurrentSession().createQuery("from " + refClass.getName()).list();
 	}
@@ -90,9 +90,9 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
 	 * Either save() or update() the given instances, depending upon the value of its
 	 * identifier property.
 	 */
-	public void saveOrUpdateAll(Collection entities)
+	public void saveOrUpdateAll(Collection<?> entities)
 	{
-		for (Iterator it = entities.iterator(); it.hasNext();)
+		for (Iterator<?> it = entities.iterator(); it.hasNext();)
 		{
 			getCurrentSession().saveOrUpdate(it.next());
 		}
@@ -119,9 +119,9 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
 	/**
 	 * Delete a collection.
 	 */
-	public void removeAll(Collection entities)
+	public void removeAll(Collection<?> entities)
 	{
-		for (Iterator it = entities.iterator(); it.hasNext();)
+		for (Iterator<?> it = entities.iterator(); it.hasNext();)
 		{
 			getCurrentSession().delete(it.next());
 		}
@@ -139,7 +139,7 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
 	/**
 	 * Get an object
 	 */
-	public Object get(Class clazz, Serializable id)
+	public Object get(Class<?> clazz, Serializable id)
 	{
 		Object o = getCurrentSession().get(clazz, id);
 		if (o == null)
@@ -153,7 +153,7 @@ public abstract class BaseRootDAOHib extends HibernateDaoSupport
 	/**
 	 * Delete an object by id
 	 */
-	public void removeObject(Class clazz, Serializable id)
+	public void removeObject(Class<?> clazz, Serializable id)
 	{
 		getCurrentSession().delete(get(clazz, id));
 	}

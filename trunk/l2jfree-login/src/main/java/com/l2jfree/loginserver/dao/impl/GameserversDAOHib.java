@@ -74,7 +74,7 @@ public class GameserversDAOHib extends BaseRootDAOHib implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdateAll(java.util.Collection)
 	 */
-	public void createOrUpdateAll(Collection entities)
+	public void createOrUpdateAll(Collection<?> entities)
 	{
 		saveOrUpdateAll(entities);
 
@@ -92,7 +92,8 @@ public class GameserversDAOHib extends BaseRootDAOHib implements GameserversDAO
 	/**
 	 * Return all objects related to the implementation of this DAO with no filter.
 	 */
-	public List findAllOrderById(Class refClass)
+	@SuppressWarnings("unchecked")
+	public List<Gameservers> findAllOrderById(Class<Gameservers> refClass)
 	{
 		return getCurrentSession().createQuery("from " + refClass.getName() + " order by serverId").list();
 	}

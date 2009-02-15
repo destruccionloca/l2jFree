@@ -80,11 +80,11 @@ public interface AccountsDAO
 	/**
 	 * Delete a collection of object
 	 */
-	public void removeAll(Collection entities);
+	public void removeAll(Collection<?> entities);
 
 	/**
 	 * Persist an entire collection
 	 */
-	public void createOrUpdateAll(Collection entities);
+	public void createOrUpdateAll(Collection<?> entities);
 
 }

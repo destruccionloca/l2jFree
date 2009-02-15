@@ -74,7 +74,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.AccountsDAO#createOrUpdateAll(java.util.Collection)
 	 */
-	public void createOrUpdateAll(Collection entities)
+	public void createOrUpdateAll(Collection<?> entities)
 	{
 		saveOrUpdateAll(entities);
 
@@ -86,7 +86,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
 	@SuppressWarnings("unchecked")
 	public List<Accounts> getAllAccounts()
 	{
-		return findAll(Accounts.class);
+		return (List<Accounts>)findAll(Accounts.class);
 	}
 
 	/**

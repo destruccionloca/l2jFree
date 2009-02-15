@@ -89,7 +89,7 @@ public class BanManager
 			_bannedIps.clear();
 			// try to read banned list
 			File file = new File(BAN_LIST);
-			List lines = FileUtils.readLines(file, ENCODING);
+			List<?> lines = FileUtils.readLines(file, ENCODING);
 
 			for (int i = 0; i < lines.size(); i++)
 			{

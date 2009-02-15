@@ -219,7 +219,7 @@ public class TestGameserversDAOHib extends ADAOTestCase
 
 		dao.removeGameserver(gameserver);
 
-		List list = dao.getAllGameservers();
+		List<?> list = dao.getAllGameservers();
 
 		assertEquals(1, list.size());
 	}
@@ -232,7 +232,7 @@ public class TestGameserversDAOHib extends ADAOTestCase
 		dao.removeAll();
 
 		dao.getCurrentSession().flush();
-		List list;
+		List<?> list;
 		list = dao.getAllGameservers();
 		assertEquals(0, list.size());
 	}
@@ -264,7 +264,7 @@ public class TestGameserversDAOHib extends ADAOTestCase
 		dao.createOrUpdateAll(listGameserver);
 		dao.getCurrentSession().flush();
 
-		List list = dao.getAllGameservers();
+		List<?> list = dao.getAllGameservers();
 
 		assertEquals(4, list.size());
 

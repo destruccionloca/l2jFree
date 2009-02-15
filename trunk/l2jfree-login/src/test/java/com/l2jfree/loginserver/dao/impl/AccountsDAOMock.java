@@ -90,9 +90,9 @@ public class AccountsDAOMock implements AccountsDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.AccountsDAO#createOrUpdateAll(java.util.Collection)
 	 */
-	public void createOrUpdateAll(Collection entities)
+	public void createOrUpdateAll(Collection<?> entities)
 	{
-		Iterator it = entities.iterator();
+		Iterator<?> it = entities.iterator();
 		while (it.hasNext())
 		{
 			createAccount(it.next());
@@ -127,9 +127,9 @@ public class AccountsDAOMock implements AccountsDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.AccountsDAO#removeAll(java.util.Collection)
 	 */
-	public void removeAll(Collection entities)
+	public void removeAll(Collection<?> entities)
 	{
-		Iterator it = entities.iterator();
+		Iterator<?> it = entities.iterator();
 		while (it.hasNext())
 		{
 			removeAccount(it.next());

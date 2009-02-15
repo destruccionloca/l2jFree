@@ -181,7 +181,7 @@ public class TestAccountsDAOHib extends ADAOTestCase
 	public void testFindAll() throws Exception
 	{
 
-		List list = dao.getAllAccounts();
+		List<?> list = dao.getAllAccounts();
 
 		assertEquals(1, list.size());
 
@@ -221,7 +221,7 @@ public class TestAccountsDAOHib extends ADAOTestCase
 
 		dao.removeAccount(account);
 
-		List list = dao.getAllAccounts();
+		List<?> list = dao.getAllAccounts();
 
 		assertEquals(1, list.size());
 	}
@@ -256,7 +256,7 @@ public class TestAccountsDAOHib extends ADAOTestCase
 		dao.createOrUpdateAll(listAccount);
 		dao.getCurrentSession().flush();
 
-		List list = dao.getAllAccounts();
+		List<?> list = dao.getAllAccounts();
 
 		assertEquals(4, list.size());
 
