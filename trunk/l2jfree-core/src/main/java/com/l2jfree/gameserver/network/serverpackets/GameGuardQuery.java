@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.L2GameClient;
+
 /**
  * @author zabbix
  * Lets drink to code!
@@ -29,12 +32,12 @@ public class GameGuardQuery extends L2GameServerPacket
     }
     
     @Override
-    public void runImpl()
+    public void runImpl(final L2GameClient client, final L2PcInstance activeChar)
     {
         // Lets make user as gg-unauthorized
         // We will set him as ggOK after reply fromclient
         // or kick
-        getClient().setGameGuardOk(false);
+        client.setGameGuardOk(false);
     }
     
     @Override

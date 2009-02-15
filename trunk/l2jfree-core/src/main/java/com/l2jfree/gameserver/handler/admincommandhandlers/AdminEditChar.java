@@ -555,7 +555,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		try
 		{
 			account = player.getAccountName();
-			ip = player.getClient().getConnection().getSocket().getInetAddress().getHostAddress();
+			ip = player.getClient().getSocket().getInetAddress().getHostAddress();
 		}
 		catch (Exception e)
 		{
@@ -769,7 +769,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		adminReply.setFile("data/html/admin/ipfind.htm");
 		for (L2PcInstance element : players)
 		{
-			ip = element.getClient().getConnection().getSocket().getInetAddress().getHostAddress();
+			ip = element.getClient().getSocket().getInetAddress().getHostAddress();
 			if (ip.equals(IpAdress))
 			{
 				name = element.getName();

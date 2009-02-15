@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.CharInfo;
 import com.l2jfree.gameserver.network.serverpackets.Earthquake;
 import com.l2jfree.gameserver.network.serverpackets.ExRedSky;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
@@ -43,7 +42,6 @@ import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SunRise;
 import com.l2jfree.gameserver.network.serverpackets.SunSet;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 
 /**
@@ -354,10 +352,7 @@ public class AdminEffects implements IAdminCommandHandler
 				String id = st.nextToken();
 				activeChar.getPoly().setPolyInfo("npc", id);
 				activeChar.teleToLocation(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false);
-				CharInfo info1 = new CharInfo(activeChar);
-				activeChar.broadcastPacket(info1);
-				UserInfo info2 = new UserInfo(activeChar);
-				activeChar.sendPacket(info2);
+				activeChar.broadcastUserInfo();
 			}
 			catch (Exception e)
 			{
@@ -368,10 +363,7 @@ public class AdminEffects implements IAdminCommandHandler
 			activeChar.getPoly().setPolyInfo(null, "1");
 			activeChar.decayMe();
 			activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-			CharInfo info1 = new CharInfo(activeChar);
-			activeChar.broadcastPacket(info1);
-			UserInfo info2 = new UserInfo(activeChar);
-			activeChar.sendPacket(info2);
+			activeChar.broadcastUserInfo();
 		}
 		else if (command.equals("admin_clear_teams"))
 		{

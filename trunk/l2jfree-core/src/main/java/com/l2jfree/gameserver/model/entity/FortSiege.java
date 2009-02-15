@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 import javolution.util.FastList;
 
@@ -1266,7 +1267,7 @@ public class FortSiege
 		return getFort().getSiegeDate();
 	}
 
-	public List<L2NpcInstance> getFlag(L2Clan clan)
+	public Set<L2NpcInstance> getFlag(L2Clan clan)
 	{
 		if (clan != null)
 		{

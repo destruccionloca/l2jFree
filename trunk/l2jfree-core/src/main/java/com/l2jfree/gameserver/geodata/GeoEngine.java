@@ -29,21 +29,23 @@ import java.nio.channels.FileChannel;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.DoorTable;
+import com.l2jfree.gameserver.geodata.pathfinding.Node;
+import com.l2jfree.gameserver.geodata.pathfinding.cellnodes.CellPathFinding;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
-import com.l2jfree.gameserver.geodata.pathfinding.Node;
-import com.l2jfree.gameserver.geodata.pathfinding.cellnodes.CellPathFinding;
-import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.tools.geometry.Point3D;
 
 /**
@@ -208,7 +210,8 @@ public class GeoEngine extends GeoData
         return canSee((x - L2World.MAP_MIN_X) >> 4,(y - L2World.MAP_MIN_Y) >> 4,z,(tx - L2World.MAP_MIN_X) >> 4,(ty - L2World.MAP_MIN_Y) >> 4,tz);
     }
 
-    public boolean hasGeo(int x, int y)
+    @Override
+	public boolean hasGeo(int x, int y)
     {
     	int gx = (x - L2World.MAP_MIN_X) >> 4;
     	int gy = (y - L2World.MAP_MIN_Y) >> 4;

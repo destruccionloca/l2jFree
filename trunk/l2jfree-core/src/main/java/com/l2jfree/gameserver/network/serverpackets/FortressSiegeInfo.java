@@ -14,13 +14,11 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Fort;
+import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
  * Shows the Siege Info<BR>
@@ -45,7 +43,6 @@ import com.l2jfree.gameserver.model.entity.Fort;
 public class FortressSiegeInfo extends L2GameServerPacket
 {
 	private static final String	_S__C9_SIEGEINFO	= "[S] c9 SiegeInfo";
-	protected static final Log	_log				= LogFactory.getLog(FortressSiegeInfo.class.getName());
 	private Fort				_fort;
 
 	public FortressSiegeInfo(Fort fort)
@@ -54,9 +51,8 @@ public class FortressSiegeInfo extends L2GameServerPacket
 	}
 
 	@Override
-	protected final void writeImpl()
+	protected final void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
 

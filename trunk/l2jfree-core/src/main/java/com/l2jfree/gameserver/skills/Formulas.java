@@ -48,11 +48,11 @@ import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState;
 import com.l2jfree.gameserver.skills.conditions.ConditionUsingItemType;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
 import com.l2jfree.gameserver.skills.funcs.Func;
-import com.l2jfree.gameserver.templates.item.L2Armor;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
+import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 
@@ -1353,7 +1353,7 @@ public final class Formulas
 			return 0;
 
 		L2SiegeClan siegeClan = siege.getAttackerClan(activeChar.getClan().getClanId());
-		if (siegeClan == null || siegeClan.getFlag().size() == 0 || !Util.checkIfInRange(200, activeChar, siegeClan.getFlag().get(0), true))
+		if (siegeClan == null || siegeClan.getFlag().size() == 0 || !Util.checkIfInRange(200, activeChar, siegeClan.getFlag().valueOf(siegeClan.getFlag().head().getNext()), true))
 			return 0;
 
 		return 1.5; // If all is true, then modifer will be 50% more

@@ -18,6 +18,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
+import javolution.util.FastList;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
@@ -32,8 +35,6 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
-
-import javolution.util.FastList;
 
 public class PcInventory extends Inventory 
 {
@@ -172,13 +173,13 @@ public class PcInventory extends Inventory
      * Returns the list of items in inventory available for transaction
      * @return L2ItemInstance : items in inventory
      */
-    public L2ItemInstance[] getAvailableItems(boolean allowAdena)
+    public List<L2ItemInstance> getAvailableItems(boolean allowAdena)
     {
         FastList<L2ItemInstance> list = new FastList<L2ItemInstance>();
         for (L2ItemInstance item : _items)
             if (item != null && item.isAvailable(getOwner(), allowAdena)) list.add(item);
 
-		return list.toArray(new L2ItemInstance[list.size()]);
+		return list;
 	}
 
 	/**

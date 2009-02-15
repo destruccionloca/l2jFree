@@ -63,7 +63,7 @@ public class RequestBuySeed extends L2GameClientPacket
 		_manorId = readD();
 		_count = readD();
 
-		if (_count > 500 || _count * 8 < _buf.remaining()) // check values
+		if (_count > 500 || _count * 8 < getByteBuffer().remaining()) // check values
 		{
 			_count = 0;
 			return;

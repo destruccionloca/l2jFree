@@ -28,7 +28,7 @@ import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.GetItem;
-import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.util.L2Entity;
 
 /**
  * Mother class of all objects in the world wich ones is it possible 
@@ -43,7 +43,7 @@ import com.l2jfree.gameserver.model.Location;
  * <li>L2Potion</li> 
  * 
  */
-public abstract class L2Object
+public abstract class L2Object implements L2Entity
 {
 	/**
 	 * Object visibility
@@ -601,4 +601,8 @@ public abstract class L2Object
 		return new Location(getX(), getY(), getZ(), 0);
 	}
 
+	public Integer getPrimaryKey()
+	{
+		return getObjectId();
+	}
 }

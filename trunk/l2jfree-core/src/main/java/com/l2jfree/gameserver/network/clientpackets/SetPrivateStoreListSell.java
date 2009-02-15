@@ -42,7 +42,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
     {
         _packageSale = (readD() == 1);
         _count = readD();
-        if (_count <= 0  || _count * 12 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+        if (_count <= 0  || _count * 12 > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
         {
             _count = 0; 
             _items = null;

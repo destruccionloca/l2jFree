@@ -14,15 +14,15 @@
  */
 package com.l2jfree.gameserver.model;
 
+import javolution.util.FastSet;
+
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.util.Util;
-
-import javolution.util.FastList;
 
 public class L2SiegeClan
 {
 	private int _clanId                = 0;
-	private FastList<L2NpcInstance> _flag  = new FastList<L2NpcInstance>();
+	private FastSet<L2NpcInstance> _flags;
 	private int _numFlagsAdded = 0;
 	private SiegeClanType _type;
 
@@ -60,7 +60,7 @@ public class L2SiegeClan
 		//for some reason, this might be happening sometimes...
 		// delete false duplicates: if this flag got deleted, delete its copies too.
 		if (ret)
-			while (getFlag().remove(flag));
+			getFlag().remove(flag);
 
 		flag.deleteMe();
 		_numFlagsAdded--;
@@ -75,10 +75,10 @@ public class L2SiegeClan
 
 	public final int getClanId() { return _clanId; }
 
-	public final FastList<L2NpcInstance> getFlag()
+	public final FastSet<L2NpcInstance> getFlag()
 	{
-		if (_flag == null) _flag  = new FastList<L2NpcInstance>();
-		return _flag;
+		if (_flags == null) _flags = new FastSet<L2NpcInstance>();
+		return _flags;
 	}
 
 	/*** get nearest Flag to Object ***/

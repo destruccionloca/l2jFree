@@ -78,7 +78,7 @@ public class RequestBuyItem extends L2GameClientPacket
 	{
 		_listId = readD();
 		_count = readD();
-		if ((_count * 2 < 0) || (_count * 8 > _buf.remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
+		if ((_count * 2 < 0) || (_count * 8 > getByteBuffer().remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
 			_count = 0;
 
 		_items = new int[_count * 2];

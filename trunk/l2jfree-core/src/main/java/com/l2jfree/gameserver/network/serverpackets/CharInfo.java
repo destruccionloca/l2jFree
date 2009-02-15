@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
@@ -27,12 +24,11 @@ import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class CharInfo extends L2GameServerPacket
 {
-	private final static Log _log = LogFactory.getLog(CharInfo.class.getName());
-
 	private static final String _S__31_CHARINFO = "[S] 31 CharInfo [dddddsddd dddddddddddd dddddddd hhhh d hhhhhhhhhhhh d hhhh hhhhhhhhhhhhhhhh dddddd dddddddd ffff ddd s ddddd ccccccc h c d c h ddd cc d ccc ddddddddddd]";
 	private L2PcInstance _activeChar;
 	private PcAppearance _appearance;
@@ -65,17 +61,16 @@ public class CharInfo extends L2GameServerPacket
 	}
 
 	@Override
-	protected final void writeImpl()
+	protected final void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
-		if(_activeChar == null || _activeChar.inObserverMode())
+		if (_activeChar.inObserverMode())
 			return;
 
 		boolean gmSeeInvis = false;
 
 		if (_appearance.isInvisible())
 		{
-			L2PcInstance tmp = getClient().getActiveChar();
-			if (tmp != null && tmp.isGM())
+			if (activeChar != null && activeChar.isGM())
 				gmSeeInvis = true;
 			else
 				return;

@@ -50,7 +50,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
     {
         _storePlayerId = readD();
         _count = readD();
-        if (_count < 0  || _count * 20 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+        if (_count < 0  || _count * 20 > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
             _count = 0;
         _items = new ItemRequest[_count];
 

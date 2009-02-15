@@ -14,37 +14,40 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import java.util.List;
+
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * 
- *
- * @author  -Wooden-
+ * @author -Wooden-
  */
 public class PackageSendableList extends L2GameServerPacket
 {
 	private static final String _S__C3_PACKAGESENDABLELIST = "[S] C3 PackageSendableList";
-	private L2ItemInstance[] _items;
-	private int _playerObjId;
-
-	public PackageSendableList(L2ItemInstance[] items, int playerOID)
+	
+	private final List<L2ItemInstance> _items;
+	private final int _playerObjId;
+	private final int _adena;
+	
+	public PackageSendableList(L2PcInstance sender, int playerOID)
 	{
-		_items = items;
+		_items = sender.getInventory().getAvailableItems(true);
 		_playerObjId = playerOID;
+		_adena = sender.getAdena();
 	}
-
+	
 	/**
 	 * @see com.l2jfree.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
-	protected
-	void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0xd2);
 		
 		writeD(_playerObjId);
-		writeD(getClient().getActiveChar().getAdena());
-		writeD(_items.length);
+		writeD(_adena);
+		writeD(_items.size());
 		for (L2ItemInstance item : _items) // format inside the for taken from SellList part use should be about the same
 		{
 			writeH(item.getItem().getType1());

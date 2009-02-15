@@ -210,7 +210,7 @@ public class CharacterCreate extends L2GameClientPacket
 		// send char list
 
 		CharSelectionInfo cl = new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
-		client.getConnection().sendPacket(cl);
+		client.sendPacket(cl);
 		client.setCharSelection(cl.getCharInfo());
 		if (_log.isDebugEnabled()) _log.debug("Character init end");
 	}

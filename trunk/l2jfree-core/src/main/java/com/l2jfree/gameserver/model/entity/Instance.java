@@ -1,7 +1,6 @@
 package com.l2jfree.gameserver.model.entity;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.concurrent.ScheduledFuture;
 
@@ -264,7 +263,7 @@ public class Instance
 		_doors.clear();
 	}
 
-	public void loadInstanceTemplate(String filename) throws FileNotFoundException
+	public void loadInstanceTemplate(String filename)
 	{
 		Document doc = null;
 		File xml = new File(Config.DATAPACK_ROOT, "data/instances/" + filename);

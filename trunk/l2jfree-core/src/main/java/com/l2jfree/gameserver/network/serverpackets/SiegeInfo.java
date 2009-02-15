@@ -14,13 +14,11 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
  * Shows the Siege Info<BR>
@@ -44,7 +42,6 @@ import com.l2jfree.gameserver.model.entity.Castle;
 public class SiegeInfo extends L2GameServerPacket
 {
 	private static final String	_S__C9_SIEGEINFO	= "[S] c9 SiegeInfo";
-	protected static final Log	_log				= LogFactory.getLog(SiegeInfo.class.getName());
 	private Castle				_castle;
 
 	public SiegeInfo(Castle castle)
@@ -53,12 +50,10 @@ public class SiegeInfo extends L2GameServerPacket
 	}
 
 	@Override
-	protected final void writeImpl()
+	protected final void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-
 		writeC(0xc9);
 		writeD(_castle.getCastleId());
 		writeD(((_castle.getOwnerId() == activeChar.getClanId()) && (activeChar.isClanLeader())) ? 0x01 : 0x00);

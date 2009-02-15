@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
-import java.io.FileNotFoundException;
-
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
@@ -104,7 +102,7 @@ public class InstanceManager
 		return true;
 	}
 
-	public boolean createInstanceFromTemplate(int id, String template) throws FileNotFoundException
+	public boolean createInstanceFromTemplate(int id, String template)
 	{
 		if (getInstance(id) != null)
 			return false;
@@ -115,7 +113,7 @@ public class InstanceManager
 		return true;
 	}
 
-	public int createDynamicInstance(String template) throws FileNotFoundException
+	public int createDynamicInstance(String template)
 	{
 		while (getInstance(_dynamic) != null)
 		{
@@ -133,7 +131,7 @@ public class InstanceManager
 			{
 				instance.loadInstanceTemplate(template);
 			}
-			catch (FileNotFoundException e)
+			catch (Exception e)
 			{
 				_log.warn("InstanceManager: Failed creating instance from template " + template + ", " + e.getMessage());
 				e.printStackTrace();

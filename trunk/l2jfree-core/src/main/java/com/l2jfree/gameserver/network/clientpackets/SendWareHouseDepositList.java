@@ -57,7 +57,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		_count = readD();
 		
 		// check packet list size
-		if (_count < 0  || _count * 8 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if (_count < 0  || _count * 8 > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
 		{
 			_count = 0;
 		}

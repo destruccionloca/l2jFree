@@ -19,12 +19,12 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
+import javolution.util.FastList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-
-import javolution.util.FastList;
 
 
 /**
@@ -84,7 +84,7 @@ public class GeoEditorThread extends Thread
 				if (_mode == 2 && timer > _sendDelay)
 				{
 					for (L2PcInstance gm : _gms)
-						if (!gm.getClient().getConnection().isClosed())
+						if (gm.isOnline() == 1)
 							sendGmPosition(gm);
 						else
 							_gms.remove(gm);

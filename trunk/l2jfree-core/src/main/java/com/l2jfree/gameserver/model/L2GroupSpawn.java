@@ -30,7 +30,7 @@ public class L2GroupSpawn extends L2Spawn
 	private Constructor<?>	_constructor;
 	private L2NpcTemplate	_template;
 
-	public L2GroupSpawn(L2NpcTemplate mobTemplate) throws SecurityException, ClassNotFoundException, NoSuchMethodException
+	public L2GroupSpawn(L2NpcTemplate mobTemplate) throws SecurityException, ClassNotFoundException
 	{
 		super(mobTemplate);
 		_constructor = Class.forName("com.l2jfree.gameserver.model.actor.instance.L2ControllableMobInstance").getConstructors()[0];

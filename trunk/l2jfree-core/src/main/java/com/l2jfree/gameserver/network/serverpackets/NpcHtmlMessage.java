@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
  *
@@ -150,10 +151,10 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 	}
 	
 	@Override
-	public void runImpl()
+	public void runImpl(L2GameClient client, L2PcInstance activeChar)
 	{
 		if (Config.BYPASS_VALIDATION)
-			buildBypassCache(getClient().getActiveChar());
+			buildBypassCache(activeChar);
 	}
 	
 	public void setHtml(CharSequence text)

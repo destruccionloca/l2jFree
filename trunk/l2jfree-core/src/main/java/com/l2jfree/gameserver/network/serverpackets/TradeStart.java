@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import java.util.List;
+
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -26,7 +28,7 @@ public class TradeStart extends L2GameServerPacket
 {
 	private static final String _S__2E_TRADESTART = "[S] 1E TradeStart";
 	private L2PcInstance _activeChar;
-	private L2ItemInstance[] _itemList;
+	private List<L2ItemInstance> _itemList;
 	
 	public TradeStart (L2PcInstance player)
 	{
@@ -44,7 +46,7 @@ public class TradeStart extends L2GameServerPacket
 		writeD(_activeChar.getActiveTradeList().getPartner().getObjectId());
 		//writeD((_char != null || _char.getTransactionRequester() != null)? _char.getTransactionRequester().getObjectId() : 0);
 		
-		writeH(_itemList.length);
+		writeH(_itemList.size());
 		for (L2ItemInstance item : _itemList)
 		{
 			writeH(item.getItem().getType1()); // item type1

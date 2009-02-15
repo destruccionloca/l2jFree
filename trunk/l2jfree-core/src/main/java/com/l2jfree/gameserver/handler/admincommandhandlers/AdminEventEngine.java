@@ -38,12 +38,10 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.L2Event;
-import com.l2jfree.gameserver.network.serverpackets.CharInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.Revive;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
-import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 /**
  * This class handles following admin commands:
@@ -693,10 +691,7 @@ public class AdminEventEngine implements IAdminCommandHandler
                 L2PcInstance target = L2World.getInstance().getPlayer(aLinked);
                 target.getPoly().setPolyInfo("npc", id);
                 target.teleToLocation(target.getX(), target.getY(), target.getZ());
-                CharInfo info1 = new CharInfo(target);
-                target.broadcastPacket(info1);
-                UserInfo info2 = new UserInfo(target);
-                target.sendPacket(info2);
+                target.broadcastUserInfo();
             }
             catch (Exception e) {
             }
@@ -712,10 +707,7 @@ public class AdminEventEngine implements IAdminCommandHandler
                 target.getPoly().setPolyInfo(null, "1");
                 target.decayMe();
                 target.spawnMe(target.getX(), target.getY(), target.getZ());
-                CharInfo info1 = new CharInfo(target);
-                target.broadcastPacket(info1);
-                UserInfo info2 = new UserInfo(target);
-                target.sendPacket(info2);
+                target.broadcastUserInfo();
             }
             catch (Exception e) {
             }

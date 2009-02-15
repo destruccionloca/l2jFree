@@ -62,8 +62,8 @@ import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfoSpectator;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
 public class Olympiad
@@ -600,20 +600,16 @@ public class Olympiad
 		{
 			load();
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
 			_log.error(e.getMessage(), e);
-		}
-		catch (SQLException s)
-		{
-			_log.error(s.getMessage(), s);
 		}
 
 		if (_period == 0)
 			init();
 	}
 
-	private void load() throws IOException, SQLException
+	private void load() throws IOException
 	{
 		_nobles = new FastMap<Integer, StatsSet>();
 
@@ -2056,9 +2052,9 @@ public class Olympiad
 			try
 			{
 				if (_playerOne != null && _playerOne.isOnline() != 0)
-					_playerOneIp = _playerOne.getClient().getConnection().getSocket().getInetAddress().getHostAddress();
+					_playerOneIp = _playerOne.getClient().getSocket().getInetAddress().getHostAddress();
 				if (_playerTwo != null && _playerTwo.isOnline() != 0)
-					_playerTwoIp = _playerTwo.getClient().getConnection().getSocket().getInetAddress().getHostAddress();
+					_playerTwoIp = _playerTwo.getClient().getSocket().getInetAddress().getHostAddress();
 			}
 			catch (Exception e)
 			{

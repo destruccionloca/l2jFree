@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.L2GameClient;
 
 public class PartySmallWindowAdd extends L2GameServerPacket 
 {
@@ -28,21 +29,23 @@ public class PartySmallWindowAdd extends L2GameServerPacket
 	}
 	
 	@Override
-	protected final void writeImpl()
+	protected final void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
+		if (activeChar == null)
+			return;
+		
 		writeC(0x4f);
-		L2PcInstance player =  getClient().getActiveChar();
-		writeD(player.getObjectId()); // c3
+		writeD(activeChar.getObjectId()); // c3
 		writeD(0x00);//writeD(0x04); ?? //c3
 		writeD(_member.getObjectId());
 		writeS(_member.getName());
 		
-		writeD((int) _member.getStatus().getCurrentCp()); //c4
+		writeD((int)_member.getStatus().getCurrentCp()); //c4
 		writeD(_member.getMaxCp()); //c4
 		
-		writeD((int) _member.getStatus().getCurrentHp());
+		writeD((int)_member.getStatus().getCurrentHp());
 		writeD(_member.getMaxHp());
-		writeD((int) _member.getStatus().getCurrentMp());
+		writeD((int)_member.getStatus().getCurrentMp());
 		writeD(_member.getMaxMp());
 		writeD(_member.getLevel());
 		writeD(_member.getClassId().getId());

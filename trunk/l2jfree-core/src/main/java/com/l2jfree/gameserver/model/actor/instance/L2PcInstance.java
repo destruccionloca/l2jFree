@@ -31,9 +31,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.Announcements;
@@ -231,8 +228,9 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.effects.EffectForce;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
-import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
+import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
@@ -256,8 +254,6 @@ import com.l2jfree.util.EventData;
  */
 public final class L2PcInstance extends L2PlayableInstance
 {
-	private final static Log	_log							= LogFactory.getLog(L2PcInstance.class.getName());
-
 	// Character Skill SQL String Definitions:
 	private static final String	RESTORE_SKILLS_FOR_CHAR			= "SELECT skill_id,skill_level FROM character_skills WHERE charId=? AND class_index=?";
 	private static final String	ADD_NEW_SKILL					= "INSERT INTO character_skills (charId,skill_id,skill_level,skill_name,class_index) VALUES (?,?,?,?,?)";
@@ -3658,11 +3654,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void closeNetConnection()
 	{
-		L2GameClient client = _client;
-		if (client != null && !client.getConnection().isClosed())
-		{
+		final L2GameClient client = _client;
+		if (client != null)
 			client.close(LeaveWorld.STATIC_PACKET);
-		}
 	}
 
 	public Point3D getCurrentSkillWorldPosition()
@@ -4091,18 +4085,14 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			long currTimeMillis = System.currentTimeMillis();
 			if (currTimeMillis - _timePreviousBroadcastStatusUpdate < Config.NETWORK_TRAFFIC_OPTIMIZATION_BROADCAST_MS)
+			{
+				addPacketBroadcastMask(BroadcastMode.BROADCAST_USER_INFO);
 				return;
+			}
 			_timePreviousBroadcastStatusUpdate = currTimeMillis;
 		}
 		
-		// Send a Server->Client packet UserInfo to this L2PcInstance
-		sendPacket(new UserInfo(this));
-
-		// Send a Server->Client packet CharInfo to all L2PcInstance in _knownPlayers of the L2PcInstance
-		if (_log.isDebugEnabled())
-			_log.debug("players to notify:" + getKnownList().getKnownPlayers().size() + " packet: [S] 03 CharInfo");
-		
-		Broadcast.toKnownPlayers(this, new CharInfo(this));
+		broadcastUserInfoImpl();
 	}
 	
 	public final void broadcastUserInfoImpl()
@@ -4235,8 +4225,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public void sendPacket(L2GameServerPacket packet)
 	{
-		if (_client != null)
-			_client.sendPacket(packet);
+		final L2GameClient client = _client;
+		if (client != null)
+			client.sendPacket(packet);
 	}
 	
 	/**

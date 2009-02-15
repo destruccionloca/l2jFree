@@ -64,8 +64,6 @@ public class Ride extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-        L2PcInstance cha = getClient().getActiveChar();
-        if (cha == null) return;
         writeC(0x8c);
         writeD(_id);
         writeD(_bRide);

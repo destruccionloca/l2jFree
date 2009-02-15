@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -35,7 +32,6 @@ import com.l2jfree.tools.random.Rnd;
 
 public class RequestEnchantItem extends L2GameClientPacket
 {
-	protected static final Log	_log						= LogFactory.getLog(RequestEnchantItem.class.getName());
 	private static final String	_C__58_REQUESTENCHANTITEM	= "[C] 58 RequestEnchantItem";
 	private static final int[]	ENCHANT_SCROLLS				=
 															{ 729, 730, 947, 948, 951, 952, 955, 956, 959, 960 };
@@ -357,7 +353,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 			else if (_charlevel >= 76 && _itemlevel <= Config.ENCHANT_DWARF_3_ENCHANTLEVEL)
 				chance = chance + Config.ENCHANT_DWARF_3_CHANCE;
 		}
-		boolean exploit = false;
+		
 		switch (item.getLocation())
 		{
 		case INVENTORY:

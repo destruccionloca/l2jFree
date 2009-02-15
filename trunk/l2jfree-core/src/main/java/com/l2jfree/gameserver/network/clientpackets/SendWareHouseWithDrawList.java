@@ -52,7 +52,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_count = readD();
-		if (_count < 0 || _count * 8 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if (_count < 0 || _count * 8 > getByteBuffer().remaining() || _count > Config.MAX_ITEM_IN_PACKET)
 		{
 			_count = 0;
 			_items = null;

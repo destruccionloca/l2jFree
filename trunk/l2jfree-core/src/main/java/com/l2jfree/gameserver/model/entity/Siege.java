@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -1391,7 +1392,7 @@ public class Siege
             saveSiegeDate();
     }
 
-    public FastList<L2NpcInstance> getFlag(L2Clan clan)
+    public Set<L2NpcInstance> getFlag(L2Clan clan)
     {
         if (clan != null)
         {
