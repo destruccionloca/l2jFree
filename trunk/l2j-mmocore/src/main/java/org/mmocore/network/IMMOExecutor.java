@@ -19,8 +19,9 @@ package org.mmocore.network;
 
 /**
  * @author KenM
+ *
  */
-public interface IMMOExecutor<T extends MMOConnection<T>>
+public interface IMMOExecutor<T extends MMOClient>
 {
 	public void execute(ReceivablePacket<T> packet);
 }

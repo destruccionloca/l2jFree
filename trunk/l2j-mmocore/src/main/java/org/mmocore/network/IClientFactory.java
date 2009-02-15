@@ -17,12 +17,11 @@
  */
 package org.mmocore.network;
 
-import java.nio.channels.SelectionKey;
-
 /**
  * @author KenM
+ *
  */
-public interface IClientFactory<T extends MMOConnection<T>>
+public interface IClientFactory<T extends MMOClient>
 {
-	public T create(SelectorThread<T> selectorThread, ISocket socket, SelectionKey key);
+	public T create(MMOConnection<T> con);
 }

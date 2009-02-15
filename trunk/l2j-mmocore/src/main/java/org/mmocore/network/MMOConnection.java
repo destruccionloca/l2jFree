@@ -27,151 +27,202 @@ import javolution.util.FastList;
 
 /**
  * @author KenM
+ *
  */
-public abstract class MMOConnection<T extends MMOConnection<T>>
+public class MMOConnection<T extends MMOClient>
 {
-	private final SelectorThread<T> _selectorThread;
-	private final ISocket _socket;
-	
-	private FastList<SendablePacket<T>> _sendQueue;
-	private final SelectionKey _selectionKey;
-	
-	private ByteBuffer _readBuffer;
-	
-	private ByteBuffer _primaryWriteBuffer;
-	private ByteBuffer _secondaryWriteBuffer;
-	
-	private boolean _pendingClose;
-	
-	protected MMOConnection(SelectorThread<T> selectorThread, ISocket socket, SelectionKey key)
+	private final SelectorThread<T>		_selectorThread;
+	private T							_client;
+
+	private ISocket						_socket;
+	private WritableByteChannel			_writableByteChannel;
+	private ReadableByteChannel			_readableByteChannel;
+
+	private FastList<SendablePacket<T>>	_sendQueue	= new FastList<SendablePacket<T>>();
+	private SelectionKey				_selectionKey;
+
+	private int							_readHeaderPending;
+	private ByteBuffer					_readBuffer;
+
+	private ByteBuffer					_primaryWriteBuffer;
+	private ByteBuffer					_secondaryWriteBuffer;
+
+	private boolean						_pendingClose;
+
+	public MMOConnection(SelectorThread<T> selectorThread, ISocket socket, SelectionKey key)
 	{
 		_selectorThread = selectorThread;
-		_socket = socket;
-		_selectionKey = key;
+		this.setSocket(socket);
+		this.setWritableByteChannel(socket.getWritableByteChannel());
+		this.setReadableByteChannel(socket.getReadableByteChannel());
+		this.setSelectionKey(key);
 	}
-	
-	public synchronized void sendPacket(SendablePacket<T> sp)
+
+	public MMOConnection(T client, SelectorThread<T> selectorThread, ISocket socket, SelectionKey key)
 	{
-		if (isClosed())
-			return;
-		
-		try
+		this(selectorThread, socket, key);
+		this.setClient(client);
+	}
+
+	protected void setClient(T client)
+	{
+		_client = client;
+	}
+
+	public T getClient()
+	{
+		return _client;
+	}
+
+	public void sendPacket(SendablePacket<T> sp)
+	{
+		sp.setClient(this.getClient());
+		synchronized (this.getSendQueue())
 		{
-			getSelectionKey().interestOps(getSelectionKey().interestOps() | SelectionKey.OP_WRITE);
-			getSendQueue2().addLast(sp);
-		}
-		catch (CancelledKeyException e)
-		{
-			// ignore
+			if (!_pendingClose)
+			{
+				try
+				{
+					this.getSelectionKey().interestOps(this.getSelectionKey().interestOps() | SelectionKey.OP_WRITE);
+					this.getSendQueue().addLast(sp);
+				}
+				catch (CancelledKeyException e)
+				{
+					// ignore
+				}
+			}
 		}
 	}
-	
-	private SelectorThread<T> getSelectorThread()
+
+	protected SelectorThread<T> getSelectorThread()
 	{
 		return _selectorThread;
 	}
-	
-	SelectionKey getSelectionKey()
+
+	protected void setSelectionKey(SelectionKey key)
+	{
+		_selectionKey = key;
+	}
+
+	protected SelectionKey getSelectionKey()
 	{
 		return _selectionKey;
 	}
-	
-	void enableReadInterest()
+
+	protected void enableReadInterest()
 	{
 		try
 		{
-			getSelectionKey().interestOps(getSelectionKey().interestOps() | SelectionKey.OP_READ);
+			this.getSelectionKey().interestOps(this.getSelectionKey().interestOps() | SelectionKey.OP_READ);
 		}
 		catch (CancelledKeyException e)
 		{
 			// ignore
 		}
 	}
-	
-	void disableReadInterest()
+
+	protected void disableReadInterest()
 	{
 		try
 		{
-			getSelectionKey().interestOps(getSelectionKey().interestOps() & ~SelectionKey.OP_READ);
+			this.getSelectionKey().interestOps(this.getSelectionKey().interestOps() & ~SelectionKey.OP_READ);
 		}
 		catch (CancelledKeyException e)
 		{
 			// ignore
 		}
 	}
-	
-	void enableWriteInterest()
+
+	protected void enableWriteInterest()
 	{
 		try
 		{
-			getSelectionKey().interestOps(getSelectionKey().interestOps() | SelectionKey.OP_WRITE);
+			this.getSelectionKey().interestOps(this.getSelectionKey().interestOps() | SelectionKey.OP_WRITE);
 		}
 		catch (CancelledKeyException e)
 		{
 			// ignore
 		}
 	}
-	
-	void disableWriteInterest()
+
+	protected void disableWriteInterest()
 	{
 		try
 		{
-			getSelectionKey().interestOps(getSelectionKey().interestOps() & ~SelectionKey.OP_WRITE);
+			this.getSelectionKey().interestOps(this.getSelectionKey().interestOps() & ~SelectionKey.OP_WRITE);
 		}
 		catch (CancelledKeyException e)
 		{
 			// ignore
 		}
 	}
-	
+
+	/**
+	 * @param socket the socket to set
+	 */
+	protected void setSocket(ISocket socket)
+	{
+		_socket = socket;
+	}
+
+	/**
+	 * @return the socket
+	 */
 	public ISocket getSocket()
 	{
 		return _socket;
 	}
-	
-	WritableByteChannel getWritableChannel()
+
+	protected void setWritableByteChannel(WritableByteChannel wbc)
 	{
-		return _socket.getWritableByteChannel();
+		_writableByteChannel = wbc;
 	}
-	
-	ReadableByteChannel getReadableByteChannel()
+
+	public WritableByteChannel getWritableChannel()
 	{
-		return _socket.getReadableByteChannel();
+		return _writableByteChannel;
 	}
-	
-	synchronized FastList<SendablePacket<T>> getSendQueue2()
+
+	protected void setReadableByteChannel(ReadableByteChannel rbc)
 	{
-		if (_sendQueue == null)
-			_sendQueue = new FastList<SendablePacket<T>>();
-		
+		_readableByteChannel = rbc;
+	}
+
+	public ReadableByteChannel getReadableByteChannel()
+	{
+		return _readableByteChannel;
+	}
+
+	protected FastList<SendablePacket<T>> getSendQueue()
+	{
 		return _sendQueue;
 	}
-	
-	void createWriteBuffer(ByteBuffer buf)
+
+	protected void createWriteBuffer(ByteBuffer buf)
 	{
 		if (_primaryWriteBuffer == null)
 		{
 			//System.err.println("APPENDING FOR NULL");
 			//System.err.flush();
-			_primaryWriteBuffer = getSelectorThread().getPooledBuffer();
+			_primaryWriteBuffer = this.getSelectorThread().getPooledBuffer();
 			_primaryWriteBuffer.put(buf);
 		}
 		else
 		{
 			//System.err.println("PREPENDING ON EXISTING");
 			//System.err.flush();
-			
-			ByteBuffer temp = getSelectorThread().getPooledBuffer();
+
+			ByteBuffer temp = this.getSelectorThread().getPooledBuffer();
 			temp.put(buf);
-			
+
 			int remaining = temp.remaining();
 			_primaryWriteBuffer.flip();
 			int limit = _primaryWriteBuffer.limit();
-			
+
 			if (remaining >= _primaryWriteBuffer.remaining())
 			{
 				temp.put(_primaryWriteBuffer);
-				getSelectorThread().recycleBuffer(_primaryWriteBuffer);
+				this.getSelectorThread().recycleBuffer(_primaryWriteBuffer);
 				_primaryWriteBuffer = temp;
 			}
 			else
@@ -185,9 +236,9 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 			}
 		}
 	}
-	
+
 	/*
-	void appendIntoWriteBuffer(ByteBuffer buf)
+	protected void appendIntoWriteBuffer(ByteBuffer buf)
 	{
 	    // if we already have a buffer
 	    if (_secondaryWriteBuffer != null && (_primaryWriteBuffer != null && !_primaryWriteBuffer.hasRemaining()))
@@ -211,7 +262,7 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 	        // primary wasnt enough
 	        if (buf.hasRemaining())
 	        {
-	            _secondaryWriteBuffer = getSelectorThread().getPooledBuffer();
+	            _secondaryWriteBuffer = this.getSelectorThread().getPooledBuffer();
 	            _secondaryWriteBuffer.put(buf);
 	        }
 	        
@@ -224,7 +275,7 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 	    else
 	    {
 	        // a single empty buffer should be always enough by design
-	        _primaryWriteBuffer = getSelectorThread().getPooledBuffer();
+	        _primaryWriteBuffer = this.getSelectorThread().getPooledBuffer();
 	        _primaryWriteBuffer.put(buf);
 	        System.err.println("ESCREVI "+_primaryWriteBuffer.position());
 	        if (MMOCore.ASSERTIONS_ENABLED)
@@ -250,7 +301,7 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 	            }
 	            
 	            _secondaryWriteBuffer = _primaryWriteBuffer;
-	            _primaryWriteBuffer = getSelectorThread().getPooledBuffer();
+	            _primaryWriteBuffer = this.getSelectorThread().getPooledBuffer();
 	            _primaryWriteBuffer.put(buf);
 	        }
 	        else if (remaining < _primaryWriteBuffer.remaining())
@@ -264,22 +315,22 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 	    }
 	}*/
 
-	boolean hasPendingWriteBuffer()
+	protected boolean hasPendingWriteBuffer()
 	{
 		return _primaryWriteBuffer != null;
 	}
-	
-	void movePendingWriteBufferTo(ByteBuffer dest)
+
+	protected void movePendingWriteBufferTo(ByteBuffer dest)
 	{
 		//System.err.println("PRI SIZE: "+_primaryWriteBuffer.position());
 		//System.err.flush();
 		_primaryWriteBuffer.flip();
 		dest.put(_primaryWriteBuffer);
-		getSelectorThread().recycleBuffer(_primaryWriteBuffer);
+		this.getSelectorThread().recycleBuffer(_primaryWriteBuffer);
 		_primaryWriteBuffer = _secondaryWriteBuffer;
 		_secondaryWriteBuffer = null;
 	}
-	
+
 	/*protected void finishPrepending(int written)
 	{
 	    _primaryWriteBuffer.position(Math.min(written, _primaryWriteBuffer.limit()));
@@ -293,7 +344,7 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 	        
 	        if (!_secondaryWriteBuffer.hasRemaining())
 	        {
-	            getSelectorThread().recycleBuffer(_secondaryWriteBuffer);
+	            this.getSelectorThread().recycleBuffer(_secondaryWriteBuffer);
 	            _secondaryWriteBuffer = null;
 	        }
 	        else
@@ -303,68 +354,110 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 	    }
 	}*/
 
-	void setReadBuffer(ByteBuffer buf)
+	protected ByteBuffer getWriteBuffer()
+	{
+		ByteBuffer ret = _primaryWriteBuffer;
+		if (_secondaryWriteBuffer != null)
+		{
+			_primaryWriteBuffer = _secondaryWriteBuffer;
+			_secondaryWriteBuffer = null;
+		}
+		return ret;
+	}
+
+	protected void setPendingHeader(int size)
+	{
+		_readHeaderPending = size;
+	}
+
+	protected int getPendingHeader()
+	{
+		return _readHeaderPending;
+	}
+
+	protected void setReadBuffer(ByteBuffer buf)
 	{
 		_readBuffer = buf;
 	}
-	
-	ByteBuffer getReadBuffer()
+
+	protected ByteBuffer getReadBuffer()
 	{
 		return _readBuffer;
 	}
-	
-	boolean isClosed()
+
+	public boolean isClosed()
 	{
 		return _pendingClose;
 	}
-	
-	public synchronized void closeNow()
+
+	protected void closeNow()
 	{
-		if (isClosed())
-			return;
-		
-		_pendingClose = true;
-		getSendQueue2().clear();
-		disableWriteInterest();
-		getSelectorThread().closeConnection(this);
+		synchronized (this.getSendQueue())
+		{
+			if (!this.isClosed())
+			{
+				_pendingClose = true;
+				this.getSendQueue().clear();
+				this.disableWriteInterest();
+				this.getSelectorThread().closeConnection(this);
+			}
+		}
+
 	}
-	
-	public synchronized void close(SendablePacket<T> sp)
+
+	public void close(SendablePacket<T> sp)
 	{
-		if (isClosed())
-			return;
-		
-		getSendQueue2().clear();
-		sendPacket(sp);
-		_pendingClose = true;
-		getSelectorThread().closeConnection(this);
+		synchronized (this.getSendQueue())
+		{
+			if (!this.isClosed())
+			{
+				this.getSendQueue().clear();
+				this.sendPacket(sp);
+				_pendingClose = true;
+				this.getSelectorThread().closeConnection(this);
+			}
+		}
 	}
-	
-	void releaseBuffers()
+
+	protected void closeLater()
+	{
+		synchronized (this.getSendQueue())
+		{
+			if (!this.isClosed())
+			{
+				_pendingClose = true;
+				this.getSelectorThread().closeConnection(this);
+			}
+		}
+
+	}
+
+	protected void releaseBuffers()
 	{
 		if (_primaryWriteBuffer != null)
 		{
-			getSelectorThread().recycleBuffer(_primaryWriteBuffer);
+			this.getSelectorThread().recycleBuffer(_primaryWriteBuffer);
 			_primaryWriteBuffer = null;
 			if (_secondaryWriteBuffer != null)
 			{
-				getSelectorThread().recycleBuffer(_secondaryWriteBuffer);
+				this.getSelectorThread().recycleBuffer(_secondaryWriteBuffer);
 				_secondaryWriteBuffer = null;
 			}
 		}
-		
 		if (_readBuffer != null)
 		{
-			getSelectorThread().recycleBuffer(_readBuffer);
+			this.getSelectorThread().recycleBuffer(_readBuffer);
 			_readBuffer = null;
 		}
 	}
-	
-	protected abstract void onDisconnection();
-	
-	protected abstract void onForcedDisconnection();
-	
-	protected abstract boolean decrypt(ByteBuffer buf, int size);
-	
-	protected abstract boolean encrypt(ByteBuffer buf, int size);
+
+	protected void onDisconnection()
+	{
+		this.getClient().onDisconnection();
+	}
+
+	protected void onForcedDisconnection()
+	{
+		this.getClient().onForcedDisconnection();
+	}
 }

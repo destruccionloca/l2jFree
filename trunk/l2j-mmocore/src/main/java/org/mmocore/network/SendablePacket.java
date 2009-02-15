@@ -19,78 +19,78 @@ package org.mmocore.network;
 
 /**
  * @author KenM
+ *
  */
-public abstract class SendablePacket<T extends MMOConnection<T>> extends AbstractPacket
+public abstract class SendablePacket<T extends MMOClient> extends AbstractPacket<T>
 {
-	protected SendablePacket()
-	{
-	}
-	
-	protected void putShort(int value)
-	{
-		getByteBuffer().putShort((short)value);
-	}
-	
-	protected void putInt(int value)
-	{
-		getByteBuffer().putInt(value);
-	}
-	
-	protected void putDouble(double value)
-	{
-		getByteBuffer().putDouble(value);
-	}
-	
-	protected void putFloat(float value)
-	{
-		getByteBuffer().putFloat(value);
-	}
-	
-	protected void writeC(int data)
-	{
-		getByteBuffer().put((byte)data);
-	}
-	
-	protected void writeF(double value)
-	{
-		getByteBuffer().putDouble(value);
-	}
-	
-	protected void writeH(int value)
-	{
-		getByteBuffer().putShort((short)value);
-	}
-	
-	protected void writeD(int value)
-	{
-		getByteBuffer().putInt(value);
-	}
-	
-	protected void writeQ(long value)
-	{
-		getByteBuffer().putLong(value);
-	}
-	
-	protected void writeB(byte[] data)
-	{
-		getByteBuffer().put(data);
-	}
-	
-	protected void writeS(CharSequence charSequence)
-	{
-		if (charSequence == null)
-			charSequence = "";
-		
-		int length = charSequence.length();
-		for (int i = 0; i < length; i++)
-			getByteBuffer().putChar(charSequence.charAt(i));
-		
-		getByteBuffer().putChar('\000');
-	}
-	
-	protected abstract void write(T client);
-	
-	protected abstract int getHeaderSize();
-	
-	protected abstract void writeHeader(int dataSize);
+    protected void putShort(int value)
+    {
+        this.getByteBuffer().putShort((short) value);
+    }
+    
+    protected void putInt(int value)
+    {
+        this.getByteBuffer().putInt(value);
+    }
+    
+    protected void putDouble(double value)
+    {
+        this.getByteBuffer().putDouble(value);
+    }
+    
+    protected void putFloat(float value)
+    {
+        this.getByteBuffer().putFloat(value);
+    }
+    
+    protected void writeC(int data)
+    {
+        this.getByteBuffer().put((byte) data);
+    }
+    
+    protected void writeF(double value)
+    {
+        this.getByteBuffer().putDouble(value);
+    }
+    
+    protected void writeH(int value)
+    {
+        this.getByteBuffer().putShort((short) value);
+    }
+    
+    protected void writeD(int value)
+    {
+        this.getByteBuffer().putInt(value);
+    }
+    
+    protected void writeQ(long value)
+    {
+        this.getByteBuffer().putLong(value);
+    }
+    
+    protected void writeB(byte[] data)
+    {
+        this.getByteBuffer().put(data);
+    }
+    
+    protected void writeS(CharSequence charSequence)
+    {
+        if (charSequence == null)
+        {
+            charSequence = "";
+        }
+        
+        int length = charSequence.length();
+        for (int i = 0; i < length; i++)
+        {
+            this.getByteBuffer().putChar(charSequence.charAt(i));
+        }
+        this.getByteBuffer().putChar('\000');
+    }
+    
+    protected abstract void write();
+    
+    protected abstract int getHeaderSize();
+    
+    protected abstract void writeHeader(int dataSize);
 }

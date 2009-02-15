@@ -21,16 +21,29 @@ import java.nio.ByteBuffer;
 
 /**
  * @author KenM
+ *
  */
-abstract class AbstractPacket
+public abstract class AbstractPacket<T extends MMOClient>
 {
-	private ByteBuffer _buf;
-	
-	void setByteBuffer(ByteBuffer buf)
+	protected ByteBuffer	_buf;
+
+	protected T				_client;
+
+	protected void setClient(T client)
+	{
+		_client = client;
+	}
+
+	public T getClient()
+	{
+		return _client;
+	}
+
+	protected void setByteBuffer(ByteBuffer buf)
 	{
 		_buf = buf;
 	}
-	
+
 	protected ByteBuffer getByteBuffer()
 	{
 		return _buf;
