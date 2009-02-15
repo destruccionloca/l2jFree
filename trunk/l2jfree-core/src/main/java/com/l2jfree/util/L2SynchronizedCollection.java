@@ -18,59 +18,56 @@
  */
 package com.l2jfree.util;
 
-import java.lang.reflect.Array;
-import java.util.Map;
-
-import com.l2jfree.gameserver.model.L2Object;
-
 /**
  * @author NB4L1
  */
-public final class L2SynchronizedCollection<T extends L2Object> implements L2Collection<T>
+public final class L2SynchronizedCollection<T extends L2Entity> extends L2Collection<T>
 {
-	private final Map<Integer, T> _map = new SingletonMap<Integer, T>();
-	
-	public int size()
+	@Override
+	public synchronized int size()
 	{
-		return _map.size();
+		return super.size();
 	}
 	
-	public boolean isEmpty()
+	@Override
+	public synchronized boolean isEmpty()
 	{
-		return _map.isEmpty();
+		return super.isEmpty();
 	}
 	
-	public boolean contains(T obj)
+	@Override
+	public synchronized boolean contains(T obj)
 	{
-		return _map.containsKey(obj.getObjectId());
+		return super.contains(obj);
 	}
 	
-	public T get(Integer id)
+	@Override
+	public synchronized T get(Integer id)
 	{
-		return _map.get(id);
+		return super.get(id);
 	}
 	
+	@Override
 	public synchronized void add(T obj)
 	{
-		_map.put(obj.getObjectId(), obj);
+		super.add(obj);
 	}
 	
+	@Override
 	public synchronized void remove(T obj)
 	{
-		_map.remove(obj.getObjectId());
+		super.remove(obj);
 	}
 	
+	@Override
 	public synchronized void clear()
 	{
-		_map.clear();
+		super.clear();
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
 	public synchronized T[] toArray(T[] array)
 	{
-		if (array.length != _map.size())
-			array = (T[])Array.newInstance(array.getClass().getComponentType(), _map.size());
-		
-		return _map.values().toArray(array);
+		return super.toArray(array);
 	}
 }

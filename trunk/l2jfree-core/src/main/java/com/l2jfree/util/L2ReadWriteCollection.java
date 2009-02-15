@@ -18,29 +18,24 @@
  */
 package com.l2jfree.util;
 
-import java.lang.reflect.Array;
-import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import com.l2jfree.gameserver.model.L2Object;
 
 /**
  * @author NB4L1
  */
-public final class L2ReadWriteCollection<T extends L2Object> implements L2Collection<T>
+public final class L2ReadWriteCollection<T extends L2Entity> extends L2Collection<T>
 {
-	private final Map<Integer, T> _map = new SingletonMap<Integer, T>();
-	
 	private final ReentrantReadWriteLock _lock = new ReentrantReadWriteLock();
 	private final ReentrantReadWriteLock.ReadLock _read = _lock.readLock();
 	private final ReentrantReadWriteLock.WriteLock _write = _lock.writeLock();
 	
+	@Override
 	public int size()
 	{
 		_read.lock();
 		try
 		{
-			return _map.size();
+			return super.size();
 		}
 		finally
 		{
@@ -48,12 +43,13 @@ public final class L2ReadWriteCollection<T extends L2Object> implements L2Collec
 		}
 	}
 	
+	@Override
 	public boolean isEmpty()
 	{
 		_read.lock();
 		try
 		{
-			return _map.isEmpty();
+			return super.isEmpty();
 		}
 		finally
 		{
@@ -61,12 +57,13 @@ public final class L2ReadWriteCollection<T extends L2Object> implements L2Collec
 		}
 	}
 	
+	@Override
 	public boolean contains(T obj)
 	{
 		_read.lock();
 		try
 		{
-			return _map.containsKey(obj.getObjectId());
+			return super.contains(obj);
 		}
 		finally
 		{
@@ -74,12 +71,13 @@ public final class L2ReadWriteCollection<T extends L2Object> implements L2Collec
 		}
 	}
 	
+	@Override
 	public T get(Integer id)
 	{
 		_read.lock();
 		try
 		{
-			return _map.get(id);
+			return super.get(id);
 		}
 		finally
 		{
@@ -87,12 +85,13 @@ public final class L2ReadWriteCollection<T extends L2Object> implements L2Collec
 		}
 	}
 	
+	@Override
 	public void add(T obj)
 	{
 		_write.lock();
 		try
 		{
-			_map.put(obj.getObjectId(), obj);
+			super.add(obj);
 		}
 		finally
 		{
@@ -100,12 +99,13 @@ public final class L2ReadWriteCollection<T extends L2Object> implements L2Collec
 		}
 	}
 	
+	@Override
 	public void remove(T obj)
 	{
 		_write.lock();
 		try
 		{
-			_map.remove(obj.getObjectId());
+			super.remove(obj);
 		}
 		finally
 		{
@@ -113,12 +113,13 @@ public final class L2ReadWriteCollection<T extends L2Object> implements L2Collec
 		}
 	}
 	
+	@Override
 	public void clear()
 	{
 		_write.lock();
 		try
 		{
-			_map.clear();
+			super.clear();
 		}
 		finally
 		{
@@ -126,16 +127,13 @@ public final class L2ReadWriteCollection<T extends L2Object> implements L2Collec
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
 	public T[] toArray(T[] array)
 	{
 		_read.lock();
 		try
 		{
-			if (array.length != _map.size())
-				array = (T[])Array.newInstance(array.getClass().getComponentType(), _map.size());
-			
-			return _map.values().toArray(array);
+			return super.toArray(array);
 		}
 		finally
 		{

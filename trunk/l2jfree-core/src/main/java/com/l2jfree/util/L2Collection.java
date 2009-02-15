@@ -18,26 +18,71 @@
  */
 package com.l2jfree.util;
 
-import com.l2jfree.gameserver.model.L2Object;
+import java.lang.reflect.Array;
+import java.util.Iterator;
 
 /**
  * @author NB4L1
  */
-public interface L2Collection<T extends L2Object>
+public abstract class L2Collection<T extends L2Entity>
 {
-	public int size();
+	private final SingletonMap<Integer, T> _map = new SingletonMap<Integer, T>();
 	
-	public boolean isEmpty();
+	protected L2Collection()
+	{
+		if (this instanceof L2SharedCollection)
+			_map.setShared();
+	}
 	
-	public boolean contains(T obj);
+	public int size()
+	{
+		return _map.size();
+	}
 	
-	public T get(Integer id);
+	public boolean isEmpty()
+	{
+		return _map.isEmpty();
+	}
 	
-	public void add(T obj);
+	public boolean contains(T obj)
+	{
+		return _map.containsKey(obj.getPrimaryKey());
+	}
 	
-	public void remove(T obj);
+	public T get(Integer id)
+	{
+		return _map.get(id);
+	}
 	
-	public void clear();
+	public void add(T obj)
+	{
+		_map.put(obj.getPrimaryKey(), obj);
+	}
 	
-	public T[] toArray(T[] array);
+	public void remove(T obj)
+	{
+		_map.remove(obj.getPrimaryKey());
+	}
+	
+	public void clear()
+	{
+		_map.clear();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public T[] toArray(T[] array)
+	{
+		if (array.length != _map.size())
+			array = (T[])Array.newInstance(array.getClass().getComponentType(), _map.size());
+		
+		if (_map.isEmpty() && array.length == 0)
+			return array;
+		else
+			return _map.values().toArray(array);
+	}
+	
+	protected Iterator<T> iterator()
+	{
+		return _map.values().iterator();
+	}
 }
