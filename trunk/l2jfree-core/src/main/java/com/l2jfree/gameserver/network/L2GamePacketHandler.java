@@ -23,12 +23,12 @@ import org.mmocore.network.HeaderInfo;
 import org.mmocore.network.IClientFactory;
 import org.mmocore.network.IMMOExecutor;
 import org.mmocore.network.IPacketHandler;
-import org.mmocore.network.MMOConnection;
+import org.mmocore.network.ISocket;
 import org.mmocore.network.ReceivablePacket;
+import org.mmocore.network.SelectorThread;
 import org.mmocore.network.TCPHeaderHandler;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.clientpackets.*;
 import com.l2jfree.tools.util.HexUtil;
@@ -42,27 +42,23 @@ import com.l2jfree.tools.util.HexUtil;
  * Note: If for a given exception a packet needs to be handled on more then one state, then it should be added to all these states.
  * @author  KenM
  */
-public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> implements IPacketHandler<L2GameClient>, IClientFactory<L2GameClient>,
-		IMMOExecutor<L2GameClient>
+public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> implements IPacketHandler<L2GameClient>,
+	IClientFactory<L2GameClient>, IMMOExecutor<L2GameClient>
 {
-	/**
-	* @param subHeaderHandler
-	*/
 	public L2GamePacketHandler()
 	{
 		super(null);
 	}
-
-	private static final Log	_log	= LogFactory.getLog(L2GamePacketHandler.class.getName());
-
-	// implementation
+	
+	private static final Log _log = LogFactory.getLog(L2GamePacketHandler.class.getName());
+	
 	public ReceivablePacket<L2GameClient> handlePacket(ByteBuffer buf, L2GameClient client)
 	{
 		int opcode = buf.get() & 0xFF;
-
+		
 		ReceivablePacket<L2GameClient> msg = null;
 		GameClientState state = client.getState();
-
+		
 		switch (state)
 		{
 		case CONNECTED:
@@ -658,7 +654,6 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					_log.warn("Client: " + client.toString() + " sent a 0xd0 without the second opcode.");
 					break;
 				}
-
 				switch (id2)
 				{
 				case 0x01:
@@ -887,55 +882,46 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 		}
 		return msg;
 	}
-
+	
 	private void printDebug(int opcode, ByteBuffer buf, GameClientState state, L2GameClient client)
 	{
 		int size = buf.remaining();
-		_log.warn("Unknown Packet: " + Integer.toHexString(opcode) + " on State: " + state.name() + " Client: " + client.toString());
+		_log.warn("Unknown Packet: " + Integer.toHexString(opcode) + " on State: " + state.name() + " Client: "
+			+ client.toString());
 		byte[] array = new byte[size];
 		buf.get(array);
 		_log.warn(HexUtil.printData(array, size));
 	}
-
+	
 	private void printDebugDoubleOpcode(int opcode, int id2, ByteBuffer buf, GameClientState state, L2GameClient client)
 	{
 		int size = buf.remaining();
-		_log.warn("Unknown Packet: " + Integer.toHexString(opcode) + ":" + Integer.toHexString(id2) + " on State: " + state.name() + " Client: "
-				+ client.toString());
+		_log.warn("Unknown Packet: " + Integer.toHexString(opcode) + ":" + Integer.toHexString(id2) + " on State: "
+			+ state.name() + " Client: " + client.toString());
 		byte[] array = new byte[size];
 		buf.get(array);
 		_log.warn(HexUtil.printData(array, size));
 	}
-
-	// impl
-	public L2GameClient create(MMOConnection<L2GameClient> con)
+	
+	public L2GameClient create(SelectorThread<L2GameClient> selectorThread, ISocket socket, SelectionKey key)
 	{
-		return new L2GameClient(con);
+		return new L2GameClient(selectorThread, socket, key);
 	}
-
+	
 	public void execute(ReceivablePacket<L2GameClient> rp)
 	{
-		if (rp.getClient().getState() == GameClientState.IN_GAME)
-			ThreadPoolManager.getInstance().executePacket(rp);
-		else
-			ThreadPoolManager.getInstance().executeIOPacket(rp);
+		rp.getClient().execute(rp);
 	}
-
-	/**
-	 * @see org.mmocore.network.TCPHeaderHandler#handleHeader(java.nio.channels.SelectionKey, java.nio.ByteBuffer)
-	 */
-	@SuppressWarnings("unchecked")
+	
 	@Override
-	public HeaderInfo handleHeader(SelectionKey key, ByteBuffer buf)
+	public HeaderInfo<L2GameClient> handleHeader(SelectionKey key, ByteBuffer buf)
 	{
 		if (buf.remaining() >= 2)
 		{
 			int dataPending = (buf.getShort() & 0xffff) - 2;
-			L2GameClient client = ((MMOConnection<L2GameClient>) key.attachment()).getClient();
-			return this.getHeaderInfoReturn().set(0, dataPending, false, client);
+			return this.getHeaderInfoReturn().set(0, dataPending, false, (L2GameClient)key.attachment());
 		}
-
-		L2GameClient client = ((MMOConnection<L2GameClient>) key.attachment()).getClient();
-		return this.getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, client);
+		
+		return this.getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, (L2GameClient)key.attachment());
 	}
 }

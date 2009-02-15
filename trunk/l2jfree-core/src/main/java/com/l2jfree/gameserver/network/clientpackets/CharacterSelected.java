@@ -61,49 +61,36 @@ public class CharacterSelected extends L2GameClientPacket
 		// be a  [S]0x21 packet
 		// after playback is done, the client will not work correct and need to exit
 		//playLogFile(getConnection()); // try to play log file
-		// we should always be abble to acquire the lock
-		// but if we cant lock then nothing should be done (ie repeated packet)
-		if (getClient().getActiveCharLock().tryLock())
+		
+		// should always be null
+		// but if not then this is repeated packet and nothing should be done here
+		if (getClient().getActiveChar() != null)
+			return;
+		
+		// The L2PcInstance must be created here, so that it can be attached to the L2GameClient
+		if (_log.isDebugEnabled())
+			_log.info("selected slot:" + _charSlot);
+		
+		//load up character from disk
+		L2PcInstance cha = getClient().loadCharFromDisk(_charSlot);
+		if (cha == null)
 		{
-			try
-			{
-				// should always be null
-				// but if not then this is repeated packet and nothing should be done here
-				if (getClient().getActiveChar() == null)
-				{
-					// The L2PcInstance must be created here, so that it can be attached to the L2GameClient
-					if (_log.isDebugEnabled())
-					{
-						_log.info("selected slot:" + _charSlot);
-					}
-					
-					//load up character from disk
-					L2PcInstance cha = getClient().loadCharFromDisk(_charSlot);
-					if (cha == null)
-					{
-						_log.fatal("Character could not be loaded (slot:"+_charSlot+")");
-						return;
-					}
-					if (cha.getAccessLevel() < 0)
-					{
-						cha.deleteMe();
-						return;
-					}
-					
-					cha.setClient(getClient());
-					getClient().setActiveChar(cha);
-					
-					getClient().setState(GameClientState.IN_GAME);
-					CharSelected cs = new CharSelected(cha, getClient().getSessionId().playOkID1);
-					sendPacket(cs);
-				}
-			}
-			finally
-			{
-				getClient().getActiveCharLock().unlock();
-			}
+			_log.fatal("Character could not be loaded (slot:"+_charSlot+")");
+			return;
 		}
-}
+		
+		if (cha.getAccessLevel() < 0)
+		{
+			cha.deleteMe();
+			return;
+		}
+		
+		cha.setClient(getClient());
+		getClient().setActiveChar(cha);
+		
+		getClient().setState(GameClientState.IN_GAME);
+		sendPacket(new CharSelected(cha, getClient().getSessionId().playOkID1));
+	}
 	
 	/*
 	private void playLogFile(Connection connection)

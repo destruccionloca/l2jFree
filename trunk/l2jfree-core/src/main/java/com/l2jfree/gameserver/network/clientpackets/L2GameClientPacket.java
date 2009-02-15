@@ -14,102 +14,106 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import java.nio.BufferUnderflowException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.mmocore.network.ReceivablePacket;
 
-import com.l2jfree.gameserver.GameServer;
-import com.l2jfree.gameserver.GameTimeController;
-import com.l2jfree.gameserver.exception.L2JFunctionnalException;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.IOFloodManager;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.IOFloodManager.FloodLogMode;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 
 /**
  * Packets received by the game server from clients
- * @author  KenM
+ * 
+ * @author KenM
  */
 public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 {
-	protected final static Log _log = LogFactory.getLog(L2GameClientPacket.class.getName());
+	protected static final Log _log = LogFactory.getLog(L2GameClientPacket.class);
 	
 	@Override
-	protected boolean read()
+	protected final boolean read()
 	{
+		if (getAvaliableBytes() < getMinimumLength())
+		{
+			IOFloodManager.getInstance().log(FloodLogMode.BUFFER_UNDER_FLOW, getClient(), this, null);
+			return false;
+		}
+		
 		try
 		{
 			readImpl();
 			return true;
 		}
+		catch (BufferUnderflowException e)
+		{
+			IOFloodManager.getInstance().log(FloodLogMode.BUFFER_UNDER_FLOW, getClient(), this, e);
+		}
 		catch (Exception e)
 		{
-			_log.fatal("Client: "+getClient().toString()+" - Failed reading: "+getType()+" - L2J Server Version: "+GameServer.getVersionNumber(), e);
+			IOFloodManager.getInstance().log(FloodLogMode.FAILED_READING, getClient(), this, e);
 		}
+		
 		return false;
 	}
 	
 	protected abstract void readImpl();
 	
 	@Override
-	public void run() 
+	public final void run()
 	{
 		try
 		{
-			// flood protection
-			if (GameTimeController.getGameTicks() - getClient().packetsSentStartTick > 10)
+			final L2PcInstance activeChar = getClient().getActiveChar();
+			
+			if (activeChar != null && activeChar.getProtection() > 0)
 			{
-				getClient().packetsSentStartTick = GameTimeController.getGameTicks();
-				getClient().packetsSentInSec = 0;
-			}
-			else
-			{
-				getClient().packetsSentInSec++;
-				// Client sends NORMALLY very often 50+ packets...
-				if (getClient().packetsSentInSec > 50 && getClient().getActiveChar() != null)
+				// could include pickup and talk too, but less is better
+				if (this instanceof MoveBackwardToLocation ||
+					this instanceof AttackRequest ||
+					this instanceof RequestActionUse ||
+					this instanceof RequestMagicSkillUse)
 				{
-					getClient().getActiveChar().sendPacket(ActionFailed.STATIC_PACKET);
-					return;
+					// removes onspawn protection
+					activeChar.onActionRequest();
 				}
 			}
 			
 			runImpl();
-
-			if (getClient().getActiveChar() != null && getClient().getActiveChar().getProtection() > 0)
-			{
-				if (this instanceof MoveBackwardToLocation
-					|| this instanceof AttackRequest
-					|| this instanceof RequestActionUse
-					|| this instanceof RequestMagicSkillUse)
-					// could include pickup and talk too, but less is better
-				{
-					// Removes onspawn protection - player has faster computer than
-					// average
-					getClient().getActiveChar().onActionRequest();
-				}
-			}
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Client: "+getClient().toString()+" - Failed running: "+getType()+" - L2J Server Version: "+GameServer.getVersionNumber(), e);
+			IOFloodManager.getInstance().log(FloodLogMode.FAILED_RUNNING, getClient(), this, e);
 		}
 	}
 	
-	protected abstract void runImpl()  throws L2JFunctionnalException;
+	protected abstract void runImpl();
 	
 	protected final void sendPacket(L2GameServerPacket gsp)
 	{
 		getClient().sendPacket(gsp);
 	}
 	
-	public void sendPacket(SystemMessageId sm)
+	protected final void sendPacket(SystemMessageId sm)
 	{
 		getClient().sendPacket(sm.getSystemMessage());
 	}
+	
 	/**
-	 * @return A String with this packet name for debuging purposes
+	 * @return a String with this packet name for debuging purposes
 	 */
 	public abstract String getType();
+	
+	/**
+	 * Should be overriden.
+	 */
+	protected int getMinimumLength()
+	{
+		return 0;
+	}
 }

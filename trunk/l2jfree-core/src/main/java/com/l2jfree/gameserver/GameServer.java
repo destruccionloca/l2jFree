@@ -115,6 +115,7 @@ import com.l2jfree.gameserver.model.entity.Hero;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.L2GamePacketHandler;
+import com.l2jfree.gameserver.network.IOFloodManager;
 import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
 import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
@@ -385,7 +386,7 @@ public class GameServer
 		SelectorConfig<L2GameClient> sc = new SelectorConfig<L2GameClient>(null, null, gph, gph);
 		sc.setMaxSendPerPass(12);
 		sc.setSelectorSleepTime(20);
-		_selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, null);
+		_selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, IOFloodManager.getInstance());
 		_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
 		_selectorThread.start();
 

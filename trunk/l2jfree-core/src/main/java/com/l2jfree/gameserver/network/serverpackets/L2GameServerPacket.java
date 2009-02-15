@@ -14,63 +14,69 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.SendablePacket;
 
 import com.l2jfree.gameserver.GameServer;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
- *
- * @author  KenM
+ * @author KenM
  */
 public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 {
 	protected static final Log _log = LogFactory.getLog(L2GameServerPacket.class);
-
+	
 	/**
 	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
 	 */
 	@Override
-	protected void write()
+	protected final void write(L2GameClient client)
 	{
 		try
 		{
 			writeImpl();
+			writeImpl(client, client.getActiveChar());
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Client: " + getClient().toString() + " - Failed writing: " + getType() + " - L2J Server Version: " + GameServer.getVersionNumber(), e);
+			_log.fatal("Failed writing: " + client + " - " + getType() + " - " + GameServer.getVersionNumber(), e);
 		}
 	}
-
-	public void runImpl()
+	
+	public void runImpl(L2GameClient client, L2PcInstance activeChar)
 	{
 	}
-
-	protected abstract void writeImpl();
-
+	
+	protected void writeImpl()
+	{
+	}
+	
+	protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
+	{
+	}
+	
 	/**
-	 * @return A String with this packet name for debuging purposes
+	 * @return a String with this packet name for debuging purposes
 	 */
 	public abstract String getType();
-
+	
 	/**
-	* @see org.mmocore.network.SendablePacket#getHeaderSize()
-	*/
+	 * @see org.mmocore.network.SendablePacket#getHeaderSize()
+	 */
 	@Override
-	protected int getHeaderSize()
+	protected final int getHeaderSize()
 	{
 		return 2;
 	}
-
+	
 	/**
-	* @see org.mmocore.network.SendablePacket#writeHeader(int)
-	*/
+	 * @see org.mmocore.network.SendablePacket#writeHeader(int)
+	 */
 	@Override
-	protected void writeHeader(int dataSize)
+	protected final void writeHeader(int dataSize)
 	{
 		writeH(dataSize + this.getHeaderSize());
 	}
