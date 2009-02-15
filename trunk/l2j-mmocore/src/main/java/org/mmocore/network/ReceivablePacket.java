@@ -21,68 +21,76 @@ import javolution.text.TextBuilder;
 
 /**
  * @author KenM
- *
  */
-public abstract class ReceivablePacket<T extends MMOClient> extends AbstractPacket<T> implements Runnable
+public abstract class ReceivablePacket<T extends MMOConnection<T>> extends AbstractPacket implements Runnable
 {
 	protected ReceivablePacket()
 	{
-
 	}
-
+	
+	private T _client;
+	
+	void setClient(T client)
+	{
+		_client = client;
+	}
+	
+	public T getClient()
+	{
+		return _client;
+	}
+	
 	protected int getAvaliableBytes()
 	{
-		return this.getByteBuffer().remaining();
+		return getByteBuffer().remaining();
 	}
-
+	
 	protected abstract boolean read();
-
+	
 	public abstract void run();
-
+	
 	protected void readB(byte[] dst)
 	{
-		this.getByteBuffer().get(dst);
+		getByteBuffer().get(dst);
 	}
-
+	
 	protected void readB(byte[] dst, int offset, int len)
 	{
-		this.getByteBuffer().get(dst, offset, len);
+		getByteBuffer().get(dst, offset, len);
 	}
-
+	
 	protected int readC()
 	{
-		return this.getByteBuffer().get() & 0xFF;
+		return getByteBuffer().get() & 0xFF;
 	}
-
+	
 	protected int readH()
 	{
-		return this.getByteBuffer().getShort() & 0xFFFF;
+		return getByteBuffer().getShort() & 0xFFFF;
 	}
-
+	
 	protected int readD()
 	{
-		return this.getByteBuffer().getInt();
+		return getByteBuffer().getInt();
 	}
-
+	
 	protected long readQ()
 	{
-		return this.getByteBuffer().getLong();
+		return getByteBuffer().getLong();
 	}
-
+	
 	protected double readF()
 	{
-		return this.getByteBuffer().getDouble();
+		return getByteBuffer().getDouble();
 	}
-
+	
 	protected String readS()
 	{
 		TextBuilder tb = TextBuilder.newInstance();
-		char ch;
-
-		while ((ch = this.getByteBuffer().getChar()) != 0)
-		{
-			tb.append(ch);
-		}
+		
+		for (char c; (c = getByteBuffer().getChar()) != 0;)
+			tb.append(c);
+		
 		String str = tb.toString();
 		TextBuilder.recycle(tb);
 		return str;

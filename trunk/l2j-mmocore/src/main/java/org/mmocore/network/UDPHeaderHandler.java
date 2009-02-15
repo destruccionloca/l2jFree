@@ -23,29 +23,16 @@ import java.nio.channels.DatagramChannel;
 
 /**
  * @author KenM
- *
  */
-public abstract class UDPHeaderHandler<T extends MMOClient>  extends HeaderHandler<T, UDPHeaderHandler<T>>
+public abstract class UDPHeaderHandler<T extends MMOConnection<T>> extends HeaderHandler<T, UDPHeaderHandler<T>>
 {
-    /**
-     * @param subHeaderHandler
-     */
-    public UDPHeaderHandler(UDPHeaderHandler<T> subHeaderHandler)
-    {
-        super(subHeaderHandler);
-    }
-
-    private final HeaderInfo<T> _headerInfoReturn = new HeaderInfo<T>();
-    
-    protected abstract HeaderInfo handleHeader(ByteBuffer buf);
-    
-    protected abstract void onUDPConnection(SelectorThread<T> selector, DatagramChannel dc, SocketAddress key, ByteBuffer buf);
-    
-    /**
-     * @return the headerInfoReturn
-     */
-    protected final HeaderInfo<T> getHeaderInfoReturn()
-    {
-        return _headerInfoReturn;
-    }
+	public UDPHeaderHandler(UDPHeaderHandler<T> subHeaderHandler)
+	{
+		super(subHeaderHandler);
+	}
+	
+	protected abstract HeaderInfo<T> handleHeader(ByteBuffer buf);
+	
+	protected abstract void onUDPConnection(SelectorThread<T> selector, DatagramChannel dc, SocketAddress key,
+		ByteBuffer buf);
 }
