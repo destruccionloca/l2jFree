@@ -56,7 +56,7 @@ public final class Init extends L2LoginServerPacket
 	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
 	 */
 	@Override
-	protected void write()
+	protected void write(L2LoginClient client)
 	{
 		writeC(0x00); // init packet id
 

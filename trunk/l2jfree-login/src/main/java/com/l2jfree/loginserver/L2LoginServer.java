@@ -23,12 +23,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.logging.LogManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.mmocore.network.SelectorConfig;
 import org.mmocore.network.SelectorThread;
 
@@ -95,7 +93,7 @@ public class L2LoginServer
 		LogManager.getLogManager().readConfiguration(is);
 		is.close();
 
-		// Initialize config 
+		// Initialize config
 		// ------------------
 		Config.load();
 
@@ -192,11 +190,10 @@ public class L2LoginServer
 	{
 		L2LoginPacketHandler loginPacketHandler = new L2LoginPacketHandler();
 		SelectorHelper sh = new SelectorHelper();
-		SelectorConfig ssc = new SelectorConfig(null, null, sh, loginPacketHandler);
+		SelectorConfig<L2LoginClient> ssc = new SelectorConfig<L2LoginClient>(null, null, sh, loginPacketHandler);
 		try
 		{
 			_selectorThread = new SelectorThread<L2LoginClient>(ssc, sh, sh, sh);
-			_selectorThread.setAcceptFilter(sh);
 		}
 		catch (IOException e)
 		{

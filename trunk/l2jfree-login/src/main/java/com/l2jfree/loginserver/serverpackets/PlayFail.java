@@ -18,6 +18,8 @@
  */
 package com.l2jfree.loginserver.serverpackets;
 
+import com.l2jfree.loginserver.L2LoginClient;
+
 /**
  * This class ...
  * 
@@ -36,7 +38,7 @@ public final class PlayFail extends L2LoginServerPacket
 	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
 	 */
 	@Override
-	protected void write()
+	protected void write(L2LoginClient client)
 	{
 		writeC(0x06);
 		writeC(_reason.getCode());

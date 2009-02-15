@@ -20,78 +20,82 @@ package com.l2jfree.loginserver;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
 import java.security.interfaces.RSAPrivateKey;
-
-import org.mmocore.network.MMOClient;
-import org.mmocore.network.MMOConnection;
-
-import com.l2jfree.tools.math.ScrambledKeyPair;
-import com.l2jfree.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.mmocore.network.ISocket;
+import org.mmocore.network.MMOConnection;
+import org.mmocore.network.SelectorThread;
 
 import com.l2jfree.loginserver.beans.SessionKey;
 import com.l2jfree.loginserver.crypt.LoginCrypt;
 import com.l2jfree.loginserver.manager.LoginManager;
-import com.l2jfree.loginserver.serverpackets.L2LoginServerPacket;
 import com.l2jfree.loginserver.serverpackets.LoginFail;
 import com.l2jfree.loginserver.serverpackets.LoginFailReason;
 import com.l2jfree.loginserver.serverpackets.PlayFail;
 import com.l2jfree.loginserver.serverpackets.PlayFailReason;
+import com.l2jfree.tools.math.ScrambledKeyPair;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * Represents a client connected into the LoginServer
- *
- * @author  KenM
+ * 
+ * @author KenM
  */
-public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
+public class L2LoginClient extends MMOConnection<L2LoginClient>
 {
-	private static final Log	_log	= LogFactory.getLog(L2LoginClient.class.getName());
-
+	private static final Log _log = LogFactory.getLog(L2LoginClient.class);
+	
 	public static enum LoginClientState
 	{
-		CONNECTED, AUTHED_GG, AUTHED_LOGIN
-	};
-
-	private LoginClientState	_state;
-
+		CONNECTED,
+		AUTHED_GG,
+		AUTHED_LOGIN;
+	}
+	
+	private LoginClientState _state = LoginClientState.CONNECTED;
+	
 	// Crypt
-	private LoginCrypt			_loginCrypt;
-	private ScrambledKeyPair	_scrambledPair;
-	private byte[]				_blowfishKey;
-
-	private String				_account;
-	private int					_accessLevel;
-	private int					_lastServerId;
-	private SessionKey			_sessionKey;
-	private int					_sessionId;
-	private boolean				_joinedGS;
-	private String				_ip;
-	private long				_connectionStartTime;
-
-	/**
-	 * @param con
-	 */
-	public L2LoginClient(MMOConnection<L2LoginClient> con)
+	private LoginCrypt _loginCrypt;
+	private final ScrambledKeyPair _scrambledPair;
+	private final byte[] _blowfishKey;
+	
+	private String _account;
+	private int _accessLevel;
+	private int _lastServerId;
+	private SessionKey _sessionKey;
+	private final int _sessionId = Rnd.nextInt(Integer.MAX_VALUE);
+	private boolean _joinedGS;
+	private final String _ip;
+	
+	public L2LoginClient(SelectorThread<L2LoginClient> selectorThread, ISocket socket, SelectionKey key)
 	{
-		super(con);
-		_state = LoginClientState.CONNECTED;
-		_ip = getConnection().getSocket().getInetAddress().getHostAddress();
-
+		super(selectorThread, socket, key);
+		
+		_ip = getSocket().getInetAddress().getHostAddress();
+		
 		_scrambledPair = LoginManager.getInstance().getScrambledRSAKeyPair();
 		_blowfishKey = LoginManager.getInstance().getBlowfishKey();
-		_sessionId = Rnd.nextInt(Integer.MAX_VALUE);
-		_connectionStartTime = System.currentTimeMillis();
-		_loginCrypt = new LoginCrypt();
-		_loginCrypt.setKey(_blowfishKey);
 	}
-
+	
+	private LoginCrypt getLoginCrypt()
+	{
+		if (_loginCrypt == null)
+		{
+			_loginCrypt = new LoginCrypt();
+			_loginCrypt.setKey(_blowfishKey);
+		}
+		
+		return _loginCrypt;
+	}
+	
 	public String getIp()
 	{
 		return _ip;
 	}
-
+	
 	/**
 	 * @see com.l2jserver.mmocore.interfaces.MMOClient#decrypt(java.nio.ByteBuffer, int)
 	 */
@@ -101,26 +105,26 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		boolean ret = false;
 		try
 		{
-			ret = _loginCrypt.decrypt(buf.array(), buf.position(), size);
+			ret = getLoginCrypt().decrypt(buf.array(), buf.position(), size);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
-			this.closeNow();
+			closeNow();
 			return false;
 		}
-
+		
 		if (!ret)
 		{
 			byte[] dump = new byte[size];
 			System.arraycopy(buf.array(), buf.position(), dump, 0, size);
-			_log.warn("Wrong checksum from client: " + this.toString());
-			this.closeNow();
+			_log.warn("Wrong checksum from client: " + toString());
+			closeNow();
 		}
-
+		
 		return ret;
 	}
-
+	
 	/**
 	 * @see com.l2jserver.mmocore.interfaces.MMOClient#encrypt(java.nio.ByteBuffer, int)
 	 */
@@ -130,154 +134,140 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		final int offset = buf.position();
 		try
 		{
-			size = _loginCrypt.encrypt(buf.array(), offset, size);
+			size = getLoginCrypt().encrypt(buf.array(), offset, size);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 			return false;
 		}
-
+		
 		buf.position(offset + size);
 		return true;
 	}
-
+	
 	public LoginClientState getState()
 	{
 		return _state;
 	}
-
+	
 	public void setState(LoginClientState state)
 	{
 		_state = state;
 	}
-
+	
 	public byte[] getBlowfishKey()
 	{
 		return _blowfishKey;
 	}
-
+	
 	public byte[] getScrambledModulus()
 	{
 		return _scrambledPair.getScrambledModulus();
 	}
-
+	
 	public RSAPrivateKey getRSAPrivateKey()
 	{
-		return (RSAPrivateKey) _scrambledPair.getPair().getPrivate();
+		return (RSAPrivateKey)_scrambledPair.getPair().getPrivate();
 	}
-
+	
 	public String getAccount()
 	{
 		return _account;
 	}
-
+	
 	public void setAccount(String account)
 	{
 		_account = account;
 	}
-
+	
 	public void setAccessLevel(int accessLevel)
 	{
 		_accessLevel = accessLevel;
 	}
-
+	
 	public int getAccessLevel()
 	{
 		return _accessLevel;
 	}
-
+	
 	public void setLastServerId(int lastServerId)
 	{
 		_lastServerId = lastServerId;
 	}
-
+	
 	public int getLastServerId()
 	{
 		return _lastServerId;
 	}
-
+	
 	public int getSessionId()
 	{
 		return _sessionId;
 	}
-
+	
 	public void setSessionKey(SessionKey sessionKey)
 	{
 		_sessionKey = sessionKey;
 	}
-
+	
 	public boolean hasJoinedGS()
 	{
 		return _joinedGS;
 	}
-
+	
 	public void setJoinedGS(boolean val)
 	{
 		_joinedGS = val;
 	}
-
+	
 	public SessionKey getSessionKey()
 	{
 		return _sessionKey;
 	}
-
-	public long getConnectionStartTime()
-	{
-		return _connectionStartTime;
-	}
-
-	public void sendPacket(L2LoginServerPacket lsp)
-	{
-		this.getConnection().sendPacket(lsp);
-	}
-
+	
 	public void close(LoginFailReason reason)
 	{
-		this.getConnection().close(new LoginFail(reason));
+		close(new LoginFail(reason));
 	}
-
-	public void close(L2LoginServerPacket lsp)
-	{
-		this.getConnection().close(lsp);
-	}
-
+	
 	public void close(PlayFailReason reason)
 	{
-		this.getConnection().close(new PlayFail(reason));
+		close(new PlayFail(reason));
 	}
-
+	
 	public InetAddress getInetAddress()
 	{
-		return getConnection().getSocket().getInetAddress();
+		return getSocket().getInetAddress();
 	}
-
+	
 	@Override
 	public void onDisconnection()
 	{
 		if (_log.isDebugEnabled())
-		{
-			_log.info("DISCONNECTED: " + this.toString());
-		}
-
+			_log.info("onDisconnection: " + this);
+		
 		// If player was not on GS, don't forget to remove it from authed login on LS
-		if (this.getState() == LoginClientState.AUTHED_LOGIN && !this.hasJoinedGS())
+		if (getState() == LoginClientState.AUTHED_LOGIN && !hasJoinedGS())
 		{
-			LoginManager.getInstance().removeAuthedLoginClient(this.getAccount());
+			LoginManager.getInstance().removeAuthedLoginClient(getAccount());
 		}
 	}
-
+	
+	@Override
+	protected void onForcedDisconnection()
+	{
+		if (_log.isDebugEnabled())
+			_log.info("onForcedDisconnection: " + this);
+	}
+	
 	@Override
 	public String toString()
 	{
-		InetAddress address = getConnection().getSocket().getInetAddress();
-		if (this.getState() == LoginClientState.AUTHED_LOGIN)
-		{
-			return "[" + this.getAccount() + " (" + (address == null ? "disconnected" : address.getHostAddress()) + ")]";
-		}
+		InetAddress address = getSocket().getInetAddress();
+		if (getState() == LoginClientState.AUTHED_LOGIN)
+			return "[" + getAccount() + " (" + (address == null ? "disconnected" : address.getHostAddress()) + ")]";
 		else
-		{
 			return "[" + (address == null ? "disconnected" : address.getHostAddress()) + "]";
-		}
 	}
 }

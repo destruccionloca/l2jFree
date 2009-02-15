@@ -21,6 +21,8 @@ package com.l2jfree.loginserver.serverpackets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.loginserver.L2LoginClient;
+
 /**
  * Fromat: d
  * d: response
@@ -45,7 +47,7 @@ public final class GGAuth extends L2LoginServerPacket
 	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
 	 */
 	@Override
-	protected void write()
+	protected void write(L2LoginClient client)
 	{
 		writeC(0x0b);
 		writeD(_response);

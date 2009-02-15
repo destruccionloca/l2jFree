@@ -25,13 +25,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import com.l2jfree.Config;
 import com.l2jfree.loginserver.L2LoginClient;
 import com.l2jfree.loginserver.beans.GameServerInfo;
 import com.l2jfree.loginserver.gameserverpackets.ServerStatus;
 import com.l2jfree.loginserver.manager.GameServerManager;
-
-import javolution.util.FastMap;
 
 /**
  * ServerList
@@ -48,8 +48,8 @@ import javolution.util.FastMap;
  * h: current number of players
  * h: max number of players
  * c: 0 if server is down
- * d: 2nd bit: clock 
- *    3rd bit: wont dsiplay server name 
+ * d: 2nd bit: clock
+ *    3rd bit: wont dsiplay server name
  *    4th bit: test server (used by client?)
  * c: 0 if you dont want to display brackets in front of sever name
  * ]
@@ -103,19 +103,19 @@ public final class ServerList extends L2LoginServerPacket
 			if (gsi.getStatus() == ServerStatus.STATUS_GM_ONLY && client.getAccessLevel() >= Config.GM_MIN)
 			{
 				// Server is GM-Only but you've got GM Status
-				this.addServer(_ip, gsi.getPort(), gsi.isPvp(), gsi.isTestServer(), gsi.getCurrentPlayerCount(), gsi.getMaxPlayers(), gsi.isShowingBrackets(),
+				addServer(_ip, gsi.getPort(), gsi.isPvp(), gsi.isTestServer(), gsi.getCurrentPlayerCount(), gsi.getMaxPlayers(), gsi.isShowingBrackets(),
 						gsi.isShowingClock(), gsi.getStatus(), gsi.getId());
 			}
 			else if (gsi.getStatus() != ServerStatus.STATUS_GM_ONLY)
 			{
 				// Server is not GM-Only
-				this.addServer(_ip, gsi.getPort(), gsi.isPvp(), gsi.isTestServer(), gsi.getCurrentPlayerCount(), gsi.getMaxPlayers(), gsi.isShowingBrackets(),
+				addServer(_ip, gsi.getPort(), gsi.isPvp(), gsi.isTestServer(), gsi.getCurrentPlayerCount(), gsi.getMaxPlayers(), gsi.isShowingBrackets(),
 						gsi.isShowingClock(), gsi.getStatus(), gsi.getId());
 			}
 			else
 			{
 				// Server's GM-Only and you've got no GM-Status
-				this.addServer(_ip, gsi.getPort(), gsi.isPvp(), gsi.isTestServer(), gsi.getCurrentPlayerCount(), gsi.getMaxPlayers(), gsi.isShowingBrackets(),
+				addServer(_ip, gsi.getPort(), gsi.isPvp(), gsi.isTestServer(), gsi.getCurrentPlayerCount(), gsi.getMaxPlayers(), gsi.isShowingBrackets(),
 						gsi.isShowingClock(), ServerStatus.STATUS_DOWN, gsi.getId());
 			}
 		}
@@ -131,14 +131,14 @@ public final class ServerList extends L2LoginServerPacket
 	}
 
 	@Override
-	public void write()
+	public void write(L2LoginClient client)
 	{
 		ServerData server;
 
 		writeC(0x04);
 		writeC(_servers.size());
 
-		server = _servers.get(getClient().getLastServerId());
+		server = _servers.get(client.getLastServerId());
 		if (server != null && server._status != ServerStatus.STATUS_DOWN)
 		{
 			writeC(server._serverId);

@@ -18,6 +18,7 @@
  */
 package com.l2jfree.loginserver.serverpackets;
 
+import com.l2jfree.loginserver.L2LoginClient;
 import com.l2jfree.loginserver.beans.SessionKey;
 
 /**
@@ -37,7 +38,7 @@ public final class PlayOk extends L2LoginServerPacket
 	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
 	 */
 	@Override
-	protected void write()
+	protected void write(L2LoginClient client)
 	{
 		writeC(0x07);
 		writeD(_playOk1);
