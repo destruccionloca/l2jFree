@@ -27,6 +27,7 @@ public class ExtendedPatternLayout extends PatternLayout {
 	/**
 	 * @see org.apache.log4j.PatternLayout#createPatternParser(java.lang.String)
 	 */
+	@Override
 	public PatternParser createPatternParser(String pattern) {
 		PatternParser result;
 		if (pattern == null) {
@@ -44,6 +45,7 @@ public class ExtendedPatternLayout extends PatternLayout {
 	 * @see org.apache.log4j.PatternLayout#ignoresThrowable() Return false,
 	 *      l'ExtendedPattern utilise les Throwables !
 	 */
+	@Override
 	public boolean ignoresThrowable() {
 		return false;
 	}

@@ -41,6 +41,7 @@ public class ChatLogFormatter extends Formatter {
 
 	private SimpleDateFormat dateFmt = new SimpleDateFormat("dd MMM H:mm:ss");
 
+	@Override
 	public String format(LogRecord record) {
 		Object[] params = record.getParameters();
 		StringBuffer output = new StringBuffer();

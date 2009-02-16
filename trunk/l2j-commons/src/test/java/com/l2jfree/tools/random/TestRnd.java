@@ -43,11 +43,4 @@ public class TestRnd extends TestCase {
 
 		assertTrue(timeDbl > timeInt);
 	}
-
-	public void testBoolean() {
-		for (int i = 0; i < 50; i++) {
-			Boolean value = Rnd.nextBoolean();
-			assertTrue(value instanceof Boolean);
-		}
-	}
 }

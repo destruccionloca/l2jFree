@@ -27,6 +27,7 @@ public class ExtendedPatternParser extends PatternParser {
 	/**
 	 * @see org.apache.log4j.helpers.PatternParser#finalizeConverter(char)
 	 */
+	@Override
 	public void finalizeConverter(char formatChar) {
 		PatternConverter pc = null;
 		switch (formatChar) {
@@ -48,6 +49,7 @@ public class ExtendedPatternParser extends PatternParser {
 		/**
 		 * @see org.apache.log4j.helpers.PatternConverter#convert(org.apache.log4j.spi.LoggingEvent)
 		 */
+		@Override
 		public String convert(LoggingEvent event) {
 			String sbReturn;
 			try {

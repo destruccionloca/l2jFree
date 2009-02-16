@@ -98,7 +98,7 @@ public class MultiSort {
 		for (Integer currValue : getValues())
 			totalValue += (1.0 / currValue.doubleValue());
 
-		return ((double) getCount() / totalValue);
+		return getCount() / totalValue;
 	}
 
 	public final List<?> getKeys() {

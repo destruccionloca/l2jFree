@@ -41,6 +41,7 @@ public class FileLogFormatter extends Formatter {
 	private SimpleDateFormat dateFmt = new SimpleDateFormat(
 			"yyyy.MM.dd HH:mm:ss,SSS");
 
+	@Override
 	public String format(LogRecord record) {
 		StringBuffer output = new StringBuffer();
 

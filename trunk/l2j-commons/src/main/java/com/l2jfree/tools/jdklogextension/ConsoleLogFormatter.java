@@ -33,6 +33,7 @@ public class ConsoleLogFormatter extends Formatter {
 	 */
 	private static final String CRLF = "\r\n";
 
+	@Override
 	public String format(LogRecord record) {
 		StringBuffer output = new StringBuffer();
 		output.append(record.getLevel().getName());

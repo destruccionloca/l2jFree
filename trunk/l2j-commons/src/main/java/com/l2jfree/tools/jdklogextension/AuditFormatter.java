@@ -37,6 +37,7 @@ public class AuditFormatter extends Formatter {
 	private static final String CRLF = "\r\n";
 	private SimpleDateFormat dateFmt = new SimpleDateFormat("dd MMM H:mm:ss");
 
+	@Override
 	public String format(LogRecord record) {
 		StringBuffer output = new StringBuffer();
 		output.append('[');

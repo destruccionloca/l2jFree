@@ -55,14 +55,17 @@ public class Point3D implements Serializable {
 		}
 	}
 
+	@Override
 	public String toString() {
 		return "(" + x + ", " + y + ", " + z + ")";
 	}
 
+	@Override
 	public int hashCode() {
 		return x ^ y ^ z;
 	}
 
+	@Override
 	public synchronized boolean equals(Object o) {
 		if (o instanceof Point3D) {
 			Point3D point3D = (Point3D) o;
