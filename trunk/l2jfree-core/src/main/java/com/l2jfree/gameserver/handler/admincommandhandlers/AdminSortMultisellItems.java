@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
-import java.util.Vector;
-import java.util.List;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -23,11 +21,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Vector;
 
-import javolution.util.FastList;
 import javolution.text.TextBuilder;
-
-
+import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -1011,17 +1009,17 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 		}
 	}
 
-	static private boolean deleteDirectory(File path)
+	static private boolean deleteDirectory(File directoryPath)
 	{
 		if (MULTISELL_GENERATE_OUTPUT_TEXT)
 		{
-			_log.info("Deleting directory " + path.getName());
+			_log.info("Deleting directory " + directoryPath.getName());
 		}
 
-		if (path.exists())
+		if (directoryPath.exists())
 		{
 
-			for (File file : path.listFiles())
+			for (File file : directoryPath.listFiles())
 			{
 				if (file.isDirectory())
 				{
@@ -1039,7 +1037,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			}
 		}
 
-		return (path.delete());
+		return (directoryPath.delete());
 	}
 
 	private void writeXML()

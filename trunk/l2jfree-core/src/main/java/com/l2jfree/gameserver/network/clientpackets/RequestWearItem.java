@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import java.util.List;
 import java.util.concurrent.Future;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -120,7 +119,6 @@ public class RequestWearItem extends L2GameClientPacket
     protected void runImpl()
     {
 		// Get the current player and return if null
-        L2PcInstance _activeChar = getClient().getActiveChar();
         if (_activeChar == null) return;
 
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 

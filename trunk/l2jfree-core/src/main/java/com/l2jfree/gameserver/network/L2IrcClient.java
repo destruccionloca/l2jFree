@@ -130,16 +130,16 @@ public class L2IrcClient extends Thread
 
 	public class TrustManager implements SSLTrustManager
 	{
-		private X509Certificate[]	chain;
+		private X509Certificate[]	_chain;
 
 		public X509Certificate[] getAcceptedIssuers()
 		{
-			return chain != null ? chain : new X509Certificate[0];
+			return _chain != null ? _chain : new X509Certificate[0];
 		}
 
 		public boolean isTrusted(X509Certificate[] chain)
 		{
-			this.chain = chain;
+			_chain = chain;
 			return true;
 		}
 
@@ -260,15 +260,15 @@ public class L2IrcClient extends Thread
 
 			if (msg.startsWith("ACTION") && Config.IRC_ME_SUPPORT)
 			{
-				SystemChatChannelId channel = SystemChatChannelId.Chat_Shout;
+				SystemChatChannelId channelId = SystemChatChannelId.Chat_Shout;
 				if (Config.IRC_TO_GAME_ME_DISPLAY.equals("trade"))
-					channel = SystemChatChannelId.Chat_Market;
+					channelId = SystemChatChannelId.Chat_Market;
 				if (Config.IRC_TO_GAME_ME_DISPLAY.equals("hero"))
-					channel = SystemChatChannelId.Chat_Hero;
+					channelId = SystemChatChannelId.Chat_Hero;
 
 				String me;
 				me = " * " + u.getNick() + msg.substring(6);
-				CreatureSay cs = new CreatureSay(0, channel, "[IRC]", me);
+				CreatureSay cs = new CreatureSay(0, channelId, "[IRC]", me);
 
 				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 				{
@@ -289,14 +289,14 @@ public class L2IrcClient extends Thread
 						else
 							sendmsg = msg;
 
-						SystemChatChannelId channel = SystemChatChannelId.Chat_Shout;
+						SystemChatChannelId channelId = SystemChatChannelId.Chat_Shout;
 
 						if (Config.IRC_TO_GAME_DISPLAY.equals("trade"))
-							channel = SystemChatChannelId.Chat_Market;
+							channelId = SystemChatChannelId.Chat_Market;
 						if (Config.IRC_TO_GAME_DISPLAY.equals("hero"))
-							channel = SystemChatChannelId.Chat_Hero;
+							channelId = SystemChatChannelId.Chat_Hero;
 
-						CreatureSay cs = new CreatureSay(0, channel, "[IRC] " + u.getNick(), sendmsg);
+						CreatureSay cs = new CreatureSay(0, channelId, "[IRC] " + u.getNick(), sendmsg);
 
 						for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 						{

@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
-import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.model.actor.reference.ImmutableReference;
-
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +23,9 @@ import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.model.actor.reference.ImmutableReference;
 
 /**
  * @author NB4L1
@@ -99,7 +99,9 @@ public final class LeakTaskManager
 			{
 				Object obj = ref.get();
 				if (obj != null)
-					/* here comes a deep cleanup */;
+				{
+					/* here comes a deep cleanup */
+				}
 			}
 			_list.clear();
 		}
