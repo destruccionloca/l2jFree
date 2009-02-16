@@ -19,12 +19,12 @@ package com.l2jfree.geoserver.model;
  * 2005-03-12
  */
 
+import java.io.Serializable;
+
 import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class L2Territory implements Serializable
@@ -45,6 +45,7 @@ public class L2Territory implements Serializable
 	}
 
 	private FastList<Point>	_points;
+	@SuppressWarnings("unused")
 	private String			_name;
 	private int				_xMin;
 	private int				_xMax;

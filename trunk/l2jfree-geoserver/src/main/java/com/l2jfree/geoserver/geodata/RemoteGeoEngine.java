@@ -2,14 +2,9 @@ package com.l2jfree.geoserver.geodata;
 
 import java.util.logging.Logger;
 
-import com.l2jfree.GeoConfig;
-
 public class RemoteGeoEngine extends GeoEngine
 {
 	private static final Logger	log				= Logger.getLogger(RemoteGeoEngine.class.getName());
-
-	public static final int		geodataSizeX	= GeoConfig.MAP_MAX_X - GeoConfig.MAP_MIN_X + 1 >> 15;
-	public static final int		geodataSizeY	= GeoConfig.MAP_MAX_Y - GeoConfig.MAP_MIN_Y + 1 >> 15;
 
 	private byte[][][][]		localGeo		= new byte[geodataSizeX][geodataSizeY][][];
 

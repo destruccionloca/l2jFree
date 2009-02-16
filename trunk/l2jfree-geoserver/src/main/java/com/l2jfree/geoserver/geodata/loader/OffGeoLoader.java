@@ -17,18 +17,13 @@ package com.l2jfree.geoserver.geodata.loader;
 import java.io.ByteArrayOutputStream;
 import java.util.regex.Pattern;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.geoserver.geodata.GeoEngine;
 
 public class OffGeoLoader extends AbstractGeoLoader
 {
-
-	final static Log				_log	= LogFactory.getLog(OffGeoLoader.class.getName());
-
 	private static final Pattern	PATTERN	= Pattern.compile("[\\d]{2}_[\\d]{2}_conv.dat");
 
+	@Override
 	protected byte[][] parse(byte[] data)
 	{
 
@@ -103,11 +98,13 @@ public class OffGeoLoader extends AbstractGeoLoader
 		return (short) (b1 << 8 | b0 & 0xff);
 	}
 
+	@Override
 	public Pattern getPattern()
 	{
 		return PATTERN;
 	}
 
+	@Override
 	public byte[] convert(byte[] data)
 	{
 		return data;

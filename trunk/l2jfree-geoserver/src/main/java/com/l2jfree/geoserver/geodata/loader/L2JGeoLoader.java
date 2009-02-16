@@ -16,18 +16,13 @@ package com.l2jfree.geoserver.geodata.loader;
 
 import java.util.regex.Pattern;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.geoserver.geodata.GeoEngine;
 
 public class L2JGeoLoader extends AbstractGeoLoader
 {
-
-	final static Log				_log	= LogFactory.getLog(L2JGeoLoader.class.getName());
-
 	private static final Pattern	PATTERN	= Pattern.compile("[\\d]{2}_[\\d]{2}.l2j");
 
+	@Override
 	protected byte[][] parse(byte[] data)
 	{
 
@@ -100,11 +95,13 @@ public class L2JGeoLoader extends AbstractGeoLoader
 		return blocks;
 	}
 
+	@Override
 	public Pattern getPattern()
 	{
 		return PATTERN;
 	}
 
+	@Override
 	public byte[] convert(byte[] data)
 	{
 		return data;
