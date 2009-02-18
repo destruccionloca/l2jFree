@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <parent>
-    <artifactId>l2jfreeParent</artifactId>
-    <groupId>l2jfree</groupId>
-    <version>1.0.1</version>
-  </parent>
   <modelVersion>4.0.0</modelVersion>
+  <groupId>l2jfree</groupId>
   <artifactId>l2j-commons</artifactId>
-  <version>1.1.9</version>
+  <version>1.1.10</version>
   <packaging>jar</packaging>
-  <url>http://www.l2jfree.com/</url>
+  <url>http://www.l2jfree.com</url>
+  <scm>
+    <connection>
+      scm:svn:svn://www.l2jfree.com/repo/l2j-free/trunk/l2j-commons
+    </connection>
+    <developerConnection>
+      scm:svn:svn://www.l2jfree.com/repo/l2j-free/trunk/l2j-commons
+    </developerConnection>
+    <url>
+      http://l2jfree.com:8060/changelog/l2jfree/
+    </url>
+  </scm>
   <pluginRepositories>
     <pluginRepository>
       <id>Maven Snapshots</id>
@@ -20,6 +27,30 @@
       <releases>
         <enabled>false</enabled>
       </releases>
+    </pluginRepository>
+    <pluginRepository>
+      <id>l2jfree.internal</id>
+      <name>l2jfree maven repository</name>
+      <url>
+        http://www.l2jfree.com:8080/archiva/repository/internal/
+      </url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+    <pluginRepository>
+      <id>old l2jfree</id>
+      <name>l2jfree central</name>
+      <url>http://www.l2jfree.com/maven/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </pluginRepository>
   </pluginRepositories>
   <repositories>
@@ -34,6 +65,17 @@
       </releases>
       <snapshots>
         <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>old l2jfree</id>
+      <name>l2jfree central</name>
+      <url>http://www.l2jfree.com/maven/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
       </snapshots>
     </repository>
     <repository>
@@ -70,19 +112,6 @@
       </releases>
     </repository>
     <repository>
-      <id>old l2jfree</id>
-      <name>l2jfree central</name>
-      <url>
-        http://www.l2jfree.com/maven/
-      </url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-    <repository>
       <id>mevenide repo</id>
       <url>http://mevenide.codehaus.org/repository</url>
     </repository>
@@ -91,11 +120,12 @@
       <url>http://www.ibiblio.org/maven2/</url>
     </repository>
   </repositories>
-  <!-- Dependencies here are provided for l2j-commons but also define what should be used by other L2J projects
-    We use transitive dependencies to factorize them and avoid to have different dependencies in all our projects
-    We should keep the same level of dependencies in LS and GS !
-  -->
   <dependencies>
+	<dependency>
+		<groupId>log4j</groupId>
+	 	<artifactId>log4j</artifactId>
+		<version>1.2.12</version>
+	</dependency>  
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
@@ -159,7 +189,9 @@
   </dependencies>
   <issueManagement>
     <system>Trac</system>
-    <url>http://www.l2jfree.com/trac/l2j-free/timeline</url>
+    <url>
+      http://www.l2jfree.com:8080/trac/l2j-free/timeline
+    </url>
   </issueManagement>
   <build>
     <extensions>
@@ -169,7 +201,16 @@
         <version>1.0-beta-2</version>
       </extension>
     </extensions>
-    <defaultGoal>install</defaultGoal>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <defaultGoal>assembly:assembly</defaultGoal>
+    <finalName>${artifactId}</finalName>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -177,16 +218,68 @@
     </resources>
     <testResources>
       <testResource>
+        <directory>config/</directory>
+      </testResource>
+      <testResource>
         <directory>src/test/resources</directory>
       </testResource>
     </testResources>
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <version>1.0-beta-1</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>create</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>
+                true
+              </addDefaultImplementationEntries>
+            </manifest>
+            <manifestEntries>
+              <Implementation-Build>
+                ${buildNumber}
+              </Implementation-Build>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <forkMode>pertest</forkMode>
+          <argLine>-enableassertions</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>
+              src/main/assembly/distribution.xml
+            </descriptor>
+          </descriptors>
         </configuration>
       </plugin>
     </plugins>
