@@ -283,7 +283,7 @@ def runThirdRoom(self,world):
 	world.ThirdRoom.npclist[newNpc]=False
 	newNpc = self.addSpawn(BM[2],148865,180705,-6117,0,False,0,False,world.instanceId)
 	world.ThirdRoom.npclist[newNpc]=False
-	if debug: print "DarkCloudMansion: spawned third room"  	
+	if debug: print "DarkCloudMansion: spawned third room"
 
 def runForthRoom(self,world):
 	world.status = 7
@@ -311,7 +311,7 @@ def runForthRoom(self,world):
 	for npc in world.ForthRoom.npclist:
 		if npc[1] == 0 :
 			npc[0].setIsInvul(True)
-	if debug: print "DarkCloudMansion: spawned forth room"  	
+	if debug: print "DarkCloudMansion: spawned forth room"
 
 def runFifthRoom(self,world):
 	world.status = 8
@@ -328,7 +328,7 @@ def runFifthRoom(self,world):
 		newNpc = self.addSpawn(BS[idx],x,182145,-6117,48810,False,0,False,world.instanceId)
 		world.FifthRoom.npclist.append([newNpc,idx,temp[idx],0])
 		idx += 1
-	if debug: print "DarkCloudMansion: spawned fifth room"  	
+	if debug: print "DarkCloudMansion: spawned fifth room"
 
 def checkKillProgress(npc,room):
 	cont = True
