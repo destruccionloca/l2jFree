@@ -215,10 +215,11 @@ full_install()
 	$MYG < ../sql/fish.sql &> /dev/null
 	$MYG < ../sql/fishing_skill_trees.sql &> /dev/null
 	$MYG < ../sql/forums.sql &> /dev/null
-	$MYG < ../sql/fort_door.sql &> /dev/null
 	$MYG < ../sql/fort_doorupgrade.sql &> /dev/null
 	$MYG < ../sql/fort_functions.sql &> /dev/null
 	$MYG < ../sql/fort_siege_guards.sql &> /dev/null
+	$MYG < ../sql/fort_spawnlist.sql &> /dev/null
+	$MYG < ../sql/fort_staticobjects.sql &> /dev/null
 	$MYG < ../sql/fort.sql &> /dev/null
 	$MYG < ../sql/fortsiege_clans.sql &> /dev/null
 	$MYG < ../sql/games.sql &> /dev/null

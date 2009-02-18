@@ -1566,7 +1566,7 @@ INSERT INTO `weapon` VALUES
 (9661,'Enchanted Fenril Fang','greatwolf','true',100,1,1,'wood','none',537,0,'pet',8,0,0,0,0,277,0,5,-1,74357833,0,'true','true','true','true','','','','',0),
 (9720,'Warrior\'s Sword','rhand','true',1300,1,1,'wood','none',12,40,'rapier',10,-1,0,0,0,406,0,10,-1,0,0,'true','true','true','true','','','','',0),
 (9813,'Orc Officer','lrhand','true',2150,1,1,'wood','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,0,0,'true','true','true','true','','','','',0),
-(9819,'Combat flag','lrhand','true',500,1,1,'wood','none',0,0,'none',0,0,0,0,0,325,0,0,-1,0,0,'false','false','true','false','','','','',0),
+(9819,'Combat flag','lrhand','true',500,1,1,'wood','none',0,0,'none',0,0,0,0,0,325,0,0,-1,0,0,'false','false','false','false','3318-1;3358-1','','','',0),
 (9840,'Shadow Item: Chevalier Rapier','rhand','false',473,2,2,'wood','c',111,40,'rapier',10,-1,0,0,0,406,0,68,300,0,0,'false','false','true','false','','','','',0),
 (9841,'Shadow Item: Riter Schlager','lrhand','false',667,2,2,'wood','c',132,15,'ancient',6,2,0,0,0,350,0,68,300,0,0,'false','false','true','false','','','','',0),
 (9842,'Shadow Item: Ballista','lrhand','false',590,5,2,'wood','c',155,10,'crossbow',10,-1,0,0,0,303,9,68,300,0,0,'false','false','true','false','','','','',0),
