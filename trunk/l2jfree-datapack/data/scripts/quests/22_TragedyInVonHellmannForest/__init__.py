@@ -9,10 +9,6 @@ from com.l2jfree.gameserver.network.serverpackets import NpcSay
 
 qn = "22_TragedyInVonHellmannForest"
 
-#QUEST LEVEL
-QLVL          = 63
-QLVL_NEXTPART = 64
-
 #NPCS
 INNOCENTIN       = 31328
 TIFAREN          = 31334
@@ -52,7 +48,7 @@ class Quest (JQuest) :
    if event == "31334-02.htm" :
        st2 = player.getQuestState("21_HiddenTruth")
        if st2 :
-           if not (st2.getState() == State.COMPLETED and player.getLevel() >= QLVL) :
+           if not (st2.getState() == State.COMPLETED and player.getLevel() >= 63) :
                htmltext = "31334-03.htm"
                st.exitQuest(1)
        else :
@@ -138,13 +134,13 @@ class Quest (JQuest) :
        st.set("cond","16")
    elif event == "Despawn Ghost Priest" :
        AutoChat(npc,"I'm confused! Maybe it's time to go back.")
-       npc.reduceCurrentHp(9999999,npc)
+       npc.reduceCurrentHp(9999999,npc,None)
        self.tifaren = 0
        if st.getQuestTimer("Despawn Ghost Priest 2") :
            st.getQuestTimer("Despawn Ghost Priest 2").cancel()
        return
    elif event == "Despawn Ghost Priest 2" :
-       npc.reduceCurrentHp(9999999,npc)
+       npc.reduceCurrentHp(9999999,npc,None)
        self.tifaren = 0
        AutoChat(npc,"My train of thought is chaotic. It goes back to the beginning of time...")
        if st.getQuestTimer("Despawn Ghost Priest") :
@@ -154,7 +150,7 @@ class Quest (JQuest) :
        self.soul = 1
        return
    elif event == "Soul of Well Despawn" :
-       npc.reduceCurrentHp(9999999,npc)
+       npc.reduceCurrentHp(9999999,npc,None)
        self.well = 0
        return
    return htmltext
@@ -199,7 +195,7 @@ class Quest (JQuest) :
            st.exitQuest(False)
            st.unset("id")
            st.addExpAndSp(345966,31578)
-           if player.getLevel() < QLVL_NEXTPART :
+           if player.getLevel() < 64 :
                htmltext = "31328-23.htm"
            else :
                htmltext = "31328-22.htm"
@@ -272,7 +268,7 @@ class Quest (JQuest) :
            htmltext = "31527-05.htm"
    return htmltext
 
- def onAttack (self,npc,player,damage,isPet):
+ def onAttack (self,npc,player,damage,isPet,skill):
    st = player.getQuestState(qn)
    if st :
        npcId = npc.getNpcId()
@@ -293,7 +289,7 @@ class Quest (JQuest) :
    if st :
        if npcId == SOUL_OF_WELL :
            self.well = 0
-       elif npcId in MOBS :
+       elif npcId in MOBS and state == State.STARTED:
            if st.getRandom(10) < 1 and st.getQuestItemsCount(SKULL) < 1:
                st.giveItems(SKULL,1)
                st.playSound("ItemSound.quest_itemget")

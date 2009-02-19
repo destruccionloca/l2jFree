@@ -38,7 +38,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_accept")
      elif event == "30385-07.htm" :
        st.takeItems(CARGO,-1)
-       st.rewardItems(57,4090)       
+       st.rewardItems(57,4090)
        st.set("cond","2")
        st.playSound("ItemSound.quest_middle")
      elif event == "30385-09.htm" :
@@ -58,7 +58,7 @@ class Quest (JQuest) :
        st.giveItems(TOTEM,1)
        st.set("cond","6")
        st.playSound("ItemSound.quest_middle")
-       npc.reduceCurrentHp(9999999,npc)
+       npc.reduceCurrentHp(9999999,npc,None)
      return htmltext
 
  def onTalk (self,npc,player):
@@ -93,7 +93,7 @@ class Quest (JQuest) :
            st.rewardItems(57,14700)
            htmltext = "30385-13.htm"
            st.set("cond","0")
-           st.exitQuest(False) 
+           st.exitQuest(False)
            st.playSound("ItemSound.quest_finish")
        elif npcId == ADONIUS :
          if cond == 2 :

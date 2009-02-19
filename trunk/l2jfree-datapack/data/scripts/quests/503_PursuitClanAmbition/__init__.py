@@ -2,8 +2,8 @@
 # questdevs Team
 
 import sys
-from java.util                                   import Iterator
-from com.l2jfree.tools.random                   import Rnd
+from java.util                                    import Iterator
+from com.l2jfree.tools.random                     import Rnd
 from com.l2jfree.gameserver.model.quest           import State
 from com.l2jfree.gameserver.model.quest           import QuestState
 from com.l2jfree.gameserver.model.quest.jython    import QuestJython as JQuest
@@ -63,7 +63,7 @@ DROPLIST = {
 def suscribe_members(st) :
   clan=st.getPlayer().getClan().getClanId()
   con=L2DatabaseFactory.getInstance().getConnection(None)
-  offline=con.prepareStatement("SELECT charId FROM characters WHERE clanid=? AND online=0")
+  offline=con.prepareStatement("SELECT `charId` FROM `characters` WHERE `clanid`=? AND `online`=0")
   offline.setInt(1, clan)
   rs=offline.executeQuery()
   while (rs.next()) :
@@ -87,7 +87,7 @@ def suscribe_members(st) :
 def offlineMemberExit(st) :
   clan=st.getPlayer().getClan().getClanId()
   con=L2DatabaseFactory.getInstance().getConnection(None)
-  offline=con.prepareStatement("DELETE FROM character_quests WHERE name = ? and charId IN (SELECT charId FROM characters WHERE clanId =? AND online=0")
+  offline=con.prepareStatement("DELETE FROM `character_quests` WHERE `name` = ? AND `charId` IN (SELECT `charId` FROM `characters` WHERE `clanId` =? AND `online`=0")
   offline.setString(1, qn)
   offline.setInt(2, clan)
   try :
@@ -111,7 +111,7 @@ def getLeaderVar(st, var) :
     pass
   leaderId=st.getPlayer().getClan().getLeaderId()
   con=L2DatabaseFactory.getInstance().getConnection(None)
-  offline=con.prepareStatement("SELECT value FROM character_quests WHERE charId=? AND var=? AND name=?")
+  offline=con.prepareStatement("SELECT `value` FROM `character_quests` WHERE `charId`=? AND `var`=? AND `name`=?")
   offline.setInt(1, leaderId)
   offline.setString(2, var)
   offline.setString(3, qn)
@@ -141,7 +141,7 @@ def setLeaderVar(st, var, value) :
   else :
     leaderId=st.getPlayer().getClan().getLeaderId()
     con=L2DatabaseFactory.getInstance().getConnection(None)
-    offline=con.prepareStatement("UPDATE character_quests SET value=? WHERE charId=? AND var=? AND name=?")
+    offline=con.prepareStatement("UPDATE `character_quests` SET `value`=? WHERE `charId`=? AND `var`=? AND `name`=?")
     offline.setString(1, value)
     offline.setInt(2, leaderId)
     offline.setString(3, var)
@@ -482,7 +482,7 @@ class Quest (JQuest) :
             htmltext = "30766-24t.htm"
         return htmltext
 
-  def onAttack(self, npc, player, damage, isPet):
+  def onAttack(self, npc, player, damage, isPet, skill):
     npdId = npc.getNpcId()
     if (npc.getMaxHp()/2) > npc.getStatus().getCurrentHp():
       if Rnd.get(100) < 4:

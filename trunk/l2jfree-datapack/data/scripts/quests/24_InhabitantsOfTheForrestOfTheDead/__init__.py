@@ -9,9 +9,6 @@ from com.l2jfree.gameserver.network.serverpackets import NpcSay
 
 qn = "24_InhabitantsOfTheForrestOfTheDead"
 
-# Quest Level
-QLVL = 65
-
 # Quest Item
 DROP_CHANCE = 30*Config.RATE_DROP_QUEST
 
@@ -115,7 +112,7 @@ class Quest (JQuest) :
             if state == State.CREATED :
                 st2 = st.getPlayer().getQuestState("23_LidiasHeart")
                 if st2 :
-                    if st2.getState() == State.COMPLETED and player.getLevel() >= QLVL :
+                    if st2.getState() == State.COMPLETED and player.getLevel() >= 65 :
                         htmltext = "31389-01.htm"
                     else:
                         htmltext = "31389-00.htm"
@@ -166,16 +163,17 @@ class Quest (JQuest) :
                 st.playSound("ItemSound.quest_middle")
         return
 
-    def onSpawn(self, npc) :
-       if npc.getNpcId() == DORIAN_MOB :
-          if GameTimeController.getInstance().isNowNight() :
-             for player in npc.getKnownList().getKnownPlayers().values() :
-                st = player.getQuestState(qn)
-                if st:
-                   st.takeItems(SilverCross,-1)
-                   st.giveItems(BrokenSilverCross,1)
-                   st.set("cond","4")
-                   AutoChat(npc,"That sign!")
+    def onAggroRangeEnter(self, npc, player, isPet) : 
+       if npc.getNpcId() == DORIAN_MOB:
+         if isPet: npc.getAggroListRP().remove(player.getPet())
+         else :
+          npc.getAggroListRP().remove(player)
+          st = player.getQuestState(qn) 
+          if st and st.getQuestItemsCount(SilverCross):
+             st.takeItems(SilverCross,-1)
+             st.giveItems(BrokenSilverCross,1)
+             st.set("cond","4")
+             AutoChat(npc,"That sign!")
        return
 
 QUEST     = Quest(24,qn,"Inhabitants Of The Forrest Of The Dead")
@@ -186,8 +184,7 @@ QUEST.addTalkId(Dorian)
 QUEST.addTalkId(Tombstone)
 QUEST.addTalkId(MaidOfLidia)
 QUEST.addTalkId(Wizard)
-
-QUEST.addSpawnId(DORIAN_MOB)
+QUEST.addAggroRangeEnterId(DORIAN_MOB)
 
 for mob in [21557,21558,21560,21563,21564,21565,21566,21567]:
     QUEST.addKillId(mob)

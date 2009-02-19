@@ -120,7 +120,7 @@ class Quest (JQuest) :
           htmltext = "31002-12.htm"
           st.giveItems(aGradeItemId,1)
           st.giveItems(STAR_OF_DESTINY,1)
-          st.exitQuest(False) 
+          st.exitQuest(False)
           st.unset("cond")
           st.unset("bypass")
         else:
@@ -270,7 +270,7 @@ class Quest (JQuest) :
           htmltext = "<html><body>This chest looks empty</body></html>"
     return htmltext    
 
-  def onAttack (self, npc, player, damage, isPet):                   
+  def onAttack (self, npc, player, damage, isPet, skill):
     st = player.getQuestState(qn)
     if not st : return 
     if st.getState() != State.STARTED : return 

@@ -14,8 +14,6 @@
  */
 package quests.SagasScripts;
 
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 import javolution.util.FastList;
@@ -122,17 +120,12 @@ public class SagasSuperClass extends QuestJython
 	{
 		L2PcInstance player = null;
 		QuestState st = null;
-		if (!_SpawnList.containsKey(npc))
+		if (_SpawnList.containsKey(npc))
 		{
-			LogRecord record = new LogRecord(Level.WARNING, "Founded NPE at findRightState() - npcId: " + String.valueOf(npc.getNpcId()));
-			record.setLoggerName("SagasSuperClass");
-			_log.log(record);
-			return null;
+			player = (L2PcInstance) L2World.getInstance().findObject(_SpawnList.get(npc));
+			if (player != null) 
+				st = player.getQuestState(qn);
 		}
-
-		player = (L2PcInstance) L2World.getInstance().findObject(_SpawnList.get(npc));
-		if (player != null) 
-			st = player.getQuestState(qn);
 		return st;
 	}
 
@@ -750,18 +743,17 @@ public class SagasSuperClass extends QuestJython
 				st.set("Tab","1");
 				DeleteSpawn(st,npc);
 			}
-			else if (npcId == Mob[1] && cond == 15)
+		}
+		else if (npcId == Mob[1] && cond == 15)
+		{
+			if (st != st2 || (st == st2 && player.isInParty()))
 			{
-				if (st != st2 || (st == st2 && player.isInParty()))
-				{
-					AutoChat(npc,Text[5].replace("PLAYERNAME",player.getName()));
-					cancelQuestTimer("Archon Hellisha has despawned",npc,st2.getPlayer());
-					st2.set("spawned","0");
-					DeleteSpawn(st2,npc);
-				}
+				AutoChat(npc,Text[5].replace("PLAYERNAME",player.getName()));
+				cancelQuestTimer("Archon Hellisha has despawned",npc,st2.getPlayer());
+				st2.set("spawned","0");
+				DeleteSpawn(st2,npc);
 			}
 		}
-
 		return super.onAttack(npc, player, damage, isPet);
 	}
 	
