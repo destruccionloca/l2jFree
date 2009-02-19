@@ -1,6 +1,6 @@
--- ---------------------------
+-- ----------------------------------
 -- Table structure for table `armor`
--- ---------------------------
+-- ----------------------------------
 DROP TABLE IF EXISTS `armor`;
 CREATE TABLE IF NOT EXISTS `armor` (
   `item_id` int(11) NOT NULL DEFAULT '0',
