@@ -2096,7 +2096,7 @@ INSERT INTO `armor` VALUES
 
 
 INSERT INTO armor VALUES
-(13022,'Light Purple-Maned Horse Mounting Bracelet - 7 day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
+(13022,'Light Purple-Maned Horse Mounting Bracelet - 7 day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true','8247-1;839-1'),
 (13023,'Agathion of Love - 30-day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','8245-1;3267-1'),
 (13024,'Sudden Agathion - 30-day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3267-1'),
 (13025,'Shiny Agathion - 30-day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','3267-1'),
@@ -2123,7 +2123,7 @@ INSERT INTO armor VALUES
 (13294,'Pailaka Ring','rfinger,lfinger','false','none',150, 'wood','d',0,-1,0,29,15,0,0,'true','true','true','true',''),
 (13295,'Pailaka Bracelet','underwear','false','none',150, 'wood','b',0,-1,0,0,20,0,0,'true','true','true','true',''),
 (13296,'Pailaka Shirt','chest','false','none',130, 'wood','a',0,-1,28,0,40,0,0,'true','true','true','true',''),
-(13308,'Light Purple-Maned Horse Mounting Bracelet (Event) - 7-day Limited Period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false',''),
+(13308,'Light Purple-Maned Horse Mounting Bracelet (Event) - 7-day Limited Period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','8247-1;839-1'),
 (13309,'Agathion of Love (Event) - 30-day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','8245-1;3267-1'),
 (13310,'Kat the Cat Hat (Event) - 30-day limited period','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
 (13311,'Feline Queen Hat (Event) - 30-day limited period','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
@@ -2174,8 +2174,8 @@ INSERT INTO armor VALUES
 (20022,'Ruthless Tribe Mask','face','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
 (20023,'Ribbon Hairband','face','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
 (20024,'Visor','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
-(20029,'Light Purple-Maned Horse Mounting Bracelet','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
-(20030,'Light Purple-Maned Horse Mounting Bracelet - 30 day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false',''),
+(20029,'Light Purple-Maned Horse Mounting Bracelet','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true','8247-1;839-1'),
+(20030,'Light Purple-Maned Horse Mounting Bracelet - 30 day limited period','lbracelet','false','none',30, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','8247-1;839-1'),
 (20031,'Kat the Cat Hat','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
 (20032,'Skull Hat','dhair','false','none',10, 'wood','none',0,-1,0,0,0,0,0,'true','true','true','true',''),
 (20063,'Agathion Seal Bracelet - Baby Panda','lbracelet','false','none',150, 'wood','none',0,-1,0,0,0,0,0,'false','false','true','false','21008-1;3267-1'),
@@ -2230,13 +2230,3 @@ UPDATE `armor` SET `crystal_count` = 27 WHERE `item_id` = 12117;
 UPDATE `armor` SET `crystal_count` = 75 WHERE `item_id` = 12067;
 UPDATE `armor` SET `crystal_count` = 39 WHERE `item_id` = 12040;
 UPDATE `armor` SET `crystal_count` = 1 WHERE `item_id` IN (13389,13390,13391,13392);
-
--- -------------------------
--- Light Purple-Maned Horse
--- -------------------------
-REPLACE INTO `armor` VALUES
-(13022, 'Light Purple-Maned Horse Mounting Bracelet - 7 day limited period', 'lbracelet', 'false', 'none', 30, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '8247-1', '-1', '-1', -1),
-(13308, 'Light Purple-Maned Horse Mounting Bracelet (Event) - 7-day Limited Period', 'lbracelet', 'false', 'none', 30, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '8247-1', '-1', '-1', -1),
-(20029, 'Light Purple-Maned Horse Mounting Bracelet', 'lbracelet', 'false', 'none', 30, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', '8247-1', '-1', '-1', -1),
-(20030, 'Light Purple-Maned Horse Mounting Bracelet - 30 day limited period', 'lbracelet', 'false', 'none', 30, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '8247-1', '-1', '-1', -1);
-

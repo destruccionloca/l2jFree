@@ -201,7 +201,8 @@ INSERT INTO `npc` VALUES
 (13126, 13126, "Trap", 0, "", 0, "LineageMonster4.little_mouse_120p", 8, 24, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 278, 0, 333, 0, 0, NULL, 60, 60, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (13127, 13127, "Trap", 0, "", 0, "LineageMonster4.little_mouse_120p", 8, 24, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 278, 0, 333, 0, 0, NULL, 60, 60, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
 (13128, 13128, "Golem Trader", 0, "", 0, "LineageMonster4.little_mouse_120p", 8, 24, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 278, 0, 333, 0, 0, NULL, 60, 60, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
-(13129, 13129, "Teleporter", 0, "", 0, "LineageMonster4.little_mouse_120p", 8, 24, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 278, 0, 333, 0, 0, NULL, 60, 60, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false");
+(13129, 13129, "Teleporter", 0, "", 0, "LineageMonster4.little_mouse_120p", 8, 24, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 278, 0, 333, 0, 0, NULL, 60, 60, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false"),
+(13130, 13130, "Light Purple Maned Horse", 0, "", 0, "Monster.horse", 12, 32, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 278, 0, 333, 0, 0, NULL, 60, 60, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false");
 
 INSERT INTO `npc` VALUES
 (14001, 14001, "Reanimated Man", 0, "", 0, "Monster.skeleton", 11, 25, 46, "male", "L2Pet", 40, 2914, 816, 8.69, 2.14, 40, 43, 30, 21, 20, 25, 0, 0, 482, 245, 202, 230, 278, 0, 333, 0, 0, 0, 66, 154, "NULL", 0, 1, 0, "LAST_HIT", 0, 0, 0, "fighter", "false"),
@@ -8833,7 +8834,7 @@ UPDATE `npc` SET `class` = 'LineageMonster.gargoyle_02te',`collision_radius` = '
 -- Beleth's Minion (82) : 22272
 UPDATE `npc` SET `class` = 'LineageMonster.vale_master',`collision_radius` = '32',`collision_height` = '35',`level` = '82',`sex` = 'male',`type` = 'L2Monster',`attackrange` = '40',`hp` = '9327',`mp` = '1934',`hpreg` = '26.86',`mpreg` = '3.09',`str` = '40',`con` = '43',`dex` = '30',`int` = '21',`wit` = '20',`men` = '10',`exp` = '15996',`sp` = '1669',`patk` = '1912',`pdef` = '598',`matk` = '1220',`mdef` = '485',`atkspd` = '278',`aggro` = '0',`matkspd` = '333',`rhand` = '0',`lhand` = '0',`armor` = '0',`walkspd` = '49',`runspd` = '192',`faction_id` = 'NULL',`faction_range` = '0',`isUndead` = '0',`absorb_level` = '0',`absorb_type` = 'LAST_HIT',`ss` = '0',`bss` = '0',`ss_rate` = '0',`AI` = 'fighter' where id = 22272;
 
--- l2jfree addon from forced_updates
+-- L2JFree addon from forced_updates
 UPDATE npc SET `type` = 'L2Teleporter' WHERE idTemplate = 31759;
 UPDATE npc SET `type` = 'L2Teleporter' WHERE idTemplate = 31859;
 UPDATE npc SET `type` = 'L2Teleporter' WHERE idTemplate = 32107;
@@ -9108,13 +9109,6 @@ INSERT INTO `npc` VALUES
 
 -- Four Sepulchers 
 UPDATE npc SET `type` = 'L2SepulcherNpc' WHERE id = 31928;
-
--- -------------------------
--- Light Purple-Maned Horse
--- -------------------------
-REPLACE INTO `npc` VALUES
-(13130, 13130, "Light Purple Maned Horse", 0, "", 0, "Monster.horse", 8, 24, 70, "male", "L2Npc", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 278, 0, 333, 0, 0, NULL, 60, 60, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced", "false");
-
 
 -- DCM Updates
 REPLACE INTO `npc` VALUES ('32282', '32282', 'Yiyen', '0', 'Archaeologist', '0', 'LineageNPC.e_teleporter_FDwarf', '8.00', '21.30', '70', 'male', 'L2Npc', '40', '2444', '2444', '0.00', '0.00', '10', '10', '10', '10', '10', '10', '0', '0', '500', '500', '500', '500', '253', '0', '253', '0', '0', null, '80', '120', '', '0', '0', '0', 'LAST_HIT', '0', '0', '0', 'balanced', 'false');
