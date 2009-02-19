@@ -1,7 +1,4 @@
--- ---------------------------------------
--- Table structure for `olympiad_nobles`
--- ---------------------------------------
-CREATE TABLE IF NOT EXISTS `olympiad_nobles` (
+CREATE TABLE IF NOT EXISTS `olympiad_nobles_eom` (
   `charId` INT UNSIGNED NOT NULL DEFAULT 0,
   `class_id` decimal(3,0) NOT NULL DEFAULT 0,
   `olympiad_points` decimal(10,0) NOT NULL DEFAULT 0,
