@@ -1,6 +1,6 @@
--- ---------------------------
+-- ------------------------------------------
 -- Table structure for `enchant_skill_trees`
--- ---------------------------
+-- ------------------------------------------
 DROP TABLE IF EXISTS `enchant_skill_trees`;
 CREATE TABLE `enchant_skill_trees` (
   `skill_id` int(10) NOT NULL DEFAULT '0',
@@ -17,7 +17,7 @@ CREATE TABLE `enchant_skill_trees` (
   PRIMARY KEY (`skill_id`,`level`)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (1,101,'Triple Slash',37,'+1 Power',306000,3060000,37,82,92,97),
 (1,102,'Triple Slash',37,'+2 Power',315000,3150000,101,80,90,95),
 (1,103,'Triple Slash',37,'+3 Power',325000,3250000,102,78,88,93),
@@ -448,9 +448,9 @@ INSERT INTO enchant_skill_trees VALUES
 (18,208,'Hate Aura',37,'+8 Cost',402000,4020000,207,10,30,80),
 (18,209,'Hate Aura',37,'+9 Cost',414000,4140000,208,6,20,78),
 (18,210,'Hate Aura',37,'+10 Cost',507000,5070000,209,6,14,40),
-(18,211,'Hate Aura',37,'+11 Cost',523000,5230000,200,2,10,30),
-(18,212,'Hate Aura',37,'+12 Cost',538000,5380000,201,2,6,20),
-(18,213,'Hate Aura',37,'+13 Cost',659000,6590000,202,2,2,14),
+(18,211,'Hate Aura',37,'+11 Cost',523000,5230000,210,2,10,30),
+(18,212,'Hate Aura',37,'+12 Cost',538000,5380000,211,2,6,20),
+(18,213,'Hate Aura',37,'+13 Cost',659000,6590000,212,2,2,14),
 (18,214,'Hate Aura',37,'+14 Cost',680000,6800000,213,1,2,10),
 (18,215,'Hate Aura',37,'+15 Cost',699000,6990000,214,1,2,6),
 (18,216,'Hate Aura',37,'+16 Cost',857000,8570000,215,1,1,2),
@@ -1049,7 +1049,7 @@ INSERT INTO enchant_skill_trees VALUES
 (48,209,'Thunder Storm',37,'+9 Cost',414000,4140000,208,6,20,78),
 (48,210,'Thunder Storm',37,'+10 Cost',507000,5070000,209,6,14,40);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (48,211,'Thunder Storm',37,'+11 Cost',523000,5230000,210,2,10,30),
 (48,212,'Thunder Storm',37,'+12 Cost',538000,5380000,211,2,6,20),
 (48,213,'Thunder Storm',37,'+13 Cost',659000,6590000,212,2,2,14),
@@ -2261,7 +2261,7 @@ INSERT INTO enchant_skill_trees VALUES
 (105,119,'Freezing Strike',24,'+19 Power',1114000,11140000,118,1,1,1),
 (105,120,'Freezing Strike',24,'+20 Power',1149000,11490000,119,1,1,1);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (105,121,'Freezing Strike',24,'+21 Power',1182000,11820000,120,1,1,1),
 (105,122,'Freezing Strike',24,'+22 Power',1448000,14480000,121,1,1,1),
 (105,123,'Freezing Strike',24,'+23 Power',1494000,14940000,122,1,1,1),
@@ -3263,7 +3263,7 @@ INSERT INTO enchant_skill_trees VALUES
 (254,129,'Spoil',11,'+29 De-buff',2525000,25250000,128,0,0,1),
 (254,130,'Spoil',11,'+30 De-buff',2597000,25970000,129,0,0,0);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (254,201,'Spoil',11,'+1 De-buff',306000,3060000,11,82,92,97),
 (254,202,'Spoil',11,'+2 De-buff',315000,3150000,201,80,90,95),
 (254,203,'Spoil',11,'+3 De-buff',325000,3250000,202,78,88,93),
@@ -4265,7 +4265,7 @@ INSERT INTO enchant_skill_trees VALUES
 (275,209,'Dance of Fury',1,'+9 Cost',414000,4140000,208,6,20,78),
 (275,210,'Dance of Fury',1,'+10 Cost',507000,5070000,209,6,14,40);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (275,211,'Dance of Fury',1,'+11 Cost',523000,5230000,210,2,10,30),
 (275,212,'Dance of Fury',1,'+12 Cost',538000,5380000,211,2,6,20),
 (275,213,'Dance of Fury',1,'+13 Cost',659000,6590000,212,2,2,14),
@@ -5267,7 +5267,7 @@ INSERT INTO enchant_skill_trees VALUES
 (309,119,'Dance of Earth Guard',1,'+19 Time',1114000,11140000,118,1,1,1),
 (309,120,'Dance of Earth Guard',1,'+20 Time',1149000,11490000,119,1,1,1);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (309,121,'Dance of Earth Guard',1,'+21 Time',1182000,11820000,120,1,1,1),
 (309,122,'Dance of Earth Guard',1,'+22 Time',1448000,14480000,121,1,1,1),
 (309,123,'Dance of Earth Guard',1,'+23 Time',1494000,14940000,122,1,1,1),
@@ -7229,7 +7229,7 @@ INSERT INTO enchant_skill_trees VALUES
 (1009,129,'Chant of Shielding',3,'+29 Time',2525000,25250000,128,0,0,1),
 (1009,130,'Chant of Shielding',3,'+30 Time',2597000,25970000,129,0,0,0);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (1009,201,'Chant of Shielding',3,'+1 Cost',306000,3060000,3,82,92,97),
 (1009,202,'Chant of Shielding',3,'+2 Cost',315000,3150000,201,80,90,95),
 (1009,203,'Chant of Shielding',3,'+3 Cost',325000,3250000,202,78,88,93),
@@ -8231,7 +8231,7 @@ INSERT INTO enchant_skill_trees VALUES
 (1064,109,'Silence',14,'+9 Chance',414000,4140000,108,6,20,78),
 (1064,110,'Silence',14,'+10 Chance',507000,5070000,109,6,14,40);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (1064,111,'Silence',14,'+11 Chance',523000,5230000,110,2,10,30),
 (1064,112,'Silence',14,'+12 Chance',538000,5380000,111,2,6,20),
 (1064,113,'Silence',14,'+13 Chance',659000,6590000,112,2,2,14),
@@ -9233,7 +9233,7 @@ INSERT INTO enchant_skill_trees VALUES
 (1104,219,'Seal of Winter',14,'+19 Cost',1114000,11140000,218,1,1,1),
 (1104,220,'Seal of Winter',14,'+20 Cost',1149000,11490000,219,1,1,1);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (1104,221,'Seal of Winter',14,'+21 Cost',1182000,11820000,220,1,1,1),
 (1104,222,'Seal of Winter',14,'+22 Cost',1448000,14480000,221,1,1,1),
 (1104,223,'Seal of Winter',14,'+23 Cost',1494000,14940000,222,1,1,1),
@@ -10235,7 +10235,7 @@ INSERT INTO enchant_skill_trees VALUES
 (1170,129,'Anchor',13,'+29 Chance',2525000,25250000,128,0,0,1),
 (1170,130,'Anchor',13,'+30 Chance',2597000,25970000,129,0,0,0);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (1170,201,'Anchor',13,'+1 Cost',306000,3060000,13,82,92,97),
 (1170,202,'Anchor',13,'+2 Cost',315000,3150000,201,80,90,95),
 (1170,203,'Anchor',13,'+3 Cost',325000,3250000,202,78,88,93),
@@ -11237,7 +11237,7 @@ INSERT INTO enchant_skill_trees VALUES
 (1225,109,'Summon Mew the Cat',18,'+9 Summon',414000,4140000,108,6,20,78),
 (1225,110,'Summon Mew the Cat',18,'+10 Summon',507000,5070000,109,6,14,40);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (1225,111,'Summon Mew the Cat',18,'+11 Summon',523000,5230000,110,2,10,30),
 (1225,112,'Summon Mew the Cat',18,'+12 Summon',538000,5380000,111,2,6,20),
 (1225,113,'Summon Mew the Cat',18,'+13 Summon',659000,6590000,112,2,2,14),
@@ -12239,7 +12239,7 @@ INSERT INTO enchant_skill_trees VALUES
 (1246,219,'Seal of Silence',12,'+19 Cost',1114000,11140000,218,1,1,1),
 (1246,220,'Seal of Silence',12,'+20 Cost',1149000,11490000,219,1,1,1);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (1246,221,'Seal of Silence',12,'+21 Cost',1182000,11820000,220,1,1,1),
 (1246,222,'Seal of Silence',12,'+22 Cost',1448000,14480000,221,1,1,1),
 (1246,223,'Seal of Silence',12,'+23 Cost',1494000,14940000,222,1,1,1),
@@ -13241,7 +13241,7 @@ INSERT INTO enchant_skill_trees VALUES
 (1269,129,'Curse Disease',9,'+29 Chance',2525000,25250000,128,0,0,1),
 (1269,130,'Curse Disease',9,'+30 Chance',2597000,25970000,129,0,0,0);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (1269,201,'Curse Disease',9,'+1 Cost',306000,3060000,9,82,92,97),
 (1269,202,'Curse Disease',9,'+2 Cost',315000,3150000,201,80,90,95),
 (1269,203,'Curse Disease',9,'+3 Cost',325000,3250000,202,78,88,93),
@@ -14243,7 +14243,7 @@ INSERT INTO enchant_skill_trees VALUES
 (1310,209,'Chant of Vampire',4,'+9 Cost',414000,4140000,208,6,20,78),
 (1310,210,'Chant of Vampire',4,'+10 Cost',507000,5070000,209,6,14,40);
 
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (1310,211,'Chant of Vampire',4,'+11 Cost',523000,5230000,210,2,10,30),
 (1310,212,'Chant of Vampire',4,'+12 Cost',538000,5380000,211,2,6,20),
 (1310,213,'Chant of Vampire',4,'+13 Cost',659000,6590000,212,2,2,14),
@@ -14986,7 +14986,7 @@ INSERT INTO enchant_skill_trees VALUES
 (1438,230,'Annihilation Circle',9,'+30 Cost',2597000,25970000,229,0,0,0);
 
 -- New CT1 / CT1.5 Enchant Skill Trees - by BoDiE
-INSERT INTO enchant_skill_trees VALUES
+INSERT INTO `enchant_skill_trees` VALUES
 (1443,101,'Dark Weapon',1,'+1 Power',306000,3060000,1,82,92,97),
 (1443,102,'Dark Weapon',1,'+2 Power',315000,3150000,101,80,90,95),
 (1443,103,'Dark Weapon',1,'+3 Power',325000,3250000,102,78,88,93),
