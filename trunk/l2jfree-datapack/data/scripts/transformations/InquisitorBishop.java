@@ -26,16 +26,11 @@ public class InquisitorBishop extends L2Transformation
 				{
 					switch (sk.getId())
 					{
-						// Invocation
-						case 1430:
-							// Holy Weapon
-						case 1043:
-							// Hold Undead
-						case 1042:
-							// Turn Undead
-						case 1400:
-							// Celestial Shield
-						case 1418:
+						case 1430: // Invocation
+						case 1043: // Holy Weapon
+						case 1042: // Hold Undead
+						case 1400: // Turn Undead
+						case 1418: // Celestial Shield
 						{
 							// Those Skills wont be removed.
 							break;

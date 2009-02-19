@@ -24,14 +24,12 @@ public class DivineHealer extends L2DefaultTransformation
 
 	public void transformedSkills(L2PcInstance player)
 	{
-		// Divine Healer Clans
-		addSkill(player, 702, 1);
+		addSkill(player, 702, 1); // Divine Healer Clans
 	}
 
 	public void removeSkills(L2PcInstance player)
 	{
-		// Divine Healer Clans
-		removeSkill(player, 702);
+		removeSkill(player, 702); // Divine Healer Clans
 	}
 
 	public static void main(String[] args)

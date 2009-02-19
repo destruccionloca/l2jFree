@@ -26,20 +26,13 @@ public class VanguardTempleKnight extends L2Transformation
 				{
 					switch (sk.getId())
 					{
-						// Aggression
-						case 28:
-							// Aura of Hate
-						case 18:
-							// Summon Storm Cubic
-						case 10:
-							// Summon Life Cubic
-						case 67:
-							// Summon Attractive Cubic
-						case 449:
-							// 	Tribunal
-						case 400:
-							// Holy Armor
-						case 197:
+						case 28:  // Aggression
+						case 18:  // Aura of Hate
+						case 10:  // Summon Storm Cubic
+						case 67:  // Summon Life Cubic
+						case 449: // Summon Attractive Cubic
+						case 400: // Tribunal
+						case 197: // Holy Armor
 						{
 							// Those Skills wont be removed.
 							break;

@@ -27,14 +27,10 @@ public class InquisitorElvenElder extends L2Transformation
 				{
 					switch (sk.getId())
 					{
-						// Invocation
-						case 1430:
-							// Holy Weapon
-						case 1043:
-							// Wild Magic
-						case 1303:
-							// Turn Undead
-						case 1400:
+						case 1430: // Invocation
+						case 1043: // Holy Weapon
+						case 1303: // Wild Magic
+						case 1400: // Turn Undead
 						{
 							// Those Skills wont be removed.
 							break;

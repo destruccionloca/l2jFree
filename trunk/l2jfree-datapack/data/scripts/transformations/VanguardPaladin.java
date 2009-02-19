@@ -26,18 +26,12 @@ public class VanguardPaladin extends L2Transformation
 				{
 					switch (sk.getId())
 					{
-						// Aggression
-						case 28:
-							// Aura of Hate
-						case 18:
-							// Angelic Icon
-						case 406:
-							// Tribunal
-						case 400:
-							// Holy Blade
-						case 196:
-							// Holy Armor
-						case 197:
+						case 28:  // Aggression
+						case 18:  // Aura of Hate
+						case 406: // Angelic Icon
+						case 400: // Tribunal
+						case 196: // Holy Blade
+						case 197: // Holy Armor
 						{
 							// Those Skills wont be removed.
 							break;

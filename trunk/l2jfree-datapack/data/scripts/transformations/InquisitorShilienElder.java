@@ -26,12 +26,9 @@ public class InquisitorShilienElder extends L2Transformation
 				{
 					switch (sk.getId())
 					{
-						// Invocation
-						case 1430:
-							// Wild Magic
-						case 1303:
-							// Empower
-						case 1059:
+						case 1430: // Invocation
+						case 1303: // Wild Magic
+						case 1059: // Empower
 						{
 							// Those Skills wont be removed.
 							break;
